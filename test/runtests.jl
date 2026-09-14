@@ -5,4 +5,5 @@ using Test
     include("options_tests.jl")
     include("model_tests.jl")
     include("transformations_tests.jl")
+    include("mps_parser_tests.jl")
 end
