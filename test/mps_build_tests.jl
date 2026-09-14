@@ -88,6 +88,26 @@ end
         @test problem.row_upper == [2.0]
     end
 
+    @testset "overflowing duplicate matrix coefficients retain source context" begin
+        text = "NAME OVERFLOW\nROWS\n L R\nCOLUMNS\n X R 1e308\n X R 1e308\nENDATA\n"
+        mktemp() do path, io
+            write(io, text)
+            close(io)
+            error = try
+                read_mps(path)
+            catch exception
+                exception
+            end
+            @test error isa MPSParseError
+            if error isa MPSParseError
+                @test error.source == path
+                @test error.line == 6
+                @test error.section == :COLUMNS
+                @test occursin("finite", error.message)
+            end
+        end
+    end
+
     bound_prefix = "NAME BOUNDS\nROWS\n N OBJ\nCOLUMNS\n X OBJ 1\nBOUNDS\n"
     @testset "objective selection diagnostics" begin
         for (metadata, line) in [("OBJNAME MISSING", 2), ("OBJNAME\n MISSING", 3),

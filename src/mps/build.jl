@@ -115,6 +115,18 @@ function _build_mps(
         end
     end
     A = sparse(rows, columns, values, m, n, +)
+    if !all(isfinite, A.nzval)
+        # Replay only on failure to locate the source record that overflowed.
+        sums = Dict{Tuple{String,String},Float64}()
+        for (column, row, value, line) in records.coefficients
+            haskey(row_index, row) || continue
+            key = (column, row)
+            total = get(sums, key, 0.0) + value
+            isfinite(total) || _mps_error(records, line, :COLUMNS,
+                "summed matrix coefficient for column '$column', row '$row' must be finite")
+            sums[key] = total
+        end
+    end
 
     rhs_values = zeros(m)
     objective_constant = 0.0

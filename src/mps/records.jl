@@ -66,7 +66,7 @@ function _mps_fields(text, format, records, line, section)
         # Fixed records must reach their last required field; short free records
         # can otherwise match every separator by accident.
         minimum_width = section == :ROWS ? 5 : section == :BOUNDS ? 15 : 25
-        fixed = ncodeunits(text) >= minimum_width && _mps_fixed_layout(text)
+        fixed = ncodeunits(rstrip(text)) >= minimum_width && _mps_fixed_layout(text)
         if fixed && section in (:COLUMNS, :RHS, :RANGES)
             fixed = codeunit(text, 2) == codeunit(text, 3) == UInt8(' ')
         end

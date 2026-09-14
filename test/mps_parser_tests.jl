@@ -137,6 +137,22 @@ end
         @test only(records.bounds_sets["B"]).value == 5.0
     end
 
+    @testset "trailing padding does not change automatic format" begin
+        prefix = "NAME PADDED\nROWS\n N OBJ\nCOLUMNS\n X OBJ 1\nBOUNDS\n"
+        for width in (20, 61), format in (:free, :auto)
+            records = parse_mps_text(prefix * rpad(" UP B X 4", width) * "\nENDATA\n"; format)
+            bound = only(records.bounds_sets["B"])
+            @test (bound.kind, bound.column, bound.value) == (:UP, "X", 4.0)
+        end
+        fixed = join(["NAME PADDED", "ROWS", fixed_mps_record("N", "OBJ"),
+            "COLUMNS", fixed_mps_record("", "X", "OBJ", "1"), "BOUNDS",
+            fixed_mps_record("UP", "B", "X", "4"),
+            fixed_mps_record("LO", "", "X", "2"), "ENDATA"], '\n')
+        records = parse_mps_text(fixed; format=:auto)
+        @test [(b.kind, b.column, b.value) for b in records.bounds_sets["B"]] ==
+              [(:UP, "X", 4.0), (:LO, "X", 2.0)]
+    end
+
     @testset "diagnostics retain source, line, section, and reason" begin
         prefix = "NAME BAD\nROWS\n N OBJ\n L LIMIT\nCOLUMNS\n"
         cases = [
