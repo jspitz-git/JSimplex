@@ -44,8 +44,12 @@ struct LinearProblem
            length(copied_column_upper)
             for index in eachindex(copied_domains)
                 if copied_domains[index] == BINARY
-                    copied_column_lower[index] = max(copied_column_lower[index], 0.0)
-                    copied_column_upper[index] = min(copied_column_upper[index], 1.0)
+                    lower = copied_column_lower[index]
+                    upper = copied_column_upper[index]
+                    if lower <= upper && lower <= 1.0 && upper >= 0.0
+                        copied_column_lower[index] = max(lower, 0.0)
+                        copied_column_upper[index] = min(upper, 1.0)
+                    end
                 end
             end
         end
