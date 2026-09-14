@@ -95,6 +95,7 @@ end
 function recompute!(workspace::SimplexWorkspace; refactorize::Bool=false)
     _validate_basis(workspace)
     if refactorize
+        @logmsg workspace.options.log_level "Refactorizing basis" iterations=workspace.iterations refactorizations=workspace.refactorizations + 1
         B = basis_matrix(workspace)
         if isempty(B)
             workspace.factorization.base = lu(zeros(Float64, 0, 0))
