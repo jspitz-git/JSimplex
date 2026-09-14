@@ -2,6 +2,92 @@ using JSimplex.SparseArrays
 using JSimplex.Logging
 using JSimplex.LinearAlgebra
 
+@testset "Binary relaxation clips caller-mutated bounds" begin
+    for (cost, bounds, hull, expected, objective) in (
+        (-1.0, (0.0, 10.0), (0.0, 1.0), 1.0, -1.0),
+        (1.0, (-10.0, 1.0), (0.0, 1.0), 0.0, 0.0),
+        (-1.0, (-10.0, 10.0), (0.0, 1.0), 1.0, -1.0),
+        (1.0, (0.25, 0.75), (0.25, 0.75), 0.25, 0.25),
+    )
+        problem = LinearProblem(spzeros(0, 1), [cost]; variable_domains=[BINARY])
+        problem.column_lower[1], problem.column_upper[1] = bounds
+        before = deepcopy(problem)
+        relaxed = JSimplex.relax_integrality(problem)
+        @test relaxed.column_lower == [hull[1]]
+        @test relaxed.column_upper == [hull[2]]
+        result = solve(problem; relax_integrality=true)
+        @test result.status == OPTIMAL
+        @test result.primal == [expected]
+        @test result.objective_value == objective
+        @test solve(problem).status == MIP_NOT_SUPPORTED
+        for field in fieldnames(LinearProblem)
+            @test getfield(problem, field) == getfield(before, field)
+        end
+    end
+    for (lower, upper) in ((2.0, 3.0), (-3.0, -2.0)), relax in (false, true)
+        problem = LinearProblem(spzeros(0, 1), [-1.0]; variable_domains=[BINARY])
+        problem.column_lower[1] = lower
+        problem.column_upper[1] = upper
+        result = solve(problem; relax_integrality=relax)
+        @test result.status == INVALID_MODEL
+        @test result.message == JSimplex._validation_error(problem)
+        @test isnothing(result.primal)
+        @test isnothing(result.objective_value)
+        @test result.statistics.iterations == 0
+        @test problem.column_lower == [lower]
+        @test problem.column_upper == [upper]
+    end
+end
+
+struct ThrowingSolverLogger <: AbstractLogger
+    message::String
+    exception::Exception
+end
+Logging.min_enabled_level(::ThrowingSolverLogger) = Logging.Debug
+Logging.shouldlog(::ThrowingSolverLogger, args...) = true
+Logging.catch_exceptions(::ThrowingSolverLogger) = false
+function Logging.handle_message(logger::ThrowingSolverLogger, level, message, args...; kwargs...)
+    message == logger.message && throw(logger.exception)
+    return nothing
+end
+
+@testset "Caller logger exceptions retain identity through numerical catches" begin
+    main = LinearProblem(sparse([1.0;;]), [1.0]; row_lower=[1.0])
+    phase = LinearProblem(sparse([1.0;;]), [-1.0]; row_upper=[3.0])
+    for exception in (SingularException(7), ZeroPivotException(7))
+        for message in ("Starting solve", "Refactorizing basis", "Solve terminated")
+            for (problem, interval) in ((main, 1), (phase, 1), (phase, 20))
+                caught = try
+                    with_logger(ThrowingSolverLogger(message, exception)) do
+                        solve(problem; options=SolverOptions(refactorization_interval=interval))
+                    end
+                catch error
+                    error
+                end
+                @test caught === exception
+            end
+        end
+        for (problem, interval) in ((main, 1), (phase, 1), (phase, 20))
+            workspace = JSimplex.initialize_workspace(problem,
+                SolverOptions(refactorization_interval=interval))
+            caught = try
+                with_logger(ThrowingSolverLogger("Refactorizing basis", exception)) do
+                    problem === main ? JSimplex.dual_iteration!(workspace, () -> false) :
+                        JSimplex.make_dual_feasible!(workspace, () -> false)
+                end
+            catch error
+                error
+            end
+            @test caught === exception
+        end
+        # Leaving a failing logger scope must not affect subsequent solves.
+        @test solve(main).status == OPTIMAL
+        failed = solve(main; options=SolverOptions(zero_tolerance=2.0))
+        @test failed.status == NUMERICAL_ERROR
+        @test isnothing(failed.primal)
+    end
+end
+
 @testset "Public solve returns owned structural values and original objective" begin
     problem = LinearProblem(sparse([1.0 1.0]), [1.0, 2.0];
         row_lower=[1.0], objective_constant=7.0, name="public-api",

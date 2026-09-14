@@ -92,10 +92,18 @@ function _nonbasic_value(workspace::SimplexWorkspace, index::Int)
     throw(ArgumentError("basic variables do not have nonbasic values"))
 end
 
-function recompute!(workspace::SimplexWorkspace; refactorize::Bool=false)
+function recompute!(workspace::SimplexWorkspace; refactorize::Bool=false,
+                    caller_guard=nothing)
     _validate_basis(workspace)
     if refactorize
-        @logmsg workspace.options.log_level "Refactorizing basis" iterations=workspace.iterations refactorizations=workspace.refactorizations + 1
+        try
+            @logmsg workspace.options.log_level "Refactorizing basis" iterations=workspace.iterations refactorizations=workspace.refactorizations + 1
+        catch exception
+            # A logger is caller code, even when it throws a numerical exception.
+            # Share provenance with every enclosing numerical handler.
+            isnothing(caller_guard) || (caller_guard.exception = exception)
+            rethrow()
+        end
         B = basis_matrix(workspace)
         if isempty(B)
             workspace.factorization.base = lu(zeros(Float64, 0, 0))

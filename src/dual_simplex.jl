@@ -31,7 +31,8 @@ function (stop::_StopCallback)()
 end
 
 # Share provenance across nested numerical catches while rethrowing the
-# caller's original exception, including SingularException/ZeroPivotException.
+# caller's original callback or logger exception, including
+# SingularException/ZeroPivotException. Refactorization logging shares this guard.
 _guard_stop_callback(stop::_StopCallback) = stop
 _guard_stop_callback(stop) = _StopCallback(stop, nothing)
 
@@ -237,7 +238,7 @@ function _dual_iteration!(workspace::SimplexWorkspace, stop_requested)
     workspace.iterations += 1
     if length(workspace.factorization.updates) >= workspace.options.refactorization_interval
         stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
-        recompute!(workspace; refactorize=true)
+        recompute!(workspace; refactorize=true, caller_guard=stop_requested)
     end
     _finite_workspace(workspace) || return _numerical_failure()
     return nothing
@@ -425,7 +426,7 @@ function _make_dual_feasible!(workspace::SimplexWorkspace, stop_requested)
     workspace.pricing_weights .= auxiliary.pricing_weights
     workspace.costs .= auxiliary.costs
     workspace.perturbed = auxiliary.perturbed
-    recompute!(workspace; refactorize=true)
+    recompute!(workspace; refactorize=true, caller_guard=stop_requested)
     _flip_bounds!(workspace)
     _finite_workspace(workspace) || return _numerical_failure()
     if dual_infeasibility(workspace) > workspace.options.dual_tolerance

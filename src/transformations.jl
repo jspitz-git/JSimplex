@@ -36,7 +36,10 @@ function relax_integrality(problem::LinearProblem)
     column_upper = copy(problem.column_upper)
 
     for index in eachindex(problem.variable_domains)
-        if problem.variable_domains[index] in (SEMI_CONTINUOUS, SEMI_INTEGER)
+        if problem.variable_domains[index] == BINARY
+            column_lower[index] = max(0.0, column_lower[index])
+            column_upper[index] = min(1.0, column_upper[index])
+        elseif problem.variable_domains[index] in (SEMI_CONTINUOUS, SEMI_INTEGER)
             column_lower[index] = min(0.0, column_lower[index])
             column_upper[index] = max(0.0, column_upper[index])
         end
