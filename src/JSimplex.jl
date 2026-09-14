@@ -8,6 +8,7 @@ include("options.jl")
 include("model.jl")
 include("mps.jl")
 include("transformations.jl")
+include("factorization.jl")
 include("simplex.jl")
 
 export ALGORITHM_NOT_SUPPORTED, INFEASIBLE, INVALID_MODEL, ITERATION_LIMIT,

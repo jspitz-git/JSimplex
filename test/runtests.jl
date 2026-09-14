@@ -7,4 +7,5 @@ using Test
     include("transformations_tests.jl")
     include("mps_parser_tests.jl")
     include("mps_build_tests.jl")
+    include("factorization_tests.jl")
 end

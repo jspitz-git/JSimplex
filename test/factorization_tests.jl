@@ -1,0 +1,35 @@
+@testset "Product-form basis factorization" begin
+    B = JSimplex.SparseArrays.sparse([2.0 1.0; 1.0 3.0])
+    factor = JSimplex.PFIFactorization(B)
+    rhs = [5.0, 7.0]
+    @test JSimplex.forward_solve(factor, rhs) ≈ Matrix(B) \ rhs
+    @test JSimplex.transpose_solve(factor, rhs) ≈ Matrix(B)' \ rhs
+
+    replacement = [4.0, -1.0]
+    tableau_column = JSimplex.forward_solve(factor, replacement)
+    JSimplex.replace_column!(factor, tableau_column, 1)
+    B2 = JSimplex.SparseArrays.sparse([4.0 1.0; -1.0 3.0])
+    @test JSimplex.forward_solve(factor, rhs) ≈ Matrix(B2) \ rhs
+    @test JSimplex.transpose_solve(factor, rhs) ≈ Matrix(B2)' \ rhs
+
+    JSimplex.refactorize!(factor, B2)
+    @test isempty(factor.updates)
+    @test JSimplex.forward_solve(factor, rhs) ≈ Matrix(B2) \ rhs
+end
+
+@testset "Product-form factorization validation" begin
+    B = JSimplex.SparseArrays.sparse([2.0 1.0; 1.0 3.0])
+    factor = JSimplex.PFIFactorization(B)
+    rhs = [5.0, 7.0]
+    original_rhs = copy(rhs)
+
+    JSimplex.forward_solve(factor, rhs)
+    JSimplex.transpose_solve(factor, rhs)
+    @test rhs == original_rhs
+
+    tableau_column = [1.0, 2.0]
+    @test_throws JSimplex.LinearAlgebra.ZeroPivotException JSimplex.replace_column!(factor, [0.0, 2.0], 1)
+    @test_throws BoundsError JSimplex.replace_column!(factor, tableau_column, 0)
+    @test_throws ArgumentError JSimplex.replace_column!(factor, tableau_column, 1; zero_tolerance=-1.0)
+    @test_throws DimensionMismatch JSimplex.replace_column!(factor, [1.0], 1)
+end
