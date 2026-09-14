@@ -160,8 +160,10 @@ objective.
 
 Supported bound types are `LO`, `UP`, `FX`, `FR`, `MI`, `PL`, `BV`, `LI`,
 `UI`, `SC`, and `SI`. The parser also recognizes `INTORG` and `INTEND` markers.
-Default bounds and `RANGES` interpretation follow MPS conventions. Duplicate
-matrix coefficients are summed.
+Default bounds and `RANGES` interpretation follow MPS conventions, including
+the legacy `[0, 1]` default for marker-delimited integer columns. An RHS value
+on the selected objective row is stored as an objective offset with its sign
+reversed. Duplicate matrix coefficients are summed.
 
 Multiple named RHS, ranges, and bounds sets are loaded symbolically. The caller
 can select a set by name; without a selection, the first set in file order is
