@@ -15,6 +15,26 @@ end
 _is_numerical_exception(exception) =
     exception isa SingularException || exception isa ZeroPivotException
 
+mutable struct _StopCallback{F}
+    callback::F
+    exception::Any
+end
+
+function (stop::_StopCallback)()
+    stop.exception = nothing
+    try
+        return stop.callback()
+    catch exception
+        stop.exception = exception
+        rethrow()
+    end
+end
+
+# Share provenance across nested numerical catches while rethrowing the
+# caller's original exception, including SingularException/ZeroPivotException.
+_guard_stop_callback(stop::_StopCallback) = stop
+_guard_stop_callback(stop) = _StopCallback(stop, nothing)
+
 _numerical_failure() = DualTermination(NUMERICAL_ERROR, "non-finite simplex iterate")
 
 function _finite_workspace(workspace::SimplexWorkspace)
@@ -140,11 +160,13 @@ function update_dse!(workspace::SimplexWorkspace, rho, tableau_column,
 end
 
 function dual_iteration!(workspace::SimplexWorkspace, stop_requested)::Union{Nothing,DualTermination}
+    stop_requested = _guard_stop_callback(stop_requested)
     stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
     _finite_workspace(workspace) || return _numerical_failure()
     try
         return _dual_iteration!(workspace, stop_requested)
     catch exception
+        exception === stop_requested.exception && rethrow()
         _is_numerical_exception(exception) || rethrow()
         return DualTermination(NUMERICAL_ERROR, sprint(showerror, exception))
     end
@@ -221,6 +243,24 @@ function _dual_iteration!(workspace::SimplexWorkspace, stop_requested)
     return nothing
 end
 
+function _within_primal_bounds(values, lower, upper, tolerance)
+    all(isfinite, values) || return false
+    for index in eachindex(values)
+        lower[index] - values[index] > tolerance && return false
+        values[index] - upper[index] > tolerance && return false
+    end
+    return true
+end
+
+function _original_primal_feasible(workspace::SimplexWorkspace, primal::Vector{Float64})
+    problem = workspace.problem
+    # Use the configured absolute tolerance in the original constraint units.
+    # Scaling it by the sum of absolute products would hide cancellation in A * x.
+    tolerance = workspace.options.primal_tolerance
+    _within_primal_bounds(primal, problem.column_lower, problem.column_upper, tolerance) || return false
+    return _within_primal_bounds(problem.A * primal, problem.row_lower, problem.row_upper, tolerance)
+end
+
 function _internal_solution(workspace::SimplexWorkspace, status::TerminationStatus,
                             message::String)
     primal = status == OPTIMAL ? copy(workspace.primal[1:size(workspace.problem.A, 2)]) : nothing
@@ -228,6 +268,10 @@ function _internal_solution(workspace::SimplexWorkspace, status::TerminationStat
                 dot(workspace.problem.objective, primal) + workspace.problem.objective_constant
     if status == OPTIMAL && (!_finite_workspace(workspace) || !isfinite(objective))
         return _internal_solution(workspace, _numerical_failure())
+    end
+    if status == OPTIMAL && !_original_primal_feasible(workspace, primal)
+        return _internal_solution(workspace, NUMERICAL_ERROR,
+                                  "structural primal failed original-model feasibility checks")
     end
     return DualRunResult(status, objective, primal, workspace.iterations,
                          workspace.refactorizations, message)
@@ -336,11 +380,13 @@ function _valid_recession_direction(workspace::SimplexWorkspace, auxiliary::Simp
 end
 
 function make_dual_feasible!(workspace::SimplexWorkspace, stop_requested)::Union{Nothing,DualTermination}
+    stop_requested = _guard_stop_callback(stop_requested)
     stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
     _finite_workspace(workspace) || return _numerical_failure()
     try
         return _make_dual_feasible!(workspace, stop_requested)
     catch exception
+        exception === stop_requested.exception && rethrow()
         _is_numerical_exception(exception) || rethrow()
         return DualTermination(NUMERICAL_ERROR, sprint(showerror, exception))
     end
@@ -390,11 +436,13 @@ end
 
 function _solve_continuous_dual(problem::LinearProblem, options::SolverOptions;
                                 stop_requested::Function=() -> false)
+    stop_requested = _guard_stop_callback(stop_requested)
     workspace = nothing
     try
         workspace = initialize_workspace(problem, options)
         return _solve_continuous_dual!(workspace, stop_requested)
     catch exception
+        exception === stop_requested.exception && rethrow()
         _is_numerical_exception(exception) || rethrow()
         return DualRunResult(NUMERICAL_ERROR, nothing, nothing,
                              isnothing(workspace) ? 0 : workspace.iterations,

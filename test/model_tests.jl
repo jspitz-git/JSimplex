@@ -119,3 +119,33 @@
         [-Inf], [Inf], [0.0], [Inf], [CONTINUOUS], "", String[], String[],
     )
 end
+
+@testset "Bounds must admit finite real values" begin
+    for bound in (-Inf, Inf)
+        @test_throws ArgumentError LinearProblem(
+            JSimplex.SparseArrays.spzeros(0, 1), [0.0];
+            column_lower=[bound], column_upper=[bound],
+        )
+        @test_throws ArgumentError LinearProblem(
+            JSimplex.SparseArrays.spzeros(1, 0), Float64[];
+            row_lower=[bound], row_upper=[bound],
+        )
+    end
+    for (field, bound) in ((:row_lower, Inf), (:row_upper, -Inf),
+                           (:column_lower, Inf), (:column_upper, -Inf))
+        problem = LinearProblem(
+            JSimplex.SparseArrays.spzeros(1, 1), [0.0];
+            column_lower=[-Inf], column_upper=[Inf],
+        )
+        getfield(problem, field)[1] = bound
+        @test !isnothing(JSimplex._validation_error(problem))
+    end
+    for (lower, upper) in ((-Inf, Inf), (0.0, Inf), (-Inf, 2.0), (1.0, 1.0))
+        problem = LinearProblem(
+            JSimplex.SparseArrays.spzeros(1, 1), [0.0];
+            row_lower=[lower], row_upper=[upper],
+            column_lower=[lower], column_upper=[upper],
+        )
+        @test isnothing(JSimplex._validation_error(problem))
+    end
+end

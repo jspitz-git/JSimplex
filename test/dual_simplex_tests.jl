@@ -1,6 +1,95 @@
 using JSimplex.SparseArrays
 using JSimplex.LinearAlgebra
 
+@testset "Optimal results certify the original structural primal" begin
+    unstable = LinearProblem(
+        sparse([1.0 1.0; 1.0 1.0 + 1.0e-6]), zeros(2);
+        row_lower=[0.1, 1.0e10], row_upper=[0.1, 1.0e10],
+        column_lower=fill(-Inf, 2),
+    )
+    regular = LinearProblem(
+        sparse([0.1 0.2; 0.2 -0.1]), [1.0, 2.0];
+        row_lower=[0.3, 0.1], row_upper=[0.3, 0.1],
+        column_lower=fill(-Inf, 2),
+    )
+    for interval in (1, 20)
+        run = JSimplex._solve_continuous_dual(unstable, SolverOptions(refactorization_interval=interval))
+        @test run.status == NUMERICAL_ERROR
+        @test isnothing(run.primal)
+        @test isnothing(run.objective_value)
+
+        run = JSimplex._solve_continuous_dual(regular, SolverOptions(refactorization_interval=interval))
+        @test run.status == OPTIMAL
+        @test run.primal ≈ [1.0, 1.0] atol=1.0e-7
+        @test regular.A * run.primal ≈ [0.3, 0.1] atol=1.0e-7
+        @test run.objective_value ≈ 3.0 atol=1.0e-7
+    end
+
+    column_problem = LinearProblem(spzeros(0, 1), [0.0]; column_upper=[1.0])
+    row_problem = LinearProblem(sparse([1.0;;]), [0.0]; row_lower=[0.0], row_upper=[1.0],
+                                column_lower=[-Inf])
+    for problem in (column_problem, row_problem)
+        for (value, expected) in ((-2.0e-7, NUMERICAL_ERROR), (1.0 + 2.0e-7, NUMERICAL_ERROR),
+                                  (-5.0e-8, OPTIMAL), (1.0 + 5.0e-8, OPTIMAL))
+            workspace = JSimplex.initialize_workspace(problem, SolverOptions())
+            workspace.primal[1] = value
+            run = JSimplex._internal_solution(workspace, OPTIMAL, "candidate")
+            @test run.status == expected
+            @test isnothing(run.primal) == (expected != OPTIMAL)
+            @test isnothing(run.objective_value) == (expected != OPTIMAL)
+        end
+    end
+    overflow = LinearProblem(sparse([1.0e308;;]), [0.0])
+    workspace = JSimplex.initialize_workspace(overflow, SolverOptions())
+    workspace.primal[1] = 2.0
+    run = JSimplex._internal_solution(workspace, OPTIMAL, "candidate")
+    @test run.status == NUMERICAL_ERROR
+    @test isnothing(run.primal)
+    @test isnothing(run.objective_value)
+end
+
+@testset "Caller callback exceptions retain their provenance" begin
+    main_problem = LinearProblem(sparse([1.0;;]), [1.0]; row_lower=[1.0])
+    phase_problem = LinearProblem(sparse([1.0;;]), [-1.0]; row_upper=[3.0])
+    for exception in (SingularException(7), ZeroPivotException(7))
+        # Cover entry, main iterations, phase I, and both refactorization sites.
+        for (problem, interval, positions) in ((main_problem, 1, 1:6), (phase_problem, 20, 1:7))
+            for position in positions
+                calls = Ref(0)
+                callback = () -> (calls[] += 1; calls[] == position ? throw(exception) : false)
+                caught = try
+                    JSimplex._solve_continuous_dual(problem, SolverOptions(refactorization_interval=interval);
+                                                  stop_requested=callback)
+                    nothing
+                catch error
+                    error
+                end
+                @test caught === exception
+            end
+        end
+        workspace = JSimplex.initialize_workspace(main_problem, SolverOptions(refactorization_interval=1))
+        callback = () -> workspace.iterations == 1 ? throw(exception) : false
+        caught = try
+            JSimplex.dual_iteration!(workspace, callback)
+            nothing
+        catch error
+            error
+        end
+        @test caught === exception
+
+        workspace = JSimplex.initialize_workspace(phase_problem, SolverOptions())
+        calls = Ref(0)
+        callback = () -> (calls[] += 1; calls[] == 5 ? throw(exception) : false)
+        caught = try
+            JSimplex.make_dual_feasible!(workspace, callback)
+            nothing
+        catch error
+            error
+        end
+        @test caught === exception
+    end
+end
+
 @testset "Dual simplex core" begin
     bounded = LinearProblem(
         sparse(reshape([1.0, 1.0], 1, 2)), [1.0, 2.0];

@@ -119,6 +119,8 @@ function _validation_error(problem::LinearProblem)::Union{Nothing,String}
         upper = problem.row_upper[index]
         isnan(lower) && return "row lower bounds must not be NaN"
         isnan(upper) && return "row upper bounds must not be NaN"
+        lower == Inf && return "row lower bounds must not be +Inf"
+        upper == -Inf && return "row upper bounds must not be -Inf"
         lower <= upper || return "row lower bounds must not exceed upper bounds"
     end
     for index in eachindex(problem.column_lower)
@@ -126,6 +128,8 @@ function _validation_error(problem::LinearProblem)::Union{Nothing,String}
         upper = problem.column_upper[index]
         isnan(lower) && return "column lower bounds must not be NaN"
         isnan(upper) && return "column upper bounds must not be NaN"
+        lower == Inf && return "column lower bounds must not be +Inf"
+        upper == -Inf && return "column upper bounds must not be -Inf"
         lower <= upper || return "column lower bounds must not exceed upper bounds"
     end
 
