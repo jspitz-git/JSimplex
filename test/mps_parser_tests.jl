@@ -127,6 +127,16 @@ end
         end
     end
 
+    @testset "short free records in automatic format" begin
+        text = "NAME SHORT\nROWS\n L LE\nCOLUMNS\n XB LE 1\nRHS\n R LE 2\nBOUNDS\n UP LOW XB 4\n SC B XB 5\nENDATA\n"
+        records = parse_mps_text(text; format=:auto)
+        @test records.column_order == ["XB"]
+        @test records.coefficients == [("XB", "LE", 1.0, 5)]
+        @test records.rhs_sets["R"] == [("LE", 2.0, 7)]
+        @test records.bounds_order == ["LOW", "B"]
+        @test only(records.bounds_sets["B"]).value == 5.0
+    end
+
     @testset "diagnostics retain source, line, section, and reason" begin
         prefix = "NAME BAD\nROWS\n N OBJ\n L LIMIT\nCOLUMNS\n"
         cases = [

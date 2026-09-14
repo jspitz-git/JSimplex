@@ -21,6 +21,7 @@ mutable struct MPSAccumulator
     name::String
     objective_sense::ObjectiveSense
     objective_name::Union{Nothing,String}
+    objective_name_line::Int
     row_order::Vector{String}
     row_types::Dict{String,Char}
     column_order::Vector{String}
@@ -36,7 +37,7 @@ end
 
 function MPSAccumulator(source::AbstractString)
     return MPSAccumulator(
-        String(source), "", MIN_SENSE, nothing, String[], Dict{String,Char}(),
+        String(source), "", MIN_SENSE, nothing, 0, String[], Dict{String,Char}(),
         String[], Tuple{String,String,Float64,Int}[],
         Dict{String,Vector{Tuple{String,Float64,Int}}}(), String[],
         Dict{String,Vector{Tuple{String,Float64,Int}}}(), String[],
@@ -62,7 +63,14 @@ _mps_fixed_layout(text) = all(
 
 function _mps_fields(text, format, records, line, section)
     if format == :auto
-        format = _mps_fixed_layout(text) ? :fixed : :free
+        # Fixed records must reach their last required field; short free records
+        # can otherwise match every separator by accident.
+        minimum_width = section == :ROWS ? 5 : section == :BOUNDS ? 15 : 25
+        fixed = ncodeunits(text) >= minimum_width && _mps_fixed_layout(text)
+        if fixed && section in (:COLUMNS, :RHS, :RANGES)
+            fixed = codeunit(text, 2) == codeunit(text, 3) == UInt8(' ')
+        end
+        format = fixed ? :fixed : :free
     end
     format == :free && return String.(split(text)), false
     isascii(text) || _mps_error(records, line, section, "fixed records must contain ASCII characters")

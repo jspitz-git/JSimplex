@@ -8,6 +8,7 @@ function _mps_metadata!(records, section, fields, line)
         records.objective_sense = fields[1] == "MIN" ? MIN_SENSE : MAX_SENSE
     else
         records.objective_name = fields[1]
+        records.objective_name_line = line
     end
 end
 
