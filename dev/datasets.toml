@@ -1,0 +1,26 @@
+# Repository smoke cases. Expected objectives describe the LP relaxation.
+[datasets.afiro]
+kind = "repository"
+path = "test/fixtures/solver/afiro.mps"
+sha256 = "28c80012b6e7da7df5d2e1e7220ee26e4f684a34b6958f77b14f0277225d65fd"
+expected_status = "OPTIMAL"
+expected_objective = -464.7531428571429
+tags = ["quick", "netlib"]
+
+[datasets.greenbea]
+kind = "repository"
+path = "dev/fixtures/greenbea.mps"
+sha256 = "5325334a80524944761ded6faeb8c994aa4e9fbadea1de26f7cff97fd4549d09"
+tags = ["full", "netlib"]
+
+[registry]
+artifacts_toml = "Artifacts.toml"
+
+# External collection schema (documentation only; no collection is registered):
+# Each [datasets.NAME] entry must record kind = "artifact", artifact (the
+# collection binding in dev/Artifacts.toml), path (relative instance path),
+# sha256 (the instance SHA-256), source_url, version, provenance, license,
+# expected_status, expected_objective (when a finite optimum exists), and tags.
+# Optional exceptions may explain instance-specific deviations or limitations.
+# Record concrete verified metadata before adding a collection. Private data
+# uses the same metadata and --data-root PATH; do not redistribute restricted data.

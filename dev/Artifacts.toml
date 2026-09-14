@@ -1,0 +1,9 @@
+# External data collections are opt-in. No external collection is bound yet.
+# Pkg.Artifacts.bind_artifact! writes immutable git-tree-sha1 bindings after a
+# collection has been assembled from license-compatible source URLs and every
+# instance has been verified against dev/datasets.toml. Download entries must
+# record real source URLs and verified archive SHA-256 values. Never use invented
+# hashes, unavailable URLs, or unverified license/provenance metadata.
+# For a registered binding, install with:
+# julia --project=dev -e 'using Pkg.Artifacts; ensure_artifact_installed(ARGS[1], "dev/Artifacts.toml")' COLLECTION
+# Private collections can instead be supplied with --data-root PATH.
