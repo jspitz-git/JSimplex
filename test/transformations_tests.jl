@@ -26,7 +26,7 @@
 end
 
 @testset "Basis boundary" begin
-    basic_indices = Int32[2, 4]
+    basic_indices = [2, 4]
     states = JSimplex.VariableState[
         JSimplex.BASIC,
         JSimplex.AT_LOWER,
