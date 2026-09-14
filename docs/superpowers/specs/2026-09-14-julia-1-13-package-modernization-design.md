@@ -98,9 +98,9 @@ The exact export list will remain small. Internal workspaces and individual
 simplex operations will not be part of the compatibility contract.
 
 `Solution` will contain a termination status, objective value, primal solution
-for the original structural variables, iteration count, and statistics. For a
-status without a valid solution, the primal values and objective value will be
-absent instead of containing misleading numeric values.
+for the original structural variables, iteration count, elapsed solve time, and
+statistics. For a status without a valid solution, the primal values and
+objective value will be absent instead of containing misleading numeric values.
 
 The first release defines these termination statuses:
 
@@ -108,15 +108,17 @@ The first release defines these termination statuses:
 - `INFEASIBLE`;
 - `UNBOUNDED`;
 - `ITERATION_LIMIT`;
+- `TIME_LIMIT`;
 - `NUMERICAL_ERROR`;
 - `INVALID_MODEL`;
 - `MIP_NOT_SUPPORTED`;
 - `ALGORITHM_NOT_SUPPORTED`.
 
 `SolverOptions` will contain primal, dual, and zero tolerances; an iteration
-limit; a refactorization frequency; a logging level; and an algorithm choice.
-The first release implements only `algorithm=:dual`. Until implemented,
-`:primal` and `:auto` return `ALGORITHM_NOT_SUPPORTED`.
+limit; a wall-clock time limit in seconds; a refactorization frequency; a
+logging level; and an algorithm choice. An infinite time limit disables the
+deadline. The first release implements only `algorithm=:dual`. Until
+implemented, `:primal` and `:auto` return `ALGORITHM_NOT_SUPPORTED`.
 
 ## Data model
 
@@ -235,7 +237,11 @@ factorization implementation without changes to primal or dual simplex
 strategies.
 
 Unstructured `print` output, unchecked `@assert` calls, and hard-coded limits
-will be replaced with status results, validation, and controlled logging.
+will be replaced with status results, validation, and controlled logging. The
+solver will use a monotonic clock and check its deadline at least once per
+simplex iteration and before potentially expensive refactorization. Reaching
+the deadline returns `TIME_LIMIT` while preserving elapsed time and iteration
+statistics.
 
 ## Testing
 
@@ -247,6 +253,7 @@ will be replaced with status results, validation, and controlled logging.
 - successful LP relaxation and rejection of an unrelaxed MIP;
 - small manually verified LPs for `OPTIMAL`, `INFEASIBLE`, `UNBOUNDED`, and
   `ITERATION_LIMIT`;
+- deterministic termination with `TIME_LIMIT`;
 - AFIRO regression solving;
 - malformed-input diagnostics and rejection of unsupported MPS sections.
 
@@ -309,4 +316,6 @@ The conversion is complete when:
    presolve, and repeated LP solves from a future MIP solver without changing
    the public model;
 10. all repository documentation and source comments introduced by the
-    modernization are in English.
+    modernization are in English;
+11. both iteration and wall-clock limits terminate solving with distinct,
+    observable statuses and retain solve statistics.
