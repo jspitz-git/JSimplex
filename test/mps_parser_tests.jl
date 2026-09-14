@@ -105,6 +105,14 @@ end
     end
 
     @testset "section keywords can be data names" begin
+        for format in (:free, :fixed, :auto), metadata in ("OBJNAME ROWS", "OBJNAME\n ROWS")
+            text = join(["NAME P", metadata, "ROWS", fixed_mps_record("N", "ROWS"),
+                         "COLUMNS", fixed_mps_record("", "X", "ROWS", "1"), "ENDATA"], '\n')
+            @test let parsed = parse_mps_text(text; format)
+                (parsed.objective_name, parsed.row_order, parsed.column_order) ==
+                    ("ROWS", ["ROWS"], ["X"])
+            end
+        end
         records = parse_mps_text("NAME P\nROWS\n N OBJ\nCOLUMNS\n NAME OBJ 1\n OBJSENSE OBJ 2\n OBJNAME OBJ 3\n QMATRIX OBJ 4\nRHS\n NAME OBJ 5\nENDATA\n")
         @test records.column_order == ["NAME", "OBJSENSE", "OBJNAME", "QMATRIX"]
         @test records.rhs_order == ["NAME"]

@@ -53,6 +53,12 @@ function _parse_mps(io::IO, source::AbstractString; format::Symbol=:auto)
         isempty(strip(text)) && continue
         section == :ENDATA && _mps_error(records, line, section, "data after ENDATA")
         words = String.(split(text))
+        # Objective names may be section keywords, including in two-line metadata.
+        if pending_metadata && section == :OBJNAME
+            _mps_metadata!(records, section, words, line)
+            pending_metadata = false
+            continue
+        end
         candidate = Symbol(words[1] == "OBJSEN" ? "OBJSENSE" : words[1])
         # A fixed continuation can have only two words, like an inline header.
         continuation = section in (:COLUMNS, :RHS, :RANGES) && format != :free &&
