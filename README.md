@@ -20,7 +20,7 @@ For the expert audience, here's what's needed before we can compete with state-o
 
 There is no reason to use this code to solve real problems. It's here as a proof of concept of a large, complex application in Julia. Both algorithmic and performance-tuning contributions are welcome. 
 
-Current timings for test.jl solving GREENBEA.SIF on a laptop (Intel i5-3320M):
+Historical timings from the original implementation solving GREENBEA (now in `dev/fixtures/greenbea.mps`) on a laptop (Intel i5-3320M):
 - jlSimplex: 9.83 seconds
 - GLPK: 1.39 seconds
 

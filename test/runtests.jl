@@ -11,4 +11,5 @@ using Test
     include("simplex_workspace_tests.jl")
     include("dual_simplex_tests.jl")
     include("solver_tests.jl")
+    include("regression_tests.jl")
 end
