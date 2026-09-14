@@ -33,3 +33,21 @@ end
     @test_throws ArgumentError JSimplex.replace_column!(factor, tableau_column, 1; zero_tolerance=-1.0)
     @test_throws DimensionMismatch JSimplex.replace_column!(factor, [1.0], 1)
 end
+
+@testset "Product-form transpose solve RHS precision" begin
+    B = JSimplex.SparseArrays.sparse([2.0 1.0; 1.0 3.0])
+    factor = JSimplex.PFIFactorization(B)
+    replacement = [4.0, -1.0]
+    JSimplex.replace_column!(factor, JSimplex.forward_solve(factor, replacement), 1)
+    B2 = JSimplex.SparseArrays.sparse([4.0 1.0; -1.0 3.0])
+
+    integer_rhs = [5, 7]
+    float32_rhs = Float32[5, 7]
+    expected_integer = Matrix(B2)' \ Float64.(integer_rhs)
+    expected_float32 = Matrix(B2)' \ Float64.(float32_rhs)
+
+    @test JSimplex.transpose_solve(factor, integer_rhs) ≈ expected_integer rtol=1.0e-12
+    @test JSimplex.transpose_solve(factor, float32_rhs) ≈ expected_float32 rtol=1.0e-12
+    @test integer_rhs == [5, 7]
+    @test float32_rhs == Float32[5, 7]
+end

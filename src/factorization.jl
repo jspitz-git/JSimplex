@@ -40,7 +40,7 @@ end
 
 function transpose_solve(factor::PFIFactorization, rhs::AbstractVector)
     _check_rhs_dimension(factor, rhs)
-    x = copy(rhs)
+    x = Float64.(rhs)
     for eta in Iterators.reverse(factor.updates)
         value = zero(eltype(x))
         for index in eachindex(eta.indices)
