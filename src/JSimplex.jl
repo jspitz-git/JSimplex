@@ -10,6 +10,7 @@ include("mps.jl")
 include("transformations.jl")
 include("factorization.jl")
 include("simplex.jl")
+include("dual_simplex.jl")
 
 export ALGORITHM_NOT_SUPPORTED, INFEASIBLE, INVALID_MODEL, ITERATION_LIMIT,
        MIP_NOT_SUPPORTED, NUMERICAL_ERROR, OPTIMAL, TIME_LIMIT, UNBOUNDED,
