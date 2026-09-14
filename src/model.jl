@@ -1,0 +1,144 @@
+@enum ObjectiveSense::UInt8 MIN_SENSE MAX_SENSE
+
+@enum VariableDomain::UInt8 begin
+    CONTINUOUS
+    INTEGER
+    BINARY
+    SEMI_CONTINUOUS
+    SEMI_INTEGER
+end
+
+struct LinearProblem
+    A::SparseMatrixCSC{Float64,Int}
+    objective::Vector{Float64}
+    objective_constant::Float64
+    objective_sense::ObjectiveSense
+    row_lower::Vector{Float64}
+    row_upper::Vector{Float64}
+    column_lower::Vector{Float64}
+    column_upper::Vector{Float64}
+    variable_domains::Vector{VariableDomain}
+    name::String
+    row_names::Vector{String}
+    column_names::Vector{String}
+
+    function LinearProblem(
+        A::SparseMatrixCSC{Float64,Int},
+        objective::Vector{Float64},
+        objective_constant::Float64,
+        objective_sense::ObjectiveSense,
+        row_lower::Vector{Float64},
+        row_upper::Vector{Float64},
+        column_lower::Vector{Float64},
+        column_upper::Vector{Float64},
+        variable_domains::Vector{VariableDomain},
+        name::String,
+        row_names::Vector{String},
+        column_names::Vector{String},
+    )
+        copied_column_lower = copy(column_lower)
+        copied_column_upper = copy(column_upper)
+        copied_domains = copy(variable_domains)
+
+        if length(copied_domains) == length(copied_column_lower) ==
+           length(copied_column_upper)
+            for index in eachindex(copied_domains)
+                if copied_domains[index] == BINARY
+                    copied_column_lower[index] = max(copied_column_lower[index], 0.0)
+                    copied_column_upper[index] = min(copied_column_upper[index], 1.0)
+                end
+            end
+        end
+
+        problem = new(
+            copy(A), copy(objective), objective_constant, objective_sense,
+            copy(row_lower), copy(row_upper), copied_column_lower,
+            copied_column_upper, copied_domains, name, copy(row_names),
+            copy(column_names),
+        )
+        error = _validation_error(problem)
+        isnothing(error) || throw(ArgumentError(error))
+        return problem
+    end
+end
+
+function LinearProblem(
+    A::SparseMatrixCSC,
+    objective::AbstractVector{<:Real};
+    objective_constant::Real=0.0,
+    objective_sense::ObjectiveSense=MIN_SENSE,
+    row_lower::AbstractVector{<:Real}=fill(-Inf, size(A, 1)),
+    row_upper::AbstractVector{<:Real}=fill(Inf, size(A, 1)),
+    column_lower::AbstractVector{<:Real}=zeros(size(A, 2)),
+    column_upper::AbstractVector{<:Real}=fill(Inf, size(A, 2)),
+    variable_domains::AbstractVector{VariableDomain}=fill(CONTINUOUS, size(A, 2)),
+    name::AbstractString="",
+    row_names::AbstractVector{<:AbstractString}=String[],
+    column_names::AbstractVector{<:AbstractString}=String[],
+)
+    return LinearProblem(
+        SparseMatrixCSC{Float64,Int}(A), Float64.(objective),
+        Float64(objective_constant), objective_sense, Float64.(row_lower),
+        Float64.(row_upper), Float64.(column_lower), Float64.(column_upper),
+        collect(variable_domains), String(name), String.(row_names),
+        String.(column_names),
+    )
+end
+
+function _validation_error(problem::LinearProblem)::Union{Nothing,String}
+    row_count, column_count = size(problem.A)
+
+    length(problem.objective) == column_count ||
+        return "objective length must equal the number of columns"
+    length(problem.row_lower) == row_count &&
+        length(problem.row_upper) == row_count ||
+        return "row bound lengths must equal the number of rows"
+    length(problem.column_lower) == column_count &&
+        length(problem.column_upper) == column_count ||
+        return "column bound lengths must equal the number of columns"
+    length(problem.variable_domains) == column_count ||
+        return "variable domain length must equal the number of columns"
+    isempty(problem.row_names) || length(problem.row_names) == row_count ||
+        return "row names must be empty or match the number of rows"
+    isempty(problem.column_names) || length(problem.column_names) == column_count ||
+        return "column names must be empty or match the number of columns"
+
+    all(isfinite, problem.A.nzval) ||
+        return "constraint matrix coefficients must be finite"
+    all(isfinite, problem.objective) ||
+        return "objective coefficients must be finite"
+    isfinite(problem.objective_constant) ||
+        return "objective constant must be finite"
+
+    for index in eachindex(problem.row_lower)
+        lower = problem.row_lower[index]
+        upper = problem.row_upper[index]
+        isnan(lower) && return "row lower bounds must not be NaN"
+        isnan(upper) && return "row upper bounds must not be NaN"
+        lower <= upper || return "row lower bounds must not exceed upper bounds"
+    end
+    for index in eachindex(problem.column_lower)
+        lower = problem.column_lower[index]
+        upper = problem.column_upper[index]
+        isnan(lower) && return "column lower bounds must not be NaN"
+        isnan(upper) && return "column upper bounds must not be NaN"
+        lower <= upper || return "column lower bounds must not exceed upper bounds"
+    end
+
+    for index in eachindex(problem.variable_domains)
+        if problem.variable_domains[index] == BINARY
+            problem.column_lower[index] <= 1.0 && problem.column_upper[index] >= 0.0 ||
+                return "binary variable bounds must intersect [0, 1]"
+        end
+    end
+    for index in eachindex(problem.variable_domains)
+        if problem.variable_domains[index] in (SEMI_CONTINUOUS, SEMI_INTEGER) &&
+           problem.column_upper[index] != Inf && !(problem.column_upper[index] > 0.0)
+            return "semi-domain active upper bounds must be positive"
+        end
+    end
+
+    return nothing
+end
+
+is_continuous(problem::LinearProblem) = all(==(CONTINUOUS), problem.variable_domains)
