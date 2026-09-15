@@ -1,21 +1,31 @@
 using JSimplex.LinearAlgebra
 using JSimplex.SparseArrays
 
-function abstract_numeric_storage(field)
+mutable struct RecursiveNumericRecord{T}
+    next::Union{Nothing,RecursiveNumericRecord{T}}
+    value::T
+end
+
+function abstract_numeric_storage(field, visited=Set{Type}())
     field === Any && return true
-    field isa Union && return any(abstract_numeric_storage, Base.uniontypes(field))
+    field in visited && return false
+    push!(visited, field)
+    inspect = nested -> abstract_numeric_storage(nested, visited)
+    field isa Union && return any(inspect, Base.uniontypes(field))
     if field <: Number
         return !isconcretetype(field)
+    elseif field <: Base.AbstractLock
+        # Backend locks hold runtime task/callback metadata, not numeric payloads.
+        return false
     elseif field <: AbstractArray
-        return !isconcretetype(field) || abstract_numeric_storage(eltype(field))
-    elseif field <: Tuple
-        return !isconcretetype(field) || any(abstract_numeric_storage, fieldtypes(field))
+        return !isconcretetype(field) || inspect(eltype(field))
+    elseif field <: Union{Tuple,NamedTuple}
+        return !isconcretetype(field) || any(inspect, fieldtypes(field))
     elseif field <: AbstractDict
-        return !isconcretetype(field) || abstract_numeric_storage(keytype(field)) ||
-               abstract_numeric_storage(valtype(field))
-    elseif field <: Union{Bound, Factorization, JSimplex.PFIFactorization,
-                         JSimplex.DenseLUBackend, JSimplex.UMFPACKBackend}
-        return !isconcretetype(field) || any(abstract_numeric_storage, fieldtypes(field))
+        return !isconcretetype(field) || inspect(keytype(field)) || inspect(valtype(field))
+    elseif field <: Factorization || isstructtype(field)
+        # Concrete record types can still declare abstract numeric fields.
+        return !isconcretetype(field) || any(inspect, fieldtypes(field))
     end
     return false
 end
@@ -132,6 +142,33 @@ end
         for field in (Float32, Rational{BigInt}, Vector{Float32}, Bound{Rational{BigInt}},
                       Union{Nothing,Vector{BigFloat}}, Vector{Tuple{String,Float32,Int}},
                       Dict{String,Vector{Rational{BigInt}}}, JSimplex.UMFPACKBackend)
+            @test !abstract_numeric_storage(field)
+        end
+    end
+
+    @testset "Storage gates inspect nested record payloads" begin
+        for field in (
+            Vector{JSimplex.BoundRecord{Real}},
+            Vector{JSimplex.PackedEta{Real}},
+            NamedTuple{(:value,),Tuple{Real}},
+            Dict{String,Vector{JSimplex.BoundRecord{Real}}},
+            NamedTuple{(:bounds,),Tuple{Dict{String,Vector{JSimplex.BoundRecord{Real}}}}},
+            Union{Nothing,Vector{JSimplex.PackedEta{Real}}},
+            RecursiveNumericRecord{Real},
+        )
+            @test abstract_numeric_storage(field)
+        end
+        for field in (
+            Vector{JSimplex.BoundRecord{Float32}},
+            Vector{JSimplex.PackedEta{Rational{BigInt}}},
+            NamedTuple{(:value,),Tuple{Union{Nothing,Float64}}},
+            Dict{String,Vector{JSimplex.BoundRecord{BigFloat}}},
+            NamedTuple{(:bounds,),Tuple{Dict{String,Vector{JSimplex.BoundRecord{Float64}}}}},
+            Union{Nothing,Vector{JSimplex.PackedEta{Float32}}},
+            Vector{Union{Nothing,JSimplex.BoundRecord{Float32},JSimplex.BoundRecord{Float64}}},
+            RecursiveNumericRecord{Float32},
+            ReentrantLock,
+        )
             @test !abstract_numeric_storage(field)
         end
     end
