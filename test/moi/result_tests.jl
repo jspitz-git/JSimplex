@@ -62,6 +62,112 @@ end
     end
 end
 
+@testset "MOI numeric result types" begin
+    for T in (Float32, Float64, Rational{BigInt})
+        source = MOI.Utilities.Model{T}()
+        x = MOI.add_variable(source)
+        lower = MOI.add_constraint(source, x, MOI.GreaterThan(T(2)))
+        objective = MOI.ScalarAffineFunction(
+            [MOI.ScalarAffineTerm(one(T), x)],
+            one(T),
+        )
+        MOI.set(source, MOI.ObjectiveSense(), MOI.MIN_SENSE)
+        MOI.set(source, MOI.ObjectiveFunction{typeof(objective)}(), objective)
+
+        optimizer = JSimplex.Optimizer{T}()
+        index_map, _ = MOI.optimize!(optimizer, source)
+        objective_value = MOI.get(optimizer, MOI.ObjectiveValue())
+        variable_primal = MOI.get(optimizer, MOI.VariablePrimal(), index_map[x])
+        constraint_primal = MOI.get(optimizer, MOI.ConstraintPrimal(), index_map[lower])
+        @test objective_value isa T
+        @test variable_primal isa T
+        @test constraint_primal isa T
+        @test objective_value == T(3)
+        @test variable_primal == T(2)
+        @test constraint_primal == T(2)
+    end
+end
+
+@testset "MOI BigFloat results preserve stored precision" begin
+    source, x, lower, expected = setprecision(BigFloat, 256) do
+        source = MOI.Utilities.Model{BigFloat}()
+        x = MOI.add_variable(source)
+        expected = parse(BigFloat, "2.0000000000000000000000000000000000000000000000000000000000001")
+        lower = MOI.add_constraint(source, x, MOI.GreaterThan(expected))
+        objective = MOI.ScalarAffineFunction(
+            [MOI.ScalarAffineTerm(one(BigFloat), x)],
+            zero(BigFloat),
+        )
+        MOI.set(source, MOI.ObjectiveSense(), MOI.MIN_SENSE)
+        MOI.set(source, MOI.ObjectiveFunction{typeof(objective)}(), objective)
+        return source, x, lower, expected
+    end
+
+    setprecision(BigFloat, 24) do
+        optimizer = JSimplex.Optimizer{BigFloat}()
+        index_map, _ = MOI.optimize!(optimizer, source)
+        objective_value = MOI.get(optimizer, MOI.ObjectiveValue())
+        variable_primal = MOI.get(optimizer, MOI.VariablePrimal(), index_map[x])
+        constraint_primal = MOI.get(optimizer, MOI.ConstraintPrimal(), index_map[lower])
+        @test objective_value isa BigFloat
+        @test variable_primal isa BigFloat
+        @test constraint_primal isa BigFloat
+        @test precision(objective_value) == 256
+        @test precision(variable_primal) == 256
+        @test precision(constraint_primal) == 256
+        @test objective_value == expected
+        @test variable_primal == expected
+        @test constraint_primal == expected
+    end
+end
+
+function _moi_integrality_relaxation_model(; include_integer=false, bounds=false)
+    source = MOI.Utilities.Model{Float64}()
+    x = MOI.add_variable(source)
+    if bounds
+        MOI.add_constraint(source, x, MOI.GreaterThan(0.5))
+        MOI.add_constraint(source, x, MOI.LessThan(0.75))
+    else
+        MOI.add_constraint(source, x, MOI.GreaterThan(0.5))
+    end
+    include_integer && MOI.add_constraint(source, x, MOI.Integer())
+    MOI.add_constraint(source, x, MOI.ZeroOne())
+    objective = MOI.ScalarAffineFunction([MOI.ScalarAffineTerm(1.0, x)], 0.0)
+    MOI.set(source, MOI.ObjectiveSense(), MOI.MIN_SENSE)
+    MOI.set(source, MOI.ObjectiveFunction{typeof(objective)}(), objective)
+    return source, x
+end
+
+@testset "MOI integrality relaxation" begin
+    source, x = _moi_integrality_relaxation_model()
+    optimizer = JSimplex.Optimizer()
+    MOI.optimize!(optimizer, source)
+    @test MOI.get(optimizer, MOI.TerminationStatus()) == MOI.OTHER_ERROR
+    @test MOI.get(optimizer, MOI.RawStatusString()) ==
+          "integer variables require a MIP solver; set relax_integrality=true to solve the LP relaxation"
+
+    MOI.set(optimizer, MOI.RawOptimizerAttribute("relax_integrality"), true)
+    index_map, _ = MOI.optimize!(optimizer, source)
+    @test MOI.get(optimizer, MOI.TerminationStatus()) == MOI.OPTIMAL
+    @test MOI.get(optimizer, MOI.VariablePrimal(), index_map[x]) == 0.5
+end
+
+@testset "MOI integrality domains compose with bounds" begin
+    for (source, x) in (
+        _moi_integrality_relaxation_model(bounds=true),
+        _moi_integrality_relaxation_model(include_integer=true),
+    )
+        optimizer = JSimplex.Optimizer()
+        MOI.optimize!(optimizer, source)
+        @test MOI.get(optimizer, MOI.TerminationStatus()) == MOI.OTHER_ERROR
+
+        MOI.set(optimizer, MOI.RawOptimizerAttribute("relax_integrality"), true)
+        index_map, _ = MOI.optimize!(optimizer, source)
+        @test MOI.get(optimizer, MOI.TerminationStatus()) == MOI.OPTIMAL
+        @test MOI.get(optimizer, MOI.VariablePrimal(), index_map[x]) == 0.5
+    end
+end
+
 function _moi_result_model(; integer=false)
     source = MOI.Utilities.Model{Float64}()
     x = MOI.add_variable(source)

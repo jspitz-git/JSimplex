@@ -26,6 +26,48 @@ function _evaluate_moi_function(
     return value
 end
 
+function _moi_bigfloat_precision(problem::LinearProblem{BigFloat})
+    result = precision(problem.objective_constant)
+    for value in problem.A.nzval
+        result = max(result, precision(value))
+    end
+    for value in problem.objective
+        result = max(result, precision(value))
+    end
+    for bounds in (problem.row_lower, problem.row_upper,
+                   problem.column_lower, problem.column_upper)
+        for bound in bounds
+            isfinite(bound) || continue
+            result = max(result, precision(bound_value(bound)))
+        end
+    end
+    return result
+end
+
+function _solve_moi_problem(
+    optimizer::Optimizer{T},
+    problem::LinearProblem{T},
+) where {T}
+    return solve(
+        problem;
+        relax_integrality=optimizer.relax_integrality,
+        options=_solver_options(optimizer),
+    )
+end
+
+function _solve_moi_problem(
+    optimizer::Optimizer{BigFloat},
+    problem::LinearProblem{BigFloat},
+)
+    return setprecision(BigFloat, _moi_bigfloat_precision(problem)) do
+        solve(
+            problem;
+            relax_integrality=optimizer.relax_integrality,
+            options=_solver_options(optimizer),
+        )
+    end
+end
+
 function MOI.optimize!(optimizer::Optimizer{T}, source::MOI.ModelLike) where {T}
     _clear_result!(optimizer)
     translation = _translate_moi_model(optimizer, source)
@@ -39,11 +81,7 @@ function MOI.optimize!(optimizer::Optimizer{T}, source::MOI.ModelLike) where {T}
         )
     else
         problem = something(translation.problem)
-        optimizer.solution = solve(
-            problem;
-            relax_integrality=optimizer.relax_integrality,
-            options=_solver_options(optimizer),
-        )
+        optimizer.solution = _solve_moi_problem(optimizer, problem)
     end
     solution = optimizer.solution::Solution{T}
     if solution.status == OPTIMAL
@@ -83,8 +121,12 @@ MOI.get(optimizer::Optimizer, ::MOI.TerminationStatus) =
     isnothing(optimizer.solution) ? MOI.OPTIMIZE_NOT_CALLED :
     _moi_termination_status(optimizer.solution.status)
 
-MOI.get(optimizer::Optimizer, ::MOI.RawStatusString) =
-    isnothing(optimizer.solution) ? "optimize not called" : optimizer.solution.message
+function MOI.get(optimizer::Optimizer, ::MOI.RawStatusString)
+    isnothing(optimizer.solution) && return "optimize not called"
+    optimizer.solution.status == MIP_NOT_SUPPORTED &&
+        return "integer variables require a MIP solver; set relax_integrality=true to solve the LP relaxation"
+    return optimizer.solution.message
+end
 
 MOI.get(optimizer::Optimizer, ::MOI.ResultCount) =
     !isnothing(optimizer.solution) && optimizer.solution.status == OPTIMAL ? 1 : 0
