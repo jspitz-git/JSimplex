@@ -30,7 +30,9 @@ function test_typed_dual_kernel(::Type{T}) where {T}
     end
 
     for (problem, expected_status) in (
-        (LinearProblem(sparse(T[1 -3]), T[-1, 0]; row_lower=T[1], row_upper=T[1]), UNBOUNDED),
+        (LinearProblem(sparse(T[1 0]), T[0, -1]; row_lower=T[1], row_upper=T[1]), UNBOUNDED),
+        (LinearProblem(sparse(T[1 -3]), T[-1, 0]; row_lower=T[1], row_upper=T[1]),
+         T <: Rational ? UNBOUNDED : NUMERICAL_ERROR),
         (LinearProblem(sparse(reshape(T[1], 1, 1)), T[-1]; row_upper=T[-1]), INFEASIBLE),
         (LinearProblem(spzeros(T, 1, 0), T[]; row_lower=T[1]), INFEASIBLE),
         (LinearProblem(spzeros(T, 0, 0), T[]; objective_constant=T(7)), OPTIMAL),
@@ -233,8 +235,8 @@ end
     @test JSimplex.forward_solve(workspace.factorization, [1.0]) == [-1.0]
 end
 
-@testset "Recession certification allows row dot-product roundoff" begin
-    unbounded = (
+@testset "Recession certification rejects unresolved row dot products" begin
+    uncertain_cancellation = (
         LinearProblem(sparse([1.0 -3.0]), [-1.0, 0.0]; row_lower=[0.0], row_upper=[0.0]),
         LinearProblem(sparse([1.0e6 -3.0e6]), [-1.0, 0.0]; row_lower=[0.0], row_upper=[0.0]),
         LinearProblem(sparse([0.1 -0.3]), [-1.0, 0.0]; row_lower=[0.0], row_upper=[0.0]),
@@ -244,8 +246,6 @@ end
                       column_lower=[-Inf, -Inf], column_upper=[0.0, 0.0]),
         LinearProblem(sparse([1.0 -3.0 0.0; 1.0 0.0 -7.0]), [-1.0, 0.0, 0.0];
                       row_lower=[0.0, 0.0], row_upper=[0.0, 0.0]),
-        LinearProblem(spzeros(1, 1), [-1.0]; row_lower=[0.0], row_upper=[0.0]),
-        LinearProblem(spzeros(0, 1), [-1.0]),
     )
     ambiguous = (
         LinearProblem(sparse([1.0e-13;;]), [1.0]; row_lower=[1.0]),
@@ -255,7 +255,12 @@ end
         LinearProblem(sparse([1.0e6 -3.0e6; -1.0e-13 0.0]), [-1.0, 0.0];
                       row_lower=[0.0, -1.0], row_upper=[0.0, Inf]),
     )
-    for (problems, status) in ((unbounded, UNBOUNDED), (ambiguous, NUMERICAL_ERROR))
+    conclusive = (
+        LinearProblem(spzeros(1, 1), [-1.0]; row_lower=[0.0], row_upper=[0.0]),
+        LinearProblem(spzeros(0, 1), [-1.0]),
+    )
+    for (problems, status) in ((uncertain_cancellation, NUMERICAL_ERROR),
+                               (ambiguous, NUMERICAL_ERROR), (conclusive, UNBOUNDED))
         for problem in problems, interval in (1, 20)
             options = SolverOptions(refactorization_interval=interval)
             for run in (JSimplex._solve_continuous_dual(problem, options), solve(problem; options))
@@ -272,7 +277,7 @@ end
                             row_lower=[0.0], row_upper=[0.0])
     workspace = JSimplex.initialize_workspace(problem, SolverOptions())
     auxiliary = JSimplex._auxiliary_workspace(workspace)
-    for (direction, status) in (([1.0, 1.0 / 3.0], :certified),
+    for (direction, status) in (([1.0, 1.0 / 3.0], :ambiguous),
                                ([1.0, (1.0 - 1.0e-13) / 3.0], :ambiguous),
                                ([1.0, (1.0 - 1.0e-8) / 3.0], :invalid),
                                ([NaN, 0.0], :invalid), ([Inf, 0.0], :invalid))
@@ -284,7 +289,7 @@ end
     workspace = JSimplex.initialize_workspace(overflow, SolverOptions())
     auxiliary = JSimplex._auxiliary_workspace(workspace)
     auxiliary.primal[1:2] .= [1.0, 1.0]
-    @test JSimplex._recession_direction_status(workspace, auxiliary) == :invalid
+    @test JSimplex._recession_direction_status(workspace, auxiliary) != :certified
 end
 
 @testset "Phase I stops before either refactorization" begin
@@ -517,7 +522,7 @@ end
         (LinearProblem(sparse([1.0;;]), [-1.0]; row_lower=[2.0]), UNBOUNDED),
         (LinearProblem(sparse([1.0;;]), [-1.0]; row_upper=[-1.0]), INFEASIBLE),
         (LinearProblem(sparse([1.0 0.0]), [0.0, -1.0]; row_upper=[-1.0]), INFEASIBLE),
-        (LinearProblem(sparse([1.0 -1.0]), [-1.0, 0.0];
+        (LinearProblem(sparse([1.0 -1.0 0.0]), [0.0, 0.0, -1.0];
                        row_lower=[1.0], row_upper=[1.0]), UNBOUNDED),
     )
         run = JSimplex._solve_continuous_dual(problem, SolverOptions(iteration_limit=20))
@@ -758,4 +763,84 @@ end
     auxiliary = JSimplex._auxiliary_workspace(workspace)
     auxiliary.primal[1:2] .= Rational{BigInt}[1, 1 // 3]
     @test (@inferred JSimplex._recession_direction_status(workspace, auxiliary)) == :certified
+end
+
+@testset "Subnormal dot products cannot certify an increasing ray" begin
+    for T in (Float16, Float32, Float64)
+        smallest = nextfloat(zero(T))
+        costs = vcat(fill(T(-3 // 4), 4), fill(T(1 // 2), 8))
+        direction = fill(smallest, 12)
+        # Exact products sum to +smallest; rounded products instead sum to -4smallest.
+        @test dot(Rational{BigInt}.(costs), Rational{BigInt}.(direction)) == Rational{BigInt}(smallest)
+        lower, upper = @inferred JSimplex._recession_objective_bounds(costs, direction, direction, Val(false))
+        @test lower <= smallest <= upper
+        # A free row prevents row uncertainty from masking an objective-sign bug.
+        for row_lower in (T[0], [nothing])
+            problem = LinearProblem(sparse(reshape(T(4) .* costs, 1, 12)), costs;
+                row_lower, column_lower=fill(nothing, 12))
+            workspace = JSimplex.initialize_workspace(problem, SolverOptions(T; dual_tolerance=smallest))
+            auxiliary = JSimplex._auxiliary_workspace(workspace)
+            auxiliary.primal[1:12] .= direction
+            @test (@inferred JSimplex._recession_direction_status(workspace, auxiliary)) != :certified
+        end
+    end
+end
+
+@testset "Floating row uncertainty is not a feasible recession direction" begin
+    for T in (Float32, Float64, BigFloat), sign in (one(T), -one(T))
+        problem = LinearProblem(sparse(reshape(sign .* T[1, -3], 1, 2)), T[-1, 0];
+            row_lower=T[0], row_upper=T[0])
+        workspace = JSimplex.initialize_workspace(problem, SolverOptions(T))
+        auxiliary = JSimplex._auxiliary_workspace(workspace)
+        auxiliary.primal[1:2] .= T[1, 1 // 3]
+        @test (@inferred JSimplex._recession_direction_status(workspace, auxiliary)) != :certified
+    end
+
+    for T in (Float16, Float32, Float64)
+        for (coefficient, lower, upper, certified) in (
+            (T(1 // 2), nothing, zero(T), false),
+            (T(-1 // 2), zero(T), nothing, false),
+            (T(1 // 2), zero(T), zero(T), false),
+            (T(-1 // 2), zero(T), zero(T), false),
+            (T(1 // 2), nothing, nothing, true),
+            (zero(T), zero(T), zero(T), true),
+        )
+            problem = LinearProblem(sparse(reshape(T[coefficient], 1, 1)), T[-4];
+                row_lower=[lower], row_upper=[upper])
+            workspace = JSimplex.initialize_workspace(problem,
+                SolverOptions(T; dual_tolerance=nextfloat(zero(T))))
+            auxiliary = JSimplex._auxiliary_workspace(workspace)
+            auxiliary.primal[1] = nextfloat(zero(T))
+            status = @inferred JSimplex._recession_direction_status(workspace, auxiliary)
+            @test (status == :certified) == certified
+        end
+    end
+end
+
+@testset "Conclusive recession signs respect row and column bounds" begin
+    for T in (Float32, Float64, BigFloat, Rational{BigInt})
+        for (coefficient, direction, row_lower, row_upper, column_lower, column_upper, expected) in (
+            (1, 2, 0, nothing, 0, nothing, :certified),
+            (-1, 2, nothing, 0, 0, nothing, :certified),
+            (1, -2, nothing, 0, nothing, 0, :certified),
+            (-1, -2, 0, nothing, nothing, 0, :certified),
+            (0, 2, 0, 0, nothing, nothing, :certified),
+            (1, 2, nothing, nothing, nothing, nothing, :certified),
+            (1, 2, nothing, 0, nothing, nothing, :invalid),
+            (-1, 2, 0, nothing, nothing, nothing, :invalid),
+            (1, 2, 0, 0, nothing, nothing, :invalid),
+            (1, 2, nothing, nothing, 0, 1, :invalid),
+            (1, -2, nothing, nothing, 0, nothing, :invalid),
+            (1, 2, nothing, nothing, nothing, 0, :invalid),
+        )
+            convert_bound(value) = isnothing(value) ? nothing : T(value)
+            problem = LinearProblem(sparse(reshape(T[coefficient], 1, 1)), T[-sign(direction)];
+                row_lower=[convert_bound(row_lower)], row_upper=[convert_bound(row_upper)],
+                column_lower=[convert_bound(column_lower)], column_upper=[convert_bound(column_upper)])
+            workspace = JSimplex.initialize_workspace(problem, SolverOptions(T))
+            auxiliary = JSimplex._auxiliary_workspace(workspace)
+            auxiliary.primal[1] = T(direction)
+            @test (@inferred JSimplex._recession_direction_status(workspace, auxiliary)) == expected
+        end
+    end
 end

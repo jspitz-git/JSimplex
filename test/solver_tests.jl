@@ -405,3 +405,23 @@ end
         end
     end
 end
+
+@testset "A nearly singular bounded model has no recession ray" begin
+    scale = ldexp(1f0, -20)
+    coefficients = Float32[scale scale; scale nextfloat(scale)]
+    for T in (Float32, Float64, BigFloat, Rational{BigInt})
+        problem = LinearProblem(sparse(T.(coefficients)), T[0, -1];
+            row_lower=T[-1, -1], row_upper=T[1, 1], column_lower=[nothing, nothing])
+        result = @inferred solve(problem)
+        @test result isa Solution{T}
+        # The two rows bound an invertible transformation of the free columns.
+        @test result.status in (OPTIMAL, NUMERICAL_ERROR)
+        T <: Rational && @test result.status == OPTIMAL
+        if result.status == OPTIMAL
+            @test result.objective_value == -T(big(2)^44)
+        else
+            @test isnothing(result.primal)
+            @test isnothing(result.objective_value)
+        end
+    end
+end

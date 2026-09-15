@@ -442,70 +442,73 @@ function _classify_recession!(workspace::SimplexWorkspace{T}, stop_requested) wh
     return DualTermination(UNBOUNDED, "unbounded improving direction")
 end
 
-_recession_row_roundoff(A::SparseMatrixCSC{T,Int}, structural::Vector{T},
-                        ::Val{true}) where {T<:Rational} = zeros(T, size(A, 1))
+function _recession_row_bounds(A::SparseMatrixCSC{T,Int}, structural::Vector{T},
+                                ::Val{true}) where {T<:Rational}
+    values = A * structural
+    return values, values
+end
 
-function _recession_row_roundoff(A::SparseMatrixCSC{T,Int}, structural::Vector{T},
+function _recession_row_bounds(A::SparseMatrixCSC{T,Int}, structural::Vector{T},
                                 ::Val{false}) where {T<:AbstractFloat}
-    magnitudes = zeros(T, size(A, 1))
-    terms = zeros(Int, size(A, 1))
+    lower = zeros(T, size(A, 1))
+    upper = zeros(T, size(A, 1))
     for column in axes(A, 2)
         for position in A.colptr[column]:(A.colptr[column + 1] - 1)
             row = A.rowval[position]
-            magnitudes[row] += abs(A.nzval[position] * structural[column])
-            terms[row] += 1
+            lower[row], upper[row] = _add_product_bounds(
+                lower[row], upper[row], A.nzval[position], structural[column],
+            )
         end
     end
-    for row in eachindex(magnitudes)
-        # gamma_(2k), with unit roundoff eps/2, conservatively covers a k-term
-        # dot product and the rounded sum of absolute products used to bound it.
-        relative_error = T(terms[row]) * eps(T)
-        magnitudes[row] = relative_error < one(T) ?
-            relative_error / (one(T) - relative_error) * magnitudes[row] : T(Inf)
-    end
-    return magnitudes
+    return lower, upper
 end
 
-_recession_objective_roundoff(costs::Vector{T}, direction::Vector{T},
-                              ::Val{true}) where {T<:Rational} = zero(T)
+function _recession_objective_bounds(costs::Vector{T}, lower::Vector{T}, upper::Vector{T},
+                                      ::Val{true}) where {T<:Rational}
+    value = dot(costs, lower)
+    return value, value
+end
 
-function _recession_objective_roundoff(costs::Vector{T}, direction::Vector{T},
+function _recession_objective_bounds(costs::Vector{T}, lower::Vector{T}, upper::Vector{T},
                                       ::Val{false}) where {T<:AbstractFloat}
-    magnitude = zero(T)
+    minimum_value = maximum_value = zero(T)
     for index in eachindex(costs)
-        _, magnitude = _add_product_bounds(zero(T), magnitude, abs(costs[index]), abs(direction[index]))
+        cost = costs[index]
+        minimum_direction, maximum_direction = cost < zero(T) ?
+            (upper[index], lower[index]) : (lower[index], upper[index])
+        minimum_value, _ = _add_product_bounds(minimum_value, zero(T), cost, minimum_direction)
+        _, maximum_value = _add_product_bounds(zero(T), maximum_value, cost, maximum_direction)
     end
-    # Match the row dot-product error envelope, including accumulation error.
-    relative_error = T(length(costs)) * eps(T)
-    relative_error < one(T) || return T(Inf)
-    return nextfloat(relative_error / (one(T) - relative_error) * magnitude)
+    return minimum_value, maximum_value
 end
 
 function _recession_direction_status(workspace::SimplexWorkspace{T},
                                      auxiliary::SimplexWorkspace{T}) where {T}
     column_count = size(workspace.problem.A, 2)
     structural = auxiliary.primal[1:column_count]
-    direction = vcat(structural, workspace.problem.A * structural)
-    all(isfinite, direction) || return :invalid
-    row_roundoff = _recession_row_roundoff(workspace.problem.A, structural, _is_exact(T))
-    all(isfinite, row_roundoff) || return :invalid
-    # Row cancellation within its dot-product error bound represents zero.
-    # A larger nonzero violation within tolerance is numerically inconclusive.
+    row_lower, row_upper = _recession_row_bounds(workspace.problem.A, structural, _is_exact(T))
+    lower, upper = vcat(structural, row_lower), vcat(structural, row_upper)
+    all(isfinite, lower) && all(isfinite, upper) || return :invalid
+    # Each exact row direction must have a valid sign throughout its interval.
+    # An interval containing zero does not establish equality, even when the
+    # computed residual vanishes or is small relative to the dot-product terms.
     tolerance = workspace.options.zero_tolerance
     ambiguous = false
-    for index in eachindex(direction)
-        violation = max(isfinite(workspace.lower[index]) ? -direction[index] : zero(T),
-                        isfinite(workspace.upper[index]) ? direction[index] : zero(T))
-        roundoff = index <= column_count ? zero(T) : row_roundoff[index - column_count]
-        violation <= roundoff && continue
-        violation > tolerance && return :invalid
+    for index in eachindex(lower)
+        violation = max(isfinite(workspace.lower[index]) ? -lower[index] : zero(T),
+                        isfinite(workspace.upper[index]) ? upper[index] : zero(T))
+        violation <= zero(T) && continue
+        certain_violation = max(isfinite(workspace.lower[index]) ? -upper[index] : zero(T),
+                                isfinite(workspace.upper[index]) ? lower[index] : zero(T))
+        certain_violation > tolerance && return :invalid
         ambiguous = true
     end
-    improvement = dot(workspace.costs, direction)
-    isfinite(improvement) && improvement < -workspace.options.dual_tolerance || return :invalid
-    objective_roundoff = _recession_objective_roundoff(workspace.costs, direction, _is_exact(T))
-    isfinite(objective_roundoff) || return :invalid
-    improvement < -(workspace.options.dual_tolerance + objective_roundoff) || return :ambiguous
+    objective_lower, objective_upper = _recession_objective_bounds(
+        workspace.costs, lower, upper, _is_exact(T),
+    )
+    isfinite(objective_lower) && isfinite(objective_upper) || return :invalid
+    objective_lower < -workspace.options.dual_tolerance || return :invalid
+    objective_upper < -workspace.options.dual_tolerance || return :ambiguous
     return ambiguous ? :ambiguous : :certified
 end
 
