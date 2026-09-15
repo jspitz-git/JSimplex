@@ -347,6 +347,7 @@ end
             (" BV B X 1", 0.0, 1.0, BINARY),
             (" LI B X -2", -2.0, Inf, INTEGER),
             (" UI B X 4", 0.0, 4.0, INTEGER),
+            (" FR B X 17", -Inf, Inf, CONTINUOUS),
         ]
             problem = read_mps_text(bound_prefix * records * "\nENDATA\n")
             @test map(bound -> isfinite(bound) ? bound_value(bound) : nothing, problem.column_lower) ==
@@ -359,7 +360,7 @@ end
 
     @testset "contextual bound diagnostics" begin
         for record in [" LO B X", " UP B X", " FX B X", " LI B X", " UI B X",
-                       " SC B X", " SI B X", " FR B X 1", " MI B X 0", " PL B X 1",
+                       " SC B X", " SI B X", " MI B X 0", " PL B X 1",
                        " BV B X 2", " LI B X 0.5", " UI B X 1.5", " UP B UNKNOWN 1",
                        " SC B X 0", " SI B X -1"]
             error = try

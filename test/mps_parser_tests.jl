@@ -387,6 +387,18 @@ end
 
     @testset "all named BOUNDS sets receive symbolic validation" begin
         prefix = "NAME BOUNDS\nROWS\n N OBJ\nCOLUMNS\n X OBJ 1\nBOUNDS\n UP FIRST X 4\n"
+        free = prefix * " FR SECOND X 7\nENDATA\n"
+        fixed = join([
+            "NAME BOUNDS", "ROWS", fixed_mps_record("N", "OBJ"), "COLUMNS",
+            fixed_mps_record("", "X", "OBJ", "1"), "BOUNDS",
+            fixed_mps_record("FR", "SECOND", "X", "7"), "ENDATA",
+        ], '\n')
+        for (text, format) in ((free, :free), (free, :auto), (fixed, :fixed), (fixed, :auto))
+            records = parse_mps_text(text; format)
+            bound = only(records.bounds_sets["SECOND"])
+            @test bound.kind == :FR
+            @test bound.column == "X"
+        end
         for (record, reason) in (
             (" FR SECOND UNKNOWN 1", "unknown column"),
             (" UP SECOND UNKNOWN 4", "unknown column"),
@@ -397,7 +409,6 @@ end
             (" UI SECOND X", "requires a value"),
             (" SC SECOND X", "requires a value"),
             (" SI SECOND X", "requires a value"),
-            (" FR SECOND X 1", "does not accept"),
             (" MI SECOND X 0", "does not accept"),
             (" PL SECOND X 1", "does not accept"),
             (" BV SECOND X 2", "BV accepts"),

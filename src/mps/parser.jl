@@ -3,7 +3,8 @@ const _MPS_BOUND_TYPES = (:LO, :UP, :FX, :FR, :MI, :PL, :BV, :LI, :UI, :SC, :SI)
 
 function _mps_bound_error(kind, column, value, columns)
     column in columns || return "unknown column '$column'"
-    if kind in (:FR, :MI, :PL)
+    kind == :FR && return nothing
+    if kind in (:MI, :PL)
         value === nothing || return "$kind does not accept a value"
     elseif kind == :BV
         value === nothing || value == 1.0 || return "BV accepts no value or the value 1"
