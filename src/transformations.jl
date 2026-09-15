@@ -1,51 +1,56 @@
 abstract type AbstractPostsolveStep end
 
-struct PresolveResult
-    problem::LinearProblem
-    postsolve_stack::Vector{AbstractPostsolveStep}
+struct PresolveResult{T<:Real,S<:Tuple}
+    problem::LinearProblem{T}
+    postsolve_stack::S
     original_column_count::Int
 end
 
-struct Scaling
-    row_factors::Vector{Float64}
-    column_factors::Vector{Float64}
+struct Scaling{T<:Real}
+    row_factors::Vector{T}
+    column_factors::Vector{T}
 end
 
-identity_presolve(problem::LinearProblem) =
-    PresolveResult(problem, AbstractPostsolveStep[], size(problem.A, 2))
+identity_presolve(problem::LinearProblem{T}) where {T} =
+    PresolveResult(problem, (), size(problem.A, 2))
 
-identity_scaling(problem::LinearProblem) =
-    Scaling(ones(size(problem.A, 1)), ones(size(problem.A, 2)))
+identity_scaling(problem::LinearProblem{T}) where {T} =
+    Scaling(ones(T, size(problem.A, 1)), ones(T, size(problem.A, 2)))
 
-unscale_primal(scaling::Scaling, x::AbstractVector{<:Real}) =
-    Float64.(x) ./ scaling.column_factors
+unscale_primal(scaling::Scaling{T}, x::AbstractVector{<:Real}) where {T} =
+    T.(x) ./ scaling.column_factors
 
-unscale_dual(scaling::Scaling, y::AbstractVector{<:Real}) =
-    Float64.(y) ./ scaling.row_factors
+unscale_dual(scaling::Scaling{T}, y::AbstractVector{<:Real}) where {T} =
+    T.(y) ./ scaling.row_factors
 
-function postsolve_primal(result::PresolveResult, x::AbstractVector{<:Real})
-    restored = Float64.(x)
-    for step in Iterators.reverse(result.postsolve_stack)
-        restored = postsolve_primal(step, restored)
-    end
+function postsolve_primal(result::PresolveResult{T}, x::AbstractVector{<:Real}) where {T}
+    restored = _postsolve_primal(result.postsolve_stack, T.(x))
     return restored[1:result.original_column_count]
 end
 
-function relax_integrality(problem::LinearProblem)
+_postsolve_primal(::Tuple{}, x) = x
+_postsolve_primal(steps::Tuple, x) =
+    postsolve_primal(first(steps), _postsolve_primal(Base.tail(steps), x))
+
+function relax_integrality(problem::LinearProblem{T}) where {T}
     column_lower = copy(problem.column_lower)
     column_upper = copy(problem.column_upper)
 
     for index in eachindex(problem.variable_domains)
         if problem.variable_domains[index] == BINARY
-            column_lower[index] = max(0.0, column_lower[index])
-            column_upper[index] = min(1.0, column_upper[index])
+            column_lower[index] = Bound(isfinite(column_lower[index]) ?
+                max(zero(T), bound_value(column_lower[index])) : zero(T))
+            column_upper[index] = Bound(isfinite(column_upper[index]) ?
+                min(one(T), bound_value(column_upper[index])) : one(T))
         elseif problem.variable_domains[index] in (SEMI_CONTINUOUS, SEMI_INTEGER)
-            column_lower[index] = min(0.0, column_lower[index])
-            column_upper[index] = max(0.0, column_upper[index])
+            isfinite(column_lower[index]) &&
+                (column_lower[index] = Bound(min(zero(T), bound_value(column_lower[index]))))
+            isfinite(column_upper[index]) &&
+                (column_upper[index] = Bound(max(zero(T), bound_value(column_upper[index]))))
         end
     end
 
-    return LinearProblem(
+    return LinearProblem{T}(
         problem.A,
         problem.objective,
         problem.objective_constant,

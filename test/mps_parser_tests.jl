@@ -272,7 +272,7 @@ end
                     @test records.bounds_order == ["B"]
                     bound = only(records.bounds_sets["B"])
                     @test (bound.kind, bound.column, bound.value) == (:UP, "X", 4.0)
-                    @test JSimplex._build_mps(records).column_upper == [4.0]
+                    @test bound_value.(JSimplex._build_mps(records).column_upper) == [4.0]
                 end
             end
             @test_throws MPSParseError parse_mps_text(prefix * record * "\nENDATA\n"; format=:fixed)
@@ -283,8 +283,8 @@ end
             records = parse_mps_text(text; format)
             @test records.bounds_order == ["BOUNDS"]
             problem = JSimplex._build_mps(records)
-            @test problem.column_lower == [2.0]
-            @test problem.column_upper == [4.0]
+            @test bound_value.(problem.column_lower) == [2.0]
+            @test bound_value.(problem.column_upper) == [4.0]
         end
         @test_throws MPSParseError parse_mps_text(text; format=:free)
     end
@@ -308,9 +308,9 @@ end
                 problem = JSimplex._build_mps(records)
                 @test problem.column_names == ["X A"]
                 @test problem.row_names == ["L IMIT"]
-                @test problem.row_upper == [4.0]
-                @test problem.column_lower == [2.0]
-                @test problem.column_upper == [4.0]
+                @test bound_value.(problem.row_upper) == [4.0]
+                @test bound_value.(problem.column_lower) == [2.0]
+                @test bound_value.(problem.column_upper) == [4.0]
             end
         end
     end

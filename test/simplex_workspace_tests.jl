@@ -1,3 +1,32 @@
+function test_workspace_type(::Type{T}) where {T}
+    problem = LinearProblem(JSimplex.SparseArrays.sparse(reshape(T[2], 1, 1)), T[5];
+        row_lower=T[1], column_lower=T[1], column_upper=T[4])
+    workspace = @inferred JSimplex.initialize_workspace(problem, SolverOptions(T))
+    @test workspace isa JSimplex.SimplexWorkspace{T}
+    @test all(isconcretetype, fieldtypes(typeof(workspace)))
+    @test eltype(workspace.primal) === T
+    @test workspace.primal == T[1, 2]
+    @test (@inferred JSimplex.primal_infeasibility(workspace)) isa T
+    @test (@inferred JSimplex.dual_infeasibility(workspace)) isa T
+    @test JSimplex.primal_infeasibility(workspace) == zero(T)
+    @test JSimplex.dual_infeasibility(workspace) == zero(T)
+    @test (@inferred JSimplex.recompute!(workspace)) === workspace
+    workspace.basis = JSimplex.Basis([1], [JSimplex.BASIC, JSimplex.AT_LOWER])
+    @test (@inferred JSimplex.recompute!(workspace; refactorize=true)) === workspace
+    @test workspace.primal == T[1//2, 1]
+    @test workspace.reduced_costs == T[0, 5//2]
+    @test JSimplex.primal_infeasibility(workspace) == T(1//2)
+    @test (@inferred JSimplex.initialize_workspace(problem, SolverOptions())).options isa SolverOptions{T}
+    empty_problem = LinearProblem(JSimplex.SparseArrays.spzeros(T, 0, 1), T[1]; column_lower=[nothing])
+    empty_workspace = @inferred JSimplex.initialize_workspace(empty_problem, SolverOptions(T))
+    @test empty_workspace.primal == T[0]
+    @test (@inferred JSimplex.dual_infeasibility(empty_workspace)) == one(T)
+end
+
+@testset "Typed simplex workspace" begin
+    foreach(test_workspace_type, (Float32, Float64, BigFloat, Rational{BigInt}))
+end
+
 @testset "Simplex workspace" begin
     problem = LinearProblem(
         JSimplex.SparseArrays.sparse([1.0 2.0; -1.0 1.0]), [3.0, 1.0];
@@ -27,8 +56,8 @@ end
         JSimplex.FREE_NONBASIC,
     ]
     @test workspace.primal[1:3] == [2.0, 3.0, 0.0]
-    @test workspace.lower[4] == -Inf
-    @test workspace.upper[4] == Inf
+    @test !isfinite(workspace.lower[4])
+    @test !isfinite(workspace.upper[4])
 end
 
 @testset "Simplex workspace recomputation and validation" begin

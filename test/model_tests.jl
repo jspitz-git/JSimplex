@@ -1,3 +1,32 @@
+# Julia 1.13's @inferred erases a type-valued keyword to DataType. Keep T in
+# the helper's positional signature while checking the public keyword path.
+typed_model_override(A, objective, ::Type{T}) where {T} =
+    LinearProblem(A, objective; value_type=T)
+
+@testset "Parametric LinearProblem inference" begin
+    sparse = JSimplex.SparseArrays.sparse
+    @test (@inferred LinearProblem(sparse(Float32[1 2]), Float32[3, 4])) isa LinearProblem{Float32}
+    @test (@inferred LinearProblem(sparse(BigFloat[1 2]), BigFloat[3, 4])) isa LinearProblem{BigFloat}
+    exact = @inferred LinearProblem(sparse(Rational{BigInt}[1 2]), Rational{BigInt}[3, 4];
+        row_lower=Union{Nothing,Rational{BigInt}}[nothing], row_upper=Rational{BigInt}[5])
+    @test exact isa LinearProblem{Rational{BigInt}}
+    @test !isfinite(only(exact.row_lower))
+    @test bound_value(only(exact.row_upper)) == 5
+    @test (@inferred LinearProblem(sparse([1 2]), [3, 4])) isa LinearProblem{Float64}
+    @test (@inferred typed_model_override(sparse([1 2]), [3, 4], Rational{BigInt})) isa LinearProblem{Rational{BigInt}}
+    @test (@inferred LinearProblem(sparse(Float32[1 2]), [3, 4])) isa LinearProblem{Float32}
+    @test_throws ArgumentError LinearProblem(sparse([1;;]), [1]; value_type=Int)
+    @test_throws ArgumentError LinearProblem(sparse([1;;]), [1]; value_type=ComplexF64)
+    @test LinearProblem(sparse(Float32[1;;]), Float32[1]; objective_constant=big"0.1") isa LinearProblem{BigFloat}
+    @test LinearProblem(sparse(Float32[1;;]), Float32[1]; row_upper=[2.0]) isa LinearProblem{Float64}
+    @test LinearProblem(sparse(Float32[1;;]), Float32[1]; row_upper=[Inf]) isa LinearProblem{Float32}
+    @test LinearProblem(sparse(Float32[1;;]), Float32[1]; row_upper=[Bound{BigFloat}(nothing)]) isa LinearProblem{Float32}
+    @test LinearProblem(sparse(Float32[1;;]), Float32[1]; row_upper=[Bound(big"2")]) isa LinearProblem{BigFloat}
+    @test_throws ArgumentError LinearProblem(sparse([1.0e100;;]), [1.0]; value_type=Float32)
+    @test_throws ArgumentError LinearProblem(sparse([1.0;;]), [1.0]; column_upper=[1.0e100], value_type=Float32)
+    @test_throws ArgumentError LinearProblem(sparse([1.0e100;;]), [1.0]; value_type=Rational{Int})
+end
+
 @testset "LinearProblem" begin
     @test_throws ArgumentError LinearProblem(
         JSimplex.SparseArrays.sparse([1.0 2.0]), [1.0],
@@ -35,8 +64,8 @@
         JSimplex.SparseArrays.sparse(reshape([1.0], 1, 1)), [1.0];
         variable_domains=[BINARY],
     )
-    @test binary.column_lower == [0.0]
-    @test binary.column_upper == [1.0]
+    @test bound_value.(binary.column_lower) == [0.0]
+    @test bound_value.(binary.column_upper) == [1.0]
 
     binary_error = try
         LinearProblem(
@@ -106,10 +135,10 @@
     full_column_names[1] = "changed"
     @test full_field.A[1, 1] == 1.0
     @test full_field.objective == [1.0]
-    @test full_field.row_lower == [-Inf]
-    @test full_field.row_upper == [Inf]
-    @test full_field.column_lower == [0.0]
-    @test full_field.column_upper == [1.0]
+    @test map(bound -> isfinite(bound) ? bound_value(bound) : nothing, full_field.row_lower) == [nothing]
+    @test map(bound -> isfinite(bound) ? bound_value(bound) : nothing, full_field.row_upper) == [nothing]
+    @test bound_value.(full_field.column_lower) == [0.0]
+    @test bound_value.(full_field.column_upper) == [1.0]
     @test full_field.variable_domains == [BINARY]
     @test full_field.row_names == ["row"]
     @test full_field.column_names == ["column"]
@@ -133,12 +162,9 @@ end
     end
     for (field, bound) in ((:row_lower, Inf), (:row_upper, -Inf),
                            (:column_lower, Inf), (:column_upper, -Inf))
-        problem = LinearProblem(
-            JSimplex.SparseArrays.spzeros(1, 1), [0.0];
-            column_lower=[-Inf], column_upper=[Inf],
+        @test_throws ArgumentError LinearProblem(
+            JSimplex.SparseArrays.spzeros(1, 1), [0.0]; NamedTuple{(field,)}(([bound],))...,
         )
-        getfield(problem, field)[1] = bound
-        @test !isnothing(JSimplex._validation_error(problem))
     end
     for (lower, upper) in ((-Inf, Inf), (0.0, Inf), (-Inf, 2.0), (1.0, 1.0))
         problem = LinearProblem(

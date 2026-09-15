@@ -48,8 +48,8 @@ function dual_edge_selection(workspace::SimplexWorkspace)::Int
     leaving_row = -1
     best_score = 0.0
     for (row, index) in enumerate(workspace.basis.basic_indices)
-        violation = max(workspace.lower[index] - workspace.primal[index],
-                        workspace.primal[index] - workspace.upper[index])
+        violation = max(_lower_violation(workspace.lower[index], workspace.primal[index]),
+                        _upper_violation(workspace.upper[index], workspace.primal[index]))
         violation > workspace.options.primal_tolerance || continue
         score = violation^2 / workspace.pricing_weights[index]
         if score > best_score
@@ -62,7 +62,7 @@ end
 
 function _dual_pivot_eligible(workspace::SimplexWorkspace, index, coefficient, tolerance)
     state = workspace.basis.states[index]
-    workspace.lower[index] == workspace.upper[index] && return false
+    _is_fixed(workspace.lower[index], workspace.upper[index]) && return false
     return (state == AT_LOWER && coefficient > tolerance) ||
            (state == AT_UPPER && coefficient < -tolerance) ||
            (state == FREE_NONBASIC && abs(coefficient) > tolerance)
@@ -118,7 +118,7 @@ function update_duals!(workspace::SimplexWorkspace, tableau_row, leaving_index,
         state = workspace.basis.states[index]
         (state == BASIC || index == entering_index) && continue
         reduced_cost = workspace.reduced_costs[index] - dual_step * tableau_row[index]
-        if workspace.lower[index] != workspace.upper[index]
+        if !_is_fixed(workspace.lower[index], workspace.upper[index])
             tolerance = workspace.options.dual_tolerance
             violated = ((state == AT_LOWER || state == FREE_NONBASIC) && reduced_cost < -tolerance) ||
                        ((state == AT_UPPER || state == FREE_NONBASIC) && reduced_cost > tolerance)
@@ -177,9 +177,9 @@ function _dual_iteration!(workspace::SimplexWorkspace, stop_requested)
     leaving_row = dual_edge_selection(workspace)
     leaving_row == -1 && return DualTermination(OPTIMAL, "optimal solution found")
     leaving_index = workspace.basis.basic_indices[leaving_row]
-    below = workspace.primal[leaving_index] < workspace.lower[leaving_index]
+    below = _lower_violation(workspace.lower[leaving_index], workspace.primal[leaving_index]) > 0.0
     bound = below ? workspace.lower[leaving_index] : workspace.upper[leaving_index]
-    delta = workspace.primal[leaving_index] - bound
+    delta = workspace.primal[leaving_index] - bound_value(bound)
 
     row_count, column_count = size(workspace.problem.A)
     unit = zeros(Float64, row_count)
@@ -233,7 +233,7 @@ function _dual_iteration!(workspace::SimplexWorkspace, stop_requested)
     workspace.basis.basic_indices[leaving_row] = entering_index
     workspace.basis.states[entering_index] = BASIC
     workspace.basis.states[leaving_index] = below ? AT_LOWER : AT_UPPER
-    workspace.primal[leaving_index] = bound
+    workspace.primal[leaving_index] = bound_value(bound)
     # Count the completed pivot even when its subsequent refactorization times out.
     workspace.iterations += 1
     if length(workspace.factorization.updates) >= workspace.options.refactorization_interval
@@ -247,8 +247,8 @@ end
 function _within_primal_bounds(values, lower, upper, tolerance)
     all(isfinite, values) || return false
     for index in eachindex(values)
-        lower[index] - values[index] > tolerance && return false
-        values[index] - upper[index] > tolerance && return false
+        _lower_violation(lower[index], values[index]) > tolerance && return false
+        _upper_violation(upper[index], values[index]) > tolerance && return false
     end
     return true
 end
@@ -287,7 +287,7 @@ function _flip_bounds!(workspace::SimplexWorkspace)
         state = workspace.basis.states[index]
         state == BASIC && continue
         isfinite(workspace.lower[index]) && isfinite(workspace.upper[index]) || continue
-        workspace.lower[index] == workspace.upper[index] && continue
+        _is_fixed(workspace.lower[index], workspace.upper[index]) && continue
         reduced_cost = workspace.reduced_costs[index]
         if state == AT_LOWER && reduced_cost < -workspace.options.dual_tolerance
             workspace.basis.states[index] = AT_UPPER
@@ -325,13 +325,13 @@ function _auxiliary_workspace(workspace::SimplexWorkspace)
         has_lower = isfinite(workspace.lower[index])
         has_upper = isfinite(workspace.upper[index])
         if has_lower && has_upper
-            lower[index], upper[index] = 0.0, 0.0
+            lower[index], upper[index] = Bound(0.0), Bound(0.0)
         elseif has_lower
-            lower[index], upper[index] = 0.0, 1.0
+            lower[index], upper[index] = Bound(0.0), Bound(1.0)
         elseif has_upper
-            lower[index], upper[index] = -1.0, 0.0
+            lower[index], upper[index] = Bound(-1.0), Bound(0.0)
         else
-            lower[index], upper[index] = -1000.0, 1000.0
+            lower[index], upper[index] = Bound(-1000.0), Bound(1000.0)
         end
         if basis.states[index] != BASIC
             basis.states[index] = workspace.reduced_costs[index] < 0.0 ? AT_UPPER : AT_LOWER
@@ -498,7 +498,7 @@ function _solve_continuous_dual!(workspace::SimplexWorkspace, stop_requested)
             iszero(cost) && continue
             bound = cost > 0.0 ? workspace.lower[index] : workspace.upper[index]
             isfinite(bound) || return _internal_solution(workspace, UNBOUNDED, "unbounded improving direction")
-            workspace.primal[index] = bound
+            workspace.primal[index] = bound_value(bound)
         end
         return _internal_solution(workspace, OPTIMAL, "optimal solution found")
     end

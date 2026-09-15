@@ -10,32 +10,34 @@ using JSimplex.LinearAlgebra
         (1.0, (0.25, 0.75), (0.25, 0.75), 0.25, 0.25),
     )
         problem = LinearProblem(spzeros(0, 1), [cost]; variable_domains=[BINARY])
-        problem.column_lower[1], problem.column_upper[1] = bounds
+        problem.column_lower[1], problem.column_upper[1] = Bound.(bounds)
         before = deepcopy(problem)
         relaxed = JSimplex.relax_integrality(problem)
-        @test relaxed.column_lower == [hull[1]]
-        @test relaxed.column_upper == [hull[2]]
+        @test bound_value.(relaxed.column_lower) == [hull[1]]
+        @test bound_value.(relaxed.column_upper) == [hull[2]]
         result = solve(problem; relax_integrality=true)
         @test result.status == OPTIMAL
         @test result.primal == [expected]
         @test result.objective_value == objective
         @test solve(problem).status == MIP_NOT_SUPPORTED
-        for field in fieldnames(LinearProblem)
+        for field in fieldnames(typeof(problem))
             @test getfield(problem, field) == getfield(before, field)
         end
     end
     for (lower, upper) in ((2.0, 3.0), (-3.0, -2.0)), relax in (false, true)
         problem = LinearProblem(spzeros(0, 1), [-1.0]; variable_domains=[BINARY])
-        problem.column_lower[1] = lower
-        problem.column_upper[1] = upper
+        problem.column_lower[1] = Bound(lower)
+        problem.column_upper[1] = Bound(upper)
         result = solve(problem; relax_integrality=relax)
         @test result.status == INVALID_MODEL
         @test result.message == JSimplex._validation_error(problem)
         @test isnothing(result.primal)
         @test isnothing(result.objective_value)
         @test result.statistics.iterations == 0
-        @test problem.column_lower == [lower]
-        @test problem.column_upper == [upper]
+        @test map(bound -> isfinite(bound) ? bound_value(bound) : nothing, problem.column_lower) ==
+                  map(value -> isfinite(value) ? value : nothing, [lower])
+        @test map(bound -> isfinite(bound) ? bound_value(bound) : nothing, problem.column_upper) ==
+                  map(value -> isfinite(value) ? value : nothing, [upper])
     end
 end
 
@@ -104,7 +106,7 @@ end
     @test !isempty(result.message)
     result.primal[1] = 99.0
     @test solve(problem).primal ≈ [1.0, 0.0]
-    for field in fieldnames(LinearProblem)
+    for field in fieldnames(typeof(problem))
         @test getfield(problem, field) == getfield(before, field)
     end
 
@@ -116,7 +118,7 @@ end
         @test result.status == OPTIMAL
         @test result.primal ≈ [3.0, 0.0]
         @test result.objective_value ≈ 13.0
-        for field in fieldnames(LinearProblem)
+        for field in fieldnames(typeof(problem))
             @test getfield(maximum_problem, field) == getfield(before, field)
         end
     end
@@ -141,7 +143,7 @@ end
     @test relaxed.status == OPTIMAL
     @test relaxed.primal ≈ [1.0, 0.5, 0.5, 0.5]
     @test relaxed.objective_value ≈ 0.5
-    for field in fieldnames(LinearProblem)
+    for field in fieldnames(typeof(problem))
         @test getfield(problem, field) == getfield(before, field)
     end
     @test solve(problem).status == MIP_NOT_SUPPORTED
@@ -149,7 +151,7 @@ end
 
 @testset "Validation and algorithm selection precede numerical work" begin
     valid = LinearProblem(sparse([1.0;;]), [1.0]; row_lower=[1.0])
-    for field in (:objective, :row_lower, :column_upper)
+    for field in (:objective,)
         invalid = deepcopy(valid)
         getfield(invalid, field)[1] = NaN
         result = solve(invalid)
@@ -159,6 +161,10 @@ end
         @test isnothing(result.objective_value)
         @test result.statistics.iterations == 0
         @test result.statistics.refactorizations == 0
+    end
+    for field in (:row_lower, :column_upper)
+        @test_throws ArgumentError LinearProblem(sparse([1.0;;]), [1.0];
+            NamedTuple{(field,)}(([NaN],))...)
     end
     invalid_dimensions = deepcopy(valid)
     empty!(invalid_dimensions.objective)

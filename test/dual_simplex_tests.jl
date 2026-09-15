@@ -236,8 +236,8 @@ end
         @test workspace.iterations == 1
         @test workspace.refactorizations == 0
         @test workspace.basis.basic_indices == [2]
-        @test workspace.lower == [0.0, -Inf]
-        @test workspace.upper == [Inf, 3.0]
+        @test map(bound -> isfinite(bound) ? bound_value(bound) : nothing, workspace.lower) == [0.0, nothing]
+        @test map(bound -> isfinite(bound) ? bound_value(bound) : nothing, workspace.upper) == [nothing, 3.0]
     end
     run = JSimplex._solve_continuous_dual(problem, SolverOptions(zero_tolerance=2.0))
     @test run.status == NUMERICAL_ERROR
@@ -445,7 +445,7 @@ end
         @test run.status == OPTIMAL
         @test run.primal ≈ expected_primal
         @test run.objective_value ≈ expected_objective
-        for field in fieldnames(LinearProblem)
+        for field in fieldnames(typeof(problem))
             @test getfield(problem, field) == getfield(before, field)
         end
     end

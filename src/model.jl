@@ -31,105 +31,177 @@ end
 @doc "A variable equal to zero or an integer in its active interval." SEMI_INTEGER
 
 """
-    LinearProblem(A::SparseMatrixCSC, objective; objective_constant=0.0,
-                  objective_sense=MIN_SENSE, row_lower=fill(-Inf, size(A, 1)),
-                  row_upper=fill(Inf, size(A, 1)), column_lower=zeros(size(A, 2)),
-                  column_upper=fill(Inf, size(A, 2)),
+    LinearProblem(A::SparseMatrixCSC, objective; objective_constant=nothing,
+                  value_type=nothing, objective_sense=MIN_SENSE,
+                  row_lower=nothing, row_upper=nothing,
+                  column_lower=nothing, column_upper=nothing,
                   variable_domains=fill(CONTINUOUS, size(A, 2)), name="",
                   row_names=String[], column_names=String[])
 
 Represent a linear objective `dot(objective, x) + objective_constant` with
-`row_lower <= A*x <= row_upper` and variable bounds. Data is copied and
-converted to sparse `Float64` coefficients and `Float64` vectors. Construction
-validates dimensions, finite coefficients, bounds, and domains, throwing
+`row_lower <= A*x <= row_upper` and variable bounds. Data is copied into a common
+floating or rational scalar type, inferred from
+explicit finite input or selected with `value_type=T`. Integer-only input uses
+`Float64`. Bounds are stored as `Bound{T}`; `nothing` denotes an unbounded side.
+Omitted row bounds and column upper bounds are unbounded; omitted column lower
+bounds are zero. Construction validates dimensions, finite coefficients, bounds, and domains, throwing
 `ArgumentError` on invalid input. Binary bounds are intersected with `[0, 1]`.
 Names may be omitted; supplied row/column names must match their dimensions.
 
 The struct is immutable, but its arrays remain mutable; treat them as read-only.
 [`solve`](@ref) copies working data and leaves the input model unchanged.
 """
-struct LinearProblem
-    A::SparseMatrixCSC{Float64,Int}
-    objective::Vector{Float64}
-    objective_constant::Float64
+struct LinearProblem{T<:Real}
+    A::SparseMatrixCSC{T,Int}
+    objective::Vector{T}
+    objective_constant::T
     objective_sense::ObjectiveSense
-    row_lower::Vector{Float64}
-    row_upper::Vector{Float64}
-    column_lower::Vector{Float64}
-    column_upper::Vector{Float64}
+    row_lower::Vector{Bound{T}}
+    row_upper::Vector{Bound{T}}
+    column_lower::Vector{Bound{T}}
+    column_upper::Vector{Bound{T}}
     variable_domains::Vector{VariableDomain}
     name::String
     row_names::Vector{String}
     column_names::Vector{String}
 
-    function LinearProblem(
-        A::SparseMatrixCSC{Float64,Int},
-        objective::Vector{Float64},
-        objective_constant::Float64,
-        objective_sense::ObjectiveSense,
-        row_lower::Vector{Float64},
-        row_upper::Vector{Float64},
-        column_lower::Vector{Float64},
-        column_upper::Vector{Float64},
-        variable_domains::Vector{VariableDomain},
-        name::String,
-        row_names::Vector{String},
-        column_names::Vector{String},
-    )
-        copied_column_lower = copy(column_lower)
-        copied_column_upper = copy(column_upper)
-        copied_domains = copy(variable_domains)
-
-        if length(copied_domains) == length(copied_column_lower) ==
-           length(copied_column_upper)
-            for index in eachindex(copied_domains)
-                if copied_domains[index] == BINARY
-                    lower = copied_column_lower[index]
-                    upper = copied_column_upper[index]
-                    if lower <= upper && lower <= 1.0 && upper >= 0.0
-                        copied_column_lower[index] = max(lower, 0.0)
-                        copied_column_upper[index] = min(upper, 1.0)
-                    end
-                end
-            end
-        end
-
-        problem = new(
-            copy(A), copy(objective), objective_constant, objective_sense,
-            copy(row_lower), copy(row_upper), copied_column_lower,
-            copied_column_upper, copied_domains, name, copy(row_names),
-            copy(column_names),
-        )
+    function LinearProblem{T}(
+        A::SparseMatrixCSC{T,Int}, objective::Vector{T},
+        objective_constant::T, objective_sense::ObjectiveSense,
+        row_lower::Vector{Bound{T}}, row_upper::Vector{Bound{T}},
+        column_lower::Vector{Bound{T}}, column_upper::Vector{Bound{T}},
+        variable_domains::Vector{VariableDomain}, name::String,
+        row_names::Vector{String}, column_names::Vector{String},
+    ) where {T<:Real}
+        _supported_value_type(T) || throw(ArgumentError("unsupported model value type $T"))
+        problem = new{T}(copy(A), copy(objective), objective_constant, objective_sense,
+            copy(row_lower), copy(row_upper), copy(column_lower), copy(column_upper),
+            copy(variable_domains), name, copy(row_names), copy(column_names))
         error = _validation_error(problem)
         isnothing(error) || throw(ArgumentError(error))
+        for index in eachindex(problem.variable_domains)
+            if problem.variable_domains[index] == BINARY
+                lower, upper = problem.column_lower[index], problem.column_upper[index]
+                problem.column_lower[index] = Bound(
+                    isfinite(lower) ? max(bound_value(lower), zero(T)) : zero(T))
+                problem.column_upper[index] = Bound(
+                    isfinite(upper) ? min(bound_value(upper), one(T)) : one(T))
+            end
+        end
         return problem
     end
 end
 
-function LinearProblem(
+_promote_input_type(::Type{T}, ::Nothing) where {T} = T
+_promote_input_type(::Type{T}, value::Real) where {T} = promote_type(T, typeof(value))
+
+_bound_input_type(::Type{T}, ::Nothing) where {T} = T
+_bound_input_type(::Type{T}, bound::Bound) where {T} =
+    isfinite(bound) ? promote_type(T, typeof(bound_value(bound))) : T
+_bound_input_type(::Type{T}, bound::Real) where {T} =
+    isfinite(bound) ? promote_type(T, typeof(bound)) : T
+_bound_input_type(::Type, bound) =
+    throw(ArgumentError("bounds must contain real values, Bound values, or nothing"))
+
+_bound_vector_type(::Type{T}, ::Nothing) where {T} = T
+function _bound_vector_type(::Type{T}, bounds::AbstractVector) where {T}
+    result = T
+    for bound in bounds
+        result = _bound_input_type(result, bound)
+    end
+    return result
+end
+
+function _working_value_type(A, objective, objective_constant, bounds...)
+    initial = _promote_input_type(promote_type(eltype(A), eltype(objective)), objective_constant)
+    inferred = _working_bounds_type(initial, bounds)
+    working = inferred <: Integer ? Float64 : inferred
+    _supported_value_type(working) || throw(ArgumentError("unsupported model value type $working"))
+    return working
+end
+
+_working_bounds_type(::Type{T}, ::Tuple{}) where {T} = T
+_working_bounds_type(::Type{T}, bounds::Tuple) where {T} =
+    _working_bounds_type(_bound_vector_type(T, first(bounds)), Base.tail(bounds))
+
+function _model_convert(::Type{T}, value, label) where {T}
+    converted = try
+        T(value)
+    catch exception
+        exception isa InexactError || exception isa OverflowError || exception isa DomainError || rethrow()
+        throw(ArgumentError("$label cannot be converted to $T"))
+    end
+    isfinite(converted) || throw(ArgumentError("$label must be finite"))
+    return converted
+end
+
+function _model_bound(::Type{T}, value, side, label) where {T}
+    try
+        return _normalize_bound(T, value, side, label)
+    catch exception
+        exception isa InexactError || exception isa OverflowError || exception isa DomainError || rethrow()
+        throw(ArgumentError("$label cannot be converted to $T"))
+    end
+end
+
+# Preserve a caller's constant scalar type across the keyword wrapper.
+Base.@constprop :aggressive function LinearProblem(
     A::SparseMatrixCSC,
     objective::AbstractVector{<:Real};
-    objective_constant::Real=0.0,
+    objective_constant=nothing, value_type::Union{Nothing,Type{V}}=nothing,
     objective_sense::ObjectiveSense=MIN_SENSE,
-    row_lower::AbstractVector{<:Real}=fill(-Inf, size(A, 1)),
-    row_upper::AbstractVector{<:Real}=fill(Inf, size(A, 1)),
-    column_lower::AbstractVector{<:Real}=zeros(size(A, 2)),
-    column_upper::AbstractVector{<:Real}=fill(Inf, size(A, 2)),
+    row_lower=nothing, row_upper=nothing,
+    column_lower=nothing, column_upper=nothing,
     variable_domains::AbstractVector{VariableDomain}=fill(CONTINUOUS, size(A, 2)),
     name::AbstractString="",
     row_names::AbstractVector{<:AbstractString}=String[],
     column_names::AbstractVector{<:AbstractString}=String[],
-)
-    return LinearProblem(
-        SparseMatrixCSC{Float64,Int}(A), Float64.(objective),
-        Float64(objective_constant), objective_sense, Float64.(row_lower),
-        Float64.(row_upper), Float64.(column_lower), Float64.(column_upper),
-        collect(variable_domains), String(name), String.(row_names),
-        String.(column_names),
+) where {V}
+    T = value_type === nothing ?
+        _working_value_type(A, objective, objective_constant,
+                            row_lower, row_upper, column_lower, column_upper) : value_type
+    T isa Type && _supported_value_type(T) ||
+        throw(ArgumentError("unsupported model value type $T"))
+    return _typed_problem(T, A, objective, objective_constant, objective_sense,
+        row_lower, row_upper, column_lower, column_upper,
+        variable_domains, name, row_names, column_names)
+end
+
+function _typed_problem(::Type{T}, A, objective, objective_constant, objective_sense,
+                        row_lower, row_upper, column_lower, column_upper,
+                        variable_domains, name, row_names, column_names) where {T}
+    row_count, column_count = size(A)
+    matrix = SparseMatrixCSC(row_count, column_count, Int.(A.colptr), Int.(A.rowval),
+        [_model_convert(T, value, "constraint matrix coefficient") for value in A.nzval])
+    return LinearProblem{T}(
+        matrix, [_model_convert(T, value, "objective coefficient") for value in objective],
+        objective_constant === nothing ? zero(T) : _model_convert(T, objective_constant, "objective constant"),
+        objective_sense,
+        row_lower === nothing ? fill(_unbounded_bound(T), row_count) :
+            [_model_bound(T, value, :lower, "row lower bound") for value in row_lower],
+        row_upper === nothing ? fill(_unbounded_bound(T), row_count) :
+            [_model_bound(T, value, :upper, "row upper bound") for value in row_upper],
+        column_lower === nothing ? fill(Bound(zero(T)), column_count) :
+            [_model_bound(T, value, :lower, "column lower bound") for value in column_lower],
+        column_upper === nothing ? fill(_unbounded_bound(T), column_count) :
+            [_model_bound(T, value, :upper, "column upper bound") for value in column_upper],
+        collect(variable_domains), String(name), String.(row_names), String.(column_names),
     )
 end
 
-function _validation_error(problem::LinearProblem)::Union{Nothing,String}
+function LinearProblem(A::SparseMatrixCSC, objective::AbstractVector{<:Real},
+                       objective_constant::Real, objective_sense::ObjectiveSense,
+                       row_lower::AbstractVector, row_upper::AbstractVector,
+                       column_lower::AbstractVector, column_upper::AbstractVector,
+                       variable_domains::AbstractVector{VariableDomain}, name::AbstractString,
+                       row_names::AbstractVector{<:AbstractString},
+                       column_names::AbstractVector{<:AbstractString})
+    return LinearProblem(A, objective; objective_constant, objective_sense,
+        row_lower, row_upper, column_lower, column_upper,
+        variable_domains, name, row_names, column_names)
+end
+
+function _validation_error(problem::LinearProblem{T})::Union{Nothing,String} where {T}
     row_count, column_count = size(problem.A)
 
     length(problem.objective) == column_count ||
@@ -157,31 +229,28 @@ function _validation_error(problem::LinearProblem)::Union{Nothing,String}
     for index in eachindex(problem.row_lower)
         lower = problem.row_lower[index]
         upper = problem.row_upper[index]
-        isnan(lower) && return "row lower bounds must not be NaN"
-        isnan(upper) && return "row upper bounds must not be NaN"
-        lower == Inf && return "row lower bounds must not be +Inf"
-        upper == -Inf && return "row upper bounds must not be -Inf"
-        lower <= upper || return "row lower bounds must not exceed upper bounds"
+        if isfinite(lower) && isfinite(upper) && bound_value(lower) > bound_value(upper)
+            return "row lower bounds must not exceed upper bounds"
+        end
     end
     for index in eachindex(problem.column_lower)
         lower = problem.column_lower[index]
         upper = problem.column_upper[index]
-        isnan(lower) && return "column lower bounds must not be NaN"
-        isnan(upper) && return "column upper bounds must not be NaN"
-        lower == Inf && return "column lower bounds must not be +Inf"
-        upper == -Inf && return "column upper bounds must not be -Inf"
-        lower <= upper || return "column lower bounds must not exceed upper bounds"
+        if isfinite(lower) && isfinite(upper) && bound_value(lower) > bound_value(upper)
+            return "column lower bounds must not exceed upper bounds"
+        end
     end
 
     for index in eachindex(problem.variable_domains)
         if problem.variable_domains[index] == BINARY
-            problem.column_lower[index] <= 1.0 && problem.column_upper[index] >= 0.0 ||
+            (!isfinite(problem.column_lower[index]) || bound_value(problem.column_lower[index]) <= one(T)) &&
+            (!isfinite(problem.column_upper[index]) || bound_value(problem.column_upper[index]) >= zero(T)) ||
                 return "binary variable bounds must intersect [0, 1]"
         end
     end
     for index in eachindex(problem.variable_domains)
         if problem.variable_domains[index] in (SEMI_CONTINUOUS, SEMI_INTEGER) &&
-           problem.column_upper[index] != Inf && !(problem.column_upper[index] > 0.0)
+           isfinite(problem.column_upper[index]) && !(bound_value(problem.column_upper[index]) > zero(T))
             return "semi-domain active upper bounds must be positive"
         end
     end
