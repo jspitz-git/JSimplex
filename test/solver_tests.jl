@@ -120,7 +120,9 @@ Logging.min_enabled_level(::ThrowingSolverLogger) = Logging.Debug
 Logging.shouldlog(::ThrowingSolverLogger, args...) = true
 Logging.catch_exceptions(::ThrowingSolverLogger) = false
 function Logging.handle_message(logger::ThrowingSolverLogger, level, message, args...; kwargs...)
-    message == logger.message && throw(logger.exception)
+    is_progress = logger.message == "Simplex progress" &&
+                  message isa AbstractString && startswith(message, "iter=")
+    (message == logger.message || is_progress) && throw(logger.exception)
     return nothing
 end
 
@@ -310,7 +312,7 @@ end
     problem = LinearProblem(sparse([1.0 0.0; -1.0 1.0]), [1.0, 1.0];
         row_lower=[1.0, 1.0])
     @test_logs min_level=Logging.Info solve(problem)
-    @test_logs (:info, "Starting solve") (:info, "Refactorizing basis") (:info, "Simplex progress") (:info, "Refactorizing basis") (:info, "Simplex progress") (:info, "Solve terminated") begin
+    @test_logs (:info, "Starting solve") (:info, "Refactorizing basis") (:info, r"^iter=") (:info, "Refactorizing basis") (:info, r"^iter=") (:info, "Solve terminated") begin
         solve(problem; options=SolverOptions(log_level=Logging.Info, refactorization_interval=1))
     end
     @test_logs (:debug, "Starting solve") (:debug, "Solve terminated") min_level=Logging.Debug solve(problem)
@@ -329,12 +331,19 @@ end
     result = JSimplex.Logging.with_logger(RecordingSimplexLogger(records)) do
         solve(problem; options=SolverOptions(refactorization_interval=1))
     end
-    progress = filter(record -> record.message == "Simplex progress", records)
+    progress = filter(
+        record -> record.message isa AbstractString && startswith(record.message, "iter="),
+        records,
+    )
+    objectives = map(progress) do record
+        matched = match(r" obj=([^ ]+) ", record.message)
+        parse(Float64, only(something(matched).captures))
+    end
 
     @test result.status == OPTIMAL
     @test !isempty(progress)
-    @test all(record -> record.objective_value >= 4.0, progress)
-    @test any(record -> record.objective_value == 7.0, progress)
+    @test all(>=(4.0), objectives)
+    @test 7.0 in objectives
 end
 
 @testset "Parametric public solve" begin

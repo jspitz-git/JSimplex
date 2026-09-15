@@ -147,22 +147,42 @@ end
         JSimplex.recompute!(workspace; refactorize=true)
     end
 
-    progress = only(filter(record -> record.message == "Simplex progress", records))
-    @test progress.level == JSimplex.Logging.Info
-    @test progress.iterations == 12
-    @test progress.objective_value == 4.5
-    @test progress.primal_infeasibility == 0.5
-    @test progress.primal_infeasibility_count == 1
-    @test progress.dual_infeasibility == 2.5
-    @test progress.dual_infeasibility_count == 1
-    @test progress.elapsed_seconds >= 0.0
+    progress_records = filter(
+        record -> record.message isa AbstractString && startswith(record.message, "iter="),
+        records,
+    )
+    @test length(progress_records) == 1
+    if length(progress_records) == 1
+        progress = only(progress_records)
+        @test progress.level == JSimplex.Logging.Info
+        @test keys(progress) == (:level, :message)
+        matched = match(
+            r"^iter=12 obj=4\.5 pinf=0\.5 \(1\) dinf=2\.5 \(1\) time=([0-9.e+-]+)s$",
+            progress.message,
+        )
+        @test !isnothing(matched)
+        @test parse(Float64, only(something(matched).captures)) >= 0.0
+    end
+
+    output = IOBuffer()
+    JSimplex.Logging.with_logger(
+        JSimplex.Logging.ConsoleLogger(output, JSimplex.Logging.Info),
+    ) do
+        JSimplex.recompute!(workspace; refactorize=true)
+    end
+    rendered = String(take!(output))
+    @test count(==('\n'), rendered) == 1
+    @test occursin("iter=12 obj=4.5 pinf=0.5 (1) dinf=2.5 (1) time=", rendered)
 
     empty!(records)
     quiet = JSimplex.initialize_workspace(problem, SolverOptions(verbose=false))
     JSimplex.Logging.with_logger(RecordingSimplexLogger(records)) do
         JSimplex.recompute!(quiet; refactorize=true)
     end
-    @test all(record -> record.message != "Simplex progress", records)
+    @test all(
+        record -> !(record.message isa AbstractString) || !startswith(record.message, "iter="),
+        records,
+    )
 end
 
 @testset "Progress objective preserves stored BigFloat cancellation" begin
@@ -188,6 +208,12 @@ end
         end
     end
 
-    progress = only(filter(record -> record.message == "Simplex progress", records))
-    @test progress.objective_value == 1
+    progress_records = filter(
+        record -> record.message isa AbstractString && startswith(record.message, "iter="),
+        records,
+    )
+    @test length(progress_records) == 1
+    if length(progress_records) == 1
+        @test occursin(" obj=1.0 ", only(progress_records).message)
+    end
 end

@@ -277,17 +277,15 @@ function _report_simplex_progress(workspace::SimplexWorkspace, caller_guard)
     primal_sum, primal_count = primal_infeasibility_summary(workspace)
     dual_sum, dual_count = dual_infeasibility_summary(workspace)
     elapsed = (time_ns() - context.start_ns) / 1.0e9
+    message = string(
+        "iter=", workspace.iterations,
+        " obj=", objective_value,
+        " pinf=", primal_sum, " (", primal_count, ")",
+        " dinf=", dual_sum, " (", dual_count, ")",
+        " time=", elapsed, "s",
+    )
     try
-        @info(
-            "Simplex progress",
-            iterations=workspace.iterations,
-            objective_value=objective_value,
-            primal_infeasibility=primal_sum,
-            primal_infeasibility_count=primal_count,
-            dual_infeasibility=dual_sum,
-            dual_infeasibility_count=dual_count,
-            elapsed_seconds=elapsed,
-        )
+        @info message
     catch exception
         isnothing(caller_guard) || (caller_guard.exception = exception)
         rethrow()

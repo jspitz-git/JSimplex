@@ -290,12 +290,13 @@ validation. Algorithms such as `:primal` and `:auto` return
 `ALGORITHM_NOT_SUPPORTED`.
 
 With `verbose=true`, each completed basis refactorization emits a
-`"Simplex progress"` record through Julia's logging system. It reports completed
-iterations, the original MIN/MAX objective including its constant, primal and
-dual infeasibility sums and counts, and elapsed seconds. Phase I reports the
-original model objective rather than its auxiliary objective. Set `verbose=false`
-to suppress these records. In the MOI/JuMP adapter, `Silent=true` also suppresses
-them without changing the stored raw `"verbose"` attribute.
+single-line record through Julia's logging system, for example
+`iter=12 obj=4.5 pinf=0.5 (1) dinf=2.5 (1) time=0.123456s`. The parenthesized
+values are the respective infeasibility counts. Phase I reports the original
+MIN/MAX objective including its constant rather than its auxiliary objective.
+Set `verbose=false` to suppress these records. In the MOI/JuMP adapter,
+`Silent=true` also suppresses them without changing the stored raw `"verbose"`
+attribute.
 
 Every termination path for `LinearProblem{T}` returns `Solution{T}` with
 `objective_value::Union{Nothing,T}` and `primal::Union{Nothing,Vector{T}}`.
