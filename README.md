@@ -10,9 +10,11 @@ The numerical core includes a two-pass Harris ratio test, dual steepest-edge
 pricing, cost shifting, LU factorization, and product-form basis updates.
 Model arithmetic supports floating-point and rational scalar types, including
 `Float32`, `Float64`, `BigFloat`, and exact `Rational{BigInt}`.
-Runtime dependencies are Julia standard libraries only: `LinearAlgebra`,
-`SparseArrays`, and `Logging`. JET, GLPK, and BenchmarkTools belong to the optional
-development environment.
+The production package depends on Julia standard libraries and
+`MathOptInterface` (MOI). JuMP is a user-selected integration dependency: install
+it in the environment where you want the JuMP interface, rather than expecting it
+to be installed as a dependency of JSimplex. JET, GLPK, and BenchmarkTools belong
+to the optional development environment.
 
 ## Installation and quick start
 
@@ -59,6 +61,84 @@ else
 end
 @show solution.statistics.iterations solution.statistics.elapsed_seconds
 ```
+
+## Solve a JuMP model
+
+JuMP is a user-selected integration dependency and is not installed as a
+dependency of JSimplex. In an environment that contains both packages, use the
+public, non-exported `JSimplex.Optimizer` constructor. JuMP exposes its MOI
+module as `MOI` after `using JuMP`:
+
+```julia
+using JSimplex
+using JuMP
+
+model = Model(JSimplex.Optimizer)
+set_silent(model)
+@variable(model, x >= 0)
+@variable(model, y >= 0)
+@constraint(model, x + y >= 1)
+@objective(model, Min, x + 2y)
+optimize!(model)
+
+@assert termination_status(model) == MOI.OPTIMAL
+@assert objective_value(model) ≈ 1.0
+```
+
+The default optimizer uses `Float64`. Choose a supported coefficient type by
+passing a typed constructor to JuMP or MOI:
+
+```julia
+JSimplex.Optimizer()
+JSimplex.Optimizer{Float32}()
+JSimplex.Optimizer{BigFloat}()
+JSimplex.Optimizer{Rational{BigInt}}()
+```
+
+For `Optimizer{T}`, the supported constraint function--set pairs are:
+
+| Function | Set |
+| --- | --- |
+| `MOI.VariableIndex` | `MOI.GreaterThan{T}` |
+| `MOI.VariableIndex` | `MOI.LessThan{T}` |
+| `MOI.VariableIndex` | `MOI.EqualTo{T}` |
+| `MOI.VariableIndex` | `MOI.Interval{T}` |
+| `MOI.VariableIndex` | `MOI.Integer` |
+| `MOI.VariableIndex` | `MOI.ZeroOne` |
+| `MOI.ScalarAffineFunction{T}` | `MOI.GreaterThan{T}` |
+| `MOI.ScalarAffineFunction{T}` | `MOI.LessThan{T}` |
+| `MOI.ScalarAffineFunction{T}` | `MOI.EqualTo{T}` |
+| `MOI.ScalarAffineFunction{T}` | `MOI.Interval{T}` |
+
+Supported objectives are a `MOI.VariableIndex` or a
+`MOI.ScalarAffineFunction{T}` (and feasibility sense). Quadratic, nonlinear,
+conic, SOS, indicator, complementarity, and semi-domain constraints are not
+supported by this adapter.
+
+### JuMP optimizer attributes and LP relaxation
+
+Use the standard JuMP attributes `set_silent(model)` (MOI `Silent`) and
+`set_time_limit_sec(model, seconds)` (MOI `TimeLimitSec`) for logging and a
+wall-clock limit. The stable JSimplex raw optimizer attribute names are
+`relax_integrality`, `iteration_limit`, `primal_tolerance`, `dual_tolerance`,
+`zero_tolerance`, `refactorization_interval`, and `algorithm`. The only current
+algorithm value is `:dual`.
+
+```julia
+set_optimizer_attribute(model, "relax_integrality", true)
+set_optimizer_attribute(model, "iteration_limit", 50_000)
+set_time_limit_sec(model, 60.0)
+```
+
+JSimplex has no MIP algorithm. Integer and binary models therefore return an
+unsupported-MIP status unless `relax_integrality` is `true`; with that setting,
+their bounds and domains are retained and the LP relaxation is solved.
+
+The adapter is one-shot rather than natively incremental. You can edit a JuMP
+model and call `optimize!` again: JuMP's MOI cache supplies the current model,
+which JSimplex translates into a fresh `LinearProblem` for the next solve.
+This adapter does not provide dual results (including a dual objective), warm
+starts, or native incremental optimizer modification methods.
 
 `LinearProblem(A, objective; ...)` accepts a sparse matrix and copies its input
 data into a `LinearProblem{T}`. Rows mean `row_lower <= A*x <= row_upper`; columns
@@ -382,10 +462,11 @@ checksum mismatches produce actionable errors.
 ## Limitations and extension points
 
 Only dual simplex is implemented. Presolve and scaling currently apply identity
-transformations. There is no primal simplex, effective presolve, non-identity
-scaling, public warm-start API, MOI/JuMP adapter, branch-and-bound, or support
-for quadratic, SOS, or indicator models. Difficult or ill-conditioned models
-may terminate with `NUMERICAL_ERROR` or a resource limit.
+transformations. A basic one-shot MOI/JuMP adapter is available, but there is no
+primal simplex, effective presolve, non-identity scaling, public warm-start API,
+native incremental optimizer modification, MIP algorithm, or support for
+quadratic, SOS, or indicator models. Difficult or ill-conditioned models may
+terminate with `NUMERICAL_ERROR` or a resource limit.
 
 Floating results require conclusive numerical certificates. Even a simple LP
 with equality constraints or cancellation can return `NUMERICAL_ERROR` when
@@ -394,16 +475,21 @@ That status does not classify the LP as infeasible, unbounded, or optimal.
 Use `Rational{BigInt}` with its default zero tolerances for exact arithmetic
 on small models; construct or read the model in that type to retain exact input.
 
+In particular, a narrow class of Float64 models with an ambiguous recession
+certificate can return `MOI.NUMERICAL_ERROR` through the MOI adapter. Exact
+rational arithmetic can certify the corresponding unbounded model. This is a
+conservative limitation for ambiguous Float64 recession cases, not a claim that
+all unbounded Float64 models are unclassified.
+
 The internal pipeline separates model validation, presolve, scaling, simplex
 workspaces, basis factorization, and restoration of the original primal solution.
 These boundaries are intended for future primal simplex, reversible presolve,
-scaling, and alternative factorization/update strategies. Future MOI/JuMP
-adapters can build `LinearProblem` objects, and a future MIP layer can repeatedly
-solve LPs with modified bounds. These internal structures are not exported public
-APIs. The supported interface is the exported model/options/result types, enums,
-`Bound`, `bound_value`, `isfinite(::Bound)`, `is_continuous`, `read_mps`, and
-`solve`; use Julia help (for example `?solve`)
-for their docstrings.
+scaling, and alternative factorization/update strategies. A future MIP layer can
+repeatedly solve LPs with modified bounds. These internal structures are not
+exported public APIs. The supported interface is the exported model/options/result
+types, enums, `Bound`, `bound_value`, `isfinite(::Bound)`, `is_continuous`,
+`read_mps`, and `solve`; use Julia help (for example `?solve`) for their
+docstrings.
 
 ## License
 
