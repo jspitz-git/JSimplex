@@ -39,6 +39,7 @@ import MathOptInterface as MOI
         MOI.ObjectiveFunction{MOI.ScalarAffineFunction{Float64}}(),
     )
     @test MOI.supports(optimizer, MOI.ObjectiveFunction{MOI.VariableIndex}())
+    @test MOI.supports(optimizer, MOI.ObjectiveSense())
     @test !MOI.supports_constraint(
         optimizer,
         MOI.ScalarQuadraticFunction{Float64},

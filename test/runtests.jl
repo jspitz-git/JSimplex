@@ -18,4 +18,5 @@ using Test
     include("moi/optimizer_tests.jl")
     include("moi/translation_tests.jl")
     include("moi/result_tests.jl")
+    include("moi/conformance_tests.jl")
 end

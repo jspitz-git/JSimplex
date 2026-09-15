@@ -209,6 +209,41 @@ function _moi_row_model()
     return source
 end
 
+function _moi_unbounded_recession_model(::Type{T}) where {T}
+    source = MOI.Utilities.Model{T}()
+    x, y = MOI.add_variables(source, 2)
+    row = MOI.ScalarAffineFunction(
+        [MOI.ScalarAffineTerm(T(-1), x), MOI.ScalarAffineTerm(T(2), y)],
+        zero(T),
+    )
+    MOI.add_constraint(source, row, MOI.LessThan(zero(T)))
+    MOI.add_constraint(source, x, MOI.GreaterThan(zero(T)))
+    MOI.add_constraint(source, y, MOI.GreaterThan(zero(T)))
+    objective = MOI.ScalarAffineFunction(
+        [MOI.ScalarAffineTerm(T(-1), x), MOI.ScalarAffineTerm(T(-1), y)],
+        zero(T),
+    )
+    MOI.set(source, MOI.ObjectiveSense(), MOI.MIN_SENSE)
+    MOI.set(source, MOI.ObjectiveFunction{typeof(objective)}(), objective)
+    return source
+end
+
+@testset "MOI recession status follows numeric certification" begin
+    inexact = JSimplex.Optimizer{Float64}()
+    MOI.optimize!(inexact, _moi_unbounded_recession_model(Float64))
+    @test MOI.get(inexact, MOI.TerminationStatus()) == MOI.NUMERICAL_ERROR
+    @test MOI.get(inexact, MOI.RawStatusString()) ==
+          "auxiliary direction has uncertain feasibility or objective improvement"
+    @test MOI.get(inexact, MOI.ResultCount()) == 0
+    @test MOI.get(inexact, MOI.PrimalStatus()) == MOI.NO_SOLUTION
+
+    exact = JSimplex.Optimizer{Rational{BigInt}}()
+    MOI.optimize!(exact, _moi_unbounded_recession_model(Rational{BigInt}))
+    @test MOI.get(exact, MOI.TerminationStatus()) == MOI.DUAL_INFEASIBLE
+    @test MOI.get(exact, MOI.ResultCount()) == 0
+    @test MOI.get(exact, MOI.PrimalStatus()) == MOI.NO_SOLUTION
+end
+
 @testset "MOI statuses and unavailable results" begin
     untouched = JSimplex.Optimizer()
     @test MOI.get(untouched, MOI.TerminationStatus()) == MOI.OPTIMIZE_NOT_CALLED

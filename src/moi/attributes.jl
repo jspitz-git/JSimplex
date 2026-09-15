@@ -58,6 +58,7 @@ MOI.get(::Optimizer, ::MOI.SolverName) = "JSimplex"
 MOI.get(::Optimizer, ::MOI.SolverVersion) = string(pkgversion(JSimplex))
 MOI.supports(::Optimizer, ::MOI.Silent) = true
 MOI.supports(::Optimizer, ::MOI.TimeLimitSec) = true
+MOI.supports(::Optimizer, ::MOI.ObjectiveSense) = true
 
 function MOI.set(optimizer::Optimizer, ::MOI.Silent, value::Bool)
     optimizer.silent = value
