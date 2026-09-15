@@ -28,11 +28,26 @@ function _minimization_problem(problem::LinearProblem{T}) where {T}
 end
 
 """
-    solve(problem::LinearProblem; relax_integrality=false, options=nothing)
+    solve(problem::LinearProblem{T}; relax_integrality=false, options=nothing)::Solution{T}
 
 Solve an LP using dual simplex. Discrete domains require explicit LP relaxation;
 the input model remains unchanged. Only optimal results contain a primal vector
 and objective value, expressed in the original structural variables and sense.
+Every status returns `Solution{T}`, with objective data in `Union{Nothing,T}`
+and primal data in `Union{Nothing,Vector{T}}`.
+
+Omitted options create `SolverOptions(T)`; explicit options are converted and
+validated through `SolverOptions(T, options)`, preserving supplied tolerance
+values. Rational defaults, Harris pivot cutoffs, and recession-ray roundoff
+allowances are exactly zero. Explicit nonzero rational tolerances are allowed;
+passing `SolverOptions()` therefore differs from omitting options on an exact LP.
+
+Float64 bases use sparse UMFPACK; other supported scalar types use generic dense LU
+from `LinearAlgebra`. Dense BigFloat and rational solves are intended for small
+models. Use `Rational{BigInt}` for arbitrary-size exact arithmetic; fixed-width
+rationals retain Julia's ordinary overflow behavior, and those exceptions
+propagate. For `BigFloat`, place both model construction and solve inside the
+desired `setprecision` context.
 
 Without relaxation, any non-continuous domain returns `MIP_NOT_SUPPORTED`.
 With relaxation, integer/binary domains retain their bounds and semi domains
@@ -43,6 +58,19 @@ is supported. Inspect `solution.status`, `solution.message`, and
 
 The monotonic time limit starts at entry; an expired deadline takes precedence
 over algorithm selection and validation. Iteration limits count completed pivots.
+Time limits and elapsed seconds remain `Float64`; counters remain `Int`.
+Deadline checks do not interrupt an in-progress numerical operation.
+
+```julia
+using JSimplex, SparseArrays
+setprecision(BigFloat, 256) do
+    problem = LinearProblem(sparse(BigFloat[1 1]), BigFloat[1, 2];
+                            row_lower=BigFloat[1])
+    result = solve(problem)
+    @assert result.status == OPTIMAL
+    @assert result.primal isa Vector{BigFloat}
+end
+```
 """
 function solve(problem::LinearProblem{T}; relax_integrality::Bool=false,
                options=nothing)::Solution{T} where {T<:Real}

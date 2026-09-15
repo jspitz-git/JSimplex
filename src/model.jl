@@ -39,14 +39,40 @@ end
                   row_names=String[], column_names=String[])
 
 Represent a linear objective `dot(objective, x) + objective_constant` with
-`row_lower <= A*x <= row_upper` and variable bounds. Data is copied into a common
-floating or rational scalar type, inferred from
-explicit finite input or selected with `value_type=T`. Integer-only input uses
-`Float64`. Bounds are stored as `Bound{T}`; `nothing` denotes an unbounded side.
+`row_lower <= A*x <= row_upper` and variable bounds. Data is copied into a
+`LinearProblem{T}` with `A::SparseMatrixCSC{T,Int}`, `objective::Vector{T}`, and
+`objective_constant::T`. Infer a common concrete `AbstractFloat` or `Rational`
+type using Julia promotion of the matrix, objective, explicitly supplied constant,
+and finite bound values. Integer-only input uses `Float64`. `value_type=T`
+overrides inference and converts finite data with validation. Omitted arguments
+and unbounded sentinels do not affect inference; defaults are created in `T`.
+
+Bounds are stored as `Vector{Bound{T}}`. Accept finite real values, convertible
+`Bound` values, or `nothing` for an unbounded side. Compatibility sentinels
+`-Inf` for lower bounds and `Inf` for upper bounds are normalized to unbounded
+tags, even for rational models. NaN and incorrectly signed infinities are invalid.
+Use `isfinite(bound)` before [`bound_value`](@ref), which returns `T` for finite
+bounds and throws `ArgumentError` for unbounded ones. Code that previously read
+numeric bound fields must now use these helpers.
 Omitted row bounds and column upper bounds are unbounded; omitted column lower
-bounds are zero. Construction validates dimensions, finite coefficients, bounds, and domains, throwing
-`ArgumentError` on invalid input. Binary bounds are intersected with `[0, 1]`.
+bounds are `zero(T)`. Construction validates dimensions, finite coefficients,
+bounds, and domains, throwing `ArgumentError` on invalid input. Binary bounds
+are intersected with `[zero(T), one(T)]`.
 Names may be omitted; supplied row/column names must match their dimensions.
+
+Use `Rational{BigInt}` for arbitrary-size exact arithmetic; fixed-width rationals
+retain Julia's ordinary solve-time overflow behavior. `BigFloat` precision is
+controlled by Julia's ambient context: wrap construction and [`solve`](@ref)
+in `setprecision(BigFloat, 256) do ... end`.
+
+```julia
+using JSimplex, SparseArrays
+problem = LinearProblem(sparse(Rational{BigInt}[1 1]), Rational{BigInt}[1, 2];
+                        row_lower=Rational{BigInt}[1], row_upper=[nothing])
+@assert bound_value(problem.row_lower[1]) == 1 // big(1)
+@assert !isfinite(problem.row_upper[1])
+@assert solve(problem).objective_value == 1 // big(1)
+```
 
 The struct is immutable, but its arrays remain mutable; treat them as read-only.
 [`solve`](@ref) copies working data and leaves the input model unchanged.

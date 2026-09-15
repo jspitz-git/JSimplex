@@ -33,14 +33,34 @@ end
                   zero_tolerance=nothing, iteration_limit=100_000,
                   time_limit=Inf, refactorization_interval=20,
                   log_level=Logging.Debug, algorithm=:dual)
+    SolverOptions(; kwargs...)  # Float64 defaults
+    SolverOptions(T, options::SolverOptions)
 
 Configure numerical tolerances, completed-pivot and wall-clock limits, basis
 refactorization frequency, and the level used for Julia logging messages.
+`SolverOptions(T; ...)` stores tolerances in the supported floating or rational
+type `T`. Floating defaults are `T(1 // 10^7)` for primal/dual tolerances and
+`T(1 // 10^12)` for zero tolerance; a positive default that rounds to zero is
+clamped to `nextfloat(zero(T))`. Rational defaults are exactly zero.
+`SolverOptions(T, options)` converts and validates existing tolerances, preserving
+their supplied values and the remaining options. It does not reset tolerances
+to `T`'s defaults. [`solve`](@ref) uses problem-typed defaults when options are
+omitted and converts explicit options to the problem's scalar type.
 Floating-point tolerances and the refactorization interval must be positive;
-rational tolerances must be nonnegative. Limits must be nonnegative.
-`time_limit` is in seconds and `Inf` disables the deadline.
+rational tolerances must be nonnegative. Tolerances must be finite.
+Limits must be nonnegative. `time_limit` remains `Float64` seconds and `Inf`
+disables the deadline; iteration/refactorization limits remain `Int`.
 Only `algorithm=:dual` is implemented; other symbols return
 `ALGORITHM_NOT_SUPPORTED` from [`solve`](@ref).
+
+```julia
+using JSimplex
+exact = SolverOptions(Rational{BigInt}; time_limit=2.5)
+@assert exact.primal_tolerance == 0
+@assert exact.time_limit === 2.5
+single = SolverOptions(Float32, SolverOptions())
+@assert single.dual_tolerance isa Float32
+```
 """
 struct SolverOptions{T<:Real}
     primal_tolerance::T
@@ -109,7 +129,8 @@ SolverOptions(::Type{T}, options::SolverOptions) where {T<:Real} =
     SolveStatistics(; iterations=0, elapsed_seconds=0.0, refactorizations=0)
 
 Solve counters retained for every termination status: completed simplex pivots,
-elapsed wall-clock time in seconds, and full basis factorizations.
+elapsed wall-clock time in seconds, and full basis factorizations. Counters are
+`Int` and `elapsed_seconds` is `Float64`, independent of model arithmetic.
 """
 Base.@kwdef struct SolveStatistics
     iterations::Int = 0
@@ -119,12 +140,17 @@ end
 
 """
     Solution(status, objective_value, primal, statistics, message)
+    Solution{T}(status, objective_value, primal, statistics, message)
 
 Result of [`solve`](@ref). `status` is a [`TerminationStatus`](@ref),
 `statistics` is a [`SolveStatistics`](@ref), and `message` explains termination.
 For `OPTIMAL`, `primal` contains the original structural variable values and
 `objective_value` includes the original objective sense and constant. Both
 fields are `nothing` for every other status, including resource limits.
+Solving a `LinearProblem{T}` returns the same concrete `Solution{T}` on every
+termination path: `objective_value::Union{Nothing,T}` and
+`primal::Union{Nothing,Vector{T}}`. The constructor infers `T` from a supplied
+objective and primal vector; use `Solution{T}` explicitly when both are `nothing`.
 """
 struct Solution{T<:Real}
     status::TerminationStatus

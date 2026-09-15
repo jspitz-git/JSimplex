@@ -7,9 +7,11 @@ correctness, numerical robustness, and performance are not guaranteed for genera
 models. Use an established solver for production optimization.
 
 The numerical core includes a two-pass Harris ratio test, dual steepest-edge
-pricing, cost shifting, sparse LU factorization, and product-form basis updates.
+pricing, cost shifting, LU factorization, and product-form basis updates.
+Model arithmetic supports floating-point and rational scalar types, including
+`Float32`, `Float64`, `BigFloat`, and exact `Rational{BigInt}`.
 Runtime dependencies are Julia standard libraries only: `LinearAlgebra`,
-`SparseArrays`, and `Logging`. GLPK and BenchmarkTools belong to the optional
+`SparseArrays`, and `Logging`. JET, GLPK, and BenchmarkTools belong to the optional
 development environment.
 
 ## Installation and quick start
@@ -45,7 +47,7 @@ using JSimplex, SparseArrays
 
 # Minimize x + 2y subject to x + y >= 1 and x, y >= 0.
 problem = LinearProblem(sparse([1.0 1.0]), [1.0, 2.0];
-                        row_lower=[1.0], row_upper=[Inf], name="example")
+                        row_lower=[1.0], row_upper=[nothing], name="example")
 solution = solve(problem;
     options=SolverOptions(iteration_limit=10_000, time_limit=60.0))
 
@@ -59,19 +61,102 @@ end
 ```
 
 `LinearProblem(A, objective; ...)` accepts a sparse matrix and copies its input
-data into `Float64` arrays. Rows mean `row_lower <= A*x <= row_upper`; columns
+data into a `LinearProblem{T}`. Rows mean `row_lower <= A*x <= row_upper`; columns
 have `column_lower` and `column_upper` bounds. The objective is
 `dot(objective, x) + objective_constant`. Defaults are minimization
 (`MIN_SENSE`), constant zero, unbounded rows, nonnegative columns with no upper
 bound, and `CONTINUOUS` domains. Set `objective_sense=MAX_SENSE` to maximize.
 Optional `row_names` and `column_names` must be empty or match their dimensions.
 Construction validates dimensions, finite coefficients, bounds, and domains and
-throws `ArgumentError` for invalid input. Use `-Inf` and `Inf` for infinite
-bounds. Treat the model's array fields as read-only; solving leaves them unchanged.
+throws `ArgumentError` for invalid input. Treat the model's array fields as
+read-only; solving leaves them unchanged.
+
+### Scalar selection and exact arithmetic
+
+The matrix, objective, explicitly supplied objective constant, and finite bound
+values determine `T` using Julia's promotion rules. A concrete `AbstractFloat`
+or `Rational` type is retained; integer-only input becomes `Float64`. Mixed
+floating/rational input follows ordinary Julia promotion. Omitted arguments,
+`nothing`, and unbounded sentinels do not affect inference: defaults are created
+in `T` afterward. `value_type=T` overrides inference and converts finite data
+with validation. Integer working types and complex arithmetic are unsupported.
+The matrix stores `SparseMatrixCSC{T,Int}`, the objective `Vector{T}`, and the
+objective constant `T`; indices remain `Int`.
+
+```julia
+using JSimplex, SparseArrays
+
+rational_problem = LinearProblem(
+    sparse(Rational{BigInt}[1 1]), Rational{BigInt}[1, 2];
+    row_lower=Rational{BigInt}[1], row_upper=[nothing],
+)
+exact_solution = solve(rational_problem)
+@assert exact_solution.status == OPTIMAL
+@assert exact_solution.primal == Rational{BigInt}[1, 0]
+@assert exact_solution.objective_value == 1 // big(1)
+
+# Explicitly select exact arithmetic for integer input.
+converted = LinearProblem(sparse([1 1]), [1, 2];
+                          row_lower=[1], value_type=Rational{BigInt})
+@assert converted isa LinearProblem{Rational{BigInt}}
+
+setprecision(BigFloat, 256) do
+    big_problem = LinearProblem(sparse(BigFloat[1 1]), BigFloat[1, 2];
+                                row_lower=BigFloat[1])
+    result = solve(big_problem)
+    @assert result.status == OPTIMAL
+    @assert result.primal isa Vector{BigFloat}
+end
+```
+
+`BigFloat` uses Julia's ambient precision; put both model construction and solve
+inside `setprecision`. For exact input, use rational values or typed MPS parsing:
+converting an already rounded floating value cannot recover its intended decimal.
+
+Float64 bases use sparse UMFPACK LU. Every other supported scalar uses generic
+dense LU from `LinearAlgebra`, preserving `T`; empty bases are supported too.
+Backend selection is internal. Dense BigFloat and rational solves can consume
+substantial time and memory and are intended for small models. Use
+`Rational{BigInt}` for arbitrary-size exact arithmetic. Fixed-width rationals
+such as `Rational{Int}` retain Julia's ordinary solve-time overflow behavior;
+these exceptions are not hidden as numerical solver statuses.
+
+### Bounds and migration from 0.3
+
+All four bound arrays now store `Vector{Bound{T}}` instead of numeric values.
+Constructors accept finite real values, convertible `Bound` values, and `nothing`
+for an unbounded side. For compatibility, `-Inf` is accepted in lower bounds and
+`Inf` in upper bounds, even for rational models; they become unbounded tags.
+NaN and incorrectly signed infinities are invalid. An unbounded tag's direction
+comes from its lower/upper array, not a numeric infinity payload.
+
+Use `isfinite(bound)` before `bound_value(bound)`, which returns a finite value
+in `T` and throws `ArgumentError` for an unbounded tag. Migrate direct bound
+arithmetic or comparisons by extracting finite values with these helpers:
+
+```julia
+lower = rational_problem.row_lower[1]
+upper = rational_problem.row_upper[1]
+@assert isfinite(lower)
+@assert bound_value(lower) == 1 // big(1)
+@assert !isfinite(upper)
+
+finite = Bound(3.0f0)                 # Bound{Float32}
+unbounded = Bound{Rational{BigInt}}(nothing)
+@assert bound_value(finite) === 3.0f0
+@assert !isfinite(unbounded)
+
+# Floating infinity sentinels also work with rational model arithmetic.
+compatible = LinearProblem(sparse(Rational{BigInt}[1 1]), Rational{BigInt}[1, 2];
+                           row_lower=[-Inf], row_upper=[Inf])
+@assert !isfinite(compatible.row_lower[1])
+@assert !isfinite(compatible.row_upper[1])
+```
 
 ### Options and termination
 
-`SolverOptions` supports these keyword defaults:
+`SolverOptions(T; ...)` creates `SolverOptions{T}`. `SolverOptions()` is shorthand
+for `SolverOptions(Float64)`. Floating types use these keyword defaults:
 
 | Option | Default | Meaning |
 | --- | --- | --- |
@@ -84,13 +169,41 @@ bounds. Treat the model's array fields as read-only; solving leaves them unchang
 | `log_level` | `Logging.Debug` | Level emitted through Julia's logging system |
 | `algorithm` | `:dual` | Only implemented algorithm |
 
-Tolerances and the refactorization interval must be positive; limits must be
-nonnegative. A zero time limit returns `TIME_LIMIT` immediately. Deadline checks
+Floating tolerances are evaluated in `T`; a positive default that rounds to zero
+is clamped to `nextfloat(zero(T))`. Rational primal, dual, and zero tolerance
+defaults are exactly zero. Rational Harris pivot cutoffs and recession-ray
+roundoff allowances are also zero, so default rational solves use exact checks.
+Explicit nonzero rational tolerances are allowed. Floating tolerances must be
+positive and rational tolerances nonnegative; all must be finite. The
+refactorization interval must be positive and limits nonnegative.
+
+`solve(problem; options=nothing)` creates defaults for the problem's `T`.
+Explicit options are converted and validated once with `SolverOptions(T, options)`;
+this preserves supplied tolerance values instead of replacing them with defaults.
+In particular, passing `SolverOptions()` to a rational solve converts its nonzero
+floating tolerances. Omit options or use `SolverOptions(Rational{BigInt})` for
+exact defaults. Conversion can fail validation, for example when zero rational
+tolerances are converted to a floating type.
+
+```julia
+exact_options = SolverOptions(Rational{BigInt}; time_limit=2.5)
+@assert exact_options.primal_tolerance == 0
+@assert exact_options.time_limit === 2.5
+@assert solve(rational_problem; options=exact_options).status == OPTIMAL
+single_options = SolverOptions(Float32, SolverOptions(time_limit=2.5))
+@assert single_options.primal_tolerance isa Float32
+```
+
+`time_limit` and elapsed wall-clock seconds remain `Float64` for every model
+type; iteration and refactorization counters remain `Int`.
+A zero time limit returns `TIME_LIMIT` immediately. Deadline checks
 use a monotonic clock; they do not interrupt an in-progress numerical operation.
 The deadline starts when `solve` is called and is checked before algorithm/model
 validation. Algorithms such as `:primal` and `:auto` return
 `ALGORITHM_NOT_SUPPORTED`.
 
+Every termination path for `LinearProblem{T}` returns `Solution{T}` with
+`objective_value::Union{Nothing,T}` and `primal::Union{Nothing,Vector{T}}`.
 `Solution.status` is one of `OPTIMAL`, `INFEASIBLE`, `UNBOUNDED`,
 `ITERATION_LIMIT`, `TIME_LIMIT`, `NUMERICAL_ERROR`, `INVALID_MODEL`,
 `MIP_NOT_SUPPORTED`, or `ALGORITHM_NOT_SUPPORTED`. Only `OPTIMAL` has a primal
@@ -127,7 +240,23 @@ free = read_mps("test/fixtures/parser/basic-free.mps"; format=:free)
 selected = read_mps("test/fixtures/parser/multiple-sets.mps";
                     rhs_name="SECOND", ranges_name="WIDE",
                     bounds_name="HIGH", objective_name="OBJ")
+
+exact_mps = read_mps("test/fixtures/parser/exact-rational.mps";
+                     value_type=Rational{BigInt})
+@assert exact_mps.A[1, 1] == 3 // big(10)
+@assert solve(exact_mps).objective_value == 11 // big(4)
 ```
+
+`read_mps(path)` defaults to `LinearProblem{Float64}`. Use `value_type=T` for
+typed parsing and construction. Floating tokens are parsed directly in `T`.
+Rational parsing reads decimal and `E`/`D` exponent tokens exactly, without
+passing through floating-point arithmetic: `1.25` is `5//4`, `-2e-3` is
+`-1//500`, and `3D+2` is `300//1`. Parsing, duplicate aggregation, and derived
+range arithmetic use `Rational{BigInt}` intermediates with checked conversion to
+the requested rational type. Fixed-width construction overflow raises a
+source-aware `MPSParseError`; solve-time arithmetic retains Julia's ordinary
+overflow behavior. Unbounded endpoints are stored as `Bound{T}` tags, including
+where the feature table below uses mathematical infinity notation.
 
 The native reader supports the following contract:
 
@@ -198,7 +327,7 @@ After initial environment setup, run the fixture-based tests offline with:
 JULIA_PKG_OFFLINE=true julia --startup-file=no --project=. -e 'using Pkg; Pkg.test()'
 ```
 
-The isolated development environment installs GLPK and BenchmarkTools. These
+The isolated development environment installs JET, GLPK, and BenchmarkTools. These
 commands resolve JSimplex to this checkout when run from the repository root:
 
 ```sh
@@ -208,6 +337,10 @@ julia --startup-file=no --project=dev dev/run_suite.jl --dataset afiro --compare
 julia --startup-file=no --project=dev dev/run_suite.jl --tag quick
 julia --startup-file=no --project=dev dev/benchmarks.jl afiro
 ```
+
+The development tests include JET inference checks for Float64 and
+`Rational{BigInt}` solver kernels. JET is not a root dependency or part of the
+mandatory package-test environment.
 
 `dev/Manifest.toml` is intentionally generated locally and ignored by Git.
 Do not commit generated root manifests or local `.julia/` depots either.
@@ -256,7 +389,8 @@ scaling, and alternative factorization/update strategies. Future MOI/JuMP
 adapters can build `LinearProblem` objects, and a future MIP layer can repeatedly
 solve LPs with modified bounds. These internal structures are not exported public
 APIs. The supported interface is the exported model/options/result types, enums,
-`is_continuous`, `read_mps`, and `solve`; use Julia help (for example `?solve`)
+`Bound`, `bound_value`, `isfinite(::Bound)`, `is_continuous`, `read_mps`, and
+`solve`; use Julia help (for example `?solve`)
 for their docstrings.
 
 ## License
