@@ -94,7 +94,7 @@ function replace_column!(
     zero_tolerance::Real=_is_exact(T) === Val(true) ? zero(T) :
                          _positive_tolerance(T, 1 // 10^12),
 ) where {T}
-    tolerance = T(zero_tolerance)
+    tolerance = convert(T, zero_tolerance)
     isfinite(tolerance) && tolerance >= zero(T) ||
         throw(ArgumentError("zero_tolerance must be finite and nonnegative"))
     length(tableau_column) == _backend_dimension(factor.base) ||

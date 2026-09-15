@@ -187,3 +187,161 @@ end
         @test integrity_exact.(integrity_model_values(problem)) == before
     end
 end
+
+@testset "BigFloat options retain supplied tolerance values and precision" begin
+    modes = (RoundNearest, RoundDown, RoundUp, RoundToZero, RoundFromZero)
+    fields = (:primal_tolerance, :dual_tolerance, :zero_tolerance)
+    for construction_precision in (128, 256)
+        problem, options = setprecision(BigFloat, construction_precision) do
+            tolerance = BigFloat(2)^-24 - BigFloat(2)^-80
+            problem = LinearProblem(sparse(reshape(BigFloat[1], 1, 1)), BigFloat[0])
+            options = SolverOptions(BigFloat; primal_tolerance=tolerance,
+                dual_tolerance=2tolerance, zero_tolerance=tolerance / 4,
+                iteration_limit=17, time_limit=2.5, refactorization_interval=1)
+            problem, options
+        end
+        original = map(field -> integrity_exact(getfield(options, field)), fields)
+        for working_precision in (24, 53, construction_precision, 512), mode in modes
+            setprecision(BigFloat, working_precision) do
+                setrounding(BigFloat, mode) do
+                    copied = @inferred SolverOptions(BigFloat, options)
+                    explicit = @inferred SolverOptions(BigFloat;
+                        primal_tolerance=options.primal_tolerance,
+                        dual_tolerance=options.dual_tolerance,
+                        zero_tolerance=options.zero_tolerance)
+                    workspace = @inferred JSimplex.initialize_workspace(problem, options)
+                    @inferred JSimplex.recompute!(workspace; refactorize=true)
+                    for candidate in (copied, explicit, workspace.options)
+                        @test map(field -> integrity_exact(getfield(candidate, field)), fields) == original
+                        @test map(field -> precision(getfield(candidate, field)), fields) ==
+                              (construction_precision, construction_precision, construction_precision)
+                    end
+                    @test copied.iteration_limit == workspace.options.iteration_limit == 17
+                    @test copied.time_limit == workspace.options.time_limit == 2.5
+                    @test copied.refactorization_interval == workspace.options.refactorization_interval == 1
+                    @test map(field -> integrity_exact(getfield(options, field)), fields) == original
+                    @test map(field -> precision(getfield(options, field)), fields) ==
+                          (construction_precision, construction_precision, construction_precision)
+                    @test precision(BigFloat) == working_precision
+                    @test rounding(BigFloat) == mode
+                end
+            end
+        end
+    end
+end
+
+@testset "Cross-precision status uses the supplied tolerance" begin
+    modes = (RoundNearest, RoundDown, RoundUp, RoundToZero, RoundFromZero)
+    for kind in (:primal, :dual, :zero), working_precision in (24, 53, 256),
+        mode in modes, interval in (1, 20)
+        problem, options = setprecision(BigFloat, 256) do
+            gap = BigFloat(2)^(kind == :zero ? -20 : -24)
+            tolerance = gap - BigFloat(2)^-80
+            if kind == :primal
+                problem = LinearProblem(sparse(reshape(BigFloat[1], 1, 1)), BigFloat[0];
+                    row_lower=BigFloat[gap], column_lower=BigFloat[0], column_upper=BigFloat[0])
+                options = SolverOptions(BigFloat; primal_tolerance=tolerance,
+                    refactorization_interval=interval)
+            elseif kind == :dual
+                problem = LinearProblem(sparse(BigFloat[1 1]), BigFloat[0, -gap];
+                    row_lower=BigFloat[1], row_upper=BigFloat[1])
+                options = SolverOptions(BigFloat; dual_tolerance=tolerance,
+                    refactorization_interval=interval)
+            else
+                problem = LinearProblem(sparse(reshape(BigFloat[gap], 1, 1)), BigFloat[1];
+                    row_lower=BigFloat[1])
+                options = SolverOptions(BigFloat; zero_tolerance=tolerance,
+                    refactorization_interval=interval)
+            end
+            problem, options
+        end
+        original_values = integrity_exact.(integrity_model_values(problem))
+        setprecision(BigFloat, working_precision) do
+            setrounding(BigFloat, mode) do
+                result = @inferred solve(problem; options)
+                @test result isa Solution{BigFloat}
+                if kind == :primal
+                    @test result.status == INFEASIBLE
+                else
+                    @test result.status in (OPTIMAL, NUMERICAL_ERROR)
+                    working_precision == 256 && @test result.status == OPTIMAL
+                    if kind == :zero && mode == RoundNearest
+                        @test result.status == OPTIMAL
+                    end
+                    if result.status == OPTIMAL
+                        @test result.primal == (kind == :dual ? BigFloat[0, 1] : BigFloat[1048576])
+                        @test result.objective_value == (kind == :dual ? BigFloat(2)^-24 * -1 : BigFloat(1048576))
+                    end
+                end
+                if result.status != OPTIMAL
+                    @test isnothing(result.primal)
+                    @test isnothing(result.objective_value)
+                end
+                @test integrity_exact.(integrity_model_values(problem)) == original_values
+                @test precision(options.primal_tolerance) == 256
+                @test precision(options.dual_tolerance) == 256
+                @test precision(options.zero_tolerance) == 256
+                @test precision(BigFloat) == working_precision
+                @test rounding(BigFloat) == mode
+            end
+        end
+    end
+end
+
+@testset "Explicit BigFloat pivot tolerances retain their stored cutoff" begin
+    modes = (RoundNearest, RoundDown, RoundUp, RoundToZero, RoundFromZero)
+    gap, below, above = setprecision(BigFloat, 256) do
+        gap = BigFloat(2)^-24
+        gap, gap - BigFloat(2)^-80, gap + BigFloat(2)^-80
+    end
+    for working_precision in (24, 53, 256), mode in modes, sign in (-1, 1)
+        setprecision(BigFloat, working_precision) do
+            setrounding(BigFloat, mode) do
+                basis = sparse(reshape(BigFloat[1], 1, 1))
+                factor = JSimplex.PFIFactorization(basis)
+                for refactorize in (false, true)
+                    refactorize && JSimplex.refactorize!(factor, basis)
+                    accepted = try
+                        JSimplex.replace_column!(factor, BigFloat[sign * gap], 1; zero_tolerance=below)
+                    catch error
+                        error
+                    end
+                    @test accepted === factor
+                    @test_throws JSimplex.LinearAlgebra.ZeroPivotException JSimplex.replace_column!(
+                        factor, BigFloat[sign * gap], 1; zero_tolerance=gap)
+                    @test_throws JSimplex.LinearAlgebra.ZeroPivotException JSimplex.replace_column!(
+                        factor, BigFloat[sign * gap], 1; zero_tolerance=above)
+                end
+                @test integrity_exact(below) == 1 // big(2)^24 - 1 // big(2)^80
+                @test integrity_exact(above) == 1 // big(2)^24 + 1 // big(2)^80
+                @test precision(below) == precision(above) == 256
+                @test precision(BigFloat) == working_precision
+                @test rounding(BigFloat) == mode
+            end
+        end
+    end
+end
+
+@testset "Tolerance conversion and validation across scalar types" begin
+    for T in (Float32, Float64, Rational{BigInt})
+        source = SolverOptions(T; primal_tolerance=T(1 // 4), dual_tolerance=T(1 // 8),
+            zero_tolerance=T(1 // 16))
+        copied = @inferred SolverOptions(T, source)
+        converted = @inferred SolverOptions(Float64, source)
+        @test copied.primal_tolerance === source.primal_tolerance
+        @test copied.dual_tolerance === source.dual_tolerance
+        @test copied.zero_tolerance === source.zero_tolerance
+        @test converted.primal_tolerance === 0.25
+        @test converted.dual_tolerance === 0.125
+        @test converted.zero_tolerance === 0.0625
+        factor = JSimplex.PFIFactorization(sparse(reshape(T[1], 1, 1)))
+        @test JSimplex.replace_column!(factor, T[1 // 2], 1; zero_tolerance=1 // 4) === factor
+        @test_throws JSimplex.LinearAlgebra.ZeroPivotException JSimplex.replace_column!(
+            factor, T[1 // 2], 1; zero_tolerance=1 // 2)
+    end
+    for invalid in (-1, 0, Inf, NaN)
+        @test_throws ArgumentError SolverOptions(BigFloat; primal_tolerance=BigFloat(invalid))
+        @test_throws ArgumentError SolverOptions(BigFloat; dual_tolerance=BigFloat(invalid))
+        @test_throws ArgumentError SolverOptions(BigFloat; zero_tolerance=BigFloat(invalid))
+    end
+end

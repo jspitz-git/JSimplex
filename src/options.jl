@@ -90,7 +90,8 @@ function SolverOptions(::Type{T};
     defaults = _is_exact(T) === Val(true) ? (zero(T), zero(T), zero(T)) :
         (_positive_tolerance(T, 1 // 10^7), _positive_tolerance(T, 1 // 10^7),
          _positive_tolerance(T, 1 // 10^12))
-    tolerances = map(T, (
+    # Already-typed BigFloat tolerances retain their stored value and precision.
+    tolerances = map(value -> convert(T, value), (
         something(primal_tolerance, defaults[1]),
         something(dual_tolerance, defaults[2]),
         something(zero_tolerance, defaults[3]),
