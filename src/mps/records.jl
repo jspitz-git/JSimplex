@@ -64,7 +64,7 @@ function _mps_number(records::MPSAccumulator{T}, token, line, section) where {T<
     return value
 end
 
-const _MPS_DECIMAL = r"^([+-]?)(?:(\d+)(?:\.(\d*))?|\.(\d+))(?:[Ee]([+-]?\d+))?$"
+const _MPS_DECIMAL = r"^([+-]?)(?:([0-9]+)(?:\.([0-9]*))?|\.([0-9]+))(?:[Ee]([+-]?[0-9]+))?$"
 
 function _mps_big_rational(token::AbstractString)
     normalized = replace(token, 'D' => 'E', 'd' => 'e')

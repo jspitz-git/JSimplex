@@ -10,6 +10,44 @@ end
 # singleton type in a positional argument while exercising the public reader.
 read_typed_mps(path, ::Type{T}; kwargs...) where {T} = read_mps(path; value_type=T, kwargs...)
 
+@testset "MPS numeric tokens use ASCII digits" begin
+    for token in ("١.٢", "１２.３", "1.٢", ".٢", "1e١", "1D٢")
+        text = "NAME DIGITS\nROWS\n N  OBJ\nCOLUMNS\n    X         OBJ       $token\nENDATA\n"
+        mktemp() do path, io
+            write(io, text)
+            close(io)
+            for T in (Float32, Float64, Rational{Int}, Rational{BigInt}), format in (:free, :auto, :fixed)
+                error = try
+                    read_mps(path; value_type=T, format)
+                catch exception
+                    exception
+                end
+                @test error isa MPSParseError
+                if error isa MPSParseError
+                    @test error.source == path
+                    @test error.line == 5
+                    @test error.section == :COLUMNS
+                    if format == :fixed
+                        @test occursin("ASCII", error.message)
+                    else
+                        @test occursin("number", error.message)
+                        @test occursin(token, error.message)
+                    end
+                end
+            end
+        end
+    end
+
+    for (token, expected) in (("+1.25", 5 // 4), ("-.5", -1 // 2), ("2.", 2 // 1),
+                              (".125E+1", 5 // 4), ("-2d-3", -1 // 500), ("3D+2", 300 // 1))
+        text = "NAME DIGITS\nROWS\n N  OBJ\nCOLUMNS\n    X         OBJ       $token\nENDATA\n"
+        for T in (Float32, Float64, Rational{Int}, Rational{BigInt}), format in (:free, :auto, :fixed)
+            problem = read_mps_text(text; value_type=T, format)
+            @test problem.objective == T[expected]
+        end
+    end
+end
+
 @testset "Typed and exact MPS construction" begin
     path = joinpath(@__DIR__, "fixtures", "parser", "exact-rational.mps")
     default = @inferred read_mps(path)
