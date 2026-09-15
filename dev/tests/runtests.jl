@@ -188,3 +188,4 @@ end
 end
 
 include("jet_tests.jl")
+include("jump_tests.jl")
