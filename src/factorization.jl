@@ -23,18 +23,21 @@ end
 _backend_dimension(backend::UMFPACKBackend) = backend.dimension
 _backend_dimension(backend::DenseLUBackend) = size(backend.factorization, 1)
 
-function _factorize_basis(B::SparseMatrixCSC{Float64,Int})
-    rows, columns = size(B)
+function _factorize_basis(B::AbstractMatrix{Float64})
+    sparse_basis = SparseMatrixCSC{Float64,Int}(B)
+    rows, columns = size(sparse_basis)
     rows == columns || throw(DimensionMismatch("basis matrix must be square"))
-    return iszero(rows) ? UMFPACKBackend(nothing, 0) : UMFPACKBackend(lu(B), rows)
+    return iszero(rows) ? UMFPACKBackend(nothing, 0) : UMFPACKBackend(lu(sparse_basis), rows)
 end
 
-function _factorize_basis(B::AbstractMatrix{T}) where {T<:Real}
+function _factorize_dense_basis(B::AbstractMatrix{T}) where {T<:Real}
     rows, columns = size(B)
     rows == columns || throw(DimensionMismatch("basis matrix must be square"))
     lu_result = lu(Matrix{T}(B))
     return DenseLUBackend{T,typeof(lu_result)}(lu_result)
 end
+
+_factorize_basis(B::AbstractMatrix{T}) where {T<:Real} = _factorize_dense_basis(B)
 
 function PFIFactorization(B::AbstractMatrix{T}) where {T<:Real}
     _supported_value_type(T) || throw(ArgumentError("unsupported basis value type: $T"))
@@ -115,14 +118,13 @@ function replace_column!(
 end
 
 function _refactorize_backend(backend::UMFPACKBackend, B::AbstractMatrix{Float64})
-    sparse_basis = SparseMatrixCSC{Float64,Int}(B)
-    return _factorize_basis(sparse_basis)
+    return _factorize_basis(B)
 end
 
 function _refactorize_backend(
     backend::DenseLUBackend{T}, B::AbstractMatrix{T},
 ) where {T<:Real}
-    return _factorize_basis(B)
+    return _factorize_dense_basis(B)
 end
 
 function refactorize!(factor::PFIFactorization{Float64,UMFPACKBackend}, B::AbstractMatrix{Float64})

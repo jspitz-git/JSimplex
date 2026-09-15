@@ -30,6 +30,20 @@ end
     @test isempty(@inferred JSimplex.forward_solve(empty_factor, Float64[]))
 end
 
+@testset "Float64 factorization backend stability" begin
+    dense_basis = Float64[2 1; 1 3]
+    factor = @inferred JSimplex.PFIFactorization(dense_basis)
+    backend_type = typeof(factor.base)
+
+    @test factor.base isa JSimplex.UMFPACKBackend
+    JSimplex.refactorize!(factor, JSimplex.SparseArrays.sparse(Float64[4 1; -1 3]))
+    @test typeof(factor.base) === backend_type
+    @test factor.base isa JSimplex.UMFPACKBackend
+
+    empty_factor = @inferred JSimplex.PFIFactorization(zeros(Float64, 0, 0))
+    @test empty_factor.base isa JSimplex.UMFPACKBackend
+end
+
 @testset "Product-form basis factorization" begin
     B = JSimplex.SparseArrays.sparse([2.0 1.0; 1.0 3.0])
     factor = JSimplex.PFIFactorization(B)
