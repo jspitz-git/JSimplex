@@ -13,6 +13,7 @@ import MathOptInterface as MOI
         rtol=1e-6,
         optimal_status=MOI.OPTIMAL,
         exclude=Any[
+            # Dual results are deliberately unsupported; DualObjectiveValue is independently gated.
             MOI.ConstraintDual,
             MOI.ConstraintBasisStatus,
             MOI.ConstraintPrimalStart,
@@ -22,6 +23,8 @@ import MathOptInterface as MOI
             MOI.VariablePrimalStart,
         ],
     )
+    # test_linear_DUAL_INFEASIBLE is omitted for conservative Float64 recession certification;
+    # test/moi/result_tests.jl covers the Float64 and exact-rational outcomes.
     tests = (
         MOI.Test.test_attribute_RawStatusString,
         MOI.Test.test_attribute_Silent,
