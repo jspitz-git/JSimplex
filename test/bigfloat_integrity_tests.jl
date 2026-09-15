@@ -345,3 +345,87 @@ end
         @test_throws ArgumentError SolverOptions(BigFloat; zero_tolerance=BigFloat(invalid))
     end
 end
+
+function integrity_rounded(value::AbstractFloat, exact::Rational{BigInt}, mode)
+    stored = integrity_exact(value)
+    previous = integrity_exact(prevfloat(value))
+    following = integrity_exact(nextfloat(value))
+    if mode == RoundNearest
+        return (previous + stored) / 2 < exact < (stored + following) / 2
+    elseif mode == RoundDown ||
+           (mode == RoundToZero && exact > 0) ||
+           (mode == RoundFromZero && exact < 0)
+        return stored <= exact < following
+    else
+        return previous < exact <= stored
+    end
+end
+
+@testset "Stored BigFloat pivot magnitudes compare exactly for either sign" begin
+    modes = (RoundNearest, RoundDown, RoundUp, RoundToZero, RoundFromZero)
+    for construction_precision in (128, 256), offset in (1, 2, 3), sign in (-1, 1)
+        column, cutoff = setprecision(BigFloat, construction_precision) do
+            gap, delta = BigFloat(2)^-24, BigFloat(2)^-80
+            pivot = sign * (gap + offset * delta)
+            BigFloat[pivot, 2pivot], gap + 2delta
+        end
+        exact_pivot = sign * (1 // big(2)^24 + offset // big(2)^80)
+        exact_cutoff = 1 // big(2)^24 + 2 // big(2)^80
+        for working_precision in (24, 53, construction_precision, 512), mode in modes
+            setprecision(BigFloat, working_precision) do
+                setrounding(BigFloat, mode) do
+                    factor = JSimplex.PFIFactorization(sparse(BigFloat[1 0; 0 1]))
+                    result = try
+                        @inferred JSimplex.replace_column!(factor, column, 1; zero_tolerance=cutoff)
+                    catch error
+                        error
+                    end
+                    if offset > 2
+                        @test result === factor
+                        if result === factor
+                            eta = only(factor.updates)
+                            @test eta.indices == [1, 2]
+                            @test eta.pivot_row == 1
+                            @test integrity_rounded(eta.values[1], inv(exact_pivot), mode)
+                            @test integrity_exact(eta.values[2]) == -2
+                            @test precision.(eta.values) == [working_precision, working_precision]
+                            @test JSimplex.forward_solve(factor, BigFloat[1, 0]) == eta.values
+                            @test JSimplex.transpose_solve(factor, BigFloat[0, 1]) == BigFloat[-2, 1]
+                        end
+                    else
+                        @test result isa JSimplex.LinearAlgebra.ZeroPivotException
+                        @test isempty(factor.updates)
+                    end
+                    @test integrity_exact.(column) == [exact_pivot, 2exact_pivot]
+                    @test integrity_exact(cutoff) == exact_cutoff
+                    @test precision.(column) == [construction_precision, construction_precision]
+                    @test precision(cutoff) == construction_precision
+                    @test precision(BigFloat) == working_precision
+                    @test rounding(BigFloat) == mode
+                end
+            end
+        end
+    end
+end
+
+@testset "Pivot magnitude comparisons retain other scalar behavior" begin
+    for T in (Float16, Float32, Float64, Rational{Int}, Rational{BigInt}), sign in (-1, 1)
+        pivot = T(sign * 3 // 4)
+        column = T[pivot, 2pivot]
+        factor = JSimplex.PFIFactorization(sparse(T[1 0; 0 1]))
+        for cutoff in (T(1), T(3 // 4))
+            @test_throws JSimplex.LinearAlgebra.ZeroPivotException JSimplex.replace_column!(
+                factor, column, 1; zero_tolerance=cutoff)
+            @test isempty(factor.updates)
+        end
+        @test (@inferred JSimplex.replace_column!(factor, column, 1; zero_tolerance=T(1 // 2))) === factor
+        eta = only(factor.updates)
+        if T <: Rational
+            @test eta.values == T[sign * 4 // 3, -2]
+        else
+            @test integrity_rounded(eta.values[1], sign * 4 // big(3), RoundNearest)
+            @test eta.values[2] == T(-2)
+        end
+        @test column == T[sign * 3 // 4, sign * 3 // 2]
+    end
+end

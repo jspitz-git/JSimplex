@@ -87,6 +87,12 @@ function transpose_solve(factor::PFIFactorization{T}, rhs::AbstractVector) where
     return _backend_transpose_solve(factor.base, x)
 end
 
+_pivot_magnitude(value::Real) = abs(value)
+_pivot_magnitude(value::BigFloat) = setprecision(BigFloat, precision(value)) do
+    # Negating a stored negative BigFloat must not round before the cutoff check.
+    abs(value)
+end
+
 function replace_column!(
     factor::PFIFactorization{T},
     tableau_column::AbstractVector,
@@ -103,7 +109,7 @@ function replace_column!(
     pivot = Int(pivot_row)
     checkbounds(tableau_column, pivot)
     pivot_value = convert(T, tableau_column[pivot])
-    abs(pivot_value) > tolerance || throw(LinearAlgebra.ZeroPivotException(pivot))
+    _pivot_magnitude(pivot_value) > tolerance || throw(LinearAlgebra.ZeroPivotException(pivot))
 
     indices = Int[pivot]
     values = T[inv(pivot_value)]
