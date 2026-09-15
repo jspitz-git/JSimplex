@@ -63,6 +63,35 @@ end
         @test occursin("status", String(take!(errors)))
     end
 end
+@testset "GLPK preserves native objective semantics" begin
+    basic = joinpath(REPOSITORY_ROOT, "test/fixtures/parser/basic-free.mps")
+    source = read(basic)
+    @test JSimplexDevSuite.solve(JSimplexDevSuite.read_mps(basic)).objective_value == 12.0
+    @test solve_with_glpk(basic).objective == 12.0
+    @test read(basic) == source
+
+    # At x=2, objective x with objective RHS 7 is 2-7=-5.
+    offset = "NAME OFFSET\nROWS\n N COST\n E FIXED\nCOLUMNS\n X COST 1 FIXED 1\nRHS\n R COST 7 FIXED 2\nENDATA\n"
+    cases = [
+        (offset, -5.0),
+        (replace(offset, "NAME OFFSET\n" => "NAME OFFSET\nOBJSENSE MAX\n"), -5.0),
+        # Select the second free row; preserve direction, coefficients, and
+        # constant. Native optimum is x=4,y=0: 3x+2y-7=5.
+        ("NAME SELECTED\nOBJSENSE\n MAX\nOBJNAME\n CHOSEN\nROWS\n N FIRST\n N CHOSEN\n L CAP\nCOLUMNS\n Y FIRST 100 CHOSEN 2\n Y CAP 2\n X FIRST -100 CHOSEN 3\n X CAP 1\nRHS\n R CHOSEN 7 CAP 4\nENDATA\n", 5.0),
+        # Section-like names in COLUMNS must not be mistaken for metadata.
+        ("NAME NAMES\nOBJSEN MIN\nOBJNAME COST\nROWS\n N COST\n E FIXED\nCOLUMNS\n OBJSENSE COST 1 FIXED 1\nRHS\n R COST 7 FIXED 2\nENDATA\n", -5.0),
+    ]
+    for (contents, expected) in cases
+        mktemp() do path, stream
+            write(stream, contents)
+            close(stream)
+            @test JSimplexDevSuite.solve(JSimplexDevSuite.read_mps(path)).objective_value == expected
+            @test solve_with_glpk(path).objective == expected
+            @test read(path, String) == contents
+        end
+    end
+end
+
 function check_argument_error(f, fragments...)
     error = try
         f()
