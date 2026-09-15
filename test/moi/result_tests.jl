@@ -36,6 +36,32 @@ import MathOptInterface as MOI
     @test MOI.get(optimizer, MOI.SimplexIterations()) >= 0
 end
 
+@testset "MOI BigFloat constraint primals preserve stored precision" begin
+    source, x, fixed_constraint, fixed_value = setprecision(BigFloat, 256) do
+        source = MOI.Utilities.Model{BigFloat}()
+        x = MOI.add_variable(source)
+        fixed_value = BigFloat(1) + ldexp(BigFloat(1), -100)
+        fixed_constraint = MOI.add_constraint(source, x, MOI.EqualTo(fixed_value))
+        return source, x, fixed_constraint, fixed_value
+    end
+
+    setprecision(BigFloat, 24) do
+        optimizer = JSimplex.Optimizer{BigFloat}()
+        index_map, _ = MOI.optimize!(optimizer, source)
+        @test MOI.get(optimizer, MOI.TerminationStatus()) == MOI.OPTIMAL
+        variable_primal = MOI.get(optimizer, MOI.VariablePrimal(), index_map[x])
+        constraint_primal = MOI.get(
+            optimizer,
+            MOI.ConstraintPrimal(),
+            index_map[fixed_constraint],
+        )
+        @test precision(variable_primal) == 256
+        @test precision(constraint_primal) == 256
+        @test variable_primal == fixed_value
+        @test constraint_primal == variable_primal
+    end
+end
+
 function _moi_result_model(; integer=false)
     source = MOI.Utilities.Model{Float64}()
     x = MOI.add_variable(source)

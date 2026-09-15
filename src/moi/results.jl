@@ -9,6 +9,23 @@ function _evaluate_moi_function(
     return value
 end
 
+function _evaluate_moi_function(
+    evaluation::MOIScalarEvaluation{BigFloat},
+    primal::Vector{BigFloat},
+)::BigFloat
+    value = evaluation.constant
+    for (column, coefficient) in zip(evaluation.columns, evaluation.coefficients)
+        primal_value = primal[column]
+        value = setprecision(
+            BigFloat,
+            max(precision(value), precision(coefficient), precision(primal_value)),
+        ) do
+            value + coefficient * primal_value
+        end
+    end
+    return value
+end
+
 function MOI.optimize!(optimizer::Optimizer{T}, source::MOI.ModelLike) where {T}
     _clear_result!(optimizer)
     translation = _translate_moi_model(optimizer, source)
