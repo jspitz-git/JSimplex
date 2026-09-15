@@ -122,8 +122,8 @@ Use the standard JuMP attributes `set_silent(model)` (MOI `Silent`) and
 `set_time_limit_sec(model, seconds)` (MOI `TimeLimitSec`) for logging and a
 wall-clock limit. The stable JSimplex raw optimizer attribute names are
 `relax_integrality`, `iteration_limit`, `primal_tolerance`, `dual_tolerance`,
-`zero_tolerance`, `refactorization_interval`, and `algorithm`. The only current
-algorithm value is `:dual`.
+`zero_tolerance`, `refactorization_interval`, `verbose`, and `algorithm`. The
+only current algorithm value is `:dual`.
 
 ```julia
 set_optimizer_attribute(model, "relax_integrality", true)
@@ -252,6 +252,7 @@ for `SolverOptions(Float64)`. Floating types use these keyword defaults:
 | `iteration_limit` | `100_000` | Maximum completed simplex pivots |
 | `time_limit` | `Inf` | Wall-clock seconds; `Inf` disables the deadline |
 | `refactorization_interval` | `20` | Basis update interval before full factorization |
+| `verbose` | `true` | Emit an `Info`-level progress record after every basis refactorization |
 | `log_level` | `Logging.Debug` | Level emitted through Julia's logging system |
 | `algorithm` | `:dual` | Only implemented algorithm |
 
@@ -287,6 +288,14 @@ use a monotonic clock; they do not interrupt an in-progress numerical operation.
 The deadline starts when `solve` is called and is checked before algorithm/model
 validation. Algorithms such as `:primal` and `:auto` return
 `ALGORITHM_NOT_SUPPORTED`.
+
+With `verbose=true`, each completed basis refactorization emits a
+`"Simplex progress"` record through Julia's logging system. It reports completed
+iterations, the original MIN/MAX objective including its constant, primal and
+dual infeasibility sums and counts, and elapsed seconds. Phase I reports the
+original model objective rather than its auxiliary objective. Set `verbose=false`
+to suppress these records. In the MOI/JuMP adapter, `Silent=true` also suppresses
+them without changing the stored raw `"verbose"` attribute.
 
 Every termination path for `LinearProblem{T}` returns `Solution{T}` with
 `objective_value::Union{Nothing,T}` and `primal::Union{Nothing,Vector{T}}`.

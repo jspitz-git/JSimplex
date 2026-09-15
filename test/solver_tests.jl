@@ -128,7 +128,12 @@ end
     main = LinearProblem(sparse([1.0;;]), [1.0]; row_lower=[1.0])
     phase = LinearProblem(sparse([1.0;;]), [-1.0]; row_upper=[3.0])
     for exception in (SingularException(7), ZeroPivotException(7))
-        for message in ("Starting solve", "Refactorizing basis", "Solve terminated")
+        for message in (
+            "Starting solve",
+            "Refactorizing basis",
+            "Simplex progress",
+            "Solve terminated",
+        )
             for (problem, interval) in ((main, 1), (phase, 1), (phase, 20))
                 caught = try
                     with_logger(ThrowingSolverLogger(message, exception)) do
@@ -305,12 +310,31 @@ end
     problem = LinearProblem(sparse([1.0 0.0; -1.0 1.0]), [1.0, 1.0];
         row_lower=[1.0, 1.0])
     @test_logs min_level=Logging.Info solve(problem)
-    @test_logs (:info, "Starting solve") (:info, "Refactorizing basis") (:info, "Refactorizing basis") (:info, "Solve terminated") begin
+    @test_logs (:info, "Starting solve") (:info, "Refactorizing basis") (:info, "Simplex progress") (:info, "Refactorizing basis") (:info, "Simplex progress") (:info, "Solve terminated") begin
         solve(problem; options=SolverOptions(log_level=Logging.Info, refactorization_interval=1))
     end
     @test_logs (:debug, "Starting solve") (:debug, "Solve terminated") min_level=Logging.Debug solve(problem)
     @test_logs (:info, "Starting solve") (:info, "Solve terminated") solve(problem;
         options=SolverOptions(log_level=Logging.Info, time_limit=0.0))
+end
+
+@testset "Phase-I refactorization reports the original MAX objective" begin
+    problem = LinearProblem(
+        sparse([1.0;;]), [1.0];
+        objective_constant=4.0,
+        objective_sense=MAX_SENSE,
+        row_upper=[3.0],
+    )
+    records = Any[]
+    result = JSimplex.Logging.with_logger(RecordingSimplexLogger(records)) do
+        solve(problem; options=SolverOptions(refactorization_interval=1))
+    end
+    progress = filter(record -> record.message == "Simplex progress", records)
+
+    @test result.status == OPTIMAL
+    @test !isempty(progress)
+    @test all(record -> record.objective_value >= 4.0, progress)
+    @test any(record -> record.objective_value == 7.0, progress)
 end
 
 @testset "Parametric public solve" begin

@@ -76,6 +76,7 @@ end
         "dual_tolerance" => Float32(2e-5),
         "zero_tolerance" => Float32(3e-6),
         "refactorization_interval" => 7,
+        "verbose" => false,
         "algorithm" => :dual,
     )
     for (name, value) in values
@@ -85,6 +86,12 @@ end
         @test MOI.get(optimizer, attr) == value
     end
     @test JSimplex._solver_options(optimizer) isa SolverOptions{Float32}
+    @test !JSimplex._solver_options(optimizer).verbose
+    MOI.set(optimizer, MOI.RawOptimizerAttribute("verbose"), true)
+    @test !JSimplex._solver_options(optimizer).verbose
+    MOI.set(optimizer, MOI.Silent(), false)
+    @test JSimplex._solver_options(optimizer).verbose
+    MOI.set(optimizer, MOI.Silent(), true)
     @test_throws MOI.UnsupportedAttribute MOI.set(
         optimizer,
         MOI.RawOptimizerAttribute("unknown_parameter"),

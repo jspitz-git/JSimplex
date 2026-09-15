@@ -1,3 +1,21 @@
+mutable struct RecordingSimplexLogger <: JSimplex.Logging.AbstractLogger
+    records::Vector{Any}
+end
+
+JSimplex.Logging.min_enabled_level(::RecordingSimplexLogger) = JSimplex.Logging.Debug
+JSimplex.Logging.shouldlog(::RecordingSimplexLogger, args...) = true
+JSimplex.Logging.catch_exceptions(::RecordingSimplexLogger) = false
+function JSimplex.Logging.handle_message(
+    logger::RecordingSimplexLogger,
+    level,
+    message,
+    args...;
+    kwargs...,
+)
+    push!(logger.records, (; level, message, kwargs...))
+    return nothing
+end
+
 function test_workspace_type(::Type{T}) where {T}
     problem = LinearProblem(JSimplex.SparseArrays.sparse(reshape(T[2], 1, 1)), T[5];
         row_lower=T[1], column_lower=T[1], column_upper=T[4])
@@ -108,4 +126,68 @@ end
     @test workspace.reduced_costs == [-1.0]
     JSimplex.recompute!(workspace; refactorize=true)
     @test workspace.refactorizations == 1
+end
+
+@testset "Refactorization progress reports current simplex metrics" begin
+    problem = LinearProblem(
+        JSimplex.SparseArrays.sparse(reshape([2.0], 1, 1)), [-5.0];
+        objective_constant=7.0,
+        row_lower=[1.0],
+        column_lower=[1.0],
+        column_upper=[4.0],
+    )
+    records = Any[]
+    workspace = JSimplex.initialize_workspace(problem, SolverOptions())
+    workspace.iterations = 12
+    workspace.basis = JSimplex.Basis(
+        [1],
+        JSimplex.VariableState[JSimplex.BASIC, JSimplex.AT_LOWER],
+    )
+    JSimplex.Logging.with_logger(RecordingSimplexLogger(records)) do
+        JSimplex.recompute!(workspace; refactorize=true)
+    end
+
+    progress = only(filter(record -> record.message == "Simplex progress", records))
+    @test progress.level == JSimplex.Logging.Info
+    @test progress.iterations == 12
+    @test progress.objective_value == 4.5
+    @test progress.primal_infeasibility == 0.5
+    @test progress.primal_infeasibility_count == 1
+    @test progress.dual_infeasibility == 2.5
+    @test progress.dual_infeasibility_count == 1
+    @test progress.elapsed_seconds >= 0.0
+
+    empty!(records)
+    quiet = JSimplex.initialize_workspace(problem, SolverOptions(verbose=false))
+    JSimplex.Logging.with_logger(RecordingSimplexLogger(records)) do
+        JSimplex.recompute!(quiet; refactorize=true)
+    end
+    @test all(record -> record.message != "Simplex progress", records)
+end
+
+@testset "Progress objective preserves stored BigFloat cancellation" begin
+    problem = setprecision(BigFloat, 256) do
+        large = BigFloat(2)^200
+        LinearProblem(
+            JSimplex.SparseArrays.sparse(reshape(BigFloat[1], 1, 1)),
+            BigFloat[large + 1];
+            objective_constant=-large,
+            row_lower=BigFloat[1],
+            row_upper=BigFloat[1],
+        )
+    end
+    records = Any[]
+    setprecision(BigFloat, 64) do
+        workspace = JSimplex.initialize_workspace(problem, SolverOptions(BigFloat))
+        workspace.basis = JSimplex.Basis(
+            [1],
+            JSimplex.VariableState[JSimplex.BASIC, JSimplex.AT_LOWER],
+        )
+        JSimplex.Logging.with_logger(RecordingSimplexLogger(records)) do
+            JSimplex.recompute!(workspace; refactorize=true)
+        end
+    end
+
+    progress = only(filter(record -> record.message == "Simplex progress", records))
+    @test progress.objective_value == 1
 end

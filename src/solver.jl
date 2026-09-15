@@ -113,8 +113,9 @@ end
 """
 function solve(problem::LinearProblem{T}; relax_integrality::Bool=false,
                options=nothing)::Solution{T} where {T<:Real}
+    start_ns = time_ns()
     typed_options = options === nothing ? SolverOptions(T) : SolverOptions(T, options)
-    context = SolveContext(time_ns(), typed_options.time_limit)
+    context = SolveContext(start_ns, typed_options.time_limit)
     @logmsg typed_options.log_level "Starting solve" name=problem.name algorithm=typed_options.algorithm
     time_limit_reached(context) &&
         return _finish_solve(T, context, typed_options, TIME_LIMIT, "time limit reached")
@@ -139,8 +140,13 @@ function solve(problem::LinearProblem{T}; relax_integrality::Bool=false,
 
     # The core converts expected internal numerical failures and preserves
     # callback exception provenance. Do not add a broader catch at this layer.
-    run = _solve_continuous_dual(working_problem, typed_options;
-                               stop_requested=() -> time_limit_reached(context))
+    progress = SimplexProgressContext(problem; start_ns=context.start_ns)
+    run = _solve_continuous_dual(
+        working_problem,
+        typed_options;
+        stop_requested=() -> time_limit_reached(context),
+        progress,
+    )
     if run.status != OPTIMAL
         return _finish_solve(T, context, typed_options, run.status, run.message;
                              iterations=run.iterations, refactorizations=run.refactorizations)

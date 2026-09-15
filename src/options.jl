@@ -32,12 +32,15 @@ end
     SolverOptions(::Type{T}; primal_tolerance=nothing, dual_tolerance=nothing,
                   zero_tolerance=nothing, iteration_limit=100_000,
                   time_limit=Inf, refactorization_interval=20,
-                  log_level=Logging.Debug, algorithm=:dual)
+                  verbose=true, log_level=Logging.Debug, algorithm=:dual)
     SolverOptions(; kwargs...)  # Float64 defaults
     SolverOptions(T, options::SolverOptions)
 
 Configure numerical tolerances, completed-pivot and wall-clock limits, basis
-refactorization frequency, and the level used for Julia logging messages.
+refactorization frequency, progress output, and the level used for Julia logging
+messages. With `verbose=true`, every completed basis refactorization emits an
+`Info`-level `"Simplex progress"` record containing the iteration count, original
+objective value, primal and dual infeasibility sums and counts, and elapsed time.
 `SolverOptions(T; ...)` stores tolerances in the supported floating or rational
 type `T`. Floating defaults are `T(1 // 10^7)` for primal/dual tolerances and
 `T(1 // 10^12)` for zero tolerance; a positive default that rounds to zero is
@@ -69,6 +72,7 @@ struct SolverOptions{T<:Real}
     iteration_limit::Int
     time_limit::Float64
     refactorization_interval::Int
+    verbose::Bool
     log_level::LogLevel
     algorithm::Symbol
 end
@@ -84,7 +88,7 @@ function SolverOptions(::Type{T};
     primal_tolerance=nothing, dual_tolerance=nothing, zero_tolerance=nothing,
     iteration_limit::Integer=100_000, time_limit::Real=Inf,
     refactorization_interval::Integer=20,
-    log_level::LogLevel=Logging.Debug, algorithm::Symbol=:dual,
+    verbose::Bool=true, log_level::LogLevel=Logging.Debug, algorithm::Symbol=:dual,
 ) where {T}
     _supported_value_type(T) || throw(ArgumentError("unsupported solver value type $T"))
     defaults = _is_exact(T) === Val(true) ? (zero(T), zero(T), zero(T)) :
@@ -114,7 +118,7 @@ function SolverOptions(::Type{T};
     refactorization_interval > 0 ||
         throw(ArgumentError("refactorization_interval must be positive"))
     return SolverOptions{T}(tolerances..., Int(iteration_limit), converted_time_limit,
-                            Int(refactorization_interval), log_level, algorithm)
+                            Int(refactorization_interval), verbose, log_level, algorithm)
 end
 
 SolverOptions(::Type{T}, options::SolverOptions) where {T} =
@@ -125,6 +129,7 @@ SolverOptions(::Type{T}, options::SolverOptions) where {T} =
                   iteration_limit=options.iteration_limit,
                   time_limit=options.time_limit,
                   refactorization_interval=options.refactorization_interval,
+                  verbose=options.verbose,
                   log_level=options.log_level,
                   algorithm=options.algorithm)
 

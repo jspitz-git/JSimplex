@@ -585,7 +585,8 @@ function _auxiliary_workspace(workspace::SimplexWorkspace{T}) where {T}
     factorization = PFIFactorization(workspace.factorization.base,
                                      copy(workspace.factorization.updates))
     auxiliary = SimplexWorkspace(
-        workspace.problem, workspace.options, copy(workspace.costs), lower, upper,
+        workspace.problem, workspace.options, workspace.progress,
+        copy(workspace.costs), lower, upper,
         basis, copy(workspace.primal), copy(workspace.reduced_costs),
         copy(workspace.pricing_weights), factorization, workspace.iterations,
         workspace.refactorizations, workspace.perturbed,
@@ -596,7 +597,11 @@ end
 function _classify_recession!(workspace::SimplexWorkspace{T}, stop_requested) where {T}
     # A negative auxiliary optimum certifies a recession direction. Original
     # feasibility is still required: an infeasible LP can have such a direction.
-    feasibility = initialize_workspace(workspace.problem, workspace.options)
+    feasibility = initialize_workspace(
+        workspace.problem,
+        workspace.options;
+        progress=workspace.progress,
+    )
     feasibility.iterations = workspace.iterations
     feasibility.refactorizations = workspace.refactorizations
     fill!(feasibility.costs, zero(T))
@@ -741,11 +746,13 @@ function _make_dual_feasible!(workspace::SimplexWorkspace{T}, stop_requested) wh
 end
 
 function _solve_continuous_dual(problem::LinearProblem{T}, options::SolverOptions{T};
-                                stop_requested::Function=() -> false) where {T}
+                                stop_requested::Function=() -> false,
+                                progress::SimplexProgressContext{T}=
+                                    SimplexProgressContext(problem)) where {T}
     stop_requested = _guard_stop_callback(stop_requested)
     workspace = nothing
     try
-        workspace = initialize_workspace(problem, options)
+        workspace = initialize_workspace(problem, options; progress)
         return _solve_continuous_dual!(workspace, stop_requested)
     catch exception
         exception === stop_requested.exception && rethrow()

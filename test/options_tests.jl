@@ -1,12 +1,14 @@
 @testset "Solver options and results" begin
     options = SolverOptions()
     @test options.algorithm == :dual
+    @test options.verbose
     @test options.iteration_limit == 100_000
     @test options.time_limit == Inf
 
-    limited = SolverOptions(iteration_limit=17, time_limit=2.5)
+    limited = SolverOptions(iteration_limit=17, time_limit=2.5, verbose=false)
     @test limited.iteration_limit == 17
     @test limited.time_limit == 2.5
+    @test !limited.verbose
 
     @test_throws ArgumentError SolverOptions(iteration_limit=-1)
     @test_throws ArgumentError SolverOptions(time_limit=-0.1)
@@ -45,9 +47,12 @@ end
     @test exact.dual_tolerance == 0
     @test exact.zero_tolerance == 0
 
-    converted = @inferred SolverOptions(Rational{BigInt}, SolverOptions(time_limit=2.5))
+    converted = @inferred SolverOptions(
+        Rational{BigInt}, SolverOptions(time_limit=2.5, verbose=false),
+    )
     @test converted isa SolverOptions{Rational{BigInt}}
     @test converted.time_limit === 2.5
+    @test !converted.verbose
     @test_throws ArgumentError SolverOptions(Int)
     for T in (ComplexF64, String)
         @test_throws ArgumentError SolverOptions(T)

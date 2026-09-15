@@ -5,6 +5,7 @@ const _RAW_OPTIMIZER_ATTRIBUTES = (
     "dual_tolerance",
     "zero_tolerance",
     "refactorization_interval",
+    "verbose",
     "algorithm",
 )
 
@@ -17,6 +18,7 @@ function _solver_options(optimizer::Optimizer{T})::SolverOptions{T} where {T}
         iteration_limit=optimizer.iteration_limit,
         time_limit=optimizer.time_limit,
         refactorization_interval=optimizer.refactorization_interval,
+        verbose=optimizer.verbose && !optimizer.silent,
         log_level=optimizer.silent ? Logging.BelowMinLevel : Logging.Debug,
         algorithm=optimizer.algorithm,
     )
@@ -30,6 +32,7 @@ function _set_solver_options!(
     iteration_limit=optimizer.iteration_limit,
     time_limit=optimizer.time_limit,
     refactorization_interval=optimizer.refactorization_interval,
+    verbose=optimizer.verbose,
     algorithm=optimizer.algorithm,
 ) where {T}
     options = SolverOptions(
@@ -40,6 +43,7 @@ function _set_solver_options!(
         iteration_limit,
         time_limit,
         refactorization_interval,
+        verbose,
         log_level=optimizer.silent ? Logging.BelowMinLevel : Logging.Debug,
         algorithm,
     )
@@ -49,6 +53,7 @@ function _set_solver_options!(
     optimizer.iteration_limit = options.iteration_limit
     optimizer.time_limit = options.time_limit
     optimizer.refactorization_interval = options.refactorization_interval
+    optimizer.verbose = options.verbose
     optimizer.algorithm = options.algorithm
     _clear_result!(optimizer)
     return
@@ -102,6 +107,8 @@ function MOI.get(optimizer::Optimizer, attr::MOI.RawOptimizerAttribute)
         return optimizer.zero_tolerance
     elseif attr.name == "refactorization_interval"
         return optimizer.refactorization_interval
+    elseif attr.name == "verbose"
+        return optimizer.verbose
     elseif attr.name == "algorithm"
         return optimizer.algorithm
     end
@@ -128,6 +135,9 @@ function MOI.set(
         return _set_solver_options!(optimizer; zero_tolerance=value)
     elseif attr.name == "refactorization_interval"
         return _set_solver_options!(optimizer; refactorization_interval=value)
+    elseif attr.name == "verbose"
+        value isa Bool || throw(ArgumentError("verbose must be a Bool"))
+        return _set_solver_options!(optimizer; verbose=value)
     elseif attr.name == "algorithm"
         value isa Symbol || throw(ArgumentError("algorithm must be a Symbol"))
         return _set_solver_options!(optimizer; algorithm=value)

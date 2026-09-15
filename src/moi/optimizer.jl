@@ -5,6 +5,7 @@ mutable struct Optimizer{T<:Real} <: MOI.AbstractOptimizer
     iteration_limit::Int
     time_limit::Float64
     refactorization_interval::Int
+    verbose::Bool
     algorithm::Symbol
     silent::Bool
     relax_integrality::Bool
@@ -23,6 +24,7 @@ function Optimizer{T}() where {T<:Real}
         options.iteration_limit,
         options.time_limit,
         options.refactorization_interval,
+        options.verbose,
         options.algorithm,
         false,
         false,
