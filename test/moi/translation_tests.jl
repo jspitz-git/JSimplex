@@ -33,7 +33,7 @@ import MathOptInterface as MOI
     @test columns.names == ["free", "", "", "", "", ""]
     @test columns.index_map[x[1]] == MOI.VariableIndex(1)
     @test columns.index_map[lower_constraint] ==
-          MOI.ConstraintIndex{MOI.VariableIndex,MOI.GreaterThan{Float64}}(1)
+          MOI.ConstraintIndex{MOI.VariableIndex,MOI.GreaterThan{Float64}}(2)
     @test columns.evaluations[1].columns == [2]
     @test columns.evaluations[1].coefficients == [1.0]
     @test columns.evaluations[1].constant == 0.0
@@ -113,6 +113,102 @@ end
                            @test(bound_value(problem.row_lower[row]) == lower)
         upper === nothing ? @test(!isfinite(problem.row_upper[row])) :
                            @test(bound_value(problem.row_upper[row]) == upper)
+    end
+end
+
+@testset "MOI translation normalizes oriented infinite set bounds" begin
+    T = Float32
+    negative_infinity = -T(Inf)
+    positive_infinity = T(Inf)
+
+    variable_source = MOI.Utilities.Model{T}()
+    x = MOI.add_variables(variable_source, 5)
+    MOI.add_constraint(variable_source, x[1], MOI.GreaterThan(negative_infinity))
+    MOI.add_constraint(variable_source, x[2], MOI.LessThan(positive_infinity))
+    MOI.add_constraint(variable_source, x[3], MOI.Interval(negative_infinity, T(2)))
+    MOI.add_constraint(variable_source, x[4], MOI.Interval(T(-2), positive_infinity))
+    MOI.add_constraint(variable_source, x[5], MOI.Interval(negative_infinity, positive_infinity))
+
+    translated = JSimplex._translate_moi_model(JSimplex.Optimizer{T}(), variable_source)
+    @test translated.error === nothing
+    variable_problem = something(translated.problem)
+    @test variable_problem isa LinearProblem{T}
+    @test !isfinite(variable_problem.column_lower[1])
+    @test !isfinite(variable_problem.column_upper[1])
+    @test !isfinite(variable_problem.column_lower[2])
+    @test !isfinite(variable_problem.column_upper[2])
+    @test !isfinite(variable_problem.column_lower[3])
+    @test bound_value(variable_problem.column_upper[3]) == T(2)
+    @test bound_value(variable_problem.column_lower[4]) == T(-2)
+    @test !isfinite(variable_problem.column_upper[4])
+    @test !isfinite(variable_problem.column_lower[5])
+    @test !isfinite(variable_problem.column_upper[5])
+
+    affine_source = MOI.Utilities.Model{T}()
+    y = MOI.add_variables(affine_source, 5)
+    affine_constraints = Any[]
+    for (index, set) in enumerate((
+        MOI.GreaterThan(negative_infinity),
+        MOI.LessThan(positive_infinity),
+        MOI.Interval(negative_infinity, T(2)),
+        MOI.Interval(T(-2), positive_infinity),
+        MOI.Interval(negative_infinity, positive_infinity),
+    ))
+        function_ = MOI.ScalarAffineFunction(
+            [MOI.ScalarAffineTerm(one(T), y[index])],
+            zero(T),
+        )
+        push!(affine_constraints, MOI.add_constraint(affine_source, function_, set))
+    end
+
+    translated = JSimplex._translate_moi_model(JSimplex.Optimizer{T}(), affine_source)
+    @test translated.error === nothing
+    affine_problem = something(translated.problem)
+    @test affine_problem isa LinearProblem{T}
+    for (constraint, lower, upper) in zip(
+        affine_constraints,
+        (nothing, nothing, nothing, T(-2), nothing),
+        (nothing, nothing, T(2), nothing, nothing),
+    )
+        row = translated.index_map[constraint].value
+        lower === nothing ? @test(!isfinite(affine_problem.row_lower[row])) :
+                            @test(bound_value(affine_problem.row_lower[row]) == lower)
+        upper === nothing ? @test(!isfinite(affine_problem.row_upper[row])) :
+                            @test(bound_value(affine_problem.row_upper[row]) == upper)
+    end
+end
+
+@testset "MOI translation rejects invalid variable and affine set endpoints" begin
+    T = Float32
+    negative_infinity = -T(Inf)
+    positive_infinity = T(Inf)
+    invalid_sets = (
+        MOI.GreaterThan(positive_infinity),
+        MOI.LessThan(negative_infinity),
+        MOI.EqualTo(positive_infinity),
+        MOI.GreaterThan(T(NaN)),
+        MOI.Interval(positive_infinity, positive_infinity),
+        MOI.Interval(negative_infinity, negative_infinity),
+    )
+
+    for set in invalid_sets
+        variable_source = MOI.Utilities.Model{T}()
+        x = MOI.add_variable(variable_source)
+        MOI.add_constraint(variable_source, x, set)
+        translated = JSimplex._translate_moi_model(JSimplex.Optimizer{T}(), variable_source)
+        @test translated.problem === nothing
+        @test translated.error !== nothing
+
+        affine_source = MOI.Utilities.Model{T}()
+        y = MOI.add_variable(affine_source)
+        function_ = MOI.ScalarAffineFunction(
+            [MOI.ScalarAffineTerm(one(T), y)],
+            zero(T),
+        )
+        MOI.add_constraint(affine_source, function_, set)
+        translated = JSimplex._translate_moi_model(JSimplex.Optimizer{T}(), affine_source)
+        @test translated.problem === nothing
+        @test translated.error !== nothing
     end
 end
 

@@ -327,3 +327,32 @@ end
     @test MOI.get(optimizer, MOI.TerminationStatus()) == MOI.OPTIMIZE_NOT_CALLED
     @test_throws MOI.ResultIndexBoundsError MOI.get(optimizer, MOI.ObjectiveValue())
 end
+
+@testset "MOI invalid variable bounds clear stale results" begin
+    valid = _moi_result_model()
+    invalid = MOI.Utilities.Model{Float64}()
+    x = MOI.add_variable(invalid)
+    MOI.add_constraint(invalid, x, MOI.LessThan(NaN))
+
+    optimizer = JSimplex.Optimizer()
+    MOI.optimize!(optimizer, valid)
+    @test MOI.get(optimizer, MOI.ResultCount()) == 1
+
+    @test_nowarn MOI.optimize!(optimizer, invalid)
+    @test MOI.get(optimizer, MOI.TerminationStatus()) == MOI.INVALID_MODEL
+    @test MOI.get(optimizer, MOI.ResultCount()) == 0
+    @test MOI.get(optimizer, MOI.PrimalStatus()) == MOI.NO_SOLUTION
+    @test_throws MOI.ResultIndexBoundsError MOI.get(optimizer, MOI.ObjectiveValue())
+end
+
+@testset "MOI variable constraint primals use variable indices" begin
+    source = MOI.Utilities.Model{Float64}()
+    _, y = MOI.add_variables(source, 2)
+    fixed_y = MOI.add_constraint(source, y, MOI.EqualTo(2.0))
+
+    optimizer = JSimplex.Optimizer()
+    index_map, _ = MOI.optimize!(optimizer, source)
+    implied_index = MOI.ConstraintIndex{MOI.VariableIndex,MOI.EqualTo{Float64}}(2)
+    @test index_map[fixed_y] == implied_index
+    @test MOI.get(optimizer, MOI.ConstraintPrimal(), implied_index) == 2.0
+end

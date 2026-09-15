@@ -117,6 +117,15 @@ end
 function MOI.get(
     optimizer::Optimizer,
     attr::MOI.ConstraintPrimal,
+    constraint::MOI.ConstraintIndex{MOI.VariableIndex,S},
+) where {S}
+    MOI.check_result_index_bounds(optimizer, attr)
+    return something((optimizer.solution::Solution).primal)[constraint.value]
+end
+
+function MOI.get(
+    optimizer::Optimizer,
+    attr::MOI.ConstraintPrimal,
     constraint::MOI.ConstraintIndex,
 )
     MOI.check_result_index_bounds(optimizer, attr)

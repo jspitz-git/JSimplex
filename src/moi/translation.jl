@@ -21,14 +21,28 @@ struct MOITranslation{T<:Real}
     error::Union{Nothing,String}
 end
 
+function _moi_set_bound(value::T, side::Symbol) where {T}
+    isnan(value) && throw(ArgumentError("MOI set bounds cannot be NaN"))
+    if isinf(value)
+        if (side === :lower && value < zero(T)) ||
+           (side === :upper && value > zero(T))
+            return _unbounded_bound(T)
+        end
+        throw(ArgumentError("MOI $side set bounds cannot have this infinity"))
+    end
+    return Bound(value)
+end
+
 _moi_set_bounds(set::MOI.GreaterThan{T}) where {T} =
-    (Bound(set.lower), _unbounded_bound(T))
+    (_moi_set_bound(set.lower, :lower), _unbounded_bound(T))
 _moi_set_bounds(set::MOI.LessThan{T}) where {T} =
-    (_unbounded_bound(T), Bound(set.upper))
-_moi_set_bounds(set::MOI.EqualTo{T}) where {T} =
-    (Bound(set.value), Bound(set.value))
+    (_unbounded_bound(T), _moi_set_bound(set.upper, :upper))
+function _moi_set_bounds(set::MOI.EqualTo{T}) where {T}
+    bound = _moi_set_bound(set.value, :equal)
+    return bound, bound
+end
 _moi_set_bounds(set::MOI.Interval{T}) where {T} =
-    (Bound(set.lower), Bound(set.upper))
+    (_moi_set_bound(set.lower, :lower), _moi_set_bound(set.upper, :upper))
 
 function _intersect_moi_lower(left::Bound{T}, right::Bound{T}) where {T}
     !isfinite(left) && return right
@@ -142,18 +156,23 @@ function _collect_moi_columns(optimizer::Optimizer{T}, source)::MOIColumnData{T}
             source_variable = MOI.get(source, MOI.ConstraintFunction(), source_index)
             column = index_map[source_variable].value
             index_map[source_index] = MOI.ConstraintIndex{MOI.VariableIndex,set_type}(
-                length(evaluations) + 1,
+                column,
             )
             push!(evaluations, MOIScalarEvaluation(Int[column], T[one(T)], zero(T)))
             set = MOI.get(source, MOI.ConstraintSet(), source_index)
-            error = _apply_moi_variable_constraint!(
-                lower,
-                upper,
-                domains,
-                column,
-                set,
-                error,
-            )
+            error = try
+                _apply_moi_variable_constraint!(
+                    lower,
+                    upper,
+                    domains,
+                    column,
+                    set,
+                    error,
+                )
+            catch exception
+                exception isa ArgumentError || rethrow()
+                isnothing(error) ? sprint(showerror, exception) : error
+            end
         end
     end
 
