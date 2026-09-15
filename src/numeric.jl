@@ -38,6 +38,7 @@ function _normalize_bound(::Type{T}, input, side::Symbol, label::AbstractString)
     _supported_value_type(T) || throw(ArgumentError("unsupported value type for $label: $T"))
     input isa Bound && !isfinite(input) && return _unbounded_bound(T)
     input === nothing && return _unbounded_bound(T)
+    input isa Bound && return _finite_bound(T, bound_value(input))
 
     input isa Real || throw(ArgumentError("$label must be a real value or nothing"))
     if isnan(input)
@@ -50,5 +51,5 @@ function _normalize_bound(::Type{T}, input, side::Symbol, label::AbstractString)
         end
         return _unbounded_bound(T)
     end
-    return _finite_bound(T, input isa Bound ? bound_value(input) : input)
+    return _finite_bound(T, input)
 end

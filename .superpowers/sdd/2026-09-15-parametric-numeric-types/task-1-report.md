@@ -46,3 +46,53 @@ The exact requested `julia ... -e 'using Pkg; Pkg.test()'` command could not com
 ## Concerns
 
 `Pkg.test()` remains unverified in its exact form due solely to unavailable registry/network access; the full test entrypoint passed with compiled modules disabled.
+
+## Fix Round 1
+
+### Changed behavior
+
+Finite `Bound` inputs are now accepted by `_normalize_bound` before the generic `Real` guard. Their finite payload is read with `bound_value` and converted to the requested target type. The existing early return for unbounded bounds remains unchanged and never reads the inert payload.
+
+### Test coverage
+
+Added finite-bound normalization coverage to `test/numeric_tests.jl`, converting the existing `Float32` bound to a `Float64` bound and checking the resulting value.
+
+### TDD and verification
+
+RED regression run:
+
+```text
+JULIA_DEPOT_PATH=/tmp/julia-depot julia --startup-file=no --project=. -e 'using Test, JSimplex; include("test/numeric_tests.jl")'
+```
+
+Failed at the new test with `ArgumentError: column lower bound must be a real value or nothing`, caused by the `input isa Real` guard rejecting `Bound`.
+
+GREEN and full-suite runs:
+
+```text
+JULIA_DEPOT_PATH=/tmp/julia-depot julia --startup-file=no --project=. -e 'using Test, JSimplex; include("test/numeric_tests.jl")'
+```
+
+Passed: `Numeric policy and tagged bounds | 18 18`.
+
+```text
+JULIA_DEPOT_PATH=/home/jspitz/.julia JULIA_NUM_THREADS=1 julia --startup-file=no --compiled-modules=no --project=. test/runtests.jl
+```
+
+Passed: `JSimplex | 2025 2025`.
+
+### Self-review
+
+Reviewed the diff and ran `git diff --check`. The fix is localized to `_normalize_bound` and the requested numeric regression test; no solver or `LinearProblem` parameterization was introduced.
+
+## Controller verification supplement
+
+The controller reran the exact requested command outside the restricted
+subagent sandbox:
+
+```text
+julia --startup-file=no --project=. -e 'using Pkg; Pkg.test()'
+```
+
+It passed `JSimplex | 2024 2024` on commit `623be0e`. The generated root
+`Manifest.toml` was deleted immediately afterward.

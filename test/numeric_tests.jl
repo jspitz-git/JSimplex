@@ -19,6 +19,11 @@
     @test JSimplex._supported_value_type(Rational{Int})
     @test !JSimplex._supported_value_type(Int)
 
+    normalized_finite = @inferred JSimplex._normalize_bound(
+        Float64, finite, :lower, "column lower bound",
+    )
+    @test normalized_finite == Bound(3.0)
+
     exact_lower = @inferred JSimplex._normalize_bound(
         Rational{BigInt}, -Inf, :lower, "column lower bound",
     )
