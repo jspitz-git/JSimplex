@@ -743,3 +743,19 @@ end
         T <: Rational && @test run.refactorizations == 0
     end
 end
+
+@testset "Rounded ray objective improvement must exceed its uncertainty" begin
+    problem = LinearProblem(sparse(Float32[-7 3; -8 -6]), Float32[4, 3];
+        row_lower=[nothing, -6f0], row_upper=[nothing, -4f0], column_lower=[nothing, nothing])
+    workspace = JSimplex.initialize_workspace(problem, SolverOptions(Float32))
+    auxiliary = JSimplex._auxiliary_workspace(workspace)
+    auxiliary.primal[1:2] .= Float32[90.90906, -121.2121]
+    @test (@inferred JSimplex._recession_direction_status(workspace, auxiliary)) != :certified
+
+    exact = LinearProblem(sparse(Rational{BigInt}[1 -3]), Rational{BigInt}[-1, 0];
+        row_lower=Rational{BigInt}[0], row_upper=Rational{BigInt}[0])
+    workspace = JSimplex.initialize_workspace(exact, SolverOptions(Rational{BigInt}))
+    auxiliary = JSimplex._auxiliary_workspace(workspace)
+    auxiliary.primal[1:2] .= Rational{BigInt}[1, 1 // 3]
+    @test (@inferred JSimplex._recession_direction_status(workspace, auxiliary)) == :certified
+end

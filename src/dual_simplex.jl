@@ -181,6 +181,54 @@ function dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested)::Union{
     end
 end
 
+function _add_product_bounds(lower::T, upper::T, left::T, right::T) where {T<:AbstractFloat}
+    (iszero(left) || iszero(right)) && return lower, upper
+    product = left * right
+    return prevfloat(lower + prevfloat(product)), nextfloat(upper + nextfloat(product))
+end
+
+function _floating_infeasibility_certified(workspace::SimplexWorkspace{T},
+                                          rho::Vector{T}, below::Bool) where {T<:AbstractFloat}
+    # Every feasible working vector satisfies [A -I] * x == 0. A row
+    # combination whose minimum over the bounds is strictly positive proves
+    # a contradiction without relying on the computed basic primal values.
+    A = workspace.problem.A
+    column_count = size(A, 2)
+    orientation = below ? one(T) : -one(T)
+    minimum_value = zero(T)
+    for index in eachindex(workspace.lower)
+        coefficient_lower = coefficient_upper = zero(T)
+        if index <= column_count
+            for position in A.colptr[index]:(A.colptr[index + 1] - 1)
+                coefficient_lower, coefficient_upper = _add_product_bounds(
+                    coefficient_lower, coefficient_upper,
+                    orientation * rho[A.rowval[position]], A.nzval[position],
+                )
+            end
+        else
+            coefficient_lower = coefficient_upper = -orientation * rho[index - column_count]
+        end
+        isfinite(coefficient_lower) && isfinite(coefficient_upper) || return false
+        iszero(coefficient_lower) && iszero(coefficient_upper) && continue
+
+        lower, upper = workspace.lower[index], workspace.upper[index]
+        !isfinite(lower) && coefficient_upper > zero(T) && return false
+        !isfinite(upper) && coefficient_lower < zero(T) && return false
+        isfinite(lower) || isfinite(upper) || return false
+        endpoint = isfinite(lower) ? bound_value(lower) : bound_value(upper)
+        term = min(coefficient_lower * endpoint, coefficient_upper * endpoint)
+        if isfinite(lower) && isfinite(upper)
+            endpoint = bound_value(upper)
+            term = min(term, coefficient_lower * endpoint, coefficient_upper * endpoint)
+        end
+        isfinite(term) || return false
+        total = minimum_value + prevfloat(term)
+        isfinite(total) || return false
+        minimum_value = prevfloat(total)
+    end
+    return minimum_value > zero(T)
+end
+
 function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
                           basis_refreshed::Bool=false) where {T}
     leaving_row = dual_edge_selection(workspace)
@@ -216,6 +264,10 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
             dual_infeasibility(workspace) <= workspace.options.dual_tolerance ||
                 return DualTermination(NUMERICAL_ERROR, "dual feasibility lost")
             return _dual_iteration!(workspace, stop_requested, true)
+        end
+        if _is_exact(T) === Val(false) && !_floating_infeasibility_certified(workspace, rho, below)
+            return DualTermination(NUMERICAL_ERROR,
+                                   "floating row combination does not certify infeasibility")
         end
         return DualTermination(INFEASIBLE, "no eligible dual pivot")
     end
@@ -414,6 +466,21 @@ function _recession_row_roundoff(A::SparseMatrixCSC{T,Int}, structural::Vector{T
     return magnitudes
 end
 
+_recession_objective_roundoff(costs::Vector{T}, direction::Vector{T},
+                              ::Val{true}) where {T<:Rational} = zero(T)
+
+function _recession_objective_roundoff(costs::Vector{T}, direction::Vector{T},
+                                      ::Val{false}) where {T<:AbstractFloat}
+    magnitude = zero(T)
+    for index in eachindex(costs)
+        _, magnitude = _add_product_bounds(zero(T), magnitude, abs(costs[index]), abs(direction[index]))
+    end
+    # Match the row dot-product error envelope, including accumulation error.
+    relative_error = T(length(costs)) * eps(T)
+    relative_error < one(T) || return T(Inf)
+    return nextfloat(relative_error / (one(T) - relative_error) * magnitude)
+end
+
 function _recession_direction_status(workspace::SimplexWorkspace{T},
                                      auxiliary::SimplexWorkspace{T}) where {T}
     column_count = size(workspace.problem.A, 2)
@@ -436,6 +503,9 @@ function _recession_direction_status(workspace::SimplexWorkspace{T},
     end
     improvement = dot(workspace.costs, direction)
     isfinite(improvement) && improvement < -workspace.options.dual_tolerance || return :invalid
+    objective_roundoff = _recession_objective_roundoff(workspace.costs, direction, _is_exact(T))
+    isfinite(objective_roundoff) || return :invalid
+    improvement < -(workspace.options.dual_tolerance + objective_roundoff) || return :ambiguous
     return ambiguous ? :ambiguous : :certified
 end
 
@@ -466,7 +536,7 @@ function _make_dual_feasible!(workspace::SimplexWorkspace{T}, stop_requested) wh
     if dot(workspace.costs, auxiliary.primal) < -workspace.options.dual_tolerance
         direction_status = _recession_direction_status(workspace, auxiliary)
         direction_status == :ambiguous &&
-            return DualTermination(NUMERICAL_ERROR, "auxiliary direction has a nonzero bound violation within tolerance")
+            return DualTermination(NUMERICAL_ERROR, "auxiliary direction has uncertain feasibility or objective improvement")
         direction_status == :certified ||
             return DualTermination(NUMERICAL_ERROR, "auxiliary vector does not certify an improving direction")
         return _classify_recession!(workspace, stop_requested)

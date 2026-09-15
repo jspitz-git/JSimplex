@@ -376,3 +376,32 @@ end
         @test captured === exception
     end
 end
+
+@testset "Floating status certificates reject unresolved roundoff" begin
+    for T in (Float32, Rational{BigInt})
+        for (problem, objective, primal) in (
+            (LinearProblem(sparse(T[8 9; -8 -8]), T[3, -3];
+                row_upper=T[-2, 0], column_lower=T[-1, -2], column_upper=T[4, 5]),
+             T(12), T[2, -2]),
+            (LinearProblem(sparse(T[-7 3; -8 -6]), T[4, 3];
+                row_lower=[nothing, T(-6)], row_upper=[nothing, T(-4)],
+                column_lower=[nothing, nothing]), T(2), nothing),
+        )
+            @testset "$T, objective=$objective" begin
+                result = @inferred solve(problem)
+                @test result isa Solution{T}
+                @test result.status in (OPTIMAL, NUMERICAL_ERROR)
+                if T <: Rational
+                    @test result.status == OPTIMAL
+                end
+                if result.status == OPTIMAL
+                    @test T <: Rational ? result.objective_value == objective : result.objective_value ≈ objective
+                    isnothing(primal) || @test T <: Rational ? result.primal == primal : result.primal ≈ primal
+                else
+                    @test isnothing(result.primal)
+                    @test isnothing(result.objective_value)
+                end
+            end
+        end
+    end
+end
