@@ -6,6 +6,124 @@ function read_mps_text(text; kwargs...)
     end
 end
 
+# Julia 1.13 Test.@inferred widens type-valued keywords to DataType. Keep the
+# singleton type in a positional argument while exercising the public reader.
+read_typed_mps(path, ::Type{T}; kwargs...) where {T} = read_mps(path; value_type=T, kwargs...)
+
+@testset "Typed and exact MPS construction" begin
+    path = joinpath(@__DIR__, "fixtures", "parser", "exact-rational.mps")
+    default = @inferred read_mps(path)
+    exact = @inferred read_typed_mps(path, Rational{BigInt})
+    single = @inferred read_typed_mps(path, Float32)
+
+    @test default isa LinearProblem{Float64}
+    @test exact isa LinearProblem{Rational{BigInt}}
+    @test single isa LinearProblem{Float32}
+    @test exact.objective == Rational{BigInt}[5 // 4]
+    @test exact.objective_constant == 1 // big(4)
+    @test Matrix(exact.A) == reshape(Rational{BigInt}[3 // 10], 1, 1)
+    @test bound_value(only(exact.row_lower)) == 3 // big(5)
+    @test bound_value(only(exact.row_upper)) == 3 // big(5)
+
+    maximum = string(typemax(Int))
+    duplicate = "NAME SUM\nROWS\n N OBJ\nCOLUMNS\n X OBJ $maximum\n X OBJ 1\nENDATA\n"
+    duplicate_error = try
+        read_mps_text(duplicate; value_type=Rational{Int})
+    catch exception
+        exception
+    end
+    @test duplicate_error isa MPSParseError
+    @test duplicate_error.line == 6
+    @test duplicate_error.section == :COLUMNS
+
+    ranged = "NAME RANGE\nROWS\n G ROW\nCOLUMNS\n X ROW 1\nRHS\n R ROW $maximum\nRANGES\n RNG ROW 1\nENDATA\n"
+    range_error = try
+        read_mps_text(ranged; value_type=Rational{Int})
+    catch exception
+        exception
+    end
+    @test range_error isa MPSParseError
+    @test range_error.line == 9
+    @test range_error.section == :RANGES
+end
+
+@testset "Typed MPS formats, bounds, and exact arithmetic" begin
+    root = joinpath(@__DIR__, "fixtures", "parser")
+    for T in (Float32, Float64, BigFloat, Rational{BigInt})
+        for (filename, format) in (("basic-fixed.mps", :fixed),
+                                   ("basic-fixed.mps", :auto),
+                                   ("basic-free.mps", :free),
+                                   ("basic-free.mps", :auto))
+            problem = read_mps(joinpath(root, filename); format, value_type=T)
+            @test problem isa LinearProblem{T}
+            @test problem.objective == (format == :fixed || filename == "basic-fixed.mps" ? T[1] : T[3, 2])
+        end
+        domains = read_mps(joinpath(root, "bounds-and-ranges.mps"); value_type=T)
+        @test domains.variable_domains == [INTEGER, INTEGER, BINARY, SEMI_CONTINUOUS, SEMI_INTEGER]
+        @test bound_value.(domains.column_lower) == T[-2, 0, 0, 2, 3]
+        @test bound_value.(domains.column_upper) == T[9, 1, 1, 10, 7]
+        @test bound_value.(domains.row_lower) == T[1, 5, 2]
+        @test !isfinite(last(domains.row_upper))
+        unbounded = read_mps(joinpath(root, "all-bounds.mps"); value_type=T)
+        @test isfinite.(unbounded.column_lower) == [true, true, true, false, false, true]
+        @test isfinite.(unbounded.column_upper) == [false, true, true, false, false, false]
+        selected = read_mps(joinpath(root, "multiple-sets.mps"); value_type=T,
+                            rhs_name="SECOND", ranges_name="WIDE", bounds_name="HIGH")
+        @test bound_value.(selected.row_lower) == T[-1]
+        @test bound_value.(selected.row_upper) == T[2]
+        @test bound_value.(selected.column_upper) == T[9]
+    end
+    for T in (Int, Real, AbstractFloat, Rational)
+        @test_throws ArgumentError read_mps(joinpath(root, "exact-rational.mps"); value_type=T)
+    end
+
+    duplicate = "NAME EXACTSUM\nROWS\n N OBJ\n E EQ\nCOLUMNS\n X OBJ .1 EQ .2\n X OBJ .2 EQ .1\nENDATA\n"
+    summed = read_mps_text(duplicate; value_type=Rational{BigInt})
+    @test summed.objective == Rational{BigInt}[3 // 10]
+    @test Matrix(summed.A) == reshape(Rational{BigInt}[3 // 10], 1, 1)
+    for (kind, range, lower, upper) in (
+        ("E", ".3", 1 // 2, 4 // 5), ("E", "-.3", 1 // 5, 1 // 2),
+        ("E", "0", 1 // 2, 1 // 2), ("L", ".3", 1 // 5, 1 // 2),
+        ("L", "-.3", 1 // 5, 1 // 2), ("G", ".3", 1 // 2, 4 // 5),
+        ("G", "-.3", 1 // 2, 4 // 5),
+    )
+        problem = read_mps_text("NAME RANGE\nROWS\n $kind ROW\nCOLUMNS\n X ROW 1\nRHS\n R ROW .5\nRANGES\n RNG ROW $range\nENDATA\n"; value_type=Rational{BigInt})
+        @test bound_value(only(problem.row_lower)) == lower
+        @test bound_value(only(problem.row_upper)) == upper
+    end
+
+    maximum, minimum = string(typemax(Int)), string(typemin(Int))
+    for (text, T, line, section) in (
+        ("NAME SUM\nROWS\n E ROW\nCOLUMNS\n X ROW $maximum\n X ROW 1\nENDATA\n", Rational{Int}, 6, :COLUMNS),
+        ("NAME SUM\nROWS\n E ROW\nCOLUMNS\n X ROW $minimum\n X ROW -1\nENDATA\n", Rational{Int}, 6, :COLUMNS),
+        ("NAME RHS\nROWS\n N OBJ\nCOLUMNS\n X OBJ 1\nRHS\n R OBJ $minimum\nENDATA\n", Rational{Int}, 7, :RHS),
+        ("NAME RANGE\nROWS\n L ROW\nCOLUMNS\n X ROW 1\nRHS\n R ROW $minimum\nRANGES\n RNG ROW 1\nENDATA\n", Rational{Int}, 9, :RANGES),
+        ("NAME RANGE\nROWS\n G ROW\nCOLUMNS\n X ROW 1\nRANGES\n RNG ROW $minimum\nENDATA\n", Rational{Int}, 7, :RANGES),
+        ("NAME SUM\nROWS\n N OBJ\nCOLUMNS\n X OBJ 3e38\n X OBJ 3e38\nENDATA\n", Float32, 6, :COLUMNS),
+        ("NAME SUM\nROWS\n E ROW\nCOLUMNS\n X ROW 3e38\n X ROW 3e38\n X ROW -3e38\nENDATA\n", Float32, 6, :COLUMNS),
+    )
+        mktemp() do path, io
+            write(io, text)
+            close(io)
+            error = try
+                read_mps(path; value_type=T)
+            catch exception
+                exception
+            end
+            @test error isa MPSParseError
+            if error isa MPSParseError
+                @test error.source == path
+                @test error.line == line
+                @test error.section == section
+            end
+        end
+    end
+    # The absolute range magnitude can exceed T even when the endpoint fits.
+    canceled = read_mps_text("NAME RANGE\nROWS\n G ROW\nCOLUMNS\n X ROW 1\nRHS\n R ROW $minimum\nRANGES\n RNG ROW $minimum\nENDATA\n"; value_type=Rational{Int})
+    @test bound_value(only(canceled.row_lower)) == typemin(Int)
+    @test bound_value(only(canceled.row_upper)) == 0
+end
+
 @testset "MPS model construction" begin
     root = joinpath(@__DIR__, "fixtures", "parser")
     @testset "bounds, ranges, and domains" begin

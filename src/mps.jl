@@ -33,10 +33,12 @@ Malformed or unsupported MPS data raises `MPSParseError`. A diagnostic for
 an invalid named-set/objective selection uses line zero because it has no source
 record. An invalid `format` raises `ArgumentError`; file access errors propagate.
 """
-function read_mps(
+Base.@constprop :aggressive function read_mps(
     path::AbstractString; format::Symbol=:auto, rhs_name=nothing,
     ranges_name=nothing, bounds_name=nothing, objective_name=nothing,
-)::LinearProblem
-    records = _parse_mps_file(path; format=format)
+    value_type::Type{T}=Float64,
+) where {T<:Real}
+    _supported_value_type(T) || throw(ArgumentError("unsupported MPS value type $T"))
+    records = _parse_mps_file(path, T; format)
     return _build_mps(records; rhs_name, ranges_name, bounds_name, objective_name)
 end
