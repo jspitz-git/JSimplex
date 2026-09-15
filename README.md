@@ -37,8 +37,8 @@ using JSimplex
 ```
 
 The temporary environment lasts for the current session. Initial package setup
-may download Julia registry metadata even though the runtime has no third-party
-packages. The package tests use local fixtures and the package's declared
+may download Julia registry metadata and the package's declared third-party
+dependencies. The package tests use local fixtures and the package's declared
 dependencies; they require no network download after initial package setup.
 
 ## Construct and solve an LP
