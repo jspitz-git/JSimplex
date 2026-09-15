@@ -91,7 +91,8 @@ function replace_column!(
     factor::PFIFactorization{T},
     tableau_column::AbstractVector,
     pivot_row::Integer;
-    zero_tolerance::Real=1.0e-12,
+    zero_tolerance::Real=_is_exact(T) === Val(true) ? zero(T) :
+                         _positive_tolerance(T, 1 // 10^12),
 ) where {T}
     tolerance = T(zero_tolerance)
     isfinite(tolerance) && tolerance >= zero(T) ||

@@ -20,6 +20,19 @@
     @test result.primal == [1.0, 2.0]
 end
 
+@testset "Time limits are validated before Float64 conversion" begin
+    for T in (Float32, Float64, BigFloat, Rational{BigInt})
+        @test_throws ArgumentError SolverOptions(T; time_limit=big"-1e-400")
+        @test_throws ArgumentError SolverOptions(T; time_limit=-1 // big(10)^400)
+        @test_throws ArgumentError SolverOptions(T; time_limit=big"-Inf")
+        @test_throws ArgumentError SolverOptions(T; time_limit=big"NaN")
+        @test SolverOptions(T; time_limit=big"Inf").time_limit === Inf
+        @test SolverOptions(T; time_limit=big"1e-400").time_limit === 0.0
+        @test SolverOptions(T; time_limit=big"-0.0").time_limit === -0.0
+        @test SolverOptions(T; time_limit=big"2.5").time_limit === 2.5
+    end
+end
+
 @testset "Parametric solver options and results" begin
     @test @inferred(SolverOptions()) isa SolverOptions{Float64}
     options32 = @inferred SolverOptions(Float32)

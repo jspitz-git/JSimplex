@@ -104,6 +104,8 @@ function SolverOptions(::Type{T};
             throw(ArgumentError("floating tolerances must be positive"))
     end
     iteration_limit >= 0 || throw(ArgumentError("iteration_limit must be nonnegative"))
+    (isfinite(time_limit) || time_limit == Inf) && time_limit >= 0 ||
+        throw(ArgumentError("time_limit must be nonnegative and finite or positive Inf"))
     converted_time_limit = Float64(time_limit)
     (isfinite(converted_time_limit) || converted_time_limit == Inf) &&
         converted_time_limit >= 0 ||

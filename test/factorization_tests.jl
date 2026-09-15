@@ -21,6 +21,37 @@ function test_factorization_type(::Type{T}) where {T}
     end
 end
 
+@testset "Scalar-aware default pivot tolerance" begin
+    T = Rational{BigInt}
+    factor = JSimplex.PFIFactorization(reshape(T[1], 1, 1))
+    tiny_pivot = 1 // big(10)^13
+    replacement = try
+        JSimplex.replace_column!(factor, [tiny_pivot], 1)
+    catch error
+        error
+    end
+    @test replacement === factor
+    @test JSimplex.forward_solve(factor, T[1]) == T[big(10)^13]
+    @test JSimplex.transpose_solve(factor, T[1]) == T[big(10)^13]
+    @test_throws JSimplex.LinearAlgebra.ZeroPivotException JSimplex.replace_column!(
+        factor, [tiny_pivot], 1; zero_tolerance=1 // big(10)^12,
+    )
+    @test_throws JSimplex.LinearAlgebra.ZeroPivotException JSimplex.replace_column!(
+        factor, T[0], 1,
+    )
+
+    for T in (Float16, Float32, Float64, BigFloat)
+        factor = JSimplex.PFIFactorization(reshape(T[1], 1, 1))
+        cutoff = SolverOptions(T).zero_tolerance
+        @test_throws JSimplex.LinearAlgebra.ZeroPivotException JSimplex.replace_column!(
+            factor, [cutoff], 1,
+        )
+        @test JSimplex.replace_column!(factor, T[1 // 1000], 1) === factor
+        @test JSimplex.forward_solve(factor, T[1]) ≈ T[1000]
+        @test JSimplex.replace_column!(factor, [cutoff], 1; zero_tolerance=zero(T)) === factor
+    end
+end
+
 @testset "Parametric factorization backends" begin
     foreach(test_factorization_type, (Float32, Float64, BigFloat, Rational{BigInt}))
 

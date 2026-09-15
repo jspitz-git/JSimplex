@@ -28,6 +28,11 @@ _unbounded_bound(::Type{T}) where {T<:Real} = Bound{T}(zero(T), false)
 Base.isfinite(bound::Bound) = bound.bounded
 Base.:(==)(left::Bound, right::Bound) =
     left.bounded == right.bounded && (!left.bounded || left.value == right.value)
+Base.isequal(left::Bound, right::Bound) =
+    left.bounded == right.bounded && (!left.bounded || isequal(left.value, right.value))
+Base.hash(bound::Bound, seed::UInt) =
+    bound.bounded ? hash(bound.value, hash(true, hash(:Bound, seed))) :
+                    hash(false, hash(:Bound, seed))
 
 function bound_value(bound::Bound)
     isfinite(bound) || throw(ArgumentError("an unbounded bound has no finite value"))
