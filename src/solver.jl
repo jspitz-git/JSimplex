@@ -34,6 +34,13 @@ Solve an LP using dual simplex. Discrete domains require explicit LP relaxation;
 the input model remains unchanged. Only optimal results contain a primal vector
 and objective value, expressed in the original structural variables and sense.
 
+Without relaxation, any non-continuous domain returns `MIP_NOT_SUPPORTED`.
+With relaxation, integer/binary domains retain their bounds and semi domains
+use the convex hull of zero and their active interval. Only `algorithm=:dual`
+is supported. Inspect `solution.status`, `solution.message`, and
+`solution.statistics` for termination details; non-optimal results have
+`nothing` for both `primal` and `objective_value`.
+
 The monotonic time limit starts at entry; an expired deadline takes precedence
 over algorithm selection and validation. Iteration limits count completed pivots.
 """

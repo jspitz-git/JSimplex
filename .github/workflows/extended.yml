@@ -1,0 +1,17 @@
+name: Extended validation
+
+on:
+  workflow_dispatch:
+
+jobs:
+  reference:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: julia-actions/setup-julia@v2
+        with:
+          version: '1.13'
+      - uses: julia-actions/cache@v2
+      - run: julia --startup-file=no --project=dev -e 'using Pkg; Pkg.develop(path="."); Pkg.instantiate()'
+      - run: julia --startup-file=no --project=dev dev/tests/runtests.jl
+      - run: julia --startup-file=no --project=dev dev/run_suite.jl --dataset afiro --compare-glpk

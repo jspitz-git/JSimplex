@@ -1,5 +1,21 @@
+"""
+    ObjectiveSense
+
+Objective direction: `MIN_SENSE` minimizes and `MAX_SENSE` maximizes.
+"""
 @enum ObjectiveSense::UInt8 MIN_SENSE MAX_SENSE
 
+@doc "Minimize the linear objective, including its constant." MIN_SENSE
+@doc "Maximize the linear objective, including its constant." MAX_SENSE
+
+"""
+    VariableDomain
+
+Variable domain: `CONTINUOUS`, `INTEGER`, `BINARY`, `SEMI_CONTINUOUS`, or
+`SEMI_INTEGER`. Semi domains admit zero as well as their active bounded
+interval (integer values only for `SEMI_INTEGER`). All domains other than
+`CONTINUOUS` require `relax_integrality=true` when passed to [`solve`](@ref).
+"""
 @enum VariableDomain::UInt8 begin
     CONTINUOUS
     INTEGER
@@ -8,6 +24,30 @@
     SEMI_INTEGER
 end
 
+@doc "A real-valued variable within its column bounds." CONTINUOUS
+@doc "An integer-valued variable within its column bounds." INTEGER
+@doc "A variable restricted to zero or one and its column bounds." BINARY
+@doc "A variable equal to zero or a real value in its active bounded interval." SEMI_CONTINUOUS
+@doc "A variable equal to zero or an integer in its active bounded interval." SEMI_INTEGER
+
+"""
+    LinearProblem(A::SparseMatrixCSC, objective; objective_constant=0.0,
+                  objective_sense=MIN_SENSE, row_lower=fill(-Inf, size(A, 1)),
+                  row_upper=fill(Inf, size(A, 1)), column_lower=zeros(size(A, 2)),
+                  column_upper=fill(Inf, size(A, 2)),
+                  variable_domains=fill(CONTINUOUS, size(A, 2)), name="",
+                  row_names=String[], column_names=String[])
+
+Represent a linear objective `dot(objective, x) + objective_constant` with
+`row_lower <= A*x <= row_upper` and variable bounds. Data is copied and
+converted to sparse `Float64` coefficients and `Float64` vectors. Construction
+validates dimensions, finite coefficients, bounds, and domains, throwing
+`ArgumentError` on invalid input. Binary bounds are intersected with `[0, 1]`.
+Names may be omitted; supplied row/column names must match their dimensions.
+
+The struct is immutable, but its arrays remain mutable; treat them as read-only.
+[`solve`](@ref) copies working data and leaves the input model unchanged.
+"""
 struct LinearProblem
     A::SparseMatrixCSC{Float64,Int}
     objective::Vector{Float64}
@@ -149,4 +189,10 @@ function _validation_error(problem::LinearProblem)::Union{Nothing,String}
     return nothing
 end
 
+"""
+    is_continuous(problem::LinearProblem) -> Bool
+
+Return whether every variable has domain `CONTINUOUS`, including an empty model.
+Integer, binary, and semi domains return `false` even when their bounds fix them.
+"""
 is_continuous(problem::LinearProblem) = all(==(CONTINUOUS), problem.variable_domains)

@@ -18,8 +18,17 @@ bound sets default to the first set in file order. The objective defaults to
 All `N` rows are excluded from the constraint matrix. Integer markers and
 binary and semi-variable bounds retain their variable domains.
 
+`format` accepts `:auto`, `:fixed`, or `:free`. Supported sections are `NAME`,
+`OBJSENSE` (also `OBJSEN`), `OBJNAME`, `ROWS`, `COLUMNS`, `RHS`, `RANGES`,
+`BOUNDS`, and `ENDATA`; row types are `N`, `E`, `L`, and `G`. Bounds support
+`LO`, `UP`, `FX`, `FR`, `MI`, `PL`, `BV`, `LI`, `UI`, `SC`, and `SI`.
+`INTORG`/`INTEND` preserve integer domains with default bounds `[0, 1]`.
+Duplicate coefficients are summed; objective RHS values have their sign
+reversed to form the objective constant. Without an `N` row the objective is zero.
+
 Malformed or unsupported MPS data raises `MPSParseError`. A diagnostic for
-an invalid keyword selection uses line zero because it has no source record.
+an invalid named-set/objective selection uses line zero because it has no source
+record. An invalid `format` raises `ArgumentError`; file access errors propagate.
 """
 function read_mps(
     path::AbstractString; format::Symbol=:auto, rhs_name=nothing,

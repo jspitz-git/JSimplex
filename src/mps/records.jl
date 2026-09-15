@@ -1,3 +1,10 @@
+"""
+    MPSParseError(source, line, section, message)
+
+Malformed or unsupported MPS input, reported with its source path, line number,
+section symbol, and explanation. Line zero identifies a keyword selection with
+no corresponding source record. Thrown by [`read_mps`](@ref).
+"""
 struct MPSParseError <: Exception
     source::String
     line::Int
