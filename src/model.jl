@@ -12,8 +12,8 @@ Objective direction: `MIN_SENSE` minimizes and `MAX_SENSE` maximizes.
     VariableDomain
 
 Variable domain: `CONTINUOUS`, `INTEGER`, `BINARY`, `SEMI_CONTINUOUS`, or
-`SEMI_INTEGER`. Semi domains admit zero as well as their active bounded
-interval (integer values only for `SEMI_INTEGER`). All domains other than
+`SEMI_INTEGER`. Semi domains admit zero as well as their active interval
+(integer values only for `SEMI_INTEGER`). All domains other than
 `CONTINUOUS` require `relax_integrality=true` when passed to [`solve`](@ref).
 """
 @enum VariableDomain::UInt8 begin
@@ -27,8 +27,8 @@ end
 @doc "A real-valued variable within its column bounds." CONTINUOUS
 @doc "An integer-valued variable within its column bounds." INTEGER
 @doc "A variable restricted to zero or one and its column bounds." BINARY
-@doc "A variable equal to zero or a real value in its active bounded interval." SEMI_CONTINUOUS
-@doc "A variable equal to zero or an integer in its active bounded interval." SEMI_INTEGER
+@doc "A variable equal to zero or a real value in its active interval." SEMI_CONTINUOUS
+@doc "A variable equal to zero or an integer in its active interval." SEMI_INTEGER
 
 """
     LinearProblem(A::SparseMatrixCSC, objective; objective_constant=0.0,
