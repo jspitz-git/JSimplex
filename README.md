@@ -110,7 +110,12 @@ end
 ```
 
 `BigFloat` uses Julia's ambient precision; put both model construction and solve
-inside `setprecision`. For exact input, use rational values or typed MPS parsing:
+inside `setprecision`. Internal copies and objective-sense changes preserve stored
+values and their precision. Arithmetic uses the precision active during `solve`.
+After a precision reduction, an inconclusive optimality or original-objective
+certificate returns `NUMERICAL_ERROR`; the objective is returned only when its
+exact-value enclosure rounds to one value at the solve precision.
+For exact input, use rational values or typed MPS parsing:
 converting an already rounded floating value cannot recover its intended decimal.
 
 Float64 bases use sparse UMFPACK LU. Every other supported scalar uses generic

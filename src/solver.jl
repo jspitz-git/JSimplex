@@ -17,14 +17,49 @@ function _finish_solve(::Type{T}, context::SolveContext, options::SolverOptions{
     return Solution{T}(status, objective_value, primal, statistics, message)
 end
 
+_negate_model_value(value::Real) = -value
+_negate_model_value(value::BigFloat) = setprecision(BigFloat, precision(value)) do
+    -value
+end
+
 function _minimization_problem(problem::LinearProblem{T}) where {T}
     problem.objective_sense == MIN_SENSE && return problem
-    return LinearProblem(
-        problem.A, -problem.objective, -problem.objective_constant, MIN_SENSE,
+    # Negation and the public BigFloat conversion constructor both use ambient
+    # precision. A sense change must preserve each stored coefficient exactly.
+    return LinearProblem{T}(
+        problem.A, _negate_model_value.(problem.objective),
+        _negate_model_value(problem.objective_constant), MIN_SENSE,
         problem.row_lower, problem.row_upper, problem.column_lower,
         problem.column_upper, problem.variable_domains, problem.name,
         problem.row_names, problem.column_names,
     )
+end
+
+_restored_objective(problem::LinearProblem{T}, primal::Vector{T}) where {T} =
+    dot(problem.objective, primal) + problem.objective_constant
+
+function _restored_objective(problem::LinearProblem{BigFloat}, primal::Vector{BigFloat})
+    working_precision = precision(BigFloat)
+    if precision(problem.objective_constant) <= working_precision &&
+       all(value -> precision(value) <= working_precision, problem.objective) &&
+       all(value -> precision(value) <= working_precision, primal)
+        return dot(problem.objective, primal) + problem.objective_constant
+    end
+
+    # A lower precision can lose stored objective bits before cancellation
+    # with the constant. Require the entire exact-value enclosure to round to
+    # one solve-precision value; otherwise the public objective is inconclusive.
+    lower = upper = zero(BigFloat)
+    for index in eachindex(primal)
+        product_lower, product_upper = _primal_product_bounds(problem.objective[index], primal[index])
+        lower, _ = _primal_sum_bounds(lower, product_lower)
+        _, upper = _primal_sum_bounds(upper, product_upper)
+    end
+    lower, _ = _primal_sum_bounds(lower, problem.objective_constant)
+    _, upper = _primal_sum_bounds(upper, problem.objective_constant)
+    isfinite(lower) && isfinite(upper) || return nothing
+    rounded_lower, rounded_upper = BigFloat(lower), BigFloat(upper)
+    return rounded_lower == rounded_upper ? rounded_lower : nothing
 end
 
 """
@@ -47,7 +82,11 @@ from `LinearAlgebra`. Dense BigFloat and rational solves are intended for small
 models. Use `Rational{BigInt}` for arbitrary-size exact arithmetic; fixed-width
 rationals retain Julia's ordinary overflow behavior, and those exceptions
 propagate. For `BigFloat`, place both model construction and solve inside the
-desired `setprecision` context.
+desired `setprecision` context. Internal transformations preserve stored values
+and their precision; arithmetic uses the active solve precision. When objective
+data or primal values have higher precision, the original objective is returned
+only if its exact-value enclosure rounds to one value at the solve precision.
+An inconclusive objective evaluation returns `NUMERICAL_ERROR`.
 
 Without relaxation, any non-continuous domain returns `MIP_NOT_SUPPORTED`.
 With relaxation, integer/binary domains retain their bounds and semi domains
@@ -108,7 +147,12 @@ function solve(problem::LinearProblem{T}; relax_integrality::Bool=false,
     end
 
     primal = postsolve_primal(presolved, unscale_primal(scaling, run.primal))
-    objective = dot(problem.objective, primal) + problem.objective_constant
+    objective = _restored_objective(problem, primal)
+    if isnothing(objective)
+        return _finish_solve(T, context, typed_options, NUMERICAL_ERROR,
+                             "original-objective evaluation is inconclusive at the current precision";
+                             iterations=run.iterations, refactorizations=run.refactorizations)
+    end
     tolerance = typed_options.primal_tolerance
     if !isfinite(objective) ||
        !_original_primal_feasible(continuous_problem, primal, tolerance)

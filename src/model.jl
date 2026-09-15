@@ -63,7 +63,9 @@ Names may be omitted; supplied row/column names must match their dimensions.
 Use `Rational{BigInt}` for arbitrary-size exact arithmetic; fixed-width rationals
 retain Julia's ordinary solve-time overflow behavior. `BigFloat` precision is
 controlled by Julia's ambient context: wrap construction and [`solve`](@ref)
-in `setprecision(BigFloat, 256) do ... end`.
+in `setprecision(BigFloat, 256) do ... end`. Internal copies and objective-sense
+changes preserve stored BigFloat values and their precision; solving at lower
+precision can return `NUMERICAL_ERROR` when certification is inconclusive.
 
 ```julia
 using JSimplex, SparseArrays

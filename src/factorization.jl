@@ -63,7 +63,7 @@ _backend_transpose_solve(backend::DenseLUBackend, rhs::AbstractVector) =
 
 function forward_solve(factor::PFIFactorization{T}, rhs::AbstractVector) where {T}
     _check_rhs_dimension(factor, rhs)
-    x = _backend_forward_solve(factor.base, T.(rhs))
+    x = _backend_forward_solve(factor.base, convert.(T, rhs))
     for eta in factor.updates
         pivot = x[eta.pivot_row]
         x[eta.pivot_row] = zero(T)
@@ -76,7 +76,7 @@ end
 
 function transpose_solve(factor::PFIFactorization{T}, rhs::AbstractVector) where {T}
     _check_rhs_dimension(factor, rhs)
-    x = T.(rhs)
+    x = convert.(T, rhs)
     for eta in Iterators.reverse(factor.updates)
         value = zero(T)
         for index in eachindex(eta.indices)
@@ -102,17 +102,17 @@ function replace_column!(
 
     pivot = Int(pivot_row)
     checkbounds(tableau_column, pivot)
-    pivot_value = T(tableau_column[pivot])
+    pivot_value = convert(T, tableau_column[pivot])
     abs(pivot_value) > tolerance || throw(LinearAlgebra.ZeroPivotException(pivot))
 
     indices = Int[pivot]
     values = T[inv(pivot_value)]
     for row in eachindex(tableau_column)
         row == pivot && continue
-        value = T(tableau_column[row])
+        value = convert(T, tableau_column[row])
         iszero(value) && continue
         push!(indices, row)
-        push!(values, -value / pivot_value)
+        push!(values, -(value / pivot_value))
     end
     push!(factor.updates, PackedEta{T}(indices, values, pivot))
     return factor

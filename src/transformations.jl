@@ -17,14 +17,17 @@ identity_presolve(problem::LinearProblem{T}) where {T} =
 identity_scaling(problem::LinearProblem{T}) where {T} =
     Scaling(ones(T, size(problem.A, 1)), ones(T, size(problem.A, 2)))
 
+_unscale_value(value::Real, factor::T) where {T} =
+    isone(factor) ? convert(T, value) : convert(T, value) / factor
+
 unscale_primal(scaling::Scaling{T}, x::AbstractVector{<:Real}) where {T} =
-    T.(x) ./ scaling.column_factors
+    _unscale_value.(x, scaling.column_factors)
 
 unscale_dual(scaling::Scaling{T}, y::AbstractVector{<:Real}) where {T} =
-    T.(y) ./ scaling.row_factors
+    _unscale_value.(y, scaling.row_factors)
 
 function postsolve_primal(result::PresolveResult{T}, x::AbstractVector{<:Real}) where {T}
-    restored = _postsolve_primal(result.postsolve_stack, T.(x))
+    restored = _postsolve_primal(result.postsolve_stack, convert.(T, x))
     return restored[1:result.original_column_count]
 end
 
