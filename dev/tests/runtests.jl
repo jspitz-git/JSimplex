@@ -186,3 +186,5 @@ end
         end
     end
 end
+
+include("jet_tests.jl")
