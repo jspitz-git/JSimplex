@@ -159,5 +159,74 @@ end
     MOI.add_constraint(nonfinite, f, MOI.LessThan(1.0))
     translated = JSimplex._translate_moi_model(JSimplex.Optimizer(), nonfinite)
     @test translated.error !== nothing
-    @test occursin("constraint matrix coefficient must be finite", translated.error)
+    @test occursin("constraint matrix coefficient", translated.error)
+end
+
+@testset "MOI translation preserves stored BigFloat model data" begin
+    source, values = setprecision(BigFloat, 512) do
+        source = MOI.Utilities.Model{BigFloat}()
+        x = MOI.add_variable(source)
+        matrix_coefficient = BigFloat(2)^200 + 1
+        row_constant = BigFloat(2)^190 + 1
+        row_bound = BigFloat(2)^180 + 1
+        objective_coefficient = BigFloat(2)^170 + 1
+        objective_constant = BigFloat(2)^160 + 1
+        column_lower = BigFloat(2)^150 + 1
+        row = MOI.ScalarAffineFunction(
+            [MOI.ScalarAffineTerm(matrix_coefficient, x)],
+            row_constant,
+        )
+        MOI.add_constraint(source, row, MOI.EqualTo(row_constant + row_bound))
+        MOI.add_constraint(source, x, MOI.GreaterThan(column_lower))
+        objective = MOI.ScalarAffineFunction(
+            [MOI.ScalarAffineTerm(objective_coefficient, x)],
+            objective_constant,
+        )
+        MOI.set(source, MOI.ObjectiveSense(), MOI.MIN_SENSE)
+        MOI.set(source, MOI.ObjectiveFunction{typeof(objective)}(), objective)
+        source, (
+            matrix_coefficient,
+            row_constant,
+            row_bound,
+            objective_coefficient,
+            objective_constant,
+            column_lower,
+        )
+    end
+
+    setprecision(BigFloat, 64) do
+        translated = JSimplex._translate_moi_model(JSimplex.Optimizer{BigFloat}(), source)
+        @test translated.error === nothing
+        problem = something(translated.problem)
+        @test problem.A[1, 1] == values[1]
+        @test precision(problem.A[1, 1]) == 512
+        @test translated.evaluations[2].constant == values[2]
+        @test precision(translated.evaluations[2].constant) == 512
+        @test bound_value(problem.row_lower[1]) == values[3]
+        @test precision(bound_value(problem.row_lower[1])) == 512
+        @test problem.objective == [values[4]]
+        @test precision(problem.objective[1]) == 512
+        @test problem.objective_constant == values[5]
+        @test precision(problem.objective_constant) == 512
+        @test bound_value(problem.column_lower[1]) == values[6]
+        @test precision(bound_value(problem.column_lower[1])) == 512
+    end
+end
+
+@testset "MOI translation reports invalid affine constants and set bounds" begin
+    invalid_constant = MOI.Utilities.Model{Float64}()
+    x = MOI.add_variable(invalid_constant)
+    f = MOI.ScalarAffineFunction([MOI.ScalarAffineTerm(1.0, x)], NaN)
+    MOI.add_constraint(invalid_constant, f, MOI.LessThan(1.0))
+    translated = JSimplex._translate_moi_model(JSimplex.Optimizer(), invalid_constant)
+    @test translated.problem === nothing
+    @test translated.error !== nothing
+
+    invalid_bound = MOI.Utilities.Model{Float64}()
+    x = MOI.add_variable(invalid_bound)
+    f = MOI.ScalarAffineFunction([MOI.ScalarAffineTerm(1.0, x)], 0.0)
+    MOI.add_constraint(invalid_bound, f, MOI.LessThan(NaN))
+    translated = JSimplex._translate_moi_model(JSimplex.Optimizer(), invalid_bound)
+    @test translated.problem === nothing
+    @test translated.error !== nothing
 end

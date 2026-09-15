@@ -181,9 +181,34 @@ function _moi_affine_evaluation(
     return MOIScalarEvaluation(columns, coefficients, function_.constant)
 end
 
+_moi_add(left::T, right::T) where {T} = left + right
+_moi_subtract(left::T, right::T) where {T} = left - right
+
+function _moi_add(left::BigFloat, right::BigFloat)
+    return setprecision(BigFloat, max(precision(left), precision(right))) do
+        left + right
+    end
+end
+
+function _moi_subtract(left::BigFloat, right::BigFloat)
+    return setprecision(BigFloat, max(precision(left), precision(right))) do
+        left - right
+    end
+end
+
 function _moi_shift_bound(bound::Bound{T}, constant::T) where {T}
     isfinite(bound) || return bound
-    return Bound(bound_value(bound) - constant)
+    return Bound(_moi_subtract(bound_value(bound), constant))
+end
+
+function _moi_affine_bounds(set, constant)
+    try
+        lower, upper = _moi_set_bounds(set)
+        return _moi_shift_bound(lower, constant), _moi_shift_bound(upper, constant), nothing
+    catch exception
+        exception isa ArgumentError || rethrow()
+        return nothing, nothing, sprint(showerror, exception)
+    end
 end
 
 function _moi_objective(
@@ -200,13 +225,20 @@ function _moi_objective(
     MOI.supports(optimizer, attribute) || throw(MOI.UnsupportedAttribute(attribute))
     function_ = MOI.get(source, attribute)
     objective = zeros(T, column_count)
+    assigned = falses(column_count)
 
     if function_type == MOI.VariableIndex
         objective[index_map[function_].value] = one(T)
         constant = zero(T)
     elseif function_type == MOI.ScalarAffineFunction{T}
         for term in function_.terms
-            objective[index_map[term.variable].value] += term.coefficient
+            column = index_map[term.variable].value
+            if assigned[column]
+                objective[column] = _moi_add(objective[column], term.coefficient)
+            else
+                objective[column] = term.coefficient
+                assigned[column] = true
+            end
         end
         constant = function_.constant
     else
@@ -249,7 +281,8 @@ function _translate_moi_model(optimizer::Optimizer{T}, source)::MOITranslation{T
 
             row_coefficients = Dict{Int,T}()
             for (column, coefficient) in zip(evaluation.columns, evaluation.coefficients)
-                row_coefficients[column] = get(row_coefficients, column, zero(T)) + coefficient
+                row_coefficients[column] = haskey(row_coefficients, column) ?
+                    _moi_add(row_coefficients[column], coefficient) : coefficient
             end
             for (column, coefficient) in row_coefficients
                 push!(row_indices, row)
@@ -257,9 +290,15 @@ function _translate_moi_model(optimizer::Optimizer{T}, source)::MOITranslation{T
                 push!(coefficients, coefficient)
             end
 
-            lower, upper = _moi_set_bounds(set)
-            push!(row_lower, _moi_shift_bound(lower, evaluation.constant))
-            push!(row_upper, _moi_shift_bound(upper, evaluation.constant))
+            lower, upper, bounds_error = _moi_affine_bounds(set, evaluation.constant)
+            !isnothing(bounds_error) && return MOITranslation{T}(
+                nothing,
+                columns.index_map,
+                evaluations,
+                bounds_error,
+            )
+            push!(row_lower, lower)
+            push!(row_upper, upper)
             push!(row_names, MOI.get(source, MOI.ConstraintName(), source_index))
         end
     end
@@ -272,20 +311,19 @@ function _translate_moi_model(optimizer::Optimizer{T}, source)::MOITranslation{T
     )
     A = sparse(row_indices, column_indices, coefficients, length(row_lower), length(columns.lower))
     problem = try
-        LinearProblem(
+        LinearProblem{T}(
             A,
-            objective;
-            value_type=T,
+            objective,
             objective_constant,
             objective_sense,
             row_lower,
             row_upper,
-            column_lower=columns.lower,
-            column_upper=columns.upper,
-            variable_domains=columns.domains,
-            name=MOI.get(source, MOI.Name()),
+            columns.lower,
+            columns.upper,
+            columns.domains,
+            MOI.get(source, MOI.Name()),
             row_names,
-            column_names=columns.names,
+            columns.names,
         )
     catch exception
         exception isa ArgumentError || rethrow()
