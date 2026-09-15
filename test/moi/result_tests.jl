@@ -89,7 +89,7 @@ end
 end
 
 @testset "MOI BigFloat results preserve stored precision" begin
-    source, x, lower, expected = setprecision(BigFloat, 256) do
+    setprecision(BigFloat, 256) do
         source = MOI.Utilities.Model{BigFloat}()
         x = MOI.add_variable(source)
         expected = parse(BigFloat, "2.0000000000000000000000000000000000000000000000000000000000001")
@@ -100,10 +100,7 @@ end
         )
         MOI.set(source, MOI.ObjectiveSense(), MOI.MIN_SENSE)
         MOI.set(source, MOI.ObjectiveFunction{typeof(objective)}(), objective)
-        return source, x, lower, expected
-    end
 
-    setprecision(BigFloat, 24) do
         optimizer = JSimplex.Optimizer{BigFloat}()
         index_map, _ = MOI.optimize!(optimizer, source)
         objective_value = MOI.get(optimizer, MOI.ObjectiveValue())
