@@ -1,6 +1,57 @@
 using JSimplex.SparseArrays
 using JSimplex.LinearAlgebra
 
+function test_typed_dual_kernel(::Type{T}) where {T}
+    pivoting = LinearProblem(sparse(T[1 0; -1 1]), T[1, 1]; row_lower=T[1, 1])
+    for interval in (1, 20)
+        run = @inferred JSimplex._solve_continuous_dual(
+            pivoting, SolverOptions(T; refactorization_interval=interval),
+        )
+        @test run isa JSimplex.DualRunResult{T}
+        @test run.status == OPTIMAL
+        @test run.primal == T[1, 2]
+        @test run.objective_value == T(3)
+        @test run.iterations == 2
+        @test run.refactorizations == (interval == 1 ? 2 : 0)
+    end
+
+    for (problem, expected_primal, expected_objective) in (
+        (LinearProblem(sparse(reshape(T[1], 1, 1)), T[-1]; row_upper=T[3]), T[3], T(-3)),
+        (LinearProblem(sparse(reshape(T[1], 1, 1)), T[1]; row_lower=T[-3],
+                       column_lower=[nothing], column_upper=T[0]), T[-3], T(-3)),
+        (LinearProblem(sparse(reshape(T[1], 1, 1)), T[2]; row_lower=T[-3], row_upper=T[4],
+                       column_lower=[nothing]), T[-3], T(-6)),
+    )
+        run = @inferred JSimplex._solve_continuous_dual(problem, SolverOptions(T))
+        @test run isa JSimplex.DualRunResult{T}
+        @test run.status == OPTIMAL
+        @test run.primal == expected_primal
+        @test run.objective_value == expected_objective
+    end
+
+    for (problem, expected_status) in (
+        (LinearProblem(sparse(T[1 -3]), T[-1, 0]; row_lower=T[1], row_upper=T[1]), UNBOUNDED),
+        (LinearProblem(sparse(reshape(T[1], 1, 1)), T[-1]; row_upper=T[-1]), INFEASIBLE),
+        (LinearProblem(spzeros(T, 1, 0), T[]; row_lower=T[1]), INFEASIBLE),
+        (LinearProblem(spzeros(T, 0, 0), T[]; objective_constant=T(7)), OPTIMAL),
+    )
+        run = @inferred JSimplex._solve_continuous_dual(problem, SolverOptions(T))
+        @test run isa JSimplex.DualRunResult{T}
+        @test run.status == expected_status
+        @test expected_status == OPTIMAL ? run.primal == T[] : isnothing(run.primal)
+        @test expected_status == OPTIMAL ? run.objective_value == T(7) : isnothing(run.objective_value)
+    end
+
+    workspace = JSimplex.initialize_workspace(pivoting, SolverOptions(T))
+    row = zeros(T, 4)
+    @test (@inferred JSimplex.price!(row, workspace, T[2, -3])) === nothing
+    @test row == T[5, -3, -2, 3]
+    ratio_problem = LinearProblem(spzeros(T, 1, 3), T[1, 10, 20])
+    ratio_workspace = JSimplex.initialize_workspace(ratio_problem, SolverOptions(T))
+    @test (@inferred JSimplex.dual_ratio_test(ratio_workspace, T[1, 10, 20, 0])) == 3
+    @test (@inferred JSimplex.dual_ratio_test(ratio_workspace, T[-1, -10, -20, 0])) == -1
+end
+
 @testset "Optimal results certify the original structural primal" begin
     unstable = LinearProblem(
         sparse([1.0 1.0; 1.0 1.0 + 1.0e-6]), zeros(2);
@@ -576,5 +627,62 @@ end
         @test JSimplex.transpose_solve(workspace.factorization, [2.0, 3.0]) ≈ [5.0, 3.0]
         @test JSimplex.dual_infeasibility(workspace) == 0.0
         @test JSimplex.primal_infeasibility(workspace) == 0.0
+    end
+end
+
+@testset "Parametric dual-simplex arithmetic" begin
+    for T in (Float32, Float64, BigFloat, Rational{BigInt})
+        @testset "$T" begin
+            test_typed_dual_kernel(T)
+        end
+    end
+end
+
+@testset "Rational pivots and feasibility use exact comparisons" begin
+    T = Rational{BigInt}
+    tiny = T(1 // big(10)^13)
+    for (cost, lower, upper, expected) in ((T(1), T[1], [nothing], T(big(10)^13)),
+                                         (T(-1), [nothing], T[1], T(-big(10)^13)))
+        problem = LinearProblem(sparse(reshape(T[tiny], 1, 1)), T[cost];
+                                row_lower=lower, row_upper=upper)
+        run = @inferred JSimplex._solve_continuous_dual(problem, SolverOptions(T))
+        @test run.status == OPTIMAL
+        @test run.primal == T[big(10)^13]
+        @test run.objective_value == expected
+    end
+
+    problem = LinearProblem(sparse(T[1 -3]), T[-1, 0]; row_lower=T[0], row_upper=T[0])
+    workspace = JSimplex.initialize_workspace(problem, SolverOptions(T))
+    auxiliary = JSimplex._auxiliary_workspace(workspace)
+    auxiliary.primal[1:2] .= T[1, 1 // 3]
+    @test (@inferred JSimplex._recession_direction_status(workspace, auxiliary)) == :certified
+    auxiliary.primal[2] -= T(1 // big(10)^30)
+    @test (@inferred JSimplex._recession_direction_status(workspace, auxiliary)) == :invalid
+    workspace.primal[1:2] .= auxiliary.primal[1:2]
+    run = @inferred JSimplex._internal_solution(workspace, OPTIMAL, "candidate")
+    @test run.status == NUMERICAL_ERROR
+    @test isnothing(run.primal)
+    @test isnothing(run.objective_value)
+end
+
+@testset "Overflowing Harris relaxation retains floating failure semantics" begin
+    for T in (Float32, Float64)
+        @testset "$T" begin
+            for (coefficient, tolerance, expected) in (
+                (one(T), floatmax(T), OPTIMAL),
+                (T(1 // 10^6), T(1 // 10^7), NUMERICAL_ERROR),
+            )
+                @testset "$expected" begin
+                    problem = LinearProblem(sparse(reshape(T[coefficient], 1, 1)),
+                                            T[floatmax(T) / T(2)]; row_lower=T[1])
+                    result = @inferred solve(problem; options=SolverOptions(T; dual_tolerance=tolerance))
+                    @test result isa Solution{T}
+                    @test result.status == expected
+                    @test expected == OPTIMAL ? result.primal == T[1] : isnothing(result.primal)
+                    @test expected == OPTIMAL ? result.objective_value == floatmax(T) / T(2) :
+                                               isnothing(result.objective_value)
+                end
+            end
+        end
     end
 end

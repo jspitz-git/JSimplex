@@ -2,6 +2,77 @@ using JSimplex.SparseArrays
 using JSimplex.Logging
 using JSimplex.LinearAlgebra
 
+function typed_bounded_problem(::Type{T}) where {T}
+    A = sparse(T[1 1; 1 0; 0 1])
+    return LinearProblem(A, T[-3, -2]; objective_constant=T(1 // 3),
+        row_lower=fill(nothing, 3), row_upper=T[4, 2, 3],
+        column_lower=T[0, 0], column_upper=fill(nothing, 2))
+end
+
+function test_public_solve_type(::Type{T}) where {T}
+    problem = @inferred typed_bounded_problem(T)
+    result = @inferred solve(problem)
+    @test result isa Solution{T}
+    @test result.status == OPTIMAL
+    @test result.primal isa Vector{T}
+    @test result.objective_value isa T
+    @test result.statistics.elapsed_seconds isa Float64
+    if T <: Rational
+        @test result.primal == T[2, 2]
+        @test result.objective_value == T(-29 // 3)
+    else
+        @test result.primal ≈ T[2, 2]
+        @test result.objective_value ≈ T(-29 // 3)
+    end
+end
+
+function test_typed_statuses(::Type{T}) where {T}
+    infeasible = LinearProblem(sparse(reshape(T[1], 1, 1)), T[1];
+                               row_lower=T[2], column_upper=T[1])
+    unbounded = LinearProblem(spzeros(T, 0, 1), T[1]; objective_sense=MAX_SENSE)
+    pivoting = LinearProblem(sparse(T[1 0; -1 1]), T[1, 1]; row_lower=T[1, 1])
+    discrete = LinearProblem(spzeros(T, 0, 1), T[-1];
+                             column_upper=T[1], variable_domains=[INTEGER])
+    numerical = LinearProblem(sparse(reshape(T[1], 1, 1)), T[1]; row_lower=T[1])
+    invalid = deepcopy(pivoting)
+    empty!(invalid.objective)
+
+    for (problem, options, expected) in (
+        (infeasible, nothing, INFEASIBLE),
+        (unbounded, nothing, UNBOUNDED),
+        (pivoting, SolverOptions(T; iteration_limit=0), ITERATION_LIMIT),
+        (pivoting, SolverOptions(T; time_limit=0.0), TIME_LIMIT),
+        (discrete, nothing, MIP_NOT_SUPPORTED),
+        (pivoting, SolverOptions(T; algorithm=:primal), ALGORITHM_NOT_SUPPORTED),
+        (invalid, nothing, INVALID_MODEL),
+        (numerical, SolverOptions(T; zero_tolerance=T(2)), NUMERICAL_ERROR),
+    )
+        @testset "$expected" begin
+            result = @inferred solve(problem; options)
+            @test result isa Solution{T}
+            @test result.status == expected
+            @test isnothing(result.primal)
+            @test isnothing(result.objective_value)
+            @test result.statistics.elapsed_seconds isa Float64
+        end
+    end
+
+    refactorized = @inferred solve(
+        pivoting; options=SolverOptions(T; refactorization_interval=1),
+    )
+    @test refactorized isa Solution{T}
+    @test refactorized.status == OPTIMAL
+    @test refactorized.primal == T[1, 2]
+    @test refactorized.statistics.iterations == 2
+    @test refactorized.statistics.refactorizations == 2
+
+    maximum = LinearProblem(spzeros(T, 0, 1), T[2];
+        objective_constant=T(1), objective_sense=MAX_SENSE,
+        column_lower=T[0], column_upper=T[3])
+    @test (@inferred solve(maximum)).objective_value == T(7)
+    @test (@inferred solve(discrete; relax_integrality=true)).status == OPTIMAL
+end
+
 @testset "Binary relaxation clips caller-mutated bounds" begin
     for (cost, bounds, hull, expected, objective) in (
         (-1.0, (0.0, 10.0), (0.0, 1.0), 1.0, -1.0),
@@ -240,4 +311,28 @@ end
     @test_logs (:debug, "Starting solve") (:debug, "Solve terminated") min_level=Logging.Debug solve(problem)
     @test_logs (:info, "Starting solve") (:info, "Solve terminated") solve(problem;
         options=SolverOptions(log_level=Logging.Info, time_limit=0.0))
+end
+
+@testset "Parametric public solve" begin
+    for T in (Float32, Float64, BigFloat, Rational{BigInt})
+        @testset "$T" begin
+            test_public_solve_type(T)
+        end
+    end
+    exact = typed_bounded_problem(Rational{BigInt})
+    @test (@inferred solve(exact; options=SolverOptions())).status == OPTIMAL
+
+    exact_path = joinpath(@__DIR__, "fixtures", "parser", "exact-rational.mps")
+    exact_mps_result = @inferred solve(read_mps(exact_path; value_type=Rational{BigInt}))
+    @test exact_mps_result.status == OPTIMAL
+    @test exact_mps_result.primal == Rational{BigInt}[2]
+    @test exact_mps_result.objective_value == 11 // big(4)
+end
+
+@testset "Parametric solve statuses and resource limits" begin
+    for T in (Float32, Float64, BigFloat, Rational{BigInt})
+        @testset "$T" begin
+            test_typed_statuses(T)
+        end
+    end
 end

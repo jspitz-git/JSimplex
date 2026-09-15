@@ -3,10 +3,10 @@ struct DualTermination
     message::String
 end
 
-struct DualRunResult
+struct DualRunResult{T<:Real}
     status::TerminationStatus
-    objective_value::Union{Nothing,Float64}
-    primal::Union{Nothing,Vector{Float64}}
+    objective_value::Union{Nothing,T}
+    primal::Union{Nothing,Vector{T}}
     iterations::Int
     refactorizations::Int
     message::String
@@ -38,15 +38,15 @@ _guard_stop_callback(stop) = _StopCallback(stop, nothing)
 
 _numerical_failure() = DualTermination(NUMERICAL_ERROR, "non-finite simplex iterate")
 
-function _finite_workspace(workspace::SimplexWorkspace)
+function _finite_workspace(workspace::SimplexWorkspace{T}) where {T}
     return all(isfinite, workspace.primal) && all(isfinite, workspace.reduced_costs) &&
            all(isfinite, workspace.costs) &&
-           all(weight -> isfinite(weight) && weight > 0.0, workspace.pricing_weights)
+           all(weight -> isfinite(weight) && weight > zero(T), workspace.pricing_weights)
 end
 
-function dual_edge_selection(workspace::SimplexWorkspace)::Int
+function dual_edge_selection(workspace::SimplexWorkspace{T})::Int where {T}
     leaving_row = -1
-    best_score = 0.0
+    best_score = zero(T)
     for (row, index) in enumerate(workspace.basis.basic_indices)
         violation = max(_lower_violation(workspace.lower[index], workspace.primal[index]),
                         _upper_violation(workspace.upper[index], workspace.primal[index]))
@@ -60,7 +60,8 @@ function dual_edge_selection(workspace::SimplexWorkspace)::Int
     return leaving_row
 end
 
-function _dual_pivot_eligible(workspace::SimplexWorkspace, index, coefficient, tolerance)
+function _dual_pivot_eligible(workspace::SimplexWorkspace{T}, index::Int,
+                              coefficient::T, tolerance::T) where {T}
     state = workspace.basis.states[index]
     _is_fixed(workspace.lower[index], workspace.upper[index]) && return false
     return (state == AT_LOWER && coefficient > tolerance) ||
@@ -69,25 +70,32 @@ function _dual_pivot_eligible(workspace::SimplexWorkspace, index, coefficient, t
 end
 
 # The row is oriented so that a positive dual step repairs the leaving bound.
-function dual_ratio_test(workspace::SimplexWorkspace, tableau_row::Vector{Float64})::Int
+function dual_ratio_test(workspace::SimplexWorkspace{T}, tableau_row::Vector{T})::Int where {T}
     candidates = Int[]
-    maximum_step = Inf
+    maximum_step = _unbounded_bound(T)
     tolerance = workspace.options.dual_tolerance
+    cutoff = _is_exact(T) === Val(true) ? zero(T) : _positive_tolerance(T, 1 // 10^7)
     for index in eachindex(tableau_row)
         coefficient = tableau_row[index]
-        _dual_pivot_eligible(workspace, index, coefficient, 1.0e-7) || continue
+        _dual_pivot_eligible(workspace, index, coefficient, cutoff) || continue
         push!(candidates, index)
         relaxed_step = (workspace.reduced_costs[index] +
-                        copysign(tolerance, coefficient)) / coefficient
-        maximum_step = min(maximum_step, relaxed_step)
+                        ifelse(coefficient < zero(T), -tolerance, tolerance)) / coefficient
+        # An overflowed positive relaxation imposes no finite step limit.
+        # The selected pivot's actual step is checked before any update.
+        if isfinite(relaxed_step) &&
+           (!isfinite(maximum_step) || relaxed_step < bound_value(maximum_step))
+            maximum_step = Bound(relaxed_step)
+        end
     end
 
     entering_index = -1
-    largest_pivot = 0.0
+    largest_pivot = zero(T)
     for index in candidates
         coefficient = tableau_row[index]
         step = workspace.reduced_costs[index] / coefficient
-        if step <= maximum_step && abs(coefficient) > largest_pivot
+        within_limit = !isfinite(maximum_step) || step <= bound_value(maximum_step)
+        if within_limit && abs(coefficient) > largest_pivot
             entering_index = index
             largest_pivot = abs(coefficient)
         end
@@ -95,12 +103,12 @@ function dual_ratio_test(workspace::SimplexWorkspace, tableau_row::Vector{Float6
     return entering_index
 end
 
-function price!(tableau_row::Vector{Float64}, workspace::SimplexWorkspace,
-                rho::Vector{Float64})::Nothing
+function price!(tableau_row::Vector{T}, workspace::SimplexWorkspace{T},
+                rho::Vector{T})::Nothing where {T}
     A = workspace.problem.A
     row_count, column_count = size(A)
     for column in 1:column_count
-        value = 0.0
+        value = zero(T)
         for position in A.colptr[column]:(A.colptr[column + 1] - 1)
             value += rho[A.rowval[position]] * A.nzval[position]
         end
@@ -112,8 +120,8 @@ function price!(tableau_row::Vector{Float64}, workspace::SimplexWorkspace,
     return nothing
 end
 
-function update_duals!(workspace::SimplexWorkspace, tableau_row, leaving_index,
-                      entering_index, dual_step)::Nothing
+function update_duals!(workspace::SimplexWorkspace{T}, tableau_row::Vector{T},
+                      leaving_index::Int, entering_index::Int, dual_step::T)::Nothing where {T}
     for index in eachindex(workspace.reduced_costs)
         state = workspace.basis.states[index]
         (state == BASIC || index == entering_index) && continue
@@ -126,18 +134,18 @@ function update_duals!(workspace::SimplexWorkspace, tableau_row, leaving_index,
                 # Shift to zero to leave room for recomputation roundoff.
                 workspace.costs[index] -= reduced_cost
                 workspace.perturbed = true
-                reduced_cost = 0.0
+                reduced_cost = zero(T)
             end
         end
         workspace.reduced_costs[index] = reduced_cost
     end
     workspace.reduced_costs[leaving_index] = -dual_step
-    workspace.reduced_costs[entering_index] = 0.0
+    workspace.reduced_costs[entering_index] = zero(T)
     return nothing
 end
 
-function update_primals!(workspace::SimplexWorkspace, tableau_column,
-                        entering_index, leaving_row, primal_step)::Nothing
+function update_primals!(workspace::SimplexWorkspace{T}, tableau_column::Vector{T},
+                        entering_index::Int, leaving_row::Int, primal_step::T)::Nothing where {T}
     for (row, index) in enumerate(workspace.basis.basic_indices)
         workspace.primal[index] -= primal_step * tableau_column[row]
     end
@@ -145,22 +153,22 @@ function update_primals!(workspace::SimplexWorkspace, tableau_column,
     return nothing
 end
 
-function update_dse!(workspace::SimplexWorkspace, rho, tableau_column,
-                    entering_index, pivot)::Nothing
+function update_dse!(workspace::SimplexWorkspace{T}, rho::Vector{T}, tableau_column::Vector{T},
+                    entering_index::Int, pivot::T)::Nothing where {T}
     entering_weight = dot(rho, rho) / pivot^2
     tau = forward_solve(workspace.factorization, rho)
     for (row, index) in enumerate(workspace.basis.basic_indices)
         coefficient = tableau_column[row]
         workspace.pricing_weights[index] = max(
-            1.0e-4, workspace.pricing_weights[index] + coefficient *
-            (coefficient * entering_weight - 2.0 * tau[row] / pivot),
+            _typed_ratio(T, 1, 10^4), workspace.pricing_weights[index] + coefficient *
+            (coefficient * entering_weight - T(2) * tau[row] / pivot),
         )
     end
     workspace.pricing_weights[entering_index] = entering_weight
     return nothing
 end
 
-function dual_iteration!(workspace::SimplexWorkspace, stop_requested)::Union{Nothing,DualTermination}
+function dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested)::Union{Nothing,DualTermination} where {T}
     stop_requested = _guard_stop_callback(stop_requested)
     stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
     _finite_workspace(workspace) || return _numerical_failure()
@@ -173,19 +181,19 @@ function dual_iteration!(workspace::SimplexWorkspace, stop_requested)::Union{Not
     end
 end
 
-function _dual_iteration!(workspace::SimplexWorkspace, stop_requested)
+function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested) where {T}
     leaving_row = dual_edge_selection(workspace)
     leaving_row == -1 && return DualTermination(OPTIMAL, "optimal solution found")
     leaving_index = workspace.basis.basic_indices[leaving_row]
-    below = _lower_violation(workspace.lower[leaving_index], workspace.primal[leaving_index]) > 0.0
+    below = _lower_violation(workspace.lower[leaving_index], workspace.primal[leaving_index]) > zero(T)
     bound = below ? workspace.lower[leaving_index] : workspace.upper[leaving_index]
     delta = workspace.primal[leaving_index] - bound_value(bound)
 
     row_count, column_count = size(workspace.problem.A)
-    unit = zeros(Float64, row_count)
-    unit[leaving_row] = 1.0
+    unit = zeros(T, row_count)
+    unit[leaving_row] = one(T)
     rho = transpose_solve(workspace.factorization, unit)
-    tableau_row = zeros(Float64, row_count + column_count)
+    tableau_row = zeros(T, row_count + column_count)
     price!(tableau_row, workspace, rho)
     all(isfinite, rho) && all(isfinite, tableau_row) || return _numerical_failure()
     oriented_row = below ? -tableau_row : tableau_row
@@ -194,20 +202,20 @@ function _dual_iteration!(workspace::SimplexWorkspace, stop_requested)
         # A tolerance cannot turn a nonzero, sign-eligible coefficient into a
         # mathematical infeasibility proof.
         if any(index -> _dual_pivot_eligible(workspace, index, oriented_row[index],
-                                             0.0), eachindex(oriented_row))
+                                             zero(T)), eachindex(oriented_row))
             return DualTermination(NUMERICAL_ERROR, "eligible pivots are below the Harris safety cutoff")
         end
         return DualTermination(INFEASIBLE, "no eligible dual pivot")
     end
 
-    column = zeros(Float64, row_count)
+    column = zeros(T, row_count)
     if entering_index <= column_count
         A = workspace.problem.A
         for position in A.colptr[entering_index]:(A.colptr[entering_index + 1] - 1)
             column[A.rowval[position]] = A.nzval[position]
         end
     else
-        column[entering_index - column_count] = -1.0
+        column[entering_index - column_count] = -one(T)
     end
     tableau_column = forward_solve(workspace.factorization, column)
     all(isfinite, tableau_column) || return _numerical_failure()
@@ -216,13 +224,13 @@ function _dual_iteration!(workspace::SimplexWorkspace, stop_requested)
     primal_step = delta / pivot
     dual_step = workspace.reduced_costs[entering_index] / tableau_row[entering_index]
     isfinite(primal_step) && isfinite(dual_step) || return _numerical_failure()
-    if dual_step * sign(delta) < 0.0
+    if dual_step * sign(delta) < zero(T)
         # Harris may accept a reduced cost on the infeasible side of zero,
         # within dual tolerance. Do not move backwards in the dual direction.
         workspace.costs[entering_index] -= workspace.reduced_costs[entering_index]
-        workspace.reduced_costs[entering_index] = 0.0
+        workspace.reduced_costs[entering_index] = zero(T)
         workspace.perturbed = true
-        dual_step = 0.0
+        dual_step = zero(T)
     end
     update_duals!(workspace, tableau_row, leaving_index, entering_index, dual_step)
     update_primals!(workspace, tableau_column, entering_index, leaving_row, primal_step)
@@ -244,7 +252,8 @@ function _dual_iteration!(workspace::SimplexWorkspace, stop_requested)
     return nothing
 end
 
-function _within_primal_bounds(values, lower, upper, tolerance)
+function _within_primal_bounds(values::AbstractVector{T}, lower::AbstractVector{Bound{T}},
+                               upper::AbstractVector{Bound{T}}, tolerance::T) where {T}
     all(isfinite, values) || return false
     for index in eachindex(values)
         _lower_violation(lower[index], values[index]) > tolerance && return false
@@ -253,7 +262,7 @@ function _within_primal_bounds(values, lower, upper, tolerance)
     return true
 end
 
-function _original_primal_feasible(workspace::SimplexWorkspace, primal::Vector{Float64})
+function _original_primal_feasible(workspace::SimplexWorkspace{T}, primal::Vector{T}) where {T}
     problem = workspace.problem
     # Use the configured absolute tolerance in the original constraint units.
     # Scaling it by the sum of absolute products would hide cancellation in A * x.
@@ -262,8 +271,8 @@ function _original_primal_feasible(workspace::SimplexWorkspace, primal::Vector{F
     return _within_primal_bounds(problem.A * primal, problem.row_lower, problem.row_upper, tolerance)
 end
 
-function _internal_solution(workspace::SimplexWorkspace, status::TerminationStatus,
-                            message::String)
+function _internal_solution(workspace::SimplexWorkspace{T}, status::TerminationStatus,
+                            message::String) where {T}
     primal = status == OPTIMAL ? copy(workspace.primal[1:size(workspace.problem.A, 2)]) : nothing
     objective = isnothing(primal) ? nothing :
                 dot(workspace.problem.objective, primal) + workspace.problem.objective_constant
@@ -274,14 +283,14 @@ function _internal_solution(workspace::SimplexWorkspace, status::TerminationStat
         return _internal_solution(workspace, NUMERICAL_ERROR,
                                   "structural primal failed original-model feasibility checks")
     end
-    return DualRunResult(status, objective, primal, workspace.iterations,
-                         workspace.refactorizations, message)
+    return DualRunResult{T}(status, objective, primal, workspace.iterations,
+                            workspace.refactorizations, message)
 end
 
-_internal_solution(workspace::SimplexWorkspace, terminal::DualTermination) =
+_internal_solution(workspace::SimplexWorkspace{T}, terminal::DualTermination) where {T} =
     _internal_solution(workspace, terminal.status, terminal.message)
 
-function _flip_bounds!(workspace::SimplexWorkspace)
+function _flip_bounds!(workspace::SimplexWorkspace{T}) where {T}
     flipped = false
     for index in eachindex(workspace.basis.states)
         state = workspace.basis.states[index]
@@ -301,7 +310,7 @@ function _flip_bounds!(workspace::SimplexWorkspace)
     return nothing
 end
 
-function _dual_optimize!(workspace::SimplexWorkspace, stop_requested)::DualTermination
+function _dual_optimize!(workspace::SimplexWorkspace{T}, stop_requested)::DualTermination where {T}
     while true
         stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
         _finite_workspace(workspace) || return _numerical_failure()
@@ -317,7 +326,7 @@ function _dual_optimize!(workspace::SimplexWorkspace, stop_requested)::DualTermi
     end
 end
 
-function _auxiliary_workspace(workspace::SimplexWorkspace)
+function _auxiliary_workspace(workspace::SimplexWorkspace{T}) where {T}
     lower = similar(workspace.lower)
     upper = similar(workspace.upper)
     basis = Basis(workspace.basis.basic_indices, workspace.basis.states)
@@ -325,16 +334,16 @@ function _auxiliary_workspace(workspace::SimplexWorkspace)
         has_lower = isfinite(workspace.lower[index])
         has_upper = isfinite(workspace.upper[index])
         if has_lower && has_upper
-            lower[index], upper[index] = Bound(0.0), Bound(0.0)
+            lower[index], upper[index] = Bound(zero(T)), Bound(zero(T))
         elseif has_lower
-            lower[index], upper[index] = Bound(0.0), Bound(1.0)
+            lower[index], upper[index] = Bound(zero(T)), Bound(one(T))
         elseif has_upper
-            lower[index], upper[index] = Bound(-1.0), Bound(0.0)
+            lower[index], upper[index] = Bound(-one(T)), Bound(zero(T))
         else
-            lower[index], upper[index] = Bound(-1000.0), Bound(1000.0)
+            lower[index], upper[index] = Bound(-T(1000)), Bound(T(1000))
         end
         if basis.states[index] != BASIC
-            basis.states[index] = workspace.reduced_costs[index] < 0.0 ? AT_UPPER : AT_LOWER
+            basis.states[index] = workspace.reduced_costs[index] < zero(T) ? AT_UPPER : AT_LOWER
         end
     end
     # LU and existing eta data are only read by solves. Each workspace owns
@@ -350,13 +359,13 @@ function _auxiliary_workspace(workspace::SimplexWorkspace)
     return recompute!(auxiliary)
 end
 
-function _classify_recession!(workspace::SimplexWorkspace, stop_requested)
+function _classify_recession!(workspace::SimplexWorkspace{T}, stop_requested) where {T}
     # A negative auxiliary optimum certifies a recession direction. Original
     # feasibility is still required: an infeasible LP can have such a direction.
     feasibility = initialize_workspace(workspace.problem, workspace.options)
     feasibility.iterations = workspace.iterations
     feasibility.refactorizations = workspace.refactorizations
-    fill!(feasibility.costs, 0.0)
+    fill!(feasibility.costs, zero(T))
     recompute!(feasibility)
     terminal = _dual_optimize!(feasibility, stop_requested)
     workspace.iterations = feasibility.iterations
@@ -369,8 +378,12 @@ function _classify_recession!(workspace::SimplexWorkspace, stop_requested)
     return DualTermination(UNBOUNDED, "unbounded improving direction")
 end
 
-function _recession_row_roundoff(A::SparseMatrixCSC{Float64,Int}, structural::Vector{Float64})
-    magnitudes = zeros(size(A, 1))
+_recession_row_roundoff(A::SparseMatrixCSC{T,Int}, structural::Vector{T},
+                        ::Val{true}) where {T<:Rational} = zeros(T, size(A, 1))
+
+function _recession_row_roundoff(A::SparseMatrixCSC{T,Int}, structural::Vector{T},
+                                ::Val{false}) where {T<:AbstractFloat}
+    magnitudes = zeros(T, size(A, 1))
     terms = zeros(Int, size(A, 1))
     for column in axes(A, 2)
         for position in A.colptr[column]:(A.colptr[column + 1] - 1)
@@ -382,28 +395,29 @@ function _recession_row_roundoff(A::SparseMatrixCSC{Float64,Int}, structural::Ve
     for row in eachindex(magnitudes)
         # gamma_(2k), with unit roundoff eps/2, conservatively covers a k-term
         # dot product and the rounded sum of absolute products used to bound it.
-        relative_error = terms[row] * eps(Float64)
-        magnitudes[row] = relative_error < 1.0 ?
-            relative_error / (1.0 - relative_error) * magnitudes[row] : Inf
+        relative_error = T(terms[row]) * eps(T)
+        magnitudes[row] = relative_error < one(T) ?
+            relative_error / (one(T) - relative_error) * magnitudes[row] : T(Inf)
     end
     return magnitudes
 end
 
-function _recession_direction_status(workspace::SimplexWorkspace, auxiliary::SimplexWorkspace)
+function _recession_direction_status(workspace::SimplexWorkspace{T},
+                                     auxiliary::SimplexWorkspace{T}) where {T}
     column_count = size(workspace.problem.A, 2)
     structural = auxiliary.primal[1:column_count]
     direction = vcat(structural, workspace.problem.A * structural)
     all(isfinite, direction) || return :invalid
-    row_roundoff = _recession_row_roundoff(workspace.problem.A, structural)
+    row_roundoff = _recession_row_roundoff(workspace.problem.A, structural, _is_exact(T))
     all(isfinite, row_roundoff) || return :invalid
     # Row cancellation within its dot-product error bound represents zero.
     # A larger nonzero violation within tolerance is numerically inconclusive.
     tolerance = workspace.options.zero_tolerance
     ambiguous = false
     for index in eachindex(direction)
-        violation = max(isfinite(workspace.lower[index]) ? -direction[index] : 0.0,
-                        isfinite(workspace.upper[index]) ? direction[index] : 0.0)
-        roundoff = index <= column_count ? 0.0 : row_roundoff[index - column_count]
+        violation = max(isfinite(workspace.lower[index]) ? -direction[index] : zero(T),
+                        isfinite(workspace.upper[index]) ? direction[index] : zero(T))
+        roundoff = index <= column_count ? zero(T) : row_roundoff[index - column_count]
         violation <= roundoff && continue
         violation > tolerance && return :invalid
         ambiguous = true
@@ -413,7 +427,7 @@ function _recession_direction_status(workspace::SimplexWorkspace, auxiliary::Sim
     return ambiguous ? :ambiguous : :certified
 end
 
-function make_dual_feasible!(workspace::SimplexWorkspace, stop_requested)::Union{Nothing,DualTermination}
+function make_dual_feasible!(workspace::SimplexWorkspace{T}, stop_requested)::Union{Nothing,DualTermination} where {T}
     stop_requested = _guard_stop_callback(stop_requested)
     stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
     _finite_workspace(workspace) || return _numerical_failure()
@@ -426,7 +440,7 @@ function make_dual_feasible!(workspace::SimplexWorkspace, stop_requested)::Union
     end
 end
 
-function _make_dual_feasible!(workspace::SimplexWorkspace, stop_requested)
+function _make_dual_feasible!(workspace::SimplexWorkspace{T}, stop_requested) where {T}
     recompute!(workspace)
     _flip_bounds!(workspace)
     _finite_workspace(workspace) || return _numerical_failure()
@@ -471,8 +485,8 @@ function _make_dual_feasible!(workspace::SimplexWorkspace, stop_requested)
     return nothing
 end
 
-function _solve_continuous_dual(problem::LinearProblem, options::SolverOptions;
-                                stop_requested::Function=() -> false)
+function _solve_continuous_dual(problem::LinearProblem{T}, options::SolverOptions{T};
+                                stop_requested::Function=() -> false) where {T}
     stop_requested = _guard_stop_callback(stop_requested)
     workspace = nothing
     try
@@ -481,14 +495,14 @@ function _solve_continuous_dual(problem::LinearProblem, options::SolverOptions;
     catch exception
         exception === stop_requested.exception && rethrow()
         _is_numerical_exception(exception) || rethrow()
-        return DualRunResult(NUMERICAL_ERROR, nothing, nothing,
-                             isnothing(workspace) ? 0 : workspace.iterations,
-                             isnothing(workspace) ? 0 : workspace.refactorizations,
-                             sprint(showerror, exception))
+        return DualRunResult{T}(NUMERICAL_ERROR, nothing, nothing,
+                                isnothing(workspace) ? 0 : workspace.iterations,
+                                isnothing(workspace) ? 0 : workspace.refactorizations,
+                                sprint(showerror, exception))
     end
 end
 
-function _solve_continuous_dual!(workspace::SimplexWorkspace, stop_requested)
+function _solve_continuous_dual!(workspace::SimplexWorkspace{T}, stop_requested) where {T}
     problem, options = workspace.problem, workspace.options
     stop_requested() && return _internal_solution(workspace, TIME_LIMIT, "time limit reached")
     _finite_workspace(workspace) || return _internal_solution(workspace, _numerical_failure())
@@ -496,7 +510,7 @@ function _solve_continuous_dual!(workspace::SimplexWorkspace, stop_requested)
         for index in eachindex(workspace.costs)
             cost = workspace.costs[index]
             iszero(cost) && continue
-            bound = cost > 0.0 ? workspace.lower[index] : workspace.upper[index]
+            bound = cost > zero(T) ? workspace.lower[index] : workspace.upper[index]
             isfinite(bound) || return _internal_solution(workspace, UNBOUNDED, "unbounded improving direction")
             workspace.primal[index] = bound_value(bound)
         end
@@ -506,7 +520,7 @@ function _solve_continuous_dual!(workspace::SimplexWorkspace, stop_requested)
     isnothing(terminal) || return _internal_solution(workspace, terminal)
     terminal = _dual_optimize!(workspace, stop_requested)
     terminal.status == OPTIMAL || return _internal_solution(workspace, terminal)
-    workspace.costs .= vcat(problem.objective, zeros(size(problem.A, 1)))
+    workspace.costs .= vcat(problem.objective, zeros(T, size(problem.A, 1)))
     workspace.perturbed = false
     recompute!(workspace)
     status = primal_infeasibility(workspace) <= options.primal_tolerance &&
