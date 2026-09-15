@@ -131,9 +131,12 @@ the supported MOI boundary. The adapter does not silently downcast a model from
 another coefficient type. MOI/JuMP caching and bridge layers are responsible
 for presenting the declared typed function-set pairs.
 
-Multiple bound constraints on a variable are legal and are combined by
-intersection. An empty intersection is an invalid model. Multiple `Integer`
-constraints are harmless. `Integer` and `ZeroOne` combine to a binary domain.
+The standard MOI rule of at most one lower and one upper bound constraint per
+variable applies; an `Interval` occupies both sides. The translator combines a
+legal lower/upper pair and intersects explicit bounds with bounds implied by
+`ZeroOne`. It also intersects overlapping bounds defensively if a custom source
+model exposes them. An empty intersection is an invalid model. Repeated domain
+markers are harmless, and `Integer` combined with `ZeroOne` is binary.
 
 For `BigFloat`, translation preserves the supplied values; arithmetic and the
 solve run in Julia's active `BigFloat` precision, consistent with the direct
@@ -267,7 +270,7 @@ JuMP. It includes:
 - supported function-set and objective declarations;
 - affine constants and repeated terms;
 - all supported variable and row bound sets;
-- multiple-bound intersection and conflicting bounds;
+- legal lower/upper and `ZeroOne` bound intersections, plus conflicting bounds;
 - minimization, maximization, and feasibility sense;
 - names and source-to-result index mapping;
 - every status mapping that can be triggered deterministically;
