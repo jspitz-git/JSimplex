@@ -16,14 +16,14 @@ function Base.showerror(io::IO, error::MPSParseError)
     print(io, error.source, ':', error.line, " [", error.section, "] ", error.message)
 end
 
-struct BoundRecord
+struct BoundRecord{T<:Real}
     kind::Symbol
     column::String
-    value::Union{Nothing,Float64}
+    value::Union{Nothing,T}
     line::Int
 end
 
-mutable struct MPSAccumulator
+mutable struct MPSAccumulator{T<:Real}
     source::String
     name::String
     objective_sense::ObjectiveSense
@@ -32,34 +32,72 @@ mutable struct MPSAccumulator
     row_order::Vector{String}
     row_types::Dict{String,Char}
     column_order::Vector{String}
-    coefficients::Vector{Tuple{String,String,Float64,Int}}
-    rhs_sets::Dict{String,Vector{Tuple{String,Float64,Int}}}
+    coefficients::Vector{Tuple{String,String,T,Int}}
+    rhs_sets::Dict{String,Vector{Tuple{String,T,Int}}}
     rhs_order::Vector{String}
-    ranges_sets::Dict{String,Vector{Tuple{String,Float64,Int}}}
+    ranges_sets::Dict{String,Vector{Tuple{String,T,Int}}}
     ranges_order::Vector{String}
-    bounds_sets::Dict{String,Vector{BoundRecord}}
+    bounds_sets::Dict{String,Vector{BoundRecord{T}}}
     bounds_order::Vector{String}
     marker_domains::Dict{String,VariableDomain}
 end
 
-function MPSAccumulator(source::AbstractString)
-    return MPSAccumulator(
+MPSAccumulator(source::AbstractString) = MPSAccumulator(source, Float64)
+
+function MPSAccumulator(source::AbstractString, ::Type{T}) where {T<:Real}
+    return MPSAccumulator{T}(
         String(source), "", MIN_SENSE, nothing, 0, String[], Dict{String,Char}(),
-        String[], Tuple{String,String,Float64,Int}[],
-        Dict{String,Vector{Tuple{String,Float64,Int}}}(), String[],
-        Dict{String,Vector{Tuple{String,Float64,Int}}}(), String[],
-        Dict{String,Vector{BoundRecord}}(), String[], Dict{String,VariableDomain}(),
+        String[], Tuple{String,String,T,Int}[],
+        Dict{String,Vector{Tuple{String,T,Int}}}(), String[],
+        Dict{String,Vector{Tuple{String,T,Int}}}(), String[],
+        Dict{String,Vector{BoundRecord{T}}}(), String[], Dict{String,VariableDomain}(),
     )
 end
 
 _mps_error(records, line, section, message) =
     throw(MPSParseError(records.source, line, section, message))
 
-function _mps_number(token, records, line, section)
-    value = tryparse(Float64, replace(token, 'D' => 'E', 'd' => 'e'))
+function _mps_number(records::MPSAccumulator{T}, token, line, section) where {T<:AbstractFloat}
+    value = tryparse(T, replace(token, 'D' => 'E', 'd' => 'e'))
     value === nothing && _mps_error(records, line, section, "expected a finite number, got '$token'")
     isfinite(value) || _mps_error(records, line, section, "number must be finite: '$token'")
     return value
+end
+
+const _MPS_DECIMAL = r"^([+-]?)(?:(\d+)(?:\.(\d*))?|\.(\d+))(?:[Ee]([+-]?\d+))?$"
+
+function _mps_big_rational(token::AbstractString)
+    normalized = replace(token, 'D' => 'E', 'd' => 'e')
+    match_result = match(_MPS_DECIMAL, normalized)
+    isnothing(match_result) && return nothing
+    sign = match_result.captures[1] == "-" ? -1 : 1
+    whole = something(match_result.captures[2], "0")
+    fraction = something(match_result.captures[3], match_result.captures[4], "")
+    significand = parse(BigInt, whole * fraction)
+    exponent = parse(BigInt, something(match_result.captures[5], "0")) - length(fraction)
+    abs(exponent) <= typemax(Int) || return nothing
+    power = big(10)^Int(abs(exponent))
+    return exponent >= 0 ? (sign * significand * power) // big(1) :
+                           (sign * significand) // power
+end
+
+function _mps_checked_convert(::Type{Rational{I}}, value::Rational{BigInt},
+                              records, line::Int, section::Symbol,
+                              message::String) where {I<:Integer}
+    try
+        return Rational{I}(I(numerator(value)), I(denominator(value)))
+    catch exception
+        exception isa InexactError || exception isa OverflowError || rethrow()
+        _mps_error(records, line, section, message)
+    end
+end
+
+function _mps_number(records::MPSAccumulator{T}, token, line, section) where {T<:Rational}
+    value = _mps_big_rational(token)
+    value === nothing && _mps_error(records, line, section, "expected a finite decimal number, got '$token'")
+    T == Rational{BigInt} && return value
+    return _mps_checked_convert(T, value, records, line, section,
+                                "number is not representable as $T: '$token'")
 end
 
 const _MPS_SEPARATORS = (4, 13, 14, 23, 24, 37, 38, 39, 48, 49)
@@ -86,7 +124,7 @@ function _mps_fields(text, format, records, line, section, columns)
                 # spaces, and a blank set name may continue the preceding set.
                 kind = Symbol(fields[1])
                 if kind in _MPS_BOUND_TYPES
-                    value = length(fields) == 4 ? _mps_number(fields[4], records, line, section) : nothing
+                    value = length(fields) == 4 ? _mps_number(records, fields[4], line, section) : nothing
                     _mps_bound_error(kind, fields[3], value, columns) === nothing && return fields, true
                 end
             catch exception

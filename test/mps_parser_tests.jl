@@ -6,6 +6,106 @@ function fixed_mps_record(a="", b="", c="", d="", e="", f="")
            "  " * rpad(d, 12) * "   " * rpad(e, 8) * "  " * rpad(f, 12)
 end
 
+@testset "Typed MPS numeric records" begin
+    text = "NAME EXACT\nROWS\n N OBJ\n E EQ\nCOLUMNS\n X OBJ 1.25 EQ -2e-3\nRHS\n R EQ 3D+2\nENDATA\n"
+    records = @inferred JSimplex._parse_mps(
+        IOBuffer(text), "memory.mps", Rational{BigInt}; format=:free,
+    )
+    @test records isa JSimplex.MPSAccumulator{Rational{BigInt}}
+    @test records.coefficients[1][3] == 5 // big(4)
+    @test records.coefficients[2][3] == -1 // big(500)
+    @test records.rhs_sets["R"][1][2] == 300 // big(1)
+
+    float32_records = @inferred JSimplex._parse_mps(
+        IOBuffer(text), "memory.mps", Float32; format=:free,
+    )
+    @test float32_records isa JSimplex.MPSAccumulator{Float32}
+    @test float32_records.coefficients[1][3] === 1.25f0
+
+    @test_throws MPSParseError JSimplex._parse_mps(
+        IOBuffer(replace(text, "1.25" => "1e999999999999999999999")),
+        "memory.mps", Rational{Int}; format=:free,
+    )
+    fixed_overflow = replace(text, "1.25" => string(big(typemax(Int)) + 1))
+    error = try
+        JSimplex._parse_mps(IOBuffer(fixed_overflow), "memory.mps",
+                            Rational{Int}; format=:free)
+    catch exception
+        exception
+    end
+    @test error isa MPSParseError
+    @test error.line == 6
+    @test error.section == :COLUMNS
+
+    @testset "exact decimal grammar and precision" begin
+        for (token, expected) in (
+            ("+.5", big(1) // 2), ("-2.", big(-2) // 1),
+            (".125d+1", big(5) // 4), ("+001.2300E-2", big(123) // 10000),
+            ("-0.000", big(0) // 1),
+            ("9007199254740993", big(9007199254740993) // 1),
+            ("0.123456789012345678901234567890", big"12345678901234567890123456789" // big"100000000000000000000000000000"),
+        )
+            parsed = JSimplex._parse_mps(IOBuffer(replace(text, "1.25" => token)),
+                                        "memory.mps", Rational{BigInt}; format=:free)
+            @test parsed.coefficients[1][3] == expected
+        end
+        for token in ("NaN", "Inf", "1//2", ".", "+", "1e", "1.2.3", "1e-999999999999999999999")
+            @test_throws MPSParseError JSimplex._parse_mps(
+                IOBuffer(replace(text, "1.25" => token)), "memory.mps",
+                Rational{BigInt}; format=:free,
+            )
+        end
+        for token in ("128", "0.001")
+            error = try
+                JSimplex._parse_mps(IOBuffer(replace(text, "1.25" => token)),
+                                    "overflow.mps", Rational{Int8}; format=:free)
+            catch exception
+                exception
+            end
+            @test error isa MPSParseError
+            if error isa MPSParseError
+                @test (error.source, error.line, error.section) == ("overflow.mps", 6, :COLUMNS)
+                @test occursin(token, error.message)
+            end
+        end
+        for token in ("NaN", "Inf", "1e39")
+            @test_throws MPSParseError JSimplex._parse_mps(
+                IOBuffer(replace(text, "1.25" => token)), "memory.mps", Float32; format=:free,
+            )
+        end
+        @test_throws ArgumentError JSimplex._parse_mps(IOBuffer(text), "memory.mps", Int)
+    end
+
+    @testset "typed fixed records, bounds, and file parsing" begin
+        text = join(["NAME TYPED", "ROWS", fixed_mps_record("N", "OBJ"),
+            fixed_mps_record("L", "LIMIT"), "COLUMNS",
+            fixed_mps_record("", "M0", "'MARKER'", "", "'INTORG'"),
+            fixed_mps_record("", "X", "OBJ", "1.25"),
+            fixed_mps_record("", "", "LIMIT", "-.5"),
+            fixed_mps_record("", "M1", "'MARKER'", "", "'INTEND'"),
+            "RHS", fixed_mps_record("", "R", "LIMIT", "2.5"),
+            "RANGES", fixed_mps_record("", "G", "LIMIT", "-.25"),
+            "BOUNDS", fixed_mps_record("LO", "B", "X", "-.5"),
+            fixed_mps_record("FR", "", "X"), "ENDATA"], '\n')
+        for T in (Float32, BigFloat, Rational{Int}, Rational{BigInt}), format in (:fixed, :auto)
+            records = JSimplex._parse_mps(IOBuffer(text), "memory.mps", T; format)
+            @test records.coefficients == [("X", "OBJ", 5 // 4, 7), ("X", "LIMIT", -1 // 2, 8)]
+            @test records.rhs_sets["R"] == [("LIMIT", 5 // 2, 11)]
+            @test records.ranges_sets["G"] == [("LIMIT", -1 // 4, 13)]
+            @test records.marker_domains == Dict("X" => INTEGER)
+            @test records.bounds_order == ["B"]
+            @test records.bounds_sets["B"] isa Vector{JSimplex.BoundRecord{T}}
+            @test records.bounds_sets["B"][1].value == -1 // 2
+            @test records.bounds_sets["B"][1].value isa T
+            @test records.bounds_sets["B"][2].value === nothing
+        end
+        path = joinpath(@__DIR__, "fixtures", "parser", "basic-free.mps")
+        records = @inferred JSimplex._parse_mps_file(path, Rational{BigInt}; format=:free)
+        @test records.coefficients[1] == ("X", "COST", big(3) // 1, 9)
+        @test JSimplex._parse_mps_file(path) isa JSimplex.MPSAccumulator{Float64}
+    end
+end
+
 @testset "MPS symbolic parser" begin
     root = joinpath(@__DIR__, "fixtures", "parser")
     free_records = JSimplex._parse_mps_file(joinpath(root, "basic-free.mps"); format=:free)

@@ -2,9 +2,12 @@ include("mps/records.jl")
 include("mps/parser.jl")
 include("mps/build.jl")
 
-function _parse_mps_file(path::AbstractString; format::Symbol=:auto)
+_parse_mps_file(path::AbstractString; format::Symbol=:auto) =
+    _parse_mps_file(path, Float64; format)
+
+function _parse_mps_file(path::AbstractString, ::Type{T}; format::Symbol=:auto) where {T<:Real}
     open(path, "r") do io
-        return _parse_mps(io, String(path); format=format)
+        return _parse_mps(io, String(path), T; format=format)
     end
 end
 

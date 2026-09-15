@@ -25,21 +25,21 @@ function _mps_metadata!(records, section, fields, line)
     end
 end
 
-function _mps_pairs!(records, section, fields, line)
+function _mps_pairs!(records::MPSAccumulator{T}, section, fields, line) where {T}
     length(fields) in (3, 5) && all(!isempty, fields) ||
         _mps_error(records, line, section, "expected a name and one or two row/value pairs")
     name = fields[1]
     for i in 2:2:length(fields)
         row = fields[i]
         haskey(records.row_types, row) || _mps_error(records, line, section, "unknown row '$row'")
-        value = _mps_number(fields[i + 1], records, line, section)
+        value = _mps_number(records, fields[i + 1], line, section)
         if section == :COLUMNS
             push!(records.coefficients, (name, row, value, line))
         else
             sets, order = section == :RHS ? (records.rhs_sets, records.rhs_order) :
                                            (records.ranges_sets, records.ranges_order)
             if !haskey(sets, name)
-                sets[name] = Tuple{String,Float64,Int}[]
+                sets[name] = Tuple{String,T,Int}[]
                 push!(order, name)
             end
             push!(sets[name], (row, value, line))
@@ -47,9 +47,14 @@ function _mps_pairs!(records, section, fields, line)
     end
 end
 
-function _parse_mps(io::IO, source::AbstractString; format::Symbol=:auto)
+_parse_mps(io::IO, source::AbstractString; format::Symbol=:auto) =
+    _parse_mps(io, source, Float64; format)
+
+function _parse_mps(io::IO, source::AbstractString, ::Type{T};
+                    format::Symbol=:auto) where {T<:Real}
+    _supported_value_type(T) || throw(ArgumentError("unsupported MPS value type $T"))
     format in (:auto, :fixed, :free) || throw(ArgumentError("format must be :auto, :fixed, or :free"))
-    records = MPSAccumulator(source)
+    records = MPSAccumulator(source, T)
     section = :START
     seen = Set{Symbol}()
     columns = Set{String}()
@@ -170,14 +175,14 @@ function _parse_mps(io::IO, source::AbstractString; format::Symbol=:auto)
             kind = Symbol(fields[1])
             kind in _MPS_BOUND_TYPES || _mps_error(records, line, section, "unsupported bound type '$kind'")
             name = fields[2]
-            value = length(fields) == 4 ? _mps_number(fields[4], records, line, section) : nothing
+            value = length(fields) == 4 ? _mps_number(records, fields[4], line, section) : nothing
             error = _mps_bound_error(kind, fields[3], value, columns)
             error === nothing || _mps_error(records, line, section, error)
             if !haskey(records.bounds_sets, name)
-                records.bounds_sets[name] = BoundRecord[]
+                records.bounds_sets[name] = BoundRecord{T}[]
                 push!(records.bounds_order, name)
             end
-            push!(records.bounds_sets[name], BoundRecord(kind, fields[3], value, line))
+            push!(records.bounds_sets[name], BoundRecord{T}(kind, fields[3], value, line))
         else
             _mps_pairs!(records, section, fields, line)
             if section == :COLUMNS
