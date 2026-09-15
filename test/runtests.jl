@@ -15,4 +15,5 @@ using Test
     include("bigfloat_integrity_tests.jl")
     include("regression_tests.jl")
     include("numeric_type_tests.jl")
+    include("moi/optimizer_tests.jl")
 end
