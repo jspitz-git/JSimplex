@@ -16,4 +16,5 @@ using Test
     include("regression_tests.jl")
     include("numeric_type_tests.jl")
     include("moi/optimizer_tests.jl")
+    include("moi/translation_tests.jl")
 end
