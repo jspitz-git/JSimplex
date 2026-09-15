@@ -48,3 +48,116 @@ end
     columns = JSimplex._collect_moi_columns(JSimplex.Optimizer(), source)
     @test columns.error == "column lower bound exceeds column upper bound for variable 1"
 end
+
+@testset "MOI affine model translation" begin
+    T = Rational{BigInt}
+    source = MOI.Utilities.Model{T}()
+    x = MOI.add_variables(source, 2)
+    MOI.set(source, MOI.Name(), "typed model")
+    MOI.set(source, MOI.VariableName(), x[1], "x")
+    f = MOI.ScalarAffineFunction(
+        MOI.ScalarAffineTerm{T}[
+            MOI.ScalarAffineTerm(T(2), x[1]),
+            MOI.ScalarAffineTerm(T(3), x[2]),
+            MOI.ScalarAffineTerm(T(-1), x[1]),
+        ],
+        T(5),
+    )
+    ci = MOI.add_constraint(source, f, MOI.Interval(T(7), T(11)))
+    MOI.set(source, MOI.ConstraintName(), ci, "range")
+    objective = MOI.ScalarAffineFunction(
+        [MOI.ScalarAffineTerm(T(4), x[2])],
+        T(3),
+    )
+    MOI.set(source, MOI.ObjectiveSense(), MOI.MAX_SENSE)
+    MOI.set(source, MOI.ObjectiveFunction{typeof(objective)}(), objective)
+
+    translated = JSimplex._translate_moi_model(JSimplex.Optimizer{T}(), source)
+    @test translated.error === nothing
+    problem = something(translated.problem)
+    @test problem isa LinearProblem{T}
+    @test Matrix(problem.A) == T[1 3]
+    @test bound_value(problem.row_lower[1]) == T(2)
+    @test bound_value(problem.row_upper[1]) == T(6)
+    @test problem.objective == T[0, 4]
+    @test problem.objective_constant == T(3)
+    @test problem.objective_sense == MAX_SENSE
+    @test problem.name == "typed model"
+    @test problem.column_names == ["x", ""]
+    @test problem.row_names == ["range"]
+    @test translated.index_map[ci].value == 1
+end
+
+@testset "MOI affine set bounds subtract function constants" begin
+    source = MOI.Utilities.Model{Float64}()
+    x = MOI.add_variable(source)
+    function affine(constant)
+        return MOI.ScalarAffineFunction([MOI.ScalarAffineTerm(2.0, x)], constant)
+    end
+    greater = MOI.add_constraint(source, affine(3.0), MOI.GreaterThan(7.0))
+    less = MOI.add_constraint(source, affine(4.0), MOI.LessThan(9.0))
+    equal = MOI.add_constraint(source, affine(5.0), MOI.EqualTo(11.0))
+    interval = MOI.add_constraint(source, affine(6.0), MOI.Interval(13.0, 17.0))
+
+    translated = JSimplex._translate_moi_model(JSimplex.Optimizer(), source)
+    @test translated.error === nothing
+    problem = something(translated.problem)
+    for (constraint, lower, upper) in [
+        (greater, 4.0, nothing),
+        (less, nothing, 5.0),
+        (equal, 6.0, 6.0),
+        (interval, 7.0, 11.0),
+    ]
+        row = translated.index_map[constraint].value
+        lower === nothing ? @test(!isfinite(problem.row_lower[row])) :
+                           @test(bound_value(problem.row_lower[row]) == lower)
+        upper === nothing ? @test(!isfinite(problem.row_upper[row])) :
+                           @test(bound_value(problem.row_upper[row]) == upper)
+    end
+end
+
+@testset "MOI variable and feasibility objectives" begin
+    source = MOI.Utilities.Model{Float64}()
+    x = MOI.add_variables(source, 2)
+    MOI.set(source, MOI.ObjectiveSense(), MOI.MIN_SENSE)
+    MOI.set(source, MOI.ObjectiveFunction{MOI.VariableIndex}(), x[2])
+
+    translated = JSimplex._translate_moi_model(JSimplex.Optimizer(), source)
+    @test translated.error === nothing
+    problem = something(translated.problem)
+    @test problem.objective == [0.0, 1.0]
+    @test problem.objective_constant == 0.0
+    @test problem.objective_sense == MIN_SENSE
+
+    feasibility = MOI.Utilities.Model{Float64}()
+    MOI.add_variable(feasibility)
+    translated = JSimplex._translate_moi_model(JSimplex.Optimizer(), feasibility)
+    @test translated.error === nothing
+    problem = something(translated.problem)
+    @test problem.objective == [0.0]
+    @test problem.objective_constant == 0.0
+    @test problem.objective_sense == MIN_SENSE
+end
+
+@testset "MOI translation rejects unsupported and non-finite data" begin
+    quadratic = MOI.Utilities.Model{Float64}()
+    x = MOI.add_variable(quadratic)
+    q = MOI.ScalarQuadraticFunction(
+        MOI.ScalarQuadraticTerm{Float64}[],
+        [MOI.ScalarAffineTerm(1.0, x)],
+        0.0,
+    )
+    MOI.add_constraint(quadratic, q, MOI.LessThan(1.0))
+    @test_throws MOI.UnsupportedConstraint JSimplex._translate_moi_model(
+        JSimplex.Optimizer(),
+        quadratic,
+    )
+
+    nonfinite = MOI.Utilities.Model{Float64}()
+    x = MOI.add_variable(nonfinite)
+    f = MOI.ScalarAffineFunction([MOI.ScalarAffineTerm(NaN, x)], 0.0)
+    MOI.add_constraint(nonfinite, f, MOI.LessThan(1.0))
+    translated = JSimplex._translate_moi_model(JSimplex.Optimizer(), nonfinite)
+    @test translated.error !== nothing
+    @test occursin("constraint matrix coefficient must be finite", translated.error)
+end
