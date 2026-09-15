@@ -50,3 +50,52 @@ import MathOptInterface as MOI
         MOI.Nonnegatives,
     )
 end
+
+@testset "MOI optimizer attributes" begin
+    optimizer = JSimplex.Optimizer{Float32}()
+    @test MOI.get(optimizer, MOI.SolverName()) == "JSimplex"
+    @test MOI.get(optimizer, MOI.SolverVersion()) == "0.5.0"
+
+    @test MOI.supports(optimizer, MOI.Silent())
+    @test !MOI.get(optimizer, MOI.Silent())
+    MOI.set(optimizer, MOI.Silent(), true)
+    @test MOI.get(optimizer, MOI.Silent())
+
+    @test MOI.supports(optimizer, MOI.TimeLimitSec())
+    @test MOI.get(optimizer, MOI.TimeLimitSec()) === nothing
+    MOI.set(optimizer, MOI.TimeLimitSec(), 2)
+    @test MOI.get(optimizer, MOI.TimeLimitSec()) === 2.0
+    MOI.set(optimizer, MOI.TimeLimitSec(), nothing)
+    @test MOI.get(optimizer, MOI.TimeLimitSec()) === nothing
+
+    values = Dict(
+        "relax_integrality" => true,
+        "iteration_limit" => 19,
+        "primal_tolerance" => Float32(1e-5),
+        "dual_tolerance" => Float32(2e-5),
+        "zero_tolerance" => Float32(3e-6),
+        "refactorization_interval" => 7,
+        "algorithm" => :dual,
+    )
+    for (name, value) in values
+        attr = MOI.RawOptimizerAttribute(name)
+        @test MOI.supports(optimizer, attr)
+        MOI.set(optimizer, attr, value)
+        @test MOI.get(optimizer, attr) == value
+    end
+    @test JSimplex._solver_options(optimizer) isa SolverOptions{Float32}
+    @test_throws MOI.UnsupportedAttribute MOI.set(
+        optimizer,
+        MOI.RawOptimizerAttribute("unknown_parameter"),
+        1,
+    )
+    @test_throws ArgumentError MOI.set(
+        optimizer,
+        MOI.RawOptimizerAttribute("iteration_limit"),
+        -1,
+    )
+
+    MOI.empty!(optimizer)
+    @test MOI.get(optimizer, MOI.Silent())
+    @test MOI.get(optimizer, MOI.RawOptimizerAttribute("iteration_limit")) == 19
+end
