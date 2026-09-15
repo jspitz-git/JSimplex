@@ -1,3 +1,35 @@
+function test_factorization_type(::Type{T}) where {T}
+    B = JSimplex.SparseArrays.sparse(T[2 1; 1 3])
+    rhs = T[5, 7]
+    factor = @inferred JSimplex.PFIFactorization(B)
+    x = @inferred JSimplex.forward_solve(factor, rhs)
+    xt = @inferred JSimplex.transpose_solve(factor, rhs)
+    @test eltype(x) === T
+    @test eltype(xt) === T
+    if T <: Rational
+        @test B * x == rhs
+        @test transpose(B) * xt == rhs
+    else
+        @test B * x ≈ rhs
+        @test transpose(B) * xt ≈ rhs
+    end
+    @test fieldtype(typeof(factor), :base) !== Any
+    if T === Float64
+        @test factor.base isa JSimplex.UMFPACKBackend
+    else
+        @test factor.base isa JSimplex.DenseLUBackend
+    end
+end
+
+@testset "Parametric factorization backends" begin
+    foreach(test_factorization_type, (Float32, Float64, BigFloat, Rational{BigInt}))
+
+    empty_factor = @inferred JSimplex.PFIFactorization(
+        JSimplex.SparseArrays.spzeros(Float64, 0, 0),
+    )
+    @test isempty(@inferred JSimplex.forward_solve(empty_factor, Float64[]))
+end
+
 @testset "Product-form basis factorization" begin
     B = JSimplex.SparseArrays.sparse([2.0 1.0; 1.0 3.0])
     factor = JSimplex.PFIFactorization(B)

@@ -162,6 +162,16 @@ end
     end
 end
 
+@testset "Auxiliary workspaces own their factorization backend" begin
+    problem = LinearProblem(sparse([1.0;;]), [1.0])
+    workspace = JSimplex.initialize_workspace(problem, SolverOptions())
+    auxiliary = JSimplex._auxiliary_workspace(workspace)
+
+    JSimplex.refactorize!(auxiliary.factorization, sparse([2.0;;]))
+
+    @test JSimplex.forward_solve(workspace.factorization, [1.0]) == [-1.0]
+end
+
 @testset "Recession certification allows row dot-product roundoff" begin
     unbounded = (
         LinearProblem(sparse([1.0 -3.0]), [-1.0, 0.0]; row_lower=[0.0], row_upper=[0.0]),
@@ -379,7 +389,9 @@ end
     @test isnothing(run.objective_value)
 
     workspace = JSimplex.initialize_workspace(problem, SolverOptions())
-    workspace.factorization.base = lu(zeros(1, 1); check=false)
+    workspace.factorization.base = JSimplex.UMFPACKBackend(
+        lu(spzeros(1, 1); check=false), 1,
+    )
     terminal = JSimplex.dual_iteration!(workspace, () -> false)
     @test terminal.status == NUMERICAL_ERROR
     @test workspace.iterations == 0

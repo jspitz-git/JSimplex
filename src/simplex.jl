@@ -105,12 +105,7 @@ function recompute!(workspace::SimplexWorkspace; refactorize::Bool=false,
             rethrow()
         end
         B = basis_matrix(workspace)
-        if isempty(B)
-            workspace.factorization.base = lu(zeros(Float64, 0, 0))
-            empty!(workspace.factorization.updates)
-        else
-            refactorize!(workspace.factorization, B)
-        end
+        refactorize!(workspace.factorization, B)
         workspace.refactorizations += 1
     end
 
@@ -170,11 +165,7 @@ function initialize_workspace(problem::LinearProblem, options::SolverOptions)
 
     basis = Basis(collect(column_count + 1:variable_count), states)
     initial_basis = spdiagm(0 => fill(-1.0, row_count))
-    factorization = if iszero(row_count)
-        PFIFactorization(lu(zeros(Float64, 0, 0)), PackedEta[])
-    else
-        PFIFactorization(initial_basis)
-    end
+    factorization = PFIFactorization(initial_basis)
     workspace = SimplexWorkspace(
         problem, options, costs, lower, upper, basis, zeros(Float64, variable_count),
         zeros(Float64, variable_count), ones(Float64, variable_count),
