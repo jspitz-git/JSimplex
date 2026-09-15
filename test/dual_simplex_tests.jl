@@ -52,6 +52,16 @@ function test_typed_dual_kernel(::Type{T}) where {T}
     @test (@inferred JSimplex.dual_ratio_test(ratio_workspace, T[-1, -10, -20, 0])) == -1
 end
 
+function roundoff_auxiliary_workspace()
+    problem = LinearProblem(sparse(Float32[3 -1]), Float32[-4, 2];
+        row_upper=Float32[2], column_lower=[-1f0, nothing], column_upper=[nothing, 2f0])
+    workspace = JSimplex.initialize_workspace(problem, SolverOptions(Float32))
+    auxiliary = JSimplex._auxiliary_workspace(workspace)
+    JSimplex.dual_iteration!(auxiliary, () -> false)
+    JSimplex.dual_iteration!(auxiliary, () -> false)
+    return auxiliary
+end
+
 @testset "Optimal results certify the original structural primal" begin
     unstable = LinearProblem(
         sparse([1.0 1.0; 1.0 1.0 + 1.0e-6]), zeros(2);
@@ -684,5 +694,52 @@ end
                 end
             end
         end
+    end
+end
+
+@testset "Infeasibility verification preserves pivot counts and caller control" begin
+    auxiliary = roundoff_auxiliary_workspace()
+    terminal = JSimplex.dual_iteration!(auxiliary, () -> false)
+    @test terminal.status == OPTIMAL
+    @test JSimplex.primal_infeasibility(auxiliary) == 0f0
+    @test auxiliary.iterations == 2
+    @test auxiliary.refactorizations == 1
+
+    auxiliary = roundoff_auxiliary_workspace()
+    checks = Ref(0)
+    terminal = JSimplex.dual_iteration!(auxiliary, () -> (checks[] += 1; checks[] == 2))
+    @test terminal.status == TIME_LIMIT
+    @test auxiliary.iterations == 2
+    @test auxiliary.refactorizations == 0
+
+    auxiliary = roundoff_auxiliary_workspace()
+    terminal = JSimplex.dual_iteration!(auxiliary, () -> auxiliary.refactorizations == 1)
+    @test terminal.status == TIME_LIMIT
+    @test auxiliary.iterations == 2
+    @test auxiliary.refactorizations == 1
+
+    for exception in (SingularException(7), ZeroPivotException(7))
+        auxiliary = roundoff_auxiliary_workspace()
+        checks = Ref(0)
+        callback = () -> (checks[] += 1; checks[] == 2 ? throw(exception) : false)
+        captured = try
+            JSimplex.dual_iteration!(auxiliary, callback)
+        catch error
+            error
+        end
+        @test captured === exception
+        @test auxiliary.iterations == 2
+        @test auxiliary.refactorizations == 0
+    end
+
+    for T in (Float32, Float64, BigFloat, Rational{BigInt})
+        problem = LinearProblem(sparse(reshape(T[1], 1, 1)), T[1];
+                                row_lower=T[2], column_upper=T[1])
+        run = @inferred JSimplex._solve_continuous_dual(problem, SolverOptions(T))
+        @test run.status == INFEASIBLE
+        @test run.iterations == 1
+        @test isnothing(run.primal)
+        @test isnothing(run.objective_value)
+        T <: Rational && @test run.refactorizations == 0
     end
 end

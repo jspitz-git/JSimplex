@@ -336,3 +336,43 @@ end
         end
     end
 end
+
+@testset "Phase-I roundoff cannot prove infeasibility" begin
+    for T in (Float32, Float64, BigFloat, Rational{BigInt})
+        problem = LinearProblem(sparse(T[3 -1]), T[-4, 2];
+            row_upper=T[2], column_lower=[T(-1), nothing],
+            column_upper=[nothing, T(2)])
+        for interval in (nothing, 1, 2, 3, 20)
+            @testset "$T, interval=$interval" begin
+                result = if isnothing(interval)
+                    @inferred solve(problem)
+                else
+                    @inferred solve(problem; options=SolverOptions(T; refactorization_interval=interval))
+                end
+                @test result isa Solution{T}
+                @test result.status == OPTIMAL
+                @test result.primal == T[-1, -5]
+                @test result.objective_value == T(-6)
+                @test result.statistics.iterations == 2
+            end
+        end
+    end
+
+    problem = LinearProblem(sparse(Float32[3 -1]), Float32[-4, 2];
+        row_upper=Float32[2], column_lower=[-1f0, nothing], column_upper=[nothing, 2f0])
+    limited = @inferred solve(problem; options=SolverOptions(Float32; iteration_limit=1))
+    @test limited.status == ITERATION_LIMIT
+    @test limited.statistics.iterations == 1
+    @test limited.statistics.refactorizations == 0
+
+    for exception in (SingularException(7), ZeroPivotException(7))
+        captured = try
+            with_logger(ThrowingSolverLogger("Refactorizing basis", exception)) do
+                solve(problem)
+            end
+        catch error
+            error
+        end
+        @test captured === exception
+    end
+end

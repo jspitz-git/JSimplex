@@ -181,7 +181,8 @@ function dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested)::Union{
     end
 end
 
-function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested) where {T}
+function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
+                          basis_refreshed::Bool=false) where {T}
     leaving_row = dual_edge_selection(workspace)
     leaving_row == -1 && return DualTermination(OPTIMAL, "optimal solution found")
     leaving_index = workspace.basis.basic_indices[leaving_row]
@@ -204,6 +205,17 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested) where 
         if any(index -> _dual_pivot_eligible(workspace, index, oriented_row[index],
                                              zero(T)), eachindex(oriented_row))
             return DualTermination(NUMERICAL_ERROR, "eligible pivots are below the Harris safety cutoff")
+        end
+        if _is_exact(T) === Val(false) && !basis_refreshed
+            # Incremental floating updates can drift outside primal tolerance.
+            # Rebuild once and repeat the test before certifying infeasibility.
+            stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
+            recompute!(workspace; refactorize=true, caller_guard=stop_requested)
+            stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
+            _finite_workspace(workspace) || return _numerical_failure()
+            dual_infeasibility(workspace) <= workspace.options.dual_tolerance ||
+                return DualTermination(NUMERICAL_ERROR, "dual feasibility lost")
+            return _dual_iteration!(workspace, stop_requested, true)
         end
         return DualTermination(INFEASIBLE, "no eligible dual pivot")
     end
