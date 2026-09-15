@@ -19,3 +19,27 @@
     @test result.objective_value == 4.0
     @test result.primal == [1.0, 2.0]
 end
+
+@testset "Parametric solver options and results" begin
+    @test @inferred(SolverOptions()) isa SolverOptions{Float64}
+    options32 = @inferred SolverOptions(Float32)
+    @test options32.primal_tolerance isa Float32
+    @test options32.primal_tolerance > 0.0f0
+    @test SolverOptions(Float16).zero_tolerance == nextfloat(zero(Float16))
+
+    exact = @inferred SolverOptions(Rational{BigInt})
+    @test exact.primal_tolerance == 0
+    @test exact.dual_tolerance == 0
+    @test exact.zero_tolerance == 0
+
+    converted = @inferred SolverOptions(Rational{BigInt}, SolverOptions(time_limit=2.5))
+    @test converted isa SolverOptions{Rational{BigInt}}
+    @test converted.time_limit === 2.5
+    @test_throws ArgumentError SolverOptions(Int)
+
+    stats = SolveStatistics()
+    optimal = @inferred Solution(OPTIMAL, 3.0f0, Float32[1], stats, "optimal")
+    stopped = @inferred Solution{Float32}(TIME_LIMIT, nothing, nothing, stats, "stopped")
+    @test optimal isa Solution{Float32}
+    @test stopped isa Solution{Float32}
+end

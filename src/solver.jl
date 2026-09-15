@@ -14,7 +14,7 @@ function _finish_solve(context::SolveContext, options::SolverOptions,
     statistics = SolveStatistics(; iterations, refactorizations,
                                  elapsed_seconds=elapsed_seconds(context))
     @logmsg options.log_level "Solve terminated" status iterations refactorizations elapsed_seconds=statistics.elapsed_seconds
-    return Solution(status, objective_value, primal, statistics, message)
+    return Solution{Float64}(status, objective_value, primal, statistics, message)
 end
 
 function _minimization_problem(problem::LinearProblem)
