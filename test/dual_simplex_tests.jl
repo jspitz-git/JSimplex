@@ -844,3 +844,59 @@ end
         end
     end
 end
+
+@testset "Primal certification checks exact stored row activities" begin
+    for T in (Float32, Float64, BigFloat, Rational{BigInt})
+        problem = LinearProblem(sparse(T[1 3; 3 9]), T[0, 0];
+            row_lower=T[0, -4], row_upper=T[0, -4], column_lower=[nothing, T(-16777220)],
+            column_upper=[nothing, T(-16777220)])
+        workspace = JSimplex.initialize_workspace(problem, SolverOptions(T))
+        primal = T[50331660, -16777220]
+        @test Rational{BigInt}.(problem.A) * Rational{BigInt}.(primal) == Rational{BigInt}[0, 0]
+        @test !(@inferred JSimplex._original_primal_feasible(workspace, primal))
+        workspace.primal[1:2] .= primal
+        result = @inferred JSimplex._internal_solution(workspace, OPTIMAL, "candidate")
+        @test result.status == NUMERICAL_ERROR
+
+        normal = LinearProblem(sparse(T[1 3; 3 9]), T[0, 0];
+            row_lower=T[0, 0], row_upper=T[0, 0], column_lower=fill(nothing, 2))
+        workspace = JSimplex.initialize_workspace(normal, SolverOptions(T))
+        @test (@inferred JSimplex._original_primal_feasible(workspace, T[3, -1]))
+    end
+end
+
+@testset "Absolute primal tolerance cannot be enlarged by subtraction rounding" begin
+    for T in (Float16, Float32, Float64, BigFloat)
+        small = eps(one(T)) / T(4)
+        unbounded = Bound{T}(nothing)
+        @test !(@inferred JSimplex._within_primal_bounds(T[small], [unbounded], [Bound(-one(T))], one(T)))
+        @test !(@inferred JSimplex._within_primal_bounds(T[-small], [Bound(one(T))], [unbounded], one(T)))
+    end
+    for T in (Float32, Float64, BigFloat, Rational{BigInt})
+        for (value, expected) in ((15 // 8, true), (17 // 8, true), (7 // 4, false), (9 // 4, false))
+            @test (@inferred JSimplex._within_primal_bounds(T[value], [Bound(T(2))], [Bound(T(2))], T(1 // 8))) == expected
+        end
+    end
+end
+
+@testset "Primal interval arithmetic encloses mixed precision and nonfinite inputs" begin
+    high, tolerance = setprecision(BigFloat, 256) do
+        displacement = BigFloat(2)^(-100)
+        one(BigFloat) + displacement, one(BigFloat) - displacement
+    end
+    setprecision(BigFloat, 32) do
+        left = -one(BigFloat)
+        expected_sum = big(1) // big(2)^100
+        lower, upper = @inferred JSimplex._primal_sum_bounds(left, high)
+        @test Rational{BigInt}(lower) <= expected_sum <= Rational{BigInt}(upper)
+        expected_product = -1 - expected_sum
+        lower, upper = @inferred JSimplex._primal_product_bounds(left, high)
+        @test Rational{BigInt}(lower) <= expected_product <= Rational{BigInt}(upper)
+        @test !(@inferred JSimplex._within_primal_bounds(BigFloat[0], [Bound(one(BigFloat))],
+            [Bound{BigFloat}(nothing)], tolerance))
+    end
+    for T in (Float16, Float32, Float64, BigFloat)
+        lower, upper = @inferred JSimplex._primal_sum_bounds(T(Inf), T(-Inf))
+        @test !isfinite(lower) && !isfinite(upper)
+    end
+end

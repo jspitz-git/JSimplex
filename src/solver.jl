@@ -111,10 +111,7 @@ function solve(problem::LinearProblem{T}; relax_integrality::Bool=false,
     objective = dot(problem.objective, primal) + problem.objective_constant
     tolerance = typed_options.primal_tolerance
     if !isfinite(objective) ||
-       !_within_primal_bounds(primal, continuous_problem.column_lower,
-                              continuous_problem.column_upper, tolerance) ||
-       !_within_primal_bounds(continuous_problem.A * primal,
-                              continuous_problem.row_lower, continuous_problem.row_upper, tolerance)
+       !_original_primal_feasible(continuous_problem, primal, tolerance)
         return _finish_solve(T, context, typed_options, NUMERICAL_ERROR,
                              "restored primal failed original-model feasibility checks";
                              iterations=run.iterations, refactorizations=run.refactorizations)

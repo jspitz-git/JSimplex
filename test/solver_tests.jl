@@ -425,3 +425,22 @@ end
         end
     end
 end
+
+@testset "Rounded dependent rows cannot certify a feasible primal origin" begin
+    for T in (Float32, Float64, BigFloat, Rational{BigInt}), ray in (false, true)
+        coefficients = ray ? T[1 3 0; 3 9 0] : T[1 3; 3 9]
+        costs = ray ? T[0, 0, -1] : T[0, 0]
+        lower = ray ? [nothing, T(-16777220), zero(T)] : [nothing, T(-16777220)]
+        upper = ray ? [nothing, T(-16777220), nothing] : [nothing, T(-16777220)]
+        problem = LinearProblem(sparse(coefficients), costs;
+            row_lower=T[0, -4], row_upper=T[0, -4], column_lower=lower, column_upper=upper)
+        for interval in (1, 20)
+            result = @inferred solve(problem; options=SolverOptions(T; refactorization_interval=interval))
+            @test result isa Solution{T}
+            @test result.status in (INFEASIBLE, NUMERICAL_ERROR)
+            T <: Rational && @test result.status == INFEASIBLE
+            @test isnothing(result.primal)
+            @test isnothing(result.objective_value)
+        end
+    end
+end

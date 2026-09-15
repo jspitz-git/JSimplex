@@ -316,24 +316,118 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
     return nothing
 end
 
-function _within_primal_bounds(values::AbstractVector{T}, lower::AbstractVector{Bound{T}},
-                               upper::AbstractVector{Bound{T}}, tolerance::T) where {T}
-    all(isfinite, values) || return false
-    for index in eachindex(values)
-        _lower_violation(lower[index], values[index]) > tolerance && return false
-        _upper_violation(upper[index], values[index]) > tolerance && return false
+_primal_nearest_rounding(::Type{<:AbstractFloat}) = false
+_primal_nearest_rounding(::Type{Float16}) = rounding(Float32) == RoundNearest
+_primal_nearest_rounding(::Type{T}) where {T<:Union{Float32,Float64,BigFloat}} =
+    rounding(T) == RoundNearest
+
+function _primal_sum_bounds(left::T, right::T) where {T<:Rational}
+    value = left + right
+    return value, value
+end
+
+function _primal_sum_bounds(left::T, right::T) where {T<:AbstractFloat}
+    iszero(left) && return right, right
+    iszero(right) && return left, left
+    isfinite(left) && precision(right) == precision(T) && left == -right &&
+        return zero(T), zero(T)
+    value = left + right
+    # FastTwoSum is exact when intermediate residuals cannot underflow.
+    # Other rounding modes and mixed BigFloat precisions use the enclosure.
+    if isfinite(value) && _primal_nearest_rounding(T) &&
+       precision(left) == precision(right) == precision(T) &&
+       min(abs(left), abs(right)) >= ldexp(nextfloat(zero(T)), precision(T))
+        large, small = abs(left) >= abs(right) ? (left, right) : (right, left)
+        error = (large - value) + small
+        if isfinite(error)
+            return error < zero(T) ? (prevfloat(value), value) :
+                   error > zero(T) ? (value, nextfloat(value)) : (value, value)
+        end
+    end
+    return prevfloat(value), nextfloat(value)
+end
+
+_primal_difference_bounds(left::T, right::T) where {T<:Rational} =
+    _primal_sum_bounds(left, -right)
+
+function _primal_difference_bounds(left::T, right::T) where {T<:AbstractFloat}
+    precision(right) == precision(T) && return _primal_sum_bounds(left, -right)
+    # Negating an older, higher-precision tolerance can round before the sum.
+    value = left - right
+    return prevfloat(value), nextfloat(value)
+end
+
+function _primal_product_bounds(left::T, right::T) where {T<:AbstractFloat}
+    (iszero(left) || iszero(right)) && return zero(T), zero(T)
+    left == one(T) && return right, right
+    right == one(T) && return left, left
+    left == -one(T) && precision(right) == precision(T) && return -right, -right
+    right == -one(T) && precision(left) == precision(T) && return -left, -left
+    value = left * right
+    if isfinite(value) && _primal_nearest_rounding(T)
+        error = fma(left, right, -value)
+        # A nonzero fused residual has a conclusive sign. Zero only proves
+        # exactness when the product's finest possible bit cannot underflow.
+        if isfinite(error) && (!iszero(error) ||
+           abs(value) >= ldexp(nextfloat(zero(T)), precision(left) + precision(right)))
+            return error < zero(T) ? (prevfloat(value), value) :
+                   error > zero(T) ? (value, nextfloat(value)) : (value, value)
+        end
+    end
+    return prevfloat(value), nextfloat(value)
+end
+
+function _primal_row_bounds(A::SparseMatrixCSC{T,Int}, primal::Vector{T},
+                            ::Val{true}) where {T<:Rational}
+    values = A * primal
+    return values, values
+end
+
+function _primal_row_bounds(A::SparseMatrixCSC{T,Int}, primal::Vector{T},
+                            ::Val{false}) where {T<:AbstractFloat}
+    lower, upper = zeros(T, size(A, 1)), zeros(T, size(A, 1))
+    for column in axes(A, 2)
+        for position in A.colptr[column]:(A.colptr[column + 1] - 1)
+            row = A.rowval[position]
+            product_lower, product_upper = _primal_product_bounds(A.nzval[position], primal[column])
+            lower[row], _ = _primal_sum_bounds(lower[row], product_lower)
+            _, upper[row] = _primal_sum_bounds(upper[row], product_upper)
+        end
+    end
+    return lower, upper
+end
+
+function _within_primal_intervals(values_lower::AbstractVector{T}, values_upper::AbstractVector{T},
+                                  lower::AbstractVector{Bound{T}}, upper::AbstractVector{Bound{T}},
+                                  tolerance::T) where {T}
+    all(isfinite, values_lower) && all(isfinite, values_upper) || return false
+    for index in eachindex(values_lower)
+        if isfinite(lower[index]) && values_lower[index] < bound_value(lower[index])
+            _, threshold = _primal_difference_bounds(bound_value(lower[index]), tolerance)
+            values_lower[index] >= threshold || return false
+        end
+        if isfinite(upper[index]) && values_upper[index] > bound_value(upper[index])
+            threshold, _ = _primal_sum_bounds(bound_value(upper[index]), tolerance)
+            values_upper[index] <= threshold || return false
+        end
     end
     return true
 end
 
-function _original_primal_feasible(workspace::SimplexWorkspace{T}, primal::Vector{T}) where {T}
-    problem = workspace.problem
-    # Use the configured absolute tolerance in the original constraint units.
-    # Scaling it by the sum of absolute products would hide cancellation in A * x.
-    tolerance = workspace.options.primal_tolerance
+_within_primal_bounds(values::AbstractVector{T}, lower::AbstractVector{Bound{T}},
+                      upper::AbstractVector{Bound{T}}, tolerance::T) where {T} =
+    _within_primal_intervals(values, values, lower, upper, tolerance)
+
+function _original_primal_feasible(problem::LinearProblem{T}, primal::Vector{T}, tolerance::T) where {T}
     _within_primal_bounds(primal, problem.column_lower, problem.column_upper, tolerance) || return false
-    return _within_primal_bounds(problem.A * primal, problem.row_lower, problem.row_upper, tolerance)
+    row_lower, row_upper = _primal_row_bounds(problem.A, primal, _is_exact(T))
+    # Certify the entire activity interval in the original absolute units.
+    # Cancellation uncertainty must not enlarge the configured tolerance.
+    return _within_primal_intervals(row_lower, row_upper, problem.row_lower, problem.row_upper, tolerance)
 end
+
+_original_primal_feasible(workspace::SimplexWorkspace{T}, primal::Vector{T}) where {T} =
+    _original_primal_feasible(workspace.problem, primal, workspace.options.primal_tolerance)
 
 function _internal_solution(workspace::SimplexWorkspace{T}, status::TerminationStatus,
                             message::String) where {T}
