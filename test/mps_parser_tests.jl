@@ -153,6 +153,68 @@ end
               [(:UP, "X", 4.0), (:LO, "X", 2.0)]
     end
 
+    @testset "wide free BOUNDS spacing does not imply fixed fields" begin
+        prefix = join(["NAME SPACING", "ROWS", fixed_mps_record("N", "OBJ"),
+            "COLUMNS", fixed_mps_record("", "X", "OBJ", "1"), "BOUNDS"], '\n') * "\n"
+        for record in (" UP B X         4", " UP B X                  4",
+                       " UP           B X        4",
+                       " UP B         X                        4",
+                       " UP B         X                                  4",
+                       " UP B         X                                                  4")
+            for format in (:free, :auto)
+                records = try
+                    parse_mps_text(prefix * record * "\nENDATA\n"; format)
+                catch exception
+                    exception
+                end
+                @test records isa JSimplex.MPSAccumulator
+                if records isa JSimplex.MPSAccumulator
+                    @test records.bounds_order == ["B"]
+                    bound = only(records.bounds_sets["B"])
+                    @test (bound.kind, bound.column, bound.value) == (:UP, "X", 4.0)
+                    @test JSimplex._build_mps(records).column_upper == [4.0]
+                end
+            end
+            @test_throws MPSParseError parse_mps_text(prefix * record * "\nENDATA\n"; format=:fixed)
+        end
+        text = prefix * fixed_mps_record("UP", "BOUNDS", "X", "4") * "\n" *
+               fixed_mps_record("LO", "", "X", "2") * "\nENDATA\n"
+        for format in (:auto, :fixed)
+            records = parse_mps_text(text; format)
+            @test records.bounds_order == ["BOUNDS"]
+            problem = JSimplex._build_mps(records)
+            @test problem.column_lower == [2.0]
+            @test problem.column_upper == [4.0]
+        end
+        @test_throws MPSParseError parse_mps_text(text; format=:free)
+    end
+
+    @testset "automatic format preserves spaces in genuine fixed names" begin
+        text = join(["NAME SPACES", "ROWS", fixed_mps_record("N", "O BJ"),
+            fixed_mps_record("L", "L IMIT"), "COLUMNS",
+            fixed_mps_record("", "X A", "O BJ", "1", "L IMIT", "2"),
+            "RHS", fixed_mps_record("", "R HS", "L IMIT", "4"),
+            "BOUNDS", fixed_mps_record("UP", "B SET", "X A", "4"),
+            fixed_mps_record("LO", "", "X A", "2"), "ENDATA"], '\n')
+        for format in (:auto, :fixed)
+            records = try
+                parse_mps_text(text; format)
+            catch exception
+                exception
+            end
+            @test records isa JSimplex.MPSAccumulator
+            if records isa JSimplex.MPSAccumulator
+                @test records.bounds_order == ["B SET"]
+                problem = JSimplex._build_mps(records)
+                @test problem.column_names == ["X A"]
+                @test problem.row_names == ["L IMIT"]
+                @test problem.row_upper == [4.0]
+                @test problem.column_lower == [2.0]
+                @test problem.column_upper == [4.0]
+            end
+        end
+    end
+
     @testset "diagnostics retain source, line, section, and reason" begin
         prefix = "NAME BAD\nROWS\n N OBJ\n L LIMIT\nCOLUMNS\n"
         cases = [
@@ -221,5 +283,39 @@ end
             end
         end
         @test_throws ArgumentError parse_mps_text(prefix; format=:invalid)
+    end
+
+    @testset "all named BOUNDS sets receive symbolic validation" begin
+        prefix = "NAME BOUNDS\nROWS\n N OBJ\nCOLUMNS\n X OBJ 1\nBOUNDS\n UP FIRST X 4\n"
+        for (record, reason) in (
+            (" FR SECOND UNKNOWN 1", "unknown column"),
+            (" UP SECOND UNKNOWN 4", "unknown column"),
+            (" LO SECOND X", "requires a value"),
+            (" UP SECOND X", "requires a value"),
+            (" FX SECOND X", "requires a value"),
+            (" LI SECOND X", "requires a value"),
+            (" UI SECOND X", "requires a value"),
+            (" SC SECOND X", "requires a value"),
+            (" SI SECOND X", "requires a value"),
+            (" FR SECOND X 1", "does not accept"),
+            (" MI SECOND X 0", "does not accept"),
+            (" PL SECOND X 1", "does not accept"),
+            (" BV SECOND X 2", "BV accepts"),
+            (" LI SECOND X 0.5", "integral value"),
+            (" UI SECOND X 1.5", "integral value"),
+        )
+            error = try
+                parse_mps_text(prefix * record * "\nENDATA\n")
+            catch exception
+                exception
+            end
+            @test error isa MPSParseError
+            if error isa MPSParseError
+                @test error.source == "memory.mps"
+                @test error.line == 8
+                @test error.section == :BOUNDS
+                @test occursin(reason, error.message)
+            end
+        end
     end
 end

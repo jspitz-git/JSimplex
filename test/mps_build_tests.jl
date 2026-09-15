@@ -108,6 +108,46 @@ end
         end
     end
 
+    @testset "finite RANGES arithmetic cannot create infinite endpoints" begin
+        for (kind, rhs, range) in (("G", "1e308", "1e308"),
+                                   ("G", "1e308", "-1e308"),
+                                   ("L", "-1e308", "1e308"),
+                                   ("L", "-1e308", "-1e308"),
+                                   ("E", "1e308", "1e308"),
+                                   ("E", "-1e308", "-1e308"))
+            text = "NAME OVERFLOW\nROWS\n N OBJ\n $kind ROW\nCOLUMNS\n X OBJ -1 ROW 1\nRHS\n R ROW $rhs\nRANGES\n RNG ROW $range\nENDATA\n"
+            mktemp() do path, io
+                write(io, text)
+                close(io)
+                error = try
+                    read_mps(path)
+                catch exception
+                    exception
+                end
+                @test error isa MPSParseError
+                if error isa MPSParseError
+                    @test error.source == path
+                    @test error.line == 10
+                    @test error.section == :RANGES
+                    @test occursin("finite", error.message)
+                end
+            end
+        end
+        for (kind, rhs, range, lower, upper) in (
+            ("G", "-1e308", "1e308", -1.0e308, 0.0),
+            ("L", "1e308", "-1e308", 0.0, 1.0e308),
+            ("E", "-1e308", "1e308", -1.0e308, 0.0),
+            ("E", "1e308", "-1e308", 0.0, 1.0e308),
+        )
+            problem = read_mps_text("NAME FINITE\nROWS\n $kind ROW\nCOLUMNS\n X ROW 1\nRHS\n R ROW $rhs\nRANGES\n RNG ROW $range\nENDATA\n")
+            @test problem.row_lower == [lower]
+            @test problem.row_upper == [upper]
+        end
+        for section in ("RHS", "RANGES"), value in ("Inf", "-Inf", "NaN")
+            @test_throws MPSParseError read_mps_text("NAME NONFINITE\nROWS\n G ROW\nCOLUMNS\n X ROW 1\n$section\n R ROW $value\nENDATA\n")
+        end
+    end
+
     bound_prefix = "NAME BOUNDS\nROWS\n N OBJ\nCOLUMNS\n X OBJ 1\nBOUNDS\n"
     @testset "objective selection diagnostics" begin
         for (metadata, line) in [("OBJNAME MISSING", 2), ("OBJNAME\n MISSING", 3),
@@ -170,6 +210,72 @@ end
                 @test error.line == 7
                 @test error.section == :BOUNDS
                 @test !isempty(error.source)
+            end
+        end
+    end
+
+    @testset "integrality and semi-domain declarations compose" begin
+        marker_prefix = replace(bound_prefix, " X OBJ 1\n" =>
+            " M0 'MARKER' 'INTORG'\n X OBJ 1\n M1 'MARKER' 'INTEND'\n")
+        for (records, marker, lower, upper, domain, relaxed_lower) in (
+            (" SC B X 10\n LI B X 3", false, 3.0, 10.0, SEMI_INTEGER, 0.0),
+            (" LI B X 3\n SC B X 10", false, 3.0, 10.0, SEMI_INTEGER, 0.0),
+            (" SC B X 10\n UI B X 8", false, 1.0, 8.0, SEMI_INTEGER, 0.0),
+            (" UI B X 8\n SC B X 10", false, 1.0, 10.0, SEMI_INTEGER, 0.0),
+            (" SC B X 10", true, 1.0, 10.0, SEMI_INTEGER, 0.0),
+            (" LO B X -2\n SC B X 10", true, -2.0, 10.0, SEMI_INTEGER, -2.0),
+            (" SC B X 10\n LI B X -2", false, -2.0, 10.0, SEMI_INTEGER, -2.0),
+            (" LI B X -2\n SC B X 10", false, -2.0, 10.0, SEMI_INTEGER, -2.0),
+            (" SI B X 10\n LO B X 3", false, 3.0, 10.0, SEMI_INTEGER, 0.0),
+            (" SI B X 10\n SC B X 8", false, 1.0, 8.0, SEMI_INTEGER, 0.0),
+            (" SC B X 10\n SI B X 8", false, 1.0, 8.0, SEMI_INTEGER, 0.0),
+            (" SI B X 10\n LI B X 3", false, 3.0, 10.0, SEMI_INTEGER, 0.0),
+            (" LI B X 3\n SI B X 10", false, 3.0, 10.0, SEMI_INTEGER, 0.0),
+            (" LI B X -2\n UI B X 5", false, -2.0, 5.0, INTEGER, -2.0),
+            (" SC B X 10", false, 1.0, 10.0, SEMI_CONTINUOUS, 0.0),
+            (" LO B X -2\n SC B X 10", false, -2.0, 10.0, SEMI_CONTINUOUS, -2.0),
+            (" SC B X 10\n LO B X -2", false, -2.0, 10.0, SEMI_CONTINUOUS, -2.0),
+            (" FR B X\n SC B X 10", false, -Inf, 10.0, SEMI_CONTINUOUS, -Inf),
+            (" BV B X", false, 0.0, 1.0, BINARY, 0.0),
+            (" BV B X\n UI B X 4", false, 0.0, 1.0, BINARY, 0.0),
+            (" UI B X 4\n BV B X", false, 0.0, 1.0, BINARY, 0.0),
+            (" BV B X\n LI B X 0", false, 0.0, 1.0, BINARY, 0.0),
+        )
+            problem = read_mps_text((marker ? marker_prefix : bound_prefix) * records * "\nENDATA\n")
+            @test problem.variable_domains == [domain]
+            @test problem.column_lower == [lower]
+            @test problem.column_upper == [upper]
+            relaxed = JSimplex.relax_integrality(problem)
+            @test relaxed.variable_domains == [CONTINUOUS]
+            @test relaxed.column_lower == [relaxed_lower]
+            @test relaxed.column_upper == [upper]
+            @test problem.column_lower == [lower]
+            @test solve(problem).status == MIP_NOT_SUPPORTED
+            result = solve(problem; relax_integrality=true)
+            @test result.status == (isfinite(relaxed_lower) ? OPTIMAL : UNBOUNDED)
+            @test result.objective_value == (isfinite(relaxed_lower) ? relaxed_lower : nothing)
+        end
+    end
+
+    @testset "binary and semi-domain declarations conflict in either order" begin
+        for records in (" BV B X\n SC B X 10", " SC B X 10\n BV B X",
+                        " BV B X\n SI B X 10", " SI B X 10\n BV B X")
+            mktemp() do path, io
+                write(io, bound_prefix * records * "\nENDATA\n")
+                close(io)
+                error = try
+                    read_mps(path)
+                catch exception
+                    exception
+                end
+                @test error isa MPSParseError
+                if error isa MPSParseError
+                    @test error.source == path
+                    @test error.line == 8
+                    @test error.section == :BOUNDS
+                    @test occursin("binary", error.message)
+                    @test occursin("semi", error.message)
+                end
             end
         end
     end

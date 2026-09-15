@@ -68,7 +68,7 @@ _mps_fixed_layout(text) = all(
     i -> i > ncodeunits(text) || codeunit(text, i) == UInt8(' '), _MPS_SEPARATORS,
 )
 
-function _mps_fields(text, format, records, line, section)
+function _mps_fields(text, format, records, line, section, columns)
     if format == :auto
         # Fixed records must reach their last required field; short free records
         # can otherwise match every separator by accident.
@@ -77,7 +77,23 @@ function _mps_fields(text, format, records, line, section)
         if fixed && section in (:COLUMNS, :RHS, :RANGES)
             fixed = codeunit(text, 2) == codeunit(text, 3) == UInt8(' ')
         end
-        format = fixed ? :fixed : :free
+        if fixed
+            try
+                fields, _ = _mps_fields(text, :fixed, records, line, section, columns)
+                section == :BOUNDS || return fields, true
+                # A plausible fixed BOUNDS record must refer to a known column
+                # and have the value required by its type. Names may contain
+                # spaces, and a blank set name may continue the preceding set.
+                kind = Symbol(fields[1])
+                if kind in _MPS_BOUND_TYPES
+                    value = length(fields) == 4 ? _mps_number(fields[4], records, line, section) : nothing
+                    _mps_bound_error(kind, fields[3], value, columns) === nothing && return fields, true
+                end
+            catch exception
+                exception isa MPSParseError || rethrow()
+            end
+        end
+        return String.(split(text)), false
     end
     format == :free && return String.(split(text)), false
     isascii(text) || _mps_error(records, line, section, "fixed records must contain ASCII characters")

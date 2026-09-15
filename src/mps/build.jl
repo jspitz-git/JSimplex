@@ -10,28 +10,17 @@ function _mps_column_bounds(records, column_index, bounds)
     n = length(column_index)
     lower, upper = zeros(n), fill(Inf, n)
     domains = fill(CONTINUOUS, n)
-    for (column, domain) in records.marker_domains
+    integral, semi, binary = falses(n), falses(n), falses(n)
+    for column in keys(records.marker_domains)
         j = column_index[column]
-        domains[j] = domain
+        integral[j] = true
         upper[j] = 1.0
     end
 
-    explicit_lo = Set(b.column for b in bounds if b.kind == :LO)
     explicit_lower = Set(b.column for b in bounds if b.kind in (:LO, :LI, :FX, :FR, :MI, :BV))
     last_lines = zeros(Int, n)
     for bound in bounds
         kind, column, value, line = bound.kind, bound.column, bound.value, bound.line
-        haskey(column_index, column) || _mps_error(records, line, :BOUNDS, "unknown column '$column'")
-        if kind in (:FR, :MI, :PL)
-            value === nothing || _mps_error(records, line, :BOUNDS, "$kind does not accept a value")
-        elseif kind == :BV
-            value === nothing || value == 1.0 ||
-                _mps_error(records, line, :BOUNDS, "BV accepts no value or the value 1")
-        else
-            value === nothing && _mps_error(records, line, :BOUNDS, "$kind requires a value")
-            kind in (:LI, :UI) && !isinteger(value) &&
-                _mps_error(records, line, :BOUNDS, "$kind requires an integral value")
-        end
         j = column_index[column]
         last_lines[j] = line
         if kind == :LO
@@ -48,23 +37,31 @@ function _mps_column_bounds(records, column_index, bounds)
         elseif kind == :PL
             upper[j] = Inf
         elseif kind == :BV
-            domains[j] = BINARY
+            semi[j] && _mps_error(records, line, :BOUNDS,
+                "binary and semi-domain bounds conflict for column '$column'")
+            binary[j] = integral[j] = true
             lower[j], upper[j] = 0.0, 1.0
         elseif kind == :LI
-            domains[j] = INTEGER
+            integral[j] = true
             lower[j] = value
         elseif kind == :UI
-            domains[j] = INTEGER
+            integral[j] = true
             upper[j] = value
         elseif kind in (:SC, :SI)
-            domains[j] = kind == :SC ? SEMI_CONTINUOUS : SEMI_INTEGER
+            binary[j] && _mps_error(records, line, :BOUNDS,
+                "binary and semi-domain bounds conflict for column '$column'")
+            semi[j] = true
+            integral[j] |= kind == :SI
             upper[j] = value
-            column in explicit_lo || (lower[j] = 1.0)
+            column in explicit_lower || (lower[j] = 1.0)
         else
             _mps_error(records, line, :BOUNDS, "unsupported bound type '$kind'")
         end
     end
     for (column, j) in column_index
+        domains[j] = binary[j] ? BINARY : semi[j] ?
+                     (integral[j] ? SEMI_INTEGER : SEMI_CONTINUOUS) :
+                     (integral[j] ? INTEGER : CONTINUOUS)
         lower[j] <= upper[j] || _mps_error(records, last_lines[j], :BOUNDS,
             "lower bound exceeds upper bound for column '$column'")
         if domains[j] == BINARY
@@ -143,7 +140,7 @@ function _build_mps(
         kind == 'L' && (row_lower[i] = -Inf)
         kind == 'G' && (row_upper[i] = Inf)
     end
-    for (row, value, _) in ranges
+    for (row, value, line) in ranges
         haskey(row_index, row) || continue
         i = row_index[row]
         kind, b = records.row_types[row], rhs_values[i]
@@ -152,6 +149,8 @@ function _build_mps(
         else
             row_lower[i], row_upper[i] = b, b + abs(value)
         end
+        isfinite(row_lower[i]) && isfinite(row_upper[i]) ||
+            _mps_error(records, line, :RANGES, "derived bounds for row '$row' must be finite")
     end
     column_lower, column_upper, domains = _mps_column_bounds(records, column_index, bounds)
     return LinearProblem(A, objective;

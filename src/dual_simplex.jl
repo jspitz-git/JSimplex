@@ -191,10 +191,10 @@ function _dual_iteration!(workspace::SimplexWorkspace, stop_requested)
     oriented_row = below ? -tableau_row : tableau_row
     entering_index = dual_ratio_test(workspace, oriented_row)
     if entering_index == -1
-        # Rejection by the Harris safety cutoff is not an infeasibility proof.
-        # Use the smaller numerical-zero tolerance to identify this case.
+        # A tolerance cannot turn a nonzero, sign-eligible coefficient into a
+        # mathematical infeasibility proof.
         if any(index -> _dual_pivot_eligible(workspace, index, oriented_row[index],
-                                             workspace.options.zero_tolerance), eachindex(oriented_row))
+                                             0.0), eachindex(oriented_row))
             return DualTermination(NUMERICAL_ERROR, "eligible pivots are below the Harris safety cutoff")
         end
         return DualTermination(INFEASIBLE, "no eligible dual pivot")
@@ -361,23 +361,32 @@ function _classify_recession!(workspace::SimplexWorkspace, stop_requested)
     terminal = _dual_optimize!(feasibility, stop_requested)
     workspace.iterations = feasibility.iterations
     workspace.refactorizations = feasibility.refactorizations
-    return terminal.status == OPTIMAL ?
-           DualTermination(UNBOUNDED, "unbounded improving direction") : terminal
+    terminal.status == OPTIMAL || return terminal
+    primal = copy(feasibility.primal[1:size(workspace.problem.A, 2)])
+    _original_primal_feasible(feasibility, primal) ||
+        return DualTermination(NUMERICAL_ERROR,
+                               "recession feasibility primal failed original-model feasibility checks")
+    return DualTermination(UNBOUNDED, "unbounded improving direction")
 end
 
-function _valid_recession_direction(workspace::SimplexWorkspace, auxiliary::SimplexWorkspace)
+function _recession_direction_status(workspace::SimplexWorkspace, auxiliary::SimplexWorkspace)
     column_count = size(workspace.problem.A, 2)
     structural = auxiliary.primal[1:column_count]
     direction = vcat(structural, workspace.problem.A * structural)
-    all(isfinite, direction) || return false
-    # Phase-I primal tolerance alone can accept small violations of the zero
-    # recession bounds. Certify the direction with numerical-zero tolerance.
+    all(isfinite, direction) || return :invalid
+    # An exact nonzero violation within tolerance is inconclusive, never a
+    # certificate: following the ray would eventually violate the finite bound.
     tolerance = workspace.options.zero_tolerance
+    ambiguous = false
     for index in eachindex(direction)
-        isfinite(workspace.lower[index]) && direction[index] < -tolerance && return false
-        isfinite(workspace.upper[index]) && direction[index] > tolerance && return false
+        violation = max(isfinite(workspace.lower[index]) ? -direction[index] : 0.0,
+                        isfinite(workspace.upper[index]) ? direction[index] : 0.0)
+        violation > tolerance && return :invalid
+        ambiguous |= violation > 0.0
     end
-    return dot(workspace.costs, direction) < -workspace.options.dual_tolerance
+    improvement = dot(workspace.costs, direction)
+    isfinite(improvement) && improvement < -workspace.options.dual_tolerance || return :invalid
+    return ambiguous ? :ambiguous : :certified
 end
 
 function make_dual_feasible!(workspace::SimplexWorkspace, stop_requested)::Union{Nothing,DualTermination}
@@ -405,7 +414,10 @@ function _make_dual_feasible!(workspace::SimplexWorkspace, stop_requested)
     workspace.refactorizations = auxiliary.refactorizations
     terminal.status == OPTIMAL || return terminal
     if dot(workspace.costs, auxiliary.primal) < -workspace.options.dual_tolerance
-        _valid_recession_direction(workspace, auxiliary) ||
+        direction_status = _recession_direction_status(workspace, auxiliary)
+        direction_status == :ambiguous &&
+            return DualTermination(NUMERICAL_ERROR, "auxiliary direction has a nonzero bound violation within tolerance")
+        direction_status == :certified ||
             return DualTermination(NUMERICAL_ERROR, "auxiliary vector does not certify an improving direction")
         return _classify_recession!(workspace, stop_requested)
     end

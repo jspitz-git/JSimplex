@@ -169,7 +169,13 @@ Supported bounds are:
 | `MI`, `PL` | Set lower bound to `-Inf` / upper bound to `Inf` |
 | `BV` | Binary domain with bounds `[0, 1]`; accepts no value or `1` |
 | `LI`, `UI` | Integer domain with an integral lower/upper bound |
-| `SC`, `SI` | Semi-continuous/semi-integer domain with the given positive active upper bound and active lower bound `1` unless an `LO` record is supplied |
+| `SC`, `SI` | Semi-continuous/semi-integer domain with the given positive active upper bound and active lower bound `1` unless an explicit lower-bound record (such as `LO` or `LI`) is supplied |
+
+`SC` combines with `LI`, `UI`, or integer markers to form `SEMI_INTEGER`,
+independent of declaration order. `SI` also preserves integrality when combined
+with `SC`. Explicit active lower bounds are retained, including negative bounds;
+LP relaxation includes zero and the entire active interval. Combining `BV` with
+`SC` or `SI` in the selected bounds set is rejected as conflicting domain metadata.
 
 `FR`, `MI`, and `PL` take no numeric value; all other bounds except `BV`
 require one. Parsing rejects malformed input and unsupported extensions,

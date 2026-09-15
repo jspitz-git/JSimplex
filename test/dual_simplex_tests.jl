@@ -135,6 +135,33 @@ end
     @test isnothing(run.objective_value)
 end
 
+@testset "Exact nonzero coefficients cannot certify impossible LP statuses" begin
+    for (coefficient, cost, lower, upper, row_lower, row_upper, status) in (
+        (1.0e-13, 1.0, 0.0, Inf, 1.0, Inf, NUMERICAL_ERROR),
+        (1.0e-12, 1.0, 0.0, Inf, 1.0, Inf, NUMERICAL_ERROR),
+        (-1.0e-13, -1.0, -Inf, 0.0, 1.0, Inf, NUMERICAL_ERROR),
+        (1.0e-13, 0.0, -Inf, Inf, 1.0, Inf, NUMERICAL_ERROR),
+        (1.0e-13, -1.0, 0.0, Inf, -Inf, 1.0, NUMERICAL_ERROR),
+        (1.0e-12, -1.0, 0.0, Inf, -Inf, 1.0, NUMERICAL_ERROR),
+        (-1.0e-13, 1.0, -Inf, 0.0, -Inf, 1.0, NUMERICAL_ERROR),
+        (1.0e-13, -1.0, 0.0, Inf, 1.0, 1.0, NUMERICAL_ERROR),
+        (0.0, 1.0, 0.0, Inf, 1.0, Inf, INFEASIBLE),
+        (-1.0e-13, 1.0, 0.0, Inf, 1.0, Inf, INFEASIBLE),
+        (0.0, -1.0, 0.0, Inf, -Inf, 1.0, UNBOUNDED),
+        (-1.0e-13, -1.0, 0.0, Inf, -Inf, 1.0, UNBOUNDED),
+        (1.0e-13, -1.0, 0.0, Inf, 0.0, Inf, UNBOUNDED),
+    )
+        problem = LinearProblem(sparse([coefficient;;]), [cost];
+            row_lower=[row_lower], row_upper=[row_upper],
+            column_lower=[lower], column_upper=[upper])
+        for run in (JSimplex._solve_continuous_dual(problem, SolverOptions()), solve(problem))
+            @test run.status == status
+            @test isnothing(run.primal)
+            @test isnothing(run.objective_value)
+        end
+    end
+end
+
 @testset "Phase I stops before either refactorization" begin
     problem = LinearProblem(sparse([1.0;;]), [-1.0]; row_upper=[3.0])
     for (interval, stop_check) in ((1, 4), (20, 5))
@@ -370,6 +397,24 @@ end
         @test run.status == status
         @test isnothing(run.primal)
         @test isnothing(run.objective_value)
+    end
+end
+
+@testset "Recession feasibility is certified in the original model" begin
+    for (lower, upper, status) in ((0.1, 0.1, NUMERICAL_ERROR),
+                                  (0.1, Inf, NUMERICAL_ERROR),
+                                  (0.0, 0.0, UNBOUNDED))
+        problem = LinearProblem(sparse([1.0 1.0 0.0]), [0.0, 0.0, -1.0];
+            row_lower=[lower], row_upper=[upper],
+            column_lower=[0.0, -1.0e16, 0.0], column_upper=[1.0e16, -1.0e16, Inf])
+        for interval in (1, 20)
+            options = SolverOptions(refactorization_interval=interval)
+            for run in (JSimplex._solve_continuous_dual(problem, options), solve(problem; options))
+                @test run.status == status
+                @test isnothing(run.primal)
+                @test isnothing(run.objective_value)
+            end
+        end
     end
 end
 

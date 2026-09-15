@@ -1,6 +1,19 @@
 const _MPS_SECTIONS = (:NAME, :OBJSENSE, :OBJNAME, :ROWS, :COLUMNS, :RHS, :RANGES, :BOUNDS, :ENDATA)
 const _MPS_BOUND_TYPES = (:LO, :UP, :FX, :FR, :MI, :PL, :BV, :LI, :UI, :SC, :SI)
 
+function _mps_bound_error(kind, column, value, columns)
+    column in columns || return "unknown column '$column'"
+    if kind in (:FR, :MI, :PL)
+        value === nothing || return "$kind does not accept a value"
+    elseif kind == :BV
+        value === nothing || value == 1.0 || return "BV accepts no value or the value 1"
+    else
+        value === nothing && return "$kind requires a value"
+        kind in (:LI, :UI) && !isinteger(value) && return "$kind requires an integral value"
+    end
+    return nothing
+end
+
 function _mps_metadata!(records, section, fields, line)
     length(fields) == 1 || _mps_error(records, line, section, "expected one metadata value")
     if section == :OBJSENSE
@@ -118,7 +131,7 @@ function _parse_mps(io::IO, source::AbstractString; format::Symbol=:auto)
         end
         section in (:ROWS, :COLUMNS, :RHS, :RANGES, :BOUNDS) ||
             _mps_error(records, line, section, "unexpected data; expected an MPS section")
-        fields, fixed = _mps_fields(text, format, records, line, section)
+        fields, fixed = _mps_fields(text, format, records, line, section, columns)
         if section == :ROWS
             length(fields) == 2 && !isempty(fields[2]) || _mps_error(records, line, section, "expected row type and name")
             fields[1] in ("N", "E", "L", "G") || _mps_error(records, line, section, "invalid row type '$(fields[1])'")
@@ -158,6 +171,8 @@ function _parse_mps(io::IO, source::AbstractString; format::Symbol=:auto)
             kind in _MPS_BOUND_TYPES || _mps_error(records, line, section, "unsupported bound type '$kind'")
             name = fields[2]
             value = length(fields) == 4 ? _mps_number(fields[4], records, line, section) : nothing
+            error = _mps_bound_error(kind, fields[3], value, columns)
+            error === nothing || _mps_error(records, line, section, error)
             if !haskey(records.bounds_sets, name)
                 records.bounds_sets[name] = BoundRecord[]
                 push!(records.bounds_order, name)
