@@ -369,20 +369,44 @@ function _classify_recession!(workspace::SimplexWorkspace, stop_requested)
     return DualTermination(UNBOUNDED, "unbounded improving direction")
 end
 
+function _recession_row_roundoff(A::SparseMatrixCSC{Float64,Int}, structural::Vector{Float64})
+    magnitudes = zeros(size(A, 1))
+    terms = zeros(Int, size(A, 1))
+    for column in axes(A, 2)
+        for position in A.colptr[column]:(A.colptr[column + 1] - 1)
+            row = A.rowval[position]
+            magnitudes[row] += abs(A.nzval[position] * structural[column])
+            terms[row] += 1
+        end
+    end
+    for row in eachindex(magnitudes)
+        # gamma_(2k), with unit roundoff eps/2, conservatively covers a k-term
+        # dot product and the rounded sum of absolute products used to bound it.
+        relative_error = terms[row] * eps(Float64)
+        magnitudes[row] = relative_error < 1.0 ?
+            relative_error / (1.0 - relative_error) * magnitudes[row] : Inf
+    end
+    return magnitudes
+end
+
 function _recession_direction_status(workspace::SimplexWorkspace, auxiliary::SimplexWorkspace)
     column_count = size(workspace.problem.A, 2)
     structural = auxiliary.primal[1:column_count]
     direction = vcat(structural, workspace.problem.A * structural)
     all(isfinite, direction) || return :invalid
-    # An exact nonzero violation within tolerance is inconclusive, never a
-    # certificate: following the ray would eventually violate the finite bound.
+    row_roundoff = _recession_row_roundoff(workspace.problem.A, structural)
+    all(isfinite, row_roundoff) || return :invalid
+    # Row cancellation within its dot-product error bound represents zero.
+    # A larger nonzero violation within tolerance is numerically inconclusive.
     tolerance = workspace.options.zero_tolerance
     ambiguous = false
     for index in eachindex(direction)
         violation = max(isfinite(workspace.lower[index]) ? -direction[index] : 0.0,
                         isfinite(workspace.upper[index]) ? direction[index] : 0.0)
+        roundoff = index <= column_count ? 0.0 : row_roundoff[index - column_count]
+        violation <= roundoff && continue
         violation > tolerance && return :invalid
-        ambiguous |= violation > 0.0
+        ambiguous = true
     end
     improvement = dot(workspace.costs, direction)
     isfinite(improvement) && improvement < -workspace.options.dual_tolerance || return :invalid

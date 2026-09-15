@@ -162,6 +162,60 @@ end
     end
 end
 
+@testset "Recession certification allows row dot-product roundoff" begin
+    unbounded = (
+        LinearProblem(sparse([1.0 -3.0]), [-1.0, 0.0]; row_lower=[0.0], row_upper=[0.0]),
+        LinearProblem(sparse([1.0e6 -3.0e6]), [-1.0, 0.0]; row_lower=[0.0], row_upper=[0.0]),
+        LinearProblem(sparse([0.1 -0.3]), [-1.0, 0.0]; row_lower=[0.0], row_upper=[0.0]),
+        LinearProblem(sparse([1.0 -3.0]), [-1.0, 0.0]; row_upper=[0.0]),
+        LinearProblem(sparse([-1.0 3.0]), [-1.0, 0.0]; row_lower=[0.0]),
+        LinearProblem(sparse([1.0 -3.0]), [1.0, 0.0]; row_lower=[0.0], row_upper=[0.0],
+                      column_lower=[-Inf, -Inf], column_upper=[0.0, 0.0]),
+        LinearProblem(sparse([1.0 -3.0 0.0; 1.0 0.0 -7.0]), [-1.0, 0.0, 0.0];
+                      row_lower=[0.0, 0.0], row_upper=[0.0, 0.0]),
+        LinearProblem(spzeros(1, 1), [-1.0]; row_lower=[0.0], row_upper=[0.0]),
+        LinearProblem(spzeros(0, 1), [-1.0]),
+    )
+    ambiguous = (
+        LinearProblem(sparse([1.0e-13;;]), [1.0]; row_lower=[1.0]),
+        LinearProblem(sparse([1.0e-13;;]), [-1.0]; row_upper=[1.0]),
+        LinearProblem(sparse([1.0e6 -3.0e6; 1.0e-13 0.0]), [-1.0, 0.0];
+                      row_lower=[0.0, -Inf], row_upper=[0.0, 1.0]),
+        LinearProblem(sparse([1.0e6 -3.0e6; -1.0e-13 0.0]), [-1.0, 0.0];
+                      row_lower=[0.0, -1.0], row_upper=[0.0, Inf]),
+    )
+    for (problems, status) in ((unbounded, UNBOUNDED), (ambiguous, NUMERICAL_ERROR))
+        for problem in problems, interval in (1, 20)
+            options = SolverOptions(refactorization_interval=interval)
+            for run in (JSimplex._solve_continuous_dual(problem, options), solve(problem; options))
+                @test run.status == status
+                @test isnothing(run.primal)
+                @test isnothing(run.objective_value)
+            end
+        end
+    end
+end
+
+@testset "Recession roundoff bounds preserve ambiguous and invalid directions" begin
+    problem = LinearProblem(sparse([1.0 -3.0]), [-1.0, 0.0];
+                            row_lower=[0.0], row_upper=[0.0])
+    workspace = JSimplex.initialize_workspace(problem, SolverOptions())
+    auxiliary = JSimplex._auxiliary_workspace(workspace)
+    for (direction, status) in (([1.0, 1.0 / 3.0], :certified),
+                               ([1.0, (1.0 - 1.0e-13) / 3.0], :ambiguous),
+                               ([1.0, (1.0 - 1.0e-8) / 3.0], :invalid),
+                               ([NaN, 0.0], :invalid), ([Inf, 0.0], :invalid))
+        auxiliary.primal[1:2] .= direction
+        @test JSimplex._recession_direction_status(workspace, auxiliary) == status
+    end
+    overflow = LinearProblem(sparse([1.0e308 -1.0e308]), [-1.0, 0.0];
+                             row_lower=[0.0], row_upper=[0.0])
+    workspace = JSimplex.initialize_workspace(overflow, SolverOptions())
+    auxiliary = JSimplex._auxiliary_workspace(workspace)
+    auxiliary.primal[1:2] .= [1.0, 1.0]
+    @test JSimplex._recession_direction_status(workspace, auxiliary) == :invalid
+end
+
 @testset "Phase I stops before either refactorization" begin
     problem = LinearProblem(sparse([1.0;;]), [-1.0]; row_upper=[3.0])
     for (interval, stop_check) in ((1, 4), (20, 5))
