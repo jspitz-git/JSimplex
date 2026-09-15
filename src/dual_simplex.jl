@@ -377,6 +377,11 @@ function _primal_product_bounds(left::T, right::T) where {T<:AbstractFloat}
     return prevfloat(value), nextfloat(value)
 end
 
+function _primal_product_bounds(left::T, right::T) where {T<:Rational}
+    value = left * right
+    return value, value
+end
+
 function _primal_row_bounds(A::SparseMatrixCSC{T,Int}, primal::Vector{T},
                             ::Val{true}) where {T<:Rational}
     values = A * primal
@@ -429,6 +434,73 @@ end
 _original_primal_feasible(workspace::SimplexWorkspace{T}, primal::Vector{T}) where {T} =
     _original_primal_feasible(workspace.problem, primal, workspace.options.primal_tolerance)
 
+function _original_reduced_cost_bounds(problem::LinearProblem{T}, dual::Vector{T}) where {T}
+    A = problem.A
+    column_count = size(A, 2)
+    lower, upper = vcat(zeros(T, column_count), dual), vcat(zeros(T, column_count), dual)
+    for column in 1:column_count
+        minimum_dot = maximum_dot = zero(T)
+        for position in A.colptr[column]:(A.colptr[column + 1] - 1)
+            product_lower, product_upper = _primal_product_bounds(A.nzval[position], dual[A.rowval[position]])
+            minimum_dot, _ = _primal_sum_bounds(minimum_dot, product_lower)
+            _, maximum_dot = _primal_sum_bounds(maximum_dot, product_upper)
+        end
+        lower[column], _ = _primal_difference_bounds(problem.objective[column], maximum_dot)
+        _, upper[column] = _primal_difference_bounds(problem.objective[column], minimum_dot)
+    end
+    # Working row-activity columns are -I and have zero original cost.
+    return lower, upper
+end
+
+function _primal_interval_at_bound(lower::T, upper::T, bound::Bound{T}, tolerance::T) where {T}
+    isfinite(bound) && isfinite(lower) && isfinite(upper) || return false
+    value = bound_value(bound)
+    if lower < value
+        _, threshold = _primal_difference_bounds(value, tolerance)
+        lower >= threshold || return false
+    end
+    if upper > value
+        threshold, _ = _primal_sum_bounds(value, tolerance)
+        upper <= threshold || return false
+    end
+    return true
+end
+
+function _original_optimality_certified(workspace::SimplexWorkspace{T}, primal::Vector{T}) where {T}
+    problem, options = workspace.problem, workspace.options
+    column_count, row_count = size(problem.A, 2), size(problem.A, 1)
+    costs = vcat(problem.objective, zeros(T, row_count))
+    # The factorization supplies only a candidate witness. Certify the original
+    # c - [A -I]' * dual independently, including every basic entry that the
+    # incremental algorithm overwrites with zero. Shifted costs are irrelevant.
+    dual = transpose_solve(workspace.factorization, costs[workspace.basis.basic_indices])
+    all(isfinite, dual) || return false
+    reduced_lower, reduced_upper = _original_reduced_cost_bounds(problem, dual)
+    all(isfinite, reduced_lower) && all(isfinite, reduced_upper) || return false
+    row_lower, row_upper = _primal_row_bounds(problem.A, primal, _is_exact(T))
+    values_lower, values_upper = vcat(primal, row_lower), vcat(primal, row_upper)
+    _, negative_tolerance = _primal_difference_bounds(zero(T), options.dual_tolerance)
+    for index in eachindex(reduced_lower)
+        stationary = reduced_lower[index] >= negative_tolerance &&
+                     reduced_upper[index] <= options.dual_tolerance
+        workspace.basis.states[index] == BASIC && !stationary && return false
+        stationary && continue
+        lower = index <= column_count ? problem.column_lower[index] : problem.row_lower[index - column_count]
+        upper = index <= column_count ? problem.column_upper[index] : problem.row_upper[index - column_count]
+        _is_fixed(lower, upper) && continue
+        # Use actual structural values and certified original row activities,
+        # not stored slack values or a possibly stale nonbasic bound label.
+        at_lower = reduced_lower[index] >= negative_tolerance &&
+                   _primal_interval_at_bound(values_lower[index], values_upper[index], lower,
+                                             options.primal_tolerance)
+        at_upper = reduced_upper[index] <= options.dual_tolerance &&
+                   _primal_interval_at_bound(values_lower[index], values_upper[index], upper,
+                                             options.primal_tolerance)
+        at_lower || at_upper || return false
+    end
+    return true
+end
+
 function _internal_solution(workspace::SimplexWorkspace{T}, status::TerminationStatus,
                             message::String) where {T}
     primal = status == OPTIMAL ? copy(workspace.primal[1:size(workspace.problem.A, 2)]) : nothing
@@ -440,6 +512,10 @@ function _internal_solution(workspace::SimplexWorkspace{T}, status::TerminationS
     if status == OPTIMAL && !_original_primal_feasible(workspace, primal)
         return _internal_solution(workspace, NUMERICAL_ERROR,
                                   "structural primal failed original-model feasibility checks")
+    end
+    if status == OPTIMAL && !_original_optimality_certified(workspace, primal)
+        return _internal_solution(workspace, NUMERICAL_ERROR,
+                                  "original-objective optimality certificate is inconclusive")
     end
     return DualRunResult{T}(status, objective, primal, workspace.iterations,
                             workspace.refactorizations, message)

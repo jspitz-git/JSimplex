@@ -49,6 +49,10 @@ end
     @test converted isa SolverOptions{Rational{BigInt}}
     @test converted.time_limit === 2.5
     @test_throws ArgumentError SolverOptions(Int)
+    for T in (ComplexF64, String)
+        @test_throws ArgumentError SolverOptions(T)
+        @test_throws ArgumentError SolverOptions(T, SolverOptions())
+    end
 
     stats = SolveStatistics()
     optimal = @inferred Solution(OPTIMAL, 3.0f0, Float32[1], stats, "optimal")

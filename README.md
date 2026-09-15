@@ -382,6 +382,13 @@ scaling, public warm-start API, MOI/JuMP adapter, branch-and-bound, or support
 for quadratic, SOS, or indicator models. Difficult or ill-conditioned models
 may terminate with `NUMERICAL_ERROR` or a resource limit.
 
+Floating results require conclusive numerical certificates. Even a simple LP
+with equality constraints or cancellation can return `NUMERICAL_ERROR` when
+rounding uncertainty prevents certification within the configured tolerances.
+That status does not classify the LP as infeasible, unbounded, or optimal.
+Use `Rational{BigInt}` with its default zero tolerances for exact arithmetic
+on small models; construct or read the model in that type to retain exact input.
+
 The internal pipeline separates model validation, presolve, scaling, simplex
 workspaces, basis factorization, and restoration of the original primal solution.
 These boundaries are intended for future primal simplex, reversible presolve,

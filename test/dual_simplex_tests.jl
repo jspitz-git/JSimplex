@@ -900,3 +900,76 @@ end
         @test !isfinite(lower) && !isfinite(upper)
     end
 end
+
+@testset "Optimality certification includes canceled and basic reduced costs" begin
+    for (T, exponent) in ((Float32, 27), (Float64, 54))
+        magnitude = T(big(2)^exponent)
+        problem = LinearProblem(sparse(T[1 0 0 1; 0 1 0 1; 0 0 1 1]),
+            T[magnitude, 1, magnitude, 2magnitude];
+            row_lower=ones(T, 3), row_upper=ones(T, 3), objective_constant=-2magnitude)
+        workspace = JSimplex.initialize_workspace(problem, SolverOptions(T))
+        workspace.basis = JSimplex.Basis([1, 2, 3],
+            [JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_LOWER,
+             JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER])
+        JSimplex.recompute!(workspace; refactorize=true)
+        dual = JSimplex.transpose_solve(workspace.factorization, problem.objective[1:3])
+        exact_reduced = Rational{BigInt}.(problem.objective) -
+                        transpose(Rational{BigInt}.(problem.A)) * Rational{BigInt}.(dual)
+        @test exact_reduced == Rational{BigInt}[0, 0, 0, -1]
+        result = @inferred JSimplex._internal_solution(workspace, OPTIMAL, "candidate")
+        @test result.status == NUMERICAL_ERROR
+        @test isnothing(result.primal)
+    end
+
+    for T in (Float32, Float64, BigFloat, Rational{BigInt})
+        tolerance = T <: Rational ? zero(T) : eps(T) / T(8)
+        problem = LinearProblem(sparse(T[3;;]), T[1]; row_lower=T[3], row_upper=T[3])
+        workspace = JSimplex.initialize_workspace(problem, SolverOptions(T; dual_tolerance=tolerance))
+        workspace.basis = JSimplex.Basis([1], [JSimplex.BASIC, JSimplex.AT_LOWER])
+        JSimplex.recompute!(workspace; refactorize=true)
+        dual = only(JSimplex.transpose_solve(workspace.factorization, T[1]))
+        exact_reduced = 1 - 3Rational{BigInt}(dual)
+        @test T <: Rational ? iszero(exact_reduced) : abs(exact_reduced) > Rational{BigInt}(tolerance)
+        result = @inferred JSimplex._internal_solution(workspace, OPTIMAL, "candidate")
+        @test result.status == (T <: Rational ? OPTIMAL : NUMERICAL_ERROR)
+    end
+end
+
+@testset "Optimality uses original costs and actual bound complementarity" begin
+    for T in (Float32, Float64, BigFloat, Rational{BigInt})
+        for (cost, lower, upper, value, expected) in (
+            (1, 0, 2, 0, OPTIMAL), (-1, 0, 2, 2, OPTIMAL),
+            (1, 0, 2, 2, NUMERICAL_ERROR), (-1, 0, 2, 0, NUMERICAL_ERROR),
+            (1, 0, 2, 1, NUMERICAL_ERROR), (-1, 0, 2, 1, NUMERICAL_ERROR),
+            (1, 0, nothing, 0, OPTIMAL), (-1, nothing, 2, 2, OPTIMAL),
+            (0, nothing, nothing, 1, OPTIMAL), (1, nothing, nothing, 1, NUMERICAL_ERROR),
+            (3, 1, 1, 1, OPTIMAL), (-3, 1, 1, 1, OPTIMAL),
+        )
+            problem = LinearProblem(spzeros(T, 0, 1), T[cost];
+                column_lower=[isnothing(lower) ? nothing : T(lower)],
+                column_upper=[isnothing(upper) ? nothing : T(upper)])
+            workspace = JSimplex.initialize_workspace(problem, SolverOptions(T))
+            workspace.primal[1] = T(value)
+            result = @inferred JSimplex._internal_solution(workspace, OPTIMAL, "candidate")
+            @test result.status == expected
+        end
+
+        problem = LinearProblem(spzeros(T, 0, 1), T[1]; column_upper=T[2])
+        workspace = JSimplex.initialize_workspace(problem, SolverOptions(T))
+        workspace.costs[1] = -one(T)
+        workspace.primal[1] = T(2)
+        workspace.basis.states[1] = JSimplex.AT_UPPER
+        @test JSimplex._internal_solution(workspace, OPTIMAL, "shifted candidate").status == NUMERICAL_ERROR
+
+        problem = LinearProblem(sparse(T[1;;]), T[1]; row_lower=T[0], row_upper=T[2],
+                                column_lower=[nothing])
+        workspace = JSimplex.initialize_workspace(problem, SolverOptions(T))
+        workspace.basis = JSimplex.Basis([1], [JSimplex.BASIC, JSimplex.AT_LOWER])
+        JSimplex.recompute!(workspace; refactorize=true)
+        workspace.primal[1] = one(T)
+        @test JSimplex._internal_solution(workspace, OPTIMAL, "stale slack").status == NUMERICAL_ERROR
+        workspace.primal[1] = zero(T)
+        workspace.costs .= zero(T)
+        @test JSimplex._internal_solution(workspace, OPTIMAL, "original costs").status == OPTIMAL
+    end
+end

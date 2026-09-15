@@ -444,3 +444,33 @@ end
         end
     end
 end
+
+@testset "Original objective cancellation cannot certify a false optimum" begin
+    for (T, exponent) in ((Float32, 27), (Float64, 54), (BigFloat, 54), (Rational{BigInt}, 54))
+        magnitude = T(big(2)^exponent)
+        for sense in (MIN_SENSE, MAX_SENSE), interval in (1, 20)
+            sign = sense == MIN_SENSE ? one(T) : -one(T)
+            problem = LinearProblem(sparse(T[1 0 0 1; 0 1 0 1; 0 0 1 1]),
+                sign .* T[magnitude, 1, magnitude, 2magnitude];
+                row_lower=ones(T, 3), row_upper=ones(T, 3),
+                objective_sense=sense, objective_constant=-sign * 2magnitude)
+            result = @inferred solve(problem; options=SolverOptions(T; refactorization_interval=interval))
+            @test result isa Solution{T}
+            @test result.status in (OPTIMAL, NUMERICAL_ERROR)
+            T in (BigFloat, Rational{BigInt}) && @test result.status == OPTIMAL
+            if result.status == OPTIMAL
+                # The identity-basis point has exact stored objective +/-1;
+                # the unique optimum instead uses the fourth column.
+                @test result.primal == T[0, 0, 0, 1]
+                exact_objective = dot(Rational{BigInt}.(problem.objective),
+                                      Rational{BigInt}.(result.primal)) +
+                                  Rational{BigInt}(problem.objective_constant)
+                @test exact_objective == 0
+                @test result.objective_value == zero(T)
+            else
+                @test isnothing(result.primal)
+                @test isnothing(result.objective_value)
+            end
+        end
+    end
+end

@@ -60,7 +60,7 @@ Base.@constprop :aggressive function read_mps(
     path::AbstractString; format::Symbol=:auto, rhs_name=nothing,
     ranges_name=nothing, bounds_name=nothing, objective_name=nothing,
     value_type::Type{T}=Float64,
-) where {T<:Real}
+) where {T}
     _supported_value_type(T) || throw(ArgumentError("unsupported MPS value type $T"))
     records = _parse_mps_file(path, T; format)
     return _build_mps(records; rhs_name, ranges_name, bounds_name, objective_name)

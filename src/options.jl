@@ -85,7 +85,7 @@ function SolverOptions(::Type{T};
     iteration_limit::Integer=100_000, time_limit::Real=Inf,
     refactorization_interval::Integer=20,
     log_level::LogLevel=Logging.Debug, algorithm::Symbol=:dual,
-) where {T<:Real}
+) where {T}
     _supported_value_type(T) || throw(ArgumentError("unsupported solver value type $T"))
     defaults = _is_exact(T) === Val(true) ? (zero(T), zero(T), zero(T)) :
         (_positive_tolerance(T, 1 // 10^7), _positive_tolerance(T, 1 // 10^7),
@@ -116,7 +116,7 @@ function SolverOptions(::Type{T};
                             Int(refactorization_interval), log_level, algorithm)
 end
 
-SolverOptions(::Type{T}, options::SolverOptions) where {T<:Real} =
+SolverOptions(::Type{T}, options::SolverOptions) where {T} =
     SolverOptions(T;
                   primal_tolerance=options.primal_tolerance,
                   dual_tolerance=options.dual_tolerance,

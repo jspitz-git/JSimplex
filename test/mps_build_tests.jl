@@ -73,7 +73,7 @@ end
         @test bound_value.(selected.row_upper) == T[2]
         @test bound_value.(selected.column_upper) == T[9]
     end
-    for T in (Int, Real, AbstractFloat, Rational)
+    for T in (Int, Real, AbstractFloat, Rational, ComplexF64, String)
         @test_throws ArgumentError read_mps(joinpath(root, "exact-rational.mps"); value_type=T)
     end
 
