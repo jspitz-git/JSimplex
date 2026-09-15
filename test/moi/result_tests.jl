@@ -345,6 +345,37 @@ end
     @test_throws MOI.ResultIndexBoundsError MOI.get(optimizer, MOI.ObjectiveValue())
 end
 
+@testset "MOI invalid unbounded affine constants clear stale results" begin
+    unbounded_sets = (
+        MOI.GreaterThan(-Inf),
+        MOI.LessThan(Inf),
+        MOI.Interval(-Inf, Inf),
+    )
+    for set in unbounded_sets, constant in (NaN, Inf, -Inf)
+        invalid = MOI.Utilities.Model{Float64}()
+        x = MOI.add_variable(invalid)
+        function_ = MOI.ScalarAffineFunction(
+            [MOI.ScalarAffineTerm(1.0, x)],
+            constant,
+        )
+        constraint = MOI.add_constraint(invalid, function_, set)
+
+        optimizer = JSimplex.Optimizer()
+        MOI.optimize!(optimizer, _moi_result_model())
+        @test MOI.get(optimizer, MOI.ResultCount()) == 1
+
+        index_map, _ = MOI.optimize!(optimizer, invalid)
+        @test MOI.get(optimizer, MOI.TerminationStatus()) == MOI.INVALID_MODEL
+        @test MOI.get(optimizer, MOI.ResultCount()) == 0
+        @test isempty(optimizer.constraint_primals)
+        @test_throws MOI.ResultIndexBoundsError MOI.get(
+            optimizer,
+            MOI.ConstraintPrimal(),
+            index_map[constraint],
+        )
+    end
+end
+
 @testset "MOI variable constraint primals use variable indices" begin
     source = MOI.Utilities.Model{Float64}()
     _, y = MOI.add_variables(source, 2)

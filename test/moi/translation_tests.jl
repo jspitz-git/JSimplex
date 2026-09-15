@@ -326,3 +326,24 @@ end
     @test translated.problem === nothing
     @test translated.error !== nothing
 end
+
+@testset "MOI translation rejects non-finite constants with unbounded affine sets" begin
+    unbounded_sets = (
+        MOI.GreaterThan(-Inf),
+        MOI.LessThan(Inf),
+        MOI.Interval(-Inf, Inf),
+    )
+    for set in unbounded_sets, constant in (NaN, Inf, -Inf)
+        source = MOI.Utilities.Model{Float64}()
+        x = MOI.add_variable(source)
+        function_ = MOI.ScalarAffineFunction(
+            [MOI.ScalarAffineTerm(1.0, x)],
+            constant,
+        )
+        MOI.add_constraint(source, function_, set)
+
+        translated = JSimplex._translate_moi_model(JSimplex.Optimizer(), source)
+        @test translated.problem === nothing
+        @test translated.error !== nothing
+    end
+end

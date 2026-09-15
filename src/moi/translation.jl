@@ -222,6 +222,7 @@ end
 
 function _moi_affine_bounds(set, constant)
     try
+        isfinite(constant) || throw(ArgumentError("MOI affine function constant must be finite"))
         lower, upper = _moi_set_bounds(set)
         return _moi_shift_bound(lower, constant), _moi_shift_bound(upper, constant), nothing
     catch exception
