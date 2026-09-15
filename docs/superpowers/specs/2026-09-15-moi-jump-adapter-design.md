@@ -109,10 +109,12 @@ result handling. Given a source model, it performs these steps:
 
 1. Enumerate source variables in a deterministic order and create the MOI index
    map to JSimplex columns.
-2. Initialize every variable with the JSimplex default lower bound of zero and
-   no upper bound. Intersect every supported variable-bound constraint with
-   the current bound. Apply `[0, 1]` for `ZeroOne` and mark `Integer` or
-   `ZeroOne` domains without discarding their bounds.
+2. Initialize every variable with no lower or upper bound, matching MOI's free
+   variable semantics. Pass these bounds explicitly to `LinearProblem` instead
+   of relying on its direct-API default lower bound of zero. Intersect every
+   supported variable-bound constraint with the current bound. Apply `[0, 1]`
+   for `ZeroOne` and mark `Integer` or `ZeroOne` domains without discarding
+   their bounds.
 3. Enumerate scalar affine constraints, combine repeated terms, and build a
    `SparseMatrixCSC{T,Int}`. Move the affine constant into the set bounds, so
    `a'x + c in S` becomes the appropriate bounds on `a'x`.
