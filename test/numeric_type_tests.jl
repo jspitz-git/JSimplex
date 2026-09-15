@@ -6,6 +6,10 @@ mutable struct RecursiveNumericRecord{T}
     value::T
 end
 
+struct NumericStorageWrapper{T} <: Real
+    value::T
+end
+
 function abstract_numeric_storage(field, visited=Set{Type}())
     field === Any && return true
     field in visited && return false
@@ -13,7 +17,9 @@ function abstract_numeric_storage(field, visited=Set{Type}())
     inspect = nested -> abstract_numeric_storage(nested, visited)
     field isa Union && return any(inspect, Base.uniontypes(field))
     if field <: Number
-        return !isconcretetype(field)
+        # Primitive numbers are leaves; numeric structs can erase their payload type.
+        return !isconcretetype(field) ||
+               (isstructtype(field) && any(inspect, fieldtypes(field)))
     elseif field <: Base.AbstractLock
         # Backend locks hold runtime task/callback metadata, not numeric payloads.
         return false
@@ -169,6 +175,32 @@ end
             RecursiveNumericRecord{Float32},
             ReentrantLock,
         )
+            @test !abstract_numeric_storage(field)
+        end
+    end
+
+    @testset "Storage gates inspect numeric wrapper payloads" begin
+        for field in (
+            Rational{Integer},
+            Vector{JSimplex.BoundRecord{Rational{Integer}}},
+            JSimplex.MPSAccumulator{Rational{Integer}},
+            Complex{Real},
+            NumericStorageWrapper{Real},
+            NumericStorageWrapper{Vector{Real}},
+        )
+            @test abstract_numeric_storage(field)
+        end
+        record = JSimplex.BoundRecord{Rational{Integer}}(
+            :LO, "X", Rational{Integer}(1, 2), 1,
+        )
+        @test abstract_numeric_storage(typeof(record))
+        @test any(abstract_numeric_storage, fieldtypes(typeof(record)))
+
+        for field in (Float32, Float64, BigFloat, BigInt, Rational{BigInt},
+                      Complex{Float64}, NumericStorageWrapper{BigFloat},
+                      NumericStorageWrapper{Union{Nothing,Rational{BigInt}}},
+                      Vector{JSimplex.BoundRecord{Rational{BigInt}}},
+                      JSimplex.MPSAccumulator{Rational{BigInt}})
             @test !abstract_numeric_storage(field)
         end
     end
