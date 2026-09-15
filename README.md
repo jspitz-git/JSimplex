@@ -392,8 +392,9 @@ with `SC`. Explicit active lower bounds are retained, including negative bounds;
 LP relaxation includes zero and the entire active interval. Combining `BV` with
 `SC` or `SI` in the selected bounds set is rejected as conflicting domain metadata.
 
-`FR`, `MI`, and `PL` take no numeric value; all other bounds except `BV`
-require one. Parsing rejects malformed input and unsupported extensions,
+`FR` accepts an optional numeric value and ignores it; `MI` and `PL` take no
+numeric value. All other bounds except `BV` require one. Parsing rejects
+malformed input and unsupported extensions,
 including quadratic sections, SOS constraints, and indicators.
 `MPSParseError` reports the source path, line, section, and reason. A bad
 named-set/objective keyword selection uses line zero; an invalid `format`
