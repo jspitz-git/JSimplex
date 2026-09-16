@@ -34,7 +34,7 @@ end
                   time_limit=Inf, refactorization_interval=20,
                   verbose=true, log_level=Logging.Debug, algorithm=:dual,
                   pricing=:steepest_edge, basis_update=:pfi,
-                  basis_refactorization=:native)
+                  basis_refactorization=:native, scaling=:auto)
     SolverOptions(; kwargs...)  # Float64 defaults
     SolverOptions(T, options::SolverOptions)
 
@@ -67,6 +67,12 @@ direct recomputation when a weight cannot be represented safely.
 `basis_refactorization` selects the existing backend (`:native`: UMFPACK for
 `Float64`, dense LU otherwise) or sparse Markowitz elimination followed by a
 dense trailing core (`:markowitz`).
+`scaling=:auto` applies reversible row and column scaling to floating models
+and leaves rational models unchanged. `:off` disables scaling; `:on` enables it
+for floating models and is invalid for rational models. Scaling uses powers of
+two and keeps a row or column unchanged if scaling would make a nonzero value
+zero or a finite value nonfinite. Simplex tolerances apply in scaled units;
+optimal primal and objective values are checked in the original model's units.
 
 ```julia
 using JSimplex

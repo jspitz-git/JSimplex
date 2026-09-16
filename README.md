@@ -129,7 +129,7 @@ Use the standard JuMP attributes `set_silent(model)` (MOI `Silent`) and
 wall-clock limit. The stable JSimplex raw optimizer attribute names are
 `relax_integrality`, `iteration_limit`, `primal_tolerance`, `dual_tolerance`,
 `zero_tolerance`, `refactorization_interval`, `verbose`, `algorithm`,
-`pricing`, `basis_update`, and `basis_refactorization`. Algorithm values are
+`pricing`, `basis_update`, `basis_refactorization`, and `scaling`. Algorithm values are
 `:dual` (default) and `:primal`; pricing accepts `:steepest_edge`, `:devex`, or
 `:dantzig` for both algorithms.
 
@@ -139,6 +139,7 @@ set_optimizer_attribute(model, "iteration_limit", 50_000)
 set_optimizer_attribute(model, "pricing", :devex)
 set_optimizer_attribute(model, "basis_update", :forrest_tomlin)
 set_optimizer_attribute(model, "basis_refactorization", :markowitz)
+set_optimizer_attribute(model, "scaling", :off)
 set_time_limit_sec(model, 60.0)
 ```
 
@@ -203,7 +204,8 @@ end
 
 `BigFloat` uses Julia's ambient precision; put both model construction and solve
 inside `setprecision`. Internal copies and objective-sense changes preserve stored
-values and their precision. Arithmetic uses the precision active during `solve`.
+values and their precision. Simplex arithmetic uses the precision active during
+`solve`; power-of-two scaling does not discard stored coefficient bits.
 After a precision reduction, an inconclusive optimality or original-objective
 certificate returns `NUMERICAL_ERROR`; the objective is returned only when its
 exact-value enclosure rounds to one value at the solve precision.
@@ -270,6 +272,7 @@ for `SolverOptions(Float64)`. Floating types use these keyword defaults:
 | `pricing` | `:steepest_edge` | Dual or primal pricing rule: `:steepest_edge`, `:devex`, or `:dantzig` |
 | `basis_update` | `:pfi` | Basis update: `:pfi`, `:forrest_tomlin`, `:bartels_golub`, or `:suhl_suhl` |
 | `basis_refactorization` | `:native` | Full factorization: `:native` or `:markowitz` |
+| `scaling` | `:auto` | `:auto`, `:on`, or `:off` row and column scaling |
 
 Forrest–Tomlin maintains a sparse upper factor without row swaps during an
 update. Bartels–Golub may swap adjacent rows to choose a larger elimination
@@ -303,6 +306,15 @@ floating tolerances. Omit options or use `SolverOptions(Rational{BigInt})` for
 exact defaults. Conversion can fail validation, for example when zero rational
 tolerances are converted to a floating type.
 
+With `scaling=:auto`, floating models use one pass of row scaling followed by
+column scaling. Factors are powers of two; a row or column keeps factor 1 if its
+candidate would turn a nonzero value into zero or a finite value into infinity.
+The objective constant and sense stay unchanged. Rational models use identity
+scaling by default, and `scaling=:on` is invalid for them. Use
+`SolverOptions(scaling=:off)` to solve in the input model's units. Simplex
+tolerances apply to the scaled working problem; returned primal values and the
+objective are restored and checked against the original model.
+
 ```julia
 exact_options = SolverOptions(Rational{BigInt}; time_limit=2.5)
 @assert exact_options.primal_tolerance == 0
@@ -323,8 +335,10 @@ validation. Algorithms such as `:auto` return
 With `verbose=true`, each completed basis refactorization emits a
 single-line record through Julia's logging system, for example
 `iter=12 obj=4.5 pinf=0.5 (1) dinf=2.5 (1) time=0.123456s`. The parenthesized
-values are the respective infeasibility counts. Phase I reports the original
-MIN/MAX objective including its constant rather than its auxiliary objective.
+values are the respective infeasibility counts. The `obj` field uses original
+objective units; `pinf` and `dinf` use working problem units when scaling is
+enabled. Phase I reports the original MIN/MAX objective including its constant
+rather than its auxiliary objective.
 Set `verbose=false` to suppress these records. In the MOI/JuMP adapter,
 `Silent=true` also suppresses them without changing the stored raw `"verbose"`
 attribute.
@@ -504,9 +518,10 @@ checksum mismatches produce actionable errors.
 
 ## Limitations and extension points
 
-Dual and primal simplex are implemented. Presolve and scaling currently apply
-identity transformations. A basic one-shot MOI/JuMP adapter is available.
-Missing features include effective presolve, non-identity scaling, public
+Dual and primal simplex are implemented. Presolve currently applies an identity
+transformation; floating models use reversible row and column scaling by default.
+A basic one-shot MOI/JuMP adapter is available.
+Missing features include effective presolve, scaling of the entire objective, public
 warm-start API, native incremental optimizer modification, MIP algorithm,
 or support for quadratic, SOS, or indicator models. Difficult or
 ill-conditioned models may terminate with `NUMERICAL_ERROR` or a resource limit.
@@ -526,8 +541,8 @@ all unbounded Float64 models are unclassified.
 
 The internal pipeline separates model validation, presolve, scaling, simplex
 workspaces, basis factorization, and restoration of the original primal solution.
-These boundaries are intended for future primal simplex, reversible presolve,
-scaling, and alternative factorization/update strategies. A future MIP layer can
+These boundaries allow future reversible presolve and alternative
+factorization/update strategies. A future MIP layer can
 repeatedly solve LPs with modified bounds. These internal structures are not
 exported public APIs. The supported interface is the exported model/options/result
 types, enums, `Bound`, `bound_value`, `isfinite(::Bound)`, `is_continuous`,

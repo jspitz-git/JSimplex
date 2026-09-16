@@ -202,7 +202,6 @@ end
         (1.0e-13, 1.0, 0.0, Inf, 1.0, Inf, NUMERICAL_ERROR),
         (1.0e-12, 1.0, 0.0, Inf, 1.0, Inf, NUMERICAL_ERROR),
         (-1.0e-13, -1.0, -Inf, 0.0, 1.0, Inf, NUMERICAL_ERROR),
-        (1.0e-13, 0.0, -Inf, Inf, 1.0, Inf, NUMERICAL_ERROR),
         (1.0e-13, -1.0, 0.0, Inf, -Inf, 1.0, NUMERICAL_ERROR),
         (1.0e-12, -1.0, 0.0, Inf, -Inf, 1.0, NUMERICAL_ERROR),
         (-1.0e-13, 1.0, -Inf, 0.0, -Inf, 1.0, NUMERICAL_ERROR),
@@ -222,6 +221,18 @@ end
             @test isnothing(run.objective_value)
         end
     end
+end
+
+@testset "Scaling certifies a feasible zero-cost model with a tiny coefficient" begin
+    problem = LinearProblem(sparse([1.0e-13;;]), [0.0];
+        row_lower=[1.0], column_lower=[-Inf], column_upper=[Inf])
+    @test JSimplex._solve_continuous_dual(problem, SolverOptions()).status == NUMERICAL_ERROR
+    @test solve(problem; options=SolverOptions(scaling=:off)).status == NUMERICAL_ERROR
+    scaled = solve(problem; options=SolverOptions(scaling=:on))
+    @test scaled.status == OPTIMAL
+    @test scaled.primal == [1.0e13]
+    @test scaled.objective_value == 0.0
+    @test JSimplex._original_primal_feasible(problem, something(scaled.primal), 1.0e-7)
 end
 
 @testset "Auxiliary workspaces own their factorization backend" begin

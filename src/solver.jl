@@ -72,6 +72,12 @@ and objective value, expressed in the original structural variables and sense.
 Every status returns `Solution{T}`, with objective data in `Union{Nothing,T}`
 and primal data in `Union{Nothing,Vector{T}}`.
 
+Floating models use reversible row and column scaling by default. Set
+`SolverOptions(scaling=:off)` to disable it or `scaling=:on` to request it
+explicitly. Rational models use identity scaling; `scaling=:on` is invalid for
+them. The objective is not scaled as a whole. Progress objective values and
+optimal results use original units; simplex tolerances apply in working units.
+
 Omitted options create `SolverOptions(T)`; explicit options are converted and
 validated through `SolverOptions(T, options)`, preserving supplied tolerance
 values. Rational defaults, Harris pivot cutoffs, and recession-ray roundoff
