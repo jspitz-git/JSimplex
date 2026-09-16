@@ -133,3 +133,115 @@ end
         @test result.statistics.refactorizations >= 2
     end
 end
+
+@testset "Primal pricing distinguishes Dantzig, steepest edge, and Devex" begin
+    for T in (Float64, Rational{BigInt})
+        problem = LinearProblem(sparse(T[100 1]), T[-10, -9]; row_upper=T[100])
+        for (pricing, expected) in ((:dantzig, 1), (:steepest_edge, 2), (:devex, 1))
+            workspace = JSimplex.initialize_workspace(problem,
+                SolverOptions(T; algorithm=:primal, pricing, verbose=false))
+            entering, direction = JSimplex._primal_entering(workspace, zero(T))
+            @test entering == expected
+            @test direction == one(T)
+        end
+        devex = JSimplex.initialize_workspace(problem,
+            SolverOptions(T; algorithm=:primal, pricing=:devex, verbose=false))
+        devex.pricing_weights[1] = T(100)
+        @test first(JSimplex._primal_entering(devex, zero(T))) == 2
+    end
+end
+
+@testset "Primal Devex updates nonbasic weights after a pivot" begin
+    problem = LinearProblem(sparse([0.5 1.0]), [-10.0, -1.0]; row_upper=[1.0])
+    workspace = JSimplex.initialize_workspace(problem,
+        SolverOptions(algorithm=:primal, pricing=:devex, verbose=false))
+    @test isnothing(JSimplex._primal_iteration!(workspace, () -> false, 0.0))
+    @test workspace.basis.basic_indices == [1]
+    @test workspace.pricing_weights[2] ≈ 2.0
+    @test workspace.pricing_weights[3] ≈ 2.0
+end
+
+@testset "Every primal pricing rule solves across scalar types" begin
+    for T in (Float32, Float64, BigFloat, Rational{BigInt}),
+        pricing in (:dantzig, :steepest_edge, :devex)
+        problem = LinearProblem(sparse(T[1 1]), T[2, 1]; row_lower=T[1])
+        options = SolverOptions(T; algorithm=:primal, pricing, verbose=false,
+                                refactorization_interval=1)
+        result = solve(problem; options)
+        @test result.status == OPTIMAL
+        @test result.primal ≈ T[0, 1]
+        @test result.objective_value ≈ one(T)
+    end
+end
+
+@testset "Primal weighted pricing keeps extreme finite magnitudes" begin
+    for (T, magnitude, tolerance) in ((Float32, 1f-23, 1f-30),
+                                      (Float64, 1e-200, 1e-300))
+        problem = LinearProblem(spzeros(T, 0, 2), T[-magnitude, -2magnitude])
+        for pricing in (:steepest_edge, :devex)
+            options = SolverOptions(T; algorithm=:primal, pricing,
+                                    dual_tolerance=tolerance, verbose=false)
+            workspace = JSimplex.initialize_workspace(problem, options)
+            @test first(JSimplex._primal_entering(workspace, tolerance)) == 2
+            @test solve(problem; options).status == UNBOUNDED
+        end
+    end
+
+    large_costs = LinearProblem(sparse(Float32[100 1]),
+                                Float32[-1f20, -2f20]; row_upper=Float32[100])
+    workspace = JSimplex.initialize_workspace(large_costs,
+        SolverOptions(Float32; algorithm=:primal, pricing=:steepest_edge,
+                      verbose=false))
+    @test first(JSimplex._primal_entering(workspace, 0f0)) == 2
+
+    tiny_scores = LinearProblem(sparse([1e200 1e200]), [-1e-200, -2e-200];
+                                row_upper=[1e200])
+    workspace = JSimplex.initialize_workspace(tiny_scores,
+        SolverOptions(; algorithm=:primal, pricing=:steepest_edge, verbose=false))
+    @test first(JSimplex._primal_entering(workspace, 0.0)) == 2
+
+    huge_norm = LinearProblem(sparse([1e308 1.0; 1e308 0.0]), [-2.0, -1.0];
+                              row_upper=[1e308, 1e308])
+    workspace = JSimplex.initialize_workspace(huge_norm,
+        SolverOptions(; algorithm=:primal, pricing=:steepest_edge, verbose=false))
+    @test first(JSimplex._primal_entering(workspace, 0.0)) == 2
+    @test isfinite(workspace.pricing_weights[1])
+
+    saturated_norms = LinearProblem(
+        sparse(hcat(vcat(fill(1e308, 4), zeros(5)), fill(1e308, 9))),
+        [-1.0, -1.1]; row_upper=fill(1e308, 9),
+    )
+    workspace = JSimplex.initialize_workspace(saturated_norms,
+        SolverOptions(; algorithm=:primal, pricing=:steepest_edge, verbose=false))
+    @test first(JSimplex._primal_entering(workspace, 0.0)) == 1
+
+    adjacent_costs = LinearProblem(spzeros(0, 2), [-1e308, -nextfloat(1e308)])
+    for pricing in (:steepest_edge, :devex)
+        workspace = JSimplex.initialize_workspace(adjacent_costs,
+            SolverOptions(; algorithm=:primal, pricing, verbose=false))
+        @test first(JSimplex._primal_entering(workspace, 0.0)) == 2
+    end
+
+    T = Rational{Int64}
+    wide_cost = LinearProblem(spzeros(T, 0, 1), T[-4_000_000_000])
+    for pricing in (:dantzig, :steepest_edge, :devex)
+        options = SolverOptions(T; algorithm=:primal, pricing, verbose=false)
+        @test solve(wide_cost; options).status == UNBOUNDED
+    end
+    wide_pivot = LinearProblem(sparse(T[4_000_000_000;;]), T[-1];
+                               row_upper=T[4_000_000_000])
+    result = solve(wide_pivot;
+        options=SolverOptions(T; algorithm=:primal, pricing=:devex, verbose=false))
+    @test result.status == OPTIMAL
+    @test result.objective_value == -one(T)
+
+    large_column = LinearProblem(sparse([1e200 1e200]), [-2.0, -1.0];
+                                 row_upper=[1e200])
+    for pricing in (:steepest_edge, :devex)
+        result = solve(large_column;
+            options=SolverOptions(; algorithm=:primal, pricing, verbose=false))
+        @test result.status == OPTIMAL
+        @test result.primal ≈ [1.0, 0.0]
+        @test result.objective_value ≈ -2.0
+    end
+end

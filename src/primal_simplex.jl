@@ -1,22 +1,142 @@
+function _primal_direction_weight(direction::AbstractVector{T}) where {T<:AbstractFloat}
+    scale = one(T)
+    for coefficient in direction
+        scale = max(scale, abs(coefficient))
+    end
+    scaled_square = abs2(inv(scale))
+    for coefficient in direction
+        scaled_square += abs2(coefficient / scale)
+    end
+    factor = sqrt(scaled_square)
+    scale_mantissa, scale_exponent = frexp(scale)
+    factor_mantissa, factor_exponent = frexp(factor)
+    mantissa, correction = frexp(scale_mantissa * factor_mantissa)
+    # Keep the exponent separately: a finite column can have a norm above floatmax(T).
+    scaled_weight = (scale_exponent + factor_exponent + correction, mantissa)
+    stored_weight = min(floatmax(T), scale * factor)
+    return scaled_weight, stored_weight
+end
+
+function _primal_direction_weight(direction::AbstractVector{T}) where {T<:Rational}
+    weight = one(Rational{BigInt})
+    for coefficient in direction
+        weight += abs2(big(coefficient))
+    end
+    stored_weight = T === Rational{BigInt} ? weight : one(T)
+    return weight, stored_weight
+end
+
+function _primal_weighted_score(reduced_cost::T,
+                                weight::Tuple{Int,T}) where {T<:AbstractFloat}
+    cost_mantissa, cost_exponent = frexp(abs(reduced_cost))
+    weight_exponent, weight_mantissa = weight
+    score_mantissa, correction = frexp(cost_mantissa / weight_mantissa)
+    return (cost_exponent - weight_exponent + correction, score_mantissa)
+end
+
+function _primal_weighted_score(reduced_cost::T, weight::T) where {T<:AbstractFloat}
+    mantissa, exponent = frexp(weight)
+    return _primal_weighted_score(reduced_cost, (exponent, mantissa))
+end
+_primal_weighted_score(reduced_cost::Rational, weight::Rational) =
+    big(reduced_cost)^2 / big(weight)
+
+_primal_dantzig_score(reduced_cost::T) where {T<:AbstractFloat} =
+    _primal_weighted_score(reduced_cost, one(T))
+_primal_dantzig_score(reduced_cost::Rational) = abs(big(reduced_cost))
+
+_primal_devex_leaving_weight(weight::T, pivot::T) where {T<:AbstractFloat} =
+    max(one(T), min(floatmax(T), weight / abs(pivot)))
+_primal_store_rational_weight(::Type{Rational{BigInt}}, weight::Rational{BigInt}) = weight
+function _primal_store_rational_weight(::Type{Rational{I}},
+                                       weight::Rational{BigInt}) where {I<:Integer}
+    limit = BigInt(typemax(I))
+    numerator_value, denominator_value = numerator(weight), denominator(weight)
+    if numerator_value <= limit && denominator_value <= limit
+        return convert(I, numerator_value) // convert(I, denominator_value)
+    end
+    # Devex is an estimate; retain a positive, representable integer weight.
+    return convert(I, min(limit, div(numerator_value, denominator_value))) // one(I)
+end
+_primal_devex_leaving_weight(weight::T, pivot::T) where {T<:Rational} =
+    _primal_store_rational_weight(T, max(one(Rational{BigInt}),
+                                         big(weight) / big(pivot)^2))
+
+_primal_devex_candidate_weight(coefficient::T, leaving_weight::T) where {T<:AbstractFloat} =
+    min(floatmax(T), abs(coefficient) * leaving_weight)
+_primal_devex_candidate_weight(coefficient::T, leaving_weight::T) where {T<:Rational} =
+    _primal_store_rational_weight(T, big(coefficient)^2 * big(leaving_weight))
+
+function _primal_steepest_weight!(workspace::SimplexWorkspace{T}, index::Int) where {T}
+    A = workspace.problem.A
+    column_count = size(A, 2)
+    column = workspace.scratch.row_rhs
+    fill!(column, zero(T))
+    if index <= column_count
+        for position in A.colptr[index]:(A.colptr[index + 1] - 1)
+            column[A.rowval[position]] = A.nzval[position]
+        end
+    else
+        column[index - column_count] = -one(T)
+    end
+    direction = forward_solve!(workspace.scratch.row_solution,
+                               workspace.factorization, column)
+    scaled_weight, stored_weight = _primal_direction_weight(direction)
+    workspace.pricing_weights[index] = stored_weight
+    return scaled_weight
+end
+
 function _primal_entering(workspace::SimplexWorkspace{T}, tolerance::T) where {T}
     entering = 0
     direction = zero(T)
-    best_cost = tolerance
+    best_score = _primal_dantzig_score(one(T))
     for index in eachindex(workspace.basis.states)
         state = workspace.basis.states[index]
         state == BASIC && continue
         _is_fixed(workspace.lower[index], workspace.upper[index]) && continue
         reduced_cost = workspace.reduced_costs[index]
-        improving = (state == AT_LOWER && reduced_cost < -best_cost) ||
-                    (state == AT_UPPER && reduced_cost > best_cost) ||
-                    (state == FREE_NONBASIC && abs(reduced_cost) > best_cost)
-        if improving
+        improving = (state == AT_LOWER && reduced_cost < -tolerance) ||
+                    (state == AT_UPPER && reduced_cost > tolerance) ||
+                    (state == FREE_NONBASIC && abs(reduced_cost) > tolerance)
+        improving || continue
+        pricing = workspace.options.pricing
+        score = if pricing == :dantzig
+            _primal_dantzig_score(reduced_cost)
+        else
+            weight = pricing == :steepest_edge ?
+                _primal_steepest_weight!(workspace, index) : workspace.pricing_weights[index]
+            _primal_weighted_score(reduced_cost, weight)
+        end
+        if entering == 0 || score > best_score
             entering = index
             direction = reduced_cost < zero(T) ? one(T) : -one(T)
-            best_cost = abs(reduced_cost)
+            best_score = score
         end
     end
     return entering, direction
+end
+
+function _primal_update_devex!(workspace::SimplexWorkspace{T}, entering::Int,
+                               leaving_row::Int, pivot::T) where {T}
+    unit = workspace.scratch.row_rhs
+    fill!(unit, zero(T))
+    unit[leaving_row] = one(T)
+    rho = transpose_solve!(workspace.scratch.rho, workspace.factorization, unit)
+    tableau_row = workspace.scratch.tableau_row
+    price!(tableau_row, workspace, rho)
+    leaving = workspace.basis.basic_indices[leaving_row]
+    leaving_weight = _primal_devex_leaving_weight(
+        workspace.pricing_weights[entering], pivot,
+    )
+    for index in eachindex(workspace.basis.states)
+        (index == entering || workspace.basis.states[index] == BASIC) && continue
+        workspace.pricing_weights[index] = max(
+            workspace.pricing_weights[index],
+            _primal_devex_candidate_weight(tableau_row[index], leaving_weight),
+        )
+    end
+    workspace.pricing_weights[leaving] = leaving_weight
+    return nothing
 end
 
 function _primal_ratio(workspace::SimplexWorkspace{T}, entering::Int, direction::T,
@@ -89,6 +209,9 @@ function _primal_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
     else
         abs(tableau_column[leaving_row]) > workspace.options.zero_tolerance ||
             return DualTermination(NUMERICAL_ERROR, "primal pivot is below the zero tolerance")
+        workspace.options.pricing == :devex &&
+            _primal_update_devex!(workspace, entering, leaving_row,
+                                   tableau_column[leaving_row])
         replace_column!(workspace.factorization, tableau_column, leaving_row;
                         zero_tolerance=workspace.options.zero_tolerance)
         leaving = workspace.basis.basic_indices[leaving_row]

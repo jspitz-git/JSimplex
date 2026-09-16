@@ -8,7 +8,8 @@ correctness, numerical robustness, and performance are not guaranteed for genera
 models. Use an established solver for production optimization.
 
 The primal algorithm uses an auxiliary phase I to find a feasible basis,
-followed by Dantzig pricing and a basic minimum ratio test in phase II.
+followed by selectable Dantzig, steepest-edge, or Devex pricing and a basic
+minimum ratio test in phase II.
 The dual algorithm includes bound flipping during ratio testing, a
 two-pass Harris fallback, selectable dual steepest-edge, Devex, and Dantzig
 pricing, cost shifting, LU factorization, and
@@ -130,8 +131,7 @@ wall-clock limit. The stable JSimplex raw optimizer attribute names are
 `zero_tolerance`, `refactorization_interval`, `verbose`, `algorithm`,
 `pricing`, `basis_update`, and `basis_refactorization`. Algorithm values are
 `:dual` (default) and `:primal`; pricing accepts `:steepest_edge`, `:devex`, or
-`:dantzig`. The initial primal algorithm uses Dantzig pricing regardless of the
-`pricing` value.
+`:dantzig` for both algorithms.
 
 ```julia
 set_optimizer_attribute(model, "relax_integrality", true)
@@ -267,7 +267,7 @@ for `SolverOptions(Float64)`. Floating types use these keyword defaults:
 | `verbose` | `true` | Emit an `Info`-level progress record after every basis refactorization |
 | `log_level` | `Logging.Debug` | Level emitted through Julia's logging system |
 | `algorithm` | `:dual` | `:dual` or `:primal` |
-| `pricing` | `:steepest_edge` | Dual pricing rule: `:steepest_edge`, `:devex`, or `:dantzig`; primal currently uses Dantzig |
+| `pricing` | `:steepest_edge` | Dual or primal pricing rule: `:steepest_edge`, `:devex`, or `:dantzig` |
 | `basis_update` | `:pfi` | Basis update: `:pfi`, `:forrest_tomlin`, `:bartels_golub`, or `:suhl_suhl` |
 | `basis_refactorization` | `:native` | Full factorization: `:native` or `:markowitz` |
 
@@ -506,8 +506,7 @@ checksum mismatches produce actionable errors.
 
 Dual and primal simplex are implemented. Presolve and scaling currently apply
 identity transformations. A basic one-shot MOI/JuMP adapter is available.
-Missing features include primal steepest-edge or Devex pricing, an advanced
-primal ratio test, effective
+Missing features include an advanced primal ratio test, effective
 presolve, non-identity scaling, public warm-start API,
 native incremental optimizer modification, MIP algorithm, or support for
 quadratic, SOS, or indicator models. Difficult or ill-conditioned models may

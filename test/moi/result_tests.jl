@@ -214,14 +214,17 @@ end
 end
 
 @testset "MOI primal algorithm solves the translated LP" begin
-    optimizer = JSimplex.Optimizer()
-    MOI.set(optimizer, MOI.Silent(), true)
-    MOI.set(optimizer, MOI.RawOptimizerAttribute("algorithm"), :primal)
-    _, copied = MOI.optimize!(optimizer, _moi_pivot_model())
-    @test !copied
-    @test MOI.get(optimizer, MOI.TerminationStatus()) == MOI.OPTIMAL
-    @test MOI.get(optimizer, MOI.ObjectiveValue()) == 3.0
-    @test MOI.get(optimizer, MOI.SimplexIterations()) >= 2
+    for pricing in (:dantzig, :steepest_edge, :devex)
+        optimizer = JSimplex.Optimizer()
+        MOI.set(optimizer, MOI.Silent(), true)
+        MOI.set(optimizer, MOI.RawOptimizerAttribute("algorithm"), :primal)
+        MOI.set(optimizer, MOI.RawOptimizerAttribute("pricing"), pricing)
+        _, copied = MOI.optimize!(optimizer, _moi_pivot_model())
+        @test !copied
+        @test MOI.get(optimizer, MOI.TerminationStatus()) == MOI.OPTIMAL
+        @test MOI.get(optimizer, MOI.ObjectiveValue()) == 3.0
+        @test MOI.get(optimizer, MOI.SimplexIterations()) >= 2
+    end
 end
 
 function _moi_row_model()

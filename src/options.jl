@@ -57,9 +57,9 @@ Limits must be nonnegative. `time_limit` remains `Float64` seconds and `Inf`
 disables the deadline; iteration/refactorization limits remain `Int`.
 `algorithm=:dual` and `algorithm=:primal` are implemented; other symbols return
 `ALGORITHM_NOT_SUPPORTED` from [`solve`](@ref).
-`pricing` selects dual steepest-edge (`:steepest_edge`), Devex (`:devex`), or
-Dantzig (`:dantzig`) pricing. The initial primal implementation uses Dantzig
-pricing for every `pricing` value; primal pricing choices will be added later.
+`pricing` selects steepest-edge (`:steepest_edge`), Devex (`:devex`), or
+Dantzig (`:dantzig`) pricing for either simplex algorithm. Primal steepest-edge
+weights are recomputed for each pricing decision.
 `basis_update` selects product-form (`:pfi`), Forrest–Tomlin
 (`:forrest_tomlin`), Bartels–Golub (`:bartels_golub`), or Suhl–Suhl
 (`:suhl_suhl`) basis updates.
