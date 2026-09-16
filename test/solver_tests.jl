@@ -73,6 +73,16 @@ function test_typed_statuses(::Type{T}) where {T}
     @test (@inferred solve(discrete; relax_integrality=true)).status == OPTIMAL
 end
 
+@testset "Solver allocation regression" begin
+    problem = read_mps(joinpath(@__DIR__, "fixtures", "solver", "afiro.mps"))
+    options = SolverOptions(verbose=false)
+
+    solve(problem; options)
+    allocated = @allocated solve(problem; options)
+
+    @test allocated <= 160_000
+end
+
 @testset "Binary relaxation clips caller-mutated bounds" begin
     for (cost, bounds, hull, expected, objective) in (
         (-1.0, (0.0, 10.0), (0.0, 1.0), 1.0, -1.0),

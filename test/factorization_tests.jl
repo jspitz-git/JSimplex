@@ -75,6 +75,39 @@ end
     @test empty_factor.base isa JSimplex.UMFPACKBackend
 end
 
+@testset "Dimension-changing refactorization resizes solve scratch" begin
+    for T in (Float32, Float64)
+        factor = JSimplex.PFIFactorization(reshape(T[2], 1, 1))
+        basis = JSimplex.SparseArrays.sparse(T[2 0; 0 4])
+        rhs = T[4, 8]
+
+        JSimplex.refactorize!(factor, basis)
+
+        @test JSimplex.forward_solve(factor, rhs) ≈ T[2, 2]
+        @test JSimplex.transpose_solve(factor, rhs) ≈ T[2, 2]
+    end
+end
+
+@testset "Factorization solves reject internal scratch as destination" begin
+    factor = JSimplex.PFIFactorization(JSimplex.SparseArrays.sparse([2.0 0.0; 0.0 4.0]))
+    calls = (
+        () -> JSimplex.forward_solve!(factor.work, factor, factor.work),
+        () -> JSimplex.transpose_solve!(factor.work, factor, [4.0, 8.0]),
+    )
+    for call in calls
+        error = try
+            call()
+            nothing
+        catch caught
+            caught
+        end
+
+        @test error isa ArgumentError
+        @test sprint(showerror, error) ==
+              "ArgumentError: destination must not alias the factorization work storage"
+    end
+end
+
 @testset "Product-form basis factorization" begin
     B = JSimplex.SparseArrays.sparse([2.0 1.0; 1.0 3.0])
     factor = JSimplex.PFIFactorization(B)
@@ -109,6 +142,39 @@ end
     @test_throws BoundsError JSimplex.replace_column!(factor, tableau_column, 0)
     @test_throws ArgumentError JSimplex.replace_column!(factor, tableau_column, 1; zero_tolerance=-1.0)
     @test_throws DimensionMismatch JSimplex.replace_column!(factor, [1.0], 1)
+end
+
+@testset "Factorization solves allocate only their result" begin
+    dimension = 512
+    factor = JSimplex.PFIFactorization(
+        JSimplex.SparseArrays.spdiagm(0 => fill(2.0, dimension)),
+    )
+    rhs = ones(dimension)
+
+    JSimplex.forward_solve(factor, rhs)
+    JSimplex.transpose_solve(factor, rhs)
+
+    @test (@allocated JSimplex.forward_solve(factor, rhs)) <= 5_000
+    @test (@allocated JSimplex.transpose_solve(factor, rhs)) <= 5_000
+    @test rhs == ones(dimension)
+end
+
+@testset "Mutating factorization solves do not allocate" begin
+    dimension = 64
+    for T in (Float32, Float64)
+        factor = JSimplex.PFIFactorization(
+            JSimplex.SparseArrays.spdiagm(0 => ones(T, dimension)),
+        )
+        JSimplex.replace_column!(factor, ones(T, dimension), 1)
+        rhs = ones(T, dimension)
+        destination = similar(rhs)
+
+        JSimplex.forward_solve!(destination, factor, rhs)
+        JSimplex.transpose_solve!(destination, factor, rhs)
+
+        @test (@allocated JSimplex.forward_solve!(destination, factor, rhs)) == 0
+        @test (@allocated JSimplex.transpose_solve!(destination, factor, rhs)) == 0
+    end
 end
 
 @testset "Product-form transpose solve RHS precision" begin

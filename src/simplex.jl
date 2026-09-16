@@ -18,6 +18,33 @@ struct SimplexProgressContext{T<:Real}
     objective_constant::T
 end
 
+mutable struct SimplexScratch{T<:Real}
+    basic_mask::BitVector
+    row_rhs::Vector{T}
+    row_solution::Vector{T}
+    rho::Vector{T}
+    tau::Vector{T}
+    tableau_row::Vector{T}
+    candidates::Vector{Int}
+    basis_rows::Vector{Int}
+    basis_columns::Vector{Int}
+    basis_values::Vector{T}
+end
+
+function SimplexScratch(::Type{T}, row_count::Int, variable_count::Int) where {T<:Real}
+    candidates = Int[]
+    sizehint!(candidates, variable_count)
+    basis_rows, basis_columns, basis_values = Int[], Int[], T[]
+    sizehint!(basis_rows, row_count)
+    sizehint!(basis_columns, row_count)
+    sizehint!(basis_values, row_count)
+    return SimplexScratch(
+        falses(variable_count), zeros(T, row_count), zeros(T, row_count),
+        zeros(T, row_count), zeros(T, row_count), zeros(T, variable_count),
+        candidates, basis_rows, basis_columns, basis_values,
+    )
+end
+
 function SimplexProgressContext(problem::LinearProblem{T}; start_ns::UInt64=time_ns()) where {T}
     return SimplexProgressContext{T}(
         start_ns,
@@ -38,6 +65,7 @@ mutable struct SimplexWorkspace{T<:Real,F}
     reduced_costs::Vector{T}
     pricing_weights::Vector{T}
     factorization::PFIFactorization{T,F}
+    scratch::SimplexScratch{T}
     iterations::Int
     refactorizations::Int
     perturbed::Bool
@@ -54,11 +82,12 @@ function _validate_basis(workspace::SimplexWorkspace)
         throw(ArgumentError("basis must contain one basic variable per row"))
     all(index -> 1 <= index <= variable_count, basis.basic_indices) ||
         throw(ArgumentError("basis indices must refer to working variables"))
-    length(unique(basis.basic_indices)) == row_count ||
-        throw(ArgumentError("basis indices must be unique"))
-
-    is_basic = falses(variable_count)
-    is_basic[basis.basic_indices] .= true
+    is_basic = workspace.scratch.basic_mask
+    fill!(is_basic, false)
+    for index in basis.basic_indices
+        is_basic[index] && throw(ArgumentError("basis indices must be unique"))
+        is_basic[index] = true
+    end
     for index in eachindex(basis.states)
         (basis.states[index] == BASIC) == is_basic[index] ||
             throw(ArgumentError("basis indices and variable states must agree"))
@@ -71,9 +100,21 @@ function basis_matrix(workspace::SimplexWorkspace{T}) where {T}
     A = workspace.problem.A
     row_count, column_count = size(A)
     basis = workspace.basis
-    rows = Int[]
-    columns = Int[]
-    values = T[]
+    rows = workspace.scratch.basis_rows
+    columns = workspace.scratch.basis_columns
+    values = workspace.scratch.basis_values
+    empty!(rows)
+    empty!(columns)
+    empty!(values)
+
+    nonzero_count = 0
+    for variable_index in basis.basic_indices
+        nonzero_count += variable_index <= column_count ?
+            A.colptr[variable_index + 1] - A.colptr[variable_index] : 1
+    end
+    sizehint!(rows, nonzero_count)
+    sizehint!(columns, nonzero_count)
+    sizehint!(values, nonzero_count)
 
     for (basis_column, variable_index) in enumerate(basis.basic_indices)
         if variable_index <= column_count
@@ -127,9 +168,9 @@ function recompute!(workspace::SimplexWorkspace{T}; refactorize::Bool=false,
     A = workspace.problem.A
     row_count, column_count = size(A)
     basis = workspace.basis
-    is_basic = falses(length(basis.states))
-    is_basic[basis.basic_indices] .= true
-    rhs = zeros(T, row_count)
+    is_basic = workspace.scratch.basic_mask
+    rhs = workspace.scratch.row_rhs
+    fill!(rhs, zero(T))
 
     for index in eachindex(basis.states)
         is_basic[index] && continue
@@ -144,15 +185,28 @@ function recompute!(workspace::SimplexWorkspace{T}; refactorize::Bool=false,
         end
     end
 
-    basic_primal = forward_solve(workspace.factorization, rhs)
-    workspace.primal[basis.basic_indices] .= basic_primal
+    basic_primal = forward_solve!(workspace.scratch.row_solution,
+                                  workspace.factorization, rhs)
+    for (row, index) in enumerate(basis.basic_indices)
+        workspace.primal[index] = basic_primal[row]
+        rhs[row] = workspace.costs[index]
+    end
 
-    dual = transpose_solve(workspace.factorization, workspace.costs[basis.basic_indices])
-    workspace.reduced_costs[1:column_count] .=
-        workspace.costs[1:column_count] .- transpose(A) * dual
-    workspace.reduced_costs[column_count + 1:end] .=
-        workspace.costs[column_count + 1:end] .+ dual
-    workspace.reduced_costs[basis.basic_indices] .= zero(T)
+    dual = transpose_solve!(workspace.scratch.rho, workspace.factorization, rhs)
+    for column in 1:column_count
+        reduced_cost = workspace.costs[column]
+        for position in A.colptr[column]:(A.colptr[column + 1] - 1)
+            reduced_cost -= A.nzval[position] * dual[A.rowval[position]]
+        end
+        workspace.reduced_costs[column] = reduced_cost
+    end
+    for row in 1:row_count
+        index = column_count + row
+        workspace.reduced_costs[index] = workspace.costs[index] + dual[row]
+    end
+    for index in basis.basic_indices
+        workspace.reduced_costs[index] = zero(T)
+    end
     refactorize && _report_simplex_progress(workspace, caller_guard)
     return workspace
 end
@@ -187,16 +241,16 @@ function initialize_workspace(
     basis = Basis(collect(column_count + 1:variable_count), states)
     initial_basis = spdiagm(0 => fill(-one(T), row_count))
     factorization = PFIFactorization(initial_basis)
+    scratch = SimplexScratch(T, row_count, variable_count)
     workspace = SimplexWorkspace(
         problem, typed_options, progress, costs, lower, upper, basis, zeros(T, variable_count),
         zeros(T, variable_count), ones(T, variable_count),
-        factorization, 0, 0, false,
+        factorization, scratch, 0, 0, false,
     )
     return recompute!(workspace)
 end
 
 function primal_infeasibility_summary(workspace::SimplexWorkspace{T}) where {T}
-    _validate_basis(workspace)
     infeasibility = zero(T)
     count = 0
     tolerance = workspace.options.primal_tolerance
@@ -218,7 +272,6 @@ end
 primal_infeasibility(workspace::SimplexWorkspace) = first(primal_infeasibility_summary(workspace))
 
 function dual_infeasibility_summary(workspace::SimplexWorkspace{T}) where {T}
-    _validate_basis(workspace)
     infeasibility = zero(T)
     count = 0
     tolerance = workspace.options.dual_tolerance

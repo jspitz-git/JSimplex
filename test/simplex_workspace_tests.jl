@@ -2,6 +2,14 @@ mutable struct RecordingSimplexLogger <: JSimplex.Logging.AbstractLogger
     records::Vector{Any}
 end
 
+function repeated_feasibility_queries(workspace, repetitions)
+    for _ in 1:repetitions
+        JSimplex.primal_infeasibility(workspace)
+        JSimplex.dual_infeasibility(workspace)
+    end
+    return nothing
+end
+
 JSimplex.Logging.min_enabled_level(::RecordingSimplexLogger) = JSimplex.Logging.Debug
 JSimplex.Logging.shouldlog(::RecordingSimplexLogger, args...) = true
 JSimplex.Logging.catch_exceptions(::RecordingSimplexLogger) = false
@@ -58,6 +66,23 @@ end
     @test JSimplex.basis_matrix(workspace) == [-1.0 0.0; 0.0 -1.0]
     @test JSimplex.primal_infeasibility(workspace) >= 0.0
     @test JSimplex.dual_infeasibility(workspace) >= 0.0
+end
+
+@testset "Feasibility queries do not allocate" begin
+    dimension = 512
+    problem = LinearProblem(
+        JSimplex.SparseArrays.spdiagm(0 => ones(dimension)),
+        ones(dimension);
+        row_lower=ones(dimension),
+    )
+    workspace = JSimplex.initialize_workspace(problem, SolverOptions(verbose=false))
+
+    JSimplex.primal_infeasibility(workspace)
+    JSimplex.dual_infeasibility(workspace)
+
+    repeated_feasibility_queries(workspace, 100)
+    allocated = @allocated repeated_feasibility_queries(workspace, 100)
+    @test allocated == 0
 end
 
 @testset "Simplex workspace nonbasic bounds" begin

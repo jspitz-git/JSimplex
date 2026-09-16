@@ -18,6 +18,8 @@ end
 mutable struct PFIFactorization{T<:Real,F}
     base::F
     updates::Vector{PackedEta{T}}
+    # Private mutable solve scratch; concurrent solves need separate factorizations.
+    work::Vector{T}
 end
 
 _backend_dimension(backend::UMFPACKBackend) = backend.dimension
@@ -42,7 +44,7 @@ _factorize_basis(B::AbstractMatrix{T}) where {T<:Real} = _factorize_dense_basis(
 function PFIFactorization(B::AbstractMatrix{T}) where {T<:Real}
     _supported_value_type(T) || throw(ArgumentError("unsupported basis value type: $T"))
     base = _factorize_basis(B)
-    return PFIFactorization{T,typeof(base)}(base, PackedEta{T}[])
+    return PFIFactorization{T,typeof(base)}(base, PackedEta{T}[], zeros(T, size(B, 1)))
 end
 
 function _check_rhs_dimension(factor::PFIFactorization, rhs::AbstractVector)
@@ -51,40 +53,91 @@ function _check_rhs_dimension(factor::PFIFactorization, rhs::AbstractVector)
     return nothing
 end
 
-_backend_forward_solve(backend::UMFPACKBackend, rhs::AbstractVector) =
-    isnothing(backend.factorization) ? copy(rhs) : backend.factorization \ rhs
-_backend_forward_solve(backend::DenseLUBackend, rhs::AbstractVector) =
-    backend.factorization \ rhs
-
-_backend_transpose_solve(backend::UMFPACKBackend, rhs::AbstractVector) =
-    isnothing(backend.factorization) ? copy(rhs) : transpose(backend.factorization) \ rhs
-_backend_transpose_solve(backend::DenseLUBackend, rhs::AbstractVector) =
-    transpose(backend.factorization) \ rhs
-
-function forward_solve(factor::PFIFactorization{T}, rhs::AbstractVector) where {T}
-    _check_rhs_dimension(factor, rhs)
-    x = _backend_forward_solve(factor.base, convert.(T, rhs))
-    for eta in factor.updates
-        pivot = x[eta.pivot_row]
-        x[eta.pivot_row] = zero(T)
-        for index in eachindex(eta.indices)
-            x[eta.indices[index]] += pivot * eta.values[index]
-        end
-    end
-    return x
+function _backend_forward_solve!(destination::Vector, backend::UMFPACKBackend,
+                                 rhs::StridedVector)
+    isnothing(backend.factorization) ? copyto!(destination, rhs) :
+        ldiv!(destination, backend.factorization, rhs)
+    return destination
 end
 
-function transpose_solve(factor::PFIFactorization{T}, rhs::AbstractVector) where {T}
+function _backend_forward_solve!(destination::Vector, backend::DenseLUBackend,
+                                 rhs::AbstractVector)
+    ldiv!(destination, backend.factorization, rhs)
+    return destination
+end
+
+function _backend_transpose_solve!(destination::Vector, backend::UMFPACKBackend,
+                                   rhs::StridedVector)
+    isnothing(backend.factorization) ? copyto!(destination, rhs) :
+        ldiv!(destination, transpose(backend.factorization), rhs)
+    return destination
+end
+
+function _backend_transpose_solve!(destination::Vector, backend::DenseLUBackend,
+                                   rhs::AbstractVector)
+    ldiv!(destination, transpose(backend.factorization), rhs)
+    return destination
+end
+
+function _check_destination_dimension(factor::PFIFactorization, destination::AbstractVector)
+    length(destination) == _backend_dimension(factor.base) ||
+        throw(DimensionMismatch("destination length must match the basis dimension"))
+    return nothing
+end
+
+function forward_solve!(destination::Vector{T}, factor::PFIFactorization{T},
+                        rhs::StridedVector{T}) where {T}
+    destination === factor.work && throw(ArgumentError(
+        "destination must not alias the factorization work storage",
+    ))
     _check_rhs_dimension(factor, rhs)
-    x = convert.(T, rhs)
+    _check_destination_dimension(factor, destination)
+    source = destination === rhs ? copyto!(factor.work, rhs) : rhs
+    _backend_forward_solve!(destination, factor.base, source)
+    for eta in factor.updates
+        pivot = destination[eta.pivot_row]
+        destination[eta.pivot_row] = zero(T)
+        for index in eachindex(eta.indices)
+            destination[eta.indices[index]] += pivot * eta.values[index]
+        end
+    end
+    return destination
+end
+
+function forward_solve!(destination::Vector{T}, factor::PFIFactorization{T},
+                        rhs::AbstractVector) where {T}
+    destination === factor.work && throw(ArgumentError(
+        "destination must not alias the factorization work storage",
+    ))
+    _check_rhs_dimension(factor, rhs)
+    copyto!(factor.work, rhs)
+    return forward_solve!(destination, factor, factor.work)
+end
+
+function forward_solve(factor::PFIFactorization{T}, rhs::AbstractVector) where {T}
+    return forward_solve!(Vector{T}(undef, length(rhs)), factor, rhs)
+end
+
+function transpose_solve!(destination::Vector{T}, factor::PFIFactorization{T},
+                          rhs::AbstractVector) where {T}
+    destination === factor.work && throw(ArgumentError(
+        "destination must not alias the factorization work storage",
+    ))
+    _check_rhs_dimension(factor, rhs)
+    _check_destination_dimension(factor, destination)
+    copyto!(factor.work, rhs)
     for eta in Iterators.reverse(factor.updates)
         value = zero(T)
         for index in eachindex(eta.indices)
-            value += eta.values[index] * x[eta.indices[index]]
+            value += eta.values[index] * factor.work[eta.indices[index]]
         end
-        x[eta.pivot_row] = value
+        factor.work[eta.pivot_row] = value
     end
-    return _backend_transpose_solve(factor.base, x)
+    return _backend_transpose_solve!(destination, factor.base, factor.work)
+end
+
+function transpose_solve(factor::PFIFactorization{T}, rhs::AbstractVector) where {T}
+    return transpose_solve!(Vector{T}(undef, length(rhs)), factor, rhs)
 end
 
 _pivot_magnitude(value::Real) = abs(value)
@@ -135,13 +188,17 @@ function _refactorize_backend(
 end
 
 function refactorize!(factor::PFIFactorization{Float64,UMFPACKBackend}, B::AbstractMatrix{Float64})
-    factor.base = _refactorize_backend(factor.base, B)
+    new_base = _refactorize_backend(factor.base, B)
+    factor.base = new_base
+    resize!(factor.work, _backend_dimension(new_base))
     empty!(factor.updates)
     return factor
 end
 
 function refactorize!(factor::PFIFactorization{T,F}, B::AbstractMatrix{T}) where {T<:Real,F<:DenseLUBackend}
-    factor.base = _refactorize_backend(factor.base, B)
+    new_base = _refactorize_backend(factor.base, B)
+    factor.base = new_base
+    resize!(factor.work, _backend_dimension(new_base))
     empty!(factor.updates)
     return factor
 end

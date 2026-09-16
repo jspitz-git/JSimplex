@@ -70,13 +70,15 @@ function _dual_pivot_eligible(workspace::SimplexWorkspace{T}, index::Int,
 end
 
 # The row is oriented so that a positive dual step repairs the leaving bound.
-function dual_ratio_test(workspace::SimplexWorkspace{T}, tableau_row::Vector{T})::Int where {T}
-    candidates = Int[]
+function dual_ratio_test(workspace::SimplexWorkspace{T}, tableau_row::Vector{T},
+                         orientation::T=one(T))::Int where {T}
+    candidates = workspace.scratch.candidates
+    empty!(candidates)
     maximum_step = _unbounded_bound(T)
     tolerance = workspace.options.dual_tolerance
     cutoff = _is_exact(T) === Val(true) ? zero(T) : _positive_tolerance(T, 1 // 10^7)
     for index in eachindex(tableau_row)
-        coefficient = tableau_row[index]
+        coefficient = orientation * tableau_row[index]
         _dual_pivot_eligible(workspace, index, coefficient, cutoff) || continue
         push!(candidates, index)
         relaxed_step = (workspace.reduced_costs[index] +
@@ -92,7 +94,7 @@ function dual_ratio_test(workspace::SimplexWorkspace{T}, tableau_row::Vector{T})
     entering_index = -1
     largest_pivot = zero(T)
     for index in candidates
-        coefficient = tableau_row[index]
+        coefficient = orientation * tableau_row[index]
         step = workspace.reduced_costs[index] / coefficient
         within_limit = !isfinite(maximum_step) || step <= bound_value(maximum_step)
         if within_limit && abs(coefficient) > largest_pivot
@@ -156,7 +158,7 @@ end
 function update_dse!(workspace::SimplexWorkspace{T}, rho::Vector{T}, tableau_column::Vector{T},
                     entering_index::Int, pivot::T)::Nothing where {T}
     entering_weight = dot(rho, rho) / pivot^2
-    tau = forward_solve(workspace.factorization, rho)
+    tau = forward_solve!(workspace.scratch.tau, workspace.factorization, rho)
     for (row, index) in enumerate(workspace.basis.basic_indices)
         coefficient = tableau_column[row]
         workspace.pricing_weights[index] = max(
@@ -239,19 +241,21 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
     delta = workspace.primal[leaving_index] - bound_value(bound)
 
     row_count, column_count = size(workspace.problem.A)
-    unit = zeros(T, row_count)
+    unit = workspace.scratch.row_rhs
+    fill!(unit, zero(T))
     unit[leaving_row] = one(T)
-    rho = transpose_solve(workspace.factorization, unit)
-    tableau_row = zeros(T, row_count + column_count)
+    rho = transpose_solve!(workspace.scratch.rho, workspace.factorization, unit)
+    tableau_row = workspace.scratch.tableau_row
     price!(tableau_row, workspace, rho)
     all(isfinite, rho) && all(isfinite, tableau_row) || return _numerical_failure()
-    oriented_row = below ? -tableau_row : tableau_row
-    entering_index = dual_ratio_test(workspace, oriented_row)
+    orientation = below ? -one(T) : one(T)
+    entering_index = dual_ratio_test(workspace, tableau_row, orientation)
     if entering_index == -1
         # A tolerance cannot turn a nonzero, sign-eligible coefficient into a
         # mathematical infeasibility proof.
-        if any(index -> _dual_pivot_eligible(workspace, index, oriented_row[index],
-                                             zero(T)), eachindex(oriented_row))
+        if any(index -> _dual_pivot_eligible(
+                   workspace, index, orientation * tableau_row[index], zero(T),
+               ), eachindex(tableau_row))
             return DualTermination(NUMERICAL_ERROR, "eligible pivots are below the Harris safety cutoff")
         end
         if _is_exact(T) === Val(false) && !basis_refreshed
@@ -272,7 +276,8 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
         return DualTermination(INFEASIBLE, "no eligible dual pivot")
     end
 
-    column = zeros(T, row_count)
+    column = workspace.scratch.row_rhs
+    fill!(column, zero(T))
     if entering_index <= column_count
         A = workspace.problem.A
         for position in A.colptr[entering_index]:(A.colptr[entering_index + 1] - 1)
@@ -281,7 +286,8 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
     else
         column[entering_index - column_count] = -one(T)
     end
-    tableau_column = forward_solve(workspace.factorization, column)
+    tableau_column = forward_solve!(workspace.scratch.row_solution,
+                                    workspace.factorization, column)
     all(isfinite, tableau_column) || return _numerical_failure()
     pivot = tableau_column[leaving_row]
     abs(pivot) > workspace.options.zero_tolerance || throw(ZeroPivotException(leaving_row))
@@ -582,13 +588,18 @@ function _auxiliary_workspace(workspace::SimplexWorkspace{T}) where {T}
     end
     # LU and existing eta data are only read by solves. Each workspace owns
     # its update list; refactorization replaces its own base factorization.
-    factorization = PFIFactorization(workspace.factorization.base,
-                                     copy(workspace.factorization.updates))
+    factorization = PFIFactorization(
+        workspace.factorization.base,
+        copy(workspace.factorization.updates),
+        similar(workspace.factorization.work),
+    )
+    row_count, column_count = size(workspace.problem.A)
+    scratch = SimplexScratch(T, row_count, row_count + column_count)
     auxiliary = SimplexWorkspace(
         workspace.problem, workspace.options, workspace.progress,
         copy(workspace.costs), lower, upper,
         basis, copy(workspace.primal), copy(workspace.reduced_costs),
-        copy(workspace.pricing_weights), factorization, workspace.iterations,
+        copy(workspace.pricing_weights), factorization, scratch, workspace.iterations,
         workspace.refactorizations, workspace.perturbed,
     )
     return recompute!(auxiliary)
