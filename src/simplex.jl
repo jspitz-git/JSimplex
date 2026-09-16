@@ -25,6 +25,9 @@ mutable struct SimplexScratch{T<:Real}
     rho::Vector{T}
     tau::Vector{T}
     tableau_row::Vector{T}
+    pricing_row::Vector{T}
+    steepest_valid::BitVector
+    steepest_initialized::Bool
     candidates::Vector{Int}
     basis_rows::Vector{Int}
     basis_columns::Vector{Int}
@@ -41,6 +44,7 @@ function SimplexScratch(::Type{T}, row_count::Int, variable_count::Int) where {T
     return SimplexScratch(
         falses(variable_count), zeros(T, row_count), zeros(T, row_count),
         zeros(T, row_count), zeros(T, row_count), zeros(T, variable_count),
+        zeros(T, variable_count), falses(variable_count), false,
         candidates, basis_rows, basis_columns, basis_values,
     )
 end

@@ -59,7 +59,8 @@ disables the deadline; iteration/refactorization limits remain `Int`.
 `ALGORITHM_NOT_SUPPORTED` from [`solve`](@ref).
 `pricing` selects steepest-edge (`:steepest_edge`), Devex (`:devex`), or
 Dantzig (`:dantzig`) pricing for either simplex algorithm. Primal steepest-edge
-weights are recomputed for each pricing decision.
+weights are initialized for a unit basis and updated after each pivot, with
+direct recomputation when a weight cannot be represented safely.
 `basis_update` selects product-form (`:pfi`), Forrest–Tomlin
 (`:forrest_tomlin`), Bartels–Golub (`:bartels_golub`), or Suhl–Suhl
 (`:suhl_suhl`) basis updates.

@@ -83,10 +83,119 @@ function _primal_steepest_weight!(workspace::SimplexWorkspace{T}, index::Int) wh
                                workspace.factorization, column)
     scaled_weight, stored_weight = _primal_direction_weight(direction)
     workspace.pricing_weights[index] = stored_weight
+    workspace.scratch.steepest_valid[index] = _primal_cacheable_weight(stored_weight)
     return scaled_weight
 end
 
+_primal_cacheable_weight(weight::T) where {T<:AbstractFloat} =
+    isfinite(weight) && weight < floatmax(T) && isfinite(abs2(weight))
+_primal_cacheable_weight(weight::Rational{BigInt}) = true
+_primal_cacheable_weight(weight::Rational) = false
+
+function _primal_unit_basis(workspace::SimplexWorkspace{T}) where {T}
+    A = workspace.problem.A
+    column_count = size(A, 2)
+    for (row, index) in enumerate(workspace.basis.basic_indices)
+        if index > column_count
+            index - column_count == row || return false
+        else
+            start = A.colptr[index]
+            A.colptr[index + 1] == start + 1 || return false
+            A.rowval[start] == row || return false
+            abs(A.nzval[start]) == one(T) || return false
+        end
+    end
+    return true
+end
+
+function _primal_initialize_steepest!(workspace::SimplexWorkspace{T}) where {T}
+    scratch = workspace.scratch
+    scratch.steepest_initialized && return nothing
+    scratch.steepest_initialized = true
+    T <: Rational && T !== Rational{BigInt} && return nothing
+    _primal_unit_basis(workspace) || return nothing
+    A = workspace.problem.A
+    row_count, column_count = size(A)
+    for index in 1:column_count
+        direction = @view A.nzval[A.colptr[index]:(A.colptr[index + 1] - 1)]
+        _, weight = _primal_direction_weight(direction)
+        workspace.pricing_weights[index] = weight
+        scratch.steepest_valid[index] = _primal_cacheable_weight(weight)
+    end
+    _, row_weight = _primal_direction_weight(T[one(T)])
+    for index in (column_count + 1):(column_count + row_count)
+        workspace.pricing_weights[index] = row_weight
+        scratch.steepest_valid[index] = _primal_cacheable_weight(row_weight)
+    end
+    return nothing
+end
+
+function _primal_updated_weight(weight::T, alpha::T, beta::T,
+                                h_norm_squared::T) where {T<:AbstractFloat}
+    squared = muladd(alpha * alpha, h_norm_squared,
+                     muladd(-2 * alpha, beta, weight * weight))
+    isfinite(squared) && squared >= one(T) || return nothing
+    updated = sqrt(squared)
+    return _primal_cacheable_weight(updated) ? updated : nothing
+end
+
+function _primal_updated_weight(weight::Rational{BigInt}, alpha::Rational{BigInt},
+                                beta::Rational{BigInt}, h_norm_squared::Rational{BigInt})
+    updated = weight - 2 * alpha * beta + alpha^2 * h_norm_squared
+    return updated >= 1 ? updated : nothing
+end
+
+function _primal_update_steepest!(workspace::SimplexWorkspace{T}, entering::Int,
+                                  leaving_row::Int, pivot::T) where {T}
+    scratch = workspace.scratch
+    # Fixed-width rational weights are priced exactly on demand in BigInt arithmetic.
+    T <: Rational && T !== Rational{BigInt} && return nothing
+    direction = scratch.row_solution
+    h = scratch.row_rhs
+    for row in eachindex(h)
+        h[row] = (direction[row] - (row == leaving_row ? one(T) : zero(T))) / pivot
+    end
+    if !all(isfinite, h)
+        fill!(scratch.steepest_valid, false)
+        return nothing
+    end
+    h_norm_squared = dot(h, h)
+    if !isfinite(h_norm_squared)
+        fill!(scratch.steepest_valid, false)
+        return nothing
+    end
+    tau = transpose_solve!(scratch.tau, workspace.factorization, h)
+    fill!(h, zero(T))
+    h[leaving_row] = one(T)
+    rho = transpose_solve!(scratch.rho, workspace.factorization, h)
+    if !all(isfinite, tau) || !all(isfinite, rho)
+        fill!(scratch.steepest_valid, false)
+        return nothing
+    end
+    price!(scratch.pricing_row, workspace, tau)
+    price!(scratch.tableau_row, workspace, rho)
+    leaving = workspace.basis.basic_indices[leaving_row]
+    for index in eachindex(workspace.basis.states)
+        (index == entering || workspace.basis.states[index] == BASIC && index != leaving) &&
+            continue
+        scratch.steepest_valid[index] || index == leaving || continue
+        weight = index == leaving ?
+            (T <: AbstractFloat ? sqrt(T(2)) : T(2)) : workspace.pricing_weights[index]
+        updated = _primal_updated_weight(weight, scratch.tableau_row[index],
+                                         scratch.pricing_row[index], h_norm_squared)
+        if isnothing(updated)
+            scratch.steepest_valid[index] = false
+        else
+            workspace.pricing_weights[index] = updated
+            scratch.steepest_valid[index] = true
+        end
+    end
+    scratch.steepest_valid[entering] = false
+    return nothing
+end
+
 function _primal_entering(workspace::SimplexWorkspace{T}, tolerance::T) where {T}
+    workspace.options.pricing == :steepest_edge && _primal_initialize_steepest!(workspace)
     entering = 0
     direction = zero(T)
     best_score = _primal_dantzig_score(one(T))
@@ -103,7 +212,7 @@ function _primal_entering(workspace::SimplexWorkspace{T}, tolerance::T) where {T
         score = if pricing == :dantzig
             _primal_dantzig_score(reduced_cost)
         else
-            weight = pricing == :steepest_edge ?
+            weight = pricing == :steepest_edge && !workspace.scratch.steepest_valid[index] ?
                 _primal_steepest_weight!(workspace, index) : workspace.pricing_weights[index]
             _primal_weighted_score(reduced_cost, weight)
         end
@@ -261,6 +370,9 @@ function _primal_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
         workspace.options.pricing == :devex &&
             _primal_update_devex!(workspace, entering, leaving_row,
                                    tableau_column[leaving_row])
+        workspace.options.pricing == :steepest_edge &&
+            _primal_update_steepest!(workspace, entering, leaving_row,
+                                     tableau_column[leaving_row])
         replace_column!(workspace.factorization, tableau_column, leaving_row;
                         zero_tolerance=workspace.options.zero_tolerance)
         leaving = workspace.basis.basic_indices[leaving_row]

@@ -173,6 +173,29 @@ end
     @test workspace.pricing_weights[3] ≈ 2.0
 end
 
+@testset "Primal steepest-edge weights initialize and follow basis pivots" begin
+    for T in (Float64, Rational{BigInt})
+        problem = LinearProblem(sparse(T[1 2 0; 2 1 1]), T[-5, -4, 1];
+                                row_upper=T[5, 5])
+        workspace = JSimplex.initialize_workspace(problem,
+            SolverOptions(T; algorithm=:primal, pricing=:steepest_edge,
+                          basis_update=:suhl_suhl, verbose=false))
+        @test first(JSimplex._primal_entering(workspace, zero(T))) == 1
+        @test workspace.pricing_weights[3] ≈
+              (T <: Rational ? T(2) : sqrt(T(2)))
+        for pivot in 1:2
+            @test isnothing(JSimplex._primal_iteration!(workspace, () -> false, zero(T)))
+            pivot == 1 && @test workspace.basis.basic_indices[2] == 1
+            for index in eachindex(workspace.basis.states)
+                workspace.basis.states[index] == JSimplex.BASIC && continue
+                updated = workspace.pricing_weights[index]
+                JSimplex._primal_steepest_weight!(workspace, index)
+                @test updated ≈ workspace.pricing_weights[index]
+            end
+        end
+    end
+end
+
 @testset "Every primal pricing rule solves across scalar types" begin
     for T in (Float32, Float64, BigFloat, Rational{BigInt}),
         pricing in (:dantzig, :steepest_edge, :devex)
