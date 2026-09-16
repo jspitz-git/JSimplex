@@ -266,7 +266,7 @@ for `SolverOptions(Float64)`. Floating types use these keyword defaults:
 | `iteration_limit` | `100_000` | Maximum completed simplex steps (pivots or primal bound flips) |
 | `time_limit` | `Inf` | Wall-clock seconds; `Inf` disables the deadline |
 | `refactorization_interval` | `20` | Basis update interval before full factorization |
-| `verbose` | `true` | Emit an `Info`-level progress record after every basis refactorization |
+| `verbose` | `true` | Emit `Info`-level model statistics and simplex progress |
 | `log_level` | `Logging.Debug` | Level emitted through Julia's logging system |
 | `algorithm` | `:dual` | `:dual` or `:primal` |
 | `pricing` | `:steepest_edge` | Dual or primal pricing rule: `:steepest_edge`, `:devex`, or `:dantzig` |
@@ -332,7 +332,11 @@ The deadline starts when `solve` is called and is checked before algorithm/model
 validation. Algorithms such as `:auto` return
 `ALGORITHM_NOT_SUPPORTED`.
 
-With `verbose=true`, each completed basis refactorization emits a
+With `verbose=true`, `solve` first reports `rows`, `columns`, and `nnz` for the
+input model, then reports them again after presolve, even when no reduction is
+made. The input statistics also appear when solving stops before presolve.
+`nnz` counts nonzero coefficients, excluding explicitly stored sparse zeros.
+Each completed basis refactorization emits a
 single-line record through Julia's logging system, for example
 `iter=12 obj=4.5 pinf=0.5 (1) dinf=2.5 (1) time=0.123456s`. The parenthesized
 values are the respective infeasibility counts. The `obj` field uses original

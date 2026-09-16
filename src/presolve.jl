@@ -1,6 +1,9 @@
 struct PresolveFailure
     status::TerminationStatus
     message::String
+    rows::Int
+    columns::Int
+    nonzeros::Int
 end
 
 struct PresolveMap{T<:Real} <: AbstractPostsolveStep
@@ -111,7 +114,9 @@ function presolve_problem(problem::LinearProblem{T}) where {T}
         nonempty_rows[row] && continue
         if (isfinite(lower[row]) && bound_value(lower[row]) > zero(T)) ||
            (isfinite(upper[row]) && bound_value(upper[row]) < zero(T))
-            return PresolveFailure(INFEASIBLE, "empty row $row is infeasible")
+            return PresolveFailure(INFEASIBLE, "empty row $row is infeasible",
+                                  length(rows), length(columns),
+                                  count(value -> !iszero(value), candidate.nzval))
         end
     end
     length(columns) == column_count && length(rows) == row_count &&

@@ -1,4 +1,44 @@
 using SparseArrays
+using JSimplex.Logging
+
+function problem_stat_messages(problem; options=SolverOptions())
+    logger = Test.TestLogger(min_level=Logging.Info)
+    with_logger(logger) do
+        solve(problem; options)
+    end
+    return [record.message for record in logger.logs
+            if record.message isa AbstractString &&
+               (startswith(record.message, "Loaded problem:") ||
+                startswith(record.message, "After presolve:"))]
+end
+
+@testset "Problem statistics bracket presolve" begin
+    reduced = LinearProblem(sparse([1.0 0.0; 0.0 0.0]), [1.0, 2.0];
+                            row_lower=[1.0, nothing],
+                            column_lower=[0.0, 3.0],
+                            column_upper=[nothing, 3.0])
+    @test problem_stat_messages(reduced) == [
+        "Loaded problem: rows=2 columns=2 nnz=1",
+        "After presolve: rows=1 columns=1 nnz=1",
+    ]
+
+    unchanged = LinearProblem(sparse([1.0;;]), [1.0]; row_lower=[1.0])
+    @test problem_stat_messages(unchanged) == [
+        "Loaded problem: rows=1 columns=1 nnz=1",
+        "After presolve: rows=1 columns=1 nnz=1",
+    ]
+    @test isempty(problem_stat_messages(unchanged;
+        options=SolverOptions(verbose=false)))
+    @test problem_stat_messages(unchanged;
+        options=SolverOptions(time_limit=0.0)) ==
+          ["Loaded problem: rows=1 columns=1 nnz=1"]
+
+    infeasible = LinearProblem(spzeros(1, 1), [0.0]; row_lower=[1.0])
+    @test problem_stat_messages(infeasible) == [
+        "Loaded problem: rows=1 columns=1 nnz=0",
+        "After presolve: rows=0 columns=0 nnz=0",
+    ]
+end
 
 @testset "Presolve removes reversible structure" begin
     problem = LinearProblem(sparse([2.0 1.0 0.0; 0.0 0.0 0.0]),

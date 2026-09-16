@@ -40,8 +40,9 @@ end
 
 Configure numerical tolerances, completed-step and wall-clock limits, basis
 refactorization frequency, progress output, and the level used for Julia logging
-messages. With `verbose=true`, every completed basis refactorization emits an
-`Info`-level, single-line progress record containing the iteration count, original
+messages. With `verbose=true`, `solve` emits `Info`-level row, column, and NNZ
+counts at entry and after presolve. Every completed basis refactorization also
+emits a single-line progress record containing the iteration count, original
 objective value, primal and dual infeasibility sums and counts, and elapsed time.
 `SolverOptions(T; ...)` stores tolerances in the supported floating or rational
 type `T`. Floating defaults are `T(1 // 10^7)` for primal/dual tolerances and

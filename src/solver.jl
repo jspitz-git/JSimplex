@@ -7,6 +7,21 @@ elapsed_seconds(context::SolveContext) = (time_ns() - context.start_ns) / 1.0e9
 time_limit_reached(context::SolveContext) =
     elapsed_seconds(context) >= context.time_limit_seconds
 
+function _report_problem_statistics(stage::AbstractString, problem::LinearProblem,
+                                    options::SolverOptions)
+    options.verbose || return nothing
+    rows, columns = size(problem.A)
+    nonzeros = count(value -> !iszero(value), problem.A.nzval)
+    return _report_problem_statistics(stage, rows, columns, nonzeros, options)
+end
+
+function _report_problem_statistics(stage::AbstractString, rows::Int, columns::Int,
+                                    nonzeros::Int, options::SolverOptions)
+    options.verbose || return nothing
+    @info string(stage, ": rows=", rows, " columns=", columns, " nnz=", nonzeros)
+    return nothing
+end
+
 function _finish_solve(::Type{T}, context::SolveContext, options::SolverOptions{T},
                        status::TerminationStatus, message::String;
                        primal=nothing, objective_value=nothing,
@@ -184,6 +199,7 @@ function solve(problem::LinearProblem{T}; relax_integrality::Bool=false,
     typed_options = options === nothing ? SolverOptions(T) : SolverOptions(T, options)
     context = SolveContext(start_ns, typed_options.time_limit)
     @logmsg typed_options.log_level "Starting solve" name=problem.name algorithm=typed_options.algorithm
+    _report_problem_statistics("Loaded problem", problem, typed_options)
     time_limit_reached(context) &&
         return _finish_solve(T, context, typed_options, TIME_LIMIT, "time limit reached")
     typed_options.algorithm in (:dual, :primal) ||
@@ -200,6 +216,12 @@ function solve(problem::LinearProblem{T}; relax_integrality::Bool=false,
     # mutate the working model. Keep this original-space LP for certification.
     continuous_problem = JSimplex.relax_integrality(problem)
     presolved = presolve_problem(continuous_problem)
+    if presolved isa PresolveFailure
+        _report_problem_statistics("After presolve", presolved.rows, presolved.columns,
+                                   presolved.nonzeros, typed_options)
+    else
+        _report_problem_statistics("After presolve", presolved.problem, typed_options)
+    end
     time_limit_reached(context) &&
         return _finish_solve(T, context, typed_options, TIME_LIMIT, "time limit reached")
     presolved isa PresolveFailure &&

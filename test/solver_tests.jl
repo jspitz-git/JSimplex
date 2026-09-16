@@ -375,12 +375,12 @@ end
 @testset "Logging follows the requested level and reports refactorizations" begin
     problem = LinearProblem(sparse([1.0 0.0; -1.0 1.0]), [1.0, 1.0];
         row_lower=[1.0, 1.0])
-    @test_logs min_level=Logging.Info solve(problem)
-    @test_logs (:info, "Starting solve") (:info, "Refactorizing basis") (:info, r"^iter=") (:info, "Refactorizing basis") (:info, r"^iter=") (:info, "Solve terminated") begin
+    @test_logs (:info, "Loaded problem: rows=2 columns=2 nnz=3") (:info, "After presolve: rows=2 columns=2 nnz=3") min_level=Logging.Info solve(problem)
+    @test_logs (:info, "Starting solve") (:info, "Loaded problem: rows=2 columns=2 nnz=3") (:info, "After presolve: rows=2 columns=2 nnz=3") (:info, "Refactorizing basis") (:info, r"^iter=") (:info, "Refactorizing basis") (:info, r"^iter=") (:info, "Solve terminated") begin
         solve(problem; options=SolverOptions(log_level=Logging.Info, refactorization_interval=1))
     end
-    @test_logs (:debug, "Starting solve") (:debug, "Solve terminated") min_level=Logging.Debug solve(problem)
-    @test_logs (:info, "Starting solve") (:info, "Solve terminated") solve(problem;
+    @test_logs (:debug, "Starting solve") (:info, "Loaded problem: rows=2 columns=2 nnz=3") (:info, "After presolve: rows=2 columns=2 nnz=3") (:debug, "Solve terminated") min_level=Logging.Debug solve(problem)
+    @test_logs (:info, "Starting solve") (:info, "Loaded problem: rows=2 columns=2 nnz=3") (:info, "Solve terminated") solve(problem;
         options=SolverOptions(log_level=Logging.Info, time_limit=0.0))
 end
 
