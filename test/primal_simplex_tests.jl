@@ -12,6 +12,18 @@ using JSimplex.SparseArrays
     end
 end
 
+@testset "Primal phase I reports progress with original objective size" begin
+    problem = LinearProblem(sparse([1.0;;]), [2.0];
+                            row_lower=[1.0], objective_constant=4.0)
+    options = SolverOptions(; algorithm=:primal, basis_update=:suhl_suhl,
+                             refactorization_interval=1)
+    result = JSimplex.Logging.with_logger(JSimplex.Logging.NullLogger()) do
+        solve(problem; options)
+    end
+    @test result.status == OPTIMAL
+    @test result.objective_value == 6.0
+end
+
 @testset "Primal phase I and phase II across scalar types" begin
     for T in (Float32, Float64, BigFloat, Rational{BigInt})
         options = SolverOptions(T; algorithm=:primal, verbose=false)

@@ -333,10 +333,9 @@ end
 
 function _report_simplex_progress(workspace::SimplexWorkspace, caller_guard)
     workspace.options.verbose || return nothing
-    column_count = size(workspace.problem.A, 2)
     context = workspace.progress
     objective_value = _progress_objective_value(
-        context, @view(workspace.primal[1:column_count]),
+        context, @view(workspace.primal[1:length(context.objective)]),
     )
     primal_sum, primal_count = primal_infeasibility_summary(workspace)
     dual_sum, dual_count = dual_infeasibility_summary(workspace)
