@@ -135,14 +135,17 @@ function solve(problem::LinearProblem{T}; relax_integrality::Bool=false,
     # mutate the working model. Keep this original-space LP for certification.
     continuous_problem = JSimplex.relax_integrality(problem)
     presolved = identity_presolve(continuous_problem)
-    scaling = identity_scaling(presolved.problem)
-    working_problem = _minimization_problem(presolved.problem)
+    scaled_problem, scaling =
+        typed_options.scaling === :off || T <: Rational ?
+            (presolved.problem, identity_scaling(presolved.problem)) :
+            scale_problem(presolved.problem)
+    working_problem = _minimization_problem(scaled_problem)
     time_limit_reached(context) &&
         return _finish_solve(T, context, typed_options, TIME_LIMIT, "time limit reached")
 
     # The core converts expected internal numerical failures and preserves
     # callback exception provenance. Do not add a broader catch at this layer.
-    progress = SimplexProgressContext(problem; start_ns=context.start_ns)
+    progress = SimplexProgressContext(problem; start_ns=context.start_ns, scaling)
     algorithm = typed_options.algorithm == :dual ? _solve_continuous_dual : _solve_continuous_primal
     run = algorithm(
         working_problem,

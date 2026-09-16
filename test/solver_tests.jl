@@ -26,6 +26,27 @@ function test_public_solve_type(::Type{T}) where {T}
     end
 end
 
+@testset "Floating solves use reversible scaling by default" begin
+    problem = LinearProblem(sparse([8.0 2.0; 16.0 0.5]), [4.0, 1.0];
+        row_lower=[8.0, 16.0])
+    original = deepcopy(problem)
+    for algorithm in (:dual, :primal), mode in (:auto, :on, :off)
+        result = solve(problem;
+            options=SolverOptions(; algorithm, scaling=mode, verbose=false))
+        @test result.status == OPTIMAL
+        @test result.primal ≈ [1.0, 0.0]
+        @test result.objective_value ≈ 4.0
+    end
+    @test problem.A == original.A
+    @test problem.objective == original.objective
+    @test problem.row_lower == original.row_lower
+
+    tiny = LinearProblem(sparse(reshape([2.0^-30], 1, 1)), [1.0];
+        row_lower=[2.0^-30])
+    @test solve(tiny; options=SolverOptions(scaling=:on, verbose=false)).primal == [1.0]
+    @test solve(tiny; options=SolverOptions(scaling=:off, verbose=false)).primal == [0.0]
+end
+
 @testset "Selectable basis updates solve pivoting LPs" begin
     for (mode, Factorization) in ((:forrest_tomlin, JSimplex.ForrestTomlinFactorization),
                                   (:bartels_golub, JSimplex.BartelsGolubFactorization),

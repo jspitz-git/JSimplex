@@ -210,6 +210,22 @@ end
     )
 end
 
+@testset "Progress reports original objective after column scaling" begin
+    original = LinearProblem(JSimplex.SparseArrays.sparse([8.0 2.0]),
+        [4.0, 1.0]; objective_constant=3.0, row_lower=[8.0])
+    scaled, factors = JSimplex.scale_problem(original)
+    @test factors.column_factors == [1.0, 0.25]
+    context = JSimplex.SimplexProgressContext(original; scaling=factors)
+    workspace = JSimplex.initialize_workspace(scaled, SolverOptions(); progress=context)
+    workspace.primal[1:2] .= [0.0, 1.0]
+    records = Any[]
+    JSimplex.Logging.with_logger(RecordingSimplexLogger(records)) do
+        JSimplex._report_simplex_progress(workspace, nothing)
+    end
+    @test length(records) == 1
+    @test occursin("obj=7.0", only(records).message)
+end
+
 @testset "Progress objective preserves stored BigFloat cancellation" begin
     problem = setprecision(BigFloat, 256) do
         large = BigFloat(2)^200

@@ -36,6 +36,42 @@ import MathOptInterface as MOI
     @test MOI.get(optimizer, MOI.SimplexIterations()) >= 0
 end
 
+@testset "MOI scaling returns original-unit objective and constraint values" begin
+    source = MOI.Utilities.Model{Float64}()
+    x = MOI.add_variables(source, 2)
+    MOI.add_constraint(source, x[1], MOI.GreaterThan(0.0))
+    MOI.add_constraint(source, x[2], MOI.GreaterThan(0.0))
+    first_row = MOI.ScalarAffineFunction(
+        [MOI.ScalarAffineTerm(8.0, x[1]), MOI.ScalarAffineTerm(2.0, x[2])],
+        0.0,
+    )
+    second_row = MOI.ScalarAffineFunction(
+        [MOI.ScalarAffineTerm(16.0, x[1]), MOI.ScalarAffineTerm(0.5, x[2])],
+        0.0,
+    )
+    c1 = MOI.add_constraint(source, first_row, MOI.GreaterThan(8.0))
+    c2 = MOI.add_constraint(source, second_row, MOI.GreaterThan(16.0))
+    objective = MOI.ScalarAffineFunction(
+        [MOI.ScalarAffineTerm(4.0, x[1]), MOI.ScalarAffineTerm(1.0, x[2])],
+        3.0,
+    )
+    MOI.set(source, MOI.ObjectiveSense(), MOI.MIN_SENSE)
+    MOI.set(source, MOI.ObjectiveFunction{typeof(objective)}(), objective)
+
+    for mode in (:on, :off)
+        optimizer = JSimplex.Optimizer()
+        MOI.set(optimizer, MOI.RawOptimizerAttribute("scaling"), mode)
+        MOI.set(optimizer, MOI.Silent(), true)
+        index_map, _ = MOI.optimize!(optimizer, source)
+        @test MOI.get(optimizer, MOI.TerminationStatus()) == MOI.OPTIMAL
+        @test MOI.get(optimizer, MOI.ObjectiveValue()) ≈ 7.0
+        @test MOI.get(optimizer, MOI.VariablePrimal(), index_map[x[1]]) ≈ 1.0
+        @test MOI.get(optimizer, MOI.VariablePrimal(), index_map[x[2]]) ≈ 0.0
+        @test MOI.get(optimizer, MOI.ConstraintPrimal(), index_map[c1]) ≈ 8.0
+        @test MOI.get(optimizer, MOI.ConstraintPrimal(), index_map[c2]) ≈ 16.0
+    end
+end
+
 @testset "MOI BigFloat constraint primals preserve stored precision" begin
     source, x, fixed_constraint, fixed_value = setprecision(BigFloat, 256) do
         source = MOI.Utilities.Model{BigFloat}()
