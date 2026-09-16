@@ -1,10 +1,11 @@
-# Both updates maintain B = B₀ R⁻¹ U Q⁻¹. B₀ uses the same LU backend as PFI;
+# These updates maintain B = B₀ R⁻¹ U Q⁻¹. B₀ uses the same LU backend as PFI;
 # U starts as the identity and Q records the order of its columns. Each pivot
 # appends compact row operations to R, so solves need no temporary allocation.
 abstract type AbstractTriangularBasisFactorization{T<:Real} end
 
 _basis_factorization(B, ::Val{:forrest_tomlin}) = ForrestTomlinFactorization(B)
 _basis_factorization(B, ::Val{:bartels_golub}) = BartelsGolubFactorization(B)
+_basis_factorization(B, ::Val{:suhl_suhl}) = SuhlSuhlFactorization(B)
 
 struct PackedUpperColumn{T<:Real}
     indices::Vector{Int}
@@ -86,6 +87,13 @@ struct ForrestTomlinUpdate{T<:Real}
     multipliers::Vector{T}
 end
 
+struct SuhlSuhlUpdate{T<:Real}
+    pivot::Int
+    last::Int
+    indices::Vector{Int}
+    multipliers::Vector{T}
+end
+
 struct BartelsGolubStep{T<:Real}
     row::Int
     swapped::Bool
@@ -102,6 +110,16 @@ mutable struct ForrestTomlinFactorization{T<:Real,F} <: AbstractTriangularBasisF
     column_order::Vector{Int}
     positions::Vector{Int}
     updates::Vector{ForrestTomlinUpdate{T}}
+    work::Vector{T}
+    spike::Vector{T}
+end
+
+mutable struct SuhlSuhlFactorization{T<:Real,F} <: AbstractTriangularBasisFactorization{T}
+    base::F
+    upper::Vector{PackedUpperColumn{T}}
+    column_order::Vector{Int}
+    positions::Vector{Int}
+    updates::Vector{SuhlSuhlUpdate{T}}
     work::Vector{T}
     spike::Vector{T}
 end
@@ -125,6 +143,16 @@ function ForrestTomlinFactorization(B::AbstractMatrix{T}) where {T<:Real}
     return ForrestTomlinFactorization{T,typeof(base)}(
         base, _identity_upper(T, n), collect(1:n), collect(1:n),
         ForrestTomlinUpdate{T}[], zeros(T, n), zeros(T, n),
+    )
+end
+
+function SuhlSuhlFactorization(B::AbstractMatrix{T}) where {T<:Real}
+    _supported_value_type(T) || throw(ArgumentError("unsupported basis value type: $T"))
+    base = _factorize_basis(B)
+    n = _backend_dimension(base)
+    return SuhlSuhlFactorization{T,typeof(base)}(
+        base, _identity_upper(T, n), collect(1:n), collect(1:n),
+        SuhlSuhlUpdate{T}[], zeros(T, n), zeros(T, n),
     )
 end
 
@@ -164,6 +192,34 @@ end
 function _apply_transposed_row_update!(vector::Vector, update::ForrestTomlinUpdate)
     pivot = update.pivot
     last = length(vector)
+    bottom = vector[last]
+    for i in eachindex(update.indices)
+        vector[update.indices[i]] += update.multipliers[i] * bottom
+    end
+    for row in last:-1:(pivot + 1)
+        vector[row] = vector[row - 1]
+    end
+    vector[pivot] = bottom
+    return vector
+end
+
+function _apply_row_update!(vector::Vector, update::SuhlSuhlUpdate)
+    pivot = update.pivot
+    last = update.last
+    old = vector[pivot]
+    for row in pivot:(last - 1)
+        vector[row] = vector[row + 1]
+    end
+    vector[last] = old
+    for i in eachindex(update.indices)
+        vector[last] += update.multipliers[i] * vector[update.indices[i]]
+    end
+    return vector
+end
+
+function _apply_transposed_row_update!(vector::Vector, update::SuhlSuhlUpdate)
+    pivot = update.pivot
+    last = update.last
     bottom = vector[last]
     for i in eachindex(update.indices)
         vector[update.indices[i]] += update.multipliers[i] * bottom
@@ -307,21 +363,68 @@ function _prepare_spike!(factor::AbstractTriangularBasisFactorization{T},
     return position
 end
 
-function _rotate_columns!(factor::AbstractTriangularBasisFactorization, position::Int)
-    n = length(factor.column_order)
-    for column in position:(n - 1)
+function _rotate_columns!(factor::AbstractTriangularBasisFactorization,
+                          position::Int, last::Int=length(factor.column_order))
+    for column in position:(last - 1)
         factor.upper[column] = factor.upper[column + 1]
     end
-    factor.upper[n] = _packed_column(factor.spike)
+    factor.upper[last] = _packed_column(factor.spike)
     removed = factor.column_order[position]
-    for column in position:(n - 1)
+    for column in position:(last - 1)
         index = factor.column_order[column + 1]
         factor.column_order[column] = index
         factor.positions[index] = column
     end
-    factor.column_order[n] = removed
-    factor.positions[removed] = n
+    factor.column_order[last] = removed
+    factor.positions[removed] = last
     return nothing
+end
+
+function replace_column!(factor::SuhlSuhlFactorization{T},
+                         tableau_column::AbstractVector, pivot_row::Integer;
+                         zero_tolerance::Real=_is_exact(T) === Val(true) ? zero(T) :
+                                              _positive_tolerance(T, 1 // 10^12)) where {T}
+    position = _prepare_spike!(factor, tableau_column, pivot_row, zero_tolerance)
+    n = length(factor.upper)
+    last = n
+    while iszero(factor.spike[last])
+        last -= 1
+    end
+    _rotate_columns!(factor, position, last)
+
+    # Move the leaving row only as far as the spike reaches. Columns beyond
+    # that point stay in place, but their entry in the moved row may change.
+    for column in factor.upper
+        old = _upper_value(column, position)
+        iszero(old) || _set_upper_value!(column, position, zero(T))
+        start = searchsortedfirst(column.indices, position + 1)
+        for index in start:length(column.indices)
+            column.indices[index] > last && break
+            column.indices[index] -= 1
+        end
+        iszero(old) || _set_upper_value!(column, last, old)
+    end
+
+    indices = Int[]
+    multipliers = T[]
+    for column_index in position:(last - 1)
+        column = factor.upper[column_index]
+        multiplier = -(_upper_value(column, last) /
+                       _upper_value(column, column_index))
+        _set_upper_value!(column, last, zero(T))
+        iszero(multiplier) && continue
+        push!(indices, column_index)
+        push!(multipliers, multiplier)
+        for trailing in (column_index + 1):n
+            trailing_column = factor.upper[trailing]
+            value = _upper_value(trailing_column, column_index)
+            iszero(value) && continue
+            _set_upper_value!(trailing_column, last,
+                              _upper_value(trailing_column, last) + multiplier * value)
+        end
+    end
+    push!(factor.updates, SuhlSuhlUpdate{T}(position, last, indices, multipliers))
+    return factor
 end
 
 function replace_column!(factor::ForrestTomlinFactorization{T},
@@ -423,6 +526,7 @@ function replace_column!(factor::BartelsGolubFactorization{T},
 end
 
 _reset_row_scratch!(::ForrestTomlinFactorization, ::Int) = nothing
+_reset_row_scratch!(::SuhlSuhlFactorization, ::Int) = nothing
 
 function _reset_row_scratch!(factor::BartelsGolubFactorization, n::Int)
     old_length = length(factor.row_columns)
@@ -459,6 +563,15 @@ end
 
 function copy_basis_factorization(factor::ForrestTomlinFactorization{T,F}) where {T,F}
     return ForrestTomlinFactorization{T,F}(
+        factor.base, [PackedUpperColumn(copy(column.indices), copy(column.values))
+                      for column in factor.upper],
+        copy(factor.column_order), copy(factor.positions),
+        copy(factor.updates), similar(factor.work), similar(factor.spike),
+    )
+end
+
+function copy_basis_factorization(factor::SuhlSuhlFactorization{T,F}) where {T,F}
+    return SuhlSuhlFactorization{T,F}(
         factor.base, [PackedUpperColumn(copy(column.indices), copy(column.values))
                       for column in factor.upper],
         copy(factor.column_order), copy(factor.positions),

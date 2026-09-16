@@ -59,7 +59,8 @@ Only `algorithm=:dual` is implemented; other symbols return
 `pricing` selects dual steepest-edge (`:steepest_edge`), Devex (`:devex`), or
 Dantzig (`:dantzig`) pricing.
 `basis_update` selects product-form (`:pfi`), Forrest–Tomlin
-(`:forrest_tomlin`), or Bartels–Golub (`:bartels_golub`) basis updates.
+(`:forrest_tomlin`), Bartels–Golub (`:bartels_golub`), or Suhl–Suhl
+(`:suhl_suhl`) basis updates.
 
 ```julia
 using JSimplex
@@ -107,8 +108,10 @@ Base.@constprop :aggressive function SolverOptions(::Type{T};
         return _validated_options(T, Val(:forrest_tomlin), arguments...)
     elseif basis_update === :bartels_golub
         return _validated_options(T, Val(:bartels_golub), arguments...)
+    elseif basis_update === :suhl_suhl
+        return _validated_options(T, Val(:suhl_suhl), arguments...)
     end
-    throw(ArgumentError("basis_update must be :pfi, :forrest_tomlin, or :bartels_golub"))
+    throw(ArgumentError("basis_update must be :pfi, :forrest_tomlin, :bartels_golub, or :suhl_suhl"))
 end
 
 function _validated_options(::Type{T}, ::Val{M}, primal_tolerance, dual_tolerance,

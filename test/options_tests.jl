@@ -60,6 +60,8 @@ end
     @test SolverOptions(Float32, SolverOptions(pricing=:devex)).pricing == :devex
     @test SolverOptions(Float32, SolverOptions(basis_update=:forrest_tomlin)).basis_update ==
           :forrest_tomlin
+    @test SolverOptions(Float32, SolverOptions(basis_update=:suhl_suhl)).basis_update ==
+          :suhl_suhl
     @test_throws ArgumentError SolverOptions(Int)
     for T in (ComplexF64, String)
         @test_throws ArgumentError SolverOptions(T)

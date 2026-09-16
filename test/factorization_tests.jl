@@ -197,7 +197,8 @@ end
 
 @testset "Triangular basis updates match refactorization" begin
     for Factorization in (JSimplex.ForrestTomlinFactorization,
-                          JSimplex.BartelsGolubFactorization)
+                          JSimplex.BartelsGolubFactorization,
+                          JSimplex.SuhlSuhlFactorization)
         for T in (Float32, Float64, BigFloat, Rational{BigInt})
             B = T[2 0 1 0; 1 3 0 0; 0 1 2 1; 0 0 1 2]
             factor = Factorization(JSimplex.SparseArrays.sparse(B))
@@ -232,7 +233,8 @@ end
 
 @testset "Triangular basis updates validate pivots and dimensions" begin
     for Factorization in (JSimplex.ForrestTomlinFactorization,
-                          JSimplex.BartelsGolubFactorization)
+                          JSimplex.BartelsGolubFactorization,
+                          JSimplex.SuhlSuhlFactorization)
         factor = Factorization([2.0 0.0; 0.0 3.0])
         @test_throws JSimplex.LinearAlgebra.ZeroPivotException JSimplex.replace_column!(
             factor, [1.0, 0.0], 2,
@@ -246,7 +248,8 @@ end
 
 @testset "Triangular basis solves reuse scratch" begin
     for Factorization in (JSimplex.ForrestTomlinFactorization,
-                          JSimplex.BartelsGolubFactorization)
+                          JSimplex.BartelsGolubFactorization,
+                          JSimplex.SuhlSuhlFactorization)
         factor = Factorization(JSimplex.SparseArrays.spdiagm(0 => ones(64)))
         JSimplex.replace_column!(factor, [1.0; ones(63)], 1)
         rhs = ones(64)
@@ -261,7 +264,8 @@ end
 @testset "Triangular factors keep an identity basis sparse" begin
     basis = JSimplex.SparseArrays.spdiagm(0 => ones(512))
     for Factorization in (JSimplex.ForrestTomlinFactorization,
-                          JSimplex.BartelsGolubFactorization)
+                          JSimplex.BartelsGolubFactorization,
+                          JSimplex.SuhlSuhlFactorization)
         factor = Factorization(basis)
         @test Base.summarysize(factor.upper) < 150_000
         tableau = zeros(512)
@@ -277,7 +281,8 @@ end
     tableau = zeros(512)
     tableau[1] = 1.0
     for Factorization in (JSimplex.ForrestTomlinFactorization,
-                          JSimplex.BartelsGolubFactorization)
+                          JSimplex.BartelsGolubFactorization,
+                          JSimplex.SuhlSuhlFactorization)
         factor = Factorization(basis)
         JSimplex.replace_column!(factor, tableau, 1)
         @test (@allocated JSimplex.replace_column!(factor, tableau, 1)) <= 1_024
@@ -296,7 +301,8 @@ end
                (1, T[3, 0, 0, 1, -1]))
     rhs = T[2, -1, 4, 0, 3]
     for Factorization in (JSimplex.ForrestTomlinFactorization,
-                          JSimplex.BartelsGolubFactorization)
+                          JSimplex.BartelsGolubFactorization,
+                          JSimplex.SuhlSuhlFactorization)
         B = Matrix{T}(JSimplex.LinearAlgebra.I, 5, 5)
         factor = Factorization(JSimplex.SparseArrays.sparse(B))
         for (leaving, tableau) in updates
@@ -311,7 +317,8 @@ end
 
 @testset "Triangular transpose solve accepts internal scratch as RHS" begin
     for Factorization in (JSimplex.ForrestTomlinFactorization,
-                          JSimplex.BartelsGolubFactorization)
+                          JSimplex.BartelsGolubFactorization,
+                          JSimplex.SuhlSuhlFactorization)
         factor = Factorization([1.0 0.0; 0.0 1.0])
         JSimplex.replace_column!(factor, [2.0, 3.0], 1)
         factor.work .= [1.0, 2.0]
@@ -319,4 +326,13 @@ end
         JSimplex.transpose_solve!(destination, factor, factor.work)
         @test destination ≈ [-2.5, 2.0]
     end
+end
+
+@testset "Suhl-Suhl stops rotation at the spike's last nonzero" begin
+    factor = JSimplex.SuhlSuhlFactorization(JSimplex.SparseArrays.spdiagm(0 => ones(5)))
+    JSimplex.replace_column!(factor, [2.0, 0.0, 3.0, 0.0, 0.0], 1)
+    @test factor.column_order == [2, 3, 1, 4, 5]
+    @test factor.updates[1].last == 3
+    @test JSimplex.forward_solve(factor, ones(5)) ≈ [0.5, 1.0, -0.5, 1.0, 1.0]
+    @test JSimplex.transpose_solve(factor, ones(5)) ≈ [-1.0, 1.0, 1.0, 1.0, 1.0]
 end

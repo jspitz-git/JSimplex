@@ -28,7 +28,8 @@ end
 
 @testset "Selectable basis updates solve pivoting LPs" begin
     for (mode, Factorization) in ((:forrest_tomlin, JSimplex.ForrestTomlinFactorization),
-                                  (:bartels_golub, JSimplex.BartelsGolubFactorization))
+                                  (:bartels_golub, JSimplex.BartelsGolubFactorization),
+                                  (:suhl_suhl, JSimplex.SuhlSuhlFactorization))
         for T in (Float32, Float64, BigFloat, Rational{BigInt})
             options = SolverOptions(T; basis_update=mode, refactorization_interval=3,
                                     verbose=false)

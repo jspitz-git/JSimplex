@@ -260,12 +260,15 @@ for `SolverOptions(Float64)`. Floating types use these keyword defaults:
 | `log_level` | `Logging.Debug` | Level emitted through Julia's logging system |
 | `algorithm` | `:dual` | Only implemented algorithm |
 | `pricing` | `:steepest_edge` | Dual pricing rule: `:steepest_edge`, `:devex`, or `:dantzig` |
-| `basis_update` | `:pfi` | Basis update: `:pfi`, `:forrest_tomlin`, or `:bartels_golub` |
+| `basis_update` | `:pfi` | Basis update: `:pfi`, `:forrest_tomlin`, `:bartels_golub`, or `:suhl_suhl` |
 
 Forrest–Tomlin maintains a sparse upper factor without row swaps during an
 update. Bartels–Golub may swap adjacent rows to choose a larger elimination
-pivot. Both reuse solve buffers and store updated factors in packed sparse
-columns. The `refactorization_interval` applies to all three update methods.
+pivot. Suhl–Suhl moves the leaving row and column only to the last nonzero
+position of the entering spike, reducing fill when the spike ends early. All
+three triangular methods reuse solve buffers and store updated factors in
+packed sparse columns. The `refactorization_interval` applies to all four
+update methods.
 
 Floating tolerances are evaluated in `T`; a positive default that rounds to zero
 is clamped to `nextfloat(zero(T))`. Rational primal, dual, and zero tolerance
