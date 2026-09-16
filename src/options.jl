@@ -21,12 +21,12 @@ end
 @doc "An optimal LP solution is available." OPTIMAL
 @doc "The LP was classified as infeasible." INFEASIBLE
 @doc "The LP objective was classified as unbounded." UNBOUNDED
-@doc "The completed-pivot limit was reached." ITERATION_LIMIT
+@doc "The completed-simplex-step limit was reached." ITERATION_LIMIT
 @doc "The wall-clock deadline was reached." TIME_LIMIT
 @doc "A numerical failure prevented a reliable solution." NUMERICAL_ERROR
 @doc "The supplied model failed validation at solve time." INVALID_MODEL
 @doc "A non-continuous model requires explicit LP relaxation." MIP_NOT_SUPPORTED
-@doc "The requested algorithm is not implemented; use `:dual`." ALGORITHM_NOT_SUPPORTED
+@doc "The requested algorithm is not implemented; use `:dual` or `:primal`." ALGORITHM_NOT_SUPPORTED
 
 """
     SolverOptions(::Type{T}; primal_tolerance=nothing, dual_tolerance=nothing,
@@ -38,7 +38,7 @@ end
     SolverOptions(; kwargs...)  # Float64 defaults
     SolverOptions(T, options::SolverOptions)
 
-Configure numerical tolerances, completed-pivot and wall-clock limits, basis
+Configure numerical tolerances, completed-step and wall-clock limits, basis
 refactorization frequency, progress output, and the level used for Julia logging
 messages. With `verbose=true`, every completed basis refactorization emits an
 `Info`-level, single-line progress record containing the iteration count, original
@@ -55,10 +55,11 @@ Floating-point tolerances and the refactorization interval must be positive;
 rational tolerances must be nonnegative. Tolerances must be finite.
 Limits must be nonnegative. `time_limit` remains `Float64` seconds and `Inf`
 disables the deadline; iteration/refactorization limits remain `Int`.
-Only `algorithm=:dual` is implemented; other symbols return
+`algorithm=:dual` and `algorithm=:primal` are implemented; other symbols return
 `ALGORITHM_NOT_SUPPORTED` from [`solve`](@ref).
 `pricing` selects dual steepest-edge (`:steepest_edge`), Devex (`:devex`), or
-Dantzig (`:dantzig`) pricing.
+Dantzig (`:dantzig`) pricing. The initial primal implementation uses Dantzig
+pricing for every `pricing` value; primal pricing choices will be added later.
 `basis_update` selects product-form (`:pfi`), Forrest–Tomlin
 (`:forrest_tomlin`), Bartels–Golub (`:bartels_golub`), or Suhl–Suhl
 (`:suhl_suhl`) basis updates.
@@ -179,7 +180,8 @@ SolverOptions(::Type{T}, options::SolverOptions{S,M,R}) where {T,S,M,R} =
 """
     SolveStatistics(; iterations=0, elapsed_seconds=0.0, refactorizations=0)
 
-Solve counters retained for every termination status: completed simplex pivots,
+Solve counters retained for every termination status: completed simplex steps
+(basis pivots or primal bound flips),
 elapsed wall-clock time in seconds, and full basis factorizations. Counters are
 `Int` and `elapsed_seconds` is `Float64`, independent of model arithmetic.
 """

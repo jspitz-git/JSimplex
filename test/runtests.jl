@@ -12,6 +12,7 @@ using Test
     include("markowitz_tests.jl")
     include("simplex_workspace_tests.jl")
     include("dual_simplex_tests.jl")
+    include("primal_simplex_tests.jl")
     include("solver_tests.jl")
     include("bigfloat_integrity_tests.jl")
     include("regression_tests.jl")

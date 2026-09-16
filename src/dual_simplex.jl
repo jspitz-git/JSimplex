@@ -794,7 +794,11 @@ end
 function _recession_direction_status(workspace::SimplexWorkspace{T},
                                      auxiliary::SimplexWorkspace{T}) where {T}
     column_count = size(workspace.problem.A, 2)
-    structural = auxiliary.primal[1:column_count]
+    return _recession_direction_status(workspace, auxiliary.primal[1:column_count])
+end
+
+function _recession_direction_status(workspace::SimplexWorkspace{T},
+                                     structural::Vector{T}) where {T}
     row_lower, row_upper = _recession_row_bounds(workspace.problem.A, structural, _is_exact(T))
     lower, upper = vcat(structural, row_lower), vcat(structural, row_upper)
     all(isfinite, lower) && all(isfinite, upper) || return :invalid

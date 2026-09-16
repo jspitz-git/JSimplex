@@ -65,7 +65,8 @@ end
 """
     solve(problem::LinearProblem{T}; relax_integrality=false, options=nothing)::Solution{T}
 
-Solve an LP using dual simplex. Discrete domains require explicit LP relaxation;
+Solve an LP using dual simplex by default, or primal simplex with
+`SolverOptions(algorithm=:primal)`. Discrete domains require explicit LP relaxation;
 the input model remains unchanged. Only optimal results contain a primal vector
 and objective value, expressed in the original structural variables and sense.
 Every status returns `Solution{T}`, with objective data in `Union{Nothing,T}`
@@ -90,13 +91,14 @@ An inconclusive objective evaluation returns `NUMERICAL_ERROR`.
 
 Without relaxation, any non-continuous domain returns `MIP_NOT_SUPPORTED`.
 With relaxation, integer/binary domains retain their bounds and semi domains
-use the convex hull of zero and their active interval. Only `algorithm=:dual`
-is supported. Inspect `solution.status`, `solution.message`, and
+use the convex hull of zero and their active interval. Supported algorithms are
+`:dual` and `:primal`. Inspect `solution.status`, `solution.message`, and
 `solution.statistics` for termination details; non-optimal results have
 `nothing` for both `primal` and `objective_value`.
 
 The monotonic time limit starts at entry; an expired deadline takes precedence
-over algorithm selection and validation. Iteration limits count completed pivots.
+over algorithm selection and validation. Iteration limits count completed
+simplex steps, including primal bound flips.
 Time limits and elapsed seconds remain `Float64`; counters remain `Int`.
 Deadline checks do not interrupt an in-progress numerical operation.
 
@@ -119,9 +121,9 @@ function solve(problem::LinearProblem{T}; relax_integrality::Bool=false,
     @logmsg typed_options.log_level "Starting solve" name=problem.name algorithm=typed_options.algorithm
     time_limit_reached(context) &&
         return _finish_solve(T, context, typed_options, TIME_LIMIT, "time limit reached")
-    typed_options.algorithm == :dual ||
+    typed_options.algorithm in (:dual, :primal) ||
         return _finish_solve(T, context, typed_options, ALGORITHM_NOT_SUPPORTED,
-                             "only the dual simplex algorithm is supported")
+                             "only the dual and primal simplex algorithms are supported")
     error = _validation_error(problem)
     isnothing(error) || return _finish_solve(T, context, typed_options, INVALID_MODEL, error)
     if !relax_integrality && !is_continuous(problem)
@@ -141,7 +143,8 @@ function solve(problem::LinearProblem{T}; relax_integrality::Bool=false,
     # The core converts expected internal numerical failures and preserves
     # callback exception provenance. Do not add a broader catch at this layer.
     progress = SimplexProgressContext(problem; start_ns=context.start_ns)
-    run = _solve_continuous_dual(
+    algorithm = typed_options.algorithm == :dual ? _solve_continuous_dual : _solve_continuous_primal
+    run = algorithm(
         working_problem,
         typed_options;
         stop_requested=() -> time_limit_reached(context),

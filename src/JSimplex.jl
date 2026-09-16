@@ -14,6 +14,7 @@ include("markowitz_factorization.jl")
 include("triangular_factorization.jl")
 include("simplex.jl")
 include("dual_simplex.jl")
+include("primal_simplex.jl")
 include("solver.jl")
 include("moi.jl")
 

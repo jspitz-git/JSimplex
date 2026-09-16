@@ -62,7 +62,7 @@ function test_typed_statuses(::Type{T}) where {T}
         (pivoting, SolverOptions(T; iteration_limit=0), ITERATION_LIMIT),
         (pivoting, SolverOptions(T; time_limit=0.0), TIME_LIMIT),
         (discrete, nothing, MIP_NOT_SUPPORTED),
-        (pivoting, SolverOptions(T; algorithm=:primal), ALGORITHM_NOT_SUPPORTED),
+        (pivoting, SolverOptions(T; algorithm=:auto), ALGORITHM_NOT_SUPPORTED),
         (invalid, nothing, INVALID_MODEL),
         (numerical, SolverOptions(T; zero_tolerance=T(2)), NUMERICAL_ERROR),
     )
@@ -197,6 +197,20 @@ end
     end
 end
 
+@testset "Primal phase I preserves caller logger exceptions" begin
+    problem = LinearProblem(sparse([1.0;;]), [1.0]; row_lower=[1.0])
+    exception = SingularException(7)
+    caught = try
+        with_logger(ThrowingSolverLogger("Refactorizing basis", exception)) do
+            solve(problem; options=SolverOptions(algorithm=:primal))
+        end
+        nothing
+    catch error
+        error
+    end
+    @test caught === exception
+end
+
 @testset "Public solve returns owned structural values and original objective" begin
     problem = LinearProblem(sparse([1.0 1.0]), [1.0, 2.0];
         row_lower=[1.0], objective_constant=7.0, name="public-api",
@@ -276,7 +290,7 @@ end
     invalid_dimensions = deepcopy(valid)
     empty!(invalid_dimensions.objective)
     @test solve(invalid_dimensions).status == INVALID_MODEL
-    for algorithm in (:primal, :auto, :unknown)
+    for algorithm in (:auto, :unknown)
         result = solve(invalid_dimensions; options=SolverOptions(algorithm=algorithm))
         @test result.status == ALGORITHM_NOT_SUPPORTED
         @test isnothing(result.primal)

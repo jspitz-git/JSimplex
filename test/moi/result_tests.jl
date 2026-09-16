@@ -213,6 +213,17 @@ end
     end
 end
 
+@testset "MOI primal algorithm solves the translated LP" begin
+    optimizer = JSimplex.Optimizer()
+    MOI.set(optimizer, MOI.Silent(), true)
+    MOI.set(optimizer, MOI.RawOptimizerAttribute("algorithm"), :primal)
+    _, copied = MOI.optimize!(optimizer, _moi_pivot_model())
+    @test !copied
+    @test MOI.get(optimizer, MOI.TerminationStatus()) == MOI.OPTIMAL
+    @test MOI.get(optimizer, MOI.ObjectiveValue()) == 3.0
+    @test MOI.get(optimizer, MOI.SimplexIterations()) >= 2
+end
+
 function _moi_row_model()
     source = MOI.Utilities.Model{Float64}()
     x = MOI.add_variable(source)
@@ -299,7 +310,7 @@ end
         (invalid, JSimplex.Optimizer(), MOI.INVALID_MODEL),
         (_moi_result_model(integer=true), JSimplex.Optimizer(), MOI.OTHER_ERROR),
         (_moi_result_model(), JSimplex.Optimizer(), MOI.INVALID_OPTION,
-         "algorithm", :primal),
+         "algorithm", :auto),
     )
     for case in cases
         source, optimizer, expected = case[1:3]

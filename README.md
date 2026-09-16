@@ -1,12 +1,15 @@
 # JSimplex.jl
 
-JSimplex is a proof-of-concept dual simplex solver for linear programming in
-Julia 1.13. It includes a native fixed/free MPS reader and preserves integer and
-semi-continuous variable domains for explicit LP relaxation. It is experimental:
+JSimplex is a proof-of-concept solver for linear programming in Julia 1.13.
+It supports dual and primal simplex and includes a native fixed/free MPS reader.
+Integer and semi-continuous domains are preserved for explicit LP relaxation.
+It is experimental:
 correctness, numerical robustness, and performance are not guaranteed for general
 models. Use an established solver for production optimization.
 
-The numerical core includes bound flipping during dual ratio testing, a
+The primal algorithm uses an auxiliary phase I to find a feasible basis,
+followed by Dantzig pricing and a basic minimum ratio test in phase II.
+The dual algorithm includes bound flipping during ratio testing, a
 two-pass Harris fallback, selectable dual steepest-edge, Devex, and Dantzig
 pricing, cost shifting, LU factorization, and
 selectable product-form, Forrest–Tomlin, and Bartels–Golub basis updates.
@@ -125,9 +128,10 @@ Use the standard JuMP attributes `set_silent(model)` (MOI `Silent`) and
 wall-clock limit. The stable JSimplex raw optimizer attribute names are
 `relax_integrality`, `iteration_limit`, `primal_tolerance`, `dual_tolerance`,
 `zero_tolerance`, `refactorization_interval`, `verbose`, `algorithm`,
-`pricing`, `basis_update`, and `basis_refactorization`. The only current
-algorithm value is `:dual`; pricing accepts `:steepest_edge`, `:devex`, or
-`:dantzig`.
+`pricing`, `basis_update`, and `basis_refactorization`. Algorithm values are
+`:dual` (default) and `:primal`; pricing accepts `:steepest_edge`, `:devex`, or
+`:dantzig`. The initial primal algorithm uses Dantzig pricing regardless of the
+`pricing` value.
 
 ```julia
 set_optimizer_attribute(model, "relax_integrality", true)
@@ -257,13 +261,13 @@ for `SolverOptions(Float64)`. Floating types use these keyword defaults:
 | `primal_tolerance` | `1e-7` | Primal feasibility tolerance |
 | `dual_tolerance` | `1e-7` | Dual feasibility tolerance |
 | `zero_tolerance` | `1e-12` | Numerical zero threshold |
-| `iteration_limit` | `100_000` | Maximum completed simplex pivots |
+| `iteration_limit` | `100_000` | Maximum completed simplex steps (pivots or primal bound flips) |
 | `time_limit` | `Inf` | Wall-clock seconds; `Inf` disables the deadline |
 | `refactorization_interval` | `20` | Basis update interval before full factorization |
 | `verbose` | `true` | Emit an `Info`-level progress record after every basis refactorization |
 | `log_level` | `Logging.Debug` | Level emitted through Julia's logging system |
-| `algorithm` | `:dual` | Only implemented algorithm |
-| `pricing` | `:steepest_edge` | Dual pricing rule: `:steepest_edge`, `:devex`, or `:dantzig` |
+| `algorithm` | `:dual` | `:dual` or `:primal` |
+| `pricing` | `:steepest_edge` | Dual pricing rule: `:steepest_edge`, `:devex`, or `:dantzig`; primal currently uses Dantzig |
 | `basis_update` | `:pfi` | Basis update: `:pfi`, `:forrest_tomlin`, `:bartels_golub`, or `:suhl_suhl` |
 | `basis_refactorization` | `:native` | Full factorization: `:native` or `:markowitz` |
 
@@ -313,7 +317,7 @@ type; iteration and refactorization counters remain `Int`.
 A zero time limit returns `TIME_LIMIT` immediately. Deadline checks
 use a monotonic clock; they do not interrupt an in-progress numerical operation.
 The deadline starts when `solve` is called and is checked before algorithm/model
-validation. Algorithms such as `:primal` and `:auto` return
+validation. Algorithms such as `:auto` return
 `ALGORITHM_NOT_SUPPORTED`.
 
 With `verbose=true`, each completed basis refactorization emits a
@@ -500,9 +504,11 @@ checksum mismatches produce actionable errors.
 
 ## Limitations and extension points
 
-Only dual simplex is implemented. Presolve and scaling currently apply identity
-transformations. A basic one-shot MOI/JuMP adapter is available, but there is no
-primal simplex, effective presolve, non-identity scaling, public warm-start API,
+Dual and primal simplex are implemented. Presolve and scaling currently apply
+identity transformations. A basic one-shot MOI/JuMP adapter is available.
+Missing features include primal steepest-edge or Devex pricing, an advanced
+primal ratio test, effective
+presolve, non-identity scaling, public warm-start API,
 native incremental optimizer modification, MIP algorithm, or support for
 quadratic, SOS, or indicator models. Difficult or ill-conditioned models may
 terminate with `NUMERICAL_ERROR` or a resource limit.
