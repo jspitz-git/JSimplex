@@ -23,13 +23,14 @@ function reduce_parallel_rows(problem::LinearProblem{T}) where {T}
     m, n = size(problem.A)
     entries = _row_entries(problem.A)
     keep = trues(m)
-    groups = Dict{Tuple,Vector{Int}}()
+    # Long tuple keys cause excessive compilation for rows with thousands of entries.
+    groups = Dict{Vector{Tuple{Int,ExactValue}},Vector{Int}}()
     intervals = Vector{Tuple{ExactEndpoint,ExactEndpoint}}(undef, m)
     for row in 1:m
         isempty(entries[row]) && continue
         pivot = _exact_rational(first(entries[row])[2])
-        signature = Tuple((column, _exact_rational(value) / pivot)
-                          for (column, value) in entries[row])
+        signature = Tuple{Int,ExactValue}[(column, _exact_rational(value) / pivot)
+                                          for (column, value) in entries[row]]
         current = _normalized_interval(problem, row, pivot)
         intervals[row] = current
         representatives = get!(groups, signature, Int[])
