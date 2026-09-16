@@ -246,7 +246,7 @@ function solve(problem::LinearProblem{T}; relax_integrality::Bool=false,
     )
     reduced = !isempty(presolved.postsolve_stack)
     retried_original = false
-    if reduced && run.status in (INFEASIBLE, UNBOUNDED)
+    if reduced && run.status in (INFEASIBLE, UNBOUNDED, NUMERICAL_ERROR)
         run = _retry_original(continuous_problem, typed_options, context, run)
         retried_original = true
     end

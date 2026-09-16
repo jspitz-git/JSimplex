@@ -551,6 +551,9 @@ Dual and primal simplex are implemented. Presolve removes fixed columns, empty
 columns with a finite optimal bound, empty and singleton rows, dominated
 proportional rows, and linearly dependent rows whose bounds are implied by
 retained rows. It can also substitute a free variable from a two-term equality.
+Multi-term rows propagate implied column bounds and rows implied by column
+bounds are removed. Presolve repeats its reductions until a round makes no
+change, with a limit of 12 rounds.
 Every transformed finite value must be exactly representable in the model's
 scalar type; otherwise that reduction is skipped. General rational row
 elimination is limited to 256 rows, 10,000 nonzeros, and 200,000 sparse

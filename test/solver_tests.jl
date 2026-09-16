@@ -70,7 +70,8 @@ function test_typed_statuses(::Type{T}) where {T}
     infeasible = LinearProblem(sparse(reshape(T[1], 1, 1)), T[1];
                                row_lower=T[2], column_upper=T[1])
     unbounded = LinearProblem(spzeros(T, 0, 1), T[1]; objective_sense=MAX_SENSE)
-    pivoting = LinearProblem(sparse(T[1 1; -1 1]), T[1, 2]; row_lower=T[3, 1])
+    pivoting = LinearProblem(sparse(T[1 1; -1 1]), T[1, 2];
+                             row_lower=T[3, 1], column_lower=T[0, 1])
     discrete = LinearProblem(spzeros(T, 0, 1), T[-1];
                              column_upper=T[1], variable_domains=[INTEGER])
     numerical = LinearProblem(sparse(T[1 1]), T[1, 1]; row_lower=T[1])
@@ -120,8 +121,8 @@ end
     solve(problem; options)
     allocated = @allocated solve(problem; options)
 
-    # The exact dependency pass builds rational sparse rows for this model.
-    @test allocated <= 800_000
+    # Repeated exact dependency and bound passes build rational sparse rows.
+    @test allocated <= 2_200_000
 end
 
 @testset "Binary relaxation clips caller-mutated bounds" begin
@@ -323,8 +324,8 @@ end
 end
 
 @testset "Time limits take precedence and iteration limits count completed pivots" begin
-    problem = LinearProblem(sparse([1.0 1.0; -1.0 1.0]), [1.0, 1.0];
-        row_lower=[1.0, 1.0])
+    problem = LinearProblem(sparse([1.0 1.0; 1.0 -1.0]), [2.0, 1.0];
+        row_lower=[3.0, 1.0], column_lower=[1.0, 0.0])
     invalid = deepcopy(problem)
     empty!(invalid.objective)
     discrete = LinearProblem(spzeros(0, 1), [1.0]; variable_domains=[INTEGER])
@@ -375,8 +376,8 @@ end
 end
 
 @testset "Logging follows the requested level and reports refactorizations" begin
-    problem = LinearProblem(sparse([1.0 1.0; -1.0 1.0]), [1.0, 1.0];
-        row_lower=[1.0, 1.0])
+    problem = LinearProblem(sparse([1.0 1.0; 1.0 -1.0]), [2.0, 1.0];
+        row_lower=[3.0, 1.0], column_lower=[1.0, 0.0])
     @test_logs (:info, "Loaded problem: rows=2 columns=2 nnz=4") (:info, "After presolve: rows=2 columns=2 nnz=4") min_level=Logging.Info solve(problem)
     @test_logs (:info, "Starting solve") (:info, "Loaded problem: rows=2 columns=2 nnz=4") (:info, "After presolve: rows=2 columns=2 nnz=4") (:info, "Refactorizing basis") (:info, r"^iter=") (:info, "Refactorizing basis") (:info, r"^iter=") (:info, "Solve terminated") begin
         solve(problem; options=SolverOptions(log_level=Logging.Info, refactorization_interval=1))
@@ -452,7 +453,7 @@ end
                 @test result.status == OPTIMAL
                 @test result.primal == T[-1, -5]
                 @test result.objective_value == T(-6)
-                @test result.statistics.iterations == 1
+                @test result.statistics.iterations == 2
             end
         end
     end
@@ -460,7 +461,7 @@ end
     problem = LinearProblem(sparse(Float32[3 -1]), Float32[-4, 2];
         row_upper=Float32[2], column_lower=[-1f0, nothing], column_upper=[nothing, 2f0])
     limited = @inferred solve(problem; options=SolverOptions(Float32; iteration_limit=1))
-    @test limited.status == OPTIMAL
+    @test limited.status == ITERATION_LIMIT
     @test limited.statistics.iterations == 1
     @test limited.statistics.refactorizations == 1
 

@@ -551,11 +551,14 @@ end
             column_lower=[0.0, -1.0e16, 0.0], column_upper=[1.0e16, -1.0e16, Inf])
         for interval in (1, 20)
             options = SolverOptions(refactorization_interval=interval)
-            for run in (JSimplex._solve_continuous_dual(problem, options), solve(problem; options))
-                @test run.status == status
-                @test isnothing(run.primal)
-                @test isnothing(run.objective_value)
-            end
+            direct = JSimplex._solve_continuous_dual(problem, options)
+            @test direct.status == status
+            @test isnothing(direct.primal)
+            @test isnothing(direct.objective_value)
+            public_result = solve(problem; options)
+            @test public_result.status == (lower == 0.1 ? INFEASIBLE : status)
+            @test isnothing(public_result.primal)
+            @test isnothing(public_result.objective_value)
         end
     end
 end

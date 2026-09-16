@@ -159,23 +159,18 @@ end
 
 function presolve_problem(problem::LinearProblem{T}) where {T}
     result = identity_presolve(problem)
-    for pass in (_presolve_basic, reduce_singleton_rows,
-                 reduce_parallel_rows, reduce_dependent_rows)
-        next = pass(result.problem)
-        next isa PresolveFailure && return next
-        result = _compose_presolve(result, next)
-    end
-    for _ in 1:4
-        next = substitute_free_doubleton(result.problem)
-        next isa PresolveFailure && return next
-        isempty(next.postsolve_stack) && break
-        result = _compose_presolve(result, next)
+    for _ in 1:12
+        changed = false
         for pass in (_presolve_basic, reduce_singleton_rows,
-                     reduce_parallel_rows, reduce_dependent_rows)
+                     reduce_parallel_rows, reduce_dependent_rows,
+                     substitute_free_doubleton, propagate_row_bounds)
             next = pass(result.problem)
             next isa PresolveFailure && return next
+            isempty(next.postsolve_stack) && continue
             result = _compose_presolve(result, next)
+            changed = true
         end
+        changed || break
     end
     return result
 end
