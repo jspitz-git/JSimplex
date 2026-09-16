@@ -32,7 +32,8 @@ end
     SolverOptions(::Type{T}; primal_tolerance=nothing, dual_tolerance=nothing,
                   zero_tolerance=nothing, iteration_limit=100_000,
                   time_limit=Inf, refactorization_interval=20,
-                  verbose=true, log_level=Logging.Debug, algorithm=:dual)
+                  verbose=true, log_level=Logging.Debug, algorithm=:dual,
+                  pricing=:steepest_edge)
     SolverOptions(; kwargs...)  # Float64 defaults
     SolverOptions(T, options::SolverOptions)
 
@@ -55,6 +56,8 @@ Limits must be nonnegative. `time_limit` remains `Float64` seconds and `Inf`
 disables the deadline; iteration/refactorization limits remain `Int`.
 Only `algorithm=:dual` is implemented; other symbols return
 `ALGORITHM_NOT_SUPPORTED` from [`solve`](@ref).
+`pricing` selects dual steepest-edge (`:steepest_edge`), Devex (`:devex`), or
+Dantzig (`:dantzig`) pricing.
 
 ```julia
 using JSimplex
@@ -75,6 +78,7 @@ struct SolverOptions{T<:Real}
     verbose::Bool
     log_level::LogLevel
     algorithm::Symbol
+    pricing::Symbol
 end
 
 SolverOptions(; kwargs...) = SolverOptions(Float64; kwargs...)
@@ -89,6 +93,7 @@ function SolverOptions(::Type{T};
     iteration_limit::Integer=100_000, time_limit::Real=Inf,
     refactorization_interval::Integer=20,
     verbose::Bool=true, log_level::LogLevel=Logging.Debug, algorithm::Symbol=:dual,
+    pricing::Symbol=:steepest_edge,
 ) where {T}
     _supported_value_type(T) || throw(ArgumentError("unsupported solver value type $T"))
     defaults = _is_exact(T) === Val(true) ? (zero(T), zero(T), zero(T)) :
@@ -117,8 +122,11 @@ function SolverOptions(::Type{T};
         throw(ArgumentError("time_limit must be nonnegative and finite or positive Inf"))
     refactorization_interval > 0 ||
         throw(ArgumentError("refactorization_interval must be positive"))
+    pricing in (:steepest_edge, :devex, :dantzig) ||
+        throw(ArgumentError("pricing must be :steepest_edge, :devex, or :dantzig"))
     return SolverOptions{T}(tolerances..., Int(iteration_limit), converted_time_limit,
-                            Int(refactorization_interval), verbose, log_level, algorithm)
+                            Int(refactorization_interval), verbose, log_level, algorithm,
+                            pricing)
 end
 
 SolverOptions(::Type{T}, options::SolverOptions) where {T} =
@@ -131,7 +139,8 @@ SolverOptions(::Type{T}, options::SolverOptions) where {T} =
                   refactorization_interval=options.refactorization_interval,
                   verbose=options.verbose,
                   log_level=options.log_level,
-                  algorithm=options.algorithm)
+                  algorithm=options.algorithm,
+                  pricing=options.pricing)
 
 """
     SolveStatistics(; iterations=0, elapsed_seconds=0.0, refactorizations=0)

@@ -7,6 +7,7 @@ const _RAW_OPTIMIZER_ATTRIBUTES = (
     "refactorization_interval",
     "verbose",
     "algorithm",
+    "pricing",
 )
 
 function _solver_options(optimizer::Optimizer{T})::SolverOptions{T} where {T}
@@ -21,6 +22,7 @@ function _solver_options(optimizer::Optimizer{T})::SolverOptions{T} where {T}
         verbose=optimizer.verbose && !optimizer.silent,
         log_level=optimizer.silent ? Logging.BelowMinLevel : Logging.Debug,
         algorithm=optimizer.algorithm,
+        pricing=optimizer.pricing,
     )
 end
 
@@ -34,6 +36,7 @@ function _set_solver_options!(
     refactorization_interval=optimizer.refactorization_interval,
     verbose=optimizer.verbose,
     algorithm=optimizer.algorithm,
+    pricing=optimizer.pricing,
 ) where {T}
     options = SolverOptions(
         T;
@@ -46,6 +49,7 @@ function _set_solver_options!(
         verbose,
         log_level=optimizer.silent ? Logging.BelowMinLevel : Logging.Debug,
         algorithm,
+        pricing,
     )
     optimizer.primal_tolerance = options.primal_tolerance
     optimizer.dual_tolerance = options.dual_tolerance
@@ -55,6 +59,7 @@ function _set_solver_options!(
     optimizer.refactorization_interval = options.refactorization_interval
     optimizer.verbose = options.verbose
     optimizer.algorithm = options.algorithm
+    optimizer.pricing = options.pricing
     _clear_result!(optimizer)
     return
 end
@@ -111,6 +116,8 @@ function MOI.get(optimizer::Optimizer, attr::MOI.RawOptimizerAttribute)
         return optimizer.verbose
     elseif attr.name == "algorithm"
         return optimizer.algorithm
+    elseif attr.name == "pricing"
+        return optimizer.pricing
     end
     return _unsupported_optimizer_attribute(attr)
 end
@@ -141,6 +148,9 @@ function MOI.set(
     elseif attr.name == "algorithm"
         value isa Symbol || throw(ArgumentError("algorithm must be a Symbol"))
         return _set_solver_options!(optimizer; algorithm=value)
+    elseif attr.name == "pricing"
+        value isa Symbol || throw(ArgumentError("pricing must be a Symbol"))
+        return _set_solver_options!(optimizer; pricing=value)
     end
     return _unsupported_optimizer_attribute(attr)
 end

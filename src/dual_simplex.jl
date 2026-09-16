@@ -41,17 +41,19 @@ _numerical_failure() = DualTermination(NUMERICAL_ERROR, "non-finite simplex iter
 function _finite_workspace(workspace::SimplexWorkspace{T}) where {T}
     return all(isfinite, workspace.primal) && all(isfinite, workspace.reduced_costs) &&
            all(isfinite, workspace.costs) &&
-           all(weight -> isfinite(weight) && weight > zero(T), workspace.pricing_weights)
+           (workspace.options.pricing == :dantzig ||
+            all(weight -> isfinite(weight) && weight > zero(T), workspace.pricing_weights))
 end
 
 function dual_edge_selection(workspace::SimplexWorkspace{T})::Int where {T}
     leaving_row = -1
     best_score = zero(T)
+    weighted = workspace.options.pricing != :dantzig
     for (row, index) in enumerate(workspace.basis.basic_indices)
         violation = max(_lower_violation(workspace.lower[index], workspace.primal[index]),
                         _upper_violation(workspace.upper[index], workspace.primal[index]))
         violation > workspace.options.primal_tolerance || continue
-        score = violation^2 / workspace.pricing_weights[index]
+        score = weighted ? violation^2 / workspace.pricing_weights[index] : violation
         if score > best_score
             leaving_row = row
             best_score = score
@@ -165,6 +167,23 @@ function update_dse!(workspace::SimplexWorkspace{T}, rho::Vector{T}, tableau_col
             _typed_ratio(T, 1, 10^4), workspace.pricing_weights[index] + coefficient *
             (coefficient * entering_weight - T(2) * tau[row] / pivot),
         )
+    end
+    workspace.pricing_weights[entering_index] = entering_weight
+    return nothing
+end
+
+function update_devex!(workspace::SimplexWorkspace{T}, tableau_row::Vector{T},
+                       tableau_column::Vector{T}, entering_index::Int,
+                       pivot::T)::Nothing where {T}
+    reference_weight = zero(T)
+    for index in eachindex(tableau_row)
+        workspace.devex_reference[index] || continue
+        reference_weight += tableau_row[index]^2
+    end
+    entering_weight = max(one(T), reference_weight / pivot^2)
+    for (row, index) in enumerate(workspace.basis.basic_indices)
+        candidate = tableau_column[row]^2 * entering_weight
+        workspace.pricing_weights[index] = max(workspace.pricing_weights[index], candidate)
     end
     workspace.pricing_weights[entering_index] = entering_weight
     return nothing
@@ -304,7 +323,11 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
     end
     update_duals!(workspace, tableau_row, leaving_index, entering_index, dual_step)
     update_primals!(workspace, tableau_column, entering_index, leaving_row, primal_step)
-    update_dse!(workspace, rho, tableau_column, entering_index, pivot)
+    if workspace.options.pricing == :steepest_edge
+        update_dse!(workspace, rho, tableau_column, entering_index, pivot)
+    elseif workspace.options.pricing == :devex
+        update_devex!(workspace, tableau_row, tableau_column, entering_index, pivot)
+    end
     _finite_workspace(workspace) || return _numerical_failure()
     replace_column!(workspace.factorization, tableau_column, leaving_row;
                     zero_tolerance=workspace.options.zero_tolerance)
@@ -599,7 +622,8 @@ function _auxiliary_workspace(workspace::SimplexWorkspace{T}) where {T}
         workspace.problem, workspace.options, workspace.progress,
         copy(workspace.costs), lower, upper,
         basis, copy(workspace.primal), copy(workspace.reduced_costs),
-        copy(workspace.pricing_weights), factorization, scratch, workspace.iterations,
+        copy(workspace.pricing_weights), copy(workspace.devex_reference),
+        factorization, scratch, workspace.iterations,
         workspace.refactorizations, workspace.perturbed,
     )
     return recompute!(auxiliary)

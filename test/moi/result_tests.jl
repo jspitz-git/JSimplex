@@ -199,6 +199,20 @@ function _moi_pivot_model()
     return source
 end
 
+@testset "MOI pricing attribute solves the translated LP" begin
+    source = _moi_pivot_model()
+    for pricing in (:steepest_edge, :devex, :dantzig)
+        optimizer = JSimplex.Optimizer()
+        MOI.set(optimizer, MOI.Silent(), true)
+        MOI.set(optimizer, MOI.RawOptimizerAttribute("pricing"), pricing)
+        _, copied = MOI.optimize!(optimizer, source)
+        @test !copied
+        @test MOI.get(optimizer, MOI.TerminationStatus()) == MOI.OPTIMAL
+        @test MOI.get(optimizer, MOI.ObjectiveValue()) == 3.0
+        @test MOI.get(optimizer, MOI.SimplexIterations()) == 2
+    end
+end
+
 function _moi_row_model()
     source = MOI.Utilities.Model{Float64}()
     x = MOI.add_variable(source)

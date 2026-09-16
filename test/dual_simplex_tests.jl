@@ -581,11 +581,75 @@ end
     @test JSimplex.dual_edge_selection(workspace) == 2
     workspace.pricing_weights[4] = 4.0
     @test JSimplex.dual_edge_selection(workspace) == 1
+
+    dantzig = JSimplex.initialize_workspace(problem, SolverOptions(pricing=:dantzig))
+    dantzig.pricing_weights[4] = 4.0
+    @test JSimplex.dual_edge_selection(dantzig) == 2
+
+    devex = JSimplex.initialize_workspace(problem, SolverOptions(pricing=:devex))
+    devex.pricing_weights[4] = 4.0
+    @test JSimplex.dual_edge_selection(devex) == 1
     workspace.primal[3:4] .= [2.0, 3.0]
     @test JSimplex.dual_edge_selection(workspace) == -1
     row = fill(NaN, 4)
     @test isnothing(JSimplex.price!(row, workspace, [2.0, -3.0]))
     @test row == [5.0, -3.0, -2.0, 3.0]
+end
+
+@testset "Dual Devex reference weights" begin
+    for T in (Float64, Rational{BigInt})
+        problem = LinearProblem(sparse(T[1 0; 0 1]), T[0, 0])
+        workspace = JSimplex.initialize_workspace(problem, SolverOptions(T; pricing=:devex))
+        @test workspace.devex_reference == BitVector([false, false, true, true])
+
+        tableau_row = T[2, 3, -1, 4]
+        tableau_column = T[2, 2]
+        JSimplex.update_devex!(workspace, tableau_row, tableau_column, 1, T(2))
+        @test workspace.pricing_weights[1] == T(17 // 4)
+        @test workspace.pricing_weights[4] == T(17)
+
+        workspace.basis = JSimplex.Basis(
+            [1, 4],
+            JSimplex.VariableState[JSimplex.BASIC, JSimplex.AT_LOWER,
+                                   JSimplex.AT_LOWER, JSimplex.BASIC],
+        )
+        JSimplex.reset_devex!(workspace)
+        @test workspace.devex_reference == BitVector([true, false, false, true])
+        @test all(isone, workspace.pricing_weights)
+    end
+end
+
+@testset "Pricing strategies update only their required weights" begin
+    problem = LinearProblem(sparse(reshape([0.5, 1.0], 2, 1)), [1.0];
+                            row_lower=[2.0, 1.0])
+    devex = JSimplex.initialize_workspace(problem, SolverOptions(pricing=:devex))
+    @test isnothing(JSimplex.dual_iteration!(devex, () -> false))
+    @test devex.pricing_weights[[1, 3]] == [4.0, 4.0]
+    @test devex.devex_reference == BitVector([false, true, true])
+
+    dantzig = JSimplex.initialize_workspace(problem, SolverOptions(pricing=:dantzig))
+    dantzig.pricing_weights .= NaN
+    @test isnothing(JSimplex.dual_iteration!(dantzig, () -> false))
+    @test all(isnan, dantzig.pricing_weights)
+
+    reset = JSimplex.initialize_workspace(
+        problem, SolverOptions(pricing=:devex, refactorization_interval=1),
+    )
+    @test isnothing(JSimplex.dual_iteration!(reset, () -> false))
+    @test all(isone, reset.pricing_weights)
+    @test reset.devex_reference == BitVector([true, false, true])
+end
+
+@testset "Every pricing strategy solves an LP across scalar types" begin
+    for T in (Float32, Float64, BigFloat, Rational{BigInt})
+        problem = LinearProblem(sparse(T[1 0; -1 1]), T[1, 1]; row_lower=T[1, 1])
+        for pricing in (:steepest_edge, :devex, :dantzig)
+            result = @inferred solve(problem; options=SolverOptions(T; pricing, verbose=false))
+            @test result.status == OPTIMAL
+            @test result.primal == T[1, 2]
+            @test result.objective_value == T(3)
+        end
+    end
 end
 
 @testset "Harris ratio test" begin

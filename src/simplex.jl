@@ -64,11 +64,19 @@ mutable struct SimplexWorkspace{T<:Real,F}
     primal::Vector{T}
     reduced_costs::Vector{T}
     pricing_weights::Vector{T}
+    devex_reference::BitVector
     factorization::PFIFactorization{T,F}
     scratch::SimplexScratch{T}
     iterations::Int
     refactorizations::Int
     perturbed::Bool
+end
+
+function reset_devex!(workspace::SimplexWorkspace{T})::Nothing where {T}
+    fill!(workspace.devex_reference, false)
+    workspace.devex_reference[workspace.basis.basic_indices] .= true
+    fill!(workspace.pricing_weights, one(T))
+    return nothing
 end
 
 function _validate_basis(workspace::SimplexWorkspace)
@@ -163,6 +171,7 @@ function recompute!(workspace::SimplexWorkspace{T}; refactorize::Bool=false,
         B = basis_matrix(workspace)
         refactorize!(workspace.factorization, B)
         workspace.refactorizations += 1
+        workspace.options.pricing == :devex && reset_devex!(workspace)
     end
 
     A = workspace.problem.A
@@ -242,9 +251,11 @@ function initialize_workspace(
     initial_basis = spdiagm(0 => fill(-one(T), row_count))
     factorization = PFIFactorization(initial_basis)
     scratch = SimplexScratch(T, row_count, variable_count)
+    devex_reference = falses(variable_count)
+    devex_reference[basis.basic_indices] .= true
     workspace = SimplexWorkspace(
         problem, typed_options, progress, costs, lower, upper, basis, zeros(T, variable_count),
-        zeros(T, variable_count), ones(T, variable_count),
+        zeros(T, variable_count), ones(T, variable_count), devex_reference,
         factorization, scratch, 0, 0, false,
     )
     return recompute!(workspace)

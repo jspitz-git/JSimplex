@@ -78,6 +78,7 @@ end
         "refactorization_interval" => 7,
         "verbose" => false,
         "algorithm" => :dual,
+        "pricing" => :devex,
     )
     for (name, value) in values
         attr = MOI.RawOptimizerAttribute(name)
@@ -87,6 +88,7 @@ end
     end
     @test JSimplex._solver_options(optimizer) isa SolverOptions{Float32}
     @test !JSimplex._solver_options(optimizer).verbose
+    @test JSimplex._solver_options(optimizer).pricing == :devex
     MOI.set(optimizer, MOI.RawOptimizerAttribute("verbose"), true)
     @test !JSimplex._solver_options(optimizer).verbose
     MOI.set(optimizer, MOI.Silent(), false)
@@ -101,6 +103,11 @@ end
         optimizer,
         MOI.RawOptimizerAttribute("iteration_limit"),
         -1,
+    )
+    @test_throws ArgumentError MOI.set(
+        optimizer,
+        MOI.RawOptimizerAttribute("pricing"),
+        :unknown,
     )
 
     MOI.empty!(optimizer)
