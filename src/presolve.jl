@@ -62,7 +62,7 @@ function _elimination_value(problem::LinearProblem{T}, column::Int) where {T}
     return bound_value(bound), choose_lower ? AT_LOWER : AT_UPPER
 end
 
-function presolve_problem(problem::LinearProblem{T}) where {T}
+function _presolve_basic(problem::LinearProblem{T}) where {T}
     A = problem.A
     row_count, column_count = size(A)
     lower, upper = copy(problem.row_lower), copy(problem.row_upper)
@@ -145,8 +145,40 @@ function postsolve_primal(step::PresolveMap{T}, primal::Vector{T}) where {T}
 end
 
 restore_basis(result::PresolveResult, basis::Basis) =
-    isempty(result.postsolve_stack) ? Basis(basis.basic_indices, basis.states) :
-    restore_basis(only(result.postsolve_stack), basis)
+    _restore_basis(result.postsolve_stack, basis)
+
+_restore_basis(::Tuple{}, basis::Basis) = Basis(basis.basic_indices, basis.states)
+_restore_basis(steps::Tuple, basis::Basis) =
+    restore_basis(first(steps), _restore_basis(Base.tail(steps), basis))
+
+function _compose_presolve(original::PresolveResult, next::PresolveResult)
+    return PresolveResult(next.problem,
+        (original.postsolve_stack..., next.postsolve_stack...),
+        original.original_column_count)
+end
+
+function presolve_problem(problem::LinearProblem{T}) where {T}
+    result = identity_presolve(problem)
+    for pass in (_presolve_basic, reduce_singleton_rows,
+                 reduce_parallel_rows, reduce_dependent_rows)
+        next = pass(result.problem)
+        next isa PresolveFailure && return next
+        result = _compose_presolve(result, next)
+    end
+    for _ in 1:4
+        next = substitute_free_doubleton(result.problem)
+        next isa PresolveFailure && return next
+        isempty(next.postsolve_stack) && break
+        result = _compose_presolve(result, next)
+        for pass in (_presolve_basic, reduce_singleton_rows,
+                     reduce_parallel_rows, reduce_dependent_rows)
+            next = pass(result.problem)
+            next isa PresolveFailure && return next
+            result = _compose_presolve(result, next)
+        end
+    end
+    return result
+end
 
 function restore_basis(step::PresolveMap, basis::Basis)
     original_columns = length(step.removed_values)

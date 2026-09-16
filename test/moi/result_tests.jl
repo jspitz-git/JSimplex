@@ -245,7 +245,7 @@ end
         @test !copied
         @test MOI.get(optimizer, MOI.TerminationStatus()) == MOI.OPTIMAL
         @test MOI.get(optimizer, MOI.ObjectiveValue()) == 3.0
-        @test MOI.get(optimizer, MOI.SimplexIterations()) == 2
+        @test MOI.get(optimizer, MOI.SimplexIterations()) == 1
     end
 end
 
@@ -259,7 +259,7 @@ end
         @test !copied
         @test MOI.get(optimizer, MOI.TerminationStatus()) == MOI.OPTIMAL
         @test MOI.get(optimizer, MOI.ObjectiveValue()) == 3.0
-        @test MOI.get(optimizer, MOI.SimplexIterations()) >= 2
+        @test MOI.get(optimizer, MOI.SimplexIterations()) >= 1
     end
 end
 
@@ -337,6 +337,15 @@ end
     MOI.add_constraint(invalid, invalid_x, MOI.GreaterThan(2.0))
     MOI.add_constraint(invalid, invalid_x, MOI.LessThan(1.0))
 
+    numerical = MOI.Utilities.Model{Float64}()
+    numerical_x, numerical_y = MOI.add_variables(numerical, 2)
+    numerical_row = MOI.ScalarAffineFunction(
+        [MOI.ScalarAffineTerm(1.0, numerical_x),
+         MOI.ScalarAffineTerm(1.0, numerical_y)], 0.0)
+    MOI.add_constraint(numerical, numerical_row, MOI.GreaterThan(1.0))
+    MOI.set(numerical, MOI.ObjectiveSense(), MOI.MIN_SENSE)
+    MOI.set(numerical, MOI.ObjectiveFunction{MOI.VariableIndex}(), numerical_x)
+
     cases = (
         (infeasible, JSimplex.Optimizer(), MOI.INFEASIBLE),
         (unbounded, JSimplex.Optimizer(), MOI.DUAL_INFEASIBLE),
@@ -344,7 +353,7 @@ end
          "iteration_limit", 0),
         (_moi_result_model(), JSimplex.Optimizer(), MOI.TIME_LIMIT,
          "time_limit", 0.0),
-        (_moi_row_model(), JSimplex.Optimizer(), MOI.NUMERICAL_ERROR,
+        (numerical, JSimplex.Optimizer(), MOI.NUMERICAL_ERROR,
          "zero_tolerance", 2.0),
         (invalid, JSimplex.Optimizer(), MOI.INVALID_MODEL),
         (_moi_result_model(integer=true), JSimplex.Optimizer(), MOI.OTHER_ERROR),

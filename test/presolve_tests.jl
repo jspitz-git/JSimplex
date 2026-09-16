@@ -1,6 +1,106 @@
 using SparseArrays
 using JSimplex.Logging
 
+@testset "Advanced presolve reduces rows and restores solutions" begin
+    singleton = LinearProblem(sparse([2.0 0.0; 1.0 1.0]), [1.0, 1.0];
+                              row_lower=[4.0, 1.0], row_upper=[8.0, nothing],
+                              column_lower=[0.0, 0.0])
+    one = JSimplex.presolve_problem(singleton)
+    @test size(one.problem.A) == (1, 2)
+    @test bound_value(one.problem.column_lower[1]) == 2.0
+    @test solve(singleton).status == OPTIMAL
+
+    parallel = LinearProblem(sparse([1.0 1.0; 2.0 2.0; 1.0 -1.0]), [1.0, 1.0];
+                             row_lower=[1.0, 0.0, nothing],
+                             row_upper=[3.0, 8.0, 2.0])
+    two = JSimplex.presolve_problem(parallel)
+    @test size(two.problem.A, 1) == 2
+    @test solve(parallel).status == OPTIMAL
+
+    dependent = LinearProblem(sparse([1.0 1.0 0.0; 0.0 1.0 1.0; 1.0 2.0 1.0]),
+                              [1.0, 1.0, 1.0];
+                              row_lower=[1.0, 0.0, 0.0],
+                              row_upper=[2.0, 1.0, 3.0])
+    three = JSimplex.presolve_problem(dependent)
+    @test size(three.problem.A, 1) == 2
+    @test solve(dependent).status == OPTIMAL
+end
+
+@testset "Advanced presolve keeps necessary constraints" begin
+    structure = sparse([1.0 1.0 0.0; 0.0 1.0 1.0; 1.0 2.0 1.0])
+    necessary = LinearProblem(structure, ones(3);
+        row_lower=[1.0, 0.0, 2.0], row_upper=[2.0, 1.0, 3.0])
+    @test size(JSimplex.presolve_problem(necessary).problem.A, 1) == 3
+    impossible = LinearProblem(structure, ones(3);
+        row_lower=[1.0, 0.0, 4.0], row_upper=[2.0, 1.0, nothing])
+    @test JSimplex.presolve_problem(impossible).status == INFEASIBLE
+
+    inconsistent_parallel = LinearProblem(sparse([1.0 1.0; 2.0 2.0]), ones(2);
+        row_upper=[1.0, nothing], row_lower=[nothing, 4.0])
+    @test JSimplex.presolve_problem(inconsistent_parallel).status == INFEASIBLE
+
+    inexact = LinearProblem(sparse([3.0 0.0; 1.0 1.0]), ones(2);
+        row_lower=[1.0, 1.0])
+    @test size(JSimplex.presolve_problem(inexact).problem.A, 1) == 2
+end
+
+@testset "Doubleton substitution and cleanup" begin
+    problem = LinearProblem(sparse([1.0 1.0; 1.0 -1.0]), [2.0, 1.0];
+        row_lower=[4.0, 0.0], row_upper=[4.0, nothing],
+        column_lower=[nothing, 0.0])
+    result = JSimplex.presolve_problem(problem)
+    @test size(result.problem.A) == (0, 1)
+    @test JSimplex.postsolve_primal(result, [2.0]) == [2.0, 2.0]
+    restored = JSimplex.restore_basis(result,
+        JSimplex.Basis(Int[], JSimplex.VariableState[JSimplex.AT_UPPER]))
+    @test restored.basic_indices == [1, 2]
+    @test restored.states == JSimplex.VariableState[
+        JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_LOWER]
+    for algorithm in (:dual, :primal)
+        solution = solve(problem; options=SolverOptions(Float64; algorithm, verbose=false))
+        @test solution.status == OPTIMAL
+        @test solution.primal == [2.0, 2.0]
+        @test solution.objective_value == 6.0
+    end
+end
+
+@testset "Dependent-row proof supports all solver scalar types" begin
+    for T in (Float32, Float64, BigFloat, Rational{BigInt})
+        problem = LinearProblem(sparse(T[1 1 0; 0 1 1; 1 2 1]), T[1, 1, 1];
+            row_lower=T[1, 0, 0], row_upper=T[2, 1, 3])
+        @test size(JSimplex.presolve_problem(problem).problem.A) == (2, 3)
+    end
+end
+
+@testset "Exact bounds and signed row coefficients" begin
+    negative = LinearProblem(sparse([-2.0 0.0; 1.0 1.0]), [2.0, 1.0];
+        row_lower=[-8.0, 3.0], row_upper=[-4.0, nothing])
+    reduced = JSimplex.presolve_problem(negative)
+    @test size(reduced.problem.A) == (1, 2)
+    @test bound_value(reduced.problem.column_lower[1]) == 2.0
+    @test bound_value(reduced.problem.column_upper[1]) == 4.0
+    for algorithm in (:dual, :primal)
+        solution = solve(negative; options=SolverOptions(Float64; algorithm, verbose=false))
+        @test solution.status == OPTIMAL
+        @test solution.primal ≈ [2.0, 1.0]
+    end
+    impossible = LinearProblem(sparse([-2.0 0.0; 1.0 1.0]), [1.0, 1.0];
+        row_lower=[-8.0, 3.0], row_upper=[-4.0, nothing],
+        column_upper=[1.0, nothing])
+    @test JSimplex.presolve_problem(impossible).status == INFEASIBLE
+
+    reversed = LinearProblem(sparse([1.0 1.0; -2.0 -2.0]), [1.0, 1.0];
+        row_lower=[1.0, -8.0], row_upper=[3.0, -1.0])
+    @test size(JSimplex.presolve_problem(reversed).problem.A, 1) == 1
+
+    inexact_substitution = LinearProblem(sparse([3.0 1.0]), [1.0, 1.0];
+        row_lower=[1.0], row_upper=[1.0], column_lower=[nothing, 0.0])
+    @test size(JSimplex.presolve_problem(inexact_substitution).problem.A) == (1, 2)
+    bounded_doubleton = LinearProblem(sparse([1.0 1.0]), [1.0, 1.0];
+        row_lower=[1.0], row_upper=[1.0])
+    @test size(JSimplex.presolve_problem(bounded_doubleton).problem.A) == (1, 2)
+end
+
 function problem_stat_messages(problem; options=SolverOptions())
     logger = Test.TestLogger(min_level=Logging.Info)
     with_logger(logger) do
@@ -19,13 +119,13 @@ end
                             column_upper=[nothing, 3.0])
     @test problem_stat_messages(reduced) == [
         "Loaded problem: rows=2 columns=2 nnz=1",
-        "After presolve: rows=1 columns=1 nnz=1",
+        "After presolve: rows=0 columns=1 nnz=0",
     ]
 
     unchanged = LinearProblem(sparse([1.0;;]), [1.0]; row_lower=[1.0])
     @test problem_stat_messages(unchanged) == [
         "Loaded problem: rows=1 columns=1 nnz=1",
-        "After presolve: rows=1 columns=1 nnz=1",
+        "After presolve: rows=0 columns=1 nnz=0",
     ]
     @test isempty(problem_stat_messages(unchanged;
         options=SolverOptions(verbose=false)))
@@ -51,15 +151,14 @@ end
     original = deepcopy(problem)
     reduced = JSimplex.presolve_problem(problem)
     @test reduced isa JSimplex.PresolveResult{Float64}
-    @test size(reduced.problem.A) == (1, 1)
-    @test reduced.problem.A == sparse([1.0;;])
+    @test size(reduced.problem.A) == (0, 1)
     @test reduced.problem.objective == [1.0]
     @test reduced.problem.objective_constant == 2.0
-    @test bound_value(only(reduced.problem.row_lower)) == 2.0
-    @test reduced.problem.row_names == ["active"]
+    @test bound_value(only(reduced.problem.column_lower)) == 2.0
+    @test reduced.problem.row_names == String[]
     @test reduced.problem.column_names == ["active"]
     @test JSimplex.postsolve_primal(reduced, [2.0]) == [3.0, 2.0, 5.0]
-    basis = JSimplex.Basis([1], JSimplex.VariableState[JSimplex.BASIC, JSimplex.AT_LOWER])
+    basis = JSimplex.Basis(Int[], JSimplex.VariableState[JSimplex.AT_LOWER])
     restored = JSimplex.restore_basis(reduced, basis)
     @test restored.basic_indices == [2, 5]
     @test restored.states == JSimplex.VariableState[
@@ -182,8 +281,8 @@ end
                                 column_upper=[T(3), nothing])
         result = JSimplex.presolve_problem(problem)
         @test result.problem isa LinearProblem{T}
-        @test size(result.problem.A) == (1, 1)
-        @test bound_value(only(result.problem.row_lower)) == T(2)
+        @test size(result.problem.A) == (0, 1)
+        @test bound_value(only(result.problem.column_lower)) == T(2)
         @test result.problem.objective_constant == T(13)
         @test JSimplex.postsolve_primal(result, T[2]) == T[3, 2]
     end

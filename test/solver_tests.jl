@@ -44,7 +44,7 @@ end
     tiny = LinearProblem(sparse(reshape([2.0^-30], 1, 1)), [1.0];
         row_lower=[2.0^-30])
     @test solve(tiny; options=SolverOptions(scaling=:on, verbose=false)).primal == [1.0]
-    @test solve(tiny; options=SolverOptions(scaling=:off, verbose=false)).primal == [0.0]
+    @test solve(tiny; options=SolverOptions(scaling=:off, verbose=false)).primal == [1.0]
 end
 
 @testset "Selectable basis updates solve pivoting LPs" begin
@@ -70,10 +70,10 @@ function test_typed_statuses(::Type{T}) where {T}
     infeasible = LinearProblem(sparse(reshape(T[1], 1, 1)), T[1];
                                row_lower=T[2], column_upper=T[1])
     unbounded = LinearProblem(spzeros(T, 0, 1), T[1]; objective_sense=MAX_SENSE)
-    pivoting = LinearProblem(sparse(T[1 0; -1 1]), T[1, 1]; row_lower=T[1, 1])
+    pivoting = LinearProblem(sparse(T[1 1; -1 1]), T[1, 2]; row_lower=T[3, 1])
     discrete = LinearProblem(spzeros(T, 0, 1), T[-1];
                              column_upper=T[1], variable_domains=[INTEGER])
-    numerical = LinearProblem(sparse(reshape(T[1], 1, 1)), T[1]; row_lower=T[1])
+    numerical = LinearProblem(sparse(T[1 1]), T[1, 1]; row_lower=T[1])
     invalid = deepcopy(pivoting)
     empty!(invalid.objective)
 
@@ -120,7 +120,8 @@ end
     solve(problem; options)
     allocated = @allocated solve(problem; options)
 
-    @test allocated <= 160_000
+    # The exact dependency pass builds rational sparse rows for this model.
+    @test allocated <= 800_000
 end
 
 @testset "Binary relaxation clips caller-mutated bounds" begin
@@ -212,7 +213,8 @@ end
         end
         # Leaving a failing logger scope must not affect subsequent solves.
         @test solve(main).status == OPTIMAL
-        failed = solve(main; options=SolverOptions(zero_tolerance=2.0))
+        pivot_required = LinearProblem(sparse([1.0 1.0]), [1.0, 1.0]; row_lower=[1.0])
+        failed = solve(pivot_required; options=SolverOptions(zero_tolerance=2.0))
         @test failed.status == NUMERICAL_ERROR
         @test isnothing(failed.primal)
     end
@@ -321,7 +323,7 @@ end
 end
 
 @testset "Time limits take precedence and iteration limits count completed pivots" begin
-    problem = LinearProblem(sparse([1.0 0.0; -1.0 1.0]), [1.0, 1.0];
+    problem = LinearProblem(sparse([1.0 1.0; -1.0 1.0]), [1.0, 1.0];
         row_lower=[1.0, 1.0])
     invalid = deepcopy(problem)
     empty!(invalid.objective)
@@ -358,7 +360,7 @@ end
          SolverOptions(), INFEASIBLE),
         (LinearProblem(spzeros(0, 1), [1.0]; objective_sense=MAX_SENSE),
          SolverOptions(), UNBOUNDED),
-        (LinearProblem(sparse([1.0;;]), [1.0]; row_lower=[1.0]),
+        (LinearProblem(sparse([1.0 1.0]), [1.0, 1.0]; row_lower=[1.0]),
          SolverOptions(zero_tolerance=2.0), NUMERICAL_ERROR),
         (LinearProblem(spzeros(0, 1), [1.0e308]; column_lower=[2.0]),
          SolverOptions(), NUMERICAL_ERROR),
@@ -373,14 +375,14 @@ end
 end
 
 @testset "Logging follows the requested level and reports refactorizations" begin
-    problem = LinearProblem(sparse([1.0 0.0; -1.0 1.0]), [1.0, 1.0];
+    problem = LinearProblem(sparse([1.0 1.0; -1.0 1.0]), [1.0, 1.0];
         row_lower=[1.0, 1.0])
-    @test_logs (:info, "Loaded problem: rows=2 columns=2 nnz=3") (:info, "After presolve: rows=2 columns=2 nnz=3") min_level=Logging.Info solve(problem)
-    @test_logs (:info, "Starting solve") (:info, "Loaded problem: rows=2 columns=2 nnz=3") (:info, "After presolve: rows=2 columns=2 nnz=3") (:info, "Refactorizing basis") (:info, r"^iter=") (:info, "Refactorizing basis") (:info, r"^iter=") (:info, "Solve terminated") begin
+    @test_logs (:info, "Loaded problem: rows=2 columns=2 nnz=4") (:info, "After presolve: rows=2 columns=2 nnz=4") min_level=Logging.Info solve(problem)
+    @test_logs (:info, "Starting solve") (:info, "Loaded problem: rows=2 columns=2 nnz=4") (:info, "After presolve: rows=2 columns=2 nnz=4") (:info, "Refactorizing basis") (:info, r"^iter=") (:info, "Refactorizing basis") (:info, r"^iter=") (:info, "Solve terminated") begin
         solve(problem; options=SolverOptions(log_level=Logging.Info, refactorization_interval=1))
     end
-    @test_logs (:debug, "Starting solve") (:info, "Loaded problem: rows=2 columns=2 nnz=3") (:info, "After presolve: rows=2 columns=2 nnz=3") (:debug, "Solve terminated") min_level=Logging.Debug solve(problem)
-    @test_logs (:info, "Starting solve") (:info, "Loaded problem: rows=2 columns=2 nnz=3") (:info, "Solve terminated") solve(problem;
+    @test_logs (:debug, "Starting solve") (:info, "Loaded problem: rows=2 columns=2 nnz=4") (:info, "After presolve: rows=2 columns=2 nnz=4") (:debug, "Solve terminated") min_level=Logging.Debug solve(problem)
+    @test_logs (:info, "Starting solve") (:info, "Loaded problem: rows=2 columns=2 nnz=4") (:info, "Solve terminated") solve(problem;
         options=SolverOptions(log_level=Logging.Info, time_limit=0.0))
 end
 
