@@ -71,6 +71,9 @@ function _dual_pivot_eligible(workspace::SimplexWorkspace{T}, index::Int,
            (state == FREE_NONBASIC && abs(coefficient) > tolerance)
 end
 
+_dual_pivot_cutoff(::Type{T}) where {T} =
+    _is_exact(T) === Val(true) ? zero(T) : _positive_tolerance(T, 1 // 10^7)
+
 # The row is oriented so that a positive dual step repairs the leaving bound.
 function dual_ratio_test(workspace::SimplexWorkspace{T}, tableau_row::Vector{T},
                          orientation::T=one(T))::Int where {T}
@@ -78,7 +81,7 @@ function dual_ratio_test(workspace::SimplexWorkspace{T}, tableau_row::Vector{T},
     empty!(candidates)
     maximum_step = _unbounded_bound(T)
     tolerance = workspace.options.dual_tolerance
-    cutoff = _is_exact(T) === Val(true) ? zero(T) : _positive_tolerance(T, 1 // 10^7)
+    cutoff = _dual_pivot_cutoff(T)
     for index in eachindex(tableau_row)
         coefficient = orientation * tableau_row[index]
         _dual_pivot_eligible(workspace, index, coefficient, cutoff) || continue
@@ -105,6 +108,98 @@ function dual_ratio_test(workspace::SimplexWorkspace{T}, tableau_row::Vector{T},
         end
     end
     return entering_index
+end
+
+# Traverse dual breakpoints until the remaining primal violation fits in the
+# entering variable's range. Earlier boxed variables may cross to their other
+# bound without changing the basis.
+function _bound_flipping_ratio_test(workspace::SimplexWorkspace{T}, tableau_row::Vector{T},
+                                    orientation::T, violation::T) where {T}
+    cutoff = _dual_pivot_cutoff(T)
+    # A boxed variable matters only when it can move in this tableau row.
+    # Otherwise keep the linear Harris pass and its stronger pivot choice.
+    has_boxed = false
+    for index in eachindex(workspace.basis.states)
+        if isfinite(workspace.lower[index]) && isfinite(workspace.upper[index]) &&
+           _dual_pivot_eligible(workspace, index, orientation * tableau_row[index], cutoff)
+            has_boxed = true
+            break
+        end
+    end
+    has_boxed || return dual_ratio_test(workspace, tableau_row, orientation), Int[], false
+
+    candidates = workspace.scratch.candidates
+    empty!(candidates)
+    for index in eachindex(tableau_row)
+        coefficient = orientation * tableau_row[index]
+        _dual_pivot_eligible(workspace, index, coefficient, cutoff) || continue
+        step = workspace.reduced_costs[index] / coefficient
+        if !isfinite(step) || step < zero(T)
+            return dual_ratio_test(workspace, tableau_row, orientation), Int[], false
+        end
+        push!(candidates, index)
+    end
+    isempty(candidates) && return -1, Int[], false
+    sort!(candidates; by=index -> workspace.reduced_costs[index] /
+                                   (orientation * tableau_row[index]))
+
+    flips = Int[]
+    remaining = violation
+    for index in candidates
+        state = workspace.basis.states[index]
+        opposite = state == AT_LOWER ? workspace.upper[index] : workspace.lower[index]
+        if state == FREE_NONBASIC || !isfinite(opposite)
+            return index, flips, false
+        end
+        width = bound_value(workspace.upper[index]) - bound_value(workspace.lower[index])
+        gain = abs(tableau_row[index]) * width
+        if !isfinite(width) || !isfinite(gain)
+            return dual_ratio_test(workspace, tableau_row, orientation), Int[], false
+        end
+        if remaining <= gain + workspace.options.primal_tolerance
+            return index, flips, false
+        end
+        push!(flips, index)
+        remaining -= gain
+    end
+    return -1, flips, true
+end
+
+function _apply_bound_flips!(workspace::SimplexWorkspace{T}, flips::Vector{Int}) where {T}
+    isempty(flips) && return true
+    A = workspace.problem.A
+    column_count = size(A, 2)
+    rhs = workspace.scratch.row_rhs
+    fill!(rhs, zero(T))
+    for index in flips
+        state = workspace.basis.states[index]
+        change = state == AT_LOWER ?
+            bound_value(workspace.upper[index]) - bound_value(workspace.lower[index]) :
+            bound_value(workspace.lower[index]) - bound_value(workspace.upper[index])
+        if index <= column_count
+            for position in A.colptr[index]:(A.colptr[index + 1] - 1)
+                rhs[A.rowval[position]] += A.nzval[position] * change
+            end
+        else
+            rhs[index - column_count] -= change
+        end
+    end
+    all(isfinite, rhs) || return false
+    basic_change = forward_solve!(workspace.scratch.row_solution, workspace.factorization, rhs)
+    all(isfinite, basic_change) || return false
+    for (row, index) in enumerate(workspace.basis.basic_indices)
+        isfinite(workspace.primal[index] - basic_change[row]) || return false
+    end
+    for index in flips
+        state = workspace.basis.states[index]
+        workspace.basis.states[index] = state == AT_LOWER ? AT_UPPER : AT_LOWER
+        workspace.primal[index] = state == AT_LOWER ?
+            bound_value(workspace.upper[index]) : bound_value(workspace.lower[index])
+    end
+    for (row, index) in enumerate(workspace.basis.basic_indices)
+        workspace.primal[index] -= basic_change[row]
+    end
+    return true
 end
 
 function price!(tableau_row::Vector{T}, workspace::SimplexWorkspace{T},
@@ -268,13 +363,18 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
     price!(tableau_row, workspace, rho)
     all(isfinite, rho) && all(isfinite, tableau_row) || return _numerical_failure()
     orientation = below ? -one(T) : one(T)
-    entering_index = dual_ratio_test(workspace, tableau_row, orientation)
+    entering_index, flips, exhausted = _bound_flipping_ratio_test(
+        workspace, tableau_row, orientation, abs(delta),
+    )
     if entering_index == -1
         # A tolerance cannot turn a nonzero, sign-eligible coefficient into a
         # mathematical infeasibility proof.
-        if any(index -> _dual_pivot_eligible(
-                   workspace, index, orientation * tableau_row[index], zero(T),
-               ), eachindex(tableau_row))
+        if any(index -> begin
+                   coefficient = orientation * tableau_row[index]
+                   _dual_pivot_eligible(workspace, index, coefficient, zero(T)) &&
+                       (!exhausted || !_dual_pivot_eligible(workspace, index, coefficient,
+                                                             _dual_pivot_cutoff(T)))
+               end, eachindex(tableau_row))
             return DualTermination(NUMERICAL_ERROR, "eligible pivots are below the Harris safety cutoff")
         end
         if _is_exact(T) === Val(false) && !basis_refreshed
@@ -294,6 +394,9 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
         end
         return DualTermination(INFEASIBLE, "no eligible dual pivot")
     end
+
+    _apply_bound_flips!(workspace, flips) || return _numerical_failure()
+    delta = workspace.primal[leaving_index] - bound_value(bound)
 
     column = workspace.scratch.row_rhs
     fill!(column, zero(T))

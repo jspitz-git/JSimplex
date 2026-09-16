@@ -54,14 +54,13 @@ function test_typed_dual_kernel(::Type{T}) where {T}
     @test (@inferred JSimplex.dual_ratio_test(ratio_workspace, T[-1, -10, -20, 0])) == -1
 end
 
-function roundoff_auxiliary_workspace()
-    problem = LinearProblem(sparse(Float32[3 -1]), Float32[-4, 2];
-        row_upper=Float32[2], column_lower=[-1f0, nothing], column_upper=[nothing, 2f0])
-    workspace = JSimplex.initialize_workspace(problem, SolverOptions(Float32))
-    auxiliary = JSimplex._auxiliary_workspace(workspace)
-    JSimplex.dual_iteration!(auxiliary, () -> false)
-    JSimplex.dual_iteration!(auxiliary, () -> false)
-    return auxiliary
+function stale_primal_workspace()
+    problem = LinearProblem(sparse([1.0;;]), [1.0];
+        row_lower=[1.0], column_upper=[1.0])
+    workspace = JSimplex.initialize_workspace(problem, SolverOptions())
+    JSimplex.dual_iteration!(workspace, () -> false)
+    workspace.primal[1] = 2.0
+    return workspace
 end
 
 @testset "Optimal results certify the original structural primal" begin
@@ -672,6 +671,97 @@ end
     @test JSimplex.dual_ratio_test(workspace, [-1.0, 2.0, 0.0, 100.0, 1.0]) == -1
 end
 
+@testset "Bound-flipping dual ratio test" begin
+    for T in (Float64, Rational{BigInt})
+        problem = LinearProblem(
+            sparse(reshape(T[1, 1], 1, 2)), T[1, 2];
+            row_lower=T[2], column_lower=T[0, 0],
+            column_upper=[T(1), nothing],
+        )
+        workspace = JSimplex.initialize_workspace(problem, SolverOptions(T))
+        @test isnothing(JSimplex.dual_iteration!(workspace, () -> false))
+        @test workspace.iterations == 1
+        @test workspace.basis.states[1] == JSimplex.AT_UPPER
+        @test workspace.basis.states[2] == JSimplex.BASIC
+        @test workspace.primal[1:2] == T[1, 1]
+        @test JSimplex.dual_infeasibility(workspace) == zero(T)
+        run = JSimplex._solve_continuous_dual(problem, SolverOptions(T))
+        @test run.status == OPTIMAL
+        @test run.objective_value == T(3)
+        @test run.iterations == 1
+    end
+
+    upper_flip = LinearProblem(
+        sparse(reshape([-1.0, 1.0], 1, 2)), [-1.0, 2.0];
+        row_lower=[2.0], column_lower=[-1.0, 0.0],
+        column_upper=[0.0, Inf],
+    )
+    workspace = JSimplex.initialize_workspace(upper_flip, SolverOptions())
+    workspace.basis.states[1] = JSimplex.AT_UPPER
+    JSimplex.recompute!(workspace)
+    @test isnothing(JSimplex.dual_iteration!(workspace, () -> false))
+    @test workspace.basis.states[1] == JSimplex.AT_LOWER
+    @test workspace.primal[1:2] == [-1.0, 1.0]
+    @test JSimplex.dual_infeasibility(workspace) == 0.0
+
+    above_upper = LinearProblem(
+        sparse(reshape([-1.0, -1.0], 1, 2)), [1.0, 2.0];
+        row_upper=[-2.0], column_lower=[0.0, 0.0],
+        column_upper=[1.0, Inf],
+    )
+    run = JSimplex._solve_continuous_dual(above_upper, SolverOptions())
+    @test run.status == OPTIMAL
+    @test run.primal == [1.0, 1.0]
+    @test run.objective_value == 3.0
+    @test run.iterations == 1
+
+    multiple_flips = LinearProblem(
+        sparse(reshape([1.0, 1.0, 1.0], 1, 3)), [1.0, 2.0, 3.0];
+        row_lower=[3.0], column_lower=[0.0, 0.0, 0.0],
+        column_upper=[1.0, 1.0, Inf],
+    )
+    workspace = JSimplex.initialize_workspace(multiple_flips, SolverOptions())
+    @test isnothing(JSimplex.dual_iteration!(workspace, () -> false))
+    @test workspace.iterations == 1
+    @test workspace.basis.states[1:3] == [JSimplex.AT_UPPER, JSimplex.AT_UPPER,
+                                           JSimplex.BASIC]
+    @test workspace.primal[1:3] == [1.0, 1.0, 1.0]
+    before = copy(workspace.primal)
+    JSimplex.recompute!(workspace)
+    @test workspace.primal == before
+    @test JSimplex.dual_infeasibility(workspace) == 0.0
+
+    tied_breakpoints = LinearProblem(
+        sparse(reshape([1.0, 2.0], 1, 2)), [1.0, 2.0];
+        row_lower=[2.0], column_lower=[0.0, 0.0],
+        column_upper=[3.0, 0.1],
+    )
+    workspace = JSimplex.initialize_workspace(tied_breakpoints, SolverOptions())
+    @test isnothing(JSimplex.dual_iteration!(workspace, () -> false))
+    @test workspace.basis.basic_indices == [1]
+    @test workspace.primal[1:2] == [2.0, 0.0]
+    @test JSimplex.primal_infeasibility(workspace) == 0.0
+
+    irrelevant_box = LinearProblem(
+        sparse(reshape([1.0e-6, 1.0, 0.0], 1, 3)), [1.0e-6, 1.00000005, 0.0];
+        row_lower=[1.0], column_lower=[0.0, 0.0, 0.0],
+        column_upper=[Inf, Inf, 1.0],
+    )
+    workspace = JSimplex.initialize_workspace(irrelevant_box, SolverOptions())
+    @test isnothing(JSimplex.dual_iteration!(workspace, () -> false))
+    @test workspace.basis.basic_indices == [2]
+    @test workspace.primal[1:2] == [0.0, 1.0]
+
+    insufficient = LinearProblem(
+        sparse(reshape([1.0, 1.0], 1, 2)), [1.0, 2.0];
+        row_lower=[3.0], column_lower=[0.0, 0.0],
+        column_upper=[1.0, 1.0],
+    )
+    run = JSimplex._solve_continuous_dual(insufficient, SolverOptions())
+    @test run.status == INFEASIBLE
+    @test run.iterations == 0
+end
+
 @testset "Exact pivot updates and periodic refactorization" begin
     for interval in (2, 20)
         problem = LinearProblem(
@@ -767,28 +857,28 @@ end
 end
 
 @testset "Infeasibility verification preserves pivot counts and caller control" begin
-    auxiliary = roundoff_auxiliary_workspace()
+    auxiliary = stale_primal_workspace()
     terminal = JSimplex.dual_iteration!(auxiliary, () -> false)
     @test terminal.status == OPTIMAL
     @test JSimplex.primal_infeasibility(auxiliary) == 0f0
-    @test auxiliary.iterations == 2
+    @test auxiliary.iterations == 1
     @test auxiliary.refactorizations == 1
 
-    auxiliary = roundoff_auxiliary_workspace()
+    auxiliary = stale_primal_workspace()
     checks = Ref(0)
     terminal = JSimplex.dual_iteration!(auxiliary, () -> (checks[] += 1; checks[] == 2))
     @test terminal.status == TIME_LIMIT
-    @test auxiliary.iterations == 2
+    @test auxiliary.iterations == 1
     @test auxiliary.refactorizations == 0
 
-    auxiliary = roundoff_auxiliary_workspace()
+    auxiliary = stale_primal_workspace()
     terminal = JSimplex.dual_iteration!(auxiliary, () -> auxiliary.refactorizations == 1)
     @test terminal.status == TIME_LIMIT
-    @test auxiliary.iterations == 2
+    @test auxiliary.iterations == 1
     @test auxiliary.refactorizations == 1
 
     for exception in (SingularException(7), ZeroPivotException(7))
-        auxiliary = roundoff_auxiliary_workspace()
+        auxiliary = stale_primal_workspace()
         checks = Ref(0)
         callback = () -> (checks[] += 1; checks[] == 2 ? throw(exception) : false)
         captured = try
@@ -797,7 +887,7 @@ end
             error
         end
         @test captured === exception
-        @test auxiliary.iterations == 2
+        @test auxiliary.iterations == 1
         @test auxiliary.refactorizations == 0
     end
 
@@ -806,7 +896,7 @@ end
                                 row_lower=T[2], column_upper=T[1])
         run = @inferred JSimplex._solve_continuous_dual(problem, SolverOptions(T))
         @test run.status == INFEASIBLE
-        @test run.iterations == 1
+        @test run.iterations == 0
         @test isnothing(run.primal)
         @test isnothing(run.objective_value)
         T <: Rational && @test run.refactorizations == 0

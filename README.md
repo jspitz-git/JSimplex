@@ -6,8 +6,9 @@ semi-continuous variable domains for explicit LP relaxation. It is experimental:
 correctness, numerical robustness, and performance are not guaranteed for general
 models. Use an established solver for production optimization.
 
-The numerical core includes a two-pass Harris ratio test, selectable dual
-steepest-edge, Devex, and Dantzig pricing, cost shifting, LU factorization, and
+The numerical core includes bound flipping during dual ratio testing, a
+two-pass Harris fallback, selectable dual steepest-edge, Devex, and Dantzig
+pricing, cost shifting, LU factorization, and
 selectable product-form, Forrest–Tomlin, and Bartels–Golub basis updates.
 Model arithmetic supports floating-point and rational scalar types, including
 `Float32`, `Float64`, `BigFloat`, and exact `Rational{BigInt}`.

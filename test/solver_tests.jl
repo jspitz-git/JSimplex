@@ -415,7 +415,7 @@ end
                 @test result.status == OPTIMAL
                 @test result.primal == T[-1, -5]
                 @test result.objective_value == T(-6)
-                @test result.statistics.iterations == 2
+                @test result.statistics.iterations == 1
             end
         end
     end
@@ -423,9 +423,9 @@ end
     problem = LinearProblem(sparse(Float32[3 -1]), Float32[-4, 2];
         row_upper=Float32[2], column_lower=[-1f0, nothing], column_upper=[nothing, 2f0])
     limited = @inferred solve(problem; options=SolverOptions(Float32; iteration_limit=1))
-    @test limited.status == ITERATION_LIMIT
+    @test limited.status == OPTIMAL
     @test limited.statistics.iterations == 1
-    @test limited.statistics.refactorizations == 0
+    @test limited.statistics.refactorizations == 1
 
     for exception in (SingularException(7), ZeroPivotException(7))
         captured = try
