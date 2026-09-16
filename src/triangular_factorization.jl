@@ -81,6 +81,49 @@ function _set_upper_value!(upper::Vector{PackedUpperColumn{T}},
     return nothing
 end
 
+function _swap_upper_rows!(upper::Vector{PackedUpperColumn{T}},
+                           columns_by_row::Vector{Vector{Int}},
+                           affected::Vector{Int}, row::Int) where {T}
+    top_columns = columns_by_row[row]
+    bottom_columns = columns_by_row[row + 1]
+    empty!(affected)
+    top_index = 1
+    bottom_index = 1
+    while top_index <= length(top_columns) || bottom_index <= length(bottom_columns)
+        if bottom_index > length(bottom_columns) ||
+           (top_index <= length(top_columns) &&
+            top_columns[top_index] < bottom_columns[bottom_index])
+            push!(affected, top_columns[top_index])
+            top_index += 1
+        elseif top_index > length(top_columns) ||
+               bottom_columns[bottom_index] < top_columns[top_index]
+            push!(affected, bottom_columns[bottom_index])
+            bottom_index += 1
+        else
+            push!(affected, top_columns[top_index])
+            top_index += 1
+            bottom_index += 1
+        end
+    end
+
+    for column_index in affected
+        column = upper[column_index]
+        position = searchsortedfirst(column.indices, row)
+        if position <= length(column.indices) && column.indices[position] == row
+            if position < length(column.indices) && column.indices[position + 1] == row + 1
+                column.values[position], column.values[position + 1] =
+                    column.values[position + 1], column.values[position]
+            else
+                column.indices[position] = row + 1
+            end
+        else
+            column.indices[position] = row
+        end
+    end
+    columns_by_row[row], columns_by_row[row + 1] = bottom_columns, top_columns
+    return nothing
+end
+
 struct ForrestTomlinUpdate{T<:Real}
     pivot::Int
     indices::Vector{Int}
@@ -96,6 +139,7 @@ end
 
 struct BartelsGolubStep{T<:Real}
     row::Int
+    last::Int
     swapped::Bool
     multiplier::T
 end
@@ -234,10 +278,18 @@ end
 function _apply_row_update!(vector::Vector, update::BartelsGolubUpdate)
     for step in update.steps
         row = step.row
-        if step.swapped
+        if step.last > row
+            # Adjacent pure swaps form one rotation.
+            old = vector[row]
+            for index in row:step.last
+                vector[index] = vector[index + 1]
+            end
+            vector[step.last + 1] = old
+        elseif step.swapped
             vector[row], vector[row + 1] = vector[row + 1], vector[row]
         end
-        vector[row + 1] -= step.multiplier * vector[row]
+        iszero(step.multiplier) ||
+            (vector[row + 1] -= step.multiplier * vector[row])
     end
     return vector
 end
@@ -245,8 +297,15 @@ end
 function _apply_transposed_row_update!(vector::Vector, update::BartelsGolubUpdate)
     for step in Iterators.reverse(update.steps)
         row = step.row
-        vector[row] -= step.multiplier * vector[row + 1]
-        if step.swapped
+        iszero(step.multiplier) ||
+            (vector[row] -= step.multiplier * vector[row + 1])
+        if step.last > row
+            old = vector[step.last + 1]
+            for index in (step.last + 1):-1:(row + 1)
+                vector[index] = vector[index - 1]
+            end
+            vector[row] = old
+        elseif step.swapped
             vector[row], vector[row + 1] = vector[row + 1], vector[row]
         end
     end
@@ -481,26 +540,15 @@ function replace_column!(factor::BartelsGolubFactorization{T},
     n = length(factor.upper)
     columns_by_row = _rebuild_row_columns!(factor.row_columns, factor.upper)
     steps = BartelsGolubStep{T}[]
+    run_start = 0
+    run_last = 0
     for column_index in position:(n - 1)
         column = factor.upper[column_index]
         swapped = _pivot_magnitude(_upper_value(column, column_index + 1)) >
                   _pivot_magnitude(_upper_value(column, column_index))
         if swapped
-            affected = factor.affected
-            empty!(affected)
-            append!(affected, columns_by_row[column_index])
-            append!(affected, columns_by_row[column_index + 1])
-            sort!(affected)
-            unique!(affected)
-            for trailing in affected
-                trailing_column = factor.upper[trailing]
-                top = _upper_value(trailing_column, column_index)
-                bottom = _upper_value(trailing_column, column_index + 1)
-                _set_upper_value!(factor.upper, columns_by_row,
-                                  trailing, column_index, bottom)
-                _set_upper_value!(factor.upper, columns_by_row,
-                                  trailing, column_index + 1, top)
-            end
+            _swap_upper_rows!(factor.upper, columns_by_row, factor.affected,
+                              column_index)
         end
         pivot = _upper_value(column, column_index)
         iszero(pivot) && throw(LinearAlgebra.ZeroPivotException(column_index))
@@ -518,9 +566,22 @@ function replace_column!(factor::BartelsGolubFactorization{T},
                                   multiplier * value)
             end
         end
+        if swapped && iszero(multiplier)
+            run_start == 0 && (run_start = column_index)
+            run_last = column_index
+            continue
+        end
+        if run_start != 0
+            push!(steps, BartelsGolubStep{T}(run_start, run_last, true, zero(T)))
+            run_start = 0
+        end
         (swapped || !iszero(multiplier)) &&
-            push!(steps, BartelsGolubStep{T}(column_index, swapped, multiplier))
+            push!(steps, BartelsGolubStep{T}(
+                column_index, column_index, swapped, multiplier,
+            ))
     end
+    run_start == 0 ||
+        push!(steps, BartelsGolubStep{T}(run_start, run_last, true, zero(T)))
     push!(factor.updates, BartelsGolubUpdate{T}(steps))
     return factor
 end

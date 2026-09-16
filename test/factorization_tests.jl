@@ -311,6 +311,11 @@ end
             B[:, leaving] = entering
             @test B * JSimplex.forward_solve(factor, rhs) == rhs
             @test transpose(B) * JSimplex.transpose_solve(factor, rhs) == rhs
+            if Factorization === JSimplex.BartelsGolubFactorization
+                expected_row_columns = [Int[] for _ in 1:5]
+                JSimplex._rebuild_row_columns!(expected_row_columns, factor.upper)
+                @test factor.row_columns == expected_row_columns
+            end
         end
     end
 end
@@ -335,4 +340,42 @@ end
     @test factor.updates[1].last == 3
     @test JSimplex.forward_solve(factor, ones(5)) ≈ [0.5, 1.0, -0.5, 1.0, 1.0]
     @test JSimplex.transpose_solve(factor, ones(5)) ≈ [-1.0, 1.0, 1.0, 1.0, 1.0]
+end
+
+@testset "Bartels-Golub compacts consecutive pure row swaps" begin
+    n = 512
+    factor = JSimplex.BartelsGolubFactorization(
+        JSimplex.SparseArrays.spdiagm(0 => ones(n)),
+    )
+    tableau = zeros(n)
+    tableau[1] = 1.0
+    JSimplex.replace_column!(factor, tableau, 1)
+
+    @test length(only(factor.updates).steps) == 1
+    @test only(only(factor.updates).steps).row == 1
+    @test only(only(factor.updates).steps).last == n - 1
+    @test Base.summarysize(factor.updates) < 1_000
+    @test JSimplex.forward_solve(factor, ones(n)) == ones(n)
+    @test JSimplex.transpose_solve(factor, ones(n)) == ones(n)
+end
+
+@testset "Bartels-Golub swaps sparse adjacent rows in place" begin
+    upper = [
+        JSimplex.PackedUpperColumn([1, 2], [2.0, 3.0]),
+        JSimplex.PackedUpperColumn([1], [5.0]),
+        JSimplex.PackedUpperColumn([2], [7.0]),
+    ]
+    row_columns = [Int[] for _ in 1:3]
+    JSimplex._rebuild_row_columns!(row_columns, upper)
+    affected = Int[]
+
+    JSimplex._swap_upper_rows!(upper, row_columns, affected, 1)
+
+    @test affected == [1, 2, 3]
+    @test upper[1].indices == [1, 2]
+    @test upper[1].values == [3.0, 2.0]
+    @test upper[2].indices == [2]
+    @test upper[3].indices == [1]
+    @test row_columns[1] == [1, 3]
+    @test row_columns[2] == [1, 2]
 end
