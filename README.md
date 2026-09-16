@@ -8,8 +8,8 @@ correctness, numerical robustness, and performance are not guaranteed for genera
 models. Use an established solver for production optimization.
 
 The primal algorithm uses an auxiliary phase I to find a feasible basis,
-followed by selectable Dantzig, steepest-edge, or Devex pricing and a basic
-minimum ratio test in phase II.
+followed by selectable Dantzig, steepest-edge, or Devex pricing and a two-pass
+Harris ratio test with entering bound flips.
 The dual algorithm includes bound flipping during ratio testing, a
 two-pass Harris fallback, selectable dual steepest-edge, Devex, and Dantzig
 pricing, cost shifting, LU factorization, and
@@ -506,11 +506,10 @@ checksum mismatches produce actionable errors.
 
 Dual and primal simplex are implemented. Presolve and scaling currently apply
 identity transformations. A basic one-shot MOI/JuMP adapter is available.
-Missing features include an advanced primal ratio test, effective
-presolve, non-identity scaling, public warm-start API,
-native incremental optimizer modification, MIP algorithm, or support for
-quadratic, SOS, or indicator models. Difficult or ill-conditioned models may
-terminate with `NUMERICAL_ERROR` or a resource limit.
+Missing features include effective presolve, non-identity scaling, public
+warm-start API, native incremental optimizer modification, MIP algorithm,
+or support for quadratic, SOS, or indicator models. Difficult or
+ill-conditioned models may terminate with `NUMERICAL_ERROR` or a resource limit.
 
 Floating results require conclusive numerical certificates. Even a simple LP
 with equality constraints or cancellation can return `NUMERICAL_ERROR` when

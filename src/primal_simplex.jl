@@ -139,30 +139,79 @@ function _primal_update_devex!(workspace::SimplexWorkspace{T}, entering::Int,
     return nothing
 end
 
+_primal_relaxed_step(raw_step::T, tolerance::T, movement::T) where {T<:AbstractFloat} =
+    raw_step + tolerance / abs(movement)
+_primal_relaxed_step(raw_step::T, tolerance::T, movement::T) where {T<:Rational} =
+    big(raw_step) + big(tolerance) / abs(big(movement))
+
 function _primal_ratio(workspace::SimplexWorkspace{T}, entering::Int, direction::T,
                        tableau_column::Vector{T}) where {T}
     opposite = direction > zero(T) ? workspace.upper[entering] : workspace.lower[entering]
-    step = isfinite(opposite) ?
+    entering_step = isfinite(opposite) ?
         (bound_value(opposite) - workspace.primal[entering]) / direction : nothing
-    leaving_row = 0
-    leaving_state = BASIC
+    strict_step = entering_step
+    strict_row = 0
+    strict_state = BASIC
+    relaxed_limit = entering_step
+    tolerance = workspace.options.primal_tolerance
     for (row, index) in enumerate(workspace.basis.basic_indices)
         movement = -direction * tableau_column[row]
         iszero(movement) && continue
         bound = movement > zero(T) ? workspace.upper[index] : workspace.lower[index]
         isfinite(bound) || continue
-        candidate = (bound_value(bound) - workspace.primal[index]) / movement
-        isfinite(candidate) || return nothing, -1, BASIC
-        candidate < -workspace.options.primal_tolerance && return nothing, -1, BASIC
-        candidate = max(zero(T), candidate)
-        if isnothing(step) || candidate < step ||
-           (candidate == step && leaving_row == 0)
-            step = candidate
-            leaving_row = row
-            leaving_state = movement > zero(T) ? AT_UPPER : AT_LOWER
+        raw_step = (bound_value(bound) - workspace.primal[index]) / movement
+        isfinite(raw_step) || return nothing, -1, BASIC
+        if raw_step < zero(T)
+            violation = movement > zero(T) ?
+                _upper_violation(bound, workspace.primal[index]) :
+                _lower_violation(bound, workspace.primal[index])
+            violation > tolerance && return nothing, -1, BASIC
+        end
+        candidate = max(zero(T), raw_step)
+        if isnothing(strict_step) || candidate < strict_step ||
+           (candidate == strict_step && strict_row == 0)
+            strict_step = candidate
+            strict_row = row
+            strict_state = movement > zero(T) ? AT_UPPER : AT_LOWER
+        end
+        relaxed = _primal_relaxed_step(raw_step, tolerance, movement)
+        if isfinite(relaxed) && (isnothing(relaxed_limit) || relaxed < relaxed_limit)
+            relaxed_limit = max(zero(T), relaxed)
         end
     end
-    return step, leaving_row, leaving_state
+    strict_row == 0 && return strict_step, strict_row, strict_state
+    isnothing(relaxed_limit) && return strict_step, strict_row, strict_state
+
+    leaving_row = 0
+    leaving_step = strict_step
+    leaving_state = strict_state
+    largest_pivot = zero(T)
+    for (row, index) in enumerate(workspace.basis.basic_indices)
+        movement = -direction * tableau_column[row]
+        iszero(movement) && continue
+        bound = movement > zero(T) ? workspace.upper[index] : workspace.lower[index]
+        isfinite(bound) || continue
+        candidate = max(zero(T),
+                        (bound_value(bound) - workspace.primal[index]) / movement)
+        candidate <= relaxed_limit || continue
+        pivot = abs(tableau_column[row])
+        if pivot > largest_pivot
+            leaving_row = row
+            leaving_step = candidate
+            leaving_state = movement > zero(T) ? AT_UPPER : AT_LOWER
+            largest_pivot = pivot
+        end
+    end
+    leaving_row == 0 && return strict_step, strict_row, strict_state
+    violation = zero(T)
+    for (row, index) in enumerate(workspace.basis.basic_indices)
+        value = workspace.primal[index] - direction * tableau_column[row] * leaving_step
+        isfinite(value) || return strict_step, strict_row, strict_state
+        violation += max(zero(T), _lower_violation(workspace.lower[index], value),
+                         _upper_violation(workspace.upper[index], value))
+        violation <= tolerance || return strict_step, strict_row, strict_state
+    end
+    return leaving_step, leaving_row, leaving_state
 end
 
 function _primal_iteration!(workspace::SimplexWorkspace{T}, stop_requested,

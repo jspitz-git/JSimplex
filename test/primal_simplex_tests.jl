@@ -245,3 +245,47 @@ end
         @test result.objective_value ≈ -2.0
     end
 end
+
+@testset "Primal Harris ratio prefers a stable feasible pivot" begin
+    problem = LinearProblem(sparse(reshape([1e-4, 1.0], 2, 1)), [-1.0];
+                            row_upper=[1e-4, 1.0 + 5e-8])
+    workspace = JSimplex.initialize_workspace(problem,
+        SolverOptions(; algorithm=:primal, pricing=:dantzig, verbose=false))
+    step, row, state = JSimplex._primal_ratio(workspace, 1, 1.0, [-1e-4, -1.0])
+    @test step ≈ 1.0 + 5e-8
+    @test row == 2
+    @test state == JSimplex.AT_UPPER
+    @test isnothing(JSimplex._primal_iteration!(workspace, () -> false, 0.0))
+    @test workspace.basis.basic_indices[2] == 1
+    @test JSimplex.primal_infeasibility(workspace) <= workspace.options.primal_tolerance
+end
+
+@testset "Primal Harris relaxation respects total feasibility and entering bounds" begin
+    aggregate = LinearProblem(sparse(reshape([1.0, 1.0, 10.0], 3, 1)), [-1.0];
+                              row_upper=[1.0, 1.0, 10.0 + 7.5e-7])
+    workspace = JSimplex.initialize_workspace(aggregate,
+        SolverOptions(; algorithm=:primal, pricing=:dantzig, verbose=false))
+    @test JSimplex._primal_ratio(workspace, 1, 1.0, [-1.0, -1.0, -10.0])[2] == 1
+
+    boxed = LinearProblem(sparse([1.0;;]), [-1.0];
+                          row_upper=[1.0 + 5e-8], column_upper=[1.0])
+    workspace = JSimplex.initialize_workspace(boxed,
+        SolverOptions(; algorithm=:primal, pricing=:dantzig, verbose=false))
+    @test JSimplex._primal_ratio(workspace, 1, 1.0, [-1.0]) ==
+          (1.0, 0, JSimplex.BASIC)
+
+    T = Rational{BigInt}
+    tied = LinearProblem(sparse(reshape(T[1, 2], 2, 1)), T[-1]; row_upper=T[1, 2])
+    workspace = JSimplex.initialize_workspace(tied,
+        SolverOptions(T; algorithm=:primal, pricing=:dantzig, verbose=false))
+    @test JSimplex._primal_ratio(workspace, 1, one(T), T[-1, -2])[2] == 2
+
+    U = Rational{Int64}
+    wide_movement = LinearProblem(sparse(U[4_000_000_000;;]), U[-1];
+                                  row_upper=U[4_000_000_000])
+    options = SolverOptions(U; algorithm=:primal, pricing=:dantzig,
+                            primal_tolerance=U(1 // 4_000_000_000), verbose=false)
+    result = solve(wide_movement; options)
+    @test result.status == OPTIMAL
+    @test result.objective_value == -one(U)
+end
