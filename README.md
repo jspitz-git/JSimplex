@@ -476,6 +476,7 @@ commands resolve JSimplex to this checkout when run from the repository root:
 julia --startup-file=no --project=dev -e 'using Pkg; Pkg.develop(path="."); Pkg.instantiate()'
 julia --startup-file=no --project=dev dev/tests/runtests.jl
 julia --startup-file=no --project=dev dev/run_suite.jl --dataset afiro --compare-glpk
+julia --startup-file=no --project=dev dev/run_suite.jl --tag numerical --compare-glpk
 julia --startup-file=no --project=dev dev/run_suite.jl --tag quick
 julia --startup-file=no --project=dev dev/benchmarks.jl afiro
 ```
@@ -499,6 +500,29 @@ benchmark is at `dev/fixtures/greenbea.mps` and is selected with
 `--dataset greenbea` or `--tag full`. GREENBEA is experimental and is outside
 the required regression gate.
 
+The standard test suite also includes seven small benchmark fixtures from
+[NetLib](https://www.netlib.org/lp/data/) and
+[MIPLib 2017](https://miplib.zib.de/download). They are stored under
+`test/fixtures/solver/netlib/` and `test/fixtures/solver/miplib/` as plain MPS,
+so tests need neither the local benchmark directories nor a network connection.
+MIPLib cases are solved only as explicit LP relaxations; the listed objectives
+are LP objectives, not MIP objectives. Both simplex algorithms are checked
+against reference objectives obtained with GLPK, except for `pk1` as noted below.
+
+| Fixture | Numerical behavior covered |
+| --- | --- |
+| NetLib `kb2` | Many equality rows and varied matrix coefficients. |
+| NetLib `sc50a` | Linked equality and inequality rows with repeated structural patterns. |
+| NetLib `adlittle` | Matrix coefficient range from 0.0012 to 64.3 and a much larger objective scale. |
+| MIPLib [`stein9inf`](https://miplib.zib.de/instance_details_stein9inf.html) | Integer infeasibility with a feasible LP relaxation. |
+| MIPLib [`flugpl`](https://miplib.zib.de/instance_details_flugpl.html) | Mixed integer domains, fractional coefficients, and large objective values. |
+| MIPLib [`markshare_4_0`](https://miplib.zib.de/instance_details_markshare_4_0.html) | Dense equalities and a zero-cost LP optimum. |
+| MIPLib [`pk1`](https://miplib.zib.de/instance_details_pk1.html) | The current dual method stalls on the LP relaxation; primal reaches zero objective, and dual must stop at its iteration limit or solve it. |
+
+`dev/run_suite.jl --tag numerical --compare-glpk` checks the six cases with
+reliable default-dual optima against GLPK. The `pk1` behavior is covered by
+the standard regression test with a fixed iteration cap.
+
 ### Large and private datasets
 
 `dev/datasets.toml` records instance paths, SHA-256 checksums, tags, and optional
@@ -506,7 +530,8 @@ expected results. Its commented schema describes the provenance, license,
 version, and source metadata required for external collections.
 `dev/Artifacts.toml` is the location for immutable collection bindings and
 verified download hashes. No external collection is currently bound or downloaded
-automatically, and no external NETLIB/MIPLIB collection runs in CI.
+automatically, and no external NETLIB/MIPLIB collection is needed in CI. The
+selected small fixtures above run with the mandatory package tests.
 
 After registering a real collection with redistribution-compatible sources,
 install its artifact explicitly with Julia's `Pkg.Artifacts` tools. A registered

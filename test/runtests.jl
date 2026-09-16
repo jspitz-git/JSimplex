@@ -16,6 +16,7 @@ using Test
     include("solver_tests.jl")
     include("bigfloat_integrity_tests.jl")
     include("regression_tests.jl")
+    include("benchmark_regression_tests.jl")
     include("numeric_type_tests.jl")
     include("moi/optimizer_tests.jl")
     include("moi/translation_tests.jl")
