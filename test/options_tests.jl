@@ -30,6 +30,16 @@
     @test result.primal == [1.0, 2.0]
 end
 
+@testset "Scaling mode selection" begin
+    @test SolverOptions(Float64).scaling == :auto
+    @test SolverOptions(Float64; scaling=:on).scaling == :on
+    @test SolverOptions(Float64; scaling=:off).scaling == :off
+    @test SolverOptions(Rational{BigInt}).scaling == :auto
+    @test SolverOptions(Rational{BigInt}, SolverOptions(scaling=:off)).scaling == :off
+    @test_throws ArgumentError SolverOptions(scaling=:unknown)
+    @test_throws ArgumentError SolverOptions(Rational{BigInt}; scaling=:on)
+end
+
 @testset "Time limits are validated before Float64 conversion" begin
     for T in (Float32, Float64, BigFloat, Rational{BigInt})
         @test_throws ArgumentError SolverOptions(T; time_limit=big"-1e-400")

@@ -81,6 +81,7 @@ end
         "pricing" => :devex,
         "basis_update" => :suhl_suhl,
         "basis_refactorization" => :markowitz,
+        "scaling" => :off,
     )
     for (name, value) in values
         attr = MOI.RawOptimizerAttribute(name)
@@ -93,6 +94,7 @@ end
     @test JSimplex._solver_options(optimizer).pricing == :devex
     @test JSimplex._solver_options(optimizer).basis_update == :suhl_suhl
     @test JSimplex._solver_options(optimizer).basis_refactorization == :markowitz
+    @test JSimplex._solver_options(optimizer).scaling == :off
     MOI.set(optimizer, MOI.RawOptimizerAttribute("verbose"), true)
     @test !JSimplex._solver_options(optimizer).verbose
     MOI.set(optimizer, MOI.Silent(), false)
@@ -117,6 +119,16 @@ end
         optimizer,
         MOI.RawOptimizerAttribute("basis_refactorization"),
         :unknown,
+    )
+    @test_throws ArgumentError MOI.set(
+        optimizer,
+        MOI.RawOptimizerAttribute("scaling"),
+        :unknown,
+    )
+    @test_throws ArgumentError MOI.set(
+        JSimplex.Optimizer{Rational{BigInt}}(),
+        MOI.RawOptimizerAttribute("scaling"),
+        :on,
     )
 
     MOI.empty!(optimizer)

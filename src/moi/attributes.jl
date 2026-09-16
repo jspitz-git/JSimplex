@@ -10,6 +10,7 @@ const _RAW_OPTIMIZER_ATTRIBUTES = (
     "pricing",
     "basis_update",
     "basis_refactorization",
+    "scaling",
 )
 
 function _solver_options(optimizer::Optimizer{T})::SolverOptions{T} where {T}
@@ -27,6 +28,7 @@ function _solver_options(optimizer::Optimizer{T})::SolverOptions{T} where {T}
         pricing=optimizer.pricing,
         basis_update=optimizer.basis_update,
         basis_refactorization=optimizer.basis_refactorization,
+        scaling=optimizer.scaling,
     )
 end
 
@@ -43,6 +45,7 @@ function _set_solver_options!(
     pricing=optimizer.pricing,
     basis_update=optimizer.basis_update,
     basis_refactorization=optimizer.basis_refactorization,
+    scaling=optimizer.scaling,
 ) where {T}
     options = SolverOptions(
         T;
@@ -58,6 +61,7 @@ function _set_solver_options!(
         pricing,
         basis_update,
         basis_refactorization,
+        scaling,
     )
     optimizer.primal_tolerance = options.primal_tolerance
     optimizer.dual_tolerance = options.dual_tolerance
@@ -70,6 +74,7 @@ function _set_solver_options!(
     optimizer.pricing = options.pricing
     optimizer.basis_update = options.basis_update
     optimizer.basis_refactorization = options.basis_refactorization
+    optimizer.scaling = options.scaling
     _clear_result!(optimizer)
     return
 end
@@ -132,6 +137,8 @@ function MOI.get(optimizer::Optimizer, attr::MOI.RawOptimizerAttribute)
         return optimizer.basis_update
     elseif attr.name == "basis_refactorization"
         return optimizer.basis_refactorization
+    elseif attr.name == "scaling"
+        return optimizer.scaling
     end
     return _unsupported_optimizer_attribute(attr)
 end
@@ -171,6 +178,9 @@ function MOI.set(
     elseif attr.name == "basis_refactorization"
         value isa Symbol || throw(ArgumentError("basis_refactorization must be a Symbol"))
         return _set_solver_options!(optimizer; basis_refactorization=value)
+    elseif attr.name == "scaling"
+        value isa Symbol || throw(ArgumentError("scaling must be a Symbol"))
+        return _set_solver_options!(optimizer; scaling=value)
     end
     return _unsupported_optimizer_attribute(attr)
 end

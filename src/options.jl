@@ -90,6 +90,7 @@ struct SolverOptions{T<:Real,M,R}
     pricing::Symbol
     basis_update::Symbol
     basis_refactorization::Symbol
+    scaling::Symbol
 end
 
 SolverOptions(; kwargs...) = SolverOptions(Float64; kwargs...)
@@ -105,11 +106,11 @@ Base.@constprop :aggressive function SolverOptions(::Type{T};
     refactorization_interval::Integer=20,
     verbose::Bool=true, log_level::LogLevel=Logging.Debug, algorithm::Symbol=:dual,
     pricing::Symbol=:steepest_edge, basis_update::Symbol=:pfi,
-    basis_refactorization::Symbol=:native,
+    basis_refactorization::Symbol=:native, scaling::Symbol=:auto,
 ) where {T}
     arguments = (primal_tolerance, dual_tolerance, zero_tolerance, iteration_limit,
                  time_limit, refactorization_interval, verbose, log_level,
-                 algorithm, pricing)
+                 algorithm, pricing, scaling)
     if basis_update === :pfi
         return _validated_refactorization(T, Val(:pfi), basis_refactorization, arguments...)
     elseif basis_update === :forrest_tomlin
@@ -136,7 +137,7 @@ end
 function _validated_options(::Type{T}, ::Val{M}, ::Val{R}, primal_tolerance, dual_tolerance,
                             zero_tolerance, iteration_limit, time_limit,
                             refactorization_interval, verbose, log_level, algorithm,
-                            pricing) where {T,M,R}
+                            pricing, scaling) where {T,M,R}
     _supported_value_type(T) || throw(ArgumentError("unsupported solver value type $T"))
     defaults = _is_exact(T) === Val(true) ? (zero(T), zero(T), zero(T)) :
         (_positive_tolerance(T, 1 // 10^7), _positive_tolerance(T, 1 // 10^7),
@@ -166,9 +167,13 @@ function _validated_options(::Type{T}, ::Val{M}, ::Val{R}, primal_tolerance, dua
         throw(ArgumentError("refactorization_interval must be positive"))
     pricing in (:steepest_edge, :devex, :dantzig) ||
         throw(ArgumentError("pricing must be :steepest_edge, :devex, or :dantzig"))
+    scaling in (:auto, :on, :off) ||
+        throw(ArgumentError("scaling must be :auto, :on, or :off"))
+    _is_exact(T) === Val(true) && scaling === :on &&
+        throw(ArgumentError("scaling=:on requires a floating model"))
     return SolverOptions{T,M,R}(tolerances..., Int(iteration_limit), converted_time_limit,
                               Int(refactorization_interval), verbose, log_level,
-                              algorithm, pricing, M, R)
+                              algorithm, pricing, M, R, scaling)
 end
 
 SolverOptions(::Type{T}, options::SolverOptions{S,M,R}) where {T,S,M,R} =
@@ -176,7 +181,7 @@ SolverOptions(::Type{T}, options::SolverOptions{S,M,R}) where {T,S,M,R} =
                        options.zero_tolerance, options.iteration_limit,
                        options.time_limit, options.refactorization_interval,
                        options.verbose, options.log_level, options.algorithm,
-                       options.pricing)
+                       options.pricing, options.scaling)
 
 """
     SolveStatistics(; iterations=0, elapsed_seconds=0.0, refactorizations=0)
