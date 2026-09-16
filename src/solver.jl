@@ -38,6 +38,59 @@ end
 _restored_objective(problem::LinearProblem{T}, primal::Vector{T}) where {T} =
     dot(problem.objective, primal) + problem.objective_constant
 
+function cleanup_original(problem::LinearProblem{T}, restored_basis::Basis,
+                          options::SolverOptions{T}, context::SolveContext,
+                          prior_iterations::Int, prior_refactorizations::Int) where {T}
+    stop_requested = _guard_stop_callback(() -> time_limit_reached(context))
+    workspace = nothing
+    try
+        progress = SimplexProgressContext(problem; start_ns=context.start_ns)
+        workspace = initialize_workspace(_minimization_problem(problem), options; progress)
+        workspace.iterations = prior_iterations
+        workspace.refactorizations = prior_refactorizations
+        stop_requested() && return _internal_solution(workspace, TIME_LIMIT, "time limit reached")
+        workspace.basis = Basis(restored_basis.basic_indices, restored_basis.states)
+        recompute!(workspace; refactorize=true, caller_guard=stop_requested)
+        return _solve_continuous_dual!(workspace, stop_requested)
+    catch exception
+        exception === stop_requested.exception && rethrow()
+        _is_numerical_exception(exception) || rethrow()
+        return DualRunResult{T}(NUMERICAL_ERROR, nothing, nothing,
+                                isnothing(workspace) ? prior_iterations : workspace.iterations,
+                                isnothing(workspace) ? prior_refactorizations : workspace.refactorizations,
+                                sprint(showerror, exception))
+    end
+end
+
+function _remaining_options(options::SolverOptions{T}; iterations::Int) where {T}
+    return SolverOptions(T;
+        primal_tolerance=options.primal_tolerance, dual_tolerance=options.dual_tolerance,
+        zero_tolerance=options.zero_tolerance,
+        iteration_limit=max(0, options.iteration_limit - iterations),
+        time_limit=options.time_limit,
+        refactorization_interval=options.refactorization_interval,
+        verbose=options.verbose, log_level=options.log_level,
+        algorithm=options.algorithm, pricing=options.pricing,
+        basis_update=options.basis_update,
+        basis_refactorization=options.basis_refactorization, scaling=options.scaling)
+end
+
+function _retry_original(problem::LinearProblem{T}, options::SolverOptions{T},
+                         context::SolveContext, previous::DualRunResult{T}) where {T}
+    time_limit_reached(context) &&
+        return DualRunResult{T}(TIME_LIMIT, nothing, nothing, previous.iterations,
+                                previous.refactorizations, "time limit reached")
+    algorithm = options.algorithm == :dual ? _solve_continuous_dual : _solve_continuous_primal
+    retry = algorithm(_minimization_problem(problem),
+                      _remaining_options(options; iterations=previous.iterations);
+                      stop_requested=() -> time_limit_reached(context),
+                      progress=SimplexProgressContext(problem; start_ns=context.start_ns))
+    return DualRunResult{T}(retry.status, retry.objective_value, retry.primal,
+                            previous.iterations + retry.iterations,
+                            previous.refactorizations + retry.refactorizations,
+                            retry.message, retry.basis)
+end
+
 function _restored_objective(problem::LinearProblem{BigFloat}, primal::Vector{BigFloat})
     working_precision = precision(BigFloat)
     if precision(problem.objective_constant) <= working_precision &&
@@ -71,6 +124,12 @@ the input model remains unchanged. Only optimal results contain a primal vector
 and objective value, expressed in the original structural variables and sense.
 Every status returns `Solution{T}`, with objective data in `Union{Nothing,T}`
 and primal data in `Union{Nothing,Vector{T}}`.
+
+Presolve removes fixed columns, empty columns whose best bound is finite, and
+empty rows. It skips a floating reduction when the transformed bounds or
+objective constant cannot be represented exactly. After postsolve, an optimal
+reduced solution is cleaned up on the original continuous LP from its restored
+basis, using the remaining time and iteration budget.
 
 Floating models use reversible row and column scaling by default. Set
 `SolverOptions(scaling=:off)` to disable it or `scaling=:on` to request it
@@ -140,7 +199,11 @@ function solve(problem::LinearProblem{T}; relax_integrality::Bool=false,
     # Even a continuous input gets its own arrays before future transforms can
     # mutate the working model. Keep this original-space LP for certification.
     continuous_problem = JSimplex.relax_integrality(problem)
-    presolved = identity_presolve(continuous_problem)
+    presolved = presolve_problem(continuous_problem)
+    time_limit_reached(context) &&
+        return _finish_solve(T, context, typed_options, TIME_LIMIT, "time limit reached")
+    presolved isa PresolveFailure &&
+        return _finish_solve(T, context, typed_options, presolved.status, presolved.message)
     scaled_problem, scaling =
         typed_options.scaling === :off || T <: Rational ?
             (presolved.problem, identity_scaling(presolved.problem)) :
@@ -151,7 +214,7 @@ function solve(problem::LinearProblem{T}; relax_integrality::Bool=false,
 
     # The core converts expected internal numerical failures and preserves
     # callback exception provenance. Do not add a broader catch at this layer.
-    progress = SimplexProgressContext(problem; start_ns=context.start_ns, scaling)
+    progress = SimplexProgressContext(presolved.problem; start_ns=context.start_ns, scaling)
     algorithm = typed_options.algorithm == :dual ? _solve_continuous_dual : _solve_continuous_primal
     run = algorithm(
         working_problem,
@@ -159,12 +222,33 @@ function solve(problem::LinearProblem{T}; relax_integrality::Bool=false,
         stop_requested=() -> time_limit_reached(context),
         progress,
     )
+    reduced = !isempty(presolved.postsolve_stack)
+    retried_original = false
+    if reduced && run.status in (INFEASIBLE, UNBOUNDED)
+        run = _retry_original(continuous_problem, typed_options, context, run)
+        retried_original = true
+    end
     if run.status != OPTIMAL
         return _finish_solve(T, context, typed_options, run.status, run.message;
                              iterations=run.iterations, refactorizations=run.refactorizations)
     end
 
-    primal = postsolve_primal(presolved, unscale_primal(scaling, run.primal))
+    primal = retried_original ? run.primal :
+             postsolve_primal(presolved, unscale_primal(scaling, run.primal))
+    if reduced && !retried_original
+        if isnothing(run.basis)
+            run = _retry_original(continuous_problem, typed_options, context, run)
+        else
+            basis = restore_basis(presolved, run.basis)
+            run = cleanup_original(continuous_problem, basis, typed_options, context,
+                                   run.iterations, run.refactorizations)
+        end
+        if run.status != OPTIMAL
+            return _finish_solve(T, context, typed_options, run.status, run.message;
+                                 iterations=run.iterations, refactorizations=run.refactorizations)
+        end
+        primal = run.primal
+    end
     objective = _restored_objective(problem, primal)
     if isnothing(objective)
         return _finish_solve(T, context, typed_options, NUMERICAL_ERROR,

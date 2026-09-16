@@ -543,10 +543,12 @@ checksum mismatches produce actionable errors.
 
 ## Limitations and extension points
 
-Dual and primal simplex are implemented. Presolve currently applies an identity
-transformation; floating models use reversible row and column scaling by default.
+Dual and primal simplex are implemented. Presolve removes fixed columns, empty
+columns with a finite optimal bound, and empty rows. Floating models use
+reversible row and column scaling by default. After postsolve, an optimal
+reduced solution is cleaned up on the original LP from the restored basis.
 A basic one-shot MOI/JuMP adapter is available.
-Missing features include effective presolve, scaling of the entire objective, public
+Missing features include stronger presolve reductions, scaling of the entire objective, public
 warm-start API, native incremental optimizer modification, MIP algorithm,
 or support for quadratic, SOS, or indicator models. Difficult or
 ill-conditioned models may terminate with `NUMERICAL_ERROR` or a resource limit.
@@ -566,7 +568,7 @@ all unbounded Float64 models are unclassified.
 
 The internal pipeline separates model validation, presolve, scaling, simplex
 workspaces, basis factorization, and restoration of the original primal solution.
-These boundaries allow future reversible presolve and alternative
+These boundaries allow additional reversible presolve rules and alternative
 factorization/update strategies. A future MIP layer can
 repeatedly solve LPs with modified bounds. These internal structures are not
 exported public APIs. The supported interface is the exported model/options/result

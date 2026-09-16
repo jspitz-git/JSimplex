@@ -474,6 +474,31 @@ function _primal_phase_one(problem::LinearProblem{T}, options::SolverOptions{T},
     return workspace, artificial_count, initial
 end
 
+function _primal_original_basis(workspace::SimplexWorkspace, column_count::Int,
+                                artificial_count::Int)
+    artificial_count == 0 &&
+        return Basis(workspace.basis.basic_indices, workspace.basis.states)
+    basis = workspace.basis
+    row_count = size(workspace.problem.A, 1)
+    states = vcat(basis.states[1:column_count],
+                  basis.states[column_count + artificial_count + 1:end])
+    indices = Vector{Int}(undef, row_count)
+    for row in 1:row_count
+        index = basis.basic_indices[row]
+        if column_count < index <= column_count + artificial_count
+            position = workspace.problem.A.colptr[index]
+            original_row = workspace.problem.A.rowval[position]
+            replacement = column_count + original_row
+            states[replacement] == BASIC && return nothing
+            states[replacement] = BASIC
+            indices[row] = replacement
+        else
+            indices[row] = index <= column_count ? index : index - artificial_count
+        end
+    end
+    return Basis(indices, states)
+end
+
 function _solve_continuous_primal(problem::LinearProblem{T}, options::SolverOptions{T};
                                   stop_requested::Function=() -> false,
                                   progress::SimplexProgressContext{T}=
@@ -522,9 +547,10 @@ function _solve_continuous_primal(problem::LinearProblem{T}, options::SolverOpti
         end
         run = _internal_solution(workspace, OPTIMAL, "optimal solution found")
         if run.status == OPTIMAL && artificial_count > 0
+            basis = _primal_original_basis(workspace, column_count, artificial_count)
             return DualRunResult{T}(run.status, run.objective_value,
                                     run.primal[1:size(problem.A, 2)],
-                                    run.iterations, run.refactorizations, run.message)
+                                    run.iterations, run.refactorizations, run.message, basis)
         end
         return run
     catch exception

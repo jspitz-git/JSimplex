@@ -10,7 +10,11 @@ struct DualRunResult{T<:Real}
     iterations::Int
     refactorizations::Int
     message::String
+    basis::Union{Nothing,Basis}
 end
+
+DualRunResult{T}(status, objective_value, primal, iterations, refactorizations, message) where {T<:Real} =
+    DualRunResult{T}(status, objective_value, primal, iterations, refactorizations, message, nothing)
 
 _is_numerical_exception(exception) =
     exception isa SingularException || exception isa ZeroPivotException
@@ -649,8 +653,9 @@ function _internal_solution(workspace::SimplexWorkspace{T}, status::TerminationS
         return _internal_solution(workspace, NUMERICAL_ERROR,
                                   "original-objective optimality certificate is inconclusive")
     end
+    basis = status == OPTIMAL ? Basis(workspace.basis.basic_indices, workspace.basis.states) : nothing
     return DualRunResult{T}(status, objective, primal, workspace.iterations,
-                            workspace.refactorizations, message)
+                            workspace.refactorizations, message, basis)
 end
 
 _internal_solution(workspace::SimplexWorkspace{T}, terminal::DualTermination) where {T} =
