@@ -26,7 +26,8 @@ function _markowitz_backend(::Type{T}, n::Int, row_order::Vector{Int},
                             lower::Vector{PackedFactorVector{T}},
                             upper::Vector{PackedFactorVector{T}},
                             diagonal::Vector{T}, core_matrix::Matrix{T}) where {T<:Real}
-    core = lu(core_matrix)
+    # Every caller passes a fresh matrix owned by the factorization.
+    core = lu!(core_matrix)
     return MarkowitzBackend{T,typeof(core)}(
         n, length(diagonal), row_order, column_order, lower, upper, diagonal,
         core, zeros(T, n), zeros(T, size(core_matrix, 1)),
@@ -37,6 +38,7 @@ function _markowitz_set_entry!(rows::Vector{Dict{Int,T}},
                                columns::Vector{Dict{Int,T}},
                                singleton_rows::Vector{Int},
                                singleton_columns::Vector{Int},
+                               doubleton_columns::BitSet,
                                row::Int, column::Int, value::T,
                                nonzeros::Int) where {T<:Real}
     row_data = rows[row]
@@ -56,8 +58,16 @@ function _markowitz_set_entry!(rows::Vector{Dict{Int,T}},
         nonzeros += !present
     end
     old_row_count != 1 && length(row_data) == 1 && push!(singleton_rows, row)
-    old_column_count != 1 && length(column_data) == 1 &&
+    new_column_count = length(column_data)
+    old_column_count != 1 && new_column_count == 1 &&
         push!(singleton_columns, column)
+    if old_column_count != new_column_count
+        if new_column_count == 2
+            push!(doubleton_columns, column)
+        elseif old_column_count == 2
+            delete!(doubleton_columns, column)
+        end
+    end
     return nonzeros
 end
 
@@ -88,21 +98,54 @@ end
 function _markowitz_pivot(rows::Vector{Dict{Int,T}}, columns::Vector{Dict{Int,T}},
                           active_rows::BitVector, active_columns::BitVector,
                           singleton_rows::Vector{Int},
-                          singleton_columns::Vector{Int}) where {T<:Real}
+                          singleton_columns::Vector{Int},
+                          doubleton_columns::BitSet) where {T<:Real}
     while !isempty(singleton_columns)
         column = pop!(singleton_columns)
         active_columns[column] && length(columns[column]) == 1 || continue
         return first(keys(columns[column])), column
     end
-    while !isempty(singleton_rows)
-        row = pop!(singleton_rows)
-        active_rows[row] && length(rows[row]) == 1 || continue
-        column = first(keys(rows[row]))
-        value = rows[row][column]
-        _markowitz_threshold_pass(_pivot_magnitude(value),
-                                  _markowitz_column_maximum(columns[column])) &&
-            return row, column
+    index = length(singleton_rows)
+    while index > 0
+        row = singleton_rows[index]
+        if active_rows[row] && length(rows[row]) == 1
+            column = first(keys(rows[row]))
+            value = rows[row][column]
+            _markowitz_threshold_pass(_pivot_magnitude(value),
+                                      _markowitz_column_maximum(columns[column])) &&
+                return row, column
+            # Keep a rejected singleton: a later update may reduce the
+            # column maximum and make it an admissible zero-fill pivot.
+        else
+            singleton_rows[index] = singleton_rows[end]
+            pop!(singleton_rows)
+        end
+        index -= 1
     end
+
+    # After the singleton search, score one is the best possible Markowitz
+    # merit. Only columns and rows of length two can achieve it. Search all
+    # such candidates to retain the original magnitude tie break.
+    doubleton_row = 0
+    doubleton_column = 0
+    doubleton_magnitude = zero(T)
+    for column in doubleton_columns
+        active_columns[column] || continue
+        column_data = columns[column]
+        length(column_data) == 2 || continue
+        column_maximum = _markowitz_column_maximum(column_data)
+        for (row, value) in column_data
+            length(rows[row]) == 2 || continue
+            magnitude = _pivot_magnitude(value)
+            _markowitz_threshold_pass(magnitude, column_maximum) || continue
+            if magnitude > doubleton_magnitude
+                doubleton_row = row
+                doubleton_column = column
+                doubleton_magnitude = magnitude
+            end
+        end
+    end
+    doubleton_row != 0 && return doubleton_row, doubleton_column
 
     best_row = 0
     best_column = 0
@@ -132,10 +175,14 @@ function MarkowitzBackend(B::AbstractMatrix{T}) where {T<:Real}
     _supported_value_type(T) || throw(ArgumentError("unsupported basis value type: $T"))
     n, width = size(B)
     n == width || throw(DimensionMismatch("basis matrix must be square"))
-    sparse_basis = SparseMatrixCSC{T,Int}(B)
     lower = PackedFactorVector{T}[]
     upper = PackedFactorVector{T}[]
     diagonal = T[]
+    if B isa StridedMatrix{T} && 2 * count(!iszero, B) >= n * n
+        return _markowitz_backend(T, n, collect(1:n), collect(1:n),
+                                  lower, upper, diagonal, Matrix{T}(B))
+    end
+    sparse_basis = SparseMatrixCSC{T,Int}(B)
     if 2 * count(!iszero, sparse_basis.nzval) >= n * n
         return _markowitz_backend(T, n, collect(1:n), collect(1:n),
                                   lower, upper, diagonal, Matrix{T}(B))
@@ -157,6 +204,7 @@ function MarkowitzBackend(B::AbstractMatrix{T}) where {T<:Real}
     active_columns = trues(n)
     singleton_rows = Int[row for row in 1:n if length(rows[row]) == 1]
     singleton_columns = Int[column for column in 1:n if length(columns[column]) == 1]
+    doubleton_columns = BitSet(column for column in 1:n if length(columns[column]) == 2)
     row_order = Int[]
     column_order = Int[]
     affected_rows = Int[]
@@ -166,7 +214,7 @@ function MarkowitzBackend(B::AbstractMatrix{T}) where {T<:Real}
         2 * nonzeros >= remaining * remaining && break
         pivot_row, pivot_column = _markowitz_pivot(
             rows, columns, active_rows, active_columns,
-            singleton_rows, singleton_columns,
+            singleton_rows, singleton_columns, doubleton_columns,
         )
         pivot_row == 0 && throw(LinearAlgebra.SingularException(length(row_order) + 1))
         pivot = rows[pivot_row][pivot_column]
@@ -198,24 +246,24 @@ function MarkowitzBackend(B::AbstractMatrix{T}) where {T<:Real}
                 value = get(rows[row], column, zero(T)) -
                         multiplier * upper_values[index]
                 nonzeros = _markowitz_set_entry!(
-                    rows, columns, singleton_rows, singleton_columns,
+                    rows, columns, singleton_rows, singleton_columns, doubleton_columns,
                     row, column, value, nonzeros,
                 )
             end
             nonzeros = _markowitz_set_entry!(
-                rows, columns, singleton_rows, singleton_columns,
+                rows, columns, singleton_rows, singleton_columns, doubleton_columns,
                 row, pivot_column, zero(T), nonzeros,
             )
         end
         push!(lower, PackedFactorVector{T}(lower_indices, lower_values))
         for column in upper_indices
             nonzeros = _markowitz_set_entry!(
-                rows, columns, singleton_rows, singleton_columns,
+                rows, columns, singleton_rows, singleton_columns, doubleton_columns,
                 pivot_row, column, zero(T), nonzeros,
             )
         end
         nonzeros = _markowitz_set_entry!(
-            rows, columns, singleton_rows, singleton_columns,
+            rows, columns, singleton_rows, singleton_columns, doubleton_columns,
             pivot_row, pivot_column, zero(T), nonzeros,
         )
         active_rows[pivot_row] = false

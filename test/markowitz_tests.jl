@@ -41,10 +41,18 @@ end
         @test basis * JSimplex.forward_solve(factor, rhs) ≈ rhs
     end
 
-    dense = Float64[4 1 2; 1 5 1; 2 1 6]
-    backend = JSimplex.MarkowitzBackend(dense)
-    @test backend.sparse_pivots == 0
-    @test size(backend.core, 1) == 3
+    for T in (Float32, Float64, BigFloat, Rational{BigInt})
+        dense = T[4 1 2; 1 5 1; 2 1 6]
+        factor = JSimplex.PFIFactorization(dense, Val(:markowitz))
+        @test factor.base.sparse_pivots == 0
+        @test size(factor.base.core, 1) == 3
+        rhs = T[1, 2, 3]
+        if T <: Rational
+            @test dense * JSimplex.forward_solve(factor, rhs) == rhs
+        else
+            @test dense * JSimplex.forward_solve(factor, rhs) ≈ rhs
+        end
+    end
     empty_backend = JSimplex.MarkowitzBackend(zeros(0, 0))
     @test JSimplex._backend_dimension(empty_backend) == 0
     @test_throws LinearAlgebra.SingularException JSimplex.MarkowitzBackend(
@@ -75,6 +83,48 @@ end
             @test transpose(basis) * transpose_solution ≈ rhs
         end
     end
+end
+
+@testset "Rejected singleton rows are reconsidered" begin
+    rows = [Dict(1 => 4.0, 2 => 1.0),
+            Dict(1 => 1.0, 2 => 4.0, 4 => 1.0),
+            Dict(3 => 1.0),
+            Dict(3 => 20.0, 4 => 2.0)]
+    columns = [Dict{Int,Float64}() for _ in 1:4]
+    for (row, entries) in enumerate(rows)
+        for (column, value) in entries
+            columns[column][row] = value
+        end
+    end
+    singleton_rows = [3]
+    JSimplex._markowitz_pivot(rows, columns, trues(4), trues(4),
+                              singleton_rows, Int[], BitSet(1:4))
+    @test 3 in singleton_rows
+    rows[4][3] = 5.0
+    columns[3][4] = 5.0
+    @test JSimplex._markowitz_pivot(rows, columns, trues(4), trues(4),
+                                    singleton_rows, Int[], BitSet(1:4)) == (3, 3)
+end
+
+@testset "Equal-fill pivots preserve magnitude preference" begin
+    rows = [Dict(1 => 1.0e-308, 2 => 1.0e308),
+            Dict(1 => 1.0e-308, 2 => -1.0e308)]
+    columns = [Dict(1 => 1.0e-308, 2 => 1.0e-308),
+               Dict(1 => 1.0e308, 2 => -1.0e308)]
+    pivot = JSimplex._markowitz_pivot(rows, columns, trues(2), trues(2),
+                                      Int[], Int[], BitSet(1:2))
+    @test pivot[2] == 2
+end
+
+@testset "Markowitz pivoting avoids extreme fill overflow" begin
+    basis = sparse([1.0e-308 1.0e308 0 0 0;
+                    1.0e-308 -1.0e308 1 0 0;
+                    0 0 1 1 0;
+                    0 0 0 1 1;
+                    0 0 1 0 1])
+    rhs = [1.0, -1.0, 0.0, 0.0, 0.0]
+    factor = JSimplex.PFIFactorization(basis, Val(:markowitz))
+    @test basis * JSimplex.forward_solve(factor, rhs) ≈ rhs
 end
 
 @testset "Markowitz threshold respects stored BigFloat precision" begin
@@ -144,6 +194,15 @@ end
     JSimplex.transpose_solve!(destination, factor, rhs)
     @test (@allocated JSimplex.forward_solve!(destination, factor, rhs)) == 0
     @test (@allocated JSimplex.transpose_solve!(destination, factor, rhs)) == 0
+end
+
+@testset "Dense Markowitz input avoids a sparse staging copy" begin
+    dense = fill(0.1, 400, 400)
+    for diagonal in 1:400
+        dense[diagonal, diagonal] = 4.0
+    end
+    JSimplex.MarkowitzBackend(dense)
+    @test (@allocated JSimplex.MarkowitzBackend(dense)) < 2_000_000
 end
 
 @testset "Markowitz refactorization is selectable for every basis update" begin
