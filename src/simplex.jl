@@ -53,9 +53,9 @@ function SimplexProgressContext(problem::LinearProblem{T}; start_ns::UInt64=time
     )
 end
 
-mutable struct SimplexWorkspace{T<:Real,F}
+mutable struct SimplexWorkspace{T<:Real,F,M}
     problem::LinearProblem{T}
-    options::SolverOptions{T}
+    options::SolverOptions{T,M}
     progress::SimplexProgressContext{T}
     costs::Vector{T}
     lower::Vector{Bound{T}}
@@ -65,7 +65,7 @@ mutable struct SimplexWorkspace{T<:Real,F}
     reduced_costs::Vector{T}
     pricing_weights::Vector{T}
     devex_reference::BitVector
-    factorization::PFIFactorization{T,F}
+    factorization::F
     scratch::SimplexScratch{T}
     iterations::Int
     refactorizations::Int
@@ -249,7 +249,7 @@ function initialize_workspace(
 
     basis = Basis(collect(column_count + 1:variable_count), states)
     initial_basis = spdiagm(0 => fill(-one(T), row_count))
-    factorization = PFIFactorization(initial_basis)
+    factorization = _basis_factorization(initial_basis, typed_options)
     scratch = SimplexScratch(T, row_count, variable_count)
     devex_reference = falses(variable_count)
     devex_reference[basis.basic_indices] .= true

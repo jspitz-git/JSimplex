@@ -202,3 +202,12 @@ function refactorize!(factor::PFIFactorization{T,F}, B::AbstractMatrix{T}) where
     empty!(factor.updates)
     return factor
 end
+
+function copy_basis_factorization(factor::PFIFactorization{T,F}) where {T,F}
+    return PFIFactorization{T,F}(
+        factor.base, copy(factor.updates), similar(factor.work),
+    )
+end
+
+_basis_factorization(B, ::Val{:pfi}) = PFIFactorization(B)
+_basis_factorization(B, ::SolverOptions{T,M}) where {T,M} = _basis_factorization(B, Val(M))

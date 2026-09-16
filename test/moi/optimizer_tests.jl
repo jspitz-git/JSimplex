@@ -79,6 +79,7 @@ end
         "verbose" => false,
         "algorithm" => :dual,
         "pricing" => :devex,
+        "basis_update" => :bartels_golub,
     )
     for (name, value) in values
         attr = MOI.RawOptimizerAttribute(name)
@@ -89,6 +90,7 @@ end
     @test JSimplex._solver_options(optimizer) isa SolverOptions{Float32}
     @test !JSimplex._solver_options(optimizer).verbose
     @test JSimplex._solver_options(optimizer).pricing == :devex
+    @test JSimplex._solver_options(optimizer).basis_update == :bartels_golub
     MOI.set(optimizer, MOI.RawOptimizerAttribute("verbose"), true)
     @test !JSimplex._solver_options(optimizer).verbose
     MOI.set(optimizer, MOI.Silent(), false)

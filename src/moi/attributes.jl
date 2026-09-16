@@ -8,6 +8,7 @@ const _RAW_OPTIMIZER_ATTRIBUTES = (
     "verbose",
     "algorithm",
     "pricing",
+    "basis_update",
 )
 
 function _solver_options(optimizer::Optimizer{T})::SolverOptions{T} where {T}
@@ -23,6 +24,7 @@ function _solver_options(optimizer::Optimizer{T})::SolverOptions{T} where {T}
         log_level=optimizer.silent ? Logging.BelowMinLevel : Logging.Debug,
         algorithm=optimizer.algorithm,
         pricing=optimizer.pricing,
+        basis_update=optimizer.basis_update,
     )
 end
 
@@ -37,6 +39,7 @@ function _set_solver_options!(
     verbose=optimizer.verbose,
     algorithm=optimizer.algorithm,
     pricing=optimizer.pricing,
+    basis_update=optimizer.basis_update,
 ) where {T}
     options = SolverOptions(
         T;
@@ -50,6 +53,7 @@ function _set_solver_options!(
         log_level=optimizer.silent ? Logging.BelowMinLevel : Logging.Debug,
         algorithm,
         pricing,
+        basis_update,
     )
     optimizer.primal_tolerance = options.primal_tolerance
     optimizer.dual_tolerance = options.dual_tolerance
@@ -60,6 +64,7 @@ function _set_solver_options!(
     optimizer.verbose = options.verbose
     optimizer.algorithm = options.algorithm
     optimizer.pricing = options.pricing
+    optimizer.basis_update = options.basis_update
     _clear_result!(optimizer)
     return
 end
@@ -118,6 +123,8 @@ function MOI.get(optimizer::Optimizer, attr::MOI.RawOptimizerAttribute)
         return optimizer.algorithm
     elseif attr.name == "pricing"
         return optimizer.pricing
+    elseif attr.name == "basis_update"
+        return optimizer.basis_update
     end
     return _unsupported_optimizer_attribute(attr)
 end
@@ -151,6 +158,9 @@ function MOI.set(
     elseif attr.name == "pricing"
         value isa Symbol || throw(ArgumentError("pricing must be a Symbol"))
         return _set_solver_options!(optimizer; pricing=value)
+    elseif attr.name == "basis_update"
+        value isa Symbol || throw(ArgumentError("basis_update must be a Symbol"))
+        return _set_solver_options!(optimizer; basis_update=value)
     end
     return _unsupported_optimizer_attribute(attr)
 end

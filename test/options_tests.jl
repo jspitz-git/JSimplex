@@ -2,6 +2,7 @@
     options = SolverOptions()
     @test options.algorithm == :dual
     @test options.pricing == :steepest_edge
+    @test options.basis_update == :pfi
     @test options.verbose
     @test options.iteration_limit == 100_000
     @test options.time_limit == Inf
@@ -15,6 +16,7 @@
     @test_throws ArgumentError SolverOptions(time_limit=-0.1)
     @test_throws ArgumentError SolverOptions(primal_tolerance=0.0)
     @test_throws ArgumentError SolverOptions(pricing=:unknown)
+    @test_throws ArgumentError SolverOptions(basis_update=:unknown)
 
     stats = SolveStatistics(iterations=3, elapsed_seconds=0.25,
                             refactorizations=1)
@@ -56,6 +58,8 @@ end
     @test converted.time_limit === 2.5
     @test !converted.verbose
     @test SolverOptions(Float32, SolverOptions(pricing=:devex)).pricing == :devex
+    @test SolverOptions(Float32, SolverOptions(basis_update=:forrest_tomlin)).basis_update ==
+          :forrest_tomlin
     @test_throws ArgumentError SolverOptions(Int)
     for T in (ComplexF64, String)
         @test_throws ArgumentError SolverOptions(T)

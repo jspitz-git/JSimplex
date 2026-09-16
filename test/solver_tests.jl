@@ -26,6 +26,24 @@ function test_public_solve_type(::Type{T}) where {T}
     end
 end
 
+@testset "Selectable basis updates solve pivoting LPs" begin
+    for (mode, Factorization) in ((:forrest_tomlin, JSimplex.ForrestTomlinFactorization),
+                                  (:bartels_golub, JSimplex.BartelsGolubFactorization))
+        for T in (Float32, Float64, BigFloat, Rational{BigInt})
+            options = SolverOptions(T; basis_update=mode, refactorization_interval=3,
+                                    verbose=false)
+            problem = typed_bounded_problem(T)
+            workspace = @inferred JSimplex.initialize_workspace(problem, options)
+            @test workspace.factorization isa Factorization
+            @test all(isconcretetype, fieldtypes(typeof(workspace)))
+            result = solve(problem; options)
+            @test result.status == OPTIMAL
+            @test result.primal ≈ T[2, 2]
+            @test result.objective_value ≈ T(-29 // 3)
+        end
+    end
+end
+
 function test_typed_statuses(::Type{T}) where {T}
     infeasible = LinearProblem(sparse(reshape(T[1], 1, 1)), T[1];
                                row_lower=T[2], column_upper=T[1])

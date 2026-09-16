@@ -8,7 +8,7 @@ models. Use an established solver for production optimization.
 
 The numerical core includes a two-pass Harris ratio test, selectable dual
 steepest-edge, Devex, and Dantzig pricing, cost shifting, LU factorization, and
-product-form basis updates.
+selectable product-form, Forrest–Tomlin, and Bartels–Golub basis updates.
 Model arithmetic supports floating-point and rational scalar types, including
 `Float32`, `Float64`, `BigFloat`, and exact `Rational{BigInt}`.
 The production package depends on Julia standard libraries and
@@ -124,13 +124,14 @@ Use the standard JuMP attributes `set_silent(model)` (MOI `Silent`) and
 wall-clock limit. The stable JSimplex raw optimizer attribute names are
 `relax_integrality`, `iteration_limit`, `primal_tolerance`, `dual_tolerance`,
 `zero_tolerance`, `refactorization_interval`, `verbose`, `algorithm`, and
-`pricing`. The only current algorithm value is `:dual`; pricing accepts
+`pricing`, and `basis_update`. The only current algorithm value is `:dual`; pricing accepts
 `:steepest_edge`, `:devex`, or `:dantzig`.
 
 ```julia
 set_optimizer_attribute(model, "relax_integrality", true)
 set_optimizer_attribute(model, "iteration_limit", 50_000)
 set_optimizer_attribute(model, "pricing", :devex)
+set_optimizer_attribute(model, "basis_update", :forrest_tomlin)
 set_time_limit_sec(model, 60.0)
 ```
 
@@ -259,6 +260,12 @@ for `SolverOptions(Float64)`. Floating types use these keyword defaults:
 | `log_level` | `Logging.Debug` | Level emitted through Julia's logging system |
 | `algorithm` | `:dual` | Only implemented algorithm |
 | `pricing` | `:steepest_edge` | Dual pricing rule: `:steepest_edge`, `:devex`, or `:dantzig` |
+| `basis_update` | `:pfi` | Basis update: `:pfi`, `:forrest_tomlin`, or `:bartels_golub` |
+
+Forrest–Tomlin maintains a sparse upper factor without row swaps during an
+update. Bartels–Golub may swap adjacent rows to choose a larger elimination
+pivot. Both reuse solve buffers and store updated factors in packed sparse
+columns. The `refactorization_interval` applies to all three update methods.
 
 Floating tolerances are evaluated in `T`; a positive default that rounds to zero
 is clamped to `nextfloat(zero(T))`. Rational primal, dual, and zero tolerance

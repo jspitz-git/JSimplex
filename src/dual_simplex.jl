@@ -609,13 +609,9 @@ function _auxiliary_workspace(workspace::SimplexWorkspace{T}) where {T}
             basis.states[index] = workspace.reduced_costs[index] < zero(T) ? AT_UPPER : AT_LOWER
         end
     end
-    # LU and existing eta data are only read by solves. Each workspace owns
-    # its update list; refactorization replaces its own base factorization.
-    factorization = PFIFactorization(
-        workspace.factorization.base,
-        copy(workspace.factorization.updates),
-        similar(workspace.factorization.work),
-    )
+    # The base LU is only read by solves. Each workspace owns its mutable
+    # update state; refactorization replaces its own base factorization.
+    factorization = copy_basis_factorization(workspace.factorization)
     row_count, column_count = size(workspace.problem.A)
     scratch = SimplexScratch(T, row_count, row_count + column_count)
     auxiliary = SimplexWorkspace(
