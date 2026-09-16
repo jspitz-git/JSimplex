@@ -9,6 +9,7 @@ mutable struct Optimizer{T<:Real} <: MOI.AbstractOptimizer
     algorithm::Symbol
     pricing::Symbol
     basis_update::Symbol
+    basis_refactorization::Symbol
     silent::Bool
     relax_integrality::Bool
     solution::Union{Nothing,Solution{T}}
@@ -30,6 +31,7 @@ function Optimizer{T}() where {T<:Real}
         options.algorithm,
         options.pricing,
         options.basis_update,
+        options.basis_refactorization,
         false,
         false,
         nothing,

@@ -9,6 +9,7 @@ using Test
     include("mps_parser_tests.jl")
     include("mps_build_tests.jl")
     include("factorization_tests.jl")
+    include("markowitz_tests.jl")
     include("simplex_workspace_tests.jl")
     include("dual_simplex_tests.jl")
     include("solver_tests.jl")

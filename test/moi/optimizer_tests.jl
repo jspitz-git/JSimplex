@@ -80,6 +80,7 @@ end
         "algorithm" => :dual,
         "pricing" => :devex,
         "basis_update" => :suhl_suhl,
+        "basis_refactorization" => :markowitz,
     )
     for (name, value) in values
         attr = MOI.RawOptimizerAttribute(name)
@@ -91,6 +92,7 @@ end
     @test !JSimplex._solver_options(optimizer).verbose
     @test JSimplex._solver_options(optimizer).pricing == :devex
     @test JSimplex._solver_options(optimizer).basis_update == :suhl_suhl
+    @test JSimplex._solver_options(optimizer).basis_refactorization == :markowitz
     MOI.set(optimizer, MOI.RawOptimizerAttribute("verbose"), true)
     @test !JSimplex._solver_options(optimizer).verbose
     MOI.set(optimizer, MOI.Silent(), false)
@@ -109,6 +111,11 @@ end
     @test_throws ArgumentError MOI.set(
         optimizer,
         MOI.RawOptimizerAttribute("pricing"),
+        :unknown,
+    )
+    @test_throws ArgumentError MOI.set(
+        optimizer,
+        MOI.RawOptimizerAttribute("basis_refactorization"),
         :unknown,
     )
 

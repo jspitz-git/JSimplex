@@ -53,9 +53,9 @@ function SimplexProgressContext(problem::LinearProblem{T}; start_ns::UInt64=time
     )
 end
 
-mutable struct SimplexWorkspace{T<:Real,F,M}
+mutable struct SimplexWorkspace{T<:Real,F,M,R}
     problem::LinearProblem{T}
-    options::SolverOptions{T,M}
+    options::SolverOptions{T,M,R}
     progress::SimplexProgressContext{T}
     costs::Vector{T}
     lower::Vector{Bound{T}}

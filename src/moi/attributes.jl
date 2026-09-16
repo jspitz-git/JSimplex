@@ -9,6 +9,7 @@ const _RAW_OPTIMIZER_ATTRIBUTES = (
     "algorithm",
     "pricing",
     "basis_update",
+    "basis_refactorization",
 )
 
 function _solver_options(optimizer::Optimizer{T})::SolverOptions{T} where {T}
@@ -25,6 +26,7 @@ function _solver_options(optimizer::Optimizer{T})::SolverOptions{T} where {T}
         algorithm=optimizer.algorithm,
         pricing=optimizer.pricing,
         basis_update=optimizer.basis_update,
+        basis_refactorization=optimizer.basis_refactorization,
     )
 end
 
@@ -40,6 +42,7 @@ function _set_solver_options!(
     algorithm=optimizer.algorithm,
     pricing=optimizer.pricing,
     basis_update=optimizer.basis_update,
+    basis_refactorization=optimizer.basis_refactorization,
 ) where {T}
     options = SolverOptions(
         T;
@@ -54,6 +57,7 @@ function _set_solver_options!(
         algorithm,
         pricing,
         basis_update,
+        basis_refactorization,
     )
     optimizer.primal_tolerance = options.primal_tolerance
     optimizer.dual_tolerance = options.dual_tolerance
@@ -65,6 +69,7 @@ function _set_solver_options!(
     optimizer.algorithm = options.algorithm
     optimizer.pricing = options.pricing
     optimizer.basis_update = options.basis_update
+    optimizer.basis_refactorization = options.basis_refactorization
     _clear_result!(optimizer)
     return
 end
@@ -125,6 +130,8 @@ function MOI.get(optimizer::Optimizer, attr::MOI.RawOptimizerAttribute)
         return optimizer.pricing
     elseif attr.name == "basis_update"
         return optimizer.basis_update
+    elseif attr.name == "basis_refactorization"
+        return optimizer.basis_refactorization
     end
     return _unsupported_optimizer_attribute(attr)
 end
@@ -161,6 +168,9 @@ function MOI.set(
     elseif attr.name == "basis_update"
         value isa Symbol || throw(ArgumentError("basis_update must be a Symbol"))
         return _set_solver_options!(optimizer; basis_update=value)
+    elseif attr.name == "basis_refactorization"
+        value isa Symbol || throw(ArgumentError("basis_refactorization must be a Symbol"))
+        return _set_solver_options!(optimizer; basis_refactorization=value)
     end
     return _unsupported_optimizer_attribute(attr)
 end

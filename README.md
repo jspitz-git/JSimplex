@@ -124,15 +124,17 @@ Use the standard JuMP attributes `set_silent(model)` (MOI `Silent`) and
 `set_time_limit_sec(model, seconds)` (MOI `TimeLimitSec`) for logging and a
 wall-clock limit. The stable JSimplex raw optimizer attribute names are
 `relax_integrality`, `iteration_limit`, `primal_tolerance`, `dual_tolerance`,
-`zero_tolerance`, `refactorization_interval`, `verbose`, `algorithm`, and
-`pricing`, and `basis_update`. The only current algorithm value is `:dual`; pricing accepts
-`:steepest_edge`, `:devex`, or `:dantzig`.
+`zero_tolerance`, `refactorization_interval`, `verbose`, `algorithm`,
+`pricing`, `basis_update`, and `basis_refactorization`. The only current
+algorithm value is `:dual`; pricing accepts `:steepest_edge`, `:devex`, or
+`:dantzig`.
 
 ```julia
 set_optimizer_attribute(model, "relax_integrality", true)
 set_optimizer_attribute(model, "iteration_limit", 50_000)
 set_optimizer_attribute(model, "pricing", :devex)
 set_optimizer_attribute(model, "basis_update", :forrest_tomlin)
+set_optimizer_attribute(model, "basis_refactorization", :markowitz)
 set_time_limit_sec(model, 60.0)
 ```
 
@@ -204,9 +206,10 @@ exact-value enclosure rounds to one value at the solve precision.
 For exact input, use rational values or typed MPS parsing:
 converting an already rounded floating value cannot recover its intended decimal.
 
-Float64 bases use sparse UMFPACK LU. Every other supported scalar uses generic
-dense LU from `LinearAlgebra`, preserving `T`; empty bases are supported too.
-Backend selection is internal. Dense BigFloat and rational solves can consume
+By default, Float64 bases use sparse UMFPACK LU. Every other supported scalar
+uses generic dense LU from `LinearAlgebra`, preserving `T`; empty bases are
+supported too. `basis_refactorization=:markowitz` selects the sparse Markowitz
+backend described below. Dense BigFloat and rational solves can consume
 substantial time and memory and are intended for small models. Use
 `Rational{BigInt}` for arbitrary-size exact arithmetic. Fixed-width rationals
 such as `Rational{Int}` retain Julia's ordinary solve-time overflow behavior;
@@ -262,6 +265,7 @@ for `SolverOptions(Float64)`. Floating types use these keyword defaults:
 | `algorithm` | `:dual` | Only implemented algorithm |
 | `pricing` | `:steepest_edge` | Dual pricing rule: `:steepest_edge`, `:devex`, or `:dantzig` |
 | `basis_update` | `:pfi` | Basis update: `:pfi`, `:forrest_tomlin`, `:bartels_golub`, or `:suhl_suhl` |
+| `basis_refactorization` | `:native` | Full factorization: `:native` or `:markowitz` |
 
 Forrest–Tomlin maintains a sparse upper factor without row swaps during an
 update. Bartels–Golub may swap adjacent rows to choose a larger elimination
@@ -270,6 +274,14 @@ position of the entering spike, reducing fill when the spike ends early. All
 three triangular methods reuse solve buffers and store updated factors in
 packed sparse columns. The `refactorization_interval` applies to all four
 update methods.
+
+With `basis_refactorization=:markowitz`, a full basis factorization chooses
+sparse pivots using the Markowitz fill criterion and a column stability
+threshold. Once the remaining matrix is at least half dense, it factors the
+trailing core with dense LU. The sparse triangular factors use packed index
+and value arrays, and solves reuse allocated buffers. This option works with
+all four basis update methods and supported numeric types. `:native` remains
+the default (`Float64` uses UMFPACK; other types use dense LU).
 
 Floating tolerances are evaluated in `T`; a positive default that rounds to zero
 is clamped to `nextfloat(zero(T))`. Rational primal, dual, and zero tolerance

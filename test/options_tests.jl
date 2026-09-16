@@ -3,6 +3,7 @@
     @test options.algorithm == :dual
     @test options.pricing == :steepest_edge
     @test options.basis_update == :pfi
+    @test options.basis_refactorization == :native
     @test options.verbose
     @test options.iteration_limit == 100_000
     @test options.time_limit == Inf
@@ -17,6 +18,9 @@
     @test_throws ArgumentError SolverOptions(primal_tolerance=0.0)
     @test_throws ArgumentError SolverOptions(pricing=:unknown)
     @test_throws ArgumentError SolverOptions(basis_update=:unknown)
+    @test_throws ArgumentError SolverOptions(basis_refactorization=:unknown)
+    @test SolverOptions(basis_refactorization=:markowitz) isa
+          SolverOptions{Float64,:pfi,:markowitz}
 
     stats = SolveStatistics(iterations=3, elapsed_seconds=0.25,
                             refactorizations=1)
@@ -62,6 +66,9 @@ end
           :forrest_tomlin
     @test SolverOptions(Float32, SolverOptions(basis_update=:suhl_suhl)).basis_update ==
           :suhl_suhl
+    @test SolverOptions(Float32,
+                        SolverOptions(basis_refactorization=:markowitz)) isa
+          SolverOptions{Float32,:pfi,:markowitz}
     @test_throws ArgumentError SolverOptions(Int)
     for T in (ComplexF64, String)
         @test_throws ArgumentError SolverOptions(T)

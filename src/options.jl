@@ -33,7 +33,8 @@ end
                   zero_tolerance=nothing, iteration_limit=100_000,
                   time_limit=Inf, refactorization_interval=20,
                   verbose=true, log_level=Logging.Debug, algorithm=:dual,
-                  pricing=:steepest_edge, basis_update=:pfi)
+                  pricing=:steepest_edge, basis_update=:pfi,
+                  basis_refactorization=:native)
     SolverOptions(; kwargs...)  # Float64 defaults
     SolverOptions(T, options::SolverOptions)
 
@@ -61,6 +62,9 @@ Dantzig (`:dantzig`) pricing.
 `basis_update` selects product-form (`:pfi`), Forrest–Tomlin
 (`:forrest_tomlin`), Bartels–Golub (`:bartels_golub`), or Suhl–Suhl
 (`:suhl_suhl`) basis updates.
+`basis_refactorization` selects the existing backend (`:native`: UMFPACK for
+`Float64`, dense LU otherwise) or sparse Markowitz elimination followed by a
+dense trailing core (`:markowitz`).
 
 ```julia
 using JSimplex
@@ -71,7 +75,7 @@ single = SolverOptions(Float32, SolverOptions())
 @assert single.dual_tolerance isa Float32
 ```
 """
-struct SolverOptions{T<:Real,M}
+struct SolverOptions{T<:Real,M,R}
     primal_tolerance::T
     dual_tolerance::T
     zero_tolerance::T
@@ -83,6 +87,7 @@ struct SolverOptions{T<:Real,M}
     algorithm::Symbol
     pricing::Symbol
     basis_update::Symbol
+    basis_refactorization::Symbol
 end
 
 SolverOptions(; kwargs...) = SolverOptions(Float64; kwargs...)
@@ -98,26 +103,38 @@ Base.@constprop :aggressive function SolverOptions(::Type{T};
     refactorization_interval::Integer=20,
     verbose::Bool=true, log_level::LogLevel=Logging.Debug, algorithm::Symbol=:dual,
     pricing::Symbol=:steepest_edge, basis_update::Symbol=:pfi,
+    basis_refactorization::Symbol=:native,
 ) where {T}
     arguments = (primal_tolerance, dual_tolerance, zero_tolerance, iteration_limit,
                  time_limit, refactorization_interval, verbose, log_level,
                  algorithm, pricing)
     if basis_update === :pfi
-        return _validated_options(T, Val(:pfi), arguments...)
+        return _validated_refactorization(T, Val(:pfi), basis_refactorization, arguments...)
     elseif basis_update === :forrest_tomlin
-        return _validated_options(T, Val(:forrest_tomlin), arguments...)
+        return _validated_refactorization(T, Val(:forrest_tomlin), basis_refactorization, arguments...)
     elseif basis_update === :bartels_golub
-        return _validated_options(T, Val(:bartels_golub), arguments...)
+        return _validated_refactorization(T, Val(:bartels_golub), basis_refactorization, arguments...)
     elseif basis_update === :suhl_suhl
-        return _validated_options(T, Val(:suhl_suhl), arguments...)
+        return _validated_refactorization(T, Val(:suhl_suhl), basis_refactorization, arguments...)
     end
     throw(ArgumentError("basis_update must be :pfi, :forrest_tomlin, :bartels_golub, or :suhl_suhl"))
 end
 
-function _validated_options(::Type{T}, ::Val{M}, primal_tolerance, dual_tolerance,
+Base.@constprop :aggressive function _validated_refactorization(
+    ::Type{T}, mode::Val, basis_refactorization::Symbol, arguments...,
+) where {T}
+    if basis_refactorization === :native
+        return _validated_options(T, mode, Val(:native), arguments...)
+    elseif basis_refactorization === :markowitz
+        return _validated_options(T, mode, Val(:markowitz), arguments...)
+    end
+    throw(ArgumentError("basis_refactorization must be :native or :markowitz"))
+end
+
+function _validated_options(::Type{T}, ::Val{M}, ::Val{R}, primal_tolerance, dual_tolerance,
                             zero_tolerance, iteration_limit, time_limit,
                             refactorization_interval, verbose, log_level, algorithm,
-                            pricing) where {T,M}
+                            pricing) where {T,M,R}
     _supported_value_type(T) || throw(ArgumentError("unsupported solver value type $T"))
     defaults = _is_exact(T) === Val(true) ? (zero(T), zero(T), zero(T)) :
         (_positive_tolerance(T, 1 // 10^7), _positive_tolerance(T, 1 // 10^7),
@@ -147,13 +164,13 @@ function _validated_options(::Type{T}, ::Val{M}, primal_tolerance, dual_toleranc
         throw(ArgumentError("refactorization_interval must be positive"))
     pricing in (:steepest_edge, :devex, :dantzig) ||
         throw(ArgumentError("pricing must be :steepest_edge, :devex, or :dantzig"))
-    return SolverOptions{T,M}(tolerances..., Int(iteration_limit), converted_time_limit,
+    return SolverOptions{T,M,R}(tolerances..., Int(iteration_limit), converted_time_limit,
                               Int(refactorization_interval), verbose, log_level,
-                              algorithm, pricing, M)
+                              algorithm, pricing, M, R)
 end
 
-SolverOptions(::Type{T}, options::SolverOptions{S,M}) where {T,S,M} =
-    _validated_options(T, Val(M), options.primal_tolerance, options.dual_tolerance,
+SolverOptions(::Type{T}, options::SolverOptions{S,M,R}) where {T,S,M,R} =
+    _validated_options(T, Val(M), Val(R), options.primal_tolerance, options.dual_tolerance,
                        options.zero_tolerance, options.iteration_limit,
                        options.time_limit, options.refactorization_interval,
                        options.verbose, options.log_level, options.algorithm,

@@ -6,6 +6,12 @@ abstract type AbstractTriangularBasisFactorization{T<:Real} end
 _basis_factorization(B, ::Val{:forrest_tomlin}) = ForrestTomlinFactorization(B)
 _basis_factorization(B, ::Val{:bartels_golub}) = BartelsGolubFactorization(B)
 _basis_factorization(B, ::Val{:suhl_suhl}) = SuhlSuhlFactorization(B)
+_basis_factorization(B, ::Val{:forrest_tomlin}, refactorization::Val) =
+    ForrestTomlinFactorization(B, refactorization)
+_basis_factorization(B, ::Val{:bartels_golub}, refactorization::Val) =
+    BartelsGolubFactorization(B, refactorization)
+_basis_factorization(B, ::Val{:suhl_suhl}, refactorization::Val) =
+    SuhlSuhlFactorization(B, refactorization)
 
 struct PackedUpperColumn{T<:Real}
     indices::Vector{Int}
@@ -180,9 +186,12 @@ mutable struct BartelsGolubFactorization{T<:Real,F} <: AbstractTriangularBasisFa
     affected::Vector{Int}
 end
 
-function ForrestTomlinFactorization(B::AbstractMatrix{T}) where {T<:Real}
+ForrestTomlinFactorization(B::AbstractMatrix{T}) where {T<:Real} =
+    ForrestTomlinFactorization(B, Val(:native))
+
+function ForrestTomlinFactorization(B::AbstractMatrix{T}, ::Val{R}) where {T<:Real,R}
     _supported_value_type(T) || throw(ArgumentError("unsupported basis value type: $T"))
-    base = _factorize_basis(B)
+    base = _factorize_basis(B, Val(R))
     n = _backend_dimension(base)
     return ForrestTomlinFactorization{T,typeof(base)}(
         base, _identity_upper(T, n), collect(1:n), collect(1:n),
@@ -190,9 +199,12 @@ function ForrestTomlinFactorization(B::AbstractMatrix{T}) where {T<:Real}
     )
 end
 
-function SuhlSuhlFactorization(B::AbstractMatrix{T}) where {T<:Real}
+SuhlSuhlFactorization(B::AbstractMatrix{T}) where {T<:Real} =
+    SuhlSuhlFactorization(B, Val(:native))
+
+function SuhlSuhlFactorization(B::AbstractMatrix{T}, ::Val{R}) where {T<:Real,R}
     _supported_value_type(T) || throw(ArgumentError("unsupported basis value type: $T"))
-    base = _factorize_basis(B)
+    base = _factorize_basis(B, Val(R))
     n = _backend_dimension(base)
     return SuhlSuhlFactorization{T,typeof(base)}(
         base, _identity_upper(T, n), collect(1:n), collect(1:n),
@@ -200,9 +212,12 @@ function SuhlSuhlFactorization(B::AbstractMatrix{T}) where {T<:Real}
     )
 end
 
-function BartelsGolubFactorization(B::AbstractMatrix{T}) where {T<:Real}
+BartelsGolubFactorization(B::AbstractMatrix{T}) where {T<:Real} =
+    BartelsGolubFactorization(B, Val(:native))
+
+function BartelsGolubFactorization(B::AbstractMatrix{T}, ::Val{R}) where {T<:Real,R}
     _supported_value_type(T) || throw(ArgumentError("unsupported basis value type: $T"))
-    base = _factorize_basis(B)
+    base = _factorize_basis(B, Val(R))
     n = _backend_dimension(base)
     return BartelsGolubFactorization{T,typeof(base)}(
         base, _identity_upper(T, n), collect(1:n), collect(1:n),
@@ -624,7 +639,7 @@ end
 
 function copy_basis_factorization(factor::ForrestTomlinFactorization{T,F}) where {T,F}
     return ForrestTomlinFactorization{T,F}(
-        factor.base, [PackedUpperColumn(copy(column.indices), copy(column.values))
+        _copy_backend(factor.base), [PackedUpperColumn(copy(column.indices), copy(column.values))
                       for column in factor.upper],
         copy(factor.column_order), copy(factor.positions),
         copy(factor.updates), similar(factor.work), similar(factor.spike),
@@ -633,7 +648,7 @@ end
 
 function copy_basis_factorization(factor::SuhlSuhlFactorization{T,F}) where {T,F}
     return SuhlSuhlFactorization{T,F}(
-        factor.base, [PackedUpperColumn(copy(column.indices), copy(column.values))
+        _copy_backend(factor.base), [PackedUpperColumn(copy(column.indices), copy(column.values))
                       for column in factor.upper],
         copy(factor.column_order), copy(factor.positions),
         copy(factor.updates), similar(factor.work), similar(factor.spike),
@@ -642,7 +657,7 @@ end
 
 function copy_basis_factorization(factor::BartelsGolubFactorization{T,F}) where {T,F}
     return BartelsGolubFactorization{T,F}(
-        factor.base, [PackedUpperColumn(copy(column.indices), copy(column.values))
+        _copy_backend(factor.base), [PackedUpperColumn(copy(column.indices), copy(column.values))
                       for column in factor.upper],
         copy(factor.column_order), copy(factor.positions),
         copy(factor.updates), similar(factor.work), similar(factor.spike),

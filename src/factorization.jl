@@ -40,10 +40,14 @@ function _factorize_dense_basis(B::AbstractMatrix{T}) where {T<:Real}
 end
 
 _factorize_basis(B::AbstractMatrix{T}) where {T<:Real} = _factorize_dense_basis(B)
+_factorize_basis(B::AbstractMatrix, ::Val{:native}) = _factorize_basis(B)
 
-function PFIFactorization(B::AbstractMatrix{T}) where {T<:Real}
+PFIFactorization(B::AbstractMatrix{T}) where {T<:Real} =
+    PFIFactorization(B, Val(:native))
+
+function PFIFactorization(B::AbstractMatrix{T}, ::Val{R}) where {T<:Real,R}
     _supported_value_type(T) || throw(ArgumentError("unsupported basis value type: $T"))
-    base = _factorize_basis(B)
+    base = _factorize_basis(B, Val(R))
     return PFIFactorization{T,typeof(base)}(base, PackedEta{T}[], zeros(T, size(B, 1)))
 end
 
@@ -203,11 +207,16 @@ function refactorize!(factor::PFIFactorization{T,F}, B::AbstractMatrix{T}) where
     return factor
 end
 
+_copy_backend(backend::Union{UMFPACKBackend,DenseLUBackend}) = backend
+
 function copy_basis_factorization(factor::PFIFactorization{T,F}) where {T,F}
     return PFIFactorization{T,F}(
-        factor.base, copy(factor.updates), similar(factor.work),
+        _copy_backend(factor.base), copy(factor.updates), similar(factor.work),
     )
 end
 
 _basis_factorization(B, ::Val{:pfi}) = PFIFactorization(B)
-_basis_factorization(B, ::SolverOptions{T,M}) where {T,M} = _basis_factorization(B, Val(M))
+_basis_factorization(B, ::Val{:pfi}, refactorization::Val) =
+    PFIFactorization(B, refactorization)
+_basis_factorization(B, ::SolverOptions{T,M,R}) where {T,M,R} =
+    _basis_factorization(B, Val(M), Val(R))
