@@ -39,6 +39,10 @@ working problem. Existing original-model primal and objective certification runs
 after unscaling. Progress reporting evaluates the original objective on the
 unscaled structural variables, including during phase I.
 
+The solve pipeline scales only after integrality relaxation. If the transform is
+called directly on a model with discrete domains, leave those columns at factor
+1 so their integer or binary domain meaning is preserved.
+
 ## Factor selection and numerical safety
 
 Make one pass over rows, then one pass over columns of the row-scaled sparse

@@ -5,6 +5,24 @@ integrity_exact(value::BigFloat) = setprecision(BigFloat, precision(value)) do
     Rational{BigInt}(value)
 end
 
+@testset "Power-of-two scaling preserves stored BigFloat coefficient bits" begin
+    stored = setprecision(BigFloat, 256) do
+        BigFloat(8) + ldexp(one(BigFloat), -200)
+    end
+    problem = LinearProblem(sparse(reshape(BigFloat[stored], 1, 1)),
+        BigFloat[stored]; row_lower=BigFloat[stored])
+    original = integrity_exact(stored)
+    setprecision(BigFloat, 53) do
+        scaled, factors = JSimplex.scale_problem(problem)
+        @test factors.row_factors == BigFloat[8]
+        @test precision(only(scaled.A.nzval)) >= 256
+        @test integrity_exact(only(scaled.A.nzval)) == original / 8
+        @test precision(only(problem.A.nzval)) == 256
+        @test integrity_exact(only(problem.A.nzval)) == original
+        @test precision(only(problem.objective)) == 256
+    end
+end
+
 function integrity_model_values(problem)
     values = vcat(problem.A.nzval, problem.objective, [problem.objective_constant])
     for bounds in (problem.row_lower, problem.row_upper, problem.column_lower, problem.column_upper)
