@@ -1,5 +1,14 @@
 using JSimplex.SparseArrays
 
+@testset "Primal weighted pricing accepts platform-sized exponents" begin
+    for T in (Float32, Float64, BigFloat)
+        cost = T(0.25)
+        mantissa = T(0.5)
+        expected = JSimplex._primal_weighted_score(cost, (Int(3), mantissa))
+        @test JSimplex._primal_weighted_score(cost, (Int32(3), mantissa)) == expected
+    end
+end
+
 @testset "Primal simplex solves a model requiring phase I" begin
     problem = LinearProblem(sparse([1.0 1.0]), [1.0, 2.0]; row_lower=[1.0])
     before = deepcopy(problem)

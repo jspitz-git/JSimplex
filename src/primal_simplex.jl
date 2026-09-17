@@ -27,7 +27,7 @@ function _primal_direction_weight(direction::AbstractVector{T}) where {T<:Ration
 end
 
 function _primal_weighted_score(reduced_cost::T,
-                                weight::Tuple{Int,T}) where {T<:AbstractFloat}
+                                weight::Tuple{I,T}) where {I<:Integer,T<:AbstractFloat}
     cost_mantissa, cost_exponent = frexp(abs(reduced_cost))
     weight_exponent, weight_mantissa = weight
     score_mantissa, correction = frexp(cost_mantissa / weight_mantissa)
