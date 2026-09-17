@@ -5,6 +5,8 @@ function _column_move_preserves_rows(problem::LinearProblem, column::Int,
         coefficient = A.nzval[position]
         iszero(coefficient) && continue
         row = A.rowval[position]
+        # Moving a positive coefficient downward threatens only the row lower
+        # bound; reversing either direction reverses the blocking side.
         blocking_side = (coefficient > 0) == toward_lower ?
                         problem.row_lower[row] : problem.row_upper[row]
         isfinite(blocking_side) && return false

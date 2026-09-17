@@ -121,8 +121,8 @@ end
     solve(problem; options)
     allocated = @allocated solve(problem; options)
 
-    # Repeated exact dependency and bound passes build rational sparse rows.
-    @test allocated <= 2_200_000
+    # Exact dependency, bound, and sparse equality passes build rational rows.
+    @test allocated <= 2_600_000
 end
 
 @testset "Binary relaxation clips caller-mutated bounds" begin

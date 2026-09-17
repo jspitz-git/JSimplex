@@ -101,6 +101,10 @@ end
         row_lower=[5.0; fill(nothing, 12)],
         row_upper=[5.0; fill(10.0, 12)])
     @test isempty(JSimplex.aggregate_sparse_equalities(expensive).postsolve_stack)
+
+    inexact = LinearProblem(sparse([3.0 1.0; 1.0 0.0]), [0.0, 0.0];
+        row_lower=[1.0, nothing], row_upper=[1.0, 1.0])
+    @test isempty(JSimplex.aggregate_sparse_equalities(inexact).postsolve_stack)
 end
 
 @testset "Dual fixing respects objective and row direction" begin

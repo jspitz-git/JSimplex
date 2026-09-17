@@ -193,6 +193,8 @@ function aggregate_sparse_equalities(problem::LinearProblem{T}) where {T}
     estimated_updates = 0
 
     for row in 1:m
+        # A row changed by an earlier substitution cannot supply an independent
+        # equality for this batch.
         modified_rows[row] && continue
         terms = entries[row]
         2 <= length(terms) <= 8 || continue
@@ -283,6 +285,7 @@ function aggregate_sparse_equalities(problem::LinearProblem{T}) where {T}
             end
             modified_rows[row] = true
             removed_columns[column] = true
+            # Do not later pivot on a variable needed to reconstruct this one.
             for (other, _) in terms
                 blocked_pivots[other] = true
             end

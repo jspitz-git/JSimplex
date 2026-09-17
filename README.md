@@ -550,14 +550,21 @@ checksum mismatches produce actionable errors.
 Dual and primal simplex are implemented. Presolve removes fixed columns, empty
 columns with a finite optimal bound, empty and singleton rows, dominated
 proportional rows, and linearly dependent rows whose bounds are implied by
-retained rows. It can also substitute a free variable from a two-term equality.
+retained rows. It substitutes free variables from two-term equalities and
+aggregates singleton columns in equality rows. Sparse equality aggregation can
+remove a non-singleton column and, when the other column bounds imply its bounds,
+the equality row. Objective-aware dual fixing moves a column to a finite bound
+when its cost and every incident row permit that direction.
 Multi-term rows propagate implied column bounds and rows implied by column
 bounds are removed. Presolve repeats its reductions until a round makes no
 change, with a limit of 12 rounds.
 Every transformed finite value must be exactly representable in the model's
-scalar type; otherwise that reduction is skipped. General rational row
-elimination is limited to 256 rows, 10,000 nonzeros, and 200,000 sparse
-elimination operations. Floating models use reversible row and column scaling
+scalar type; otherwise that reduction is skipped. Sparse equality aggregation
+considers rows with at most eight terms and permits at most ten estimated
+coefficient updates per pivot, 200,000 updates and 50,000 pivots per pass.
+General rational row elimination is limited to 256 rows, 10,000 nonzeros,
+and 200,000 sparse elimination operations. Floating models use reversible
+row and column scaling
 by default. After postsolve, an optimal reduced solution is cleaned up on the
 original LP from the restored basis. A basic one-shot MOI/JuMP adapter is
 available. Missing features include scaling of the entire objective, public
