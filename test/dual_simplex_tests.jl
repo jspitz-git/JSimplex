@@ -63,6 +63,56 @@ function stale_primal_workspace()
     return workspace
 end
 
+@testset "Dual pivot refreshes a stale floating basis before numerical failure" begin
+    problem = LinearProblem(sparse([1.0;;]), [1.0]; row_lower=[1.0])
+    options = SolverOptions(basis_update=:suhl_suhl, zero_tolerance=0.5,
+                            verbose=false)
+    workspace = JSimplex.initialize_workspace(problem, options)
+    # The updated factor is stale: it still solves a basis scaled by ten.
+    workspace.factorization.base = JSimplex._factorize_basis(sparse([-10.0;;]))
+    JSimplex.recompute!(workspace)
+    @test abs(only(JSimplex.forward_solve(workspace.factorization, [1.0]))) <
+          options.zero_tolerance
+
+    terminal = JSimplex.dual_iteration!(workspace, () -> false)
+    @test isnothing(terminal)
+    @test workspace.iterations == 1
+    @test workspace.refactorizations == 1
+    @test JSimplex.primal_infeasibility(workspace) <= options.primal_tolerance
+
+    # A genuinely small pivot still fails after one fresh factorization.
+    persistent = JSimplex.initialize_workspace(
+        problem, SolverOptions(basis_update=:suhl_suhl, zero_tolerance=2.0,
+                               verbose=false),
+    )
+    terminal = JSimplex.dual_iteration!(persistent, () -> false)
+    @test terminal.status == NUMERICAL_ERROR
+    @test persistent.iterations == 0
+    @test persistent.refactorizations == 1
+end
+
+@testset "Dual feasibility is checked against a fresh factorization" begin
+    problem = LinearProblem(sparse([1.0;;]), [1.0]; row_lower=[1.0])
+    for update in (:pfi, :suhl_suhl)
+        workspace = JSimplex.initialize_workspace(
+            problem, SolverOptions(basis_update=update, verbose=false),
+        )
+        @test isnothing(JSimplex.dual_iteration!(workspace, () -> false))
+        workspace.reduced_costs[2] = -1.0
+        @test JSimplex.dual_infeasibility(workspace) > workspace.options.dual_tolerance
+        terminal = JSimplex._dual_optimize!(workspace, () -> false)
+        @test terminal.status == OPTIMAL
+        @test workspace.refactorizations == 1
+
+        workspace.costs[2] = -2.0
+        JSimplex.recompute!(workspace)
+        @test JSimplex.dual_infeasibility(workspace) > workspace.options.dual_tolerance
+        terminal = JSimplex._dual_optimize!(workspace, () -> false)
+        @test terminal.status == NUMERICAL_ERROR
+        @test workspace.refactorizations == 1
+    end
+end
+
 @testset "Optimal results certify the original structural primal" begin
     unstable = LinearProblem(
         sparse([1.0 1.0; 1.0 1.0 + 1.0e-6]), zeros(2);

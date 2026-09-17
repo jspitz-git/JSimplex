@@ -416,6 +416,18 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
                                     workspace.factorization, column)
     all(isfinite, tableau_column) || return _numerical_failure()
     pivot = tableau_column[leaving_row]
+    if abs(pivot) <= workspace.options.zero_tolerance &&
+       _is_exact(T) === Val(false) && !basis_refreshed
+        # A small pivot can result from drift in the updated factorization.
+        # Rebuild the current basis and repeat the iteration once.
+        stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
+        recompute!(workspace; refactorize=true, caller_guard=stop_requested)
+        stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
+        _finite_workspace(workspace) || return _numerical_failure()
+        dual_infeasibility(workspace) <= workspace.options.dual_tolerance ||
+            return DualTermination(NUMERICAL_ERROR, "dual feasibility lost")
+        return _dual_iteration!(workspace, stop_requested, true)
+    end
     abs(pivot) > workspace.options.zero_tolerance || throw(ZeroPivotException(leaving_row))
     primal_step = delta / pivot
     dual_step = workspace.reduced_costs[entering_index] / tableau_row[entering_index]
@@ -685,8 +697,17 @@ function _dual_optimize!(workspace::SimplexWorkspace{T}, stop_requested)::DualTe
     while true
         stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
         _finite_workspace(workspace) || return _numerical_failure()
-        dual_infeasibility(workspace) <= workspace.options.dual_tolerance ||
-            return DualTermination(NUMERICAL_ERROR, "dual feasibility lost")
+        if dual_infeasibility(workspace) > workspace.options.dual_tolerance
+            if _is_exact(T) === Val(false) && !isempty(workspace.factorization.updates)
+                # Updated factors and reduced costs can drift between rebuilds.
+                # Confirm the failure against the current basis before stopping.
+                recompute!(workspace; refactorize=true, caller_guard=stop_requested)
+                stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
+                _finite_workspace(workspace) || return _numerical_failure()
+            end
+            dual_infeasibility(workspace) <= workspace.options.dual_tolerance ||
+                return DualTermination(NUMERICAL_ERROR, "dual feasibility lost")
+        end
         if primal_infeasibility(workspace) <= workspace.options.primal_tolerance
             return DualTermination(OPTIMAL, "optimal solution found")
         end
