@@ -106,6 +106,16 @@ function _retry_original(problem::LinearProblem{T}, options::SolverOptions{T},
                             retry.message, retry.basis)
 end
 
+function _cleanup_or_retry_original(problem::LinearProblem{T}, basis::Basis,
+                                    options::SolverOptions{T}, context::SolveContext,
+                                    prior_iterations::Int,
+                                    prior_refactorizations::Int) where {T}
+    run = cleanup_original(problem, basis, options, context,
+                           prior_iterations, prior_refactorizations)
+    return run.status == NUMERICAL_ERROR ?
+           _retry_original(problem, options, context, run) : run
+end
+
 function _restored_objective(problem::LinearProblem{BigFloat}, primal::Vector{BigFloat})
     working_precision = precision(BigFloat)
     if precision(problem.objective_constant) <= working_precision &&
@@ -262,8 +272,8 @@ function solve(problem::LinearProblem{T}; relax_integrality::Bool=false,
             run = _retry_original(continuous_problem, typed_options, context, run)
         else
             basis = restore_basis(presolved, run.basis)
-            run = cleanup_original(continuous_problem, basis, typed_options, context,
-                                   run.iterations, run.refactorizations)
+            run = _cleanup_or_retry_original(continuous_problem, basis,
+                typed_options, context, run.iterations, run.refactorizations)
         end
         if run.status != OPTIMAL
             return _finish_solve(T, context, typed_options, run.status, run.message;

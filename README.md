@@ -558,8 +558,12 @@ when its cost and every incident row permit that direction.
 Multi-term rows propagate implied column bounds and rows implied by column
 bounds are removed. Presolve repeats its reductions until a round makes no
 change, with a limit of 12 rounds.
-Every transformed finite value must be exactly representable in the model's
-scalar type; otherwise that reduction is skipped. Sparse equality aggregation
+Transformed finite values must be exactly representable in the model's scalar
+type, except objective coefficients created by singleton equality aggregation
+for `Float32` and `Float64`. Those coefficients may be rounded when the
+relative error is at most eight machine epsilons. Projected bounds and the
+objective constant still require exact representation; `BigFloat` and rational
+models retain the exact rule. Sparse equality aggregation
 considers rows with at most eight terms and permits at most ten estimated
 coefficient updates per pivot, 200,000 updates and 50,000 pivots per pass.
 General rational row elimination is limited to 256 rows, 10,000 nonzeros,

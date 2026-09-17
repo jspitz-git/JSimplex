@@ -18,6 +18,25 @@ function _project_equality_bound(::Type{T}, rhs::ExactValue,
     return isnothing(projected) ? nothing : Bound(projected)
 end
 
+function _singleton_objective_value(::Type{T}, value::ExactValue) where {T<:Real}
+    represented = _represent_exact(T, value)
+    !isnothing(represented) && return represented
+    # Only singleton objective updates may be rounded; bounds and the
+    # objective constant still use _represent_exact.
+    (T === Float32 || T === Float64) || return nothing
+    rounded = try
+        T(value)
+    catch exception
+        exception isa InexactError || exception isa OverflowError ||
+            exception isa DomainError || rethrow()
+        return nothing
+    end
+    isfinite(rounded) || return nothing
+    error = abs(value - _exact_rational(rounded))
+    limit = abs(value) * _exact_rational(8 * eps(T))
+    return error <= limit ? rounded : nothing
+end
+
 function aggregate_singleton_equalities(problem::LinearProblem{T}) where {T}
     A = problem.A
     m, n = size(A)
@@ -36,6 +55,10 @@ function aggregate_singleton_equalities(problem::LinearProblem{T}) where {T}
             bound_value(lower) == bound_value(upper) || continue
         rhs = bound_value(lower)
         rhs_exact = _exact_rational(rhs)
+        # Prefer a candidate that preserves the objective exactly when several
+        # singleton columns occur in the same equality.
+        exact_candidate = nothing
+        rounded_candidate = nothing
         for (column, coefficient) in terms
             A.colptr[column + 1] - A.colptr[column] == 1 || continue
             removed[column] && continue
@@ -51,35 +74,49 @@ function aggregate_singleton_equalities(problem::LinearProblem{T}) where {T}
             isnothing(_represent_exact(T, new_constant)) && continue
             changes = Tuple{Int,ExactValue}[]
             valid = true
+            needs_rounding = false
             for (other, stored) in terms
                 other == column && continue
                 old_cost = get(objective_updates, other,
                                _exact_rational(problem.objective[other]))
                 new_cost = old_cost - objective_ratio * _exact_rational(stored)
                 if isnothing(_represent_exact(T, new_cost))
-                    valid = false
-                    break
+                    if isnothing(_singleton_objective_value(T, new_cost))
+                        valid = false
+                        break
+                    end
+                    needs_rounding = true
                 end
                 push!(changes, (other, new_cost))
             end
             valid || continue
-
-            row_lower[row], row_upper[row] = projected_lower, projected_upper
-            for (other, new_cost) in changes
-                objective_updates[other] = new_cost
+            candidate = (column, coefficient, projected_lower, projected_upper,
+                         new_constant, changes)
+            if needs_rounding
+                isnothing(rounded_candidate) && (rounded_candidate = candidate)
+            else
+                exact_candidate = candidate
+                break
             end
-            constant_exact = new_constant
-            removed[column] = true
-            push!(records, SingletonEqualityRecord{T}(row, column, rhs, coefficient,
-                [(other, stored) for (other, stored) in terms if other != column]))
-            break
         end
+        chosen = isnothing(exact_candidate) ? rounded_candidate : exact_candidate
+        isnothing(chosen) && continue
+        column, coefficient, projected_lower, projected_upper,
+            new_constant, changes = chosen
+        row_lower[row], row_upper[row] = projected_lower, projected_upper
+        for (other, new_cost) in changes
+            objective_updates[other] = new_cost
+        end
+        constant_exact = new_constant
+        removed[column] = true
+        push!(records, SingletonEqualityRecord{T}(row, column, rhs, coefficient,
+            [(other, stored) for (other, stored) in terms if other != column]))
     end
     isempty(records) && return identity_presolve(problem)
 
     objective = copy(problem.objective)
     for (column, value) in objective_updates
-        objective[column] = something(_represent_exact(T, value))
+        objective[column] = something(_singleton_objective_value(T, value))
     end
     columns = findall(.!removed)
     rows = collect(1:m)

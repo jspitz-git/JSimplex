@@ -46,6 +46,54 @@ using JSimplex.Logging
     @test JSimplex.postsolve_primal(projected, [2.0]) == [-1.0, 2.0]
 end
 
+@testset "Rounded singleton objective updates preserve original optimum" begin
+    problem = LinearProblem(sparse([1.0 0.1; 0.0 1.0]), [0.3, 0.01];
+        row_lower=[1.0, nothing], row_upper=[1.0, 1.0],
+        column_lower=[0.0, 0.0])
+    reduced = JSimplex.aggregate_singleton_equalities(problem)
+    @test size(reduced.problem.A) == (2, 1)
+    @test reduced.problem.objective[1] ≈ -0.02
+    @test JSimplex.postsolve_primal(reduced, [1.0]) ≈ [0.9, 1.0]
+    basis = JSimplex.Basis([2, 1], JSimplex.VariableState[
+        JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_UPPER])
+    @test JSimplex.restore_basis(reduced, basis).basic_indices == [1, 2]
+    solution = solve(problem; options=SolverOptions(verbose=false))
+    @test solution.status == OPTIMAL
+    @test solution.primal ≈ [0.9, 1.0]
+    @test solution.objective_value ≈ 0.28
+
+    competing = LinearProblem(sparse([1.0 1.0 0.1; 0.0 0.0 1.0]),
+        [0.3, 0.0, 0.0]; row_lower=[1.0, nothing],
+        row_upper=[1.0, 1.0], column_lower=[0.0, 0.0, 0.0])
+    preferred = JSimplex.aggregate_singleton_equalities(competing)
+    @test preferred.problem.objective == [0.3, 0.0]
+
+    small_float = LinearProblem(sparse(Float32[1 0.1; 0 1]),
+        Float32[0.3, 0.01]; row_lower=[1.0f0, nothing],
+        row_upper=Float32[1, 1], column_lower=Float32[0, 0])
+    @test size(JSimplex.aggregate_singleton_equalities(small_float).problem.A) == (2, 1)
+
+    overflow = LinearProblem(sparse([1.0 2.0; 0.0 1.0]), [1.0e308, 0.0];
+        row_lower=[0.0, nothing], row_upper=[0.0, 1.0],
+        column_lower=[0.0, 0.0])
+    @test isempty(JSimplex.aggregate_singleton_equalities(overflow).postsolve_stack)
+
+    underflow = LinearProblem(sparse([1.0 0.5; 0.0 1.0]),
+        [nextfloat(0.0), 0.0]; row_lower=[0.0, nothing],
+        row_upper=[0.0, 1.0], column_lower=[0.0, 0.0])
+    @test isempty(JSimplex.aggregate_singleton_equalities(underflow).postsolve_stack)
+
+    precise = setprecision(BigFloat, 64) do
+        LinearProblem(sparse(BigFloat[1 big"0.1"; 0 1]),
+            BigFloat[big"0.3", big"0.01"];
+            row_lower=[big"1", nothing], row_upper=BigFloat[1, 1],
+            column_lower=BigFloat[0, 0])
+    end
+    @test setprecision(BigFloat, 64) do
+        isempty(JSimplex.aggregate_singleton_equalities(precise).postsolve_stack)
+    end
+end
+
 @testset "Sparse equality aggregation handles bounds and limited fill" begin
     bounded = LinearProblem(sparse([1.0 1.0; 1.0 -1.0]), [2.0, 1.0];
         row_lower=[4.0, nothing], row_upper=[4.0, 0.0],
@@ -520,6 +568,22 @@ end
     @test run.status == OPTIMAL
     @test run.primal == [1.0]
     @test run.iterations == 1
+end
+
+@testset "Numerical cleanup failure retries the original LP" begin
+    problem = LinearProblem(sparse([1.0 0.0]), [1.0, 0.0];
+        row_lower=[1.0], column_lower=[0.0, 0.0])
+    singular_basis = JSimplex.Basis([2], JSimplex.VariableState[
+        JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.AT_LOWER])
+    context = JSimplex.SolveContext(time_ns(), Inf)
+    options = SolverOptions(Float64; verbose=false)
+    failed = JSimplex.cleanup_original(problem, singular_basis, options,
+                                       context, 0, 0)
+    @test failed.status == NUMERICAL_ERROR
+    recovered = JSimplex._cleanup_or_retry_original(problem, singular_basis,
+        options, context, 0, 0)
+    @test recovered.status == OPTIMAL
+    @test recovered.primal == [1.0, 0.0]
 end
 
 @testset "Presolve handles a completely reduced LP" begin
