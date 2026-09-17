@@ -159,6 +159,12 @@ end
 end
 
 @testset "Multi-term row bound propagation" begin
+    shared_bound = LinearProblem(sparse([1.0 0.0; 1.0 1.0]), [0.0, 0.0];
+        row_lower=[nothing, 5.0], row_upper=[3.0, nothing])
+    shared_reduced = JSimplex.propagate_row_bounds(shared_bound)
+    @test bound_value(shared_reduced.problem.column_upper[1]) == 3.0
+    @test bound_value(shared_reduced.problem.column_lower[2]) == 2.0
+
     upper = LinearProblem(sparse([1.0 1.0]), [1.0, 0.0];
         objective_sense=MAX_SENSE, row_upper=[10.0],
         column_lower=[0.0, 4.0])
@@ -258,6 +264,20 @@ end
     three = JSimplex.presolve_problem(dependent)
     @test size(three.problem.A, 1) == 2
     @test solve(dependent).status == OPTIMAL
+end
+
+@testset "Parallel row scan avoids exact work for unique supports" begin
+    opposite_signs = LinearProblem(sparse([1.0 1.0; -2.0 -2.0]),
+        [1.0, 1.0]; row_lower=[nothing, -6.0], row_upper=[3.0, nothing])
+    @test size(JSimplex.reduce_parallel_rows(opposite_signs).problem.A, 1) == 1
+
+    rows = repeat(collect(1:10_000), outer=2)
+    columns = vcat(collect(1:10_000), collect(2:10_001))
+    unique_supports = LinearProblem(
+        sparse(rows, columns, ones(20_000), 10_000, 10_001), zeros(10_001);
+        row_upper=fill(1.0, 10_000))
+    @test isempty(JSimplex.reduce_parallel_rows(unique_supports).postsolve_stack)
+    @test (@allocated JSimplex.reduce_parallel_rows(unique_supports)) <= 10_000_000
 end
 
 @testset "Advanced presolve keeps necessary constraints" begin

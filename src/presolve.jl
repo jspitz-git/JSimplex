@@ -160,21 +160,27 @@ end
 
 function presolve_problem(problem::LinearProblem{T}) where {T}
     result = identity_presolve(problem)
+    passes = (_presolve_basic, reduce_singleton_rows,
+              aggregate_singleton_equalities, aggregate_sparse_equalities,
+              reduce_parallel_rows, reduce_dependent_rows,
+              substitute_free_doubleton, propagate_row_bounds,
+              reduce_dual_fixings)
+    last_relevant_pass = length(passes)
     for _ in 1:12
-        changed = false
-        for pass in (_presolve_basic, reduce_singleton_rows,
-                     aggregate_singleton_equalities,
-                     aggregate_sparse_equalities,
-                     reduce_parallel_rows, reduce_dependent_rows,
-                     substitute_free_doubleton, propagate_row_bounds,
-                     reduce_dual_fixings)
+        last_changed_pass = 0
+        for (index, pass) in enumerate(passes)
+            index > last_relevant_pass && break
             next = pass(result.problem)
             next isa PresolveFailure && return next
             isempty(next.postsolve_stack) && continue
             result = _compose_presolve(result, next)
-            changed = true
+            last_changed_pass = index
+            last_relevant_pass = length(passes)
         end
-        changed || break
+        last_changed_pass == 0 && break
+        # Later passes already saw the final model in this round. Revisit them
+        # only if an earlier pass changes that model in the next round.
+        last_relevant_pass = last_changed_pass
     end
     return result
 end

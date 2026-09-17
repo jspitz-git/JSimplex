@@ -26,12 +26,14 @@ function propagate_row_bounds(problem::LinearProblem{T}) where {T}
     for row in 1:m
         columns = entries[row]
         isempty(columns) && continue
+        coefficients = Vector{ExactValue}(undef, length(columns))
         min_terms = Vector{Union{Nothing,ExactValue}}(undef, length(columns))
         max_terms = similar(min_terms)
         min_sum, max_sum = zero(ExactValue), zero(ExactValue)
         min_unbounded, max_unbounded = 0, 0
         for (position, (column, stored)) in enumerate(columns)
             coefficient = _exact_rational(stored)
+            coefficients[position] = coefficient
             min_bound = coefficient > 0 ? lower[column] : upper[column]
             max_bound = coefficient > 0 ? upper[column] : lower[column]
             min_term = isfinite(min_bound) ?
@@ -66,8 +68,8 @@ function propagate_row_bounds(problem::LinearProblem{T}) where {T}
             continue
         end
 
-        for (position, (column, stored)) in enumerate(columns)
-            coefficient = _exact_rational(stored)
+        for (position, (column, _)) in enumerate(columns)
+            coefficient = coefficients[position]
             other_min = _other_activity(min_sum, min_unbounded, min_terms[position])
             other_max = _other_activity(max_sum, max_unbounded, max_terms[position])
             candidate_lower::ExactEndpoint = nothing

@@ -1,5 +1,6 @@
 const ExactValue = Rational{BigInt}
 const ExactEndpoint = Union{Nothing,ExactValue}
+const ParallelSignatureGroups = Dict{Vector{ExactValue},Vector{Int}}
 
 function _normalized_interval(problem::LinearProblem, row::Int, pivot::ExactValue)
     lower = _bound_rational(problem.row_lower[row])
@@ -19,25 +20,49 @@ _interval_disjoint(a, b) =
     (!isnothing(a[1]) && !isnothing(b[2]) && a[1] > b[2]) ||
     (!isnothing(b[1]) && !isnothing(a[2]) && b[1] > a[2])
 
+function _parallel_signature(terms)
+    pivot = _exact_rational(first(terms)[2])
+    return ExactValue[_exact_rational(value) / pivot for (_, value) in terms]
+end
+
 function reduce_parallel_rows(problem::LinearProblem{T}) where {T}
     m, n = size(problem.A)
     entries = _row_entries(problem.A)
     keep = trues(m)
-    # Long tuple keys cause excessive compilation for rows with thousands of entries.
-    groups = Dict{Vector{Tuple{Int,ExactValue}},Vector{Int}}()
+    groups = Dict{Vector{Int},Union{Int,ParallelSignatureGroups}}()
     intervals = Vector{Tuple{ExactEndpoint,ExactEndpoint}}(undef, m)
     for row in 1:m
-        isempty(entries[row]) && continue
-        pivot = _exact_rational(first(entries[row])[2])
-        signature = Tuple{Int,ExactValue}[(column, _exact_rational(value) / pivot)
-                                          for (column, value) in entries[row]]
+        terms = entries[row]
+        isempty(terms) && continue
+        # Most supports occur once, so defer exact ratios until a collision.
+        support = Int[column for (column, _) in terms]
+        bucket = get(groups, support, nothing)
+        if isnothing(bucket)
+            groups[support] = row
+            continue
+        elseif bucket isa Int
+            first_row = bucket
+            signatures = ParallelSignatureGroups()
+            signatures[_parallel_signature(entries[first_row])] = [first_row]
+            groups[support] = signatures
+            bucket = signatures
+        end
+        signature = _parallel_signature(terms)
+        representatives = get!(bucket, signature, Int[])
+        if isempty(representatives)
+            push!(representatives, row)
+            continue
+        end
+        pivot = _exact_rational(first(terms)[2])
         current = _normalized_interval(problem, row, pivot)
         intervals[row] = current
-        representatives = get!(groups, signature, Int[])
         redundant = false
         for previous in representatives
             keep[previous] || continue
-            prior = intervals[previous]
+            prior = isassigned(intervals, previous) ? intervals[previous] :
+                    _normalized_interval(problem, previous,
+                        _exact_rational(first(entries[previous])[2]))
+            intervals[previous] = prior
             if _interval_disjoint(prior, current)
                 return PresolveFailure(INFEASIBLE,
                     "proportional rows $previous and $row have disjoint bounds",
