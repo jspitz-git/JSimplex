@@ -378,11 +378,11 @@ end
 @testset "Logging follows the requested level and reports refactorizations" begin
     problem = LinearProblem(sparse([1.0 1.0; 1.0 -1.0]), [2.0, 1.0];
         row_lower=[3.0, 1.0], column_lower=[1.0, 0.0])
-    @test_logs (:info, "Loaded problem: rows=2 columns=2 nnz=4") (:info, "After presolve: rows=2 columns=2 nnz=4") (:info, r"^Solve finished:") min_level=Logging.Info solve(problem)
-    @test_logs (:info, "Starting solve") (:info, "Loaded problem: rows=2 columns=2 nnz=4") (:info, "After presolve: rows=2 columns=2 nnz=4") (:info, "Refactorizing basis") (:info, r"^iter=") (:info, "Refactorizing basis") (:info, r"^iter=") (:info, "Solve terminated") (:info, r"^Solve finished:") begin
+    @test_logs (:info, "Loaded problem: rows=2 columns=2 nnz=4") (:info, "Starting presolve") (:info, "After presolve: rows=2 columns=2 nnz=4") (:info, r"^Solve finished:") min_level=Logging.Info solve(problem)
+    @test_logs (:info, "Starting solve") (:info, "Loaded problem: rows=2 columns=2 nnz=4") (:info, "Starting presolve") (:info, "After presolve: rows=2 columns=2 nnz=4") (:info, "Refactorizing basis") (:info, r"^iter=") (:info, "Refactorizing basis") (:info, r"^iter=") (:info, "Solve terminated") (:info, r"^Solve finished:") begin
         solve(problem; options=SolverOptions(log_level=Logging.Info, refactorization_interval=1))
     end
-    @test_logs (:debug, "Starting solve") (:info, "Loaded problem: rows=2 columns=2 nnz=4") (:info, "After presolve: rows=2 columns=2 nnz=4") (:debug, "Solve terminated") (:info, r"^Solve finished:") min_level=Logging.Debug solve(problem)
+    @test_logs (:debug, "Starting solve") (:info, "Loaded problem: rows=2 columns=2 nnz=4") (:info, "Starting presolve") (:info, "After presolve: rows=2 columns=2 nnz=4") (:debug, "Solve terminated") (:info, r"^Solve finished:") min_level=Logging.Debug solve(problem)
     @test_logs (:info, "Starting solve") (:info, "Loaded problem: rows=2 columns=2 nnz=4") (:info, "Solve terminated") (:info, r"^Solve finished:") solve(problem;
         options=SolverOptions(log_level=Logging.Info, time_limit=0.0))
 end

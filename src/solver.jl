@@ -63,6 +63,7 @@ _restored_objective(problem::LinearProblem{T}, primal::Vector{T}) where {T} =
 function cleanup_original(problem::LinearProblem{T}, restored_basis::Basis,
                           options::SolverOptions{T}, context::SolveContext,
                           prior_iterations::Int, prior_refactorizations::Int) where {T}
+    options.verbose && @info "Starting postsolve cleanup on original LP"
     stop_requested = _guard_stop_callback(() -> time_limit_reached(context))
     workspace = nothing
     try
@@ -244,8 +245,12 @@ function solve(problem::LinearProblem{T}; relax_integrality::Bool=false,
     # Even a continuous input gets its own arrays before future transforms can
     # mutate the working model. Keep this original-space LP for certification.
     continuous_problem = JSimplex.relax_integrality(problem)
-    presolved = typed_options.presolve ? presolve_problem(continuous_problem) :
-                identity_presolve(continuous_problem)
+    presolved = if typed_options.presolve
+        typed_options.verbose && @info "Starting presolve"
+        presolve_problem(continuous_problem)
+    else
+        identity_presolve(continuous_problem)
+    end
     if typed_options.presolve
         if presolved isa PresolveFailure
             _report_problem_statistics("After presolve", presolved.rows, presolved.columns,

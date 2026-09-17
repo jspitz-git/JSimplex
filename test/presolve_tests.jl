@@ -503,6 +503,46 @@ end
     ]
 end
 
+@testset "Presolve and postsolve cleanup announce their start" begin
+    problem = LinearProblem(sparse([1.0;;]), [1.0]; row_lower=[1.0])
+    logger = Test.TestLogger(min_level=Logging.Info)
+    result = with_logger(logger) do
+        solve(problem)
+    end
+    messages = [record.message for record in logger.logs]
+    presolve_start = findfirst(==("Starting presolve"), messages)
+    presolve_end = findfirst(message -> startswith(message, "After presolve:"), messages)
+    cleanup_start = findfirst(==("Starting postsolve cleanup on original LP"), messages)
+    finish = findfirst(message -> startswith(message, "Solve finished:"), messages)
+    @test result.status == OPTIMAL
+    @test !isnothing(presolve_start)
+    @test !isnothing(presolve_end)
+    @test !isnothing(cleanup_start)
+    @test !isnothing(finish)
+    @test presolve_start < presolve_end < cleanup_start < finish
+
+    for options in (SolverOptions(presolve=false), SolverOptions(verbose=false))
+        logger = Test.TestLogger(min_level=Logging.Info)
+        with_logger(logger) do
+            solve(problem; options)
+        end
+        messages = [record.message for record in logger.logs]
+        @test ("Starting presolve" in messages) == (options.presolve && options.verbose)
+        @test ("Starting postsolve cleanup on original LP" in messages) ==
+              (options.presolve && options.verbose)
+    end
+
+    unchanged = LinearProblem(sparse([1.0 1.0; 1.0 -1.0]), [2.0, 1.0];
+        row_lower=[3.0, 1.0], column_lower=[1.0, 0.0])
+    logger = Test.TestLogger(min_level=Logging.Info)
+    with_logger(logger) do
+        solve(unchanged)
+    end
+    messages = [record.message for record in logger.logs]
+    @test "Starting presolve" in messages
+    @test !("Starting postsolve cleanup on original LP" in messages)
+end
+
 @testset "Presolve can be disabled for a solve" begin
     problem = LinearProblem(sparse([1.0;;]), [1.0]; row_lower=[1.0])
     enabled = solve(problem; options=SolverOptions(iteration_limit=0, verbose=false))

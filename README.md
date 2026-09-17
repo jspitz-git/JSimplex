@@ -84,8 +84,9 @@ solution = solve(problem; options=SolverOptions(presolve=false))
 ```
 
 With `verbose=true`, each `solve` logs the original row, column, and nonzero
-counts at entry. It also logs the reduced counts after presolve when presolve
-runs. `verbose=false` suppresses both statistics messages.
+counts at entry, announces the start of presolve, and logs the reduced counts
+after it runs. If postsolve cleanup starts, it announces that step as well.
+`verbose=false` suppresses these messages.
 
 ## Solve a JuMP model
 
@@ -354,9 +355,10 @@ validation. Algorithms such as `:auto` return
 `ALGORITHM_NOT_SUPPORTED`.
 
 With `verbose=true`, `solve` first reports `rows`, `columns`, and `nnz` for the
-input model. When presolve is enabled, it reports them again after presolve,
-even when no reduction is made. The input statistics also appear when presolve
-is disabled or solving stops before presolve.
+input model. When presolve is enabled, it announces the start and reports the
+counts again afterward, even when no reduction is made. A separate message
+announces postsolve cleanup when it runs. The input statistics also appear when
+presolve is disabled or solving stops before presolve.
 `nnz` counts nonzero coefficients, excluding explicitly stored sparse zeros.
 Each completed basis refactorization emits a
 single-line record through Julia's logging system, for example

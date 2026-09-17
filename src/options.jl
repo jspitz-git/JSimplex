@@ -42,7 +42,8 @@ end
 Configure numerical tolerances, completed-step and wall-clock limits, basis
 refactorization frequency, progress output, and the level used for Julia logging
 messages. With `verbose=true`, `solve` emits `Info`-level row, column, and NNZ
-counts at entry and, when enabled, after presolve. Every completed basis
+counts at entry and, when enabled, after presolve. It announces the start of
+presolve and postsolve cleanup when those phases run. Every completed basis
 refactorization emits a single-line progress record containing the iteration
 count, original objective value, primal and dual infeasibility sums and counts,
 and elapsed time. Every returned solution also emits an `Info`-level final
