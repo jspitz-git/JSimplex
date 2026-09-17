@@ -46,6 +46,63 @@ using JSimplex.Logging
     @test JSimplex.postsolve_primal(projected, [2.0]) == [-1.0, 2.0]
 end
 
+@testset "Sparse equality aggregation handles bounds and limited fill" begin
+    bounded = LinearProblem(sparse([1.0 1.0; 1.0 -1.0]), [2.0, 1.0];
+        row_lower=[4.0, nothing], row_upper=[4.0, 0.0],
+        column_lower=[0.0, 0.0], column_upper=[3.0, nothing])
+    projected = JSimplex.aggregate_sparse_equalities(bounded)
+    @test size(projected.problem.A) == (2, 1)
+    @test projected.problem.A[:, 1] == [1.0, -2.0]
+    @test bound_value(projected.problem.row_lower[1]) == 1.0
+    @test bound_value(projected.problem.row_upper[1]) == 4.0
+    @test bound_value(projected.problem.row_upper[2]) == -4.0
+    @test projected.problem.objective == [-1.0]
+    @test projected.problem.objective_constant == 8.0
+    @test JSimplex.postsolve_primal(projected, [4.0]) == [0.0, 4.0]
+    @test solve(bounded; options=SolverOptions(verbose=false)).objective_value == 4.0
+
+    implied = LinearProblem(sparse([1.0 1.0; 1.0 -1.0]), [2.0, 1.0];
+        row_lower=[5.0, nothing], row_upper=[5.0, 0.0],
+        column_lower=[0.0, 0.0], column_upper=[10.0, 4.0])
+    removed = JSimplex.aggregate_sparse_equalities(implied)
+    @test size(removed.problem.A) == (1, 1)
+    @test removed.problem.A[1, 1] == -2.0
+    @test bound_value(removed.problem.row_upper[1]) == -5.0
+    @test JSimplex.postsolve_primal(removed, [4.0]) == [1.0, 4.0]
+    @test solve(implied; options=SolverOptions(verbose=false)).objective_value == 6.0
+
+    three_term = LinearProblem(sparse([1.0 1.0 1.0; 1.0 -1.0 0.0]),
+        [2.0, 1.0, 0.0];
+        row_lower=[5.0, nothing], row_upper=[5.0, 0.0],
+        column_lower=[0.0, 0.0, 0.0], column_upper=[10.0, 4.0, 1.0])
+    three_term_reduced = JSimplex.aggregate_sparse_equalities(three_term)
+    @test size(three_term_reduced.problem.A) == (1, 2)
+    @test three_term_reduced.problem.A == sparse([-2.0 -1.0])
+    @test three_term_reduced.problem.objective == [-1.0, -2.0]
+    @test three_term_reduced.problem.objective_constant == 10.0
+    @test JSimplex.postsolve_primal(three_term_reduced, [4.0, 1.0]) ==
+          [0.0, 4.0, 1.0]
+    reduced_basis = JSimplex.Basis([3], JSimplex.VariableState[
+        JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC])
+    restored_basis = JSimplex.restore_basis(three_term_reduced, reduced_basis)
+    @test restored_basis.basic_indices == [1, 5]
+    @test restored_basis.states == JSimplex.VariableState[
+        JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_LOWER,
+        JSimplex.AT_LOWER, JSimplex.BASIC]
+    @test solve(three_term; options=SolverOptions(verbose=false)).objective_value == 4.0
+
+    wide = zeros(13, 14)
+    wide[1, 1:2] .= 1
+    for row in 2:13
+        wide[row, 1] = 1
+        wide[row, row + 1] = 1
+    end
+    expensive = LinearProblem(sparse(wide), ones(14);
+        row_lower=[5.0; fill(nothing, 12)],
+        row_upper=[5.0; fill(10.0, 12)])
+    @test isempty(JSimplex.aggregate_sparse_equalities(expensive).postsolve_stack)
+end
+
 @testset "Multi-term row bound propagation" begin
     upper = LinearProblem(sparse([1.0 1.0]), [1.0, 0.0];
         objective_sense=MAX_SENSE, row_upper=[10.0],
