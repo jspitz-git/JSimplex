@@ -45,7 +45,8 @@ messages. With `verbose=true`, `solve` emits `Info`-level row, column, and NNZ
 counts at entry and, when enabled, after presolve. Every completed basis
 refactorization emits a single-line progress record containing the iteration
 count, original objective value, primal and dual infeasibility sums and counts,
-and elapsed time.
+and elapsed time. Every returned solution also emits an `Info`-level final
+status, total iteration count, and elapsed time.
 `SolverOptions(T; ...)` stores tolerances in the supported floating or rational
 type `T`. Floating defaults are `T(1 // 10^7)` for primal/dual tolerances and
 `T(1 // 10^12)` for zero tolerance; a positive default that rounds to zero is

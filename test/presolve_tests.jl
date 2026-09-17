@@ -599,6 +599,30 @@ end
     @test recovered.primal == [1.0, 0.0]
 end
 
+@testset "Original LP retry explains the restart and keeps cumulative iterations" begin
+    problem = LinearProblem(sparse([1.0;;]), [1.0]; row_lower=[1.0])
+    previous = JSimplex.DualRunResult{Float64}(
+        NUMERICAL_ERROR, nothing, nothing, 7, 0, "reduced basis failed")
+    context = JSimplex.SolveContext(time_ns(), Inf)
+    options = SolverOptions(Float64; refactorization_interval=1)
+    logger = Test.TestLogger(min_level=Logging.Info)
+    retry = with_logger(logger) do
+        JSimplex._retry_original(problem, options, context, previous)
+    end
+    messages = [record.message for record in logger.logs]
+    @test retry.status == OPTIMAL
+    @test retry.iterations == 8
+    @test any(message -> startswith(message, "Restarting simplex on original LP") &&
+                        occursin("NUMERICAL_ERROR", message) &&
+                        occursin("reduced basis failed", message), messages)
+    @test any(message -> startswith(message, "iter=8 "), messages)
+
+    failed = JSimplex._retry_original(problem,
+        SolverOptions(Float64; zero_tolerance=2.0, verbose=false), context, previous)
+    @test failed.status == NUMERICAL_ERROR
+    @test occursin("reduced basis failed", failed.message)
+end
+
 @testset "Presolve handles a completely reduced LP" begin
     problem = LinearProblem(sparse([1.0;;]), [2.0];
                             row_lower=[3.0], row_upper=[3.0],

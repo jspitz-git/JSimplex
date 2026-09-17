@@ -17,6 +17,7 @@ struct SimplexProgressContext{T<:Real}
     objective::Vector{T}
     objective_constant::T
     scaling::Scaling{T}
+    iteration_offset::Int
 end
 
 mutable struct SimplexScratch{T<:Real}
@@ -51,12 +52,14 @@ function SimplexScratch(::Type{T}, row_count::Int, variable_count::Int) where {T
 end
 
 function SimplexProgressContext(problem::LinearProblem{T}; start_ns::UInt64=time_ns(),
-                                scaling::Scaling{T}=identity_scaling(problem)) where {T}
+                                scaling::Scaling{T}=identity_scaling(problem),
+                                iteration_offset::Int=0) where {T}
     return SimplexProgressContext{T}(
         start_ns,
         copy(problem.objective),
         problem.objective_constant,
         scaling,
+        iteration_offset,
     )
 end
 
@@ -350,7 +353,7 @@ function _report_simplex_progress(workspace::SimplexWorkspace, caller_guard)
     dual_sum, dual_count = dual_infeasibility_summary(workspace)
     elapsed = (time_ns() - context.start_ns) / 1.0e9
     message = string(
-        "iter=", workspace.iterations,
+        "iter=", context.iteration_offset + workspace.iterations,
         " obj=", objective_value,
         " pinf=", primal_sum, " (", primal_count, ")",
         " dinf=", dual_sum, " (", dual_count, ")",

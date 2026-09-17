@@ -29,6 +29,13 @@ function _finish_solve(::Type{T}, context::SolveContext, options::SolverOptions{
     statistics = SolveStatistics(; iterations, refactorizations,
                                  elapsed_seconds=elapsed_seconds(context))
     @logmsg options.log_level "Solve terminated" status iterations refactorizations elapsed_seconds=statistics.elapsed_seconds
+    if options.verbose
+        detail = status == OPTIMAL ? string(" objective=", objective_value) :
+                 string(" reason=", message)
+        @info string("Solve finished: status=", status, detail,
+                     " iterations=", iterations,
+                     " time=", statistics.elapsed_seconds, "s")
+    end
     return Solution{T}(status, objective_value, primal, statistics, message)
 end
 
@@ -96,15 +103,23 @@ function _retry_original(problem::LinearProblem{T}, options::SolverOptions{T},
     time_limit_reached(context) &&
         return DualRunResult{T}(TIME_LIMIT, nothing, nothing, previous.iterations,
                                 previous.refactorizations, "time limit reached")
+    if options.verbose
+        @info string("Restarting simplex on original LP after ", previous.status,
+                     ": ", previous.message, "; completed iterations=", previous.iterations)
+    end
     algorithm = options.algorithm == :dual ? _solve_continuous_dual : _solve_continuous_primal
     retry = algorithm(_minimization_problem(problem),
                       _remaining_options(options; iterations=previous.iterations);
                       stop_requested=() -> time_limit_reached(context),
-                      progress=SimplexProgressContext(problem; start_ns=context.start_ns))
+                      progress=SimplexProgressContext(problem; start_ns=context.start_ns,
+                                                      iteration_offset=previous.iterations))
+    message = retry.status == NUMERICAL_ERROR ?
+              string("Original LP retry failed after ", previous.status, " (",
+                     previous.message, "): ", retry.message) : retry.message
     return DualRunResult{T}(retry.status, retry.objective_value, retry.primal,
                             previous.iterations + retry.iterations,
                             previous.refactorizations + retry.refactorizations,
-                            retry.message, retry.basis)
+                            message, retry.basis)
 end
 
 function _cleanup_or_retry_original(problem::LinearProblem{T}, basis::Basis,
@@ -155,7 +170,10 @@ Presolve is enabled by default; `SolverOptions(presolve=false)` skips it. When
 enabled, it removes fixed and redundant structure and skips a floating reduction
 when transformed values cannot be represented safely. After postsolve, an optimal
 reduced solution is cleaned up on the original continuous LP from its restored
-basis, using the remaining time and iteration budget.
+basis, using the remaining time and iteration budget. An inconclusive reduced
+solve restarts simplex on the original LP, logs the reason when `verbose=true`,
+and reports cumulative progress iterations. If that retry also fails numerically,
+the result message includes both failure reasons.
 
 Floating models use reversible row and column scaling by default. Set
 `SolverOptions(scaling=:off)` to disable it or `scaling=:on` to request it

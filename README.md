@@ -73,7 +73,11 @@ end
 
 Presolve runs by default. It applies all implemented reductions automatically,
 then restores the original variables and resolves the original LP from the
-restored basis when cleanup is needed. To solve the original LP directly:
+restored basis when cleanup is needed. If the reduced solve cannot certify its
+result, JSimplex restarts simplex on the original LP. With `verbose=true`, this
+restart logs the first status and reason. Progress iteration counts and final
+statistics include iterations spent on both LPs. To solve the original LP
+directly:
 
 ```julia
 solution = solve(problem; options=SolverOptions(presolve=false))
@@ -282,7 +286,7 @@ for `SolverOptions(Float64)`. Floating types use these keyword defaults:
 | `iteration_limit` | `100_000` | Maximum completed simplex steps (pivots or primal bound flips) |
 | `time_limit` | `Inf` | Wall-clock seconds; `Inf` disables the deadline |
 | `refactorization_interval` | `20` | Basis update interval before full factorization |
-| `verbose` | `true` | Emit `Info`-level model statistics and simplex progress |
+| `verbose` | `true` | Emit `Info`-level model statistics, simplex progress, and final status |
 | `log_level` | `Logging.Debug` | Level emitted through Julia's logging system |
 | `algorithm` | `:dual` | `:dual` or `:primal` |
 | `pricing` | `:steepest_edge` | Dual or primal pricing rule: `:steepest_edge`, `:devex`, or `:dantzig` |
@@ -364,6 +368,9 @@ rather than its auxiliary objective.
 Set `verbose=false` to suppress these records. In the MOI/JuMP adapter,
 `Silent=true` also suppresses them without changing the stored raw `"verbose"`
 attribute.
+The last `Info` record reports the termination status, total simplex iterations,
+and elapsed time. Optimal runs also report the objective; other statuses include
+the termination reason.
 
 Every termination path for `LinearProblem{T}` returns `Solution{T}` with
 `objective_value::Union{Nothing,T}` and `primal::Union{Nothing,Vector{T}}`.
