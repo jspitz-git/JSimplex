@@ -78,3 +78,31 @@ The new run again stopped at `NUMERICAL_ERROR: dual feasibility lost` on iterati
 Unrefined Float64 fresh LU first reports four violations at iteration 22,233, but 256/512-bit refinement shows they are sign errors from an ill-conditioned solve, not established dual infeasibility of those captured bases. The investigated pivot has the same row/column value and ratio-test choice with updated and fresh data, while the refined tableau coefficients at the four variables are zero. No individual pivot, bound-flipping, or factorization-update implementation defect is isolated by these measurements. Keep `NUMERICAL_ERROR`; none of `OPTIMAL`, `INFEASIBLE`, or `UNBOUNDED` is supported. A safe follow-up is to consider iterative refinement or a condition-aware feasibility check when a refactorization reports a large dual-feasibility change, then re-evaluate the full termination criteria. If feasibility cannot be established, retain `NUMERICAL_ERROR`. No solver change was made in this investigation.
 
 The focused factorization and dual-simplex tests pass (`1631/1631`) with `julia --project=. -e 'using JSimplex, Test; @testset "Runtime-relevant tests" begin include("test/factorization_tests.jl"); include("test/dual_simplex_tests.jl"); end'`. The full baseline `Pkg.test()` run on `c666364` exited 1 and exposed at least one separate Windows type mismatch in `test/primal_simplex_tests.jl`: `_primal_weighted_score(::BigFloat, ::Tuple{Int32, BigFloat})` has no method (the available method expects `Tuple{Int64, BigFloat}`). No solver code or regression test was changed for this investigation.
+
+## Diagnostic continuation after Float64 refactorization failures
+
+Starting from commit `6de68f4`, `runtime_refinement_continuation.jl` repeats the isolated reduced-LP run with the same numerical options. Its first run ends at iteration 22,256 with `NUMERICAL_ERROR: dual feasibility lost`, 446 refactorizations, and `dinf=(801.7210961960537, 4)`. Its captured 50 pivot tuples from 22,207 through 22,256 match `runtime_pivot_audit.log` exactly, in order. The callback makes no solves before that failure.
+
+At each subsequent `dual feasibility lost` result with a freshly refactorized basis, the script assembles `B` independently, computes a new Float64 sparse LU, and applies the same BigFloat residual-refinement procedure as `runtime_bigfloat_refinement.jl` at 256 and 512 bits. It compares the full sets of dual-infeasible nonbasic variables. It writes **only** `workspace.reduced_costs` from the 512-bit result if both refinements converge, both sets are empty, all converted Float64 prices remain finite and feasible, and the factorization has no pending updates. A disagreement, nonconvergence, surviving violation, or a repeat at the same iteration ends the experiment as `NUMERICAL_ERROR`. No production solver file is changed, and no original-LP fallback is invoked.
+
+The five applications were:
+
+| Iteration | Refactorizations | Float64 `dinf` (count) | Final `‖Bᵀy-c_B‖∞`, 256 bits | Final `‖Bᵀy-c_B‖∞`, 512 bits | Refinement time |
+| ---: | ---: | ---: | ---: | ---: | ---: |
+| 22,256 | 446 | 801.7210961960537 (4) | 5.90708e-36 | 8.44234e-91 | 2.56 s |
+| 22,656 | 454 | 355.1036866971165 (2) | 1.17511e-36 | 7.10890e-87 | 2.06 s |
+| 22,706 | 455 | 355.1038622663624 (2) | 2.77168e-36 | 8.99611e-87 | 2.15 s |
+| 22,756 | 456 | 342.2117731477336 (2) | 5.83370e-36 | 2.97457e-86 | 2.28 s |
+| 22,906 | 459 | 201.1535347607893 (2) | 2.34622e-42 | 9.88807e-91 | 2.45 s |
+
+For **all five** applications, the 256- and 512-bit calculations converged, both found **zero** dual-infeasible variables, and conversion back to Float64 remained dual feasible. The log records every residual correction, watched price, feasibility comparison, and application. The maximum 256/512-bit price gap across all variables was at most `3.10e-25` at the first application and at most `7.92e-33` at the fifth; those differences are far below the observed wrong Float64 prices but are not used as a mathematical certificate by the solver.
+
+The run reached the experiment cap of **23,000 completed iterations** and **460 refactorizations** in **220.6372591 seconds** including read, presolve, and scaling. Five refinements were attempted and all five were applied; the summed measured refinement time was about **11.51 seconds**. At the cap `dinf=(0.0, 0)`. The stop callback makes `_dual_optimize!` return `TIME_LIMIT: time limit reached` at 23,000; the script labels the experiment result `TARGET_REACHED`. The actual 6,000-second limit was not reached, and this result is **not** an `OPTIMAL` classification or a solution certificate. After the fifth application, no further numerical failure occurred before the cap.
+
+Reproduce in the investigation worktree after `Pkg.instantiate()` with PowerShell:
+
+```powershell
+& 'C:\Users\jiri.spitz\.julia\juliaup\julia-1.13.0+0.x64.w64.mingw32\bin\julia.exe' --project=. diagnostics/runtime_refinement_continuation.jl *> diagnostics/runtime_refinement_continuation.log
+```
+
+This experiment supports testing a guarded refinement strategy in a separate future solver change. It does not by itself justify changing the production termination classification or claiming an optimum.
