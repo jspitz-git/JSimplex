@@ -87,7 +87,8 @@ function _remaining_options(options::SolverOptions{T}; iterations::Int) where {T
         verbose=options.verbose, log_level=options.log_level,
         algorithm=options.algorithm, pricing=options.pricing,
         basis_update=options.basis_update,
-        basis_refactorization=options.basis_refactorization, scaling=options.scaling)
+        basis_refactorization=options.basis_refactorization, scaling=options.scaling,
+        presolve=options.presolve)
 end
 
 function _retry_original(problem::LinearProblem{T}, options::SolverOptions{T},
@@ -150,9 +151,9 @@ and objective value, expressed in the original structural variables and sense.
 Every status returns `Solution{T}`, with objective data in `Union{Nothing,T}`
 and primal data in `Union{Nothing,Vector{T}}`.
 
-Presolve removes fixed columns, empty columns whose best bound is finite, and
-empty rows. It skips a floating reduction when the transformed bounds or
-objective constant cannot be represented exactly. After postsolve, an optimal
+Presolve is enabled by default; `SolverOptions(presolve=false)` skips it. When
+enabled, it removes fixed and redundant structure and skips a floating reduction
+when transformed values cannot be represented safely. After postsolve, an optimal
 reduced solution is cleaned up on the original continuous LP from its restored
 basis, using the remaining time and iteration budget.
 
@@ -225,12 +226,15 @@ function solve(problem::LinearProblem{T}; relax_integrality::Bool=false,
     # Even a continuous input gets its own arrays before future transforms can
     # mutate the working model. Keep this original-space LP for certification.
     continuous_problem = JSimplex.relax_integrality(problem)
-    presolved = presolve_problem(continuous_problem)
-    if presolved isa PresolveFailure
-        _report_problem_statistics("After presolve", presolved.rows, presolved.columns,
-                                   presolved.nonzeros, typed_options)
-    else
-        _report_problem_statistics("After presolve", presolved.problem, typed_options)
+    presolved = typed_options.presolve ? presolve_problem(continuous_problem) :
+                identity_presolve(continuous_problem)
+    if typed_options.presolve
+        if presolved isa PresolveFailure
+            _report_problem_statistics("After presolve", presolved.rows, presolved.columns,
+                                       presolved.nonzeros, typed_options)
+        else
+            _report_problem_statistics("After presolve", presolved.problem, typed_options)
+        end
     end
     time_limit_reached(context) &&
         return _finish_solve(T, context, typed_options, TIME_LIMIT, "time limit reached")

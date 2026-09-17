@@ -4,6 +4,7 @@
     @test options.pricing == :steepest_edge
     @test options.basis_update == :pfi
     @test options.basis_refactorization == :native
+    @test options.presolve
     @test options.verbose
     @test options.iteration_limit == 100_000
     @test options.time_limit == Inf
@@ -28,6 +29,11 @@
     @test result.status == OPTIMAL
     @test result.objective_value == 4.0
     @test result.primal == [1.0, 2.0]
+end
+
+@testset "Presolve option survives scalar conversion" begin
+    @test !SolverOptions(presolve=false).presolve
+    @test !SolverOptions(Rational{BigInt}, SolverOptions(presolve=false)).presolve
 end
 
 @testset "Scaling mode selection" begin

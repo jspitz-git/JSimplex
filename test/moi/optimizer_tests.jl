@@ -71,6 +71,7 @@ end
 
     values = Dict(
         "relax_integrality" => true,
+        "presolve" => false,
         "iteration_limit" => 19,
         "primal_tolerance" => Float32(1e-5),
         "dual_tolerance" => Float32(2e-5),
@@ -95,6 +96,7 @@ end
     @test JSimplex._solver_options(optimizer).basis_update == :suhl_suhl
     @test JSimplex._solver_options(optimizer).basis_refactorization == :markowitz
     @test JSimplex._solver_options(optimizer).scaling == :off
+    @test !JSimplex._solver_options(optimizer).presolve
     MOI.set(optimizer, MOI.RawOptimizerAttribute("verbose"), true)
     @test !JSimplex._solver_options(optimizer).verbose
     MOI.set(optimizer, MOI.Silent(), false)
@@ -124,6 +126,11 @@ end
         optimizer,
         MOI.RawOptimizerAttribute("scaling"),
         :unknown,
+    )
+    @test_throws ArgumentError MOI.set(
+        optimizer,
+        MOI.RawOptimizerAttribute("presolve"),
+        :off,
     )
     @test_throws ArgumentError MOI.set(
         JSimplex.Optimizer{Rational{BigInt}}(),

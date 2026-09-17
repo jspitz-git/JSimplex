@@ -11,6 +11,7 @@ const _RAW_OPTIMIZER_ATTRIBUTES = (
     "basis_update",
     "basis_refactorization",
     "scaling",
+    "presolve",
 )
 
 function _solver_options(optimizer::Optimizer{T})::SolverOptions{T} where {T}
@@ -29,6 +30,7 @@ function _solver_options(optimizer::Optimizer{T})::SolverOptions{T} where {T}
         basis_update=optimizer.basis_update,
         basis_refactorization=optimizer.basis_refactorization,
         scaling=optimizer.scaling,
+        presolve=optimizer.presolve,
     )
 end
 
@@ -46,6 +48,7 @@ function _set_solver_options!(
     basis_update=optimizer.basis_update,
     basis_refactorization=optimizer.basis_refactorization,
     scaling=optimizer.scaling,
+    presolve=optimizer.presolve,
 ) where {T}
     options = SolverOptions(
         T;
@@ -62,6 +65,7 @@ function _set_solver_options!(
         basis_update,
         basis_refactorization,
         scaling,
+        presolve,
     )
     optimizer.primal_tolerance = options.primal_tolerance
     optimizer.dual_tolerance = options.dual_tolerance
@@ -75,6 +79,7 @@ function _set_solver_options!(
     optimizer.basis_update = options.basis_update
     optimizer.basis_refactorization = options.basis_refactorization
     optimizer.scaling = options.scaling
+    optimizer.presolve = options.presolve
     _clear_result!(optimizer)
     return
 end
@@ -139,6 +144,8 @@ function MOI.get(optimizer::Optimizer, attr::MOI.RawOptimizerAttribute)
         return optimizer.basis_refactorization
     elseif attr.name == "scaling"
         return optimizer.scaling
+    elseif attr.name == "presolve"
+        return optimizer.presolve
     end
     return _unsupported_optimizer_attribute(attr)
 end
@@ -181,6 +188,9 @@ function MOI.set(
     elseif attr.name == "scaling"
         value isa Symbol || throw(ArgumentError("scaling must be a Symbol"))
         return _set_solver_options!(optimizer; scaling=value)
+    elseif attr.name == "presolve"
+        value isa Bool || throw(ArgumentError("presolve must be a Bool"))
+        return _set_solver_options!(optimizer; presolve=value)
     end
     return _unsupported_optimizer_attribute(attr)
 end

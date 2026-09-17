@@ -503,6 +503,19 @@ end
     ]
 end
 
+@testset "Presolve can be disabled for a solve" begin
+    problem = LinearProblem(sparse([1.0;;]), [1.0]; row_lower=[1.0])
+    enabled = solve(problem; options=SolverOptions(iteration_limit=0, verbose=false))
+    disabled = solve(problem; options=SolverOptions(
+        presolve=false, iteration_limit=0, verbose=false))
+    @test enabled.status == OPTIMAL
+    @test disabled.status == ITERATION_LIMIT
+    @test problem_stat_messages(problem; options=SolverOptions(presolve=false)) ==
+          ["Loaded problem: rows=1 columns=1 nnz=1"]
+    @test solve(problem;
+        options=SolverOptions(presolve=false, verbose=false)).objective_value == 1.0
+end
+
 @testset "Presolve removes reversible structure" begin
     problem = LinearProblem(sparse([2.0 1.0 0.0; 0.0 0.0 0.0]),
                             [5.0, 1.0, -4.0]; objective_constant=7.0,

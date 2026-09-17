@@ -1,5 +1,24 @@
 import MathOptInterface as MOI
 
+@testset "MOI presolve attribute controls reduction" begin
+    source = MOI.Utilities.Model{Float64}()
+    x = MOI.add_variable(source)
+    row = MOI.ScalarAffineFunction([MOI.ScalarAffineTerm(1.0, x)], 0.0)
+    MOI.add_constraint(source, row, MOI.GreaterThan(1.0))
+    MOI.set(source, MOI.ObjectiveSense(), MOI.MIN_SENSE)
+    MOI.set(source, MOI.ObjectiveFunction{MOI.VariableIndex}(), x)
+
+    optimizer = JSimplex.Optimizer()
+    MOI.set(optimizer, MOI.Silent(), true)
+    MOI.set(optimizer, MOI.RawOptimizerAttribute("iteration_limit"), 0)
+    MOI.optimize!(optimizer, source)
+    @test MOI.get(optimizer, MOI.TerminationStatus()) == MOI.OPTIMAL
+
+    MOI.set(optimizer, MOI.RawOptimizerAttribute("presolve"), false)
+    MOI.optimize!(optimizer, source)
+    @test MOI.get(optimizer, MOI.TerminationStatus()) == MOI.ITERATION_LIMIT
+end
+
 @testset "MOI optimal result" begin
     source = MOI.Utilities.Model{Float64}()
     x = MOI.add_variables(source, 2)

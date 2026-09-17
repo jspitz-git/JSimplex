@@ -34,16 +34,18 @@ end
                   time_limit=Inf, refactorization_interval=20,
                   verbose=true, log_level=Logging.Debug, algorithm=:dual,
                   pricing=:steepest_edge, basis_update=:pfi,
-                  basis_refactorization=:native, scaling=:auto)
+                  basis_refactorization=:native, scaling=:auto,
+                  presolve=true)
     SolverOptions(; kwargs...)  # Float64 defaults
     SolverOptions(T, options::SolverOptions)
 
 Configure numerical tolerances, completed-step and wall-clock limits, basis
 refactorization frequency, progress output, and the level used for Julia logging
 messages. With `verbose=true`, `solve` emits `Info`-level row, column, and NNZ
-counts at entry and after presolve. Every completed basis refactorization also
-emits a single-line progress record containing the iteration count, original
-objective value, primal and dual infeasibility sums and counts, and elapsed time.
+counts at entry and, when enabled, after presolve. Every completed basis
+refactorization emits a single-line progress record containing the iteration
+count, original objective value, primal and dual infeasibility sums and counts,
+and elapsed time.
 `SolverOptions(T; ...)` stores tolerances in the supported floating or rational
 type `T`. Floating defaults are `T(1 // 10^7)` for primal/dual tolerances and
 `T(1 // 10^12)` for zero tolerance; a positive default that rounds to zero is
@@ -68,6 +70,8 @@ direct recomputation when a weight cannot be represented safely.
 `basis_refactorization` selects the existing backend (`:native`: UMFPACK for
 `Float64`, dense LU otherwise) or sparse Markowitz elimination followed by a
 dense trailing core (`:markowitz`).
+`presolve=true` applies presolve before scaling and simplex. Set it to `false`
+to solve the original LP directly; postsolve cleanup is then unnecessary.
 `scaling=:auto` applies reversible row and column scaling to floating models
 and leaves rational models unchanged. `:off` disables scaling; `:on` enables it
 for floating models and is invalid for rational models. Scaling uses powers of
@@ -98,6 +102,7 @@ struct SolverOptions{T<:Real,M,R}
     basis_update::Symbol
     basis_refactorization::Symbol
     scaling::Symbol
+    presolve::Bool
 end
 
 SolverOptions(; kwargs...) = SolverOptions(Float64; kwargs...)
@@ -114,10 +119,11 @@ Base.@constprop :aggressive function SolverOptions(::Type{T};
     verbose::Bool=true, log_level::LogLevel=Logging.Debug, algorithm::Symbol=:dual,
     pricing::Symbol=:steepest_edge, basis_update::Symbol=:pfi,
     basis_refactorization::Symbol=:native, scaling::Symbol=:auto,
+    presolve::Bool=true,
 ) where {T}
     arguments = (primal_tolerance, dual_tolerance, zero_tolerance, iteration_limit,
                  time_limit, refactorization_interval, verbose, log_level,
-                 algorithm, pricing, scaling)
+                 algorithm, pricing, scaling, presolve)
     if basis_update === :pfi
         return _validated_refactorization(T, Val(:pfi), basis_refactorization, arguments...)
     elseif basis_update === :forrest_tomlin
@@ -144,7 +150,7 @@ end
 function _validated_options(::Type{T}, ::Val{M}, ::Val{R}, primal_tolerance, dual_tolerance,
                             zero_tolerance, iteration_limit, time_limit,
                             refactorization_interval, verbose, log_level, algorithm,
-                            pricing, scaling) where {T,M,R}
+                            pricing, scaling, presolve) where {T,M,R}
     _supported_value_type(T) || throw(ArgumentError("unsupported solver value type $T"))
     defaults = _is_exact(T) === Val(true) ? (zero(T), zero(T), zero(T)) :
         (_positive_tolerance(T, 1 // 10^7), _positive_tolerance(T, 1 // 10^7),
@@ -180,7 +186,7 @@ function _validated_options(::Type{T}, ::Val{M}, ::Val{R}, primal_tolerance, dua
         throw(ArgumentError("scaling=:on requires a floating model"))
     return SolverOptions{T,M,R}(tolerances..., Int(iteration_limit), converted_time_limit,
                               Int(refactorization_interval), verbose, log_level,
-                              algorithm, pricing, M, R, scaling)
+                              algorithm, pricing, M, R, scaling, presolve)
 end
 
 SolverOptions(::Type{T}, options::SolverOptions{S,M,R}) where {T,S,M,R} =
@@ -188,7 +194,7 @@ SolverOptions(::Type{T}, options::SolverOptions{S,M,R}) where {T,S,M,R} =
                        options.zero_tolerance, options.iteration_limit,
                        options.time_limit, options.refactorization_interval,
                        options.verbose, options.log_level, options.algorithm,
-                       options.pricing, options.scaling)
+                       options.pricing, options.scaling, options.presolve)
 
 """
     SolveStatistics(; iterations=0, elapsed_seconds=0.0, refactorizations=0)

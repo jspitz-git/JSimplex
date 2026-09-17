@@ -1,7 +1,8 @@
 # JSimplex.jl
 
 JSimplex is a proof-of-concept solver for linear programming in Julia 1.13.
-It supports dual and primal simplex and includes a native fixed/free MPS reader.
+It supports dual and primal simplex, a reversible presolver, and a native
+fixed/free MPS reader.
 Integer and semi-continuous domains are preserved for explicit LP relaxation.
 It is experimental:
 correctness, numerical robustness, and performance are not guaranteed for general
@@ -13,7 +14,8 @@ Harris ratio test with entering bound flips.
 The dual algorithm includes bound flipping during ratio testing, a
 two-pass Harris fallback, selectable dual steepest-edge, Devex, and Dantzig
 pricing, cost shifting, LU factorization, and
-selectable product-form, Forrest–Tomlin, and Bartels–Golub basis updates.
+selectable product-form, Forrest–Tomlin, Bartels–Golub, and Suhl–Suhl basis
+updates.
 Model arithmetic supports floating-point and rational scalar types, including
 `Float32`, `Float64`, `BigFloat`, and exact `Rational{BigInt}`.
 The production package depends on Julia standard libraries and
@@ -68,6 +70,18 @@ else
 end
 @show solution.statistics.iterations solution.statistics.elapsed_seconds
 ```
+
+Presolve runs by default. It applies all implemented reductions automatically,
+then restores the original variables and resolves the original LP from the
+restored basis when cleanup is needed. To solve the original LP directly:
+
+```julia
+solution = solve(problem; options=SolverOptions(presolve=false))
+```
+
+With `verbose=true`, each `solve` logs the original row, column, and nonzero
+counts at entry. It also logs the reduced counts after presolve when presolve
+runs. `verbose=false` suppresses both statistics messages.
 
 ## Solve a JuMP model
 
@@ -129,7 +143,8 @@ Use the standard JuMP attributes `set_silent(model)` (MOI `Silent`) and
 wall-clock limit. The stable JSimplex raw optimizer attribute names are
 `relax_integrality`, `iteration_limit`, `primal_tolerance`, `dual_tolerance`,
 `zero_tolerance`, `refactorization_interval`, `verbose`, `algorithm`,
-`pricing`, `basis_update`, `basis_refactorization`, and `scaling`. Algorithm values are
+`pricing`, `basis_update`, `basis_refactorization`, `scaling`, and `presolve`.
+`presolve` is a Boolean and defaults to `true`. Algorithm values are
 `:dual` (default) and `:primal`; pricing accepts `:steepest_edge`, `:devex`, or
 `:dantzig` for both algorithms.
 
@@ -140,6 +155,7 @@ set_optimizer_attribute(model, "pricing", :devex)
 set_optimizer_attribute(model, "basis_update", :forrest_tomlin)
 set_optimizer_attribute(model, "basis_refactorization", :markowitz)
 set_optimizer_attribute(model, "scaling", :off)
+set_optimizer_attribute(model, "presolve", false)
 set_time_limit_sec(model, 60.0)
 ```
 
@@ -273,6 +289,7 @@ for `SolverOptions(Float64)`. Floating types use these keyword defaults:
 | `basis_update` | `:pfi` | Basis update: `:pfi`, `:forrest_tomlin`, `:bartels_golub`, or `:suhl_suhl` |
 | `basis_refactorization` | `:native` | Full factorization: `:native` or `:markowitz` |
 | `scaling` | `:auto` | `:auto`, `:on`, or `:off` row and column scaling |
+| `presolve` | `true` | Apply all presolve reductions before simplex; `false` solves the original LP directly |
 
 Forrest–Tomlin maintains a sparse upper factor without row swaps during an
 update. Bartels–Golub may swap adjacent rows to choose a larger elimination
@@ -333,8 +350,9 @@ validation. Algorithms such as `:auto` return
 `ALGORITHM_NOT_SUPPORTED`.
 
 With `verbose=true`, `solve` first reports `rows`, `columns`, and `nnz` for the
-input model, then reports them again after presolve, even when no reduction is
-made. The input statistics also appear when solving stops before presolve.
+input model. When presolve is enabled, it reports them again after presolve,
+even when no reduction is made. The input statistics also appear when presolve
+is disabled or solving stops before presolve.
 `nnz` counts nonzero coefficients, excluding explicitly stored sparse zeros.
 Each completed basis refactorization emits a
 single-line record through Julia's logging system, for example
