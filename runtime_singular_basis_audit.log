@@ -1,0 +1,10 @@
+START Julia=1.13.0 machine=x86_64-w64-mingw32 path=C:\Disk_D\tmp\runtime.mps output=C:\Disk_D\JSimplex.jl\runtime_23206_basis.csv
+MODEL size=(28453, 31615) nnz=211789
+BEFORE status=TIME_LIMIT message=time limit reached iterations=23205 refactorizations=464 updates=49 dinf=(0.0, 0)
+OLD_LU success=false exception=SingularException: matrix is singular; factorization failed. Zero pivot found at index 0
+PIVOT status=completed message= iterations=23206 updates=50
+CHANGE row=25584 leaving=57199 entering=3639 updated_column_pivot=-65.63088267425046 updated_row_pivot=-65.63088267425043 zero_tolerance=1.0e-12
+BASIS_FILE C:\Disk_D\JSimplex.jl\runtime_23206_basis.csv
+NEW_BASIS size=(28453, 28453) nnz=131413 zero_columns=0
+NEW_LU success=false exception=SingularException: matrix is singular; factorization failed. Zero pivot found at index 0
+END elapsed_seconds=158.4313266
