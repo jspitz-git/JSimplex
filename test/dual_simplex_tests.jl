@@ -113,6 +113,40 @@ end
     end
 end
 
+@testset "Ill-conditioned fresh basis does not invent dual infeasibility" begin
+    magnitude = 100_000_001.0
+    basis_columns = [1.0 magnitude 0.0;
+                     0.0 1.0 magnitude;
+                     0.0 0.0 1.0]
+    entering_column = [0.0, -1.5magnitude, -1.5]
+    matrix = sparse(hcat(basis_columns, entering_column))
+    for (cost, expected_status) in ((0.5, OPTIMAL), (-0.5, NUMERICAL_ERROR))
+        problem = LinearProblem(matrix, [1.0, 0.0, 0.0, cost];
+                                row_lower=zeros(3), row_upper=zeros(3))
+        workspace = JSimplex.initialize_workspace(
+            problem, SolverOptions(basis_update=:suhl_suhl, verbose=false),
+        )
+        workspace.basis = JSimplex.Basis([1, 2, 3],
+            [JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC,
+             JSimplex.AT_LOWER, JSimplex.AT_LOWER,
+             JSimplex.AT_LOWER, JSimplex.AT_LOWER])
+        JSimplex.recompute!(workspace; refactorize=true)
+        @test workspace.reduced_costs[4] < -workspace.options.dual_tolerance
+        exact_cost = setprecision(BigFloat, 256) do
+            y = transpose(BigFloat.(basis_columns)) \ BigFloat[1, 0, 0]
+            BigFloat(cost) - sum(BigFloat(entering_column[i]) * y[i] for i in 1:3)
+        end
+        @test exact_cost == BigFloat(cost)
+
+        terminal = JSimplex._dual_optimize!(workspace, () -> false)
+        @test terminal.status == expected_status
+        if expected_status == OPTIMAL
+            @test workspace.reduced_costs[4] == cost
+            @test JSimplex.dual_infeasibility(workspace) == 0.0
+        end
+    end
+end
+
 @testset "Optimal results certify the original structural primal" begin
     unstable = LinearProblem(
         sparse([1.0 1.0; 1.0 1.0 + 1.0e-6]), zeros(2);

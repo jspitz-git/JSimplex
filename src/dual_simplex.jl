@@ -49,6 +49,121 @@ function _finite_workspace(workspace::SimplexWorkspace{T}) where {T}
             all(weight -> isfinite(weight) && weight > zero(T), workspace.pricing_weights))
 end
 
+# A fresh Float64 LU can produce reduced costs with the wrong sign when the
+# basis is ill-conditioned. Refine Bᵀy = c_B using the stored binary64 matrix
+# entries, and accept the prices only when two precisions agree well within
+# the dual tolerance. This is used only after the ordinary feasibility check
+# fails; other numeric types retain their existing behavior.
+function _refined_dual_prices(workspace::SimplexWorkspace{Float64}, factor, B,
+                              bits::Int, stop_requested)
+    return setprecision(BigFloat, bits) do
+        basic_costs = workspace.costs[workspace.basis.basic_indices]
+        rhs = BigFloat.(basic_costs)
+        values = BigFloat.(B.nzval)
+        dual = BigFloat.(transpose(factor) \ basic_costs)
+        residual = similar(rhs)
+        scale = max(one(BigFloat), maximum(abs, rhs))
+        target = BigFloat(10)^(-(bits == 256 ? 40 : 90))
+        for correction in 0:32
+            stop_requested() && return nothing
+            for column in eachindex(rhs)
+                total = zero(BigFloat)
+                for position in B.colptr[column]:(B.colptr[column + 1] - 1)
+                    total += values[position] * dual[B.rowval[position]]
+                end
+                residual[column] = total - rhs[column]
+            end
+            error = maximum(abs, residual) / scale
+            isfinite(error) || return nothing
+            if error <= target
+                A = workspace.problem.A
+                row_count, column_count = size(A)
+                matrix_values = BigFloat.(A.nzval)
+                prices = Vector{BigFloat}(undef, column_count + row_count)
+                for column in 1:column_count
+                    column % 1024 == 0 && stop_requested() && return nothing
+                    total = zero(BigFloat)
+                    for position in A.colptr[column]:(A.colptr[column + 1] - 1)
+                        total += matrix_values[position] * dual[A.rowval[position]]
+                    end
+                    prices[column] = BigFloat(workspace.costs[column]) - total
+                end
+                for row in 1:row_count
+                    prices[column_count + row] =
+                        BigFloat(workspace.costs[column_count + row]) + dual[row]
+                end
+                return prices
+            end
+            correction == 32 && return nothing
+            step = transpose(factor) \ Float64.(residual)
+            all(isfinite, step) || return nothing
+            dual .-= BigFloat.(step)
+        end
+        return nothing
+    end
+end
+
+function _try_refine_dual_prices!(workspace::SimplexWorkspace{Float64}, stop_requested)
+    isempty(workspace.factorization.updates) || return false
+    B = basis_matrix(workspace)
+    factor = try
+        lu(B)
+    catch exception
+        _is_numerical_exception(exception) || rethrow()
+        return false
+    end
+    low = _refined_dual_prices(workspace, factor, B, 256, stop_requested)
+    isnothing(low) && return false
+    high = _refined_dual_prices(workspace, factor, B, 512, stop_requested)
+    isnothing(high) && return false
+
+    tolerance = BigFloat(workspace.options.dual_tolerance)
+    agreement = tolerance / 8
+    states = workspace.basis.states
+    for index in eachindex(low)
+        index % 1024 == 0 && stop_requested() && return false
+        isfinite(low[index]) && isfinite(high[index]) || return false
+        abs(low[index] - high[index]) <= agreement || return false
+        state = states[index]
+        state == BASIC && continue
+        _is_fixed(workspace.lower[index], workspace.upper[index]) && continue
+        for price in (low[index], high[index])
+            if state == AT_LOWER
+                price >= -tolerance || return false
+            elseif state == AT_UPPER
+                price <= tolerance || return false
+            else
+                abs(price) <= tolerance || return false
+            end
+        end
+    end
+
+    replacement = Float64.(high)
+    all(isfinite, replacement) || return false
+    replacement[workspace.basis.basic_indices] .= 0.0
+    old_prices = copy(workspace.reduced_costs)
+    workspace.reduced_costs .= replacement
+    if dual_infeasibility(workspace) > workspace.options.dual_tolerance
+        workspace.reduced_costs .= old_prices
+        return false
+    end
+    try
+        @logmsg workspace.options.log_level "Refined reduced costs after dual feasibility loss" iterations=workspace.iterations
+    catch exception
+        stop_requested isa _StopCallback && (stop_requested.exception = exception)
+        rethrow()
+    end
+    return true
+end
+
+_try_refine_dual_prices!(::SimplexWorkspace, stop_requested) = false
+
+function _dual_prices_feasible_or_refined!(workspace::SimplexWorkspace, stop_requested)
+    dual_infeasibility(workspace) <= workspace.options.dual_tolerance && return true
+    stop_requested() && return false
+    return _try_refine_dual_prices!(workspace, stop_requested)
+end
+
 function dual_edge_selection(workspace::SimplexWorkspace{T})::Int where {T}
     leaving_row = -1
     best_score = zero(T)
@@ -388,8 +503,10 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
             recompute!(workspace; refactorize=true, caller_guard=stop_requested)
             stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
             _finite_workspace(workspace) || return _numerical_failure()
-            dual_infeasibility(workspace) <= workspace.options.dual_tolerance ||
+            if !_dual_prices_feasible_or_refined!(workspace, stop_requested)
+                stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
                 return DualTermination(NUMERICAL_ERROR, "dual feasibility lost")
+            end
             return _dual_iteration!(workspace, stop_requested, true)
         end
         if _is_exact(T) === Val(false) && !_floating_infeasibility_certified(workspace, rho, below)
@@ -424,8 +541,10 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
         recompute!(workspace; refactorize=true, caller_guard=stop_requested)
         stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
         _finite_workspace(workspace) || return _numerical_failure()
-        dual_infeasibility(workspace) <= workspace.options.dual_tolerance ||
+        if !_dual_prices_feasible_or_refined!(workspace, stop_requested)
+            stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
             return DualTermination(NUMERICAL_ERROR, "dual feasibility lost")
+        end
         return _dual_iteration!(workspace, stop_requested, true)
     end
     abs(pivot) > workspace.options.zero_tolerance || throw(ZeroPivotException(leaving_row))
@@ -705,8 +824,10 @@ function _dual_optimize!(workspace::SimplexWorkspace{T}, stop_requested)::DualTe
                 stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
                 _finite_workspace(workspace) || return _numerical_failure()
             end
-            dual_infeasibility(workspace) <= workspace.options.dual_tolerance ||
+            if !_dual_prices_feasible_or_refined!(workspace, stop_requested)
+                stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
                 return DualTermination(NUMERICAL_ERROR, "dual feasibility lost")
+            end
         end
         if primal_infeasibility(workspace) <= workspace.options.primal_tolerance
             return DualTermination(OPTIMAL, "optimal solution found")
@@ -949,6 +1070,13 @@ function _solve_continuous_dual!(workspace::SimplexWorkspace{T}, stop_requested)
     workspace.costs .= vcat(problem.objective, zeros(T, size(problem.A, 1)))
     workspace.perturbed = false
     recompute!(workspace)
+    if dual_infeasibility(workspace) > options.dual_tolerance && _is_exact(T) === Val(false)
+        stop_requested() && return _internal_solution(workspace, TIME_LIMIT, "time limit reached")
+        recompute!(workspace; refactorize=true, caller_guard=stop_requested)
+        stop_requested() && return _internal_solution(workspace, TIME_LIMIT, "time limit reached")
+        _dual_prices_feasible_or_refined!(workspace, stop_requested)
+    end
+    stop_requested() && return _internal_solution(workspace, TIME_LIMIT, "time limit reached")
     status = primal_infeasibility(workspace) <= options.primal_tolerance &&
              dual_infeasibility(workspace) <= options.dual_tolerance ? OPTIMAL : NUMERICAL_ERROR
     return _internal_solution(workspace, status,
