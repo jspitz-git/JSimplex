@@ -19,11 +19,22 @@ function _propagation_failure(problem::LinearProblem, row::Int, keep::BitVector,
 end
 
 function propagate_row_bounds(problem::LinearProblem{T}) where {T}
+    return _propagate_row_bounds(problem, trues(size(problem.A, 1)))
+end
+
+function _propagate_row_bounds(problem::LinearProblem{T}, rows_to_visit::BitVector,
+                               changed_columns::BitVector=falses(size(problem.A, 2))) where {T}
     m, n = size(problem.A)
+    length(rows_to_visit) == m && length(changed_columns) == n ||
+        throw(ArgumentError("propagation worklist dimensions do not match the model"))
+    any(rows_to_visit) || return identity_presolve(problem)
+    active = copy(rows_to_visit)
+    expand_active = !all(active)
     entries = _row_entries(problem.A)
     lower, upper = copy(problem.column_lower), copy(problem.column_upper)
     keep = trues(m)
     for row in 1:m
+        active[row] || continue
         columns = entries[row]
         isempty(columns) && continue
         coefficients = Vector{ExactValue}(undef, length(columns))
@@ -99,6 +110,9 @@ function propagate_row_bounds(problem::LinearProblem{T}) where {T}
                 if !isnothing(value) &&
                    (!isfinite(lower[column]) || value > bound_value(lower[column]))
                     lower[column] = Bound(value)
+                    changed_columns[column] = true
+                    expand_active &&
+                        _mark_incident_rows!(active, problem.A, column, row + 1)
                 end
             end
             if !isnothing(candidate_upper)
@@ -111,6 +125,9 @@ function propagate_row_bounds(problem::LinearProblem{T}) where {T}
                 if !isnothing(value) &&
                    (!isfinite(upper[column]) || value < bound_value(upper[column]))
                     upper[column] = Bound(value)
+                    changed_columns[column] = true
+                    expand_active &&
+                        _mark_incident_rows!(active, problem.A, column, row + 1)
                 end
             end
         end

@@ -158,6 +158,62 @@ end
                                     [3.0]) == [1.0, 3.0]
 end
 
+@testset "Incremental propagation tracks affected rows" begin
+    base_matrix = sparse([1.0 0.0 0.0;
+                          0.0 2.0 0.0;
+                          0.0 0.0 3.0])
+    base = LinearProblem(base_matrix, zeros(3); row_upper=fill(10.0, 3))
+    unchanged_rows = collect(1:3)
+    unchanged_columns = collect(1:3)
+    no_pending = falses(3)
+
+    updated_matrix = copy(base_matrix)
+    updated_matrix[2, 2] = 4.0
+    coefficient_change = LinearProblem(updated_matrix, zeros(3);
+        row_upper=fill(10.0, 3))
+    @test JSimplex._changed_propagation_rows(base, coefficient_change,
+        unchanged_rows, unchanged_columns, no_pending) == BitVector([false, true, false])
+
+    changed_row_bound = LinearProblem(base_matrix, zeros(3);
+        row_upper=[10.0, 10.0, 7.0])
+    @test JSimplex._changed_propagation_rows(base, changed_row_bound,
+        unchanged_rows, unchanged_columns, no_pending) == BitVector([false, false, true])
+
+    retained_rows = LinearProblem(base_matrix[[1, 3], :], zeros(3);
+        row_upper=[10.0, 7.0])
+    @test JSimplex._changed_propagation_rows(base, retained_rows,
+        [1, 3], unchanged_columns, falses(2)) == BitVector([false, true])
+
+    changed_column_bound = LinearProblem(base_matrix, zeros(3);
+        row_upper=fill(10.0, 3), column_upper=[5.0, nothing, nothing])
+    @test JSimplex._changed_propagation_rows(base, changed_column_bound,
+        unchanged_rows, unchanged_columns, no_pending) == BitVector([true, false, false])
+
+    removed_column = LinearProblem(base_matrix[:, [1, 3]], zeros(2);
+        row_upper=fill(10.0, 3))
+    @test JSimplex._changed_propagation_rows(base, removed_column,
+        unchanged_rows, [1, 3], no_pending) == BitVector([false, true, false])
+
+    chain = LinearProblem(sparse([1.0 0.0; 1.0 1.0]), zeros(2);
+        row_lower=[nothing, 5.0], row_upper=[3.0, nothing])
+    reached = JSimplex._propagate_row_bounds(chain, BitVector([true, false]))
+    @test bound_value(reached.problem.column_lower[2]) == 2.0
+
+    reverse_chain = LinearProblem(sparse([1.0 1.0; 1.0 0.0]), zeros(2);
+        row_lower=[5.0, nothing], row_upper=[nothing, 3.0])
+    changed_columns = falses(2)
+    first_pass = JSimplex._propagate_row_bounds(reverse_chain,
+        BitVector([false, true]), changed_columns)
+    @test changed_columns == BitVector([true, false])
+    trace = JSimplex.PropagationTrace{Float64}()
+    JSimplex._reset_propagation_trace!(trace, first_pass, changed_columns)
+    dirty = JSimplex._changed_propagation_rows(trace.reference, first_pass.problem,
+        trace.row_origin, trace.column_origin, trace.pending)
+    @test dirty[1]
+    second_pass = JSimplex._propagate_row_bounds(first_pass.problem, dirty)
+    @test bound_value(second_pass.problem.column_lower[2]) == 2.0
+end
+
 @testset "Multi-term row bound propagation" begin
     shared_bound = LinearProblem(sparse([1.0 0.0; 1.0 1.0]), [0.0, 0.0];
         row_lower=[nothing, 5.0], row_upper=[3.0, nothing])
