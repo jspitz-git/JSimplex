@@ -103,6 +103,57 @@ end
     @test isempty(JSimplex.aggregate_sparse_equalities(expensive).postsolve_stack)
 end
 
+@testset "Dual fixing respects objective and row direction" begin
+    lower = LinearProblem(sparse([1.0 1.0]), [1.0, -1.0];
+        row_upper=[4.0], column_lower=[0.0, 0.0],
+        column_upper=[5.0, 3.0])
+    lower_reduced = JSimplex.reduce_dual_fixings(lower)
+    @test size(lower_reduced.problem.A) == (1, 1)
+    @test lower_reduced.problem.objective == [-1.0]
+    @test JSimplex.postsolve_primal(lower_reduced, [3.0]) == [0.0, 3.0]
+    reduced_basis = JSimplex.Basis([2], JSimplex.VariableState[
+        JSimplex.AT_UPPER, JSimplex.BASIC])
+    restored_basis = JSimplex.restore_basis(lower_reduced, reduced_basis)
+    @test restored_basis.basic_indices == [3]
+    @test restored_basis.states == JSimplex.VariableState[
+        JSimplex.AT_LOWER, JSimplex.AT_UPPER, JSimplex.BASIC]
+    @test solve(lower; options=SolverOptions(verbose=false)).objective_value == -3.0
+
+    ranged = LinearProblem(sparse([1.0 1.0]), [1.0, -1.0];
+        row_lower=[2.0], row_upper=[4.0],
+        column_lower=[0.0, 0.0], column_upper=[5.0, 3.0])
+    @test isempty(JSimplex.reduce_dual_fixings(ranged).postsolve_stack)
+
+    upper = LinearProblem(sparse([-1.0 1.0]), [-2.0, 0.0];
+        row_upper=[2.0], column_lower=[0.0, nothing],
+        column_upper=[3.0, nothing])
+    upper_reduced = JSimplex.reduce_dual_fixings(upper)
+    @test size(upper_reduced.problem.A) == (1, 1)
+    @test JSimplex.postsolve_primal(upper_reduced, [0.0]) == [3.0, 0.0]
+    @test JSimplex.restore_basis(upper_reduced, JSimplex.Basis([2],
+        JSimplex.VariableState[JSimplex.FREE_NONBASIC, JSimplex.BASIC])).states[1] ==
+          JSimplex.AT_UPPER
+    @test solve(upper; options=SolverOptions(verbose=false)).objective_value == -6.0
+
+    maximization = LinearProblem(sparse([-1.0 1.0]), [1.0, 0.0];
+        objective_sense=MAX_SENSE, row_upper=[1.0],
+        column_lower=[0.0, nothing], column_upper=[2.0, nothing])
+    @test JSimplex.postsolve_primal(JSimplex.reduce_dual_fixings(maximization),
+                                    [0.0]) == [2.0, 0.0]
+    @test solve(maximization; options=SolverOptions(verbose=false)).objective_value == 2.0
+
+    unbounded_direction = LinearProblem(sparse([1.0 1.0]), [1.0, -1.0];
+        row_upper=[4.0], column_lower=[nothing, 0.0],
+        column_upper=[5.0, 3.0])
+    @test isempty(JSimplex.reduce_dual_fixings(unbounded_direction).postsolve_stack)
+
+    zero_cost = LinearProblem(sparse([1.0 1.0]), [0.0, -1.0];
+        row_upper=[4.0], column_lower=[1.0, 0.0],
+        column_upper=[5.0, 3.0])
+    @test JSimplex.postsolve_primal(JSimplex.reduce_dual_fixings(zero_cost),
+                                    [3.0]) == [1.0, 3.0]
+end
+
 @testset "Multi-term row bound propagation" begin
     upper = LinearProblem(sparse([1.0 1.0]), [1.0, 0.0];
         objective_sense=MAX_SENSE, row_upper=[10.0],
@@ -155,7 +206,8 @@ end
         [1.0, 0.0, 0.0]; row_lower=[nothing, 5.0],
         row_upper=[10.0, nothing], column_upper=[nothing, nothing, 2.0])
     chained = JSimplex.presolve_problem(chain)
-    @test bound_value(chained.problem.column_upper[1]) == 7.0
+    @test size(chained.problem.A) == (0, 0)
+    @test JSimplex.postsolve_primal(chained, Float64[]) == [0.0, 3.0, 2.0]
 
     fixed = LinearProblem(sparse([1.0 1.0; 1.0 -1.0]), [1.0, 1.0];
         row_lower=[5.0, nothing], row_upper=[nothing, 1.0],

@@ -62,7 +62,7 @@ function _elimination_value(problem::LinearProblem{T}, column::Int) where {T}
     return bound_value(bound), choose_lower ? AT_LOWER : AT_UPPER
 end
 
-function _presolve_basic(problem::LinearProblem{T}) where {T}
+function _presolve_basic(problem::LinearProblem{T}; selections=nothing) where {T}
     A = problem.A
     row_count, column_count = size(A)
     lower, upper = copy(problem.row_lower), copy(problem.row_upper)
@@ -72,7 +72,8 @@ function _presolve_basic(problem::LinearProblem{T}) where {T}
     removed_states = fill(FREE_NONBASIC, column_count)
 
     for column in 1:column_count
-        selected = _elimination_value(problem, column)
+        selected = isnothing(selections) ? _elimination_value(problem, column) :
+                   selections[column]
         isnothing(selected) && continue
         value, state = selected
         contribution = _exact_rational(problem.objective[column]) * _exact_rational(value)
@@ -165,7 +166,8 @@ function presolve_problem(problem::LinearProblem{T}) where {T}
                      aggregate_singleton_equalities,
                      aggregate_sparse_equalities,
                      reduce_parallel_rows, reduce_dependent_rows,
-                     substitute_free_doubleton, propagate_row_bounds)
+                     substitute_free_doubleton, propagate_row_bounds,
+                     reduce_dual_fixings)
             next = pass(result.problem)
             next isa PresolveFailure && return next
             isempty(next.postsolve_stack) && continue
