@@ -162,6 +162,7 @@ function presolve_problem(problem::LinearProblem{T}) where {T}
     for _ in 1:12
         changed = false
         for pass in (_presolve_basic, reduce_singleton_rows,
+                     aggregate_singleton_equalities,
                      reduce_parallel_rows, reduce_dependent_rows,
                      substitute_free_doubleton, propagate_row_bounds)
             next = pass(result.problem)

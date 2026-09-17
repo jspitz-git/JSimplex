@@ -20,6 +20,7 @@ include("presolve_rows.jl")
 include("presolve_dependencies.jl")
 include("presolve_propagation.jl")
 include("presolve_substitution.jl")
+include("presolve_aggregation.jl")
 include("solver.jl")
 include("moi.jl")
 

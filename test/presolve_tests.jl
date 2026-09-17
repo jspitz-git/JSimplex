@@ -1,6 +1,51 @@
 using SparseArrays
 using JSimplex.Logging
 
+@testset "Singleton equality aggregation preserves LP and basis" begin
+    problem = LinearProblem(sparse([1.0 1.0; 0.0 1.0]), [2.0, 1.0];
+        row_lower=[5.0, nothing], row_upper=[5.0, 4.0],
+        column_lower=[0.0, 0.0], column_upper=[3.0, nothing])
+    reduced = JSimplex.aggregate_singleton_equalities(problem)
+    @test size(reduced.problem.A) == (2, 1)
+    @test reduced.problem.A[:, 1] == [1.0, 1.0]
+    @test bound_value(reduced.problem.row_lower[1]) == 2.0
+    @test bound_value(reduced.problem.row_upper[1]) == 5.0
+    @test reduced.problem.objective == [-1.0]
+    @test reduced.problem.objective_constant == 10.0
+    @test JSimplex.postsolve_primal(reduced, [4.0]) == [1.0, 4.0]
+    basis = JSimplex.Basis([2, 1], JSimplex.VariableState[
+        JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_UPPER])
+    restored = JSimplex.restore_basis(reduced, basis)
+    @test restored.basic_indices == [1, 2]
+    @test restored.states == JSimplex.VariableState[
+        JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_UPPER]
+    exchanged_basis = JSimplex.Basis([1, 2], JSimplex.VariableState[
+        JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_UPPER])
+    exchanged = JSimplex.restore_basis(reduced, exchanged_basis)
+    @test exchanged.basic_indices == [2, 1]
+    @test exchanged.states == JSimplex.VariableState[
+        JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_UPPER]
+    solution = solve(problem; options=SolverOptions(verbose=false))
+    @test solution.status == OPTIMAL
+    @test solution.primal == [1.0, 4.0]
+    @test solution.objective_value == 6.0
+
+    negative = LinearProblem(sparse([-2.0 1.0; 0.0 1.0]), [1.0, 0.0];
+        row_lower=[4.0, nothing], row_upper=[4.0, 8.0],
+        column_lower=[-1.0, 0.0], column_upper=[2.0, nothing])
+    projected = JSimplex.aggregate_singleton_equalities(negative)
+    @test bound_value(projected.problem.row_lower[1]) == 2.0
+    @test bound_value(projected.problem.row_upper[1]) == 8.0
+    @test projected.problem.objective == [0.5]
+    @test projected.problem.objective_constant == -2.0
+    lower_basis = JSimplex.Basis([1, 3], JSimplex.VariableState[
+        JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.BASIC])
+    lower_restored = JSimplex.restore_basis(projected, lower_basis)
+    @test lower_restored.basic_indices == [2, 4]
+    @test lower_restored.states[1] == JSimplex.AT_LOWER
+    @test JSimplex.postsolve_primal(projected, [2.0]) == [-1.0, 2.0]
+end
+
 @testset "Multi-term row bound propagation" begin
     upper = LinearProblem(sparse([1.0 1.0]), [1.0, 0.0];
         objective_sense=MAX_SENSE, row_upper=[10.0],
@@ -171,10 +216,15 @@ end
 
     inexact_substitution = LinearProblem(sparse([3.0 1.0]), [1.0, 1.0];
         row_lower=[1.0], row_upper=[1.0], column_lower=[nothing, 0.0])
-    @test size(JSimplex.presolve_problem(inexact_substitution).problem.A) == (1, 2)
+    safe_projection = JSimplex.presolve_problem(inexact_substitution)
+    @test size(safe_projection.problem.A) == (1, 1)
+    @test safe_projection.problem.A[1, 1] == 3.0
+    @test safe_projection.problem.objective == [-2.0]
+    @test safe_projection.problem.objective_constant == 1.0
     bounded_doubleton = LinearProblem(sparse([1.0 1.0]), [1.0, 1.0];
         row_lower=[1.0], row_upper=[1.0])
-    @test size(JSimplex.presolve_problem(bounded_doubleton).problem.A) == (1, 2)
+    @test size(JSimplex.presolve_problem(bounded_doubleton).problem.A) == (0, 0)
+    @test solve(bounded_doubleton; options=SolverOptions(verbose=false)).objective_value == 1.0
 end
 
 function problem_stat_messages(problem; options=SolverOptions())
