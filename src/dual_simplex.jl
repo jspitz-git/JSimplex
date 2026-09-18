@@ -464,6 +464,43 @@ function _floating_infeasibility_certified(workspace::SimplexWorkspace{T},
     return minimum_value > zero(T)
 end
 
+function _dual_direction_residual_ok!(workspace::SimplexWorkspace{T},
+                                      direction::Vector{T}, pivot::T) where {T<:AbstractFloat}
+    A = workspace.problem.A
+    column_count = size(A, 2)
+    residual = workspace.scratch.tau
+    scale = workspace.scratch.row_rhs
+    for row in eachindex(residual)
+        rhs = scale[row]
+        residual[row] = -rhs
+        scale[row] = abs(rhs)
+    end
+    for (basis_row, index) in enumerate(workspace.basis.basic_indices)
+        value = direction[basis_row]
+        if index <= column_count
+            for position in A.colptr[index]:(A.colptr[index + 1] - 1)
+                row = A.rowval[position]
+                term = A.nzval[position] * value
+                residual[row] += term
+                scale[row] += abs(term)
+            end
+        else
+            row = index - column_count
+            residual[row] -= value
+            scale[row] += abs(value)
+        end
+    end
+    roundoff = T(256) * eps(one(T))
+    pivot_tolerance = sqrt(eps(one(T))) * abs(pivot)
+    for row in eachindex(residual)
+        isfinite(residual[row]) && isfinite(scale[row]) || return false
+        tolerance = max(workspace.options.zero_tolerance, pivot_tolerance,
+                        roundoff * (scale[row] + one(T)))
+        abs(residual[row]) <= tolerance || return false
+    end
+    return true
+end
+
 function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
                           basis_refreshed::Bool=false) where {T}
     leaving_row = dual_edge_selection(workspace)
@@ -533,6 +570,25 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
                                     workspace.factorization, column)
     all(isfinite, tableau_column) || return _numerical_failure()
     pivot = tableau_column[leaving_row]
+    # Near the ratio test cutoff, an updated factorization can invent a
+    # nonzero pivot. Check its direction against the current basis before
+    # accepting it.
+    if _is_exact(T) === Val(false) &&
+       abs(pivot) <= T(10) * _dual_pivot_cutoff(T) &&
+       !_dual_direction_residual_ok!(workspace, tableau_column, pivot)
+        if !basis_refreshed
+            stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
+            recompute!(workspace; refactorize=true, caller_guard=stop_requested)
+            stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
+            _finite_workspace(workspace) || return _numerical_failure()
+            if !_dual_prices_feasible_or_refined!(workspace, stop_requested)
+                stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
+                return DualTermination(NUMERICAL_ERROR, "dual feasibility lost")
+            end
+            return _dual_iteration!(workspace, stop_requested, true)
+        end
+        return DualTermination(NUMERICAL_ERROR, "basis solve residual too large")
+    end
     if abs(pivot) <= workspace.options.zero_tolerance &&
        _is_exact(T) === Val(false) && !basis_refreshed
         # A small pivot can result from drift in the updated factorization.

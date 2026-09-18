@@ -35,8 +35,28 @@ failure. The exact sign depends on the floating-point path.
 This evidence points to error accumulated in the updated factorization
 as the immediate cause of the invalid pivot. Near-zero dual steps show
 degeneracy in the same region, but perturbing the costs would only
-change which pivots are tried. The next controlled check is
-`runtime_preemptive_refactorization.jl`: rebuild the still-factorizable
-basis at 23,201, then inspect the next pivot and its fresh LU. If that
-avoids this invalid pivot, add a guarded basis rebuild when an updated
-direction is inconsistent with the current basis before accepting it.
+change which pivots are tried.
+
+## Refactorization before the pivot
+
+The Windows counterfactual in commit `f17464a` rebuilt the same basis
+at iteration 23,201 before choosing the next pivot. Immediately before
+the rebuild, the updated direction had pivot `-6.761199819713067e-7`
+and residual infinity norm `0.003909944934112411`; a fresh LU direction
+had pivot `-0.0` and residual `1.7869969230581004e-17`. The rebuild
+kept dual infeasibility at zero. The next pivot still used row 25,632,
+but entered column 8,590 with tableau pivot `-62.27918240194156`.
+The resulting basis passed fresh LU.
+
+The production guard therefore checks the basis equation `Bd = a`
+before accepting a pivot no more than ten times the dual ratio test's
+coefficient cutoff. If its residual is too large relative to the row
+terms and pivot size, the solver rebuilds the basis and repeats that
+iteration once. A second failed check returns `NUMERICAL_ERROR`. This
+guards the observed false pivot without forcing early refactorizations
+for full-sized pivots whose residuals are tiny relative to their size.
+The guard rejects the replayed false direction (`4.76e-7` pivot,
+`2.63e-3` residual) on this machine. A local run with the guard still
+reached 23,201 iterations in 84.5 seconds, matching the prior trace
+and elapsed time to that point.
+The Windows run still needs to verify the guarded solver beyond 23,202.

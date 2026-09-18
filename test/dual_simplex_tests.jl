@@ -91,6 +91,38 @@ end
     @test persistent.refactorizations == 1
 end
 
+@testset "Dual pivot rejects a false nonzero direction from stale factors" begin
+    problem = LinearProblem(sparse([1.0 0.0; 0.0 1.0]), [1.0, 0.0];
+                            row_lower=[1.0, -Inf])
+    workspace = JSimplex.initialize_workspace(
+        problem, SolverOptions(basis_update=:suhl_suhl, verbose=false),
+    )
+    # The actual slack basis is -I. This stale factorization makes the
+    # second structural column appear to enter the first basis row.
+    workspace.factorization.base = JSimplex._factorize_basis(
+        sparse([-1.0 5.0e-7; 0.0 -1.0]),
+    )
+    JSimplex.recompute!(workspace)
+
+    terminal = JSimplex.dual_iteration!(workspace, () -> false)
+    @test isnothing(terminal)
+    @test workspace.basis.basic_indices == [1, 4]
+    @test workspace.refactorizations == 1
+end
+
+@testset "Dual pivot keeps a full-sized pivot with harmless solve roundoff" begin
+    problem = LinearProblem(sparse([1.0;;]), [1.0]; row_lower=[1.0])
+    workspace = JSimplex.initialize_workspace(
+        problem, SolverOptions(basis_update=:suhl_suhl, verbose=false),
+    )
+    workspace.factorization.base = JSimplex._factorize_basis(sparse([-1.0 - 3.0e-12;;]))
+    JSimplex.recompute!(workspace)
+
+    @test isnothing(JSimplex.dual_iteration!(workspace, () -> false))
+    @test workspace.basis.basic_indices == [1]
+    @test workspace.refactorizations == 0
+end
+
 @testset "Dual feasibility is checked against a fresh factorization" begin
     problem = LinearProblem(sparse([1.0;;]), [1.0]; row_lower=[1.0])
     for update in (:pfi, :suhl_suhl)
