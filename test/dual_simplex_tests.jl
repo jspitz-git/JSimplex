@@ -94,20 +94,22 @@ end
 @testset "Dual pivot rejects a false nonzero direction from stale factors" begin
     problem = LinearProblem(sparse([1.0 0.0; 0.0 1.0]), [1.0, 0.0];
                             row_lower=[1.0, -Inf])
-    workspace = JSimplex.initialize_workspace(
-        problem, SolverOptions(basis_update=:suhl_suhl, verbose=false),
-    )
-    # The actual slack basis is -I. This stale factorization makes the
-    # second structural column appear to enter the first basis row.
-    workspace.factorization.base = JSimplex._factorize_basis(
-        sparse([-1.0 5.0e-7; 0.0 -1.0]),
-    )
-    JSimplex.recompute!(workspace)
+    for false_pivot in (5.0e-7, 5.0e-3)
+        workspace = JSimplex.initialize_workspace(
+            problem, SolverOptions(basis_update=:suhl_suhl, verbose=false),
+        )
+        # The actual slack basis is -I. This stale factorization makes the
+        # second structural column appear to enter the first basis row.
+        workspace.factorization.base = JSimplex._factorize_basis(
+            sparse([-1.0 false_pivot; 0.0 -1.0]),
+        )
+        JSimplex.recompute!(workspace)
 
-    terminal = JSimplex.dual_iteration!(workspace, () -> false)
-    @test isnothing(terminal)
-    @test workspace.basis.basic_indices == [1, 4]
-    @test workspace.refactorizations == 1
+        terminal = JSimplex.dual_iteration!(workspace, () -> false)
+        @test isnothing(terminal)
+        @test workspace.basis.basic_indices == [1, 4]
+        @test workspace.refactorizations == 1
+    end
 end
 
 @testset "Small dual pivot checks the entering price before a cost shift" begin

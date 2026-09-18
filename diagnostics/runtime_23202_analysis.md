@@ -370,3 +370,23 @@ For the next Windows run, the diagnostic now keeps the last two
 snapshots from iterations 23,400–23,440 and audits any numerical-error
 termination. If the singularity recurs near 23,425, that run will
 retain both the preceding basis and the failed state.
+
+Commit `7911ee9` reproduces the 23,425 singularity with adjacent
+snapshots. At that pivot, structural column 17,501 enters basis row
+10,662, replacing slack 42,277; column 8,376 also flips bounds. The
+next basis cannot be factored by UMFPACK. Sparse QR reports numerical
+rank 28,452 for the 28,453-column basis. The preceding basis is itself
+severely ill-conditioned: its smallest UMFPACK upper diagonal is about
+`5.08e-18`, and an independent fresh solve for the proposed entering
+direction has pivot about `-2.96e-14` with a residual as large as 512.
+The direction residual check rejects that fresh solve. The pivot
+accepted by the running updated factorization therefore did not have
+a reliable direction. The solver previously checked direction
+residuals only when the reported pivot was near the ratio-test cutoff;
+the updated factorization can report a larger false pivot. The check
+now covers every floating-point dual pivot, and a synthetic stale
+factorization test exercises a false pivot above the cutoff.
+The complete local test suite passes (13,659 assertions). The local
+reduced continuation reaches its 30,000-iteration target; all 354
+independent price checks from 29,647 through 30,000 remain feasible.
+The Windows pivot path remains to be tested with the wider guard.

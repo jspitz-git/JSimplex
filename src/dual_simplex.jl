@@ -659,11 +659,10 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
                                     workspace.factorization, column)
     all(isfinite, tableau_column) || return _numerical_failure()
     pivot = tableau_column[leaving_row]
-    # Near the ratio test cutoff, an updated factorization can invent a
-    # nonzero pivot. Check its direction against the current basis before
-    # accepting it.
+    # An updated factorization can invent a nonzero pivot even when its
+    # magnitude is well above the ratio-test cutoff. Check every floating
+    # direction against the current basis before accepting it.
     if _is_exact(T) === Val(false) &&
-       abs(pivot) <= T(10) * _dual_pivot_cutoff(T) &&
        !_dual_direction_residual_ok!(workspace, tableau_column, pivot)
         if !basis_refreshed
             stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
