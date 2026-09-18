@@ -23,6 +23,8 @@ function main()
                             basis_refactorization=:native,
                             refactorization_interval=50, verbose=false)
     println("START Julia=", VERSION, " machine=", Sys.MACHINE,
+            " julia_threads=", Threads.nthreads(),
+            " blas_threads=", BLAS.get_num_threads(),
             " path=", path, " output=", output)
     original = read_mps(path)
     reduced = J.presolve_problem(J.relax_integrality(original))
@@ -35,6 +37,10 @@ function main()
 
     last_checked = Ref(FIRST_CHECK - 1)
     previous_basic = Ref{Vector{Int}}(Int[])
+    previous_primal = Ref{Vector{Float64}}(Float64[])
+    previous_refactorizations = Ref(0)
+    measured_dual_steps = Ref(0)
+    near_zero_dual_steps = Ref(0)
     failed = Ref(false)
     function stop()
         iteration = workspace.iterations
@@ -46,6 +52,19 @@ function main()
                 length(changed) == 1 || error("unexpected basis change at $iteration: $changed")
             end
             row = isempty(changed) ? 0 : only(changed)
+            refreshed = iteration > FIRST_CHECK &&
+                        workspace.refactorizations != previous_refactorizations[]
+            # update_duals! stores minus the actual dual step at the leaving
+            # index. A scheduled recomputation overwrites that value.
+            dual_step = row == 0 || refreshed ? NaN :
+                        -workspace.reduced_costs[old_basic[row]]
+            primal_step = row == 0 ? NaN :
+                          workspace.primal[current_basic[row]] -
+                          previous_primal[][current_basic[row]]
+            if isfinite(dual_step)
+                measured_dual_steps[] += 1
+                near_zero_dual_steps[] += abs(dual_step) <= options.dual_tolerance
+            end
             B = J.basis_matrix(workspace)
             result = try
                 lu(B)
@@ -59,7 +78,11 @@ function main()
                     " basis_row=", row,
                     " leaving=", row == 0 ? 0 : old_basic[row],
                     " entering=", row == 0 ? 0 : current_basic[row],
-                    " updated_pivot=", row == 0 ? NaN : workspace.scratch.row_solution[row],
+                    " refreshed=", refreshed,
+                    " primal_step=", primal_step,
+                    " dual_step=", dual_step,
+                    " updated_pivot=", row == 0 || refreshed ? NaN :
+                                       workspace.scratch.row_solution[row],
                     " fresh_lu=", result)
             flush(stdout)
             if result != "success"
@@ -68,6 +91,8 @@ function main()
                 failed[] = true
             end
             previous_basic[] = current_basic
+            previous_primal[] = copy(workspace.primal)
+            previous_refactorizations[] = workspace.refactorizations
             last_checked[] = iteration
         end
         return failed[] || iteration >= LAST_CHECK ||
@@ -80,6 +105,8 @@ function main()
             " iterations=", workspace.iterations,
             " refactorizations=", workspace.refactorizations,
             " first_bad_basis=", failed[],
+            " near_zero_dual_steps=", near_zero_dual_steps[],
+            " measured_dual_steps=", measured_dual_steps[],
             " elapsed_seconds=", (time_ns() - started_ns) / 1.0e9)
     flush(stdout)
 end
