@@ -552,3 +552,24 @@ original LP on aarch64 Linux and passed to postsolve cleanup with one BLAS
 thread. Cleanup advanced from cumulative iteration 44,146 to 48,568 in
 60 seconds and stopped at its diagnostic time limit without a numerical
 error. This does not establish the final cleanup status on either machine.
+
+Commit `b9bb322` contains the full Windows public `solve` log for `1a30347`,
+with one Julia thread and one BLAS thread. The original model has 43,021 rows,
+47,148 columns, and 277,210 nonzeros; presolve leaves 28,453 rows, 31,615
+columns, and 211,789 nonzeros. The reduced dual solve reached iteration
+44,145 in 362.9 seconds. Its original-cost primal cleanup completed, and
+postsolve cleanup started from the restored basis at iteration 44,146. The
+first original-LP progress line reported primal infeasibility `3.43e6` and
+dual infeasibility `1.83e6`; the dual solver's auxiliary feasibility phase
+then continued on the original LP. These initial figures describe the
+restored-basis state and do not, by themselves, establish a numerical failure.
+
+The original-LP cleanup reached zero reported primal infeasibility at
+iteration 60,082. Its final original-cost primal cleanup ended at iteration
+60,085. The public result was `OPTIMAL`, with objective
+`5.142569176210448e7`, 1,215 refactorizations, and 596.93 seconds elapsed.
+The log contains no restart from scratch on the original LP. The solver's
+independent original-model primal and optimality checks passed before it
+returned this status. This run establishes success for the tested Windows
+configuration; it does not establish the behavior of a full run with
+`algorithm=:primal` or with other thread counts.
