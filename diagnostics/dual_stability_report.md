@@ -106,3 +106,33 @@ used the saved pre-growth commit `02c9825` and this version on the same
 2,000-iteration reduced prefix. The warmed second runs made 108 and 84 full
 factorizations and took 3.21 and 3.08 seconds respectively. Both reached
 `ITERATION_LIMIT`; a changed pivot path can also affect these timings.
+
+## Dual steepest-edge weight check
+
+The floating dual solver now compares the selected row's stored steepest-edge
+weight with the squared norm of its current `Bᵀρ=eᵢ` solve. A discrepancy
+larger than a factor of two switches pricing to Devex and reselects the row.
+Invalid DSE weights also switch to Devex. The switch starts a fresh Devex
+reference, and a weight failure during a pivot includes that pivot in its
+Devex update. The separate Dantzig fallback after 256 zero dual steps remains.
+The norm already participates in the DSE update, so ordinary successful pivots
+do not need another basis solve or norm computation. Refined tableau rows use
+their refined norm for the update. Explicit Devex and Dantzig pricing are
+unchanged.
+
+On `adlittle`, stored selected weights of `1` disagreed with current norms of
+about `18.0` (product-form updates) and `329.4` (Suhl–Suhl updates). Both runs
+switched to Devex and finished `OPTIMAL` in 102 and 128 iterations. The
+`pk1` runs had no weight-triggered switch and retained their previous 353 and
+1,593 iterations. All 32 runs of the eight-fixture LP-relaxation sweep with
+one and six BLAS threads returned `OPTIMAL`.
+
+On the reduced, scaled `runtime.mps` prefix with one BLAS thread, Suhl–Suhl
+updates, and 50 as the initial refactorization interval, one switch occurred
+at iteration 1,145: the stored weight was `0.0001`, versus a computed norm of
+`2`. Both repetitions reached the 2,000-iteration limit with 54 full
+factorizations; the second took 4.86 seconds. This prefix does not establish
+behavior at the later numerical failure or the full-solve runtime. `medium.mps`
+has not been run with this change.
+
+The full test suite passed: 14,071 of 14,071 checks.

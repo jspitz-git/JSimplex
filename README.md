@@ -295,7 +295,7 @@ for `SolverOptions(Float64)`. Floating types use these keyword defaults:
 | `verbose` | `true` | Emit `Info`-level model statistics, simplex progress, and final status |
 | `log_level` | `Logging.Debug` | Level emitted through Julia's logging system |
 | `algorithm` | `:dual` | `:dual` or `:primal` |
-| `pricing` | `:steepest_edge` | Dual or primal pricing rule: `:steepest_edge`, `:devex`, or `:dantzig`; dual steepest-edge switches to Dantzig after 256 consecutive zero dual steps |
+| `pricing` | `:steepest_edge` | Dual or primal pricing rule: `:steepest_edge`, `:devex`, or `:dantzig`; floating dual steepest-edge switches to Devex if a checked weight becomes unreliable, and to Dantzig after 256 consecutive zero dual steps |
 | `basis_update` | `:pfi` | Basis update: `:pfi`, `:forrest_tomlin`, `:bartels_golub`, or `:suhl_suhl` |
 | `basis_refactorization` | `:native` | Full factorization: `:native` or `:markowitz` |
 | `scaling` | `:auto` | `:auto`, `:on`, or `:off` row and column scaling |
@@ -317,6 +317,14 @@ growth ceiling is 512 updates for product-form bases and 128 for triangular
 bases; a higher configured initial interval raises the ceiling, up to 4096.
 Values configured above 4096 remain valid. Primal and rational simplex keep
 the configured interval.
+
+For floating dual steepest-edge pricing, each selected row's stored weight is
+checked against the norm of its current basis transpose solve. If the weights
+differ by more than a factor of two, or a weight becomes invalid, pricing
+switches to a fresh Devex reference. A mismatch found before the ratio test
+reselects the row. This uses the row solve already needed for the pivot. The
+zero-step Dantzig fallback remains available after a Devex switch. Explicit
+`:devex` and `:dantzig` settings do not use this switch.
 
 With `basis_refactorization=:markowitz`, a full basis factorization chooses
 sparse pivots using the Markowitz fill criterion and a column stability

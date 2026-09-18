@@ -82,6 +82,7 @@ mutable struct SimplexWorkspace{T<:Real,F,M,R}
     perturbed::Bool
     zero_dual_step_streak::Int
     dual_pricing_fallback::Bool
+    dual_devex_fallback::Bool
     dual_refactorization_interval::Int
     dual_recent_repairs::Int
     dual_bad_update_min::Int
@@ -189,7 +190,8 @@ function recompute!(workspace::SimplexWorkspace{T}; refactorize::Bool=false,
         refactorize!(workspace.factorization, B)
         workspace.refactorizations += 1
         workspace.dual_nonzero_steps_since_refactorization = 0
-        workspace.options.pricing == :devex && reset_devex!(workspace)
+        (workspace.options.pricing == :devex || workspace.dual_devex_fallback) &&
+            !workspace.dual_pricing_fallback && reset_devex!(workspace)
     end
 
     A = workspace.problem.A
@@ -274,7 +276,7 @@ function initialize_workspace(
     workspace = SimplexWorkspace(
         problem, typed_options, progress, costs, lower, upper, basis, zeros(T, variable_count),
         zeros(T, variable_count), ones(T, variable_count), devex_reference,
-        factorization, scratch, 0, 0, false, 0, false,
+        factorization, scratch, 0, 0, false, 0, false, false,
         typed_options.refactorization_interval, 0,
         typemax(Int), 0, 0,
     )

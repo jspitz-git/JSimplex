@@ -297,12 +297,14 @@ end
     # The complete retry must select column 1 before changing the basis.
     stale = JSimplex.initialize_workspace(problem, SolverOptions(verbose=false))
     stale.factorization.base = JSimplex._factorize_basis(
-        sparse([-1.0 0.5; 0.5 -1.0]),
+        sparse([-1.0 0.4; 0.4 -1.0]),
     )
     JSimplex.recompute!(stale)
     @test isnothing(JSimplex._dual_iteration!(stale, () -> false, true))
     @test stale.basis.basic_indices == [1, 4]
     @test stale.iterations == 1
+    @test !stale.dual_devex_fallback
+    @test stale.pricing_weights[1] ≈ 1.0
 end
 
 @testset "Small dual pivot checks the entering price before a cost shift" begin
@@ -878,13 +880,18 @@ end
     terminal = JSimplex.dual_iteration!(workspace, () -> false)
     @test terminal.status == NUMERICAL_ERROR
     @test workspace.iterations == 0
-    for field in (:primal, :reduced_costs, :pricing_weights)
+    for field in (:primal, :reduced_costs)
         workspace = JSimplex.initialize_workspace(problem, SolverOptions())
         getfield(workspace, field)[1] = NaN
         terminal = JSimplex.dual_iteration!(workspace, () -> false)
         @test terminal.status == NUMERICAL_ERROR
         @test workspace.iterations == 0
     end
+    workspace = JSimplex.initialize_workspace(problem, SolverOptions(pricing=:devex))
+    workspace.pricing_weights[1] = NaN
+    terminal = JSimplex.dual_iteration!(workspace, () -> false)
+    @test terminal.status == NUMERICAL_ERROR
+    @test workspace.iterations == 0
     @test_throws ArgumentError JSimplex._solve_continuous_dual(
         problem, SolverOptions(); stop_requested=() -> throw(ArgumentError("callback failure")),
     )
@@ -1005,6 +1012,7 @@ end
             [starting_state, JSimplex.BASIC, JSimplex.AT_LOWER])
         workspace.costs[1] = shifted_cost
         workspace.perturbed = true
+        workspace.dual_devex_fallback = true
         JSimplex.recompute!(workspace; refactorize=true)
         @test JSimplex.primal_infeasibility(workspace) == 0.0
         @test JSimplex.dual_infeasibility(workspace) == 0.0
@@ -1015,6 +1023,7 @@ end
         @test run.objective_value ≈ original_cost * expected_x
         @test run.iterations == 1
         @test !workspace.perturbed
+        @test !workspace.dual_devex_fallback
     end
 end
 
@@ -1040,6 +1049,54 @@ end
     row = fill(NaN, 4)
     @test isnothing(JSimplex.price!(row, workspace, [2.0, -3.0]))
     @test row == [5.0, -3.0, -2.0, 3.0]
+end
+
+@testset "Inaccurate dual steepest-edge weight restarts pricing with Devex" begin
+    problem = LinearProblem(
+        sparse([1.0 0.0; -1.0 1.0]), [1.0, 1.0]; row_lower=[1.0, 1.0],
+    )
+    workspace = JSimplex.initialize_workspace(problem, SolverOptions(verbose=false))
+    # The second row would win with this stale weight; after resetting the
+    # reference, the first row wins the equal-violation tie.
+    workspace.pricing_weights[4] = 0.1
+    @test isnothing(JSimplex.dual_iteration!(workspace, () -> false))
+    @test workspace.basis.basic_indices == [1, 4]
+    @test workspace.dual_devex_fallback
+    @test !workspace.dual_pricing_fallback
+    @test workspace.devex_reference == BitVector([false, false, true, true])
+    @test all(weight -> isfinite(weight) && weight > 0, workspace.pricing_weights)
+
+    clean = JSimplex.initialize_workspace(problem, SolverOptions(verbose=false))
+    @test isnothing(JSimplex.dual_iteration!(clean, () -> false))
+    @test !clean.dual_devex_fallback
+end
+
+@testset "Non-finite DSE weights recover through Devex" begin
+    problem = LinearProblem(sparse([1.0 0.0; -1.0 1.0]), [1.0, 1.0];
+                            row_lower=[1.0, 1.0])
+    workspace = JSimplex.initialize_workspace(
+        problem, SolverOptions(verbose=false, refactorization_interval=1),
+    )
+    workspace.pricing_weights[4] = NaN
+    @test isnothing(JSimplex.dual_iteration!(workspace, () -> false))
+    @test workspace.dual_devex_fallback
+    @test workspace.basis.basic_indices == [1, 4]
+    @test workspace.devex_reference == BitVector([true, false, false, true])
+    @test all(isone, workspace.pricing_weights)
+end
+
+@testset "DSE update overflow includes the current pivot in Devex" begin
+    problem = LinearProblem(sparse(reshape([1.0, 0.0], 2, 1)), [1.0])
+    workspace = JSimplex.initialize_workspace(problem, SolverOptions(verbose=false))
+    @test JSimplex.update_dual_pricing_weights!(
+        workspace, [1.0e150, 0.0], [0.0, 1.0, 0.0], [1.0e10, 1.0],
+        1, 1.0, 1.0e300, () -> false,
+    )
+    @test workspace.dual_devex_fallback
+    @test workspace.devex_reference == BitVector([false, true, true])
+    @test workspace.pricing_weights[1] == 1.0
+    @test workspace.pricing_weights[2] == 1.0e20
+    @test all(isfinite, workspace.pricing_weights)
 end
 
 @testset "Dual Devex reference weights" begin

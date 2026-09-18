@@ -464,8 +464,8 @@ function update_primals!(workspace::SimplexWorkspace{T}, tableau_column::Vector{
 end
 
 function update_dse!(workspace::SimplexWorkspace{T}, rho::Vector{T}, tableau_column::Vector{T},
-                    entering_index::Int, pivot::T)::Nothing where {T}
-    entering_weight = dot(rho, rho) / pivot^2
+                    entering_index::Int, pivot::T, squared_norm::T)::Nothing where {T}
+    entering_weight = squared_norm / pivot^2
     tau = forward_solve!(workspace.scratch.tau, workspace.factorization, rho)
     for (row, index) in enumerate(workspace.basis.basic_indices)
         coefficient = tableau_column[row]
@@ -477,6 +477,38 @@ function update_dse!(workspace::SimplexWorkspace{T}, rho::Vector{T}, tableau_col
     workspace.pricing_weights[entering_index] = entering_weight
     return nothing
 end
+
+function _switch_dual_pricing_to_devex!(workspace::SimplexWorkspace{T},
+                                        stop_requested, reason::String;
+                                        stored_weight::Union{Nothing,T}=nothing,
+                                        actual_weight::Union{Nothing,T}=nothing) where {T}
+    workspace.dual_devex_fallback = true
+    reset_devex!(workspace)
+    try
+        @logmsg workspace.options.log_level "Switching dual pricing to Devex" iteration=workspace.iterations reason stored_weight actual_weight
+    catch exception
+        stop_requested isa _StopCallback && (stop_requested.exception = exception)
+        rethrow()
+    end
+    return nothing
+end
+
+function _recover_invalid_dse_weights!(workspace::SimplexWorkspace{T},
+                                       stop_requested) where {T}
+    if _is_exact(T) === Val(false) &&
+       workspace.options.pricing == :steepest_edge &&
+       !workspace.dual_pricing_fallback && !workspace.dual_devex_fallback &&
+       any(weight -> !isfinite(weight) || weight <= zero(T), workspace.pricing_weights)
+        _switch_dual_pricing_to_devex!(workspace, stop_requested,
+                                       "invalid steepest-edge weight")
+        return true
+    end
+    return false
+end
+
+_dse_weight_unreliable(stored::T, actual::T) where {T} =
+    !isfinite(actual) || actual <= zero(T) ||
+    min(stored, actual) < _typed_ratio(T, 1, 2) * max(stored, actual)
 
 function update_devex!(workspace::SimplexWorkspace{T}, tableau_row::Vector{T},
                        tableau_column::Vector{T}, entering_index::Int,
@@ -495,11 +527,37 @@ function update_devex!(workspace::SimplexWorkspace{T}, tableau_row::Vector{T},
     return nothing
 end
 
+function update_dual_pricing_weights!(workspace::SimplexWorkspace{T},
+                                      rho::Vector{T}, tableau_row::Vector{T},
+                                      tableau_column::Vector{T}, entering_index::Int,
+                                      pivot::T, dse_weight::T, stop_requested) where {T}
+    if workspace.options.pricing == :steepest_edge &&
+       !workspace.dual_pricing_fallback && !workspace.dual_devex_fallback
+        update_dse!(workspace, rho, tableau_column, entering_index, pivot,
+                    dse_weight)
+        if !_finite_workspace(workspace)
+            _recover_invalid_dse_weights!(workspace, stop_requested) || return false
+            _finite_workspace(workspace) || return false
+            # The Devex reference is the pre-pivot basis. Account for this
+            # pivot before replacing its basis column.
+            update_devex!(workspace, tableau_row, tableau_column, entering_index, pivot)
+        end
+    elseif (workspace.options.pricing == :devex || workspace.dual_devex_fallback) &&
+           !workspace.dual_pricing_fallback
+        update_devex!(workspace, tableau_row, tableau_column, entering_index, pivot)
+    end
+    return _finite_workspace(workspace)
+end
+
 function dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested)::Union{Nothing,DualTermination} where {T}
     stop_requested = _guard_stop_callback(stop_requested)
     stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
-    _finite_workspace(workspace) || return _numerical_failure()
     try
+        if !_finite_workspace(workspace)
+            _recover_invalid_dse_weights!(workspace, stop_requested) ||
+                return _numerical_failure()
+            _finite_workspace(workspace) || return _numerical_failure()
+        end
         return _dual_iteration!(workspace, stop_requested)
     catch exception
         exception === stop_requested.exception && rethrow()
@@ -992,6 +1050,19 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
             return _dual_iteration!(workspace, stop_requested, true)
         end
     end
+    dse_weight = zero(T)
+    if workspace.options.pricing == :steepest_edge &&
+       !workspace.dual_pricing_fallback && !workspace.dual_devex_fallback &&
+       _is_exact(T) === Val(false)
+        dse_weight = dot(rho, rho)
+        stored_weight = workspace.pricing_weights[leaving_index]
+        if _dse_weight_unreliable(stored_weight, dse_weight)
+            _switch_dual_pricing_to_devex!(workspace, stop_requested,
+                                           "steepest-edge weight disagrees with basis solve";
+                                           stored_weight, actual_weight=dse_weight)
+            return _dual_iteration!(workspace, stop_requested, basis_refreshed)
+        end
+    end
     orientation = below ? -one(T) : one(T)
     entering_index, flips, exhausted = _bound_flipping_ratio_test(
         workspace, tableau_row, orientation, abs(delta),
@@ -1041,6 +1112,7 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
                                     workspace.factorization, column)
     all(isfinite, tableau_column) || return _numerical_failure()
     pivot = tableau_column[leaving_row]
+    refined_row = false
     # An updated factorization can invent a nonzero pivot even when its
     # magnitude is well above the ratio-test cutoff. Check every floating
     # direction against the current basis before accepting it.
@@ -1082,6 +1154,7 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
                 rethrow()
             end
             pivot = refined_pivot
+            refined_row = true
         else
             stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
             residual = workspace.scratch.tau
@@ -1128,6 +1201,16 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
         stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
         return DualTermination(NUMERICAL_ERROR, "small pivot dual price could not be certified")
     end
+    if refined_row && workspace.options.pricing == :steepest_edge &&
+       !workspace.dual_pricing_fallback && !workspace.dual_devex_fallback
+        dse_weight = dot(rho, rho)
+        stored_weight = workspace.pricing_weights[leaving_index]
+        if _dse_weight_unreliable(stored_weight, dse_weight)
+            _switch_dual_pricing_to_devex!(workspace, stop_requested,
+                                           "refined steepest-edge weight disagrees with basis solve";
+                                           stored_weight, actual_weight=dse_weight)
+        end
+    end
     # A refresh can retry the ratio test. Keep the proposed flips pending
     # until the entering direction has passed its numerical checks.
     _apply_bound_flips!(workspace, flips) || return _numerical_failure()
@@ -1145,12 +1228,14 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
     end
     update_duals!(workspace, tableau_row, leaving_index, entering_index, dual_step)
     update_primals!(workspace, tableau_column, entering_index, leaving_row, primal_step)
-    if workspace.options.pricing == :steepest_edge && !workspace.dual_pricing_fallback
-        update_dse!(workspace, rho, tableau_column, entering_index, pivot)
-    elseif workspace.options.pricing == :devex && !workspace.dual_pricing_fallback
-        update_devex!(workspace, tableau_row, tableau_column, entering_index, pivot)
+    if workspace.options.pricing == :steepest_edge &&
+       !workspace.dual_pricing_fallback && !workspace.dual_devex_fallback &&
+       _is_exact(T) === Val(true)
+        dse_weight = dot(rho, rho)
     end
-    _finite_workspace(workspace) || return _numerical_failure()
+    update_dual_pricing_weights!(workspace, rho, tableau_row, tableau_column,
+                                 entering_index, pivot, dse_weight, stop_requested) ||
+        return _numerical_failure()
     replace_column!(workspace.factorization, tableau_column, leaving_row;
                     zero_tolerance=workspace.options.zero_tolerance)
     workspace.basis.basic_indices[leaving_row] = entering_index
@@ -1535,6 +1620,7 @@ function _auxiliary_workspace(workspace::SimplexWorkspace{T}) where {T}
         factorization, scratch, workspace.iterations,
         workspace.refactorizations, workspace.perturbed,
         workspace.zero_dual_step_streak, workspace.dual_pricing_fallback,
+        workspace.dual_devex_fallback,
         workspace.dual_refactorization_interval, workspace.dual_recent_repairs,
         workspace.dual_bad_update_min, workspace.dual_stable_refactorizations,
         workspace.dual_nonzero_steps_since_refactorization,
@@ -1690,6 +1776,7 @@ function _make_dual_feasible!(workspace::SimplexWorkspace{T}, stop_requested) wh
     workspace.perturbed = auxiliary.perturbed
     workspace.zero_dual_step_streak = auxiliary.zero_dual_step_streak
     workspace.dual_pricing_fallback = auxiliary.dual_pricing_fallback
+    workspace.dual_devex_fallback = auxiliary.dual_devex_fallback
     workspace.dual_refactorization_interval = auxiliary.dual_refactorization_interval
     workspace.dual_recent_repairs = auxiliary.dual_recent_repairs
     workspace.dual_bad_update_min = auxiliary.dual_bad_update_min
@@ -1756,6 +1843,7 @@ function _solve_continuous_dual!(workspace::SimplexWorkspace{T}, stop_requested)
     if dual_infeasibility(workspace) > options.dual_tolerance &&
        primal_infeasibility(workspace) <= options.primal_tolerance
         options.verbose && @info "Starting primal cleanup after restoring original costs"
+        workspace.dual_devex_fallback = false
         terminal = _primal_optimize!(workspace, stop_requested)
         terminal.status == OPTIMAL || return _internal_solution(workspace, terminal)
     end
