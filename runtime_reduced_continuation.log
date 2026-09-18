@@ -1,52 +1,83 @@
 START Julia=1.13.0 machine=x86_64-w64-mingw32 julia_threads=1 blas_threads=6 target=30000 time_limit=600.0 path=C:\Disk_D\tmp\runtime.mps
 MODEL size=(28453, 31615) nnz=211789
-DIAGNOSTIC_CONFIG source=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_continuation.jl trace=(29647, 29675) capture=(0, 0) scan=(29647, 1) watch=(46746, 16925) capture_paths=("C:\\Disk_D\\JSimplex.jl\\diagnostics\\runtime_reduced_capture_a.tsv", "C:\\Disk_D\\JSimplex.jl\\diagnostics\\runtime_reduced_capture_b.tsv") scan_paths=("C:\\Disk_D\\JSimplex.jl\\diagnostics\\runtime_reduced_scan_good.tsv", "C:\\Disk_D\\JSimplex.jl\\diagnostics\\runtime_reduced_scan_bad.tsv")
-CHECKPOINT iteration=500 refactorizations=10 updates=43 pinf=(53127.313054952145, 2942) dinf=(0.0, 0) elapsed_seconds=34.0489062
-CHECKPOINT iteration=1000 refactorizations=20 updates=43 pinf=(9.991581823887516e6, 3451) dinf=(0.0, 0) elapsed_seconds=38.0751484
-CHECKPOINT iteration=1500 refactorizations=30 updates=43 pinf=(1.054332219854371e6, 3754) dinf=(0.0, 0) elapsed_seconds=41.9677869
-CHECKPOINT iteration=2000 refactorizations=40 updates=43 pinf=(1.2029990263641092e6, 3915) dinf=(0.0, 0) elapsed_seconds=45.8759658
-CHECKPOINT iteration=2500 refactorizations=50 updates=43 pinf=(1.4480002838186747e6, 4055) dinf=(0.0, 0) elapsed_seconds=50.3528362
-CHECKPOINT iteration=3000 refactorizations=60 updates=43 pinf=(1.862922142966629e6, 4149) dinf=(0.0, 0) elapsed_seconds=56.8549692
-CHECKPOINT iteration=3500 refactorizations=70 updates=43 pinf=(3.4957992585841874e6, 4291) dinf=(0.0, 0) elapsed_seconds=61.6352966
-CHECKPOINT iteration=4000 refactorizations=80 updates=43 pinf=(3.503659292128421e6, 4418) dinf=(0.0, 0) elapsed_seconds=66.3689755
-CHECKPOINT iteration=4500 refactorizations=90 updates=43 pinf=(3.7403416589671294e6, 4537) dinf=(0.0, 0) elapsed_seconds=71.0056425
-CHECKPOINT iteration=5000 refactorizations=100 updates=43 pinf=(4.008229231464155e6, 4688) dinf=(0.0, 0) elapsed_seconds=75.5408007
-CHECKPOINT iteration=5500 refactorizations=110 updates=43 pinf=(4.396495556530868e6, 4725) dinf=(0.0, 0) elapsed_seconds=80.56065
-CHECKPOINT iteration=6000 refactorizations=120 updates=43 pinf=(3.959984487298777e6, 4778) dinf=(0.0, 0) elapsed_seconds=87.2891504
-CHECKPOINT iteration=6500 refactorizations=130 updates=43 pinf=(4.86840880660073e6, 4969) dinf=(0.0, 0) elapsed_seconds=92.5146228
-CHECKPOINT iteration=7000 refactorizations=140 updates=43 pinf=(752696.3796593415, 4966) dinf=(0.0, 0) elapsed_seconds=98.4615866
-CHECKPOINT iteration=7500 refactorizations=150 updates=43 pinf=(977361.8513503391, 4994) dinf=(0.0, 0) elapsed_seconds=103.7061607
-CHECKPOINT iteration=8000 refactorizations=160 updates=43 pinf=(5.325559723487135e6, 5123) dinf=(0.0, 0) elapsed_seconds=109.2448368
-CHECKPOINT iteration=8500 refactorizations=170 updates=43 pinf=(2.7040387854195237e6, 5264) dinf=(0.0, 0) elapsed_seconds=114.8475797
-CHECKPOINT iteration=9000 refactorizations=180 updates=43 pinf=(4.436691334507617e6, 5487) dinf=(0.0, 0) elapsed_seconds=120.2190073
-CHECKPOINT iteration=9500 refactorizations=190 updates=43 pinf=(1.1319921498130854e7, 5515) dinf=(0.0, 0) elapsed_seconds=125.8004082
-CHECKPOINT iteration=10000 refactorizations=200 updates=43 pinf=(1.872291235168606e8, 5561) dinf=(0.0, 0) elapsed_seconds=131.0456491
-CHECKPOINT iteration=10500 refactorizations=210 updates=43 pinf=(2.1228850791257182e8, 5549) dinf=(0.0, 0) elapsed_seconds=136.3745841
-CHECKPOINT iteration=11000 refactorizations=220 updates=43 pinf=(2.3081877939063136e7, 5437) dinf=(0.0, 0) elapsed_seconds=143.0471414
-CHECKPOINT iteration=11500 refactorizations=230 updates=43 pinf=(1.0513534292867847e7, 5548) dinf=(0.0, 0) elapsed_seconds=148.8960027
-CHECKPOINT iteration=12000 refactorizations=240 updates=43 pinf=(1.1911339072685298e7, 5582) dinf=(0.0, 0) elapsed_seconds=155.6925972
-CHECKPOINT iteration=12500 refactorizations=250 updates=43 pinf=(2.643187659801671e8, 5513) dinf=(0.0, 0) elapsed_seconds=162.2482753
-CHECKPOINT iteration=13000 refactorizations=260 updates=43 pinf=(9.184915091001031e7, 5491) dinf=(0.0, 0) elapsed_seconds=170.1005284
-CHECKPOINT iteration=13500 refactorizations=270 updates=43 pinf=(9.493272728039244e7, 5790) dinf=(0.0, 0) elapsed_seconds=176.7628773
-CHECKPOINT iteration=14000 refactorizations=280 updates=43 pinf=(8.894174145761554e7, 5656) dinf=(0.0, 0) elapsed_seconds=184.2002359
-CHECKPOINT iteration=14500 refactorizations=290 updates=43 pinf=(1.0663227912089011e8, 5695) dinf=(0.0, 0) elapsed_seconds=190.9852897
-CHECKPOINT iteration=15000 refactorizations=300 updates=43 pinf=(1.711720907842196e8, 5717) dinf=(0.0, 0) elapsed_seconds=197.6593963
-CHECKPOINT iteration=15500 refactorizations=310 updates=43 pinf=(1.6179175723025322e9, 5723) dinf=(0.0, 0) elapsed_seconds=204.5897846
-CHECKPOINT iteration=16000 refactorizations=320 updates=43 pinf=(6.684464293766534e8, 5729) dinf=(0.0, 0) elapsed_seconds=211.0000063
-CHECKPOINT iteration=16500 refactorizations=330 updates=43 pinf=(1.3490353781126314e8, 5612) dinf=(0.0, 0) elapsed_seconds=218.1494701
-CHECKPOINT iteration=17000 refactorizations=340 updates=43 pinf=(7.575505369906174e7, 5499) dinf=(0.0, 0) elapsed_seconds=225.567895
-CHECKPOINT iteration=17500 refactorizations=350 updates=43 pinf=(1.9953580094994703e8, 5698) dinf=(0.0, 0) elapsed_seconds=233.5782569
-CHECKPOINT iteration=18000 refactorizations=360 updates=43 pinf=(2.9855054686115715e10, 5754) dinf=(0.0, 0) elapsed_seconds=242.622517
-CHECKPOINT iteration=18500 refactorizations=370 updates=43 pinf=(5.679712855442293e10, 5743) dinf=(0.0, 0) elapsed_seconds=250.0782189
-CHECKPOINT iteration=19000 refactorizations=380 updates=43 pinf=(7.650411329741878e10, 5884) dinf=(0.0, 0) elapsed_seconds=257.9938886
-CHECKPOINT iteration=19500 refactorizations=390 updates=43 pinf=(4.1064083919214745e10, 5449) dinf=(0.0, 0) elapsed_seconds=267.9109386
-CHECKPOINT iteration=20000 refactorizations=400 updates=43 pinf=(8.719519761372651e11, 5669) dinf=(0.0, 0) elapsed_seconds=277.7561254
-CHECKPOINT iteration=20500 refactorizations=410 updates=43 pinf=(5.030696689845821e10, 5500) dinf=(0.0, 0) elapsed_seconds=287.1682165
-CHECKPOINT iteration=21000 refactorizations=420 updates=43 pinf=(1.5728150610948495e11, 5351) dinf=(0.0, 0) elapsed_seconds=295.2755611
-CHECKPOINT iteration=21500 refactorizations=431 updates=12 pinf=(5.449942975787356e10, 5534) dinf=(0.0, 0) elapsed_seconds=303.8431963
-CHECKPOINT iteration=22000 refactorizations=442 updates=20 pinf=(1.4935108823411795e10, 5779) dinf=(0.0, 0) elapsed_seconds=313.0059323
-CHECKPOINT iteration=22500 refactorizations=452 updates=20 pinf=(2.6468547925460068e10, 5589) dinf=(0.0, 0) elapsed_seconds=322.1910995
-CHECKPOINT iteration=23000 refactorizations=462 updates=43 pinf=(7.013836538493317e10, 5202) dinf=(0.0, 0) elapsed_seconds=331.4470309
-END status=NUMERICAL_ERROR message=SingularException: matrix is singular; factorization failed. Zero pivot found at index 0 target_reached=false iterations=23425 refactorizations=471 pinf=(1.0955955386740465e10, 5353) dinf=(0.0, 0) elapsed_seconds=340.6869612
-CAPTURE_SUMMARY count=0 last_iteration=-1
+DIAGNOSTIC_CONFIG source=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_continuation.jl trace=(29647, 29675) capture=(23400, 23440) scan=(29647, 1) watch=(46746, 16925) capture_paths=("C:\\Disk_D\\JSimplex.jl\\diagnostics\\runtime_reduced_capture_a.tsv", "C:\\Disk_D\\JSimplex.jl\\diagnostics\\runtime_reduced_capture_b.tsv") scan_paths=("C:\\Disk_D\\JSimplex.jl\\diagnostics\\runtime_reduced_scan_good.tsv", "C:\\Disk_D\\JSimplex.jl\\diagnostics\\runtime_reduced_scan_bad.tsv")
+CHECKPOINT iteration=500 refactorizations=10 updates=43 pinf=(53127.313054952145, 2942) dinf=(0.0, 0) elapsed_seconds=25.5795165
+CHECKPOINT iteration=1000 refactorizations=20 updates=43 pinf=(9.991581823887516e6, 3451) dinf=(0.0, 0) elapsed_seconds=29.6152369
+CHECKPOINT iteration=1500 refactorizations=30 updates=43 pinf=(1.054332219854371e6, 3754) dinf=(0.0, 0) elapsed_seconds=33.6144073
+CHECKPOINT iteration=2000 refactorizations=40 updates=43 pinf=(1.2029990263641092e6, 3915) dinf=(0.0, 0) elapsed_seconds=37.5942138
+CHECKPOINT iteration=2500 refactorizations=50 updates=43 pinf=(1.4480002838186747e6, 4055) dinf=(0.0, 0) elapsed_seconds=41.5651379
+CHECKPOINT iteration=3000 refactorizations=60 updates=43 pinf=(1.862922142966629e6, 4149) dinf=(0.0, 0) elapsed_seconds=46.5578826
+CHECKPOINT iteration=3500 refactorizations=70 updates=43 pinf=(3.4957992585841874e6, 4291) dinf=(0.0, 0) elapsed_seconds=50.8289193
+CHECKPOINT iteration=4000 refactorizations=80 updates=43 pinf=(3.503659292128421e6, 4418) dinf=(0.0, 0) elapsed_seconds=54.8534826
+CHECKPOINT iteration=4500 refactorizations=90 updates=43 pinf=(3.7403416589671294e6, 4537) dinf=(0.0, 0) elapsed_seconds=58.9575184
+CHECKPOINT iteration=5000 refactorizations=100 updates=43 pinf=(4.008229231464155e6, 4688) dinf=(0.0, 0) elapsed_seconds=63.7217717
+CHECKPOINT iteration=5500 refactorizations=110 updates=43 pinf=(4.396495556530868e6, 4725) dinf=(0.0, 0) elapsed_seconds=68.2996822
+CHECKPOINT iteration=6000 refactorizations=120 updates=43 pinf=(3.959984487298777e6, 4778) dinf=(0.0, 0) elapsed_seconds=74.622118
+CHECKPOINT iteration=6500 refactorizations=130 updates=43 pinf=(4.86840880660073e6, 4969) dinf=(0.0, 0) elapsed_seconds=79.4566189
+CHECKPOINT iteration=7000 refactorizations=140 updates=43 pinf=(752696.3796593415, 4966) dinf=(0.0, 0) elapsed_seconds=84.5289599
+CHECKPOINT iteration=7500 refactorizations=150 updates=43 pinf=(977361.8513503391, 4994) dinf=(0.0, 0) elapsed_seconds=89.5713369
+CHECKPOINT iteration=8000 refactorizations=160 updates=43 pinf=(5.325559723487135e6, 5123) dinf=(0.0, 0) elapsed_seconds=94.7768704
+CHECKPOINT iteration=8500 refactorizations=170 updates=43 pinf=(2.7040387854195237e6, 5264) dinf=(0.0, 0) elapsed_seconds=100.217169
+CHECKPOINT iteration=9000 refactorizations=180 updates=43 pinf=(4.436691334507617e6, 5487) dinf=(0.0, 0) elapsed_seconds=105.8986111
+CHECKPOINT iteration=9500 refactorizations=190 updates=43 pinf=(1.1319921498130854e7, 5515) dinf=(0.0, 0) elapsed_seconds=111.5033298
+CHECKPOINT iteration=10000 refactorizations=200 updates=43 pinf=(1.872291235168606e8, 5561) dinf=(0.0, 0) elapsed_seconds=116.7067421
+CHECKPOINT iteration=10500 refactorizations=210 updates=43 pinf=(2.1228850791257182e8, 5549) dinf=(0.0, 0) elapsed_seconds=121.9876892
+CHECKPOINT iteration=11000 refactorizations=220 updates=43 pinf=(2.3081877939063136e7, 5437) dinf=(0.0, 0) elapsed_seconds=127.297683
+CHECKPOINT iteration=11500 refactorizations=230 updates=43 pinf=(1.0513534292867847e7, 5548) dinf=(0.0, 0) elapsed_seconds=132.7226088
+CHECKPOINT iteration=12000 refactorizations=240 updates=43 pinf=(1.1911339072685298e7, 5582) dinf=(0.0, 0) elapsed_seconds=138.2230335
+CHECKPOINT iteration=12500 refactorizations=250 updates=43 pinf=(2.643187659801671e8, 5513) dinf=(0.0, 0) elapsed_seconds=143.8279565
+CHECKPOINT iteration=13000 refactorizations=260 updates=43 pinf=(9.184915091001031e7, 5491) dinf=(0.0, 0) elapsed_seconds=149.5808235
+CHECKPOINT iteration=13500 refactorizations=270 updates=43 pinf=(9.493272728039244e7, 5790) dinf=(0.0, 0) elapsed_seconds=155.7330798
+CHECKPOINT iteration=14000 refactorizations=280 updates=43 pinf=(8.894174145761554e7, 5656) dinf=(0.0, 0) elapsed_seconds=161.4828344
+CHECKPOINT iteration=14500 refactorizations=290 updates=43 pinf=(1.0663227912089011e8, 5695) dinf=(0.0, 0) elapsed_seconds=167.4861255
+CHECKPOINT iteration=15000 refactorizations=300 updates=43 pinf=(1.711720907842196e8, 5717) dinf=(0.0, 0) elapsed_seconds=173.6815716
+CHECKPOINT iteration=15500 refactorizations=310 updates=43 pinf=(1.6179175723025322e9, 5723) dinf=(0.0, 0) elapsed_seconds=180.1115093
+CHECKPOINT iteration=16000 refactorizations=320 updates=43 pinf=(6.684464293766534e8, 5729) dinf=(0.0, 0) elapsed_seconds=186.5870007
+CHECKPOINT iteration=16500 refactorizations=330 updates=43 pinf=(1.3490353781126314e8, 5612) dinf=(0.0, 0) elapsed_seconds=193.0619951
+CHECKPOINT iteration=17000 refactorizations=340 updates=43 pinf=(7.575505369906174e7, 5499) dinf=(0.0, 0) elapsed_seconds=199.4164019
+CHECKPOINT iteration=17500 refactorizations=350 updates=43 pinf=(1.9953580094994703e8, 5698) dinf=(0.0, 0) elapsed_seconds=206.1514757
+CHECKPOINT iteration=18000 refactorizations=360 updates=43 pinf=(2.9855054686115715e10, 5754) dinf=(0.0, 0) elapsed_seconds=214.759023
+CHECKPOINT iteration=18500 refactorizations=370 updates=43 pinf=(5.679712855442293e10, 5743) dinf=(0.0, 0) elapsed_seconds=221.734017
+CHECKPOINT iteration=19000 refactorizations=380 updates=43 pinf=(7.650411329741878e10, 5884) dinf=(0.0, 0) elapsed_seconds=228.9854062
+CHECKPOINT iteration=19500 refactorizations=390 updates=43 pinf=(4.1064083919214745e10, 5449) dinf=(0.0, 0) elapsed_seconds=235.8487748
+CHECKPOINT iteration=20000 refactorizations=400 updates=43 pinf=(8.719519761372651e11, 5669) dinf=(0.0, 0) elapsed_seconds=242.7064399
+CHECKPOINT iteration=20500 refactorizations=410 updates=43 pinf=(5.030696689845821e10, 5500) dinf=(0.0, 0) elapsed_seconds=249.8357838
+CHECKPOINT iteration=21000 refactorizations=420 updates=43 pinf=(1.5728150610948495e11, 5351) dinf=(0.0, 0) elapsed_seconds=257.7744499
+CHECKPOINT iteration=21500 refactorizations=431 updates=12 pinf=(5.449942975787356e10, 5534) dinf=(0.0, 0) elapsed_seconds=266.1255003
+CHECKPOINT iteration=22000 refactorizations=442 updates=20 pinf=(1.4935108823411795e10, 5779) dinf=(0.0, 0) elapsed_seconds=270.2128232
+CHECKPOINT iteration=22500 refactorizations=452 updates=20 pinf=(2.6468547925460068e10, 5589) dinf=(0.0, 0) elapsed_seconds=274.1959658
+CHECKPOINT iteration=23000 refactorizations=462 updates=43 pinf=(7.013836538493317e10, 5202) dinf=(0.0, 0) elapsed_seconds=278.5009021
+STORED_FEASIBLE_SNAPSHOT iteration=23400 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_a.tsv refactorizations=470 updates=43
+STORED_FEASIBLE_SNAPSHOT iteration=23401 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_b.tsv refactorizations=470 updates=44
+STORED_FEASIBLE_SNAPSHOT iteration=23402 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_a.tsv refactorizations=470 updates=45
+STORED_FEASIBLE_SNAPSHOT iteration=23403 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_b.tsv refactorizations=470 updates=46
+STORED_FEASIBLE_SNAPSHOT iteration=23404 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_a.tsv refactorizations=470 updates=47
+STORED_FEASIBLE_SNAPSHOT iteration=23405 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_b.tsv refactorizations=470 updates=48
+STORED_FEASIBLE_SNAPSHOT iteration=23406 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_a.tsv refactorizations=470 updates=49
+STORED_FEASIBLE_SNAPSHOT iteration=23407 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_b.tsv refactorizations=470 updates=50
+STORED_FEASIBLE_SNAPSHOT iteration=23408 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_a.tsv refactorizations=471 updates=1
+STORED_FEASIBLE_SNAPSHOT iteration=23409 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_b.tsv refactorizations=471 updates=2
+STORED_FEASIBLE_SNAPSHOT iteration=23410 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_a.tsv refactorizations=471 updates=3
+STORED_FEASIBLE_SNAPSHOT iteration=23411 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_b.tsv refactorizations=471 updates=4
+STORED_FEASIBLE_SNAPSHOT iteration=23412 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_a.tsv refactorizations=471 updates=5
+STORED_FEASIBLE_SNAPSHOT iteration=23413 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_b.tsv refactorizations=471 updates=6
+STORED_FEASIBLE_SNAPSHOT iteration=23414 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_a.tsv refactorizations=471 updates=7
+STORED_FEASIBLE_SNAPSHOT iteration=23415 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_b.tsv refactorizations=471 updates=8
+STORED_FEASIBLE_SNAPSHOT iteration=23416 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_a.tsv refactorizations=471 updates=9
+STORED_FEASIBLE_SNAPSHOT iteration=23417 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_b.tsv refactorizations=471 updates=10
+STORED_FEASIBLE_SNAPSHOT iteration=23418 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_a.tsv refactorizations=471 updates=11
+STORED_FEASIBLE_SNAPSHOT iteration=23419 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_b.tsv refactorizations=471 updates=12
+STORED_FEASIBLE_SNAPSHOT iteration=23420 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_a.tsv refactorizations=471 updates=13
+STORED_FEASIBLE_SNAPSHOT iteration=23421 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_b.tsv refactorizations=471 updates=14
+STORED_FEASIBLE_SNAPSHOT iteration=23422 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_a.tsv refactorizations=471 updates=15
+STORED_FEASIBLE_SNAPSHOT iteration=23423 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_b.tsv refactorizations=471 updates=16
+STORED_FEASIBLE_SNAPSHOT iteration=23424 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_a.tsv refactorizations=471 updates=17
+STORED_FEASIBLE_SNAPSHOT iteration=23425 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_b.tsv refactorizations=471 updates=18
+END status=NUMERICAL_ERROR message=SingularException: matrix is singular; factorization failed. Zero pivot found at index 0 target_reached=false iterations=23425 refactorizations=471 pinf=(1.0955955386740465e10, 5353) dinf=(0.0, 0) elapsed_seconds=283.7565271
+CAPTURE_SUMMARY count=26 last_iteration=23425
 SCAN_SUMMARY count=0 last_iteration=-1
+FAILURE_SNAPSHOT path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_failure_state.tsv variables=60068
+AUDIT_START iteration=23425 refactorizations=471 updates=18 perturbed=true
+PRICE_SUMMARY source=stored_Float64 count=0 total=0.0 tolerance=9.99999999999999954748111825886258685613938723690807819366455078125e-8
+AUDIT_LU_FAILURE type=SingularException message=SingularException: matrix is singular; factorization failed. Zero pivot found at index 0
+AUDIT_END
