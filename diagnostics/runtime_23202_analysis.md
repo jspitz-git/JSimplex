@@ -59,4 +59,18 @@ The guard rejects the replayed false direction (`4.76e-7` pivot,
 `2.63e-3` residual) on this machine. A local run with the guard still
 reached 23,201 iterations in 84.5 seconds, matching the prior trace
 and elapsed time to that point.
-The Windows run still needs to verify the guarded solver beyond 23,202.
+
+## Guarded Windows audit
+
+Commit `7b798dd` contains the audit with the guard enabled. The run used
+one Julia thread and six BLAS threads as before. At iteration 23,202,
+the refactorization count rose from 464 to 465; basis row 25,632
+replaced slack 57,247 with structural column 8,590. Fresh LU succeeded.
+Fresh LU also succeeded for each subsequent basis through iteration
+23,205, including the basis after entering column 3,639 at iteration
+23,205. The audit ended at its requested iteration limit in 164.7
+seconds, with no failed basis in that window. It did not run the LP to
+optimality. The next audit extends the check through iteration 23,255.
+On aarch64, that extended script completed all 100 basis checks from
+23,156 through 23,255 with fresh LU success in 84.6 seconds; the local
+pivot sequence differs from the Windows sequence.

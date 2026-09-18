@@ -2,7 +2,7 @@ using JSimplex, LinearAlgebra, SparseArrays
 
 const J = JSimplex
 const FIRST_CHECK = 23_156
-const LAST_CHECK = 23_205
+const LAST_CHECK = parse(Int, get(ENV, "RUNTIME_LAST_CHECK", "23255"))
 
 function save_basis(path, before, after)
     open(path, "w") do io
@@ -25,6 +25,8 @@ function main()
     println("START Julia=", VERSION, " machine=", Sys.MACHINE,
             " julia_threads=", Threads.nthreads(),
             " blas_threads=", BLAS.get_num_threads(),
+            " first_check=", FIRST_CHECK,
+            " last_check=", LAST_CHECK,
             " path=", path, " output=", output)
     original = read_mps(path)
     reduced = J.presolve_problem(J.relax_integrality(original))
