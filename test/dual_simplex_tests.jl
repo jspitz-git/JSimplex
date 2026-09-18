@@ -131,6 +131,48 @@ end
     @test workspace.refactorizations == 1
 end
 
+@testset "Repeated inaccurate dual rows shorten and then restore refactorization" begin
+    rows = 7
+    problem = LinearProblem(sparse(Matrix{Float64}(I, rows, rows)),
+                            collect(1.0:rows); row_lower=ones(rows))
+    workspace = JSimplex.initialize_workspace(problem,
+        SolverOptions(refactorization_interval=50, verbose=false))
+
+    function inject_bad_updated_basis!(workspace, leaving_row, coupled_row)
+        stale = Matrix(JSimplex.basis_matrix(workspace))
+        stale[leaving_row, coupled_row] = 1.0e-5
+        workspace.factorization.base = JSimplex._factorize_basis(sparse(stale))
+        JSimplex.replace_column!(workspace.factorization,
+                                 [1.0; zeros(rows - 1)], 1)
+        JSimplex.recompute!(workspace)
+    end
+
+    inject_bad_updated_basis!(workspace, 1, 2)
+    for step in 1:rows
+        @test isnothing(JSimplex.dual_iteration!(workspace, () -> false))
+        if step == 1
+            # One repaired row is isolated and keeps the configured interval.
+            @test workspace.refactorizations == 1
+            @test length(workspace.factorization.updates) == 1
+            inject_bad_updated_basis!(workspace, 2, 1)
+        elseif step == 2
+            # The second repair makes the next pivot refresh immediately.
+            @test workspace.refactorizations == 3
+            @test isempty(workspace.factorization.updates)
+        elseif step == 5
+            @test workspace.refactorizations == 6
+        elseif step == 6
+            # Three clean cycles have restored a two-update interval.
+            @test workspace.refactorizations == 6
+            @test length(workspace.factorization.updates) == 1
+        elseif step == 7
+            @test workspace.refactorizations == 7
+        end
+    end
+    @test JSimplex.primal_infeasibility(workspace) == 0.0
+    @test workspace.options.refactorization_interval == 50
+end
+
 @testset "Dual direction refinement repairs a failed floating solve" begin
     problem = LinearProblem(sparse([1.0 0.0; 0.0 1.0]), [1.0, 0.0];
                             row_lower=[1.0, -Inf])

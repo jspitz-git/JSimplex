@@ -291,7 +291,7 @@ for `SolverOptions(Float64)`. Floating types use these keyword defaults:
 | `zero_tolerance` | `1e-12` | Numerical zero threshold |
 | `iteration_limit` | `100_000` | Maximum completed simplex steps (pivots or primal bound flips) |
 | `time_limit` | `Inf` | Wall-clock seconds; `Inf` disables the deadline |
-| `refactorization_interval` | `20` | Basis update interval before full factorization |
+| `refactorization_interval` | `20` | Maximum basis updates before full factorization; dual simplex can temporarily shorten it after repeated inaccurate updated solves |
 | `verbose` | `true` | Emit `Info`-level model statistics, simplex progress, and final status |
 | `log_level` | `Logging.Debug` | Level emitted through Julia's logging system |
 | `algorithm` | `:dual` | `:dual` or `:primal` |
@@ -307,7 +307,12 @@ pivot. Suhl–Suhl moves the leaving row and column only to the last nonzero
 position of the entering spike, reducing fill when the spike ends early. All
 three triangular methods reuse solve buffers and store updated factors in
 packed sparse columns. The `refactorization_interval` applies to all four
-update methods.
+update methods. When two updated dual basis solves fail residual checks within
+three clean factorization cycles, dual simplex shortens its effective interval
+to half the earliest failed update count, with a minimum of one. It doubles
+the interval after every three clean
+cycles until the configured value is restored. Primal simplex retains the
+configured interval.
 
 With `basis_refactorization=:markowitz`, a full basis factorization chooses
 sparse pivots using the Markowitz fill criterion and a column stability

@@ -626,6 +626,43 @@ function _dual_row_residual_ratio(workspace::SimplexWorkspace{T},
     return worst_ratio
 end
 
+# A second inaccurate updated solve within three clean factorization cycles
+# lowers the update limit to at most half the earliest observed failure count,
+# with a minimum of one. Stable cycles
+# gradually restore the user's configured interval.
+function _note_dual_updated_basis_repair!(workspace::SimplexWorkspace)
+    updates = length(workspace.factorization.updates)
+    updates > 0 || return nothing
+    workspace.dual_recent_repairs += 1
+    workspace.dual_bad_update_min = min(workspace.dual_bad_update_min, updates)
+    workspace.dual_stable_refactorizations = 0
+    if workspace.dual_recent_repairs >= 2
+        workspace.dual_refactorization_interval = min(
+            workspace.dual_refactorization_interval,
+            max(1, workspace.dual_bad_update_min ÷ 2),
+        )
+        workspace.dual_recent_repairs = 0
+        workspace.dual_bad_update_min = workspace.options.refactorization_interval
+    end
+    return nothing
+end
+
+function _note_stable_dual_refactorization!(workspace::SimplexWorkspace)
+    configured = workspace.options.refactorization_interval
+    workspace.dual_recent_repairs == 0 &&
+        workspace.dual_refactorization_interval == configured && return nothing
+    workspace.dual_stable_refactorizations += 1
+    if workspace.dual_stable_refactorizations >= 3
+        workspace.dual_recent_repairs = 0
+        workspace.dual_bad_update_min = configured
+        interval = workspace.dual_refactorization_interval
+        workspace.dual_refactorization_interval = interval > configured ÷ 2 ?
+            configured : 2 * interval
+        workspace.dual_stable_refactorizations = 0
+    end
+    return nothing
+end
+
 # A fresh floating LU can still give an inaccurate direction for an
 # ill-conditioned basis. Correct B*d = a in higher precision using the same
 # binary64 matrix entries; this path runs only after the ordinary solve and
@@ -914,6 +951,7 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
             basis_refreshed &&
                 return DualTermination(NUMERICAL_ERROR, "basis transpose solve residual too large")
             stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
+            _note_dual_updated_basis_repair!(workspace)
             try
                 @logmsg workspace.options.log_level "Refactorizing inaccurate dual tableau row" iteration=workspace.iterations updates=length(workspace.factorization.updates) row_residual_ratio
             catch exception
@@ -986,6 +1024,7 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
        !_dual_direction_residual_ok!(workspace, tableau_column, pivot)
         if !basis_refreshed
             stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
+            _note_dual_updated_basis_repair!(workspace)
             recompute!(workspace; refactorize=true, caller_guard=stop_requested)
             stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
             _finite_workspace(workspace) || return _numerical_failure()
@@ -1111,9 +1150,10 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
             end
         end
     end
-    if length(workspace.factorization.updates) >= workspace.options.refactorization_interval
+    if length(workspace.factorization.updates) >= workspace.dual_refactorization_interval
         stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
         recompute!(workspace; refactorize=true, caller_guard=stop_requested)
+        basis_refreshed || _note_stable_dual_refactorization!(workspace)
     end
     _finite_workspace(workspace) || return _numerical_failure()
     return nothing
@@ -1464,6 +1504,8 @@ function _auxiliary_workspace(workspace::SimplexWorkspace{T}) where {T}
         factorization, scratch, workspace.iterations,
         workspace.refactorizations, workspace.perturbed,
         workspace.zero_dual_step_streak, workspace.dual_pricing_fallback,
+        workspace.dual_refactorization_interval, workspace.dual_recent_repairs,
+        workspace.dual_bad_update_min, workspace.dual_stable_refactorizations,
     )
     return recompute!(auxiliary)
 end
@@ -1616,6 +1658,10 @@ function _make_dual_feasible!(workspace::SimplexWorkspace{T}, stop_requested) wh
     workspace.perturbed = auxiliary.perturbed
     workspace.zero_dual_step_streak = auxiliary.zero_dual_step_streak
     workspace.dual_pricing_fallback = auxiliary.dual_pricing_fallback
+    workspace.dual_refactorization_interval = auxiliary.dual_refactorization_interval
+    workspace.dual_recent_repairs = auxiliary.dual_recent_repairs
+    workspace.dual_bad_update_min = auxiliary.dual_bad_update_min
+    workspace.dual_stable_refactorizations = auxiliary.dual_stable_refactorizations
     recompute!(workspace; refactorize=true, caller_guard=stop_requested)
     _flip_bounds!(workspace)
     _finite_workspace(workspace) || return _numerical_failure()

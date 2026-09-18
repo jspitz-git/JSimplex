@@ -42,3 +42,26 @@ and 40 full factorizations; the new version took 4.19 seconds and 45 full
 factorizations. Both returned `ITERATION_LIMIT` at 2,000 iterations. This
 single short prefix indicates a small local cost but does not measure the
 later ill-conditioned part of `runtime.mps` or its full solve.
+
+## Adaptive refactorization follow-up
+
+The dual solver now lowers its effective basis-update interval after two
+residual failures in updated solves before three clean scheduled
+factorizations. It uses half the earliest observed bad update count, with a
+minimum interval of one. Every three clean scheduled factorizations double
+the interval, up to the configured limit. The original option remains
+unchanged. Only failed `Bᵀρ=e` and `Bd=a` residual checks on updated factors
+count as repair evidence; small pivots and fresh-LU failures do not.
+
+A seven-row regression injects two inaccurate updated bases. One repair leaves
+the 50-update limit in place; the second makes the next pivot refactorize.
+After three clean cycles, the effective interval rises from one to two.
+The 32 small fixture runs above still return `OPTIMAL` with the same iteration
+and refactorization counts as before this follow-up.
+
+In the same local 2,000-iteration `runtime.mps` prefix, adaptive
+refactorization raised the full factorization count from 45 to 64 and the
+second-run time from 4.19 to 4.63 seconds with one BLAS thread. Both runs
+returned `ITERATION_LIMIT`. This measures the cost of extra early
+factorizations; it does not establish whether they improve the later
+numerically difficult part of the solve. A full run has not been performed.
