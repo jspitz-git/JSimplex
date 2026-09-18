@@ -201,6 +201,9 @@ function main()
     last_report = Ref(-1)
     trace_start = parse(Int, get(ENV, "RUNTIME_TRACE_START", "23750"))
     trace_end = parse(Int, get(ENV, "RUNTIME_TRACE_END", "23825"))
+    watched = parse(Int, get(ENV, "RUNTIME_WATCH_VARIABLE", "24212"))
+    1 <= watched <= length(workspace.basis.states) ||
+        error("RUNTIME_WATCH_VARIABLE is outside the working variable range")
     last_trace = Ref(-1)
     previous_basic = Ref{Union{Nothing,Vector{Int}}}(nothing)
     function stop()
@@ -216,6 +219,11 @@ function main()
                     " updates=", length(workspace.factorization.updates),
                     " pivot=", pivot,
                     " dinf=", J.dual_infeasibility_summary(workspace),
+                    " watch_index=", watched,
+                    " watch_state=", workspace.basis.states[watched],
+                    " watch_rc=", workspace.reduced_costs[watched],
+                    " watch_cost=", workspace.costs[watched],
+                    " watch_primal=", workspace.primal[watched],
                     " perturbed=", workspace.perturbed)
             flush(stdout)
             previous_basic[] = copy(basic)

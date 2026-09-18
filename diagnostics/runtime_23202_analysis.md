@@ -140,8 +140,32 @@ The production refinement guard therefore correctly rejects this
 basis. This is a true dual violation of the saved working LP and basis,
 not another false sign from Float64 LU.
 
-The snapshot does not contain the pivot trace or iteration metadata.
-The missing Windows `TRACE` lines are needed to identify the last pivot
-and determine whether the violation arose from an inaccurate updated
-factorization, a tableau or price update, or a deliberate cost shift.
-No production change is justified by the snapshot alone.
+Commit `a4b97b9` adds the Windows trace and the complete audit output.
+The last pivot, at iteration 23,778, replaced slack 46,097 with
+structural column 26,904 in basis row 14,482. The trace still reported
+zero stored dual infeasibility after the pivot, with 27 pending basis
+updates. The subsequent fresh refactorization, number 477, exposed the
+violation. The Windows 512-bit audit independently confirms the price
+`-0.8062975028414638`.
+
+`diagnostics/runtime_last_pivot_audit.jl` reverses that final basis
+replacement and recomputes the preceding basis using the saved working
+costs. It obtains a price of `-2.6156077463` for variable 24,212,
+`0.6276039051` for entering column 26,904, tableau coefficients
+`25.6150139915` and `-8.8851996877` respectively, and a dual step
+of `-0.0706347552`. These values predict the final refined price
+`-0.8062975028`. Variable 24,212 has bounds `[0, 4.1]`, so a negative
+price would have been feasible if it stood at its upper bound before
+the pivot. Under the saved costs, its breakpoint from the upper bound
+is `0.1021122904`, later than the entering variable's breakpoint
+`0.0706347552`. A flip to the lower bound at that pivot would therefore
+have been premature. If it was already at the lower bound, the prior
+basis was already dual infeasible. The trace does not record that
+variable's prior bound state or working cost, so neither explanation
+is confirmed yet.
+
+The continuation trace now records the state, reduced cost, working
+cost, and primal value of variable 24,212 at every iteration in the
+23,750–23,825 window. This lightweight trace will distinguish a wrong
+bound flip from an earlier price drift on the Windows path. No
+production change is justified before that distinction is measured.

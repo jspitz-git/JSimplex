@@ -1,6 +1,6 @@
 include(joinpath(@__DIR__, "runtime_reduced_continuation.jl"))
 
-function audit_snapshot()
+function load_snapshot()
     path = get(ENV, "RUNTIME_MPS", raw"C:\Disk_D\tmp\runtime.mps")
     snapshot = get(ENV, "RUNTIME_SNAPSHOT_PATH",
                    joinpath(@__DIR__, "runtime_reduced_failure_state.tsv"))
@@ -45,7 +45,12 @@ function audit_snapshot()
             " dual_infeasibility=", J.dual_infeasibility_summary(workspace),
             " primal_infeasibility=", J.primal_infeasibility_summary(workspace),
             " iteration_metadata=not_saved")
+    return workspace
+end
+
+function audit_snapshot()
+    workspace = load_snapshot()
     audit_dual_loss(workspace)
 end
 
-audit_snapshot()
+abspath(PROGRAM_FILE) == abspath(@__FILE__) && audit_snapshot()
