@@ -324,7 +324,8 @@ function _primal_ratio(workspace::SimplexWorkspace{T}, entering::Int, direction:
 end
 
 function _primal_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
-                            reduced_cost_tolerance::T) where {T}
+                            reduced_cost_tolerance::T,
+                            basis_refreshed::Bool=false) where {T}
     entering, direction = _primal_entering(workspace, reduced_cost_tolerance)
     entering == 0 && return DualTermination(OPTIMAL, "optimal solution found")
     workspace.iterations < workspace.options.iteration_limit ||
@@ -365,8 +366,20 @@ function _primal_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
     if leaving_row == 0
         workspace.basis.states[entering] = direction > zero(T) ? AT_UPPER : AT_LOWER
     else
-        abs(tableau_column[leaving_row]) > workspace.options.zero_tolerance ||
+        if abs(tableau_column[leaving_row]) <= workspace.options.zero_tolerance
+            if !basis_refreshed
+                stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
+                recompute!(workspace; refactorize=true, caller_guard=stop_requested)
+                stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
+                _finite_workspace(workspace) || return _numerical_failure()
+                primal_infeasibility(workspace) <= workspace.options.primal_tolerance ||
+                    return DualTermination(NUMERICAL_ERROR, "primal feasibility lost")
+                fill!(workspace.scratch.steepest_valid, false)
+                return _primal_iteration!(workspace, stop_requested,
+                                          reduced_cost_tolerance, true)
+            end
             return DualTermination(NUMERICAL_ERROR, "primal pivot is below the zero tolerance")
+        end
         workspace.options.pricing == :devex &&
             _primal_update_devex!(workspace, entering, leaving_row,
                                    tableau_column[leaving_row])
