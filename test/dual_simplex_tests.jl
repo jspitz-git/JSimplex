@@ -173,6 +173,82 @@ end
     @test workspace.options.refactorization_interval == 50
 end
 
+@testset "Clean productive dual pivots lengthen the factorization interval" begin
+    rows = 24
+    function solve_diagonal_with_costs(costs)
+        problem = LinearProblem(sparse(Matrix{Float64}(I, rows, rows)), costs;
+                                row_lower=ones(rows))
+        workspace = JSimplex.initialize_workspace(problem,
+            SolverOptions(refactorization_interval=2, verbose=false))
+        for _ in 1:rows
+            @test isnothing(JSimplex.dual_iteration!(workspace, () -> false))
+        end
+        @test workspace.iterations == rows
+        @test JSimplex.primal_infeasibility(workspace) == 0.0
+        @test workspace.options.refactorization_interval == 2
+        return workspace
+    end
+
+    productive = solve_diagonal_with_costs(collect(1.0:rows))
+    @test productive.refactorizations < rows ÷ 2
+    degenerate = solve_diagonal_with_costs(zeros(rows))
+    @test degenerate.refactorizations == rows ÷ 2
+end
+
+@testset "One inaccurate updated row pauses growth without shortening" begin
+    rows = 24
+    problem = LinearProblem(sparse(Matrix{Float64}(I, rows, rows)),
+                            collect(1.0:rows); row_lower=ones(rows))
+    workspace = JSimplex.initialize_workspace(problem,
+        SolverOptions(refactorization_interval=2, verbose=false))
+    for _ in 1:6
+        @test isnothing(JSimplex.dual_iteration!(workspace, () -> false))
+    end
+    @test workspace.dual_refactorization_interval == 4
+
+    stale = Matrix(JSimplex.basis_matrix(workspace))
+    stale[7, 8] = 1.0e-5
+    workspace.factorization.base = JSimplex._factorize_basis(sparse(stale))
+    JSimplex.replace_column!(workspace.factorization,
+                             [1.0; zeros(rows - 1)], 1)
+    JSimplex.recompute!(workspace)
+    for _ in 7:20
+        @test isnothing(JSimplex.dual_iteration!(workspace, () -> false))
+    end
+    @test length(workspace.factorization.updates) == 2
+end
+
+@testset "Repairs after growth use the actual failed update counts" begin
+    rows = 140
+    problem = LinearProblem(sparse(Matrix{Float64}(I, rows, rows)),
+                            collect(1.0:rows); row_lower=ones(rows))
+    workspace = JSimplex.initialize_workspace(problem,
+        SolverOptions(refactorization_interval=20, verbose=false))
+
+    function corrupt_base!(workspace, structural_rows, leaving_row)
+        diagonal = vcat(ones(structural_rows), -ones(rows - structural_rows))
+        stale = spdiagm(0 => diagonal)
+        stale[leaving_row, leaving_row + 1] = 1.0e-5
+        workspace.factorization.base = JSimplex._factorize_basis(stale)
+    end
+
+    for _ in 1:90
+        @test isnothing(JSimplex.dual_iteration!(workspace, () -> false))
+    end
+    @test workspace.dual_refactorization_interval == 40
+    @test length(workspace.factorization.updates) == 30
+    corrupt_base!(workspace, 60, 91)
+    @test isnothing(JSimplex.dual_iteration!(workspace, () -> false))
+
+    for _ in 92:115
+        @test isnothing(JSimplex.dual_iteration!(workspace, () -> false))
+    end
+    @test length(workspace.factorization.updates) == 25
+    corrupt_base!(workspace, 90, 116)
+    @test isnothing(JSimplex.dual_iteration!(workspace, () -> false))
+    @test workspace.dual_refactorization_interval == 12
+end
+
 @testset "Dual direction refinement repairs a failed floating solve" begin
     problem = LinearProblem(sparse([1.0 0.0; 0.0 1.0]), [1.0, 0.0];
                             row_lower=[1.0, -Inf])

@@ -628,8 +628,8 @@ end
 
 # A second inaccurate updated solve within three clean factorization cycles
 # lowers the update limit to at most half the earliest observed failure count,
-# with a minimum of one. Stable cycles
-# gradually restore the user's configured interval.
+# with a minimum of one. Stable cycles gradually restore the user's
+# configured interval.
 function _note_dual_updated_basis_repair!(workspace::SimplexWorkspace)
     updates = length(workspace.factorization.updates)
     updates > 0 || return nothing
@@ -642,22 +642,46 @@ function _note_dual_updated_basis_repair!(workspace::SimplexWorkspace)
             max(1, workspace.dual_bad_update_min ÷ 2),
         )
         workspace.dual_recent_repairs = 0
-        workspace.dual_bad_update_min = workspace.options.refactorization_interval
+        workspace.dual_bad_update_min = typemax(Int)
     end
     return nothing
 end
 
-function _note_stable_dual_refactorization!(workspace::SimplexWorkspace)
+function _dual_refactorization_growth_ceiling(workspace::SimplexWorkspace)
     configured = workspace.options.refactorization_interval
-    workspace.dual_recent_repairs == 0 &&
-        workspace.dual_refactorization_interval == configured && return nothing
+    # The measured runtime.mps prefix favored longer product-form chains
+    # than triangular chains; keep the initial growth ceilings conservative.
+    floor, multiplier = workspace.factorization isa PFIFactorization ? (512, 8) : (128, 4)
+    scaled = configured > 4096 ÷ multiplier ? 4096 : multiplier * configured
+    return max(configured, min(4096, max(floor, scaled)))
+end
+
+function _note_stable_dual_refactorization!(workspace::SimplexWorkspace,
+                                             productive::Bool)
+    configured = workspace.options.refactorization_interval
+    interval = workspace.dual_refactorization_interval
+    if workspace.dual_recent_repairs > 0 || interval < configured
+        workspace.dual_stable_refactorizations += 1
+        if workspace.dual_stable_refactorizations >= 3
+            workspace.dual_recent_repairs = 0
+            workspace.dual_bad_update_min = typemax(Int)
+            if interval < configured
+                workspace.dual_refactorization_interval = interval > configured ÷ 2 ?
+                    configured : 2 * interval
+            end
+            workspace.dual_stable_refactorizations = 0
+        end
+        return nothing
+    end
+    ceiling = _dual_refactorization_growth_ceiling(workspace)
+    if !productive || workspace.dual_pricing_fallback || interval >= ceiling
+        workspace.dual_stable_refactorizations = 0
+        return nothing
+    end
     workspace.dual_stable_refactorizations += 1
     if workspace.dual_stable_refactorizations >= 3
-        workspace.dual_recent_repairs = 0
-        workspace.dual_bad_update_min = configured
-        interval = workspace.dual_refactorization_interval
-        workspace.dual_refactorization_interval = interval > configured ÷ 2 ?
-            configured : 2 * interval
+        workspace.dual_refactorization_interval = interval > ceiling ÷ 2 ?
+            ceiling : 2 * interval
         workspace.dual_stable_refactorizations = 0
     end
     return nothing
@@ -1135,6 +1159,9 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
     workspace.primal[leaving_index] = bound_value(bound)
     # Count the completed pivot even when its subsequent refactorization times out.
     workspace.iterations += 1
+    if _is_exact(T) === Val(false) && !iszero(dual_step)
+        workspace.dual_nonzero_steps_since_refactorization += 1
+    end
     if _is_exact(T) === Val(false) && workspace.options.pricing == :steepest_edge &&
        !workspace.dual_pricing_fallback
         workspace.zero_dual_step_streak = iszero(dual_step) ?
@@ -1152,8 +1179,12 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
     end
     if length(workspace.factorization.updates) >= workspace.dual_refactorization_interval
         stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
+        updates = length(workspace.factorization.updates)
+        productive = _is_exact(T) === Val(false) &&
+                     workspace.dual_nonzero_steps_since_refactorization >=
+                     updates - updates ÷ 4
         recompute!(workspace; refactorize=true, caller_guard=stop_requested)
-        basis_refreshed || _note_stable_dual_refactorization!(workspace)
+        basis_refreshed || _note_stable_dual_refactorization!(workspace, productive)
     end
     _finite_workspace(workspace) || return _numerical_failure()
     return nothing
@@ -1506,6 +1537,7 @@ function _auxiliary_workspace(workspace::SimplexWorkspace{T}) where {T}
         workspace.zero_dual_step_streak, workspace.dual_pricing_fallback,
         workspace.dual_refactorization_interval, workspace.dual_recent_repairs,
         workspace.dual_bad_update_min, workspace.dual_stable_refactorizations,
+        workspace.dual_nonzero_steps_since_refactorization,
     )
     return recompute!(auxiliary)
 end
@@ -1662,6 +1694,8 @@ function _make_dual_feasible!(workspace::SimplexWorkspace{T}, stop_requested) wh
     workspace.dual_recent_repairs = auxiliary.dual_recent_repairs
     workspace.dual_bad_update_min = auxiliary.dual_bad_update_min
     workspace.dual_stable_refactorizations = auxiliary.dual_stable_refactorizations
+    workspace.dual_nonzero_steps_since_refactorization =
+        auxiliary.dual_nonzero_steps_since_refactorization
     recompute!(workspace; refactorize=true, caller_guard=stop_requested)
     _flip_bounds!(workspace)
     _finite_workspace(workspace) || return _numerical_failure()

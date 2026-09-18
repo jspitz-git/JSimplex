@@ -69,9 +69,10 @@ direct recomputation when a weight cannot be represented safely.
 Dual steepest-edge pricing switches to Dantzig after 256 consecutive zero
 dual steps when primal infeasibility remains; explicit Devex and Dantzig
 settings are unaffected.
-`refactorization_interval` is the maximum number of basis updates between
-full factorizations. Dual simplex can temporarily shorten it after repeated
-inaccurate updated solves and restores it after stable factorization cycles.
+`refactorization_interval` is the initial number of basis updates between
+full factorizations. Floating dual simplex shortens it after repeated
+inaccurate updated solves and can lengthen it after stable cycles with mostly
+nonzero dual steps. Primal and rational simplex keep the configured interval.
 `basis_update` selects product-form (`:pfi`), Forrest–Tomlin
 (`:forrest_tomlin`), Bartels–Golub (`:bartels_golub`), or Suhl–Suhl
 (`:suhl_suhl`) basis updates.

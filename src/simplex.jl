@@ -86,6 +86,7 @@ mutable struct SimplexWorkspace{T<:Real,F,M,R}
     dual_recent_repairs::Int
     dual_bad_update_min::Int
     dual_stable_refactorizations::Int
+    dual_nonzero_steps_since_refactorization::Int
 end
 
 function reset_devex!(workspace::SimplexWorkspace{T})::Nothing where {T}
@@ -187,6 +188,7 @@ function recompute!(workspace::SimplexWorkspace{T}; refactorize::Bool=false,
         B = basis_matrix(workspace)
         refactorize!(workspace.factorization, B)
         workspace.refactorizations += 1
+        workspace.dual_nonzero_steps_since_refactorization = 0
         workspace.options.pricing == :devex && reset_devex!(workspace)
     end
 
@@ -274,7 +276,7 @@ function initialize_workspace(
         zeros(T, variable_count), ones(T, variable_count), devex_reference,
         factorization, scratch, 0, 0, false, 0, false,
         typed_options.refactorization_interval, 0,
-        typed_options.refactorization_interval, 0,
+        typemax(Int), 0, 0,
     )
     return recompute!(workspace)
 end

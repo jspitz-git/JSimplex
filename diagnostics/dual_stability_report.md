@@ -65,3 +65,44 @@ second-run time from 4.19 to 4.63 seconds with one BLAS thread. Both runs
 returned `ITERATION_LIMIT`. This measures the cost of extra early
 factorizations; it does not establish whether they improve the later
 numerically difficult part of the solve. A full run has not been performed.
+
+## Upward adaptation follow-up
+
+HiGHS documents a default `simplex_update_limit` of 5,000, which is a limit
+rather than a guaranteed interval ([HiGHS options](https://github.com/ERGO-Code/HiGHS/blob/master/docs/src/options/definitions.md)).
+In a local single-pass sweep of the first 2,000 reduced `runtime.mps` pivots,
+product-form updates were fastest among the warmed runs with configured
+intervals around 100–500; Suhl–Suhl was fastest around 50–100. The pivot
+paths changed with interval, so these timings guide a conservative growth
+ceiling rather than establish an optimum. On the small degenerate `pk1` LP,
+fixed intervals from 20 to 2,000 changed the pivot count substantially.
+
+The configured interval is now the initial floating-dual target. After three
+clean scheduled factorization cycles with at least 75% nonzero dual steps in
+each, the effective interval doubles. Growth stops during the zero-step
+pricing fallback. Product-form updates can grow to at least 512; triangular
+updates to at least 128. Their ceilings also scale to eight and four times
+the configured initial interval respectively, capped at 4,096 unless the
+user explicitly configured a higher initial interval. Two failed residual
+checks still shorten the interval; one isolated repair pauses growth for
+three clean cycles without shortening it.
+
+The 24-row diagonal regression refactorizes less often on productive pivots
+and retains the configured interval on zero dual steps. A separate regression
+verifies that one repaired updated basis does not undo earlier growth. All 32
+small fixture runs returned `OPTIMAL`. `pk1` retained its previous 353 and
+1,593 pivot counts under product-form and Suhl–Suhl updates respectively;
+`adlittle` changed from 104 to 103 and 107 to 122 pivots respectively.
+Another regression grows an initial interval of 20 to 40, then injects
+inaccurate solves after 30 and 25 updates. The interval shortens to 12,
+computed from the observed failures rather than the initial setting.
+The short `runtime.mps` prefix retained 64 full factorizations. Three second
+one-thread repetitions took 4.50–4.78 seconds, compared with 4.63 seconds
+before upward growth, so this prefix shows no clear speed change. A full
+`runtime.mps` solve and a `medium.mps` run remain untested.
+
+A matched one-thread comparison of the default product-form interval (20)
+used the saved pre-growth commit `02c9825` and this version on the same
+2,000-iteration reduced prefix. The warmed second runs made 108 and 84 full
+factorizations and took 3.21 and 3.08 seconds respectively. Both reached
+`ITERATION_LIMIT`; a changed pivot path can also affect these timings.
