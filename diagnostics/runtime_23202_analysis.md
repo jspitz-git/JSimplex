@@ -641,5 +641,20 @@ run ended in `NUMERICAL_ERROR` after 17,949 cleanup iterations (cumulative itera
 62,094) and 192.68 seconds. These runs do not establish an iteration saving:
 the unprojected run did not finish, and the production solver changed between
 the experiments. The prior Windows run from the unprojected basis finished
-after 15,940 cleanup iterations, but the platform differs. A matched Windows
-comparison is still needed to measure the effect on iterations and time.
+after 15,940 cleanup iterations, but the platform differs.
+
+The matched Windows continuation is recorded in
+`diagnostics/runtime_projection_windows.log` (Julia 1.13.0, one Julia thread,
+six BLAS threads, 900-second limit per variant). Both variants started from
+the same saved reduced optimum at iteration 44,145 and independently
+reconstructed the original workspace. The restored basis started with primal
+infeasibility `3.43e6` across 2,277 variables and reached `OPTIMAL` after
+17,248 cleanup iterations, at cumulative iteration 61,393. Projection made
+329 basis exchanges, reduced its starting primal infeasibility to zero, and
+reached `OPTIMAL` after 11,241 cleanup iterations, at cumulative iteration
+55,386. This saves 6,007 cleanup iterations, about 34.8% of the restored-basis
+count, in this matched run. The final objectives differ by `2.38e-7` on an
+objective near `5.14e7`. Reported elapsed times were 261.80 and 169.41
+seconds, respectively; the first run includes Julia compilation, so those
+times do not isolate a runtime speedup. This is one saved-snapshot comparison,
+not a separate end-to-end `solve` run or a cross-model performance result.
