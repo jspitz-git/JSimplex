@@ -431,3 +431,52 @@ The full local suite passes (13,663 assertions). An independent
 256-/512-bit dual price scan at iterations 13,336 through 13,340,
 including the repaired pivot at 13,337, found zero violations in all
 five checked bases.
+
+## Six BLAS threads and complete pivot retry
+
+Commit `b01a568` records the Windows continuation with the direction
+repair. It reached the requested 30,000-pivot cap in 451.9 seconds.
+At iteration 29,180, the solver refined the pivot from
+`-2.096914426254031e-5` to `-2.0969144262537028e-5` and continued.
+All 354 independent dual price checks from iteration 29,647 through
+30,000 found zero violations. This is a diagnostic cap, not an optimal
+LP solution.
+
+Matching the Windows count of six BLAS threads on aarch64 Linux changed
+the pivot sequence but did not reproduce the Windows sequence. The
+local run stopped at iteration 22,466 with a rejected direction. Its
+fresh basis LU succeeded and independent prices were feasible. At that
+basis, 256- and 512-bit calculations agreed on a pivot and tableau
+coefficient of about `-0.03013436110527`; the corresponding Float64
+values were both wrong by about `5.8e-8`. The independently refined
+entering price also changed from `0.0081257067` to `0.0080944941`.
+The solver could safely continue only after recomputing the direction,
+entire tableau row, and dual prices together. A local continuation then
+reached 22,500 pivots, and all 35 independently checked bases from
+22,466 through 22,500 remained dual feasible.
+
+That continuation exposed a second failed direction at iteration
+22,523. The refined row with the stored prices still chose entering
+variable 41,980, but the independently refined dual prices changed
+the ratio-test choice to variable 41,914. The numerical direction for
+41,980 was repairable, but accepting it would have ignored the changed
+dual step. The recovery path now repeats the ratio test using the
+refined row and prices, then independently solves and checks the
+direction for the newly chosen variable. A synthetic stale-factor test
+checks this re-selection without depending on `runtime.mps`.
+
+With that change, the six-thread local run passed iteration 22,523,
+selected variable 41,914, and reached the requested 22,550-pivot cap
+in 204.7 seconds. All 28 independent dual price checks from 22,523
+through 22,550 found zero violations. This section contains many
+refactorizations and precision repairs, so the extra work is substantial
+there; ordinary pivots do not enter this recovery path. The new
+Windows pivot path remains to be tested.
+The complete local suite passes (13,675 assertions). A six-thread
+continuation without independent scans reached iteration 22,732 at its
+300-second diagnostic time cap, with zero stored dual infeasibility and
+no numerical-error termination. It did not reach the requested
+23,000-pivot cap. In that run, 36 complete pivot decisions and 22
+directions were refined. The local path remains very expensive in this
+ill-conditioned interval; reaching later iterations would require a
+longer run or a different strategy for degeneracy.

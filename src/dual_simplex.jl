@@ -629,6 +629,55 @@ function _refined_primal_direction(factor, B, rhs::Vector{Float64}, bits::Int,
     end
 end
 
+function _refined_tableau_row(workspace::SimplexWorkspace{Float64}, factor, B,
+                              leaving_row::Int, bits::Int, stop_requested)
+    return setprecision(BigFloat, bits) do
+        unit = zeros(Float64, size(B, 1))
+        unit[leaving_row] = 1.0
+        rho = BigFloat.(transpose(factor) \ unit)
+        all(isfinite, rho) || return nothing
+        values = BigFloat.(B.nzval)
+        residual = similar(rho)
+        target = BigFloat(10)^(-(bits == 256 ? 40 : 90))
+        for correction in 0:32
+            stop_requested() && return nothing
+            for column in eachindex(rho)
+                column % 1024 == 0 && stop_requested() && return nothing
+                total = zero(BigFloat)
+                for position in B.colptr[column]:(B.colptr[column + 1] - 1)
+                    total += values[position] * rho[B.rowval[position]]
+                end
+                residual[column] = total - BigFloat(unit[column])
+            end
+            error = maximum(abs, residual)
+            isfinite(error) || return nothing
+            if error <= target
+                A = workspace.problem.A
+                row_count, column_count = size(A)
+                matrix_values = BigFloat.(A.nzval)
+                tableau = Vector{BigFloat}(undef, column_count + row_count)
+                for column in 1:column_count
+                    column % 1024 == 0 && stop_requested() && return nothing
+                    total = zero(BigFloat)
+                    for position in A.colptr[column]:(A.colptr[column + 1] - 1)
+                        total += matrix_values[position] * rho[A.rowval[position]]
+                    end
+                    tableau[column] = total
+                end
+                for row in 1:row_count
+                    tableau[column_count + row] = -rho[row]
+                end
+                return (rho=rho, tableau=tableau)
+            end
+            correction == 32 && return nothing
+            step = transpose(factor) \ Float64.(residual)
+            all(isfinite, step) || return nothing
+            rho .-= BigFloat.(step)
+        end
+        return nothing
+    end
+end
+
 function _try_refine_dual_direction!(workspace::SimplexWorkspace{Float64},
                                       entering_index::Int, leaving_row::Int,
                                       original_pivot::Float64,
@@ -686,6 +735,128 @@ end
 
 _try_refine_dual_direction!(::SimplexWorkspace, ::Int, ::Int, pivot,
                             tableau_coefficient, stop_requested) = false
+
+# When the corrected direction disagrees with the floating tableau row,
+# rebuild the complete pivot decision from the same basis. A more accurate
+# dual price can select a different entering variable, so the direction must
+# be solved for the newly chosen column.
+function _try_refine_dual_pivot!(workspace::SimplexWorkspace{Float64},
+                                  leaving_row::Int,
+                                  orientation::Float64, violation::Float64,
+                                  stop_requested)
+    isempty(workspace.factorization.updates) || return nothing
+    stop_requested() && return nothing
+    B = basis_matrix(workspace)
+    factor = try
+        lu(B)
+    catch exception
+        _is_numerical_exception(exception) || rethrow()
+        return nothing
+    end
+    refined = try
+        low_row = _refined_tableau_row(workspace, factor, B, leaving_row, 256,
+                                        stop_requested)
+        isnothing(low_row) && return nothing
+        high_row = _refined_tableau_row(workspace, factor, B, leaving_row, 512,
+                                         stop_requested)
+        isnothing(high_row) && return nothing
+        low_prices = _refined_dual_prices(workspace, factor, B, 256, stop_requested)
+        isnothing(low_prices) && return nothing
+        high_prices = _refined_dual_prices(workspace, factor, B, 512, stop_requested)
+        isnothing(high_prices) && return nothing
+        (low_row, high_row, low_prices, high_prices)
+    catch exception
+        _is_numerical_exception(exception) || rethrow()
+        return nothing
+    end
+    low_row, high_row, low_prices, high_prices = refined
+    agreement = BigFloat(1e-24)
+    for (low, high) in ((low_row.rho, high_row.rho),
+                        (low_row.tableau, high_row.tableau))
+        for index in eachindex(low)
+            index % 1024 == 0 && stop_requested() && return nothing
+            isfinite(low[index]) && isfinite(high[index]) || return nothing
+            abs(low[index] - high[index]) <= agreement *
+                max(one(BigFloat), abs(high[index])) || return nothing
+        end
+    end
+    price_tolerance = BigFloat(workspace.options.dual_tolerance)
+    for index in eachindex(low_prices)
+        index % 1024 == 0 && stop_requested() && return nothing
+        isfinite(low_prices[index]) && isfinite(high_prices[index]) || return nothing
+        abs(low_prices[index] - high_prices[index]) <= price_tolerance / 8 ||
+            return nothing
+        state = workspace.basis.states[index]
+        (state == BASIC || _is_fixed(workspace.lower[index], workspace.upper[index])) &&
+            continue
+        _dual_price_feasible(state, low_prices[index], price_tolerance) &&
+            _dual_price_feasible(state, high_prices[index], price_tolerance) ||
+            return nothing
+    end
+    rho = Float64.(high_row.rho)
+    tableau = Float64.(high_row.tableau)
+    prices = Float64.(high_prices)
+    all(isfinite, rho) && all(isfinite, tableau) && all(isfinite, prices) ||
+        return nothing
+    prices[workspace.basis.basic_indices] .= 0.0
+    previous_prices = copy(workspace.reduced_costs)
+    accepted = false
+    try
+        copyto!(workspace.reduced_costs, prices)
+        dual_infeasibility(workspace) <= workspace.options.dual_tolerance || return nothing
+        entering_index, flips, exhausted = _bound_flipping_ratio_test(
+            workspace, tableau, orientation, violation)
+        entering_index != -1 && !exhausted || return nothing
+        stop_requested() && return nothing
+        rhs = zeros(Float64, size(B, 1))
+        A = workspace.problem.A
+        column_count = size(A, 2)
+        if entering_index <= column_count
+            for position in A.colptr[entering_index]:(A.colptr[entering_index + 1] - 1)
+                rhs[A.rowval[position]] = A.nzval[position]
+            end
+        else
+            rhs[entering_index - column_count] = -1.0
+        end
+        directions = try
+            low = _refined_primal_direction(factor, B, rhs, 256, stop_requested)
+            isnothing(low) && return nothing
+            high = _refined_primal_direction(factor, B, rhs, 512, stop_requested)
+            isnothing(high) && return nothing
+            (low, high)
+        catch exception
+            _is_numerical_exception(exception) || rethrow()
+            return nothing
+        end
+        low_direction, high_direction = directions
+        for index in eachindex(low_direction)
+            index % 1024 == 0 && stop_requested() && return nothing
+            isfinite(low_direction[index]) && isfinite(high_direction[index]) ||
+                return nothing
+            abs(low_direction[index] - high_direction[index]) <= agreement *
+                max(one(BigFloat), abs(high_direction[index])) || return nothing
+        end
+        direction = Float64.(high_direction)
+        all(isfinite, direction) || return nothing
+        pivot = direction[leaving_row]
+        abs(pivot) > max(workspace.options.zero_tolerance,
+                         _dual_pivot_cutoff(Float64)) || return nothing
+        abs(pivot - tableau[entering_index]) <=
+            max(workspace.options.zero_tolerance, 1e-8 * abs(pivot)) || return nothing
+        copyto!(workspace.scratch.row_rhs, rhs)
+        _dual_direction_residual_ok!(workspace, direction, pivot) || return nothing
+        copyto!(workspace.scratch.row_solution, direction)
+        copyto!(workspace.scratch.tableau_row, tableau)
+        copyto!(workspace.scratch.rho, rho)
+        accepted = true
+        return (entering_index=entering_index, flips=flips, pivot=pivot)
+    finally
+        accepted || copyto!(workspace.reduced_costs, previous_prices)
+    end
+end
+
+_try_refine_dual_pivot!(::SimplexWorkspace, ::Int, orientation, violation,
+                        stop_requested) = nothing
 
 function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
                           basis_refreshed::Bool=false) where {T}
@@ -775,6 +946,19 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
             refined_pivot = tableau_column[leaving_row]
             try
                 @info "Refined dual pivot direction" iteration=workspace.iterations leaving_row entering_index old_pivot=pivot refined_pivot
+            catch exception
+                stop_requested isa _StopCallback && (stop_requested.exception = exception)
+                rethrow()
+            end
+            pivot = refined_pivot
+        elseif (decision = _try_refine_dual_pivot!(
+                    workspace, leaving_row, orientation, abs(delta), stop_requested)) !== nothing
+            original_entering_index = entering_index
+            entering_index = decision.entering_index
+            flips = decision.flips
+            refined_pivot = decision.pivot
+            try
+                @info "Refined dual pivot row, direction, and prices" iteration=workspace.iterations leaving_row original_entering_index entering_index old_pivot=pivot refined_pivot
             catch exception
                 stop_requested isa _StopCallback && (stop_requested.exception = exception)
                 rethrow()

@@ -128,6 +128,46 @@ end
     @test workspace.scratch.row_solution == [0.5, -1.0]
 end
 
+@testset "Failed dual pivot can refine its row, direction, and prices together" begin
+    problem = LinearProblem(sparse([1.0 0.0; 0.0 1.0]), [1.0, 0.0];
+                            row_lower=[1.0, -Inf])
+    workspace = JSimplex.initialize_workspace(problem, SolverOptions(verbose=false))
+    workspace.scratch.row_solution .= [-1.01, 0.25]
+    workspace.scratch.tableau_row .= [-0.99, 0.0, 1.0, 0.0]
+    workspace.reduced_costs[1] = 1.1
+
+    decision = JSimplex._try_refine_dual_pivot!(workspace, 1, -1.0, 1.0,
+                                                () -> false)
+    @test decision == (entering_index=1, flips=Int[], pivot=-1.0)
+    @test workspace.scratch.row_solution == [-1.0, 0.0]
+    @test workspace.scratch.tableau_row == [-1.0, 0.0, 1.0, 0.0]
+    @test workspace.reduced_costs[1] == 1.0
+    @test workspace.scratch.rho == [-1.0, 0.0]
+
+    competing = LinearProblem(sparse([1.0 2.0]), [1.0, 0.1]; row_lower=[1.0])
+    other = JSimplex.initialize_workspace(competing, SolverOptions(verbose=false))
+    other.scratch.row_solution .= [-1.01]
+    other.scratch.tableau_row .= [-0.99, -0.01, 1.0]
+    other.reduced_costs[1] = 1.1
+    alternate = JSimplex._try_refine_dual_pivot!(other, 1, -1.0, 1.0,
+                                                 () -> false)
+    @test alternate == (entering_index=2, flips=Int[], pivot=-2.0)
+    @test other.reduced_costs[1] == 1.0
+    @test other.scratch.tableau_row == [-1.0, -2.0, 1.0]
+    @test other.scratch.row_solution == [-2.0]
+
+    # A wrong factorization can make the floating ratio test choose column 2.
+    # The complete retry must select column 1 before changing the basis.
+    stale = JSimplex.initialize_workspace(problem, SolverOptions(verbose=false))
+    stale.factorization.base = JSimplex._factorize_basis(
+        sparse([-1.0 0.5; 0.5 -1.0]),
+    )
+    JSimplex.recompute!(stale)
+    @test isnothing(JSimplex._dual_iteration!(stale, () -> false, true))
+    @test stale.basis.basic_indices == [1, 4]
+    @test stale.iterations == 1
+end
+
 @testset "Small dual pivot checks the entering price before a cost shift" begin
     for (coefficient, row_bound) in ((6.24213518e-7, :lower),
                                      (-6.24213518e-7, :upper))
