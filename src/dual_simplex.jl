@@ -1135,19 +1135,27 @@ function _primal_row_bounds(A::SparseMatrixCSC{T,Int}, primal::Vector{T},
     return lower, upper
 end
 
+function _primal_interval_within_bounds(value_lower::T, value_upper::T,
+                                        lower::Bound{T}, upper::Bound{T},
+                                        tolerance::T) where {T}
+    isfinite(value_lower) && isfinite(value_upper) || return false
+    if isfinite(lower) && value_lower < bound_value(lower)
+        _, threshold = _primal_difference_bounds(bound_value(lower), tolerance)
+        value_lower >= threshold || return false
+    end
+    if isfinite(upper) && value_upper > bound_value(upper)
+        threshold, _ = _primal_sum_bounds(bound_value(upper), tolerance)
+        value_upper <= threshold || return false
+    end
+    return true
+end
+
 function _within_primal_intervals(values_lower::AbstractVector{T}, values_upper::AbstractVector{T},
                                   lower::AbstractVector{Bound{T}}, upper::AbstractVector{Bound{T}},
                                   tolerance::T) where {T}
-    all(isfinite, values_lower) && all(isfinite, values_upper) || return false
     for index in eachindex(values_lower)
-        if isfinite(lower[index]) && values_lower[index] < bound_value(lower[index])
-            _, threshold = _primal_difference_bounds(bound_value(lower[index]), tolerance)
-            values_lower[index] >= threshold || return false
-        end
-        if isfinite(upper[index]) && values_upper[index] > bound_value(upper[index])
-            threshold, _ = _primal_sum_bounds(bound_value(upper[index]), tolerance)
-            values_upper[index] <= threshold || return false
-        end
+        _primal_interval_within_bounds(values_lower[index], values_upper[index],
+                                       lower[index], upper[index], tolerance) || return false
     end
     return true
 end
@@ -1156,12 +1164,60 @@ _within_primal_bounds(values::AbstractVector{T}, lower::AbstractVector{Bound{T}}
                       upper::AbstractVector{Bound{T}}, tolerance::T) where {T} =
     _within_primal_intervals(values, values, lower, upper, tolerance)
 
+function _refined_primal_rows_feasible(problem::LinearProblem{T}, primal::Vector{T},
+                                       tolerance::T, rows::Vector{Int}) where {T<:Union{Float32,Float64}}
+    A = problem.A
+    row_slot = zeros(Int, size(A, 1))
+    for (slot, row) in enumerate(rows)
+        row_slot[row] = slot
+    end
+    activities = zeros(Rational{BigInt}, length(rows))
+    for column in axes(A, 2)
+        value = Rational{BigInt}(primal[column])
+        for position in A.colptr[column]:(A.colptr[column + 1] - 1)
+            slot = row_slot[A.rowval[position]]
+            slot == 0 && continue
+            coefficient = A.nzval[position]
+            isfinite(coefficient) || return false
+            activities[slot] += Rational{BigInt}(coefficient) * value
+        end
+    end
+    exact_tolerance = Rational{BigInt}(tolerance)
+    for (slot, row) in enumerate(rows)
+        lower = problem.row_lower[row]
+        upper = problem.row_upper[row]
+        if isfinite(lower)
+            activities[slot] >= Rational{BigInt}(bound_value(lower)) - exact_tolerance ||
+                return false
+        end
+        if isfinite(upper)
+            activities[slot] <= Rational{BigInt}(bound_value(upper)) + exact_tolerance ||
+                return false
+        end
+    end
+    return true
+end
+
+_refined_primal_rows_feasible(::LinearProblem, ::Vector, tolerance, rows) = false
+
 function _original_primal_feasible(problem::LinearProblem{T}, primal::Vector{T}, tolerance::T) where {T}
     _within_primal_bounds(primal, problem.column_lower, problem.column_upper, tolerance) || return false
     row_lower, row_upper = _primal_row_bounds(problem.A, primal, _is_exact(T))
     # Certify the entire activity interval in the original absolute units.
     # Cancellation uncertainty must not enlarge the configured tolerance.
-    return _within_primal_intervals(row_lower, row_upper, problem.row_lower, problem.row_upper, tolerance)
+    _within_primal_intervals(row_lower, row_upper, problem.row_lower,
+                             problem.row_upper, tolerance) && return true
+    all(isfinite, row_lower) && all(isfinite, row_upper) || return false
+    # A long floating sum can have a wider enclosure than the absolute
+    # tolerance even when its exact stored-coefficient activity is feasible.
+    T <: Union{Float32,Float64} || return false
+    rows = Int[]
+    for row in eachindex(row_lower)
+        _primal_interval_within_bounds(row_lower[row], row_upper[row],
+                                       problem.row_lower[row], problem.row_upper[row],
+                                       tolerance) || push!(rows, row)
+    end
+    return _refined_primal_rows_feasible(problem, primal, tolerance, rows)
 end
 
 _original_primal_feasible(workspace::SimplexWorkspace{T}, primal::Vector{T}) where {T} =

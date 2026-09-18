@@ -1329,6 +1329,27 @@ end
     end
 end
 
+@testset "Ambiguous floating row sums use a refined primal certificate" begin
+    for (T, magnitude) in ((Float32, 1.0e5), (Float64, 1.0e10))
+        problem = LinearProblem(sparse(reshape(T[0.1, -0.1, 1], 1, 3)),
+                                zeros(T, 3); row_upper=T[0])
+        tolerance = SolverOptions(T).primal_tolerance
+        feasible = T[T(magnitude), T(magnitude), 0]
+        lower, upper = JSimplex._primal_row_bounds(problem.A, feasible,
+                                                   JSimplex._is_exact(T))
+        @test !JSimplex._within_primal_intervals(lower, upper,
+                                                 problem.row_lower,
+                                                 problem.row_upper, tolerance)
+        @test JSimplex._original_primal_feasible(problem, feasible, tolerance)
+        within_tolerance = copy(feasible)
+        within_tolerance[3] = tolerance / T(2)
+        @test JSimplex._original_primal_feasible(problem, within_tolerance, tolerance)
+        violated = copy(feasible)
+        violated[3] = T(2) * tolerance
+        @test !JSimplex._original_primal_feasible(problem, violated, tolerance)
+    end
+end
+
 @testset "Absolute primal tolerance cannot be enlarged by subtraction rounding" begin
     for T in (Float16, Float32, Float64, BigFloat)
         small = eps(one(T)) / T(4)

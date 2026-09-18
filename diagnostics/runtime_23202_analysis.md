@@ -525,3 +525,30 @@ as `runtime_original_cost_after_primal.tsv` and, if needed,
 `runtime_original_cost_fresh.tsv`. This distinguishes an inaccurate
 updated factorization from a remaining structural-primal residual before
 changing the production solver again.
+
+Commit `5fa7e7a` found one ambiguous row, the final row of the reduced
+model. After the primal cleanup pivot, its exact activity computed from
+the stored Float64 coefficients and primal values is about `1.59e-9`,
+within the `1e-7` absolute tolerance of its zero upper bound. The fast
+Float64 enclosure is about `[-2.20e-7, 2.20e-7]`, so it cannot certify
+that row. A fresh factorization leaves both the primal vector and this
+enclosure unchanged. The failure is therefore in the conservative
+floating row-sum certificate, not in an actual row violation or a stale
+factorization.
+
+The certificate now recomputes only ambiguous Float32 and Float64 rows
+with exact rational arithmetic over the stored floating values. It accepts
+a row only when its exact activity lies inside the original absolute
+tolerance. A synthetic
+cancellation test confirms acceptance of an exactly feasible row and
+rejection of a genuinely violated one. Reconstructing the Windows
+snapshot against the local presolved and scaled model confirms that the
+new primal certificate passes; the original-objective optimality
+certificate also passes on that snapshot. Full postsolve and original-LP
+cleanup still require a public `solve` run on Windows.
+
+As a limited follow-up, the Windows basis snapshot was restored into the
+original LP on aarch64 Linux and passed to postsolve cleanup with one BLAS
+thread. Cleanup advanced from cumulative iteration 44,146 to 48,568 in
+60 seconds and stopped at its diagnostic time limit without a numerical
+error. This does not establish the final cleanup status on either machine.
