@@ -285,3 +285,38 @@ On local aarch64 Linux, all 144 independent checks through iteration
 166.9 seconds. The local pivot path still differs from Windows, so
 this does not resolve the Windows failure; it verifies that the scan
 fits within the 600-second diagnostic limit on this machine.
+
+## First independently detected loss
+
+Commit `5951c98` contains the Windows scan. The last sampled state at
+iteration 29,647 is independently dual feasible. At 29,672, stored
+prices still report zero violations, but 256-bit and 512-bit prices
+agree on one violation: slack 46,746 is at its upper bound with a true
+price of `+5.30362274642316e-5`. This is about 530 times the dual
+tolerance. The 29,672 state has two pending basis updates after
+refactorization 596; the diagnostic stopped deliberately before the
+old 29,720 failure.
+
+Slack 46,746 was basic in row 15,131 at 29,647. Structural column
+16,925 occupies that row at 29,672, and its working cost rose from
+about `5.14e-12` to `1.45336e-7` across the interval. Replacing that
+column with the slack in the 29,672 basis, while retaining all final
+working costs, yields zero high-precision dual violations. In this
+counterfactual basis, the entering column has a refined price of
+`-9.51704696235e-12` and a refined pivot of
+`1.79444267011e-7`. Their ratio is `-5.30362274642e-5`, exactly the
+opposite of the slack's bad price after the replacement. A tiny price
+residual was amplified by the small pivot. The 25 intermediate states
+were not saved, so this does not yet establish when the entering cost
+shift or this row replacement occurred.
+As an offline check, increasing the final working cost of basic column
+16,925 by just `9.51704696235e-12` reduces the slack's refined price
+to about `2.6e-18` and leaves no other refined dual violations. This
+shows the failed basis is repairable by a precise small cost correction;
+it is not yet a production recovery rule.
+
+The continuation diagnostic now checks every completed iteration from
+29,647, traces the two variables, and saves the immediately preceding
+feasible state plus the first bad state. Its capture files from the
+older 29,690 window are disabled by default; the independent scan
+files provide the adjacent states needed for the pivot audit.

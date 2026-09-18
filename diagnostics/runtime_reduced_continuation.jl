@@ -234,10 +234,10 @@ function main()
     flush(stdout)
 
     last_report = Ref(-1)
-    trace_start = parse(Int, get(ENV, "RUNTIME_TRACE_START", "29690"))
-    trace_end = parse(Int, get(ENV, "RUNTIME_TRACE_END", "29730"))
-    capture_start = parse(Int, get(ENV, "RUNTIME_CAPTURE_START", "29690"))
-    capture_end = parse(Int, get(ENV, "RUNTIME_CAPTURE_END", "29730"))
+    trace_start = parse(Int, get(ENV, "RUNTIME_TRACE_START", "29647"))
+    trace_end = parse(Int, get(ENV, "RUNTIME_TRACE_END", "29675"))
+    capture_start = parse(Int, get(ENV, "RUNTIME_CAPTURE_START", "0"))
+    capture_end = parse(Int, get(ENV, "RUNTIME_CAPTURE_END", "0"))
     capture_start == 0 || (0 < capture_start <= capture_end) ||
         error("RUNTIME_CAPTURE_START and RUNTIME_CAPTURE_END must define a positive range")
     capture_paths = (
@@ -247,8 +247,8 @@ function main()
     capture_paths[1] != capture_paths[2] || error("capture paths must differ")
     capture_count = Ref(0)
     last_capture = Ref(-1)
-    scan_start = parse(Int, get(ENV, "RUNTIME_SCAN_START", "26422"))
-    scan_interval = parse(Int, get(ENV, "RUNTIME_SCAN_INTERVAL", "25"))
+    scan_start = parse(Int, get(ENV, "RUNTIME_SCAN_START", "29647"))
+    scan_interval = parse(Int, get(ENV, "RUNTIME_SCAN_INTERVAL", "1"))
     scan_start == 0 || (scan_start > 0 && scan_interval > 0) ||
         error("RUNTIME_SCAN_START and RUNTIME_SCAN_INTERVAL must be positive")
     scan_paths = (
@@ -258,14 +258,17 @@ function main()
     scan_paths[1] != scan_paths[2] || error("scan paths must differ")
     last_scan = Ref(-1)
     scan_count = Ref(0)
-    watched = parse(Int, get(ENV, "RUNTIME_WATCH_VARIABLE", "17901"))
+    watched = parse(Int, get(ENV, "RUNTIME_WATCH_VARIABLE", "46746"))
+    watched_2 = parse(Int, get(ENV, "RUNTIME_WATCH_VARIABLE_2", "16925"))
     1 <= watched <= length(workspace.basis.states) ||
         error("RUNTIME_WATCH_VARIABLE is outside the working variable range")
+    1 <= watched_2 <= length(workspace.basis.states) ||
+        error("RUNTIME_WATCH_VARIABLE_2 is outside the working variable range")
     println("DIAGNOSTIC_CONFIG source=", @__FILE__,
             " trace=", (trace_start, trace_end),
             " capture=", (capture_start, capture_end),
             " scan=", (scan_start, scan_interval),
-            " watch=", watched,
+            " watch=", (watched, watched_2),
             " capture_paths=", capture_paths,
             " scan_paths=", scan_paths)
     flush(stdout)
@@ -339,6 +342,11 @@ function main()
                     " watch_rc=", workspace.reduced_costs[watched],
                     " watch_cost=", workspace.costs[watched],
                     " watch_primal=", workspace.primal[watched],
+                    " watch2_index=", watched_2,
+                    " watch2_state=", workspace.basis.states[watched_2],
+                    " watch2_rc=", workspace.reduced_costs[watched_2],
+                    " watch2_cost=", workspace.costs[watched_2],
+                    " watch2_primal=", workspace.primal[watched_2],
                     " perturbed=", workspace.perturbed)
             flush(stdout)
             previous_basic[] = copy(basic)
