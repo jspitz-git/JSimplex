@@ -304,7 +304,8 @@ function _apply_bound_flips!(workspace::SimplexWorkspace{T}, flips::Vector{Int})
         end
     end
     all(isfinite, rhs) || return false
-    basic_change = forward_solve!(workspace.scratch.row_solution, workspace.factorization, rhs)
+    # The entering direction may already occupy row_solution.
+    basic_change = forward_solve!(workspace.scratch.tau, workspace.factorization, rhs)
     all(isfinite, basic_change) || return false
     for (row, index) in enumerate(workspace.basis.basic_indices)
         isfinite(workspace.primal[index] - basic_change[row]) || return false
@@ -553,9 +554,6 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
         return DualTermination(INFEASIBLE, "no eligible dual pivot")
     end
 
-    _apply_bound_flips!(workspace, flips) || return _numerical_failure()
-    delta = workspace.primal[leaving_index] - bound_value(bound)
-
     column = workspace.scratch.row_rhs
     fill!(column, zero(T))
     if entering_index <= column_count
@@ -604,6 +602,10 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
         return _dual_iteration!(workspace, stop_requested, true)
     end
     abs(pivot) > workspace.options.zero_tolerance || throw(ZeroPivotException(leaving_row))
+    # A refresh can retry the ratio test. Keep the proposed flips pending
+    # until the entering direction has passed its numerical checks.
+    _apply_bound_flips!(workspace, flips) || return _numerical_failure()
+    delta = workspace.primal[leaving_index] - bound_value(bound)
     primal_step = delta / pivot
     dual_step = workspace.reduced_costs[entering_index] / tableau_row[entering_index]
     isfinite(primal_step) && isfinite(dual_step) || return _numerical_failure()

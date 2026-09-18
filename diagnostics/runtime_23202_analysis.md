@@ -137,16 +137,15 @@ tolerance. The maximum difference between the two complete price
 vectors is below `7.4e-30`. The saved Float64 price `-0.8277722799969447`
 has a noticeable magnitude error, but its negative sign is correct.
 The production refinement guard therefore correctly rejects this
-basis. This is a true dual violation of the saved working LP and basis,
-not another false sign from Float64 LU.
+saved bound state. The new trace below shows that this state was
+transient; it does not show that the last completed pivot was invalid.
 
 Commit `a4b97b9` adds the Windows trace and the complete audit output.
-The last pivot, at iteration 23,778, replaced slack 46,097 with
-structural column 26,904 in basis row 14,482. The trace still reported
-zero stored dual infeasibility after the pivot, with 27 pending basis
-updates. The subsequent fresh refactorization, number 477, exposed the
-violation. The Windows 512-bit audit independently confirms the price
-`-0.8062975028414638`.
+The last completed pivot, at iteration 23,778, replaced slack 46,097
+with structural column 26,904 in basis row 14,482. The trace still
+reported zero stored dual infeasibility after the pivot, with 27 pending
+basis updates. The Windows 512-bit audit independently confirms the
+price `-0.8062975028414638` in the saved basis.
 
 `diagnostics/runtime_last_pivot_audit.jl` reverses that final basis
 replacement and recomputes the preceding basis using the saved working
@@ -154,18 +153,38 @@ costs. It obtains a price of `-2.6156077463` for variable 24,212,
 `0.6276039051` for entering column 26,904, tableau coefficients
 `25.6150139915` and `-8.8851996877` respectively, and a dual step
 of `-0.0706347552`. These values predict the final refined price
-`-0.8062975028`. Variable 24,212 has bounds `[0, 4.1]`, so a negative
-price would have been feasible if it stood at its upper bound before
-the pivot. Under the saved costs, its breakpoint from the upper bound
-is `0.1021122904`, later than the entering variable's breakpoint
-`0.0706347552`. A flip to the lower bound at that pivot would therefore
-have been premature. If it was already at the lower bound, the prior
-basis was already dual infeasible. The trace does not record that
-variable's prior bound state or working cost, so neither explanation
-is confirmed yet.
+`-0.8062975028`. Variable 24,212 has bounds `[0, 4.1]`; its negative
+price is feasible when it stands at the upper bound. Under the saved
+costs, its breakpoint at the last completed pivot was `0.1021122904`,
+later than the entering variable's breakpoint `0.0706347552`.
 
-The continuation trace now records the state, reduced cost, working
-cost, and primal value of variable 24,212 at every iteration in the
-23,750–23,825 window. This lightweight trace will distinguish a wrong
-bound flip from an earlier price drift on the Windows path. No
-production change is justified before that distinction is measured.
+## Transient bound flip and fix
+
+Commit `d4d24ea` records the missing state. At iteration 23,778,
+variable 24,212 was **still at its upper bound** (`4.1`), with stored
+price `-0.8196478569`, working cost zero, and zero dual infeasibility.
+The solver then attempted another iteration. The final log has the
+same iteration count and basis, but one more refactorization and the
+variable at its lower bound (`0.0`) with price `-0.82777228`.
+
+`_dual_iteration!` applied all proposed bound flips before checking the
+entering direction. A small or inaccurate pivot can cause a fresh
+factorization and a retry. In that path, the factorization was rebuilt
+*after* the flip and the solver tested dual feasibility before the
+compensating pivot had occurred. A flipped boxed variable can be
+temporarily dual infeasible in this interval. The resulting
+`dual feasibility lost` was therefore caused by checking this partial
+iteration, not by a completed pivot. `recompute!` does not change bound
+states, and the iteration counter did not advance; this matches the
+observed state change in the Windows log.
+
+The fix validates the entering direction before applying proposed
+bound flips. The flip solve uses a separate scratch vector to preserve
+the already validated entering direction. A one-row, two-column
+regression reproduces the old failure: before the fix, it returned
+`NUMERICAL_ERROR` after a flip and refresh without completing a pivot;
+after the fix, it refactorizes and completes the pivot. The full test
+suite passes 13,613/13,613 tests. A local aarch64 continuation of the
+reduced `runtime.mps` reached the diagnostic cap of 30,000 iterations
+with zero dual infeasibility in 116.6 seconds; it did not solve the LP.
+The Windows path still needs a continuation run with this fix.

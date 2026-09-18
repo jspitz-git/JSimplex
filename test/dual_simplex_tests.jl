@@ -110,6 +110,27 @@ end
     @test workspace.refactorizations == 1
 end
 
+@testset "Dual pivot refreshes before applying bound flips" begin
+    problem = LinearProblem(sparse([-1.0 1.0]), [-1.0, 2.0];
+                            row_lower=[2.0], column_upper=[1.0, Inf])
+    workspace = JSimplex.initialize_workspace(
+        problem, SolverOptions(basis_update=:suhl_suhl, verbose=false),
+    )
+    workspace.basis.states[1] = JSimplex.AT_UPPER
+    # A stale solve makes the chosen pivot tiny. The boxed first column
+    # crosses an earlier dual breakpoint, so the ratio test proposes a flip.
+    workspace.factorization.base = JSimplex._factorize_basis(sparse([-5.0e6;;]))
+    JSimplex.recompute!(workspace)
+
+    terminal = JSimplex.dual_iteration!(workspace, () -> false)
+    @test isnothing(terminal)
+    @test workspace.refactorizations == 1
+    @test workspace.iterations == 1
+    @test workspace.basis.states[1] == JSimplex.AT_LOWER
+    @test workspace.primal[1:2] ≈ [0.0, 2.0]
+    @test JSimplex.dual_infeasibility(workspace) <= workspace.options.dual_tolerance
+end
+
 @testset "Dual pivot keeps a full-sized pivot with harmless solve roundoff" begin
     problem = LinearProblem(sparse([1.0;;]), [1.0]; row_lower=[1.0])
     workspace = JSimplex.initialize_workspace(
