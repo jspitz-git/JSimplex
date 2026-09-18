@@ -304,6 +304,7 @@ reduced solution is cleaned up on the original continuous LP from its restored
 basis, using the remaining time and iteration budget. Before cleanup, a feasible
 postsolved primal can be projected into that original basis by exchanging
 variables at original bounds for nonbasic columns held at implied bounds.
+Those reconstruction exchanges do not consume the simplex iteration budget.
 An inconclusive reduced solve restarts simplex on the original LP, logs the
 reason when `verbose=true`,
 and reports cumulative progress iterations. If that retry also fails numerically,

@@ -76,6 +76,8 @@ then restores the original variables and resolves the original LP from the
 restored basis when cleanup is needed. Before cleanup, it tries to exchange
 basic variables at original bounds for nonbasic variables held at bounds
 inferred during presolve. These exchanges are not counted as simplex iterations.
+As a postsolve reconstruction, they can recover an optimal original basis even
+when `iteration_limit=0`.
 If the reduced solve cannot certify its result, JSimplex restarts simplex on
 the original LP. With `verbose=true`, this
 restart logs the first status and reason. Progress iteration counts and final
