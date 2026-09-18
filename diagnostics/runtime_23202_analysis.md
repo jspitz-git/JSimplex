@@ -625,8 +625,21 @@ Replaying the saved Windows reduced-basis snapshot on local aarch64 Linux
 projects all 329 displaced columns. The original basis then has zero primal
 infeasibility, and its structural values differ from the postsolved primal
 by at most `7.45e-9`. Dual infeasibility remains about `1.70e6` and still
-requires simplex cleanup. A time-capped local continuation from the projected
-basis ended in a tiny-pivot numerical error during original-cost primal
-cleanup; a continuation from the unprojected basis also failed numerically
-on this host. The Windows solve result and runtime impact of this new start
-remain to be measured.
+requires simplex cleanup. A time-capped local continuation from an earlier
+projection heuristic ended in a tiny-pivot numerical error during original-cost
+primal cleanup; a continuation from the unprojected basis also failed
+numerically on this host.
+
+With the final production projection and primal tiny-pivot refresh, a direct
+continuation of the same saved snapshot on local aarch64 Linux with one BLAS
+thread returned certified `OPTIMAL` after 18,028 cleanup iterations (cumulative
+iteration 62,173) and 211.23 seconds. The reproducible command is
+`julia --project=. diagnostics/runtime_projection_continuation.jl /path/to/runtime.mps`;
+`diagnostics/runtime_projection_production_continuation.log` preserves the
+output. The earlier unprojected local run ended
+in `NUMERICAL_ERROR` after 17,949 cleanup iterations (cumulative iteration
+62,094) and 192.68 seconds. These runs do not establish an iteration saving:
+the unprojected run did not finish, and the production solver changed between
+the experiments. The prior Windows run from the unprojected basis finished
+after 15,940 cleanup iterations, but the platform differs. A matched Windows
+comparison is still needed to measure the effect on iterations and time.
