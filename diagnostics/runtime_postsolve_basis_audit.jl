@@ -161,5 +161,15 @@ function main()
     println("counterfactual reassigned_nonbasic=$reassigned basis_metrics=",
         (J.primal_infeasibility_summary(workspace), J.dual_infeasibility_summary(workspace)),
         " max_structural_difference=", maximum(abs.(workspace.primal[1:column_count] .- x)))
+
+    projected = J.initialize_workspace(J._minimization_problem(original), options)
+    projected.basis = basis
+    J.recompute!(projected; refactorize=true)
+    exchanges = J._project_postsolve_basis!(projected, x, () -> false)
+    println("projected_basis exchanges=$exchanges basis_metrics=",
+        (J.primal_infeasibility_summary(projected),
+         J.dual_infeasibility_summary(projected)),
+        " max_structural_difference=",
+        maximum(abs.(projected.primal[1:column_count] .- x)))
 end
 main()

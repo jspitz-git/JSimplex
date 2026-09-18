@@ -73,8 +73,11 @@ end
 
 Presolve runs by default. It applies all implemented reductions automatically,
 then restores the original variables and resolves the original LP from the
-restored basis when cleanup is needed. If the reduced solve cannot certify its
-result, JSimplex restarts simplex on the original LP. With `verbose=true`, this
+restored basis when cleanup is needed. Before cleanup, it tries to exchange
+basic variables at original bounds for nonbasic variables held at bounds
+inferred during presolve. These exchanges are not counted as simplex iterations.
+If the reduced solve cannot certify its result, JSimplex restarts simplex on
+the original LP. With `verbose=true`, this
 restart logs the first status and reason. Progress iteration counts and final
 statistics include iterations spent on both LPs. To solve the original LP
 directly:
@@ -595,9 +598,10 @@ considers rows with at most eight terms and permits at most ten estimated
 coefficient updates per pivot, 200,000 updates and 50,000 pivots per pass.
 General rational row elimination is limited to 256 rows, 10,000 nonzeros,
 and 200,000 sparse elimination operations. Floating models use reversible
-row and column scaling
-by default. After postsolve, an optimal reduced solution is cleaned up on the
-original LP from the restored basis. A basic one-shot MOI/JuMP adapter is
+row and column scaling by default. After postsolve, an optimal reduced
+solution is cleaned up on the original LP from the restored basis, with a
+feasibility-checked basis projection when inferred bounds moved nonbasic
+columns. A basic one-shot MOI/JuMP adapter is
 available. Missing features include scaling of the entire objective, public
 warm-start API, native incremental optimizer modification, MIP algorithm,
 or support for quadratic, SOS, or indicator models. Difficult or

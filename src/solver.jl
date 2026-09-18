@@ -60,9 +60,101 @@ end
 _restored_objective(problem::LinearProblem{T}, primal::Vector{T}) where {T} =
     dot(problem.objective, primal) + problem.objective_constant
 
+function _projection_bound_state(lower::Bound{T}, upper::Bound{T}, value::T,
+                                 tolerance::T) where {T}
+    isfinite(lower) && abs(value - bound_value(lower)) <= tolerance && return AT_LOWER
+    isfinite(upper) && abs(value - bound_value(upper)) <= tolerance && return AT_UPPER
+    return BASIC  # No original bound can hold this variable nonbasic at its target value.
+end
+
+function _project_postsolve_basis!(workspace::SimplexWorkspace{T}, target::Vector{T},
+                                   stop_requested)::Union{Nothing,Int} where {T}
+    problem, options = workspace.problem, workspace.options
+    A = problem.A
+    row_count, column_count = size(A)
+    length(target) == column_count && all(isfinite, target) || return nothing
+    _original_primal_feasible(problem, target, options.primal_tolerance) || return nothing
+    target_values = vcat(target, A * target)
+    all(isfinite, target_values) || return nothing
+
+    states = Vector{VariableState}(undef, row_count + column_count)
+    for index in eachindex(states)
+        states[index] = _projection_bound_state(workspace.lower[index],
+            workspace.upper[index], target_values[index], options.primal_tolerance)
+    end
+    displaced = Int[]
+    for column in 1:column_count
+        workspace.basis.states[column] == BASIC && continue
+        abs(workspace.primal[column] - target[column]) > options.primal_tolerance &&
+            push!(displaced, column)
+    end
+    isempty(displaced) && return 0
+
+    rhs = workspace.scratch.row_rhs
+    for entering in displaced
+        stop_requested() && return nothing
+        fill!(rhs, zero(T))
+        for position in A.colptr[entering]:(A.colptr[entering + 1] - 1)
+            rhs[A.rowval[position]] = A.nzval[position]
+        end
+        direction = forward_solve!(workspace.scratch.row_solution,
+                                   workspace.factorization, rhs)
+        all(isfinite, direction) || return nothing
+        leaving_row = 0
+        largest_pivot = options.zero_tolerance
+        # Prefer a tight original row containing this column. Its basis slot
+        # often represents the row that implied the eliminated bound.
+        for position in A.colptr[entering]:(A.colptr[entering + 1] - 1)
+            row = A.rowval[position]
+            states[column_count + row] == BASIC && continue
+            leaving = workspace.basis.basic_indices[row]
+            states[leaving] == BASIC && continue
+            pivot = abs(direction[row])
+            if pivot > largest_pivot
+                leaving_row, largest_pivot = row, pivot
+            end
+        end
+        # A source row may already have a nonbasic slack. Another basic
+        # variable at its original bound can still leave in a valid exchange.
+        if leaving_row == 0
+            for row in eachindex(workspace.basis.basic_indices)
+                leaving = workspace.basis.basic_indices[row]
+                states[leaving] == BASIC && continue
+                pivot = abs(direction[row])
+                if pivot > largest_pivot
+                    leaving_row, largest_pivot = row, pivot
+                end
+            end
+        end
+        leaving_row == 0 && return nothing
+        leaving = workspace.basis.basic_indices[leaving_row]
+        replace_column!(workspace.factorization, direction, leaving_row;
+                        zero_tolerance=options.zero_tolerance)
+        workspace.basis.basic_indices[leaving_row] = entering
+        workspace.basis.states[entering] = BASIC
+        workspace.basis.states[leaving] = states[leaving]
+        if length(workspace.factorization.updates) >= options.refactorization_interval
+            refactorize!(workspace.factorization, basis_matrix(workspace))
+            workspace.refactorizations += 1
+            options.pricing == :devex && reset_devex!(workspace)
+            fill!(workspace.scratch.steepest_valid, false)
+        end
+    end
+    stop_requested() && return nothing
+    recompute!(workspace; refactorize=true, caller_guard=stop_requested)
+    _finite_workspace(workspace) || return nothing
+    primal_infeasibility(workspace) <= options.primal_tolerance || return nothing
+    projected = workspace.primal[1:column_count]
+    _original_primal_feasible(problem, projected, options.primal_tolerance) || return nothing
+    all(index -> abs(projected[index] - target[index]) <= options.primal_tolerance,
+        eachindex(target)) || return nothing
+    return length(displaced)
+end
+
 function cleanup_original(problem::LinearProblem{T}, restored_basis::Basis,
                           options::SolverOptions{T}, context::SolveContext,
-                          prior_iterations::Int, prior_refactorizations::Int) where {T}
+                          prior_iterations::Int, prior_refactorizations::Int;
+                          target_primal::Union{Nothing,Vector{T}}=nothing) where {T}
     options.verbose && @info "Starting postsolve cleanup on original LP"
     stop_requested = _guard_stop_callback(() -> time_limit_reached(context))
     workspace = nothing
@@ -74,7 +166,44 @@ function cleanup_original(problem::LinearProblem{T}, restored_basis::Basis,
         stop_requested() && return _internal_solution(workspace, TIME_LIMIT, "time limit reached")
         workspace.basis = Basis(restored_basis.basic_indices, restored_basis.states)
         recompute!(workspace; refactorize=true, caller_guard=stop_requested)
-        return _solve_continuous_dual!(workspace, stop_requested)
+        projected = false
+        if !isnothing(target_primal)
+            exchanges = try
+                _project_postsolve_basis!(workspace, target_primal, stop_requested)
+            catch exception
+                exception === stop_requested.exception && rethrow()
+                _is_numerical_exception(exception) || rethrow()
+                nothing
+            end
+            stop_requested() &&
+                return _internal_solution(workspace, TIME_LIMIT, "time limit reached")
+            if isnothing(exchanges)
+                workspace.basis = Basis(restored_basis.basic_indices, restored_basis.states)
+                recompute!(workspace; refactorize=true, caller_guard=stop_requested)
+            else
+                projected = exchanges > 0
+                projected && options.verbose &&
+                    @info string("Projected postsolve basis: exchanges=", exchanges)
+            end
+        end
+        run = try
+            _solve_continuous_dual!(workspace, stop_requested)
+        catch exception
+            exception === stop_requested.exception && rethrow()
+            _is_numerical_exception(exception) || rethrow()
+            DualRunResult{T}(NUMERICAL_ERROR, nothing, nothing,
+                             workspace.iterations, workspace.refactorizations,
+                             sprint(showerror, exception))
+        end
+        if projected && run.status in (INFEASIBLE, UNBOUNDED, NUMERICAL_ERROR) &&
+           !stop_requested()
+            options.verbose && @info string(
+                "Retrying postsolve cleanup from restored basis after ",
+                run.status, ": ", run.message)
+            return cleanup_original(problem, restored_basis, options, context,
+                run.iterations, run.refactorizations)
+        end
+        return run
     catch exception
         exception === stop_requested.exception && rethrow()
         _is_numerical_exception(exception) || rethrow()
@@ -126,9 +255,10 @@ end
 function _cleanup_or_retry_original(problem::LinearProblem{T}, basis::Basis,
                                     options::SolverOptions{T}, context::SolveContext,
                                     prior_iterations::Int,
-                                    prior_refactorizations::Int) where {T}
+                                    prior_refactorizations::Int;
+                                    target_primal::Union{Nothing,Vector{T}}=nothing) where {T}
     run = cleanup_original(problem, basis, options, context,
-                           prior_iterations, prior_refactorizations)
+                           prior_iterations, prior_refactorizations; target_primal)
     return run.status == NUMERICAL_ERROR ?
            _retry_original(problem, options, context, run) : run
 end
@@ -171,8 +301,11 @@ Presolve is enabled by default; `SolverOptions(presolve=false)` skips it. When
 enabled, it removes fixed and redundant structure and skips a floating reduction
 when transformed values cannot be represented safely. After postsolve, an optimal
 reduced solution is cleaned up on the original continuous LP from its restored
-basis, using the remaining time and iteration budget. An inconclusive reduced
-solve restarts simplex on the original LP, logs the reason when `verbose=true`,
+basis, using the remaining time and iteration budget. Before cleanup, a feasible
+postsolved primal can be projected into that original basis by exchanging
+variables at original bounds for nonbasic columns held at implied bounds.
+An inconclusive reduced solve restarts simplex on the original LP, logs the
+reason when `verbose=true`,
 and reports cumulative progress iterations. If that retry also fails numerically,
 the result message includes both failure reasons.
 
@@ -300,7 +433,8 @@ function solve(problem::LinearProblem{T}; relax_integrality::Bool=false,
         else
             basis = restore_basis(presolved, run.basis)
             run = _cleanup_or_retry_original(continuous_problem, basis,
-                typed_options, context, run.iterations, run.refactorizations)
+                typed_options, context, run.iterations, run.refactorizations;
+                target_primal=primal)
         end
         if run.status != OPTIMAL
             return _finish_solve(T, context, typed_options, run.status, run.message;

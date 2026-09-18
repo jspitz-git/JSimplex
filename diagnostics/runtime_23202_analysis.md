@@ -608,3 +608,25 @@ these jumps in the restored basis and changed bounds before cleanup pivots.
 Improving this start would require a basis that represents the inferred
 bounds through original rows, or another certified way to retain those bounds
 during cleanup.
+
+## Projecting inferred bounds into the original basis
+
+The postsolve cleanup now attempts basis exchanges before simplex. For each
+nonbasic structural column whose value moved when the restored basis released
+an inferred bound, it finds a basic variable at an original bound and pivots
+the column into the basis. It prefers a tight original row containing the
+column, but can use another eligible basis position when that row's slack is
+already nonbasic. It refactorizes and checks the candidate against the
+postsolved vector and original model. If projection cannot be completed, cleanup
+uses the restored basis; if cleanup from a projected basis fails numerically,
+it retries from that restored basis with the remaining resource budget.
+
+Replaying the saved Windows reduced-basis snapshot on local aarch64 Linux
+projects all 329 displaced columns. The original basis then has zero primal
+infeasibility, and its structural values differ from the postsolved primal
+by at most `7.45e-9`. Dual infeasibility remains about `1.70e6` and still
+requires simplex cleanup. A time-capped local continuation from the projected
+basis ended in a tiny-pivot numerical error during original-cost primal
+cleanup; a continuation from the unprojected basis also failed numerically
+on this host. The Windows solve result and runtime impact of this new start
+remain to be measured.
