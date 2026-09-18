@@ -112,6 +112,22 @@ end
     end
 end
 
+@testset "Dual direction refinement repairs a failed floating solve" begin
+    problem = LinearProblem(sparse([1.0 0.0; 0.0 1.0]), [1.0, 0.0];
+                            row_lower=[1.0, -Inf])
+    workspace = JSimplex.initialize_workspace(problem, SolverOptions(verbose=false))
+    workspace.scratch.row_solution .= [-1.0, 0.5]
+    @test JSimplex._try_refine_dual_direction!(workspace, 1, 1, -1.0, -1.0,
+                                               () -> false)
+    @test workspace.scratch.row_solution == [-1.0, 0.0]
+
+    # Column 2 has no component in row 1, so it cannot replace that slack.
+    workspace.scratch.row_solution .= [0.5, -1.0]
+    @test !JSimplex._try_refine_dual_direction!(workspace, 2, 1, 0.5, 0.5,
+                                                () -> false)
+    @test workspace.scratch.row_solution == [0.5, -1.0]
+end
+
 @testset "Small dual pivot checks the entering price before a cost shift" begin
     for (coefficient, row_bound) in ((6.24213518e-7, :lower),
                                      (-6.24213518e-7, :upper))

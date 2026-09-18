@@ -593,6 +593,100 @@ function _dual_direction_residual_ok!(workspace::SimplexWorkspace{T},
     return true
 end
 
+# A fresh floating LU can still give an inaccurate direction for an
+# ill-conditioned basis. Correct B*d = a in higher precision using the same
+# binary64 matrix entries; this path runs only after the ordinary solve and
+# a refactorized retry have both failed their residual checks.
+function _refined_primal_direction(factor, B, rhs::Vector{Float64}, bits::Int,
+                                   stop_requested)
+    return setprecision(BigFloat, bits) do
+        rhs_big = BigFloat.(rhs)
+        values = BigFloat.(B.nzval)
+        direction = BigFloat.(factor \ rhs)
+        all(isfinite, direction) || return nothing
+        residual = similar(rhs_big)
+        scale = max(one(BigFloat), maximum(abs, rhs_big))
+        target = BigFloat(10)^(-(bits == 256 ? 40 : 90))
+        for correction in 0:32
+            stop_requested() && return nothing
+            residual .= -rhs_big
+            for column in eachindex(direction)
+                column % 1024 == 0 && stop_requested() && return nothing
+                value = direction[column]
+                for position in B.colptr[column]:(B.colptr[column + 1] - 1)
+                    residual[B.rowval[position]] += values[position] * value
+                end
+            end
+            error = maximum(abs, residual) / scale
+            isfinite(error) || return nothing
+            error <= target && return direction
+            correction == 32 && return nothing
+            step = factor \ Float64.(residual)
+            all(isfinite, step) || return nothing
+            direction .-= BigFloat.(step)
+        end
+        return nothing
+    end
+end
+
+function _try_refine_dual_direction!(workspace::SimplexWorkspace{Float64},
+                                      entering_index::Int, leaving_row::Int,
+                                      original_pivot::Float64,
+                                      tableau_coefficient::Float64,
+                                      stop_requested)
+    isempty(workspace.factorization.updates) || return false
+    stop_requested() && return false
+    B = basis_matrix(workspace)
+    factor = try
+        lu(B)
+    catch exception
+        _is_numerical_exception(exception) || rethrow()
+        return false
+    end
+    rhs = zeros(Float64, size(B, 1))
+    A = workspace.problem.A
+    column_count = size(A, 2)
+    if entering_index <= column_count
+        for position in A.colptr[entering_index]:(A.colptr[entering_index + 1] - 1)
+            rhs[A.rowval[position]] = A.nzval[position]
+        end
+    else
+        rhs[entering_index - column_count] = -1.0
+    end
+    low, high = try
+        low = _refined_primal_direction(factor, B, rhs, 256, stop_requested)
+        isnothing(low) && return false
+        high = _refined_primal_direction(factor, B, rhs, 512, stop_requested)
+        low, high
+    catch exception
+        _is_numerical_exception(exception) || rethrow()
+        return false
+    end
+    isnothing(high) && return false
+    agreement = BigFloat(1e-24)
+    for index in eachindex(low)
+        index % 1024 == 0 && stop_requested() && return false
+        isfinite(low[index]) && isfinite(high[index]) || return false
+        abs(low[index] - high[index]) <= agreement * max(one(BigFloat), abs(high[index])) ||
+            return false
+    end
+    replacement = Float64.(high)
+    all(isfinite, replacement) || return false
+    refined_pivot = replacement[leaving_row]
+    abs(refined_pivot) > max(workspace.options.zero_tolerance,
+                             _dual_pivot_cutoff(Float64)) || return false
+    tolerance = max(workspace.options.zero_tolerance, 1e-8 * abs(refined_pivot))
+    abs(refined_pivot - original_pivot) <= tolerance || return false
+    abs(refined_pivot - tableau_coefficient) <= tolerance || return false
+    copyto!(workspace.scratch.row_rhs, rhs)
+    _dual_direction_residual_ok!(workspace, replacement, refined_pivot) || return false
+    copyto!(workspace.scratch.row_solution, replacement)
+    return true
+end
+
+_try_refine_dual_direction!(::SimplexWorkspace, ::Int, ::Int, pivot,
+                            tableau_coefficient, stop_requested) = false
+
 function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
                           basis_refreshed::Bool=false) where {T}
     leaving_row = dual_edge_selection(workspace)
@@ -675,7 +769,42 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
             end
             return _dual_iteration!(workspace, stop_requested, true)
         end
-        return DualTermination(NUMERICAL_ERROR, "basis solve residual too large")
+        if _try_refine_dual_direction!(workspace, entering_index, leaving_row,
+                                       pivot, tableau_row[entering_index],
+                                       stop_requested)
+            refined_pivot = tableau_column[leaving_row]
+            try
+                @info "Refined dual pivot direction" iteration=workspace.iterations leaving_row entering_index old_pivot=pivot refined_pivot
+            catch exception
+                stop_requested isa _StopCallback && (stop_requested.exception = exception)
+                rethrow()
+            end
+            pivot = refined_pivot
+        else
+            stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
+            residual = workspace.scratch.tau
+            scale = workspace.scratch.row_rhs
+            roundoff = T(256) * eps(one(T))
+            pivot_tolerance = sqrt(eps(one(T))) * abs(pivot)
+            worst_row = firstindex(residual)
+            worst_ratio = zero(T)
+            for row in eachindex(residual)
+                tolerance = max(workspace.options.zero_tolerance, pivot_tolerance,
+                                roundoff * (scale[row] + one(T)))
+                ratio = abs(residual[row]) / tolerance
+                if !isfinite(ratio) || ratio > worst_ratio
+                    worst_row = row
+                    worst_ratio = ratio
+                end
+            end
+            try
+                @info "Rejected dual pivot after basis refresh" iteration=workspace.iterations leaving_row entering_index pivot tableau_coefficient=tableau_row[entering_index] worst_row worst_ratio residual=residual[worst_row]
+            catch exception
+                stop_requested isa _StopCallback && (stop_requested.exception = exception)
+                rethrow()
+            end
+            return DualTermination(NUMERICAL_ERROR, "basis solve residual too large")
+        end
     end
     if abs(pivot) <= workspace.options.zero_tolerance &&
        _is_exact(T) === Val(false) && !basis_refreshed

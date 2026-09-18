@@ -390,3 +390,44 @@ The complete local test suite passes (13,659 assertions). The local
 reduced continuation reaches its 30,000-iteration target; all 354
 independent price checks from 29,647 through 30,000 remain feasible.
 The Windows pivot path remains to be tested with the wider guard.
+
+## Direction solve refinement after `c05f0f4`
+
+The Windows continuation in `c05f0f4` passed the former singular pivot
+at 23,425. It stopped at iteration 29,180 with
+`NUMERICAL_ERROR: basis solve residual too large`, before the independent
+price scan beginning at 29,647. Fresh LU of the saved basis succeeded;
+independent 256- and 512-bit dual price calculations agreed and found
+zero dual violations. The saved state does not identify the attempted
+entering variable, so it does not establish whether that particular
+direction can be repaired.
+
+With one BLAS thread on local aarch64 Linux, the same code stopped at
+iteration 13,336 on a different pivot. Its fresh Float64 direction for
+structural column 24,180 in basis row 11,199 had a maximum equation
+residual of about `6.12e-9`, or 6.49 times the acceptance tolerance.
+Independent refinement of `B*d = a` with the stored binary64 basis
+entries reduced the 256-bit residual below `1e-40`; the rounded
+direction passed the existing Float64 residual check. Its pivot changed
+only from `-0.06325953746409722` to `-0.06325953746408472`.
+
+The solver now attempts this refinement only when a direction still
+fails after a fresh basis factorization. It requires convergence and
+agreement at 256 and 512 bits, a finite rounded direction, a pivot
+above the existing safety cutoff, close agreement with both the
+original pivot and the tableau row, and a passing residual check.
+Otherwise it retains the numerical-error result. The earlier
+23,425 false pivot had a nearly singular preceding basis and a
+large independent direction residual; it is not a candidate for this
+repair.
+
+The local one-thread continuation now reached its requested 14,000
+pivot target with zero stored dual infeasibility. With nine BLAS
+threads, the local continuation reached 30,000 pivots with zero stored
+dual infeasibility in 129.4 seconds. These are diagnostic iteration
+caps, not optimal solutions. The Windows 29,180 path still needs a
+new continuation run to see whether its direction can be refined.
+The full local suite passes (13,663 assertions). An independent
+256-/512-bit dual price scan at iterations 13,336 through 13,340,
+including the repaired pivot at 13,337, found zero violations in all
+five checked bases.
