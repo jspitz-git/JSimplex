@@ -45,7 +45,7 @@ _numerical_failure() = DualTermination(NUMERICAL_ERROR, "non-finite simplex iter
 function _finite_workspace(workspace::SimplexWorkspace{T}) where {T}
     return all(isfinite, workspace.primal) && all(isfinite, workspace.reduced_costs) &&
            all(isfinite, workspace.costs) &&
-           (workspace.options.pricing == :dantzig ||
+           (workspace.options.pricing == :dantzig || workspace.dual_pricing_fallback ||
             all(weight -> isfinite(weight) && weight > zero(T), workspace.pricing_weights))
 end
 
@@ -258,7 +258,7 @@ end
 function dual_edge_selection(workspace::SimplexWorkspace{T})::Int where {T}
     leaving_row = -1
     best_score = zero(T)
-    weighted = workspace.options.pricing != :dantzig
+    weighted = workspace.options.pricing != :dantzig && !workspace.dual_pricing_fallback
     for (row, index) in enumerate(workspace.basis.basic_indices)
         violation = max(_lower_violation(workspace.lower[index], workspace.primal[index]),
                         _upper_violation(workspace.upper[index], workspace.primal[index]))
@@ -593,6 +593,39 @@ function _dual_direction_residual_ok!(workspace::SimplexWorkspace{T},
     return true
 end
 
+# The entering direction can be accurate even when an updated factorization
+# gives an inaccurate tableau row and therefore the wrong ratio-test choice.
+# Check Bᵀ*rho = e_leaving against the current basis before the ratio test.
+function _dual_row_residual_ratio(workspace::SimplexWorkspace{T},
+                                  rho::Vector{T}, leaving_row::Int) where {T<:AbstractFloat}
+    A = workspace.problem.A
+    column_count = size(A, 2)
+    roundoff = T(256) * eps(one(T))
+    worst_ratio = zero(T)
+    for (basis_row, index) in enumerate(workspace.basis.basic_indices)
+        expected = basis_row == leaving_row ? one(T) : zero(T)
+        residual = -expected
+        scale = expected
+        if index <= column_count
+            for position in A.colptr[index]:(A.colptr[index + 1] - 1)
+                term = A.nzval[position] * rho[A.rowval[position]]
+                residual += term
+                scale += abs(term)
+            end
+        else
+            term = -rho[index - column_count]
+            residual += term
+            scale += abs(term)
+        end
+        isfinite(residual) && isfinite(scale) || return T(Inf)
+        tolerance = max(workspace.options.zero_tolerance,
+                        roundoff * (scale + one(T)))
+        isfinite(tolerance) || return T(Inf)
+        worst_ratio = max(worst_ratio, abs(residual) / tolerance)
+    end
+    return worst_ratio
+end
+
 # A fresh floating LU can still give an inaccurate direction for an
 # ill-conditioned basis. Correct B*d = a in higher precision using the same
 # binary64 matrix entries; this path runs only after the ordinary solve and
@@ -875,6 +908,28 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
     tableau_row = workspace.scratch.tableau_row
     price!(tableau_row, workspace, rho)
     all(isfinite, rho) && all(isfinite, tableau_row) || return _numerical_failure()
+    if _is_exact(T) === Val(false) && !isempty(workspace.factorization.updates)
+        row_residual_ratio = _dual_row_residual_ratio(workspace, rho, leaving_row)
+        if row_residual_ratio > one(T)
+            basis_refreshed &&
+                return DualTermination(NUMERICAL_ERROR, "basis transpose solve residual too large")
+            stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
+            try
+                @logmsg workspace.options.log_level "Refactorizing inaccurate dual tableau row" iteration=workspace.iterations updates=length(workspace.factorization.updates) row_residual_ratio
+            catch exception
+                stop_requested isa _StopCallback && (stop_requested.exception = exception)
+                rethrow()
+            end
+            recompute!(workspace; refactorize=true, caller_guard=stop_requested)
+            stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
+            _finite_workspace(workspace) || return _numerical_failure()
+            if !_dual_prices_feasible_or_refined!(workspace, stop_requested)
+                stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
+                return DualTermination(NUMERICAL_ERROR, "dual feasibility lost")
+            end
+            return _dual_iteration!(workspace, stop_requested, true)
+        end
+    end
     orientation = below ? -one(T) : one(T)
     entering_index, flips, exhausted = _bound_flipping_ratio_test(
         workspace, tableau_row, orientation, abs(delta),
@@ -1027,9 +1082,9 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
     end
     update_duals!(workspace, tableau_row, leaving_index, entering_index, dual_step)
     update_primals!(workspace, tableau_column, entering_index, leaving_row, primal_step)
-    if workspace.options.pricing == :steepest_edge
+    if workspace.options.pricing == :steepest_edge && !workspace.dual_pricing_fallback
         update_dse!(workspace, rho, tableau_column, entering_index, pivot)
-    elseif workspace.options.pricing == :devex
+    elseif workspace.options.pricing == :devex && !workspace.dual_pricing_fallback
         update_devex!(workspace, tableau_row, tableau_column, entering_index, pivot)
     end
     _finite_workspace(workspace) || return _numerical_failure()
@@ -1041,6 +1096,21 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
     workspace.primal[leaving_index] = bound_value(bound)
     # Count the completed pivot even when its subsequent refactorization times out.
     workspace.iterations += 1
+    if _is_exact(T) === Val(false) && workspace.options.pricing == :steepest_edge &&
+       !workspace.dual_pricing_fallback
+        workspace.zero_dual_step_streak = iszero(dual_step) ?
+            workspace.zero_dual_step_streak + 1 : 0
+        if workspace.zero_dual_step_streak >= 256 &&
+           primal_infeasibility(workspace) > workspace.options.primal_tolerance
+            workspace.dual_pricing_fallback = true
+            try
+                @logmsg workspace.options.log_level "Switching dual pricing to Dantzig after zero dual steps" iteration=workspace.iterations streak=workspace.zero_dual_step_streak
+            catch exception
+                stop_requested isa _StopCallback && (stop_requested.exception = exception)
+                rethrow()
+            end
+        end
+    end
     if length(workspace.factorization.updates) >= workspace.options.refactorization_interval
         stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
         recompute!(workspace; refactorize=true, caller_guard=stop_requested)
@@ -1393,6 +1463,7 @@ function _auxiliary_workspace(workspace::SimplexWorkspace{T}) where {T}
         copy(workspace.pricing_weights), copy(workspace.devex_reference),
         factorization, scratch, workspace.iterations,
         workspace.refactorizations, workspace.perturbed,
+        workspace.zero_dual_step_streak, workspace.dual_pricing_fallback,
     )
     return recompute!(auxiliary)
 end
@@ -1543,6 +1614,8 @@ function _make_dual_feasible!(workspace::SimplexWorkspace{T}, stop_requested) wh
     workspace.pricing_weights .= auxiliary.pricing_weights
     workspace.costs .= auxiliary.costs
     workspace.perturbed = auxiliary.perturbed
+    workspace.zero_dual_step_streak = auxiliary.zero_dual_step_streak
+    workspace.dual_pricing_fallback = auxiliary.dual_pricing_fallback
     recompute!(workspace; refactorize=true, caller_guard=stop_requested)
     _flip_bounds!(workspace)
     _finite_workspace(workspace) || return _numerical_failure()

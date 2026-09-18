@@ -43,7 +43,7 @@
         end
     end
 
-    @testset "MIPLib pk1 dual stalling remains bounded" begin
+    @testset "MIPLib pk1 dual zero-step stall recovers" begin
         path = joinpath(@__DIR__, "fixtures", "solver", "miplib", "pk1.mps")
         problem = read_mps(path)
         @test size(problem.A) == (45, 86)
@@ -59,18 +59,13 @@
             @test isapprox(primal.objective_value, 0.0; atol=1e-6)
         end
 
-        # The current dual method stalls on this highly degenerate relaxation.
-        # An improved solver may return OPTIMAL; otherwise it must stop cleanly.
+        # Steepest-edge pricing can follow zero-dual-step pivots indefinitely;
+        # automatic fallback must recover the optimal LP relaxation.
         dual = solve(problem; relax_integrality=true,
                      options=SolverOptions(algorithm=:dual, iteration_limit=500,
                                            verbose=false))
-        @test dual.status in (OPTIMAL, ITERATION_LIMIT)
-        if dual.status == OPTIMAL
-            @test isapprox(dual.objective_value, 0.0; atol=1e-6)
-        else
-            @test dual.statistics.iterations == 500
-            @test isnothing(dual.objective_value)
-            @test isnothing(dual.primal)
-        end
+        @test dual.status == OPTIMAL
+        @test dual.objective_value == 0.0
+        @test dual.statistics.iterations <= 500
     end
 end

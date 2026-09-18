@@ -295,7 +295,7 @@ for `SolverOptions(Float64)`. Floating types use these keyword defaults:
 | `verbose` | `true` | Emit `Info`-level model statistics, simplex progress, and final status |
 | `log_level` | `Logging.Debug` | Level emitted through Julia's logging system |
 | `algorithm` | `:dual` | `:dual` or `:primal` |
-| `pricing` | `:steepest_edge` | Dual or primal pricing rule: `:steepest_edge`, `:devex`, or `:dantzig` |
+| `pricing` | `:steepest_edge` | Dual or primal pricing rule: `:steepest_edge`, `:devex`, or `:dantzig`; dual steepest-edge switches to Dantzig after 256 consecutive zero dual steps |
 | `basis_update` | `:pfi` | Basis update: `:pfi`, `:forrest_tomlin`, `:bartels_golub`, or `:suhl_suhl` |
 | `basis_refactorization` | `:native` | Full factorization: `:native` or `:markowitz` |
 | `scaling` | `:auto` | `:auto`, `:on`, or `:off` row and column scaling |
@@ -543,7 +543,7 @@ The standard test suite also includes seven small benchmark fixtures from
 so tests need neither the local benchmark directories nor a network connection.
 MIPLib cases are solved only as explicit LP relaxations; the listed objectives
 are LP objectives, not MIP objectives. Both simplex algorithms are checked
-against reference objectives obtained with GLPK, except for `pk1` as noted below.
+against reference objectives obtained with GLPK for the six numerical fixtures.
 
 | Fixture | Numerical behavior covered |
 | --- | --- |
@@ -553,11 +553,11 @@ against reference objectives obtained with GLPK, except for `pk1` as noted below
 | MIPLib [`stein9inf`](https://miplib.zib.de/instance_details_stein9inf.html) | Integer infeasibility with a feasible LP relaxation. |
 | MIPLib [`flugpl`](https://miplib.zib.de/instance_details_flugpl.html) | Mixed integer domains, fractional coefficients, and large objective values. |
 | MIPLib [`markshare_4_0`](https://miplib.zib.de/instance_details_markshare_4_0.html) | Dense equalities and a zero-cost LP optimum. |
-| MIPLib [`pk1`](https://miplib.zib.de/instance_details_pk1.html) | The current dual method stalls on the LP relaxation; primal reaches zero objective, and dual must stop at its iteration limit or solve it. |
+| MIPLib [`pk1`](https://miplib.zib.de/instance_details_pk1.html) | The LP relaxation gives a long series of zero dual steps; both simplex algorithms reach objective zero. Dual pricing switches to Dantzig after that series. |
 
-`dev/run_suite.jl --tag numerical --compare-glpk` checks the six cases with
-reliable default-dual optima against GLPK. The `pk1` behavior is covered by
-the standard regression test with a fixed iteration cap.
+`dev/run_suite.jl --tag numerical --compare-glpk` checks the six reference
+cases against GLPK. The `pk1` behavior is covered by the standard regression
+test with a 500-iteration cap.
 
 ### Large and private datasets
 

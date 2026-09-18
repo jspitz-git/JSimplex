@@ -112,6 +112,25 @@ end
     end
 end
 
+@testset "Dual ratio test refreshes an inaccurate tableau row" begin
+    # The stale LU changes the transposed solve for row 1, while the direction
+    # for the selected first column remains exact. A direction-only check misses it.
+    problem = LinearProblem(sparse([1.0 0.0; 0.0 1.0]), [1.0, 10.0];
+                            row_lower=[1.0, -Inf])
+    workspace = JSimplex.initialize_workspace(problem,
+        SolverOptions(refactorization_interval=50, verbose=false))
+    workspace.factorization.base = JSimplex._factorize_basis(
+        sparse([-1.0 1.0e-5; 0.0 -1.0]))
+    # One identity update represents a basis that has changed since LU.
+    JSimplex.replace_column!(workspace.factorization, [1.0, 0.0], 1)
+    JSimplex.recompute!(workspace)
+
+    terminal = JSimplex.dual_iteration!(workspace, () -> false)
+    @test isnothing(terminal)
+    @test workspace.basis.basic_indices == [1, 4]
+    @test workspace.refactorizations == 1
+end
+
 @testset "Dual direction refinement repairs a failed floating solve" begin
     problem = LinearProblem(sparse([1.0 0.0; 0.0 1.0]), [1.0, 0.0];
                             row_lower=[1.0, -Inf])

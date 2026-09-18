@@ -66,6 +66,9 @@ disables the deadline; iteration/refactorization limits remain `Int`.
 Dantzig (`:dantzig`) pricing for either simplex algorithm. Primal steepest-edge
 weights are initialized for a unit basis and updated after each pivot, with
 direct recomputation when a weight cannot be represented safely.
+Dual steepest-edge pricing switches to Dantzig after 256 consecutive zero
+dual steps when primal infeasibility remains; explicit Devex and Dantzig
+settings are unaffected.
 `basis_update` selects product-form (`:pfi`), Forrest–Tomlin
 (`:forrest_tomlin`), Bartels–Golub (`:bartels_golub`), or Suhl–Suhl
 (`:suhl_suhl`) basis updates.

@@ -80,6 +80,8 @@ mutable struct SimplexWorkspace{T<:Real,F,M,R}
     iterations::Int
     refactorizations::Int
     perturbed::Bool
+    zero_dual_step_streak::Int
+    dual_pricing_fallback::Bool
 end
 
 function reset_devex!(workspace::SimplexWorkspace{T})::Nothing where {T}
@@ -266,7 +268,7 @@ function initialize_workspace(
     workspace = SimplexWorkspace(
         problem, typed_options, progress, costs, lower, upper, basis, zeros(T, variable_count),
         zeros(T, variable_count), ones(T, variable_count), devex_reference,
-        factorization, scratch, 0, 0, false,
+        factorization, scratch, 0, 0, false, 0, false,
     )
     return recompute!(workspace)
 end
