@@ -103,6 +103,15 @@ function _refined_dual_prices(workspace::SimplexWorkspace{Float64}, factor, B,
     end
 end
 
+function _dual_price_feasible(state::VariableState, price, tolerance)
+    if state == AT_LOWER
+        return price >= -tolerance
+    elseif state == AT_UPPER
+        return price <= tolerance
+    end
+    return abs(price) <= tolerance
+end
+
 function _try_refine_dual_prices!(workspace::SimplexWorkspace{Float64}, stop_requested)
     isempty(workspace.factorization.updates) || return false
     B = basis_matrix(workspace)
@@ -120,6 +129,9 @@ function _try_refine_dual_prices!(workspace::SimplexWorkspace{Float64}, stop_req
     tolerance = BigFloat(workspace.options.dual_tolerance)
     agreement = tolerance / 8
     states = workspace.basis.states
+    original_column_count = size(workspace.problem.A, 2)
+    restored = Int[]
+    adjusted_high = copy(high)
     for index in eachindex(low)
         index % 1024 == 0 && stop_requested() && return false
         isfinite(low[index]) && isfinite(high[index]) || return false
@@ -127,28 +139,46 @@ function _try_refine_dual_prices!(workspace::SimplexWorkspace{Float64}, stop_req
         state = states[index]
         state == BASIC && continue
         _is_fixed(workspace.lower[index], workspace.upper[index]) && continue
-        for price in (low[index], high[index])
-            if state == AT_LOWER
-                price >= -tolerance || return false
-            elseif state == AT_UPPER
-                price <= tolerance || return false
-            else
-                abs(price) <= tolerance || return false
+        if !_dual_price_feasible(state, low[index], tolerance) ||
+           !_dual_price_feasible(state, high[index], tolerance)
+            # A prior cost shift can become harmful after a bound flip.
+            # Release it only if both independent price calculations then
+            # regain dual feasibility with a margin.
+            workspace.perturbed || return false
+            original_cost = index <= original_column_count ?
+                workspace.problem.objective[index] : 0.0
+            original_cost == workspace.costs[index] && return false
+            delta = setprecision(BigFloat, 512) do
+                BigFloat(original_cost) - BigFloat(workspace.costs[index])
             end
+            setprecision(BigFloat, 512) do
+                _dual_price_feasible(state, low[index] + delta, agreement) &&
+                _dual_price_feasible(state, high[index] + delta, agreement)
+            end || return false
+            adjusted_high[index] = setprecision(BigFloat, 512) do
+                high[index] + delta
+            end
+            push!(restored, index)
         end
     end
 
-    replacement = Float64.(high)
+    replacement = Float64.(adjusted_high)
     all(isfinite, replacement) || return false
     replacement[workspace.basis.basic_indices] .= 0.0
     old_prices = copy(workspace.reduced_costs)
+    old_costs = workspace.costs[restored]
+    for index in restored
+        workspace.costs[index] = index <= original_column_count ?
+            workspace.problem.objective[index] : 0.0
+    end
     workspace.reduced_costs .= replacement
     if dual_infeasibility(workspace) > workspace.options.dual_tolerance
+        workspace.costs[restored] .= old_costs
         workspace.reduced_costs .= old_prices
         return false
     end
     try
-        @logmsg workspace.options.log_level "Refined reduced costs after dual feasibility loss" iterations=workspace.iterations
+        @logmsg workspace.options.log_level "Refined reduced costs after dual feasibility loss" iterations=workspace.iterations restored_costs=length(restored)
     catch exception
         stop_requested isa _StopCallback && (stop_requested.exception = exception)
         rethrow()

@@ -39,9 +39,12 @@ function load_snapshot()
     seen == length(workspace.basis.states) || error("wrong snapshot variable count: $seen")
     all(index -> index != 0, workspace.basis.basic_indices) || error("missing basis row")
     J._validate_basis(workspace)
+    cost_overrides = count(x -> !iszero(x), workspace.costs .- base_costs)
+    # The snapshot records working costs but not this workspace flag.
+    workspace.perturbed = cost_overrides > 0
     println("MODEL size=", size(problem.A), " nnz=", nnz(problem.A))
     println("SNAPSHOT variables=", length(workspace.basis.states),
-            " cost_overrides=", count(x -> x != 0, workspace.costs .- base_costs),
+            " cost_overrides=", cost_overrides,
             " dual_infeasibility=", J.dual_infeasibility_summary(workspace),
             " primal_infeasibility=", J.primal_infeasibility_summary(workspace),
             " iteration_metadata=not_saved")

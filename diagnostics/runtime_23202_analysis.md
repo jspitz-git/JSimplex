@@ -188,3 +188,36 @@ suite passes 13,613/13,613 tests. A local aarch64 continuation of the
 reduced `runtime.mps` reached the diagnostic cap of 30,000 iterations
 with zero dual infeasibility in 116.6 seconds; it did not solve the LP.
 The Windows path still needs a continuation run with this fix.
+
+## Harmful cost shift at iteration 26,421
+
+Commit `be27e3c` contains the next Windows continuation and its saved
+failure state. With the bound-flip fix, the solver passed iteration
+23,778, then stopped at iteration 26,421 with `dual feasibility lost`.
+The basis had just been refactorized (530 refactorizations, no pending
+updates). The only dual violation was structural variable 16,884 at
+its upper bound, with stored reduced cost `4.0277399193655583e-7`.
+Independent 256-bit and 512-bit calculations agree on a positive price
+of about `4.0277400195329477e-7`, so this is a real violation under
+the *working* costs rather than an inaccurate Float64 price.
+
+The saved working cost of that nonbasic variable is
+`4.027740303750042e-7`, while its original scaled cost is zero. The
+solver had perturbed costs. Restoring this one cost changes its reduced
+price to approximately `-2.84e-14`, within the `1e-7` dual tolerance;
+all other prices remain feasible. Replaying the saved Windows state
+locally confirms that the dual infeasibility falls from
+`(4.0277399193655583e-7, 1)` to `(0.0, 0)`.
+`diagnostics/runtime_snapshot_audit.jl` now reconstructs the
+perturbation flag from the saved working costs and reports
+`PRODUCTION_REFINE_ACCEPTED=true` on this state.
+
+The dual-price refinement path now releases an offending nonbasic cost
+shift only when the workspace is perturbed, the original cost differs,
+and independently refined prices at 256 and 512 bits both become
+feasible with a margin after release. If any price still violates the
+tolerance, the path leaves working costs and prices unchanged. A
+one-row regression exercises both release and rejection without any
+simplex pivots. The full test suite passes 13,622/13,622 tests. A
+Windows continuation with this change is still needed
+to see whether the reduced LP advances beyond iteration 26,421.
