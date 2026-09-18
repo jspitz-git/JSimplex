@@ -110,6 +110,27 @@ end
     @test workspace.refactorizations == 1
 end
 
+@testset "Small dual pivot checks the entering price before a cost shift" begin
+    for (coefficient, row_bound) in ((6.24213518e-7, :lower),
+                                     (-6.24213518e-7, :upper))
+        problem = LinearProblem(sparse([coefficient;;]), [-4.6096933e-11];
+            row_lower=[row_bound == :lower ? 1.0 : -Inf],
+            row_upper=[row_bound == :upper ? -1.0 : Inf])
+        workspace = JSimplex.initialize_workspace(problem, SolverOptions(verbose=false))
+        # A stored zero can hide a small adverse price. The resulting dual
+        # step is amplified by the near-cutoff pivot.
+        workspace.reduced_costs[1] = 0.0
+        @test isnothing(JSimplex.dual_iteration!(workspace, () -> false))
+        @test workspace.iterations == 1
+        @test workspace.perturbed
+        @test abs(workspace.costs[1]) < 1e-14
+        B = JSimplex.basis_matrix(workspace)
+        prices = JSimplex._refined_dual_prices(workspace, lu(B), B, 256, () -> false)
+        @test JSimplex._dual_price_feasible(workspace.basis.states[2], prices[2],
+                                           BigFloat(workspace.options.dual_tolerance))
+    end
+end
+
 @testset "Dual pivot refreshes before applying bound flips" begin
     problem = LinearProblem(sparse([-1.0 1.0]), [-1.0, 2.0];
                             row_lower=[2.0], column_upper=[1.0, Inf])

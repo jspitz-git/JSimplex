@@ -188,6 +188,64 @@ end
 
 _try_refine_dual_prices!(::SimplexWorkspace, stop_requested) = false
 
+# An entering price hidden by Float64 cancellation can become a much larger
+# infeasibility when divided by a small pivot. Check the price independently
+# before the basis changes and, for a backward Harris step, shift its working
+# cost only if binary64 can represent a sufficiently accurate correction.
+function _stabilize_small_dual_pivot!(workspace::SimplexWorkspace{Float64},
+                                       entering_index::Int, pivot::Float64,
+                                       delta::Float64, stop_requested)
+    abs(pivot) > 10 * _dual_pivot_cutoff(Float64) && return true
+    stop_requested() && return false
+    B = basis_matrix(workspace)
+    factor = try
+        lu(B)
+    catch exception
+        _is_numerical_exception(exception) || rethrow()
+        return false
+    end
+    low = _refined_dual_prices(workspace, factor, B, 256, stop_requested)
+    isnothing(low) && return false
+    high = _refined_dual_prices(workspace, factor, B, 512, stop_requested)
+    isnothing(high) && return false
+    tolerance = BigFloat(workspace.options.dual_tolerance)
+    margin = tolerance * abs(BigFloat(pivot)) / 8
+    for index in eachindex(low)
+        index % 1024 == 0 && stop_requested() && return false
+        isfinite(low[index]) && isfinite(high[index]) || return false
+        abs(low[index] - high[index]) <= tolerance / 8 || return false
+        state = workspace.basis.states[index]
+        (state == BASIC || _is_fixed(workspace.lower[index], workspace.upper[index])) &&
+            continue
+        _dual_price_feasible(state, low[index], tolerance) &&
+            _dual_price_feasible(state, high[index], tolerance) || return false
+    end
+    exact_price = high[entering_index]
+    abs(low[entering_index] - exact_price) <= margin || return false
+    stored_price = workspace.reduced_costs[entering_index]
+    abs(exact_price - BigFloat(stored_price)) <= margin && return true
+    abs(exact_price - BigFloat(stored_price)) <= tolerance || return false
+    if exact_price / BigFloat(pivot) * sign(delta) < 0
+        abs(exact_price) <= tolerance || return false
+        old_cost = workspace.costs[entering_index]
+        new_cost = Float64(BigFloat(old_cost) - exact_price)
+        isfinite(new_cost) || return false
+        residual_price = exact_price + BigFloat(new_cost) - BigFloat(old_cost)
+        abs(residual_price) <= margin || return false
+        workspace.costs[entering_index] = new_cost
+        workspace.reduced_costs[entering_index] = 0.0
+        workspace.perturbed = true
+    else
+        refined_price = Float64(exact_price)
+        isfinite(refined_price) || return false
+        workspace.reduced_costs[entering_index] = refined_price
+    end
+    return true
+end
+
+_stabilize_small_dual_pivot!(::SimplexWorkspace, ::Int, pivot, delta,
+                             stop_requested) = true
+
 function _dual_prices_feasible_or_refined!(workspace::SimplexWorkspace, stop_requested)
     dual_infeasibility(workspace) <= workspace.options.dual_tolerance && return true
     stop_requested() && return false
@@ -632,6 +690,11 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
         return _dual_iteration!(workspace, stop_requested, true)
     end
     abs(pivot) > workspace.options.zero_tolerance || throw(ZeroPivotException(leaving_row))
+    if !_stabilize_small_dual_pivot!(workspace, entering_index, pivot, delta,
+                                     stop_requested)
+        stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
+        return DualTermination(NUMERICAL_ERROR, "small pivot dual price could not be certified")
+    end
     # A refresh can retry the ratio test. Keep the proposed flips pending
     # until the entering direction has passed its numerical checks.
     _apply_bound_flips!(workspace, flips) || return _numerical_failure()

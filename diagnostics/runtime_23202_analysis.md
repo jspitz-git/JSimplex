@@ -320,3 +320,33 @@ The continuation diagnostic now checks every completed iteration from
 feasible state plus the first bad state. Its capture files from the
 older 29,690 window are disabled by default; the independent scan
 files provide the adjacent states needed for the pivot audit.
+
+Commit `06bb7d9` supplies the adjacent Windows states. The first
+independent violation occurs at iteration 29,652, earlier than the
+25-iteration scan found. Structural column 23,428 enters row 17,007
+and slack 56,220 leaves at its lower bound. The stored entering price
+is zero, but two independent refined solves on the preceding basis
+agree on `-4.60969331455323e-11`. The refined pivot is
+`-6.24213518020992e-7`; their ratio is `+7.38480212535e-5`. The
+leaving slack's independently calculated price after the pivot is
+`-7.38480212535e-5`, although its stored price remains zero. No
+working cost changed in that pivot. The tiny adverse entering price
+was therefore missed by the stored Float64 prices and amplified by
+the near-cutoff pivot. The same mechanism can affect any LP with an
+ill-conditioned basis and a small eligible pivot.
+
+The solver now independently checks dual prices before a small Float64
+pivot. If the true entering price implies a backward Harris step, it
+shifts the working cost only when the rounded correction leaves the
+predicted outgoing price comfortably inside tolerance. On the saved
+29,651 state, this changes the entering cost from
+`4.0047572029983377e-5` to `4.0047618126916525e-5`; the
+counterfactual post-pivot slack price is `+4.90394e-15`, and no other
+refined dual violations remain. The production change needs a fresh
+Windows continuation because the later pivot sequence can change.
+
+The complete local test suite passes (13,653 assertions). On local
+aarch64 Linux, the reduced continuation reached its 30,000-iteration
+diagnostic target in 239.7 seconds; all 354 independent price checks
+from iteration 29,647 through 30,000 found zero violations. This local
+path differs from Windows and does not replace the Windows test.
