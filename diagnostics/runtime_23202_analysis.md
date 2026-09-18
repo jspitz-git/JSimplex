@@ -223,3 +223,30 @@ and simultaneous shifts in a basis with a nonzero dual multiplier.
 The full suite at the time of the fix passed 13,622/13,622 tests. A
 Windows continuation with this change is still needed
 to see whether the reduced LP advances beyond iteration 26,421.
+
+## Next Windows loss at iteration 29,720
+
+Commit `2626ade` shows that the cost-release guard passed the former
+26,421 failure. The run then stopped at 29,720 with two stored Float64
+dual violations totaling `1.8132712296049078`; the basis had 597
+refactorizations and no pending updates. An independent 512-bit solve
+of the saved basis agrees with the 256-bit solve but identifies three
+*different* nonbasic variables at their lower bounds, with prices
+approximately `-1.98697`, `-1.50116`, and `-3.01881`. Thus the fresh
+Float64 LU prices are inaccurate and the saved basis is also genuinely
+dual infeasible under its current working costs.
+
+Those three variables have working costs essentially equal to their
+original costs. Restoring all original costs on this basis creates
+thousands of dual violations, so the previous cost-release rule does
+not apply. The available final-state snapshot cannot identify which
+preceding pivot or intermediate refactorization first lost dual
+feasibility. The solver correctly rejects this state instead of
+accepting inaccurate Float64 prices.
+
+The continuation diagnostic can now save the last two distinct
+iterations whose *stored* prices are feasible, using
+`RUNTIME_CAPTURE_START` and `RUNTIME_CAPTURE_END`. Alternating files
+`runtime_reduced_capture_a.tsv` and `runtime_reduced_capture_b.tsv`
+preserve their bases, states, costs, and prices for an independent
+before-and-after audit. This is diagnostic instrumentation only.

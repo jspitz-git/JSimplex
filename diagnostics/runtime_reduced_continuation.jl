@@ -152,9 +152,10 @@ function audit_dual_loss(workspace)
     flush(stdout)
 end
 
-function save_failure_snapshot(workspace)
-    path = get(ENV, "RUNTIME_SNAPSHOT_PATH",
-               joinpath(@__DIR__, "runtime_reduced_failure_state.tsv"))
+function save_failure_snapshot(workspace;
+                               path=get(ENV, "RUNTIME_SNAPSHOT_PATH",
+                                        joinpath(@__DIR__, "runtime_reduced_failure_state.tsv")),
+                               announce=true)
     basis_row = zeros(Int, length(workspace.basis.states))
     for (row, index) in enumerate(workspace.basis.basic_indices)
         basis_row[index] = row
@@ -169,8 +170,10 @@ function save_failure_snapshot(workspace)
                     repr(workspace.primal[index]))
         end
     end
-    println("FAILURE_SNAPSHOT path=", path, " variables=", length(basis_row))
-    flush(stdout)
+    if announce
+        println("FAILURE_SNAPSHOT path=", path, " variables=", length(basis_row))
+        flush(stdout)
+    end
 end
 
 function main()
@@ -201,6 +204,17 @@ function main()
     last_report = Ref(-1)
     trace_start = parse(Int, get(ENV, "RUNTIME_TRACE_START", "23750"))
     trace_end = parse(Int, get(ENV, "RUNTIME_TRACE_END", "23825"))
+    capture_start = parse(Int, get(ENV, "RUNTIME_CAPTURE_START", "0"))
+    capture_end = parse(Int, get(ENV, "RUNTIME_CAPTURE_END", string(capture_start + 50)))
+    capture_start == 0 || (0 < capture_start <= capture_end) ||
+        error("RUNTIME_CAPTURE_START and RUNTIME_CAPTURE_END must define a positive range")
+    capture_paths = (
+        get(ENV, "RUNTIME_CAPTURE_PATH_A", joinpath(@__DIR__, "runtime_reduced_capture_a.tsv")),
+        get(ENV, "RUNTIME_CAPTURE_PATH_B", joinpath(@__DIR__, "runtime_reduced_capture_b.tsv")),
+    )
+    capture_paths[1] != capture_paths[2] || error("capture paths must differ")
+    capture_count = Ref(0)
+    last_capture = Ref(-1)
     watched = parse(Int, get(ENV, "RUNTIME_WATCH_VARIABLE", "24212"))
     1 <= watched <= length(workspace.basis.states) ||
         error("RUNTIME_WATCH_VARIABLE is outside the working variable range")
@@ -208,6 +222,19 @@ function main()
     previous_basic = Ref{Union{Nothing,Vector{Int}}}(nothing)
     function stop()
         iteration = workspace.iterations
+        if capture_start > 0 && capture_start <= iteration <= capture_end &&
+           iteration != last_capture[] &&
+           J.dual_infeasibility(workspace) <= workspace.options.dual_tolerance
+            slot = mod1(capture_count[] + 1, 2)
+            save_failure_snapshot(workspace; path=capture_paths[slot], announce=false)
+            capture_count[] += 1
+            last_capture[] = iteration
+            println("STORED_FEASIBLE_SNAPSHOT iteration=", iteration,
+                    " path=", capture_paths[slot],
+                    " refactorizations=", workspace.refactorizations,
+                    " updates=", length(workspace.factorization.updates))
+            flush(stdout)
+        end
         if trace_start <= iteration <= trace_end && iteration != last_trace[]
             basic = workspace.basis.basic_indices
             changes = isnothing(previous_basic[]) ? Int[] :
