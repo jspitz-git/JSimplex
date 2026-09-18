@@ -74,3 +74,16 @@ optimality. The next audit extends the check through iteration 23,255.
 On aarch64, that extended script completed all 100 basis checks from
 23,156 through 23,255 with fresh LU success in 84.6 seconds; the local
 pivot sequence differs from the Windows sequence.
+
+Commit `7918dd5` contains the extended Windows audit. Fresh LU succeeded
+for all 100 checked bases through iteration 23,255, including the
+scheduled refactorization at iteration 23,252. It stopped at the audit
+cap after 157.7 seconds with no failed basis; this is not an LP
+termination result. The next check uses
+`diagnostics/runtime_reduced_continuation.jl` to continue the reduced LP
+to 30,000 pivots or a 600-second deadline without per-pivot fresh LU.
+On aarch64, that script reached the 30,000-pivot cap in 115.3 seconds
+with 600 refactorizations, zero dual infeasibility, and primal
+infeasibility `6.933145208769426e7` across 4,883 basic variables.
+The `TIME_LIMIT` status at the cap was requested by the diagnostic
+callback and is not an LP classification.
