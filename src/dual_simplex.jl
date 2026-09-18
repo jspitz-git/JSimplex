@@ -194,7 +194,8 @@ _try_refine_dual_prices!(::SimplexWorkspace, stop_requested) = false
 # cost only if binary64 can represent a sufficiently accurate correction.
 function _stabilize_small_dual_pivot!(workspace::SimplexWorkspace{Float64},
                                        entering_index::Int, pivot::Float64,
-                                       delta::Float64, stop_requested)
+                                       tableau_coefficient::Float64, delta::Float64,
+                                       stop_requested)
     abs(pivot) > 10 * _dual_pivot_cutoff(Float64) && return true
     stop_requested() && return false
     B = basis_matrix(workspace)
@@ -223,27 +224,29 @@ function _stabilize_small_dual_pivot!(workspace::SimplexWorkspace{Float64},
     exact_price = high[entering_index]
     abs(low[entering_index] - exact_price) <= margin || return false
     stored_price = workspace.reduced_costs[entering_index]
-    abs(exact_price - BigFloat(stored_price)) <= margin && return true
-    abs(exact_price - BigFloat(stored_price)) <= tolerance || return false
-    if exact_price / BigFloat(pivot) * sign(delta) < 0
-        abs(exact_price) <= tolerance || return false
-        old_cost = workspace.costs[entering_index]
-        new_cost = Float64(BigFloat(old_cost) - exact_price)
-        isfinite(new_cost) || return false
-        residual_price = exact_price + BigFloat(new_cost) - BigFloat(old_cost)
-        abs(residual_price) <= margin || return false
-        workspace.costs[entering_index] = new_cost
-        workspace.reduced_costs[entering_index] = 0.0
-        workspace.perturbed = true
-    else
-        refined_price = Float64(exact_price)
-        isfinite(refined_price) || return false
-        workspace.reduced_costs[entering_index] = refined_price
-    end
+    old_cost = workspace.costs[entering_index]
+    stored_step = stored_price / tableau_coefficient
+    isfinite(stored_step) || return false
+    # Mirror the existing backward-step shift, including its Float64 rounding,
+    # to check whether the outgoing variable would really violate tolerance.
+    predicted_cost = stored_step * sign(delta) < 0 ? old_cost - stored_price : old_cost
+    isfinite(predicted_cost) || return false
+    predicted_price = exact_price + BigFloat(predicted_cost) - BigFloat(old_cost)
+    predicted_step = predicted_price / BigFloat(pivot)
+    predicted_step * sign(delta) >= -tolerance && return true
+
+    abs(exact_price) <= tolerance || return false
+    new_cost = Float64(BigFloat(old_cost) - exact_price)
+    isfinite(new_cost) || return false
+    residual_price = exact_price + BigFloat(new_cost) - BigFloat(old_cost)
+    abs(residual_price) <= margin || return false
+    workspace.costs[entering_index] = new_cost
+    workspace.reduced_costs[entering_index] = 0.0
+    workspace.perturbed = true
     return true
 end
 
-_stabilize_small_dual_pivot!(::SimplexWorkspace, ::Int, pivot, delta,
+_stabilize_small_dual_pivot!(::SimplexWorkspace, ::Int, pivot, tableau_coefficient, delta,
                              stop_requested) = true
 
 function _dual_prices_feasible_or_refined!(workspace::SimplexWorkspace, stop_requested)
@@ -690,8 +693,8 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
         return _dual_iteration!(workspace, stop_requested, true)
     end
     abs(pivot) > workspace.options.zero_tolerance || throw(ZeroPivotException(leaving_row))
-    if !_stabilize_small_dual_pivot!(workspace, entering_index, pivot, delta,
-                                     stop_requested)
+    if !_stabilize_small_dual_pivot!(workspace, entering_index, pivot,
+                                     tableau_row[entering_index], delta, stop_requested)
         stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
         return DualTermination(NUMERICAL_ERROR, "small pivot dual price could not be certified")
     end

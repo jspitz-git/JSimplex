@@ -336,9 +336,9 @@ the near-cutoff pivot. The same mechanism can affect any LP with an
 ill-conditioned basis and a small eligible pivot.
 
 The solver now independently checks dual prices before a small Float64
-pivot. If the true entering price implies a backward Harris step, it
-shifts the working cost only when the rounded correction leaves the
-predicted outgoing price comfortably inside tolerance. On the saved
+pivot. If the predicted outgoing price would violate dual tolerance,
+it shifts the working cost only when the rounded correction leaves the
+outgoing price comfortably inside tolerance. On the saved
 29,651 state, this changes the entering cost from
 `4.0047572029983377e-5` to `4.0047618126916525e-5`; the
 counterfactual post-pivot slack price is `+4.90394e-15`, and no other
@@ -350,3 +350,23 @@ aarch64 Linux, the reduced continuation reached its 30,000-iteration
 diagnostic target in 239.7 seconds; all 354 independent price checks
 from iteration 29,647 through 30,000 found zero violations. This local
 path differs from Windows and does not replace the Windows test.
+
+Commit `817c9f2` contains the first Windows run with that guard. It
+stopped at iteration 23,425 with a singular basis, before the scan
+window starting at 29,647. Its checkpoint values first differ from
+the previous Windows run between iterations 17,500 and 18,000. The
+original guard adjusted even harmless entering prices whose amplified
+outgoing price was still within tolerance; a small one-row regression
+case reproduced this unnecessary perturbation. The guard now predicts
+the outgoing price after the existing Float64 cost shift and changes
+the working cost only if that price would exceed dual tolerance. A new
+Windows continuation is needed to assess whether this narrower rule
+preserves the earlier trajectory and passes iteration 29,652.
+The narrowed rule passes the complete local suite (13,656 assertions).
+The local reduced continuation again reached 30,000 iterations; all
+354 independent checks from 29,647 through 30,000 remained dual
+feasible.
+For the next Windows run, the diagnostic now keeps the last two
+snapshots from iterations 23,400–23,440 and audits any numerical-error
+termination. If the singularity recurs near 23,425, that run will
+retain both the preceding basis and the failed state.

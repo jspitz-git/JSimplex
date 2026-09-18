@@ -129,6 +129,16 @@ end
         @test JSimplex._dual_price_feasible(workspace.basis.states[2], prices[2],
                                            BigFloat(workspace.options.dual_tolerance))
     end
+
+    # A small backward price is already safe after amplification. Avoid an
+    # unnecessary working-cost change that can alter later pivot choices.
+    harmless = LinearProblem(sparse([6.24213518e-7;;]), [-4.0e-14];
+                             row_lower=[1.0])
+    workspace = JSimplex.initialize_workspace(harmless, SolverOptions(verbose=false))
+    workspace.reduced_costs[1] = 0.0
+    @test isnothing(JSimplex.dual_iteration!(workspace, () -> false))
+    @test !workspace.perturbed
+    @test workspace.costs[1] == harmless.objective[1]
 end
 
 @testset "Dual pivot refreshes before applying bound flips" begin

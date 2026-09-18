@@ -236,8 +236,8 @@ function main()
     last_report = Ref(-1)
     trace_start = parse(Int, get(ENV, "RUNTIME_TRACE_START", "29647"))
     trace_end = parse(Int, get(ENV, "RUNTIME_TRACE_END", "29675"))
-    capture_start = parse(Int, get(ENV, "RUNTIME_CAPTURE_START", "0"))
-    capture_end = parse(Int, get(ENV, "RUNTIME_CAPTURE_END", "0"))
+    capture_start = parse(Int, get(ENV, "RUNTIME_CAPTURE_START", "23400"))
+    capture_end = parse(Int, get(ENV, "RUNTIME_CAPTURE_END", "23440"))
     capture_start == 0 || (0 < capture_start <= capture_end) ||
         error("RUNTIME_CAPTURE_START and RUNTIME_CAPTURE_END must define a positive range")
     capture_paths = (
@@ -380,7 +380,7 @@ function main()
             " last_iteration=", last_capture[])
     println("SCAN_SUMMARY count=", scan_count[], " last_iteration=", last_scan[])
     flush(stdout)
-    if terminal.status == J.NUMERICAL_ERROR && terminal.message == "dual feasibility lost"
+    if terminal.status == J.NUMERICAL_ERROR
         save_failure_snapshot(workspace)
         audit_dual_loss(workspace)
     elseif get(ENV, "RUNTIME_AUDIT_AT_END", "0") == "1"
