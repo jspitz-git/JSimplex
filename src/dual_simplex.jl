@@ -1542,6 +1542,14 @@ function _solve_continuous_dual!(workspace::SimplexWorkspace{T}, stop_requested)
         stop_requested() && return _internal_solution(workspace, TIME_LIMIT, "time limit reached")
         _dual_prices_feasible_or_refined!(workspace, stop_requested)
     end
+    # Restoring the original costs keeps the basis primal feasible, but can
+    # expose an improving direction that was hidden by a working-cost shift.
+    if dual_infeasibility(workspace) > options.dual_tolerance &&
+       primal_infeasibility(workspace) <= options.primal_tolerance
+        options.verbose && @info "Starting primal cleanup after restoring original costs"
+        terminal = _primal_optimize!(workspace, stop_requested)
+        terminal.status == OPTIMAL || return _internal_solution(workspace, terminal)
+    end
     stop_requested() && return _internal_solution(workspace, TIME_LIMIT, "time limit reached")
     status = primal_infeasibility(workspace) <= options.primal_tolerance &&
              dual_infeasibility(workspace) <= options.dual_tolerance ? OPTIMAL : NUMERICAL_ERROR

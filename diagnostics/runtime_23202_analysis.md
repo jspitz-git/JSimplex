@@ -480,3 +480,29 @@ no numerical-error termination. It did not reach the requested
 directions were refined. The local path remains very expensive in this
 ill-conditioned interval; reaching later iterations would require a
 longer run or a different strategy for degeneracy.
+
+## Windows one-thread reduced optimum and original-cost cleanup
+
+The one-Julia-thread, one-BLAS-thread continuation in commit `8bab1ea`
+reached `OPTIMAL` on the presolved and scaled LP after 44,145 iterations
+and 345.8 seconds. That diagnostic ended immediately after the dual
+optimization loop, while the working objective still contained cost
+shifts. It did not restore original costs, postsolve the primal solution,
+or clean up the original LP.
+
+The public `solve` run in commit `730b947` followed the same reduced-LP
+path to iteration 44,145. After it restored the original objective,
+the basis was still primal feasible, but 11 reduced costs violated dual
+feasibility by a combined `1.2268584834946667e-6`. The solver reported
+`dual feasibility lost` and restarted from scratch on the original LP.
+That retry ended with a singular factorization at total iteration 52,043.
+There was no postsolve cleanup in this run because the reduced-LP result
+never passed its original-objective check.
+
+When restoring the original costs exposes a dual violation in a primal
+feasible basis, the solver now continues with primal simplex from that
+basis. It still certifies the result against the original objective and
+primal constraints before reporting `OPTIMAL`. Regression tests cover
+both signs of the cost shift and a weak-column case previously reported
+as a numerical error. The local full suite passes (13,689 assertions).
+The Windows `runtime.mps` result with this change remains untested.

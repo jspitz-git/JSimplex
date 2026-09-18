@@ -850,9 +850,35 @@ end
     @test workspace.costs[2] > 0.0
     @test weak_column.objective == [100.0, 0.0]
     run = JSimplex._solve_continuous_dual(weak_column, SolverOptions())
-    @test run.status == NUMERICAL_ERROR
-    @test isnothing(run.primal)
-    @test isnothing(run.objective_value)
+    @test run.status == OPTIMAL
+    @test run.primal == [0.0, 1.0e8]
+    @test run.objective_value == 0.0
+end
+
+@testset "Original costs are optimized from a perturbed primal-feasible basis" begin
+    for (original_cost, shifted_cost, starting_state, expected_x) in (
+        (-4.0e-7, 4.0e-7, JSimplex.AT_LOWER, 1.0),
+        (4.0e-7, -4.0e-7, JSimplex.AT_UPPER, 0.0),
+    )
+        problem = LinearProblem(sparse([1.0 1.0]), [original_cost, 0.0];
+                                row_lower=[1.0], row_upper=[1.0],
+                                column_upper=[1.0, 1.0])
+        workspace = JSimplex.initialize_workspace(problem, SolverOptions(verbose=false))
+        workspace.basis = JSimplex.Basis([2],
+            [starting_state, JSimplex.BASIC, JSimplex.AT_LOWER])
+        workspace.costs[1] = shifted_cost
+        workspace.perturbed = true
+        JSimplex.recompute!(workspace; refactorize=true)
+        @test JSimplex.primal_infeasibility(workspace) == 0.0
+        @test JSimplex.dual_infeasibility(workspace) == 0.0
+
+        run = JSimplex._solve_continuous_dual!(workspace, () -> false)
+        @test run.status == OPTIMAL
+        @test run.primal ≈ [expected_x, 1.0 - expected_x]
+        @test run.objective_value ≈ original_cost * expected_x
+        @test run.iterations == 1
+        @test !workspace.perturbed
+    end
 end
 
 @testset "Dual edge selection and full pricing" begin
