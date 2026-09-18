@@ -573,3 +573,38 @@ independent original-model primal and optimality checks passed before it
 returned this status. This run establishes success for the tested Windows
 configuration; it does not establish the behavior of a full run with
 `algorithm=:primal` or with other thread counts.
+
+## Why original-LP cleanup starts highly infeasible
+
+`diagnostics/runtime_postsolve_basis_audit.jl` replays the 21 inverse presolve
+steps from the Windows reduced-basis snapshot and recomputes each intermediate
+basis. Its complete output is in `diagnostics/runtime_postsolve_basis_audit.log`.
+The postsolved primal vector passes the original-model feasibility check.
+The restored basis gives the same initial cleanup metrics on local aarch64
+Linux as the Windows log: primal infeasibility `3,432,791.58` across 2,277
+basic variables and dual infeasibility `1,828,238.12` across 1,312 prices.
+
+The large primal jump occurs when inverse bound propagation releases bounds
+that were inferred from rows. Undoing step 13 first puts 13 nonbasic columns
+away from their bounds in the preceding model, with primal infeasibility
+`455.55`. Undoing step 6 brings that count to 329 and primal infeasibility
+to `3,414,159.95`. The later inverse steps raise it to `3,432,791.58`.
+`BoundPropagationStep.restore_basis` restores the old bound states, while
+`postsolve_primal` retains the numerical values at the tighter inferred
+bounds. Recomputing the basis therefore moves those nonbasic columns to the
+original, looser bounds and moves many basic variables with them. A diagnostic
+calculation that assigns just these 329 nonbasic columns their postsolved
+values makes the restored basis primal feasible and reproduces the postsolved
+structural vector within `1.4e-8`. That calculation changes workspace bounds
+only to isolate the cause; it is not an original-LP optimality certificate.
+
+Dual infeasibility appears when undoing the same reductions: `18,929.08`
+after step 13, `1,003,253.27` after step 6, and `1,828,238.12` after
+singleton-row restoration in step 2. Assigning the 329 postsolved nonbasic
+values leaves the final dual infeasibility unchanged. The original-LP dual
+cleanup must therefore repair its basis and prices as well as primal
+feasibility. The matching initial metrics on Windows and aarch64 Linux locate
+these jumps in the restored basis and changed bounds before cleanup pivots.
+Improving this start would require a basis that represents the inferred
+bounds through original rows, or another certified way to retain those bounds
+during cleanup.
