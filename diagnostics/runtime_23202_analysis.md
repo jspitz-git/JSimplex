@@ -633,11 +633,11 @@ numerically on this host.
 With the final production projection and primal tiny-pivot refresh, a direct
 continuation of the same saved snapshot on local aarch64 Linux with one BLAS
 thread returned certified `OPTIMAL` after 18,028 cleanup iterations (cumulative
-iteration 62,173) and 211.23 seconds. The reproducible command is
-`julia --project=. diagnostics/runtime_projection_continuation.jl /path/to/runtime.mps`;
-`diagnostics/runtime_projection_production_continuation.log` preserves the
-output. The earlier unprojected local run ended
-in `NUMERICAL_ERROR` after 17,949 cleanup iterations (cumulative iteration
+iteration 62,173) and 211.23 seconds. The one-arm output is preserved in
+`diagnostics/runtime_projection_production_continuation.log`; the updated
+`diagnostics/runtime_projection_continuation.jl` runs both variants from the
+same snapshot for a matched Windows comparison. The earlier unprojected local
+run ended in `NUMERICAL_ERROR` after 17,949 cleanup iterations (cumulative iteration
 62,094) and 192.68 seconds. These runs do not establish an iteration saving:
 the unprojected run did not finish, and the production solver changed between
 the experiments. The prior Windows run from the unprojected basis finished
