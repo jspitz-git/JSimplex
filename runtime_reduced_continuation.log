@@ -1,490 +1,123 @@
-START Julia=1.13.0 machine=x86_64-w64-mingw32 julia_threads=1 blas_threads=1 target=30000 time_limit=600.0 path=C:\Disk_D\tmp\runtime.mps
+START Julia=1.13.0 machine=x86_64-w64-mingw32 julia_threads=1 blas_threads=1 target=50000 time_limit=900.0 path=C:\Disk_D\tmp\runtime.mps
 MODEL size=(28453, 31615) nnz=211789
-DIAGNOSTIC_CONFIG source=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_continuation.jl trace=(29647, 29675) capture=(23400, 23440) scan=(29647, 1) watch=(46746, 16925) capture_paths=("C:\\Disk_D\\JSimplex.jl\\diagnostics\\runtime_reduced_capture_a.tsv", "C:\\Disk_D\\JSimplex.jl\\diagnostics\\runtime_reduced_capture_b.tsv") scan_paths=("C:\\Disk_D\\JSimplex.jl\\diagnostics\\runtime_reduced_scan_good.tsv", "C:\\Disk_D\\JSimplex.jl\\diagnostics\\runtime_reduced_scan_bad.tsv")
-CHECKPOINT iteration=500 refactorizations=10 updates=43 pinf=(53127.313054952145, 2942) dinf=(0.0, 0) elapsed_seconds=14.8604897
-CHECKPOINT iteration=1000 refactorizations=20 updates=43 pinf=(9.991581823887516e6, 3451) dinf=(0.0, 0) elapsed_seconds=16.4985878
-CHECKPOINT iteration=1500 refactorizations=30 updates=43 pinf=(1.054332219854371e6, 3754) dinf=(0.0, 0) elapsed_seconds=18.250686
-CHECKPOINT iteration=2000 refactorizations=40 updates=43 pinf=(1.2029990263641092e6, 3915) dinf=(0.0, 0) elapsed_seconds=20.149745
-CHECKPOINT iteration=2500 refactorizations=50 updates=43 pinf=(1.4480002838186747e6, 4055) dinf=(0.0, 0) elapsed_seconds=22.047099
-CHECKPOINT iteration=3000 refactorizations=61 updates=40 pinf=(1.8629214310284336e6, 4147) dinf=(0.0, 0) elapsed_seconds=24.6731348
-CHECKPOINT iteration=3500 refactorizations=71 updates=40 pinf=(3.429058332394725e6, 4299) dinf=(0.0, 0) elapsed_seconds=26.7327115
-CHECKPOINT iteration=4000 refactorizations=81 updates=40 pinf=(3.5692525041980413e6, 4377) dinf=(0.0, 0) elapsed_seconds=28.7964741
-CHECKPOINT iteration=4500 refactorizations=91 updates=40 pinf=(3.7180711719511077e6, 4521) dinf=(0.0, 0) elapsed_seconds=30.9468875
-CHECKPOINT iteration=5000 refactorizations=101 updates=40 pinf=(3.876550994340581e6, 4712) dinf=(0.0, 0) elapsed_seconds=33.189387
-CHECKPOINT iteration=5500 refactorizations=111 updates=40 pinf=(8.364319449987315e7, 4686) dinf=(0.0, 0) elapsed_seconds=35.4931892
-CHECKPOINT iteration=6000 refactorizations=121 updates=40 pinf=(1.406954554393363e7, 4735) dinf=(0.0, 0) elapsed_seconds=37.8753211
-CHECKPOINT iteration=6500 refactorizations=131 updates=40 pinf=(1.105738944498656e7, 4764) dinf=(0.0, 0) elapsed_seconds=40.2527617
-CHECKPOINT iteration=7000 refactorizations=141 updates=40 pinf=(1.0698332129960278e7, 4737) dinf=(0.0, 0) elapsed_seconds=42.6914989
-CHECKPOINT iteration=7500 refactorizations=151 updates=40 pinf=(1.1072339259340735e7, 4876) dinf=(0.0, 0) elapsed_seconds=45.1539831
-CHECKPOINT iteration=8000 refactorizations=161 updates=40 pinf=(8.914749921756582e6, 4972) dinf=(0.0, 0) elapsed_seconds=47.6114496
-CHECKPOINT iteration=8500 refactorizations=171 updates=40 pinf=(7.593584650479761e6, 5035) dinf=(0.0, 0) elapsed_seconds=50.2149039
-CHECKPOINT iteration=9000 refactorizations=181 updates=40 pinf=(3.0341745860711385e7, 5216) dinf=(0.0, 0) elapsed_seconds=52.8038758
-CHECKPOINT iteration=9500 refactorizations=191 updates=40 pinf=(1.8023563973172728e7, 5255) dinf=(0.0, 0) elapsed_seconds=55.5260603
-CHECKPOINT iteration=10000 refactorizations=201 updates=40 pinf=(3.3834870932965074e6, 5280) dinf=(0.0, 0) elapsed_seconds=58.3217887
-CHECKPOINT iteration=10500 refactorizations=211 updates=40 pinf=(5.01979494850633e6, 5425) dinf=(0.0, 0) elapsed_seconds=61.1262058
-CHECKPOINT iteration=11000 refactorizations=221 updates=40 pinf=(2.4992438564026598e7, 5505) dinf=(0.0, 0) elapsed_seconds=64.0302703
-CHECKPOINT iteration=11500 refactorizations=231 updates=40 pinf=(7.404425076987267e6, 5608) dinf=(0.0, 0) elapsed_seconds=66.866586
-CHECKPOINT iteration=12000 refactorizations=241 updates=40 pinf=(1.787445931588097e7, 5731) dinf=(0.0, 0) elapsed_seconds=70.0850566
-CHECKPOINT iteration=12500 refactorizations=251 updates=40 pinf=(3.6428812935887106e7, 5787) dinf=(0.0, 0) elapsed_seconds=73.311307
-CHECKPOINT iteration=13000 refactorizations=261 updates=40 pinf=(3.108306068329526e8, 5986) dinf=(0.0, 0) elapsed_seconds=76.341424
-CHECKPOINT iteration=13500 refactorizations=271 updates=40 pinf=(1.866876302124679e7, 5879) dinf=(0.0, 0) elapsed_seconds=79.7075746
-CHECKPOINT iteration=14000 refactorizations=281 updates=40 pinf=(1.395452455446189e8, 5899) dinf=(0.0, 0) elapsed_seconds=83.2286861
-CHECKPOINT iteration=14500 refactorizations=291 updates=40 pinf=(2.2078132582320136e8, 5962) dinf=(0.0, 0) elapsed_seconds=86.58218
-CHECKPOINT iteration=15000 refactorizations=301 updates=40 pinf=(2.615670223468935e7, 5849) dinf=(0.0, 0) elapsed_seconds=90.0919926
-CHECKPOINT iteration=15500 refactorizations=311 updates=40 pinf=(6.14562507557694e7, 5869) dinf=(0.0, 0) elapsed_seconds=93.863087
-CHECKPOINT iteration=16000 refactorizations=321 updates=40 pinf=(9.860578274317858e7, 5832) dinf=(0.0, 0) elapsed_seconds=97.2673418
-CHECKPOINT iteration=16500 refactorizations=331 updates=40 pinf=(6.247280703732244e7, 5883) dinf=(0.0, 0) elapsed_seconds=100.9803057
-CHECKPOINT iteration=17000 refactorizations=341 updates=40 pinf=(1.2383462871908482e7, 5570) dinf=(0.0, 0) elapsed_seconds=104.6090298
-CHECKPOINT iteration=17500 refactorizations=351 updates=40 pinf=(6.149261674606783e6, 5413) dinf=(0.0, 0) elapsed_seconds=108.1081582
-CHECKPOINT iteration=18000 refactorizations=361 updates=40 pinf=(3.6299148602867746e6, 5289) dinf=(0.0, 0) elapsed_seconds=111.851828
-CHECKPOINT iteration=18500 refactorizations=371 updates=40 pinf=(5.719753297347778e6, 5352) dinf=(0.0, 0) elapsed_seconds=115.5543198
-CHECKPOINT iteration=19000 refactorizations=381 updates=40 pinf=(2.349522121989862e7, 5447) dinf=(0.0, 0) elapsed_seconds=119.4648718
-CHECKPOINT iteration=19500 refactorizations=391 updates=40 pinf=(2.873823310242752e7, 5311) dinf=(0.0, 0) elapsed_seconds=123.1714878
-CHECKPOINT iteration=20000 refactorizations=401 updates=40 pinf=(1.1855776347594941e7, 5163) dinf=(0.0, 0) elapsed_seconds=126.9018783
-CHECKPOINT iteration=20500 refactorizations=411 updates=40 pinf=(4.216666319830234e7, 5415) dinf=(0.0, 0) elapsed_seconds=130.7063811
-CHECKPOINT iteration=21000 refactorizations=421 updates=40 pinf=(1.0493980478091453e8, 5372) dinf=(0.0, 0) elapsed_seconds=134.7315405
-CHECKPOINT iteration=21500 refactorizations=431 updates=40 pinf=(1.4135062287821162e8, 5424) dinf=(0.0, 0) elapsed_seconds=138.7127575
-CHECKPOINT iteration=22000 refactorizations=441 updates=40 pinf=(1.0854609700319765e7, 5373) dinf=(0.0, 0) elapsed_seconds=142.9841843
-CHECKPOINT iteration=22500 refactorizations=451 updates=40 pinf=(4.0171807769095205e7, 5112) dinf=(0.0, 0) elapsed_seconds=147.1619378
-CHECKPOINT iteration=23000 refactorizations=461 updates=40 pinf=(5.4537393637280464e7, 5179) dinf=(0.0, 0) elapsed_seconds=151.1414146
-STORED_FEASIBLE_SNAPSHOT iteration=23400 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_a.tsv refactorizations=469 updates=40
-STORED_FEASIBLE_SNAPSHOT iteration=23401 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_b.tsv refactorizations=469 updates=41
-STORED_FEASIBLE_SNAPSHOT iteration=23402 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_a.tsv refactorizations=469 updates=42
-STORED_FEASIBLE_SNAPSHOT iteration=23403 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_b.tsv refactorizations=469 updates=43
-STORED_FEASIBLE_SNAPSHOT iteration=23404 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_a.tsv refactorizations=469 updates=44
-STORED_FEASIBLE_SNAPSHOT iteration=23405 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_b.tsv refactorizations=469 updates=45
-STORED_FEASIBLE_SNAPSHOT iteration=23406 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_a.tsv refactorizations=469 updates=46
-STORED_FEASIBLE_SNAPSHOT iteration=23407 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_b.tsv refactorizations=469 updates=47
-STORED_FEASIBLE_SNAPSHOT iteration=23408 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_a.tsv refactorizations=469 updates=48
-STORED_FEASIBLE_SNAPSHOT iteration=23409 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_b.tsv refactorizations=469 updates=49
-STORED_FEASIBLE_SNAPSHOT iteration=23410 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_a.tsv refactorizations=469 updates=50
-STORED_FEASIBLE_SNAPSHOT iteration=23411 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_b.tsv refactorizations=470 updates=1
-STORED_FEASIBLE_SNAPSHOT iteration=23412 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_a.tsv refactorizations=470 updates=2
-STORED_FEASIBLE_SNAPSHOT iteration=23413 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_b.tsv refactorizations=470 updates=3
-STORED_FEASIBLE_SNAPSHOT iteration=23414 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_a.tsv refactorizations=470 updates=4
-STORED_FEASIBLE_SNAPSHOT iteration=23415 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_b.tsv refactorizations=470 updates=5
-STORED_FEASIBLE_SNAPSHOT iteration=23416 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_a.tsv refactorizations=470 updates=6
-STORED_FEASIBLE_SNAPSHOT iteration=23417 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_b.tsv refactorizations=470 updates=7
-STORED_FEASIBLE_SNAPSHOT iteration=23418 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_a.tsv refactorizations=470 updates=8
-STORED_FEASIBLE_SNAPSHOT iteration=23419 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_b.tsv refactorizations=470 updates=9
-STORED_FEASIBLE_SNAPSHOT iteration=23420 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_a.tsv refactorizations=470 updates=10
-STORED_FEASIBLE_SNAPSHOT iteration=23421 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_b.tsv refactorizations=470 updates=11
-STORED_FEASIBLE_SNAPSHOT iteration=23422 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_a.tsv refactorizations=470 updates=12
-STORED_FEASIBLE_SNAPSHOT iteration=23423 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_b.tsv refactorizations=470 updates=13
-STORED_FEASIBLE_SNAPSHOT iteration=23424 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_a.tsv refactorizations=470 updates=14
-STORED_FEASIBLE_SNAPSHOT iteration=23425 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_b.tsv refactorizations=470 updates=15
-STORED_FEASIBLE_SNAPSHOT iteration=23426 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_a.tsv refactorizations=470 updates=16
-STORED_FEASIBLE_SNAPSHOT iteration=23427 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_b.tsv refactorizations=470 updates=17
-STORED_FEASIBLE_SNAPSHOT iteration=23428 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_a.tsv refactorizations=470 updates=18
-STORED_FEASIBLE_SNAPSHOT iteration=23429 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_b.tsv refactorizations=470 updates=19
-STORED_FEASIBLE_SNAPSHOT iteration=23430 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_a.tsv refactorizations=470 updates=20
-STORED_FEASIBLE_SNAPSHOT iteration=23431 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_b.tsv refactorizations=470 updates=21
-STORED_FEASIBLE_SNAPSHOT iteration=23432 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_a.tsv refactorizations=470 updates=22
-STORED_FEASIBLE_SNAPSHOT iteration=23433 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_b.tsv refactorizations=470 updates=23
-STORED_FEASIBLE_SNAPSHOT iteration=23434 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_a.tsv refactorizations=470 updates=24
-STORED_FEASIBLE_SNAPSHOT iteration=23435 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_b.tsv refactorizations=470 updates=25
-STORED_FEASIBLE_SNAPSHOT iteration=23436 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_a.tsv refactorizations=470 updates=26
-STORED_FEASIBLE_SNAPSHOT iteration=23437 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_b.tsv refactorizations=470 updates=27
-STORED_FEASIBLE_SNAPSHOT iteration=23438 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_a.tsv refactorizations=470 updates=28
-STORED_FEASIBLE_SNAPSHOT iteration=23439 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_b.tsv refactorizations=470 updates=29
-STORED_FEASIBLE_SNAPSHOT iteration=23440 path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_capture_a.tsv refactorizations=470 updates=30
-CHECKPOINT iteration=23500 refactorizations=471 updates=40 pinf=(7.064275047000974e7, 4999) dinf=(0.0, 0) elapsed_seconds=157.8545706
-CHECKPOINT iteration=24000 refactorizations=481 updates=40 pinf=(2.5651621637051192e8, 5222) dinf=(0.0, 0) elapsed_seconds=162.2548735
-CHECKPOINT iteration=24500 refactorizations=491 updates=40 pinf=(1.1415599197925228e8, 5274) dinf=(0.0, 0) elapsed_seconds=166.6166642
-CHECKPOINT iteration=25000 refactorizations=502 updates=31 pinf=(5.0777787656221956e7, 5066) dinf=(0.0, 0) elapsed_seconds=170.9173307
-CHECKPOINT iteration=25500 refactorizations=512 updates=31 pinf=(4.3731736130918786e7, 5080) dinf=(0.0, 0) elapsed_seconds=175.329922
-CHECKPOINT iteration=26000 refactorizations=522 updates=31 pinf=(5.6730315819829784e7, 4908) dinf=(0.0, 0) elapsed_seconds=179.6091051
-CHECKPOINT iteration=26500 refactorizations=532 updates=31 pinf=(4.258775509498742e7, 4770) dinf=(0.0, 0) elapsed_seconds=183.9828971
-CHECKPOINT iteration=27000 refactorizations=542 updates=31 pinf=(3.457246676366522e8, 4769) dinf=(0.0, 0) elapsed_seconds=188.6309313
-CHECKPOINT iteration=27500 refactorizations=552 updates=31 pinf=(3.425100039798416e7, 4674) dinf=(0.0, 0) elapsed_seconds=193.2931954
-CHECKPOINT iteration=28000 refactorizations=562 updates=31 pinf=(2.357393646467254e7, 4762) dinf=(0.0, 0) elapsed_seconds=198.2638266
-CHECKPOINT iteration=28500 refactorizations=572 updates=42 pinf=(1.949571933443232e8, 4629) dinf=(0.0, 0) elapsed_seconds=203.0922159
-CHECKPOINT iteration=29000 refactorizations=582 updates=42 pinf=(1.6846624585194603e7, 4434) dinf=(0.0, 0) elapsed_seconds=207.9290035
-CHECKPOINT iteration=29500 refactorizations=592 updates=42 pinf=(2.1529629695932597e7, 4545) dinf=(0.0, 0) elapsed_seconds=212.7901548
-INDEPENDENT_SCAN iteration=29647 refactorizations=595 updates=39 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
+DIAGNOSTIC_CONFIG source=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_continuation.jl trace=(29647, 29675) capture=(0, 23440) scan=(0, 1) watch=(46746, 16925) capture_paths=("C:\\Disk_D\\JSimplex.jl\\diagnostics\\runtime_reduced_capture_a.tsv", "C:\\Disk_D\\JSimplex.jl\\diagnostics\\runtime_reduced_capture_b.tsv") scan_paths=("C:\\Disk_D\\JSimplex.jl\\diagnostics\\runtime_reduced_scan_good.tsv", "C:\\Disk_D\\JSimplex.jl\\diagnostics\\runtime_reduced_scan_bad.tsv")
+CHECKPOINT iteration=500 refactorizations=10 updates=43 pinf=(53127.313054952145, 2942) dinf=(0.0, 0) elapsed_seconds=14.5957868
+CHECKPOINT iteration=1000 refactorizations=20 updates=43 pinf=(9.991581823887516e6, 3451) dinf=(0.0, 0) elapsed_seconds=16.200228
+CHECKPOINT iteration=1500 refactorizations=30 updates=43 pinf=(1.054332219854371e6, 3754) dinf=(0.0, 0) elapsed_seconds=17.862158
+CHECKPOINT iteration=2000 refactorizations=40 updates=43 pinf=(1.2029990263641092e6, 3915) dinf=(0.0, 0) elapsed_seconds=19.5670233
+CHECKPOINT iteration=2500 refactorizations=50 updates=43 pinf=(1.4480002838186747e6, 4055) dinf=(0.0, 0) elapsed_seconds=21.5095365
+CHECKPOINT iteration=3000 refactorizations=61 updates=40 pinf=(1.8629214310284336e6, 4147) dinf=(0.0, 0) elapsed_seconds=24.1009981
+CHECKPOINT iteration=3500 refactorizations=71 updates=40 pinf=(3.429058332394725e6, 4299) dinf=(0.0, 0) elapsed_seconds=26.1598375
+CHECKPOINT iteration=4000 refactorizations=81 updates=40 pinf=(3.5692525041980413e6, 4377) dinf=(0.0, 0) elapsed_seconds=28.1831614
+CHECKPOINT iteration=4500 refactorizations=91 updates=40 pinf=(3.7180711719511077e6, 4521) dinf=(0.0, 0) elapsed_seconds=30.2530277
+CHECKPOINT iteration=5000 refactorizations=101 updates=40 pinf=(3.876550994340581e6, 4712) dinf=(0.0, 0) elapsed_seconds=32.5219047
+CHECKPOINT iteration=5500 refactorizations=111 updates=40 pinf=(8.364319449987315e7, 4686) dinf=(0.0, 0) elapsed_seconds=34.8117281
+CHECKPOINT iteration=6000 refactorizations=121 updates=40 pinf=(1.406954554393363e7, 4735) dinf=(0.0, 0) elapsed_seconds=37.0610893
+CHECKPOINT iteration=6500 refactorizations=131 updates=40 pinf=(1.105738944498656e7, 4764) dinf=(0.0, 0) elapsed_seconds=39.3996977
+CHECKPOINT iteration=7000 refactorizations=141 updates=40 pinf=(1.0698332129960278e7, 4737) dinf=(0.0, 0) elapsed_seconds=41.7867943
+CHECKPOINT iteration=7500 refactorizations=151 updates=40 pinf=(1.1072339259340735e7, 4876) dinf=(0.0, 0) elapsed_seconds=44.2833397
+CHECKPOINT iteration=8000 refactorizations=161 updates=40 pinf=(8.914749921756582e6, 4972) dinf=(0.0, 0) elapsed_seconds=46.7464992
+CHECKPOINT iteration=8500 refactorizations=171 updates=40 pinf=(7.593584650479761e6, 5035) dinf=(0.0, 0) elapsed_seconds=49.2664344
+CHECKPOINT iteration=9000 refactorizations=181 updates=40 pinf=(3.0341745860711385e7, 5216) dinf=(0.0, 0) elapsed_seconds=51.8076756
+CHECKPOINT iteration=9500 refactorizations=191 updates=40 pinf=(1.8023563973172728e7, 5255) dinf=(0.0, 0) elapsed_seconds=54.5264092
+CHECKPOINT iteration=10000 refactorizations=201 updates=40 pinf=(3.3834870932965074e6, 5280) dinf=(0.0, 0) elapsed_seconds=57.2635757
+CHECKPOINT iteration=10500 refactorizations=211 updates=40 pinf=(5.01979494850633e6, 5425) dinf=(0.0, 0) elapsed_seconds=60.0888228
+CHECKPOINT iteration=11000 refactorizations=221 updates=40 pinf=(2.4992438564026598e7, 5505) dinf=(0.0, 0) elapsed_seconds=62.9584689
+CHECKPOINT iteration=11500 refactorizations=231 updates=40 pinf=(7.404425076987267e6, 5608) dinf=(0.0, 0) elapsed_seconds=65.8400975
+CHECKPOINT iteration=12000 refactorizations=241 updates=40 pinf=(1.787445931588097e7, 5731) dinf=(0.0, 0) elapsed_seconds=69.0226724
+CHECKPOINT iteration=12500 refactorizations=251 updates=40 pinf=(3.6428812935887106e7, 5787) dinf=(0.0, 0) elapsed_seconds=72.1987699
+CHECKPOINT iteration=13000 refactorizations=261 updates=40 pinf=(3.108306068329526e8, 5986) dinf=(0.0, 0) elapsed_seconds=75.2632511
+CHECKPOINT iteration=13500 refactorizations=271 updates=40 pinf=(1.866876302124679e7, 5879) dinf=(0.0, 0) elapsed_seconds=78.613078
+CHECKPOINT iteration=14000 refactorizations=281 updates=40 pinf=(1.395452455446189e8, 5899) dinf=(0.0, 0) elapsed_seconds=81.9945141
+CHECKPOINT iteration=14500 refactorizations=291 updates=40 pinf=(2.2078132582320136e8, 5962) dinf=(0.0, 0) elapsed_seconds=85.3203058
+CHECKPOINT iteration=15000 refactorizations=301 updates=40 pinf=(2.615670223468935e7, 5849) dinf=(0.0, 0) elapsed_seconds=88.8071638
+CHECKPOINT iteration=15500 refactorizations=311 updates=40 pinf=(6.14562507557694e7, 5869) dinf=(0.0, 0) elapsed_seconds=92.5487551
+CHECKPOINT iteration=16000 refactorizations=321 updates=40 pinf=(9.860578274317858e7, 5832) dinf=(0.0, 0) elapsed_seconds=95.90193
+CHECKPOINT iteration=16500 refactorizations=331 updates=40 pinf=(6.247280703732244e7, 5883) dinf=(0.0, 0) elapsed_seconds=99.6632297
+CHECKPOINT iteration=17000 refactorizations=341 updates=40 pinf=(1.2383462871908482e7, 5570) dinf=(0.0, 0) elapsed_seconds=103.1232129
+CHECKPOINT iteration=17500 refactorizations=351 updates=40 pinf=(6.149261674606783e6, 5413) dinf=(0.0, 0) elapsed_seconds=106.6169414
+CHECKPOINT iteration=18000 refactorizations=361 updates=40 pinf=(3.6299148602867746e6, 5289) dinf=(0.0, 0) elapsed_seconds=110.5238487
+CHECKPOINT iteration=18500 refactorizations=371 updates=40 pinf=(5.719753297347778e6, 5352) dinf=(0.0, 0) elapsed_seconds=114.1165861
+CHECKPOINT iteration=19000 refactorizations=381 updates=40 pinf=(2.349522121989862e7, 5447) dinf=(0.0, 0) elapsed_seconds=118.09616
+CHECKPOINT iteration=19500 refactorizations=391 updates=40 pinf=(2.873823310242752e7, 5311) dinf=(0.0, 0) elapsed_seconds=121.7059431
+CHECKPOINT iteration=20000 refactorizations=401 updates=40 pinf=(1.1855776347594941e7, 5163) dinf=(0.0, 0) elapsed_seconds=125.4454738
+CHECKPOINT iteration=20500 refactorizations=411 updates=40 pinf=(4.216666319830234e7, 5415) dinf=(0.0, 0) elapsed_seconds=129.2573246
+CHECKPOINT iteration=21000 refactorizations=421 updates=40 pinf=(1.0493980478091453e8, 5372) dinf=(0.0, 0) elapsed_seconds=133.3142287
+CHECKPOINT iteration=21500 refactorizations=431 updates=40 pinf=(1.4135062287821162e8, 5424) dinf=(0.0, 0) elapsed_seconds=137.2473026
+CHECKPOINT iteration=22000 refactorizations=441 updates=40 pinf=(1.0854609700319765e7, 5373) dinf=(0.0, 0) elapsed_seconds=141.7191234
+CHECKPOINT iteration=22500 refactorizations=451 updates=40 pinf=(4.0171807769095205e7, 5112) dinf=(0.0, 0) elapsed_seconds=145.9719463
+CHECKPOINT iteration=23000 refactorizations=461 updates=40 pinf=(5.4537393637280464e7, 5179) dinf=(0.0, 0) elapsed_seconds=150.1326928
+CHECKPOINT iteration=23500 refactorizations=471 updates=40 pinf=(7.064275047000974e7, 4999) dinf=(0.0, 0) elapsed_seconds=153.9987953
+CHECKPOINT iteration=24000 refactorizations=481 updates=40 pinf=(2.5651621637051192e8, 5222) dinf=(0.0, 0) elapsed_seconds=158.1775351
+CHECKPOINT iteration=24500 refactorizations=491 updates=40 pinf=(1.1415599197925228e8, 5274) dinf=(0.0, 0) elapsed_seconds=162.5663935
+CHECKPOINT iteration=25000 refactorizations=502 updates=31 pinf=(5.0777787656221956e7, 5066) dinf=(0.0, 0) elapsed_seconds=166.877944
+CHECKPOINT iteration=25500 refactorizations=512 updates=31 pinf=(4.3731736130918786e7, 5080) dinf=(0.0, 0) elapsed_seconds=171.2275331
+CHECKPOINT iteration=26000 refactorizations=522 updates=31 pinf=(5.6730315819829784e7, 4908) dinf=(0.0, 0) elapsed_seconds=175.6370595
+CHECKPOINT iteration=26500 refactorizations=532 updates=31 pinf=(4.258775509498742e7, 4770) dinf=(0.0, 0) elapsed_seconds=179.8277705
+CHECKPOINT iteration=27000 refactorizations=542 updates=31 pinf=(3.457246676366522e8, 4769) dinf=(0.0, 0) elapsed_seconds=184.4177517
+CHECKPOINT iteration=27500 refactorizations=552 updates=31 pinf=(3.425100039798416e7, 4674) dinf=(0.0, 0) elapsed_seconds=189.124244
+CHECKPOINT iteration=28000 refactorizations=562 updates=31 pinf=(2.357393646467254e7, 4762) dinf=(0.0, 0) elapsed_seconds=193.9245415
+CHECKPOINT iteration=28500 refactorizations=572 updates=42 pinf=(1.949571933443232e8, 4629) dinf=(0.0, 0) elapsed_seconds=198.79753
+CHECKPOINT iteration=29000 refactorizations=582 updates=42 pinf=(1.6846624585194603e7, 4434) dinf=(0.0, 0) elapsed_seconds=203.5328457
+CHECKPOINT iteration=29500 refactorizations=592 updates=42 pinf=(2.1529629695932597e7, 4545) dinf=(0.0, 0) elapsed_seconds=208.3741173
 TRACE iteration=29647 refactorizations=595 updates=39 pivot=Int64[] dinf=(0.0, 0) watch_index=46746 watch_state=BASIC watch_rc=0.0 watch_cost=0.0 watch_primal=0.0126 watch2_index=16925 watch2_state=BASIC watch2_rc=0.0 watch2_cost=3.997083632743984e-11 watch2_primal=0.9022960876998241 perturbed=true
-INDEPENDENT_SCAN iteration=29648 refactorizations=595 updates=40 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
 TRACE iteration=29648 refactorizations=595 updates=40 pivot=(5704, 12848, 21732) dinf=(0.0, 0) watch_index=46746 watch_state=BASIC watch_rc=0.0 watch_cost=0.0 watch_primal=0.0126 watch2_index=16925 watch2_state=BASIC watch2_rc=0.0 watch2_cost=3.997083632743984e-11 watch2_primal=0.9022960876998241 perturbed=true
-INDEPENDENT_SCAN iteration=29649 refactorizations=595 updates=41 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
 TRACE iteration=29649 refactorizations=595 updates=41 pivot=(15054, 46669, 21049) dinf=(0.0, 0) watch_index=46746 watch_state=BASIC watch_rc=0.0 watch_cost=0.0 watch_primal=0.0126 watch2_index=16925 watch2_state=BASIC watch2_rc=0.0 watch2_cost=3.997083632743984e-11 watch2_primal=0.9022960876998241 perturbed=true
-INDEPENDENT_SCAN iteration=29650 refactorizations=595 updates=42 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
 TRACE iteration=29650 refactorizations=595 updates=42 pivot=(11539, 21050, 21820) dinf=(0.0, 0) watch_index=46746 watch_state=BASIC watch_rc=0.0 watch_cost=0.0 watch_primal=0.0126 watch2_index=16925 watch2_state=BASIC watch2_rc=0.0 watch2_cost=3.997083632743984e-11 watch2_primal=0.9022960876998241 perturbed=true
-INDEPENDENT_SCAN iteration=29651 refactorizations=595 updates=43 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
 TRACE iteration=29651 refactorizations=595 updates=43 pivot=(14757, 46691, 12426) dinf=(0.0, 0) watch_index=46746 watch_state=BASIC watch_rc=0.0 watch_cost=0.0 watch_primal=0.0126 watch2_index=16925 watch2_state=BASIC watch2_rc=0.0 watch2_cost=3.997083632743984e-11 watch2_primal=0.9022960876998241 perturbed=true
-INDEPENDENT_SCAN iteration=29652 refactorizations=595 updates=44 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
 TRACE iteration=29652 refactorizations=595 updates=44 pivot=(20038, 12665, 13090) dinf=(0.0, 0) watch_index=46746 watch_state=BASIC watch_rc=0.0 watch_cost=0.0 watch_primal=0.0126 watch2_index=16925 watch2_state=BASIC watch2_rc=0.0 watch2_cost=3.997083632743984e-11 watch2_primal=0.9022960876998241 perturbed=true
-INDEPENDENT_SCAN iteration=29653 refactorizations=595 updates=45 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
 TRACE iteration=29653 refactorizations=595 updates=45 pivot=(9787, 13250, 12778) dinf=(0.0, 0) watch_index=46746 watch_state=BASIC watch_rc=0.0 watch_cost=0.0 watch_primal=0.0126 watch2_index=16925 watch2_state=BASIC watch2_rc=0.0 watch2_cost=3.997083632743984e-11 watch2_primal=0.9022960876998241 perturbed=true
-INDEPENDENT_SCAN iteration=29654 refactorizations=595 updates=46 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
 TRACE iteration=29654 refactorizations=595 updates=46 pivot=(24536, 12776, 44358) dinf=(0.0, 0) watch_index=46746 watch_state=BASIC watch_rc=0.0 watch_cost=0.0 watch_primal=0.0126 watch2_index=16925 watch2_state=BASIC watch2_rc=0.0 watch2_cost=3.997083632743984e-11 watch2_primal=0.9022960876998241 perturbed=true
-INDEPENDENT_SCAN iteration=29655 refactorizations=595 updates=47 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
 TRACE iteration=29655 refactorizations=595 updates=47 pivot=(15446, 12664, 12623) dinf=(0.0, 0) watch_index=46746 watch_state=BASIC watch_rc=0.0 watch_cost=0.0 watch_primal=0.0126 watch2_index=16925 watch2_state=BASIC watch2_rc=0.0 watch2_cost=3.997083632743984e-11 watch2_primal=0.9022960876998241 perturbed=true
-INDEPENDENT_SCAN iteration=29656 refactorizations=595 updates=48 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
 TRACE iteration=29656 refactorizations=595 updates=48 pivot=(5618, 44334, 18411) dinf=(0.0, 0) watch_index=46746 watch_state=BASIC watch_rc=0.0 watch_cost=0.0 watch_primal=0.0126 watch2_index=16925 watch2_state=BASIC watch2_rc=0.0 watch2_cost=3.997083632743984e-11 watch2_primal=0.9022960876998241 perturbed=true
-INDEPENDENT_SCAN iteration=29657 refactorizations=595 updates=49 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
 TRACE iteration=29657 refactorizations=595 updates=49 pivot=(18506, 12777, 50130) dinf=(0.0, 0) watch_index=46746 watch_state=BASIC watch_rc=0.0 watch_cost=0.0 watch_primal=0.0126 watch2_index=16925 watch2_state=BASIC watch2_rc=0.0 watch2_cost=3.997083632743984e-11 watch2_primal=0.9022960876998241 perturbed=true
-INDEPENDENT_SCAN iteration=29658 refactorizations=595 updates=50 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
 TRACE iteration=29658 refactorizations=595 updates=50 pivot=(3393, 19686, 57759) dinf=(0.0, 0) watch_index=46746 watch_state=BASIC watch_rc=0.0 watch_cost=0.0 watch_primal=0.0126 watch2_index=16925 watch2_state=BASIC watch2_rc=0.0 watch2_cost=3.997083632743984e-11 watch2_primal=0.9022960876998241 perturbed=true
-INDEPENDENT_SCAN iteration=29659 refactorizations=596 updates=1 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
 TRACE iteration=29659 refactorizations=596 updates=1 pivot=(2041, 13976, 14017) dinf=(0.0, 0) watch_index=46746 watch_state=BASIC watch_rc=0.0 watch_cost=0.0 watch_primal=0.0126 watch2_index=16925 watch2_state=BASIC watch2_rc=0.0 watch2_cost=3.997083632743984e-11 watch2_primal=0.9022960877000514 perturbed=true
-INDEPENDENT_SCAN iteration=29660 refactorizations=596 updates=2 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
 TRACE iteration=29660 refactorizations=596 updates=2 pivot=(5936, 14016, 13957) dinf=(0.0, 0) watch_index=46746 watch_state=BASIC watch_rc=0.0 watch_cost=0.0 watch_primal=0.0126 watch2_index=16925 watch2_state=BASIC watch2_rc=0.0 watch2_cost=3.997083632743984e-11 watch2_primal=0.9022960877000514 perturbed=true
-INDEPENDENT_SCAN iteration=29661 refactorizations=596 updates=3 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
 TRACE iteration=29661 refactorizations=596 updates=3 pivot=(15714, 13956, 23919) dinf=(0.0, 0) watch_index=46746 watch_state=BASIC watch_rc=0.0 watch_cost=0.0 watch_primal=0.0126 watch2_index=16925 watch2_state=BASIC watch2_rc=0.0 watch2_cost=3.997083632743984e-11 watch2_primal=0.9022960877000514 perturbed=true
-INDEPENDENT_SCAN iteration=29662 refactorizations=596 updates=4 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
 TRACE iteration=29662 refactorizations=596 updates=4 pivot=(23603, 44731, 44387) dinf=(0.0, 0) watch_index=46746 watch_state=BASIC watch_rc=0.0 watch_cost=0.0 watch_primal=0.0126 watch2_index=16925 watch2_state=BASIC watch2_rc=0.0 watch2_cost=3.997083632743984e-11 watch2_primal=0.9022960877000514 perturbed=true
-INDEPENDENT_SCAN iteration=29663 refactorizations=596 updates=5 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
 TRACE iteration=29663 refactorizations=596 updates=5 pivot=(16635, 44733, 14016) dinf=(0.0, 0) watch_index=46746 watch_state=BASIC watch_rc=0.0 watch_cost=0.0 watch_primal=0.0126 watch2_index=16925 watch2_state=BASIC watch2_rc=0.0 watch2_cost=3.997083632743984e-11 watch2_primal=0.9022960877000514 perturbed=true
-INDEPENDENT_SCAN iteration=29664 refactorizations=596 updates=6 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
 TRACE iteration=29664 refactorizations=596 updates=6 pivot=(2041, 14017, 13956) dinf=(0.0, 0) watch_index=46746 watch_state=BASIC watch_rc=0.0 watch_cost=0.0 watch_primal=0.0126 watch2_index=16925 watch2_state=BASIC watch2_rc=0.0 watch2_cost=3.997083632743984e-11 watch2_primal=0.9022960877000514 perturbed=true
-INDEPENDENT_SCAN iteration=29665 refactorizations=596 updates=7 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
 TRACE iteration=29665 refactorizations=596 updates=7 pivot=(5936, 13957, 13976) dinf=(0.0, 0) watch_index=46746 watch_state=BASIC watch_rc=0.0 watch_cost=0.0 watch_primal=0.0126 watch2_index=16925 watch2_state=BASIC watch2_rc=0.0 watch2_cost=3.997083632743984e-11 watch2_primal=0.9022960877000514 perturbed=true
-INDEPENDENT_SCAN iteration=29666 refactorizations=596 updates=8 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
 TRACE iteration=29666 refactorizations=596 updates=8 pivot=(9727, 22777, 17549) dinf=(0.0, 0) watch_index=46746 watch_state=BASIC watch_rc=0.0 watch_cost=0.0 watch_primal=0.0126 watch2_index=16925 watch2_state=BASIC watch2_rc=0.0 watch2_cost=3.997083632743984e-11 watch2_primal=0.9022960877000514 perturbed=true
-INDEPENDENT_SCAN iteration=29667 refactorizations=596 updates=9 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
 TRACE iteration=29667 refactorizations=596 updates=9 pivot=(3369, 47674, 40905) dinf=(0.0, 0) watch_index=46746 watch_state=BASIC watch_rc=0.0 watch_cost=0.0 watch_primal=0.0126 watch2_index=16925 watch2_state=BASIC watch2_rc=0.0 watch2_cost=3.997083632743984e-11 watch2_primal=0.9022960877000514 perturbed=true
-INDEPENDENT_SCAN iteration=29668 refactorizations=596 updates=10 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
 TRACE iteration=29668 refactorizations=596 updates=10 pivot=(10110, 2322, 7340) dinf=(0.0, 0) watch_index=46746 watch_state=BASIC watch_rc=0.0 watch_cost=0.0 watch_primal=0.0126 watch2_index=16925 watch2_state=BASIC watch2_rc=0.0 watch2_cost=3.997083632743984e-11 watch2_primal=0.9022960877000514 perturbed=true
-INDEPENDENT_SCAN iteration=29669 refactorizations=596 updates=11 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
 TRACE iteration=29669 refactorizations=596 updates=11 pivot=(1904, 22154, 16578) dinf=(0.0, 0) watch_index=46746 watch_state=BASIC watch_rc=0.0 watch_cost=0.0 watch_primal=0.0126 watch2_index=16925 watch2_state=BASIC watch2_rc=0.0 watch2_cost=3.997083632743984e-11 watch2_primal=0.9022960877000514 perturbed=true
-INDEPENDENT_SCAN iteration=29670 refactorizations=596 updates=12 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
 TRACE iteration=29670 refactorizations=596 updates=12 pivot=(1904, 16578, 16377) dinf=(0.0, 0) watch_index=46746 watch_state=BASIC watch_rc=0.0 watch_cost=0.0 watch_primal=0.0126 watch2_index=16925 watch2_state=BASIC watch2_rc=0.0 watch2_cost=3.997083632743984e-11 watch2_primal=0.9022960877000514 perturbed=true
-INDEPENDENT_SCAN iteration=29671 refactorizations=596 updates=13 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
 TRACE iteration=29671 refactorizations=596 updates=13 pivot=(24725, 16930, 44469) dinf=(0.0, 0) watch_index=46746 watch_state=BASIC watch_rc=0.0 watch_cost=0.0 watch_primal=0.0126 watch2_index=16925 watch2_state=BASIC watch2_rc=0.0 watch2_cost=3.997083632743984e-11 watch2_primal=0.9022960877000514 perturbed=true
-INDEPENDENT_SCAN iteration=29672 refactorizations=596 updates=14 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
 TRACE iteration=29672 refactorizations=596 updates=14 pivot=(10535, 10156, 22917) dinf=(0.0, 0) watch_index=46746 watch_state=BASIC watch_rc=0.0 watch_cost=0.0 watch_primal=0.0126 watch2_index=16925 watch2_state=BASIC watch2_rc=0.0 watch2_cost=3.997083632743984e-11 watch2_primal=0.9022960877000514 perturbed=true
-INDEPENDENT_SCAN iteration=29673 refactorizations=596 updates=15 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
 TRACE iteration=29673 refactorizations=596 updates=15 pivot=(11550, 23013, 22967) dinf=(0.0, 0) watch_index=46746 watch_state=BASIC watch_rc=0.0 watch_cost=0.0 watch_primal=0.0126 watch2_index=16925 watch2_state=BASIC watch2_rc=0.0 watch2_cost=3.997083632743984e-11 watch2_primal=0.9022960877000514 perturbed=true
-INDEPENDENT_SCAN iteration=29674 refactorizations=596 updates=16 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
 TRACE iteration=29674 refactorizations=596 updates=16 pivot=(11993, 22965, 22151) dinf=(0.0, 0) watch_index=46746 watch_state=BASIC watch_rc=0.0 watch_cost=0.0 watch_primal=0.0126 watch2_index=16925 watch2_state=BASIC watch2_rc=0.0 watch2_cost=3.997083632743984e-11 watch2_primal=0.9022960877000514 perturbed=true
-INDEPENDENT_SCAN iteration=29675 refactorizations=596 updates=17 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
 TRACE iteration=29675 refactorizations=596 updates=17 pivot=(9296, 11471, 11508) dinf=(0.0, 0) watch_index=46746 watch_state=BASIC watch_rc=0.0 watch_cost=0.0 watch_primal=0.0126 watch2_index=16925 watch2_state=BASIC watch2_rc=0.0 watch2_cost=3.997083632743984e-11 watch2_primal=0.9022960877000514 perturbed=true
-INDEPENDENT_SCAN iteration=29676 refactorizations=596 updates=18 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29677 refactorizations=596 updates=19 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29678 refactorizations=596 updates=20 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29679 refactorizations=596 updates=21 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29680 refactorizations=596 updates=22 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29681 refactorizations=596 updates=23 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29682 refactorizations=596 updates=24 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29683 refactorizations=596 updates=25 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29684 refactorizations=596 updates=26 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29685 refactorizations=596 updates=27 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29686 refactorizations=596 updates=28 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29687 refactorizations=596 updates=29 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29688 refactorizations=596 updates=30 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29689 refactorizations=596 updates=31 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29690 refactorizations=596 updates=32 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29691 refactorizations=596 updates=33 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29692 refactorizations=596 updates=34 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29693 refactorizations=596 updates=35 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29694 refactorizations=596 updates=36 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29695 refactorizations=596 updates=37 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29696 refactorizations=596 updates=38 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29697 refactorizations=596 updates=39 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29698 refactorizations=596 updates=40 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29699 refactorizations=596 updates=41 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29700 refactorizations=596 updates=42 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29701 refactorizations=596 updates=43 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29702 refactorizations=596 updates=44 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29703 refactorizations=596 updates=45 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29704 refactorizations=596 updates=46 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29705 refactorizations=596 updates=47 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29706 refactorizations=596 updates=48 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29707 refactorizations=596 updates=49 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29708 refactorizations=596 updates=50 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29709 refactorizations=597 updates=1 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29710 refactorizations=597 updates=2 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29711 refactorizations=597 updates=3 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29712 refactorizations=597 updates=4 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29713 refactorizations=597 updates=5 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29714 refactorizations=597 updates=6 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29715 refactorizations=597 updates=7 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29716 refactorizations=597 updates=8 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29717 refactorizations=597 updates=9 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29718 refactorizations=597 updates=10 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29719 refactorizations=597 updates=11 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29720 refactorizations=597 updates=12 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29721 refactorizations=597 updates=13 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29722 refactorizations=597 updates=14 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29723 refactorizations=597 updates=15 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29724 refactorizations=597 updates=16 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29725 refactorizations=597 updates=17 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29726 refactorizations=597 updates=18 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29727 refactorizations=597 updates=19 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29728 refactorizations=597 updates=20 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29729 refactorizations=597 updates=21 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29730 refactorizations=597 updates=22 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29731 refactorizations=597 updates=23 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29732 refactorizations=597 updates=24 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29733 refactorizations=597 updates=25 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29734 refactorizations=597 updates=26 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29735 refactorizations=597 updates=27 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29736 refactorizations=597 updates=28 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29737 refactorizations=597 updates=29 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29738 refactorizations=597 updates=30 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29739 refactorizations=597 updates=31 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29740 refactorizations=597 updates=32 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29741 refactorizations=597 updates=33 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29742 refactorizations=597 updates=34 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29743 refactorizations=597 updates=35 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29744 refactorizations=597 updates=36 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29745 refactorizations=597 updates=37 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29746 refactorizations=597 updates=38 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29747 refactorizations=597 updates=39 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29748 refactorizations=597 updates=40 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29749 refactorizations=597 updates=41 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29750 refactorizations=597 updates=42 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29751 refactorizations=597 updates=43 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29752 refactorizations=597 updates=44 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29753 refactorizations=597 updates=45 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29754 refactorizations=597 updates=46 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29755 refactorizations=597 updates=47 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29756 refactorizations=597 updates=48 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29757 refactorizations=597 updates=49 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29758 refactorizations=597 updates=50 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29759 refactorizations=598 updates=1 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29760 refactorizations=598 updates=2 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29761 refactorizations=598 updates=3 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29762 refactorizations=598 updates=4 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29763 refactorizations=598 updates=5 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29764 refactorizations=598 updates=6 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29765 refactorizations=598 updates=7 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29766 refactorizations=598 updates=8 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29767 refactorizations=598 updates=9 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29768 refactorizations=598 updates=10 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29769 refactorizations=598 updates=11 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29770 refactorizations=598 updates=12 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29771 refactorizations=598 updates=13 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29772 refactorizations=598 updates=14 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29773 refactorizations=598 updates=15 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29774 refactorizations=598 updates=16 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29775 refactorizations=598 updates=17 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29776 refactorizations=598 updates=18 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29777 refactorizations=598 updates=19 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29778 refactorizations=598 updates=20 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29779 refactorizations=598 updates=21 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29780 refactorizations=598 updates=22 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29781 refactorizations=598 updates=23 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29782 refactorizations=598 updates=24 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29783 refactorizations=598 updates=25 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29784 refactorizations=598 updates=26 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29785 refactorizations=598 updates=27 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29786 refactorizations=598 updates=28 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29787 refactorizations=598 updates=29 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29788 refactorizations=598 updates=30 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29789 refactorizations=598 updates=31 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29790 refactorizations=598 updates=32 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29791 refactorizations=598 updates=33 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29792 refactorizations=598 updates=34 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29793 refactorizations=598 updates=35 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29794 refactorizations=598 updates=36 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29795 refactorizations=598 updates=37 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29796 refactorizations=598 updates=38 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29797 refactorizations=598 updates=39 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29798 refactorizations=598 updates=40 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29799 refactorizations=598 updates=41 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29800 refactorizations=598 updates=42 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29801 refactorizations=598 updates=43 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29802 refactorizations=598 updates=44 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29803 refactorizations=598 updates=45 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29804 refactorizations=598 updates=46 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29805 refactorizations=598 updates=47 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29806 refactorizations=598 updates=48 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29807 refactorizations=598 updates=49 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29808 refactorizations=598 updates=50 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29809 refactorizations=599 updates=1 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29810 refactorizations=599 updates=2 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29811 refactorizations=599 updates=3 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29812 refactorizations=599 updates=4 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29813 refactorizations=599 updates=5 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29814 refactorizations=599 updates=6 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29815 refactorizations=599 updates=7 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29816 refactorizations=599 updates=8 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29817 refactorizations=599 updates=9 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29818 refactorizations=599 updates=10 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29819 refactorizations=599 updates=11 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29820 refactorizations=599 updates=12 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29821 refactorizations=599 updates=13 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29822 refactorizations=599 updates=14 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29823 refactorizations=599 updates=15 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29824 refactorizations=599 updates=16 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29825 refactorizations=599 updates=17 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29826 refactorizations=599 updates=18 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29827 refactorizations=599 updates=19 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29828 refactorizations=599 updates=20 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29829 refactorizations=599 updates=21 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29830 refactorizations=599 updates=22 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29831 refactorizations=599 updates=23 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29832 refactorizations=599 updates=24 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29833 refactorizations=599 updates=25 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29834 refactorizations=599 updates=26 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29835 refactorizations=600 updates=1 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29836 refactorizations=600 updates=2 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29837 refactorizations=600 updates=3 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29838 refactorizations=600 updates=4 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29839 refactorizations=600 updates=5 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29840 refactorizations=600 updates=6 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29841 refactorizations=600 updates=7 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29842 refactorizations=600 updates=8 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29843 refactorizations=600 updates=9 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29844 refactorizations=600 updates=10 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29845 refactorizations=600 updates=11 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29846 refactorizations=600 updates=12 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29847 refactorizations=600 updates=13 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29848 refactorizations=600 updates=14 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29849 refactorizations=600 updates=15 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29850 refactorizations=600 updates=16 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29851 refactorizations=600 updates=17 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29852 refactorizations=600 updates=18 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29853 refactorizations=600 updates=19 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29854 refactorizations=600 updates=20 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29855 refactorizations=600 updates=21 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29856 refactorizations=600 updates=22 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29857 refactorizations=600 updates=23 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29858 refactorizations=600 updates=24 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29859 refactorizations=600 updates=25 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29860 refactorizations=600 updates=26 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29861 refactorizations=600 updates=27 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29862 refactorizations=600 updates=28 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29863 refactorizations=600 updates=29 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29864 refactorizations=600 updates=30 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29865 refactorizations=600 updates=31 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29866 refactorizations=600 updates=32 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29867 refactorizations=600 updates=33 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29868 refactorizations=600 updates=34 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29869 refactorizations=600 updates=35 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29870 refactorizations=600 updates=36 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29871 refactorizations=600 updates=37 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29872 refactorizations=600 updates=38 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29873 refactorizations=600 updates=39 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29874 refactorizations=600 updates=40 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29875 refactorizations=600 updates=41 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29876 refactorizations=600 updates=42 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29877 refactorizations=600 updates=43 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29878 refactorizations=600 updates=44 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29879 refactorizations=600 updates=45 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29880 refactorizations=600 updates=46 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29881 refactorizations=600 updates=47 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29882 refactorizations=600 updates=48 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29883 refactorizations=600 updates=49 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29884 refactorizations=600 updates=50 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29885 refactorizations=601 updates=1 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29886 refactorizations=601 updates=2 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29887 refactorizations=601 updates=3 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29888 refactorizations=601 updates=4 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29889 refactorizations=601 updates=5 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29890 refactorizations=601 updates=6 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29891 refactorizations=601 updates=7 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29892 refactorizations=601 updates=8 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29893 refactorizations=601 updates=9 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29894 refactorizations=601 updates=10 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29895 refactorizations=601 updates=11 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29896 refactorizations=601 updates=12 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29897 refactorizations=601 updates=13 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29898 refactorizations=601 updates=14 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29899 refactorizations=601 updates=15 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29900 refactorizations=601 updates=16 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29901 refactorizations=601 updates=17 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29902 refactorizations=601 updates=18 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29903 refactorizations=601 updates=19 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29904 refactorizations=601 updates=20 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29905 refactorizations=601 updates=21 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29906 refactorizations=601 updates=22 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29907 refactorizations=601 updates=23 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29908 refactorizations=601 updates=24 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29909 refactorizations=601 updates=25 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29910 refactorizations=601 updates=26 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29911 refactorizations=601 updates=27 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29912 refactorizations=601 updates=28 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29913 refactorizations=601 updates=29 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29914 refactorizations=601 updates=30 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29915 refactorizations=601 updates=31 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29916 refactorizations=601 updates=32 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29917 refactorizations=601 updates=33 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29918 refactorizations=601 updates=34 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29919 refactorizations=601 updates=35 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29920 refactorizations=601 updates=36 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29921 refactorizations=601 updates=37 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29922 refactorizations=601 updates=38 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29923 refactorizations=601 updates=39 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29924 refactorizations=601 updates=40 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29925 refactorizations=601 updates=41 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29926 refactorizations=601 updates=42 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29927 refactorizations=601 updates=43 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29928 refactorizations=601 updates=44 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29929 refactorizations=601 updates=45 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29930 refactorizations=601 updates=46 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29931 refactorizations=601 updates=47 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29932 refactorizations=601 updates=48 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29933 refactorizations=601 updates=49 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29934 refactorizations=601 updates=50 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29935 refactorizations=602 updates=1 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29936 refactorizations=602 updates=2 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29937 refactorizations=602 updates=3 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29938 refactorizations=602 updates=4 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29939 refactorizations=602 updates=5 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29940 refactorizations=602 updates=6 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29941 refactorizations=602 updates=7 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29942 refactorizations=602 updates=8 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29943 refactorizations=602 updates=9 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29944 refactorizations=602 updates=10 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29945 refactorizations=602 updates=11 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29946 refactorizations=602 updates=12 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29947 refactorizations=602 updates=13 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29948 refactorizations=602 updates=14 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29949 refactorizations=602 updates=15 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29950 refactorizations=602 updates=16 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29951 refactorizations=602 updates=17 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29952 refactorizations=602 updates=18 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29953 refactorizations=602 updates=19 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29954 refactorizations=602 updates=20 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29955 refactorizations=602 updates=21 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29956 refactorizations=602 updates=22 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29957 refactorizations=602 updates=23 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29958 refactorizations=602 updates=24 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29959 refactorizations=602 updates=25 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29960 refactorizations=602 updates=26 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29961 refactorizations=602 updates=27 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29962 refactorizations=602 updates=28 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29963 refactorizations=602 updates=29 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29964 refactorizations=602 updates=30 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29965 refactorizations=602 updates=31 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29966 refactorizations=602 updates=32 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29967 refactorizations=602 updates=33 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29968 refactorizations=602 updates=34 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29969 refactorizations=602 updates=35 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29970 refactorizations=602 updates=36 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29971 refactorizations=602 updates=37 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29972 refactorizations=602 updates=38 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29973 refactorizations=602 updates=39 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29974 refactorizations=602 updates=40 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29975 refactorizations=602 updates=41 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29976 refactorizations=602 updates=42 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29977 refactorizations=602 updates=43 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29978 refactorizations=602 updates=44 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29979 refactorizations=602 updates=45 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29980 refactorizations=602 updates=46 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29981 refactorizations=602 updates=47 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29982 refactorizations=602 updates=48 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29983 refactorizations=602 updates=49 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29984 refactorizations=602 updates=50 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29985 refactorizations=603 updates=1 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29986 refactorizations=603 updates=2 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29987 refactorizations=603 updates=3 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29988 refactorizations=603 updates=4 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29989 refactorizations=603 updates=5 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29990 refactorizations=603 updates=6 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29991 refactorizations=603 updates=7 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29992 refactorizations=603 updates=8 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29993 refactorizations=603 updates=9 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29994 refactorizations=603 updates=10 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29995 refactorizations=603 updates=11 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29996 refactorizations=603 updates=12 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29997 refactorizations=603 updates=13 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29998 refactorizations=603 updates=14 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=29999 refactorizations=603 updates=15 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-INDEPENDENT_SCAN iteration=30000 refactorizations=603 updates=16 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-CHECKPOINT iteration=30000 refactorizations=603 updates=16 pinf=(1.314984690518013e7, 4608) dinf=(0.0, 0) elapsed_seconds=370.7163246
-END status=TIME_LIMIT message=time limit reached target_reached=true iterations=30000 refactorizations=603 pinf=(1.314984690518013e7, 4608) dinf=(0.0, 0) elapsed_seconds=370.7172016
-CAPTURE_SUMMARY count=41 last_iteration=23440
-SCAN_SUMMARY count=354 last_iteration=30000
+CHECKPOINT iteration=30000 refactorizations=603 updates=16 pinf=(1.314984690518013e7, 4608) dinf=(0.0, 0) elapsed_seconds=213.3756064
+CHECKPOINT iteration=30500 refactorizations=613 updates=16 pinf=(841420.830551621, 3812) dinf=(0.0, 0) elapsed_seconds=218.2495663
+CHECKPOINT iteration=31000 refactorizations=623 updates=16 pinf=(9.914749666913623e6, 4183) dinf=(0.0, 0) elapsed_seconds=222.9250012
+CHECKPOINT iteration=31500 refactorizations=633 updates=16 pinf=(2.680597947266969e6, 3955) dinf=(0.0, 0) elapsed_seconds=227.742812
+CHECKPOINT iteration=32000 refactorizations=643 updates=16 pinf=(3.500705109312577e7, 3981) dinf=(0.0, 0) elapsed_seconds=232.4549692
+CHECKPOINT iteration=32500 refactorizations=653 updates=26 pinf=(3.512420989023022e8, 4211) dinf=(0.0, 0) elapsed_seconds=237.1165579
+CHECKPOINT iteration=33000 refactorizations=663 updates=26 pinf=(2.1685689004962915e8, 3925) dinf=(0.0, 0) elapsed_seconds=241.4583794
+CHECKPOINT iteration=33500 refactorizations=673 updates=26 pinf=(3.4925975164048856e8, 4091) dinf=(0.0, 0) elapsed_seconds=245.9240561
+CHECKPOINT iteration=34000 refactorizations=684 updates=3 pinf=(189408.34961124763, 3151) dinf=(0.0, 0) elapsed_seconds=250.7767611
+CHECKPOINT iteration=34500 refactorizations=694 updates=3 pinf=(385204.32375090447, 3381) dinf=(0.0, 0) elapsed_seconds=255.412974
+CHECKPOINT iteration=35000 refactorizations=704 updates=3 pinf=(1.2542548540443887e6, 3491) dinf=(0.0, 0) elapsed_seconds=260.1616054
+CHECKPOINT iteration=35500 refactorizations=714 updates=3 pinf=(4.441630462706126e6, 3854) dinf=(0.0, 0) elapsed_seconds=264.9620921
+CHECKPOINT iteration=36000 refactorizations=724 updates=3 pinf=(1.821634279972926e8, 3816) dinf=(0.0, 0) elapsed_seconds=269.9121626
+CHECKPOINT iteration=36500 refactorizations=734 updates=3 pinf=(1.2211713995521991e8, 3882) dinf=(0.0, 0) elapsed_seconds=274.5609172
+CHECKPOINT iteration=37000 refactorizations=744 updates=3 pinf=(5.942302226167422e7, 3597) dinf=(0.0, 0) elapsed_seconds=279.2189743
+CHECKPOINT iteration=37500 refactorizations=754 updates=3 pinf=(6.064969805091405e7, 3322) dinf=(0.0, 0) elapsed_seconds=283.5266445
+CHECKPOINT iteration=38000 refactorizations=764 updates=3 pinf=(1.1360010671780303e7, 3214) dinf=(0.0, 0) elapsed_seconds=287.8919525
+CHECKPOINT iteration=38500 refactorizations=774 updates=3 pinf=(3.2605032161978805e6, 2881) dinf=(0.0, 0) elapsed_seconds=292.5370332
+CHECKPOINT iteration=39000 refactorizations=784 updates=3 pinf=(191971.00700435526, 2515) dinf=(0.0, 0) elapsed_seconds=298.294632
+CHECKPOINT iteration=39500 refactorizations=794 updates=3 pinf=(121845.48149458024, 2427) dinf=(0.0, 0) elapsed_seconds=303.109633
+CHECKPOINT iteration=40000 refactorizations=804 updates=3 pinf=(116702.00064448702, 2153) dinf=(0.0, 0) elapsed_seconds=308.0759215
+CHECKPOINT iteration=40500 refactorizations=814 updates=3 pinf=(31682.264047493143, 1595) dinf=(0.0, 0) elapsed_seconds=312.6764524
+CHECKPOINT iteration=41000 refactorizations=824 updates=3 pinf=(386199.56137514417, 1914) dinf=(0.0, 0) elapsed_seconds=317.1856549
+CHECKPOINT iteration=41500 refactorizations=834 updates=3 pinf=(255412.4688442081, 1752) dinf=(0.0, 0) elapsed_seconds=321.8738476
+CHECKPOINT iteration=42000 refactorizations=844 updates=3 pinf=(183380.93293006797, 1471) dinf=(0.0, 0) elapsed_seconds=326.4434934
+CHECKPOINT iteration=42500 refactorizations=854 updates=3 pinf=(34798.77170544167, 982) dinf=(0.0, 0) elapsed_seconds=331.2274446
+CHECKPOINT iteration=43000 refactorizations=864 updates=3 pinf=(569000.945165678, 1523) dinf=(0.0, 0) elapsed_seconds=336.1728066
+CHECKPOINT iteration=43500 refactorizations=874 updates=3 pinf=(4.8826317721983274, 487) dinf=(0.0, 0) elapsed_seconds=340.7271344
+CHECKPOINT iteration=44000 refactorizations=884 updates=3 pinf=(0.0077336542689888646, 191) dinf=(0.0, 0) elapsed_seconds=344.7344262
+END status=OPTIMAL message=optimal solution found target_reached=false iterations=44145 refactorizations=886 pinf=(0.0, 0) dinf=(0.0, 0) elapsed_seconds=345.8117536
+CAPTURE_SUMMARY count=0 last_iteration=-1
+SCAN_SUMMARY count=0 last_iteration=-1
