@@ -87,3 +87,31 @@ with 600 refactorizations, zero dual infeasibility, and primal
 infeasibility `6.933145208769426e7` across 4,883 basic variables.
 The `TIME_LIMIT` status at the cap was requested by the diagnostic
 callback and is not an LP classification.
+
+## Reduced LP continuation on Windows
+
+Commit `81eefd8` contains the Windows continuation log. The guarded solver
+passed the former bad basis at iteration 23,202 and reached iteration
+23,778, but then returned `NUMERICAL_ERROR: dual feasibility lost`.
+The final stored reduced costs had one dual violation of
+`0.8277722799969447`; the workspace had made 477 refactorizations.
+The log does not say whether that price is a Float64 error, whether
+iterative refinement failed, or whether the freshly rebuilt basis is
+truly dual infeasible. The reduced LP was not solved.
+
+The continuation script now traces each pivot from iteration 23,750
+through 23,825 and, if this error occurs, saves the basis and variable
+state to `diagnostics/runtime_reduced_failure_state.tsv`. It then builds
+the basis independently, checks fresh sparse LU, refines `Bᵀy = c_B`
+in 256 and 512 bits, compares the resulting prices with the stored
+Float64 prices, and reports whether the production price guard accepts
+them. These measurements are diagnostic only and do not change the
+production solver.
+
+On local aarch64 Linux, the script reached the requested iteration
+23,800 with zero dual infeasibility in 86.5 seconds. At iteration
+23,778 it had 476 refactorizations and 21 pending updates; the Windows
+failure had already performed a 477th refactorization. The pivot
+sequences therefore differ, so the Windows basis must be audited on
+that machine. The local run verifies the trace but does not reproduce
+the Windows failure.
