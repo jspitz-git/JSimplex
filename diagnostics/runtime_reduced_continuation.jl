@@ -255,4 +255,4 @@ function main()
     end
 end
 
-main()
+abspath(PROGRAM_FILE) == abspath(@__FILE__) && main()

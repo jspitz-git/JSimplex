@@ -115,3 +115,33 @@ failure had already performed a 477th refactorization. The pivot
 sequences therefore differ, so the Windows basis must be audited on
 that machine. The local run verifies the trace but does not reproduce
 the Windows failure.
+
+## Audit of the saved Windows failure state
+
+Commit `ba4c59d` contains the failure snapshot but no trace log. The
+snapshot can be checked without rerunning the simplex by executing
+`julia --project=. diagnostics/runtime_snapshot_audit.jl` from this
+worktree. On aarch64 Linux, reconstruction of the scaled reduced model
+reproduces the saved primal infeasibility
+`(1.7477607549564644e10, 4966)` and dual infeasibility
+`(0.8277722799969447, 1)`. The sole nonfixed dual violation is
+structural variable 24,212 at its lower bound. Many other stored prices
+have the opposite sign but belong to fixed variables and are correctly
+excluded from the solver's dual feasibility check.
+
+Fresh sparse LU of the saved basis succeeds. Independent refinement of
+`Bᵀy = c_B` converges after four corrections in 256 bits and eleven in
+512 bits. Both calculations give the reduced cost of variable 24,212
+as approximately `-0.8062975028414638`, far outside the `1e-7` dual
+tolerance. The maximum difference between the two complete price
+vectors is below `7.4e-30`. The saved Float64 price `-0.8277722799969447`
+has a noticeable magnitude error, but its negative sign is correct.
+The production refinement guard therefore correctly rejects this
+basis. This is a true dual violation of the saved working LP and basis,
+not another false sign from Float64 LU.
+
+The snapshot does not contain the pivot trace or iteration metadata.
+The missing Windows `TRACE` lines are needed to identify the last pivot
+and determine whether the violation arose from an inaccurate updated
+factorization, a tableau or price update, or a deliberate cost shift.
+No production change is justified by the snapshot alone.
