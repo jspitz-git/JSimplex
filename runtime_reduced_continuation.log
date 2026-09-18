@@ -1,76 +1,52 @@
 START Julia=1.13.0 machine=x86_64-w64-mingw32 julia_threads=1 blas_threads=6 target=30000 time_limit=600.0 path=C:\Disk_D\tmp\runtime.mps
 MODEL size=(28453, 31615) nnz=211789
 DIAGNOSTIC_CONFIG source=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_continuation.jl trace=(29647, 29675) capture=(0, 0) scan=(29647, 1) watch=(46746, 16925) capture_paths=("C:\\Disk_D\\JSimplex.jl\\diagnostics\\runtime_reduced_capture_a.tsv", "C:\\Disk_D\\JSimplex.jl\\diagnostics\\runtime_reduced_capture_b.tsv") scan_paths=("C:\\Disk_D\\JSimplex.jl\\diagnostics\\runtime_reduced_scan_good.tsv", "C:\\Disk_D\\JSimplex.jl\\diagnostics\\runtime_reduced_scan_bad.tsv")
-CHECKPOINT iteration=500 refactorizations=10 updates=43 pinf=(53127.313054952145, 2942) dinf=(0.0, 0) elapsed_seconds=31.2918277
-CHECKPOINT iteration=1000 refactorizations=20 updates=43 pinf=(9.991581823887516e6, 3451) dinf=(0.0, 0) elapsed_seconds=34.9539563
-CHECKPOINT iteration=1500 refactorizations=30 updates=43 pinf=(1.054332219854371e6, 3754) dinf=(0.0, 0) elapsed_seconds=38.6545803
-CHECKPOINT iteration=2000 refactorizations=40 updates=43 pinf=(1.2029990263641092e6, 3915) dinf=(0.0, 0) elapsed_seconds=42.3363853
-CHECKPOINT iteration=2500 refactorizations=50 updates=43 pinf=(1.4480002838186747e6, 4055) dinf=(0.0, 0) elapsed_seconds=46.2527779
-CHECKPOINT iteration=3000 refactorizations=60 updates=43 pinf=(1.862922142966629e6, 4149) dinf=(0.0, 0) elapsed_seconds=50.2072875
-CHECKPOINT iteration=3500 refactorizations=70 updates=43 pinf=(3.4957992585841874e6, 4291) dinf=(0.0, 0) elapsed_seconds=54.1320343
-CHECKPOINT iteration=4000 refactorizations=80 updates=43 pinf=(3.503659292128421e6, 4418) dinf=(0.0, 0) elapsed_seconds=58.178684
-CHECKPOINT iteration=4500 refactorizations=90 updates=43 pinf=(3.7403416589671294e6, 4537) dinf=(0.0, 0) elapsed_seconds=62.1577778
-CHECKPOINT iteration=5000 refactorizations=100 updates=43 pinf=(4.008229231464155e6, 4688) dinf=(0.0, 0) elapsed_seconds=66.5350814
-CHECKPOINT iteration=5500 refactorizations=110 updates=43 pinf=(4.396495556530868e6, 4725) dinf=(0.0, 0) elapsed_seconds=71.0660464
-CHECKPOINT iteration=6000 refactorizations=120 updates=43 pinf=(3.959984487298777e6, 4778) dinf=(0.0, 0) elapsed_seconds=75.5297525
-CHECKPOINT iteration=6500 refactorizations=130 updates=43 pinf=(4.86840880660073e6, 4969) dinf=(0.0, 0) elapsed_seconds=79.9982369
-CHECKPOINT iteration=7000 refactorizations=140 updates=43 pinf=(752696.3796593415, 4966) dinf=(0.0, 0) elapsed_seconds=84.4373642
-CHECKPOINT iteration=7500 refactorizations=150 updates=43 pinf=(977361.8513503391, 4994) dinf=(0.0, 0) elapsed_seconds=89.028271
-CHECKPOINT iteration=8000 refactorizations=160 updates=43 pinf=(5.325559723487135e6, 5123) dinf=(0.0, 0) elapsed_seconds=94.0479584
-CHECKPOINT iteration=8500 refactorizations=170 updates=43 pinf=(2.7040387854195237e6, 5264) dinf=(0.0, 0) elapsed_seconds=99.1020502
-CHECKPOINT iteration=9000 refactorizations=180 updates=43 pinf=(4.436691334507617e6, 5487) dinf=(0.0, 0) elapsed_seconds=104.187535
-CHECKPOINT iteration=9500 refactorizations=190 updates=43 pinf=(1.1319921498130854e7, 5515) dinf=(0.0, 0) elapsed_seconds=109.6412082
-CHECKPOINT iteration=10000 refactorizations=200 updates=43 pinf=(1.872291235168606e8, 5561) dinf=(0.0, 0) elapsed_seconds=114.8541372
-CHECKPOINT iteration=10500 refactorizations=210 updates=43 pinf=(2.1228850791257182e8, 5549) dinf=(0.0, 0) elapsed_seconds=120.1345481
-CHECKPOINT iteration=11000 refactorizations=220 updates=43 pinf=(2.3081877939063136e7, 5437) dinf=(0.0, 0) elapsed_seconds=125.7113288
-CHECKPOINT iteration=11500 refactorizations=230 updates=43 pinf=(1.0513534292867847e7, 5548) dinf=(0.0, 0) elapsed_seconds=131.4162695
-CHECKPOINT iteration=12000 refactorizations=240 updates=43 pinf=(1.1911339072685298e7, 5582) dinf=(0.0, 0) elapsed_seconds=137.1765558
-CHECKPOINT iteration=12500 refactorizations=250 updates=43 pinf=(2.643187659801671e8, 5513) dinf=(0.0, 0) elapsed_seconds=143.0746812
-CHECKPOINT iteration=13000 refactorizations=260 updates=43 pinf=(9.184915091001031e7, 5491) dinf=(0.0, 0) elapsed_seconds=148.7415163
-CHECKPOINT iteration=13500 refactorizations=270 updates=43 pinf=(9.493272728039244e7, 5790) dinf=(0.0, 0) elapsed_seconds=154.8618309
-CHECKPOINT iteration=14000 refactorizations=280 updates=43 pinf=(8.894174145761554e7, 5656) dinf=(0.0, 0) elapsed_seconds=160.7558272
-CHECKPOINT iteration=14500 refactorizations=290 updates=43 pinf=(1.0663227912089011e8, 5695) dinf=(0.0, 0) elapsed_seconds=166.8499132
-CHECKPOINT iteration=15000 refactorizations=300 updates=43 pinf=(1.711720907842196e8, 5717) dinf=(0.0, 0) elapsed_seconds=173.1097808
-CHECKPOINT iteration=15500 refactorizations=310 updates=43 pinf=(1.6179175723025322e9, 5723) dinf=(0.0, 0) elapsed_seconds=179.7766057
-CHECKPOINT iteration=16000 refactorizations=320 updates=43 pinf=(6.684464293766534e8, 5729) dinf=(0.0, 0) elapsed_seconds=186.264891
-CHECKPOINT iteration=16500 refactorizations=330 updates=43 pinf=(1.3490353781126314e8, 5612) dinf=(0.0, 0) elapsed_seconds=192.9375949
-CHECKPOINT iteration=17000 refactorizations=340 updates=43 pinf=(7.575505369906174e7, 5499) dinf=(0.0, 0) elapsed_seconds=199.4411151
-CHECKPOINT iteration=17500 refactorizations=350 updates=43 pinf=(1.9953580094994703e8, 5698) dinf=(0.0, 0) elapsed_seconds=206.3273509
-CHECKPOINT iteration=18000 refactorizations=360 updates=43 pinf=(2.9989777502385815e10, 5754) dinf=(0.0, 0) elapsed_seconds=213.1958891
-CHECKPOINT iteration=18500 refactorizations=370 updates=43 pinf=(1.9997731715107857e10, 5713) dinf=(0.0, 0) elapsed_seconds=220.4480862
-CHECKPOINT iteration=19000 refactorizations=380 updates=43 pinf=(3.917556188089781e10, 5954) dinf=(0.0, 0) elapsed_seconds=227.4665114
-CHECKPOINT iteration=19500 refactorizations=390 updates=43 pinf=(4.303072190054418e10, 5589) dinf=(0.0, 0) elapsed_seconds=234.7687094
-CHECKPOINT iteration=20000 refactorizations=400 updates=43 pinf=(4.0909246862035675e10, 5859) dinf=(0.0, 0) elapsed_seconds=242.053879
-CHECKPOINT iteration=20500 refactorizations=410 updates=43 pinf=(2.3352934715916317e10, 5835) dinf=(0.0, 0) elapsed_seconds=248.9301077
-CHECKPOINT iteration=21000 refactorizations=420 updates=43 pinf=(5.248379166253213e9, 5683) dinf=(0.0, 0) elapsed_seconds=256.3168893
-CHECKPOINT iteration=21500 refactorizations=430 updates=43 pinf=(2.747535663219666e12, 5376) dinf=(0.0, 0) elapsed_seconds=264.0371665
-CHECKPOINT iteration=22000 refactorizations=440 updates=44 pinf=(1.26095469902156e13, 5321) dinf=(0.0, 0) elapsed_seconds=271.7044073
-CHECKPOINT iteration=22500 refactorizations=450 updates=44 pinf=(1.2603015746005926e13, 5189) dinf=(0.0, 0) elapsed_seconds=283.0736248
-CHECKPOINT iteration=23000 refactorizations=460 updates=44 pinf=(1.3266952875301625e13, 5085) dinf=(0.0, 0) elapsed_seconds=304.1268088
-CHECKPOINT iteration=23500 refactorizations=470 updates=49 pinf=(3.7987432108776294e11, 4974) dinf=(0.0, 0) elapsed_seconds=312.8069548
-CHECKPOINT iteration=24000 refactorizations=481 updates=22 pinf=(4.4198558635582336e11, 5026) dinf=(0.0, 0) elapsed_seconds=321.4227326
-CHECKPOINT iteration=24500 refactorizations=491 updates=29 pinf=(3.2590655767255975e11, 5150) dinf=(0.0, 0) elapsed_seconds=329.985685
-CHECKPOINT iteration=25000 refactorizations=501 updates=29 pinf=(4.2021847788605634e11, 4801) dinf=(0.0, 0) elapsed_seconds=338.35261
-CHECKPOINT iteration=25500 refactorizations=511 updates=29 pinf=(4.211016279165421e11, 5224) dinf=(0.0, 0) elapsed_seconds=346.738006
-CHECKPOINT iteration=26000 refactorizations=521 updates=29 pinf=(4.695272818096978e11, 5294) dinf=(0.0, 0) elapsed_seconds=355.1564638
-CHECKPOINT iteration=26500 refactorizations=531 updates=29 pinf=(5.850765000358151e11, 5121) dinf=(0.0, 0) elapsed_seconds=366.1077276
-CHECKPOINT iteration=27000 refactorizations=541 updates=29 pinf=(5.555280234538822e11, 4599) dinf=(0.0, 0) elapsed_seconds=374.4747861
-CHECKPOINT iteration=27500 refactorizations=551 updates=29 pinf=(6.351147509174429e11, 4951) dinf=(0.0, 0) elapsed_seconds=383.4769275
-CHECKPOINT iteration=28000 refactorizations=561 updates=29 pinf=(5.478973236067245e11, 4491) dinf=(0.0, 0) elapsed_seconds=392.6265344
-CHECKPOINT iteration=28500 refactorizations=571 updates=29 pinf=(5.007375355363884e11, 4311) dinf=(0.0, 0) elapsed_seconds=401.5000038
-CHECKPOINT iteration=29000 refactorizations=581 updates=29 pinf=(1.4356751959107068e13, 4645) dinf=(0.0, 0) elapsed_seconds=410.0922688
-CHECKPOINT iteration=29500 refactorizations=592 updates=16 pinf=(6.124252224446381e11, 4707) dinf=(0.0, 0) elapsed_seconds=418.8137586
-INDEPENDENT_SCAN iteration=29647 refactorizations=595 updates=27 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-TRACE iteration=29647 refactorizations=595 updates=27 pivot=Int64[] dinf=(0.0, 0) watch_index=46746 watch_state=BASIC watch_rc=0.0 watch_cost=0.0 watch_primal=-719.9704917424798 watch2_index=16925 watch2_state=AT_LOWER watch2_rc=4.7877294768265e-8 watch2_cost=5.137396038758379e-12 watch2_primal=0.0 perturbed=true
-INDEPENDENT_SCAN iteration=29648 refactorizations=595 updates=28 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-TRACE iteration=29648 refactorizations=595 updates=28 pivot=(2458, 22170, 11252) dinf=(0.0, 0) watch_index=46746 watch_state=BASIC watch_rc=0.0 watch_cost=0.0 watch_primal=-719.9704917424805 watch2_index=16925 watch2_state=AT_LOWER watch2_rc=4.7877294768265e-8 watch2_cost=5.137396038758379e-12 watch2_primal=0.0 perturbed=true
-INDEPENDENT_SCAN iteration=29649 refactorizations=595 updates=29 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-TRACE iteration=29649 refactorizations=595 updates=29 pivot=(14176, 44722, 30955) dinf=(0.0, 0) watch_index=46746 watch_state=BASIC watch_rc=0.0 watch_cost=0.0 watch_primal=86.76307049663387 watch2_index=16925 watch2_state=AT_LOWER watch2_rc=4.787729476696103e-8 watch2_cost=5.137396038758379e-12 watch2_primal=0.0 perturbed=true
-INDEPENDENT_SCAN iteration=29650 refactorizations=595 updates=30 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-TRACE iteration=29650 refactorizations=595 updates=30 pivot=(19254, 50869, 15183) dinf=(0.0, 0) watch_index=46746 watch_state=BASIC watch_rc=0.0 watch_cost=0.0 watch_primal=-69.70072745058513 watch2_index=16925 watch2_state=AT_LOWER watch2_rc=4.78772947666098e-8 watch2_cost=5.137396038758379e-12 watch2_primal=0.0 perturbed=true
-INDEPENDENT_SCAN iteration=29651 refactorizations=595 updates=31 stored=(0.0, 0) refined=(count = 0, total = 0.0, worst_index = 0, worst = 0.0) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_good.tsv
-TRACE iteration=29651 refactorizations=595 updates=31 pivot=(12510, 10136, 2347) dinf=(0.0, 0) watch_index=46746 watch_state=BASIC watch_rc=0.0 watch_cost=0.0 watch_primal=115.49388925145595 watch2_index=16925 watch2_state=AT_LOWER watch2_rc=4.2651119574243397e-8 watch2_cost=5.137396038758379e-12 watch2_primal=0.0 perturbed=true
-INDEPENDENT_SCAN_STOP iteration=29652 refactorizations=595 updates=32 stored=(0.0, 0) refined=(count = 1, total = 7.38480212534936624108316613780752158222137241091085119546997868051695007101511e-5, worst_index = 56220, worst = 7.38480212534936624108316613780752158222137241091085119546997868051695007101511e-5) path=C:\Disk_D\JSimplex.jl\diagnostics\runtime_reduced_scan_bad.tsv
-END status=TIME_LIMIT message=time limit reached target_reached=false iterations=29652 refactorizations=595 pinf=(4.981802719860558e11, 4734) dinf=(0.0, 0) elapsed_seconds=430.9930258
+CHECKPOINT iteration=500 refactorizations=10 updates=43 pinf=(53127.313054952145, 2942) dinf=(0.0, 0) elapsed_seconds=34.0489062
+CHECKPOINT iteration=1000 refactorizations=20 updates=43 pinf=(9.991581823887516e6, 3451) dinf=(0.0, 0) elapsed_seconds=38.0751484
+CHECKPOINT iteration=1500 refactorizations=30 updates=43 pinf=(1.054332219854371e6, 3754) dinf=(0.0, 0) elapsed_seconds=41.9677869
+CHECKPOINT iteration=2000 refactorizations=40 updates=43 pinf=(1.2029990263641092e6, 3915) dinf=(0.0, 0) elapsed_seconds=45.8759658
+CHECKPOINT iteration=2500 refactorizations=50 updates=43 pinf=(1.4480002838186747e6, 4055) dinf=(0.0, 0) elapsed_seconds=50.3528362
+CHECKPOINT iteration=3000 refactorizations=60 updates=43 pinf=(1.862922142966629e6, 4149) dinf=(0.0, 0) elapsed_seconds=56.8549692
+CHECKPOINT iteration=3500 refactorizations=70 updates=43 pinf=(3.4957992585841874e6, 4291) dinf=(0.0, 0) elapsed_seconds=61.6352966
+CHECKPOINT iteration=4000 refactorizations=80 updates=43 pinf=(3.503659292128421e6, 4418) dinf=(0.0, 0) elapsed_seconds=66.3689755
+CHECKPOINT iteration=4500 refactorizations=90 updates=43 pinf=(3.7403416589671294e6, 4537) dinf=(0.0, 0) elapsed_seconds=71.0056425
+CHECKPOINT iteration=5000 refactorizations=100 updates=43 pinf=(4.008229231464155e6, 4688) dinf=(0.0, 0) elapsed_seconds=75.5408007
+CHECKPOINT iteration=5500 refactorizations=110 updates=43 pinf=(4.396495556530868e6, 4725) dinf=(0.0, 0) elapsed_seconds=80.56065
+CHECKPOINT iteration=6000 refactorizations=120 updates=43 pinf=(3.959984487298777e6, 4778) dinf=(0.0, 0) elapsed_seconds=87.2891504
+CHECKPOINT iteration=6500 refactorizations=130 updates=43 pinf=(4.86840880660073e6, 4969) dinf=(0.0, 0) elapsed_seconds=92.5146228
+CHECKPOINT iteration=7000 refactorizations=140 updates=43 pinf=(752696.3796593415, 4966) dinf=(0.0, 0) elapsed_seconds=98.4615866
+CHECKPOINT iteration=7500 refactorizations=150 updates=43 pinf=(977361.8513503391, 4994) dinf=(0.0, 0) elapsed_seconds=103.7061607
+CHECKPOINT iteration=8000 refactorizations=160 updates=43 pinf=(5.325559723487135e6, 5123) dinf=(0.0, 0) elapsed_seconds=109.2448368
+CHECKPOINT iteration=8500 refactorizations=170 updates=43 pinf=(2.7040387854195237e6, 5264) dinf=(0.0, 0) elapsed_seconds=114.8475797
+CHECKPOINT iteration=9000 refactorizations=180 updates=43 pinf=(4.436691334507617e6, 5487) dinf=(0.0, 0) elapsed_seconds=120.2190073
+CHECKPOINT iteration=9500 refactorizations=190 updates=43 pinf=(1.1319921498130854e7, 5515) dinf=(0.0, 0) elapsed_seconds=125.8004082
+CHECKPOINT iteration=10000 refactorizations=200 updates=43 pinf=(1.872291235168606e8, 5561) dinf=(0.0, 0) elapsed_seconds=131.0456491
+CHECKPOINT iteration=10500 refactorizations=210 updates=43 pinf=(2.1228850791257182e8, 5549) dinf=(0.0, 0) elapsed_seconds=136.3745841
+CHECKPOINT iteration=11000 refactorizations=220 updates=43 pinf=(2.3081877939063136e7, 5437) dinf=(0.0, 0) elapsed_seconds=143.0471414
+CHECKPOINT iteration=11500 refactorizations=230 updates=43 pinf=(1.0513534292867847e7, 5548) dinf=(0.0, 0) elapsed_seconds=148.8960027
+CHECKPOINT iteration=12000 refactorizations=240 updates=43 pinf=(1.1911339072685298e7, 5582) dinf=(0.0, 0) elapsed_seconds=155.6925972
+CHECKPOINT iteration=12500 refactorizations=250 updates=43 pinf=(2.643187659801671e8, 5513) dinf=(0.0, 0) elapsed_seconds=162.2482753
+CHECKPOINT iteration=13000 refactorizations=260 updates=43 pinf=(9.184915091001031e7, 5491) dinf=(0.0, 0) elapsed_seconds=170.1005284
+CHECKPOINT iteration=13500 refactorizations=270 updates=43 pinf=(9.493272728039244e7, 5790) dinf=(0.0, 0) elapsed_seconds=176.7628773
+CHECKPOINT iteration=14000 refactorizations=280 updates=43 pinf=(8.894174145761554e7, 5656) dinf=(0.0, 0) elapsed_seconds=184.2002359
+CHECKPOINT iteration=14500 refactorizations=290 updates=43 pinf=(1.0663227912089011e8, 5695) dinf=(0.0, 0) elapsed_seconds=190.9852897
+CHECKPOINT iteration=15000 refactorizations=300 updates=43 pinf=(1.711720907842196e8, 5717) dinf=(0.0, 0) elapsed_seconds=197.6593963
+CHECKPOINT iteration=15500 refactorizations=310 updates=43 pinf=(1.6179175723025322e9, 5723) dinf=(0.0, 0) elapsed_seconds=204.5897846
+CHECKPOINT iteration=16000 refactorizations=320 updates=43 pinf=(6.684464293766534e8, 5729) dinf=(0.0, 0) elapsed_seconds=211.0000063
+CHECKPOINT iteration=16500 refactorizations=330 updates=43 pinf=(1.3490353781126314e8, 5612) dinf=(0.0, 0) elapsed_seconds=218.1494701
+CHECKPOINT iteration=17000 refactorizations=340 updates=43 pinf=(7.575505369906174e7, 5499) dinf=(0.0, 0) elapsed_seconds=225.567895
+CHECKPOINT iteration=17500 refactorizations=350 updates=43 pinf=(1.9953580094994703e8, 5698) dinf=(0.0, 0) elapsed_seconds=233.5782569
+CHECKPOINT iteration=18000 refactorizations=360 updates=43 pinf=(2.9855054686115715e10, 5754) dinf=(0.0, 0) elapsed_seconds=242.622517
+CHECKPOINT iteration=18500 refactorizations=370 updates=43 pinf=(5.679712855442293e10, 5743) dinf=(0.0, 0) elapsed_seconds=250.0782189
+CHECKPOINT iteration=19000 refactorizations=380 updates=43 pinf=(7.650411329741878e10, 5884) dinf=(0.0, 0) elapsed_seconds=257.9938886
+CHECKPOINT iteration=19500 refactorizations=390 updates=43 pinf=(4.1064083919214745e10, 5449) dinf=(0.0, 0) elapsed_seconds=267.9109386
+CHECKPOINT iteration=20000 refactorizations=400 updates=43 pinf=(8.719519761372651e11, 5669) dinf=(0.0, 0) elapsed_seconds=277.7561254
+CHECKPOINT iteration=20500 refactorizations=410 updates=43 pinf=(5.030696689845821e10, 5500) dinf=(0.0, 0) elapsed_seconds=287.1682165
+CHECKPOINT iteration=21000 refactorizations=420 updates=43 pinf=(1.5728150610948495e11, 5351) dinf=(0.0, 0) elapsed_seconds=295.2755611
+CHECKPOINT iteration=21500 refactorizations=431 updates=12 pinf=(5.449942975787356e10, 5534) dinf=(0.0, 0) elapsed_seconds=303.8431963
+CHECKPOINT iteration=22000 refactorizations=442 updates=20 pinf=(1.4935108823411795e10, 5779) dinf=(0.0, 0) elapsed_seconds=313.0059323
+CHECKPOINT iteration=22500 refactorizations=452 updates=20 pinf=(2.6468547925460068e10, 5589) dinf=(0.0, 0) elapsed_seconds=322.1910995
+CHECKPOINT iteration=23000 refactorizations=462 updates=43 pinf=(7.013836538493317e10, 5202) dinf=(0.0, 0) elapsed_seconds=331.4470309
+END status=NUMERICAL_ERROR message=SingularException: matrix is singular; factorization failed. Zero pivot found at index 0 target_reached=false iterations=23425 refactorizations=471 pinf=(1.0955955386740465e10, 5353) dinf=(0.0, 0) elapsed_seconds=340.6869612
 CAPTURE_SUMMARY count=0 last_iteration=-1
-SCAN_SUMMARY count=6 last_iteration=29652
+SCAN_SUMMARY count=0 last_iteration=-1
