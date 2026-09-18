@@ -506,3 +506,22 @@ primal constraints before reporting `OPTIMAL`. Regression tests cover
 both signs of the cost shift and a weak-column case previously reported
 as a numerical error. The local full suite passes (13,689 assertions).
 The Windows `runtime.mps` result with this change remains untested.
+
+Commit `8b6eb87` tested that change on Windows with one Julia and one BLAS
+thread. The primal cleanup started after iteration 44,145 and made one
+pivot. The ordinary workspace infeasibility checks did not report a failure,
+but the independent structural-primal certification rejected the result at
+iteration 44,146. The solver restarted the original LP and reached the same
+singular-basis failure as before, now at cumulative iteration 52,044.
+Postsolve cleanup was not reached.
+
+The continuation diagnostic can now audit the original-cost transition
+after its reduced-LP optimum. Run
+`julia --threads=1 --project=. diagnostics/runtime_original_cost_audit.jl`
+on Windows. It reports the largest certified row and column violations,
+compares affected row activities with the stored slacks, and repeats the
+check after a fresh basis factorization. It saves the failing basis states
+as `runtime_original_cost_after_primal.tsv` and, if needed,
+`runtime_original_cost_fresh.tsv`. This distinguishes an inaccurate
+updated factorization from a remaining structural-primal residual before
+changing the production solver again.

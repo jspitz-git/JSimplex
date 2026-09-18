@@ -208,6 +208,134 @@ function independent_dual_summary(workspace)
     return (count=count, total=total, worst_index=worst_index, worst=worst)
 end
 
+function interval_excess(value_lower, value_upper, lower, upper, tolerance)
+    excess = 0.0
+    if isfinite(lower) && value_lower < J.bound_value(lower)
+        _, threshold = J._primal_difference_bounds(J.bound_value(lower), tolerance)
+        excess = max(excess, threshold - value_lower)
+    end
+    if isfinite(upper) && value_upper > J.bound_value(upper)
+        threshold, _ = J._primal_sum_bounds(J.bound_value(upper), tolerance)
+        excess = max(excess, value_upper - threshold)
+    end
+    return excess
+end
+
+function exact_row_activity(A, primal, row)
+    return setprecision(BigFloat, 256) do
+        activity = BigFloat(0)
+        for column in axes(A, 2)
+            for position in A.colptr[column]:(A.colptr[column + 1] - 1)
+                A.rowval[position] == row || continue
+                activity += BigFloat(A.nzval[position]) * BigFloat(primal[column])
+            end
+        end
+        activity
+    end
+end
+
+function report_primal_certificate(workspace, label)
+    problem = workspace.problem
+    A = problem.A
+    column_count = size(A, 2)
+    primal = copy(workspace.primal[1:column_count])
+    row_lower, row_upper = J._primal_row_bounds(A, primal, J._is_exact(eltype(primal)))
+    tolerance = workspace.options.primal_tolerance
+    bad_rows = Tuple{Float64,Int}[]
+    bad_columns = Tuple{Float64,Int}[]
+    for row in axes(A, 1)
+        excess = interval_excess(row_lower[row], row_upper[row],
+                                 problem.row_lower[row], problem.row_upper[row], tolerance)
+        excess > 0 && push!(bad_rows, (excess, row))
+    end
+    for column in axes(A, 2)
+        excess = interval_excess(primal[column], primal[column],
+                                 problem.column_lower[column],
+                                 problem.column_upper[column], tolerance)
+        excess > 0 && push!(bad_columns, (excess, column))
+    end
+    sort!(bad_rows; rev=true)
+    sort!(bad_columns; rev=true)
+    println("PRIMAL_CERTIFICATE stage=", label,
+            " iteration=", workspace.iterations,
+            " refactorizations=", workspace.refactorizations,
+            " updates=", length(workspace.factorization.updates),
+            " stored_pinf=", J.primal_infeasibility_summary(workspace),
+            " stored_dinf=", J.dual_infeasibility_summary(workspace),
+            " certified=", J._original_primal_feasible(workspace, primal),
+            " bad_rows=", length(bad_rows),
+            " bad_columns=", length(bad_columns))
+    for (excess, row) in Iterators.take(bad_rows, 5)
+        println("BAD_PRIMAL_ROW stage=", label, " row=", row,
+                " excess=", excess,
+                " interval=", (row_lower[row], row_upper[row]),
+                " exact_activity=", exact_row_activity(A, primal, row),
+                " stored_activity=", -workspace.primal[column_count + row],
+                " bounds=", (problem.row_lower[row], problem.row_upper[row]))
+    end
+    for (excess, column) in Iterators.take(bad_columns, 5)
+        println("BAD_PRIMAL_COLUMN stage=", label, " column=", column,
+                " excess=", excess, " value=", primal[column],
+                " bounds=", (problem.column_lower[column],
+                             problem.column_upper[column]))
+    end
+    flush(stdout)
+    return nothing
+end
+
+function audit_original_cost_cleanup(workspace, stop)
+    problem = workspace.problem
+    column_count = size(problem.A, 2)
+    shifted_costs = count(eachindex(workspace.costs)) do index
+        original_cost = index <= column_count ? problem.objective[index] : 0.0
+        workspace.costs[index] != original_cost
+    end
+    println("ORIGINAL_COST_AUDIT_START iteration=", workspace.iterations,
+            " refactorizations=", workspace.refactorizations,
+            " updates=", length(workspace.factorization.updates),
+            " perturbed=", workspace.perturbed,
+            " shifted_costs=", shifted_costs)
+    workspace.costs .= vcat(problem.objective, zeros(eltype(workspace.costs),
+                                                    size(problem.A, 1)))
+    workspace.perturbed = false
+    J.recompute!(workspace)
+    report_primal_certificate(workspace, "restored_costs")
+    if J.dual_infeasibility(workspace) > workspace.options.dual_tolerance
+        J.recompute!(workspace; refactorize=true, caller_guard=stop)
+        J._dual_prices_feasible_or_refined!(workspace, stop)
+    end
+    println("ORIGINAL_COST_BEFORE_PRIMAL iteration=", workspace.iterations,
+            " pinf=", J.primal_infeasibility_summary(workspace),
+            " dinf=", J.dual_infeasibility_summary(workspace))
+    terminal = J._primal_optimize!(workspace, stop)
+    println("ORIGINAL_COST_PRIMAL_RESULT status=", terminal.status,
+            " message=", terminal.message,
+            " iteration=", workspace.iterations)
+    report_primal_certificate(workspace, "after_primal")
+    if !J._original_primal_feasible(workspace,
+                                   copy(workspace.primal[1:size(problem.A, 2)]))
+        save_failure_snapshot(workspace;
+            path=joinpath(@__DIR__, "runtime_original_cost_after_primal.tsv"))
+    end
+    println("ORIGINAL_COST_SOLUTION status=",
+            J._internal_solution(workspace, terminal).status)
+    try
+        J.recompute!(workspace; refactorize=true, caller_guard=stop)
+        report_primal_certificate(workspace, "fresh_factorization")
+        if !J._original_primal_feasible(workspace,
+                                       copy(workspace.primal[1:size(problem.A, 2)]))
+            save_failure_snapshot(workspace;
+                path=joinpath(@__DIR__, "runtime_original_cost_fresh.tsv"))
+        end
+        println("ORIGINAL_COST_FRESH_SOLUTION status=",
+                J._internal_solution(workspace, J.OPTIMAL, "audit").status)
+    catch exception
+        println("ORIGINAL_COST_FRESH_ERROR ", sprint(showerror, exception))
+    end
+    flush(stdout)
+    return nothing
+end
+
 function main()
     path = get(ENV, "RUNTIME_MPS", raw"C:\Disk_D\tmp\runtime.mps")
     target = parse(Int, get(ENV, "RUNTIME_TARGET_ITERATIONS", "30000"))
@@ -380,6 +508,10 @@ function main()
             " last_iteration=", last_capture[])
     println("SCAN_SUMMARY count=", scan_count[], " last_iteration=", last_scan[])
     flush(stdout)
+    if terminal.status == J.OPTIMAL &&
+       get(ENV, "RUNTIME_AUDIT_ORIGINAL_COST", "0") == "1"
+        audit_original_cost_cleanup(workspace, stop)
+    end
     if terminal.status == J.NUMERICAL_ERROR
         save_failure_snapshot(workspace)
         audit_dual_loss(workspace)
