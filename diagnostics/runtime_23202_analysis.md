@@ -250,3 +250,12 @@ iterations whose *stored* prices are feasible, using
 `runtime_reduced_capture_a.tsv` and `runtime_reduced_capture_b.tsv`
 preserve their bases, states, costs, and prices for an independent
 before-and-after audit. This is diagnostic instrumentation only.
+
+Commit `bb00de8` repeats the same 29,720 failure with the same prices
+and basis counters. Its log still traces the old 23,750–23,825 window
+and contains no `STORED_FEASIBLE_SNAPSHOT` record; the commit also has
+no capture files. The capture environment settings were therefore not
+active for that run. The diagnostic script now defaults to tracing and
+capturing iterations 29,690–29,730 and prints `DIAGNOSTIC_CONFIG` at
+startup. A plain invocation after updating the branch will produce the
+two rolling capture files if it follows the same path.

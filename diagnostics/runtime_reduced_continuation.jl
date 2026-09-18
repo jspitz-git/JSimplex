@@ -202,10 +202,10 @@ function main()
     flush(stdout)
 
     last_report = Ref(-1)
-    trace_start = parse(Int, get(ENV, "RUNTIME_TRACE_START", "23750"))
-    trace_end = parse(Int, get(ENV, "RUNTIME_TRACE_END", "23825"))
-    capture_start = parse(Int, get(ENV, "RUNTIME_CAPTURE_START", "0"))
-    capture_end = parse(Int, get(ENV, "RUNTIME_CAPTURE_END", string(capture_start + 50)))
+    trace_start = parse(Int, get(ENV, "RUNTIME_TRACE_START", "29690"))
+    trace_end = parse(Int, get(ENV, "RUNTIME_TRACE_END", "29730"))
+    capture_start = parse(Int, get(ENV, "RUNTIME_CAPTURE_START", "29690"))
+    capture_end = parse(Int, get(ENV, "RUNTIME_CAPTURE_END", "29730"))
     capture_start == 0 || (0 < capture_start <= capture_end) ||
         error("RUNTIME_CAPTURE_START and RUNTIME_CAPTURE_END must define a positive range")
     capture_paths = (
@@ -215,9 +215,15 @@ function main()
     capture_paths[1] != capture_paths[2] || error("capture paths must differ")
     capture_count = Ref(0)
     last_capture = Ref(-1)
-    watched = parse(Int, get(ENV, "RUNTIME_WATCH_VARIABLE", "24212"))
+    watched = parse(Int, get(ENV, "RUNTIME_WATCH_VARIABLE", "17901"))
     1 <= watched <= length(workspace.basis.states) ||
         error("RUNTIME_WATCH_VARIABLE is outside the working variable range")
+    println("DIAGNOSTIC_CONFIG source=", @__FILE__,
+            " trace=", (trace_start, trace_end),
+            " capture=", (capture_start, capture_end),
+            " watch=", watched,
+            " capture_paths=", capture_paths)
+    flush(stdout)
     last_trace = Ref(-1)
     previous_basic = Ref{Union{Nothing,Vector{Int}}}(nothing)
     function stop()
@@ -280,6 +286,8 @@ function main()
             " pinf=", J.primal_infeasibility_summary(workspace),
             " dinf=", J.dual_infeasibility_summary(workspace),
             " elapsed_seconds=", (time_ns() - started_ns) / 1.0e9)
+    println("CAPTURE_SUMMARY count=", capture_count[],
+            " last_iteration=", last_capture[])
     flush(stdout)
     if terminal.status == J.NUMERICAL_ERROR && terminal.message == "dual feasibility lost"
         save_failure_snapshot(workspace)
