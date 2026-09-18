@@ -549,7 +549,65 @@ function update_dual_pricing_weights!(workspace::SimplexWorkspace{T},
     return _finite_workspace(workspace)
 end
 
-function dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested)::Union{Nothing,DualTermination} where {T}
+# Give nearly zero nonbasic reduced costs a small, reproducible margin in the
+# dual-feasible direction. Only nonbasic costs move, so the current basis dual
+# multipliers and every other reduced cost stay unchanged. Original costs are
+# restored before the final optimality check.
+function _perturb_degenerate_dual_costs!(workspace::SimplexWorkspace{T},
+                                         stop_requested) where {T<:AbstractFloat}
+    tolerance = workspace.options.dual_tolerance
+    indices = Int[]
+    costs = T[]
+    prices = T[]
+    for index in eachindex(workspace.basis.states)
+        index % 1024 == 0 && stop_requested() && return -1
+        state = workspace.basis.states[index]
+        (state == AT_LOWER || state == AT_UPPER) || continue
+        _is_fixed(workspace.lower[index], workspace.upper[index]) && continue
+        price = workspace.reduced_costs[index]
+        abs(price) <= tolerance || continue
+        direction = state == AT_LOWER ? one(T) : -one(T)
+        target = tolerance * T(8 + index % 16)
+        isfinite(target) || continue
+        old_cost = workspace.costs[index]
+        requested_shift = direction * target - price
+        new_cost = old_cost + requested_shift
+        new_cost == old_cost && continue
+        isfinite(new_cost) || continue
+        actual_shift = new_cost - old_cost
+        # A single ulp of a large cost can dwarf the intended margin.
+        abs(actual_shift) <= 2abs(requested_shift) || continue
+        new_price = price + actual_shift
+        isfinite(new_price) && direction * new_price > tolerance || continue
+        push!(indices, index)
+        push!(costs, new_cost)
+        push!(prices, new_price)
+    end
+    isempty(indices) && return 0
+    previous_costs = workspace.costs[indices]
+    previous_prices = workspace.reduced_costs[indices]
+    previous_perturbed = workspace.perturbed
+    workspace.costs[indices] .= costs
+    workspace.reduced_costs[indices] .= prices
+    if !_finite_workspace(workspace) ||
+       dual_infeasibility(workspace) > tolerance
+        workspace.costs[indices] .= previous_costs
+        workspace.reduced_costs[indices] .= previous_prices
+        workspace.perturbed = previous_perturbed
+        return 0
+    end
+    workspace.perturbed = true
+    try
+        @logmsg workspace.options.log_level "Perturbed dual costs after zero-step stall" iteration=workspace.iterations shifted=length(indices)
+    catch exception
+        stop_requested isa _StopCallback && (stop_requested.exception = exception)
+        rethrow()
+    end
+    return length(indices)
+end
+
+function dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested;
+                         perturb_degenerate::Bool=true)::Union{Nothing,DualTermination} where {T}
     stop_requested = _guard_stop_callback(stop_requested)
     stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
     try
@@ -558,7 +616,7 @@ function dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested)::Union{
                 return _numerical_failure()
             _finite_workspace(workspace) || return _numerical_failure()
         end
-        return _dual_iteration!(workspace, stop_requested)
+        return _dual_iteration!(workspace, stop_requested, false, perturb_degenerate)
     catch exception
         exception === stop_requested.exception && rethrow()
         _is_numerical_exception(exception) || rethrow()
@@ -1011,7 +1069,8 @@ _try_refine_dual_pivot!(::SimplexWorkspace, ::Int, orientation, violation,
                         stop_requested) = nothing
 
 function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
-                          basis_refreshed::Bool=false) where {T}
+                          basis_refreshed::Bool=false,
+                          perturb_degenerate::Bool=true) where {T}
     leaving_row = dual_edge_selection(workspace)
     leaving_row == -1 && return DualTermination(OPTIMAL, "optimal solution found")
     leaving_index = workspace.basis.basic_indices[leaving_row]
@@ -1047,7 +1106,7 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
                 stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
                 return DualTermination(NUMERICAL_ERROR, "dual feasibility lost")
             end
-            return _dual_iteration!(workspace, stop_requested, true)
+            return _dual_iteration!(workspace, stop_requested, true, perturb_degenerate)
         end
     end
     dse_weight = zero(T)
@@ -1060,7 +1119,8 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
             _switch_dual_pricing_to_devex!(workspace, stop_requested,
                                            "steepest-edge weight disagrees with basis solve";
                                            stored_weight, actual_weight=dse_weight)
-            return _dual_iteration!(workspace, stop_requested, basis_refreshed)
+            return _dual_iteration!(workspace, stop_requested, basis_refreshed,
+                                    perturb_degenerate)
         end
     end
     orientation = below ? -one(T) : one(T)
@@ -1089,7 +1149,7 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
                 stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
                 return DualTermination(NUMERICAL_ERROR, "dual feasibility lost")
             end
-            return _dual_iteration!(workspace, stop_requested, true)
+            return _dual_iteration!(workspace, stop_requested, true, perturb_degenerate)
         end
         if _is_exact(T) === Val(false) && !_floating_infeasibility_certified(workspace, rho, below)
             return DualTermination(NUMERICAL_ERROR,
@@ -1128,7 +1188,7 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
                 stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
                 return DualTermination(NUMERICAL_ERROR, "dual feasibility lost")
             end
-            return _dual_iteration!(workspace, stop_requested, true)
+            return _dual_iteration!(workspace, stop_requested, true, perturb_degenerate)
         end
         if _try_refine_dual_direction!(workspace, entering_index, leaving_row,
                                        pivot, tableau_row[entering_index],
@@ -1193,7 +1253,7 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
             stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
             return DualTermination(NUMERICAL_ERROR, "dual feasibility lost")
         end
-        return _dual_iteration!(workspace, stop_requested, true)
+        return _dual_iteration!(workspace, stop_requested, true, perturb_degenerate)
     end
     abs(pivot) > workspace.options.zero_tolerance || throw(ZeroPivotException(leaving_row))
     if !_stabilize_small_dual_pivot!(workspace, entering_index, pivot,
@@ -1247,11 +1307,12 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
     if _is_exact(T) === Val(false) && !iszero(dual_step)
         workspace.dual_nonzero_steps_since_refactorization += 1
     end
-    if _is_exact(T) === Val(false) && workspace.options.pricing == :steepest_edge &&
-       !workspace.dual_pricing_fallback
+    if _is_exact(T) === Val(false)
         workspace.zero_dual_step_streak = iszero(dual_step) ?
             workspace.zero_dual_step_streak + 1 : 0
-        if workspace.zero_dual_step_streak >= 256 &&
+        if workspace.options.pricing == :steepest_edge &&
+           !workspace.dual_pricing_fallback &&
+           workspace.zero_dual_step_streak >= 256 &&
            primal_infeasibility(workspace) > workspace.options.primal_tolerance
             workspace.dual_pricing_fallback = true
             try
@@ -1270,6 +1331,25 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
                      updates - updates ÷ 4
         recompute!(workspace; refactorize=true, caller_guard=stop_requested)
         basis_refreshed || _note_stable_dual_refactorization!(workspace, productive)
+    end
+    if perturb_degenerate && _is_exact(T) === Val(false) &&
+       workspace.zero_dual_step_streak >= 1024 &&
+       primal_infeasibility(workspace) > workspace.options.primal_tolerance
+        stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
+        if !isempty(workspace.factorization.updates)
+            recompute!(workspace; refactorize=true, caller_guard=stop_requested)
+            stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
+            _finite_workspace(workspace) || return _numerical_failure()
+            if !_dual_prices_feasible_or_refined!(workspace, stop_requested)
+                stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
+                return DualTermination(NUMERICAL_ERROR, "dual feasibility lost")
+            end
+        end
+        if primal_infeasibility(workspace) > workspace.options.primal_tolerance
+            shifted = _perturb_degenerate_dual_costs!(workspace, stop_requested)
+            shifted < 0 && return DualTermination(TIME_LIMIT, "time limit reached")
+        end
+        workspace.zero_dual_step_streak = 0
     end
     _finite_workspace(workspace) || return _numerical_failure()
     return nothing
@@ -1560,7 +1640,8 @@ function _flip_bounds!(workspace::SimplexWorkspace{T}) where {T}
     return nothing
 end
 
-function _dual_optimize!(workspace::SimplexWorkspace{T}, stop_requested)::DualTermination where {T}
+function _dual_optimize!(workspace::SimplexWorkspace{T}, stop_requested;
+                         perturb_degenerate::Bool=true)::DualTermination where {T}
     while true
         stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
         _finite_workspace(workspace) || return _numerical_failure()
@@ -1582,7 +1663,7 @@ function _dual_optimize!(workspace::SimplexWorkspace{T}, stop_requested)::DualTe
         end
         workspace.iterations < workspace.options.iteration_limit ||
             return DualTermination(ITERATION_LIMIT, "iteration limit reached")
-        terminal = dual_iteration!(workspace, stop_requested)
+        terminal = dual_iteration!(workspace, stop_requested; perturb_degenerate)
         isnothing(terminal) || return terminal
     end
 end
@@ -1745,7 +1826,10 @@ function _make_dual_feasible!(workspace::SimplexWorkspace{T}, stop_requested) wh
     dual_infeasibility(workspace) <= workspace.options.dual_tolerance && return nothing
 
     auxiliary = _auxiliary_workspace(workspace)
-    terminal = _dual_optimize!(auxiliary, stop_requested)
+    # Artificial auxiliary bounds can reverse a nonbasic state when the basis
+    # returns to the original LP. Keep anti-degeneracy cost shifts out of this
+    # phase so a shifted price cannot become infeasible after that remapping.
+    terminal = _dual_optimize!(auxiliary, stop_requested; perturb_degenerate=false)
     workspace.iterations = auxiliary.iterations
     workspace.refactorizations = auxiliary.refactorizations
     terminal.status == OPTIMAL || return terminal
@@ -1774,7 +1858,8 @@ function _make_dual_feasible!(workspace::SimplexWorkspace{T}, stop_requested) wh
     workspace.pricing_weights .= auxiliary.pricing_weights
     workspace.costs .= auxiliary.costs
     workspace.perturbed = auxiliary.perturbed
-    workspace.zero_dual_step_streak = auxiliary.zero_dual_step_streak
+    # Start the stall count on the original bounds and objective.
+    workspace.zero_dual_step_streak = 0
     workspace.dual_pricing_fallback = auxiliary.dual_pricing_fallback
     workspace.dual_devex_fallback = auxiliary.dual_devex_fallback
     workspace.dual_refactorization_interval = auxiliary.dual_refactorization_interval

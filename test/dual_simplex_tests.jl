@@ -1099,6 +1099,82 @@ end
     @test all(isfinite, workspace.pricing_weights)
 end
 
+@testset "A prolonged dual zero-step stall perturbs costs and restores the LP" begin
+    problem = LinearProblem(
+        sparse([1.0 0.0 0.0; 0.0 1.0 0.0; 0.0 0.0 1.0]),
+        zeros(3); row_lower=[-Inf, 1.0, 1.0],
+        column_lower=[nothing, 0.0, 0.0],
+        column_upper=[0.0, nothing, nothing],
+    )
+    options = SolverOptions(pricing=:dantzig, verbose=false)
+    workspace = JSimplex.initialize_workspace(problem, options)
+    workspace.zero_dual_step_streak = 1023
+    @test isnothing(JSimplex.dual_iteration!(workspace, () -> false))
+    @test workspace.iterations == 1
+    @test workspace.perturbed
+    @test workspace.costs[1] < 0.0
+    @test workspace.costs[3] > 0.0
+    @test JSimplex.dual_infeasibility(workspace) == 0.0
+
+    run = JSimplex._solve_continuous_dual!(workspace, () -> false)
+    @test run.status == OPTIMAL
+    @test run.objective_value == 0.0
+    @test workspace.primal[2:3] == [1.0, 1.0]
+    @test all(iszero, workspace.costs)
+
+    no_stall = JSimplex.initialize_workspace(problem, options)
+    no_stall.zero_dual_step_streak = 1022
+    @test isnothing(JSimplex.dual_iteration!(no_stall, () -> false))
+    @test !no_stall.perturbed
+    @test all(iszero, no_stall.costs)
+
+    exact = LinearProblem(sparse(Rational{BigInt}[1 0; 0 1]),
+                          zeros(Rational{BigInt}, 2);
+                          row_lower=ones(Rational{BigInt}, 2))
+    rational = JSimplex.initialize_workspace(
+        exact, SolverOptions(Rational{BigInt}; pricing=:dantzig, verbose=false),
+    )
+    rational.zero_dual_step_streak = 1023
+    @test isnothing(JSimplex.dual_iteration!(rational, () -> false))
+    @test !rational.perturbed
+end
+
+@testset "Anti-degeneracy skips a cost shift larger than its tolerance scale" begin
+    problem = LinearProblem(sparse([1.0 1.0]), [1.0e20, 1.0e20];
+                            row_lower=[1.0])
+    workspace = JSimplex.initialize_workspace(problem, SolverOptions(verbose=false))
+    workspace.basis = JSimplex.Basis(
+        [1], JSimplex.VariableState[JSimplex.BASIC, JSimplex.AT_LOWER,
+                                    JSimplex.AT_LOWER],
+    )
+    JSimplex.recompute!(workspace; refactorize=true)
+    @test workspace.reduced_costs[2] == 0.0
+    original_costs = copy(workspace.costs)
+    @test JSimplex._perturb_degenerate_dual_costs!(workspace, () -> false) == 0
+    @test workspace.costs == original_costs
+    @test !workspace.perturbed
+end
+
+@testset "Auxiliary dual iterations do not perturb costs across artificial bounds" begin
+    problem = LinearProblem(sparse([1.0 0.0 0.0; 0.0 1.0 0.0]), zeros(3);
+                            row_lower=zeros(2), row_upper=zeros(2),
+                            column_lower=zeros(3))
+    workspace = JSimplex.initialize_workspace(
+        problem, SolverOptions(pricing=:dantzig, verbose=false),
+    )
+    auxiliary = JSimplex._auxiliary_workspace(workspace)
+    auxiliary.basis.states[1:3] .= JSimplex.AT_UPPER
+    JSimplex.recompute!(auxiliary)
+    auxiliary.zero_dual_step_streak = 1023
+    @test JSimplex.primal_infeasibility(auxiliary) == 2.0
+    @test isnothing(JSimplex.dual_iteration!(auxiliary, () -> false;
+                                             perturb_degenerate=false))
+    @test auxiliary.iterations == 1
+    @test JSimplex.primal_infeasibility(auxiliary) == 1.0
+    @test !auxiliary.perturbed
+    @test all(iszero, auxiliary.costs)
+end
+
 @testset "Dual Devex reference weights" begin
     for T in (Float64, Rational{BigInt})
         problem = LinearProblem(sparse(T[1 0; 0 1]), T[0, 0])

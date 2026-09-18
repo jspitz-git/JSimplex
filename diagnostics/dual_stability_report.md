@@ -136,3 +136,28 @@ behavior at the later numerical failure or the full-solve runtime. `medium.mps`
 has not been run with this change.
 
 The full test suite passed: 14,071 of 14,071 checks.
+
+## Dual anti-degeneracy cost perturbation
+
+After 1,024 consecutive zero dual steps with remaining primal infeasibility,
+the floating dual solver refreshes the basis and moves near-zero nonbasic
+reduced costs a small, deterministic distance into the dual-feasible side.
+The shift depends on the variable index and affects only working costs. It
+can act under steepest-edge, Devex, or Dantzig pricing. Rational arithmetic
+is unchanged. Shifts that cannot be represented without exceeding twice the
+requested change are skipped. The auxiliary dual-feasibility phase does not
+apply these shifts; its zero-step count is reset before original-bound
+optimization. At a candidate optimum, the solver restores the original costs
+and uses primal cleanup if needed before certifying the original LP.
+
+On the `pk1` LP relaxation, default product-form pricing retained its previous
+353 pivots with no perturbation. Default Suhl–Suhl pricing perturbed 70
+nonbasic costs at pivot 1,024 and finished `OPTIMAL` at pivot 1,030, compared
+with 1,593 previously. Explicit Devex finished `OPTIMAL` at pivot 1,035 with
+either basis update after the same 70-cost perturbation; prior runs took
+3,033–4,816 pivots. Explicit Dantzig retained 793 pivots with no perturbation.
+These are paths on one degenerate LP, not a general speed estimate. The first
+2,000 pivots of the reduced `runtime.mps` did not trigger cost perturbation.
+All 32 small-instance runs with one or six BLAS threads and PFI or Suhl–Suhl
+basis updates finished `OPTIMAL`.
+The full test suite passed: 14,096 of 14,096 checks.

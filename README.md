@@ -326,6 +326,14 @@ reselects the row. This uses the row solve already needed for the pivot. The
 zero-step Dantzig fallback remains available after a Devex switch. Explicit
 `:devex` and `:dantzig` settings do not use this switch.
 
+If floating dual simplex makes 1024 consecutive zero dual steps while the LP
+is still primal infeasible, it refactorizes the current basis and slightly
+separates near-zero nonbasic reduced costs. The shifts are deterministic and
+keep the working basis dual feasible. They apply with any pricing rule.
+The auxiliary dual-feasibility phase does not use these shifts. Original
+objective costs are restored before the final optimality check; primal simplex
+cleanup resolves any dual infeasibility exposed by that restoration.
+
 With `basis_refactorization=:markowitz`, a full basis factorization chooses
 sparse pivots using the Markowitz fill criterion and a column stability
 threshold. Once the remaining matrix is at least half dense, it factors the

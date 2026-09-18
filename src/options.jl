@@ -68,7 +68,10 @@ weights are initialized for a unit basis and updated after each pivot, with
 direct recomputation when a weight cannot be represented safely.
 Dual steepest-edge pricing switches to Dantzig after 256 consecutive zero
 dual steps when primal infeasibility remains; explicit Devex and Dantzig
-settings are unaffected.
+settings do not use this pricing switch. After 1024 consecutive zero dual
+steps, floating dual simplex may perturb near-zero nonbasic working costs
+while preserving dual feasibility, regardless of the pricing rule. Original
+costs are restored before optimality certification.
 `refactorization_interval` is the initial number of basis updates between
 full factorizations. Floating dual simplex shortens it after repeated
 inaccurate updated solves and can lengthen it after stable cycles with mostly
