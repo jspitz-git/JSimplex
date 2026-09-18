@@ -132,24 +132,47 @@ end
 end
 
 @testset "Dual price refinement releases a harmful cost shift" begin
-    for (original_cost, expected_status) in ((0.0, OPTIMAL), (4.0e-7, NUMERICAL_ERROR))
+    for (state, original_cost, working_cost, perturbed, expected_status) in (
+        (JSimplex.AT_UPPER, 0.0, 4.0e-7, true, OPTIMAL),
+        (JSimplex.AT_LOWER, 0.0, -4.0e-7, true, OPTIMAL),
+        (JSimplex.AT_UPPER, 0.0, 4.0e-7, false, NUMERICAL_ERROR),
+        (JSimplex.AT_LOWER, 0.0, -4.0e-7, false, NUMERICAL_ERROR),
+        (JSimplex.AT_UPPER, 2.0e-7, 4.0e-7, true, NUMERICAL_ERROR),
+        (JSimplex.AT_LOWER, -2.0e-7, -4.0e-7, true, NUMERICAL_ERROR),
+    )
         problem = LinearProblem(sparse([1.0;;]), [original_cost];
                                 row_upper=[2.0], column_upper=[1.0])
         workspace = JSimplex.initialize_workspace(problem, SolverOptions(verbose=false))
-        workspace.basis.states[1] = JSimplex.AT_UPPER
-        workspace.costs[1] = 4.0e-7
-        workspace.perturbed = original_cost == 0.0
+        workspace.basis.states[1] = state
+        workspace.costs[1] = working_cost
+        workspace.perturbed = perturbed
         JSimplex.recompute!(workspace; refactorize=true)
         @test JSimplex.dual_infeasibility(workspace) > workspace.options.dual_tolerance
 
         terminal = JSimplex._dual_optimize!(workspace, () -> false)
         @test terminal.status == expected_status
-        @test workspace.costs[1] == original_cost
+        @test workspace.costs[1] == (expected_status == OPTIMAL ? original_cost : working_cost)
         @test workspace.iterations == 0
         if expected_status == OPTIMAL
             @test JSimplex.dual_infeasibility(workspace) <= workspace.options.dual_tolerance
         end
     end
+
+    # Both signs of a cost shift can be released in a nontrivial basis.
+    problem = LinearProblem(sparse([1.0 2.0 3.0]), [1.0, 2.0, 3.0];
+                            row_lower=[2.0], row_upper=[2.0],
+                            column_upper=[Inf, 1.0, 1.0])
+    workspace = JSimplex.initialize_workspace(problem, SolverOptions(verbose=false))
+    workspace.basis = JSimplex.Basis([1],
+        [JSimplex.BASIC, JSimplex.AT_UPPER, JSimplex.AT_LOWER, JSimplex.AT_LOWER])
+    workspace.costs[2] += 4.0e-7
+    workspace.costs[3] -= 4.0e-7
+    workspace.perturbed = true
+    JSimplex.recompute!(workspace; refactorize=true)
+    @test JSimplex.dual_infeasibility(workspace) > workspace.options.dual_tolerance
+    @test JSimplex._try_refine_dual_prices!(workspace, () -> false)
+    @test workspace.costs[2:3] == problem.objective[2:3]
+    @test JSimplex.dual_infeasibility(workspace) <= workspace.options.dual_tolerance
 end
 
 @testset "Dual pivot keeps a full-sized pivot with harmless solve roundoff" begin

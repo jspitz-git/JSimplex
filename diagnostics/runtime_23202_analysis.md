@@ -217,7 +217,9 @@ shift only when the workspace is perturbed, the original cost differs,
 and independently refined prices at 256 and 512 bits both become
 feasible with a margin after release. If any price still violates the
 tolerance, the path leaves working costs and prices unchanged. A
-one-row regression exercises both release and rejection without any
-simplex pivots. The full test suite passes 13,622/13,622 tests. A
+synthetic regressions exercise upper and lower bounds, rejection when
+there was no perturbation or the original cost remains infeasible,
+and simultaneous shifts in a basis with a nonzero dual multiplier.
+The full suite at the time of the fix passed 13,622/13,622 tests. A
 Windows continuation with this change is still needed
 to see whether the reduced LP advances beyond iteration 26,421.
