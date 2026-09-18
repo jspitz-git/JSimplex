@@ -5,7 +5,7 @@ using JSimplex, LinearAlgebra
 #   $env:JSIMPLEX_DIAG_BLAS_THREADS = "6"
 #   $env:JSIMPLEX_DIAG_TIME_LIMIT = "900"
 #   julia --project=. .\diagnostics\runtime_projection_continuation.jl `
-#       "C:\path\to\runtime.mps" 2>&1 | Tee-Object .\diagnostics\runtime_projection_windows.log
+#       .\runtime.mps 2>&1 | Tee-Object .\diagnostics\runtime_projection_windows.log
 # Per-run settings: JSIMPLEX_DIAG_BLAS_THREADS (default 1) and
 # JSIMPLEX_DIAG_TIME_LIMIT (default 600 seconds). Each variant gets its own
 # limit; "iterations_saved" is reported only if both variants finish OPTIMAL.
