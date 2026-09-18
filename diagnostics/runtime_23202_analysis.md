@@ -259,3 +259,29 @@ active for that run. The diagnostic script now defaults to tracing and
 capturing iterations 29,690–29,730 and prints `DIAGNOSTIC_CONFIG` at
 startup. A plain invocation after updating the branch will produce the
 two rolling capture files if it follows the same path.
+
+Commit `e32bd2b` contains those captures. File `capture_b` is the
+29,719 state, and `capture_a` is 29,720 just before refactorization;
+both report zero stored Float64 dual infeasibility. Independent 256-bit
+and 512-bit pricing on each saved basis finds the same three violations
+as the final failure: variables 17,901, 42,776, and 45,789 have prices
+about `-1.98697`, `-1.50116`, and `-3.01881`. Their stored prices just
+before refactorization were positive (`0.01724`, `0.01303`, `0.02620`).
+The refactorization at 29,720 exposed an existing disagreement; the
+last completed pivot alone did not create it.
+
+Reversing the 30 logged basis replacements from 29,720 to 29,690
+while holding the final working costs fixed gives nearly identical
+refined prices. This is a counterfactual because the earlier working
+cost vectors were not saved, but it suggests the disagreement may
+predate the traced window. To locate its onset, the continuation
+diagnostic now independently refines dual prices every 25 iterations
+starting at 26,422. It records the last independently feasible state
+and stops at the first confirmed discrepancy or inconclusive numerical
+check, saving that state too.
+This scan changes only the diagnostic run, not the production solver.
+On local aarch64 Linux, all 144 independent checks through iteration
+29,997 were feasible and the script reached its 30,000-iteration cap in
+166.9 seconds. The local pivot path still differs from Windows, so
+this does not resolve the Windows failure; it verifies that the scan
+fits within the 600-second diagnostic limit on this machine.

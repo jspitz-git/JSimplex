@@ -176,6 +176,38 @@ function save_failure_snapshot(workspace;
     end
 end
 
+function independent_dual_summary(workspace)
+    B = J.basis_matrix(workspace)
+    factor = lu(B)
+    prices = J._refined_dual_prices(workspace, factor, B, 256, () -> false)
+    isnothing(prices) && return nothing
+    tolerance = BigFloat(workspace.options.dual_tolerance)
+    worst = zero(BigFloat)
+    worst_index = 0
+    count = 0
+    total = zero(BigFloat)
+    for index in eachindex(prices)
+        violation = price_violation(workspace, index, prices[index])
+        isfinite(violation) || return nothing
+        if violation > tolerance
+            count += 1
+            total += violation
+            if violation > worst
+                worst = violation
+                worst_index = index
+            end
+        end
+    end
+    if count > 0
+        high = J._refined_dual_prices(workspace, factor, B, 512, () -> false)
+        isnothing(high) && return nothing
+        maximum(abs.(prices .- high)) <= tolerance / 8 || return nothing
+        price_violation(workspace, worst_index, high[worst_index]) > tolerance ||
+            return nothing
+    end
+    return (count=count, total=total, worst_index=worst_index, worst=worst)
+end
+
 function main()
     path = get(ENV, "RUNTIME_MPS", raw"C:\Disk_D\tmp\runtime.mps")
     target = parse(Int, get(ENV, "RUNTIME_TARGET_ITERATIONS", "30000"))
@@ -215,19 +247,69 @@ function main()
     capture_paths[1] != capture_paths[2] || error("capture paths must differ")
     capture_count = Ref(0)
     last_capture = Ref(-1)
+    scan_start = parse(Int, get(ENV, "RUNTIME_SCAN_START", "26422"))
+    scan_interval = parse(Int, get(ENV, "RUNTIME_SCAN_INTERVAL", "25"))
+    scan_start == 0 || (scan_start > 0 && scan_interval > 0) ||
+        error("RUNTIME_SCAN_START and RUNTIME_SCAN_INTERVAL must be positive")
+    scan_paths = (
+        get(ENV, "RUNTIME_SCAN_GOOD_PATH", joinpath(@__DIR__, "runtime_reduced_scan_good.tsv")),
+        get(ENV, "RUNTIME_SCAN_BAD_PATH", joinpath(@__DIR__, "runtime_reduced_scan_bad.tsv")),
+    )
+    scan_paths[1] != scan_paths[2] || error("scan paths must differ")
+    last_scan = Ref(-1)
+    scan_count = Ref(0)
     watched = parse(Int, get(ENV, "RUNTIME_WATCH_VARIABLE", "17901"))
     1 <= watched <= length(workspace.basis.states) ||
         error("RUNTIME_WATCH_VARIABLE is outside the working variable range")
     println("DIAGNOSTIC_CONFIG source=", @__FILE__,
             " trace=", (trace_start, trace_end),
             " capture=", (capture_start, capture_end),
+            " scan=", (scan_start, scan_interval),
             " watch=", watched,
-            " capture_paths=", capture_paths)
+            " capture_paths=", capture_paths,
+            " scan_paths=", scan_paths)
     flush(stdout)
     last_trace = Ref(-1)
     previous_basic = Ref{Union{Nothing,Vector{Int}}}(nothing)
     function stop()
         iteration = workspace.iterations
+        if scan_start > 0 && iteration >= scan_start &&
+           (iteration - scan_start) % scan_interval == 0 && iteration != last_scan[]
+            last_scan[] = iteration
+            scan_count[] += 1
+            stored = J.dual_infeasibility_summary(workspace)
+            if stored[1] > workspace.options.dual_tolerance
+                println("INDEPENDENT_SCAN_SKIPPED iteration=", iteration,
+                        " stored=", stored)
+                flush(stdout)
+            else
+                summary = try
+                    independent_dual_summary(workspace)
+                catch exception
+                    J._is_numerical_exception(exception) || rethrow()
+                    nothing
+                end
+                if isnothing(summary) || summary.count > 0
+                    save_failure_snapshot(workspace; path=scan_paths[2], announce=false)
+                    println("INDEPENDENT_SCAN_STOP iteration=", iteration,
+                            " refactorizations=", workspace.refactorizations,
+                            " updates=", length(workspace.factorization.updates),
+                            " stored=", stored,
+                            " refined=", summary,
+                            " path=", scan_paths[2])
+                    flush(stdout)
+                    return true
+                end
+                save_failure_snapshot(workspace; path=scan_paths[1], announce=false)
+                println("INDEPENDENT_SCAN iteration=", iteration,
+                        " refactorizations=", workspace.refactorizations,
+                        " updates=", length(workspace.factorization.updates),
+                        " stored=", stored,
+                        " refined=", summary,
+                        " path=", scan_paths[1])
+                flush(stdout)
+            end
+        end
         if capture_start > 0 && capture_start <= iteration <= capture_end &&
            iteration != last_capture[] &&
            J.dual_infeasibility(workspace) <= workspace.options.dual_tolerance
@@ -288,6 +370,7 @@ function main()
             " elapsed_seconds=", (time_ns() - started_ns) / 1.0e9)
     println("CAPTURE_SUMMARY count=", capture_count[],
             " last_iteration=", last_capture[])
+    println("SCAN_SUMMARY count=", scan_count[], " last_iteration=", last_scan[])
     flush(stdout)
     if terminal.status == J.NUMERICAL_ERROR && terminal.message == "dual feasibility lost"
         save_failure_snapshot(workspace)
