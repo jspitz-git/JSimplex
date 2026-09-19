@@ -1,5 +1,33 @@
 using JSimplex.SparseArrays
 
+@testset "Primal pivot refreshes a stale factor before numerical failure" begin
+    problem = LinearProblem(sparse([1.0;;]), [-1.0];
+        row_upper=[1.0], column_lower=[0.0])
+    options = SolverOptions(basis_update=:suhl_suhl, zero_tolerance=0.5,
+        verbose=false)
+    workspace = JSimplex.initialize_workspace(problem, options)
+    workspace.factorization.base = JSimplex._factorize_basis(sparse([-10.0;;]))
+    JSimplex.recompute!(workspace)
+    @test abs(only(JSimplex.forward_solve(workspace.factorization, [1.0]))) <
+          options.zero_tolerance
+
+    terminal = JSimplex._primal_iteration!(workspace, () -> false,
+        options.dual_tolerance)
+    @test isnothing(terminal)
+    @test workspace.iterations == 1
+    @test workspace.refactorizations == 1
+    @test workspace.primal[1] ≈ 1.0
+
+    persistent = JSimplex.initialize_workspace(
+        LinearProblem(sparse([0.1;;]), [-1.0];
+            row_upper=[1.0], column_lower=[0.0]), options)
+    terminal = JSimplex._primal_iteration!(persistent, () -> false,
+        options.dual_tolerance)
+    @test terminal.status == NUMERICAL_ERROR
+    @test persistent.iterations == 0
+    @test persistent.refactorizations == 1
+end
+
 @testset "Primal weighted pricing accepts platform-sized exponents" begin
     for T in (Float32, Float64, BigFloat)
         cost = T(0.25)

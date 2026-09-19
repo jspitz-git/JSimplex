@@ -259,12 +259,13 @@ end
     for pricing in (:steepest_edge, :devex, :dantzig)
         optimizer = JSimplex.Optimizer()
         MOI.set(optimizer, MOI.Silent(), true)
+        MOI.set(optimizer, MOI.RawOptimizerAttribute("presolve"), false)
         MOI.set(optimizer, MOI.RawOptimizerAttribute("pricing"), pricing)
         _, copied = MOI.optimize!(optimizer, source)
         @test !copied
         @test MOI.get(optimizer, MOI.TerminationStatus()) == MOI.OPTIMAL
         @test MOI.get(optimizer, MOI.ObjectiveValue()) == 3.0
-        @test MOI.get(optimizer, MOI.SimplexIterations()) == 1
+        @test MOI.get(optimizer, MOI.SimplexIterations()) == 2
     end
 end
 
@@ -272,6 +273,7 @@ end
     for pricing in (:dantzig, :steepest_edge, :devex)
         optimizer = JSimplex.Optimizer()
         MOI.set(optimizer, MOI.Silent(), true)
+        MOI.set(optimizer, MOI.RawOptimizerAttribute("presolve"), false)
         MOI.set(optimizer, MOI.RawOptimizerAttribute("algorithm"), :primal)
         MOI.set(optimizer, MOI.RawOptimizerAttribute("pricing"), pricing)
         _, copied = MOI.optimize!(optimizer, _moi_pivot_model())
@@ -388,6 +390,8 @@ end
                 MOI.set(optimizer, MOI.RawOptimizerAttribute(case[4]), case[5])
             end
         end
+        expected == MOI.ITERATION_LIMIT &&
+            MOI.set(optimizer, MOI.RawOptimizerAttribute("presolve"), false)
         _, copied = MOI.optimize!(optimizer, source)
         @test !copied
         @test MOI.get(optimizer, MOI.TerminationStatus()) == expected

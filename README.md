@@ -73,8 +73,13 @@ end
 
 Presolve runs by default. It applies all implemented reductions automatically,
 then restores the original variables and resolves the original LP from the
-restored basis when cleanup is needed. If the reduced solve cannot certify its
-result, JSimplex restarts simplex on the original LP. With `verbose=true`, this
+restored basis when cleanup is needed. Before cleanup, it tries to exchange
+basic variables at original bounds for nonbasic variables held at bounds
+inferred during presolve. These exchanges are not counted as simplex iterations.
+As a postsolve reconstruction, they can recover an optimal original basis even
+when `iteration_limit=0`.
+If the reduced solve cannot certify its result, JSimplex restarts simplex on
+the original LP. With `verbose=true`, this
 restart logs the first status and reason. Progress iteration counts and final
 statistics include iterations spent on both LPs. To solve the original LP
 directly:
@@ -286,11 +291,11 @@ for `SolverOptions(Float64)`. Floating types use these keyword defaults:
 | `zero_tolerance` | `1e-12` | Numerical zero threshold |
 | `iteration_limit` | `100_000` | Maximum completed simplex steps (pivots or primal bound flips) |
 | `time_limit` | `Inf` | Wall-clock seconds; `Inf` disables the deadline |
-| `refactorization_interval` | `20` | Basis update interval before full factorization |
+| `refactorization_interval` | `20` | Initial basis-update interval; floating dual simplex can shorten or lengthen it adaptively |
 | `verbose` | `true` | Emit `Info`-level model statistics, simplex progress, and final status |
 | `log_level` | `Logging.Debug` | Level emitted through Julia's logging system |
 | `algorithm` | `:dual` | `:dual` or `:primal` |
-| `pricing` | `:steepest_edge` | Dual or primal pricing rule: `:steepest_edge`, `:devex`, or `:dantzig` |
+| `pricing` | `:steepest_edge` | Dual or primal pricing rule: `:steepest_edge`, `:devex`, or `:dantzig`; floating dual steepest-edge switches to Devex if a checked weight becomes unreliable, and to Dantzig after 256 consecutive zero dual steps |
 | `basis_update` | `:pfi` | Basis update: `:pfi`, `:forrest_tomlin`, `:bartels_golub`, or `:suhl_suhl` |
 | `basis_refactorization` | `:native` | Full factorization: `:native` or `:markowitz` |
 | `scaling` | `:auto` | `:auto`, `:on`, or `:off` row and column scaling |
@@ -302,7 +307,32 @@ pivot. Suhl–Suhl moves the leaving row and column only to the last nonzero
 position of the entering spike, reducing fill when the spike ends early. All
 three triangular methods reuse solve buffers and store updated factors in
 packed sparse columns. The `refactorization_interval` applies to all four
-update methods.
+update methods. When two updated dual basis solves fail residual checks within
+three clean factorization cycles, dual simplex shortens its effective interval
+to half the earliest failed update count, with a minimum of one. Clean cycles
+restore a shortened interval. Three consecutive clean cycles with at least
+three quarters of their dual steps nonzero then double it above the configured
+value. Growth pauses during the zero-step pricing fallback. The default
+growth ceiling is 512 updates for product-form bases and 128 for triangular
+bases; a higher configured initial interval raises the ceiling, up to 4096.
+Values configured above 4096 remain valid. Primal and rational simplex keep
+the configured interval.
+
+For floating dual steepest-edge pricing, each selected row's stored weight is
+checked against the norm of its current basis transpose solve. If the weights
+differ by more than a factor of two, or a weight becomes invalid, pricing
+switches to a fresh Devex reference. A mismatch found before the ratio test
+reselects the row. This uses the row solve already needed for the pivot. The
+zero-step Dantzig fallback remains available after a Devex switch. Explicit
+`:devex` and `:dantzig` settings do not use this switch.
+
+If floating dual simplex makes 1024 consecutive zero dual steps while the LP
+is still primal infeasible, it refactorizes the current basis and slightly
+separates near-zero nonbasic reduced costs. The shifts are deterministic and
+keep the working basis dual feasible. They apply with any pricing rule.
+The auxiliary dual-feasibility phase does not use these shifts. Original
+objective costs are restored before the final optimality check; primal simplex
+cleanup resolves any dual infeasibility exposed by that restoration.
 
 With `basis_refactorization=:markowitz`, a full basis factorization chooses
 sparse pivots using the Markowitz fill criterion and a column stability
@@ -538,7 +568,7 @@ The standard test suite also includes seven small benchmark fixtures from
 so tests need neither the local benchmark directories nor a network connection.
 MIPLib cases are solved only as explicit LP relaxations; the listed objectives
 are LP objectives, not MIP objectives. Both simplex algorithms are checked
-against reference objectives obtained with GLPK, except for `pk1` as noted below.
+against reference objectives obtained with GLPK for the six numerical fixtures.
 
 | Fixture | Numerical behavior covered |
 | --- | --- |
@@ -548,11 +578,11 @@ against reference objectives obtained with GLPK, except for `pk1` as noted below
 | MIPLib [`stein9inf`](https://miplib.zib.de/instance_details_stein9inf.html) | Integer infeasibility with a feasible LP relaxation. |
 | MIPLib [`flugpl`](https://miplib.zib.de/instance_details_flugpl.html) | Mixed integer domains, fractional coefficients, and large objective values. |
 | MIPLib [`markshare_4_0`](https://miplib.zib.de/instance_details_markshare_4_0.html) | Dense equalities and a zero-cost LP optimum. |
-| MIPLib [`pk1`](https://miplib.zib.de/instance_details_pk1.html) | The current dual method stalls on the LP relaxation; primal reaches zero objective, and dual must stop at its iteration limit or solve it. |
+| MIPLib [`pk1`](https://miplib.zib.de/instance_details_pk1.html) | The LP relaxation gives a long series of zero dual steps; both simplex algorithms reach objective zero. Dual pricing switches to Dantzig after that series. |
 
-`dev/run_suite.jl --tag numerical --compare-glpk` checks the six cases with
-reliable default-dual optima against GLPK. The `pk1` behavior is covered by
-the standard regression test with a fixed iteration cap.
+`dev/run_suite.jl --tag numerical --compare-glpk` checks the six reference
+cases against GLPK. The `pk1` behavior is covered by the standard regression
+test with a 500-iteration cap.
 
 ### Large and private datasets
 
@@ -595,9 +625,10 @@ considers rows with at most eight terms and permits at most ten estimated
 coefficient updates per pivot, 200,000 updates and 50,000 pivots per pass.
 General rational row elimination is limited to 256 rows, 10,000 nonzeros,
 and 200,000 sparse elimination operations. Floating models use reversible
-row and column scaling
-by default. After postsolve, an optimal reduced solution is cleaned up on the
-original LP from the restored basis. A basic one-shot MOI/JuMP adapter is
+row and column scaling by default. After postsolve, an optimal reduced
+solution is cleaned up on the original LP from the restored basis, with a
+feasibility-checked basis projection when inferred bounds moved nonbasic
+columns. A basic one-shot MOI/JuMP adapter is
 available. Missing features include scaling of the entire objective, public
 warm-start API, native incremental optimizer modification, MIP algorithm,
 or support for quadratic, SOS, or indicator models. Difficult or

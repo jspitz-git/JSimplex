@@ -66,6 +66,16 @@ disables the deadline; iteration/refactorization limits remain `Int`.
 Dantzig (`:dantzig`) pricing for either simplex algorithm. Primal steepest-edge
 weights are initialized for a unit basis and updated after each pivot, with
 direct recomputation when a weight cannot be represented safely.
+Dual steepest-edge pricing switches to Dantzig after 256 consecutive zero
+dual steps when primal infeasibility remains; explicit Devex and Dantzig
+settings do not use this pricing switch. After 1024 consecutive zero dual
+steps, floating dual simplex may perturb near-zero nonbasic working costs
+while preserving dual feasibility, regardless of the pricing rule. Original
+costs are restored before optimality certification.
+`refactorization_interval` is the initial number of basis updates between
+full factorizations. Floating dual simplex shortens it after repeated
+inaccurate updated solves and can lengthen it after stable cycles with mostly
+nonzero dual steps. Primal and rational simplex keep the configured interval.
 `basis_update` selects product-form (`:pfi`), Forrest–Tomlin
 (`:forrest_tomlin`), Bartels–Golub (`:bartels_golub`), or Suhl–Suhl
 (`:suhl_suhl`) basis updates.

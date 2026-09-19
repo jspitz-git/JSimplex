@@ -482,7 +482,9 @@ end
                 @test result.status == OPTIMAL
                 @test result.primal == T[-1, -5]
                 @test result.objective_value == T(-6)
-                @test result.statistics.iterations == 2
+                # Projection can replace one cleanup pivot when the typed
+                # postsolved value is representable in the original basis.
+                @test result.statistics.iterations in (1, 2)
             end
         end
     end

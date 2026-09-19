@@ -613,6 +613,106 @@ end
     end
 end
 
+@testset "Postsolve basis projection retains implied-bound values" begin
+    # The restored basis puts x at its original lower bound even though the
+    # feasible postsolved solution has x=6 at a bound implied by the first row.
+    # That row's slack is already nonbasic, so y must leave at its lower bound.
+    problem = LinearProblem(sparse([1.0 1.0; 0.0 1.0]), [-1.0, 0.0];
+        row_upper=[10.0, 8.0], column_lower=[0.0, 4.0],
+        column_upper=[nothing, 8.0])
+    options = SolverOptions(Float64; scaling=:off, verbose=false)
+    workspace = JSimplex.initialize_workspace(problem, options)
+    workspace.basis = JSimplex.Basis([2, 4], JSimplex.VariableState[
+        JSimplex.AT_LOWER, JSimplex.BASIC,
+        JSimplex.AT_UPPER, JSimplex.BASIC])
+    JSimplex.recompute!(workspace; refactorize=true)
+    @test JSimplex.primal_infeasibility(workspace) > 0.0
+
+    target = [6.0, 4.0]
+    @test JSimplex._project_postsolve_basis!(workspace, target, () -> false) == 1
+    @test workspace.basis.basic_indices == [1, 4]
+    @test workspace.basis.states[2] == JSimplex.AT_LOWER
+    @test JSimplex.primal_infeasibility(workspace) == 0.0
+    @test workspace.primal[1:2] ≈ target
+
+    # When the source row slack is basic, exchange it directly for the column
+    # whose bound was inferred from that row.
+    direct = JSimplex.initialize_workspace(problem, options)
+    @test JSimplex._project_postsolve_basis!(direct, target, () -> false) == 1
+    @test direct.basis.basic_indices[1] == 1
+    @test direct.basis.states[3] == JSimplex.AT_UPPER
+    @test direct.primal[1:2] ≈ target
+
+    logger = Test.TestLogger(min_level=Logging.Info)
+    cleanup = with_logger(logger) do
+        JSimplex.cleanup_original(problem,
+            JSimplex.Basis([2, 4], JSimplex.VariableState[
+                JSimplex.AT_LOWER, JSimplex.BASIC,
+                JSimplex.AT_UPPER, JSimplex.BASIC]),
+            SolverOptions(Float64; scaling=:off),
+            JSimplex.SolveContext(time_ns(), Inf), 0, 0;
+            target_primal=target)
+    end
+    @test cleanup.status == OPTIMAL
+    @test cleanup.primal ≈ target
+    @test any(record -> record.message == "Projected postsolve basis: exchanges=1",
+              logger.logs)
+
+    # Basis reconstruction is a postsolve transform, so it can produce an
+    # already-optimal original basis with no simplex optimization step.
+    zero_budget = JSimplex.cleanup_original(problem,
+        JSimplex.Basis([2, 4], JSimplex.VariableState[
+            JSimplex.AT_LOWER, JSimplex.BASIC,
+            JSimplex.AT_UPPER, JSimplex.BASIC]),
+        SolverOptions(Float64; scaling=:off, verbose=false, iteration_limit=0),
+        JSimplex.SolveContext(time_ns(), Inf), 0, 0;
+        target_primal=target)
+    @test zero_budget.status == OPTIMAL
+    @test zero_budget.iterations == 0
+
+    for T in (Float32, BigFloat, Rational{BigInt})
+        typed_problem = LinearProblem(sparse(T[1 1; 0 1]), T[-1, 0];
+            row_upper=T[10, 8], column_lower=T[0, 4],
+            column_upper=[nothing, T(8)])
+        typed_options = SolverOptions(T; scaling=:off, verbose=false)
+        typed_workspace = JSimplex.initialize_workspace(typed_problem, typed_options)
+        typed_workspace.basis = JSimplex.Basis([2, 4], JSimplex.VariableState[
+            JSimplex.AT_LOWER, JSimplex.BASIC,
+            JSimplex.AT_UPPER, JSimplex.BASIC])
+        JSimplex.recompute!(typed_workspace; refactorize=true)
+        @test JSimplex._project_postsolve_basis!(
+            typed_workspace, T[6, 4], () -> false) == 1
+        @test typed_workspace.primal[1:2] ≈ T[6, 4]
+        @test JSimplex.primal_infeasibility(typed_workspace) == zero(T)
+    end
+
+    # With no tight row or other basic variable at a bound, projection must
+    # leave cleanup to the existing simplex path.
+    interior = LinearProblem(sparse([1.0;;]), [0.0];
+        row_upper=[10.0], column_lower=[0.0])
+    fallback = JSimplex.initialize_workspace(interior, options)
+    @test isnothing(JSimplex._project_postsolve_basis!(fallback, [5.0], () -> false))
+
+    # The first column can enter through a tight row. The second target value
+    # is interior, so no original bound can hold a leaving basic variable.
+    # Cleanup must discard the partial projection and solve from the restored
+    # basis, including its ordinary simplex iteration count.
+    partial_problem = LinearProblem(sparse([1.0 0.0; 0.0 1.0]), [-1.0, 0.0];
+        row_upper=[10.0, 10.0], column_lower=[0.0, 0.0])
+    partial_basis = JSimplex.Basis([3, 4], JSimplex.VariableState[
+        JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC])
+    partial_workspace = JSimplex.initialize_workspace(partial_problem, options)
+    @test isnothing(JSimplex._project_postsolve_basis!(
+        partial_workspace, [10.0, 5.0], () -> false))
+    @test partial_workspace.basis.basic_indices[1] == 1
+    fallback_cleanup = JSimplex.cleanup_original(partial_problem, partial_basis,
+        options, JSimplex.SolveContext(time_ns(), Inf), 0, 0;
+        target_primal=[10.0, 5.0])
+    @test fallback_cleanup.status == OPTIMAL
+    @test fallback_cleanup.primal ≈ [10.0, 0.0]
+    @test fallback_cleanup.iterations == 1
+end
+
 @testset "Cleanup can pivot on the original LP" begin
     problem = LinearProblem(sparse([1.0;;]), [1.0]; row_lower=[1.0])
     basis = JSimplex.Basis([2], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.BASIC])

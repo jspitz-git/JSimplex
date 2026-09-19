@@ -91,6 +91,331 @@ end
     @test persistent.refactorizations == 1
 end
 
+@testset "Dual pivot rejects a false nonzero direction from stale factors" begin
+    problem = LinearProblem(sparse([1.0 0.0; 0.0 1.0]), [1.0, 0.0];
+                            row_lower=[1.0, -Inf])
+    for false_pivot in (5.0e-7, 5.0e-3)
+        workspace = JSimplex.initialize_workspace(
+            problem, SolverOptions(basis_update=:suhl_suhl, verbose=false),
+        )
+        # The actual slack basis is -I. This stale factorization makes the
+        # second structural column appear to enter the first basis row.
+        workspace.factorization.base = JSimplex._factorize_basis(
+            sparse([-1.0 false_pivot; 0.0 -1.0]),
+        )
+        JSimplex.recompute!(workspace)
+
+        terminal = JSimplex.dual_iteration!(workspace, () -> false)
+        @test isnothing(terminal)
+        @test workspace.basis.basic_indices == [1, 4]
+        @test workspace.refactorizations == 1
+    end
+end
+
+@testset "Dual ratio test refreshes an inaccurate tableau row" begin
+    # The stale LU changes the transposed solve for row 1, while the direction
+    # for the selected first column remains exact. A direction-only check misses it.
+    problem = LinearProblem(sparse([1.0 0.0; 0.0 1.0]), [1.0, 10.0];
+                            row_lower=[1.0, -Inf])
+    workspace = JSimplex.initialize_workspace(problem,
+        SolverOptions(refactorization_interval=50, verbose=false))
+    workspace.factorization.base = JSimplex._factorize_basis(
+        sparse([-1.0 1.0e-5; 0.0 -1.0]))
+    # One identity update represents a basis that has changed since LU.
+    JSimplex.replace_column!(workspace.factorization, [1.0, 0.0], 1)
+    JSimplex.recompute!(workspace)
+
+    terminal = JSimplex.dual_iteration!(workspace, () -> false)
+    @test isnothing(terminal)
+    @test workspace.basis.basic_indices == [1, 4]
+    @test workspace.refactorizations == 1
+end
+
+@testset "Repeated inaccurate dual rows shorten and then restore refactorization" begin
+    rows = 7
+    problem = LinearProblem(sparse(Matrix{Float64}(I, rows, rows)),
+                            collect(1.0:rows); row_lower=ones(rows))
+    workspace = JSimplex.initialize_workspace(problem,
+        SolverOptions(refactorization_interval=50, verbose=false))
+
+    function inject_bad_updated_basis!(workspace, leaving_row, coupled_row)
+        stale = Matrix(JSimplex.basis_matrix(workspace))
+        stale[leaving_row, coupled_row] = 1.0e-5
+        workspace.factorization.base = JSimplex._factorize_basis(sparse(stale))
+        JSimplex.replace_column!(workspace.factorization,
+                                 [1.0; zeros(rows - 1)], 1)
+        JSimplex.recompute!(workspace)
+    end
+
+    inject_bad_updated_basis!(workspace, 1, 2)
+    for step in 1:rows
+        @test isnothing(JSimplex.dual_iteration!(workspace, () -> false))
+        if step == 1
+            # One repaired row is isolated and keeps the configured interval.
+            @test workspace.refactorizations == 1
+            @test length(workspace.factorization.updates) == 1
+            inject_bad_updated_basis!(workspace, 2, 1)
+        elseif step == 2
+            # The second repair makes the next pivot refresh immediately.
+            @test workspace.refactorizations == 3
+            @test isempty(workspace.factorization.updates)
+        elseif step == 5
+            @test workspace.refactorizations == 6
+        elseif step == 6
+            # Three clean cycles have restored a two-update interval.
+            @test workspace.refactorizations == 6
+            @test length(workspace.factorization.updates) == 1
+        elseif step == 7
+            @test workspace.refactorizations == 7
+        end
+    end
+    @test JSimplex.primal_infeasibility(workspace) == 0.0
+    @test workspace.options.refactorization_interval == 50
+end
+
+@testset "Clean productive dual pivots lengthen the factorization interval" begin
+    rows = 24
+    function solve_diagonal_with_costs(costs)
+        problem = LinearProblem(sparse(Matrix{Float64}(I, rows, rows)), costs;
+                                row_lower=ones(rows))
+        workspace = JSimplex.initialize_workspace(problem,
+            SolverOptions(refactorization_interval=2, verbose=false))
+        for _ in 1:rows
+            @test isnothing(JSimplex.dual_iteration!(workspace, () -> false))
+        end
+        @test workspace.iterations == rows
+        @test JSimplex.primal_infeasibility(workspace) == 0.0
+        @test workspace.options.refactorization_interval == 2
+        return workspace
+    end
+
+    productive = solve_diagonal_with_costs(collect(1.0:rows))
+    @test productive.refactorizations < rows ÷ 2
+    degenerate = solve_diagonal_with_costs(zeros(rows))
+    @test degenerate.refactorizations == rows ÷ 2
+end
+
+@testset "One inaccurate updated row pauses growth without shortening" begin
+    rows = 24
+    problem = LinearProblem(sparse(Matrix{Float64}(I, rows, rows)),
+                            collect(1.0:rows); row_lower=ones(rows))
+    workspace = JSimplex.initialize_workspace(problem,
+        SolverOptions(refactorization_interval=2, verbose=false))
+    for _ in 1:6
+        @test isnothing(JSimplex.dual_iteration!(workspace, () -> false))
+    end
+    @test workspace.dual_refactorization_interval == 4
+
+    stale = Matrix(JSimplex.basis_matrix(workspace))
+    stale[7, 8] = 1.0e-5
+    workspace.factorization.base = JSimplex._factorize_basis(sparse(stale))
+    JSimplex.replace_column!(workspace.factorization,
+                             [1.0; zeros(rows - 1)], 1)
+    JSimplex.recompute!(workspace)
+    for _ in 7:20
+        @test isnothing(JSimplex.dual_iteration!(workspace, () -> false))
+    end
+    @test length(workspace.factorization.updates) == 2
+end
+
+@testset "Repairs after growth use the actual failed update counts" begin
+    rows = 140
+    problem = LinearProblem(sparse(Matrix{Float64}(I, rows, rows)),
+                            collect(1.0:rows); row_lower=ones(rows))
+    workspace = JSimplex.initialize_workspace(problem,
+        SolverOptions(refactorization_interval=20, verbose=false))
+
+    function corrupt_base!(workspace, structural_rows, leaving_row)
+        diagonal = vcat(ones(structural_rows), -ones(rows - structural_rows))
+        stale = spdiagm(0 => diagonal)
+        stale[leaving_row, leaving_row + 1] = 1.0e-5
+        workspace.factorization.base = JSimplex._factorize_basis(stale)
+    end
+
+    for _ in 1:90
+        @test isnothing(JSimplex.dual_iteration!(workspace, () -> false))
+    end
+    @test workspace.dual_refactorization_interval == 40
+    @test length(workspace.factorization.updates) == 30
+    corrupt_base!(workspace, 60, 91)
+    @test isnothing(JSimplex.dual_iteration!(workspace, () -> false))
+
+    for _ in 92:115
+        @test isnothing(JSimplex.dual_iteration!(workspace, () -> false))
+    end
+    @test length(workspace.factorization.updates) == 25
+    corrupt_base!(workspace, 90, 116)
+    @test isnothing(JSimplex.dual_iteration!(workspace, () -> false))
+    @test workspace.dual_refactorization_interval == 12
+end
+
+@testset "Dual direction refinement repairs a failed floating solve" begin
+    problem = LinearProblem(sparse([1.0 0.0; 0.0 1.0]), [1.0, 0.0];
+                            row_lower=[1.0, -Inf])
+    workspace = JSimplex.initialize_workspace(problem, SolverOptions(verbose=false))
+    workspace.scratch.row_solution .= [-1.0, 0.5]
+    @test JSimplex._try_refine_dual_direction!(workspace, 1, 1, -1.0, -1.0,
+                                               () -> false)
+    @test workspace.scratch.row_solution == [-1.0, 0.0]
+
+    # Column 2 has no component in row 1, so it cannot replace that slack.
+    workspace.scratch.row_solution .= [0.5, -1.0]
+    @test !JSimplex._try_refine_dual_direction!(workspace, 2, 1, 0.5, 0.5,
+                                                () -> false)
+    @test workspace.scratch.row_solution == [0.5, -1.0]
+end
+
+@testset "Failed dual pivot can refine its row, direction, and prices together" begin
+    problem = LinearProblem(sparse([1.0 0.0; 0.0 1.0]), [1.0, 0.0];
+                            row_lower=[1.0, -Inf])
+    workspace = JSimplex.initialize_workspace(problem, SolverOptions(verbose=false))
+    workspace.scratch.row_solution .= [-1.01, 0.25]
+    workspace.scratch.tableau_row .= [-0.99, 0.0, 1.0, 0.0]
+    workspace.reduced_costs[1] = 1.1
+
+    decision = JSimplex._try_refine_dual_pivot!(workspace, 1, -1.0, 1.0,
+                                                () -> false)
+    @test decision == (entering_index=1, flips=Int[], pivot=-1.0)
+    @test workspace.scratch.row_solution == [-1.0, 0.0]
+    @test workspace.scratch.tableau_row == [-1.0, 0.0, 1.0, 0.0]
+    @test workspace.reduced_costs[1] == 1.0
+    @test workspace.scratch.rho == [-1.0, 0.0]
+
+    competing = LinearProblem(sparse([1.0 2.0]), [1.0, 0.1]; row_lower=[1.0])
+    other = JSimplex.initialize_workspace(competing, SolverOptions(verbose=false))
+    other.scratch.row_solution .= [-1.01]
+    other.scratch.tableau_row .= [-0.99, -0.01, 1.0]
+    other.reduced_costs[1] = 1.1
+    alternate = JSimplex._try_refine_dual_pivot!(other, 1, -1.0, 1.0,
+                                                 () -> false)
+    @test alternate == (entering_index=2, flips=Int[], pivot=-2.0)
+    @test other.reduced_costs[1] == 1.0
+    @test other.scratch.tableau_row == [-1.0, -2.0, 1.0]
+    @test other.scratch.row_solution == [-2.0]
+
+    # A wrong factorization can make the floating ratio test choose column 2.
+    # The complete retry must select column 1 before changing the basis.
+    stale = JSimplex.initialize_workspace(problem, SolverOptions(verbose=false))
+    stale.factorization.base = JSimplex._factorize_basis(
+        sparse([-1.0 0.4; 0.4 -1.0]),
+    )
+    JSimplex.recompute!(stale)
+    @test isnothing(JSimplex._dual_iteration!(stale, () -> false, true))
+    @test stale.basis.basic_indices == [1, 4]
+    @test stale.iterations == 1
+    @test !stale.dual_devex_fallback
+    @test stale.pricing_weights[1] ≈ 1.0
+end
+
+@testset "Small dual pivot checks the entering price before a cost shift" begin
+    for (coefficient, row_bound) in ((6.24213518e-7, :lower),
+                                     (-6.24213518e-7, :upper))
+        problem = LinearProblem(sparse([coefficient;;]), [-4.6096933e-11];
+            row_lower=[row_bound == :lower ? 1.0 : -Inf],
+            row_upper=[row_bound == :upper ? -1.0 : Inf])
+        workspace = JSimplex.initialize_workspace(problem, SolverOptions(verbose=false))
+        # A stored zero can hide a small adverse price. The resulting dual
+        # step is amplified by the near-cutoff pivot.
+        workspace.reduced_costs[1] = 0.0
+        @test isnothing(JSimplex.dual_iteration!(workspace, () -> false))
+        @test workspace.iterations == 1
+        @test workspace.perturbed
+        @test abs(workspace.costs[1]) < 1e-14
+        B = JSimplex.basis_matrix(workspace)
+        prices = JSimplex._refined_dual_prices(workspace, lu(B), B, 256, () -> false)
+        @test JSimplex._dual_price_feasible(workspace.basis.states[2], prices[2],
+                                           BigFloat(workspace.options.dual_tolerance))
+    end
+
+    # A small backward price is already safe after amplification. Avoid an
+    # unnecessary working-cost change that can alter later pivot choices.
+    harmless = LinearProblem(sparse([6.24213518e-7;;]), [-4.0e-14];
+                             row_lower=[1.0])
+    workspace = JSimplex.initialize_workspace(harmless, SolverOptions(verbose=false))
+    workspace.reduced_costs[1] = 0.0
+    @test isnothing(JSimplex.dual_iteration!(workspace, () -> false))
+    @test !workspace.perturbed
+    @test workspace.costs[1] == harmless.objective[1]
+end
+
+@testset "Dual pivot refreshes before applying bound flips" begin
+    problem = LinearProblem(sparse([-1.0 1.0]), [-1.0, 2.0];
+                            row_lower=[2.0], column_upper=[1.0, Inf])
+    workspace = JSimplex.initialize_workspace(
+        problem, SolverOptions(basis_update=:suhl_suhl, verbose=false),
+    )
+    workspace.basis.states[1] = JSimplex.AT_UPPER
+    # A stale solve makes the chosen pivot tiny. The boxed first column
+    # crosses an earlier dual breakpoint, so the ratio test proposes a flip.
+    workspace.factorization.base = JSimplex._factorize_basis(sparse([-5.0e6;;]))
+    JSimplex.recompute!(workspace)
+
+    terminal = JSimplex.dual_iteration!(workspace, () -> false)
+    @test isnothing(terminal)
+    @test workspace.refactorizations == 1
+    @test workspace.iterations == 1
+    @test workspace.basis.states[1] == JSimplex.AT_LOWER
+    @test workspace.primal[1:2] ≈ [0.0, 2.0]
+    @test JSimplex.dual_infeasibility(workspace) <= workspace.options.dual_tolerance
+end
+
+@testset "Dual price refinement releases a harmful cost shift" begin
+    for (state, original_cost, working_cost, perturbed, expected_status) in (
+        (JSimplex.AT_UPPER, 0.0, 4.0e-7, true, OPTIMAL),
+        (JSimplex.AT_LOWER, 0.0, -4.0e-7, true, OPTIMAL),
+        (JSimplex.AT_UPPER, 0.0, 4.0e-7, false, NUMERICAL_ERROR),
+        (JSimplex.AT_LOWER, 0.0, -4.0e-7, false, NUMERICAL_ERROR),
+        (JSimplex.AT_UPPER, 2.0e-7, 4.0e-7, true, NUMERICAL_ERROR),
+        (JSimplex.AT_LOWER, -2.0e-7, -4.0e-7, true, NUMERICAL_ERROR),
+    )
+        problem = LinearProblem(sparse([1.0;;]), [original_cost];
+                                row_upper=[2.0], column_upper=[1.0])
+        workspace = JSimplex.initialize_workspace(problem, SolverOptions(verbose=false))
+        workspace.basis.states[1] = state
+        workspace.costs[1] = working_cost
+        workspace.perturbed = perturbed
+        JSimplex.recompute!(workspace; refactorize=true)
+        @test JSimplex.dual_infeasibility(workspace) > workspace.options.dual_tolerance
+
+        terminal = JSimplex._dual_optimize!(workspace, () -> false)
+        @test terminal.status == expected_status
+        @test workspace.costs[1] == (expected_status == OPTIMAL ? original_cost : working_cost)
+        @test workspace.iterations == 0
+        if expected_status == OPTIMAL
+            @test JSimplex.dual_infeasibility(workspace) <= workspace.options.dual_tolerance
+        end
+    end
+
+    # Both signs of a cost shift can be released in a nontrivial basis.
+    problem = LinearProblem(sparse([1.0 2.0 3.0]), [1.0, 2.0, 3.0];
+                            row_lower=[2.0], row_upper=[2.0],
+                            column_upper=[Inf, 1.0, 1.0])
+    workspace = JSimplex.initialize_workspace(problem, SolverOptions(verbose=false))
+    workspace.basis = JSimplex.Basis([1],
+        [JSimplex.BASIC, JSimplex.AT_UPPER, JSimplex.AT_LOWER, JSimplex.AT_LOWER])
+    workspace.costs[2] += 4.0e-7
+    workspace.costs[3] -= 4.0e-7
+    workspace.perturbed = true
+    JSimplex.recompute!(workspace; refactorize=true)
+    @test JSimplex.dual_infeasibility(workspace) > workspace.options.dual_tolerance
+    @test JSimplex._try_refine_dual_prices!(workspace, () -> false)
+    @test workspace.costs[2:3] == problem.objective[2:3]
+    @test JSimplex.dual_infeasibility(workspace) <= workspace.options.dual_tolerance
+end
+
+@testset "Dual pivot keeps a full-sized pivot with harmless solve roundoff" begin
+    problem = LinearProblem(sparse([1.0;;]), [1.0]; row_lower=[1.0])
+    workspace = JSimplex.initialize_workspace(
+        problem, SolverOptions(basis_update=:suhl_suhl, verbose=false),
+    )
+    workspace.factorization.base = JSimplex._factorize_basis(sparse([-1.0 - 3.0e-12;;]))
+    JSimplex.recompute!(workspace)
+
+    @test isnothing(JSimplex.dual_iteration!(workspace, () -> false))
+    @test workspace.basis.basic_indices == [1]
+    @test workspace.refactorizations == 0
+end
+
 @testset "Dual feasibility is checked against a fresh factorization" begin
     problem = LinearProblem(sparse([1.0;;]), [1.0]; row_lower=[1.0])
     for update in (:pfi, :suhl_suhl)
@@ -110,6 +435,40 @@ end
         terminal = JSimplex._dual_optimize!(workspace, () -> false)
         @test terminal.status == NUMERICAL_ERROR
         @test workspace.refactorizations == 1
+    end
+end
+
+@testset "Ill-conditioned fresh basis does not invent dual infeasibility" begin
+    magnitude = 100_000_001.0
+    basis_columns = [1.0 magnitude 0.0;
+                     0.0 1.0 magnitude;
+                     0.0 0.0 1.0]
+    entering_column = [0.0, -1.5magnitude, -1.5]
+    matrix = sparse(hcat(basis_columns, entering_column))
+    for (cost, expected_status) in ((0.5, OPTIMAL), (-0.5, NUMERICAL_ERROR))
+        problem = LinearProblem(matrix, [1.0, 0.0, 0.0, cost];
+                                row_lower=zeros(3), row_upper=zeros(3))
+        workspace = JSimplex.initialize_workspace(
+            problem, SolverOptions(basis_update=:suhl_suhl, verbose=false),
+        )
+        workspace.basis = JSimplex.Basis([1, 2, 3],
+            [JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC,
+             JSimplex.AT_LOWER, JSimplex.AT_LOWER,
+             JSimplex.AT_LOWER, JSimplex.AT_LOWER])
+        JSimplex.recompute!(workspace; refactorize=true)
+        @test workspace.reduced_costs[4] < -workspace.options.dual_tolerance
+        exact_cost = setprecision(BigFloat, 256) do
+            y = transpose(BigFloat.(basis_columns)) \ BigFloat[1, 0, 0]
+            BigFloat(cost) - sum(BigFloat(entering_column[i]) * y[i] for i in 1:3)
+        end
+        @test exact_cost == BigFloat(cost)
+
+        terminal = JSimplex._dual_optimize!(workspace, () -> false)
+        @test terminal.status == expected_status
+        if expected_status == OPTIMAL
+            @test workspace.reduced_costs[4] == cost
+            @test JSimplex.dual_infeasibility(workspace) == 0.0
+        end
     end
 end
 
@@ -521,13 +880,18 @@ end
     terminal = JSimplex.dual_iteration!(workspace, () -> false)
     @test terminal.status == NUMERICAL_ERROR
     @test workspace.iterations == 0
-    for field in (:primal, :reduced_costs, :pricing_weights)
+    for field in (:primal, :reduced_costs)
         workspace = JSimplex.initialize_workspace(problem, SolverOptions())
         getfield(workspace, field)[1] = NaN
         terminal = JSimplex.dual_iteration!(workspace, () -> false)
         @test terminal.status == NUMERICAL_ERROR
         @test workspace.iterations == 0
     end
+    workspace = JSimplex.initialize_workspace(problem, SolverOptions(pricing=:devex))
+    workspace.pricing_weights[1] = NaN
+    terminal = JSimplex.dual_iteration!(workspace, () -> false)
+    @test terminal.status == NUMERICAL_ERROR
+    @test workspace.iterations == 0
     @test_throws ArgumentError JSimplex._solve_continuous_dual(
         problem, SolverOptions(); stop_requested=() -> throw(ArgumentError("callback failure")),
     )
@@ -630,9 +994,37 @@ end
     @test workspace.costs[2] > 0.0
     @test weak_column.objective == [100.0, 0.0]
     run = JSimplex._solve_continuous_dual(weak_column, SolverOptions())
-    @test run.status == NUMERICAL_ERROR
-    @test isnothing(run.primal)
-    @test isnothing(run.objective_value)
+    @test run.status == OPTIMAL
+    @test run.primal == [0.0, 1.0e8]
+    @test run.objective_value == 0.0
+end
+
+@testset "Original costs are optimized from a perturbed primal-feasible basis" begin
+    for (original_cost, shifted_cost, starting_state, expected_x) in (
+        (-4.0e-7, 4.0e-7, JSimplex.AT_LOWER, 1.0),
+        (4.0e-7, -4.0e-7, JSimplex.AT_UPPER, 0.0),
+    )
+        problem = LinearProblem(sparse([1.0 1.0]), [original_cost, 0.0];
+                                row_lower=[1.0], row_upper=[1.0],
+                                column_upper=[1.0, 1.0])
+        workspace = JSimplex.initialize_workspace(problem, SolverOptions(verbose=false))
+        workspace.basis = JSimplex.Basis([2],
+            [starting_state, JSimplex.BASIC, JSimplex.AT_LOWER])
+        workspace.costs[1] = shifted_cost
+        workspace.perturbed = true
+        workspace.dual_devex_fallback = true
+        JSimplex.recompute!(workspace; refactorize=true)
+        @test JSimplex.primal_infeasibility(workspace) == 0.0
+        @test JSimplex.dual_infeasibility(workspace) == 0.0
+
+        run = JSimplex._solve_continuous_dual!(workspace, () -> false)
+        @test run.status == OPTIMAL
+        @test run.primal ≈ [expected_x, 1.0 - expected_x]
+        @test run.objective_value ≈ original_cost * expected_x
+        @test run.iterations == 1
+        @test !workspace.perturbed
+        @test !workspace.dual_devex_fallback
+    end
 end
 
 @testset "Dual edge selection and full pricing" begin
@@ -657,6 +1049,130 @@ end
     row = fill(NaN, 4)
     @test isnothing(JSimplex.price!(row, workspace, [2.0, -3.0]))
     @test row == [5.0, -3.0, -2.0, 3.0]
+end
+
+@testset "Inaccurate dual steepest-edge weight restarts pricing with Devex" begin
+    problem = LinearProblem(
+        sparse([1.0 0.0; -1.0 1.0]), [1.0, 1.0]; row_lower=[1.0, 1.0],
+    )
+    workspace = JSimplex.initialize_workspace(problem, SolverOptions(verbose=false))
+    # The second row would win with this stale weight; after resetting the
+    # reference, the first row wins the equal-violation tie.
+    workspace.pricing_weights[4] = 0.1
+    @test isnothing(JSimplex.dual_iteration!(workspace, () -> false))
+    @test workspace.basis.basic_indices == [1, 4]
+    @test workspace.dual_devex_fallback
+    @test !workspace.dual_pricing_fallback
+    @test workspace.devex_reference == BitVector([false, false, true, true])
+    @test all(weight -> isfinite(weight) && weight > 0, workspace.pricing_weights)
+
+    clean = JSimplex.initialize_workspace(problem, SolverOptions(verbose=false))
+    @test isnothing(JSimplex.dual_iteration!(clean, () -> false))
+    @test !clean.dual_devex_fallback
+end
+
+@testset "Non-finite DSE weights recover through Devex" begin
+    problem = LinearProblem(sparse([1.0 0.0; -1.0 1.0]), [1.0, 1.0];
+                            row_lower=[1.0, 1.0])
+    workspace = JSimplex.initialize_workspace(
+        problem, SolverOptions(verbose=false, refactorization_interval=1),
+    )
+    workspace.pricing_weights[4] = NaN
+    @test isnothing(JSimplex.dual_iteration!(workspace, () -> false))
+    @test workspace.dual_devex_fallback
+    @test workspace.basis.basic_indices == [1, 4]
+    @test workspace.devex_reference == BitVector([true, false, false, true])
+    @test all(isone, workspace.pricing_weights)
+end
+
+@testset "DSE update overflow includes the current pivot in Devex" begin
+    problem = LinearProblem(sparse(reshape([1.0, 0.0], 2, 1)), [1.0])
+    workspace = JSimplex.initialize_workspace(problem, SolverOptions(verbose=false))
+    @test JSimplex.update_dual_pricing_weights!(
+        workspace, [1.0e150, 0.0], [0.0, 1.0, 0.0], [1.0e10, 1.0],
+        1, 1.0, 1.0e300, () -> false,
+    )
+    @test workspace.dual_devex_fallback
+    @test workspace.devex_reference == BitVector([false, true, true])
+    @test workspace.pricing_weights[1] == 1.0
+    @test workspace.pricing_weights[2] == 1.0e20
+    @test all(isfinite, workspace.pricing_weights)
+end
+
+@testset "A prolonged dual zero-step stall perturbs costs and restores the LP" begin
+    problem = LinearProblem(
+        sparse([1.0 0.0 0.0; 0.0 1.0 0.0; 0.0 0.0 1.0]),
+        zeros(3); row_lower=[-Inf, 1.0, 1.0],
+        column_lower=[nothing, 0.0, 0.0],
+        column_upper=[0.0, nothing, nothing],
+    )
+    options = SolverOptions(pricing=:dantzig, verbose=false)
+    workspace = JSimplex.initialize_workspace(problem, options)
+    workspace.zero_dual_step_streak = 1023
+    @test isnothing(JSimplex.dual_iteration!(workspace, () -> false))
+    @test workspace.iterations == 1
+    @test workspace.perturbed
+    @test workspace.costs[1] < 0.0
+    @test workspace.costs[3] > 0.0
+    @test JSimplex.dual_infeasibility(workspace) == 0.0
+
+    run = JSimplex._solve_continuous_dual!(workspace, () -> false)
+    @test run.status == OPTIMAL
+    @test run.objective_value == 0.0
+    @test workspace.primal[2:3] == [1.0, 1.0]
+    @test all(iszero, workspace.costs)
+
+    no_stall = JSimplex.initialize_workspace(problem, options)
+    no_stall.zero_dual_step_streak = 1022
+    @test isnothing(JSimplex.dual_iteration!(no_stall, () -> false))
+    @test !no_stall.perturbed
+    @test all(iszero, no_stall.costs)
+
+    exact = LinearProblem(sparse(Rational{BigInt}[1 0; 0 1]),
+                          zeros(Rational{BigInt}, 2);
+                          row_lower=ones(Rational{BigInt}, 2))
+    rational = JSimplex.initialize_workspace(
+        exact, SolverOptions(Rational{BigInt}; pricing=:dantzig, verbose=false),
+    )
+    rational.zero_dual_step_streak = 1023
+    @test isnothing(JSimplex.dual_iteration!(rational, () -> false))
+    @test !rational.perturbed
+end
+
+@testset "Anti-degeneracy skips a cost shift larger than its tolerance scale" begin
+    problem = LinearProblem(sparse([1.0 1.0]), [1.0e20, 1.0e20];
+                            row_lower=[1.0])
+    workspace = JSimplex.initialize_workspace(problem, SolverOptions(verbose=false))
+    workspace.basis = JSimplex.Basis(
+        [1], JSimplex.VariableState[JSimplex.BASIC, JSimplex.AT_LOWER,
+                                    JSimplex.AT_LOWER],
+    )
+    JSimplex.recompute!(workspace; refactorize=true)
+    @test workspace.reduced_costs[2] == 0.0
+    original_costs = copy(workspace.costs)
+    @test JSimplex._perturb_degenerate_dual_costs!(workspace, () -> false) == 0
+    @test workspace.costs == original_costs
+    @test !workspace.perturbed
+end
+
+@testset "Auxiliary dual iterations do not perturb costs across artificial bounds" begin
+    problem = LinearProblem(sparse([1.0 0.0 0.0; 0.0 1.0 0.0]), zeros(3);
+                            row_lower=zeros(2), row_upper=zeros(2),
+                            column_lower=zeros(3))
+    workspace = JSimplex.initialize_workspace(
+        problem, SolverOptions(pricing=:dantzig, verbose=false),
+    )
+    auxiliary = JSimplex._auxiliary_workspace(workspace)
+    auxiliary.basis.states[1:3] .= JSimplex.AT_UPPER
+    JSimplex.recompute!(auxiliary)
+    auxiliary.zero_dual_step_streak = 1023
+    @test JSimplex.primal_infeasibility(auxiliary) == 2.0
+    @test isnothing(JSimplex.dual_iteration!(auxiliary, () -> false;
+                                             perturb_degenerate=false))
+    @test auxiliary.iterations == 1
+    @test JSimplex.primal_infeasibility(auxiliary) == 1.0
+    @test !auxiliary.perturbed
+    @test all(iszero, auxiliary.costs)
 end
 
 @testset "Dual Devex reference weights" begin
@@ -1080,6 +1596,27 @@ end
             row_lower=T[0, 0], row_upper=T[0, 0], column_lower=fill(nothing, 2))
         workspace = JSimplex.initialize_workspace(normal, SolverOptions(T))
         @test (@inferred JSimplex._original_primal_feasible(workspace, T[3, -1]))
+    end
+end
+
+@testset "Ambiguous floating row sums use a refined primal certificate" begin
+    for (T, magnitude) in ((Float32, 1.0e5), (Float64, 1.0e10))
+        problem = LinearProblem(sparse(reshape(T[0.1, -0.1, 1], 1, 3)),
+                                zeros(T, 3); row_upper=T[0])
+        tolerance = SolverOptions(T).primal_tolerance
+        feasible = T[T(magnitude), T(magnitude), 0]
+        lower, upper = JSimplex._primal_row_bounds(problem.A, feasible,
+                                                   JSimplex._is_exact(T))
+        @test !JSimplex._within_primal_intervals(lower, upper,
+                                                 problem.row_lower,
+                                                 problem.row_upper, tolerance)
+        @test JSimplex._original_primal_feasible(problem, feasible, tolerance)
+        within_tolerance = copy(feasible)
+        within_tolerance[3] = tolerance / T(2)
+        @test JSimplex._original_primal_feasible(problem, within_tolerance, tolerance)
+        violated = copy(feasible)
+        violated[3] = T(2) * tolerance
+        @test !JSimplex._original_primal_feasible(problem, violated, tolerance)
     end
 end
 
