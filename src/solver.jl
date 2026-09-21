@@ -214,18 +214,12 @@ function cleanup_original(problem::LinearProblem{T}, restored_basis::Basis,
     end
 end
 
-function _remaining_options(options::SolverOptions{T}; iterations::Int) where {T}
-    return SolverOptions(T;
-        primal_tolerance=options.primal_tolerance, dual_tolerance=options.dual_tolerance,
-        zero_tolerance=options.zero_tolerance,
-        iteration_limit=max(0, options.iteration_limit - iterations),
-        time_limit=options.time_limit,
-        refactorization_interval=options.refactorization_interval,
-        verbose=options.verbose, log_level=options.log_level,
-        algorithm=options.algorithm, pricing=options.pricing,
-        basis_update=options.basis_update,
-        basis_refactorization=options.basis_refactorization, scaling=options.scaling,
-        presolve=options.presolve)
+function _remaining_options(options::SolverOptions{T,M,R}; iterations::Int) where {T,M,R}
+    return _validated_options(T, Val(M), Val(R),
+        options.primal_tolerance, options.dual_tolerance, options.zero_tolerance,
+        max(0, options.iteration_limit - iterations), options.time_limit,
+        options.refactorization_interval, options.verbose, options.log_level,
+        options.algorithm, options.pricing, options.scaling, options.presolve)
 end
 
 function _retry_original(problem::LinearProblem{T}, options::SolverOptions{T},
@@ -237,12 +231,16 @@ function _retry_original(problem::LinearProblem{T}, options::SolverOptions{T},
         @info string("Restarting simplex on original LP after ", previous.status,
                      ": ", previous.message, "; completed iterations=", previous.iterations)
     end
-    algorithm = options.algorithm == :dual ? _solve_continuous_dual : _solve_continuous_primal
-    retry = algorithm(_minimization_problem(problem),
-                      _remaining_options(options; iterations=previous.iterations);
-                      stop_requested=() -> time_limit_reached(context),
-                      progress=SimplexProgressContext(problem; start_ns=context.start_ns,
-                                                      iteration_offset=previous.iterations))
+    retry_problem = _minimization_problem(problem)
+    retry_options = _remaining_options(options; iterations=previous.iterations)
+    stop_requested = () -> time_limit_reached(context)
+    progress = SimplexProgressContext(problem; start_ns=context.start_ns,
+                                     iteration_offset=previous.iterations)
+    retry = if options.algorithm == :dual
+        _solve_continuous_dual(retry_problem, retry_options; stop_requested, progress)
+    else
+        _solve_continuous_primal(retry_problem, retry_options; stop_requested, progress)
+    end
     message = retry.status == NUMERICAL_ERROR ?
               string("Original LP retry failed after ", previous.status, " (",
                      previous.message, "): ", retry.message) : retry.message

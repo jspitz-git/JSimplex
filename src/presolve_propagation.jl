@@ -240,7 +240,8 @@ function _propagate_row_bounds(problem::LinearProblem{T}, rows_to_visit::BitVect
     end
     result = _row_result(problem, findall(keep);
                          column_lower=lower, column_upper=upper)
-    isempty(result.postsolve_stack) && return result
+    # _row_result returns either the identity tuple or one PresolveMap.
+    result isa PresolveResult{T,Tuple{}} && return result
     step = BoundPropagationStep(only(result.postsolve_stack),
                                 problem.column_lower, problem.column_upper)
     return PresolveResult(result.problem, (step,), n)

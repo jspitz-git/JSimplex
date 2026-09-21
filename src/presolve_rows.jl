@@ -134,7 +134,8 @@ function reduce_singleton_rows(problem::LinearProblem{T}) where {T}
     end
     rows = findall(keep)
     result = _row_result(problem, rows; column_lower=lower, column_upper=upper)
-    isempty(result.postsolve_stack) && return result
+    # _row_result returns either the identity tuple or one PresolveMap.
+    result isa PresolveResult{T,Tuple{}} && return result
     step = SingletonRowStep(only(result.postsolve_stack), lower_sources, upper_sources)
     return PresolveResult(result.problem, (step,), n)
 end

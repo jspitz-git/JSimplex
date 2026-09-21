@@ -24,6 +24,7 @@ include("presolve_substitution.jl")
 include("presolve_aggregation.jl")
 include("presolve_dual.jl")
 include("presolve_incremental.jl")
+include("presolve_dispatch.jl")
 include("solver.jl")
 include("moi.jl")
 

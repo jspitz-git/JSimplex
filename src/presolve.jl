@@ -222,50 +222,30 @@ function _compose_presolve(original::PresolveResult, next::PresolveResult)
 end
 
 function presolve_problem(problem::LinearProblem{T}) where {T}
-    result = identity_presolve(problem)
+    # Individual passes retain their small tuple results. The complete history
+    # has runtime length, so accumulate it without changing the result's type.
+    steps = PostsolveStep{T}[]
+    current = problem
     propagation_trace = PropagationTrace{T}()
-    passes = (_presolve_basic, reduce_singleton_rows,
-              aggregate_singleton_equalities, aggregate_sparse_equalities,
-              reduce_parallel_rows, reduce_dependent_rows,
-              substitute_free_doubleton, propagate_row_bounds,
-              reduce_dual_fixings)
-    last_relevant_pass = length(passes)
+    last_relevant_pass = _PRESOLVE_PASS_COUNT
     for _ in 1:12
         last_changed_pass = 0
-        for (index, pass) in enumerate(passes)
+        for index in 1:_PRESOLVE_PASS_COUNT
             index > last_relevant_pass && break
-            if pass === propagate_row_bounds
-                current = result.problem
-                dirty = isnothing(propagation_trace.reference) ?
-                    trues(size(current.A, 1)) :
-                    _changed_propagation_rows(propagation_trace.reference, current,
-                        propagation_trace.row_origin, propagation_trace.column_origin,
-                        propagation_trace.pending)
-                changed_columns = falses(size(current.A, 2))
-                next = _propagate_row_bounds(current, dirty, changed_columns)
-                next isa PresolveFailure && return next
-                if !isempty(next.postsolve_stack)
-                    result = _compose_presolve(result, next)
-                    last_changed_pass = index
-                    last_relevant_pass = length(passes)
-                end
-                _reset_propagation_trace!(propagation_trace, next, changed_columns)
-                continue
-            end
-            next = pass(result.problem)
+            next = _dispatch_presolve_pass!(current, steps, propagation_trace, index)
             next isa PresolveFailure && return next
-            isempty(next.postsolve_stack) && continue
-            result = _compose_presolve(result, next)
-            _advance_propagation_trace!(propagation_trace, next)
-            last_changed_pass = index
-            last_relevant_pass = length(passes)
+            current, changed = next
+            if changed
+                last_changed_pass = index
+                last_relevant_pass = _PRESOLVE_PASS_COUNT
+            end
         end
         last_changed_pass == 0 && break
         # Later passes already saw the final model in this round. Revisit them
         # only if an earlier pass changes that model in the next round.
         last_relevant_pass = last_changed_pass
     end
-    return result
+    return PresolveResult(current, steps, size(problem.A, 2))
 end
 
 function restore_basis(step::PresolveMap, basis::Basis)

@@ -1,6 +1,6 @@
 abstract type AbstractPostsolveStep end
 
-struct PresolveResult{T<:Real,S<:Tuple}
+struct PresolveResult{T<:Real,S<:Union{Tuple,AbstractVector}}
     problem::LinearProblem{T}
     postsolve_stack::S
     original_column_count::Int

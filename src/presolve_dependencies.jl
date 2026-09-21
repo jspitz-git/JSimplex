@@ -38,13 +38,32 @@ function _normalized_interval(problem::LinearProblem, row::Int, pivot::ExactValu
          isnothing(lower) ? nothing : lower / pivot)
 end
 
-_interval_subset(inner, outer) =
-    (isnothing(outer[1]) || (!isnothing(inner[1]) && inner[1] >= outer[1])) &&
-    (isnothing(outer[2]) || (!isnothing(inner[2]) && inner[2] <= outer[2]))
+# Split optional endpoints before the call so inference does not need to split
+# all sixteen tuple combinations. Keep finite comparisons out of the caller:
+# inlining those paths increases allocations in repeated row comparisons.
+@noinline _finite_interval_subset(inner::Tuple{ExactValue,ExactValue},
+                                  outer::Tuple{ExactValue,ExactValue}) =
+    inner[1] >= outer[1] && inner[2] <= outer[2]
 
-_interval_disjoint(a, b) =
-    (!isnothing(a[1]) && !isnothing(b[2]) && a[1] > b[2]) ||
-    (!isnothing(b[1]) && !isnothing(a[2]) && b[1] > a[2])
+@noinline _finite_interval_disjoint(a::Tuple{ExactValue,ExactValue},
+                                    b::Tuple{ExactValue,ExactValue}) =
+    a[1] > b[2] || b[1] > a[2]
+
+@inline function _interval_subset(inner, outer)
+    if inner isa Tuple{ExactValue,ExactValue} && outer isa Tuple{ExactValue,ExactValue}
+        return _finite_interval_subset(inner, outer)
+    end
+    return (isnothing(outer[1]) || (!isnothing(inner[1]) && inner[1] >= outer[1])) &&
+           (isnothing(outer[2]) || (!isnothing(inner[2]) && inner[2] <= outer[2]))
+end
+
+@inline function _interval_disjoint(a, b)
+    if a isa Tuple{ExactValue,ExactValue} && b isa Tuple{ExactValue,ExactValue}
+        return _finite_interval_disjoint(a, b)
+    end
+    return (!isnothing(a[1]) && !isnothing(b[2]) && a[1] > b[2]) ||
+           (!isnothing(b[1]) && !isnothing(a[2]) && b[1] > a[2])
+end
 
 function _parallel_signature(terms)
     pivot_value = first(terms)[2]
