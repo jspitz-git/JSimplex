@@ -309,10 +309,11 @@ three triangular methods reuse solve buffers and store updated factors in
 packed sparse columns. The `refactorization_interval` applies to all four
 update methods. When two updated dual basis solves fail residual checks within
 three clean factorization cycles, dual simplex shortens its effective interval
-to half the earliest failed update count, with a minimum of one. Clean cycles
-restore a shortened interval. Three consecutive clean cycles with at least
-three quarters of their dual steps nonzero then double it above the configured
-value. Growth pauses during the zero-step pricing fallback. The default
+to half the earliest failed update count, with a minimum of one. Each clean
+cycle doubles a shortened interval back toward its configured value. Three
+consecutive clean cycles with at least three quarters of their dual steps
+nonzero then double it above the configured value. Growth pauses during the
+zero-step pricing fallback. The default
 growth ceiling is 512 updates for product-form bases and 128 for triangular
 bases; a higher configured initial interval raises the ceiling, up to 4096.
 Values configured above 4096 remain valid. Primal and rational simplex keep

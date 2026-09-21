@@ -131,7 +131,7 @@ end
     @test workspace.refactorizations == 1
 end
 
-@testset "Repeated inaccurate dual rows shorten and then restore refactorization" begin
+@testset "A clean cycle promptly restores a shortened refactorization interval" begin
     rows = 7
     problem = LinearProblem(sparse(Matrix{Float64}(I, rows, rows)),
                             collect(1.0:rows); row_lower=ones(rows))
@@ -159,14 +159,18 @@ end
             # The second repair makes the next pivot refresh immediately.
             @test workspace.refactorizations == 3
             @test isempty(workspace.factorization.updates)
+            @test workspace.dual_refactorization_interval == 1
+        elseif step == 3
+            # One clean cycle is enough to leave the one-update fallback.
+            @test workspace.refactorizations == 4
+            @test workspace.dual_refactorization_interval == 2
         elseif step == 5
-            @test workspace.refactorizations == 6
-        elseif step == 6
-            # Three clean cycles have restored a two-update interval.
-            @test workspace.refactorizations == 6
-            @test length(workspace.factorization.updates) == 1
+            # Recovery below the configured target doubles after each clean cycle.
+            @test workspace.refactorizations == 5
+            @test workspace.dual_refactorization_interval == 4
         elseif step == 7
-            @test workspace.refactorizations == 7
+            @test workspace.refactorizations == 5
+            @test length(workspace.factorization.updates) == 2
         end
     end
     @test JSimplex.primal_infeasibility(workspace) == 0.0

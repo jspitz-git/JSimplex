@@ -746,8 +746,8 @@ end
 
 # A second inaccurate updated solve within three clean factorization cycles
 # lowers the update limit to at most half the earliest observed failure count,
-# with a minimum of one. Stable cycles gradually restore the user's
-# configured interval.
+# with a minimum of one. Each clean cycle doubles a shortened interval back
+# toward the user's configured value; growth above it remains more cautious.
 function _note_dual_updated_basis_repair!(workspace::SimplexWorkspace)
     updates = length(workspace.factorization.updates)
     updates > 0 || return nothing
@@ -778,15 +778,19 @@ function _note_stable_dual_refactorization!(workspace::SimplexWorkspace,
                                              productive::Bool)
     configured = workspace.options.refactorization_interval
     interval = workspace.dual_refactorization_interval
-    if workspace.dual_recent_repairs > 0 || interval < configured
+    if interval < configured
+        workspace.dual_recent_repairs = 0
+        workspace.dual_bad_update_min = typemax(Int)
+        workspace.dual_refactorization_interval = interval > configured ÷ 2 ?
+            configured : 2 * interval
+        workspace.dual_stable_refactorizations = 0
+        return nothing
+    end
+    if workspace.dual_recent_repairs > 0
         workspace.dual_stable_refactorizations += 1
         if workspace.dual_stable_refactorizations >= 3
             workspace.dual_recent_repairs = 0
             workspace.dual_bad_update_min = typemax(Int)
-            if interval < configured
-                workspace.dual_refactorization_interval = interval > configured ÷ 2 ?
-                    configured : 2 * interval
-            end
             workspace.dual_stable_refactorizations = 0
         end
         return nothing
