@@ -57,6 +57,11 @@ end
 _mps_error(records, line, section, message) =
     throw(MPSParseError(records.source, line, section, message))
 
+# Numeric construction supplies lazy diagnostics so valid coefficients do not
+# allocate an error message for every matrix entry.
+_mps_error(records, line, section, message::Function) =
+    _mps_error(records, line, section, message())
+
 function _mps_number(records::MPSAccumulator{T}, token, line, section) where {T<:AbstractFloat}
     value = tryparse(T, replace(token, 'D' => 'E', 'd' => 'e'))
     value === nothing && _mps_error(records, line, section, "expected a finite number, got '$token'")
@@ -83,7 +88,7 @@ end
 
 function _mps_checked_convert(::Type{Rational{I}}, value::Rational{BigInt},
                               records, line::Int, section::Symbol,
-                              message::String) where {I<:Integer}
+                              message::F) where {I<:Integer,F}
     try
         return Rational{I}(I(numerator(value)), I(denominator(value)))
     catch exception
@@ -106,7 +111,14 @@ _mps_fixed_layout(text) = all(
     i -> i > ncodeunits(text) || codeunit(text, i) == UInt8(' '), _MPS_SEPARATORS,
 )
 
-function _mps_fields(text, format, records, line, section, columns)
+function _mps_fixed_field(text, columns::UnitRange{Int})
+    # Fixed data has already been checked for ASCII. Missing trailing columns
+    # behave as blanks without allocating a padded copy of the whole record.
+    stop = min(last(columns), ncodeunits(text))
+    return strip(SubString(text, min(first(columns), stop + 1), stop))
+end
+
+function _mps_fields(text, format, records, line, section, columns, words=split(text))
     if format == :auto
         # Fixed records must reach their last required field; short free records
         # can otherwise match every separator by accident.
@@ -117,7 +129,7 @@ function _mps_fields(text, format, records, line, section, columns)
         end
         if fixed
             try
-                fields, _ = _mps_fields(text, :fixed, records, line, section, columns)
+                fields, _ = _mps_fields(text, :fixed, records, line, section, columns, words)
                 section == :BOUNDS || return fields, true
                 # A plausible fixed BOUNDS record must refer to a known column
                 # and have the value required by its type. Names may contain
@@ -131,32 +143,33 @@ function _mps_fields(text, format, records, line, section, columns)
                 exception isa MPSParseError || rethrow()
             end
         end
-        return String.(split(text)), false
+        return words, false
     end
-    format == :free && return String.(split(text)), false
+    format == :free && return words, false
     isascii(text) || _mps_error(records, line, section, "fixed records must contain ASCII characters")
-    padded = rpad(text, 61)
-    all(i -> padded[i] == ' ', _MPS_SEPARATORS) ||
+    _mps_fixed_layout(text) ||
         _mps_error(records, line, section, "nonblank fixed separator column")
-    padded[1] == ' ' || _mps_error(records, line, section, "fixed data must start with a blank")
-    isempty(strip(padded[62:end])) ||
+    (isempty(text) || first(text) == ' ') ||
+        _mps_error(records, line, section, "fixed data must start with a blank")
+    isempty(strip(SubString(text, min(62, ncodeunits(text) + 1)))) ||
         _mps_error(records, line, section, "unexpected data after fixed column 61")
-    fields = [String(strip(padded[r])) for r in (2:3, 5:12, 15:22, 25:36, 40:47, 50:61)]
+    # Keep all six field views in a tuple; allocate only the returned fields.
+    fields = map(r -> _mps_fixed_field(text, r), (2:3, 5:12, 15:22, 25:36, 40:47, 50:61))
     if section == :ROWS
         all(isempty, fields[3:6]) || _mps_error(records, line, section, "unexpected ROWS fields")
-        return fields[1:2], true
+        return collect(fields[1:2]), true
     elseif section == :BOUNDS
         all(isempty, fields[5:6]) || _mps_error(records, line, section, "unexpected BOUNDS fields")
-        return isempty(fields[4]) ? fields[1:3] : fields[1:4], true
+        return isempty(fields[4]) ? collect(fields[1:3]) : collect(fields[1:4]), true
     end
     isempty(fields[1]) || _mps_error(records, line, section, "unexpected fixed record type")
     if section == :COLUMNS && fields[3] == "'MARKER'"
         isempty(fields[4]) && isempty(fields[6]) ||
             _mps_error(records, line, section, "invalid marker fields")
-        return fields[[2, 3, 5]], true
+        return [fields[2], fields[3], fields[5]], true
     end
     if isempty(fields[5]) && isempty(fields[6])
-        return fields[2:4], true
+        return collect(fields[2:4]), true
     end
-    return fields[2:6], true
+    return collect(fields[2:6]), true
 end

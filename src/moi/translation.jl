@@ -191,11 +191,11 @@ function _moi_affine_evaluation(
     index_map::MOI.Utilities.IndexMap,
     function_::MOI.ScalarAffineFunction{T},
 ) where {T}
-    columns = Int[]
-    coefficients = T[]
-    for term in function_.terms
-        push!(columns, index_map[term.variable].value)
-        push!(coefficients, term.coefficient)
+    columns = Vector{Int}(undef, length(function_.terms))
+    coefficients = Vector{T}(undef, length(function_.terms))
+    for (index, term) in enumerate(function_.terms)
+        columns[index] = index_map[term.variable].value
+        coefficients[index] = term.coefficient
     end
     return MOIScalarEvaluation(columns, coefficients, function_.constant)
 end
@@ -283,6 +283,10 @@ function _translate_moi_model(optimizer::Optimizer{T}, source)::MOITranslation{T
     row_upper = Bound{T}[]
     row_names = String[]
     function_type = MOI.ScalarAffineFunction{T}
+    # Remember each column's last triplet position. A position preceding the
+    # current row means its next coefficient starts a new entry. This avoids a
+    # per-row dictionary or clearing column-sized scratch after every row.
+    positions = Int[]
 
     for set_type in (MOI.GreaterThan{T}, MOI.LessThan{T}, MOI.EqualTo{T}, MOI.Interval{T})
         source_indices = MOI.get(
@@ -299,15 +303,21 @@ function _translate_moi_model(optimizer::Optimizer{T}, source)::MOITranslation{T
             )
             push!(evaluations, evaluation)
 
-            row_coefficients = Dict{Int,T}()
-            for (column, coefficient) in zip(evaluation.columns, evaluation.coefficients)
-                row_coefficients[column] = haskey(row_coefficients, column) ?
-                    _moi_add(row_coefficients[column], coefficient) : coefficient
+            if isempty(positions) && !isempty(evaluation.columns)
+                resize!(positions, length(columns.lower))
+                fill!(positions, 0)
             end
-            for (column, coefficient) in row_coefficients
-                push!(row_indices, row)
-                push!(column_indices, column)
-                push!(coefficients, coefficient)
+            row_start = length(coefficients) + 1
+            for (column, coefficient) in zip(evaluation.columns, evaluation.coefficients)
+                position = positions[column]
+                if position < row_start
+                    push!(row_indices, row)
+                    push!(column_indices, column)
+                    push!(coefficients, coefficient)
+                    positions[column] = length(coefficients)
+                else
+                    coefficients[position] = _moi_add(coefficients[position], coefficient)
+                end
             end
 
             lower, upper, bounds_error = _moi_affine_bounds(set, evaluation.constant)

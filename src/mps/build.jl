@@ -9,33 +9,33 @@ end
 _mps_big(value::Rational) = BigInt(numerator(value)) // BigInt(denominator(value))
 
 function _mps_checked_add(records::MPSAccumulator{T}, left::T, right::T,
-                          line::Int, section::Symbol, message::String) where {T<:Rational}
+                          line::Int, section::Symbol, message::F) where {T<:Rational,F}
     return _mps_checked_convert(T, _mps_big(left) + _mps_big(right),
                                 records, line, section, message)
 end
 
 function _mps_checked_subtract(records::MPSAccumulator{T}, left::T, right::T,
-                               line::Int, section::Symbol, message::String) where {T<:Rational}
+                               line::Int, section::Symbol, message::F) where {T<:Rational,F}
     return _mps_checked_convert(T, _mps_big(left) - _mps_big(right),
                                 records, line, section, message)
 end
 
 function _mps_checked_add(records::MPSAccumulator{T}, left::T, right::T,
-                          line::Int, section::Symbol, message::String) where {T<:AbstractFloat}
+                          line::Int, section::Symbol, message::F) where {T<:AbstractFloat,F}
     value = left + right
     isfinite(value) || _mps_error(records, line, section, message)
     return value
 end
 
 function _mps_checked_subtract(records::MPSAccumulator{T}, left::T, right::T,
-                               line::Int, section::Symbol, message::String) where {T<:AbstractFloat}
+                               line::Int, section::Symbol, message::F) where {T<:AbstractFloat,F}
     value = left - right
     isfinite(value) || _mps_error(records, line, section, message)
     return value
 end
 
 function _mps_range_endpoint(records::MPSAccumulator{T}, rhs::T, range::T,
-                             subtract::Bool, line::Int, message::String) where {T<:Rational}
+                             subtract::Bool, line::Int, message::F) where {T<:Rational,F}
     # Check the completed endpoint: abs(typemin(I)) alone need not fit in T.
     magnitude = abs(_mps_big(range))
     endpoint = subtract ? _mps_big(rhs) - magnitude : _mps_big(rhs) + magnitude
@@ -43,7 +43,7 @@ function _mps_range_endpoint(records::MPSAccumulator{T}, rhs::T, range::T,
 end
 
 function _mps_range_endpoint(records::MPSAccumulator{T}, rhs::T, range::T,
-                             subtract::Bool, line::Int, message::String) where {T<:AbstractFloat}
+                             subtract::Bool, line::Int, message::F) where {T<:AbstractFloat,F}
     magnitude = abs(range)
     return subtract ? _mps_checked_subtract(records, rhs, magnitude, line, :RANGES, message) :
                       _mps_checked_add(records, rhs, magnitude, line, :RANGES, message)
@@ -153,11 +153,11 @@ function _build_mps(
         j = column_index[column]
         if row == selected_objective
             objective[j] = _mps_checked_add(records, objective[j], value, line, :COLUMNS,
-                "summed objective coefficient for column '$column' must be finite and representable as $T")
+                () -> "summed objective coefficient for column '$column' must be finite and representable as $T")
         elseif haskey(row_index, row)
             key = (row_index[row], j)
             sums[key] = _mps_checked_add(records, get(sums, key, zero(T)), value, line, :COLUMNS,
-                "summed matrix coefficient for column '$column', row '$row' must be finite and representable as $T")
+                () -> "summed matrix coefficient for column '$column', row '$row' must be finite and representable as $T")
         end
     end
     rows, columns, values = Int[], Int[], T[]
@@ -173,7 +173,7 @@ function _build_mps(
     for (row, value, line) in rhs
         if row == selected_objective
             objective_constant = _mps_checked_subtract(records, zero(T), value, line, :RHS,
-                "objective constant must be finite and representable as $T")
+                () -> "objective constant must be finite and representable as $T")
         elseif haskey(row_index, row)
             rhs_values[row_index[row]] = value
         end
@@ -191,7 +191,7 @@ function _build_mps(
         kind, b = records.row_types[row], rhs_values[i]
         subtract = kind == 'L' || (kind == 'E' && value < zero(T))
         endpoint = _mps_range_endpoint(records, b, value, subtract, line,
-            "derived bounds for row '$row' must be finite and representable as $T")
+            () -> "derived bounds for row '$row' must be finite and representable as $T")
         if subtract
             row_lower[i], row_upper[i] = Bound(endpoint), Bound(b)
         else

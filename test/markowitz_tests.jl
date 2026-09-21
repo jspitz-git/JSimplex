@@ -181,7 +181,10 @@ end
 @testset "Markowitz backend retains sparse storage and solve buffers" begin
     backend = JSimplex.MarkowitzBackend(spdiagm(0 => ones(512)))
     @test backend.sparse_pivots > 500
-    @test Base.summarysize(backend) < 250_000
+    # The finished factor remains sparse; construction scratch now deliberately
+    # retains dictionary capacity and is omitted from independently saved copies.
+    @test Base.summarysize(JSimplex._copy_backend(backend)) < 250_000
+    @test Base.summarysize(backend) < sizeof(Float64) * 512^2
     stored_zeros = SparseMatrixCSC(32, 32, collect(1:32:1025),
                                    repeat(1:32, 32),
                                    vec(Matrix{Float64}(LinearAlgebra.I, 32, 32)))

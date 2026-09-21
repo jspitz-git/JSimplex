@@ -1,0 +1,3095 @@
+basis_refactorization = "native"
+julia_version = "1.13.0"
+machine = "aarch64-linux-gnu"
+presolve = false
+scaling = "off"
+state_setup = "deterministic_replay_outside_measurement"
+threads = 1
+
+[[datasets.adlittle]]
+algorithm = "dual"
+artificial_columns = 0
+basis_update = "pfi"
+completed_steps = 0
+iterations = 19
+phase = "original_problem"
+pivot_available = true
+preparation_status = "READY"
+pricing = "steepest_edge"
+requested_steps = 0
+updates = 0
+
+    [[datasets.adlittle.stages]]
+    allocations = 6
+    bytes = 2608
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 3.9e-6
+    stage = "basis_matrix"
+
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 960
+        site = "src/simplex.jl:145 basis_matrix"
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 960
+        site = "src/simplex.jl:144 basis_matrix"
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 504
+        site = "src/simplex.jl:143 basis_matrix"
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 48
+        site = "outside JSimplex/src"
+    [[datasets.adlittle.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.95e-5
+    stage = "recompute"
+    [[datasets.adlittle.stages]]
+    allocations = 89
+    bytes = 38240
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 6.13e-5
+    stage = "refactorize"
+
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 24
+        sampled_bytes = 4984
+        site = "src/factorization.jl:33 _factorize_basis"
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 960
+        site = "src/simplex.jl:145 basis_matrix"
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 960
+        site = "src/simplex.jl:144 basis_matrix"
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 504
+        site = "src/simplex.jl:143 basis_matrix"
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 32
+        site = "src/simplex.jl:187 #recompute!#74"
+    [[datasets.adlittle.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.04e-5
+    stage = "forward_solve"
+    [[datasets.adlittle.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 5.9e-6
+    stage = "transpose_solve"
+    [[datasets.adlittle.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.1e-6
+    stage = "dual_edge_selection"
+    [[datasets.adlittle.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.8e-6
+    stage = "price"
+    [[datasets.adlittle.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.9e-6
+    stage = "dual_ratio"
+    [[datasets.adlittle.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 2.5e-6
+    stage = "bound_flipping_ratio"
+    [[datasets.adlittle.stages]]
+    allocations = 5
+    bytes = 320
+    compile_seconds = 0.0
+    completed_steps = 1
+    samples = 3
+    seconds = 3.35e-5
+    stage = "iteration"
+    status = "CONTINUE"
+
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 104
+        site = "src/factorization.jl:178 #replace_column!#57"
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 104
+        site = "src/factorization.jl:179 #replace_column!#57"
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 88
+        site = "src/factorization.jl:197 #replace_column!#57"
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 16
+        site = "outside JSimplex/src"
+    [[datasets.adlittle.stages]]
+    allocations = 5
+    bytes = 320
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 3.0e-6
+    stage = "replace_column"
+
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 104
+        site = "src/factorization.jl:178 #replace_column!#57"
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 104
+        site = "src/factorization.jl:179 #replace_column!#57"
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 88
+        site = "src/factorization.jl:197 #replace_column!#57"
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 16
+        site = "outside JSimplex/src"
+[[datasets.adlittle]]
+algorithm = "dual"
+artificial_columns = 0
+basis_update = "pfi"
+completed_steps = 5
+iterations = 24
+phase = "original_problem"
+pivot_available = true
+preparation_status = "READY"
+pricing = "steepest_edge"
+requested_steps = 5
+updates = 5
+
+    [[datasets.adlittle.stages]]
+    allocations = 6
+    bytes = 2768
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 4.5e-6
+    stage = "basis_matrix"
+
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 1088
+        site = "src/simplex.jl:145 basis_matrix"
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 1088
+        site = "src/simplex.jl:144 basis_matrix"
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 504
+        site = "src/simplex.jl:143 basis_matrix"
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 48
+        site = "outside JSimplex/src"
+    [[datasets.adlittle.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.77e-5
+    stage = "recompute"
+    [[datasets.adlittle.stages]]
+    allocations = 89
+    bytes = 39296
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 6.58e-5
+    stage = "refactorize"
+
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 24
+        sampled_bytes = 5240
+        site = "src/factorization.jl:33 _factorize_basis"
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 1088
+        site = "src/simplex.jl:145 basis_matrix"
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 1088
+        site = "src/simplex.jl:144 basis_matrix"
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 504
+        site = "src/simplex.jl:143 basis_matrix"
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 32
+        site = "src/simplex.jl:187 #recompute!#74"
+    [[datasets.adlittle.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 4.6e-6
+    stage = "forward_solve"
+    [[datasets.adlittle.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.05e-5
+    stage = "transpose_solve"
+    [[datasets.adlittle.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.8e-6
+    stage = "dual_edge_selection"
+    [[datasets.adlittle.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 2.2e-6
+    stage = "price"
+    [[datasets.adlittle.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 3.1e-6
+    stage = "dual_ratio"
+    [[datasets.adlittle.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 3.1e-6
+    stage = "bound_flipping_ratio"
+    [[datasets.adlittle.stages]]
+    allocations = 4
+    bytes = 192
+    compile_seconds = 0.0
+    completed_steps = 1
+    samples = 3
+    seconds = 2.15e-5
+    stage = "iteration"
+    status = "CONTINUE"
+
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 80
+        site = "src/factorization.jl:178 #replace_column!#57"
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 80
+        site = "src/factorization.jl:179 #replace_column!#57"
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 16
+        site = "outside JSimplex/src"
+    [[datasets.adlittle.stages]]
+    allocations = 4
+    bytes = 192
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 2.6e-6
+    stage = "replace_column"
+
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 80
+        site = "src/factorization.jl:178 #replace_column!#57"
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 80
+        site = "src/factorization.jl:179 #replace_column!#57"
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 16
+        site = "outside JSimplex/src"
+[[datasets.adlittle]]
+algorithm = "primal"
+artificial_columns = 8
+basis_update = "pfi"
+completed_steps = 0
+iterations = 26
+phase = "primal_phase_two_with_fixed_artificials"
+pivot_available = true
+preparation_status = "READY"
+pricing = "steepest_edge"
+requested_steps = 0
+updates = 6
+
+    [[datasets.adlittle.stages]]
+    allocations = 6
+    bytes = 2768
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 5.0e-6
+    stage = "basis_matrix"
+
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 1072
+        site = "src/simplex.jl:145 basis_matrix"
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 1072
+        site = "src/simplex.jl:144 basis_matrix"
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 504
+        site = "src/simplex.jl:143 basis_matrix"
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 48
+        site = "outside JSimplex/src"
+    [[datasets.adlittle.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.24e-5
+    stage = "recompute"
+    [[datasets.adlittle.stages]]
+    allocations = 87
+    bytes = 69080
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 0.0001082
+    stage = "refactorize"
+
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 24
+        sampled_bytes = 5208
+        site = "src/factorization.jl:33 _factorize_basis"
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 1072
+        site = "src/simplex.jl:145 basis_matrix"
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 1072
+        site = "src/simplex.jl:144 basis_matrix"
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 504
+        site = "src/simplex.jl:143 basis_matrix"
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 32
+        site = "src/simplex.jl:187 #recompute!#74"
+    [[datasets.adlittle.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 9.8e-6
+    stage = "forward_solve"
+    [[datasets.adlittle.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 7.0e-6
+    stage = "transpose_solve"
+    [[datasets.adlittle.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 3.3e-6
+    stage = "primal_pricing_before_probe"
+    [[datasets.adlittle.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 2.9e-6
+    stage = "primal_pricing"
+    [[datasets.adlittle.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 2.6e-6
+    stage = "primal_ratio"
+    [[datasets.adlittle.stages]]
+    allocations = 4
+    bytes = 192
+    compile_seconds = 0.0
+    completed_steps = 1
+    samples = 3
+    seconds = 2.21e-5
+    stage = "iteration"
+    status = "CONTINUE"
+
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 80
+        site = "src/factorization.jl:178 #replace_column!#57"
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 80
+        site = "src/factorization.jl:179 #replace_column!#57"
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 16
+        site = "outside JSimplex/src"
+    [[datasets.adlittle.stages]]
+    allocations = 4
+    bytes = 192
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 2.2e-6
+    stage = "replace_column"
+
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 80
+        site = "src/factorization.jl:178 #replace_column!#57"
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 80
+        site = "src/factorization.jl:179 #replace_column!#57"
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 16
+        site = "outside JSimplex/src"
+[[datasets.adlittle]]
+algorithm = "primal"
+artificial_columns = 8
+basis_update = "pfi"
+completed_steps = 5
+iterations = 31
+phase = "primal_phase_two_with_fixed_artificials"
+pivot_available = true
+preparation_status = "READY"
+pricing = "steepest_edge"
+requested_steps = 5
+updates = 11
+
+    [[datasets.adlittle.stages]]
+    allocations = 6
+    bytes = 3088
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 5.0e-6
+    stage = "basis_matrix"
+
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 1240
+        site = "src/simplex.jl:145 basis_matrix"
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 1240
+        site = "src/simplex.jl:144 basis_matrix"
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 504
+        site = "src/simplex.jl:143 basis_matrix"
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 48
+        site = "outside JSimplex/src"
+    [[datasets.adlittle.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.85e-5
+    stage = "recompute"
+    [[datasets.adlittle.stages]]
+    allocations = 87
+    bytes = 72712
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 9.38e-5
+    stage = "refactorize"
+
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 24
+        sampled_bytes = 5544
+        site = "src/factorization.jl:33 _factorize_basis"
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 1240
+        site = "src/simplex.jl:145 basis_matrix"
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 1240
+        site = "src/simplex.jl:144 basis_matrix"
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 504
+        site = "src/simplex.jl:143 basis_matrix"
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 32
+        site = "src/simplex.jl:187 #recompute!#74"
+    [[datasets.adlittle.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.08e-5
+    stage = "forward_solve"
+    [[datasets.adlittle.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.14e-5
+    stage = "transpose_solve"
+    [[datasets.adlittle.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 3.3e-6
+    stage = "primal_pricing_before_probe"
+    [[datasets.adlittle.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 3.0e-6
+    stage = "primal_pricing"
+    [[datasets.adlittle.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 2.4e-6
+    stage = "primal_ratio"
+    [[datasets.adlittle.stages]]
+    allocations = 4
+    bytes = 608
+    compile_seconds = 0.0
+    completed_steps = 1
+    samples = 3
+    seconds = 2.67e-5
+    stage = "iteration"
+    status = "CONTINUE"
+
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 296
+        site = "src/factorization.jl:178 #replace_column!#57"
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 296
+        site = "src/factorization.jl:179 #replace_column!#57"
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 16
+        site = "outside JSimplex/src"
+    [[datasets.adlittle.stages]]
+    allocations = 4
+    bytes = 608
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 2.8e-6
+    stage = "replace_column"
+
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 296
+        site = "src/factorization.jl:178 #replace_column!#57"
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 296
+        site = "src/factorization.jl:179 #replace_column!#57"
+        [[datasets.adlittle.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 16
+        site = "outside JSimplex/src"
+
+[[datasets.afiro]]
+algorithm = "dual"
+artificial_columns = 0
+basis_update = "pfi"
+completed_steps = 0
+iterations = 12
+phase = "original_problem"
+pivot_available = true
+preparation_status = "READY"
+pricing = "steepest_edge"
+requested_steps = 0
+updates = 0
+
+    [[datasets.afiro.stages]]
+    allocations = 6
+    bytes = 1248
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 3.1e-6
+    stage = "basis_matrix"
+
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 432
+        site = "src/simplex.jl:145 basis_matrix"
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 432
+        site = "src/simplex.jl:144 basis_matrix"
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 272
+        site = "src/simplex.jl:143 basis_matrix"
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 48
+        site = "outside JSimplex/src"
+    [[datasets.afiro.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.57e-5
+    stage = "recompute"
+    [[datasets.afiro.stages]]
+    allocations = 89
+    bytes = 20944
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 3.34e-5
+    stage = "refactorize"
+
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 24
+        sampled_bytes = 3232
+        site = "src/factorization.jl:33 _factorize_basis"
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 432
+        site = "src/simplex.jl:145 basis_matrix"
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 432
+        site = "src/simplex.jl:144 basis_matrix"
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 272
+        site = "src/simplex.jl:143 basis_matrix"
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 32
+        site = "src/simplex.jl:187 #recompute!#74"
+    [[datasets.afiro.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 8.2e-6
+    stage = "forward_solve"
+    [[datasets.afiro.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 4.4e-6
+    stage = "transpose_solve"
+    [[datasets.afiro.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.2e-6
+    stage = "dual_edge_selection"
+    [[datasets.afiro.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.9e-6
+    stage = "price"
+    [[datasets.afiro.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.7e-6
+    stage = "dual_ratio"
+    [[datasets.afiro.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.5e-6
+    stage = "bound_flipping_ratio"
+    [[datasets.afiro.stages]]
+    allocations = 5
+    bytes = 416
+    compile_seconds = 0.0
+    completed_steps = 1
+    samples = 3
+    seconds = 2.5e-5
+    stage = "iteration"
+    status = "CONTINUE"
+
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 144
+        site = "src/factorization.jl:178 #replace_column!#57"
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 144
+        site = "src/factorization.jl:179 #replace_column!#57"
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 88
+        site = "src/factorization.jl:197 #replace_column!#57"
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 16
+        site = "outside JSimplex/src"
+    [[datasets.afiro.stages]]
+    allocations = 5
+    bytes = 416
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 2.8e-6
+    stage = "replace_column"
+
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 144
+        site = "src/factorization.jl:178 #replace_column!#57"
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 144
+        site = "src/factorization.jl:179 #replace_column!#57"
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 88
+        site = "src/factorization.jl:197 #replace_column!#57"
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 16
+        site = "outside JSimplex/src"
+[[datasets.afiro]]
+algorithm = "dual"
+artificial_columns = 0
+basis_update = "pfi"
+completed_steps = 5
+iterations = 17
+phase = "original_problem"
+pivot_available = true
+preparation_status = "READY"
+pricing = "steepest_edge"
+requested_steps = 5
+updates = 5
+
+    [[datasets.afiro.stages]]
+    allocations = 6
+    bytes = 1344
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 3.3e-6
+    stage = "basis_matrix"
+
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 488
+        site = "src/simplex.jl:145 basis_matrix"
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 488
+        site = "src/simplex.jl:144 basis_matrix"
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 272
+        site = "src/simplex.jl:143 basis_matrix"
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 48
+        site = "outside JSimplex/src"
+    [[datasets.afiro.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.47e-5
+    stage = "recompute"
+    [[datasets.afiro.stages]]
+    allocations = 89
+    bytes = 21360
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 4.84e-5
+    stage = "refactorize"
+
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 24
+        sampled_bytes = 3344
+        site = "src/factorization.jl:33 _factorize_basis"
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 488
+        site = "src/simplex.jl:145 basis_matrix"
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 488
+        site = "src/simplex.jl:144 basis_matrix"
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 272
+        site = "src/simplex.jl:143 basis_matrix"
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 32
+        site = "src/simplex.jl:187 #recompute!#74"
+    [[datasets.afiro.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 9.9e-6
+    stage = "forward_solve"
+    [[datasets.afiro.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 8.6e-6
+    stage = "transpose_solve"
+    [[datasets.afiro.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.0e-6
+    stage = "dual_edge_selection"
+    [[datasets.afiro.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.5e-6
+    stage = "price"
+    [[datasets.afiro.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.8e-6
+    stage = "dual_ratio"
+    [[datasets.afiro.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 2.2e-6
+    stage = "bound_flipping_ratio"
+    [[datasets.afiro.stages]]
+    allocations = 4
+    bytes = 320
+    compile_seconds = 0.0
+    completed_steps = 1
+    samples = 3
+    seconds = 2.39e-5
+    stage = "iteration"
+    status = "CONTINUE"
+
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 144
+        site = "src/factorization.jl:178 #replace_column!#57"
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 144
+        site = "src/factorization.jl:179 #replace_column!#57"
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 16
+        site = "outside JSimplex/src"
+    [[datasets.afiro.stages]]
+    allocations = 4
+    bytes = 320
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 2.5e-6
+    stage = "replace_column"
+
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 144
+        site = "src/factorization.jl:178 #replace_column!#57"
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 144
+        site = "src/factorization.jl:179 #replace_column!#57"
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 16
+        site = "outside JSimplex/src"
+[[datasets.afiro]]
+algorithm = "primal"
+artificial_columns = 1
+basis_update = "pfi"
+completed_steps = 0
+iterations = 1
+phase = "primal_phase_two_with_fixed_artificials"
+pivot_available = true
+preparation_status = "READY"
+pricing = "steepest_edge"
+requested_steps = 0
+updates = 1
+
+    [[datasets.afiro.stages]]
+    allocations = 6
+    bytes = 832
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 3.9e-6
+    stage = "basis_matrix"
+
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 272
+        site = "src/simplex.jl:143 basis_matrix"
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 264
+        site = "src/simplex.jl:145 basis_matrix"
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 264
+        site = "src/simplex.jl:144 basis_matrix"
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 48
+        site = "outside JSimplex/src"
+    [[datasets.afiro.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.48e-5
+    stage = "recompute"
+    [[datasets.afiro.stages]]
+    allocations = 89
+    bytes = 19344
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 4.79e-5
+    stage = "refactorize"
+
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 24
+        sampled_bytes = 2896
+        site = "src/factorization.jl:33 _factorize_basis"
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 272
+        site = "src/simplex.jl:143 basis_matrix"
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 264
+        site = "src/simplex.jl:145 basis_matrix"
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 264
+        site = "src/simplex.jl:144 basis_matrix"
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 32
+        site = "src/simplex.jl:187 #recompute!#74"
+    [[datasets.afiro.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 5.4e-6
+    stage = "forward_solve"
+    [[datasets.afiro.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 7.7e-6
+    stage = "transpose_solve"
+    [[datasets.afiro.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 2.4e-6
+    stage = "primal_pricing_before_probe"
+    [[datasets.afiro.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 2.2e-6
+    stage = "primal_pricing"
+    [[datasets.afiro.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.9e-6
+    stage = "primal_ratio"
+    [[datasets.afiro.stages]]
+    allocations = 4
+    bytes = 160
+    compile_seconds = 0.0
+    completed_steps = 1
+    samples = 3
+    seconds = 2.81e-5
+    stage = "iteration"
+    status = "CONTINUE"
+
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 64
+        site = "src/factorization.jl:178 #replace_column!#57"
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 64
+        site = "src/factorization.jl:179 #replace_column!#57"
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 16
+        site = "outside JSimplex/src"
+    [[datasets.afiro.stages]]
+    allocations = 4
+    bytes = 160
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 2.6e-6
+    stage = "replace_column"
+
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 64
+        site = "src/factorization.jl:178 #replace_column!#57"
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 64
+        site = "src/factorization.jl:179 #replace_column!#57"
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 16
+        site = "outside JSimplex/src"
+[[datasets.afiro]]
+algorithm = "primal"
+artificial_columns = 1
+basis_update = "pfi"
+completed_steps = 5
+iterations = 6
+phase = "primal_phase_two_with_fixed_artificials"
+pivot_available = true
+preparation_status = "READY"
+pricing = "steepest_edge"
+requested_steps = 5
+updates = 6
+
+    [[datasets.afiro.stages]]
+    allocations = 6
+    bytes = 960
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 3.4e-6
+    stage = "basis_matrix"
+
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 320
+        site = "src/simplex.jl:145 basis_matrix"
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 320
+        site = "src/simplex.jl:144 basis_matrix"
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 272
+        site = "src/simplex.jl:143 basis_matrix"
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 48
+        site = "outside JSimplex/src"
+    [[datasets.afiro.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.17e-5
+    stage = "recompute"
+    [[datasets.afiro.stages]]
+    allocations = 89
+    bytes = 19872
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 4.8101e-5
+    stage = "refactorize"
+
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 24
+        sampled_bytes = 3008
+        site = "src/factorization.jl:33 _factorize_basis"
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 320
+        site = "src/simplex.jl:145 basis_matrix"
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 320
+        site = "src/simplex.jl:144 basis_matrix"
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 272
+        site = "src/simplex.jl:143 basis_matrix"
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 32
+        site = "src/simplex.jl:187 #recompute!#74"
+    [[datasets.afiro.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 8.9e-6
+    stage = "forward_solve"
+    [[datasets.afiro.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 3.7e-6
+    stage = "transpose_solve"
+    [[datasets.afiro.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 2.5e-6
+    stage = "primal_pricing_before_probe"
+    [[datasets.afiro.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.4e-6
+    stage = "primal_pricing"
+    [[datasets.afiro.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.6e-6
+    stage = "primal_ratio"
+    [[datasets.afiro.stages]]
+    allocations = 4
+    bytes = 288
+    compile_seconds = 0.0
+    completed_steps = 1
+    samples = 3
+    seconds = 2.76e-5
+    stage = "iteration"
+    status = "CONTINUE"
+
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 128
+        site = "src/factorization.jl:178 #replace_column!#57"
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 128
+        site = "src/factorization.jl:179 #replace_column!#57"
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 16
+        site = "outside JSimplex/src"
+    [[datasets.afiro.stages]]
+    allocations = 4
+    bytes = 288
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 2.3e-6
+    stage = "replace_column"
+
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 128
+        site = "src/factorization.jl:178 #replace_column!#57"
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 128
+        site = "src/factorization.jl:179 #replace_column!#57"
+        [[datasets.afiro.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 16
+        site = "outside JSimplex/src"
+
+[[datasets.flugpl]]
+algorithm = "dual"
+artificial_columns = 0
+basis_update = "pfi"
+completed_steps = 0
+iterations = 0
+phase = "original_problem"
+pivot_available = true
+preparation_status = "READY"
+pricing = "steepest_edge"
+requested_steps = 0
+updates = 0
+
+    [[datasets.flugpl.stages]]
+    allocations = 6
+    bytes = 624
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 3.1e-6
+    stage = "basis_matrix"
+
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 200
+        site = "src/simplex.jl:143 basis_matrix"
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 192
+        site = "src/simplex.jl:145 basis_matrix"
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 192
+        site = "src/simplex.jl:144 basis_matrix"
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 48
+        site = "outside JSimplex/src"
+    [[datasets.flugpl.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.44e-5
+    stage = "recompute"
+    [[datasets.flugpl.stages]]
+    allocations = 89
+    bytes = 14096
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 4.78e-5
+    stage = "refactorize"
+
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 24
+        sampled_bytes = 2536
+        site = "src/factorization.jl:33 _factorize_basis"
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 200
+        site = "src/simplex.jl:143 basis_matrix"
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 192
+        site = "src/simplex.jl:145 basis_matrix"
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 192
+        site = "src/simplex.jl:144 basis_matrix"
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 32
+        site = "src/simplex.jl:187 #recompute!#74"
+    [[datasets.flugpl.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 5.2e-6
+    stage = "forward_solve"
+    [[datasets.flugpl.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 7.9e-6
+    stage = "transpose_solve"
+    [[datasets.flugpl.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.0e-6
+    stage = "dual_edge_selection"
+    [[datasets.flugpl.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.0e-6
+    stage = "price"
+    [[datasets.flugpl.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.6e-6
+    stage = "dual_ratio"
+    [[datasets.flugpl.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 2.4e-6
+    stage = "bound_flipping_ratio"
+    [[datasets.flugpl.stages]]
+    allocations = 5
+    bytes = 288
+    compile_seconds = 0.0
+    completed_steps = 1
+    samples = 3
+    seconds = 2.95e-5
+    stage = "iteration"
+    status = "CONTINUE"
+
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 88
+        site = "src/factorization.jl:197 #replace_column!#57"
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 80
+        site = "src/factorization.jl:178 #replace_column!#57"
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 80
+        site = "src/factorization.jl:179 #replace_column!#57"
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 16
+        site = "outside JSimplex/src"
+    [[datasets.flugpl.stages]]
+    allocations = 5
+    bytes = 288
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 3.1e-6
+    stage = "replace_column"
+
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 88
+        site = "src/factorization.jl:197 #replace_column!#57"
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 80
+        site = "src/factorization.jl:178 #replace_column!#57"
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 80
+        site = "src/factorization.jl:179 #replace_column!#57"
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 16
+        site = "outside JSimplex/src"
+[[datasets.flugpl]]
+algorithm = "dual"
+artificial_columns = 0
+basis_update = "pfi"
+completed_steps = 5
+iterations = 5
+phase = "original_problem"
+pivot_available = true
+preparation_status = "READY"
+pricing = "steepest_edge"
+requested_steps = 5
+updates = 5
+
+    [[datasets.flugpl.stages]]
+    allocations = 6
+    bytes = 816
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 2.2e-6
+    stage = "basis_matrix"
+
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 296
+        site = "src/simplex.jl:145 basis_matrix"
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 296
+        site = "src/simplex.jl:144 basis_matrix"
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 200
+        site = "src/simplex.jl:143 basis_matrix"
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 48
+        site = "outside JSimplex/src"
+    [[datasets.flugpl.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.5e-5
+    stage = "recompute"
+    [[datasets.flugpl.stages]]
+    allocations = 89
+    bytes = 14960
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 4.41e-5
+    stage = "refactorize"
+
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 24
+        sampled_bytes = 2744
+        site = "src/factorization.jl:33 _factorize_basis"
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 296
+        site = "src/simplex.jl:145 basis_matrix"
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 296
+        site = "src/simplex.jl:144 basis_matrix"
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 200
+        site = "src/simplex.jl:143 basis_matrix"
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 32
+        site = "src/simplex.jl:187 #recompute!#74"
+    [[datasets.flugpl.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 8.0e-6
+    stage = "forward_solve"
+    [[datasets.flugpl.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 8.2e-6
+    stage = "transpose_solve"
+    [[datasets.flugpl.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.1e-6
+    stage = "dual_edge_selection"
+    [[datasets.flugpl.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.6e-6
+    stage = "price"
+    [[datasets.flugpl.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.7e-6
+    stage = "dual_ratio"
+    [[datasets.flugpl.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 2.8e-6
+    stage = "bound_flipping_ratio"
+    [[datasets.flugpl.stages]]
+    allocations = 4
+    bytes = 192
+    compile_seconds = 0.0
+    completed_steps = 1
+    samples = 3
+    seconds = 1.61e-5
+    stage = "iteration"
+    status = "CONTINUE"
+
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 80
+        site = "src/factorization.jl:178 #replace_column!#57"
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 80
+        site = "src/factorization.jl:179 #replace_column!#57"
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 16
+        site = "outside JSimplex/src"
+    [[datasets.flugpl.stages]]
+    allocations = 4
+    bytes = 192
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 3.1e-6
+    stage = "replace_column"
+
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 80
+        site = "src/factorization.jl:178 #replace_column!#57"
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 80
+        site = "src/factorization.jl:179 #replace_column!#57"
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 16
+        site = "outside JSimplex/src"
+[[datasets.flugpl]]
+algorithm = "primal"
+artificial_columns = 11
+basis_update = "pfi"
+completed_steps = 0
+iterations = 13
+phase = "primal_phase_two_with_fixed_artificials"
+pivot_available = true
+preparation_status = "READY"
+pricing = "steepest_edge"
+requested_steps = 0
+updates = 12
+
+    [[datasets.flugpl.stages]]
+    allocations = 6
+    bytes = 944
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 2.5e-6
+    stage = "basis_matrix"
+
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 360
+        site = "src/simplex.jl:145 basis_matrix"
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 360
+        site = "src/simplex.jl:144 basis_matrix"
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 200
+        site = "src/simplex.jl:143 basis_matrix"
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 48
+        site = "outside JSimplex/src"
+    [[datasets.flugpl.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.38e-5
+    stage = "recompute"
+    [[datasets.flugpl.stages]]
+    allocations = 87
+    bytes = 38552
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 6.23e-5
+    stage = "refactorize"
+
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 24
+        sampled_bytes = 2872
+        site = "src/factorization.jl:33 _factorize_basis"
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 360
+        site = "src/simplex.jl:145 basis_matrix"
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 360
+        site = "src/simplex.jl:144 basis_matrix"
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 200
+        site = "src/simplex.jl:143 basis_matrix"
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 32
+        site = "src/simplex.jl:187 #recompute!#74"
+    [[datasets.flugpl.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 7.1e-6
+    stage = "forward_solve"
+    [[datasets.flugpl.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 8.7e-6
+    stage = "transpose_solve"
+    [[datasets.flugpl.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 2.0e-6
+    stage = "primal_pricing_before_probe"
+    [[datasets.flugpl.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 2.3e-6
+    stage = "primal_pricing"
+    [[datasets.flugpl.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.9e-6
+    stage = "primal_ratio"
+    [[datasets.flugpl.stages]]
+    allocations = 4
+    bytes = 384
+    compile_seconds = 0.0
+    completed_steps = 1
+    samples = 3
+    seconds = 2.99e-5
+    stage = "iteration"
+    status = "CONTINUE"
+
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 176
+        site = "src/factorization.jl:178 #replace_column!#57"
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 176
+        site = "src/factorization.jl:179 #replace_column!#57"
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 16
+        site = "outside JSimplex/src"
+    [[datasets.flugpl.stages]]
+    allocations = 4
+    bytes = 384
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 2.9e-6
+    stage = "replace_column"
+
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 176
+        site = "src/factorization.jl:178 #replace_column!#57"
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 176
+        site = "src/factorization.jl:179 #replace_column!#57"
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 16
+        site = "outside JSimplex/src"
+[[datasets.flugpl]]
+algorithm = "primal"
+artificial_columns = 11
+basis_update = "pfi"
+completed_steps = 1
+iterations = 14
+phase = "primal_phase_two_with_fixed_artificials"
+pivot_available = false
+preparation_status = "OPTIMAL"
+pricing = "steepest_edge"
+requested_steps = 5
+updates = 13
+
+    [[datasets.flugpl.stages]]
+    allocations = 6
+    bytes = 1008
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 3.6e-6
+    stage = "basis_matrix"
+
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 376
+        site = "src/simplex.jl:145 basis_matrix"
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 376
+        site = "src/simplex.jl:144 basis_matrix"
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 200
+        site = "src/simplex.jl:143 basis_matrix"
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 48
+        site = "outside JSimplex/src"
+    [[datasets.flugpl.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 7.7e-6
+    stage = "recompute"
+    [[datasets.flugpl.stages]]
+    allocations = 87
+    bytes = 39800
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 3.83e-5
+    stage = "refactorize"
+
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 24
+        sampled_bytes = 2904
+        site = "src/factorization.jl:33 _factorize_basis"
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 376
+        site = "src/simplex.jl:145 basis_matrix"
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 376
+        site = "src/simplex.jl:144 basis_matrix"
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 200
+        site = "src/simplex.jl:143 basis_matrix"
+        [[datasets.flugpl.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 32
+        site = "src/simplex.jl:187 #recompute!#74"
+    [[datasets.flugpl.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 8.6e-6
+    stage = "forward_solve"
+    [[datasets.flugpl.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 4.7e-6
+    stage = "transpose_solve"
+    [[datasets.flugpl.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 2.0e-6
+    stage = "primal_pricing_before_probe"
+    [[datasets.flugpl.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.8e-6
+    stage = "primal_pricing"
+
+[[datasets.kb2]]
+algorithm = "dual"
+artificial_columns = 0
+basis_update = "pfi"
+completed_steps = 0
+iterations = 0
+phase = "original_problem"
+pivot_available = true
+preparation_status = "READY"
+pricing = "steepest_edge"
+requested_steps = 0
+updates = 0
+
+    [[datasets.kb2.stages]]
+    allocations = 6
+    bytes = 1232
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 2.4e-6
+    stage = "basis_matrix"
+
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 400
+        site = "src/simplex.jl:143 basis_matrix"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 392
+        site = "src/simplex.jl:145 basis_matrix"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 392
+        site = "src/simplex.jl:144 basis_matrix"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 48
+        site = "outside JSimplex/src"
+    [[datasets.kb2.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.1e-5
+    stage = "recompute"
+    [[datasets.kb2.stages]]
+    allocations = 89
+    bytes = 27824
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 4.1e-5
+    stage = "refactorize"
+
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 24
+        sampled_bytes = 3536
+        site = "src/factorization.jl:33 _factorize_basis"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 400
+        site = "src/simplex.jl:143 basis_matrix"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 392
+        site = "src/simplex.jl:145 basis_matrix"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 392
+        site = "src/simplex.jl:144 basis_matrix"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 32
+        site = "src/simplex.jl:187 #recompute!#74"
+    [[datasets.kb2.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 9.2e-6
+    stage = "forward_solve"
+    [[datasets.kb2.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 5.9e-6
+    stage = "transpose_solve"
+    [[datasets.kb2.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.1e-6
+    stage = "dual_edge_selection"
+    [[datasets.kb2.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 2.1e-6
+    stage = "price"
+    [[datasets.kb2.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.7e-6
+    stage = "dual_ratio"
+    [[datasets.kb2.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 3.2e-6
+    stage = "bound_flipping_ratio"
+    [[datasets.kb2.stages]]
+    allocations = 5
+    bytes = 288
+    compile_seconds = 0.0
+    completed_steps = 1
+    samples = 3
+    seconds = 3.24e-5
+    stage = "iteration"
+    status = "CONTINUE"
+
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 88
+        site = "src/factorization.jl:197 #replace_column!#57"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 80
+        site = "src/factorization.jl:178 #replace_column!#57"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 80
+        site = "src/factorization.jl:179 #replace_column!#57"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 16
+        site = "outside JSimplex/src"
+    [[datasets.kb2.stages]]
+    allocations = 5
+    bytes = 288
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 3.7e-6
+    stage = "replace_column"
+
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 88
+        site = "src/factorization.jl:197 #replace_column!#57"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 80
+        site = "src/factorization.jl:178 #replace_column!#57"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 80
+        site = "src/factorization.jl:179 #replace_column!#57"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 16
+        site = "outside JSimplex/src"
+[[datasets.kb2]]
+algorithm = "dual"
+artificial_columns = 0
+basis_update = "pfi"
+completed_steps = 5
+iterations = 5
+phase = "original_problem"
+pivot_available = true
+preparation_status = "READY"
+pricing = "steepest_edge"
+requested_steps = 5
+updates = 5
+
+    [[datasets.kb2.stages]]
+    allocations = 6
+    bytes = 1968
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 3.5e-6
+    stage = "basis_matrix"
+
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 704
+        site = "src/simplex.jl:145 basis_matrix"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 704
+        site = "src/simplex.jl:144 basis_matrix"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 400
+        site = "src/simplex.jl:143 basis_matrix"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 48
+        site = "outside JSimplex/src"
+    [[datasets.kb2.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.75e-5
+    stage = "recompute"
+    [[datasets.kb2.stages]]
+    allocations = 89
+    bytes = 42272
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 7.72e-5
+    stage = "refactorize"
+
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 24
+        sampled_bytes = 4160
+        site = "src/factorization.jl:33 _factorize_basis"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 704
+        site = "src/simplex.jl:145 basis_matrix"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 704
+        site = "src/simplex.jl:144 basis_matrix"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 400
+        site = "src/simplex.jl:143 basis_matrix"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 32
+        site = "src/simplex.jl:187 #recompute!#74"
+    [[datasets.kb2.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 9.0e-6
+    stage = "forward_solve"
+    [[datasets.kb2.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 5.1e-6
+    stage = "transpose_solve"
+    [[datasets.kb2.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.0e-6
+    stage = "dual_edge_selection"
+    [[datasets.kb2.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.9e-6
+    stage = "price"
+    [[datasets.kb2.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.7e-6
+    stage = "dual_ratio"
+    [[datasets.kb2.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 2.5e-6
+    stage = "bound_flipping_ratio"
+    [[datasets.kb2.stages]]
+    allocations = 4
+    bytes = 320
+    compile_seconds = 0.0
+    completed_steps = 1
+    samples = 3
+    seconds = 2.98e-5
+    stage = "iteration"
+    status = "CONTINUE"
+
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 152
+        site = "src/factorization.jl:178 #replace_column!#57"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 152
+        site = "src/factorization.jl:179 #replace_column!#57"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 16
+        site = "outside JSimplex/src"
+    [[datasets.kb2.stages]]
+    allocations = 4
+    bytes = 320
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 2.5e-6
+    stage = "replace_column"
+
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 152
+        site = "src/factorization.jl:178 #replace_column!#57"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 152
+        site = "src/factorization.jl:179 #replace_column!#57"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 16
+        site = "outside JSimplex/src"
+[[datasets.kb2]]
+algorithm = "primal"
+artificial_columns = 0
+basis_update = "pfi"
+completed_steps = 0
+iterations = 0
+phase = "original_problem"
+pivot_available = true
+preparation_status = "READY"
+pricing = "steepest_edge"
+requested_steps = 0
+updates = 0
+
+    [[datasets.kb2.stages]]
+    allocations = 6
+    bytes = 1232
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 2.8e-6
+    stage = "basis_matrix"
+
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 400
+        site = "src/simplex.jl:143 basis_matrix"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 392
+        site = "src/simplex.jl:145 basis_matrix"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 392
+        site = "src/simplex.jl:144 basis_matrix"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 48
+        site = "outside JSimplex/src"
+    [[datasets.kb2.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.94e-5
+    stage = "recompute"
+    [[datasets.kb2.stages]]
+    allocations = 89
+    bytes = 27824
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 5.06e-5
+    stage = "refactorize"
+
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 24
+        sampled_bytes = 3536
+        site = "src/factorization.jl:33 _factorize_basis"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 400
+        site = "src/simplex.jl:143 basis_matrix"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 392
+        site = "src/simplex.jl:145 basis_matrix"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 392
+        site = "src/simplex.jl:144 basis_matrix"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 32
+        site = "src/simplex.jl:187 #recompute!#74"
+    [[datasets.kb2.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 7.8e-6
+    stage = "forward_solve"
+    [[datasets.kb2.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 9.5e-6
+    stage = "transpose_solve"
+    [[datasets.kb2.stages]]
+    allocations = 2
+    bytes = 64
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 3.4e-6
+    stage = "primal_pricing_before_probe"
+
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 64
+        site = "src/primal_simplex.jl:125 _primal_initialize_steepest!"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 32
+        site = "outside JSimplex/src"
+    [[datasets.kb2.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 2.5e-6
+    stage = "primal_pricing"
+    [[datasets.kb2.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.9e-6
+    stage = "primal_ratio"
+    [[datasets.kb2.stages]]
+    allocations = 7
+    bytes = 288
+    compile_seconds = 0.0
+    completed_steps = 1
+    samples = 3
+    seconds = 3.31e-5
+    stage = "iteration"
+    status = "CONTINUE"
+
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 88
+        site = "src/factorization.jl:197 #replace_column!#57"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 64
+        site = "src/primal_simplex.jl:125 _primal_initialize_steepest!"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 56
+        site = "src/factorization.jl:178 #replace_column!#57"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 56
+        site = "src/factorization.jl:179 #replace_column!#57"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 16
+        site = "outside JSimplex/src"
+    [[datasets.kb2.stages]]
+    allocations = 5
+    bytes = 224
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 4.0e-6
+    stage = "replace_column"
+
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 88
+        site = "src/factorization.jl:197 #replace_column!#57"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 56
+        site = "src/factorization.jl:178 #replace_column!#57"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 56
+        site = "src/factorization.jl:179 #replace_column!#57"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 16
+        site = "outside JSimplex/src"
+[[datasets.kb2]]
+algorithm = "primal"
+artificial_columns = 0
+basis_update = "pfi"
+completed_steps = 5
+iterations = 5
+phase = "original_problem"
+pivot_available = true
+preparation_status = "READY"
+pricing = "steepest_edge"
+requested_steps = 5
+updates = 5
+
+    [[datasets.kb2.stages]]
+    allocations = 6
+    bytes = 1744
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 3.9e-6
+    stage = "basis_matrix"
+
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 624
+        site = "src/simplex.jl:145 basis_matrix"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 624
+        site = "src/simplex.jl:144 basis_matrix"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 400
+        site = "src/simplex.jl:143 basis_matrix"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 48
+        site = "outside JSimplex/src"
+    [[datasets.kb2.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.61e-5
+    stage = "recompute"
+    [[datasets.kb2.stages]]
+    allocations = 89
+    bytes = 42208
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 7.88e-5
+    stage = "refactorize"
+
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 24
+        sampled_bytes = 4000
+        site = "src/factorization.jl:33 _factorize_basis"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 624
+        site = "src/simplex.jl:145 basis_matrix"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 624
+        site = "src/simplex.jl:144 basis_matrix"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 400
+        site = "src/simplex.jl:143 basis_matrix"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 32
+        site = "src/simplex.jl:187 #recompute!#74"
+    [[datasets.kb2.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 9.4e-6
+    stage = "forward_solve"
+    [[datasets.kb2.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 9.2e-6
+    stage = "transpose_solve"
+    [[datasets.kb2.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 2.0e-6
+    stage = "primal_pricing_before_probe"
+    [[datasets.kb2.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.8e-6
+    stage = "primal_pricing"
+    [[datasets.kb2.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 2.4e-6
+    stage = "primal_ratio"
+    [[datasets.kb2.stages]]
+    allocations = 4
+    bytes = 416
+    compile_seconds = 0.0
+    completed_steps = 1
+    samples = 3
+    seconds = 2.43e-5
+    stage = "iteration"
+    status = "CONTINUE"
+
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 192
+        site = "src/factorization.jl:178 #replace_column!#57"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 192
+        site = "src/factorization.jl:179 #replace_column!#57"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 16
+        site = "outside JSimplex/src"
+    [[datasets.kb2.stages]]
+    allocations = 4
+    bytes = 416
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 2.7e-6
+    stage = "replace_column"
+
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 192
+        site = "src/factorization.jl:178 #replace_column!#57"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 192
+        site = "src/factorization.jl:179 #replace_column!#57"
+        [[datasets.kb2.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 16
+        site = "outside JSimplex/src"
+
+[[datasets.sc50a]]
+algorithm = "dual"
+artificial_columns = 0
+basis_update = "pfi"
+completed_steps = 0
+iterations = 30
+phase = "original_problem"
+pivot_available = true
+preparation_status = "READY"
+pricing = "steepest_edge"
+requested_steps = 0
+updates = 0
+
+    [[datasets.sc50a.stages]]
+    allocations = 6
+    bytes = 2336
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 4.8e-6
+    stage = "basis_matrix"
+
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 848
+        site = "src/simplex.jl:145 basis_matrix"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 848
+        site = "src/simplex.jl:144 basis_matrix"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 456
+        site = "src/simplex.jl:143 basis_matrix"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 48
+        site = "outside JSimplex/src"
+    [[datasets.sc50a.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.7e-5
+    stage = "recompute"
+    [[datasets.sc50a.stages]]
+    allocations = 87
+    bytes = 67768
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 9.57e-5
+    stage = "refactorize"
+
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 24
+        sampled_bytes = 4616
+        site = "src/factorization.jl:33 _factorize_basis"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 848
+        site = "src/simplex.jl:145 basis_matrix"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 848
+        site = "src/simplex.jl:144 basis_matrix"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 456
+        site = "src/simplex.jl:143 basis_matrix"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 32
+        site = "src/simplex.jl:187 #recompute!#74"
+    [[datasets.sc50a.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.04e-5
+    stage = "forward_solve"
+    [[datasets.sc50a.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 9.5e-6
+    stage = "transpose_solve"
+    [[datasets.sc50a.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.2e-6
+    stage = "dual_edge_selection"
+    [[datasets.sc50a.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 2.1e-6
+    stage = "price"
+    [[datasets.sc50a.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.7e-6
+    stage = "dual_ratio"
+    [[datasets.sc50a.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 2.1e-6
+    stage = "bound_flipping_ratio"
+    [[datasets.sc50a.stages]]
+    allocations = 5
+    bytes = 256
+    compile_seconds = 0.0
+    completed_steps = 1
+    samples = 3
+    seconds = 3.43e-5
+    stage = "iteration"
+    status = "CONTINUE"
+
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 88
+        site = "src/factorization.jl:197 #replace_column!#57"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 64
+        site = "src/factorization.jl:178 #replace_column!#57"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 64
+        site = "src/factorization.jl:179 #replace_column!#57"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 16
+        site = "outside JSimplex/src"
+    [[datasets.sc50a.stages]]
+    allocations = 5
+    bytes = 256
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 2.9e-6
+    stage = "replace_column"
+
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 88
+        site = "src/factorization.jl:197 #replace_column!#57"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 64
+        site = "src/factorization.jl:178 #replace_column!#57"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 64
+        site = "src/factorization.jl:179 #replace_column!#57"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 16
+        site = "outside JSimplex/src"
+[[datasets.sc50a]]
+algorithm = "dual"
+artificial_columns = 0
+basis_update = "pfi"
+completed_steps = 5
+iterations = 35
+phase = "original_problem"
+pivot_available = true
+preparation_status = "READY"
+pricing = "steepest_edge"
+requested_steps = 5
+updates = 5
+
+    [[datasets.sc50a.stages]]
+    allocations = 6
+    bytes = 2336
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 4.4e-6
+    stage = "basis_matrix"
+
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 904
+        site = "src/simplex.jl:145 basis_matrix"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 904
+        site = "src/simplex.jl:144 basis_matrix"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 456
+        site = "src/simplex.jl:143 basis_matrix"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 48
+        site = "outside JSimplex/src"
+    [[datasets.sc50a.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.67e-5
+    stage = "recompute"
+    [[datasets.sc50a.stages]]
+    allocations = 87
+    bytes = 68072
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 0.0001043
+    stage = "refactorize"
+
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 24
+        sampled_bytes = 4728
+        site = "src/factorization.jl:33 _factorize_basis"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 904
+        site = "src/simplex.jl:145 basis_matrix"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 904
+        site = "src/simplex.jl:144 basis_matrix"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 456
+        site = "src/simplex.jl:143 basis_matrix"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 32
+        site = "src/simplex.jl:187 #recompute!#74"
+    [[datasets.sc50a.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.0e-5
+    stage = "forward_solve"
+    [[datasets.sc50a.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.24e-5
+    stage = "transpose_solve"
+    [[datasets.sc50a.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.7e-6
+    stage = "dual_edge_selection"
+    [[datasets.sc50a.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 2.3e-6
+    stage = "price"
+    [[datasets.sc50a.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.7e-6
+    stage = "dual_ratio"
+    [[datasets.sc50a.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 3.0e-6
+    stage = "bound_flipping_ratio"
+    [[datasets.sc50a.stages]]
+    allocations = 4
+    bytes = 160
+    compile_seconds = 0.0
+    completed_steps = 1
+    samples = 3
+    seconds = 3.64e-5
+    stage = "iteration"
+    status = "CONTINUE"
+
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 72
+        site = "src/factorization.jl:178 #replace_column!#57"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 72
+        site = "src/factorization.jl:179 #replace_column!#57"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 16
+        site = "outside JSimplex/src"
+    [[datasets.sc50a.stages]]
+    allocations = 4
+    bytes = 160
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 3.0e-6
+    stage = "replace_column"
+
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 72
+        site = "src/factorization.jl:178 #replace_column!#57"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 72
+        site = "src/factorization.jl:179 #replace_column!#57"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 16
+        site = "outside JSimplex/src"
+[[datasets.sc50a]]
+algorithm = "primal"
+artificial_columns = 0
+basis_update = "pfi"
+completed_steps = 0
+iterations = 0
+phase = "original_problem"
+pivot_available = true
+preparation_status = "READY"
+pricing = "steepest_edge"
+requested_steps = 0
+updates = 0
+
+    [[datasets.sc50a.stages]]
+    allocations = 6
+    bytes = 1440
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 3.8e-6
+    stage = "basis_matrix"
+
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 456
+        site = "src/simplex.jl:143 basis_matrix"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 448
+        site = "src/simplex.jl:145 basis_matrix"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 448
+        site = "src/simplex.jl:144 basis_matrix"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 48
+        site = "outside JSimplex/src"
+    [[datasets.sc50a.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.55e-5
+    stage = "recompute"
+    [[datasets.sc50a.stages]]
+    allocations = 89
+    bytes = 31440
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 5.07e-5
+    stage = "refactorize"
+
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 24
+        sampled_bytes = 3816
+        site = "src/factorization.jl:33 _factorize_basis"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 456
+        site = "src/simplex.jl:143 basis_matrix"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 448
+        site = "src/simplex.jl:145 basis_matrix"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 448
+        site = "src/simplex.jl:144 basis_matrix"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 32
+        site = "src/simplex.jl:187 #recompute!#74"
+    [[datasets.sc50a.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 6.7e-6
+    stage = "forward_solve"
+    [[datasets.sc50a.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 8.9e-6
+    stage = "transpose_solve"
+    [[datasets.sc50a.stages]]
+    allocations = 2
+    bytes = 64
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 3.9e-6
+    stage = "primal_pricing_before_probe"
+
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 64
+        site = "src/primal_simplex.jl:125 _primal_initialize_steepest!"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 32
+        site = "outside JSimplex/src"
+    [[datasets.sc50a.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.4e-6
+    stage = "primal_pricing"
+    [[datasets.sc50a.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.6e-6
+    stage = "primal_ratio"
+    [[datasets.sc50a.stages]]
+    allocations = 7
+    bytes = 320
+    compile_seconds = 0.0
+    completed_steps = 1
+    samples = 3
+    seconds = 2.48e-5
+    stage = "iteration"
+    status = "CONTINUE"
+
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 88
+        site = "src/factorization.jl:197 #replace_column!#57"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 64
+        site = "src/factorization.jl:178 #replace_column!#57"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 64
+        site = "src/factorization.jl:179 #replace_column!#57"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 64
+        site = "src/primal_simplex.jl:125 _primal_initialize_steepest!"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 16
+        site = "outside JSimplex/src"
+    [[datasets.sc50a.stages]]
+    allocations = 5
+    bytes = 256
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 3.2e-6
+    stage = "replace_column"
+
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 88
+        site = "src/factorization.jl:197 #replace_column!#57"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 64
+        site = "src/factorization.jl:178 #replace_column!#57"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 64
+        site = "src/factorization.jl:179 #replace_column!#57"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 16
+        site = "outside JSimplex/src"
+[[datasets.sc50a]]
+algorithm = "primal"
+artificial_columns = 0
+basis_update = "pfi"
+completed_steps = 5
+iterations = 5
+phase = "original_problem"
+pivot_available = true
+preparation_status = "READY"
+pricing = "steepest_edge"
+requested_steps = 5
+updates = 5
+
+    [[datasets.sc50a.stages]]
+    allocations = 6
+    bytes = 1536
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 3.8e-6
+    stage = "basis_matrix"
+
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 512
+        site = "src/simplex.jl:145 basis_matrix"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 512
+        site = "src/simplex.jl:144 basis_matrix"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 456
+        site = "src/simplex.jl:143 basis_matrix"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 48
+        site = "outside JSimplex/src"
+    [[datasets.sc50a.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 9.8e-6
+    stage = "recompute"
+    [[datasets.sc50a.stages]]
+    allocations = 89
+    bytes = 31952
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 5.35e-5
+    stage = "refactorize"
+
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 24
+        sampled_bytes = 3944
+        site = "src/factorization.jl:33 _factorize_basis"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 512
+        site = "src/simplex.jl:145 basis_matrix"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 512
+        site = "src/simplex.jl:144 basis_matrix"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 456
+        site = "src/simplex.jl:143 basis_matrix"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 32
+        site = "src/simplex.jl:187 #recompute!#74"
+    [[datasets.sc50a.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 6.6e-6
+    stage = "forward_solve"
+    [[datasets.sc50a.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 9.1e-6
+    stage = "transpose_solve"
+    [[datasets.sc50a.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 2.3e-6
+    stage = "primal_pricing_before_probe"
+    [[datasets.sc50a.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 1.6e-6
+    stage = "primal_pricing"
+    [[datasets.sc50a.stages]]
+    allocations = 0
+    bytes = 0
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 2.2e-6
+    stage = "primal_ratio"
+    [[datasets.sc50a.stages]]
+    allocations = 4
+    bytes = 320
+    compile_seconds = 0.0
+    completed_steps = 1
+    samples = 3
+    seconds = 3.01e-5
+    stage = "iteration"
+    status = "CONTINUE"
+
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 152
+        site = "src/factorization.jl:178 #replace_column!#57"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 152
+        site = "src/factorization.jl:179 #replace_column!#57"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 16
+        site = "outside JSimplex/src"
+    [[datasets.sc50a.stages]]
+    allocations = 4
+    bytes = 320
+    compile_seconds = 0.0
+    samples = 3
+    seconds = 2.7e-6
+    stage = "replace_column"
+
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 152
+        site = "src/factorization.jl:178 #replace_column!#57"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 2
+        sampled_bytes = 152
+        site = "src/factorization.jl:179 #replace_column!#57"
+        [[datasets.sc50a.stages.profile]]
+        sampled_allocations = 1
+        sampled_bytes = 16
+        site = "outside JSimplex/src"

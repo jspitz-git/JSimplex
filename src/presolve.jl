@@ -32,13 +32,25 @@ function _represent_exact(::Type{T}, value::Rational{BigInt}) where {T<:Real}
         return nothing
     end
     isfinite(converted) || return nothing
+    iszero(converted) && return iszero(value) ? converted : nothing
+    isone(converted) && return isone(value) ? converted : nothing
+    converted == -1 && return value == -1 ? converted : nothing
     return _exact_rational(converted) == value ? converted : nothing
 end
 
 function _shift_bound_exact(::Type{T}, bound::Bound{T}, shift::Rational{BigInt}) where {T}
     iszero(shift) && return bound
     isfinite(bound) || return bound
-    value = _represent_exact(T, _exact_rational(bound_value(bound)) - shift)
+    exact_value = if iszero(bound_value(bound))
+        -shift
+    else
+        bound_exact = _exact_rational(bound_value(bound))
+        bound_exact == shift ? zero(Rational{BigInt}) :
+            denominator(bound_exact) == denominator(shift) ?
+            Rational{BigInt}(numerator(bound_exact) - numerator(shift), denominator(bound_exact)) :
+            bound_exact - shift
+    end
+    value = _represent_exact(T, exact_value)
     return isnothing(value) ? nothing : Bound(value)
 end
 
@@ -65,28 +77,70 @@ end
 function _presolve_basic(problem::LinearProblem{T}; selections=nothing) where {T}
     A = problem.A
     row_count, column_count = size(A)
-    lower, upper = copy(problem.row_lower), copy(problem.row_upper)
+    lower, upper = problem.row_lower, problem.row_upper
     constant = problem.objective_constant
     kept_columns = trues(column_count)
     removed_values = Vector{Union{Nothing,T}}(nothing, column_count)
     removed_states = fill(FREE_NONBASIC, column_count)
+    changes = nothing
 
     for column in 1:column_count
         selected = isnothing(selections) ? _elimination_value(problem, column) :
                    selections[column]
         isnothing(selected) && continue
         value, state = selected
-        contribution = _exact_rational(problem.objective[column]) * _exact_rational(value)
-        shifted_constant = iszero(contribution) ? constant :
-                           _represent_exact(T, _exact_rational(constant) + contribution)
+        value_exact = _exact_rational(value)
+        cost = problem.objective[column]
+        shifted_constant = if iszero(cost) || iszero(value_exact)
+            constant
+        else
+            contribution = if isone(cost)
+                value_exact
+            elseif cost == -1
+                -value_exact
+            else
+                cost_exact = _exact_rational(cost)
+                isone(value_exact) ? cost_exact :
+                    value_exact == -1 ? -cost_exact : cost_exact * value_exact
+            end
+            shifted_exact = if iszero(constant)
+                contribution
+            else
+                constant_exact = _exact_rational(constant)
+                if denominator(constant_exact) == denominator(contribution)
+                    summed_numerator = numerator(constant_exact) + numerator(contribution)
+                    iszero(summed_numerator) ? zero(Rational{BigInt}) :
+                        Rational{BigInt}(summed_numerator, denominator(constant_exact))
+                else
+                    constant_exact + contribution
+                end
+            end
+            _represent_exact(T, shifted_exact)
+        end
         isnothing(shifted_constant) && continue
-        changes = Tuple{Int,Bound{T},Bound{T}}[]
+        # Clear staged changes even after a rejection or before an empty column.
+        changes = isnothing(changes) ? Tuple{Int,Bound{T},Bound{T}}[] : empty!(changes)
         safe = true
         for position in A.colptr[column]:(A.colptr[column + 1] - 1)
             row = A.rowval[position]
-            shift = _exact_rational(A.nzval[position]) * _exact_rational(value)
-            shifted_lower = _shift_bound_exact(T, lower[row], shift)
-            shifted_upper = _shift_bound_exact(T, upper[row], shift)
+            shifted_lower, shifted_upper = lower[row], upper[row]
+            if isfinite(shifted_lower) || isfinite(shifted_upper)
+                coefficient = A.nzval[position]
+                shift = if iszero(value_exact) || isone(coefficient)
+                    value_exact
+                elseif coefficient == -1
+                    -value_exact
+                else
+                    coefficient_exact = _exact_rational(coefficient)
+                    isone(value_exact) ? coefficient_exact :
+                        value_exact == -1 ? -coefficient_exact :
+                        coefficient_exact * value_exact
+                end
+                # A zero shift preserves each original bound's representation.
+                shared_bounds = !iszero(shift) && shifted_lower == shifted_upper
+                shifted_lower = _shift_bound_exact(T, shifted_lower, shift)
+                shifted_upper = shared_bounds ? shifted_lower : _shift_bound_exact(T, shifted_upper, shift)
+            end
             if isnothing(shifted_lower) || isnothing(shifted_upper)
                 safe = false
                 break
@@ -94,6 +148,11 @@ function _presolve_basic(problem::LinearProblem{T}; selections=nothing) where {T
             push!(changes, (row, shifted_lower, shifted_upper))
         end
         safe || continue
+        # Rejected and empty-column eliminations need no private row bounds.
+        # Copy once, immediately before committing the first staged row changes.
+        if !isempty(changes) && lower === problem.row_lower
+            lower, upper = copy(lower), copy(upper)
+        end
         for (row, shifted_lower, shifted_upper) in changes
             lower[row], upper[row] = shifted_lower, shifted_upper
         end
@@ -104,11 +163,15 @@ function _presolve_basic(problem::LinearProblem{T}; selections=nothing) where {T
     end
 
     columns = findall(kept_columns)
-    candidate = A[:, columns]
     nonempty_rows = falses(row_count)
-    for position in eachindex(candidate.nzval)
-        iszero(candidate.nzval[position]) ||
-            (nonempty_rows[candidate.rowval[position]] = true)
+    nonzero_count = 0
+    # Inspect retained columns directly; materialize only the final submatrix.
+    for column in columns
+        for position in A.colptr[column]:(A.colptr[column + 1] - 1)
+            iszero(A.nzval[position]) && continue
+            nonempty_rows[A.rowval[position]] = true
+            nonzero_count += 1
+        end
     end
     rows = findall(nonempty_rows)
     for row in 1:row_count
@@ -117,14 +180,14 @@ function _presolve_basic(problem::LinearProblem{T}; selections=nothing) where {T
            (isfinite(upper[row]) && bound_value(upper[row]) < zero(T))
             return PresolveFailure(INFEASIBLE, "empty row $row is infeasible",
                                   length(rows), length(columns),
-                                  count(value -> !iszero(value), candidate.nzval))
+                                  nonzero_count)
         end
     end
     length(columns) == column_count && length(rows) == row_count &&
         return identity_presolve(problem)
 
     reduced = LinearProblem{T}(
-        candidate[rows, :], problem.objective[columns], constant,
+        A[rows, columns], problem.objective[columns], constant,
         problem.objective_sense, lower[rows], upper[rows],
         problem.column_lower[columns], problem.column_upper[columns],
         problem.variable_domains[columns], problem.name,
@@ -217,11 +280,11 @@ function restore_basis(step::PresolveMap, basis::Basis)
     for (reduced, original) in enumerate(step.rows)
         states[original_columns + original] = basis.states[reduced_columns + reduced]
     end
-    basic_indices = original_columns .+ collect(1:step.original_row_count)
+    basic_indices = collect(original_columns + 1:original_columns + step.original_row_count)
     for (reduced_row, index) in enumerate(basis.basic_indices)
         original_row = step.rows[reduced_row]
         basic_indices[original_row] = index <= reduced_columns ? step.columns[index] :
                                       original_columns + step.rows[index - reduced_columns]
     end
-    return Basis(basic_indices, states)
+    return Basis(basic_indices, states, Val(:owned))
 end

@@ -325,6 +325,8 @@ end
 # bound without changing the basis.
 function _bound_flipping_ratio_test(workspace::SimplexWorkspace{T}, tableau_row::Vector{T},
                                     orientation::T, violation::T) where {T}
+    flips = workspace.scratch.flips
+    empty!(flips)
     cutoff = _dual_pivot_cutoff(T)
     # A boxed variable matters only when it can move in this tableau row.
     # Otherwise keep the linear Harris pass and its stronger pivot choice.
@@ -336,7 +338,7 @@ function _bound_flipping_ratio_test(workspace::SimplexWorkspace{T}, tableau_row:
             break
         end
     end
-    has_boxed || return dual_ratio_test(workspace, tableau_row, orientation), Int[], false
+    has_boxed || return dual_ratio_test(workspace, tableau_row, orientation), flips, false
 
     candidates = workspace.scratch.candidates
     empty!(candidates)
@@ -345,15 +347,14 @@ function _bound_flipping_ratio_test(workspace::SimplexWorkspace{T}, tableau_row:
         _dual_pivot_eligible(workspace, index, coefficient, cutoff) || continue
         step = workspace.reduced_costs[index] / coefficient
         if !isfinite(step) || step < zero(T)
-            return dual_ratio_test(workspace, tableau_row, orientation), Int[], false
+            return dual_ratio_test(workspace, tableau_row, orientation), flips, false
         end
         push!(candidates, index)
     end
-    isempty(candidates) && return -1, Int[], false
+    isempty(candidates) && return -1, flips, false
     sort!(candidates; by=index -> workspace.reduced_costs[index] /
                                    (orientation * tableau_row[index]))
 
-    flips = Int[]
     remaining = violation
     for index in candidates
         state = workspace.basis.states[index]
@@ -364,7 +365,8 @@ function _bound_flipping_ratio_test(workspace::SimplexWorkspace{T}, tableau_row:
         width = bound_value(workspace.upper[index]) - bound_value(workspace.lower[index])
         gain = abs(tableau_row[index]) * width
         if !isfinite(width) || !isfinite(gain)
-            return dual_ratio_test(workspace, tableau_row, orientation), Int[], false
+            empty!(flips)
+            return dual_ratio_test(workspace, tableau_row, orientation), flips, false
         end
         if remaining <= gain + workspace.options.primal_tolerance
             return index, flips, false
@@ -1532,7 +1534,10 @@ _original_primal_feasible(workspace::SimplexWorkspace{T}, primal::Vector{T}) whe
 function _original_reduced_cost_bounds(problem::LinearProblem{T}, dual::Vector{T}) where {T}
     A = problem.A
     column_count = size(A, 2)
-    lower, upper = vcat(zeros(T, column_count), dual), vcat(zeros(T, column_count), dual)
+    lower = Vector{T}(undef, column_count + length(dual))
+    upper = Vector{T}(undef, column_count + length(dual))
+    copyto!(lower, column_count + 1, dual, 1, length(dual))
+    copyto!(upper, column_count + 1, dual, 1, length(dual))
     for column in 1:column_count
         minimum_dot = maximum_dot = zero(T)
         for position in A.colptr[column]:(A.colptr[column + 1] - 1)
@@ -1564,16 +1569,21 @@ end
 function _original_optimality_certified(workspace::SimplexWorkspace{T}, primal::Vector{T}) where {T}
     problem, options = workspace.problem, workspace.options
     column_count, row_count = size(problem.A, 2), size(problem.A, 1)
-    costs = vcat(problem.objective, zeros(T, row_count))
+    basic_costs = zeros(T, length(workspace.basis.basic_indices))
+    for (row, index) in enumerate(workspace.basis.basic_indices)
+        checkbounds(Base.OneTo(column_count + row_count), index)
+        if index <= column_count
+            basic_costs[row] = problem.objective[index]
+        end
+    end
     # The factorization supplies only a candidate witness. Certify the original
     # c - [A -I]' * dual independently, including every basic entry that the
     # incremental algorithm overwrites with zero. Shifted costs are irrelevant.
-    dual = transpose_solve(workspace.factorization, costs[workspace.basis.basic_indices])
+    dual = transpose_solve(workspace.factorization, basic_costs)
     all(isfinite, dual) || return false
     reduced_lower, reduced_upper = _original_reduced_cost_bounds(problem, dual)
     all(isfinite, reduced_lower) && all(isfinite, reduced_upper) || return false
     row_lower, row_upper = _primal_row_bounds(problem.A, primal, _is_exact(T))
-    values_lower, values_upper = vcat(primal, row_lower), vcat(primal, row_upper)
     _, negative_tolerance = _primal_difference_bounds(zero(T), options.dual_tolerance)
     for index in eachindex(reduced_lower)
         stationary = reduced_lower[index] >= negative_tolerance &&
@@ -1585,11 +1595,13 @@ function _original_optimality_certified(workspace::SimplexWorkspace{T}, primal::
         _is_fixed(lower, upper) && continue
         # Use actual structural values and certified original row activities,
         # not stored slack values or a possibly stale nonbasic bound label.
+        value_lower = index <= column_count ? primal[index] : row_lower[index - column_count]
+        value_upper = index <= column_count ? primal[index] : row_upper[index - column_count]
         at_lower = reduced_lower[index] >= negative_tolerance &&
-                   _primal_interval_at_bound(values_lower[index], values_upper[index], lower,
+                   _primal_interval_at_bound(value_lower, value_upper, lower,
                                              options.primal_tolerance)
         at_upper = reduced_upper[index] <= options.dual_tolerance &&
-                   _primal_interval_at_bound(values_lower[index], values_upper[index], upper,
+                   _primal_interval_at_bound(value_lower, value_upper, upper,
                                              options.primal_tolerance)
         at_lower || at_upper || return false
     end
@@ -1598,7 +1610,7 @@ end
 
 function _internal_solution(workspace::SimplexWorkspace{T}, status::TerminationStatus,
                             message::String) where {T}
-    primal = status == OPTIMAL ? copy(workspace.primal[1:size(workspace.problem.A, 2)]) : nothing
+    primal = status == OPTIMAL ? workspace.primal[1:size(workspace.problem.A, 2)] : nothing
     objective = isnothing(primal) ? nothing :
                 dot(workspace.problem.objective, primal) + workspace.problem.objective_constant
     if status == OPTIMAL && (!_finite_workspace(workspace) || !isfinite(objective))
@@ -1725,7 +1737,7 @@ function _classify_recession!(workspace::SimplexWorkspace{T}, stop_requested) wh
     workspace.iterations = feasibility.iterations
     workspace.refactorizations = feasibility.refactorizations
     terminal.status == OPTIMAL || return terminal
-    primal = copy(feasibility.primal[1:size(workspace.problem.A, 2)])
+    primal = feasibility.primal[1:size(workspace.problem.A, 2)]
     _original_primal_feasible(feasibility, primal) ||
         return DualTermination(NUMERICAL_ERROR,
                                "recession feasibility primal failed original-model feasibility checks")
@@ -1914,7 +1926,7 @@ function _solve_continuous_dual!(workspace::SimplexWorkspace{T}, stop_requested)
     isnothing(terminal) || return _internal_solution(workspace, terminal)
     terminal = _dual_optimize!(workspace, stop_requested)
     terminal.status == OPTIMAL || return _internal_solution(workspace, terminal)
-    workspace.costs .= vcat(problem.objective, zeros(T, size(problem.A, 1)))
+    _restore_original_costs!(workspace)
     workspace.perturbed = false
     recompute!(workspace)
     if dual_infeasibility(workspace) > options.dual_tolerance && _is_exact(T) === Val(false)

@@ -72,7 +72,9 @@ function _parse_mps(io::IO, source::AbstractString, ::Type{T};
         text = replace(original, r"(?<!\S)\$.*$" => "")
         isempty(strip(text)) && continue
         section == :ENDATA && _mps_error(records, line, section, "data after ENDATA")
-        words = String.(split(text))
+        # Keep temporary tokens as views; the accumulator owns String copies of
+        # names that survive this record. Free-format data reuses these tokens.
+        words = split(text)
         # Objective names may be section keywords, including in two-line metadata.
         if pending_metadata && section == :OBJNAME
             _mps_metadata!(records, section, words, line)
@@ -137,7 +139,7 @@ function _parse_mps(io::IO, source::AbstractString, ::Type{T};
         end
         section in (:ROWS, :COLUMNS, :RHS, :RANGES, :BOUNDS) ||
             _mps_error(records, line, section, "unexpected data; expected an MPS section")
-        fields, fixed = _mps_fields(text, format, records, line, section, columns)
+        fields, fixed = _mps_fields(text, format, records, line, section, columns, words)
         if section == :ROWS
             length(fields) == 2 && !isempty(fields[2]) || _mps_error(records, line, section, "expected row type and name")
             fields[1] in ("N", "E", "L", "G") || _mps_error(records, line, section, "invalid row type '$(fields[1])'")

@@ -16,6 +16,8 @@ function test_factorization_type(::Type{T}) where {T}
     @test fieldtype(typeof(factor), :base) !== Any
     if T === Float64
         @test factor.base isa JSimplex.UMFPACKBackend
+    elseif T === Float32
+        @test factor.base isa JSimplex.Float32LUBackend
     else
         @test factor.base isa JSimplex.DenseLUBackend
     end

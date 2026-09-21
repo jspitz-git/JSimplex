@@ -2,7 +2,33 @@ const ExactValue = Rational{BigInt}
 const ExactEndpoint = Union{Nothing,ExactValue}
 const ParallelSignatureGroups = Dict{Vector{ExactValue},Vector{Int}}
 
+function _normalized_zero_interval(problem::LinearProblem, row::Int, pivot::ExactValue)
+    lower = _bound_rational(problem.row_lower[row])
+    upper = _bound_rational(problem.row_upper[row])
+    # Pivots come from nonzero row entries, so zero endpoints need no division.
+    return pivot > 0 ?
+        (isnothing(lower) || iszero(lower) ? lower : lower / pivot,
+         isnothing(upper) || iszero(upper) ? upper : upper / pivot) :
+        (isnothing(upper) || iszero(upper) ? upper : upper / pivot,
+         isnothing(lower) || iszero(lower) ? lower : lower / pivot)
+end
+
+function _normalized_negative_unit_interval(problem::LinearProblem, row::Int)
+    lower = _bound_rational(problem.row_lower[row])
+    upper = _bound_rational(problem.row_upper[row])
+    return (isnothing(upper) || iszero(upper) ? upper : -upper,
+            isnothing(lower) || iszero(lower) ? lower : -lower)
+end
+
 function _normalized_interval(problem::LinearProblem, row::Int, pivot::ExactValue)
+    isone(pivot) && return (_bound_rational(problem.row_lower[row]),
+                            _bound_rational(problem.row_upper[row]))
+    pivot == -1 && return _normalized_negative_unit_interval(problem, row)
+    if (isfinite(problem.row_lower[row]) && iszero(bound_value(problem.row_lower[row]))) ||
+       (isfinite(problem.row_upper[row]) && iszero(bound_value(problem.row_upper[row])))
+        return _normalized_zero_interval(problem, row, pivot)
+    end
+    # Keep converted nonzero endpoints local to their division-only return path.
     lower = _bound_rational(problem.row_lower[row])
     upper = _bound_rational(problem.row_upper[row])
     return pivot > 0 ?
@@ -21,8 +47,16 @@ _interval_disjoint(a, b) =
     (!isnothing(b[1]) && !isnothing(a[2]) && b[1] > a[2])
 
 function _parallel_signature(terms)
-    pivot = _exact_rational(first(terms)[2])
-    return ExactValue[_exact_rational(value) / pivot for (_, value) in terms]
+    pivot_value = first(terms)[2]
+    pivot = _exact_rational(pivot_value)
+    isone(pivot) && return ExactValue[value == pivot_value ? pivot : _exact_rational(value)
+                                     for (_, value) in terms]
+    # Every coefficient equal to the nonzero pivot normalizes to the same one.
+    unit = one(ExactValue)
+    negative_unit = pivot == -1
+    return ExactValue[value == pivot_value ? unit :
+                      negative_unit ? -_exact_rational(value) : _exact_rational(value) / pivot
+                      for (_, value) in terms]
 end
 
 function reduce_parallel_rows(problem::LinearProblem{T}) where {T}
@@ -30,7 +64,7 @@ function reduce_parallel_rows(problem::LinearProblem{T}) where {T}
     entries = _row_entries(problem.A)
     keep = trues(m)
     groups = Dict{Vector{Int},Union{Int,ParallelSignatureGroups}}()
-    intervals = Vector{Tuple{ExactEndpoint,ExactEndpoint}}(undef, m)
+    intervals = nothing
     for row in 1:m
         terms = entries[row]
         isempty(terms) && continue
@@ -48,10 +82,16 @@ function reduce_parallel_rows(problem::LinearProblem{T}) where {T}
             bucket = signatures
         end
         signature = _parallel_signature(terms)
-        representatives = get!(bucket, signature, Int[])
+        representatives = get!(bucket, signature) do
+            Int[]
+        end
         if isempty(representatives)
             push!(representatives, row)
             continue
+        end
+        # Intervals are compared only after a proportional row is found.
+        if isnothing(intervals)
+            intervals = Vector{Tuple{ExactEndpoint,ExactEndpoint}}(undef, m)
         end
         pivot = _exact_rational(first(terms)[2])
         current = _normalized_interval(problem, row, pivot)
@@ -86,8 +126,33 @@ end
 
 function _subtract_scaled!(target::Dict{Int,ExactValue},
                            source::Dict{Int,ExactValue}, scale::ExactValue)
+    # Keep the lazy cache concrete to avoid extra allocations in the loop.
+    negated_scale = scale
+    has_negated_scale = false
     for (index, value) in source
-        updated = get(target, index, zero(ExactValue)) - scale * value
+        # Avoid constructing a BigInt zero on every lookup, including hits.
+        # Exact cancellation also needs no rational subtraction or normalization.
+        previous = get(target, index, nothing)
+        if isnothing(previous) && (scale == -1 || value == -1)
+            updated = scale == -1 ? value : scale
+            iszero(updated) || (target[index] = updated)
+            continue
+        end
+        if isnothing(previous) && isone(value)
+            if !has_negated_scale
+                negated_scale = -scale
+                has_negated_scale = true
+            end
+            iszero(negated_scale) || (target[index] = negated_scale)
+            continue
+        end
+        product = isone(scale) ? value : isone(value) ? scale :
+                  scale == -1 ? -value : value == -1 ? -scale : scale * value
+        if !isnothing(previous) && previous == product
+            delete!(target, index)
+            continue
+        end
+        updated = isnothing(previous) ? -product : previous - product
         if iszero(updated)
             delete!(target, index)
         else
@@ -99,17 +164,32 @@ end
 function _implied_interval(problem::LinearProblem,
                            combination::Dict{Int,ExactValue}, current::Int)
     lower::ExactEndpoint = zero(ExactValue)
-    upper::ExactEndpoint = zero(ExactValue)
+    upper::ExactEndpoint = lower
     for (row, negated_coefficient) in combination
         row == current && continue
-        coefficient = -negated_coefficient
-        iszero(coefficient) && continue
-        source_lower = coefficient > 0 ? problem.row_lower[row] : problem.row_upper[row]
-        source_upper = coefficient > 0 ? problem.row_upper[row] : problem.row_lower[row]
-        lower = isnothing(lower) || !isfinite(source_lower) ? nothing :
-                lower + coefficient * _exact_rational(bound_value(source_lower))
-        upper = isnothing(upper) || !isfinite(source_upper) ? nothing :
-                upper + coefficient * _exact_rational(bound_value(source_upper))
+        iszero(negated_coefficient) && continue
+        source_lower = negated_coefficient < 0 ? problem.row_lower[row] : problem.row_upper[row]
+        source_upper = negated_coefficient < 0 ? problem.row_upper[row] : problem.row_lower[row]
+        coefficient = nothing
+        if isnothing(lower) || !isfinite(source_lower)
+            lower = nothing
+        elseif !iszero(bound_value(source_lower))
+            coefficient = -negated_coefficient
+            value = _exact_rational(bound_value(source_lower))
+            term = isone(coefficient) ? value : coefficient == -1 ? -value : coefficient * value
+            lower = iszero(lower) ? term : lower + term
+        end
+        if isnothing(upper) || !isfinite(source_upper)
+            upper = nothing
+        elseif !iszero(bound_value(source_upper))
+            # A computed lower contribution also serves an equal upper endpoint.
+            if isnothing(coefficient) || bound_value(source_lower) != bound_value(source_upper)
+                isnothing(coefficient) && (coefficient = -negated_coefficient)
+                value = _exact_rational(bound_value(source_upper))
+                term = isone(coefficient) ? value : coefficient == -1 ? -value : coefficient * value
+            end
+            upper = iszero(upper) ? term : upper + term
+        end
     end
     return (lower, upper)
 end
@@ -123,20 +203,30 @@ function reduce_dependent_rows(problem::LinearProblem{T}) where {T}
     pivots = Dict{Int,Tuple{Dict{Int,ExactValue},Dict{Int,ExactValue}}}()
     keep = trues(m)
     work = 0
+    proof_seed = nothing
     for row in 1:m
+        terms = entries[row]
+        isempty(terms) && continue
         coefficients = Dict(column => _exact_rational(value)
-                            for (column, value) in entries[row])
-        isempty(coefficients) && continue
-        combination = Dict(row => one(ExactValue))
+                            for (column, value) in terms)
+        isnothing(proof_seed) && (proof_seed = one(ExactValue))
+        combination = Dict(row => proof_seed)
         while !isempty(coefficients)
             pivot = minimum(keys(coefficients))
             if !haskey(pivots, pivot)
                 scale = coefficients[pivot]
-                for index in keys(coefficients)
-                    coefficients[index] /= scale
-                end
-                for index in keys(combination)
-                    combination[index] /= scale
+                # A unit pivot already normalizes both the row and its proof.
+                if !isone(scale)
+                    negative_unit = scale == -1
+                    for index in keys(coefficients)
+                        value = coefficients[index]
+                        coefficients[index] = value == scale ? proof_seed :
+                                              negative_unit ? -value : value / scale
+                    end
+                    for index in keys(combination)
+                        value = combination[index]
+                        combination[index] = negative_unit ? -value : value / scale
+                    end
                 end
                 pivots[pivot] = (coefficients, combination)
                 break

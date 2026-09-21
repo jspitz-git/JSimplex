@@ -22,15 +22,61 @@ function _identity_upper(::Type{T}, n::Int) where {T<:Real}
     return [PackedUpperColumn{T}(Int[index], T[one(T)]) for index in 1:n]
 end
 
+function _reset_identity_upper!(upper::Vector{PackedUpperColumn{T}}, n::Int) where {T}
+    old_length = length(upper)
+    resize!(upper, n)
+    for index in 1:n
+        if index <= old_length
+            # Columns own their arrays, including in copied factorizations.
+            # Retain their capacity for subsequent updates after the reset.
+            column = upper[index]
+            resize!(column.indices, 1)
+            resize!(column.values, 1)
+            column.indices[1] = index
+            column.values[1] = one(T)
+        else
+            upper[index] = PackedUpperColumn{T}(Int[index], T[one(T)])
+        end
+    end
+    return upper
+end
+
 function _packed_column(values::Vector{T}) where {T<:Real}
-    indices = Int[]
-    entries = T[]
+    entry_count = count(!iszero, values)
+    # Row rotation removes an early entry and appends it at the end. Leave
+    # one spare slot so advancing a vector's start does not force growth.
+    capacity = entry_count + !iszero(entry_count)
+    indices = Vector{Int}(undef, capacity)
+    entries = Vector{T}(undef, capacity)
+    resize!(indices, entry_count)
+    resize!(entries, entry_count)
+    next_entry = 1
     for row in eachindex(values)
         iszero(values[row]) && continue
-        push!(indices, row)
-        push!(entries, values[row])
+        indices[next_entry] = row
+        entries[next_entry] = values[row]
+        next_entry += 1
     end
     return PackedUpperColumn{T}(indices, entries)
+end
+
+# `values` must be separate from the packed arrays (the factor's spike scratch).
+function _packed_column!(column::PackedUpperColumn{T}, values::Vector{T}) where {T}
+    entry_count = count(!iszero, values)
+    # Keep the same spare slot as the allocating packer for subsequent row rotation.
+    capacity = entry_count + !iszero(entry_count)
+    resize!(column.indices, capacity)
+    resize!(column.values, capacity)
+    resize!(column.indices, entry_count)
+    resize!(column.values, entry_count)
+    next_entry = 1
+    for row in eachindex(values)
+        iszero(values[row]) && continue
+        column.indices[next_entry] = row
+        column.values[next_entry] = values[row]
+        next_entry += 1
+    end
+    return column
 end
 
 function _upper_value(column::PackedUpperColumn{T}, row::Int) where {T}
@@ -162,6 +208,9 @@ mutable struct ForrestTomlinFactorization{T<:Real,F} <: AbstractTriangularBasisF
     updates::Vector{ForrestTomlinUpdate{T}}
     work::Vector{T}
     spike::Vector{T}
+    # Private retired history; copied active prefixes must never be recycled.
+    recycled_updates::Vector{ForrestTomlinUpdate{T}}
+    shared_update_count::Int
 end
 
 mutable struct SuhlSuhlFactorization{T<:Real,F} <: AbstractTriangularBasisFactorization{T}
@@ -172,6 +221,9 @@ mutable struct SuhlSuhlFactorization{T<:Real,F} <: AbstractTriangularBasisFactor
     updates::Vector{SuhlSuhlUpdate{T}}
     work::Vector{T}
     spike::Vector{T}
+    # Private retired history; copied active prefixes must never be recycled.
+    recycled_updates::Vector{SuhlSuhlUpdate{T}}
+    shared_update_count::Int
 end
 
 mutable struct BartelsGolubFactorization{T<:Real,F} <: AbstractTriangularBasisFactorization{T}
@@ -184,6 +236,9 @@ mutable struct BartelsGolubFactorization{T<:Real,F} <: AbstractTriangularBasisFa
     spike::Vector{T}
     row_columns::Vector{Vector{Int}}
     affected::Vector{Int}
+    # Private retired history; copied active prefixes must never be recycled.
+    recycled_updates::Vector{BartelsGolubUpdate{T}}
+    shared_update_count::Int
 end
 
 ForrestTomlinFactorization(B::AbstractMatrix{T}) where {T<:Real} =
@@ -196,6 +251,7 @@ function ForrestTomlinFactorization(B::AbstractMatrix{T}, ::Val{R}) where {T<:Re
     return ForrestTomlinFactorization{T,typeof(base)}(
         base, _identity_upper(T, n), collect(1:n), collect(1:n),
         ForrestTomlinUpdate{T}[], zeros(T, n), zeros(T, n),
+        ForrestTomlinUpdate{T}[], 0,
     )
 end
 
@@ -209,6 +265,7 @@ function SuhlSuhlFactorization(B::AbstractMatrix{T}, ::Val{R}) where {T<:Real,R}
     return SuhlSuhlFactorization{T,typeof(base)}(
         base, _identity_upper(T, n), collect(1:n), collect(1:n),
         SuhlSuhlUpdate{T}[], zeros(T, n), zeros(T, n),
+        SuhlSuhlUpdate{T}[], 0,
     )
 end
 
@@ -223,6 +280,7 @@ function BartelsGolubFactorization(B::AbstractMatrix{T}, ::Val{R}) where {T<:Rea
         base, _identity_upper(T, n), collect(1:n), collect(1:n),
         BartelsGolubUpdate{T}[], zeros(T, n), zeros(T, n),
         [Int[] for _ in 1:n], Int[],
+        BartelsGolubUpdate{T}[], 0,
     )
 end
 
@@ -439,10 +497,12 @@ end
 
 function _rotate_columns!(factor::AbstractTriangularBasisFactorization,
                           position::Int, last::Int=length(factor.column_order))
+    # The leaving column owns its buffers; the completed spike is separate scratch.
+    replacement = _packed_column!(factor.upper[position], factor.spike)
     for column in position:(last - 1)
         factor.upper[column] = factor.upper[column + 1]
     end
-    factor.upper[last] = _packed_column(factor.spike)
+    factor.upper[last] = replacement
     removed = factor.column_order[position]
     for column in position:(last - 1)
         index = factor.column_order[column + 1]
@@ -451,6 +511,42 @@ function _rotate_columns!(factor::AbstractTriangularBasisFactorization,
     end
     factor.column_order[last] = removed
     factor.positions[removed] = last
+    return nothing
+end
+
+function _take_triangular_update_buffers!(
+    factor::Union{ForrestTomlinFactorization{T},SuhlSuhlFactorization{T}},
+) where {T}
+    isempty(factor.recycled_updates) && return Int[], T[]
+    update = pop!(factor.recycled_updates)
+    return update.indices, update.multipliers
+end
+
+function _take_bartels_golub_steps!(factor::BartelsGolubFactorization{T}) where {T}
+    isempty(factor.recycled_updates) && return BartelsGolubStep{T}[]
+    return pop!(factor.recycled_updates).steps
+end
+
+function _clear_triangular_update!(update::Union{ForrestTomlinUpdate,SuhlSuhlUpdate})
+    empty!(update.indices)
+    empty!(update.multipliers)
+    return nothing
+end
+
+function _clear_triangular_update!(update::BartelsGolubUpdate)
+    empty!(update.steps)
+    return nothing
+end
+
+function _recycle_triangular_updates!(factor::AbstractTriangularBasisFactorization)
+    # Shared arrays stay untouched even if the copies have become unreachable.
+    for index in (factor.shared_update_count + 1):length(factor.updates)
+        update = factor.updates[index]
+        _clear_triangular_update!(update)
+        push!(factor.recycled_updates, update)
+    end
+    empty!(factor.updates)
+    factor.shared_update_count = 0
     return nothing
 end
 
@@ -479,8 +575,7 @@ function replace_column!(factor::SuhlSuhlFactorization{T},
         iszero(old) || _set_upper_value!(column, last, old)
     end
 
-    indices = Int[]
-    multipliers = T[]
+    indices, multipliers = _take_triangular_update_buffers!(factor)
     for column_index in position:(last - 1)
         column = factor.upper[column_index]
         multiplier = -(_upper_value(column, last) /
@@ -525,8 +620,7 @@ function replace_column!(factor::ForrestTomlinFactorization{T},
             push!(column.values, old)
         end
     end
-    indices = Int[]
-    multipliers = T[]
+    indices, multipliers = _take_triangular_update_buffers!(factor)
     for column_index in position:(n - 1)
         column = factor.upper[column_index]
         multiplier = -(_upper_value(column, n) / _upper_value(column, column_index))
@@ -554,7 +648,7 @@ function replace_column!(factor::BartelsGolubFactorization{T},
     _rotate_columns!(factor, position)
     n = length(factor.upper)
     columns_by_row = _rebuild_row_columns!(factor.row_columns, factor.upper)
-    steps = BartelsGolubStep{T}[]
+    steps = _take_bartels_golub_steps!(factor)
     run_start = 0
     run_last = 0
     for column_index in position:(n - 1)
@@ -623,7 +717,7 @@ function refactorize!(factor::AbstractTriangularBasisFactorization{T},
     new_base = _refactorize_backend(factor.base, B)
     factor.base = new_base
     n = _backend_dimension(new_base)
-    factor.upper = _identity_upper(T, n)
+    _reset_identity_upper!(factor.upper, n)
     resize!(factor.column_order, n)
     resize!(factor.positions, n)
     for index in 1:n
@@ -633,34 +727,40 @@ function refactorize!(factor::AbstractTriangularBasisFactorization{T},
     resize!(factor.work, n)
     resize!(factor.spike, n)
     _reset_row_scratch!(factor, n)
-    empty!(factor.updates)
+    _recycle_triangular_updates!(factor)
     return factor
 end
 
 function copy_basis_factorization(factor::ForrestTomlinFactorization{T,F}) where {T,F}
+    factor.shared_update_count = length(factor.updates)
     return ForrestTomlinFactorization{T,F}(
         _copy_backend(factor.base), [PackedUpperColumn(copy(column.indices), copy(column.values))
                       for column in factor.upper],
         copy(factor.column_order), copy(factor.positions),
         copy(factor.updates), similar(factor.work), similar(factor.spike),
+        ForrestTomlinUpdate{T}[], factor.shared_update_count,
     )
 end
 
 function copy_basis_factorization(factor::SuhlSuhlFactorization{T,F}) where {T,F}
+    factor.shared_update_count = length(factor.updates)
     return SuhlSuhlFactorization{T,F}(
         _copy_backend(factor.base), [PackedUpperColumn(copy(column.indices), copy(column.values))
                       for column in factor.upper],
         copy(factor.column_order), copy(factor.positions),
         copy(factor.updates), similar(factor.work), similar(factor.spike),
+        SuhlSuhlUpdate{T}[], factor.shared_update_count,
     )
 end
 
 function copy_basis_factorization(factor::BartelsGolubFactorization{T,F}) where {T,F}
+    factor.shared_update_count = length(factor.updates)
     return BartelsGolubFactorization{T,F}(
         _copy_backend(factor.base), [PackedUpperColumn(copy(column.indices), copy(column.values))
                       for column in factor.upper],
         copy(factor.column_order), copy(factor.positions),
         copy(factor.updates), similar(factor.work), similar(factor.spike),
         [Int[] for _ in eachindex(factor.row_columns)], Int[],
+        BartelsGolubUpdate{T}[], factor.shared_update_count,
     )
 end

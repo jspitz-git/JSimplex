@@ -5,7 +5,44 @@ struct PackedFactorVector{T<:Real}
     values::Vector{T}
 end
 
-struct MarkowitzBackend{T<:Real,F}
+# A mutable wrapper keeps the optional workspace field from reboxing its arrays
+# on each hand-off between output slots. Only private construction uses it.
+mutable struct MarkowitzWorkspace{T,D<:AbstractDict{Int,T}}
+    rows::Vector{D}
+    columns::Vector{D}
+    active_rows::BitVector
+    active_columns::BitVector
+    singleton_rows::Vector{Int}
+    singleton_columns::Vector{Int}
+    doubleton_columns::BitSet
+    affected_rows::Vector{Int}
+    row_positions::Vector{Int}
+    column_positions::Vector{Int}
+end
+
+MarkowitzWorkspace(::Type{T},::Type{D}) where {T,D<:AbstractDict{Int,T}} =
+    MarkowitzWorkspace{T,D}(D[],D[],BitVector(),BitVector(),Int[],Int[],BitSet(),Int[],Int[],Int[])
+
+function _reset_markowitz_workspace!(workspace::MarkowitzWorkspace{T,D}, n::Int) where {T,D}
+    # Keep excess dictionary objects when dimensions shrink, but drop old values.
+    while length(workspace.rows) < n
+        push!(workspace.rows,D())
+        push!(workspace.columns,D())
+    end
+    foreach(empty!,workspace.rows)
+    foreach(empty!,workspace.columns)
+    fill!(resize!(workspace.active_rows,n),true)
+    fill!(resize!(workspace.active_columns,n),true)
+    empty!(workspace.singleton_rows)
+    empty!(workspace.singleton_columns)
+    empty!(workspace.doubleton_columns)
+    empty!(workspace.affected_rows)
+    resize!(workspace.row_positions,n)
+    resize!(workspace.column_positions,n)
+    return workspace
+end
+
+mutable struct MarkowitzBackend{T<:Real,F,D<:AbstractDict{Int,T}}
     dimension::Int
     sparse_pivots::Int
     row_order::Vector{Int}
@@ -16,6 +53,11 @@ struct MarkowitzBackend{T<:Real,F}
     core::F
     work::Vector{T}
     core_work::Vector{T}
+    workspace::Union{Nothing,MarkowitzWorkspace{T,D}}
+    spare::Union{Nothing,MarkowitzBackend{T,F,D}}
+    shared::Bool
+    lower_pool::Vector{PackedFactorVector{T}}
+    upper_pool::Vector{PackedFactorVector{T}}
 end
 
 _backend_dimension(backend::MarkowitzBackend) = backend.dimension
@@ -25,22 +67,34 @@ function _markowitz_backend(::Type{T}, n::Int, row_order::Vector{Int},
                             column_order::Vector{Int},
                             lower::Vector{PackedFactorVector{T}},
                             upper::Vector{PackedFactorVector{T}},
-                            diagonal::Vector{T}, core_matrix::Matrix{T}) where {T<:Real}
-    # Every caller passes a fresh matrix owned by the factorization.
-    core = lu!(core_matrix)
-    return MarkowitzBackend{T,typeof(core)}(
-        n, length(diagonal), row_order, column_order, lower, upper, diagonal,
-        core, zeros(T, n), zeros(T, size(core_matrix, 1)),
-    )
+                            diagonal::Vector{T}, core_matrix::Matrix{T}, workspace,
+                            ::Type{D}, candidate, lower_pool, upper_pool) where {T<:Real,D<:AbstractDict{Int,T}}
+    # The matrix belongs to an inactive private slot, or is newly allocated.
+    core = !isnothing(candidate) && core_matrix === candidate.core.factors ?
+        lu!(candidate.core,core_matrix) : lu!(core_matrix)
+    if isnothing(candidate)
+        return MarkowitzBackend{T,typeof(core),D}(
+            n, length(diagonal), row_order, column_order, lower, upper, diagonal,
+            core, zeros(T, n), zeros(T, size(core_matrix, 1)), workspace,
+            nothing, false, lower_pool, upper_pool,
+        )
+    end
+    candidate.dimension = n
+    candidate.sparse_pivots = length(diagonal)
+    candidate.core = core
+    resize!(candidate.work,n)
+    resize!(candidate.core_work,size(core_matrix,1))
+    candidate.workspace = workspace
+    return candidate
 end
 
-function _markowitz_set_entry!(rows::Vector{Dict{Int,T}},
-                               columns::Vector{Dict{Int,T}},
+function _markowitz_set_entry!(rows::Vector{D},
+                               columns::Vector{D},
                                singleton_rows::Vector{Int},
                                singleton_columns::Vector{Int},
                                doubleton_columns::BitSet,
                                row::Int, column::Int, value::T,
-                               nonzeros::Int) where {T<:Real}
+                               nonzeros::Int) where {T<:Real,D<:AbstractDict{Int,T}}
     row_data = rows[row]
     column_data = columns[column]
     old_row_count = length(row_data)
@@ -71,10 +125,23 @@ function _markowitz_set_entry!(rows::Vector{Dict{Int,T}},
     return nonzeros
 end
 
-function _markowitz_column_maximum(column::Dict{Int,T}) where {T<:Real}
+_markowitz_magnitude(value::Real) = _pivot_magnitude(value)
+
+function _markowitz_magnitude(value::BigFloat)
+    # Positive values are only read by callers. Negation at stored precision is
+    # exact, including when ambient precision is lower than the input's.
+    signbit(value) || return value
+    result = BigFloat(precision=precision(value))
+    ccall((:mpfr_neg, Base.MPFR.libmpfr), Cint,
+          (Ref{BigFloat}, Ref{BigFloat}, Base.MPFR.MPFRRoundingMode),
+          result, value, Base.MPFR.MPFRRoundNearest)
+    return result
+end
+
+function _markowitz_column_maximum(column::AbstractDict{Int,T}) where {T<:Real}
     maximum_value = zero(T)
     for value in values(column)
-        magnitude = _pivot_magnitude(value)
+        magnitude = _markowitz_magnitude(value)
         magnitude > maximum_value && (maximum_value = magnitude)
     end
     return maximum_value
@@ -82,6 +149,18 @@ end
 
 _markowitz_threshold_pass(magnitude::T, column_maximum::T) where {T<:Real} =
     magnitude >= column_maximum / T(10)
+
+_markowitz_threshold_pass(magnitude::Rational{BigInt}, column_maximum::Rational{BigInt}) =
+    magnitude >= column_maximum / 10
+
+# A column is unchanged throughout each candidate scan. Compute its exact
+# rational threshold once; other types retain their original comparison.
+_markowitz_column_threshold(maximum::Real) = maximum
+_markowitz_column_threshold(maximum::Rational{BigInt}) = maximum / 10
+_markowitz_candidate_pass(magnitude::Real, maximum::Real) =
+    _markowitz_threshold_pass(magnitude,maximum)
+_markowitz_candidate_pass(magnitude::Rational{BigInt}, threshold::Rational{BigInt}) =
+    magnitude >= threshold
 
 # Stored BigFloat values may have more bits than the current working precision.
 # Give the product four extra bits so multiplying by 10 is exact, without
@@ -95,11 +174,11 @@ function _markowitz_threshold_pass(magnitude::BigFloat, column_maximum::BigFloat
     return product >= column_maximum
 end
 
-function _markowitz_pivot(rows::Vector{Dict{Int,T}}, columns::Vector{Dict{Int,T}},
+function _markowitz_pivot(rows::Vector{D}, columns::Vector{D},
                           active_rows::BitVector, active_columns::BitVector,
                           singleton_rows::Vector{Int},
                           singleton_columns::Vector{Int},
-                          doubleton_columns::BitSet) where {T<:Real}
+                          doubleton_columns::BitSet) where {T<:Real,D<:AbstractDict{Int,T}}
     while !isempty(singleton_columns)
         column = pop!(singleton_columns)
         active_columns[column] && length(columns[column]) == 1 || continue
@@ -111,7 +190,7 @@ function _markowitz_pivot(rows::Vector{Dict{Int,T}}, columns::Vector{Dict{Int,T}
         if active_rows[row] && length(rows[row]) == 1
             column = first(keys(rows[row]))
             value = rows[row][column]
-            _markowitz_threshold_pass(_pivot_magnitude(value),
+            _markowitz_threshold_pass(_markowitz_magnitude(value),
                                       _markowitz_column_maximum(columns[column])) &&
                 return row, column
             # Keep a rejected singleton: a later update may reduce the
@@ -133,11 +212,11 @@ function _markowitz_pivot(rows::Vector{Dict{Int,T}}, columns::Vector{Dict{Int,T}
         active_columns[column] || continue
         column_data = columns[column]
         length(column_data) == 2 || continue
-        column_maximum = _markowitz_column_maximum(column_data)
+        column_maximum = _markowitz_column_threshold(_markowitz_column_maximum(column_data))
         for (row, value) in column_data
             length(rows[row]) == 2 || continue
-            magnitude = _pivot_magnitude(value)
-            _markowitz_threshold_pass(magnitude, column_maximum) || continue
+            magnitude = _markowitz_magnitude(value)
+            _markowitz_candidate_pass(magnitude, column_maximum) || continue
             if magnitude > doubleton_magnitude
                 doubleton_row = row
                 doubleton_column = column
@@ -151,14 +230,14 @@ function _markowitz_pivot(rows::Vector{Dict{Int,T}}, columns::Vector{Dict{Int,T}
     best_column = 0
     best_score = typemax(Int)
     best_magnitude = zero(T)
-    for column in eachindex(columns)
+    for column in eachindex(active_columns)
         active_columns[column] || continue
         column_data = columns[column]
-        column_maximum = _markowitz_column_maximum(column_data)
+        column_maximum = _markowitz_column_threshold(_markowitz_column_maximum(column_data))
         column_count = length(column_data)
         for (row, value) in column_data
-            magnitude = _pivot_magnitude(value)
-            _markowitz_threshold_pass(magnitude, column_maximum) || continue
+            magnitude = _markowitz_magnitude(value)
+            _markowitz_candidate_pass(magnitude, column_maximum) || continue
             score = (length(rows[row]) - 1) * (column_count - 1)
             if score < best_score || (score == best_score && magnitude > best_magnitude)
                 best_row = row
@@ -171,25 +250,73 @@ function _markowitz_pivot(rows::Vector{Dict{Int,T}}, columns::Vector{Dict{Int,T}
     return best_row, best_column
 end
 
-function MarkowitzBackend(B::AbstractMatrix{T}) where {T<:Real}
+MarkowitzBackend(B::AbstractMatrix{T}) where {T<:Real} =
+    MarkowitzBackend(B,OrderedCollections.OrderedDict{Int,T})
+
+MarkowitzBackend(B::AbstractMatrix{T},::Type{D}) where {T<:Real,D<:AbstractDict{Int,T}} =
+    _construct_markowitz(B,nothing,D)
+
+function _markowitz_core_matrix(::Type{T}, n::Int, candidate) where {T}
+    if !isnothing(candidate) && size(candidate.core.factors) == (n,n)
+        return candidate.core.factors
+    end
+    return Matrix{T}(undef,n,n)
+end
+
+function _recycle_markowitz_vectors!(vectors, pool)
+    for i in reverse(eachindex(vectors))
+        vector = vectors[i]
+        empty!(vector.indices)
+        empty!(vector.values)
+        push!(pool,vector)
+    end
+    empty!(vectors)
+    return vectors
+end
+
+_take_markowitz_vector!(pool::Vector{PackedFactorVector{T}}) where {T} =
+    isempty(pool) ? PackedFactorVector{T}(Int[],T[]) : pop!(pool)
+
+function _construct_markowitz(B::AbstractMatrix{T}, workspace,
+                              ::Type{D}, candidate=nothing) where {T<:Real,D<:AbstractDict{Int,T}}
     _supported_value_type(T) || throw(ArgumentError("unsupported basis value type: $T"))
     n, width = size(B)
     n == width || throw(DimensionMismatch("basis matrix must be square"))
-    lower = PackedFactorVector{T}[]
-    upper = PackedFactorVector{T}[]
-    diagonal = T[]
+    lower_pool = isnothing(candidate) ? PackedFactorVector{T}[] : candidate.lower_pool
+    upper_pool = isnothing(candidate) ? PackedFactorVector{T}[] : candidate.upper_pool
+    lower = isnothing(candidate) ? PackedFactorVector{T}[] :
+        _recycle_markowitz_vectors!(candidate.lower,lower_pool)
+    upper = isnothing(candidate) ? PackedFactorVector{T}[] :
+        _recycle_markowitz_vectors!(candidate.upper,upper_pool)
+    diagonal = isnothing(candidate) ? T[] : empty!(candidate.diagonal)
+    row_order = isnothing(candidate) ? Int[] : empty!(candidate.row_order)
+    column_order = isnothing(candidate) ? Int[] : empty!(candidate.column_order)
     if B isa StridedMatrix{T} && 2 * count(!iszero, B) >= n * n
-        return _markowitz_backend(T, n, collect(1:n), collect(1:n),
-                                  lower, upper, diagonal, Matrix{T}(B))
+        append!(row_order,1:n)
+        append!(column_order,1:n)
+        core_matrix = _markowitz_core_matrix(T,n,candidate)
+        copyto!(core_matrix,B)
+        return _markowitz_backend(T, n, row_order, column_order,
+                                  lower, upper, diagonal, core_matrix, workspace, D,
+                                  candidate, lower_pool, upper_pool)
     end
-    sparse_basis = SparseMatrixCSC{T,Int}(B)
+    # Elimination owns its dictionaries and dense core; the CSC is read-only.
+    sparse_basis = convert(SparseMatrixCSC{T,Int}, B)
     if 2 * count(!iszero, sparse_basis.nzval) >= n * n
-        return _markowitz_backend(T, n, collect(1:n), collect(1:n),
-                                  lower, upper, diagonal, Matrix{T}(B))
+        append!(row_order,1:n)
+        append!(column_order,1:n)
+        core_matrix = _markowitz_core_matrix(T,n,candidate)
+        copyto!(core_matrix,B)
+        return _markowitz_backend(T, n, row_order, column_order,
+                                  lower, upper, diagonal, core_matrix, workspace, D,
+                                  candidate, lower_pool, upper_pool)
     end
 
-    rows = [Dict{Int,T}() for _ in 1:n]
-    columns = [Dict{Int,T}() for _ in 1:n]
+    workspace = isnothing(workspace) ? MarkowitzWorkspace(T,D) : workspace
+    _reset_markowitz_workspace!(workspace,n)
+    entry_zero = zero(T)
+    rows = workspace.rows
+    columns = workspace.columns
     for column in 1:n
         for pointer in nzrange(sparse_basis, column)
             row = sparse_basis.rowval[pointer]
@@ -200,14 +327,19 @@ function MarkowitzBackend(B::AbstractMatrix{T}) where {T<:Real}
         end
     end
     nonzeros = sum(length, rows)
-    active_rows = trues(n)
-    active_columns = trues(n)
-    singleton_rows = Int[row for row in 1:n if length(rows[row]) == 1]
-    singleton_columns = Int[column for column in 1:n if length(columns[column]) == 1]
-    doubleton_columns = BitSet(column for column in 1:n if length(columns[column]) == 2)
-    row_order = Int[]
-    column_order = Int[]
-    affected_rows = Int[]
+    active_rows = workspace.active_rows
+    active_columns = workspace.active_columns
+    singleton_rows = workspace.singleton_rows
+    singleton_columns = workspace.singleton_columns
+    doubleton_columns = workspace.doubleton_columns
+    for row in 1:n
+        length(rows[row]) == 1 && push!(singleton_rows,row)
+    end
+    for column in 1:n
+        length(columns[column]) == 1 && push!(singleton_columns,column)
+        length(columns[column]) == 2 && push!(doubleton_columns,column)
+    end
+    affected_rows = workspace.affected_rows
 
     while length(row_order) < n
         remaining = n - length(row_order)
@@ -222,28 +354,30 @@ function MarkowitzBackend(B::AbstractMatrix{T}) where {T<:Real}
         push!(column_order, pivot_column)
         push!(diagonal, pivot)
 
-        upper_indices = Int[]
-        upper_values = T[]
+        upper_vector = _take_markowitz_vector!(upper_pool)
+        upper_indices = upper_vector.indices
+        upper_values = upper_vector.values
         for (column, value) in rows[pivot_row]
             column == pivot_column && continue
             push!(upper_indices, column)
             push!(upper_values, value)
         end
-        push!(upper, PackedFactorVector{T}(upper_indices, upper_values))
+        push!(upper, upper_vector)
 
         empty!(affected_rows)
         for row in keys(columns[pivot_column])
             row == pivot_row || push!(affected_rows, row)
         end
-        lower_indices = Int[]
-        lower_values = T[]
+        lower_vector = _take_markowitz_vector!(lower_pool)
+        lower_indices = lower_vector.indices
+        lower_values = lower_vector.values
         for row in affected_rows
             multiplier = rows[row][pivot_column] / pivot
             push!(lower_indices, row)
             push!(lower_values, multiplier)
             for index in eachindex(upper_indices)
                 column = upper_indices[index]
-                value = get(rows[row], column, zero(T)) -
+                value = get(rows[row], column, entry_zero) -
                         multiplier * upper_values[index]
                 nonzeros = _markowitz_set_entry!(
                     rows, columns, singleton_rows, singleton_columns, doubleton_columns,
@@ -252,19 +386,19 @@ function MarkowitzBackend(B::AbstractMatrix{T}) where {T<:Real}
             end
             nonzeros = _markowitz_set_entry!(
                 rows, columns, singleton_rows, singleton_columns, doubleton_columns,
-                row, pivot_column, zero(T), nonzeros,
+                row, pivot_column, entry_zero, nonzeros,
             )
         end
-        push!(lower, PackedFactorVector{T}(lower_indices, lower_values))
+        push!(lower, lower_vector)
         for column in upper_indices
             nonzeros = _markowitz_set_entry!(
                 rows, columns, singleton_rows, singleton_columns, doubleton_columns,
-                pivot_row, column, zero(T), nonzeros,
+                pivot_row, column, entry_zero, nonzeros,
             )
         end
         nonzeros = _markowitz_set_entry!(
             rows, columns, singleton_rows, singleton_columns, doubleton_columns,
-            pivot_row, pivot_column, zero(T), nonzeros,
+            pivot_row, pivot_column, entry_zero, nonzeros,
         )
         active_rows[pivot_row] = false
         active_columns[pivot_column] = false
@@ -276,8 +410,8 @@ function MarkowitzBackend(B::AbstractMatrix{T}) where {T<:Real}
     for column in 1:n
         active_columns[column] && push!(column_order, column)
     end
-    row_positions = zeros(Int, n)
-    column_positions = zeros(Int, n)
+    row_positions = workspace.row_positions
+    column_positions = workspace.column_positions
     for position in 1:n
         row_positions[row_order[position]] = position
         column_positions[column_order[position]] = position
@@ -295,7 +429,8 @@ function MarkowitzBackend(B::AbstractMatrix{T}) where {T<:Real}
 
     sparse_pivots = length(diagonal)
     core_dimension = n - sparse_pivots
-    core_matrix = zeros(T, core_dimension, core_dimension)
+    core_matrix = _markowitz_core_matrix(T,core_dimension,candidate)
+    fill!(core_matrix,zero(T))
     for local_row in 1:core_dimension
         row = row_order[sparse_pivots + local_row]
         for (column, value) in rows[row]
@@ -303,7 +438,8 @@ function MarkowitzBackend(B::AbstractMatrix{T}) where {T<:Real}
         end
     end
     return _markowitz_backend(T, n, row_order, column_order,
-                              lower, upper, diagonal, core_matrix)
+                              lower, upper, diagonal, core_matrix, workspace, D,
+                              candidate, lower_pool, upper_pool)
 end
 
 function _backend_forward_solve!(destination::Vector{T},
@@ -381,22 +517,37 @@ function _backend_transpose_solve!(destination::Vector{T},
     return destination
 end
 
-_refactorize_backend(::MarkowitzBackend{T}, B::AbstractMatrix{T}) where {T} =
-    MarkowitzBackend(B)
+function _refactorize_backend(backend::MarkowitzBackend{T,F,D}, B::AbstractMatrix{T}) where {T,F,D}
+    # Keep a nonempty spare through repeated empty resets.
+    size(B) == (0,0) && iszero(backend.dimension) && return backend
+    # Only the inactive, private output may be overwritten. A failed construction
+    # can damage that slot, but leaves the active factor and all copies intact.
+    candidate = try
+        _construct_markowitz(B,backend.workspace,D,backend.spare)
+    catch
+        backend.spare = nothing
+        rethrow()
+    end
+    backend.spare = nothing
+    candidate.spare = backend.shared ? nothing : backend
+    return candidate
+end
 
 function refactorize!(factor::PFIFactorization{T,F}, B::AbstractMatrix{T}) where {T<:Real,F<:MarkowitzBackend}
     new_base = _refactorize_backend(factor.base, B)
     factor.base = new_base
     resize!(factor.work, _backend_dimension(new_base))
-    empty!(factor.updates)
+    _recycle_pfi_updates!(factor)
     return factor
 end
 
-function _copy_backend(backend::MarkowitzBackend{T,F}) where {T,F}
-    return MarkowitzBackend{T,F}(
+function _copy_backend(backend::MarkowitzBackend{T,F,D}) where {T,F,D}
+    backend.shared = true
+    return MarkowitzBackend{T,F,D}(
         backend.dimension, backend.sparse_pivots,
         backend.row_order, backend.column_order, backend.lower, backend.upper,
         backend.diagonal, backend.core,
-        similar(backend.work), similar(backend.core_work),
+        similar(backend.work), similar(backend.core_work), nothing,
+        nothing, true, PackedFactorVector{T}[], PackedFactorVector{T}[],
     )
 end

@@ -16,7 +16,7 @@ end
 
 function reduce_dual_fixings(problem::LinearProblem{T}) where {T}
     columns = size(problem.A, 2)
-    selections = Vector{Union{Nothing,Tuple{T,VariableState}}}(nothing, columns)
+    selections = nothing
     for column in 1:columns
         cost = problem.objective[column]
         lower_improves = iszero(cost) ||
@@ -24,14 +24,21 @@ function reduce_dual_fixings(problem::LinearProblem{T}) where {T}
         upper_improves = iszero(cost) || !lower_improves
         lower = problem.column_lower[column]
         upper = problem.column_upper[column]
-        if lower_improves && isfinite(lower) &&
+        selection = if lower_improves && isfinite(lower) &&
            _column_move_preserves_rows(problem, column, true)
-            selections[column] = (bound_value(lower), AT_LOWER)
+            (bound_value(lower), AT_LOWER)
         elseif upper_improves && isfinite(upper) &&
                _column_move_preserves_rows(problem, column, false)
-            selections[column] = (bound_value(upper), AT_UPPER)
+            (bound_value(upper), AT_UPPER)
+        else
+            continue
         end
+        # Passes with no eligible column need no selection storage.
+        if isnothing(selections)
+            selections = Vector{Union{Nothing,Tuple{T,VariableState}}}(nothing, columns)
+        end
+        selections[column] = selection
     end
-    all(isnothing, selections) && return identity_presolve(problem)
+    isnothing(selections) && return identity_presolve(problem)
     return _presolve_basic(problem; selections)
 end

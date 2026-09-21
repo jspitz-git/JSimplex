@@ -10,6 +10,11 @@ struct Basis
     )
         return new(Int.(basic_indices), collect(states))
     end
+
+    # Internal transfer of freshly allocated arrays; the two-argument
+    # constructor continues to copy caller-owned inputs.
+    Basis(basic_indices::Vector{Int}, states::Vector{VariableState}, ::Val{:owned}) =
+        new(basic_indices, states)
 end
 
 struct SimplexProgressContext{T<:Real}
@@ -31,23 +36,20 @@ mutable struct SimplexScratch{T<:Real}
     steepest_valid::BitVector
     steepest_initialized::Bool
     candidates::Vector{Int}
-    basis_rows::Vector{Int}
-    basis_columns::Vector{Int}
-    basis_values::Vector{T}
+    # Borrowed by ratio-test callers until the next ratio test on this workspace.
+    flips::Vector{Int}
+    # Private assembly storage; backends must own their factorization data.
+    basis_matrix::Union{Nothing,SparseMatrixCSC{T,Int}}
 end
 
 function SimplexScratch(::Type{T}, row_count::Int, variable_count::Int) where {T<:Real}
     candidates = Int[]
     sizehint!(candidates, variable_count)
-    basis_rows, basis_columns, basis_values = Int[], Int[], T[]
-    sizehint!(basis_rows, row_count)
-    sizehint!(basis_columns, row_count)
-    sizehint!(basis_values, row_count)
     return SimplexScratch(
         falses(variable_count), zeros(T, row_count), zeros(T, row_count),
         zeros(T, row_count), zeros(T, row_count), zeros(T, variable_count),
         zeros(T, variable_count), falses(variable_count), false,
-        candidates, basis_rows, basis_columns, basis_values,
+        candidates, Int[], nothing,
     )
 end
 
@@ -97,6 +99,13 @@ function reset_devex!(workspace::SimplexWorkspace{T})::Nothing where {T}
     return nothing
 end
 
+function _restore_original_costs!(workspace::SimplexWorkspace{T}) where {T}
+    column_count = size(workspace.problem.A, 2)
+    copyto!(workspace.costs, 1, workspace.problem.objective, 1, column_count)
+    fill!(@view(workspace.costs[column_count + 1:end]), zero(T))
+    return nothing
+end
+
 function _validate_basis(workspace::SimplexWorkspace)
     row_count, column_count = size(workspace.problem.A)
     variable_count = row_count + column_count
@@ -123,39 +132,63 @@ end
 
 function basis_matrix(workspace::SimplexWorkspace{T}) where {T}
     _validate_basis(workspace)
+    return _assemble_basis_matrix(workspace, nothing)
+end
+
+# The returned matrix is borrowed until the next assembly on this workspace.
+function _basis_matrix!(workspace::SimplexWorkspace)
+    _validate_basis(workspace)
+    storage = workspace.scratch.basis_matrix
+    B = _assemble_basis_matrix(workspace, storage)
+    # CSC is immutable: assigning it to the nullable field boxes a new wrapper.
+    # Only install new storage; reused arrays are already held by the cache.
+    if isnothing(storage) || size(storage) != size(B)
+        workspace.scratch.basis_matrix = B
+    end
+    return B
+end
+
+function _assemble_basis_matrix(workspace::SimplexWorkspace{T},
+                                storage::Union{Nothing,SparseMatrixCSC{T,Int}}) where {T}
     A = workspace.problem.A
     row_count, column_count = size(A)
     basis = workspace.basis
-    rows = workspace.scratch.basis_rows
-    columns = workspace.scratch.basis_columns
-    values = workspace.scratch.basis_values
-    empty!(rows)
-    empty!(columns)
-    empty!(values)
-
     nonzero_count = 0
     for variable_index in basis.basic_indices
         nonzero_count += variable_index <= column_count ?
             A.colptr[variable_index + 1] - A.colptr[variable_index] : 1
     end
-    sizehint!(rows, nonzero_count)
-    sizehint!(columns, nonzero_count)
-    sizehint!(values, nonzero_count)
+    # Structural columns already have sorted CSC row indices; slack columns
+    # contain one entry. Public results own new arrays; internal refactorization
+    # reuses scratch capacity, even when the number of stored entries decreases.
+    reuse = !isnothing(storage) && size(storage) == (row_count, row_count)
+    if reuse
+        column_pointers = storage.colptr
+        rows = resize!(storage.rowval, nonzero_count)
+        values = resize!(storage.nzval, nonzero_count)
+    else
+        column_pointers = Vector{Int}(undef, row_count + 1)
+        rows = Vector{Int}(undef, nonzero_count)
+        values = Vector{T}(undef, nonzero_count)
+    end
+    next_position = 1
 
     for (basis_column, variable_index) in enumerate(basis.basic_indices)
+        column_pointers[basis_column] = next_position
         if variable_index <= column_count
-            for position in A.colptr[variable_index]:(A.colptr[variable_index + 1] - 1)
-                push!(rows, A.rowval[position])
-                push!(columns, basis_column)
-                push!(values, A.nzval[position])
-            end
+            first_position = A.colptr[variable_index]
+            count = A.colptr[variable_index + 1] - first_position
+            copyto!(rows, next_position, A.rowval, first_position, count)
+            copyto!(values, next_position, A.nzval, first_position, count)
+            next_position += count
         else
-            push!(rows, variable_index - column_count)
-            push!(columns, basis_column)
-            push!(values, -one(T))
+            rows[next_position] = variable_index - column_count
+            values[next_position] = -one(T)
+            next_position += 1
         end
     end
-    return sparse(rows, columns, values, row_count, row_count)
+    column_pointers[end] = next_position
+    return reuse ? storage : SparseMatrixCSC(row_count, row_count, column_pointers, rows, values)
 end
 
 function _nonbasic_value(workspace::SimplexWorkspace{T}, index::Int) where {T}
@@ -186,7 +219,7 @@ function recompute!(workspace::SimplexWorkspace{T}; refactorize::Bool=false,
             isnothing(caller_guard) || (caller_guard.exception = exception)
             rethrow()
         end
-        B = basis_matrix(workspace)
+        B = _basis_matrix!(workspace)
         refactorize!(workspace.factorization, B)
         workspace.refactorizations += 1
         workspace.dual_nonzero_steps_since_refactorization = 0
@@ -251,9 +284,12 @@ function initialize_workspace(
     typed_options = SolverOptions(T, options)
     row_count, column_count = size(problem.A)
     variable_count = row_count + column_count
-    costs = vcat(copy(problem.objective), zeros(T, row_count))
-    lower = vcat(copy(problem.column_lower), copy(problem.row_lower))
-    upper = vcat(copy(problem.column_upper), copy(problem.row_upper))
+    costs = Vector{T}(undef, variable_count)
+    copyto!(costs, 1, problem.objective, 1, column_count)
+    fill!(@view(costs[column_count + 1:variable_count]), zero(T))
+    # Concatenation already creates the workspace's independent bound arrays.
+    lower = vcat(problem.column_lower, problem.row_lower)
+    upper = vcat(problem.column_upper, problem.row_upper)
     states = Vector{VariableState}(undef, variable_count)
 
     for index in 1:column_count
@@ -267,10 +303,11 @@ function initialize_workspace(
     end
     states[column_count + 1:end] .= BASIC
 
-    basis = Basis(collect(column_count + 1:variable_count), states)
+    basis = Basis(collect(column_count + 1:variable_count), states, Val(:owned))
     initial_basis = spdiagm(0 => fill(-one(T), row_count))
     factorization = _basis_factorization(initial_basis, typed_options)
     scratch = SimplexScratch(T, row_count, variable_count)
+    scratch.basis_matrix = initial_basis
     devex_reference = falses(variable_count)
     devex_reference[basis.basic_indices] .= true
     workspace = SimplexWorkspace(

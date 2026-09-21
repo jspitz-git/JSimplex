@@ -1,13 +1,31 @@
 const Float64UMFPACK = SparseArrays.UMFPACK.UmfpackLU{Float64,Int}
 
-struct UMFPACKBackend
+mutable struct UMFPACKBackend
     factorization::Union{Nothing,Float64UMFPACK}
     dimension::Int
+    # A candidate is always private. Only a successful LU becomes active.
+    spare::Union{Nothing,Float64UMFPACK}
+    shared::Bool
 end
+
+UMFPACKBackend(factorization::Union{Nothing,Float64UMFPACK}, dimension::Int) =
+    UMFPACKBackend(factorization, dimension, nothing, false)
 
 struct DenseLUBackend{T,F}
     factorization::F
 end
+
+mutable struct Float32LUBackend{F}
+    factorization::F
+    # Concrete slots avoid boxing the immutable LU wrapper. With no spare,
+    # this field aliases the active LU and must not be used as a candidate.
+    spare::F
+    has_spare::Bool
+    shared::Bool
+end
+
+Float32LUBackend(factorization::F) where {F} =
+    Float32LUBackend{F}(factorization, factorization, false, false)
 
 struct PackedEta{T<:Real}
     indices::Vector{Int}
@@ -20,13 +38,18 @@ mutable struct PFIFactorization{T<:Real,F}
     updates::Vector{PackedEta{T}}
     # Private mutable solve scratch; concurrent solves need separate factorizations.
     work::Vector{T}
+    # Only retired, unshared updates can donate their buffers to a later pivot.
+    recycled_updates::Vector{PackedEta{T}}
+    shared_update_count::Int
 end
 
 _backend_dimension(backend::UMFPACKBackend) = backend.dimension
-_backend_dimension(backend::DenseLUBackend) = size(backend.factorization, 1)
+_backend_dimension(backend::Union{DenseLUBackend,Float32LUBackend}) =
+    size(backend.factorization, 1)
 
 function _factorize_basis(B::AbstractMatrix{Float64})
-    sparse_basis = SparseMatrixCSC{Float64,Int}(B)
+    # UMFPACK copies its input arrays; reuse an already matching CSC matrix.
+    sparse_basis = convert(SparseMatrixCSC{Float64,Int}, B)
     rows, columns = size(sparse_basis)
     rows == columns || throw(DimensionMismatch("basis matrix must be square"))
     return iszero(rows) ? UMFPACKBackend(nothing, 0) : UMFPACKBackend(lu(sparse_basis), rows)
@@ -35,8 +58,15 @@ end
 function _factorize_dense_basis(B::AbstractMatrix{T}) where {T<:Real}
     rows, columns = size(B)
     rows == columns || throw(DimensionMismatch("basis matrix must be square"))
-    lu_result = lu(Matrix{T}(B))
+    # Matrix constructs our private buffer, so LU can overwrite it directly.
+    lu_result = lu!(Matrix{T}(B))
     return DenseLUBackend{T,typeof(lu_result)}(lu_result)
+end
+
+function _factorize_dense_basis(B::AbstractMatrix{Float32})
+    rows, columns = size(B)
+    rows == columns || throw(DimensionMismatch("basis matrix must be square"))
+    return Float32LUBackend(lu!(Matrix{Float32}(B)))
 end
 
 _factorize_basis(B::AbstractMatrix{T}) where {T<:Real} = _factorize_dense_basis(B)
@@ -48,7 +78,9 @@ PFIFactorization(B::AbstractMatrix{T}) where {T<:Real} =
 function PFIFactorization(B::AbstractMatrix{T}, ::Val{R}) where {T<:Real,R}
     _supported_value_type(T) || throw(ArgumentError("unsupported basis value type: $T"))
     base = _factorize_basis(B, Val(R))
-    return PFIFactorization{T,typeof(base)}(base, PackedEta{T}[], zeros(T, size(B, 1)))
+    return PFIFactorization{T,typeof(base)}(
+        base, PackedEta{T}[], zeros(T, size(B, 1)), PackedEta{T}[], 0,
+    )
 end
 
 function _check_rhs_dimension(factor::PFIFactorization, rhs::AbstractVector)
@@ -64,7 +96,7 @@ function _backend_forward_solve!(destination::Vector, backend::UMFPACKBackend,
     return destination
 end
 
-function _backend_forward_solve!(destination::Vector, backend::DenseLUBackend,
+function _backend_forward_solve!(destination::Vector, backend::Union{DenseLUBackend,Float32LUBackend},
                                  rhs::AbstractVector)
     ldiv!(destination, backend.factorization, rhs)
     return destination
@@ -77,7 +109,7 @@ function _backend_transpose_solve!(destination::Vector, backend::UMFPACKBackend,
     return destination
 end
 
-function _backend_transpose_solve!(destination::Vector, backend::DenseLUBackend,
+function _backend_transpose_solve!(destination::Vector, backend::Union{DenseLUBackend,Float32LUBackend},
                                    rhs::AbstractVector)
     ldiv!(destination, transpose(backend.factorization), rhs)
     return destination
@@ -168,8 +200,33 @@ function replace_column!(
     pivot_value = convert(T, tableau_column[pivot])
     _pivot_magnitude(pivot_value) > tolerance || throw(LinearAlgebra.ZeroPivotException(pivot))
 
-    indices = Int[pivot]
-    values = T[inv(pivot_value)]
+    inverse_pivot = inv(pivot_value)
+    if !isempty(factor.recycled_updates)
+        retired = pop!(factor.recycled_updates)
+        entry_count = tableau_column isa AbstractVector{T} ?
+            count(!iszero, tableau_column) : 1
+        indices = resize!(retired.indices, entry_count)
+        values = resize!(retired.values, entry_count)
+        resize!(indices, 1)
+        resize!(values, 1)
+        indices[1] = pivot
+        values[1] = inverse_pivot
+    elseif tableau_column isa AbstractVector{T}
+        # Allocate the final capacity once, without first creating singleton
+        # buffers that would immediately need to grow.
+        entry_count = count(!iszero, tableau_column)
+        indices = Vector{Int}(undef, entry_count)
+        values = Vector{T}(undef, entry_count)
+        resize!(indices, 1)
+        resize!(values, 1)
+        indices[1] = pivot
+        values[1] = inverse_pivot
+    else
+        # Converting mixed-type inputs just to count nonzeros can allocate
+        # heavily, so retain the single conversion pass.
+        indices = Int[pivot]
+        values = T[inverse_pivot]
+    end
     for row in eachindex(tableau_column)
         row == pivot && continue
         value = convert(T, tableau_column[row])
@@ -181,8 +238,68 @@ function replace_column!(
     return factor
 end
 
+function _same_umfpack_pattern(factor::Float64UMFPACK, B::SparseMatrixCSC{Float64,Int})
+    size(factor) == size(B) || return false
+    length(factor.colptr) == length(B.colptr) || return false
+    length(factor.rowval) == length(B.rowval) || return false
+    # UMFPACK owns zero-based indices; normal Julia CSC indices are one-based.
+    offset = iszero(first(B.colptr)) ? 0 : 1
+    for index in eachindex(B.colptr)
+        factor.colptr[index] == B.colptr[index] - offset || return false
+    end
+    for index in eachindex(B.rowval)
+        factor.rowval[index] == B.rowval[index] - offset || return false
+    end
+    return true
+end
+
 function _refactorize_backend(backend::UMFPACKBackend, B::AbstractMatrix{Float64})
-    return _factorize_basis(B)
+    sparse_basis = convert(SparseMatrixCSC{Float64,Int}, B)
+    rows, columns = size(sparse_basis)
+    rows == columns || throw(DimensionMismatch("basis matrix must be square"))
+    if iszero(rows)
+        if !backend.shared && !isnothing(backend.factorization)
+            backend.spare = backend.factorization
+        end
+        backend.factorization = nothing
+        backend.dimension = 0
+        backend.shared = false
+        return backend
+    end
+
+    candidate = backend.spare
+    if isnothing(candidate)
+        candidate = lu(sparse_basis)
+    else
+        reuse_symbolic = _same_umfpack_pattern(candidate, sparse_basis)
+        try
+            lu!(candidate, sparse_basis; reuse_symbolic)
+        catch
+            # lu! can change indices and symbolic/numeric state before failing.
+            # Drop that candidate; the active LU and all copies are untouched.
+            backend.spare = nothing
+            rethrow()
+        end
+    end
+    backend.spare = backend.shared ? nothing : backend.factorization
+    backend.factorization = candidate
+    backend.dimension = rows
+    backend.shared = false
+    return backend
+end
+
+function _recycle_pfi_updates!(factor::PFIFactorization)
+    # Copies share an immutable prefix of the active history. Never clear or
+    # recycle that prefix, even if the copy has since become unreachable.
+    for index in (factor.shared_update_count + 1):length(factor.updates)
+        eta = factor.updates[index]
+        empty!(eta.indices)
+        empty!(eta.values)
+        push!(factor.recycled_updates, eta)
+    end
+    empty!(factor.updates)
+    factor.shared_update_count = 0
+    return nothing
 end
 
 function _refactorize_backend(
@@ -191,27 +308,65 @@ function _refactorize_backend(
     return _factorize_dense_basis(B)
 end
 
+function _refactorize_backend(backend::Float32LUBackend, B::AbstractMatrix{Float32})
+    rows, columns = size(B)
+    rows == columns || throw(DimensionMismatch("basis matrix must be square"))
+    # Repeated empty resets should not evict a nonempty private spare.
+    iszero(rows) && iszero(_backend_dimension(backend)) && return backend
+    candidate = backend.spare
+    if !backend.has_spare || size(candidate) != size(B)
+        candidate = lu!(Matrix{Float32}(B))
+    else
+        try
+            # The returned LU carries the new status, reusing factors and pivots.
+            candidate = lu!(candidate, B)
+        catch
+            backend.spare = backend.factorization
+            backend.has_spare = false
+            rethrow()
+        end
+    end
+    backend.spare = backend.shared ? candidate : backend.factorization
+    backend.has_spare = !backend.shared
+    backend.factorization = candidate
+    backend.shared = false
+    return backend
+end
+
 function refactorize!(factor::PFIFactorization{Float64,UMFPACKBackend}, B::AbstractMatrix{Float64})
     new_base = _refactorize_backend(factor.base, B)
     factor.base = new_base
     resize!(factor.work, _backend_dimension(new_base))
-    empty!(factor.updates)
+    _recycle_pfi_updates!(factor)
     return factor
 end
 
-function refactorize!(factor::PFIFactorization{T,F}, B::AbstractMatrix{T}) where {T<:Real,F<:DenseLUBackend}
+function refactorize!(factor::PFIFactorization{T,F}, B::AbstractMatrix{T}) where {T<:Real,F<:Union{DenseLUBackend,Float32LUBackend}}
     new_base = _refactorize_backend(factor.base, B)
     factor.base = new_base
     resize!(factor.work, _backend_dimension(new_base))
-    empty!(factor.updates)
+    _recycle_pfi_updates!(factor)
     return factor
 end
 
-_copy_backend(backend::Union{UMFPACKBackend,DenseLUBackend}) = backend
+_copy_backend(backend::DenseLUBackend) = backend
+
+function _copy_backend(backend::Float32LUBackend)
+    backend.shared = true
+    return Float32LUBackend(backend.factorization, backend.factorization, false, true)
+end
+
+function _copy_backend(backend::UMFPACKBackend)
+    backend.shared = true
+    # Share only the active LU, never the mutable slot container or its spare.
+    return UMFPACKBackend(backend.factorization, backend.dimension, nothing, true)
+end
 
 function copy_basis_factorization(factor::PFIFactorization{T,F}) where {T,F}
+    factor.shared_update_count = length(factor.updates)
     return PFIFactorization{T,F}(
         _copy_backend(factor.base), copy(factor.updates), similar(factor.work),
+        PackedEta{T}[], factor.shared_update_count,
     )
 end
 

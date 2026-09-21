@@ -1,0 +1,4561 @@
+blas_threads = 1
+julia_version = "1.13.0"
+machine = "aarch64-linux-gnu"
+presolve = false
+scaling = "off"
+threads = 1
+
+[[profiles]]
+core_dimension = 2
+dimension = 64
+pattern = "diagonal"
+sample_rate = 1.0
+sparse_pivots = 62
+stage = "refactorize"
+value_type = "Float64"
+
+    [[profiles.sites]]
+    sampled_allocations = 192
+    sampled_bytes = 20480
+    site = "src/markowitz_factorization.jl:199 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 192
+    sampled_bytes = 20480
+    site = "src/markowitz_factorization.jl:198 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 66
+    sampled_bytes = 5680
+    site = "src/markowitz_factorization.jl:191 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 66
+    sampled_bytes = 5680
+    site = "src/markowitz_factorization.jl:192 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 5
+    sampled_bytes = 2952
+    site = "src/markowitz_factorization.jl:232 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 5
+    sampled_bytes = 2952
+    site = "src/markowitz_factorization.jl:258 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 62
+    sampled_bytes = 1984
+    site = "src/markowitz_factorization.jl:225 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 62
+    sampled_bytes = 1984
+    site = "src/markowitz_factorization.jl:226 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 62
+    sampled_bytes = 1984
+    site = "src/markowitz_factorization.jl:239 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 62
+    sampled_bytes = 1984
+    site = "src/markowitz_factorization.jl:238 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 6
+    sampled_bytes = 1688
+    site = "src/markowitz_factorization.jl:185 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 5
+    sampled_bytes = 1536
+    site = "src/markowitz_factorization.jl:206 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 5
+    sampled_bytes = 1536
+    site = "src/markowitz_factorization.jl:205 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 4
+    sampled_bytes = 1504
+    site = "src/markowitz_factorization.jl:221 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 4
+    sampled_bytes = 1504
+    site = "src/markowitz_factorization.jl:223 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 4
+    sampled_bytes = 1504
+    site = "src/markowitz_factorization.jl:222 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 4
+    sampled_bytes = 624
+    site = "src/markowitz_factorization.jl:31 _markowitz_backend"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 560
+    site = "src/markowitz_factorization.jl:279 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 560
+    site = "src/markowitz_factorization.jl:280 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 128
+    site = "src/markowitz_factorization.jl:207 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 96
+    site = "src/markowitz_factorization.jl:298 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 88
+    site = "src/markowitz_factorization.jl:203 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 88
+    site = "src/markowitz_factorization.jl:204 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 64
+    site = "src/markowitz_factorization.jl:30 _markowitz_backend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:179 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:210 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:209 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:180 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:178 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:208 MarkowitzBackend"
+[[profiles]]
+core_dimension = 5
+dimension = 64
+pattern = "band"
+sample_rate = 1.0
+sparse_pivots = 59
+stage = "refactorize"
+value_type = "Float64"
+
+    [[profiles.sites]]
+    sampled_allocations = 192
+    sampled_bytes = 20480
+    site = "src/markowitz_factorization.jl:199 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 192
+    sampled_bytes = 20480
+    site = "src/markowitz_factorization.jl:198 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 66
+    sampled_bytes = 5680
+    site = "src/markowitz_factorization.jl:191 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 66
+    sampled_bytes = 5680
+    site = "src/markowitz_factorization.jl:192 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 6
+    sampled_bytes = 3704
+    site = "src/markowitz_factorization.jl:185 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 5
+    sampled_bytes = 2952
+    site = "src/markowitz_factorization.jl:232 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 5
+    sampled_bytes = 2952
+    site = "src/markowitz_factorization.jl:258 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 59
+    sampled_bytes = 2360
+    site = "src/markowitz_factorization.jl:230 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 59
+    sampled_bytes = 2360
+    site = "src/markowitz_factorization.jl:242 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 59
+    sampled_bytes = 2360
+    site = "src/markowitz_factorization.jl:243 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 59
+    sampled_bytes = 2360
+    site = "src/markowitz_factorization.jl:229 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 59
+    sampled_bytes = 1888
+    site = "src/markowitz_factorization.jl:225 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 59
+    sampled_bytes = 1888
+    site = "src/markowitz_factorization.jl:226 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 59
+    sampled_bytes = 1888
+    site = "src/markowitz_factorization.jl:239 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 59
+    sampled_bytes = 1888
+    site = "src/markowitz_factorization.jl:238 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 4
+    sampled_bytes = 1504
+    site = "src/markowitz_factorization.jl:221 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 4
+    sampled_bytes = 1504
+    site = "src/markowitz_factorization.jl:223 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 4
+    sampled_bytes = 1504
+    site = "src/markowitz_factorization.jl:222 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 4
+    sampled_bytes = 648
+    site = "src/markowitz_factorization.jl:31 _markowitz_backend"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 560
+    site = "src/markowitz_factorization.jl:279 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 560
+    site = "src/markowitz_factorization.jl:280 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 264
+    site = "src/markowitz_factorization.jl:298 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 128
+    site = "src/markowitz_factorization.jl:207 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 88
+    site = "src/markowitz_factorization.jl:30 _markowitz_backend"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 88
+    site = "src/markowitz_factorization.jl:203 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 88
+    site = "src/markowitz_factorization.jl:204 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 40
+    site = "src/markowitz_factorization.jl:62 _markowitz_set_entry!"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 40
+    site = "src/markowitz_factorization.jl:236 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 40
+    site = "src/markowitz_factorization.jl:60 _markowitz_set_entry!"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:206 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:179 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:210 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:205 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:209 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:180 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:178 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:208 MarkowitzBackend"
+[[profiles]]
+core_dimension = 22
+dimension = 64
+pattern = "fill"
+sample_rate = 1.0
+sparse_pivots = 42
+stage = "refactorize"
+value_type = "Float64"
+
+    [[profiles.sites]]
+    sampled_allocations = 192
+    sampled_bytes = 20480
+    site = "src/markowitz_factorization.jl:199 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 192
+    sampled_bytes = 20480
+    site = "src/markowitz_factorization.jl:198 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 48
+    sampled_bytes = 17632
+    site = "src/markowitz_factorization.jl:57 _markowitz_set_entry!"
+    [[profiles.sites]]
+    sampled_allocations = 48
+    sampled_bytes = 16544
+    site = "src/markowitz_factorization.jl:56 _markowitz_set_entry!"
+    [[profiles.sites]]
+    sampled_allocations = 66
+    sampled_bytes = 5680
+    site = "src/markowitz_factorization.jl:191 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 66
+    sampled_bytes = 5680
+    site = "src/markowitz_factorization.jl:192 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 8
+    sampled_bytes = 4776
+    site = "src/markowitz_factorization.jl:185 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 3944
+    site = "src/markowitz_factorization.jl:298 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 5
+    sampled_bytes = 2952
+    site = "src/markowitz_factorization.jl:232 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 5
+    sampled_bytes = 2952
+    site = "src/markowitz_factorization.jl:258 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 52
+    sampled_bytes = 2560
+    site = "src/markowitz_factorization.jl:230 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 52
+    sampled_bytes = 2560
+    site = "src/markowitz_factorization.jl:242 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 52
+    sampled_bytes = 2560
+    site = "src/markowitz_factorization.jl:243 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 52
+    sampled_bytes = 2560
+    site = "src/markowitz_factorization.jl:229 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 4
+    sampled_bytes = 1504
+    site = "src/markowitz_factorization.jl:221 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 4
+    sampled_bytes = 1504
+    site = "src/markowitz_factorization.jl:223 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 4
+    sampled_bytes = 1504
+    site = "src/markowitz_factorization.jl:222 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 42
+    sampled_bytes = 1344
+    site = "src/markowitz_factorization.jl:225 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 42
+    sampled_bytes = 1344
+    site = "src/markowitz_factorization.jl:226 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 42
+    sampled_bytes = 1344
+    site = "src/markowitz_factorization.jl:239 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 42
+    sampled_bytes = 1344
+    site = "src/markowitz_factorization.jl:238 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 4
+    sampled_bytes = 784
+    site = "src/markowitz_factorization.jl:31 _markowitz_backend"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 560
+    site = "src/markowitz_factorization.jl:279 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 560
+    site = "src/markowitz_factorization.jl:280 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 224
+    site = "src/markowitz_factorization.jl:30 _markowitz_backend"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 128
+    site = "src/markowitz_factorization.jl:236 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 128
+    site = "src/markowitz_factorization.jl:207 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 88
+    site = "src/markowitz_factorization.jl:203 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 88
+    site = "src/markowitz_factorization.jl:204 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 40
+    site = "src/markowitz_factorization.jl:62 _markowitz_set_entry!"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 40
+    site = "src/markowitz_factorization.jl:60 _markowitz_set_entry!"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:206 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:179 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:210 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:205 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:209 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:180 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:178 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:208 MarkowitzBackend"
+[[profiles]]
+core_dimension = 22
+dimension = 64
+pattern = "hybrid"
+sample_rate = 1.0
+sparse_pivots = 42
+stage = "refactorize"
+value_type = "Float64"
+
+    [[profiles.sites]]
+    sampled_allocations = 240
+    sampled_bytes = 38656
+    site = "src/markowitz_factorization.jl:199 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 240
+    sampled_bytes = 38656
+    site = "src/markowitz_factorization.jl:198 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 66
+    sampled_bytes = 5680
+    site = "src/markowitz_factorization.jl:191 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 66
+    sampled_bytes = 5680
+    site = "src/markowitz_factorization.jl:192 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 8
+    sampled_bytes = 5544
+    site = "src/markowitz_factorization.jl:185 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 3944
+    site = "src/markowitz_factorization.jl:298 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 5
+    sampled_bytes = 2952
+    site = "src/markowitz_factorization.jl:232 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 5
+    sampled_bytes = 2952
+    site = "src/markowitz_factorization.jl:258 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 5
+    sampled_bytes = 1536
+    site = "src/markowitz_factorization.jl:206 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 5
+    sampled_bytes = 1536
+    site = "src/markowitz_factorization.jl:205 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 4
+    sampled_bytes = 1504
+    site = "src/markowitz_factorization.jl:221 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 4
+    sampled_bytes = 1504
+    site = "src/markowitz_factorization.jl:223 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 4
+    sampled_bytes = 1504
+    site = "src/markowitz_factorization.jl:222 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 42
+    sampled_bytes = 1344
+    site = "src/markowitz_factorization.jl:225 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 42
+    sampled_bytes = 1344
+    site = "src/markowitz_factorization.jl:226 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 42
+    sampled_bytes = 1344
+    site = "src/markowitz_factorization.jl:239 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 42
+    sampled_bytes = 1344
+    site = "src/markowitz_factorization.jl:238 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 4
+    sampled_bytes = 784
+    site = "src/markowitz_factorization.jl:31 _markowitz_backend"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 560
+    site = "src/markowitz_factorization.jl:279 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 560
+    site = "src/markowitz_factorization.jl:280 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 224
+    site = "src/markowitz_factorization.jl:30 _markowitz_backend"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 128
+    site = "src/markowitz_factorization.jl:207 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 88
+    site = "src/markowitz_factorization.jl:203 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 88
+    site = "src/markowitz_factorization.jl:204 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:179 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:210 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:209 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:180 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:178 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:208 MarkowitzBackend"
+[[profiles]]
+core_dimension = 64
+dimension = 64
+pattern = "dense"
+sample_rate = 1.0
+sparse_pivots = 0
+stage = "refactorize"
+value_type = "Float64"
+
+    [[profiles.sites]]
+    sampled_allocations = 8
+    sampled_bytes = 66216
+    site = "src/markowitz_factorization.jl:185 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 7
+    sampled_bytes = 33960
+    site = "src/markowitz_factorization.jl:187 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 4
+    sampled_bytes = 1120
+    site = "src/markowitz_factorization.jl:31 _markowitz_backend"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 560
+    site = "src/markowitz_factorization.jl:30 _markowitz_backend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:178 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:180 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:179 MarkowitzBackend"
+[[profiles]]
+core_dimension = 2
+dimension = 256
+pattern = "diagonal"
+sample_rate = 1.0
+sparse_pivots = 254
+stage = "refactorize"
+value_type = "Float64"
+
+    [[profiles.sites]]
+    sampled_allocations = 768
+    sampled_bytes = 81920
+    site = "src/markowitz_factorization.jl:199 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 768
+    sampled_bytes = 81920
+    site = "src/markowitz_factorization.jl:198 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 259
+    sampled_bytes = 22584
+    site = "src/markowitz_factorization.jl:191 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 259
+    sampled_bytes = 22584
+    site = "src/markowitz_factorization.jl:192 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 7
+    sampled_bytes = 11520
+    site = "src/markowitz_factorization.jl:232 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 7
+    sampled_bytes = 11520
+    site = "src/markowitz_factorization.jl:258 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 254
+    sampled_bytes = 8128
+    site = "src/markowitz_factorization.jl:225 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 254
+    sampled_bytes = 8128
+    site = "src/markowitz_factorization.jl:226 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 254
+    sampled_bytes = 8128
+    site = "src/markowitz_factorization.jl:239 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 254
+    sampled_bytes = 8128
+    site = "src/markowitz_factorization.jl:238 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 9
+    sampled_bytes = 6320
+    site = "src/markowitz_factorization.jl:185 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 7
+    sampled_bytes = 5832
+    site = "src/markowitz_factorization.jl:206 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 7
+    sampled_bytes = 5832
+    site = "src/markowitz_factorization.jl:205 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 6
+    sampled_bytes = 5800
+    site = "src/markowitz_factorization.jl:221 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 6
+    sampled_bytes = 5800
+    site = "src/markowitz_factorization.jl:223 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 6
+    sampled_bytes = 5800
+    site = "src/markowitz_factorization.jl:222 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 5
+    sampled_bytes = 2168
+    site = "src/markowitz_factorization.jl:31 _markowitz_backend"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 2104
+    site = "src/markowitz_factorization.jl:279 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 2104
+    site = "src/markowitz_factorization.jl:280 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 128
+    site = "src/markowitz_factorization.jl:207 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 112
+    site = "src/markowitz_factorization.jl:203 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 112
+    site = "src/markowitz_factorization.jl:204 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 96
+    site = "src/markowitz_factorization.jl:298 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 64
+    site = "src/markowitz_factorization.jl:30 _markowitz_backend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:179 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:210 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:209 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:180 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:178 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:208 MarkowitzBackend"
+[[profiles]]
+core_dimension = 5
+dimension = 256
+pattern = "band"
+sample_rate = 1.0
+sparse_pivots = 251
+stage = "refactorize"
+value_type = "Float64"
+
+    [[profiles.sites]]
+    sampled_allocations = 768
+    sampled_bytes = 81920
+    site = "src/markowitz_factorization.jl:199 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 768
+    sampled_bytes = 81920
+    site = "src/markowitz_factorization.jl:198 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 259
+    sampled_bytes = 22584
+    site = "src/markowitz_factorization.jl:191 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 259
+    sampled_bytes = 22584
+    site = "src/markowitz_factorization.jl:192 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 9
+    sampled_bytes = 14480
+    site = "src/markowitz_factorization.jl:185 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 7
+    sampled_bytes = 11520
+    site = "src/markowitz_factorization.jl:232 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 7
+    sampled_bytes = 11520
+    site = "src/markowitz_factorization.jl:258 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 251
+    sampled_bytes = 10040
+    site = "src/markowitz_factorization.jl:230 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 251
+    sampled_bytes = 10040
+    site = "src/markowitz_factorization.jl:242 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 251
+    sampled_bytes = 10040
+    site = "src/markowitz_factorization.jl:243 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 251
+    sampled_bytes = 10040
+    site = "src/markowitz_factorization.jl:229 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 251
+    sampled_bytes = 8032
+    site = "src/markowitz_factorization.jl:225 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 251
+    sampled_bytes = 8032
+    site = "src/markowitz_factorization.jl:226 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 251
+    sampled_bytes = 8032
+    site = "src/markowitz_factorization.jl:239 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 251
+    sampled_bytes = 8032
+    site = "src/markowitz_factorization.jl:238 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 6
+    sampled_bytes = 5800
+    site = "src/markowitz_factorization.jl:221 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 6
+    sampled_bytes = 5800
+    site = "src/markowitz_factorization.jl:223 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 6
+    sampled_bytes = 5800
+    site = "src/markowitz_factorization.jl:222 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 5
+    sampled_bytes = 2192
+    site = "src/markowitz_factorization.jl:31 _markowitz_backend"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 2104
+    site = "src/markowitz_factorization.jl:279 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 2104
+    site = "src/markowitz_factorization.jl:280 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 4
+    sampled_bytes = 272
+    site = "src/markowitz_factorization.jl:207 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 264
+    site = "src/markowitz_factorization.jl:298 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 112
+    site = "src/markowitz_factorization.jl:203 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 112
+    site = "src/markowitz_factorization.jl:204 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 88
+    site = "src/markowitz_factorization.jl:30 _markowitz_backend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 40
+    site = "src/markowitz_factorization.jl:62 _markowitz_set_entry!"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 40
+    site = "src/markowitz_factorization.jl:236 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 40
+    site = "src/markowitz_factorization.jl:60 _markowitz_set_entry!"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:206 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:179 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:210 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:205 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:209 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:180 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:178 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:208 MarkowitzBackend"
+[[profiles]]
+core_dimension = 40
+dimension = 256
+pattern = "fill"
+sample_rate = 1.0
+sparse_pivots = 216
+stage = "refactorize"
+value_type = "Float64"
+
+    [[profiles.sites]]
+    sampled_allocations = 216
+    sampled_bytes = 84512
+    site = "src/markowitz_factorization.jl:56 _markowitz_set_entry!"
+    [[profiles.sites]]
+    sampled_allocations = 213
+    sampled_bytes = 82832
+    site = "src/markowitz_factorization.jl:57 _markowitz_set_entry!"
+    [[profiles.sites]]
+    sampled_allocations = 768
+    sampled_bytes = 81920
+    site = "src/markowitz_factorization.jl:199 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 768
+    sampled_bytes = 81920
+    site = "src/markowitz_factorization.jl:198 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 328
+    sampled_bytes = 23296
+    site = "src/markowitz_factorization.jl:230 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 328
+    sampled_bytes = 23296
+    site = "src/markowitz_factorization.jl:242 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 328
+    sampled_bytes = 23296
+    site = "src/markowitz_factorization.jl:243 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 328
+    sampled_bytes = 23296
+    site = "src/markowitz_factorization.jl:229 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 259
+    sampled_bytes = 22584
+    site = "src/markowitz_factorization.jl:191 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 259
+    sampled_bytes = 22584
+    site = "src/markowitz_factorization.jl:192 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 9
+    sampled_bytes = 18608
+    site = "src/markowitz_factorization.jl:185 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 12872
+    site = "src/markowitz_factorization.jl:298 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 7
+    sampled_bytes = 11520
+    site = "src/markowitz_factorization.jl:232 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 7
+    sampled_bytes = 11520
+    site = "src/markowitz_factorization.jl:258 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 216
+    sampled_bytes = 6912
+    site = "src/markowitz_factorization.jl:225 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 216
+    sampled_bytes = 6912
+    site = "src/markowitz_factorization.jl:226 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 216
+    sampled_bytes = 6912
+    site = "src/markowitz_factorization.jl:239 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 216
+    sampled_bytes = 6912
+    site = "src/markowitz_factorization.jl:238 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 6
+    sampled_bytes = 5800
+    site = "src/markowitz_factorization.jl:221 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 6
+    sampled_bytes = 5800
+    site = "src/markowitz_factorization.jl:223 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 6
+    sampled_bytes = 5800
+    site = "src/markowitz_factorization.jl:222 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 5
+    sampled_bytes = 2472
+    site = "src/markowitz_factorization.jl:31 _markowitz_backend"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 2104
+    site = "src/markowitz_factorization.jl:279 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 2104
+    site = "src/markowitz_factorization.jl:280 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 416
+    site = "src/markowitz_factorization.jl:236 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 368
+    site = "src/markowitz_factorization.jl:30 _markowitz_backend"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 128
+    site = "src/markowitz_factorization.jl:207 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 112
+    site = "src/markowitz_factorization.jl:203 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 112
+    site = "src/markowitz_factorization.jl:204 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 40
+    site = "src/markowitz_factorization.jl:62 _markowitz_set_entry!"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 40
+    site = "src/markowitz_factorization.jl:60 _markowitz_set_entry!"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:206 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:179 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:210 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:205 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:209 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:180 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:178 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:208 MarkowitzBackend"
+[[profiles]]
+core_dimension = 90
+dimension = 256
+pattern = "hybrid"
+sample_rate = 1.0
+sparse_pivots = 166
+stage = "refactorize"
+value_type = "Float64"
+
+    [[profiles.sites]]
+    sampled_allocations = 1280
+    sampled_bytes = 437248
+    site = "src/markowitz_factorization.jl:199 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1280
+    sampled_bytes = 437248
+    site = "src/markowitz_factorization.jl:198 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 9
+    sampled_bytes = 70832
+    site = "src/markowitz_factorization.jl:185 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 64872
+    site = "src/markowitz_factorization.jl:298 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 259
+    sampled_bytes = 22584
+    site = "src/markowitz_factorization.jl:191 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 259
+    sampled_bytes = 22584
+    site = "src/markowitz_factorization.jl:192 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 7
+    sampled_bytes = 11520
+    site = "src/markowitz_factorization.jl:232 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 7
+    sampled_bytes = 11520
+    site = "src/markowitz_factorization.jl:258 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 7
+    sampled_bytes = 5832
+    site = "src/markowitz_factorization.jl:206 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 7
+    sampled_bytes = 5832
+    site = "src/markowitz_factorization.jl:205 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 6
+    sampled_bytes = 5800
+    site = "src/markowitz_factorization.jl:221 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 6
+    sampled_bytes = 5800
+    site = "src/markowitz_factorization.jl:223 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 6
+    sampled_bytes = 5800
+    site = "src/markowitz_factorization.jl:222 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 166
+    sampled_bytes = 5312
+    site = "src/markowitz_factorization.jl:225 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 166
+    sampled_bytes = 5312
+    site = "src/markowitz_factorization.jl:226 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 166
+    sampled_bytes = 5312
+    site = "src/markowitz_factorization.jl:239 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 166
+    sampled_bytes = 5312
+    site = "src/markowitz_factorization.jl:238 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 5
+    sampled_bytes = 2872
+    site = "src/markowitz_factorization.jl:31 _markowitz_backend"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 2104
+    site = "src/markowitz_factorization.jl:279 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 2104
+    site = "src/markowitz_factorization.jl:280 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 768
+    site = "src/markowitz_factorization.jl:30 _markowitz_backend"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 128
+    site = "src/markowitz_factorization.jl:207 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 112
+    site = "src/markowitz_factorization.jl:203 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 112
+    site = "src/markowitz_factorization.jl:204 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:179 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:210 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:209 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:180 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:178 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:208 MarkowitzBackend"
+[[profiles]]
+core_dimension = 256
+dimension = 256
+pattern = "dense"
+sample_rate = 1.0
+sparse_pivots = 0
+stage = "refactorize"
+value_type = "Float64"
+
+    [[profiles.sites]]
+    sampled_allocations = 9
+    sampled_bytes = 1050800
+    site = "src/markowitz_factorization.jl:185 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 9
+    sampled_bytes = 528568
+    site = "src/markowitz_factorization.jl:187 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 6
+    sampled_bytes = 4208
+    site = "src/markowitz_factorization.jl:31 _markowitz_backend"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 2104
+    site = "src/markowitz_factorization.jl:30 _markowitz_backend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:178 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:180 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:179 MarkowitzBackend"
+[[profiles]]
+core_dimension = 5
+dimension = 16
+pattern = "band"
+sample_rate = 0.05
+sparse_pivots = 11
+stage = "refactorize"
+value_type = "BigFloat"
+
+    [[profiles.sites]]
+    sampled_allocations = 20
+    sampled_bytes = 912
+    site = "src/factorization.jl:180 _pivot_magnitude"
+    [[profiles.sites]]
+    sampled_allocations = 5
+    sampled_bytes = 608
+    site = "src/markowitz_factorization.jl:199 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 6
+    sampled_bytes = 480
+    site = "src/markowitz_factorization.jl:30 _markowitz_backend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 288
+    site = "src/markowitz_factorization.jl:222 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 7
+    sampled_bytes = 200
+    site = "src/factorization.jl:182 #_pivot_magnitude##0"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 160
+    site = "src/markowitz_factorization.jl:246 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 144
+    site = "src/markowitz_factorization.jl:198 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 112
+    site = "src/markowitz_factorization.jl:192 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 88
+    site = "src/markowitz_factorization.jl:221 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 80
+    site = "src/markowitz_factorization.jl:241 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 80
+    site = "src/markowitz_factorization.jl:75 _markowitz_column_maximum"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 80
+    site = "src/markowitz_factorization.jl:253 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 64
+    site = "src/markowitz_factorization.jl:225 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 40
+    site = "src/markowitz_factorization.jl:243 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 40
+    site = "src/markowitz_factorization.jl:242 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 40
+    site = "src/markowitz_factorization.jl:229 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:239 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:238 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:204 MarkowitzBackend"
+[[profiles]]
+core_dimension = 10
+dimension = 16
+pattern = "fill"
+sample_rate = 0.05
+sparse_pivots = 6
+stage = "refactorize"
+value_type = "BigFloat"
+
+    [[profiles.sites]]
+    sampled_allocations = 219
+    sampled_bytes = 7984
+    site = "src/factorization.jl:180 _pivot_magnitude"
+    [[profiles.sites]]
+    sampled_allocations = 91
+    sampled_bytes = 3608
+    site = "src/factorization.jl:182 #_pivot_magnitude##0"
+    [[profiles.sites]]
+    sampled_allocations = 27
+    sampled_bytes = 2160
+    site = "src/markowitz_factorization.jl:30 _markowitz_backend"
+    [[profiles.sites]]
+    sampled_allocations = 24
+    sampled_bytes = 2112
+    site = "src/markowitz_factorization.jl:90 _markowitz_threshold_pass"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 528
+    site = "src/markowitz_factorization.jl:185 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 6
+    sampled_bytes = 480
+    site = "src/markowitz_factorization.jl:246 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 240
+    site = "src/markowitz_factorization.jl:75 _markowitz_column_maximum"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 176
+    site = "src/markowitz_factorization.jl:199 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 144
+    site = "src/markowitz_factorization.jl:198 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 80
+    site = "src/markowitz_factorization.jl:265 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 80
+    site = "src/markowitz_factorization.jl:131 _markowitz_pivot"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 80
+    site = "src/markowitz_factorization.jl:253 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 80
+    site = "src/markowitz_factorization.jl:192 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 48
+    site = "src/markowitz_factorization.jl:298 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 40
+    site = "src/markowitz_factorization.jl:243 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 40
+    site = "src/markowitz_factorization.jl:222 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 40
+    site = "src/markowitz_factorization.jl:229 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:225 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:205 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:207 MarkowitzBackend"
+[[profiles]]
+core_dimension = 5
+dimension = 16
+pattern = "band"
+sample_rate = 0.05
+sparse_pivots = 11
+stage = "refactorize"
+value_type = "Rational{BigInt}"
+
+    [[profiles.sites]]
+    sampled_allocations = 5
+    sampled_bytes = 752
+    site = "src/markowitz_factorization.jl:198 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 16
+    sampled_bytes = 736
+    site = "src/markowitz_factorization.jl:30 _markowitz_backend"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 560
+    site = "src/markowitz_factorization.jl:199 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 7
+    sampled_bytes = 256
+    site = "src/markowitz_factorization.jl:83 _markowitz_threshold_pass"
+    [[profiles.sites]]
+    sampled_allocations = 5
+    sampled_bytes = 224
+    site = "src/markowitz_factorization.jl:246 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 144
+    site = "src/markowitz_factorization.jl:279 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 144
+    site = "src/markowitz_factorization.jl:280 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 64
+    site = "src/markowitz_factorization.jl:225 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 64
+    site = "src/markowitz_factorization.jl:243 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 64
+    site = "src/markowitz_factorization.jl:241 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 64
+    site = "src/markowitz_factorization.jl:75 _markowitz_column_maximum"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 64
+    site = "src/markowitz_factorization.jl:78 _markowitz_column_maximum"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 40
+    site = "src/markowitz_factorization.jl:229 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:131 _markowitz_pivot"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:239 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:238 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:260 MarkowitzBackend"
+[[profiles]]
+core_dimension = 10
+dimension = 16
+pattern = "fill"
+sample_rate = 0.05
+sparse_pivots = 6
+stage = "refactorize"
+value_type = "Rational{BigInt}"
+
+    [[profiles.sites]]
+    sampled_allocations = 146
+    sampled_bytes = 7776
+    site = "src/markowitz_factorization.jl:30 _markowitz_backend"
+    [[profiles.sites]]
+    sampled_allocations = 165
+    sampled_bytes = 6976
+    site = "src/markowitz_factorization.jl:83 _markowitz_threshold_pass"
+    [[profiles.sites]]
+    sampled_allocations = 38
+    sampled_bytes = 1696
+    site = "src/markowitz_factorization.jl:246 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 34
+    sampled_bytes = 1088
+    site = "src/factorization.jl:179 _pivot_magnitude"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 528
+    site = "src/markowitz_factorization.jl:185 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 5
+    sampled_bytes = 512
+    site = "src/markowitz_factorization.jl:198 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 10
+    sampled_bytes = 320
+    site = "src/markowitz_factorization.jl:75 _markowitz_column_maximum"
+    [[profiles.sites]]
+    sampled_allocations = 10
+    sampled_bytes = 320
+    site = "src/markowitz_factorization.jl:78 _markowitz_column_maximum"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 288
+    site = "src/markowitz_factorization.jl:274 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 272
+    site = "src/markowitz_factorization.jl:199 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 224
+    site = "src/markowitz_factorization.jl:191 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 4
+    sampled_bytes = 160
+    site = "src/markowitz_factorization.jl:241 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 80
+    site = "src/markowitz_factorization.jl:192 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 64
+    site = "src/markowitz_factorization.jl:243 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 64
+    site = "src/markowitz_factorization.jl:253 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 64
+    site = "src/markowitz_factorization.jl:238 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 40
+    site = "src/markowitz_factorization.jl:222 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:226 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:206 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:239 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:31 _markowitz_backend"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:153 _markowitz_pivot"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/markowitz_factorization.jl:260 MarkowitzBackend"
+[[profiles]]
+algorithm = "dual"
+basis_update = "pfi"
+dataset = "adlittle"
+sample_rate = 1.0
+stage = "solve"
+
+    [[profiles.sites]]
+    sampled_allocations = 2133
+    sampled_bytes = 259344
+    site = "src/markowitz_factorization.jl:198 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 2130
+    sampled_bytes = 258208
+    site = "src/markowitz_factorization.jl:199 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 696
+    sampled_bytes = 59712
+    site = "src/markowitz_factorization.jl:192 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 696
+    sampled_bytes = 59712
+    site = "src/markowitz_factorization.jl:191 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 72
+    sampled_bytes = 41088
+    site = "src/markowitz_factorization.jl:185 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 60
+    sampled_bytes = 35424
+    site = "src/markowitz_factorization.jl:232 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 60
+    sampled_bytes = 35424
+    site = "src/markowitz_factorization.jl:258 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 572
+    sampled_bytes = 18304
+    site = "src/markowitz_factorization.jl:226 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 572
+    sampled_bytes = 18304
+    site = "src/markowitz_factorization.jl:225 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 572
+    sampled_bytes = 18304
+    site = "src/markowitz_factorization.jl:239 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 572
+    sampled_bytes = 18304
+    site = "src/markowitz_factorization.jl:238 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 48
+    sampled_bytes = 18048
+    site = "src/markowitz_factorization.jl:221 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 48
+    sampled_bytes = 18048
+    site = "src/markowitz_factorization.jl:222 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 48
+    sampled_bytes = 18048
+    site = "src/markowitz_factorization.jl:223 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 24
+    sampled_bytes = 14449
+    site = "src/model.jl:105 LinearProblem"
+    [[profiles.sites]]
+    sampled_allocations = 304
+    sampled_bytes = 14080
+    site = "src/markowitz_factorization.jl:242 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 304
+    sampled_bytes = 14080
+    site = "src/markowitz_factorization.jl:243 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 284
+    sampled_bytes = 13248
+    site = "src/markowitz_factorization.jl:229 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 284
+    sampled_bytes = 13248
+    site = "src/markowitz_factorization.jl:230 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 21
+    sampled_bytes = 10232
+    site = "src/factorization.jl:209 #replace_column!#57"
+    [[profiles.sites]]
+    sampled_allocations = 21
+    sampled_bytes = 10232
+    site = "src/factorization.jl:208 #replace_column!#57"
+    [[profiles.sites]]
+    sampled_allocations = 38
+    sampled_bytes = 9536
+    site = "src/simplex.jl:48 SimplexScratch"
+    [[profiles.sites]]
+    sampled_allocations = 24
+    sampled_bytes = 8192
+    site = "src/markowitz_factorization.jl:298 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 50
+    sampled_bytes = 7552
+    site = "src/markowitz_factorization.jl:206 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 48
+    sampled_bytes = 7328
+    site = "src/markowitz_factorization.jl:31 _markowitz_backend"
+    [[profiles.sites]]
+    sampled_allocations = 49
+    sampled_bytes = 6464
+    site = "src/markowitz_factorization.jl:205 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 24
+    sampled_bytes = 5952
+    site = "src/markowitz_factorization.jl:279 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 24
+    sampled_bytes = 5952
+    site = "src/markowitz_factorization.jl:280 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 5808
+    site = "src/simplex.jl:168 _assemble_basis_matrix"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 5808
+    site = "src/simplex.jl:167 _assemble_basis_matrix"
+    [[profiles.sites]]
+    sampled_allocations = 78
+    sampled_bytes = 5728
+    site = "src/factorization.jl:218 #replace_column!#57"
+    [[profiles.sites]]
+    sampled_allocations = 78
+    sampled_bytes = 5728
+    site = "src/factorization.jl:219 #replace_column!#57"
+    [[profiles.sites]]
+    sampled_allocations = 22
+    sampled_bytes = 5472
+    site = "src/simplex.jl:307 #initialize_workspace#75"
+    [[profiles.sites]]
+    sampled_allocations = 11
+    sampled_bytes = 5192
+    site = "src/dual_simplex.jl:1708 _auxiliary_workspace"
+    [[profiles.sites]]
+    sampled_allocations = 6
+    sampled_bytes = 3816
+    site = "src/simplex.jl:313 #initialize_workspace#75"
+    [[profiles.sites]]
+    sampled_allocations = 12
+    sampled_bytes = 2976
+    site = "src/dual_simplex.jl:1434 _primal_row_bounds"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 2504
+    site = "src/dual_simplex.jl:1684 _auxiliary_workspace"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 2504
+    site = "src/simplex.jl:291 #initialize_workspace#75"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 2504
+    site = "src/simplex.jl:292 #initialize_workspace#75"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 2504
+    site = "src/dual_simplex.jl:1685 _auxiliary_workspace"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 2480
+    site = "src/simplex.jl:47 SimplexScratch"
+    [[profiles.sites]]
+    sampled_allocations = 6
+    sampled_bytes = 2304
+    site = "src/factorization.jl:237 #replace_column!#57"
+    [[profiles.sites]]
+    sampled_allocations = 6
+    sampled_bytes = 2272
+    site = "src/markowitz_factorization.jl:56 _markowitz_set_entry!"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 2176
+    site = "src/markowitz_factorization.jl:60 _markowitz_set_entry!"
+    [[profiles.sites]]
+    sampled_allocations = 12
+    sampled_bytes = 2091
+    site = "src/simplex.jl:11 Basis"
+    [[profiles.sites]]
+    sampled_allocations = 36
+    sampled_bytes = 1536
+    site = "src/markowitz_factorization.jl:207 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 24
+    sampled_bytes = 1376
+    site = "src/markowitz_factorization.jl:30 _markowitz_backend"
+    [[profiles.sites]]
+    sampled_allocations = 4
+    sampled_bytes = 1320
+    site = "src/transformations.jl:17 identity_scaling"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 1272
+    site = "src/dual_simplex.jl:1537 _original_reduced_cost_bounds"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 1272
+    site = "src/simplex.jl:287 #initialize_workspace#75"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 1272
+    site = "src/dual_simplex.jl:1538 _original_reduced_cost_bounds"
+    [[profiles.sites]]
+    sampled_allocations = 19
+    sampled_bytes = 1192
+    site = "src/markowitz_factorization.jl:236 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 1152
+    site = "src/factorization.jl:298 _recycle_pfi_updates!"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 1136
+    site = "src/markowitz_factorization.jl:57 _markowitz_set_entry!"
+    [[profiles.sites]]
+    sampled_allocations = 36
+    sampled_bytes = 1056
+    site = "src/markowitz_factorization.jl:204 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 36
+    sampled_bytes = 1056
+    site = "src/markowitz_factorization.jl:203 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 992
+    site = "src/simplex.jl:69 SimplexWorkspace"
+    [[profiles.sites]]
+    sampled_allocations = 8
+    sampled_bytes = 864
+    site = "src/dual_simplex.jl:355 _bound_flipping_ratio_test"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 824
+    site = "src/dual_simplex.jl:1613 _internal_solution"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 824
+    site = "src/simplex.jl:59 #SimplexProgressContext#72"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 824
+    site = "src/transformations.jl:134 unscale_primal"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 824
+    site = "src/transformations.jl:141 postsolve_primal"
+    [[profiles.sites]]
+    sampled_allocations = 6
+    sampled_bytes = 576
+    site = "src/solver.jl:400 #solve#132"
+    [[profiles.sites]]
+    sampled_allocations = 4
+    sampled_bytes = 560
+    site = "src/markowitz_factorization.jl:396 _copy_backend"
+    [[profiles.sites]]
+    sampled_allocations = 4
+    sampled_bytes = 560
+    site = "src/factorization.jl:81 PFIFactorization"
+    [[profiles.sites]]
+    sampled_allocations = 4
+    sampled_bytes = 560
+    site = "src/factorization.jl:367 copy_basis_factorization"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 496
+    site = "src/factorization.jl:176 transpose_solve"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 496
+    site = "src/dual_simplex.jl:1572 _original_optimality_certified"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 496
+    site = "src/simplex.jl:306 #initialize_workspace#75"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 416
+    site = "src/dual_simplex.jl:374 _bound_flipping_ratio_test"
+    [[profiles.sites]]
+    sampled_allocations = 12
+    sampled_bytes = 384
+    site = "src/markowitz_factorization.jl:210 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 12
+    sampled_bytes = 384
+    site = "src/markowitz_factorization.jl:209 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 12
+    sampled_bytes = 384
+    site = "src/markowitz_factorization.jl:179 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 12
+    sampled_bytes = 384
+    site = "src/markowitz_factorization.jl:180 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 12
+    sampled_bytes = 384
+    site = "src/markowitz_factorization.jl:178 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 12
+    sampled_bytes = 384
+    site = "src/markowitz_factorization.jl:208 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 22
+    sampled_bytes = 352
+    site = "src/simplex.jl:215 #recompute!#74"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 288
+    site = "src/factorization.jl:37 PFIFactorization"
+    [[profiles.sites]]
+    sampled_allocations = 6
+    sampled_bytes = 256
+    site = "src/solver.jl:410 #solve#132"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 224
+    site = "src/simplex.jl:29 SimplexScratch"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 201
+    site = "src/simplex.jl:293 #initialize_workspace#75"
+    [[profiles.sites]]
+    sampled_allocations = 4
+    sampled_bytes = 192
+    site = "src/solver.jl:412 #solve#132"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 145
+    site = "src/transformations.jl:180 relax_integrality"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 144
+    site = "src/solver.jl:404 #solve#132"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 144
+    site = "src/model.jl:295 is_continuous"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 104
+    site = "src/simplex.jl:311 #initialize_workspace#75"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 80
+    site = "src/dual_simplex.jl:1900 #_solve_continuous_dual#90"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 64
+    site = "src/simplex.jl:46 SimplexScratch"
+    [[profiles.sites]]
+    sampled_allocations = 4
+    sampled_bytes = 64
+    site = "src/dual_simplex.jl:1099 _dual_iteration!"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 48
+    site = "src/simplex.jl:310 #initialize_workspace#75"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 32
+    site = "src/solver.jl:31 #_finish_solve#120"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/dual_simplex.jl:1892 _solve_continuous_dual"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/dual_simplex.jl:1611 _internal_solution"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 32
+    site = "src/solver.jl:365 #solve#132"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 24
+    site = "src/dual_simplex.jl:23 _StopCallback"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 16
+    site = "src/dual_simplex.jl:1892 #_solve_continuous_dual#90"
+[[profiles]]
+algorithm = "primal"
+basis_update = "pfi"
+dataset = "adlittle"
+sample_rate = 1.0
+stage = "solve"
+
+    [[profiles.sites]]
+    sampled_allocations = 1212
+    sampled_bytes = 139072
+    site = "src/markowitz_factorization.jl:198 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 1209
+    sampled_bytes = 137936
+    site = "src/markowitz_factorization.jl:199 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 406
+    sampled_bytes = 34832
+    site = "src/markowitz_factorization.jl:192 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 406
+    sampled_bytes = 34832
+    site = "src/markowitz_factorization.jl:191 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 46
+    sampled_bytes = 28162
+    site = "src/model.jl:105 LinearProblem"
+    [[profiles.sites]]
+    sampled_allocations = 35
+    sampled_bytes = 20664
+    site = "src/markowitz_factorization.jl:232 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 35
+    sampled_bytes = 20664
+    site = "src/markowitz_factorization.jl:258 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 42
+    sampled_bytes = 18456
+    site = "src/markowitz_factorization.jl:185 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 25
+    sampled_bytes = 11560
+    site = "src/factorization.jl:209 #replace_column!#57"
+    [[profiles.sites]]
+    sampled_allocations = 25
+    sampled_bytes = 11560
+    site = "src/factorization.jl:208 #replace_column!#57"
+    [[profiles.sites]]
+    sampled_allocations = 352
+    sampled_bytes = 11264
+    site = "src/markowitz_factorization.jl:226 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 352
+    sampled_bytes = 11264
+    site = "src/markowitz_factorization.jl:225 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 352
+    sampled_bytes = 11264
+    site = "src/markowitz_factorization.jl:239 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 352
+    sampled_bytes = 11264
+    site = "src/markowitz_factorization.jl:238 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 44
+    sampled_bytes = 10944
+    site = "src/simplex.jl:307 #initialize_workspace#75"
+    [[profiles.sites]]
+    sampled_allocations = 28
+    sampled_bytes = 10528
+    site = "src/markowitz_factorization.jl:221 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 28
+    sampled_bytes = 10528
+    site = "src/markowitz_factorization.jl:222 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 28
+    sampled_bytes = 10528
+    site = "src/markowitz_factorization.jl:223 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 38
+    sampled_bytes = 9664
+    site = "src/simplex.jl:48 SimplexScratch"
+    [[profiles.sites]]
+    sampled_allocations = 12
+    sampled_bytes = 7824
+    site = "src/simplex.jl:313 #initialize_workspace#75"
+    [[profiles.sites]]
+    sampled_allocations = 32
+    sampled_bytes = 7488
+    site = "src/markowitz_factorization.jl:206 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 31
+    sampled_bytes = 6400
+    site = "src/markowitz_factorization.jl:205 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 5808
+    site = "src/simplex.jl:168 _assemble_basis_matrix"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 5808
+    site = "src/simplex.jl:167 _assemble_basis_matrix"
+    [[profiles.sites]]
+    sampled_allocations = 112
+    sampled_bytes = 5536
+    site = "src/markowitz_factorization.jl:242 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 112
+    sampled_bytes = 5536
+    site = "src/markowitz_factorization.jl:243 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 6
+    sampled_bytes = 5136
+    site = "src/simplex.jl:291 #initialize_workspace#75"
+    [[profiles.sites]]
+    sampled_allocations = 6
+    sampled_bytes = 5136
+    site = "src/simplex.jl:292 #initialize_workspace#75"
+    [[profiles.sites]]
+    sampled_allocations = 102
+    sampled_bytes = 5056
+    site = "src/markowitz_factorization.jl:229 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 102
+    sampled_bytes = 5056
+    site = "src/markowitz_factorization.jl:230 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 28
+    sampled_bytes = 4128
+    site = "src/markowitz_factorization.jl:31 _markowitz_backend"
+    [[profiles.sites]]
+    sampled_allocations = 16
+    sampled_bytes = 3968
+    site = "src/dual_simplex.jl:1434 _primal_row_bounds"
+    [[profiles.sites]]
+    sampled_allocations = 14
+    sampled_bytes = 3472
+    site = "src/markowitz_factorization.jl:279 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 14
+    sampled_bytes = 3472
+    site = "src/markowitz_factorization.jl:280 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 40
+    sampled_bytes = 3264
+    site = "src/factorization.jl:218 #replace_column!#57"
+    [[profiles.sites]]
+    sampled_allocations = 40
+    sampled_bytes = 3264
+    site = "src/factorization.jl:219 #replace_column!#57"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 3184
+    site = "src/primal_simplex.jl:455 _primal_phase_one_matrix"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 3184
+    site = "src/primal_simplex.jl:456 _primal_phase_one_matrix"
+    [[profiles.sites]]
+    sampled_allocations = 14
+    sampled_bytes = 2944
+    site = "src/markowitz_factorization.jl:298 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 4
+    sampled_bytes = 2672
+    site = "src/dual_simplex.jl:1537 _original_reduced_cost_bounds"
+    [[profiles.sites]]
+    sampled_allocations = 4
+    sampled_bytes = 2672
+    site = "src/dual_simplex.jl:1538 _original_reduced_cost_bounds"
+    [[profiles.sites]]
+    sampled_allocations = 4
+    sampled_bytes = 2608
+    site = "src/simplex.jl:287 #initialize_workspace#75"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 2544
+    site = "src/simplex.jl:47 SimplexScratch"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 1728
+    site = "src/primal_simplex.jl:475 _primal_phase_one_vectors"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 1728
+    site = "src/primal_simplex.jl:476 _primal_phase_one_vectors"
+    [[profiles.sites]]
+    sampled_allocations = 4
+    sampled_bytes = 1320
+    site = "src/transformations.jl:17 identity_scaling"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 1152
+    site = "src/factorization.jl:237 #replace_column!#57"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 1152
+    site = "src/factorization.jl:298 _recycle_pfi_updates!"
+    [[profiles.sites]]
+    sampled_allocations = 3
+    sampled_bytes = 1136
+    site = "src/markowitz_factorization.jl:57 _markowitz_set_entry!"
+    [[profiles.sites]]
+    sampled_allocations = 8
+    sampled_bytes = 1120
+    site = "src/factorization.jl:81 PFIFactorization"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 1088
+    site = "src/markowitz_factorization.jl:60 _markowitz_set_entry!"
+    [[profiles.sites]]
+    sampled_allocations = 4
+    sampled_bytes = 992
+    site = "src/factorization.jl:176 transpose_solve"
+    [[profiles.sites]]
+    sampled_allocations = 4
+    sampled_bytes = 992
+    site = "src/dual_simplex.jl:1572 _original_optimality_certified"
+    [[profiles.sites]]
+    sampled_allocations = 4
+    sampled_bytes = 992
+    site = "src/simplex.jl:306 #initialize_workspace#75"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 992
+    site = "src/simplex.jl:69 SimplexWorkspace"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 896
+    site = "src/primal_simplex.jl:454 _primal_phase_one_matrix"
+    [[profiles.sites]]
+    sampled_allocations = 21
+    sampled_bytes = 896
+    site = "src/markowitz_factorization.jl:207 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 888
+    site = "src/dual_simplex.jl:1613 _internal_solution"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 888
+    site = "src/primal_simplex.jl:472 _primal_phase_one_vectors"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 888
+    site = "src/primal_simplex.jl:575 #_solve_continuous_primal#93"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 824
+    site = "src/primal_simplex.jl:606 #_solve_continuous_primal#93"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 824
+    site = "src/simplex.jl:59 #SimplexProgressContext#72"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 824
+    site = "src/transformations.jl:134 unscale_primal"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 824
+    site = "src/transformations.jl:141 postsolve_primal"
+    [[profiles.sites]]
+    sampled_allocations = 4
+    sampled_bytes = 705
+    site = "src/simplex.jl:11 Basis"
+    [[profiles.sites]]
+    sampled_allocations = 14
+    sampled_bytes = 656
+    site = "src/markowitz_factorization.jl:30 _markowitz_backend"
+    [[profiles.sites]]
+    sampled_allocations = 21
+    sampled_bytes = 616
+    site = "src/markowitz_factorization.jl:204 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 21
+    sampled_bytes = 616
+    site = "src/markowitz_factorization.jl:203 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 6
+    sampled_bytes = 576
+    site = "src/solver.jl:400 #solve#132"
+    [[profiles.sites]]
+    sampled_allocations = 8
+    sampled_bytes = 512
+    site = "src/markowitz_factorization.jl:236 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 496
+    site = "src/primal_simplex.jl:541 _primal_original_basis"
+    [[profiles.sites]]
+    sampled_allocations = 4
+    sampled_bytes = 410
+    site = "src/simplex.jl:293 #initialize_workspace#75"
+    [[profiles.sites]]
+    sampled_allocations = 4
+    sampled_bytes = 352
+    site = "src/primal_simplex.jl:565 #_solve_continuous_primal#93"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 288
+    site = "src/factorization.jl:37 PFIFactorization"
+    [[profiles.sites]]
+    sampled_allocations = 6
+    sampled_bytes = 256
+    site = "src/solver.jl:410 #solve#132"
+    [[profiles.sites]]
+    sampled_allocations = 7
+    sampled_bytes = 224
+    site = "src/markowitz_factorization.jl:210 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 224
+    site = "src/simplex.jl:29 SimplexScratch"
+    [[profiles.sites]]
+    sampled_allocations = 7
+    sampled_bytes = 224
+    site = "src/markowitz_factorization.jl:209 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 7
+    sampled_bytes = 224
+    site = "src/markowitz_factorization.jl:179 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 7
+    sampled_bytes = 224
+    site = "src/markowitz_factorization.jl:180 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 7
+    sampled_bytes = 224
+    site = "src/markowitz_factorization.jl:178 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 7
+    sampled_bytes = 224
+    site = "src/markowitz_factorization.jl:208 MarkowitzBackend"
+    [[profiles.sites]]
+    sampled_allocations = 4
+    sampled_bytes = 217
+    site = "src/primal_simplex.jl:510 _primal_phase_one"
+    [[profiles.sites]]
+    sampled_allocations = 6
+    sampled_bytes = 208
+    site = "src/simplex.jl:311 #initialize_workspace#75"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 201
+    site = "src/primal_simplex.jl:537 _primal_original_basis"
+    [[profiles.sites]]
+    sampled_allocations = 4
+    sampled_bytes = 192
+    site = "src/solver.jl:412 #solve#132"
+    [[profiles.sites]]
+    sampled_allocations = 10
+    sampled_bytes = 160
+    site = "src/simplex.jl:215 #recompute!#74"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 145
+    site = "src/transformations.jl:180 relax_integrality"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 144
+    site = "src/solver.jl:404 #solve#132"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 144
+    site = "src/model.jl:295 is_continuous"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 128
+    site = "src/primal_simplex.jl:496 _primal_phase_one"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 128
+    site = "src/primal_simplex.jl:495 _primal_phase_one"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 112
+    site = "src/primal_simplex.jl:579 #_solve_continuous_primal#93"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 96
+    site = "src/simplex.jl:310 #initialize_workspace#75"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 64
+    site = "src/simplex.jl:46 SimplexScratch"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 64
+    site = "src/primal_simplex.jl:336 _primal_iteration!"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 64
+    site = "src/primal_simplex.jl:125 _primal_initialize_steepest!"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 48
+    site = "src/primal_simplex.jl:570 #_solve_continuous_primal#93"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 44
+    site = "src/primal_simplex.jl:497 _primal_phase_one"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/primal_simplex.jl:490 _primal_phase_one"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/primal_simplex.jl:558 _solve_continuous_primal"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 32
+    site = "src/solver.jl:31 #_finish_solve#120"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/primal_simplex.jl:488 _primal_phase_one"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/dual_simplex.jl:1611 _internal_solution"
+    [[profiles.sites]]
+    sampled_allocations = 2
+    sampled_bytes = 32
+    site = "src/solver.jl:365 #solve#132"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/primal_simplex.jl:489 _primal_phase_one"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/primal_simplex.jl:555 _primal_original_basis"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/primal_simplex.jl:600 #_solve_continuous_primal#93"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 24
+    site = "src/dual_simplex.jl:23 _StopCallback"
+    [[profiles.sites]]
+    sampled_allocations = 1
+    sampled_bytes = 16
+    site = "src/primal_simplex.jl:558 #_solve_continuous_primal#93"
+
+[[rows]]
+allocations = 829
+bytes = 84912
+compile_seconds = 0.0
+core_dimension = 2
+dimension = 64
+pattern = "diagonal"
+samples = 3
+seconds = 3.68e-5
+sparse_pivots = 62
+stage = "refactorize"
+value_type = "Float64"
+[[rows]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+core_dimension = 2
+dimension = 64
+pattern = "diagonal"
+samples = 3
+seconds = 1.11e-5
+sparse_pivots = 62
+stage = "forward"
+value_type = "Float64"
+[[rows]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+core_dimension = 2
+dimension = 64
+pattern = "diagonal"
+samples = 3
+seconds = 1.17e-5
+sparse_pivots = 62
+stage = "transpose"
+value_type = "Float64"
+[[rows]]
+allocations = 9
+bytes = 1440
+compile_seconds = 0.0
+core_dimension = 2
+dimension = 64
+pattern = "diagonal"
+samples = 3
+seconds = 2.1e-6
+sparse_pivots = 62
+stage = "copy"
+value_type = "Float64"
+[[rows]]
+allocations = 1048
+bytes = 95136
+compile_seconds = 0.0
+core_dimension = 5
+dimension = 64
+pattern = "band"
+samples = 3
+seconds = 4.99e-5
+sparse_pivots = 59
+stage = "refactorize"
+value_type = "Float64"
+[[rows]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+core_dimension = 5
+dimension = 64
+pattern = "band"
+samples = 3
+seconds = 1.03e-5
+sparse_pivots = 59
+stage = "forward"
+value_type = "Float64"
+[[rows]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+core_dimension = 5
+dimension = 64
+pattern = "band"
+samples = 3
+seconds = 1.33e-5
+sparse_pivots = 59
+stage = "transpose"
+value_type = "Float64"
+[[rows]]
+allocations = 9
+bytes = 1456
+compile_seconds = 0.0
+core_dimension = 5
+dimension = 64
+pattern = "band"
+samples = 3
+seconds = 1.7e-6
+sparse_pivots = 59
+stage = "copy"
+value_type = "Float64"
+[[rows]]
+allocations = 1052
+bytes = 134264
+compile_seconds = 0.0
+core_dimension = 22
+dimension = 64
+pattern = "fill"
+samples = 3
+seconds = 0.0001341
+sparse_pivots = 42
+stage = "refactorize"
+value_type = "Float64"
+[[rows]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+core_dimension = 22
+dimension = 64
+pattern = "fill"
+samples = 3
+seconds = 1.2e-5
+sparse_pivots = 42
+stage = "forward"
+value_type = "Float64"
+[[rows]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+core_dimension = 22
+dimension = 64
+pattern = "fill"
+samples = 3
+seconds = 1.23e-5
+sparse_pivots = 42
+stage = "transpose"
+value_type = "Float64"
+[[rows]]
+allocations = 9
+bytes = 1600
+compile_seconds = 0.0
+core_dimension = 22
+dimension = 64
+pattern = "fill"
+samples = 3
+seconds = 1.5e-6
+sparse_pivots = 42
+stage = "copy"
+value_type = "Float64"
+[[rows]]
+allocations = 848
+bytes = 128296
+compile_seconds = 0.0
+core_dimension = 22
+dimension = 64
+pattern = "hybrid"
+samples = 3
+seconds = 5.02e-5
+sparse_pivots = 42
+stage = "refactorize"
+value_type = "Float64"
+[[rows]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+core_dimension = 22
+dimension = 64
+pattern = "hybrid"
+samples = 3
+seconds = 9.9e-6
+sparse_pivots = 42
+stage = "forward"
+value_type = "Float64"
+[[rows]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+core_dimension = 22
+dimension = 64
+pattern = "hybrid"
+samples = 3
+seconds = 1.14e-5
+sparse_pivots = 42
+stage = "transpose"
+value_type = "Float64"
+[[rows]]
+allocations = 9
+bytes = 1600
+compile_seconds = 0.0
+core_dimension = 22
+dimension = 64
+pattern = "hybrid"
+samples = 3
+seconds = 1.4e-6
+sparse_pivots = 42
+stage = "copy"
+value_type = "Float64"
+[[rows]]
+allocations = 24
+bytes = 102088
+compile_seconds = 0.0
+core_dimension = 64
+dimension = 64
+pattern = "dense"
+samples = 3
+seconds = 4.47e-5
+sparse_pivots = 0
+stage = "refactorize"
+value_type = "Float64"
+[[rows]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+core_dimension = 64
+dimension = 64
+pattern = "dense"
+samples = 3
+seconds = 1.18e-5
+sparse_pivots = 0
+stage = "forward"
+value_type = "Float64"
+[[rows]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+core_dimension = 64
+dimension = 64
+pattern = "dense"
+samples = 3
+seconds = 1.4e-5
+sparse_pivots = 0
+stage = "transpose"
+value_type = "Float64"
+[[rows]]
+allocations = 9
+bytes = 1936
+compile_seconds = 0.0
+core_dimension = 64
+dimension = 64
+pattern = "dense"
+samples = 3
+seconds = 1.9e-6
+sparse_pivots = 0
+stage = "copy"
+value_type = "Float64"
+[[rows]]
+allocations = 3155
+bytes = 332872
+compile_seconds = 0.0
+core_dimension = 2
+dimension = 256
+pattern = "diagonal"
+samples = 3
+seconds = 8.36e-5
+sparse_pivots = 254
+stage = "refactorize"
+value_type = "Float64"
+[[rows]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+core_dimension = 2
+dimension = 256
+pattern = "diagonal"
+samples = 3
+seconds = 1.16e-5
+sparse_pivots = 254
+stage = "forward"
+value_type = "Float64"
+[[rows]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+core_dimension = 2
+dimension = 256
+pattern = "diagonal"
+samples = 3
+seconds = 1.15e-5
+sparse_pivots = 254
+stage = "transpose"
+value_type = "Float64"
+[[rows]]
+allocations = 11
+bytes = 4528
+compile_seconds = 0.0
+core_dimension = 2
+dimension = 256
+pattern = "diagonal"
+samples = 3
+seconds = 3.9e-6
+sparse_pivots = 254
+stage = "copy"
+value_type = "Float64"
+[[rows]]
+allocations = 4139
+bytes = 377480
+compile_seconds = 0.0
+core_dimension = 5
+dimension = 256
+pattern = "band"
+samples = 3
+seconds = 0.0001208
+sparse_pivots = 251
+stage = "refactorize"
+value_type = "Float64"
+[[rows]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+core_dimension = 5
+dimension = 256
+pattern = "band"
+samples = 3
+seconds = 1.45e-5
+sparse_pivots = 251
+stage = "forward"
+value_type = "Float64"
+[[rows]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+core_dimension = 5
+dimension = 256
+pattern = "band"
+samples = 3
+seconds = 1.52e-5
+sparse_pivots = 251
+stage = "transpose"
+value_type = "Float64"
+[[rows]]
+allocations = 11
+bytes = 4544
+compile_seconds = 0.0
+core_dimension = 5
+dimension = 256
+pattern = "band"
+samples = 3
+seconds = 6.3e-6
+sparse_pivots = 251
+stage = "copy"
+value_type = "Float64"
+[[rows]]
+allocations = 4738
+bytes = 621984
+compile_seconds = 0.0
+core_dimension = 40
+dimension = 256
+pattern = "fill"
+samples = 3
+seconds = 0.0013652
+sparse_pivots = 216
+stage = "refactorize"
+value_type = "Float64"
+[[rows]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+core_dimension = 40
+dimension = 256
+pattern = "fill"
+samples = 3
+seconds = 1.95e-5
+sparse_pivots = 216
+stage = "forward"
+value_type = "Float64"
+[[rows]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+core_dimension = 40
+dimension = 256
+pattern = "fill"
+samples = 3
+seconds = 2.4e-5
+sparse_pivots = 216
+stage = "transpose"
+value_type = "Float64"
+[[rows]]
+allocations = 11
+bytes = 4848
+compile_seconds = 0.0
+core_dimension = 40
+dimension = 256
+pattern = "fill"
+samples = 3
+seconds = 4.9e-6
+sparse_pivots = 216
+stage = "copy"
+value_type = "Float64"
+[[rows]]
+allocations = 3828
+bytes = 1175408
+compile_seconds = 0.0
+core_dimension = 90
+dimension = 256
+pattern = "hybrid"
+samples = 3
+seconds = 0.0003352
+sparse_pivots = 166
+stage = "refactorize"
+value_type = "Float64"
+[[rows]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+core_dimension = 90
+dimension = 256
+pattern = "hybrid"
+samples = 3
+seconds = 1.76e-5
+sparse_pivots = 166
+stage = "forward"
+value_type = "Float64"
+[[rows]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+core_dimension = 90
+dimension = 256
+pattern = "hybrid"
+samples = 3
+seconds = 1.79e-5
+sparse_pivots = 166
+stage = "transpose"
+value_type = "Float64"
+[[rows]]
+allocations = 11
+bytes = 5296
+compile_seconds = 0.0
+core_dimension = 90
+dimension = 256
+pattern = "hybrid"
+samples = 3
+seconds = 3.1e-6
+sparse_pivots = 166
+stage = "copy"
+value_type = "Float64"
+[[rows]]
+allocations = 30
+bytes = 1585976
+compile_seconds = 0.0
+core_dimension = 256
+dimension = 256
+pattern = "dense"
+samples = 3
+seconds = 0.0004038
+sparse_pivots = 0
+stage = "refactorize"
+value_type = "Float64"
+[[rows]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+core_dimension = 256
+dimension = 256
+pattern = "dense"
+samples = 3
+seconds = 3.89e-5
+sparse_pivots = 0
+stage = "forward"
+value_type = "Float64"
+[[rows]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+core_dimension = 256
+dimension = 256
+pattern = "dense"
+samples = 3
+seconds = 3.87e-5
+sparse_pivots = 0
+stage = "transpose"
+value_type = "Float64"
+[[rows]]
+allocations = 12
+bytes = 6568
+compile_seconds = 0.0
+core_dimension = 256
+dimension = 256
+pattern = "dense"
+samples = 3
+seconds = 6.4e-6
+sparse_pivots = 0
+stage = "copy"
+value_type = "Float64"
+[[rows]]
+allocations = 829
+bytes = 75408
+compile_seconds = 0.0
+core_dimension = 2
+dimension = 64
+pattern = "diagonal"
+samples = 3
+seconds = 3.77e-5
+sparse_pivots = 62
+stage = "refactorize"
+value_type = "Float32"
+[[rows]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+core_dimension = 2
+dimension = 64
+pattern = "diagonal"
+samples = 3
+seconds = 1.1e-5
+sparse_pivots = 62
+stage = "forward"
+value_type = "Float32"
+[[rows]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+core_dimension = 2
+dimension = 64
+pattern = "diagonal"
+samples = 3
+seconds = 1.15e-5
+sparse_pivots = 62
+stage = "transpose"
+value_type = "Float32"
+[[rows]]
+allocations = 9
+bytes = 912
+compile_seconds = 0.0
+core_dimension = 2
+dimension = 64
+pattern = "diagonal"
+samples = 3
+seconds = 2.0e-6
+sparse_pivots = 62
+stage = "copy"
+value_type = "Float32"
+[[rows]]
+allocations = 1048
+bytes = 84992
+compile_seconds = 0.0
+core_dimension = 5
+dimension = 64
+pattern = "band"
+samples = 3
+seconds = 4.84e-5
+sparse_pivots = 59
+stage = "refactorize"
+value_type = "Float32"
+[[rows]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+core_dimension = 5
+dimension = 64
+pattern = "band"
+samples = 3
+seconds = 1.11e-5
+sparse_pivots = 59
+stage = "forward"
+value_type = "Float32"
+[[rows]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+core_dimension = 5
+dimension = 64
+pattern = "band"
+samples = 3
+seconds = 1.11e-5
+sparse_pivots = 59
+stage = "transpose"
+value_type = "Float32"
+[[rows]]
+allocations = 9
+bytes = 928
+compile_seconds = 0.0
+core_dimension = 5
+dimension = 64
+pattern = "band"
+samples = 3
+seconds = 2.4e-6
+sparse_pivots = 59
+stage = "copy"
+value_type = "Float32"
+[[rows]]
+allocations = 1050
+bytes = 113720
+compile_seconds = 0.0
+core_dimension = 22
+dimension = 64
+pattern = "fill"
+samples = 3
+seconds = 0.0001387
+sparse_pivots = 42
+stage = "refactorize"
+value_type = "Float32"
+[[rows]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+core_dimension = 22
+dimension = 64
+pattern = "fill"
+samples = 3
+seconds = 1.22e-5
+sparse_pivots = 42
+stage = "forward"
+value_type = "Float32"
+[[rows]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+core_dimension = 22
+dimension = 64
+pattern = "fill"
+samples = 3
+seconds = 1.36e-5
+sparse_pivots = 42
+stage = "transpose"
+value_type = "Float32"
+[[rows]]
+allocations = 9
+bytes = 992
+compile_seconds = 0.0
+core_dimension = 22
+dimension = 64
+pattern = "fill"
+samples = 3
+seconds = 2.1e-6
+sparse_pivots = 42
+stage = "copy"
+value_type = "Float32"
+[[rows]]
+allocations = 846
+bytes = 107656
+compile_seconds = 0.0
+core_dimension = 22
+dimension = 64
+pattern = "hybrid"
+samples = 3
+seconds = 4.24e-5
+sparse_pivots = 42
+stage = "refactorize"
+value_type = "Float32"
+[[rows]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+core_dimension = 22
+dimension = 64
+pattern = "hybrid"
+samples = 3
+seconds = 1.14e-5
+sparse_pivots = 42
+stage = "forward"
+value_type = "Float32"
+[[rows]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+core_dimension = 22
+dimension = 64
+pattern = "hybrid"
+samples = 3
+seconds = 1.28e-5
+sparse_pivots = 42
+stage = "transpose"
+value_type = "Float32"
+[[rows]]
+allocations = 9
+bytes = 992
+compile_seconds = 0.0
+core_dimension = 22
+dimension = 64
+pattern = "hybrid"
+samples = 3
+seconds = 2.3e-6
+sparse_pivots = 42
+stage = "copy"
+value_type = "Float32"
+[[rows]]
+allocations = 24
+bytes = 68808
+compile_seconds = 0.0
+core_dimension = 64
+dimension = 64
+pattern = "dense"
+samples = 3
+seconds = 4.86e-5
+sparse_pivots = 0
+stage = "refactorize"
+value_type = "Float32"
+[[rows]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+core_dimension = 64
+dimension = 64
+pattern = "dense"
+samples = 3
+seconds = 1.09e-5
+sparse_pivots = 0
+stage = "forward"
+value_type = "Float32"
+[[rows]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+core_dimension = 64
+dimension = 64
+pattern = "dense"
+samples = 3
+seconds = 1.33e-5
+sparse_pivots = 0
+stage = "transpose"
+value_type = "Float32"
+[[rows]]
+allocations = 9
+bytes = 1168
+compile_seconds = 0.0
+core_dimension = 64
+dimension = 64
+pattern = "dense"
+samples = 3
+seconds = 1.9e-6
+sparse_pivots = 0
+stage = "copy"
+value_type = "Float32"
+[[rows]]
+allocations = 3153
+bytes = 295192
+compile_seconds = 0.0
+core_dimension = 2
+dimension = 256
+pattern = "diagonal"
+samples = 3
+seconds = 7.29e-5
+sparse_pivots = 254
+stage = "refactorize"
+value_type = "Float32"
+[[rows]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+core_dimension = 2
+dimension = 256
+pattern = "diagonal"
+samples = 3
+seconds = 1.29e-5
+sparse_pivots = 254
+stage = "forward"
+value_type = "Float32"
+[[rows]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+core_dimension = 2
+dimension = 256
+pattern = "diagonal"
+samples = 3
+seconds = 1.29e-5
+sparse_pivots = 254
+stage = "transpose"
+value_type = "Float32"
+[[rows]]
+allocations = 9
+bytes = 2512
+compile_seconds = 0.0
+core_dimension = 2
+dimension = 256
+pattern = "diagonal"
+samples = 3
+seconds = 2.3e-6
+sparse_pivots = 254
+stage = "copy"
+value_type = "Float32"
+[[rows]]
+allocations = 4138
+bytes = 337648
+compile_seconds = 0.0
+core_dimension = 5
+dimension = 256
+pattern = "band"
+samples = 3
+seconds = 0.0001219
+sparse_pivots = 251
+stage = "refactorize"
+value_type = "Float32"
+[[rows]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+core_dimension = 5
+dimension = 256
+pattern = "band"
+samples = 3
+seconds = 1.44e-5
+sparse_pivots = 251
+stage = "forward"
+value_type = "Float32"
+[[rows]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+core_dimension = 5
+dimension = 256
+pattern = "band"
+samples = 3
+seconds = 1.63e-5
+sparse_pivots = 251
+stage = "transpose"
+value_type = "Float32"
+[[rows]]
+allocations = 9
+bytes = 2528
+compile_seconds = 0.0
+core_dimension = 5
+dimension = 256
+pattern = "band"
+samples = 3
+seconds = 2.4e-6
+sparse_pivots = 251
+stage = "copy"
+value_type = "Float32"
+[[rows]]
+allocations = 4737
+bytes = 523880
+compile_seconds = 0.0
+core_dimension = 40
+dimension = 256
+pattern = "fill"
+samples = 3
+seconds = 0.0013712
+sparse_pivots = 216
+stage = "refactorize"
+value_type = "Float32"
+[[rows]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+core_dimension = 40
+dimension = 256
+pattern = "fill"
+samples = 3
+seconds = 1.97e-5
+sparse_pivots = 216
+stage = "forward"
+value_type = "Float32"
+[[rows]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+core_dimension = 40
+dimension = 256
+pattern = "fill"
+samples = 3
+seconds = 2.18e-5
+sparse_pivots = 216
+stage = "transpose"
+value_type = "Float32"
+[[rows]]
+allocations = 9
+bytes = 2672
+compile_seconds = 0.0
+core_dimension = 40
+dimension = 256
+pattern = "fill"
+samples = 3
+seconds = 2.2e-6
+sparse_pivots = 216
+stage = "copy"
+value_type = "Float32"
+[[rows]]
+allocations = 3699
+bytes = 928040
+compile_seconds = 0.0
+core_dimension = 90
+dimension = 256
+pattern = "hybrid"
+samples = 3
+seconds = 0.0002879
+sparse_pivots = 166
+stage = "refactorize"
+value_type = "Float32"
+[[rows]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+core_dimension = 90
+dimension = 256
+pattern = "hybrid"
+samples = 3
+seconds = 1.48e-5
+sparse_pivots = 166
+stage = "forward"
+value_type = "Float32"
+[[rows]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+core_dimension = 90
+dimension = 256
+pattern = "hybrid"
+samples = 3
+seconds = 1.64e-5
+sparse_pivots = 166
+stage = "transpose"
+value_type = "Float32"
+[[rows]]
+allocations = 9
+bytes = 2880
+compile_seconds = 0.0
+core_dimension = 90
+dimension = 256
+pattern = "hybrid"
+samples = 3
+seconds = 1.8e-6
+sparse_pivots = 166
+stage = "copy"
+value_type = "Float32"
+[[rows]]
+allocations = 28
+bytes = 1059688
+compile_seconds = 0.0
+core_dimension = 256
+dimension = 256
+pattern = "dense"
+samples = 3
+seconds = 0.0002962
+sparse_pivots = 0
+stage = "refactorize"
+value_type = "Float32"
+[[rows]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+core_dimension = 256
+dimension = 256
+pattern = "dense"
+samples = 3
+seconds = 2.73e-5
+sparse_pivots = 0
+stage = "forward"
+value_type = "Float32"
+[[rows]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+core_dimension = 256
+dimension = 256
+pattern = "dense"
+samples = 3
+seconds = 2.62e-5
+sparse_pivots = 0
+stage = "transpose"
+value_type = "Float32"
+[[rows]]
+allocations = 9
+bytes = 3568
+compile_seconds = 0.0
+core_dimension = 256
+dimension = 256
+pattern = "dense"
+samples = 3
+seconds = 2.0e-6
+sparse_pivots = 0
+stage = "copy"
+value_type = "Float32"
+[[rows]]
+allocations = 268
+bytes = 24720
+compile_seconds = 0.0
+core_dimension = 2
+dimension = 16
+pattern = "diagonal"
+samples = 3
+seconds = 3.62e-5
+sparse_pivots = 14
+stage = "refactorize"
+value_type = "BigFloat"
+[[rows]]
+allocations = 32
+bytes = 3072
+compile_seconds = 0.0
+core_dimension = 2
+dimension = 16
+pattern = "diagonal"
+samples = 3
+seconds = 2.44e-5
+sparse_pivots = 14
+stage = "forward"
+value_type = "BigFloat"
+[[rows]]
+allocations = 26
+bytes = 2496
+compile_seconds = 0.0
+core_dimension = 2
+dimension = 16
+pattern = "diagonal"
+samples = 3
+seconds = 1.94e-5
+sparse_pivots = 14
+stage = "transpose"
+value_type = "BigFloat"
+[[rows]]
+allocations = 9
+bytes = 672
+compile_seconds = 0.0
+core_dimension = 2
+dimension = 16
+pattern = "diagonal"
+samples = 3
+seconds = 2.6e-6
+sparse_pivots = 14
+stage = "copy"
+value_type = "BigFloat"
+[[rows]]
+allocations = 1025
+bytes = 69856
+compile_seconds = 0.0
+core_dimension = 5
+dimension = 16
+pattern = "band"
+samples = 3
+seconds = 5.43e-5
+sparse_pivots = 11
+stage = "refactorize"
+value_type = "BigFloat"
+[[rows]]
+allocations = 111
+bytes = 10656
+compile_seconds = 0.0
+core_dimension = 5
+dimension = 16
+pattern = "band"
+samples = 3
+seconds = 3.34e-5
+sparse_pivots = 11
+stage = "forward"
+value_type = "BigFloat"
+[[rows]]
+allocations = 107
+bytes = 10272
+compile_seconds = 0.0
+core_dimension = 5
+dimension = 16
+pattern = "band"
+samples = 3
+seconds = 3.4e-5
+sparse_pivots = 11
+stage = "transpose"
+value_type = "BigFloat"
+[[rows]]
+allocations = 9
+bytes = 688
+compile_seconds = 0.0
+core_dimension = 5
+dimension = 16
+pattern = "band"
+samples = 3
+seconds = 2.1e-6
+sparse_pivots = 11
+stage = "copy"
+value_type = "BigFloat"
+[[rows]]
+allocations = 7806
+bytes = 439760
+compile_seconds = 0.0
+core_dimension = 10
+dimension = 16
+pattern = "fill"
+samples = 3
+seconds = 0.0001796
+sparse_pivots = 6
+stage = "refactorize"
+value_type = "BigFloat"
+[[rows]]
+allocations = 289
+bytes = 27744
+compile_seconds = 0.0
+core_dimension = 10
+dimension = 16
+pattern = "fill"
+samples = 3
+seconds = 4.38e-5
+sparse_pivots = 6
+stage = "forward"
+value_type = "BigFloat"
+[[rows]]
+allocations = 280
+bytes = 26880
+compile_seconds = 0.0
+core_dimension = 10
+dimension = 16
+pattern = "fill"
+samples = 3
+seconds = 4.3e-5
+sparse_pivots = 6
+stage = "transpose"
+value_type = "BigFloat"
+[[rows]]
+allocations = 9
+bytes = 736
+compile_seconds = 0.0
+core_dimension = 10
+dimension = 16
+pattern = "fill"
+samples = 3
+seconds = 2.5e-6
+sparse_pivots = 6
+stage = "copy"
+value_type = "BigFloat"
+[[rows]]
+allocations = 392
+bytes = 38176
+compile_seconds = 0.0
+core_dimension = 6
+dimension = 16
+pattern = "hybrid"
+samples = 3
+seconds = 4.24e-5
+sparse_pivots = 10
+stage = "refactorize"
+value_type = "BigFloat"
+[[rows]]
+allocations = 89
+bytes = 8544
+compile_seconds = 0.0
+core_dimension = 6
+dimension = 16
+pattern = "hybrid"
+samples = 3
+seconds = 3.1e-5
+sparse_pivots = 10
+stage = "forward"
+value_type = "BigFloat"
+[[rows]]
+allocations = 84
+bytes = 8064
+compile_seconds = 0.0
+core_dimension = 6
+dimension = 16
+pattern = "hybrid"
+samples = 3
+seconds = 2.6e-5
+sparse_pivots = 10
+stage = "transpose"
+value_type = "BigFloat"
+[[rows]]
+allocations = 9
+bytes = 704
+compile_seconds = 0.0
+core_dimension = 6
+dimension = 16
+pattern = "hybrid"
+samples = 3
+seconds = 2.5e-6
+sparse_pivots = 10
+stage = "copy"
+value_type = "BigFloat"
+[[rows]]
+allocations = 3033
+bytes = 296488
+compile_seconds = 0.0
+core_dimension = 16
+dimension = 16
+pattern = "dense"
+samples = 3
+seconds = 0.000109
+sparse_pivots = 0
+stage = "refactorize"
+value_type = "BigFloat"
+[[rows]]
+allocations = 529
+bytes = 50784
+compile_seconds = 0.0
+core_dimension = 16
+dimension = 16
+pattern = "dense"
+samples = 3
+seconds = 5.28e-5
+sparse_pivots = 0
+stage = "forward"
+value_type = "BigFloat"
+[[rows]]
+allocations = 514
+bytes = 49344
+compile_seconds = 0.0
+core_dimension = 16
+dimension = 16
+pattern = "dense"
+samples = 3
+seconds = 5.77e-5
+sparse_pivots = 0
+stage = "transpose"
+value_type = "BigFloat"
+[[rows]]
+allocations = 9
+bytes = 784
+compile_seconds = 0.0
+core_dimension = 16
+dimension = 16
+pattern = "dense"
+samples = 3
+seconds = 2.2e-6
+sparse_pivots = 0
+stage = "copy"
+value_type = "BigFloat"
+[[rows]]
+allocations = 476
+bytes = 43664
+compile_seconds = 0.0
+core_dimension = 2
+dimension = 32
+pattern = "diagonal"
+samples = 3
+seconds = 3.45e-5
+sparse_pivots = 30
+stage = "refactorize"
+value_type = "BigFloat"
+[[rows]]
+allocations = 48
+bytes = 4608
+compile_seconds = 0.0
+core_dimension = 2
+dimension = 32
+pattern = "diagonal"
+samples = 3
+seconds = 2.55e-5
+sparse_pivots = 30
+stage = "forward"
+value_type = "BigFloat"
+[[rows]]
+allocations = 42
+bytes = 4032
+compile_seconds = 0.0
+core_dimension = 2
+dimension = 32
+pattern = "diagonal"
+samples = 3
+seconds = 2.31e-5
+sparse_pivots = 30
+stage = "transpose"
+value_type = "BigFloat"
+[[rows]]
+allocations = 9
+bytes = 928
+compile_seconds = 0.0
+core_dimension = 2
+dimension = 32
+pattern = "diagonal"
+samples = 3
+seconds = 2.2e-6
+sparse_pivots = 30
+stage = "copy"
+value_type = "BigFloat"
+[[rows]]
+allocations = 2241
+bytes = 144672
+compile_seconds = 0.0
+core_dimension = 5
+dimension = 32
+pattern = "band"
+samples = 3
+seconds = 8.45e-5
+sparse_pivots = 27
+stage = "refactorize"
+value_type = "BigFloat"
+[[rows]]
+allocations = 191
+bytes = 18336
+compile_seconds = 0.0
+core_dimension = 5
+dimension = 32
+pattern = "band"
+samples = 3
+seconds = 4.6e-5
+sparse_pivots = 27
+stage = "forward"
+value_type = "BigFloat"
+[[rows]]
+allocations = 187
+bytes = 17952
+compile_seconds = 0.0
+core_dimension = 5
+dimension = 32
+pattern = "band"
+samples = 3
+seconds = 4.24e-5
+sparse_pivots = 27
+stage = "transpose"
+value_type = "BigFloat"
+[[rows]]
+allocations = 9
+bytes = 944
+compile_seconds = 0.0
+core_dimension = 5
+dimension = 32
+pattern = "band"
+samples = 3
+seconds = 2.3e-6
+sparse_pivots = 27
+stage = "copy"
+value_type = "BigFloat"
+[[rows]]
+allocations = 40915
+bytes = 2198032
+compile_seconds = 0.0
+core_dimension = 15
+dimension = 32
+pattern = "fill"
+samples = 3
+seconds = 0.0007633
+sparse_pivots = 17
+stage = "refactorize"
+value_type = "BigFloat"
+[[rows]]
+allocations = 699
+bytes = 67104
+compile_seconds = 0.0
+core_dimension = 15
+dimension = 32
+pattern = "fill"
+samples = 3
+seconds = 8.67e-5
+sparse_pivots = 17
+stage = "forward"
+value_type = "BigFloat"
+[[rows]]
+allocations = 685
+bytes = 65760
+compile_seconds = 0.0
+core_dimension = 15
+dimension = 32
+pattern = "fill"
+samples = 3
+seconds = 9.18e-5
+sparse_pivots = 17
+stage = "transpose"
+value_type = "BigFloat"
+[[rows]]
+allocations = 9
+bytes = 1024
+compile_seconds = 0.0
+core_dimension = 15
+dimension = 32
+pattern = "fill"
+samples = 3
+seconds = 1.2e-6
+sparse_pivots = 17
+stage = "copy"
+value_type = "BigFloat"
+[[rows]]
+allocations = 1325
+bytes = 129440
+compile_seconds = 0.0
+core_dimension = 11
+dimension = 32
+pattern = "hybrid"
+samples = 3
+seconds = 6.68e-5
+sparse_pivots = 21
+stage = "refactorize"
+value_type = "BigFloat"
+[[rows]]
+allocations = 275
+bytes = 26400
+compile_seconds = 0.0
+core_dimension = 11
+dimension = 32
+pattern = "hybrid"
+samples = 3
+seconds = 4.23e-5
+sparse_pivots = 21
+stage = "forward"
+value_type = "BigFloat"
+[[rows]]
+allocations = 265
+bytes = 25440
+compile_seconds = 0.0
+core_dimension = 11
+dimension = 32
+pattern = "hybrid"
+samples = 3
+seconds = 4.48e-5
+sparse_pivots = 21
+stage = "transpose"
+value_type = "BigFloat"
+[[rows]]
+allocations = 9
+bytes = 992
+compile_seconds = 0.0
+core_dimension = 11
+dimension = 32
+pattern = "hybrid"
+samples = 3
+seconds = 1.2e-6
+sparse_pivots = 21
+stage = "copy"
+value_type = "BigFloat"
+[[rows]]
+allocations = 22937
+bytes = 2226472
+compile_seconds = 0.0
+core_dimension = 32
+dimension = 32
+pattern = "dense"
+samples = 3
+seconds = 0.0007946
+sparse_pivots = 0
+stage = "refactorize"
+value_type = "BigFloat"
+[[rows]]
+allocations = 2081
+bytes = 199776
+compile_seconds = 0.0
+core_dimension = 32
+dimension = 32
+pattern = "dense"
+samples = 3
+seconds = 0.0001745
+sparse_pivots = 0
+stage = "forward"
+value_type = "BigFloat"
+[[rows]]
+allocations = 2050
+bytes = 196800
+compile_seconds = 0.0
+core_dimension = 32
+dimension = 32
+pattern = "dense"
+samples = 3
+seconds = 0.0001915
+sparse_pivots = 0
+stage = "transpose"
+value_type = "BigFloat"
+[[rows]]
+allocations = 9
+bytes = 1168
+compile_seconds = 0.0
+core_dimension = 32
+dimension = 32
+pattern = "dense"
+samples = 3
+seconds = 1.1e-6
+sparse_pivots = 0
+stage = "copy"
+value_type = "BigFloat"
+[[rows]]
+allocations = 335
+bytes = 30048
+compile_seconds = 0.0
+core_dimension = 2
+dimension = 16
+pattern = "diagonal"
+samples = 3
+seconds = 3.26e-5
+sparse_pivots = 14
+stage = "refactorize"
+value_type = "Rational{BigInt}"
+[[rows]]
+allocations = 244
+bytes = 8896
+compile_seconds = 0.0
+core_dimension = 2
+dimension = 16
+pattern = "diagonal"
+samples = 3
+seconds = 2.23e-5
+sparse_pivots = 14
+stage = "forward"
+value_type = "Rational{BigInt}"
+[[rows]]
+allocations = 215
+bytes = 8000
+compile_seconds = 0.0
+core_dimension = 2
+dimension = 16
+pattern = "diagonal"
+samples = 3
+seconds = 2.18e-5
+sparse_pivots = 14
+stage = "transpose"
+value_type = "Rational{BigInt}"
+[[rows]]
+allocations = 9
+bytes = 944
+compile_seconds = 0.0
+core_dimension = 2
+dimension = 16
+pattern = "diagonal"
+samples = 3
+seconds = 2.1e-6
+sparse_pivots = 14
+stage = "copy"
+value_type = "Rational{BigInt}"
+[[rows]]
+allocations = 2197
+bytes = 103968
+compile_seconds = 0.0
+core_dimension = 5
+dimension = 16
+pattern = "band"
+samples = 3
+seconds = 7.79e-5
+sparse_pivots = 11
+stage = "refactorize"
+value_type = "Rational{BigInt}"
+[[rows]]
+allocations = 965
+bytes = 37488
+compile_seconds = 0.0
+core_dimension = 5
+dimension = 16
+pattern = "band"
+samples = 3
+seconds = 3.49e-5
+sparse_pivots = 11
+stage = "forward"
+value_type = "Rational{BigInt}"
+[[rows]]
+allocations = 914
+bytes = 35360
+compile_seconds = 0.0
+core_dimension = 5
+dimension = 16
+pattern = "band"
+samples = 3
+seconds = 4.15e-5
+sparse_pivots = 11
+stage = "transpose"
+value_type = "Rational{BigInt}"
+[[rows]]
+allocations = 9
+bytes = 992
+compile_seconds = 0.0
+core_dimension = 5
+dimension = 16
+pattern = "band"
+samples = 3
+seconds = 1.8e-6
+sparse_pivots = 11
+stage = "copy"
+value_type = "Rational{BigInt}"
+[[rows]]
+allocations = 16811
+bytes = 609624
+compile_seconds = 0.0
+core_dimension = 10
+dimension = 16
+pattern = "fill"
+samples = 3
+seconds = 0.0002766
+sparse_pivots = 6
+stage = "refactorize"
+value_type = "Rational{BigInt}"
+[[rows]]
+allocations = 2487
+bytes = 102608
+compile_seconds = 0.0
+core_dimension = 10
+dimension = 16
+pattern = "fill"
+samples = 3
+seconds = 5.16e-5
+sparse_pivots = 6
+stage = "forward"
+value_type = "Rational{BigInt}"
+[[rows]]
+allocations = 2384
+bytes = 98640
+compile_seconds = 0.0
+core_dimension = 10
+dimension = 16
+pattern = "fill"
+samples = 3
+seconds = 5.74e-5
+sparse_pivots = 6
+stage = "transpose"
+value_type = "Rational{BigInt}"
+[[rows]]
+allocations = 9
+bytes = 1072
+compile_seconds = 0.0
+core_dimension = 10
+dimension = 16
+pattern = "fill"
+samples = 3
+seconds = 1.9e-6
+sparse_pivots = 6
+stage = "copy"
+value_type = "Rational{BigInt}"
+[[rows]]
+allocations = 1292
+bytes = 69264
+compile_seconds = 0.0
+core_dimension = 6
+dimension = 16
+pattern = "hybrid"
+samples = 3
+seconds = 4.06e-5
+sparse_pivots = 10
+stage = "refactorize"
+value_type = "Rational{BigInt}"
+[[rows]]
+allocations = 749
+bytes = 28784
+compile_seconds = 0.0
+core_dimension = 6
+dimension = 16
+pattern = "hybrid"
+samples = 3
+seconds = 2.51e-5
+sparse_pivots = 10
+stage = "forward"
+value_type = "Rational{BigInt}"
+[[rows]]
+allocations = 701
+bytes = 27056
+compile_seconds = 0.0
+core_dimension = 6
+dimension = 16
+pattern = "hybrid"
+samples = 3
+seconds = 2.87e-5
+sparse_pivots = 10
+stage = "transpose"
+value_type = "Rational{BigInt}"
+[[rows]]
+allocations = 9
+bytes = 1008
+compile_seconds = 0.0
+core_dimension = 6
+dimension = 16
+pattern = "hybrid"
+samples = 3
+seconds = 2.1e-6
+sparse_pivots = 10
+stage = "copy"
+value_type = "Rational{BigInt}"
+[[rows]]
+allocations = 23441
+bytes = 934248
+compile_seconds = 0.0
+core_dimension = 16
+dimension = 16
+pattern = "dense"
+samples = 3
+seconds = 0.0003109
+sparse_pivots = 0
+stage = "refactorize"
+value_type = "Rational{BigInt}"
+[[rows]]
+allocations = 4547
+bytes = 193936
+compile_seconds = 0.0
+core_dimension = 16
+dimension = 16
+pattern = "dense"
+samples = 3
+seconds = 9.36e-5
+sparse_pivots = 0
+stage = "forward"
+value_type = "Rational{BigInt}"
+[[rows]]
+allocations = 4391
+bytes = 187600
+compile_seconds = 0.0
+core_dimension = 16
+dimension = 16
+pattern = "dense"
+samples = 3
+seconds = 8.42e-5
+sparse_pivots = 0
+stage = "transpose"
+value_type = "Rational{BigInt}"
+[[rows]]
+allocations = 9
+bytes = 1168
+compile_seconds = 0.0
+core_dimension = 16
+dimension = 16
+pattern = "dense"
+samples = 3
+seconds = 2.4e-6
+sparse_pivots = 0
+stage = "copy"
+value_type = "Rational{BigInt}"
+[[rows]]
+allocations = 591
+bytes = 53600
+compile_seconds = 0.0
+core_dimension = 2
+dimension = 32
+pattern = "diagonal"
+samples = 3
+seconds = 3.31e-5
+sparse_pivots = 30
+stage = "refactorize"
+value_type = "Rational{BigInt}"
+[[rows]]
+allocations = 388
+bytes = 14272
+compile_seconds = 0.0
+core_dimension = 2
+dimension = 32
+pattern = "diagonal"
+samples = 3
+seconds = 2.34e-5
+sparse_pivots = 30
+stage = "forward"
+value_type = "Rational{BigInt}"
+[[rows]]
+allocations = 359
+bytes = 13376
+compile_seconds = 0.0
+core_dimension = 2
+dimension = 32
+pattern = "diagonal"
+samples = 3
+seconds = 2.16e-5
+sparse_pivots = 30
+stage = "transpose"
+value_type = "Rational{BigInt}"
+[[rows]]
+allocations = 9
+bytes = 1456
+compile_seconds = 0.0
+core_dimension = 2
+dimension = 32
+pattern = "diagonal"
+samples = 3
+seconds = 2.2e-6
+sparse_pivots = 30
+stage = "copy"
+value_type = "Rational{BigInt}"
+[[rows]]
+allocations = 4386
+bytes = 201632
+compile_seconds = 0.0
+core_dimension = 5
+dimension = 32
+pattern = "band"
+samples = 3
+seconds = 0.0001057
+sparse_pivots = 27
+stage = "refactorize"
+value_type = "Rational{BigInt}"
+[[rows]]
+allocations = 1685
+bytes = 66480
+compile_seconds = 0.0
+core_dimension = 5
+dimension = 32
+pattern = "band"
+samples = 3
+seconds = 6.21e-5
+sparse_pivots = 27
+stage = "forward"
+value_type = "Rational{BigInt}"
+[[rows]]
+allocations = 1618
+bytes = 63120
+compile_seconds = 0.0
+core_dimension = 5
+dimension = 32
+pattern = "band"
+samples = 3
+seconds = 5.23e-5
+sparse_pivots = 27
+stage = "transpose"
+value_type = "Rational{BigInt}"
+[[rows]]
+allocations = 9
+bytes = 1504
+compile_seconds = 0.0
+core_dimension = 5
+dimension = 32
+pattern = "band"
+samples = 3
+seconds = 1.9e-6
+sparse_pivots = 27
+stage = "copy"
+value_type = "Rational{BigInt}"
+[[rows]]
+allocations = 80606
+bytes = 2685384
+compile_seconds = 0.0
+core_dimension = 15
+dimension = 32
+pattern = "fill"
+samples = 3
+seconds = 0.0012057
+sparse_pivots = 17
+stage = "refactorize"
+value_type = "Rational{BigInt}"
+[[rows]]
+allocations = 6033
+bytes = 257040
+compile_seconds = 0.0
+core_dimension = 15
+dimension = 32
+pattern = "fill"
+samples = 3
+seconds = 0.0001236
+sparse_pivots = 17
+stage = "forward"
+value_type = "Rational{BigInt}"
+[[rows]]
+allocations = 5855
+bytes = 251056
+compile_seconds = 0.0
+core_dimension = 15
+dimension = 32
+pattern = "fill"
+samples = 3
+seconds = 0.0001199
+sparse_pivots = 17
+stage = "transpose"
+value_type = "Rational{BigInt}"
+[[rows]]
+allocations = 9
+bytes = 1664
+compile_seconds = 0.0
+core_dimension = 15
+dimension = 32
+pattern = "fill"
+samples = 3
+seconds = 1.5e-6
+sparse_pivots = 17
+stage = "copy"
+value_type = "Rational{BigInt}"
+[[rows]]
+allocations = 7236
+bytes = 346688
+compile_seconds = 0.0
+core_dimension = 11
+dimension = 32
+pattern = "hybrid"
+samples = 3
+seconds = 0.0001296
+sparse_pivots = 21
+stage = "refactorize"
+value_type = "Rational{BigInt}"
+[[rows]]
+allocations = 2315
+bytes = 96640
+compile_seconds = 0.0
+core_dimension = 11
+dimension = 32
+pattern = "hybrid"
+samples = 3
+seconds = 4.6e-5
+sparse_pivots = 21
+stage = "forward"
+value_type = "Rational{BigInt}"
+[[rows]]
+allocations = 2218
+bytes = 93024
+compile_seconds = 0.0
+core_dimension = 11
+dimension = 32
+pattern = "hybrid"
+samples = 3
+seconds = 4.54e-5
+sparse_pivots = 21
+stage = "transpose"
+value_type = "Rational{BigInt}"
+[[rows]]
+allocations = 9
+bytes = 1600
+compile_seconds = 0.0
+core_dimension = 11
+dimension = 32
+pattern = "hybrid"
+samples = 3
+seconds = 2.3e-6
+sparse_pivots = 21
+stage = "copy"
+value_type = "Rational{BigInt}"
+[[rows]]
+allocations = 186625
+bytes = 7202968
+compile_seconds = 0.0
+core_dimension = 32
+dimension = 32
+pattern = "dense"
+samples = 3
+seconds = 0.0023579
+sparse_pivots = 0
+stage = "refactorize"
+value_type = "Rational{BigInt}"
+[[rows]]
+allocations = 17789
+bytes = 719248
+compile_seconds = 0.0
+core_dimension = 32
+dimension = 32
+pattern = "dense"
+samples = 3
+seconds = 0.0003268
+sparse_pivots = 0
+stage = "forward"
+value_type = "Rational{BigInt}"
+[[rows]]
+allocations = 17479
+bytes = 708976
+compile_seconds = 0.0
+core_dimension = 32
+dimension = 32
+pattern = "dense"
+samples = 3
+seconds = 0.0003056
+sparse_pivots = 0
+stage = "transpose"
+value_type = "Rational{BigInt}"
+[[rows]]
+allocations = 9
+bytes = 1936
+compile_seconds = 0.0
+core_dimension = 32
+dimension = 32
+pattern = "dense"
+samples = 3
+seconds = 2.6e-6
+sparse_pivots = 0
+stage = "copy"
+value_type = "Rational{BigInt}"
+
+[[solves]]
+algorithm = "dual"
+allocations = 1082
+basis_update = "pfi"
+bytes = 111744
+compile_seconds = 0.0
+dataset = "afiro"
+iterations = 20
+objective = -464.7531428571428
+refactorizations = 1
+samples = 3
+seconds = 0.0001625
+status = "OPTIMAL"
+[[solves]]
+algorithm = "primal"
+allocations = 1499
+basis_update = "pfi"
+bytes = 156976
+compile_seconds = 0.0
+dataset = "afiro"
+iterations = 16
+objective = -464.75314285714285
+refactorizations = 1
+samples = 3
+seconds = 0.0001395
+status = "OPTIMAL"
+[[solves]]
+algorithm = "dual"
+allocations = 1336
+basis_update = "forrest_tomlin"
+bytes = 122848
+compile_seconds = 0.0
+dataset = "afiro"
+iterations = 20
+objective = -464.7531428571428
+refactorizations = 1
+samples = 3
+seconds = 0.0001937
+status = "OPTIMAL"
+[[solves]]
+algorithm = "primal"
+allocations = 1761
+basis_update = "forrest_tomlin"
+bytes = 169040
+compile_seconds = 0.0
+dataset = "afiro"
+iterations = 16
+objective = -464.75314285714285
+refactorizations = 1
+samples = 3
+seconds = 0.0001704
+status = "OPTIMAL"
+[[solves]]
+algorithm = "dual"
+allocations = 1328
+basis_update = "suhl_suhl"
+bytes = 122800
+compile_seconds = 0.0
+dataset = "afiro"
+iterations = 20
+objective = -464.75314285714285
+refactorizations = 1
+samples = 3
+seconds = 0.000183
+status = "OPTIMAL"
+[[solves]]
+algorithm = "primal"
+allocations = 1759
+basis_update = "suhl_suhl"
+bytes = 170304
+compile_seconds = 0.0
+dataset = "afiro"
+iterations = 16
+objective = -464.75314285714285
+refactorizations = 1
+samples = 3
+seconds = 0.000177
+status = "OPTIMAL"
+[[solves]]
+algorithm = "dual"
+allocations = 1445
+basis_update = "bartels_golub"
+bytes = 129328
+compile_seconds = 0.0
+dataset = "afiro"
+iterations = 20
+objective = -464.7531428571428
+refactorizations = 1
+samples = 3
+seconds = 0.000208901
+status = "OPTIMAL"
+[[solves]]
+algorithm = "primal"
+allocations = 1850
+basis_update = "bartels_golub"
+bytes = 176416
+compile_seconds = 0.0
+dataset = "afiro"
+iterations = 16
+objective = -464.75314285714285
+refactorizations = 1
+samples = 3
+seconds = 0.0002105
+status = "OPTIMAL"
+[[solves]]
+algorithm = "dual"
+allocations = 10376
+basis_update = "pfi"
+bytes = 1202016
+compile_seconds = 0.0
+dataset = "adlittle"
+iterations = 111
+objective = 225494.9631623804
+refactorizations = 11
+samples = 3
+seconds = 0.0009615
+status = "OPTIMAL"
+[[solves]]
+algorithm = "primal"
+allocations = 5996
+basis_update = "pfi"
+bytes = 749488
+compile_seconds = 0.0
+dataset = "adlittle"
+iterations = 82
+objective = 225494.96316238027
+refactorizations = 5
+samples = 3
+seconds = 0.0009762
+status = "OPTIMAL"
+[[solves]]
+algorithm = "dual"
+allocations = 5108
+basis_update = "forrest_tomlin"
+bytes = 629904
+compile_seconds = 0.0
+dataset = "adlittle"
+iterations = 98
+objective = 225494.96316237992
+refactorizations = 4
+samples = 3
+seconds = 0.000903801
+status = "OPTIMAL"
+[[solves]]
+algorithm = "primal"
+allocations = 6632
+basis_update = "forrest_tomlin"
+bytes = 802896
+compile_seconds = 0.0
+dataset = "adlittle"
+iterations = 82
+objective = 225494.96316238027
+refactorizations = 5
+samples = 3
+seconds = 0.0009997
+status = "OPTIMAL"
+[[solves]]
+algorithm = "dual"
+allocations = 5094
+basis_update = "suhl_suhl"
+bytes = 632128
+compile_seconds = 0.0
+dataset = "adlittle"
+iterations = 98
+objective = 225494.96316237992
+refactorizations = 4
+samples = 3
+seconds = 0.0009125
+status = "OPTIMAL"
+[[solves]]
+algorithm = "primal"
+allocations = 6642
+basis_update = "suhl_suhl"
+bytes = 812080
+compile_seconds = 0.0
+dataset = "adlittle"
+iterations = 82
+objective = 225494.96316238027
+refactorizations = 5
+samples = 3
+seconds = 0.0009872
+status = "OPTIMAL"
+[[solves]]
+algorithm = "dual"
+allocations = 6240
+basis_update = "bartels_golub"
+bytes = 742352
+compile_seconds = 0.0
+dataset = "adlittle"
+iterations = 100
+objective = 225494.96316238045
+refactorizations = 5
+samples = 3
+seconds = 0.0011853
+status = "OPTIMAL"
+[[solves]]
+algorithm = "primal"
+allocations = 6809
+basis_update = "bartels_golub"
+bytes = 816064
+compile_seconds = 0.0
+dataset = "adlittle"
+iterations = 82
+objective = 225494.96316238027
+refactorizations = 5
+samples = 3
+seconds = 0.0011624
+status = "OPTIMAL"

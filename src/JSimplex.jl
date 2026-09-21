@@ -3,6 +3,7 @@ module JSimplex
 using LinearAlgebra
 using Logging
 using SparseArrays
+import OrderedCollections
 
 include("numeric.jl")
 include("options.jl")

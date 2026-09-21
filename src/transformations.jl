@@ -75,7 +75,9 @@ function scale_problem(problem::LinearProblem{T}) where {T<:AbstractFloat}
         row_valid[row] &= _safe_scale_shift(A.nzval[position], -row_exponents[row])
     end
 
-    row_factors = ones(T, row_count)
+    # Row maxima are no longer needed after choosing and validating exponents.
+    row_factors = row_maxima
+    fill!(row_factors, one(T))
     row_lower, row_upper = copy(problem.row_lower), copy(problem.row_upper)
     scaled_A = copy(A)
     for row in 1:row_count
@@ -91,20 +93,18 @@ function scale_problem(problem::LinearProblem{T}) where {T<:AbstractFloat}
         scaled_A.nzval[position] = _scale_shift(scaled_A.nzval[position], -row_exponents[row])
     end
 
-    column_maxima = zeros(T, column_count)
-    for column in 1:column_count
-        for position in A.colptr[column]:(A.colptr[column + 1] - 1)
-            column_maxima[column] = max(column_maxima[column],
-                                        _scale_magnitude(scaled_A.nzval[position]))
-        end
-    end
+    column_zero = zero(T)
     column_factors = ones(T, column_count)
     scaled_objective = copy(problem.objective)
     column_lower, column_upper = copy(problem.column_lower), copy(problem.column_upper)
     for column in 1:column_count
+        column_maximum = column_zero
+        for position in A.colptr[column]:(A.colptr[column + 1] - 1)
+            column_maximum = max(column_maximum, _scale_magnitude(scaled_A.nzval[position]))
+        end
         problem.variable_domains[column] == CONTINUOUS || continue
-        iszero(column_maxima[column]) && continue
-        exponent = _scale_exponent(column_maxima[column])
+        iszero(column_maximum) && continue
+        exponent = _scale_exponent(column_maximum)
         _safe_scale_bound(column_lower[column], exponent) || continue
         _safe_scale_bound(column_upper[column], exponent) || continue
         _safe_scale_shift(scaled_objective[column], -exponent) || continue
@@ -139,6 +139,11 @@ unscale_dual(scaling::Scaling{T}, y::AbstractVector{<:Real}) where {T} =
 
 function postsolve_primal(result::PresolveResult{T}, x::AbstractVector{<:Real}) where {T}
     restored = _postsolve_primal(result.postsolve_stack, convert.(T, x))
+    # Conversion and the built-in postsolve steps produce fresh dense vectors.
+    # Keep slicing for truncation and for other AbstractVector representations.
+    if restored isa Vector{T} && length(restored) == result.original_column_count
+        return restored
+    end
     return restored[1:result.original_column_count]
 end
 
@@ -147,16 +152,24 @@ _postsolve_primal(steps::Tuple, x) =
     postsolve_primal(first(steps), _postsolve_primal(Base.tail(steps), x))
 
 function relax_integrality(problem::LinearProblem{T}) where {T}
-    column_lower = copy(problem.column_lower)
-    column_upper = copy(problem.column_upper)
+    column_lower = problem.column_lower
+    column_upper = problem.column_upper
 
     for index in eachindex(problem.variable_domains)
-        if problem.variable_domains[index] == BINARY
+        domain = problem.variable_domains[index]
+        domain in (BINARY, SEMI_CONTINUOUS, SEMI_INTEGER) || continue
+        # The result constructor copies bounds; working copies are only needed
+        # when a domain requires bound adjustments before construction.
+        if column_lower === problem.column_lower
+            column_lower = copy(column_lower)
+            column_upper = copy(column_upper)
+        end
+        if domain == BINARY
             column_lower[index] = Bound(isfinite(column_lower[index]) ?
                 max(zero(T), bound_value(column_lower[index])) : zero(T))
             column_upper[index] = Bound(isfinite(column_upper[index]) ?
                 min(one(T), bound_value(column_upper[index])) : one(T))
-        elseif problem.variable_domains[index] in (SEMI_CONTINUOUS, SEMI_INTEGER)
+        elseif domain in (SEMI_CONTINUOUS, SEMI_INTEGER)
             isfinite(column_lower[index]) &&
                 (column_lower[index] = Bound(min(zero(T), bound_value(column_lower[index]))))
             isfinite(column_upper[index]) &&

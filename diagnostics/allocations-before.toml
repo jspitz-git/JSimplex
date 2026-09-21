@@ -1,0 +1,876 @@
+basis_refactorization = "native"
+basis_update = "pfi"
+blas_threads = 9
+julia_version = "1.13.0"
+machine = "aarch64-linux-gnu"
+threads = 1
+
+[[datasets.adlittle]]
+allocations = 10894
+bytes = 680560
+compile_seconds = 0.0
+samples = 3
+seconds = 0.0008466
+stage = "read_mps"
+[[datasets.adlittle]]
+allocations = 3533
+bytes = 238728
+compile_seconds = 0.0
+samples = 3
+seconds = 0.000235
+stage = "moi_translation"
+[[datasets.adlittle]]
+allocations = 154219
+bytes = 6142736
+compile_seconds = 0.0
+samples = 3
+seconds = 0.002939
+stage = "presolve"
+[[datasets.adlittle]]
+allocations = 55
+bytes = 31696
+compile_seconds = 0.0
+samples = 3
+seconds = 2.2e-5
+stage = "scaling"
+[[datasets.adlittle]]
+allocations = 184
+bytes = 70064
+compile_seconds = 0.0
+samples = 3
+seconds = 6.96e-5
+stage = "initialize"
+[[datasets.adlittle]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+samples = 3
+seconds = 1.58e-5
+stage = "recompute"
+[[datasets.adlittle]]
+allocations = 101
+bytes = 38096
+compile_seconds = 0.0
+samples = 3
+seconds = 4.88e-5
+stage = "refactorize"
+[[datasets.adlittle]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+samples = 3
+seconds = 7.4e-6
+stage = "forward_solve"
+[[datasets.adlittle]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+samples = 3
+seconds = 7.8e-6
+stage = "transpose_solve"
+[[datasets.adlittle]]
+allocations = 27
+bytes = 12144
+compile_seconds = 0.0
+samples = 3
+seconds = 1.0e-5
+stage = "_presolve_basic"
+[[datasets.adlittle]]
+allocations = 432
+bytes = 62472
+compile_seconds = 0.0
+samples = 3
+seconds = 6.25e-5
+stage = "reduce_singleton_rows"
+[[datasets.adlittle]]
+allocations = 836
+bytes = 77096
+compile_seconds = 0.0
+samples = 3
+seconds = 5.35e-5
+stage = "aggregate_singleton_equalities"
+[[datasets.adlittle]]
+allocations = 3320
+bytes = 204288
+compile_seconds = 0.0
+samples = 3
+seconds = 0.0001383
+stage = "aggregate_sparse_equalities"
+[[datasets.adlittle]]
+allocations = 1839
+bytes = 91136
+compile_seconds = 0.0
+samples = 3
+seconds = 6.97e-5
+stage = "reduce_parallel_rows"
+[[datasets.adlittle]]
+allocations = 26828
+bytes = 1092680
+compile_seconds = 0.0
+samples = 3
+seconds = 0.000602
+stage = "reduce_dependent_rows"
+[[datasets.adlittle]]
+allocations = 160
+bytes = 20464
+compile_seconds = 0.0
+samples = 3
+seconds = 8.1e-6
+stage = "substitute_free_doubleton"
+[[datasets.adlittle]]
+allocations = 39382
+bytes = 1445600
+compile_seconds = 0.0
+samples = 3
+seconds = 0.0006181
+stage = "propagate_row_bounds"
+[[datasets.adlittle]]
+allocations = 136
+bytes = 46464
+compile_seconds = 0.0
+samples = 3
+seconds = 4.41e-5
+stage = "reduce_dual_fixings"
+[[datasets.adlittle]]
+allocations = 16
+bytes = 6784
+compile_seconds = 0.0
+samples = 3
+seconds = 8.2e-6
+stage = "postsolve"
+[[datasets.adlittle]]
+allocations = 156861
+bytes = 7161768
+compile_seconds = 0.0
+iterations = 102
+objective = 225494.9631623804
+samples = 3
+seconds = 0.0041646
+stage = "solve_dual"
+status = "OPTIMAL"
+[[datasets.adlittle]]
+allocations = 1721
+bytes = 606768
+compile_seconds = 0.0
+iterations = 91
+objective = 225494.96316238047
+samples = 3
+seconds = 0.000907
+stage = "solve_dual_no_presolve"
+status = "OPTIMAL"
+[[datasets.adlittle]]
+allocations = 157809
+bytes = 7492144
+compile_seconds = 0.0
+iterations = 117
+objective = 225494.96316238027
+samples = 3
+seconds = 0.004935401
+stage = "solve_primal"
+status = "OPTIMAL"
+[[datasets.adlittle]]
+allocations = 2404
+bytes = 794000
+compile_seconds = 0.0
+iterations = 87
+objective = 225494.96316238036
+samples = 3
+seconds = 0.0011677
+stage = "solve_primal_no_presolve"
+status = "OPTIMAL"
+
+[[datasets.afiro]]
+allocations = 2657
+bytes = 166344
+compile_seconds = 0.0
+samples = 3
+seconds = 0.0003157
+stage = "read_mps"
+[[datasets.afiro]]
+allocations = 1373
+bytes = 75608
+compile_seconds = 0.0
+samples = 3
+seconds = 0.0002398
+stage = "moi_translation"
+[[datasets.afiro]]
+allocations = 35459
+bytes = 1471952
+compile_seconds = 0.0
+samples = 3
+seconds = 0.0008454
+stage = "presolve"
+[[datasets.afiro]]
+allocations = 51
+bytes = 11008
+compile_seconds = 0.0
+samples = 3
+seconds = 1.1e-5
+stage = "scaling"
+[[datasets.afiro]]
+allocations = 182
+bytes = 35728
+compile_seconds = 0.0
+samples = 3
+seconds = 6.04e-5
+stage = "initialize"
+[[datasets.afiro]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+samples = 3
+seconds = 1.25e-5
+stage = "recompute"
+[[datasets.afiro]]
+allocations = 101
+bytes = 21200
+compile_seconds = 0.0
+samples = 3
+seconds = 4.79e-5
+stage = "refactorize"
+[[datasets.afiro]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+samples = 3
+seconds = 4.9e-6
+stage = "forward_solve"
+[[datasets.afiro]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+samples = 3
+seconds = 6.6e-6
+stage = "transpose_solve"
+[[datasets.afiro]]
+allocations = 25
+bytes = 4304
+compile_seconds = 0.0
+samples = 3
+seconds = 8.8e-6
+stage = "_presolve_basic"
+[[datasets.afiro]]
+allocations = 249
+bytes = 20976
+compile_seconds = 0.0
+samples = 3
+seconds = 4.91e-5
+stage = "reduce_singleton_rows"
+[[datasets.afiro]]
+allocations = 883
+bytes = 46112
+compile_seconds = 0.0
+samples = 3
+seconds = 7.36e-5
+stage = "aggregate_singleton_equalities"
+[[datasets.afiro]]
+allocations = 6502
+bytes = 282368
+compile_seconds = 0.0
+samples = 3
+seconds = 0.0001779
+stage = "aggregate_sparse_equalities"
+[[datasets.afiro]]
+allocations = 133
+bytes = 9440
+compile_seconds = 0.0
+samples = 3
+seconds = 1.37e-5
+stage = "reduce_parallel_rows"
+[[datasets.afiro]]
+allocations = 9639
+bytes = 399936
+compile_seconds = 0.0
+samples = 3
+seconds = 0.0002058
+stage = "reduce_dependent_rows"
+[[datasets.afiro]]
+allocations = 65
+bytes = 4848
+compile_seconds = 0.0
+samples = 3
+seconds = 6.3e-6
+stage = "substitute_free_doubleton"
+[[datasets.afiro]]
+allocations = 6491
+bytes = 253472
+compile_seconds = 0.0
+samples = 3
+seconds = 0.0001642
+stage = "propagate_row_bounds"
+[[datasets.afiro]]
+allocations = 3
+bytes = 752
+compile_seconds = 0.0
+samples = 3
+seconds = 3.9e-6
+stage = "reduce_dual_fixings"
+[[datasets.afiro]]
+allocations = 18
+bytes = 2592
+compile_seconds = 0.0
+samples = 3
+seconds = 7.4e-6
+stage = "postsolve"
+[[datasets.afiro]]
+allocations = 36468
+bytes = 1646176
+compile_seconds = 0.0
+iterations = 9
+objective = -464.75314285714273
+samples = 3
+seconds = 0.0009428
+stage = "solve_dual"
+status = "OPTIMAL"
+[[datasets.afiro]]
+allocations = 663
+bytes = 110912
+compile_seconds = 0.0
+iterations = 20
+objective = -464.7531428571428
+samples = 3
+seconds = 0.0001841
+stage = "solve_dual_no_presolve"
+status = "OPTIMAL"
+[[datasets.afiro]]
+allocations = 36347
+bytes = 1619408
+compile_seconds = 0.0
+iterations = 9
+objective = -464.75314285714273
+samples = 3
+seconds = 0.0009863
+stage = "solve_primal"
+status = "OPTIMAL"
+[[datasets.afiro]]
+allocations = 932
+bytes = 147264
+compile_seconds = 0.0
+iterations = 16
+objective = -464.75314285714285
+samples = 3
+seconds = 0.0002114
+stage = "solve_primal_no_presolve"
+status = "OPTIMAL"
+
+[[datasets.flugpl]]
+allocations = 2832
+bytes = 167256
+compile_seconds = 0.0
+samples = 3
+seconds = 0.0003205
+stage = "read_mps"
+[[datasets.flugpl]]
+allocations = 1036
+bytes = 58360
+compile_seconds = 0.0
+samples = 3
+seconds = 0.0001508
+stage = "moi_translation"
+[[datasets.flugpl]]
+allocations = 43395
+bytes = 1650592
+compile_seconds = 0.0
+samples = 3
+seconds = 0.0008332
+stage = "presolve"
+[[datasets.flugpl]]
+allocations = 51
+bytes = 7136
+compile_seconds = 0.0
+samples = 3
+seconds = 9.8e-6
+stage = "scaling"
+[[datasets.flugpl]]
+allocations = 182
+bytes = 25968
+compile_seconds = 0.0
+samples = 3
+seconds = 6.1e-5
+stage = "initialize"
+[[datasets.flugpl]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+samples = 3
+seconds = 1.01e-5
+stage = "recompute"
+[[datasets.flugpl]]
+allocations = 101
+bytes = 15488
+compile_seconds = 0.0
+samples = 3
+seconds = 4.08e-5
+stage = "refactorize"
+[[datasets.flugpl]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+samples = 3
+seconds = 6.2e-6
+stage = "forward_solve"
+[[datasets.flugpl]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+samples = 3
+seconds = 6.7e-6
+stage = "transpose_solve"
+[[datasets.flugpl]]
+allocations = 25
+bytes = 2864
+compile_seconds = 0.0
+samples = 3
+seconds = 8.7e-6
+stage = "_presolve_basic"
+[[datasets.flugpl]]
+allocations = 195
+bytes = 13720
+compile_seconds = 0.0
+samples = 3
+seconds = 4.92e-5
+stage = "reduce_singleton_rows"
+[[datasets.flugpl]]
+allocations = 102
+bytes = 5040
+compile_seconds = 0.0
+samples = 3
+seconds = 1.93e-5
+stage = "aggregate_singleton_equalities"
+[[datasets.flugpl]]
+allocations = 6260
+bytes = 238456
+compile_seconds = 0.0
+samples = 3
+seconds = 0.0001371
+stage = "aggregate_sparse_equalities"
+[[datasets.flugpl]]
+allocations = 89
+bytes = 5936
+compile_seconds = 0.0
+samples = 3
+seconds = 1.38e-5
+stage = "reduce_parallel_rows"
+[[datasets.flugpl]]
+allocations = 7991
+bytes = 344656
+compile_seconds = 0.0
+samples = 3
+seconds = 0.0001656
+stage = "reduce_dependent_rows"
+[[datasets.flugpl]]
+allocations = 39
+bytes = 2368
+compile_seconds = 0.0
+samples = 3
+seconds = 6.0e-6
+stage = "substitute_free_doubleton"
+[[datasets.flugpl]]
+allocations = 7239
+bytes = 278296
+compile_seconds = 0.0
+samples = 3
+seconds = 0.000166
+stage = "propagate_row_bounds"
+[[datasets.flugpl]]
+allocations = 130
+bytes = 11824
+compile_seconds = 0.0
+samples = 3
+seconds = 3.09e-5
+stage = "reduce_dual_fixings"
+[[datasets.flugpl]]
+allocations = 12
+bytes = 1216
+compile_seconds = 0.0
+samples = 3
+seconds = 3.3e-6
+stage = "postsolve"
+[[datasets.flugpl]]
+allocations = 44215
+bytes = 1778840
+compile_seconds = 0.0
+iterations = 12
+objective = 1.1671857255923203e6
+samples = 3
+seconds = 0.0010877
+stage = "solve_dual"
+status = "OPTIMAL"
+[[datasets.flugpl]]
+allocations = 443
+bytes = 51600
+compile_seconds = 0.0
+iterations = 14
+objective = 1.1671857255923203e6
+samples = 3
+seconds = 0.0001523
+stage = "solve_dual_no_presolve"
+status = "OPTIMAL"
+[[datasets.flugpl]]
+allocations = 44670
+bytes = 1834968
+compile_seconds = 0.0
+iterations = 11
+objective = 1.1671857255923203e6
+samples = 3
+seconds = 0.0010668
+stage = "solve_primal"
+status = "OPTIMAL"
+[[datasets.flugpl]]
+allocations = 908
+bytes = 112896
+compile_seconds = 0.0
+iterations = 14
+objective = 1.1671857255923203e6
+samples = 3
+seconds = 0.0001907
+stage = "solve_primal_no_presolve"
+status = "OPTIMAL"
+
+[[datasets.kb2]]
+allocations = 7058
+bytes = 464128
+compile_seconds = 0.0
+samples = 3
+seconds = 0.0005753
+stage = "read_mps"
+[[datasets.kb2]]
+allocations = 2494
+bytes = 161952
+compile_seconds = 0.0
+samples = 3
+seconds = 0.0001888
+stage = "moi_translation"
+[[datasets.kb2]]
+allocations = 381259
+bytes = 16280344
+compile_seconds = 0.0
+samples = 3
+seconds = 0.021629301
+stage = "presolve"
+[[datasets.kb2]]
+allocations = 55
+bytes = 20256
+compile_seconds = 0.0
+samples = 3
+seconds = 1.94e-5
+stage = "scaling"
+[[datasets.kb2]]
+allocations = 182
+bytes = 51024
+compile_seconds = 0.0
+samples = 3
+seconds = 5.37e-5
+stage = "initialize"
+[[datasets.kb2]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+samples = 3
+seconds = 1.33e-5
+stage = "recompute"
+[[datasets.kb2]]
+allocations = 101
+bytes = 30624
+compile_seconds = 0.0
+samples = 3
+seconds = 5.68e-5
+stage = "refactorize"
+[[datasets.kb2]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+samples = 3
+seconds = 7.9e-6
+stage = "forward_solve"
+[[datasets.kb2]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+samples = 3
+seconds = 6.5e-6
+stage = "transpose_solve"
+[[datasets.kb2]]
+allocations = 27
+bytes = 8368
+compile_seconds = 0.0
+samples = 3
+seconds = 1.26e-5
+stage = "_presolve_basic"
+[[datasets.kb2]]
+allocations = 148
+bytes = 21824
+compile_seconds = 0.0
+samples = 3
+seconds = 9.1e-6
+stage = "reduce_singleton_rows"
+[[datasets.kb2]]
+allocations = 2962
+bytes = 159304
+compile_seconds = 0.0
+samples = 3
+seconds = 9.63e-5
+stage = "aggregate_singleton_equalities"
+[[datasets.kb2]]
+allocations = 3831
+bytes = 212024
+compile_seconds = 0.0
+samples = 3
+seconds = 0.0001165
+stage = "aggregate_sparse_equalities"
+[[datasets.kb2]]
+allocations = 5561
+bytes = 223760
+compile_seconds = 0.0
+samples = 3
+seconds = 0.0001234
+stage = "reduce_parallel_rows"
+[[datasets.kb2]]
+allocations = 132421
+bytes = 5321592
+compile_seconds = 0.0
+samples = 3
+seconds = 0.0043977
+stage = "reduce_dependent_rows"
+[[datasets.kb2]]
+allocations = 135
+bytes = 18256
+compile_seconds = 0.0
+samples = 3
+seconds = 5.9e-6
+stage = "substitute_free_doubleton"
+[[datasets.kb2]]
+allocations = 32879
+bytes = 1210992
+compile_seconds = 0.0
+samples = 3
+seconds = 0.0005102
+stage = "propagate_row_bounds"
+[[datasets.kb2]]
+allocations = 3
+bytes = 912
+compile_seconds = 0.0
+samples = 3
+seconds = 4.4e-6
+stage = "reduce_dual_fixings"
+[[datasets.kb2]]
+allocations = 10
+bytes = 1760
+compile_seconds = 0.0
+samples = 3
+seconds = 5.3e-6
+stage = "postsolve"
+[[datasets.kb2]]
+allocations = 382791
+bytes = 16865592
+compile_seconds = 0.0
+iterations = 41
+objective = -1749.9001299062058
+samples = 3
+seconds = 0.0222508
+stage = "solve_dual"
+status = "OPTIMAL"
+[[datasets.kb2]]
+allocations = 1886
+bytes = 1070240
+compile_seconds = 0.0
+iterations = 50
+objective = -1749.900129906206
+samples = 3
+seconds = 0.0008579
+stage = "solve_dual_no_presolve"
+status = "OPTIMAL"
+[[datasets.kb2]]
+allocations = 382996
+bytes = 16886504
+compile_seconds = 0.0
+iterations = 45
+objective = -1749.9001299062054
+samples = 3
+seconds = 0.0229334
+stage = "solve_primal"
+status = "OPTIMAL"
+[[datasets.kb2]]
+allocations = 1346
+bytes = 353208
+compile_seconds = 0.0
+iterations = 54
+objective = -1749.9001299062058
+samples = 3
+seconds = 0.0006491
+stage = "solve_primal_no_presolve"
+status = "OPTIMAL"
+
+[[datasets.sc50a]]
+allocations = 4207
+bytes = 258840
+compile_seconds = 0.0
+samples = 3
+seconds = 0.0004175
+stage = "read_mps"
+[[datasets.sc50a]]
+allocations = 2236
+bytes = 129416
+compile_seconds = 0.0
+samples = 3
+seconds = 0.0001664
+stage = "moi_translation"
+[[datasets.sc50a]]
+allocations = 154227
+bytes = 6015216
+compile_seconds = 0.0
+samples = 3
+seconds = 0.0025322
+stage = "presolve"
+[[datasets.sc50a]]
+allocations = 51
+bytes = 17072
+compile_seconds = 0.0
+samples = 3
+seconds = 1.15e-5
+stage = "scaling"
+[[datasets.sc50a]]
+allocations = 182
+bytes = 58016
+compile_seconds = 0.0
+samples = 3
+seconds = 4.94e-5
+stage = "initialize"
+[[datasets.sc50a]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+samples = 3
+seconds = 1.4e-5
+stage = "recompute"
+[[datasets.sc50a]]
+allocations = 101
+bytes = 34736
+compile_seconds = 0.0
+samples = 3
+seconds = 5.6e-5
+stage = "refactorize"
+[[datasets.sc50a]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+samples = 3
+seconds = 8.6e-6
+stage = "forward_solve"
+[[datasets.sc50a]]
+allocations = 0
+bytes = 0
+compile_seconds = 0.0
+samples = 3
+seconds = 7.0e-6
+stage = "transpose_solve"
+[[datasets.sc50a]]
+allocations = 70
+bytes = 22336
+compile_seconds = 0.0
+samples = 3
+seconds = 1.8e-5
+stage = "_presolve_basic"
+[[datasets.sc50a]]
+allocations = 123
+bytes = 11680
+compile_seconds = 0.0
+samples = 3
+seconds = 9.1e-6
+stage = "reduce_singleton_rows"
+[[datasets.sc50a]]
+allocations = 308
+bytes = 15664
+compile_seconds = 0.0
+samples = 3
+seconds = 2.97e-5
+stage = "aggregate_singleton_equalities"
+[[datasets.sc50a]]
+allocations = 9481
+bytes = 420632
+compile_seconds = 0.0
+samples = 3
+seconds = 0.0002273
+stage = "aggregate_sparse_equalities"
+[[datasets.sc50a]]
+allocations = 576
+bytes = 30792
+compile_seconds = 0.0
+samples = 3
+seconds = 4.39e-5
+stage = "reduce_parallel_rows"
+[[datasets.sc50a]]
+allocations = 74079
+bytes = 2880560
+compile_seconds = 0.0
+samples = 3
+seconds = 0.0013249
+stage = "reduce_dependent_rows"
+[[datasets.sc50a]]
+allocations = 110
+bytes = 7552
+compile_seconds = 0.0
+samples = 3
+seconds = 6.6e-6
+stage = "substitute_free_doubleton"
+[[datasets.sc50a]]
+allocations = 16530
+bytes = 624088
+compile_seconds = 0.0
+samples = 3
+seconds = 0.0003067
+stage = "propagate_row_bounds"
+[[datasets.sc50a]]
+allocations = 3
+bytes = 1072
+compile_seconds = 0.0
+samples = 3
+seconds = 4.2e-6
+stage = "reduce_dual_fixings"
+[[datasets.sc50a]]
+allocations = 16
+bytes = 3008
+compile_seconds = 0.0
+samples = 3
+seconds = 6.7e-6
+stage = "postsolve"
+[[datasets.sc50a]]
+allocations = 155558
+bytes = 6432560
+compile_seconds = 0.0
+iterations = 34
+objective = -64.57507705856449
+samples = 3
+seconds = 0.0029546
+stage = "solve_dual"
+status = "OPTIMAL"
+[[datasets.sc50a]]
+allocations = 1171
+bytes = 370960
+compile_seconds = 0.0
+iterations = 52
+objective = -64.57507705856449
+samples = 3
+seconds = 0.0005756
+stage = "solve_dual_no_presolve"
+status = "OPTIMAL"
+[[datasets.sc50a]]
+allocations = 155508
+bytes = 6384480
+compile_seconds = 0.0
+iterations = 29
+objective = -64.57507705856447
+samples = 3
+seconds = 0.002963
+stage = "solve_primal"
+status = "OPTIMAL"
+[[datasets.sc50a]]
+allocations = 1211
+bytes = 301176
+compile_seconds = 0.0
+iterations = 46
+objective = -64.57507705856449
+samples = 3
+seconds = 0.0005381
+stage = "solve_primal_no_presolve"
+status = "OPTIMAL"

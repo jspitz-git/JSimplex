@@ -256,12 +256,15 @@ _primal_relaxed_step(raw_step::T, tolerance::T, movement::T) where {T<:Rational}
 function _primal_ratio(workspace::SimplexWorkspace{T}, entering::Int, direction::T,
                        tableau_column::Vector{T}) where {T}
     opposite = direction > zero(T) ? workspace.upper[entering] : workspace.lower[entering]
-    entering_step = isfinite(opposite) ?
-        (bound_value(opposite) - workspace.primal[entering]) / direction : nothing
+    # Keep optionality in flags so numeric loop accumulators stay concrete.
+    has_step = isfinite(opposite)
+    entering_step = has_step ?
+        (bound_value(opposite) - workspace.primal[entering]) / direction : zero(T)
     strict_step = entering_step
     strict_row = 0
     strict_state = BASIC
     relaxed_limit = entering_step
+    has_relaxed_limit = has_step
     tolerance = workspace.options.primal_tolerance
     for (row, index) in enumerate(workspace.basis.basic_indices)
         movement = -direction * tableau_column[row]
@@ -277,19 +280,22 @@ function _primal_ratio(workspace::SimplexWorkspace{T}, entering::Int, direction:
             violation > tolerance && return nothing, -1, BASIC
         end
         candidate = max(zero(T), raw_step)
-        if isnothing(strict_step) || candidate < strict_step ||
+        if !has_step || candidate < strict_step ||
            (candidate == strict_step && strict_row == 0)
             strict_step = candidate
             strict_row = row
             strict_state = movement > zero(T) ? AT_UPPER : AT_LOWER
+            has_step = true
         end
         relaxed = _primal_relaxed_step(raw_step, tolerance, movement)
-        if isfinite(relaxed) && (isnothing(relaxed_limit) || relaxed < relaxed_limit)
+        if isfinite(relaxed) && (!has_relaxed_limit || relaxed < relaxed_limit)
             relaxed_limit = max(zero(T), relaxed)
+            has_relaxed_limit = true
         end
     end
+    has_step || return nothing, strict_row, strict_state
     strict_row == 0 && return strict_step, strict_row, strict_state
-    isnothing(relaxed_limit) && return strict_step, strict_row, strict_state
+    has_relaxed_limit || return strict_step, strict_row, strict_state
 
     leaving_row = 0
     leaving_step = strict_step
@@ -438,6 +444,43 @@ function _primal_infeasibility_certified(workspace::SimplexWorkspace{T},
     return minimum_value > zero(T)
 end
 
+function _primal_phase_one_matrix(A::SparseMatrixCSC{T,Int}, artificial_rows::Vector{Int},
+                                  artificial_signs::Vector{T}) where {T}
+    row_count, column_count = size(A)
+    artificial_count = length(artificial_rows)
+    stored_count = nnz(A)
+    # Phase I supplies one valid row/sign pair per artificial column. Append
+    # these singleton columns directly, retaining owned CSC result arrays.
+    column_pointers = Vector{Int}(undef, column_count + artificial_count + 1)
+    rows = Vector{Int}(undef, stored_count + artificial_count)
+    values = Vector{T}(undef, stored_count + artificial_count)
+    copyto!(column_pointers, 1, A.colptr, 1, column_count + 1)
+    copyto!(rows, 1, A.rowval, 1, stored_count)
+    copyto!(values, 1, A.nzval, 1, stored_count)
+    for column in 1:artificial_count
+        column_pointers[column_count + column + 1] = stored_count + column + 1
+    end
+    copyto!(rows, stored_count + 1, artificial_rows, 1, artificial_count)
+    copyto!(values, stored_count + 1, artificial_signs, 1, artificial_count)
+    return SparseMatrixCSC(row_count, column_count + artificial_count,
+                           column_pointers, rows, values)
+end
+
+function _primal_phase_one_vectors(problem::LinearProblem{T}, artificial_count::Int) where {T}
+    column_count = size(problem.A, 2)
+    total_columns = column_count + artificial_count
+    objective = Vector{T}(undef, total_columns)
+    fill!(@view(objective[1:column_count]), zero(T))
+    fill!(@view(objective[column_count + 1:end]), one(T))
+    lower = Vector{Bound{T}}(undef, total_columns)
+    upper = Vector{Bound{T}}(undef, total_columns)
+    copyto!(lower, 1, problem.column_lower, 1, column_count)
+    copyto!(upper, 1, problem.column_upper, 1, column_count)
+    fill!(@view(lower[column_count + 1:end]), Bound(zero(T)))
+    fill!(@view(upper[column_count + 1:end]), Bound{T}(nothing))
+    return objective, lower, upper
+end
+
 function _primal_phase_one(problem::LinearProblem{T}, options::SolverOptions{T},
                            progress::SimplexProgressContext{T}, stop_requested) where {T}
     initial = initialize_workspace(problem, options; progress)
@@ -463,14 +506,12 @@ function _primal_phase_one(problem::LinearProblem{T}, options::SolverOptions{T},
     # Each new column repairs one violated row while its row-activity variable
     # becomes nonbasic at the violated bound. The resulting basis is feasible.
     artificial_count = length(artificial_rows)
-    artificial_matrix = sparse(artificial_rows, collect(1:artificial_count),
-                               artificial_signs, row_count, artificial_count)
+    objective, column_lower, column_upper = _primal_phase_one_vectors(problem, artificial_count)
     phase_problem = LinearProblem{T}(
-        hcat(problem.A, artificial_matrix),
-        vcat(zeros(T, column_count), ones(T, artificial_count)),
+        _primal_phase_one_matrix(problem.A, artificial_rows, artificial_signs),
+        objective,
         zero(T), MIN_SENSE, problem.row_lower, problem.row_upper,
-        vcat(problem.column_lower, fill(Bound(zero(T)), artificial_count)),
-        vcat(problem.column_upper, fill(Bound{T}(nothing), artificial_count)),
+        column_lower, column_upper,
         fill(CONTINUOUS, column_count + artificial_count),
         problem.name, String[], String[],
     )
@@ -493,8 +534,10 @@ function _primal_original_basis(workspace::SimplexWorkspace, column_count::Int,
         return Basis(workspace.basis.basic_indices, workspace.basis.states)
     basis = workspace.basis
     row_count = size(workspace.problem.A, 1)
-    states = vcat(basis.states[1:column_count],
-                  basis.states[column_count + artificial_count + 1:end])
+    states = Vector{VariableState}(undef, column_count + row_count)
+    copyto!(states, 1, basis.states, 1, column_count)
+    copyto!(states, column_count + 1, basis.states,
+            column_count + artificial_count + 1, row_count)
     indices = Vector{Int}(undef, row_count)
     for row in 1:row_count
         index = basis.basic_indices[row]
@@ -509,7 +552,7 @@ function _primal_original_basis(workspace::SimplexWorkspace, column_count::Int,
             indices[row] = index <= column_count ? index : index - artificial_count
         end
     end
-    return Basis(indices, states)
+    return Basis(indices, states, Val(:owned))
 end
 
 function _solve_continuous_primal(problem::LinearProblem{T}, options::SolverOptions{T};
@@ -529,7 +572,7 @@ function _solve_continuous_primal(problem::LinearProblem{T}, options::SolverOpti
         terminal.status == OPTIMAL || return _internal_solution(workspace, terminal)
         if artificial_count > 0
             column_count = size(problem.A, 2)
-            phase_primal = copy(workspace.primal[1:column_count + artificial_count])
+            phase_primal = workspace.primal[1:column_count + artificial_count]
             _original_optimality_certified(workspace, phase_primal) ||
                 return _internal_solution(workspace, NUMERICAL_ERROR,
                                           "phase I optimality certificate is inconclusive")
@@ -552,8 +595,7 @@ function _solve_continuous_primal(problem::LinearProblem{T}, options::SolverOpti
                 workspace.problem.objective[index] = zero(T)
             end
             workspace.problem.objective[1:column_count] .= problem.objective
-            workspace.costs .= vcat(workspace.problem.objective,
-                                    zeros(T, size(problem.A, 1)))
+            _restore_original_costs!(workspace)
             recompute!(workspace)
             terminal = _primal_optimize!(workspace, stop_requested)
             terminal.status == OPTIMAL || return _internal_solution(workspace, terminal)

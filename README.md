@@ -339,7 +339,12 @@ sparse pivots using the Markowitz fill criterion and a column stability
 threshold. Once the remaining matrix is at least half dense, it factors the
 trailing core with dense LU. The sparse triangular factors use packed index
 and value arrays, and solves reuse allocated buffers. This option works with
-all four basis update methods and supported numeric types. `:native` remains
+all four basis update methods and supported numeric types. Repeated factorizations
+retain private construction dictionaries, sparse-factor arrays and same-size
+core LU storage. Saved copies keep their original factors, and failed
+factorizations leave the active basis intact. Ordered dictionaries make pivot
+ties independent of previously retained dictionary capacity. This reuse retains
+more memory between factorizations to reduce allocation traffic. `:native` remains
 the default (`Float64` uses UMFPACK; other types use dense LU).
 
 Floating tolerances are evaluated in `T`; a positive default that rounds to zero
@@ -540,7 +545,253 @@ julia --startup-file=no --project=dev dev/run_suite.jl --dataset afiro --compare
 julia --startup-file=no --project=dev dev/run_suite.jl --tag numerical --compare-glpk
 julia --startup-file=no --project=dev dev/run_suite.jl --tag quick
 julia --startup-file=no --project=dev dev/benchmarks.jl afiro
+julia --startup-file=no --project=dev dev/allocations.jl afiro adlittle --output=allocations.toml
 ```
+
+The allocation audit reports warmed minimum allocated bytes, allocation counts,
+and elapsed seconds over five independent samples (`--samples=N`). It covers MPS
+input, MOI translation of the continuous relaxation, presolve and its individual
+passes, scaling, workspace initialization, basis solves/refactorization, primal
+reconstruction, and both simplex algorithms with and without presolve. Each
+presolve pass is measured independently on the original model; these rows do not
+sum to the full presolve cost. The basis kernels use the initial slack basis.
+`postsolve` measures primal reconstruction only and is omitted if the reduced
+problem does not solve to optimality; complete solves include certification and
+any original-space cleanup. Solver stages have a 10,000-iteration limit, and their
+termination status, objective, and iteration count are saved with the metrics.
+
+Mutable inputs are rebuilt outside each measured call; setup and compilation
+warmup are excluded. TOML reports also record any compilation still observed
+during measurement (`compile_seconds`), Julia version, architecture, and thread
+counts. Compare reports on the same runtime, machine, and options, checking
+statuses and objectives as well as allocation totals. These are Julia allocation
+counters, not peak resident memory or a count of all external-library allocations.
+
+For allocation call sites, add `--profile=presolve` (or another stage name from
+the output). `--sample-rate=0.01` is the default; `--sample-rate=1.0` records every
+Julia allocation and can be expensive. Profiling is a separate warmed call and
+does not contaminate the timing samples. Sites are attributed to the nearest
+JSimplex source frame; reported sampled bytes/counts are not extrapolated totals.
+Use `--basis-update=forrest_tomlin` and `--basis-refactorization=markowitz` to audit
+other factorization configurations. Dataset names come from `dev/datasets.toml`.
+
+For repeated simplex work, use the dedicated iteration audit:
+
+```sh
+julia --startup-file=no --compiled-modules=existing --project=dev dev/iteration_allocations.jl afiro adlittle --samples=3 --profile --output=iteration-kernels.toml
+julia --startup-file=no --compiled-modules=existing --project=dev dev/iteration_allocations.jl adlittle --basis-update=all --pricing=all --steps=5 --output=iteration-backends.toml
+```
+
+It measures Float64 kernels and complete primal/dual iterations after preparation
+and after the requested number of steps, with presolve and scaling disabled.
+Primal phase I runs outside measurement. Each sample replays the real solver
+steps outside timing, preserving naturally grown buffer capacities. Whole
+iterations start before the separate pricing probes warm caches. The report
+records preparation and iteration status; terminal states omit unavailable
+pivot operations. Refactorization includes basis assembly and solution refresh.
+See the [iteration allocation audit](diagnostics/iteration_allocation_report.md)
+for measurements, scope, and the next optimization priorities.
+The [iteration kernel optimization report](diagnostics/iteration_kernel_optimization_report.md)
+records the subsequent PFI and ratio-test changes and their measured savings.
+The [triangular reset report](diagnostics/triangular_reset_allocation_report.md)
+measures reuse of upper-factor storage during refactorization and complete solves.
+The [triangular column reuse report](diagnostics/triangular_column_reuse_allocation_report.md)
+measures reuse of the leaving column's storage during each pivot.
+The [basis matrix reuse report](diagnostics/basis_matrix_reuse_allocation_report.md)
+measures reuse of CSC assembly storage during refactorization.
+The [PFI history reuse report](diagnostics/pfi_history_reuse_allocation_report.md)
+measures reuse of retired eta vectors while preserving shared factor copies.
+The [triangular history reuse report](diagnostics/triangular_history_reuse_allocation_report.md)
+measures reuse of multiplier and transformation-step vectors in the other three methods.
+The [UMFPACK reuse report](diagnostics/umfpack_reuse_allocation_report.md)
+measures LU storage and symbolic-analysis reuse through private candidate buffers.
+The [Float32 LU reuse report](diagnostics/float32_lu_reuse_allocation_report.md)
+measures allocation-free warmed dense refactorization with protected saved copies.
+The [Markowitz allocation audit](diagnostics/markowitz_allocation_report.md)
+records the original dictionary, sparse-factor, dense-core and generic-arithmetic allocations.
+The [Markowitz reuse report](diagnostics/markowitz_reuse_report.md) measures the
+implemented reductions and whole-solve results; the
+[dictionary comparison](diagnostics/markowitz_dictionary_report.md) explains the
+choice of OrderedDict.
+
+Measured optimization rounds and reproduction details are recorded in the
+[presolve allocation report](diagnostics/allocation_report.md),
+[MPS allocation report](diagnostics/mps_allocation_report.md),
+[MOI translation allocation report](diagnostics/moi_allocation_report.md),
+[PFI basis update allocation report](diagnostics/pfi_allocation_report.md),
+[basis assembly allocation report](diagnostics/basis_allocation_report.md),
+[native LU allocation report](diagnostics/lu_allocation_report.md),
+[workspace initialization allocation report](diagnostics/workspace_allocation_report.md),
+[result reconstruction allocation report](diagnostics/result_allocation_report.md),
+[optimality certification allocation report](diagnostics/certification_allocation_report.md),
+[packed upper-column allocation report](diagnostics/packed_column_allocation_report.md),
+[cost restoration allocation report](diagnostics/cost_restore_allocation_report.md),
+[scaling allocation report](diagnostics/scaling_allocation_report.md),
+[phase-I matrix allocation report](diagnostics/phase_matrix_allocation_report.md),
+[phase-I vector allocation report](diagnostics/phase_vectors_allocation_report.md),
+[original-basis restoration allocation report](diagnostics/basis_restore_allocation_report.md),
+[owned basis arrays allocation report](diagnostics/owned_bases_allocation_report.md),
+[basic presolve matrix allocation report](diagnostics/basic_presolve_allocation_report.md),
+[presolve row-entry allocation report](diagnostics/row_entries_allocation_report.md),
+[bound-only presolve result allocation report](diagnostics/row_result_allocation_report.md),
+[integrality relaxation allocation report](diagnostics/relaxation_allocation_report.md),
+[lazy row-bound allocation report](diagnostics/lazy_row_bounds_allocation_report.md),
+[singleton-row detection allocation report](diagnostics/singleton_scan_allocation_report.md),
+[lazy singleton-bound allocation report](diagnostics/singleton_bounds_allocation_report.md),
+[lazy propagation-bound allocation report](diagnostics/propagation_bounds_allocation_report.md),
+[lazy aggregation-default allocation report](diagnostics/aggregation_defaults_allocation_report.md),
+[aggregation scratch-buffer allocation report](diagnostics/aggregation_scratch_allocation_report.md),
+[unit-pivot normalization allocation report](diagnostics/dependency_unit_pivot_allocation_report.md),
+[exact elimination-value allocation report](diagnostics/elimination_value_cache_allocation_report.md),
+[free-pivot bound-proof allocation report](diagnostics/aggregation_free_bounds_allocation_report.md),
+[parallel-row normalization allocation report](diagnostics/parallel_unit_pivot_allocation_report.md),
+[basic-presolve scratch-buffer allocation report](diagnostics/basic_scratch_allocation_report.md),
+[doubleton detection allocation report](diagnostics/doubleton_scan_allocation_report.md),
+[lazy singleton-source allocation report](diagnostics/singleton_sources_allocation_report.md),
+[lazy parallel-row storage allocation report](diagnostics/parallel_scratch_allocation_report.md),
+[lazy dual-selection allocation report](diagnostics/dual_selections_allocation_report.md),
+[lazy aggregation-bound allocation report](diagnostics/aggregation_bounds_allocation_report.md),
+[singleton unit-pivot allocation report](diagnostics/singleton_unit_pivot_allocation_report.md),
+[unit-product propagation allocation report](diagnostics/propagation_unit_products_allocation_report.md),
+[unit-division propagation allocation report](diagnostics/propagation_unit_division_allocation_report.md),
+[zero-activity propagation allocation report](diagnostics/propagation_zero_activity_allocation_report.md),
+[zero-product propagation allocation report](diagnostics/propagation_zero_products_allocation_report.md),
+[equal-candidate propagation allocation report](diagnostics/propagation_equal_candidates_allocation_report.md),
+[zero-difference propagation allocation report](diagnostics/propagation_zero_difference_allocation_report.md),
+[zero-sum propagation allocation report](diagnostics/propagation_zero_sums_allocation_report.md),
+[one-sided propagation allocation report](diagnostics/propagation_one_sided_activity_allocation_report.md),
+[shared-zero propagation allocation report](diagnostics/propagation_zero_seed_allocation_report.md),
+[zero-bound parallel-row allocation report](diagnostics/parallel_zero_bounds_allocation_report.md),
+[leading-coefficient parallel-row allocation report](diagnostics/parallel_signature_head_allocation_report.md),
+[unit-leading-coefficient parallel-row allocation report](diagnostics/parallel_unit_head_allocation_report.md),
+[zero-bound dependent-row allocation report](diagnostics/dependent_zero_bounds_allocation_report.md),
+[unit-weight dependent-row allocation report](diagnostics/dependent_unit_products_allocation_report.md),
+[zero-sum dependent-row allocation report](diagnostics/dependent_zero_sums_allocation_report.md),
+[shared-zero dependent-row allocation report](diagnostics/dependent_zero_seed_allocation_report.md),
+[lazy-weight dependent-row allocation report](diagnostics/dependent_lazy_weights_allocation_report.md),
+[shared-proof-seed dependent-row allocation report](diagnostics/dependent_proof_seed_allocation_report.md),
+[empty dependent-row allocation report](diagnostics/dependent_empty_rows_allocation_report.md),
+[normalized-pivot dependent-row allocation report](diagnostics/dependent_pivot_head_allocation_report.md),
+[unit-source-term dependent-row allocation report](diagnostics/dependent_unit_terms_allocation_report.md),
+[negative-unit dependent-row allocation report](diagnostics/dependent_negative_units_allocation_report.md),
+[missing-negation dependent-row allocation report](diagnostics/dependent_missing_negation_allocation_report.md),
+[cached-negated-scale dependent-row allocation report](diagnostics/dependent_negated_scale_allocation_report.md),
+[equal-pivot dependent-row allocation report](diagnostics/dependent_equal_pivots_allocation_report.md),
+[negative-unit-pivot dependent-row allocation report](diagnostics/dependent_negative_pivot_allocation_report.md),
+[negative-unit-weight dependent-row allocation report](diagnostics/dependent_negative_weights_allocation_report.md),
+[equal-endpoint dependent-row allocation report](diagnostics/dependent_equal_endpoints_allocation_report.md),
+[equal-coefficient parallel-row allocation report](diagnostics/parallel_equal_coefficients_allocation_report.md),
+[negative-unit-pivot parallel-row allocation report](diagnostics/parallel_negative_pivot_allocation_report.md),
+[negative-unit-bound parallel-row allocation report](diagnostics/parallel_negative_bounds_allocation_report.md),
+[negative-unit-product propagation allocation report](diagnostics/propagation_negative_products_allocation_report.md),
+[negative-unit-division propagation allocation report](diagnostics/propagation_negative_division_allocation_report.md),
+[zero-quotient propagation allocation report](diagnostics/propagation_zero_quotients_allocation_report.md),
+[cancelled-activity propagation allocation report](diagnostics/propagation_cancelled_activity_allocation_report.md),
+[shared-activity-zero propagation allocation report](diagnostics/propagation_shared_activity_zero_allocation_report.md),
+[weaker-candidate propagation allocation report](diagnostics/propagation_weaker_candidates_allocation_report.md),
+[equal-row-bound propagation allocation report](diagnostics/propagation_equal_row_bounds_allocation_report.md),
+[fixed-column-product propagation allocation report](diagnostics/propagation_fixed_products_allocation_report.md),
+[fixed-bound-cache propagation allocation report](diagnostics/propagation_fixed_bound_cache_allocation_report.md),
+[zero-row-bound propagation allocation report](diagnostics/propagation_zero_row_bounds_allocation_report.md),
+[cancelled-candidate propagation allocation report](diagnostics/propagation_cancelled_candidates_allocation_report.md),
+[zero-endpoint-negation propagation allocation report](diagnostics/propagation_zero_endpoint_negation_allocation_report.md),
+[zero-total-negation propagation allocation report](diagnostics/propagation_zero_total_negation_allocation_report.md),
+[unit-projection aggregation allocation report](diagnostics/aggregation_unit_projection_allocation_report.md),
+[zero-projection aggregation allocation report](diagnostics/aggregation_zero_projection_allocation_report.md),
+[zero-RHS-projection aggregation allocation report](diagnostics/aggregation_zero_rhs_projection_allocation_report.md),
+[unit-bound-projection aggregation allocation report](diagnostics/aggregation_unit_bound_projection_allocation_report.md),
+[cancelled-projection aggregation allocation report](diagnostics/aggregation_cancelled_projection_allocation_report.md),
+[fixed-projection aggregation allocation report](diagnostics/aggregation_fixed_projection_allocation_report.md),
+[zero-objective-updates aggregation allocation report](diagnostics/aggregation_zero_objective_updates_allocation_report.md),
+[zero-objective-ratio aggregation allocation report](diagnostics/aggregation_zero_objective_ratio_allocation_report.md),
+[unit-objective-ratio aggregation allocation report](diagnostics/aggregation_unit_objective_ratio_allocation_report.md),
+[unit-multiplier aggregation allocation report](diagnostics/aggregation_unit_multiplier_allocation_report.md),
+[zero-shift aggregation allocation report](diagnostics/aggregation_zero_shift_allocation_report.md),
+[unit-shift aggregation allocation report](diagnostics/aggregation_unit_shift_allocation_report.md),
+[zero-matrix-update aggregation allocation report](diagnostics/aggregation_zero_matrix_update_allocation_report.md),
+[unit-matrix-update aggregation allocation report](diagnostics/aggregation_unit_matrix_update_allocation_report.md),
+[zero-old-matrix aggregation allocation report](diagnostics/aggregation_zero_old_matrix_allocation_report.md),
+[cancelled-matrix aggregation allocation report](diagnostics/aggregation_cancelled_matrix_allocation_report.md),
+[zero-bound-shift presolve allocation report](diagnostics/zero_bound_shift_allocation_report.md),
+[cancelled-bound-shift presolve allocation report](diagnostics/cancelled_bound_shift_allocation_report.md),
+[shared-row-shift doubleton allocation report](diagnostics/doubleton_shared_shift_allocation_report.md),
+[zero-row-shift doubleton allocation report](diagnostics/doubleton_zero_shift_allocation_report.md),
+[unit-row-shift doubleton allocation report](diagnostics/doubleton_unit_shift_allocation_report.md),
+[zero-old-matrix doubleton allocation report](diagnostics/doubleton_zero_old_matrix_allocation_report.md),
+[unit-matrix-product doubleton allocation report](diagnostics/doubleton_unit_matrix_allocation_report.md),
+[unbounded-row-shift doubleton allocation report](diagnostics/doubleton_unbounded_shift_allocation_report.md),
+[unbounded-row-shift aggregation allocation report](diagnostics/aggregation_unbounded_shift_allocation_report.md),
+[unbounded-row-shift basic-presolve allocation report](diagnostics/basic_unbounded_shift_allocation_report.md),
+[zero-row-shift basic-presolve allocation report](diagnostics/basic_zero_shift_allocation_report.md),
+[unit-row-shift basic-presolve allocation report](diagnostics/basic_unit_shift_allocation_report.md),
+[zero-objective-contribution basic-presolve allocation report](diagnostics/basic_zero_objective_allocation_report.md),
+[unit-objective-contribution basic-presolve allocation report](diagnostics/basic_unit_objective_allocation_report.md),
+[zero-objective-constant basic-presolve allocation report](diagnostics/basic_zero_constant_allocation_report.md),
+[equal-denominator objective-sum basic-presolve allocation report](diagnostics/basic_equal_denominator_allocation_report.md),
+[shared-objective-cost doubleton allocation report](diagnostics/doubleton_shared_cost_allocation_report.md),
+[shared-pivot doubleton allocation report](diagnostics/doubleton_shared_pivot_allocation_report.md),
+[unit-pivot-ratio doubleton allocation report](diagnostics/doubleton_unit_pivot_allocation_report.md),
+[zero-alpha-ratio doubleton allocation report](diagnostics/doubleton_zero_alpha_allocation_report.md),
+[zero-objective-cost doubleton allocation report](diagnostics/doubleton_zero_cost_allocation_report.md),
+[zero-constant-shift doubleton allocation report](diagnostics/doubleton_zero_constant_shift_allocation_report.md),
+[unit-objective-cost doubleton allocation report](diagnostics/doubleton_unit_cost_allocation_report.md),
+[unit-objective-ratio doubleton allocation report](diagnostics/doubleton_unit_objective_ratio_allocation_report.md),
+[zero-retained-cost doubleton allocation report](diagnostics/doubleton_zero_retained_cost_allocation_report.md),
+[zero-objective-constant doubleton allocation report](diagnostics/doubleton_zero_constant_allocation_report.md),
+[equal-denominator objective-cost doubleton allocation report](diagnostics/doubleton_equal_cost_denominator_allocation_report.md),
+[equal-denominator objective-constant doubleton allocation report](diagnostics/doubleton_equal_constant_denominator_allocation_report.md),
+[equal-denominator matrix doubleton allocation report](diagnostics/doubleton_equal_matrix_denominator_allocation_report.md),
+[equal-denominator matrix aggregation allocation report](diagnostics/aggregation_equal_matrix_denominator_allocation_report.md),
+[unit-cost-product aggregation allocation report](diagnostics/aggregation_unit_cost_product_allocation_report.md),
+[unit-constant-product aggregation allocation report](diagnostics/aggregation_unit_constant_product_allocation_report.md),
+[zero-constant-shift aggregation allocation report](diagnostics/aggregation_zero_constant_shift_allocation_report.md),
+[zero-retained-cost aggregation allocation report](diagnostics/aggregation_zero_retained_cost_allocation_report.md),
+[cancelled-retained-cost aggregation allocation report](diagnostics/aggregation_cancelled_retained_cost_allocation_report.md),
+[equal-denominator cost aggregation allocation report](diagnostics/aggregation_equal_cost_denominator_allocation_report.md),
+[zero-objective-constant aggregation allocation report](diagnostics/aggregation_zero_objective_constant_allocation_report.md),
+[equal-denominator constant aggregation allocation report](diagnostics/aggregation_equal_constant_denominator_allocation_report.md),
+[equal-denominator activity propagation allocation report](diagnostics/propagation_equal_activity_denominator_allocation_report.md),
+[equal-denominator activity-sum propagation allocation report](diagnostics/propagation_equal_sum_denominator_allocation_report.md),
+[equal-denominator candidate propagation allocation report](diagnostics/propagation_equal_candidate_denominator_allocation_report.md),
+[equal-denominator quotient propagation allocation report](diagnostics/propagation_equal_quotient_denominator_allocation_report.md),
+[shared-fixed-sum propagation allocation report](diagnostics/propagation_shared_fixed_sums_allocation_report.md),
+[equal-denominator projection aggregation allocation report](diagnostics/aggregation_equal_projection_denominator_allocation_report.md),
+[equal-denominator objective-ratio aggregation allocation report](diagnostics/aggregation_equal_ratio_denominator_allocation_report.md),
+[equal-denominator multiplier aggregation allocation report](diagnostics/aggregation_equal_multiplier_denominator_allocation_report.md),
+[singleton zero-constant-shift allocation report](diagnostics/singleton_zero_constant_shift_allocation_report.md),
+[singleton unit-constant-product allocation report](diagnostics/singleton_unit_constant_product_allocation_report.md),
+[singleton zero-objective-constant allocation report](diagnostics/singleton_zero_objective_constant_allocation_report.md),
+[singleton equal-constant-denominator allocation report](diagnostics/singleton_equal_constant_denominator_allocation_report.md),
+[singleton unit-cost-product allocation report](diagnostics/singleton_unit_cost_product_allocation_report.md),
+[singleton zero-retained-cost allocation report](diagnostics/singleton_zero_retained_cost_allocation_report.md),
+[singleton cancelled-retained-cost allocation report](diagnostics/singleton_cancelled_retained_cost_allocation_report.md),
+[singleton equal-cost-denominator allocation report](diagnostics/singleton_equal_cost_denominator_allocation_report.md),
+[implied zero-bound aggregation allocation report](diagnostics/aggregation_implied_zero_bounds_allocation_report.md),
+[implied zero-sum aggregation allocation report](diagnostics/aggregation_implied_zero_sums_allocation_report.md),
+[implied signed-unit-product aggregation allocation report](diagnostics/aggregation_implied_unit_products_allocation_report.md),
+[implied zero-activity aggregation allocation report](diagnostics/aggregation_implied_zero_activity_allocation_report.md),
+[implied signed-unit-division aggregation allocation report](diagnostics/aggregation_implied_unit_division_allocation_report.md),
+[implied cancelled-candidate aggregation allocation report](diagnostics/aggregation_implied_cancelled_candidates_allocation_report.md),
+[implied equal-difference-denominator aggregation allocation report](diagnostics/aggregation_implied_equal_difference_denominator_allocation_report.md),
+[implied equal-quotient-denominator aggregation allocation report](diagnostics/aggregation_implied_equal_quotient_denominator_allocation_report.md),
+[implied equal-sum-denominator aggregation allocation report](diagnostics/aggregation_implied_equal_sum_denominator_allocation_report.md),
+[implied fixed-product aggregation allocation report](diagnostics/aggregation_implied_fixed_products_allocation_report.md),
+[implied shared-fixed-sum aggregation allocation report](diagnostics/aggregation_implied_shared_fixed_sums_allocation_report.md),
+[implied shared-candidate aggregation allocation report](diagnostics/aggregation_implied_shared_candidates_allocation_report.md),
+[implied one-sided-activity aggregation allocation report](diagnostics/aggregation_implied_one_sided_activity_allocation_report.md),
+[implied zero-RHS aggregation allocation report](diagnostics/aggregation_implied_zero_rhs_allocation_report.md),
+[implied shared-zero-seed aggregation allocation report](diagnostics/aggregation_implied_shared_zero_seed_allocation_report.md),
+[implied sign-check aggregation allocation report](diagnostics/aggregation_implied_sign_checks_allocation_report.md),
+[implied unbounded-stop aggregation allocation report](diagnostics/aggregation_implied_unbounded_stop_allocation_report.md),
+[projection sign-check aggregation allocation report](diagnostics/aggregation_projection_sign_checks_allocation_report.md),
+[shared shifted-bound aggregation allocation report](diagnostics/aggregation_shared_shifted_bounds_allocation_report.md),
+[equal bound-shift denominator allocation report](diagnostics/equal_bound_shift_denominator_allocation_report.md),
+[shared shifted-bound basic-presolve allocation report](diagnostics/basic_shared_shifted_bounds_allocation_report.md),
+[shared shifted-bound doubleton allocation report](diagnostics/doubleton_shared_shifted_bounds_allocation_report.md),
+[equal ratio-denominator doubleton allocation report](diagnostics/doubleton_equal_ratio_denominator_allocation_report.md),
+[stored-zero coefficient doubleton allocation report](diagnostics/doubleton_stored_zero_coefficient_allocation_report.md),
+[zero exact-representation allocation report](diagnostics/zero_exact_representation_allocation_report.md), and
+[unit exact-representation allocation report](diagnostics/unit_exact_representation_allocation_report.md).
 
 The development tests include JET inference checks for Float64 and
 `Rational{BigInt}` solver kernels. JET is not a root dependency or part of the

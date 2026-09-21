@@ -187,5 +187,7 @@ end
     end
 end
 
+include("allocation_tests.jl")
+include("iteration_allocation_tests.jl")
 include("jet_tests.jl")
 include("jump_tests.jl")

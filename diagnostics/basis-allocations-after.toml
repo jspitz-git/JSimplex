@@ -1,0 +1,589 @@
+julia_version = "1.13.0"
+machine = "aarch64-linux-gnu"
+threads = 1
+
+[datasets.adlittle.basis_matrix]
+allocations = 6
+bytes = 1584
+compile_seconds = 0.0
+samples = 3
+seconds = 2.5e-6
+
+[datasets.adlittle.dual]
+allocations = 123744
+bytes = 5929320
+compile_seconds = 0.0
+iterations = 102
+objective = 225494.9631623804
+samples = 3
+seconds = 0.0035957
+status = "OPTIMAL"
+
+[datasets.adlittle.dual_no_presolve]
+allocations = 1399
+bytes = 498088
+compile_seconds = 0.0
+iterations = 91
+objective = 225494.96316238047
+samples = 3
+seconds = 0.0008903
+status = "OPTIMAL"
+
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 48
+    sampled_bytes = 28898
+    site = "src/model.jl:105 LinearProblem"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 120
+    sampled_bytes = 26536
+    site = "src/factorization.jl:32 _factorize_basis"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 91
+    sampled_bytes = 15960
+    site = "src/factorization.jl:177 #replace_column!#57"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 91
+    sampled_bytes = 15960
+    site = "src/factorization.jl:178 #replace_column!#57"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 30
+    sampled_bytes = 13736
+    site = "src/factorization.jl:29 _factorize_basis"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 36
+    sampled_bytes = 9472
+    site = "src/simplex.jl:39 SimplexScratch"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 8
+    sampled_bytes = 7072
+    site = "src/transformations.jl:80 scale_problem"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 182
+    sampled_bytes = 5824
+    site = "src/factorization.jl:171 #replace_column!#57"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 182
+    sampled_bytes = 5824
+    site = "src/factorization.jl:172 #replace_column!#57"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 22
+    sampled_bytes = 5472
+    site = "src/simplex.jl:262 #initialize_workspace#75"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 11
+    sampled_bytes = 5192
+    site = "src/dual_simplex.jl:1696 _auxiliary_workspace"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 8
+    sampled_bytes = 5112
+    site = "src/simplex.jl:130 basis_matrix"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 8
+    sampled_bytes = 5112
+    site = "src/simplex.jl:131 basis_matrix"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 7
+    sampled_bytes = 5048
+    site = "src/simplex.jl:247 #initialize_workspace#75"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 7
+    sampled_bytes = 5048
+    site = "src/simplex.jl:246 #initialize_workspace#75"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 8
+    sampled_bytes = 4192
+    site = "src/dual_simplex.jl:1535 _original_reduced_cost_bounds"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 6
+    sampled_bytes = 3816
+    site = "src/simplex.jl:267 #initialize_workspace#75"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 4
+    sampled_bytes = 3200
+    site = "src/transformations.jl:103 scale_problem"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 12
+    sampled_bytes = 2976
+    site = "src/dual_simplex.jl:1432 _primal_row_bounds"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 16
+    sampled_bytes = 2788
+    site = "src/simplex.jl:11 Basis"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 83
+    sampled_bytes = 2656
+    site = "src/dual_simplex.jl:0 _bound_flipping_ratio_test"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 6
+    sampled_bytes = 2592
+    site = "src/simplex.jl:245 #initialize_workspace#75"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 4
+    sampled_bytes = 2544
+    site = "src/dual_simplex.jl:1576 _original_optimality_certified"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 3
+    sampled_bytes = 2504
+    site = "src/dual_simplex.jl:1673 _auxiliary_workspace"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 3
+    sampled_bytes = 2504
+    site = "src/dual_simplex.jl:1672 _auxiliary_workspace"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 2
+    sampled_bytes = 2480
+    site = "src/simplex.jl:38 SimplexScratch"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 8
+    sampled_bytes = 2016
+    site = "src/simplex.jl:129 basis_matrix"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 4
+    sampled_bytes = 1888
+    site = "src/transformations.jl:79 scale_problem"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 4
+    sampled_bytes = 1768
+    site = "src/dual_simplex.jl:1917 _solve_continuous_dual!"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 4
+    sampled_bytes = 1768
+    site = "src/dual_simplex.jl:1567 _original_optimality_certified"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 3
+    sampled_bytes = 1616
+    site = "src/dual_simplex.jl:1601 _internal_solution"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 2
+    sampled_bytes = 1600
+    site = "src/transformations.jl:150 relax_integrality"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 2
+    sampled_bytes = 1600
+    site = "src/transformations.jl:151 relax_integrality"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 5
+    sampled_bytes = 1472
+    site = "src/factorization.jl:187 #replace_column!#57"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 2
+    sampled_bytes = 992
+    site = "src/simplex.jl:60 SimplexWorkspace"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 2
+    sampled_bytes = 824
+    site = "src/transformations.jl:101 scale_problem"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 2
+    sampled_bytes = 824
+    site = "src/transformations.jl:102 scale_problem"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 2
+    sampled_bytes = 824
+    site = "src/transformations.jl:134 unscale_primal"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 2
+    sampled_bytes = 824
+    site = "src/transformations.jl:142 postsolve_primal"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 2
+    sampled_bytes = 824
+    site = "src/simplex.jl:50 #SimplexProgressContext#72"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 2
+    sampled_bytes = 824
+    site = "src/transformations.jl:94 scale_problem"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 2
+    sampled_bytes = 824
+    site = "src/transformations.jl:141 postsolve_primal"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 9
+    sampled_bytes = 656
+    site = "src/dual_simplex.jl:372 _bound_flipping_ratio_test"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 3
+    sampled_bytes = 528
+    site = "src/factorization.jl:220 copy_basis_factorization"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 3
+    sampled_bytes = 528
+    site = "src/factorization.jl:51 PFIFactorization"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 2
+    sampled_bytes = 496
+    site = "src/transformations.jl:78 scale_problem"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 2
+    sampled_bytes = 496
+    site = "src/dual_simplex.jl:1571 _original_optimality_certified"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 2
+    sampled_bytes = 496
+    site = "src/simplex.jl:261 #initialize_workspace#75"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 2
+    sampled_bytes = 496
+    site = "src/factorization.jl:144 transpose_solve"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 2
+    sampled_bytes = 496
+    site = "src/transformations.jl:58 scale_problem"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 2
+    sampled_bytes = 496
+    site = "src/transformations.jl:64 scale_problem"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 4
+    sampled_bytes = 432
+    site = "src/solver.jl:400 #solve#130"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 6
+    sampled_bytes = 256
+    site = "src/solver.jl:410 #solve#130"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 8
+    sampled_bytes = 256
+    site = "src/dual_simplex.jl:356 _bound_flipping_ratio_test"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 2
+    sampled_bytes = 216
+    site = "src/dual_simplex.jl:353 _bound_flipping_ratio_test"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 2
+    sampled_bytes = 201
+    site = "src/simplex.jl:248 #initialize_workspace#75"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 2
+    sampled_bytes = 192
+    site = "src/simplex.jl:24 SimplexScratch"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 4
+    sampled_bytes = 192
+    site = "src/solver.jl:412 #solve#130"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 2
+    sampled_bytes = 145
+    site = "src/transformations.jl:167 relax_integrality"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 1
+    sampled_bytes = 144
+    site = "src/model.jl:295 is_continuous"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 1
+    sampled_bytes = 144
+    site = "src/solver.jl:404 #solve#130"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 3
+    sampled_bytes = 104
+    site = "src/simplex.jl:265 #initialize_workspace#75"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 2
+    sampled_bytes = 96
+    site = "src/factorization.jl:19 PFIFactorization"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 3
+    sampled_bytes = 88
+    site = "src/transformations.jl:65 scale_problem"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 1
+    sampled_bytes = 80
+    site = "src/dual_simplex.jl:1888 #_solve_continuous_dual#90"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 2
+    sampled_bytes = 64
+    site = "src/simplex.jl:37 SimplexScratch"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/dual_simplex.jl:1880 _solve_continuous_dual"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 1
+    sampled_bytes = 32
+    site = "src/dual_simplex.jl:1599 _internal_solution"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 1
+    sampled_bytes = 24
+    site = "src/dual_simplex.jl:23 _StopCallback"
+    [[datasets.adlittle.dual_no_presolve.profile]]
+    sampled_allocations = 1
+    sampled_bytes = 16
+    site = "src/dual_simplex.jl:1880 #_solve_continuous_dual#90"
+
+[datasets.adlittle.initialize]
+allocations = 178
+bytes = 68464
+compile_seconds = 0.0
+samples = 3
+seconds = 7.05e-5
+
+[datasets.adlittle.primal]
+allocations = 124636
+bytes = 6236072
+compile_seconds = 0.0
+iterations = 117
+objective = 225494.96316238027
+samples = 3
+seconds = 0.0044683
+status = "OPTIMAL"
+
+[datasets.adlittle.primal_no_presolve]
+allocations = 2054
+bytes = 668064
+compile_seconds = 0.0
+iterations = 87
+objective = 225494.96316238036
+samples = 3
+seconds = 0.000926
+status = "OPTIMAL"
+
+[datasets.adlittle.refactorize]
+allocations = 93
+bytes = 35984
+compile_seconds = 0.0
+samples = 3
+seconds = 4.44e-5
+
+[datasets.afiro.basis_matrix]
+allocations = 6
+bytes = 832
+compile_seconds = 0.0
+samples = 3
+seconds = 3.7e-6
+
+[datasets.afiro.dual]
+allocations = 28826
+bytes = 1366680
+compile_seconds = 0.0
+iterations = 9
+objective = -464.75314285714273
+samples = 3
+seconds = 0.0008591
+status = "OPTIMAL"
+
+[datasets.afiro.dual_no_presolve]
+allocations = 610
+bytes = 100992
+compile_seconds = 0.0
+iterations = 20
+objective = -464.7531428571428
+samples = 3
+seconds = 0.0001947
+status = "OPTIMAL"
+
+[datasets.afiro.initialize]
+allocations = 176
+bytes = 34896
+compile_seconds = 0.0
+samples = 3
+seconds = 4.48e-5
+
+[datasets.afiro.primal]
+allocations = 28722
+bytes = 1343704
+compile_seconds = 0.0
+iterations = 9
+objective = -464.75314285714273
+samples = 3
+seconds = 0.0007224
+status = "OPTIMAL"
+
+[datasets.afiro.primal_no_presolve]
+allocations = 890
+bytes = 142160
+compile_seconds = 0.0
+iterations = 16
+objective = -464.75314285714285
+samples = 3
+seconds = 0.000186
+status = "OPTIMAL"
+
+[datasets.afiro.refactorize]
+allocations = 93
+bytes = 20112
+compile_seconds = 0.0
+samples = 3
+seconds = 4.95e-5
+
+[datasets.flugpl.basis_matrix]
+allocations = 6
+bytes = 624
+compile_seconds = 0.0
+samples = 3
+seconds = 2.0e-6
+
+[datasets.flugpl.dual]
+allocations = 40103
+bytes = 1648904
+compile_seconds = 0.0
+iterations = 12
+objective = 1.1671857255923203e6
+samples = 3
+seconds = 0.0008568
+status = "OPTIMAL"
+
+[datasets.flugpl.dual_no_presolve]
+allocations = 425
+bytes = 49392
+compile_seconds = 0.0
+iterations = 14
+objective = 1.1671857255923203e6
+samples = 3
+seconds = 0.0001178
+status = "OPTIMAL"
+
+[datasets.flugpl.initialize]
+allocations = 176
+bytes = 25328
+compile_seconds = 0.0
+samples = 3
+seconds = 4.24e-5
+
+[datasets.flugpl.primal]
+allocations = 40534
+bytes = 1702520
+compile_seconds = 0.0
+iterations = 11
+objective = 1.1671857255923203e6
+samples = 3
+seconds = 0.0008848
+status = "OPTIMAL"
+
+[datasets.flugpl.primal_no_presolve]
+allocations = 870
+bytes = 108160
+compile_seconds = 0.0
+iterations = 14
+objective = 1.1671857255923203e6
+samples = 3
+seconds = 0.0001717
+status = "OPTIMAL"
+
+[datasets.flugpl.refactorize]
+allocations = 93
+bytes = 14656
+compile_seconds = 0.0
+samples = 3
+seconds = 3.05e-5
+
+[datasets.kb2.basis_matrix]
+allocations = 6
+bytes = 1232
+compile_seconds = 0.0
+samples = 3
+seconds = 2.7e-6
+
+[datasets.kb2.dual]
+allocations = 294466
+bytes = 13852864
+compile_seconds = 0.0
+iterations = 41
+objective = -1749.9001299062058
+samples = 3
+seconds = 0.021592498
+status = "OPTIMAL"
+
+[datasets.kb2.dual_no_presolve]
+allocations = 1617
+bytes = 935840
+compile_seconds = 0.0
+iterations = 50
+objective = -1749.900129906206
+samples = 3
+seconds = 0.000632
+status = "OPTIMAL"
+
+[datasets.kb2.initialize]
+allocations = 176
+bytes = 49808
+compile_seconds = 0.0
+samples = 3
+seconds = 5.29e-5
+
+[datasets.kb2.primal]
+allocations = 294629
+bytes = 13864416
+compile_seconds = 0.0
+iterations = 45
+objective = -1749.9001299062054
+samples = 3
+seconds = 0.021859698
+status = "OPTIMAL"
+
+[datasets.kb2.primal_no_presolve]
+allocations = 1111
+bytes = 280016
+compile_seconds = 0.0
+iterations = 54
+objective = -1749.9001299062058
+samples = 3
+seconds = 0.000519099
+status = "OPTIMAL"
+
+[datasets.kb2.refactorize]
+allocations = 93
+bytes = 28992
+compile_seconds = 0.0
+samples = 3
+seconds = 4.24e-5
+
+[datasets.sc50a.basis_matrix]
+allocations = 6
+bytes = 1440
+compile_seconds = 0.0
+samples = 3
+seconds = 3.8e-6
+
+[datasets.sc50a.dual]
+allocations = 107687
+bytes = 4743808
+compile_seconds = 0.0
+iterations = 34
+objective = -64.57507705856449
+samples = 3
+seconds = 0.0025068
+status = "OPTIMAL"
+
+[datasets.sc50a.dual_no_presolve]
+allocations = 1028
+bytes = 328640
+compile_seconds = 0.0
+iterations = 52
+objective = -64.57507705856449
+samples = 3
+seconds = 0.0004462
+status = "OPTIMAL"
+
+[datasets.sc50a.initialize]
+allocations = 176
+bytes = 56560
+compile_seconds = 0.0
+samples = 3
+seconds = 5.86e-5
+
+[datasets.sc50a.primal]
+allocations = 107622
+bytes = 4693200
+compile_seconds = 0.0
+iterations = 29
+objective = -64.57507705856447
+samples = 3
+seconds = 0.002169599
+status = "OPTIMAL"
+
+[datasets.sc50a.primal_no_presolve]
+allocations = 1021
+bytes = 251192
+compile_seconds = 0.0
+iterations = 46
+objective = -64.57507705856449
+samples = 3
+seconds = 0.0004237
+status = "OPTIMAL"
+
+[datasets.sc50a.refactorize]
+allocations = 93
+bytes = 32832
+compile_seconds = 0.0
+samples = 3
+seconds = 5.2e-5
