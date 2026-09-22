@@ -39,7 +39,7 @@
 **Files:** Create: src/dual_ratio.jl, test/dual_ratio_tests.jl. Modify: src/dual_simplex.jl, src/simplex.jl, src/JSimplex.jl, test/runtests.jl.
 **Interfaces:** `DualPivotProposal{T}` contains `entering::Int`, `flips::Vector{Int}`, `dual_step::T`, and `outcome::Symbol` (`:pivot`, `:exhausted`, `:uncertain`). `propose_dual_step!(ws, row, orientation, violation, policy)` returns a proposal without changing costs, states, or the basis. `flips` is a borrowed buffer valid until the next proposal; F04 must not invalidate it with a nested call.
 
-- [ ] Test nearly identical breakpoints with substantially different pivots:
+- [x] Test nearly identical breakpoints with substantially different pivots:
 
 ~~~julia
 p = LinearProblem(JSimplex.sparse([1e-6 1.0]), [1e-6, 1.0 + 5e-8];
@@ -51,10 +51,10 @@ q = JSimplex.propose_dual_step!(w, [1e-6, 1.0, 0.0], 1.0, 0.5,
 @test isempty(q.flips)
 ~~~
 
-- [ ] Partition candidates into breakpoint tolerance intervals. Preserve the restrictions for non-boxed variables. Within an interval, try the strongest safe pivots; for each pivot, rederive the flips required for dual feasibility at that pivot's step. Do not automatically apply all earlier flips when the cost deviation is still within tolerance.
-- [ ] Validate the reduced costs of affected nonbasic variables and the remaining primal displacement after flips. Sort stably by breakpoint and index. The rational branch uses no floating-point relaxation and performs exact comparisons.
-- [ ] Test zero width, free variables, upper-bound-only variables, width overflow, a negative step within tolerance, and candidate exhaustion. Threshold rejection returns `:uncertain`, not proof of `INFEASIBLE`. Compare small rational cases with enumeration of feasible pivots and flips.
-- [ ] Run dual/benchmark tests, the full suite, F01 quick, and replay of the late failure. Commit: `feat: stabilize dual bound flipping ratio test`.
+- [x] Partition candidates into breakpoint tolerance intervals. Preserve the restrictions for non-boxed variables. Within an interval, try the strongest safe pivots; for each pivot, rederive the flips required for dual feasibility at that pivot's step. Do not automatically apply all earlier flips when the cost deviation is still within tolerance.
+- [x] Validate the reduced costs of affected nonbasic variables and the remaining primal displacement after flips. Sort stably by breakpoint and index. The rational branch uses no floating-point relaxation and performs exact comparisons.
+- [x] Test zero width, free variables, upper-bound-only variables, width overflow, a negative step within tolerance, and candidate exhaustion. Threshold rejection returns `:uncertain`, not proof of `INFEASIBLE`. Compare small rational cases with enumeration of feasible pivots and flips.
+- [x] Run dual/benchmark tests, the full suite, F01 quick, and replay of the late failure. Commit: `feat: stabilize dual bound flipping ratio test`.
 
 ### F04: Pivot Selection Validation and Retry
 

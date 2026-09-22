@@ -303,9 +303,10 @@ for `SolverOptions(Float64)`. Floating types use these keyword defaults:
 | `presolve` | `true` | Apply all presolve reductions before simplex; `false` solves the original LP directly |
 | `simplex_strategy` | `:legacy` | Existing algorithm or the opt-in `:adaptive` numerical profile; only implemented stages can be enabled |
 
-The adaptive profile currently provides shared numerical-quality contracts;
-all algorithm-stage switches remain disabled until their implementations are
-verified. User primal/dual tolerances are independent of internal residual and
+The adaptive profile enables a Harris bound-flipping dual ratio test that
+prefers stronger pivots among nearby breakpoints and validates the required
+bound flips before applying them. Further algorithm stages remain disabled
+until implemented and verified. User primal/dual tolerances are independent of internal residual and
 pivot-quality limits. The strategy survives scalar conversions and retries.
 MOI `empty!` preserves it like other optimizer attributes; a newly constructed
 optimizer starts with `:legacy`.

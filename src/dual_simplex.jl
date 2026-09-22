@@ -1033,7 +1033,7 @@ function _try_refine_dual_pivot!(workspace::SimplexWorkspace{Float64},
     try
         copyto!(workspace.reduced_costs, prices)
         dual_infeasibility(workspace) <= workspace.options.dual_tolerance || return nothing
-        entering_index, flips, exhausted = _bound_flipping_ratio_test(
+        entering_index, flips, exhausted = _configured_dual_ratio_test(
             workspace, tableau, orientation, violation)
         entering_index != -1 && !exhausted || return nothing
         stop_requested() && return nothing
@@ -1152,10 +1152,13 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
         end
     end
     orientation = below ? -one(T) : one(T)
-    entering_index, flips, exhausted = _bound_flipping_ratio_test(
+    entering_index, flips, exhausted = _configured_dual_ratio_test(
         workspace, tableau_row, orientation, abs(delta),
     )
     if entering_index == -1
+        if workspace.progress.numerical_policy.stable_ratio && !exhausted
+            return DualTermination(NUMERICAL_ERROR, "stable dual ratio test is numerically uncertain")
+        end
         # A tolerance cannot turn a nonzero, sign-eligible coefficient into a
         # mathematical infeasibility proof.
         if any(index -> begin

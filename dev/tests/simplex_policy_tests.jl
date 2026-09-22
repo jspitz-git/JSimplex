@@ -39,6 +39,7 @@ end
         result = only(TOML.parsefile(output)["cases"])
         @test result["solver_options_dual"]["simplex_strategy"] == "adaptive"
         @test result["numerical_policy_dual"]["max_refinements"] == 7
+        @test result["numerical_policy_dual"]["stable_ratio"]
         @test only(result["samples"])["status"] == "OPTIMAL"
         write(config,"unknown_switch = true\n")
         @test benchmark_main(["--policy="*config,"--output="*output]) == 1

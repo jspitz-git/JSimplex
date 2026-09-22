@@ -206,6 +206,7 @@ using Test
     include("basis_allocation_tests.jl")
     include("basis_matrix_reuse_allocation_tests.jl")
     include("dual_simplex_tests.jl")
+    include("dual_ratio_tests.jl")
     include("certification_allocation_tests.jl")
     include("primal_simplex_tests.jl")
     include("phase_matrix_allocation_tests.jl")
