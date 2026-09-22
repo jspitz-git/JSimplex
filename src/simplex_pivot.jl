@@ -98,6 +98,9 @@ function _copy_pivot_state!(destination,source)
     copyto!(destination.scratch.tableau_row,source.scratch.tableau_row)
     copyto!(destination.scratch.pricing_row,source.scratch.pricing_row)
     destination.scratch.steepest_initialized = source.scratch.steepest_initialized
+    copyto!(resize!(destination.scratch.recovery_rejections,length(source.scratch.recovery_rejections)),
+        source.scratch.recovery_rejections)
+    destination.scratch.recovery_basis_key = source.scratch.recovery_basis_key
     return destination
 end
 
@@ -162,6 +165,12 @@ function _replace_pivot_column!(ws, column, row; zero_tolerance,stop_requested=n
 end
 
 function _discard_candidate!(ws,candidate)
+    if ws.progress.numerical_policy.recovery
+        if candidate.scratch.selected_row > 0 || candidate.scratch.selected_entering > 0
+            ws.scratch.selected_row = candidate.scratch.selected_row
+            ws.scratch.selected_entering = candidate.scratch.selected_entering
+        end
+    end
     ws.refactorizations = max(ws.refactorizations,candidate.refactorizations)
     if candidate.scratch.pending_factor_update
         # The live arrays still describe the old basis. Rebuild it without a
@@ -262,7 +271,8 @@ struct _PivotRejection <: Exception
 end
 
 function _retry_simplex_step!(ws::SimplexWorkspace,stop_requested,algorithm::Symbol,
-                              reduced_cost_tolerance,basis_refreshed,perturb_degenerate)
+                              reduced_cost_tolerance,basis_refreshed,perturb_degenerate;
+                              recovery_rounds::Int=0)
     policy = ws.progress.numerical_policy
     rejected_entering = ws.scratch.rejected_entering
     rejected_rows = ws.scratch.rejected_rows
@@ -305,7 +315,8 @@ function _retry_simplex_step!(ws::SimplexWorkspace,stop_requested,algorithm::Sym
                 return result
             catch exception
                 stop_requested isa _StopCallback && exception === stop_requested.exception && rethrow()
-                if exception isa _UnreliableBasisSolve
+                if exception isa _UnreliableBasisSolve ||
+                   (policy.recovery && _is_numerical_exception(exception))
                     _PivotRejection(0,0,:refresh)
                 else
                     exception isa _PivotRejection || rethrow()
@@ -313,6 +324,10 @@ function _retry_simplex_step!(ws::SimplexWorkspace,stop_requested,algorithm::Sym
                 end
             end
             refresh_pending = false
+            if rejection.row > 0 || rejection.entering > 0
+                ws.scratch.selected_row = rejection.row
+                ws.scratch.selected_entering = rejection.entering
+            end
             _simplex_event!(ws,:pivot_rejected)
             if rejection.action in (:refresh,:exhausted) && refreshes < policy.max_recovery_rounds
                 refreshes += 1
@@ -344,7 +359,19 @@ function _retry_simplex_step!(ws::SimplexWorkspace,stop_requested,algorithm::Sym
                 length(rejected_entering) >= policy.max_pivot_candidates && break
             end
         end
-        return DualTermination(NUMERICAL_ERROR,"bounded pivot validation and refresh attempts exhausted")
+        if policy.recovery && recovery_rounds < policy.max_recovery_rounds
+            repaired = repair_basis!(ws,policy,stop_requested)
+            stop_requested() && return DualTermination(TIME_LIMIT,"time limit reached during basis recovery")
+            if repaired || ws.scratch.recovery_restored
+                ready = algorithm == :dual ?
+                    dual_infeasibility(ws) <= ws.options.dual_tolerance :
+                    primal_infeasibility(ws) <= ws.options.primal_tolerance
+                ready || return DualTermination(NUMERICAL_ERROR,"recovered basis requires feasibility restoration")
+                return _retry_simplex_step!(ws,stop_requested,algorithm,reduced_cost_tolerance,
+                    true,perturb_degenerate;recovery_rounds=recovery_rounds+1)
+            end
+        end
+        return DualTermination(NUMERICAL_ERROR,"bounded pivot validation and basis recovery attempts exhausted")
     finally
         empty!(rejected_entering)
         empty!(rejected_rows)
@@ -353,7 +380,7 @@ end
 
 function _dual_iteration!(ws::SimplexWorkspace,stop_requested,basis_refreshed::Bool=false,
                           perturb_degenerate::Bool=true)
-    ws.progress.numerical_policy.pivot_validation ||
+    (ws.progress.numerical_policy.pivot_validation || ws.progress.numerical_policy.recovery) ||
         return _dual_iteration_unchecked!(ws,stop_requested,basis_refreshed,perturb_degenerate)
     return _retry_simplex_step!(ws,stop_requested,:dual,ws.options.dual_tolerance,
                                 basis_refreshed,perturb_degenerate)
@@ -361,7 +388,7 @@ end
 
 function _primal_iteration!(ws::SimplexWorkspace,stop_requested,reduced_cost_tolerance,
                             basis_refreshed::Bool=false)
-    ws.progress.numerical_policy.pivot_validation ||
+    (ws.progress.numerical_policy.pivot_validation || ws.progress.numerical_policy.recovery) ||
         return _primal_iteration_unchecked!(ws,stop_requested,reduced_cost_tolerance,basis_refreshed)
     return _retry_simplex_step!(ws,stop_requested,:primal,reduced_cost_tolerance,
                                 basis_refreshed,false)
@@ -382,6 +409,11 @@ end
 
 function validate_pivot!(ws::SimplexWorkspace{T}, proposal::PivotCandidate{T},
                          policy::NumericalPolicy{T})::Symbol where {T}
+    if policy.recovery && !isempty(ws.scratch.recovery_rejections)
+        _sync_recovery_rejections!(ws)
+        (proposal.leaving_row,proposal.entering) in ws.scratch.recovery_rejections &&
+            return :reject_candidate
+    end
     B = _basis_matrix!(ws)
     m = size(B,1)
     length(proposal.column) == length(proposal.rho) == m ||

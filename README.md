@@ -309,7 +309,10 @@ bound flips before applying them. It shares bounded iterative refinement across
 basis solves, preserves each RHS, and checks solve quality before using the
 result. It also validates independent pivot estimates,
 tries alternative candidates, and applies accepted steps atomically with respect
-to callbacks. Further algorithm stages remain disabled
+to callbacks. It retains two verified basis checkpoints and can rebuild a
+failed basis through bounded column exchanges. Recovery preserves the common
+time and iteration budgets; a repaired basis must satisfy the current method's
+feasibility condition before that method resumes. Further algorithm stages remain disabled
 until implemented and verified. User primal/dual tolerances are independent of internal residual and
 pivot-quality limits. The strategy survives scalar conversions and retries.
 MOI `empty!` preserves it like other optimizer attributes; a newly constructed

@@ -101,7 +101,7 @@ repeat at most policy.max_refinements:
 **Files:** Modify: src/simplex_recovery.jl, src/simplex.jl, src/dual_simplex.jl, src/primal_simplex.jl. Create: test/basis_recovery_tests.jl.
 **Interfaces:** `BasisCheckpoint{T}` owns `basis::Basis`, costs, lower bounds, upper bounds, and a working-model identifier, without time or consumed iterations. `checkpoint_basis(ws)::BasisCheckpoint{T}`; `restore_checkpoint!(ws, checkpoint, stop)::Bool`; `repair_basis!(ws, policy, stop)::Bool`.
 
-- [ ] Test independent ownership and preservation of consumed iterations:
+- [x] Test independent ownership and preservation of consumed iterations:
 
 ~~~julia
 p = LinearProblem(JSimplex.sparse([1.0;;]), [1.0]; row_lower=[1.0])
@@ -115,10 +115,10 @@ w.iterations = 9
 @test w.costs[1] == 1.0
 ~~~
 
-- [ ] Keep at most two copies of the most recently verified bases; invalidate them when the model or phase changes. Restore rejects a different model/dimension, reconstructs the factor and values/costs/weights, and does not share mutable LU scratch. It counts the new factorization.
-- [ ] Repair tries bounded exchanges in a private trial basis, replacing suspect slots with independent nonbasic slack or structural columns. Success requires nonsingularity and a high-quality solve; F07 subsequently restores feasibility. On failure, restore the checkpoint and record a bounded rejection of the pivot pair that triggered the failure.
-- [ ] Test a singular trial basis, no suitable column, a deadline during factorization, and a callback exception. The original checkpoint must survive. Working perturbations are restored together with the basis.
-- [ ] Run targeted tests, the full suite, and a replay where fresh LU is insufficient. Commit: `feat: recover simplex from verified basis checkpoints`.
+- [x] Keep at most two copies of the most recently verified bases; invalidate them when the model or phase changes. Restore rejects a different model/dimension, reconstructs the factor and values/costs/weights, and does not share mutable LU scratch. It counts the new factorization.
+- [x] Repair tries bounded exchanges in a private trial basis, replacing suspect slots with independent nonbasic slack or structural columns. Success requires nonsingularity and a high-quality solve; F07 subsequently restores feasibility. On failure, restore the checkpoint and record a bounded rejection of the pivot pair that triggered the failure.
+- [x] Test a singular trial basis, no suitable column, a deadline during factorization, and a callback exception. The original checkpoint must survive. Working perturbations are restored together with the basis.
+- [x] Run targeted tests, the full suite, and a replay where fresh LU is insufficient. Commit: `feat: recover simplex from verified basis checkpoints`.
 
 ### F07: Feasibility Recovery and Shared Driver
 

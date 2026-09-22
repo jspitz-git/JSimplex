@@ -17,6 +17,16 @@ struct Basis
         new(basic_indices, states)
 end
 
+struct BasisCheckpoint{T<:Real}
+    basis::Basis
+    costs::Vector{T}
+    lower::Vector{Bound{T}}
+    upper::Vector{Bound{T}}
+    working_model::Tuple{UInt,Int,Int}
+    phase::Tuple{UInt,UInt}
+    perturbed::Bool
+end
+
 struct SimplexProgressContext{T<:Real,D}
     start_ns::UInt64
     objective::Vector{T}
@@ -83,6 +93,12 @@ mutable struct SimplexScratch{T<:Real}
     post_refactorize::Bool
     # Private assembly storage; backends must own their factorization data.
     basis_matrix::Union{Nothing,SparseMatrixCSC{T,Int}}
+    checkpoints::Vector{BasisCheckpoint{T}}
+    phase_generation::UInt
+    recovery_rejections::Vector{Tuple{Int,Int}}
+    recovery_basis_key::UInt
+    recovery_active::Bool
+    recovery_restored::Bool
 end
 
 function SimplexScratch(::Type{T}, row_count::Int, variable_count::Int) where {T<:Real}
@@ -94,6 +110,7 @@ function SimplexScratch(::Type{T}, row_count::Int, variable_count::Int) where {T
         zeros(T, variable_count), falses(variable_count), false,
         candidates, Int[], T[], T[], Int[], nothing, nothing, false, Int[], Int[], 0, 0, nothing,
         :none, zero(T), false, false, false, nothing,
+        BasisCheckpoint{T}[], UInt(0), Tuple{Int,Int}[], UInt(0), false, false,
     )
 end
 
@@ -153,6 +170,7 @@ function reset_devex!(workspace::SimplexWorkspace{T})::Nothing where {T}
 end
 
 function _restore_original_costs!(workspace::SimplexWorkspace{T}) where {T}
+    _invalidate_basis_checkpoints!(workspace)
     column_count = size(workspace.problem.A, 2)
     copyto!(workspace.costs, 1, workspace.problem.objective, 1, column_count)
     fill!(@view(workspace.costs[column_count + 1:end]), zero(T))
@@ -325,6 +343,10 @@ function recompute!(workspace::SimplexWorkspace{T}; refactorize::Bool=false,
     end
     for index in basis.basic_indices
         workspace.reduced_costs[index] = zero(T)
+    end
+    if workspace.progress.numerical_policy.recovery && !workspace.scratch.recovery_active &&
+       !_is_staged_workspace(workspace) && isempty(workspace.factorization.updates)
+        _remember_verified_basis!(workspace,_basis_solve_stop(workspace,caller_guard))
     end
     refactorize && _report_simplex_progress(workspace, caller_guard)
     return workspace

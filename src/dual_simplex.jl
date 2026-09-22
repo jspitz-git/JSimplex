@@ -1869,6 +1869,7 @@ function _make_dual_feasible!(workspace::SimplexWorkspace{T}, stop_requested) wh
         end
     end
     stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
+    _invalidate_basis_checkpoints!(workspace)
     workspace.basis = basis
     workspace.pricing_weights .= auxiliary.pricing_weights
     workspace.costs .= auxiliary.costs

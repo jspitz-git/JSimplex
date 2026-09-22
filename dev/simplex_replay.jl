@@ -44,7 +44,7 @@ function save_snapshot(path, ws; original_hash::String, original_path::String=""
     return metadata
 end
 
-function load_snapshot(path)
+function load_snapshot(path;repair_basis::Bool=false)
     metadata = TOML.parsefile(path * ".toml")
     bytes2hex(open(sha256, path)) == metadata["snapshot_sha256"] ||
         throw(ArgumentError("Snapshot SHA-256 mismatch"))
@@ -64,14 +64,28 @@ function load_snapshot(path)
             JSimplex.SimplexProgressContext(payload.problem; diagnostics)
         end
         ws = JSimplex.initialize_workspace(payload.problem, payload.options; progress)
+        isdefined(JSimplex,:_invalidate_basis_checkpoints!) &&
+            JSimplex._invalidate_basis_checkpoints!(ws)
         ws.basis = JSimplex.Basis(payload.basis.basic_indices, payload.basis.states)
         copyto!(ws.costs, payload.costs)
         copyto!(ws.lower, payload.lower)
         copyto!(ws.upper, payload.upper)
         ws.perturbed = payload.perturbed
-        JSimplex.recompute!(ws; refactorize=true)
         ws.iterations = payload.iterations
-        ws.refactorizations = payload.refactorizations + 1
+        metadata["basis_repaired"] = false
+        guard = JSimplex._guard_stop_callback(()->false)
+        try
+            JSimplex.recompute!(ws; refactorize=true,caller_guard=guard)
+        catch exception
+            exception === guard.exception && rethrow()
+            repair_basis && isdefined(JSimplex,:repair_basis!) &&
+                JSimplex._is_numerical_exception(exception) || rethrow()
+            # A failed fresh factorization is still consumed numerical work.
+            ws.refactorizations == 0 && (ws.refactorizations += 1)
+            JSimplex.repair_basis!(ws,ws.progress.numerical_policy,guard) || rethrow()
+            metadata["basis_repaired"] = true
+        end
+        ws.refactorizations += payload.refactorizations
         return ws, metadata
     end
 end
