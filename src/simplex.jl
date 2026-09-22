@@ -17,12 +17,13 @@ struct Basis
         new(basic_indices, states)
 end
 
-struct SimplexProgressContext{T<:Real}
+struct SimplexProgressContext{T<:Real,D}
     start_ns::UInt64
     objective::Vector{T}
     objective_constant::T
     scaling::Scaling{T}
     iteration_offset::Int
+    diagnostics::D
 end
 
 mutable struct SimplexScratch{T<:Real}
@@ -57,20 +58,21 @@ end
 
 function SimplexProgressContext(problem::LinearProblem{T}; start_ns::UInt64=time_ns(),
                                 scaling::Scaling{T}=identity_scaling(problem),
-                                iteration_offset::Int=0) where {T}
-    return SimplexProgressContext{T}(
+                                iteration_offset::Int=0, diagnostics=nothing) where {T}
+    return SimplexProgressContext{T,typeof(diagnostics)}(
         start_ns,
         copy(problem.objective),
         problem.objective_constant,
         scaling,
         iteration_offset,
+        diagnostics,
     )
 end
 
-mutable struct SimplexWorkspace{T<:Real,F,M,R}
+mutable struct SimplexWorkspace{T<:Real,F,M,R,D}
     problem::LinearProblem{T}
     options::SolverOptions{T,M,R}
-    progress::SimplexProgressContext{T}
+    progress::SimplexProgressContext{T,D}
     costs::Vector{T}
     lower::Vector{Bound{T}}
     upper::Vector{Bound{T}}
@@ -94,6 +96,12 @@ mutable struct SimplexWorkspace{T<:Real,F,M,R}
     dual_nonzero_steps_since_refactorization::Int
 end
 
+_simplex_event!(workspace::SimplexWorkspace, reason::Symbol) =
+    _diagnostic_event!(workspace.progress.diagnostics, reason, workspace)
+
+@inline _timed_simplex(f, workspace::SimplexWorkspace, reason::Symbol) =
+    _diagnostic_kernel(f, workspace.progress.diagnostics, reason)
+
 function reset_devex!(workspace::SimplexWorkspace{T})::Nothing where {T}
     fill!(workspace.devex_reference, false)
     workspace.devex_reference[workspace.basis.basic_indices] .= true
@@ -105,6 +113,7 @@ function _restore_original_costs!(workspace::SimplexWorkspace{T}) where {T}
     column_count = size(workspace.problem.A, 2)
     copyto!(workspace.costs, 1, workspace.problem.objective, 1, column_count)
     fill!(@view(workspace.costs[column_count + 1:end]), zero(T))
+    workspace.perturbed && _simplex_event!(workspace, :restore_perturbations)
     return nothing
 end
 
@@ -210,7 +219,7 @@ function _nonbasic_value(workspace::SimplexWorkspace{T}, index::Int) where {T}
 end
 
 function recompute!(workspace::SimplexWorkspace{T}; refactorize::Bool=false,
-                    caller_guard=nothing) where {T}
+                    caller_guard=nothing, diagnostic_reason::Symbol=:refactor_other) where {T}
     _validate_basis(workspace)
     if refactorize
         try
@@ -222,8 +231,11 @@ function recompute!(workspace::SimplexWorkspace{T}; refactorize::Bool=false,
             rethrow()
         end
         B = _basis_matrix!(workspace)
-        refactorize!(workspace.factorization, B)
+        _timed_simplex(workspace, :refactorization) do
+            refactorize!(workspace.factorization, B)
+        end
         workspace.refactorizations += 1
+        _simplex_event!(workspace, diagnostic_reason)
         workspace.dual_nonzero_steps_since_refactorization = 0
         (workspace.options.pricing == :devex || workspace.dual_devex_fallback) &&
             !workspace.dual_pricing_fallback && reset_devex!(workspace)
@@ -319,7 +331,9 @@ function initialize_workspace(
         typed_options.refactorization_interval, 0,
         typemax(Int), 0, 0,
     )
-    return recompute!(workspace)
+    recompute!(workspace)
+    _simplex_event!(workspace, :refactor_initial)
+    return workspace
 end
 
 function primal_infeasibility_summary(workspace::SimplexWorkspace{T}) where {T}

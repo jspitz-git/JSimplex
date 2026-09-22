@@ -57,10 +57,14 @@ end
 end
 
 @testset "JET retry dispatch retains concrete runtime options" begin
-    for T in (Float64,Rational{BigInt})
+    for T in (Float64,Rational{BigInt}), diagnostics in (nothing,JSimplex.SimplexDiagnostics())
+        # SolveContext is now parameterized by its diagnostic observer. Analyze
+        # the concrete context actually constructed at runtime, including opt-in
+        # diagnostics, rather than an unspecified UnionAll observer type.
+        context_type = typeof(JSimplex.SolveContext(UInt64(0),Inf,diagnostics))
         report=JET.report_opt(JSimplex._retry_original,
             (LinearProblem{T},SolverOptions{T,:pfi,:native},
-             JSimplex.SolveContext,JSimplex.DualRunResult{T});target_modules=(JSimplex,))
+             context_type,JSimplex.DualRunResult{T});target_modules=(JSimplex,))
         @test isempty(JET.get_reports(report))
     end
 end

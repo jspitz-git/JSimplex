@@ -332,11 +332,15 @@ end
 function _primal_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
                             reduced_cost_tolerance::T,
                             basis_refreshed::Bool=false) where {T}
-    entering, direction = _primal_entering(workspace, reduced_cost_tolerance)
+    _simplex_event!(workspace, :pricing)
+    entering, direction = _timed_simplex(workspace, :pricing) do
+        _primal_entering(workspace, reduced_cost_tolerance)
+    end
     entering == 0 && return DualTermination(OPTIMAL, "optimal solution found")
     workspace.iterations < workspace.options.iteration_limit ||
         return DualTermination(ITERATION_LIMIT, "iteration limit reached")
 
+    _simplex_event!(workspace, :pivot_proposed)
     A = workspace.problem.A
     column_count = size(A, 2)
     column = workspace.scratch.row_rhs
@@ -348,8 +352,9 @@ function _primal_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
     else
         column[entering - column_count] = -one(T)
     end
-    tableau_column = forward_solve!(workspace.scratch.row_solution,
-                                    workspace.factorization, column)
+    tableau_column = _timed_simplex(workspace, :ftran) do
+        forward_solve!(workspace.scratch.row_solution, workspace.factorization, column)
+    end
     all(isfinite, tableau_column) || return _numerical_failure()
     step, leaving_row, leaving_state = _primal_ratio(
         workspace, entering, direction, tableau_column,
@@ -375,7 +380,8 @@ function _primal_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
         if abs(tableau_column[leaving_row]) <= workspace.options.zero_tolerance
             if !basis_refreshed
                 stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
-                recompute!(workspace; refactorize=true, caller_guard=stop_requested)
+                recompute!(workspace; refactorize=true, caller_guard=stop_requested,
+                           diagnostic_reason=:refactor_pivot)
                 stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
                 _finite_workspace(workspace) || return _numerical_failure()
                 primal_infeasibility(workspace) <= workspace.options.primal_tolerance ||
@@ -400,10 +406,12 @@ function _primal_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
         workspace.basis.states[leaving] = leaving_state
     end
     workspace.iterations += 1
+    _simplex_event!(workspace, leaving_row == 0 ? :flip_completed : :pivot_completed)
     refactorize = length(workspace.factorization.updates) >=
                   workspace.options.refactorization_interval
     stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
-    recompute!(workspace; refactorize, caller_guard=stop_requested)
+    recompute!(workspace; refactorize, caller_guard=stop_requested,
+               diagnostic_reason=:refactor_limit)
     return nothing
 end
 
@@ -565,6 +573,7 @@ function _solve_continuous_primal(problem::LinearProblem{T}, options::SolverOpti
         workspace, artificial_count, initial = _primal_phase_one(
             problem, options, progress, stop_requested,
         )
+        _simplex_event!(workspace, artificial_count > 0 ? :phase_one : :phase_primal)
         # A small phase-I reduced cost can still remove a large violation when
         # its column is small, so dual_tolerance must not suppress it.
         terminal = _primal_optimize!(workspace, stop_requested,
@@ -597,6 +606,7 @@ function _solve_continuous_primal(problem::LinearProblem{T}, options::SolverOpti
             workspace.problem.objective[1:column_count] .= problem.objective
             _restore_original_costs!(workspace)
             recompute!(workspace)
+            _simplex_event!(workspace, :phase_primal)
             terminal = _primal_optimize!(workspace, stop_requested)
             terminal.status == OPTIMAL || return _internal_solution(workspace, terminal)
         end

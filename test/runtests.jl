@@ -198,6 +198,7 @@ using Test
     include("markowitz_core_reuse_allocation_tests.jl")
     include("markowitz_generic_allocation_tests.jl")
     include("simplex_workspace_tests.jl")
+    include("simplex_diagnostics_tests.jl")
     include("workspace_allocation_tests.jl")
     include("owned_basis_allocation_tests.jl")
     include("cost_restore_allocation_tests.jl")

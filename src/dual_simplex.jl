@@ -114,6 +114,7 @@ end
 
 function _try_refine_dual_prices!(workspace::SimplexWorkspace{Float64}, stop_requested)
     isempty(workspace.factorization.updates) || return false
+    _simplex_event!(workspace, :correction_attempt)
     B = basis_matrix(workspace)
     factor = try
         lu(B)
@@ -183,6 +184,7 @@ function _try_refine_dual_prices!(workspace::SimplexWorkspace{Float64}, stop_req
         stop_requested isa _StopCallback && (stop_requested.exception = exception)
         rethrow()
     end
+    _simplex_event!(workspace, :correction)
     return true
 end
 
@@ -416,6 +418,11 @@ function _apply_bound_flips!(workspace::SimplexWorkspace{T}, flips::Vector{Int})
     for (row, index) in enumerate(workspace.basis.basic_indices)
         workspace.primal[index] -= basic_change[row]
     end
+    if !isnothing(workspace.progress.diagnostics)
+        for _ in flips
+            _simplex_event!(workspace, :bound_flipped)
+        end
+    end
     return true
 end
 
@@ -609,6 +616,7 @@ function _perturb_degenerate_dual_costs!(workspace::SimplexWorkspace{T},
         stop_requested isa _StopCallback && (stop_requested.exception = exception)
         rethrow()
     end
+    isempty(indices) || _simplex_event!(workspace, :perturbation)
     return length(indices)
 end
 
@@ -753,6 +761,7 @@ end
 # with a minimum of one. Each clean cycle doubles a shortened interval back
 # toward the user's configured value; growth above it remains more cautious.
 function _note_dual_updated_basis_repair!(workspace::SimplexWorkspace)
+    _simplex_event!(workspace, :repair)
     updates = length(workspace.factorization.updates)
     updates > 0 || return nothing
     workspace.dual_recent_repairs += 1
@@ -1081,8 +1090,12 @@ _try_refine_dual_pivot!(::SimplexWorkspace, ::Int, orientation, violation,
 function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
                           basis_refreshed::Bool=false,
                           perturb_degenerate::Bool=true) where {T}
-    leaving_row = dual_edge_selection(workspace)
+    _simplex_event!(workspace, :pricing)
+    leaving_row = _timed_simplex(workspace, :pricing) do
+        dual_edge_selection(workspace)
+    end
     leaving_row == -1 && return DualTermination(OPTIMAL, "optimal solution found")
+    _simplex_event!(workspace, :pivot_proposed)
     leaving_index = workspace.basis.basic_indices[leaving_row]
     below = _lower_violation(workspace.lower[leaving_index], workspace.primal[leaving_index]) > zero(T)
     bound = below ? workspace.lower[leaving_index] : workspace.upper[leaving_index]
@@ -1092,9 +1105,13 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
     unit = workspace.scratch.row_rhs
     fill!(unit, zero(T))
     unit[leaving_row] = one(T)
-    rho = transpose_solve!(workspace.scratch.rho, workspace.factorization, unit)
+    rho = _timed_simplex(workspace, :btran) do
+        transpose_solve!(workspace.scratch.rho, workspace.factorization, unit)
+    end
     tableau_row = workspace.scratch.tableau_row
-    price!(tableau_row, workspace, rho)
+    _timed_simplex(workspace, :pricing) do
+        price!(tableau_row, workspace, rho)
+    end
     all(isfinite, rho) && all(isfinite, tableau_row) || return _numerical_failure()
     if _is_exact(T) === Val(false) && !isempty(workspace.factorization.updates)
         row_residual_ratio = _dual_row_residual_ratio(workspace, rho, leaving_row)
@@ -1109,7 +1126,8 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
                 stop_requested isa _StopCallback && (stop_requested.exception = exception)
                 rethrow()
             end
-            recompute!(workspace; refactorize=true, caller_guard=stop_requested)
+            recompute!(workspace; refactorize=true, caller_guard=stop_requested,
+                       diagnostic_reason=:refactor_residual)
             stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
             _finite_workspace(workspace) || return _numerical_failure()
             if !_dual_prices_feasible_or_refined!(workspace, stop_requested)
@@ -1178,8 +1196,9 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
     else
         column[entering_index - column_count] = -one(T)
     end
-    tableau_column = forward_solve!(workspace.scratch.row_solution,
-                                    workspace.factorization, column)
+    tableau_column = _timed_simplex(workspace, :ftran) do
+        forward_solve!(workspace.scratch.row_solution, workspace.factorization, column)
+    end
     all(isfinite, tableau_column) || return _numerical_failure()
     pivot = tableau_column[leaving_row]
     refined_row = false
@@ -1191,7 +1210,8 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
         if !basis_refreshed
             stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
             _note_dual_updated_basis_repair!(workspace)
-            recompute!(workspace; refactorize=true, caller_guard=stop_requested)
+            recompute!(workspace; refactorize=true, caller_guard=stop_requested,
+                       diagnostic_reason=:refactor_residual)
             stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
             _finite_workspace(workspace) || return _numerical_failure()
             if !_dual_prices_feasible_or_refined!(workspace, stop_requested)
@@ -1314,6 +1334,7 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
     workspace.primal[leaving_index] = bound_value(bound)
     # Count the completed pivot even when its subsequent refactorization times out.
     workspace.iterations += 1
+    _simplex_event!(workspace, :pivot_completed)
     if _is_exact(T) === Val(false) && !iszero(dual_step)
         workspace.dual_nonzero_steps_since_refactorization += 1
     end
@@ -1339,7 +1360,8 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
         productive = _is_exact(T) === Val(false) &&
                      workspace.dual_nonzero_steps_since_refactorization >=
                      updates - updates ÷ 4
-        recompute!(workspace; refactorize=true, caller_guard=stop_requested)
+        recompute!(workspace; refactorize=true, caller_guard=stop_requested,
+                   diagnostic_reason=:refactor_limit)
         basis_refreshed || _note_stable_dual_refactorization!(workspace, productive)
     end
     if perturb_degenerate && _is_exact(T) === Val(false) &&
@@ -1618,6 +1640,8 @@ end
 
 function _internal_solution(workspace::SimplexWorkspace{T}, status::TerminationStatus,
                             message::String) where {T}
+    _simplex_event!(workspace, status == OPTIMAL ? :certification :
+                              status == NUMERICAL_ERROR ? :certification_failed : :checkpoint)
     primal = status == OPTIMAL ? workspace.primal[1:size(workspace.problem.A, 2)] : nothing
     objective = isnothing(primal) ? nothing :
                 dot(workspace.problem.objective, primal) + workspace.problem.objective_constant
@@ -1726,7 +1750,9 @@ function _auxiliary_workspace(workspace::SimplexWorkspace{T}) where {T}
         workspace.dual_bad_update_min, workspace.dual_stable_refactorizations,
         workspace.dual_nonzero_steps_since_refactorization,
     )
-    return recompute!(auxiliary)
+    recompute!(auxiliary)
+    _simplex_event!(auxiliary, :phase_auxiliary)
+    return auxiliary
 end
 
 function _classify_recession!(workspace::SimplexWorkspace{T}, stop_requested) where {T}
@@ -1917,6 +1943,7 @@ function _solve_continuous_dual(problem::LinearProblem{T}, options::SolverOption
 end
 
 function _solve_continuous_dual!(workspace::SimplexWorkspace{T}, stop_requested) where {T}
+    _simplex_event!(workspace, :phase_dual)
     problem, options = workspace.problem, workspace.options
     stop_requested() && return _internal_solution(workspace, TIME_LIMIT, "time limit reached")
     _finite_workspace(workspace) || return _internal_solution(workspace, _numerical_failure())

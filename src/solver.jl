@@ -1,7 +1,10 @@
-struct SolveContext
+struct SolveContext{D}
     start_ns::UInt64
     time_limit_seconds::Float64
+    diagnostics::D
 end
+
+SolveContext(start_ns::UInt64, limit::Float64) = SolveContext(start_ns, limit, nothing)
 
 elapsed_seconds(context::SolveContext) = (time_ns() - context.start_ns) / 1.0e9
 time_limit_reached(context::SolveContext) =
@@ -159,7 +162,8 @@ function cleanup_original(problem::LinearProblem{T}, restored_basis::Basis,
     stop_requested = _guard_stop_callback(() -> time_limit_reached(context))
     workspace = nothing
     try
-        progress = SimplexProgressContext(problem; start_ns=context.start_ns)
+        progress = SimplexProgressContext(problem; start_ns=context.start_ns,
+                                          diagnostics=context.diagnostics)
         workspace = initialize_workspace(_minimization_problem(problem), options; progress)
         workspace.iterations = prior_iterations
         workspace.refactorizations = prior_refactorizations
@@ -235,7 +239,8 @@ function _retry_original(problem::LinearProblem{T}, options::SolverOptions{T},
     retry_options = _remaining_options(options; iterations=previous.iterations)
     stop_requested = () -> time_limit_reached(context)
     progress = SimplexProgressContext(problem; start_ns=context.start_ns,
-                                     iteration_offset=previous.iterations)
+                                     iteration_offset=previous.iterations,
+                                     diagnostics=context.diagnostics)
     retry = if options.algorithm == :dual
         _solve_continuous_dual(retry_problem, retry_options; stop_requested, progress)
     else
@@ -357,9 +362,14 @@ end
 """
 function solve(problem::LinearProblem{T}; relax_integrality::Bool=false,
                options=nothing)::Solution{T} where {T<:Real}
+    return _solve_diagnosed(problem, nothing; relax_integrality, options)
+end
+
+function _solve_diagnosed(problem::LinearProblem{T}, diagnostics;
+                         relax_integrality::Bool=false, options=nothing)::Solution{T} where {T<:Real}
     start_ns = time_ns()
     typed_options = options === nothing ? SolverOptions(T) : SolverOptions(T, options)
-    context = SolveContext(start_ns, typed_options.time_limit)
+    context = SolveContext(start_ns, typed_options.time_limit, diagnostics)
     @logmsg typed_options.log_level "Starting solve" name=problem.name algorithm=typed_options.algorithm
     _report_problem_statistics("Loaded problem", problem, typed_options)
     time_limit_reached(context) &&
@@ -405,7 +415,8 @@ function solve(problem::LinearProblem{T}; relax_integrality::Bool=false,
 
     # The core converts expected internal numerical failures and preserves
     # callback exception provenance. Do not add a broader catch at this layer.
-    progress = SimplexProgressContext(presolved.problem; start_ns=context.start_ns, scaling)
+    progress = SimplexProgressContext(presolved.problem; start_ns=context.start_ns, scaling,
+                                      diagnostics)
     algorithm = typed_options.algorithm == :dual ? _solve_continuous_dual : _solve_continuous_primal
     run = algorithm(
         working_problem,

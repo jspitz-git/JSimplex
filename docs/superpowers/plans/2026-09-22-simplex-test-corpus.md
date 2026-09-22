@@ -95,11 +95,11 @@ LP reference objective.
 
 ## Compression and read-only inputs
 
-- [ ] F01 discovers .mps and .mps.gz under the three configurable roots and rejects missing/ambiguous selections with a clear report.
-- [ ] Decompress .gz through a bounded stream or a disposable file in a task-specific temporary directory. Use an argument-vector subprocess invocation, not shell interpolation of filenames; use the available gzip executable or an already-supported development mechanism.
-- [ ] Enforce time, decompressed-byte, and temporary-disk budgets. Do not overwrite or decompress next to the source. Clean task-owned temporary files after success, failure, or cancellation.
-- [ ] Test a tiny gzip fixture against the same uncompressed LP, a corrupt/truncated stream, a path containing spaces, an exceeded decompression quota, and early cancellation.
-- [ ] Explicitly set relax_integrality=true for MIPLib solve comparisons and record that choice. A MIP-infeasible label does not certify LP infeasibility.
+- [x] F01 discovers .mps and .mps.gz under the three configurable roots and rejects missing/ambiguous selections with a clear report.
+- [x] Decompress .gz through a bounded stream or a disposable file in a task-specific temporary directory. Use an argument-vector subprocess invocation, not shell interpolation of filenames; use the available gzip executable or an already-supported development mechanism.
+- [x] Enforce time, decompressed-byte, and temporary-disk budgets. Do not overwrite or decompress next to the source. Clean task-owned temporary files after success, failure, or cancellation.
+- [x] Test a tiny gzip fixture against the same uncompressed LP, a corrupt/truncated stream, a path containing spaces, an exceeded decompression quota, and early cancellation.
+- [x] Explicitly set relax_integrality=true for MIPLib solve comparisons and record that choice. A MIP-infeasible label does not certify LP infeasibility.
 
 Implement a configurable default decompression quota of 2 GiB per input.
 Exceeding it is a recorded input/resource limit, not NUMERICAL_ERROR or a
@@ -134,25 +134,24 @@ performance profiles, or the default-rollout speed score.
 
 ## Required F01/F25 selection tests
 
-- [ ] --suite=quick and every ordinary solve suite exclude all three stress-only files.
-- [ ] --file=/home/jspitz/mps/big.mps in solve mode is rejected before parsing or factorization.
-- [ ] AnyMod.mps, AnyMOD.mps, a resolved symlink, and an optional compressed form receive the same stress classification.
-- [ ] --suite=stress requires --mode=stress and explicit budgets; it cannot silently fall through to solve.
-- [ ] Eligible runtime.mps, medium.mps, and NetLib/MIPLib selections remain available for bounded complete solves.
-- [ ] Stress resource stops and missing corpora remain in reports, without being counted as failed mathematical certificates or successful LP solves.
+- [x] --suite=quick and every ordinary solve suite exclude all three stress-only files.
+- [x] --file=/home/jspitz/mps/big.mps in solve mode is rejected before parsing or factorization.
+- [x] AnyMod.mps, AnyMOD.mps, a resolved symlink, and an optional compressed form receive the same stress classification.
+- [x] --suite=stress requires --mode=stress and explicit budgets; it cannot silently fall through to solve.
+- [x] Eligible runtime.mps, medium.mps, and NetLib/MIPLib selections remain available for bounded complete solves.
+- [x] Stress resource stops and missing corpora remain in reports, without being counted as failed mathematical certificates or successful LP solves.
 
 ## Planned runner commands
 
-These commands become available in F01; they are not implemented by this
-documentation update. Implement --netlib-root, --miplib-root, --mps-root,
---mode, --memory-limit-mib, and --read-limit-mib alongside the previously
-planned flags. The three local paths are defaults and can be overridden.
+These commands are implemented in F01. The three local roots are defaults
+and can be overridden. Eligible large local solves explicitly request the
+24 GiB WSL allowance; the worker clips it to OS-reported total memory.
 
 ~~~bash
 julia --project=dev dev/simplex_benchmarks.jl --source=. --suite=quick --algorithm=both --samples=7 --time-limit=60 --iteration-limit=100000 --output=/tmp/simplex-quick.toml
 julia --project=dev dev/simplex_benchmarks.jl --source=. --file=/home/jspitz/MIPLib/pk1.mps.gz --algorithm=both --samples=7 --time-limit=60 --iteration-limit=100000 --output=/tmp/simplex-pk1.toml
-julia --project=dev dev/simplex_benchmarks.jl --source=. --file=/home/jspitz/mps/runtime.mps --algorithm=both --samples=3 --time-limit=1800 --iteration-limit=1000000 --output=/tmp/simplex-runtime.toml
-julia --project=dev dev/simplex_benchmarks.jl --source=. --file=/home/jspitz/mps/medium.mps --algorithm=both --samples=3 --time-limit=1800 --iteration-limit=1000000 --output=/tmp/simplex-medium.toml
+julia --project=dev dev/simplex_benchmarks.jl --source=. --file=/home/jspitz/mps/runtime.mps --algorithm=both --samples=3 --time-limit=1800 --iteration-limit=1000000 --memory-limit-mib=24576 --output=/tmp/simplex-runtime.toml
+julia --project=dev dev/simplex_benchmarks.jl --source=. --file=/home/jspitz/mps/medium.mps --algorithm=both --samples=3 --time-limit=1800 --iteration-limit=1000000 --memory-limit-mib=24576 --output=/tmp/simplex-medium.toml
 julia --project=dev dev/simplex_benchmarks.jl --source=. --suite=stress --mode=stress --time-limit=60 --memory-limit-mib=4096 --read-limit-mib=256 --output=/tmp/simplex-stress.toml
 ~~~
 
@@ -167,3 +166,12 @@ Inspected the three directory inventories, file sizes, selected-case
 existence, and the first few decompressed lines of pk1, flugpl, stein9inf,
 and markshare_4_0. No full solve or full read of the three oversized models
 was started. Full algorithm evaluation belongs to F01 and later features.
+
+## F01 implementation verification
+
+All selection, compression, cancellation, reader-budget, and stress-mode checks
+passed in the final 606-assertion development suite. Actual inspections read
+256 MiB prefixes of big/AnyMOD and the complete 142,643,690-byte largo stream,
+without parsing or simplex work. Large eligible baseline comparisons and the
+corrected 24 GiB medium runs are recorded in the
+[F01 report](../../../diagnostics/simplex-modernization/F01.md).

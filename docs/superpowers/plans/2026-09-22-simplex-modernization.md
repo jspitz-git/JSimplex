@@ -50,14 +50,12 @@ Do not use the existing presolve or primal-simplex worktrees, or create a
 nested worktree on resumption. The planning commit precedes F01; feature
 checkboxes below track actual implementation.
 
-During preparation, direct execution of the full production suite passed
-224,921/224,921 checks. An earlier Pkg.test() invocation stopped after
-183,653 passing checks with one error; the reason remains unconfirmed.
-See the [baseline record](../../../diagnostics/simplex-modernization/planning_baseline.md).
-Before F01, reproduce the difference with a complete captured log. Any test
-launcher/dependency-declaration fix gets a separate preliminary infrastructure
-commit, without changing numerical code or expected results to accommodate
-the launcher.
+Preparation reproduced the isolated `Pkg.test()` failure: test imports were
+missing from `test/Project.toml`. Commit `a52e194` declares the three standard
+libraries used directly by tests. The standard launcher then passed
+224,921/224,921 checks without numerical changes. See the
+[preflight report](../../../diagnostics/simplex-modernization/preflight_test_environment.md)
+and the earlier [baseline record](../../../diagnostics/simplex-modernization/planning_baseline.md).
 
 Verify pathof(JSimplex) before development so tests load this worktree:
 
@@ -93,7 +91,7 @@ implementation in parallel.
 
 | Status | Feature | Dependencies | Separate commit |
 | --- | --- | --- | --- |
-| [ ] | F01 Reproducible diagnostics and benchmarks | baseline | `feat: add simplex numerical benchmark harness` |
+| [x] | F01 Reproducible diagnostics and benchmarks | baseline | `feat: add simplex numerical benchmark harness` |
 | [ ] | F02 Shared numerical policy and residuals | F01 | `feat: add shared simplex numerical quality checks` |
 | [ ] | F03 Stable Harris BFRT | F02 | `feat: stabilize dual bound flipping ratio test` |
 | [ ] | F04 Pivot validation and reselection | F03 | `feat: retry numerically unsafe simplex pivots` |
@@ -204,8 +202,9 @@ rollout must not be committed as successful.
 
 ## Handoff
 
-This work prepares the plan and worktree; F01–F25 implementation has not started.
-On resumption, read the specification, this overview, the test corpus plan,
-and the relevant stage. Sequential implementation in this worktree is
-recommended because the stages share numerical contracts. The user has not
-yet selected a subagent execution method for algorithm development.
+The user authorized sequential implementation in this worktree, with one
+commit per verified feature. Preparation and F01 are complete; F02 is next. See the
+[F01 validation report](../../../diagnostics/simplex-modernization/F01.md).
+On resumption, use the feature checkboxes and commit history, then read the
+specification and the next incomplete stage. Keep implementation sequential
+because the stages share numerical contracts.

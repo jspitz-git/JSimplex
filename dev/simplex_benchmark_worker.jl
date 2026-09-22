@@ -1,0 +1,261 @@
+# Each job loads its selected source checkout in a separate process.
+using TOML, SHA
+include("simplex_benchmarks.jl")
+using .JSimplexBenchmarks
+using JSimplex
+include("simplex_replay.jl")
+
+function worker_main(job_path)
+    job = TOML.parsefile(job_path)
+    options, entry = job["options"], job["case"]
+    result = Dict{String,Any}("outcome" => "input_error", "relax_integrality" => true)
+    stage = "input"
+    try
+        expected_source = realpath(joinpath(options["source"], "src", "JSimplex.jl"))
+        realpath(pathof(JSimplex)) == expected_source || error("Selected source checkout was not loaded")
+        result["loaded_source"] = expected_source
+        path = validate_selection(entry["resolved_path"], options["mode"])
+        if !isempty(options["replay"])
+            metadata = TOML.parsefile(path * ".toml")
+            JSimplexBenchmarks.stress_only(metadata["original_path"]) && error("Stress-only source cannot be replayed")
+            metadata["original_model_sha256"] in get(get(job,"excluded_hashes",Dict()),"decompressed_sha256",[]) &&
+                error("Known stress-only content cannot be replayed")
+            ws, metadata = JSimplexReplay.load_snapshot(path)
+            stage = "solve"
+            started = time_ns()
+            deadline = () -> (time_ns() - started) / 1e9 >= options["time-limit"]
+            # Preserve consumed counters; the replay command bounds additional work.
+            before = ws.iterations
+            limit = Base.checked_add(before, options["iteration-limit"])
+            settings = (; (key => getfield(ws.options, key) for key in fieldnames(typeof(ws.options)))...)
+            ws.options = SolverOptions(typeof(ws.options.primal_tolerance);
+                merge(settings, (; iteration_limit=limit, time_limit=options["time-limit"]))...)
+            stop = deadline
+            run = ws.options.algorithm == :dual ? JSimplex._solve_continuous_dual!(ws, stop) :
+                JSimplex._internal_solution(ws, JSimplex._primal_optimize!(ws, stop))
+            result["replay_metadata"] = metadata
+            result["status"] = string(run.status)
+            result["status_scope"] = "working snapshot model"
+            result["iterations"] = run.iterations
+            result["elapsed_seconds"] = (time_ns() - started) / 1e9
+            result["outcome"] = "completed"
+            JSimplexBenchmarks.write_report(job["result_path"], result)
+            return 0
+        end
+        if options["mode"] == "stress" && options["stress-operation"] == "inspect"
+            stage = "reader"
+            merge!(result, JSimplexBenchmarks.inspect_prefix(path;
+                byte_limit=min(options["read-limit-mib"], 256) * 1048576,
+                seconds=min(options["time-limit"], 60.0)))
+            JSimplexBenchmarks.write_report(job["result_path"], result)
+            return 0
+        end
+        copy_budget = Base.checked_mul(options["decompression-limit-mib"], 1048576)
+        if options["mode"] == "stress"
+            stage = "reader"
+            read_budget = Base.checked_mul(options["read-limit-mib"], 1048576)
+            filesize(path) <= read_budget || throw(JSimplexBenchmarks.BenchmarkResourceLimit(
+                "Source exceeds the stress read budget; full hashing and parsing were not started"))
+            copy_budget = min(copy_budget, read_budget)
+        end
+        result["source_sha256"] = bytes2hex(open(sha256, path))
+        options["mode"] == "solve" && result["source_sha256"] in
+            get(get(job,"excluded_hashes",Dict()),"source_sha256",[]) && error("Known stress-only content cannot be solved")
+        if haskey(entry, "source_sha256")
+            result["source_sha256"] == entry["source_sha256"] || error("Source SHA-256 mismatch")
+        end
+        unpacked = joinpath(job["temporary"], "input.mps")
+        metadata = bounded_copy(path, unpacked;
+            byte_limit=copy_budget, seconds=60.0)
+        merge!(result, metadata)
+        options["mode"] == "solve" && result["decompressed_sha256"] in
+            get(get(job,"excluded_hashes",Dict()),"decompressed_sha256",[]) && error("Known stress-only content cannot be solved")
+        if haskey(entry, "decompressed_sha256")
+            result["decompressed_sha256"] == entry["decompressed_sha256"] || error("Decompressed SHA-256 mismatch")
+        end
+        parse_started = time_ns()
+        stage = "reader"
+        result["stage"] = stage
+        result["outcome"] = "running"
+        JSimplexBenchmarks.write_report(job["result_path"],result)
+        problem = read_mps(unpacked)
+        result["parse_seconds"] = (time_ns() - parse_started) / 1e9
+        result["rows"], result["columns"] = size(problem.A)
+        result["nonzeros"] = length(problem.A.nzval)
+        result["scalar_type"] = "Float64"
+        result["precision_bits"] = 53
+        if options["mode"] == "stress"
+            result["outcome"] = "completed_parse"
+            if options["stress-operation"] == "components"
+                # A tractable extracted block has a distinct identity; it is not
+                # an LP solve or a basis factorization of the original model.
+                rows, columns = min(size(problem.A, 1), 256), min(size(problem.A, 2), 256)
+                block = problem.A[1:rows, 1:columns]
+                while length(block.nzval) > 50000
+                    columns -= 1
+                    block = problem.A[1:rows, 1:columns]
+                end
+                priced = transpose(block) * ones(rows)
+                all(isfinite, priced) || error("Nonfinite extracted-block pricing")
+                result["component_id"] = entry["id"] * "/leading-block"
+                result["extraction_recipe"] = "Leading at most 256 rows and columns, trim columns to at most 50000 stored entries"
+                result["component_rows"], result["component_columns"] = size(block)
+                result["component_nonzeros"] = length(block.nzval)
+                result["component_operation"] = "transpose matrix-vector pricing"
+                result["outcome"] = "component_completed"
+            end
+            JSimplexBenchmarks.write_report(job["result_path"], result)
+            return 0
+        end
+        JSimplex.BLAS.set_num_threads(1)
+        result["blas_threads"] = JSimplex.BLAS.get_num_threads()
+        result["blas_config"] = string(JSimplex.BLAS.get_config())
+        result["samples"] = Dict{String,Any}[]
+        stage = "solve"
+        result["stage"] = stage
+        JSimplexBenchmarks.write_report(job["result_path"],result)
+        algorithms = options["algorithm"] == "both" ? [:primal, :dual] : [Symbol(options["algorithm"])]
+        for algorithm in algorithms
+            solver_options = SolverOptions(; algorithm, verbose=false,
+                time_limit=options["time-limit"], iteration_limit=options["iteration-limit"])
+            result["solver_options_$(algorithm)"] = Dict(string(key) =>
+                (getfield(solver_options, key) isa Union{Bool,Int,AbstractFloat} ?
+                    getfield(solver_options, key) : string(getfield(solver_options, key)))
+                for key in fieldnames(typeof(solver_options)))
+            # A fresh solve for warmup; never reuse its basis for measurements.
+            solve(problem; relax_integrality=true, options=solver_options)
+            for repetition in 1:options["samples"]
+                snapshot_path = joinpath(abspath(options["output"]) * ".replays",
+                    replace(entry["id"], '/' => '_') * "-$(algorithm)-$(repetition).bin")
+                captured = Ref(false)
+                trace = options["trace"] == "on" ?
+                    JSimplexReplay.TraceRecorder(snapshot_path * ".trace") : nothing
+                observer_seconds = Ref(0.0)
+                phase_seconds = Dict{String,Float64}()
+                phase_start = Ref(time_ns())
+                phase_name = Ref("initialization")
+                final_workspace = Ref{Any}(nothing)
+                recording = Ref(repetition != 1)
+                observer = function (reason, ws)
+                    recording[] || return nothing
+                    started = time_ns()
+                    if reason in (:phase_primal, :phase_dual, :phase_one, :phase_auxiliary, :phase_cleanup)
+                        key = phase_name[]
+                        phase_seconds[key] = get(phase_seconds, key, 0.0) + (started - phase_start[]) / 1e9
+                        phase_name[] = string(reason)
+                        phase_start[] = started
+                    end
+                    if !isnothing(trace) && reason in (:refactor_initial, :phase_primal, :phase_dual,
+                        :phase_one, :phase_auxiliary, :pivot_completed, :flip_completed,
+                        :refactor_other, :refactor_limit, :refactor_residual, :refactor_pivot)
+                        JSimplexReplay.record_trace!(trace, reason, ws)
+                    end
+                    if reason == :repair && !captured[]
+                        JSimplexReplay.save_snapshot(snapshot_path, ws;
+                            original_hash=result["decompressed_sha256"], original_path=path, reason)
+                        captured[] = true
+                    end
+                    reason == :certification && (final_workspace[] = ws)
+                    observer_seconds[] += (time_ns() - started) / 1e9
+                    return nothing
+                end
+                diagnostics = options["diagnostics"] == "on" && isdefined(JSimplex, :SimplexDiagnostics) ? JSimplex.SimplexDiagnostics(;
+                    observer, kernel_timing=options["kernel-timing"] == "on") : nothing
+                if repetition == 1 && !isnothing(diagnostics)
+                    # Warm the actual workspace/observer type; warming only the
+                    # uninstrumented solver leaves compilation in the first sample.
+                    JSimplex._solve_diagnosed(problem, diagnostics; relax_integrality=true, options=solver_options)
+                    for key in keys(diagnostics.counts)
+                        diagnostics.counts[key] = 0
+                    end
+                    empty!(diagnostics.events)
+                    diagnostics.next_event = 1
+                    for key in keys(diagnostics.kernel_calls)
+                        diagnostics.kernel_calls[key] = 0
+                        diagnostics.kernel_nanoseconds[key] = 0
+                    end
+                end
+                recording[] = true
+                phase_start[] = time_ns()
+                measured = @timed if isnothing(diagnostics)
+                    solve(problem; relax_integrality=true, options=solver_options)
+                else
+                    JSimplex._solve_diagnosed(problem, diagnostics; relax_integrality=true, options=solver_options)
+                end
+                solution = measured.value
+                sample = Dict{String,Any}("algorithm" => string(algorithm), "repetition" => repetition,
+                    "status" => string(solution.status), "message" => solution.message,
+                    "seconds" => measured.time, "allocated_bytes" => measured.bytes,
+                    "gc_seconds" => measured.gctime, "iterations" => solution.statistics.iterations,
+                    "refactorizations" => solution.statistics.refactorizations,
+                    "solver_seconds" => solution.statistics.elapsed_seconds,
+                    "diagnostics_enabled" => !isnothing(diagnostics),
+                    "observer_seconds" => observer_seconds[], "phase_seconds" => phase_seconds)
+                if hasproperty(measured, :compile_time)
+                    sample["compile_seconds"] = measured.compile_time
+                    sample["recompile_seconds"] = measured.recompile_time
+                end
+                phase_seconds[phase_name[]] = get(phase_seconds, phase_name[], 0.0) + (time_ns() - phase_start[]) / 1e9
+                captured[] && (sample["repair_snapshot"] = snapshot_path)
+                if !isnothing(trace)
+                    sample["trace_path"] = trace.path
+                    sample["trace_truncated"] = trace.truncated
+                    sample["trace_bytes"] = trace.written
+                end
+                isnothing(solution.objective_value) || (sample["objective"] = solution.objective_value)
+                merge!(sample, JSimplexBenchmarks.original_primal_errors(problem, solution.primal, solution.objective_value))
+                sample["dual_error_available"] = false
+                sample["dual_error_note"] = "Public results do not expose a mapped original-model dual witness"
+                ws = final_workspace[]
+                if solution.status == OPTIMAL && !isnothing(ws) && size(ws.problem.A) == size(problem.A)
+                    scaling = ws.progress.scaling
+                    expected_A = JSimplex.spdiagm(0 => scaling.row_factors) * problem.A *
+                                 JSimplex.spdiagm(0 => scaling.column_factors)
+                    sense = problem.objective_sense == JSimplex.MAX_SENSE ? -1 : 1
+                    expected_costs = sense .* problem.objective .* scaling.column_factors
+                    if ws.problem.A == expected_A && ws.problem.objective == expected_costs
+                        witness = JSimplex.transpose_solve(ws.factorization, ws.costs[ws.basis.basic_indices])
+                        witness = JSimplex.unscale_dual(scaling, witness)
+                        merge!(sample, JSimplexBenchmarks.original_dual_errors(problem, solution.primal, witness;
+                            primal_tolerance=solver_options.primal_tolerance))
+                        delete!(sample, "dual_error_note")
+                    end
+                end
+                sample["peak_process_rss_bytes"] = Sys.maxrss()
+                if solution.status == OPTIMAL
+                    sample["original_primal_certified"] = JSimplex._original_primal_feasible(
+                        problem, solution.primal, solver_options.primal_tolerance)
+                    sample["original_primal_certified"] || (result["validation_failure"] = true)
+                end
+                if haskey(entry, "expected_status") && string(solution.status) != entry["expected_status"]
+                    sample["reference_mismatch"] = "status"
+                    result["validation_failure"] = true
+                elseif solution.status == OPTIMAL && haskey(entry, "expected_objective") &&
+                       !isapprox(solution.objective_value, entry["expected_objective"]; rtol=1e-7, atol=1e-7)
+                    sample["reference_mismatch"] = "objective"
+                    result["validation_failure"] = true
+                end
+                if !isnothing(diagnostics)
+                    sample["events"] = Dict(string(k) => v for (k,v) in diagnostics.counts)
+                    sample["recent_events"] = string.(JSimplex.recent_events(diagnostics))
+                    sample["kernel_timing_enabled"] = diagnostics.kernel_timing
+                    sample["kernel_calls"] = Dict(string(k) => v for (k,v) in diagnostics.kernel_calls)
+                    sample["kernel_seconds"] = Dict(string(k) => Float64(v) / 1e9 for (k,v) in diagnostics.kernel_nanoseconds)
+                end
+                push!(result["samples"], sample)
+                JSimplexBenchmarks.write_report(job["result_path"], result)
+            end
+        end
+        result["outcome"] = get(result, "validation_failure", false) ? "validation_error" : "completed"
+    catch exception
+        exception isa InterruptException && rethrow()
+        result["outcome"] = exception isa Union{JSimplexBenchmarks.BenchmarkResourceLimit,OutOfMemoryError} ?
+            "resource_stop" : stage == "solve" ? "worker_error" :
+            stage == "reader" && options["mode"] == "stress" ? "reader_error" : "input_error"
+        result["error"] = sprint(showerror, exception)
+    end
+    JSimplexBenchmarks.write_report(job["result_path"], result)
+    return result["outcome"] == "completed" ? 0 : 1
+end
+
+exit(worker_main(only(ARGS)))

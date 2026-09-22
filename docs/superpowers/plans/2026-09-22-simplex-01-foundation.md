@@ -40,7 +40,7 @@
 **Files:** Create: src/simplex_diagnostics.jl, dev/simplex_benchmarks.jl, dev/simplex_cases.toml, test/simplex_diagnostics_tests.jl, dev/tests/simplex_benchmark_tests.jl. Modify: src/simplex.jl, src/dual_simplex.jl, src/primal_simplex.jl, src/JSimplex.jl, both runtests.jl files.
 **Interfaces:** SimplexDiagnostics() owns integer counters and a ring buffer containing the latest 64 events. record_event!(d, reason::Symbol)::Nothing; event_count(d, reason)::Int. The benchmark entry point benchmark_main(args)::Int returns a nonzero code on input/validation errors. Diagnostics remain internal; public SolveStatistics stays compatible.
 
-- [ ] Test bounded history and counters that continue increasing after the buffer fills:
+- [x] Test bounded history and counters that continue increasing after the buffer fills:
 
 ~~~julia
 d = JSimplex.SimplexDiagnostics()
@@ -51,21 +51,21 @@ end
 @test length(d.events) == 64
 ~~~
 
-- [ ] Implement events for phases, completed pivots/flips, proposed/rejected pivots, refactorization reasons, corrections, pricing, perturbations, and certification. Later tasks add their call sites. No I/O or allocated strings in normal iterations. Kernel timing is opt-in; reports distinguish measurement overhead from normal execution.
-- [ ] Implement the runner commands below. Record variant, source/dataset hashes, scalar type/precision, options, BLAS settings, status, errors in original units, phase/total times, counters, and memory. --source loads the selected checkout/snapshot in a separate process, without relying on the main checkout.
-- [ ] Discover NetLib/MIPLib/local cases from the three roots in the corpus plan. Add the eight specified quick cases, NetLib greenbea, and eligible local runtime/medium cases. Stream .mps.gz with resource bounds and explicit LP relaxation. Keep repository fixtures for offline regression coverage.
-- [ ] Implement a separate opt-in stress execution mode for big.mps, largo.mps, and AnyMOD.mps. Enforce canonical-path/name classification before launching work, including --file. No unrestricted solve or full-sized basis factorization. Implement the corpus plan's watchdog, memory/read caps, and separate stress outcomes.
-- [ ] Test CLI parsing, missing inputs, mismatched hashes, corrupt gzip, timeout, and numerical failure. Add selection tests for capitalization, aliases, compressed forms, and rejection of full solves on stress-only models. Freeze a content-deduplicated holdout and deterministic generated cases before tuning.
-- [ ] Export state at the first serious repair: basis, states, working costs/bounds, options, precision, original/working model hashes, and counters. Support replay with a rebuilt factorization, explicitly noting that it does not reproduce update-chain drift. For drift replay, retain the initial state and pivot/flip/refactorization sequence.
-- [ ] Measure the baseline, run new tests and the full suite, and commit: feat: add simplex numerical benchmark harness.
+- [x] Implement events for phases, completed pivots/flips, proposed/rejected pivots, refactorization reasons, corrections, pricing, perturbations, and certification. Later tasks add their call sites. No I/O or allocated strings in normal iterations. Kernel timing is opt-in; reports distinguish measurement overhead from normal execution.
+- [x] Implement the runner commands below. Record variant, source/dataset hashes, scalar type/precision, options, BLAS settings, status, errors in original units, phase/total times, counters, and memory. --source loads the selected checkout/snapshot in a separate process, without relying on the main checkout.
+- [x] Discover NetLib/MIPLib/local cases from the three roots in the corpus plan. Add the eight specified quick cases, NetLib greenbea, and eligible local runtime/medium cases. Stream .mps.gz with resource bounds and explicit LP relaxation. Keep repository fixtures for offline regression coverage.
+- [x] Implement a separate opt-in stress execution mode for big.mps, largo.mps, and AnyMOD.mps. Enforce canonical-path/name classification before launching work, including --file. No unrestricted solve or full-sized basis factorization. Implement the corpus plan's watchdog, memory/read caps, and separate stress outcomes.
+- [x] Test CLI parsing, missing inputs, mismatched hashes, corrupt gzip, timeout, and numerical failure. Add selection tests for capitalization, aliases, compressed forms, and rejection of full solves on stress-only models. Freeze a content-deduplicated holdout and deterministic generated cases before tuning.
+- [x] Export state at the first serious repair: basis, states, working costs/bounds, options, precision, original/working model hashes, and counters. Support replay with a rebuilt factorization, explicitly noting that it does not reproduce update-chain drift. For drift replay, retain the initial state and pivot/flip/refactorization sequence.
+- [x] Measure the baseline, run new tests and the full suite, and commit: feat: add simplex numerical benchmark harness.
 
 Implement these commands in F01; they are not currently available:
 
 ~~~bash
 julia --project=dev dev/simplex_benchmarks.jl --source=. --suite=quick --algorithm=both --samples=7 --time-limit=60 --iteration-limit=100000 --output=/tmp/simplex-quick.toml
 julia --project=dev dev/simplex_benchmarks.jl --source=. --file=/home/jspitz/MIPLib/pk1.mps.gz --algorithm=both --samples=7 --time-limit=60 --iteration-limit=100000 --output=/tmp/simplex-pk1.toml
-julia --project=dev dev/simplex_benchmarks.jl --source=. --file=/home/jspitz/mps/runtime.mps --algorithm=both --samples=3 --time-limit=1800 --iteration-limit=1000000 --output=/tmp/simplex-runtime.toml
-julia --project=dev dev/simplex_benchmarks.jl --source=. --file=/home/jspitz/mps/medium.mps --algorithm=both --samples=3 --time-limit=1800 --iteration-limit=1000000 --output=/tmp/simplex-medium.toml
+julia --project=dev dev/simplex_benchmarks.jl --source=. --file=/home/jspitz/mps/runtime.mps --algorithm=both --samples=3 --time-limit=1800 --iteration-limit=1000000 --memory-limit-mib=24576 --output=/tmp/simplex-runtime.toml
+julia --project=dev dev/simplex_benchmarks.jl --source=. --file=/home/jspitz/mps/medium.mps --algorithm=both --samples=3 --time-limit=1800 --iteration-limit=1000000 --memory-limit-mib=24576 --output=/tmp/simplex-medium.toml
 julia --project=dev dev/simplex_benchmarks.jl --source=. --suite=stress --mode=stress --time-limit=60 --memory-limit-mib=4096 --read-limit-mib=256 --output=/tmp/simplex-stress.toml
 ~~~
 
