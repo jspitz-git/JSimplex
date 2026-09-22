@@ -67,8 +67,10 @@ separately from timings on jointly solved cases.
 
 Use `--simplex-strategy=legacy` (default) or `adaptive` for fresh solves.
 Reports include the effective numerical policy as well as SolverOptions.
-The adaptive profile currently enables `stable_ratio`; use a policy file with
-`stable_ratio = false` to isolate its effect while retaining the profile.
+The adaptive profile currently enables `stable_ratio` and `pivot_validation`.
+Use a policy file with either switch set to `false` to isolate its effect while
+retaining the profile. Disabling `pivot_validation` retains the F03 ratio test
+without F04 validation, reselection or transactional application.
 `--policy=PATH` accepts a TOML file with internal numerical overrides:
 `solve_tolerance`, `pivot_error_tolerance`, `max_refinements`,
 `max_pivot_candidates`, `max_recovery_rounds`, `stagnation_window`,

@@ -85,7 +85,7 @@ function propose_dual_step!(ws::SimplexWorkspace{T}, row::Vector{T}, orientation
     exact = _is_exact(T) === Val(true)
     tolerance = exact ? zero(T) : ws.options.dual_tolerance
     primal_tolerance = exact ? zero(T) : ws.options.primal_tolerance
-    cutoff = _dual_pivot_cutoff(T)
+    cutoff = policy.pivot_validation ? zero(T) : _dual_pivot_cutoff(T)
     rejected = false
     for i in eachindex(row)
         coefficient = orientation * row[i]
@@ -137,6 +137,7 @@ function propose_dual_step!(ws::SimplexWorkspace{T}, row::Vector{T}, orientation
             group = view(candidates, first:last)
             sort!(group; by=j -> (-abs(row[j]),j))
             for j in group
+                j in ws.scratch.rejected_entering && continue
                 attempts += 1
                 attempts <= policy.max_pivot_candidates || return uncertain()
                 if _validate_dual_ratio_candidate!(ws, row, orientation, violation,
@@ -158,9 +159,14 @@ end
 function _configured_dual_ratio_test(ws::SimplexWorkspace{T}, row::Vector{T},
                                      orientation::T, violation::T) where {T}
     policy = ws.progress.numerical_policy
-    if policy.stable_ratio
+    result = if policy.stable_ratio
         proposal = propose_dual_step!(ws, row, orientation, violation, policy)
-        return proposal.entering, proposal.flips, proposal.outcome == :exhausted
+        (proposal.entering, proposal.flips, proposal.outcome == :exhausted)
+    else
+        _bound_flipping_ratio_test(ws, row, orientation, violation)
     end
-    return _bound_flipping_ratio_test(ws, row, orientation, violation)
+    if result[1] == -1 && !isempty(ws.scratch.rejected_entering)
+        throw(_PivotRejection(ws.scratch.selected_row,0,:next_row))
+    end
+    return result
 end

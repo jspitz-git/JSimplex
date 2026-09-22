@@ -49,7 +49,7 @@ const DEFAULTS = Dict{String,Any}(
 const POLICY_KEYS = (
     "solve_tolerance", "pivot_error_tolerance", "max_refinements",
     "max_pivot_candidates", "max_recovery_rounds", "stagnation_window",
-    "max_precision_bits", "max_lp_refinements", "stable_ratio", "recovery",
+    "max_precision_bits", "max_lp_refinements", "stable_ratio", "pivot_validation", "recovery",
     "incremental_primal", "adaptive_refactor", "adaptive_stalling",
     "adaptive_pricing", "partial_pricing", "hypersparse", "crash", "phase_one",
     "precision_boosting", "lp_refinement",

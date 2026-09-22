@@ -61,7 +61,7 @@ q = JSimplex.propose_dual_step!(w, [1e-6, 1.0, 0.0], 1.0, 0.5,
 **Files:** Modify: src/simplex_numerics.jl, src/dual_ratio.jl, src/dual_simplex.jl, src/primal_simplex.jl, src/simplex.jl. Create: test/pivot_retry_tests.jl.
 **Interfaces:** `_pivot_agrees(row_pivot, column_pivot, error_bound)::Bool`; `validate_pivot!(ws, proposal, policy)::Symbol` returns `:accept`, `:reject_candidate`, or `:refresh`. The bounded rejection list belongs to a specific basis generation.
 
-- [ ] Test both disagreement and a small pivot with a sufficiently accurate estimate:
+- [x] Test both disagreement and a small pivot with a sufficiently accurate estimate:
 
 ~~~julia
 @test !JSimplex._pivot_agrees(1.0, 1.0001, 1e-10)
@@ -69,10 +69,10 @@ q = JSimplex.propose_dual_step!(w, [1e-6, 1.0, 0.0], 1.0, 0.5,
 @test !JSimplex._pivot_agrees(NaN, 1.0, 1e-10)
 ~~~
 
-- [ ] Combine the error estimate from solve residuals, dot-product accumulation, and, when uncertain, refinement. Require the correct sign and a pivot separated from the error; an absolute cutoff is not the sole gate. Test a low residual but disagreeing pivot for an ill-conditioned basis.
-- [ ] Dual tries at most `max_pivot_candidates` entering variables, then another violated row from a bounded set. Primal tries alternative leaving rows within the Harris limit, then another entering variable if needed. After rejection, recompute the proposal, including flips and orientation. Exhaustion enters recovery rather than returning a false status.
-- [ ] Stage changes in candidate buffers. Application after validation must not invoke a callback midway through mutation. If a factor update fails, restore the previous consistent state. A timeout before application or a logger exception must not count an unperformed step.
-- [ ] Test deliberately stale factors for all updates/backends, both algorithms, and callback exceptions; run the full suite and replay. Commit: `feat: retry numerically unsafe simplex pivots`.
+- [x] Combine the error estimate from solve residuals, dot-product accumulation, and, when uncertain, refinement. Require the correct sign and a pivot separated from the error; an absolute cutoff is not the sole gate. Test a low residual but disagreeing pivot for an ill-conditioned basis.
+- [x] Dual tries at most `max_pivot_candidates` entering variables, then another violated row from a bounded set. Primal tries alternative leaving rows within the Harris limit, then another entering variable if needed. After rejection, recompute the proposal, including flips and orientation. Exhaustion enters recovery rather than returning a false status.
+- [x] Stage changes in candidate buffers. Application after validation must not invoke a callback midway through mutation. If a factor update fails, restore the previous consistent state. A timeout before application or a logger exception must not count an unperformed step.
+- [x] Test deliberately stale factors for all updates/backends, both algorithms, and callback exceptions; run the full suite and replay. Commit: `feat: retry numerically unsafe simplex pivots`.
 
 ### F05: Shared Refinement of Basis Solves
 

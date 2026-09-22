@@ -262,6 +262,7 @@ function dual_edge_selection(workspace::SimplexWorkspace{T})::Int where {T}
     best_score = zero(T)
     weighted = workspace.options.pricing != :dantzig && !workspace.dual_pricing_fallback
     for (row, index) in enumerate(workspace.basis.basic_indices)
+        row in workspace.scratch.rejected_rows && continue
         violation = max(_lower_violation(workspace.lower[index], workspace.primal[index]),
                         _upper_violation(workspace.upper[index], workspace.primal[index]))
         violation > workspace.options.primal_tolerance || continue
@@ -293,7 +294,7 @@ function dual_ratio_test(workspace::SimplexWorkspace{T}, tableau_row::Vector{T},
     empty!(candidates)
     maximum_step = _unbounded_bound(T)
     tolerance = workspace.options.dual_tolerance
-    cutoff = _dual_pivot_cutoff(T)
+    cutoff = workspace.progress.numerical_policy.pivot_validation ? zero(T) : _dual_pivot_cutoff(T)
     for index in eachindex(tableau_row)
         coefficient = orientation * tableau_row[index]
         _dual_pivot_eligible(workspace, index, coefficient, cutoff) || continue
@@ -311,6 +312,7 @@ function dual_ratio_test(workspace::SimplexWorkspace{T}, tableau_row::Vector{T},
     entering_index = -1
     largest_pivot = zero(T)
     for index in candidates
+        index in workspace.scratch.rejected_entering && continue
         coefficient = orientation * tableau_row[index]
         step = workspace.reduced_costs[index] / coefficient
         within_limit = !isfinite(maximum_step) || step <= bound_value(maximum_step)
@@ -329,7 +331,7 @@ function _bound_flipping_ratio_test(workspace::SimplexWorkspace{T}, tableau_row:
                                     orientation::T, violation::T) where {T}
     flips = workspace.scratch.flips
     empty!(flips)
-    cutoff = _dual_pivot_cutoff(T)
+    cutoff = workspace.progress.numerical_policy.pivot_validation ? zero(T) : _dual_pivot_cutoff(T)
     # A boxed variable matters only when it can move in this tableau row.
     # Otherwise keep the linear Harris pass and its stronger pivot choice.
     has_boxed = false
@@ -366,6 +368,7 @@ function _bound_flipping_ratio_test(workspace::SimplexWorkspace{T}, tableau_row:
         state = workspace.basis.states[index]
         opposite = state == AT_LOWER ? workspace.upper[index] : workspace.lower[index]
         if state == FREE_NONBASIC || !isfinite(opposite)
+            index in workspace.scratch.rejected_entering && return -1, flips, false
             return index, flips, false
         end
         width = bound_value(workspace.upper[index]) - bound_value(workspace.lower[index])
@@ -375,6 +378,7 @@ function _bound_flipping_ratio_test(workspace::SimplexWorkspace{T}, tableau_row:
             return dual_ratio_test(workspace, tableau_row, orientation), flips, false
         end
         if remaining <= gain + workspace.options.primal_tolerance
+            index in workspace.scratch.rejected_entering && return -1, flips, false
             return index, flips, false
         end
         push!(flips, index)
@@ -1087,14 +1091,18 @@ end
 _try_refine_dual_pivot!(::SimplexWorkspace, ::Int, orientation, violation,
                         stop_requested) = nothing
 
-function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
+function _dual_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_requested,
                           basis_refreshed::Bool=false,
                           perturb_degenerate::Bool=true) where {T}
     _simplex_event!(workspace, :pricing)
     leaving_row = _timed_simplex(workspace, :pricing) do
         dual_edge_selection(workspace)
     end
-    leaving_row == -1 && return DualTermination(OPTIMAL, "optimal solution found")
+    if leaving_row == -1
+        isempty(workspace.scratch.rejected_rows) || throw(_PivotRejection(0,0,:exhausted))
+        return DualTermination(OPTIMAL, "optimal solution found")
+    end
+    workspace.scratch.selected_row = leaving_row
     _simplex_event!(workspace, :pivot_proposed)
     leaving_index = workspace.basis.basic_indices[leaving_row]
     below = _lower_violation(workspace.lower[leaving_index], workspace.primal[leaving_index]) > zero(T)
@@ -1107,6 +1115,10 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
     unit[leaving_row] = one(T)
     rho = _timed_simplex(workspace, :btran) do
         transpose_solve!(workspace.scratch.rho, workspace.factorization, unit)
+    end
+    if workspace.progress.numerical_policy.pivot_validation
+        _refine_pivot_solve!(rho,workspace,unit,workspace.progress.numerical_policy,
+                             stop_requested;transposed=true)
     end
     tableau_row = workspace.scratch.tableau_row
     _timed_simplex(workspace, :pricing) do
@@ -1134,7 +1146,7 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
                 stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
                 return DualTermination(NUMERICAL_ERROR, "dual feasibility lost")
             end
-            return _dual_iteration!(workspace, stop_requested, true, perturb_degenerate)
+            return _dual_iteration_unchecked!(workspace, stop_requested, true, perturb_degenerate)
         end
     end
     dse_weight = zero(T)
@@ -1147,7 +1159,7 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
             _switch_dual_pricing_to_devex!(workspace, stop_requested,
                                            "steepest-edge weight disagrees with basis solve";
                                            stored_weight, actual_weight=dse_weight)
-            return _dual_iteration!(workspace, stop_requested, basis_refreshed,
+            return _dual_iteration_unchecked!(workspace, stop_requested, basis_refreshed,
                                     perturb_degenerate)
         end
     end
@@ -1155,6 +1167,7 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
     entering_index, flips, exhausted = _configured_dual_ratio_test(
         workspace, tableau_row, orientation, abs(delta),
     )
+    workspace.scratch.selected_entering = entering_index
     if entering_index == -1
         if workspace.progress.numerical_policy.stable_ratio && !exhausted
             return DualTermination(NUMERICAL_ERROR, "stable dual ratio test is numerically uncertain")
@@ -1180,7 +1193,7 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
                 stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
                 return DualTermination(NUMERICAL_ERROR, "dual feasibility lost")
             end
-            return _dual_iteration!(workspace, stop_requested, true, perturb_degenerate)
+            return _dual_iteration_unchecked!(workspace, stop_requested, true, perturb_degenerate)
         end
         if _is_exact(T) === Val(false) && !_floating_infeasibility_certified(workspace, rho, below)
             return DualTermination(NUMERICAL_ERROR,
@@ -1202,6 +1215,10 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
     tableau_column = _timed_simplex(workspace, :ftran) do
         forward_solve!(workspace.scratch.row_solution, workspace.factorization, column)
     end
+    if workspace.progress.numerical_policy.pivot_validation
+        _refine_pivot_solve!(tableau_column,workspace,column,
+                             workspace.progress.numerical_policy,stop_requested)
+    end
     all(isfinite, tableau_column) || return _numerical_failure()
     pivot = tableau_column[leaving_row]
     refined_row = false
@@ -1221,7 +1238,7 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
                 stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
                 return DualTermination(NUMERICAL_ERROR, "dual feasibility lost")
             end
-            return _dual_iteration!(workspace, stop_requested, true, perturb_degenerate)
+            return _dual_iteration_unchecked!(workspace, stop_requested, true, perturb_degenerate)
         end
         if _try_refine_dual_direction!(workspace, entering_index, leaving_row,
                                        pivot, tableau_row[entering_index],
@@ -1274,7 +1291,14 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
             return DualTermination(NUMERICAL_ERROR, "basis solve residual too large")
         end
     end
-    if abs(pivot) <= workspace.options.zero_tolerance &&
+    checked_pivot = workspace.progress.numerical_policy.pivot_validation
+    if checked_pivot
+        proposal = PivotCandidate(entering_index,leaving_row,
+                                  tableau_row[entering_index],tableau_column,rho)
+        quality = validate_pivot!(workspace,proposal,workspace.progress.numerical_policy)
+        quality == :accept || throw(_PivotRejection(leaving_row,entering_index,quality))
+    end
+    if !checked_pivot && abs(pivot) <= workspace.options.zero_tolerance &&
        _is_exact(T) === Val(false) && !basis_refreshed
         # A small pivot can result from drift in the updated factorization.
         # Rebuild the current basis and repeat the iteration once.
@@ -1286,9 +1310,9 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
             stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
             return DualTermination(NUMERICAL_ERROR, "dual feasibility lost")
         end
-        return _dual_iteration!(workspace, stop_requested, true, perturb_degenerate)
+        return _dual_iteration_unchecked!(workspace, stop_requested, true, perturb_degenerate)
     end
-    abs(pivot) > workspace.options.zero_tolerance || throw(ZeroPivotException(leaving_row))
+    (checked_pivot || abs(pivot) > workspace.options.zero_tolerance) || throw(ZeroPivotException(leaving_row))
     if !_stabilize_small_dual_pivot!(workspace, entering_index, pivot,
                                      tableau_row[entering_index], delta, stop_requested)
         stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
@@ -1329,8 +1353,9 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
     update_dual_pricing_weights!(workspace, rho, tableau_row, tableau_column,
                                  entering_index, pivot, dse_weight, stop_requested) ||
         return _numerical_failure()
-    replace_column!(workspace.factorization, tableau_column, leaving_row;
-                    zero_tolerance=workspace.options.zero_tolerance)
+    _replace_pivot_column!(workspace, tableau_column, leaving_row;
+                           stop_requested,
+                           zero_tolerance=checked_pivot ? zero(T) : workspace.options.zero_tolerance)
     workspace.basis.basic_indices[leaving_row] = entering_index
     workspace.basis.states[entering_index] = BASIC
     workspace.basis.states[leaving_index] = below ? AT_LOWER : AT_UPPER
@@ -1338,6 +1363,18 @@ function _dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
     # Count the completed pivot even when its subsequent refactorization times out.
     workspace.iterations += 1
     _simplex_event!(workspace, :pivot_completed)
+    if _is_staged_workspace(workspace)
+        workspace.scratch.post_iteration = :dual
+        workspace.scratch.post_dual_step = dual_step
+        workspace.scratch.post_basis_refreshed = basis_refreshed
+        workspace.scratch.post_perturb_degenerate = perturb_degenerate
+        return nothing
+    end
+    return _dual_after_iteration!(workspace,stop_requested,dual_step,basis_refreshed,perturb_degenerate)
+end
+
+function _dual_after_iteration!(workspace::SimplexWorkspace{T},stop_requested,dual_step::T,
+                                basis_refreshed::Bool,perturb_degenerate::Bool) where {T}
     if _is_exact(T) === Val(false) && !iszero(dual_step)
         workspace.dual_nonzero_steps_since_refactorization += 1
     end

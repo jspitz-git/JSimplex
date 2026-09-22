@@ -1,10 +1,10 @@
 # Internal numerical quality is separate from user feasibility tolerances.
 const NUMERICAL_SWITCHES = (
-    :stable_ratio, :recovery, :incremental_primal, :adaptive_refactor,
+    :stable_ratio, :pivot_validation, :recovery, :incremental_primal, :adaptive_refactor,
     :adaptive_stalling, :adaptive_pricing, :partial_pricing, :hypersparse,
     :crash, :phase_one, :precision_boosting, :lp_refinement,
 )
-const IMPLEMENTED_NUMERICAL_SWITCHES = (:stable_ratio,)
+const IMPLEMENTED_NUMERICAL_SWITCHES = (:stable_ratio,:pivot_validation)
 
 struct NumericalPolicy{T<:Real}
     solve_tolerance::T
@@ -16,6 +16,7 @@ struct NumericalPolicy{T<:Real}
     max_precision_bits::Int
     max_lp_refinements::Int
     stable_ratio::Bool
+    pivot_validation::Bool
     recovery::Bool
     incremental_primal::Bool
     adaptive_refactor::Bool
@@ -35,6 +36,7 @@ function NumericalPolicy(::Type{T}; simplex_strategy::Symbol=:legacy,
     max_recovery_rounds::Integer=2, stagnation_window::Integer=64,
     max_precision_bits::Integer=512, max_lp_refinements::Integer=8,
     stable_ratio::Bool=(simplex_strategy == :adaptive), recovery::Bool=false, incremental_primal::Bool=false,
+    pivot_validation::Bool=(simplex_strategy == :adaptive),
     adaptive_refactor::Bool=false, adaptive_stalling::Bool=false,
     adaptive_pricing::Bool=false, partial_pricing::Bool=false, hypersparse::Bool=false,
     crash::Bool=false, phase_one::Bool=false, precision_boosting::Bool=false,
@@ -59,7 +61,7 @@ function NumericalPolicy(::Type{T}; simplex_strategy::Symbol=:legacy,
     all(>=(0), (max_refinements,max_recovery_rounds,max_lp_refinements)) &&
         max_pivot_candidates > 0 && stagnation_window > 0 && max_precision_bits >= 2 ||
         throw(ArgumentError("Invalid numerical recovery limits"))
-    switches = (stable_ratio,recovery,incremental_primal,adaptive_refactor,
+    switches = (stable_ratio,pivot_validation,recovery,incremental_primal,adaptive_refactor,
         adaptive_stalling,adaptive_pricing,partial_pricing,hypersparse,crash,
         phase_one,precision_boosting,lp_refinement)
     for (name, enabled) in zip(NUMERICAL_SWITCHES,switches)
@@ -69,7 +71,7 @@ function NumericalPolicy(::Type{T}; simplex_strategy::Symbol=:legacy,
     # Stage switches remain disabled by default until their implementations land.
     return NumericalPolicy{T}(solve_limit,pivot_limit,Int(max_refinements),
         Int(max_pivot_candidates),Int(max_recovery_rounds),Int(stagnation_window),
-        Int(max_precision_bits),Int(max_lp_refinements),stable_ratio,recovery,
+        Int(max_precision_bits),Int(max_lp_refinements),stable_ratio,pivot_validation,recovery,
         incremental_primal,adaptive_refactor,adaptive_stalling,adaptive_pricing,
         partial_pricing,hypersparse,crash,phase_one,precision_boosting,lp_refinement)
 end

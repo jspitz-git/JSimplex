@@ -27,6 +27,28 @@ struct SimplexProgressContext{T<:Real,D}
     numerical_policy::NumericalPolicy{T}
 end
 
+struct _PivotQualityBuffers{T,W}
+    rhs::Vector{T}
+    unit::Vector{T}
+    correction::Vector{T}
+    trial::Vector{T}
+    column::SolveQualityScratch{T,W}
+    row::SolveQualityScratch{T,W}
+end
+
+struct _PivotStageValues{T}
+    costs::Vector{T}
+    lower::Vector{Bound{T}}
+    upper::Vector{Bound{T}}
+    basis::Basis
+    primal::Vector{T}
+    reduced_costs::Vector{T}
+    pricing_weights::Vector{T}
+    devex_reference::BitVector
+    pending_events::Vector{Symbol}
+    diagnostics::SimplexDiagnostics{Nothing}
+end
+
 mutable struct SimplexScratch{T<:Real}
     basic_mask::BitVector
     row_rhs::Vector{T}
@@ -44,6 +66,20 @@ mutable struct SimplexScratch{T<:Real}
     ratio_steps::Vector{T}
     ratio_gains::Vector{T}
     ratio_optional::Vector{Int}
+    # Candidate arrays are cached without erasing their numeric storage types.
+    stage_values::Union{Nothing,_PivotStageValues{T}}
+    stage_scratch::Union{Nothing,SimplexScratch{T}}
+    pending_factor_update::Bool
+    rejected_entering::Vector{Int}
+    rejected_rows::Vector{Int}
+    selected_entering::Int
+    selected_row::Int
+    pivot_quality_cache::Union{Nothing,_PivotQualityBuffers{T,T},_PivotQualityBuffers{T,Float64}}
+    post_iteration::Symbol
+    post_dual_step::T
+    post_basis_refreshed::Bool
+    post_perturb_degenerate::Bool
+    post_refactorize::Bool
     # Private assembly storage; backends must own their factorization data.
     basis_matrix::Union{Nothing,SparseMatrixCSC{T,Int}}
 end
@@ -55,7 +91,8 @@ function SimplexScratch(::Type{T}, row_count::Int, variable_count::Int) where {T
         falses(variable_count), zeros(T, row_count), zeros(T, row_count),
         zeros(T, row_count), zeros(T, row_count), zeros(T, variable_count),
         zeros(T, variable_count), falses(variable_count), false,
-        candidates, Int[], T[], T[], Int[], nothing,
+        candidates, Int[], T[], T[], Int[], nothing, nothing, false, Int[], Int[], 0, 0, nothing,
+        :none, zero(T), false, false, false, nothing,
     )
 end
 

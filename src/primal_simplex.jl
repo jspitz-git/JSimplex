@@ -202,6 +202,7 @@ function _primal_entering(workspace::SimplexWorkspace{T}, tolerance::T) where {T
     for index in eachindex(workspace.basis.states)
         state = workspace.basis.states[index]
         state == BASIC && continue
+        index in workspace.scratch.rejected_entering && continue
         _is_fixed(workspace.lower[index], workspace.upper[index]) && continue
         reduced_cost = workspace.reduced_costs[index]
         improving = (state == AT_LOWER && reduced_cost < -tolerance) ||
@@ -302,6 +303,7 @@ function _primal_ratio(workspace::SimplexWorkspace{T}, entering::Int, direction:
     leaving_state = strict_state
     largest_pivot = zero(T)
     for (row, index) in enumerate(workspace.basis.basic_indices)
+        row in workspace.scratch.rejected_rows && continue
         movement = -direction * tableau_column[row]
         iszero(movement) && continue
         bound = movement > zero(T) ? workspace.upper[index] : workspace.lower[index]
@@ -317,26 +319,39 @@ function _primal_ratio(workspace::SimplexWorkspace{T}, entering::Int, direction:
             largest_pivot = pivot
         end
     end
-    leaving_row == 0 && return strict_step, strict_row, strict_state
+    if leaving_row == 0
+        strict_row in workspace.scratch.rejected_rows && return nothing,-1,BASIC
+        return strict_step,strict_row,strict_state
+    end
     violation = zero(T)
     for (row, index) in enumerate(workspace.basis.basic_indices)
         value = workspace.primal[index] - direction * tableau_column[row] * leaving_step
-        isfinite(value) || return strict_step, strict_row, strict_state
+        if !isfinite(value)
+            strict_row in workspace.scratch.rejected_rows && return nothing,-1,BASIC
+            return strict_step,strict_row,strict_state
+        end
         violation += max(zero(T), _lower_violation(workspace.lower[index], value),
                          _upper_violation(workspace.upper[index], value))
-        violation <= tolerance || return strict_step, strict_row, strict_state
+        if violation > tolerance
+            strict_row in workspace.scratch.rejected_rows && return nothing,-1,BASIC
+            return strict_step,strict_row,strict_state
+        end
     end
     return leaving_step, leaving_row, leaving_state
 end
 
-function _primal_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
+function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_requested,
                             reduced_cost_tolerance::T,
                             basis_refreshed::Bool=false) where {T}
     _simplex_event!(workspace, :pricing)
     entering, direction = _timed_simplex(workspace, :pricing) do
         _primal_entering(workspace, reduced_cost_tolerance)
     end
-    entering == 0 && return DualTermination(OPTIMAL, "optimal solution found")
+    if entering == 0
+        isempty(workspace.scratch.rejected_entering) || throw(_PivotRejection(0,0,:exhausted))
+        return DualTermination(OPTIMAL, "optimal solution found")
+    end
+    workspace.scratch.selected_entering = entering
     workspace.iterations < workspace.options.iteration_limit ||
         return DualTermination(ITERATION_LIMIT, "iteration limit reached")
 
@@ -356,9 +371,16 @@ function _primal_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
         forward_solve!(workspace.scratch.row_solution, workspace.factorization, column)
     end
     all(isfinite, tableau_column) || return _numerical_failure()
+    checked_pivot = workspace.progress.numerical_policy.pivot_validation
+    if checked_pivot
+        quality = _refine_pivot_solve!(tableau_column,workspace,column,
+                                       workspace.progress.numerical_policy,stop_requested)
+        quality.reliable || throw(_PivotRejection(0,entering,:refresh))
+    end
     step, leaving_row, leaving_state = _primal_ratio(
         workspace, entering, direction, tableau_column,
     )
+    workspace.scratch.selected_row = leaving_row
     leaving_row == -1 && return DualTermination(NUMERICAL_ERROR, "primal ratio test is inconclusive")
     if isnothing(step)
         structural = zeros(T, column_count)
@@ -375,9 +397,25 @@ function _primal_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
     end
     isfinite(step) || return _numerical_failure()
     if leaving_row == 0
+        if _is_staged_workspace(workspace)
+            _prepare_primal_candidate!(workspace,entering,direction,step,tableau_column,
+                                       leaving_row,leaving_state) || return _numerical_failure()
+        end
         workspace.basis.states[entering] = direction > zero(T) ? AT_UPPER : AT_LOWER
     else
-        if abs(tableau_column[leaving_row]) <= workspace.options.zero_tolerance
+        if checked_pivot
+            fill!(column,zero(T))
+            column[leaving_row] = one(T)
+            rho = transpose_solve!(workspace.scratch.rho,workspace.factorization,column)
+            _refine_pivot_solve!(rho,workspace,column,workspace.progress.numerical_policy,
+                                 stop_requested;transposed=true)
+            price!(workspace.scratch.tableau_row,workspace,rho)
+            proposal = PivotCandidate(entering,leaving_row,
+                workspace.scratch.tableau_row[entering],tableau_column,rho)
+            quality = validate_pivot!(workspace,proposal,workspace.progress.numerical_policy)
+            quality == :accept || throw(_PivotRejection(leaving_row,entering,quality))
+        end
+        if !checked_pivot && abs(tableau_column[leaving_row]) <= workspace.options.zero_tolerance
             if !basis_refreshed
                 stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
                 recompute!(workspace; refactorize=true, caller_guard=stop_requested,
@@ -387,7 +425,7 @@ function _primal_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
                 primal_infeasibility(workspace) <= workspace.options.primal_tolerance ||
                     return DualTermination(NUMERICAL_ERROR, "primal feasibility lost")
                 fill!(workspace.scratch.steepest_valid, false)
-                return _primal_iteration!(workspace, stop_requested,
+                return _primal_iteration_unchecked!(workspace, stop_requested,
                                           reduced_cost_tolerance, true)
             end
             return DualTermination(NUMERICAL_ERROR, "primal pivot is below the zero tolerance")
@@ -398,8 +436,15 @@ function _primal_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
         workspace.options.pricing == :steepest_edge &&
             _primal_update_steepest!(workspace, entering, leaving_row,
                                      tableau_column[leaving_row])
-        replace_column!(workspace.factorization, tableau_column, leaving_row;
-                        zero_tolerance=workspace.options.zero_tolerance)
+        if _is_staged_workspace(workspace)
+            # Check finite candidate values before mutating the factor. The
+            # ordinary full recomputation finishes before publishing the step.
+            _prepare_primal_candidate!(workspace,entering,direction,step,tableau_column,
+                                       leaving_row,leaving_state) || return _numerical_failure()
+        end
+        _replace_pivot_column!(workspace, tableau_column, leaving_row;
+                               stop_requested,
+                               zero_tolerance=checked_pivot ? zero(T) : workspace.options.zero_tolerance)
         leaving = workspace.basis.basic_indices[leaving_row]
         workspace.basis.basic_indices[leaving_row] = entering
         workspace.basis.states[entering] = BASIC
@@ -409,6 +454,11 @@ function _primal_iteration!(workspace::SimplexWorkspace{T}, stop_requested,
     _simplex_event!(workspace, leaving_row == 0 ? :flip_completed : :pivot_completed)
     refactorize = length(workspace.factorization.updates) >=
                   workspace.options.refactorization_interval
+    if _is_staged_workspace(workspace)
+        workspace.scratch.post_iteration = :primal
+        workspace.scratch.post_refactorize = refactorize
+        return nothing
+    end
     stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
     recompute!(workspace; refactorize, caller_guard=stop_requested,
                diagnostic_reason=:refactor_limit)
