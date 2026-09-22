@@ -1,0 +1,1388 @@
+blas_threads = 1
+julia_version = "1.13.0"
+machine = "aarch64-linux-gnu"
+threads = 1
+
+[after_source_hashes]
+"JSimplex.jl" = "9939474750bb64373a9721dbc1f423cf1df75555803feb59299218489116fc9c"
+"dual_simplex.jl" = "403f12e4addf25db4e66100c65a81df977f3b944fa3944f384f0083241062dac"
+"factorization.jl" = "08cbe4663170b40093d6d273e4b308899cd072a69c33ca0575e0508497327207"
+"markowitz_factorization.jl" = "04f8d1b2cd75e6513c14010a9aba5f483afa4fc1bce82f54480b24a5f2ab823e"
+"model.jl" = "b179141daeef4d193f524c6389aa72f310bc4ca92e7c4e375019e072e6698e1d"
+"moi.jl" = "0e909c4a9c6e4088bed21d22bbcc39ec3509fc09641bac1ef9e3ea65d0447ab6"
+"moi/attributes.jl" = "b2db0ccaa0bd608bbf8f8cf5a8d37f626d7fbc33f5404a90e54262b5363c135c"
+"moi/optimizer.jl" = "a5e5a45b8aac0e08d7ec56e8961a4a8e82e1073ce06acfdcf5580ac2e1972f4e"
+"moi/results.jl" = "48f369d7607dbf820e4f17a417ad11932d00599a16aab1f5f686c0b013d57280"
+"moi/translation.jl" = "6ba2e53510f3b4707934c6e4ded0500f9e46d2f8cfa5324c58a0fde2c2010622"
+"mps.jl" = "4c27659d5d02a7957b3c0a2466bf3922aecd1a2b909aa9f034c7eaaeab5851ae"
+"mps/build.jl" = "055a7a22d76d7b35ab5564f2f2419044aea131550ec617b30d6172241a60db56"
+"mps/parser.jl" = "700c60a1c3729779dea0c985e09b47ad2404874126b8c69246a0a3a51fba0975"
+"mps/records.jl" = "1290353aa8e1b21a2aa681e2cd575ad93eb8515f42b964d3010f51b9027ec01c"
+"numeric.jl" = "c5212838ee6183f4eb7867ffb0ba308b1e51780aede045a1e1692cb53a2314d0"
+"options.jl" = "8897c3db36f1272bcea10acbdf6b4058a84410ebb4b4690e054f2c299a474b7d"
+"presolve.jl" = "9cb780986b55adf4f5133b185b7e712e5760b435ca663444dfcfc54285ec17db"
+"presolve_aggregation.jl" = "4ae2d8909b30daf9658040c4a8f0ccb1b818e6a2b76255994e6713c4532c5957"
+"presolve_dependencies.jl" = "1a7a1e4f3df904c5f1a480267dfa6a08c49c2d7dd257b65c41d9bb79a927b913"
+"presolve_dispatch.jl" = "9fc4b580ab9c953edeefc2ab0a59829f3757a8eb2869498da5e783a36a4448c0"
+"presolve_dual.jl" = "c465e5983da77c4f543ee07fc72ee03544be50df812949b5ab48ebee5da1359c"
+"presolve_incremental.jl" = "4bffec08cc915cacf49d2dd14402ed77b01fbcdca78ce1a24058617317026284"
+"presolve_propagation.jl" = "77498b5ba2fbe4f306d890a9da984aefc7e235aa814209be5e9655c8307dad68"
+"presolve_rows.jl" = "ba28292822d4a7b2f66eaf0a23f7dd0ed1f79ada603a9f5a0dc90bb64f31f693"
+"presolve_substitution.jl" = "42bbd6b525c6627c872e9fdc004dae9b4a7dc1356e03b84363d2c792ee0a7175"
+"primal_simplex.jl" = "599141e23486666e06b2e26d6b4859e459ba3aef96aeb536a7c6989c81864ab0"
+"simplex.jl" = "7d1d3008c5a01ddecb09bacf0130798c4cbf25652d003d5255d5601fbad000cf"
+"solver.jl" = "b06bc5c7ca2104a605eec25b6a1756b7f63437475801077aac70700e4b75ef78"
+"transformations.jl" = "74f6e45a7bc0f8605dc1759a2a41615c6241267e2782eef5dbdd176ff3c32382"
+"triangular_factorization.jl" = "ea0818ca606a69c0ef6383bd049f2782c35040972b95bd8b2a534a8ca84579c6"
+
+[before_source_hashes]
+"JSimplex.jl" = "9939474750bb64373a9721dbc1f423cf1df75555803feb59299218489116fc9c"
+"dual_simplex.jl" = "403f12e4addf25db4e66100c65a81df977f3b944fa3944f384f0083241062dac"
+"factorization.jl" = "08cbe4663170b40093d6d273e4b308899cd072a69c33ca0575e0508497327207"
+"markowitz_factorization.jl" = "bfc8abcfbf7049738d905a8fc58aa3d36c637d725f58c75fed6bf9c1e81963d4"
+"model.jl" = "b179141daeef4d193f524c6389aa72f310bc4ca92e7c4e375019e072e6698e1d"
+"moi.jl" = "0e909c4a9c6e4088bed21d22bbcc39ec3509fc09641bac1ef9e3ea65d0447ab6"
+"moi/attributes.jl" = "b2db0ccaa0bd608bbf8f8cf5a8d37f626d7fbc33f5404a90e54262b5363c135c"
+"moi/optimizer.jl" = "a5e5a45b8aac0e08d7ec56e8961a4a8e82e1073ce06acfdcf5580ac2e1972f4e"
+"moi/results.jl" = "48f369d7607dbf820e4f17a417ad11932d00599a16aab1f5f686c0b013d57280"
+"moi/translation.jl" = "6ba2e53510f3b4707934c6e4ded0500f9e46d2f8cfa5324c58a0fde2c2010622"
+"mps.jl" = "4c27659d5d02a7957b3c0a2466bf3922aecd1a2b909aa9f034c7eaaeab5851ae"
+"mps/build.jl" = "055a7a22d76d7b35ab5564f2f2419044aea131550ec617b30d6172241a60db56"
+"mps/parser.jl" = "700c60a1c3729779dea0c985e09b47ad2404874126b8c69246a0a3a51fba0975"
+"mps/records.jl" = "1290353aa8e1b21a2aa681e2cd575ad93eb8515f42b964d3010f51b9027ec01c"
+"numeric.jl" = "c5212838ee6183f4eb7867ffb0ba308b1e51780aede045a1e1692cb53a2314d0"
+"options.jl" = "8897c3db36f1272bcea10acbdf6b4058a84410ebb4b4690e054f2c299a474b7d"
+"presolve.jl" = "9cb780986b55adf4f5133b185b7e712e5760b435ca663444dfcfc54285ec17db"
+"presolve_aggregation.jl" = "4ae2d8909b30daf9658040c4a8f0ccb1b818e6a2b76255994e6713c4532c5957"
+"presolve_dependencies.jl" = "1a7a1e4f3df904c5f1a480267dfa6a08c49c2d7dd257b65c41d9bb79a927b913"
+"presolve_dispatch.jl" = "9fc4b580ab9c953edeefc2ab0a59829f3757a8eb2869498da5e783a36a4448c0"
+"presolve_dual.jl" = "c465e5983da77c4f543ee07fc72ee03544be50df812949b5ab48ebee5da1359c"
+"presolve_incremental.jl" = "4bffec08cc915cacf49d2dd14402ed77b01fbcdca78ce1a24058617317026284"
+"presolve_propagation.jl" = "77498b5ba2fbe4f306d890a9da984aefc7e235aa814209be5e9655c8307dad68"
+"presolve_rows.jl" = "ba28292822d4a7b2f66eaf0a23f7dd0ed1f79ada603a9f5a0dc90bb64f31f693"
+"presolve_substitution.jl" = "42bbd6b525c6627c872e9fdc004dae9b4a7dc1356e03b84363d2c792ee0a7175"
+"primal_simplex.jl" = "599141e23486666e06b2e26d6b4859e459ba3aef96aeb536a7c6989c81864ab0"
+"simplex.jl" = "7d1d3008c5a01ddecb09bacf0130798c4cbf25652d003d5255d5601fbad000cf"
+"solver.jl" = "b06bc5c7ca2104a605eec25b6a1756b7f63437475801077aac70700e4b75ef78"
+"transformations.jl" = "74f6e45a7bc0f8605dc1759a2a41615c6241267e2782eef5dbdd176ff3c32382"
+"triangular_factorization.jl" = "4a04cca1723609b9710b6303921673fff252d0a6edd6d1bfcf6742ca23c2eec1"
+
+[[iteration_checks]]
+case = "Float32/dual/pfi/native/dantzig"
+sha256 = "756cf1764937f5b4900ad7cc624a97fb474e096cf54306cb81834f88b218ff0f"
+states = 6
+[[iteration_checks]]
+case = "Float32/dual/pfi/native/devex"
+sha256 = "6b06773e92545489eb958014f2d1a4cbae8e7946ab6958568d570bee9e1b7927"
+states = 6
+[[iteration_checks]]
+case = "Float32/dual/pfi/native/steepest_edge"
+sha256 = "08b95e761d0bdb5320e3599c4c17c29227ae56adfc165df83b7ae4199e51b335"
+states = 6
+[[iteration_checks]]
+case = "Float32/dual/pfi/markowitz/dantzig"
+sha256 = "756cf1764937f5b4900ad7cc624a97fb474e096cf54306cb81834f88b218ff0f"
+states = 6
+[[iteration_checks]]
+case = "Float32/dual/pfi/markowitz/devex"
+sha256 = "6b06773e92545489eb958014f2d1a4cbae8e7946ab6958568d570bee9e1b7927"
+states = 6
+[[iteration_checks]]
+case = "Float32/dual/pfi/markowitz/steepest_edge"
+sha256 = "08b95e761d0bdb5320e3599c4c17c29227ae56adfc165df83b7ae4199e51b335"
+states = 6
+[[iteration_checks]]
+case = "Float32/dual/forrest_tomlin/native/dantzig"
+sha256 = "f3c408710fbc88d7606936dc06d5116d176f5a7407d5f9099eea1f71f6df1c59"
+states = 6
+[[iteration_checks]]
+case = "Float32/dual/forrest_tomlin/native/devex"
+sha256 = "0c5b0dffbd2838762a98df50c240c55f7f89dccbb521afd8d2114a179d4c1789"
+states = 6
+[[iteration_checks]]
+case = "Float32/dual/forrest_tomlin/native/steepest_edge"
+sha256 = "16dd38f772938b28ebb08a799c4cc1088e311975287fad8ef3e1582b28283f9f"
+states = 6
+[[iteration_checks]]
+case = "Float32/dual/forrest_tomlin/markowitz/dantzig"
+sha256 = "f3c408710fbc88d7606936dc06d5116d176f5a7407d5f9099eea1f71f6df1c59"
+states = 6
+[[iteration_checks]]
+case = "Float32/dual/forrest_tomlin/markowitz/devex"
+sha256 = "0c5b0dffbd2838762a98df50c240c55f7f89dccbb521afd8d2114a179d4c1789"
+states = 6
+[[iteration_checks]]
+case = "Float32/dual/forrest_tomlin/markowitz/steepest_edge"
+sha256 = "16dd38f772938b28ebb08a799c4cc1088e311975287fad8ef3e1582b28283f9f"
+states = 6
+[[iteration_checks]]
+case = "Float32/dual/suhl_suhl/native/dantzig"
+sha256 = "f3c408710fbc88d7606936dc06d5116d176f5a7407d5f9099eea1f71f6df1c59"
+states = 6
+[[iteration_checks]]
+case = "Float32/dual/suhl_suhl/native/devex"
+sha256 = "0c5b0dffbd2838762a98df50c240c55f7f89dccbb521afd8d2114a179d4c1789"
+states = 6
+[[iteration_checks]]
+case = "Float32/dual/suhl_suhl/native/steepest_edge"
+sha256 = "16dd38f772938b28ebb08a799c4cc1088e311975287fad8ef3e1582b28283f9f"
+states = 6
+[[iteration_checks]]
+case = "Float32/dual/suhl_suhl/markowitz/dantzig"
+sha256 = "f3c408710fbc88d7606936dc06d5116d176f5a7407d5f9099eea1f71f6df1c59"
+states = 6
+[[iteration_checks]]
+case = "Float32/dual/suhl_suhl/markowitz/devex"
+sha256 = "0c5b0dffbd2838762a98df50c240c55f7f89dccbb521afd8d2114a179d4c1789"
+states = 6
+[[iteration_checks]]
+case = "Float32/dual/suhl_suhl/markowitz/steepest_edge"
+sha256 = "16dd38f772938b28ebb08a799c4cc1088e311975287fad8ef3e1582b28283f9f"
+states = 6
+[[iteration_checks]]
+case = "Float32/dual/bartels_golub/native/dantzig"
+sha256 = "f3c408710fbc88d7606936dc06d5116d176f5a7407d5f9099eea1f71f6df1c59"
+states = 6
+[[iteration_checks]]
+case = "Float32/dual/bartels_golub/native/devex"
+sha256 = "0c5b0dffbd2838762a98df50c240c55f7f89dccbb521afd8d2114a179d4c1789"
+states = 6
+[[iteration_checks]]
+case = "Float32/dual/bartels_golub/native/steepest_edge"
+sha256 = "16dd38f772938b28ebb08a799c4cc1088e311975287fad8ef3e1582b28283f9f"
+states = 6
+[[iteration_checks]]
+case = "Float32/dual/bartels_golub/markowitz/dantzig"
+sha256 = "f3c408710fbc88d7606936dc06d5116d176f5a7407d5f9099eea1f71f6df1c59"
+states = 6
+[[iteration_checks]]
+case = "Float32/dual/bartels_golub/markowitz/devex"
+sha256 = "0c5b0dffbd2838762a98df50c240c55f7f89dccbb521afd8d2114a179d4c1789"
+states = 6
+[[iteration_checks]]
+case = "Float32/dual/bartels_golub/markowitz/steepest_edge"
+sha256 = "16dd38f772938b28ebb08a799c4cc1088e311975287fad8ef3e1582b28283f9f"
+states = 6
+[[iteration_checks]]
+case = "Float32/primal/pfi/native/dantzig"
+sha256 = "c5e36cbbabcc51290d06c74f01ba26f6a7429e2f59704279fb38eebba8f403d0"
+states = 6
+[[iteration_checks]]
+case = "Float32/primal/pfi/native/devex"
+sha256 = "c5e36cbbabcc51290d06c74f01ba26f6a7429e2f59704279fb38eebba8f403d0"
+states = 6
+[[iteration_checks]]
+case = "Float32/primal/pfi/native/steepest_edge"
+sha256 = "e8fcebcb6879a9a4c62266a55ca065db450165800d2167496572ab503e29c59e"
+states = 6
+[[iteration_checks]]
+case = "Float32/primal/pfi/markowitz/dantzig"
+sha256 = "c5e36cbbabcc51290d06c74f01ba26f6a7429e2f59704279fb38eebba8f403d0"
+states = 6
+[[iteration_checks]]
+case = "Float32/primal/pfi/markowitz/devex"
+sha256 = "c5e36cbbabcc51290d06c74f01ba26f6a7429e2f59704279fb38eebba8f403d0"
+states = 6
+[[iteration_checks]]
+case = "Float32/primal/pfi/markowitz/steepest_edge"
+sha256 = "e8fcebcb6879a9a4c62266a55ca065db450165800d2167496572ab503e29c59e"
+states = 6
+[[iteration_checks]]
+case = "Float32/primal/forrest_tomlin/native/dantzig"
+sha256 = "2e400782d67467e24621f75eed8bc574de326525c02a0a5acb1a8613ba0871d8"
+states = 6
+[[iteration_checks]]
+case = "Float32/primal/forrest_tomlin/native/devex"
+sha256 = "2e400782d67467e24621f75eed8bc574de326525c02a0a5acb1a8613ba0871d8"
+states = 6
+[[iteration_checks]]
+case = "Float32/primal/forrest_tomlin/native/steepest_edge"
+sha256 = "74505bb62ade17d9acb13c56d7afe4a3d13e5f82188498ab85f47da493549b4b"
+states = 6
+[[iteration_checks]]
+case = "Float32/primal/forrest_tomlin/markowitz/dantzig"
+sha256 = "2e400782d67467e24621f75eed8bc574de326525c02a0a5acb1a8613ba0871d8"
+states = 6
+[[iteration_checks]]
+case = "Float32/primal/forrest_tomlin/markowitz/devex"
+sha256 = "2e400782d67467e24621f75eed8bc574de326525c02a0a5acb1a8613ba0871d8"
+states = 6
+[[iteration_checks]]
+case = "Float32/primal/forrest_tomlin/markowitz/steepest_edge"
+sha256 = "74505bb62ade17d9acb13c56d7afe4a3d13e5f82188498ab85f47da493549b4b"
+states = 6
+[[iteration_checks]]
+case = "Float32/primal/suhl_suhl/native/dantzig"
+sha256 = "2e400782d67467e24621f75eed8bc574de326525c02a0a5acb1a8613ba0871d8"
+states = 6
+[[iteration_checks]]
+case = "Float32/primal/suhl_suhl/native/devex"
+sha256 = "2e400782d67467e24621f75eed8bc574de326525c02a0a5acb1a8613ba0871d8"
+states = 6
+[[iteration_checks]]
+case = "Float32/primal/suhl_suhl/native/steepest_edge"
+sha256 = "74505bb62ade17d9acb13c56d7afe4a3d13e5f82188498ab85f47da493549b4b"
+states = 6
+[[iteration_checks]]
+case = "Float32/primal/suhl_suhl/markowitz/dantzig"
+sha256 = "2e400782d67467e24621f75eed8bc574de326525c02a0a5acb1a8613ba0871d8"
+states = 6
+[[iteration_checks]]
+case = "Float32/primal/suhl_suhl/markowitz/devex"
+sha256 = "2e400782d67467e24621f75eed8bc574de326525c02a0a5acb1a8613ba0871d8"
+states = 6
+[[iteration_checks]]
+case = "Float32/primal/suhl_suhl/markowitz/steepest_edge"
+sha256 = "74505bb62ade17d9acb13c56d7afe4a3d13e5f82188498ab85f47da493549b4b"
+states = 6
+[[iteration_checks]]
+case = "Float32/primal/bartels_golub/native/dantzig"
+sha256 = "2e400782d67467e24621f75eed8bc574de326525c02a0a5acb1a8613ba0871d8"
+states = 6
+[[iteration_checks]]
+case = "Float32/primal/bartels_golub/native/devex"
+sha256 = "2e400782d67467e24621f75eed8bc574de326525c02a0a5acb1a8613ba0871d8"
+states = 6
+[[iteration_checks]]
+case = "Float32/primal/bartels_golub/native/steepest_edge"
+sha256 = "74505bb62ade17d9acb13c56d7afe4a3d13e5f82188498ab85f47da493549b4b"
+states = 6
+[[iteration_checks]]
+case = "Float32/primal/bartels_golub/markowitz/dantzig"
+sha256 = "2e400782d67467e24621f75eed8bc574de326525c02a0a5acb1a8613ba0871d8"
+states = 6
+[[iteration_checks]]
+case = "Float32/primal/bartels_golub/markowitz/devex"
+sha256 = "2e400782d67467e24621f75eed8bc574de326525c02a0a5acb1a8613ba0871d8"
+states = 6
+[[iteration_checks]]
+case = "Float32/primal/bartels_golub/markowitz/steepest_edge"
+sha256 = "74505bb62ade17d9acb13c56d7afe4a3d13e5f82188498ab85f47da493549b4b"
+states = 6
+[[iteration_checks]]
+case = "Float64/dual/pfi/native/dantzig"
+sha256 = "286f2781b4f9cc63b6b118df16a2b4200eac5de6d78d8b90eeef64657834aa24"
+states = 6
+[[iteration_checks]]
+case = "Float64/dual/pfi/native/devex"
+sha256 = "70766a7b5c179110b2a93a168f5d46f5276b535192733328561e9c80139b53ad"
+states = 6
+[[iteration_checks]]
+case = "Float64/dual/pfi/native/steepest_edge"
+sha256 = "56293cb364d4fee74f2a649b031ea2a72228a8a391ba73135df52f60db966441"
+states = 6
+[[iteration_checks]]
+case = "Float64/dual/pfi/markowitz/dantzig"
+sha256 = "286f2781b4f9cc63b6b118df16a2b4200eac5de6d78d8b90eeef64657834aa24"
+states = 6
+[[iteration_checks]]
+case = "Float64/dual/pfi/markowitz/devex"
+sha256 = "70766a7b5c179110b2a93a168f5d46f5276b535192733328561e9c80139b53ad"
+states = 6
+[[iteration_checks]]
+case = "Float64/dual/pfi/markowitz/steepest_edge"
+sha256 = "56293cb364d4fee74f2a649b031ea2a72228a8a391ba73135df52f60db966441"
+states = 6
+[[iteration_checks]]
+case = "Float64/dual/forrest_tomlin/native/dantzig"
+sha256 = "331c252753ef410a1aabdac564c564a69a9676332a6532f5d60798dd03b70c58"
+states = 6
+[[iteration_checks]]
+case = "Float64/dual/forrest_tomlin/native/devex"
+sha256 = "605a0b2dbc1ce462272b5f12a9f1631ba0ec20c964b7ebb3cccb114613c815de"
+states = 6
+[[iteration_checks]]
+case = "Float64/dual/forrest_tomlin/native/steepest_edge"
+sha256 = "d8fccee5d64dd00cca0140cd8b72c54b1e9b4a8e8201e25af429b2f29f87a15b"
+states = 6
+[[iteration_checks]]
+case = "Float64/dual/forrest_tomlin/markowitz/dantzig"
+sha256 = "331c252753ef410a1aabdac564c564a69a9676332a6532f5d60798dd03b70c58"
+states = 6
+[[iteration_checks]]
+case = "Float64/dual/forrest_tomlin/markowitz/devex"
+sha256 = "605a0b2dbc1ce462272b5f12a9f1631ba0ec20c964b7ebb3cccb114613c815de"
+states = 6
+[[iteration_checks]]
+case = "Float64/dual/forrest_tomlin/markowitz/steepest_edge"
+sha256 = "d8fccee5d64dd00cca0140cd8b72c54b1e9b4a8e8201e25af429b2f29f87a15b"
+states = 6
+[[iteration_checks]]
+case = "Float64/dual/suhl_suhl/native/dantzig"
+sha256 = "331c252753ef410a1aabdac564c564a69a9676332a6532f5d60798dd03b70c58"
+states = 6
+[[iteration_checks]]
+case = "Float64/dual/suhl_suhl/native/devex"
+sha256 = "605a0b2dbc1ce462272b5f12a9f1631ba0ec20c964b7ebb3cccb114613c815de"
+states = 6
+[[iteration_checks]]
+case = "Float64/dual/suhl_suhl/native/steepest_edge"
+sha256 = "d8fccee5d64dd00cca0140cd8b72c54b1e9b4a8e8201e25af429b2f29f87a15b"
+states = 6
+[[iteration_checks]]
+case = "Float64/dual/suhl_suhl/markowitz/dantzig"
+sha256 = "331c252753ef410a1aabdac564c564a69a9676332a6532f5d60798dd03b70c58"
+states = 6
+[[iteration_checks]]
+case = "Float64/dual/suhl_suhl/markowitz/devex"
+sha256 = "605a0b2dbc1ce462272b5f12a9f1631ba0ec20c964b7ebb3cccb114613c815de"
+states = 6
+[[iteration_checks]]
+case = "Float64/dual/suhl_suhl/markowitz/steepest_edge"
+sha256 = "d8fccee5d64dd00cca0140cd8b72c54b1e9b4a8e8201e25af429b2f29f87a15b"
+states = 6
+[[iteration_checks]]
+case = "Float64/dual/bartels_golub/native/dantzig"
+sha256 = "331c252753ef410a1aabdac564c564a69a9676332a6532f5d60798dd03b70c58"
+states = 6
+[[iteration_checks]]
+case = "Float64/dual/bartels_golub/native/devex"
+sha256 = "605a0b2dbc1ce462272b5f12a9f1631ba0ec20c964b7ebb3cccb114613c815de"
+states = 6
+[[iteration_checks]]
+case = "Float64/dual/bartels_golub/native/steepest_edge"
+sha256 = "d8fccee5d64dd00cca0140cd8b72c54b1e9b4a8e8201e25af429b2f29f87a15b"
+states = 6
+[[iteration_checks]]
+case = "Float64/dual/bartels_golub/markowitz/dantzig"
+sha256 = "331c252753ef410a1aabdac564c564a69a9676332a6532f5d60798dd03b70c58"
+states = 6
+[[iteration_checks]]
+case = "Float64/dual/bartels_golub/markowitz/devex"
+sha256 = "605a0b2dbc1ce462272b5f12a9f1631ba0ec20c964b7ebb3cccb114613c815de"
+states = 6
+[[iteration_checks]]
+case = "Float64/dual/bartels_golub/markowitz/steepest_edge"
+sha256 = "d8fccee5d64dd00cca0140cd8b72c54b1e9b4a8e8201e25af429b2f29f87a15b"
+states = 6
+[[iteration_checks]]
+case = "Float64/primal/pfi/native/dantzig"
+sha256 = "c50659f037973b1d6c9ae9a6936ba2c54b0ee17d49fbbb52ad77843a3ad3341e"
+states = 6
+[[iteration_checks]]
+case = "Float64/primal/pfi/native/devex"
+sha256 = "c50659f037973b1d6c9ae9a6936ba2c54b0ee17d49fbbb52ad77843a3ad3341e"
+states = 6
+[[iteration_checks]]
+case = "Float64/primal/pfi/native/steepest_edge"
+sha256 = "76f9a99cbacd9d80d13d7b53ae67d52e99956879ad6829563a8d6703610a393e"
+states = 6
+[[iteration_checks]]
+case = "Float64/primal/pfi/markowitz/dantzig"
+sha256 = "c50659f037973b1d6c9ae9a6936ba2c54b0ee17d49fbbb52ad77843a3ad3341e"
+states = 6
+[[iteration_checks]]
+case = "Float64/primal/pfi/markowitz/devex"
+sha256 = "c50659f037973b1d6c9ae9a6936ba2c54b0ee17d49fbbb52ad77843a3ad3341e"
+states = 6
+[[iteration_checks]]
+case = "Float64/primal/pfi/markowitz/steepest_edge"
+sha256 = "76f9a99cbacd9d80d13d7b53ae67d52e99956879ad6829563a8d6703610a393e"
+states = 6
+[[iteration_checks]]
+case = "Float64/primal/forrest_tomlin/native/dantzig"
+sha256 = "b0c6e94add630bc28825a769b0e7872f149ccc82d058aeef7531f8e8b81cdfbb"
+states = 6
+[[iteration_checks]]
+case = "Float64/primal/forrest_tomlin/native/devex"
+sha256 = "b0c6e94add630bc28825a769b0e7872f149ccc82d058aeef7531f8e8b81cdfbb"
+states = 6
+[[iteration_checks]]
+case = "Float64/primal/forrest_tomlin/native/steepest_edge"
+sha256 = "b9e6ef4c9407532de55723f82ba5bea03adee4089b4f87b88b0b551c32791aef"
+states = 6
+[[iteration_checks]]
+case = "Float64/primal/forrest_tomlin/markowitz/dantzig"
+sha256 = "b0c6e94add630bc28825a769b0e7872f149ccc82d058aeef7531f8e8b81cdfbb"
+states = 6
+[[iteration_checks]]
+case = "Float64/primal/forrest_tomlin/markowitz/devex"
+sha256 = "b0c6e94add630bc28825a769b0e7872f149ccc82d058aeef7531f8e8b81cdfbb"
+states = 6
+[[iteration_checks]]
+case = "Float64/primal/forrest_tomlin/markowitz/steepest_edge"
+sha256 = "b9e6ef4c9407532de55723f82ba5bea03adee4089b4f87b88b0b551c32791aef"
+states = 6
+[[iteration_checks]]
+case = "Float64/primal/suhl_suhl/native/dantzig"
+sha256 = "b0c6e94add630bc28825a769b0e7872f149ccc82d058aeef7531f8e8b81cdfbb"
+states = 6
+[[iteration_checks]]
+case = "Float64/primal/suhl_suhl/native/devex"
+sha256 = "b0c6e94add630bc28825a769b0e7872f149ccc82d058aeef7531f8e8b81cdfbb"
+states = 6
+[[iteration_checks]]
+case = "Float64/primal/suhl_suhl/native/steepest_edge"
+sha256 = "b9e6ef4c9407532de55723f82ba5bea03adee4089b4f87b88b0b551c32791aef"
+states = 6
+[[iteration_checks]]
+case = "Float64/primal/suhl_suhl/markowitz/dantzig"
+sha256 = "b0c6e94add630bc28825a769b0e7872f149ccc82d058aeef7531f8e8b81cdfbb"
+states = 6
+[[iteration_checks]]
+case = "Float64/primal/suhl_suhl/markowitz/devex"
+sha256 = "b0c6e94add630bc28825a769b0e7872f149ccc82d058aeef7531f8e8b81cdfbb"
+states = 6
+[[iteration_checks]]
+case = "Float64/primal/suhl_suhl/markowitz/steepest_edge"
+sha256 = "b9e6ef4c9407532de55723f82ba5bea03adee4089b4f87b88b0b551c32791aef"
+states = 6
+[[iteration_checks]]
+case = "Float64/primal/bartels_golub/native/dantzig"
+sha256 = "b0c6e94add630bc28825a769b0e7872f149ccc82d058aeef7531f8e8b81cdfbb"
+states = 6
+[[iteration_checks]]
+case = "Float64/primal/bartels_golub/native/devex"
+sha256 = "b0c6e94add630bc28825a769b0e7872f149ccc82d058aeef7531f8e8b81cdfbb"
+states = 6
+[[iteration_checks]]
+case = "Float64/primal/bartels_golub/native/steepest_edge"
+sha256 = "b9e6ef4c9407532de55723f82ba5bea03adee4089b4f87b88b0b551c32791aef"
+states = 6
+[[iteration_checks]]
+case = "Float64/primal/bartels_golub/markowitz/dantzig"
+sha256 = "b0c6e94add630bc28825a769b0e7872f149ccc82d058aeef7531f8e8b81cdfbb"
+states = 6
+[[iteration_checks]]
+case = "Float64/primal/bartels_golub/markowitz/devex"
+sha256 = "b0c6e94add630bc28825a769b0e7872f149ccc82d058aeef7531f8e8b81cdfbb"
+states = 6
+[[iteration_checks]]
+case = "Float64/primal/bartels_golub/markowitz/steepest_edge"
+sha256 = "b9e6ef4c9407532de55723f82ba5bea03adee4089b4f87b88b0b551c32791aef"
+states = 6
+[[iteration_checks]]
+case = "BigFloat/dual/pfi/native/dantzig"
+sha256 = "d71ff2c2ca551099c85b8fcc640f59a626591705058fa0c8b5afb2b3380bad21"
+states = 6
+[[iteration_checks]]
+case = "BigFloat/dual/pfi/native/devex"
+sha256 = "d34dab38c6e55ca8200af24cd82e5151b8d2b1877cd01d7d582b0b8a2c8e6bc1"
+states = 6
+[[iteration_checks]]
+case = "BigFloat/dual/pfi/native/steepest_edge"
+sha256 = "ef11cfb1cf27e537d173331d5b05d0e91d0e7b6c17595d6e4efb7722101e86d8"
+states = 6
+[[iteration_checks]]
+case = "BigFloat/dual/pfi/markowitz/dantzig"
+sha256 = "d71ff2c2ca551099c85b8fcc640f59a626591705058fa0c8b5afb2b3380bad21"
+states = 6
+[[iteration_checks]]
+case = "BigFloat/dual/pfi/markowitz/devex"
+sha256 = "d34dab38c6e55ca8200af24cd82e5151b8d2b1877cd01d7d582b0b8a2c8e6bc1"
+states = 6
+[[iteration_checks]]
+case = "BigFloat/dual/pfi/markowitz/steepest_edge"
+sha256 = "ef11cfb1cf27e537d173331d5b05d0e91d0e7b6c17595d6e4efb7722101e86d8"
+states = 6
+[[iteration_checks]]
+case = "BigFloat/dual/forrest_tomlin/native/dantzig"
+sha256 = "37dd82d5e296a704931037baf38ec88ccc0175976aea8229f46e517229341b56"
+states = 6
+[[iteration_checks]]
+case = "BigFloat/dual/forrest_tomlin/native/devex"
+sha256 = "c3f7a6fe799081e7220466621a5eb98d4fac700a102e2677fee846d5834d1ba2"
+states = 6
+[[iteration_checks]]
+case = "BigFloat/dual/forrest_tomlin/native/steepest_edge"
+sha256 = "0b338a0b564b5db9608cf529da5cea49a7d2d879f234ba12e5893bb16e361755"
+states = 6
+[[iteration_checks]]
+case = "BigFloat/dual/forrest_tomlin/markowitz/dantzig"
+sha256 = "37dd82d5e296a704931037baf38ec88ccc0175976aea8229f46e517229341b56"
+states = 6
+[[iteration_checks]]
+case = "BigFloat/dual/forrest_tomlin/markowitz/devex"
+sha256 = "c3f7a6fe799081e7220466621a5eb98d4fac700a102e2677fee846d5834d1ba2"
+states = 6
+[[iteration_checks]]
+case = "BigFloat/dual/forrest_tomlin/markowitz/steepest_edge"
+sha256 = "0b338a0b564b5db9608cf529da5cea49a7d2d879f234ba12e5893bb16e361755"
+states = 6
+[[iteration_checks]]
+case = "BigFloat/dual/suhl_suhl/native/dantzig"
+sha256 = "37dd82d5e296a704931037baf38ec88ccc0175976aea8229f46e517229341b56"
+states = 6
+[[iteration_checks]]
+case = "BigFloat/dual/suhl_suhl/native/devex"
+sha256 = "c3f7a6fe799081e7220466621a5eb98d4fac700a102e2677fee846d5834d1ba2"
+states = 6
+[[iteration_checks]]
+case = "BigFloat/dual/suhl_suhl/native/steepest_edge"
+sha256 = "0b338a0b564b5db9608cf529da5cea49a7d2d879f234ba12e5893bb16e361755"
+states = 6
+[[iteration_checks]]
+case = "BigFloat/dual/suhl_suhl/markowitz/dantzig"
+sha256 = "37dd82d5e296a704931037baf38ec88ccc0175976aea8229f46e517229341b56"
+states = 6
+[[iteration_checks]]
+case = "BigFloat/dual/suhl_suhl/markowitz/devex"
+sha256 = "c3f7a6fe799081e7220466621a5eb98d4fac700a102e2677fee846d5834d1ba2"
+states = 6
+[[iteration_checks]]
+case = "BigFloat/dual/suhl_suhl/markowitz/steepest_edge"
+sha256 = "0b338a0b564b5db9608cf529da5cea49a7d2d879f234ba12e5893bb16e361755"
+states = 6
+[[iteration_checks]]
+case = "BigFloat/dual/bartels_golub/native/dantzig"
+sha256 = "37dd82d5e296a704931037baf38ec88ccc0175976aea8229f46e517229341b56"
+states = 6
+[[iteration_checks]]
+case = "BigFloat/dual/bartels_golub/native/devex"
+sha256 = "c3f7a6fe799081e7220466621a5eb98d4fac700a102e2677fee846d5834d1ba2"
+states = 6
+[[iteration_checks]]
+case = "BigFloat/dual/bartels_golub/native/steepest_edge"
+sha256 = "0b338a0b564b5db9608cf529da5cea49a7d2d879f234ba12e5893bb16e361755"
+states = 6
+[[iteration_checks]]
+case = "BigFloat/dual/bartels_golub/markowitz/dantzig"
+sha256 = "37dd82d5e296a704931037baf38ec88ccc0175976aea8229f46e517229341b56"
+states = 6
+[[iteration_checks]]
+case = "BigFloat/dual/bartels_golub/markowitz/devex"
+sha256 = "c3f7a6fe799081e7220466621a5eb98d4fac700a102e2677fee846d5834d1ba2"
+states = 6
+[[iteration_checks]]
+case = "BigFloat/dual/bartels_golub/markowitz/steepest_edge"
+sha256 = "0b338a0b564b5db9608cf529da5cea49a7d2d879f234ba12e5893bb16e361755"
+states = 6
+[[iteration_checks]]
+case = "BigFloat/primal/pfi/native/dantzig"
+sha256 = "d55faddf6c80d20f4d8a9446f71d561b9473689911bfd21b1fba3dc34ef54530"
+states = 6
+[[iteration_checks]]
+case = "BigFloat/primal/pfi/native/devex"
+sha256 = "d55faddf6c80d20f4d8a9446f71d561b9473689911bfd21b1fba3dc34ef54530"
+states = 6
+[[iteration_checks]]
+case = "BigFloat/primal/pfi/native/steepest_edge"
+sha256 = "cd9c14e467767d6e6915aabfbd3ba2f1fa7eda0626a7476878a3c121d628177b"
+states = 6
+[[iteration_checks]]
+case = "BigFloat/primal/pfi/markowitz/dantzig"
+sha256 = "d55faddf6c80d20f4d8a9446f71d561b9473689911bfd21b1fba3dc34ef54530"
+states = 6
+[[iteration_checks]]
+case = "BigFloat/primal/pfi/markowitz/devex"
+sha256 = "d55faddf6c80d20f4d8a9446f71d561b9473689911bfd21b1fba3dc34ef54530"
+states = 6
+[[iteration_checks]]
+case = "BigFloat/primal/pfi/markowitz/steepest_edge"
+sha256 = "cd9c14e467767d6e6915aabfbd3ba2f1fa7eda0626a7476878a3c121d628177b"
+states = 6
+[[iteration_checks]]
+case = "BigFloat/primal/forrest_tomlin/native/dantzig"
+sha256 = "654c14dfa270c4f9981c92aea3e339b601ac654d173b781a385ed82d430f80e9"
+states = 6
+[[iteration_checks]]
+case = "BigFloat/primal/forrest_tomlin/native/devex"
+sha256 = "654c14dfa270c4f9981c92aea3e339b601ac654d173b781a385ed82d430f80e9"
+states = 6
+[[iteration_checks]]
+case = "BigFloat/primal/forrest_tomlin/native/steepest_edge"
+sha256 = "0d1439c8592e61b2846a822c4ab7fa0f6925ff3bd287356524c2df63b2650756"
+states = 6
+[[iteration_checks]]
+case = "BigFloat/primal/forrest_tomlin/markowitz/dantzig"
+sha256 = "654c14dfa270c4f9981c92aea3e339b601ac654d173b781a385ed82d430f80e9"
+states = 6
+[[iteration_checks]]
+case = "BigFloat/primal/forrest_tomlin/markowitz/devex"
+sha256 = "654c14dfa270c4f9981c92aea3e339b601ac654d173b781a385ed82d430f80e9"
+states = 6
+[[iteration_checks]]
+case = "BigFloat/primal/forrest_tomlin/markowitz/steepest_edge"
+sha256 = "0d1439c8592e61b2846a822c4ab7fa0f6925ff3bd287356524c2df63b2650756"
+states = 6
+[[iteration_checks]]
+case = "BigFloat/primal/suhl_suhl/native/dantzig"
+sha256 = "654c14dfa270c4f9981c92aea3e339b601ac654d173b781a385ed82d430f80e9"
+states = 6
+[[iteration_checks]]
+case = "BigFloat/primal/suhl_suhl/native/devex"
+sha256 = "654c14dfa270c4f9981c92aea3e339b601ac654d173b781a385ed82d430f80e9"
+states = 6
+[[iteration_checks]]
+case = "BigFloat/primal/suhl_suhl/native/steepest_edge"
+sha256 = "0d1439c8592e61b2846a822c4ab7fa0f6925ff3bd287356524c2df63b2650756"
+states = 6
+[[iteration_checks]]
+case = "BigFloat/primal/suhl_suhl/markowitz/dantzig"
+sha256 = "654c14dfa270c4f9981c92aea3e339b601ac654d173b781a385ed82d430f80e9"
+states = 6
+[[iteration_checks]]
+case = "BigFloat/primal/suhl_suhl/markowitz/devex"
+sha256 = "654c14dfa270c4f9981c92aea3e339b601ac654d173b781a385ed82d430f80e9"
+states = 6
+[[iteration_checks]]
+case = "BigFloat/primal/suhl_suhl/markowitz/steepest_edge"
+sha256 = "0d1439c8592e61b2846a822c4ab7fa0f6925ff3bd287356524c2df63b2650756"
+states = 6
+[[iteration_checks]]
+case = "BigFloat/primal/bartels_golub/native/dantzig"
+sha256 = "654c14dfa270c4f9981c92aea3e339b601ac654d173b781a385ed82d430f80e9"
+states = 6
+[[iteration_checks]]
+case = "BigFloat/primal/bartels_golub/native/devex"
+sha256 = "654c14dfa270c4f9981c92aea3e339b601ac654d173b781a385ed82d430f80e9"
+states = 6
+[[iteration_checks]]
+case = "BigFloat/primal/bartels_golub/native/steepest_edge"
+sha256 = "0d1439c8592e61b2846a822c4ab7fa0f6925ff3bd287356524c2df63b2650756"
+states = 6
+[[iteration_checks]]
+case = "BigFloat/primal/bartels_golub/markowitz/dantzig"
+sha256 = "654c14dfa270c4f9981c92aea3e339b601ac654d173b781a385ed82d430f80e9"
+states = 6
+[[iteration_checks]]
+case = "BigFloat/primal/bartels_golub/markowitz/devex"
+sha256 = "654c14dfa270c4f9981c92aea3e339b601ac654d173b781a385ed82d430f80e9"
+states = 6
+[[iteration_checks]]
+case = "BigFloat/primal/bartels_golub/markowitz/steepest_edge"
+sha256 = "0d1439c8592e61b2846a822c4ab7fa0f6925ff3bd287356524c2df63b2650756"
+states = 6
+[[iteration_checks]]
+case = "Rational{BigInt}/dual/pfi/native/dantzig"
+sha256 = "7927460d0e7ac5bcc7fa877e4962118f65b6816fa2f61b030785c3adbc528cb2"
+states = 6
+[[iteration_checks]]
+case = "Rational{BigInt}/dual/pfi/native/devex"
+sha256 = "83ac83f9ec1aee41502c709e56349b9aef3931aa68b2f765a6af74662e001fad"
+states = 6
+[[iteration_checks]]
+case = "Rational{BigInt}/dual/pfi/native/steepest_edge"
+sha256 = "8161097db42af81472ddb1ef535904f984d12a770796e45cb4dc981bd0031fda"
+states = 6
+[[iteration_checks]]
+case = "Rational{BigInt}/dual/pfi/markowitz/dantzig"
+sha256 = "7927460d0e7ac5bcc7fa877e4962118f65b6816fa2f61b030785c3adbc528cb2"
+states = 6
+[[iteration_checks]]
+case = "Rational{BigInt}/dual/pfi/markowitz/devex"
+sha256 = "83ac83f9ec1aee41502c709e56349b9aef3931aa68b2f765a6af74662e001fad"
+states = 6
+[[iteration_checks]]
+case = "Rational{BigInt}/dual/pfi/markowitz/steepest_edge"
+sha256 = "8161097db42af81472ddb1ef535904f984d12a770796e45cb4dc981bd0031fda"
+states = 6
+[[iteration_checks]]
+case = "Rational{BigInt}/dual/forrest_tomlin/native/dantzig"
+sha256 = "7927460d0e7ac5bcc7fa877e4962118f65b6816fa2f61b030785c3adbc528cb2"
+states = 6
+[[iteration_checks]]
+case = "Rational{BigInt}/dual/forrest_tomlin/native/devex"
+sha256 = "83ac83f9ec1aee41502c709e56349b9aef3931aa68b2f765a6af74662e001fad"
+states = 6
+[[iteration_checks]]
+case = "Rational{BigInt}/dual/forrest_tomlin/native/steepest_edge"
+sha256 = "8161097db42af81472ddb1ef535904f984d12a770796e45cb4dc981bd0031fda"
+states = 6
+[[iteration_checks]]
+case = "Rational{BigInt}/dual/forrest_tomlin/markowitz/dantzig"
+sha256 = "7927460d0e7ac5bcc7fa877e4962118f65b6816fa2f61b030785c3adbc528cb2"
+states = 6
+[[iteration_checks]]
+case = "Rational{BigInt}/dual/forrest_tomlin/markowitz/devex"
+sha256 = "83ac83f9ec1aee41502c709e56349b9aef3931aa68b2f765a6af74662e001fad"
+states = 6
+[[iteration_checks]]
+case = "Rational{BigInt}/dual/forrest_tomlin/markowitz/steepest_edge"
+sha256 = "8161097db42af81472ddb1ef535904f984d12a770796e45cb4dc981bd0031fda"
+states = 6
+[[iteration_checks]]
+case = "Rational{BigInt}/dual/suhl_suhl/native/dantzig"
+sha256 = "7927460d0e7ac5bcc7fa877e4962118f65b6816fa2f61b030785c3adbc528cb2"
+states = 6
+[[iteration_checks]]
+case = "Rational{BigInt}/dual/suhl_suhl/native/devex"
+sha256 = "83ac83f9ec1aee41502c709e56349b9aef3931aa68b2f765a6af74662e001fad"
+states = 6
+[[iteration_checks]]
+case = "Rational{BigInt}/dual/suhl_suhl/native/steepest_edge"
+sha256 = "8161097db42af81472ddb1ef535904f984d12a770796e45cb4dc981bd0031fda"
+states = 6
+[[iteration_checks]]
+case = "Rational{BigInt}/dual/suhl_suhl/markowitz/dantzig"
+sha256 = "7927460d0e7ac5bcc7fa877e4962118f65b6816fa2f61b030785c3adbc528cb2"
+states = 6
+[[iteration_checks]]
+case = "Rational{BigInt}/dual/suhl_suhl/markowitz/devex"
+sha256 = "83ac83f9ec1aee41502c709e56349b9aef3931aa68b2f765a6af74662e001fad"
+states = 6
+[[iteration_checks]]
+case = "Rational{BigInt}/dual/suhl_suhl/markowitz/steepest_edge"
+sha256 = "8161097db42af81472ddb1ef535904f984d12a770796e45cb4dc981bd0031fda"
+states = 6
+[[iteration_checks]]
+case = "Rational{BigInt}/dual/bartels_golub/native/dantzig"
+sha256 = "7927460d0e7ac5bcc7fa877e4962118f65b6816fa2f61b030785c3adbc528cb2"
+states = 6
+[[iteration_checks]]
+case = "Rational{BigInt}/dual/bartels_golub/native/devex"
+sha256 = "83ac83f9ec1aee41502c709e56349b9aef3931aa68b2f765a6af74662e001fad"
+states = 6
+[[iteration_checks]]
+case = "Rational{BigInt}/dual/bartels_golub/native/steepest_edge"
+sha256 = "8161097db42af81472ddb1ef535904f984d12a770796e45cb4dc981bd0031fda"
+states = 6
+[[iteration_checks]]
+case = "Rational{BigInt}/dual/bartels_golub/markowitz/dantzig"
+sha256 = "7927460d0e7ac5bcc7fa877e4962118f65b6816fa2f61b030785c3adbc528cb2"
+states = 6
+[[iteration_checks]]
+case = "Rational{BigInt}/dual/bartels_golub/markowitz/devex"
+sha256 = "83ac83f9ec1aee41502c709e56349b9aef3931aa68b2f765a6af74662e001fad"
+states = 6
+[[iteration_checks]]
+case = "Rational{BigInt}/dual/bartels_golub/markowitz/steepest_edge"
+sha256 = "8161097db42af81472ddb1ef535904f984d12a770796e45cb4dc981bd0031fda"
+states = 6
+[[iteration_checks]]
+case = "Rational{BigInt}/primal/pfi/native/dantzig"
+sha256 = "851f00680f5cf446bfef3d17caea0ac53eb076266f099fa2a403177822ebbb42"
+states = 6
+[[iteration_checks]]
+case = "Rational{BigInt}/primal/pfi/native/devex"
+sha256 = "851f00680f5cf446bfef3d17caea0ac53eb076266f099fa2a403177822ebbb42"
+states = 6
+[[iteration_checks]]
+case = "Rational{BigInt}/primal/pfi/native/steepest_edge"
+sha256 = "90771afdc8e97f0d605a5b99914505ff65f438079912f33571d87d567149e65d"
+states = 6
+[[iteration_checks]]
+case = "Rational{BigInt}/primal/pfi/markowitz/dantzig"
+sha256 = "851f00680f5cf446bfef3d17caea0ac53eb076266f099fa2a403177822ebbb42"
+states = 6
+[[iteration_checks]]
+case = "Rational{BigInt}/primal/pfi/markowitz/devex"
+sha256 = "851f00680f5cf446bfef3d17caea0ac53eb076266f099fa2a403177822ebbb42"
+states = 6
+[[iteration_checks]]
+case = "Rational{BigInt}/primal/pfi/markowitz/steepest_edge"
+sha256 = "90771afdc8e97f0d605a5b99914505ff65f438079912f33571d87d567149e65d"
+states = 6
+[[iteration_checks]]
+case = "Rational{BigInt}/primal/forrest_tomlin/native/dantzig"
+sha256 = "851f00680f5cf446bfef3d17caea0ac53eb076266f099fa2a403177822ebbb42"
+states = 6
+[[iteration_checks]]
+case = "Rational{BigInt}/primal/forrest_tomlin/native/devex"
+sha256 = "851f00680f5cf446bfef3d17caea0ac53eb076266f099fa2a403177822ebbb42"
+states = 6
+[[iteration_checks]]
+case = "Rational{BigInt}/primal/forrest_tomlin/native/steepest_edge"
+sha256 = "90771afdc8e97f0d605a5b99914505ff65f438079912f33571d87d567149e65d"
+states = 6
+[[iteration_checks]]
+case = "Rational{BigInt}/primal/forrest_tomlin/markowitz/dantzig"
+sha256 = "851f00680f5cf446bfef3d17caea0ac53eb076266f099fa2a403177822ebbb42"
+states = 6
+[[iteration_checks]]
+case = "Rational{BigInt}/primal/forrest_tomlin/markowitz/devex"
+sha256 = "851f00680f5cf446bfef3d17caea0ac53eb076266f099fa2a403177822ebbb42"
+states = 6
+[[iteration_checks]]
+case = "Rational{BigInt}/primal/forrest_tomlin/markowitz/steepest_edge"
+sha256 = "90771afdc8e97f0d605a5b99914505ff65f438079912f33571d87d567149e65d"
+states = 6
+[[iteration_checks]]
+case = "Rational{BigInt}/primal/suhl_suhl/native/dantzig"
+sha256 = "851f00680f5cf446bfef3d17caea0ac53eb076266f099fa2a403177822ebbb42"
+states = 6
+[[iteration_checks]]
+case = "Rational{BigInt}/primal/suhl_suhl/native/devex"
+sha256 = "851f00680f5cf446bfef3d17caea0ac53eb076266f099fa2a403177822ebbb42"
+states = 6
+[[iteration_checks]]
+case = "Rational{BigInt}/primal/suhl_suhl/native/steepest_edge"
+sha256 = "90771afdc8e97f0d605a5b99914505ff65f438079912f33571d87d567149e65d"
+states = 6
+[[iteration_checks]]
+case = "Rational{BigInt}/primal/suhl_suhl/markowitz/dantzig"
+sha256 = "851f00680f5cf446bfef3d17caea0ac53eb076266f099fa2a403177822ebbb42"
+states = 6
+[[iteration_checks]]
+case = "Rational{BigInt}/primal/suhl_suhl/markowitz/devex"
+sha256 = "851f00680f5cf446bfef3d17caea0ac53eb076266f099fa2a403177822ebbb42"
+states = 6
+[[iteration_checks]]
+case = "Rational{BigInt}/primal/suhl_suhl/markowitz/steepest_edge"
+sha256 = "90771afdc8e97f0d605a5b99914505ff65f438079912f33571d87d567149e65d"
+states = 6
+[[iteration_checks]]
+case = "Rational{BigInt}/primal/bartels_golub/native/dantzig"
+sha256 = "851f00680f5cf446bfef3d17caea0ac53eb076266f099fa2a403177822ebbb42"
+states = 6
+[[iteration_checks]]
+case = "Rational{BigInt}/primal/bartels_golub/native/devex"
+sha256 = "851f00680f5cf446bfef3d17caea0ac53eb076266f099fa2a403177822ebbb42"
+states = 6
+[[iteration_checks]]
+case = "Rational{BigInt}/primal/bartels_golub/native/steepest_edge"
+sha256 = "90771afdc8e97f0d605a5b99914505ff65f438079912f33571d87d567149e65d"
+states = 6
+[[iteration_checks]]
+case = "Rational{BigInt}/primal/bartels_golub/markowitz/dantzig"
+sha256 = "851f00680f5cf446bfef3d17caea0ac53eb076266f099fa2a403177822ebbb42"
+states = 6
+[[iteration_checks]]
+case = "Rational{BigInt}/primal/bartels_golub/markowitz/devex"
+sha256 = "851f00680f5cf446bfef3d17caea0ac53eb076266f099fa2a403177822ebbb42"
+states = 6
+[[iteration_checks]]
+case = "Rational{BigInt}/primal/bartels_golub/markowitz/steepest_edge"
+sha256 = "90771afdc8e97f0d605a5b99914505ff65f438079912f33571d87d567149e65d"
+states = 6
+
+[[measurements]]
+after_bytes = 192
+after_samples = [8.0e-7, 1.6e-7, 2.2e-7, 1.6e-7, 1.6e-7, 1.3999999999999998e-7, 3.8e-7, 1.6e-7, 1.6e-7, 2.2e-7, 1.6e-7, 1.6e-7, 1.3999999999999998e-7, 1.6e-7, 1.6e-7]
+after_seconds_median = 1.6e-7
+before_bytes = 192
+before_samples = [1.1800000000000001e-6, 1.3999999999999998e-7, 1.6e-7, 1.8e-7, 1.6e-7, 1.6e-7, 1.6e-7, 1.6e-7, 2.0e-7, 1.6e-7, 1.6e-7, 1.6e-7, 1.6e-7, 1.6e-7, 1.3999999999999998e-7]
+before_seconds_median = 1.6e-7
+case = "ratio/Float32/16"
+compile_seconds = 0.0
+paired_speedup_median = 1.0
+repetitions = 5
+[[measurements]]
+after_bytes = 2120
+after_samples = [5.36e-6, 3.8e-6, 3.68e-6, 3.6999999999999997e-6, 3.82e-6, 3.74e-6, 3.88e-6, 3.86e-6, 3.9e-6, 4.0200000000000005e-6, 3.8e-6, 3.76e-6, 3.92e-6, 3.86e-6, 3.68e-6]
+after_seconds_median = 3.82e-6
+before_bytes = 2120
+before_samples = [9.0e-6, 3.7200000000000004e-6, 3.74e-6, 3.74e-6, 3.78e-6, 3.88e-6, 3.92e-6, 3.94e-6, 4.0200000000000005e-6, 3.84e-6, 3.76e-6, 3.8e-6, 3.82e-6, 3.76e-6, 3.74e-6]
+before_seconds_median = 3.8e-6
+case = "ratio/Float32/256"
+compile_seconds = 0.0
+paired_speedup_median = 1.0106382978723405
+repetitions = 5
+[[measurements]]
+after_bytes = 192
+after_samples = [7.4e-7, 1.6e-7, 1.6e-7, 1.6e-7, 1.3999999999999998e-7, 1.6e-7, 1.6e-7, 1.3999999999999998e-7, 2.2e-7, 2.0e-7, 1.3999999999999998e-7, 1.3999999999999998e-7, 1.6e-7, 1.6e-7, 1.3999999999999998e-7]
+after_seconds_median = 1.6e-7
+before_bytes = 192
+before_samples = [8.6e-7, 1.8e-7, 1.3999999999999998e-7, 1.6e-7, 1.6e-7, 1.6e-7, 3.2e-7, 1.3999999999999998e-7, 1.6e-7, 1.8e-7, 1.6e-7, 1.6e-7, 1.6e-7, 1.6e-7, 1.6e-7]
+before_seconds_median = 1.6e-7
+case = "ratio/Float64/16"
+compile_seconds = 0.0
+paired_speedup_median = 1.0
+repetitions = 5
+[[measurements]]
+after_bytes = 2120
+after_samples = [7.24e-6, 3.86e-6, 3.88e-6, 3.86e-6, 3.88e-6, 4.08e-6, 4.139999999999999e-6, 3.98e-6, 4.000000000000001e-6, 4.000000000000001e-6, 4.04e-6, 3.92e-6, 3.94e-6, 4.08e-6, 4.06e-6]
+after_seconds_median = 4.000000000000001e-6
+before_bytes = 2120
+before_samples = [8.82e-6, 3.9e-6, 3.88e-6, 3.84e-6, 3.9e-6, 4.0200000000000005e-6, 3.8e-6, 4.1e-6, 4.000000000000001e-6, 4.139999999999999e-6, 4.18e-6, 4.08e-6, 3.88e-6, 4.06e-6, 4.1199999999999995e-6]
+before_seconds_median = 4.0200000000000005e-6
+case = "ratio/Float64/256"
+compile_seconds = 0.0
+paired_speedup_median = 1.0051546391752577
+repetitions = 5
+[[measurements]]
+after_bytes = 13744
+after_samples = [6.439999999999999e-6, 5.1e-6, 5.26e-6, 5.16e-6, 5.16e-6, 5.5e-6, 5.56e-6, 5.420000000000001e-6, 5.48e-6, 5.38e-6, 5.36e-6, 5.28e-6, 5.56e-6, 5.16e-6, 5.48e-6]
+after_seconds_median = 5.38e-6
+before_bytes = 13744
+before_samples = [1.174e-5, 1.672e-5, 5.24e-6, 5.3e-6, 5.3e-6, 5.1799999999999995e-6, 5.16e-6, 5.6e-6, 5.5399999999999995e-6, 5.52e-6, 5.22e-6, 5.46e-6, 5.34e-6, 5.4e-6, 5.32e-6]
+before_seconds_median = 5.34e-6
+case = "ratio/BigFloat/16"
+compile_seconds = 0.0
+paired_speedup_median = 1.0260223048327137
+repetitions = 5
+[[measurements]]
+after_bytes = 199992
+after_samples = [8.45002e-5, 7.960000000000001e-5, 9.544e-5, 8.39e-5, 9.921999999999999e-5, 8.284e-5, 9.14e-5, 8.286e-5, 8.13e-5, 8.904e-5, 8.22e-5, 0.00010465999999999999, 8.398e-5, 8.22e-5, 0.00016972]
+after_seconds_median = 8.398e-5
+before_bytes = 199992
+before_samples = [8.905999999999999e-5, 7.884e-5, 8.166e-5, 8.22e-5, 9.16e-5, 8.876e-5, 0.00010124000000000001, 9.510000000000001e-5, 9.983999999999999e-5, 0.00010690000000000001, 9.2e-5, 0.00013402, 8.978e-5, 8.38e-5, 8.905999999999999e-5]
+before_seconds_median = 8.978e-5
+case = "ratio/BigFloat/256"
+compile_seconds = 0.0
+paired_speedup_median = 1.0690640628721122
+repetitions = 5
+[[measurements]]
+after_bytes = 44016
+after_samples = [2.446e-5, 2.356e-5, 2.8820000000000002e-5, 2.902e-5, 3.182e-5, 2.75e-5, 2.9559999999999998e-5, 3.034e-5, 2.816e-5, 2.6340000000000002e-5, 2.5280000000000002e-5, 2.518e-5, 2.4259999999999998e-5, 2.5e-5, 2.548e-5]
+after_seconds_median = 2.6340000000000002e-5
+before_bytes = 44016
+before_samples = [6.834e-5, 2.314e-5, 2.122e-5, 2.918e-5, 3.3100000000000005e-5, 8.618e-5, 5.248e-5, 2.542e-5, 2.628e-5, 2.516e-5, 2.42e-5, 2.492e-5, 2.432e-5, 2.7020000000000002e-5, 2.402e-5]
+before_seconds_median = 2.542e-5
+case = "ratio/Rational{BigInt}/16"
+compile_seconds = 0.0
+paired_speedup_median = 0.9896743447180302
+repetitions = 5
+[[measurements]]
+after_bytes = 874904
+after_samples = [0.00053402, 0.00043994000000000005, 0.00038926, 0.0003846, 0.00039534, 0.0004108202, 0.00036724, 0.00036668, 0.00036072000000000003, 0.00033964, 0.0003461, 0.00035546000000000004, 0.0005111, 0.00032024, 0.00046452000000000006]
+after_seconds_median = 0.0003846
+before_bytes = 874856
+before_samples = [0.00062638, 0.00039458, 0.0003993, 0.00043508, 0.00039598000000000004, 0.00049372, 0.00042442, 0.00036618, 0.00048096, 0.00045170000000000003, 0.00034596000000000003, 0.00041171999999999997, 0.00034602, 0.00034009999999999997, 0.00034654]
+before_seconds_median = 0.0003993
+case = "ratio/Rational{BigInt}/256"
+compile_seconds = 0.0
+paired_speedup_median = 1.0620159880089932
+repetitions = 5
+[[measurements]]
+after_bytes = 0
+after_samples = [9.964e-6, 9.932e-6, 9.928e-6, 1.3346e-5, 1.0752e-5, 1.1876e-5, 1.1282e-5, 9.93e-6, 1.3301999999999999e-5, 9.932e-6, 9.962e-6, 9.932e-6, 1.0150000000000001e-5, 1.0529999999999999e-5, 1.8502e-5]
+after_seconds_median = 1.0150000000000001e-5
+before_bytes = 0
+before_samples = [1.0427999999999999e-5, 1.1374e-5, 1.0962000000000001e-5, 1.1416e-5, 1.0009999999999999e-5, 1.0038e-5, 1.1014e-5, 1.119e-5, 1.223e-5, 1.0172e-5, 1.0194e-5, 1.0009999999999999e-5, 1.0368e-5, 1.3209999999999999e-5, 2.4835999999999997e-5]
+before_seconds_median = 1.0962000000000001e-5
+case = "upper_set/1024"
+compile_seconds = 0.0
+paired_speedup_median = 1.0232884962858861
+repetitions = 50
+[[measurements]]
+after_bytes = 0
+after_samples = [9.688e-6, 8.734e-6, 1.0082e-5, 9.07e-6, 8.856e-6, 9.717999999999999e-6, 9.742000000000001e-6, 1.1394e-5, 1.0816000000000001e-5, 1.008e-5, 9.42e-6, 1.0122e-5, 9.844000000000001e-6, 1.1181999999999999e-5, 1.1001999999999999e-5]
+after_seconds_median = 9.844000000000001e-6
+before_bytes = 0
+before_samples = [8.976e-6, 8.874e-6, 1.0734e-5, 9.67e-6, 1.1608e-5, 1.155e-5, 9.544e-6, 1.0354e-5, 1.0258e-5, 9.804e-6, 1.4188e-5, 1.134e-5, 1.0152e-5, 1.0776e-5, 8.882e-6]
+before_seconds_median = 1.0258e-5
+case = "markowitz_set/1024"
+compile_seconds = 0.0
+paired_speedup_median = 1.0160293107396383
+repetitions = 50
+[[measurements]]
+after_bytes = 78672
+after_samples = [7.794e-5, 6.844e-5, 7.538e-5, 7.412e-5, 7.396e-5, 7.258e-5, 6.96e-5, 7.07e-5, 6.894e-5, 6.824e-5, 7.192e-5, 7.404e-5, 7.274e-5, 6.942e-5, 6.96e-5]
+after_seconds_median = 7.192e-5
+before_bytes = 78672
+before_samples = [0.00033506, 7.014e-5, 6.462e-5, 7.568e-5, 7.568e-5, 7.056e-5, 6.95e-5, 7.004e-5, 7.102000000000001e-5, 8.012e-5, 7.214e-5, 7.316e-5, 7.504e-5, 7.102000000000001e-5, 6.758e-5]
+before_seconds_median = 7.102000000000001e-5
+case = "solve/afiro/dual/pfi/native"
+compile_seconds = 0.0
+paired_speedup_median = 1.0210469508904478
+repetitions = 5
+[[measurements]]
+after_bytes = 84016
+after_samples = [6.468e-5, 4.622e-5, 4.728e-5, 4.846e-5, 4.758e-5, 4.696e-5, 5.536e-5, 4.868e-5, 5.1979999999999994e-5, 5.9980000000000005e-5, 4.854e-5, 4.716e-5, 5.6800000000000005e-5, 5.566e-5, 4.588e-5]
+after_seconds_median = 4.854e-5
+before_bytes = 83616
+before_samples = [8.002000000000001e-5, 5.0299999999999996e-5, 4.726e-5, 4.8060000000000004e-5, 4.658e-5, 5.1139999999999995e-5, 5.232e-5, 4.662e-5, 4.834e-5, 6.091999999999999e-5, 4.938e-5, 4.712e-5, 5.414000000000001e-5, 4.79e-5, 4.538e-5]
+before_seconds_median = 4.834e-5
+case = "solve/afiro/dual/pfi/markowitz"
+compile_seconds = 0.0
+paired_speedup_median = 0.9917457697069749
+repetitions = 5
+[[measurements]]
+after_bytes = 96192
+after_samples = [0.00012482000000000001, 9.15e-5, 9.912e-5, 9.016e-5, 9.566e-5, 9.402e-5, 0.00011180000000000001, 9.406e-5, 9.659999999999999e-5, 0.00010936, 0.0001052, 9.468000000000001e-5, 9.879999999999999e-5, 9.498e-5, 9.57e-5]
+after_seconds_median = 9.57e-5
+before_bytes = 96192
+before_samples = [0.00040372000000000004, 0.0001054, 0.00010292000000000001, 9.970000000000001e-5, 9.41e-5, 9.82e-5, 9.382e-5, 9.556e-5, 9.514e-5, 9.442e-5, 9.53e-5, 0.00010828000000000001, 9.63e-5, 9.82e-5, 9.196000000000001e-5]
+before_seconds_median = 9.63e-5
+case = "solve/afiro/dual/bartels_golub/native"
+compile_seconds = 0.0
+paired_speedup_median = 1.0159472677014671
+repetitions = 5
+[[measurements]]
+after_bytes = 101600
+after_samples = [9.43e-5, 6.618e-5, 8.79e-5, 7.058e-5, 7.528e-5, 6.682e-5, 6.722e-5, 6.866e-5, 6.986e-5, 7.08e-5, 7.334e-5, 6.672e-5, 7.71e-5, 6.85e-5, 9.63e-5]
+after_seconds_median = 7.058e-5
+before_bytes = 101200
+before_samples = [0.00012432, 7.254e-5, 8.214e-5, 6.876e-5, 6.853999999999999e-5, 6.75e-5, 6.536e-5, 6.636e-5, 6.556e-5, 7.526e-5, 0.0001425, 6.846e-5, 7.39e-5, 6.834e-5, 6.782e-5]
+before_seconds_median = 6.853999999999999e-5
+case = "solve/afiro/dual/bartels_golub/markowitz"
+compile_seconds = 0.0
+paired_speedup_median = 0.9742136582601303
+repetitions = 5
+[[measurements]]
+after_bytes = 108624
+after_samples = [0.00011402000000000001, 8.436e-5, 8.886e-5, 8.576e-5, 8.6e-5, 8.604e-5, 8.446e-5, 8.692e-5, 9.913999999999999e-5, 8.718e-5, 9.934e-5, 9.128e-5, 8.6e-5, 8.21e-5, 8.956e-5]
+after_seconds_median = 8.692e-5
+before_bytes = 108624
+before_samples = [0.0001554, 0.00011048, 8.6e-5, 8.742e-5, 8.464e-5, 8.675999999999999e-5, 8.412e-5, 8.622e-5, 8.898e-5, 8.47e-5, 8.73e-5, 0.00010786000000000001, 0.00010608, 8.626e-5, 9.448e-5]
+before_seconds_median = 8.73e-5
+case = "solve/afiro/primal/pfi/native"
+compile_seconds = 0.0
+paired_speedup_median = 1.00836820083682
+repetitions = 5
+[[measurements]]
+after_bytes = 127216
+after_samples = [6.328e-5, 5.12e-5, 5.162e-5, 4.956e-5, 5.1979999999999994e-5, 5.692e-5, 5.042e-5, 5.138e-5, 5.944e-5, 4.984e-5, 4.946e-5, 5.574e-5, 5.2780000000000006e-5, 4.91e-5, 6.418e-5]
+after_seconds_median = 5.162e-5
+before_bytes = 126416
+before_samples = [7.282e-5, 5.086e-5, 5.132e-5, 7.766e-5, 4.9359999999999995e-5, 5.0060000000000005e-5, 4.962e-5, 0.00019392000000000001, 0.00014266000000000002, 6.328e-5, 5.004e-5, 5.628e-5, 5.5820000000000004e-5, 5.2419999999999996e-5, 6.183999999999999e-5]
+before_seconds_median = 5.5820000000000004e-5
+case = "solve/afiro/primal/pfi/markowitz"
+compile_seconds = 0.0
+paired_speedup_median = 1.011726647796199
+repetitions = 5
+[[measurements]]
+after_bytes = 128208
+after_samples = [0.00011622, 0.00010188000000000001, 0.00010846, 0.00010936, 0.00010994, 0.00011119999999999999, 0.00011195999999999999, 0.00010838, 0.00010768, 0.00010648000000000001, 0.00010176, 0.00010548, 0.0001088, 0.00010834, 0.00010839999999999999]
+after_seconds_median = 0.00010839999999999999
+before_bytes = 128208
+before_samples = [0.0001326, 0.00010430000000000001, 0.00010300000000000001, 0.00011156, 0.00010914, 0.00011282, 0.00010728, 0.00010667999999999999, 0.00011552, 0.00011559999999999999, 0.00017254, 0.0001105, 0.00010973999999999999, 0.00012723999999999998, 0.0001054]
+before_seconds_median = 0.0001105
+case = "solve/afiro/primal/bartels_golub/native"
+compile_seconds = 0.0
+paired_speedup_median = 1.0201170446232626
+repetitions = 5
+[[measurements]]
+after_bytes = 146656
+after_samples = [9.106e-5, 7.012e-5, 7.368e-5, 9.736e-5, 7.916000000000001e-5, 8.018e-5, 7.97e-5, 8.394e-5, 7.502e-5, 9.15e-5, 7.41e-5, 8.096e-5, 7.448e-5, 7.724e-5, 7.374000000000001e-5]
+after_seconds_median = 7.916000000000001e-5
+before_bytes = 145856
+before_samples = [0.00010248, 7.214e-5, 6.932000000000001e-5, 7.345999999999999e-5, 7.2e-5, 7.523999999999999e-5, 7.256e-5, 7.481999999999999e-5, 6.966000000000001e-5, 8.072e-5, 7.316e-5, 8.326e-5, 7.708e-5, 8.944e-5, 7.572e-5]
+before_seconds_median = 7.481999999999999e-5
+case = "solve/afiro/primal/bartels_golub/markowitz"
+compile_seconds = 0.0
+paired_speedup_median = 0.9408251900108578
+repetitions = 5
+[[measurements]]
+after_bytes = 102952
+after_samples = [9.452e-5, 8.852e-5, 9.226e-5, 9.214e-5, 0.00010093999999999999, 0.00012492, 9.32e-5, 9.65e-5, 0.00010286, 9.636e-5, 0.00010326000000000001, 9.426000000000001e-5, 9.50398e-5, 9.711999999999999e-5, 9.548e-5]
+after_seconds_median = 9.548e-5
+before_bytes = 102952
+before_samples = [0.00013584, 9.211999999999999e-5, 8.932e-5, 0.00012756, 9.36e-5, 9.523999999999999e-5, 9.376e-5, 9.65e-5, 9.444e-5, 9.47e-5, 0.00010088, 9.888e-5, 0.00010722, 0.00010326000000000001, 0.00010148]
+before_seconds_median = 9.65e-5
+case = "parse/afiro"
+compile_seconds = 0.0
+paired_speedup_median = 1.0060085836909871
+repetitions = 5
+[[measurements]]
+after_bytes = 667384
+after_samples = [0.00036459999999999997, 0.00034506, 0.00033956, 0.00029646, 0.00029532, 0.00027448, 0.00029124, 0.00033468, 0.00030676, 0.00027074, 0.00046587979999999994, 0.00028126000000000003, 0.00028064, 0.00029788000000000004, 0.00033292]
+after_seconds_median = 0.00029788000000000004
+before_bytes = 667272
+before_samples = [0.0003738, 0.00037238, 0.0004267, 0.0003136398, 0.00030982000000000004, 0.00028194, 0.00028236, 0.00028758, 0.00028846000000000004, 0.00027926000000000003, 0.00028248, 0.00029183999999999997, 0.00029106, 0.00031846, 0.00031318000000000003]
+before_seconds_median = 0.00029183999999999997
+case = "presolve/afiro"
+compile_seconds = 0.0
+paired_speedup_median = 1.0314693063455715
+repetitions = 5
+[[measurements]]
+after_bytes = 502736
+after_samples = [0.0008274398000000001, 0.00105068, 0.00083204, 0.0010758198, 0.00082118, 0.0008021198000000001, 0.00082046, 0.00089198, 0.0008197599999999999, 0.00079144, 0.00081354, 0.0008782200000000001, 0.0007874798000000001, 0.00079904, 0.00084184]
+after_seconds_median = 0.00082118
+before_bytes = 502640
+before_samples = [0.00104148, 0.00082118, 0.0008203, 0.00116234, 0.00151556, 0.0008358, 0.0008526199999999999, 0.0010616198, 0.0008887799999999999, 0.0008113799999999999, 0.0009971198000000001, 0.00083488, 0.0010255800000000001, 0.0008199400000000001, 0.00086998]
+before_seconds_median = 0.00086998
+case = "solve/adlittle/dual/pfi/native"
+compile_seconds = 0.0
+paired_speedup_median = 1.0419889896746097
+repetitions = 5
+[[measurements]]
+after_bytes = 307880
+after_samples = [0.00062858, 0.0006335399999999999, 0.0006843400000000001, 0.00067956, 0.0007126999999999999, 0.0005831, 0.00061792, 0.0005971198, 0.0006125600000000001, 0.0006004, 0.0006354997999999999, 0.00062378, 0.0006425000000000001, 0.0006317, 0.0006393600000000001]
+after_seconds_median = 0.0006317
+before_bytes = 307224
+before_samples = [0.0008482597999999999, 0.00064202, 0.00062814, 0.0007313797999999999, 0.0006595, 0.00058484, 0.00057964, 0.00064618, 0.00056872, 0.00063482, 0.00059636, 0.0006511399999999999, 0.00062686, 0.0006521398, 0.0006241]
+before_seconds_median = 0.00063482
+case = "solve/adlittle/dual/pfi/markowitz"
+compile_seconds = 0.0
+paired_speedup_median = 1.0029840507631624
+repetitions = 5
+[[measurements]]
+after_bytes = 564048
+after_samples = [0.0011771998000000001, 0.00119644, 0.00128578, 0.00116252, 0.00114554, 0.00118896, 0.00132562, 0.0011581, 0.00116942, 0.0015335398, 0.00141428, 0.0012850798, 0.0011131598, 0.001278, 0.0011988398]
+after_seconds_median = 0.00119644
+before_bytes = 564016
+before_samples = [0.00130182, 0.00113064, 0.0012425998, 0.0012261400000000001, 0.0011255198, 0.0014167998, 0.0012239999999999998, 0.0011395598, 0.00112232, 0.0011305199999999999, 0.0010900999999999999, 0.0013419600000000001, 0.00117782, 0.0011393, 0.00113362]
+before_seconds_median = 0.0011395598
+case = "solve/adlittle/dual/bartels_golub/native"
+compile_seconds = 0.0
+paired_speedup_median = 0.9664171164584922
+repetitions = 5
+[[measurements]]
+after_bytes = 396832
+after_samples = [0.0010345999999999999, 0.0010087199999999998, 0.00109662, 0.00111506, 0.0010440599999999999, 0.0010177200000000002, 0.00099974, 0.00100994, 0.0010358799999999999, 0.00101142, 0.0010565398, 0.0010283199999999999, 0.0011705598, 0.0010677, 0.00100094]
+after_seconds_median = 0.0010345999999999999
+before_bytes = 396176
+before_samples = [0.0012110398, 0.00102366, 0.0010755398, 0.00109476, 0.0010844598000000001, 0.0009898799999999998, 0.0009807198, 0.00104682, 0.0010128598000000001, 0.00115868, 0.0010279, 0.00103658, 0.0011137, 0.00108222, 0.0011318597999999999]
+before_seconds_median = 0.0010755398
+case = "solve/adlittle/dual/bartels_golub/markowitz"
+compile_seconds = 0.0
+paired_speedup_median = 1.0080325190602148
+repetitions = 5
+[[measurements]]
+after_bytes = 565320
+after_samples = [0.0008815800000000001, 0.0007843598, 0.0011248599999999999, 0.0007291999999999999, 0.00083282, 0.00073218, 0.0008323198, 0.00077648, 0.00094182, 0.0011428198, 0.00088992, 0.0007662999999999999, 0.0011654599999999999, 0.00076482, 0.00078288]
+after_seconds_median = 0.0008323198
+before_bytes = 565400
+before_samples = [0.0009314799999999999, 0.00084192, 0.00078716, 0.0007276597999999999, 0.00073682, 0.00074098, 0.00077188, 0.00077304, 0.0007507200000000001, 0.00077432, 0.0007966000000000001, 0.0007843198, 0.0007966199999999999, 0.0009013999999999999, 0.0008138398]
+before_seconds_median = 0.0007843198
+case = "solve/adlittle/primal/pfi/native"
+compile_seconds = 0.0
+paired_speedup_median = 0.9955697506696889
+repetitions = 5
+[[measurements]]
+after_bytes = 394016
+after_samples = [0.0006098400000000001, 0.00060552, 0.0006978797999999999, 0.00063424, 0.0006129, 0.00062564, 0.0006810799999999999, 0.00062126, 0.00059864, 0.00058314, 0.0007641799999999999, 0.0006989, 0.0006888398, 0.00072136, 0.0006443]
+after_seconds_median = 0.00063424
+before_bytes = 392704
+before_samples = [0.00081496, 0.00063046, 0.000616, 0.0005861, 0.0005851399999999999, 0.00067434, 0.0006226798000000001, 0.0006019199999999999, 0.00075732, 0.0006130598000000001, 0.00061342, 0.00065704, 0.0006766999999999999, 0.0006587, 0.00061658]
+before_seconds_median = 0.0006226798000000001
+case = "solve/adlittle/primal/pfi/markowitz"
+compile_seconds = 0.0
+paired_speedup_median = 0.9569765637125563
+repetitions = 5
+[[measurements]]
+after_bytes = 632696
+after_samples = [0.0013304198, 0.00122934, 0.0012021398000000001, 0.00134734, 0.00123368, 0.00117842, 0.00118316, 0.00124616, 0.00114796, 0.00124184, 0.0011216, 0.0012413998, 0.00135834, 0.0011316998, 0.0011265798]
+after_seconds_median = 0.00122934
+before_bytes = 632744
+before_samples = [0.00130182, 0.0013105, 0.00123414, 0.00117658, 0.0011716598, 0.00130744, 0.0012199398, 0.0012261398, 0.00111292, 0.0013810798000000002, 0.0011586, 0.00112426, 0.00118308, 0.00114914, 0.00128308]
+before_seconds_median = 0.0012199398
+case = "solve/adlittle/primal/bartels_golub/native"
+compile_seconds = 0.0
+paired_speedup_median = 1.015410623912808
+repetitions = 5
+[[measurements]]
+after_bytes = 460528
+after_samples = [0.0010313598, 0.0009733999999999999, 0.0010359398, 0.0010075799999999999, 0.0011309, 0.0010288398, 0.00105582, 0.0010497198, 0.00106572, 0.0010695598000000001, 0.00111696, 0.0010130398000000001, 0.00102706, 0.0010014598, 0.00105868]
+after_seconds_median = 0.0010359398
+before_bytes = 459216
+before_samples = [0.00122878, 0.00101436, 0.0010003, 0.00104256, 0.0010266000000000001, 0.0010424, 0.00104448, 0.00117428, 0.00103944, 0.00100972, 0.00106732, 0.00100926, 0.00111092, 0.0010364200000000001, 0.00117058]
+before_seconds_median = 0.0010424
+case = "solve/adlittle/primal/bartels_golub/markowitz"
+compile_seconds = 0.0
+paired_speedup_median = 1.0131800888729228
+repetitions = 5
+[[measurements]]
+after_bytes = 405184
+after_samples = [0.00036208, 0.00035932, 0.00039890000000000005, 0.0003667998, 0.00038322, 0.00038416000000000004, 0.00038992, 0.0003825, 0.0004046198, 0.0003604, 0.0003613, 0.00035066, 0.00036506, 0.00036050000000000003, 0.00036247979999999997]
+after_seconds_median = 0.00036506
+before_bytes = 405184
+before_samples = [0.00056262, 0.00037436, 0.00040315999999999996, 0.00038, 0.00037958, 0.00038196, 0.00038524, 0.00038271999999999997, 0.00038766, 0.00038592, 0.00039208000000000005, 0.00035052, 0.00035645999999999996, 0.00040684, 0.00035286]
+before_seconds_median = 0.00038271999999999997
+case = "parse/adlittle"
+compile_seconds = 0.0
+paired_speedup_median = 1.0005751633986928
+repetitions = 5
+[[measurements]]
+after_bytes = 3209864
+after_samples = [0.0017450598, 0.0016819400000000003, 0.0016152997999999998, 0.0016238, 0.0015956999999999998, 0.0015509200000000001, 0.0017711198, 0.00170332, 0.00192544, 0.0021379398, 0.00210546, 0.0021295198, 0.0019158198, 0.0020962999999999997, 0.0020338198]
+after_seconds_median = 0.0017711198
+before_bytes = 3209912
+before_samples = [0.00222244, 0.0023379598, 0.00202458, 0.0017054, 0.0017069398, 0.0016407798, 0.00198916, 0.0020398398, 0.0016267, 0.0021791600000000003, 0.0021315598, 0.00194142, 0.004366619800000001, 0.0021826998, 0.00198798]
+before_seconds_median = 0.00202458
+case = "presolve/adlittle"
+compile_seconds = 0.0
+paired_speedup_median = 1.0579396745157712
+repetitions = 5
+[[measurements]]
+after_bytes = 286256
+after_samples = [0.0003206, 0.00042702, 0.00030552, 0.00029144, 0.00029364, 0.0002862998, 0.00040965999999999995, 0.00032588, 0.00028356000000000003, 0.00028682, 0.00035552, 0.00028065999999999996, 0.00032862, 0.00028688, 0.00028011999999999997]
+after_seconds_median = 0.00029364
+before_bytes = 286304
+before_samples = [0.0007639400000000001, 0.00033516000000000004, 0.0002883, 0.00029982, 0.000284, 0.00030068, 0.0002821, 0.00032114000000000003, 0.00027798, 0.00030546, 0.00031156, 0.00029759999999999997, 0.00045769979999999994, 0.00028684, 0.00027634000000000003]
+before_seconds_median = 0.00029982
+case = "solve/sc50a/dual/pfi/native"
+compile_seconds = 0.0
+paired_speedup_median = 0.9865057832357563
+repetitions = 5
+[[measurements]]
+after_bytes = 284928
+after_samples = [0.00022846, 0.00020266, 0.000221, 0.00020820000000000002, 0.00022436, 0.00021026, 0.00024216, 0.00021373999999999997, 0.00022014000000000002, 0.00021412, 0.00021906, 0.00021286, 0.00022752, 0.00022184, 0.00022986]
+after_seconds_median = 0.00022014000000000002
+before_bytes = 283712
+before_samples = [0.00032876, 0.00021256, 0.0002557, 0.0002259398, 0.0002166, 0.00022652000000000002, 0.00024878, 0.00021979999999999998, 0.00020406, 0.00022208000000000002, 0.0002166, 0.00022442, 0.00021082000000000002, 0.00022877980000000003, 0.00021444]
+before_seconds_median = 0.00022208000000000002
+case = "solve/sc50a/dual/pfi/markowitz"
+compile_seconds = 0.0
+paired_speedup_median = 1.031282906599351
+repetitions = 5
+[[measurements]]
+after_bytes = 332512
+after_samples = [0.00043914000000000003, 0.00040993999999999997, 0.0005941400000000001, 0.00041512, 0.000445, 0.0004282, 0.00042115980000000005, 0.00042021999999999996, 0.00042956, 0.0004521, 0.0004374, 0.00042486, 0.00044446, 0.000413, 0.00044288]
+after_seconds_median = 0.00042956
+before_bytes = 332512
+before_samples = [0.00051936, 0.0005145600000000001, 0.0004924998, 0.00044472, 0.00044246, 0.00045138000000000003, 0.00046128, 0.00044976, 0.00042206, 0.00047634, 0.00042725999999999994, 0.0004313198, 0.00042284, 0.0004463, 0.00045798000000000003]
+before_seconds_median = 0.00044976
+case = "solve/sc50a/dual/bartels_golub/native"
+compile_seconds = 0.0
+paired_speedup_median = 1.0536164565361645
+repetitions = 5
+[[measurements]]
+after_bytes = 331712
+after_samples = [0.0003530198, 0.00031916000000000003, 0.00035764, 0.00043104, 0.00036202, 0.00033067999999999997, 0.0003563798, 0.00035442, 0.00036722, 0.00034765999999999996, 0.00036716, 0.0003549, 0.0003761598, 0.00035588, 0.00038846000000000003]
+after_seconds_median = 0.0003563798
+before_bytes = 330496
+before_samples = [0.00043702000000000004, 0.0003492, 0.00033695999999999997, 0.00041088, 0.00038788, 0.00034910000000000003, 0.00033384, 0.0003598, 0.00035086000000000004, 0.00037072, 0.0003532, 0.00037332, 0.00036088, 0.00038428, 0.00036328]
+before_seconds_median = 0.00036088
+case = "solve/sc50a/dual/bartels_golub/markowitz"
+compile_seconds = 0.0
+paired_speedup_median = 1.0151797302635293
+repetitions = 5
+[[measurements]]
+after_bytes = 207544
+after_samples = [0.00027550000000000003, 0.00023931999999999998, 0.00024239999999999998, 0.00023914000000000002, 0.00025596, 0.0002583, 0.00024362, 0.00024155999999999998, 0.00024488, 0.00024428000000000004, 0.00025487999999999997, 0.00025600000000000004, 0.00024336000000000003, 0.00023554, 0.00023966]
+after_seconds_median = 0.00024362
+before_bytes = 207544
+before_samples = [0.00037128, 0.00025868, 0.00023914000000000002, 0.0002653798, 0.00041098, 0.00027206, 0.00023624000000000003, 0.0002455, 0.00024142, 0.00024294, 0.00037034, 0.0002500798, 0.00026159999999999996, 0.00024608, 0.00024188]
+before_seconds_median = 0.0002500798
+case = "solve/sc50a/primal/pfi/native"
+compile_seconds = 0.0
+paired_speedup_median = 1.0447482380911945
+repetitions = 5
+[[measurements]]
+after_bytes = 188864
+after_samples = [0.0002003, 0.0002025, 0.00018494, 0.00020928, 0.00019908, 0.00035124, 0.0002076, 0.0001729, 0.00020595999999999999, 0.00019378, 0.00019112, 0.00019998, 0.00020316000000000003, 0.00035685999999999997, 0.00027101999999999996]
+after_seconds_median = 0.0002025
+before_bytes = 188256
+before_samples = [0.00031716000000000003, 0.00018678, 0.0001802, 0.00018664000000000002, 0.00019024, 0.0001898198, 0.00017674, 0.000212, 0.00017627999999999999, 0.00019020000000000002, 0.00020208000000000002, 0.00018798, 0.00019613999999999998, 0.0001812, 0.00022534]
+before_seconds_median = 0.0001898198
+case = "solve/sc50a/primal/pfi/markowitz"
+compile_seconds = 0.0
+paired_speedup_median = 0.93999399939994
+repetitions = 5
+[[measurements]]
+after_bytes = 223064
+after_samples = [0.0003545198, 0.00037638, 0.00039893999999999997, 0.00034066, 0.0003589, 0.00034619999999999996, 0.0003580798, 0.00035136, 0.00037414, 0.00035198, 0.0003748, 0.00036248, 0.0003521598, 0.00034558, 0.00044824000000000003]
+after_seconds_median = 0.0003580798
+before_bytes = 223064
+before_samples = [0.00044755999999999995, 0.00039226, 0.00034292, 0.0003621, 0.00034224, 0.00036208, 0.00036484, 0.00037458, 0.0003635, 0.0003659, 0.00034732000000000003, 0.00035866, 0.00034418000000000003, 0.00035284, 0.00034538]
+before_seconds_median = 0.00036208
+case = "solve/sc50a/primal/bartels_golub/native"
+compile_seconds = 0.0
+paired_speedup_median = 1.01887903199231
+repetitions = 5
+[[measurements]]
+after_bytes = 202384
+after_samples = [0.00035984, 0.00028108, 0.00042352, 0.00027736000000000004, 0.00028414, 0.0002766398, 0.00029036000000000003, 0.00027738, 0.00028494, 0.0002798, 0.00029302, 0.00027358, 0.00028396, 0.00026808, 0.00031046]
+after_seconds_median = 0.00028396
+before_bytes = 201776
+before_samples = [0.00039984, 0.00029152000000000003, 0.00027707999999999997, 0.00029172, 0.00026218, 0.00029538, 0.00027330000000000003, 0.00028488, 0.00036862, 0.0003533, 0.00027079999999999997, 0.00028256, 0.0002679998, 0.00029454, 0.00048681999999999995]
+before_seconds_median = 0.00029152000000000003
+case = "solve/sc50a/primal/bartels_golub/markowitz"
+compile_seconds = 0.0
+paired_speedup_median = 1.0371424505478868
+repetitions = 5
+[[measurements]]
+after_bytes = 154152
+after_samples = [0.00013332, 0.00013240000000000002, 0.00013112, 0.0001295, 0.000129, 0.00013032, 0.0001431, 0.00014335999999999998, 0.00013162, 0.0001267198, 0.0001268, 0.00012898, 0.0001274, 0.00013604, 0.00013612]
+after_seconds_median = 0.00013112
+before_bytes = 154152
+before_samples = [0.00021318000000000002, 0.0001279, 0.00029664000000000003, 0.00012972, 0.00012876, 0.0001302, 0.00013302, 0.00013110000000000002, 0.00012718, 0.00012634, 0.0001269, 0.00013132, 0.00012958, 0.00013519999999999998, 0.0001339]
+before_seconds_median = 0.0001302
+case = "parse/sc50a"
+compile_seconds = 0.0
+paired_speedup_median = 0.9981395348837211
+repetitions = 5
+[[measurements]]
+after_bytes = 2668848
+after_samples = [0.00135776, 0.00144458, 0.00124964, 0.0012583798, 0.0012269800000000001, 0.0011356798, 0.0011281, 0.0011523998, 0.0017552798, 0.00160216, 0.00153272, 0.00131708, 0.00168444, 0.0015846998, 0.00148598]
+after_seconds_median = 0.00135776
+before_bytes = 2668896
+before_samples = [0.0017193198, 0.0012265398, 0.00139802, 0.00118122, 0.00110274, 0.00112576, 0.0011687, 0.00127064, 0.0013015799999999999, 0.00143944, 0.0013113398, 0.0013158998, 0.00137932, 0.00149456, 0.0014314598]
+before_seconds_median = 0.0013113398
+case = "presolve/sc50a"
+compile_seconds = 0.0
+paired_speedup_median = 0.9431186903664657
+repetitions = 5
+[[measurements]]
+after_bytes = 384656
+after_samples = [0.00045874, 0.00044511999999999997, 0.0004686, 0.00044653999999999994, 0.00042546, 0.00054102, 0.00044518, 0.00043734000000000004, 0.00044694, 0.00042123999999999997, 0.0004285998, 0.00041247999999999995, 0.00042021999999999996, 0.00058022, 0.00043074000000000004]
+after_seconds_median = 0.00044511999999999997
+before_bytes = 384752
+before_samples = [0.0008177200000000001, 0.0004706598, 0.0005066199999999999, 0.00042830000000000006, 0.00041334, 0.00052316, 0.0004373798, 0.0004332, 0.00042406, 0.0005955, 0.00054028, 0.0004344, 0.00043369999999999997, 0.00043562, 0.00042422]
+before_seconds_median = 0.00043562
+case = "solve/kb2/dual/pfi/native"
+compile_seconds = 0.0
+paired_speedup_median = 0.9905336808890108
+repetitions = 5
+[[measurements]]
+after_bytes = 265968
+after_samples = [0.00039925999999999997, 0.00035574, 0.0005013400000000001, 0.00040226000000000004, 0.0003773398, 0.0003832, 0.00042418, 0.00032932, 0.00035331999999999996, 0.0003368, 0.0003646598, 0.0003479, 0.00035516, 0.00036438, 0.00036896]
+after_seconds_median = 0.0003646598
+before_bytes = 265440
+before_samples = [0.00042002, 0.0003422, 0.00035276000000000003, 0.00039297999999999997, 0.00035914, 0.00036038, 0.00032914, 0.00039068, 0.00033468, 0.00036454, 0.00034846, 0.0008004199999999999, 0.00038016, 0.0003719, 0.00035494]
+before_seconds_median = 0.00036038
+case = "solve/kb2/dual/pfi/markowitz"
+compile_seconds = 0.0
+paired_speedup_median = 0.9620013009540329
+repetitions = 5
+[[measurements]]
+after_bytes = 495288
+after_samples = [0.00081958, 0.0008692198, 0.000753, 0.0007729200000000001, 0.00078444, 0.00076274, 0.0008444198, 0.0007852400000000001, 0.0008192599999999999, 0.0007388598, 0.0009395600000000001, 0.0007523, 0.0007863999999999999, 0.0007294199999999999, 0.0008803198]
+after_seconds_median = 0.0007852400000000001
+before_bytes = 495272
+before_samples = [0.00089736, 0.0007881000000000001, 0.00075446, 0.00076742, 0.0007632998, 0.0008012, 0.00076958, 0.00104744, 0.0007545200000000001, 0.0010321, 0.0008645999999999999, 0.0007908398, 0.0008463399999999999, 0.00081714, 0.00076552]
+before_seconds_median = 0.0007908398
+case = "solve/kb2/dual/bartels_golub/native"
+compile_seconds = 0.0
+paired_speedup_median = 1.0019389110225763
+repetitions = 5
+[[measurements]]
+after_bytes = 330576
+after_samples = [0.00075518, 0.0007868398000000001, 0.0007098, 0.0006944, 0.0007287, 0.00075562, 0.0007820199999999999, 0.0007100398, 0.0008154200000000001, 0.0007668198, 0.00077466, 0.0008727198, 0.00077492, 0.0008975798, 0.0007625797999999999]
+after_seconds_median = 0.0007668198
+before_bytes = 330048
+before_samples = [0.0008173599999999999, 0.0007788, 0.00076434, 0.0007250399999999999, 0.0007085997999999999, 0.00078078, 0.00072466, 0.00076164, 0.0007445399999999999, 0.00077474, 0.0007470199999999999, 0.0007816399999999999, 0.0007655, 0.0007608000000000001, 0.00080546]
+before_seconds_median = 0.00076434
+case = "solve/kb2/dual/bartels_golub/markowitz"
+compile_seconds = 0.0
+paired_speedup_median = 0.9897821640440657
+repetitions = 5
+[[measurements]]
+after_bytes = 237712
+after_samples = [0.00036624, 0.000315, 0.00032876, 0.00034374000000000004, 0.0003344, 0.00042458000000000003, 0.00040706, 0.00034718, 0.0003803, 0.00037566, 0.00032226, 0.00031143999999999996, 0.00032252, 0.00034250000000000003, 0.00033014]
+after_seconds_median = 0.00034250000000000003
+before_bytes = 237712
+before_samples = [0.00047274, 0.00031800000000000003, 0.00031882, 0.0003409798, 0.00032968, 0.00035188, 0.00039176, 0.00038801980000000003, 0.0003833, 0.00033532, 0.00031584, 0.0003176398, 0.00032284, 0.00032743999999999997, 0.00031833999999999996]
+before_seconds_median = 0.00032968
+case = "solve/kb2/primal/pfi/native"
+compile_seconds = 0.0
+paired_speedup_median = 0.9858851674641148
+repetitions = 5
+[[measurements]]
+after_bytes = 212816
+after_samples = [0.00026662, 0.00024796000000000003, 0.00027912, 0.00027246000000000003, 0.00026278, 0.00027604, 0.00028324000000000003, 0.00026392, 0.00027549979999999996, 0.000274, 0.00027521999999999996, 0.00031722, 0.00026992, 0.00026026, 0.00028416]
+after_seconds_median = 0.000274
+before_bytes = 212288
+before_samples = [0.00031564, 0.00027672, 0.00025608, 0.0002653798, 0.00037116, 0.00029626, 0.00028470000000000004, 0.00027116, 0.00026955999999999996, 0.00027694, 0.00032268, 0.00026674, 0.00024612, 0.00027316, 0.0002746798]
+before_seconds_median = 0.0002746798
+case = "solve/kb2/primal/pfi/markowitz"
+compile_seconds = 0.0
+paired_speedup_median = 1.0107299270072994
+repetitions = 5
+[[measurements]]
+after_bytes = 270576
+after_samples = [0.0005576, 0.0005161598, 0.00055772, 0.0005217399999999999, 0.00056796, 0.00053854, 0.0006008998, 0.0005434999999999999, 0.0005541599999999999, 0.0005685398, 0.00070626, 0.0005477, 0.00055152, 0.00055254, 0.0005520200000000001]
+after_seconds_median = 0.00055254
+before_bytes = 270576
+before_samples = [0.00065072, 0.00055098, 0.00051982, 0.0005660598, 0.00053758, 0.00054258, 0.00053356, 0.0005659, 0.0005495, 0.00055994, 0.00053536, 0.0005737598, 0.0005593200000000001, 0.0006265800000000001, 0.0005288398]
+before_seconds_median = 0.00055098
+case = "solve/kb2/primal/bartels_golub/native"
+compile_seconds = 0.0
+paired_speedup_median = 1.00750176402867
+repetitions = 5
+[[measurements]]
+after_bytes = 243248
+after_samples = [0.00046858, 0.00044786, 0.0004665598, 0.00047574, 0.00050236, 0.00045344, 0.00050676, 0.0004567, 0.00048792000000000003, 0.00047548, 0.00047782, 0.00046997999999999994, 0.00054668, 0.00044244, 0.0004496598]
+after_seconds_median = 0.00046997999999999994
+before_bytes = 242720
+before_samples = [0.00054968, 0.00046438, 0.00046315999999999995, 0.00047267999999999995, 0.00046125999999999996, 0.0005004598, 0.00050466, 0.00064392, 0.0004711598, 0.00045608000000000004, 0.00045146, 0.0004828998, 0.0004477, 0.00048558000000000005, 0.00045212000000000003]
+before_seconds_median = 0.0004711598
+case = "solve/kb2/primal/bartels_golub/markowitz"
+compile_seconds = 0.0
+paired_speedup_median = 0.9958560265214302
+repetitions = 5
+[[measurements]]
+after_bytes = 283536
+after_samples = [0.00022323999999999998, 0.00024060000000000002, 0.00022342, 0.00023024, 0.00024048, 0.0002271, 0.00023876000000000002, 0.00022950000000000002, 0.00023611999999999998, 0.00022815999999999998, 0.0003123, 0.00025684000000000004, 0.00023035999999999998, 0.00021817999999999997, 0.0002457]
+after_seconds_median = 0.00023035999999999998
+before_bytes = 283536
+before_samples = [0.00044772, 0.00022096, 0.00021895999999999998, 0.00022542, 0.00022921980000000002, 0.00022326, 0.00023166, 0.00022934000000000002, 0.0002432, 0.00025790000000000003, 0.00024345980000000002, 0.00022804000000000002, 0.00023040000000000002, 0.00022682000000000003, 0.00023592]
+before_seconds_median = 0.00022934000000000002
+case = "parse/kb2"
+compile_seconds = 0.0
+paired_speedup_median = 0.9800375973502818
+repetitions = 5
+[[measurements]]
+after_bytes = 10500504
+after_samples = [0.0215166584, 0.0199429786, 0.0207720986, 0.0209969986, 0.0218917586, 0.056314876, 0.0202883386, 0.0217470186, 0.0208538586, 0.020523638599999998, 0.042698637, 0.021007178600000002, 0.0203620386, 0.0655892756, 0.0196392786]
+after_seconds_median = 0.0209969986
+before_bytes = 10501880
+before_samples = [0.0214509386, 0.0195628188, 0.0214503184, 0.0209292986, 0.022152318400000003, 0.0209263586, 0.0200582586, 0.0209075986, 0.040792977200000004, 0.0202615786, 0.020231638599999997, 0.0204540786, 0.0198656586, 0.0203245786, 0.0199231386]
+before_seconds_median = 0.0204540786
+case = "presolve/kb2"
+compile_seconds = 0.0
+paired_speedup_median = 0.9872313089746183
+repetitions = 5

@@ -342,6 +342,8 @@ function _bound_flipping_ratio_test(workspace::SimplexWorkspace{T}, tableau_row:
 
     candidates = workspace.scratch.candidates
     empty!(candidates)
+    steps = workspace.scratch.ratio_steps
+    length(steps) < length(tableau_row) && resize!(steps, length(tableau_row))
     for index in eachindex(tableau_row)
         coefficient = orientation * tableau_row[index]
         _dual_pivot_eligible(workspace, index, coefficient, cutoff) || continue
@@ -349,11 +351,13 @@ function _bound_flipping_ratio_test(workspace::SimplexWorkspace{T}, tableau_row:
         if !isfinite(step) || step < zero(T)
             return dual_ratio_test(workspace, tableau_row, orientation), flips, false
         end
+        steps[index] = step
         push!(candidates, index)
     end
     isempty(candidates) && return -1, flips, false
-    sort!(candidates; by=index -> workspace.reduced_costs[index] /
-                                   (orientation * tableau_row[index]))
+    # Keep the stable ordering (including signed zeros and equal breakpoints),
+    # but do not repeat multiplication/division at every sorting comparison.
+    sort!(candidates; by=index -> steps[index])
 
     remaining = violation
     for index in candidates

@@ -64,3 +64,15 @@ end
         @test isempty(JET.get_reports(report))
     end
 end
+
+@testset "JET sparse basis update and cached Markowitz kernels" begin
+    for T in (Float32,Float64)
+        B = JSimplex.SparseArrays.spdiagm(0=>ones(T,32))
+        for Factor in (JSimplex.ForrestTomlinFactorization,JSimplex.SuhlSuhlFactorization)
+            factor = Factor(B)
+            JET.@test_opt target_modules=(JSimplex,) JSimplex.replace_column!(factor,ones(T,32),1)
+        end
+        factor = JSimplex.PFIFactorization(B,Val(:markowitz))
+        JET.@test_opt target_modules=(JSimplex,) JSimplex.refactorize!(factor,B)
+    end
+end

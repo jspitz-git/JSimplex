@@ -80,13 +80,24 @@ function _packed_column!(column::PackedUpperColumn{T}, values::Vector{T}) where 
 end
 
 function _upper_value(column::PackedUpperColumn{T}, row::Int) where {T}
+    return last(_upper_entry(column, row))
+end
+
+# The position may be reused until this column's packed arrays are mutated.
+function _upper_entry(column::PackedUpperColumn{T}, row::Int) where {T}
     position = searchsortedfirst(column.indices, row)
-    return position <= length(column.indices) && column.indices[position] == row ?
+    value = position <= length(column.indices) && column.indices[position] == row ?
            column.values[position] : zero(T)
+    return position, value
 end
 
 function _set_upper_value!(column::PackedUpperColumn{T}, row::Int, value::T) where {T}
     position = searchsortedfirst(column.indices, row)
+    return _set_upper_value_at!(column, row, value, position)
+end
+
+function _set_upper_value_at!(column::PackedUpperColumn{T}, row::Int, value::T,
+                              position::Int) where {T}
     if position <= length(column.indices) && column.indices[position] == row
         if iszero(value)
             deleteat!(column.indices, position)
@@ -119,10 +130,17 @@ function _set_upper_value!(upper::Vector{PackedUpperColumn{T}},
                            column_index::Int, row::Int, value::T) where {T}
     column = upper[column_index]
     position = searchsortedfirst(column.indices, row)
+    return _set_upper_value_at!(upper, columns_by_row, column_index, row, value, position)
+end
+
+function _set_upper_value_at!(upper::Vector{PackedUpperColumn{T}},
+                              columns_by_row::Vector{Vector{Int}},
+                              column_index::Int, row::Int, value::T, position::Int) where {T}
+    column = upper[column_index]
     was_stored = position <= length(column.indices) && column.indices[position] == row
     is_stored = !iszero(value)
-    was_stored == is_stored && return _set_upper_value!(column, row, value)
-    _set_upper_value!(column, row, value)
+    was_stored == is_stored && return _set_upper_value_at!(column, row, value, position)
+    _set_upper_value_at!(column, row, value, position)
     row_columns = columns_by_row[row]
     row_position = searchsortedfirst(row_columns, column_index)
     if is_stored
@@ -208,6 +226,7 @@ mutable struct ForrestTomlinFactorization{T<:Real,F} <: AbstractTriangularBasisF
     updates::Vector{ForrestTomlinUpdate{T}}
     work::Vector{T}
     spike::Vector{T}
+    row_columns::Vector{Vector{Int}}
     # Private retired history; copied active prefixes must never be recycled.
     recycled_updates::Vector{ForrestTomlinUpdate{T}}
     shared_update_count::Int
@@ -221,6 +240,7 @@ mutable struct SuhlSuhlFactorization{T<:Real,F} <: AbstractTriangularBasisFactor
     updates::Vector{SuhlSuhlUpdate{T}}
     work::Vector{T}
     spike::Vector{T}
+    row_columns::Vector{Vector{Int}}
     # Private retired history; copied active prefixes must never be recycled.
     recycled_updates::Vector{SuhlSuhlUpdate{T}}
     shared_update_count::Int
@@ -250,7 +270,7 @@ function ForrestTomlinFactorization(B::AbstractMatrix{T}, ::Val{R}) where {T<:Re
     n = _backend_dimension(base)
     return ForrestTomlinFactorization{T,typeof(base)}(
         base, _identity_upper(T, n), collect(1:n), collect(1:n),
-        ForrestTomlinUpdate{T}[], zeros(T, n), zeros(T, n),
+        ForrestTomlinUpdate{T}[], zeros(T, n), zeros(T, n), Vector{Int}[],
         ForrestTomlinUpdate{T}[], 0,
     )
 end
@@ -264,7 +284,7 @@ function SuhlSuhlFactorization(B::AbstractMatrix{T}, ::Val{R}) where {T<:Real,R}
     n = _backend_dimension(base)
     return SuhlSuhlFactorization{T,typeof(base)}(
         base, _identity_upper(T, n), collect(1:n), collect(1:n),
-        SuhlSuhlUpdate{T}[], zeros(T, n), zeros(T, n),
+        SuhlSuhlUpdate{T}[], zeros(T, n), zeros(T, n), Vector{Int}[],
         SuhlSuhlUpdate{T}[], 0,
     )
 end
@@ -564,32 +584,41 @@ function replace_column!(factor::SuhlSuhlFactorization{T},
 
     # Move the leaving row only as far as the spike reaches. Columns beyond
     # that point stay in place, but their entry in the moved row may change.
+    stored_entries = 0
     for column in factor.upper
-        old = _upper_value(column, position)
-        iszero(old) || _set_upper_value!(column, position, zero(T))
+        slot, old = _upper_entry(column, position)
+        iszero(old) || _set_upper_value_at!(column, position, zero(T), slot)
         start = searchsortedfirst(column.indices, position + 1)
         for index in start:length(column.indices)
             column.indices[index] > last && break
             column.indices[index] -= 1
         end
         iszero(old) || _set_upper_value!(column, last, old)
+        stored_entries += length(column.indices)
     end
 
+    use_row_index = last - position >= 16 && stored_entries ÷ n <= (last - position) ÷ 4
+    row_index_ready = false
     indices, multipliers = _take_triangular_update_buffers!(factor)
     for column_index in position:(last - 1)
         column = factor.upper[column_index]
-        multiplier = -(_upper_value(column, last) /
-                       _upper_value(column, column_index))
-        _set_upper_value!(column, last, zero(T))
+        slot, old = _upper_entry(column, last)
+        multiplier = -(old / _upper_value(column, column_index))
+        _set_upper_value_at!(column, last, zero(T), slot)
         iszero(multiplier) && continue
         push!(indices, column_index)
         push!(multipliers, multiplier)
-        for trailing in (column_index + 1):n
+        if use_row_index && !row_index_ready
+            _triangular_row_columns!(factor, column_index, last - 1)
+            row_index_ready = true
+        end
+        trailing_columns = use_row_index ? factor.row_columns[column_index] : (column_index + 1):n
+        for trailing in trailing_columns
             trailing_column = factor.upper[trailing]
             value = _upper_value(trailing_column, column_index)
             iszero(value) && continue
-            _set_upper_value!(trailing_column, last,
-                              _upper_value(trailing_column, last) + multiplier * value)
+            slot, old = _upper_entry(trailing_column, last)
+            _set_upper_value_at!(trailing_column, last, old + multiplier * value, slot)
         end
     end
     push!(factor.updates, SuhlSuhlUpdate{T}(position, last, indices, multipliers))
@@ -604,6 +633,7 @@ function replace_column!(factor::ForrestTomlinFactorization{T},
     _rotate_columns!(factor, position)
     n = length(factor.upper)
     # Rotate the leaving row to the bottom. This leaves one row spike.
+    stored_entries = 0
     for column in factor.upper
         start = searchsortedfirst(column.indices, position)
         has_pivot = start <= length(column.indices) && column.indices[start] == position
@@ -619,21 +649,30 @@ function replace_column!(factor::ForrestTomlinFactorization{T},
             push!(column.indices, n)
             push!(column.values, old)
         end
+        stored_entries += length(column.indices)
     end
+    use_row_index = n - position >= 16 && stored_entries ÷ n <= (n - position) ÷ 4
+    row_index_ready = false
     indices, multipliers = _take_triangular_update_buffers!(factor)
     for column_index in position:(n - 1)
         column = factor.upper[column_index]
-        multiplier = -(_upper_value(column, n) / _upper_value(column, column_index))
-        _set_upper_value!(column, n, zero(T))
+        slot, old = _upper_entry(column, n)
+        multiplier = -(old / _upper_value(column, column_index))
+        _set_upper_value_at!(column, n, zero(T), slot)
         iszero(multiplier) && continue
         push!(indices, column_index)
         push!(multipliers, multiplier)
-        for trailing in (column_index + 1):n
+        if use_row_index && !row_index_ready
+            _triangular_row_columns!(factor, column_index, n - 1)
+            row_index_ready = true
+        end
+        trailing_columns = use_row_index ? factor.row_columns[column_index] : (column_index + 1):n
+        for trailing in trailing_columns
             trailing_column = factor.upper[trailing]
             value = _upper_value(trailing_column, column_index)
             iszero(value) && continue
-            _set_upper_value!(trailing_column, n,
-                              _upper_value(trailing_column, n) + multiplier * value)
+            slot, old = _upper_entry(trailing_column, n)
+            _set_upper_value_at!(trailing_column, n, old + multiplier * value, slot)
         end
     end
     push!(factor.updates, ForrestTomlinUpdate{T}(position, indices, multipliers))
@@ -661,18 +700,18 @@ function replace_column!(factor::BartelsGolubFactorization{T},
         end
         pivot = _upper_value(column, column_index)
         iszero(pivot) && throw(LinearAlgebra.ZeroPivotException(column_index))
-        multiplier = _upper_value(column, column_index + 1) / pivot
-        _set_upper_value!(factor.upper, columns_by_row,
-                          column_index, column_index + 1, zero(T))
+        slot, old = _upper_entry(column, column_index + 1)
+        multiplier = old / pivot
+        _set_upper_value_at!(factor.upper, columns_by_row,
+                            column_index, column_index + 1, zero(T), slot)
         if !iszero(multiplier)
             for trailing in columns_by_row[column_index]
                 trailing <= column_index && continue
                 trailing_column = factor.upper[trailing]
                 value = _upper_value(trailing_column, column_index)
-                _set_upper_value!(factor.upper, columns_by_row,
-                                  trailing, column_index + 1,
-                                  _upper_value(trailing_column, column_index + 1) -
-                                  multiplier * value)
+                slot, old = _upper_entry(trailing_column, column_index + 1)
+                _set_upper_value_at!(factor.upper, columns_by_row,
+                                    trailing, column_index + 1, old - multiplier * value, slot)
             end
         end
         if swapped && iszero(multiplier)
@@ -695,8 +734,31 @@ function replace_column!(factor::BartelsGolubFactorization{T},
     return factor
 end
 
-_reset_row_scratch!(::ForrestTomlinFactorization, ::Int) = nothing
-_reset_row_scratch!(::SuhlSuhlFactorization, ::Int) = nothing
+# Only the target row changes during FT/SS elimination. Index the other rows
+# once, in ascending column order; the target row is never queried as a pivot.
+function _triangular_row_columns!(factor::Union{ForrestTomlinFactorization,SuhlSuhlFactorization},
+                                  first_row::Int, last_row::Int)
+    rows = factor.row_columns
+    while length(rows) < length(factor.upper)
+        push!(rows, Int[])
+    end
+    foreach(empty!, rows)
+    for column_index in eachindex(factor.upper)
+        column = factor.upper[column_index]
+        start = searchsortedfirst(column.indices, first_row)
+        for index in start:length(column.indices)
+            row = column.indices[index]
+            row > last_row && break
+            row < column_index && push!(rows[row], column_index)
+        end
+    end
+    return rows
+end
+
+function _reset_row_scratch!(factor::Union{ForrestTomlinFactorization,SuhlSuhlFactorization}, ::Int)
+    foreach(empty!, factor.row_columns)
+    return nothing
+end
 
 function _reset_row_scratch!(factor::BartelsGolubFactorization, n::Int)
     old_length = length(factor.row_columns)
@@ -737,7 +799,7 @@ function copy_basis_factorization(factor::ForrestTomlinFactorization{T,F}) where
         _copy_backend(factor.base), [PackedUpperColumn(copy(column.indices), copy(column.values))
                       for column in factor.upper],
         copy(factor.column_order), copy(factor.positions),
-        copy(factor.updates), similar(factor.work), similar(factor.spike),
+        copy(factor.updates), similar(factor.work), similar(factor.spike), Vector{Int}[],
         ForrestTomlinUpdate{T}[], factor.shared_update_count,
     )
 end
@@ -748,7 +810,7 @@ function copy_basis_factorization(factor::SuhlSuhlFactorization{T,F}) where {T,F
         _copy_backend(factor.base), [PackedUpperColumn(copy(column.indices), copy(column.values))
                       for column in factor.upper],
         copy(factor.column_order), copy(factor.positions),
-        copy(factor.updates), similar(factor.work), similar(factor.spike),
+        copy(factor.updates), similar(factor.work), similar(factor.spike), Vector{Int}[],
         SuhlSuhlUpdate{T}[], factor.shared_update_count,
     )
 end

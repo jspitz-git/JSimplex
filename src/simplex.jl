@@ -38,6 +38,8 @@ mutable struct SimplexScratch{T<:Real}
     candidates::Vector{Int}
     # Borrowed by ratio-test callers until the next ratio test on this workspace.
     flips::Vector{Int}
+    # Breakpoints are rebuilt for each boxed ratio test, then read during sorting.
+    ratio_steps::Vector{T}
     # Private assembly storage; backends must own their factorization data.
     basis_matrix::Union{Nothing,SparseMatrixCSC{T,Int}}
 end
@@ -49,7 +51,7 @@ function SimplexScratch(::Type{T}, row_count::Int, variable_count::Int) where {T
         falses(variable_count), zeros(T, row_count), zeros(T, row_count),
         zeros(T, row_count), zeros(T, row_count), zeros(T, variable_count),
         zeros(T, variable_count), falses(variable_count), false,
-        candidates, Int[], nothing,
+        candidates, Int[], T[], nothing,
     )
 end
 

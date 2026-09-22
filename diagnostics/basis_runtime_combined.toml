@@ -1,0 +1,256 @@
+julia = "1.13.0"
+machine = "aarch64-linux-gnu"
+
+[after_hashes]
+"JSimplex.jl" = "9939474750bb64373a9721dbc1f423cf1df75555803feb59299218489116fc9c"
+"dual_simplex.jl" = "403f12e4addf25db4e66100c65a81df977f3b944fa3944f384f0083241062dac"
+"factorization.jl" = "08cbe4663170b40093d6d273e4b308899cd072a69c33ca0575e0508497327207"
+"markowitz_factorization.jl" = "04f8d1b2cd75e6513c14010a9aba5f483afa4fc1bce82f54480b24a5f2ab823e"
+"model.jl" = "b179141daeef4d193f524c6389aa72f310bc4ca92e7c4e375019e072e6698e1d"
+"moi.jl" = "0e909c4a9c6e4088bed21d22bbcc39ec3509fc09641bac1ef9e3ea65d0447ab6"
+"moi/attributes.jl" = "b2db0ccaa0bd608bbf8f8cf5a8d37f626d7fbc33f5404a90e54262b5363c135c"
+"moi/optimizer.jl" = "a5e5a45b8aac0e08d7ec56e8961a4a8e82e1073ce06acfdcf5580ac2e1972f4e"
+"moi/results.jl" = "48f369d7607dbf820e4f17a417ad11932d00599a16aab1f5f686c0b013d57280"
+"moi/translation.jl" = "6ba2e53510f3b4707934c6e4ded0500f9e46d2f8cfa5324c58a0fde2c2010622"
+"mps.jl" = "4c27659d5d02a7957b3c0a2466bf3922aecd1a2b909aa9f034c7eaaeab5851ae"
+"mps/build.jl" = "055a7a22d76d7b35ab5564f2f2419044aea131550ec617b30d6172241a60db56"
+"mps/parser.jl" = "700c60a1c3729779dea0c985e09b47ad2404874126b8c69246a0a3a51fba0975"
+"mps/records.jl" = "1290353aa8e1b21a2aa681e2cd575ad93eb8515f42b964d3010f51b9027ec01c"
+"numeric.jl" = "c5212838ee6183f4eb7867ffb0ba308b1e51780aede045a1e1692cb53a2314d0"
+"options.jl" = "8897c3db36f1272bcea10acbdf6b4058a84410ebb4b4690e054f2c299a474b7d"
+"presolve.jl" = "9cb780986b55adf4f5133b185b7e712e5760b435ca663444dfcfc54285ec17db"
+"presolve_aggregation.jl" = "4ae2d8909b30daf9658040c4a8f0ccb1b818e6a2b76255994e6713c4532c5957"
+"presolve_dependencies.jl" = "1a7a1e4f3df904c5f1a480267dfa6a08c49c2d7dd257b65c41d9bb79a927b913"
+"presolve_dispatch.jl" = "9fc4b580ab9c953edeefc2ab0a59829f3757a8eb2869498da5e783a36a4448c0"
+"presolve_dual.jl" = "c465e5983da77c4f543ee07fc72ee03544be50df812949b5ab48ebee5da1359c"
+"presolve_incremental.jl" = "4bffec08cc915cacf49d2dd14402ed77b01fbcdca78ce1a24058617317026284"
+"presolve_propagation.jl" = "77498b5ba2fbe4f306d890a9da984aefc7e235aa814209be5e9655c8307dad68"
+"presolve_rows.jl" = "ba28292822d4a7b2f66eaf0a23f7dd0ed1f79ada603a9f5a0dc90bb64f31f693"
+"presolve_substitution.jl" = "42bbd6b525c6627c872e9fdc004dae9b4a7dc1356e03b84363d2c792ee0a7175"
+"primal_simplex.jl" = "599141e23486666e06b2e26d6b4859e459ba3aef96aeb536a7c6989c81864ab0"
+"simplex.jl" = "7d1d3008c5a01ddecb09bacf0130798c4cbf25652d003d5255d5601fbad000cf"
+"solver.jl" = "b06bc5c7ca2104a605eec25b6a1756b7f63437475801077aac70700e4b75ef78"
+"transformations.jl" = "74f6e45a7bc0f8605dc1759a2a41615c6241267e2782eef5dbdd176ff3c32382"
+"triangular_factorization.jl" = "ea0818ca606a69c0ef6383bd049f2782c35040972b95bd8b2a534a8ca84579c6"
+
+[before_hashes]
+"JSimplex.jl" = "9939474750bb64373a9721dbc1f423cf1df75555803feb59299218489116fc9c"
+"dual_simplex.jl" = "403f12e4addf25db4e66100c65a81df977f3b944fa3944f384f0083241062dac"
+"factorization.jl" = "08cbe4663170b40093d6d273e4b308899cd072a69c33ca0575e0508497327207"
+"markowitz_factorization.jl" = "bfc8abcfbf7049738d905a8fc58aa3d36c637d725f58c75fed6bf9c1e81963d4"
+"model.jl" = "b179141daeef4d193f524c6389aa72f310bc4ca92e7c4e375019e072e6698e1d"
+"moi.jl" = "0e909c4a9c6e4088bed21d22bbcc39ec3509fc09641bac1ef9e3ea65d0447ab6"
+"moi/attributes.jl" = "b2db0ccaa0bd608bbf8f8cf5a8d37f626d7fbc33f5404a90e54262b5363c135c"
+"moi/optimizer.jl" = "a5e5a45b8aac0e08d7ec56e8961a4a8e82e1073ce06acfdcf5580ac2e1972f4e"
+"moi/results.jl" = "48f369d7607dbf820e4f17a417ad11932d00599a16aab1f5f686c0b013d57280"
+"moi/translation.jl" = "6ba2e53510f3b4707934c6e4ded0500f9e46d2f8cfa5324c58a0fde2c2010622"
+"mps.jl" = "4c27659d5d02a7957b3c0a2466bf3922aecd1a2b909aa9f034c7eaaeab5851ae"
+"mps/build.jl" = "055a7a22d76d7b35ab5564f2f2419044aea131550ec617b30d6172241a60db56"
+"mps/parser.jl" = "700c60a1c3729779dea0c985e09b47ad2404874126b8c69246a0a3a51fba0975"
+"mps/records.jl" = "1290353aa8e1b21a2aa681e2cd575ad93eb8515f42b964d3010f51b9027ec01c"
+"numeric.jl" = "c5212838ee6183f4eb7867ffb0ba308b1e51780aede045a1e1692cb53a2314d0"
+"options.jl" = "8897c3db36f1272bcea10acbdf6b4058a84410ebb4b4690e054f2c299a474b7d"
+"presolve.jl" = "9cb780986b55adf4f5133b185b7e712e5760b435ca663444dfcfc54285ec17db"
+"presolve_aggregation.jl" = "4ae2d8909b30daf9658040c4a8f0ccb1b818e6a2b76255994e6713c4532c5957"
+"presolve_dependencies.jl" = "1a7a1e4f3df904c5f1a480267dfa6a08c49c2d7dd257b65c41d9bb79a927b913"
+"presolve_dispatch.jl" = "9fc4b580ab9c953edeefc2ab0a59829f3757a8eb2869498da5e783a36a4448c0"
+"presolve_dual.jl" = "c465e5983da77c4f543ee07fc72ee03544be50df812949b5ab48ebee5da1359c"
+"presolve_incremental.jl" = "4bffec08cc915cacf49d2dd14402ed77b01fbcdca78ce1a24058617317026284"
+"presolve_propagation.jl" = "77498b5ba2fbe4f306d890a9da984aefc7e235aa814209be5e9655c8307dad68"
+"presolve_rows.jl" = "ba28292822d4a7b2f66eaf0a23f7dd0ed1f79ada603a9f5a0dc90bb64f31f693"
+"presolve_substitution.jl" = "42bbd6b525c6627c872e9fdc004dae9b4a7dc1356e03b84363d2c792ee0a7175"
+"primal_simplex.jl" = "599141e23486666e06b2e26d6b4859e459ba3aef96aeb536a7c6989c81864ab0"
+"simplex.jl" = "7d1d3008c5a01ddecb09bacf0130798c4cbf25652d003d5255d5601fbad000cf"
+"solver.jl" = "b06bc5c7ca2104a605eec25b6a1756b7f63437475801077aac70700e4b75ef78"
+"transformations.jl" = "74f6e45a7bc0f8605dc1759a2a41615c6241267e2782eef5dbdd176ff3c32382"
+"triangular_factorization.jl" = "4a04cca1723609b9710b6303921673fff252d0a6edd6d1bfcf6742ca23c2eec1"
+
+[[measurements]]
+after_bytes = 736
+after_seconds = [8.0e-7, 1.0e-6, 1.2e-6, 7.0e-7, 5.0e-7, 6.0e-7, 5.0e-7, 6.0e-7, 5.0e-7, 6.0e-7, 6.0e-7, 6.0e-7, 5.0e-7, 5.0e-7, 1.0e-6]
+before_bytes = 736
+before_seconds = [1.3e-6, 2.0e-6, 8.0e-7, 6.0e-7, 7.0e-7, 6.0e-7, 7.0e-7, 7.0e-7, 6.0e-7, 7.0e-7, 7.0e-7, 7.0e-7, 6.0e-7, 5.0e-7, 6.0e-7]
+case = "ForrestTomlinFactorization/32/identity"
+speedup = 1.1666666666666667
+[[measurements]]
+after_bytes = 4592
+after_seconds = [2.5e-6, 2.7e-6, 2.8e-6, 2.2e-6, 2.1e-6, 2.4e-6, 2.7e-6, 2.7e-6, 2.4e-6, 2.9e-6, 2.8e-6, 2.9e-6, 2.7e-6, 2.5e-6, 2.2e-6]
+before_bytes = 1632
+before_seconds = [2.6e-6, 3.1e-6, 2.7e-6, 2.5e-6, 2.6e-6, 3.0e-6, 3.6e-6, 3.6e-6, 3.5e-6, 2.9e-6, 2.9e-6, 3.9e-6, 2.7e-6, 2.6e-6, 2.9e-6]
+case = "ForrestTomlinFactorization/32/band"
+speedup = 1.1481481481481481
+[[measurements]]
+after_bytes = 1632
+after_seconds = [7.1e-6, 6.6e-6, 6.1e-6, 6.1e-6, 6.7e-6, 6.1e-6, 6.67e-5, 5.9e-6, 6.4e-6, 5.9e-6, 5.8e-6, 5.9e-6, 5.9e-6, 5.9e-6, 5.8e-6]
+before_bytes = 1632
+before_seconds = [8.2e-6, 8.0e-6, 7.3e-6, 7.2e-6, 7.3e-6, 7.2e-6, 7.7e-6, 7.3e-6, 7.1e-6, 6.9e-6, 7.1e-6, 7.6e-6, 7.2e-6, 7.2e-6, 7.0e-6]
+case = "ForrestTomlinFactorization/32/dense"
+speedup = 1.1967213114754098
+[[measurements]]
+after_bytes = 2336
+after_seconds = [1.6e-6, 1.6e-6, 1.7e-6, 1.9e-6, 2.1e-6, 1.8e-6, 1.3e-6, 2.6e-6, 1.4e-6, 2.2e-6, 2.1e-6, 1.6e-6, 1.8e-6, 1.7e-6, 1.9e-6]
+before_bytes = 2336
+before_seconds = [1.7e-6, 1.9e-6, 2.1e-6, 2.1e-6, 2.2e-6, 1.9e-6, 1.9e-6, 2.5e-6, 2.3e-6, 2.7e-6, 2.3e-6, 2.0e-6, 2.8e-6, 2.3e-6, 2.6e-6]
+case = "ForrestTomlinFactorization/128/identity"
+speedup = 1.2272727272727273
+[[measurements]]
+after_bytes = 17376
+after_seconds = [9.7e-6, 9.3e-6, 9.4e-6, 8.8e-6, 9.0e-6, 9.6e-6, 9.2e-6, 9.4e-6, 8.4e-6, 8.5e-6, 8.6e-6, 9.5e-6, 8.6e-6, 8.1e-6, 9.2e-6]
+before_bytes = 5568
+before_seconds = [2.15e-5, 2.05e-5, 2.04e-5, 2.04e-5, 2.04e-5, 2.07e-5, 2.0e-5, 2.03e-5, 2.06e-5, 1.99e-5, 2.1e-5, 2.02e-5, 2.04e-5, 2.02e-5, 1.97e-5]
+case = "ForrestTomlinFactorization/128/band"
+speedup = 2.216494845360825
+[[measurements]]
+after_bytes = 5568
+after_seconds = [0.0001263, 0.0001223, 0.0001257, 0.0001224, 0.0001327, 0.0001213, 0.0001243, 0.0001221, 0.000125, 0.0001219, 0.0001256, 0.0001224, 0.0001227, 0.0001206, 0.000131]
+before_bytes = 5568
+before_seconds = [0.000151, 0.0001522, 0.0001506, 0.0001524, 0.0001557, 0.0001508, 0.0001609, 0.0001501, 0.000151, 0.0001513, 0.0001536, 0.0001577, 0.0001606, 0.0001518, 0.0001493]
+case = "ForrestTomlinFactorization/128/dense"
+speedup = 1.2411812961443807
+[[measurements]]
+after_bytes = 8560
+after_seconds = [8.2e-6, 8.0e-6, 7.1e-6, 7.1e-6, 7.2e-6, 7.0e-6, 1.29e-5, 9.3e-6, 1.01e-5, 1.7e-5, 9.5e-6, 8.8e-6, 1.07e-5, 9.9e-6, 9.3e-6]
+before_bytes = 8560
+before_seconds = [1.13e-5, 1.08e-5, 1.03e-5, 9.2e-6, 8.2e-6, 1.07e-5, 1.38e-5, 1.41e-5, 1.49e-5, 2.02e-5, 1.31e-5, 1.32e-5, 4.2e-5, 1.47e-5, 1.25e-5]
+case = "ForrestTomlinFactorization/512/identity"
+speedup = 1.3789473684210525
+[[measurements]]
+after_bytes = 67304
+after_seconds = [3.74e-5, 3.82e-5, 3.93e-5, 3.58e-5, 3.71e-5, 3.7e-5, 3.69e-5, 3.82e-5, 3.68e-5, 4.95e-5, 5.62e-5, 3.96e-5, 4.45e-5, 3.84e-5, 4.03e-5]
+before_bytes = 20448
+before_seconds = [0.0002679, 0.0002726, 0.000317, 0.0002596, 0.0002652, 0.0002631, 0.0002566, 0.0002671, 0.0002724, 0.0002696, 0.0002987, 0.0002636, 0.0002622, 0.0002719, 0.0002743]
+case = "ForrestTomlinFactorization/512/band"
+speedup = 7.080729166666667
+[[measurements]]
+after_bytes = 20448
+after_seconds = [0.002844, 0.0026538, 0.0026735, 0.0028214, 0.00297, 0.0025776, 0.0027854, 0.0026127, 0.0028166, 0.0025511, 0.002751601, 0.0026644, 0.0027555, 0.0025739, 0.0027971]
+before_bytes = 20448
+before_seconds = [0.0031134, 0.0032802, 0.0032124, 0.0035422, 0.0034012, 0.0032694, 0.0033188, 0.00341, 0.0033416, 0.0033325, 0.0037101, 0.0032969, 0.0033567, 0.003849, 0.0046186]
+case = "ForrestTomlinFactorization/512/dense"
+speedup = 1.2373892808887554
+[[measurements]]
+after_bytes = 768
+after_seconds = [9.0e-7, 8.0e-7, 6.0e-7, 6.0e-7, 1.1e-6, 8.0e-7, 6.0e-7, 6.0e-7, 6.0e-7, 5.0e-7, 9.0e-7, 6.0e-7, 6.0e-7, 5.0e-7, 8.0e-7]
+before_bytes = 768
+before_seconds = [1.0e-6, 1.6e-6, 7.0e-7, 7.0e-7, 8.0e-7, 7.0e-7, 7.0e-7, 7.0e-7, 7.0e-7, 6.0e-7, 6.0e-7, 6.0e-7, 7.0e-7, 7.0e-7, 7.0e-7]
+case = "SuhlSuhlFactorization/32/identity"
+speedup = 1.1666666666666667
+[[measurements]]
+after_bytes = 4624
+after_seconds = [2.2e-6, 2.5e-6, 2.1e-6, 2.2e-6, 2.1e-6, 2.9e-6, 2.5e-6, 2.2e-6, 2.0e-6, 2.5e-6, 2.6e-6, 2.5e-6, 2.1e-6, 2.4e-6, 2.2e-6]
+before_bytes = 1664
+before_seconds = [2.7e-6, 2.8e-6, 2.9e-6, 2.4e-6, 2.5e-6, 3.7e-6, 2.4e-6, 2.5e-6, 2.7e-6, 2.5e-6, 2.7e-6, 2.3e-6, 2.5e-6, 2.5e-6, 2.6e-6]
+case = "SuhlSuhlFactorization/32/band"
+speedup = 1.1363636363636365
+[[measurements]]
+after_bytes = 1664
+after_seconds = [6.5e-6, 6.5e-6, 6.6e-6, 6.5e-6, 6.5e-6, 6.5e-6, 6.4e-6, 6.4e-6, 6.2e-6, 6.2e-6, 6.0e-6, 6.0e-6, 6.0e-6, 6.4e-6, 6.2e-6]
+before_bytes = 1664
+before_seconds = [7.7e-6, 7.8e-6, 7.6e-6, 7.6e-6, 7.6e-6, 7.4e-6, 7.6e-6, 7.5e-6, 7.6e-6, 7.2e-6, 7.3e-6, 7.1e-6, 1.65e-5, 7.8e-6, 7.5e-6]
+case = "SuhlSuhlFactorization/32/dense"
+speedup = 1.1846153846153848
+[[measurements]]
+after_bytes = 2368
+after_seconds = [1.7e-6, 2.0e-6, 1.7e-6, 1.7e-6, 1.6e-6, 1.6e-6, 1.7e-6, 1.5e-6, 1.4e-6, 1.6e-6, 1.4e-6, 1.9e-6, 1.4e-6, 1.7e-6, 1.5e-6]
+before_bytes = 2368
+before_seconds = [1.5e-6, 1.6e-6, 1.7e-6, 1.6e-6, 1.7e-6, 1.7e-6, 1.9e-6, 1.7e-6, 2.3e-6, 1.5e-6, 1.8e-6, 1.6e-6, 1.6e-6, 1.7e-6, 1.8e-6]
+case = "SuhlSuhlFactorization/128/identity"
+speedup = 1.0625
+[[measurements]]
+after_bytes = 17408
+after_seconds = [5.29e-5, 2.17e-5, 0.0001197, 1.2e-5, 9.7e-6, 9.3e-6, 9.8e-6, 1.01e-5, 8.4e-6, 8.1e-6, 8.8e-6, 1.22e-5, 8.9e-6, 8.1e-6, 8.8e-6]
+before_bytes = 5600
+before_seconds = [0.0001134, 4.79e-5, 4.68e-5, 2.2e-5, 2.13e-5, 2.03e-5, 2.06e-5, 2.18e-5, 2.0e-5, 2.01e-5, 2.0e-5, 2.25e-5, 2.08e-5, 2.07e-5, 2.02e-5]
+case = "SuhlSuhlFactorization/128/band"
+speedup = 2.1958762886597936
+[[measurements]]
+after_bytes = 5600
+after_seconds = [0.0001225, 0.0001317, 0.0001224, 0.0001322, 0.0001239, 0.0001232, 0.0001232, 0.0001236, 0.0001855, 0.000143, 0.0001395, 0.0001294, 0.000142, 0.0001581, 0.0001416]
+before_bytes = 5600
+before_seconds = [0.0001482, 0.0001478, 0.0001474, 0.000148, 0.0001476, 0.0001472, 0.0001485, 0.000148, 0.0001712, 0.0001659, 0.0001503, 0.0001488, 0.0001561, 0.0001819, 0.0001501]
+case = "SuhlSuhlFactorization/128/dense"
+speedup = 1.1505376344086022
+[[measurements]]
+after_bytes = 8592
+after_seconds = [8.1e-6, 8.3e-6, 7.5e-6, 9.2e-6, 8.2e-6, 9.6e-6, 1.25e-5, 9.2e-6, 8.9e-6, 8.8e-6, 8.0e-6, 7.4e-6, 9.0e-6, 1.17e-5, 8.3e-6]
+before_bytes = 8592
+before_seconds = [1.34e-5, 1.15e-5, 9.8e-6, 1.11e-5, 1.4e-5, 1.2e-5, 1.46e-5, 1.42e-5, 1.46e-5, 1.28e-5, 1.14e-5, 1.31e-5, 1.24e-5, 1.5e-5, 1.2e-5]
+case = "SuhlSuhlFactorization/512/identity"
+speedup = 1.425
+[[measurements]]
+after_bytes = 67336
+after_seconds = [3.94e-5, 4.79e-5, 4.09e-5, 3.95e-5, 4.26e-5, 4.97e-5, 5.74e-5, 6.38e-5, 4.19e-5, 3.7e-5, 3.67e-5, 3.66e-5, 3.56e-5, 3.64e-5, 3.63e-5]
+before_bytes = 20480
+before_seconds = [0.0002674, 0.0002917, 0.0002707, 0.0002744, 0.0002638, 0.0002804, 0.0002736, 0.0003063, 0.000289, 0.0002687, 0.0002687, 0.0002628, 0.0002623, 0.0002614, 0.0002631]
+case = "SuhlSuhlFactorization/512/band"
+speedup = 6.8973747016706435
+[[measurements]]
+after_bytes = 20480
+after_seconds = [0.0027284, 0.0026843, 0.0027484, 0.0026875, 0.0028079, 0.0026544, 0.0029359, 0.0027549, 0.0027638, 0.0025228, 0.0027415, 0.0050813, 0.0036864, 0.002555, 0.0031229]
+before_bytes = 20480
+before_seconds = [0.0032751, 0.003569701, 0.0033822, 0.0033772, 0.0032534, 0.0037329, 0.0034053, 0.003172, 0.0031551, 0.0035251, 0.0033178, 0.003163301, 0.0032484, 0.0031898, 0.0049536]
+case = "SuhlSuhlFactorization/512/dense"
+speedup = 1.2102133868320264
+[[measurements]]
+after_bytes = 2368
+after_seconds = [1.8e-6, 1.5e-6, 1.3e-6, 2.5e-6, 1.3e-6, 1.3e-6, 1.4e-6, 1.3e-6, 1.4e-6, 1.2e-6, 1.5e-6, 1.2e-6, 1.2e-6, 1.2e-6, 1.3e-6]
+before_bytes = 2368
+before_seconds = [1.4e-6, 1.6e-6, 1.4e-6, 1.4e-6, 1.4e-6, 1.3e-6, 1.7e-6, 1.3e-6, 1.4e-6, 1.7e-6, 1.3e-6, 1.4e-6, 1.3e-6, 1.2e-6, 1.9e-6]
+case = "BartelsGolubFactorization/32/identity"
+speedup = 1.0666666666666667
+[[measurements]]
+after_bytes = 7840
+after_seconds = [3.8e-6, 4.2e-6, 3.9e-6, 4.1e-6, 4.2e-6, 4.3e-6, 3.7e-6, 3.5e-6, 4.0e-6, 3.6e-6, 3.7e-6, 4.4e-6, 3.8e-6, 3.6e-6, 4.2e-6]
+before_bytes = 7840
+before_seconds = [4.2e-6, 3.9e-6, 4.4e-6, 3.8e-6, 4.0e-6, 4.3e-6, 3.8e-6, 3.8e-6, 4.4e-6, 4.2e-6, 3.8e-6, 3.9e-6, 3.9e-6, 3.8e-6, 4.8e-6]
+case = "BartelsGolubFactorization/32/band"
+speedup = 1.027027027027027
+[[measurements]]
+after_bytes = 14448
+after_seconds = [1.2e-5, 1.15e-5, 1.16e-5, 1.13e-5, 1.19e-5, 1.17e-5, 1.16e-5, 1.16e-5, 1.16e-5, 1.2e-5, 1.11e-5, 1.19e-5, 1.1e-5, 1.21e-5, 1.08e-5]
+before_bytes = 14448
+before_seconds = [1.31e-5, 1.34e-5, 1.29e-5, 1.28e-5, 1.26e-5, 1.32e-5, 1.25e-5, 1.32e-5, 1.25e-5, 1.3e-5, 1.36e-5, 1.27e-5, 1.3e-5, 1.24e-5, 1.26e-5]
+case = "BartelsGolubFactorization/32/dense"
+speedup = 1.1120689655172413
+[[measurements]]
+after_bytes = 8576
+after_seconds = [4.9e-6, 4.7e-6, 4.5e-6, 4.4e-6, 4.4e-6, 4.4e-6, 5.3e-6, 4.9e-6, 4.7e-6, 5.1e-6, 4.4e-6, 4.4e-6, 4.3e-6, 4.7e-6, 5.1e-6]
+before_bytes = 8576
+before_seconds = [4.5e-6, 4.5e-6, 5.4e-6, 5.1e-6, 5.1e-6, 4.5e-6, 4.7e-6, 4.6e-6, 4.5e-6, 4.6e-6, 4.6e-6, 4.7e-6, 5.1e-6, 4.4e-6, 4.7e-6]
+case = "BartelsGolubFactorization/128/identity"
+speedup = 0.9574468085106383
+[[measurements]]
+after_bytes = 31920
+after_seconds = [1.56e-5, 1.67e-5, 1.54e-5, 1.66e-5, 1.66e-5, 1.68e-5, 1.68e-5, 1.66e-5, 1.67e-5, 1.69e-5, 1.64e-5, 1.65e-5, 1.62e-5, 1.7e-5, 1.61e-5]
+before_bytes = 31920
+before_seconds = [1.76e-5, 1.72e-5, 1.71e-5, 1.71e-5, 1.75e-5, 1.7e-5, 1.76e-5, 1.73e-5, 1.66e-5, 1.69e-5, 1.73e-5, 1.72e-5, 2.54e-5, 1.78e-5, 1.8e-5]
+case = "BartelsGolubFactorization/128/band"
+speedup = 1.0470588235294118
+[[measurements]]
+after_bytes = 175512
+after_seconds = [0.0002039, 0.0001955, 0.0001966, 0.0001928, 0.0002049, 0.0001948, 0.0001987, 0.0002252, 0.0001929, 0.0002182, 0.000204, 0.0002062, 0.000198, 0.0001983, 0.0002039]
+before_bytes = 175512
+before_seconds = [0.0002252, 0.000246, 0.0002264, 0.0002241, 0.0002263, 0.0002276, 0.0002255, 0.0002285, 0.000232, 0.0002404, 0.0002635, 0.0002285, 0.0002535, 0.0002328, 0.0002393]
+case = "BartelsGolubFactorization/128/dense"
+speedup = 1.162344398340249
+[[measurements]]
+after_bytes = 33232
+after_seconds = [2.64e-5, 2.48e-5, 2.39e-5, 2.13e-5, 2.23e-5, 2.27e-5, 2.24e-5, 2.24e-5, 1.97e-5, 2.03e-5, 2.13e-5, 2.03e-5, 1.93e-5, 1.98e-5, 2.03e-5]
+before_bytes = 33232
+before_seconds = [3.45e-5, 3.4e-5, 3.92e-5, 3.52e-5, 2.97e-5, 3.09e-5, 3.09e-5, 3.07e-5, 2.25e-5, 2.34e-5, 3.2e-5, 2.4e-5, 2.27e-5, 2.07e-5, 2.54e-5]
+case = "BartelsGolubFactorization/512/identity"
+speedup = 1.3318385650224216
+[[measurements]]
+after_bytes = 121552
+after_seconds = [7.72e-5, 6.68e-5, 7.35e-5, 8.51e-5, 8.07e-5, 8.03e-5, 7.34e-5, 8.06e-5, 7.01e-5, 6.94e-5, 6.83e-5, 6.78e-5, 8.14e-5, 9.42e-5, 8.76e-5]
+before_bytes = 121552
+before_seconds = [8.92e-5, 7.47e-5, 8.46e-5, 0.0001014, 9.59e-5, 9.83e-5, 9.49e-5, 9.48e-5, 8.19e-5, 7.75e-5, 7.94e-5, 7.63e-5, 0.0001067, 9.82e-5, 0.0001116]
+case = "BartelsGolubFactorization/512/band"
+speedup = 1.1683309557774608
+[[measurements]]
+after_bytes = 2464048
+after_seconds = [0.0035734, 0.0046154, 0.0037874, 0.0033867, 0.0041156, 0.0034009, 0.0037882, 0.0032904, 0.0035678, 0.003681, 0.0036365, 0.003402, 0.0041375, 0.0033936, 0.0070129]
+before_bytes = 2464048
+before_seconds = [0.0041605, 0.0045476, 0.004455, 0.0044336, 0.0042101, 0.0043196, 0.006098, 0.0050026, 0.0042713, 0.0048415, 0.0058388, 0.0043585, 0.0056454, 0.0043065, 0.0047666]
+case = "BartelsGolubFactorization/512/dense"
+speedup = 1.2701343761945367

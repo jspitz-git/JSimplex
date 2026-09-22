@@ -549,6 +549,15 @@ julia --startup-file=no --project=dev dev/benchmarks.jl afiro
 julia --startup-file=no --project=dev dev/allocations.jl afiro adlittle --output=allocations.toml
 ```
 
+The [runtime audit](diagnostics/runtime_audit_report.md) records runtime
+optimizations that preserve numerical decisions, paired before/after timings,
+exact iteration-state comparisons, and remaining opportunities across the project.
+Its [probe](diagnostics/runtime_probe.jl) compares complete source snapshots;
+run timing comparisons separately from test suites and other benchmarks.
+
+The [basis runtime follow-up](diagnostics/basis_runtime_report.md) covers packed
+lookup reuse, sparse FT/SS traversal and Markowitz pivot-search maxima.
+
 The allocation audit reports warmed minimum allocated bytes, allocation counts,
 and elapsed seconds over five independent samples (`--samples=N`). It covers MPS
 input, MOI translation of the continuous relaxation, presolve and its individual

@@ -5,7 +5,7 @@ end
 
 elapsed_seconds(context::SolveContext) = (time_ns() - context.start_ns) / 1.0e9
 time_limit_reached(context::SolveContext) =
-    elapsed_seconds(context) >= context.time_limit_seconds
+    context.time_limit_seconds != Inf && elapsed_seconds(context) >= context.time_limit_seconds
 
 function _report_problem_statistics(stage::AbstractString, problem::LinearProblem,
                                     options::SolverOptions)

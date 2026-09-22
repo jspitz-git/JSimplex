@@ -18,10 +18,12 @@ mutable struct MarkowitzWorkspace{T,D<:AbstractDict{Int,T}}
     affected_rows::Vector{Int}
     row_positions::Vector{Int}
     column_positions::Vector{Int}
+    column_maxima::Vector{T}
+    column_maxima_valid::BitVector
 end
 
 MarkowitzWorkspace(::Type{T},::Type{D}) where {T,D<:AbstractDict{Int,T}} =
-    MarkowitzWorkspace{T,D}(D[],D[],BitVector(),BitVector(),Int[],Int[],BitSet(),Int[],Int[],Int[])
+    MarkowitzWorkspace{T,D}(D[],D[],BitVector(),BitVector(),Int[],Int[],BitSet(),Int[],Int[],Int[],T[],BitVector())
 
 function _reset_markowitz_workspace!(workspace::MarkowitzWorkspace{T,D}, n::Int) where {T,D}
     # Keep excess dictionary objects when dimensions shrink, but drop old values.
@@ -39,6 +41,11 @@ function _reset_markowitz_workspace!(workspace::MarkowitzWorkspace{T,D}, n::Int)
     empty!(workspace.affected_rows)
     resize!(workspace.row_positions,n)
     resize!(workspace.column_positions,n)
+    if length(workspace.column_maxima) < n
+        resize!(workspace.column_maxima,n)
+        resize!(workspace.column_maxima_valid,n)
+    end
+    fill!(workspace.column_maxima_valid,false)
     return workspace
 end
 
@@ -99,9 +106,8 @@ function _markowitz_set_entry!(rows::Vector{D},
     column_data = columns[column]
     old_row_count = length(row_data)
     old_column_count = length(column_data)
-    present = haskey(row_data, column)
     if iszero(value)
-        if present
+        if haskey(row_data, column)
             delete!(row_data, column)
             delete!(column_data, row)
             nonzeros -= 1
@@ -109,7 +115,7 @@ function _markowitz_set_entry!(rows::Vector{D},
     else
         row_data[column] = value
         column_data[row] = value
-        nonzeros += !present
+        nonzeros += length(row_data) - old_row_count
     end
     old_row_count != 1 && length(row_data) == 1 && push!(singleton_rows, row)
     new_column_count = length(column_data)
@@ -147,6 +153,21 @@ function _markowitz_column_maximum(column::AbstractDict{Int,T}) where {T<:Real}
     return maximum_value
 end
 
+# Cache only the raw maximum: singleton and general candidates use different
+# threshold helpers, and BigFloat maxima must retain their stored precision.
+_markowitz_cached_maximum(column, ::Nothing, ::Int, ::Bool=true) = _markowitz_column_maximum(column)
+@inline function _markowitz_cached_maximum(column, cache::Tuple{Vector{T},BitVector},
+                                           index::Int, store::Bool=true) where {T}
+    maxima, valid = cache
+    valid[index] && return maxima[index]
+    maximum = _markowitz_column_maximum(column)
+    if store
+        maxima[index] = maximum
+        valid[index] = true
+    end
+    return maximum
+end
+
 _markowitz_threshold_pass(magnitude::T, column_maximum::T) where {T<:Real} =
     magnitude >= column_maximum / T(10)
 
@@ -178,12 +199,15 @@ function _markowitz_pivot(rows::Vector{D}, columns::Vector{D},
                           active_rows::BitVector, active_columns::BitVector,
                           singleton_rows::Vector{Int},
                           singleton_columns::Vector{Int},
-                          doubleton_columns::BitSet) where {T<:Real,D<:AbstractDict{Int,T}}
+                          doubleton_columns::BitSet, cache=nothing) where {T<:Real,D<:AbstractDict{Int,T}}
     while !isempty(singleton_columns)
         column = pop!(singleton_columns)
         active_columns[column] && length(columns[column]) == 1 || continue
         return first(keys(columns[column])), column
     end
+    # Columns are immutable during this search, but elimination changes them
+    # between searches. Singleton-column exits need neither maxima nor a reset.
+    isnothing(cache) || fill!(cache[2],false)
     index = length(singleton_rows)
     while index > 0
         row = singleton_rows[index]
@@ -191,7 +215,7 @@ function _markowitz_pivot(rows::Vector{D}, columns::Vector{D},
             column = first(keys(rows[row]))
             value = rows[row][column]
             _markowitz_threshold_pass(_markowitz_magnitude(value),
-                                      _markowitz_column_maximum(columns[column])) &&
+                                      _markowitz_cached_maximum(columns[column],cache,column)) &&
                 return row, column
             # Keep a rejected singleton: a later update may reduce the
             # column maximum and make it an admissible zero-fill pivot.
@@ -212,7 +236,7 @@ function _markowitz_pivot(rows::Vector{D}, columns::Vector{D},
         active_columns[column] || continue
         column_data = columns[column]
         length(column_data) == 2 || continue
-        column_maximum = _markowitz_column_threshold(_markowitz_column_maximum(column_data))
+        column_maximum = _markowitz_column_threshold(_markowitz_cached_maximum(column_data,cache,column))
         for (row, value) in column_data
             length(rows[row]) == 2 || continue
             magnitude = _markowitz_magnitude(value)
@@ -233,7 +257,8 @@ function _markowitz_pivot(rows::Vector{D}, columns::Vector{D},
     for column in eachindex(active_columns)
         active_columns[column] || continue
         column_data = columns[column]
-        column_maximum = _markowitz_column_threshold(_markowitz_column_maximum(column_data))
+        column_maximum = _markowitz_column_threshold(_markowitz_cached_maximum(column_data,cache,column,false))
+        # This is the final visit to the column: no need to store a new maximum.
         column_count = length(column_data)
         for (row, value) in column_data
             magnitude = _markowitz_magnitude(value)
@@ -347,6 +372,7 @@ function _construct_markowitz(B::AbstractMatrix{T}, workspace,
         pivot_row, pivot_column = _markowitz_pivot(
             rows, columns, active_rows, active_columns,
             singleton_rows, singleton_columns, doubleton_columns,
+            (workspace.column_maxima,workspace.column_maxima_valid),
         )
         pivot_row == 0 && throw(LinearAlgebra.SingularException(length(row_order) + 1))
         pivot = rows[pivot_row][pivot_column]
