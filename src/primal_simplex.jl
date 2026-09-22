@@ -79,8 +79,7 @@ function _primal_steepest_weight!(workspace::SimplexWorkspace{T}, index::Int) wh
     else
         column[index - column_count] = -one(T)
     end
-    direction = forward_solve!(workspace.scratch.row_solution,
-                               workspace.factorization, column)
+    direction = _checked_basis_solve!(workspace.scratch.row_solution,workspace,column)
     scaled_weight, stored_weight = _primal_direction_weight(direction)
     workspace.pricing_weights[index] = stored_weight
     workspace.scratch.steepest_valid[index] = _primal_cacheable_weight(stored_weight)
@@ -164,10 +163,10 @@ function _primal_update_steepest!(workspace::SimplexWorkspace{T}, entering::Int,
         fill!(scratch.steepest_valid, false)
         return nothing
     end
-    tau = transpose_solve!(scratch.tau, workspace.factorization, h)
+    tau = _checked_basis_solve!(scratch.tau,workspace,h;transposed=true)
     fill!(h, zero(T))
     h[leaving_row] = one(T)
-    rho = transpose_solve!(scratch.rho, workspace.factorization, h)
+    rho = _checked_basis_solve!(scratch.rho,workspace,h;transposed=true)
     if !all(isfinite, tau) || !all(isfinite, rho)
         fill!(scratch.steepest_valid, false)
         return nothing
@@ -231,7 +230,7 @@ function _primal_update_devex!(workspace::SimplexWorkspace{T}, entering::Int,
     unit = workspace.scratch.row_rhs
     fill!(unit, zero(T))
     unit[leaving_row] = one(T)
-    rho = transpose_solve!(workspace.scratch.rho, workspace.factorization, unit)
+    rho = _checked_basis_solve!(workspace.scratch.rho,workspace,unit;transposed=true)
     tableau_row = workspace.scratch.tableau_row
     price!(tableau_row, workspace, rho)
     leaving = workspace.basis.basic_indices[leaving_row]
@@ -372,10 +371,13 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
     end
     all(isfinite, tableau_column) || return _numerical_failure()
     checked_pivot = workspace.progress.numerical_policy.pivot_validation
-    if checked_pivot
-        quality = _refine_pivot_solve!(tableau_column,workspace,column,
+    if checked_pivot || workspace.progress.numerical_policy.solve_refinement
+        quality = refine_basis_solve!(tableau_column,workspace,column,
                                        workspace.progress.numerical_policy,stop_requested)
-        quality.reliable || throw(_PivotRejection(0,entering,:refresh))
+        if !quality.reliable
+            checked_pivot && throw(_PivotRejection(0,entering,:refresh))
+            throw(_UnreliableBasisSolve())
+        end
     end
     step, leaving_row, leaving_state = _primal_ratio(
         workspace, entering, direction, tableau_column,
@@ -407,7 +409,7 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
             fill!(column,zero(T))
             column[leaving_row] = one(T)
             rho = transpose_solve!(workspace.scratch.rho,workspace.factorization,column)
-            _refine_pivot_solve!(rho,workspace,column,workspace.progress.numerical_policy,
+            refine_basis_solve!(rho,workspace,column,workspace.progress.numerical_policy,
                                  stop_requested;transposed=true)
             price!(workspace.scratch.tableau_row,workspace,rho)
             proposal = PivotCandidate(entering,leaving_row,
@@ -639,8 +641,9 @@ function _solve_continuous_primal(problem::LinearProblem{T}, options::SolverOpti
             artificial_sum = sum(workspace.primal[column_count + 1:column_count + artificial_count])
             isfinite(artificial_sum) || return _internal_solution(workspace, _numerical_failure())
             if artificial_sum > options.primal_tolerance
-                dual = transpose_solve(workspace.factorization,
-                                       workspace.costs[workspace.basis.basic_indices])
+                basic_costs = workspace.costs[workspace.basis.basic_indices]
+                dual = _checked_basis_solve!(zeros(T,length(basic_costs)),workspace,
+                                             basic_costs,stop_requested;transposed=true)
                 certified = all(isfinite, dual) &&
                             _primal_infeasibility_certified(initial, dual)
                 status = certified ? INFEASIBLE : NUMERICAL_ERROR

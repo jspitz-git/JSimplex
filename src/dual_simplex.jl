@@ -17,7 +17,8 @@ DualRunResult{T}(status, objective_value, primal, iterations, refactorizations, 
     DualRunResult{T}(status, objective_value, primal, iterations, refactorizations, message, nothing)
 
 _is_numerical_exception(exception) =
-    exception isa SingularException || exception isa ZeroPivotException
+    exception isa SingularException || exception isa ZeroPivotException ||
+    exception isa _UnreliableBasisSolve
 
 mutable struct _StopCallback{F}
     callback::F
@@ -56,50 +57,26 @@ end
 # fails; other numeric types retain their existing behavior.
 function _refined_dual_prices(workspace::SimplexWorkspace{Float64}, factor, B,
                               bits::Int, stop_requested)
-    return setprecision(BigFloat, bits) do
+    return setprecision(BigFloat,bits) do
         basic_costs = workspace.costs[workspace.basis.basic_indices]
-        rhs = BigFloat.(basic_costs)
-        values = BigFloat.(B.nzval)
-        dual = BigFloat.(transpose(factor) \ basic_costs)
-        residual = similar(rhs)
-        scale = max(one(BigFloat), maximum(abs, rhs))
-        target = BigFloat(10)^(-(bits == 256 ? 40 : 90))
-        for correction in 0:32
-            stop_requested() && return nothing
-            for column in eachindex(rhs)
-                total = zero(BigFloat)
-                for position in B.colptr[column]:(B.colptr[column + 1] - 1)
-                    total += values[position] * dual[B.rowval[position]]
-                end
-                residual[column] = total - rhs[column]
+        dual = _refined_basis_solution(factor,B,basic_costs,bits,stop_requested;transposed=true)
+        isnothing(dual) && return nothing
+        A = workspace.problem.A
+        row_count,column_count = size(A)
+        matrix_values = BigFloat.(A.nzval)
+        prices = Vector{BigFloat}(undef,column_count+row_count)
+        for column in 1:column_count
+            column % 1024 == 0 && stop_requested() && return nothing
+            total = zero(BigFloat)
+            for position in A.colptr[column]:(A.colptr[column+1]-1)
+                total += matrix_values[position]*dual[A.rowval[position]]
             end
-            error = maximum(abs, residual) / scale
-            isfinite(error) || return nothing
-            if error <= target
-                A = workspace.problem.A
-                row_count, column_count = size(A)
-                matrix_values = BigFloat.(A.nzval)
-                prices = Vector{BigFloat}(undef, column_count + row_count)
-                for column in 1:column_count
-                    column % 1024 == 0 && stop_requested() && return nothing
-                    total = zero(BigFloat)
-                    for position in A.colptr[column]:(A.colptr[column + 1] - 1)
-                        total += matrix_values[position] * dual[A.rowval[position]]
-                    end
-                    prices[column] = BigFloat(workspace.costs[column]) - total
-                end
-                for row in 1:row_count
-                    prices[column_count + row] =
-                        BigFloat(workspace.costs[column_count + row]) + dual[row]
-                end
-                return prices
-            end
-            correction == 32 && return nothing
-            step = transpose(factor) \ Float64.(residual)
-            all(isfinite, step) || return nothing
-            dual .-= BigFloat.(step)
+            prices[column] = BigFloat(workspace.costs[column])-total
         end
-        return nothing
+        for row in 1:row_count
+            prices[column_count+row] = BigFloat(workspace.costs[column_count+row])+dual[row]
+        end
+        return prices
     end
 end
 
@@ -387,7 +364,7 @@ function _bound_flipping_ratio_test(workspace::SimplexWorkspace{T}, tableau_row:
     return -1, flips, true
 end
 
-function _apply_bound_flips!(workspace::SimplexWorkspace{T}, flips::Vector{Int}) where {T}
+function _apply_bound_flips!(workspace::SimplexWorkspace{T}, flips::Vector{Int}, stop=nothing) where {T}
     isempty(flips) && return true
     A = workspace.problem.A
     column_count = size(A, 2)
@@ -410,6 +387,7 @@ function _apply_bound_flips!(workspace::SimplexWorkspace{T}, flips::Vector{Int})
     # The entering direction may already occupy row_solution.
     basic_change = forward_solve!(workspace.scratch.tau, workspace.factorization, rhs)
     all(isfinite, basic_change) || return false
+    _maybe_refine_basis_solve!(basic_change,workspace,rhs,stop) || return false
     for (row, index) in enumerate(workspace.basis.basic_indices)
         isfinite(workspace.primal[index] - basic_change[row]) || return false
     end
@@ -483,7 +461,7 @@ end
 function update_dse!(workspace::SimplexWorkspace{T}, rho::Vector{T}, tableau_column::Vector{T},
                     entering_index::Int, pivot::T, squared_norm::T)::Nothing where {T}
     entering_weight = squared_norm / pivot^2
-    tau = forward_solve!(workspace.scratch.tau, workspace.factorization, rho)
+    tau = _checked_basis_solve!(workspace.scratch.tau,workspace,rho)
     for (row, index) in enumerate(workspace.basis.basic_indices)
         coefficient = tableau_column[row]
         workspace.pricing_weights[index] = max(
@@ -830,84 +808,33 @@ end
 # ill-conditioned basis. Correct B*d = a in higher precision using the same
 # binary64 matrix entries; this path runs only after the ordinary solve and
 # a refactorized retry have both failed their residual checks.
-function _refined_primal_direction(factor, B, rhs::Vector{Float64}, bits::Int,
-                                   stop_requested)
-    return setprecision(BigFloat, bits) do
-        rhs_big = BigFloat.(rhs)
-        values = BigFloat.(B.nzval)
-        direction = BigFloat.(factor \ rhs)
-        all(isfinite, direction) || return nothing
-        residual = similar(rhs_big)
-        scale = max(one(BigFloat), maximum(abs, rhs_big))
-        target = BigFloat(10)^(-(bits == 256 ? 40 : 90))
-        for correction in 0:32
-            stop_requested() && return nothing
-            residual .= -rhs_big
-            for column in eachindex(direction)
-                column % 1024 == 0 && stop_requested() && return nothing
-                value = direction[column]
-                for position in B.colptr[column]:(B.colptr[column + 1] - 1)
-                    residual[B.rowval[position]] += values[position] * value
-                end
-            end
-            error = maximum(abs, residual) / scale
-            isfinite(error) || return nothing
-            error <= target && return direction
-            correction == 32 && return nothing
-            step = factor \ Float64.(residual)
-            all(isfinite, step) || return nothing
-            direction .-= BigFloat.(step)
-        end
-        return nothing
-    end
+function _refined_primal_direction(factor,B,rhs::Vector{Float64},bits::Int,stop_requested)
+    return _refined_basis_solution(factor,B,rhs,bits,stop_requested)
 end
 
-function _refined_tableau_row(workspace::SimplexWorkspace{Float64}, factor, B,
-                              leaving_row::Int, bits::Int, stop_requested)
-    return setprecision(BigFloat, bits) do
-        unit = zeros(Float64, size(B, 1))
+function _refined_tableau_row(workspace::SimplexWorkspace{Float64},factor,B,
+                              leaving_row::Int,bits::Int,stop_requested)
+    return setprecision(BigFloat,bits) do
+        unit = zeros(Float64,size(B,1))
         unit[leaving_row] = 1.0
-        rho = BigFloat.(transpose(factor) \ unit)
-        all(isfinite, rho) || return nothing
-        values = BigFloat.(B.nzval)
-        residual = similar(rho)
-        target = BigFloat(10)^(-(bits == 256 ? 40 : 90))
-        for correction in 0:32
-            stop_requested() && return nothing
-            for column in eachindex(rho)
-                column % 1024 == 0 && stop_requested() && return nothing
-                total = zero(BigFloat)
-                for position in B.colptr[column]:(B.colptr[column + 1] - 1)
-                    total += values[position] * rho[B.rowval[position]]
-                end
-                residual[column] = total - BigFloat(unit[column])
+        rho = _refined_basis_solution(factor,B,unit,bits,stop_requested;transposed=true)
+        isnothing(rho) && return nothing
+        A = workspace.problem.A
+        row_count,column_count = size(A)
+        matrix_values = BigFloat.(A.nzval)
+        tableau = Vector{BigFloat}(undef,column_count+row_count)
+        for column in 1:column_count
+            column % 1024 == 0 && stop_requested() && return nothing
+            total = zero(BigFloat)
+            for position in A.colptr[column]:(A.colptr[column+1]-1)
+                total += matrix_values[position]*rho[A.rowval[position]]
             end
-            error = maximum(abs, residual)
-            isfinite(error) || return nothing
-            if error <= target
-                A = workspace.problem.A
-                row_count, column_count = size(A)
-                matrix_values = BigFloat.(A.nzval)
-                tableau = Vector{BigFloat}(undef, column_count + row_count)
-                for column in 1:column_count
-                    column % 1024 == 0 && stop_requested() && return nothing
-                    total = zero(BigFloat)
-                    for position in A.colptr[column]:(A.colptr[column + 1] - 1)
-                        total += matrix_values[position] * rho[A.rowval[position]]
-                    end
-                    tableau[column] = total
-                end
-                for row in 1:row_count
-                    tableau[column_count + row] = -rho[row]
-                end
-                return (rho=rho, tableau=tableau)
-            end
-            correction == 32 && return nothing
-            step = transpose(factor) \ Float64.(residual)
-            all(isfinite, step) || return nothing
-            rho .-= BigFloat.(step)
+            tableau[column] = total
         end
-        return nothing
+        for row in 1:row_count
+            tableau[column_count+row] = -rho[row]
+        end
+        return (rho=rho,tableau=tableau)
     end
 end
 
@@ -1116,9 +1043,10 @@ function _dual_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_request
     rho = _timed_simplex(workspace, :btran) do
         transpose_solve!(workspace.scratch.rho, workspace.factorization, unit)
     end
-    if workspace.progress.numerical_policy.pivot_validation
-        _refine_pivot_solve!(rho,workspace,unit,workspace.progress.numerical_policy,
-                             stop_requested;transposed=true)
+    policy = workspace.progress.numerical_policy
+    if policy.pivot_validation || policy.solve_refinement
+        quality = refine_basis_solve!(rho,workspace,unit,policy,stop_requested;transposed=true)
+        policy.solve_refinement && !quality.reliable && throw(_UnreliableBasisSolve())
     end
     tableau_row = workspace.scratch.tableau_row
     _timed_simplex(workspace, :pricing) do
@@ -1215,9 +1143,9 @@ function _dual_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_request
     tableau_column = _timed_simplex(workspace, :ftran) do
         forward_solve!(workspace.scratch.row_solution, workspace.factorization, column)
     end
-    if workspace.progress.numerical_policy.pivot_validation
-        _refine_pivot_solve!(tableau_column,workspace,column,
-                             workspace.progress.numerical_policy,stop_requested)
+    if policy.pivot_validation || policy.solve_refinement
+        quality = refine_basis_solve!(tableau_column,workspace,column,policy,stop_requested)
+        policy.solve_refinement && !quality.reliable && throw(_UnreliableBasisSolve())
     end
     all(isfinite, tableau_column) || return _numerical_failure()
     pivot = tableau_column[leaving_row]
@@ -1330,7 +1258,7 @@ function _dual_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_request
     end
     # A refresh can retry the ratio test. Keep the proposed flips pending
     # until the entering direction has passed its numerical checks.
-    _apply_bound_flips!(workspace, flips) || return _numerical_failure()
+    _apply_bound_flips!(workspace, flips, stop_requested) || return _numerical_failure()
     delta = workspace.primal[leaving_index] - bound_value(bound)
     primal_step = delta / pivot
     dual_step = workspace.reduced_costs[entering_index] / tableau_row[entering_index]
@@ -1651,6 +1579,7 @@ function _original_optimality_certified(workspace::SimplexWorkspace{T}, primal::
     # incremental algorithm overwrites with zero. Shifted costs are irrelevant.
     dual = transpose_solve(workspace.factorization, basic_costs)
     all(isfinite, dual) || return false
+    _maybe_refine_basis_solve!(dual,workspace,basic_costs;transposed=true) || return false
     reduced_lower, reduced_upper = _original_reduced_cost_bounds(problem, dual)
     all(isfinite, reduced_lower) && all(isfinite, reduced_upper) || return false
     row_lower, row_upper = _primal_row_bounds(problem.A, primal, _is_exact(T))

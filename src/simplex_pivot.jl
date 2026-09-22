@@ -19,7 +19,7 @@ struct _PivotDeadline <: Exception end
 
 function (observer::_StageObserver)(reason::Symbol, candidate)
     isnothing(observer.live.progress.diagnostics) && return nothing
-    if candidate.scratch.pending_factor_update ||
+    if candidate.scratch.pending_factor_update || candidate.scratch.post_iteration != :none ||
        reason in (:pivot_completed,:flip_completed,:bound_flipped)
         push!(observer.pending,reason)
     else
@@ -170,6 +170,16 @@ function _discard_candidate!(ws,candidate)
         ws.refactorizations += 1
         candidate.scratch.pending_factor_update = false
     end
+    # Numerical work happened even when its candidate was discarded. Retain
+    # those counts without calling observers with an uncommitted state.
+    pending = candidate.progress.diagnostics.observer.pending
+    if !isnothing(ws.progress.diagnostics)
+        for reason in pending
+            reason in (:pivot_completed,:flip_completed,:bound_flipped) && continue
+            record_event!(ws.progress.diagnostics,reason)
+        end
+    end
+    empty!(pending)
     return nothing
 end
 
@@ -235,48 +245,15 @@ function _pivot_quality_buffers(ws::SimplexWorkspace{T}) where {T}
     C = _PivotQualityBuffers{T,W}
     if !(ws.scratch.pivot_quality_cache isa C)
         m = size(ws.problem.A,1)
-        ws.scratch.pivot_quality_cache = C(zeros(T,m),zeros(T,m),zeros(T,m),zeros(T,m),
+        ws.scratch.pivot_quality_cache = C(zeros(T,m),zeros(T,m),zeros(T,m),zeros(T,m),zeros(Int,m),
                                           SolveQualityScratch(T,m),SolveQualityScratch(T,m))
     end
     return ws.scratch.pivot_quality_cache::C
 end
 
-# Candidate-only corrections. F05 will share this bounded kernel with every
-# basis solve while retaining the additional pivot and reduced-cost checks.
-function _refine_pivot_solve!(destination::Vector{T},ws::SimplexWorkspace{T},rhs::Vector{T},
-                              policy::NumericalPolicy{T},stop_requested;
-                              transposed::Bool=false) where {T}
-    Base.mightalias(destination,rhs) && throw(ArgumentError("pivot solve destination aliases RHS"))
-    B = _basis_matrix!(ws)
-    buffers = _pivot_quality_buffers(ws)
-    quality_scratch = transposed ? buffers.row : buffers.column
-    saved_rhs = copyto!(buffers.rhs,rhs)
-    quality = solve_quality!(quality_scratch,B,destination,saved_rhs,policy;transposed)
-    for _ in 1:policy.max_refinements
-        (quality.reliable || stop_requested()) && return quality
-        _simplex_event!(ws,:correction_attempt)
-        correction = _timed_simplex(ws,transposed ? :btran : :ftran) do
-            transposed ? transpose_solve!(buffers.correction,ws.factorization,quality_scratch.residual) :
-                         forward_solve!(buffers.correction,ws.factorization,quality_scratch.residual)
-        end
-        all(isfinite,correction) || return quality
-        changed = false
-        for i in eachindex(destination)
-            buffers.trial[i] = destination[i]+correction[i]
-            changed |= buffers.trial[i] != destination[i]
-        end
-        changed && all(isfinite,buffers.trial) || return quality
-        trial_quality = solve_quality!(quality_scratch,B,buffers.trial,saved_rhs,policy;transposed)
-        old_error = isnothing(quality.relative_error) ? quality.absolute_error : quality.relative_error
-        new_error = isnothing(trial_quality.relative_error) ? trial_quality.absolute_error : trial_quality.relative_error
-        (trial_quality.reliable || new_error < old_error) || return quality
-        stop_requested() && return quality
-        copyto!(destination,buffers.trial)
-        quality = trial_quality
-        _simplex_event!(ws,:correction)
-    end
-    return quality
-end
+# Retained for internal F04 callers; all correction work now shares one API.
+_refine_pivot_solve!(destination,ws,rhs,policy,stop_requested;transposed=false) =
+    refine_basis_solve!(destination,ws,rhs,policy,stop_requested;transposed)
 
 struct _PivotRejection <: Exception
     row::Int
@@ -327,8 +304,13 @@ function _retry_simplex_step!(ws::SimplexWorkspace,stop_requested,algorithm::Sym
                 end
                 return result
             catch exception
-                exception isa _PivotRejection || rethrow()
-                exception
+                stop_requested isa _StopCallback && exception === stop_requested.exception && rethrow()
+                if exception isa _UnreliableBasisSolve
+                    _PivotRejection(0,0,:refresh)
+                else
+                    exception isa _PivotRejection || rethrow()
+                    exception
+                end
             end
             refresh_pending = false
             _simplex_event!(ws,:pivot_rejected)

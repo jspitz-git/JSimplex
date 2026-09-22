@@ -32,6 +32,7 @@ struct _PivotQualityBuffers{T,W}
     unit::Vector{T}
     correction::Vector{T}
     trial::Vector{T}
+    singletons::Vector{Int}
     column::SolveQualityScratch{T,W}
     row::SolveQualityScratch{T,W}
 end
@@ -303,14 +304,14 @@ function recompute!(workspace::SimplexWorkspace{T}; refactorize::Bool=false,
         end
     end
 
-    basic_primal = forward_solve!(workspace.scratch.row_solution,
-                                  workspace.factorization, rhs)
+    basic_primal = _checked_basis_solve!(workspace.scratch.row_solution,
+                                         workspace,rhs,caller_guard)
     for (row, index) in enumerate(basis.basic_indices)
         workspace.primal[index] = basic_primal[row]
         rhs[row] = workspace.costs[index]
     end
 
-    dual = transpose_solve!(workspace.scratch.rho, workspace.factorization, rhs)
+    dual = _checked_basis_solve!(workspace.scratch.rho,workspace,rhs,caller_guard;transposed=true)
     for column in 1:column_count
         reduced_cost = workspace.costs[column]
         for position in A.colptr[column]:(A.colptr[column + 1] - 1)

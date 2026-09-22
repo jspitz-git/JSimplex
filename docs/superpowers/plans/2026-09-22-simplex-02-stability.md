@@ -79,8 +79,8 @@ q = JSimplex.propose_dual_step!(w, [1e-6, 1.0, 0.0], 1.0, 0.5,
 **Files:** Create: src/simplex_recovery.jl, test/simplex_refinement_tests.jl. Modify: src/dual_simplex.jl, src/primal_simplex.jl, src/simplex_numerics.jl, src/JSimplex.jl.
 **Interfaces:** `refine_basis_solve!(destination, ws, rhs, policy, stop; transposed=false)::SolveQuality{T}`. The RHS must survive scratch operations. Migrate the current cost/row/direction repairs to shared refinement without losing their additional validation.
 
-- [ ] Reproduction: `B=[1 1; 1 1+2^-30]`, `rhs=B*[1,-1]`, `destination=[1.001,-1]`. Build a workspace with both structural columns in the basis and refactor. Call the new API; require `reliable` and an independent BigFloat residual within the declared bound. Repeat for `Bᵀ` and a deliberately stale factor.
-- [ ] Implement a bounded loop; here, solve means the existing forward/transpose solve of the current factorization:
+- [x] Reproduction: `B=[1 1; 1 1+2^-30]`, `rhs=B*[1,-1]`, `destination=[1.001,-1]`. Build a workspace with both structural columns in the basis and refactor. Call the new API; require `reliable` and an independent BigFloat residual within the declared bound. Repeat for `Bᵀ` and a deliberately stale factor.
+- [x] Implement a bounded loop; here, solve means the existing forward/transpose solve of the current factorization:
 
 ~~~text
 repeat at most policy.max_refinements:
@@ -92,9 +92,9 @@ repeat at most policy.max_refinements:
     destination := destination + correction
 ~~~
 
-- [ ] Accumulate Float32 residuals through Float64, Float64 residuals through local BigFloat when needed, and BigFloat residuals at the actually stored precision. Expensive duplicate 256/512-bit verification does not belong in every ordinary step. Exact rationals do not use floating-point stagnation criteria.
-- [ ] Check the deadline for every refinement, conversion overflow, and a correction that makes no change after rounding. A rejected candidate must not corrupt active costs. The aggregate BFRT flip RHS is subject to the same check.
-- [ ] Add tests for destination/RHS aliasing, failed refinement, and callback exceptions; run targeted tests and the full suite, and collect a refinement-count census on quick. Commit: `feat: share iterative refinement across simplex methods`.
+- [x] Accumulate Float32 residuals through Float64, Float64 residuals through local BigFloat when needed, and BigFloat residuals at the actually stored precision. Expensive duplicate 256/512-bit verification does not belong in every ordinary step. Exact rationals do not use floating-point stagnation criteria.
+- [x] Check the deadline for every refinement, conversion overflow, and a correction that makes no change after rounding. A rejected candidate must not corrupt active costs. The aggregate BFRT flip RHS is subject to the same check.
+- [x] Add tests for destination/RHS aliasing, failed refinement, and callback exceptions; run targeted tests and the full suite, and collect a refinement-count census on quick. Commit: `feat: share iterative refinement across simplex methods`.
 
 ### F06: Basis Checkpoint and Repair
 

@@ -305,7 +305,9 @@ for `SolverOptions(Float64)`. Floating types use these keyword defaults:
 
 The adaptive profile enables a Harris bound-flipping dual ratio test that
 prefers stronger pivots among nearby breakpoints and validates the required
-bound flips before applying them. It also validates independent pivot estimates,
+bound flips before applying them. It shares bounded iterative refinement across
+basis solves, preserves each RHS, and checks solve quality before using the
+result. It also validates independent pivot estimates,
 tries alternative candidates, and applies accepted steps atomically with respect
 to callbacks. Further algorithm stages remain disabled
 until implemented and verified. User primal/dual tolerances are independent of internal residual and

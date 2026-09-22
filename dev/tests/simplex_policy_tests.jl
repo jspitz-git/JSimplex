@@ -41,6 +41,7 @@ end
         @test result["numerical_policy_dual"]["max_refinements"] == 7
         @test result["numerical_policy_dual"]["stable_ratio"]
         @test result["numerical_policy_dual"]["pivot_validation"]
+        @test result["numerical_policy_dual"]["solve_refinement"]
         @test only(result["samples"])["status"] == "OPTIMAL"
         write(config,"unknown_switch = true\n")
         @test benchmark_main(["--policy="*config,"--output="*output]) == 1

@@ -210,6 +210,7 @@ using Test
     include("pivot_retry_tests.jl")
     include("pivot_application_tests.jl")
     include("pivot_atomicity_tests.jl")
+    include("simplex_refinement_tests.jl")
     include("certification_allocation_tests.jl")
     include("primal_simplex_tests.jl")
     include("phase_matrix_allocation_tests.jl")

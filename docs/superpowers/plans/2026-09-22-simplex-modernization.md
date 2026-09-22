@@ -95,7 +95,7 @@ implementation in parallel.
 | [x] | F02 Shared numerical policy and residuals | F01 | `feat: add shared simplex numerical quality checks` |
 | [x] | F03 Stable Harris BFRT | F02 | `feat: stabilize dual bound flipping ratio test` |
 | [x] | F04 Pivot validation and reselection | F03 | `feat: retry numerically unsafe simplex pivots` |
-| [ ] | F05 Shared iterative solve refinement | F02, F04 | `feat: share iterative refinement across simplex methods` |
+| [x] | F05 Shared iterative solve refinement | F02, F04 | `feat: share iterative refinement across simplex methods` |
 | [ ] | F06 Basis checkpoints and repair | F05 | `feat: recover simplex from verified basis checkpoints` |
 | [ ] | F07 Feasibility recovery and primal/dual handoff | F06 | `feat: add bounded simplex feasibility recovery` |
 | [ ] | F08 Incremental primal bound flips | F07 | `feat: update primal bound flips incrementally` |
