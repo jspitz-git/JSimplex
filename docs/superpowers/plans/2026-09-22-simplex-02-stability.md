@@ -125,7 +125,7 @@ w.iterations = 9
 **Files:** Create: src/simplex_driver.jl, test/simplex_driver_tests.jl. Modify: src/JSimplex.jl, src/solver.jl, src/dual_simplex.jl, src/primal_simplex.jl, src/simplex_recovery.jl.
 **Interfaces:** `SimplexRunBudget` owns the start/deadline, limit, and cumulative completed steps/refactors. `feasibility_mode(primal_ok::Bool, dual_ok::Bool)::Symbol`. `run_from_basis!(ws, budget, policy, stop)::DualRunResult{T}`. Move shared termination/result types before both algorithms.
 
-- [ ] Pin the decision table with a test:
+- [x] Pin the decision table with a test:
 
 ~~~julia
 @test JSimplex.feasibility_mode(true, true) == :certify
@@ -134,7 +134,10 @@ w.iterations = 9
 @test JSimplex.feasibility_mode(false, false) == :phase_one
 ~~~
 
-- [ ] After a verified recomputation, the driver uses the table. Simultaneous primal and dual infeasibility requires an auxiliary phase rather than directly starting a method whose invariant is violated. When restoring original costs, use the same path to run primal cleanup. Use the current Phase I implementations for now; F21 modernizes them.
-- [ ] An explicit `algorithm` selects the initial method; handoff is enabled only by adaptive strategies. Allow at most two recovery rounds without progress; the same basis/states/phase must not switch primal↔dual indefinitely.
-- [ ] Test infeasibility during cleanup, an algorithm change after basis repair, `iteration_limit=0`, a deadline in the auxiliary phase, and user exceptions. Rollback does not decrease completed steps; rejection does not increase them. The output passes original-model certification and postsolve.
-- [ ] Run driver/retry/primal/dual/MOI tests and the full suite; run quick and difficult replays. Commit: `feat: add bounded simplex feasibility recovery`.
+- [x] After a verified recomputation, the driver uses the table. Simultaneous primal and dual infeasibility requires an auxiliary phase rather than directly starting a method whose invariant is violated. When restoring original costs, use the same path to run primal cleanup. Use the current Phase I implementations for now; F21 modernizes them.
+- [x] An explicit `algorithm` selects the initial method; handoff is enabled only by adaptive strategies. Allow at most two recovery rounds without progress; the same basis/states/phase must not switch primal↔dual indefinitely.
+- [x] Test infeasibility during cleanup, an algorithm change after basis repair, `iteration_limit=0`, a deadline in the auxiliary phase, and user exceptions. Rollback does not decrease completed steps; rejection does not increase them. The output passes original-model certification and postsolve.
+- [x] Run driver/retry/primal/dual/MOI tests and the full suite; run quick and difficult replays. Commit: `feat: add bounded simplex feasibility recovery`.
+
+Validation: [F07 report](../../../diagnostics/simplex-modernization/F07.md). The
+external recovery milestone remains unmet; adaptive behavior stays opt-in.

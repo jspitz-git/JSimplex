@@ -627,10 +627,15 @@ function _solve_continuous_primal(problem::LinearProblem{T}, options::SolverOpti
             problem, options, progress, stop_requested,
         )
         _simplex_event!(workspace, artificial_count > 0 ? :phase_one : :phase_primal)
+        policy = workspace.progress.numerical_policy
+        budget = policy.feasibility_recovery ? SimplexRunBudget(workspace) : nothing
         # A small phase-I reduced cost can still remove a large violation when
         # its column is small, so dual_tolerance must not suppress it.
-        terminal = _primal_optimize!(workspace, stop_requested,
-                                     artificial_count > 0 ? zero(T) : options.dual_tolerance)
+        tolerance = artificial_count > 0 ? zero(T) : options.dual_tolerance
+        terminal = policy.feasibility_recovery ?
+            _run_original_objective_terminal!(workspace,budget,policy,stop_requested;
+                reduced_cost_tolerance=tolerance) :
+            _primal_optimize!(workspace,stop_requested,tolerance)
         terminal.status == OPTIMAL || return _internal_solution(workspace, terminal)
         if artificial_count > 0
             column_count = size(problem.A, 2)
@@ -659,9 +664,11 @@ function _solve_continuous_primal(problem::LinearProblem{T}, options::SolverOpti
             end
             workspace.problem.objective[1:column_count] .= problem.objective
             _restore_original_costs!(workspace)
-            recompute!(workspace)
+            policy.feasibility_recovery || recompute!(workspace)
             _simplex_event!(workspace, :phase_primal)
-            terminal = _primal_optimize!(workspace, stop_requested)
+            terminal = policy.feasibility_recovery ?
+                _run_original_objective_terminal!(workspace,budget,policy,stop_requested) :
+                _primal_optimize!(workspace, stop_requested)
             terminal.status == OPTIMAL || return _internal_solution(workspace, terminal)
         end
         run = _internal_solution(workspace, OPTIMAL, "optimal solution found")

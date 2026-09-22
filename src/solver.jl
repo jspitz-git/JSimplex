@@ -225,10 +225,11 @@ function cleanup_original(problem::LinearProblem{T}, restored_basis::Basis,
     end
 end
 
-function _remaining_options(options::SolverOptions{T,M,R}; iterations::Int) where {T,M,R}
+function _remaining_options(options::SolverOptions{T,M,R}; iterations::Int,
+                            time_limit::Float64=options.time_limit) where {T,M,R}
     return _validated_options(T, Val(M), Val(R),
         options.primal_tolerance, options.dual_tolerance, options.zero_tolerance,
-        max(0, options.iteration_limit - iterations), options.time_limit,
+        max(0, options.iteration_limit - iterations), time_limit,
         options.refactorization_interval, options.verbose, options.log_level,
         options.algorithm, options.pricing, options.scaling, options.presolve, options.simplex_strategy)
 end
@@ -247,6 +248,7 @@ function _retry_original(problem::LinearProblem{T}, options::SolverOptions{T},
     stop_requested = () -> time_limit_reached(context)
     progress = SimplexProgressContext(problem; start_ns=context.start_ns,
                                      iteration_offset=previous.iterations,
+                                     refactorization_offset=previous.refactorizations,
                                      diagnostics=context.diagnostics,
                                      numerical_policy=_context_numerical_policy(context,options))
     retry = if options.algorithm == :dual

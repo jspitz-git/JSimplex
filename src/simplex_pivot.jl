@@ -58,7 +58,7 @@ function _new_candidate_workspace(ws::SimplexWorkspace{T}) where {T}
         base.kernel_timing,base.kernel_calls,base.kernel_nanoseconds)
     old = ws.progress
     progress = SimplexProgressContext{T,typeof(diagnostics)}(old.start_ns,
-        old.objective,old.objective_constant,old.scaling,old.iteration_offset,
+        old.objective,old.objective_constant,old.scaling,old.iteration_offset,old.refactorization_offset,
         diagnostics,old.numerical_policy)
     return SimplexWorkspace(ws.problem,ws.options,progress,
         values.costs,values.lower,values.upper,values.basis,values.primal,

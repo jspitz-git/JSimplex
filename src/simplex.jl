@@ -33,6 +33,7 @@ struct SimplexProgressContext{T<:Real,D}
     objective_constant::T
     scaling::Scaling{T}
     iteration_offset::Int
+    refactorization_offset::Int
     diagnostics::D
     numerical_policy::NumericalPolicy{T}
 end
@@ -116,7 +117,7 @@ end
 
 function SimplexProgressContext(problem::LinearProblem{T}; start_ns::UInt64=time_ns(),
                                 scaling::Scaling{T}=identity_scaling(problem),
-                                iteration_offset::Int=0, diagnostics=nothing,
+                                iteration_offset::Int=0, refactorization_offset::Int=0, diagnostics=nothing,
                                 numerical_policy::NumericalPolicy{T}=NumericalPolicy(T)) where {T}
     return SimplexProgressContext{T,typeof(diagnostics)}(
         start_ns,
@@ -124,6 +125,7 @@ function SimplexProgressContext(problem::LinearProblem{T}; start_ns::UInt64=time
         problem.objective_constant,
         scaling,
         iteration_offset,
+        refactorization_offset,
         diagnostics,
         numerical_policy,
     )

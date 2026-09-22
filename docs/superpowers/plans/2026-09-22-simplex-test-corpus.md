@@ -146,6 +146,8 @@ performance profiles, or the default-rollout speed score.
 These commands are implemented in F01. The three local roots are defaults
 and can be overridden. Eligible large local solves explicitly request the
 24 GiB WSL allowance; the worker clips it to OS-reported total memory.
+For full runtime.mps comparisons, allow at least five minutes of solver time;
+the F07 comparison uses 360 seconds. Earlier shorter runs are screening data.
 
 ~~~bash
 julia --project=dev dev/simplex_benchmarks.jl --source=. --suite=quick --algorithm=both --samples=7 --time-limit=60 --iteration-limit=100000 --output=/tmp/simplex-quick.toml

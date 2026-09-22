@@ -36,9 +36,13 @@ function worker_main(job_path)
                              for key in fieldnames(typeof(old.numerical_policy)))...)
                 policy = JSimplex.NumericalPolicy(eltype(ws.costs);
                     simplex_strategy=ws.options.simplex_strategy,merge(stored,overrides)...)
-                ws.progress = JSimplex.SimplexProgressContext(ws.problem;start_ns=old.start_ns,
-                    scaling=old.scaling,iteration_offset=old.iteration_offset,
-                    diagnostics=old.diagnostics,numerical_policy=policy)
+                if isdefined(JSimplex,:_install_driver_policy!)
+                    JSimplex._install_driver_policy!(ws,policy)
+                else
+                    ws.progress = JSimplex.SimplexProgressContext(ws.problem;start_ns=old.start_ns,
+                        scaling=old.scaling,iteration_offset=old.iteration_offset,
+                        diagnostics=old.diagnostics,numerical_policy=policy)
+                end
             end
             hasproperty(ws.progress,:numerical_policy) &&
                 (result["numerical_policy"] = JSimplexReplay.policy_record(ws.progress.numerical_policy))
@@ -52,12 +56,15 @@ function worker_main(job_path)
             ws.options = SolverOptions(typeof(ws.options.primal_tolerance);
                 merge(settings, (; iteration_limit=limit, time_limit=options["time-limit"]))...)
             stop = deadline
-            run = ws.options.algorithm == :dual ? JSimplex._solve_continuous_dual!(ws, stop) :
-                JSimplex._internal_solution(ws, JSimplex._primal_optimize!(ws, stop))
+            run = JSimplexReplay.run_replay!(ws,stop)
             result["replay_metadata"] = metadata
             result["status"] = string(run.status)
             result["status_scope"] = "working snapshot model"
             result["iterations"] = run.iterations
+            result["cumulative_iterations"] = run.iterations+ws.progress.iteration_offset
+            result["refactorizations"] = run.refactorizations
+            result["cumulative_refactorizations"] = run.refactorizations+
+                (hasproperty(ws.progress,:refactorization_offset) ? ws.progress.refactorization_offset : 0)
             result["elapsed_seconds"] = (time_ns() - started) / 1e9
             result["outcome"] = "completed"
             JSimplexBenchmarks.write_report(job["result_path"], result)
@@ -181,7 +188,7 @@ function worker_main(job_path)
                         :refactor_other, :refactor_limit, :refactor_residual, :refactor_pivot)
                         JSimplexReplay.record_trace!(trace, reason, ws)
                     end
-                    if reason == :repair && !captured[]
+                    if reason in (:repair,:feasibility_recovery) && !captured[]
                         JSimplexReplay.save_snapshot(snapshot_path, ws;
                             original_hash=result["decompressed_sha256"], original_path=path, reason)
                         captured[] = true

@@ -1,21 +1,3 @@
-struct DualTermination
-    status::TerminationStatus
-    message::String
-end
-
-struct DualRunResult{T<:Real}
-    status::TerminationStatus
-    objective_value::Union{Nothing,T}
-    primal::Union{Nothing,Vector{T}}
-    iterations::Int
-    refactorizations::Int
-    message::String
-    basis::Union{Nothing,Basis}
-end
-
-DualRunResult{T}(status, objective_value, primal, iterations, refactorizations, message) where {T<:Real} =
-    DualRunResult{T}(status, objective_value, primal, iterations, refactorizations, message, nothing)
-
 _is_numerical_exception(exception) =
     exception isa SingularException || exception isa ZeroPivotException ||
     exception isa _UnreliableBasisSolve
@@ -1736,9 +1718,12 @@ function _classify_recession!(workspace::SimplexWorkspace{T}, stop_requested) wh
     feasibility.refactorizations = workspace.refactorizations
     fill!(feasibility.costs, zero(T))
     recompute!(feasibility)
-    terminal = _dual_optimize!(feasibility, stop_requested)
-    workspace.iterations = feasibility.iterations
-    workspace.refactorizations = feasibility.refactorizations
+    terminal = try
+        _dual_optimize!(feasibility, stop_requested)
+    finally
+        workspace.iterations = feasibility.iterations
+        workspace.refactorizations = feasibility.refactorizations
+    end
     terminal.status == OPTIMAL || return terminal
     primal = feasibility.primal[1:size(workspace.problem.A, 2)]
     _original_primal_feasible(feasibility, primal) ||
@@ -1844,9 +1829,12 @@ function _make_dual_feasible!(workspace::SimplexWorkspace{T}, stop_requested) wh
     # Artificial auxiliary bounds can reverse a nonbasic state when the basis
     # returns to the original LP. Keep anti-degeneracy cost shifts out of this
     # phase so a shifted price cannot become infeasible after that remapping.
-    terminal = _dual_optimize!(auxiliary, stop_requested; perturb_degenerate=false)
-    workspace.iterations = auxiliary.iterations
-    workspace.refactorizations = auxiliary.refactorizations
+    terminal = try
+        _dual_optimize!(auxiliary, stop_requested; perturb_degenerate=false)
+    finally
+        workspace.iterations = auxiliary.iterations
+        workspace.refactorizations = auxiliary.refactorizations
+    end
     terminal.status == OPTIMAL || return terminal
     if dot(workspace.costs, auxiliary.primal) < -workspace.options.dual_tolerance
         direction_status = _recession_direction_status(workspace, auxiliary)
@@ -1918,6 +1906,13 @@ function _solve_continuous_dual!(workspace::SimplexWorkspace{T}, stop_requested)
     problem, options = workspace.problem, workspace.options
     stop_requested() && return _internal_solution(workspace, TIME_LIMIT, "time limit reached")
     _finite_workspace(workspace) || return _internal_solution(workspace, _numerical_failure())
+    policy = workspace.progress.numerical_policy
+    if policy.feasibility_recovery &&
+       (!_original_costs_active(workspace) || !_original_bounds_active(workspace))
+        # A resumed working problem needs original-model terminal checks even
+        # when the zero-row shortcut or dual initialization finds a ray.
+        return run_from_basis!(workspace,SimplexRunBudget(workspace),policy,stop_requested)
+    end
     if iszero(size(problem.A, 1))
         for index in eachindex(workspace.costs)
             cost = workspace.costs[index]
@@ -1929,6 +1924,17 @@ function _solve_continuous_dual!(workspace::SimplexWorkspace{T}, stop_requested)
         return _internal_solution(workspace, OPTIMAL, "optimal solution found")
     end
     terminal = make_dual_feasible!(workspace, stop_requested)
+    if policy.feasibility_recovery
+        # Keep the explicitly selected dual initialization, then let verified
+        # feasibility determine how to continue from a recovered basis.
+        if !isnothing(terminal) && terminal.status != NUMERICAL_ERROR
+            terminal = _original_bound_terminal(workspace,terminal)
+            if terminal.status != UNBOUNDED || _original_costs_active(workspace)
+                return _internal_solution(workspace,terminal)
+            end
+        end
+        return run_from_basis!(workspace,SimplexRunBudget(workspace),policy,stop_requested)
+    end
     isnothing(terminal) || return _internal_solution(workspace, terminal)
     terminal = _dual_optimize!(workspace, stop_requested)
     terminal.status == OPTIMAL || return _internal_solution(workspace, terminal)

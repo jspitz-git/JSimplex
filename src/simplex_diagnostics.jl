@@ -5,7 +5,7 @@ const SIMPLEX_EVENT_REASONS = (
     :refactor_initial, :refactor_limit, :refactor_residual, :refactor_pivot,
     :refactor_other, :correction_attempt, :correction, :pricing, :perturbation, :restore_perturbations,
     :certification, :certification_failed, :repair, :checkpoint, :restore_checkpoint,
-    :precision_boost, :lp_refinement,
+    :feasibility_recovery, :precision_boost, :lp_refinement,
 )
 
 mutable struct SimplexDiagnostics{F}
