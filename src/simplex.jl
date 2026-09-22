@@ -24,6 +24,7 @@ struct SimplexProgressContext{T<:Real,D}
     scaling::Scaling{T}
     iteration_offset::Int
     diagnostics::D
+    numerical_policy::NumericalPolicy{T}
 end
 
 mutable struct SimplexScratch{T<:Real}
@@ -58,7 +59,8 @@ end
 
 function SimplexProgressContext(problem::LinearProblem{T}; start_ns::UInt64=time_ns(),
                                 scaling::Scaling{T}=identity_scaling(problem),
-                                iteration_offset::Int=0, diagnostics=nothing) where {T}
+                                iteration_offset::Int=0, diagnostics=nothing,
+                                numerical_policy::NumericalPolicy{T}=NumericalPolicy(T)) where {T}
     return SimplexProgressContext{T,typeof(diagnostics)}(
         start_ns,
         copy(problem.objective),
@@ -66,6 +68,7 @@ function SimplexProgressContext(problem::LinearProblem{T}; start_ns::UInt64=time
         scaling,
         iteration_offset,
         diagnostics,
+        numerical_policy,
     )
 end
 
@@ -293,7 +296,8 @@ recompute!(workspace::SimplexWorkspace, refactorize::Bool) =
 function initialize_workspace(
     problem::LinearProblem{T},
     options::SolverOptions;
-    progress::SimplexProgressContext{T}=SimplexProgressContext(problem),
+    progress::SimplexProgressContext{T}=SimplexProgressContext(problem;
+        numerical_policy=NumericalPolicy(T,options)),
 ) where {T}
     typed_options = SolverOptions(T, options)
     row_count, column_count = size(problem.A)

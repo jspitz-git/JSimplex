@@ -12,6 +12,7 @@ const _RAW_OPTIMIZER_ATTRIBUTES = (
     "basis_refactorization",
     "scaling",
     "presolve",
+    "simplex_strategy",
 )
 
 function _solver_options(optimizer::Optimizer{T})::SolverOptions{T} where {T}
@@ -31,6 +32,7 @@ function _solver_options(optimizer::Optimizer{T})::SolverOptions{T} where {T}
         basis_refactorization=optimizer.basis_refactorization,
         scaling=optimizer.scaling,
         presolve=optimizer.presolve,
+        simplex_strategy=optimizer.simplex_strategy,
     )
 end
 
@@ -49,6 +51,7 @@ function _set_solver_options!(
     basis_refactorization=optimizer.basis_refactorization,
     scaling=optimizer.scaling,
     presolve=optimizer.presolve,
+    simplex_strategy=optimizer.simplex_strategy,
 ) where {T}
     options = SolverOptions(
         T;
@@ -66,6 +69,7 @@ function _set_solver_options!(
         basis_refactorization,
         scaling,
         presolve,
+        simplex_strategy,
     )
     optimizer.primal_tolerance = options.primal_tolerance
     optimizer.dual_tolerance = options.dual_tolerance
@@ -80,6 +84,7 @@ function _set_solver_options!(
     optimizer.basis_refactorization = options.basis_refactorization
     optimizer.scaling = options.scaling
     optimizer.presolve = options.presolve
+    optimizer.simplex_strategy = options.simplex_strategy
     _clear_result!(optimizer)
     return
 end
@@ -146,6 +151,8 @@ function MOI.get(optimizer::Optimizer, attr::MOI.RawOptimizerAttribute)
         return optimizer.scaling
     elseif attr.name == "presolve"
         return optimizer.presolve
+    elseif attr.name == "simplex_strategy"
+        return optimizer.simplex_strategy
     end
     return _unsupported_optimizer_attribute(attr)
 end
@@ -191,6 +198,9 @@ function MOI.set(
     elseif attr.name == "presolve"
         value isa Bool || throw(ArgumentError("presolve must be a Bool"))
         return _set_solver_options!(optimizer; presolve=value)
+    elseif attr.name == "simplex_strategy"
+        value isa Symbol || throw(ArgumentError("simplex_strategy must be a Symbol"))
+        return _set_solver_options!(optimizer; simplex_strategy=value)
     end
     return _unsupported_optimizer_attribute(attr)
 end

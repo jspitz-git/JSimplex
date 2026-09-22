@@ -566,7 +566,8 @@ end
 function _solve_continuous_primal(problem::LinearProblem{T}, options::SolverOptions{T};
                                   stop_requested::Function=() -> false,
                                   progress::SimplexProgressContext{T}=
-                                      SimplexProgressContext(problem)) where {T}
+                                      SimplexProgressContext(problem;
+                                          numerical_policy=NumericalPolicy(T,options))) where {T}
     stop_requested = _guard_stop_callback(stop_requested)
     workspace = nothing
     try

@@ -92,7 +92,7 @@ implementation in parallel.
 | Status | Feature | Dependencies | Separate commit |
 | --- | --- | --- | --- |
 | [x] | F01 Reproducible diagnostics and benchmarks | baseline | `feat: add simplex numerical benchmark harness` |
-| [ ] | F02 Shared numerical policy and residuals | F01 | `feat: add shared simplex numerical quality checks` |
+| [x] | F02 Shared numerical policy and residuals | F01 | `feat: add shared simplex numerical quality checks` |
 | [ ] | F03 Stable Harris BFRT | F02 | `feat: stabilize dual bound flipping ratio test` |
 | [ ] | F04 Pivot validation and reselection | F03 | `feat: retry numerically unsafe simplex pivots` |
 | [ ] | F05 Shared iterative solve refinement | F02, F04 | `feat: share iterative refinement across simplex methods` |
@@ -203,8 +203,9 @@ rollout must not be committed as successful.
 ## Handoff
 
 The user authorized sequential implementation in this worktree, with one
-commit per verified feature. Preparation and F01 are complete; F02 is next. See the
-[F01 validation report](../../../diagnostics/simplex-modernization/F01.md).
+commit per verified feature. Preparation, F01, and F02 are complete; F03 is next. See the
+[F01 validation report](../../../diagnostics/simplex-modernization/F01.md) and
+[F02 validation report](../../../diagnostics/simplex-modernization/F02.md).
 On resumption, use the feature checkboxes and commit history, then read the
 specification and the next incomplete stage. Keep implementation sequential
 because the stages share numerical contracts.

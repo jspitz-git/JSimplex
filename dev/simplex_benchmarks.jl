@@ -43,6 +43,16 @@ const DEFAULTS = Dict{String,Any}(
     "trace" => "off",
     "kernel-timing" => "off",
     "diagnostics" => "on",
+    "simplex-strategy" => "legacy",
+)
+
+const POLICY_KEYS = (
+    "solve_tolerance", "pivot_error_tolerance", "max_refinements",
+    "max_pivot_candidates", "max_recovery_rounds", "stagnation_window",
+    "max_precision_bits", "max_lp_refinements", "stable_ratio", "recovery",
+    "incremental_primal", "adaptive_refactor", "adaptive_stalling",
+    "adaptive_pricing", "partial_pricing", "hypersparse", "crash", "phase_one",
+    "precision_boosting", "lp_refinement",
 )
 
 """Run a worker with an external deadline and an enforced address-space ceiling.
@@ -123,6 +133,9 @@ function parse_benchmark_args(args)
     options["trace"] in ("on", "off") || throw(ArgumentError("--trace must be on or off"))
     options["kernel-timing"] in ("on", "off") || throw(ArgumentError("--kernel-timing must be on or off"))
     options["diagnostics"] in ("on", "off") || throw(ArgumentError("--diagnostics must be on or off"))
+    options["simplex-strategy"] in ("legacy", "adaptive") || throw(ArgumentError("Invalid simplex strategy"))
+    !isempty(options["replay"]) && options["simplex-strategy"] != "legacy" &&
+        throw(ArgumentError("Replay retains its stored strategy; use --policy for numerical overrides"))
     options["diagnostics"] == "off" && (options["trace"] == "on" || options["kernel-timing"] == "on") &&
         throw(ArgumentError("Trace and kernel timing require diagnostics"))
     count(!isempty(options[key]) for key in ("file", "replay")) <= 1 ||
@@ -411,20 +424,19 @@ function benchmark_main(args=ARGS; err=stderr, manifest_path=joinpath(@__DIR__, 
         if isfile(options["output"])
             protected_output = occursin(r"(?i)\.mps(\.gz)?$",options["output"]) ||
                 any(path -> !isempty(path) && isfile(path) && samefile(path,options["output"]),
-                    (options["file"],options["replay"],isempty(options["replay"]) ? "" : options["replay"] * ".toml"))
+                    (options["file"],options["policy"],options["replay"],isempty(options["replay"]) ? "" : options["replay"] * ".toml"))
             protected_output && throw(ArgumentError("Report output aliases a model or replay input"))
         end
         options["source"] = realpath(options["source"])
         report["options"] = options
         report["source"] = source_identity(options["source"])
-        report["variant"] = "diagnostics_" * options["diagnostics"]
+        report["variant"] = options["simplex-strategy"] * "_diagnostics_" * options["diagnostics"]
         report["runner_sha256"] = Dict(name => bytes2hex(open(sha256,joinpath(@__DIR__,name)))
             for name in ("simplex_benchmarks.jl","simplex_benchmark_worker.jl","simplex_replay.jl"))
         report["inventory"] = corpus_inventory(options)
-        if !isempty(options["policy"])
-            policy = TOML.parsefile(options["policy"])
-            isempty(policy) || throw(ArgumentError("No numerical policy switches are implemented in F01"))
-        end
+        policy = isempty(options["policy"]) ? Dict{String,Any}() : TOML.parsefile(options["policy"])
+        all(key in POLICY_KEYS for key in keys(policy)) || throw(ArgumentError("Unknown numerical policy key"))
+        report["policy_overrides"] = policy
         cases = select_cases(options; manifest_path)
         if isfile(options["output"])
             protected_output = any(c -> isfile(c["resolved_path"]) &&
@@ -445,7 +457,7 @@ function benchmark_main(args=ARGS; err=stderr, manifest_path=joinpath(@__DIR__, 
                     job_path, result_path = joinpath(temporary, "job.toml"), joinpath(temporary, "result.toml")
                     job = Dict("options" => options, "case" => entry,
                                "result_path" => result_path, "temporary" => temporary,
-                               "excluded_hashes" => excluded_hashes)
+                               "excluded_hashes" => excluded_hashes, "numerical_policy" => policy)
                     write_report(job_path, job)
                     command = `$(Base.julia_cmd()) --startup-file=no --project=$(options["source"]) $(joinpath(@__DIR__, "simplex_benchmark_worker.jl")) $job_path`
                     # Warmup and parsing have a separate bounded allowance; each

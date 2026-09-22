@@ -7,6 +7,7 @@ import OrderedCollections
 
 include("numeric.jl")
 include("options.jl")
+include("simplex_numerics.jl")
 include("model.jl")
 include("mps.jl")
 include("transformations.jl")

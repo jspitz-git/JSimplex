@@ -84,7 +84,7 @@ SolveQuality{T} contains absolute_error::T, relative_error::Union{Nothing,T}, fi
 solve_quality!(scratch, B, x, rhs, policy; transposed=false)::SolveQuality{T}.
 _componentwise_backward_error(r, scale) is a floating-point helper; rational arithmetic checks residuals exactly.
 
-- [ ] Add zero-denominator and normalization tests:
+- [x] Add zero-denominator and normalization tests:
 
 ~~~julia
 @test JSimplex._componentwise_backward_error([0.0], [0.0]) == 0.0
@@ -94,8 +94,8 @@ _componentwise_backward_error(r, scale) is a floating-point helper; rational ari
 @test_throws ArgumentError SolverOptions(simplex_strategy=:unknown)
 ~~~
 
-- [ ] Implement r=b-B*x, or r=b-B'*x, and scale abs(b)+abs(B)*abs(x) without unsafe overflow. If the scale cannot be evaluated reliably, return unreliable rather than zero divided by Inf. Derive the initial floating backward-error limit from 256eps(T); if k*eps(T)>=1, increase precision or reject rather than allowing infinite tolerance. Scale componentwise sums and use higher precision where necessary.
-- [ ] Separate solve tolerance, pivot error, and primal/dual tolerances. NumericalPolicy also contains max_refinements=3, max_pivot_candidates=8, max_recovery_rounds=2, stagnation_window=64, max_precision_bits=512, and max_lp_refinements=8. These are initial experimental policy limits, not replacements for user tolerances.
-- [ ] Propagate simplex_strategy through all constructors, conversions, _remaining_options, and MOI; default to :legacy. Test that Float64→Float32 conversion preserves the option and MOI reset restores its default.
-- [ ] Test scaled versions of the same system, an almost singular B with a small residual, transpose solves, Float32, exact Rational{BigInt}, and 512-bit stored BigFloat inputs under a 64-bit ambient context. New APIs must not mutate B/rhs or overwrite live tableau scratch.
-- [ ] Run targeted numerical/options/MOI tests and the full suite. Check unchanged legacy behavior on the F01 quick suite, then commit: feat: add shared simplex numerical quality checks.
+- [x] Implement r=b-B*x, or r=b-B'*x, and scale abs(b)+abs(B)*abs(x) without unsafe overflow. If the scale cannot be evaluated reliably, return unreliable rather than zero divided by Inf. Derive the initial floating backward-error limit from 256eps(T); if k*eps(T)>=1, increase precision or reject rather than allowing infinite tolerance. Scale componentwise sums and use higher precision where necessary.
+- [x] Separate solve tolerance, pivot error, and primal/dual tolerances. NumericalPolicy also contains max_refinements=3, max_pivot_candidates=8, max_recovery_rounds=2, stagnation_window=64, max_precision_bits=512, and max_lp_refinements=8. These are initial experimental policy limits, not replacements for user tolerances.
+- [x] Propagate simplex_strategy through all constructors, conversions, _remaining_options, and MOI; default to :legacy. Test that Float64→Float32 conversion preserves the option and a fresh MOI optimizer restores its default while MOI.empty! preserves the configured strategy, consistent with the existing adapter lifecycle.
+- [x] Test scaled versions of the same system, an almost singular B with a small residual, transpose solves, Float32, exact Rational{BigInt}, and 512-bit stored BigFloat inputs under a 64-bit ambient context. New APIs must not mutate B/rhs or overwrite live tableau scratch.
+- [x] Run targeted numerical/options/MOI tests and the full suite. Check unchanged legacy behavior on the F01 quick suite, then commit: feat: add shared simplex numerical quality checks.

@@ -65,9 +65,22 @@ without concurrent tests or benchmarks; use seven paired small-case samples and
 three larger-case samples with matching limits. Report unsuccessful solves
 separately from timings on jointly solved cases.
 
-`--policy=PATH` accepts a TOML file. F01 has no numerical policy switches, so
-the file must currently be empty. Unknown keys are errors; subsequent features
-introduce supported switches explicitly.
+Use `--simplex-strategy=legacy` (default) or `adaptive` for fresh solves.
+Reports include the effective numerical policy as well as SolverOptions.
+`--policy=PATH` accepts a TOML file with internal numerical overrides:
+`solve_tolerance`, `pivot_error_tolerance`, `max_refinements`,
+`max_pivot_candidates`, `max_recovery_rounds`, `stagnation_window`,
+`max_precision_bits`, and `max_lp_refinements`. Stage switches have the names
+in `NUMERICAL_SWITCHES` in `src/simplex_numerics.jl`; an unimplemented stage
+cannot be enabled. Unknown keys and invalid values are errors. These controls
+do not replace the user's primal/dual tolerances.
+
+Snapshots retain the effective policy. Replay uses its stored strategy and
+can apply `--policy` overrides to that working policy; `--simplex-strategy=adaptive`
+is a fresh-solve option and is rejected with replay. Old source snapshots that
+lack policy support remain benchmarkable in legacy mode without overrides.
+Serialized replay artifacts still require a matching Julia/source environment;
+this is not a cross-version serialization format.
 
 ## Stress-only inputs
 

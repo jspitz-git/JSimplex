@@ -5,6 +5,13 @@ using .JSimplexBenchmarks
 using JSimplex
 include("simplex_replay.jl")
 
+function benchmark_solve(problem, options, diagnostics, ::Nothing)
+    return isnothing(diagnostics) ? solve(problem;relax_integrality=true,options) :
+        JSimplex._solve_diagnosed(problem,diagnostics;relax_integrality=true,options)
+end
+benchmark_solve(problem, options, diagnostics, policy) =
+    JSimplex._solve_diagnosed(problem,diagnostics;relax_integrality=true,options,numerical_policy=policy)
+
 function worker_main(job_path)
     job = TOML.parsefile(job_path)
     options, entry = job["options"], job["case"]
@@ -15,12 +22,26 @@ function worker_main(job_path)
         realpath(pathof(JSimplex)) == expected_source || error("Selected source checkout was not loaded")
         result["loaded_source"] = expected_source
         path = validate_selection(entry["resolved_path"], options["mode"])
+        overrides = (; (Symbol(key)=>value for (key,value) in get(job,"numerical_policy",Dict()))...)
         if !isempty(options["replay"])
             metadata = TOML.parsefile(path * ".toml")
             JSimplexBenchmarks.stress_only(metadata["original_path"]) && error("Stress-only source cannot be replayed")
             metadata["original_model_sha256"] in get(get(job,"excluded_hashes",Dict()),"decompressed_sha256",[]) &&
                 error("Known stress-only content cannot be replayed")
             ws, metadata = JSimplexReplay.load_snapshot(path)
+            if !isempty(overrides)
+                isdefined(JSimplex,:NumericalPolicy) || error("Selected source does not support numerical policy overrides")
+                old = ws.progress
+                stored = (; (key=>getfield(old.numerical_policy,key)
+                             for key in fieldnames(typeof(old.numerical_policy)))...)
+                policy = JSimplex.NumericalPolicy(eltype(ws.costs);
+                    simplex_strategy=ws.options.simplex_strategy,merge(stored,overrides)...)
+                ws.progress = JSimplex.SimplexProgressContext(ws.problem;start_ns=old.start_ns,
+                    scaling=old.scaling,iteration_offset=old.iteration_offset,
+                    diagnostics=old.diagnostics,numerical_policy=policy)
+            end
+            hasproperty(ws.progress,:numerical_policy) &&
+                (result["numerical_policy"] = JSimplexReplay.policy_record(ws.progress.numerical_policy))
             stage = "solve"
             started = time_ns()
             deadline = () -> (time_ns() - started) / 1e9 >= options["time-limit"]
@@ -41,6 +62,13 @@ function worker_main(job_path)
             result["outcome"] = "completed"
             JSimplexBenchmarks.write_report(job["result_path"], result)
             return 0
+        end
+        policy = if isdefined(JSimplex,:NumericalPolicy)
+            JSimplex.NumericalPolicy(Float64;simplex_strategy=Symbol(options["simplex-strategy"]),overrides...)
+        else
+            isempty(overrides) && options["simplex-strategy"] == "legacy" ||
+                error("Selected source does not support adaptive numerical policy")
+            nothing
         end
         if options["mode"] == "stress" && options["stress-operation"] == "inspect"
             stage = "reader"
@@ -116,14 +144,17 @@ function worker_main(job_path)
         JSimplexBenchmarks.write_report(job["result_path"],result)
         algorithms = options["algorithm"] == "both" ? [:primal, :dual] : [Symbol(options["algorithm"])]
         for algorithm in algorithms
-            solver_options = SolverOptions(; algorithm, verbose=false,
+            settings = (; algorithm, verbose=false,
                 time_limit=options["time-limit"], iteration_limit=options["iteration-limit"])
+            solver_options = isnothing(policy) ? SolverOptions(;settings...) :
+                SolverOptions(;settings...,simplex_strategy=Symbol(options["simplex-strategy"]))
+            isnothing(policy) || (result["numerical_policy_$(algorithm)"] = JSimplexReplay.policy_record(policy))
             result["solver_options_$(algorithm)"] = Dict(string(key) =>
                 (getfield(solver_options, key) isa Union{Bool,Int,AbstractFloat} ?
                     getfield(solver_options, key) : string(getfield(solver_options, key)))
                 for key in fieldnames(typeof(solver_options)))
             # A fresh solve for warmup; never reuse its basis for measurements.
-            solve(problem; relax_integrality=true, options=solver_options)
+            benchmark_solve(problem,solver_options,nothing,policy)
             for repetition in 1:options["samples"]
                 snapshot_path = joinpath(abspath(options["output"]) * ".replays",
                     replace(entry["id"], '/' => '_') * "-$(algorithm)-$(repetition).bin")
@@ -164,7 +195,7 @@ function worker_main(job_path)
                 if repetition == 1 && !isnothing(diagnostics)
                     # Warm the actual workspace/observer type; warming only the
                     # uninstrumented solver leaves compilation in the first sample.
-                    JSimplex._solve_diagnosed(problem, diagnostics; relax_integrality=true, options=solver_options)
+                    benchmark_solve(problem,solver_options,diagnostics,policy)
                     for key in keys(diagnostics.counts)
                         diagnostics.counts[key] = 0
                     end
@@ -177,11 +208,7 @@ function worker_main(job_path)
                 end
                 recording[] = true
                 phase_start[] = time_ns()
-                measured = @timed if isnothing(diagnostics)
-                    solve(problem; relax_integrality=true, options=solver_options)
-                else
-                    JSimplex._solve_diagnosed(problem, diagnostics; relax_integrality=true, options=solver_options)
-                end
+                measured = @timed benchmark_solve(problem,solver_options,diagnostics,policy)
                 solution = measured.value
                 sample = Dict{String,Any}("algorithm" => string(algorithm), "repetition" => repetition,
                     "status" => string(solution.status), "message" => solution.message,

@@ -4,6 +4,7 @@ using Test
 @testset "JSimplex" begin
     include("numeric_tests.jl")
     include("options_tests.jl")
+    include("simplex_numerics_tests.jl")
     include("model_tests.jl")
     include("transformations_tests.jl")
     include("relaxation_allocation_tests.jl")

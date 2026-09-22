@@ -153,7 +153,8 @@ Use the standard JuMP attributes `set_silent(model)` (MOI `Silent`) and
 wall-clock limit. The stable JSimplex raw optimizer attribute names are
 `relax_integrality`, `iteration_limit`, `primal_tolerance`, `dual_tolerance`,
 `zero_tolerance`, `refactorization_interval`, `verbose`, `algorithm`,
-`pricing`, `basis_update`, `basis_refactorization`, `scaling`, and `presolve`.
+`pricing`, `basis_update`, `basis_refactorization`, `scaling`, `presolve`, and
+`simplex_strategy`.
 `presolve` is a Boolean and defaults to `true`. Algorithm values are
 `:dual` (default) and `:primal`; pricing accepts `:steepest_edge`, `:devex`, or
 `:dantzig` for both algorithms.
@@ -300,6 +301,14 @@ for `SolverOptions(Float64)`. Floating types use these keyword defaults:
 | `basis_refactorization` | `:native` | Full factorization: `:native` or `:markowitz` |
 | `scaling` | `:auto` | `:auto`, `:on`, or `:off` row and column scaling |
 | `presolve` | `true` | Apply all presolve reductions before simplex; `false` solves the original LP directly |
+| `simplex_strategy` | `:legacy` | Existing algorithm or the opt-in `:adaptive` numerical profile; only implemented stages can be enabled |
+
+The adaptive profile currently provides shared numerical-quality contracts;
+all algorithm-stage switches remain disabled until their implementations are
+verified. User primal/dual tolerances are independent of internal residual and
+pivot-quality limits. The strategy survives scalar conversions and retries.
+MOI `empty!` preserves it like other optimizer attributes; a newly constructed
+optimizer starts with `:legacy`.
 
 Forrest–Tomlin maintains a sparse upper factor without row swaps during an
 update. Bartels–Golub may swap adjacent rows to choose a larger elimination

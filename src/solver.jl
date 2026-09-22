@@ -1,10 +1,16 @@
-struct SolveContext{D}
+struct SolveContext{D,P}
     start_ns::UInt64
     time_limit_seconds::Float64
     diagnostics::D
+    numerical_policy::P
 end
 
 SolveContext(start_ns::UInt64, limit::Float64) = SolveContext(start_ns, limit, nothing)
+SolveContext(start_ns::UInt64, limit::Float64, diagnostics) =
+    SolveContext(start_ns, limit, diagnostics, nothing)
+
+_context_numerical_policy(context::SolveContext, options::SolverOptions{T}) where {T} =
+    isnothing(context.numerical_policy) ? NumericalPolicy(T,options) : context.numerical_policy
 
 elapsed_seconds(context::SolveContext) = (time_ns() - context.start_ns) / 1.0e9
 time_limit_reached(context::SolveContext) =
@@ -163,7 +169,8 @@ function cleanup_original(problem::LinearProblem{T}, restored_basis::Basis,
     workspace = nothing
     try
         progress = SimplexProgressContext(problem; start_ns=context.start_ns,
-                                          diagnostics=context.diagnostics)
+                                          diagnostics=context.diagnostics,
+                                          numerical_policy=_context_numerical_policy(context,options))
         workspace = initialize_workspace(_minimization_problem(problem), options; progress)
         workspace.iterations = prior_iterations
         workspace.refactorizations = prior_refactorizations
@@ -223,7 +230,7 @@ function _remaining_options(options::SolverOptions{T,M,R}; iterations::Int) wher
         options.primal_tolerance, options.dual_tolerance, options.zero_tolerance,
         max(0, options.iteration_limit - iterations), options.time_limit,
         options.refactorization_interval, options.verbose, options.log_level,
-        options.algorithm, options.pricing, options.scaling, options.presolve)
+        options.algorithm, options.pricing, options.scaling, options.presolve, options.simplex_strategy)
 end
 
 function _retry_original(problem::LinearProblem{T}, options::SolverOptions{T},
@@ -240,7 +247,8 @@ function _retry_original(problem::LinearProblem{T}, options::SolverOptions{T},
     stop_requested = () -> time_limit_reached(context)
     progress = SimplexProgressContext(problem; start_ns=context.start_ns,
                                      iteration_offset=previous.iterations,
-                                     diagnostics=context.diagnostics)
+                                     diagnostics=context.diagnostics,
+                                     numerical_policy=_context_numerical_policy(context,options))
     retry = if options.algorithm == :dual
         _solve_continuous_dual(retry_problem, retry_options; stop_requested, progress)
     else
@@ -366,10 +374,12 @@ function solve(problem::LinearProblem{T}; relax_integrality::Bool=false,
 end
 
 function _solve_diagnosed(problem::LinearProblem{T}, diagnostics;
-                         relax_integrality::Bool=false, options=nothing)::Solution{T} where {T<:Real}
+                         relax_integrality::Bool=false, options=nothing,
+                         numerical_policy::Union{Nothing,NumericalPolicy{T}}=nothing)::Solution{T} where {T<:Real}
     start_ns = time_ns()
     typed_options = options === nothing ? SolverOptions(T) : SolverOptions(T, options)
-    context = SolveContext(start_ns, typed_options.time_limit, diagnostics)
+    policy = isnothing(numerical_policy) ? NumericalPolicy(T,typed_options) : numerical_policy
+    context = SolveContext(start_ns, typed_options.time_limit, diagnostics, policy)
     @logmsg typed_options.log_level "Starting solve" name=problem.name algorithm=typed_options.algorithm
     _report_problem_statistics("Loaded problem", problem, typed_options)
     time_limit_reached(context) &&
@@ -416,7 +426,7 @@ function _solve_diagnosed(problem::LinearProblem{T}, diagnostics;
     # The core converts expected internal numerical failures and preserves
     # callback exception provenance. Do not add a broader catch at this layer.
     progress = SimplexProgressContext(presolved.problem; start_ns=context.start_ns, scaling,
-                                      diagnostics)
+                                      diagnostics, numerical_policy=policy)
     algorithm = typed_options.algorithm == :dual ? _solve_continuous_dual : _solve_continuous_primal
     run = algorithm(
         working_problem,

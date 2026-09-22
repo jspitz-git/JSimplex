@@ -2,6 +2,10 @@ module JSimplexReplay
 
 using JSimplex, Serialization, SHA, TOML
 
+policy_record(policy) = Dict(string(key) =>
+    (getfield(policy,key) isa Union{Bool,Integer,Float16,Float32,Float64} ?
+        getfield(policy,key) : string(getfield(policy,key))) for key in fieldnames(typeof(policy)))
+
 function serialized_hash(value)
     buffer = IOBuffer()
     serialize(buffer, value)
@@ -13,7 +17,8 @@ function save_snapshot(path, ws; original_hash::String, original_path::String=""
         basis=ws.basis, costs=ws.costs, lower=ws.lower, upper=ws.upper,
         primal=ws.primal, reduced_costs=ws.reduced_costs,
         iterations=ws.iterations, refactorizations=ws.refactorizations,
-        perturbed=ws.perturbed)
+        perturbed=ws.perturbed,
+        numerical_policy=hasproperty(ws.progress,:numerical_policy) ? ws.progress.numerical_policy : nothing)
     mkpath(dirname(abspath(path)))
     open(path, "w") do io
         serialize(io, payload)
@@ -31,6 +36,8 @@ function save_snapshot(path, ws; original_hash::String, original_path::String=""
         "replay_limit" => "Fresh-factor replay does not reproduce accumulated update-chain drift",
         "counters" => isnothing(ws.progress.diagnostics) ? Dict{String,Int}() :
             Dict(string(k) => v for (k,v) in ws.progress.diagnostics.counts))
+    isnothing(payload.numerical_policy) ||
+        (metadata["numerical_policy"] = policy_record(payload.numerical_policy))
     open(path * ".toml", "w") do io
         TOML.print(io, metadata; sorted=true)
     end
@@ -49,7 +56,13 @@ function load_snapshot(path)
         throw(ArgumentError("Working-model SHA-256 mismatch"))
     return setprecision(BigFloat, max(precision(BigFloat), metadata["precision_bits"])) do
         diagnostics = JSimplex.SimplexDiagnostics()
-        progress = JSimplex.SimplexProgressContext(payload.problem; diagnostics)
+        progress = if isdefined(JSimplex,:NumericalPolicy)
+            policy = hasproperty(payload,:numerical_policy) && !isnothing(payload.numerical_policy) ?
+                payload.numerical_policy : JSimplex.NumericalPolicy(eltype(payload.costs),payload.options)
+            JSimplex.SimplexProgressContext(payload.problem; diagnostics, numerical_policy=policy)
+        else
+            JSimplex.SimplexProgressContext(payload.problem; diagnostics)
+        end
         ws = JSimplex.initialize_workspace(payload.problem, payload.options; progress)
         ws.basis = JSimplex.Basis(payload.basis.basic_indices, payload.basis.states)
         copyto!(ws.costs, payload.costs)
@@ -84,7 +97,8 @@ function record_trace!(trace::TraceRecorder, reason, ws)
     state = (problem=ws.problem, options=ws.options, basis=ws.basis,
         factorization=ws.factorization, costs=ws.costs, lower=ws.lower, upper=ws.upper,
         primal=ws.primal, reduced_costs=ws.reduced_costs,
-        iterations=ws.iterations, refactorizations=ws.refactorizations)
+        iterations=ws.iterations, refactorizations=ws.refactorizations,
+        numerical_policy=hasproperty(ws.progress,:numerical_policy) ? ws.progress.numerical_policy : nothing)
     if Base.summarysize(state) > trace.byte_limit - trace.written
         trace.truncated = true
         return nothing
