@@ -206,7 +206,9 @@ if isfile(SIMPLEX_BENCHMARK_PATH)
                 @test result.status == JSimplex.OPTIMAL
                 @test result.objective_value == 1.0
                 replay_output = joinpath(root,"replayed.toml")
-                @test benchmark_main(["--replay=" * path,"--samples=1","--time-limit=10",
+                # The fresh worker includes compilation in its replay deadline.
+                # This is a state-restoration test, not a cold-start timing gate.
+                @test benchmark_main(["--replay=" * path,"--samples=1","--time-limit=60",
                     "--output=" * replay_output]) == 0
                 @test TOML.parsefile(replay_output)["cases"][1]["status"] == "OPTIMAL"
                 @test isdefined(JSimplexReplay, :TraceRecorder)

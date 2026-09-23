@@ -182,6 +182,7 @@ function _publish_recovery!(ws,trial,reason,stop)
     _store_basis_checkpoint!(ws,checkpoint)
     _record_recovery!(ws.progress.diagnostics,reason)
     _record_recovery!(ws.progress.diagnostics,:checkpoint)
+    _perturbation_recovered!(ws)
     return true
 end
 

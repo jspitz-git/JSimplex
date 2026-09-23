@@ -92,3 +92,19 @@ end
         JET.@test_opt target_modules=(JSimplex,) JSimplex.refactorize!(factor,B)
     end
 end
+
+@testset "JET adaptive dual perturbation kernels" begin
+    for T in (Float32,Float64,Rational{BigInt})
+        p = LinearProblem(JSimplex.sparse(ones(T,1,2)),zeros(T,2);row_lower=T[1])
+        policy = JSimplex.NumericalPolicy(T;simplex_strategy=:adaptive,stagnation_window=1)
+        w = JSimplex.initialize_workspace(p,SolverOptions(T;verbose=false);
+            progress=JSimplex.SimplexProgressContext(p;numerical_policy=policy))
+        for _ in 1:2
+            w.iterations += 1
+            JSimplex._observe_stagnation!(w,:dual,zero(T),zero(T))
+        end
+        JET.@test_opt target_modules=(JSimplex,) JSimplex._maybe_perturb_dual_costs!(w,()->false)
+        journal = JSimplex.PerturbationJournal(w)
+        JET.@test_opt target_modules=(JSimplex,) JSimplex.restore_perturbations!(w,journal)
+    end
+end

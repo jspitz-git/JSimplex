@@ -325,8 +325,13 @@ as progress, and an additive objective constant does not affect detection.
 Restoring the same basis preserves this history. In floating dual steepest-edge
 solves, a stall with remaining primal infeasibility triggers the existing Dantzig
 fallback. The legacy strategy retains its 256-consecutive-zero-step trigger.
-Adaptive behavior remains opt-in; see the [F11 validation report](diagnostics/simplex-modernization/F11.md)
-for measured overhead and coverage.
+Stalled floating dual solves can also give near-zero nonbasic reduced costs
+small deterministic margins toward dual feasibility. An owned journal limits
+escalation to three attempts and restores saved costs directly. Fixed and free
+variables are excluded; exact rational arithmetic receives no cost shifts.
+Auxiliary phases do not inherit these shifts. Original-objective cleanup shares
+the solve budget and precedes certification. Adaptive behavior remains opt-in;
+see the [F12 validation report](diagnostics/simplex-modernization/F12.md).
 
 Forrest–Tomlin maintains a sparse upper factor without row swaps during an
 update. Bartels–Golub may swap adjacent rows to choose a larger elimination

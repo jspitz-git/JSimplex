@@ -1326,6 +1326,7 @@ function _dual_after_iteration!(workspace::SimplexWorkspace{T},stop_requested,du
         end
     end
     if perturb_degenerate && _is_exact(T) === Val(false) &&
+       !_adaptive_dual_perturbation_enabled(workspace.progress.numerical_policy) &&
        workspace.zero_dual_step_streak >= 1024 &&
        primal_infeasibility(workspace) > workspace.options.primal_tolerance
         stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
@@ -1672,6 +1673,10 @@ function _dual_optimize!(workspace::SimplexWorkspace{T}, stop_requested;
         terminal = dual_iteration!(workspace, stop_requested; perturb_degenerate)
         isnothing(terminal) && _observe_stagnation!(workspace,:dual,
             workspace.scratch.last_primal_step,workspace.scratch.last_dual_step)
+        if isnothing(terminal) && perturb_degenerate &&
+           _maybe_perturb_dual_costs!(workspace,stop_requested) < 0
+            return DualTermination(TIME_LIMIT,"time limit reached before dual perturbation")
+        end
         isnothing(terminal) || return terminal
     end
 end
@@ -1703,11 +1708,11 @@ function _auxiliary_workspace(workspace::SimplexWorkspace{T}) where {T}
     scratch = SimplexScratch(T, row_count, row_count + column_count)
     auxiliary = SimplexWorkspace(
         workspace.problem, workspace.options, workspace.progress,
-        copy(workspace.costs), lower, upper,
+        copy(_auxiliary_costs_without_perturbation(workspace)), lower, upper,
         basis, copy(workspace.primal), copy(workspace.reduced_costs),
         copy(workspace.pricing_weights), copy(workspace.devex_reference),
         factorization, scratch, workspace.iterations,
-        workspace.refactorizations, workspace.perturbed,
+        workspace.refactorizations, _auxiliary_perturbed_without_journal(workspace),
         workspace.zero_dual_step_streak, workspace.dual_pricing_fallback,
         workspace.dual_devex_fallback,
         workspace.dual_refactorization_interval, workspace.dual_recent_repairs,
@@ -1716,6 +1721,7 @@ function _auxiliary_workspace(workspace::SimplexWorkspace{T}) where {T}
     )
     auxiliary.scratch.refactorization = deepcopy(workspace.scratch.refactorization)
     auxiliary.scratch.refactorization.timing_depth = 0
+    auxiliary.scratch.dual_perturbation_allowed = false
     recompute!(auxiliary)
     _simplex_event!(auxiliary, :phase_auxiliary)
     return auxiliary
@@ -1835,6 +1841,7 @@ function make_dual_feasible!(workspace::SimplexWorkspace{T}, stop_requested)::Un
 end
 
 function _make_dual_feasible!(workspace::SimplexWorkspace{T}, stop_requested) where {T}
+    _restore_active_perturbations!(workspace)
     recompute!(workspace)
     _flip_bounds!(workspace)
     _finite_workspace(workspace) || return _numerical_failure()

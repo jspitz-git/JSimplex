@@ -69,7 +69,8 @@ Use `--simplex-strategy=legacy` (default) or `adaptive` for fresh solves.
 Reports include the effective numerical policy as well as SolverOptions.
 The adaptive profile currently enables `stable_ratio`, `pivot_validation`,
 `solve_refinement`, `recovery`, `feasibility_recovery`, `incremental_primal`,
-`incremental_primal_pivots`, `adaptive_refactor`, and `adaptive_stalling`.
+`incremental_primal_pivots`, `adaptive_refactor`, `adaptive_stalling`, and
+`adaptive_dual_perturbation`.
 Set a switch to `false` in a policy file to isolate its effect.
 Disabling `solve_refinement` retains the F04 pivot-specific corrections while
 turning off broader basis-solve refinement. Disabling `pivot_validation` turns
@@ -82,6 +83,12 @@ legacy zero-step Dantzig trigger. Stagnation emits `stagnation_watch`,
 `stagnation_stalled`, and `stagnation_fallback` counters; use these alongside
 iterations and solve counts when evaluating degeneracy. Set `refactor_timing=false`
 in both arms of a diagnostic comparison to exclude clock-based refactor decisions.
+Disabling `adaptive_dual_perturbation` retains the earlier 1024-zero-step cost
+perturbation trigger. Automatic adaptive cost shifts also require
+`adaptive_stalling` and `feasibility_recovery`; disabling either dependency
+retains the earlier trigger. Compare `perturbation`, `restore_perturbations`, and
+`phase_cleanup` counters and include cleanup time in the result. Perturbation
+levels are bounded and user dual tolerances remain unchanged.
 `--policy=PATH` accepts a TOML file with internal numerical overrides:
 `solve_tolerance`, `pivot_error_tolerance`, `max_refinements`,
 `max_pivot_candidates`, `max_recovery_rounds`, `stagnation_window`,

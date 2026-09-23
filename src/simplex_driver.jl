@@ -250,7 +250,12 @@ function _run_original_objective_terminal!(ws::SimplexWorkspace{T},budget,policy
         terminal = _run_basis_terminal!(ws,budget,policy,stop;
             reduced_cost_tolerance,perturb_degenerate=perturb)
         terminal = _original_bound_terminal(ws,terminal)
-        terminal.status in (OPTIMAL,UNBOUNDED) || return terminal
+        journal = ws.scratch.perturbations
+        adaptive_proof = terminal.status == INFEASIBLE &&
+            !isnothing(journal) && journal.active
+        # A cost shift does not change primal infeasibility, but retire its
+        # working state and verify the terminal proof with the original costs.
+        (terminal.status in (OPTIMAL,UNBOUNDED) || adaptive_proof) || return terminal
         _original_costs_active(ws) && return terminal
         _restore_original_costs!(ws)
         ws.perturbed = false

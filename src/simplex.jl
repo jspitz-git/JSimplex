@@ -97,6 +97,8 @@ mutable struct SimplexScratch{T<:Real}
     stagnation::Union{Nothing,WorkspaceStagnation{T,T},WorkspaceStagnation{T,Rational{BigInt}}}
     last_primal_step::T
     last_dual_step::Union{T,Rational{BigInt}}
+    perturbations::Union{Nothing,PerturbationJournal{T}}
+    dual_perturbation_allowed::Bool
     # Private assembly storage; backends must own their factorization data.
     basis_matrix::Union{Nothing,SparseMatrixCSC{T,Int}}
     checkpoints::Vector{BasisCheckpoint{T}}
@@ -115,7 +117,7 @@ function SimplexScratch(::Type{T}, row_count::Int, variable_count::Int) where {T
         zeros(T, row_count), zeros(T, row_count), zeros(T, variable_count),
         zeros(T, variable_count), falses(variable_count), false,
         candidates, Int[], T[], T[], Int[], nothing, nothing, false, Int[], Int[], 0, 0, nothing,
-        :none, zero(T), false, false, false, :limit, RefactorizationState(T), nothing, zero(T), zero(T), nothing,
+        :none, zero(T), false, false, false, :limit, RefactorizationState(T), nothing, zero(T), zero(T), nothing, true, nothing,
         BasisCheckpoint{T}[], UInt(0), Tuple{Int,Int}[], UInt(0), false, false,
     )
 end
@@ -177,6 +179,7 @@ function reset_devex!(workspace::SimplexWorkspace{T})::Nothing where {T}
 end
 
 function _restore_original_costs!(workspace::SimplexWorkspace{T}) where {T}
+    _retire_perturbations!(workspace)
     _invalidate_basis_checkpoints!(workspace)
     column_count = size(workspace.problem.A, 2)
     copyto!(workspace.costs, 1, workspace.problem.objective, 1, column_count)

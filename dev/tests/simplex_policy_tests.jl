@@ -19,7 +19,7 @@ end
     @test parse_benchmark_args(["--simplex-strategy=adaptive"])["simplex-strategy"] == "adaptive"
     @test_throws ArgumentError parse_benchmark_args(["--simplex-strategy=unknown"])
     mktempdir() do root
-        policy = JSimplex.NumericalPolicy(Float64; max_refinements=7)
+        policy = JSimplex.NumericalPolicy(Float64; max_refinements=7,adaptive_dual_perturbation=true)
         problem = LinearProblem(JSimplex.sparse([1.0 1.0]), [1.0,2.0]; row_lower=[1.0])
         progress = JSimplex.SimplexProgressContext(problem; numerical_policy=policy)
         ws = JSimplex.initialize_workspace(problem,SolverOptions(verbose=false);progress)
@@ -27,10 +27,11 @@ end
         JSimplexReplay.save_snapshot(path,ws;original_hash=repeat("b",64))
         restored, metadata = JSimplexReplay.load_snapshot(path)
         @test restored.progress.numerical_policy.max_refinements == 7
+        @test restored.progress.numerical_policy.adaptive_dual_perturbation
         @test metadata["numerical_policy"]["max_refinements"] == 7
 
         config = joinpath(root,"policy.toml")
-        write(config,"max_refinements = 7\n")
+        write(config,"max_refinements = 7\nadaptive_dual_perturbation = false\n")
         output = joinpath(root,"report.toml")
         input = joinpath(@__DIR__,"../../test/fixtures/solver/afiro.mps")
         @test benchmark_main(["--file="*input,"--samples=1","--algorithm=dual",
@@ -43,6 +44,7 @@ end
         @test result["numerical_policy_dual"]["pivot_validation"]
         @test result["numerical_policy_dual"]["solve_refinement"]
         @test result["numerical_policy_dual"]["recovery"]
+        @test !result["numerical_policy_dual"]["adaptive_dual_perturbation"]
         @test only(result["samples"])["status"] == "OPTIMAL"
         write(config,"unknown_switch = true\n")
         @test benchmark_main(["--policy="*config,"--output="*output]) == 1

@@ -61,7 +61,7 @@ end
 **Files:** Create: src/simplex_perturbation.jl, test/simplex_perturbation_tests.jl. Modify: src/dual_simplex.jl, src/simplex.jl, src/simplex_driver.jl, src/JSimplex.jl.
 **Interfaces:** `PerturbationJournal{T}` owns the original and active working costs/bounds, not a reference into the input model. `perturb_dual_costs!(ws, monitor, journal, policy)::Int`; `restore_perturbations!(ws, journal)::Nothing`. F13 extends the same journal to bounds.
 
-- [ ] Test that restore returns the bit-identical original working costs and does not affect the model; do not use subtraction of the previous perturbation as the inverse:
+- [x] Test that restore returns the bit-identical original working costs and does not affect the model; do not use subtraction of the previous perturbation as the inverse:
 
 ~~~text
 snapshot := copy(ws.problem.objective), copy(ws.costs)
@@ -72,10 +72,10 @@ restore_perturbations!(...)
 assert ws.costs equals snapshot bitwise
 ~~~
 
-- [ ] In response to F11, apply a deterministic index-based shift of nonbasic costs toward the interior of the dual-feasible side. Derive the amplitude from the dual tolerance and local scale; cap it and check representability and resulting feasibility. Handle fixed and free variables explicitly; a free variable has no one-sided cone and must not receive an uncontrolled shift.
-- [ ] After another stagnating window, increase the perturbation through only a bounded number of levels, with a cooldown after recovery. Do not propagate shifts into the original auxiliary dual phase without a new analysis of the mapping.
-- [ ] Test upper/lower/free states, a very large cost, a subnormal value, and `Rational{BigInt}`, for which nothing is shifted. Restoring original costs proceeds through F07 for cleanup and original-model certification.
-- [ ] Run the full suite, pk1, and independent degenerate cases, with an ablation comparison without and with perturbation. Commit: `feat: adapt dual cost perturbations to stagnation`.
+- [x] In response to F11, apply a deterministic index-based shift of nonbasic costs toward the interior of the dual-feasible side. Derive the amplitude from the dual tolerance and local scale; cap it and check representability and resulting feasibility. Handle fixed and free variables explicitly; a free variable has no one-sided cone and must not receive an uncontrolled shift.
+- [x] After another stagnating window, increase the perturbation through only a bounded number of levels, with a cooldown after recovery. Do not propagate shifts into the original auxiliary dual phase without a new analysis of the mapping.
+- [x] Test upper/lower/free states, a very large cost, a subnormal value, and `Rational{BigInt}`, for which nothing is shifted. Restoring original costs proceeds through F07 for cleanup and original-model certification.
+- [x] Run the full suite, pk1, and independent degenerate cases, with an ablation comparison without and with perturbation. Commit: `feat: adapt dual cost perturbations to stagnation`.
 
 ### F13: Reversible Primal Bound Perturbation
 
