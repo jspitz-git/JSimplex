@@ -82,9 +82,9 @@ assert ws.costs equals snapshot bitwise
 **Files:** Modify: src/simplex_perturbation.jl, src/primal_simplex.jl, src/simplex_driver.jl, src/simplex.jl. Extend: test/simplex_perturbation_tests.jl.
 **Interfaces:** `perturb_primal_bounds!(ws, monitor, journal, policy)::Int`; `restore_perturbations!` from F12 also restores bounds. The input `LinearProblem` and presolve metadata remain untouched.
 
-- [ ] For a stalled basic variable at its lower bound, verify a small decrease in the working lower bound; at its upper bound, verify a small increase. After restore, both values and boundedness flags must match. Test a fixed variable, which the first version does not shift at all.
-- [ ] Use a directional expansion that preserves current primal feasibility. The amplitude respects the local scale and primal tolerance, does not change the bound type, and must not introduce `lower>upper`. Skip free and fixed variables; preserve index-based determinism.
-- [ ] After reaching a candidate optimum, remove perturbations and hand the original state to F07:
+- [x] For a stalled basic variable at its lower bound, verify a small decrease in the working lower bound; at its upper bound, verify a small increase. After restore, both values and boundedness flags must match. Test a fixed variable, which the first version does not shift at all.
+- [x] Use a directional expansion that preserves current primal feasibility. The amplitude respects the local scale and primal tolerance, does not change the bound type, and must not introduce `lower>upper`. Skip free and fixed variables; preserve index-based determinism.
+- [x] After reaching a candidate optimum, remove perturbations and hand the original state to F07:
 
 ~~~text
 restore original working bounds and costs from journal
@@ -93,8 +93,8 @@ run_from_basis! with same remaining budget
 certify only the original problem
 ~~~
 
-- [ ] Test a problem that is optimal at shifted bounds but still infeasible at the original bounds, a deadline during cleanup, postsolve, and the exact branch. Add a cycling/degenerate primal example and validate the complete resulting LP, not only the step count.
-- [ ] Run the full suite and a degeneracy benchmark for both methods, with perturbation removal included in the timing. Commit: `feat: recover degenerate primal paths with bound perturbations`.
+- [x] Test a problem that is optimal at shifted bounds but still infeasible at the original bounds, a deadline during cleanup, postsolve, and the exact branch. Add a cycling/degenerate primal example and validate the complete resulting LP, not only the step count.
+- [x] Run the full suite and a degeneracy benchmark for both methods, with perturbation removal included in the timing. Commit: `feat: recover degenerate primal paths with bound perturbations`.
 
 ### F14: Automatic Pricing and Weight Recovery
 

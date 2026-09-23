@@ -109,7 +109,7 @@ implementation in parallel.
 | [x] | F10 Shared adaptive refactorization | F09 | `feat: schedule basis refactorization by quality and cost` |
 | [x] | F11 Stagnation detection | F07 | `feat: detect scaled simplex stagnation` |
 | [x] | F12 Adaptive dual cost perturbations | F11 | `feat: adapt dual cost perturbations to stagnation` |
-| [ ] | F13 Reversible primal bound perturbations | F09, F12 | `feat: recover degenerate primal paths with bound perturbations` |
+| [x] | F13 Reversible primal bound perturbations | F09, F12 | `feat: recover degenerate primal paths with bound perturbations` |
 | [ ] | F14 Automatic pricing and weight recovery | F11, F13 | `feat: adapt simplex pricing using reliable edge weights` |
 | [ ] | F15 Partial pricing | F14 | `feat: add partial simplex pricing with full-scan certification` |
 | [ ] | F16 Indexed vectors and sparse pricing | F15 | `feat: add indexed simplex vectors and sparse pricing` |

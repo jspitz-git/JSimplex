@@ -108,3 +108,20 @@ end
         JET.@test_opt target_modules=(JSimplex,) JSimplex.restore_perturbations!(w,journal)
     end
 end
+
+@testset "JET adaptive primal bound perturbation kernels" begin
+    for T in (Float32,Float64,Rational{BigInt})
+        p=LinearProblem(JSimplex.sparse(T[1 -1]),T[-1,0];row_upper=T[0])
+        policy=JSimplex.NumericalPolicy(T;simplex_strategy=:adaptive,stagnation_window=1)
+        w=JSimplex.initialize_workspace(p,SolverOptions(T;algorithm=:primal,verbose=false);
+            progress=JSimplex.SimplexProgressContext(p;numerical_policy=policy))
+        for _ in 1:2
+            w.iterations+=1
+            JSimplex._observe_stagnation!(w,:primal,zero(T),zero(T))
+        end
+        JET.@test_opt target_modules=(JSimplex,) JSimplex._maybe_perturb_primal_bounds!(w,()->false)
+        journal=JSimplex.PerturbationJournal(w)
+        journal.bounds=JSimplex.BoundPerturbationState(w)
+        JET.@test_opt target_modules=(JSimplex,) JSimplex.restore_perturbations!(w,journal)
+    end
+end

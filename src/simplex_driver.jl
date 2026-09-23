@@ -88,7 +88,8 @@ end
 function _run_basis_terminal!(ws::SimplexWorkspace{T},budget::SimplexRunBudget,
                               policy::NumericalPolicy{T},stop;
                               reduced_cost_tolerance::T=ws.options.dual_tolerance,
-                              perturb_degenerate::Bool=true)::DualTermination where T
+                              perturb_degenerate::Bool=true,
+                              perturb_primal::Bool=true)::DualTermination where T
     _install_driver_policy!(ws,policy;start_ns=budget.start_ns)
     # A new workspace inherits consumed work rather than receiving a fresh
     # iteration allowance. Offsets belong to the outer retry, not to phases.
@@ -113,7 +114,8 @@ function _run_basis_terminal!(ws::SimplexWorkspace{T},budget::SimplexRunBudget,
     try
         if !policy.feasibility_recovery
             return ws.options.algorithm == :dual ? _dual_optimize!(ws,guarded;perturb_degenerate) :
-                _primal_optimize!(ws,guarded,reduced_cost_tolerance)
+                _primal_optimize!(ws,guarded,reduced_cost_tolerance;
+                    perturb_degenerate=perturb_primal)
         end
         while true
             guarded() && return DualTermination(TIME_LIMIT,"time limit reached during feasibility recovery")
@@ -138,7 +140,8 @@ function _run_basis_terminal!(ws::SimplexWorkspace{T},budget::SimplexRunBudget,
                         make_dual_feasible!(ws,guarded)
                     elseif mode == :primal
                         _simplex_event!(ws,:phase_primal)
-                        _primal_optimize!(ws,guarded,reduced_cost_tolerance)
+                        _primal_optimize!(ws,guarded,reduced_cost_tolerance;
+                            perturb_degenerate=perturb_primal)
                     else
                         _simplex_event!(ws,:phase_dual)
                         _dual_optimize!(ws,guarded;perturb_degenerate)
@@ -233,8 +236,8 @@ end
 
 function _original_bound_terminal(ws,terminal::DualTermination)
     if terminal.status in (INFEASIBLE,UNBOUNDED) && !_original_bounds_active(ws)
-        # Bound perturbation restoration belongs to F13. Until then, a proof
-        # for altered working bounds must not certify the original model.
+        # Only an owned journal can restore altered working bounds. A proof
+        # for unrelated bound changes must not certify the original model.
         return DualTermination(NUMERICAL_ERROR,"terminal proof uses altered working bounds")
     end
     return terminal
@@ -247,8 +250,19 @@ function _run_original_objective_terminal!(ws::SimplexWorkspace{T},budget,policy
     for cleanup in 0:2
         perturb = cleanup == 0 && ws.options.algorithm == :dual &&
             !iszero(reduced_cost_tolerance)
+        perturb_primal = cleanup == 0 && ws.options.algorithm == :primal &&
+            !iszero(reduced_cost_tolerance)
         terminal = _run_basis_terminal!(ws,budget,policy,stop;
-            reduced_cost_tolerance,perturb_degenerate=perturb)
+            reduced_cost_tolerance,perturb_degenerate=perturb,perturb_primal)
+        if terminal.status in (OPTIMAL,INFEASIBLE,UNBOUNDED) &&
+           _has_active_bound_perturbations(ws.scratch.perturbations)
+            # Expanded-bound feasibility or a terminal proof must be checked
+            # again after restoring the original LP, within this same budget.
+            _restore_original_costs!(ws)
+            ws.perturbed = false
+            _simplex_event!(ws,:phase_cleanup)
+            continue
+        end
         terminal = _original_bound_terminal(ws,terminal)
         journal = ws.scratch.perturbations
         adaptive_proof = terminal.status == INFEASIBLE &&

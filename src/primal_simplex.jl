@@ -522,7 +522,8 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
 end
 
 function _primal_optimize!(workspace::SimplexWorkspace{T}, stop_requested,
-                           reduced_cost_tolerance::T=workspace.options.dual_tolerance) where {T}
+                           reduced_cost_tolerance::T=workspace.options.dual_tolerance;
+                           perturb_degenerate::Bool=true) where {T}
     while true
         stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
         _finite_workspace(workspace) || return _numerical_failure()
@@ -531,6 +532,10 @@ function _primal_optimize!(workspace::SimplexWorkspace{T}, stop_requested,
         terminal = _primal_iteration!(workspace, stop_requested, reduced_cost_tolerance)
         isnothing(terminal) && _observe_stagnation!(workspace,:primal,
             workspace.scratch.last_primal_step,workspace.scratch.last_dual_step)
+        if isnothing(terminal) && perturb_degenerate &&
+           _maybe_perturb_primal_bounds!(workspace,stop_requested) < 0
+            return DualTermination(TIME_LIMIT,"time limit reached before primal perturbation")
+        end
         isnothing(terminal) || return terminal
     end
 end
@@ -632,6 +637,7 @@ function _primal_phase_one(problem::LinearProblem{T}, options::SolverOptions{T},
         problem.name, String[], String[],
     )
     workspace = initialize_workspace(phase_problem, options; progress)
+    workspace.scratch.primal_perturbation_allowed = false
     for artificial in 1:artificial_count
         row = artificial_rows[artificial]
         row_variable = column_count + artificial_count + row
@@ -720,6 +726,7 @@ function _solve_continuous_primal(problem::LinearProblem{T}, options::SolverOpti
             end
             workspace.problem.objective[1:column_count] .= problem.objective
             _restore_original_costs!(workspace)
+            workspace.scratch.primal_perturbation_allowed = true
             policy.feasibility_recovery || recompute!(workspace)
             _simplex_event!(workspace, :phase_primal)
             terminal = policy.feasibility_recovery ?

@@ -1722,6 +1722,7 @@ function _auxiliary_workspace(workspace::SimplexWorkspace{T}) where {T}
     auxiliary.scratch.refactorization = deepcopy(workspace.scratch.refactorization)
     auxiliary.scratch.refactorization.timing_depth = 0
     auxiliary.scratch.dual_perturbation_allowed = false
+    auxiliary.scratch.primal_perturbation_allowed = false
     recompute!(auxiliary)
     _simplex_event!(auxiliary, :phase_auxiliary)
     return auxiliary
@@ -1736,6 +1737,7 @@ function _classify_recession!(workspace::SimplexWorkspace{T}, stop_requested) wh
         progress=workspace.progress,
     )
     feasibility.iterations = workspace.iterations
+    feasibility.scratch.primal_perturbation_allowed = false
     feasibility.refactorizations = workspace.refactorizations
     fill!(feasibility.costs, zero(T))
     recompute!(feasibility)
@@ -1976,7 +1978,7 @@ function _solve_continuous_dual!(workspace::SimplexWorkspace{T}, stop_requested)
        primal_infeasibility(workspace) <= options.primal_tolerance
         options.verbose && @info "Starting primal cleanup after restoring original costs"
         workspace.dual_devex_fallback = false
-        terminal = _primal_optimize!(workspace, stop_requested)
+        terminal = _primal_optimize!(workspace, stop_requested;perturb_degenerate=false)
         terminal.status == OPTIMAL || return _internal_solution(workspace, terminal)
     end
     stop_requested() && return _internal_solution(workspace, TIME_LIMIT, "time limit reached")

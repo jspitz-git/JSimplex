@@ -70,7 +70,7 @@ Reports include the effective numerical policy as well as SolverOptions.
 The adaptive profile currently enables `stable_ratio`, `pivot_validation`,
 `solve_refinement`, `recovery`, `feasibility_recovery`, `incremental_primal`,
 `incremental_primal_pivots`, `adaptive_refactor`, `adaptive_stalling`, and
-`adaptive_dual_perturbation`.
+`adaptive_dual_perturbation`, and `adaptive_primal_perturbation`.
 Set a switch to `false` in a policy file to isolate its effect.
 Disabling `solve_refinement` retains the F04 pivot-specific corrections while
 turning off broader basis-solve refinement. Disabling `pivot_validation` turns
@@ -89,6 +89,12 @@ perturbation trigger. Automatic adaptive cost shifts also require
 retains the earlier trigger. Compare `perturbation`, `restore_perturbations`, and
 `phase_cleanup` counters and include cleanup time in the result. Perturbation
 levels are bounded and user dual tolerances remain unchanged.
+`adaptive_primal_perturbation=false` disables outward basic-bound shifts. The
+primal action also requires the progress monitor and feasibility recovery;
+phase I and objective cleanup never apply it. Compare the same perturbation,
+restoration, and cleanup counters, and include restoration in timings. Basic
+bounds have their own escalation history within the shared journal. Exact
+arithmetic receives neither primal bound shifts nor dual cost shifts.
 `--policy=PATH` accepts a TOML file with internal numerical overrides:
 `solve_tolerance`, `pivot_error_tolerance`, `max_refinements`,
 `max_pivot_candidates`, `max_recovery_rounds`, `stagnation_window`,

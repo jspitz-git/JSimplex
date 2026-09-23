@@ -14,6 +14,8 @@ using Test
     include("simplex_stalling_edge_tests.jl")
     include("simplex_perturbation_tests.jl")
     include("simplex_perturbation_integration_tests.jl")
+    include("primal_perturbation_tests.jl")
+    include("primal_perturbation_integration_tests.jl")
     include("model_tests.jl")
     include("transformations_tests.jl")
     include("relaxation_allocation_tests.jl")

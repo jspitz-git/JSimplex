@@ -330,8 +330,15 @@ small deterministic margins toward dual feasibility. An owned journal limits
 escalation to three attempts and restores saved costs directly. Fixed and free
 variables are excluded; exact rational arithmetic receives no cost shifts.
 Auxiliary phases do not inherit these shifts. Original-objective cleanup shares
-the solve budget and precedes certification. Adaptive behavior remains opt-in;
-see the [F12 validation report](diagnostics/simplex-modernization/F12.md).
+the solve budget and precedes certification. Adaptive behavior remains opt-in.
+
+Stalled primal solves can also expand near-active basic bounds outward. These
+shifts have separate bounded escalation within the same journal. Fixed and free
+variables retain their bounds.
+Phase I, auxiliary work, and final cleanup disable bound perturbation. Before
+accepting a result, the driver restores original bounds and recomputes
+feasibility within the same solve budget. See the
+[F13 validation report](diagnostics/simplex-modernization/F13.md).
 
 Forrest–Tomlin maintains a sparse upper factor without row swaps during an
 update. Bartels–Golub may swap adjacent rows to choose a larger elimination
