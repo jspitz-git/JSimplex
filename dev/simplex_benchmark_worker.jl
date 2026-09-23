@@ -4,6 +4,7 @@ include("simplex_benchmarks.jl")
 using .JSimplexBenchmarks
 using JSimplex
 include("simplex_replay.jl")
+include("simplex_sparse_components.jl")
 
 function benchmark_solve(problem, options, diagnostics, ::Nothing)
     return isnothing(diagnostics) ? solve(problem;relax_integrality=true,options) :
@@ -122,6 +123,8 @@ function worker_main(job_path)
         if options["mode"] == "stress"
             result["outcome"] = "completed_parse"
             if options["stress-operation"] == "components"
+                stage = "components"
+                result["stage"] = stage
                 # A tractable extracted block has a distinct identity; it is not
                 # an LP solve or a basis factorization of the original model.
                 rows, columns = min(size(problem.A, 1), 256), min(size(problem.A, 2), 256)
@@ -137,6 +140,10 @@ function worker_main(job_path)
                 result["component_rows"], result["component_columns"] = size(block)
                 result["component_nonzeros"] = length(block.nzval)
                 result["component_operation"] = "transpose matrix-vector pricing"
+                if isdefined(JSimplex,:RowAccess)
+                    result["sparse_pricing"] = JSimplexSparseComponents.probe(block)
+                    result["component_operation"] = "row indexing, sparse pricing, and support cancellation"
+                end
                 result["outcome"] = "component_completed"
             end
             JSimplexBenchmarks.write_report(job["result_path"], result)
@@ -288,7 +295,8 @@ function worker_main(job_path)
         exception isa InterruptException && rethrow()
         result["outcome"] = exception isa Union{JSimplexBenchmarks.BenchmarkResourceLimit,OutOfMemoryError} ?
             "resource_stop" : stage == "solve" ? "worker_error" :
-            stage == "reader" && options["mode"] == "stress" ? "reader_error" : "input_error"
+            stage == "reader" && options["mode"] == "stress" ? "reader_error" :
+            stage == "components" ? "component_error" : "input_error"
         result["error"] = sprint(showerror, exception)
     end
     JSimplexBenchmarks.write_report(job["result_path"], result)

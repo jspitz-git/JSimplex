@@ -197,3 +197,5 @@ include("refactorization_policy_tests.jl")
 include("basis_recovery_tests.jl")
 include("simplex_driver_tests.jl")
 include("primal_update_benchmark_tests.jl")
+
+include("sparse_component_tests.jl")

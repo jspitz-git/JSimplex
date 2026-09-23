@@ -72,6 +72,7 @@ end
 function _copy_pivot_state!(destination,source)
     _copy_pricing_state!(destination,source)
     _copy_pricing_pool!(destination,source)
+    _copy_sparse_pricing_cache!(destination,source)
     copyto!(destination.costs,source.costs)
     copyto!(destination.lower,source.lower)
     copyto!(destination.upper,source.upper)

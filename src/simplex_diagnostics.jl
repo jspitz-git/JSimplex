@@ -28,8 +28,8 @@ function SimplexDiagnostics(; observer=nothing, kernel_timing::Bool=false)
     sizehint!(events, 64)
     return SimplexDiagnostics(Dict(reason => 0 for reason in SIMPLEX_EVENT_REASONS),
         events, 1, observer, kernel_timing,
-        Dict(key => 0 for key in (:ftran, :btran, :pricing, :refactorization)),
-        Dict(key => UInt64(0) for key in (:ftran, :btran, :pricing, :refactorization)))
+        Dict(key => 0 for key in (:ftran, :btran, :pricing, :row_index, :refactorization)),
+        Dict(key => UInt64(0) for key in (:ftran, :btran, :pricing, :row_index, :refactorization)))
 end
 
 @inline _diagnostic_kernel(f, ::Nothing, reason::Symbol) = f()

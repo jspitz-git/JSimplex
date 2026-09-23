@@ -424,7 +424,18 @@ end
 
 function price!(tableau_row::Vector{T}, workspace::SimplexWorkspace{T},
                 rho::Vector{T})::Nothing where {T}
-    A = workspace.problem.A
+    workspace.progress.numerical_policy.sparse_pricing &&
+        return _sparse_workspace_price!(tableau_row,workspace,rho)
+    return _csc_price!(tableau_row,workspace.problem.A,rho)
+end
+
+sparse_price!(out::IndexedVector{T},ws::SimplexWorkspace{T},rho::IndexedVector{T},
+              rows::RowAccess{T};kwargs...) where {T<:Real} =
+    sparse_price!(out,ws.problem.A,rho,rows;kwargs...)
+
+# Independent CSC reference and dense fallback retain their original arithmetic.
+function _csc_price!(tableau_row::Vector{T}, A::SparseMatrixCSC{T,Int},
+                     rho::Vector{T})::Nothing where {T}
     row_count, column_count = size(A)
     for column in 1:column_count
         value = zero(T)

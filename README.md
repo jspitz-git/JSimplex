@@ -361,6 +361,14 @@ retain full pricing. The internal `partial_pricing=false` benchmark policy
 isolates this feature. See the
 [F15 validation report](diagnostics/simplex-modernization/F15.md).
 
+Experimental row-based pricing is available through the internal
+`sparse_pricing=true` benchmark policy. It uses owned indexed vectors, omits
+exact zeros only, and builds a local row index for each unchanged working phase.
+It is disabled by default in both strategies. The existing dense solve/update
+pipeline and CSC fallback remain available; automatic sparse-kernel selection
+is a later stage. See the
+[F16 validation report](diagnostics/simplex-modernization/F16.md).
+
 Forrest–Tomlin maintains a sparse upper factor without row swaps during an
 update. Bartels–Golub may swap adjacent rows to choose a larger elimination
 pivot. Suhl–Suhl moves the leaving row and column only to the last nonzero

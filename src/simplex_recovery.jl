@@ -54,6 +54,7 @@ function checkpoint_basis(ws::SimplexWorkspace{T})::BasisCheckpoint{T} where T
 end
 
 function _invalidate_basis_checkpoints!(ws)
+    _invalidate_sparse_pricing_scratch!(ws.scratch)
     _invalidate_pricing_pool!(ws)
     empty!(ws.scratch.checkpoints)
     empty!(ws.scratch.recovery_rejections)

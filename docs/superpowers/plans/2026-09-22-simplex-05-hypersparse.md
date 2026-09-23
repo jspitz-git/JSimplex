@@ -39,7 +39,7 @@
 **Files:** Create: src/indexed_vector.jl, src/sparse_pricing.jl, test/indexed_vector_tests.jl, test/sparse_pricing_tests.jl. Modify: src/simplex.jl, src/dual_simplex.jl, src/primal_simplex.jl, src/JSimplex.jl.
 **Interfaces:** IndexedVector{T}(n) owns values::Vector{T}, indices::Vector{Int}, membership, and generation. add_entry!(v, i, value), clear!(v), compact_support!(v), dense_values(v). RowAccess is immutable row indexing for the working A. sparse_price!(out, ws, rho, row_access) matches rhoᵀ[A,-I].
 
-- [ ] Pin down cancellation and reinsertion:
+- [x] Pin down cancellation and reinsertion:
 
 ~~~julia
 v = JSimplex.IndexedVector{Float64}(4)
@@ -52,11 +52,11 @@ JSimplex.add_entry!(v, 3, 1.0)
 @test JSimplex.dense_values(v) == [0.0, 0.0, 1.0, 0.0]
 ~~~
 
-- [ ] The first version omits exact zeros only; do not drop small values by tolerance. Handle duplicate contributions, signed zero, empty support, and overflow. The dense buffer is owned, and support is not borrowed from another concurrently live solve.
-- [ ] Row-based pricing accumulates contributions only from nonzero rho entries; the slack part is -rho. The test A=[1 2;3 4], rho=[0,2] must produce [6,8,0,-2]. The CSC baseline is an independent reference; compare floating-point results against a residual bound and exact results by equality.
-- [ ] Build RowAccess once for an immutable working model, then invalidate it after a presolve transformation, phase change, dimension change, or precision transfer. Do not use a global cache keyed by A identity.
-- [ ] Add opt-in stress tests over the external corpora for bounded parsing, RowAccess construction, sparse pricing, memory, and cancellation-heavy support handling. For `big.mps`, `largo.mps`, and `AnyMOD.mps`, stop after bounded component checks and never invoke full-sized factorization or a complete simplex solve.
-- [ ] Run targeted tests for every type, the full suite, and measurements for sparse and dense rho, including index-construction cost on a short solve. Commit: feat: add indexed simplex vectors and sparse pricing.
+- [x] The first version omits exact zeros only; do not drop small values by tolerance. Handle duplicate contributions, signed zero, empty support, and overflow. The dense buffer is owned, and support is not borrowed from another concurrently live solve.
+- [x] Row-based pricing accumulates contributions only from nonzero rho entries; the slack part is -rho. The test A=[1 2;3 4], rho=[0,2] must produce [6,8,0,-2]. The CSC baseline is an independent reference; compare floating-point results against a residual bound and exact results by equality.
+- [x] Build RowAccess once for an immutable working model, then invalidate it after a presolve transformation, phase change, dimension change, or precision transfer. Do not use a global cache keyed by A identity.
+- [x] Add opt-in stress tests over the external corpora for bounded parsing, RowAccess construction, sparse pricing, memory, and cancellation-heavy support handling. For `big.mps`, `largo.mps`, and `AnyMOD.mps`, stop after bounded component checks and never invoke full-sized factorization or a complete simplex solve.
+- [x] Run targeted tests for every type, the full suite, and measurements for sparse and dense rho, including index-construction cost on a short solve. Commit: feat: add indexed simplex vectors and sparse pricing.
 
 ### F17: Hypersparse Basis LU Solves
 

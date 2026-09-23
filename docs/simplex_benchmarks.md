@@ -123,6 +123,19 @@ iterations, and refactorizations; fewer scanned entries alone do not prove a
 faster complete solve. These counters cover candidate selection; feasibility
 checks, weight validation, and updates may still scan full vectors.
 
+For F16 component/solver ablations, use `sparse_pricing=false` versus `true`;
+this switch is disabled by default in both strategies. Kernel diagnostics add
+`row_index` for lazy row-index construction inside pricing. Its time overlaps
+`pricing`, so do not add the two. The complete short-solve timing includes index
+construction, support discovery, and copying the output into dense consumers.
+Run `julia --project=dev dev/sparse_pricing_benchmarks.jl /tmp/sparse-pricing.toml`
+for the fixed generated sparse/dense-RHS component comparison.
+
+Stress `--stress-operation=components` additionally checks indexed row pricing
+on the bounded extracted block and cancellation/reinsertion. It constructs no
+simplex workspace or basis factorization. Reports distinguish `component_error`
+from `reader_error`; index/scratch storage counts describe active arrays.
+
 Snapshots retain the effective policy. Replay uses its stored strategy and
 can apply `--policy` overrides to that working policy; `--simplex-strategy=adaptive`
 is a fresh-solve option and is rejected with replay. Old source snapshots that

@@ -97,6 +97,7 @@ mutable struct SimplexScratch{T<:Real}
     stagnation::Union{Nothing,WorkspaceStagnation{T,T},WorkspaceStagnation{T,Rational{BigInt}}}
     pricing::Union{Nothing,PricingState{T}}
     pricing_pool::Union{Nothing,CandidatePool}
+    sparse_pricing::Union{Nothing,SparsePricingWorkspace{T}}
     last_primal_step::T
     last_dual_step::Union{T,Rational{BigInt}}
     perturbations::Union{Nothing,PerturbationJournal{T}}
@@ -120,7 +121,7 @@ function SimplexScratch(::Type{T}, row_count::Int, variable_count::Int) where {T
         zeros(T, row_count), zeros(T, row_count), zeros(T, variable_count),
         zeros(T, variable_count), falses(variable_count), false,
         candidates, Int[], T[], T[], Int[], nothing, nothing, false, Int[], Int[], 0, 0, nothing,
-        :none, zero(T), false, false, false, :limit, RefactorizationState(T), nothing, nothing, nothing, zero(T), zero(T), nothing, true, true, nothing,
+        :none, zero(T), false, false, false, :limit, RefactorizationState(T), nothing, nothing, nothing, nothing, zero(T), zero(T), nothing, true, true, nothing,
         BasisCheckpoint{T}[], UInt(0), Tuple{Int,Int}[], UInt(0), false, false,
     )
 end

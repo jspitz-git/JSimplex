@@ -54,7 +54,7 @@ const POLICY_KEYS = (
     "max_pivot_candidates", "max_recovery_rounds", "stagnation_window",
     "max_precision_bits", "max_lp_refinements", "stable_ratio", "pivot_validation", "solve_refinement", "recovery", "feasibility_recovery",
     "incremental_primal", "incremental_primal_pivots", "adaptive_refactor", "refactor_timing", "adaptive_stalling", "adaptive_dual_perturbation", "adaptive_primal_perturbation",
-    "adaptive_pricing", "partial_pricing", "hypersparse", "crash", "phase_one",
+    "adaptive_pricing", "partial_pricing", "sparse_pricing", "hypersparse", "crash", "phase_one",
     "precision_boosting", "lp_refinement",
 )
 
@@ -444,7 +444,7 @@ function benchmark_main(args=ARGS; err=stderr, manifest_path=joinpath(@__DIR__, 
         report["source"] = source_identity(options["source"])
         report["variant"] = options["simplex-strategy"] * "_diagnostics_" * options["diagnostics"]
         report["runner_sha256"] = Dict(name => bytes2hex(open(sha256,joinpath(@__DIR__,name)))
-            for name in ("simplex_benchmarks.jl","simplex_benchmark_worker.jl","simplex_replay.jl"))
+            for name in ("simplex_benchmarks.jl","simplex_benchmark_worker.jl","simplex_replay.jl","simplex_sparse_components.jl"))
         report["inventory"] = corpus_inventory(options)
         policy = isempty(options["policy"]) ? Dict{String,Any}() : TOML.parsefile(options["policy"])
         all(key in POLICY_KEYS for key in keys(policy)) || throw(ArgumentError("Unknown numerical policy key"))

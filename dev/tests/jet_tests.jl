@@ -163,3 +163,23 @@ end
         JET.@test_opt target_modules=(JSimplex,) JSimplex._copy_pricing_pool!(destination,ws)
     end
 end
+
+@testset "JET indexed sparse pricing kernels" begin
+    for T in (Float32,Float64,Rational{BigInt})
+        A = JSimplex.sparse(T[1 2;3 4])
+        rows = JSimplex.RowAccess(A)
+        rho,out = JSimplex.IndexedVector{T}(2),JSimplex.IndexedVector{T}(4)
+        JSimplex.add_entry!(rho,2,T(2))
+        ordered = Int[]
+        JET.@test_opt target_modules=(JSimplex,) JSimplex.add_entry!(rho,1,one(T))
+        JET.@test_opt target_modules=(JSimplex,) JSimplex.clear!(rho)
+        JET.@test_opt target_modules=(JSimplex,) JSimplex.sparse_price!(out,A,rho,rows;ordered_rows=ordered)
+        problem = LinearProblem(A,T[1,3];row_lower=T[1,2])
+        policy = JSimplex.NumericalPolicy(T;sparse_pricing=true)
+        ws = JSimplex.initialize_workspace(problem,SolverOptions(T;verbose=false);
+            progress=JSimplex.SimplexProgressContext(problem;numerical_policy=policy))
+        JET.@test_opt target_modules=(JSimplex,) JSimplex.price!(zeros(T,4),ws,T[0,2])
+        candidate = JSimplex._candidate_workspace(ws)
+        JET.@test_opt target_modules=(JSimplex,) JSimplex._copy_sparse_pricing_cache!(candidate,ws)
+    end
+end
