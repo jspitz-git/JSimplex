@@ -318,13 +318,23 @@ pivot-quality limits. The strategy survives scalar conversions and retries.
 MOI `empty!` preserves it like other optimizer attributes; a newly constructed
 optimizer starts with `:legacy`.
 
+The adaptive profile also monitors scaled working-objective and feasibility
+progress. Two consecutive windows without significant improvement mark a stall;
+the default window is 64 completed steps. Tiny nonzero steps alone do not count
+as progress, and an additive objective constant does not affect detection.
+Restoring the same basis preserves this history. In floating dual steepest-edge
+solves, a stall with remaining primal infeasibility triggers the existing Dantzig
+fallback. The legacy strategy retains its 256-consecutive-zero-step trigger.
+Adaptive behavior remains opt-in; see the [F11 validation report](diagnostics/simplex-modernization/F11.md)
+for measured overhead and coverage.
+
 Forrest–Tomlin maintains a sparse upper factor without row swaps during an
 update. Bartels–Golub may swap adjacent rows to choose a larger elimination
 pivot. Suhl–Suhl moves the leaving row and column only to the last nonzero
 position of the entering spike, reducing fill when the spike ends early. All
 three triangular methods reuse solve buffers and store updated factors in
 packed sparse columns. The `refactorization_interval` applies to all four
-update methods. When two updated dual basis solves fail residual checks within
+update methods. Under `:legacy`, when two updated dual basis solves fail residual checks within
 three clean factorization cycles, dual simplex shortens its effective interval
 to half the earliest failed update count, with a minimum of one. Each clean
 cycle doubles a shortened interval back toward its configured value. Three
@@ -341,7 +351,7 @@ checked against the norm of its current basis transpose solve. If the weights
 differ by more than a factor of two, or a weight becomes invalid, pricing
 switches to a fresh Devex reference. A mismatch found before the ratio test
 reselects the row. This uses the row solve already needed for the pivot. The
-zero-step Dantzig fallback remains available after a Devex switch. Explicit
+Dantzig fallback remains available after a Devex switch. Explicit
 `:devex` and `:dantzig` settings do not use this switch.
 
 If floating dual simplex makes 1024 consecutive zero dual steps while the LP

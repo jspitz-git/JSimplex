@@ -90,6 +90,10 @@ function _copy_pivot_state!(destination,source)
     destination.dual_stable_refactorizations = source.dual_stable_refactorizations
     destination.dual_nonzero_steps_since_refactorization = source.dual_nonzero_steps_since_refactorization
     destination.scratch.refactorization = source.scratch.refactorization
+    destination.scratch.last_primal_step = source.scratch.last_primal_step
+    destination.scratch.last_dual_step = source.scratch.last_dual_step
+    # Progress history belongs to the live phase, not a speculative candidate
+    # or a restored factor. Only completed optimize-loop steps advance it.
     copyto!(destination.scratch.basic_mask,source.scratch.basic_mask)
     copyto!(destination.scratch.steepest_valid,source.scratch.steepest_valid)
     copyto!(destination.scratch.row_rhs,source.scratch.row_rhs)

@@ -94,6 +94,9 @@ mutable struct SimplexScratch{T<:Real}
     post_refactorize::Bool
     post_refactor_reason::Symbol
     refactorization::RefactorizationState{T}
+    stagnation::Union{Nothing,WorkspaceStagnation{T,T},WorkspaceStagnation{T,Rational{BigInt}}}
+    last_primal_step::T
+    last_dual_step::Union{T,Rational{BigInt}}
     # Private assembly storage; backends must own their factorization data.
     basis_matrix::Union{Nothing,SparseMatrixCSC{T,Int}}
     checkpoints::Vector{BasisCheckpoint{T}}
@@ -112,7 +115,7 @@ function SimplexScratch(::Type{T}, row_count::Int, variable_count::Int) where {T
         zeros(T, row_count), zeros(T, row_count), zeros(T, variable_count),
         zeros(T, variable_count), falses(variable_count), false,
         candidates, Int[], T[], T[], Int[], nothing, nothing, false, Int[], Int[], 0, 0, nothing,
-        :none, zero(T), false, false, false, :limit, RefactorizationState(T), nothing,
+        :none, zero(T), false, false, false, :limit, RefactorizationState(T), nothing, zero(T), zero(T), nothing,
         BasisCheckpoint{T}[], UInt(0), Tuple{Int,Int}[], UInt(0), false, false,
     )
 end

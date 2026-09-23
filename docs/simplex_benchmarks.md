@@ -68,13 +68,20 @@ separately from timings on jointly solved cases.
 Use `--simplex-strategy=legacy` (default) or `adaptive` for fresh solves.
 Reports include the effective numerical policy as well as SolverOptions.
 The adaptive profile currently enables `stable_ratio`, `pivot_validation`,
-`solve_refinement` and `recovery`. Set a switch to `false` in a policy file to isolate its effect.
+`solve_refinement`, `recovery`, `feasibility_recovery`, `incremental_primal`,
+`incremental_primal_pivots`, `adaptive_refactor`, and `adaptive_stalling`.
+Set a switch to `false` in a policy file to isolate its effect.
 Disabling `solve_refinement` retains the F04 pivot-specific corrections while
 turning off broader basis-solve refinement. Disabling `pivot_validation` turns
 off the independent pivot-quality gate. Recovery can still stage and retry
 failed iterations, restore checkpoints or exchange basis columns. Disable both
 `pivot_validation` and `recovery` to turn off transactional retry application.
 Other stages remain controlled by their own switches.
+Disabling `adaptive_stalling` removes the progress monitor and restores the
+legacy zero-step Dantzig trigger. Stagnation emits `stagnation_watch`,
+`stagnation_stalled`, and `stagnation_fallback` counters; use these alongside
+iterations and solve counts when evaluating degeneracy. Set `refactor_timing=false`
+in both arms of a diagnostic comparison to exclude clock-based refactor decisions.
 `--policy=PATH` accepts a TOML file with internal numerical overrides:
 `solve_tolerance`, `pivot_error_tolerance`, `max_refinements`,
 `max_pivot_candidates`, `max_recovery_rounds`, `stagnation_window`,

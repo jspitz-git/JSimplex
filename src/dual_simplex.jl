@@ -1276,6 +1276,8 @@ function _dual_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_request
     workspace.primal[leaving_index] = bound_value(bound)
     # Count the completed pivot even when its subsequent refactorization times out.
     _note_refactor_step!(workspace,dual_step)
+    workspace.scratch.last_primal_step = primal_step
+    workspace.scratch.last_dual_step = dual_step
     workspace.iterations += 1
     _simplex_event!(workspace, :pivot_completed)
     if _is_staged_workspace(workspace)
@@ -1296,7 +1298,8 @@ function _dual_after_iteration!(workspace::SimplexWorkspace{T},stop_requested,du
     if _is_exact(T) === Val(false)
         workspace.zero_dual_step_streak = iszero(dual_step) ?
             workspace.zero_dual_step_streak + 1 : 0
-        if workspace.options.pricing == :steepest_edge &&
+        if !workspace.progress.numerical_policy.adaptive_stalling &&
+           workspace.options.pricing == :steepest_edge &&
            !workspace.dual_pricing_fallback &&
            workspace.zero_dual_step_streak >= 256 &&
            primal_infeasibility(workspace) > workspace.options.primal_tolerance
@@ -1667,6 +1670,8 @@ function _dual_optimize!(workspace::SimplexWorkspace{T}, stop_requested;
         workspace.iterations < workspace.options.iteration_limit ||
             return DualTermination(ITERATION_LIMIT, "iteration limit reached")
         terminal = dual_iteration!(workspace, stop_requested; perturb_degenerate)
+        isnothing(terminal) && _observe_stagnation!(workspace,:dual,
+            workspace.scratch.last_primal_step,workspace.scratch.last_dual_step)
         isnothing(terminal) || return terminal
     end
 end
@@ -1836,6 +1841,7 @@ function _make_dual_feasible!(workspace::SimplexWorkspace{T}, stop_requested) wh
     dual_infeasibility(workspace) <= workspace.options.dual_tolerance && return nothing
 
     auxiliary = _auxiliary_workspace(workspace)
+    _reset_workspace_stagnation!(workspace)
     # Artificial auxiliary bounds can reverse a nonbasic state when the basis
     # returns to the original LP. Keep anti-degeneracy cost shifts out of this
     # phase so a shifted price cannot become infeasible after that remapping.

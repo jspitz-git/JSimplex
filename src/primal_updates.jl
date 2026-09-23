@@ -146,6 +146,7 @@ function apply_primal_pivot!(ws::SimplexWorkspace{T}, entering::Int, leaving_row
         for index in ws.basis.basic_indices
             ws.reduced_costs[index] = zero(T)
         end
+        ws.scratch.last_dual_step = alpha
         return nothing
     end
 end

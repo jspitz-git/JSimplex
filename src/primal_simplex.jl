@@ -478,6 +478,8 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
             apply_primal_pivot!(workspace,entering,leaving_row,direction*step,
                 tableau_column,workspace.scratch.tableau_row;leaving_state,stop_requested)
         else
+            workspace.scratch.last_dual_step = workspace.progress.numerical_policy.adaptive_stalling ?
+                _stagnation_price_step(workspace.reduced_costs[entering],tableau_column[leaving_row]) : zero(T)
             if _is_staged_workspace(workspace)
                 # Check finite candidate values before mutating the factor. The
                 # ordinary full recomputation finishes before publishing the step.
@@ -494,6 +496,8 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
         end
     end
     _note_refactor_step!(workspace,direction*step)
+    workspace.scratch.last_primal_step = direction*step
+    leaving_row == 0 && (workspace.scratch.last_dual_step = zero(T))
     workspace.iterations += 1
     _simplex_event!(workspace, leaving_row == 0 ? :flip_completed : :pivot_completed)
     refactor_reason = _scheduled_refactor_reason(workspace,:primal)
@@ -525,6 +529,8 @@ function _primal_optimize!(workspace::SimplexWorkspace{T}, stop_requested,
         primal_infeasibility(workspace) <= workspace.options.primal_tolerance ||
             return DualTermination(NUMERICAL_ERROR, "primal feasibility lost")
         terminal = _primal_iteration!(workspace, stop_requested, reduced_cost_tolerance)
+        isnothing(terminal) && _observe_stagnation!(workspace,:primal,
+            workspace.scratch.last_primal_step,workspace.scratch.last_dual_step)
         isnothing(terminal) || return terminal
     end
 end

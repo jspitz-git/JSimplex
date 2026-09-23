@@ -107,7 +107,7 @@ implementation in parallel.
 | [x] | F08 Incremental primal bound flips | F07 | `feat: update primal bound flips incrementally` |
 | [x] | F09 Incremental primal pivots | F08 | `feat: update primal pivots incrementally` |
 | [x] | F10 Shared adaptive refactorization | F09 | `feat: schedule basis refactorization by quality and cost` |
-| [ ] | F11 Stagnation detection | F07 | `feat: detect scaled simplex stagnation` |
+| [x] | F11 Stagnation detection | F07 | `feat: detect scaled simplex stagnation` |
 | [ ] | F12 Adaptive dual cost perturbations | F11 | `feat: adapt dual cost perturbations to stagnation` |
 | [ ] | F13 Reversible primal bound perturbations | F09, F12 | `feat: recover degenerate primal paths with bound perturbations` |
 | [ ] | F14 Automatic pricing and weight recovery | F11, F13 | `feat: adapt simplex pricing using reliable edge weights` |

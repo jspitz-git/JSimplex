@@ -39,7 +39,7 @@
 **Files:** Create: src/simplex_stalling.jl, test/simplex_stalling_tests.jl. Modify: src/simplex.jl, src/dual_simplex.jl, src/primal_simplex.jl, src/JSimplex.jl.
 **Interfaces:** `StagnationMonitor{T}(window::Int)`; `observe_progress!(monitor; objective, primal_violation, dual_violation, primal_step, dual_step)::Symbol` returns `:progress`, `:watch`, or `:stalled`. Normalization uses working-LP scales and F02 tolerances, not a huge additive objective constant.
 
-- [ ] Test that nonzero steps alone are insufficient to rule out stagnation:
+- [x] Test that nonzero steps alone are insufficient to rule out stagnation:
 
 ~~~julia
 m = JSimplex.StagnationMonitor{Float64}(64)
@@ -52,9 +52,9 @@ end
 @test state == :stalled
 ~~~
 
-- [ ] Maintain a window of the minimum/start/end objective and infeasibilities, relative improvement, and the count of insignificant steps. A phase, cost, or scale change resets the window; restoring the same basis must not repeatedly postpone detection forever.
-- [ ] Add a monotonically improving sequence, oscillation, zero steps with improving primal violation, and an `objective_constant` shift of `1e20`. Test types and bounded memory; the exact branch uses exact zero comparisons.
-- [ ] Connect only diagnostics and the trigger for the existing fallback; add two-window hysteresis. F12–F14 consume the events without duplicating counters. Run the full suite and pk1 plus holdout degeneracy cases. Commit: `feat: detect scaled simplex stagnation`.
+- [x] Maintain a window of the minimum/start/end objective and infeasibilities, relative improvement, and the count of insignificant steps. A phase, cost, or scale change resets the window; restoring the same basis must not repeatedly postpone detection forever.
+- [x] Add a monotonically improving sequence, oscillation, zero steps with improving primal violation, and an `objective_constant` shift of `1e20`. Test types and bounded memory; the exact branch uses exact zero comparisons.
+- [x] Connect only diagnostics and the trigger for the existing fallback; add two-window hysteresis. F12–F14 consume the events without duplicating counters. Run the full suite and pk1 plus holdout degeneracy cases. Commit: `feat: detect scaled simplex stagnation`.
 
 ### F12: Adaptive Dual Cost Perturbation
 
