@@ -44,6 +44,7 @@ const DEFAULTS = Dict{String,Any}(
     "kernel-timing" => "off",
     "diagnostics" => "on",
     "simplex-strategy" => "legacy",
+    "presolve" => "on",
 )
 
 const POLICY_KEYS = (
@@ -133,6 +134,7 @@ function parse_benchmark_args(args)
     options["trace"] in ("on", "off") || throw(ArgumentError("--trace must be on or off"))
     options["kernel-timing"] in ("on", "off") || throw(ArgumentError("--kernel-timing must be on or off"))
     options["diagnostics"] in ("on", "off") || throw(ArgumentError("--diagnostics must be on or off"))
+    options["presolve"] in ("on", "off") || throw(ArgumentError("--presolve must be on or off"))
     options["simplex-strategy"] in ("legacy", "adaptive") || throw(ArgumentError("Invalid simplex strategy"))
     !isempty(options["replay"]) && options["simplex-strategy"] != "legacy" &&
         throw(ArgumentError("Replay retains its stored strategy; use --policy for numerical overrides"))

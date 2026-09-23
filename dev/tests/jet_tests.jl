@@ -5,6 +5,16 @@ using JuMP
 
 const MOI = JuMP.MOI
 
+@testset "JET incremental primal updates" begin
+    for T in (Float64, Rational{BigInt})
+        p = LinearProblem(JSimplex.sparse(reshape(T[1], 1, 1)), T[-1];
+            row_upper=T[2], column_upper=T[1])
+        w = JSimplex.initialize_workspace(p, SolverOptions(T; verbose=false))
+        JET.@test_opt target_modules=(JSimplex,) JSimplex.apply_primal_flip!(w, 1, one(T), T[-1])
+        JET.@test_opt target_modules=(JSimplex,) JSimplex.audit_primal_values!(w)
+    end
+end
+
 @testset "JET typed solver kernels" begin
     float_problem = LinearProblem(JSimplex.SparseArrays.sparse([1.0 1.0]),
                                   [-1.0, -2.0]; row_upper=[3.0])

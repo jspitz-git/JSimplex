@@ -151,26 +151,32 @@ end
 end
 
 @testset "Bound-flip refinement events observe committed primal prices" begin
-    p = LinearProblem(sparse([1.0;;]),[-1.0];column_upper=[1.0])
-    options = SolverOptions(;algorithm=:primal,verbose=false,simplex_strategy=:adaptive,pricing=:dantzig)
-    live = Ref{Any}()
-    seen = Ref(0)
-    diagnostics = JSimplex.SimplexDiagnostics(;observer=(reason,state)->begin
-        reason == :correction && state.iterations == 1 || return
-        seen[] += 1
-        @test state === live[]
-        @test live[].iterations == 1
-        @test live[].primal ≈ [1.0,1.0]
-        @test live[].reduced_costs == [-1.0,0.0]
-    end)
-    progress = JSimplex.SimplexProgressContext(p;diagnostics,
-        numerical_policy=JSimplex.NumericalPolicy(Float64,options))
-    w = JSimplex.initialize_workspace(p,options;progress)
-    live[] = w
-    JSimplex.refactorize!(w.factorization,(1+1e-6)*JSimplex.basis_matrix(w))
-    @test isnothing(JSimplex._primal_iteration!(w,()->false,options.dual_tolerance))
-    @test seen[] > 0
-    @test w.iterations == 1
+    # F05's ordinary recomputation and F08's periodic audit must both publish
+    # correction events only after the complete primal step is committed.
+    for (incremental, before) in ((false, 0), (true, 19))
+        p = LinearProblem(sparse([1.0;;]),[-1.0];column_upper=[1.0])
+        options = SolverOptions(;algorithm=:primal,verbose=false,simplex_strategy=:adaptive,pricing=:dantzig)
+        live = Ref{Any}()
+        seen = Ref(0)
+        diagnostics = JSimplex.SimplexDiagnostics(;observer=(reason,state)->begin
+            reason == :correction && state.iterations == before + 1 || return
+            seen[] += 1
+            @test state === live[]
+            @test live[].iterations == before + 1
+            @test live[].primal ≈ [1.0,1.0]
+            @test live[].reduced_costs == [-1.0,0.0]
+        end)
+        progress = JSimplex.SimplexProgressContext(p;diagnostics,
+            numerical_policy=JSimplex.NumericalPolicy(Float64;
+                simplex_strategy=:adaptive,incremental_primal=incremental))
+        w = JSimplex.initialize_workspace(p,options;progress)
+        live[] = w
+        w.iterations = before
+        JSimplex.refactorize!(w.factorization,(1+1e-6)*JSimplex.basis_matrix(w))
+        @test isnothing(JSimplex._primal_iteration!(w,()->false,options.dual_tolerance))
+        @test seen[] > 0
+        @test w.iterations == before + 1
+    end
 end
 
 @testset "Correction observers retain exception identity and working costs" begin

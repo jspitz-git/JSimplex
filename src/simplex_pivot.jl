@@ -203,6 +203,10 @@ function _transactional_simplex_step!(perform,ws::SimplexWorkspace,stop_requeste
             recompute!(candidate;refactorize=false)
             _finite_workspace(candidate) || throw(_PivotRejection(
                 candidate.scratch.selected_row,candidate.scratch.selected_entering,:refresh))
+        elseif isnothing(result) && candidate.scratch.post_iteration == :primal_flip
+            if iszero(candidate.iterations % 20) && !audit_primal_values!(candidate)
+                throw(_PivotRejection(0, candidate.scratch.selected_entering, :refresh))
+            end
         end
         if !candidate.scratch.pending_factor_update && stop_requested()
             _discard_candidate!(ws,candidate)
@@ -230,7 +234,7 @@ function _transactional_simplex_step!(perform,ws::SimplexWorkspace,stop_requeste
     if scratch.post_iteration == :dual
         return _dual_after_iteration!(ws,stop_requested,scratch.post_dual_step,
                                       scratch.post_basis_refreshed,scratch.post_perturb_degenerate)
-    elseif scratch.post_iteration == :primal
+    elseif scratch.post_iteration in (:primal, :primal_flip)
         stop_requested() && return DualTermination(TIME_LIMIT,"time limit reached")
         if scratch.post_refactorize
             recompute!(ws;refactorize=true,caller_guard=stop_requested,
@@ -388,7 +392,8 @@ end
 
 function _primal_iteration!(ws::SimplexWorkspace,stop_requested,reduced_cost_tolerance,
                             basis_refreshed::Bool=false)
-    (ws.progress.numerical_policy.pivot_validation || ws.progress.numerical_policy.recovery) ||
+    policy = ws.progress.numerical_policy
+    (policy.pivot_validation || policy.recovery || policy.incremental_primal) ||
         return _primal_iteration_unchecked!(ws,stop_requested,reduced_cost_tolerance,basis_refreshed)
     return _retry_simplex_step!(ws,stop_requested,:primal,reduced_cost_tolerance,
                                 basis_refreshed,false)

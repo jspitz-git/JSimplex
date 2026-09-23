@@ -371,7 +371,8 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
     end
     all(isfinite, tableau_column) || return _numerical_failure()
     checked_pivot = workspace.progress.numerical_policy.pivot_validation
-    if checked_pivot || workspace.progress.numerical_policy.solve_refinement
+    incremental = workspace.progress.numerical_policy.incremental_primal
+    if checked_pivot || workspace.progress.numerical_policy.solve_refinement || incremental
         quality = refine_basis_solve!(tableau_column,workspace,column,
                                        workspace.progress.numerical_policy,stop_requested)
         if !quality.reliable
@@ -379,9 +380,13 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
             throw(_UnreliableBasisSolve())
         end
     end
-    step, leaving_row, leaving_state = _primal_ratio(
-        workspace, entering, direction, tableau_column,
-    )
+    step, leaving_row, leaving_state = if incremental
+        _with_recovery_precision(workspace, workspace) do
+            _primal_ratio(workspace, entering, direction, tableau_column)
+        end
+    else
+        _primal_ratio(workspace, entering, direction, tableau_column)
+    end
     workspace.scratch.selected_row = leaving_row
     leaving_row == -1 && return DualTermination(NUMERICAL_ERROR, "primal ratio test is inconclusive")
     if isnothing(step)
@@ -399,11 +404,17 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
     end
     isfinite(step) || return _numerical_failure()
     if leaving_row == 0
-        if _is_staged_workspace(workspace)
-            _prepare_primal_candidate!(workspace,entering,direction,step,tableau_column,
-                                       leaving_row,leaving_state) || return _numerical_failure()
+        if incremental
+            _with_recovery_precision(workspace, workspace) do
+                apply_primal_flip!(workspace, entering, direction * step, tableau_column)
+            end
+        else
+            if _is_staged_workspace(workspace)
+                _prepare_primal_candidate!(workspace,entering,direction,step,tableau_column,
+                                           leaving_row,leaving_state) || return _numerical_failure()
+            end
+            workspace.basis.states[entering] = direction > zero(T) ? AT_UPPER : AT_LOWER
         end
-        workspace.basis.states[entering] = direction > zero(T) ? AT_UPPER : AT_LOWER
     else
         if checked_pivot
             fill!(column,zero(T))
@@ -457,11 +468,17 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
     refactorize = length(workspace.factorization.updates) >=
                   workspace.options.refactorization_interval
     if _is_staged_workspace(workspace)
-        workspace.scratch.post_iteration = :primal
+        workspace.scratch.post_iteration = incremental && leaving_row == 0 ? :primal_flip : :primal
         workspace.scratch.post_refactorize = refactorize
         return nothing
     end
     stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
+    if incremental && leaving_row == 0 && !refactorize
+        if iszero(workspace.iterations % 20) && !audit_primal_values!(workspace)
+            return DualTermination(NUMERICAL_ERROR, "incremental primal audit failed")
+        end
+        return nothing
+    end
     recompute!(workspace; refactorize, caller_guard=stop_requested,
                diagnostic_reason=:refactor_limit)
     return nothing

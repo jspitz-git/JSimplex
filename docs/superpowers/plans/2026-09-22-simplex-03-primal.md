@@ -39,7 +39,7 @@
 **Files:** Create: src/primal_updates.jl, test/primal_update_tests.jl. Modify: src/primal_simplex.jl, src/simplex.jl, src/JSimplex.jl.
 **Interfaces:** `apply_primal_flip!(ws, entering::Int, signed_change, tableau_column)::Nothing`. Consumes a validated direction from F04/F05 and produces updated `x_B` and `x_N` without changing the factor or costs.
 
-- [ ] The case `A=[1]`, `x∈[0,1]`, row upper bound `2`, and cost `-1` is a bound flip. The result has `x=1`, the same basis/factorization, and one completed step. Targeted test of the direct update:
+- [x] The case `A=[1]`, `x∈[0,1]`, row upper bound `2`, and cost `-1` is a bound flip. The result has `x=1`, the same basis/factorization, and one completed step. Targeted test of the direct update:
 
 ~~~julia
 p = LinearProblem(JSimplex.sparse([1.0;;]), [-1.0];
@@ -52,10 +52,14 @@ JSimplex.apply_primal_flip!(w, 1, 1.0, [-1.0])
 @test w.basis.states[1] == JSimplex.AT_UPPER
 ~~~
 
-- [ ] Implement `x_B -= signed_change*d`, `x_entering += signed_change`, and set the state to the opposite bound. `signed_change` is the actual change in `x`, not an unsigned ratio-test step. Working cost/`c_B`/basis remain unchanged, so reduced costs are not recomputed.
-- [ ] Check the prediction before application; return control to F07 if the result is infinite. Enable the incremental path only with a reliable direction. A periodic audit compares values with an independent recomputation.
-- [ ] Test the opposite direction `AT_UPPER→AT_LOWER`, a fixed variable, zero, and a deadline before completion. The direct helper does not increment `iterations`; the driver increments it exactly once per completed step.
-- [ ] Run primal/recovery tests and the full suite; measure a flip without a hidden full recomputation and a complete boxed LP. Commit: `feat: update primal bound flips incrementally`.
+- [x] Implement `x_B -= signed_change*d`, `x_entering += signed_change`, and set the state to the opposite bound. `signed_change` is the actual change in `x`, not an unsigned ratio-test step. Working cost/`c_B`/basis remain unchanged, so reduced costs are not recomputed.
+- [x] Check the prediction before application; return control to F07 if the result is infinite. Enable the incremental path only with a reliable direction. A periodic audit compares values with an independent recomputation.
+- [x] Test the opposite direction `AT_UPPER→AT_LOWER`, a fixed variable, zero, and a deadline before completion. The direct helper does not increment `iterations`; the driver increments it exactly once per completed step.
+- [x] Run primal/recovery tests and the full suite; measure a flip without a hidden full recomputation and a complete boxed LP. Commit: `feat: update primal bound flips incrementally`.
+
+Validation: [F08 report](../../../diagnostics/simplex-modernization/F08.md).
+The boxed case saves 244 FTRANs and 244 BTRANs and runs 41.9% faster than the
+F08 ablation; quick corpus timings do not establish a global speedup.
 
 ### F09: Incremental Primal Pivot and Sharing of Pricing Computations
 

@@ -463,10 +463,12 @@ function _maybe_refine_basis_solve!(destination,ws,rhs,stop=nothing;transposed=f
 end
 
 function _checked_basis_solve!(destination,ws,rhs,stop=nothing;transposed=false)
-    if transposed
-        transpose_solve!(destination,ws.factorization,rhs)
-    else
-        forward_solve!(destination,ws.factorization,rhs)
+    _timed_simplex(ws, transposed ? :btran : :ftran) do
+        if transposed
+            transpose_solve!(destination,ws.factorization,rhs)
+        else
+            forward_solve!(destination,ws.factorization,rhs)
+        end
     end
     _maybe_refine_basis_solve!(destination,ws,rhs,stop;transposed) || throw(_UnreliableBasisSolve())
     return destination
