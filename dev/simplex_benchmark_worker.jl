@@ -152,6 +152,7 @@ function worker_main(job_path)
         algorithms = options["algorithm"] == "both" ? [:primal, :dual] : [Symbol(options["algorithm"])]
         for algorithm in algorithms
             settings = (; algorithm, verbose=false,
+                pricing=Symbol(get(options,"pricing","steepest_edge")),
                 basis_update=Symbol(options["basis-update"]),
                 presolve=options["presolve"] == "on",
                 time_limit=options["time-limit"], iteration_limit=options["iteration-limit"])

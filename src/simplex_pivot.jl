@@ -20,7 +20,8 @@ struct _PivotDeadline <: Exception end
 function (observer::_StageObserver)(reason::Symbol, candidate)
     isnothing(observer.live.progress.diagnostics) && return nothing
     if candidate.scratch.pending_factor_update || candidate.scratch.post_iteration != :none ||
-       reason in (:pivot_completed,:flip_completed,:bound_flipped)
+       reason in (:pivot_completed,:flip_completed,:bound_flipped,
+                  :pricing_devex,:pricing_dantzig,:pricing_reset)
         push!(observer.pending,reason)
     else
         _diagnostic_event!(observer.live.progress.diagnostics,reason,candidate)
@@ -69,6 +70,7 @@ end
 
 # Explicit fields keep array element types concrete in this inner-loop copy.
 function _copy_pivot_state!(destination,source)
+    _copy_pricing_state!(destination,source)
     copyto!(destination.costs,source.costs)
     copyto!(destination.lower,source.lower)
     copyto!(destination.upper,source.upper)
@@ -195,7 +197,8 @@ function _discard_candidate!(ws,candidate)
     pending = candidate.progress.diagnostics.observer.pending
     if !isnothing(ws.progress.diagnostics)
         for reason in pending
-            reason in (:pivot_completed,:flip_completed,:bound_flipped) && continue
+            reason in (:pivot_completed,:flip_completed,:bound_flipped,
+                       :pricing_devex,:pricing_dantzig,:pricing_reset) && continue
             record_event!(ws.progress.diagnostics,reason)
         end
     end

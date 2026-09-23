@@ -44,6 +44,7 @@ const DEFAULTS = Dict{String,Any}(
     "kernel-timing" => "off",
     "diagnostics" => "on",
     "simplex-strategy" => "legacy",
+    "pricing" => "steepest_edge",
     "basis-update" => "pfi",
     "presolve" => "on",
 )
@@ -137,6 +138,10 @@ function parse_benchmark_args(args)
     options["diagnostics"] in ("on", "off") || throw(ArgumentError("--diagnostics must be on or off"))
     options["presolve"] in ("on", "off") || throw(ArgumentError("--presolve must be on or off"))
     options["simplex-strategy"] in ("legacy", "adaptive") || throw(ArgumentError("Invalid simplex strategy"))
+    options["pricing"] in ("steepest_edge","devex","dantzig","auto") ||
+        throw(ArgumentError("Invalid pricing rule"))
+    !isempty(options["replay"]) && options["pricing"] != "steepest_edge" &&
+        throw(ArgumentError("The pricing rule is read from the replay snapshot"))
     options["basis-update"] in ("pfi","forrest_tomlin","bartels_golub","suhl_suhl") ||
         throw(ArgumentError("Invalid basis update method"))
     !isempty(options["replay"]) && options["basis-update"] != "pfi" &&

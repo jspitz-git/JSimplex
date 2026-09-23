@@ -197,7 +197,11 @@ function _primal_update_steepest!(workspace::SimplexWorkspace{T}, entering::Int,
 end
 
 function _primal_entering(workspace::SimplexWorkspace{T}, tolerance::T) where {T}
-    workspace.options.pricing == :steepest_edge && _primal_initialize_steepest!(workspace)
+    _prepare_auto_pricing!(workspace,:primal)
+    state = workspace.scratch.pricing
+    isnothing(state) || (state.pricing_passes += 1)
+    pricing = _effective_pricing(workspace,:primal)
+    pricing == :steepest_edge && _primal_initialize_steepest!(workspace)
     entering = 0
     direction = zero(T)
     best_score = _primal_dantzig_score(one(T))
@@ -211,7 +215,6 @@ function _primal_entering(workspace::SimplexWorkspace{T}, tolerance::T) where {T
                     (state == AT_UPPER && reduced_cost > tolerance) ||
                     (state == FREE_NONBASIC && abs(reduced_cost) > tolerance)
         improving || continue
-        pricing = workspace.options.pricing
         score = if pricing == :dantzig
             _primal_dantzig_score(reduced_cost)
         else
@@ -395,6 +398,10 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
             throw(_UnreliableBasisSolve())
         end
     end
+    if !_validate_primal_edge!(workspace,entering,tableau_column)
+        stop_requested() && return DualTermination(TIME_LIMIT,"time limit reached during pricing recovery")
+        return _primal_iteration_unchecked!(workspace,stop_requested,reduced_cost_tolerance,basis_refreshed)
+    end
     step, leaving_row, leaving_state = if incremental || incremental_pivot
         _with_recovery_precision(workspace, workspace) do
             _primal_ratio(workspace, entering, direction, tableau_column)
@@ -468,10 +475,10 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
             end
             return DualTermination(NUMERICAL_ERROR, "primal pivot is below the zero tolerance")
         end
-        workspace.options.pricing == :devex &&
+        _effective_pricing(workspace,:primal) == :devex &&
             _primal_update_devex!(workspace, entering, leaving_row,
                                    tableau_column[leaving_row];shared_row=incremental_pivot)
-        workspace.options.pricing == :steepest_edge &&
+        _effective_pricing(workspace,:primal) == :steepest_edge &&
             _primal_update_steepest!(workspace, entering, leaving_row,
                                      tableau_column[leaving_row];shared_row=incremental_pivot)
         if incremental_pivot
@@ -526,12 +533,15 @@ function _primal_optimize!(workspace::SimplexWorkspace{T}, stop_requested,
                            perturb_degenerate::Bool=true) where {T}
     while true
         stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
+        _prepare_auto_pricing!(workspace,:primal;stop=stop_requested) ||
+            return DualTermination(TIME_LIMIT,"time limit reached during pricing recovery")
         _finite_workspace(workspace) || return _numerical_failure()
         primal_infeasibility(workspace) <= workspace.options.primal_tolerance ||
             return DualTermination(NUMERICAL_ERROR, "primal feasibility lost")
         terminal = _primal_iteration!(workspace, stop_requested, reduced_cost_tolerance)
         isnothing(terminal) && _observe_stagnation!(workspace,:primal,
             workspace.scratch.last_primal_step,workspace.scratch.last_dual_step)
+        isnothing(terminal) && _observe_auto_pricing!(workspace,:primal)
         if isnothing(terminal) && perturb_degenerate &&
            _maybe_perturb_primal_bounds!(workspace,stop_requested) < 0
             return DualTermination(TIME_LIMIT,"time limit reached before primal perturbation")

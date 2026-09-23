@@ -62,8 +62,15 @@ Limits must be nonnegative. `time_limit` remains `Float64` seconds and `Inf`
 disables the deadline; iteration/refactorization limits remain `Int`.
 `algorithm=:dual` and `algorithm=:primal` are implemented; other symbols return
 `ALGORITHM_NOT_SUPPORTED` from [`solve`](@ref).
-`pricing` selects steepest-edge (`:steepest_edge`), Devex (`:devex`), or
-Dantzig (`:dantzig`) pricing for either simplex algorithm. Primal steepest-edge
+`pricing` selects steepest-edge (`:steepest_edge`), Devex (`:devex`),
+Dantzig (`:dantzig`), or automatic (`:auto`) pricing for either simplex algorithm.
+Automatic pricing starts with steepest edge and recovers unreliable weights
+with a fresh Devex reference, reusing the selected pivot's basis solves.
+With the adaptive strategy, stagnation can temporarily select Dantzig; a return
+to Devex requires a two-window cooldown and a fresh reference. The legacy
+strategy retains weight recovery without progress-driven switching.
+Explicit pricing rules retain their documented safety fallbacks.
+Primal steepest-edge
 weights are initialized for a unit basis and updated after each pivot, with
 direct recomputation when a weight cannot be represented safely.
 Dual steepest-edge pricing switches to Dantzig after 256 consecutive zero
@@ -196,8 +203,8 @@ function _validated_options(::Type{T}, ::Val{M}, ::Val{R}, primal_tolerance, dua
         throw(ArgumentError("time_limit must be nonnegative and finite or positive Inf"))
     refactorization_interval > 0 ||
         throw(ArgumentError("refactorization_interval must be positive"))
-    pricing in (:steepest_edge, :devex, :dantzig) ||
-        throw(ArgumentError("pricing must be :steepest_edge, :devex, or :dantzig"))
+    pricing in (:steepest_edge, :devex, :dantzig, :auto) ||
+        throw(ArgumentError("pricing must be :steepest_edge, :devex, :dantzig, or :auto"))
     scaling in (:auto, :on, :off) ||
         throw(ArgumentError("scaling must be :auto, :on, or :off"))
     _is_exact(T) === Val(true) && scaling === :on &&

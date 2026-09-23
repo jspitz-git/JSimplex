@@ -125,3 +125,25 @@ end
         JET.@test_opt target_modules=(JSimplex,) JSimplex.restore_perturbations!(w,journal)
     end
 end
+
+@testset "JET automatic pricing and owned state kernels" begin
+    for T in (Float32,Float64,Rational{BigInt})
+        p=LinearProblem(JSimplex.sparse(T[1 2;1 1]),T[-3,-4];row_upper=T[4,3])
+        policy=JSimplex.NumericalPolicy(T;simplex_strategy=:adaptive,stagnation_window=2)
+        w=JSimplex.initialize_workspace(p,SolverOptions(T;algorithm=:primal,pricing=:auto,verbose=false);
+            progress=JSimplex.SimplexProgressContext(p;numerical_policy=policy))
+        JSimplex._prepare_auto_pricing!(w,:primal)
+        JSimplex._primal_entering(w,w.options.dual_tolerance)
+        JET.@test_opt target_modules=(JSimplex,) JSimplex._prepare_auto_pricing!(w,:primal)
+        JET.@test_opt target_modules=(JSimplex,) JSimplex._validate_primal_edge!(w,1,T[-1,-1])
+        JET.@test_opt target_modules=(JSimplex,) JSimplex._validate_dual_edge!(w,3,T[-1,0])
+        JET.@test_opt target_modules=(JSimplex,) JSimplex.dual_edge_selection(w)
+        trial=JSimplex._candidate_workspace(w)
+        JET.@test_opt target_modules=(JSimplex,) JSimplex._copy_pivot_state!(trial,w)
+        for _ in 1:4
+            w.iterations+=1
+            JSimplex._observe_stagnation!(w,:primal,zero(T),zero(T))
+        end
+        JET.@test_opt target_modules=(JSimplex,) JSimplex._observe_auto_pricing!(w,:primal)
+    end
+end

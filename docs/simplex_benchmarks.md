@@ -70,7 +70,7 @@ Reports include the effective numerical policy as well as SolverOptions.
 The adaptive profile currently enables `stable_ratio`, `pivot_validation`,
 `solve_refinement`, `recovery`, `feasibility_recovery`, `incremental_primal`,
 `incremental_primal_pivots`, `adaptive_refactor`, `adaptive_stalling`, and
-`adaptive_dual_perturbation`, and `adaptive_primal_perturbation`.
+`adaptive_dual_perturbation`, `adaptive_primal_perturbation`, and `adaptive_pricing`.
 Set a switch to `false` in a policy file to isolate its effect.
 Disabling `solve_refinement` retains the F04 pivot-specific corrections while
 turning off broader basis-solve refinement. Disabling `pivot_validation` turns
@@ -95,6 +95,14 @@ phase I and objective cleanup never apply it. Compare the same perturbation,
 restoration, and cleanup counters, and include restoration in timings. Basic
 bounds have their own escalation history within the shared journal. Exact
 arithmetic receives neither primal bound shifts nor dual cost shifts.
+Use `--pricing=steepest_edge|devex|dantzig|auto` for fresh solves; replay retains
+its stored pricing option. `adaptive_pricing=false` disables progress-driven
+switches for `pricing=auto`, while preserving recovery of unreliable weights.
+Compare automatic pricing with its disabled adaptation and with explicit
+steepest edge. Record pricing kernel time/calls together with iterations and
+`pricing_devex`, `pricing_dantzig`, `pricing_reset`, and `pricing_weight_rejected`.
+Mode/reset counters record committed state; weight rejections also count failed
+attempts. These switches are numerical/progress decisions, independent of clocks.
 `--policy=PATH` accepts a TOML file with internal numerical overrides:
 `solve_tolerance`, `pivot_error_tolerance`, `max_refinements`,
 `max_pivot_candidates`, `max_recovery_rounds`, `stagnation_window`,

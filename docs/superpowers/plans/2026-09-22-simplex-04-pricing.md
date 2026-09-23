@@ -101,7 +101,7 @@ certify only the original problem
 **Files:** Create: src/simplex_pricing.jl, test/adaptive_pricing_tests.jl. Modify: src/options.jl, src/simplex.jl, src/primal_simplex.jl, src/dual_simplex.jl, src/moi/optimizer.jl, src/moi/attributes.jl, README.
 **Interfaces:** `pricing=:auto` is a new public value. `PricingState` owns `active::Symbol`, weight quality, cooldown, and cost/progress statistics; `next_pricing!(state, monitor, policy)::Symbol`. `validate_edge_weight(stored, recomputed, policy)::Bool` accounts for the representation of primal weights (square roots in the current floating-point primal implementation).
 
-- [ ] Test the public round trip and type conversion:
+- [x] Test the public round trip and type conversion:
 
 ~~~julia
 o = SolverOptions(pricing=:auto, simplex_strategy=:adaptive)
@@ -109,10 +109,10 @@ o = SolverOptions(pricing=:auto, simplex_strategy=:adaptive)
 @test SolverOptions(Float32, o).simplex_strategy == :adaptive
 ~~~
 
-- [ ] Auto starts with steepest edge; unreliable weights switch to a fresh Devex reference framework. Under stagnation it may temporarily use Dantzig; switch back only after the cooldown and a recomputation or valid weight reset. Explicit pricing must not switch solely because of elapsed time; preserve documented safety fallbacks.
-- [ ] For the selected candidate, compare the stored weight with an independent solve; do not create an additional solve for every candidate on every iteration. Reuse already computed FTRAN/BTRAN results from F09. Nonpositive/NaN weights trigger recovery rather than numerically meaningless division.
-- [ ] Test artificially corrupted primal and dual weights, correct weights under stagnation, reset after refactorization and phase transition, and exact arithmetic. Verify that the hybrid path reaches the same certified objective as an independent reference.
-- [ ] Run options/MOI tests, pricing tests, the full suite, and an ablation comparing pricing cost with iteration count. Commit: `feat: adapt simplex pricing using reliable edge weights`.
+- [x] Auto starts with steepest edge; unreliable weights switch to a fresh Devex reference framework. Under stagnation it may temporarily use Dantzig; switch back only after the cooldown and a recomputation or valid weight reset. Explicit pricing must not switch solely because of elapsed time; preserve documented safety fallbacks.
+- [x] For the selected candidate, compare the stored weight with an independent solve; do not create an additional solve for every candidate on every iteration. Reuse already computed FTRAN/BTRAN results from F09. Nonpositive/NaN weights trigger recovery rather than numerically meaningless division.
+- [x] Test artificially corrupted primal and dual weights, correct weights under stagnation, reset after refactorization and phase transition, and exact arithmetic. Verify that the hybrid path reaches the same certified objective as an independent reference.
+- [x] Run options/MOI tests, pricing tests, the full suite, and an ablation comparing pricing cost with iteration count. Commit: `feat: adapt simplex pricing using reliable edge weights`.
 
 ### F15: Partial Pricing and Candidate Pools
 

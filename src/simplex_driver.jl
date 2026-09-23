@@ -73,6 +73,9 @@ end
 
 function _verify_driver_basis!(ws,stop;refactorize::Bool=false)
     stop() && return false
+    state = ws.scratch.pricing
+    algorithm = isnothing(state) ? ws.options.algorithm : state.algorithm
+    _prepare_auto_pricing!(ws,algorithm;stop) || return false
     return _with_recovery_precision(ws,ws) do
         recompute!(ws;refactorize,caller_guard=stop)
         stop() && return false

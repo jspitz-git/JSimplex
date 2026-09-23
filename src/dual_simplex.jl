@@ -28,7 +28,7 @@ _numerical_failure() = DualTermination(NUMERICAL_ERROR, "non-finite simplex iter
 function _finite_workspace(workspace::SimplexWorkspace{T}) where {T}
     return all(isfinite, workspace.primal) && all(isfinite, workspace.reduced_costs) &&
            all(isfinite, workspace.costs) &&
-           (workspace.options.pricing == :dantzig || workspace.dual_pricing_fallback ||
+           (_effective_pricing(workspace,:dual) == :dantzig ||
             all(weight -> isfinite(weight) && weight > zero(T), workspace.pricing_weights))
 end
 
@@ -217,16 +217,39 @@ function _dual_prices_feasible_or_refined!(workspace::SimplexWorkspace, stop_req
 end
 
 function dual_edge_selection(workspace::SimplexWorkspace{T})::Int where {T}
+    _prepare_auto_pricing!(workspace,:dual)
+    state = workspace.scratch.pricing
+    isnothing(state) || (state.pricing_passes += 1)
+    if workspace.options.pricing == :auto && T <: Rational
+        return _dual_edge_selection(workspace,Val(Rational{BigInt}))
+    elseif workspace.options.pricing == :auto
+        return _dual_edge_selection(workspace,Val(:scaled))
+    end
+    return _dual_edge_selection(workspace,Val(T))
+end
+
+function _dual_pricing_score(violation,weight,weighted,::Val{S}) where S
+    if S === :scaled
+        isfinite(violation) || return (typemax(Int),one(violation))
+        # Comparing v/sqrt(w) preserves the order of v^2/w while the existing
+        # exponent score avoids overflow and the loss of tiny eligible rows.
+        return weighted ? _primal_weighted_score(violation,sqrt(weight)) :
+                          _primal_dantzig_score(violation)
+    end
+    return weighted ? S(violation)^2/S(weight) : S(violation)
+end
+
+function _dual_edge_selection(workspace::SimplexWorkspace{T},scoring::Val{S})::Int where {T,S}
     leaving_row = -1
-    best_score = zero(T)
-    weighted = workspace.options.pricing != :dantzig && !workspace.dual_pricing_fallback
+    best_score = S === :scaled ? _primal_dantzig_score(one(T)) : zero(S)
+    weighted = _effective_pricing(workspace,:dual) != :dantzig
     for (row, index) in enumerate(workspace.basis.basic_indices)
         row in workspace.scratch.rejected_rows && continue
         violation = max(_lower_violation(workspace.lower[index], workspace.primal[index]),
                         _upper_violation(workspace.upper[index], workspace.primal[index]))
         violation > workspace.options.primal_tolerance || continue
-        score = weighted ? violation^2 / workspace.pricing_weights[index] : violation
-        if score > best_score
+        score = _dual_pricing_score(violation,workspace.pricing_weights[index],weighted,scoring)
+        if (S === :scaled && leaving_row == -1) || score > best_score
             leaving_row = row
             best_score = score
         end
@@ -459,8 +482,12 @@ function _switch_dual_pricing_to_devex!(workspace::SimplexWorkspace{T},
                                         stop_requested, reason::String;
                                         stored_weight::Union{Nothing,T}=nothing,
                                         actual_weight::Union{Nothing,T}=nothing) where {T}
-    workspace.dual_devex_fallback = true
-    reset_devex!(workspace)
+    if workspace.options.pricing == :auto
+        _reject_auto_weight!(workspace)
+    else
+        workspace.dual_devex_fallback = true
+        reset_devex!(workspace)
+    end
     try
         @logmsg workspace.options.log_level "Switching dual pricing to Devex" iteration=workspace.iterations reason stored_weight actual_weight
     catch exception
@@ -472,9 +499,8 @@ end
 
 function _recover_invalid_dse_weights!(workspace::SimplexWorkspace{T},
                                        stop_requested) where {T}
-    if _is_exact(T) === Val(false) &&
-       workspace.options.pricing == :steepest_edge &&
-       !workspace.dual_pricing_fallback && !workspace.dual_devex_fallback &&
+    if (_is_exact(T) === Val(false) || workspace.options.pricing == :auto) &&
+       _effective_pricing(workspace,:dual) == :steepest_edge &&
        any(weight -> !isfinite(weight) || weight <= zero(T), workspace.pricing_weights)
         _switch_dual_pricing_to_devex!(workspace, stop_requested,
                                        "invalid steepest-edge weight")
@@ -508,8 +534,7 @@ function update_dual_pricing_weights!(workspace::SimplexWorkspace{T},
                                       rho::Vector{T}, tableau_row::Vector{T},
                                       tableau_column::Vector{T}, entering_index::Int,
                                       pivot::T, dse_weight::T, stop_requested) where {T}
-    if workspace.options.pricing == :steepest_edge &&
-       !workspace.dual_pricing_fallback && !workspace.dual_devex_fallback
+    if _effective_pricing(workspace,:dual) == :steepest_edge
         update_dse!(workspace, rho, tableau_column, entering_index, pivot,
                     dse_weight)
         if !_finite_workspace(workspace)
@@ -519,8 +544,7 @@ function update_dual_pricing_weights!(workspace::SimplexWorkspace{T},
             # pivot before replacing its basis column.
             update_devex!(workspace, tableau_row, tableau_column, entering_index, pivot)
         end
-    elseif (workspace.options.pricing == :devex || workspace.dual_devex_fallback) &&
-           !workspace.dual_pricing_fallback
+    elseif _effective_pricing(workspace,:dual) == :devex
         update_devex!(workspace, tableau_row, tableau_column, entering_index, pivot)
     end
     return _finite_workspace(workspace)
@@ -588,6 +612,8 @@ function dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested;
                          perturb_degenerate::Bool=true)::Union{Nothing,DualTermination} where {T}
     stop_requested = _guard_stop_callback(stop_requested)
     stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
+    _prepare_auto_pricing!(workspace,:dual;stop=stop_requested) ||
+        return DualTermination(TIME_LIMIT,"time limit reached during pricing recovery")
     try
         if !_finite_workspace(workspace)
             _recover_invalid_dse_weights!(workspace, stop_requested) ||
@@ -1064,12 +1090,15 @@ function _dual_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_request
         end
     end
     dse_weight = zero(T)
-    if workspace.options.pricing == :steepest_edge &&
-       !workspace.dual_pricing_fallback && !workspace.dual_devex_fallback &&
+    if !_validate_dual_edge!(workspace,leaving_index,rho)
+        stop_requested() && return DualTermination(TIME_LIMIT,"time limit reached during pricing recovery")
+        return _dual_iteration_unchecked!(workspace,stop_requested,basis_refreshed,perturb_degenerate)
+    end
+    if _effective_pricing(workspace,:dual) == :steepest_edge &&
        _is_exact(T) === Val(false)
         dse_weight = dot(rho, rho)
         stored_weight = workspace.pricing_weights[leaving_index]
-        if _dse_weight_unreliable(stored_weight, dse_weight)
+        if workspace.options.pricing != :auto && _dse_weight_unreliable(stored_weight, dse_weight)
             _switch_dual_pricing_to_devex!(workspace, stop_requested,
                                            "steepest-edge weight disagrees with basis solve";
                                            stored_weight, actual_weight=dse_weight)
@@ -1232,11 +1261,12 @@ function _dual_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_request
         stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
         return DualTermination(NUMERICAL_ERROR, "small pivot dual price could not be certified")
     end
-    if refined_row && workspace.options.pricing == :steepest_edge &&
-       !workspace.dual_pricing_fallback && !workspace.dual_devex_fallback
+    if refined_row && _effective_pricing(workspace,:dual) == :steepest_edge
         dse_weight = dot(rho, rho)
         stored_weight = workspace.pricing_weights[leaving_index]
-        if _dse_weight_unreliable(stored_weight, dse_weight)
+        if workspace.options.pricing == :auto
+            _validate_dual_edge!(workspace,leaving_index,rho)
+        elseif _dse_weight_unreliable(stored_weight, dse_weight)
             _switch_dual_pricing_to_devex!(workspace, stop_requested,
                                            "refined steepest-edge weight disagrees with basis solve";
                                            stored_weight, actual_weight=dse_weight)
@@ -1259,8 +1289,7 @@ function _dual_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_request
     end
     update_duals!(workspace, tableau_row, leaving_index, entering_index, dual_step)
     update_primals!(workspace, tableau_column, entering_index, leaving_row, primal_step)
-    if workspace.options.pricing == :steepest_edge &&
-       !workspace.dual_pricing_fallback && !workspace.dual_devex_fallback &&
+    if _effective_pricing(workspace,:dual) == :steepest_edge &&
        _is_exact(T) === Val(true)
         dse_weight = dot(rho, rho)
     end
@@ -1651,6 +1680,8 @@ function _dual_optimize!(workspace::SimplexWorkspace{T}, stop_requested;
                          perturb_degenerate::Bool=true)::DualTermination where {T}
     while true
         stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
+        _prepare_auto_pricing!(workspace,:dual;stop=stop_requested) ||
+            return DualTermination(TIME_LIMIT,"time limit reached during pricing recovery")
         _finite_workspace(workspace) || return _numerical_failure()
         if dual_infeasibility(workspace) > workspace.options.dual_tolerance
             if _is_exact(T) === Val(false) && !isempty(workspace.factorization.updates)
@@ -1673,6 +1704,7 @@ function _dual_optimize!(workspace::SimplexWorkspace{T}, stop_requested;
         terminal = dual_iteration!(workspace, stop_requested; perturb_degenerate)
         isnothing(terminal) && _observe_stagnation!(workspace,:dual,
             workspace.scratch.last_primal_step,workspace.scratch.last_dual_step)
+        isnothing(terminal) && _observe_auto_pricing!(workspace,:dual)
         if isnothing(terminal) && perturb_degenerate &&
            _maybe_perturb_dual_costs!(workspace,stop_requested) < 0
             return DualTermination(TIME_LIMIT,"time limit reached before dual perturbation")
@@ -1884,6 +1916,7 @@ function _make_dual_feasible!(workspace::SimplexWorkspace{T}, stop_requested) wh
     stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
     _invalidate_basis_checkpoints!(workspace)
     workspace.basis = basis
+    _reset_auto_pricing!(workspace)
     workspace.pricing_weights .= auxiliary.pricing_weights
     workspace.costs .= auxiliary.costs
     workspace.perturbed = auxiliary.perturbed

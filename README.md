@@ -9,11 +9,11 @@ correctness, numerical robustness, and performance are not guaranteed for genera
 models. Use an established solver for production optimization.
 
 The primal algorithm uses an auxiliary phase I to find a feasible basis,
-followed by selectable Dantzig, steepest-edge, or Devex pricing and a two-pass
+followed by selectable Dantzig, steepest-edge, Devex, or automatic pricing and a two-pass
 Harris ratio test with entering bound flips.
 The dual algorithm includes bound flipping during ratio testing, a
-two-pass Harris fallback, selectable dual steepest-edge, Devex, and Dantzig
-pricing, cost shifting, LU factorization, and
+two-pass Harris fallback, selectable dual steepest-edge, Devex, Dantzig, and
+automatic pricing, cost shifting, LU factorization, and
 selectable product-form, Forrest–Tomlin, Bartels–Golub, and Suhl–Suhl basis
 updates.
 Model arithmetic supports floating-point and rational scalar types, including
@@ -156,8 +156,8 @@ wall-clock limit. The stable JSimplex raw optimizer attribute names are
 `pricing`, `basis_update`, `basis_refactorization`, `scaling`, `presolve`, and
 `simplex_strategy`.
 `presolve` is a Boolean and defaults to `true`. Algorithm values are
-`:dual` (default) and `:primal`; pricing accepts `:steepest_edge`, `:devex`, or
-`:dantzig` for both algorithms.
+`:dual` (default) and `:primal`; pricing accepts `:steepest_edge`, `:devex`,
+`:dantzig`, or `:auto` for both algorithms.
 
 ```julia
 set_optimizer_attribute(model, "relax_integrality", true)
@@ -296,7 +296,7 @@ for `SolverOptions(Float64)`. Floating types use these keyword defaults:
 | `verbose` | `true` | Emit `Info`-level model statistics, simplex progress, and final status |
 | `log_level` | `Logging.Debug` | Level emitted through Julia's logging system |
 | `algorithm` | `:dual` | `:dual` or `:primal` |
-| `pricing` | `:steepest_edge` | Dual or primal pricing rule: `:steepest_edge`, `:devex`, or `:dantzig`; floating dual steepest-edge switches to Devex if a checked weight becomes unreliable, and to Dantzig after 256 consecutive zero dual steps |
+| `pricing` | `:steepest_edge` | Dual or primal pricing rule: `:steepest_edge`, `:devex`, `:dantzig`, or `:auto`; floating dual steepest-edge switches to Devex if a checked weight becomes unreliable, and to Dantzig after 256 consecutive zero dual steps |
 | `basis_update` | `:pfi` | Basis update: `:pfi`, `:forrest_tomlin`, `:bartels_golub`, or `:suhl_suhl` |
 | `basis_refactorization` | `:native` | Full factorization: `:native` or `:markowitz` |
 | `scaling` | `:auto` | `:auto`, `:on`, or `:off` row and column scaling |
@@ -339,6 +339,17 @@ Phase I, auxiliary work, and final cleanup disable bound perturbation. Before
 accepting a result, the driver restores original bounds and recomputes
 feasibility within the same solve budget. See the
 [F13 validation report](diagnostics/simplex-modernization/F13.md).
+
+Use `SolverOptions(pricing=:auto, simplex_strategy=:adaptive)` for automatic
+pricing. It starts with steepest edge, checks selected weights using the pivot's
+existing basis solves, and rebuilds a Devex reference when weights become
+unreliable. Stagnation may temporarily select Dantzig; returning to Devex
+requires a two-window cooldown and a fresh reference. Phase changes reset the
+pricing state, and rejected pivots retain the previous live state. Exact
+arithmetic stays exact. With the legacy strategy, `:auto` retains weight
+recovery without progress-driven switching. Explicit pricing modes retain their
+documented safety fallbacks. See the
+[F14 validation report](diagnostics/simplex-modernization/F14.md).
 
 Forrest–Tomlin maintains a sparse upper factor without row swaps during an
 update. Bartels–Golub may swap adjacent rows to choose a larger elimination

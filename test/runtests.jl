@@ -16,6 +16,8 @@ using Test
     include("simplex_perturbation_integration_tests.jl")
     include("primal_perturbation_tests.jl")
     include("primal_perturbation_integration_tests.jl")
+    include("adaptive_pricing_tests.jl")
+    include("adaptive_pricing_integration_tests.jl")
     include("model_tests.jl")
     include("transformations_tests.jl")
     include("relaxation_allocation_tests.jl")

@@ -95,6 +95,7 @@ mutable struct SimplexScratch{T<:Real}
     post_refactor_reason::Symbol
     refactorization::RefactorizationState{T}
     stagnation::Union{Nothing,WorkspaceStagnation{T,T},WorkspaceStagnation{T,Rational{BigInt}}}
+    pricing::Union{Nothing,PricingState{T}}
     last_primal_step::T
     last_dual_step::Union{T,Rational{BigInt}}
     perturbations::Union{Nothing,PerturbationJournal{T}}
@@ -118,7 +119,7 @@ function SimplexScratch(::Type{T}, row_count::Int, variable_count::Int) where {T
         zeros(T, row_count), zeros(T, row_count), zeros(T, variable_count),
         zeros(T, variable_count), falses(variable_count), false,
         candidates, Int[], T[], T[], Int[], nothing, nothing, false, Int[], Int[], 0, 0, nothing,
-        :none, zero(T), false, false, false, :limit, RefactorizationState(T), nothing, zero(T), zero(T), nothing, true, true, nothing,
+        :none, zero(T), false, false, false, :limit, RefactorizationState(T), nothing, nothing, zero(T), zero(T), nothing, true, true, nothing,
         BasisCheckpoint{T}[], UInt(0), Tuple{Int,Int}[], UInt(0), false, false,
     )
 end
@@ -176,11 +177,13 @@ function reset_devex!(workspace::SimplexWorkspace{T})::Nothing where {T}
     fill!(workspace.devex_reference, false)
     workspace.devex_reference[workspace.basis.basic_indices] .= true
     fill!(workspace.pricing_weights, one(T))
+    _auto_framework_reset!(workspace)
     return nothing
 end
 
 function _restore_original_costs!(workspace::SimplexWorkspace{T}) where {T}
     _retire_perturbations!(workspace)
+    _reset_auto_pricing!(workspace)
     _invalidate_basis_checkpoints!(workspace)
     column_count = size(workspace.problem.A, 2)
     copyto!(workspace.costs, 1, workspace.problem.objective, 1, column_count)
@@ -313,8 +316,12 @@ function recompute!(workspace::SimplexWorkspace{T}; refactorize::Bool=false,
         workspace.refactorizations += 1
         _simplex_event!(workspace, diagnostic_reason)
         workspace.dual_nonzero_steps_since_refactorization = 0
-        (workspace.options.pricing == :devex || workspace.dual_devex_fallback) &&
-            !workspace.dual_pricing_fallback && reset_devex!(workspace)
+        pricing = _effective_pricing(workspace,:dual)
+        if pricing == :devex || (workspace.options.pricing == :auto && pricing == :dantzig)
+            reset_devex!(workspace)
+        end
+        # Refactorization preserves the basis and its steepest-edge weights.
+        # Auto still checks the selected weight against the fresh factor.
     end
 
     A = workspace.problem.A

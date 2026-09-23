@@ -91,6 +91,7 @@ function _recovery_trial(ws::SimplexWorkspace{T},c::BasisCheckpoint{T},stop) whe
         zeros(T,m+n),zeros(T,m+n),ones(T,m+n),falses(m+n),ws.factorization,
         SimplexScratch(T,m,m+n),(getfield(ws,key) for key in _PIVOT_STATE_SCALARS)...)
     _validate_basis(trial)
+    _copy_pricing_state!(trial,ws)
     trial.perturbed = c.perturbed
     trial.scratch.recovery_active = true
     _configure_refactorization!(trial)
@@ -126,8 +127,7 @@ end
 function _rebuild_recovery_weights!(trial::SimplexWorkspace{T},stop) where T
     # Primal weights remain invalid and are computed on demand. Dual steepest
     # edge weights belong to basic rows and must match the rebuilt inverse.
-    trial.options.pricing == :steepest_edge && !trial.dual_pricing_fallback &&
-        !trial.dual_devex_fallback || return true
+    _effective_pricing(trial,:dual) == :steepest_edge || return true
     m = length(trial.basis.basic_indices)
     rhs,direction = zeros(T,m),zeros(T,m)
     policy = trial.progress.numerical_policy
@@ -171,6 +171,10 @@ function _publish_recovery!(ws,trial,reason,stop)
     data = checkpoint_basis(trial)
     checkpoint = BasisCheckpoint(data.basis,data.costs,data.lower,data.upper,
         _checkpoint_model(ws),_checkpoint_phase(ws),data.perturbed)
+    previous_pricing,pricing = ws.scratch.pricing,trial.scratch.pricing
+    pricing_reset = !isnothing(pricing) &&
+        (isnothing(previous_pricing) || pricing.resets > previous_pricing.resets)
+    pricing_reset && _recovery_observer!(ws.progress.diagnostics,:pricing_reset,trial)
     _recovery_observer!(ws.progress.diagnostics,reason,trial)
     _recovery_observer!(ws.progress.diagnostics,:checkpoint,trial)
     stop() && return false
@@ -180,6 +184,7 @@ function _publish_recovery!(ws,trial,reason,stop)
     ws.scratch.post_iteration = :none
     ws.scratch.recovery_restored = reason == :restore_checkpoint
     _store_basis_checkpoint!(ws,checkpoint)
+    pricing_reset && _record_recovery!(ws.progress.diagnostics,:pricing_reset)
     _record_recovery!(ws.progress.diagnostics,reason)
     _record_recovery!(ws.progress.diagnostics,:checkpoint)
     _perturbation_recovered!(ws)
