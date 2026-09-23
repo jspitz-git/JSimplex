@@ -28,7 +28,7 @@ using TOML
         path,output = joinpath(root,"big.mps"),joinpath(root,"report.toml")
         write(path,"NAME COMPONENT\nROWS\n N COST\n E R1\nCOLUMNS\n X COST 1 R1 1\nRHS\n RHS1 R1 1\nENDATA\n")
         args=["--source="*normpath(joinpath(@__DIR__,"../..")),"--file="*path,
-            "--mode=stress","--stress-operation=components","--time-limit=60",
+            "--mode=stress","--stress-operation=components","--time-limit=120",
             "--memory-limit-mib=4096","--read-limit-mib=1","--output="*output]
         @test JSimplexBenchmarks.benchmark_main(args) == 0
         report=TOML.parsefile(output)
@@ -41,6 +41,15 @@ using TOML
         @test !haskey(case,"samples")
         @test haskey(report["runner_sha256"],"simplex_sparse_components.jl")
         @test haskey(report["runner_sha256"],"simplex_factor_components.jl")
+        @test haskey(report["runner_sha256"],"simplex_update_components.jl")
+        @test haskey(case,"update_components")
+        if haskey(case,"update_components")
+            @test case["update_components"]["basis_dimension"] <= 32
+            @test !case["update_components"]["full_sized_factorization"]
+            @test !case["update_components"]["simplex_solve"]
+            @test all(m["reference_verified"] && m["checkpoint_verified"] &&
+                m["refactor_reset_verified"] for m in case["update_components"]["methods"])
+        end
         @test haskey(case,"factor_components")
         if haskey(case,"factor_components")
             @test case["factor_components"]["basis_dimension"] <= 64

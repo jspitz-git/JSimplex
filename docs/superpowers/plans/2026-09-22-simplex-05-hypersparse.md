@@ -83,19 +83,19 @@ L = JSimplex.sparse([1.0 0 0 0; 2 1 0 0; 0 0 1 0; 0 0 3 1])
 **Files:** Modify: src/hypersparse_factorization.jl, src/factorization.jl, src/triangular_factorization.jl. Create: test/hypersparse_update_tests.jl.
 **Interfaces:** Overload forward_solve!/transpose_solve! for IndexedVector and the existing PFIFactorization/AbstractTriangularBasisFactorization. Update operations must return the correct support; the external F17 contract remains unchanged.
 
-- [ ] On an identity basis with n=4, create a PFI column replacement with [1,2,0,0]. A solve with RHS=e₁ must have support {1,2}; with RHS=e₃, only {3}. After a second replacement that causes cancellation, compact_support! must remove the vanished entry.
-- [ ] PFI: propagate support through eta vectors in the exact order; for transpose solves, the pivot entry depends on the intersection of the support with the entire eta, so tracking only the old pivot is insufficient. Verify the reversed history order.
-- [ ] Triangular updates respect the existing algebraic order:
+- [x] On an identity basis with n=4, create a PFI column replacement with [1,2,0,0]. A solve with RHS=e₁ must have support {1,2}; with RHS=e₃, only {3}. After a second replacement that causes cancellation, compact_support! must remove the vanished entry.
+- [x] PFI: propagate support through eta vectors in the exact order; for transpose solves, the pivot entry depends on the intersection of the support with the entire eta, so tracking only the old pivot is insufficient. Verify the reversed history order.
+- [x] Triangular updates respect the existing algebraic order:
 
 ~~~text
 forward:   B₀ solve → R row updates → U solve → Q permutation
 transpose: Q transpose permutation → Uᵀ solve → reversed Rᵀ updates → B₀ᵀ solve
 ~~~
 
-- [ ] Forrest–Tomlin, Suhl–Suhl, and Bartels–Golub have distinct operations; give each tests against an explicitly updated B after every step. Include row swaps for Bartels–Golub, and cancellation and creation of a nonzero entry for packed U. As density grows, materialize the dense branch without losing values.
-- [ ] Test checkpoint restoration, graph reset on refactorization, copies of a shared factor, and source/destination aliasing. Run targeted random sequences with fixed seeds and an exact rational reference at small n.
-- [ ] Add opt-in, bounded stress sequences from external LP components to exercise update-chain support growth, cancellation, refactor reset, and memory accounting. For `big.mps`, `largo.mps`, and `AnyMOD.mps`, restrict execution to bounded component sequences and do not construct a full-sized basis factorization or continue into a complete solve.
-- [ ] Run the full suite and the F01 sparse benchmark for every update method; commit: feat: propagate sparse support through basis updates.
+- [x] Forrest–Tomlin, Suhl–Suhl, and Bartels–Golub have distinct operations; give each tests against an explicitly updated B after every step. Include row swaps for Bartels–Golub, and cancellation and creation of a nonzero entry for packed U. As density grows, materialize the dense branch without losing values.
+- [x] Test checkpoint restoration, graph reset on refactorization, copies of a shared factor, and source/destination aliasing. Run targeted random sequences with fixed seeds and an exact rational reference at small n.
+- [x] Add opt-in, bounded stress sequences from external LP components to exercise update-chain support growth, cancellation, refactor reset, and memory accounting. For `big.mps`, `largo.mps`, and `AnyMOD.mps`, restrict execution to bounded component sequences and do not construct a full-sized basis factorization or continue into a complete solve.
+- [x] Run the full suite and the F01 sparse benchmark for every update method; commit: feat: propagate sparse support through basis updates.
 
 ### F19: Complete Sparse Pipeline and Adaptive Fill-In
 

@@ -568,6 +568,7 @@ function refactorize!(factor::PFIFactorization{T,F}, B::AbstractMatrix{T}) where
     factor.base = new_base
     resize!(factor.work, _backend_dimension(new_base))
     _recycle_pfi_updates!(factor)
+    factor.sparse = nothing
     return factor
 end
 

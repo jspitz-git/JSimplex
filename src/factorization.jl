@@ -41,6 +41,7 @@ mutable struct PFIFactorization{T<:Real,F}
     # Only retired, unshared updates can donate their buffers to a later pivot.
     recycled_updates::Vector{PackedEta{T}}
     shared_update_count::Int
+    sparse::Union{Nothing,SparseBasisWorkspace{T}}
 end
 
 # Count active numeric storage; retired buffers and spare factorizations do not
@@ -91,7 +92,7 @@ function PFIFactorization(B::AbstractMatrix{T}, ::Val{R}) where {T<:Real,R}
     _supported_value_type(T) || throw(ArgumentError("unsupported basis value type: $T"))
     base = _factorize_basis(B, Val(R))
     return PFIFactorization{T,typeof(base)}(
-        base, PackedEta{T}[], zeros(T, size(B, 1)), PackedEta{T}[], 0,
+        base, PackedEta{T}[], zeros(T, size(B, 1)), PackedEta{T}[], 0, nothing,
     )
 end
 
@@ -350,6 +351,7 @@ function refactorize!(factor::PFIFactorization{Float64,UMFPACKBackend}, B::Abstr
     factor.base = new_base
     resize!(factor.work, _backend_dimension(new_base))
     _recycle_pfi_updates!(factor)
+    factor.sparse = nothing
     return factor
 end
 
@@ -358,6 +360,7 @@ function refactorize!(factor::PFIFactorization{T,F}, B::AbstractMatrix{T}) where
     factor.base = new_base
     resize!(factor.work, _backend_dimension(new_base))
     _recycle_pfi_updates!(factor)
+    factor.sparse = nothing
     return factor
 end
 
@@ -378,7 +381,7 @@ function copy_basis_factorization(factor::PFIFactorization{T,F}) where {T,F}
     factor.shared_update_count = length(factor.updates)
     return PFIFactorization{T,F}(
         _copy_backend(factor.base), copy(factor.updates), similar(factor.work),
-        PackedEta{T}[], factor.shared_update_count,
+        PackedEta{T}[], factor.shared_update_count, _copy_sparse_basis_cache(factor.sparse),
     )
 end
 

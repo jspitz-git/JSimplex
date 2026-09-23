@@ -6,6 +6,7 @@ using JSimplex
 include("simplex_replay.jl")
 include("simplex_sparse_components.jl")
 include("simplex_factor_components.jl")
+include("simplex_update_components.jl")
 
 function benchmark_solve(problem, options, diagnostics, ::Nothing)
     return isnothing(diagnostics) ? solve(problem;relax_integrality=true,options) :
@@ -156,6 +157,15 @@ function worker_main(job_path)
                     result["factor_extraction"] = metadata
                     result["factor_components"] = JSimplexFactorComponents.probe(factor_block)
                     result["component_operation"] *= ", bounded base LU extraction and sparse solves"
+                    if isdefined(JSimplex,:SparseBasisWorkspace)
+                        bounded_basis = JSimplexFactorComponents.component_basis(factor_block)
+                        dimension = min(size(bounded_basis,1),32)
+                        result["update_components"] = JSimplexUpdateComponents.probe(
+                            bounded_basis[1:dimension,1:dimension])
+                        result["update_components"]["basis_recipe"] =
+                            "Leading at most 32x32 principal block of the normalized factor component"
+                        result["component_operation"] *= ", bounded update chains and refactor resets"
+                    end
                 end
                 result["outcome"] = "component_completed"
             end

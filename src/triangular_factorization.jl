@@ -239,6 +239,7 @@ mutable struct ForrestTomlinFactorization{T<:Real,F} <: AbstractTriangularBasisF
     # Private retired history; copied active prefixes must never be recycled.
     recycled_updates::Vector{ForrestTomlinUpdate{T}}
     shared_update_count::Int
+    sparse::Union{Nothing,SparseBasisWorkspace{T}}
 end
 
 mutable struct SuhlSuhlFactorization{T<:Real,F} <: AbstractTriangularBasisFactorization{T}
@@ -253,6 +254,7 @@ mutable struct SuhlSuhlFactorization{T<:Real,F} <: AbstractTriangularBasisFactor
     # Private retired history; copied active prefixes must never be recycled.
     recycled_updates::Vector{SuhlSuhlUpdate{T}}
     shared_update_count::Int
+    sparse::Union{Nothing,SparseBasisWorkspace{T}}
 end
 
 mutable struct BartelsGolubFactorization{T<:Real,F} <: AbstractTriangularBasisFactorization{T}
@@ -268,6 +270,7 @@ mutable struct BartelsGolubFactorization{T<:Real,F} <: AbstractTriangularBasisFa
     # Private retired history; copied active prefixes must never be recycled.
     recycled_updates::Vector{BartelsGolubUpdate{T}}
     shared_update_count::Int
+    sparse::Union{Nothing,SparseBasisWorkspace{T}}
 end
 
 ForrestTomlinFactorization(B::AbstractMatrix{T}) where {T<:Real} =
@@ -280,7 +283,7 @@ function ForrestTomlinFactorization(B::AbstractMatrix{T}, ::Val{R}) where {T<:Re
     return ForrestTomlinFactorization{T,typeof(base)}(
         base, _identity_upper(T, n), collect(1:n), collect(1:n),
         ForrestTomlinUpdate{T}[], zeros(T, n), zeros(T, n), Vector{Int}[],
-        ForrestTomlinUpdate{T}[], 0,
+        ForrestTomlinUpdate{T}[], 0, nothing,
     )
 end
 
@@ -294,7 +297,7 @@ function SuhlSuhlFactorization(B::AbstractMatrix{T}, ::Val{R}) where {T<:Real,R}
     return SuhlSuhlFactorization{T,typeof(base)}(
         base, _identity_upper(T, n), collect(1:n), collect(1:n),
         SuhlSuhlUpdate{T}[], zeros(T, n), zeros(T, n), Vector{Int}[],
-        SuhlSuhlUpdate{T}[], 0,
+        SuhlSuhlUpdate{T}[], 0, nothing,
     )
 end
 
@@ -309,7 +312,7 @@ function BartelsGolubFactorization(B::AbstractMatrix{T}, ::Val{R}) where {T<:Rea
         base, _identity_upper(T, n), collect(1:n), collect(1:n),
         BartelsGolubUpdate{T}[], zeros(T, n), zeros(T, n),
         [Int[] for _ in 1:n], Int[],
-        BartelsGolubUpdate{T}[], 0,
+        BartelsGolubUpdate{T}[], 0, nothing,
     )
 end
 
@@ -584,6 +587,7 @@ function replace_column!(factor::SuhlSuhlFactorization{T},
                          zero_tolerance::Real=_is_exact(T) === Val(true) ? zero(T) :
                                               _positive_tolerance(T, 1 // 10^12)) where {T}
     position = _prepare_spike!(factor, tableau_column, pivot_row, zero_tolerance)
+    _invalidate_sparse_upper!(factor)
     n = length(factor.upper)
     last = n
     while iszero(factor.spike[last])
@@ -639,6 +643,7 @@ function replace_column!(factor::ForrestTomlinFactorization{T},
                          zero_tolerance::Real=_is_exact(T) === Val(true) ? zero(T) :
                                               _positive_tolerance(T, 1 // 10^12)) where {T}
     position = _prepare_spike!(factor, tableau_column, pivot_row, zero_tolerance)
+    _invalidate_sparse_upper!(factor)
     _rotate_columns!(factor, position)
     n = length(factor.upper)
     # Rotate the leaving row to the bottom. This leaves one row spike.
@@ -693,6 +698,7 @@ function replace_column!(factor::BartelsGolubFactorization{T},
                          zero_tolerance::Real=_is_exact(T) === Val(true) ? zero(T) :
                                               _positive_tolerance(T, 1 // 10^12)) where {T}
     position = _prepare_spike!(factor, tableau_column, pivot_row, zero_tolerance)
+    _invalidate_sparse_upper!(factor)
     _rotate_columns!(factor, position)
     n = length(factor.upper)
     columns_by_row = _rebuild_row_columns!(factor.row_columns, factor.upper)
@@ -799,6 +805,7 @@ function refactorize!(factor::AbstractTriangularBasisFactorization{T},
     resize!(factor.spike, n)
     _reset_row_scratch!(factor, n)
     _recycle_triangular_updates!(factor)
+    factor.sparse = nothing
     return factor
 end
 
@@ -809,7 +816,7 @@ function copy_basis_factorization(factor::ForrestTomlinFactorization{T,F}) where
                       for column in factor.upper],
         copy(factor.column_order), copy(factor.positions),
         copy(factor.updates), similar(factor.work), similar(factor.spike), Vector{Int}[],
-        ForrestTomlinUpdate{T}[], factor.shared_update_count,
+        ForrestTomlinUpdate{T}[], factor.shared_update_count, _copy_sparse_basis_cache(factor.sparse),
     )
 end
 
@@ -820,7 +827,7 @@ function copy_basis_factorization(factor::SuhlSuhlFactorization{T,F}) where {T,F
                       for column in factor.upper],
         copy(factor.column_order), copy(factor.positions),
         copy(factor.updates), similar(factor.work), similar(factor.spike), Vector{Int}[],
-        SuhlSuhlUpdate{T}[], factor.shared_update_count,
+        SuhlSuhlUpdate{T}[], factor.shared_update_count, _copy_sparse_basis_cache(factor.sparse),
     )
 end
 
@@ -832,6 +839,6 @@ function copy_basis_factorization(factor::BartelsGolubFactorization{T,F}) where 
         copy(factor.column_order), copy(factor.positions),
         copy(factor.updates), similar(factor.work), similar(factor.spike),
         [Int[] for _ in eachindex(factor.row_columns)], Int[],
-        BartelsGolubUpdate{T}[], factor.shared_update_count,
+        BartelsGolubUpdate{T}[], factor.shared_update_count, _copy_sparse_basis_cache(factor.sparse),
     )
 end

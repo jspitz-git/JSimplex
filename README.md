@@ -372,8 +372,14 @@ is a later stage. See the
 Internal base-LU adapters also provide indexed forward/transpose solves using
 reachable triangular dependencies, with a dense-core path for Markowitz factors
 and checked public UMFPACK scaling. The ordinary simplex iterations do not yet
-select these adapters; support through updates and automatic selection follow
-in later stages. See the [F17 validation report](diagnostics/simplex-modernization/F17.md).
+select these adapters. See the [F17 validation report](diagnostics/simplex-modernization/F17.md).
+
+Indexed forward/transpose calls now also propagate support through all four
+basis-update methods. Factor-local caches retain base adapters, rebuild updated
+upper graphs on demand, and own independent scratch after copying. Explicit
+sparse/dense modes and an experimental half-occupancy fallback are available
+internally; automatic simplex integration follows in F19. See the
+[F18 validation report](diagnostics/simplex-modernization/F18.md).
 
 Forrest–Tomlin maintains a sparse upper factor without row swaps during an
 update. Bartels–Golub may swap adjacent rows to choose a larger elimination

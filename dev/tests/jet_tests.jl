@@ -3,6 +3,22 @@ using JET
 using JSimplex
 using JuMP
 
+@testset "JET indexed basis update kernels" begin
+    for T in (Float32,Float64,Rational{BigInt})
+        for Factor in (JSimplex.PFIFactorization,JSimplex.ForrestTomlinFactorization,
+                       JSimplex.SuhlSuhlFactorization,JSimplex.BartelsGolubFactorization)
+            factor = Factor(JSimplex.spdiagm(0=>ones(T,4)),Val(:markowitz))
+            JSimplex.replace_column!(factor,T[1,2,0,0],1)
+            rhs,dest = JSimplex.IndexedVector{T}(4),JSimplex.IndexedVector{T}(4)
+            JSimplex.set_entry!(rhs,1,one(T))
+            JET.@test_opt target_modules=(JSimplex,) JSimplex.forward_solve!(dest,factor,rhs;kernel_mode=:sparse)
+            JET.@test_opt target_modules=(JSimplex,) JSimplex.transpose_solve!(dest,factor,rhs;kernel_mode=:auto)
+            JSimplex.forward_solve!(dest,factor,rhs;kernel_mode=:sparse)
+            JET.@test_opt target_modules=(JSimplex,) JSimplex.copy_basis_factorization(factor)
+        end
+    end
+end
+
 @testset "JET hypersparse base solve kernels" begin
     for T in (Float32,Float64,Rational{BigInt})
         B = JSimplex.sparse(T[2 0 0;1 3 0;0 0 4])

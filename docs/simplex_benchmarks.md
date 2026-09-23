@@ -212,3 +212,18 @@ measures fresh LU, adapter construction (including UMFPACK scaling verification)
 and repeated solves on a fixed generated matrix. It separates already-indexed
 inputs from dense input/output conversion costs. These opt-in measurements do
 not run with the mandatory offline test suite.
+
+F18 component workers additionally check bounded update histories on the leading
+at-most-32-dimensional block of the synthetic F17 basis. All four methods and
+both backends are compared with a 256-bit direct reference after each update;
+copies and refactorization reset are checked separately. Construction, update,
+copy, refactorization, and active-cache storage costs remain visible. These cold
+component timings can include compilation. The existing 60-second overall
+component-worker ceiling still applies, even with a larger requested limit.
+
+`julia --project=dev dev/hypersparse_update_benchmarks.jl /tmp/update-solves.toml`
+measures setup and warmed solves separately on a generated 1024-dimensional
+fixture, before and after inverse updates restore the basis. It includes both
+backends, every update method, sparse/dense RHS, transpose solves, and explicit
+input/output materialization costs. This is an opt-in kernel experiment, not
+a complete simplex speed comparison.
