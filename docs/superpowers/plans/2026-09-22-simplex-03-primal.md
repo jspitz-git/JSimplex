@@ -64,9 +64,9 @@ F08 ablation; quick corpus timings do not establish a global speedup.
 ### F09: Incremental Primal Pivot and Sharing of Pricing Computations
 
 **Files:** Modify: src/primal_updates.jl, src/primal_simplex.jl, src/simplex.jl, src/simplex_numerics.jl, test/primal_update_tests.jl.
-**Interfaces:** `apply_primal_pivot!(ws, entering, leaving_row, signed_change, column, row)::Nothing`. New helper `update_reduced_costs!(costs, row, entering, leaving, pivot)::Nothing`; `row` is the unoriented row of `B⁻¹[A,-I]`. Prepare it before changing the factor. The result includes states and basis indices; the driver counts the completed step.
+**Interfaces:** `apply_primal_pivot!(ws, entering, leaving_row, signed_change, column, row; leaving_state, stop_requested=nothing)::Nothing`. New helper `update_reduced_costs!(costs, row, entering, leaving, pivot)::Nothing`; `row` is the unoriented row of `B⁻¹[A,-I]`. Prepare it before changing the factor. The result includes states and basis indices; the driver counts the completed step.
 
-- [ ] Test reduced costs against an explicit reference; `leaving=3`, `entering=1`:
+- [x] Test reduced costs against an explicit reference; `leaving=3`, `entering=1`:
 
 ~~~julia
 r = [-2.0, 3.0, 0.0]
@@ -74,7 +74,7 @@ JSimplex.update_reduced_costs!(r, [-1.0, 2.0, 1.0], 1, 3, -1.0)
 @test r == [0.0, -1.0, -2.0]
 ~~~
 
-- [ ] Implement the update in the old basis:
+- [x] Implement the update in the old basis:
 
 ~~~text
 alpha := reduced_cost[entering] / tableau_row[entering]
@@ -85,10 +85,14 @@ set entering reduced cost to zero; set leaving to its bound
 apply validated factor update; exchange basis states/indices
 ~~~
 
-- [ ] The leaving variable's tableau column is the old unit basis column; other basic reduced costs remain zero. Share row/direction/pivot and the auxiliary row for steepest edge only when their meaning and lifetime match; do not overwrite live scratch storage. Remove the unconditional recomputation at the end of a primal iteration only in the adaptive branch.
-- [ ] Perform a full recomputation on refactorization, detected drift, a phase/cost/bound change, and before certification. Initially audit at least every 20 pivots; F10 adapts the interval. Use F07 if primal feasibility is lost.
-- [ ] On small exact LPs, test `A*x`, basic costs, state bounds, and an independent solve after every pivot; test long Float32/64 chains, alternating flip/pivot operations, steepest/devex/dantzig, and all updates/backends. Also verify Phase I and perturbed cleanup.
-- [ ] Run targeted tests and the full suite, plus a whole-solve primal benchmark against the parent and baseline; separately count saved solves. Commit: `feat: update primal pivots incrementally`.
+- [x] The leaving variable's tableau column is the old unit basis column; other basic reduced costs remain zero. Share row/direction/pivot and the auxiliary row for steepest edge only when their meaning and lifetime match; do not overwrite live scratch storage. Remove the unconditional recomputation at the end of a primal iteration only in the adaptive branch.
+- [x] Perform a full recomputation on refactorization, detected drift, a phase/cost/bound change, and before certification. Initially audit at least every 20 pivots; F10 adapts the interval. Use F07 if primal feasibility is lost.
+- [x] On small exact LPs, test `A*x`, basic costs, state bounds, and an independent solve after every pivot; test long Float32/64 chains, alternating flip/pivot operations, steepest/devex/dantzig, and all updates/backends. Also verify Phase I and perturbed cleanup.
+- [x] Run targeted tests and the full suite, plus a whole-solve primal benchmark against the parent and baseline; separately count saved solves. Commit: `feat: update primal pivots incrementally`.
+
+Validation: [F09 report](../../../diagnostics/simplex-modernization/F09.md).
+Incremental pivots reduce basis-solve counts; quick and difficult-model
+measurements do not establish a global speedup. Adaptive remains opt-in.
 
 ### F10: Shared Numerical and Economic Refactorization
 

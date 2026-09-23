@@ -12,6 +12,8 @@ const MOI = JuMP.MOI
         w = JSimplex.initialize_workspace(p, SolverOptions(T; verbose=false))
         JET.@test_opt target_modules=(JSimplex,) JSimplex.apply_primal_flip!(w, 1, one(T), T[-1])
         JET.@test_opt target_modules=(JSimplex,) JSimplex.audit_primal_values!(w)
+        JET.@test_opt target_modules=(JSimplex,) JSimplex.update_reduced_costs!(T[-2,3,0],T[-1,2,1],1,3,-one(T))
+        JET.@test_opt target_modules=(JSimplex,) JSimplex.apply_primal_pivot!(w,1,1,one(T),T[-1],T[-1,1];leaving_state=JSimplex.AT_UPPER)
     end
 end
 

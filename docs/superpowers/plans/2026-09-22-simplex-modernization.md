@@ -105,7 +105,7 @@ implementation in parallel.
 | [x] | F06 Basis checkpoints and repair | F05 | `feat: recover simplex from verified basis checkpoints` |
 | [x] | F07 Feasibility recovery and primal/dual handoff | F06 | `feat: add bounded simplex feasibility recovery` |
 | [x] | F08 Incremental primal bound flips | F07 | `feat: update primal bound flips incrementally` |
-| [ ] | F09 Incremental primal pivots | F08 | `feat: update primal pivots incrementally` |
+| [x] | F09 Incremental primal pivots | F08 | `feat: update primal pivots incrementally` |
 | [ ] | F10 Shared adaptive refactorization | F09 | `feat: schedule basis refactorization by quality and cost` |
 | [ ] | F11 Stagnation detection | F07 | `feat: detect scaled simplex stagnation` |
 | [ ] | F12 Adaptive dual cost perturbations | F11 | `feat: adapt dual cost perturbations to stagnation` |

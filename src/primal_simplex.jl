@@ -145,7 +145,7 @@ function _primal_updated_weight(weight::Rational{BigInt}, alpha::Rational{BigInt
 end
 
 function _primal_update_steepest!(workspace::SimplexWorkspace{T}, entering::Int,
-                                  leaving_row::Int, pivot::T) where {T}
+                                  leaving_row::Int, pivot::T; shared_row::Bool=false) where {T}
     scratch = workspace.scratch
     # Fixed-width rational weights are priced exactly on demand in BigInt arithmetic.
     T <: Rational && T !== Rational{BigInt} && return nothing
@@ -164,15 +164,18 @@ function _primal_update_steepest!(workspace::SimplexWorkspace{T}, entering::Int,
         return nothing
     end
     tau = _checked_basis_solve!(scratch.tau,workspace,h;transposed=true)
-    fill!(h, zero(T))
-    h[leaving_row] = one(T)
-    rho = _checked_basis_solve!(scratch.rho,workspace,h;transposed=true)
+    if !shared_row
+        fill!(h, zero(T))
+        h[leaving_row] = one(T)
+        _checked_basis_solve!(scratch.rho,workspace,h;transposed=true)
+        price!(scratch.tableau_row, workspace, scratch.rho)
+    end
+    rho = scratch.rho
     if !all(isfinite, tau) || !all(isfinite, rho)
         fill!(scratch.steepest_valid, false)
         return nothing
     end
     price!(scratch.pricing_row, workspace, tau)
-    price!(scratch.tableau_row, workspace, rho)
     leaving = workspace.basis.basic_indices[leaving_row]
     for index in eachindex(workspace.basis.states)
         (index == entering || workspace.basis.states[index] == BASIC && index != leaving) &&
@@ -226,13 +229,15 @@ function _primal_entering(workspace::SimplexWorkspace{T}, tolerance::T) where {T
 end
 
 function _primal_update_devex!(workspace::SimplexWorkspace{T}, entering::Int,
-                               leaving_row::Int, pivot::T) where {T}
-    unit = workspace.scratch.row_rhs
-    fill!(unit, zero(T))
-    unit[leaving_row] = one(T)
-    rho = _checked_basis_solve!(workspace.scratch.rho,workspace,unit;transposed=true)
+                               leaving_row::Int, pivot::T; shared_row::Bool=false) where {T}
     tableau_row = workspace.scratch.tableau_row
-    price!(tableau_row, workspace, rho)
+    if !shared_row
+        unit = workspace.scratch.row_rhs
+        fill!(unit, zero(T))
+        unit[leaving_row] = one(T)
+        rho = _checked_basis_solve!(workspace.scratch.rho,workspace,unit;transposed=true)
+        price!(tableau_row, workspace, rho)
+    end
     leaving = workspace.basis.basic_indices[leaving_row]
     leaving_weight = _primal_devex_leaving_weight(
         workspace.pricing_weights[entering], pivot,
@@ -342,12 +347,22 @@ end
 function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_requested,
                             reduced_cost_tolerance::T,
                             basis_refreshed::Bool=false) where {T}
+    incremental_pivot = workspace.progress.numerical_policy.incremental_primal_pivots
     _simplex_event!(workspace, :pricing)
     entering, direction = _timed_simplex(workspace, :pricing) do
         _primal_entering(workspace, reduced_cost_tolerance)
     end
     if entering == 0
         isempty(workspace.scratch.rejected_entering) || throw(_PivotRejection(0,0,:exhausted))
+        if incremental_pivot
+            recompute!(workspace;caller_guard=stop_requested)
+            _finite_workspace(workspace) || return _numerical_failure()
+            primal_infeasibility(workspace) <= workspace.options.primal_tolerance ||
+                return DualTermination(NUMERICAL_ERROR, "primal feasibility lost")
+            fresh_entering, _ = _primal_entering(workspace, reduced_cost_tolerance)
+            fresh_entering != 0 && return _primal_iteration_unchecked!(
+                workspace,stop_requested,reduced_cost_tolerance,basis_refreshed)
+        end
         return DualTermination(OPTIMAL, "optimal solution found")
     end
     workspace.scratch.selected_entering = entering
@@ -370,7 +385,7 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
         forward_solve!(workspace.scratch.row_solution, workspace.factorization, column)
     end
     all(isfinite, tableau_column) || return _numerical_failure()
-    checked_pivot = workspace.progress.numerical_policy.pivot_validation
+    checked_pivot = workspace.progress.numerical_policy.pivot_validation || incremental_pivot
     incremental = workspace.progress.numerical_policy.incremental_primal
     if checked_pivot || workspace.progress.numerical_policy.solve_refinement || incremental
         quality = refine_basis_solve!(tableau_column,workspace,column,
@@ -380,7 +395,7 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
             throw(_UnreliableBasisSolve())
         end
     end
-    step, leaving_row, leaving_state = if incremental
+    step, leaving_row, leaving_state = if incremental || incremental_pivot
         _with_recovery_precision(workspace, workspace) do
             _primal_ratio(workspace, entering, direction, tableau_column)
         end
@@ -390,6 +405,14 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
     workspace.scratch.selected_row = leaving_row
     leaving_row == -1 && return DualTermination(NUMERICAL_ERROR, "primal ratio test is inconclusive")
     if isnothing(step)
+        if incremental_pivot
+            basis_refreshed || recompute!(workspace;caller_guard=stop_requested)
+            _finite_workspace(workspace) || return _numerical_failure()
+            primal_infeasibility(workspace) <= workspace.options.primal_tolerance ||
+                return DualTermination(NUMERICAL_ERROR, "primal feasibility lost")
+            basis_refreshed || return _primal_iteration_unchecked!(
+                workspace,stop_requested,reduced_cost_tolerance,true)
+        end
         structural = zeros(T, column_count)
         entering <= column_count && (structural[entering] = direction)
         for (row, index) in enumerate(workspace.basis.basic_indices)
@@ -419,7 +442,9 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
         if checked_pivot
             fill!(column,zero(T))
             column[leaving_row] = one(T)
-            rho = transpose_solve!(workspace.scratch.rho,workspace.factorization,column)
+            rho = _timed_simplex(workspace, :btran) do
+                transpose_solve!(workspace.scratch.rho,workspace.factorization,column)
+            end
             refine_basis_solve!(rho,workspace,column,workspace.progress.numerical_policy,
                                  stop_requested;transposed=true)
             price!(workspace.scratch.tableau_row,workspace,rho)
@@ -445,30 +470,36 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
         end
         workspace.options.pricing == :devex &&
             _primal_update_devex!(workspace, entering, leaving_row,
-                                   tableau_column[leaving_row])
+                                   tableau_column[leaving_row];shared_row=incremental_pivot)
         workspace.options.pricing == :steepest_edge &&
             _primal_update_steepest!(workspace, entering, leaving_row,
-                                     tableau_column[leaving_row])
-        if _is_staged_workspace(workspace)
-            # Check finite candidate values before mutating the factor. The
-            # ordinary full recomputation finishes before publishing the step.
-            _prepare_primal_candidate!(workspace,entering,direction,step,tableau_column,
-                                       leaving_row,leaving_state) || return _numerical_failure()
+                                     tableau_column[leaving_row];shared_row=incremental_pivot)
+        if incremental_pivot
+            apply_primal_pivot!(workspace,entering,leaving_row,direction*step,
+                tableau_column,workspace.scratch.tableau_row;leaving_state,stop_requested)
+        else
+            if _is_staged_workspace(workspace)
+                # Check finite candidate values before mutating the factor. The
+                # ordinary full recomputation finishes before publishing the step.
+                _prepare_primal_candidate!(workspace,entering,direction,step,tableau_column,
+                                           leaving_row,leaving_state) || return _numerical_failure()
+            end
+            _replace_pivot_column!(workspace, tableau_column, leaving_row;
+                                   stop_requested,
+                                   zero_tolerance=checked_pivot ? zero(T) : workspace.options.zero_tolerance)
+            leaving = workspace.basis.basic_indices[leaving_row]
+            workspace.basis.basic_indices[leaving_row] = entering
+            workspace.basis.states[entering] = BASIC
+            workspace.basis.states[leaving] = leaving_state
         end
-        _replace_pivot_column!(workspace, tableau_column, leaving_row;
-                               stop_requested,
-                               zero_tolerance=checked_pivot ? zero(T) : workspace.options.zero_tolerance)
-        leaving = workspace.basis.basic_indices[leaving_row]
-        workspace.basis.basic_indices[leaving_row] = entering
-        workspace.basis.states[entering] = BASIC
-        workspace.basis.states[leaving] = leaving_state
     end
     workspace.iterations += 1
     _simplex_event!(workspace, leaving_row == 0 ? :flip_completed : :pivot_completed)
     refactorize = length(workspace.factorization.updates) >=
                   workspace.options.refactorization_interval
     if _is_staged_workspace(workspace)
-        workspace.scratch.post_iteration = incremental && leaving_row == 0 ? :primal_flip : :primal
+        workspace.scratch.post_iteration = incremental_pivot && leaving_row > 0 ? :primal_pivot :
+            incremental && leaving_row == 0 ? :primal_flip : :primal
         workspace.scratch.post_refactorize = refactorize
         return nothing
     end
