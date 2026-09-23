@@ -113,7 +113,7 @@ implementation in parallel.
 | [x] | F14 Automatic pricing and weight recovery | F11, F13 | `feat: adapt simplex pricing using reliable edge weights` |
 | [x] | F15 Partial pricing | F14 | `feat: add partial simplex pricing with full-scan certification` |
 | [x] | F16 Indexed vectors and sparse pricing | F15 | `feat: add indexed simplex vectors and sparse pricing` |
-| [ ] | F17 Hypersparse base LU solves | F16 | `feat: solve sparse basis factors by reachability` |
+| [x] | F17 Hypersparse base LU solves | F16 | `feat: solve sparse basis factors by reachability` |
 | [ ] | F18 Hypersparse basis updates | F17 | `feat: propagate sparse support through basis updates` |
 | [ ] | F19 Adaptive sparse pipeline and fill-in | F10, F18 | `feat: integrate adaptive hypersparse simplex kernels` |
 | [ ] | F20 Better initial bases | F07 | `feat: construct guarded simplex crash bases` |

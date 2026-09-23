@@ -5,6 +5,7 @@ using .JSimplexBenchmarks
 using JSimplex
 include("simplex_replay.jl")
 include("simplex_sparse_components.jl")
+include("simplex_factor_components.jl")
 
 function benchmark_solve(problem, options, diagnostics, ::Nothing)
     return isnothing(diagnostics) ? solve(problem;relax_integrality=true,options) :
@@ -143,6 +144,18 @@ function worker_main(job_path)
                 if isdefined(JSimplex,:RowAccess)
                     result["sparse_pricing"] = JSimplexSparseComponents.probe(block)
                     result["component_operation"] = "row indexing, sparse pricing, and support cancellation"
+                end
+                if isdefined(JSimplex,:sparse_solve_view)
+                    JSimplex.BLAS.set_num_threads(1)
+                    extracted = @timed JSimplexFactorComponents.extract(problem.A)
+                    factor_block,metadata = extracted.value
+                    metadata["seconds"] = extracted.time
+                    metadata["allocated_bytes"] = extracted.bytes
+                    metadata["rows"],metadata["columns"] = size(factor_block)
+                    metadata["nonzeros"] = JSimplex.nnz(factor_block)
+                    result["factor_extraction"] = metadata
+                    result["factor_components"] = JSimplexFactorComponents.probe(factor_block)
+                    result["component_operation"] *= ", bounded base LU extraction and sparse solves"
                 end
                 result["outcome"] = "component_completed"
             end

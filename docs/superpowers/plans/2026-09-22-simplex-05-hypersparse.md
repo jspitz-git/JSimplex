@@ -63,7 +63,7 @@ JSimplex.add_entry!(v, 3, 1.0)
 **Files:** Create: src/hypersparse_factorization.jl, test/hypersparse_factorization_tests.jl. Modify: src/factorization.jl, src/markowitz_factorization.jl, src/JSimplex.jl.
 **Interfaces:** SparseSolveView adapters for basis LUs own the factors/graphs and the permutations/scaling of the given backend. sparse_solve_view(backend) returns an adapter or nothing. hypersparse_forward_solve!(dest::IndexedVector, view, rhs::IndexedVector) and hypersparse_transpose_solve! have the same mathematical contract as the existing solves.
 
-- [ ] Test reachability on a lower triangular matrix:
+- [x] Test reachability on a lower triangular matrix:
 
 ~~~julia
 L = JSimplex.sparse([1.0 0 0 0; 2 1 0 0; 0 0 1 0; 0 0 3 1])
@@ -71,12 +71,12 @@ L = JSimplex.sparse([1.0 0 0 0; 2 1 0 0; 0 0 1 0; 0 0 3 1])
 @test Set(JSimplex.reachability_order(L, [1]; transposed=false)) == Set([1, 2])
 ~~~
 
-- [ ] Implement a directed graph of nonzero dependencies, DFS/topological ordering of the reachable portion, and numerical substitution. reachability_order is a new helper for this task; in production it returns a borrowed preallocated buffer, and a test must not retain its alias across another call.
-- [ ] Start with a Markowitz adapter over the existing lower/upper/diagonal/row_order/column_order; when the trailing core is reached, use its dense LU and continue by reachability. Do not assume the entire factor is sparse.
-- [ ] Add a UMFPACK adapter with one-time extraction of publicly available factors, permutations, and row scaling during refactorization. First verify the reconstruction identity of the specific Julia backend with a test, then implement both forward and transpose mappings. Do not use internal UMFPACK pointers. If the adapter is unavailable or not worthwhile, use the original backend.
-- [ ] Test B=[0 2 0;1 0 3;4 0 5], both systems, unit and dense RHS, row/column permutations and scaling, an empty basis, and singularity. Compare with direct B\rhs and B'\rhs, and additionally use higher precision on small cases.
-- [ ] In the separate opt-in stress suite, exercise bounded factor-component extraction, reachability, sparse and dense RHS transitions, and memory limits on decompressed and explicitly LP-relaxed external instances. The three excluded files receive bounded component checks only, with no full-sized basis factorization or complete solve.
-- [ ] Run targeted backend tests and the full suite; measure graph construction/extraction/fresh LU and repeated solves. Commit: feat: solve sparse basis factors by reachability.
+- [x] Implement a directed graph of nonzero dependencies, DFS/topological ordering of the reachable portion, and numerical substitution. reachability_order is a new helper for this task; in production it returns a borrowed preallocated buffer, and a test must not retain its alias across another call.
+- [x] Start with a Markowitz adapter over the existing lower/upper/diagonal/row_order/column_order; when the trailing core is reached, use its dense LU and continue by reachability. Do not assume the entire factor is sparse.
+- [x] Add a UMFPACK adapter with one-time extraction of publicly available factors, permutations, and row scaling during refactorization. First verify the reconstruction identity of the specific Julia backend with a test, then implement both forward and transpose mappings. Do not use internal UMFPACK pointers. If the adapter is unavailable or not worthwhile, use the original backend.
+- [x] Test B=[0 2 0;1 0 3;4 0 5], both systems, unit and dense RHS, row/column permutations and scaling, an empty basis, and singularity. Compare with direct B\rhs and B'\rhs, and additionally use higher precision on small cases.
+- [x] In the separate opt-in stress suite, exercise bounded factor-component extraction, reachability, sparse and dense RHS transitions, and memory limits on decompressed and explicitly LP-relaxed external instances. The three excluded files receive bounded component checks only, with no full-sized basis factorization or complete solve.
+- [x] Run targeted backend tests and the full suite; measure graph construction/extraction/fresh LU and repeated solves. Commit: feat: solve sparse basis factors by reachability.
 
 ### F18: Support Propagation Through Basis Updates
 

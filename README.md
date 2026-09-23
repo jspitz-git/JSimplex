@@ -369,6 +369,12 @@ pipeline and CSC fallback remain available; automatic sparse-kernel selection
 is a later stage. See the
 [F16 validation report](diagnostics/simplex-modernization/F16.md).
 
+Internal base-LU adapters also provide indexed forward/transpose solves using
+reachable triangular dependencies, with a dense-core path for Markowitz factors
+and checked public UMFPACK scaling. The ordinary simplex iterations do not yet
+select these adapters; support through updates and automatic selection follow
+in later stages. See the [F17 validation report](diagnostics/simplex-modernization/F17.md).
+
 Forrest–Tomlin maintains a sparse upper factor without row swaps during an
 update. Bartels–Golub may swap adjacent rows to choose a larger elimination
 pivot. Suhl–Suhl moves the leaving row and column only to the last nonzero

@@ -3,6 +3,20 @@ using JET
 using JSimplex
 using JuMP
 
+@testset "JET hypersparse base solve kernels" begin
+    for T in (Float32,Float64,Rational{BigInt})
+        B = JSimplex.sparse(T[2 0 0;1 3 0;0 0 4])
+        for kind in (T == Float64 ? (:markowitz,:native) : (:markowitz,))
+            view = JSimplex.sparse_solve_view(JSimplex._factorize_basis(B,Val(kind)))
+            rhs,dest = JSimplex.IndexedVector{T}(3),JSimplex.IndexedVector{T}(3)
+            JSimplex.set_entry!(rhs,1,one(T))
+            JET.@test_opt target_modules=(JSimplex,) JSimplex.reachability_order(view.lower,rhs.indices)
+            JET.@test_opt target_modules=(JSimplex,) JSimplex.hypersparse_forward_solve!(dest,view,rhs)
+            JET.@test_opt target_modules=(JSimplex,) JSimplex.hypersparse_transpose_solve!(dest,view,rhs)
+        end
+    end
+end
+
 const MOI = JuMP.MOI
 
 @testset "JET incremental primal updates" begin

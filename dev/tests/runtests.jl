@@ -199,3 +199,4 @@ include("simplex_driver_tests.jl")
 include("primal_update_benchmark_tests.jl")
 
 include("sparse_component_tests.jl")
+include("factor_component_tests.jl")

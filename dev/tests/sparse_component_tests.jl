@@ -40,6 +40,14 @@ using TOML
         @test !case["sparse_pricing"]["full_sized_factorization"]
         @test !haskey(case,"samples")
         @test haskey(report["runner_sha256"],"simplex_sparse_components.jl")
+        @test haskey(report["runner_sha256"],"simplex_factor_components.jl")
+        @test haskey(case,"factor_components")
+        if haskey(case,"factor_components")
+            @test case["factor_components"]["basis_dimension"] <= 64
+            @test !case["factor_components"]["full_sized_factorization"]
+            @test !case["factor_components"]["simplex_solve"]
+            @test all(b["reference_verified"] for b in case["factor_components"]["backends"])
+        end
         write(path,"NAME OVERFLOW\nROWS\n N COST\n E R1\n E R2\nCOLUMNS\n X COST 1 R1 1e308\n X R2 1e308\nRHS\n RHS1 R1 1 R2 1\nENDATA\n")
         @test JSimplexBenchmarks.benchmark_main(args) == 1
         case=only(TOML.parsefile(output)["cases"])

@@ -133,7 +133,8 @@ for the fixed generated sparse/dense-RHS component comparison.
 
 Stress `--stress-operation=components` additionally checks indexed row pricing
 on the bounded extracted block and cancellation/reinsertion. It constructs no
-simplex workspace or basis factorization. Reports distinguish `component_error`
+simplex workspace or full-sized basis factorization. The separate F17 probe
+factorizes only a derived component bounded by 64x64. Reports distinguish `component_error`
 from `reader_error`; index/scratch storage counts describe active arrays.
 
 Snapshots retain the effective policy. Replay uses its stored strategy and
@@ -197,3 +198,17 @@ inspection and must not be confused with the fresh-factor replay command.
 Replay files are task-owned local serialized artifacts for the matching
 Julia/source environment; hashes detect accidental corruption. External corpus
 files and replay binaries do not belong in repository commits.
+
+F17 bounded component workers additionally select up to 64 occupied rows/columns
+within 50000 scanned stored entries. They construct a row-normalized, strictly
+diagonally-dominant synthetic square component and verify native/Markowitz base
+solves in both directions. This is not a basis of the original LP or a full LP
+solve. The report retains selection metadata, factor/adapter construction costs,
+reference checks, and bounded storage sizes. Oversized-model exclusions still
+apply before any complete solve.
+
+`julia --project=dev dev/hypersparse_factor_benchmarks.jl /tmp/base-solves.toml`
+measures fresh LU, adapter construction (including UMFPACK scaling verification),
+and repeated solves on a fixed generated matrix. It separates already-indexed
+inputs from dense input/output conversion costs. These opt-in measurements do
+not run with the mandatory offline test suite.
