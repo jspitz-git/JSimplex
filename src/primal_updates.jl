@@ -37,6 +37,7 @@ function _apply_primal_flip!(ws::SimplexWorkspace{T}, entering::Int,
     end
     ws.primal[entering] = value
     ws.basis.states[entering] = state == AT_LOWER ? AT_UPPER : AT_LOWER
+    _advance_pricing_basis!(ws)
     return nothing
 end
 
@@ -141,6 +142,7 @@ function apply_primal_pivot!(ws::SimplexWorkspace{T}, entering::Int, leaving_row
         ws.basis.basic_indices[leaving_row] = entering
         ws.basis.states[entering] = BASIC
         ws.basis.states[leaving] = leaving_state
+        _advance_pricing_basis!(ws)
         ws.scratch.basic_mask[entering] = true
         ws.scratch.basic_mask[leaving] = false
         for index in ws.basis.basic_indices

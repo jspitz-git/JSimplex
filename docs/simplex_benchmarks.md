@@ -70,7 +70,8 @@ Reports include the effective numerical policy as well as SolverOptions.
 The adaptive profile currently enables `stable_ratio`, `pivot_validation`,
 `solve_refinement`, `recovery`, `feasibility_recovery`, `incremental_primal`,
 `incremental_primal_pivots`, `adaptive_refactor`, `adaptive_stalling`, and
-`adaptive_dual_perturbation`, `adaptive_primal_perturbation`, and `adaptive_pricing`.
+`adaptive_dual_perturbation`, `adaptive_primal_perturbation`, `adaptive_pricing`,
+and `partial_pricing`.
 Set a switch to `false` in a policy file to isolate its effect.
 Disabling `solve_refinement` retains the F04 pivot-specific corrections while
 turning off broader basis-solve refinement. Disabling `pivot_validation` turns
@@ -110,6 +111,17 @@ attempts. These switches are numerical/progress decisions, independent of clocks
 in `NUMERICAL_SWITCHES` in `src/simplex_numerics.jl`; an unimplemented stage
 cannot be enabled. Unknown keys and invalid values are errors. These controls
 do not replace the user's primal/dual tolerances.
+For partial-pricing ablations, set `partial_pricing=false` versus `true` while
+keeping strategy and scoring rule fixed. `pricing_scanned_entries` and
+`pricing_scored_entries` count full/block-domain visits and valid candidate score evaluations;
+`pricing_full_scan`, `pricing_block_scan`, and `pricing_pool_hit` distinguish
+complete scans, block passes, and reuse. Rechecking the cached pool is not a
+full/block-domain visit; its valid candidates contribute to scored entries.
+Full-pricing baselines record scan work too. These aggregate work counters include discarded attempts and do not
+publish solver-state observer events. Compare them with pricing kernel cost,
+iterations, and refactorizations; fewer scanned entries alone do not prove a
+faster complete solve. These counters cover candidate selection; feasibility
+checks, weight validation, and updates may still scan full vectors.
 
 Snapshots retain the effective policy. Replay uses its stored strategy and
 can apply `--policy` overrides to that working policy; `--simplex-strategy=adaptive`

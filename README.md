@@ -351,6 +351,16 @@ recovery without progress-driven switching. Explicit pricing modes retain their
 documented safety fallbacks. See the
 [F14 validation report](diagnostics/simplex-modernization/F14.md).
 
+For pricing domains above 128 entries, the adaptive strategy uses candidate
+pools and cyclic blocks of 64. Candidate scores and eligibility are checked
+against current values on every selection. An exhausted pool triggers a full
+current scan before an optimum can be reported; numerical uncertainty and a
+dual infeasibility proof also require full scanning. Costs, phase changes,
+recomputation, and recovered bases invalidate cached candidates. Small domains
+retain full pricing. The internal `partial_pricing=false` benchmark policy
+isolates this feature. See the
+[F15 validation report](diagnostics/simplex-modernization/F15.md).
+
 Forrest–Tomlin maintains a sparse upper factor without row swaps during an
 update. Bartels–Golub may swap adjacent rows to choose a larger elimination
 pivot. Suhl–Suhl moves the leaving row and column only to the last nonzero

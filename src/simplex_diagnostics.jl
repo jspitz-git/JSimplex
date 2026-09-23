@@ -5,6 +5,8 @@ const SIMPLEX_EVENT_REASONS = (
     :refactor_initial, :refactor_limit, :refactor_residual, :refactor_pivot,
     :refactor_cost, :refactor_growth, :refactor_fill,
     :stagnation_watch, :stagnation_stalled, :stagnation_fallback,
+    :pricing_scanned_entries, :pricing_scored_entries, :pricing_full_scan,
+    :pricing_block_scan, :pricing_pool_hit,
     :pricing_devex, :pricing_dantzig, :pricing_reset, :pricing_weight_rejected,
     :refactor_other, :correction_attempt, :correction, :pricing, :perturbation, :restore_perturbations,
     :certification, :certification_failed, :repair, :checkpoint, :restore_checkpoint,

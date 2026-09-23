@@ -200,9 +200,16 @@ function _primal_entering(workspace::SimplexWorkspace{T}, tolerance::T) where {T
     _prepare_auto_pricing!(workspace,:primal)
     state = workspace.scratch.pricing
     isnothing(state) || (state.pricing_passes += 1)
+    if _partial_pricing_enabled(workspace,:primal)
+        entering = _select_workspace_pool!(workspace,:primal;tolerance)
+        direction = entering == 0 ? zero(T) :
+            (workspace.reduced_costs[entering] < zero(T) ? one(T) : -one(T))
+        return entering,direction
+    end
     pricing = _effective_pricing(workspace,:primal)
     pricing == :steepest_edge && _primal_initialize_steepest!(workspace)
     entering = 0
+    scored = 0
     direction = zero(T)
     best_score = _primal_dantzig_score(one(T))
     for index in eachindex(workspace.basis.states)
@@ -215,6 +222,7 @@ function _primal_entering(workspace::SimplexWorkspace{T}, tolerance::T) where {T
                     (state == AT_UPPER && reduced_cost > tolerance) ||
                     (state == FREE_NONBASIC && abs(reduced_cost) > tolerance)
         improving || continue
+        scored += 1
         score = if pricing == :dantzig
             _primal_dantzig_score(reduced_cost)
         else
@@ -228,6 +236,7 @@ function _primal_entering(workspace::SimplexWorkspace{T}, tolerance::T) where {T
             best_score = score
         end
     end
+    _record_full_pricing!(workspace.progress.diagnostics,length(workspace.basis.states),scored)
     return entering, direction
 end
 
@@ -444,6 +453,7 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
                                            leaving_row,leaving_state) || return _numerical_failure()
             end
             workspace.basis.states[entering] = direction > zero(T) ? AT_UPPER : AT_LOWER
+            _advance_pricing_basis!(workspace)
         end
     else
         if checked_pivot
@@ -500,6 +510,7 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
             workspace.basis.basic_indices[leaving_row] = entering
             workspace.basis.states[entering] = BASIC
             workspace.basis.states[leaving] = leaving_state
+            _advance_pricing_basis!(workspace)
         end
     end
     _note_refactor_step!(workspace,direction*step)

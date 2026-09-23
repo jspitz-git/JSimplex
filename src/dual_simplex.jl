@@ -137,6 +137,7 @@ function _try_refine_dual_prices!(workspace::SimplexWorkspace{Float64}, stop_req
         workspace.reduced_costs .= old_prices
         return false
     end
+    _invalidate_pricing_pool!(workspace;basis=false)
     try
         @logmsg workspace.options.log_level "Refined reduced costs after dual feasibility loss" iterations=workspace.iterations restored_costs=length(restored)
     catch exception
@@ -202,6 +203,7 @@ function _stabilize_small_dual_pivot!(workspace::SimplexWorkspace{Float64},
     residual_price = exact_price + BigFloat(new_cost) - BigFloat(old_cost)
     abs(residual_price) <= margin || return false
     workspace.costs[entering_index] = new_cost
+    _invalidate_pricing_pool!(workspace;basis=false)
     workspace.reduced_costs[entering_index] = 0.0
     workspace.perturbed = true
     return true
@@ -216,10 +218,14 @@ function _dual_prices_feasible_or_refined!(workspace::SimplexWorkspace, stop_req
     return _try_refine_dual_prices!(workspace, stop_requested)
 end
 
-function dual_edge_selection(workspace::SimplexWorkspace{T})::Int where {T}
+function dual_edge_selection(workspace::SimplexWorkspace{T};force_full::Bool=false)::Int where {T}
     _prepare_auto_pricing!(workspace,:dual)
     state = workspace.scratch.pricing
     isnothing(state) || (state.pricing_passes += 1)
+    if _partial_pricing_enabled(workspace,:dual)
+        row = _select_workspace_pool!(workspace,:dual;force_full)
+        return row == 0 ? -1 : row
+    end
     if workspace.options.pricing == :auto && T <: Rational
         return _dual_edge_selection(workspace,Val(Rational{BigInt}))
     elseif workspace.options.pricing == :auto
@@ -241,6 +247,7 @@ end
 
 function _dual_edge_selection(workspace::SimplexWorkspace{T},scoring::Val{S})::Int where {T,S}
     leaving_row = -1
+    scored = 0
     best_score = S === :scaled ? _primal_dantzig_score(one(T)) : zero(S)
     weighted = _effective_pricing(workspace,:dual) != :dantzig
     for (row, index) in enumerate(workspace.basis.basic_indices)
@@ -248,12 +255,14 @@ function _dual_edge_selection(workspace::SimplexWorkspace{T},scoring::Val{S})::I
         violation = max(_lower_violation(workspace.lower[index], workspace.primal[index]),
                         _upper_violation(workspace.upper[index], workspace.primal[index]))
         violation > workspace.options.primal_tolerance || continue
+        scored += 1
         score = _dual_pricing_score(violation,workspace.pricing_weights[index],weighted,scoring)
         if (S === :scaled && leaving_row == -1) || score > best_score
             leaving_row = row
             best_score = score
         end
     end
+    _record_full_pricing!(workspace.progress.diagnostics,length(workspace.basis.basic_indices),scored)
     return leaving_row
 end
 
@@ -432,6 +441,7 @@ end
 
 function update_duals!(workspace::SimplexWorkspace{T}, tableau_row::Vector{T},
                       leaving_index::Int, entering_index::Int, dual_step::T)::Nothing where {T}
+    changed_costs = false
     for index in eachindex(workspace.reduced_costs)
         state = workspace.basis.states[index]
         (state == BASIC || index == entering_index) && continue
@@ -443,6 +453,7 @@ function update_duals!(workspace::SimplexWorkspace{T}, tableau_row::Vector{T},
             if violated
                 # Shift to zero to leave room for recomputation roundoff.
                 workspace.costs[index] -= reduced_cost
+                changed_costs = true
                 workspace.perturbed = true
                 reduced_cost = zero(T)
             end
@@ -451,6 +462,7 @@ function update_duals!(workspace::SimplexWorkspace{T}, tableau_row::Vector{T},
     end
     workspace.reduced_costs[leaving_index] = -dual_step
     workspace.reduced_costs[entering_index] = zero(T)
+    changed_costs && _invalidate_pricing_pool!(workspace;basis=false)
     return nothing
 end
 
@@ -598,6 +610,7 @@ function _perturb_degenerate_dual_costs!(workspace::SimplexWorkspace{T},
         return 0
     end
     workspace.perturbed = true
+    _invalidate_pricing_pool!(workspace;basis=false)
     try
         @logmsg workspace.options.log_level "Perturbed dual costs after zero-step stall" iteration=workspace.iterations shifted=length(indices)
     catch exception
@@ -1032,10 +1045,11 @@ _try_refine_dual_pivot!(::SimplexWorkspace, ::Int, orientation, violation,
 
 function _dual_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_requested,
                           basis_refreshed::Bool=false,
-                          perturb_degenerate::Bool=true) where {T}
+                          perturb_degenerate::Bool=true;
+                          force_full_pricing::Bool=false) where {T}
     _simplex_event!(workspace, :pricing)
     leaving_row = _timed_simplex(workspace, :pricing) do
-        dual_edge_selection(workspace)
+        dual_edge_selection(workspace;force_full=force_full_pricing)
     end
     if leaving_row == -1
         isempty(workspace.scratch.rejected_rows) || throw(_PivotRejection(0,0,:exhausted))
@@ -1137,6 +1151,14 @@ function _dual_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_request
                 return DualTermination(NUMERICAL_ERROR, "dual feasibility lost")
             end
             return _dual_iteration_unchecked!(workspace, stop_requested, true, perturb_degenerate)
+        end
+        pool = workspace.scratch.pricing_pool
+        if _partial_pricing_enabled(workspace,:dual) && !isnothing(pool) && !pool.full_scan
+            full_row = dual_edge_selection(workspace;force_full=true)
+            if full_row != leaving_row
+                return _dual_iteration_unchecked!(workspace,stop_requested,basis_refreshed,
+                    perturb_degenerate;force_full_pricing=true)
+            end
         end
         if _is_exact(T) === Val(false) && !_floating_infeasibility_certified(workspace, rho, below)
             return DualTermination(NUMERICAL_ERROR,
@@ -1283,6 +1305,7 @@ function _dual_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_request
         # Harris may accept a reduced cost on the infeasible side of zero,
         # within dual tolerance. Do not move backwards in the dual direction.
         workspace.costs[entering_index] -= workspace.reduced_costs[entering_index]
+        _invalidate_pricing_pool!(workspace;basis=false)
         workspace.reduced_costs[entering_index] = zero(T)
         workspace.perturbed = true
         dual_step = zero(T)
@@ -1302,6 +1325,7 @@ function _dual_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_request
     workspace.basis.basic_indices[leaving_row] = entering_index
     workspace.basis.states[entering_index] = BASIC
     workspace.basis.states[leaving_index] = below ? AT_LOWER : AT_UPPER
+    _advance_pricing_basis!(workspace)
     workspace.primal[leaving_index] = bound_value(bound)
     # Count the completed pivot even when its subsequent refactorization times out.
     _note_refactor_step!(workspace,dual_step)

@@ -111,7 +111,7 @@ implementation in parallel.
 | [x] | F12 Adaptive dual cost perturbations | F11 | `feat: adapt dual cost perturbations to stagnation` |
 | [x] | F13 Reversible primal bound perturbations | F09, F12 | `feat: recover degenerate primal paths with bound perturbations` |
 | [x] | F14 Automatic pricing and weight recovery | F11, F13 | `feat: adapt simplex pricing using reliable edge weights` |
-| [ ] | F15 Partial pricing | F14 | `feat: add partial simplex pricing with full-scan certification` |
+| [x] | F15 Partial pricing | F14 | `feat: add partial simplex pricing with full-scan certification` |
 | [ ] | F16 Indexed vectors and sparse pricing | F15 | `feat: add indexed simplex vectors and sparse pricing` |
 | [ ] | F17 Hypersparse base LU solves | F16 | `feat: solve sparse basis factors by reachability` |
 | [ ] | F18 Hypersparse basis updates | F17 | `feat: propagate sparse support through basis updates` |
@@ -195,7 +195,7 @@ inside that same commit; derive it from history or record it later.
 
 - After F07: reproduce a late numerical failure and recover at least one case; introduce no false certified status. **Recovery milestone unmet:** F07 is implemented and verified but remains opt-in. Extended runtime and greenbea runs do not establish new solved coverage; see the [F07 report](../../../diagnostics/simplex-modernization/F07.md).
 - After F10: demonstrate cheaper primal iterations and measure complete primal solves, including numerical quality after long update chains. **Cost milestone unmet:** F08/F09 reduce basis-solve work, but the combined adaptive path has not established cheaper complete primal solves. F10 passes complete suites and preserves quick solved coverage; all runtime comparisons reach 360-second limits. Keep adaptive opt-in; see the [F10 report](../../../diagnostics/simplex-modernization/F10.md).
-- After F15: validate degeneracy beyond pk1 and ablate perturbations/pricing; do not hide stagnation by increasing iteration limits.
+- After F15: validate degeneracy beyond pk1 and ablate perturbations/pricing; do not hide stagnation by increasing iteration limits. **Verification complete, performance mixed:** F12–F15 retain independent ablations; degen2 and markshare_4_0 reach consistent optima, while scsd8 remains unsolved. Partial pricing reduces scan work but does not establish a broad speedup. Legacy remains the public default; see the [F15 report](../../../diagnostics/simplex-modernization/F15.md).
 - After F19: demonstrate hypersparse benefits on sparse solve results and correct dense fallbacks; include factor extraction, graph, fill-in, and conversion costs. Oversized models remain bounded component probes.
 - After F21: report phase-I time/iterations separately and verify artificial removal and postsolve.
 - After F24: test and ablate precision boosting separately from LP correction and linear-system refinement.
@@ -209,11 +209,8 @@ rollout must not be committed as successful.
 ## Handoff
 
 The user authorized sequential implementation in this worktree, with one
-commit per verified feature. Preparation and F01–F04 are complete; F05 is next. See the
-[F01 validation report](../../../diagnostics/simplex-modernization/F01.md) and
-[F02 validation report](../../../diagnostics/simplex-modernization/F02.md) and
-[F03 validation report](../../../diagnostics/simplex-modernization/F03.md) and
-[F04 validation report](../../../diagnostics/simplex-modernization/F04.md).
+commit per verified feature. Preparation and F01–F15 are complete; F16 is next.
+See the [F15 validation report](../../../diagnostics/simplex-modernization/F15.md).
 On resumption, use the feature checkboxes and commit history, then read the
 specification and the next incomplete stage. Keep implementation sequential
 because the stages share numerical contracts.

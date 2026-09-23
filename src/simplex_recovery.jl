@@ -54,6 +54,7 @@ function checkpoint_basis(ws::SimplexWorkspace{T})::BasisCheckpoint{T} where T
 end
 
 function _invalidate_basis_checkpoints!(ws)
+    _invalidate_pricing_pool!(ws)
     empty!(ws.scratch.checkpoints)
     empty!(ws.scratch.recovery_rejections)
     ws.scratch.phase_generation += UInt(1)
@@ -92,6 +93,8 @@ function _recovery_trial(ws::SimplexWorkspace{T},c::BasisCheckpoint{T},stop) whe
         SimplexScratch(T,m,m+n),(getfield(ws,key) for key in _PIVOT_STATE_SCALARS)...)
     _validate_basis(trial)
     _copy_pricing_state!(trial,ws)
+    _copy_pricing_pool!(trial,ws)
+    _invalidate_pricing_pool!(trial)
     trial.perturbed = c.perturbed
     trial.scratch.recovery_active = true
     _configure_refactorization!(trial)

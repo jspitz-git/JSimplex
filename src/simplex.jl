@@ -96,6 +96,7 @@ mutable struct SimplexScratch{T<:Real}
     refactorization::RefactorizationState{T}
     stagnation::Union{Nothing,WorkspaceStagnation{T,T},WorkspaceStagnation{T,Rational{BigInt}}}
     pricing::Union{Nothing,PricingState{T}}
+    pricing_pool::Union{Nothing,CandidatePool}
     last_primal_step::T
     last_dual_step::Union{T,Rational{BigInt}}
     perturbations::Union{Nothing,PerturbationJournal{T}}
@@ -119,7 +120,7 @@ function SimplexScratch(::Type{T}, row_count::Int, variable_count::Int) where {T
         zeros(T, row_count), zeros(T, row_count), zeros(T, variable_count),
         zeros(T, variable_count), falses(variable_count), false,
         candidates, Int[], T[], T[], Int[], nothing, nothing, false, Int[], Int[], 0, 0, nothing,
-        :none, zero(T), false, false, false, :limit, RefactorizationState(T), nothing, nothing, zero(T), zero(T), nothing, true, true, nothing,
+        :none, zero(T), false, false, false, :limit, RefactorizationState(T), nothing, nothing, nothing, zero(T), zero(T), nothing, true, true, nothing,
         BasisCheckpoint{T}[], UInt(0), Tuple{Int,Int}[], UInt(0), false, false,
     )
 end
@@ -296,6 +297,7 @@ end
 function recompute!(workspace::SimplexWorkspace{T}; refactorize::Bool=false,
                     caller_guard=nothing, diagnostic_reason::Symbol=:refactor_other) where {T}
     _validate_basis(workspace)
+    _invalidate_pricing_pool!(workspace)
     if refactorize
         try
             @logmsg workspace.options.log_level "Refactorizing basis" iterations=workspace.iterations refactorizations=workspace.refactorizations + 1

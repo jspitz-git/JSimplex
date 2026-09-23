@@ -4,7 +4,7 @@ const NUMERICAL_SWITCHES = (
     :adaptive_stalling, :adaptive_dual_perturbation,:adaptive_primal_perturbation, :adaptive_pricing, :partial_pricing, :hypersparse,
     :crash, :phase_one, :precision_boosting, :lp_refinement,
 )
-const IMPLEMENTED_NUMERICAL_SWITCHES = (:stable_ratio,:pivot_validation,:solve_refinement,:recovery,:feasibility_recovery,:incremental_primal,:incremental_primal_pivots,:adaptive_refactor,:adaptive_stalling,:adaptive_dual_perturbation,:adaptive_primal_perturbation,:adaptive_pricing)
+const IMPLEMENTED_NUMERICAL_SWITCHES = (:stable_ratio,:pivot_validation,:solve_refinement,:recovery,:feasibility_recovery,:incremental_primal,:incremental_primal_pivots,:adaptive_refactor,:adaptive_stalling,:adaptive_dual_perturbation,:adaptive_primal_perturbation,:adaptive_pricing,:partial_pricing)
 
 struct NumericalPolicy{T<:Real}
     solve_tolerance::T
@@ -51,7 +51,7 @@ function NumericalPolicy(::Type{T}; simplex_strategy::Symbol=:legacy,
     adaptive_stalling::Bool=(simplex_strategy == :adaptive),
     adaptive_dual_perturbation::Bool=(simplex_strategy == :adaptive),
     adaptive_primal_perturbation::Bool=(simplex_strategy == :adaptive),
-    adaptive_pricing::Bool=(simplex_strategy == :adaptive), partial_pricing::Bool=false, hypersparse::Bool=false,
+    adaptive_pricing::Bool=(simplex_strategy == :adaptive), partial_pricing::Bool=(simplex_strategy == :adaptive), hypersparse::Bool=false,
     crash::Bool=false, phase_one::Bool=false, precision_boosting::Bool=false,
     lp_refinement::Bool=false,
 ) where {T}

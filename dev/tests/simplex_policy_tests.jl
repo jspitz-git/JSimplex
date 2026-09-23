@@ -22,7 +22,7 @@ end
     @test_throws ArgumentError parse_benchmark_args(["--pricing=unknown"])
     @test_throws ArgumentError parse_benchmark_args(["--replay=snapshot.bin","--pricing=auto"])
     mktempdir() do root
-        policy = JSimplex.NumericalPolicy(Float64; max_refinements=7,adaptive_dual_perturbation=true,adaptive_primal_perturbation=true,adaptive_pricing=true)
+        policy = JSimplex.NumericalPolicy(Float64; max_refinements=7,adaptive_dual_perturbation=true,adaptive_primal_perturbation=true,adaptive_pricing=true,partial_pricing=true)
         problem = LinearProblem(JSimplex.sparse([1.0 1.0]), [1.0,2.0]; row_lower=[1.0])
         progress = JSimplex.SimplexProgressContext(problem; numerical_policy=policy)
         ws = JSimplex.initialize_workspace(problem,SolverOptions(verbose=false,pricing=:auto);progress)
@@ -33,11 +33,12 @@ end
         @test restored.progress.numerical_policy.adaptive_dual_perturbation
         @test restored.progress.numerical_policy.adaptive_primal_perturbation
         @test restored.progress.numerical_policy.adaptive_pricing
+        @test restored.progress.numerical_policy.partial_pricing
         @test restored.options.pricing == :auto
         @test metadata["numerical_policy"]["max_refinements"] == 7
 
         config = joinpath(root,"policy.toml")
-        write(config,"max_refinements = 7\nadaptive_dual_perturbation = false\nadaptive_primal_perturbation = false\nadaptive_pricing = false\n")
+        write(config,"max_refinements = 7\nadaptive_dual_perturbation = false\nadaptive_primal_perturbation = false\nadaptive_pricing = false\npartial_pricing = false\n")
         output = joinpath(root,"report.toml")
         input = joinpath(@__DIR__,"../../test/fixtures/solver/afiro.mps")
         @test benchmark_main(["--file="*input,"--samples=1","--algorithm=dual",
@@ -54,6 +55,7 @@ end
         @test !result["numerical_policy_dual"]["adaptive_dual_perturbation"]
         @test !result["numerical_policy_dual"]["adaptive_primal_perturbation"]
         @test !result["numerical_policy_dual"]["adaptive_pricing"]
+        @test !result["numerical_policy_dual"]["partial_pricing"]
         @test only(result["samples"])["status"] == "OPTIMAL"
         write(config,"unknown_switch = true\n")
         @test benchmark_main(["--policy="*config,"--output="*output]) == 1

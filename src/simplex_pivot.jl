@@ -71,6 +71,7 @@ end
 # Explicit fields keep array element types concrete in this inner-loop copy.
 function _copy_pivot_state!(destination,source)
     _copy_pricing_state!(destination,source)
+    _copy_pricing_pool!(destination,source)
     copyto!(destination.costs,source.costs)
     copyto!(destination.lower,source.lower)
     copyto!(destination.upper,source.upper)
@@ -353,6 +354,7 @@ function _retry_simplex_step!(ws::SimplexWorkspace,stop_requested,algorithm::Sym
                 ws.scratch.selected_row = rejection.row
                 ws.scratch.selected_entering = rejection.entering
             end
+            _invalidate_pricing_pool!(ws;basis=false,costs=false)
             _simplex_event!(ws,:pivot_rejected)
             if rejection.action in (:refresh,:exhausted) && refreshes < policy.max_recovery_rounds
                 refreshes += 1

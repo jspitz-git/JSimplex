@@ -147,3 +147,19 @@ end
         JET.@test_opt target_modules=(JSimplex,) JSimplex._observe_auto_pricing!(w,:primal)
     end
 end
+
+@testset "JET owned partial pricing kernels" begin
+    for T in (Float32,Float64,Rational{BigInt}), algorithm in (:primal,:dual)
+        problem = algorithm == :primal ?
+            LinearProblem(JSimplex.spzeros(T,1,129),fill(-one(T),129);row_upper=T[1],column_upper=ones(T,129)) :
+            LinearProblem(JSimplex.spzeros(T,129,1),T[0];row_lower=ones(T,129))
+        options = SolverOptions(T;algorithm,pricing=:auto,simplex_strategy=:adaptive,verbose=false)
+        ws = JSimplex.initialize_workspace(problem,options)
+        pool = JSimplex._pricing_pool!(ws,algorithm)
+        policy = ws.progress.numerical_policy
+        JET.@test_opt target_modules=(JSimplex,) JSimplex.select_pricing_candidate!(ws,pool,policy)
+        JET.@test_opt target_modules=(JSimplex,) JSimplex._select_workspace_pool!(ws,algorithm)
+        destination = JSimplex._candidate_workspace(ws)
+        JET.@test_opt target_modules=(JSimplex,) JSimplex._copy_pricing_pool!(destination,ws)
+    end
+end

@@ -8,7 +8,10 @@ using SparseArrays
     problem = LinearProblem(sparse(ones(1, 1)), [0.0]; row_lower=[2.0], row_upper=[6.0])
     pivot = big(1)//1
     JSimplex._normalized_interval(problem, 1, pivot)
-    @test (@allocated JSimplex._normalized_interval(problem, 1, pivot)) <= 1_000
+    # BigInt allocation accounting varies with allocator state (832–1024 bytes
+    # on Julia 1.13). Keep headroom while rejecting the redundant-division path
+    # (at least 1456 bytes in the same probe).
+    @test (@allocated JSimplex._normalized_interval(problem, 1, pivot)) <= 1_200
 
     repeated = LinearProblem(sparse(repeat([1.0 2.0 -1.0], 128, 1)), zeros(3);
         row_lower=zeros(128), row_upper=fill(6.0, 128), column_lower=fill(nothing, 3))

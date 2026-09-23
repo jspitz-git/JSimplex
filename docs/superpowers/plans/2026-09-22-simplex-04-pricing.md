@@ -119,9 +119,9 @@ o = SolverOptions(pricing=:auto, simplex_strategy=:adaptive)
 **Files:** Modify: src/simplex_pricing.jl, src/primal_simplex.jl, src/dual_simplex.jl, src/simplex.jl. Create: test/partial_pricing_tests.jl.
 **Interfaces:** `CandidatePool` owns indices, the current basis/cost generation, and the cyclic scan position. `select_pricing_candidate!(ws, pool, policy; force_full=false)::Int`. Zero is allowed as a terminal signal only after a complete current scan.
 
-- [ ] Create 129 columns, with no improving candidate in the first block of 64 and column 129 as the only improving column. Initial pool exhaustion must not terminate as `OPTIMAL`; a forced scan must find 129. After changing its cost, invalidate the cache and verify a new scan.
-- [ ] Primal uses block passes and recomputes candidate scores; dual maintains a list of violated basic rows that is updated after primal values change. Candidates are a selection heuristic; costs and feasibility must not become stale.
-- [ ] Implement the termination rule:
+- [x] Create 129 columns, with no improving candidate in the first block of 64 and column 129 as the only improving column. Initial pool exhaustion must not terminate as `OPTIMAL`; a forced scan must find 129. After changing its cost, invalidate the cache and verify a new scan.
+- [x] Primal uses block passes and recomputes candidate scores; dual maintains a list of violated basic rows that is updated after primal values change. Candidates are a selection heuristic; costs and feasibility must not become stale.
+- [x] Implement the termination rule:
 
 ~~~text
 candidate := best valid candidate in pool
@@ -133,5 +133,10 @@ else:
     validate current candidate before pivot
 ~~~
 
-- [ ] Test a new best column outside the pool, removal of a basic/fixed variable, a cost change after perturbation, a basis change after restore, and deterministic tie breaks. A full scan is mandatory before returning `INFEASIBLE` and after pricing uncertainty.
-- [ ] Run the full suite and ablations on wide and small LPs; record saved passes, not only the cost of a single selection. Commit: `feat: add partial simplex pricing with full-scan certification`.
+- [x] Test a new best column outside the pool, removal of a basic/fixed variable, a cost change after perturbation, a basis change after restore, and deterministic tie breaks. A full scan is mandatory before returning `INFEASIBLE` and after pricing uncertainty.
+- [x] Run the full suite and ablations on wide and small LPs; record saved passes, not only the cost of a single selection. Commit: `feat: add partial simplex pricing with full-scan certification`.
+
+F15 validation: [report](../../../diagnostics/simplex-modernization/F15.md) and
+[raw measurements](../../../diagnostics/simplex-modernization/F15-results.json).
+The mechanism and degeneracy checks pass; performance is mixed and scsd8 remains
+unsolved. The public legacy default is unchanged.
