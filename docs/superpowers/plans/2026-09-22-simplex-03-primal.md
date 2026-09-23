@@ -99,8 +99,8 @@ measurements do not establish a global speedup. Adaptive remains opt-in.
 **Files:** Create: src/refactorization_policy.jl, test/refactorization_policy_tests.jl. Modify: src/simplex.jl, src/dual_simplex.jl, src/primal_simplex.jl, src/factorization.jl, src/triangular_factorization.jl, src/markowitz_factorization.jl.
 **Interfaces:** `RefactorizationState` owns the update count, most recent quality, EMA costs of fresh/update solves, fresh LU cost, growth scale, and stored-element count. `refactor_reason(state, policy)::Symbol` returns `:none`, `:residual`, `:pivot_growth`, `:fill`, `:cost`, or `:limit`. `record_basis_cost!(state, operation::Symbol, seconds)::Nothing`. Tests do not read the wall clock; they supply synthetic costs.
 
-- [ ] Test that a safety reason takes precedence over economic savings. Construct the state with named fields `nupdates=4`, `residual_bad=true`, `fresh_seconds=100.0`, `update_seconds=0.0`; expect `:residual`. Add a clean state with no samples that follows the user's initial interval.
-- [ ] Implement reason selection with the following priority:
+- [x] Test that a safety reason takes precedence over economic savings. Construct the state with named fields `nupdates=4`, `residual_bad=true`, `fresh_seconds=100.0`, `update_seconds=0.0`; expect `:residual`. Add a clean state with no samples that follows the user's initial interval.
+- [x] Implement reason selection with the following priority:
 
 ~~~text
 if solve/pivot unreliable: refactor for numerical quality
@@ -112,7 +112,11 @@ else:
     retain factors
 ~~~
 
-- [ ] Initialize from the existing `refactorization_interval`; preserve the fixed rational mode and legacy dual behavior. Require several high-quality cycles before adaptive growth, and reduce the interval after repeated failures. Do not evaluate economics from a single microsecond-scale solve duration.
-- [ ] Sample fresh LU and solve costs at a bounded frequency; include the cost of checks, row/column solves, BFRT RHS work, and pricing. Use the update count when data is insufficient. Preserve a deterministic mode without timing adaptation for replay. F19 provides support and more accurate fill data.
-- [ ] Tests inject short/expensive update chains, zero/NaN measurements, stagnation, repeated residual failures, and recovery. A small inexpensive LP must not extend the interval without bound.
-- [ ] Run both simplex suites, basis tests, and the full suite; separately measure refactor time/counts for PFI and triangular updates on runtime and quick. Commit: `feat: schedule basis refactorization by quality and cost`.
+- [x] Initialize from the existing `refactorization_interval`; preserve the fixed rational mode and legacy dual behavior. Require several high-quality cycles before adaptive growth, and reduce the interval after repeated failures. Do not evaluate economics from a single microsecond-scale solve duration.
+- [x] Sample fresh LU and solve costs at a bounded frequency; include the cost of checks, row/column solves, BFRT RHS work, and pricing. Use the update count when data is insufficient. Preserve a deterministic mode without timing adaptation for replay. F19 provides support and more accurate fill data.
+- [x] Tests inject short/expensive update chains, zero/NaN measurements, stagnation, repeated residual failures, and recovery. A small inexpensive LP must not extend the interval without bound.
+- [x] Run both simplex suites, basis tests, and the full suite; separately measure refactor time/counts for PFI and triangular updates on runtime and quick. Commit: `feat: schedule basis refactorization by quality and cost`.
+
+Validation: [F10 report](../../../diagnostics/simplex-modernization/F10.md).
+All complete suites and 1,188 measured/reference observations are verified.
+The broad primal-cost milestone is unmet; adaptive remains opt-in.

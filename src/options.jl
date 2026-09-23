@@ -75,7 +75,9 @@ costs are restored before optimality certification.
 `refactorization_interval` is the initial number of basis updates between
 full factorizations. Floating dual simplex shortens it after repeated
 inaccurate updated solves and can lengthen it after stable cycles with mostly
-nonzero dual steps. Primal and rational simplex keep the configured interval.
+nonzero dual steps. Legacy primal and all rational simplex keep the configured
+interval. Adaptive floating simplex shares numerical and sampled-work triggers,
+with a finite update ceiling and conservative growth after reliable cycles.
 `basis_update` selects product-form (`:pfi`), Forrest–Tomlin
 (`:forrest_tomlin`), Bartels–Golub (`:bartels_golub`), or Suhl–Suhl
 (`:suhl_suhl`) basis updates.

@@ -493,14 +493,16 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
             workspace.basis.states[leaving] = leaving_state
         end
     end
+    _note_refactor_step!(workspace,direction*step)
     workspace.iterations += 1
     _simplex_event!(workspace, leaving_row == 0 ? :flip_completed : :pivot_completed)
-    refactorize = length(workspace.factorization.updates) >=
-                  workspace.options.refactorization_interval
+    refactor_reason = _scheduled_refactor_reason(workspace,:primal)
+    refactorize = refactor_reason != :none
     if _is_staged_workspace(workspace)
         workspace.scratch.post_iteration = incremental_pivot && leaving_row > 0 ? :primal_pivot :
             incremental && leaving_row == 0 ? :primal_flip : :primal
         workspace.scratch.post_refactorize = refactorize
+        workspace.scratch.post_refactor_reason = refactor_reason
         return nothing
     end
     stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
@@ -511,7 +513,7 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
         return nothing
     end
     recompute!(workspace; refactorize, caller_guard=stop_requested,
-               diagnostic_reason=:refactor_limit)
+               diagnostic_reason=_refactor_event(refactor_reason))
     return nothing
 end
 

@@ -74,6 +74,13 @@ function load_snapshot(path;repair_basis::Bool=false)
         progress = if isdefined(JSimplex,:NumericalPolicy)
             policy = hasproperty(payload,:numerical_policy) && !isnothing(payload.numerical_policy) ?
                 payload.numerical_policy : JSimplex.NumericalPolicy(eltype(payload.costs),payload.options)
+            # Replays rebuild a fresh factor. Historical clock samples are not
+            # available and must not make a replay depend on current CPU load.
+            if hasproperty(policy,:refactor_timing)
+                values = NamedTuple{fieldnames(typeof(policy))}(Tuple(getfield(policy,k) for k in fieldnames(typeof(policy))))
+                policy = JSimplex.NumericalPolicy(eltype(payload.costs);
+                    merge(values,(refactor_timing=false,))...)
+            end
             offsets = (iteration_offset=hasproperty(payload,:iteration_offset) ? payload.iteration_offset : 0,)
             if hasproperty(policy,:feasibility_recovery)
                 offsets = merge(offsets,(refactorization_offset=hasproperty(payload,:refactorization_offset) ?

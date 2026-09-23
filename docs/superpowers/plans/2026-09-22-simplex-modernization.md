@@ -106,7 +106,7 @@ implementation in parallel.
 | [x] | F07 Feasibility recovery and primal/dual handoff | F06 | `feat: add bounded simplex feasibility recovery` |
 | [x] | F08 Incremental primal bound flips | F07 | `feat: update primal bound flips incrementally` |
 | [x] | F09 Incremental primal pivots | F08 | `feat: update primal pivots incrementally` |
-| [ ] | F10 Shared adaptive refactorization | F09 | `feat: schedule basis refactorization by quality and cost` |
+| [x] | F10 Shared adaptive refactorization | F09 | `feat: schedule basis refactorization by quality and cost` |
 | [ ] | F11 Stagnation detection | F07 | `feat: detect scaled simplex stagnation` |
 | [ ] | F12 Adaptive dual cost perturbations | F11 | `feat: adapt dual cost perturbations to stagnation` |
 | [ ] | F13 Reversible primal bound perturbations | F09, F12 | `feat: recover degenerate primal paths with bound perturbations` |
@@ -194,7 +194,7 @@ inside that same commit; derive it from history or record it later.
 ## Milestone gates
 
 - After F07: reproduce a late numerical failure and recover at least one case; introduce no false certified status. **Recovery milestone unmet:** F07 is implemented and verified but remains opt-in. Extended runtime and greenbea runs do not establish new solved coverage; see the [F07 report](../../../diagnostics/simplex-modernization/F07.md).
-- After F10: demonstrate cheaper primal iterations and measure complete primal solves, including numerical quality after long update chains.
+- After F10: demonstrate cheaper primal iterations and measure complete primal solves, including numerical quality after long update chains. **Cost milestone unmet:** F08/F09 reduce basis-solve work, but the combined adaptive path has not established cheaper complete primal solves. F10 passes complete suites and preserves quick solved coverage; all runtime comparisons reach 360-second limits. Keep adaptive opt-in; see the [F10 report](../../../diagnostics/simplex-modernization/F10.md).
 - After F15: validate degeneracy beyond pk1 and ablate perturbations/pricing; do not hide stagnation by increasing iteration limits.
 - After F19: demonstrate hypersparse benefits on sparse solve results and correct dense fallbacks; include factor extraction, graph, fill-in, and conversion costs. Oversized models remain bounded component probes.
 - After F21: report phase-I time/iterations separately and verify artificial removal and postsolve.

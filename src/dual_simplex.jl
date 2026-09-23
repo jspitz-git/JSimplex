@@ -726,6 +726,10 @@ end
 # toward the user's configured value; growth above it remains more cautious.
 function _note_dual_updated_basis_repair!(workspace::SimplexWorkspace)
     _simplex_event!(workspace, :repair)
+    if workspace.progress.numerical_policy.adaptive_refactor
+        workspace.scratch.refactorization.residual_bad = true
+        return nothing
+    end
     updates = length(workspace.factorization.updates)
     updates > 0 || return nothing
     workspace.dual_recent_repairs += 1
@@ -1271,6 +1275,7 @@ function _dual_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_request
     workspace.basis.states[leaving_index] = below ? AT_LOWER : AT_UPPER
     workspace.primal[leaving_index] = bound_value(bound)
     # Count the completed pivot even when its subsequent refactorization times out.
+    _note_refactor_step!(workspace,dual_step)
     workspace.iterations += 1
     _simplex_event!(workspace, :pivot_completed)
     if _is_staged_workspace(workspace)
@@ -1304,15 +1309,18 @@ function _dual_after_iteration!(workspace::SimplexWorkspace{T},stop_requested,du
             end
         end
     end
-    if length(workspace.factorization.updates) >= workspace.dual_refactorization_interval
+    refactor_reason = _scheduled_refactor_reason(workspace,:dual)
+    if refactor_reason != :none
         stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
         updates = length(workspace.factorization.updates)
         productive = _is_exact(T) === Val(false) &&
                      workspace.dual_nonzero_steps_since_refactorization >=
                      updates - updates ÷ 4
         recompute!(workspace; refactorize=true, caller_guard=stop_requested,
-                   diagnostic_reason=:refactor_limit)
-        basis_refreshed || _note_stable_dual_refactorization!(workspace, productive)
+                   diagnostic_reason=_refactor_event(refactor_reason))
+        if !workspace.progress.numerical_policy.adaptive_refactor
+            basis_refreshed || _note_stable_dual_refactorization!(workspace, productive)
+        end
     end
     if perturb_degenerate && _is_exact(T) === Val(false) &&
        workspace.zero_dual_step_streak >= 1024 &&
@@ -1701,6 +1709,8 @@ function _auxiliary_workspace(workspace::SimplexWorkspace{T}) where {T}
         workspace.dual_bad_update_min, workspace.dual_stable_refactorizations,
         workspace.dual_nonzero_steps_since_refactorization,
     )
+    auxiliary.scratch.refactorization = deepcopy(workspace.scratch.refactorization)
+    auxiliary.scratch.refactorization.timing_depth = 0
     recompute!(auxiliary)
     _simplex_event!(auxiliary, :phase_auxiliary)
     return auxiliary

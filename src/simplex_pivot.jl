@@ -89,6 +89,7 @@ function _copy_pivot_state!(destination,source)
     destination.dual_bad_update_min = source.dual_bad_update_min
     destination.dual_stable_refactorizations = source.dual_stable_refactorizations
     destination.dual_nonzero_steps_since_refactorization = source.dual_nonzero_steps_since_refactorization
+    destination.scratch.refactorization = source.scratch.refactorization
     copyto!(destination.scratch.basic_mask,source.scratch.basic_mask)
     copyto!(destination.scratch.steepest_valid,source.scratch.steepest_valid)
     copyto!(destination.scratch.row_rhs,source.scratch.row_rhs)
@@ -175,7 +176,13 @@ function _discard_candidate!(ws,candidate)
     if candidate.scratch.pending_factor_update
         # The live arrays still describe the old basis. Rebuild it without a
         # callback, even if the caller's deadline has just expired.
-        refactorize!(ws.factorization,basis_matrix(ws))
+        _before_basis_refactor!(ws,:refactor_pivot)
+        _measure_basis_factorization!(ws) do
+            _timed_simplex(ws,:refactorization) do
+                refactorize!(ws.factorization,basis_matrix(ws))
+            end
+        end
+        _after_basis_refactor!(ws)
         ws.refactorizations += 1
         candidate.scratch.pending_factor_update = false
     end
@@ -245,7 +252,7 @@ function _transactional_simplex_step!(perform,ws::SimplexWorkspace,stop_requeste
         stop_requested() && return DualTermination(TIME_LIMIT,"time limit reached")
         if scratch.post_refactorize
             recompute!(ws;refactorize=true,caller_guard=stop_requested,
-                       diagnostic_reason=:refactor_limit)
+                       diagnostic_reason=_refactor_event(scratch.post_refactor_reason))
         end
     end
     return result
@@ -391,6 +398,13 @@ end
 
 function _dual_iteration!(ws::SimplexWorkspace,stop_requested,basis_refreshed::Bool=false,
                           perturb_degenerate::Bool=true)
+    return _measure_basis_iteration!(ws) do
+        _dual_iteration_core!(ws,stop_requested,basis_refreshed,perturb_degenerate)
+    end
+end
+
+function _dual_iteration_core!(ws::SimplexWorkspace,stop_requested,basis_refreshed::Bool,
+                               perturb_degenerate::Bool)
     (ws.progress.numerical_policy.pivot_validation || ws.progress.numerical_policy.recovery) ||
         return _dual_iteration_unchecked!(ws,stop_requested,basis_refreshed,perturb_degenerate)
     return _retry_simplex_step!(ws,stop_requested,:dual,ws.options.dual_tolerance,
@@ -399,6 +413,13 @@ end
 
 function _primal_iteration!(ws::SimplexWorkspace,stop_requested,reduced_cost_tolerance,
                             basis_refreshed::Bool=false)
+    return _measure_basis_iteration!(ws) do
+        _primal_iteration_core!(ws,stop_requested,reduced_cost_tolerance,basis_refreshed)
+    end
+end
+
+function _primal_iteration_core!(ws::SimplexWorkspace,stop_requested,reduced_cost_tolerance,
+                                 basis_refreshed::Bool)
     policy = ws.progress.numerical_policy
     if policy.incremental_primal_pivots
         return _with_recovery_precision(ws,ws) do

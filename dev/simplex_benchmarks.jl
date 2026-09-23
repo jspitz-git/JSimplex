@@ -44,6 +44,7 @@ const DEFAULTS = Dict{String,Any}(
     "kernel-timing" => "off",
     "diagnostics" => "on",
     "simplex-strategy" => "legacy",
+    "basis-update" => "pfi",
     "presolve" => "on",
 )
 
@@ -51,7 +52,7 @@ const POLICY_KEYS = (
     "solve_tolerance", "pivot_error_tolerance", "max_refinements",
     "max_pivot_candidates", "max_recovery_rounds", "stagnation_window",
     "max_precision_bits", "max_lp_refinements", "stable_ratio", "pivot_validation", "solve_refinement", "recovery", "feasibility_recovery",
-    "incremental_primal", "incremental_primal_pivots", "adaptive_refactor", "adaptive_stalling",
+    "incremental_primal", "incremental_primal_pivots", "adaptive_refactor", "refactor_timing", "adaptive_stalling",
     "adaptive_pricing", "partial_pricing", "hypersparse", "crash", "phase_one",
     "precision_boosting", "lp_refinement",
 )
@@ -136,6 +137,10 @@ function parse_benchmark_args(args)
     options["diagnostics"] in ("on", "off") || throw(ArgumentError("--diagnostics must be on or off"))
     options["presolve"] in ("on", "off") || throw(ArgumentError("--presolve must be on or off"))
     options["simplex-strategy"] in ("legacy", "adaptive") || throw(ArgumentError("Invalid simplex strategy"))
+    options["basis-update"] in ("pfi","forrest_tomlin","bartels_golub","suhl_suhl") ||
+        throw(ArgumentError("Invalid basis update method"))
+    !isempty(options["replay"]) && options["basis-update"] != "pfi" &&
+        throw(ArgumentError("The basis update method is read from the replay snapshot"))
     !isempty(options["replay"]) && options["simplex-strategy"] != "legacy" &&
         throw(ArgumentError("Replay retains its stored strategy; use --policy for numerical overrides"))
     options["diagnostics"] == "off" && (options["trace"] == "on" || options["kernel-timing"] == "on") &&

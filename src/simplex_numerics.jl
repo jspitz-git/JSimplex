@@ -4,7 +4,7 @@ const NUMERICAL_SWITCHES = (
     :adaptive_stalling, :adaptive_pricing, :partial_pricing, :hypersparse,
     :crash, :phase_one, :precision_boosting, :lp_refinement,
 )
-const IMPLEMENTED_NUMERICAL_SWITCHES = (:stable_ratio,:pivot_validation,:solve_refinement,:recovery,:feasibility_recovery,:incremental_primal,:incremental_primal_pivots)
+const IMPLEMENTED_NUMERICAL_SWITCHES = (:stable_ratio,:pivot_validation,:solve_refinement,:recovery,:feasibility_recovery,:incremental_primal,:incremental_primal_pivots,:adaptive_refactor)
 
 struct NumericalPolicy{T<:Real}
     solve_tolerance::T
@@ -23,6 +23,7 @@ struct NumericalPolicy{T<:Real}
     incremental_primal::Bool
     incremental_primal_pivots::Bool
     adaptive_refactor::Bool
+    refactor_timing::Bool
     adaptive_stalling::Bool
     adaptive_pricing::Bool
     partial_pricing::Bool
@@ -44,7 +45,8 @@ function NumericalPolicy(::Type{T}; simplex_strategy::Symbol=:legacy,
     pivot_validation::Bool=(simplex_strategy == :adaptive),
     solve_refinement::Bool=(simplex_strategy == :adaptive),
     feasibility_recovery::Bool=(simplex_strategy == :adaptive),
-    adaptive_refactor::Bool=false, adaptive_stalling::Bool=false,
+    adaptive_refactor::Bool=(simplex_strategy == :adaptive), refactor_timing::Bool=true,
+    adaptive_stalling::Bool=false,
     adaptive_pricing::Bool=false, partial_pricing::Bool=false, hypersparse::Bool=false,
     crash::Bool=false, phase_one::Bool=false, precision_boosting::Bool=false,
     lp_refinement::Bool=false,
@@ -79,7 +81,7 @@ function NumericalPolicy(::Type{T}; simplex_strategy::Symbol=:legacy,
     return NumericalPolicy{T}(solve_limit,pivot_limit,Int(max_refinements),
         Int(max_pivot_candidates),Int(max_recovery_rounds),Int(stagnation_window),
         Int(max_precision_bits),Int(max_lp_refinements),stable_ratio,pivot_validation,solve_refinement,recovery,feasibility_recovery,
-        incremental_primal,incremental_primal_pivots,adaptive_refactor,adaptive_stalling,adaptive_pricing,
+        incremental_primal,incremental_primal_pivots,adaptive_refactor,refactor_timing,adaptive_stalling,adaptive_pricing,
         partial_pricing,hypersparse,crash,phase_one,precision_boosting,lp_refinement)
 end
 

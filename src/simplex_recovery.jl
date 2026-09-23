@@ -26,10 +26,10 @@ function refine_basis_solve!(destination::AbstractVector{T},ws::SimplexWorkspace
     if T === BigFloat
         bits = _stored_quality_bits(T,B,destination,rhs,policy)
         return setprecision(BigFloat,bits) do
-            _refine_basis_solve!(destination,ws,B,rhs,policy,stop,buffers,transposed)
+            _record_refactor_quality!(ws,_refine_basis_solve!(destination,ws,B,rhs,policy,stop,buffers,transposed))
         end
     end
-    return _refine_basis_solve!(destination,ws,B,rhs,policy,stop,buffers,transposed)
+    return _record_refactor_quality!(ws,_refine_basis_solve!(destination,ws,B,rhs,policy,stop,buffers,transposed))
 end
 
 _checkpoint_model(ws) = (objectid(ws.problem.A),size(ws.problem.A)...)
@@ -93,6 +93,7 @@ function _recovery_trial(ws::SimplexWorkspace{T},c::BasisCheckpoint{T},stop) whe
     _validate_basis(trial)
     trial.perturbed = c.perturbed
     trial.scratch.recovery_active = true
+    _configure_refactorization!(trial)
     B = _basis_matrix!(trial)
     try
         @logmsg ws.options.log_level "Rebuilding recovery basis" iterations=ws.iterations refactorizations=ws.refactorizations+1
@@ -103,12 +104,15 @@ function _recovery_trial(ws::SimplexWorkspace{T},c::BasisCheckpoint{T},stop) whe
     stop() && return nothing
     # Construction cannot mutate any backend or LU scratch owned by the live solve.
     try
-        trial.factorization = _timed_simplex(ws,:refactorization) do
-            _basis_factorization(B,ws.options)
+        trial.factorization = _measure_basis_factorization!(trial) do
+            _timed_simplex(ws,:refactorization) do
+                _basis_factorization(B,ws.options)
+            end
         end
     finally
         ws.refactorizations += 1
     end
+    _after_basis_refactor!(trial)
     trial.refactorizations = ws.refactorizations
     stop() && return nothing
     reset_devex!(trial)

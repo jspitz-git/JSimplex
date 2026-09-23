@@ -92,6 +92,8 @@ mutable struct SimplexScratch{T<:Real}
     post_basis_refreshed::Bool
     post_perturb_degenerate::Bool
     post_refactorize::Bool
+    post_refactor_reason::Symbol
+    refactorization::RefactorizationState{T}
     # Private assembly storage; backends must own their factorization data.
     basis_matrix::Union{Nothing,SparseMatrixCSC{T,Int}}
     checkpoints::Vector{BasisCheckpoint{T}}
@@ -110,7 +112,7 @@ function SimplexScratch(::Type{T}, row_count::Int, variable_count::Int) where {T
         zeros(T, row_count), zeros(T, row_count), zeros(T, variable_count),
         zeros(T, variable_count), falses(variable_count), false,
         candidates, Int[], T[], T[], Int[], nothing, nothing, false, Int[], Int[], 0, 0, nothing,
-        :none, zero(T), false, false, false, nothing,
+        :none, zero(T), false, false, false, :limit, RefactorizationState(T), nothing,
         BasisCheckpoint{T}[], UInt(0), Tuple{Int,Int}[], UInt(0), false, false,
     )
 end
@@ -294,9 +296,13 @@ function recompute!(workspace::SimplexWorkspace{T}; refactorize::Bool=false,
             rethrow()
         end
         B = _basis_matrix!(workspace)
-        _timed_simplex(workspace, :refactorization) do
-            refactorize!(workspace.factorization, B)
+        _before_basis_refactor!(workspace,diagnostic_reason)
+        _measure_basis_factorization!(workspace) do
+            _timed_simplex(workspace, :refactorization) do
+                refactorize!(workspace.factorization, B)
+            end
         end
+        _after_basis_refactor!(workspace)
         workspace.refactorizations += 1
         _simplex_event!(workspace, diagnostic_reason)
         workspace.dual_nonzero_steps_since_refactorization = 0
@@ -399,6 +405,7 @@ function initialize_workspace(
         typed_options.refactorization_interval, 0,
         typemax(Int), 0, 0,
     )
+    _configure_refactorization!(workspace)
     recompute!(workspace)
     _simplex_event!(workspace, :refactor_initial)
     return workspace

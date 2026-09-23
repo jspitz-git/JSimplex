@@ -68,6 +68,10 @@ mutable struct MarkowitzBackend{T<:Real,F,D<:AbstractDict{Int,T}}
 end
 
 _backend_dimension(backend::MarkowitzBackend) = backend.dimension
+_backend_storage_count(backend::MarkowitzBackend) =
+    sum(v -> length(v.values),backend.lower;init=0)+
+    sum(v -> length(v.values),backend.upper;init=0)+
+    length(backend.diagonal)+length(backend.core.factors)
 _factorize_basis(B::AbstractMatrix, ::Val{:markowitz}) = MarkowitzBackend(B)
 
 function _markowitz_backend(::Type{T}, n::Int, row_order::Vector{Int},

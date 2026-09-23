@@ -3,6 +3,7 @@ const SIMPLEX_EVENT_REASONS = (
     :phase_primal, :phase_dual, :phase_one, :phase_auxiliary, :phase_cleanup,
     :pivot_proposed, :pivot_rejected, :pivot_completed, :flip_completed, :bound_flipped,
     :refactor_initial, :refactor_limit, :refactor_residual, :refactor_pivot,
+    :refactor_cost, :refactor_growth, :refactor_fill,
     :refactor_other, :correction_attempt, :correction, :pricing, :perturbation, :restore_perturbations,
     :certification, :certification_failed, :repair, :checkpoint, :restore_checkpoint,
     :feasibility_recovery, :precision_boost, :lp_refinement,

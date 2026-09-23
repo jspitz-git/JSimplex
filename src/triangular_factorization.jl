@@ -218,6 +218,15 @@ struct BartelsGolubUpdate{T<:Real}
     steps::Vector{BartelsGolubStep{T}}
 end
 
+_update_storage_count(update::Union{ForrestTomlinUpdate,SuhlSuhlUpdate}) = length(update.multipliers)
+_update_storage_count(update::BartelsGolubUpdate) = length(update.steps)
+_factor_storage_count(factor::AbstractTriangularBasisFactorization) =
+    _backend_storage_count(factor.base)+sum(c -> length(c.values),factor.upper;init=0)+
+    sum(_update_storage_count,factor.updates;init=0)
+_factor_growth_measure(factor::AbstractTriangularBasisFactorization{T}) where T =
+    maximum(c -> maximum(abs,c.values;init=zero(T)),factor.upper;init=zero(T))
+_factor_growth_reference(factor::AbstractTriangularBasisFactorization) = _factor_growth_measure(factor)
+
 mutable struct ForrestTomlinFactorization{T<:Real,F} <: AbstractTriangularBasisFactorization{T}
     base::F
     upper::Vector{PackedUpperColumn{T}}
