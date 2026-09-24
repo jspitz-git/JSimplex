@@ -153,3 +153,16 @@ end
 SparseBasisWorkspace{T}(n::Int) where {T<:Real} = SparseBasisWorkspace{T}(
     nothing,false,nothing,IndexedVector{T}(n),IndexedVector{T}(n),zeros(T,n),
     zeros(T,n),2,0,true,0,0,0)
+
+# Active coefficient snapshots are real factor storage. Work vectors and graph
+# indices are reported separately as cache bytes by the component benchmarks.
+_sparse_coefficient_count(::Nothing) = 0
+_sparse_coefficient_count(graph::SparseTriangularFactor) =
+    nnz(graph.matrix)+length(graph.diagonal)
+_sparse_core_count(::Nothing) = 0
+_sparse_core_count(core::LU) = length(core.factors)
+_sparse_coefficient_count(view::SparseSolveView) =
+    _sparse_coefficient_count(view.lower)+_sparse_coefficient_count(view.upper)+
+    length(view.scaling)+_sparse_core_count(view.core)
+_sparse_coefficient_count(cache::SparseBasisWorkspace) =
+    _sparse_coefficient_count(cache.base_view)+_sparse_coefficient_count(cache.upper)

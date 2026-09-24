@@ -3,6 +3,8 @@ using JET
 using JSimplex
 using JuMP
 
+include("hypersparse_pipeline_jet_tests.jl")
+
 @testset "JET indexed basis update kernels" begin
     for T in (Float32,Float64,Rational{BigInt})
         for Factor in (JSimplex.PFIFactorization,JSimplex.ForrestTomlinFactorization,

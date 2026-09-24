@@ -444,7 +444,7 @@ function benchmark_main(args=ARGS; err=stderr, manifest_path=joinpath(@__DIR__, 
         report["source"] = source_identity(options["source"])
         report["variant"] = options["simplex-strategy"] * "_diagnostics_" * options["diagnostics"]
         report["runner_sha256"] = Dict(name => bytes2hex(open(sha256,joinpath(@__DIR__,name)))
-            for name in ("simplex_benchmarks.jl","simplex_benchmark_worker.jl","simplex_replay.jl","simplex_sparse_components.jl","simplex_factor_components.jl","simplex_update_components.jl"))
+            for name in ("simplex_benchmarks.jl","simplex_benchmark_worker.jl","simplex_replay.jl","simplex_sparse_components.jl","simplex_factor_components.jl","simplex_update_components.jl","simplex_pipeline_components.jl"))
         report["inventory"] = corpus_inventory(options)
         policy = isempty(options["policy"]) ? Dict{String,Any}() : TOML.parsefile(options["policy"])
         all(key in POLICY_KEYS for key in keys(policy)) || throw(ArgumentError("Unknown numerical policy key"))

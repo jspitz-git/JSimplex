@@ -45,13 +45,14 @@ mutable struct PFIFactorization{T<:Real,F}
 end
 
 # Count active numeric storage; retired buffers and spare factorizations do not
-# contribute to solve work. F19 can refine this with sparse reach information.
+# contribute to solve work. Include lazy, owned coefficient snapshots.
 _backend_storage_count(backend::UMFPACKBackend) =
     isnothing(backend.factorization) ? 0 : nnz(backend.factorization)
 _backend_storage_count(backend::Union{DenseLUBackend,Float32LUBackend}) =
     length(backend.factorization.factors)
 _factor_storage_count(factor::PFIFactorization) =
-    _backend_storage_count(factor.base)+sum(eta -> length(eta.values),factor.updates;init=0)
+    _backend_storage_count(factor.base)+sum(eta -> length(eta.values),factor.updates;init=0)+
+    _sparse_coefficient_count(factor.sparse)
 _factor_growth_reference(factor::PFIFactorization{T}) where T = one(T)
 _factor_growth_measure(factor::PFIFactorization{T}) where T =
     maximum(eta -> maximum(abs,eta.values;init=one(T)),factor.updates;init=one(T))

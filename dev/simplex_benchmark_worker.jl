@@ -7,6 +7,7 @@ include("simplex_replay.jl")
 include("simplex_sparse_components.jl")
 include("simplex_factor_components.jl")
 include("simplex_update_components.jl")
+include("simplex_pipeline_components.jl")
 
 function benchmark_solve(problem, options, diagnostics, ::Nothing)
     return isnothing(diagnostics) ? solve(problem;relax_integrality=true,options) :
@@ -165,6 +166,13 @@ function worker_main(job_path)
                         result["update_components"]["basis_recipe"] =
                             "Leading at most 32x32 principal block of the normalized factor component"
                         result["component_operation"] *= ", bounded update chains and refactor resets"
+                        if isdefined(JSimplex,:HypersparseWorkspace)
+                            result["pipeline_components"] = JSimplexPipelineComponents.probe(
+                                bounded_basis[1:dimension,1:dimension])
+                            result["pipeline_components"]["basis_recipe"] =
+                                "Leading at most 32x32 principal block of the normalized factor component"
+                            result["component_operation"] *= ", bounded sparse/dense pipelines"
+                        end
                     end
                 end
                 result["outcome"] = "component_completed"

@@ -13,6 +13,12 @@ const SIMPLEX_EVENT_REASONS = (
     :feasibility_recovery, :precision_boost, :lp_refinement,
 )
 
+const HYPERSPARSE_KERNEL_KEYS = ntuple(i->ntuple(j->
+    Symbol(:hypersparse_,HYPERSPARSE_OPERATIONS[i],:_,(:sparse,:dense,:empty)[j]),3),6)
+const SIMPLEX_KERNEL_KEYS = (:ftran,:btran,:pricing,:row_index,:refactorization,
+    :hypersparse_setup,:hypersparse_support,:hypersparse_base_graph,:hypersparse_upper_graph,
+    (key for group in HYPERSPARSE_KERNEL_KEYS for key in group)...)
+
 mutable struct SimplexDiagnostics{F}
     counts::Dict{Symbol,Int}
     events::Vector{Symbol}
@@ -28,8 +34,8 @@ function SimplexDiagnostics(; observer=nothing, kernel_timing::Bool=false)
     sizehint!(events, 64)
     return SimplexDiagnostics(Dict(reason => 0 for reason in SIMPLEX_EVENT_REASONS),
         events, 1, observer, kernel_timing,
-        Dict(key => 0 for key in (:ftran, :btran, :pricing, :row_index, :refactorization)),
-        Dict(key => UInt64(0) for key in (:ftran, :btran, :pricing, :row_index, :refactorization)))
+        Dict(key => 0 for key in SIMPLEX_KERNEL_KEYS),
+        Dict(key => UInt64(0) for key in SIMPLEX_KERNEL_KEYS))
 end
 
 @inline _diagnostic_kernel(f, ::Nothing, reason::Symbol) = f()

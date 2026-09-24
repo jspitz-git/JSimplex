@@ -382,8 +382,7 @@ function _apply_bound_flips!(workspace::SimplexWorkspace{T}, flips::Vector{Int},
     isempty(flips) && return true
     A = workspace.problem.A
     column_count = size(A, 2)
-    rhs = workspace.scratch.row_rhs
-    fill!(rhs, zero(T))
+    buffer = _pipeline_rhs_buffer!(workspace)
     for index in flips
         state = workspace.basis.states[index]
         change = state == AT_LOWER ?
@@ -391,15 +390,16 @@ function _apply_bound_flips!(workspace::SimplexWorkspace{T}, flips::Vector{Int},
             bound_value(workspace.lower[index]) - bound_value(workspace.upper[index])
         if index <= column_count
             for position in A.colptr[index]:(A.colptr[index + 1] - 1)
-                rhs[A.rowval[position]] += A.nzval[position] * change
+                _add_pipeline_rhs!(buffer,A.rowval[position],A.nzval[position]*change)
             end
         else
-            rhs[index - column_count] -= change
+            _subtract_pipeline_rhs!(buffer,index-column_count,change)
         end
     end
+    rhs = _pipeline_rhs_values(buffer)
     all(isfinite, rhs) || return false
     # The entering direction may already occupy row_solution.
-    basic_change = forward_solve!(workspace.scratch.tau, workspace.factorization, rhs)
+    basic_change = _pipeline_basis_solve!(workspace.scratch.tau,workspace,rhs;operation=:bfrt)
     all(isfinite, basic_change) || return false
     _maybe_refine_basis_solve!(basic_change,workspace,rhs,stop) || return false
     for (row, index) in enumerate(workspace.basis.basic_indices)
@@ -424,6 +424,9 @@ end
 
 function price!(tableau_row::Vector{T}, workspace::SimplexWorkspace{T},
                 rho::Vector{T})::Nothing where {T}
+    workspace.progress.numerical_policy.hypersparse &&
+        return _pipeline_price!(tableau_row,workspace,rho)
+    _pipeline_changed!(workspace,tableau_row)
     workspace.progress.numerical_policy.sparse_pricing &&
         return _sparse_workspace_price!(tableau_row,workspace,rho)
     return _csc_price!(tableau_row,workspace.problem.A,rho)
@@ -489,7 +492,7 @@ end
 function update_dse!(workspace::SimplexWorkspace{T}, rho::Vector{T}, tableau_column::Vector{T},
                     entering_index::Int, pivot::T, squared_norm::T)::Nothing where {T}
     entering_weight = squared_norm / pivot^2
-    tau = _checked_basis_solve!(workspace.scratch.tau,workspace,rho)
+    tau = _checked_basis_solve!(workspace.scratch.tau,workspace,rho;operation=:weight_ftran)
     for (row, index) in enumerate(workspace.basis.basic_indices)
         coefficient = tableau_column[row]
         workspace.pricing_weights[index] = max(
@@ -706,6 +709,8 @@ function _dual_direction_residual_ok!(workspace::SimplexWorkspace{T},
     column_count = size(A, 2)
     residual = workspace.scratch.tau
     scale = workspace.scratch.row_rhs
+    _pipeline_changed!(workspace,residual)
+    _pipeline_changed!(workspace,scale)
     for row in eachindex(residual)
         rhs = scale[row]
         residual[row] = -rhs
@@ -923,8 +928,10 @@ function _try_refine_dual_direction!(workspace::SimplexWorkspace{Float64},
     tolerance = max(workspace.options.zero_tolerance, 1e-8 * abs(refined_pivot))
     abs(refined_pivot - original_pivot) <= tolerance || return false
     abs(refined_pivot - tableau_coefficient) <= tolerance || return false
+    _pipeline_changed!(workspace,workspace.scratch.row_rhs)
     copyto!(workspace.scratch.row_rhs, rhs)
     _dual_direction_residual_ok!(workspace, replacement, refined_pivot) || return false
+    _pipeline_changed!(workspace,workspace.scratch.row_solution)
     copyto!(workspace.scratch.row_solution, replacement)
     return true
 end
@@ -1039,10 +1046,14 @@ function _try_refine_dual_pivot!(workspace::SimplexWorkspace{Float64},
                          _dual_pivot_cutoff(Float64)) || return nothing
         abs(pivot - tableau[entering_index]) <=
             max(workspace.options.zero_tolerance, 1e-8 * abs(pivot)) || return nothing
+        _pipeline_changed!(workspace,workspace.scratch.row_rhs)
         copyto!(workspace.scratch.row_rhs, rhs)
         _dual_direction_residual_ok!(workspace, direction, pivot) || return nothing
+        _pipeline_changed!(workspace,workspace.scratch.row_solution)
         copyto!(workspace.scratch.row_solution, direction)
+        _pipeline_changed!(workspace,workspace.scratch.tableau_row)
         copyto!(workspace.scratch.tableau_row, tableau)
+        _pipeline_changed!(workspace,workspace.scratch.rho)
         copyto!(workspace.scratch.rho, rho)
         accepted = true
         return (entering_index=entering_index, flips=flips, pivot=pivot)
@@ -1074,11 +1085,9 @@ function _dual_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_request
     delta = workspace.primal[leaving_index] - bound_value(bound)
 
     row_count, column_count = size(workspace.problem.A)
-    unit = workspace.scratch.row_rhs
-    fill!(unit, zero(T))
-    unit[leaving_row] = one(T)
+    unit = _pipeline_unit_rhs!(workspace,leaving_row)
     rho = _timed_simplex(workspace, :btran) do
-        transpose_solve!(workspace.scratch.rho, workspace.factorization, unit)
+        _pipeline_basis_solve!(workspace.scratch.rho,workspace,unit;transposed=true)
     end
     policy = workspace.progress.numerical_policy
     if policy.pivot_validation || policy.solve_refinement
@@ -1178,18 +1187,9 @@ function _dual_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_request
         return DualTermination(INFEASIBLE, "no eligible dual pivot")
     end
 
-    column = workspace.scratch.row_rhs
-    fill!(column, zero(T))
-    if entering_index <= column_count
-        A = workspace.problem.A
-        for position in A.colptr[entering_index]:(A.colptr[entering_index + 1] - 1)
-            column[A.rowval[position]] = A.nzval[position]
-        end
-    else
-        column[entering_index - column_count] = -one(T)
-    end
+    column = _pipeline_column_rhs!(workspace,entering_index)
     tableau_column = _timed_simplex(workspace, :ftran) do
-        forward_solve!(workspace.scratch.row_solution, workspace.factorization, column)
+        _pipeline_basis_solve!(workspace.scratch.row_solution,workspace,column)
     end
     if policy.pivot_validation || policy.solve_refinement
         quality = refine_basis_solve!(tableau_column,workspace,column,policy,stop_requested)

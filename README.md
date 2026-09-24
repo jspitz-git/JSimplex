@@ -364,22 +364,32 @@ isolates this feature. See the
 Experimental row-based pricing is available through the internal
 `sparse_pricing=true` benchmark policy. It uses owned indexed vectors, omits
 exact zeros only, and builds a local row index for each unchanged working phase.
-It is disabled by default in both strategies. The existing dense solve/update
-pipeline and CSC fallback remain available; automatic sparse-kernel selection
-is a later stage. See the
+It is disabled by default in both strategies. The dense pipeline and CSC
+fallback remain available. See the
 [F16 validation report](diagnostics/simplex-modernization/F16.md).
 
 Internal base-LU adapters also provide indexed forward/transpose solves using
 reachable triangular dependencies, with a dense-core path for Markowitz factors
-and checked public UMFPACK scaling. The ordinary simplex iterations do not yet
-select these adapters. See the [F17 validation report](diagnostics/simplex-modernization/F17.md).
+and checked public UMFPACK scaling. See the
+[F17 validation report](diagnostics/simplex-modernization/F17.md).
 
 Indexed forward/transpose calls now also propagate support through all four
 basis-update methods. Factor-local caches retain base adapters, rebuild updated
 upper graphs on demand, and own independent scratch after copying. Explicit
 sparse/dense modes and an experimental half-occupancy fallback are available
-internally; automatic simplex integration follows in F19. See the
+internally. See the
 [F18 validation report](diagnostics/simplex-modernization/F18.md).
+
+The internal `hypersparse=true` benchmark policy connects these kernels through
+both simplex algorithms, pricing, BFRT and weight updates. Working vectors retain
+their support between operations; accepted refinement and dense recovery writes
+invalidate it. Each operation selects sparse or dense work using occupancy,
+observed output density and measured cost, with two consecutive indications before
+switching and a bounded alternative probe every 32 eligible calls. The experimental
+occupancy thresholds are 0.1/0.2. Exact zeros alone are omitted; residual checks and
+original-model certification remain active. This policy takes precedence over
+standalone `sparse_pricing` and remains disabled by default in both strategies.
+See the [F19 validation report](diagnostics/simplex-modernization/F19.md).
 
 Forrest–Tomlin maintains a sparse upper factor without row swaps during an
 update. Bartels–Golub may swap adjacent rows to choose a larger elimination

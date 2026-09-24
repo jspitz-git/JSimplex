@@ -99,7 +99,8 @@ using LinearAlgebra, SparseArrays
     end
     @test_throws ArgumentError JSimplex.NumericalPolicy(Float64; solve_tolerance=Inf)
     @test_throws ArgumentError JSimplex.NumericalPolicy(Float64; max_refinements=-1)
-    @test_throws ArgumentError JSimplex.NumericalPolicy(Float64; hypersparse=true)
+    @test JSimplex.NumericalPolicy(Float64;hypersparse=true).hypersparse
+    @test_throws ArgumentError JSimplex.NumericalPolicy(Float64;crash=true)
 end
 
 @testset "Numerical strategy propagation" begin

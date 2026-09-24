@@ -22,7 +22,7 @@ end
     @test_throws ArgumentError parse_benchmark_args(["--pricing=unknown"])
     @test_throws ArgumentError parse_benchmark_args(["--replay=snapshot.bin","--pricing=auto"])
     mktempdir() do root
-        policy = JSimplex.NumericalPolicy(Float64; max_refinements=7,adaptive_dual_perturbation=true,adaptive_primal_perturbation=true,adaptive_pricing=true,partial_pricing=true,sparse_pricing=true)
+        policy = JSimplex.NumericalPolicy(Float64; max_refinements=7,adaptive_dual_perturbation=true,adaptive_primal_perturbation=true,adaptive_pricing=true,partial_pricing=true,sparse_pricing=true,hypersparse=true)
         problem = LinearProblem(JSimplex.sparse([1.0 1.0]), [1.0,2.0]; row_lower=[1.0])
         progress = JSimplex.SimplexProgressContext(problem; numerical_policy=policy)
         ws = JSimplex.initialize_workspace(problem,SolverOptions(verbose=false,pricing=:auto);progress)
@@ -35,6 +35,7 @@ end
         @test restored.progress.numerical_policy.adaptive_pricing
         @test restored.progress.numerical_policy.sparse_pricing
         @test restored.progress.numerical_policy.partial_pricing
+        @test restored.progress.numerical_policy.hypersparse
         @test restored.options.pricing == :auto
         @test metadata["numerical_policy"]["max_refinements"] == 7
 
@@ -63,7 +64,13 @@ end
         @test benchmark_main(["--policy="*config,"--output="*output]) == 1
         write(config,"hypersparse = true\n")
         @test benchmark_main(["--file="*input,"--policy="*config,
-                             "--output="*output]) == 1
+                             "--algorithm=dual","--samples=1","--time-limit=30",
+                             "--output="*output]) == 0
+        result = only(TOML.parsefile(output)["cases"])
+        @test result["numerical_policy_dual"]["hypersparse"]
+        @test only(result["samples"])["status"] == "OPTIMAL"
+        write(config,"crash = true\n")
+        @test benchmark_main(["--file="*input,"--policy="*config,"--output="*output]) == 1
     end
 end
 end

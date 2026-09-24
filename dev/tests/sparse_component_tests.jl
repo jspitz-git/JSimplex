@@ -42,6 +42,16 @@ using TOML
         @test haskey(report["runner_sha256"],"simplex_sparse_components.jl")
         @test haskey(report["runner_sha256"],"simplex_factor_components.jl")
         @test haskey(report["runner_sha256"],"simplex_update_components.jl")
+        @test haskey(report["runner_sha256"],"simplex_pipeline_components.jl")
+        @test haskey(case,"pipeline_components")
+        if haskey(case,"pipeline_components")
+            component = case["pipeline_components"]
+            @test component["basis_dimension"] <= 32
+            @test !component["simplex_solve"] && !component["full_sized_factorization"]
+            @test !component["interrupted"]
+            @test length(component["methods"]) == 8
+            @test all(m["reference_verified"] for m in component["methods"])
+        end
         @test haskey(case,"update_components")
         if haskey(case,"update_components")
             @test case["update_components"]["basis_dimension"] <= 32

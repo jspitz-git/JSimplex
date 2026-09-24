@@ -454,6 +454,7 @@ function _refine_basis_solve!(destination::AbstractVector{T},ws,B,rhs,policy,sto
         (trial_quality.reliable || _refinement_error(trial_quality) < _refinement_error(quality)) || return quality
         stop() && return quality
         copyto!(destination,buffers.trial)
+        _pipeline_changed!(ws,destination)
         quality = trial_quality
         _simplex_event!(ws,:correction)
     end
@@ -476,13 +477,10 @@ function _maybe_refine_basis_solve!(destination,ws,rhs,stop=nothing;transposed=f
     return refine_basis_solve!(destination,ws,rhs,policy,_basis_solve_stop(ws,stop);transposed).reliable
 end
 
-function _checked_basis_solve!(destination,ws,rhs,stop=nothing;transposed=false)
+function _checked_basis_solve!(destination,ws,rhs,stop=nothing;transposed=false,
+                               operation=transposed ? :btran : :ftran)
     _timed_simplex(ws, transposed ? :btran : :ftran) do
-        if transposed
-            transpose_solve!(destination,ws.factorization,rhs)
-        else
-            forward_solve!(destination,ws.factorization,rhs)
-        end
+        _pipeline_basis_solve!(destination,ws,rhs;transposed,operation)
     end
     _maybe_refine_basis_solve!(destination,ws,rhs,stop;transposed) || throw(_UnreliableBasisSolve())
     return destination

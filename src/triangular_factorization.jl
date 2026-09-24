@@ -222,7 +222,7 @@ _update_storage_count(update::Union{ForrestTomlinUpdate,SuhlSuhlUpdate}) = lengt
 _update_storage_count(update::BartelsGolubUpdate) = length(update.steps)
 _factor_storage_count(factor::AbstractTriangularBasisFactorization) =
     _backend_storage_count(factor.base)+sum(c -> length(c.values),factor.upper;init=0)+
-    sum(_update_storage_count,factor.updates;init=0)
+    sum(_update_storage_count,factor.updates;init=0)+_sparse_coefficient_count(factor.sparse)
 _factor_growth_measure(factor::AbstractTriangularBasisFactorization{T}) where T =
     maximum(c -> maximum(abs,c.values;init=zero(T)),factor.upper;init=zero(T))
 _factor_growth_reference(factor::AbstractTriangularBasisFactorization) = _factor_growth_measure(factor)

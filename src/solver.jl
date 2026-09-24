@@ -99,15 +99,10 @@ function _project_postsolve_basis!(workspace::SimplexWorkspace{T}, target::Vecto
     end
     isempty(displaced) && return 0
 
-    rhs = workspace.scratch.row_rhs
     for entering in displaced
         stop_requested() && return nothing
-        fill!(rhs, zero(T))
-        for position in A.colptr[entering]:(A.colptr[entering + 1] - 1)
-            rhs[A.rowval[position]] = A.nzval[position]
-        end
-        direction = forward_solve!(workspace.scratch.row_solution,
-                                   workspace.factorization, rhs)
+        rhs = _pipeline_column_rhs!(workspace,entering)
+        direction = _pipeline_basis_solve!(workspace.scratch.row_solution,workspace,rhs)
         all(isfinite, direction) || return nothing
         leaving_row = 0
         largest_pivot = options.zero_tolerance

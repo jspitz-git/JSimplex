@@ -115,7 +115,7 @@ implementation in parallel.
 | [x] | F16 Indexed vectors and sparse pricing | F15 | `feat: add indexed simplex vectors and sparse pricing` |
 | [x] | F17 Hypersparse base LU solves | F16 | `feat: solve sparse basis factors by reachability` |
 | [x] | F18 Hypersparse basis updates | F17 | `feat: propagate sparse support through basis updates` |
-| [ ] | F19 Adaptive sparse pipeline and fill-in | F10, F18 | `feat: integrate adaptive hypersparse simplex kernels` |
+| [x] | F19 Adaptive sparse pipeline and fill-in | F10, F18 | `feat: integrate adaptive hypersparse simplex kernels` |
 | [ ] | F20 Better initial bases | F07 | `feat: construct guarded simplex crash bases` |
 | [ ] | F21 Phase I modernization | F09, F13, F20 | `feat: reuse recovered bases in simplex phase one` |
 | [ ] | F22 Basis transfer across precisions | F07, F21 | `feat: transfer simplex state across working precisions` |

@@ -150,6 +150,7 @@ end
 
 function _invalidate_sparse_pricing_scratch!(scratch)
     scratch.sparse_pricing = nothing
+    scratch.hypersparse = nothing
     isnothing(scratch.stage_scratch) ||
         _invalidate_sparse_pricing_scratch!(scratch.stage_scratch)
     return nothing

@@ -227,3 +227,27 @@ fixture, before and after inverse updates restore the basis. It includes both
 backends, every update method, sparse/dense RHS, transpose solves, and explicit
 input/output materialization costs. This is an opt-in kernel experiment, not
 a complete simplex speed comparison.
+
+F19 adds `hypersparse = true` to the internal policy file. It enables the complete
+pipeline independently of the default strategy; `sparse_pricing` controls only the
+standalone F16 path when hypersparsity is disabled. Both switches default to false.
+The sparse/dense policy keeps the median of the last three successful complete
+operation costs, ignores nonpositive/nonfinite samples, and requires two
+consecutive indications. Occupancy thresholds 0.1/0.2 and a substitute probe every
+32 eligible calls are experimental. Probe calls perform the alternative operation
+once; they do not solve the same RHS twice.
+
+With `--kernel-timing=on`, reports include per-operation sparse/dense/empty counts
+and time, plus lazy setup, base/upper graph construction and support rebuilding.
+Preparation timers overlap operation timers and must not be summed as disjoint
+work. F10 measures complete attempted iterations separately, including transactional
+copies, refinement and adaptation; its numerical triggers still precede cost.
+Active factor-entry counts include owned coefficient snapshots. Component reports
+also expose reachable cache bytes; these include shared/borrowed storage and must
+not be added across live and candidate workspaces.
+
+Bounded component probes now also run pipeline mode transitions and compare solves
+and prices with 256-bit references for all four updates and both backends. They
+use only the at-most-32-dimensional synthetic basis. An internal interruption
+callback is covered by offline tests. The original model is never factorized or
+solved by this probe, and the overall component deadline remains 60 seconds.

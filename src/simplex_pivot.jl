@@ -106,6 +106,7 @@ function _copy_pivot_state!(destination,source)
     copyto!(destination.scratch.tau,source.scratch.tau)
     copyto!(destination.scratch.tableau_row,source.scratch.tableau_row)
     copyto!(destination.scratch.pricing_row,source.scratch.pricing_row)
+    _copy_hypersparse_cache!(destination,source)
     destination.scratch.steepest_initialized = source.scratch.steepest_initialized
     copyto!(resize!(destination.scratch.recovery_rejections,length(source.scratch.recovery_rejections)),
         source.scratch.recovery_rejections)

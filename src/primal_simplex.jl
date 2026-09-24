@@ -68,18 +68,9 @@ _primal_devex_candidate_weight(coefficient::T, leaving_weight::T) where {T<:Rati
     _primal_store_rational_weight(T, big(coefficient)^2 * big(leaving_weight))
 
 function _primal_steepest_weight!(workspace::SimplexWorkspace{T}, index::Int) where {T}
-    A = workspace.problem.A
-    column_count = size(A, 2)
-    column = workspace.scratch.row_rhs
-    fill!(column, zero(T))
-    if index <= column_count
-        for position in A.colptr[index]:(A.colptr[index + 1] - 1)
-            column[A.rowval[position]] = A.nzval[position]
-        end
-    else
-        column[index - column_count] = -one(T)
-    end
-    direction = _checked_basis_solve!(workspace.scratch.row_solution,workspace,column)
+    column = _pipeline_column_rhs!(workspace,index)
+    direction = _checked_basis_solve!(workspace.scratch.row_solution,workspace,column;
+                                      operation=:weight_ftran)
     scaled_weight, stored_weight = _primal_direction_weight(direction)
     workspace.pricing_weights[index] = stored_weight
     workspace.scratch.steepest_valid[index] = _primal_cacheable_weight(stored_weight)
@@ -149,11 +140,7 @@ function _primal_update_steepest!(workspace::SimplexWorkspace{T}, entering::Int,
     scratch = workspace.scratch
     # Fixed-width rational weights are priced exactly on demand in BigInt arithmetic.
     T <: Rational && T !== Rational{BigInt} && return nothing
-    direction = scratch.row_solution
-    h = scratch.row_rhs
-    for row in eachindex(h)
-        h[row] = (direction[row] - (row == leaving_row ? one(T) : zero(T))) / pivot
-    end
+    h = _pipeline_weight_rhs!(workspace,leaving_row,pivot)
     if !all(isfinite, h)
         fill!(scratch.steepest_valid, false)
         return nothing
@@ -163,11 +150,10 @@ function _primal_update_steepest!(workspace::SimplexWorkspace{T}, entering::Int,
         fill!(scratch.steepest_valid, false)
         return nothing
     end
-    tau = _checked_basis_solve!(scratch.tau,workspace,h;transposed=true)
+    tau = _checked_basis_solve!(scratch.tau,workspace,h;transposed=true,operation=:weight_btran)
     if !shared_row
-        fill!(h, zero(T))
-        h[leaving_row] = one(T)
-        _checked_basis_solve!(scratch.rho,workspace,h;transposed=true)
+        _pipeline_unit_rhs!(workspace,leaving_row)
+        _checked_basis_solve!(scratch.rho,workspace,h;transposed=true,operation=:weight_btran)
         price!(scratch.tableau_row, workspace, scratch.rho)
     end
     rho = scratch.rho
@@ -244,10 +230,9 @@ function _primal_update_devex!(workspace::SimplexWorkspace{T}, entering::Int,
                                leaving_row::Int, pivot::T; shared_row::Bool=false) where {T}
     tableau_row = workspace.scratch.tableau_row
     if !shared_row
-        unit = workspace.scratch.row_rhs
-        fill!(unit, zero(T))
-        unit[leaving_row] = one(T)
-        rho = _checked_basis_solve!(workspace.scratch.rho,workspace,unit;transposed=true)
+        unit = _pipeline_unit_rhs!(workspace,leaving_row)
+        rho = _checked_basis_solve!(workspace.scratch.rho,workspace,unit;
+                                    transposed=true,operation=:weight_btran)
         price!(tableau_row, workspace, rho)
     end
     leaving = workspace.basis.basic_indices[leaving_row]
@@ -384,17 +369,9 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
     _simplex_event!(workspace, :pivot_proposed)
     A = workspace.problem.A
     column_count = size(A, 2)
-    column = workspace.scratch.row_rhs
-    fill!(column, zero(T))
-    if entering <= column_count
-        for position in A.colptr[entering]:(A.colptr[entering + 1] - 1)
-            column[A.rowval[position]] = A.nzval[position]
-        end
-    else
-        column[entering - column_count] = -one(T)
-    end
+    column = _pipeline_column_rhs!(workspace,entering)
     tableau_column = _timed_simplex(workspace, :ftran) do
-        forward_solve!(workspace.scratch.row_solution, workspace.factorization, column)
+        _pipeline_basis_solve!(workspace.scratch.row_solution, workspace, column)
     end
     all(isfinite, tableau_column) || return _numerical_failure()
     checked_pivot = workspace.progress.numerical_policy.pivot_validation || incremental_pivot
@@ -457,10 +434,9 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
         end
     else
         if checked_pivot
-            fill!(column,zero(T))
-            column[leaving_row] = one(T)
+            _pipeline_unit_rhs!(workspace,leaving_row)
             rho = _timed_simplex(workspace, :btran) do
-                transpose_solve!(workspace.scratch.rho,workspace.factorization,column)
+                _pipeline_basis_solve!(workspace.scratch.rho,workspace,column;transposed=true)
             end
             refine_basis_solve!(rho,workspace,column,workspace.progress.numerical_policy,
                                  stop_requested;transposed=true)

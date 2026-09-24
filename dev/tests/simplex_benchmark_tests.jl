@@ -133,8 +133,11 @@ if isfile(SIMPLEX_BENCHMARK_PATH)
             path, output = joinpath(root,"big.mps"), joinpath(root,"stress.toml")
             cp(source,path)
             for (operation,outcome) in (("reader","completed_parse"),("components","component_completed"))
+                # Component mode also compiles the bounded factor/update/pipeline
+                # probes in a fresh worker. Keep its existing 60-second cap.
+                seconds = operation == "components" ? 60 : 30
                 @test benchmark_main(["--file=" * path,"--mode=stress","--stress-operation=" * operation,
-                    "--time-limit=30","--memory-limit-mib=4096","--read-limit-mib=1",
+                    "--time-limit=$seconds","--memory-limit-mib=4096","--read-limit-mib=1",
                     "--output=" * output]) == 0
                 result = TOML.parsefile(output)["cases"][1]
                 @test result["outcome"] == outcome

@@ -102,7 +102,7 @@ transpose: Q transpose permutation → Uᵀ solve → reversed Rᵀ updates → 
 **Files:** Modify: src/simplex.jl, src/dual_simplex.jl, src/primal_simplex.jl, src/sparse_pricing.jl, src/hypersparse_factorization.jl, src/refactorization_policy.jl. Create: test/hypersparse_pipeline_tests.jl.
 **Interfaces:** KernelModeState owns the selected sparse/dense mode and per-operation densities/costs. choose_kernel_mode!(state; support_size, dimension, sparse_cost, dense_cost)::Symbol. F10 receives the actual stored-entry count and factor growth.
 
-- [ ] Test hysteresis and the absence of division by zero:
+- [x] Test hysteresis and the absence of division by zero:
 
 ~~~text
 dimension=0 → empty fast path
@@ -111,9 +111,9 @@ occupancy 800/1000 for consecutive samples → :dense
 single occupancy fluctuation → retain previous mode
 ~~~
 
-- [ ] Connect CHUZR/CHUZC, BTRAN, pricing, FTRAN, the BFRT aggregate RHS, weights, and updates so that each stage does not rematerialize the entire vector. A dense fallback must be available independently for every operation.
-- [ ] Use initial occupancy thresholds of 0.1 for switching to sparse and 0.2 for switching to dense only as experimental defaults; cost measurements may change them. Require two consecutive indications to suppress oscillation. Record the selected policy in the report.
-- [ ] F10 incorporates fill-in, multiplier growth, and solve cost; refactorize on poor numerical quality regardless of speed. Residual checks are not disabled for hypersparsity.
-- [ ] End-to-end tests: a block-sparse system, sparse A with dense B⁻¹a, a small dense problem, a support change after a flip, degeneracy, and precision-transfer fallback. Verify certification and bounded memory.
-- [ ] Add a separate opt-in external-corpus stress suite with fixed time and memory bounds, including dense/sparse mode transitions and interrupted component pipelines. Even when selected explicitly through `--file`, never submit `big.mps`, `largo.mps`, or `AnyMOD.mps` to full-sized basis factorization or an end-to-end simplex solve; report their bounded component results separately and exclude them from solved-LP coverage and speed scores.
-- [ ] Run the full suite, sparse_large/holdout, and complete runs of eligible large LPs; report extraction, graph, conversion, and factor-storage costs. Commit: feat: integrate adaptive hypersparse simplex kernels.
+- [x] Connect CHUZR/CHUZC, BTRAN, pricing, FTRAN, the BFRT aggregate RHS, weights, and updates so that each stage does not rematerialize the entire vector. A dense fallback must be available independently for every operation.
+- [x] Use initial occupancy thresholds of 0.1 for switching to sparse and 0.2 for switching to dense only as experimental defaults; cost measurements may change them. Require two consecutive indications to suppress oscillation. Record the selected policy in the report.
+- [x] F10 incorporates fill-in, multiplier growth, and solve cost; refactorize on poor numerical quality regardless of speed. Residual checks are not disabled for hypersparsity.
+- [x] End-to-end tests: a block-sparse system, sparse A with dense B⁻¹a, a small dense problem, a support change after a flip, degeneracy, and precision-transfer fallback. Verify certification and bounded memory.
+- [x] Add a separate opt-in external-corpus stress suite with fixed time and memory bounds, including dense/sparse mode transitions and interrupted component pipelines. Even when selected explicitly through `--file`, never submit `big.mps`, `largo.mps`, or `AnyMOD.mps` to full-sized basis factorization or an end-to-end simplex solve; report their bounded component results separately and exclude them from solved-LP coverage and speed scores.
+- [x] Run the full suite, sparse_large/holdout, and complete runs of eligible large LPs; report extraction, graph, conversion, and factor-storage costs. Commit: feat: integrate adaptive hypersparse simplex kernels.
