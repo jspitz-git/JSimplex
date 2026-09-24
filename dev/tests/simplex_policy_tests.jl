@@ -91,7 +91,17 @@ end
         @test phase_sample["iterations"] == 2
         @test phase_sample["phase_iterations"]["phase_one"] == 2
         @test sum(values(phase_sample["phase_iterations"])) == phase_sample["iterations"]
-        write(config,"phase_one = true\n")
+        write(config,"phase_one = true\ncrash = false\n")
+        @test benchmark_main(["--file="*phase_input,"--policy="*config,
+                             "--algorithm=primal","--presolve=off","--simplex-strategy=adaptive",
+                             "--samples=1","--time-limit=30","--output="*output]) == 0
+        modern = only(TOML.parsefile(output)["cases"])
+        @test modern["numerical_policy_primal"]["phase_one"]
+        modern_sample = only(modern["samples"])
+        @test modern_sample["status"] == "OPTIMAL"
+        @test modern_sample["phase_iterations"]["phase_one"] == 2
+        @test sum(values(modern_sample["phase_iterations"])) == modern_sample["iterations"]
+        write(config,"precision_boosting = true\n")
         @test benchmark_main(["--file="*input,"--policy="*config,"--output="*output]) == 1
     end
 end

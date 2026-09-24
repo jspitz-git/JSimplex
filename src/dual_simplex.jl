@@ -1786,6 +1786,17 @@ function _auxiliary_workspace(workspace::SimplexWorkspace{T}) where {T}
         workspace.dual_bad_update_min, workspace.dual_stable_refactorizations,
         workspace.dual_nonzero_steps_since_refactorization,
     )
+    if workspace.progress.numerical_policy.phase_one
+        # Recovery and perturbation cleanup must refer to the auxiliary box,
+        # not accidentally restore the original model's different bounds.
+        all(iszero,@view(auxiliary.costs[column_count+1:end])) || throw(_UnreliableBasisSolve())
+        auxiliary.problem = LinearProblem{T}(workspace.problem.A,
+            copy(auxiliary.costs[1:column_count]),zero(T),MIN_SENSE,
+            copy(lower[column_count+1:end]),copy(upper[column_count+1:end]),
+            copy(lower[1:column_count]),copy(upper[1:column_count]),
+            fill(CONTINUOUS,column_count),workspace.problem.name,String[],String[])
+        auxiliary.perturbed = false
+    end
     auxiliary.scratch.refactorization = deepcopy(workspace.scratch.refactorization)
     auxiliary.scratch.refactorization.timing_depth = 0
     auxiliary.scratch.dual_perturbation_allowed = false
@@ -1798,8 +1809,15 @@ end
 function _classify_recession!(workspace::SimplexWorkspace{T}, stop_requested) where {T}
     # A negative auxiliary optimum certifies a recession direction. Original
     # feasibility is still required: an infeasible LP can have such a direction.
+    phase_problem = workspace.problem
+    if workspace.progress.numerical_policy.phase_one
+        p = workspace.problem
+        phase_problem = LinearProblem{T}(p.A,zeros(T,size(p.A,2)),zero(T),MIN_SENSE,
+            copy(p.row_lower),copy(p.row_upper),copy(p.column_lower),copy(p.column_upper),
+            copy(p.variable_domains),p.name,String[],String[])
+    end
     feasibility = initialize_workspace(
-        workspace.problem,
+        phase_problem,
         workspace.options;
         progress=workspace.progress,
     )
@@ -1809,7 +1827,12 @@ function _classify_recession!(workspace::SimplexWorkspace{T}, stop_requested) wh
     fill!(feasibility.costs, zero(T))
     recompute!(feasibility)
     terminal = try
-        _dual_optimize!(feasibility, stop_requested)
+        if workspace.progress.numerical_policy.phase_one
+            _run_original_objective_terminal!(feasibility,SimplexRunBudget(feasibility),
+                workspace.progress.numerical_policy,stop_requested;allow_auxiliary=Val(false))
+        else
+            _dual_optimize!(feasibility, stop_requested)
+        end
     finally
         workspace.iterations = feasibility.iterations
         workspace.refactorizations = feasibility.refactorizations
@@ -1911,6 +1934,10 @@ end
 
 function _make_dual_feasible!(workspace::SimplexWorkspace{T}, stop_requested) where {T}
     _restore_active_perturbations!(workspace)
+    if workspace.progress.numerical_policy.phase_one
+        _restore_original_costs!(workspace)
+        workspace.perturbed = false
+    end
     recompute!(workspace)
     _flip_bounds!(workspace)
     _finite_workspace(workspace) || return _numerical_failure()
@@ -1922,12 +1949,26 @@ function _make_dual_feasible!(workspace::SimplexWorkspace{T}, stop_requested) wh
     # returns to the original LP. Keep anti-degeneracy cost shifts out of this
     # phase so a shifted price cannot become infeasible after that remapping.
     terminal = try
-        _dual_optimize!(auxiliary, stop_requested; perturb_degenerate=false)
+        if workspace.progress.numerical_policy.phase_one
+            _run_original_objective_terminal!(auxiliary,SimplexRunBudget(auxiliary),
+                workspace.progress.numerical_policy,stop_requested;allow_auxiliary=Val(false))
+        else
+            _dual_optimize!(auxiliary, stop_requested; perturb_degenerate=false)
+        end
     finally
         workspace.iterations = auxiliary.iterations
         workspace.refactorizations = auxiliary.refactorizations
     end
-    terminal.status == OPTIMAL || return terminal
+    if terminal.status != OPTIMAL
+        # The auxiliary box always contains zero. Its failure is not an
+        # original-LP infeasibility or unboundedness certificate.
+        return workspace.progress.numerical_policy.phase_one && terminal.status in (INFEASIBLE,UNBOUNDED) ?
+            DualTermination(NUMERICAL_ERROR,"auxiliary box terminal proof is inconclusive") : terminal
+    end
+    if workspace.progress.numerical_policy.phase_one
+        _original_optimality_certified(auxiliary,auxiliary.primal[1:size(auxiliary.problem.A,2)]) ||
+            return DualTermination(NUMERICAL_ERROR,"auxiliary box optimum is inconclusive")
+    end
     if dot(workspace.costs, auxiliary.primal) < -workspace.options.dual_tolerance
         direction_status = _recession_direction_status(workspace, auxiliary)
         direction_status == :ambiguous &&

@@ -60,7 +60,7 @@ b = JSimplex.crash_basis(p, SolverOptions(verbose=false), policy, () -> false)
 **Files:** Create: src/simplex_phase_one.jl, test/simplex_phase_one_tests.jl. Modify: src/primal_simplex.jl, src/dual_simplex.jl, src/simplex_start.jl, src/simplex_driver.jl, src/solver.jl, src/JSimplex.jl.
 **Interfaces:** PhaseOneMap owns the mapping of original structural/slack and artificial columns. run_phase_one!(ws, budget, policy, stop)::DualRunResult{T}; remove_artificials!(phase_ws, map, original_ws, policy, stop)::Bool. Consumes the F07 budget, F09 updates, and F20 start.
 
-- [ ] Test the original model A=[1 1], row lower=1, cost=[1,2]. Phase I finds a feasible basis; after artificial removal there are only n+m states and the optimal objective=1:
+- [x] Test the original model A=[1 1], row lower=1, cost=[1,2]. Phase I finds a feasible basis; after artificial removal there are only n+m states and the optimal objective=1:
 
 ~~~julia
 p = LinearProblem(JSimplex.sparse([1.0 1.0]), [1.0, 2.0]; row_lower=[1.0])
@@ -70,9 +70,9 @@ r = solve(p; options=SolverOptions(algorithm=:primal,
 @test r.objective_value ≈ 1.0
 ~~~
 
-- [ ] Refactor the current artificial construction to accept an existing verified basis and add auxiliary columns only for rows that are actually violated. If extending that basis cannot be done safely, use the current verified slack construction.
-- [ ] Retain Phase I that minimizes the sum of artificials as the reference strategy. The first modernization uses incremental primal, shared recovery, weights, and perturbations, rather than a new unverified auxiliary objective. The auxiliary dual phase adopts the shared driver and the bound/cost mapping; its recession proof remains intact.
-- [ ] When a basic artificial has zero value, perform a safe degenerate pivot to an original structural/slack column before removing the artificial. Do not merely overwrite the index. At a nonzero artificial optimum, verify a Farkas proof against the original LP; uncertainty means recovery/NUMERICAL_ERROR.
+- [x] Refactor the current artificial construction to accept an existing verified basis and add auxiliary columns only for rows that are actually violated. If extending that basis cannot be done safely, use the current verified slack construction.
+- [x] Retain Phase I that minimizes the sum of artificials as the reference strategy. The first modernization uses incremental primal, shared recovery, weights, and perturbations, rather than a new unverified auxiliary objective. The auxiliary dual phase adopts the shared driver and the bound/cost mapping; its recession proof remains intact.
+- [x] When a basic artificial has zero value, perform a safe degenerate pivot to an original structural/slack column before removing the artificial. Do not merely overwrite the index. At a nonzero artificial optimum, verify a Farkas proof against the original LP; uncertainty means recovery/NUMERICAL_ERROR.
 
 ~~~text
 phase-I optimum → verify auxiliary optimality
@@ -84,5 +84,5 @@ else:
     continue from this basis with remaining budget
 ~~~
 
-- [ ] Test redundant and nearly dependent equalities, a zero-valued basic artificial, a small reduced cost that matters for a large violation, an infeasible LP, upper-only and free variables, a deadline during removal, and postsolve. No artificial costs, weights, or RowAccess indexing may remain after mapping.
-- [ ] Run phase/recession/certification/retry tests, both simplex methods, MOI, and the full suite. Measure Phase I and the complete solve separately with crash on/off. Commit: feat: reuse recovered bases in simplex phase one.
+- [x] Test redundant and nearly dependent equalities, a zero-valued basic artificial, a small reduced cost that matters for a large violation, an infeasible LP, upper-only and free variables, a deadline during removal, and postsolve. No artificial costs, weights, or RowAccess indexing may remain after mapping.
+- [x] Run phase/recession/certification/retry tests, both simplex methods, MOI, and the full suite. Measure Phase I and the complete solve separately with crash on/off. Commit: feat: reuse recovered bases in simplex phase one.

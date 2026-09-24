@@ -117,7 +117,7 @@ implementation in parallel.
 | [x] | F18 Hypersparse basis updates | F17 | `feat: propagate sparse support through basis updates` |
 | [x] | F19 Adaptive sparse pipeline and fill-in | F10, F18 | `feat: integrate adaptive hypersparse simplex kernels` |
 | [x] | F20 Better initial bases | F07 | `feat: construct guarded simplex crash bases` |
-| [ ] | F21 Phase I modernization | F09, F13, F20 | `feat: reuse recovered bases in simplex phase one` |
+| [x] | F21 Phase I modernization | F09, F13, F20 | `feat: reuse recovered bases in simplex phase one` |
 | [ ] | F22 Basis transfer across precisions | F07, F21 | `feat: transfer simplex state across working precisions` |
 | [ ] | F23 Higher-precision solves and pivoting | F05, F19, F22 | `feat: boost simplex working precision on numerical failure` |
 | [ ] | F24 LP iterative refinement | F23 | `feat: refine LP solutions through scaled correction problems` |

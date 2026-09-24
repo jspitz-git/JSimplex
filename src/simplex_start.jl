@@ -243,9 +243,8 @@ function _crash_workspace_impl(initial::SimplexWorkspace{T},stop,fill_limit) whe
         final_violation = primal_infeasibility(trial)
         accepted = _finite_workspace(trial) && _recomputed_basis_reliable(trial) &&
             final_violation <= baseline && _factor_storage_count(trial.factorization) <= storage_limit
-        # F21 will extend arbitrary infeasible bases with artificials. Until
-        # then the primal phase-I constructor requires its verified slack start.
-        accepted &= trial.options.algorithm != :primal || iszero(final_violation)
+        # The modern phase-I builder can extend a partially feasible basis.
+        accepted &= policy.phase_one || trial.options.algorithm != :primal || iszero(final_violation)
         accepted || return _crash_fallback(initial,trial,false)
         reset_devex!(trial)
         trial.scratch.recovery_active = false

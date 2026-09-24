@@ -16,6 +16,10 @@ end
 benchmark_solve(problem, options, diagnostics, policy) =
     JSimplex._solve_diagnosed(problem,diagnostics;relax_integrality=true,options,numerical_policy=policy)
 
+# Dispatch selected operations at runtime. Inferring every solve/replay/component
+# path through this orchestration function produces a very large LLVM unit and
+# can exhaust the worker's startup allowance before it reads the selected input.
+# Numerical kernels still compile normally for their concrete runtime arguments.
 function worker_main(job_path)
     job = TOML.parsefile(job_path)
     options, entry = job["options"], job["case"]
@@ -32,7 +36,7 @@ function worker_main(job_path)
             JSimplexBenchmarks.stress_only(metadata["original_path"]) && error("Stress-only source cannot be replayed")
             metadata["original_model_sha256"] in get(get(job,"excluded_hashes",Dict()),"decompressed_sha256",[]) &&
                 error("Known stress-only content cannot be replayed")
-            ws, metadata = JSimplexReplay.load_snapshot(path)
+            ws, metadata = Base.inferencebarrier(JSimplexReplay.load_snapshot)(path)
             if !isempty(overrides)
                 isdefined(JSimplex,:NumericalPolicy) || error("Selected source does not support numerical policy overrides")
                 old = ws.progress
@@ -60,7 +64,7 @@ function worker_main(job_path)
             ws.options = SolverOptions(typeof(ws.options.primal_tolerance);
                 merge(settings, (; iteration_limit=limit, time_limit=options["time-limit"]))...)
             stop = deadline
-            run = JSimplexReplay.run_replay!(ws,stop)
+            run = Base.inferencebarrier(JSimplexReplay.run_replay!)(ws,stop)
             result["replay_metadata"] = metadata
             result["status"] = string(run.status)
             result["status_scope"] = "working snapshot model"
@@ -144,30 +148,30 @@ function worker_main(job_path)
                 result["component_nonzeros"] = length(block.nzval)
                 result["component_operation"] = "transpose matrix-vector pricing"
                 if isdefined(JSimplex,:RowAccess)
-                    result["sparse_pricing"] = JSimplexSparseComponents.probe(block)
+                    result["sparse_pricing"] = Base.inferencebarrier(JSimplexSparseComponents.probe)(block)
                     result["component_operation"] = "row indexing, sparse pricing, and support cancellation"
                 end
                 if isdefined(JSimplex,:sparse_solve_view)
                     JSimplex.BLAS.set_num_threads(1)
-                    extracted = @timed JSimplexFactorComponents.extract(problem.A)
+                    extracted = @timed Base.inferencebarrier(JSimplexFactorComponents.extract)(problem.A)
                     factor_block,metadata = extracted.value
                     metadata["seconds"] = extracted.time
                     metadata["allocated_bytes"] = extracted.bytes
                     metadata["rows"],metadata["columns"] = size(factor_block)
                     metadata["nonzeros"] = JSimplex.nnz(factor_block)
                     result["factor_extraction"] = metadata
-                    result["factor_components"] = JSimplexFactorComponents.probe(factor_block)
+                    result["factor_components"] = Base.inferencebarrier(JSimplexFactorComponents.probe)(factor_block)
                     result["component_operation"] *= ", bounded base LU extraction and sparse solves"
                     if isdefined(JSimplex,:SparseBasisWorkspace)
                         bounded_basis = JSimplexFactorComponents.component_basis(factor_block)
                         dimension = min(size(bounded_basis,1),32)
-                        result["update_components"] = JSimplexUpdateComponents.probe(
+                        result["update_components"] = Base.inferencebarrier(JSimplexUpdateComponents.probe)(
                             bounded_basis[1:dimension,1:dimension])
                         result["update_components"]["basis_recipe"] =
                             "Leading at most 32x32 principal block of the normalized factor component"
                         result["component_operation"] *= ", bounded update chains and refactor resets"
                         if isdefined(JSimplex,:HypersparseWorkspace)
-                            result["pipeline_components"] = JSimplexPipelineComponents.probe(
+                            result["pipeline_components"] = Base.inferencebarrier(JSimplexPipelineComponents.probe)(
                                 bounded_basis[1:dimension,1:dimension])
                             result["pipeline_components"]["basis_recipe"] =
                                 "Leading at most 32x32 principal block of the normalized factor component"
@@ -202,7 +206,7 @@ function worker_main(job_path)
                     getfield(solver_options, key) : string(getfield(solver_options, key)))
                 for key in fieldnames(typeof(solver_options)))
             # A fresh solve for warmup; never reuse its basis for measurements.
-            benchmark_solve(problem,solver_options,nothing,policy)
+            Base.inferencebarrier(benchmark_solve)(problem,solver_options,nothing,policy)
             for repetition in 1:options["samples"]
                 snapshot_path = joinpath(abspath(options["output"]) * ".replays",
                     replace(entry["id"], '/' => '_') * "-$(algorithm)-$(repetition).bin")
@@ -225,7 +229,7 @@ function worker_main(job_path)
                     # Count published steps only: private refactorization observers
                     # can see a candidate that will subsequently be rolled back.
                     # Global offsets retain work consumed by original-model retries.
-                    if reason in (:pivot_completed,:flip_completed,:crash_pivot)
+                    if reason in (:pivot_completed,:flip_completed,:crash_pivot,:artificial_removed)
                         total = ws.progress.iteration_offset + ws.iterations
                         key = phase_name[]
                         phase_iterations[key] = get(phase_iterations,key,0) +
@@ -271,7 +275,7 @@ function worker_main(job_path)
                 if repetition == 1 && !isnothing(diagnostics)
                     # Warm the actual workspace/observer type; warming only the
                     # uninstrumented solver leaves compilation in the first sample.
-                    benchmark_solve(problem,solver_options,diagnostics,policy)
+                    Base.inferencebarrier(benchmark_solve)(problem,solver_options,diagnostics,policy)
                     for key in keys(diagnostics.counts)
                         diagnostics.counts[key] = 0
                     end
@@ -284,7 +288,7 @@ function worker_main(job_path)
                 end
                 recording[] = true
                 phase_start[] = time_ns()
-                measured = @timed benchmark_solve(problem,solver_options,diagnostics,policy)
+                measured = @timed Base.inferencebarrier(benchmark_solve)(problem,solver_options,diagnostics,policy)
                 solution = measured.value
                 sample = Dict{String,Any}("algorithm" => string(algorithm), "repetition" => repetition,
                     "status" => string(solution.status), "message" => solution.message,

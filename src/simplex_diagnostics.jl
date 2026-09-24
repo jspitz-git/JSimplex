@@ -12,7 +12,7 @@ const SIMPLEX_EVENT_REASONS = (
     :certification, :certification_failed, :repair, :checkpoint, :restore_checkpoint,
     :feasibility_recovery, :precision_boost, :lp_refinement,
     :phase_crash, :crash_pivot, :crash_accepted, :crash_fallback,
-    :crash_rejected_quality, :crash_rejected_fill,
+    :crash_rejected_quality, :crash_rejected_fill, :artificial_removed,
 )
 
 const HYPERSPARSE_KERNEL_KEYS = ntuple(i->ntuple(j->

@@ -698,6 +698,19 @@ function _solve_continuous_primal(problem::LinearProblem{T}, options::SolverOpti
                 return _internal_solution(workspace,ITERATION_LIMIT,"iteration limit reached during crash initialization")
             end
         end
+        if progress.numerical_policy.phase_one
+            if _start_time_expired(progress,options) || stop_requested()
+                return DualRunResult{T}(TIME_LIMIT,nothing,nothing,
+                    isnothing(workspace) ? 0 : workspace.iterations,
+                    isnothing(workspace) ? 0 : workspace.refactorizations,"time limit reached before phase I initialization")
+            end
+            workspace = isnothing(workspace) ? _initialize_crash_workspace(problem,options,progress) : workspace
+            policy = workspace.progress.numerical_policy
+            budget = SimplexRunBudget(workspace)
+            phase = run_phase_one!(workspace,budget,policy,stop_requested)
+            phase.status == OPTIMAL || return phase
+            return run_from_basis!(workspace,budget,policy,stop_requested)
+        end
         initial_start = workspace
         workspace, artificial_count, initial = _primal_phase_one(
             problem, options, progress, stop_requested,
