@@ -182,14 +182,14 @@ function _transfer_basis_matrix(problem::LinearProblem{S},basis,lower,upper,stop
     return SparseMatrixCSC(m,m,pointers,rows,values)
 end
 
-function _transfer_precision(ws,::Type{S},budget,policy,stop) where S
+function _transfer_precision(ws,::Type{S},budget,policy,stop,source_basis) where S
     problem = _copy_precision_problem(S,ws.problem)
     stop() && return nothing
     options = _copy_precision_options(S,ws.options)
     converted_policy = _copy_precision_policy(S,policy)
     progress = _copy_precision_progress(S,ws.progress,converted_policy,budget)
     costs,lower,upper = _copy_working_values(S,ws.costs),_copy_working_values(S,ws.lower),_copy_working_values(S,ws.upper)
-    basis = Basis(ws.basis.basic_indices,ws.basis.states)
+    basis = Basis(source_basis.basic_indices,source_basis.states)
     B = _transfer_basis_matrix(problem,basis,lower,upper,stop)
     (isnothing(B) || stop()) && return nothing
     factor = try
@@ -231,7 +231,7 @@ claim optimality or change the public solution's scalar type.
 """
 function transfer_precision(ws::SimplexWorkspace{T},::Type{S},bits::Int,
                             budget::SimplexRunBudget,policy::NumericalPolicy{T};
-                            stop=()->false) where {T,S}
+                            stop=()->false,basis::Basis=ws.basis) where {T,S}
     _check_precision_types(T,S,bits)
     guard = _guard_stop_callback(()->_budget_expired(budget) || stop())
     ws.iterations = max(ws.iterations,budget.iterations-ws.progress.iteration_offset)
@@ -242,7 +242,7 @@ function transfer_precision(ws::SimplexWorkspace{T},::Type{S},bits::Int,
         actual_bits = _transfer_bits(ws,policy,bits)
         guard() && return nothing
         return _with_transfer_precision(S,actual_bits) do
-            _transfer_precision(ws,S,budget,policy,guard)
+            _transfer_precision(ws,S,budget,policy,guard,basis)
         end
     catch exception
         exception === guard.exception && rethrow()

@@ -101,7 +101,7 @@ end
         @test modern_sample["status"] == "OPTIMAL"
         @test modern_sample["phase_iterations"]["phase_one"] == 2
         @test sum(values(modern_sample["phase_iterations"])) == modern_sample["iterations"]
-        write(config,"precision_boosting = true\n")
+        write(config,"lp_refinement = true\n")
         @test benchmark_main(["--file="*input,"--policy="*config,"--output="*output]) == 1
     end
 end

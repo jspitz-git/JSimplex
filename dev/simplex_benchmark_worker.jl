@@ -196,6 +196,7 @@ function worker_main(job_path)
             settings = (; algorithm, verbose=false,
                 pricing=Symbol(get(options,"pricing","steepest_edge")),
                 basis_update=Symbol(options["basis-update"]),
+                scaling=Symbol(get(options,"scaling","auto")),
                 presolve=options["presolve"] == "on",
                 time_limit=options["time-limit"], iteration_limit=options["iteration-limit"])
             solver_options = isnothing(policy) ? SolverOptions(;settings...) :
@@ -222,10 +223,18 @@ function worker_main(job_path)
                 phase_one_model = Ref{Any}(nothing)
                 phase_one_objective = Ref{Any}(nothing)
                 final_workspace = Ref{Any}(nothing)
+                working_levels = Int[result["precision_bits"]]
                 recording = Ref(repetition != 1)
                 observer = function (reason, ws)
                     recording[] || return nothing
                     started = time_ns()
+                    if reason == :precision_boost
+                        # This event runs inside the actual working-precision
+                        # context, after constructing its new typed factor.
+                        T = eltype(ws.primal)
+                        bits = T === BigFloat ? precision(BigFloat) : precision(T)
+                        bits in working_levels || push!(working_levels,bits)
+                    end
                     # Count published steps only: private refactorization observers
                     # can see a candidate that will subsequently be rolled back.
                     # Global offsets retain work consumed by original-model retries.
@@ -297,6 +306,7 @@ function worker_main(job_path)
                     "refactorizations" => solution.statistics.refactorizations,
                     "solver_seconds" => solution.statistics.elapsed_seconds,
                     "diagnostics_enabled" => !isnothing(diagnostics),
+                    "working_precision_available" => !isnothing(diagnostics),
                     "observer_seconds" => observer_seconds[], "phase_seconds" => phase_seconds,
                     "phase_iterations" => phase_iterations)
                 if hasproperty(measured, :compile_time)
@@ -305,6 +315,8 @@ function worker_main(job_path)
                 end
                 phase_seconds[phase_name[]] = get(phase_seconds, phase_name[], 0.0) + (time_ns() - phase_start[]) / 1e9
                 if !isnothing(diagnostics)
+                    sample["working_precision_levels"] = working_levels
+                    sample["working_precision_bits"] = maximum(working_levels)
                     key = phase_name[]
                     phase_iterations[key] = get(phase_iterations,key,0) +
                         max(0,solution.statistics.iterations-observed_iterations[])
@@ -322,13 +334,20 @@ function worker_main(job_path)
                 ws = final_workspace[]
                 if solution.status == OPTIMAL && !isnothing(ws) && size(ws.problem.A) == size(problem.A)
                     scaling = ws.progress.scaling
-                    expected_A = JSimplex.spdiagm(0 => scaling.row_factors) * problem.A *
-                                 JSimplex.spdiagm(0 => scaling.column_factors)
+                    # Recreate the original input-type scaling arithmetic before
+                    # comparing a binary-preserving higher-precision copy.
+                    T = eltype(problem.A)
+                    row_factors, column_factors = T.(scaling.row_factors), T.(scaling.column_factors)
+                    exact_mapping = row_factors == scaling.row_factors && column_factors == scaling.column_factors
+                    expected_A = JSimplex.spdiagm(0 => row_factors) * problem.A *
+                                 JSimplex.spdiagm(0 => column_factors)
                     sense = problem.objective_sense == JSimplex.MAX_SENSE ? -1 : 1
-                    expected_costs = sense .* problem.objective .* scaling.column_factors
-                    if ws.problem.A == expected_A && ws.problem.objective == expected_costs
-                        witness = JSimplex.transpose_solve(ws.factorization, ws.costs[ws.basis.basic_indices])
-                        witness = JSimplex.unscale_dual(scaling, witness)
+                    expected_costs = sense .* problem.objective .* column_factors
+                    if exact_mapping && ws.problem.A == expected_A && ws.problem.objective == expected_costs
+                        witness = setprecision(BigFloat,max(256,maximum(working_levels))) do
+                            candidate = JSimplex.transpose_solve(ws.factorization, ws.costs[ws.basis.basic_indices])
+                            JSimplex.unscale_dual(scaling,candidate)
+                        end
                         merge!(sample, JSimplexBenchmarks.original_dual_errors(problem, solution.primal, witness;
                             primal_tolerance=solver_options.primal_tolerance))
                         delete!(sample, "dual_error_note")

@@ -47,12 +47,13 @@ const DEFAULTS = Dict{String,Any}(
     "pricing" => "steepest_edge",
     "basis-update" => "pfi",
     "presolve" => "on",
+    "scaling" => "auto",
 )
 
 const POLICY_KEYS = (
     "solve_tolerance", "pivot_error_tolerance", "max_refinements",
     "max_pivot_candidates", "max_recovery_rounds", "stagnation_window",
-    "max_precision_bits", "max_lp_refinements", "stable_ratio", "pivot_validation", "solve_refinement", "recovery", "feasibility_recovery",
+    "max_precision_bits", "max_precision_memory_bytes", "max_lp_refinements", "stable_ratio", "pivot_validation", "solve_refinement", "recovery", "feasibility_recovery",
     "incremental_primal", "incremental_primal_pivots", "adaptive_refactor", "refactor_timing", "adaptive_stalling", "adaptive_dual_perturbation", "adaptive_primal_perturbation",
     "adaptive_pricing", "partial_pricing", "sparse_pricing", "hypersparse", "crash", "phase_one",
     "precision_boosting", "lp_refinement",
@@ -137,6 +138,9 @@ function parse_benchmark_args(args)
     options["kernel-timing"] in ("on", "off") || throw(ArgumentError("--kernel-timing must be on or off"))
     options["diagnostics"] in ("on", "off") || throw(ArgumentError("--diagnostics must be on or off"))
     options["presolve"] in ("on", "off") || throw(ArgumentError("--presolve must be on or off"))
+    options["scaling"] in ("auto", "on", "off") || throw(ArgumentError("Invalid scaling mode"))
+    !isempty(options["replay"]) && options["scaling"] != "auto" &&
+        throw(ArgumentError("Scaling is read from the replay snapshot"))
     options["simplex-strategy"] in ("legacy", "adaptive") || throw(ArgumentError("Invalid simplex strategy"))
     options["pricing"] in ("steepest_edge","devex","dantzig","auto") ||
         throw(ArgumentError("Invalid pricing rule"))
@@ -323,9 +327,23 @@ function source_identity(root)
     return Dict("revision" => revision, "tree_sha256" => bytes2hex(SHA.digest!(digest)))
 end
 
+_diagnostic_value_bits(value) = value isa AbstractFloat ? precision(value) : 0
+
+function _diagnostic_bits(problem, arrays...)
+    bits = max(256, _diagnostic_value_bits(problem.objective_constant))
+    for values in (problem.A.nzval, problem.objective, arrays...), value in values
+        bits = max(bits, _diagnostic_value_bits(value))
+    end
+    for bounds in (problem.column_lower, problem.column_upper, problem.row_lower, problem.row_upper), bound in bounds
+        isfinite(bound) && (bits = max(bits, _diagnostic_value_bits(bound.value)))
+    end
+    return bits
+end
+
 function original_primal_errors(problem, primal, objective)
     isnothing(primal) && return Dict{String,Any}("primal_error_available" => false)
-    return setprecision(BigFloat, 256) do
+    bits = max(_diagnostic_bits(problem, primal), _diagnostic_value_bits(objective))
+    return setprecision(BigFloat, bits) do
         x = BigFloat.(primal)
         activity = zeros(BigFloat, size(problem.A, 1))
         for column in eachindex(x), position in problem.A.colptr[column]:problem.A.colptr[column+1]-1
@@ -346,12 +364,13 @@ function original_primal_errors(problem, primal, objective)
         return Dict{String,Any}("primal_error_available" => true,
             "primal_error" => Float64(violation),
             "objective_error" => Float64(abs(expected - BigFloat(objective))),
-            "error_evaluation_bits" => 256, "error_units" => "original model")
+            "error_evaluation_bits" => bits, "error_units" => "original model")
     end
 end
 
 function original_dual_errors(problem, primal, dual; primal_tolerance=1e-7)
-    return setprecision(BigFloat, 256) do
+    bits = _diagnostic_bits(problem, primal, dual)
+    return setprecision(BigFloat, bits) do
         x, y = BigFloat.(primal), BigFloat.(dual)
         activity = zeros(BigFloat, size(problem.A, 1))
         sign = string(problem.objective_sense) == "MAX_SENSE" ? -1 : 1
@@ -385,7 +404,8 @@ function original_dual_errors(problem, primal, dual; primal_tolerance=1e-7)
         end
         return Dict{String,Any}("dual_error_available" => true,
             "dual_sign_error" => Float64(violation),
-            "complementarity_error" => Float64(complementarity))
+            "complementarity_error" => Float64(complementarity),
+            "dual_error_evaluation_bits" => bits)
     end
 end
 

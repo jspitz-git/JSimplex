@@ -7,6 +7,7 @@ include("hypersparse_pipeline_jet_tests.jl")
 include("simplex_start_jet_tests.jl")
 include("simplex_phase_one_jet_tests.jl")
 include("simplex_precision_jet_tests.jl")
+include("simplex_precision_recovery_jet_tests.jl")
 
 @testset "JET indexed basis update kernels" begin
     for T in (Float32,Float64,Rational{BigInt})
@@ -68,7 +69,9 @@ end
     JET.@test_opt target_modules=(JSimplex,) JSimplex.recompute!(rational_workspace)
     JET.@test_opt target_modules=(JSimplex,) JSimplex.presolve_problem(float_problem)
     JET.@test_opt target_modules=(JSimplex,) JSimplex.presolve_problem(rational_problem)
-    JET.@test_opt target_modules=(JSimplex,) solve(float_problem)
+    report = JET.report_opt(solve, (typeof(float_problem),); target_modules=(JSimplex,))
+    @test isempty(unexpected_precision_reports(report))
+    @test Base.infer_return_type(solve, Tuple{typeof(float_problem)}) === Solution{Float64}
     JET.@test_opt target_modules=(JSimplex,) solve(rational_problem)
 end
 
@@ -112,7 +115,7 @@ end
         report=JET.report_opt(JSimplex._retry_original,
             (LinearProblem{T},SolverOptions{T,:pfi,:native},
              context_type,JSimplex.DualRunResult{T});target_modules=(JSimplex,))
-        @test isempty(JET.get_reports(report))
+        @test isempty(unexpected_precision_reports(report))
     end
 end
 

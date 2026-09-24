@@ -300,9 +300,19 @@ function _run_original_objective_terminal!(ws::SimplexWorkspace{T},budget,policy
     return DualTermination(NUMERICAL_ERROR,"bounded original-objective cleanup exhausted")
 end
 
-function run_from_basis!(ws::SimplexWorkspace{T},budget::SimplexRunBudget,
+function _run_from_basis_once!(ws::SimplexWorkspace{T},budget::SimplexRunBudget,
                          policy::NumericalPolicy{T},stop;
                          reduced_cost_tolerance::T=ws.options.dual_tolerance)::DualRunResult{T} where T
     terminal = _run_original_objective_terminal!(ws,budget,policy,stop;reduced_cost_tolerance)
     return _internal_solution(ws,terminal)
+end
+
+function run_from_basis!(ws::SimplexWorkspace{T},budget::SimplexRunBudget,
+                         policy::NumericalPolicy{T},stop;
+                         reduced_cost_tolerance::T=ws.options.dual_tolerance)::DualRunResult{T} where T
+    run = _run_from_basis_once!(ws,budget,policy,stop;reduced_cost_tolerance)
+    if run.status == NUMERICAL_ERROR && policy.precision_boosting && _is_exact(T) === Val(false)
+        return _dispatch_precision_recovery(ws,budget,policy,stop)
+    end
+    return run
 end

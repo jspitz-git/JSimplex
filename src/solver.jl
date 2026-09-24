@@ -166,7 +166,14 @@ function cleanup_original(problem::LinearProblem{T}, restored_basis::Basis,
         progress = SimplexProgressContext(problem; start_ns=context.start_ns,
                                           diagnostics=context.diagnostics,
                                           numerical_policy=_context_numerical_policy(context,options))
-        workspace = initialize_workspace(_minimization_problem(problem), options; progress)
+        if progress.numerical_policy.precision_boosting
+            workspace = _precision_initial_workspace(_minimization_problem(problem),options,progress)
+            workspace.iterations = prior_iterations
+            workspace.refactorizations = prior_refactorizations
+            _precision_finish_initialization!(workspace)
+        else
+            workspace = initialize_workspace(_minimization_problem(problem), options; progress)
+        end
         workspace.iterations = prior_iterations
         workspace.refactorizations = prior_refactorizations
         stop_requested() && return _internal_solution(workspace, TIME_LIMIT, "time limit reached")
@@ -213,10 +220,11 @@ function cleanup_original(problem::LinearProblem{T}, restored_basis::Basis,
     catch exception
         exception === stop_requested.exception && rethrow()
         _is_numerical_exception(exception) || rethrow()
-        return DualRunResult{T}(NUMERICAL_ERROR, nothing, nothing,
+        run = DualRunResult{T}(NUMERICAL_ERROR, nothing, nothing,
                                 isnothing(workspace) ? prior_iterations : workspace.iterations,
                                 isnothing(workspace) ? prior_refactorizations : workspace.refactorizations,
                                 sprint(showerror, exception))
+        return _recover_original_failure(workspace,run,stop_requested)
     end
 end
 

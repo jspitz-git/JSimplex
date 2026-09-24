@@ -1547,7 +1547,12 @@ function _refined_primal_rows_feasible(problem::LinearProblem{T}, primal::Vector
         end
     end
     exact_tolerance = Rational{BigInt}(tolerance)
+    finite_limit = Rational{BigInt}(floatmax(T))
     for (slot, row) in enumerate(rows)
+        # Cancellation may recover a finite original-type activity after an
+        # intermediate overflow. An out-of-range final activity remains unsafe,
+        # including on an unbounded row or when rounding would hide the excess.
+        abs(activities[slot]) <= finite_limit || return false
         lower = problem.row_lower[row]
         upper = problem.row_upper[row]
         if isfinite(lower)
@@ -1571,9 +1576,10 @@ function _original_primal_feasible(problem::LinearProblem{T}, primal::Vector{T},
     # Cancellation uncertainty must not enlarge the configured tolerance.
     _within_primal_intervals(row_lower, row_upper, problem.row_lower,
                              problem.row_upper, tolerance) && return true
-    all(isfinite, row_lower) && all(isfinite, row_upper) || return false
     # A long floating sum can have a wider enclosure than the absolute
-    # tolerance even when its exact stored-coefficient activity is feasible.
+    # tolerance, or overflow before cancellation, even when its exact
+    # stored-coefficient activity is feasible. Exact fallback checks finite
+    # coefficients independently and does not enlarge the user tolerance.
     T <: Union{Float32,Float64} || return false
     rows = Int[]
     for row in eachindex(row_lower)
@@ -1622,8 +1628,8 @@ function _primal_interval_at_bound(lower::T, upper::T, bound::Bound{T}, toleranc
     return true
 end
 
-function _original_optimality_certified(workspace::SimplexWorkspace{T}, primal::Vector{T}) where {T}
-    problem, options = workspace.problem, workspace.options
+function _original_dual_witness(workspace::SimplexWorkspace{T}) where {T}
+    problem = workspace.problem
     column_count, row_count = size(problem.A, 2), size(problem.A, 1)
     basic_costs = zeros(T, length(workspace.basis.basic_indices))
     for (row, index) in enumerate(workspace.basis.basic_indices)
@@ -1636,8 +1642,17 @@ function _original_optimality_certified(workspace::SimplexWorkspace{T}, primal::
     # c - [A -I]' * dual independently, including every basic entry that the
     # incremental algorithm overwrites with zero. Shifted costs are irrelevant.
     dual = transpose_solve(workspace.factorization, basic_costs)
-    all(isfinite, dual) || return false
-    _maybe_refine_basis_solve!(dual,workspace,basic_costs;transposed=true) || return false
+    all(isfinite, dual) || return nothing
+    _maybe_refine_basis_solve!(dual,workspace,basic_costs;transposed=true) || return nothing
+    return dual
+end
+
+function _original_witness_certified(problem::LinearProblem{T}, options::SolverOptions{T},
+                                     basis::Basis, primal::Vector{T}, dual::Vector{T}) where T
+    row_count, column_count = size(problem.A)
+    length(primal) == column_count && length(dual) == row_count &&
+        length(basis.states) == column_count + row_count || return false
+    all(isfinite, primal) && all(isfinite, dual) || return false
     reduced_lower, reduced_upper = _original_reduced_cost_bounds(problem, dual)
     all(isfinite, reduced_lower) && all(isfinite, reduced_upper) || return false
     row_lower, row_upper = _primal_row_bounds(problem.A, primal, _is_exact(T))
@@ -1645,7 +1660,7 @@ function _original_optimality_certified(workspace::SimplexWorkspace{T}, primal::
     for index in eachindex(reduced_lower)
         stationary = reduced_lower[index] >= negative_tolerance &&
                      reduced_upper[index] <= options.dual_tolerance
-        workspace.basis.states[index] == BASIC && !stationary && return false
+        basis.states[index] == BASIC && !stationary && return false
         stationary && continue
         lower = index <= column_count ? problem.column_lower[index] : problem.row_lower[index - column_count]
         upper = index <= column_count ? problem.column_upper[index] : problem.row_upper[index - column_count]
@@ -1663,6 +1678,13 @@ function _original_optimality_certified(workspace::SimplexWorkspace{T}, primal::
         at_lower || at_upper || return false
     end
     return true
+end
+
+function _original_optimality_certified(workspace::SimplexWorkspace{T}, primal::Vector{T}) where T
+    dual = _original_dual_witness(workspace)
+    isnothing(dual) && return false
+    return _original_witness_certified(workspace.problem, workspace.options,
+        workspace.basis, primal, dual)
 end
 
 function _internal_solution(workspace::SimplexWorkspace{T}, status::TerminationStatus,
@@ -2027,9 +2049,18 @@ function _solve_continuous_dual(problem::LinearProblem{T}, options::SolverOption
            (_start_time_expired(progress,options) || stop_requested())
             return DualRunResult{T}(TIME_LIMIT,nothing,nothing,0,0,"time limit reached before crash initialization")
         end
-        workspace = progress.numerical_policy.crash ?
-            _initialize_crash_workspace(problem,options,progress) :
-            initialize_workspace(problem,options;progress)
+        if progress.numerical_policy.precision_boosting
+            if _start_time_expired(progress,options) || stop_requested()
+                return DualRunResult{T}(TIME_LIMIT,nothing,nothing,0,0,"time limit reached before initialization")
+            end
+            # Retain the valid slack factor even if value initialization fails.
+            workspace = _precision_initial_workspace(problem,options,progress)
+            _precision_finish_initialization!(workspace)
+        else
+            workspace = progress.numerical_policy.crash ?
+                _initialize_crash_workspace(problem,options,progress) :
+                initialize_workspace(problem,options;progress)
+        end
         if progress.numerical_policy.crash
             workspace,expired = _crash_workspace(workspace,stop_requested)
             expired && return _internal_solution(workspace,TIME_LIMIT,"time limit reached during crash initialization")
@@ -2043,14 +2074,15 @@ function _solve_continuous_dual(problem::LinearProblem{T}, options::SolverOption
                 isnothing(workspace) ? 0 : workspace.iterations,
                 isnothing(workspace) ? 0 : workspace.refactorizations,"time limit reached during initialization")
         end
-        return DualRunResult{T}(NUMERICAL_ERROR, nothing, nothing,
+        run = DualRunResult{T}(NUMERICAL_ERROR, nothing, nothing,
                                 isnothing(workspace) ? 0 : workspace.iterations,
                                 isnothing(workspace) ? 0 : workspace.refactorizations,
                                 sprint(showerror, exception))
+        return _recover_original_failure(workspace,run,stop_requested)
     end
 end
 
-function _solve_continuous_dual!(workspace::SimplexWorkspace{T}, stop_requested) where {T}
+function _solve_continuous_dual_once!(workspace::SimplexWorkspace{T}, stop_requested) where {T}
     _simplex_event!(workspace, :phase_dual)
     problem, options = workspace.problem, workspace.options
     stop_requested() && return _internal_solution(workspace, TIME_LIMIT, "time limit reached")
@@ -2060,7 +2092,7 @@ function _solve_continuous_dual!(workspace::SimplexWorkspace{T}, stop_requested)
        (!_original_costs_active(workspace) || !_original_bounds_active(workspace))
         # A resumed working problem needs original-model terminal checks even
         # when the zero-row shortcut or dual initialization finds a ray.
-        return run_from_basis!(workspace,SimplexRunBudget(workspace),policy,stop_requested)
+        return _run_from_basis_once!(workspace,SimplexRunBudget(workspace),policy,stop_requested)
     end
     if iszero(size(problem.A, 1))
         for index in eachindex(workspace.costs)
@@ -2082,7 +2114,7 @@ function _solve_continuous_dual!(workspace::SimplexWorkspace{T}, stop_requested)
                 return _internal_solution(workspace,terminal)
             end
         end
-        return run_from_basis!(workspace,SimplexRunBudget(workspace),policy,stop_requested)
+        return _run_from_basis_once!(workspace,SimplexRunBudget(workspace),policy,stop_requested)
     end
     isnothing(terminal) || return _internal_solution(workspace, terminal)
     terminal = _dual_optimize!(workspace, stop_requested)
@@ -2110,4 +2142,19 @@ function _solve_continuous_dual!(workspace::SimplexWorkspace{T}, stop_requested)
              dual_infeasibility(workspace) <= options.dual_tolerance ? OPTIMAL : NUMERICAL_ERROR
     return _internal_solution(workspace, status,
                               status == OPTIMAL ? "optimal solution found" : "dual feasibility lost")
+end
+
+
+function _solve_continuous_dual!(workspace::SimplexWorkspace{T},stop_requested) where T
+    guard = _guard_stop_callback(stop_requested)
+    run = try
+        _solve_continuous_dual_once!(workspace,guard)
+    catch exception
+        exception === guard.exception && rethrow()
+        workspace.progress.numerical_policy.precision_boosting || rethrow()
+        _is_numerical_exception(exception) || rethrow()
+        DualRunResult{T}(NUMERICAL_ERROR,nothing,nothing,
+            workspace.iterations,workspace.refactorizations,sprint(showerror,exception))
+    end
+    return _recover_original_failure(workspace,run,guard)
 end

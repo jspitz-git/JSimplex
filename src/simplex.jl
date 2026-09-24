@@ -383,7 +383,7 @@ end
 recompute!(workspace::SimplexWorkspace, refactorize::Bool) =
     recompute!(workspace; refactorize=refactorize)
 
-function initialize_workspace(
+function _initialize_workspace_state(
     problem::LinearProblem{T},
     options::SolverOptions;
     progress::SimplexProgressContext{T}=SimplexProgressContext(problem;
@@ -426,9 +426,19 @@ function initialize_workspace(
         typemax(Int), 0, 0,
     )
     _configure_refactorization!(workspace)
+    return workspace
+end
+
+function _finish_workspace_initialization!(workspace)
     recompute!(workspace)
     _simplex_event!(workspace, :refactor_initial)
     return workspace
+end
+
+function initialize_workspace(problem::LinearProblem{T}, options::SolverOptions;
+    progress::SimplexProgressContext{T}=SimplexProgressContext(problem;
+        numerical_policy=NumericalPolicy(T,options))) where T
+    return _finish_workspace_initialization!(_initialize_workspace_state(problem,options;progress))
 end
 
 function primal_infeasibility_summary(workspace::SimplexWorkspace{T}) where {T}

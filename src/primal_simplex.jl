@@ -685,13 +685,23 @@ function _solve_continuous_primal(problem::LinearProblem{T}, options::SolverOpti
                                           numerical_policy=NumericalPolicy(T,options))) where {T}
     stop_requested = _guard_stop_callback(stop_requested)
     workspace = nothing
+    original = nothing
     try
+        if progress.numerical_policy.precision_boosting
+            if _start_time_expired(progress,options) || stop_requested()
+                return DualRunResult{T}(TIME_LIMIT,nothing,nothing,0,0,"time limit reached before initialization")
+            end
+            workspace = _precision_initial_workspace(problem,options,progress)
+            original = workspace
+            _precision_finish_initialization!(workspace)
+        end
         if progress.numerical_policy.crash
             if _start_time_expired(progress,options) || stop_requested()
                 return DualRunResult{T}(TIME_LIMIT,nothing,nothing,0,0,"time limit reached before crash initialization")
             end
-            workspace = _initialize_crash_workspace(problem,options,progress)
+            workspace = isnothing(workspace) ? _initialize_crash_workspace(problem,options,progress) : workspace
             workspace,expired = _crash_workspace(workspace,stop_requested)
+            original = workspace
             expired && return _internal_solution(workspace,TIME_LIMIT,"time limit reached during crash initialization")
             if workspace.iterations >= options.iteration_limit &&
                !_start_primal_feasible(workspace)
@@ -705,17 +715,20 @@ function _solve_continuous_primal(problem::LinearProblem{T}, options::SolverOpti
                     isnothing(workspace) ? 0 : workspace.refactorizations,"time limit reached before phase I initialization")
             end
             workspace = isnothing(workspace) ? _initialize_crash_workspace(problem,options,progress) : workspace
+            original = workspace
             policy = workspace.progress.numerical_policy
             budget = SimplexRunBudget(workspace)
             phase = run_phase_one!(workspace,budget,policy,stop_requested)
-            phase.status == OPTIMAL || return phase
+            phase.status == OPTIMAL || return _recover_original_failure(workspace,phase,stop_requested)
             return run_from_basis!(workspace,budget,policy,stop_requested)
         end
         initial_start = workspace
+        original = isnothing(initial_start) ? initialize_workspace(problem,options;progress) : initial_start
         workspace, artificial_count, initial = _primal_phase_one(
             problem, options, progress, stop_requested,
-            ; initial=isnothing(initial_start) ? initialize_workspace(problem,options;progress) : initial_start,
+            ; initial=original,
         )
+        original = initial
         _simplex_event!(workspace, artificial_count > 0 ? :phase_one : :phase_primal)
         policy = workspace.progress.numerical_policy
         budget = policy.feasibility_recovery ? SimplexRunBudget(workspace) : nothing
@@ -726,15 +739,18 @@ function _solve_continuous_primal(problem::LinearProblem{T}, options::SolverOpti
             _run_original_objective_terminal!(workspace,budget,policy,stop_requested;
                 reduced_cost_tolerance=tolerance) :
             _primal_optimize!(workspace,stop_requested,tolerance)
-        terminal.status == OPTIMAL || return _internal_solution(workspace, terminal)
+        terminal.status == OPTIMAL || return _recover_original_failure(original,
+            _internal_solution(workspace,terminal),stop_requested)
         if artificial_count > 0
             column_count = size(problem.A, 2)
             phase_primal = workspace.primal[1:column_count + artificial_count]
             _original_optimality_certified(workspace, phase_primal) ||
-                return _internal_solution(workspace, NUMERICAL_ERROR,
-                                          "phase I optimality certificate is inconclusive")
+                return _recover_original_failure(original,
+                    _internal_solution(workspace, NUMERICAL_ERROR,
+                        "phase I optimality certificate is inconclusive"),stop_requested)
             artificial_sum = sum(workspace.primal[column_count + 1:column_count + artificial_count])
-            isfinite(artificial_sum) || return _internal_solution(workspace, _numerical_failure())
+            isfinite(artificial_sum) || return _recover_original_failure(original,
+                _internal_solution(workspace,_numerical_failure()),stop_requested)
             if artificial_sum > options.primal_tolerance
                 basic_costs = workspace.costs[workspace.basis.basic_indices]
                 dual = _checked_basis_solve!(zeros(T,length(basic_costs)),workspace,
@@ -744,7 +760,8 @@ function _solve_continuous_primal(problem::LinearProblem{T}, options::SolverOpti
                 status = certified ? INFEASIBLE : NUMERICAL_ERROR
                 message = certified ? "phase I optimum certifies infeasibility" :
                                       "phase I infeasibility certificate is inconclusive"
-                return _internal_solution(workspace, status, message)
+                return _recover_original_failure(original,
+                    _internal_solution(workspace,status,message),stop_requested)
             end
             for artificial in 1:artificial_count
                 index = column_count + artificial
@@ -760,7 +777,8 @@ function _solve_continuous_primal(problem::LinearProblem{T}, options::SolverOpti
             terminal = policy.feasibility_recovery ?
                 _run_original_objective_terminal!(workspace,budget,policy,stop_requested) :
                 _primal_optimize!(workspace, stop_requested)
-            terminal.status == OPTIMAL || return _internal_solution(workspace, terminal)
+            terminal.status == OPTIMAL || return _recover_original_failure(original,
+                _internal_solution(workspace,terminal),stop_requested)
         end
         run = _internal_solution(workspace, OPTIMAL, "optimal solution found")
         if run.status == OPTIMAL && artificial_count > 0
@@ -769,7 +787,7 @@ function _solve_continuous_primal(problem::LinearProblem{T}, options::SolverOpti
                                     run.primal[1:size(problem.A, 2)],
                                     run.iterations, run.refactorizations, run.message, basis)
         end
-        return run
+        return _recover_original_failure(original,run,stop_requested)
     catch exception
         exception === stop_requested.exception && rethrow()
         _is_numerical_exception(exception) || rethrow()
@@ -778,9 +796,10 @@ function _solve_continuous_primal(problem::LinearProblem{T}, options::SolverOpti
                 isnothing(workspace) ? 0 : workspace.iterations,
                 isnothing(workspace) ? 0 : workspace.refactorizations,"time limit reached during initialization")
         end
-        return DualRunResult{T}(NUMERICAL_ERROR, nothing, nothing,
+        run = DualRunResult{T}(NUMERICAL_ERROR, nothing, nothing,
                                 isnothing(workspace) ? 0 : workspace.iterations,
                                 isnothing(workspace) ? 0 : workspace.refactorizations,
                                 sprint(showerror, exception))
+        return _recover_original_failure(original,run,stop_requested)
     end
 end

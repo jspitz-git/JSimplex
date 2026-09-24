@@ -64,7 +64,7 @@ end
 **Files:** Modify: src/simplex_precision.jl, src/simplex_driver.jl, src/simplex_recovery.jl, src/factorization.jl, src/markowitz_factorization.jl, src/solver.jl. Extend: test/simplex_precision_tests.jl.
 **Interfaces:** next_working_precision(::Type{T}, current_bits, policy)::Union{Nothing,Int}; solve_with_precision_recovery(ws, budget, policy, stop)::DualRunResult{T_original}. Float32 first escalates to Float64, then BigFloat at 128/256/512 bits. Never reduce stored BigFloat input precision; return nothing when no higher level is allowed.
 
-- [ ] Test level selection and the precision ceiling:
+- [x] Test level selection and the precision ceiling:
 
 ~~~julia
 policy = JSimplex.NumericalPolicy(Float64; max_precision_bits=512,
@@ -74,11 +74,11 @@ policy = JSimplex.NumericalPolicy(Float64; max_precision_bits=512,
 @test isnothing(JSimplex.next_working_precision(BigFloat, 512, policy))
 ~~~
 
-- [ ] Activate after exhausting cheaper F05–F07 recovery or demonstrating that the current precision cannot provide a reliable solve. Start from the last valid basis. Higher precision applies to the actual factorization, reduced costs, ratio test, and updates, not only residual evaluation.
-- [ ] Initially use the existing dense/Markowitz backend for BigFloat, without silently converting back to Float64. Before a large dense fallback, check its memory estimate and use an available sparse backend or return explicit numerical failure instead of allocating without bounds. Include conversion/factorization costs in measurements.
-- [ ] Test an ill-conditioned basis replay where Float64 refinement stagnates but a higher-precision factor succeeds. Independently verify a small binary LP with Rational{BigInt}. Add a case that exceeds the allowed precision ceiling and a timeout during escalation.
-- [ ] Restore original costs/bounds before returning; convert x and necessary dual information to the original T and certify the original model again. Do not return OPTIMAL if the result represented in T misses the requested tolerances. Statistics include all steps at all precisions.
-- [ ] Run the full suite, numerical/MOI integrity checks, ill_conditioned cases, and holdout; compare Float64-only with boosting. Commit: feat: boost simplex working precision on numerical failure.
+- [x] Activate after exhausting cheaper F05–F07 recovery or demonstrating that the current precision cannot provide a reliable solve. Start from the last valid basis. Higher precision applies to the actual factorization, reduced costs, ratio test, and updates, not only residual evaluation.
+- [x] Initially use the existing dense/Markowitz backend for BigFloat, without silently converting back to Float64. Before a large dense fallback, check its memory estimate and use an available sparse backend or return explicit numerical failure instead of allocating without bounds. Include conversion/factorization costs in measurements.
+- [x] Test an ill-conditioned basis replay where Float64 refinement stagnates but a higher-precision factor succeeds. Independently verify a small binary LP with Rational{BigInt}. Add a case that exceeds the allowed precision ceiling and a timeout during escalation.
+- [x] Restore original costs/bounds before returning; convert x and necessary dual information to the original T and certify the original model again. Do not return OPTIMAL if the result represented in T misses the requested tolerances. Statistics include all steps at all precisions.
+- [x] Run the full suite, numerical/MOI integrity checks, ill_conditioned cases, and holdout; compare Float64-only with boosting. Commit: feat: boost simplex working precision on numerical failure.
 
 ### F24: Iterative Refinement of the Entire LP
 
