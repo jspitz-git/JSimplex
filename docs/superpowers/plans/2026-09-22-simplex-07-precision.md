@@ -40,7 +40,7 @@
 **Files:** Create: src/simplex_precision.jl, test/simplex_precision_tests.jl. Modify: src/simplex_driver.jl, src/simplex_recovery.jl, src/options.jl, src/JSimplex.jl.
 **Interfaces:** transfer_precision(ws, ::Type{S}, bits::Int, budget, policy) creates a new typed workspace. copy_working_values(::Type{S}, values; bits) preserves input values when increasing precision. The proposed BoostedRunResult{T} retains the original T and validated internal information rather than returning a public Solution{BigFloat}.
 
-- [ ] Test a stored value that cannot be represented in a 64-bit ambient context:
+- [x] Test a stored value that cannot be represented in a 64-bit ambient context:
 
 ~~~julia
 v = setprecision(BigFloat, 512) do
@@ -53,11 +53,11 @@ end
 @test precision(only(converted)) >= 512
 ~~~
 
-- [ ] Transfer matrix coefficients, costs/constant, finite Bound values, basis/states, and the F12 journal. Dimensions and model hashes must match. Rebuild the factorization, values, and pricing; do not wrap a Float64 LU in a BigFloat object.
-- [ ] The new bits value must not reduce the highest stored input precision. Float32→Float64 transfers values exactly; Float64→BigFloat represents the stored binary model, not unknown original decimal data. Do not automatically convert the rational branch.
-- [ ] Perform conversions inside a local setprecision block and typed function barrier. Do not change F/M/R workspace types through incompatible field assignment or by introducing Any into the hot loop.
-- [ ] Test Bound(nothing), MAX objectives/constants, active perturbations, scaling/postsolve mappings, invalid bases, deadlines, and preserved cumulative counters. Run the full suite, BigFloat integrity tests, and options/MOI checks.
-- [ ] Commit: feat: transfer simplex state across working precisions.
+- [x] Transfer matrix coefficients, costs/constant, finite Bound values, basis/states, and the F12 journal. Dimensions and model hashes must match. Rebuild the factorization, values, and pricing; do not wrap a Float64 LU in a BigFloat object.
+- [x] The new bits value must not reduce the highest stored input precision. Float32→Float64 transfers values exactly; Float64→BigFloat represents the stored binary model, not unknown original decimal data. Do not automatically convert the rational branch.
+- [x] Perform conversions inside a local setprecision block and typed function barrier. Do not change F/M/R workspace types through incompatible field assignment or by introducing Any into the hot loop.
+- [x] Test Bound(nothing), MAX objectives/constants, active perturbations, scaling/postsolve mappings, invalid bases, deadlines, and preserved cumulative counters. Run the full suite, BigFloat integrity tests, and options/MOI checks.
+- [x] Commit: feat: transfer simplex state across working precisions.
 
 ### F23: Increase Factorization and Simplex Decision Precision
 

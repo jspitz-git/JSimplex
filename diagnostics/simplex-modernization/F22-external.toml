@@ -1,0 +1,51 @@
+purpose = "Correctness of basis transfer, not a performance comparison"
+relax_integrality = true
+
+[[cases]]
+base_objective = -464.7531428571428
+base_status = "OPTIMAL"
+columns = 32
+decompressed_sha256 = "fd3562804ff19382a9cd8bcb22ec81bffd24a4143a2290783831d8c64516a24b"
+id = "netlib/afiro"
+nonzeros = 83
+reference_objective = -464.7531428571429
+rows = 27
+
+    [[cases.transfers]]
+    bits = 128
+    factor_type = "JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}"
+    iterations = 21
+    minimum_factor_bits = 128
+    original_optimality_certified = true
+    refactorizations = 2
+    [[cases.transfers]]
+    bits = 256
+    factor_type = "JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}"
+    iterations = 21
+    minimum_factor_bits = 256
+    original_optimality_certified = true
+    refactorizations = 3
+[[cases]]
+base_objective = 1.1671857255923203e6
+base_status = "OPTIMAL"
+columns = 18
+decompressed_sha256 = "a1f0cb79a95639450dd984473a00efca24365457153d7fcb859c6581ddab4c2c"
+id = "miplib/flugpl"
+nonzeros = 46
+reference_objective = 1.16718572559232e6
+rows = 18
+
+    [[cases.transfers]]
+    bits = 128
+    factor_type = "JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}"
+    iterations = 15
+    minimum_factor_bits = 128
+    original_optimality_certified = true
+    refactorizations = 1
+    [[cases.transfers]]
+    bits = 256
+    factor_type = "JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}"
+    iterations = 15
+    minimum_factor_bits = 256
+    original_optimality_certified = true
+    refactorizations = 2

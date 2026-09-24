@@ -258,6 +258,8 @@ using Test
     include("simplex_phase_one_state_tests.jl")
     include("simplex_phase_one_completion_tests.jl")
     include("simplex_phase_one_deadline_tests.jl")
+    include("simplex_precision_tests.jl")
+    include("simplex_precision_state_tests.jl")
     include("simplex_start_guard_tests.jl")
     include("simplex_start_state_tests.jl")
     include("simplex_start_exact_tests.jl")

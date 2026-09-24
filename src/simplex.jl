@@ -491,11 +491,13 @@ function _progress_objective_value(
 )
     value = context.objective_constant
     for (coefficient, primal_value) in zip(context.objective, primal)
-        value = setprecision(
-            BigFloat,
-            max(precision(value), precision(coefficient), precision(primal_value)),
-        ) do
-            value + coefficient * primal_value
+        value = let previous = value
+            setprecision(
+                BigFloat,
+                max(precision(previous), precision(coefficient), precision(primal_value)),
+            ) do
+                previous + coefficient * primal_value
+            end
         end
     end
     return value
