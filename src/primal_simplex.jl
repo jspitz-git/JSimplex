@@ -600,8 +600,10 @@ function _primal_phase_one_vectors(problem::LinearProblem{T}, artificial_count::
 end
 
 function _primal_phase_one(problem::LinearProblem{T}, options::SolverOptions{T},
-                           progress::SimplexProgressContext{T}, stop_requested) where {T}
-    initial = initialize_workspace(problem, options; progress)
+                           progress::SimplexProgressContext{T}, stop_requested;
+                           initial=initialize_workspace(problem, options; progress)) where {T}
+    progress.numerical_policy.crash && _start_primal_feasible(initial) &&
+        return initial,0,initial
     row_count, column_count = size(problem.A)
     artificial_rows = Int[]
     artificial_signs = T[]
@@ -634,6 +636,8 @@ function _primal_phase_one(problem::LinearProblem{T}, options::SolverOptions{T},
         problem.name, String[], String[],
     )
     workspace = initialize_workspace(phase_problem, options; progress)
+    workspace.iterations = initial.iterations
+    workspace.refactorizations += initial.refactorizations
     workspace.scratch.primal_perturbation_allowed = false
     for artificial in 1:artificial_count
         row = artificial_rows[artificial]
@@ -682,8 +686,22 @@ function _solve_continuous_primal(problem::LinearProblem{T}, options::SolverOpti
     stop_requested = _guard_stop_callback(stop_requested)
     workspace = nothing
     try
+        if progress.numerical_policy.crash
+            if _start_time_expired(progress,options) || stop_requested()
+                return DualRunResult{T}(TIME_LIMIT,nothing,nothing,0,0,"time limit reached before crash initialization")
+            end
+            workspace = _initialize_crash_workspace(problem,options,progress)
+            workspace,expired = _crash_workspace(workspace,stop_requested)
+            expired && return _internal_solution(workspace,TIME_LIMIT,"time limit reached during crash initialization")
+            if workspace.iterations >= options.iteration_limit &&
+               !_start_primal_feasible(workspace)
+                return _internal_solution(workspace,ITERATION_LIMIT,"iteration limit reached during crash initialization")
+            end
+        end
+        initial_start = workspace
         workspace, artificial_count, initial = _primal_phase_one(
             problem, options, progress, stop_requested,
+            ; initial=isnothing(initial_start) ? initialize_workspace(problem,options;progress) : initial_start,
         )
         _simplex_event!(workspace, artificial_count > 0 ? :phase_one : :phase_primal)
         policy = workspace.progress.numerical_policy
@@ -742,6 +760,11 @@ function _solve_continuous_primal(problem::LinearProblem{T}, options::SolverOpti
     catch exception
         exception === stop_requested.exception && rethrow()
         _is_numerical_exception(exception) || rethrow()
+        if progress.numerical_policy.crash && _start_time_expired(progress,options)
+            return DualRunResult{T}(TIME_LIMIT,nothing,nothing,
+                isnothing(workspace) ? 0 : workspace.iterations,
+                isnothing(workspace) ? 0 : workspace.refactorizations,"time limit reached during initialization")
+        end
         return DualRunResult{T}(NUMERICAL_ERROR, nothing, nothing,
                                 isnothing(workspace) ? 0 : workspace.iterations,
                                 isnothing(workspace) ? 0 : workspace.refactorizations,

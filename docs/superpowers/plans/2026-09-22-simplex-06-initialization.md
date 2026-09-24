@@ -1,6 +1,6 @@
 # Simplex Initialization and Phase One Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [x]`) syntax for tracking.
 
 **Goal:** Shorten the search for a feasible basis and safely transfer the basis between phases.
 
@@ -39,7 +39,7 @@
 **Files:** Create: src/simplex_start.jl, test/simplex_start_tests.jl. Modify: src/simplex.jl, src/simplex_driver.jl, src/primal_simplex.jl, src/dual_simplex.jl, src/JSimplex.jl.
 **Interfaces:** crash_basis(problem, options, policy, stop)::Basis returns a valid structure; initialize_from_basis(problem, basis, options; progress, policy) creates a workspace and verifies the solve. The existing initialize_workspace remains available for slack starts and legacy mode.
 
-- [ ] A diagonal-problem test must produce a primal-feasible structural basis:
+- [x] A diagonal-problem test must produce a primal-feasible structural basis:
 
 ~~~julia
 p = LinearProblem(JSimplex.sparse([2.0 0.0; 0.0 3.0]), [1.0, 1.0];
@@ -49,11 +49,11 @@ b = JSimplex.crash_basis(p, SolverOptions(verbose=false), policy, () -> false)
 @test Set(b.basic_indices) == Set([1, 2])
 ~~~
 
-- [ ] Start from the slack basis and deterministically select singleton and inexpensive sparse structural columns. Evaluate estimated primal-violation reduction, relative-pivot magnitude, and fill growth. Every accepted exchange must have a numerically safe pivot; do not claim independence from row structure alone.
-- [ ] Build a fresh LU, then validate solve quality and state. If the crash basis is worse or low-quality, return the slack basis. If time expires during the crash driver, return TIME_LIMIT; do not start a new full solve.
-- [ ] Determine the state of a nonbasic column from its available bound and the objective; leave free columns FREE_NONBASIC. Phase I and the auxiliary dual start use measured feasibility, not a promise made by the crash initializer.
-- [ ] Test nearly dependent columns, fixed/free/upper-only variables, empty models, and a case where the crash basis increases fill and is correctly rejected. Verify input-model invariance.
-- [ ] Run the full suite and the phase_one benchmark; report crash cost, saved Phase I iterations, and total time separately. Commit: feat: construct guarded simplex crash bases.
+- [x] Start from the slack basis and deterministically select singleton and inexpensive sparse structural columns. Evaluate estimated primal-violation reduction, relative-pivot magnitude, and fill growth. Every accepted exchange must have a numerically safe pivot; do not claim independence from row structure alone.
+- [x] Build a fresh LU, then validate solve quality and state. If the crash basis is worse or low-quality, return the slack basis. If time expires during the crash driver, return TIME_LIMIT; do not start a new full solve.
+- [x] Determine the state of a nonbasic column from its available bound and the objective; leave free columns FREE_NONBASIC. Phase I and the auxiliary dual start use measured feasibility, not a promise made by the crash initializer.
+- [x] Test nearly dependent columns, fixed/free/upper-only variables, empty models, and a case where the crash basis increases fill and is correctly rejected. Verify input-model invariance.
+- [x] Run the full suite and the phase_one benchmark; report crash cost, saved Phase I iterations, and total time separately. Commit: feat: construct guarded simplex crash bases.
 
 ### F21: Phase I Modernization and Artificial Removal
 

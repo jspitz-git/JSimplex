@@ -11,11 +11,13 @@ const SIMPLEX_EVENT_REASONS = (
     :refactor_other, :correction_attempt, :correction, :pricing, :perturbation, :restore_perturbations,
     :certification, :certification_failed, :repair, :checkpoint, :restore_checkpoint,
     :feasibility_recovery, :precision_boost, :lp_refinement,
+    :phase_crash, :crash_pivot, :crash_accepted, :crash_fallback,
+    :crash_rejected_quality, :crash_rejected_fill,
 )
 
 const HYPERSPARSE_KERNEL_KEYS = ntuple(i->ntuple(j->
     Symbol(:hypersparse_,HYPERSPARSE_OPERATIONS[i],:_,(:sparse,:dense,:empty)[j]),3),6)
-const SIMPLEX_KERNEL_KEYS = (:ftran,:btran,:pricing,:row_index,:refactorization,
+const SIMPLEX_KERNEL_KEYS = (:ftran,:btran,:pricing,:row_index,:refactorization,:crash,
     :hypersparse_setup,:hypersparse_support,:hypersparse_base_graph,:hypersparse_upper_graph,
     (key for group in HYPERSPARSE_KERNEL_KEYS for key in group)...)
 

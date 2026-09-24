@@ -1982,11 +1982,26 @@ function _solve_continuous_dual(problem::LinearProblem{T}, options::SolverOption
     stop_requested = _guard_stop_callback(stop_requested)
     workspace = nothing
     try
-        workspace = initialize_workspace(problem, options; progress)
+        if progress.numerical_policy.crash &&
+           (_start_time_expired(progress,options) || stop_requested())
+            return DualRunResult{T}(TIME_LIMIT,nothing,nothing,0,0,"time limit reached before crash initialization")
+        end
+        workspace = progress.numerical_policy.crash ?
+            _initialize_crash_workspace(problem,options,progress) :
+            initialize_workspace(problem,options;progress)
+        if progress.numerical_policy.crash
+            workspace,expired = _crash_workspace(workspace,stop_requested)
+            expired && return _internal_solution(workspace,TIME_LIMIT,"time limit reached during crash initialization")
+        end
         return _solve_continuous_dual!(workspace, stop_requested)
     catch exception
         exception === stop_requested.exception && rethrow()
         _is_numerical_exception(exception) || rethrow()
+        if progress.numerical_policy.crash && _start_time_expired(progress,options)
+            return DualRunResult{T}(TIME_LIMIT,nothing,nothing,
+                isnothing(workspace) ? 0 : workspace.iterations,
+                isnothing(workspace) ? 0 : workspace.refactorizations,"time limit reached during initialization")
+        end
         return DualRunResult{T}(NUMERICAL_ERROR, nothing, nothing,
                                 isnothing(workspace) ? 0 : workspace.iterations,
                                 isnothing(workspace) ? 0 : workspace.refactorizations,

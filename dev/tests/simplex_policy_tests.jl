@@ -22,7 +22,7 @@ end
     @test_throws ArgumentError parse_benchmark_args(["--pricing=unknown"])
     @test_throws ArgumentError parse_benchmark_args(["--replay=snapshot.bin","--pricing=auto"])
     mktempdir() do root
-        policy = JSimplex.NumericalPolicy(Float64; max_refinements=7,adaptive_dual_perturbation=true,adaptive_primal_perturbation=true,adaptive_pricing=true,partial_pricing=true,sparse_pricing=true,hypersparse=true)
+        policy = JSimplex.NumericalPolicy(Float64; max_refinements=7,adaptive_dual_perturbation=true,adaptive_primal_perturbation=true,adaptive_pricing=true,partial_pricing=true,sparse_pricing=true,hypersparse=true,crash=true)
         problem = LinearProblem(JSimplex.sparse([1.0 1.0]), [1.0,2.0]; row_lower=[1.0])
         progress = JSimplex.SimplexProgressContext(problem; numerical_policy=policy)
         ws = JSimplex.initialize_workspace(problem,SolverOptions(verbose=false,pricing=:auto);progress)
@@ -36,6 +36,7 @@ end
         @test restored.progress.numerical_policy.sparse_pricing
         @test restored.progress.numerical_policy.partial_pricing
         @test restored.progress.numerical_policy.hypersparse
+        @test restored.progress.numerical_policy.crash
         @test restored.options.pricing == :auto
         @test metadata["numerical_policy"]["max_refinements"] == 7
 
@@ -70,6 +71,27 @@ end
         @test result["numerical_policy_dual"]["hypersparse"]
         @test only(result["samples"])["status"] == "OPTIMAL"
         write(config,"crash = true\n")
+        @test benchmark_main(["--file="*input,"--policy="*config,
+                             "--algorithm=primal","--samples=1","--time-limit=30",
+                             "--kernel-timing=on","--output="*output]) == 0
+        result = only(TOML.parsefile(output)["cases"])
+        @test result["numerical_policy_primal"]["crash"]
+        sample = only(result["samples"])
+        @test sample["status"] == "OPTIMAL"
+        @test haskey(sample["phase_seconds"],"phase_crash")
+        @test haskey(sample["phase_iterations"],"phase_crash")
+        @test sum(values(sample["phase_iterations"])) == sample["iterations"]
+        write(config,"crash = false\n")
+        phase_input = joinpath(@__DIR__,"../../test/fixtures/solver/generated/phase-one.mps")
+        @test benchmark_main(["--file="*phase_input,"--policy="*config,
+                             "--algorithm=primal","--presolve=off","--simplex-strategy=adaptive",
+                             "--samples=1","--time-limit=30","--output="*output]) == 0
+        phase_sample = only(only(TOML.parsefile(output)["cases"])["samples"])
+        @test phase_sample["status"] == "OPTIMAL"
+        @test phase_sample["iterations"] == 2
+        @test phase_sample["phase_iterations"]["phase_one"] == 2
+        @test sum(values(phase_sample["phase_iterations"])) == phase_sample["iterations"]
+        write(config,"phase_one = true\n")
         @test benchmark_main(["--file="*input,"--policy="*config,"--output="*output]) == 1
     end
 end

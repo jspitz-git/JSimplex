@@ -4,7 +4,7 @@ const NUMERICAL_SWITCHES = (
     :adaptive_stalling, :adaptive_dual_perturbation,:adaptive_primal_perturbation, :adaptive_pricing, :partial_pricing, :sparse_pricing, :hypersparse,
     :crash, :phase_one, :precision_boosting, :lp_refinement,
 )
-const IMPLEMENTED_NUMERICAL_SWITCHES = (:stable_ratio,:pivot_validation,:solve_refinement,:recovery,:feasibility_recovery,:incremental_primal,:incremental_primal_pivots,:adaptive_refactor,:adaptive_stalling,:adaptive_dual_perturbation,:adaptive_primal_perturbation,:adaptive_pricing,:partial_pricing,:sparse_pricing,:hypersparse)
+const IMPLEMENTED_NUMERICAL_SWITCHES = (:stable_ratio,:pivot_validation,:solve_refinement,:recovery,:feasibility_recovery,:incremental_primal,:incremental_primal_pivots,:adaptive_refactor,:adaptive_stalling,:adaptive_dual_perturbation,:adaptive_primal_perturbation,:adaptive_pricing,:partial_pricing,:sparse_pricing,:hypersparse,:crash)
 
 struct NumericalPolicy{T<:Real}
     solve_tolerance::T

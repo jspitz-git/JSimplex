@@ -391,6 +391,16 @@ original-model certification remain active. This policy takes precedence over
 standalone `sparse_pricing` and remains disabled by default in both strategies.
 See the [F19 validation report](diagnostics/simplex-modernization/F19.md).
 
+The internal `crash=true` benchmark policy tries sparse structural columns before
+starting simplex. It accepts only exchanges that reduce measured primal violation,
+checks pivots with independent forward and transpose solves, limits factor growth,
+and verifies a fresh factorization before accepting the basis. A rejected attempt
+returns to an independent slack basis while retaining consumed work and the shared
+deadline. The primal solver currently accepts a structural start only when it is
+primal feasible; otherwise its existing Phase I uses the slack fallback. Crash is
+disabled by default in both strategies. See the
+[F20 validation report](diagnostics/simplex-modernization/F20.md).
+
 Forrest–Tomlin maintains a sparse upper factor without row swaps during an
 update. Bartels–Golub may swap adjacent rows to choose a larger elimination
 pivot. Suhl–Suhl moves the leaving row and column only to the last nonzero

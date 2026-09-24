@@ -211,17 +211,45 @@ function worker_main(job_path)
                     JSimplexReplay.TraceRecorder(snapshot_path * ".trace") : nothing
                 observer_seconds = Ref(0.0)
                 phase_seconds = Dict{String,Float64}()
+                phase_iterations = Dict{String,Int}()
+                observed_iterations = Ref(0)
                 phase_start = Ref(time_ns())
                 phase_name = Ref("initialization")
+                phase_one_model = Ref{Any}(nothing)
+                phase_one_objective = Ref{Any}(nothing)
                 final_workspace = Ref{Any}(nothing)
                 recording = Ref(repetition != 1)
                 observer = function (reason, ws)
                     recording[] || return nothing
                     started = time_ns()
-                    if reason in (:phase_primal, :phase_dual, :phase_one, :phase_auxiliary, :phase_cleanup)
+                    # Count published steps only: private refactorization observers
+                    # can see a candidate that will subsequently be rolled back.
+                    # Global offsets retain work consumed by original-model retries.
+                    if reason in (:pivot_completed,:flip_completed,:crash_pivot)
+                        total = ws.progress.iteration_offset + ws.iterations
+                        key = phase_name[]
+                        phase_iterations[key] = get(phase_iterations,key,0) +
+                            max(0,total-observed_iterations[])
+                        observed_iterations[] = max(observed_iterations[],total)
+                    end
+                    if reason in (:phase_crash, :phase_primal, :phase_dual, :phase_one, :phase_auxiliary, :phase_cleanup)
+                        if reason == :phase_one
+                            phase_one_model[] = ws.problem
+                            phase_one_objective[] = copy(ws.problem.objective)
+                        end
+                        # Primal/dual dispatch within the unchanged auxiliary LP
+                        # is still Phase I. The original objective or a new model
+                        # retires this identity, including original-model retries.
+                        in_phase_one = ws.problem === phase_one_model[] &&
+                            ws.problem.objective == phase_one_objective[]
+                        if !in_phase_one
+                            phase_one_model[] = nothing
+                            phase_one_objective[] = nothing
+                        end
                         key = phase_name[]
                         phase_seconds[key] = get(phase_seconds, key, 0.0) + (started - phase_start[]) / 1e9
-                        phase_name[] = string(reason)
+                        phase_name[] = in_phase_one ? "phase_one" : string(reason)
+                        get!(phase_iterations,phase_name[],0)
                         phase_start[] = started
                     end
                     if !isnothing(trace) && reason in (:refactor_initial, :phase_primal, :phase_dual,
@@ -265,12 +293,18 @@ function worker_main(job_path)
                     "refactorizations" => solution.statistics.refactorizations,
                     "solver_seconds" => solution.statistics.elapsed_seconds,
                     "diagnostics_enabled" => !isnothing(diagnostics),
-                    "observer_seconds" => observer_seconds[], "phase_seconds" => phase_seconds)
+                    "observer_seconds" => observer_seconds[], "phase_seconds" => phase_seconds,
+                    "phase_iterations" => phase_iterations)
                 if hasproperty(measured, :compile_time)
                     sample["compile_seconds"] = measured.compile_time
                     sample["recompile_seconds"] = measured.recompile_time
                 end
                 phase_seconds[phase_name[]] = get(phase_seconds, phase_name[], 0.0) + (time_ns() - phase_start[]) / 1e9
+                if !isnothing(diagnostics)
+                    key = phase_name[]
+                    phase_iterations[key] = get(phase_iterations,key,0) +
+                        max(0,solution.statistics.iterations-observed_iterations[])
+                end
                 captured[] && (sample["repair_snapshot"] = snapshot_path)
                 if !isnothing(trace)
                     sample["trace_path"] = trace.path
