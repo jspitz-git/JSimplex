@@ -165,24 +165,51 @@ function stress_name(path)
     return name in ("big.mps", "largo.mps", "anymod.mps")
 end
 
-stress_only(path) = stress_name(path) || (ispath(path) && stress_name(realpath(path)))
+stress_only(path; excluded_paths=String[]) = stress_name(path) ||
+    (ispath(path) && (stress_name(realpath(path)) ||
+        any(excluded -> isfile(excluded) && samefile(path,excluded), excluded_paths)))
 
-function validate_selection(path, mode)
+function excluded_corpus_paths(options, cases)
+    paths = String[]
+    for c in cases
+        (stress_name(c["path"]) || get(c,"stress_only",false)) || continue
+        root = c["collection"] == "generated" ?
+            joinpath(@__DIR__,"..","test","fixtures","solver","generated") :
+            options[c["collection"] * "-root"]
+        push!(paths,joinpath(root,c["path"]))
+    end
+    # Include capitalization/compression variants present in each configured root.
+    for collection in ("netlib","miplib","mps")
+        root = options[collection * "-root"]
+        isdir(root) || continue
+        append!(paths,filter(stress_name,readdir(root;join=true)))
+    end
+    return unique(paths)
+end
+
+function validate_selection(path, mode; excluded_paths=String[])
     isfile(path) || throw(ArgumentError("Missing input: $path"))
     mode in ("solve", "stress") || throw(ArgumentError("Invalid mode: $mode"))
-    mode == "solve" && stress_only(path) &&
+    mode == "solve" && stress_only(path;excluded_paths) &&
         throw(ArgumentError("Stress-only input cannot be solved: $path"))
     return realpath(path)
 end
 
 function select_cases(options; manifest_path=joinpath(@__DIR__, "simplex_cases.toml"))
+    manifest = TOML.parsefile(manifest_path)
+    cases = manifest["cases"]
+    excluded_paths = excluded_corpus_paths(options,cases)
     if !isempty(options["replay"])
+        metadata_path = options["replay"] * ".toml"
+        if isfile(metadata_path)
+            original = get(TOML.parsefile(metadata_path),"original_path","")
+            stress_only(original;excluded_paths) &&
+                throw(ArgumentError("Stress-only source cannot be replayed"))
+        end
         options["mode"] == "solve" || throw(ArgumentError("Replay is a solve operation"))
         return [Dict{String,Any}("id" => "replay/" * basename(options["replay"]),
             "resolved_path" => abspath(options["replay"]), "collection" => "replay")]
     end
-    manifest = TOML.parsefile(manifest_path)
-    cases = manifest["cases"]
     holdout = Set(get(c, "decompressed_sha256", "") for c in cases if "holdout" in c["suites"])
     for c in cases
         if !isempty(intersect(c["suites"], ["quick", "degenerate", "ill_conditioned", "phase_one", "sparse_large"]))
@@ -192,7 +219,7 @@ function select_cases(options; manifest_path=joinpath(@__DIR__, "simplex_cases.t
     end
     if !isempty(options["file"])
         path = abspath(options["file"])
-        options["mode"] == "solve" && stress_only(path) &&
+        options["mode"] == "solve" && stress_only(path;excluded_paths) &&
             throw(ArgumentError("Stress-only input cannot be solved: $path"))
         return [Dict{String,Any}("id" => "explicit/" * basename(path),
             "resolved_path" => path, "suites" => ["explicit"], "collection" => "explicit")]
@@ -209,7 +236,7 @@ function select_cases(options; manifest_path=joinpath(@__DIR__, "simplex_cases.t
             joinpath(@__DIR__, "..", "test", "fixtures", "solver", "generated") :
             options[c["collection"] * "-root"]
         entry["resolved_path"] = joinpath(root, c["path"])
-        options["mode"] == "solve" && stress_only(entry["resolved_path"]) &&
+        options["mode"] == "solve" && stress_only(entry["resolved_path"];excluded_paths) &&
             throw(ArgumentError("Solve suite contains stress-only input"))
         push!(selected, entry)
     end
@@ -492,17 +519,18 @@ function benchmark_main(args=ARGS; err=stderr, manifest_path=joinpath(@__DIR__, 
         excluded_hashes = Dict(key => unique(String[c[key] for c in registry
             if (stress_name(c["path"]) || get(c,"stress_only",false)) && haskey(c,key)])
             for key in ("source_sha256","decompressed_sha256"))
+        excluded_paths = excluded_corpus_paths(options,registry)
         for entry in cases
             result = Dict{String,Any}("id" => entry["id"], "path" => entry["resolved_path"],
                 "mode" => options["mode"], "outcome" => "input_error")
             push!(report["cases"], result)
             try
-                validate_selection(entry["resolved_path"], options["mode"])
+                validate_selection(entry["resolved_path"], options["mode"];excluded_paths)
                 mktempdir() do temporary
                     job_path, result_path = joinpath(temporary, "job.toml"), joinpath(temporary, "result.toml")
                     job = Dict("options" => options, "case" => entry,
                                "result_path" => result_path, "temporary" => temporary,
-                               "excluded_hashes" => excluded_hashes, "numerical_policy" => policy)
+                               "excluded_hashes" => excluded_hashes, "excluded_paths" => excluded_paths, "numerical_policy" => policy)
                     write_report(job_path, job)
                     command = `$(Base.julia_cmd()) --startup-file=no --project=$(options["source"]) $(joinpath(@__DIR__, "simplex_benchmark_worker.jl")) $job_path`
                     # Warmup and parsing have a separate bounded allowance; each

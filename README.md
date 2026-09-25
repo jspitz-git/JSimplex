@@ -312,11 +312,17 @@ tries alternative candidates, and applies accepted steps atomically with respect
 to callbacks. It retains two verified basis checkpoints and can rebuild a
 failed basis through bounded column exchanges. Recovery preserves the common
 time and iteration budgets; a repaired basis must satisfy the current method's
-feasibility condition before that method resumes. Further algorithm stages remain disabled
-until implemented and verified. User primal/dual tolerances are independent of internal residual and
+feasibility condition before that method resumes. Experimental policies described below
+remain opt-in. User primal/dual tolerances are independent of internal residual and
 pivot-quality limits. The strategy survives scalar conversions and retries.
 MOI `empty!` preserves it like other optimizer attributes; a newly constructed
 optimizer starts with `:legacy`.
+
+The [F25 integration report](diagnostics/simplex-modernization/final_report.md)
+retains the legacy and steepest-edge defaults. The adaptive profile lost
+solvability on several corpus cases under matched budgets, so it remains an
+experimental opt-in strategy. The feature reports document the supported scope
+of individual optional policies.
 
 The adaptive profile also monitors scaled working-objective and feasibility
 progress. Two consecutive windows without significant improvement mark a stall;
@@ -400,6 +406,26 @@ deadline. The primal solver currently accepts a structural start only when it is
 primal feasible; otherwise its existing Phase I uses the slack fallback. Crash is
 disabled by default in both strategies. See the
 [F20 validation report](diagnostics/simplex-modernization/F20.md).
+
+The internal `phase_one=true` policy provides an artificial-variable feasibility
+phase from the selected start. It removes artificials, checks the original bounds,
+and shares the original time and iteration budget with cleanup. It remains opt-in;
+see the [F21 validation report](diagnostics/simplex-modernization/F21.md).
+
+Floating recovery can transfer a verified basis to higher working precision with
+`precision_boosting=true`. Stored input precision is preserved, transfers consume
+the same budget, and a returned original-type point requires fresh certification.
+Exact rational arithmetic never enters floating recovery. See the
+[F22](diagnostics/simplex-modernization/F22.md) and
+[F23](diagnostics/simplex-modernization/F23.md) validation reports.
+
+The internal `lp_refinement=true` policy tries scaled correction LPs before
+optional precision boosting. Residuals and additions use guard precision while
+correction simplex stays at the original working precision. Correction status
+alone cannot certify the original model. LP refinement and precision boosting
+remain disabled by default; the measured ill-conditioned replay still requires
+boosting, and runtime.mps remains unfinished at the recorded limit. See the
+[F24 validation report](diagnostics/simplex-modernization/F24.md).
 
 Forrest–Tomlin maintains a sparse upper factor without row swaps during an
 update. Bartels–Golub may swap adjacent rows to choose a larger elimination

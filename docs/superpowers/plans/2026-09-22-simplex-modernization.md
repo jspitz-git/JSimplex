@@ -60,12 +60,14 @@ and the earlier [baseline record](../../../diagnostics/simplex-modernization/pla
 Verify pathof(JSimplex) before development so tests load this worktree:
 
 ~~~bash
-JULIA_DEPOT_PATH=/tmp/jsimplex-modernization-depot:/home/jspitz/.julia JULIA_PKG_OFFLINE=true julia --startup-file=no --project=. -e 'using JSimplex; @assert startswith(realpath(pathof(JSimplex)), realpath(pwd())); println(pathof(JSimplex))'
+JULIA_DEPOT_PATH="$PWD/.superpowers/sdd/2026-09-22-simplex-modernization/julia-depot:/home/jspitz/.julia" JULIA_PKG_OFFLINE=true julia --startup-file=no --project=. -e 'using JSimplex; @assert startswith(realpath(pathof(JSimplex)), realpath(pwd())); println(pathof(JSimplex))'
 ~~~
 
 Use the available local dependency cache. The main checkout's dev/Manifest.toml
 can be copied into this worktree's ignored dev/Manifest.toml because JSimplex
 has the relative source path ".."; still verify pathof(JSimplex).
+After the interrupted F23 run, the isolated depot was restored under the
+worktree's persistent ledger directory; the previous `/tmp` depot is obsolete.
 Dependency manifests and incidental dependency changes do not belong in
 algorithm commits.
 
@@ -121,7 +123,7 @@ implementation in parallel.
 | [x] | F22 Basis transfer across precisions | F07, F21 | `feat: transfer simplex state across working precisions` |
 | [x] | F23 Higher-precision solves and pivoting | F05, F19, F22 | `feat: boost simplex working precision on numerical failure` |
 | [x] | F24 LP iterative refinement | F23 | `feat: refine LP solutions through scaled correction problems` |
-| [ ] | F25 Integration and default selection | F01–F24 | `feat: enable verified adaptive simplex defaults` |
+| [x] | F25 Integration and default selection | F01–F24 | `docs: record adaptive simplex validation and retained defaults` |
 
 Detailed plans:
 
@@ -209,8 +211,11 @@ rollout must not be committed as successful.
 ## Handoff
 
 The user authorized sequential implementation in this worktree, with one
-commit per verified feature. Preparation and F01–F15 are complete; F16 is next.
-See the [F15 validation report](../../../diagnostics/simplex-modernization/F15.md).
+commit per verified feature. Preparation and F01–F25 are complete. Integration validation retains legacy and
+steepest-edge defaults; experimental adaptive policies remain opt-in. See the
+[final report](../../../diagnostics/simplex-modernization/final_report.md) for
+solvability regressions and timing limitations.
+See the [F24 validation report](../../../diagnostics/simplex-modernization/F24.md).
 On resumption, use the feature checkboxes and commit history, then read the
 specification and the next incomplete stage. Keep implementation sequential
 because the stages share numerical contracts.

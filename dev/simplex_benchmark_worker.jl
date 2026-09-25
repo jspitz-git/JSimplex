@@ -29,11 +29,12 @@ function worker_main(job_path)
         expected_source = realpath(joinpath(options["source"], "src", "JSimplex.jl"))
         realpath(pathof(JSimplex)) == expected_source || error("Selected source checkout was not loaded")
         result["loaded_source"] = expected_source
-        path = validate_selection(entry["resolved_path"], options["mode"])
+        excluded_paths = get(job,"excluded_paths",String[])
+        path = validate_selection(entry["resolved_path"], options["mode"];excluded_paths)
         overrides = (; (Symbol(key)=>value for (key,value) in get(job,"numerical_policy",Dict()))...)
         if !isempty(options["replay"])
             metadata = TOML.parsefile(path * ".toml")
-            JSimplexBenchmarks.stress_only(metadata["original_path"]) && error("Stress-only source cannot be replayed")
+            JSimplexBenchmarks.stress_only(metadata["original_path"];excluded_paths) && error("Stress-only source cannot be replayed")
             metadata["original_model_sha256"] in get(get(job,"excluded_hashes",Dict()),"decompressed_sha256",[]) &&
                 error("Known stress-only content cannot be replayed")
             ws, metadata = Base.inferencebarrier(JSimplexReplay.load_snapshot)(path)
@@ -188,6 +189,7 @@ function worker_main(job_path)
         result["blas_threads"] = JSimplex.BLAS.get_num_threads()
         result["blas_config"] = string(JSimplex.BLAS.get_config())
         result["samples"] = Dict{String,Any}[]
+        result["warmups"] = Dict{String,Any}[]
         stage = "solve"
         result["stage"] = stage
         JSimplexBenchmarks.write_report(job["result_path"],result)
@@ -206,10 +208,13 @@ function worker_main(job_path)
                 (getfield(solver_options, key) isa Union{Bool,Int,AbstractFloat} ?
                     getfield(solver_options, key) : string(getfield(solver_options, key)))
                 for key in fieldnames(typeof(solver_options)))
-            # A fresh solve for warmup; never reuse its basis for measurements.
-            Base.inferencebarrier(benchmark_solve)(problem,solver_options,nothing,policy)
-            for repetition in 1:options["samples"]
-                snapshot_path = joinpath(abspath(options["output"]) * ".replays",
+            # Two complete fresh solves exercise the same observer body and type
+            # as measured solves. Every iteration owns fresh diagnostic state.
+            for repetition in -1:options["samples"]
+                warming = repetition <= 0
+                snapshot_root = warming ? joinpath(job["temporary"],"warmup-replays") :
+                    abspath(options["output"]) * ".replays"
+                snapshot_path = joinpath(snapshot_root,
                     replace(entry["id"], '/' => '_') * "-$(algorithm)-$(repetition).bin")
                 captured = Ref(false)
                 trace = options["trace"] == "on" ?
@@ -224,9 +229,7 @@ function worker_main(job_path)
                 phase_one_objective = Ref{Any}(nothing)
                 final_workspace = Ref{Any}(nothing)
                 working_levels = Int[result["precision_bits"]]
-                recording = Ref(repetition != 1)
                 observer = function (reason, ws)
-                    recording[] || return nothing
                     started = time_ns()
                     if reason == :precision_boost
                         # This event runs inside the actual working-precision
@@ -281,21 +284,6 @@ function worker_main(job_path)
                 end
                 diagnostics = options["diagnostics"] == "on" && isdefined(JSimplex, :SimplexDiagnostics) ? JSimplex.SimplexDiagnostics(;
                     observer, kernel_timing=options["kernel-timing"] == "on") : nothing
-                if repetition == 1 && !isnothing(diagnostics)
-                    # Warm the actual workspace/observer type; warming only the
-                    # uninstrumented solver leaves compilation in the first sample.
-                    Base.inferencebarrier(benchmark_solve)(problem,solver_options,diagnostics,policy)
-                    for key in keys(diagnostics.counts)
-                        diagnostics.counts[key] = 0
-                    end
-                    empty!(diagnostics.events)
-                    diagnostics.next_event = 1
-                    for key in keys(diagnostics.kernel_calls)
-                        diagnostics.kernel_calls[key] = 0
-                        diagnostics.kernel_nanoseconds[key] = 0
-                    end
-                end
-                recording[] = true
                 phase_start[] = time_ns()
                 measured = @timed Base.inferencebarrier(benchmark_solve)(problem,solver_options,diagnostics,policy)
                 solution = measured.value
@@ -327,6 +315,15 @@ function worker_main(job_path)
                     sample["trace_truncated"] = trace.truncated
                     sample["trace_bytes"] = trace.written
                 end
+                if warming
+                    sample["time_limit_seconds"] = solver_options.time_limit
+                    if !isnothing(diagnostics)
+                        sample["events"] = Dict(string(k) => v for (k,v) in diagnostics.counts)
+                    end
+                    push!(result["warmups"],sample)
+                    JSimplexBenchmarks.write_report(job["result_path"],result)
+                    continue
+                end
                 isnothing(solution.objective_value) || (sample["objective"] = solution.objective_value)
                 merge!(sample, JSimplexBenchmarks.original_primal_errors(problem, solution.primal, solution.objective_value))
                 sample["dual_error_available"] = false
@@ -339,10 +336,17 @@ function worker_main(job_path)
                     T = eltype(problem.A)
                     row_factors, column_factors = T.(scaling.row_factors), T.(scaling.column_factors)
                     exact_mapping = row_factors == scaling.row_factors && column_factors == scaling.column_factors
-                    expected_A = JSimplex.spdiagm(0 => row_factors) * problem.A *
-                                 JSimplex.spdiagm(0 => column_factors)
+                    expected_A = copy(problem.A)
+                    # Match scale_problem's row-then-column divisions. Forming
+                    # reciprocal diagonal matrices can overflow for tiny factors
+                    # even when each scaled coefficient remains representable.
+                    for column in axes(expected_A,2), position in JSimplex.nzrange(expected_A,column)
+                        row = expected_A.rowval[position]
+                        expected_A.nzval[position] =
+                            (problem.A.nzval[position] / row_factors[row]) / column_factors[column]
+                    end
                     sense = problem.objective_sense == JSimplex.MAX_SENSE ? -1 : 1
-                    expected_costs = sense .* problem.objective .* column_factors
+                    expected_costs = sense .* (problem.objective ./ column_factors)
                     if exact_mapping && ws.problem.A == expected_A && ws.problem.objective == expected_costs
                         witness = JSimplexBenchmarks.benchmark_dual_witness(JSimplex,ws;
                             bits=max(256,maximum(working_levels)))

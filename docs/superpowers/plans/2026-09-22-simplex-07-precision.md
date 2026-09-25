@@ -114,12 +114,12 @@ recover y_new := y + correction_equality_dual/s_d
 
 **Interfaces:** Preserve all public options and finish documented defaults. Auto pricing does not become implicit merely because simplex_strategy is adaptive; decide and test any pricing-default change separately within this task.
 
-- [ ] Review F01–F24 coverage against the main plan. Each feature has tests, a report, and a commit. Check MOI option reset/copy and README examples.
-- [ ] Run the full production suite and development JET/JuMP/GLPK checks. Runtime tests must not import the old checkout. Do not blindly update snapshots or raise allocation limits.
-- [ ] Run quick, degenerate, ill_conditioned, phase_one, sparse_large, and the frozen holdout using /home/jspitz/NetLib, /home/jspitz/MIPLib, and /home/jspitz/mps. Decompress .mps.gz safely and compare explicit LP relaxations. Run eligible runtime/medium/greenbea cases to completion or preset F01 limits; report unfinished solves explicitly.
-- [ ] Verify exclusion of big.mps, largo.mps, and AnyMod.mps/AnyMOD.mps from all complete solves, including explicit --file selection and aliases. Run only their opt-in bounded stress probes and report parsing, resource limits, and component outcomes separately from solved-LP coverage and speed scores.
-- [ ] Compare the parent, d93cfd3, legacy, and adaptive. Record statuses, original KKT/primal/dual errors, total/phase times, iterations, refactorization reasons, repair counts, precision, and memory. Do not tune on the holdout and then call that same run independent validation.
-- [ ] Apply the rollout rule:
+- [x] Review F01–F24 coverage against the main plan. Each feature has tests, a report, and a commit. Check MOI option reset/copy and README examples.
+- [x] Run the full production suite and development JET/JuMP/GLPK checks. Runtime tests must not import the old checkout. Do not blindly update snapshots or raise allocation limits.
+- [x] Run quick, degenerate, ill_conditioned, phase_one, sparse_large, and the frozen holdout using /home/jspitz/NetLib, /home/jspitz/MIPLib, and /home/jspitz/mps. Decompress .mps.gz safely and compare explicit LP relaxations. Run eligible runtime/medium/greenbea cases to completion or preset F01 limits; report unfinished solves explicitly.
+- [x] Verify exclusion of big.mps, largo.mps, and AnyMod.mps/AnyMOD.mps from all complete solves, including explicit --file selection and aliases. Run only their opt-in bounded stress probes and report parsing, resource limits, and component outcomes separately from solved-LP coverage and speed scores.
+- [x] Compare the parent, d93cfd3, legacy, and adaptive. Record statuses, original KKT/primal/dual errors, total/phase times, iterations, refactorization reasons, repair counts, precision, and memory. Do not tune on the holdout and then call that same run independent validation.
+- [x] Apply the rollout rule:
 
 ~~~text
 if any false certificate or new unexplained loss of solvability:
@@ -130,5 +130,11 @@ else:
     select verified defaults and document supported scope
 ~~~
 
-- [ ] Only after selecting a default, update its concrete test, such as SolverOptions().simplex_strategy == :adaptive, and the MOI equivalent. Add this expectation only if evidence supports the change. If legacy remains the default, use the truthful commit message docs: record adaptive simplex validation and retained defaults.
-- [ ] Rerun relevant options/MOI tests and the full suite after changing defaults, then check the diff. For a successful rollout, commit: feat: enable verified adaptive simplex defaults. The branch remains separate; merging/pushing is outside this task.
+- [x] Only after selecting a default, update its concrete test, such as SolverOptions().simplex_strategy == :adaptive, and the MOI equivalent. Add this expectation only if evidence supports the change. If legacy remains the default, use the truthful commit message docs: record adaptive simplex validation and retained defaults.
+- [x] Rerun relevant options/MOI tests and the full suite after changing defaults, then check the diff. For a successful rollout, commit: feat: enable verified adaptive simplex defaults. The branch remains separate; merging/pushing is outside this task.
+
+F25 outcome: retain legacy/steepest-edge defaults; no production/default change.
+The unchanged F24 production gate is reused after source, dependency and all
+production-test identity checks; the complete changed development and numerical
+GLPK gates ran afresh. See the [final integration report](../../../diagnostics/simplex-modernization/final_report.md)
+for adverse outcomes, supplemental timing limitations and bounded stress results.

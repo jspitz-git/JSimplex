@@ -19,9 +19,15 @@ include("../simplex_benchmarks.jl")
     bigws.scratch.lp_dual_witness=setprecision(BigFloat,600) do
         [BigFloat(1)+BigFloat(2)^(-500)]
     end
+    # A nonunit divisor forces arithmetic that would lose stored bits if the
+    # benchmark unscaled under the ambient 64-bit context.
+    bigws.progress.scaling.row_factors[1] = BigFloat(3)
+    expected = setprecision(BigFloat,600) do
+        [(BigFloat(1)+BigFloat(2)^(-500))/3]
+    end
     setprecision(BigFloat,64) do
         dual=JSimplexBenchmarks.benchmark_dual_witness(JSimplex,bigws)
-        @test dual==bigws.scratch.lp_dual_witness
+        @test dual==expected
         @test minimum(precision,dual)>=600
         @test precision(BigFloat)==64
     end
