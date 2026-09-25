@@ -2049,7 +2049,7 @@ function _solve_continuous_dual(problem::LinearProblem{T}, options::SolverOption
            (_start_time_expired(progress,options) || stop_requested())
             return DualRunResult{T}(TIME_LIMIT,nothing,nothing,0,0,"time limit reached before crash initialization")
         end
-        if progress.numerical_policy.precision_boosting
+        if progress.numerical_policy.precision_boosting || progress.numerical_policy.lp_refinement
             if _start_time_expired(progress,options) || stop_requested()
                 return DualRunResult{T}(TIME_LIMIT,nothing,nothing,0,0,"time limit reached before initialization")
             end
@@ -2151,7 +2151,8 @@ function _solve_continuous_dual!(workspace::SimplexWorkspace{T},stop_requested) 
         _solve_continuous_dual_once!(workspace,guard)
     catch exception
         exception === guard.exception && rethrow()
-        workspace.progress.numerical_policy.precision_boosting || rethrow()
+        (workspace.progress.numerical_policy.precision_boosting ||
+         workspace.progress.numerical_policy.lp_refinement) || rethrow()
         _is_numerical_exception(exception) || rethrow()
         DualRunResult{T}(NUMERICAL_ERROR,nothing,nothing,
             workspace.iterations,workspace.refactorizations,sprint(showerror,exception))

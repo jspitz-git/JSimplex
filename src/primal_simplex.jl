@@ -687,7 +687,7 @@ function _solve_continuous_primal(problem::LinearProblem{T}, options::SolverOpti
     workspace = nothing
     original = nothing
     try
-        if progress.numerical_policy.precision_boosting
+        if progress.numerical_policy.precision_boosting || progress.numerical_policy.lp_refinement
             if _start_time_expired(progress,options) || stop_requested()
                 return DualRunResult{T}(TIME_LIMIT,nothing,nothing,0,0,"time limit reached before initialization")
             end

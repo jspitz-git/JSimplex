@@ -85,8 +85,8 @@ policy = JSimplex.NumericalPolicy(Float64; max_precision_bits=512,
 **Files:** Create: src/lp_refinement.jl, test/lp_refinement_tests.jl. Modify: src/simplex_driver.jl, src/simplex_precision.jl, src/solver.jl, src/JSimplex.jl.
 **Interfaces:** CorrectionMap maps original working structural/activity variables into the correction LP. build_correction_problem(ws, residuals, primal_scale, dual_scale) returns the problem and map. refine_lp!(ws, budget, policy, stop)::DualRunResult{T}. Consumes F22/F23 and a verified basis.
 
-- [ ] Pin the formulation on an equality LP: the original constraint is x=1, current x=0.75, and primal_scale=4. Correction z must satisfy z=1 and reconstruct x+z/4=1. Add a ranged row and nonzero y; the test must expose omission of row activities from the correction objective.
-- [ ] Use the standard working form with row activities. Subtracting Aᵀy from the objective of a general inequality LP without this lifting is incorrect:
+- [x] Pin the formulation on an equality LP: the original constraint is x=1, current x=0.75, and primal_scale=4. Correction z must satisfy z=1 and reconstruct x+z/4=1. Add a ranged row and nonzero y; the test must expose omission of row activities from the correction objective.
+- [x] Use the standard working form with row activities. Subtracting Aᵀy from the objective of a general inequality LP without this lifting is incorrect:
 
 ~~~text
 v := [structural x; row activities]
@@ -102,11 +102,11 @@ recover v_new := v + z/s_p
 recover y_new := y + correction_equality_dual/s_d
 ~~~
 
-- [ ] Evaluate residuals and add corrections at sufficient precision. Unbounded limits remain unbounded; scaling must not underflow/overflow. Both scales are powers of two and adapt to measured residual reduction.
-- [ ] Warm-start through CorrectionMap. Additional activity/slack variables introduced by the correction solver must not survive as original columns. Validate reconstructed or completed bases through F06/F21. Mapping uncertainty must not produce an unverified checkpoint.
-- [ ] Accept a correction only when it improves relevant primal/dual/KKT errors without uncontrolled degradation elsewhere. Limit rounds to max_lp_refinements; on stagnation invoke F23 with the remaining budget. INFEASIBLE/UNBOUNDED on a correction LP alone does not establish that status for the original LP.
-- [ ] Test ranged/fixed/free bounds, nonzero row multipliers, objective constant/sense, an exactly solvable rational oracle, unrepresentable corrections, and deadlines. Distinguish linear-solve corrections, precision escalation, and LP rounds in diagnostics.
-- [ ] Run the full suite and ill_conditioned benchmarks with three ablations: linear refinement only, refinement plus boosting, and refinement plus boosting plus LP refinement. Commit: feat: refine LP solutions through scaled correction problems.
+- [x] Evaluate residuals and add corrections at sufficient precision. Unbounded limits remain unbounded; scaling must not underflow/overflow. Both scales are powers of two and adapt to measured residual reduction.
+- [x] Warm-start through CorrectionMap. Additional activity/slack variables introduced by the correction solver must not survive as original columns. Validate reconstructed or completed bases through F06/F21. Mapping uncertainty must not produce an unverified checkpoint.
+- [x] Accept a correction only when it improves relevant primal/dual/KKT errors without uncontrolled degradation elsewhere. Limit rounds to max_lp_refinements; on stagnation invoke F23 with the remaining budget. INFEASIBLE/UNBOUNDED on a correction LP alone does not establish that status for the original LP.
+- [x] Test ranged/fixed/free bounds, nonzero row multipliers, objective constant/sense, an exactly solvable rational oracle, unrepresentable corrections, and deadlines. Distinguish linear-solve corrections, precision escalation, and LP rounds in diagnostics.
+- [x] Run the full suite and ill_conditioned benchmarks with three ablations: linear refinement only, refinement plus boosting, and refinement plus boosting plus LP refinement. Commit: feat: refine LP solutions through scaled correction problems.
 
 ### F25: Integration Validation and Default Strategy
 

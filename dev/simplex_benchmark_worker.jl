@@ -245,7 +245,7 @@ function worker_main(job_path)
                             max(0,total-observed_iterations[])
                         observed_iterations[] = max(observed_iterations[],total)
                     end
-                    if reason in (:phase_crash, :phase_primal, :phase_dual, :phase_one, :phase_auxiliary, :phase_cleanup)
+                    if reason in (:phase_crash, :phase_primal, :phase_dual, :phase_one, :phase_auxiliary, :phase_cleanup, :phase_lp_refinement)
                         if reason == :phase_one
                             phase_one_model[] = ws.problem
                             phase_one_objective[] = copy(ws.problem.objective)
@@ -344,10 +344,8 @@ function worker_main(job_path)
                     sense = problem.objective_sense == JSimplex.MAX_SENSE ? -1 : 1
                     expected_costs = sense .* problem.objective .* column_factors
                     if exact_mapping && ws.problem.A == expected_A && ws.problem.objective == expected_costs
-                        witness = setprecision(BigFloat,max(256,maximum(working_levels))) do
-                            candidate = JSimplex.transpose_solve(ws.factorization, ws.costs[ws.basis.basic_indices])
-                            JSimplex.unscale_dual(scaling,candidate)
-                        end
+                        witness = JSimplexBenchmarks.benchmark_dual_witness(JSimplex,ws;
+                            bits=max(256,maximum(working_levels)))
                         merge!(sample, JSimplexBenchmarks.original_dual_errors(problem, solution.primal, witness;
                             primal_tolerance=solver_options.primal_tolerance))
                         delete!(sample, "dual_error_note")

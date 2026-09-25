@@ -120,7 +120,7 @@ implementation in parallel.
 | [x] | F21 Phase I modernization | F09, F13, F20 | `feat: reuse recovered bases in simplex phase one` |
 | [x] | F22 Basis transfer across precisions | F07, F21 | `feat: transfer simplex state across working precisions` |
 | [x] | F23 Higher-precision solves and pivoting | F05, F19, F22 | `feat: boost simplex working precision on numerical failure` |
-| [ ] | F24 LP iterative refinement | F23 | `feat: refine LP solutions through scaled correction problems` |
+| [x] | F24 LP iterative refinement | F23 | `feat: refine LP solutions through scaled correction problems` |
 | [ ] | F25 Integration and default selection | F01–F24 | `feat: enable verified adaptive simplex defaults` |
 
 Detailed plans:

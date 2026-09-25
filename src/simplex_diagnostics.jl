@@ -11,6 +11,7 @@ const SIMPLEX_EVENT_REASONS = (
     :refactor_other, :correction_attempt, :correction, :pricing, :perturbation, :restore_perturbations,
     :certification, :certification_failed, :repair, :checkpoint, :restore_checkpoint,
     :feasibility_recovery, :precision_boost, :lp_refinement,
+    :phase_lp_refinement, :lp_correction_certification,
     :phase_crash, :crash_pivot, :crash_accepted, :crash_fallback,
     :crash_rejected_quality, :crash_rejected_fill, :artificial_removed,
 )

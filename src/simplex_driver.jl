@@ -311,8 +311,8 @@ function run_from_basis!(ws::SimplexWorkspace{T},budget::SimplexRunBudget,
                          policy::NumericalPolicy{T},stop;
                          reduced_cost_tolerance::T=ws.options.dual_tolerance)::DualRunResult{T} where T
     run = _run_from_basis_once!(ws,budget,policy,stop;reduced_cost_tolerance)
-    if run.status == NUMERICAL_ERROR && policy.precision_boosting && _is_exact(T) === Val(false)
-        return _dispatch_precision_recovery(ws,budget,policy,stop)
+    if run.status == NUMERICAL_ERROR && (policy.precision_boosting || policy.lp_refinement) && _is_exact(T) === Val(false)
+        return _dispatch_numerical_recovery(ws,budget,policy,stop)
     end
     return run
 end

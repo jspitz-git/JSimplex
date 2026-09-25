@@ -102,7 +102,11 @@ end
         @test modern_sample["phase_iterations"]["phase_one"] == 2
         @test sum(values(modern_sample["phase_iterations"])) == modern_sample["iterations"]
         write(config,"lp_refinement = true\n")
-        @test benchmark_main(["--file="*input,"--policy="*config,"--output="*output]) == 1
+        @test benchmark_main(["--file="*input,"--policy="*config,"--output="*output,
+            "--samples=1","--algorithm=dual"]) == 0
+        refined = only(TOML.parsefile(output)["cases"])
+        @test refined["numerical_policy_dual"]["lp_refinement"]
+        @test only(refined["samples"])["status"] == "OPTIMAL"
     end
 end
 end

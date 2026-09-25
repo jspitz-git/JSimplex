@@ -340,6 +340,19 @@ function _diagnostic_bits(problem, arrays...)
     return bits
 end
 
+function benchmark_dual_witness(solver, ws; bits::Int=256)
+    cached = hasproperty(ws.scratch, :lp_dual_witness) ? ws.scratch.lp_dual_witness : nothing
+    scaling = ws.progress.scaling
+    stored = isnothing(cached) ? () : cached
+    actual = max(bits, _diagnostic_bits(ws.problem, ws.primal, stored,
+        scaling.row_factors, scaling.column_factors))
+    return setprecision(BigFloat, actual) do
+        candidate = isnothing(cached) ?
+            solver.transpose_solve(ws.factorization, ws.costs[ws.basis.basic_indices]) : cached
+        solver.unscale_dual(scaling, candidate)
+    end
+end
+
 function original_primal_errors(problem, primal, objective)
     isnothing(primal) && return Dict{String,Any}("primal_error_available" => false)
     bits = max(_diagnostic_bits(problem, primal), _diagnostic_value_bits(objective))

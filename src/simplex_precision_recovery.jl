@@ -63,12 +63,12 @@ end
 _recover_original_failure(::Nothing,run,stop) = run
 function _recover_original_failure(ws::SimplexWorkspace{T},run::DualRunResult{T},stop) where T
     policy = ws.progress.numerical_policy
-    if run.status != NUMERICAL_ERROR || !policy.precision_boosting || _is_exact(T) === Val(true)
+    if run.status != NUMERICAL_ERROR || !(policy.precision_boosting || policy.lp_refinement) || _is_exact(T) === Val(true)
         return run
     end
     ws.iterations = max(ws.iterations,run.iterations)
     ws.refactorizations = max(ws.refactorizations,run.refactorizations)
-    return _dispatch_precision_recovery(ws,SimplexRunBudget(ws),policy,stop)
+    return _dispatch_numerical_recovery(ws,SimplexRunBudget(ws),policy,stop)
 end
 
 function _precision_result(origin::SimplexWorkspace{T},budget,status,message;

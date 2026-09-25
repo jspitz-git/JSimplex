@@ -166,7 +166,7 @@ function cleanup_original(problem::LinearProblem{T}, restored_basis::Basis,
         progress = SimplexProgressContext(problem; start_ns=context.start_ns,
                                           diagnostics=context.diagnostics,
                                           numerical_policy=_context_numerical_policy(context,options))
-        if progress.numerical_policy.precision_boosting
+        if progress.numerical_policy.precision_boosting || progress.numerical_policy.lp_refinement
             workspace = _precision_initial_workspace(_minimization_problem(problem),options,progress)
             workspace.iterations = prior_iterations
             workspace.refactorizations = prior_refactorizations
