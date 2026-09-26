@@ -35,3 +35,9 @@ infeasibility is zero. These values document slow progress with large changes
 in primal infeasibility; they do not independently identify the cause, establish
 cycling, or certify an original-model solution. Refactorization counts and
 reasons are absent.
+
+The user subsequently reported a severalfold increase in compilation time on
+the same second computer. No compiler profile or measured compilation duration
+was supplied. This corroborates the symptom observed locally, but does not yet
+identify its cause. A separate compilation investigation is scheduled after the
+current stability verification.

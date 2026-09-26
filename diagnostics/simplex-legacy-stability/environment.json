@@ -1,0 +1,34 @@
+{
+  "base_commit": "0065da80f558a2e08a0e6a8c508c0a811b6c27ce",
+  "candidate_commit": "d5472bc951a48ceecb7473d4ec95692fc49c1cc5",
+  "production_sha256": "31c9cb3de87c46bccf98349b30db3f53432a66553250c79209792482768b6f68",
+  "julia": "1.13.0",
+  "architecture": "aarch64",
+  "julia_threads": 1,
+  "blas_threads": 1,
+  "virtual_memory_limit_bytes": 25769803776,
+  "scope": "Legacy simplex; adaptive strategy unchanged",
+  "validation_status": "Completed across documented production continuation and fixture replay; development 1208/1208, GLPK 6/6, external corpus 64 optimal solves; monolithic production run timed out",
+  "kernel": "Linux 6.18.33.2-microsoft-standard-WSL2 aarch64",
+  "production_dependencies": {
+    "MathOptInterface": "1.54.0",
+    "SparseArrays": "1.13.0",
+    "SuiteSparse_jll": "7.10.1+0",
+    "OpenBLAS_jll": "0.3.30+0"
+  },
+  "development_dependencies": {
+    "MathOptInterface": "1.53.0",
+    "SparseArrays": "1.13.0",
+    "SuiteSparse_jll": "7.10.1+0",
+    "OpenBLAS_jll": "0.3.30+0",
+    "GLPK": "1.2.1",
+    "GLPK_jll": "5.0.1+1",
+    "JET": "0.12.1"
+  },
+  "measurement_date": "2026-09-27",
+  "benchmark_status": "All four fast0507 configurations optimal and certified; all six runtime/medium attempts reached TIME_LIMIT",
+  "benchmark_log_sha256": "d3c107e1cac5a629a407836ae6b216c17bcdfbb0c431d54833f2918017554afe",
+  "benchmark_process_peak_rss_bytes": 4410077184,
+  "source_test_inventory_after_whitespace_cleanup_sha256": "2963852b62087529a23f891c90402a2b70ee6991706d100d871683e60d1f9229",
+  "post_validation_cleanup": "Removed one extra blank EOF line from the Harris regression; Julia parsed expressions are identical"
+}

@@ -19,7 +19,7 @@ Files: `src/primal_simplex.jl`, `test/primal_bound_snap_tests.jl`, `test/runtest
 - [x] Run a failing regression using `A = [-7e-8 -0.01; 0 -0.009]`, first column fixed at 1, nonnegative rows, and an improving second column. After one pivot, require primal infeasibility at most `1e-7` with no refactorization. Repeat with a free entering variable and a third row `[0 1]`, which detects damage to another basic variable.
 - [x] In legacy ratio selection, validate the actual signed step of negative-ratio candidates against entering and basic bounds before accepting them. Keep nonnegative step semantics and adaptive behavior unchanged; reject an unsafe strict fallback too.
 - [x] Test lower/upper bounds, both entering directions, all update backends, and safe tolerated negative steps. Run existing primal and numerical regression tests.
-- [ ] Repeat runtime with the user's settings and PFI, record any subsequent independent failure, and commit the verified repair.
+- [x] Repeat runtime with the user's settings and PFI, record any subsequent independent failure, and commit the verified repair.
 
 ## 2. Diagnose legacy stability refactorizations
 
@@ -27,14 +27,14 @@ Files: existing `src/dual_simplex.jl`, `src/simplex_recovery.jl`, and factorizat
 
 - [x] Capture the first residual-triggered refresh and subsequent update ages on runtime with the user's factor settings and dual simplex.
 - [x] Compare updated and fresh directions against the original basis using existing accurate residual machinery. Distinguish a bad solve from an overly restrictive acceptance test.
-- [ ] For each established cause, write and observe a failing small regression, implement the smallest native-precision repair, and rerun its owning tests before a separate commit. Do not tune adaptive mode or loosen user tolerances.
+- [x] For each established cause, write and observe a failing small regression, implement the smallest native-precision repair, and rerun its owning tests before a separate commit. Do not tune adaptive mode or loosen user tolerances.
 
 ## 3. Verify the final branch
 
-- [ ] Run sequential external checks from NetLib, MIPLib LP relaxations, and the user's mps directory. Include runtime and medium completion attempts and fast0507 performance/correctness checks.
-- [ ] Run the full production suite, development/JET checks, and GLPK checks on the final source tree. The unchanged base already passed 254083 production and 1208 development checks; preserve those baseline records rather than repeating them.
-- [ ] Record commands, source hashes, statuses, certified residuals, elapsed times, refactorization causes, and memory evidence in an English diagnostic report. State time limits and remaining failures explicitly.
-- [ ] Review the complete diff and commit verified artifacts. Leave this worktree and logs intact; merging/pushing this new branch requires a later user request.
+- [x] Run sequential external checks from NetLib, MIPLib LP relaxations, and the user's mps directory. Include runtime and medium completion attempts and fast0507 performance/correctness checks.
+- [x] Run production, development/JET, and GLPK checks on the final source tree. The monolithic production run timed out after 301 files; all 312 files are covered across the documented continuation, including a successful replay of the one omitted shared logger fixture. Development passes 1208/1208 and GLPK 6/6. The unchanged base already passed 254083 production and 1208 development checks; preserve those baseline records rather than repeating them.
+- [x] Record commands, source hashes, statuses, certified residuals, elapsed times, refactorization causes, and memory evidence in an English diagnostic report. State time limits and remaining failures explicitly.
+- [x] Review the complete diff and commit verified artifacts. Leave this worktree and logs intact; merging/pushing this new branch requires a later user request.
 
 ## Evidence-driven follow-up
 
@@ -51,3 +51,24 @@ The first eight saved legacy BG80 repairs all pass the original residual thresho
 Native dual correction must not count as a clean cycle when considering interval growth. Mark accepted corrections until the next factorization; preserve the existing recovery toward the configured interval and leave explicit adaptive-refactor policies alone. The correction and interval-policy regressions pass 313/313.
 
 Candidate rejection alone removes early primal failure but causes excessive retries. Preserve a leaving row activity's outward value when it lies within the original model bound tolerance, so a clipped zero ratio remains an actual zero step after recomputation. Do not alter bounds, tolerances, phase-I artificial-variable thresholds, or final original-model certification. Limit this behavior to Float32/Float64 legacy primal full recomputation after an iteration. Initial reconstruction and structural/artificial nonbasic variables retain their canonical bound assignments. Keep unsafe-snap and retry regressions using structural basic variables, where exact bound assignment remains necessary.
+
+## Certify primal points and reject inaccurate transpose rows
+
+Fresh reconstruction can lose feasibility on an ill-conditioned basis even while the predicted point remains independently feasible. Preserve that point only after certifying original bounds and consistency with stored row activities. Keep cancellation/exception rollback and bypass adaptive/explicit refinement/incremental policies. Committed as `95a41ee` after the related 487-check suite and expanded 166-check focused suite.
+
+A later runtime failure exposes a spurious pivot of 0.87 where fresh FTRAN gives approximately zero. Forward residual acceptance and FTRAN/BTRAN pivot agreement both miss it; the transpose-row residual fails decisively. Validate that row before a legacy primal basis mutation, reuse it for steepest-edge/devex updates, try native correction first, then permit at most one refresh of the unchanged basis before candidate rejection. Preserve independently certified primal values across that refresh. Verify a small singular-pivot regression and correction-without-refactor regression before repeating runtime and the final gates.
+
+## 4. Investigate compilation slowdown after stability verification
+
+The user reports a severalfold compilation slowdown on the second computer as
+well. Complete the current stability verification and external measurements
+first, then investigate this separately and sequentially.
+
+- [ ] Compare representative cold compilation workloads against the previous
+  branch, separating compilation from warmed solver execution.
+- [ ] Use the saved inference/subtype stack samples and a bounded reproducer or
+  revision comparison to identify the responsible change; do not infer a cause
+  from elapsed time alone.
+- [ ] Record confirmed causes and measured costs. If a bounded repair is
+  established, verify its numerical behavior and compilation improvement before
+  a separate English commit.

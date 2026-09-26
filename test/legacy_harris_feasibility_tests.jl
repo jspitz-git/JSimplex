@@ -20,4 +20,3 @@ using JSimplex.SparseArrays
         @test JSimplex._original_primal_feasible(problem, workspace.primal[1:2], options.primal_tolerance)
     end
 end
-
