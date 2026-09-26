@@ -6,6 +6,7 @@ using Test
     include("options_tests.jl")
     include("simplex_numerics_tests.jl")
     include("native_residual_tests.jl")
+    include("native_residual_mode_tests.jl")
     include("solver_policy_precision_tests.jl")
     include("refactorization_policy_tests.jl")
     include("refactorization_timing_tests.jl")

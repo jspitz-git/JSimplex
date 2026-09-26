@@ -138,18 +138,7 @@ end
     return nothing
 end
 
-function _compensated_solve_quality!(scratch::SolveQualityScratch{T},B,x,rhs,policy,
-                                     transposed) where {T<:Union{Float32,Float64}}
-    rounding(T) == RoundNearest || return nothing
-    resize!(scratch.compensation,length(rhs))
-    resize!(scratch.error_sum,length(rhs))
-    fill!(scratch.compensation,zero(T))
-    fill!(scratch.error_sum,zero(T))
-    for i in eachindex(rhs)
-        scratch.work_residual[i] = rhs[i]
-        scratch.work_scale[i] = abs(rhs[i])
-        scratch.terms[i] = 1
-    end
+function _compensated_quality_components!(scratch,B,x,transposed)
     if B isa SparseMatrixCSC
         for column in axes(B,2), p in nzrange(B,column)
             row = B.rowval[p]
@@ -162,6 +151,25 @@ function _compensated_solve_quality!(scratch::SolveQualityScratch{T},B,x,rhs,pol
             _compensated_quality_term!(scratch,B[row,column],x[source],target)
         end
     end
+    return nothing
+end
+
+function _compensated_solve_quality!(scratch::SolveQualityScratch{T},B,x,rhs,policy,
+                                     transposed) where {T<:Union{Float32,Float64}}
+    rounding(T) == RoundNearest || return nothing
+    # Error-free products and Dot2Err's underflow allowance require gradual
+    # underflow. A caller may have enabled a thread-local flush-to-zero mode.
+    get_zero_subnormals() && return nothing
+    resize!(scratch.compensation,length(rhs))
+    resize!(scratch.error_sum,length(rhs))
+    fill!(scratch.compensation,zero(T))
+    fill!(scratch.error_sum,zero(T))
+    for i in eachindex(rhs)
+        scratch.work_residual[i] = rhs[i]
+        scratch.work_scale[i] = abs(rhs[i])
+        scratch.terms[i] = 1
+    end
+    _compensated_quality_components!(scratch,B,x,transposed)
     u = eps(T)/2
     absolute = relative = zero(T)
     accepted = true

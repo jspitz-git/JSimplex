@@ -172,6 +172,24 @@ function Base.getindex(B::_PriceAuditMatrix{T},i::Int,j::Int) where T
 end
 _quality_values(B::_PriceAuditMatrix) = nonzeros(B.matrix)
 
+function _compensated_quality_components!(scratch,B::_PriceAuditMatrix{T},x,transposed) where T
+    A = B.matrix
+    m,n = size(A)
+    for j in axes(A,2), p in nzrange(A,j)
+        target,source = transposed ? (A.rowval[p],j) : (j,A.rowval[p])
+        _compensated_quality_term!(scratch,A.nzval[p],x[source],target)
+    end
+    for i in 1:m
+        target,source = transposed ? (i,n+i) : (n+i,i)
+        _compensated_quality_term!(scratch,-one(T),x[source],target)
+    end
+    for i in 1:n+m
+        target,source = transposed ? (m+i,i) : (i,m+i)
+        _compensated_quality_term!(scratch,one(T),x[source],target)
+    end
+    return nothing
+end
+
 function _quality_components!(r::AbstractVector{W},scale,terms,B::_PriceAuditMatrix{T},
                                x,rhs,transposed) where {W,T}
     for i in eachindex(rhs)
