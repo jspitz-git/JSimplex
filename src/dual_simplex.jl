@@ -315,6 +315,45 @@ function dual_ratio_test(workspace::SimplexWorkspace{T}, tableau_row::Vector{T},
     return entering_index
 end
 
+# The stable sorted order is (breakpoint, original column index), including
+# the ordering of signed zeros. A heap exposes only the prefix that is used.
+@inline function _breakpoint_before(a::Int,b::Int,steps)
+    left,right = steps[a],steps[b]
+    return isless(left,right) || (!isless(right,left) && a < b)
+end
+
+function _sift_breakpoint!(candidates,steps,root::Int,count::Int)
+    value = candidates[root]
+    while root <= count÷2
+        child = 2root
+        if child < count && _breakpoint_before(candidates[child+1],candidates[child],steps)
+            child += 1
+        end
+        _breakpoint_before(candidates[child],value,steps) || break
+        candidates[root] = candidates[child]
+        root = child
+    end
+    candidates[root] = value
+    return nothing
+end
+
+function _heapify_breakpoints!(candidates,steps)
+    for root in length(candidates)÷2:-1:1
+        _sift_breakpoint!(candidates,steps,root,length(candidates))
+    end
+    return nothing
+end
+
+function _pop_breakpoint!(candidates,steps)
+    first = candidates[1]
+    last = pop!(candidates)
+    if !isempty(candidates)
+        candidates[1] = last
+        _sift_breakpoint!(candidates,steps,1,length(candidates))
+    end
+    return first
+end
+
 # Traverse dual breakpoints until the remaining primal violation fits in the
 # entering variable's range. Earlier boxed variables may cross to their other
 # bound without changing the basis.
@@ -350,12 +389,13 @@ function _bound_flipping_ratio_test(workspace::SimplexWorkspace{T}, tableau_row:
         push!(candidates, index)
     end
     isempty(candidates) && return -1, flips, false
-    # Keep the stable ordering (including signed zeros and equal breakpoints),
-    # but do not repeat multiplication/division at every sorting comparison.
-    sort!(candidates; by=index -> steps[index])
+    # Most pivots consume a small prefix. Building a heap costs linear work
+    # and reuses the candidate buffer instead of sorting every breakpoint.
+    _heapify_breakpoints!(candidates,steps)
 
     remaining = violation
-    for index in candidates
+    while !isempty(candidates)
+        index = _pop_breakpoint!(candidates,steps)
         state = workspace.basis.states[index]
         opposite = state == AT_LOWER ? workspace.upper[index] : workspace.lower[index]
         if state == FREE_NONBASIC || !isfinite(opposite)

@@ -34,3 +34,17 @@ measurements do not establish complete-solver speed or solved coverage.
 The implementation follows the compensated dot-product enclosure in
 [Ogita, Rump and Oishi, Algorithm 5.8](https://www.tuhh.de/ti3/paper/rump/OgRuOi05.pdf),
 with a conservative allowance for the componentwise scale's rounding.
+
+## Consume only the required dual breakpoints
+
+The legacy bound-flipping test sorted all eligible candidates before consuming
+the prefix needed to repair the leaving violation. It now builds a heap in the
+existing candidate buffer and extracts that prefix. The comparison preserves
+the former stable ordering, including signed zeros and equal breakpoints. The
+fallback to Harris and the treatment of exhausted/rejected candidates remain.
+
+The 4,096-candidate allocation regression failed at 32,840 bytes before the
+change and passes a 4-KiB ceiling after it. All 1,924 checks in the focused
+breakpoint, ratio and dual-simplex suites passed, including full exhaustion,
+ordered bound flips and all supported arithmetic types. Complete LP timings
+and the final full-suite gate remain pending.

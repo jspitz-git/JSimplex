@@ -247,6 +247,7 @@ using Test
     include("basis_matrix_reuse_allocation_tests.jl")
     include("dual_simplex_tests.jl")
     include("dual_ratio_tests.jl")
+    include("dual_breakpoint_queue_tests.jl")
     include("pivot_retry_tests.jl")
     include("pivot_application_tests.jl")
     include("pivot_atomicity_tests.jl")
