@@ -278,7 +278,7 @@ struct PivotCandidate{T}
 end
 
 function _pivot_quality_buffers(ws::SimplexWorkspace{T}) where {T}
-    W = T === Float32 ? Float64 : T
+    W = T
     C = _PivotQualityBuffers{T,W}
     if !(ws.scratch.pivot_quality_cache isa C)
         m = size(ws.problem.A,1)

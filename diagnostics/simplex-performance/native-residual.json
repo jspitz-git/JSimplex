@@ -1,0 +1,241 @@
+{
+  "baseline": "b69e266",
+  "production_sha256": "7a08ea95e1fd7c05c9566fafd772b90d270687a140e3d54ac160e41b17c6b6b6",
+  "scope": "Synthetic residual microbenchmark, not complete LP performance. Five warmed samples of 1000 calls per case.",
+  "baseline_measurement": {
+    "source": "/home/jspitz/JSimplex.jl/.worktrees/simplex-modernization/src/JSimplex.jl",
+    "cases": [
+      {
+        "type": "Float32",
+        "transposed": false,
+        "calls": 1000,
+        "samples": [
+          {
+            "seconds": 0.001023,
+            "bytes": 32000
+          },
+          {
+            "seconds": 0.000943,
+            "bytes": 32000
+          },
+          {
+            "seconds": 0.0011064,
+            "bytes": 32000
+          },
+          {
+            "seconds": 0.0010543,
+            "bytes": 32000
+          },
+          {
+            "seconds": 0.0009149,
+            "bytes": 32000
+          }
+        ]
+      },
+      {
+        "type": "Float32",
+        "transposed": true,
+        "calls": 1000,
+        "samples": [
+          {
+            "seconds": 0.0009022,
+            "bytes": 32000
+          },
+          {
+            "seconds": 0.0009022,
+            "bytes": 32000
+          },
+          {
+            "seconds": 0.0011835,
+            "bytes": 32000
+          },
+          {
+            "seconds": 0.0009056,
+            "bytes": 32000
+          },
+          {
+            "seconds": 0.0009958,
+            "bytes": 32000
+          }
+        ]
+      },
+      {
+        "type": "Float64",
+        "transposed": false,
+        "calls": 1000,
+        "samples": [
+          {
+            "seconds": 0.1427247,
+            "bytes": 256896000
+          },
+          {
+            "seconds": 0.136384999,
+            "bytes": 256896000
+          },
+          {
+            "seconds": 0.1399474,
+            "bytes": 256896000
+          },
+          {
+            "seconds": 0.137783899,
+            "bytes": 256896000
+          },
+          {
+            "seconds": 0.1404471,
+            "bytes": 256896000
+          }
+        ]
+      },
+      {
+        "type": "Float64",
+        "transposed": true,
+        "calls": 1000,
+        "samples": [
+          {
+            "seconds": 0.137959999,
+            "bytes": 256896000
+          },
+          {
+            "seconds": 0.1412767,
+            "bytes": 256896000
+          },
+          {
+            "seconds": 0.136636199,
+            "bytes": 256896000
+          },
+          {
+            "seconds": 0.1410324,
+            "bytes": 256896000
+          },
+          {
+            "seconds": 0.139400699,
+            "bytes": 256896000
+          }
+        ]
+      }
+    ]
+  },
+  "native_measurement": {
+    "source": "/home/jspitz/JSimplex.jl/.worktrees/simplex-performance/src/JSimplex.jl",
+    "cases": [
+      {
+        "type": "Float32",
+        "transposed": false,
+        "calls": 1000,
+        "samples": [
+          {
+            "seconds": 0.001655,
+            "bytes": 32000
+          },
+          {
+            "seconds": 0.0028872,
+            "bytes": 32000
+          },
+          {
+            "seconds": 0.0016419,
+            "bytes": 32000
+          },
+          {
+            "seconds": 0.0016452,
+            "bytes": 32000
+          },
+          {
+            "seconds": 0.00165,
+            "bytes": 32000
+          }
+        ]
+      },
+      {
+        "type": "Float32",
+        "transposed": true,
+        "calls": 1000,
+        "samples": [
+          {
+            "seconds": 0.0018261,
+            "bytes": 32000
+          },
+          {
+            "seconds": 0.0016903,
+            "bytes": 32000
+          },
+          {
+            "seconds": 0.0016346,
+            "bytes": 32000
+          },
+          {
+            "seconds": 0.0016344,
+            "bytes": 32000
+          },
+          {
+            "seconds": 0.0016291,
+            "bytes": 32000
+          }
+        ]
+      },
+      {
+        "type": "Float64",
+        "transposed": false,
+        "calls": 1000,
+        "samples": [
+          {
+            "seconds": 0.0016534,
+            "bytes": 32000
+          },
+          {
+            "seconds": 0.0016731,
+            "bytes": 32000
+          },
+          {
+            "seconds": 0.0019038,
+            "bytes": 32000
+          },
+          {
+            "seconds": 0.0016603,
+            "bytes": 32000
+          },
+          {
+            "seconds": 0.0017749,
+            "bytes": 32000
+          }
+        ]
+      },
+      {
+        "type": "Float64",
+        "transposed": true,
+        "calls": 1000,
+        "samples": [
+          {
+            "seconds": 0.0020537,
+            "bytes": 32000
+          },
+          {
+            "seconds": 0.001641,
+            "bytes": 32000
+          },
+          {
+            "seconds": 0.0016532,
+            "bytes": 32000
+          },
+          {
+            "seconds": 0.0016437,
+            "bytes": 32000
+          },
+          {
+            "seconds": 0.0020333,
+            "bytes": 32000
+          }
+        ]
+      }
+    ]
+  },
+  "targeted_checks": 593,
+  "red": {
+    "passed": 18,
+    "failed": 2
+  },
+  "logs_sha256": {
+    "native-residual-red.log": "bfbf5d44ff67472c796b98c4bc6b0693f3041a8ce55a41a178e5bb1d88a7c884",
+    "native-residual-green.log": "777b771b66a03200d2a1a1a4f3eb723ed735f1a1ccfdac6f514261f6476b7fe8",
+    "native-residual-green2.log": "58fbd998bba873bf4f0d573df7b28b2722a2d0a58a18a5596e21052261738b2b"
+  }
+}

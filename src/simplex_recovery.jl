@@ -13,7 +13,9 @@ function refine_basis_solve!(destination::AbstractVector{T},ws::SimplexWorkspace
     buffers = _pivot_quality_buffers(ws)
     arrays = (buffers.rhs,buffers.unit,buffers.correction,buffers.trial,buffers.singletons,
         buffers.column.residual,buffers.column.work_residual,buffers.column.work_scale,
+        buffers.column.compensation,buffers.column.error_sum,
         buffers.row.residual,buffers.row.work_residual,buffers.row.work_scale,
+        buffers.row.compensation,buffers.row.error_sum,
         ws.problem.A.nzval)
     any(a -> Base.mightalias(a,destination) || Base.mightalias(a,rhs),arrays) &&
         throw(ArgumentError("basis solve arguments overlap private or model storage"))
@@ -335,6 +337,8 @@ _refinement_error(q) = isnothing(q.relative_error) ? q.absolute_error : q.relati
 
 function _refinement_quality!(scratch::SolveQualityScratch{T},B,x,rhs,policy,transposed,wide) where T
     if T === Float64 && wide
+        native = _compensated_solve_quality!(scratch,B,x,rhs,policy,transposed)
+        isnothing(native) || return native
         return _wide_solve_quality!(scratch,B,x,rhs,policy,transposed)
     end
     return solve_quality!(scratch,B,x,rhs,policy;transposed)

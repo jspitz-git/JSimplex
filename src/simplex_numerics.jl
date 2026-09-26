@@ -108,13 +108,103 @@ struct SolveQualityScratch{T,W}
     work_residual::Vector{W}
     work_scale::Vector{W}
     terms::Vector{Int}
+    compensation::Vector{W}
+    error_sum::Vector{W}
 end
 
 function SolveQualityScratch(::Type{T}, rows::Integer) where {T}
     rows >= 0 || throw(ArgumentError("Negative residual dimension"))
-    W = T === Float32 ? Float64 : T
-    return SolveQualityScratch(zeros(T,rows), zeros(W,rows), zeros(W,rows), zeros(Int,rows))
+    W = T
+    return SolveQualityScratch(zeros(T,rows), zeros(W,rows), zeros(W,rows), zeros(Int,rows), W[], W[])
 end
+
+# Error-free product (FMA) and TwoSum, followed by compensated accumulation.
+# The enclosure is Dot2Err, Algorithm 5.8 of Ogita/Rump/Oishi (2005), including
+# its underflow allowance. No reassociation or fast-math is permitted here.
+@inline function _compensated_quality_term!(scratch, a::T, x::T, target) where T
+    (iszero(a) || iszero(x)) && return nothing
+    h = -a*x
+    product_error = fma(-a,x,-h)
+    old = scratch.work_residual[target]
+    total = old+h
+    part = total-old
+    sum_error = (old-(total-part))+(h-part)
+    correction = sum_error+product_error
+    scratch.work_residual[target] = total
+    scratch.compensation[target] += correction
+    scratch.error_sum[target] += abs(correction)
+    scratch.work_scale[target] += abs(h)
+    scratch.terms[target] += 2
+    return nothing
+end
+
+function _compensated_solve_quality!(scratch::SolveQualityScratch{T},B,x,rhs,policy,
+                                     transposed) where {T<:Union{Float32,Float64}}
+    rounding(T) == RoundNearest || return nothing
+    resize!(scratch.compensation,length(rhs))
+    resize!(scratch.error_sum,length(rhs))
+    fill!(scratch.compensation,zero(T))
+    fill!(scratch.error_sum,zero(T))
+    for i in eachindex(rhs)
+        scratch.work_residual[i] = rhs[i]
+        scratch.work_scale[i] = abs(rhs[i])
+        scratch.terms[i] = 1
+    end
+    if B isa SparseMatrixCSC
+        for column in axes(B,2), p in nzrange(B,column)
+            row = B.rowval[p]
+            target,source = transposed ? (column,row) : (row,column)
+            _compensated_quality_term!(scratch,B.nzval[p],x[source],target)
+        end
+    else
+        for column in axes(B,2), row in axes(B,1)
+            target,source = transposed ? (column,row) : (row,column)
+            _compensated_quality_term!(scratch,B[row,column],x[source],target)
+        end
+    end
+    u = eps(T)/2
+    absolute = relative = zero(T)
+    accepted = true
+    rejected = false
+    for i in eachindex(rhs)
+        residual = scratch.work_residual[i]+scratch.compensation[i]
+        scale = scratch.work_scale[i]
+        error_sum = scratch.error_sum[i]
+        all(isfinite,(residual,scale,error_sum)) || return nothing
+        # Account for rounding in the positive componentwise scale as well.
+        # eps(T) (twice unit roundoff) leaves slack in this computed gamma.
+        k = T(scratch.terms[i])*eps(T)
+        k < T(1)/4 || return nothing
+        gamma = k/(one(T)-k)
+        n = T(1+(scratch.terms[i]-1)÷2)
+        delta = (n*u)/(one(T)-2*n*u)
+        error = (u*abs(residual)+(delta*error_sum+3*nextfloat(zero(T))/u))/(one(T)-2*u)
+        if iszero(scale)
+            # Nonzero products may have underflowed to zero; the native check
+            # cannot distinguish those from a truly homogeneous zero row.
+            scratch.terms[i] == 1 && iszero(residual) || return nothing
+            ratio = zero(T)
+        else
+            lower_scale = prevfloat(scale*(one(T)-gamma))
+            upper_scale = nextfloat(scale/(one(T)-gamma))
+            lower_scale > zero(T) && isfinite(upper_scale) || return nothing
+            upper_error = nextfloat((nextfloat(abs(residual)+error))/lower_scale)
+            lower_error = prevfloat(max(zero(T),prevfloat(abs(residual)-error))/upper_scale)
+            accepted &= upper_error <= policy.solve_tolerance
+            rejected |= lower_error > policy.solve_tolerance
+            ratio = abs(residual)/scale
+        end
+        scratch.residual[i] = residual
+        absolute = max(absolute,abs(residual))
+        relative = max(relative,ratio)
+    end
+    # Only an ambiguous enclosure needs arbitrary precision. A demonstrably
+    # bad residual can proceed directly to an ordinary working-type correction.
+    accepted || rejected || return nothing
+    return SolveQuality{T}(absolute,relative,true,accepted)
+end
+
+_compensated_solve_quality!(scratch,B,x,rhs,policy,transposed) = nothing
 
 function _componentwise_backward_error(residual::AbstractVector{T}, scale) where {T<:AbstractFloat}
     axes(residual) == axes(scale) || throw(DimensionMismatch("Residual and scale dimensions differ"))
@@ -205,8 +295,9 @@ end
 
 """Evaluate an absolute residual and a componentwise backward error.
 
-Scratch is owned separately from live tableau vectors. Float32 accumulates in
-Float64; unsafe range or roundoff uses a local BigFloat evaluation. Stored
+Scratch is owned separately from live tableau vectors. Float32 and Float64 use
+native compensated accumulation before a local BigFloat evaluation is needed
+for unsafe range or an inconclusive rounding-error enclosure. Stored
 BigFloat precision is respected. Small backward error is not a forward-error
 or pivot-safety certificate. Exact rationals require an exactly zero residual.
 """
@@ -218,7 +309,8 @@ function solve_quality!(scratch::SolveQualityScratch{T}, B::AbstractMatrix{T},
         throw(DimensionMismatch("Incompatible basis residual dimensions"))
     any(array -> Base.mightalias(array,rhs) || Base.mightalias(array,x) ||
         Base.mightalias(array,_quality_values(B)),
-        (scratch.residual,scratch.work_residual,scratch.work_scale)) &&
+        (scratch.residual,scratch.work_residual,scratch.work_scale,
+         scratch.compensation,scratch.error_sum)) &&
         throw(ArgumentError("Quality scratch must not alias basis, solution, or RHS"))
     if _is_exact(T) === Val(true)
         _quality_components!(scratch.work_residual,scratch.work_scale,scratch.terms,B,x,rhs,transposed)
@@ -235,6 +327,10 @@ function solve_quality!(scratch::SolveQualityScratch{T}, B::AbstractMatrix{T},
     roundoff = _quality_roundoff(eltype(scratch.work_residual),scratch.terms)
     if unsafe_range || !all(isfinite,scratch.work_residual) || !all(isfinite,scratch.work_scale) ||
        roundoff > policy.solve_tolerance/4
+        if !unsafe_range
+            native = _compensated_solve_quality!(scratch,B,x,rhs,policy,transposed)
+            isnothing(native) || return native
+        end
         return _wide_solve_quality!(scratch,B,x,rhs,policy,transposed)
     end
     return _floating_quality!(scratch,scratch.work_residual,scratch.work_scale,scratch.terms,policy)

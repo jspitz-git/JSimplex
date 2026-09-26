@@ -1,0 +1,36 @@
+# Simplex performance follow-up
+
+Base: `b69e266`. Work in progress; no default strategy change or general speed
+claim. The [plan](../../docs/superpowers/plans/2026-09-26-simplex-performance.md)
+records the user constraints and validation sequence.
+
+## Native residual checks
+
+Long residuals previously triggered arbitrary precision based on a pessimistic
+length bound, even when the computed residual was zero. Float32 also silently
+accumulated residuals in Float64. The new fallback uses compensated arithmetic
+in the input scalar type, with an enclosure for both residual and denominator.
+An inconclusive enclosure or exceptional numerical range retains the existing
+BigFloat check. Basis factors and ordinary corrections stay in input precision.
+Explicit precision recovery and the stronger legacy 256/512-bit last-resort
+repairs remain separate.
+
+Regression tests first failed the allocation bound twice (18 passing checks).
+The completed focused run passed 593/593 checks, covering exact-input oracles,
+normal and transpose refinement, precision, cancellation, exceptional ranges,
+caller failures and staged pivot state. An intermediate integration failure
+identified the Float32 quality cache's old hard-coded Float64 type; it was fixed
+before that passing run. Full-branch validation is still pending.
+
+The [microbenchmark record](native-residual.json) contains five warmed samples
+of 1,000 calls for each type and orientation. On a synthetic 300-term residual,
+Float64 medians improved from about 0.140 seconds to 0.00166 seconds per 1,000
+checks (about 84 times), and allocations fell from 256,896 to 32 bytes per call.
+Float32 stayed in Float32 but took about 1.6–1.8 times the former widened-check
+time on this example (roughly 1.65 microseconds per check). This is a deliberate
+working-precision tradeoff, not an unreported speedup. These small kernel
+measurements do not establish complete-solver speed or solved coverage.
+
+The implementation follows the compensated dot-product enclosure in
+[Ogita, Rump and Oishi, Algorithm 5.8](https://www.tuhh.de/ti3/paper/rump/OgRuOi05.pdf),
+with a conservative allowance for the componentwise scale's rounding.
