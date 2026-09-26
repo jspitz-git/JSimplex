@@ -255,6 +255,33 @@ _primal_relaxed_step(raw_step::T, tolerance::T, movement::T) where {T<:AbstractF
 _primal_relaxed_step(raw_step::T, tolerance::T, movement::T) where {T<:Rational} =
     big(raw_step) + big(tolerance) / abs(big(movement))
 
+function _primal_bound_snap_feasible(workspace::SimplexWorkspace{T}, entering::Int,
+                                    direction::T, column::Vector{T}, leaving_row::Int) where {T}
+    leaving = workspace.basis.basic_indices[leaving_row]
+    movement = -direction * column[leaving_row]
+    bound = movement > zero(T) ? workspace.upper[leaving] : workspace.lower[leaving]
+    step = (bound_value(bound) - workspace.primal[leaving]) / movement
+    step >= zero(T) && return true
+    # A tolerated bound violation has a negative ratio. Clipping it to zero
+    # does not eliminate the movement imposed by fixing the leaving variable
+    # exactly at its bound during the subsequent basis recomputation.
+    value = workspace.primal[entering] + direction * step
+    isfinite(value) || return false
+    tolerance = workspace.options.primal_tolerance
+    violation = max(zero(T), _lower_violation(workspace.lower[entering], value),
+                    _upper_violation(workspace.upper[entering], value))
+    violation <= tolerance || return false
+    for (row, index) in enumerate(workspace.basis.basic_indices)
+        row == leaving_row && continue
+        value = workspace.primal[index] - direction * column[row] * step
+        isfinite(value) || return false
+        violation += max(zero(T), _lower_violation(workspace.lower[index], value),
+                         _upper_violation(workspace.upper[index], value))
+        violation <= tolerance || return false
+    end
+    return true
+end
+
 function _primal_ratio(workspace::SimplexWorkspace{T}, entering::Int, direction::T,
                        tableau_column::Vector{T}) where {T}
     opposite = direction > zero(T) ? workspace.upper[entering] : workspace.lower[entering]
@@ -299,6 +326,11 @@ function _primal_ratio(workspace::SimplexWorkspace{T}, entering::Int, direction:
     strict_row == 0 && return strict_step, strict_row, strict_state
     has_relaxed_limit || return strict_step, strict_row, strict_state
 
+    check_bound_snap = workspace.options.simplex_strategy == :legacy
+    strict_safe = !(strict_row in workspace.scratch.rejected_rows) &&
+        (!check_bound_snap || _primal_bound_snap_feasible(
+            workspace, entering, direction, tableau_column, strict_row))
+    fallback = strict_safe ? (strict_step, strict_row, strict_state) : (nothing, -1, BASIC)
     leaving_row = 0
     leaving_step = strict_step
     leaving_state = strict_state
@@ -314,6 +346,8 @@ function _primal_ratio(workspace::SimplexWorkspace{T}, entering::Int, direction:
         candidate <= relaxed_limit || continue
         pivot = abs(tableau_column[row])
         if pivot > largest_pivot
+            check_bound_snap && !_primal_bound_snap_feasible(
+                workspace, entering, direction, tableau_column, row) && continue
             leaving_row = row
             leaving_step = candidate
             leaving_state = movement > zero(T) ? AT_UPPER : AT_LOWER
@@ -321,21 +355,18 @@ function _primal_ratio(workspace::SimplexWorkspace{T}, entering::Int, direction:
         end
     end
     if leaving_row == 0
-        strict_row in workspace.scratch.rejected_rows && return nothing,-1,BASIC
-        return strict_step,strict_row,strict_state
+        return fallback
     end
     violation = zero(T)
     for (row, index) in enumerate(workspace.basis.basic_indices)
         value = workspace.primal[index] - direction * tableau_column[row] * leaving_step
         if !isfinite(value)
-            strict_row in workspace.scratch.rejected_rows && return nothing,-1,BASIC
-            return strict_step,strict_row,strict_state
+            return fallback
         end
         violation += max(zero(T), _lower_violation(workspace.lower[index], value),
                          _upper_violation(workspace.upper[index], value))
         if violation > tolerance
-            strict_row in workspace.scratch.rejected_rows && return nothing,-1,BASIC
-            return strict_step,strict_row,strict_state
+            return fallback
         end
     end
     return leaving_step, leaving_row, leaving_state
