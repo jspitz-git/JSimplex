@@ -215,6 +215,8 @@ commit per verified feature. Preparation and F01–F25 are complete. Integration
 steepest-edge defaults; experimental adaptive policies remain opt-in. See the
 [final report](../../../diagnostics/simplex-modernization/final_report.md) for
 solvability regressions and timing limitations.
+The subsequent [whole-branch review report](../../../diagnostics/simplex-modernization/final_review.md)
+records both corrective fixes and fresh verification of the resulting sources.
 See the [F24 validation report](../../../diagnostics/simplex-modernization/F24.md).
 On resumption, use the feature checkboxes and commit history, then read the
 specification and the next incomplete stage. Keep implementation sequential

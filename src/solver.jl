@@ -378,12 +378,31 @@ function solve(problem::LinearProblem{T}; relax_integrality::Bool=false,
     return _solve_diagnosed(problem, nothing; relax_integrality, options)
 end
 
+_automatic_numerical_policy(problem::LinearProblem{T}, options::SolverOptions{T}) where T =
+    NumericalPolicy(T, options)
+
+function _automatic_numerical_policy(problem::LinearProblem{BigFloat}, options::SolverOptions{BigFloat})
+    # Policy constants must reflect the precision already owned by the input,
+    # rather than reject it because the caller temporarily narrowed the context.
+    # Only policy construction is scoped; solve arithmetic keeps its documented
+    # ambient precision and the standalone policy constructor retains validation.
+    bits = max(precision(BigFloat), _working_value_bits(problem.A),
+        _working_value_bits(problem.objective), _working_value_bits(problem.objective_constant),
+        _working_value_bits(problem.row_lower), _working_value_bits(problem.row_upper),
+        _working_value_bits(problem.column_lower), _working_value_bits(problem.column_upper),
+        _working_value_bits(options.primal_tolerance), _working_value_bits(options.dual_tolerance),
+        _working_value_bits(options.zero_tolerance))
+    return setprecision(BigFloat, bits) do
+        NumericalPolicy(BigFloat, options)
+    end
+end
+
 function _solve_diagnosed(problem::LinearProblem{T}, diagnostics;
                          relax_integrality::Bool=false, options=nothing,
                          numerical_policy::Union{Nothing,NumericalPolicy{T}}=nothing)::Solution{T} where {T<:Real}
     start_ns = time_ns()
     typed_options = options === nothing ? SolverOptions(T) : SolverOptions(T, options)
-    policy = isnothing(numerical_policy) ? NumericalPolicy(T,typed_options) : numerical_policy
+    policy = isnothing(numerical_policy) ? _automatic_numerical_policy(problem,typed_options) : numerical_policy
     context = SolveContext(start_ns, typed_options.time_limit, diagnostics, policy)
     @logmsg typed_options.log_level "Starting solve" name=problem.name algorithm=typed_options.algorithm
     _report_problem_statistics("Loaded problem", problem, typed_options)

@@ -1,7 +1,12 @@
 # Simplex modernization: integration validation
 
-Status: F25 correctness gates, the primary corpus matrix, supplemental
-experiments and bounded stress validation are complete.
+Status: the F25 integration snapshot at `620f778` completed its correctness
+gates, corpus matrix, supplemental experiments and bounded stress validation.
+A subsequent whole-branch review identified two correctness gaps. Both are
+fixed, with fresh full-suite and external verification recorded in the
+[final review report](final_review.md).
+All corpus timings below describe the pre-review production fingerprint, not
+the subsequently corrected code.
 The default decision is to retain `simplex_strategy=:legacy` and
 `pricing=:steepest_edge`. Observed losses of solvability rule out an adaptive
 default rollout. Production defaults are unchanged.
@@ -15,7 +20,7 @@ tracks all stages and their dependencies. The [decision record](decisions.md)
 preserves implementation deviations and their stated tradeoffs. F24 parent is `dca3555`; the original
 comparison revision is `d93cfd3`.
 
-F25 changes the benchmark harness, development tests and documentation. Its
+At `620f778`, F25 changes the benchmark harness, development tests and documentation. Its
 production fingerprint is unchanged from F24:
 `cc14d2e38ae5a9fa8cdddb40665f60f3fac30adb9280481b073060085814b824`.
 The baseline fingerprint is

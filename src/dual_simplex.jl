@@ -2012,27 +2012,45 @@ function _make_dual_feasible!(workspace::SimplexWorkspace{T}, stop_requested) wh
         end
     end
     stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
-    _invalidate_basis_checkpoints!(workspace)
-    workspace.basis = basis
-    _reset_auto_pricing!(workspace)
-    workspace.pricing_weights .= auxiliary.pricing_weights
-    workspace.costs .= auxiliary.costs
-    workspace.perturbed = auxiliary.perturbed
+    # The auxiliary basis must not become live before its factor and original-
+    # bound values agree. Own both mutable factor and refactor-policy storage;
+    # logger, observer and deadline failures discard only this private trial.
+    trial = _candidate_workspace(workspace)
+    _invalidate_basis_checkpoints!(trial)
+    trial.factorization = copy_basis_factorization(workspace.factorization)
+    trial.scratch.refactorization = deepcopy(workspace.scratch.refactorization)
+    trial.basis = basis
+    _reset_auto_pricing!(trial)
+    trial.pricing_weights .= auxiliary.pricing_weights
+    trial.costs .= auxiliary.costs
+    trial.perturbed = auxiliary.perturbed
     # Start the stall count on the original bounds and objective.
-    workspace.zero_dual_step_streak = 0
-    workspace.dual_pricing_fallback = auxiliary.dual_pricing_fallback
-    workspace.dual_devex_fallback = auxiliary.dual_devex_fallback
-    workspace.dual_refactorization_interval = auxiliary.dual_refactorization_interval
-    workspace.dual_recent_repairs = auxiliary.dual_recent_repairs
-    workspace.dual_bad_update_min = auxiliary.dual_bad_update_min
-    workspace.dual_stable_refactorizations = auxiliary.dual_stable_refactorizations
-    workspace.dual_nonzero_steps_since_refactorization =
+    trial.zero_dual_step_streak = 0
+    trial.dual_pricing_fallback = auxiliary.dual_pricing_fallback
+    trial.dual_devex_fallback = auxiliary.dual_devex_fallback
+    trial.dual_refactorization_interval = auxiliary.dual_refactorization_interval
+    trial.dual_recent_repairs = auxiliary.dual_recent_repairs
+    trial.dual_bad_update_min = auxiliary.dual_bad_update_min
+    trial.dual_stable_refactorizations = auxiliary.dual_stable_refactorizations
+    trial.dual_nonzero_steps_since_refactorization =
         auxiliary.dual_nonzero_steps_since_refactorization
-    recompute!(workspace; refactorize=true, caller_guard=stop_requested)
-    _flip_bounds!(workspace)
-    _finite_workspace(workspace) || return _numerical_failure()
-    if dual_infeasibility(workspace) > workspace.options.dual_tolerance
-        return DualTermination(NUMERICAL_ERROR, "auxiliary basis is not dual feasible")
+    try
+        recompute!(trial; refactorize=true, caller_guard=stop_requested)
+        _flip_bounds!(trial)
+        _finite_workspace(trial) || return _numerical_failure()
+        if dual_infeasibility(trial) > trial.options.dual_tolerance
+            return DualTermination(NUMERICAL_ERROR, "auxiliary basis is not dual feasible")
+        end
+        stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached before auxiliary handoff")
+    finally
+        workspace.refactorizations = max(workspace.refactorizations, trial.refactorizations)
+    end
+    # No caller code runs while basis, values and factor are published together.
+    _invalidate_basis_checkpoints!(workspace)
+    _copy_pivot_state!(workspace, trial)
+    workspace.factorization = trial.factorization
+    for reason in trial.progress.diagnostics.observer.pending
+        _simplex_event!(workspace, reason)
     end
     return nothing
 end
