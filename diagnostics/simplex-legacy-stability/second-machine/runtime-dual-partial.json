@@ -1,0 +1,661 @@
+{
+  "recorded_date": "2026-09-26",
+  "origin": "User-supplied partial log from a second computer",
+  "input": "runtime.mps",
+  "status": "Incomplete; full-model solve still running when reported",
+  "user_report": {
+    "reduced_model": "Numerical failure after approximately two hours",
+    "full_model": "Still running"
+  },
+  "settings": {
+    "algorithm": "dual",
+    "iteration_limit": 1000000,
+    "time_limit": "Inf",
+    "pricing": "steepest_edge",
+    "basis_update": "bartels_golub",
+    "basis_refactorization": "native",
+    "refactorization_interval": 80,
+    "simplex_strategy": "legacy",
+    "relax_integrality": true
+  },
+  "unknown": [
+    "code revision",
+    "Julia version",
+    "operating system",
+    "CPU",
+    "BLAS configuration",
+    "input hash",
+    "reduced-model failure message and exact time",
+    "refactorization counts and reasons",
+    "final status"
+  ],
+  "raw_log_sha256": "c763acf63b4e307fb1f416aa0d6b0644078b6114dd48313efd90a51735d98aa0",
+  "logged_samples": 66,
+  "first": {
+    "iteration": 277075,
+    "objective": 46603221.20803811,
+    "primal_infeasibility": 5677.826808136842,
+    "primal_infeasible_count": 4866,
+    "dual_infeasibility": 0.0,
+    "dual_infeasible_count": 0,
+    "elapsed_seconds": 21085.8364252
+  },
+  "last": {
+    "iteration": 277207,
+    "objective": 46654995.88246473,
+    "primal_infeasibility": 6525.206205426235,
+    "primal_infeasible_count": 4869,
+    "dual_infeasibility": 0.0,
+    "dual_infeasible_count": 0,
+    "elapsed_seconds": 21105.681196
+  },
+  "maximum_logged_primal_infeasibility": {
+    "iteration": 277152,
+    "objective": 46629464.399271,
+    "primal_infeasibility": 393944.07665166474,
+    "primal_infeasible_count": 5305,
+    "dual_infeasibility": 0.0,
+    "dual_infeasible_count": 0,
+    "elapsed_seconds": 21097.1214559
+  },
+  "excerpt_elapsed_seconds": 19.844770800002152,
+  "excerpt_iteration_delta": 132,
+  "all_logged_dual_infeasibilities_zero": true,
+  "interpretation": "This excerpt does not contain the reduced-model failure or a terminal status. Logged infeasibility measures are solver diagnostics, not an independent feasibility certificate. The run cannot be attributed to the current worktree revision.",
+  "samples": [
+    {
+      "iteration": 277075,
+      "objective": 46603221.20803811,
+      "primal_infeasibility": 5677.826808136842,
+      "primal_infeasible_count": 4866,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21085.8364252
+    },
+    {
+      "iteration": 277077,
+      "objective": 46603221.20803707,
+      "primal_infeasibility": 5560.300398358537,
+      "primal_infeasible_count": 4866,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21086.0157843
+    },
+    {
+      "iteration": 277081,
+      "objective": 46603221.3653751,
+      "primal_infeasibility": 5487.565123928638,
+      "primal_infeasible_count": 4855,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21087.0691925
+    },
+    {
+      "iteration": 277082,
+      "objective": 46603221.365376785,
+      "primal_infeasibility": 5440.472693549462,
+      "primal_infeasible_count": 4855,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21087.3112049
+    },
+    {
+      "iteration": 277083,
+      "objective": 46603221.78958557,
+      "primal_infeasibility": 5752.743706996738,
+      "primal_infeasible_count": 4854,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21087.5105124
+    },
+    {
+      "iteration": 277084,
+      "objective": 46603221.791652024,
+      "primal_infeasibility": 5460.347235756022,
+      "primal_infeasible_count": 4826,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21087.7348547
+    },
+    {
+      "iteration": 277085,
+      "objective": 46603221.802220404,
+      "primal_infeasibility": 5432.41993437688,
+      "primal_infeasible_count": 4824,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21087.9596768
+    },
+    {
+      "iteration": 277086,
+      "objective": 46603221.91033036,
+      "primal_infeasibility": 7236.604968908651,
+      "primal_infeasible_count": 4856,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21088.1392993
+    },
+    {
+      "iteration": 277088,
+      "objective": 46603222.80285409,
+      "primal_infeasibility": 5454.947622600615,
+      "primal_infeasible_count": 4844,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21088.3855137
+    },
+    {
+      "iteration": 277089,
+      "objective": 46603222.820609435,
+      "primal_infeasibility": 5625.927705894987,
+      "primal_infeasible_count": 4842,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21088.6356823
+    },
+    {
+      "iteration": 277090,
+      "objective": 46603223.43941863,
+      "primal_infeasibility": 5649.966280414909,
+      "primal_infeasible_count": 4846,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21088.8579247
+    },
+    {
+      "iteration": 277091,
+      "objective": 46603223.89139388,
+      "primal_infeasibility": 5415.884400941344,
+      "primal_infeasible_count": 4845,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21089.0419415
+    },
+    {
+      "iteration": 277092,
+      "objective": 46603226.121219605,
+      "primal_infeasibility": 5417.231124291339,
+      "primal_infeasible_count": 4831,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21089.4129461
+    },
+    {
+      "iteration": 277094,
+      "objective": 46618565.05842622,
+      "primal_infeasibility": 6333.571712647567,
+      "primal_infeasible_count": 4851,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21089.8345953
+    },
+    {
+      "iteration": 277095,
+      "objective": 46618565.05842622,
+      "primal_infeasibility": 5888.334529322866,
+      "primal_infeasible_count": 4849,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21090.2196385
+    },
+    {
+      "iteration": 277096,
+      "objective": 46618565.14371562,
+      "primal_infeasibility": 5923.022473988814,
+      "primal_infeasible_count": 4850,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21090.5862577
+    },
+    {
+      "iteration": 277097,
+      "objective": 46618565.288296945,
+      "primal_infeasibility": 8558.643225251135,
+      "primal_infeasible_count": 4854,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21090.8470627
+    },
+    {
+      "iteration": 277098,
+      "objective": 46618565.81581183,
+      "primal_infeasibility": 5954.811281428958,
+      "primal_infeasible_count": 4852,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21091.1329011
+    },
+    {
+      "iteration": 277099,
+      "objective": 46618566.01549232,
+      "primal_infeasibility": 5597.793153938256,
+      "primal_infeasible_count": 4845,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21091.310799
+    },
+    {
+      "iteration": 277100,
+      "objective": 46618566.01549232,
+      "primal_infeasibility": 5541.4667974815275,
+      "primal_infeasible_count": 4844,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21091.4869352
+    },
+    {
+      "iteration": 277101,
+      "objective": 46618566.255475454,
+      "primal_infeasibility": 5498.013365522478,
+      "primal_infeasible_count": 4852,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21091.6289549
+    },
+    {
+      "iteration": 277102,
+      "objective": 46618566.25622109,
+      "primal_infeasibility": 5448.218908202553,
+      "primal_infeasible_count": 4843,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21091.816238
+    },
+    {
+      "iteration": 277104,
+      "objective": 46618566.30822089,
+      "primal_infeasibility": 5417.885434203575,
+      "primal_infeasible_count": 4840,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21092.7052669
+    },
+    {
+      "iteration": 277108,
+      "objective": 46618566.3082209,
+      "primal_infeasibility": 5422.91936622236,
+      "primal_infeasible_count": 4837,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21092.9996296
+    },
+    {
+      "iteration": 277116,
+      "objective": 46618566.3082209,
+      "primal_infeasibility": 5431.663780280623,
+      "primal_infeasible_count": 4837,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21093.5526899
+    },
+    {
+      "iteration": 277132,
+      "objective": 46622345.78268497,
+      "primal_infeasibility": 7425.918167772214,
+      "primal_infeasible_count": 4836,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21094.3537296
+    },
+    {
+      "iteration": 277133,
+      "objective": 46622346.88078732,
+      "primal_infeasibility": 5882.671507168066,
+      "primal_infeasible_count": 4840,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21094.5288827
+    },
+    {
+      "iteration": 277140,
+      "objective": 46628884.012319215,
+      "primal_infeasibility": 5655.937906495942,
+      "primal_infeasible_count": 4845,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21094.902687
+    },
+    {
+      "iteration": 277141,
+      "objective": 46628884.524511546,
+      "primal_infeasibility": 6329.714867356052,
+      "primal_infeasible_count": 4850,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21095.0854603
+    },
+    {
+      "iteration": 277142,
+      "objective": 46628884.674430706,
+      "primal_infeasibility": 5566.382355951162,
+      "primal_infeasible_count": 4836,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21095.2542362
+    },
+    {
+      "iteration": 277144,
+      "objective": 46628884.674430706,
+      "primal_infeasibility": 5556.6154645674305,
+      "primal_infeasible_count": 4836,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21095.4665615
+    },
+    {
+      "iteration": 277145,
+      "objective": 46629391.77324124,
+      "primal_infeasibility": 5909.173471493736,
+      "primal_infeasible_count": 4837,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21095.6476885
+    },
+    {
+      "iteration": 277146,
+      "objective": 46629391.773241244,
+      "primal_infeasibility": 5504.375218806711,
+      "primal_infeasible_count": 4836,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21095.9437751
+    },
+    {
+      "iteration": 277147,
+      "objective": 46629391.773241244,
+      "primal_infeasibility": 5481.174418215261,
+      "primal_infeasible_count": 4835,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21096.1895064
+    },
+    {
+      "iteration": 277148,
+      "objective": 46629415.22208376,
+      "primal_infeasibility": 6757.722969126923,
+      "primal_infeasible_count": 4836,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21096.4780359
+    },
+    {
+      "iteration": 277150,
+      "objective": 46629428.46661868,
+      "primal_infeasibility": 6787.706191221475,
+      "primal_infeasible_count": 4838,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21096.7341158
+    },
+    {
+      "iteration": 277151,
+      "objective": 46629457.97484712,
+      "primal_infeasibility": 6067.916255131526,
+      "primal_infeasible_count": 4833,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21096.9216535
+    },
+    {
+      "iteration": 277152,
+      "objective": 46629464.399271,
+      "primal_infeasibility": 393944.07665166474,
+      "primal_infeasible_count": 5305,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21097.1214559
+    },
+    {
+      "iteration": 277153,
+      "objective": 46629467.84477159,
+      "primal_infeasibility": 33630.43220546467,
+      "primal_infeasible_count": 5070,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21097.2980468
+    },
+    {
+      "iteration": 277154,
+      "objective": 46629468.547774695,
+      "primal_infeasibility": 23417.73625052804,
+      "primal_infeasible_count": 4983,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21097.4129446
+    },
+    {
+      "iteration": 277155,
+      "objective": 46629468.847241655,
+      "primal_infeasibility": 22040.135586453544,
+      "primal_infeasible_count": 4987,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21097.5339155
+    },
+    {
+      "iteration": 277156,
+      "objective": 46629469.48690604,
+      "primal_infeasibility": 12909.5121502176,
+      "primal_infeasible_count": 4898,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21097.9810035
+    },
+    {
+      "iteration": 277157,
+      "objective": 46629471.51419142,
+      "primal_infeasibility": 7948.306447155871,
+      "primal_infeasible_count": 4875,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21098.175198
+    },
+    {
+      "iteration": 277158,
+      "objective": 46629472.30664733,
+      "primal_infeasibility": 16434.912012046723,
+      "primal_infeasible_count": 4910,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21098.3561998
+    },
+    {
+      "iteration": 277159,
+      "objective": 46629472.57192321,
+      "primal_infeasibility": 6778.688238668567,
+      "primal_infeasible_count": 4860,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21098.5255397
+    },
+    {
+      "iteration": 277160,
+      "objective": 46629472.633153886,
+      "primal_infeasibility": 5776.638836417979,
+      "primal_infeasible_count": 4850,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21098.69439
+    },
+    {
+      "iteration": 277161,
+      "objective": 46629472.65373136,
+      "primal_infeasibility": 5711.1857651299715,
+      "primal_infeasible_count": 4839,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21098.8844234
+    },
+    {
+      "iteration": 277162,
+      "objective": 46629472.65373136,
+      "primal_infeasibility": 5711.1857651299715,
+      "primal_infeasible_count": 4839,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21099.1055498
+    },
+    {
+      "iteration": 277164,
+      "objective": 46629472.65373136,
+      "primal_infeasibility": 5711.1857651299715,
+      "primal_infeasible_count": 4839,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21099.3162077
+    },
+    {
+      "iteration": 277165,
+      "objective": 46629476.84769354,
+      "primal_infeasibility": 6623.729859100738,
+      "primal_infeasible_count": 4858,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21099.475704
+    },
+    {
+      "iteration": 277166,
+      "objective": 46629481.492359504,
+      "primal_infeasibility": 136357.48129366658,
+      "primal_infeasible_count": 5155,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21099.6530304
+    },
+    {
+      "iteration": 277167,
+      "objective": 46629496.23777238,
+      "primal_infeasibility": 10312.484193248552,
+      "primal_infeasible_count": 4869,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21099.9277454
+    },
+    {
+      "iteration": 277168,
+      "objective": 46629498.48540026,
+      "primal_infeasibility": 6745.870338867135,
+      "primal_infeasible_count": 4849,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21100.3093855
+    },
+    {
+      "iteration": 277169,
+      "objective": 46629498.51503897,
+      "primal_infeasibility": 6334.439213359663,
+      "primal_infeasible_count": 4845,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21100.6490368
+    },
+    {
+      "iteration": 277171,
+      "objective": 46629779.94817859,
+      "primal_infeasibility": 5584.536950227601,
+      "primal_infeasible_count": 4831,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21100.9610181
+    },
+    {
+      "iteration": 277172,
+      "objective": 46629805.97796115,
+      "primal_infeasibility": 16577.09950521696,
+      "primal_infeasible_count": 4861,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21101.2289526
+    },
+    {
+      "iteration": 277176,
+      "objective": 46629819.3082785,
+      "primal_infeasibility": 5472.605918300166,
+      "primal_infeasible_count": 4834,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21101.5451166
+    },
+    {
+      "iteration": 277184,
+      "objective": 46629964.438883536,
+      "primal_infeasibility": 5517.196637141779,
+      "primal_infeasible_count": 4828,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21102.0399947
+    },
+    {
+      "iteration": 277200,
+      "objective": 46654629.186256535,
+      "primal_infeasibility": 5393.525862992446,
+      "primal_infeasible_count": 4827,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21102.9235673
+    },
+    {
+      "iteration": 277201,
+      "objective": 46654986.69306269,
+      "primal_infeasibility": 8334.092619222136,
+      "primal_infeasible_count": 4881,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21103.1176522
+    },
+    {
+      "iteration": 277202,
+      "objective": 46654986.69306269,
+      "primal_infeasibility": 8541.533734262699,
+      "primal_infeasible_count": 4882,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21103.2782515
+    },
+    {
+      "iteration": 277203,
+      "objective": 46654986.693062715,
+      "primal_infeasibility": 7650.279954048654,
+      "primal_infeasible_count": 4881,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21104.4820425
+    },
+    {
+      "iteration": 277204,
+      "objective": 46654986.693062715,
+      "primal_infeasibility": 7223.160689987148,
+      "primal_infeasible_count": 4880,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21104.7043256
+    },
+    {
+      "iteration": 277205,
+      "objective": 46654994.63516492,
+      "primal_infeasibility": 125003.75464138396,
+      "primal_infeasible_count": 5149,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21105.0365406
+    },
+    {
+      "iteration": 277206,
+      "objective": 46654995.54803831,
+      "primal_infeasibility": 8695.899322936451,
+      "primal_infeasible_count": 4882,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21105.4126404
+    },
+    {
+      "iteration": 277207,
+      "objective": 46654995.88246473,
+      "primal_infeasibility": 6525.206205426235,
+      "primal_infeasible_count": 4869,
+      "dual_infeasibility": 0.0,
+      "dual_infeasible_count": 0,
+      "elapsed_seconds": 21105.681196
+    }
+  ]
+}
