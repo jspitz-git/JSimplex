@@ -547,12 +547,33 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
             workspace.scratch.selected_row = -1
             return DualTermination(NUMERICAL_ERROR, "primal pivot is below the zero tolerance")
         end
+        legacy_row = _legacy_primal_row_validation_enabled(workspace)
+        if legacy_row && !_legacy_primal_pivot_row_ok!(
+                workspace, entering, leaving_row, tableau_column[leaving_row], stop_requested)
+            stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
+            if !basis_refreshed && !isempty(workspace.factorization.updates)
+                candidate = _legacy_primal_point_candidate(
+                    workspace, 0, 0, zero(T), tableau_column)
+                recompute!(workspace; refactorize=true, caller_guard=stop_requested,
+                           diagnostic_reason=:refactor_residual)
+                _restore_legacy_primal_point!(workspace, candidate, stop_requested)
+                stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
+                _finite_workspace(workspace) || return _numerical_failure()
+                primal_infeasibility(workspace) <= workspace.options.primal_tolerance ||
+                    return DualTermination(NUMERICAL_ERROR, "primal feasibility lost")
+                fill!(workspace.scratch.steepest_valid, false)
+                return _primal_iteration_unchecked!(workspace, stop_requested,
+                                                    reduced_cost_tolerance, true)
+            end
+            workspace.scratch.selected_row = -1
+            return DualTermination(NUMERICAL_ERROR, "primal pivot transpose row is inaccurate")
+        end
         _effective_pricing(workspace,:primal) == :devex &&
             _primal_update_devex!(workspace, entering, leaving_row,
-                                   tableau_column[leaving_row];shared_row=incremental_pivot)
+                                   tableau_column[leaving_row];shared_row=incremental_pivot || legacy_row)
         _effective_pricing(workspace,:primal) == :steepest_edge &&
             _primal_update_steepest!(workspace, entering, leaving_row,
-                                     tableau_column[leaving_row];shared_row=incremental_pivot)
+                                     tableau_column[leaving_row];shared_row=incremental_pivot || legacy_row)
         if incremental_pivot
             apply_primal_pivot!(workspace,entering,leaving_row,direction*step,
                 tableau_column,workspace.scratch.tableau_row;leaving_state,stop_requested)
