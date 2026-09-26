@@ -1,0 +1,472 @@
+{
+  "production_commit": "6a88469",
+  "production_sha256": "b68c5dcc1d933c4e4816bee36f432630663c6ac4f15201094e7d4da5521ed6d4",
+  "environment": {
+    "julia_version": "1.13.0",
+    "architecture": "aarch64",
+    "julia_threads": 1,
+    "blas_threads": 1,
+    "address_space_limit_bytes": 25769803776,
+    "root_manifest_sha256": "d65064b03075dd74cb36d03dd8c6d7da37e6748ca9c5c994a909ca30219cadce",
+    "development_manifest_sha256": "2cf14051ebca7dc8900356dcbfac6c21d1d50c7fe541161a49e1d22d92aedcd4",
+    "development_jsimplex_path": ".."
+  },
+  "scope": "Fresh sequential frozen-source gates; diagnostic failures and censored performance runs are recorded separately.",
+  "gates": [
+    {
+      "gate": "production",
+      "exit_code": 0,
+      "seconds": 7539.276004736981,
+      "source_test_inventory_sha256": "bd55d3811a2c386f621efc03ec151042faea03403fb54d34811f0e30e427791e",
+      "unchanged": true,
+      "log_sha256": "f08fc0a0e689f7708517beb39450eeabab363f267a661551014019a3c9d5c451",
+      "command": [
+        "bash",
+        "/home/jspitz/JSimplex.jl/.worktrees/simplex-performance/.superpowers/performance/julia.sh",
+        "--project=.",
+        "/home/jspitz/JSimplex.jl/.worktrees/simplex-performance/.superpowers/performance/production-gate.jl"
+      ],
+      "harness_sha256": {
+        "/home/jspitz/JSimplex.jl/.worktrees/simplex-performance/.superpowers/performance/julia.sh": "fabb8aba4e9ba89e3f7bd2e00eef6a13e9c991694a271bcc902202374d515922",
+        "/home/jspitz/JSimplex.jl/.worktrees/simplex-performance/.superpowers/performance/production-gate.jl": "79d35e713058f215e55407d7480854c052a9aea650ef5942b06cb89d2a634446"
+      },
+      "harness_unchanged": true
+    },
+    {
+      "gate": "development",
+      "exit_code": 0,
+      "seconds": 1313.8774382929842,
+      "source_test_inventory_sha256": "bd55d3811a2c386f621efc03ec151042faea03403fb54d34811f0e30e427791e",
+      "unchanged": true,
+      "log_sha256": "22524989ba361ef72811561d7c07f6efd170972de544936b9403e0aab69296e3",
+      "command": [
+        "bash",
+        "/home/jspitz/JSimplex.jl/.worktrees/simplex-performance/.superpowers/performance/julia.sh",
+        "--project=dev",
+        "dev/tests/runtests.jl"
+      ],
+      "harness_sha256": {
+        "/home/jspitz/JSimplex.jl/.worktrees/simplex-performance/.superpowers/performance/julia.sh": "fabb8aba4e9ba89e3f7bd2e00eef6a13e9c991694a271bcc902202374d515922",
+        "dev/tests/runtests.jl": "2a5910b185600f52c9b7d9cdc2a767e328cd34fe0b07ba4469b9031c75b28814"
+      },
+      "harness_unchanged": true
+    },
+    {
+      "gate": "glpk",
+      "exit_code": 0,
+      "seconds": 49.50588189001428,
+      "source_test_inventory_sha256": "bd55d3811a2c386f621efc03ec151042faea03403fb54d34811f0e30e427791e",
+      "unchanged": true,
+      "log_sha256": "74938f24d8ec1c00762012560990bca66422db61c5594ecc79cb335d19a2f666",
+      "command": [
+        "bash",
+        "/home/jspitz/JSimplex.jl/.worktrees/simplex-performance/.superpowers/performance/julia.sh",
+        "--project=dev",
+        "dev/run_suite.jl",
+        "--tag",
+        "numerical",
+        "--compare-glpk"
+      ],
+      "harness_sha256": {
+        "/home/jspitz/JSimplex.jl/.worktrees/simplex-performance/.superpowers/performance/julia.sh": "fabb8aba4e9ba89e3f7bd2e00eef6a13e9c991694a271bcc902202374d515922",
+        "dev/run_suite.jl": "ac34e259a233aac73537fa7cc303d981e4071ab6241d2adee92a45e97fe42a3a"
+      },
+      "harness_unchanged": true
+    },
+    {
+      "gate": "quick-corpus",
+      "exit_code": 0,
+      "seconds": 46.91830200300319,
+      "source_test_inventory_sha256": "bd55d3811a2c386f621efc03ec151042faea03403fb54d34811f0e30e427791e",
+      "unchanged": true,
+      "log_sha256": "046abad51580c2539a98923adea9770443dd05a81bb21377297b14a3a0ebfbb2",
+      "command": [
+        "bash",
+        "/home/jspitz/JSimplex.jl/.worktrees/simplex-performance/.superpowers/performance/julia.sh",
+        "--project=.",
+        "/home/jspitz/JSimplex.jl/.worktrees/simplex-performance/.superpowers/performance/quick-corpus.jl"
+      ],
+      "harness_sha256": {
+        "/home/jspitz/JSimplex.jl/.worktrees/simplex-performance/.superpowers/performance/julia.sh": "fabb8aba4e9ba89e3f7bd2e00eef6a13e9c991694a271bcc902202374d515922",
+        "/home/jspitz/JSimplex.jl/.worktrees/simplex-performance/.superpowers/performance/quick-corpus.jl": "5c1d0488cef01d2e514f724de0c08b6428aec2afa286d722f77a71a3d0e66389"
+      },
+      "harness_unchanged": true
+    }
+  ],
+  "test_summaries": {
+    "production": [
+      {
+        "name": "JSimplex",
+        "passed": 254083,
+        "total": 254083
+      }
+    ],
+    "development": [
+      {
+        "name": "Suite arguments and deterministic selection",
+        "passed": 17,
+        "total": 17
+      },
+      {
+        "name": "GLPK reference and suite comparisons",
+        "passed": 15,
+        "total": 15
+      },
+      {
+        "name": "GLPK preserves native objective semantics",
+        "passed": 15,
+        "total": 15
+      },
+      {
+        "name": "Development data registry",
+        "passed": 57,
+        "total": 57
+      },
+      {
+        "name": "Allocation measurements exclude setup and reset mutable inputs",
+        "passed": 5,
+        "total": 5
+      },
+      {
+        "name": "Allocation profiles retain measured sites",
+        "passed": 4,
+        "total": 4
+      },
+      {
+        "name": "Allocation audit covers the solver pipeline",
+        "passed": 18,
+        "total": 18
+      },
+      {
+        "name": "Iteration allocation audit preserves prepared states",
+        "passed": 112,
+        "total": 112
+      },
+      {
+        "name": "Iteration audit distinguishes kernels and pricing caches",
+        "passed": 170,
+        "total": 170
+      },
+      {
+        "name": "JET hypersparse pipeline",
+        "passed": 24,
+        "total": 24
+      },
+      {
+        "name": "JET guarded crash kernels",
+        "passed": 18,
+        "total": 18
+      },
+      {
+        "name": "JET phase-one mapping and removal",
+        "passed": 6,
+        "total": 6
+      },
+      {
+        "name": "JET typed working precision transfer",
+        "passed": 10,
+        "total": 10
+      },
+      {
+        "name": "JET precision recovery orchestration",
+        "passed": 21,
+        "total": 21
+      },
+      {
+        "name": "JET correction formulation and typed recovery orchestration",
+        "passed": 24,
+        "total": 24
+      },
+      {
+        "name": "JET indexed basis update kernels",
+        "passed": 36,
+        "total": 36
+      },
+      {
+        "name": "JET hypersparse base solve kernels",
+        "passed": 12,
+        "total": 12
+      },
+      {
+        "name": "JET incremental primal updates",
+        "passed": 8,
+        "total": 8
+      },
+      {
+        "name": "JET typed solver kernels",
+        "passed": 7,
+        "total": 7
+      },
+      {
+        "name": "JET typed MOI adapter helpers",
+        "passed": 6,
+        "total": 6
+      },
+      {
+        "name": "JET retry dispatch retains concrete runtime options",
+        "passed": 8,
+        "total": 8
+      },
+      {
+        "name": "JET sparse basis update and cached Markowitz kernels",
+        "passed": 6,
+        "total": 6
+      },
+      {
+        "name": "JET adaptive dual perturbation kernels",
+        "passed": 6,
+        "total": 6
+      },
+      {
+        "name": "JET adaptive primal bound perturbation kernels",
+        "passed": 6,
+        "total": 6
+      },
+      {
+        "name": "JET automatic pricing and owned state kernels",
+        "passed": 18,
+        "total": 18
+      },
+      {
+        "name": "JET owned partial pricing kernels",
+        "passed": 18,
+        "total": 18
+      },
+      {
+        "name": "JET indexed sparse pricing kernels",
+        "passed": 15,
+        "total": 15
+      },
+      {
+        "name": "JuMP Float64 cache integration",
+        "passed": 10,
+        "total": 10
+      },
+      {
+        "name": "JuMP LP relaxation",
+        "passed": 3,
+        "total": 3
+      },
+      {
+        "name": "JuMP generic numeric integration",
+        "passed": 10,
+        "total": 10
+      },
+      {
+        "name": "Numerical benchmark runner is available",
+        "passed": 1,
+        "total": 1
+      },
+      {
+        "name": "Stress reader budgets apply before full hashing and decompression",
+        "passed": 12,
+        "total": 12
+      },
+      {
+        "name": "Report destinations cannot overwrite selected model inputs",
+        "passed": 2,
+        "total": 2
+      },
+      {
+        "name": "Worker cancellation stops execution and quota stops have a distinct type",
+        "passed": 5,
+        "total": 5
+      },
+      {
+        "name": "Frozen generated cases have analytic LP references",
+        "passed": 12,
+        "total": 12
+      },
+      {
+        "name": "Known stress content cannot bypass exclusion by renaming",
+        "passed": 3,
+        "total": 3
+      },
+      {
+        "name": "Input aliases are read-only and unavailable limits stay visible",
+        "passed": 4,
+        "total": 4
+      },
+      {
+        "name": "Reports preserve numerical failures, deadlines, and hash errors",
+        "passed": 9,
+        "total": 9
+      },
+      {
+        "name": "Reader and component stress modes never report a simplex solve",
+        "passed": 8,
+        "total": 8
+      },
+      {
+        "name": "Corpus discovery ignores archives and logs",
+        "passed": 4,
+        "total": 4
+      },
+      {
+        "name": "Original dual errors detect an invalid optimality witness",
+        "passed": 4,
+        "total": 4
+      },
+      {
+        "name": "Original-unit errors expose a falsely optimal candidate",
+        "passed": 5,
+        "total": 5
+      },
+      {
+        "name": "Repair snapshots restore owned state and reject corruption",
+        "passed": 16,
+        "total": 16
+      },
+      {
+        "name": "Oversized names are inspected without simplex work",
+        "passed": 6,
+        "total": 6
+      },
+      {
+        "name": "Benchmark reports retain input errors and isolated solve results",
+        "passed": 9,
+        "total": 9
+      },
+      {
+        "name": "Worker watchdog enforces a deadline independently of the solver",
+        "passed": 4,
+        "total": 4
+      },
+      {
+        "name": "Frozen solve selections preserve holdout separation",
+        "passed": 5,
+        "total": 5
+      },
+      {
+        "name": "Benchmark arguments reject ambiguous or unbounded runs",
+        "passed": 12,
+        "total": 12
+      },
+      {
+        "name": "Stress-only classification survives aliases and compression",
+        "passed": 19,
+        "total": 19
+      },
+      {
+        "name": "Bounded decompression preserves input and rejects truncation",
+        "passed": 8,
+        "total": 8
+      },
+      {
+        "name": "Excluded corpus hardlinks cannot enter solves or replays",
+        "passed": 4,
+        "total": 4
+      },
+      {
+        "name": "Benchmark warmups execute observers without contaminating samples",
+        "passed": 28,
+        "total": 28
+      },
+      {
+        "name": "Scaled benchmark witnesses map to the original objective and rows",
+        "passed": 32,
+        "total": 32
+      },
+      {
+        "name": "Policy configuration is a read-only input",
+        "passed": 2,
+        "total": 2
+      },
+      {
+        "name": "Numerical policy benchmark and replay configuration",
+        "passed": 52,
+        "total": 52
+      },
+      {
+        "name": "Precision benchmark metadata and diagnostics",
+        "passed": 15,
+        "total": 15
+      },
+      {
+        "name": "Benchmark diagnostics retain the certified LP multiplier",
+        "passed": 5,
+        "total": 5
+      },
+      {
+        "name": "Refactorization benchmarks select the basis update method",
+        "passed": 15,
+        "total": 15
+      },
+      {
+        "name": "Refactorization replay disables timing adaptation",
+        "passed": 6,
+        "total": 6
+      },
+      {
+        "name": "Replay overlays invalidate initialization checkpoints",
+        "passed": 2,
+        "total": 2
+      },
+      {
+        "name": "Explicit replay recovery exchanges a singular basis",
+        "passed": 8,
+        "total": 8
+      },
+      {
+        "name": "Replay dispatches a recovered primal snapshot to dual",
+        "passed": 4,
+        "total": 4
+      },
+      {
+        "name": "Snapshots retain outer retry work offsets",
+        "passed": 4,
+        "total": 4
+      },
+      {
+        "name": "Boxed benchmarks can exercise simplex without presolve",
+        "passed": 9,
+        "total": 9
+      },
+      {
+        "name": "Bounded sparse component probe has no simplex workspace",
+        "passed": 21,
+        "total": 21
+      },
+      {
+        "name": "Stress CLI records sparse components and never solves excluded names",
+        "passed": 30,
+        "total": 30
+      },
+      {
+        "name": "Bounded factor extraction selects occupied rows",
+        "passed": 15,
+        "total": 15
+      },
+      {
+        "name": "Bounded update chains verify copies and refactor resets",
+        "passed": 113,
+        "total": 113
+      },
+      {
+        "name": "Bounded pipeline components and interruption",
+        "passed": 10,
+        "total": 10
+      }
+    ],
+    "quick-corpus": [
+      {
+        "name": "External LP relaxations against hash-matched independent references",
+        "passed": 104,
+        "total": 104
+      }
+    ]
+  },
+  "test_totals": {
+    "production": 254083,
+    "development": 1208,
+    "quick-corpus": 104
+  },
+  "glpk": {
+    "passed": 6,
+    "total": 6
+  },
+  "source_test_inventory_scheme": "SHA256 of relative path + NUL + bytes, sorted by full relative-path string: Project.toml, src/**/*.jl, every test file, dev/**/*.jl and dev/**/*.toml except Manifest.toml",
+  "quick_reference_artifact": "../simplex-modernization/F25-references.json",
+  "quick_reference_sha256": "faa0edbc6b4d3663a97227ec35340cf105562fd9b021441d92e43f3118bc5105",
+  "quick_input_manifest_sha256": "08f9898232a046e4047d700b54dda31c8b73cc19a17958cddd5f853556028345"
+}

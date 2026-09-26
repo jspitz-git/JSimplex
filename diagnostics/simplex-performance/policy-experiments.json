@@ -1,0 +1,171 @@
+{
+  "scope": "Diagnostic policy experiments; failed and unfinished outcomes retained. They are not performance wins or a basis for promoting defaults.",
+  "cases": [
+    {
+      "name": "fast-selected-dual",
+      "raw": {
+        "source": "/home/jspitz/JSimplex.jl/.worktrees/simplex-performance/src/JSimplex.jl",
+        "iteration_limit": 1000000,
+        "production_sha256": "d89af3587414a19948e563e47bf7ab6882de8097f1b460dbe524f1a8a0c5b4a6",
+        "time_limit": 60.0,
+        "threads": 1,
+        "input": "/home/jspitz/mps/fast0507.mps",
+        "algorithm": "dual",
+        "strategy": "legacy",
+        "policy_mode": "selected",
+        "source_sha256": "5d27d3474d016e827c360a5c621a802edd5d5c8c163b7f782bb5ecf3083d0275",
+        "samples": [
+          {
+            "gc_seconds": 0.3953636,
+            "process_peak_rss": 1728712704,
+            "seconds": 13.938114514,
+            "iterations": 4990,
+            "outer_seconds": 13.938121914,
+            "status": "NUMERICAL_ERROR",
+            "message": "Original LP retry failed after NUMERICAL_ERROR (stable dual ratio test is numerically uncertain): stable dual ratio test is numerically uncertain",
+            "allocated_bytes": 1764789504,
+            "refactorizations": 37
+          }
+        ],
+        "warmups": [
+          {
+            "gc_seconds": 0.424972704,
+            "process_peak_rss": 1728712704,
+            "seconds": 14.081341827,
+            "iterations": 4990,
+            "outer_seconds": 14.081355527,
+            "status": "NUMERICAL_ERROR",
+            "message": "Original LP retry failed after NUMERICAL_ERROR (stable dual ratio test is numerically uncertain): stable dual ratio test is numerically uncertain",
+            "allocated_bytes": 1764827008,
+            "refactorizations": 37
+          }
+        ]
+      }
+    },
+    {
+      "name": "fast-selected-primal",
+      "raw": {
+        "source": "/home/jspitz/JSimplex.jl/.worktrees/simplex-performance/src/JSimplex.jl",
+        "iteration_limit": 1000000,
+        "production_sha256": "d89af3587414a19948e563e47bf7ab6882de8097f1b460dbe524f1a8a0c5b4a6",
+        "time_limit": 60.0,
+        "threads": 1,
+        "input": "/home/jspitz/mps/fast0507.mps",
+        "algorithm": "primal",
+        "strategy": "legacy",
+        "policy_mode": "selected",
+        "source_sha256": "5d27d3474d016e827c360a5c621a802edd5d5c8c163b7f782bb5ecf3083d0275",
+        "samples": [
+          {
+            "gc_seconds": 0.2877968,
+            "process_peak_rss": 1766277120,
+            "seconds": 2.378779502,
+            "iterations": 252,
+            "outer_seconds": 2.378791102,
+            "status": "NUMERICAL_ERROR",
+            "message": "Original LP retry failed after NUMERICAL_ERROR (bounded pivot validation and basis recovery attempts exhausted): bounded pivot validation and basis recovery attempts exhausted",
+            "allocated_bytes": 930188320,
+            "refactorizations": 87
+          }
+        ],
+        "warmups": [
+          {
+            "gc_seconds": 0.384347588,
+            "process_peak_rss": 1766277120,
+            "seconds": 2.563571229,
+            "iterations": 252,
+            "outer_seconds": 2.563589529,
+            "status": "NUMERICAL_ERROR",
+            "message": "Original LP retry failed after NUMERICAL_ERROR (bounded pivot validation and basis recovery attempts exhausted): bounded pivot validation and basis recovery attempts exhausted",
+            "allocated_bytes": 930121904,
+            "refactorizations": 87
+          }
+        ]
+      }
+    },
+    {
+      "name": "fast-adaptive-dual",
+      "raw": {
+        "source": "/home/jspitz/JSimplex.jl/.worktrees/simplex-performance/src/JSimplex.jl",
+        "iteration_limit": 1000000,
+        "production_sha256": "d89af3587414a19948e563e47bf7ab6882de8097f1b460dbe524f1a8a0c5b4a6",
+        "time_limit": 60.0,
+        "threads": 1,
+        "input": "/home/jspitz/mps/fast0507.mps",
+        "algorithm": "dual",
+        "strategy": "adaptive",
+        "policy_mode": "default",
+        "source_sha256": "5d27d3474d016e827c360a5c621a802edd5d5c8c163b7f782bb5ecf3083d0275",
+        "samples": [
+          {
+            "gc_seconds": 1.278624759,
+            "process_peak_rss": 1731575808,
+            "seconds": 60.006768013,
+            "iterations": 11624,
+            "outer_seconds": 60.006783813,
+            "status": "TIME_LIMIT",
+            "message": "time limit reached during feasibility recovery",
+            "allocated_bytes": 9516394576,
+            "refactorizations": 2084
+          }
+        ],
+        "warmups": [
+          {
+            "gc_seconds": 1.174459046,
+            "process_peak_rss": 1731575808,
+            "seconds": 60.003957469,
+            "iterations": 12517,
+            "outer_seconds": 60.003974969,
+            "status": "TIME_LIMIT",
+            "message": "time limit reached during feasibility recovery",
+            "allocated_bytes": 6782378024,
+            "refactorizations": 1008
+          }
+        ]
+      }
+    },
+    {
+      "name": "fast-current-adaptive-final",
+      "raw": {
+        "source": "/home/jspitz/JSimplex.jl/.worktrees/simplex-performance/src/JSimplex.jl",
+        "iteration_limit": 1000000,
+        "production_sha256": "b68c5dcc1d933c4e4816bee36f432630663c6ac4f15201094e7d4da5521ed6d4",
+        "time_limit": 60.0,
+        "threads": 1,
+        "warmup_mode": "full",
+        "input": "/home/jspitz/mps/fast0507.mps",
+        "algorithm": "dual",
+        "strategy": "adaptive",
+        "policy_mode": "default",
+        "source_sha256": "5d27d3474d016e827c360a5c621a802edd5d5c8c163b7f782bb5ecf3083d0275",
+        "harness_sha256": "3015090d43f7ac644a28958aa4b233c53141d5f49b854122fc4804605aeb91c6",
+        "samples": [
+          {
+            "gc_seconds": 1.253609539,
+            "process_peak_rss": 1801965568,
+            "seconds": 60.000497021,
+            "iterations": 10437,
+            "outer_seconds": 60.000504621,
+            "status": "TIME_LIMIT",
+            "message": "time limit reached during feasibility recovery",
+            "allocated_bytes": 8955892864,
+            "refactorizations": 2127
+          }
+        ],
+        "warmups": [
+          {
+            "gc_seconds": 1.383284589,
+            "process_peak_rss": 1767108608,
+            "seconds": 48.148739621,
+            "iterations": 9301,
+            "outer_seconds": 48.148784021,
+            "status": "NUMERICAL_ERROR",
+            "message": "Original LP retry failed after NUMERICAL_ERROR (bounded feasibility recovery exhausted): bounded feasibility recovery exhausted",
+            "allocated_bytes": 8197076720,
+            "refactorizations": 1829
+          }
+        ]
+      }
+    }
+  ]
+}

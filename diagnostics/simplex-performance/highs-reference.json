@@ -1,0 +1,184 @@
+{
+  "version": "1.15.0",
+  "threads": 1,
+  "solve_relaxation": true,
+  "time_limit": 360,
+  "presolve": "on",
+  "solver": "simplex",
+  "cases": [
+    {
+      "name": "fast0507",
+      "algorithm": "dual",
+      "source_sha256": "5d27d3474d016e827c360a5c621a802edd5d5c8c163b7f782bb5ecf3083d0275",
+      "status": 7,
+      "return_code": 0,
+      "seconds": 2.1255680629983544,
+      "objective": 172.1455666765489,
+      "iterations": 5204,
+      "max_primal_infeasibility": 1.1102230246251565e-16,
+      "max_dual_infeasibility": 1.7763568394002505e-15
+    },
+    {
+      "name": "fast0507",
+      "algorithm": "primal",
+      "source_sha256": "5d27d3474d016e827c360a5c621a802edd5d5c8c163b7f782bb5ecf3083d0275",
+      "status": 7,
+      "return_code": 0,
+      "seconds": 9.884393643005751,
+      "objective": 172.14556667654898,
+      "iterations": 22664,
+      "max_primal_infeasibility": 1.1102230246251565e-16,
+      "max_dual_infeasibility": 2.1316282072803006e-14
+    },
+    {
+      "name": "runtime",
+      "algorithm": "dual",
+      "source_sha256": "d0ac16e1a52a7d3411cbac28616bba9d3beb0c0edbdb2d72ab0477ce075f6c68",
+      "status": 7,
+      "return_code": 0,
+      "seconds": 18.26650793600129,
+      "objective": 51425691.76210451,
+      "iterations": 40625,
+      "max_primal_infeasibility": 9.603429163007604e-14,
+      "max_dual_infeasibility": 9.899895303533413e-08
+    },
+    {
+      "name": "runtime",
+      "algorithm": "primal",
+      "source_sha256": "d0ac16e1a52a7d3411cbac28616bba9d3beb0c0edbdb2d72ab0477ce075f6c68",
+      "status": 7,
+      "return_code": 0,
+      "seconds": 80.84611326199956,
+      "objective": 51425691.76210449,
+      "iterations": 169341,
+      "max_primal_infeasibility": 2.4167082928546522e-15,
+      "max_dual_infeasibility": 9.970511882784194e-08
+    },
+    {
+      "name": "medium",
+      "algorithm": "dual",
+      "source_sha256": "79c374a584b1463305cf4b0faee8920d0364df2dd5d0468a44ab58d9e9d49dc0",
+      "status": 7,
+      "return_code": 0,
+      "seconds": 108.52514292299747,
+      "objective": 22389455.64527828,
+      "iterations": 245738,
+      "max_primal_infeasibility": 2.5314370457030846e-12,
+      "max_dual_infeasibility": 6.871239688344133e-15
+    },
+    {
+      "name": "medium",
+      "algorithm": "primal",
+      "source_sha256": "79c374a584b1463305cf4b0faee8920d0364df2dd5d0468a44ab58d9e9d49dc0",
+      "status": 7,
+      "return_code": 0,
+      "seconds": 224.122492118011,
+      "objective": 22389455.645278268,
+      "iterations": 187500,
+      "max_primal_infeasibility": 0.0,
+      "max_dual_infeasibility": 5.744313634788806e-15
+    }
+  ],
+  "independent_primal_checks": [
+    {
+      "original_primal_certified": true,
+      "algorithm": "dual",
+      "name": "fast0507",
+      "solution_sha256": "eec580c92d1b3863c67dd06933ec7f7810ed94673406aef788eaf8e5adcf9b54",
+      "columns": 63009,
+      "input_sha256": "5d27d3474d016e827c360a5c621a802edd5d5c8c163b7f782bb5ecf3083d0275",
+      "primal_tolerance": 1e-07,
+      "rows": 507,
+      "objective": 172.14556667654887
+    },
+    {
+      "original_primal_certified": true,
+      "algorithm": "primal",
+      "name": "fast0507",
+      "solution_sha256": "2a7ac7cbd83d341ec034ccdfecceb0a4147e7c580304d105577de6f6b4dacb42",
+      "columns": 63009,
+      "input_sha256": "5d27d3474d016e827c360a5c621a802edd5d5c8c163b7f782bb5ecf3083d0275",
+      "primal_tolerance": 1e-07,
+      "rows": 507,
+      "objective": 172.1455666765489
+    },
+    {
+      "original_primal_certified": true,
+      "algorithm": "dual",
+      "name": "runtime",
+      "solution_sha256": "63a98fa01da50bb7ac0ddd4ef6bbcb1f944801ec311e8398488a3238e98d7053",
+      "columns": 47148,
+      "input_sha256": "d0ac16e1a52a7d3411cbac28616bba9d3beb0c0edbdb2d72ab0477ce075f6c68",
+      "primal_tolerance": 1e-07,
+      "rows": 43021,
+      "objective": 51425691.762104526
+    },
+    {
+      "original_primal_certified": true,
+      "algorithm": "primal",
+      "name": "runtime",
+      "solution_sha256": "4f22b0bb4b120396d926495b7551d532c15fa15378372768090db44e870603a4",
+      "columns": 47148,
+      "input_sha256": "d0ac16e1a52a7d3411cbac28616bba9d3beb0c0edbdb2d72ab0477ce075f6c68",
+      "primal_tolerance": 1e-07,
+      "rows": 43021,
+      "objective": 51425691.76210455
+    },
+    {
+      "original_primal_certified": false,
+      "algorithm": "dual",
+      "name": "medium",
+      "solution_sha256": "008ec1b6808452491b6ec1b5f35db4ec6d513f2b93f89cf5d225a42ee10e7019",
+      "columns": 420526,
+      "input_sha256": "79c374a584b1463305cf4b0faee8920d0364df2dd5d0468a44ab58d9e9d49dc0",
+      "primal_tolerance": 1e-07,
+      "rows": 586972,
+      "objective": 22389455.64527828
+    },
+    {
+      "original_primal_certified": false,
+      "algorithm": "primal",
+      "name": "medium",
+      "solution_sha256": "55a40760bea0795a6e2124c7d2618017065d071589735155fe24c3e2d74eaf92",
+      "columns": 420526,
+      "input_sha256": "79c374a584b1463305cf4b0faee8920d0364df2dd5d0468a44ab58d9e9d49dc0",
+      "primal_tolerance": 1e-07,
+      "rows": 586972,
+      "objective": 22389455.645278264
+    }
+  ],
+  "medium_exact_check": [
+    {
+      "maximum_exact_violation_float64": 1.7775306313644844e-07,
+      "algorithm": "dual",
+      "maximum_exact_violation": "819741315999//4611686018427387904",
+      "worst_row": 481811,
+      "first_violating_rows": [
+        481811
+      ],
+      "ambiguous_rows": 3,
+      "column_certificate": true,
+      "violating_rows": 1
+    },
+    {
+      "maximum_exact_violation_float64": 1.7759119318497794e-07,
+      "algorithm": "primal",
+      "maximum_exact_violation": "818994822607//4611686018427387904",
+      "worst_row": 481811,
+      "first_violating_rows": [
+        481811
+      ],
+      "ambiguous_rows": 3,
+      "column_certificate": true,
+      "violating_rows": 1
+    }
+  ],
+  "scope": "One observation per method and input through installed HiGHS 1.15.0 C API. HiGHS-reported optimal status is distinct from the independent exact-input primal certificate.",
+  "options_documentation": "https://ergo-code.github.io/HiGHS/dev/options/definitions/",
+  "harness_sha256": {
+    "highs-reference.py": "6869f3cd50e611b7755576dafd38d68354c67b1d993f53d376e77f99afc8e22a",
+    "certify-highs.jl": "211f4817c6f7eab1265b1c858b63dc3d183929cefead0746d4dcb09bbe769e9c",
+    "medium-reference-check.jl": "651ede52ada128b2b37787447cd9eeeda6b1ad33472a1ec73270054f6240ded3",
+    "medium-reference-exact.jl": "f5a75d7b3f34d347544c8d73960c873cfb945a103323bb7297ffbbe473337bc0"
+  }
+}

@@ -24,9 +24,10 @@ assertions of every scratch buffer's scalar type, beyond the current allocation,
 behavior and source checks.
 
 The reviewer set aside complete-solver performance and final full-suite success
-because those sequential gates were still pending. They remain the implementer's
-responsibility. Broad HiGHS/Clp parity and unmeasured long-update histories are
-not established by kernel benchmarks or prefix profiles.
+because those sequential gates were still pending at review time. The implementer
+subsequently completed them, with evidence linked below. Broad HiGHS/Clp parity
+and unmeasured long-update histories are not established by kernel benchmarks
+or prefix profiles.
 
 During the same fix pass, an exact-input test also reproduced false native
 acceptance when the caller enabled flush-to-zero arithmetic: 3 checks passed
@@ -37,5 +38,10 @@ caller's mode. The broader quality/refinement/primal-update run passed
 8,789/8,789 checks before this additional mode guard. Julia documents the
 thread-local mode in its [numeric API](https://docs.julialang.org/en/v1.13-dev/base/numbers/#Base.Rounding.set_zero_subnormals).
 
-Final full-suite and external-case evidence will be recorded in the main report
-and verification artifact after the frozen-source gates finish.
+The final frozen-source gates passed: production 254,083/254,083; development
+1,208/1,208 including 249 JET checks; numerical GLPK comparisons 6/6; external
+corpus 104/104 checks across 32 solves. The [main report](report.md) and
+[verification artifact](verification.json) retain the evidence and limitations.
+Runtime and medium remain unresolved in the six-minute completion attempts;
+the passing regression gates do not imply those numerical/performance gaps
+were repaired.

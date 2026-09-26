@@ -1,0 +1,643 @@
+{
+  "baseline_commit": "b69e266",
+  "optimization_stage_commit": "6a88469",
+  "julia_version": "1.13.0",
+  "production_fingerprint_scheme": "SHA256 of relative path + NUL + bytes, Project.toml and src/**/*.jl sorted by full relative-path string",
+  "architecture": "aarch64",
+  "julia_threads": 1,
+  "blas_threads": 1,
+  "address_space_limit_bytes": 25769803776,
+  "scope": "Source-specific observations. Fast cases have one complete warmup and three measured repeats. Large cases have one AFIRO compilation warmup and one 360-second attempt; residual compilation is not separately excluded. Unfinished runs are not speedups.",
+  "measurements": [
+    {
+      "case": "fast0507",
+      "version": "baseline",
+      "algorithm": "dual",
+      "raw": {
+        "source": "/home/jspitz/JSimplex.jl/.worktrees/simplex-modernization/src/JSimplex.jl",
+        "iteration_limit": 1000000,
+        "production_sha256": "b38a8a2f5c6e69515ee55d740f3846c76f285f56868ff521f02bf2858d069cf8",
+        "time_limit": 360.0,
+        "threads": 1,
+        "warmup_mode": "full",
+        "input": "/home/jspitz/mps/fast0507.mps",
+        "algorithm": "dual",
+        "strategy": "legacy",
+        "policy_mode": "default",
+        "source_sha256": "5d27d3474d016e827c360a5c621a802edd5d5c8c163b7f782bb5ecf3083d0275",
+        "harness_sha256": "3015090d43f7ac644a28958aa4b233c53141d5f49b854122fc4804605aeb91c6",
+        "samples": [
+          {
+            "process_peak_rss": 1719017472,
+            "gc_seconds": 0.359978007,
+            "outer_seconds": 9.881622194,
+            "objective": 172.14556667654887,
+            "refactorizations": 90,
+            "seconds": 9.881609594,
+            "allocated_bytes": 1237727576,
+            "original_primal_certified": true,
+            "iterations": 6624,
+            "status": "OPTIMAL",
+            "message": "optimal solution found"
+          },
+          {
+            "process_peak_rss": 1719017472,
+            "gc_seconds": 0.302731633,
+            "outer_seconds": 10.089605555,
+            "objective": 172.14556667654887,
+            "refactorizations": 90,
+            "seconds": 10.089593855,
+            "allocated_bytes": 1237829256,
+            "original_primal_certified": true,
+            "iterations": 6624,
+            "status": "OPTIMAL",
+            "message": "optimal solution found"
+          },
+          {
+            "process_peak_rss": 1719017472,
+            "gc_seconds": 0.333281111,
+            "outer_seconds": 10.257830428,
+            "objective": 172.14556667654887,
+            "refactorizations": 90,
+            "seconds": 10.257816828,
+            "allocated_bytes": 1237819336,
+            "original_primal_certified": true,
+            "iterations": 6624,
+            "status": "OPTIMAL",
+            "message": "optimal solution found"
+          }
+        ],
+        "warmups": [
+          {
+            "process_peak_rss": 1719017472,
+            "gc_seconds": 0.405409321,
+            "outer_seconds": 9.982848997,
+            "objective": 172.14556667654887,
+            "refactorizations": 90,
+            "seconds": 9.982831997,
+            "allocated_bytes": 1237763432,
+            "original_primal_certified": true,
+            "iterations": 6624,
+            "status": "OPTIMAL",
+            "message": "optimal solution found"
+          }
+        ]
+      },
+      "median_seconds": 10.089593855,
+      "log_sha256": "aec9388b3cc229987b9ef9cd08e6b2b3651dedb237c7a8033d30016ac4437a09"
+    },
+    {
+      "case": "fast0507",
+      "version": "current",
+      "algorithm": "dual",
+      "raw": {
+        "source": "/home/jspitz/JSimplex.jl/.worktrees/simplex-performance/src/JSimplex.jl",
+        "iteration_limit": 1000000,
+        "production_sha256": "b68c5dcc1d933c4e4816bee36f432630663c6ac4f15201094e7d4da5521ed6d4",
+        "time_limit": 360.0,
+        "threads": 1,
+        "warmup_mode": "full",
+        "input": "/home/jspitz/mps/fast0507.mps",
+        "algorithm": "dual",
+        "strategy": "legacy",
+        "policy_mode": "default",
+        "source_sha256": "5d27d3474d016e827c360a5c621a802edd5d5c8c163b7f782bb5ecf3083d0275",
+        "harness_sha256": "3015090d43f7ac644a28958aa4b233c53141d5f49b854122fc4804605aeb91c6",
+        "samples": [
+          {
+            "process_peak_rss": 1755226112,
+            "gc_seconds": 0.311649455,
+            "outer_seconds": 8.23621386,
+            "objective": 172.14556667654887,
+            "refactorizations": 90,
+            "seconds": 8.23619706,
+            "allocated_bytes": 842929656,
+            "original_primal_certified": true,
+            "iterations": 6624,
+            "status": "OPTIMAL",
+            "message": "optimal solution found"
+          },
+          {
+            "process_peak_rss": 1755226112,
+            "gc_seconds": 0.256854726,
+            "outer_seconds": 8.265664719,
+            "objective": 172.14556667654887,
+            "refactorizations": 90,
+            "seconds": 8.265650019,
+            "allocated_bytes": 842926072,
+            "original_primal_certified": true,
+            "iterations": 6624,
+            "status": "OPTIMAL",
+            "message": "optimal solution found"
+          },
+          {
+            "process_peak_rss": 1755226112,
+            "gc_seconds": 0.242962206,
+            "outer_seconds": 8.255275874,
+            "objective": 172.14556667654887,
+            "refactorizations": 90,
+            "seconds": 8.255260274,
+            "allocated_bytes": 842890024,
+            "original_primal_certified": true,
+            "iterations": 6624,
+            "status": "OPTIMAL",
+            "message": "optimal solution found"
+          }
+        ],
+        "warmups": [
+          {
+            "process_peak_rss": 1755226112,
+            "gc_seconds": 0.322036606,
+            "outer_seconds": 8.364359721,
+            "objective": 172.14556667654887,
+            "refactorizations": 90,
+            "seconds": 8.364341521,
+            "allocated_bytes": 843013208,
+            "original_primal_certified": true,
+            "iterations": 6624,
+            "status": "OPTIMAL",
+            "message": "optimal solution found"
+          }
+        ]
+      },
+      "median_seconds": 8.255260274,
+      "log_sha256": "982729a094f444556ba40b86fda615319368ac6c252d7bec282846605a561bfa"
+    },
+    {
+      "case": "fast0507",
+      "version": "baseline",
+      "algorithm": "primal",
+      "raw": {
+        "source": "/home/jspitz/JSimplex.jl/.worktrees/simplex-modernization/src/JSimplex.jl",
+        "iteration_limit": 1000000,
+        "production_sha256": "b38a8a2f5c6e69515ee55d740f3846c76f285f56868ff521f02bf2858d069cf8",
+        "time_limit": 360.0,
+        "threads": 1,
+        "warmup_mode": "full",
+        "input": "/home/jspitz/mps/fast0507.mps",
+        "algorithm": "primal",
+        "strategy": "legacy",
+        "policy_mode": "default",
+        "source_sha256": "5d27d3474d016e827c360a5c621a802edd5d5c8c163b7f782bb5ecf3083d0275",
+        "harness_sha256": "3015090d43f7ac644a28958aa4b233c53141d5f49b854122fc4804605aeb91c6",
+        "samples": [
+          {
+            "process_peak_rss": 1681936384,
+            "gc_seconds": 0.342304135,
+            "outer_seconds": 12.72041023,
+            "objective": 172.1455666765488,
+            "refactorizations": 242,
+            "seconds": 12.72039893,
+            "allocated_bytes": 1001679552,
+            "original_primal_certified": true,
+            "iterations": 4806,
+            "status": "OPTIMAL",
+            "message": "optimal solution found"
+          },
+          {
+            "process_peak_rss": 1681936384,
+            "gc_seconds": 0.3449542,
+            "outer_seconds": 12.991566244,
+            "objective": 172.1455666765488,
+            "refactorizations": 242,
+            "seconds": 12.991553344,
+            "allocated_bytes": 1001674800,
+            "original_primal_certified": true,
+            "iterations": 4806,
+            "status": "OPTIMAL",
+            "message": "optimal solution found"
+          },
+          {
+            "process_peak_rss": 1681936384,
+            "gc_seconds": 0.341878403,
+            "outer_seconds": 12.947351775,
+            "objective": 172.1455666765488,
+            "refactorizations": 242,
+            "seconds": 12.947336975,
+            "allocated_bytes": 1001672336,
+            "original_primal_certified": true,
+            "iterations": 4806,
+            "status": "OPTIMAL",
+            "message": "optimal solution found"
+          }
+        ],
+        "warmups": [
+          {
+            "process_peak_rss": 1681936384,
+            "gc_seconds": 0.41387882,
+            "outer_seconds": 12.863323966,
+            "objective": 172.1455666765488,
+            "refactorizations": 242,
+            "seconds": 12.863307566,
+            "allocated_bytes": 1001764672,
+            "original_primal_certified": true,
+            "iterations": 4806,
+            "status": "OPTIMAL",
+            "message": "optimal solution found"
+          }
+        ]
+      },
+      "median_seconds": 12.947336975,
+      "log_sha256": "aff57c3cbd148a35aa05d25fea5e092f87db389a9e4955d174fb8854f195ab70"
+    },
+    {
+      "case": "fast0507",
+      "version": "current",
+      "algorithm": "primal",
+      "raw": {
+        "source": "/home/jspitz/JSimplex.jl/.worktrees/simplex-performance/src/JSimplex.jl",
+        "iteration_limit": 1000000,
+        "production_sha256": "b68c5dcc1d933c4e4816bee36f432630663c6ac4f15201094e7d4da5521ed6d4",
+        "time_limit": 360.0,
+        "threads": 1,
+        "warmup_mode": "full",
+        "input": "/home/jspitz/mps/fast0507.mps",
+        "algorithm": "primal",
+        "strategy": "legacy",
+        "policy_mode": "default",
+        "source_sha256": "5d27d3474d016e827c360a5c621a802edd5d5c8c163b7f782bb5ecf3083d0275",
+        "harness_sha256": "3015090d43f7ac644a28958aa4b233c53141d5f49b854122fc4804605aeb91c6",
+        "samples": [
+          {
+            "process_peak_rss": 1771249664,
+            "gc_seconds": 0.398090103,
+            "outer_seconds": 12.688018982,
+            "objective": 172.1455666765488,
+            "refactorizations": 242,
+            "seconds": 12.688004582,
+            "allocated_bytes": 1001735408,
+            "original_primal_certified": true,
+            "iterations": 4806,
+            "status": "OPTIMAL",
+            "message": "optimal solution found"
+          },
+          {
+            "process_peak_rss": 1771249664,
+            "gc_seconds": 0.305074703,
+            "outer_seconds": 12.49467646,
+            "objective": 172.1455666765488,
+            "refactorizations": 242,
+            "seconds": 12.49466506,
+            "allocated_bytes": 1001729808,
+            "original_primal_certified": true,
+            "iterations": 4806,
+            "status": "OPTIMAL",
+            "message": "optimal solution found"
+          },
+          {
+            "process_peak_rss": 1771249664,
+            "gc_seconds": 0.344006406,
+            "outer_seconds": 12.769849003,
+            "objective": 172.1455666765488,
+            "refactorizations": 242,
+            "seconds": 12.769837403,
+            "allocated_bytes": 1001648416,
+            "original_primal_certified": true,
+            "iterations": 4806,
+            "status": "OPTIMAL",
+            "message": "optimal solution found"
+          }
+        ],
+        "warmups": [
+          {
+            "process_peak_rss": 1771249664,
+            "gc_seconds": 0.388741004,
+            "outer_seconds": 12.863626928,
+            "objective": 172.1455666765488,
+            "refactorizations": 242,
+            "seconds": 12.863610928,
+            "allocated_bytes": 1001699712,
+            "original_primal_certified": true,
+            "iterations": 4806,
+            "status": "OPTIMAL",
+            "message": "optimal solution found"
+          }
+        ]
+      },
+      "median_seconds": 12.688004582,
+      "log_sha256": "d06985170e7c54fe9b89f1f8f0c7c5bccd2ff057bbffa79f1634bd58e69e99f4"
+    },
+    {
+      "case": "runtime",
+      "version": "baseline",
+      "algorithm": "dual",
+      "raw": {
+        "source": "/home/jspitz/JSimplex.jl/.worktrees/simplex-modernization/src/JSimplex.jl",
+        "iteration_limit": 1000000,
+        "production_sha256": "b38a8a2f5c6e69515ee55d740f3846c76f285f56868ff521f02bf2858d069cf8",
+        "time_limit": 360.0,
+        "threads": 1,
+        "warmup_mode": "afiro",
+        "input": "/home/jspitz/mps/runtime.mps",
+        "algorithm": "dual",
+        "strategy": "legacy",
+        "policy_mode": "default",
+        "warmups": [],
+        "source_sha256": "d0ac16e1a52a7d3411cbac28616bba9d3beb0c0edbdb2d72ab0477ce075f6c68",
+        "harness_sha256": "3015090d43f7ac644a28958aa4b233c53141d5f49b854122fc4804605aeb91c6",
+        "compilation_warmup": {
+          "input": "test/fixtures/solver/afiro.mps",
+          "seconds": 0.0041225,
+          "status": "OPTIMAL"
+        },
+        "samples": [
+          {
+            "gc_seconds": 11.872191462,
+            "process_peak_rss": 2019274752,
+            "seconds": 360.01295788,
+            "iterations": 73091,
+            "outer_seconds": 360.01296868,
+            "status": "TIME_LIMIT",
+            "message": "time limit reached",
+            "allocated_bytes": 278585557304,
+            "refactorizations": 11939
+          }
+        ]
+      },
+      "median_seconds": 360.01295788,
+      "log_sha256": "7960d34dd8e65e8a797061772b513eb951e5a25b44b33431fdaab98e6204d980"
+    },
+    {
+      "case": "runtime",
+      "version": "current",
+      "algorithm": "dual",
+      "raw": {
+        "source": "/home/jspitz/JSimplex.jl/.worktrees/simplex-performance/src/JSimplex.jl",
+        "iteration_limit": 1000000,
+        "production_sha256": "b68c5dcc1d933c4e4816bee36f432630663c6ac4f15201094e7d4da5521ed6d4",
+        "time_limit": 360.0,
+        "threads": 1,
+        "warmup_mode": "afiro",
+        "input": "/home/jspitz/mps/runtime.mps",
+        "algorithm": "dual",
+        "strategy": "legacy",
+        "policy_mode": "default",
+        "warmups": [],
+        "source_sha256": "d0ac16e1a52a7d3411cbac28616bba9d3beb0c0edbdb2d72ab0477ce075f6c68",
+        "harness_sha256": "3015090d43f7ac644a28958aa4b233c53141d5f49b854122fc4804605aeb91c6",
+        "compilation_warmup": {
+          "input": "test/fixtures/solver/afiro.mps",
+          "seconds": 0.0051837,
+          "status": "OPTIMAL"
+        },
+        "samples": [
+          {
+            "gc_seconds": 12.175084505,
+            "process_peak_rss": 1869082624,
+            "seconds": 360.001659451,
+            "iterations": 74146,
+            "outer_seconds": 360.001675451,
+            "status": "TIME_LIMIT",
+            "message": "time limit reached",
+            "allocated_bytes": 284955325048,
+            "refactorizations": 12252
+          }
+        ]
+      },
+      "median_seconds": 360.001659451,
+      "log_sha256": "ebd4d1964c5c948fd4dae81fb6ebbe94cdbe9d307dde96eb26d541461e5a7b33"
+    },
+    {
+      "case": "runtime",
+      "version": "baseline",
+      "algorithm": "primal",
+      "raw": {
+        "source": "/home/jspitz/JSimplex.jl/.worktrees/simplex-modernization/src/JSimplex.jl",
+        "iteration_limit": 1000000,
+        "production_sha256": "b38a8a2f5c6e69515ee55d740f3846c76f285f56868ff521f02bf2858d069cf8",
+        "time_limit": 360.0,
+        "threads": 1,
+        "warmup_mode": "afiro",
+        "input": "/home/jspitz/mps/runtime.mps",
+        "algorithm": "primal",
+        "strategy": "legacy",
+        "policy_mode": "default",
+        "warmups": [],
+        "source_sha256": "d0ac16e1a52a7d3411cbac28616bba9d3beb0c0edbdb2d72ab0477ce075f6c68",
+        "harness_sha256": "3015090d43f7ac644a28958aa4b233c53141d5f49b854122fc4804605aeb91c6",
+        "compilation_warmup": {
+          "input": "test/fixtures/solver/afiro.mps",
+          "seconds": 0.0015557,
+          "status": "OPTIMAL"
+        },
+        "samples": [
+          {
+            "gc_seconds": 0.611867273,
+            "process_peak_rss": 1693990912,
+            "seconds": 3.314110191,
+            "iterations": 767,
+            "outer_seconds": 3.314121491,
+            "status": "NUMERICAL_ERROR",
+            "message": "Original LP retry failed after NUMERICAL_ERROR (primal feasibility lost): primal feasibility lost",
+            "allocated_bytes": 2426237280,
+            "refactorizations": 39
+          }
+        ]
+      },
+      "median_seconds": 3.314110191,
+      "log_sha256": "eef965bba299e55eefdafb4a64ad65dd64827d813b7da0314e88205e55c12412"
+    },
+    {
+      "case": "runtime",
+      "version": "current",
+      "algorithm": "primal",
+      "raw": {
+        "source": "/home/jspitz/JSimplex.jl/.worktrees/simplex-performance/src/JSimplex.jl",
+        "iteration_limit": 1000000,
+        "production_sha256": "b68c5dcc1d933c4e4816bee36f432630663c6ac4f15201094e7d4da5521ed6d4",
+        "time_limit": 360.0,
+        "threads": 1,
+        "warmup_mode": "afiro",
+        "input": "/home/jspitz/mps/runtime.mps",
+        "algorithm": "primal",
+        "strategy": "legacy",
+        "policy_mode": "default",
+        "warmups": [],
+        "source_sha256": "d0ac16e1a52a7d3411cbac28616bba9d3beb0c0edbdb2d72ab0477ce075f6c68",
+        "harness_sha256": "3015090d43f7ac644a28958aa4b233c53141d5f49b854122fc4804605aeb91c6",
+        "compilation_warmup": {
+          "input": "test/fixtures/solver/afiro.mps",
+          "seconds": 0.002123699,
+          "status": "OPTIMAL"
+        },
+        "samples": [
+          {
+            "gc_seconds": 0.61315829,
+            "process_peak_rss": 1701265408,
+            "seconds": 3.26950162,
+            "iterations": 767,
+            "outer_seconds": 3.26951362,
+            "status": "NUMERICAL_ERROR",
+            "message": "Original LP retry failed after NUMERICAL_ERROR (primal feasibility lost): primal feasibility lost",
+            "allocated_bytes": 2426215856,
+            "refactorizations": 39
+          }
+        ]
+      },
+      "median_seconds": 3.26950162,
+      "log_sha256": "fccfc43d065d0a06e553e95c62c98a1e829d02c285adeadca6c3bf2b970f0d5d"
+    },
+    {
+      "case": "medium",
+      "version": "baseline",
+      "algorithm": "dual",
+      "raw": {
+        "source": "/home/jspitz/JSimplex.jl/.worktrees/simplex-modernization/src/JSimplex.jl",
+        "iteration_limit": 1000000,
+        "production_sha256": "b38a8a2f5c6e69515ee55d740f3846c76f285f56868ff521f02bf2858d069cf8",
+        "time_limit": 360.0,
+        "threads": 1,
+        "warmup_mode": "afiro",
+        "input": "/home/jspitz/mps/medium.mps",
+        "algorithm": "dual",
+        "strategy": "legacy",
+        "policy_mode": "default",
+        "warmups": [],
+        "source_sha256": "79c374a584b1463305cf4b0faee8920d0364df2dd5d0468a44ab58d9e9d49dc0",
+        "harness_sha256": "3015090d43f7ac644a28958aa4b233c53141d5f49b854122fc4804605aeb91c6",
+        "compilation_warmup": {
+          "input": "test/fixtures/solver/afiro.mps",
+          "seconds": 0.005049101,
+          "status": "OPTIMAL"
+        },
+        "samples": [
+          {
+            "gc_seconds": 5.833580418,
+            "process_peak_rss": 5255880704,
+            "seconds": 360.001868709,
+            "iterations": 28946,
+            "outer_seconds": 360.001886609,
+            "status": "TIME_LIMIT",
+            "message": "time limit reached",
+            "allocated_bytes": 241784596440,
+            "refactorizations": 1447
+          }
+        ]
+      },
+      "median_seconds": 360.001868709,
+      "log_sha256": "a77faf1d52420cb439107f11fd1411fdc3031b85c234570f37b04c47be9b5dd9"
+    },
+    {
+      "case": "medium",
+      "version": "current",
+      "algorithm": "dual",
+      "raw": {
+        "source": "/home/jspitz/JSimplex.jl/.worktrees/simplex-performance/src/JSimplex.jl",
+        "iteration_limit": 1000000,
+        "production_sha256": "b68c5dcc1d933c4e4816bee36f432630663c6ac4f15201094e7d4da5521ed6d4",
+        "time_limit": 360.0,
+        "threads": 1,
+        "warmup_mode": "afiro",
+        "input": "/home/jspitz/mps/medium.mps",
+        "algorithm": "dual",
+        "strategy": "legacy",
+        "policy_mode": "default",
+        "warmups": [],
+        "source_sha256": "79c374a584b1463305cf4b0faee8920d0364df2dd5d0468a44ab58d9e9d49dc0",
+        "harness_sha256": "3015090d43f7ac644a28958aa4b233c53141d5f49b854122fc4804605aeb91c6",
+        "compilation_warmup": {
+          "input": "test/fixtures/solver/afiro.mps",
+          "seconds": 0.004964101,
+          "status": "OPTIMAL"
+        },
+        "samples": [
+          {
+            "gc_seconds": 6.036186288,
+            "process_peak_rss": 5343805440,
+            "seconds": 360.007540168,
+            "iterations": 31242,
+            "outer_seconds": 360.007564868,
+            "status": "TIME_LIMIT",
+            "message": "time limit reached",
+            "allocated_bytes": 260510900200,
+            "refactorizations": 1562
+          }
+        ]
+      },
+      "median_seconds": 360.007540168,
+      "log_sha256": "4c5cc75575e83c7a52e0c493a5e05e418342a0f4cdc4b83b3881168e23b51e36"
+    },
+    {
+      "case": "medium",
+      "version": "baseline",
+      "algorithm": "primal",
+      "raw": {
+        "source": "/home/jspitz/JSimplex.jl/.worktrees/simplex-modernization/src/JSimplex.jl",
+        "iteration_limit": 1000000,
+        "production_sha256": "b38a8a2f5c6e69515ee55d740f3846c76f285f56868ff521f02bf2858d069cf8",
+        "time_limit": 360.0,
+        "threads": 1,
+        "warmup_mode": "afiro",
+        "input": "/home/jspitz/mps/medium.mps",
+        "algorithm": "primal",
+        "strategy": "legacy",
+        "policy_mode": "default",
+        "warmups": [],
+        "source_sha256": "79c374a584b1463305cf4b0faee8920d0364df2dd5d0468a44ab58d9e9d49dc0",
+        "harness_sha256": "3015090d43f7ac644a28958aa4b233c53141d5f49b854122fc4804605aeb91c6",
+        "compilation_warmup": {
+          "input": "test/fixtures/solver/afiro.mps",
+          "seconds": 0.0022741,
+          "status": "OPTIMAL"
+        },
+        "samples": [
+          {
+            "gc_seconds": 5.37851787,
+            "process_peak_rss": 5105016832,
+            "seconds": 360.004365512,
+            "iterations": 20807,
+            "outer_seconds": 360.004381112,
+            "status": "TIME_LIMIT",
+            "message": "time limit reached",
+            "allocated_bytes": 177210136592,
+            "refactorizations": 1041
+          }
+        ]
+      },
+      "median_seconds": 360.004365512,
+      "log_sha256": "3934a7c50abdb76e21fe78bd6cef8edd94f6466db09c99014e348a9a4966bdd9"
+    },
+    {
+      "case": "medium",
+      "version": "current",
+      "algorithm": "primal",
+      "raw": {
+        "source": "/home/jspitz/JSimplex.jl/.worktrees/simplex-performance/src/JSimplex.jl",
+        "iteration_limit": 1000000,
+        "production_sha256": "b68c5dcc1d933c4e4816bee36f432630663c6ac4f15201094e7d4da5521ed6d4",
+        "time_limit": 360.0,
+        "threads": 1,
+        "warmup_mode": "afiro",
+        "input": "/home/jspitz/mps/medium.mps",
+        "algorithm": "primal",
+        "strategy": "legacy",
+        "policy_mode": "default",
+        "warmups": [],
+        "source_sha256": "79c374a584b1463305cf4b0faee8920d0364df2dd5d0468a44ab58d9e9d49dc0",
+        "harness_sha256": "3015090d43f7ac644a28958aa4b233c53141d5f49b854122fc4804605aeb91c6",
+        "compilation_warmup": {
+          "input": "test/fixtures/solver/afiro.mps",
+          "seconds": 0.0026476,
+          "status": "OPTIMAL"
+        },
+        "samples": [
+          {
+            "gc_seconds": 5.134167648,
+            "process_peak_rss": 5563666432,
+            "seconds": 360.003542782,
+            "iterations": 21619,
+            "outer_seconds": 360.003563582,
+            "status": "TIME_LIMIT",
+            "message": "time limit reached",
+            "allocated_bytes": 183703938672,
+            "refactorizations": 1081
+          }
+        ]
+      },
+      "median_seconds": 360.003542782,
+      "log_sha256": "292ec6d3a9378b235946d345b5cdc166e0b0201d62be33901527679f986249fa"
+    }
+  ],
+  "expected_configurations": 12,
+  "complete": true
+}
