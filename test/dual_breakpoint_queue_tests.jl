@@ -32,5 +32,15 @@ end
         @test enter == 3
         @test flips == (T <: AbstractFloat ? [2,1] : [1,2])
         @test !exhausted
+        many = T[mod(i,3) for i in 1:128]
+        T <: AbstractFloat && (many[64] = -zero(T))
+        large = JSimplex.initialize_workspace(
+            LinearProblem(spzeros(T,1,128),many;column_upper=ones(T,128)),
+            SolverOptions(T;verbose=false))
+        large.reduced_costs[1:128] .= many
+        enter,flips,exhausted = JSimplex._bound_flipping_ratio_test(
+            large,[ones(T,128);zero(T)],one(T),T(200))
+        @test enter == -1 && exhausted
+        @test flips == sortperm(many)
     end
 end

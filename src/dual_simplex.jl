@@ -406,10 +406,19 @@ function _bound_flipping_ratio_test(workspace::SimplexWorkspace{T}, tableau_row:
     # Most pivots consume a small prefix. Building a heap costs linear work
     # and reuses the candidate buffer instead of sorting every breakpoint.
     _heapify_breakpoints!(candidates,steps)
+    sort_after = max(32,length(candidates)÷16)
+    sorted_tail = false
+    tail_position = 1
 
     remaining = violation
-    while !isempty(candidates)
-        index = _pop_breakpoint!(candidates,steps)
+    while sorted_tail ? tail_position <= length(candidates) : !isempty(candidates)
+        index = if sorted_tail
+            value = candidates[tail_position]
+            tail_position += 1
+            value
+        else
+            _pop_breakpoint!(candidates,steps)
+        end
         state = workspace.basis.states[index]
         opposite = state == AT_LOWER ? workspace.upper[index] : workspace.lower[index]
         if state == FREE_NONBASIC || !isfinite(opposite)
@@ -428,6 +437,13 @@ function _bound_flipping_ratio_test(workspace::SimplexWorkspace{T}, tableau_row:
         end
         push!(flips, index)
         remaining -= gain
+        if !sorted_tail && length(flips) >= sort_after
+            # A long flip sequence no longer benefits from extracting a
+            # prefix. Finish in-place; the explicit index key restores the
+            # original stable ties after heap construction shuffled the tail.
+            sort!(candidates;by=index -> (steps[index],index),alg=QuickSort)
+            sorted_tail = true
+        end
     end
     return -1, flips, true
 end

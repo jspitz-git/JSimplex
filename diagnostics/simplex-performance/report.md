@@ -62,3 +62,17 @@ The combined breakpoint/validity/ratio run passed 467/467 checks.
 [Five warmed kernel samples](workspace-finiteness.json) show about 2.1–2.2 times
 faster Float64 and 4.4 times faster Float32 checks at 63,009 and 420,526 columns,
 with zero allocation in both versions. These are kernel measurements only.
+
+### Bound the cost of long flip sequences
+
+Pure heap extraction was 3.0–3.3 times faster for short prefixes but 3.3 times
+slower when consuming all 4,096 candidates. After `max(32, n/16)` flips, the
+implementation now sorts the remaining tail in place with the original-index
+tie key. The added 128-candidate tests exercise this transition for Float32,
+Float64, BigFloat and exact rational arithmetic; all 28 breakpoint checks pass.
+
+[All three measurements](dual-breakpoints.json) are retained. The hybrid is
+3.1–3.6 times faster for the measured short prefixes with zero allocation.
+Full exhaustion still costs about 2.1 times the old full sort (0.181 versus
+0.085 milliseconds per call). This remains a measured limitation, not a claim
+that every ratio test got faster. It will be weighed against complete solves.
