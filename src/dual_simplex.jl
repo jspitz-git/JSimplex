@@ -1612,7 +1612,9 @@ _within_primal_bounds(values::AbstractVector{T}, lower::AbstractVector{Bound{T}}
     _within_primal_intervals(values, values, lower, upper, tolerance)
 
 function _refined_primal_rows_feasible(problem::LinearProblem{T}, primal::Vector{T},
-                                       tolerance::T, rows::Vector{Int}) where {T<:Union{Float32,Float64}}
+                                       tolerance::T, rows::Vector{Int},
+                                       row_lower=problem.row_lower,
+                                       row_upper=problem.row_upper) where {T<:Union{Float32,Float64}}
     A = problem.A
     row_slot = zeros(Int, size(A, 1))
     for (slot, row) in enumerate(rows)
@@ -1636,8 +1638,8 @@ function _refined_primal_rows_feasible(problem::LinearProblem{T}, primal::Vector
         # intermediate overflow. An out-of-range final activity remains unsafe,
         # including on an unbounded row or when rounding would hide the excess.
         abs(activities[slot]) <= finite_limit || return false
-        lower = problem.row_lower[row]
-        upper = problem.row_upper[row]
+        lower = row_lower[row]
+        upper = row_upper[row]
         if isfinite(lower)
             activities[slot] >= Rational{BigInt}(bound_value(lower)) - exact_tolerance ||
                 return false

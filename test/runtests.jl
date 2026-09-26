@@ -11,6 +11,7 @@ using Test
     include("legacy_correction_cycle_tests.jl")
     include("legacy_retry_edge_tests.jl")
     include("legacy_harris_feasibility_tests.jl")
+    include("legacy_primal_point_tests.jl")
     include("options_tests.jl")
     include("simplex_numerics_tests.jl")
     include("native_residual_tests.jl")

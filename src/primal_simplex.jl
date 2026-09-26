@@ -596,8 +596,11 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
         end
         return nothing
     end
+    primal_candidate = _legacy_primal_point_candidate(
+        workspace, entering, leaving_row, direction * step, tableau_column)
     recompute!(workspace; refactorize, caller_guard=stop_requested,
                diagnostic_reason=_refactor_event(refactor_reason))
+    _restore_legacy_primal_point!(workspace, primal_candidate, stop_requested)
     return nothing
 end
 
