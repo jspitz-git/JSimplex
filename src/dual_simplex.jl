@@ -1171,6 +1171,11 @@ function _dual_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_request
     all(isfinite, rho) && all(isfinite, tableau_row) || return _numerical_failure()
     if _is_exact(T) === Val(false) && !isempty(workspace.factorization.updates)
         row_residual_ratio = _dual_row_residual_ratio(workspace, rho, leaving_row)
+        if row_residual_ratio > one(T) && _try_native_dual_correction!(
+                workspace, rho, leaving_row, leaving_row, stop_requested; transposed=true)
+            price!(tableau_row, workspace, rho)
+            row_residual_ratio = _dual_row_residual_ratio(workspace, rho, leaving_row)
+        end
         if row_residual_ratio > one(T)
             basis_refreshed &&
                 return DualTermination(NUMERICAL_ERROR, "basis transpose solve residual too large")
@@ -1271,8 +1276,14 @@ function _dual_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_request
     # An updated factorization can invent a nonzero pivot even when its
     # magnitude is well above the ratio-test cutoff. Check every floating
     # direction against the current basis before accepting it.
-    if _is_exact(T) === Val(false) &&
-       !_dual_direction_residual_ok!(workspace, tableau_column, pivot)
+    direction_ok = _is_exact(T) === Val(true) ||
+        _dual_direction_residual_ok!(workspace, tableau_column, pivot)
+    if !direction_ok && _try_native_dual_correction!(
+            workspace, tableau_column, entering_index, leaving_row, stop_requested)
+        pivot = tableau_column[leaving_row]
+        direction_ok = true
+    end
+    if !direction_ok
         if !basis_refreshed
             stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
             _note_dual_updated_basis_repair!(workspace)

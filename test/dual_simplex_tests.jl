@@ -112,15 +112,15 @@ end
     end
 end
 
-@testset "Dual ratio test refreshes an inaccurate tableau row" begin
-    # The stale LU changes the transposed solve for row 1, while the direction
-    # for the selected first column remains exact. A direction-only check misses it.
+@testset "Dual ratio test refreshes a row that native correction cannot repair" begin
+    # Strong coupled errors do not converge within the native correction budget.
+    # Refresh the basis and repeat pricing before applying a pivot.
     problem = LinearProblem(sparse([1.0 0.0; 0.0 1.0]), [1.0, 10.0];
                             row_lower=[1.0, -Inf])
     workspace = JSimplex.initialize_workspace(problem,
         SolverOptions(refactorization_interval=50, verbose=false))
     workspace.factorization.base = JSimplex._factorize_basis(
-        sparse([-1.0 1.0e-5; 0.0 -1.0]))
+        sparse([-1.0 0.4; 0.4 -1.0]))
     # One identity update represents a basis that has changed since LU.
     JSimplex.replace_column!(workspace.factorization, [1.0, 0.0], 1)
     JSimplex.recompute!(workspace)
@@ -138,23 +138,24 @@ end
     workspace = JSimplex.initialize_workspace(problem,
         SolverOptions(refactorization_interval=50, verbose=false))
 
-    function inject_bad_updated_basis!(workspace, leaving_row, coupled_row)
+    function inject_bad_updated_basis!(workspace, leaving_row)
         stale = Matrix(JSimplex.basis_matrix(workspace))
-        stale[leaving_row, coupled_row] = 1.0e-5
+        # A tenfold diagonal error cannot converge within three corrections.
+        stale[leaving_row, leaving_row] *= 10
         workspace.factorization.base = JSimplex._factorize_basis(sparse(stale))
         JSimplex.replace_column!(workspace.factorization,
                                  [1.0; zeros(rows - 1)], 1)
         JSimplex.recompute!(workspace)
     end
 
-    inject_bad_updated_basis!(workspace, 1, 2)
+    inject_bad_updated_basis!(workspace, 1)
     for step in 1:rows
         @test isnothing(JSimplex.dual_iteration!(workspace, () -> false))
         if step == 1
             # One repaired row is isolated and keeps the configured interval.
             @test workspace.refactorizations == 1
             @test length(workspace.factorization.updates) == 1
-            inject_bad_updated_basis!(workspace, 2, 1)
+            inject_bad_updated_basis!(workspace, 2)
         elseif step == 2
             # The second repair makes the next pivot refresh immediately.
             @test workspace.refactorizations == 3
@@ -211,7 +212,7 @@ end
     @test workspace.dual_refactorization_interval == 4
 
     stale = Matrix(JSimplex.basis_matrix(workspace))
-    stale[7, 8] = 1.0e-5
+    stale[7, 7] *= 10
     workspace.factorization.base = JSimplex._factorize_basis(sparse(stale))
     JSimplex.replace_column!(workspace.factorization,
                              [1.0; zeros(rows - 1)], 1)
@@ -232,7 +233,7 @@ end
     function corrupt_base!(workspace, structural_rows, leaving_row)
         diagonal = vcat(ones(structural_rows), -ones(rows - structural_rows))
         stale = spdiagm(0 => diagonal)
-        stale[leaving_row, leaving_row + 1] = 1.0e-5
+        stale[leaving_row, leaving_row] *= 10
         workspace.factorization.base = JSimplex._factorize_basis(stale)
     end
 
