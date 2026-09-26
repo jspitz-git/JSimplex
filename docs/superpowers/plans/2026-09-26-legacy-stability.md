@@ -45,3 +45,9 @@ Also test the initial phase-I tolerance cutoff: ignoring a small initial bound v
 ## Native dual correction
 
 The first eight saved legacy BG80 repairs all pass the original residual threshold after one compensated Float64 correction using the existing factor. Add `src/legacy_dual_correction.jl` before the legacy refactor fallback: bound correction attempts, preserve the destination on failure, reprice a corrected transpose solve, and require a corrected forward pivot to agree with the ratio-test row. Hardware floating storage stays in Float32/Float64. Explicit validated recovery and adaptive strategy retain their existing paths. The expanded correction and existing dual tests pass 1723/1723; retain stronger fault injection for tests that specifically exercise mandatory refactorization.
+
+## Corrected cycles and consistent primal zero steps
+
+Native dual correction must not count as a clean cycle when considering interval growth. Mark accepted corrections until the next factorization; preserve the existing recovery toward the configured interval and leave explicit adaptive-refactor policies alone. The correction and interval-policy regressions pass 313/313.
+
+Candidate rejection alone removes early primal failure but causes excessive retries. Preserve a leaving row activity's outward value when it lies within the original model bound tolerance, so a clipped zero ratio remains an actual zero step after recomputation. Do not alter bounds, tolerances, phase-I artificial-variable thresholds, or final original-model certification. Limit this behavior to Float32/Float64 legacy primal full recomputation after an iteration. Initial reconstruction and structural/artificial nonbasic variables retain their canonical bound assignments. Keep unsafe-snap and retry regressions using structural basic variables, where exact bound assignment remains necessary.

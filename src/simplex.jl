@@ -282,15 +282,43 @@ function _assemble_basis_matrix(workspace::SimplexWorkspace{T},
     return reuse ? storage : SparseMatrixCSC(row_count, row_count, column_pointers, rows, values)
 end
 
+# A zero primal step may leave a row activity just outside its bound, within
+# the original model tolerance. Retaining that value avoids turning a zero
+# ratio into a negative step through an exact nonbasic bound assignment.
+_can_preserve_primal_row_value(workspace, index, state, bound) = false
+
+function _can_preserve_primal_row_value(workspace::SimplexWorkspace{T}, index::Int,
+                                        state::VariableState, bound::Bound{T}) where {T<:Union{Float32,Float64}}
+    workspace.options.algorithm == :primal &&
+        workspace.options.simplex_strategy == :legacy || return false
+    policy = workspace.progress.numerical_policy
+    (policy.pivot_validation || policy.recovery || policy.incremental_primal ||
+     policy.incremental_primal_pivots || _is_staged_workspace(workspace)) && return false
+    columns = size(workspace.problem.A, 2)
+    index > columns || return false
+    value = workspace.primal[index]
+    isfinite(value) && isfinite(bound) || return false
+    outside = state == AT_LOWER ? value < bound_value(bound) :
+              state == AT_UPPER && value > bound_value(bound)
+    outside || return false
+    original = state == AT_LOWER ? workspace.problem.row_lower[index - columns] :
+                                  workspace.problem.row_upper[index - columns]
+    return _primal_interval_at_bound(value, value, original, workspace.options.primal_tolerance)
+end
+
 function _nonbasic_value(workspace::SimplexWorkspace{T}, index::Int) where {T}
     state = workspace.basis.states[index]
     if state == AT_LOWER
         value = workspace.lower[index]
         isfinite(value) || throw(ArgumentError("a lower-bound nonbasic variable needs a finite lower bound"))
+        workspace.iterations > 0 && _can_preserve_primal_row_value(workspace, index, state, value) &&
+            return workspace.primal[index]
         return bound_value(value)
     elseif state == AT_UPPER
         value = workspace.upper[index]
         isfinite(value) || throw(ArgumentError("an upper-bound nonbasic variable needs a finite upper bound"))
+        workspace.iterations > 0 && _can_preserve_primal_row_value(workspace, index, state, value) &&
+            return workspace.primal[index]
         return bound_value(value)
     elseif state == FREE_NONBASIC
         return zero(T)

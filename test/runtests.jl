@@ -5,6 +5,8 @@ using Test
     include("numeric_tests.jl")
     include("primal_bound_snap_tests.jl")
     include("primal_candidate_retry_tests.jl")
+    include("legacy_primal_row_value_tests.jl")
+    include("primal_initial_tolerance_tests.jl")
     include("legacy_dual_correction_tests.jl")
     include("legacy_correction_cycle_tests.jl")
     include("options_tests.jl")

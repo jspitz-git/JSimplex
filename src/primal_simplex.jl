@@ -262,6 +262,8 @@ function _primal_bound_snap_feasible(workspace::SimplexWorkspace{T}, entering::I
     bound = movement > zero(T) ? workspace.upper[leaving] : workspace.lower[leaving]
     step = (bound_value(bound) - workspace.primal[leaving]) / movement
     step >= zero(T) && return true
+    state = movement > zero(T) ? AT_UPPER : AT_LOWER
+    _can_preserve_primal_row_value(workspace, leaving, state, bound) && return true
     # A tolerated bound violation has a negative ratio. Clipping it to zero
     # does not eliminate the movement imposed by fixing the leaving variable
     # exactly at its bound during the subsequent basis recomputation.
@@ -381,7 +383,8 @@ function _legacy_primal_iteration!(workspace::SimplexWorkspace, stop_requested,
         # Each failure excludes a distinct nonbasic variable. The finite
         # candidate set and the stop guard bound the search; an arbitrary small
         # cap can miss a valid column behind several degenerate candidates.
-        for _ in eachindex(workspace.basis.states)
+        # Even an empty model needs one pricing pass to certify optimality.
+        for _ in 1:max(1, length(workspace.basis.states))
             stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
             workspace.scratch.selected_row = 0
             refactorizations = workspace.refactorizations
