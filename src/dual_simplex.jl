@@ -1174,6 +1174,7 @@ function _dual_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_request
         if row_residual_ratio > one(T) && _try_native_dual_correction!(
                 workspace, rho, leaving_row, leaving_row, stop_requested; transposed=true)
             price!(tableau_row, workspace, rho)
+            all(isfinite, tableau_row) || return _numerical_failure()
             row_residual_ratio = _dual_row_residual_ratio(workspace, rho, leaving_row)
         end
         if row_residual_ratio > one(T)

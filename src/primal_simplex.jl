@@ -384,7 +384,9 @@ function _legacy_primal_iteration!(workspace::SimplexWorkspace, stop_requested,
         # candidate set and the stop guard bound the search; an arbitrary small
         # cap can miss a valid column behind several degenerate candidates.
         # Even an empty model needs one pricing pass to certify optimality.
-        for _ in 1:max(1, length(workspace.basis.states))
+        attempts_left = max(1, length(workspace.basis.states))
+        while attempts_left > 0
+            attempts_left -= 1
             stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
             workspace.scratch.selected_row = 0
             refactorizations = workspace.refactorizations
@@ -402,7 +404,14 @@ function _legacy_primal_iteration!(workspace::SimplexWorkspace, stop_requested,
                 return terminal
             end
             failure = terminal
-            basis_refreshed |= workspace.refactorizations > refactorizations
+            refreshed = workspace.refactorizations > refactorizations
+            if refreshed
+                # Earlier exclusions were based on stale directions. Permit
+                # one fresh candidate pass after the single allowed refresh.
+                empty!(rejected)
+                attempts_left = length(workspace.basis.states)
+            end
+            basis_refreshed |= refreshed
             entering = workspace.scratch.selected_entering
             entering > 0 || return failure
             push!(rejected, entering)
