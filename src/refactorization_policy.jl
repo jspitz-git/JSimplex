@@ -263,8 +263,11 @@ function _abort_basis_refactor!(ws)
 end
 
 function _after_basis_refactor!(ws)
-    ws.progress.numerical_policy.adaptive_refactor || return nothing
     state = ws.scratch.refactorization
+    if !ws.progress.numerical_policy.adaptive_refactor
+        state.residual_bad = false
+        return nothing
+    end
     if state.pending_cycle in (:healthy,:failed,:unproductive)
         record_refactor_cycle!(state;reliable=state.pending_cycle != :failed,
             productive=state.pending_cycle == :healthy)

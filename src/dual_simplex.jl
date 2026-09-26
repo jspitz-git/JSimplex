@@ -1462,6 +1462,7 @@ function _dual_after_iteration!(workspace::SimplexWorkspace{T},stop_requested,du
         stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
         updates = length(workspace.factorization.updates)
         productive = _is_exact(T) === Val(false) &&
+                     !workspace.scratch.refactorization.residual_bad &&
                      workspace.dual_nonzero_steps_since_refactorization >=
                      updates - updates ÷ 4
         recompute!(workspace; refactorize=true, caller_guard=stop_requested,

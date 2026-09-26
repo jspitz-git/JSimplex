@@ -9,7 +9,8 @@ function _try_native_dual_correction!(workspace::SimplexWorkspace{T}, destinatio
                                      transposed::Bool=false) where {T<:Union{Float32,Float64}}
     workspace.options.simplex_strategy == :legacy || return false
     policy = workspace.progress.numerical_policy
-    (policy.pivot_validation || policy.solve_refinement || policy.recovery) && return false
+    (policy.pivot_validation || policy.solve_refinement || policy.recovery ||
+     policy.adaptive_refactor) && return false
     policy.max_refinements > 0 || return false
     stop() && return false
     buffers = _pivot_quality_buffers(workspace)
@@ -68,6 +69,7 @@ function _try_native_dual_correction!(workspace::SimplexWorkspace{T}, destinatio
             stop() && return false
             copyto!(destination, trial)
             _pipeline_changed!(workspace, destination)
+            workspace.scratch.refactorization.residual_bad = true
             _simplex_event!(workspace, :correction)
             return true
         end
