@@ -4,6 +4,7 @@ using Test
 @testset "JSimplex" begin
     include("numeric_tests.jl")
     include("primal_bound_snap_tests.jl")
+    include("primal_candidate_retry_tests.jl")
     include("options_tests.jl")
     include("simplex_numerics_tests.jl")
     include("native_residual_tests.jl")

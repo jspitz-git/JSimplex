@@ -372,6 +372,43 @@ function _primal_ratio(workspace::SimplexWorkspace{T}, entering::Int, direction:
     return leaving_step, leaving_row, leaving_state
 end
 
+function _legacy_primal_iteration!(workspace::SimplexWorkspace, stop_requested,
+                                   reduced_cost_tolerance, basis_refreshed)
+    rejected = workspace.scratch.rejected_entering
+    empty!(rejected)
+    failure = DualTermination(NUMERICAL_ERROR, "primal ratio test is inconclusive")
+    try
+        # Each failure excludes a distinct nonbasic variable. The finite
+        # candidate set and the stop guard bound the search; an arbitrary small
+        # cap can miss a valid column behind several degenerate candidates.
+        for _ in eachindex(workspace.basis.states)
+            stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
+            workspace.scratch.selected_row = 0
+            terminal = try
+                _primal_iteration_unchecked!(workspace, stop_requested,
+                                             reduced_cost_tolerance, basis_refreshed)
+            catch exception
+                exception isa _PivotRejection && exception.action == :exhausted || rethrow()
+                return failure
+            end
+            # An inconclusive ratio leaves the basis untouched. Try another
+            # improving column before treating a local pivot failure as fatal.
+            if isnothing(terminal) || terminal.status != NUMERICAL_ERROR ||
+               workspace.scratch.selected_row != -1
+                return terminal
+            end
+            failure = terminal
+            entering = workspace.scratch.selected_entering
+            entering > 0 || return failure
+            push!(rejected, entering)
+            _simplex_event!(workspace, :pivot_rejected)
+        end
+        return failure
+    finally
+        empty!(rejected)
+    end
+end
+
 function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_requested,
                             reduced_cost_tolerance::T,
                             basis_refreshed::Bool=false) where {T}

@@ -35,3 +35,9 @@ Files: existing `src/dual_simplex.jl`, `src/simplex_recovery.jl`, and factorizat
 - [ ] Run the full production suite, development/JET checks, and GLPK checks on the final source tree. The unchanged base already passed 254083 production and 1208 development checks; preserve those baseline records rather than repeating them.
 - [ ] Record commands, source hashes, statuses, certified residuals, elapsed times, refactorization causes, and memory evidence in an English diagnostic report. State time limits and remaining failures explicitly.
 - [ ] Review the complete diff and commit verified artifacts. Leave this worktree and logs intact; merging/pushing this new branch requires a later user request.
+
+## Evidence-driven follow-up
+
+The bound-snap guard is committed as `12cdd13`. It preserves feasibility on runtime but exposes another early termination: the best priced entering column can have no safe ratio while another column has one. Add a legacy candidate retry using the existing exclusion vector, without basis snapshots or an automatic refactor. Cancellation must clear exclusions; exhaustion must never report optimality. An eight-candidate cap proved insufficient on the actual saved runtime basis (the ninth candidate is valid), so search the finite candidate set subject to the caller's time/cancellation guard.
+
+Also test the initial phase-I tolerance cutoff: ignoring a small initial bound violation can leave an improving column blocked even when a zero-cost column would first restore exact feasibility. Use a small independently solvable model before changing that cutoff, and retain adaptive phase-I behavior.
