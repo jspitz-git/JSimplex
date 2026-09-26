@@ -48,3 +48,17 @@ change and passes a 4-KiB ceiling after it. All 1,924 checks in the focused
 breakpoint, ratio and dual-simplex suites passed, including full exhaustion,
 ordered bound flips and all supported arithmetic types. Complete LP timings
 and the final full-suite gate remain pending.
+
+## Vectorized workspace validation
+
+Repeated full-vector validity checks were a substantial cost in all three
+legacy dual profiles. Hardware Float32/Float64 vectors now use a SIMD boolean
+reduction: every value is checked, and steepest-edge weights must still be
+strictly positive. Floating arithmetic and generic scalar checks are unchanged.
+All 176 targeted checks passed, including invalid values at vector-block edges,
+signed zeros, extreme finite values and the Dantzig weight-check exception.
+The combined breakpoint/validity/ratio run passed 467/467 checks.
+
+[Five warmed kernel samples](workspace-finiteness.json) show about 2.1–2.2 times
+faster Float64 and 4.4 times faster Float32 checks at 63,009 and 420,526 columns,
+with zero allocation in both versions. These are kernel measurements only.

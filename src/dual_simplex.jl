@@ -25,11 +25,25 @@ _guard_stop_callback(stop) = _StopCallback(stop, nothing)
 
 _numerical_failure() = DualTermination(NUMERICAL_ERROR, "non-finite simplex iterate")
 
+_finite_values(values,::Val{P}) where P =
+    all(value -> isfinite(value) && (!P || value > zero(value)),values)
+
+function _finite_values(values::Vector{T},::Val{P}) where {T<:Union{Float32,Float64},P}
+    valid = true
+    # A boolean reduction vectorizes without changing any floating arithmetic.
+    # Every value still participates, including the final partial vector block.
+    @inbounds @simd for i in eachindex(values)
+        value = values[i]
+        valid &= isfinite(value) & (!P || value > zero(T))
+    end
+    return valid
+end
+
 function _finite_workspace(workspace::SimplexWorkspace{T}) where {T}
-    return all(isfinite, workspace.primal) && all(isfinite, workspace.reduced_costs) &&
-           all(isfinite, workspace.costs) &&
+    return _finite_values(workspace.primal,Val(false)) && _finite_values(workspace.reduced_costs,Val(false)) &&
+           _finite_values(workspace.costs,Val(false)) &&
            (_effective_pricing(workspace,:dual) == :dantzig ||
-            all(weight -> isfinite(weight) && weight > zero(T), workspace.pricing_weights))
+            _finite_values(workspace.pricing_weights,Val(true)))
 end
 
 # A fresh Float64 LU can produce reduced costs with the wrong sign when the

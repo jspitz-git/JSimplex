@@ -248,6 +248,7 @@ using Test
     include("dual_simplex_tests.jl")
     include("dual_ratio_tests.jl")
     include("dual_breakpoint_queue_tests.jl")
+    include("workspace_finiteness_tests.jl")
     include("pivot_retry_tests.jl")
     include("pivot_application_tests.jl")
     include("pivot_atomicity_tests.jl")
