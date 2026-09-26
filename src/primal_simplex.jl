@@ -384,6 +384,7 @@ function _legacy_primal_iteration!(workspace::SimplexWorkspace, stop_requested,
         for _ in eachindex(workspace.basis.states)
             stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
             workspace.scratch.selected_row = 0
+            refactorizations = workspace.refactorizations
             terminal = try
                 _primal_iteration_unchecked!(workspace, stop_requested,
                                              reduced_cost_tolerance, basis_refreshed)
@@ -391,13 +392,14 @@ function _legacy_primal_iteration!(workspace::SimplexWorkspace, stop_requested,
                 exception isa _PivotRejection && exception.action == :exhausted || rethrow()
                 return failure
             end
-            # An inconclusive ratio leaves the basis untouched. Try another
-            # improving column before treating a local pivot failure as fatal.
+            # An inconclusive ratio or a persistently tiny pivot leaves the
+            # basis untouched. Try another improving column before failing.
             if isnothing(terminal) || terminal.status != NUMERICAL_ERROR ||
                workspace.scratch.selected_row != -1
                 return terminal
             end
             failure = terminal
+            basis_refreshed |= workspace.refactorizations > refactorizations
             entering = workspace.scratch.selected_entering
             entering > 0 || return failure
             push!(rejected, entering)
@@ -527,6 +529,7 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
                 return _primal_iteration_unchecked!(workspace, stop_requested,
                                           reduced_cost_tolerance, true)
             end
+            workspace.scratch.selected_row = -1
             return DualTermination(NUMERICAL_ERROR, "primal pivot is below the zero tolerance")
         end
         _effective_pricing(workspace,:primal) == :devex &&

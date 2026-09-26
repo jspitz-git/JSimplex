@@ -64,3 +64,16 @@ end
     @test 11 in workspace.basis.basic_indices
     @test isempty(workspace.scratch.rejected_entering)
 end
+
+@testset "Legacy primal skips tiny pivots after a single basis refresh" begin
+    problem = LinearProblem(sparse([1e-14 0.0 0.0; 0.0 2e-14 0.0; 0.0 0.0 1.0]),
+        [-3.0, -2.0, -1.0]; row_upper=[1e-20, 1e-20, 1.0])
+    options = SolverOptions(algorithm=:primal, simplex_strategy=:legacy, verbose=false)
+    workspace = JSimplex.initialize_workspace(problem, options)
+    terminal = JSimplex._primal_iteration!(workspace, () -> false, options.dual_tolerance)
+    @test isnothing(terminal)
+    @test workspace.iterations == 1
+    @test workspace.primal[3] ≈ 1.0
+    @test workspace.refactorizations == 1
+    @test isempty(workspace.scratch.rejected_entering)
+end
