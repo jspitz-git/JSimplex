@@ -30,6 +30,9 @@ All bounds are `Bound{T}` values. Unbounded endpoints use tags; inspect them wit
 `isfinite` and read finite values with [`bound_value`](@ref).
 
 Named RHS, range, and bound sets default to the first set in file order.
+In fixed format, an initially blank set name defines an unnamed set, selectable
+with `rhs_name=""`, `ranges_name=""`, or `bounds_name=""`. Subsequent blank names
+continue the preceding set. Descriptive text after the `NAME` problem name is ignored.
 The objective defaults to
 `OBJNAME`, then the first `N` row; `objective_name` overrides either choice.
 All `N` rows are excluded from the constraint matrix. Integer markers and

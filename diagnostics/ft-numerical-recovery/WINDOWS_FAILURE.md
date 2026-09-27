@@ -139,6 +139,9 @@ retained in `results/small-models-initial.log`. SC50A replaced BLEND; the remain
 comparisons. The initial invocation also verified provenance of all 13 Windows
 snapshots against the report.
 
+The BLEND reader limitation was subsequently corrected and the model solved with
+all four basis managers; see [reader validation](results/blend-reader-validation.md).
+
 After installation of the corrected version, the remaining acceptance check is
 the original Windows run in its usual environment (one Julia thread, eight BLAS
 threads). Use a fresh output prefix if capturing it again. No complete corrected

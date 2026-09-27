@@ -27,7 +27,9 @@ function _mps_metadata!(records, section, fields, line)
 end
 
 function _mps_pairs!(records::MPSAccumulator{T}, section, fields, line) where {T}
-    length(fields) in (3, 5) && all(!isempty, fields) ||
+    length(fields) in (3, 5) &&
+        (section != :COLUMNS || !isempty(fields[1])) &&
+        all(i -> !isempty(fields[i]), 2:length(fields)) ||
         _mps_error(records, line, section, "expected a name and one or two row/value pairs")
     name = fields[1]
     for i in 2:2:length(fields)
@@ -88,7 +90,8 @@ function _parse_mps(io::IO, source::AbstractString, ::Type{T};
                        ncodeunits(text) >= 25 &&
                        all(i -> codeunit(text, i) == UInt8(' '), 1:14)
         header = !continuation && candidate in _MPS_SECTIONS &&
-                 (length(words) == 1 ||
+                 ((section == :START && candidate == :NAME) ||
+                  length(words) == 1 ||
                   (length(words) == 2 && candidate in (:NAME, :OBJSENSE, :OBJNAME)))
 
         if header
@@ -116,8 +119,10 @@ function _parse_mps(io::IO, source::AbstractString, ::Type{T};
             push!(seen, candidate)
             section = candidate
             if section == :NAME
-                length(words) <= 2 || _mps_error(records, line, section, "expected at most one problem name")
-                records.name = length(words) == 2 ? words[2] : ""
+                # NetLib files can append a description after the problem name.
+                # Only the initial NAME header accepts this trailing text;
+                # later NAME tokens may be ordinary column or set names.
+                records.name = length(words) >= 2 ? words[2] : ""
             elseif section in (:OBJSENSE, :OBJNAME)
                 pending_metadata = length(words) == 1
                 pending_metadata || _mps_metadata!(records, section, words[2:end], line)
@@ -167,13 +172,17 @@ function _parse_mps(io::IO, source::AbstractString, ::Type{T};
         name_index = section == :BOUNDS ? 2 : 1
         length(fields) >= name_index || _mps_error(records, line, section, "missing record name")
         if fixed && isempty(fields[name_index])
-            haskey(previous_names, section) || _mps_error(records, line, section, "continuation has no preceding name")
-            fields[name_index] = previous_names[section]
+            # A set may start unnamed; later blanks continue the current set.
+            # Columns, unlike RHS/RANGES/BOUNDS sets, require an initial name.
+            section == :COLUMNS && !haskey(previous_names, section) &&
+                _mps_error(records, line, section, "continuation has no preceding name")
+            fields[name_index] = get(previous_names, section, "")
         end
         previous_names[section] = fields[name_index]
 
         if section == :BOUNDS
-            length(fields) in (3, 4) && all(!isempty, fields) ||
+            length(fields) in (3, 4) &&
+                all(i -> i == 2 || !isempty(fields[i]), eachindex(fields)) ||
                 _mps_error(records, line, section, "expected bound type, set, column, and optional value")
             kind = Symbol(fields[1])
             kind in _MPS_BOUND_TYPES || _mps_error(records, line, section, "unsupported bound type '$kind'")

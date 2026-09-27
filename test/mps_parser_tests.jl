@@ -176,6 +176,60 @@ end
         @test parse_mps_text(padded_headers; format=:auto).column_order == ["X"]
     end
 
+    @testset "NAME headers with descriptive text" begin
+        body = join(["ROWS", fixed_mps_record("N", "OBJ"),
+            fixed_mps_record("E", "EQ"), "COLUMNS",
+            fixed_mps_record("", "NAME", "OBJ", "1", "EQ", "2"),
+            "RHS", fixed_mps_record("", "NAME", "EQ", "3"), "ENDATA"], '\n')
+        for format in (:auto, :fixed, :free), header in (
+            "NAME          BLEND    BRUCE MURTAGHS BLENDING PROBLEM (MINIMIZE).",
+            "NAME BLEND descriptive text with MAX and ROWS keywords",
+        )
+            records = parse_mps_text(header * "\n" * body; format)
+            @test records.name == "BLEND"
+            @test records.objective_sense == MIN_SENSE
+            @test records.coefficients == [("NAME", "OBJ", 1.0, 6), ("NAME", "EQ", 2.0, 6)]
+            @test records.rhs_sets["NAME"] == [("EQ", 3.0, 8)]
+        end
+    end
+
+    @testset "initial unnamed fixed sets and subsequent continuations" begin
+        text = join(["NAME UNNAMED", "ROWS", fixed_mps_record("N", "OBJ"),
+            fixed_mps_record("L", "LIMIT"), "COLUMNS",
+            fixed_mps_record("", "X", "OBJ", "1", "LIMIT", "2"),
+            "RHS", fixed_mps_record("", "", "LIMIT", "4"),
+            fixed_mps_record("", "", "OBJ", "-1"),
+            fixed_mps_record("", "SECOND", "LIMIT", "8"),
+            fixed_mps_record("", "", "OBJ", "-2"),
+            "RANGES", fixed_mps_record("", "", "LIMIT", "3"),
+            fixed_mps_record("", "SECOND", "LIMIT", "6"),
+            fixed_mps_record("", "", "LIMIT", "5"),
+            "BOUNDS", fixed_mps_record("LO", "", "X", "1"),
+            fixed_mps_record("UP", "", "X", "2"),
+            fixed_mps_record("LO", "SECOND", "X", "2"),
+            fixed_mps_record("UP", "", "X", "4"), "ENDATA"], '\n')
+        for format in (:auto, :fixed)
+            records = parse_mps_text(text; format)
+            @test records.rhs_order == records.ranges_order == records.bounds_order == ["", "SECOND"]
+            @test records.rhs_sets[""] == [("LIMIT", 4.0, 8), ("OBJ", -1.0, 9)]
+            @test records.rhs_sets["SECOND"] == [("LIMIT", 8.0, 10), ("OBJ", -2.0, 11)]
+            @test records.ranges_sets[""] == [("LIMIT", 3.0, 13)]
+            @test records.ranges_sets["SECOND"] == [("LIMIT", 6.0, 14), ("LIMIT", 5.0, 15)]
+            for (name, rhs, range, lower, upper, offset) in
+                ((nothing, 4.0, 3.0, 1.0, 2.0, 1.0),
+                 ("", 4.0, 3.0, 1.0, 2.0, 1.0),
+                 ("SECOND", 8.0, 5.0, 2.0, 4.0, 2.0))
+                problem = JSimplex._build_mps(records;
+                    rhs_name=name, ranges_name=name, bounds_name=name)
+                @test bound_value.(problem.row_lower) == [rhs - range]
+                @test bound_value.(problem.row_upper) == [rhs]
+                @test bound_value.(problem.column_lower) == [lower]
+                @test bound_value.(problem.column_upper) == [upper]
+                @test problem.objective_constant == offset
+            end
+        end
+    end
+
     @testset "fixed continuations and marker domains" begin
         lines = ["NAME FIXED", "ROWS", fixed_mps_record("N", "OBJ"),
             fixed_mps_record("L", "LIMIT"), "COLUMNS",
@@ -366,9 +420,6 @@ end
                             fixed_mps_record("L", "LIMIT"), "COLUMNS"], '\n') * "\n"
         for (section, record) in [
             ("COLUMNS", fixed_mps_record("", "", "OBJ", "1")),
-            ("RHS", fixed_mps_record("", "", "LIMIT", "1")),
-            ("RANGES", fixed_mps_record("", "", "LIMIT", "1")),
-            ("BOUNDS", fixed_mps_record("UP", "", "X", "1")),
         ]
             text = fixed_prefix * (section == "COLUMNS" ? "" : section * "\n") * record * "\nENDATA\n"
             error = try
