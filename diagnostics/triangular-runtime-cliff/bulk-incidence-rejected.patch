@@ -1,0 +1,187 @@
+diff --git a/src/JSimplex.jl b/src/JSimplex.jl
+index fe00e69..628b2fc 100644
+--- a/src/JSimplex.jl
++++ b/src/JSimplex.jl
+@@ -21,6 +21,7 @@ include("markowitz_factorization.jl")
+ include("hypersparse_factorization.jl")
+ include("triangular_factorization.jl")
+ include("triangular_rows.jl")
++include("triangular_incidence.jl")
+ include("bartels_golub_rows.jl")
+ include("hypersparse_updates.jl")
+ include("hypersparse_pipeline_types.jl")
+diff --git a/src/triangular_factorization.jl b/src/triangular_factorization.jl
+index 65d1530..3b07c17 100644
+--- a/src/triangular_factorization.jl
++++ b/src/triangular_factorization.jl
+@@ -237,9 +237,10 @@ mutable struct TriangularRowCache{T<:Real}
+     permuted::Bool
+     active_upper::Vector{Int}
+     upper_dirty::Bool
++    row_counts::Vector{Int}
+ end
+ TriangularRowCache(::Type{T}, n::Int) where {T<:Real} =
+-    TriangularRowCache{T}(collect(1:n), Tuple{Int,Int,T}[], 0, false, Int[], true)
++    TriangularRowCache{T}(collect(1:n), Tuple{Int,Int,T}[], 0, false, Int[], true, Int[])
+ 
+ mutable struct ForrestTomlinFactorization{T<:Real,F} <: AbstractTriangularBasisFactorization{T}
+     base::F
+@@ -734,7 +735,8 @@ function replace_column!(factor::BartelsGolubFactorization{T},
+     _invalidate_sparse_upper!(factor)
+     _rotate_columns!(factor, position)
+     n = length(factor.upper)
+-    columns_by_row = _rebuild_row_columns!(factor.row_columns, factor.upper)
++    columns_by_row = _rebuild_row_columns!(
++        factor.row_columns, factor.upper, factor.row_cache.row_counts)
+     # The spike has been packed into the replacement column. Reuse its scratch
+     # as incidence marks while batching permutations, without another vector.
+     fill!(factor.spike, zero(T))
+@@ -804,17 +806,8 @@ function _triangular_row_columns!(factor::Union{ForrestTomlinFactorization,SuhlS
+     while length(rows) < length(factor.upper)
+         push!(rows, Int[])
+     end
+-    foreach(empty!, rows)
+-    for column_index in eachindex(factor.upper)
+-        column = factor.upper[column_index]
+-        start = searchsortedfirst(column.indices, first_row)
+-        for index in start:length(column.indices)
+-            row = column.indices[index]
+-            row > last_row && break
+-            row < column_index && push!(rows[row], column_index)
+-        end
+-    end
+-    return rows
++    return _rebuild_partial_row_columns!(
++        rows, factor.upper, factor.row_cache.row_counts, first_row, last_row)
+ end
+ 
+ function _reset_row_scratch!(factor::Union{ForrestTomlinFactorization,SuhlSuhlFactorization}, ::Int)
+diff --git a/test/runtests.jl b/test/runtests.jl
+index 1175538..85d6bda 100644
+--- a/test/runtests.jl
++++ b/test/runtests.jl
+@@ -239,6 +239,7 @@ include("legacy_primal_relative_pivot_tests.jl")
+     include("bartels_golub_rows_tests.jl")
+     include("triangular_composed_rows_tests.jl")
+     include("triangular_active_upper_tests.jl")
++    include("triangular_incidence_tests.jl")
+     include("bartels_golub_rotation_tests.jl")
+     include("runtime_factorization_tests.jl")
+     include("runtime_lookup_tests.jl")
+diff --git a/src/triangular_incidence.jl b/src/triangular_incidence.jl
+new file mode 100644
+index 0000000..8ee80d2
+--- /dev/null
++++ b/src/triangular_incidence.jl
+@@ -0,0 +1,58 @@
++# Build integer metadata in two passes. Repeated push! pays vector-growth
++# bookkeeping for every coefficient even when all buffers already have capacity.
++function _resize_incidence_rows!(rows, counts)
++    for row in eachindex(counts)
++        resize!(rows[row], counts[row])
++        counts[row] = 0
++    end
++    return nothing
++end
++
++function _rebuild_row_columns!(rows::Vector{Vector{Int}},
++                               upper::Vector{PackedUpperColumn{T}},
++                               counts::Vector{Int}) where {T}
++    fill!(resize!(counts, length(rows)), 0)
++    # Keep bounds checks here: this pass validates every row before direct fill.
++    for column in upper
++        for row in column.indices
++            counts[row] += 1
++        end
++    end
++    _resize_incidence_rows!(rows, counts)
++    @inbounds for column_index in eachindex(upper)
++        for row in upper[column_index].indices
++            slot = counts[row] + 1
++            rows[row][slot] = column_index
++            counts[row] = slot
++        end
++    end
++    return rows
++end
++
++function _rebuild_partial_row_columns!(rows, upper, counts, first_row, last_row)
++    fill!(resize!(counts, length(rows)), 0)
++    for column_index in eachindex(upper)
++        indices = upper[column_index].indices
++        start = searchsortedfirst(indices, first_row)
++        for index in start:length(indices)
++            row = indices[index]
++            row > last_row && break
++            row < column_index && (counts[row] += 1)
++        end
++    end
++    _resize_incidence_rows!(rows, counts)
++    @inbounds for column_index in eachindex(upper)
++        indices = upper[column_index].indices
++        start = searchsortedfirst(indices, first_row)
++        for index in start:length(indices)
++            row = indices[index]
++            row > last_row && break
++            if row < column_index
++                slot = counts[row] + 1
++                rows[row][slot] = column_index
++                counts[row] = slot
++            end
++        end
++    end
++    return rows
++end
+diff --git a/test/triangular_incidence_tests.jl b/test/triangular_incidence_tests.jl
+new file mode 100644
+index 0000000..9675694
+--- /dev/null
++++ b/test/triangular_incidence_tests.jl
+@@ -0,0 +1,47 @@
++using SparseArrays, LinearAlgebra, Random
++incidence_allocations(rows,upper,counts) = @allocated JSimplex._rebuild_row_columns!(rows,upper,counts)
++@testset "Bulk triangular incidence uses reusable owned storage" begin
++    rng=MersenneTwister(9347)
++    for T in (Float32,Float64,BigFloat,Rational{BigInt})
++        for n in (0,1,7,31),density in (0.0,0.15,1.0)
++            M=T.(rand(rng,-4:4,n,n));M[rand(rng,n,n).>density].=0
++            upper=[JSimplex._packed_column(M[:,j]) for j in 1:n]
++            rows=[Int[] for _ in 1:n];counts=Int[]
++            available=applicable(JSimplex._rebuild_row_columns!,rows,upper,counts)
++            @test available
++            available || continue
++            expected=[findall(!iszero,M[row,:]) for row in 1:n]
++            @test JSimplex._rebuild_row_columns!(rows,upper,counts)===rows
++            @test rows==expected
++            owners=copy(rows)
++            @test JSimplex._rebuild_row_columns!(rows,upper,counts)==expected
++            @test all(i->rows[i]===owners[i],eachindex(rows))
++            @test isempty(counts) || length(counts)==n
++            incidence_allocations(rows,upper,counts)
++            @test incidence_allocations(rows,upper,counts)==0
++        end
++    end
++    for Factor in (JSimplex.ForrestTomlinFactorization,JSimplex.SuhlSuhlFactorization,
++                   JSimplex.BartelsGolubFactorization)
++        f=Factor(Matrix{Float64}(I,6,6));g=JSimplex.copy_basis_factorization(f)
++        available=hasproperty(f.row_cache,:row_counts)
++        @test available
++        available || continue
++        @test f.row_cache.row_counts !== g.row_cache.row_counts
++        if !(f isa JSimplex.BartelsGolubFactorization)
++            for first in 1:6,last in first:6
++                M=triu(rand(rng,6,6));f.upper=[JSimplex._packed_column(M[:,j]) for j in 1:6]
++                actual=JSimplex._triangular_row_columns!(f,first,last)
++                expected=[first<=row<=last ? [j for j in row+1:6 if !iszero(M[row,j])] : Int[] for row in 1:6]
++                @test actual==expected
++            end
++        end
++    end
++end
++
++@testset "Incidence fill rejects invalid row indices before unchecked writes" begin
++    for row in (0,4)
++        upper=[JSimplex.PackedUpperColumn([row],[1.0])]
++        @test_throws BoundsError JSimplex._rebuild_row_columns!([Int[] for _ in 1:3],upper,Int[])
++    end
++end

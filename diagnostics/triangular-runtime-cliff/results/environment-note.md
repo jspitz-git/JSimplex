@@ -1,0 +1,7 @@
+# Timing environment caveat
+
+At 2026-09-27 14:39 UTC, a host process inspection found the owned solver job and a separate VS Code Julia dynamic-analysis process. The editor process (child of the long-running Julia language server) had been consuming roughly one CPU core since 13:43 UTC. It was not modified or signalled. Only one benchmark/solver job was run at a time, but the host was not otherwise idle. Timings from separate runs therefore include uncontrolled background load. The interleaved kernel comparison and exact numerical/state comparisons remain the stronger evidence for the bounded changes.
+
+The completion driver's redirected logger buffered progress output. An empty log was initially mistaken for continued initialization. Two diagnostic SIGUSR1 requests to the owned solver process exposed stacks in normal BG replacement ; buffered progress subsequently became visible through iteration 24,497 at 226.048 solve seconds, and later 48,957 at 649.274 seconds. It was not a stuck solver. No Julia language-server or editor-analysis process was signalled. The completion profile is not used for before/after hotspot estimates because of this diagnostic intervention; the original prefix and replay profiles supply that evidence.
+
+The diagnostic mechanism was checked against the [Julia profiling documentation](https://docs.julialang.org/en/v1/stdlib/Profile/#Triggered-During-Execution). Process startup/compilation and solve timings are separate; quiet redirected output alone cannot establish compilation duration.
