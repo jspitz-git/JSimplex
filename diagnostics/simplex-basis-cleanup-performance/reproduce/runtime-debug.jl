@@ -14,6 +14,11 @@ function main()
     previous_basis=Ref{Any}(nothing);small_pivots=Ref(0)
     observer=function(reason,ws)
         warming[] && return
+        if reason==:pivot_completed && ws.iterations%5000==0
+            println("PROGRESS iter=",ws.iterations," pinf=",JSimplex.primal_infeasibility(ws),
+                " dinf=",JSimplex.dual_infeasibility(ws)," refs=",ws.refactorizations)
+            flush(stdout)
+        end
         if trace_pivots && reason==:pivot_proposed
             previous_basis[]=deepcopy(ws.basis)
             return

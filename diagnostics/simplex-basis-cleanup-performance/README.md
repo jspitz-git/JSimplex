@@ -85,3 +85,11 @@ The legacy Float32/Float64 path now refreshes a nonempty history once when the p
 The small injected-history reproducer previously accepted a false pivot and reported internal OPTIMAL at x=0 for an LP whose optimum is x=1. This demonstrates a wrong internal termination, not an incorrectly certified result from the public solver. The regression failed24 assertions before the fix. The fix and genuine-small-pivot controls pass56/56 checks across four managers and both hardware types. Independent read-only review found no blocker; repeated refactorizations on strongly scaled problems remain a performance risk to measure.
 
 Roundoff-refresh validation:328/328 focused guard, retry, native correction, point-preservation and Harris checks passed. A3000-iteration runtime prefix takes16.68s with46 refactorizations and avoids the original1079 false pivot. However, the reduced phase still fails at1118 and retries the original model; this is a verified local correction, not a complete runtime primal stabilization result.
+
+## Bounded preference for stable primal candidates
+
+The legacy hardware-float path now defers up to eight candidates whose selected pivot is at most `sqrt(eps(T))*norm(direction,Inf)`, looking for a stable pivot or bound flip. If none is found within that bound, it retries under the ordinary numerical checks. Weak but genuine required pivots remain available. All candidate searches retain cancellation and rejection cleanup.
+
+Read-only review exposed two issues in the initial design: unbounded work when all improving candidates are weak, and lost refresh bookkeeping on recursive pricing exhaustion. Both were reproduced (three failing assertions) and fixed. The final focused suite passes519/519. The earlier behavioral test had48 expected failures and16 test-harness errors from accessing a missing terminal result; that assertion was corrected to a safe predicate.
+
+The unbounded diagnostic prototype was interrupted after3360 recorded iterations (about120 solver seconds); its log remains local. With the eight-candidate cap, a5000-iteration prefix finishes in35.89s. The reduced model still encounters a singular basis at iteration2999 and retries the original model. This is not a claim that runtime primal now completes successfully; the remaining tiny-pivot acceptance needs investigation.

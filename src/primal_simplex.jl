@@ -393,45 +393,68 @@ function _legacy_primal_iteration!(workspace::SimplexWorkspace, stop_requested,
     rejected = workspace.scratch.rejected_entering
     empty!(rejected)
     failure = DualTermination(NUMERICAL_ERROR, "primal ratio test is inconclusive")
+    defer_weak = true
+    deferred = 0
     try
-        # Each failure excludes a distinct nonbasic variable. The finite
-        # candidate set and the stop guard bound the search; an arbitrary small
-        # cap can miss a valid column behind several degenerate candidates.
-        # Even an empty model needs one pricing pass to certify optimality.
-        attempts_left = max(1, length(workspace.basis.states))
-        while attempts_left > 0
-            attempts_left -= 1
-            stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
-            workspace.scratch.selected_row = 0
-            refactorizations = workspace.refactorizations
-            terminal = try
-                _primal_iteration_unchecked!(workspace, stop_requested,
-                                             reduced_cost_tolerance, basis_refreshed)
-            catch exception
-                exception isa _PivotRejection && exception.action == :exhausted || rethrow()
-                return failure
+        # Search stable candidates first, then permit weak but validated pivots
+        # if necessary. Each pass is finite, with one fresh-basis retry overall.
+        while true
+            attempts_left = max(1, length(workspace.basis.states))
+            while attempts_left > 0
+                attempts_left -= 1
+                stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
+                workspace.scratch.selected_row = 0
+                refactorizations = workspace.refactorizations
+                terminal = try
+                    _primal_iteration_unchecked!(workspace, stop_requested,
+                        reduced_cost_tolerance, basis_refreshed, defer_weak)
+                catch exception
+                    exception isa _PivotRejection || rethrow()
+                    if exception.action == :exhausted
+                        if workspace.refactorizations > refactorizations
+                            # Recursive fresh pricing can exhaust stale
+                            # exclusions before returning to this loop.
+                            basis_refreshed = true
+                            empty!(rejected)
+                            attempts_left = length(workspace.basis.states)
+                            continue
+                        end
+                        break
+                    end
+                    exception.action == :defer_weak || rethrow()
+                    deferred += 1
+                    workspace.scratch.selected_row = -1
+                    DualTermination(NUMERICAL_ERROR, "no stable primal pivot available")
+                end
+                # Only failures that leave the basis untouched allow another
+                # entering variable. Terminal certificates and limits return.
+                if isnothing(terminal) || terminal.status != NUMERICAL_ERROR ||
+                   workspace.scratch.selected_row != -1
+                    return terminal
+                end
+                failure = terminal
+                refreshed = workspace.refactorizations > refactorizations
+                if refreshed
+                    # Earlier exclusions used stale directions; permit one
+                    # fresh candidate pass after the single allowed refresh.
+                    empty!(rejected)
+                    attempts_left = length(workspace.basis.states)
+                end
+                basis_refreshed |= refreshed
+                entering = workspace.scratch.selected_entering
+                entering > 0 || return failure
+                push!(rejected, entering)
+                _simplex_event!(workspace, :pivot_rejected)
+                # Preference is a bounded heuristic. An all-weak model must
+                # not price and solve every improving column before each pivot.
+                defer_weak && deferred >= 8 && break
             end
-            # An inconclusive ratio or a persistently tiny pivot leaves the
-            # basis untouched. Try another improving column before failing.
-            if isnothing(terminal) || terminal.status != NUMERICAL_ERROR ||
-               workspace.scratch.selected_row != -1
-                return terminal
-            end
-            failure = terminal
-            refreshed = workspace.refactorizations > refactorizations
-            if refreshed
-                # Earlier exclusions were based on stale directions. Permit
-                # one fresh candidate pass after the single allowed refresh.
-                empty!(rejected)
-                attempts_left = length(workspace.basis.states)
-            end
-            basis_refreshed |= refreshed
-            entering = workspace.scratch.selected_entering
-            entering > 0 || return failure
-            push!(rejected, entering)
-            _simplex_event!(workspace, :pivot_rejected)
+            defer_weak && deferred > 0 || return failure
+            # Reconsider deferred columns under the ordinary numerical checks.
+            # Replaying other exclusions once avoids a second per-pivot buffer.
+            defer_weak = false
+            empty!(rejected)
         end
-        return failure
     finally
         empty!(rejected)
     end
@@ -439,7 +462,7 @@ end
 
 function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_requested,
                             reduced_cost_tolerance::T,
-                            basis_refreshed::Bool=false) where {T}
+                            basis_refreshed::Bool=false, defer_weak::Bool=false) where {T}
     incremental_pivot = workspace.progress.numerical_policy.incremental_primal_pivots
     _simplex_event!(workspace, :pricing)
     entering, direction = _timed_simplex(workspace, :pricing) do
@@ -454,7 +477,7 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
                 return DualTermination(NUMERICAL_ERROR, "primal feasibility lost")
             fresh_entering, _ = _primal_entering(workspace, reduced_cost_tolerance)
             fresh_entering != 0 && return _primal_iteration_unchecked!(
-                workspace,stop_requested,reduced_cost_tolerance,basis_refreshed)
+                workspace,stop_requested,reduced_cost_tolerance,basis_refreshed,defer_weak)
         end
         return DualTermination(OPTIMAL, "optimal solution found")
     end
@@ -482,7 +505,7 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
     end
     if !_validate_primal_edge!(workspace,entering,tableau_column)
         stop_requested() && return DualTermination(TIME_LIMIT,"time limit reached during pricing recovery")
-        return _primal_iteration_unchecked!(workspace,stop_requested,reduced_cost_tolerance,basis_refreshed)
+        return _primal_iteration_unchecked!(workspace,stop_requested,reduced_cost_tolerance,basis_refreshed,defer_weak)
     end
     step, leaving_row, leaving_state = if incremental || incremental_pivot
         _with_recovery_precision(workspace, workspace) do
@@ -500,7 +523,7 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
             primal_infeasibility(workspace) <= workspace.options.primal_tolerance ||
                 return DualTermination(NUMERICAL_ERROR, "primal feasibility lost")
             basis_refreshed || return _primal_iteration_unchecked!(
-                workspace,stop_requested,reduced_cost_tolerance,true)
+                workspace,stop_requested,reduced_cost_tolerance,true,defer_weak)
         end
         structural = zeros(T, column_count)
         entering <= column_count && (structural[entering] = direction)
@@ -529,6 +552,10 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
             _advance_pricing_basis!(workspace)
         end
     else
+        if defer_weak && _legacy_primal_row_validation_enabled(workspace) &&
+           abs(tableau_column[leaving_row]) <= sqrt(eps(one(T))) * maximum(abs, tableau_column)
+            throw(_PivotRejection(leaving_row, entering, :defer_weak))
+        end
         if checked_pivot
             _pipeline_unit_rhs!(workspace,leaving_row)
             rho = _timed_simplex(workspace, :btran) do
@@ -553,7 +580,7 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
                     return DualTermination(NUMERICAL_ERROR, "primal feasibility lost")
                 _invalidate_primal_retry_weights!(workspace, entering)
                 return _primal_iteration_unchecked!(workspace, stop_requested,
-                                          reduced_cost_tolerance, true)
+                                          reduced_cost_tolerance, true, defer_weak)
             end
             workspace.scratch.selected_row = -1
             return DualTermination(NUMERICAL_ERROR, "primal pivot is below the zero tolerance")
@@ -581,7 +608,7 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
                     return DualTermination(NUMERICAL_ERROR, "primal feasibility lost")
                 _invalidate_primal_retry_weights!(workspace, entering)
                 return _primal_iteration_unchecked!(workspace, stop_requested,
-                                                    reduced_cost_tolerance, true)
+                                                    reduced_cost_tolerance, true, defer_weak)
             end
             workspace.scratch.selected_row = -1
             return DualTermination(NUMERICAL_ERROR, "primal pivot transpose row is inaccurate")

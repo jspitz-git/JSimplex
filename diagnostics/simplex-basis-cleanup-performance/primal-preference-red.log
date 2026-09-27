@@ -1,0 +1,933 @@
+
+Legacy primal prefers a stable alternative to a weak pivot: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:12
+  Expression: ws.primal[2] == one(T)
+   Evaluated: 0.0f0 == 1.0f0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:12 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:14
+  Expression: ws.basis.basic_indices == [3, 4]
+   Evaluated: [1, 4] == [3, 4]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:14 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:18
+  Expression: ws.primal[1:2] == T[1, 1]
+   Evaluated: Float32[1.0, 3.4526697f-6] == Float32[1.0, 1.0]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:18 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Error During Test at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:20
+  Test threw exception
+  Expression: (JSimplex._primal_iteration!(ws, (()->begin
+                #= /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:20 =#
+                false
+            end), options.dual_tolerance)).status == OPTIMAL
+  FieldError: type Nothing has no field `status`; Nothing has no fields at all.
+  Stacktrace:
+   [1] getproperty(x::Nothing, f::Symbol)
+     @ Base ./Base_compiler.jl:57
+   [2] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:20 [inlined]
+   [5] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:750 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:12
+  Expression: ws.primal[2] == one(T)
+   Evaluated: 0.0f0 == 1.0f0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:12 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:14
+  Expression: ws.basis.basic_indices == [3, 4]
+   Evaluated: [1, 4] == [3, 4]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:14 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:18
+  Expression: ws.primal[1:2] == T[1, 1]
+   Evaluated: Float32[1.0, 3.4526697f-6] == Float32[1.0, 1.0]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:18 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Error During Test at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:20
+  Test threw exception
+  Expression: (JSimplex._primal_iteration!(ws, (()->begin
+                #= /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:20 =#
+                false
+            end), options.dual_tolerance)).status == OPTIMAL
+  FieldError: type Nothing has no field `status`; Nothing has no fields at all.
+  Stacktrace:
+   [1] getproperty(x::Nothing, f::Symbol)
+     @ Base ./Base_compiler.jl:57
+   [2] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:20 [inlined]
+   [5] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:750 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:12
+  Expression: ws.primal[2] == one(T)
+   Evaluated: 0.0f0 == 1.0f0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:12 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:14
+  Expression: ws.basis.basic_indices == [3, 4]
+   Evaluated: [1, 4] == [3, 4]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:14 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:18
+  Expression: ws.primal[1:2] == T[1, 1]
+   Evaluated: Float32[1.0, 3.45267f-6] == Float32[1.0, 1.0]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:18 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Error During Test at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:20
+  Test threw exception
+  Expression: (JSimplex._primal_iteration!(ws, (()->begin
+                #= /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:20 =#
+                false
+            end), options.dual_tolerance)).status == OPTIMAL
+  FieldError: type Nothing has no field `status`; Nothing has no fields at all.
+  Stacktrace:
+   [1] getproperty(x::Nothing, f::Symbol)
+     @ Base ./Base_compiler.jl:57
+   [2] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:20 [inlined]
+   [5] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:750 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:12
+  Expression: ws.primal[2] == one(T)
+   Evaluated: 0.0f0 == 1.0f0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:12 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:14
+  Expression: ws.basis.basic_indices == [3, 4]
+   Evaluated: [1, 4] == [3, 4]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:14 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:18
+  Expression: ws.primal[1:2] == T[1, 1]
+   Evaluated: Float32[1.0, 3.45267f-6] == Float32[1.0, 1.0]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:18 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Error During Test at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:20
+  Test threw exception
+  Expression: (JSimplex._primal_iteration!(ws, (()->begin
+                #= /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:20 =#
+                false
+            end), options.dual_tolerance)).status == OPTIMAL
+  FieldError: type Nothing has no field `status`; Nothing has no fields at all.
+  Stacktrace:
+   [1] getproperty(x::Nothing, f::Symbol)
+     @ Base ./Base_compiler.jl:57
+   [2] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:20 [inlined]
+   [5] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:750 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:12
+  Expression: ws.primal[2] == one(T)
+   Evaluated: 0.0f0 == 1.0f0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:12 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:14
+  Expression: ws.basis.basic_indices == [3, 4]
+   Evaluated: [1, 4] == [3, 4]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:14 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:18
+  Expression: ws.primal[1:2] == T[1, 1]
+   Evaluated: Float32[1.0, 3.45267f-6] == Float32[1.0, 1.0]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:18 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Error During Test at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:20
+  Test threw exception
+  Expression: (JSimplex._primal_iteration!(ws, (()->begin
+                #= /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:20 =#
+                false
+            end), options.dual_tolerance)).status == OPTIMAL
+  FieldError: type Nothing has no field `status`; Nothing has no fields at all.
+  Stacktrace:
+   [1] getproperty(x::Nothing, f::Symbol)
+     @ Base ./Base_compiler.jl:57
+   [2] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:20 [inlined]
+   [5] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:750 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:12
+  Expression: ws.primal[2] == one(T)
+   Evaluated: 0.0f0 == 1.0f0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:12 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:14
+  Expression: ws.basis.basic_indices == [3, 4]
+   Evaluated: [1, 4] == [3, 4]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:14 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:18
+  Expression: ws.primal[1:2] == T[1, 1]
+   Evaluated: Float32[1.0, 3.45267f-6] == Float32[1.0, 1.0]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:18 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Error During Test at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:20
+  Test threw exception
+  Expression: (JSimplex._primal_iteration!(ws, (()->begin
+                #= /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:20 =#
+                false
+            end), options.dual_tolerance)).status == OPTIMAL
+  FieldError: type Nothing has no field `status`; Nothing has no fields at all.
+  Stacktrace:
+   [1] getproperty(x::Nothing, f::Symbol)
+     @ Base ./Base_compiler.jl:57
+   [2] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:20 [inlined]
+   [5] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:750 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:12
+  Expression: ws.primal[2] == one(T)
+   Evaluated: 0.0f0 == 1.0f0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:12 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:14
+  Expression: ws.basis.basic_indices == [3, 4]
+   Evaluated: [1, 4] == [3, 4]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:14 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:18
+  Expression: ws.primal[1:2] == T[1, 1]
+   Evaluated: Float32[1.0, 3.45267f-6] == Float32[1.0, 1.0]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:18 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Error During Test at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:20
+  Test threw exception
+  Expression: (JSimplex._primal_iteration!(ws, (()->begin
+                #= /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:20 =#
+                false
+            end), options.dual_tolerance)).status == OPTIMAL
+  FieldError: type Nothing has no field `status`; Nothing has no fields at all.
+  Stacktrace:
+   [1] getproperty(x::Nothing, f::Symbol)
+     @ Base ./Base_compiler.jl:57
+   [2] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:20 [inlined]
+   [5] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:750 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:12
+  Expression: ws.primal[2] == one(T)
+   Evaluated: 0.0f0 == 1.0f0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:12 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:14
+  Expression: ws.basis.basic_indices == [3, 4]
+   Evaluated: [1, 4] == [3, 4]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:14 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:18
+  Expression: ws.primal[1:2] == T[1, 1]
+   Evaluated: Float32[1.0, 3.45267f-6] == Float32[1.0, 1.0]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:18 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Error During Test at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:20
+  Test threw exception
+  Expression: (JSimplex._primal_iteration!(ws, (()->begin
+                #= /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:20 =#
+                false
+            end), options.dual_tolerance)).status == OPTIMAL
+  FieldError: type Nothing has no field `status`; Nothing has no fields at all.
+  Stacktrace:
+   [1] getproperty(x::Nothing, f::Symbol)
+     @ Base ./Base_compiler.jl:57
+   [2] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:20 [inlined]
+   [5] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:750 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:12
+  Expression: ws.primal[2] == one(T)
+   Evaluated: 0.0 == 1.0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:12 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:14
+  Expression: ws.basis.basic_indices == [3, 4]
+   Evaluated: [1, 4] == [3, 4]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:14 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:18
+  Expression: ws.primal[1:2] == T[1, 1]
+   Evaluated: [1.0, 1.4901161193847657e-10] == [1.0, 1.0]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:18 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Error During Test at ERROR: LoadError: Some tests did not pass: 96 passed, 48 failed, 16 errored, 0 broken.
+in expression starting at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:3
+/home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:20
+  Test threw exception
+  Expression: (JSimplex._primal_iteration!(ws, (()->begin
+                #= /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:20 =#
+                false
+            end), options.dual_tolerance)).status == OPTIMAL
+  FieldError: type Nothing has no field `status`; Nothing has no fields at all.
+  Stacktrace:
+   [1] getproperty(x::Nothing, f::Symbol)
+     @ Base ./Base_compiler.jl:57
+   [2] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:20 [inlined]
+   [5] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:750 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:12
+  Expression: ws.primal[2] == one(T)
+   Evaluated: 0.0 == 1.0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:12 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:14
+  Expression: ws.basis.basic_indices == [3, 4]
+   Evaluated: [1, 4] == [3, 4]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:14 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:18
+  Expression: ws.primal[1:2] == T[1, 1]
+   Evaluated: [1.0, 1.4901161193847657e-10] == [1.0, 1.0]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:18 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Error During Test at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:20
+  Test threw exception
+  Expression: (JSimplex._primal_iteration!(ws, (()->begin
+                #= /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:20 =#
+                false
+            end), options.dual_tolerance)).status == OPTIMAL
+  FieldError: type Nothing has no field `status`; Nothing has no fields at all.
+  Stacktrace:
+   [1] getproperty(x::Nothing, f::Symbol)
+     @ Base ./Base_compiler.jl:57
+   [2] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:20 [inlined]
+   [5] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:750 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:12
+  Expression: ws.primal[2] == one(T)
+   Evaluated: 0.0 == 1.0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:12 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:14
+  Expression: ws.basis.basic_indices == [3, 4]
+   Evaluated: [1, 4] == [3, 4]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:14 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:18
+  Expression: ws.primal[1:2] == T[1, 1]
+   Evaluated: [1.0, 1.4901161193847657e-10] == [1.0, 1.0]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:18 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Error During Test at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:20
+  Test threw exception
+  Expression: (JSimplex._primal_iteration!(ws, (()->begin
+                #= /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:20 =#
+                false
+            end), options.dual_tolerance)).status == OPTIMAL
+  FieldError: type Nothing has no field `status`; Nothing has no fields at all.
+  Stacktrace:
+   [1] getproperty(x::Nothing, f::Symbol)
+     @ Base ./Base_compiler.jl:57
+   [2] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:20 [inlined]
+   [5] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:750 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:12
+  Expression: ws.primal[2] == one(T)
+   Evaluated: 0.0 == 1.0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:12 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:14
+  Expression: ws.basis.basic_indices == [3, 4]
+   Evaluated: [1, 4] == [3, 4]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:14 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:18
+  Expression: ws.primal[1:2] == T[1, 1]
+   Evaluated: [1.0, 1.4901161193847657e-10] == [1.0, 1.0]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:18 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Error During Test at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:20
+  Test threw exception
+  Expression: (JSimplex._primal_iteration!(ws, (()->begin
+                #= /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:20 =#
+                false
+            end), options.dual_tolerance)).status == OPTIMAL
+  FieldError: type Nothing has no field `status`; Nothing has no fields at all.
+  Stacktrace:
+   [1] getproperty(x::Nothing, f::Symbol)
+     @ Base ./Base_compiler.jl:57
+   [2] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:20 [inlined]
+   [5] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:750 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:12
+  Expression: ws.primal[2] == one(T)
+   Evaluated: 0.0 == 1.0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:12 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:14
+  Expression: ws.basis.basic_indices == [3, 4]
+   Evaluated: [1, 4] == [3, 4]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:14 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:18
+  Expression: ws.primal[1:2] == T[1, 1]
+   Evaluated: [1.0, 1.4901161193847657e-10] == [1.0, 1.0]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:18 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Error During Test at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:20
+  Test threw exception
+  Expression: (JSimplex._primal_iteration!(ws, (()->begin
+                #= /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:20 =#
+                false
+            end), options.dual_tolerance)).status == OPTIMAL
+  FieldError: type Nothing has no field `status`; Nothing has no fields at all.
+  Stacktrace:
+   [1] getproperty(x::Nothing, f::Symbol)
+     @ Base ./Base_compiler.jl:57
+   [2] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:20 [inlined]
+   [5] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:750 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:12
+  Expression: ws.primal[2] == one(T)
+   Evaluated: 0.0 == 1.0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:12 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:14
+  Expression: ws.basis.basic_indices == [3, 4]
+   Evaluated: [1, 4] == [3, 4]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:14 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:18
+  Expression: ws.primal[1:2] == T[1, 1]
+   Evaluated: [1.0, 1.4901161193847657e-10] == [1.0, 1.0]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:18 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Error During Test at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:20
+  Test threw exception
+  Expression: (JSimplex._primal_iteration!(ws, (()->begin
+                #= /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:20 =#
+                false
+            end), options.dual_tolerance)).status == OPTIMAL
+  FieldError: type Nothing has no field `status`; Nothing has no fields at all.
+  Stacktrace:
+   [1] getproperty(x::Nothing, f::Symbol)
+     @ Base ./Base_compiler.jl:57
+   [2] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:20 [inlined]
+   [5] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:750 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:12
+  Expression: ws.primal[2] == one(T)
+   Evaluated: 0.0 == 1.0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:12 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:14
+  Expression: ws.basis.basic_indices == [3, 4]
+   Evaluated: [1, 4] == [3, 4]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:14 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:18
+  Expression: ws.primal[1:2] == T[1, 1]
+   Evaluated: [1.0, 1.4901161193847657e-10] == [1.0, 1.0]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:18 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Error During Test at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:20
+  Test threw exception
+  Expression: (JSimplex._primal_iteration!(ws, (()->begin
+                #= /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:20 =#
+                false
+            end), options.dual_tolerance)).status == OPTIMAL
+  FieldError: type Nothing has no field `status`; Nothing has no fields at all.
+  Stacktrace:
+   [1] getproperty(x::Nothing, f::Symbol)
+     @ Base ./Base_compiler.jl:57
+   [2] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:20 [inlined]
+   [5] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:750 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:12
+  Expression: ws.primal[2] == one(T)
+   Evaluated: 0.0 == 1.0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:12 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:14
+  Expression: ws.basis.basic_indices == [3, 4]
+   Evaluated: [1, 4] == [3, 4]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:14 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:18
+  Expression: ws.primal[1:2] == T[1, 1]
+   Evaluated: [1.0, 1.4901161193847657e-10] == [1.0, 1.0]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:18 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal prefers a stable alternative to a weak pivot: Error During Test at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:20
+  Test threw exception
+  Expression: (JSimplex._primal_iteration!(ws, (()->begin
+                #= /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:20 =#
+                false
+            end), options.dual_tolerance)).status == OPTIMAL
+  FieldError: type Nothing has no field `status`; Nothing has no fields at all.
+  Stacktrace:
+   [1] getproperty(x::Nothing, f::Symbol)
+     @ Base ./Base_compiler.jl:57
+   [2] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:4
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_pivot_preference_tests.jl:20 [inlined]
+   [5] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:750 [inlined]
+Test Summary:                                              | Pass  Fail  Error  Total   Time
+Legacy primal prefers a stable alternative to a weak pivot |   96    48     16    160  45.2s
+RNG of the outermost testset: Random.Xoshiro(0xf2b00c06f16d6051, 0x036039f56152b2d6, 0x6b685724ed69aab2, 0x64c17f32749c4712, 0xd724e800e8bbbfcb)

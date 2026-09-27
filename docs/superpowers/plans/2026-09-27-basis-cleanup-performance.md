@@ -106,3 +106,13 @@ Evidence: runtime iteration1079 accepts a pivot1.3094e-12 in a direction of norm
 - [x] Verify numerical guard regressions and runtime prefixes, obtain read-only review, then commit the feature.
 
 Outcome:328/328 focused checks passed; prefix3000 completes in16.68s. Original1079 pivot avoided, but reduced phase still fails at1118. Continue investigating candidate choice.
+
+### Task 4d: Prefer a stable entering alternative before weak pivots
+
+Evidence: refreshing the catastrophic history pivot avoids the first collapse, but the reduced runtime phase continues accepting directions with relative pivots around1e-10 and later collapses again. A two-variable LP provides a stable bound flip behind a higher-scored degenerate weak pivot.
+
+- [x] Reproduce selection of the weak pivot despite an immediately feasible stable alternative; retain an all-weak, necessary-pivot control.
+- [x] In legacy Float32/Float64, first defer at most eight candidates whose relative pivot is below `sqrt(eps(T))`. Defer weaker candidates without changing the basis, then retry with the existing guards if no stable candidate exists. Bound both passes, preserve cancellation and rejection cleanup, and leave adaptive policies unchanged.
+- [x] Run native numerical-guard regressions and a runtime diagnostic prefix; independently review and commit after verification.
+
+Verified:519/519 checks; reviewer findings reproduced and fixed. Runtime5000 prefix35.89s, but reduced phase still singular at2999. Continue examining fresh tiny-pivot agreement.

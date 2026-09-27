@@ -1,0 +1,46 @@
+ERROR: Some tests did not pass: 16 passed, 3 failed, 0 errored, 0 broken.
+
+Weak preference work is bounded for similarly scaled columns: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_preference_work_tests.jl:15
+  Expression: diagnostics.kernel_calls[:ftran] - calls <= 12
+   Evaluated: 18 <= 12
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_preference_work_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_preference_work_tests.jl:15 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Weak preference work is bounded for similarly scaled columns: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_preference_work_tests.jl:15
+  Expression: diagnostics.kernel_calls[:ftran] - calls <= 12
+   Evaluated: 258 <= 12
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_preference_work_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_preference_work_tests.jl:15 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Exhaustion after fresh pricing retains the refresh budget: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_preference_work_tests.jl:36
+  Expression: ws.refactorizations == 1
+   Evaluated: 2 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_preference_work_tests.jl:23
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_primal_preference_work_tests.jl:36 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+Test Summary:                                                  | Pass  Fail  Total   Time
+Preference review regressions                                  |   16     3     19  14.4s
+  Weak preference work is bounded for similarly scaled columns |    8     2     10   7.1s
+  Exhaustion after fresh pricing retains the refresh budget    |    4     1      5   3.5s
+  Cancellation during preference clears exclusions             |    4            4   3.6s
+RNG of the outermost testset: Random.Xoshiro(0x6d574b5ef86d5be9, 0xc795bd6603ec53e1, 0x46f439db068e3811, 0xb9efa971222f4ca0, 0x3c6b46f014448841)

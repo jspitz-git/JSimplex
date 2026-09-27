@@ -7,6 +7,8 @@ using Test
     include("primal_candidate_retry_tests.jl")
     include("primal_retry_pricing_tests.jl")
 include("legacy_primal_roundoff_pivot_tests.jl")
+include("legacy_primal_pivot_preference_tests.jl")
+include("legacy_primal_preference_work_tests.jl")
     include("legacy_primal_row_value_tests.jl")
     include("primal_initial_tolerance_tests.jl")
     include("legacy_dual_correction_tests.jl")
