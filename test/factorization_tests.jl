@@ -316,6 +316,10 @@ end
             if Factorization === JSimplex.BartelsGolubFactorization
                 expected_row_columns = [Int[] for _ in 1:5]
                 JSimplex._rebuild_row_columns!(expected_row_columns, factor.upper)
+                for columns in expected_row_columns
+                    map!(column -> factor.column_order[column], columns, columns)
+                    sort!(columns)
+                end
                 @test factor.row_columns == expected_row_columns
             end
         end

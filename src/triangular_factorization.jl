@@ -135,25 +135,27 @@ end
 
 function _set_upper_value_at!(upper::Vector{PackedUpperColumn{T}},
                               columns_by_row::Vector{Vector{Int}},
-                              column_index::Int, row::Int, value::T, position::Int) where {T}
+                              column_index::Int, row::Int, value::T, position::Int,
+                              column_id::Int=column_index) where {T}
     column = upper[column_index]
     was_stored = position <= length(column.indices) && column.indices[position] == row
     is_stored = !iszero(value)
     was_stored == is_stored && return _set_upper_value_at!(column, row, value, position)
     _set_upper_value_at!(column, row, value, position)
     row_columns = columns_by_row[row]
-    row_position = searchsortedfirst(row_columns, column_index)
+    row_position = searchsortedfirst(row_columns, column_id)
     if is_stored
-        insert!(row_columns, row_position, column_index)
+        _insert_bartels_golub_incidence!(row_columns, row_position, column_id)
     else
-        deleteat!(row_columns, row_position)
+        _delete_bartels_golub_incidence!(row_columns, row_position)
     end
     return nothing
 end
 
 function _swap_upper_rows!(upper::Vector{PackedUpperColumn{T}},
                            columns_by_row::Vector{Vector{Int}},
-                           affected::Vector{Int}, row::Int) where {T}
+                           affected::Vector{Int}, row::Int,
+                           positions=eachindex(upper)) where {T}
     top_columns = columns_by_row[row]
     bottom_columns = columns_by_row[row + 1]
     empty!(affected)
@@ -177,7 +179,7 @@ function _swap_upper_rows!(upper::Vector{PackedUpperColumn{T}},
     end
 
     for column_index in affected
-        column = upper[column_index]
+        column = upper[positions[column_index]]
         position = searchsortedfirst(column.indices, row)
         if position <= length(column.indices) && column.indices[position] == row
             if position < length(column.indices) && column.indices[position + 1] == row + 1
@@ -288,6 +290,7 @@ mutable struct BartelsGolubFactorization{T<:Real,F} <: AbstractTriangularBasisFa
     shared_update_count::Int
     sparse::Union{Nothing,SparseBasisWorkspace{T}}
     row_cache::TriangularRowCache{T}
+    row_columns_ready::Bool
 end
 
 ForrestTomlinFactorization(B::AbstractMatrix{T}) where {T<:Real} =
@@ -329,7 +332,7 @@ function BartelsGolubFactorization(B::AbstractMatrix{T}, ::Val{R}) where {T<:Rea
         base, _identity_upper(T, n), collect(1:n), collect(1:n),
         BartelsGolubUpdate{T}[], zeros(T, n), zeros(T, n),
         [Int[] for _ in 1:n], Int[],
-        BartelsGolubUpdate{T}[], 0, nothing, TriangularRowCache(T, n),
+        BartelsGolubUpdate{T}[], 0, nothing, TriangularRowCache(T, n), false,
     )
 end
 
@@ -732,9 +735,11 @@ function replace_column!(factor::BartelsGolubFactorization{T},
                                               _positive_tolerance(T, 1 // 10^12)) where {T}
     position = _prepare_spike!(factor, tableau_column, pivot_row, zero_tolerance)
     _invalidate_sparse_upper!(factor)
+    _ensure_bartels_golub_incidence!(factor)
+    _replace_bartels_golub_incidence_column!(factor, position)
     _rotate_columns!(factor, position)
     n = length(factor.upper)
-    columns_by_row = _rebuild_row_columns!(factor.row_columns, factor.upper)
+    columns_by_row = factor.row_columns
     # The spike has been packed into the replacement column. Reuse its scratch
     # as incidence marks while batching permutations, without another vector.
     fill!(factor.spike, zero(T))
@@ -747,7 +752,7 @@ function replace_column!(factor::BartelsGolubFactorization{T},
         last_pure = _last_pure_bartels_golub_swap(factor.upper, column_index)
         if last_pure > column_index
             _rotate_upper_rows!(factor.upper, columns_by_row, factor.affected,
-                                factor.spike, column_index, last_pure + 1)
+                                factor.spike, column_index, last_pure + 1, factor.positions)
             run_start == 0 && (run_start = column_index)
             run_last = last_pure
             completed_through = last_pure
@@ -758,22 +763,24 @@ function replace_column!(factor::BartelsGolubFactorization{T},
                   _pivot_magnitude(_upper_value(column, column_index))
         if swapped
             _swap_upper_rows!(factor.upper, columns_by_row, factor.affected,
-                              column_index)
+                              column_index, factor.positions)
         end
         pivot = _upper_value(column, column_index)
         iszero(pivot) && throw(LinearAlgebra.ZeroPivotException(column_index))
         slot, old = _upper_entry(column, column_index + 1)
         multiplier = old / pivot
         _set_upper_value_at!(factor.upper, columns_by_row,
-                            column_index, column_index + 1, zero(T), slot)
+                            column_index, column_index + 1, zero(T), slot,
+                            factor.column_order[column_index])
         if !iszero(multiplier)
-            for trailing in columns_by_row[column_index]
+            for column_id in columns_by_row[column_index]
+                trailing = factor.positions[column_id]
                 trailing <= column_index && continue
                 trailing_column = factor.upper[trailing]
                 value = _upper_value(trailing_column, column_index)
                 slot, old = _upper_entry(trailing_column, column_index + 1)
                 _set_upper_value_at!(factor.upper, columns_by_row,
-                                    trailing, column_index + 1, old - multiplier * value, slot)
+                                    trailing, column_index + 1, old - multiplier * value, slot, column_id)
             end
         end
         if swapped && iszero(multiplier)
@@ -833,6 +840,7 @@ function _reset_row_scratch!(factor::BartelsGolubFactorization, n::Int)
         end
     end
     empty!(factor.affected)
+    factor.row_columns_ready = false
     return nothing
 end
 
@@ -890,6 +898,6 @@ function copy_basis_factorization(factor::BartelsGolubFactorization{T,F}) where 
         copy(factor.updates), similar(factor.work), similar(factor.spike),
         [Int[] for _ in eachindex(factor.row_columns)], Int[],
         BartelsGolubUpdate{T}[], factor.shared_update_count, _copy_sparse_basis_cache(factor.sparse),
-        TriangularRowCache(T, length(factor.work)),
+        TriangularRowCache(T, length(factor.work)), false,
     )
 end
