@@ -725,10 +725,24 @@ function replace_column!(factor::BartelsGolubFactorization{T},
     _rotate_columns!(factor, position)
     n = length(factor.upper)
     columns_by_row = _rebuild_row_columns!(factor.row_columns, factor.upper)
+    # The spike has been packed into the replacement column. Reuse its scratch
+    # as incidence marks while batching permutations, without another vector.
+    fill!(factor.spike, zero(T))
     steps = _take_bartels_golub_steps!(factor)
     run_start = 0
     run_last = 0
+    completed_through = position - 1
     for column_index in position:(n - 1)
+        column_index <= completed_through && continue
+        last_pure = _last_pure_bartels_golub_swap(factor.upper, column_index)
+        if last_pure > column_index
+            _rotate_upper_rows!(factor.upper, columns_by_row, factor.affected,
+                                factor.spike, column_index, last_pure + 1)
+            run_start == 0 && (run_start = column_index)
+            run_last = last_pure
+            completed_through = last_pure
+            continue
+        end
         column = factor.upper[column_index]
         swapped = _pivot_magnitude(_upper_value(column, column_index + 1)) >
                   _pivot_magnitude(_upper_value(column, column_index))

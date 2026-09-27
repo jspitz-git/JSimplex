@@ -15,3 +15,9 @@ At 28,000 rows, replacing distinct identity columns generates actual pure-rotati
 Validation: 22,888 checks passed across the new differential suite, factorization, triangular reuse/reset, hypersparse history and pivot atomicity tests. The new suite compares floating results with explicit old-history replay using `isequal`, checks exact arithmetic and residuals against actual updated matrices, aliases, independent copies, and changing dimensions.
 
 Baseline runtime dual, interval80: TIME_LIMIT at360.002s,21,619 iterations,271 refactorizations, peak RSS2.12GiB. FTRAN30.44s, BTRAN33.41s, refactorization6.60s, pricing7.79s. Replacement appears in14,250 of26,502 profiler samples, motivating a separate pure-swap batching change. Compilation/startup outside solver time makes outer time413.02s.
+
+## Batched BG factor updates
+
+Pure adjacent row swaps now visit each affected packed column once and rotate its row indices/values as a group. The existing spike scratch marks unique affected columns; short runs do not scan the full matrix. Nonzero elimination arithmetic and pivot comparisons retain their scalar path. On the identity-history benchmark, per-update time fell from 640.7–748.0 to 399.8–484.0 microseconds.
+
+The combined regression suite passed 30,797 checks, including 1,200 assertions comparing every updated packed upper factor and pivot-history record with the scalar implementation from baseline `1ffdbc2`.
