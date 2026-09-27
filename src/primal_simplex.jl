@@ -559,14 +559,21 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
             return DualTermination(NUMERICAL_ERROR, "primal pivot is below the zero tolerance")
         end
         legacy_row = _legacy_primal_row_validation_enabled(workspace)
-        if legacy_row && !_legacy_primal_pivot_row_ok!(
-                workspace, entering, leaving_row, tableau_column[leaving_row], stop_requested)
+        # Correlated history errors can make FTRAN and BTRAN agree on a
+        # spurious tiny pivot. Refresh once before trusting a pivot below the
+        # rounding scale of its direction; fresh solves may still confirm a
+        # genuine small pivot in a scaled problem.
+        unresolved_pivot = legacy_row && !basis_refreshed &&
+            !isempty(workspace.factorization.updates) &&
+            abs(tableau_column[leaving_row]) <= eps(one(T)) * maximum(abs, tableau_column)
+        if legacy_row && (unresolved_pivot || !_legacy_primal_pivot_row_ok!(
+                workspace, entering, leaving_row, tableau_column[leaving_row], stop_requested))
             stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
             if !basis_refreshed && !isempty(workspace.factorization.updates)
                 candidate = _legacy_primal_point_candidate(
                     workspace, 0, 0, zero(T), tableau_column)
                 recompute!(workspace; refactorize=true, caller_guard=stop_requested,
-                           diagnostic_reason=:refactor_residual)
+                           diagnostic_reason=unresolved_pivot ? :refactor_pivot : :refactor_residual)
                 _restore_legacy_primal_point!(workspace, candidate, stop_requested)
                 stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
                 _finite_workspace(workspace) || return _numerical_failure()

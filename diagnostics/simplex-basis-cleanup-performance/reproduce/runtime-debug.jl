@@ -22,7 +22,7 @@ function main()
             if row>0
                 pivot=ws.scratch.row_solution[row]
                 scale=norm(ws.scratch.row_solution,Inf)
-                if abs(pivot)<1e-8*scale && small_pivots[]<parse(Int,get(ENV,"JSIMPLEX_TRACE_LIMIT","10"))
+                if abs(pivot)<parse(Float64,get(ENV,"JSIMPLEX_TRACE_RELATIVE","1e-8"))*scale && small_pivots[]<parse(Int,get(ENV,"JSIMPLEX_TRACE_LIMIT","10"))
                     small_pivots[]+=1
                     name=output*".accepted_pivot."*string(ws.iterations)*".bin"
                     serialize(name,(problem=ws.problem,basis=deepcopy(ws.basis),prior_basis=previous_basis[],

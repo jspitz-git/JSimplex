@@ -75,3 +75,13 @@ A separate1200-iteration runtime diagnostic prefix found accepted relative pivot
 Retry-pricing validation:582/582 broader primal, numerical guard, candidate retry and cleanup checks passed with `-O1`. The final focused suite passed18/18, including a non-unit basis with deliberately inaccurate positive pricing estimates and original-model feasibility/optimality checks.
 
 The matching1200-iteration diagnostic prefix decreased from22.17s to6.88s after retaining unrelated weights; pricing fell from15.32s to0.208s. Trajectories diverge after the first retry, so these are bounded-prefix measurements, not time-to-optimum results. The expanded trace caught the damaging pivot at iteration1079:1.3094e-12 against a direction norm1.4084e9 (relative9.30e-22). Subsequent directions grow to about3e21. The original absolute zero cutoff alone admits this pivot.
+
+## Correlated roundoff in primal pivot histories
+
+At the damaging runtime pivot, the stored FTRAN and BTRAN pivots agree to about1e-27, despite a tiny true coefficient. A new factorization gives9.4562e-13 from FTRAN and4.5397e-13 from BTRAN. The stored row residual test alone therefore cannot detect this history error.
+
+The legacy Float32/Float64 path now refreshes a nonempty history once when the pivot is below `eps(T)*norm(direction,Inf)`, preserving the independently feasible primal point and retrying through existing checks. It does not introduce a new hard pivot cutoff: a genuinely small pivot may proceed after fresh solves. Adaptive policies and other scalar types retain their previous paths.
+
+The small injected-history reproducer previously accepted a false pivot and reported internal OPTIMAL at x=0 for an LP whose optimum is x=1. This demonstrates a wrong internal termination, not an incorrectly certified result from the public solver. The regression failed24 assertions before the fix. The fix and genuine-small-pivot controls pass56/56 checks across four managers and both hardware types. Independent read-only review found no blocker; repeated refactorizations on strongly scaled problems remain a performance risk to measure.
+
+Roundoff-refresh validation:328/328 focused guard, retry, native correction, point-preservation and Harris checks passed. A3000-iteration runtime prefix takes16.68s with46 refactorizations and avoids the original1079 false pivot. However, the reduced phase still fails at1118 and retries the original model; this is a verified local correction, not a complete runtime primal stabilization result.

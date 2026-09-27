@@ -96,3 +96,13 @@ Evidence: local runtime primal BG spends322s in pricing but only1.37s in factori
 - [x] For legacy retries, invalidate only the selected entering weight after refactorizing the unchanged basis; preserve the adaptive path and all residual/pivot guards.
 - [x] Run primal guard, pricing, retry and original-certificate regressions (582/582 plus18/18 focused); repeat runtime diagnostic prefix (22.17s to6.88s) and obtain independent read-only review.
 - [x] Commit the verified retry-pricing feature.
+
+### Task 4c: Refresh history-dependent pivots below direction roundoff
+
+Evidence: runtime iteration1079 accepts a pivot1.3094e-12 in a direction of norm1.4084e9. Both stored solves agree; fresh FTRAN instead gives9.4562e-13, below the existing1e-12 absolute cutoff. The new basis produces directions near3e21. A small stale-history example can give matching FTRAN/BTRAN pivots and a tiny row residual despite an exactly zero true pivot.
+
+- [x] Run a failing small behavioral regression across native Float32/Float64 and all managers; retain a genuinely small pivot control.
+- [x] Before changing a legacy basis, refresh an existing history once when the selected pivot is below `eps(T)*norm(direction,Inf)`. Preserve the independently feasible primal point, retry pricing, and apply existing guards to fresh solves. Do not hard-reject genuinely scaled pivots or alter adaptive policies.
+- [x] Verify numerical guard regressions and runtime prefixes, obtain read-only review, then commit the feature.
+
+Outcome:328/328 focused checks passed; prefix3000 completes in16.68s. Original1079 pivot avoided, but reduced phase still fails at1118. Continue investigating candidate choice.
