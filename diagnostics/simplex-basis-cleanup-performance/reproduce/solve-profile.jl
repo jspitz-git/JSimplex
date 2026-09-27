@@ -1,7 +1,7 @@
 using JSimplex, Logging, TOML, SHA, Profile
 function main()
     path, algorithm, interval, seconds, output = ARGS[1:5]
-    lowercase(basename(path)) in ("big.mps", "largo.mps", "anymod.mps") && error("Excluded large model")
+    lowercase(basename(realpath(path))) in ("big.mps", "largo.mps", "anymod.mps") && error("Excluded large model")
     options = SolverOptions(algorithm=Symbol(algorithm), basis_update=:bartels_golub,
         basis_refactorization=:native, pricing=:steepest_edge, simplex_strategy=:legacy,
         refactorization_interval=parse(Int,interval),time_limit=parse(Float64,seconds),

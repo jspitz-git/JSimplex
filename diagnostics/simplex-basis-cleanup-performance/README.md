@@ -1,5 +1,17 @@
 # Basis update and postsolve cleanup investigation
 
+This branch reduces dense basis-history overhead, keeps feasible postsolve bases, and fixes several native-precision retry defects. **Runtime primal Bartels–Golub remains unresolved:** the final attempt stagnates until its time limit. No tolerance relaxation or adaptive-policy redesign is introduced.
+
+| Measurement | Result | Scope |
+| --- | --- | --- |
+| Runtime dual PFI | OPTIMAL in271.74s, original primal certificate passed | Completed run before the last two narrowly scoped features |
+| PFI post-reduced work | About12s, including1195 postsolve primal pivots | Cleanup no longer dominates this run |
+| Runtime dual BG | 1.73x faster at iteration21,617 with matching objective/infeasibility records | Both profiles stop at360s; no completion claim |
+| Medium captured history | Warm triangular solves approximately3.5ms →1.1ms | Same320 early exchanges, before/after active upper cache; cold rebuilding also measured |
+| Final runtime primal BG | TIME_LIMIT360s,42,461 iterations, stagnant phase I | Earlier marginal exit avoided; overall primal stability/performance still unsatisfactory |
+
+Production tip: `01c6dd7`. See [review and verification](review.md) and detailed evidence below. Each verified feature has a separate commit in `fix/simplex-basis-cleanup-performance`.
+
 Baseline: `1ffdbc2f6abf951c31c4ae5676a47dcc92924600`.
 
 The user supplied `runtime-dual-user.log` from another machine. Its exact source revision and environment are unknown. Configuration: legacy dual simplex, steepest-edge pricing, native Bartels–Golub updates, refactorization interval 80, iteration limit 1,000,000, unlimited time, integrality relaxed.
@@ -24,7 +36,7 @@ The combined regression suite passed 30,797 checks, including 1,200 assertions c
 
 ## Other basis managers
 
-The user explicitly requested coverage of every manager. FT and SS now use the same composed-permutation representation, retaining their addition operations; BG retains subtraction. SS histories that never permute rows skip the gather/scatter. All 32,421 focused factor checks passed. See the all-manager history logs for identity and coupled-column results. Before this extension, coupled histories at320 updates required BTRAN3.671ms (FT) and3.390ms (SS); the composed path removes that repeated permutation traffic. PFI has no such permutations and remains unchanged at this stage. Real-model history replay is still required to assess its coefficient-dependent cost.
+The user explicitly requested coverage of every manager. FT and SS now use the same composed-permutation representation, retaining their addition operations; BG retains subtraction. SS histories that never permute rows skip the gather/scatter. All 32,421 focused factor checks passed. See the all-manager history logs for identity and coupled-column results. Before this extension, coupled histories at320 updates required BTRAN3.671ms (FT) and3.390ms (SS); the composed path removes that repeated permutation traffic. PFI has no such permutations and remains unchanged at this stage. Real-model early-history replay is reported below; later-fill behavior remains unmeasured.
 
 ## Additional user reports
 
@@ -62,7 +74,7 @@ The supplied Windows primal log has 438 adjacent progress records separated by e
 
 A small LP reproduced the reported boundary failure in both hardware floating types, all four basis managers and both bound orientations. The new helper makes a bounded, representable adjustment to nonbasic costs of an already perturbed legacy working objective after fresh factorization. It never changes original coefficients or tolerances. Each offending price must be within twice the dual tolerance; each individual repair is capped at four tolerances, with a feasible margin. This is not a cumulative perturbation bound.
 
-Original-cost cleanup does not enable this repair. Restoring original costs can still expose an improving or unbounded direction, both covered by regression tests. Adaptive perturbation switches and active journals are excluded. A read-only review caught and verified fixes for mixed-policy gating and cancellation before the higher-precision fallback. Real runtime PFI validation is still pending.
+Original-cost cleanup does not enable this repair. Restoring original costs can still expose an improving or unbounded direction, both covered by regression tests. Adaptive perturbation switches and active journals are excluded. A read-only review caught and verified fixes for mixed-policy gating and cancellation before the higher-precision fallback. The completed local runtime PFI validation is reported below; the exact other-machine failure is not claimed as reproduced.
 
 Native-price validation: 2,290/2,290 checks passed, including old dual-simplex behavior, hardware-type exclusions, correction cycles, adaptive perturbation isolation and postsolve original-cost certificates. The behavioral reproducer failed in all 16 configurations before implementation; mixed-policy and cancellation review regressions failed before their guards were added.
 
@@ -99,3 +111,77 @@ The unbounded diagnostic prototype was interrupted after3360 recorded iterations
 The fresh basis at iteration2999 returns FTRAN1.4806350483260688e-12 and BTRAN8.514047651924245e-13. The old absolute agreement floor1e-12 accepts this42.5% discrepancy. Agreement now uses only the symmetric relative scale `sqrt(eps(T))*max(abs(forward),abs(transpose))`; absolute pivot eligibility remains a separate check. Sixteen native-type/manager/sign regressions failed before the change; exact and one-ULP agreement controls pass. The combined guard suite passes583/583, with no read-only review blocker.
 
 The subsequent full runtime primal BG attempt requested360s but terminated NUMERICAL_ERROR at236.44s,13,715 iterations and1,389 refactorizations. The original singular pivot is avoided, but the reduced phase later loses feasibility at4151 and the original-model retry also loses feasibility. This is an unresolved primal limitation, not a successful completion. Pricing totals34.66s, FTRAN31.08s, BTRAN15.17s and refactorization5.66s; these overlapping kernels must not be summed. Peak RSS is about1.88GiB;27.5GB of cumulative allocations is not simultaneous memory use. Different trajectories prevent interpreting the iteration count as matched progress toward the optimum.
+
+## Completed runtime dual PFI run
+
+With the requested legacy/steepest-edge/native configuration and interval80, runtime finished OPTIMAL in271.74s,54,018 iterations and291 refactorizations. The original-model primal certificate passed; objective51,425,691.76210421. The requested time budget was900s. Peak RSS was1.92GiB;13.60GB cumulative allocations are not simultaneous memory use.
+
+The last reduced progress record is at52819/259.724s, followed by four pivots after restoring original costs. Postsolve projects361 basis columns, then primal cleanup needs1195 pivots. Final time271.741s is about12.02s after that last reduced record (including the four cost-restoration pivots and postsolve overhead). The post-projection cleanup itself spans about10.45s. This full-model result confirms that cleanup no longer dominates this run. The other machine's exact environment remains unknown; a local completed run does not by itself prove cross-machine reproducibility of the marginal-price failure.
+
+## Matched runtime dual Bartels–Golub profile
+
+Using the same six-minute profiling script as the baseline, the updated solver reaches30,243 iterations versus21,619 before (about40% more). Both runs end TIME_LIMIT; neither number is a completed solve time. All271 common progress records have identical objective and primal infeasibility strings. At the last common record, iteration21,617 takes208.063s versus359.968s before:1.73x faster at matched numerical progress.
+
+The updated run reaches a later, more expensive part of the trajectory; its cumulative kernel times and2.94GiB process peak RSS should not be compared as if both runs performed the same work. See `runtime-bg-matched-progress.json`, both full logs, and the before/after profiles.
+
+
+## Medium history and interval diagnostics
+
+The captured basis at iteration2000 has360,982 rows and186,497 structural columns. Replaying the next320 actual exchanges through all four managers gives zero relative FTRAN/BTRAN residuals on the tested all-ones RHS. At320 updates, warmed PFI solves take approximately0.64/0.69ms, FT3.49/3.50ms, SS3.66/3.67ms and BG3.73/3.80ms. Even fresh triangular factors take roughly3ms, indicating overhead independent of accumulated numerical eliminations. This early history mostly consists of pure permutations; it does not represent later fill or prove that arbitrary long histories are cheap.
+
+The separate60-second interval runs are throughput diagnostics, not completion attempts. Their recorded `working_*` values are inspected after the solver returns; auxiliary cleanup may already have restored original bounds and costs. Consequently those values must not be interpreted as live auxiliary-phase progress or a feasibility certificate. The phase label is the last observed phase. `process_peak_rss` is cumulative across the sequential process, not an independent per-case peak. Single short timings include startup and GC variability. Detailed counts and kernels remain useful for comparison, with these limits.
+
+
+Observed medium iterations within each60-second solver budget, before the active-upper optimization (`707fbb6`):
+
+| Manager | Interval20 | Interval80 | Interval320 |
+| --- | ---: | ---: | ---: |
+| PFI | 3822 | 4294 | 4480 |
+| Bartels–Golub | 1238 | 623 | 1169 |
+| Forrest–Tomlin | 1194 | 1028 | 852 |
+| Suhl–Suhl | 868 | 883 | 904 |
+
+These single runs do not establish a monotonic law; in particular the BG interval80 observation is anomalously slow. They confirm remaining whole-iteration overhead beyond warmed history application. No completed medium optimum is claimed.
+
+## Active identity upper columns
+
+Commit `3efba07` removes repeated scans of identity upper columns from dense hardware-type solves. On the same320-exchange medium history, warmed triangular FTRAN/BTRAN decrease from approximately3.5ms to1.1ms. Cumulative first FTRANs, including cache reconstruction after each exchange, decrease from roughly1.3s to1.1–1.2s. See [the detailed comparison](active-upper-results.md). All33,117 factor checks pass; no independent review blocker remains. Whole-solver results above predate this final factor optimization.
+
+## Missing preservation in the absolute-small-pivot retry
+
+The final-factor5000-iteration diagnostic prefix again loses reduced-model feasibility at4151. The computed point violates a bound by1.0001618054280663e-7; the retained candidate passes working bounds, the unperturbed phase-I problem rows and row consistency. This is a phase-I certificate, not feasibility of the original runtime input (the artificial objective is still positive). Diagnostic clipping to the exact bound fails row certification, so no general clipping repair is introduced.
+
+The absolute-small-pivot retry lacked the certified-point preservation already present in the residual retry. A small stale-factor regression reproduces this omission across all four managers and both hardware types (40 failed assertions). The fix captures the current point before refactorization and offers it to the existing independently certified restoration helper. Adaptive exclusions, fresh pivot checks and cancellation remain unchanged. This fixes a missing branch; it does not by itself resolve the preceding degenerate stagnation.
+
+The final focused guard suite passes623/623 checks with `-O1`; independent read-only review found no blocker. Full-model follow-up is recorded below.
+
+## Reproduction
+
+Run from this worktree, with one Julia thread and one BLAS thread. Local runs used Julia1.13.0 on aarch64 Linux and a24GiB virtual-memory ceiling. Numerical jobs were sequential. Functional suites used `-O1`; performance scripts used default optimization. `big.mps`, `largo.mps`, `AnyMod.mps` and their canonical-path aliases were excluded.
+
+```bash
+export JULIA_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1
+julia --project=. diagnostics/simplex-basis-cleanup-performance/reproduce/runtime-debug.jl /home/jspitz/mps/runtime.mps dual pfi 900 /tmp/runtime-dual-pfi.toml
+julia --project=. diagnostics/simplex-basis-cleanup-performance/reproduce/runtime-debug.jl /home/jspitz/mps/runtime.mps primal bartels_golub 360 /tmp/runtime-primal-bg.toml
+julia --project=. diagnostics/simplex-basis-cleanup-performance/reproduce/interval-comparison.jl /home/jspitz/mps/medium.mps 60 /tmp/medium-intervals.toml
+python3 diagnostics/simplex-basis-cleanup-performance/reproduce/prepare-corpus.py /tmp/jsimplex-corpus
+JSIMPLEX_CORPUS_MANIFEST=/tmp/jsimplex-corpus/quick-inputs.toml JSIMPLEX_CORPUS_OUTPUT=/tmp/quick-corpus.toml julia -O1 --project=. diagnostics/simplex-basis-cleanup-performance/reproduce/quick-corpus.jl
+```
+
+The corpus manifest hashes the decompressed inputs and reuses recorded independent reference objectives from the [previous external corpus](../simplex-legacy-stability/quick-corpus.json) and the [HiGHS reference](../simplex-performance/highs-reference.json). Model files are not included. Its timings are functional-run observations, not consistently warmed performance comparisons. A diagnostic prefix can be requested with `JSIMPLEX_DEBUG_ITERATIONS=5000`; it must not be reported as a completion attempt.
+
+
+## Final runtime primal follow-up
+
+At production tip `01c6dd7`, the full360-second attempt ends TIME_LIMIT after42,461 iterations and1,925 refactorizations. The earlier reduced-model failure at4151 no longer aborts the solve, but the phase-I objective remains around1,419,148.32. From roughly4365 onward, the reported dual infeasibility is approximately8.08e21 and the run stagnates. This is not a successful primal stabilization result, and its higher iteration count must not be presented as better progress toward the optimum.
+
+The run records38,100 point restorations certified for the working phase-I problem and92,102 rejected candidates. Later scheduled refactorizations generally occur every80 iterations, following an earlier storm of1,412 pivot-triggered refactorizations. Pricing totals44.54s, FTRAN27.80s, BTRAN14.70s and refactorization6.96s; timings overlap. Peak RSS is about1.90GiB, while104.73GB is cumulative allocation traffic, not resident memory. Original-problem OPTIMAL certification was never reached.
+
+Further primal work must address degenerate candidate selection and ill-conditioned bases, rather than just preventing the marginal feasibility exit. This branch retains the independently verified missing-path correction but makes no claim of HiGHS/Clp parity or a completed medium solve.
+
+
+## Final external validation
+
+Production tip `01c6dd7` passes all72 external LP solves: nine hash-matched inputs, both legacy algorithms and all four basis managers. Every case returns OPTIMAL, matches its independent reference objective and passes original-input primal certification. The225 corpus assertions and71 final cleanup assertions all pass (`-O1`). Cases: NetLib afiro/adlittle/kb2/sc50a; MIPLib pk1/flugpl/stein9inf/markshare_4_0 as LP relaxations; mps fast0507.
+
+See `final-corpus.toml` and `final-functional.log`. Functional fast0507 observations are approximately12–14s dual and15–17s primal under `-O1`; these are not a warmed default-optimization benchmark or a claim of subsecond performance. All numerical jobs have completed. The11 production feature commits and this diagnostic archive remain in the isolated worktree; master is unchanged.

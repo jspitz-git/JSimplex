@@ -1,6 +1,6 @@
 # Active upper columns
 
-Source before: `707fbb6`. After: private active-column cache, with all other production sources unchanged. Same captured medium basis at iteration2000 and next320 exchanges; Julia1.13.0, one Julia/BLAS thread. The external model and serialized snapshot remain local.
+Source before: `707fbb6`. After: `3efba07`, private active-column cache, with all other production sources unchanged. Same captured medium basis at iteration2000 and next320 exchanges; Julia1.13.0, one Julia/BLAS thread. The external model and serialized snapshot remain local.
 
 Only Float32/Float64 skip stored singleton positive-unit diagonal columns. Explicit off-diagonal zeros remain active. Every nonidentity operation retains its order; copies and mutations independently invalidate the cache. Other scalar types retain the full scan.
 

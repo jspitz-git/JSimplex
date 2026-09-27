@@ -75,9 +75,9 @@ Interface: retain `_project_postsolve_basis!` and `cleanup_original` signatures,
 Files: `diagnostics/simplex-basis-cleanup-performance/`.
 
 - [x] Run sequential matched interval20/80/320 progress comparisons on medium; run runtime dual with at least360s; report status, objective, primal feasibility, iterations, refactorizations, kernel time and peak RSS.
-- [ ] Run both algorithms on external NetLib, MIPLib LP relaxations and mps examples, including fast0507 where practical; do not extrapolate incomplete runs to completion.
+- [x] Run both algorithms on external NetLib, MIPLib LP relaxations and mps examples, including fast0507 where practical; do not extrapolate incomplete runs to completion.
 - [x] Request an independent read-only whole-branch code review; address significant findings with regression tests.
-- [ ] Commit final English report and leave worktree available for review.
+- [x] Commit final English report and leave worktree available for review.
 
 ### Task 4: Investigate the supplied numerical failures
 
@@ -129,7 +129,7 @@ Verified guard correction:583/583 checks and independent review. Full360s-budget
 
 ### Task 4f: Inspect marginal primal point failures
 
-The full primal run still fails on a marginal feasibility violation. Capture computed and predicted basic values at certification failure. Test whether a small native correction can be independently certified against unchanged bounds and rows. Do not change tolerances or publish an uncertified point. Implementation depends on snapshot evidence; not yet started.
+The full primal run still fails on a marginal feasibility violation. Capture computed and predicted basic values at certification failure. Test whether a small native correction can be independently certified against unchanged bounds and rows. Do not change tolerances or publish an uncertified point. Snapshot evidence and the missing retry-path correction are recorded below; general clipping was not implemented.
 
 ### Task 1d: Skip unchanged identity upper columns in dense hardware solves
 
@@ -139,4 +139,10 @@ The captured early medium history shows approximately3.5ms triangular solves ver
 - [x] Implement the private active-column cache and verify all factor regressions.
 - [x] Replay the same medium history, including first solves after updates, review and commit.
 
-Task4f evidence: at reduced runtime iteration4151, the recomputed point violates a bound by1.0001618e-7 while the stored candidate passes bounds, original rows and row consistency. Clipping to the exact bound fails row certification; arbitrary clipping is rejected. The absolute-small-pivot retry branch refactorizes without the certified-point preservation already used by the residual retry branch. Add a stale-factor regression across all managers and hardware types, then apply that existing preservation gate to this missing branch; retain all checks and adaptive exclusions. Re-run focused guards and a full360s-budget primal attempt. Degenerate stagnation remains a separate limitation.
+Task4f evidence: at reduced runtime iteration4151, the recomputed point violates a bound by1.0001618e-7 while the stored candidate passes bounds, unperturbed phase-I problem rows and row consistency (not original-runtime feasibility). Clipping to the exact bound fails row certification; arbitrary clipping is rejected. The absolute-small-pivot retry branch refactorizes without the certified-point preservation already used by the residual retry branch. Add a stale-factor regression across all managers and hardware types, then apply that existing preservation gate to this missing branch; retain all checks and adaptive exclusions. Re-run focused guards and a full360s-budget primal attempt. Degenerate stagnation remains a separate limitation.
+
+Task4f verified correction: `01c6dd7`, forty expected regression failures before implementation and623/623 focused checks after it. Independent review clear. The full-model follow-up remains necessary to assess stagnation separately from point preservation.
+
+Full follow-up at01c6dd7: TIME_LIMIT360.001s/42,461 iterations, no OPTIMAL certificate; reducedphase remains stagnant with very large dual infeasibility. The missing preservation branch is corrected, but primal stabilization is explicitly unresolved.
+
+Final validation:72/72 external solves,225/225 corpus assertions and71/71 cleanup assertions pass at01c6dd7. Full primal stabilization remains an explicitly documented limitation; no completed medium solve or HiGHS/Clp parity is claimed.
