@@ -3,6 +3,17 @@
 function _rotate_upper_rows!(upper, columns_by_row, affected, marks::Vector{T},
                              first::Int, last::Int, positions=eachindex(upper)) where {T}
     first == last && return nothing
+    # Stable identities let unaffected rows follow the permutation implicitly.
+    if _stable_rotate_upper_rows!(upper, first, last,
+                                  (positions[id] for id in columns_by_row[first]))
+        old = columns_by_row[first]
+        for row in first:(last - 1)
+            columns_by_row[row] = columns_by_row[row + 1]
+        end
+        columns_by_row[last] = old
+        empty!(affected)
+        return nothing
+    end
     # marks is zero on entry and exit. Visit each affected column only once;
     # scanning every column for many short rotations would be quadratic.
     empty!(affected)
