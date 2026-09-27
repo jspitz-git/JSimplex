@@ -1,0 +1,35 @@
+ERROR: LoadError: Some tests did not pass: 10 passed, 2 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/.superpowers/performance/primal-weight-reproducer.jl:2
+columns = 16
+calls = 20
+
+Refactorization preserves unrelated steepest-edge weights: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/.superpowers/performance/primal-weight-reproducer.jl:22
+  Expression: calls <= 12
+   Evaluated: 20 <= 12
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/.superpowers/performance/primal-weight-reproducer.jl:3
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/.superpowers/performance/primal-weight-reproducer.jl:22 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+columns = 256
+calls = 260
+
+Refactorization preserves unrelated steepest-edge weights: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/.superpowers/performance/primal-weight-reproducer.jl:22
+  Expression: calls <= 12
+   Evaluated: 260 <= 12
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/.superpowers/performance/primal-weight-reproducer.jl:3
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/.superpowers/performance/primal-weight-reproducer.jl:22 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+Test Summary:                                             | Pass  Fail  Total  Time
+Refactorization preserves unrelated steepest-edge weights |   10     2     12  7.0s
+RNG of the outermost testset: Random.Xoshiro(0x50474b25860eff5a, 0xf37394776258bdc0, 0x9c23d740afdad6d8, 0x191b9e4b94d3ddfc, 0xe71690e02e2a7cb6)

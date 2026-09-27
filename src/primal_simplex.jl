@@ -82,6 +82,17 @@ _primal_cacheable_weight(weight::T) where {T<:AbstractFloat} =
 _primal_cacheable_weight(weight::Rational{BigInt}) = true
 _primal_cacheable_weight(weight::Rational) = false
 
+function _invalidate_primal_retry_weights!(workspace::SimplexWorkspace, entering::Int)
+    if workspace.options.simplex_strategy == :legacy
+        # Refactorization keeps the same basis geometry. Refresh the selected
+        # candidate without solving every other improving column again.
+        workspace.scratch.steepest_valid[entering] = false
+    else
+        fill!(workspace.scratch.steepest_valid, false)
+    end
+    return nothing
+end
+
 function _primal_unit_basis(workspace::SimplexWorkspace{T}) where {T}
     A = workspace.problem.A
     column_count = size(A, 2)
@@ -540,7 +551,7 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
                 _finite_workspace(workspace) || return _numerical_failure()
                 primal_infeasibility(workspace) <= workspace.options.primal_tolerance ||
                     return DualTermination(NUMERICAL_ERROR, "primal feasibility lost")
-                fill!(workspace.scratch.steepest_valid, false)
+                _invalidate_primal_retry_weights!(workspace, entering)
                 return _primal_iteration_unchecked!(workspace, stop_requested,
                                           reduced_cost_tolerance, true)
             end
@@ -561,7 +572,7 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
                 _finite_workspace(workspace) || return _numerical_failure()
                 primal_infeasibility(workspace) <= workspace.options.primal_tolerance ||
                     return DualTermination(NUMERICAL_ERROR, "primal feasibility lost")
-                fill!(workspace.scratch.steepest_valid, false)
+                _invalidate_primal_retry_weights!(workspace, entering)
                 return _primal_iteration_unchecked!(workspace, stop_requested,
                                                     reduced_cost_tolerance, true)
             end

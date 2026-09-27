@@ -65,3 +65,13 @@ A small LP reproduced the reported boundary failure in both hardware floating ty
 Original-cost cleanup does not enable this repair. Restoring original costs can still expose an improving or unbounded direction, both covered by regression tests. Adaptive perturbation switches and active journals are excluded. A read-only review caught and verified fixes for mixed-policy gating and cancellation before the higher-precision fallback. Real runtime PFI validation is still pending.
 
 Native-price validation: 2,290/2,290 checks passed, including old dual-simplex behavior, hardware-type exclusions, correction cycles, adaptive perturbation isolation and postsolve original-cost certificates. The behavioral reproducer failed in all 16 configurations before implementation; mixed-policy and cancellation review regressions failed before their guards were added.
+
+## Primal retry pricing
+
+A controlled stale-factor regression keeps the true basis unchanged and forces a single numerical retry. With16 and256 improving columns, the previous retry performed20 and260 FTRAN calls. Preserving unrelated steepest-edge estimates reduces both cases to5 calls while retaining the corrected primal solution and exactly one refactorization. The selected entering weight is refreshed; adaptive retry invalidation and numerical pivot checks retain their previous behavior.
+
+A separate1200-iteration runtime diagnostic prefix found accepted relative pivots of4.36e-9,2.49e-9 and7.10e-10 at iterations1076–1078. Rebuilding those preceding bases reproduces their directions. By iteration1079, even a fresh factorization has an unacceptable transpose residual. This points to basis conditioning rather than merely inaccurate accumulated updates. The phase-I objective is still about605,732, so this is not an already feasible phase-I problem continuing unnecessarily. These observations are diagnostic evidence, not yet a stabilization fix.
+
+Retry-pricing validation:582/582 broader primal, numerical guard, candidate retry and cleanup checks passed with `-O1`. The final focused suite passed18/18, including a non-unit basis with deliberately inaccurate positive pricing estimates and original-model feasibility/optimality checks.
+
+The matching1200-iteration diagnostic prefix decreased from22.17s to6.88s after retaining unrelated weights; pricing fell from15.32s to0.208s. Trajectories diverge after the first retry, so these are bounded-prefix measurements, not time-to-optimum results. The expanded trace caught the damaging pivot at iteration1079:1.3094e-12 against a direction norm1.4084e9 (relative9.30e-22). Subsequent directions grow to about3e21. The original absolute zero cutoff alone admits this pivot.

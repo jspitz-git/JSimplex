@@ -87,3 +87,12 @@ Files: `diagnostics/simplex-basis-cleanup-performance/`.
 - [ ] Repeat the matching runtime configurations with at least 360 seconds per completion attempt.
 
 - [x] Implement native, bounded repair of marginal prices in an already perturbed legacy objective; retain tolerance and original-cost checks. Behavioral RED16/16; GREEN2,290/2,290; independent review findings resolved. Real runtime PFI validation remains pending.
+
+### Task 4b: Preserve unrelated primal pricing weights during a retry
+
+Evidence: local runtime primal BG spends322s in pricing but only1.37s in factorization over363s. A fixed-basis retry on16/256 duplicate improving columns performs20/260 FTRAN calls because both retry branches invalidate every cached steepest-edge weight.
+
+- [x] Reproduce linear FTRAN growth with a small fault-injection test while checking the corrected pivot and primal solution.
+- [x] For legacy retries, invalidate only the selected entering weight after refactorizing the unchanged basis; preserve the adaptive path and all residual/pivot guards.
+- [x] Run primal guard, pricing, retry and original-certificate regressions (582/582 plus18/18 focused); repeat runtime diagnostic prefix (22.17s to6.88s) and obtain independent read-only review.
+- [x] Commit the verified retry-pricing feature.
