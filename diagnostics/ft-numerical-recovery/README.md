@@ -1,7 +1,7 @@
 # Forrest–Tomlin failure on a second machine
 
-**The reported failure has not been reproduced locally and is not fixed by this
-change.** This work records the evidence and provides a bounded capture of the
+**The reported failure has not been reproduced in either diagnostic run and is
+not fixed by this change.** This work records the evidence and provides a bounded capture of the
 missing numerical state. Solver source, tolerances, precision policy and the
 adaptive strategy are unchanged.
 
@@ -11,7 +11,8 @@ The user confirmed commit `e1b15678e86f6d1cf3b2343827bf6d4e25f6e54b`, before the
 separate BG stable-row optimization `c7125f7`. The working configuration is
 runtime.mps, legacy dual, steepest-edge pricing, native refactorization and
 interval 80. The user confirmed that the second machine runs native Windows,
-not WSL. Its Julia version and CPU architecture are not yet confirmed.
+not WSL. The subsequent capture confirms Julia 1.13.0 and x86_64; it did
+not reproduce the originally reported termination.
 
 At iteration 45537, reported primal infeasibility is about 5.4e4. At 45617 it
 jumps to 1.32e14 and dual infeasibility becomes 3.27. The reduced solve terminates
@@ -50,6 +51,55 @@ recomputing its prices gave one nonbasic reduced cost of approximately
 The local solve recovered and continued. This establishes a concrete cancellation
 problem in a local basis, not the cause of the second machine's later failure.
 No new safeguard is justified solely by equating the two events.
+
+## Supplied Windows capture
+
+The four files received in `/home/jspitz/logs` have been inspected. The report and
+both snapshots share run ID `56310620017900-18816`, the expected e1b1567 source
+revision and input SHA-256. The report confirms native Windows x86_64, Julia
+1.13.0, one Julia thread and one BLAS thread. Binary snapshot checksums and sizes
+are recorded in `results/windows-capture/inputs.toml`; the binaries remain local.
+That manifest hashes the received files. The archived text log has CRLF line
+endings normalized to LF; its content is otherwise unchanged.
+
+**This run did not reproduce the numerical termination.** It stopped at the
+requested 46,000-iteration limit after 451.308 seconds, with 374 refactorizations.
+There is no `certification_failed` event, original-LP restart or terminal-failure
+snapshot. This limited run is not a certificate that the remaining solve would
+succeed.
+
+The trajectory differs materially from the original excerpt. Near iteration
+45,000, the original objective was about 4.916e7; the supplied capture was already
+about 5.086e7. Logged refactorization gaps grow from 80 to 160 between iterations
+13719 and 13879 and remain 160 in the late excerpt. The snapshot at iteration
+44115 has 156 accumulated factor updates. This is compatible with the existing
+legacy interval-growth mechanism (`_note_stable_dual_refactorization!`); setting
+`refactorization_interval=80` does not freeze its effective value at 80.
+
+Two state snapshots are available:
+
+| Iteration | Event | Inspection |
+|---|---|---|
+| 7011 | Residual-triggered refactorization | Fresh factor, zero updates; explicit Windows L/U entries are finite. Recomputing on Linux gives one reduced cost -1.19074e-7, while existing 256-bit refinement gives -4.02317e-8, within the 1e-7 dual tolerance. |
+| 44115 | Accepted relatively small pivot | 156 updates; stored column/row pivots -0.007848745303367143 / -0.007848745303367148 agree, as does a fresh solve to about 3e-15 absolute. No sign disagreement was found. |
+
+As documented below, the 7011 snapshot is taken after rebuilding the factor but
+before recomputing the point/prices. The fresh solves in the inspection are
+Linux calculations on the saved matrices, not a replay of the exact Windows
+native solve. Neither snapshot contains the originally failed basis at 45617.
+No solver modification follows from these observations alone.
+
+One controlled-environment difference needs clarification: the capture command
+forced one Julia/BLAS thread and disabled `startup.jl`. The launch method and
+thread settings of the original failing session are not yet known. Those changes
+are possible sources of a different numerical trajectory, not established causes
+of the failure. Check the original session before prescribing another long run.
+
+To repeat the snapshot inspection from this worktree (sequential Julia job):
+
+```sh
+julia --startup-file=no --project=. diagnostics/ft-numerical-recovery/reproduce/inspect-capture.jl /home/jspitz/logs/ft-capture.toml /home/jspitz/logs/ft-capture.toml.refactor_residual.7011.bin /home/jspitz/logs/ft-capture.toml.accepted_pivot.44115.bin
+```
 
 ## Capture on the failing machine
 
