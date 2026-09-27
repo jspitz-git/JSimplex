@@ -46,4 +46,22 @@ The isolated runtime cleanup experiment uses JSimplex presolve/postsolve with a 
 
 Before: ITERATION_LIMIT after 5,000 cleanup pivots, 67 refactorizations, 68.97 seconds. Dual initialization abandoned primal feasibility. After: OPTIMAL after 1,185 pivots, 19 refactorizations, 33.51 seconds including compilation; objective 51,425,691.7621028, original primal certificate passed. See `cleanup-before.toml` and `cleanup-after.toml`. External model snapshots remain local and are not committed.
 
-Independent read-only review covered factor histories and cleanup. It found a caller-logger exception provenance issue in the new cleanup message; a regression and guard were requested. The numerical failures reported in the newer PFI/primal logs remain separate investigations.
+Independent read-only review covered factor histories and cleanup. It found a caller-logger exception provenance issue in the new cleanup message; a regression reproduced both swallowed numerical exceptions and the guard fixed them. The reviewer confirmed the fix. The numerical failures reported in the newer PFI/primal logs remain separate investigations.
+
+Cleanup validation: 11,972/11,972 checks passed across workspace, presolve, solver, retry, primal/dual, phase-I budgets, precision recovery, BigFloat, numeric-type and benchmark regressions. This functional suite used Julia `-O1` to reduce LLVM compilation time; performance experiments use default optimization.
+
+## Local primal BG reproduction
+
+With the six-minute budget, the source at cleanup commit `2b17ff2` reached TIME_LIMIT after 363.25 solver seconds: 6,322 completed iterations and 170 refactorizations. The reduced phase failed near iteration 1,129 and the original-model retry remained in phase I. Peak RSS was about 1.88 GiB.
+
+Kernel diagnostics attributed 322.32 seconds to pricing, 286.25 to FTRAN, 6.36 to BTRAN and only 1.37 to factorization. These timings overlap: pricing invokes FTRAN for steepest-edge weights. Residual-triggered retries invalidate every cached weight even though refactorization retains the same basis. There were 89 residual-triggered refactorizations and 366 rejected candidates. This supports investigating both the unsafe pivots that precede the failures and the unnecessary global weight rebuild after a retry. It does not justify weakening residual checks.
+
+The supplied Windows primal log has 438 adjacent progress records separated by exactly one iteration, totaling 1,316.70 seconds. Their median is 2.995 seconds per iteration, versus 0.00915 seconds per iteration in the 80-iteration intervals. These are descriptive log statistics, not matched machine benchmarks.
+
+## Native repair of marginal working prices
+
+A small LP reproduced the reported boundary failure in both hardware floating types, all four basis managers and both bound orientations. The new helper makes a bounded, representable adjustment to nonbasic costs of an already perturbed legacy working objective after fresh factorization. It never changes original coefficients or tolerances. Each offending price must be within twice the dual tolerance; each individual repair is capped at four tolerances, with a feasible margin. This is not a cumulative perturbation bound.
+
+Original-cost cleanup does not enable this repair. Restoring original costs can still expose an improving or unbounded direction, both covered by regression tests. Adaptive perturbation switches and active journals are excluded. A read-only review caught and verified fixes for mixed-policy gating and cancellation before the higher-precision fallback. Real runtime PFI validation is still pending.
+
+Native-price validation: 2,290/2,290 checks passed, including old dual-simplex behavior, hardware-type exclusions, correction cycles, adaptive perturbation isolation and postsolve original-cost certificates. The behavioral reproducer failed in all 16 configurations before implementation; mixed-policy and cancellation review regressions failed before their guards were added.

@@ -8,6 +8,7 @@ using Test
     include("legacy_primal_row_value_tests.jl")
     include("primal_initial_tolerance_tests.jl")
     include("legacy_dual_correction_tests.jl")
+    include("legacy_dual_price_repair_tests.jl")
     include("legacy_correction_cycle_tests.jl")
     include("legacy_retry_edge_tests.jl")
     include("legacy_harris_feasibility_tests.jl")

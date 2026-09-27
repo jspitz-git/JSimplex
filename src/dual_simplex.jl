@@ -226,8 +226,11 @@ end
 _stabilize_small_dual_pivot!(::SimplexWorkspace, ::Int, pivot, tableau_coefficient, delta,
                              stop_requested) = true
 
-function _dual_prices_feasible_or_refined!(workspace::SimplexWorkspace, stop_requested)
+function _dual_prices_feasible_or_refined!(workspace::SimplexWorkspace, stop_requested;
+                                          allow_cost_shifts::Bool=false)
     dual_infeasibility(workspace) <= workspace.options.dual_tolerance && return true
+    stop_requested() && return false
+    allow_cost_shifts && _shift_marginal_dual_prices!(workspace, stop_requested) && return true
     stop_requested() && return false
     return _try_refine_dual_prices!(workspace, stop_requested)
 end
@@ -1192,7 +1195,8 @@ function _dual_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_request
                        diagnostic_reason=:refactor_residual)
             stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
             _finite_workspace(workspace) || return _numerical_failure()
-            if !_dual_prices_feasible_or_refined!(workspace, stop_requested)
+            if !_dual_prices_feasible_or_refined!(workspace, stop_requested;
+                    allow_cost_shifts=perturb_degenerate)
                 stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
                 return DualTermination(NUMERICAL_ERROR, "dual feasibility lost")
             end
@@ -1242,7 +1246,8 @@ function _dual_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_request
             recompute!(workspace; refactorize=true, caller_guard=stop_requested)
             stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
             _finite_workspace(workspace) || return _numerical_failure()
-            if !_dual_prices_feasible_or_refined!(workspace, stop_requested)
+            if !_dual_prices_feasible_or_refined!(workspace, stop_requested;
+                    allow_cost_shifts=perturb_degenerate)
                 stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
                 return DualTermination(NUMERICAL_ERROR, "dual feasibility lost")
             end
@@ -1292,7 +1297,8 @@ function _dual_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_request
                        diagnostic_reason=:refactor_residual)
             stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
             _finite_workspace(workspace) || return _numerical_failure()
-            if !_dual_prices_feasible_or_refined!(workspace, stop_requested)
+            if !_dual_prices_feasible_or_refined!(workspace, stop_requested;
+                    allow_cost_shifts=perturb_degenerate)
                 stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
                 return DualTermination(NUMERICAL_ERROR, "dual feasibility lost")
             end
@@ -1364,7 +1370,8 @@ function _dual_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_request
         recompute!(workspace; refactorize=true, caller_guard=stop_requested)
         stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
         _finite_workspace(workspace) || return _numerical_failure()
-        if !_dual_prices_feasible_or_refined!(workspace, stop_requested)
+        if !_dual_prices_feasible_or_refined!(workspace, stop_requested;
+                    allow_cost_shifts=perturb_degenerate)
             stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
             return DualTermination(NUMERICAL_ERROR, "dual feasibility lost")
         end
@@ -1481,7 +1488,8 @@ function _dual_after_iteration!(workspace::SimplexWorkspace{T},stop_requested,du
             recompute!(workspace; refactorize=true, caller_guard=stop_requested)
             stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
             _finite_workspace(workspace) || return _numerical_failure()
-            if !_dual_prices_feasible_or_refined!(workspace, stop_requested)
+            if !_dual_prices_feasible_or_refined!(workspace, stop_requested;
+                    allow_cost_shifts=perturb_degenerate)
                 stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
                 return DualTermination(NUMERICAL_ERROR, "dual feasibility lost")
             end
@@ -1833,7 +1841,8 @@ function _dual_optimize!(workspace::SimplexWorkspace{T}, stop_requested;
                 stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
                 _finite_workspace(workspace) || return _numerical_failure()
             end
-            if !_dual_prices_feasible_or_refined!(workspace, stop_requested)
+            if !_dual_prices_feasible_or_refined!(workspace, stop_requested;
+                    allow_cost_shifts=perturb_degenerate)
                 stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
                 return DualTermination(NUMERICAL_ERROR, "dual feasibility lost")
             end

@@ -1,0 +1,366 @@
+FILE legacy_dual_price_repair_tests.jl
+FILE dual_simplex_tests.jl
+FILE legacy_dual_correction_tests.jl
+FILE legacy_hardware_guard_tests.jl
+FILE legacy_correction_cycle_tests.jl
+FILE simplex_perturbation_tests.jl
+FILE simplex_perturbation_integration_tests.jl
+FILE postsolve_cleanup_performance_tests.jl
+┌ Info: Refined dual pivot row, direction, and prices
+│   iteration = 0
+│   leaving_row = 1
+│   original_entering_index = 2
+│   entering_index = 1
+│   old_pivot = -0.4761904761904762
+└   refined_pivot = -1.0
+[ Info: iter=1 obj=0.0 pinf=9.99998999991e9 (1) dinf=0.0 (0) time=9.08e-5s
+[ Info: iter=2 obj=0.0 pinf=0.0 (0) dinf=0.0 (0) time=0.016083699s
+[ Info: iter=1 obj=0.0 pinf=250.00000000000003 (1) dinf=0.0 (0) time=0.0014419s
+[ Info: iter=2 obj=0.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0014845s
+[ Info: iter=2 obj=2.9999999999999996 pinf=0.0 (0) dinf=0.0 (0) time=0.0015214s
+[ Info: iter=2 obj=2.9999999999999996 pinf=0.0 (0) dinf=0.0 (0) time=5.91e-5s
+[ Info: iter=1 obj=1.0 pinf=0.0 (0) dinf=0.0 (0) time=2.93e-5s
+[ Info: iter=1 obj=-3.0 pinf=0.0 (0) dinf=0.0 (0) time=4.68e-5s
+[ Info: iter=1 obj=1.0 pinf=0.0 (0) dinf=0.0 (0) time=5.18e-5s
+[ Info: iter=1 obj=-3.0 pinf=0.0 (0) dinf=0.0 (0) time=5.48e-5s
+[ Info: iter=0 obj=0.0 pinf=2.0 (1) dinf=0.0 (0) time=7.49e-5s
+[ Info: iter=0 obj=0.0 pinf=1.0 (1) dinf=0.0 (0) time=2.37e-5s
+[ Info: iter=0 obj=0.0 pinf=1.0 (1) dinf=0.0 (0) time=1.36e-5s
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=1 nnz=1
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=original-objective optimality certificate is inconclusive iterations=1 time=0.000229s
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=1 nnz=1
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=structural primal failed original-model feasibility checks iterations=1 time=0.000124s
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=1 nnz=1
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=original-objective optimality certificate is inconclusive iterations=1 time=4.68e-5s
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=1 nnz=1
+[ Info: iter=1 obj=-1.0e13 pinf=0.0 (0) dinf=0.0 (0) time=6.51e-5s
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=structural primal failed original-model feasibility checks iterations=1 time=9.8e-5s
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=1 nnz=1
+[ Info: iter=1 obj=-1.0e12 pinf=0.0 (0) dinf=0.0 (0) time=6.99e-5s
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=original-objective optimality certificate is inconclusive iterations=1 time=8.26e-5s
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=1 nnz=1
+[ Info: iter=1 obj=-1.0e13 pinf=0.0 (0) dinf=0.0 (0) time=6.47e-5s
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=structural primal failed original-model feasibility checks iterations=1 time=7.9e-5s
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=1 nnz=1
+[ Info: iter=1 obj=-1.0e13 pinf=0.0 (0) dinf=0.0 (0) time=7.07e-5s
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=structural primal failed original-model feasibility checks iterations=1 time=9.26e-5s
+[ Info: iter=0 obj=0.0 pinf=1.0 (1) dinf=0.0 (0) time=2.44e-5s
+[ Info: Loaded problem: rows=1 columns=1 nnz=0
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=0 nnz=0
+[ Info: Solve finished: status=INFEASIBLE reason=empty row 1 is infeasible iterations=0 time=2.23e-5s
+[ Info: iter=0 obj=0.0 pinf=1.0 (1) dinf=0.0 (0) time=1.95e-5s
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=1 nnz=1
+[ Info: Solve finished: status=INFEASIBLE reason=row 1 contradicts current column bounds iterations=0 time=3.6e-5s
+[ Info: Loaded problem: rows=1 columns=1 nnz=0
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+[ Info: Restarting simplex on original LP after UNBOUNDED: unbounded improving direction; completed iterations=0
+[ Info: Solve finished: status=UNBOUNDED reason=unbounded improving direction iterations=0 time=6.63e-5s
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+[ Info: Restarting simplex on original LP after UNBOUNDED: unbounded improving direction; completed iterations=0
+[ Info: Solve finished: status=UNBOUNDED reason=unbounded improving direction iterations=0 time=8.42e-5s
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+[ Info: Restarting simplex on original LP after UNBOUNDED: unbounded improving direction; completed iterations=0
+[ Info: Solve finished: status=UNBOUNDED reason=unbounded improving direction iterations=0 time=0.0001067s
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=1 nnz=1
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=eligible pivots are below the Harris safety cutoff iterations=0 time=0.0002828s
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=1 nnz=1
+[ Info: Solve finished: status=OPTIMAL objective=0.0 iterations=1 time=0.0001556s
+[ Info: iter=1 obj=-1.0 pinf=0.0 (0) dinf=0.0 (0) time=9.2e-5s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+[ Info: Restarting simplex on original LP after UNBOUNDED: unbounded improving direction; completed iterations=0
+[ Info: iter=1 obj=-1.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0001569s
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=Original LP retry failed after UNBOUNDED (unbounded improving direction): auxiliary direction has uncertain feasibility or objective improvement iterations=1 time=0.0001707s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+[ Info: Restarting simplex on original LP after UNBOUNDED: unbounded improving direction; completed iterations=0
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=Original LP retry failed after UNBOUNDED (unbounded improving direction): auxiliary direction has uncertain feasibility or objective improvement iterations=1 time=5.83e-5s
+[ Info: iter=1 obj=-1.0 pinf=0.0 (0) dinf=0.0 (0) time=1.7e-5s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+[ Info: Restarting simplex on original LP after UNBOUNDED: unbounded improving direction; completed iterations=0
+[ Info: iter=1 obj=-1.0 pinf=0.0 (0) dinf=0.0 (0) time=6.77e-5s
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=Original LP retry failed after UNBOUNDED (unbounded improving direction): auxiliary direction has uncertain feasibility or objective improvement iterations=1 time=7.73e-5s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+[ Info: Restarting simplex on original LP after UNBOUNDED: unbounded improving direction; completed iterations=0
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=Original LP retry failed after UNBOUNDED (unbounded improving direction): auxiliary direction has uncertain feasibility or objective improvement iterations=1 time=6.09e-5s
+[ Info: iter=1 obj=-1.0 pinf=0.0 (0) dinf=0.0 (0) time=2.32e-5s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+[ Info: Restarting simplex on original LP after UNBOUNDED: unbounded improving direction; completed iterations=0
+[ Info: iter=1 obj=-1.0 pinf=0.0 (0) dinf=0.0 (0) time=6.69e-5s
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=Original LP retry failed after UNBOUNDED (unbounded improving direction): auxiliary direction has uncertain feasibility or objective improvement iterations=1 time=7.73e-5s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+[ Info: Restarting simplex on original LP after UNBOUNDED: unbounded improving direction; completed iterations=0
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=Original LP retry failed after UNBOUNDED (unbounded improving direction): auxiliary direction has uncertain feasibility or objective improvement iterations=1 time=6.58e-5s
+[ Info: iter=1 obj=-1.0 pinf=0.0 (0) dinf=0.0 (0) time=2.13e-5s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=2
+[ Info: iter=1 obj=-2.0 pinf=0.0 (0) dinf=0.0 (0) time=6.15e-5s
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=auxiliary direction has uncertain feasibility or objective improvement iterations=1 time=7.21e-5s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=2
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=auxiliary direction has uncertain feasibility or objective improvement iterations=1 time=4.56e-5s
+[ Info: iter=1 obj=-1.0 pinf=0.0 (0) dinf=0.0 (0) time=1.69e-5s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=2
+[ Info: iter=1 obj=-2.0 pinf=0.0 (0) dinf=0.0 (0) time=4.83e-5s
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=auxiliary direction has uncertain feasibility or objective improvement iterations=1 time=5.69e-5s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=2
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=auxiliary direction has uncertain feasibility or objective improvement iterations=1 time=4.05e-5s
+[ Info: iter=1 obj=-1.0 pinf=0.0 (0) dinf=0.0 (0) time=1.57e-5s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+[ Info: Restarting simplex on original LP after UNBOUNDED: unbounded improving direction; completed iterations=0
+[ Info: iter=1 obj=-1.0 pinf=0.0 (0) dinf=0.0 (0) time=5.92e-5s
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=Original LP retry failed after UNBOUNDED (unbounded improving direction): auxiliary direction has uncertain feasibility or objective improvement iterations=1 time=6.85e-5s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+[ Info: Restarting simplex on original LP after UNBOUNDED: unbounded improving direction; completed iterations=0
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=Original LP retry failed after UNBOUNDED (unbounded improving direction): auxiliary direction has uncertain feasibility or objective improvement iterations=1 time=5.34e-5s
+[ Info: iter=1 obj=-1.0 pinf=1.0 (1) dinf=0.0 (0) time=1.81e-5s
+[ Info: iter=2 obj=-1.0 pinf=0.0 (0) dinf=0.0 (0) time=3.45e-5s
+[ Info: Loaded problem: rows=2 columns=3 nnz=4
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+[ Info: Restarting simplex on original LP after UNBOUNDED: unbounded improving direction; completed iterations=0
+[ Info: iter=1 obj=-1.0 pinf=1.0 (1) dinf=0.0 (0) time=8.09e-5s
+[ Info: iter=2 obj=-1.0 pinf=0.0 (0) dinf=0.0 (0) time=9.59e-5s
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=Original LP retry failed after UNBOUNDED (unbounded improving direction): auxiliary direction has uncertain feasibility or objective improvement iterations=2 time=0.0001044s
+[ Info: Loaded problem: rows=2 columns=3 nnz=4
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+[ Info: Restarting simplex on original LP after UNBOUNDED: unbounded improving direction; completed iterations=0
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=Original LP retry failed after UNBOUNDED (unbounded improving direction): auxiliary direction has uncertain feasibility or objective improvement iterations=2 time=6.94e-5s
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=1 nnz=1
+[ Info: iter=1 obj=1.0e13 pinf=0.0 (0) dinf=0.0 (0) time=0.0001493s
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=original-objective optimality certificate is inconclusive iterations=1 time=0.0001724s
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=1 nnz=1
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=original-objective optimality certificate is inconclusive iterations=1 time=4.5e-5s
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=1 nnz=1
+[ Info: iter=1 obj=0.0 pinf=0.0 (0) dinf=0.0 (0) time=4.79e-5s
+[ Info: iter=1 obj=-1.0e13 pinf=0.0 (0) dinf=0.0 (0) time=8.67e-5s
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=structural primal failed original-model feasibility checks iterations=1 time=0.0001079s
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=1 nnz=1
+[ Info: iter=1 obj=-1.0e13 pinf=0.0 (0) dinf=0.0 (0) time=5.98e-5s
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=structural primal failed original-model feasibility checks iterations=1 time=7.5e-5s
+[ Info: iter=1 obj=-1.0 pinf=0.0 (0) dinf=0.0 (0) time=2.57e-5s
+[ Info: Loaded problem: rows=2 columns=2 nnz=3
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=1 nnz=1
+[ Info: iter=1 obj=0.0 pinf=0.0 (0) dinf=0.0 (0) time=0.000107s
+[ Info: iter=1 obj=-1.0e13 pinf=0.0 (0) dinf=0.0 (0) time=0.0001329s
+[ Info: Restarting simplex on original LP after NUMERICAL_ERROR: structural primal failed original-model feasibility checks; completed iterations=1
+[ Info: iter=2 obj=-1.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0001807s
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=Original LP retry failed after NUMERICAL_ERROR (structural primal failed original-model feasibility checks): auxiliary direction has uncertain feasibility or objective improvement iterations=2 time=0.0001925s
+[ Info: Loaded problem: rows=2 columns=2 nnz=3
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=1 nnz=1
+[ Info: iter=1 obj=-1.0e13 pinf=0.0 (0) dinf=0.0 (0) time=7.09e-5s
+[ Info: Restarting simplex on original LP after NUMERICAL_ERROR: structural primal failed original-model feasibility checks; completed iterations=1
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=Original LP retry failed after NUMERICAL_ERROR (structural primal failed original-model feasibility checks): auxiliary direction has uncertain feasibility or objective improvement iterations=2 time=0.0001037s
+[ Info: iter=1 obj=-1.0 pinf=0.0 (0) dinf=0.0 (0) time=1.51e-5s
+[ Info: Loaded problem: rows=2 columns=2 nnz=3
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=1 nnz=1
+[ Info: iter=1 obj=0.0 pinf=0.0 (0) dinf=0.0 (0) time=5.54e-5s
+[ Info: iter=1 obj=-1.0e13 pinf=0.0 (0) dinf=0.0 (0) time=7.3e-5s
+[ Info: Restarting simplex on original LP after NUMERICAL_ERROR: structural primal failed original-model feasibility checks; completed iterations=1
+[ Info: iter=2 obj=-1.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0001097s
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=Original LP retry failed after NUMERICAL_ERROR (structural primal failed original-model feasibility checks): auxiliary direction has uncertain feasibility or objective improvement iterations=2 time=0.0001208s
+[ Info: Loaded problem: rows=2 columns=2 nnz=3
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=1 nnz=1
+[ Info: iter=1 obj=-1.0e13 pinf=0.0 (0) dinf=0.0 (0) time=5.5e-5s
+[ Info: Restarting simplex on original LP after NUMERICAL_ERROR: structural primal failed original-model feasibility checks; completed iterations=1
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=Original LP retry failed after NUMERICAL_ERROR (structural primal failed original-model feasibility checks): auxiliary direction has uncertain feasibility or objective improvement iterations=2 time=9.01e-5s
+[ Info: Loaded problem: rows=1 columns=1 nnz=0
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+[ Info: Restarting simplex on original LP after UNBOUNDED: unbounded improving direction; completed iterations=0
+[ Info: Solve finished: status=UNBOUNDED reason=unbounded improving direction iterations=0 time=0.0001208s
+[ Info: Loaded problem: rows=1 columns=1 nnz=0
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+[ Info: Restarting simplex on original LP after UNBOUNDED: unbounded improving direction; completed iterations=0
+[ Info: Solve finished: status=UNBOUNDED reason=unbounded improving direction iterations=0 time=4.77e-5s
+[ Info: Loaded problem: rows=0 columns=1 nnz=0
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+[ Info: Solve finished: status=UNBOUNDED reason=unbounded improving direction iterations=0 time=2.43e-5s
+[ Info: Loaded problem: rows=0 columns=1 nnz=0
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+[ Info: Solve finished: status=UNBOUNDED reason=unbounded improving direction iterations=0 time=2.57e-5s
+[ Info: iter=0 obj=-1.0 pinf=1.0 (1) dinf=0.0 (0) time=6.15e-5s
+[ Info: iter=1 obj=1.0 pinf=2.0 (1) dinf=0.0 (0) time=3.6e-5s
+[ Info: iter=1 obj=1.0 pinf=2.0 (1) dinf=0.0 (0) time=1.31e-5s
+[ Info: iter=2 obj=3.0 pinf=0.0 (0) dinf=0.0 (0) time=3.16e-5s
+[ Info: iter=2 obj=-3.0 pinf=0.0 (0) dinf=0.0 (0) time=4.01e-5s
+[ Info: iter=0 obj=4.0 pinf=1.0 (1) dinf=0.0 (0) time=2.93e-5s
+[ Info: iter=0 obj=0.0 pinf=1.0 (1) dinf=0.0 (0) time=2.6e-5s
+[ Info: iter=1 obj=-3.0 pinf=0.0 (0) dinf=0.0 (0) time=3.691889218s
+[ Info: iter=1 obj=-3.0 pinf=0.0 (0) dinf=0.0 (0) time=9.36e-5s
+[ Info: iter=1 obj=-3.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0001s
+[ Info: iter=1 obj=-3.0 pinf=0.0 (0) dinf=0.0 (0) time=3.58e-5s
+[ Info: iter=1 obj=-6.0 pinf=0.0 (0) dinf=0.0 (0) time=2.61e-5s
+[ Info: iter=1 obj=-6.0 pinf=0.0 (0) dinf=0.0 (0) time=2.18e-5s
+[ Info: iter=1 obj=-8.0 pinf=0.0 (0) dinf=0.0 (0) time=2.25e-5s
+[ Info: iter=1 obj=-8.0 pinf=0.0 (0) dinf=0.0 (0) time=1.97e-5s
+[ Info: iter=1 obj=1.0 pinf=1.0 (1) dinf=0.0 (0) time=4.36e-5s
+[ Info: iter=1 obj=1.0 pinf=1.0 (1) dinf=0.0 (0) time=0.0001341s
+[ Info: iter=0 obj=0.0 pinf=1.0 (1) dinf=0.0 (0) time=2.31e-5s
+[ Info: iter=1 obj=0.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0001386s
+[ Info: Loaded problem: rows=1 columns=3 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=3 nnz=2
+[ Info: Solve finished: status=INFEASIBLE reason=row 1 contradicts current column bounds iterations=0 time=9.18e-5s
+[ Info: Loaded problem: rows=1 columns=3 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=3 nnz=2
+[ Info: Solve finished: status=INFEASIBLE reason=row 1 contradicts current column bounds iterations=0 time=3.77e-5s
+[ Info: iter=1 obj=0.0 pinf=0.0 (0) dinf=0.0 (0) time=2.61e-5s
+[ Info: Loaded problem: rows=1 columns=3 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=3 nnz=2
+[ Info: Solve finished: status=INFEASIBLE reason=row 1 contradicts current column bounds iterations=0 time=2.81e-5s
+[ Info: Loaded problem: rows=1 columns=3 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=3 nnz=2
+[ Info: Solve finished: status=INFEASIBLE reason=row 1 contradicts current column bounds iterations=0 time=3.04e-5s
+[ Info: iter=1 obj=0.0 pinf=0.0 (0) dinf=0.0 (0) time=2.32e-5s
+[ Info: Loaded problem: rows=1 columns=3 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+[ Info: Restarting simplex on original LP after UNBOUNDED: unbounded improving direction; completed iterations=0
+[ Info: iter=1 obj=0.0 pinf=0.0 (0) dinf=0.0 (0) time=9.75e-5s
+[ Info: Solve finished: status=UNBOUNDED reason=unbounded improving direction iterations=1 time=0.0001075s
+[ Info: Loaded problem: rows=1 columns=3 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+[ Info: Restarting simplex on original LP after UNBOUNDED: unbounded improving direction; completed iterations=0
+[ Info: Solve finished: status=UNBOUNDED reason=unbounded improving direction iterations=1 time=5.42e-5s
+[ Info: iter=1 obj=100.0 pinf=0.0 (0) dinf=1.0e-6 (1) time=7.06e-5s
+[ Info: Starting primal cleanup after restoring original costs
+[ Info: iter=1 obj=4.0 pinf=0.0 (0) dinf=0.0 (0) time=1.507770478s
+[ Info: iter=0 obj=0.0 pinf=3.0 (1) dinf=0.0 (0) time=6.41e-5s
+[ Info: iter=2 obj=3.0 pinf=0.0 (0) dinf=0.0 (0) time=3.204930494s
+[ Info: iter=1 obj=1.0 pinf=2.0 (1) dinf=0.0 (0) time=6.11e-5s
+[ Info: iter=2 obj=3.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0027191s
+[ Info: iter=1 obj=-3.0 pinf=0.0 (0) dinf=0.0 (0) time=3.08e-5s
+[ Info: iter=1 obj=-3.0 pinf=0.0 (0) dinf=0.0 (0) time=9.1e-6s
+[ Info: iter=1 obj=-6.0 pinf=0.0 (0) dinf=0.0 (0) time=8.1e-6s
+[ Info: iter=1 obj=1.0 pinf=1.0 (1) dinf=0.0 (0) time=2.86e-5s
+[ Info: iter=1 obj=1.0 pinf=1.0 (1) dinf=0.0 (0) time=0.0001123s
+[ Info: iter=0 obj=0.0 pinf=1.0 (1) dinf=0.0 (0) time=3.5e-6s
+[ Info: iter=1 obj=1.0 pinf=2.0 (1) dinf=0.0 (0) time=9.03e-5s
+[ Info: iter=2 obj=3.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0002052s
+[ Info: iter=1 obj=-3.0 pinf=0.0 (0) dinf=0.0 (0) time=4.74e-5s
+[ Info: iter=1 obj=-3.0 pinf=0.0 (0) dinf=0.0 (0) time=2.08e-5s
+[ Info: iter=1 obj=-6.0 pinf=0.0 (0) dinf=0.0 (0) time=2.02e-5s
+[ Info: iter=1 obj=1.0 pinf=1.0 (1) dinf=0.0 (0) time=5.33e-5s
+[ Info: iter=1 obj=1.0 pinf=1.0 (1) dinf=0.0 (0) time=7.39e-5s
+[ Info: iter=0 obj=0.0 pinf=1.0 (1) dinf=0.0 (0) time=3.4e-5s
+[ Info: iter=1 obj=1.0 pinf=2.0 (1) dinf=0.0 (0) time=9.66e-5s
+[ Info: iter=2 obj=3.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0040983s
+[ Info: iter=1 obj=-3.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0137941s
+[ Info: iter=1 obj=-3.0 pinf=0.0 (0) dinf=0.0 (0) time=3.74e-5s
+[ Info: iter=1 obj=-6.0 pinf=0.0 (0) dinf=0.0 (0) time=2.72e-5s
+[ Info: iter=1 obj=1.0 pinf=1.0 (1) dinf=0.0 (0) time=5.38e-5s
+[ Info: iter=1 obj=1.0 pinf=1.0 (1) dinf=0.0 (0) time=0.0001782s
+[ Info: iter=0 obj=0.0 pinf=1.0 (1) dinf=0.0 (0) time=1.63e-5s
+[ Info: iter=1 obj=1//1 pinf=2//1 (1) dinf=0//1 (0) time=0.0001666s
+[ Info: iter=2 obj=3//1 pinf=0//1 (0) dinf=0//1 (0) time=0.0079444s
+[ Info: iter=1 obj=-3//1 pinf=0//1 (0) dinf=0//1 (0) time=0.0093938s
+[ Info: iter=1 obj=-3//1 pinf=0//1 (0) dinf=0//1 (0) time=0.000147s
+[ Info: iter=1 obj=-6//1 pinf=0//1 (0) dinf=0//1 (0) time=7.57e-5s
+[ Info: iter=1 obj=1//1 pinf=1//1 (1) dinf=0//1 (0) time=6.73e-5s
+[ Info: iter=1 obj=-10000000000000//1 pinf=0//1 (0) dinf=0//1 (0) time=0.0001467s
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=0 nnz=0
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=0 obj=1.7014117e38 pinf=0.0 (0) dinf=0.0 (0) time=0.0002186s
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=1.7014117e38 iterations=0 time=0.0002638s
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=1 nnz=1
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=non-finite simplex iterate iterations=1 time=7.85e-5s
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=0 nnz=0
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=0 obj=8.988465674311579e307 pinf=0.0 (0) dinf=0.0 (0) time=0.0002087s
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=8.988465674311579e307 iterations=0 time=0.0002432s
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=1 nnz=1
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=non-finite simplex iterate iterations=1 time=7.79e-5s
+[ Info: iter=1 obj=1.0 pinf=0.0 (0) dinf=0.0 (0) time=1.653918192s
+[ Info: iter=1 obj=1.0 pinf=0.0 (0) dinf=0.0 (0) time=1.731092492s
+[ Info: iter=0 obj=0.0 pinf=2.0 (1) dinf=0.0 (0) time=5.42e-5s
+[ Info: iter=0 obj=0.0 pinf=2.0 (1) dinf=0.0 (0) time=7.48e-5s
+[ Info: iter=0 obj=0.0 pinf=2.0 (1) dinf=0.0 (0) time=7.47e-5s
+[ Info: iter=0 obj=0.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0035685s
+[ Info: iter=0 obj=0.0 pinf=0.0 (0) dinf=0.0 (0) time=8.76e-5s
+[ Info: iter=0 obj=1.0 pinf=0.0 (0) dinf=0.0 (0) time=5.44e-5s
+[ Info: iter=0 obj=1.0 pinf=0.0 (0) dinf=0.0 (0) time=5.61e-5s
+[ Info: iter=0 obj=1.0 pinf=0.0 (0) dinf=0.0 (0) time=0.005051599s
+[ Info: iter=0 obj=1//1 pinf=0//1 (0) dinf=0//1 (0) time=0.001537s
+[ Info: iter=0 obj=0.0 pinf=0.0 (0) dinf=0.0 (0) time=2.66e-5s
+[ Info: iter=0 obj=0.0 pinf=0.0 (0) dinf=0.0 (0) time=4.89e-5s
+[ Info: iter=0 obj=0.0 pinf=0.0 (0) dinf=0.0 (0) time=3.21e-5s
+[ Info: iter=0 obj=0//1 pinf=0//1 (0) dinf=0//1 (0) time=5.79e-5s
+Test Summary:                                      | Pass  Total     Time
+Legacy price repair and original-cost certificates | 2290   2290  7m52.9s

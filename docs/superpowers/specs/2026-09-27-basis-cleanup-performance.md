@@ -15,3 +15,9 @@ All repository text and commits in English. One numerical job at a time, one Jul
 ## Scope clarification
 
 The user explicitly requested investigation of all basis managers. Apply permutation composition to FT and SS as well, retaining their addition arithmetic and independent within-update transpose operations. Profile PFI on real histories; do not attribute its coefficient-dependent product-form cost to permutations it does not perform.
+
+## Marginal working-price recovery
+
+The supplied PFI log reports a single reduced-cost violation of 1.0002033976466948e-7 against a 1e-7 tolerance. A small LP reproduces unconditional termination for both bound orientations and all four basis managers in Float32 and Float64.
+
+After a fresh factorization, legacy dual optimization may repair nonbasic costs in an already perturbed working objective when each violating price is at most twice the configured tolerance. Compute and validate the actually representable cost change in the problem type, cap each individual repair at four tolerances (not a cumulative displacement bound), and require a feasible margin. Plan every adjustment before publishing any of them. Never change basic costs, original objective coefficients, or tolerances. Exclude adaptive policies, non-hardware scalar types, disabled perturbation phases, and unchanged original-cost phases. Larger errors retain the existing refinement/failure path. Original costs are restored and independently certified before final OPTIMAL; the recovery must not conceal an original improving or unbounded direction.

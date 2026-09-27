@@ -67,8 +67,8 @@ Interface: retain `_project_postsolve_basis!` and `cleanup_original` signatures,
 
 - [x] Capture projection rejection on runtime or a small exact reproducer and document the failed condition. Add a test that exposes unnecessary fallback or dual reinitialization from an already primal-feasible original basis.
 - [x] Retain valid original-model primal bases without requiring coordinate identity; invoke primal cleanup for primal-feasible legacy bases using original costs. Keep dual path for infeasible bases and existing numerical fallback. Require original-model certification before OPTIMAL.
-- [ ] Run cleanup/presolve, budget, primal/dual, precision/retry and original-result regression tests; include invalid targets, zero budgets, nonoptimal feasible targets and nonfinite inputs.
-- [ ] Commit verified cleanup feature.
+- [x] Run cleanup/presolve, budget, primal/dual, precision/retry and original-result regression tests; include invalid targets, zero budgets, nonoptimal feasible targets and nonfinite inputs.
+- [x] Commit verified cleanup feature (`2b17ff2`; 11,972 regression checks passed).
 
 ### Task 3: Real-model validation and review
 
@@ -85,3 +85,5 @@ Files: `diagnostics/simplex-basis-cleanup-performance/`.
 - [ ] Reproduce primal Bartels–Golub refactorization storms and the singular pivot; record the triggering checks before choosing a correction.
 - [ ] Add focused failing regressions for confirmed causes, verify each correction in native precision and commit it separately.
 - [ ] Repeat the matching runtime configurations with at least 360 seconds per completion attempt.
+
+- [x] Implement native, bounded repair of marginal prices in an already perturbed legacy objective; retain tolerance and original-cost checks. Behavioral RED16/16; GREEN2,290/2,290; independent review findings resolved. Real runtime PFI validation remains pending.

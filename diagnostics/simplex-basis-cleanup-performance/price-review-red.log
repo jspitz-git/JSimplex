@@ -1,0 +1,164 @@
+ERROR: Some tests did not pass: 179 passed, 9 failed, 1 errored, 0 broken.
+
+Working-cost repair preserves an original unbounded direction: Error During Test at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_dual_price_repair_tests.jl:62
+  Got exception outside of a @test
+  ArgumentError: a finite bound must contain a finite value
+  Stacktrace:
+    [1] Bound
+      @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/src/numeric.jl:15 [inlined]
+    [2] Bound(value::Float64)
+      @ JSimplex ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/src/numeric.jl:21
+    [3] top-level scope
+      @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_dual_price_repair_tests.jl:63
+    [4] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+    [5] macro expansion
+      @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_dual_price_repair_tests.jl:64 [inlined]
+    [6] include(mapexpr::Function, mod::Module, _path::String)
+      @ Base ./Base.jl:310
+    [7] top-level scope
+      @ none:1
+    [8] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+    [9] macro expansion
+      @ none:1 [inlined]
+   [10] eval(m::Module, e::Any)
+      @ Core ./boot.jl:489
+   [11] exec_options(opts::Base.JLOptions)
+      @ Base ./client.jl:310
+   [12] _start()
+      @ Base ./client.jl:577
+
+Price repair excludes adaptive perturbation policies and active journals: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_dual_price_repair_tests.jl:90
+  Expression: !(JSimplex._shift_marginal_dual_prices!(mixed, (()->begin
+                #= /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_dual_price_repair_tests.jl:90 =#
+                false
+            end)))
+   Evaluated: !(JSimplex._shift_marginal_dual_prices!(JSimplex.SimplexWorkspace{Float64, JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}, :pfi, :native, Nothing}(LinearProblem{Float64}(sparse([1], [1], [1.0], 1, 2), [1.0, -1.0], 0.0, MIN_SENSE, Bound{Float64}[Bound{Float64}(1.0, true)], Bound{Float64}[Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(1.0, true)], VariableDomain[CONTINUOUS, CONTINUOUS], "", String[], String[]), SolverOptions{Float64, :pfi, :native}(1.0e-7, 1.0e-7, 1.0e-12, 100000, Inf, 20, false, Debug, :dual, :steepest_edge, :pfi, :native, :auto, false, :legacy), JSimplex.SimplexProgressContext{Float64, Nothing}(0x0000cc1aeae56965, [1.0, -1.0], 0.0, JSimplex.Scaling{Float64}([1.0], [1.0, 1.0]), 0, 0, nothing, JSimplex.NumericalPolicy{Float64}(5.684341886080802e-14, 1.4901161193847656e-8, 3, 8, 2, 64, 512, 1073741824, 8, false, false, false, false, false, false, false, false, true, false, true, false, false, false, false, false, false, false, false, false)), [1.0, 1.0e-7, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(1.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(1.0, true), Bound{Float64}(0.0, false)], JSimplex.Basis([3], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC]), [0.0, 0.0, -0.0], [1.0, 1.0e-7, 0.0], [1.0, 1.0, 1.0], Bool[0, 0, 1], JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}(JSimplex.UMFPACKBackend(SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000008547780)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000006697f20)), 1, 1, [0, 1], [0], [-1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([1], [-0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 1.0, 1.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 2.0, 1.00000761449337e-6, 1.00000761449337e-6, -1.0, -1.0, -1.0], ReentrantLock()), 1, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x000000000982a9f0)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x000000000611b1e0)), 1, 1, [0, 1], [0], [-1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([0], [-0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 1.0, 1.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 2.0, 6.00004568696022e-7, 6.00004568696022e-7, -1.0, -1.0, -1.0], ReentrantLock()), false), JSimplex.PackedEta{Float64}[], [0.0], JSimplex.PackedEta{Float64}[], 0, nothing), JSimplex.SimplexScratch{Float64}(Bool[0, 0, 1], [0.0], [-0.0], [-0.0], [0.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0], Bool[0, 0, 0], false, Int64[], Int64[], Float64[], Float64[], Int64[], nothing, nothing, false, Int64[], Int64[], 0, 0, nothing, :none, 0.0, false, false, false, :limit, JSimplex.RefactorizationState{Float64}(0, 0, 20, 20, 512, false, false, false, nothing, 1.0, 1.0, 0, 1.0e8, 2, 2, 8.0, 0.0, 0.0, 0.0, 0, 0, 0, 0.0, 0.0, 0, 0, 9223372036854775807, 0, 0, 0, 0.0, :none), nothing, nothing, nothing, nothing, nothing, 0.0, 0.0, nothing, true, true, sparse([1], [1], [-1.0], 1, 1), JSimplex.BasisCheckpoint{Float64}[], 0x0000000000000000, Tuple{Int64, Int64}[], 0x0000000000000000, false, false, nothing), 0, 1, true, 0, false, false, 20, 0, 9223372036854775807, 0, 0), var"#24#25"()))
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_dual_price_repair_tests.jl:81
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_dual_price_repair_tests.jl:90 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Price repair excludes adaptive perturbation policies and active journals: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_dual_price_repair_tests.jl:91
+  Expression: mixed.costs == costs
+   Evaluated: [1.0, 1.0e-7, 0.0] == [1.0, -1.0002033976466948e-7, 0.0]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_dual_price_repair_tests.jl:81
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_dual_price_repair_tests.jl:91 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Price repair excludes adaptive perturbation policies and active journals: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_dual_price_repair_tests.jl:92
+  Expression: mixed.reduced_costs == prices
+   Evaluated: [1.0, 1.0e-7, 0.0] == [1.0, -1.0002033976466948e-7, 0.0]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_dual_price_repair_tests.jl:81
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_dual_price_repair_tests.jl:92 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Price repair excludes adaptive perturbation policies and active journals: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_dual_price_repair_tests.jl:90
+  Expression: !(JSimplex._shift_marginal_dual_prices!(mixed, (()->begin
+                #= /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_dual_price_repair_tests.jl:90 =#
+                false
+            end)))
+   Evaluated: !(JSimplex._shift_marginal_dual_prices!(JSimplex.SimplexWorkspace{Float64, JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}, :pfi, :native, Nothing}(LinearProblem{Float64}(sparse([1], [1], [1.0], 1, 2), [1.0, -1.0], 0.0, MIN_SENSE, Bound{Float64}[Bound{Float64}(1.0, true)], Bound{Float64}[Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(1.0, true)], VariableDomain[CONTINUOUS, CONTINUOUS], "", String[], String[]), SolverOptions{Float64, :pfi, :native}(1.0e-7, 1.0e-7, 1.0e-12, 100000, Inf, 20, false, Debug, :dual, :steepest_edge, :pfi, :native, :auto, false, :legacy), JSimplex.SimplexProgressContext{Float64, Nothing}(0x0000cc1b23bba354, [1.0, -1.0], 0.0, JSimplex.Scaling{Float64}([1.0], [1.0, 1.0]), 0, 0, nothing, JSimplex.NumericalPolicy{Float64}(5.684341886080802e-14, 1.4901161193847656e-8, 3, 8, 2, 64, 512, 1073741824, 8, false, false, false, false, false, false, false, false, true, false, false, true, false, false, false, false, false, false, false, false)), [1.0, 1.0e-7, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(1.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(1.0, true), Bound{Float64}(0.0, false)], JSimplex.Basis([3], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC]), [0.0, 0.0, -0.0], [1.0, 1.0e-7, 0.0], [1.0, 1.0, 1.0], Bool[0, 0, 1], JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}(JSimplex.UMFPACKBackend(SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000008072e50)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000000853600)), 1, 1, [0, 1], [0], [-1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([0], [-0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 1.0, 1.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 2.0, 9.997165761888027e-8, 9.997165761888027e-8, -1.0, -1.0, -1.0], ReentrantLock()), 1, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000002b50f50)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x00000000025eccd0)), 1, 1, [0, 1], [0], [-1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([1], [-0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 1.0, 1.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 2.0, 6.00004568696022e-7, 6.00004568696022e-7, -1.0, -1.0, -1.0], ReentrantLock()), false), JSimplex.PackedEta{Float64}[], [0.0], JSimplex.PackedEta{Float64}[], 0, nothing), JSimplex.SimplexScratch{Float64}(Bool[0, 0, 1], [0.0], [-0.0], [-0.0], [0.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0], Bool[0, 0, 0], false, Int64[], Int64[], Float64[], Float64[], Int64[], nothing, nothing, false, Int64[], Int64[], 0, 0, nothing, :none, 0.0, false, false, false, :limit, JSimplex.RefactorizationState{Float64}(0, 0, 20, 20, 512, false, false, false, nothing, 1.0, 1.0, 0, 1.0e8, 2, 2, 8.0, 0.0, 0.0, 0.0, 0, 0, 0, 0.0, 0.0, 0, 0, 9223372036854775807, 0, 0, 0, 0.0, :none), nothing, nothing, nothing, nothing, nothing, 0.0, 0.0, nothing, true, true, sparse([1], [1], [-1.0], 1, 1), JSimplex.BasisCheckpoint{Float64}[], 0x0000000000000000, Tuple{Int64, Int64}[], 0x0000000000000000, false, false, nothing), 0, 1, true, 0, false, false, 20, 0, 9223372036854775807, 0, 0), var"#24#25"()))
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_dual_price_repair_tests.jl:81
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_dual_price_repair_tests.jl:90 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Price repair excludes adaptive perturbation policies and active journals: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_dual_price_repair_tests.jl:91
+  Expression: mixed.costs == costs
+   Evaluated: [1.0, 1.0e-7, 0.0] == [1.0, -1.0002033976466948e-7, 0.0]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_dual_price_repair_tests.jl:81
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_dual_price_repair_tests.jl:91 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Price repair excludes adaptive perturbation policies and active journals: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_dual_price_repair_tests.jl:92
+  Expression: mixed.reduced_costs == prices
+   Evaluated: [1.0, 1.0e-7, 0.0] == [1.0, -1.0002033976466948e-7, 0.0]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_dual_price_repair_tests.jl:81
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_dual_price_repair_tests.jl:92 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Cancellation inside native price repair cannot start higher precision: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_dual_price_repair_tests.jl:107
+  Expression: JSimplex.event_count(diagnostics, :correction_attempt) == 0
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_dual_price_repair_tests.jl:97
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_dual_price_repair_tests.jl:107 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native price repair is atomic and excludes original-cost phases: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_dual_price_repair_tests.jl:129
+  Expression: !(JSimplex._shift_marginal_dual_prices!(ws, (()->begin
+                #= /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_dual_price_repair_tests.jl:129 =#
+                false
+            end)))
+   Evaluated: !(JSimplex._shift_marginal_dual_prices!(JSimplex.SimplexWorkspace{Float64, JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}, :pfi, :native, Nothing}(LinearProblem{Float64}(sparse([1], [1], [1.0], 1, 2), [1.0, -1.0], 0.0, MIN_SENSE, Bound{Float64}[Bound{Float64}(1.0, true)], Bound{Float64}[Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(1.0, true)], VariableDomain[CONTINUOUS, CONTINUOUS], "", String[], String[]), SolverOptions{Float64, :pfi, :native}(1.0e-7, 1.0e-7, 1.0e-12, 100000, Inf, 20, false, Debug, :dual, :steepest_edge, :pfi, :native, :auto, false, :legacy), JSimplex.SimplexProgressContext{Float64, Nothing}(0x0000cc1b53c242de, [1.0, -1.0], 0.0, JSimplex.Scaling{Float64}([1.0], [1.0, 1.0]), 0, 0, nothing, JSimplex.NumericalPolicy{Float64}(5.684341886080802e-14, 1.4901161193847656e-8, 3, 8, 2, 64, 512, 1073741824, 8, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false)), [1.0, 1.0e-7, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(1.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(1.0, true), Bound{Float64}(0.0, false)], JSimplex.Basis([3], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC]), [0.0, 0.0, -0.0], [1.0, 1.0e-7, 0.0], [1.0, 1.0, 1.0], Bool[0, 0, 1], JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}(JSimplex.UMFPACKBackend(SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x00000000058db150)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x000000000633aa60)), 1, 1, [0, 1], [0], [-1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([0], [-0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 1.0, 1.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 2.0, 1.00000761449337e-7, 1.00000761449337e-7, -1.0, -1.0, -1.0], ReentrantLock()), 1, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000009976d90)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000002127c10)), 1, 1, [0, 1], [0], [-1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([0], [-0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 1.0, 1.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 2.0, 4.00003045797348e-7, 4.00003045797348e-7, -1.0, -1.0, -1.0], ReentrantLock()), false), JSimplex.PackedEta{Float64}[], [0.0], JSimplex.PackedEta{Float64}[], 0, nothing), JSimplex.SimplexScratch{Float64}(Bool[0, 0, 1], [0.0], [-0.0], [-0.0], [0.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0], Bool[0, 0, 0], false, Int64[], Int64[], Float64[], Float64[], Int64[], nothing, nothing, false, Int64[], Int64[], 0, 0, nothing, :none, 0.0, false, false, false, :limit, JSimplex.RefactorizationState{Float64}(0, 0, 20, 20, 512, false, false, false, nothing, 1.0, 1.0, 0, 1.0e8, 2, 2, 8.0, 0.0, 0.0, 0.0, 0, 0, 0, 0.0, 0.0, 0, 0, 9223372036854775807, 0, 0, 0, 0.0, :none), nothing, nothing, nothing, nothing, nothing, 0.0, 0.0, JSimplex.PerturbationJournal{Float64}(0x062f5a1bc055d98e, [1.0, -1.0002033976466948e-7, 0.0], [1.0, 1.0e-7, 0.0], true, true, 0, nothing, 0, 0, nothing), true, true, sparse([1], [1], [-1.0], 1, 1), JSimplex.BasisCheckpoint{Float64}[], 0x0000000000000000, Tuple{Int64, Int64}[], 0x0000000000000000, false, false, nothing), 0, 1, true, 0, false, false, 20, 0, 9223372036854775807, 0, 0), var"#39#40"()))
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_dual_price_repair_tests.jl:113
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_dual_price_repair_tests.jl:129 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native price repair is atomic and excludes original-cost phases: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_dual_price_repair_tests.jl:130
+  Expression: ws.costs == costs && ws.reduced_costs == prices
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_dual_price_repair_tests.jl:113
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/simplex-basis-cleanup-performance/test/legacy_dual_price_repair_tests.jl:130 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+Test Summary:                                                              | Pass  Fail  Error  Total   Time
+Price repair review regressions                                            |  179     9      1    189  55.6s
+  Legacy dual retains a basis after marginal working-price drift           |  160                 160  49.6s
+  Marginal price repair cannot hide larger errors or ignore cancellation   |   11                  11   3.5s
+  Working-cost repair preserves an original unbounded direction            |                 1      1   0.5s
+  Price repair excludes adaptive perturbation policies and active journals |          6             6   1.0s
+  Cancellation inside native price repair cannot start higher precision    |    3     1             4   0.7s
+  Native price repair is atomic and excludes original-cost phases          |    5     2             7   0.2s
+RNG of the outermost testset: Random.Xoshiro(0x6c74985488339169, 0x52f99c2b8438e9de, 0x0a34877eef79b8ab, 0xa03b74bd7f39d0ef, 0xfa0843803cd3a0e3)
