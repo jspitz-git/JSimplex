@@ -347,6 +347,7 @@ function _indexed_basis_solve!(dest::IndexedVector{T},factor,
     length(dest.values) == n && length(rhs.values) == n || throw(DimensionMismatch("Indexed basis solve dimensions"))
     cache = _sparse_basis_workspace!(factor)
     _check_indexed_basis_buffers(dest,cache,rhs,factor)
+    _invalidate_prepared_destination!(factor,dest.values)
     if T === BigFloat
         bits = _sparse_working_precision!(cache,factor,rhs)
         return setprecision(()->_run_indexed_basis_solve!(dest,factor,cache,rhs,transposed,mode),BigFloat,bits)

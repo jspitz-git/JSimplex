@@ -106,11 +106,15 @@ function _reset_dense_row_cache!(factor::ComposedRowFactorization, n::Int)
     cache.permuted = false
     empty!(cache.active_upper)
     cache.upper_dirty = false
+    _invalidate_prepared_spikes!(factor)
     return nothing
 end
 
-_invalidate_dense_upper!(factor::ComposedRowFactorization) =
-    (factor.row_cache.upper_dirty = true; nothing)
+function _invalidate_dense_upper!(factor::ComposedRowFactorization)
+    factor.row_cache.upper_dirty = true
+    _invalidate_prepared_spikes!(factor)
+    return nothing
+end
 
 function _dense_upper_columns(factor::Union{ForrestTomlinFactorization{T},
         SuhlSuhlFactorization{T},BartelsGolubFactorization{T}}) where {T<:Union{Float32,Float64}}

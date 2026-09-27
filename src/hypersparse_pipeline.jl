@@ -333,6 +333,7 @@ end
 
 function _pipeline_dense_basis!(destination,factor,rhs,transposed)
     if Base.mightalias(destination,rhs)
+        _invalidate_prepared_destination!(factor,destination)
         cache = _sparse_basis_workspace!(factor)
         transposed ? transpose_solve!(cache.dense_result,factor,rhs) :
                      forward_solve!(cache.dense_result,factor,rhs)
@@ -418,6 +419,7 @@ end
 function _pipeline_basis_solve!(destination,ws,rhs;transposed::Bool=false,
     operation::Symbol=transposed ? :btran : :ftran,kernel_mode::Symbol=:auto,clock=time_ns)
     kernel_mode in (:auto,:sparse,:dense) || throw(ArgumentError("Unknown pipeline kernel mode"))
+    _invalidate_prepared_destination!(ws.factorization,destination)
     if !ws.progress.numerical_policy.hypersparse
         _pipeline_changed!(ws,destination)
         return transposed ? transpose_solve!(destination,ws.factorization,rhs) :
@@ -467,6 +469,7 @@ end
 function _pipeline_price!(destination,ws,rho;operation::Symbol=:pricing,
                           kernel_mode::Symbol=:auto,clock=time_ns)::Nothing
     kernel_mode in (:auto,:sparse,:dense) || throw(ArgumentError("Unknown pipeline kernel mode"))
+    _invalidate_prepared_destination!(ws.factorization,destination)
     if !ws.progress.numerical_policy.hypersparse
         _pipeline_changed!(ws,destination)
         return _csc_price!(destination,ws.problem.A,rho)

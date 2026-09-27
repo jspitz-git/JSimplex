@@ -229,6 +229,19 @@ _factor_growth_measure(factor::AbstractTriangularBasisFactorization{T}) where T 
     maximum(c -> maximum(abs,c.values;init=zero(T)),factor.upper;init=zero(T))
 _factor_growth_reference(factor::AbstractTriangularBasisFactorization) = _factor_growth_measure(factor)
 
+# A forward solve can supply the entering spike before solving with U. Keep
+# two results because steepest-edge pricing performs another FTRAN before the
+# basis replacement. Entries are private, and identify the exact output buffer.
+mutable struct PreparedTriangularSpike{T<:Real}
+    destination::Union{Nothing,Vector{T}}
+    direction::Vector{T}
+    spike::Vector{T}
+end
+mutable struct TriangularSpikeCache{T<:Real}
+    entries::NTuple{2,PreparedTriangularSpike{T}}
+    next::Int
+end
+
 # Dense-solve cache only: the original history remains authoritative for sparse
 # solves. Each operation is (physical target, physical source, multiplier).
 # The upper-column cache is independently invalidated before upper mutation.
@@ -239,9 +252,10 @@ mutable struct TriangularRowCache{T<:Real}
     permuted::Bool
     active_upper::Vector{Int}
     upper_dirty::Bool
+    prepared::Union{Nothing,TriangularSpikeCache{T}}
 end
 TriangularRowCache(::Type{T}, n::Int) where {T<:Real} =
-    TriangularRowCache{T}(collect(1:n), Tuple{Int,Int,T}[], 0, false, Int[], true)
+    TriangularRowCache{T}(collect(1:n), Tuple{Int,Int,T}[], 0, false, Int[], true, nothing)
 
 mutable struct ForrestTomlinFactorization{T<:Real,F} <: AbstractTriangularBasisFactorization{T}
     base::F
@@ -497,13 +511,16 @@ function forward_solve!(destination::Vector{T},
     ))
     n = _check_triangular_dimensions(factor, destination, rhs)
     source = destination === rhs ? copyto!(factor.work, rhs) : rhs
+    prepared = _begin_prepared_spike!(factor, destination)
     _backend_forward_solve!(destination, factor.base, source)
     _apply_dense_row_updates!(destination, factor)
+    _save_prepared_spike!(prepared, destination)
     _upper_backsolve!(destination, factor.upper, _dense_upper_columns(factor))
     for column in 1:n
         factor.work[factor.column_order[column]] = destination[column]
     end
     copyto!(destination, factor.work)
+    _finish_prepared_spike!(prepared, destination)
     return destination
 end
 
@@ -529,6 +546,7 @@ function transpose_solve!(destination::Vector{T},
         "destination must not alias the factorization work storage",
     ))
     n = _check_triangular_dimensions(factor, destination, rhs)
+    _invalidate_prepared_destination!(factor, destination)
     source = rhs === factor.work ? copyto!(factor.spike, rhs) : rhs
     for column in 1:n
         factor.work[column] = convert(T, source[factor.column_order[column]])
@@ -556,6 +574,7 @@ function _prepare_spike!(factor::AbstractTriangularBasisFactorization{T},
     _pivot_magnitude(convert(T, tableau_column[pivot])) > tolerance ||
         throw(LinearAlgebra.ZeroPivotException(pivot))
     position = factor.positions[pivot]
+    _copy_prepared_spike!(factor, tableau_column) && return position
     fill!(factor.spike, zero(T))
     for column_index in 1:n
         column = factor.upper[column_index]
