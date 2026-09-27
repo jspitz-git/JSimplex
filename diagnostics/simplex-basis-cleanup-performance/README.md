@@ -21,3 +21,7 @@ Baseline runtime dual, interval80: TIME_LIMIT at360.002s,21,619 iterations,271 r
 Pure adjacent row swaps now visit each affected packed column once and rotate its row indices/values as a group. The existing spike scratch marks unique affected columns; short runs do not scan the full matrix. Nonzero elimination arithmetic and pivot comparisons retain their scalar path. On the identity-history benchmark, per-update time fell from 640.7–748.0 to 399.8–484.0 microseconds.
 
 The combined regression suite passed 30,797 checks, including 1,200 assertions comparing every updated packed upper factor and pivot-history record with the scalar implementation from baseline `1ffdbc2`.
+
+## Other basis managers
+
+The user explicitly requested coverage of every manager. FT and SS now use the same composed-permutation representation, retaining their addition operations; BG retains subtraction. SS histories that never permute rows skip the gather/scatter. All 32,421 focused factor checks passed. See the all-manager history logs for identity and coupled-column results. Before this extension, coupled histories at320 updates required BTRAN3.671ms (FT) and3.390ms (SS); the composed path removes that repeated permutation traffic. PFI has no such permutations and remains unchanged at this stage. Real-model history replay is still required to assess its coefficient-dependent cost.

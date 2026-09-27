@@ -230,6 +230,7 @@ using Test
     include("mps_allocation_tests.jl")
     include("factorization_tests.jl")
     include("bartels_golub_rows_tests.jl")
+    include("triangular_composed_rows_tests.jl")
     include("bartels_golub_rotation_tests.jl")
     include("runtime_factorization_tests.jl")
     include("runtime_lookup_tests.jl")

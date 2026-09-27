@@ -227,6 +227,17 @@ _factor_growth_measure(factor::AbstractTriangularBasisFactorization{T}) where T 
     maximum(c -> maximum(abs,c.values;init=zero(T)),factor.upper;init=zero(T))
 _factor_growth_reference(factor::AbstractTriangularBasisFactorization) = _factor_growth_measure(factor)
 
+# Dense-solve cache only: the original history remains authoritative for sparse
+# solves. Each operation is (physical target, physical source, multiplier).
+mutable struct TriangularRowCache{T<:Real}
+    order::Vector{Int}
+    operations::Vector{Tuple{Int,Int,T}}
+    update_count::Int
+    permuted::Bool
+end
+TriangularRowCache(::Type{T}, n::Int) where {T<:Real} =
+    TriangularRowCache{T}(collect(1:n), Tuple{Int,Int,T}[], 0, false)
+
 mutable struct ForrestTomlinFactorization{T<:Real,F} <: AbstractTriangularBasisFactorization{T}
     base::F
     upper::Vector{PackedUpperColumn{T}}
@@ -240,6 +251,7 @@ mutable struct ForrestTomlinFactorization{T<:Real,F} <: AbstractTriangularBasisF
     recycled_updates::Vector{ForrestTomlinUpdate{T}}
     shared_update_count::Int
     sparse::Union{Nothing,SparseBasisWorkspace{T}}
+    row_cache::TriangularRowCache{T}
 end
 
 mutable struct SuhlSuhlFactorization{T<:Real,F} <: AbstractTriangularBasisFactorization{T}
@@ -255,17 +267,8 @@ mutable struct SuhlSuhlFactorization{T<:Real,F} <: AbstractTriangularBasisFactor
     recycled_updates::Vector{SuhlSuhlUpdate{T}}
     shared_update_count::Int
     sparse::Union{Nothing,SparseBasisWorkspace{T}}
+    row_cache::TriangularRowCache{T}
 end
-
-# Dense-solve cache only: the original history remains authoritative for sparse
-# solves. Each operation is (physical target, physical source, multiplier).
-mutable struct BartelsGolubRowCache{T<:Real}
-    order::Vector{Int}
-    operations::Vector{Tuple{Int,Int,T}}
-    update_count::Int
-end
-BartelsGolubRowCache(::Type{T}, n::Int) where {T<:Real} =
-    BartelsGolubRowCache{T}(collect(1:n), Tuple{Int,Int,T}[], 0)
 
 mutable struct BartelsGolubFactorization{T<:Real,F} <: AbstractTriangularBasisFactorization{T}
     base::F
@@ -281,7 +284,7 @@ mutable struct BartelsGolubFactorization{T<:Real,F} <: AbstractTriangularBasisFa
     recycled_updates::Vector{BartelsGolubUpdate{T}}
     shared_update_count::Int
     sparse::Union{Nothing,SparseBasisWorkspace{T}}
-    row_cache::BartelsGolubRowCache{T}
+    row_cache::TriangularRowCache{T}
 end
 
 ForrestTomlinFactorization(B::AbstractMatrix{T}) where {T<:Real} =
@@ -294,7 +297,7 @@ function ForrestTomlinFactorization(B::AbstractMatrix{T}, ::Val{R}) where {T<:Re
     return ForrestTomlinFactorization{T,typeof(base)}(
         base, _identity_upper(T, n), collect(1:n), collect(1:n),
         ForrestTomlinUpdate{T}[], zeros(T, n), zeros(T, n), Vector{Int}[],
-        ForrestTomlinUpdate{T}[], 0, nothing,
+        ForrestTomlinUpdate{T}[], 0, nothing, TriangularRowCache(T, n),
     )
 end
 
@@ -308,7 +311,7 @@ function SuhlSuhlFactorization(B::AbstractMatrix{T}, ::Val{R}) where {T<:Real,R}
     return SuhlSuhlFactorization{T,typeof(base)}(
         base, _identity_upper(T, n), collect(1:n), collect(1:n),
         SuhlSuhlUpdate{T}[], zeros(T, n), zeros(T, n), Vector{Int}[],
-        SuhlSuhlUpdate{T}[], 0, nothing,
+        SuhlSuhlUpdate{T}[], 0, nothing, TriangularRowCache(T, n),
     )
 end
 
@@ -323,7 +326,7 @@ function BartelsGolubFactorization(B::AbstractMatrix{T}, ::Val{R}) where {T<:Rea
         base, _identity_upper(T, n), collect(1:n), collect(1:n),
         BartelsGolubUpdate{T}[], zeros(T, n), zeros(T, n),
         [Int[] for _ in 1:n], Int[],
-        BartelsGolubUpdate{T}[], 0, nothing, BartelsGolubRowCache(T, n),
+        BartelsGolubUpdate{T}[], 0, nothing, TriangularRowCache(T, n),
     )
 end
 
@@ -855,6 +858,7 @@ function copy_basis_factorization(factor::ForrestTomlinFactorization{T,F}) where
         copy(factor.column_order), copy(factor.positions),
         copy(factor.updates), similar(factor.work), similar(factor.spike), Vector{Int}[],
         ForrestTomlinUpdate{T}[], factor.shared_update_count, _copy_sparse_basis_cache(factor.sparse),
+        TriangularRowCache(T, length(factor.work)),
     )
 end
 
@@ -866,6 +870,7 @@ function copy_basis_factorization(factor::SuhlSuhlFactorization{T,F}) where {T,F
         copy(factor.column_order), copy(factor.positions),
         copy(factor.updates), similar(factor.work), similar(factor.spike), Vector{Int}[],
         SuhlSuhlUpdate{T}[], factor.shared_update_count, _copy_sparse_basis_cache(factor.sparse),
+        TriangularRowCache(T, length(factor.work)),
     )
 end
 
@@ -878,6 +883,6 @@ function copy_basis_factorization(factor::BartelsGolubFactorization{T,F}) where 
         copy(factor.updates), similar(factor.work), similar(factor.spike),
         [Int[] for _ in eachindex(factor.row_columns)], Int[],
         BartelsGolubUpdate{T}[], factor.shared_update_count, _copy_sparse_basis_cache(factor.sparse),
-        BartelsGolubRowCache(T, length(factor.work)),
+        TriangularRowCache(T, length(factor.work)),
     )
 end

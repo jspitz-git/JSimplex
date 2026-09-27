@@ -11,3 +11,7 @@ The user reports slow legacy dual simplex and original-model cleanup, and severe
 ## Constraints
 
 All repository text and commits in English. One numerical job at a time, one Julia/BLAS thread, 24 GiB virtual-memory ceiling. Never solve or factorize big.mps, largo.mps, AnyMod.mps or aliases. Runtime completion attempts receive at least 360 seconds. Preserve worktrees, local logs and diagnostics. No merge or push without a new instruction.
+
+## Scope clarification
+
+The user explicitly requested investigation of all basis managers. Apply permutation composition to FT and SS as well, retaining their addition arithmetic and independent within-update transpose operations. Profile PFI on real histories; do not attribute its coefficient-dependent product-form cost to permutations it does not perform.

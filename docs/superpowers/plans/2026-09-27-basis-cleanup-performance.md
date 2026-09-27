@@ -47,6 +47,17 @@ Interface: private `_rotate_upper_rows!(upper, columns_by_row, first, last)` and
 - [ ] Run factorization, sparse-history, ownership, precision and allocation regressions, and compare replacement time on the same history benchmark.
 - [ ] Commit verified update feature.
 
+### Task 1c: Extend the investigation to every basis manager
+
+User scope clarification: include FT, SS and PFI because all exhibit slowdown.
+
+Files: `src/triangular_rows.jl`, factor structs/copies/reset, `test/triangular_composed_rows_tests.jl`, shared replay helper, `reproduce/all-history-bench.jl`.
+
+- [ ] Measure sparse identity and coupled-column histories for PFI, FT, SS and BG at20/80/320 updates.
+- [ ] Run FT/SS cache and bitwise replay regressions before implementation; extend the composed cache using addition for FT/SS and subtraction for BG without coefficient sign conversion.
+- [ ] Run shared factorization, allocation, precision, aliasing, sparse-history and copy regressions, then repeat all-manager measurements.
+- [ ] Commit verified FT/SS feature. Capture real-model histories for PFI and all triangular managers to distinguish coefficient growth from redundant traversal.
+
 ### Task 2: Preserve useful postsolve bases
 
 Files: `src/solver.jl`, new `test/postsolve_cleanup_performance_tests.jl`, `test/runtests.jl`, diagnostic scripts/report.
