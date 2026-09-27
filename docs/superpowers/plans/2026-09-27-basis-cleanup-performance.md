@@ -126,3 +126,15 @@ The fresh iteration2999 basis gives FTRAN1.480635e-12 versus BTRAN8.514048e-13. 
 - [x] Run focused numerical guards and the matching runtime configuration; review and commit verified correction.
 
 Verified guard correction:583/583 checks and independent review. Full360s-budget primal run terminates NUMERICAL_ERROR at236.44s/13,715 iterations after later feasibility loss. Primal stabilization remains incomplete.
+
+### Task 4f: Inspect marginal primal point failures
+
+The full primal run still fails on a marginal feasibility violation. Capture computed and predicted basic values at certification failure. Test whether a small native correction can be independently certified against unchanged bounds and rows. Do not change tolerances or publish an uncertified point. Implementation depends on snapshot evidence; not yet started.
+
+### Task 1d: Skip unchanged identity upper columns in dense hardware solves
+
+The captured early medium history shows approximately3.5ms triangular solves versus0.6ms PFI, even with a fresh basis. The triangular upper factor starts as identity but every dense solve visits all360,982 columns. Cache ascending indices of nonidentity columns for Float32/Float64; skip only stored singleton positive-unit diagonal columns. Preserve nonidentity arithmetic order and the original fallback for other scalar types. Invalidate before mutation independently of history count and sparse-cache presence; copies start dirty. Measure cache rebuilding as well as warm solves.
+
+- [x] Add cache lifecycle and differential arithmetic regressions, including explicit stored zeros, signed zeros, copies and failed updates.
+- [x] Implement the private active-column cache and verify all factor regressions.
+- [x] Replay the same medium history, including first solves after updates, review and commit.

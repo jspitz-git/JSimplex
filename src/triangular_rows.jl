@@ -104,5 +104,27 @@ function _reset_dense_row_cache!(factor::ComposedRowFactorization, n::Int)
     empty!(cache.operations)
     cache.update_count = 0
     cache.permuted = false
+    empty!(cache.active_upper)
+    cache.upper_dirty = false
     return nothing
+end
+
+_invalidate_dense_upper!(factor::ComposedRowFactorization) =
+    (factor.row_cache.upper_dirty = true; nothing)
+
+function _dense_upper_columns(factor::Union{ForrestTomlinFactorization{T},
+        SuhlSuhlFactorization{T},BartelsGolubFactorization{T}}) where {T<:Union{Float32,Float64}}
+    cache = factor.row_cache
+    if cache.upper_dirty
+        empty!(cache.active_upper)
+        for index in eachindex(factor.upper)
+            column = factor.upper[index]
+            # Explicit off-diagonal zeros still participate in arithmetic.
+            identity = length(column.indices) == 1 && column.indices[1] == index &&
+                column.values[1] == one(T)
+            identity || push!(cache.active_upper, index)
+        end
+        cache.upper_dirty = false
+    end
+    return cache.active_upper
 end

@@ -23,6 +23,7 @@ function _copy_sparse_basis_cache(source::SparseBasisWorkspace{T}) where T
 end
 
 function _invalidate_sparse_upper!(factor)
+    _invalidate_dense_upper!(factor)
     cache = factor.sparse
     if !isnothing(cache)
         cache.upper = nothing

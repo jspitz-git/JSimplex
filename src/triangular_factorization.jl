@@ -229,14 +229,17 @@ _factor_growth_reference(factor::AbstractTriangularBasisFactorization) = _factor
 
 # Dense-solve cache only: the original history remains authoritative for sparse
 # solves. Each operation is (physical target, physical source, multiplier).
+# The upper-column cache is independently invalidated before upper mutation.
 mutable struct TriangularRowCache{T<:Real}
     order::Vector{Int}
     operations::Vector{Tuple{Int,Int,T}}
     update_count::Int
     permuted::Bool
+    active_upper::Vector{Int}
+    upper_dirty::Bool
 end
 TriangularRowCache(::Type{T}, n::Int) where {T<:Real} =
-    TriangularRowCache{T}(collect(1:n), Tuple{Int,Int,T}[], 0, false)
+    TriangularRowCache{T}(collect(1:n), Tuple{Int,Int,T}[], 0, false, Int[], true)
 
 mutable struct ForrestTomlinFactorization{T<:Real,F} <: AbstractTriangularBasisFactorization{T}
     base::F
@@ -431,8 +434,9 @@ function _apply_transposed_row_update!(vector::Vector, update::BartelsGolubUpdat
     return vector
 end
 
-function _upper_backsolve!(vector::Vector{T}, upper::Vector{PackedUpperColumn{T}}) where {T}
-    for column_index in length(upper):-1:1
+function _upper_backsolve!(vector::Vector{T}, upper::Vector{PackedUpperColumn{T}},
+                           columns=eachindex(upper)) where {T}
+    for column_index in Iterators.reverse(columns)
         column = upper[column_index]
         value = vector[column_index] / _upper_value(column, column_index)
         vector[column_index] = value
@@ -445,8 +449,9 @@ function _upper_backsolve!(vector::Vector{T}, upper::Vector{PackedUpperColumn{T}
     return vector
 end
 
-function _upper_transpose_solve!(vector::Vector{T}, upper::Vector{PackedUpperColumn{T}}) where {T}
-    for column_index in eachindex(upper)
+function _upper_transpose_solve!(vector::Vector{T}, upper::Vector{PackedUpperColumn{T}},
+                                 columns=eachindex(upper)) where {T}
+    for column_index in columns
         column = upper[column_index]
         value = vector[column_index]
         for index in eachindex(column.indices)
@@ -474,6 +479,8 @@ function _apply_dense_transposed_row_updates!(vector, factor::AbstractTriangular
 end
 
 _reset_dense_row_cache!(::AbstractTriangularBasisFactorization, ::Int) = nothing
+_dense_upper_columns(factor::AbstractTriangularBasisFactorization) = eachindex(factor.upper)
+_invalidate_dense_upper!(factor) = nothing
 
 function forward_solve!(destination::Vector{T},
                         factor::AbstractTriangularBasisFactorization{T},
@@ -485,7 +492,7 @@ function forward_solve!(destination::Vector{T},
     source = destination === rhs ? copyto!(factor.work, rhs) : rhs
     _backend_forward_solve!(destination, factor.base, source)
     _apply_dense_row_updates!(destination, factor)
-    _upper_backsolve!(destination, factor.upper)
+    _upper_backsolve!(destination, factor.upper, _dense_upper_columns(factor))
     for column in 1:n
         factor.work[factor.column_order[column]] = destination[column]
     end
@@ -519,7 +526,7 @@ function transpose_solve!(destination::Vector{T},
     for column in 1:n
         factor.work[column] = convert(T, source[factor.column_order[column]])
     end
-    _upper_transpose_solve!(factor.work, factor.upper)
+    _upper_transpose_solve!(factor.work, factor.upper, _dense_upper_columns(factor))
     _apply_dense_transposed_row_updates!(factor.work, factor)
     return _backend_transpose_solve!(destination, factor.base, factor.work)
 end
