@@ -150,9 +150,36 @@ function _project_postsolve_basis!(workspace::SimplexWorkspace{T}, target::Vecto
     primal_infeasibility(workspace) <= options.primal_tolerance || return nothing
     projected = workspace.primal[1:column_count]
     _original_primal_feasible(problem, projected, options.primal_tolerance) || return nothing
-    all(index -> abs(projected[index] - target[index]) <= options.primal_tolerance,
-        eachindex(target)) || return nothing
+    # A valid original-model basis may land elsewhere on a degenerate face.
+    # Legacy cleanup optimizes its original costs; coordinate identity with
+    # the supplied target is neither a feasibility nor an optimality test.
+    if options.simplex_strategy != :legacy
+        all(index -> abs(projected[index] - target[index]) <= options.primal_tolerance,
+            eachindex(target)) || return nothing
+    end
     return length(displaced)
+end
+
+function _cleanup_primal_feasible!(workspace::SimplexWorkspace, stop_requested)
+    original_options = workspace.options
+    # Primal-specific native safeguards must follow the phase being executed,
+    # including when the user's main solve explicitly selected dual simplex.
+    workspace.options = _remaining_options(original_options; iterations=0, algorithm=:primal)
+    workspace.dual_devex_fallback = false
+    try
+        _simplex_event!(workspace, :phase_cleanup)
+        _simplex_event!(workspace, :phase_primal)
+        try
+            workspace.options.verbose && @info "Starting primal postsolve cleanup from feasible basis"
+        catch exception
+            stop_requested isa _StopCallback && (stop_requested.exception = exception)
+            rethrow()
+        end
+        terminal = _primal_optimize!(workspace, stop_requested; perturb_degenerate=false)
+        return _internal_solution(workspace, terminal)
+    finally
+        workspace.options = original_options
+    end
 end
 
 function cleanup_original(problem::LinearProblem{T}, restored_basis::Basis,
@@ -180,6 +207,7 @@ function cleanup_original(problem::LinearProblem{T}, restored_basis::Basis,
         workspace.basis = Basis(restored_basis.basic_indices, restored_basis.states)
         recompute!(workspace; refactorize=true, caller_guard=stop_requested)
         projected = false
+        preserve_primal = false
         if !isnothing(target_primal)
             exchanges = try
                 _project_postsolve_basis!(workspace, target_primal, stop_requested)
@@ -195,12 +223,21 @@ function cleanup_original(problem::LinearProblem{T}, restored_basis::Basis,
                 recompute!(workspace; refactorize=true, caller_guard=stop_requested)
             else
                 projected = exchanges > 0
+                preserve_primal = options.simplex_strategy == :legacy &&
+                    !workspace.progress.numerical_policy.feasibility_recovery &&
+                    _finite_workspace(workspace) &&
+                    primal_infeasibility(workspace) <= options.primal_tolerance
                 projected && options.verbose &&
                     @info string("Projected postsolve basis: exchanges=", exchanges)
             end
         end
         run = try
-            _solve_continuous_dual!(workspace, stop_requested)
+            if preserve_primal
+                _recover_original_failure(workspace,
+                    _cleanup_primal_feasible!(workspace, stop_requested), stop_requested)
+            else
+                _solve_continuous_dual!(workspace, stop_requested)
+            end
         catch exception
             exception === stop_requested.exception && rethrow()
             _is_numerical_exception(exception) || rethrow()
@@ -208,7 +245,7 @@ function cleanup_original(problem::LinearProblem{T}, restored_basis::Basis,
                              workspace.iterations, workspace.refactorizations,
                              sprint(showerror, exception))
         end
-        if projected && run.status in (INFEASIBLE, UNBOUNDED, NUMERICAL_ERROR) &&
+        if (projected || preserve_primal) && run.status in (INFEASIBLE, UNBOUNDED, NUMERICAL_ERROR) &&
            !stop_requested()
             options.verbose && @info string(
                 "Retrying postsolve cleanup from restored basis after ",
@@ -229,12 +266,13 @@ function cleanup_original(problem::LinearProblem{T}, restored_basis::Basis,
 end
 
 function _remaining_options(options::SolverOptions{T,M,R}; iterations::Int,
-                            time_limit::Float64=options.time_limit) where {T,M,R}
+                            time_limit::Float64=options.time_limit,
+                            algorithm::Symbol=options.algorithm) where {T,M,R}
     return _validated_options(T, Val(M), Val(R),
         options.primal_tolerance, options.dual_tolerance, options.zero_tolerance,
         max(0, options.iteration_limit - iterations), time_limit,
         options.refactorization_interval, options.verbose, options.log_level,
-        options.algorithm, options.pricing, options.scaling, options.presolve, options.simplex_strategy)
+        algorithm, options.pricing, options.scaling, options.presolve, options.simplex_strategy)
 end
 
 function _retry_original(problem::LinearProblem{T}, options::SolverOptions{T},

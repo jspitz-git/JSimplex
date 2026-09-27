@@ -63,6 +63,7 @@ using Test
     include("scaling_allocation_tests.jl")
     include("result_allocation_tests.jl")
     include("presolve_tests.jl")
+    include("postsolve_cleanup_performance_tests.jl")
     include("presolve_dispatch_tests.jl")
     include("presolve_allocation_tests.jl")
     include("zero_bound_shift_allocation_tests.jl")

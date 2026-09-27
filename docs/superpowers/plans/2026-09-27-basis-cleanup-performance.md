@@ -28,11 +28,11 @@ Files: `src/triangular_factorization.jl`, new `src/bartels_golub_rows.jl`, `src/
 
 Interface: retain `forward_solve!`, `transpose_solve!`, `replace_column!`, `refactorize!`, `copy_basis_factorization`; introduce private `BartelsGolubRowCache{T}` and `_sync_bartels_golub_rows!`.
 
-- [ ] Establish old-history performance at 28,000 rows and 20/80/320 real identity column replacements; retain baseline runtime profile.
-- [ ] Write differential tests against explicit old-history replay, including nonzero eliminations, rotations, both transposes, aliasing, copy, refactorization and scalar types. Assert pure permutations compile to zero numeric operations. Run the regression and observe the missing cache fail.
-- [ ] Implement incremental logical-to-physical map and ordered eliminations; route only dense BG history traversal through it. Reset cache after successful factorization; copies own their cache.
-- [ ] Run new regression plus factorization, triangular history/reset, hypersparse, atomicity and precision tests. Rerun benchmark and compare arithmetic bitwise with old replay.
-- [ ] Commit verified feature and measurements.
+- [x] Establish old-history performance at 28,000 rows and 20/80/320 real identity column replacements; retain baseline runtime profile.
+- [x] Write differential tests against explicit old-history replay, including nonzero eliminations, rotations, both transposes, aliasing, copy, refactorization and scalar types. Assert pure permutations compile to zero numeric operations. Run the regression and observe the missing cache fail.
+- [x] Implement incremental logical-to-physical map and ordered eliminations; route only dense BG history traversal through it. Reset cache after successful factorization; copies own their cache.
+- [x] Run new regression plus factorization, triangular history/reset, hypersparse, atomicity and precision tests. Rerun benchmark and compare arithmetic bitwise with old replay.
+- [x] Commit verified feature and measurements.
 
 ### Task 1b: Batch pure row swaps during basis updates
 
@@ -42,10 +42,10 @@ Evidence: the baseline runtime profile attributes 14,250 of 26,502 samples to BG
 
 Interface: private `_rotate_upper_rows!(upper, columns_by_row, first, last)` and `_last_pure_bartels_golub_swap(upper, first)`; existing update API unchanged.
 
-- [ ] Test packed row rotation against literal row permutation and old adjacent swaps, including empty/singleton/dense columns and exact types; run before implementing.
-- [ ] Detect consecutive strictly zero elimination entries, batch their row permutation, retain normal scalar elimination for all other cases. Preserve pivot selection and history ordering.
-- [ ] Run factorization, sparse-history, ownership, precision and allocation regressions, and compare replacement time on the same history benchmark.
-- [ ] Commit verified update feature.
+- [x] Test packed row rotation against literal row permutation and old adjacent swaps, including empty/singleton/dense columns and exact types; run before implementing.
+- [x] Detect consecutive strictly zero elimination entries, batch their row permutation, retain normal scalar elimination for all other cases. Preserve pivot selection and history ordering.
+- [x] Run factorization, sparse-history, ownership, precision and allocation regressions, and compare replacement time on the same history benchmark.
+- [x] Commit verified update feature.
 
 ### Task 1c: Extend the investigation to every basis manager
 
@@ -53,10 +53,11 @@ User scope clarification: include FT, SS and PFI because all exhibit slowdown.
 
 Files: `src/triangular_rows.jl`, factor structs/copies/reset, `test/triangular_composed_rows_tests.jl`, shared replay helper, `reproduce/all-history-bench.jl`.
 
-- [ ] Measure sparse identity and coupled-column histories for PFI, FT, SS and BG at20/80/320 updates.
-- [ ] Run FT/SS cache and bitwise replay regressions before implementation; extend the composed cache using addition for FT/SS and subtraction for BG without coefficient sign conversion.
-- [ ] Run shared factorization, allocation, precision, aliasing, sparse-history and copy regressions, then repeat all-manager measurements.
-- [ ] Commit verified FT/SS feature. Capture real-model histories for PFI and all triangular managers to distinguish coefficient growth from redundant traversal.
+- [x] Measure sparse identity and coupled-column histories for PFI, FT, SS and BG at20/80/320 updates.
+- [x] Run FT/SS cache and bitwise replay regressions before implementation; extend the composed cache using addition for FT/SS and subtraction for BG without coefficient sign conversion.
+- [x] Run shared factorization, allocation, precision, aliasing, sparse-history and copy regressions, then repeat all-manager measurements.
+- [x] Commit verified FT/SS feature.
+- [ ] Capture real-model histories for PFI and all triangular managers to distinguish coefficient growth from redundant traversal.
 
 ### Task 2: Preserve useful postsolve bases
 
@@ -64,8 +65,8 @@ Files: `src/solver.jl`, new `test/postsolve_cleanup_performance_tests.jl`, `test
 
 Interface: retain `_project_postsolve_basis!` and `cleanup_original` signatures, `SolveContext` budget, original-model feasibility/cost checks.
 
-- [ ] Capture projection rejection on runtime or a small exact reproducer and document the failed condition. Add a test that exposes unnecessary fallback or dual reinitialization from an already primal-feasible original basis.
-- [ ] Retain valid original-model primal bases without requiring coordinate identity; invoke primal cleanup for primal-feasible legacy bases using original costs. Keep dual path for infeasible bases and existing numerical fallback. Require original-model certification before OPTIMAL.
+- [x] Capture projection rejection on runtime or a small exact reproducer and document the failed condition. Add a test that exposes unnecessary fallback or dual reinitialization from an already primal-feasible original basis.
+- [x] Retain valid original-model primal bases without requiring coordinate identity; invoke primal cleanup for primal-feasible legacy bases using original costs. Keep dual path for infeasible bases and existing numerical fallback. Require original-model certification before OPTIMAL.
 - [ ] Run cleanup/presolve, budget, primal/dual, precision/retry and original-result regression tests; include invalid targets, zero budgets, nonoptimal feasible targets and nonfinite inputs.
 - [ ] Commit verified cleanup feature.
 
@@ -77,3 +78,10 @@ Files: `diagnostics/simplex-basis-cleanup-performance/`.
 - [ ] Run both algorithms on external NetLib, MIPLib LP relaxations and mps examples, including fast0507 where practical; do not extrapolate incomplete runs to completion.
 - [ ] Request an independent read-only whole-branch code review; address significant findings with regression tests.
 - [ ] Commit final English report and leave worktree available for review.
+
+### Task 4: Investigate the supplied numerical failures
+
+- [ ] Reproduce the dual PFI failure near the feasibility threshold; distinguish inaccurate prices from genuinely shifted working costs. Retain the original tolerance and original-cost optimality certificate.
+- [ ] Reproduce primal Bartels–Golub refactorization storms and the singular pivot; record the triggering checks before choosing a correction.
+- [ ] Add focused failing regressions for confirmed causes, verify each correction in native precision and commit it separately.
+- [ ] Repeat the matching runtime configurations with at least 360 seconds per completion attempt.

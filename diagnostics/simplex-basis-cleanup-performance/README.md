@@ -25,3 +25,25 @@ The combined regression suite passed 30,797 checks, including 1,200 assertions c
 ## Other basis managers
 
 The user explicitly requested coverage of every manager. FT and SS now use the same composed-permutation representation, retaining their addition operations; BG retains subtraction. SS histories that never permute rows skip the gather/scatter. All 32,421 focused factor checks passed. See the all-manager history logs for identity and coupled-column results. Before this extension, coupled histories at320 updates required BTRAN3.671ms (FT) and3.390ms (SS); the composed path removes that repeated permutation traffic. PFI has no such permutations and remains unchanged at this stage. Real-model history replay is still required to assess its coefficient-dependent cost.
+
+## Additional user reports
+
+The user confirmed that `runtime-primal-bg-user.log` used Bartels–Golub, while `runtime-dual-pfi-user.log` used PFI. Both otherwise used the configuration above. Source files were found under `/home/jspitz/logs/`.
+
+PFI first reports dual feasibility loss at iteration 52,497 after 302.233 seconds. Its maximum dual violation is 1.0002033976466948e-7, just above the configured 1e-7 tolerance; primal infeasibility is still 1,224.439. The original-model retry also fails, ending at iteration 63,801 after 339.343 seconds. This failure precedes postsolve cleanup.
+
+The primal BG log contains repeated consecutive-iteration refactorizations and a singular factorization at iteration 2,991. The available file ends during the original-model retry at iteration 3,151; the user reports that the run ultimately failed numerically, but that final status is absent from this snapshot.
+
+`runtime-dual-pfi-user.log` SHA-256: `34e3a5c5c0f67a80a0e9185b05d8d5a70742beddd5246d94da2e0d66a4d063f7`.
+
+`runtime-primal-bg-user.log` SHA-256: `a3ce10a1d323c46675c3c81349b330867eec2a21a580493e50bc17a172f9079b`.
+
+## Feasible postsolve cleanup
+
+A small regression reproduces rejection of a feasible basis solely because one objective-neutral coordinate differs from the supplied target. Legacy projection now accepts an independently feasible original-model basis and runs primal optimization with original costs; adaptive projection retains its coordinate rule. Terminal original-model primal and optimality certificates remain required.
+
+The isolated runtime cleanup experiment uses JSimplex presolve/postsolve with a reduced solution and basis supplied by local HiGHS 1.15.0. HiGHS reported dropping one coefficient of magnitude 1.78e-16. The projected original point was independently certified by JSimplex, so this experiment measures cleanup behavior, not end-to-end solver performance. The same serialized original-model target/basis was used for both runs.
+
+Before: ITERATION_LIMIT after 5,000 cleanup pivots, 67 refactorizations, 68.97 seconds. Dual initialization abandoned primal feasibility. After: OPTIMAL after 1,185 pivots, 19 refactorizations, 33.51 seconds including compilation; objective 51,425,691.7621028, original primal certificate passed. See `cleanup-before.toml` and `cleanup-after.toml`. External model snapshots remain local and are not committed.
+
+Independent read-only review covered factor histories and cleanup. It found a caller-logger exception provenance issue in the new cleanup message; a regression and guard were requested. The numerical failures reported in the newer PFI/primal logs remain separate investigations.
