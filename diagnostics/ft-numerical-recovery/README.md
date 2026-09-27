@@ -10,8 +10,8 @@ adaptive strategy are unchanged.
 The user confirmed commit `e1b15678e86f6d1cf3b2343827bf6d4e25f6e54b`, before the
 separate BG stable-row optimization `c7125f7`. The working configuration is
 runtime.mps, legacy dual, steepest-edge pricing, native refactorization and
-interval 80. The second machine's Julia version and architecture are not yet
-confirmed.
+interval 80. The user confirmed that the second machine runs native Windows,
+not WSL. Its Julia version and CPU architecture are not yet confirmed.
 
 At iteration 45537, reported primal infeasibility is about 5.4e4. At 45617 it
 jumps to 1.32e14 and dual infeasibility becomes 3.27. The reduced solve terminates
@@ -53,19 +53,27 @@ No new safeguard is justified solely by equating the two events.
 
 ## Capture on the failing machine
 
-Copy `reproduce/capture-failure.jl` to the checkout at the failing revision. It
-uses the same internal diagnostics as the existing runtime-debug tool. From that
-checkout in WSL/bash:
+Copy `reproduce/capture-failure.jl` into the root of the checkout at the failing
+revision, as `capture-failure.jl`. Open PowerShell in that checkout and replace
+`C:\data\runtime.mps` below with the actual Windows path to the model:
 
-```sh
-ulimit -v 25165824
-export JULIA_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 JULIA_IMAGE_THREADS=1 JULIA_NUM_PRECOMPILE_TASKS=1
-export JSIMPLEX_DEBUG_ITERATIONS=46000
-export JSIMPLEX_TRACE_PIVOTS=1 JSIMPLEX_TRACE_RELATIVE=1e-7 JSIMPLEX_TRACE_LIMIT=12
-julia --startup-file=no --project=. /path/to/capture-failure.jl \
-  /home/jspitz/mps/runtime.mps dual forrest_tomlin 900 \
-  /home/jspitz/logs/ft-capture.toml > /home/jspitz/logs/ft-capture.log 2>&1
+```powershell
+$env:JULIA_NUM_THREADS = '1'
+$env:OPENBLAS_NUM_THREADS = '1'
+$env:JULIA_IMAGE_THREADS = '1'
+$env:JULIA_NUM_PRECOMPILE_TASKS = '1'
+$env:JSIMPLEX_DEBUG_ITERATIONS = '46000'
+$env:JSIMPLEX_TRACE_PIVOTS = '1'
+$env:JSIMPLEX_TRACE_RELATIVE = '1e-7'
+$env:JSIMPLEX_TRACE_LIMIT = '12'
+julia --startup-file=no --project=. .\capture-failure.jl 'C:\data\runtime.mps' dual forrest_tomlin 900 .\ft-capture.toml > .\ft-capture.log 2>&1
 ```
+
+The script runs directly in Julia and does not invoke bash or require WSL.
+Reports, snapshots and the log are written to the checkout directory. Use a new
+output prefix when repeating the capture. The Linux memory ceiling described
+above applies only to local validation; it is not imposed by this Windows command.
+The PowerShell instructions have been reviewed but not executed on Windows here.
 
 The 46,000-iteration cap allows the reported failure at 45,617 to be captured,
 then bounds the original-LP retry. The 900-second solve budget starts after a
