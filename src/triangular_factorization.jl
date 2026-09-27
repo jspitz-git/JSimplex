@@ -257,6 +257,16 @@ mutable struct SuhlSuhlFactorization{T<:Real,F} <: AbstractTriangularBasisFactor
     sparse::Union{Nothing,SparseBasisWorkspace{T}}
 end
 
+# Dense-solve cache only: the original history remains authoritative for sparse
+# solves. Each operation is (physical target, physical source, multiplier).
+mutable struct BartelsGolubRowCache{T<:Real}
+    order::Vector{Int}
+    operations::Vector{Tuple{Int,Int,T}}
+    update_count::Int
+end
+BartelsGolubRowCache(::Type{T}, n::Int) where {T<:Real} =
+    BartelsGolubRowCache{T}(collect(1:n), Tuple{Int,Int,T}[], 0)
+
 mutable struct BartelsGolubFactorization{T<:Real,F} <: AbstractTriangularBasisFactorization{T}
     base::F
     upper::Vector{PackedUpperColumn{T}}
@@ -271,6 +281,7 @@ mutable struct BartelsGolubFactorization{T<:Real,F} <: AbstractTriangularBasisFa
     recycled_updates::Vector{BartelsGolubUpdate{T}}
     shared_update_count::Int
     sparse::Union{Nothing,SparseBasisWorkspace{T}}
+    row_cache::BartelsGolubRowCache{T}
 end
 
 ForrestTomlinFactorization(B::AbstractMatrix{T}) where {T<:Real} =
@@ -312,7 +323,7 @@ function BartelsGolubFactorization(B::AbstractMatrix{T}, ::Val{R}) where {T<:Rea
         base, _identity_upper(T, n), collect(1:n), collect(1:n),
         BartelsGolubUpdate{T}[], zeros(T, n), zeros(T, n),
         [Int[] for _ in 1:n], Int[],
-        BartelsGolubUpdate{T}[], 0, nothing,
+        BartelsGolubUpdate{T}[], 0, nothing, BartelsGolubRowCache(T, n),
     )
 end
 
@@ -445,6 +456,22 @@ function _upper_transpose_solve!(vector::Vector{T}, upper::Vector{PackedUpperCol
     return vector
 end
 
+function _apply_dense_row_updates!(vector, factor::AbstractTriangularBasisFactorization)
+    for update in factor.updates
+        _apply_row_update!(vector, update)
+    end
+    return vector
+end
+
+function _apply_dense_transposed_row_updates!(vector, factor::AbstractTriangularBasisFactorization)
+    for update in Iterators.reverse(factor.updates)
+        _apply_transposed_row_update!(vector, update)
+    end
+    return vector
+end
+
+_reset_dense_row_cache!(::AbstractTriangularBasisFactorization, ::Int) = nothing
+
 function forward_solve!(destination::Vector{T},
                         factor::AbstractTriangularBasisFactorization{T},
                         rhs::StridedVector{T}) where {T}
@@ -454,9 +481,7 @@ function forward_solve!(destination::Vector{T},
     n = _check_triangular_dimensions(factor, destination, rhs)
     source = destination === rhs ? copyto!(factor.work, rhs) : rhs
     _backend_forward_solve!(destination, factor.base, source)
-    for update in factor.updates
-        _apply_row_update!(destination, update)
-    end
+    _apply_dense_row_updates!(destination, factor)
     _upper_backsolve!(destination, factor.upper)
     for column in 1:n
         factor.work[factor.column_order[column]] = destination[column]
@@ -492,9 +517,7 @@ function transpose_solve!(destination::Vector{T},
         factor.work[column] = convert(T, source[factor.column_order[column]])
     end
     _upper_transpose_solve!(factor.work, factor.upper)
-    for update in Iterators.reverse(factor.updates)
-        _apply_transposed_row_update!(factor.work, update)
-    end
+    _apply_dense_transposed_row_updates!(factor.work, factor)
     return _backend_transpose_solve!(destination, factor.base, factor.work)
 end
 
@@ -805,6 +828,7 @@ function refactorize!(factor::AbstractTriangularBasisFactorization{T},
     resize!(factor.spike, n)
     _reset_row_scratch!(factor, n)
     _recycle_triangular_updates!(factor)
+    _reset_dense_row_cache!(factor, n)
     factor.sparse = nothing
     return factor
 end
@@ -840,5 +864,6 @@ function copy_basis_factorization(factor::BartelsGolubFactorization{T,F}) where 
         copy(factor.updates), similar(factor.work), similar(factor.spike),
         [Int[] for _ in eachindex(factor.row_columns)], Int[],
         BartelsGolubUpdate{T}[], factor.shared_update_count, _copy_sparse_basis_cache(factor.sparse),
+        BartelsGolubRowCache(T, length(factor.work)),
     )
 end
