@@ -662,6 +662,50 @@ After initial environment setup, run the fixture-based tests offline with:
 JULIA_PKG_OFFLINE=true julia --startup-file=no --project=. -e 'using Pkg; Pkg.test()'
 ```
 
+### Reusing compiled solver code
+
+JSimplex uses PrecompileTools to cache common Float32/Float64 native simplex
+calls for both algorithms and all four basis update managers, including
+presolve. The first package precompilation runs small synthetic problems;
+subsequent processes reuse their compiled call signatures. These examples do
+not run during ordinary package loading and do not read external datasets.
+
+For repeated direct test runs, prepare and reuse the same environment. The
+preparation command uses one compiler worker to limit peak memory:
+
+```sh
+JULIA_NUM_PRECOMPILE_TASKS=1 JULIA_IMAGE_THREADS=1 julia --startup-file=no --project=. -e 'using Pkg; Pkg.instantiate(); Pkg.precompile()'
+julia --startup-file=no --project=. test/runtests.jl
+```
+
+Cache selection depends on the Julia version, source/dependency versions, CPU
+compatibility and compiler flags. In particular, `--check-bounds` must match.
+`Pkg.test()` normally enables bounds checking, so its corresponding cache can
+be prepared with:
+
+```sh
+JULIA_NUM_PRECOMPILE_TASKS=1 JULIA_IMAGE_THREADS=1 julia --startup-file=no --check-bounds=yes --project=. -e 'using Pkg; Pkg.precompile()'
+```
+
+A source change can require rebuilding the cache. To skip the workload during
+short development cycles, add this local preference to `LocalPreferences.toml`
+next to `Project.toml`, then restart Julia:
+
+```toml
+[JSimplex]
+precompile_workload = false
+```
+
+Remove that setting or set it to `true` to enable workloads again. Keep machine
+preferences and generated cache files local. Precompilation does not cover
+arbitrary future test callback types, every error/recovery path, or all exact
+and arbitrary-precision variants; those may still compile on first use.
+
+See [PrecompileTools workloads](https://julialang.github.io/PrecompileTools.jl/stable/)
+and [Julia package image selection](https://docs.julialang.org/en/v1/devdocs/pkgimg/)
+for cache behavior, and [our measurements](diagnostics/precompile-workloads/README.md)
+for build cost and observed reuse.
+
 The isolated development environment installs JET, GLPK, and BenchmarkTools. These
 commands resolve JSimplex to this checkout when run from the repository root:
 

@@ -4,6 +4,7 @@ using LinearAlgebra
 using Logging
 using SparseArrays
 import OrderedCollections
+using PrecompileTools: @setup_workload, @compile_workload
 
 include("numeric.jl")
 include("options.jl")
@@ -64,5 +65,7 @@ export ALGORITHM_NOT_SUPPORTED, INFEASIBLE, INVALID_MODEL, ITERATION_LIMIT,
        BINARY, CONTINUOUS, INTEGER, MAX_SENSE, MIN_SENSE, SEMI_CONTINUOUS,
        SEMI_INTEGER, Bound, bound_value, LinearProblem, MPSParseError, ObjectiveSense, Solution, SolveStatistics,
        SolverOptions, TerminationStatus, VariableDomain, is_continuous, read_mps, solve
+
+include("precompile.jl")
 
 end
