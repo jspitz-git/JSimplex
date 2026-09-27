@@ -443,7 +443,9 @@ function _upper_backsolve!(vector::Vector{T}, upper::Vector{PackedUpperColumn{T}
         column = upper[column_index]
         value = vector[column_index] / _upper_value(column, column_index)
         vector[column_index] = value
-        for index in eachindex(column.indices)
+        # Packed rows and paired values are owned by the factor; callers
+        # validate vector dimensions before entering this coefficient loop.
+        @inbounds for index in eachindex(column.indices)
             row = column.indices[index]
             row == column_index && continue
             vector[row] -= column.values[index] * value
@@ -457,7 +459,9 @@ function _upper_transpose_solve!(vector::Vector{T}, upper::Vector{PackedUpperCol
     for column_index in columns
         column = upper[column_index]
         value = vector[column_index]
-        for index in eachindex(column.indices)
+        # Packed rows and paired values are owned by the factor; callers
+        # validate vector dimensions before entering this coefficient loop.
+        @inbounds for index in eachindex(column.indices)
             row = column.indices[index]
             row == column_index && continue
             value -= column.values[index] * vector[row]
@@ -556,7 +560,9 @@ function _prepare_spike!(factor::AbstractTriangularBasisFactorization{T},
     for column_index in 1:n
         column = factor.upper[column_index]
         value = convert(T, tableau_column[factor.column_order[column_index]])
-        for index in eachindex(column.indices)
+        # Packed rows and paired values are owned by the factor; callers
+        # validate vector dimensions before entering this coefficient loop.
+        @inbounds for index in eachindex(column.indices)
             factor.spike[column.indices[index]] += column.values[index] * value
         end
     end
