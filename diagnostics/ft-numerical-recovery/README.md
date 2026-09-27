@@ -1,9 +1,10 @@
 # Forrest–Tomlin failure on a second machine
 
-**The reported failure has not been reproduced in either diagnostic run and is
-not fixed by this change.** This work records the evidence and provides a bounded capture of the
-missing numerical state. Solver source, tolerances, precision policy and the
-adaptive strategy are unchanged.
+**The second Windows capture reproduces the original failure at iteration
+45,617.** See [the failure analysis](WINDOWS_FAILURE.md) for the new evidence and
+a narrow correction to small-pivot price propagation. Its regression test passes;
+resolution of the complete Windows failure still requires validation there.
+The earlier baseline and first Windows capture described below did not fail.
 
 ## Reported failure
 

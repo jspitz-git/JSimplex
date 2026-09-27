@@ -1,0 +1,62 @@
+PROVENANCE_OK snapshots=13
+Test Summary: | Pass  Total  Time
+afiro.mps pfi |    2      2  0.0s
+MODEL afiro.mps manager=pfi status=OPTIMAL iterations=9 seconds=0.006306899 objective=-464.75314285714273
+Test Summary:           | Pass  Total  Time
+afiro.mps bartels_golub |    3      3  0.0s
+MODEL afiro.mps manager=bartels_golub status=OPTIMAL iterations=9 seconds=0.0031601 objective=-464.75314285714273
+Test Summary:            | Pass  Total  Time
+afiro.mps forrest_tomlin |    3      3  0.0s
+MODEL afiro.mps manager=forrest_tomlin status=OPTIMAL iterations=9 seconds=0.0029759 objective=-464.75314285714273
+Test Summary:       | Pass  Total  Time
+afiro.mps suhl_suhl |    3      3  0.0s
+MODEL afiro.mps manager=suhl_suhl status=OPTIMAL iterations=9 seconds=0.0030325 objective=-464.75314285714273
+Test Summary:    | Pass  Total  Time
+adlittle.mps pfi |    2      2  0.0s
+MODEL adlittle.mps manager=pfi status=OPTIMAL iterations=90 seconds=0.0050665 objective=225494.96316238045
+Test Summary:              | Pass  Total  Time
+adlittle.mps bartels_golub |    3      3  0.0s
+MODEL adlittle.mps manager=bartels_golub status=OPTIMAL iterations=90 seconds=0.0045994 objective=225494.96316238045
+Test Summary:               | Pass  Total  Time
+adlittle.mps forrest_tomlin |    3      3  0.0s
+MODEL adlittle.mps manager=forrest_tomlin status=OPTIMAL iterations=86 seconds=0.0039125 objective=225494.9631623804
+Test Summary:          | Pass  Total  Time
+adlittle.mps suhl_suhl |    3      3  0.0s
+MODEL adlittle.mps manager=suhl_suhl status=OPTIMAL iterations=93 seconds=0.0034882 objective=225494.96316238045
+ERROR: LoadError: /home/jspitz/NetLib/blend.mps:1 [START] unexpected data; expected an MPS section
+Stacktrace:
+  [1] _mps_error(records::JSimplex.MPSAccumulator{Float64}, line::Int64, section::Symbol, message::String)
+    @ JSimplex ~/JSimplex.jl/.worktrees/ft-numerical-recovery/src/mps/records.jl:57
+  [2] _parse_mps(io::IOStream, source::String, ::Type{Float64}; format::Symbol)
+    @ JSimplex ~/JSimplex.jl/.worktrees/ft-numerical-recovery/src/mps/parser.jl:140
+  [3] _parse_mps
+    @ ~/JSimplex.jl/.worktrees/ft-numerical-recovery/src/mps/parser.jl:54 [inlined]
+  [4] #82
+    @ ~/JSimplex.jl/.worktrees/ft-numerical-recovery/src/mps.jl:10 [inlined]
+  [5] #open#324
+    @ ./io.jl:429 [inlined]
+  [6] open
+    @ ./io.jl:426 [inlined]
+  [7] _parse_mps_file(path::String, ::Type{Float64}; format::Symbol)
+    @ JSimplex ~/JSimplex.jl/.worktrees/ft-numerical-recovery/src/mps.jl:9
+  [8] _parse_mps_file
+    @ ~/JSimplex.jl/.worktrees/ft-numerical-recovery/src/mps.jl:8 [inlined]
+  [9] #read_mps#84
+    @ ~/JSimplex.jl/.worktrees/ft-numerical-recovery/src/mps.jl:65 [inlined]
+ [10] read_mps
+    @ ~/JSimplex.jl/.worktrees/ft-numerical-recovery/src/mps.jl:59 [inlined]
+ [11] validate(paths::Vector{String})
+    @ Main ~/JSimplex.jl/.worktrees/ft-numerical-recovery/diagnostics/ft-numerical-recovery/reproduce/validate-small-models.jl:8
+ [12] top-level scope
+    @ ~/JSimplex.jl/.worktrees/ft-numerical-recovery/diagnostics/ft-numerical-recovery/reproduce/validate-small-models.jl:34
+ [13] include(mapexpr::Function, mod::Module, _path::String)
+    @ Base ./Base.jl:310
+ [14] top-level scope
+    @ none:1
+ [15] eval(m::Module, e::Any)
+    @ Core ./boot.jl:489
+ [16] exec_options(opts::Base.JLOptions)
+    @ Base ./client.jl:310
+ [17] _start()
+    @ Base ./client.jl:577
+in expression starting at /home/jspitz/JSimplex.jl/.worktrees/ft-numerical-recovery/diagnostics/ft-numerical-recovery/reproduce/validate-small-models.jl:34

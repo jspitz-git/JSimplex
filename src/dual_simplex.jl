@@ -209,7 +209,21 @@ function _stabilize_small_dual_pivot!(workspace::SimplexWorkspace{Float64},
     isfinite(predicted_cost) || return false
     predicted_price = exact_price + BigFloat(predicted_cost) - BigFloat(old_cost)
     predicted_step = predicted_price / BigFloat(pivot)
-    predicted_step * sign(delta) >= -tolerance && return true
+    if predicted_step * sign(delta) >= -tolerance
+        # A safe forward step still needs the certified entering price: a
+        # sub-tolerance error is amplified by division by the small pivot.
+        # Preserve the backward-step handling and its representability checks.
+        if stored_step * sign(delta) >= 0 &&
+           (exact_price / BigFloat(tableau_coefficient)) * sign(delta) >= 0
+            replacement = Float64(exact_price)
+            isfinite(replacement) || return false
+            if replacement != stored_price
+                workspace.reduced_costs[entering_index] = replacement
+                _invalidate_pricing_pool!(workspace;basis=false)
+            end
+        end
+        return true
+    end
 
     abs(exact_price) <= tolerance || return false
     new_cost = Float64(BigFloat(old_cost) - exact_price)
