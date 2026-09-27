@@ -4,7 +4,8 @@
 _legacy_primal_point_candidate(workspace, entering, leaving_row, step, column) = nothing
 
 function _legacy_primal_point_candidate(workspace::SimplexWorkspace{T}, entering::Int,
-                                        leaving_row::Int, step::T, column::AbstractVector{T}) where {T<:Union{Float32,Float64}}
+                                        leaving_row::Int, step::T, column::AbstractVector{T}) where {T}
+    T === Float32 || T === Float64 || return nothing
     workspace.options.algorithm == :primal &&
         workspace.options.simplex_strategy == :legacy || return nothing
     policy = workspace.progress.numerical_policy
@@ -22,7 +23,8 @@ end
 _restore_legacy_primal_point!(workspace, ::Nothing, stop) = false
 
 function _restore_legacy_primal_point!(workspace::SimplexWorkspace{T},
-                                          candidate::Vector{T}, stop) where {T<:Union{Float32,Float64}}
+                                          candidate::Vector{T}, stop) where {T}
+    T === Float32 || T === Float64 || return false
     tolerance = workspace.options.primal_tolerance
     all(index -> isfinite(workspace.primal[index]), workspace.basis.basic_indices) &&
         primal_infeasibility(workspace) <= tolerance && return false
@@ -53,7 +55,8 @@ function _restore_legacy_primal_point!(workspace::SimplexWorkspace{T},
     return true
 end
 
-function _legacy_primal_row_consistent(workspace::SimplexWorkspace{T}, tolerance::T) where {T<:Union{Float32,Float64}}
+function _legacy_primal_row_consistent(workspace::SimplexWorkspace{T}, tolerance::T) where {T}
+    T === Float32 || T === Float64 || return false
     columns = size(workspace.problem.A, 2)
     primal = workspace.primal[1:columns]
     lower, upper = _primal_row_bounds(workspace.problem.A, primal, Val(false))

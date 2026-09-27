@@ -1,0 +1,36 @@
+--- a/src/legacy_primal_point.jl
++++ b/src/legacy_primal_point.jl
+@@ -7 +7,2 @@
+-                                        leaving_row::Int, step::T, column::AbstractVector{T}) where {T<:Union{Float32,Float64}}
++                                        leaving_row::Int, step::T, column::AbstractVector{T}) where {T}
++    T === Float32 || T === Float64 || return nothing
+@@ -25 +26,2 @@
+-                                          candidate::Vector{T}, stop) where {T<:Union{Float32,Float64}}
++                                          candidate::Vector{T}, stop) where {T}
++    T === Float32 || T === Float64 || return false
+@@ -56 +58,2 @@
+-function _legacy_primal_row_consistent(workspace::SimplexWorkspace{T}, tolerance::T) where {T<:Union{Float32,Float64}}
++function _legacy_primal_row_consistent(workspace::SimplexWorkspace{T}, tolerance::T) where {T}
++    T === Float32 || T === Float64 || return false
+--- a/src/legacy_primal_pivot.jl
++++ b/src/legacy_primal_pivot.jl
+@@ -3 +3,2 @@
+-function _legacy_primal_row_validation_enabled(workspace::SimplexWorkspace{T}) where {T<:Union{Float32,Float64}}
++function _legacy_primal_row_validation_enabled(workspace::SimplexWorkspace{T}) where {T}
++    T === Float32 || T === Float64 || return false
+@@ -15 +16,2 @@
+-                                      leaving_row::Int, pivot::T, stop) where {T<:Union{Float32,Float64}}
++                                      leaving_row::Int, pivot::T, stop) where {T}
++    T === Float32 || T === Float64 || return false
+--- a/src/legacy_dual_correction.jl
++++ b/src/legacy_dual_correction.jl
+@@ -9 +9,2 @@
+-                                     transposed::Bool=false) where {T<:Union{Float32,Float64}}
++                                     transposed::Bool=false) where {T}
++    T === Float32 || T === Float64 || return false
+--- a/src/simplex.jl
++++ b/src/simplex.jl
+@@ -291 +291,2 @@
+-                                        state::VariableState, bound::Bound{T}) where {T<:Union{Float32,Float64}}
++                                        state::VariableState, bound::Bound{T}) where {T}
++    T === Float32 || T === Float64 || return false

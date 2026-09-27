@@ -1,6 +1,7 @@
 _legacy_primal_row_validation_enabled(workspace) = false
 
-function _legacy_primal_row_validation_enabled(workspace::SimplexWorkspace{T}) where {T<:Union{Float32,Float64}}
+function _legacy_primal_row_validation_enabled(workspace::SimplexWorkspace{T}) where {T}
+    T === Float32 || T === Float64 || return false
     workspace.options.simplex_strategy == :legacy || return false
     policy = workspace.progress.numerical_policy
     return !(policy.pivot_validation || policy.solve_refinement || policy.recovery ||
@@ -12,7 +13,8 @@ end
 # basis. Check its transpose row before changing the basis, then share that row
 # with pricing updates instead of computing another BTRAN for the weights.
 function _legacy_primal_pivot_row_ok!(workspace::SimplexWorkspace{T}, entering::Int,
-                                      leaving_row::Int, pivot::T, stop) where {T<:Union{Float32,Float64}}
+                                      leaving_row::Int, pivot::T, stop) where {T}
+    T === Float32 || T === Float64 || return false
     stop() && return false
     unit = _pipeline_unit_rhs!(workspace, leaving_row)
     rho = _timed_simplex(workspace, :btran) do

@@ -170,9 +170,15 @@ work but do not establish the cause of the regression. For comparison, the
 Markowitz block takes 440.97 seconds versus 445.61 previously. Test-process
 compilation cost must be kept separate from warmed solver timings. The fresh-process continuation completes `solver_tests.jl` in 830.86 seconds
 and `moi/result_tests.jl` in 415.75 seconds; these differ substantially from the
-long-lived process and do not isolate a cause by themselves. The branch does
-not yet claim to have repaired this compilation slowdown. The user has requested
-a separate cause investigation after the stability verification.
+long-lived process and do not isolate a cause by themselves. The branch
+does not establish that all compilation slowdown is repaired. The subsequent
+[compilation investigation](compilation/report.md) reproduces a separate
+first-solve increase during modernization and identifies a pathological
+union-constrained signature case in this branch. A compiler follow-up changes
+seven hardware-only eligibility checks without changing supported numerical
+arithmetic. Its targeted validation and source fingerprint are recorded
+separately; the large-model timings and broad gates above remain measurements
+of `d5472bc`.
 
 Reproduction commands and measurement semantics are documented in
 [`reproduce/README.md`](reproduce/README.md).

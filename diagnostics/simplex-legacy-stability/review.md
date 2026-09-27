@@ -15,3 +15,20 @@ The follow-up reviews found no additional concrete issues in:
 - Legacy primal transpose-row validation before basis mutation, native correction, finite repricing, pivot agreement, shared pricing rows, one unchanged-basis refresh, and candidate-retry cleanup.
 
 These reviews do not establish that every ill-conditioned LP will solve, or replace the full test and benchmark results in `report.md`.
+
+## Compilation follow-up
+
+A separate read-only review examined the four-file signature simplification and
+the new non-hardware regression test. No changed supported Float32/Float64
+numerical path or in-tree dispatch ambiguity was found. All eligibility guards
+precede callbacks and mutation, and adaptive/staged exclusions remain intact.
+The reviewer identified minor differences for unsupported internal invocations;
+these are documented in `compilation/report.md`, rather than claiming identical
+behavior for arbitrary type instantiations or invalid keyword values.
+
+The review recommends targeted legacy, precision-phase/exception, and direct
+BigFloat/Rational validation. Those 14 files pass 776 checks. The direct test
+also exercises primal/dual public solves under legacy/adaptive policies. Its
+scratch assertions cover selected vectors and cache identity, not exhaustive
+mutation of every scratch field. The reviewer found no concrete reason to repeat
+unrelated full gates for this bounded compiler change.

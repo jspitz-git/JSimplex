@@ -288,7 +288,8 @@ end
 _can_preserve_primal_row_value(workspace, index, state, bound) = false
 
 function _can_preserve_primal_row_value(workspace::SimplexWorkspace{T}, index::Int,
-                                        state::VariableState, bound::Bound{T}) where {T<:Union{Float32,Float64}}
+                                        state::VariableState, bound::Bound{T}) where {T}
+    T === Float32 || T === Float64 || return false
     workspace.options.algorithm == :primal &&
         workspace.options.simplex_strategy == :legacy || return false
     policy = workspace.progress.numerical_policy

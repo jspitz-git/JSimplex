@@ -6,7 +6,8 @@ _try_native_dual_correction!(workspace, destination, index, leaving_row, stop;
 
 function _try_native_dual_correction!(workspace::SimplexWorkspace{T}, destination::Vector{T},
                                      index::Int, leaving_row::Int, stop;
-                                     transposed::Bool=false) where {T<:Union{Float32,Float64}}
+                                     transposed::Bool=false) where {T}
+    T === Float32 || T === Float64 || return false
     workspace.options.simplex_strategy == :legacy || return false
     policy = workspace.progress.numerical_policy
     (policy.pivot_validation || policy.solve_refinement || policy.recovery ||

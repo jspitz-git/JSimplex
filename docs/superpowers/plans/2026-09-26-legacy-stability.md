@@ -64,11 +64,36 @@ The user reports a severalfold compilation slowdown on the second computer as
 well. Complete the current stability verification and external measurements
 first, then investigate this separately and sequentially.
 
-- [ ] Compare representative cold compilation workloads against the previous
+- [x] Compare representative cold compilation workloads against the previous
   branch, separating compilation from warmed solver execution.
-- [ ] Use the saved inference/subtype stack samples and a bounded reproducer or
+- [x] Use the saved inference/subtype stack samples and a bounded reproducer or
   revision comparison to identify the responsible change; do not infer a cause
   from elapsed time alone.
-- [ ] Record confirmed causes and measured costs. If a bounded repair is
+- [x] Record confirmed causes and measured costs. If a bounded repair is
   established, verify its numerical behavior and compilation improvement before
   a separate English commit.
+
+### Compilation follow-up evidence
+
+Cold AFIRO compilation rises from 6.93 seconds before modernization to 39.62
+seconds after it; the performance branch remains at 39.50 seconds. Intermediate
+revision samples show 14.40 and 18.88 seconds, so the increase spans multiple
+feature groups. Distinct no-op diagnostic observer types each add approximately
+36 seconds of compilation, while reusing an observer adds none.
+
+The stability branch separately reproduces pathological subtype/backedge work
+in the existing precision-recovery state test. A BigFloat return assertion does
+not resolve it. Replacing seven union-constrained workspace signatures with
+concrete-scalar eligibility guards completes the unchanged 30-check test in
+161.45 seconds in the source-identical trial, versus an interrupted original
+first case after 388.92 seconds. Adopt this bounded compiler-only change and
+verify its supported scalar behavior, callback exclusions, and external corpus;
+keep the outstanding ordinary cold-start cost explicit. No adaptive algorithm
+redesign is part of this follow-up.
+
+The adopted repair passes the same traced recovery test in 159.36 seconds
+(30/30 checks), 14 targeted files with 776/776 checks, and the external corpus
+with 64 optimal solves/200 checks. The ordinary cold AFIRO solve remains at
+43.18 seconds; that separate latency is explicitly unresolved. Source and
+measurement provenance are recorded in
+`diagnostics/simplex-legacy-stability/compilation/`.

@@ -13,6 +13,7 @@ using Test
     include("legacy_harris_feasibility_tests.jl")
     include("legacy_primal_point_tests.jl")
     include("legacy_primal_pivot_row_tests.jl")
+    include("legacy_hardware_guard_tests.jl")
     include("options_tests.jl")
     include("simplex_numerics_tests.jl")
     include("native_residual_tests.jl")
