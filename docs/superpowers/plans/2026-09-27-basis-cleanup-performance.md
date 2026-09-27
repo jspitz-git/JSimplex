@@ -74,19 +74,19 @@ Interface: retain `_project_postsolve_basis!` and `cleanup_original` signatures,
 
 Files: `diagnostics/simplex-basis-cleanup-performance/`.
 
-- [ ] Run sequential matched interval20/80/320 progress comparisons on medium; run runtime dual with at least360s; report status, objective, primal feasibility, iterations, refactorizations, kernel time and peak RSS.
+- [x] Run sequential matched interval20/80/320 progress comparisons on medium; run runtime dual with at least360s; report status, objective, primal feasibility, iterations, refactorizations, kernel time and peak RSS.
 - [ ] Run both algorithms on external NetLib, MIPLib LP relaxations and mps examples, including fast0507 where practical; do not extrapolate incomplete runs to completion.
-- [ ] Request an independent read-only whole-branch code review; address significant findings with regression tests.
+- [x] Request an independent read-only whole-branch code review; address significant findings with regression tests.
 - [ ] Commit final English report and leave worktree available for review.
 
 ### Task 4: Investigate the supplied numerical failures
 
 - [ ] Reproduce the dual PFI failure near the feasibility threshold; distinguish inaccurate prices from genuinely shifted working costs. Retain the original tolerance and original-cost optimality certificate.
-- [ ] Reproduce primal Bartels–Golub refactorization storms and the singular pivot; record the triggering checks before choosing a correction.
-- [ ] Add focused failing regressions for confirmed causes, verify each correction in native precision and commit it separately.
-- [ ] Repeat the matching runtime configurations with at least 360 seconds per completion attempt.
+- [x] Reproduce primal Bartels–Golub refactorization storms and the singular pivot; record the triggering checks before choosing a correction.
+- [x] Add focused failing regressions for confirmed causes, verify each correction in native precision and commit it separately.
+- [x] Repeat the matching runtime configurations with at least 360 seconds per completion attempt.
 
-- [x] Implement native, bounded repair of marginal prices in an already perturbed legacy objective; retain tolerance and original-cost checks. Behavioral RED16/16; GREEN2,290/2,290; independent review findings resolved. Real runtime PFI validation remains pending.
+- [x] Implement native, bounded repair of marginal prices in an already perturbed legacy objective; retain tolerance and original-cost checks. Behavioral RED16/16; GREEN2,290/2,290; independent review findings resolved. Local runtime PFI validation completed OPTIMAL in271.74s; exact reproduction of the other machine's boundary failure remains unverified.
 
 ### Task 4b: Preserve unrelated primal pricing weights during a retry
 
@@ -138,3 +138,5 @@ The captured early medium history shows approximately3.5ms triangular solves ver
 - [x] Add cache lifecycle and differential arithmetic regressions, including explicit stored zeros, signed zeros, copies and failed updates.
 - [x] Implement the private active-column cache and verify all factor regressions.
 - [x] Replay the same medium history, including first solves after updates, review and commit.
+
+Task4f evidence: at reduced runtime iteration4151, the recomputed point violates a bound by1.0001618e-7 while the stored candidate passes bounds, original rows and row consistency. Clipping to the exact bound fails row certification; arbitrary clipping is rejected. The absolute-small-pivot retry branch refactorizes without the certified-point preservation already used by the residual retry branch. Add a stale-factor regression across all managers and hardware types, then apply that existing preservation gate to this missing branch; retain all checks and adaptive exclusions. Re-run focused guards and a full360s-budget primal attempt. Degenerate stagnation remains a separate limitation.

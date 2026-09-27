@@ -572,8 +572,11 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
         if !checked_pivot && abs(tableau_column[leaving_row]) <= workspace.options.zero_tolerance
             if !basis_refreshed
                 stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
+                candidate = _legacy_primal_point_candidate(
+                    workspace, 0, 0, zero(T), tableau_column)
                 recompute!(workspace; refactorize=true, caller_guard=stop_requested,
                            diagnostic_reason=:refactor_pivot)
+                _restore_legacy_primal_point!(workspace, candidate, stop_requested)
                 stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
                 _finite_workspace(workspace) || return _numerical_failure()
                 primal_infeasibility(workspace) <= workspace.options.primal_tolerance ||

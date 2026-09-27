@@ -59,7 +59,8 @@ function main()
         end
         marginal=algorithm=="dual" && reason==:correction_attempt && marginal_snapshots[]<3 &&
             ws.options.dual_tolerance<JSimplex.dual_infeasibility(ws)<=64ws.options.dual_tolerance
-        if (reason==:refactor_residual && count in (1,10)) || marginal
+        failure=algorithm=="primal" && reason==:certification_failed
+        if (reason==:refactor_residual && count in (1,10)) || marginal || failure
             name=output*"."*string(reason)*"."*string(ws.iterations)*".bin"
             if !isfile(name)
                 marginal && (marginal_snapshots[]+=1)
@@ -68,7 +69,9 @@ function main()
                     primal=copy(ws.primal),prices=copy(ws.reduced_costs),perturbed=ws.perturbed,
                     row=ws.scratch.selected_row,entering=ws.scratch.selected_entering,
                     direction=copy(ws.scratch.row_solution),rho=copy(ws.scratch.rho),
-                    tableau=copy(ws.scratch.tableau_row),iteration=ws.iterations))
+                    tableau=copy(ws.scratch.tableau_row),iteration=ws.iterations,
+                    candidate=algorithm=="primal" ? copy(JSimplex._pivot_quality_buffers(ws).trial) : Float64[],
+                    last_step=ws.scratch.last_primal_step))
                 println("SNAPSHOT ",name);flush(stdout)
             end
         end

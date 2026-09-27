@@ -143,3 +143,19 @@ end
         @test JSimplex._legacy_primal_row_consistent(workspace, workspace.options.primal_tolerance)
     end
 end
+
+@testset "A sub-tolerance pivot retry preserves a certified current point" begin
+    for T in (Float32,Float64), update in (:pfi,:bartels_golub,:forrest_tomlin,:suhl_suhl)
+        workspace=zero_step_ill_conditioned_workspace(T,update)
+        tiny=workspace.options.zero_tolerance/T(2)
+        # A stale solve makes only the zero-valued first basic variable leave.
+        # Refactorization reconstructs (-1,2), while (0,1) remains certified.
+        workspace.factorization.base=JSimplex._factorize_basis(sparse(T[inv(tiny) 0;0 -1]))
+        terminal=JSimplex._primal_iteration!(workspace,()->false,workspace.options.dual_tolerance)
+        @test isnothing(terminal)
+        @test workspace.iterations==1
+        @test workspace.basis.basic_indices==[4,2]
+        @test JSimplex.primal_infeasibility(workspace)<=workspace.options.primal_tolerance
+        @test JSimplex._original_primal_feasible(workspace.problem,workspace.primal[1:5],workspace.options.primal_tolerance)
+    end
+end
