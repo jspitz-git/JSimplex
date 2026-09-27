@@ -116,3 +116,13 @@ Evidence: refreshing the catastrophic history pivot avoids the first collapse, b
 - [x] Run native numerical-guard regressions and a runtime diagnostic prefix; independently review and commit after verification.
 
 Verified:519/519 checks; reviewer findings reproduced and fixed. Runtime5000 prefix35.89s, but reduced phase still singular at2999. Continue examining fresh tiny-pivot agreement.
+
+### Task 4e: Require relative agreement for tiny primal pivots
+
+The fresh iteration2999 basis gives FTRAN1.480635e-12 versus BTRAN8.514048e-13. The current `max(zero_tolerance,sqrt(eps(T))*abs(pivot))` accepts this42% discrepancy, and the next basis is singular. The absolute zero cutoff and the relative pivot-agreement test serve different purposes.
+
+- [x] Reproduce acceptance of a25% tiny-pivot discrepancy across managers, signs and both hardware types; require exact and one-ULP agreements to remain valid.
+- [x] Remove the absolute floor from relative FTRAN/BTRAN agreement, retain all existing zero-pivot cutoffs and native correction gates.
+- [x] Run focused numerical guards and the matching runtime configuration; review and commit verified correction.
+
+Verified guard correction:583/583 checks and independent review. Full360s-budget primal run terminates NUMERICAL_ERROR at236.44s/13,715 iterations after later feasibility loss. Primal stabilization remains incomplete.

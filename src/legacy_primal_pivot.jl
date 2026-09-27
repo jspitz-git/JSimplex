@@ -28,7 +28,9 @@ function _legacy_primal_pivot_row_ok!(workspace::SimplexWorkspace{T}, entering::
     price!(workspace.scratch.tableau_row, workspace, rho)
     all(isfinite, workspace.scratch.tableau_row) || return false
     row_pivot = workspace.scratch.tableau_row[entering]
-    tolerance = max(workspace.options.zero_tolerance, sqrt(eps(one(T))) * abs(pivot))
+    # The absolute zero cutoff must not become an agreement floor: two tiny
+    # pivots can differ by a large fraction while both pass that cutoff.
+    tolerance = sqrt(eps(one(T))) * max(abs(pivot), abs(row_pivot))
     return sign(row_pivot) == sign(pivot) &&
            abs(row_pivot - pivot) <= tolerance
 end
