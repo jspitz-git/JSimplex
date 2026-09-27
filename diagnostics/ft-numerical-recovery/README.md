@@ -89,11 +89,18 @@ Linux calculations on the saved matrices, not a replay of the exact Windows
 native solve. Neither snapshot contains the originally failed basis at 45617.
 No solver modification follows from these observations alone.
 
-One controlled-environment difference needs clarification: the capture command
-forced one Julia/BLAS thread and disabled `startup.jl`. The launch method and
-thread settings of the original failing session are not yet known. Those changes
-are possible sources of a different numerical trajectory, not established causes
-of the failure. Check the original session before prescribing another long run.
+The user subsequently supplied the original script: `Pkg.activate("./")`,
+`using JSimplex`, reading `C:\\tmp\\runtime.mps`, then `solve` with the reported
+options, an iteration limit of 1,000,000 and no time limit. JSimplex was installed
+with `Pkg.add()`. The user then measured **one Julia thread and eight BLAS
+threads** in the original environment, loading
+`C:\Users\jiris\.julia\packages\JSimplex\Pz9tN\src\JSimplex.jl`.
+The first capture forced one Julia/BLAS thread, disabled `startup.jl`, loaded
+JSimplex from `C:\\JSimplex`, and warmed up on AFIRO. These differences are possible
+sources of a different trajectory, not established causes of failure. In
+particular, eight BLAS threads are now a concrete difference; this does not mean
+the simplex iteration loop ran on eight Julia threads. The
+same-session entry point below preserves the loaded package and thread settings.
 
 To repeat the snapshot inspection from this worktree (sequential Julia job):
 
@@ -102,6 +109,60 @@ julia --startup-file=no --project=. diagnostics/ft-numerical-recovery/reproduce/
 ```
 
 ## Capture on the failing machine
+
+### Preferred: use the original Julia session and package environment
+
+Copy the updated `reproduce/capture-failure.jl` to `C:\\tmp\\capture-failure.jl`.
+In the same environment used for the original script, after its
+`Pkg.activate("./")` and `using JSimplex`, run the following **instead of** its
+`solve` call. Keep the normal launch method and Julia/BLAS thread settings.
+Do not activate the diagnostic checkout or change the installed package.
+
+```julia
+include(raw"C:\tmp\capture-failure.jl")
+ENV["JSIMPLEX_TRACE_PIVOTS"] = "1"
+ENV["JSIMPLEX_TRACE_RELATIVE"] = "1e-7"
+ENV["JSIMPLEX_TRACE_LIMIT"] = "12"
+open(raw"C:\tmp\ft-session-01.log", "w") do io
+    redirect_stdout(io) do
+        redirect_stderr(io) do
+            with_logger(ConsoleLogger(io)) do
+                Base.invokelatest(main, [raw"C:\tmp\runtime.mps", "dual", "forrest_tomlin", "900",
+                      raw"C:\tmp\ft-session-01.toml"];
+                     warmup=false, iteration_limit=46000)
+            end
+        end
+    end
+end
+```
+
+Use a fresh prefix for each run, including the log filename. This entry point
+does not modify `ARGS`, the active project, or Julia/BLAS thread counts. It skips
+the AFIRO warm-up to match the original script more closely; its timings can
+include compilation. The 900-second and 46,000-iteration limits still bound the
+diagnostic run around the originally reported failure. Inspect the environment
+file before extending those limits if the numerical path differs again.
+
+The `*.toml.environment.toml` file is written before solving. It records the
+loaded source path, active project, package version, package tree hash and git
+revision when available, BLAS configuration and actual thread counts. A normal
+`Pkg.add()` installation may have no `.git` directory: `source_revision` then
+reads `unavailable`; the package tree hash provides additional identification.
+The same metadata is included in the final report; snapshots retain their
+shared run ID, input hash and source revision. Send the log,
+both TOML files, and generated `.bin` snapshots. This avoids treating the number
+of hardware threads as proof of the number used by Julia or BLAS.
+
+Local validation on Julia 1.13.0 passed 18 checks: AFIRO reaches OPTIMAL with
+and without warm-up, environment metadata round-trips, the active project,
+`ARGS` and thread counts are preserved, and stale output prefixes are rejected.
+See `results/session-smoke.log`. The logging example uses `invokelatest` to
+keep the caller from inferring the entire diagnostic solve: a test wrapper
+calling it directly was interrupted after more than six minutes in Julia's
+type inference. This is not evidence about numerical failure or solve speed.
+The updated entry point has not yet been run on native Windows.
+
+### Previous controlled one-thread baseline
 
 Copy `reproduce/capture-failure.jl` into the root of the checkout at the failing
 revision, as `capture-failure.jl`. Open PowerShell in that checkout and replace

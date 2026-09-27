@@ -1,4 +1,4 @@
-using JSimplex, Logging, Serialization, TOML, SHA
+using JSimplex, Logging, Serialization, TOML, SHA, Pkg
 using JSimplex.LinearAlgebra
 
 # UMFPACK serialization rebuilds its native numeric factor when read back. Save
@@ -24,11 +24,29 @@ function capture_snapshot(path, ws; reason, prior_basis=nothing, provenance=(;))
 end
 function source_revision()
     root = dirname(dirname(pathof(JSimplex)))
+    # Pkg.add installations may have no checkout. Do not identify an unrelated
+    # ancestor repository as the loaded package's revision.
+    ispath(joinpath(root, ".git")) || return "unavailable"
     try
         return strip(read(`git -C $root rev-parse HEAD`, String))
     catch
         return "unavailable"
     end
+end
+
+function capture_environment()
+    info = get(Pkg.dependencies(), Base.PkgId(JSimplex).uuid, nothing)
+    field(name) = isnothing(info) || isnothing(getproperty(info, name)) ?
+        "unavailable" : string(getproperty(info, name))
+    # Keep heterogeneous metadata out of a large inferred NamedTuple union.
+    return Dict{String,Any}(
+        "source_path"=>pathof(JSimplex), "source_revision"=>source_revision(),
+        "package_version"=>string(Base.pkgversion(JSimplex)),
+        "package_tree_hash"=>field(:tree_hash), "package_git_revision"=>field(:git_revision),
+        "active_project"=>something(Base.active_project(), "unavailable"),
+        "working_directory"=>pwd(), "julia"=>string(VERSION), "architecture"=>string(Sys.ARCH),
+        "julia_threads"=>Threads.nthreads(), "blas_threads"=>BLAS.get_num_threads(),
+        "blas_config"=>sprint(show, BLAS.get_config()), "cpu_threads"=>Sys.CPU_THREADS)
 end
 
 function require_fresh_output(output)
@@ -40,16 +58,27 @@ function require_fresh_output(output)
     return nothing
 end
 
-function main()
-    path, algorithm, update, seconds, output = ARGS[1:5]
+function main(args=ARGS; warmup=true,
+        iteration_limit=parse(Int,get(ENV,"JSIMPLEX_DEBUG_ITERATIONS","1000000")))
+    length(args) == 5 || error("Expected: input algorithm basis_update seconds output_prefix")
+    path, algorithm, update, seconds, output = args
     lowercase(basename(realpath(path))) in ("big.mps", "largo.mps", "anymod.mps") && error("Excluded large model")
     require_fresh_output(output)
+    environment = capture_environment()
     provenance = (input_sha256=bytes2hex(open(sha256,path)),
-        source_revision=source_revision(),run_id=string(time_ns(),"-",getpid()))
+        source_revision=String(environment["source_revision"]),
+        run_id=string(time_ns(),"-",getpid()))
+    merge!(environment, Dict(string(k)=>v for (k,v) in pairs(provenance)))
+    environment["warmup"] = warmup
     options=SolverOptions(algorithm=Symbol(algorithm),basis_update=Symbol(update),
         basis_refactorization=:native,pricing=:steepest_edge,simplex_strategy=:legacy,
         refactorization_interval=parse(Int,get(ENV,"JSIMPLEX_DEBUG_INTERVAL","80")),time_limit=parse(Float64,seconds),
-        iteration_limit=parse(Int,get(ENV,"JSIMPLEX_DEBUG_ITERATIONS","1000000")),verbose=true)
+        iteration_limit=iteration_limit,verbose=true)
+    # Persist provenance before the solve, even if the session is interrupted.
+    open(output * ".environment.toml", "w") do io
+        TOML.print(io, environment)
+    end
+    println("CAPTURE_ENVIRONMENT ", environment); flush(stdout)
     events=Dict{Symbol,Int}()
     warming=Ref(true)
     marginal_snapshots=Ref(0)
@@ -109,10 +138,12 @@ function main()
             end
         end
     end
-    fixture=joinpath(dirname(dirname(pathof(JSimplex))),"test/fixtures/solver/afiro.mps")
-    with_logger(NullLogger()) do
-        JSimplex._solve_diagnosed(read_mps(fixture),JSimplex.SimplexDiagnostics(;observer,kernel_timing=true);
-            options,relax_integrality=true)
+    if warmup
+        fixture=joinpath(dirname(dirname(pathof(JSimplex))),"test/fixtures/solver/afiro.mps")
+        with_logger(NullLogger()) do
+            JSimplex._solve_diagnosed(read_mps(fixture),JSimplex.SimplexDiagnostics(;observer,kernel_timing=true);
+                options,relax_integrality=true)
+        end
     end
     warming[]=false
     problem=read_mps(path)
@@ -131,6 +162,7 @@ function main()
         "time_limit"=>options.time_limit,
         "counts"=>Dict(string(k)=>v for (k,v) in d.counts if v!=0),
         "kernel_seconds"=>Dict(string(k)=>v/1e9 for (k,v) in d.kernel_nanoseconds if v!=0))
+    merge!(report, environment)
     if result.status==OPTIMAL
         report["objective"]=result.objective_value
         report["original_primal_certified"]=JSimplex._original_primal_feasible(problem,result.primal,options.primal_tolerance)
