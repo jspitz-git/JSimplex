@@ -151,10 +151,13 @@ supported by this adapter.
 Use the standard JuMP attributes `set_silent(model)` (MOI `Silent`) and
 `set_time_limit_sec(model, seconds)` (MOI `TimeLimitSec`) for logging and a
 wall-clock limit. The stable JSimplex raw optimizer attribute names are
-`relax_integrality`, `iteration_limit`, `primal_tolerance`, `dual_tolerance`,
+`relax_integrality`, `iteration_limit`, `time_limit`, `primal_tolerance`, `dual_tolerance`,
 `zero_tolerance`, `refactorization_interval`, `verbose`, `algorithm`,
 `pricing`, `basis_update`, `basis_refactorization`, `scaling`, `presolve`, and
 `simplex_strategy`.
+`set_optimizer_attribute(model, "time_limit", seconds)` sets the same limit as
+`set_time_limit_sec`. The raw attribute uses nonnegative seconds and `Inf` to
+disable the deadline; `MOI.TimeLimitSec()` reports a disabled limit as `nothing`.
 `presolve` is a Boolean and defaults to `true`. Algorithm values are
 `:dual` (default) and `:primal`; pricing accepts `:steepest_edge`, `:devex`,
 `:dantzig`, or `:auto` for both algorithms.

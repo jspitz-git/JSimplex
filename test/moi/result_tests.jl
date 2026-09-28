@@ -483,3 +483,27 @@ end
     @test index_map[fixed_y] == implied_index
     @test MOI.get(optimizer, MOI.ConstraintPrimal(), implied_index) == 2.0
 end
+
+@testset "MOI raw time limit applies to solves and clears results" begin
+    optimizer = MOI.instantiate(MOI.OptimizerWithAttributes(
+        JSimplex.Optimizer,
+        "time_limit" => Inf,
+        MOI.Silent() => true,
+    ))
+    source = _moi_result_model()
+    MOI.optimize!(optimizer, source)
+    @test MOI.get(optimizer, MOI.TerminationStatus()) == MOI.OPTIMAL
+    @test_throws ArgumentError MOI.set(
+        optimizer, MOI.RawOptimizerAttribute("time_limit"), -1.0,
+    )
+    @test MOI.get(optimizer, MOI.ResultCount()) == 1
+    MOI.set(optimizer, MOI.RawOptimizerAttribute("time_limit"), 0.0)
+    @test MOI.get(optimizer, MOI.ResultCount()) == 0
+    @test MOI.get(optimizer, MOI.TerminationStatus()) == MOI.OPTIMIZE_NOT_CALLED
+    MOI.optimize!(optimizer, source)
+    @test MOI.get(optimizer, MOI.TerminationStatus()) == MOI.TIME_LIMIT
+    @test MOI.get(optimizer, MOI.ResultCount()) == 0
+    MOI.set(optimizer, MOI.TimeLimitSec(), nothing)
+    MOI.optimize!(optimizer, source)
+    @test MOI.get(optimizer, MOI.TerminationStatus()) == MOI.OPTIMAL
+end

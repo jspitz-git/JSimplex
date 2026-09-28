@@ -142,3 +142,31 @@ end
     @test MOI.get(optimizer, MOI.Silent())
     @test MOI.get(optimizer, MOI.RawOptimizerAttribute("iteration_limit")) == 19
 end
+
+@testset "MOI raw and standard time limits share state" begin
+    raw = MOI.RawOptimizerAttribute("time_limit")
+    standard = MOI.TimeLimitSec()
+    for T in (Float32, Float64, BigFloat, Rational{BigInt})
+        optimizer = JSimplex.Optimizer{T}()
+        @test MOI.supports(optimizer, raw)
+        @test MOI.get(optimizer, raw) === Inf
+        MOI.set(optimizer, raw, 3 // 2)
+        @test MOI.get(optimizer, raw) === 1.5
+        @test MOI.get(optimizer, standard) === 1.5
+        @test JSimplex._solver_options(optimizer).time_limit === 1.5
+        for invalid in (-1.0, -Inf, NaN)
+            @test_throws ArgumentError MOI.set(optimizer, raw, invalid)
+            @test MOI.get(optimizer, standard) === 1.5
+        end
+        MOI.empty!(optimizer)
+        @test MOI.get(optimizer, raw) === 1.5
+        MOI.set(optimizer, standard, 2.0)
+        @test MOI.get(optimizer, raw) === 2.0
+        MOI.set(optimizer, raw, Inf)
+        @test MOI.get(optimizer, standard) === nothing
+        MOI.set(optimizer, raw, 0)
+        @test MOI.get(optimizer, standard) === 0.0
+        MOI.set(optimizer, standard, nothing)
+        @test MOI.get(optimizer, raw) === Inf
+    end
+end

@@ -1,6 +1,7 @@
 const _RAW_OPTIMIZER_ATTRIBUTES = (
     "relax_integrality",
     "iteration_limit",
+    "time_limit",
     "primal_tolerance",
     "dual_tolerance",
     "zero_tolerance",
@@ -129,6 +130,8 @@ function MOI.get(optimizer::Optimizer, attr::MOI.RawOptimizerAttribute)
         return optimizer.relax_integrality
     elseif attr.name == "iteration_limit"
         return optimizer.iteration_limit
+    elseif attr.name == "time_limit"
+        return optimizer.time_limit
     elseif attr.name == "primal_tolerance"
         return optimizer.primal_tolerance
     elseif attr.name == "dual_tolerance"
@@ -169,6 +172,8 @@ function MOI.set(
         return
     elseif attr.name == "iteration_limit"
         return _set_solver_options!(optimizer; iteration_limit=value)
+    elseif attr.name == "time_limit"
+        return _set_solver_options!(optimizer; time_limit=value)
     elseif attr.name == "primal_tolerance"
         return _set_solver_options!(optimizer; primal_tolerance=value)
     elseif attr.name == "dual_tolerance"
