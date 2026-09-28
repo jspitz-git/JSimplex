@@ -464,6 +464,28 @@ function _legacy_primal_iteration!(workspace::SimplexWorkspace, stop_requested,
     end
 end
 
+function _legacy_primal_reject_candidate!(workspace::SimplexWorkspace{T}, entering::Int,
+                                         column::Vector{T}, stop_requested,
+                                         reduced_cost_tolerance::T, basis_refreshed::Bool,
+                                         defer_weak::Bool, reason::Symbol, message::String) where {T}
+    stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
+    if !basis_refreshed && !isempty(workspace.factorization.updates)
+        candidate = _legacy_primal_point_candidate(workspace, 0, 0, zero(T), column)
+        recompute!(workspace; refactorize=true, caller_guard=stop_requested,
+                   diagnostic_reason=reason)
+        _restore_legacy_primal_point!(workspace, candidate, stop_requested)
+        stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
+        _finite_workspace(workspace) || return _numerical_failure()
+        primal_infeasibility(workspace) <= workspace.options.primal_tolerance ||
+            return DualTermination(NUMERICAL_ERROR, "primal feasibility lost")
+        _invalidate_primal_retry_weights!(workspace, entering)
+        return _primal_iteration_unchecked!(workspace, stop_requested,
+                                            reduced_cost_tolerance, true, defer_weak)
+    end
+    workspace.scratch.selected_row = -1
+    return DualTermination(NUMERICAL_ERROR, message)
+end
+
 function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_requested,
                             reduced_cost_tolerance::T,
                             basis_refreshed::Bool=false, defer_weak::Bool=false) where {T}
@@ -510,6 +532,13 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
     if !_validate_primal_edge!(workspace,entering,tableau_column)
         stop_requested() && return DualTermination(TIME_LIMIT,"time limit reached during pricing recovery")
         return _primal_iteration_unchecked!(workspace,stop_requested,reduced_cost_tolerance,basis_refreshed,defer_weak)
+    end
+    if _legacy_primal_row_validation_enabled(workspace) &&
+       !_legacy_primal_direction_price_ok(workspace, entering, tableau_column,
+                                           reduced_cost_tolerance)
+        return _legacy_primal_reject_candidate!(workspace, entering, tableau_column,
+            stop_requested, reduced_cost_tolerance, basis_refreshed, defer_weak,
+            :refactor_residual, "primal reduced cost disagrees with its direction")
     end
     step, leaving_row, leaving_state = if incremental || incremental_pivot
         _with_recovery_precision(workspace, workspace) do
@@ -603,23 +632,10 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
         if legacy_row && (unresolved_pivot || !_legacy_primal_pivot_row_ok!(
                 workspace, entering, leaving_row, tableau_column[leaving_row], stop_requested;
                 column=tableau_column))
-            stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
-            if !basis_refreshed && !isempty(workspace.factorization.updates)
-                candidate = _legacy_primal_point_candidate(
-                    workspace, 0, 0, zero(T), tableau_column)
-                recompute!(workspace; refactorize=true, caller_guard=stop_requested,
-                           diagnostic_reason=unresolved_pivot ? :refactor_pivot : :refactor_residual)
-                _restore_legacy_primal_point!(workspace, candidate, stop_requested)
-                stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
-                _finite_workspace(workspace) || return _numerical_failure()
-                primal_infeasibility(workspace) <= workspace.options.primal_tolerance ||
-                    return DualTermination(NUMERICAL_ERROR, "primal feasibility lost")
-                _invalidate_primal_retry_weights!(workspace, entering)
-                return _primal_iteration_unchecked!(workspace, stop_requested,
-                                                    reduced_cost_tolerance, true, defer_weak)
-            end
-            workspace.scratch.selected_row = -1
-            return DualTermination(NUMERICAL_ERROR, "primal pivot transpose row is inaccurate")
+            return _legacy_primal_reject_candidate!(workspace, entering, tableau_column,
+                stop_requested, reduced_cost_tolerance, basis_refreshed, defer_weak,
+                unresolved_pivot ? :refactor_pivot : :refactor_residual,
+                "primal pivot transpose row is inaccurate")
         end
         _effective_pricing(workspace,:primal) == :devex &&
             _primal_update_devex!(workspace, entering, leaving_row,

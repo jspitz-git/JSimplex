@@ -9,6 +9,37 @@ function _legacy_primal_row_validation_enabled(workspace::SimplexWorkspace{T}) w
              policy.adaptive_refactor || _is_staged_workspace(workspace))
 end
 
+# The selected direction supplies a second estimate of c_j - c_B' B^-1 a_j.
+# A badly cancelled transpose price can otherwise sustain an improving-looking
+# cycle even when the pivot itself passes the forward/transpose row check.
+function _legacy_primal_direction_price_ok(workspace::SimplexWorkspace{T}, entering::Int,
+                                            column::Vector{T}, price_tolerance::T) where {T<:Union{Float32,Float64}}
+    rounding(T)==RoundNearest && !get_zero_subnormals() || return true
+    cached=workspace.reduced_costs[entering]
+    isfinite(cached) || return false
+    implied=workspace.costs[entering]
+    scale=abs(implied)
+    terms=0
+    for (row,index) in enumerate(workspace.basis.basic_indices)
+        cost=workspace.costs[index]
+        (iszero(cost) || iszero(column[row])) && continue
+        product=cost*column[row]
+        implied-=product
+        scale+=abs(product)
+        terms+=1
+    end
+    # An unrepresentable probe must not reject a direction whose existing
+    # checks can still handle the exceptional range.
+    isfinite(implied) && isfinite(scale) || return true
+    k=T(4terms+2)*eps(T)
+    k<T(1)/4 || return true
+    accumulation=terms==0 ? zero(T) :
+        (k*scale+T(2terms+1)*nextfloat(zero(T)))/(one(T)-k)^2
+    tolerance=price_tolerance+accumulation+
+        sqrt(eps(T))*max(abs(cached),abs(implied))
+    return abs(cached-implied)<=tolerance
+end
+
 # A forward residual alone can miss a spurious pivot in an ill-conditioned
 # basis. Check its transpose row before changing the basis, then share that row
 # with pricing updates instead of computing another BTRAN for the weights.
