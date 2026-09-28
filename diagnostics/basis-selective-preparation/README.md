@@ -112,3 +112,8 @@ identified as such in the source hashes.
 
 After the fix, all 33,919 focused assertions passed under `--compile=min`, including
 the 96-assertion lifecycle regression. Independent review found no blocking defect.
+
+The combined final tree at 553f367 also passed 80 external solves / 245 assertions
+with native/Markowitz, primal/dual and all four managers. Native dual fast0507
+FT/SS returned to the baseline 6,012/6,237 iterations. These final corpus records
+are in diagnostics/basis-optimization-series/results/external-final.toml.

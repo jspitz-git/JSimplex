@@ -100,13 +100,13 @@ Files: new direct-LU factor module, factorization dispatch, tests and diagnostic
 Interface: existing basis solve/update/copy/refactorize contracts with explicit
 experimental selection; existing managers remain available for comparison.
 
-- [ ] Inspect backend factor extraction, permutations/scaling and ownership;
+- [x] Inspect backend factor extraction, permutations/scaling and ownership;
       write the exact factor identity and update equations before implementation.
-- [ ] Implement a bounded prototype with independent matrix residual tests for
+- [x] Implement a bounded prototype with independent matrix residual tests for
       successive replacements, pivot failures, copy/refactorize and transposed solves.
-- [ ] Integrate opt-in operation with compatible backend/type fallback, then
+- [x] Integrate opt-in operation with compatible backend/type fallback, then
       test increasingly long histories and independent runtime/medium solves.
-- [ ] Compare total cost and stability with correction-factor managers and PFI;
+- [x] Compare total cost and stability with correction-factor managers and PFI;
       commit only verified functionality and document unsuccessful experiments.
 
 ## Execution and acceptance
@@ -199,3 +199,17 @@ with existing gathers/scatters. Build normalized coefficients transactionally an
 reject overflow or nonzero-to-zero underflow, retaining the unscaled direct form.
 Copies/refactorization preserve the requested mode, including native fallback.
 Keep unscaled mode available; compare both against correction factors and PFI.
+
+Task 5 disposition: completed as explicit diagnostic opt-in. Both direct forms,
+normalization safety, independent matrix references, fixed histories, external
+LPs, full runtime and bounded medium were checked. Normalized FT runtime is
+certified optimal (55,508 iterations / 235.988 seconds); early medium reaches
+the planned 2,000-iteration cap. Keep default unchanged because native combined
+refinement is absent and late-runtime BG replay remains slower.
+
+Final cross-stage correction: proposal 1 originally retained entering spikes too
+long, causing runtime cleanup to hit a 900-second cap. Follow-up 05f9fc3 restores
+original cache eviction while omitting auxiliary copies; integrated at 553f367
+with metadata/fused kernels. Lifecycle control restores 62,939 iterations / 317.834 seconds.
+Historical intermediate worktrees remain checkpoints; final combined tree includes
+the follow-up. See diagnostics/basis-optimization-series/README.md for disposition.

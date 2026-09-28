@@ -32,7 +32,10 @@ residual checks pass at 20/80/160/320; these alone are insufficient to certify
 ill-conditioned LP solutions. Raw files retain storage and component timings.
 
 Julia 1.13.0 Linux aarch64, one Julia and BLAS thread. Ratios include initial
-construction + two FTRAN + update + unit-RHS BTRAN, direct/correction.
+construction + two FTRAN + update + unit-RHS BTRAN, direct/correction. Each table
+entry is the arithmetic mean of the two per-repetition total-cost ratios. Both
+replay tables in this report predate the cache-lifetime follow-up; the later full
+runtime and bounded medium runs use the restored lifecycle.
 
 | History | Manager | Ratio |
 |---|---|---:|
@@ -50,8 +53,8 @@ The direct upper factor is smaller on runtime, but more expensive updates and
 construction offset solve savings. Early medium is slower. A probe shows its
 lower factor is identity (360,982 stored diagonals), while every direct-U diagonal
 is non-unit, making every upper column active despite very few off-diagonals.
-Diagonal transfer into the lower backend is the next bounded experiment in this
-same worktree; no default change is justified by the initial results.
+Diagonal transfer into the lower backend was subsequently evaluated below;
+no default change is justified by these initial unscaled results.
 
 ## Reproduce
 
@@ -72,9 +75,8 @@ The installation is a development-only internal interface, not a public API.
 
 All five independent unscaled dual-FT LP solves reached certified optima (20
 assertions). Fast0507 took 7,175 iterations, versus correction predecessor 6,211.
-The separate elapsed times are not a controlled performance comparison. This
-commit records the verified initial prototype; normalization and larger independent
-LP trajectory checks are still pending before closing proposal 5.
+The separate elapsed times are not a controlled performance comparison. This records the initial prototype checkpoint; the later sections describe
+normalization and independent larger LP validation.
 
 ## Optional diagonal normalization
 
@@ -136,5 +138,46 @@ can offset kernel savings. These separate wall times are not a controlled compar
 The standalone solve.jl runner warms afiro with interval 2, then uses the requested
 model with legacy steepest-edge, native backend and interval 80. Arguments:
 `input algorithm manager correction|direct|normalized seconds iterations output`.
-Its startup smoke test passed. Full runtime and bounded medium results follow once
-those sequential validation runs complete.
+Its startup smoke test passed. The following runs use the cache-lifetime follow-up
+integrated at 553f367. Mode labels indicate the requested experimental mode; safe
+fallback remains possible at any refactorization.
+
+## Independent runtime trajectory after the cache-lifetime fix
+
+Full runtime dual FT, legacy steepest-edge/native, interval 80, one Julia/BLAS
+thread, solver limit 900 seconds. Both successful runs passed original-LP primal
+feasibility and the reference objective 51,425,691.76210457.
+
+| Representation | Iterations | Refactorizations | Solver seconds | Status |
+|---|---:|---:|---:|---|
+| Correction U, original cache-lifetime control | 62,939 | 790 | 317.834 | OPTIMAL |
+| Normalized direct LU, integrated follow-up | 55,508 | 434 | 235.988 | OPTIMAL |
+
+This is about 26% less elapsed solver time in two separate sequential runs, not a
+repeated paired whole-LP benchmark. Fewer iterations/refactorizations account for
+part of the gain; it must not be attributed entirely to faster update kernels.
+The correction control advances the old cache slots in a diagnostic override;
+the integrated production fix performs the same eviction inside the shared solve.
+The integrated lifecycle/fused/metadata/direct checks passed 1,885 assertions.
+
+The earlier retained-cache correction run hit its 900-second limit at 102,579
+iterations during cleanup. It is retained as evidence of the proposal-1 regression,
+not used as the performance baseline for direct LU. That run includes a one-second
+nonterminating profile peek. All result files record source and input hashes.
+
+Direct LU remains diagnostic opt-in: one successful large FT trajectory does not
+establish broad numerical reliability for all three managers or Windows. Native
+combined-solve refinement remains absent, late-runtime BG replay still regresses,
+and the external corpus above predates the cache-lifetime follow-up.
+
+## Bounded medium trajectory
+
+On medium dual FT, both modes reached the requested 2,000-iteration limit with
+25 refactorizations. Correction took 54.064 solver seconds; normalized direct LU
+took 49.365 seconds (ratio 0.913). All logged objective/infeasibility states at
+matching iterations are identical. These are single separate early-trajectory
+runs, not evidence of a full medium optimum or stable end-to-end speedup. The
+solver limit was 180 seconds and process virtual-memory limit 12 GiB.
+
+Proposal 5 is complete as a tested diagnostic prototype with both unscaled and
+normalized modes. No public option or production default is changed.
