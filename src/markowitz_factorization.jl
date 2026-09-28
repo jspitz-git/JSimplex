@@ -203,7 +203,8 @@ function _markowitz_pivot(rows::Vector{D}, columns::Vector{D},
                           active_rows::BitVector, active_columns::BitVector,
                           singleton_rows::Vector{Int},
                           singleton_columns::Vector{Int},
-                          doubleton_columns::BitSet, cache=nothing) where {T<:Real,D<:AbstractDict{Int,T}}
+                          doubleton_columns::BitSet, cache=nothing,
+                          persistent_maxima::Bool=false) where {T<:Real,D<:AbstractDict{Int,T}}
     while !isempty(singleton_columns)
         column = pop!(singleton_columns)
         active_columns[column] && length(columns[column]) == 1 || continue
@@ -211,7 +212,9 @@ function _markowitz_pivot(rows::Vector{D}, columns::Vector{D},
     end
     # Columns are immutable during this search, but elimination changes them
     # between searches. Singleton-column exits need neither maxima nor a reset.
-    isnothing(cache) || fill!(cache[2],false)
+    # Construction invalidates only columns touched by the preceding pivot.
+    # Standalone searches retain the original per-search cache contract.
+    isnothing(cache) || persistent_maxima || fill!(cache[2],false)
     index = length(singleton_rows)
     while index > 0
         row = singleton_rows[index]
@@ -261,8 +264,7 @@ function _markowitz_pivot(rows::Vector{D}, columns::Vector{D},
     for column in eachindex(active_columns)
         active_columns[column] || continue
         column_data = columns[column]
-        column_maximum = _markowitz_column_threshold(_markowitz_cached_maximum(column_data,cache,column,false))
-        # This is the final visit to the column: no need to store a new maximum.
+        column_maximum = _markowitz_column_threshold(_markowitz_cached_maximum(column_data,cache,column,persistent_maxima))
         column_count = length(column_data)
         for (row, value) in column_data
             magnitude = _markowitz_magnitude(value)
@@ -376,7 +378,7 @@ function _construct_markowitz(B::AbstractMatrix{T}, workspace,
         pivot_row, pivot_column = _markowitz_pivot(
             rows, columns, active_rows, active_columns,
             singleton_rows, singleton_columns, doubleton_columns,
-            (workspace.column_maxima,workspace.column_maxima_valid),
+            (workspace.column_maxima,workspace.column_maxima_valid), true,
         )
         pivot_row == 0 && throw(LinearAlgebra.SingularException(length(row_order) + 1))
         pivot = rows[pivot_row][pivot_column]
@@ -393,6 +395,13 @@ function _construct_markowitz(B::AbstractMatrix{T}, workspace,
             push!(upper_values, value)
         end
         push!(upper, upper_vector)
+
+        # Elimination and pivot-row removal touch only these columns. Other
+        # cached maxima remain valid, regardless of changed row counts.
+        workspace.column_maxima_valid[pivot_column] = false
+        for column in upper_indices
+            workspace.column_maxima_valid[column] = false
+        end
 
         empty!(affected_rows)
         for row in keys(columns[pivot_column])

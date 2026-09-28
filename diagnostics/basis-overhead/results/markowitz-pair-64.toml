@@ -1,0 +1,22 @@
+julia = "1.13.0"
+baseline_source_sha256 = "d3f382ac3d7eb7354d1f1c093ed3b6523a0ec94114553e97ae1ab9bd9afdd0ec"
+julia_threads = 1
+machine = "aarch64-linux-gnu"
+blas_threads = 1
+current_source_sha256 = "12057d791438e8f4cbee16d63139066949c23fa59af49b3d45630da5e0d426dc"
+
+[[measurements]]
+speedup = 1.1238938053097345
+after_seconds = [4.65e-5, 3.86e-5, 4.94e-5, 5.17e-5, 4.34e-5, 4.15e-5, 4.52e-5]
+before_seconds = [4.41e-5, 5.0e-5, 4.48e-5, 5.08e-5, 5.28e-5, 5.36e-5, 5.39e-5]
+case = "band/64"
+[[measurements]]
+speedup = 1.2023952095808383
+after_seconds = [8.3e-5, 7.84e-5, 8.33e-5, 8.35e-5, 0.0001008, 9.59e-5, 9.73e-5]
+before_seconds = [0.0001048, 9.96e-5, 0.0001003, 9.67e-5, 0.0001095, 0.0001004, 0.0001057]
+case = "fill/64"
+[[measurements]]
+speedup = 1.0881834215167547
+after_seconds = [0.000107, 0.0001049, 0.000124, 0.0001265, 0.0001237, 0.0001134, 0.0001021]
+before_seconds = [0.0001133, 0.0001234, 0.0001222, 0.0001708, 0.0001359, 0.0001242, 0.0001087]
+case = "blocks/64"

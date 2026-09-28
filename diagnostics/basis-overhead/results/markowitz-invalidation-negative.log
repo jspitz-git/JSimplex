@@ -1,0 +1,39 @@
+ERROR: LoadError: Some tests did not pass: 2 passed, 2 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/JSimplex.jl/.worktrees/basis-overhead/test/markowitz_persistent_maximum_tests.jl:26
+Test Summary:                                     | Pass  Total  Time
+Markowitz caches raw maxima once per pivot search |   50     50  0.1s
+Test Summary:                                             | Pass  Total  Time
+Markowitz maximum cache retains stored BigFloat precision |   36     36  0.0s
+Test Summary:                                       | Pass  Total  Time
+Markowitz maximum storage survives workspace shrink |    4      4  0.0s
+Test Summary:                                   | Pass  Total  Time
+Markowitz preserves maxima of unchanged columns |   28     28  0.0s
+
+Markowitz elimination invalidates affected column maxima: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/basis-overhead/test/markowitz_persistent_maximum_tests.jl:44
+  Expression: backend.row_order[1:2] == [5, 12]
+   Evaluated: [5, 1] == [5, 12]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/basis-overhead/test/markowitz_persistent_maximum_tests.jl:29
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/basis-overhead/test/markowitz_persistent_maximum_tests.jl:44 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Markowitz elimination invalidates affected column maxima: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/basis-overhead/test/markowitz_persistent_maximum_tests.jl:45
+  Expression: backend.column_order[1:2] == [4, 12]
+   Evaluated: [4, 1] == [4, 12]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/basis-overhead/test/markowitz_persistent_maximum_tests.jl:29
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/basis-overhead/test/markowitz_persistent_maximum_tests.jl:45 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+Test Summary:                                            | Pass  Fail  Total  Time
+Markowitz elimination invalidates affected column maxima |    2     2      4  0.0s
+RNG of the outermost testset: Random.Xoshiro(0x26f4ad34ee4bf001, 0xf9311a874549b469, 0x46edf3ce60bf30b3, 0x4ae690b00261978d, 0x817bb4a2b2902596)

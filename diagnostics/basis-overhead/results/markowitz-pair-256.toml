@@ -1,0 +1,37 @@
+julia = "1.13.0"
+baseline_source_sha256 = "d3f382ac3d7eb7354d1f1c093ed3b6523a0ec94114553e97ae1ab9bd9afdd0ec"
+julia_threads = 1
+machine = "aarch64-linux-gnu"
+blas_threads = 1
+current_source_sha256 = "12057d791438e8f4cbee16d63139066949c23fa59af49b3d45630da5e0d426dc"
+
+[[measurements]]
+speedup = 1.0742913000977516
+after_seconds = [0.0003666, 0.0004474, 0.0003775, 0.0004629, 0.0003987, 0.0004497, 0.0004092]
+before_seconds = [0.0004396, 0.0004913, 0.0004157, 0.0004722, 0.0004036, 0.0004436, 0.0004244]
+case = "band/256"
+[[measurements]]
+speedup = 1.0514021236046829
+after_seconds = [0.0018521, 0.0018365, 0.0020171, 0.0019667, 0.001560601, 0.0016261, 0.0015741]
+before_seconds = [0.002067401, 0.0018857, 0.0019309, 0.0023036, 0.042011302, 0.0018305, 0.0018094]
+case = "fill/256"
+[[measurements]]
+speedup = 1.174469828910972
+after_seconds = [0.0009769, 0.0010053, 0.0009595, 0.0010202, 0.000948, 0.0009261, 0.0009761]
+before_seconds = [0.0011464, 0.0011828, 0.001131301, 0.0013767, 0.001229, 0.0011246, 0.0011028]
+case = "blocks/256"
+[[measurements]]
+speedup = 0.9489795918367349
+after_seconds = [9.8e-6, 9.8e-6, 9.6e-6, 7.9e-6, 8.6e-6, 1.0e-5, 1.03e-5]
+before_seconds = [9.3e-6, 9.3e-6, 1.15e-5, 1.0e-5, 8.7e-6, 8.1e-6, 9.4e-6]
+case = "band/Float32/32"
+[[measurements]]
+speedup = 1.106280193236715
+after_seconds = [2.22e-5, 2.21e-5, 2.23e-5, 2.04e-5, 2.01e-5, 2.07e-5, 2.02e-5]
+before_seconds = [2.34e-5, 2.31e-5, 2.22e-5, 2.63e-5, 2.19e-5, 2.29e-5, 2.2e-5]
+case = "band/BigFloat/32"
+[[measurements]]
+speedup = 1.046712802768166
+after_seconds = [5.61e-5, 6.02e-5, 6.04e-5, 6.2e-5, 5.5e-5, 5.31e-5, 5.78e-5]
+before_seconds = [5.6e-5, 7.25e-5, 6.54e-5, 6.1e-5, 5.85e-5, 5.98e-5, 6.05e-5]
+case = "band/Rational{BigInt}/32"
