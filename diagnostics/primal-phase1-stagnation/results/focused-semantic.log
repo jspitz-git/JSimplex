@@ -1,0 +1,90 @@
+Test Summary:                                                             | Pass  Total  Time
+Legacy primal pivots preserve feasibility when a leaving bound is snapped |  192    192  0.3s
+Test Summary:                                                | Pass  Total  Time
+Bound snapping checks each tolerated violation independently |   96     96  0.2s
+Test Summary:                                                         | Pass  Total  Time
+Legacy primal rejects an unsafe sole pivot without mutating the basis |    4      4  0.0s
+Test Summary:                                                    | Pass  Total  Time
+Legacy primal accepts a tolerated bound snap that stays feasible |    4      4  0.0s
+Test Summary:                                                           | Pass  Total  Time
+Correlated forward and transpose errors cannot install a singular basis |   48     48  0.0s
+Test Summary:                                         | Pass  Total  Time
+Accurate small pivots in scaled columns remain usable |   32     32  0.1s
+Test Summary:                                          | Pass  Total  Time
+A strong pivot does not request a direction correction |    2      2  0.0s
+Test Summary:                                                  | Pass  Total  Time
+Cancellation of a weak-pivot probe cannot publish the exchange |   20     20  0.0s
+Test Summary:                                              | Pass  Total  Time
+Refresh an unresolved pivot before updating a legacy basis |   48     48  0.1s
+Test Summary:                                                       | Pass  Total  Time
+A genuine small relative pivot remains available after fresh solves |    8      8  0.0s
+Test Summary:                                           | Pass  Total  Time
+Tiny primal pivots require relative transpose agreement |   64     64  0.0s
+Test Summary:                                              | Pass  Total  Time
+Legacy primal rejects a spurious nonsingular-looking pivot |   24     24  0.0s
+Test Summary:                                                    | Pass  Total  Time
+Legacy primal corrects a row without unnecessary refactorization |    4      4  0.0s
+Test Summary:                                              | Pass  Total  Time
+Legacy primal prefers a stable alternative to a weak pivot |  160    160  0.1s
+Test Summary:                                                 | Pass  Total  Time
+A weak pivot remains usable when no stable alternative exists |   12     12  0.0s
+Test Summary:                                                | Pass  Total  Time
+Weak preference work is bounded for similarly scaled columns |   10     10  0.2s
+Test Summary:                                             | Pass  Total  Time
+Exhaustion after fresh pricing retains the refresh budget |    5      5  0.0s
+Test Summary:                                    | Pass  Total  Time
+Cancellation during preference clears exclusions |    4      4  0.0s
+Test Summary:                                                  | Pass  Total  Time
+Legacy hardware guards leave other scalar workspaces untouched |   56     56  0.2s
+Test Summary:                                                             | Pass  Total  Time
+Legacy primal tries another entering variable before failing a ratio test |    7      7  0.0s
+Test Summary:                                                           | Pass  Total  Time
+Legacy primal candidate retry honors cancellation and clears rejections |    6      6  0.0s
+Test Summary:                                                               | Pass  Total  Time
+Legacy primal does not report optimality after exhausting unsafe candidates |    4      4  0.0s
+Test Summary:                                                  | Pass  Total  Time
+Legacy primal searches beyond eight unsafe entering candidates |    4      4  0.0s
+Test Summary:                                                | Pass  Total  Time
+Legacy primal skips tiny pivots after a single basis refresh |    5      5  0.0s
+Test Summary:                                             | Pass  Total  Time
+Refactorization preserves unrelated steepest-edge weights |   12     12  0.1s
+Test Summary:                                        | Pass  Total  Time
+Retry preserves usable estimates on a non-unit basis |    6      6  0.0s
+Test Summary:                                            | Pass  Total  Time
+Legacy primal zero steps preserve tolerated row activity |   64     64  0.0s
+Test Summary:                                                      | Pass  Total  Time
+Tolerated row values survive recomputation only within their scope |   23     23  0.0s
+Test Summary:                                                        | Pass  Total  Time
+Legacy Harris selection tolerates each original row bound separately |   24     24  0.0s
+Test Summary:                                                                | Pass  Total  Time
+A legacy primal zero step preserves a certified point across refactorization |   64     64  0.1s
+Test Summary:                                                          | Pass  Total  Time
+Zero-step preservation rejects a point that violates the original rows |    3      3  0.0s
+Test Summary:                                                       | Pass  Total  Time
+Cancelled zero-step certification restores the reconstructed values |    5      5  0.0s
+Test Summary:                                            | Pass  Total  Time
+Zero-step preservation requires a consistent basis point |    4      4  0.0s
+Test Summary:                                                        | Pass  Total  Time
+A nonzero legacy primal step preserves its certified predicted point |   56     56  0.1s
+Test Summary:                                               | Pass  Total  Time
+Primal point fallback leaves other numerical policies alone |    8      8  0.0s
+Test Summary:                                                    | Pass  Total  Time
+Row consistency certifies cancellation against stored activities |    2      2  0.0s
+Test Summary:                                                     | Pass  Total  Time
+Certified primal predictions cover negative steps and bound flips |   24     24  0.0s
+Test Summary:                                                   | Pass  Total  Time
+A sub-tolerance pivot retry preserves a certified current point |   40     40  0.1s
+Test Summary:                                                                | Pass  Total  Time
+Legacy primal solves a feasible model with a tolerated initial row violation |    8      8  0.0s
+Test Summary:                                               | Pass  Total  Time
+Legacy primal rejects a price contradicted by its direction |   96     96  0.1s
+Test Summary:                                                       | Pass  Total  Time
+An inaccurate price cannot force a flip or an unboundedness failure |   80     80  0.1s
+Test Summary:                                        | Pass  Total  Time
+Phase-I pricing retains genuine tiny improving costs |   24     24  0.0s
+Test Summary:                                     | Pass  Total  Time
+Consistent prices near cancellation remain usable |   24     24  0.0s
+Test Summary:                                                  | Pass  Total  Time
+Multi-term cancellation uses the native accumulation allowance |   40     40  0.0s
+Test Summary:                                                     | Pass  Total  Time
+A contradicted price refreshes an updated basis once and reprices |   72     72  0.1s

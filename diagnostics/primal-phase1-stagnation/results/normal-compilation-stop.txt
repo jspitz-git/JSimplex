@@ -1,0 +1,33 @@
+The owned normal-compilation focused test was stopped after over four CPU minutes.
+Only that identified Julia process was signaled; semantic checks subsequently passed with --compile=min.
+The termination stack begins:
+
+[7697] signal 15: Terminated
+in expression starting at /home/jspitz/.codex/worktrees/primal-phase1-stagnation/JSimplex.jl/test/legacy_primal_point_tests.jl:85
+_ZL16computeKnownBitsPKN4llvm5ValueERKNS_5APIntERNS_9KnownBitsEjRKNS_13SimplifyQueryE at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+_ZN4llvm16computeKnownBitsEPKNS_5ValueERKNS_10DataLayoutEjPNS_15AssumptionCacheEPKNS_11InstructionEPKNS_13DominatorTreeEb at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+$x at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+$x at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+_ZN4llvm11simplifyCFGEPNS_10BasicBlockERKNS_19TargetTransformInfoEPNS_14DomTreeUpdaterERKNS_18SimplifyCFGOptionsENS_8ArrayRefINS_6WeakVHEEE at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+$x at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+$x at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+_ZN4llvm15SimplifyCFGPass3runERNS_8FunctionERNS_15AnalysisManagerIS1_JEEE at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+run at /cache/build/builder-armageddon-4/julialang/julia-ci/usr/include/llvm/IR/PassManagerInternal.h:91
+_ZN4llvm11PassManagerINS_8FunctionENS_15AnalysisManagerIS1_JEEEJEE3runERS1_RS3_ at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+run at /cache/build/builder-armageddon-4/julialang/julia-ci/usr/include/llvm/IR/PassManagerInternal.h:91
+_ZN4llvm27ModuleToFunctionPassAdaptor3runERNS_6ModuleERNS_15AnalysisManagerIS1_JEEE at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+run at /cache/build/builder-armageddon-4/julialang/julia-ci/usr/include/llvm/IR/PassManagerInternal.h:91
+_ZN4llvm11PassManagerINS_6ModuleENS_15AnalysisManagerIS1_JEEEJEE3runERS1_RS3_ at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+run at /cache/build/builder-armageddon-4/julialang/julia-ci/src/pipeline.cpp:792
+operator() at /cache/build/builder-armageddon-4/julialang/julia-ci/src/jitlayers.cpp:1512
+withModuleDo<(anonymous namespace)::sizedOptimizerT<N>::operator()(llvm::orc::ThreadSafeModule) [with long unsigned int N = 4]::<lambda(llvm::Module&)> > at /cache/build/builder-armageddon-4/julialang/julia-ci/usr/include/llvm/ExecutionEngine/Orc/ThreadSafeModule.h:136 [inlined]
+operator() at /cache/build/builder-armageddon-4/julialang/julia-ci/src/jitlayers.cpp:1473 [inlined]
+operator() at /cache/build/builder-armageddon-4/julialang/julia-ci/src/jitlayers.cpp:1648 [inlined]
+addModule at /cache/build/builder-armageddon-4/julialang/julia-ci/src/jitlayers.cpp:2117
+jl_compile_codeinst_now at /cache/build/builder-armageddon-4/julialang/julia-ci/src/jitlayers.cpp:681
+jl_compile_codeinst_impl at /cache/build/builder-armageddon-4/julialang/julia-ci/src/jitlayers.cpp:875
+jl_compile_method_internal at /cache/build/builder-armageddon-4/julialang/julia-ci/src/gf.c:3709
+_jl_invoke at /cache/build/builder-armageddon-4/julialang/julia-ci/src/gf.c:4171 [inlined]
+ijl_apply_generic at /cache/build/builder-armageddon-4/julialang/julia-ci/src/gf.c:4380
+_measure_basis_iteration! at /home/jspitz/.codex/worktrees/primal-phase1-stagnation/JSimplex.jl/src/refactorization_policy.jl:289
+_primal_iteration! at /home/jspitz/.codex/worktrees/primal-phase1-stagnation/JSimplex.jl/src/simplex_pivot.jl:427 [inlined]
