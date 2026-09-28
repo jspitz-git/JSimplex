@@ -598,7 +598,10 @@ function _triangular_forward_solve!(destination::Vector{T},
     n = _check_triangular_dimensions(factor, destination, rhs)
     source = destination === rhs ? copyto!(factor.work, rhs) : rhs
     _invalidate_prepared_destination!(factor, destination)
-    prepared = prepare_update ? _begin_prepared_spike!(factor, destination) : nothing
+    # Preserve the original two-slot eviction schedule even when auxiliary
+    # solves omit payload copies: longer retention changes update rounding.
+    entry = _begin_prepared_spike!(factor, destination)
+    prepared = prepare_update ? entry : nothing
     _backend_forward_solve!(destination, factor.base, source)
     _apply_dense_row_updates!(destination, factor)
     _save_prepared_spike!(prepared, destination)

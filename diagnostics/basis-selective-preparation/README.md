@@ -12,7 +12,7 @@ projection, crash candidates and accepted artificial-variable removal. Candidate
 screening during artificial removal remains ordinary because the accepted column
 is solved again. No tolerance or precision change is included.
 
-## Paired histories
+## Initial paired histories (before the cache-lifetime follow-up)
 
 `reproduce/paired.jl` compares two FTRANs, one update and one BTRAN for 320 recorded
 exchanges, with alternating measurement order and the first exchange excluded as
@@ -88,3 +88,27 @@ The external manifest identifies prepared local inputs by SHA256 and original
 NetLib/MIPLib paths. Adjust the prepared paths for another machine, retaining
 input hashes and reference objectives. Historical basis recordings are local
 binary diagnostic data, not portable source fixtures.
+
+## Cache-lifetime follow-up
+
+End-to-end runtime validation exposed a regression missed by short fixed-pivot
+replays: retaining entering spikes through arbitrarily many auxiliary FTRANs
+changed rounding and the cleanup trajectory. In the combined production stages
+1–3, the retained-cache run hit 900 seconds after 102,579 iterations. A diagnostic
+control changing only ordinary-solve cache eviction reached the certified optimum
+51,425,691.76210457 in 62,939 iterations and 317.834 seconds, matching the old
+iteration count. These are separate runs, not a precise paired speed estimate.
+
+The follow-up preserves the original two-slot advancement on every FTRAN while
+still omitting auxiliary spike/direction copies and finite scans. The evidence
+above supersedes the earlier decision to accept extended cache lifetime. Historical
+replay/corpus files remain evidence for the initial revision, not for this follow-up.
+A new regression compares three auxiliary solves against public FTRAN for every
+triangular manager in Float32/Float64, checking eviction, bit-identical outputs
+and update coefficients, and original matrix residuals. It failed 27 assertions
+on the initial implementation before the fix. Full-runtime control records are
+in results/cache-lifetime; the control uses the later fused kernels and is explicitly
+identified as such in the source hashes.
+
+After the fix, all 33,919 focused assertions passed under `--compile=min`, including
+the 96-assertion lifecycle regression. Independent review found no blocking defect.
