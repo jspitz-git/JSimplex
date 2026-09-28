@@ -284,12 +284,16 @@ function _primal_bound_snap_feasible(workspace::SimplexWorkspace{T}, entering::I
     violation = max(zero(T), _lower_violation(workspace.lower[entering], value),
                     _upper_violation(workspace.upper[entering], value))
     violation <= tolerance || return false
+    legacy = workspace.options.simplex_strategy == :legacy
     for (row, index) in enumerate(workspace.basis.basic_indices)
         row == leaving_row && continue
         value = workspace.primal[index] - direction * column[row] * step
         isfinite(value) || return false
-        violation += max(zero(T), _lower_violation(workspace.lower[index], value),
-                         _upper_violation(workspace.upper[index], value))
+        bound_violation = max(zero(T), _lower_violation(workspace.lower[index], value),
+                              _upper_violation(workspace.upper[index], value))
+        # Use the same per-bound feasibility criterion as legacy Harris pricing
+        # and recomputation, including the movement imposed by this bound snap.
+        violation = legacy ? max(violation, bound_violation) : violation + bound_violation
         violation <= tolerance || return false
     end
     return true

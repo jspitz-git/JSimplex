@@ -32,6 +32,38 @@ using JSimplex.SparseArrays
     end
 end
 
+@testset "Bound snapping checks each tolerated violation independently" begin
+    for T in (Float32, Float64), sign in (-1, 1),
+        update in (:pfi, :bartels_golub, :forrest_tomlin, :suhl_suhl)
+        # Three structural basic variables lie just outside their bounds.
+        # Exchanging the first one snaps its value and moves the entering
+        # variable by 7e-8; every individual bound remains within tolerance.
+        offset = T(sign) * T(7e-8)
+        A = sparse(T[1 0 0 offset 1; 0 1 0 offset 0; 0 0 1 offset 0])
+        lower = fill(T(sign > 0 ? 0 : -Inf), 5)
+        upper = fill(T(sign > 0 ? Inf : 0), 5)
+        lower[4] = upper[4] = one(T)
+        problem = LinearProblem(A, T[0, 0, 0, 0, -sign];
+            row_lower=zeros(T, 3), row_upper=zeros(T, 3),
+            column_lower=lower, column_upper=upper)
+        options = SolverOptions(T; algorithm=:primal, simplex_strategy=:legacy,
+            basis_update=update, primal_tolerance=T(1e-7), verbose=false)
+        workspace = JSimplex.initialize_workspace(problem, options)
+        workspace.basis.basic_indices .= 1:3
+        workspace.basis.states[1:3] .= JSimplex.BASIC
+        workspace.basis.states[6:8] .= JSimplex.AT_LOWER
+        JSimplex.recompute!(workspace; refactorize=true)
+        @test JSimplex.primal_infeasibility(workspace) == zero(T)
+        terminal = JSimplex._primal_iteration!(workspace, () -> false,
+            options.dual_tolerance)
+        @test isnothing(terminal)
+        @test workspace.basis.basic_indices == [5, 2, 3]
+        @test workspace.primal[5] ≈ -offset
+        @test JSimplex.primal_infeasibility(workspace) == zero(T)
+        @test maximum(abs, A * workspace.primal[1:5]) <= eps(T)
+    end
+end
+
 function structural_bound_snap_workspace(coefficient)
     problem = LinearProblem(sparse([1.0 7e-8 coefficient]), [0.0, 0.0, -1.0];
         row_lower=[0.0], row_upper=[0.0], column_lower=[0.0, 1.0, 0.0],
