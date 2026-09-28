@@ -187,7 +187,7 @@ function _crash_workspace_impl(initial::SimplexWorkspace{T},stop,fill_limit) whe
             (iszero(current) || trial.iterations >= trial.options.iteration_limit) && break
             (counts[entering] == 0 || _is_fixed(trial.lower[entering],trial.upper[entering])) && continue
             _pivot_column!(rhs,trial,entering)
-            _checked_basis_solve!(column,trial,rhs,guard)
+            _checked_basis_solve!(column,trial,rhs,guard;prepare_update=true)
             _crash_rows!(rows,trial,column,policy)
             selected = 0
             selected_state = AT_LOWER

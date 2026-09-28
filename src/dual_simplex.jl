@@ -1284,7 +1284,7 @@ function _dual_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_request
 
     column = _pipeline_column_rhs!(workspace,entering_index)
     tableau_column = _timed_simplex(workspace, :ftran) do
-        _pipeline_basis_solve!(workspace.scratch.row_solution,workspace,column)
+        _pipeline_basis_solve!(workspace.scratch.row_solution,workspace,column;prepare_update=true)
     end
     if policy.pivot_validation || policy.solve_refinement
         quality = refine_basis_solve!(tableau_column,workspace,column,policy,stop_requested)

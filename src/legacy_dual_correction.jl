@@ -42,7 +42,7 @@ function _try_native_dual_correction!(workspace::SimplexWorkspace{T}, destinatio
         try
             _timed_simplex(workspace, transposed ? :btran : :ftran) do
                 transposed ? transpose_solve!(buffers.correction, workspace.factorization, scratch.residual) :
-                             forward_solve!(buffers.correction, workspace.factorization, scratch.residual)
+                             _ordinary_forward_solve!(buffers.correction, workspace.factorization, scratch.residual)
             end
         catch exception
             _is_numerical_exception(exception) || rethrow()

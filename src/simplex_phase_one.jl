@@ -139,7 +139,7 @@ function _remove_artificials!(phase::SimplexWorkspace{T},map,original,policy,sto
         end
         entering == 0 && return false
         _pivot_column!(rhs,phase,entering)
-        _checked_basis_solve!(column,phase,rhs,stop)
+        _checked_basis_solve!(column,phase,rhs,stop;prepare_update=true)
         validate_pivot!(phase,PivotCandidate(entering,row,dot(rho,rhs),column,rho),policy) == :accept || return false
         movement = phase.primal[leaving]/column[row]
         stop() && return false

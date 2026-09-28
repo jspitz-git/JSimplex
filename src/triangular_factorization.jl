@@ -578,15 +578,27 @@ _reset_dense_row_cache!(::AbstractTriangularBasisFactorization, ::Int) = nothing
 _dense_upper_columns(factor::AbstractTriangularBasisFactorization) = eachindex(factor.upper)
 _invalidate_dense_upper!(factor) = nothing
 
-function forward_solve!(destination::Vector{T},
+# Public FTRAN retains prepared-update reuse. Internal auxiliary solves can skip
+# its copies without changing the arithmetic or weakening output provenance.
+forward_solve!(destination::Vector{T}, factor::AbstractTriangularBasisFactorization{T},
+               rhs::AbstractVector) where {T} =
+    _triangular_forward_solve!(destination, factor, rhs, true)
+
+_ordinary_forward_solve!(destination, factor, rhs) = forward_solve!(destination, factor, rhs)
+_ordinary_forward_solve!(destination::Vector{T}, factor::AbstractTriangularBasisFactorization{T},
+                         rhs::AbstractVector) where {T} =
+    _triangular_forward_solve!(destination, factor, rhs, false)
+
+function _triangular_forward_solve!(destination::Vector{T},
                         factor::AbstractTriangularBasisFactorization{T},
-                        rhs::StridedVector{T}) where {T}
+                        rhs::StridedVector{T}, prepare_update::Bool) where {T}
     destination === factor.work && throw(ArgumentError(
         "destination must not alias the factorization work storage",
     ))
     n = _check_triangular_dimensions(factor, destination, rhs)
     source = destination === rhs ? copyto!(factor.work, rhs) : rhs
-    prepared = _begin_prepared_spike!(factor, destination)
+    _invalidate_prepared_destination!(factor, destination)
+    prepared = prepare_update ? _begin_prepared_spike!(factor, destination) : nothing
     _backend_forward_solve!(destination, factor.base, source)
     _apply_dense_row_updates!(destination, factor)
     _save_prepared_spike!(prepared, destination)
@@ -608,15 +620,15 @@ function forward_solve!(destination::Vector{T},
     return destination
 end
 
-function forward_solve!(destination::Vector{T},
+function _triangular_forward_solve!(destination::Vector{T},
                         factor::AbstractTriangularBasisFactorization{T},
-                        rhs::AbstractVector) where {T}
+                        rhs::AbstractVector, prepare_update::Bool) where {T}
     destination === factor.work && throw(ArgumentError(
         "destination must not alias the factorization work storage",
     ))
     _check_triangular_dimensions(factor, destination, rhs)
     copyto!(factor.work, rhs)
-    return forward_solve!(destination, factor, factor.work)
+    return _triangular_forward_solve!(destination, factor, factor.work, prepare_update)
 end
 
 function forward_solve(factor::AbstractTriangularBasisFactorization{T}, rhs::AbstractVector) where {T}

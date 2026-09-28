@@ -417,13 +417,16 @@ function _pipeline_price_kernel!(destination,ws,rho,cache,input_index,output_ind
 end
 
 function _pipeline_basis_solve!(destination,ws,rhs;transposed::Bool=false,
-    operation::Symbol=transposed ? :btran : :ftran,kernel_mode::Symbol=:auto,clock=time_ns)
+    operation::Symbol=transposed ? :btran : :ftran,kernel_mode::Symbol=:auto,
+    prepare_update::Bool=false,clock=time_ns)
     kernel_mode in (:auto,:sparse,:dense) || throw(ArgumentError("Unknown pipeline kernel mode"))
     _invalidate_prepared_destination!(ws.factorization,destination)
     if !ws.progress.numerical_policy.hypersparse
         _pipeline_changed!(ws,destination)
         return transposed ? transpose_solve!(destination,ws.factorization,rhs) :
-                            forward_solve!(destination,ws.factorization,rhs)
+               (prepare_update || ws.options.simplex_strategy != :legacy) ?
+                   forward_solve!(destination,ws.factorization,rhs) :
+                                _ordinary_forward_solve!(destination,ws.factorization,rhs)
     end
     n = _backend_dimension(ws.factorization.base)
     length(destination) == length(rhs) == n || throw(DimensionMismatch("Pipeline basis solve dimensions"))

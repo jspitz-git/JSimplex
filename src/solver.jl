@@ -102,7 +102,7 @@ function _project_postsolve_basis!(workspace::SimplexWorkspace{T}, target::Vecto
     for entering in displaced
         stop_requested() && return nothing
         rhs = _pipeline_column_rhs!(workspace,entering)
-        direction = _pipeline_basis_solve!(workspace.scratch.row_solution,workspace,rhs)
+        direction = _pipeline_basis_solve!(workspace.scratch.row_solution,workspace,rhs;prepare_update=true)
         all(isfinite, direction) || return nothing
         leaving_row = 0
         largest_pivot = options.zero_tolerance

@@ -490,7 +490,7 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
     column_count = size(A, 2)
     column = _pipeline_column_rhs!(workspace,entering)
     tableau_column = _timed_simplex(workspace, :ftran) do
-        _pipeline_basis_solve!(workspace.scratch.row_solution, workspace, column)
+        _pipeline_basis_solve!(workspace.scratch.row_solution, workspace, column;prepare_update=true)
     end
     all(isfinite, tableau_column) || return _numerical_failure()
     checked_pivot = workspace.progress.numerical_policy.pivot_validation || incremental_pivot

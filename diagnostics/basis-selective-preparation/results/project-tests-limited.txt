@@ -1,0 +1,13 @@
+Command: julia --compiled-modules=existing --project=. test/runtests.jl
+Julia: 1.13.0, Linux aarch64, one Julia/BLAS thread
+Virtual-memory limit: 12 GiB
+Time limit: 900 seconds, TERM followed by KILL after 10 seconds
+Exit: 137
+Result: INCOMPLETE; this is not a full-suite pass.
+
+At termination the stack was in LLVM BlockFrequencyInfo/IRCE optimization,
+compiling test/adaptive_pricing_integration_tests.jl:171, the multi-type,
+primal/dual, legacy/adaptive automatic-pricing integration test. No assertion
+failure was printed before termination. Causation of the compilation duration
+has not been established by a paired baseline run. No adaptive solver behavior
+is changed to bypass this test.
