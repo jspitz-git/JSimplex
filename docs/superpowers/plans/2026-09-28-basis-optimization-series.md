@@ -38,7 +38,7 @@ preparation; public `forward_solve!` retains its behavior. Pipeline keyword
 `prepare_update::Bool=false` is explicitly true at entering-column sites.
 Adaptive pipeline behavior remains unchanged in this stage.
 
-- [x] Add failing tests proving auxiliary solves do not evict a prepared direction,
+- [x] Add failing tests proving auxiliary solves preserve the original eviction schedule,
       same-buffer overwrites invalidate provenance, and update residuals remain small.
 - [x] Add the shared internal solve implementation and explicit call-site intent.
 - [x] Run prepared-spike, triangular and pipeline regression suites, the project

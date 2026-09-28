@@ -1,0 +1,84 @@
+Test Summary:                                                         | Pass  Total  Time
+Auxiliary FTRAN preserves direction values while omitting preparation |  109    109  0.3s
+Test Summary:                                                 | Pass  Total  Time
+Auxiliary overwrite invalidates rounded-equal prepared output |   28     28  0.0s
+Test Summary:                                           | Pass  Total  Time
+Legacy pipeline prepares only explicit entering columns |   13     13  0.0s
+Test Summary:                                        | Pass  Total  Time
+Legacy residual corrections do not prepare an update |    9      9  0.0s
+Test Summary:                                         | Pass  Total  Time
+Disabled hypersparsity preserves adaptive preparation |    3      3  0.0s
+Test Summary:                                                 | Pass  Total  Time
+Copy-free auxiliary solves retain the original cache lifetime |   96     96  0.1s
+Test Summary:                                       | Pass  Total  Time
+Row-spike elimination preserves the factor equation |   80     80  5.9s
+Test Summary:                                      | Pass  Total  Time
+Forrest-Tomlin skips an empty or delayed row spike |   32     32  1.1s
+Test Summary:                                     | Pass  Total  Time
+Terminal row rotations preserve untouched entries |   32     32  0.1s
+Test Summary:                                        | Pass  Total  Time
+Skipped zero spikes do not conceal invalid diagonals |    4      4  0.0s
+Test Summary:                                              | Pass  Total  Time
+Prepared triangular spikes follow the exact forward output |  123    123  0.1s
+Test Summary:                                           | Pass  Total  Time
+Other solve destinations cannot retain FTRAN provenance |   36     36  0.0s
+Test Summary:                                             | Pass  Total  Time
+Pipeline alias copies invalidate the original destination |   36     36  0.0s
+Test Summary:                                                  | Pass  Total  Time
+BG incidence retains stable column identities across rotations |  164    164  0.3s
+Test Summary:                                       | Pass  Total  Time
+BG composed permutations avoid numeric history work |    5      5  0.5s
+Test Summary:                                             | Pass  Total  Time
+BG composed history preserves the exact replay arithmetic | 2888   2888  6.8s
+Test Summary:              | Pass  Total  Time
+Dense upper identity cache |  696    696  0.6s
+Test Summary:                                                    | Pass  Total   Time
+FT and SS compose dense permutations without changing arithmetic | 1624   1624  10.5s
+Test Summary:                                | Pass  Total  Time
+Packed BG row rotation equals adjacent swaps | 6709   6709  5.9s
+Test Summary:                                       | Pass  Total  Time
+Batched BG replacement matches scalar pivot history | 1200   1200  5.1s
+Test Summary:                                   | Pass  Total  Time
+Indexed basis updates create and cancel support | 2880   2880  1.7s
+Test Summary:                                               | Pass  Total  Time
+PFI transpose uses eta support when the old pivot is absent |    2      2  0.0s
+Test Summary:                                          | Pass  Total  Time
+Indexed update sequences match an explicit exact basis | 2880   2880  5.6s
+Test Summary:                                                  | Pass  Total  Time
+Updated upper snapshots reset without rebuilding the base view |   24     24  0.0s
+Test Summary:                                              | Pass  Total  Time
+BigFloat indexed updates preserve stored working precision |   96     96  0.1s
+Test Summary:                                          | Pass  Total  Time
+Indexed update snapshots and refactorization lifecycle |  136    136  0.1s
+Test Summary:                                      | Pass  Total  Time
+Indexed update solves reject partial input aliases |    7      7  0.0s
+Test Summary:                                                           | Pass  Total  Time
+Dense support created by the last row update reaches a dense base solve |    3      3  0.0s
+Test Summary:                                       | Pass  Total  Time
+Indexed Bartels-Golub handles a compressed rotation |   14     14  0.0s
+Test Summary:                                            | Pass  Total  Time
+Update overflow is numerical and leaves reusable scratch |    9      9  0.0s
+Test Summary:                                      |  Pass  Total  Time
+Stable upper row identities preserve logical order | 12780  12780  4.7s
+Test Summary:                                              | Pass  Total  Time
+Stable index ownership survives copying and resized resets |    8      8  0.0s
+Test Summary:                                           | Pass  Total  Time
+Kernel mode uses hysteresis, occupancy, and valid costs |   22     22  0.0s
+Test Summary:                                             | Pass  Total  Time
+Kernel costs retain total work and robust bounded samples |   11     11  0.0s
+Test Summary:                                             | Pass  Total  Time
+Pipeline owns support and borrows existing scratch values |  165    165  2.0s
+Test Summary:                                        | Pass  Total  Time
+Dense fallback retains the original scratch contract |    6      6  0.0s
+Test Summary:                                                      | Pass  Total     Time
+Both simplex algorithms certify block sparse LPs with the pipeline |  880    880  1m39.8s
+Test Summary:                                               | Pass  Total  Time
+Small dense and degenerate LPs retain original certificates |   36     36  0.8s
+Test Summary:                                                         | Pass  Total  Time
+BFRT cancellation and support changes preserve the entering direction |   40     40  0.0s
+Test Summary:                                                      | Pass  Total  Time
+Hypersparse recovery shares limits and preserves callback failures |    4      4  0.1s
+Test Summary:                                         | Pass  Total  Time
+Factor accounting includes lazy coefficient snapshots |   20     20  0.1s
+Test Summary:                                                           | Pass  Total  Time
+Pipeline diagnostics include preparation, conversion, and rejected work |    9      9  0.0s

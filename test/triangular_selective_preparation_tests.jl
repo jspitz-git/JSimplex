@@ -1,6 +1,6 @@
 using LinearAlgebra, SparseArrays
 
-@testset "Auxiliary FTRAN preserves the entering column across repeated solves" begin
+@testset "Auxiliary FTRAN preserves direction values while omitting preparation" begin
     available = isdefined(JSimplex, :_ordinary_forward_solve!)
     @test available
     if available
@@ -20,7 +20,7 @@ using LinearAlgebra, SparseArrays
                 @test direction == expected
             end
             if T <: Union{Float32, Float64}
-                @test JSimplex._copy_prepared_spike!(f, direction)
+                @test !JSimplex._copy_prepared_spike!(f, direction)
                 @test !JSimplex._copy_prepared_spike!(f, other)
             end
             JSimplex.replace_column!(f, direction, 2)
@@ -73,7 +73,7 @@ end
         end
         @test d == expected
         if update != :pfi
-            @test JSimplex._copy_prepared_spike!(ws.factorization, d)
+            @test !JSimplex._copy_prepared_spike!(ws.factorization, d)
             @test !JSimplex._copy_prepared_spike!(ws.factorization, other)
             JSimplex._pipeline_basis_solve!(d, ws, rhs)
             @test !JSimplex._copy_prepared_spike!(ws.factorization, d)
