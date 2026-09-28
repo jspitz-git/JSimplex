@@ -190,3 +190,12 @@ sequential exchanges, rejected pivots, aliased buffers, copies and refactorizati
 Then compare fixed histories (not expected bit-identical) and independent LPs.
 The combined UMFPACK solve's refinement is lost; residual/stability evidence is
 required before any public integration or default change.
+
+Task 5 measured refinement: the early-medium native L is identity and every one
+of 360,982 direct-U diagonals is non-unit. Try `D=diag(U)`, `Unew=inv(D)*U`, and
+`B0new=inv(S)*P'*L*D`. FTRAN applies inv(D) after lower substitution; BTRAN applies
+inv(D) before lower-transpose substitution. When L is diagonal, fuse this scaling
+with existing gathers/scatters. Build normalized coefficients transactionally and
+reject overflow or nonzero-to-zero underflow, retaining the unscaled direct form.
+Copies/refactorization preserve the requested mode, including native fallback.
+Keep unscaled mode available; compare both against correction factors and PFI.

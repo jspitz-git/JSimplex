@@ -1,11 +1,13 @@
 using JSimplex, LinearAlgebra, SparseArrays, Test, Random
 Base.include(JSimplex,joinpath(@__DIR__,"direct.jl"))
+const NORMALIZE=get(ENV,"JSIMPLEX_DIRECT_NORMALIZE","false")=="true"
+trial_factor(Factor,B)=JSimplex._trial_direct_factor(Factor,B;normalize=NORMALIZE)
 @testset "Direct native LU identity, updates and ownership" begin
     rng=MersenneTwister(579)
     for Factor in (JSimplex.ForrestTomlinFactorization,JSimplex.SuhlSuhlFactorization,JSimplex.BartelsGolubFactorization)
         n=16;C=Matrix(sprand(rng,n,n,0.15));C+=Diagonal(2 .+ vec(sum(abs,C;dims=2)))
         B=sparse(Diagonal(10.0 .^ range(-3,3;length=n))*C[randperm(rng,n),randperm(rng,n)])
-        f=JSimplex._trial_direct_factor(Factor,B)
+        f=trial_factor(Factor,B)
         @test isnothing(f.base.fallback)
         rhs=randn(rng,n)
         for k in 1:40
@@ -37,13 +39,13 @@ Base.include(JSimplex,joinpath(@__DIR__,"direct.jl"))
 end
 @testset "Direct LU scale conventions and unsupported paths" begin
     for Factor in (JSimplex.ForrestTomlinFactorization,JSimplex.SuhlSuhlFactorization,JSimplex.BartelsGolubFactorization), diagonal in ([1e-300,1e300],[2.,4.],[nextfloat(1.0),1.0],Float64[])
-        B=spdiagm(0=>diagonal);f=JSimplex._trial_direct_factor(Factor,B)
+        B=spdiagm(0=>diagonal);f=trial_factor(Factor,B)
         @test JSimplex.forward_solve(f,diagonal)≈ones(length(diagonal))
         @test JSimplex.transpose_solve(f,diagonal)≈ones(length(diagonal))
         diagonal==[nextfloat(1.0),1.0] && @test !isnothing(f.base.fallback)
     end
-    @test JSimplex._trial_direct_factor(JSimplex.ForrestTomlinFactorization,Matrix{Float32}(I,2,2)).base isa JSimplex.Float32LUBackend
-    JSimplex._install_trial_direct!()
+    @test trial_factor(JSimplex.ForrestTomlinFactorization,Matrix{Float32}(I,2,2)).base isa JSimplex.Float32LUBackend
+    JSimplex._install_trial_direct!(normalize=NORMALIZE)
     for strategy in (:legacy,:adaptive)
         options=SolverOptions(simplex_strategy=strategy,basis_update=:forrest_tomlin)
         f=Base.invokelatest(JSimplex._basis_factorization,spdiagm(0=>ones(4)),options)
@@ -52,7 +54,7 @@ end
 end
 @testset "Direct reconstruction, divergent copies and fallback transitions" begin
     for Factor in (JSimplex.ForrestTomlinFactorization,JSimplex.SuhlSuhlFactorization,JSimplex.BartelsGolubFactorization)
-        B=spdiagm(0=>fill(2.0,8),-1=>fill(0.2,7),3=>fill(-0.1,5));f=JSimplex._trial_direct_factor(Factor,B)
+        B=spdiagm(0=>fill(2.0,8),-1=>fill(0.2,7),3=>fill(-0.1,5));f=trial_factor(Factor,B)
         for pivot in (3,1,4)
             a=Vector(B[:,pivot]);a[8]+=0.1
             direction=JSimplex.forward_solve(f,a)
@@ -86,7 +88,7 @@ end
     n=6;C=[1.0/(i+j-1) for i in 1:n,j in 1:n]
     B=sparse(Diagonal(10.0 .^ range(-80,80;length=n))*C)
     for Factor in (JSimplex.ForrestTomlinFactorization,JSimplex.SuhlSuhlFactorization,JSimplex.BartelsGolubFactorization)
-        f=JSimplex._trial_direct_factor(Factor,B)
+        f=trial_factor(Factor,B)
         @test isnothing(f.base.fallback)
         for transposed in (false,true)
             M=transposed ? B' : B

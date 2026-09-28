@@ -1,0 +1,34 @@
+objective_matches = true
+time_limit = 900.0
+backend = "native"
+prototype_sha256 = "ebe018cc933321470fc24aab03a69ef8fa620967a52acecf18168b8347beb7e4"
+input = "runtime.mps"
+reference_objective = 5.142569176210457e7
+interval = 80
+warmup = "afiro, same algorithm/manager/mode, refactorization interval 2"
+objective = 5.142569176210457e7
+julia_threads = 1
+input_sha256 = "d0ac16e1a52a7d3411cbac28616bba9d3beb0c0edbdb2d72ab0477ce075f6c68"
+refactorizations = 790
+seconds = 317.833753093
+iteration_limit = 1000000
+control_sha256 = "df420ade5aaf2d5dfa197599ce97672d9846d485a4bc15d003927a78b9964fa3"
+pricing = "steepest_edge"
+architecture = "aarch64"
+blas_threads = 1
+mode = "correction"
+strategy = "legacy"
+iterations = 62939
+original_primal_certified = true
+julia = "1.13.0"
+algorithm = "dual"
+manager = "forrest_tomlin"
+status = "OPTIMAL"
+message = "optimal solution found"
+preparation_policy = "original slot lifecycle, auxiliary payload copies omitted"
+
+[source_sha256]
+"triangular_factorization.jl" = "835f3b9e2cee9ceb77e1492b5bbf98336e0daaf4f8bbfc895d4aa53cd4df426f"
+"triangular_rows.jl" = "d1901a62ac5529dad761292d64b271f280193270a0a3b443cf1bdefaa7399de2"
+"triangular_spikes.jl" = "4881e67ffb033da9b100c73bbb672105b121f3ef2b99e0f87876843ed92a3f4b"
+"triangular_indices.jl" = "b76e5d7792ec119220c273b02eca50d7c0332e969cbf814c85f20e0aaa6a465d"
