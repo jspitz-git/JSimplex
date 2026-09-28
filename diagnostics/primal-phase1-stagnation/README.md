@@ -2,7 +2,7 @@
 
 Base: `b29e10efc1bf1f0c02412a69edd13b80b4e9f9c1`.
 This investigation uses the saved PFI endpoint from the direction-price work.
-No production solver change has been made. The experimental intervention below
+This initial investigation made no production solver change. The experimental intervention below
 is diagnostic and is not a proposed convergence fix.
 
 ## Controlled starting point
@@ -137,7 +137,9 @@ attribute that surge to stale weights or a specific rejection cause.
 
 The follow-up [rejection-surge investigation](REJECTION-SURGE.md) identifies
 a finite-residual gate as the local cause and records why removing it globally
-was rejected after a fresh runtime regression. Production source remains unchanged.
+was rejected after a fresh runtime regression. That investigation left production source unchanged.
+The subsequent [equation-loss investigation](EQUATION-LOSS.md) locates the first
+inconsistent reconstructed point and documents a narrow preservation fix.
 
 ## Reproduction and limits
 

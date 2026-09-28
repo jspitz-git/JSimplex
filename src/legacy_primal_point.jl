@@ -20,6 +20,20 @@ function _legacy_primal_point_candidate(workspace::SimplexWorkspace{T}, entering
     return candidate
 end
 
+# Bound-feasible reconstructed values can still violate the equations. Probe
+# the full stored point, including nonbasic contributions, in its own precision.
+# This only triggers the existing certified fallback; an unavailable native
+# residual retains the previous behavior rather than escalating precision.
+function _legacy_primal_equation_violation(workspace::SimplexWorkspace{T}) where {T<:Union{Float32,Float64}}
+    columns = size(workspace.problem.A, 2)
+    scratch = _pivot_quality_buffers(workspace).column
+    quality = _compensated_solve_quality!(scratch, workspace.problem.A,
+        @view(workspace.primal[1:columns]), @view(workspace.primal[(columns + 1):end]),
+        workspace.progress.numerical_policy, false)
+    return !isnothing(quality) &&
+        (!quality.finite || quality.absolute_error > workspace.options.primal_tolerance)
+end
+
 _restore_legacy_primal_point!(workspace, ::Nothing, stop) = false
 
 function _restore_legacy_primal_point!(workspace::SimplexWorkspace{T},
@@ -27,7 +41,8 @@ function _restore_legacy_primal_point!(workspace::SimplexWorkspace{T},
     T === Float32 || T === Float64 || return false
     tolerance = workspace.options.primal_tolerance
     all(index -> isfinite(workspace.primal[index]), workspace.basis.basic_indices) &&
-        primal_infeasibility(workspace) <= tolerance && return false
+        primal_infeasibility(workspace) <= tolerance &&
+        !_legacy_primal_equation_violation(workspace) && return false
     stop() && return false
     computed = _pivot_quality_buffers(workspace).correction
     for (row, index) in enumerate(workspace.basis.basic_indices)

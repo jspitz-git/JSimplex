@@ -1,8 +1,9 @@
 # Rejection surge: finite residuals and a rejected fix
 
 Base: `46f9708248a315181a512165885b85e32bb3d6f0` on top of `b29e10e`.
-This follows the [bound-snap investigation](README.md). Production source and
-the project test entry point remain unchanged. Removing the weak-pivot probe's
+This follows the [bound-snap investigation](README.md). That investigation left production source and
+the project test entry point unchanged; see the subsequent
+[equation-loss investigation](EQUATION-LOSS.md) for the later point-preservation fix. Removing the weak-pivot probe's
 `quality.reliable` gate explains and removes the captured local rejection surge,
 but the unrestricted change regresses on a fresh runtime solve. It is retained
 only as a diagnostic intervention, not as a solver fix.

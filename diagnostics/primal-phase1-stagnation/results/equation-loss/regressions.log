@@ -1,0 +1,143 @@
+Checking numeric
+Test Summary:                    | Pass  Total  Time
+Numeric policy and tagged bounds |   18     18  0.0s
+Test Summary:                               | Pass  Total  Time
+Bound equality and hashed collection lookup |  345    345  0.0s
+Checking simplex_numerics
+Test Summary:                    | Pass  Total  Time
+Shared simplex numerical quality |   93     93  0.1s
+Test Summary:                  | Pass  Total  Time
+Numerical strategy propagation |   32     32  4.0s
+Checking native_residual_mode
+Test Summary:                                    | Pass  Total  Time
+Native residual bounds require gradual underflow |    7      7  0.0s
+Checking solver_policy_precision
+Test Summary:                                                    | Pass  Total  Time
+Public solve derives BigFloat policy from stored input precision |   57     57  0.2s
+Checking refactorization_failure
+Test Summary:                                       | Pass  Total  Time
+A failed fresh factorization earns no healthy cycle |    3      3  0.0s
+Test Summary:                                                 | Pass  Total  Time
+Rollback records its actual LU work without a completed pivot |    4      4  0.0s
+Checking legacy_dual_correction
+Test Summary:                                                         | Pass  Total  Time
+Legacy dual corrects mild updated solve errors before refactorization |   80     80  0.1s
+Test Summary:                                                              | Pass  Total  Time
+Native direction correction preserves a candidate when its pivot disagrees |    2      2  0.0s
+Checking legacy_dual_price_repair
+Test Summary:                                                  | Pass  Total  Time
+Legacy dual retains a basis after marginal working-price drift |  160    160  0.2s
+Test Summary:                                                          | Pass  Total  Time
+Marginal price repair cannot hide larger errors or ignore cancellation |   11     11  0.0s
+Test Summary:                                                 | Pass  Total  Time
+Working-cost repair preserves an original unbounded direction |    3      3  0.0s
+Test Summary:                                                            | Pass  Total  Time
+Price repair excludes adaptive perturbation policies and active journals |    6      6  0.0s
+Test Summary:                                                         | Pass  Total  Time
+Cancellation inside native price repair cannot start higher precision |    4      4  0.0s
+Test Summary:                                                   | Pass  Total  Time
+Native price repair is atomic and excludes original-cost phases |    7      7  0.0s
+Checking legacy_correction_cycle
+Test Summary:                                                   | Pass  Total  Time
+A corrected legacy cycle does not justify a longer update chain |   11     11  0.0s
+Test Summary:                                                    | Pass  Total  Time
+Legacy correction leaves explicit adaptive refactor policy alone |    2      2  0.0s
+Checking legacy_retry_edge
+Test Summary:                                                       | Pass  Total  Time
+Corrected dual repricing rejects overflow before changing the basis |    4      4  0.0s
+Test Summary:                                                    | Pass  Total  Time
+Legacy primal reconsiders stale rejections after a basis refresh |    6      6  0.0s
+Checking adaptive_pricing
+Test Summary:                       | Pass  Total  Time
+Automatic pricing public round trip |   18     18  0.0s
+Test Summary:                              | Pass  Total  Time
+Automatic weights recover before selection |   80     80  0.1s
+Test Summary:                                | Pass  Total  Time
+Selected weights reuse supplied basis solves |   36     36  0.1s
+Test Summary:                                           | Pass  Total  Time
+Pricing state is owned across staged and cancelled work |    7      7  0.0s
+Test Summary:                             | Pass  Total  Time
+Edge quality respects stored weight units |   58     58  0.0s
+Test Summary:                                     | Pass  Total  Time
+Pricing quality retains stored BigFloat precision |    3      3  0.0s
+Test Summary:                                             | Pass  Total  Time
+Automatic pricing requires cooldown and a valid framework |   32     32  0.0s
+Checking adaptive_pricing_integration
+Test Summary:                                          | Pass  Total  Time
+Pricing consumes stagnation and rebuilds its reference |   15     15  0.0s
+Test Summary:                                                   | Pass  Total  Time
+Corrupted selected weights recover inside the actual pivot path |   28     28  0.1s
+Test Summary:                                          | Pass  Total  Time
+Explicit pricing does not allocate automatic histories |   12     12  0.0s
+Test Summary:                                                 | Pass  Total  Time
+Cancelled checkpoint recovery does not publish pricing resets |    8      8  0.0s
+Test Summary:                                                 | Pass  Total  Time
+Exact weight validation does not overflow a fixed-width proof |    5      5  0.0s
+Test Summary:                                    | Pass  Total  Time
+Automatic dual scores keep extreme eligible rows |   10     10  0.0s
+Test Summary:                                                | Pass  Total  Time
+Refactorization retains basis-invariant steepest-edge caches |    8      8  0.0s
+Test Summary:                                           | Pass  Total  Time
+Automatic pricing reaches an independently known vertex |  110    110  0.6s
+Test Summary:                                           | Pass  Total  Time
+A stalled primal path uses and leaves temporary Dantzig |   36     36  0.9s
+Test Summary:                                  | Pass  Total  Time
+Automatic pricing shares step and stop budgets |    7      7  0.1s
+Checking simplex_start
+Test Summary:            | Pass  Total  Time
+Guarded crash interfaces |    2      2  0.0s
+Test Summary:                                              | Pass  Total  Time
+Crash produces an owned feasible structural diagonal basis |  360    360  1.0s
+Test Summary:                                       | Pass  Total  Time
+Crash chooses legal objective-aware nonbasic states |    7      7  0.0s
+Test Summary:                                   | Pass  Total  Time
+Crash guards dependent columns and zero columns |    5      5  0.0s
+Test Summary:                                               | Pass  Total  Time
+Crash consumes the existing clock and completed-step budget |   12     12  0.1s
+Checking simplex_start_guard
+Test Summary:                                     | Pass  Total  Time
+Crash fill rejection retains verified slack state |    6      6  0.0s
+Test Summary:                                                  | Pass  Total  Time
+Crash interruption retains completed work and latches the stop |   10     10  0.0s
+Test Summary:                              | Pass  Total  Time
+Crash observer failures retain their cause |    6      6  0.0s
+Test Summary:                                         | Pass  Total  Time
+Crash skips phase one only after measured feasibility |   22     22  0.1s
+Test Summary:                                                     | Pass  Total  Time
+Imported start rejects singular bases and illegal nonbasic bounds |    3      3  0.0s
+Test Summary:                                                     | Pass  Total  Time
+Crash preserves stored BigFloat precision below ambient precision |    4      4  0.0s
+Test Summary:                                                     | Pass  Total  Time
+Crash arithmetic overflow falls back without changing exact input |    5      5  0.0s
+Test Summary:                                               | Pass  Total  Time
+Crash drivers create the slack fallback at stored precision |    8      8  0.0s
+Checking simplex_phase_one
+Test Summary:               | Pass  Total  Time
+Modern phase-one interfaces |    3      3  0.0s
+Test Summary:                                        | Pass  Total  Time
+General-basis phase one appends signed basic columns |  110    110  0.1s
+Test Summary:                                            | Pass  Total  Time
+Phase one restores an original-dimension owned workspace |  520    520  2.5s
+Test Summary:                                           | Pass  Total  Time
+Zero basic artificials leave through verified exchanges |   12     12  0.1s
+Checking simplex_phase_one_state
+Test Summary:                                                | Pass  Total  Time
+Phase-one feasibility never accepts unrelated working bounds |    2      2  0.0s
+Test Summary:                                                   | Pass  Total  Time
+Phase one retires owned working bounds before extending a basis |    5      5  0.0s
+Test Summary:                                                     | Pass  Total  Time
+Artificial removal retires sparse row indices and pricing storage |   10     10  0.1s
+Checking triangular_selective_preparation
+Test Summary:                                                         | Pass  Total  Time
+Auxiliary FTRAN preserves direction values while omitting preparation |  109    109  0.1s
+Test Summary:                                                 | Pass  Total  Time
+Auxiliary overwrite invalidates rounded-equal prepared output |   28     28  0.0s
+Test Summary:                                           | Pass  Total  Time
+Legacy pipeline prepares only explicit entering columns |   13     13  0.0s
+Test Summary:                                        | Pass  Total  Time
+Legacy residual corrections do not prepare an update |    9      9  0.0s
+Test Summary:                                         | Pass  Total  Time
+Disabled hypersparsity preserves adaptive preparation |    3      3  0.0s
+Checking triangular_preparation_lifecycle
+Test Summary:                                                 | Pass  Total  Time
+Copy-free auxiliary solves retain the original cache lifetime |   96     96  0.1s
