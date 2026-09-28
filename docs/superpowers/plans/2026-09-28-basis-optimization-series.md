@@ -83,11 +83,15 @@ Interface: explicit legacy kernel selection independent of adaptive strategy;
 retain dense fallback for unsupported types, dense support and exceptional inputs.
 Finalize option naming after inspecting existing option validation and graph APIs.
 
-- [ ] Measure sparse graph construction and identify a reusable packed-factor
+- [x] Measure sparse graph construction and identify a reusable packed-factor
       traversal; do not enable a kernel that rebuilds all U after each exchange.
-- [ ] Add sparse/dense equivalence, graph invalidation and original LP certificate tests.
-- [ ] Implement opt-in BTRAN first, then FTRAN where total measured cost improves.
-- [ ] Measure own trajectories versus dense mode and PFI; commit with limitations.
+- [x] Add sparse/dense equivalence, graph invalidation and original LP certificate tests.
+- [x] Implement opt-in BTRAN first, then FTRAN where total measured cost improves.
+- [x] Measure own trajectories versus dense mode and PFI; commit with limitations.
+
+Task 4 disposition: completed as a tested diagnostic opt-in, not a new public
+option/default. Both hybrid variants regress runtime replay bundles; independent
+LP trajectory tests pass. See diagnostics/basis-legacy-hypersparse/README.md.
 
 ## 5. Direct LU updates
 
@@ -155,3 +159,13 @@ operations. If destination aliases spike scratch, copy the completed source to
 work before invoking the backend. Generic fallback retains existing operations.
 Use the sorted last diagonal entry when present, retaining lookup for malformed
 or missing diagonal columns. No separately maintained diagonal cache is needed.
+
+Task 4 detailed trial design: an explicitly loaded diagnostic backend wraps native
+Float64 LU with one lazily constructed immutable sparse view. Dense correction U
+and row operations remain unchanged. BTRAN-only and BTRAN+FTRAN are separate
+trials. Count input support before building the view, retain dense fallback for
+high density/nonfinite input, and catch only sparse arithmetic overflow. Include
+support conversion, graph construction, copying and fallback in total costs.
+Copies own traversal scratch; refactorization creates fresh backend/view state
+transactionally. No adaptive policy is changed. Public integration is conditional
+on whole-bundle and own-trajectory results; reject a slower trial with raw evidence.
