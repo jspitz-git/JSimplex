@@ -130,10 +130,14 @@ for every later plateau.
   It would need dedicated regressions and full original-LP validation before
   adoption, including artificial-variable and final-certificate behavior.
 
-The next diagnostic target is the rejection surge after roughly 1,140 steps of
+The initial next diagnostic target was the rejection surge after roughly 1,140 steps of
 the controlled intervention, including rejected candidates and retained pricing
 state. The current accepted-pivot trace and freshly rebuilt inspector cannot
 attribute that surge to stale weights or a specific rejection cause.
+
+The follow-up [rejection-surge investigation](REJECTION-SURGE.md) identifies
+a finite-residual gate as the local cause and records why removing it globally
+was rejected after a fresh runtime regression. Production source remains unchanged.
 
 ## Reproduction and limits
 
