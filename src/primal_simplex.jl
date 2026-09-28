@@ -597,7 +597,8 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
             !isempty(workspace.factorization.updates) &&
             abs(tableau_column[leaving_row]) <= eps(one(T)) * maximum(abs, tableau_column)
         if legacy_row && (unresolved_pivot || !_legacy_primal_pivot_row_ok!(
-                workspace, entering, leaving_row, tableau_column[leaving_row], stop_requested))
+                workspace, entering, leaving_row, tableau_column[leaving_row], stop_requested;
+                column=tableau_column))
             stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
             if !basis_refreshed && !isempty(workspace.factorization.updates)
                 candidate = _legacy_primal_point_candidate(
