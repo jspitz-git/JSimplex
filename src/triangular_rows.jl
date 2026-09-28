@@ -106,12 +106,17 @@ function _reset_dense_row_cache!(factor::ComposedRowFactorization, n::Int)
     cache.permuted = false
     empty!(cache.active_upper)
     cache.upper_dirty = false
+    cache.upper_dirty_from = n + 1
     _invalidate_prepared_spikes!(factor)
     return nothing
 end
 
-function _invalidate_dense_upper!(factor::ComposedRowFactorization)
-    factor.row_cache.upper_dirty = true
+function _invalidate_dense_upper!(factor::ComposedRowFactorization, first_column::Int=1)
+    cache = factor.row_cache
+    # Rotations and eliminations cannot affect the triangular prefix before the
+    # leaving column. Multiple pending mutations retain the earliest boundary.
+    cache.upper_dirty_from = cache.upper_dirty ? min(cache.upper_dirty_from, first_column) : first_column
+    cache.upper_dirty = true
     _invalidate_prepared_spikes!(factor)
     return nothing
 end
@@ -120,8 +125,9 @@ function _dense_upper_columns(factor::Union{ForrestTomlinFactorization{T},
         SuhlSuhlFactorization{T},BartelsGolubFactorization{T}}) where {T<:Union{Float32,Float64}}
     cache = factor.row_cache
     if cache.upper_dirty
-        empty!(cache.active_upper)
-        for index in eachindex(factor.upper)
+        first_column = cache.upper_dirty_from
+        resize!(cache.active_upper, searchsortedfirst(cache.active_upper, first_column) - 1)
+        for index in first_column:length(factor.upper)
             column = factor.upper[index]
             # Explicit off-diagonal zeros still participate in arithmetic.
             identity = length(column.indices) == 1 && column.indices[1] == index &&
@@ -129,6 +135,7 @@ function _dense_upper_columns(factor::Union{ForrestTomlinFactorization{T},
             identity || push!(cache.active_upper, index)
         end
         cache.upper_dirty = false
+        cache.upper_dirty_from = length(factor.upper) + 1
     end
     return cache.active_upper
 end

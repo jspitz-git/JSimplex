@@ -53,12 +53,12 @@ Interface: retain `_dense_upper_columns(factor)` sorted logical column output;
 retain `_triangular_row_columns!` incidence interface. Track the earliest changed
 column rather than rescanning a known unchanged prefix; clear only touched rows.
 
-- [ ] Add tests for rotated identity/nonidentity columns, disjoint touched tails,
+- [x] Add tests for rotated identity/nonidentity columns, disjoint touched tails,
       copied/refactorized factors and failed replacements.
-- [ ] Implement affected-region maintenance with conservative invalidation.
-- [ ] Validate exact replay outputs and compare total update/solve costs for all
+- [x] Implement affected-region maintenance with conservative invalidation.
+- [x] Validate exact replay outputs and compare total update/solve costs for all
       three managers, including early medium and runtime histories.
-- [ ] Record results and commit.
+- [x] Record results and commit.
 
 ## 3. Fused solve stages
 

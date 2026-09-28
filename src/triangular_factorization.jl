@@ -327,10 +327,12 @@ mutable struct TriangularRowCache{T<:Real}
     permuted::Bool
     active_upper::Vector{Int}
     upper_dirty::Bool
+    upper_dirty_from::Int
+    incidence_touched::Vector{Int}
     prepared::Union{Nothing,TriangularSpikeCache{T}}
 end
 TriangularRowCache(::Type{T}, n::Int) where {T<:Real} =
-    TriangularRowCache{T}(collect(1:n), Tuple{Int,Int,T}[], 0, false, Int[], true, nothing)
+    TriangularRowCache{T}(collect(1:n), Tuple{Int,Int,T}[], 0, false, Int[], true, 1, Int[], nothing)
 
 mutable struct ForrestTomlinFactorization{T<:Real,F} <: AbstractTriangularBasisFactorization{T}
     base::F
@@ -576,7 +578,7 @@ end
 
 _reset_dense_row_cache!(::AbstractTriangularBasisFactorization, ::Int) = nothing
 _dense_upper_columns(factor::AbstractTriangularBasisFactorization) = eachindex(factor.upper)
-_invalidate_dense_upper!(factor) = nothing
+_invalidate_dense_upper!(factor, first_column::Int=1) = nothing
 
 # Public FTRAN retains prepared-update reuse. Internal auxiliary solves can skip
 # its copies without changing the arithmetic or weakening output provenance.
@@ -803,7 +805,7 @@ function replace_column!(factor::SuhlSuhlFactorization{T},
                          zero_tolerance::Real=_is_exact(T) === Val(true) ? zero(T) :
                                               _positive_tolerance(T, 1 // 10^12)) where {T}
     position = _prepare_spike!(factor, tableau_column, pivot_row, zero_tolerance)
-    _invalidate_sparse_upper!(factor)
+    _invalidate_sparse_upper!(factor, position)
     n = length(factor.upper)
     last = n
     while iszero(factor.spike[last])
@@ -850,7 +852,7 @@ function replace_column!(factor::ForrestTomlinFactorization{T},
                          zero_tolerance::Real=_is_exact(T) === Val(true) ? zero(T) :
                                               _positive_tolerance(T, 1 // 10^12)) where {T}
     position = _prepare_spike!(factor, tableau_column, pivot_row, zero_tolerance)
-    _invalidate_sparse_upper!(factor)
+    _invalidate_sparse_upper!(factor, position)
     _rotate_columns!(factor, position)
     n = length(factor.upper)
     # Rotate the leaving row to the bottom. This leaves one row spike.
@@ -906,7 +908,7 @@ function replace_column!(factor::BartelsGolubFactorization{T},
                          zero_tolerance::Real=_is_exact(T) === Val(true) ? zero(T) :
                                               _positive_tolerance(T, 1 // 10^12)) where {T}
     position = _prepare_spike!(factor, tableau_column, pivot_row, zero_tolerance)
-    _invalidate_sparse_upper!(factor)
+    _invalidate_sparse_upper!(factor, position)
     _ensure_bartels_golub_incidence!(factor)
     _replace_bartels_golub_incidence_column!(factor, position)
     _rotate_columns!(factor, position)
@@ -983,21 +985,31 @@ function _triangular_row_columns!(factor::Union{ForrestTomlinFactorization,SuhlS
     while length(rows) < length(factor.upper)
         push!(rows, Int[])
     end
-    foreach(empty!, rows)
+    touched = factor.row_cache.incidence_touched
+    for row in touched
+        empty!(rows[row])
+    end
+    empty!(touched)
     for column_index in (first_row + 1):length(factor.upper)
         column = factor.upper[column_index]
         start = searchsortedfirst(column.indices, first_row)
         for index in start:length(column.indices)
             row = column.indices[index]
             row > last_row && break
-            row < column_index && push!(rows[row], column_index)
+            if row < column_index
+                isempty(rows[row]) && push!(touched, row)
+                push!(rows[row], column_index)
+            end
         end
     end
     return rows
 end
 
 function _reset_row_scratch!(factor::Union{ForrestTomlinFactorization,SuhlSuhlFactorization}, ::Int)
-    foreach(empty!, factor.row_columns)
+    for row in factor.row_cache.incidence_touched
+        empty!(factor.row_columns[row])
+    end
+    empty!(factor.row_cache.incidence_touched)
     return nothing
 end
 
