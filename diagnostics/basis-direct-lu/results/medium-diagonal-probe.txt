@@ -1,0 +1,7 @@
+n = 360982
+nnz(f.base.lower) = 360982
+length(JSimplex._dense_upper_columns(f)) = 360982
+count((i->begin
+            #= none:1 =#
+            JSimplex._upper_diagonal(f.upper[i], i) != 1.0
+        end), eachindex(f.upper)) = 360982

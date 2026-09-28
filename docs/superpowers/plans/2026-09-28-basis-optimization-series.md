@@ -169,3 +169,24 @@ support conversion, graph construction, copying and fallback in total costs.
 Copies own traversal scratch; refactorization creates fresh backend/view state
 transactionally. No adaptive policy is changed. Public integration is conditional
 on whole-bundle and own-trajectory results; reject a slower trial with raw evidence.
+
+Task 5 detailed design: for native `P*S*B*E = L*U`, initialize the existing packed
+upper factor from U, column order q from E, and a lower-only backend representing
+`B0 = inv(S)*transpose(P)*L`. FTRAN backend computes `inv(L)*P*S*rhs`; BTRAN backend
+computes `S*transpose(P)*inv(transpose(L))*rhs`. Verify whether public Rs is S or
+its reciprocal before use. L is unit lower triangular; traverse its CSC columns
+for forward substitution and reverse columns for transposed substitution. Upper
+and row-history update algorithms are unchanged and maintain `B=B0*inv(R)*U*Q'`.
+
+The explicitly loaded native Float64 diagnostic factory falls back to full native
+LU plus identity correction U when scaling interpretation is unavailable. Other
+precision/backend and adaptive options retain ordinary dispatch. Copies share
+only immutable L/permutation/scaling and own solve scratch; copied U/history
+follow existing ownership rules. Refactorization builds a complete candidate
+before swapping fields, including resized and failed cases. Sparse solve views
+for the new backend are unavailable rather than exposing an incorrect identity.
+Initial direct-U tests cover permutations/scaling, independent dense references,
+sequential exchanges, rejected pivots, aliased buffers, copies and refactorization.
+Then compare fixed histories (not expected bit-identical) and independent LPs.
+The combined UMFPACK solve's refinement is lost; residual/stability evidence is
+required before any public integration or default change.
