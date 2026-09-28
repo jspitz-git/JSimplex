@@ -1,0 +1,631 @@
+Test Summary:                                                             | Pass  Total  Time
+Legacy primal pivots preserve feasibility when a leaving bound is snapped |  192    192  0.3s
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:59
+  Expression: isnothing(terminal)
+   Evaluated: isnothing(JSimplex.DualTermination(NUMERICAL_ERROR, "primal ratio test is inconclusive"))
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:59 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:60
+  Expression: workspace.basis.basic_indices == [5, 2, 3]
+   Evaluated: [1, 2, 3] == [5, 2, 3]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:60 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:61
+  Expression: workspace.primal[5] ≈ -offset
+   Evaluated: 0.0f0 ≈ 7.0f-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:61 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:59
+  Expression: isnothing(terminal)
+   Evaluated: isnothing(JSimplex.DualTermination(NUMERICAL_ERROR, "primal ratio test is inconclusive"))
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:59 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:60
+  Expression: workspace.basis.basic_indices == [5, 2, 3]
+   Evaluated: [1, 2, 3] == [5, 2, 3]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:60 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:61
+  Expression: workspace.primal[5] ≈ -offset
+   Evaluated: 0.0f0 ≈ 7.0f-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:61 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:59
+  Expression: isnothing(terminal)
+   Evaluated: isnothing(JSimplex.DualTermination(NUMERICAL_ERROR, "primal ratio test is inconclusive"))
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:59 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:60
+  Expression: workspace.basis.basic_indices == [5, 2, 3]
+   Evaluated: [1, 2, 3] == [5, 2, 3]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:60 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:61
+  Expression: workspace.primal[5] ≈ -offset
+   Evaluated: 0.0f0 ≈ 7.0f-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:61 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:59
+  Expression: isnothing(terminal)
+   Evaluated: isnothing(JSimplex.DualTermination(NUMERICAL_ERROR, "primal ratio test is inconclusive"))
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:59 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:60
+  Expression: workspace.basis.basic_indices == [5, 2, 3]
+   Evaluated: [1, 2, 3] == [5, 2, 3]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:60 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:61
+  Expression: workspace.primal[5] ≈ -offset
+   Evaluated: 0.0f0 ≈ 7.0f-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:61 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:59
+  Expression: isnothing(terminal)
+   Evaluated: isnothing(JSimplex.DualTermination(NUMERICAL_ERROR, "primal ratio test is inconclusive"))
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:59 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:60
+  Expression: workspace.basis.basic_indices == [5, 2, 3]
+   Evaluated: [1, 2, 3] == [5, 2, 3]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:60 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:61
+  Expression: workspace.primal[5] ≈ -offset
+   Evaluated: 0.0f0 ≈ -7.0f-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:61 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:59
+  Expression: isnothing(terminal)
+   Evaluated: isnothing(JSimplex.DualTermination(NUMERICAL_ERROR, "primal ratio test is inconclusive"))
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:59 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:60
+  Expression: workspace.basis.basic_indices == [5, 2, 3]
+   Evaluated: [1, 2, 3] == [5, 2, 3]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:60 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:61
+  Expression: workspace.primal[5] ≈ -offset
+   Evaluated: 0.0f0 ≈ -7.0f-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:61 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:59
+  Expression: isnothing(terminal)
+   Evaluated: isnothing(JSimplex.DualTermination(NUMERICAL_ERROR, "primal ratio test is inconclusive"))
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:59 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:60
+  Expression: workspace.basis.basic_indices == [5, 2, 3]
+   Evaluated: [1, 2, 3] == [5, 2, 3]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:60 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:61
+  Expression: workspace.primal[5] ≈ -offset
+   Evaluated: 0.0f0 ≈ -7.0f-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:61 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:59
+  Expression: isnothing(terminal)
+   Evaluated: isnothing(JSimplex.DualTermination(NUMERICAL_ERROR, "primal ratio test is inconclusive"))
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:59 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:60
+  Expression: workspace.basis.basic_indices == [5, 2, 3]
+   Evaluated: [1, 2, 3] == [5, 2, 3]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:60 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:61
+  Expression: workspace.primal[5] ≈ -offset
+   Evaluated: 0.0f0 ≈ -7.0f-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:61 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:59
+  Expression: isnothing(terminal)
+   Evaluated: isnothing(JSimplex.DualTermination(NUMERICAL_ERROR, "primal ratio test is inconclusive"))
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:59 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:60
+  Expression: workspace.basis.basic_indices == [5, 2, 3]
+   Evaluated: [1, 2, 3] == [5, 2, 3]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:60 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:61
+  Expression: workspace.primal[5] ≈ -offset
+   Evaluated: 0.0 ≈ 7.0e-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:61 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:59
+  Expression: isnothing(terminal)
+   Evaluated: isnothing(JSimplex.DualTermination(NUMERICAL_ERROR, "primal ratio test is inconclusive"))
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:59 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:60
+  Expression: workspace.basis.basic_indices == [5, 2, 3]
+   Evaluated: [1, 2, 3] == [5, 2, 3]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:60 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:61
+  Expression: workspace.primal[5] ≈ -offset
+   Evaluated: 0.0 ≈ 7.0e-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:61 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:59
+  Expression: isnothing(terminal)
+   Evaluated: isnothing(JSimplex.DualTermination(NUMERICAL_ERROR, "primal ratio test is inconclusive"))
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:59 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:60
+  Expression: workspace.basis.basic_indices == [5, 2, 3]
+   Evaluated: [1, 2, 3] == [5, 2, 3]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:60 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:61
+  Expression: workspace.primal[5] ≈ -offset
+   Evaluated: 0.0 ≈ 7.0e-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:61 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:59
+  Expression: isnothing(terminal)
+   Evaluated: isnothing(JSimplex.DualTermination(NUMERICAL_ERROR, "primal ratio test is inconclusive"))
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:59 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:60
+  Expression: workspace.basis.basic_indices == [5, 2, 3]
+   Evaluated: [1, 2, 3] == [5, 2, 3]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:60 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:61
+  Expression: workspace.primal[5] ≈ -offset
+   Evaluated: 0.0 ≈ 7.0e-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:61 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:59
+  Expression: isnothing(terminal)
+   Evaluated: isnothing(JSimplex.DualTermination(NUMERICAL_ERROR, "primal ratio test is inconclusive"))
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:59 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:60
+  Expression: workspace.basis.basic_indices == [5, 2, 3]
+   Evaluated: [1, 2, 3] == [5, 2, 3]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:60 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:61
+  Expression: workspace.primal[5] ≈ -offset
+   Evaluated: 0.0 ≈ -7.0e-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:61 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:59
+  Expression: isnothing(terminal)
+   Evaluated: isnothing(JSimplex.DualTermination(NUMERICAL_ERROR, "primal ratio test is inconclusive"))
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:59 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:60
+  Expression: workspace.basis.basic_indices == [5, 2, 3]
+   Evaluated: [1, 2, 3] == [5, 2, 3]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/ERROR: LoadError: Some tests did not pass: 48 passed, 48 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:35
+primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:60 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:61
+  Expression: workspace.primal[5] ≈ -offset
+   Evaluated: 0.0 ≈ -7.0e-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:61 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:59
+  Expression: isnothing(terminal)
+   Evaluated: isnothing(JSimplex.DualTermination(NUMERICAL_ERROR, "primal ratio test is inconclusive"))
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:59 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:60
+  Expression: workspace.basis.basic_indices == [5, 2, 3]
+   Evaluated: [1, 2, 3] == [5, 2, 3]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:60 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:61
+  Expression: workspace.primal[5] ≈ -offset
+   Evaluated: 0.0 ≈ -7.0e-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:61 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:59
+  Expression: isnothing(terminal)
+   Evaluated: isnothing(JSimplex.DualTermination(NUMERICAL_ERROR, "primal ratio test is inconclusive"))
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:59 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:60
+  Expression: workspace.basis.basic_indices == [5, 2, 3]
+   Evaluated: [1, 2, 3] == [5, 2, 3]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:60 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:61
+  Expression: workspace.primal[5] ≈ -offset
+   Evaluated: 0.0 ≈ -7.0e-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/.worktrees/primal-runtime-stability/test/primal_bound_snap_tests.jl:61 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+Test Summary:                                                | Pass  Fail  Total  Time
+Bound snapping checks each tolerated violation independently |   48    48     96  0.2s
+RNG of the outermost testset: Random.Xoshiro(0x1a11178e75eca626, 0x99fc913c32dcf733, 0xfdf29c995366981b, 0x4e400f6e3c9e3d66, 0x0184464557d83210)

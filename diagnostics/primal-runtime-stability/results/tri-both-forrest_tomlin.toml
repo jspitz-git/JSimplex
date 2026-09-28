@@ -1,0 +1,76 @@
+time_limit = 300.0
+source_revision = "35d93473b8f0af356a0196795c47c1ca9290b905"
+snapshots = [".superpowers/primal-stability/tri-both-forrest_tomlin.toml.1.time_limit.bin"]
+backend = "native"
+trace_enabled = false
+last_step = 0.0
+blas_config = "LBTConfig([ILP64] libopenblas64_.so)"
+interval = 80
+phase_one_artificial_entries = 0
+source_path = "/home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/src/JSimplex.jl"
+julia_threads = 1
+input_sha256 = "d0ac16e1a52a7d3411cbac28616bba9d3beb0c0edbdb2d72ab0477ce075f6c68"
+package_version = "0.5.0"
+working_directory = "/home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability"
+refactorizations = 1288
+seconds = 300.015067451
+rounding_scale_pivots = 0
+package_git_revision = "unavailable"
+pricing = "steepest_edge"
+last_primal_infeasibility = 0.0
+last_working_objective = 605524.40373089
+architecture = "aarch64"
+blas_threads = 1
+active_project = "/home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/Project.toml"
+cpu_threads = 18
+zero_steps = 5609
+julia = "1.13.0"
+algorithm = "primal"
+strategy = "legacy"
+package_tree_hash = "unavailable"
+iterations = 6255
+manager = "forrest_tomlin"
+status = "TIME_LIMIT"
+message = "time limit reached"
+
+[kernel_seconds]
+pricing = 14.936156199
+refactorization = 5.176358414
+ftran = 8.911386403
+btran = 4.65447565
+
+[counts]
+refactor_residual = 856
+correction_attempt = 45
+checkpoint = 1
+correction = 39
+pricing_scanned_entries = 3231420732
+refactor_other = 1
+pivot_completed = 6255
+pivot_rejected = 44103
+pricing_full_scan = 51588
+pricing = 51588
+refactor_initial = 2
+refactor_pivot = 374
+pricing_scored_entries = 580032505
+refactor_limit = 57
+pivot_proposed = 51588
+phase_one = 1
+
+[[phases]]
+iteration = 0
+columns = 34186
+rows = 28453
+phase = "phase_one"
+
+[kernel_calls]
+pricing = 51588
+refactorization = 1288
+ftran = 60521
+btran = 46880
+
+[source_sha256]
+"primal_simplex.jl" = "de166a9b74f0438e70c4ddfd296d13d6365da600f3babfce7f13456e23dbd8d3"
+"simplex_numerics.jl" = "89984ed2d500ea6375aa520cb722f4aba430b810339e7830230926f51661e995"
+"legacy_primal_point.jl" = "0e6513e8415f20df738127608ac0dd344c0d1333057ddc82c42ed7b07fae695d"
+"legacy_primal_pivot.jl" = "dde642e0c5f15fcac4dad06d7a72e8e2e09cd253e3a8cf56d7ed7a26553f4043"

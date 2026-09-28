@@ -1,0 +1,77 @@
+time_limit = 300.0
+source_revision = "35d93473b8f0af356a0196795c47c1ca9290b905"
+snapshots = [".superpowers/primal-stability/tri-both-suhl_suhl.toml.1.time_limit.bin"]
+backend = "native"
+trace_enabled = false
+last_step = 3.4694468477789375e-17
+blas_config = "LBTConfig([ILP64] libopenblas64_.so)"
+interval = 80
+phase_one_artificial_entries = 0
+source_path = "/home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/src/JSimplex.jl"
+julia_threads = 1
+input_sha256 = "d0ac16e1a52a7d3411cbac28616bba9d3beb0c0edbdb2d72ab0477ce075f6c68"
+package_version = "0.5.0"
+working_directory = "/home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability"
+refactorizations = 10284
+seconds = 300.003178168
+rounding_scale_pivots = 0
+package_git_revision = "unavailable"
+pricing = "steepest_edge"
+last_primal_infeasibility = 0.0
+last_working_objective = 605524.4037449533
+architecture = "aarch64"
+blas_threads = 1
+active_project = "/home/jspitz/JSimplex.jl/.worktrees/primal-runtime-stability/Project.toml"
+cpu_threads = 18
+zero_steps = 3478
+julia = "1.13.0"
+algorithm = "primal"
+strategy = "legacy"
+package_tree_hash = "unavailable"
+iterations = 13675
+manager = "suhl_suhl"
+status = "TIME_LIMIT"
+message = "time limit reached"
+
+[kernel_seconds]
+pricing = 18.08709944
+refactorization = 24.888592523
+ftran = 13.867039307
+btran = 9.147940053
+
+[counts]
+refactor_residual = 10166
+primal_point_preserved = 11
+correction_attempt = 20445
+checkpoint = 1
+correction = 9888
+pricing_scanned_entries = 3214821397
+refactor_other = 1
+pivot_completed = 13675
+pivot_rejected = 27398
+pricing_full_scan = 51323
+pricing = 51323
+refactor_initial = 2
+refactor_pivot = 84
+pricing_scored_entries = 580569255
+refactor_limit = 33
+pivot_proposed = 51323
+phase_one = 1
+
+[[phases]]
+iteration = 0
+columns = 34186
+rows = 28453
+phase = "phase_one"
+
+[kernel_calls]
+pricing = 51323
+refactorization = 10284
+ftran = 90900
+btran = 95004
+
+[source_sha256]
+"primal_simplex.jl" = "de166a9b74f0438e70c4ddfd296d13d6365da600f3babfce7f13456e23dbd8d3"
+"simplex_numerics.jl" = "89984ed2d500ea6375aa520cb722f4aba430b810339e7830230926f51661e995"
+"legacy_primal_point.jl" = "0e6513e8415f20df738127608ac0dd344c0d1333057ddc82c42ed7b07fae695d"
+"legacy_primal_pivot.jl" = "dde642e0c5f15fcac4dad06d7a72e8e2e09cd253e3a8cf56d7ed7a26553f4043"

@@ -1,0 +1,28 @@
+prototype_sha256 = "ebe018cc933321470fc24aab03a69ef8fa620967a52acecf18168b8347beb7e4"
+input = "runtime.mps"
+interval = 80
+warmup = "afiro, same algorithm/manager/mode, refactorization interval 2"
+julia_threads = 1
+iteration_limit = 20000
+pricing = "steepest_edge"
+blas_threads = 1
+mode = "correction"
+strategy = "legacy"
+iterations = 14439
+manager = "pfi"
+time_limit = 180.0
+backend = "native"
+input_sha256 = "d0ac16e1a52a7d3411cbac28616bba9d3beb0c0edbdb2d72ab0477ce075f6c68"
+refactorizations = 1042
+seconds = 180.048090902
+architecture = "aarch64"
+julia = "1.13.0"
+algorithm = "primal"
+status = "TIME_LIMIT"
+message = "time limit reached"
+
+[source_sha256]
+"triangular_factorization.jl" = "e1bfdd2c8425ba7cac2e9990a06b3f6b52f3dbd4d50be2dccf77a208c98d74ae"
+"triangular_rows.jl" = "d1901a62ac5529dad761292d64b271f280193270a0a3b443cf1bdefaa7399de2"
+"triangular_spikes.jl" = "4881e67ffb033da9b100c73bbb672105b121f3ef2b99e0f87876843ed92a3f4b"
+"triangular_indices.jl" = "b76e5d7792ec119220c273b02eca50d7c0332e969cbf814c85f20e0aaa6a465d"

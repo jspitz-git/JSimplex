@@ -1,0 +1,17 @@
+Independent read-only review of 8c694d0..35d9347
+
+No concrete production correctness defect found. The native weak-pivot guard is
+properly gated; correction, live tableau and pricing storage are separate.
+Auxiliary solves follow the existing preparation-cache lifecycle. Adaptive and
+generic arithmetic do not enter the new guard. Per-bound snap feasibility agrees
+with the legacy feasibility contract.
+
+Low-severity deferred finding: dedicated NaN/Inf correction fault-injection
+coverage is missing. Cancellation is covered and nonfinite output is explicitly
+rejected in the implementation. The plan was corrected to avoid claiming this
+specific runtime test had been run.
+
+Full runtime convergence, performance and corpus compatibility were not judged
+by the reviewer because execution was pending. No full-runtime success can be
+inferred from the local or captured-state checks. The reviewer ran no Julia jobs
+and did not independently reproduce assertion counts.
