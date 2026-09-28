@@ -68,12 +68,12 @@ Interface: existing public solve signatures and buffer ownership remain intact.
 Fuse row permutations with the next solve stage or hand off existing scratch
 buffers. Evaluate diagonal-position caching separately from buffer fusion.
 
-- [ ] Pin aliased input, factor scratch, empty/identity factors, exceptional values
+- [x] Pin aliased input, factor scratch, empty/identity factors, exceptional values
       and Float32/generic solve behavior against independent matrix solutions.
-- [ ] Implement buffer handoff and permutation fusion, preserving arithmetic order
+- [x] Implement buffer handoff and permutation fusion, preserving arithmetic order
       where practical; reject extra metadata if maintenance outweighs solve savings.
-- [ ] Run focused/project tests, paired histories and independent external solves.
-- [ ] Record each accepted/rejected optimization and commit accepted changes.
+- [x] Run focused/project tests, paired histories and independent external solves.
+- [x] Record each accepted/rejected optimization and commit accepted changes.
 
 ## 4. Legacy hypersparse kernel
 
@@ -146,3 +146,12 @@ the existing UMFPACK scale-mode check. Native Float64 is the first prototype;
 unsupported backend/type combinations retain the existing correction-factor
 implementation. Losing native combined-LU solve refinement and starting from a
 potentially dense upper factor are explicit stability/performance risks to test.
+
+Task 3 detailed design: keep the compiled elimination order, but gather from its
+physical coordinates directly into upper-solve coordinates. Save prepared spikes
+in logical coordinates before solving, then scatter once into basis order. BTRAN
+composes stable-upper and compiled-row maps in one gather before reverse row
+operations. If destination aliases spike scratch, copy the completed source to
+work before invoking the backend. Generic fallback retains existing operations.
+Use the sorted last diagonal entry when present, retaining lookup for malformed
+or missing diagonal columns. No separately maintained diagonal cache is needed.

@@ -528,11 +528,16 @@ function _apply_transposed_row_update!(vector::Vector, update::BartelsGolubUpdat
     return vector
 end
 
+@inline function _upper_diagonal(column, index)
+    rows = column.indices
+    return !isempty(rows) && rows[end] == index ? column.values[end] : _upper_value(column, index)
+end
+
 function _upper_backsolve!(vector::Vector{T}, upper::Vector{<:PackedUpperColumn{T}},
                            columns=eachindex(upper)) where {T}
     for column_index in Iterators.reverse(columns)
         column = upper[column_index]
-        value = vector[column_index] / _upper_value(column, column_index)
+        value = vector[column_index] / _upper_diagonal(column, column_index)
         vector[column_index] = value
         # Packed rows and paired values are owned by the factor; callers
         # validate vector dimensions before entering this coefficient loop.
@@ -557,7 +562,7 @@ function _upper_transpose_solve!(vector::Vector{T}, upper::Vector{<:PackedUpperC
             row == column_index && continue
             value -= column.values[index] * vector[row]
         end
-        vector[column_index] = value / _upper_value(column, column_index)
+        vector[column_index] = value / _upper_diagonal(column, column_index)
     end
     return vector
 end
@@ -591,17 +596,7 @@ _ordinary_forward_solve!(destination::Vector{T}, factor::AbstractTriangularBasis
                          rhs::AbstractVector) where {T} =
     _triangular_forward_solve!(destination, factor, rhs, false)
 
-function _triangular_forward_solve!(destination::Vector{T},
-                        factor::AbstractTriangularBasisFactorization{T},
-                        rhs::StridedVector{T}, prepare_update::Bool) where {T}
-    destination === factor.work && throw(ArgumentError(
-        "destination must not alias the factorization work storage",
-    ))
-    n = _check_triangular_dimensions(factor, destination, rhs)
-    source = destination === rhs ? copyto!(factor.work, rhs) : rhs
-    _invalidate_prepared_destination!(factor, destination)
-    prepared = prepare_update ? _begin_prepared_spike!(factor, destination) : nothing
-    _backend_forward_solve!(destination, factor.base, source)
+function _finish_triangular_forward!(destination, factor, prepared, n)
     _apply_dense_row_updates!(destination, factor)
     _save_prepared_spike!(prepared, destination)
     order = _upper_order(factor.upper)
@@ -618,6 +613,21 @@ function _triangular_forward_solve!(destination::Vector{T},
             destination[factor.column_order[column]] = factor.work[order.order[column]]
         end
     end
+    return destination
+end
+
+function _triangular_forward_solve!(destination::Vector{T},
+                        factor::AbstractTriangularBasisFactorization{T},
+                        rhs::StridedVector{T}, prepare_update::Bool) where {T}
+    destination === factor.work && throw(ArgumentError(
+        "destination must not alias the factorization work storage",
+    ))
+    n = _check_triangular_dimensions(factor, destination, rhs)
+    source = destination === rhs ? copyto!(factor.work, rhs) : rhs
+    _invalidate_prepared_destination!(factor, destination)
+    prepared = prepare_update ? _begin_prepared_spike!(factor, destination) : nothing
+    _backend_forward_solve!(destination, factor.base, source)
+    _finish_triangular_forward!(destination, factor, prepared, n)
     _finish_prepared_spike!(prepared, destination)
     return destination
 end
@@ -635,6 +645,17 @@ end
 
 function forward_solve(factor::AbstractTriangularBasisFactorization{T}, rhs::AbstractVector) where {T}
     return forward_solve!(Vector{T}(undef, length(rhs)), factor, rhs)
+end
+
+function _finish_triangular_transpose!(destination, factor, order)
+    if !isnothing(order)
+        for row in eachindex(destination)
+            destination[row] = factor.work[order.order[row]]
+        end
+        copyto!(factor.work, destination)
+    end
+    _apply_dense_transposed_row_updates!(factor.work, factor)
+    return _backend_transpose_solve!(destination, factor.base, factor.work)
 end
 
 function transpose_solve!(destination::Vector{T},
@@ -658,13 +679,9 @@ function transpose_solve!(destination::Vector{T},
         end
         _stable_upper_transpose_solve!(factor.work, factor.upper,
                                       _dense_upper_columns(factor), order)
-        for row in 1:n
-            destination[row] = factor.work[order.order[row]]
-        end
-        copyto!(factor.work, destination)
     end
-    _apply_dense_transposed_row_updates!(factor.work, factor)
-    return _backend_transpose_solve!(destination, factor.base, factor.work)
+    return _finish_triangular_transpose!(destination, factor, order)
+
 end
 
 function transpose_solve(factor::AbstractTriangularBasisFactorization{T}, rhs::AbstractVector) where {T}
@@ -774,7 +791,7 @@ function _eliminate_triangular_row_spike!(
     indices, multipliers = _take_triangular_update_buffers!(factor)
     for column_index in position:(last - 1)
         column = factor.upper[column_index]
-        multiplier = -(spike[column_index] / _upper_value(column, column_index))
+        multiplier = -(spike[column_index] / _upper_diagonal(column, column_index))
         iszero(multiplier) && continue
         push!(indices, column_index)
         push!(multipliers, multiplier)

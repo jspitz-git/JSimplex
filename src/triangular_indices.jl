@@ -84,10 +84,14 @@ function _stable_upper_backsolve!(work::Vector{T}, source::Vector{T}, upper,
     for row in eachindex(source)
         work[order.order[row]] = source[row]
     end
+    return _stable_upper_backsolve_physical!(work, upper, columns, order)
+end
+
+function _stable_upper_backsolve_physical!(work, upper, columns, order)
     for column_index in Iterators.reverse(columns)
         column = upper[column_index]
         diagonal = order.order[column_index]
-        value = work[diagonal] / _upper_value(column, column_index)
+        value = work[diagonal] / _upper_diagonal(column, column_index)
         work[diagonal] = value
         ids = column.indices.ids
         @inbounds for slot in eachindex(ids)
@@ -111,7 +115,7 @@ function _stable_upper_transpose_solve!(work::Vector{T}, upper,
             row == diagonal && continue
             value -= column.values[slot] * work[row]
         end
-        work[diagonal] = value / _upper_value(column, column_index)
+        work[diagonal] = value / _upper_diagonal(column, column_index)
     end
     return work
 end

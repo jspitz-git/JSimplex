@@ -92,3 +92,12 @@ function _invalidate_prepared_destination!(factor::AbstractTriangularBasisFactor
     end
     return nothing
 end
+
+_save_prepared_spike!(::Nothing, source, order) = nothing
+function _save_prepared_spike!(entry::PreparedTriangularSpike, source, order)
+    resize!(entry.spike, length(source))
+    for row in eachindex(source)
+        entry.spike[row] = source[order.order[row]]
+    end
+    return nothing
+end

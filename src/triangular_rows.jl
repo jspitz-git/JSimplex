@@ -139,3 +139,54 @@ function _dense_upper_columns(factor::Union{ForrestTomlinFactorization{T},
     end
     return cache.active_upper
 end
+
+# Hand off vectors between solve stages without materializing intermediate
+# logical permutations. The two coordinate maps need not agree on copied BG.
+function _finish_triangular_forward!(destination, factor::ComposedRowFactorization, prepared, n)
+    cache = _sync_triangular_rows!(factor)
+    operation = _row_operation(factor)
+    for (target, source, multiplier) in cache.operations
+        _compiled_row_operation!(destination, target, source, multiplier, operation)
+    end
+    order = _upper_order(factor.upper)
+    if isnothing(order)
+        for row in 1:n
+            factor.work[row] = destination[cache.order[row]]
+        end
+        _save_prepared_spike!(prepared, factor.work)
+        _upper_backsolve!(factor.work, factor.upper, _dense_upper_columns(factor))
+        for column in 1:n
+            destination[factor.column_order[column]] = factor.work[column]
+        end
+    else
+        for row in 1:n
+            factor.work[order.order[row]] = destination[cache.order[row]]
+        end
+        _save_prepared_spike!(prepared, factor.work, order)
+        _stable_upper_backsolve_physical!(factor.work, factor.upper,
+                                         _dense_upper_columns(factor), order)
+        for column in 1:n
+            destination[factor.column_order[column]] = factor.work[order.order[column]]
+        end
+    end
+    return destination
+end
+
+function _finish_triangular_transpose!(destination, factor::ComposedRowFactorization, order)
+    cache = _sync_triangular_rows!(factor)
+    if isnothing(order) && !cache.permuted
+        source = factor.work
+    else
+        for row in eachindex(cache.order)
+            factor.spike[cache.order[row]] = factor.work[isnothing(order) ? row : order.order[row]]
+        end
+        source = factor.spike
+    end
+    operation = _row_operation(factor)
+    for (target, origin, multiplier) in Iterators.reverse(cache.operations)
+        _compiled_row_operation!(source, origin, target, multiplier, operation)
+    end
+    # Public callers may use spike as output; backend input must remain separate.
+    destination === source && (source = copyto!(factor.work, source))
+    return _backend_transpose_solve!(destination, factor.base, source)
+end

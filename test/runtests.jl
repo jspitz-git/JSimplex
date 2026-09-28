@@ -335,3 +335,5 @@ include("legacy_primal_relative_pivot_tests.jl")
     include("moi/result_tests.jl")
     include("moi/conformance_tests.jl")
 end
+
+include("triangular_fused_solve_tests.jl")
