@@ -1,5 +1,9 @@
 # Rejection surge: finite residuals and a rejected fix
 
+The results and decisions below describe the recorded historical revision. See
+[the native pivot-probe follow-up](NATIVE-PIVOT-PROBE.md) for the later core fix,
+its certified runtime runs, and the remaining bound-snap obstruction.
+
 Base: `46f9708248a315181a512165885b85e32bb3d6f0` on top of `b29e10e`.
 This follows the [bound-snap investigation](README.md). That investigation left production source and
 the project test entry point unchanged; see the subsequent

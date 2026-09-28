@@ -1,8 +1,12 @@
 # First equation-feasibility loss on the residual-probe trajectory
 
+The results and decisions below describe the recorded historical revision. See
+[the native pivot-probe follow-up](NATIVE-PIVOT-PROBE.md) for the later core fix,
+its certified runtime runs, and the remaining bound-snap obstruction.
+
 This follows [the rejected finite-residual experiment](REJECTION-SURGE.md).
 The starting revision is `a4bac56b629d0c1de77f45e490137c8f5c6169b9`.
-The residual-gate relaxation remains a process-only diagnostic intervention.
+At that stage, the residual-gate relaxation remained a process-only diagnostic intervention.
 
 ## First failing point
 

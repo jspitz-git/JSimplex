@@ -1,5 +1,9 @@
 # Phase-I stagnation: bound snapping and candidate geometry
 
+The results and decisions below describe the recorded historical revision. See
+[the native pivot-probe follow-up](NATIVE-PIVOT-PROBE.md) for the later core fix,
+its certified runtime runs, and the remaining bound-snap obstruction.
+
 Base: `b29e10efc1bf1f0c02412a69edd13b80b4e9f9c1`.
 This investigation uses the saved PFI endpoint from the direction-price work.
 This initial investigation made no production solver change. The experimental intervention below

@@ -82,7 +82,10 @@ function _legacy_primal_direction_pivot_ok!(workspace::SimplexWorkspace{T}, ente
     B = _basis_matrix!(workspace)
     quality = _compensated_solve_quality!(buffers.column, B, column, rhs,
                                           workspace.progress.numerical_policy, false)
-    (isnothing(quality) || !quality.finite || !quality.reliable) && return false
+    # Reliability describes the input direction, not the residual's usability.
+    # Tiny homogeneous rows can have relative error one from harmless roundoff.
+    # Let the native correction test the selected pivot before rejecting it.
+    (isnothing(quality) || !quality.finite) && return false
     _simplex_event!(workspace, :correction_attempt)
     try
         _timed_simplex(workspace, :ftran) do
