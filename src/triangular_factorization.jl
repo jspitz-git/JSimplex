@@ -740,6 +740,52 @@ function _recycle_triangular_updates!(factor::AbstractTriangularBasisFactorizati
     return nothing
 end
 
+# Only the moved row changes during FT/SS elimination. Keep it in dense scratch
+# instead of repeatedly searching, inserting and deleting its packed entries.
+# Row rotation has populated factor.spike and removed the eliminated entries.
+# The pivot rows remain unchanged, so their incidence can be indexed once.
+function _eliminate_triangular_row_spike!(
+    factor::Union{ForrestTomlinFactorization{T},SuhlSuhlFactorization{T}},
+    position::Int, last::Int, stored_entries::Int,
+) where {T}
+    n = length(factor.upper)
+    position == last && return _take_triangular_update_buffers!(factor)
+    spike, touched = factor.spike, factor.work
+    empty_value, marker = zero(T), one(T)
+    for column_index in last:n
+        touched[column_index] = empty_value
+    end
+    use_row_index = last - position >= 16 && stored_entries ÷ n <= (last - position) ÷ 4
+    row_index_ready = false
+    indices, multipliers = _take_triangular_update_buffers!(factor)
+    for column_index in position:(last - 1)
+        column = factor.upper[column_index]
+        multiplier = -(spike[column_index] / _upper_value(column, column_index))
+        iszero(multiplier) && continue
+        push!(indices, column_index)
+        push!(multipliers, multiplier)
+        if use_row_index && !row_index_ready
+            _triangular_row_columns!(factor, column_index, last - 1)
+            row_index_ready = true
+        end
+        trailing_columns = use_row_index ? factor.row_columns[column_index] : (column_index + 1):n
+        for trailing in trailing_columns
+            value = _upper_value(factor.upper[trailing], column_index)
+            iszero(value) && continue
+            updated = spike[trailing] + multiplier * value
+            # Packed updates remove exact zeros; subsequent lookups return +0.
+            spike[trailing] = iszero(updated) ? empty_value : updated
+            trailing >= last && (touched[trailing] = marker)
+        end
+    end
+    for column_index in last:n
+        # Preserve untouched stored zeros as well as ordinary coefficients.
+        iszero(touched[column_index]) && continue
+        _set_upper_value!(factor.upper[column_index], last, spike[column_index])
+    end
+    return indices, multipliers
+end
+
 function replace_column!(factor::SuhlSuhlFactorization{T},
                          tableau_column::AbstractVector, pivot_row::Integer;
                          zero_tolerance::Real=_is_exact(T) === Val(true) ? zero(T) :
@@ -753,10 +799,23 @@ function replace_column!(factor::SuhlSuhlFactorization{T},
     end
     _rotate_columns!(factor, position, last)
 
+    # The replacement is already triangular: there is no row rotation and no
+    # elimination. Avoid visiting every other column just to restore its entry.
+    if position == last
+        indices, multipliers = _take_triangular_update_buffers!(factor)
+        push!(factor.updates, SuhlSuhlUpdate{T}(position, last, indices, multipliers))
+        return factor
+    end
+
     # Move the leaving row only as far as the spike reaches. Columns beyond
     # that point stay in place, but their entry in the moved row may change.
     stored_entries = 0
-    for column in factor.upper
+    for (column_index, column) in enumerate(factor.upper)
+        # The unchanged prefix is triangular and cannot contain the moved row.
+        if column_index < position
+            stored_entries += length(column.indices)
+            continue
+        end
         slot, old = _upper_entry(column, position)
         iszero(old) || _set_upper_value_at!(column, position, zero(T), slot)
         start = searchsortedfirst(column.indices, position + 1)
@@ -764,34 +823,12 @@ function replace_column!(factor::SuhlSuhlFactorization{T},
             column.indices[index] > last && break
             column.indices[index] -= 1
         end
-        iszero(old) || _set_upper_value!(column, last, old)
+        factor.spike[column_index] = iszero(old) ? zero(T) : old
+        column_index >= last && !iszero(old) && _set_upper_value!(column, last, old)
         stored_entries += length(column.indices)
     end
 
-    use_row_index = last - position >= 16 && stored_entries ÷ n <= (last - position) ÷ 4
-    row_index_ready = false
-    indices, multipliers = _take_triangular_update_buffers!(factor)
-    for column_index in position:(last - 1)
-        column = factor.upper[column_index]
-        slot, old = _upper_entry(column, last)
-        multiplier = -(old / _upper_value(column, column_index))
-        _set_upper_value_at!(column, last, zero(T), slot)
-        iszero(multiplier) && continue
-        push!(indices, column_index)
-        push!(multipliers, multiplier)
-        if use_row_index && !row_index_ready
-            _triangular_row_columns!(factor, column_index, last - 1)
-            row_index_ready = true
-        end
-        trailing_columns = use_row_index ? factor.row_columns[column_index] : (column_index + 1):n
-        for trailing in trailing_columns
-            trailing_column = factor.upper[trailing]
-            value = _upper_value(trailing_column, column_index)
-            iszero(value) && continue
-            slot, old = _upper_entry(trailing_column, last)
-            _set_upper_value_at!(trailing_column, last, old + multiplier * value, slot)
-        end
-    end
+    indices, multipliers = _eliminate_triangular_row_spike!(factor, position, last, stored_entries)
     push!(factor.updates, SuhlSuhlUpdate{T}(position, last, indices, multipliers))
     return factor
 end
@@ -806,7 +843,13 @@ function replace_column!(factor::ForrestTomlinFactorization{T},
     n = length(factor.upper)
     # Rotate the leaving row to the bottom. This leaves one row spike.
     stored_entries = 0
-    for column in factor.upper
+    first_spike = n
+    for (column_index, column) in enumerate(factor.upper)
+        # The unchanged prefix is triangular and cannot contain the moved row.
+        if column_index < position
+            stored_entries += length(column.indices)
+            continue
+        end
         start = searchsortedfirst(column.indices, position)
         has_pivot = start <= length(column.indices) && column.indices[start] == position
         old = has_pivot ? column.values[start] : zero(T)
@@ -817,36 +860,31 @@ function replace_column!(factor::ForrestTomlinFactorization{T},
         for index in start:length(column.indices)
             column.indices[index] -= 1
         end
-        if has_pivot
+        # A pure row permutation needs no dense scratch writes. Start storing
+        # at the first nonzero that actually needs elimination; all earlier
+        # multipliers are zero and the helper never reads that prefix.
+        if first_spike == n
+            if !iszero(old)
+                first_spike = column_index
+            elseif column_index < n
+                diagonal = _upper_value(column, column_index)
+                # Keep the previous zero/zero and zero/NaN behavior for an
+                # invalid upper factor rather than hiding a numerical failure.
+                if iszero(diagonal) || !isfinite(diagonal)
+                    first_spike = column_index
+                end
+            end
+        end
+        if column_index >= first_spike
+            factor.spike[column_index] = old
+        end
+        if has_pivot && column_index >= n
             push!(column.indices, n)
             push!(column.values, old)
         end
         stored_entries += length(column.indices)
     end
-    use_row_index = n - position >= 16 && stored_entries ÷ n <= (n - position) ÷ 4
-    row_index_ready = false
-    indices, multipliers = _take_triangular_update_buffers!(factor)
-    for column_index in position:(n - 1)
-        column = factor.upper[column_index]
-        slot, old = _upper_entry(column, n)
-        multiplier = -(old / _upper_value(column, column_index))
-        _set_upper_value_at!(column, n, zero(T), slot)
-        iszero(multiplier) && continue
-        push!(indices, column_index)
-        push!(multipliers, multiplier)
-        if use_row_index && !row_index_ready
-            _triangular_row_columns!(factor, column_index, n - 1)
-            row_index_ready = true
-        end
-        trailing_columns = use_row_index ? factor.row_columns[column_index] : (column_index + 1):n
-        for trailing in trailing_columns
-            trailing_column = factor.upper[trailing]
-            value = _upper_value(trailing_column, column_index)
-            iszero(value) && continue
-            slot, old = _upper_entry(trailing_column, n)
-            _set_upper_value_at!(trailing_column, n, old + multiplier * value, slot)
-        end
-    end
+    indices, multipliers = _eliminate_triangular_row_spike!(factor, first_spike, n, stored_entries)
     push!(factor.updates, ForrestTomlinUpdate{T}(position, indices, multipliers))
     return factor
 end
@@ -934,7 +972,7 @@ function _triangular_row_columns!(factor::Union{ForrestTomlinFactorization,SuhlS
         push!(rows, Int[])
     end
     foreach(empty!, rows)
-    for column_index in eachindex(factor.upper)
+    for column_index in (first_row + 1):length(factor.upper)
         column = factor.upper[column_index]
         start = searchsortedfirst(column.indices, first_row)
         for index in start:length(column.indices)

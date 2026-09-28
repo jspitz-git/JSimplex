@@ -1,0 +1,23 @@
+	Command being timed: "timeout --signal=TERM --kill-after=10s 1500s .superpowers/overhead/julia-runtime.sh --project=. -e include("diagnostics/ft-numerical-recovery/reproduce/capture-failure.jl"); Base.invokelatest(main,ARGS); report=TOML.parsefile(ARGS[5]); @assert report["status"]=="OPTIMAL"; @assert report["original_primal_certified"]; @assert isapprox(report["objective"],51425691.76210457;rtol=1e-8); println("FINAL_RUNTIME_CHECKS_PASSED") /home/jspitz/mps/runtime.mps dual forrest_tomlin 1200 .superpowers/overhead/runtime-isolated.toml"
+	User time (seconds): 402.39
+	System time (seconds): 6.81
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 6:49.52
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 7159844
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 2450250
+	Voluntary context switches: 4178
+	Involuntary context switches: 3013
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 47256
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

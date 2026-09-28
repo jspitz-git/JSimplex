@@ -1,0 +1,24 @@
+Incomplete diagnostic attempt; not an optimal solve result.
+The external corpus had completed all 125 assertions before this run.
+Process virtual-memory limit: 8 GiB. Julia and BLAS threads: 1.
+The old successful diagnostic run recorded 8,439,754,752 bytes peak RSS
+under a 24 GiB virtual-memory limit. No production change followed this abort.
+
+PROGRESS iter=60000 pinf=28311.216394575604 dinf=0.0 refs=750
+EVENT correction_attempt count=4700 iter=60325 row=11209 entering=47929 pinf=1.7331810801224723e6 dinf=0.0
+EVENT phase_cleanup count=1 iter=61746 row=0 entering=0 pinf=0.0 dinf=1.6798093554383856e6
+EVENT phase_primal count=1 iter=61746 row=0 entering=0 pinf=0.0 dinf=1.6798093554383856e6
+LLVM ERROR: out of memory
+Allocation failed
+
+[10] signal 6 (-6): Aborted
+in expression starting at none:0
+unknown function (ip: 0xf610512ae0fc) at /usr/lib/aarch64-linux-gnu/libc.so.6
+gsignal at /usr/lib/aarch64-linux-gnu/libc.so.6 (unknown line)
+abort at /usr/lib/aarch64-linux-gnu/libc.so.6 (unknown line)
+_ZN4llvm22report_bad_alloc_errorEPKcb at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+_ZN4llvm15SmallVectorBaseIjE13mallocForGrowEPvmmRm at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+unknown function (ip: 0xf610504bb143) at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libjulia-codegen.so.1.13
+unknown function (ip: 0xf6105051cb03) at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libjulia-codegen.so.1.13
+unknown function (ip: 0xf61050526be3) at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libjulia-codegen.so.1.13
+unknown function (ip: 0xf61050527093) at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libjulia-codegen.so.1.13
