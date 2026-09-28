@@ -13,16 +13,43 @@ _basis_factorization(B, ::Val{:bartels_golub}, refactorization::Val) =
 _basis_factorization(B, ::Val{:suhl_suhl}, refactorization::Val) =
     SuhlSuhlFactorization(B, refactorization)
 
-struct PackedUpperColumn{T<:Real}
-    indices::Vector{Int}
+include("triangular_indices.jl")
+
+struct PackedUpperColumn{T<:Real,I<:AbstractVector{Int}}
+    indices::I
     values::Vector{T}
+end
+
+PackedUpperColumn{T}(indices::I, values::Vector{T}) where {T<:Real,I<:AbstractVector{Int}} =
+    PackedUpperColumn{T,I}(indices, values)
+
+# Plain columns retain their original storage. All stable columns in one BG
+# factor share an owned map; copied factors rebase into an independent map.
+_upper_order(::Vector{PackedUpperColumn{T,Vector{Int}}}) where {T} = nothing
+_upper_order(upper::Vector{PackedUpperColumn{T,UpperRowIndices}}) where {T} =
+    isempty(upper) ? nothing : upper[1].indices.order
+
+function _identity_upper(::Type{T}, n::Int, ::Val{:stable}) where {T<:Real}
+    order = UpperRowOrder(n)
+    return [PackedUpperColumn{T}(UpperRowIndices(Int[index], order), T[one(T)])
+            for index in 1:n]
+end
+
+function _copy_upper(upper::Vector{PackedUpperColumn{T,Vector{Int}}}) where {T}
+    return [PackedUpperColumn(copy(c.indices), copy(c.values)) for c in upper]
+end
+
+function _copy_upper(upper::Vector{PackedUpperColumn{T,UpperRowIndices}}) where {T}
+    order = UpperRowOrder(length(upper))
+    return [PackedUpperColumn{T}(UpperRowIndices(copy(c.indices), order), copy(c.values))
+            for c in upper]
 end
 
 function _identity_upper(::Type{T}, n::Int) where {T<:Real}
     return [PackedUpperColumn{T}(Int[index], T[one(T)]) for index in 1:n]
 end
 
-function _reset_identity_upper!(upper::Vector{PackedUpperColumn{T}}, n::Int) where {T}
+function _reset_identity_upper!(upper::Vector{PackedUpperColumn{T,Vector{Int}}}, n::Int) where {T}
     old_length = length(upper)
     resize!(upper, n)
     for index in 1:n
@@ -36,6 +63,39 @@ function _reset_identity_upper!(upper::Vector{PackedUpperColumn{T}}, n::Int) whe
             column.values[1] = one(T)
         else
             upper[index] = PackedUpperColumn{T}(Int[index], T[one(T)])
+        end
+    end
+    return upper
+end
+
+function _reset_identity_upper!(upper::Vector{PackedUpperColumn{T,UpperRowIndices}}, n::Int) where {T}
+    old_length = length(upper)
+    order = old_length > 0 ? upper[1].indices.order : nothing
+    if isnothing(order)
+        order = UpperRowOrder(n)
+    else
+        resize!(order.order, n)
+        resize!(order.positions, n)
+        for row in 1:n
+            order.order[row] = order.positions[row] = row
+        end
+    end
+    resize!(upper, n)
+    for index in 1:n
+        if index <= old_length
+            # Columns own their arrays, including in copied factorizations.
+            # Retain their capacity for subsequent updates after the reset.
+            column = upper[index]
+            if column.indices.order !== order
+                column = PackedUpperColumn{T}(UpperRowIndices(column.indices.ids, order), column.values)
+                upper[index] = column
+            end
+            resize!(column.indices, 1)
+            resize!(column.values, 1)
+            column.indices[1] = index
+            column.values[1] = one(T)
+        else
+            upper[index] = PackedUpperColumn{T}(UpperRowIndices(Int[index], order), T[one(T)])
         end
     end
     return upper
@@ -113,7 +173,7 @@ function _set_upper_value_at!(column::PackedUpperColumn{T}, row::Int, value::T,
 end
 
 function _rebuild_row_columns!(columns_by_row::Vector{Vector{Int}},
-                               upper::Vector{PackedUpperColumn{T}}) where {T}
+                               upper::Vector{<:PackedUpperColumn{T}}) where {T}
     for columns in columns_by_row
         empty!(columns)
     end
@@ -125,7 +185,7 @@ function _rebuild_row_columns!(columns_by_row::Vector{Vector{Int}},
     return columns_by_row
 end
 
-function _set_upper_value!(upper::Vector{PackedUpperColumn{T}},
+function _set_upper_value!(upper::Vector{<:PackedUpperColumn{T}},
                            columns_by_row::Vector{Vector{Int}},
                            column_index::Int, row::Int, value::T) where {T}
     column = upper[column_index]
@@ -133,7 +193,7 @@ function _set_upper_value!(upper::Vector{PackedUpperColumn{T}},
     return _set_upper_value_at!(upper, columns_by_row, column_index, row, value, position)
 end
 
-function _set_upper_value_at!(upper::Vector{PackedUpperColumn{T}},
+function _set_upper_value_at!(upper::Vector{<:PackedUpperColumn{T}},
                               columns_by_row::Vector{Vector{Int}},
                               column_index::Int, row::Int, value::T, position::Int,
                               column_id::Int=column_index) where {T}
@@ -152,7 +212,7 @@ function _set_upper_value_at!(upper::Vector{PackedUpperColumn{T}},
     return nothing
 end
 
-function _swap_upper_rows!(upper::Vector{PackedUpperColumn{T}},
+function _swap_upper_rows!(upper::Vector{<:PackedUpperColumn{T}},
                            columns_by_row::Vector{Vector{Int}},
                            affected::Vector{Int}, row::Int,
                            positions=eachindex(upper)) where {T}
@@ -178,18 +238,33 @@ function _swap_upper_rows!(upper::Vector{PackedUpperColumn{T}},
         end
     end
 
-    for column_index in affected
-        column = upper[positions[column_index]]
-        position = searchsortedfirst(column.indices, row)
-        if position <= length(column.indices) && column.indices[position] == row
-            if position < length(column.indices) && column.indices[position + 1] == row + 1
-                column.values[position], column.values[position + 1] =
-                    column.values[position + 1], column.values[position]
-            else
-                column.indices[position] = row + 1
+    order = _upper_order(upper)
+    if !isnothing(order)
+        for column_index in affected
+            column = upper[positions[column_index]]
+            slot = searchsortedfirst(column.indices, row)
+            if slot < length(column.indices) && column.indices[slot] == row &&
+               column.indices[slot + 1] == row + 1
+                ids, values = column.indices.ids, column.values
+                ids[slot], ids[slot + 1] = ids[slot + 1], ids[slot]
+                values[slot], values[slot + 1] = values[slot + 1], values[slot]
             end
-        else
-            column.indices[position] = row
+        end
+        _rotate_upper_order!(order, row, row + 1)
+    else
+        for column_index in affected
+            column = upper[positions[column_index]]
+            position = searchsortedfirst(column.indices, row)
+            if position <= length(column.indices) && column.indices[position] == row
+                if position < length(column.indices) && column.indices[position + 1] == row + 1
+                    column.values[position], column.values[position + 1] =
+                        column.values[position + 1], column.values[position]
+                else
+                    column.indices[position] = row + 1
+                end
+            else
+                column.indices[position] = row
+            end
         end
     end
     columns_by_row[row], columns_by_row[row + 1] = bottom_columns, top_columns
@@ -259,7 +334,7 @@ TriangularRowCache(::Type{T}, n::Int) where {T<:Real} =
 
 mutable struct ForrestTomlinFactorization{T<:Real,F} <: AbstractTriangularBasisFactorization{T}
     base::F
-    upper::Vector{PackedUpperColumn{T}}
+    upper::Vector{PackedUpperColumn{T,Vector{Int}}}
     column_order::Vector{Int}
     positions::Vector{Int}
     updates::Vector{ForrestTomlinUpdate{T}}
@@ -275,7 +350,7 @@ end
 
 mutable struct SuhlSuhlFactorization{T<:Real,F} <: AbstractTriangularBasisFactorization{T}
     base::F
-    upper::Vector{PackedUpperColumn{T}}
+    upper::Vector{PackedUpperColumn{T,Vector{Int}}}
     column_order::Vector{Int}
     positions::Vector{Int}
     updates::Vector{SuhlSuhlUpdate{T}}
@@ -291,7 +366,7 @@ end
 
 mutable struct BartelsGolubFactorization{T<:Real,F} <: AbstractTriangularBasisFactorization{T}
     base::F
-    upper::Vector{PackedUpperColumn{T}}
+    upper::Vector{PackedUpperColumn{T,UpperRowIndices}}
     column_order::Vector{Int}
     positions::Vector{Int}
     updates::Vector{BartelsGolubUpdate{T}}
@@ -343,7 +418,7 @@ function BartelsGolubFactorization(B::AbstractMatrix{T}, ::Val{R}) where {T<:Rea
     base = _factorize_basis(B, Val(R))
     n = _backend_dimension(base)
     return BartelsGolubFactorization{T,typeof(base)}(
-        base, _identity_upper(T, n), collect(1:n), collect(1:n),
+        base, _identity_upper(T, n, Val(:stable)), collect(1:n), collect(1:n),
         BartelsGolubUpdate{T}[], zeros(T, n), zeros(T, n),
         [Int[] for _ in 1:n], Int[],
         BartelsGolubUpdate{T}[], 0, nothing, TriangularRowCache(T, n), false,
@@ -451,7 +526,7 @@ function _apply_transposed_row_update!(vector::Vector, update::BartelsGolubUpdat
     return vector
 end
 
-function _upper_backsolve!(vector::Vector{T}, upper::Vector{PackedUpperColumn{T}},
+function _upper_backsolve!(vector::Vector{T}, upper::Vector{<:PackedUpperColumn{T}},
                            columns=eachindex(upper)) where {T}
     for column_index in Iterators.reverse(columns)
         column = upper[column_index]
@@ -468,7 +543,7 @@ function _upper_backsolve!(vector::Vector{T}, upper::Vector{PackedUpperColumn{T}
     return vector
 end
 
-function _upper_transpose_solve!(vector::Vector{T}, upper::Vector{PackedUpperColumn{T}},
+function _upper_transpose_solve!(vector::Vector{T}, upper::Vector{<:PackedUpperColumn{T}},
                                  columns=eachindex(upper)) where {T}
     for column_index in columns
         column = upper[column_index]
@@ -515,11 +590,20 @@ function forward_solve!(destination::Vector{T},
     _backend_forward_solve!(destination, factor.base, source)
     _apply_dense_row_updates!(destination, factor)
     _save_prepared_spike!(prepared, destination)
-    _upper_backsolve!(destination, factor.upper, _dense_upper_columns(factor))
-    for column in 1:n
-        factor.work[factor.column_order[column]] = destination[column]
+    order = _upper_order(factor.upper)
+    if isnothing(order)
+        _upper_backsolve!(destination, factor.upper, _dense_upper_columns(factor))
+        for column in 1:n
+            factor.work[factor.column_order[column]] = destination[column]
+        end
+        copyto!(destination, factor.work)
+    else
+        _stable_upper_backsolve!(factor.work, destination, factor.upper,
+                                 _dense_upper_columns(factor), order)
+        for column in 1:n
+            destination[factor.column_order[column]] = factor.work[order.order[column]]
+        end
     end
-    copyto!(destination, factor.work)
     _finish_prepared_spike!(prepared, destination)
     return destination
 end
@@ -548,10 +632,23 @@ function transpose_solve!(destination::Vector{T},
     n = _check_triangular_dimensions(factor, destination, rhs)
     _invalidate_prepared_destination!(factor, destination)
     source = rhs === factor.work ? copyto!(factor.spike, rhs) : rhs
-    for column in 1:n
-        factor.work[column] = convert(T, source[factor.column_order[column]])
+    order = _upper_order(factor.upper)
+    if isnothing(order)
+        for column in 1:n
+            factor.work[column] = convert(T, source[factor.column_order[column]])
+        end
+        _upper_transpose_solve!(factor.work, factor.upper, _dense_upper_columns(factor))
+    else
+        for column in 1:n
+            factor.work[order.order[column]] = convert(T, source[factor.column_order[column]])
+        end
+        _stable_upper_transpose_solve!(factor.work, factor.upper,
+                                      _dense_upper_columns(factor), order)
+        for row in 1:n
+            destination[row] = factor.work[order.order[row]]
+        end
+        copyto!(factor.work, destination)
     end
-    _upper_transpose_solve!(factor.work, factor.upper, _dense_upper_columns(factor))
     _apply_dense_transposed_row_updates!(factor.work, factor)
     return _backend_transpose_solve!(destination, factor.base, factor.work)
 end
@@ -893,8 +990,7 @@ end
 function copy_basis_factorization(factor::ForrestTomlinFactorization{T,F}) where {T,F}
     factor.shared_update_count = length(factor.updates)
     return ForrestTomlinFactorization{T,F}(
-        _copy_backend(factor.base), [PackedUpperColumn(copy(column.indices), copy(column.values))
-                      for column in factor.upper],
+        _copy_backend(factor.base), _copy_upper(factor.upper),
         copy(factor.column_order), copy(factor.positions),
         copy(factor.updates), similar(factor.work), similar(factor.spike), Vector{Int}[],
         ForrestTomlinUpdate{T}[], factor.shared_update_count, _copy_sparse_basis_cache(factor.sparse),
@@ -905,8 +1001,7 @@ end
 function copy_basis_factorization(factor::SuhlSuhlFactorization{T,F}) where {T,F}
     factor.shared_update_count = length(factor.updates)
     return SuhlSuhlFactorization{T,F}(
-        _copy_backend(factor.base), [PackedUpperColumn(copy(column.indices), copy(column.values))
-                      for column in factor.upper],
+        _copy_backend(factor.base), _copy_upper(factor.upper),
         copy(factor.column_order), copy(factor.positions),
         copy(factor.updates), similar(factor.work), similar(factor.spike), Vector{Int}[],
         SuhlSuhlUpdate{T}[], factor.shared_update_count, _copy_sparse_basis_cache(factor.sparse),
@@ -917,8 +1012,7 @@ end
 function copy_basis_factorization(factor::BartelsGolubFactorization{T,F}) where {T,F}
     factor.shared_update_count = length(factor.updates)
     return BartelsGolubFactorization{T,F}(
-        _copy_backend(factor.base), [PackedUpperColumn(copy(column.indices), copy(column.values))
-                      for column in factor.upper],
+        _copy_backend(factor.base), _copy_upper(factor.upper),
         copy(factor.column_order), copy(factor.positions),
         copy(factor.updates), similar(factor.work), similar(factor.spike),
         [Int[] for _ in eachindex(factor.row_columns)], Int[],
