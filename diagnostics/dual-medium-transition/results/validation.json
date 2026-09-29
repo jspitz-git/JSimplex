@@ -1,0 +1,21 @@
+{
+  "base_revision": "570e9eeba212b6f577b0e67aec1d349d73938b8e",
+  "input_sha256": "79c374a584b1463305cf4b0faee8920d0364df2dd5d0468a44ab58d9e9d49dc0",
+  "snapshot_sha256": {
+    "pfi-baseline.iteration_35040.bin": "d0237094be033232559c0b0e5cfdd6257443c1a4bebc455aea61eb3fe06b235c",
+    "pfi-baseline.auxiliary_before_handoff.bin": "3ef9600ec83aa467e73091807fb1617b4278abffa3bef17ebe70bd39ca1a27c5",
+    "pfi-baseline.original_bounds_first_pricing.bin": "d8b789ce07dc56b11defaf3d6e784ab94e46481fe8541900397598b4240f9e72",
+    "pfi-baseline.original_bounds_after_2000.bin": "7c9f67fb3e0652013fb500d91d98c05f0934ff8aee204a9a037c223c77f11b65"
+  },
+  "diagnostic_sha256": {
+    "inspect-and-continue.jl": "1be5ca7b54e5340d93f1640e850fcade1a3051794565a0f200d12cf960385a4b",
+    "capture.jl": "30701523bbe9a615baba0f313a071e9fcf810643bed810b1ba1c8b4b4051c99f",
+    "trace-tail.jl": "f1382070516a00dcc0a524ee02831565597294b0d8cf0faea027d85b8e8eec0f",
+    "reconstruct-handoff.jl": "eec5477a970fe7f89ec52a73aaad2e124191143f1e32487e9184d622a9ef0777"
+  },
+  "executed_capture_sha256": "40e94ec94d986e126cb53de9088ad615143ff8f0cec10a3d1d7d1a164a6348e8",
+  "raw_capture_report_sha256": "722af99bb78136a9b6670363932dc80f29f81d621c4bad7a411a396c67688126",
+  "capture_normalization": "Removed duplicate primal_max and dual_max capture fields; they contained the sum-based solver measures, not maxima. True maxima are computed separately in the inspection reports. Omitted TRACE lines from the plain log; observer records remain in pfi-baseline.json.",
+  "longest_zero_dual_step_streak_in_tail": 5,
+  "no_production_solver_changes": true
+}
