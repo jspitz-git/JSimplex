@@ -473,7 +473,8 @@ function _legacy_primal_reject_candidate!(workspace::SimplexWorkspace{T}, enteri
         candidate = _legacy_primal_point_candidate(workspace, 0, 0, zero(T), column)
         recompute!(workspace; refactorize=true, caller_guard=stop_requested,
                    diagnostic_reason=reason)
-        _restore_legacy_primal_point!(workspace, candidate, stop_requested)
+        recovery = _finish_legacy_primal_point!(workspace, candidate, stop_requested)
+        isnothing(recovery) || return recovery
         stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
         _finite_workspace(workspace) || return _numerical_failure()
         primal_infeasibility(workspace) <= workspace.options.primal_tolerance ||
@@ -609,7 +610,8 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
                     workspace, 0, 0, zero(T), tableau_column)
                 recompute!(workspace; refactorize=true, caller_guard=stop_requested,
                            diagnostic_reason=:refactor_pivot)
-                _restore_legacy_primal_point!(workspace, candidate, stop_requested)
+                recovery = _finish_legacy_primal_point!(workspace, candidate, stop_requested)
+                isnothing(recovery) || return recovery
                 stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
                 _finite_workspace(workspace) || return _numerical_failure()
                 primal_infeasibility(workspace) <= workspace.options.primal_tolerance ||
@@ -690,8 +692,7 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
         workspace, entering, leaving_row, direction * step, tableau_column)
     recompute!(workspace; refactorize, caller_guard=stop_requested,
                diagnostic_reason=_refactor_event(refactor_reason))
-    _restore_legacy_primal_point!(workspace, primal_candidate, stop_requested)
-    return nothing
+    return _finish_legacy_primal_point!(workspace, primal_candidate, stop_requested)
 end
 
 function _primal_optimize!(workspace::SimplexWorkspace{T}, stop_requested,

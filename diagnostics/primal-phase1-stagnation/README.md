@@ -3,6 +3,8 @@
 The results and decisions below describe the recorded historical revision. See
 [the native pivot-probe follow-up](NATIVE-PIVOT-PROBE.md) for the later core fix,
 its certified runtime runs, and the remaining bound-snap obstruction.
+The [point-recovery follow-up](POINT-RECOVERY.md) addresses a subsequently found
+error path when both reconstruction and predicted-point preservation fail.
 
 Base: `b29e10efc1bf1f0c02412a69edd13b80b4e9f9c1`.
 This investigation uses the saved PFI endpoint from the direction-price work.

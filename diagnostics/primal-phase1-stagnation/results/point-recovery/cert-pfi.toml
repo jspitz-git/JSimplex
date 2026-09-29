@@ -1,0 +1,62 @@
+all_pricing_points_certified = true
+source_revision = "33922c7cda384a3b970942a855913c2ac7103d5e"
+julia_threads = 1
+blas_threads = 1
+iterations = 12154
+manager = "pfi"
+last_checked_iteration = 12153
+time_limit = 300.0
+script_sha256 = "385eef851b17b40038b7424ef17964ec05d4479e0ff1f421e01bebb2be5aa8b3"
+checks = 46112
+input_sha256 = "d0ac16e1a52a7d3411cbac28616bba9d3beb0c0edbdb2d72ab0477ce075f6c68"
+refactorizations = 1266
+seconds = 300.000702155
+last_working_objective = 605519.5025306537
+architecture = "aarch64"
+julia = "1.13.0"
+certificate_seconds = 124.32550360399823
+terminal_point_certified = true
+status = "TIME_LIMIT"
+message = "time limit reached during primal point recovery"
+
+[counts]
+refactor_residual = 241
+primal_point_preserved = 300
+correction_attempt = 3660
+checkpoint = 1
+correction = 2428
+pricing_scanned_entries = 2888409568
+refactor_other = 1
+pivot_completed = 12154
+pivot_rejected = 32815
+pricing_full_scan = 46112
+pricing = 46112
+refactor_initial = 2
+refactor_pivot = 902
+pricing_scored_entries = 521100839
+refactor_limit = 122
+pivot_proposed = 46112
+phase_one = 1
+
+[[phase_starts]]
+iteration = 0
+columns = 34186
+rows = 28453
+phase = "phase_one"
+
+[terminal_certificate]
+row_consistent = true
+phase_primal = true
+max_bound_violation = 9.923975477223495e-8
+finite = true
+
+[last_certificate]
+row_consistent = true
+phase_primal = true
+max_bound_violation = 9.923975477223495e-8
+finite = true
+
+[source_sha256]
+"primal_simplex.jl" = "bdee62dab1ef4acf5c209f4b892ce6b9b06b2f640ceefff54079d77d27f21949"
+"legacy_primal_point.jl" = "9072a3214c761d234a3cc1587bfcacbd2be324de316aaeecc788bfb1d920fc44"
+"legacy_primal_pivot.jl" = "95d30d8955c5b1e121a40aee4011c3d917747cd32356f39106cd45c78266d432"

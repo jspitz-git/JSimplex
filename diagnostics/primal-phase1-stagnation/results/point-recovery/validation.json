@@ -1,0 +1,69 @@
+{
+  "base_revision": "33922c7cda384a3b970942a855913c2ac7103d5e",
+  "source_sha256": {
+    "src/legacy_primal_point.jl": "9072a3214c761d234a3cc1587bfcacbd2be324de316aaeecc788bfb1d920fc44",
+    "src/primal_simplex.jl": "bdee62dab1ef4acf5c209f4b892ce6b9b06b2f640ceefff54079d77d27f21949",
+    "src/simplex_diagnostics.jl": "e6c37d0f68457a7ed6bab575bfd81281f3399425feb543955bb8a93735b0d269",
+    "test/legacy_primal_point_recovery_tests.jl": "567e7b0bea80f07ea80fc73fbaae0b5d353683cc2a96e0e490be071f79c1802d",
+    "diagnostics/primal-phase1-stagnation/reproduce/focused-core.jl": "fd087791957d3a0e9cfa7b4ec533b96d07b95deae2dc1efa543cfccdbfcd1748"
+  },
+  "assertions": {
+    "focused": 2122,
+    "semantic": 2698,
+    "native_residual": 125,
+    "external": 245,
+    "total_without_repeated_new_tests": 5190,
+    "normal_compilation_run": 485
+  },
+  "allocation_test_note": "An initial compile=min invocation incorrectly included allocation tests (4 failures). The normal-compilation run passes all 125 native residual assertions; the separate semantic run passes 4820 assertions.",
+  "runtime": [
+    {
+      "manager": "pfi",
+      "iterations": 12154,
+      "refactorizations": 1266,
+      "checks": 46112,
+      "status": "TIME_LIMIT",
+      "objective": 605519.5025306537,
+      "rejections": 32815,
+      "point_corrections": 0,
+      "terminal_point_certified": true,
+      "snapshot_sha256": "a99f249b39355124bfce65ec5741740d8df1524a5a72270b3b8560be69b718a5"
+    },
+    {
+      "manager": "forrest_tomlin",
+      "iterations": 6505,
+      "refactorizations": 1664,
+      "checks": 48922,
+      "status": "TIME_LIMIT",
+      "objective": 605524.4037304183,
+      "rejections": 40808,
+      "point_corrections": 0,
+      "terminal_point_certified": true,
+      "snapshot_sha256": "6bd17d4c325dd8907ebb2be2c2750a5c0f69836918d0d749d7325f660def6b65"
+    },
+    {
+      "manager": "suhl_suhl",
+      "iterations": 6544,
+      "refactorizations": 901,
+      "checks": 41524,
+      "status": "TIME_LIMIT",
+      "objective": 605524.4037491891,
+      "rejections": 34137,
+      "point_corrections": 0,
+      "terminal_point_certified": true,
+      "snapshot_sha256": "f6f692da48f7a3622569c92b2e157f646c93df18ecf97dda53a6dae95945baa7"
+    },
+    {
+      "manager": "bartels_golub",
+      "iterations": 5286,
+      "refactorizations": 1600,
+      "checks": 54970,
+      "status": "TIME_LIMIT",
+      "objective": 605524.4037554335,
+      "rejections": 48125,
+      "point_corrections": 0,
+      "terminal_point_certified": true,
+      "snapshot_sha256": "d7ba5abb9dad447333515351bdfed648c6c53533549cc6693203e0018dc2205c"
+    }
+  ]
+}
