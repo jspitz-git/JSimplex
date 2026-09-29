@@ -1,0 +1,95 @@
+ERROR: Some tests did not pass: 213 passed, 6 failed, 0 errored, 0 broken.
+
+Wide bound flips save pricing scans without changing the optimum: Test Failed at /home/jspitz/JSimplex.jl/test/partial_pricing_integration_tests.jl:98
+  Expression: JSimplex.event_count(diagnostics, :pricing_pool_hit) > 100
+   Evaluated: 0 > 100
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/partial_pricing_integration_tests.jl:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/partial_pricing_integration_tests.jl:98 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Wide bound flips save pricing scans without changing the optimum: Test Failed at /home/jspitz/JSimplex.jl/test/partial_pricing_integration_tests.jl:99
+  Expression: JSimplex.event_count(diagnostics, :pricing_scanned_entries) < 2000
+   Evaluated: 16834 < 2000
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/partial_pricing_integration_tests.jl:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/partial_pricing_integration_tests.jl:99 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Cancelled pivot and recovery preserve live candidate state: Test Failed at /home/jspitz/JSimplex.jl/test/partial_pricing_edge_tests.jl:34
+  Expression: ws.iterations == 0
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/partial_pricing_edge_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/partial_pricing_edge_tests.jl:34 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Cancelled pivot and recovery preserve live candidate state: Test Failed at /home/jspitz/JSimplex.jl/test/partial_pricing_edge_tests.jl:35
+  Expression: pool.indices == indices && (pool.scan_position == cursor && pool.passes == passes)
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/partial_pricing_edge_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/partial_pricing_edge_tests.jl:35 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Cancelled pivot and recovery preserve live candidate state: Test Failed at /home/jspitz/JSimplex.jl/test/partial_pricing_edge_tests.jl:40
+  Expression: pool.indices == indices && (pool.scan_position == cursor && pool.passes == passes)
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/partial_pricing_edge_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/partial_pricing_edge_tests.jl:40 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Cancelled pivot and recovery preserve live candidate state: Test Failed at /home/jspitz/JSimplex.jl/test/partial_pricing_edge_tests.jl:46
+  Expression: JSimplex.select_pricing_candidate!(ws, pool, policy) == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/partial_pricing_edge_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/partial_pricing_edge_tests.jl:46 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+Test Summary:                                                               | Pass  Fail  Total   Time
+Baseline partial pricing                                                    |  213     6    219  38.9s
+  Partial pricing cannot certify an exhausted first block                   |   30           30   0.3s
+  Current scores, validity, and deterministic full scans                    |   16           16   0.0s
+  An absent cached candidate requires a complete current scan               |    5            5   0.0s
+  Partial pricing is adaptive and keeps small domains on full scans         |    7            7   0.0s
+  Workspace pools retain owned indices and invalidate changed costs         |   14           14   0.0s
+  Both solver selection paths use partial pricing only when enabled         |   14           14   0.1s
+  Last-block candidates and full current terminal scans reach the loops     |   16           16  33.2s
+  Dual working-cost shifts invalidate cached candidates                     |    4            4   0.0s
+  Wide bound flips save pricing scans without changing the optimum          |    9     2     11   3.1s
+  Wide coupled LP retains its independent original optimum                  |   60           60   1.6s
+  Cancelled pivot and recovery preserve live candidate state                |    8     4     12   0.1s
+  Actual perturbation and restoration invalidate pool cost generations      |    8            8   0.0s
+  Partial pricing shares the completed-step limit                           |    2            2   0.1s
+  Partial dual pricing retains extreme eligible scores and recovers weights |   16           16   0.1s
+  Generated wide pricing calibration has the intended MPS model             |    4            4   0.1s
+RNG of the outermost testset: Random.Xoshiro(0x7b4bbf3c60fc73bc, 0x6e21a1ecfc977b46, 0xd038d8ffa89f2a4d, 0x7500fc442d7ea883, 0x09d3c7dee05554a4)

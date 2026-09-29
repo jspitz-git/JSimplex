@@ -527,14 +527,19 @@ sparse_price!(out::IndexedVector{T},ws::SimplexWorkspace{T},rho::IndexedVector{T
 function _csc_price!(tableau_row::Vector{T}, A::SparseMatrixCSC{T,Int},
                      rho::Vector{T})::Nothing where {T}
     row_count, column_count = size(A)
-    for column in 1:column_count
+    # Valid CSC storage supplies row indices in 1:row_count. Check vector
+    # sizes once without changing the scalar accumulation order.
+    length(rho) >= row_count || throw(DimensionMismatch("pricing multiplier dimensions"))
+    length(tableau_row) >= column_count + row_count ||
+        throw(DimensionMismatch("pricing output dimensions"))
+    @inbounds for column in 1:column_count
         value = zero(T)
         for position in A.colptr[column]:(A.colptr[column + 1] - 1)
             value += rho[A.rowval[position]] * A.nzval[position]
         end
         tableau_row[column] = value
     end
-    for row in 1:row_count
+    @inbounds for row in 1:row_count
         tableau_row[column_count + row] = -rho[row]
     end
     return nothing

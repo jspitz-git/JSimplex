@@ -1,0 +1,66 @@
+source = "/home/jspitz/.codex/worktrees/primal-phase1-stagnation/JSimplex.jl/src/JSimplex.jl"
+iteration_limit = 1000000
+production_sha256 = "9cf8219fe4676c51171ad19733c0662fbd13696b472bdc14dfd1e5793a7d9bc5"
+time_limit = 120.0
+threads = 1
+warmup_mode = "full"
+input = "/home/jspitz/mps/fast0507.mps"
+algorithm = "primal"
+strategy = "legacy"
+policy_mode = "default"
+source_sha256 = "5d27d3474d016e827c360a5c621a802edd5d5c8c163b7f782bb5ecf3083d0275"
+harness_sha256 = "330ff5d3edca7675b5f5c45a88d685b5503b24c71b4f6da76e120f029b52d964"
+
+[[samples]]
+process_peak_rss = 0x7eaef000
+gc_seconds = 0.259568302
+outer_seconds = 15.03758304
+objective = 172.14556667654887
+refactorizations = 63
+seconds = 15.03755184
+compile_seconds = 0.0
+allocated_bytes = 863463320
+original_primal_certified = true
+iterations = 4923
+status = "OPTIMAL"
+message = "optimal solution found"
+[[samples]]
+process_peak_rss = 0x833c0000
+gc_seconds = 0.240140302
+outer_seconds = 14.973748573
+objective = 172.14556667654887
+refactorizations = 63
+seconds = 14.973723673
+compile_seconds = 0.0
+allocated_bytes = 863440104
+original_primal_certified = true
+iterations = 4923
+status = "OPTIMAL"
+message = "optimal solution found"
+[[samples]]
+process_peak_rss = 0x833c0000
+gc_seconds = 0.218209702
+outer_seconds = 15.175312901
+objective = 172.14556667654887
+refactorizations = 63
+seconds = 15.175284501
+compile_seconds = 0.0
+allocated_bytes = 863475000
+original_primal_certified = true
+iterations = 4923
+status = "OPTIMAL"
+message = "optimal solution found"
+
+[[warmups]]
+process_peak_rss = 0x7e809000
+gc_seconds = 0.200471501
+outer_seconds = 14.662033104
+objective = 172.14556667654887
+refactorizations = 63
+seconds = 14.662006904
+compile_seconds = 0.0
+allocated_bytes = 863592344
+original_primal_certified = true
+iterations = 4923
+status = "OPTIMAL"
+message = "optimal solution found"

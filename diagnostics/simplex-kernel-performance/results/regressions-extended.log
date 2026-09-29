@@ -1,0 +1,171 @@
+ERROR: LoadError: Some tests did not pass: 3556 passed, 6 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/primal-phase1-stagnation/JSimplex.jl/diagnostics/simplex-kernel-performance/reproduce/regressions.jl:2
+
+Wide bound flips save pricing scans without changing the optimum: Test Failed at /home/jspitz/.codex/worktrees/primal-phase1-stagnation/JSimplex.jl/test/partial_pricing_integration_tests.jl:98
+  Expression: JSimplex.event_count(diagnostics, :pricing_pool_hit) > 100
+   Evaluated: 0 > 100
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/primal-phase1-stagnation/JSimplex.jl/test/partial_pricing_integration_tests.jl:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/primal-phase1-stagnation/JSimplex.jl/test/partial_pricing_integration_tests.jl:98 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Wide bound flips save pricing scans without changing the optimum: Test Failed at /home/jspitz/.codex/worktrees/primal-phase1-stagnation/JSimplex.jl/test/partial_pricing_integration_tests.jl:99
+  Expression: JSimplex.event_count(diagnostics, :pricing_scanned_entries) < 2000
+   Evaluated: 16834 < 2000
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/primal-phase1-stagnation/JSimplex.jl/test/partial_pricing_integration_tests.jl:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/primal-phase1-stagnation/JSimplex.jl/test/partial_pricing_integration_tests.jl:99 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Cancelled pivot and recovery preserve live candidate state: Test Failed at /home/jspitz/.codex/worktrees/primal-phase1-stagnation/JSimplex.jl/test/partial_pricing_edge_tests.jl:34
+  Expression: ws.iterations == 0
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/primal-phase1-stagnation/JSimplex.jl/test/partial_pricing_edge_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/primal-phase1-stagnation/JSimplex.jl/test/partial_pricing_edge_tests.jl:34 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Cancelled pivot and recovery preserve live candidate state: Test Failed at /home/jspitz/.codex/worktrees/primal-phase1-stagnation/JSimplex.jl/test/partial_pricing_edge_tests.jl:35
+  Expression: pool.indices == indices && (pool.scan_position == cursor && pool.passes == passes)
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/primal-phase1-stagnation/JSimplex.jl/test/partial_pricing_edge_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/primal-phase1-stagnation/JSimplex.jl/test/partial_pricing_edge_tests.jl:35 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Cancelled pivot and recovery preserve live candidate state: Test Failed at /home/jspitz/.codex/worktrees/primal-phase1-stagnation/JSimplex.jl/test/partial_pricing_edge_tests.jl:40
+  Expression: pool.indices == indices && (pool.scan_position == cursor && pool.passes == passes)
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/primal-phase1-stagnation/JSimplex.jl/test/partial_pricing_edge_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/primal-phase1-stagnation/JSimplex.jl/test/partial_pricing_edge_tests.jl:40 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Cancelled pivot and recovery preserve live candidate state: Test Failed at /home/jspitz/.codex/worktrees/primal-phase1-stagnation/JSimplex.jl/test/partial_pricing_edge_tests.jl:46
+  Expression: JSimplex.select_pricing_candidate!(ws, pool, policy) == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/primal-phase1-stagnation/JSimplex.jl/test/partial_pricing_edge_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/primal-phase1-stagnation/JSimplex.jl/test/partial_pricing_edge_tests.jl:46 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+Test Summary:                                                                   | Pass  Fail  Total     Time
+CSC pricing and simplex integration                                             | 3556     6   3562  1m03.0s
+  CSC pricing preserves scalar arithmetic                                       |  132          132     0.5s
+  CSC pricing validates dimensions before unchecked access                      |    3            3     0.0s
+  Row pricing agrees with the independent CSC product                           |   42           42     0.0s
+  Sparse pricing integrates through an independent opt-in switch                |   85           85     0.2s
+  Lazy row indexing is timed once per working phase                             |    4            4     0.0s
+  Sparse pricing preserves arithmetic order, zeros, and precision               |   75           75     0.2s
+  Sparse pricing checks aliases before changing matrix storage                  |    9            9     0.0s
+  Sparse row pricing retains independent simplex optima                         |   80           80     0.6s
+  Floating row products satisfy an independent residual bound                   |  423          423     0.5s
+  Sparse pricing preserves the existing nonbinary Float32 outcome               |   12           12     0.1s
+  Row pricing ignores padded backing arrays like the CSC reference              |   20           20     0.0s
+  Dual ratio types, orientation and optional flips                              |   35           35     0.3s
+  Stable dual bound flipping proposals                                          |   25           25     0.0s
+  Exact dual ratio enumeration                                                  |  204          204     0.5s
+  Automatic pricing public round trip                                           |   18           18     0.0s
+  Automatic weights recover before selection                                    |   80           80     0.1s
+  Selected weights reuse supplied basis solves                                  |   36           36     0.0s
+  Pricing state is owned across staged and cancelled work                       |    7            7     0.0s
+  Edge quality respects stored weight units                                     |   58           58     0.0s
+  Pricing quality retains stored BigFloat precision                             |    3            3     0.0s
+  Automatic pricing requires cooldown and a valid framework                     |   32           32     0.0s
+  Pricing consumes stagnation and rebuilds its reference                        |   15           15     0.0s
+  Corrupted selected weights recover inside the actual pivot path               |   28           28     0.1s
+  Explicit pricing does not allocate automatic histories                        |   12           12     0.0s
+  Cancelled checkpoint recovery does not publish pricing resets                 |    8            8     0.0s
+  Exact weight validation does not overflow a fixed-width proof                 |    5            5     0.0s
+  Automatic dual scores keep extreme eligible rows                              |   10           10     0.0s
+  Refactorization retains basis-invariant steepest-edge caches                  |    8            8     0.0s
+  Automatic pricing reaches an independently known vertex                       |  110          110     0.4s
+  A stalled primal path uses and leaves temporary Dantzig                       |   36           36     0.7s
+  Automatic pricing shares step and stop budgets                                |    7            7     0.1s
+  Partial pricing cannot certify an exhausted first block                       |   30           30     0.1s
+  Current scores, validity, and deterministic full scans                        |   16           16     0.0s
+  An absent cached candidate requires a complete current scan                   |    5            5     0.0s
+  Partial pricing is adaptive and keeps small domains on full scans             |    7            7     0.0s
+  Workspace pools retain owned indices and invalidate changed costs             |   14           14     0.0s
+  Both solver selection paths use partial pricing only when enabled             |   14           14     0.1s
+  Last-block candidates and full current terminal scans reach the loops         |   16           16    34.3s
+  Dual working-cost shifts invalidate cached candidates                         |    4            4     0.0s
+  Wide bound flips save pricing scans without changing the optimum              |    9     2     11     3.4s
+  Wide coupled LP retains its independent original optimum                      |   60           60     1.5s
+  Cancelled pivot and recovery preserve live candidate state                    |    8     4     12     0.1s
+  Actual perturbation and restoration invalidate pool cost generations          |    8            8     0.0s
+  Partial pricing shares the completed-step limit                               |    2            2     0.1s
+  Partial dual pricing retains extreme eligible scores and recovers weights     |   16           16     0.1s
+  Generated wide pricing calibration has the intended MPS model                 |    4            4     0.1s
+  Refactorization preserves unrelated steepest-edge weights                     |   12           12     0.1s
+  Retry preserves usable estimates on a non-unit basis                          |    6            6     0.0s
+  Legacy primal rejects a price contradicted by its direction                   |   96           96     0.1s
+  An inaccurate price cannot force a flip or an unboundedness failure           |   80           80     0.1s
+  Phase-I pricing retains genuine tiny improving costs                          |   24           24     0.0s
+  Consistent prices near cancellation remain usable                             |   24           24     0.0s
+  Multi-term cancellation uses the native accumulation allowance                |   40           40     0.0s
+  A contradicted price refreshes an updated basis once and reprices             |   72           72     0.1s
+  Strategy selection preserves the numerical kernel                             |   84           84     0.0s
+  Only the strategy defers a numerically valid weak pivot                       |  112          112     0.1s
+  Weak-pivot preference follows its policy override                             |    8            8     0.0s
+  Native primal cleanup uses primal safeguards under dual options               |   10           10     0.0s
+  Native zero-row resumption cannot certify a working-cost ray                  |    5            5     0.0s
+  Native cleanup repairs a feasible basis before restarting                     |   88           88     0.2s
+  Native cleanup keeps rejected and interrupted corrections private             |   12           12     0.0s
+  Native cleanup preserves tiny nonzero equations                               |   16           16     0.0s
+  Native cleanup observes the correction budget and arithmetic mode             |    4            4     0.0s
+  Native cleanup publishes corrected dual prices with the primal point          |   32           32     0.1s
+  Feasibility recovery decision table                                           |    4            4     0.0s
+  Original-cost cleanup recovers a newly inaccurate factor                      |    3            3     0.0s
+  Completed auxiliary work survives a callback exception                        |    3            3     0.0s
+  Shared driver solves all feasibility combinations                             |   80           80     5.1s
+  Driver honors zero remaining iterations and an expired clock                  |    4            4     0.0s
+  Driver policy override and callback provenance                                |    3            3     0.0s
+  Driver keeps outer retry offsets and stricter phase I prices                  |    5            5     0.0s
+  A repaired basis is dispatched by its new feasibility                         |    5            5     0.0s
+  Auxiliary phases respect cancellation and preserve user errors                |    8            8     0.0s
+  A shared budget cannot be replenished by a fresh workspace                    |    4            4     0.0s
+  Ablating feasibility recovery disables method handoff                         |    2            2     0.0s
+  Outer retries retain cumulative refactorization counts                        |    4            4     0.0s
+  Adaptive public solves certify the original model after phase I and postsolve |   48           48     9.7s
+  No-progress feasibility recovery remains bounded                              |   15           15     0.0s
+  Final driver verification classifies internal solve failure                   |    3            3     0.0s
+  Driver restores working costs before original-model certification             |    5            5     0.0s
+  Budget wrappers preserve logger provenance through public catches             |   16           16     0.1s
+  Replacement workspaces pass the shared deadline to inner solves               |   10           10     0.1s
+  Working-cost unboundedness is not an original-model proof                     |   24           24     0.1s
+  Working-bound proofs cannot certify the original model                        |    8            8     0.1s
+  Simplex phase announcements                                                   |   88           88     0.2s
+  Phase logger exceptions retain caller provenance                              |    8            8     0.1s
+  Modern phase-one interfaces                                                   |    3            3     0.0s
+  General-basis phase one appends signed basic columns                          |  110          110     0.2s
+  Phase one restores an original-dimension owned workspace                      |  520          520     1.1s
+  Zero basic artificials leave through verified exchanges                       |   12           12     0.1s
+RNG of the outermost testset: Xoshiro(0x192aecc1a05fddf0, 0xec26268ba3ee9d0f, 0x652c096c658176b1, 0xd4938834e50d4690, 0xa78248f4cb0ff482)
