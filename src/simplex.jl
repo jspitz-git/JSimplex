@@ -326,6 +326,26 @@ function _nonbasic_value(workspace::SimplexWorkspace{T}, index::Int) where {T}
     throw(ArgumentError("basic variables do not have nonbasic values"))
 end
 
+function _recompute_reduced_costs!(prices, workspace::SimplexWorkspace{T}, dual) where T
+    A = workspace.problem.A
+    row_count, column_count = size(A)
+    for column in 1:column_count
+        reduced_cost = workspace.costs[column]
+        for position in A.colptr[column]:(A.colptr[column + 1] - 1)
+            reduced_cost -= A.nzval[position] * dual[A.rowval[position]]
+        end
+        prices[column] = reduced_cost
+    end
+    for row in 1:row_count
+        index = column_count + row
+        prices[index] = workspace.costs[index] + dual[row]
+    end
+    for index in workspace.basis.basic_indices
+        prices[index] = zero(T)
+    end
+    return prices
+end
+
 function recompute!(workspace::SimplexWorkspace{T}; refactorize::Bool=false,
                     caller_guard=nothing, diagnostic_reason::Symbol=:refactor_other) where {T}
     _validate_basis(workspace)
@@ -388,20 +408,7 @@ function recompute!(workspace::SimplexWorkspace{T}; refactorize::Bool=false,
     end
 
     dual = _checked_basis_solve!(workspace.scratch.rho,workspace,rhs,caller_guard;transposed=true)
-    for column in 1:column_count
-        reduced_cost = workspace.costs[column]
-        for position in A.colptr[column]:(A.colptr[column + 1] - 1)
-            reduced_cost -= A.nzval[position] * dual[A.rowval[position]]
-        end
-        workspace.reduced_costs[column] = reduced_cost
-    end
-    for row in 1:row_count
-        index = column_count + row
-        workspace.reduced_costs[index] = workspace.costs[index] + dual[row]
-    end
-    for index in basis.basic_indices
-        workspace.reduced_costs[index] = zero(T)
-    end
+    _recompute_reduced_costs!(workspace.reduced_costs, workspace, dual)
     if workspace.progress.numerical_policy.recovery && !workspace.scratch.recovery_active &&
        !_is_staged_workspace(workspace) && isempty(workspace.factorization.updates)
         _remember_verified_basis!(workspace,_basis_solve_stop(workspace,caller_guard))

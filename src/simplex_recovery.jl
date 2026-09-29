@@ -150,9 +150,7 @@ function _rebuild_recovery_weights!(trial::SimplexWorkspace{T},stop) where T
     return true
 end
 
-# Only call immediately after recompute!, while rho still holds dual prices.
-function _recomputed_basis_reliable(ws::SimplexWorkspace{T}) where T
-    B = _basis_matrix!(ws)
+function _basis_primal_rhs(ws::SimplexWorkspace{T}) where T
     m,n = size(ws.problem.A)
     rhs = zeros(T,m)
     for j in eachindex(ws.basis.states)
@@ -166,8 +164,15 @@ function _recomputed_basis_reliable(ws::SimplexWorkspace{T}) where T
             rhs[j-n] += value
         end
     end
+    return rhs
+end
+
+# Only call immediately after recompute!, while rho still holds dual prices.
+function _recomputed_basis_reliable(ws::SimplexWorkspace{T}) where T
+    B = _basis_matrix!(ws)
+    rhs = _basis_primal_rhs(ws)
     policy = ws.progress.numerical_policy
-    scratch = SolveQualityScratch(T,m)
+    scratch = SolveQualityScratch(T,length(rhs))
     solve_quality!(scratch,B,ws.primal[ws.basis.basic_indices],rhs,policy).reliable || return false
     return solve_quality!(scratch,B,ws.scratch.rho,ws.costs[ws.basis.basic_indices],
         policy;transposed=true).reliable
@@ -347,7 +352,8 @@ end
 # A homogeneous row with a single active term can be satisfied exactly by
 # clearing that term. This is only a proposed cleanup: the whole system must
 # still pass the same independent error test before accepting the candidate.
-function _clean_homogeneous_terms!(x::AbstractVector{T},B,rhs,transposed,singletons,policy) where T
+function _clean_homogeneous_terms!(x::AbstractVector{T},B,rhs,transposed,singletons,policy;
+                                   cutoff=nothing) where T
     changed = false
     if transposed
         for column in axes(B,2)
@@ -383,7 +389,7 @@ function _clean_homogeneous_terms!(x::AbstractVector{T},B,rhs,transposed,singlet
         end
     end
     if T <: AbstractFloat
-        cutoff = policy.solve_tolerance*maximum(abs,x;init=zero(T))
+        cutoff = isnothing(cutoff) ? policy.solve_tolerance*maximum(abs,x;init=zero(T)) : cutoff
         # Coupled roundoff terms may prevent a homogeneous row from having a
         # lone active term. Propose their joint removal only in such rows.
         # The caller still tests the entire system and restores a worse trial.

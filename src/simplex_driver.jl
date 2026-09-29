@@ -79,7 +79,9 @@ function _verify_driver_basis!(ws,stop;refactorize::Bool=false)
     return _with_recovery_precision(ws,ws) do
         recompute!(ws;refactorize,caller_guard=stop)
         stop() && return false
-        _finite_workspace(ws) && _recomputed_basis_reliable(ws)
+        _finite_workspace(ws) || return false
+        _recomputed_basis_reliable(ws) && return true
+        return _try_native_cleanup_recompute!(ws,stop)
     end
 end
 
