@@ -1,12 +1,13 @@
 using SparseArrays
 
-function partial_pricing_workspace(::Type{T};algorithm=:primal,enabled=true,observer=nothing) where T
+function partial_pricing_workspace(::Type{T};algorithm=:primal,enabled=true,observer=nothing,
+                                   numerical_profile=:native) where T
     problem = algorithm == :primal ?
         LinearProblem(spzeros(T,1,129),zeros(T,129);row_upper=T[1],column_upper=ones(T,129)) :
         LinearProblem(spzeros(T,129,1),T[0];row_lower=fill(-one(T),129))
     options = SolverOptions(T;algorithm,pricing=:dantzig,simplex_strategy=:adaptive,verbose=false)
     policy = JSimplex.NumericalPolicy(T;simplex_strategy=:adaptive,
-        partial_pricing=enabled,refactor_timing=false)
+        numerical_profile,partial_pricing=enabled,refactor_timing=false)
     diagnostics = JSimplex.SimplexDiagnostics(;observer)
     ws = JSimplex.initialize_workspace(problem,options;
         progress=JSimplex.SimplexProgressContext(problem;numerical_policy=policy,diagnostics))

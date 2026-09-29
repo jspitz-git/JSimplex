@@ -19,7 +19,15 @@ end
 
 @testset "Native correction repairs an uncertified reconstruction and prediction" begin
     for T in (Float32,Float64), manager in (:pfi,:forrest_tomlin,:suhl_suhl,:bartels_golub)
-        ws, diagnostics = point_recovery_workspace(T, manager)
+        completed = Ref{Any}(nothing)
+        observer = (event, ws)->begin
+            if event == :pivot_completed
+                completed[] = copy(ws.primal)
+                @test JSimplex._legacy_primal_row_consistent(ws, ws.options.primal_tolerance)
+                @test JSimplex._original_primal_feasible(ws.problem, ws.primal[1:1], ws.options.primal_tolerance)
+            end
+        end
+        ws, diagnostics = point_recovery_workspace(T, manager; observer)
         tolerance = ws.options.primal_tolerance
         @test JSimplex._legacy_primal_row_consistent(ws, tolerance)
         terminal = JSimplex._primal_iteration!(ws, ()->false, ws.options.dual_tolerance)
@@ -33,6 +41,7 @@ end
         @test JSimplex.event_count(diagnostics, :primal_point_corrected) == 1
         @test ws.refactorizations == 0
         @test ws.scratch.row_solution == ws.primal[ws.basis.basic_indices]
+        @test completed[] == ws.primal
     end
 end
 
@@ -44,7 +53,11 @@ end
         options = SolverOptions(T; algorithm=:primal, basis_update=manager,
             primal_tolerance=tolerance, verbose=false)
         computed = Ref{Any}(nothing)
-        observer = (event,ws)->(event == :correction_attempt && (computed[]=copy(ws.primal)); nothing)
+        observer = (event,ws)->begin
+            event == :correction_attempt && (computed[]=copy(ws.primal))
+            event == :pivot_completed && (@test ws.scratch.selected_row == 1)
+            nothing
+        end
         diagnostics = JSimplex.SimplexDiagnostics(; observer)
         ws = JSimplex.initialize_workspace(problem, options;
             progress=JSimplex.SimplexProgressContext(problem; diagnostics))

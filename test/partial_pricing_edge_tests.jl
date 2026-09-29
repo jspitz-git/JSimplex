@@ -20,7 +20,7 @@ end
 
 @testset "Cancelled pivot and recovery preserve live candidate state" begin
     cancelled,enabled = Ref(false),Ref(true)
-    ws,policy,diagnostics = partial_pricing_workspace(Float64;
+    ws,policy,diagnostics = partial_pricing_workspace(Float64;numerical_profile=:checked,
         observer=(reason,trial)->begin
             reason in (:pivot_proposed,:restore_checkpoint) && enabled[] && (cancelled[]=true)
         end)

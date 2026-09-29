@@ -332,15 +332,19 @@ end
     @test JSimplex.primal_infeasibility(workspace) <= workspace.options.primal_tolerance
 end
 
-@testset "Primal Harris relaxation respects strategy feasibility and entering bounds" begin
+@testset "Primal Harris relaxation uses per-bound feasibility in both strategies" begin
     aggregate = LinearProblem(sparse(reshape([1.0, 1.0, 10.0], 3, 1)), [-1.0];
                               row_upper=[1.0, 1.0, 10.0 + 7.5e-7])
     for strategy in (:legacy, :adaptive)
         workspace = JSimplex.initialize_workspace(aggregate,
             SolverOptions(; algorithm=:primal, simplex_strategy=strategy,
                           pricing=:dantzig, verbose=false))
-        expected_row = strategy == :legacy ? 3 : 1
-        @test JSimplex._primal_ratio(workspace, 1, 1.0, [-1.0, -1.0, -10.0])[2] == expected_row
+        # Each relaxed row violates its bound by less than the tolerance;
+        # strategy selection does not change this numerical criterion.
+        step, row, _ = JSimplex._primal_ratio(workspace, 1, 1.0, [-1.0, -1.0, -10.0])
+        @test row == 3
+        @test step ≈ 1.0 + 7.5e-8
+        @test 0 < step - 1.0 <= workspace.options.primal_tolerance
     end
 
     boxed = LinearProblem(sparse([1.0;;]), [-1.0];

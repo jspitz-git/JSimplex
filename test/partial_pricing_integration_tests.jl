@@ -85,8 +85,8 @@ end
 end
 
 @testset "Wide bound flips save pricing scans without changing the optimum" begin
-    for enabled in (false,true)
-        ws,policy,diagnostics = partial_pricing_workspace(Float64;enabled)
+    for enabled in (false,true), numerical_profile in (:native,:checked)
+        ws,policy,diagnostics = partial_pricing_workspace(Float64;enabled,numerical_profile)
         ws.costs[1:129] .= -1.0
         JSimplex.recompute!(ws)
         result = JSimplex._primal_optimize!(ws,()->false,ws.options.dual_tolerance)
@@ -94,10 +94,11 @@ end
         @test ws.iterations == 129
         @test ws.primal[1:129] == ones(129)
         @test JSimplex.event_count(diagnostics,:pricing_full_scan) > 0
-        if enabled
+        # Only incremental flips retain the pool across completed steps.
+        if enabled && numerical_profile == :checked
             @test JSimplex.event_count(diagnostics,:pricing_pool_hit) > 100
             @test JSimplex.event_count(diagnostics,:pricing_scanned_entries) < 2000
-        else
+        elseif !enabled
             @test JSimplex.event_count(diagnostics,:pricing_scanned_entries) >= 129*130
         end
     end

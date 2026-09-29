@@ -511,6 +511,7 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
         return DualTermination(ITERATION_LIMIT, "iteration limit reached")
 
     _simplex_event!(workspace, :pivot_proposed)
+    stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached before pivot application")
     A = workspace.problem.A
     column_count = size(A, 2)
     column = _pipeline_column_rhs!(workspace,entering)
@@ -571,6 +572,7 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
     end
     isfinite(step) || return _numerical_failure()
     if leaving_row == 0
+        stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached before pivot application")
         if incremental
             _with_recovery_precision(workspace, workspace) do
                 apply_primal_flip!(workspace, entering, direction * step, tableau_column)
@@ -637,6 +639,7 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
                 unresolved_pivot ? :refactor_pivot : :refactor_residual,
                 "primal pivot transpose row is inaccurate")
         end
+        stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached before pivot application")
         _effective_pricing(workspace,:primal) == :devex &&
             _primal_update_devex!(workspace, entering, leaving_row,
                                    tableau_column[leaving_row];shared_row=incremental_pivot || legacy_row)
@@ -669,18 +672,23 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
     workspace.scratch.last_primal_step = direction*step
     leaving_row == 0 && (workspace.scratch.last_dual_step = zero(T))
     workspace.iterations += 1
-    _simplex_event!(workspace, leaving_row == 0 ? :flip_completed : :pivot_completed)
+    completion = leaving_row == 0 ? :flip_completed : :pivot_completed
+    # Staged events are buffered until publication. Native values still need
+    # reconstruction before observers or a deadline may end the step.
+    staged = _is_staged_workspace(workspace)
+    staged && _simplex_event!(workspace, completion)
     refactor_reason = _scheduled_refactor_reason(workspace,:primal)
     refactorize = refactor_reason != :none
-    if _is_staged_workspace(workspace)
+    if staged
         workspace.scratch.post_iteration = incremental_pivot && leaving_row > 0 ? :primal_pivot :
             incremental && leaving_row == 0 ? :primal_flip : :primal
         workspace.scratch.post_refactorize = refactorize
         workspace.scratch.post_refactor_reason = refactor_reason
         return nothing
     end
-    stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
     if incremental && leaving_row == 0 && !refactorize
+        _simplex_event!(workspace, completion)
+        stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
         if iszero(workspace.iterations % 20) && !audit_primal_values!(workspace)
             return DualTermination(NUMERICAL_ERROR, "incremental primal audit failed")
         end
@@ -690,7 +698,14 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
         workspace, entering, leaving_row, direction * step, tableau_column)
     recompute!(workspace; refactorize, caller_guard=stop_requested,
                diagnostic_reason=_refactor_event(refactor_reason))
-    return _finish_legacy_primal_point!(workspace, primal_candidate, stop_requested)
+    recovery = _finish_legacy_primal_point!(workspace, primal_candidate, stop_requested)
+    # Recovery clears retry metadata on failure. This step was already applied,
+    # so completion must retain its actual leaving row (never the retry sentinel).
+    workspace.scratch.selected_row = leaving_row
+    _simplex_event!(workspace, completion)
+    isnothing(recovery) || return recovery
+    stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
+    return nothing
 end
 
 function _primal_optimize!(workspace::SimplexWorkspace{T}, stop_requested,
