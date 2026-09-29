@@ -663,65 +663,6 @@ function update_dual_pricing_weights!(workspace::SimplexWorkspace{T},
     return _finite_workspace(workspace)
 end
 
-# Give nearly zero nonbasic reduced costs a small, reproducible margin in the
-# dual-feasible direction. Only nonbasic costs move, so the current basis dual
-# multipliers and every other reduced cost stay unchanged. Original costs are
-# restored before the final optimality check.
-function _perturb_degenerate_dual_costs!(workspace::SimplexWorkspace{T},
-                                         stop_requested) where {T<:AbstractFloat}
-    tolerance = workspace.options.dual_tolerance
-    indices = Int[]
-    costs = T[]
-    prices = T[]
-    for index in eachindex(workspace.basis.states)
-        index % 1024 == 0 && stop_requested() && return -1
-        state = workspace.basis.states[index]
-        (state == AT_LOWER || state == AT_UPPER) || continue
-        _is_fixed(workspace.lower[index], workspace.upper[index]) && continue
-        price = workspace.reduced_costs[index]
-        abs(price) <= tolerance || continue
-        direction = state == AT_LOWER ? one(T) : -one(T)
-        target = tolerance * T(8 + index % 16)
-        isfinite(target) || continue
-        old_cost = workspace.costs[index]
-        requested_shift = direction * target - price
-        new_cost = old_cost + requested_shift
-        new_cost == old_cost && continue
-        isfinite(new_cost) || continue
-        actual_shift = new_cost - old_cost
-        # A single ulp of a large cost can dwarf the intended margin.
-        abs(actual_shift) <= 2abs(requested_shift) || continue
-        new_price = price + actual_shift
-        isfinite(new_price) && direction * new_price > tolerance || continue
-        push!(indices, index)
-        push!(costs, new_cost)
-        push!(prices, new_price)
-    end
-    isempty(indices) && return 0
-    previous_costs = workspace.costs[indices]
-    previous_prices = workspace.reduced_costs[indices]
-    previous_perturbed = workspace.perturbed
-    workspace.costs[indices] .= costs
-    workspace.reduced_costs[indices] .= prices
-    if !_finite_workspace(workspace) ||
-       dual_infeasibility(workspace) > tolerance
-        workspace.costs[indices] .= previous_costs
-        workspace.reduced_costs[indices] .= previous_prices
-        workspace.perturbed = previous_perturbed
-        return 0
-    end
-    workspace.perturbed = true
-    _invalidate_pricing_pool!(workspace;basis=false)
-    try
-        @logmsg workspace.options.log_level "Perturbed dual costs after zero-step stall" iteration=workspace.iterations shifted=length(indices)
-    catch exception
-        stop_requested isa _StopCallback && (stop_requested.exception = exception)
-        rethrow()
-    end
-    isempty(indices) || _simplex_event!(workspace, :perturbation)
-    return length(indices)
-end
-
 function dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested;
                          perturb_degenerate::Bool=true)::Union{Nothing,DualTermination} where {T}
     stop_requested = _guard_stop_callback(stop_requested)
@@ -865,7 +806,7 @@ end
 # A second inaccurate updated solve within three clean factorization cycles
 # lowers the update limit to at most half the earliest observed failure count,
 # with a minimum of one. Each clean cycle doubles a shortened interval back
-# toward the user's configured value; growth above it remains more cautious.
+# toward the user's configured value, which remains the legacy ceiling.
 function _note_dual_updated_basis_repair!(workspace::SimplexWorkspace)
     _simplex_event!(workspace, :repair)
     if workspace.progress.numerical_policy.adaptive_refactor
@@ -888,17 +829,7 @@ function _note_dual_updated_basis_repair!(workspace::SimplexWorkspace)
     return nothing
 end
 
-function _dual_refactorization_growth_ceiling(workspace::SimplexWorkspace)
-    configured = workspace.options.refactorization_interval
-    # The measured runtime.mps prefix favored longer product-form chains
-    # than triangular chains; keep the initial growth ceilings conservative.
-    floor, multiplier = workspace.factorization isa PFIFactorization ? (512, 8) : (128, 4)
-    scaled = configured > 4096 ÷ multiplier ? 4096 : multiplier * configured
-    return max(configured, min(4096, max(floor, scaled)))
-end
-
-function _note_stable_dual_refactorization!(workspace::SimplexWorkspace,
-                                             productive::Bool)
+function _note_stable_dual_refactorization!(workspace::SimplexWorkspace)
     configured = workspace.options.refactorization_interval
     interval = workspace.dual_refactorization_interval
     if interval < configured
@@ -918,17 +849,7 @@ function _note_stable_dual_refactorization!(workspace::SimplexWorkspace,
         end
         return nothing
     end
-    ceiling = _dual_refactorization_growth_ceiling(workspace)
-    if !productive || workspace.dual_pricing_fallback || interval >= ceiling
-        workspace.dual_stable_refactorizations = 0
-        return nothing
-    end
-    workspace.dual_stable_refactorizations += 1
-    if workspace.dual_stable_refactorizations >= 3
-        workspace.dual_refactorization_interval = interval > ceiling ÷ 2 ?
-            ceiling : 2 * interval
-        workspace.dual_stable_refactorizations = 0
-    end
+    workspace.dual_stable_refactorizations = 0
     return nothing
 end
 
@@ -1465,54 +1386,17 @@ function _dual_after_iteration!(workspace::SimplexWorkspace{T},stop_requested,du
     if _is_exact(T) === Val(false)
         workspace.zero_dual_step_streak = iszero(dual_step) ?
             workspace.zero_dual_step_streak + 1 : 0
-        if !workspace.progress.numerical_policy.adaptive_stalling &&
-           workspace.options.pricing == :steepest_edge &&
-           !workspace.dual_pricing_fallback &&
-           workspace.zero_dual_step_streak >= 256 &&
-           primal_infeasibility(workspace) > workspace.options.primal_tolerance
-            workspace.dual_pricing_fallback = true
-            try
-                @logmsg workspace.options.log_level "Switching dual pricing to Dantzig after zero dual steps" iteration=workspace.iterations streak=workspace.zero_dual_step_streak
-            catch exception
-                stop_requested isa _StopCallback && (stop_requested.exception = exception)
-                rethrow()
-            end
-        end
     end
+    # Stagnation-driven pricing and cost perturbations belong to the adaptive
+    # strategy. Zero dual steps can still make useful feasibility progress.
     refactor_reason = _scheduled_refactor_reason(workspace,:dual)
     if refactor_reason != :none
         stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
-        updates = length(workspace.factorization.updates)
-        productive = _is_exact(T) === Val(false) &&
-                     !workspace.scratch.refactorization.residual_bad &&
-                     workspace.dual_nonzero_steps_since_refactorization >=
-                     updates - updates ÷ 4
         recompute!(workspace; refactorize=true, caller_guard=stop_requested,
                    diagnostic_reason=_refactor_event(refactor_reason))
         if !workspace.progress.numerical_policy.adaptive_refactor
-            basis_refreshed || _note_stable_dual_refactorization!(workspace, productive)
+            basis_refreshed || _note_stable_dual_refactorization!(workspace)
         end
-    end
-    if perturb_degenerate && _is_exact(T) === Val(false) &&
-       !_adaptive_dual_perturbation_enabled(workspace.progress.numerical_policy) &&
-       workspace.zero_dual_step_streak >= 1024 &&
-       primal_infeasibility(workspace) > workspace.options.primal_tolerance
-        stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
-        if !isempty(workspace.factorization.updates)
-            recompute!(workspace; refactorize=true, caller_guard=stop_requested)
-            stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
-            _finite_workspace(workspace) || return _numerical_failure()
-            if !_dual_prices_feasible_or_refined!(workspace, stop_requested;
-                    allow_cost_shifts=perturb_degenerate)
-                stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
-                return DualTermination(NUMERICAL_ERROR, "dual feasibility lost")
-            end
-        end
-        if primal_infeasibility(workspace) > workspace.options.primal_tolerance
-            shifted = _perturb_degenerate_dual_costs!(workspace, stop_requested)
-            shifted < 0 && return DualTermination(TIME_LIMIT, "time limit reached")
-        end
-        workspace.zero_dual_step_streak = 0
     end
     _finite_workspace(workspace) || return _numerical_failure()
     return nothing

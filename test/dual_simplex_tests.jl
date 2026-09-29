@@ -178,7 +178,7 @@ end
     @test workspace.options.refactorization_interval == 50
 end
 
-@testset "Clean productive dual pivots lengthen the factorization interval" begin
+@testset "Legacy dual pivots retain the configured factorization ceiling" begin
     rows = 24
     function solve_diagonal_with_costs(costs)
         problem = LinearProblem(sparse(Matrix{Float64}(I, rows, rows)), costs;
@@ -195,12 +195,12 @@ end
     end
 
     productive = solve_diagonal_with_costs(collect(1.0:rows))
-    @test productive.refactorizations < rows ÷ 2
+    @test productive.refactorizations == rows ÷ 2
     degenerate = solve_diagonal_with_costs(zeros(rows))
     @test degenerate.refactorizations == rows ÷ 2
 end
 
-@testset "One inaccurate updated row pauses growth without shortening" begin
+@testset "One inaccurate updated row does not shorten the configured interval" begin
     rows = 24
     problem = LinearProblem(sparse(Matrix{Float64}(I, rows, rows)),
                             collect(1.0:rows); row_lower=ones(rows))
@@ -209,7 +209,7 @@ end
     for _ in 1:6
         @test isnothing(JSimplex.dual_iteration!(workspace, () -> false))
     end
-    @test workspace.dual_refactorization_interval == 4
+    @test workspace.dual_refactorization_interval == 2
 
     stale = Matrix(JSimplex.basis_matrix(workspace))
     stale[7, 7] *= 10
@@ -220,15 +220,15 @@ end
     for _ in 7:20
         @test isnothing(JSimplex.dual_iteration!(workspace, () -> false))
     end
-    @test length(workspace.factorization.updates) == 2
+    @test length(workspace.factorization.updates) == 0
 end
 
-@testset "Repairs after growth use the actual failed update counts" begin
+@testset "Repairs below the configured ceiling use the actual failed update counts" begin
     rows = 140
     problem = LinearProblem(sparse(Matrix{Float64}(I, rows, rows)),
                             collect(1.0:rows); row_lower=ones(rows))
     workspace = JSimplex.initialize_workspace(problem,
-        SolverOptions(refactorization_interval=20, verbose=false))
+        SolverOptions(refactorization_interval=80, verbose=false))
 
     function corrupt_base!(workspace, structural_rows, leaving_row)
         diagonal = vcat(ones(structural_rows), -ones(rows - structural_rows))
@@ -240,9 +240,9 @@ end
     for _ in 1:90
         @test isnothing(JSimplex.dual_iteration!(workspace, () -> false))
     end
-    @test workspace.dual_refactorization_interval == 40
-    @test length(workspace.factorization.updates) == 30
-    corrupt_base!(workspace, 60, 91)
+    @test workspace.dual_refactorization_interval == 80
+    @test length(workspace.factorization.updates) == 10
+    corrupt_base!(workspace, 80, 91)
     @test isnothing(JSimplex.dual_iteration!(workspace, () -> false))
 
     for _ in 92:115
@@ -251,7 +251,7 @@ end
     @test length(workspace.factorization.updates) == 25
     corrupt_base!(workspace, 90, 116)
     @test isnothing(JSimplex.dual_iteration!(workspace, () -> false))
-    @test workspace.dual_refactorization_interval == 12
+    @test workspace.dual_refactorization_interval == 5
 end
 
 @testset "Dual direction refinement repairs a failed floating solve" begin
@@ -1104,7 +1104,7 @@ end
     @test all(isfinite, workspace.pricing_weights)
 end
 
-@testset "A prolonged dual zero-step stall perturbs costs and restores the LP" begin
+@testset "Legacy zero-step history does not perturb the LP" begin
     problem = LinearProblem(
         sparse([1.0 0.0 0.0; 0.0 1.0 0.0; 0.0 0.0 1.0]),
         zeros(3); row_lower=[-Inf, 1.0, 1.0],
@@ -1116,9 +1116,8 @@ end
     workspace.zero_dual_step_streak = 1023
     @test isnothing(JSimplex.dual_iteration!(workspace, () -> false))
     @test workspace.iterations == 1
-    @test workspace.perturbed
-    @test workspace.costs[1] < 0.0
-    @test workspace.costs[3] > 0.0
+    @test !workspace.perturbed
+    @test all(iszero, workspace.costs)
     @test JSimplex.dual_infeasibility(workspace) == 0.0
 
     run = JSimplex._solve_continuous_dual!(workspace, () -> false)
@@ -1142,22 +1141,6 @@ end
     rational.zero_dual_step_streak = 1023
     @test isnothing(JSimplex.dual_iteration!(rational, () -> false))
     @test !rational.perturbed
-end
-
-@testset "Anti-degeneracy skips a cost shift larger than its tolerance scale" begin
-    problem = LinearProblem(sparse([1.0 1.0]), [1.0e20, 1.0e20];
-                            row_lower=[1.0])
-    workspace = JSimplex.initialize_workspace(problem, SolverOptions(verbose=false))
-    workspace.basis = JSimplex.Basis(
-        [1], JSimplex.VariableState[JSimplex.BASIC, JSimplex.AT_LOWER,
-                                    JSimplex.AT_LOWER],
-    )
-    JSimplex.recompute!(workspace; refactorize=true)
-    @test workspace.reduced_costs[2] == 0.0
-    original_costs = copy(workspace.costs)
-    @test JSimplex._perturb_degenerate_dual_costs!(workspace, () -> false) == 0
-    @test workspace.costs == original_costs
-    @test !workspace.perturbed
 end
 
 @testset "Auxiliary dual iterations do not perturb costs across artificial bounds" begin

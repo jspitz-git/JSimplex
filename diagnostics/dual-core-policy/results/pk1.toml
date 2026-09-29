@@ -1,0 +1,451 @@
+julia = "1.13.0"
+peak_rss = 0x7f7ad000
+architecture = "aarch64"
+julia_threads = 1
+blas_threads = 1
+source_sha256 = "e55e4ea3a99ba3097a7b25c4860a7a91fb656cfb4564004a39c72da7b9968a36"
+
+[[cases]]
+seconds = 0.122245727
+iteration_limit = 2000
+time_limit = 30.0
+pricing_seen = ["steepest_edge"]
+maximum_effective_interval = 80
+input = "test/fixtures/solver/miplib/pk1.mps"
+iterations = 2000
+manager = "pfi"
+status = "ITERATION_LIMIT"
+sha256 = "13851ed426a2dfd7c6af7b021236553c391d77a675ab9223dd9135d3351c2e66"
+pricing_requested = "steepest_edge"
+
+    [[cases.records]]
+    iteration = 1000
+    primal_count = 12
+    original_bounds = true
+    pricing = "steepest_edge"
+    dual_count = 0
+    primal_sum = 21.395829072550285
+    dual_sum = 0.0
+    [[cases.records]]
+    iteration = 2000
+    primal_count = 14
+    original_bounds = true
+    pricing = "steepest_edge"
+    dual_count = 0
+    primal_sum = 119.52009014539236
+    dual_sum = 0.0
+
+    [cases.events]
+    phase_dual = 1
+    checkpoint = 1
+    pricing_scanned_entries = 90000
+    bound_flipped = 11468
+    pivot_completed = 2000
+    pricing_full_scan = 2000
+    pricing = 2000
+    refactor_initial = 1
+    pricing_scored_entries = 24157
+    refactor_limit = 25
+    pivot_proposed = 2000
+
+    [cases.last_observed_point]
+    primal_count = 14
+    working_objective = 0.0
+    dantzig_fallback = false
+    objective_constant = 0.0
+    logged_objective = 0.0
+    primal_sum = 119.52009014539671
+    original_costs = true
+    dual_sum = 0.0
+    dual_count = 0
+    iteration = 2000
+    row_consistent = true
+    native_residual_available = true
+    original_bounds = true
+    absolute_equation_residual = 1.8365517440166457e-13
+    pricing_effective = "steepest_edge"
+    devex_fallback = false
+    primal_max = 17.87233674758904
+    relative_equation_residual = 1.3580836126519193e-15
+[[cases]]
+records = []
+seconds = 0.008873187
+iteration_limit = 2000
+time_limit = 30.0
+pricing_seen = ["dantzig"]
+maximum_effective_interval = 80
+input = "test/fixtures/solver/miplib/pk1.mps"
+iterations = 607
+original_primal_certified = true
+manager = "pfi"
+status = "OPTIMAL"
+objective = 0.0
+sha256 = "13851ed426a2dfd7c6af7b021236553c391d77a675ab9223dd9135d3351c2e66"
+pricing_requested = "dantzig"
+
+    [cases.events]
+    certification = 1
+    phase_dual = 1
+    pricing_scanned_entries = 27315
+    bound_flipped = 2674
+    pivot_completed = 607
+    pricing_full_scan = 607
+    pricing = 607
+    refactor_initial = 1
+    pricing_scored_entries = 6212
+    refactor_limit = 7
+    pivot_proposed = 607
+
+    [cases.last_observed_point]
+    primal_count = 0
+    working_objective = 0.0
+    dantzig_fallback = false
+    objective_constant = 0.0
+    logged_objective = 0.0
+    primal_sum = 0.0
+    original_costs = true
+    dual_sum = 0.0
+    dual_count = 0
+    iteration = 607
+    row_consistent = true
+    native_residual_available = true
+    original_bounds = true
+    absolute_equation_residual = 1.0452142623629257e-14
+    pricing_effective = "dantzig"
+    devex_fallback = false
+    primal_max = 0.0
+    relative_equation_residual = 2.287746675486569e-16
+[[cases]]
+seconds = 0.025611497
+iteration_limit = 2000
+time_limit = 30.0
+pricing_seen = ["steepest_edge"]
+maximum_effective_interval = 80
+input = "test/fixtures/solver/miplib/pk1.mps"
+iterations = 2000
+manager = "forrest_tomlin"
+status = "ITERATION_LIMIT"
+sha256 = "13851ed426a2dfd7c6af7b021236553c391d77a675ab9223dd9135d3351c2e66"
+pricing_requested = "steepest_edge"
+
+    [[cases.records]]
+    iteration = 1000
+    primal_count = 12
+    original_bounds = true
+    pricing = "steepest_edge"
+    dual_count = 0
+    primal_sum = 21.395829072550594
+    dual_sum = 0.0
+    [[cases.records]]
+    iteration = 2000
+    primal_count = 14
+    original_bounds = true
+    pricing = "steepest_edge"
+    dual_count = 0
+    primal_sum = 119.52009014538802
+    dual_sum = 0.0
+
+    [cases.events]
+    phase_dual = 1
+    correction_attempt = 16
+    checkpoint = 1
+    correction = 16
+    pricing_scanned_entries = 90000
+    bound_flipped = 11468
+    pivot_completed = 2000
+    pricing_full_scan = 2000
+    pricing = 2000
+    refactor_initial = 1
+    pricing_scored_entries = 24157
+    refactor_limit = 25
+    pivot_proposed = 2000
+
+    [cases.last_observed_point]
+    primal_count = 14
+    working_objective = 0.0
+    dantzig_fallback = false
+    objective_constant = 0.0
+    logged_objective = 0.0
+    primal_sum = 119.52009014539671
+    original_costs = true
+    dual_sum = 0.0
+    dual_count = 0
+    iteration = 2000
+    row_consistent = true
+    native_residual_available = true
+    original_bounds = true
+    absolute_equation_residual = 1.8365517440166457e-13
+    pricing_effective = "steepest_edge"
+    devex_fallback = false
+    primal_max = 17.87233674758904
+    relative_equation_residual = 1.3580836126519193e-15
+[[cases]]
+records = []
+seconds = 0.008190699
+iteration_limit = 2000
+time_limit = 30.0
+pricing_seen = ["dantzig"]
+maximum_effective_interval = 80
+input = "test/fixtures/solver/miplib/pk1.mps"
+iterations = 607
+original_primal_certified = true
+manager = "forrest_tomlin"
+status = "OPTIMAL"
+objective = 0.0
+sha256 = "13851ed426a2dfd7c6af7b021236553c391d77a675ab9223dd9135d3351c2e66"
+pricing_requested = "dantzig"
+
+    [cases.events]
+    certification = 1
+    phase_dual = 1
+    pricing_scanned_entries = 27315
+    bound_flipped = 2674
+    pivot_completed = 607
+    pricing_full_scan = 607
+    pricing = 607
+    refactor_initial = 1
+    pricing_scored_entries = 6212
+    refactor_limit = 7
+    pivot_proposed = 607
+
+    [cases.last_observed_point]
+    primal_count = 0
+    working_objective = 0.0
+    dantzig_fallback = false
+    objective_constant = 0.0
+    logged_objective = 0.0
+    primal_sum = 0.0
+    original_costs = true
+    dual_sum = 0.0
+    dual_count = 0
+    iteration = 607
+    row_consistent = true
+    native_residual_available = true
+    original_bounds = true
+    absolute_equation_residual = 1.5538243434976007e-14
+    pricing_effective = "dantzig"
+    devex_fallback = false
+    primal_max = 0.0
+    relative_equation_residual = 3.4009835151794286e-16
+[[cases]]
+seconds = 0.0254102
+iteration_limit = 2000
+time_limit = 30.0
+pricing_seen = ["steepest_edge"]
+maximum_effective_interval = 80
+input = "test/fixtures/solver/miplib/pk1.mps"
+iterations = 2000
+manager = "suhl_suhl"
+status = "ITERATION_LIMIT"
+sha256 = "13851ed426a2dfd7c6af7b021236553c391d77a675ab9223dd9135d3351c2e66"
+pricing_requested = "steepest_edge"
+
+    [[cases.records]]
+    iteration = 1000
+    primal_count = 12
+    original_bounds = true
+    pricing = "steepest_edge"
+    dual_count = 0
+    primal_sum = 21.395829072550594
+    dual_sum = 0.0
+    [[cases.records]]
+    iteration = 2000
+    primal_count = 14
+    original_bounds = true
+    pricing = "steepest_edge"
+    dual_count = 0
+    primal_sum = 119.52009014538802
+    dual_sum = 0.0
+
+    [cases.events]
+    phase_dual = 1
+    correction_attempt = 16
+    checkpoint = 1
+    correction = 16
+    pricing_scanned_entries = 90000
+    bound_flipped = 11468
+    pivot_completed = 2000
+    pricing_full_scan = 2000
+    pricing = 2000
+    refactor_initial = 1
+    pricing_scored_entries = 24157
+    refactor_limit = 25
+    pivot_proposed = 2000
+
+    [cases.last_observed_point]
+    primal_count = 14
+    working_objective = 0.0
+    dantzig_fallback = false
+    objective_constant = 0.0
+    logged_objective = 0.0
+    primal_sum = 119.52009014539671
+    original_costs = true
+    dual_sum = 0.0
+    dual_count = 0
+    iteration = 2000
+    row_consistent = true
+    native_residual_available = true
+    original_bounds = true
+    absolute_equation_residual = 1.8365517440166457e-13
+    pricing_effective = "steepest_edge"
+    devex_fallback = false
+    primal_max = 17.87233674758904
+    relative_equation_residual = 1.3580836126519193e-15
+[[cases]]
+records = []
+seconds = 0.0088791
+iteration_limit = 2000
+time_limit = 30.0
+pricing_seen = ["dantzig"]
+maximum_effective_interval = 80
+input = "test/fixtures/solver/miplib/pk1.mps"
+iterations = 607
+original_primal_certified = true
+manager = "suhl_suhl"
+status = "OPTIMAL"
+objective = 0.0
+sha256 = "13851ed426a2dfd7c6af7b021236553c391d77a675ab9223dd9135d3351c2e66"
+pricing_requested = "dantzig"
+
+    [cases.events]
+    certification = 1
+    phase_dual = 1
+    pricing_scanned_entries = 27315
+    bound_flipped = 2674
+    pivot_completed = 607
+    pricing_full_scan = 607
+    pricing = 607
+    refactor_initial = 1
+    pricing_scored_entries = 6212
+    refactor_limit = 7
+    pivot_proposed = 607
+
+    [cases.last_observed_point]
+    primal_count = 0
+    working_objective = 0.0
+    dantzig_fallback = false
+    objective_constant = 0.0
+    logged_objective = 0.0
+    primal_sum = 0.0
+    original_costs = true
+    dual_sum = 0.0
+    dual_count = 0
+    iteration = 607
+    row_consistent = true
+    native_residual_available = true
+    original_bounds = true
+    absolute_equation_residual = 1.5538243434976007e-14
+    pricing_effective = "dantzig"
+    devex_fallback = false
+    primal_max = 0.0
+    relative_equation_residual = 3.4009835151794286e-16
+[[cases]]
+seconds = 0.027080702
+iteration_limit = 2000
+time_limit = 30.0
+pricing_seen = ["steepest_edge"]
+maximum_effective_interval = 80
+input = "test/fixtures/solver/miplib/pk1.mps"
+iterations = 2000
+manager = "bartels_golub"
+status = "ITERATION_LIMIT"
+sha256 = "13851ed426a2dfd7c6af7b021236553c391d77a675ab9223dd9135d3351c2e66"
+pricing_requested = "steepest_edge"
+
+    [[cases.records]]
+    iteration = 1000
+    primal_count = 12
+    original_bounds = true
+    pricing = "steepest_edge"
+    dual_count = 0
+    primal_sum = 21.395829072550523
+    dual_sum = 0.0
+    [[cases.records]]
+    iteration = 2000
+    primal_count = 14
+    original_bounds = true
+    pricing = "steepest_edge"
+    dual_count = 0
+    primal_sum = 119.52009014539317
+    dual_sum = 0.0
+
+    [cases.events]
+    phase_dual = 1
+    checkpoint = 1
+    pricing_scanned_entries = 90000
+    bound_flipped = 11468
+    pivot_completed = 2000
+    pricing_full_scan = 2000
+    pricing = 2000
+    refactor_initial = 1
+    pricing_scored_entries = 24157
+    refactor_limit = 25
+    pivot_proposed = 2000
+
+    [cases.last_observed_point]
+    primal_count = 14
+    working_objective = 0.0
+    dantzig_fallback = false
+    objective_constant = 0.0
+    logged_objective = 0.0
+    primal_sum = 119.52009014539671
+    original_costs = true
+    dual_sum = 0.0
+    dual_count = 0
+    iteration = 2000
+    row_consistent = true
+    native_residual_available = true
+    original_bounds = true
+    absolute_equation_residual = 1.8365517440166457e-13
+    pricing_effective = "steepest_edge"
+    devex_fallback = false
+    primal_max = 17.87233674758904
+    relative_equation_residual = 1.3580836126519193e-15
+[[cases]]
+records = []
+seconds = 0.008630601
+iteration_limit = 2000
+time_limit = 30.0
+pricing_seen = ["dantzig"]
+maximum_effective_interval = 80
+input = "test/fixtures/solver/miplib/pk1.mps"
+iterations = 607
+original_primal_certified = true
+manager = "bartels_golub"
+status = "OPTIMAL"
+objective = 0.0
+sha256 = "13851ed426a2dfd7c6af7b021236553c391d77a675ab9223dd9135d3351c2e66"
+pricing_requested = "dantzig"
+
+    [cases.events]
+    certification = 1
+    phase_dual = 1
+    pricing_scanned_entries = 27315
+    bound_flipped = 2674
+    pivot_completed = 607
+    pricing_full_scan = 607
+    pricing = 607
+    refactor_initial = 1
+    pricing_scored_entries = 6212
+    refactor_limit = 7
+    pivot_proposed = 607
+
+    [cases.last_observed_point]
+    primal_count = 0
+    working_objective = 0.0
+    dantzig_fallback = false
+    objective_constant = 0.0
+    logged_objective = 0.0
+    primal_sum = 0.0
+    original_costs = true
+    dual_sum = 0.0
+    dual_count = 0
+    iteration = 607
+    row_consistent = true
+    native_residual_available = true
+    original_bounds = true
+    absolute_equation_residual = 6.7510016674154905e-15
+    pricing_effective = "dantzig"
+    devex_fallback = false
+    primal_max = 0.0
+    relative_equation_residual = 1.477647423784512e-16

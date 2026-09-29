@@ -1,0 +1,40 @@
+{
+  "base_solver_revision": "570e9eeba212b6f577b0e67aec1d349d73938b8e",
+  "preceding_diagnostic_revision": "7e5da5c",
+  "targeted_checks": 1905,
+  "semantic_checks": 8486,
+  "red_checks": {
+    "passed": 194,
+    "failed": 62
+  },
+  "compilation": "--compile=min for semantic and targeted checks",
+  "review": "Read-only independent review found no blocking code issue; stale documentation references corrected.",
+  "files_sha256": {
+    "src/dual_simplex.jl": "e55e4ea3a99ba3097a7b25c4860a7a91fb656cfb4564004a39c72da7b9968a36",
+    "src/options.jl": "fb9bf5d00958430bbb09f61c4c2ab7d6d274e96b55fe7c8d6b18fe08aaada77a",
+    "test/dual_core_policy_tests.jl": "eb9de6e12864432d8547c9d5787f2a56fd230f8ab6769d3388b10a3790f9cec2",
+    "test/dual_simplex_tests.jl": "c7c7fdc4616b62bd515057e793b1a808d13f1df83dc12b31426d64d81afd9dfa",
+    "test/legacy_correction_cycle_tests.jl": "ee56cd2c5c3237246622ed303b923b8e2d49312a2ac340203ec6344b6b0cf0c0",
+    "test/benchmark_regression_tests.jl": "d2e7ed612b8799de411ef00bb917afcfa2b993ac3df004e0b26c94e67b16f835"
+  },
+  "test_log_sha256": {
+    "semantic-tests.log": "26ec4d438858f5907f213a93a765671ba445148b19cfd571817b0be2d86928b1",
+    "targeted-tests.log": "795ba364ece16ca918ef948db7030eabe32fa81f1596e6c291a8fba79c02b661"
+  },
+  "model_verification": "8 pk1 reports, 16 matching external optima with original primal certificates, one bounded medium run",
+  "model_validation": "model-validation.json",
+  "full_suite": {
+    "command": "julia --project=. test/runtests.jl",
+    "compilation": "normal",
+    "guard_seconds": 240,
+    "exit_code": 75,
+    "status": "incomplete: wall-time guard during LLVM compilation",
+    "location": "test/primal_initial_tolerance_tests.jl:3",
+    "assertion_failures_recorded": false,
+    "log_sha256": "4b6e65e001071295e4ac6d98eb25246d6595a6b921a045945a979fe02544f510"
+  },
+  "diagnostic_sha256": {
+    "check-results.py": "d97a45651b7666e99bf87c22c3cce77311bafcc165c3cc87fa2749d33d43c442",
+    "models.jl": "e0f8d2203f3ac910eebb7169e9d87bd2bd7947adf7671cf25502495151ea6730"
+  }
+}

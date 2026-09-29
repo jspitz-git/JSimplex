@@ -21,11 +21,11 @@ using JSimplex.LinearAlgebra
     @test JSimplex.event_count(diagnostics, :correction) >= 1
     @test workspace.refactorizations == 1
     @test workspace.dual_refactorization_interval == 2
-    # Three genuinely clean productive cycles can still justify growth.
+    # Clean cycles do not grow beyond the configured legacy ceiling.
     for _ in 2:7
         @test isnothing(JSimplex.dual_iteration!(workspace, () -> false))
     end
-    @test workspace.dual_refactorization_interval == 4
+    @test workspace.dual_refactorization_interval == 2
 end
 
 @testset "Legacy correction leaves explicit adaptive refactor policy alone" begin

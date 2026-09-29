@@ -73,17 +73,16 @@ Explicit pricing rules retain their documented safety fallbacks.
 Primal steepest-edge
 weights are initialized for a unit basis and updated after each pivot, with
 direct recomputation when a weight cannot be represented safely.
-Dual steepest-edge pricing switches to Dantzig after 256 consecutive zero
-dual steps when primal infeasibility remains; explicit Devex and Dantzig
-settings do not use this pricing switch. After 1024 consecutive zero dual
-steps, floating dual simplex may perturb near-zero nonbasic working costs
-while preserving dual feasibility, regardless of the pricing rule. Original
-costs are restored before optimality certification.
-`refactorization_interval` is the initial number of basis updates between
-full factorizations. Floating dual simplex shortens it after repeated
-inaccurate updated solves and can lengthen it after stable cycles with mostly
-nonzero dual steps. Legacy primal and all rational simplex keep the configured
-interval. Adaptive floating simplex shares numerical and sampled-work triggers,
+Legacy dual simplex does not change pricing or perturb costs because of
+zero steps or stagnation. Numerical weight recovery and bounded cost repairs
+needed by the ratio test remain active; original costs are restored before
+optimality certification. Stagnation-driven pricing and perturbations require
+the corresponding adaptive policies.
+`refactorization_interval` is the maximum scheduled basis-update interval for
+legacy simplex. Floating dual simplex can shorten it after repeated inaccurate
+updated solves and recover toward, but never above, the configured value.
+Legacy primal and all rational simplex keep the configured interval. Adaptive
+floating simplex can also lengthen it using numerical and sampled-work evidence,
 with a finite update ceiling and conservative growth after reliable cycles.
 `basis_update` selects product-form (`:pfi`), Forrest–Tomlin
 (`:forrest_tomlin`), Bartels–Golub (`:bartels_golub`), or Suhl–Suhl

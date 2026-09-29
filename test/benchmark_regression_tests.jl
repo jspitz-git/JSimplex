@@ -43,7 +43,7 @@
         end
     end
 
-    @testset "MIPLib pk1 dual zero-step stall recovers" begin
+    @testset "MIPLib pk1 solves with explicitly selected Dantzig pricing" begin
         path = joinpath(@__DIR__, "fixtures", "solver", "miplib", "pk1.mps")
         problem = read_mps(path)
         @test size(problem.A) == (45, 86)
@@ -59,13 +59,13 @@
             @test isapprox(primal.objective_value, 0.0; atol=1e-6)
         end
 
-        # Steepest-edge pricing can follow zero-dual-step pivots indefinitely;
-        # automatic fallback must recover the optimal LP relaxation.
+        # The legacy core honors explicit pricing. This degenerate fixture
+        # uses Dantzig deliberately rather than relying on an implicit switch.
         dual = solve(problem; relax_integrality=true,
-                     options=SolverOptions(algorithm=:dual, iteration_limit=500,
-                                           verbose=false))
+                     options=SolverOptions(algorithm=:dual, pricing=:dantzig,
+                                           iteration_limit=2_000, verbose=false))
         @test dual.status == OPTIMAL
         @test dual.objective_value == 0.0
-        @test dual.statistics.iterations <= 500
+        @test dual.statistics.iterations <= 2_000
     end
 end
