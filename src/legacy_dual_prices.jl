@@ -3,11 +3,8 @@
 # type; original-cost restoration and certification still determine the result.
 function _shift_marginal_dual_prices!(ws::SimplexWorkspace{T}, stop) where T
     T === Float32 || T === Float64 || return false
-    ws.options.simplex_strategy == :legacy || return false
     policy = ws.progress.numerical_policy
-    (policy.pivot_validation || policy.solve_refinement || policy.recovery ||
-     policy.adaptive_refactor || policy.feasibility_recovery ||
-     policy.adaptive_dual_perturbation || policy.adaptive_primal_perturbation) && return false
+    (policy.pivot_validation || policy.solve_refinement || policy.recovery) && return false
     _has_active_perturbations(ws.scratch.perturbations) && return false
     ws.perturbed || return false
     isempty(ws.factorization.updates) || return false

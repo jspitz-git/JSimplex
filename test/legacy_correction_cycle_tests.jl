@@ -28,7 +28,7 @@ using JSimplex.LinearAlgebra
     @test workspace.dual_refactorization_interval == 2
 end
 
-@testset "Legacy correction leaves explicit adaptive refactor policy alone" begin
+@testset "Native correction also protects adaptive refactorization" begin
     problem = LinearProblem(sparse([1.0 0.0; 0.0 1.0]), [1.0, 10.0]; row_lower=[1.0, -Inf])
     options = SolverOptions(verbose=false)
     policy = JSimplex.NumericalPolicy(Float64; adaptive_refactor=true)
@@ -38,6 +38,8 @@ end
     direction = JSimplex.forward_solve(workspace.factorization, [1.0, 0.0])
     before = copy(direction)
     workspace.scratch.tableau_row[1] = -1.0
-    @test !JSimplex._try_native_dual_correction!(workspace, direction, 1, 1, () -> false)
-    @test direction == before
+    @test JSimplex._try_native_dual_correction!(workspace, direction, 1, 1, () -> false)
+    @test direction != before
+    @test direction ≈ [-1.0, 0.0]
+    @test workspace.scratch.refactorization.residual_bad
 end

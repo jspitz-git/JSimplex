@@ -20,7 +20,7 @@ end
         p = LinearProblem(sparse([1.0;;]), [-1.0]; row_upper=[1.0])
         o = SolverOptions(; verbose=false, pricing=:dantzig, simplex_strategy=:adaptive,
                           presolve=false, scaling=:off)
-        policy = JSimplex.NumericalPolicy(Float64; simplex_strategy=:adaptive, phase_one)
+        policy = JSimplex.NumericalPolicy(Float64; numerical_profile=:checked, simplex_strategy=:adaptive, phase_one)
         w = JSimplex.initialize_workspace(p, o; progress=JSimplex.SimplexProgressContext(p;
             numerical_policy=policy))
         JSimplex._reject_recovery_pair!(w, 1, 1, policy)

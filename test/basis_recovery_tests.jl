@@ -6,7 +6,8 @@ end
 
 @testset "Discarded recovery candidates retain the triggering pivot pair" begin
     p = LinearProblem(sparse([1.0;;]),[0.0])
-    w = JSimplex.initialize_workspace(p,SolverOptions(verbose=false,simplex_strategy=:adaptive))
+    w = JSimplex.initialize_workspace(p,SolverOptions(verbose=false,simplex_strategy=:adaptive);
+        progress=JSimplex.SimplexProgressContext(p;numerical_policy=JSimplex.NumericalPolicy(Float64;numerical_profile=:checked)))
     @test_throws JSimplex._PivotRejection JSimplex._transactional_simplex_step!(w,()->false) do candidate,stop
         candidate.scratch.selected_row = 1
         candidate.scratch.selected_entering = 1
@@ -121,7 +122,7 @@ end
     p = LinearProblem(sparse([1.0 1.0;1.0 1.0]),[0.0,0.0];
         column_lower=[1.0,0.0],row_lower=[1.0,2.0])
     options = SolverOptions(verbose=false,pricing=:dantzig,simplex_strategy=:adaptive)
-    policy = JSimplex.NumericalPolicy(Float64;simplex_strategy=:adaptive,pivot_validation=checked)
+    policy = JSimplex.NumericalPolicy(Float64;numerical_profile=:checked,simplex_strategy=:adaptive,pivot_validation=checked)
     w = JSimplex.initialize_workspace(p,options;
         progress=JSimplex.SimplexProgressContext(p;numerical_policy=policy))
     w.basis.basic_indices .= [1,2]
@@ -144,11 +145,12 @@ end
   end
 end
 
-@testset "Adaptive checkpoints are opt-in and phase-local" begin
+@testset "Recovery checkpoints are explicitly opt-in and phase-local" begin
     p = LinearProblem(sparse([1.0;;]),[1.0])
     legacy = JSimplex.initialize_workspace(p,SolverOptions(verbose=false))
     @test isempty(legacy.scratch.checkpoints)
-    adaptive = JSimplex.initialize_workspace(p,SolverOptions(verbose=false,simplex_strategy=:adaptive))
+    adaptive = JSimplex.initialize_workspace(p,SolverOptions(verbose=false,simplex_strategy=:adaptive);
+        progress=JSimplex.SimplexProgressContext(p;numerical_policy=JSimplex.NumericalPolicy(Float64;numerical_profile=:checked)))
     @test adaptive.progress.numerical_policy.recovery
     @test length(adaptive.scratch.checkpoints) == 1
     c = JSimplex.checkpoint_basis(adaptive)
@@ -294,7 +296,8 @@ end
 
 @testset "Recovery never combines trigger coordinates from different candidates" begin
     p = LinearProblem(sparse([1.0;1.0;;]),[0.0])
-    w = JSimplex.initialize_workspace(p,SolverOptions(verbose=false,simplex_strategy=:adaptive))
+    w = JSimplex.initialize_workspace(p,SolverOptions(verbose=false,simplex_strategy=:adaptive);
+        progress=JSimplex.SimplexProgressContext(p;numerical_policy=JSimplex.NumericalPolicy(Float64;numerical_profile=:checked)))
     for (row,entering,expected) in ((1,1,(1,1)),(2,0,(2,0)),(0,2,(0,2)),(0,0,(0,2)))
         @test_throws JSimplex._PivotRejection JSimplex._transactional_simplex_step!(w,()->false) do c,stop
             c.scratch.selected_row = row

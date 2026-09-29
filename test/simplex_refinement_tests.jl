@@ -121,7 +121,8 @@ end
 end
 
 @testset "Shared solve refinement is independently configurable" begin
-    @test JSimplex.NumericalPolicy(Float64;simplex_strategy=:adaptive).solve_refinement
+    @test JSimplex.NumericalPolicy(Float64;numerical_profile=:checked).solve_refinement
+    @test !JSimplex.NumericalPolicy(Float64;simplex_strategy=:adaptive).solve_refinement
     @test !JSimplex.NumericalPolicy(Float64).solve_refinement
     @test !JSimplex.NumericalPolicy(Float64;simplex_strategy=:adaptive,solve_refinement=false).solve_refinement
 end
@@ -168,7 +169,7 @@ end
         end)
         progress = JSimplex.SimplexProgressContext(p;diagnostics,
             numerical_policy=JSimplex.NumericalPolicy(Float64;
-                simplex_strategy=:adaptive,incremental_primal=incremental))
+                simplex_strategy=:adaptive,numerical_profile=:checked,incremental_primal=incremental))
         w = JSimplex.initialize_workspace(p,options;progress)
         live[] = w
         w.iterations = before

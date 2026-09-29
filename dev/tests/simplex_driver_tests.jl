@@ -6,7 +6,8 @@ include("../simplex_replay.jl")
     mktempdir() do root
         p = LinearProblem(JSimplex.sparse([1.0;;]),[1.0];row_lower=[1.0])
         o = SolverOptions(verbose=false,algorithm=:primal,simplex_strategy=:adaptive)
-        w = JSimplex.initialize_workspace(p,o)
+        w = JSimplex.initialize_workspace(p,o;progress=JSimplex.SimplexProgressContext(p;
+            numerical_policy=JSimplex.NumericalPolicy(Float64;feasibility_recovery=true)))
         w.iterations = 7
         path = joinpath(root,"snapshot.bin")
         JSimplexReplay.save_snapshot(path,w;original_hash=repeat("e",64))

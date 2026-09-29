@@ -38,18 +38,21 @@ struct NumericalPolicy{T<:Real}
     lp_refinement::Bool
 end
 
+# Strategy flags never select a different numerical implementation. The checked
+# profile is an explicit internal opt-in for alternative numerical pipelines.
 function NumericalPolicy(::Type{T}; simplex_strategy::Symbol=:legacy,
+    numerical_profile::Symbol=:native,
     solve_tolerance=nothing, pivot_error_tolerance=nothing,
     max_refinements::Integer=3, max_pivot_candidates::Integer=8,
     max_recovery_rounds::Integer=2, stagnation_window::Integer=64,
     max_precision_bits::Integer=512, max_precision_memory_bytes::Integer=1<<30,
     max_lp_refinements::Integer=8,
-    stable_ratio::Bool=(simplex_strategy == :adaptive), recovery::Bool=(simplex_strategy == :adaptive),
-    incremental_primal::Bool=(simplex_strategy == :adaptive),
-    incremental_primal_pivots::Bool=(simplex_strategy == :adaptive),
-    pivot_validation::Bool=(simplex_strategy == :adaptive),
-    solve_refinement::Bool=(simplex_strategy == :adaptive),
-    feasibility_recovery::Bool=(simplex_strategy == :adaptive),
+    stable_ratio::Bool=(numerical_profile == :checked), recovery::Bool=(numerical_profile == :checked),
+    incremental_primal::Bool=(numerical_profile == :checked),
+    incremental_primal_pivots::Bool=(numerical_profile == :checked),
+    pivot_validation::Bool=(numerical_profile == :checked),
+    solve_refinement::Bool=(numerical_profile == :checked),
+    feasibility_recovery::Bool=(numerical_profile == :checked),
     adaptive_refactor::Bool=(simplex_strategy == :adaptive), refactor_timing::Bool=true,
     adaptive_stalling::Bool=(simplex_strategy == :adaptive),
     adaptive_dual_perturbation::Bool=(simplex_strategy == :adaptive),
@@ -60,6 +63,7 @@ function NumericalPolicy(::Type{T}; simplex_strategy::Symbol=:legacy,
 ) where {T}
     _supported_value_type(T) || throw(ArgumentError("Unsupported numerical policy type $T"))
     simplex_strategy in (:legacy,:adaptive) || throw(ArgumentError("Unknown simplex strategy"))
+    numerical_profile in (:native,:checked) || throw(ArgumentError("Unknown numerical profile"))
     exact = _is_exact(T) === Val(true)
     default_solve = exact ? zero(T) : T(256)*eps(T)
     exact || default_solve < one(T) ||
@@ -85,7 +89,7 @@ function NumericalPolicy(::Type{T}; simplex_strategy::Symbol=:legacy,
         enabled && !(name in IMPLEMENTED_NUMERICAL_SWITCHES) &&
             throw(ArgumentError("Numerical stage $name is not implemented"))
     end
-    # Stage switches remain disabled by default until their implementations land.
+    # Keep numerical and strategy choices independent, including explicit overrides.
     return NumericalPolicy{T}(solve_limit,pivot_limit,Int(max_refinements),
         Int(max_pivot_candidates),Int(max_recovery_rounds),Int(stagnation_window),
         Int(max_precision_bits),Int(max_precision_memory_bytes),Int(max_lp_refinements),stable_ratio,pivot_validation,solve_refinement,recovery,feasibility_recovery,
@@ -95,6 +99,10 @@ end
 
 NumericalPolicy(::Type{T}, options::SolverOptions) where {T} =
     NumericalPolicy(T; simplex_strategy=options.simplex_strategy)
+
+_native_primal_kernel(policy::NumericalPolicy) =
+    !(policy.pivot_validation || policy.recovery || policy.incremental_primal ||
+      policy.incremental_primal_pivots)
 
 struct SolveQuality{T<:Real}
     absolute_error::T

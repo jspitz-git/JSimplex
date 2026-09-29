@@ -100,7 +100,8 @@ end
 function _run_basis_terminal!(ws::SimplexWorkspace{T},budget::SimplexRunBudget,
                               policy::NumericalPolicy{T},stop,::Val{A},
                               reduced_cost_tolerance::T,perturb_degenerate::Bool,
-                              perturb_primal::Bool)::DualTermination where {T,A}
+                              perturb_primal::Bool,
+                              force_feasibility::Bool=false)::DualTermination where {T,A}
     _install_driver_policy!(ws,policy;start_ns=budget.start_ns)
     # A new workspace inherits consumed work rather than receiving a fresh
     # iteration allowance. Offsets belong to the outer retry, not to phases.
@@ -123,7 +124,7 @@ function _run_basis_terminal!(ws::SimplexWorkspace{T},budget::SimplexRunBudget,
     last_progress = ws.iterations
     fresh = false
     try
-        if !policy.feasibility_recovery
+        if !(policy.feasibility_recovery || force_feasibility)
             return ws.options.algorithm == :dual ? _dual_optimize!(ws,guarded;perturb_degenerate) :
                 _primal_optimize!(ws,guarded,reduced_cost_tolerance;
                     perturb_degenerate=perturb_primal)
@@ -147,6 +148,10 @@ function _run_basis_terminal!(ws::SimplexWorkspace{T},budget::SimplexRunBudget,
                 DualTermination(NUMERICAL_ERROR,"basis recomputation could not be verified")
             else
                 try
+                    # Native safeguards follow the phase actually being run.
+                    # Retain its options through the next verification, which
+                    # may preserve a tolerated nonbasic row value as well.
+                    ws.options = _phase_options(ws.options, mode == :phase_one ? :dual : mode)
                     if mode == :phase_one
                         A ? make_dual_feasible!(ws,guarded) :
                             DualTermination(NUMERICAL_ERROR,"auxiliary feasibility recovery cannot nest")
@@ -255,6 +260,15 @@ function _original_bound_terminal(ws,terminal::DualTermination)
     return terminal
 end
 
+# Cleanup is mandatory for altered models even if heuristics were disabled
+# after a previous run. It does not opt the pivot kernel into recovery stages.
+_original_objective_driver_required(ws) =
+    ws.progress.numerical_policy.feasibility_recovery ||
+    _adaptive_dual_perturbation_enabled(ws.progress.numerical_policy) ||
+    _adaptive_primal_perturbation_enabled(ws.progress.numerical_policy) ||
+    !_original_costs_active(ws) || !_original_bounds_active(ws) ||
+    _has_active_perturbations(ws.scratch.perturbations)
+
 function _run_original_objective_terminal!(ws::SimplexWorkspace{T},budget,policy,stop;
         reduced_cost_tolerance::T=ws.options.dual_tolerance,
         allow_auxiliary=Val(true),phase_perturbations::Bool=false)::DualTermination where T
@@ -267,13 +281,15 @@ function _run_original_objective_terminal!(ws::SimplexWorkspace{T},budget,policy
         phase_perturbations::Bool)::DualTermination where {T,A}
     # Repairs may also shift a small price even with degeneracy perturbations
     # disabled. Bound cleanup itself and certify only the original objective.
+    force_feasibility = !_original_costs_active(ws) || !_original_bounds_active(ws) ||
+        _has_active_perturbations(ws.scratch.perturbations)
     for cleanup in 0:2
         perturb = cleanup == 0 && ws.options.algorithm == :dual &&
             (!iszero(reduced_cost_tolerance) || phase_perturbations)
         perturb_primal = cleanup == 0 && ws.options.algorithm == :primal &&
             (!iszero(reduced_cost_tolerance) || phase_perturbations)
         terminal = _run_basis_terminal!(ws,budget,policy,stop,allow_auxiliary,
-            reduced_cost_tolerance,perturb,perturb_primal)
+            reduced_cost_tolerance,perturb,perturb_primal,force_feasibility)
         if terminal.status in (OPTIMAL,INFEASIBLE,UNBOUNDED) &&
            _has_active_bound_perturbations(ws.scratch.perturbations)
             # Expanded-bound feasibility or a terminal proof must be checked
@@ -281,6 +297,7 @@ function _run_original_objective_terminal!(ws::SimplexWorkspace{T},budget,policy
             _restore_original_costs!(ws)
             ws.perturbed = false
             _simplex_event!(ws,:phase_cleanup)
+            force_feasibility = true
             continue
         end
         terminal = _original_bound_terminal(ws,terminal)
@@ -294,6 +311,7 @@ function _run_original_objective_terminal!(ws::SimplexWorkspace{T},budget,policy
         _restore_original_costs!(ws)
         ws.perturbed = false
         _simplex_event!(ws,:phase_cleanup)
+        force_feasibility = true
     end
     (_budget_expired(budget) || stop()) &&
         return DualTermination(TIME_LIMIT,"time limit reached during objective cleanup")

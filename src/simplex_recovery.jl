@@ -429,9 +429,7 @@ function _refine_basis_solve!(destination::AbstractVector{T},ws,B,rhs,policy,sto
         _simplex_event!(ws,:correction_attempt)
         correction = _timed_simplex(ws,transposed ? :btran : :ftran) do
             transposed ? transpose_solve!(buffers.correction,ws.factorization,quality_scratch.residual) :
-                         ws.options.simplex_strategy == :legacy ?
-                         _ordinary_forward_solve!(buffers.correction,ws.factorization,quality_scratch.residual) :
-                         forward_solve!(buffers.correction,ws.factorization,quality_scratch.residual)
+                         _ordinary_forward_solve!(buffers.correction,ws.factorization,quality_scratch.residual)
         end
         all(isfinite,correction) || return quality
         changed = false

@@ -1,3 +1,10 @@
+# These fixtures exercise the explicitly checked numerical implementation.
+function _checked_pivot_application_workspace(p, options; progress=JSimplex.SimplexProgressContext(p;
+        numerical_policy=JSimplex.NumericalPolicy(eltype(p.objective);
+            numerical_profile=:checked, simplex_strategy=options.simplex_strategy)))
+    return JSimplex.initialize_workspace(p, options; progress)
+end
+
 using SparseArrays, LinearAlgebra
 using Logging
 
@@ -16,7 +23,7 @@ end
             row_lower=dual ? [1.0] : [nothing],row_upper=dual ? [nothing] : [1.0])
         options = SolverOptions(;algorithm,verbose=true,pricing=:dantzig,
             simplex_strategy=:adaptive,refactorization_interval=1)
-        w = JSimplex.initialize_workspace(p,options)
+        w = _checked_pivot_application_workspace(p,options)
         stale && JSimplex.refactorize!(w.factorization,2JSimplex.basis_matrix(w))
         original = (copy(w.primal),copy(w.reduced_costs),copy(w.costs),
                     copy(w.basis.states),copy(w.basis.basic_indices))
@@ -42,7 +49,7 @@ end
         p = LinearProblem(sparse(reshape(T[a],1,1)),T[dual ? 1 : -1];
             row_lower=dual ? T[1] : [nothing],row_upper=dual ? [nothing] : T[1])
         options = SolverOptions(T;algorithm,verbose=false,pricing=:dantzig,simplex_strategy=:adaptive)
-        w = JSimplex.initialize_workspace(p,options)
+        w = _checked_pivot_application_workspace(p,options)
         result = dual ? JSimplex._dual_iteration!(w,()->false) :
             JSimplex._primal_iteration!(w,()->false,options.dual_tolerance)
         @test isnothing(result)
@@ -53,7 +60,8 @@ end
 end
 
 @testset "Adaptive pivot validation is independently configurable" begin
-    @test JSimplex.NumericalPolicy(Float64;simplex_strategy=:adaptive).pivot_validation
+    @test JSimplex.NumericalPolicy(Float64;numerical_profile=:checked).pivot_validation
+    @test !JSimplex.NumericalPolicy(Float64;simplex_strategy=:adaptive).pivot_validation
     @test !JSimplex.NumericalPolicy(Float64;pivot_validation=false).pivot_validation
     @test JSimplex.NumericalPolicy(Float64;pivot_validation=true,stable_ratio=false).pivot_validation
 end
@@ -102,8 +110,8 @@ end
         end
         diagnostics = JSimplex.SimplexDiagnostics(;observer,kernel_timing=true)
         progress = JSimplex.SimplexProgressContext(p;diagnostics,
-            numerical_policy=JSimplex.NumericalPolicy(Float64,options))
-        w = JSimplex.initialize_workspace(p,options;progress)
+            numerical_policy=JSimplex.NumericalPolicy(Float64; numerical_profile=:checked, simplex_strategy=options.simplex_strategy))
+        w = _checked_pivot_application_workspace(p,options;progress)
         live[] = w
         @test_throws JSimplex.DiagnosticObserverFailure JSimplex._dual_iteration!(w,()->false)
         @test w.iterations == (failure_event == :pivot_proposed ? 0 : 1)
@@ -122,7 +130,7 @@ end
             row_lower=dual ? [1.0] : [nothing],row_upper=dual ? [nothing] : [1.0])
         options = SolverOptions(;algorithm,verbose=false,pricing=:dantzig,
             simplex_strategy=:adaptive,basis_update=update,basis_refactorization=backend)
-        w = JSimplex.initialize_workspace(p,options)
+        w = _checked_pivot_application_workspace(p,options)
         JSimplex.refactorize!(w.factorization,2JSimplex.basis_matrix(w))
         result = dual ? JSimplex._dual_iteration!(w,()->false) :
             JSimplex._primal_iteration!(w,()->false,options.dual_tolerance)
@@ -144,8 +152,8 @@ function cancellation_pivot_workspace(algorithm)
     options = SolverOptions(;algorithm,verbose=false,pricing=:dantzig,simplex_strategy=:adaptive)
     diagnostics = JSimplex.SimplexDiagnostics()
     progress = JSimplex.SimplexProgressContext(p;diagnostics,
-        numerical_policy=JSimplex.NumericalPolicy(Float64,options))
-    w = JSimplex.initialize_workspace(p,options;progress)
+        numerical_policy=JSimplex.NumericalPolicy(Float64; numerical_profile=:checked, simplex_strategy=options.simplex_strategy))
+    w = _checked_pivot_application_workspace(p,options;progress)
     w.basis.basic_indices .= [1,2]
     fill!(w.basis.states,JSimplex.AT_LOWER)
     w.basis.states[1:2] .= JSimplex.BASIC
@@ -169,7 +177,7 @@ end
 @testset "Rejection budgets preserve state and refresh cached policy" begin
     w,_ = cancellation_pivot_workspace(:dual)
     old = w.progress
-    limited = JSimplex.NumericalPolicy(Float64;simplex_strategy=:adaptive,
+    limited = JSimplex.NumericalPolicy(Float64;numerical_profile=:checked,simplex_strategy=:adaptive,
         max_pivot_candidates=1,max_recovery_rounds=0,max_refinements=0)
     w.progress = JSimplex.SimplexProgressContext(w.problem;diagnostics=old.diagnostics,
                                                 numerical_policy=limited)

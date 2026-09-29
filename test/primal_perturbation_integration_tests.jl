@@ -109,8 +109,8 @@ end
     @test isnothing(ws.scratch.perturbations)
 end
 
-@testset "Primal perturbation requires monitoring and original-model recovery" begin
-    for disabled in (:adaptive_primal_perturbation,:adaptive_stalling,:feasibility_recovery)
+@testset "Primal perturbation requires monitoring" begin
+    for disabled in (:adaptive_primal_perturbation,:adaptive_stalling)
         ws,_=primal_perturbation_chain()
         for _ in 1:2
             ws.iterations+=1
@@ -175,4 +175,17 @@ end
     @test JSimplex.event_count(ws.progress.diagnostics,:phase_cleanup)==1
     @test JSimplex._original_bounds_active(ws)
     @test ws.iterations==budget.iterations==130
+end
+
+@testset "Native cleanup retires an owned bound journal after heuristics are disabled" begin
+    ws, _ = shifted_primal_workspace()
+    @test JSimplex._primal_optimize!(ws, ()->false).status == OPTIMAL
+    policy = JSimplex.NumericalPolicy(Float64)
+    JSimplex._install_driver_policy!(ws, policy)
+    @test JSimplex._original_objective_driver_required(ws)
+    run = JSimplex.run_from_basis!(ws, JSimplex.SimplexRunBudget(ws), policy, ()->false)
+    @test run.status == OPTIMAL && run.primal == [0.0]
+    @test JSimplex._original_bounds_active(ws)
+    @test isnothing(ws.scratch.perturbations)
+    @test !ws.progress.numerical_policy.feasibility_recovery
 end

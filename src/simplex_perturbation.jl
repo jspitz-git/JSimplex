@@ -166,7 +166,7 @@ end
 
 # Automatic shifts need the common monitor and original-objective cleanup.
 _adaptive_dual_perturbation_enabled(policy) = policy.adaptive_dual_perturbation &&
-    policy.adaptive_stalling && policy.feasibility_recovery
+    policy.adaptive_stalling
 
 function _maybe_perturb_dual_costs!(ws,stop)::Int
     policy = ws.progress.numerical_policy
@@ -310,7 +310,7 @@ function _perturb_primal_bounds_precise!(ws,monitor,journal::PerturbationJournal
 end
 
 _adaptive_primal_perturbation_enabled(policy) = policy.adaptive_primal_perturbation &&
-    policy.adaptive_stalling && policy.feasibility_recovery
+    policy.adaptive_stalling
 
 function _maybe_perturb_primal_bounds!(ws,stop)::Int
     _adaptive_primal_perturbation_enabled(ws.progress.numerical_policy) &&

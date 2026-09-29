@@ -438,10 +438,8 @@ function _primal_iteration_core!(ws::SimplexWorkspace,stop_requested,reduced_cos
                                 basis_refreshed,false)
         end
     end
-    if !(policy.pivot_validation || policy.recovery || policy.incremental_primal)
-        ws.options.simplex_strategy == :legacy && return _legacy_primal_iteration!(
-            ws,stop_requested,reduced_cost_tolerance,basis_refreshed)
-        return _primal_iteration_unchecked!(ws,stop_requested,reduced_cost_tolerance,basis_refreshed)
+    if _native_primal_kernel(policy)
+        return _legacy_primal_iteration!(ws,stop_requested,reduced_cost_tolerance,basis_refreshed)
     end
     return _retry_simplex_step!(ws,stop_requested,:primal,reduced_cost_tolerance,
                                 basis_refreshed,false)

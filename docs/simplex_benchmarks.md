@@ -67,38 +67,40 @@ separately from timings on jointly solved cases.
 
 Use `--simplex-strategy=legacy` (default) or `adaptive` for fresh solves.
 Reports include the effective numerical policy as well as SolverOptions.
-The adaptive profile currently enables `stable_ratio`, `pivot_validation`,
-`solve_refinement`, `recovery`, `feasibility_recovery`, `incremental_primal`,
-`incremental_primal_pivots`, `adaptive_refactor`, `adaptive_stalling`, and
-`adaptive_dual_perturbation`, `adaptive_primal_perturbation`, `adaptive_pricing`,
-and `partial_pricing`.
-Set a switch to `false` in a policy file to isolate its effect.
-Disabling `solve_refinement` retains the F04 pivot-specific corrections while
-turning off broader basis-solve refinement. Disabling `pivot_validation` turns
-off the independent pivot-quality gate. Recovery can still stage and retry
-failed iterations, restore checkpoints or exchange basis columns. Disable both
-`pivot_validation` and `recovery` to turn off transactional retry application.
-Other stages remain controlled by their own switches.
-Disabling `adaptive_stalling` removes the progress monitor and restores the
-legacy zero-step Dantzig trigger. Stagnation emits `stagnation_watch`,
-`stagnation_stalled`, and `stagnation_fallback` counters; use these alongside
-iterations and solve counts when evaluating degeneracy. Set `refactor_timing=false`
-in both arms of a diagnostic comparison to exclude clock-based refactor decisions.
-Disabling `adaptive_dual_perturbation` retains the earlier 1024-zero-step cost
-perturbation trigger. Automatic adaptive cost shifts also require
-`adaptive_stalling` and `feasibility_recovery`; disabling either dependency
-retains the earlier trigger. Compare `perturbation`, `restore_perturbations`, and
-`phase_cleanup` counters and include cleanup time in the result. Perturbation
-levels are bounded and user dual tolerances remain unchanged.
-`adaptive_primal_perturbation=false` disables outward basic-bound shifts. The
-primal action also requires the progress monitor and feasibility recovery;
-phase I and objective cleanup never apply it. Compare the same perturbation,
-restoration, and cleanup counters, and include restoration in timings. Basic
-bounds have their own escalation history within the shared journal. Exact
-arithmetic receives neither primal bound shifts nor dual cost shifts.
+Both strategies use the native numerical kernel by default. The adaptive strategy
+enables `adaptive_refactor`, `adaptive_stalling`, `adaptive_dual_perturbation`,
+`adaptive_primal_perturbation`, `adaptive_pricing`, and `partial_pricing`.
+It does not implicitly enable `stable_ratio`, `pivot_validation`,
+`solve_refinement`, `recovery`, `feasibility_recovery`, `incremental_primal`, or
+`incremental_primal_pivots`. These alternative numerical stages require explicit
+internal policy overrides. Julia diagnostics can select their former combined
+configuration using `NumericalPolicy(T; numerical_profile=:checked)`; this is not
+a public SolverOptions field or a benchmark TOML key. Individual flags override
+that internal profile. Native pivot, residual, and point safeguards remain active
+without opting into those alternative stages.
+
+Set heuristic flags to `false` to isolate their effects. There is no implicit
+legacy zero-step Dantzig switch or 1024-zero-step cost-perturbation trigger.
+Stagnation emits `stagnation_watch`, `stagnation_stalled`, and
+`stagnation_fallback` counters. Set `refactor_timing=false` in both arms of a
+comparison to exclude clock-based refactor decisions. Interval growth still
+requires positive numerical quality evidence; disabling a quality-producing
+stage does not authorize unconditional growth.
+
+Automatic perturbations require their action flag and `adaptive_stalling`.
+Original-cost and original-bound restoration remain mandatory, including when
+resuming an owned journal after heuristic flags have been disabled. Cleanup may
+select the appropriate feasible simplex phase without changing its numerical
+policy. Compare `perturbation`, `restore_perturbations`, and `phase_cleanup`, and
+include cleanup time. Primal bound shifts are excluded during phase I and
+objective cleanup. Perturbation levels are bounded, user tolerances are unchanged,
+and exact arithmetic receives neither primal bound nor dual cost shifts.
 Use `--pricing=steepest_edge|devex|dantzig|auto` for fresh solves; replay retains
 its stored pricing option. `adaptive_pricing=false` disables progress-driven
-switches for `pricing=auto`, while preserving recovery of unreliable weights.
+switches for `pricing=auto` and the native primal preference for stronger pivots,
+while preserving numerical rejection of invalid pivots and recovery of unreliable
+weights. The weak-pivot preference is bounded to eight deferred candidates before
+retrying with ordinary numerical checks.
 Compare automatic pricing with its disabled adaptation and with explicit
 steepest edge. Record pricing kernel time/calls together with iterations and
 `pricing_devex`, `pricing_dantzig`, `pricing_reset`, and `pricing_weight_rejected`.

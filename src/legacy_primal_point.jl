@@ -6,12 +6,11 @@ _legacy_primal_point_candidate(workspace, entering, leaving_row, step, column) =
 function _legacy_primal_point_candidate(workspace::SimplexWorkspace{T}, entering::Int,
                                         leaving_row::Int, step::T, column::AbstractVector{T}) where {T}
     T === Float32 || T === Float64 || return nothing
-    workspace.options.algorithm == :primal &&
-        workspace.options.simplex_strategy == :legacy || return nothing
+    workspace.options.algorithm == :primal || return nothing
     policy = workspace.progress.numerical_policy
     (policy.pivot_validation || policy.solve_refinement || policy.recovery ||
      policy.incremental_primal || policy.incremental_primal_pivots ||
-     policy.adaptive_refactor || _is_staged_workspace(workspace)) && return nothing
+     _is_staged_workspace(workspace)) && return nothing
     candidate = _pivot_quality_buffers(workspace).trial
     for (row, index) in enumerate(workspace.basis.basic_indices)
         candidate[row] = row == leaving_row ? workspace.primal[entering] + step :

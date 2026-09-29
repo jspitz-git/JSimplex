@@ -83,7 +83,7 @@ _primal_cacheable_weight(weight::Rational{BigInt}) = true
 _primal_cacheable_weight(weight::Rational) = false
 
 function _invalidate_primal_retry_weights!(workspace::SimplexWorkspace, entering::Int)
-    if workspace.options.simplex_strategy == :legacy
+    if _native_primal_kernel(workspace.progress.numerical_policy)
         # Refactorization keeps the same basis geometry. Refresh the selected
         # candidate without solving every other improving column again.
         workspace.scratch.steepest_valid[entering] = false
@@ -284,7 +284,6 @@ function _primal_bound_snap_feasible(workspace::SimplexWorkspace{T}, entering::I
     violation = max(zero(T), _lower_violation(workspace.lower[entering], value),
                     _upper_violation(workspace.upper[entering], value))
     violation <= tolerance || return false
-    legacy = workspace.options.simplex_strategy == :legacy
     for (row, index) in enumerate(workspace.basis.basic_indices)
         row == leaving_row && continue
         value = workspace.primal[index] - direction * column[row] * step
@@ -293,7 +292,7 @@ function _primal_bound_snap_feasible(workspace::SimplexWorkspace{T}, entering::I
                               _upper_violation(workspace.upper[index], value))
         # Use the same per-bound feasibility criterion as legacy Harris pricing
         # and recomputation, including the movement imposed by this bound snap.
-        violation = legacy ? max(violation, bound_violation) : violation + bound_violation
+        violation = max(violation, bound_violation)
         violation <= tolerance || return false
     end
     return true
@@ -343,10 +342,9 @@ function _primal_ratio(workspace::SimplexWorkspace{T}, entering::Int, direction:
     strict_row == 0 && return strict_step, strict_row, strict_state
     has_relaxed_limit || return strict_step, strict_row, strict_state
 
-    legacy = workspace.options.simplex_strategy == :legacy
     strict_safe = !(strict_row in workspace.scratch.rejected_rows) &&
-        (!legacy || _primal_bound_snap_feasible(
-            workspace, entering, direction, tableau_column, strict_row))
+        _primal_bound_snap_feasible(
+            workspace, entering, direction, tableau_column, strict_row)
     fallback = strict_safe ? (strict_step, strict_row, strict_state) : (nothing, -1, BASIC)
     leaving_row = 0
     leaving_step = strict_step
@@ -363,7 +361,7 @@ function _primal_ratio(workspace::SimplexWorkspace{T}, entering::Int, direction:
         candidate <= relaxed_limit || continue
         pivot = abs(tableau_column[row])
         if pivot > largest_pivot
-            legacy && !_primal_bound_snap_feasible(
+            !_primal_bound_snap_feasible(
                 workspace, entering, direction, tableau_column, row) && continue
             leaving_row = row
             leaving_step = candidate
@@ -384,7 +382,7 @@ function _primal_ratio(workspace::SimplexWorkspace{T}, entering::Int, direction:
                               _upper_violation(workspace.upper[index], value))
         # Legacy feasibility is checked per bound. Summing already tolerated
         # errors can reject a stable Harris pivot in favor of a tiny fallback.
-        violation = legacy ? max(violation, bound_violation) : violation + bound_violation
+        violation = max(violation, bound_violation)
         if violation > tolerance
             return fallback
         end
@@ -397,7 +395,7 @@ function _legacy_primal_iteration!(workspace::SimplexWorkspace, stop_requested,
     rejected = workspace.scratch.rejected_entering
     empty!(rejected)
     failure = DualTermination(NUMERICAL_ERROR, "primal ratio test is inconclusive")
-    defer_weak = true
+    defer_weak = workspace.progress.numerical_policy.adaptive_pricing
     deferred = 0
     try
         # Search stable candidates first, then permit weak but validated pivots
@@ -911,11 +909,11 @@ function _solve_continuous_primal(problem::LinearProblem{T}, options::SolverOpti
         original = initial
         _simplex_event!(workspace, artificial_count > 0 ? :phase_one : :phase_primal)
         policy = workspace.progress.numerical_policy
-        budget = policy.feasibility_recovery ? SimplexRunBudget(workspace) : nothing
+        budget = SimplexRunBudget(workspace)
         # A small phase-I reduced cost can still remove a large violation when
         # its column is small, so dual_tolerance must not suppress it.
         tolerance = artificial_count > 0 ? zero(T) : options.dual_tolerance
-        terminal = policy.feasibility_recovery ?
+        terminal = _original_objective_driver_required(workspace) ?
             _run_original_objective_terminal!(workspace,budget,policy,stop_requested;
                 reduced_cost_tolerance=tolerance) :
             _primal_optimize!(workspace,stop_requested,tolerance)
@@ -954,7 +952,7 @@ function _solve_continuous_primal(problem::LinearProblem{T}, options::SolverOpti
             workspace.scratch.primal_perturbation_allowed = true
             policy.feasibility_recovery || recompute!(workspace)
             _simplex_event!(workspace, :phase_primal)
-            terminal = policy.feasibility_recovery ?
+            terminal = _original_objective_driver_required(workspace) ?
                 _run_original_objective_terminal!(workspace,budget,policy,stop_requested) :
                 _primal_optimize!(workspace, stop_requested)
             terminal.status == OPTIMAL || return _recover_original_failure(original,

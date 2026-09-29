@@ -98,9 +98,11 @@ for floating models and is invalid for rational models. Scaling uses powers of
 two and keeps a row or column unchanged if scaling would make a nonzero value
 zero or a finite value nonfinite. Simplex tolerances apply in scaled units;
 optimal primal and objective values are checked in the original model's units.
-`simplex_strategy=:legacy` preserves the existing algorithm. `:adaptive` is an
-opt-in profile which enables only implemented numerical improvements; the
-shared quality infrastructure alone does not change pivot selection.
+`simplex_strategy=:legacy` uses fixed iteration policies. `:adaptive` enables
+progress heuristics such as pricing preferences, perturbations, and refactorization
+scheduling. Both strategies use the same default numerical kernel and safeguards;
+selecting a strategy does not change numerical precision or enable an alternative
+pivot-validation, refinement, or incremental-update implementation.
 
 ```julia
 using JSimplex

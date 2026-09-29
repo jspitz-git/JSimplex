@@ -1,3 +1,10 @@
+# These fixtures exercise the explicitly checked numerical implementation.
+function _checked_pivot_atomicity_workspace(p, options; progress=JSimplex.SimplexProgressContext(p;
+        numerical_policy=JSimplex.NumericalPolicy(eltype(p.objective);
+            numerical_profile=:checked, simplex_strategy=options.simplex_strategy)))
+    return JSimplex.initialize_workspace(p, options; progress)
+end
+
 using SparseArrays
 
 @testset "Stop callbacks always see a consistent live factor" begin
@@ -6,7 +13,7 @@ using SparseArrays
         p = LinearProblem(sparse([1.0;;]),[dual ? 1.0 : -1.0];
             row_lower=dual ? [1.0] : [nothing],row_upper=dual ? [nothing] : [1.0])
         options = SolverOptions(;algorithm,verbose=false,pricing=:dantzig,simplex_strategy=:adaptive)
-        w = JSimplex.initialize_workspace(p,options)
+        w = _checked_pivot_atomicity_workspace(p,options)
         calls = Ref(0)
         stop = function()
             calls[] += 1
@@ -32,8 +39,8 @@ end
         @test state.primal[1] == 1.0
         @test state.iterations == 1
     end)
-    progress = JSimplex.SimplexProgressContext(p;diagnostics,numerical_policy=JSimplex.NumericalPolicy(Float64,options))
-    w = JSimplex.initialize_workspace(p,options;progress)
+    progress = JSimplex.SimplexProgressContext(p;diagnostics,numerical_policy=JSimplex.NumericalPolicy(Float64; numerical_profile=:checked, simplex_strategy=options.simplex_strategy))
+    w = _checked_pivot_atomicity_workspace(p,options;progress)
     @test isnothing(JSimplex._primal_iteration!(w,()->false,options.dual_tolerance))
     @test seen[]
     @test w.primal[1] == 1.0
@@ -42,7 +49,7 @@ end
 @testset "Validated pivots must permit finite factor updates" begin
     for a in ([1e-310],[1e-300,1e308])
         p = LinearProblem(sparse(reshape(a,:,1)),[0.0])
-        w = JSimplex.initialize_workspace(p,SolverOptions(verbose=false))
+        w = _checked_pivot_atomicity_workspace(p,SolverOptions(verbose=false))
         rho = [-1.0;zeros(length(a)-1)]
         candidate = JSimplex.PivotCandidate(1,1,-a[1],-a,rho)
         @test JSimplex.validate_pivot!(w,candidate,JSimplex.NumericalPolicy(Float64)) == :reject_candidate
@@ -58,8 +65,8 @@ end
         seen[] = true
         @test state.reduced_costs ≈ [0.0,-1.0]
     end)
-    progress = JSimplex.SimplexProgressContext(p;diagnostics,numerical_policy=JSimplex.NumericalPolicy(Float64,options))
-    w = JSimplex.initialize_workspace(p,options;progress)
+    progress = JSimplex.SimplexProgressContext(p;diagnostics,numerical_policy=JSimplex.NumericalPolicy(Float64; numerical_profile=:checked, simplex_strategy=options.simplex_strategy))
+    w = _checked_pivot_atomicity_workspace(p,options;progress)
     stop = () -> begin
         w.iterations == 1 && @test w.reduced_costs ≈ [0.0,-1.0]
         false

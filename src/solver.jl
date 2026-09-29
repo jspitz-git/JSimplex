@@ -153,7 +153,7 @@ function _project_postsolve_basis!(workspace::SimplexWorkspace{T}, target::Vecto
     # A valid original-model basis may land elsewhere on a degenerate face.
     # Legacy cleanup optimizes its original costs; coordinate identity with
     # the supplied target is neither a feasibility nor an optimality test.
-    if options.simplex_strategy != :legacy
+    if !_native_primal_kernel(workspace.progress.numerical_policy)
         all(index -> abs(projected[index] - target[index]) <= options.primal_tolerance,
             eachindex(target)) || return nothing
     end
@@ -223,7 +223,7 @@ function cleanup_original(problem::LinearProblem{T}, restored_basis::Basis,
                 recompute!(workspace; refactorize=true, caller_guard=stop_requested)
             else
                 projected = exchanges > 0
-                preserve_primal = options.simplex_strategy == :legacy &&
+                preserve_primal = _native_primal_kernel(workspace.progress.numerical_policy) &&
                     !workspace.progress.numerical_policy.feasibility_recovery &&
                     _finite_workspace(workspace) &&
                     primal_infeasibility(workspace) <= options.primal_tolerance

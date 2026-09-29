@@ -63,7 +63,7 @@ if isdefined(JSimplex,:copy_working_values) && isdefined(JSimplex,:transfer_prec
                 name="precision",row_names=["first","second"],column_names=["boxed","free"])
             options=SolverOptions(T;verbose=false,presolve=false,iteration_limit=30,
                 basis_update=update,basis_refactorization=backend,pricing=:devex)
-            policy=JSimplex.NumericalPolicy(T;simplex_strategy=:adaptive,phase_one=true,crash=true,
+            policy=JSimplex.NumericalPolicy(T;simplex_strategy=:adaptive,phase_one=true,crash=true,recovery=true,
                 sparse_pricing=true,hypersparse=true,refactor_timing=false,max_refinements=4,
                 max_recovery_rounds=5,stagnation_window=8)
             progress=JSimplex.SimplexProgressContext{T,Nothing}(time_ns(),T[2,3,4,5],T(7),
@@ -87,6 +87,7 @@ if isdefined(JSimplex,:copy_working_values) && isdefined(JSimplex,:transfer_prec
             @test fresh.lower!==ws.lower && fresh.upper!==ws.upper
             @test fresh.factorization!==ws.factorization
             @test fresh.scratch!==ws.scratch
+            @test !isempty(fresh.scratch.checkpoints)
             @test all(c->JSimplex._checkpoint_matches(fresh,c) &&
                 c.working_model!=JSimplex._checkpoint_model(ws),fresh.scratch.checkpoints)
             @test fresh.primal≈saved rtol=32eps(T)

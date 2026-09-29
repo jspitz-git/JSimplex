@@ -59,6 +59,6 @@ end
         workspace = tolerated_row_workspace(Float64, 1; algorithm, strategy)
         workspace.basis.states[3] = JSimplex.AT_LOWER
         workspace.iterations = 1
-        @test JSimplex._nonbasic_value(workspace, 3) == 0.0
+        @test JSimplex._nonbasic_value(workspace, 3) == (algorithm == :primal ? workspace.primal[3] : 0.0)
     end
 end

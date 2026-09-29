@@ -1,10 +1,10 @@
 using JSimplex, Test, SparseArrays
 
 @testset "Correlated forward and transpose errors cannot install a singular basis" begin
-    for T in (Float32,Float64), update in (:pfi,:forrest_tomlin,:suhl_suhl,:bartels_golub)
+    for strategy in (:legacy,:adaptive), T in (Float32,Float64), update in (:pfi,:forrest_tomlin,:suhl_suhl,:bartels_golub)
         problem=LinearProblem(sparse(reshape(T[0,1e9],2,1)),T[-1];
             row_upper=T[0,Inf],column_upper=T[1])
-        options=SolverOptions(T;algorithm=:primal,simplex_strategy=:legacy,
+        options=SolverOptions(T;algorithm=:primal,simplex_strategy=strategy,
             basis_update=update,pricing=:steepest_edge,verbose=false)
         ws=JSimplex.initialize_workspace(problem,options)
         # Model an error below the row residual tolerance in a freshly built

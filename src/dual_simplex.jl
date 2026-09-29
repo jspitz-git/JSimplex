@@ -2098,8 +2098,8 @@ function _solve_continuous_dual_once!(workspace::SimplexWorkspace{T}, stop_reque
     stop_requested() && return _internal_solution(workspace, TIME_LIMIT, "time limit reached")
     _finite_workspace(workspace) || return _internal_solution(workspace, _numerical_failure())
     policy = workspace.progress.numerical_policy
-    if policy.feasibility_recovery &&
-       (!_original_costs_active(workspace) || !_original_bounds_active(workspace))
+    if !_original_costs_active(workspace) || !_original_bounds_active(workspace) ||
+       _has_active_perturbations(workspace.scratch.perturbations)
         # A resumed working problem needs original-model terminal checks even
         # when the zero-row shortcut or dual initialization finds a ray.
         return _run_from_basis_once!(workspace,SimplexRunBudget(workspace),policy,stop_requested)
@@ -2115,7 +2115,7 @@ function _solve_continuous_dual_once!(workspace::SimplexWorkspace{T}, stop_reque
         return _internal_solution(workspace, OPTIMAL, "optimal solution found")
     end
     terminal = make_dual_feasible!(workspace, stop_requested)
-    if policy.feasibility_recovery
+    if _original_objective_driver_required(workspace)
         # Keep the explicitly selected dual initialization, then let verified
         # feasibility determine how to continue from a recovered basis.
         if !isnothing(terminal) && terminal.status != NUMERICAL_ERROR

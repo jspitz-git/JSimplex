@@ -5,7 +5,8 @@ include("../simplex_replay.jl")
 @testset "Replay overlays invalidate initialization checkpoints" begin
     mktempdir() do root
         p = LinearProblem(JSimplex.sparse([1.0;;]),[1.0])
-        ws = JSimplex.initialize_workspace(p,SolverOptions(verbose=false,simplex_strategy=:adaptive))
+        ws = JSimplex.initialize_workspace(p,SolverOptions(verbose=false,simplex_strategy=:adaptive);
+            progress=JSimplex.SimplexProgressContext(p;numerical_policy=JSimplex.NumericalPolicy(Float64;recovery=true)))
         ws.costs[1] = 7.0
         path = joinpath(root,"working-costs.bin")
         JSimplexReplay.save_snapshot(path,ws;original_hash=repeat("c",64))

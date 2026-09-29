@@ -5,11 +5,12 @@ using JSimplex,Test,SparseArrays
         A=sparse(vcat(fill(1e-10,1,columns),ones(1,columns)))
         problem=LinearProblem(A,-collect(Float64,columns:-1:1);
             row_upper=[0.0,Inf],column_upper=ones(columns))
-        options=SolverOptions(algorithm=:primal,simplex_strategy=:legacy,
+        options=SolverOptions(algorithm=:primal,simplex_strategy=:adaptive,
             pricing=:steepest_edge,verbose=false)
         diagnostics=JSimplex.SimplexDiagnostics(;kernel_timing=true)
         ws=JSimplex.initialize_workspace(problem,options;
-            progress=JSimplex.SimplexProgressContext(problem;diagnostics))
+            progress=JSimplex.SimplexProgressContext(problem;diagnostics,
+                numerical_policy=JSimplex.NumericalPolicy(Float64;adaptive_pricing=true)))
         calls=diagnostics.kernel_calls[:ftran]
         @test isnothing(JSimplex._primal_iteration!(ws,()->false,options.dual_tolerance))
         @test diagnostics.kernel_calls[:ftran]-calls<=12
@@ -22,9 +23,11 @@ end
 @testset "Exhaustion after fresh pricing retains the refresh budget" begin
     problem=LinearProblem(sparse([1e-14 0.0;0.0 1.0;1.0 0.0]),[-2.0,1.0];
         row_upper=[0.0,1.0,Inf],column_upper=[1.0,1.0])
-    options=SolverOptions(algorithm=:primal,simplex_strategy=:legacy,
+    options=SolverOptions(algorithm=:primal,simplex_strategy=:adaptive,
         basis_update=:pfi,pricing=:steepest_edge,verbose=false)
-    ws=JSimplex.initialize_workspace(problem,options)
+    ws=JSimplex.initialize_workspace(problem,options;
+            progress=JSimplex.SimplexProgressContext(problem;
+                numerical_policy=JSimplex.NumericalPolicy(eltype(problem.objective);adaptive_pricing=true)))
     # Candidate 1 is deferred. Candidate 2 appears improving only in the stale
     # prices, and its spurious row-1 pivot forces a fresh factorization. Pricing
     # then exhausts the current exclusions inside the recursive retry.
@@ -45,9 +48,10 @@ end
     cancelled=Ref(false)
     observer=(reason,ws)->(reason==:pivot_rejected && (cancelled[]=true);nothing)
     diagnostics=JSimplex.SimplexDiagnostics(;observer)
-    options=SolverOptions(algorithm=:primal,simplex_strategy=:legacy,verbose=false)
+    options=SolverOptions(algorithm=:primal,simplex_strategy=:adaptive,verbose=false)
     ws=JSimplex.initialize_workspace(problem,options;
-        progress=JSimplex.SimplexProgressContext(problem;diagnostics))
+        progress=JSimplex.SimplexProgressContext(problem;diagnostics,
+                numerical_policy=JSimplex.NumericalPolicy(Float64;adaptive_pricing=true)))
     terminal=JSimplex._primal_iteration!(ws,()->cancelled[],options.dual_tolerance)
     @test terminal.status==TIME_LIMIT
     @test ws.iterations==0

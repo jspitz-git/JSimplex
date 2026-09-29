@@ -124,8 +124,8 @@ end
     @test all(iszero,ws.costs)
 end
 
-@testset "Automatic perturbation needs monitoring and original-cost recovery" begin
-    for disabled in (:adaptive_dual_perturbation,:adaptive_stalling,:feasibility_recovery)
+@testset "Automatic perturbation needs monitoring" begin
+    for disabled in (:adaptive_dual_perturbation,:adaptive_stalling)
         ws,_ = watched_perturbation_workspace()
         policy = JSimplex.NumericalPolicy(Float64;simplex_strategy=:adaptive,
             NamedTuple{(disabled,)}((false,))...)
@@ -140,4 +140,19 @@ end
     @test ws.primal[1:4] == [3,2,1,0]
     @test JSimplex.event_count(ws.progress.diagnostics,:perturbation) == 0
     @test isnothing(ws.scratch.perturbations)
+end
+
+@testset "Native dual resumption retires owned costs after heuristics are disabled" begin
+    ws, _ = perturbation_chain_workspace(iteration_limit=2)
+    @test JSimplex.run_from_basis!(ws, JSimplex.SimplexRunBudget(ws),
+        ws.progress.numerical_policy, ()->false).status == ITERATION_LIMIT
+    @test ws.scratch.perturbations.active
+    policy = JSimplex.NumericalPolicy(Float64)
+    JSimplex._install_driver_policy!(ws, policy)
+    ws.options = SolverOptions(iteration_limit=20, verbose=false)
+    result = JSimplex._solve_continuous_dual!(ws, ()->false)
+    @test result.status == OPTIMAL
+    @test JSimplex._original_costs_active(ws)
+    @test isnothing(ws.scratch.perturbations)
+    @test !ws.progress.numerical_policy.feasibility_recovery
 end

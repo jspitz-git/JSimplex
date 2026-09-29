@@ -41,7 +41,7 @@ end
             auxiliary_matrix[]=cache.rows.matrix
         end
     end)
-    policy=JSimplex.NumericalPolicy(Float64;simplex_strategy=:adaptive,phase_one=true,
+    policy=JSimplex.NumericalPolicy(Float64;simplex_strategy=:adaptive,phase_one=true,recovery=true,
         sparse_pricing=true,hypersparse=true)
     ws=JSimplex.initialize_workspace(p,SolverOptions(;algorithm=:primal,verbose=false,pricing=:auto);
         progress=JSimplex.SimplexProgressContext(p;numerical_policy=policy,diagnostics=d))
@@ -52,6 +52,7 @@ end
     @test length(ws.pricing_weights)==length(ws.devex_reference)==length(ws.scratch.tableau_row)==3
     @test isnothing(ws.scratch.stage_values)
     @test isnothing(ws.scratch.perturbations)
+    @test !isempty(ws.scratch.checkpoints)
     @test all(c->length(c.basis.states)==3,ws.scratch.checkpoints)
     cache=JSimplex._sparse_pricing_workspace!(ws)
     @test cache.rows.matrix===p.A

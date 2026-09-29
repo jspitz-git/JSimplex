@@ -33,7 +33,7 @@ end
             LinearProblem(A,ones(T,n);row_lower=ones(T,n))
         options = SolverOptions(T;verbose=false,presolve=false,algorithm,
             pricing=:dantzig,basis_update=update,refactorization_interval=4)
-        policy = JSimplex.NumericalPolicy(T;simplex_strategy=:adaptive,
+        policy = JSimplex.NumericalPolicy(T;numerical_profile=:checked,simplex_strategy=:adaptive,
             adaptive_refactor=true,refactor_timing=false)
         ws = JSimplex.initialize_workspace(p,options;
             progress=JSimplex.SimplexProgressContext(p;numerical_policy=policy))

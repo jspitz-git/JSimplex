@@ -290,8 +290,7 @@ _can_preserve_primal_row_value(workspace, index, state, bound) = false
 function _can_preserve_primal_row_value(workspace::SimplexWorkspace{T}, index::Int,
                                         state::VariableState, bound::Bound{T}) where {T}
     T === Float32 || T === Float64 || return false
-    workspace.options.algorithm == :primal &&
-        workspace.options.simplex_strategy == :legacy || return false
+    workspace.options.algorithm == :primal || return false
     policy = workspace.progress.numerical_policy
     (policy.pivot_validation || policy.recovery || policy.incremental_primal ||
      policy.incremental_primal_pivots || _is_staged_workspace(workspace)) && return false

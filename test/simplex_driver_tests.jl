@@ -1,3 +1,10 @@
+# These fixtures exercise the explicitly checked numerical implementation.
+function _checked_simplex_driver_workspace(p, options; progress=JSimplex.SimplexProgressContext(p;
+        numerical_policy=JSimplex.NumericalPolicy(eltype(p.objective);
+            numerical_profile=:checked, simplex_strategy=options.simplex_strategy)))
+    return JSimplex.initialize_workspace(p, options; progress)
+end
+
 using SparseArrays
 
 @testset "Feasibility recovery decision table" begin
@@ -17,8 +24,8 @@ end
     end)
     p = LinearProblem(sparse([1.0;;]),[1.0];row_lower=[1.0],row_upper=[2.0])
     o = SolverOptions(verbose=false,simplex_strategy=:adaptive)
-    w = JSimplex.initialize_workspace(p,o;progress=JSimplex.SimplexProgressContext(p;
-        diagnostics=d,numerical_policy=JSimplex.NumericalPolicy(Float64,o)))
+    w = _checked_simplex_driver_workspace(p,o;progress=JSimplex.SimplexProgressContext(p;
+        diagnostics=d,numerical_policy=JSimplex.NumericalPolicy(Float64; numerical_profile=:checked, simplex_strategy=o.simplex_strategy)))
     w.costs[1] = -1.0
     w.perturbed = true
     JSimplex.recompute!(w)
@@ -35,8 +42,8 @@ end
     end)
     p = LinearProblem(sparse([1.0;;]),[-1.0];row_lower=[1.0],row_upper=[2.0])
     o = SolverOptions(verbose=false,simplex_strategy=:adaptive)
-    w = JSimplex.initialize_workspace(p,o;progress=JSimplex.SimplexProgressContext(p;
-        diagnostics=d,numerical_policy=JSimplex.NumericalPolicy(Float64,o)))
+    w = _checked_simplex_driver_workspace(p,o;progress=JSimplex.SimplexProgressContext(p;
+        diagnostics=d,numerical_policy=JSimplex.NumericalPolicy(Float64; numerical_profile=:checked, simplex_strategy=o.simplex_strategy)))
     b = JSimplex.SimplexRunBudget(w)
     failure = JSimplex.SingularException(29)
     caught = try
@@ -55,7 +62,7 @@ end
         p = LinearProblem(sparse(T[1;;]),T[dual_ok ? 1 : -1];
             row_lower=T[primal_ok ? -1 : 1],row_upper=T[2])
         options = SolverOptions(T;verbose=false,simplex_strategy=:adaptive)
-        w = JSimplex.initialize_workspace(p,options)
+        w = _checked_simplex_driver_workspace(p,options)
         w.iterations = 7
         before = w.refactorizations
         budget = JSimplex.SimplexRunBudget(w)
@@ -70,11 +77,11 @@ end
 
 @testset "Driver honors zero remaining iterations and an expired clock" begin
     p = LinearProblem(sparse([1.0;;]),[-1.0];row_upper=[2.0])
-    w = JSimplex.initialize_workspace(p,SolverOptions(verbose=false,simplex_strategy=:adaptive,iteration_limit=0))
+    w = _checked_simplex_driver_workspace(p,SolverOptions(verbose=false,simplex_strategy=:adaptive,iteration_limit=0))
     b = JSimplex.SimplexRunBudget(w)
     @test JSimplex.run_from_basis!(w,b,w.progress.numerical_policy,()->false).status == ITERATION_LIMIT
     @test w.iterations == b.iterations == 0
-    w = JSimplex.initialize_workspace(p,SolverOptions(verbose=false,simplex_strategy=:adaptive,time_limit=0.0))
+    w = _checked_simplex_driver_workspace(p,SolverOptions(verbose=false,simplex_strategy=:adaptive,time_limit=0.0))
     b = JSimplex.SimplexRunBudget(w)
     @test JSimplex.run_from_basis!(w,b,w.progress.numerical_policy,()->false).status == TIME_LIMIT
     @test w.iterations == 0
@@ -82,8 +89,8 @@ end
 
 @testset "Driver policy override and callback provenance" begin
     p = LinearProblem(sparse([1.0;;]),[-1.0];row_lower=[1.0],row_upper=[2.0])
-    w = JSimplex.initialize_workspace(p,SolverOptions(verbose=false))
-    policy = JSimplex.NumericalPolicy(Float64;simplex_strategy=:adaptive,max_recovery_rounds=1)
+    w = _checked_simplex_driver_workspace(p,SolverOptions(verbose=false))
+    policy = JSimplex.NumericalPolicy(Float64;numerical_profile=:checked,simplex_strategy=:adaptive,max_recovery_rounds=1)
     run = JSimplex.run_from_basis!(w,JSimplex.SimplexRunBudget(w),policy,()->false)
     @test run.status == OPTIMAL
     @test w.progress.numerical_policy === policy
@@ -100,8 +107,8 @@ end
     p = LinearProblem(sparse([1.0;;]),[-1e-9];row_upper=[2.0])
     options = SolverOptions(verbose=false,simplex_strategy=:adaptive,iteration_limit=1,dual_tolerance=1e-7)
     progress = JSimplex.SimplexProgressContext(p;iteration_offset=11,
-        numerical_policy=JSimplex.NumericalPolicy(Float64,options))
-    w = JSimplex.initialize_workspace(p,options;progress)
+        numerical_policy=JSimplex.NumericalPolicy(Float64; numerical_profile=:checked, simplex_strategy=options.simplex_strategy))
+    w = _checked_simplex_driver_workspace(p,options;progress)
     budget = JSimplex.SimplexRunBudget(w)
     @test budget.iteration_limit == 12
     run = JSimplex.run_from_basis!(w,budget,w.progress.numerical_policy,()->false;
@@ -115,7 +122,7 @@ end
 @testset "A repaired basis is dispatched by its new feasibility" begin
     p = LinearProblem(sparse([1.0 1.0;1.0 1.0]),[1.0,2.0];
         row_lower=[1.0,1.0])
-    w = JSimplex.initialize_workspace(p,SolverOptions(verbose=false,simplex_strategy=:adaptive))
+    w = _checked_simplex_driver_workspace(p,SolverOptions(verbose=false,simplex_strategy=:adaptive))
     w.basis = JSimplex.Basis([1,2],[JSimplex.BASIC,JSimplex.BASIC,JSimplex.AT_LOWER,JSimplex.AT_LOWER])
     w.iterations = 13
     run = JSimplex.run_from_basis!(w,JSimplex.SimplexRunBudget(w),w.progress.numerical_policy,()->false)
@@ -134,8 +141,8 @@ end
         end)
         p = LinearProblem(sparse([1.0;;]),[-1.0];row_lower=[1.0],row_upper=[2.0])
         o = SolverOptions(verbose=false,simplex_strategy=:adaptive)
-        w = JSimplex.initialize_workspace(p,o;progress=JSimplex.SimplexProgressContext(p;
-            diagnostics=d,numerical_policy=JSimplex.NumericalPolicy(Float64,o)))
+        w = _checked_simplex_driver_workspace(p,o;progress=JSimplex.SimplexProgressContext(p;
+            diagnostics=d,numerical_policy=JSimplex.NumericalPolicy(Float64; numerical_profile=:checked, simplex_strategy=o.simplex_strategy)))
         b = JSimplex.SimplexRunBudget(w)
         failure = JSimplex.ZeroPivotException(9)
         stop = () -> entered[] ? (throwing ? throw(failure) : true) : false
@@ -153,12 +160,12 @@ end
 @testset "A shared budget cannot be replenished by a fresh workspace" begin
     p = LinearProblem(sparse([1.0;;]),[-1.0];row_upper=[2.0])
     o = SolverOptions(verbose=false,simplex_strategy=:adaptive,iteration_limit=2)
-    w = JSimplex.initialize_workspace(p,o)
+    w = _checked_simplex_driver_workspace(p,o)
     budget = JSimplex.SimplexRunBudget(w)
     @test JSimplex.run_from_basis!(w,budget,w.progress.numerical_policy,()->false).status == OPTIMAL
     @test budget.iterations == 1
     q = LinearProblem(sparse([1.0 0.0;0.0 1.0]),[-1.0,-1.0];row_upper=[2.0,2.0])
-    fresh = JSimplex.initialize_workspace(q,o)
+    fresh = _checked_simplex_driver_workspace(q,o)
     result = JSimplex.run_from_basis!(fresh,budget,fresh.progress.numerical_policy,()->false)
     @test result.status == ITERATION_LIMIT
     @test result.iterations == budget.iterations == 2
@@ -167,8 +174,8 @@ end
 @testset "Ablating feasibility recovery disables method handoff" begin
     p = LinearProblem(sparse([1.0;;]),[1.0];row_lower=[1.0])
     o = SolverOptions(verbose=false,algorithm=:primal,simplex_strategy=:adaptive)
-    policy = JSimplex.NumericalPolicy(Float64;simplex_strategy=:adaptive,feasibility_recovery=false)
-    w = JSimplex.initialize_workspace(p,o;progress=JSimplex.SimplexProgressContext(p;numerical_policy=policy))
+    policy = JSimplex.NumericalPolicy(Float64;numerical_profile=:checked,simplex_strategy=:adaptive,feasibility_recovery=false)
+    w = _checked_simplex_driver_workspace(p,o;progress=JSimplex.SimplexProgressContext(p;numerical_policy=policy))
     result = JSimplex.run_from_basis!(w,JSimplex.SimplexRunBudget(w),policy,()->false)
     @test result.status == NUMERICAL_ERROR
     @test w.iterations == 0
@@ -178,8 +185,8 @@ end
     p = LinearProblem(sparse([1.0;;]),[-1.0];row_upper=[2.0])
     o = SolverOptions(verbose=false,simplex_strategy=:adaptive)
     progress = JSimplex.SimplexProgressContext(p;iteration_offset=11,refactorization_offset=7,
-        numerical_policy=JSimplex.NumericalPolicy(Float64,o))
-    w = JSimplex.initialize_workspace(p,o;progress)
+        numerical_policy=JSimplex.NumericalPolicy(Float64; numerical_profile=:checked, simplex_strategy=o.simplex_strategy))
+    w = _checked_simplex_driver_workspace(p,o;progress)
     b = JSimplex.SimplexRunBudget(w)
     run = JSimplex.run_from_basis!(w,b,w.progress.numerical_policy,()->false)
     @test run.status == OPTIMAL
@@ -204,7 +211,7 @@ end
         o = SolverOptions(verbose=false,algorithm=:primal,zero_tolerance=0.5)
         policy = JSimplex.NumericalPolicy(Float64;feasibility_recovery=true,max_recovery_rounds=rounds)
         d = JSimplex.SimplexDiagnostics()
-        w = JSimplex.initialize_workspace(p,o;progress=JSimplex.SimplexProgressContext(p;
+        w = _checked_simplex_driver_workspace(p,o;progress=JSimplex.SimplexProgressContext(p;
             diagnostics=d,numerical_policy=policy))
         checks = Ref(0)
         run = JSimplex.run_from_basis!(w,JSimplex.SimplexRunBudget(w),policy,()->begin
@@ -227,9 +234,9 @@ end
         end
     end)
     p = LinearProblem(sparse([1.0;;]),[-1.0];row_upper=[2.0])
-    policy = JSimplex.NumericalPolicy(Float64;simplex_strategy=:adaptive,max_recovery_rounds=0)
+    policy = JSimplex.NumericalPolicy(Float64;numerical_profile=:checked,simplex_strategy=:adaptive,max_recovery_rounds=0)
     o = SolverOptions(verbose=false,simplex_strategy=:adaptive)
-    w = JSimplex.initialize_workspace(p,o;progress=JSimplex.SimplexProgressContext(p;
+    w = _checked_simplex_driver_workspace(p,o;progress=JSimplex.SimplexProgressContext(p;
         diagnostics=d,numerical_policy=policy))
     b = JSimplex.SimplexRunBudget(w)
     result = JSimplex.run_from_basis!(w,b,policy,()->false)
@@ -241,7 +248,7 @@ end
 @testset "Driver restores working costs before original-model certification" begin
     p = LinearProblem(sparse([1.0;;]),[1.0];row_lower=[1.0],row_upper=[2.0])
     o = SolverOptions(verbose=false,simplex_strategy=:adaptive)
-    w = JSimplex.initialize_workspace(p,o)
+    w = _checked_simplex_driver_workspace(p,o)
     w.costs[1] = -1.0
     w.perturbed = true
     JSimplex.recompute!(w)
@@ -274,7 +281,7 @@ end
             LinearProblem(sparse([1.0;;]),[1.0];row_lower=[1.0])
         o = SolverOptions(;verbose=false,algorithm,presolve=false,scaling=:off,
             refactorization_interval=1,simplex_strategy=:adaptive)
-        policy = JSimplex.NumericalPolicy(Float64;simplex_strategy=:adaptive,feasibility_recovery=enabled)
+        policy = JSimplex.NumericalPolicy(Float64;numerical_profile=:checked,simplex_strategy=:adaptive,feasibility_recovery=enabled)
         logger = DriverThrowLogger(failure,Ref(0))
         caught = try
             with_logger(logger) do
@@ -293,7 +300,7 @@ end
         p = algorithm == :primal ? LinearProblem(sparse([1.0;;]),[-1.0];row_upper=[2.0]) :
             LinearProblem(sparse([1.0;;]),[1.0];row_lower=[1.0])
         o = SolverOptions(;algorithm,verbose=false,simplex_strategy=:adaptive)
-        original = JSimplex.initialize_workspace(p,o)
+        original = _checked_simplex_driver_workspace(p,o)
         budget = JSimplex.SimplexRunBudget(original)
         budget.time_limit_seconds = 120.0
         clocks = Tuple{UInt64,Float64}[]
@@ -303,8 +310,8 @@ end
                 push!(clocks,(clock.start_ns,clock.limit_seconds))
             end
         end)
-        fresh = JSimplex.initialize_workspace(p,o;progress=JSimplex.SimplexProgressContext(p;
-            diagnostics,numerical_policy=JSimplex.NumericalPolicy(Float64,o)))
+        fresh = _checked_simplex_driver_workspace(p,o;progress=JSimplex.SimplexProgressContext(p;
+            diagnostics,numerical_policy=JSimplex.NumericalPolicy(Float64; numerical_profile=:checked, simplex_strategy=o.simplex_strategy)))
         result = JSimplex.run_from_basis!(fresh,budget,fresh.progress.numerical_policy,()->false)
         @test result.status == OPTIMAL
         @test !isempty(clocks)
@@ -319,7 +326,7 @@ end
         p = empty_rows ? LinearProblem(spzeros(T,0,1),T[1]) :
             LinearProblem(sparse(T[1;;]),T[1];row_lower=T[0])
         o = SolverOptions(T;verbose=false,simplex_strategy=:adaptive)
-        w = JSimplex.initialize_workspace(p,o)
+        w = _checked_simplex_driver_workspace(p,o)
         w.costs[1] = -one(T)
         w.perturbed = true
         JSimplex.recompute!(w)
@@ -336,7 +343,7 @@ end
     for entry in (:driver,:dual), proof in (:unbounded,:infeasible)
         p = proof == :unbounded ? LinearProblem(sparse([1.0;;]),[-1.0];column_upper=[1.0]) :
             LinearProblem(sparse([1.0;;]),[1.0];row_lower=[1.0],column_upper=[2.0])
-        w = JSimplex.initialize_workspace(p,SolverOptions(verbose=false,simplex_strategy=:adaptive))
+        w = _checked_simplex_driver_workspace(p,SolverOptions(verbose=false,simplex_strategy=:adaptive))
         w.upper[1] = proof == :unbounded ? Bound{Float64}(nothing) : Bound(0.0)
         JSimplex.recompute!(w)
         result = entry == :driver ?

@@ -2,11 +2,10 @@ _legacy_primal_row_validation_enabled(workspace) = false
 
 function _legacy_primal_row_validation_enabled(workspace::SimplexWorkspace{T}) where {T}
     T === Float32 || T === Float64 || return false
-    workspace.options.simplex_strategy == :legacy || return false
     policy = workspace.progress.numerical_policy
     return !(policy.pivot_validation || policy.solve_refinement || policy.recovery ||
              policy.incremental_primal || policy.incremental_primal_pivots ||
-             policy.adaptive_refactor || _is_staged_workspace(workspace))
+             _is_staged_workspace(workspace))
 end
 
 # The selected direction supplies a second estimate of c_j - c_B' B^-1 a_j.

@@ -304,28 +304,28 @@ for `SolverOptions(Float64)`. Floating types use these keyword defaults:
 | `basis_refactorization` | `:native` | Full factorization: `:native` or `:markowitz` |
 | `scaling` | `:auto` | `:auto`, `:on`, or `:off` row and column scaling |
 | `presolve` | `true` | Apply all presolve reductions before simplex; `false` solves the original LP directly |
-| `simplex_strategy` | `:legacy` | Existing algorithm or the opt-in `:adaptive` numerical profile; only implemented stages can be enabled |
+| `simplex_strategy` | `:legacy` | Fixed policies or opt-in `:adaptive` progress heuristics; both use the same default numerical kernel |
 
-The adaptive profile enables a Harris bound-flipping dual ratio test that
-prefers stronger pivots among nearby breakpoints and validates the required
-bound flips before applying them. It shares bounded iterative refinement across
-basis solves, preserves each RHS, and checks solve quality before using the
-result. It also validates independent pivot estimates,
-tries alternative candidates, and applies accepted steps atomically with respect
-to callbacks. It retains two verified basis checkpoints and can rebuild a
-failed basis through bounded column exchanges. Recovery preserves the common
-time and iteration budgets; a repaired basis must satisfy the current method's
-feasibility condition before that method resumes. Experimental policies described below
-remain opt-in. User primal/dual tolerances are independent of internal residual and
-pivot-quality limits. The strategy survives scalar conversions and retries.
-MOI `empty!` preserves it like other optimizer attributes; a newly constructed
-optimizer starts with `:legacy`.
+Both strategies use the same native numerical safeguards, including bounded
+candidate retries, residual correction in the model's floating type, and
+certification of retained primal points. Adaptive pricing may defer an otherwise
+valid weak primal pivot while looking for a stronger alternative; the fixed
+strategy follows the requested pricing without that preference.
 
-The [F25 integration report](diagnostics/simplex-modernization/final_report.md)
-retains the legacy and steepest-edge defaults. The adaptive profile lost
-solvability on several corpus cases under matched budgets, so it remains an
-experimental opt-in strategy. The feature reports document the supported scope
-of individual optional policies.
+Alternative numerical implementations remain available through explicit internal
+`NumericalPolicy` flags. The internal `numerical_profile=:checked` preset enables
+the Harris bound-flipping dual ratio test, shared solve refinement, independent
+pivot validation, transactional application, checkpoint/basis recovery, feasibility
+handoff, and incremental primal updates. Selecting `simplex_strategy=:adaptive`
+does not select this numerical preset. Internal quality limits remain separate
+from user primal/dual tolerances. The strategy survives scalar conversions and
+retries. MOI `empty!` preserves it; a new optimizer starts with `:legacy`.
+
+The historical [F25 integration report](diagnostics/simplex-modernization/final_report.md)
+evaluated the earlier combined numerical-and-adaptive profile, which lost
+solvability on several corpus cases under matched budgets. Those results do not
+establish performance of the separated strategy. Adaptive heuristics remain
+experimental and opt-in.
 
 The adaptive profile also monitors scaled working-objective and feasibility
 progress. Two consecutive windows without significant improvement mark a stall;

@@ -77,7 +77,7 @@ end
     end
 end
 
-@testset "Price repair excludes adaptive perturbation policies and active journals" begin
+@testset "Native price repair is independent of inactive perturbation policies" begin
     for setting in (:adaptive_dual_perturbation,:adaptive_primal_perturbation)
         ws=marginal_price_workspace()
         policy=JSimplex.NumericalPolicy(Float64;simplex_strategy=:legacy,
@@ -87,9 +87,10 @@ end
         mixed.costs .= ws.costs;mixed.perturbed=true
         JSimplex.recompute!(mixed;refactorize=true)
         costs,prices=copy(mixed.costs),copy(mixed.reduced_costs)
-        @test !JSimplex._shift_marginal_dual_prices!(mixed,()->false)
-        @test mixed.costs==costs
-        @test mixed.reduced_costs==prices
+        @test JSimplex._shift_marginal_dual_prices!(mixed,()->false)
+        @test mixed.costs!=costs
+        @test mixed.reduced_costs!=prices
+        @test JSimplex.dual_infeasibility(mixed)==0
     end
 end
 
@@ -121,7 +122,7 @@ end
     @test !JSimplex._shift_marginal_dual_prices!(ws,()->false)
     @test ws.costs==costs && ws.reduced_costs==prices
     ws=marginal_price_workspace(;strategy=:adaptive)
-    @test !JSimplex._shift_marginal_dual_prices!(ws,()->error("excluded callback"))
+    @test JSimplex._shift_marginal_dual_prices!(ws,()->false)
     ws=marginal_price_workspace()
     journal=JSimplex.PerturbationJournal(ws)
     journal.active=true;ws.scratch.perturbations=journal;ws.costs=journal.active_costs

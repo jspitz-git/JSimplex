@@ -104,10 +104,10 @@ end
     for (algorithm, strategy) in ((:dual, :legacy), (:primal, :adaptive))
         options = SolverOptions(; algorithm, simplex_strategy=strategy, verbose=false)
         workspace = JSimplex.initialize_workspace(problem, options)
-        @test isnothing(JSimplex._legacy_primal_point_candidate(workspace, 1, 0, 0.0, [1.0]))
+        @test isnothing(JSimplex._legacy_primal_point_candidate(workspace, 1, 0, 0.0, [1.0])) == (algorithm == :dual)
     end
     for flag in (:pivot_validation, :solve_refinement, :recovery,
-                 :incremental_primal, :incremental_primal_pivots, :adaptive_refactor)
+                 :incremental_primal, :incremental_primal_pivots)
         policy = JSimplex.NumericalPolicy(Float64; flag => true)
         progress = JSimplex.SimplexProgressContext(problem; numerical_policy=policy)
         workspace = JSimplex.initialize_workspace(problem,

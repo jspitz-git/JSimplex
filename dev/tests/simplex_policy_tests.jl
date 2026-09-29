@@ -51,10 +51,10 @@ end
         @test result["solver_options_dual"]["simplex_strategy"] == "adaptive"
         @test result["solver_options_dual"]["pricing"] == "auto"
         @test result["numerical_policy_dual"]["max_refinements"] == 7
-        @test result["numerical_policy_dual"]["stable_ratio"]
-        @test result["numerical_policy_dual"]["pivot_validation"]
-        @test result["numerical_policy_dual"]["solve_refinement"]
-        @test result["numerical_policy_dual"]["recovery"]
+        @test !result["numerical_policy_dual"]["stable_ratio"]
+        @test !result["numerical_policy_dual"]["pivot_validation"]
+        @test !result["numerical_policy_dual"]["solve_refinement"]
+        @test !result["numerical_policy_dual"]["recovery"]
         @test !result["numerical_policy_dual"]["adaptive_dual_perturbation"]
         @test !result["numerical_policy_dual"]["adaptive_primal_perturbation"]
         @test !result["numerical_policy_dual"]["adaptive_pricing"]

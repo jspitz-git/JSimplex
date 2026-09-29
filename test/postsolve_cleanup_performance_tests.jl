@@ -84,17 +84,19 @@ end
     @test ws.options===options
 end
 
-@testset "Adaptive projection retains its coordinate matching rule" begin
+@testset "Projection depends on numerical implementation, not strategy" begin
     p=LinearProblem(sparse([1.0 1.0 0.0; 0.0 0.0 1.0]),[-1.0,0.0,0.0];
         row_lower=[nothing,0.0],row_upper=[10.0,10.0],
         column_lower=[0.0,4.0,0.0],column_upper=[nothing,8.0,nothing])
-    options=SolverOptions(simplex_strategy=:adaptive,verbose=false)
+    for profile in (:native,:checked), strategy in (:legacy,:adaptive)
+    options=SolverOptions(simplex_strategy=strategy,verbose=false)
     ws=JSimplex.initialize_workspace(p,options;
-        progress=JSimplex.SimplexProgressContext(p;numerical_policy=JSimplex.NumericalPolicy(Float64)))
+        progress=JSimplex.SimplexProgressContext(p;numerical_policy=JSimplex.NumericalPolicy(Float64;numerical_profile=profile)))
     ws.basis=JSimplex.Basis([2,3],JSimplex.VariableState[
         JSimplex.AT_LOWER,JSimplex.BASIC,JSimplex.BASIC,JSimplex.AT_UPPER,JSimplex.AT_LOWER])
     JSimplex.recompute!(ws;refactorize=true)
-    @test isnothing(JSimplex._project_postsolve_basis!(ws,[6.0,4.0,5.0],()->false))
+    @test isnothing(JSimplex._project_postsolve_basis!(ws,[6.0,4.0,5.0],()->false)) == (profile == :checked)
+    end
 end
 
 struct CleanupThrowingLogger <: AbstractLogger

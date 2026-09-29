@@ -94,7 +94,7 @@ end
     end
 end
 
-@testset "Disabled hypersparsity preserves adaptive preparation" begin
+@testset "Disabled hypersparsity prepares updates only when explicitly requested" begin
     for update in (:forrest_tomlin, :suhl_suhl, :bartels_golub)
         p=LinearProblem(spdiagm(0=>ones(4)),zeros(4);row_lower=zeros(4))
         options=SolverOptions(;basis_update=update,simplex_strategy=:adaptive,verbose=false)
@@ -104,6 +104,8 @@ end
         rhs=JSimplex._pipeline_column_rhs!(ws,1)
         d=ws.scratch.row_solution
         JSimplex._pipeline_basis_solve!(d,ws,rhs;operation=:weight_ftran)
+        @test !JSimplex._copy_prepared_spike!(ws.factorization,d)
+        JSimplex._pipeline_basis_solve!(d,ws,rhs;prepare_update=true)
         @test JSimplex._copy_prepared_spike!(ws.factorization,d)
     end
 end

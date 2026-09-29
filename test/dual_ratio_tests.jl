@@ -33,7 +33,8 @@ end
 
 @testset "Stable dual bound flipping proposals" begin
     policy = JSimplex.NumericalPolicy(Float64; stable_ratio=true)
-    @test JSimplex.NumericalPolicy(Float64; simplex_strategy=:adaptive).stable_ratio
+    @test !JSimplex.NumericalPolicy(Float64; simplex_strategy=:adaptive).stable_ratio
+    @test JSimplex.NumericalPolicy(Float64; numerical_profile=:checked).stable_ratio
     w = ratio_workspace([1e-6,1.0], [1e-6,1.0+5e-8]; upper=[1e6,2.0])
     saved = (copy(w.costs),copy(w.reduced_costs),copy(w.primal),
              copy(w.basis.states),copy(w.basis.basic_indices))

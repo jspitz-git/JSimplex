@@ -424,7 +424,7 @@ function _pipeline_basis_solve!(destination,ws,rhs;transposed::Bool=false,
     if !ws.progress.numerical_policy.hypersparse
         _pipeline_changed!(ws,destination)
         return transposed ? transpose_solve!(destination,ws.factorization,rhs) :
-               (prepare_update || ws.options.simplex_strategy != :legacy) ?
+               prepare_update ?
                    forward_solve!(destination,ws.factorization,rhs) :
                                 _ordinary_forward_solve!(destination,ws.factorization,rhs)
     end

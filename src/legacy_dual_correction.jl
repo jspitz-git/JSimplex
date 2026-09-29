@@ -8,10 +8,8 @@ function _try_native_dual_correction!(workspace::SimplexWorkspace{T}, destinatio
                                      index::Int, leaving_row::Int, stop;
                                      transposed::Bool=false) where {T}
     T === Float32 || T === Float64 || return false
-    workspace.options.simplex_strategy == :legacy || return false
     policy = workspace.progress.numerical_policy
-    (policy.pivot_validation || policy.solve_refinement || policy.recovery ||
-     policy.adaptive_refactor) && return false
+    (policy.pivot_validation || policy.solve_refinement || policy.recovery) && return false
     policy.max_refinements > 0 || return false
     stop() && return false
     buffers = _pivot_quality_buffers(workspace)
