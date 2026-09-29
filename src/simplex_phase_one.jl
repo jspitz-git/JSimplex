@@ -235,6 +235,7 @@ function _run_phase_one!(ws::SimplexWorkspace{T},budget::SimplexRunBudget,
             end
         end
         _simplex_event!(phase,:phase_one)
+        _report_simplex_phase(phase, :I, :primal, guard)
         terminal=_run_original_objective_terminal!(phase,budget,policy,guard;
             reduced_cost_tolerance=zero(T),allow_auxiliary=Val(false),phase_perturbations=true)
         _phase_inherit_work!(ws,phase)

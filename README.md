@@ -523,6 +523,11 @@ counts again afterward, even when no reduction is made. A separate message
 announces postsolve cleanup when it runs. The input statistics also appear when
 presolve is disabled or solving stops before presolve.
 `nnz` counts nonzero coefficients, excluding explicitly stored sparse zeros.
+Both primal and dual simplex announce `Starting simplex phase I` when auxiliary
+optimization begins and `Starting simplex phase II` when optimization of the
+original problem begins. These `Info` records include `algorithm`, cumulative
+`iter`, and elapsed `time` in seconds. A feasible initial basis can skip phase I;
+a solve that terminates in phase I does not announce phase II.
 Each completed basis refactorization emits a
 single-line record through Julia's logging system, for example
 `iter=12 obj=4.5 pinf=0.5 (1) dinf=2.5 (1) time=0.123456s`. The parenthesized

@@ -543,6 +543,24 @@ function _progress_objective_value(
     return value
 end
 
+# Announce optimization phases at their entry points, not at primal/dual
+# method switches: either method can also run on an auxiliary problem.
+function _report_simplex_phase(workspace::SimplexWorkspace, phase::Symbol,
+                               algorithm::Symbol, caller_guard)
+    workspace.options.verbose || return nothing
+    context = workspace.progress
+    message = phase == :I ? "Starting simplex phase I" : "Starting simplex phase II"
+    iteration = context.iteration_offset + workspace.iterations
+    elapsed = (time_ns() - context.start_ns) / 1.0e9
+    try
+        @info message algorithm=algorithm iter=iteration time=elapsed
+    catch exception
+        isnothing(caller_guard) || (caller_guard.exception = exception)
+        rethrow()
+    end
+    return nothing
+end
+
 function _report_simplex_progress(workspace::SimplexWorkspace, caller_guard)
     workspace.options.verbose || return nothing
     context = workspace.progress

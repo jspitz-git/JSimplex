@@ -1958,6 +1958,7 @@ function _make_dual_feasible!(workspace::SimplexWorkspace{T}, stop_requested) wh
     dual_infeasibility(workspace) <= workspace.options.dual_tolerance && return nothing
 
     auxiliary = _auxiliary_workspace(workspace)
+    _report_simplex_phase(auxiliary, :I, :dual, stop_requested)
     _reset_workspace_stagnation!(workspace)
     # Artificial auxiliary bounds can reverse a nonbasic state when the basis
     # returns to the original LP. Keep anti-degeneracy cost shifts out of this
@@ -2105,6 +2106,7 @@ function _solve_continuous_dual_once!(workspace::SimplexWorkspace{T}, stop_reque
         return _run_from_basis_once!(workspace,SimplexRunBudget(workspace),policy,stop_requested)
     end
     if iszero(size(problem.A, 1))
+        _report_simplex_phase(workspace, :II, :dual, stop_requested)
         for index in eachindex(workspace.costs)
             cost = workspace.costs[index]
             iszero(cost) && continue
@@ -2115,6 +2117,7 @@ function _solve_continuous_dual_once!(workspace::SimplexWorkspace{T}, stop_reque
         return _internal_solution(workspace, OPTIMAL, "optimal solution found")
     end
     terminal = make_dual_feasible!(workspace, stop_requested)
+    isnothing(terminal) && _report_simplex_phase(workspace, :II, :dual, stop_requested)
     if _original_objective_driver_required(workspace)
         # Keep the explicitly selected dual initialization, then let verified
         # feasibility determine how to continue from a recovered basis.
