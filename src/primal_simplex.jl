@@ -898,6 +898,7 @@ function _solve_continuous_primal(problem::LinearProblem{T}, options::SolverOpti
             budget = SimplexRunBudget(workspace)
             phase = run_phase_one!(workspace,budget,policy,stop_requested)
             phase.status == OPTIMAL || return _recover_original_failure(workspace,phase,stop_requested)
+            _report_simplex_phase(workspace, :II, :primal, stop_requested)
             return run_from_basis!(workspace,budget,policy,stop_requested)
         end
         initial_start = workspace
@@ -908,6 +909,7 @@ function _solve_continuous_primal(problem::LinearProblem{T}, options::SolverOpti
         )
         original = initial
         _simplex_event!(workspace, artificial_count > 0 ? :phase_one : :phase_primal)
+        _report_simplex_phase(workspace, artificial_count > 0 ? :I : :II, :primal, stop_requested)
         policy = workspace.progress.numerical_policy
         budget = SimplexRunBudget(workspace)
         # A small phase-I reduced cost can still remove a large violation when
@@ -952,6 +954,7 @@ function _solve_continuous_primal(problem::LinearProblem{T}, options::SolverOpti
             workspace.scratch.primal_perturbation_allowed = true
             policy.feasibility_recovery || recompute!(workspace)
             _simplex_event!(workspace, :phase_primal)
+            _report_simplex_phase(workspace, :II, :primal, stop_requested)
             terminal = _original_objective_driver_required(workspace) ?
                 _run_original_objective_terminal!(workspace,budget,policy,stop_requested) :
                 _primal_optimize!(workspace, stop_requested)
