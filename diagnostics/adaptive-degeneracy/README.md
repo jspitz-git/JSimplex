@@ -252,3 +252,13 @@ experimental failure and identifies different model rows blocking prediction
 and residual correction. A single joint midpoint repairs that pivot but fails
 125 iterations later in a fresh runtime run. The new candidate is also retained
 only as a diagnostic artifact; none of the working-row experiments is promoted.
+
+
+## Bounded joint primal feasibility recovery
+
+[The joint-recovery investigation](joint-point-recovery.md) adds coupled row
+projections after existing point recovery, with nonbasic values fixed.
+It repairs the earlier snapshots, but full runtime runs still fail. The controlled
+probes distinguish overly strong interior targets from clipping and representable
+update limitations. Both candidates remain diagnostic artifacts; production
+sources are unchanged.

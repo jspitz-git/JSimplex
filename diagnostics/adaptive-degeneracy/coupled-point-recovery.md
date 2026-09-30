@@ -190,3 +190,8 @@ full failure logs and as-run scripts remain local under
 `.superpowers/adaptive-degeneracy/coupled-point/`; the committed manifest records
 their hashes. The current capture adds helper-completion metadata relative to
 its preserved as-run version. This does not change any numerical operation.
+
+
+The follow-up [joint feasibility investigation](joint-point-recovery.md) tests a
+bounded constraint-based recovery with fixed nonbasic values, retaining this
+midpoint experiment only as historical evidence.
