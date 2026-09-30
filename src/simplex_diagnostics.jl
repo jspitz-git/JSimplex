@@ -8,6 +8,7 @@ const SIMPLEX_EVENT_REASONS = (
     :pricing_scanned_entries, :pricing_scored_entries, :pricing_full_scan,
     :pricing_block_scan, :pricing_pool_hit,
     :pricing_devex, :pricing_dantzig, :pricing_reset, :pricing_weight_rejected,
+    :pricing_steepest_edge, :pricing_progress_return, :pricing_trial_expired, :pricing_phase_reset,
     :refactor_other, :correction_attempt, :correction, :pricing, :perturbation, :restore_perturbations,
     :primal_point_preserved, :primal_point_corrected,
     :certification, :certification_failed, :repair, :checkpoint, :restore_checkpoint,

@@ -331,10 +331,10 @@ The adaptive profile also monitors scaled working-objective and feasibility
 progress. Two consecutive windows without significant improvement mark a stall;
 the default window is 64 completed steps. Tiny nonzero steps alone do not count
 as progress, and an additive objective constant does not affect detection.
-Restoring the same basis preserves this history. In floating dual steepest-edge
-solves, a stall with remaining primal infeasibility triggers the existing Dantzig
-fallback. The legacy strategy does not switch pricing because of stagnation
-or zero dual steps.
+Restoring the same basis preserves this history. With adaptive pricing enabled,
+both algorithms can temporarily select Dantzig from steepest edge or Devex.
+The legacy strategy does not switch pricing because of stagnation or zero dual
+steps.
 Stalled floating dual solves can also give near-zero nonbasic reduced costs
 small deterministic margins toward dual feasibility. An owned journal limits
 escalation to three attempts and restores saved costs directly. Fixed and free
@@ -353,13 +353,18 @@ feasibility within the same solve budget. See the
 Use `SolverOptions(pricing=:auto, simplex_strategy=:adaptive)` for automatic
 pricing. It starts with steepest edge, checks selected weights using the pivot's
 existing basis solves, and rebuilds a Devex reference when weights become
-unreliable. Stagnation may temporarily select Dantzig; returning to Devex
-requires a two-window cooldown and a fresh reference. Phase changes reset the
-pricing state, and rejected pivots retain the previous live state. Exact
-arithmetic stays exact. With the legacy strategy, `:auto` retains weight
-recovery without progress-driven switching. Explicit pricing modes retain their
-documented safety fallbacks. See the
-[F14 validation report](diagnostics/simplex-modernization/F14.md).
+unreliable. With adaptive stalling and pricing enabled, stagnation may temporarily
+select Dantzig for automatic or explicit weighted pricing. Two completed windows
+of significant progress restore the previous rule. An unsuccessful trial ends
+after four windows of observations; either return starts a two-window cooldown.
+The previous rule's weights are maintained during Dantzig pivots, so returning
+does not reuse stale weights. Phase changes end trials and reset progress history
+while retaining numerical Devex recovery. Rejected pivots retain the previous
+live state. Exact arithmetic stays exact. With the legacy strategy, `:auto`
+retains weight recovery without progress-driven switching. Explicit `:dantzig`
+remains fixed. See the
+[pricing lifecycle report](diagnostics/adaptive-degeneracy/README.md) and the
+[original F14 validation](diagnostics/simplex-modernization/F14.md).
 
 For pricing domains above 128 entries, the adaptive strategy uses candidate
 pools and cyclic blocks of 64. Candidate scores and eligibility are checked
@@ -450,8 +455,9 @@ checked against the norm of its current basis transpose solve. If the weights
 differ by more than a factor of two, or a weight becomes invalid, pricing
 switches to a fresh Devex reference. A mismatch found before the ratio test
 reselects the row. This uses the row solve already needed for the pivot. The
-stagnation-driven Dantzig fallback is available only through adaptive policies. Explicit
-`:devex` and `:dantzig` settings do not use this switch.
+stagnation-driven Dantzig trial is available only through adaptive stalling and
+pricing policies, for automatic pricing and explicit weighted rules. Explicit
+`:dantzig` stays fixed; numerical Devex recovery is independent of these trials.
 
 Legacy dual simplex does not perturb costs in response to a zero-step count.
 Its bounded numerical cost repairs in the ratio test remain active, as do

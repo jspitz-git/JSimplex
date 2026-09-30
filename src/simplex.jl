@@ -370,8 +370,8 @@ function recompute!(workspace::SimplexWorkspace{T}; refactorize::Bool=false,
         workspace.refactorizations += 1
         _simplex_event!(workspace, diagnostic_reason)
         workspace.dual_nonzero_steps_since_refactorization = 0
-        pricing = _effective_pricing(workspace,:dual)
-        if pricing == :devex || (workspace.options.pricing == :auto && pricing == :dantzig)
+        pricing = _weight_pricing(workspace,:dual)
+        if pricing == :devex
             reset_devex!(workspace)
         end
         # Refactorization preserves the basis and its steepest-edge weights.

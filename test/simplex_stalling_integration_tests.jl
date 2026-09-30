@@ -11,17 +11,19 @@ end
 
 @testset "Only distinct completed steps advance workspace stagnation" begin
     ws = stalling_workspace()
+    JSimplex._prepare_auto_pricing!(ws,:dual)
     for i in 1:8
         ws.iterations += 1
         JSimplex._observe_stagnation!(ws,:dual,1e-30,1e-30)
         JSimplex._observe_stagnation!(ws,:dual,1e-30,1e-30)
+        JSimplex._observe_auto_pricing!(ws,:dual)
         @test ws.scratch.stagnation.monitor.observations == i
     end
     @test ws.scratch.stagnation.monitor.state == :stalled
-    @test ws.dual_pricing_fallback
+    @test JSimplex._effective_pricing(ws,:dual) == :dantzig
     @test JSimplex.event_count(ws.progress.diagnostics,:stagnation_watch) == 1
     @test JSimplex.event_count(ws.progress.diagnostics,:stagnation_stalled) == 1
-    @test JSimplex.event_count(ws.progress.diagnostics,:stagnation_fallback) == 1
+    @test JSimplex.event_count(ws.progress.diagnostics,:pricing_dantzig) == 1
     disabled = stalling_workspace(enabled=false)
     disabled.iterations = 8
     JSimplex._observe_stagnation!(disabled,:dual,0.0,0.0)
@@ -30,16 +32,18 @@ end
 
 @testset "Disabled adaptive pricing leaves stalled dual monitoring active" begin
     ws = stalling_workspace(adaptive_pricing=false)
+    JSimplex._prepare_auto_pricing!(ws,:dual)
     for _ in 1:8
         ws.iterations += 1
         JSimplex._observe_stagnation!(ws,:dual,0.0,0.0)
+        JSimplex._observe_auto_pricing!(ws,:dual)
     end
     @test ws.scratch.stagnation.monitor.state == :stalled
     @test ws.scratch.stagnation.monitor.observations == 8
     @test JSimplex.event_count(ws.progress.diagnostics,:stagnation_stalled) == 1
     @test JSimplex._effective_pricing(ws,:dual) == :steepest_edge
     @test !ws.dual_pricing_fallback
-    @test JSimplex.event_count(ws.progress.diagnostics,:stagnation_fallback) == 0
+    @test JSimplex.event_count(ws.progress.diagnostics,:pricing_dantzig) == 0
 end
 
 @testset "Restoring the same basis preserves the watched window" begin

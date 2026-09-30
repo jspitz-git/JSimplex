@@ -150,14 +150,7 @@ function _observe_workspace_stagnation!(ws,state::WorkspaceStagnation{T,S},
     if m.window_count == m.window
         result == :watch && _simplex_event!(ws,:stagnation_watch)
         result == :stalled && _simplex_event!(ws,:stagnation_stalled)
-        if result == :stalled && algorithm == :dual &&
-           ws.progress.numerical_policy.adaptive_pricing &&
-           _is_exact(eltype(ws.costs)) === Val(false) &&
-           ws.options.pricing == :steepest_edge && !ws.dual_pricing_fallback &&
-           primal_infeasibility(ws) > ws.options.primal_tolerance
-            ws.dual_pricing_fallback = true
-            _simplex_event!(ws,:stagnation_fallback)
-        end
+
     end
     return result
 end

@@ -42,7 +42,7 @@ end
 function _finite_workspace(workspace::SimplexWorkspace{T}) where {T}
     return _finite_values(workspace.primal,Val(false)) && _finite_values(workspace.reduced_costs,Val(false)) &&
            _finite_values(workspace.costs,Val(false)) &&
-           (_effective_pricing(workspace,:dual) == :dantzig ||
+           (_weight_pricing(workspace,:dual) == :dantzig ||
             _finite_values(workspace.pricing_weights,Val(true)))
 end
 
@@ -600,8 +600,9 @@ function _switch_dual_pricing_to_devex!(workspace::SimplexWorkspace{T},
                                         stop_requested, reason::String;
                                         stored_weight::Union{Nothing,T}=nothing,
                                         actual_weight::Union{Nothing,T}=nothing) where {T}
-    if workspace.options.pricing == :auto
+    if !isnothing(workspace.scratch.pricing)
         _reject_auto_weight!(workspace)
+        workspace.options.pricing == :auto || (workspace.dual_devex_fallback = true)
     else
         workspace.dual_devex_fallback = true
         reset_devex!(workspace)
@@ -618,7 +619,7 @@ end
 function _recover_invalid_dse_weights!(workspace::SimplexWorkspace{T},
                                        stop_requested) where {T}
     if (_is_exact(T) === Val(false) || workspace.options.pricing == :auto) &&
-       _effective_pricing(workspace,:dual) == :steepest_edge &&
+       _weight_pricing(workspace,:dual) == :steepest_edge &&
        any(weight -> !isfinite(weight) || weight <= zero(T), workspace.pricing_weights)
         _switch_dual_pricing_to_devex!(workspace, stop_requested,
                                        "invalid steepest-edge weight")
@@ -652,7 +653,7 @@ function update_dual_pricing_weights!(workspace::SimplexWorkspace{T},
                                       rho::Vector{T}, tableau_row::Vector{T},
                                       tableau_column::Vector{T}, entering_index::Int,
                                       pivot::T, dse_weight::T, stop_requested) where {T}
-    if _effective_pricing(workspace,:dual) == :steepest_edge
+    if _weight_pricing(workspace,:dual) == :steepest_edge
         update_dse!(workspace, rho, tableau_column, entering_index, pivot,
                     dse_weight)
         if !_finite_workspace(workspace)
@@ -662,7 +663,7 @@ function update_dual_pricing_weights!(workspace::SimplexWorkspace{T},
             # pivot before replacing its basis column.
             update_devex!(workspace, tableau_row, tableau_column, entering_index, pivot)
         end
-    elseif _effective_pricing(workspace,:dual) == :devex
+    elseif _weight_pricing(workspace,:dual) == :devex
         update_devex!(workspace, tableau_row, tableau_column, entering_index, pivot)
     end
     return _finite_workspace(workspace)
@@ -1148,7 +1149,7 @@ function _dual_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_request
         stop_requested() && return DualTermination(TIME_LIMIT,"time limit reached during pricing recovery")
         return _dual_iteration_unchecked!(workspace,stop_requested,basis_refreshed,perturb_degenerate)
     end
-    if _effective_pricing(workspace,:dual) == :steepest_edge &&
+    if _weight_pricing(workspace,:dual) == :steepest_edge &&
        _is_exact(T) === Val(false)
         dse_weight = dot(rho, rho)
         stored_weight = workspace.pricing_weights[leaving_index]
@@ -1323,7 +1324,7 @@ function _dual_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_request
         stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
         return DualTermination(NUMERICAL_ERROR, "small pivot dual price could not be certified")
     end
-    if refined_row && _effective_pricing(workspace,:dual) == :steepest_edge
+    if refined_row && _weight_pricing(workspace,:dual) == :steepest_edge
         dse_weight = dot(rho, rho)
         stored_weight = workspace.pricing_weights[leaving_index]
         if workspace.options.pricing == :auto
@@ -1352,7 +1353,7 @@ function _dual_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_request
     end
     update_duals!(workspace, tableau_row, leaving_index, entering_index, dual_step)
     update_primals!(workspace, tableau_column, entering_index, leaving_row, primal_step)
-    if _effective_pricing(workspace,:dual) == :steepest_edge &&
+    if _weight_pricing(workspace,:dual) == :steepest_edge &&
        _is_exact(T) === Val(true)
         dse_weight = dot(rho, rho)
     end
@@ -1816,6 +1817,10 @@ function _auxiliary_workspace(workspace::SimplexWorkspace{T}) where {T}
             fill(CONTINUOUS,column_count),workspace.problem.name,String[],String[])
         auxiliary.perturbed = false
     end
+    _copy_pricing_state!(auxiliary,workspace)
+    copyto!(auxiliary.scratch.steepest_valid,workspace.scratch.steepest_valid)
+    auxiliary.scratch.steepest_initialized = workspace.scratch.steepest_initialized
+    _reset_auto_pricing!(auxiliary)
     auxiliary.scratch.refactorization = deepcopy(workspace.scratch.refactorization)
     auxiliary.scratch.refactorization.timing_depth = 0
     auxiliary.scratch.dual_perturbation_allowed = false
@@ -1964,7 +1969,6 @@ function _make_dual_feasible!(workspace::SimplexWorkspace{T}, stop_requested) wh
 
     auxiliary = _auxiliary_workspace(workspace)
     _report_simplex_phase(auxiliary, :I, :dual, stop_requested)
-    _reset_workspace_stagnation!(workspace)
     # Artificial auxiliary bounds can reverse a nonbasic state when the basis
     # returns to the original LP. Keep anti-degeneracy cost shifts out of this
     # phase so a shifted price cannot become infeasible after that remapping.
@@ -2018,14 +2022,18 @@ function _make_dual_feasible!(workspace::SimplexWorkspace{T}, stop_requested) wh
     trial.factorization = copy_basis_factorization(workspace.factorization)
     trial.scratch.refactorization = deepcopy(workspace.scratch.refactorization)
     trial.basis = basis
-    _reset_auto_pricing!(trial)
+    _copy_pricing_state!(trial,auxiliary)
     trial.pricing_weights .= auxiliary.pricing_weights
+    trial.devex_reference .= auxiliary.devex_reference
+    trial.scratch.steepest_valid .= auxiliary.scratch.steepest_valid
+    trial.scratch.steepest_initialized = auxiliary.scratch.steepest_initialized
     trial.costs .= auxiliary.costs
     trial.perturbed = auxiliary.perturbed
     # Start the stall count on the original bounds and objective.
     trial.zero_dual_step_streak = 0
     trial.dual_pricing_fallback = auxiliary.dual_pricing_fallback
     trial.dual_devex_fallback = auxiliary.dual_devex_fallback
+    _reset_auto_pricing!(trial)
     trial.dual_refactorization_interval = auxiliary.dual_refactorization_interval
     trial.dual_recent_repairs = auxiliary.dual_recent_repairs
     trial.dual_bad_update_min = auxiliary.dual_bad_update_min
@@ -2046,6 +2054,7 @@ function _make_dual_feasible!(workspace::SimplexWorkspace{T}, stop_requested) wh
     # No caller code runs while basis, values and factor are published together.
     _invalidate_basis_checkpoints!(workspace)
     _copy_pivot_state!(workspace, trial)
+    workspace.scratch.stagnation = nothing
     workspace.factorization = trial.factorization
     for reason in trial.progress.diagnostics.observer.pending
         _simplex_event!(workspace, reason)

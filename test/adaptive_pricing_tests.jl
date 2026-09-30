@@ -142,17 +142,16 @@ end
         @test state.active == :steepest_edge
         pricing_observations!(monitor, 4)
         @test JSimplex.next_pricing!(state, monitor, policy) == :dantzig
-        @test !state.framework_valid
-        @test state.cooldown_until == 8
+        @test state.framework_valid
+        @test state.trial_until == 12
         pricing_observations!(monitor, 2)
         @test JSimplex.next_pricing!(state, monitor, policy) == :dantzig
         pricing_observations!(monitor, 2)
         @test JSimplex.next_pricing!(state, monitor, policy) == :dantzig
-        # The caller has now built a new reference at the current basis.
-        state.framework_valid = true
-        @test JSimplex.next_pricing!(state, monitor, policy) == :devex
+        pricing_observations!(monitor, 4)
+        @test JSimplex.next_pricing!(state, monitor, policy) == :steepest_edge
         @test state.switches == 2
-        @test JSimplex.next_pricing!(state, monitor, policy) == :devex
+        @test JSimplex.next_pricing!(state, monitor, policy) == :steepest_edge
         state.weight_quality = :unreliable
         @test JSimplex.next_pricing!(state, monitor, policy) == :devex
         @test state.needs_reset

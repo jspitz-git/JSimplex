@@ -84,6 +84,7 @@ function _phase_one_workspace(ws::SimplexWorkspace{T},policy,stop) where T
         _finite_workspace(phase) && _recomputed_basis_reliable(phase) && _start_primal_feasible(phase) ||
             throw(_UnreliableBasisSolve())
         reset_devex!(phase)
+        _inherit_primal_phase_pricing!(phase,ws)
         return phase,map
     end
 end
@@ -169,7 +170,11 @@ function _remove_artificials!(phase::SimplexWorkspace{T},map,original,policy,sto
     _finite_workspace(fresh) && _recomputed_basis_reliable(fresh) && _start_primal_feasible(fresh) || return false
     _original_primal_feasible(fresh,fresh.primal[1:size(fresh.problem.A,2)]) || return false
     reset_devex!(fresh)
+    # Artificial removal changes column indexing. Keep only the safe rule;
+    # weights and progress history belong to the newly initialized workspace.
+    _inherit_primal_phase_pricing!(fresh,phase)
     _adopt_phase_basis!(original,fresh)
+    _reset_auto_pricing!(original)
     return true
 end
 
@@ -228,6 +233,7 @@ function _run_phase_one!(ws::SimplexWorkspace{T},budget::SimplexRunBudget,
             # A failed general-basis extension gets one verified slack fallback.
             slack=initialize_workspace(ws.problem,ws.options;progress=ws.progress)
             _phase_inherit_work!(slack,ws)
+            _inherit_primal_phase_pricing!(slack,ws)
             try
                 _phase_one_workspace(slack,policy,guard)
             finally

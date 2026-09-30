@@ -133,7 +133,7 @@ end
 function _rebuild_recovery_weights!(trial::SimplexWorkspace{T},stop) where T
     # Primal weights remain invalid and are computed on demand. Dual steepest
     # edge weights belong to basic rows and must match the rebuilt inverse.
-    _effective_pricing(trial,:dual) == :steepest_edge || return true
+    _weight_pricing(trial,:dual) == :steepest_edge || return true
     m = length(trial.basis.basic_indices)
     rhs,direction = zeros(T,m),zeros(T,m)
     policy = trial.progress.numerical_policy

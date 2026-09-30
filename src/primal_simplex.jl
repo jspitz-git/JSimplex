@@ -640,10 +640,10 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
                 "primal pivot transpose row is inaccurate")
         end
         stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached before pivot application")
-        _effective_pricing(workspace,:primal) == :devex &&
+        _weight_pricing(workspace,:primal) == :devex &&
             _primal_update_devex!(workspace, entering, leaving_row,
                                    tableau_column[leaving_row];shared_row=incremental_pivot || legacy_row)
-        _effective_pricing(workspace,:primal) == :steepest_edge &&
+        _weight_pricing(workspace,:primal) == :steepest_edge &&
             _primal_update_steepest!(workspace, entering, leaving_row,
                                      tableau_column[leaving_row];shared_row=incremental_pivot || legacy_row)
         if incremental_pivot
@@ -841,6 +841,7 @@ function _primal_phase_one(problem::LinearProblem{T}, options::SolverOptions{T},
         workspace.basis.states[row_variable] = row_states[artificial]
     end
     recompute!(workspace; refactorize=true, caller_guard=stop_requested)
+    _inherit_primal_phase_pricing!(workspace,initial)
     return workspace, artificial_count, initial
 end
 

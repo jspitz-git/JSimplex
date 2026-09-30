@@ -97,13 +97,18 @@ objective cleanup. Perturbation levels are bounded, user tolerances are unchange
 and exact arithmetic receives neither primal bound nor dual cost shifts.
 Use `--pricing=steepest_edge|devex|dantzig|auto` for fresh solves; replay retains
 its stored pricing option. `adaptive_pricing=false` disables progress-driven
-switches for `pricing=auto` and the native primal preference for stronger pivots,
-while preserving numerical rejection of invalid pivots and recovery of unreliable
+switches for automatic and explicit weighted pricing, ends an active temporary
+Dantzig trial before the next selection, and disables the native primal preference
+for stronger pivots, while preserving numerical rejection of invalid pivots and recovery of unreliable
 weights. The weak-pivot preference is bounded to eight deferred candidates before
 retrying with ordinary numerical checks.
 Compare automatic pricing with its disabled adaptation and with explicit
 steepest edge. Record pricing kernel time/calls together with iterations and
-`pricing_devex`, `pricing_dantzig`, `pricing_reset`, and `pricing_weight_rejected`.
+`pricing_devex`, `pricing_dantzig`, `pricing_steepest_edge`, `pricing_reset`,
+and `pricing_weight_rejected`. `pricing_progress_return`, `pricing_trial_expired`,
+and `pricing_phase_reset` distinguish productive returns, bounded unsuccessful
+trials and phase boundaries. Trial limits and cooldowns use completed
+observations; two productive windows restore the maintained prior rule.
 Mode/reset counters record committed state; weight rejections also count failed
 attempts. These switches are numerical/progress decisions, independent of clocks.
 `--policy=PATH` accepts a TOML file with internal numerical overrides:
