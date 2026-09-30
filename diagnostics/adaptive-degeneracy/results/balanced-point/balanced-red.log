@@ -1,0 +1,758 @@
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:26
+  Expression: JSimplex._restore_legacy_primal_point!(ws, candidate, (()->begin
+            #= /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:26 =#
+            false
+        end))
+   Evaluated: JSimplex._restore_legacy_primal_point!(JSimplex.SimplexWorkspace{Float32, JSimplex.PFIFactorization{Float32, JSimplex.Float32LUBackend{LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}}}, :pfi, :native, JSimplex.SimplexDiagnostics{Nothing}}(LinearProblem{Float32}(sparse([1, 2], [1, 1], Float32[1.0, 1.0], 2, 1), Float32[0.0], 0.0f0, MIN_SENSE, Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, true)], Bound{Float32}[Bound{Float32}(-1.0f0, true)], Bound{Float32}[Bound{Float32}(0.0f0, false)], VariableDomain[CONTINUOUS], "", String[], String[]), SolverOptions{Float32, :pfi, :native}(0.0001f0, 1.0f-7, 1.0f-12, 100000, Inf, 20, false, Debug, :primal, :steepest_edge, :pfi, :native, :auto, true, :legacy), JSimplex.SimplexProgressContext{Float32, JSimplex.SimplexDiagnostics{Nothing}}(0x0000789d22e49d24, Float32[0.0], 0.0f0, JSimplex.Scaling{Float32}(Float32[1.0, 1.0], Float32[1.0]), 0, 0, JSimplex.SimplexDiagnostics{Nothing}(Dict(:pricing_reset => 0, :pricing_weight_rejected => 0, :pivot_completed => 0, :correction_attempt => 0, :phase_auxiliary => 0, :refactor_fill => 0, :stagnation_watch => 0, :pivot_proposed => 0, :pricing_scanned_entries => 0, :certification_failed => 0…), [:refactor_initial, :refactor_other], 3, nothing, false, Dict(:hypersparse_weight_btran_sparse => 0, :hypersparse_weight_btran_dense => 0, :hypersparse_base_graph => 0, :hypersparse_weight_btran_empty => 0, :btran => 0, :hypersparse_weight_ftran_sparse => 0, :crash => 0, :hypersparse_ftran_sparse => 0, :hypersparse_pricing_empty => 0, :hypersparse_weight_ftran_empty => 0…), Dict{Symbol, UInt64}(:hypersparse_weight_btran_sparse => 0x0000000000000000, :hypersparse_weight_btran_dense => 0x0000000000000000, :hypersparse_base_graph => 0x0000000000000000, :hypersparse_weight_btran_empty => 0x0000000000000000, :btran => 0x0000000000000000, :hypersparse_weight_ftran_sparse => 0x0000000000000000, :crash => 0x0000000000000000, :hypersparse_ftran_sparse => 0x0000000000000000, :hypersparse_pricing_empty => 0x0000000000000000, :hypersparse_weight_ftran_empty => 0x0000000000000000…)), JSimplex.NumericalPolicy{Float32}(3.0517578f-5, 0.00034526698f0, 3, 8, 2, 64, 512, 1073741824, 8, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false)), Float32[0.0, 0.0, 0.0], Bound{Float32}[Bound{Float32}(-1.0f0, true), Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, true)], JSimplex.Basis([1, 3], JSimplex.VariableState[JSimplex.BASIC, JSimplex.AT_UPPER, JSimplex.BASIC]), Float32[0.00014999999, 0.0, 0.00014999999], Float32[0.0, 0.0, 0.0], Float32[1.0, 1.0, 1.0], Bool[0, 1, 1], JSimplex.PFIFactorization{Float32, JSimplex.Float32LUBackend{LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}}}(JSimplex.Float32LUBackend{LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}}(LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}(Float32[1.0 0.0; 1.0 -1.0], [1, 2], 0), LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}(Float32[-1.0 0.0; -0.0 -1.0], [1, 2], 0), true, false), JSimplex.PackedEta{Float32}[], Float32[0.0, 0.0], JSimplex.PackedEta{Float32}[], 0, nothing), JSimplex.SimplexScratch{Float32}(Bool[1, 0, 1], Float32[0.0, 0.0], Float32[0.0, -0.0], Float32[0.0, -0.0], Float32[0.0, 0.0], Float32[0.0, 0.0, 0.0], Float32[0.0, 0.0, 0.0], Bool[0, 0, 0], false, Int64[], Int64[], Float32[], Float32[], Int64[], nothing, nothing, false, Int64[], Int64[], 0, 0, JSimplex._PivotQualityBuffers{Float32, Float32}(Float32[0.0, 0.0], Float32[0.0, 0.0], Float32[0.00014999999, 0.00014999999], Float32[0.0, 0.0], [0, 0], JSimplex.SolveQualityScratch{Float32, Float32}(Float32[0.0, 0.0], Float32[0.0, 0.0], Float32[0.0, 0.0], [0, 0], Float32[], Float32[]), JSimplex.SolveQualityScratch{Float32, Float32}(Float32[0.0, 0.0], Float32[0.0, 0.0], Float32[0.0, 0.0], [0, 0], Float32[], Float32[])), :none, 0.0f0, false, false, false, :limit, JSimplex.RefactorizationState{Float32}(0, 0, 20, 20, 512, false, false, false, nothing, 1.0, 1.0f0, 0, 1.0e8, 4, 4, 8.0, 0.0, 0.0, 0.0, 0, 0, 0, 0.0, 0.0, 0, 0, 9223372036854775807, 0, 0, 0, 0.0, :none), nothing, nothing, nothing, nothing, nothing, 0.0f0, 0.0f0, nothing, true, true, sparse([1, 2, 2], [1, 1, 2], Float32[1.0, 1.0, -1.0], 2, 2), JSimplex.BasisCheckpoint{Float32}[], 0x0000000000000000, Tuple{Int64, Int64}[], 0x0000000000000000, false, false, nothing), 0, 1, false, 0, false, false, 20, 0, 9223372036854775807, 0, 0), Float32[-0.00014999999, 0.0], var"#2#3"())
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:26 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:29
+  Expression: -1 - tol <= ws.primal[1] <= tol
+   Evaluated: -1.0001f0 <= 0.00014999999f0 <= 0.0001f0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:29 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:30
+  Expression: abs(ws.primal[1] - ws.primal[2]) <= tol
+   Evaluated: 0.00014999999f0 <= 0.0001f0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:30 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:32
+  Expression: ws.primal[3] <= tol
+   Evaluated: 0.00014999999f0 <= 0.0001f0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:32 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:34
+  Expression: ws.scratch.row_solution == ws.primal[ws.basis.basic_indices]
+   Evaluated: Float32[0.0, -0.0] == Float32[0.00014999999, 0.00014999999]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:34 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:36
+  Expression: JSimplex._legacy_primal_point_certified(ws)
+   Evaluated: JSimplex._legacy_primal_point_certified(JSimplex.SimplexWorkspace{Float32, JSimplex.PFIFactorization{Float32, JSimplex.Float32LUBackend{LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}}}, :pfi, :native, JSimplex.SimplexDiagnostics{Nothing}}(LinearProblem{Float32}(sparse([1, 2], [1, 1], Float32[1.0, 1.0], 2, 1), Float32[0.0], 0.0f0, MIN_SENSE, Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, true)], Bound{Float32}[Bound{Float32}(-1.0f0, true)], Bound{Float32}[Bound{Float32}(0.0f0, false)], VariableDomain[CONTINUOUS], "", String[], String[]), SolverOptions{Float32, :pfi, :native}(0.0001f0, 1.0f-7, 1.0f-12, 100000, Inf, 20, false, Debug, :primal, :steepest_edge, :pfi, :native, :auto, true, :legacy), JSimplex.SimplexProgressContext{Float32, JSimplex.SimplexDiagnostics{Nothing}}(0x0000789d22e49d24, Float32[0.0], 0.0f0, JSimplex.Scaling{Float32}(Float32[1.0, 1.0], Float32[1.0]), 0, 0, JSimplex.SimplexDiagnostics{Nothing}(Dict(:pricing_reset => 0, :pricing_weight_rejected => 0, :pivot_completed => 0, :correction_attempt => 0, :phase_auxiliary => 0, :refactor_fill => 0, :stagnation_watch => 0, :pivot_proposed => 0, :pricing_scanned_entries => 0, :certification_failed => 0…), [:refactor_initial, :refactor_other], 3, nothing, false, Dict(:hypersparse_weight_btran_sparse => 0, :hypersparse_weight_btran_dense => 0, :hypersparse_base_graph => 0, :hypersparse_weight_btran_empty => 0, :btran => 0, :hypersparse_weight_ftran_sparse => 0, :crash => 0, :hypersparse_ftran_sparse => 0, :hypersparse_pricing_empty => 0, :hypersparse_weight_ftran_empty => 0…), Dict{Symbol, UInt64}(:hypersparse_weight_btran_sparse => 0x0000000000000000, :hypersparse_weight_btran_dense => 0x0000000000000000, :hypersparse_base_graph => 0x0000000000000000, :hypersparse_weight_btran_empty => 0x0000000000000000, :btran => 0x0000000000000000, :hypersparse_weight_ftran_sparse => 0x0000000000000000, :crash => 0x0000000000000000, :hypersparse_ftran_sparse => 0x0000000000000000, :hypersparse_pricing_empty => 0x0000000000000000, :hypersparse_weight_ftran_empty => 0x0000000000000000…)), JSimplex.NumericalPolicy{Float32}(3.0517578f-5, 0.00034526698f0, 3, 8, 2, 64, 512, 1073741824, 8, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false)), Float32[0.0, 0.0, 0.0], Bound{Float32}[Bound{Float32}(-1.0f0, true), Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, true)], JSimplex.Basis([1, 3], JSimplex.VariableState[JSimplex.BASIC, JSimplex.AT_UPPER, JSimplex.BASIC]), Float32[0.00014999999, 0.0, 0.00014999999], Float32[0.0, 0.0, 0.0], Float32[1.0, 1.0, 1.0], Bool[0, 1, 1], JSimplex.PFIFactorization{Float32, JSimplex.Float32LUBackend{LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}}}(JSimplex.Float32LUBackend{LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}}(LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}(Float32[1.0 0.0; 1.0 -1.0], [1, 2], 0), LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}(Float32[-1.0 0.0; -0.0 -1.0], [1, 2], 0), true, false), JSimplex.PackedEta{Float32}[], Float32[0.0, 0.0], JSimplex.PackedEta{Float32}[], 0, nothing), JSimplex.SimplexScratch{Float32}(Bool[1, 0, 1], Float32[0.0, 0.0], Float32[0.0, -0.0], Float32[0.0, -0.0], Float32[0.0, 0.0], Float32[0.0, 0.0, 0.0], Float32[0.0, 0.0, 0.0], Bool[0, 0, 0], false, Int64[], Int64[], Float32[], Float32[], Int64[], nothing, nothing, false, Int64[], Int64[], 0, 0, JSimplex._PivotQualityBuffers{Float32, Float32}(Float32[0.0, 0.0], Float32[0.0, 0.0], Float32[0.00014999999, 0.00014999999], Float32[0.0, 0.0], [0, 0], JSimplex.SolveQualityScratch{Float32, Float32}(Float32[0.0, 0.0], Float32[0.0, 0.0], Float32[0.0, 0.0], [0, 0], Float32[], Float32[]), JSimplex.SolveQualityScratch{Float32, Float32}(Float32[0.0, 0.0], Float32[0.0, 0.0], Float32[0.0, 0.0], [0, 0], Float32[], Float32[])), :none, 0.0f0, false, false, false, :limit, JSimplex.RefactorizationState{Float32}(0, 0, 20, 20, 512, false, false, false, nothing, 1.0, 1.0f0, 0, 1.0e8, 4, 4, 8.0, 0.0, 0.0, 0.0, 0, 0, 0, 0.0, 0.0, 0, 0, 9223372036854775807, 0, 0, 0, 0.0, :none), nothing, nothing, nothing, nothing, nothing, 0.0f0, 0.0f0, nothing, true, true, sparse([1, 2, 2], [1, 1, 2], Float32[1.0, 1.0, -1.0], 2, 2), JSimplex.BasisCheckpoint{Float32}[], 0x0000000000000000, Tuple{Int64, Int64}[], 0x0000000000000000, false, false, nothing), 0, 1, false, 0, false, false, 20, 0, 9223372036854775807, 0, 0))
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:36 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:37
+  Expression: JSimplex.event_count(diagnostics, :primal_point_preserved) == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:37 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:26
+  Expression: JSimplex._restore_legacy_primal_point!(ws, candidate, (()->begin
+            #= /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:26 =#
+            false
+        end))
+   Evaluated: JSimplex._restore_legacy_primal_point!(JSimplex.SimplexWorkspace{Float32, JSimplex.ForrestTomlinFactorization{Float32, JSimplex.Float32LUBackend{LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}}}, :forrest_tomlin, :native, JSimplex.SimplexDiagnostics{Nothing}}(LinearProblem{Float32}(sparse([1, 2], [1, 1], Float32[1.0, 1.0], 2, 1), Float32[0.0], 0.0f0, MIN_SENSE, Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, true)], Bound{Float32}[Bound{Float32}(-1.0f0, true)], Bound{Float32}[Bound{Float32}(0.0f0, false)], VariableDomain[CONTINUOUS], "", String[], String[]), SolverOptions{Float32, :forrest_tomlin, :native}(0.0001f0, 1.0f-7, 1.0f-12, 100000, Inf, 20, false, Debug, :primal, :steepest_edge, :forrest_tomlin, :native, :auto, true, :legacy), JSimplex.SimplexProgressContext{Float32, JSimplex.SimplexDiagnostics{Nothing}}(0x0000789d2794b751, Float32[0.0], 0.0f0, JSimplex.Scaling{Float32}(Float32[1.0, 1.0], Float32[1.0]), 0, 0, JSimplex.SimplexDiagnostics{Nothing}(Dict(:pricing_reset => 0, :pricing_weight_rejected => 0, :pivot_completed => 0, :correction_attempt => 0, :phase_auxiliary => 0, :refactor_fill => 0, :stagnation_watch => 0, :pivot_proposed => 0, :pricing_scanned_entries => 0, :certification_failed => 0…), [:refactor_initial, :refactor_other], 3, nothing, false, Dict(:hypersparse_weight_btran_sparse => 0, :hypersparse_weight_btran_dense => 0, :hypersparse_base_graph => 0, :hypersparse_weight_btran_empty => 0, :btran => 0, :hypersparse_weight_ftran_sparse => 0, :crash => 0, :hypersparse_ftran_sparse => 0, :hypersparse_pricing_empty => 0, :hypersparse_weight_ftran_empty => 0…), Dict{Symbol, UInt64}(:hypersparse_weight_btran_sparse => 0x0000000000000000, :hypersparse_weight_btran_dense => 0x0000000000000000, :hypersparse_base_graph => 0x0000000000000000, :hypersparse_weight_btran_empty => 0x0000000000000000, :btran => 0x0000000000000000, :hypersparse_weight_ftran_sparse => 0x0000000000000000, :crash => 0x0000000000000000, :hypersparse_ftran_sparse => 0x0000000000000000, :hypersparse_pricing_empty => 0x0000000000000000, :hypersparse_weight_ftran_empty => 0x0000000000000000…)), JSimplex.NumericalPolicy{Float32}(3.0517578f-5, 0.00034526698f0, 3, 8, 2, 64, 512, 1073741824, 8, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false)), Float32[0.0, 0.0, 0.0], Bound{Float32}[Bound{Float32}(-1.0f0, true), Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, true)], JSimplex.Basis([1, 3], JSimplex.VariableState[JSimplex.BASIC, JSimplex.AT_UPPER, JSimplex.BASIC]), Float32[0.00014999999, 0.0, 0.00014999999], Float32[0.0, 0.0, 0.0], Float32[1.0, 1.0, 1.0], Bool[0, 1, 1], JSimplex.ForrestTomlinFactorization{Float32, JSimplex.Float32LUBackend{LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}}}(JSimplex.Float32LUBackend{LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}}(LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}(Float32[1.0 0.0; 1.0 -1.0], [1, 2], 0), LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}(Float32[-1.0 0.0; -0.0 -1.0], [1, 2], 0), true, false), JSimplex.PackedUpperColumn{Float32, Vector{Int64}}[JSimplex.PackedUpperColumn{Float32, Vector{Int64}}([1], Float32[1.0]), JSimplex.PackedUpperColumn{Float32, Vector{Int64}}([2], Float32[1.0])], [1, 2], [1, 2], JSimplex.ForrestTomlinUpdate{Float32}[], Float32[0.0, 0.0], Float32[0.0, 0.0], Vector{Int64}[], JSimplex.ForrestTomlinUpdate{Float32}[], 0, nothing, JSimplex.TriangularRowCache{Float32}([1, 2], Tuple{Int64, Int64, Float32}[], 0, false, Int64[], false, 3, Int64[], JSimplex.TriangularSpikeCache{Float32}((JSimplex.PreparedTriangularSpike{Float32}(nothing, Float32[-1.2598278f-8, 8.96f-41], Float32[-9.2113964f-8, 8.96f-41]), JSimplex.PreparedTriangularSpike{Float32}(nothing, Float32[-0.0046094432, 8.96f-41], Float32[-1.25983775f-8, 8.96f-41])), 1))), JSimplex.SimplexScratch{Float32}(Bool[1, 0, 1], Float32[0.0, 0.0], Float32[0.0, -0.0], Float32[0.0, -0.0], Float32[0.0, 0.0], Float32[0.0, 0.0, 0.0], Float32[0.0, 0.0, 0.0], Bool[0, 0, 0], false, Int64[], Int64[], Float32[], Float32[], Int64[], nothing, nothing, false, Int64[], Int64[], 0, 0, JSimplex._PivotQualityBuffers{Float32, Float32}(Float32[0.0, 0.0], Float32[0.0, 0.0], Float32[0.00014999999, 0.00014999999], Float32[0.0, 0.0], [0, 0], JSimplex.SolveQualityScratch{Float32, Float32}(Float32[0.0, 0.0], Float32[0.0, 0.0], Float32[0.0, 0.0], [0, 0], Float32[], Float32[]), JSimplex.SolveQualityScratch{Float32, Float32}(Float32[0.0, 0.0], Float32[0.0, 0.0], Float32[0.0, 0.0], [0, 0], Float32[], Float32[])), :none, 0.0f0, false, false, false, :limit, JSimplex.RefactorizationState{Float32}(0, 0, 20, 20, 128, false, false, false, nothing, 1.0, 1.0f0, 0, 1.0e8, 6, 6, 8.0, 0.0, 0.0, 0.0, 0, 0, 0, 0.0, 0.0, 0, 0, 9223372036854775807, 0, 0, 0, 0.0, :none), nothing, nothing, nothing, nothing, nothing, 0.0f0, 0.0f0, nothing, true, true, sparse([1, 2, 2], [1, 1, 2], Float32[1.0, 1.0, -1.0], 2, 2), JSimplex.BasisCheckpoint{Float32}[], 0x0000000000000000, Tuple{Int64, Int64}[], 0x0000000000000000, false, false, nothing), 0, 1, false, 0, false, false, 20, 0, 9223372036854775807, 0, 0), Float32[-0.00014999999, 0.0], var"#2#3"())
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:26 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:29
+  Expression: -1 - tol <= ws.primal[1] <= tol
+   Evaluated: -1.0001f0 <= 0.00014999999f0 <= 0.0001f0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:29 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:30
+  Expression: abs(ws.primal[1] - ws.primal[2]) <= tol
+   Evaluated: 0.00014999999f0 <= 0.0001f0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:30 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:32
+  Expression: ws.primal[3] <= tol
+   Evaluated: 0.00014999999f0 <= 0.0001f0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:32 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:34
+  Expression: ws.scratch.row_solution == ws.primal[ws.basis.basic_indices]
+   Evaluated: Float32[0.0, -0.0] == Float32[0.00014999999, 0.00014999999]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:34 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:36
+  Expression: JSimplex._legacy_primal_point_certified(ws)
+   Evaluated: JSimplex._legacy_primal_point_certified(JSimplex.SimplexWorkspace{Float32, JSimplex.ForrestTomlinFactorization{Float32, JSimplex.Float32LUBackend{LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}}}, :forrest_tomlin, :native, JSimplex.SimplexDiagnostics{Nothing}}(LinearProblem{Float32}(sparse([1, 2], [1, 1], Float32[1.0, 1.0], 2, 1), Float32[0.0], 0.0f0, MIN_SENSE, Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, true)], Bound{Float32}[Bound{Float32}(-1.0f0, true)], Bound{Float32}[Bound{Float32}(0.0f0, false)], VariableDomain[CONTINUOUS], "", String[], String[]), SolverOptions{Float32, :forrest_tomlin, :native}(0.0001f0, 1.0f-7, 1.0f-12, 100000, Inf, 20, false, Debug, :primal, :steepest_edge, :forrest_tomlin, :native, :auto, true, :legacy), JSimplex.SimplexProgressContext{Float32, JSimplex.SimplexDiagnostics{Nothing}}(0x0000789d2794b751, Float32[0.0], 0.0f0, JSimplex.Scaling{Float32}(Float32[1.0, 1.0], Float32[1.0]), 0, 0, JSimplex.SimplexDiagnostics{Nothing}(Dict(:pricing_reset => 0, :pricing_weight_rejected => 0, :pivot_completed => 0, :correction_attempt => 0, :phase_auxiliary => 0, :refactor_fill => 0, :stagnation_watch => 0, :pivot_proposed => 0, :pricing_scanned_entries => 0, :certification_failed => 0…), [:refactor_initial, :refactor_other], 3, nothing, false, Dict(:hypersparse_weight_btran_sparse => 0, :hypersparse_weight_btran_dense => 0, :hypersparse_base_graph => 0, :hypersparse_weight_btran_empty => 0, :btran => 0, :hypersparse_weight_ftran_sparse => 0, :crash => 0, :hypersparse_ftran_sparse => 0, :hypersparse_pricing_empty => 0, :hypersparse_weight_ftran_empty => 0…), Dict{Symbol, UInt64}(:hypersparse_weight_btran_sparse => 0x0000000000000000, :hypersparse_weight_btran_dense => 0x0000000000000000, :hypersparse_base_graph => 0x0000000000000000, :hypersparse_weight_btran_empty => 0x0000000000000000, :btran => 0x0000000000000000, :hypersparse_weight_ftran_sparse => 0x0000000000000000, :crash => 0x0000000000000000, :hypersparse_ftran_sparse => 0x0000000000000000, :hypersparse_pricing_empty => 0x0000000000000000, :hypersparse_weight_ftran_empty => 0x0000000000000000…)), JSimplex.NumericalPolicy{Float32}(3.0517578f-5, 0.00034526698f0, 3, 8, 2, 64, 512, 1073741824, 8, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false)), Float32[0.0, 0.0, 0.0], Bound{Float32}[Bound{Float32}(-1.0f0, true), Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, true)], JSimplex.Basis([1, 3], JSimplex.VariableState[JSimplex.BASIC, JSimplex.AT_UPPER, JSimplex.BASIC]), Float32[0.00014999999, 0.0, 0.00014999999], Float32[0.0, 0.0, 0.0], Float32[1.0, 1.0, 1.0], Bool[0, 1, 1], JSimplex.ForrestTomlinFactorization{Float32, JSimplex.Float32LUBackend{LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}}}(JSimplex.Float32LUBackend{LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}}(LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}(Float32[1.0 0.0; 1.0 -1.0], [1, 2], 0), LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}(Float32[-1.0 0.0; -0.0 -1.0], [1, 2], 0), true, false), JSimplex.PackedUpperColumn{Float32, Vector{Int64}}[JSimplex.PackedUpperColumn{Float32, Vector{Int64}}([1], Float32[1.0]), JSimplex.PackedUpperColumn{Float32, Vector{Int64}}([2], Float32[1.0])], [1, 2], [1, 2], JSimplex.ForrestTomlinUpdate{Float32}[], Float32[0.0, 0.0], Float32[0.0, 0.0], Vector{Int64}[], JSimplex.ForrestTomlinUpdate{Float32}[], 0, nothing, JSimplex.TriangularRowCache{Float32}([1, 2], Tuple{Int64, Int64, Float32}[], 0, false, Int64[], false, 3, Int64[], JSimplex.TriangularSpikeCache{Float32}((JSimplex.PreparedTriangularSpike{Float32}(nothing, Float32[-1.2598278f-8, 8.96f-41], Float32[-9.2113964f-8, 8.96f-41]), JSimplex.PreparedTriangularSpike{Float32}(nothing, Float32[-0.0046094432, 8.96f-41], Float32[-1.25983775f-8, 8.96f-41])), 1))), JSimplex.SimplexScratch{Float32}(Bool[1, 0, 1], Float32[0.0, 0.0], Float32[0.0, -0.0], Float32[0.0, -0.0], Float32[0.0, 0.0], Float32[0.0, 0.0, 0.0], Float32[0.0, 0.0, 0.0], Bool[0, 0, 0], false, Int64[], Int64[], Float32[], Float32[], Int64[], nothing, nothing, false, Int64[], Int64[], 0, 0, JSimplex._PivotQualityBuffers{Float32, Float32}(Float32[0.0, 0.0], Float32[0.0, 0.0], Float32[0.00014999999, 0.00014999999], Float32[0.0, 0.0], [0, 0], JSimplex.SolveQualityScratch{Float32, Float32}(Float32[0.0, 0.0], Float32[0.0, 0.0], Float32[0.0, 0.0], [0, 0], Float32[], Float32[]), JSimplex.SolveQualityScratch{Float32, Float32}(Float32[0.0, 0.0], Float32[0.0, 0.0], Float32[0.0, 0.0], [0, 0], Float32[], Float32[])), :none, 0.0f0, false, false, false, :limit, JSimplex.RefactorizationState{Float32}(0, 0, 20, 20, 128, false, false, false, nothing, 1.0, 1.0f0, 0, 1.0e8, 6, 6, 8.0, 0.0, 0.0, 0.0, 0, 0, 0, 0.0, 0.0, 0, 0, 9223372036854775807, 0, 0, 0, 0.0, :none), nothing, nothing, nothing, nothing, nothing, 0.0f0, 0.0f0, nothing, true, true, sparse([1, 2, 2], [1, 1, 2], Float32[1.0, 1.0, -1.0], 2, 2), JSimplex.BasisCheckpoint{Float32}[], 0x0000000000000000, Tuple{Int64, Int64}[], 0x0000000000000000, false, false, nothing), 0, 1, false, 0, false, false, 20, 0, 9223372036854775807, 0, 0))
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:36 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:37
+  Expression: JSimplex.event_count(diagnostics, :primal_point_preserved) == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:37 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:26
+  Expression: JSimplex._restore_legacy_primal_point!(ws, candidate, (()->begin
+            #= /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:26 =#
+            false
+        end))
+   Evaluated: JSimplex._restore_legacy_primal_point!(JSimplex.SimplexWorkspace{Float32, JSimplex.SuhlSuhlFactorization{Float32, JSimplex.Float32LUBackend{LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}}}, :suhl_suhl, :native, JSimplex.SimplexDiagnostics{Nothing}}(LinearProblem{Float32}(sparse([1, 2], [1, 1], Float32[1.0, 1.0], 2, 1), Float32[0.0], 0.0f0, MIN_SENSE, Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, true)], Bound{Float32}[Bound{Float32}(-1.0f0, true)], Bound{Float32}[Bound{Float32}(0.0f0, false)], VariableDomain[CONTINUOUS], "", String[], String[]), SolverOptions{Float32, :suhl_suhl, :native}(0.0001f0, 1.0f-7, 1.0f-12, 100000, Inf, 20, false, Debug, :primal, :steepest_edge, :suhl_suhl, :native, :auto, true, :legacy), JSimplex.SimplexProgressContext{Float32, JSimplex.SimplexDiagnostics{Nothing}}(0x0000789d2a1bc249, Float32[0.0], 0.0f0, JSimplex.Scaling{Float32}(Float32[1.0, 1.0], Float32[1.0]), 0, 0, JSimplex.SimplexDiagnostics{Nothing}(Dict(:pricing_reset => 0, :pricing_weight_rejected => 0, :pivot_completed => 0, :correction_attempt => 0, :phase_auxiliary => 0, :refactor_fill => 0, :stagnation_watch => 0, :pivot_proposed => 0, :pricing_scanned_entries => 0, :certification_failed => 0…), [:refactor_initial, :refactor_other], 3, nothing, false, Dict(:hypersparse_weight_btran_sparse => 0, :hypersparse_weight_btran_dense => 0, :hypersparse_base_graph => 0, :hypersparse_weight_btran_empty => 0, :btran => 0, :hypersparse_weight_ftran_sparse => 0, :crash => 0, :hypersparse_ftran_sparse => 0, :hypersparse_pricing_empty => 0, :hypersparse_weight_ftran_empty => 0…), Dict{Symbol, UInt64}(:hypersparse_weight_btran_sparse => 0x0000000000000000, :hypersparse_weight_btran_dense => 0x0000000000000000, :hypersparse_base_graph => 0x0000000000000000, :hypersparse_weight_btran_empty => 0x0000000000000000, :btran => 0x0000000000000000, :hypersparse_weight_ftran_sparse => 0x0000000000000000, :crash => 0x0000000000000000, :hypersparse_ftran_sparse => 0x0000000000000000, :hypersparse_pricing_empty => 0x0000000000000000, :hypersparse_weight_ftran_empty => 0x0000000000000000…)), JSimplex.NumericalPolicy{Float32}(3.0517578f-5, 0.00034526698f0, 3, 8, 2, 64, 512, 1073741824, 8, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false)), Float32[0.0, 0.0, 0.0], Bound{Float32}[Bound{Float32}(-1.0f0, true), Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, true)], JSimplex.Basis([1, 3], JSimplex.VariableState[JSimplex.BASIC, JSimplex.AT_UPPER, JSimplex.BASIC]), Float32[0.00014999999, 0.0, 0.00014999999], Float32[0.0, 0.0, 0.0], Float32[1.0, 1.0, 1.0], Bool[0, 1, 1], JSimplex.SuhlSuhlFactorization{Float32, JSimplex.Float32LUBackend{LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}}}(JSimplex.Float32LUBackend{LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}}(LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}(Float32[1.0 0.0; 1.0 -1.0], [1, 2], 0), LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}(Float32[-1.0 0.0; -0.0 -1.0], [1, 2], 0), true, false), JSimplex.PackedUpperColumn{Float32, Vector{Int64}}[JSimplex.PackedUpperColumn{Float32, Vector{Int64}}([1], Float32[1.0]), JSimplex.PackedUpperColumn{Float32, Vector{Int64}}([2], Float32[1.0])], [1, 2], [1, 2], JSimplex.SuhlSuhlUpdate{Float32}[], Float32[0.0, 0.0], Float32[0.0, 0.0], Vector{Int64}[], JSimplex.SuhlSuhlUpdate{Float32}[], 0, nothing, JSimplex.TriangularRowCache{Float32}([1, 2], Tuple{Int64, Int64, Float32}[], 0, false, Int64[], false, 3, Int64[], JSimplex.TriangularSpikeCache{Float32}((JSimplex.PreparedTriangularSpike{Float32}(nothing, Float32[6.0f-45, 0.0], Float32[0.0, 0.0]), JSimplex.PreparedTriangularSpike{Float32}(nothing, Float32[-9.6083f-9, 8.96f-41], Float32[-0.006147675, 8.96f-41])), 1))), JSimplex.SimplexScratch{Float32}(Bool[1, 0, 1], Float32[0.0, 0.0], Float32[0.0, -0.0], Float32[0.0, -0.0], Float32[0.0, 0.0], Float32[0.0, 0.0, 0.0], Float32[0.0, 0.0, 0.0], Bool[0, 0, 0], false, Int64[], Int64[], Float32[], Float32[], Int64[], nothing, nothing, false, Int64[], Int64[], 0, 0, JSimplex._PivotQualityBuffers{Float32, Float32}(Float32[0.0, 0.0], Float32[0.0, 0.0], Float32[0.00014999999, 0.00014999999], Float32[0.0, 0.0], [0, 0], JSimplex.SolveQualityScratch{Float32, Float32}(Float32[0.0, 0.0], Float32[0.0, 0.0], Float32[0.0, 0.0], [0, 0], Float32[], Float32[]), JSimplex.SolveQualityScratch{Float32, Float32}(Float32[0.0, 0.0], Float32[0.0, 0.0], Float32[0.0, 0.0], [0, 0], Float32[], Float32[])), :none, 0.0f0, false, false, false, :limit, JSimplex.RefactorizationState{Float32}(0, 0, 20, 20, 128, false, false, false, nothing, 1.0, 1.0f0, 0, 1.0e8, 6, 6, 8.0, 0.0, 0.0, 0.0, 0, 0, 0, 0.0, 0.0, 0, 0, 9223372036854775807, 0, 0, 0, 0.0, :none), nothing, nothing, nothing, nothing, nothing, 0.0f0, 0.0f0, nothing, true, true, sparse([1, 2, 2], [1, 1, 2], Float32[1.0, 1.0, -1.0], 2, 2), JSimplex.BasisCheckpoint{Float32}[], 0x0000000000000000, Tuple{Int64, Int64}[], 0x0000000000000000, false, false, nothing), 0, 1, false, 0, false, false, 20, 0, 9223372036854775807, 0, 0), Float32[-0.00014999999, 0.0], var"#2#3"())
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:26 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:29
+  Expression: -1 - tol <= ws.primal[1] <= tol
+   Evaluated: -1.0001f0 <= 0.00014999999f0 <= 0.0001f0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:29 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:30
+  Expression: abs(ws.primal[1] - ws.primal[2]) <= tol
+   Evaluated: 0.00014999999f0 <= 0.0001f0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:30 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:32
+  Expression: ws.primal[3] <= tol
+   Evaluated: 0.00014999999f0 <= 0.0001f0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:32 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:34
+  Expression: ws.scratch.row_solution == ws.primal[ws.basis.basic_indices]
+   Evaluated: Float32[0.0, -0.0] == Float32[0.00014999999, 0.00014999999]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:34 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:36
+  Expression: JSimplex._legacy_primal_point_certified(ws)
+   Evaluated: JSimplex._legacy_primal_point_certified(JSimplex.SimplexWorkspace{Float32, JSimplex.SuhlSuhlFactorization{Float32, JSimplex.Float32LUBackend{LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}}}, :suhl_suhl, :native, JSimplex.SimplexDiagnostics{Nothing}}(LinearProblem{Float32}(sparse([1, 2], [1, 1], Float32[1.0, 1.0], 2, 1), Float32[0.0], 0.0f0, MIN_SENSE, Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, true)], Bound{Float32}[Bound{Float32}(-1.0f0, true)], Bound{Float32}[Bound{Float32}(0.0f0, false)], VariableDomain[CONTINUOUS], "", String[], String[]), SolverOptions{Float32, :suhl_suhl, :native}(0.0001f0, 1.0f-7, 1.0f-12, 100000, Inf, 20, false, Debug, :primal, :steepest_edge, :suhl_suhl, :native, :auto, true, :legacy), JSimplex.SimplexProgressContext{Float32, JSimplex.SimplexDiagnostics{Nothing}}(0x0000789d2a1bc249, Float32[0.0], 0.0f0, JSimplex.Scaling{Float32}(Float32[1.0, 1.0], Float32[1.0]), 0, 0, JSimplex.SimplexDiagnostics{Nothing}(Dict(:pricing_reset => 0, :pricing_weight_rejected => 0, :pivot_completed => 0, :correction_attempt => 0, :phase_auxiliary => 0, :refactor_fill => 0, :stagnation_watch => 0, :pivot_proposed => 0, :pricing_scanned_entries => 0, :certification_failed => 0…), [:refactor_initial, :refactor_other], 3, nothing, false, Dict(:hypersparse_weight_btran_sparse => 0, :hypersparse_weight_btran_dense => 0, :hypersparse_base_graph => 0, :hypersparse_weight_btran_empty => 0, :btran => 0, :hypersparse_weight_ftran_sparse => 0, :crash => 0, :hypersparse_ftran_sparse => 0, :hypersparse_pricing_empty => 0, :hypersparse_weight_ftran_empty => 0…), Dict{Symbol, UInt64}(:hypersparse_weight_btran_sparse => 0x0000000000000000, :hypersparse_weight_btran_dense => 0x0000000000000000, :hypersparse_base_graph => 0x0000000000000000, :hypersparse_weight_btran_empty => 0x0000000000000000, :btran => 0x0000000000000000, :hypersparse_weight_ftran_sparse => 0x0000000000000000, :crash => 0x0000000000000000, :hypersparse_ftran_sparse => 0x0000000000000000, :hypersparse_pricing_empty => 0x0000000000000000, :hypersparse_weight_ftran_empty => 0x0000000000000000…)), JSimplex.NumericalPolicy{Float32}(3.0517578f-5, 0.00034526698f0, 3, 8, 2, 64, 512, 1073741824, 8, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false)), Float32[0.0, 0.0, 0.0], Bound{Float32}[Bound{Float32}(-1.0f0, true), Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, true)], JSimplex.Basis([1, 3], JSimplex.VariableState[JSimplex.BASIC, JSimplex.AT_UPPER, JSimplex.BASIC]), Float32[0.00014999999, 0.0, 0.00014999999], Float32[0.0, 0.0, 0.0], Float32[1.0, 1.0, 1.0], Bool[0, 1, 1], JSimplex.SuhlSuhlFactorization{Float32, JSimplex.Float32LUBackend{LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}}}(JSimplex.Float32LUBackend{LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}}(LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}(Float32[1.0 0.0; 1.0 -1.0], [1, 2], 0), LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}(Float32[-1.0 0.0; -0.0 -1.0], [1, 2], 0), true, false), JSimplex.PackedUpperColumn{Float32, Vector{Int64}}[JSimplex.PackedUpperColumn{Float32, Vector{Int64}}([1], Float32[1.0]), JSimplex.PackedUpperColumn{Float32, Vector{Int64}}([2], Float32[1.0])], [1, 2], [1, 2], JSimplex.SuhlSuhlUpdate{Float32}[], Float32[0.0, 0.0], Float32[0.0, 0.0], Vector{Int64}[], JSimplex.SuhlSuhlUpdate{Float32}[], 0, nothing, JSimplex.TriangularRowCache{Float32}([1, 2], Tuple{Int64, Int64, Float32}[], 0, false, Int64[], false, 3, Int64[], JSimplex.TriangularSpikeCache{Float32}((JSimplex.PreparedTriangularSpike{Float32}(nothing, Float32[6.0f-45, 0.0], Float32[0.0, 0.0]), JSimplex.PreparedTriangularSpike{Float32}(nothing, Float32[-9.6083f-9, 8.96f-41], Float32[-0.006147675, 8.96f-41])), 1))), JSimplex.SimplexScratch{Float32}(Bool[1, 0, 1], Float32[0.0, 0.0], Float32[0.0, -0.0], Float32[0.0, -0.0], Float32[0.0, 0.0], Float32[0.0, 0.0, 0.0], Float32[0.0, 0.0, 0.0], Bool[0, 0, 0], false, Int64[], Int64[], Float32[], Float32[], Int64[], nothing, nothing, false, Int64[], Int64[], 0, 0, JSimplex._PivotQualityBuffers{Float32, Float32}(Float32[0.0, 0.0], Float32[0.0, 0.0], Float32[0.00014999999, 0.00014999999], Float32[0.0, 0.0], [0, 0], JSimplex.SolveQualityScratch{Float32, Float32}(Float32[0.0, 0.0], Float32[0.0, 0.0], Float32[0.0, 0.0], [0, 0], Float32[], Float32[]), JSimplex.SolveQualityScratch{Float32, Float32}(Float32[0.0, 0.0], Float32[0.0, 0.0], Float32[0.0, 0.0], [0, 0], Float32[], Float32[])), :none, 0.0f0, false, false, false, :limit, JSimplex.RefactorizationState{Float32}(0, 0, 20, 20, 128, false, false, false, nothing, 1.0, 1.0f0, 0, 1.0e8, 6, 6, 8.0, 0.0, 0.0, 0.0, 0, 0, 0, 0.0, 0.0, 0, 0, 9223372036854775807, 0, 0, 0, 0.0, :none), nothing, nothing, nothing, nothing, nothing, 0.0f0, 0.0f0, nothing, true, true, sparse([1, 2, 2], [1, 1, 2], Float32[1.0, 1.0, -1.0], 2, 2), JSimplex.BasisCheckpoint{Float32}[], 0x0000000000000000, Tuple{Int64, Int64}[], 0x0000000000000000, false, false, nothing), 0, 1, false, 0, false, false, 20, 0, 9223372036854775807, 0, 0))
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:36 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:37
+  Expression: JSimplex.event_count(diagnostics, :primal_point_preserved) == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:37 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:26
+  Expression: JSimplex._restore_legacy_primal_point!(ws, candidate, (()->begin
+            #= /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:26 =#
+            false
+        end))
+   Evaluated: JSimplex._restore_legacy_primal_point!(JSimplex.SimplexWorkspace{Float32, JSimplex.BartelsGolubFactorization{Float32, JSimplex.Float32LUBackend{LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}}}, :bartels_golub, :native, JSimplex.SimplexDiagnostics{Nothing}}(LinearProblem{Float32}(sparse([1, 2], [1, 1], Float32[1.0, 1.0], 2, 1), Float32[0.0], 0.0f0, MIN_SENSE, Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, true)], Bound{Float32}[Bound{Float32}(-1.0f0, true)], Bound{Float32}[Bound{Float32}(0.0f0, false)], VariableDomain[CONTINUOUS], "", String[], String[]), SolverOptions{Float32, :bartels_golub, :native}(0.0001f0, 1.0f-7, 1.0f-12, 100000, Inf, 20, false, Debug, :primal, :steepest_edge, :bartels_golub, :native, :auto, true, :legacy), JSimplex.SimplexProgressContext{Float32, JSimplex.SimplexDiagnostics{Nothing}}(0x0000789d2c67a456, Float32[0.0], 0.0f0, JSimplex.Scaling{Float32}(Float32[1.0, 1.0], Float32[1.0]), 0, 0, JSimplex.SimplexDiagnostics{Nothing}(Dict(:pricing_reset => 0, :pricing_weight_rejected => 0, :pivot_completed => 0, :correction_attempt => 0, :phase_auxiliary => 0, :refactor_fill => 0, :stagnation_watch => 0, :pivot_proposed => 0, :pricing_scanned_entries => 0, :certification_failed => 0…), [:refactor_initial, :refactor_other], 3, nothing, false, Dict(:hypersparse_weight_btran_sparse => 0, :hypersparse_weight_btran_dense => 0, :hypersparse_base_graph => 0, :hypersparse_weight_btran_empty => 0, :btran => 0, :hypersparse_weight_ftran_sparse => 0, :crash => 0, :hypersparse_ftran_sparse => 0, :hypersparse_pricing_empty => 0, :hypersparse_weight_ftran_empty => 0…), Dict{Symbol, UInt64}(:hypersparse_weight_btran_sparse => 0x0000000000000000, :hypersparse_weight_btran_dense => 0x0000000000000000, :hypersparse_base_graph => 0x0000000000000000, :hypersparse_weight_btran_empty => 0x0000000000000000, :btran => 0x0000000000000000, :hypersparse_weight_ftran_sparse => 0x0000000000000000, :crash => 0x0000000000000000, :hypersparse_ftran_sparse => 0x0000000000000000, :hypersparse_pricing_empty => 0x0000000000000000, :hypersparse_weight_ftran_empty => 0x0000000000000000…)), JSimplex.NumericalPolicy{Float32}(3.0517578f-5, 0.00034526698f0, 3, 8, 2, 64, 512, 1073741824, 8, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false)), Float32[0.0, 0.0, 0.0], Bound{Float32}[Bound{Float32}(-1.0f0, true), Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, true)], JSimplex.Basis([1, 3], JSimplex.VariableState[JSimplex.BASIC, JSimplex.AT_UPPER, JSimplex.BASIC]), Float32[0.00014999999, 0.0, 0.00014999999], Float32[0.0, 0.0, 0.0], Float32[1.0, 1.0, 1.0], Bool[0, 1, 1], JSimplex.BartelsGolubFactorization{Float32, JSimplex.Float32LUBackend{LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}}}(JSimplex.Float32LUBackend{LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}}(LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}(Float32[1.0 0.0; 1.0 -1.0], [1, 2], 0), LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}(Float32[-1.0 0.0; -0.0 -1.0], [1, 2], 0), true, false), JSimplex.PackedUpperColumn{Float32, JSimplex.UpperRowIndices}[JSimplex.PackedUpperColumn{Float32, JSimplex.UpperRowIndices}([1], Float32[1.0]), JSimplex.PackedUpperColumn{Float32, JSimplex.UpperRowIndices}([2], Float32[1.0])], [1, 2], [1, 2], JSimplex.BartelsGolubUpdate{Float32}[], Float32[0.0, 0.0], Float32[0.0, 0.0], [Int64[], Int64[]], Int64[], JSimplex.BartelsGolubUpdate{Float32}[], 0, nothing, JSimplex.TriangularRowCache{Float32}([1, 2], Tuple{Int64, Int64, Float32}[], 0, false, Int64[], false, 3, Int64[], JSimplex.TriangularSpikeCache{Float32}((JSimplex.PreparedTriangularSpike{Float32}(nothing, Float32[0.0, 0.0], Float32[-9.300169f-8, 8.96f-41]), JSimplex.PreparedTriangularSpike{Float32}(nothing, Float32[0.0, 0.0], Float32[-6.2126873f-9, 8.96f-41])), 1)), false), JSimplex.SimplexScratch{Float32}(Bool[1, 0, 1], Float32[0.0, 0.0], Float32[0.0, -0.0], Float32[0.0, -0.0], Float32[0.0, 0.0], Float32[0.0, 0.0, 0.0], Float32[0.0, 0.0, 0.0], Bool[0, 0, 0], false, Int64[], Int64[], Float32[], Float32[], Int64[], nothing, nothing, false, Int64[], Int64[], 0, 0, JSimplex._PivotQualityBuffers{Float32, Float32}(Float32[0.0, 0.0], Float32[0.0, 0.0], Float32[0.00014999999, 0.00014999999], Float32[0.0, 0.0], [0, 0], JSimplex.SolveQualityScratch{Float32, Float32}(Float32[0.0, 0.0], Float32[0.0, 0.0], Float32[0.0, 0.0], [0, 0], Float32[], Float32[]), JSimplex.SolveQualityScratch{Float32, Float32}(Float32[0.0, 0.0], Float32[0.0, 0.0], Float32[0.0, 0.0], [0, 0], Float32[], Float32[])), :none, 0.0f0, false, false, false, :limit, JSimplex.RefactorizationState{Float32}(0, 0, 20, 20, 128, false, false, false, nothing, 1.0, 1.0f0, 0, 1.0e8, 6, 6, 8.0, 0.0, 0.0, 0.0, 0, 0, 0, 0.0, 0.0, 0, 0, 9223372036854775807, 0, 0, 0, 0.0, :none), nothing, nothing, nothing, nothing, nothing, 0.0f0, 0.0f0, nothing, true, true, sparse([1, 2, 2], [1, 1, 2], Float32[1.0, 1.0, -1.0], 2, 2), JSimplex.BasisCheckpoint{Float32}[], 0x0000000000000000, Tuple{Int64, Int64}[], 0x0000000000000000, false, false, nothing), 0, 1, false, 0, false, false, 20, 0, 9223372036854775807, 0, 0), Float32[-0.00014999999, 0.0], var"#2#3"())
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:26 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:29
+  Expression: -1 - tol <= ws.primal[1] <= tol
+   Evaluated: -1.0001f0 <= 0.00014999999f0 <= 0.0001f0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:29 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:30
+  Expression: abs(ws.primal[1] - ws.primal[2]) <= tol
+   Evaluated: 0.00014999999f0 <= 0.0001f0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:30 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:32
+  Expression: ws.primal[3] <= tol
+   Evaluated: 0.00014999999f0 <= 0.0001f0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:32 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:34
+  Expression: ws.scratch.row_solution == ws.primal[ws.basis.basic_indices]
+   Evaluated: Float32[0.0, -0.0] == Float32[0.00014999999, 0.00014999999]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:34 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:36
+  Expression: JSimplex._legacy_primal_point_certified(ws)
+   Evaluated: JSimplex._legacy_primal_point_certified(JSimplex.SimplexWorkspace{Float32, JSimplex.BartelsGolubFactorization{Float32, JSimplex.Float32LUBackend{LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}}}, :bartels_golub, :native, JSimplex.SimplexDiagnostics{Nothing}}(LinearProblem{Float32}(sparse([1, 2], [1, 1], Float32[1.0, 1.0], 2, 1), Float32[0.0], 0.0f0, MIN_SENSE, Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, true)], Bound{Float32}[Bound{Float32}(-1.0f0, true)], Bound{Float32}[Bound{Float32}(0.0f0, false)], VariableDomain[CONTINUOUS], "", String[], String[]), SolverOptions{Float32, :bartels_golub, :native}(0.0001f0, 1.0f-7, 1.0f-12, 100000, Inf, 20, false, Debug, :primal, :steepest_edge, :bartels_golub, :native, :auto, true, :legacy), JSimplex.SimplexProgressContext{Float32, JSimplex.SimplexDiagnostics{Nothing}}(0x0000789d2c67a456, Float32[0.0], 0.0f0, JSimplex.Scaling{Float32}(Float32[1.0, 1.0], Float32[1.0]), 0, 0, JSimplex.SimplexDiagnostics{Nothing}(Dict(:pricing_reset => 0, :pricing_weight_rejected => 0, :pivot_completed => 0, :correction_attempt => 0, :phase_auxiliary => 0, :refactor_fill => 0, :stagnation_watch => 0, :pivot_proposed => 0, :pricing_scanned_entries => 0, :certification_failed => 0…), [:refactor_initial, :refactor_other], 3, nothing, false, Dict(:hypersparse_weight_btran_sparse => 0, :hypersparse_weight_btran_dense => 0, :hypersparse_base_graph => 0, :hypersparse_weight_btran_empty => 0, :btran => 0, :hypersparse_weight_ftran_sparse => 0, :crash => 0, :hypersparse_ftran_sparse => 0, :hypersparse_pricing_empty => 0, :hypersparse_weight_ftran_empty => 0…), Dict{Symbol, UInt64}(:hypersparse_weight_btran_sparse => 0x0000000000000000, :hypersparse_weight_btran_dense => 0x0000000000000000, :hypersparse_base_graph => 0x0000000000000000, :hypersparse_weight_btran_empty => 0x0000000000000000, :btran => 0x0000000000000000, :hypersparse_weight_ftran_sparse => 0x0000000000000000, :crash => 0x0000000000000000, :hypersparse_ftran_sparse => 0x0000000000000000, :hypersparse_pricing_empty => 0x0000000000000000, :hypersparse_weight_ftran_empty => 0x0000000000000000…)), JSimplex.NumericalPolicy{Float32}(3.0517578f-5, 0.00034526698f0, 3, 8, 2, 64, 512, 1073741824, 8, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false)), Float32[0.0, 0.0, 0.0], Bound{Float32}[Bound{Float32}(-1.0f0, true), Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, true)], JSimplex.Basis([1, 3], JSimplex.VariableState[JSimplex.BASIC, JSimplex.AT_UPPER, JSimplex.BASIC]), Float32[0.00014999999, 0.0, 0.00014999999], Float32[0.0, 0.0, 0.0], Float32[1.0, 1.0, 1.0], Bool[0, 1, 1], JSimplex.BartelsGolubFactorization{Float32, JSimplex.Float32LUBackend{LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}}}(JSimplex.Float32LUBackend{LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}}(LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}(Float32[1.0 0.0; 1.0 -1.0], [1, 2], 0), LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}(Float32[-1.0 0.0; -0.0 -1.0], [1, 2], 0), true, false), JSimplex.PackedUpperColumn{Float32, JSimplex.UpperRowIndices}[JSimplex.PackedUpperColumn{Float32, JSimplex.UpperRowIndices}([1], Float32[1.0]), JSimplex.PackedUpperColumn{Float32, JSimplex.UpperRowIndices}([2], Float32[1.0])], [1, 2], [1, 2], JSimplex.BartelsGolubUpdate{Float32}[], Float32[0.0, 0.0], Float32[0.0, 0.0], [Int64[], Int64[]], Int64[], JSimplex.BartelsGolubUpdate{Float32}[], 0, nothing, JSimplex.TriangularRowCache{Float32}([1, 2], Tuple{Int64, Int64, Float32}[], 0, false, Int64[], false, 3, Int64[], JSimplex.TriangularSpikeCache{Float32}((JSimplex.PreparedTriangularSpike{Float32}(nothing, Float32[0.0, 0.0], Float32[-9.300169f-8, 8.96f-41]), JSimplex.PreparedTriangularSpike{Float32}(nothing, Float32[0.0, 0.0], Float32[-6.2126873f-9, 8.96f-41])), 1)), false), JSimplex.SimplexScratch{Float32}(Bool[1, 0, 1], Float32[0.0, 0.0], Float32[0.0, -0.0], Float32[0.0, -0.0], Float32[0.0, 0.0], Float32[0.0, 0.0, 0.0], Float32[0.0, 0.0, 0.0], Bool[0, 0, 0], false, Int64[], Int64[], Float32[], Float32[], Int64[], nothing, nothing, false, Int64[], Int64[], 0, 0, JSimplex._PivotQualityBuffers{Float32, Float32}(Float32[0.0, 0.0], Float32[0.0, 0.0], Float32[0.00014999999, 0.00014999999], Float32[0.0, 0.0], [0, 0], JSimplex.SolveQualityScratch{Float32, Float32}(Float32[0.0, 0.0], Float32[0.0, 0.0], Float32[0.0, 0.0], [0, 0], Float32[], Float32[]), JSimplex.SolveQualityScratch{Float32, Float32}(Float32[0.0, 0.0], Float32[0.0, 0.0], Float32[0.0, 0.0], [0, 0], Float32[], Float32[])), :none, 0.0f0, false, false, false, :limit, JSimplex.RefactorizationState{Float32}(0, 0, 20, 20, 128, false, false, false, nothing, 1.0, 1.0f0, 0, 1.0e8, 6, 6, 8.0, 0.0, 0.0, 0.0, 0, 0, 0, 0.0, 0.0, 0, 0, 9223372036854775807, 0, 0, 0, 0.0, :none), nothing, nothing, nothing, nothing, nothing, 0.0f0, 0.0f0, nothing, true, true, sparse([1, 2, 2], [1, 1, 2], Float32[1.0, 1.0, -1.0], 2, 2), JSimplex.BasisCheckpoint{Float32}[], 0x0000000000000000, Tuple{Int64, Int64}[], 0x0000000000000000, false, false, nothing), 0, 1, false, 0, false, false, 20, 0, 9223372036854775807, 0, 0))
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:36 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:37
+  Expression: JSimplex.event_count(diagnostics, :primal_point_preserved) == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:37 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:26
+  Expression: JSimplex._restore_legacy_primal_point!(ws, candidate, (()->begin
+            #= /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:26 =#
+            false
+        end))
+   Evaluated: JSimplex._restore_legacy_primal_point!(JSimplex.SimplexWorkspace{Float64, JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}, :pfi, :native, JSimplex.SimplexDiagnostics{Nothing}}(LinearProblem{Float64}(sparse([1, 2], [1, 1], [1.0, 1.0], 2, 1), [0.0], 0.0, MIN_SENSE, Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(-1.0, true)], Bound{Float64}[Bound{Float64}(0.0, false)], VariableDomain[CONTINUOUS], "", String[], String[]), SolverOptions{Float64, :pfi, :native}(1.0e-7, 1.0e-7, 1.0e-12, 100000, Inf, 20, false, Debug, :primal, :steepest_edge, :pfi, :native, :auto, true, :legacy), JSimplex.SimplexProgressContext{Float64, JSimplex.SimplexDiagnostics{Nothing}}(0x0000789d31450d57, [0.0], 0.0, JSimplex.Scaling{Float64}([1.0, 1.0], [1.0]), 0, 0, JSimplex.SimplexDiagnostics{Nothing}(Dict(:pricing_reset => 0, :pricing_weight_rejected => 0, :pivot_completed => 0, :correction_attempt => 0, :phase_auxiliary => 0, :refactor_fill => 0, :stagnation_watch => 0, :pivot_proposed => 0, :pricing_scanned_entries => 0, :certification_failed => 0…), [:refactor_initial, :refactor_other], 3, nothing, false, Dict(:hypersparse_weight_btran_sparse => 0, :hypersparse_weight_btran_dense => 0, :hypersparse_base_graph => 0, :hypersparse_weight_btran_empty => 0, :btran => 0, :hypersparse_weight_ftran_sparse => 0, :crash => 0, :hypersparse_ftran_sparse => 0, :hypersparse_pricing_empty => 0, :hypersparse_weight_ftran_empty => 0…), Dict{Symbol, UInt64}(:hypersparse_weight_btran_sparse => 0x0000000000000000, :hypersparse_weight_btran_dense => 0x0000000000000000, :hypersparse_base_graph => 0x0000000000000000, :hypersparse_weight_btran_empty => 0x0000000000000000, :btran => 0x0000000000000000, :hypersparse_weight_ftran_sparse => 0x0000000000000000, :crash => 0x0000000000000000, :hypersparse_ftran_sparse => 0x0000000000000000, :hypersparse_pricing_empty => 0x0000000000000000, :hypersparse_weight_ftran_empty => 0x0000000000000000…)), JSimplex.NumericalPolicy{Float64}(5.684341886080802e-14, 1.4901161193847656e-8, 3, 8, 2, 64, 512, 1073741824, 8, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false)), [0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(-1.0, true), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], JSimplex.Basis([1, 3], JSimplex.VariableState[JSimplex.BASIC, JSimplex.AT_UPPER, JSimplex.BASIC]), [1.5e-7, 0.0, 1.5e-7], [0.0, 0.0, 0.0], [1.0, 1.0, 1.0], Bool[0, 1, 1], JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}(JSimplex.UMFPACKBackend(SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x000000000098c4f0)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x00000000009b02b0)), 2, 2, [0, 2, 3], [0, 1, 1], [1.0, 1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([274627601690304, 274627602277008], [-0.0, 0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 2.0, 3.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 6.0, 7.00005330145359e-7, 7.00005330145359e-7, -1.0, -1.0, -1.0], ReentrantLock()), 2, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000000d78890)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x00000000008b0710)), 2, 2, [0, 1, 2], [0, 1], [-1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([274627612406544, 274627513150016], [-0.0, -0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 2.0, 2.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 4.0, 1.6999838408082724e-6, 1.6999838408082724e-6, -1.0, -1.0, -1.0], ReentrantLock()), false), JSimplex.PackedEta{Float64}[], [0.0, 0.0], JSimplex.PackedEta{Float64}[], 0, nothing), JSimplex.SimplexScratch{Float64}(Bool[1, 0, 1], [0.0, 0.0], [0.0, -0.0], [0.0, -0.0], [0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0], Bool[0, 0, 0], false, Int64[], Int64[], Float64[], Float64[], Int64[], nothing, nothing, false, Int64[], Int64[], 0, 0, JSimplex._PivotQualityBuffers{Float64, Float64}([0.0, 0.0], [0.0, 0.0], [1.5e-7, 1.5e-7], [0.0, 0.0], [0, 0], JSimplex.SolveQualityScratch{Float64, Float64}([0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0, 0], Float64[], Float64[]), JSimplex.SolveQualityScratch{Float64, Float64}([0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0, 0], Float64[], Float64[])), :none, 0.0, false, false, false, :limit, JSimplex.RefactorizationState{Float64}(0, 0, 20, 20, 512, false, false, false, nothing, 1.0, 1.0, 0, 1.0e8, 4, 4, 8.0, 0.0, 0.0, 0.0, 0, 0, 0, 0.0, 0.0, 0, 0, 9223372036854775807, 0, 0, 0, 0.0, :none), nothing, nothing, nothing, nothing, nothing, 0.0, 0.0, nothing, true, true, sparse([1, 2, 2], [1, 1, 2], [1.0, 1.0, -1.0], 2, 2), JSimplex.BasisCheckpoint{Float64}[], 0x0000000000000000, Tuple{Int64, Int64}[], 0x0000000000000000, false, false, nothing), 0, 1, false, 0, false, false, 20, 0, 9223372036854775807, 0, 0), [-1.5e-7, 0.0], var"#2#3"())
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:26 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:29
+  Expression: -1 - tol <= ws.primal[1] <= tol
+   Evaluated: -1.0000001 <= 1.5e-7 <= 1.0e-7
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:29 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:30
+  Expression: abs(ws.primal[1] - ws.primal[2]) <= tol
+   Evaluated: 1.5e-7 <= 1.0e-7
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:30 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:32
+  Expression: ws.primal[3] <= tol
+   Evaluated: 1.5e-7 <= 1.0e-7
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:32 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:34
+  Expression: ws.scratch.row_solution == ws.primal[ws.basis.basic_indices]
+   Evaluated: [0.0, -0.0] == [1.5e-7, 1.5e-7]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:34 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:36
+  Expression: JSimplex._legacy_primal_point_certified(ws)
+   Evaluated: JSimplex._legacy_primal_point_certified(JSimplex.SimplexWorkspace{Float64, JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}, :pfi, :native, JSimplex.SimplexDiagnostics{Nothing}}(LinearProblem{Float64}(sparse([1, 2], [1, 1], [1.0, 1.0], 2, 1), [0.0], 0.0, MIN_SENSE, Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(-1.0, true)], Bound{Float64}[Bound{Float64}(0.0, false)], VariableDomain[CONTINUOUS], "", String[], String[]), SolverOptions{Float64, :pfi, :native}(1.0e-7, 1.0e-7, 1.0e-12, 100000, Inf, 20, false, Debug, :primal, :steepest_edge, :pfi, :native, :auto, true, :legacy), JSimplex.SimplexProgressContext{Float64, JSimplex.SimplexDiagnostics{Nothing}}(0x0000789d31450d57, [0.0], 0.0, JSimplex.Scaling{Float64}([1.0, 1.0], [1.0]), 0, 0, JSimplex.SimplexDiagnostics{Nothing}(Dict(:pricing_reset => 0, :pricing_weight_rejected => 0, :pivot_completed => 0, :correction_attempt => 0, :phase_auxiliary => 0, :refactor_fill => 0, :stagnation_watch => 0, :pivot_proposed => 0, :pricing_scanned_entries => 0, :certification_failed => 0…), [:refactor_initial, :refactor_other], 3, nothing, false, Dict(:hypersparse_weight_btran_sparse => 0, :hypersparse_weight_btran_dense => 0, :hypersparse_base_graph => 0, :hypersparse_weight_btran_empty => 0, :btran => 0, :hypersparse_weight_ftran_sparse => 0, :crash => 0, :hypersparse_ftran_sparse => 0, :hypersparse_pricing_empty => 0, :hypersparse_weight_ftran_empty => 0…), Dict{Symbol, UInt64}(:hypersparse_weight_btran_sparse => 0x0000000000000000, :hypersparse_weight_btran_dense => 0x0000000000000000, :hypersparse_base_graph => 0x0000000000000000, :hypersparse_weight_btran_empty => 0x0000000000000000, :btran => 0x0000000000000000, :hypersparse_weight_ftran_sparse => 0x0000000000000000, :crash => 0x0000000000000000, :hypersparse_ftran_sparse => 0x0000000000000000, :hypersparse_pricing_empty => 0x0000000000000000, :hypersparse_weight_ftran_empty => 0x0000000000000000…)), JSimplex.NumericalPolicy{Float64}(5.684341886080802e-14, 1.4901161193847656e-8, 3, 8, 2, 64, 512, 1073741824, 8, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false)), [0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(-1.0, true), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], JSimplex.Basis([1, 3], JSimplex.VariableState[JSimplex.BASIC, JSimplex.AT_UPPER, JSimplex.BASIC]), [1.5e-7, 0.0, 1.5e-7], [0.0, 0.0, 0.0], [1.0, 1.0, 1.0], Bool[0, 1, 1], JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}(JSimplex.UMFPACKBackend(SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x000000000098c4f0)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x00000000009b02b0)), 2, 2, [0, 2, 3], [0, 1, 1], [1.0, 1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([274627601690304, 274627602277008], [-0.0, 0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 2.0, 3.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 6.0, 7.00005330145359e-7, 7.00005330145359e-7, -1.0, -1.0, -1.0], ReentrantLock()), 2, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000000d78890)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x00000000008b0710)), 2, 2, [0, 1, 2], [0, 1], [-1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([274627612406544, 274627513150016], [-0.0, -0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 2.0, 2.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 4.0, 1.6999838408082724e-6, 1.6999838408082724e-6, -1.0, -1.0, -1.0], ReentrantLock()), false), JSimplex.PackedEta{Float64}[], [0.0, 0.0], JSimplex.PackedEta{Float64}[], 0, nothing), JSimplex.SimplexScratch{Float64}(Bool[1, 0, 1], [0.0, 0.0], [0.0, -0.0], [0.0, -0.0], [0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0], Bool[0, 0, 0], false, Int64[], Int64[], Float64[], Float64[], Int64[], nothing, nothing, false, Int64[], Int64[], 0, 0, JSimplex._PivotQualityBuffers{Float64, Float64}([0.0, 0.0], [0.0, 0.0], [1.5e-7, 1.5e-7], [0.0, 0.0], [0, 0], JSimplex.SolveQualityScratch{Float64, Float64}([0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0, 0], Float64[], Float64[]), JSimplex.SolveQualityScratch{Float64, Float64}([0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0, 0], Float64[], Float64[])), :none, 0.0, false, false, false, :limit, JSimplex.RefactorizationState{Float64}(0, 0, 20, 20, 512, false, false, false, nothing, 1.0, 1.0, 0, 1.0e8, 4, 4, 8.0, 0.0, 0.0, 0.0, 0, 0, 0, 0.0, 0.0, 0, 0, 9223372036854775807, 0, 0, 0, 0.0, :none), nothing, nothing, nothing, nothing, nothing, 0.0, 0.0, nothing, true, true, sparse([1, 2, 2], [1, 1, 2], [1.0, 1.0, -1.0], 2, 2), JSimplex.BasisCheckpoint{Float64}[], 0x0000000000000000, Tuple{Int64, Int64}[], 0x0000000000000000, false, false, nothing), 0, 1, false, 0, false, false, 20, 0, 9223372036854775807, 0, 0))
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:36 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:37
+  Expression: JSimplex.event_count(diagnostics, :primal_point_preserved) == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:37 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:26
+  Expression: JSimplex._restore_legacy_primal_point!(ws, candidate, (()->begin
+            #= /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:26 =#
+            false
+        end))
+   Evaluated: JSimplex._restore_legacy_primal_point!(JSimplex.SimplexWorkspace{Float64, JSimplex.ForrestTomlinFactorization{Float64, JSimplex.UMFPACKBackend}, :forrest_tomlin, :native, JSimplex.SimplexDiagnostics{Nothing}}(LinearProblem{Float64}(sparse([1, 2], [1, 1], [1.0, 1.0], 2, 1), [0.0], 0.0, MIN_SENSE, Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(-1.0, true)], Bound{Float64}[Bound{Float64}(0.0, false)], VariableDomain[CONTINUOUS], "", String[], String[]), SolverOptions{Float64, :forrest_tomlin, :native}(1.0e-7, 1.0e-7, 1.0e-12, 100000, Inf, 20, false, Debug, :primal, :steepest_edge, :forrest_tomlin, :native, :auto, true, :legacy), JSimplex.SimplexProgressContext{Float64, JSimplex.SimplexDiagnostics{Nothing}}(0x0000789d345335c3, [0.0], 0.0, JSimplex.Scaling{Float64}([1.0, 1.0], [1.0]), 0, 0, JSimplex.SimplexDiagnostics{Nothing}(Dict(:pricing_reset => 0, :pricing_weight_rejected => 0, :pivot_completed => 0, :correction_attempt => 0, :phase_auxiliary => 0, :refactor_fill => 0, :stagnation_watch => 0, :pivot_proposed => 0, :pricing_scanned_entries => 0, :certification_failed => 0…), [:refactor_initial, :refactor_other], 3, nothing, false, Dict(:hypersparse_weight_btran_sparse => 0, :hypersparse_weight_btran_dense => 0, :hypersparse_base_graph => 0, :hypersparse_weight_btran_empty => 0, :btran => 0, :hypersparse_weight_ftran_sparse => 0, :crash => 0, :hypersparse_ftran_sparse => 0, :hypersparse_pricing_empty => 0, :hypersparse_weight_ftran_empty => 0…), Dict{Symbol, UInt64}(:hypersparse_weight_btran_sparse => 0x0000000000000000, :hypersparse_weight_btran_dense => 0x0000000000000000, :hypersparse_base_graph => 0x0000000000000000, :hypersparse_weight_btran_empty => 0x0000000000000000, :btran => 0x0000000000000000, :hypersparse_weight_ftran_sparse => 0x0000000000000000, :crash => 0x0000000000000000, :hypersparse_ftran_sparse => 0x0000000000000000, :hypersparse_pricing_empty => 0x0000000000000000, :hypersparse_weight_ftran_empty => 0x0000000000000000…)), JSimplex.NumericalPolicy{Float64}(5.684341886080802e-14, 1.4901161193847656e-8, 3, 8, 2, 64, 512, 1073741824, 8, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false)), [0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(-1.0, true), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], JSimplex.Basis([1, 3], JSimplex.VariableState[JSimplex.BASIC, JSimplex.AT_UPPER, JSimplex.BASIC]), [1.5e-7, 0.0, 1.5e-7], [0.0, 0.0, 0.0], [1.0, 1.0, 1.0], Bool[0, 1, 1], JSimplex.ForrestTomlinFactorization{Float64, JSimplex.UMFPACKBackend}(JSimplex.UMFPACKBackend(SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x00000000008c8370)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000000966400)), 2, 2, [0, 2, 3], [0, 1, 1], [1.0, 1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([1, 1], [-0.0, 0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 2.0, 3.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 6.0, 4.00003045797348e-7, 4.00003045797348e-7, -1.0, -1.0, -1.0], ReentrantLock()), 2, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000000a56d50)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x00000000009aff10)), 2, 2, [0, 1, 2], [0, 1], [-1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([274627519584688, 274627519585168], [-0.0, -0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 2.0, 2.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 4.0, 9.999785106629133e-7, 9.999785106629133e-7, -1.0, -1.0, -1.0], ReentrantLock()), false), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}[JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([1], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([2], [1.0])], [1, 2], [1, 2], JSimplex.ForrestTomlinUpdate{Float64}[], [0.0, 0.0], [0.0, 0.0], Vector{Int64}[], JSimplex.ForrestTomlinUpdate{Float64}[], 0, nothing, JSimplex.TriangularRowCache{Float64}([1, 2], Tuple{Int64, Int64, Float64}[], 0, false, Int64[], false, 3, Int64[], JSimplex.TriangularSpikeCache{Float64}((JSimplex.PreparedTriangularSpike{Float64}(nothing, [5.0e-323, 5.4e-323], [6.0e-323, 6.4e-323]), JSimplex.PreparedTriangularSpike{Float64}(nothing, [7.4e-323, 8.0e-323], [1.0e-323, 1.0e-323])), 1))), JSimplex.SimplexScratch{Float64}(Bool[1, 0, 1], [0.0, 0.0], [0.0, -0.0], [0.0, -0.0], [0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0], Bool[0, 0, 0], false, Int64[], Int64[], Float64[], Float64[], Int64[], nothing, nothing, false, Int64[], Int64[], 0, 0, JSimplex._PivotQualityBuffers{Float64, Float64}([0.0, 0.0], [0.0, 0.0], [1.5e-7, 1.5e-7], [0.0, 0.0], [0, 0], JSimplex.SolveQualityScratch{Float64, Float64}([0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0, 0], Float64[], Float64[]), JSimplex.SolveQualityScratch{Float64, Float64}([0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0, 0], Float64[], Float64[])), :none, 0.0, false, false, false, :limit, JSimplex.RefactorizationState{Float64}(0, 0, 20, 20, 128, false, false, false, nothing, 1.0, 1.0, 0, 1.0e8, 6, 6, 8.0, 0.0, 0.0, 0.0, 0, 0, 0, 0.0, 0.0, 0, 0, 9223372036854775807, 0, 0, 0, 0.0, :none), nothing, nothing, nothing, nothing, nothing, 0.0, 0.0, nothing, true, true, sparse([1, 2, 2], [1, 1, 2], [1.0, 1.0, -1.0], 2, 2), JSimplex.BasisCheckpoint{Float64}[], 0x0000000000000000, Tuple{Int64, Int64}[], 0x0000000000000000, false, false, nothing), 0, 1, false, 0, false, false, 20, 0, 9223372036854775807, 0, 0), [-1.5e-7, 0.0], var"#2#3"())
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:26 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:29
+  Expression: -1 - tol <= ws.primal[1] <= tol
+   Evaluated: -1.0000001 <= 1.5e-7 <= 1.0e-7
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:29 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:30
+  Expression: abs(ws.primal[1] - ws.primal[2]) <= tol
+   Evaluated: 1.5e-7 <= 1.0e-7
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:30 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:32
+  Expression: ws.primal[3] <= tol
+   Evaluated: 1.5e-7 <= 1.0e-7
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:32 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:34
+  Expression: ws.scratch.row_solution == ws.primal[ws.basis.basic_indices]
+   Evaluated: [0.0, -0.0] == [1.5e-7, 1.5e-7]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:34 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:36
+  Expression: JSimplex._legacy_primal_point_certified(ws)
+   Evaluated: JSimplex._legacy_primal_point_certified(JSimplex.SimplexWorkspace{Float64, JSimplex.ForrestTomlinFactorization{Float64, JSimplex.UMFPACKBackend}, :forrest_tomlin, :native, JSimplex.SimplexDiagnostics{Nothing}}(LinearProblem{Float64}(sparse([1, 2], [1, 1], [1.0, 1.0], 2, 1), [0.0], 0.0, MIN_SENSE, Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(-1.0, true)], Bound{Float64}[Bound{Float64}(0.0, false)], VariableDomain[CONTINUOUS], "", String[], String[]), SolverOptions{Float64, :forrest_tomlin, :native}(1.0e-7, 1.0e-7, 1.0e-12, 100000, Inf, 20, false, Debug, :primal, :steepest_edge, :forrest_tomlin, :native, :auto, true, :legacy), JSimplex.SimplexProgressContext{Float64, JSimplex.SimplexDiagnostics{Nothing}}(0x0000789d345335c3, [0.0], 0.0, JSimplex.Scaling{Float64}([1.0, 1.0], [1.0]), 0, 0, JSimplex.SimplexDiagnostics{Nothing}(Dict(:pricing_reset => 0, :pricing_weight_rejected => 0, :pivot_completed => 0, :correction_attempt => 0, :phase_auxiliary => 0, :refactor_fill => 0, :stagnation_watch => 0, :pivot_proposed => 0, :pricing_scanned_entries => 0, :certification_failed => 0…), [:refactor_initial, :refactor_other], 3, nothing, false, Dict(:hypersparse_weight_btran_sparse => 0, :hypersparse_weight_btran_dense => 0, :hypersparse_base_graph => 0, :hypersparse_weight_btran_empty => 0, :btran => 0, :hypersparse_weight_ftran_sparse => 0, :crash => 0, :hypersparse_ftran_sparse => 0, :hypersparse_pricing_empty => 0, :hypersparse_weight_ftran_empty => 0…), Dict{Symbol, UInt64}(:hypersparse_weight_btran_sparse => 0x0000000000000000, :hypersparse_weight_btran_dense => 0x0000000000000000, :hypersparse_base_graph => 0x0000000000000000, :hypersparse_weight_btran_empty => 0x0000000000000000, :btran => 0x0000000000000000, :hypersparse_weight_ftran_sparse => 0x0000000000000000, :crash => 0x0000000000000000, :hypersparse_ftran_sparse => 0x0000000000000000, :hypersparse_pricing_empty => 0x0000000000000000, :hypersparse_weight_ftran_empty => 0x0000000000000000…)), JSimplex.NumericalPolicy{Float64}(5.684341886080802e-14, 1.4901161193847656e-8, 3, 8, 2, 64, 512, 1073741824, 8, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false)), [0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(-1.0, true), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], JSimplex.Basis([1, 3], JSimplex.VariableState[JSimplex.BASIC, JSimplex.AT_UPPER, JSimplex.BASIC]), [1.5e-7, 0.0, 1.5e-7], [0.0, 0.0, 0.0], [1.0, 1.0, 1.0], Bool[0, 1, 1], JSimplex.ForrestTomlinFactorization{Float64, JSimplex.UMFPACKBackend}(JSimplex.UMFPACKBackend(SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x00000000008c8370)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000000966400)), 2, 2, [0, 2, 3], [0, 1, 1], [1.0, 1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([1, 1], [-0.0, 0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 2.0, 3.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 6.0, 4.00003045797348e-7, 4.00003045797348e-7, -1.0, -1.0, -1.0], ReentrantLock()), 2, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000000a56d50)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x00000000009aff10)), 2, 2, [0, 1, 2], [0, 1], [-1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([274627519584688, 274627519585168], [-0.0, -0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 2.0, 2.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 4.0, 9.999785106629133e-7, 9.999785106629133e-7, -1.0, -1.0, -1.0], ReentrantLock()), false), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}[JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([1], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([2], [1.0])], [1, 2], [1, 2], JSimplex.ForrestTomlinUpdate{Float64}[], [0.0, 0.0], [0.0, 0.0], Vector{Int64}[], JSimplex.ForrestTomlinUpdate{Float64}[], 0, nothing, JSimplex.TriangularRowCache{Float64}([1, 2], Tuple{Int64, Int64, Float64}[], 0, false, Int64[], false, 3, Int64[], JSimplex.TriangularSpikeCache{Float64}((JSimplex.PreparedTriangularSpike{Float64}(nothing, [5.0e-323, 5.4e-323], [6.0e-323, 6.4e-323]), JSimplex.PreparedTriangularSpike{Float64}(nothing, [7.4e-323, 8.0e-323], [1.0e-323, 1.0e-323])), 1))), JSimplex.SimplexScratch{Float64}(Bool[1, 0, 1], [0.0, 0.0], [0.0, -0.0], [0.0, -0.0], [0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0], Bool[0, 0, 0], false, Int64[], Int64[], Float64[], Float64[], Int64[], nothing, nothing, false, Int64[], Int64[], 0, 0, JSimplex._PivotQualityBuffers{Float64, Float64}([0.0, 0.0], [0.0, 0.0], [1.5e-7, 1.5e-7], [0.0, 0.0], [0, 0], JSimplex.SolveQualityScratch{Float64, Float64}([0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0, 0], Float64[], Float64[]), JSimplex.SolveQualityScratch{Float64, Float64}([0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0, 0], Float64[], Float64[])), :none, 0.0, false, false, false, :limit, JSimplex.RefactorizationState{Float64}(0, 0, 20, 20, 128, false, false, false, nothing, 1.0, 1.0, 0, 1.0e8, 6, 6, 8.0, 0.0, 0.0, 0.0, 0, 0, 0, 0.0, 0.0, 0, 0, 9223372036854775807, 0, 0, 0, 0.0, :none), nothing, nothing, nothing, nothing, nothing, 0.0, 0.0, nothing, true, true, sparse([1, 2, 2], [1, 1, 2], [1.0, 1.0, -1.0], 2, 2), JSimplex.BasisCheckpoint{Float64}[], 0x0000000000000000, Tuple{Int64, Int64}[], 0x0000000000000000, false, false, nothing), 0, 1, false, 0, false, false, 20, 0, 9223372036854775807, 0, 0))
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:36 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:37
+  Expression: JSimplex.event_count(diagnostics, :primal_point_preserved) == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:37 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:26
+  Expression: JSimplex._restore_legacy_primal_point!(ws, candidate, (()->begin
+            #= /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:26 =#
+            false
+        end))
+   Evaluated: JSimplex._restore_legacy_primal_point!(JSimplex.SimplexWorkspace{Float64, JSimplex.SuhlSuhlFactorization{Float64, JSimplex.UMFPACKBackend}, :suhl_suhl, :native, JSimplex.SimplexDiagnostics{Nothing}}(LinearProblem{Float64}(sparse([1, 2], [1, 1], [1.0, 1.0], 2, 1), [0.0], 0.0, MIN_SENSE, Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(-1.0, true)], Bound{Float64}[Bound{Float64}(0.0, false)], VariableDomain[CONTINUOUS], "", String[], String[]), SolverOptions{Float64, :suhl_suhl, :native}(1.0e-7, 1.0e-7, 1.0e-12, 100000, Inf, 20, false, Debug, :primal, :steepest_edge, :suhl_suhl, :native, :auto, true, :legacy), JSimplex.SimplexProgressContext{Float64, JSimplex.SimplexDiagnostics{Nothing}}(0x0000789d365e7234, [0.0], 0.0, JSimplex.Scaling{Float64}([1.0, 1.0], [1.0]), 0, 0, JSimplex.SimplexDiagnostics{Nothing}(Dict(:pricing_reset => 0, :pricing_weight_rejected => 0, :pivot_completed => 0, :correction_attempt => 0, :phase_auxiliary => 0, :refactor_fill => 0, :stagnation_watch => 0, :pivot_proposed => 0, :pricing_scanned_entries => 0, :certification_failed => 0…), [:refactor_initial, :refactor_other], 3, nothing, false, Dict(:hypersparse_weight_btran_sparse => 0, :hypersparse_weight_btran_dense => 0, :hypersparse_base_graph => 0, :hypersparse_weight_btran_empty => 0, :btran => 0, :hypersparse_weight_ftran_sparse => 0, :crash => 0, :hypersparse_ftran_sparse => 0, :hypersparse_pricing_empty => 0, :hypersparse_weight_ftran_empty => 0…), Dict{Symbol, UInt64}(:hypersparse_weight_btran_sparse => 0x0000000000000000, :hypersparse_weight_btran_dense => 0x0000000000000000, :hypersparse_base_graph => 0x0000000000000000, :hypersparse_weight_btran_empty => 0x0000000000000000, :btran => 0x0000000000000000, :hypersparse_weight_ftran_sparse => 0x0000000000000000, :crash => 0x0000000000000000, :hypersparse_ftran_sparse => 0x0000000000000000, :hypersparse_pricing_empty => 0x0000000000000000, :hypersparse_weight_ftran_empty => 0x0000000000000000…)), JSimplex.NumericalPolicy{Float64}(5.684341886080802e-14, 1.4901161193847656e-8, 3, 8, 2, 64, 512, 1073741824, 8, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false)), [0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(-1.0, true), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], JSimplex.Basis([1, 3], JSimplex.VariableState[JSimplex.BASIC, JSimplex.AT_UPPER, JSimplex.BASIC]), [1.5e-7, 0.0, 1.5e-7], [0.0, 0.0, 0.0], [1.0, 1.0, 1.0], Bool[0, 1, 1], JSimplex.SuhlSuhlFactorization{Float64, JSimplex.UMFPACKBackend}(JSimplex.UMFPACKBackend(SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x00000000009af930)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000000a76d60)), 2, 2, [0, 2, 3], [0, 1, 1], [1.0, 1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([274627485004960, 274627498317200], [-0.0, 0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 2.0, 3.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 6.0, 3.00002284348011e-7, 3.00002284348011e-7, -1.0, -1.0, -1.0], ReentrantLock()), 2, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000000c3fec0)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000000988790)), 2, 2, [0, 1, 2], [0, 1], [-1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([3, 3], [-0.0, -0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 2.0, 2.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 4.0, 5.00003807246685e-7, 5.00003807246685e-7, -1.0, -1.0, -1.0], ReentrantLock()), false), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}[JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([1], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([2], [1.0])], [1, 2], [1, 2], JSimplex.SuhlSuhlUpdate{Float64}[], [0.0, 0.0], [0.0, 0.0], Vector{Int64}[], JSimplex.SuhlSuhlUpdate{Float64}[], 0, nothing, JSimplex.TriangularRowCache{Float64}([1, 2], Tuple{Int64, Int64, Float64}[], 0, false, Int64[], false, 3, Int64[], JSimplex.TriangularSpikeCache{Float64}((JSimplex.PreparedTriangularSpike{Float64}(nothing, [1.35684107525663e-309, 0.0], [1.356839312418034e-309, 1.356840228372145e-309]), JSimplex.PreparedTriangularSpike{Float64}(nothing, [1.35684022837689e-309, 1.35684022837926e-309], [1.356840763801915e-309, 1.35684022836266e-309])), 1))), JSimplex.SimplexScratch{Float64}(Bool[1, 0, 1], [0.0, 0.0], [0.0, -0.0], [0.0, -0.0], [0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0], Bool[0, 0, 0], false, Int64[], Int64[], Float64[], Float64[], Int64[], nothing, nothing, false, Int64[], Int64[], 0, 0, JSimplex._PivotQualityBuffers{Float64, Float64}([0.0, 0.0], [0.0, 0.0], [1.5e-7, 1.5e-7], [0.0, 0.0], [0, 0], JSimplex.SolveQualityScratch{Float64, Float64}([0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0, 0], Float64[], Float64[]), JSimplex.SolveQualityScratch{Float64, Float64}([0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0, 0], Float64[], Float64[])), :none, 0.0, false, false, false, :limit, JSimplex.RefactorizationState{Float64}(0, 0, 20, 20, 128, false, false, false, nothing, 1.0, 1.0, 0, 1.0e8, 6, 6, 8.0, 0.0, 0.0, 0.0, 0, 0, 0, 0.0, 0.0, 0, 0, 9223372036854775807, 0, 0, 0, 0.0, :none), nothing, nothing, nothing, nothing, nothing, 0.0, 0.0, nothing, true, true, sparse([1, 2, 2], [1, 1, 2], [1.0, 1.0, -1.0], 2, 2), JSimplex.BasisCheckpoint{Float64}[], 0x0000000000000000, Tuple{Int64, Int64}[], 0x0000000000000000, false, false, nothing), 0, 1, false, 0, false, false, 20, 0, 9223372036854775807, 0, 0), [-1.5e-7, 0.0], var"#2#3"())
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:26 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:29
+  Expression: -1 - tol <= ws.primal[1] <= tol
+   Evaluated: -1.0000001 <= 1.5e-7 <= 1.0e-7
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:29 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:30
+  Expression: abs(ws.primal[1] - ws.primal[2]) <= tol
+   Evaluated: 1.5e-7 <= 1.0e-7
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:30 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:32
+  Expression: ws.primal[3] <= tol
+   Evaluated: 1.5e-7 <= 1.0e-7
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:32 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:34
+  Expression: ws.scratch.row_solution == ws.primal[ws.basis.basic_indices]
+   Evaluated: [0.0, -0.0] == [1.5e-7, 1.5e-7]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:34 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:36
+  Expression: JSimplex._legacy_primal_point_certified(ws)
+   Evaluated: JSimplex._legacy_primal_point_certified(JSimplex.SimplexWorkspace{Float64, JSimplex.SuhlSuhlFactorization{Float64, JSimplex.UMFPACKBackend}, :suhl_suhl, :native, JSimplex.SimplexDiagnostics{Nothing}}(LinearProblem{Float64}(sparse([1, 2], [1, 1], [1.0, 1.0], 2, 1), [0.0], 0.0, MIN_SENSE, Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(-1.0, true)], Bound{Float64}[Bound{Float64}(0.0, false)], VariableDomain[CONTINUOUS], "", String[], String[]), SolverOptions{Float64, :suhl_suhl, :native}(1.0e-7, 1.0e-7, 1.0e-12, 100000, Inf, 20, false, Debug, :primal, :steepest_edge, :suhl_suhl, :native, :auto, true, :legacy), JSimplex.SimplexProgressContext{Float64, JSimplex.SimplexDiagnostics{Nothing}}(0x0000789d365e7234, [0.0], 0.0, JSimplex.Scaling{Float64}([1.0, 1.0], [1.0]), 0, 0, JSimplex.SimplexDiagnostics{Nothing}(Dict(:pricing_reset => 0, :pricing_weight_rejected => 0, :pivot_completed => 0, :correction_attempt => 0, :phase_auxiliary => 0, :refactor_fill => 0, :stagnation_watch => 0, :pivot_proposed => 0, :pricing_scanned_entries => 0, :certification_failed => 0…), [:refactor_initial, :refactor_other], 3, nothing, false, Dict(:hypersparse_weight_btran_sparse => 0, :hypersparse_weight_btran_dense => 0, :hypersparse_base_graph => 0, :hypersparse_weight_btran_empty => 0, :btran => 0, :hypersparse_weight_ftran_sparse => 0, :crash => 0, :hypersparse_ftran_sparse => 0, :hypersparse_pricing_empty => 0, :hypersparse_weight_ftran_empty => 0…), Dict{Symbol, UInt64}(:hypersparse_weight_btran_sparse => 0x0000000000000000, :hypersparse_weight_btran_dense => 0x0000000000000000, :hypersparse_base_graph => 0x0000000000000000, :hypersparse_weight_btran_empty => 0x0000000000000000, :btran => 0x0000000000000000, :hypersparse_weight_ftran_sparse => 0x0000000000000000, :crash => 0x0000000000000000, :hypersparse_ftran_sparse => 0x0000000000000000, :hypersparse_pricing_empty => 0x0000000000000000, :hypersparse_weight_ftran_empty => 0x0000000000000000…)), JSimplex.NumericalPolicy{Float64}(5.684341886080802e-14, 1.4901161193847656e-8, 3, 8, 2, 64, 512, 1073741824, 8, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false)), [0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(-1.0, true), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], JSimplex.Basis([1, 3], JSimplex.VariableState[JSimplex.BASIC, JSimplex.AT_UPPER, JSimplex.BASIC]), [1.5e-7, 0.0, 1.5e-7], [0.0, 0.0, 0.0], [1.0, 1.0, 1.0], Bool[0, 1, 1], JSimplex.SuhlSuhlFactorization{Float64, JSimplex.UMFPACKBackend}(JSimplex.UMFPACKBackend(SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x00000000009af930)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000000a76d60)), 2, 2, [0, 2, 3], [0, 1, 1], [1.0, 1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([274627485004960, 274627498317200], [-0.0, 0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 2.0, 3.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 6.0, 3.00002284348011e-7, 3.00002284348011e-7, -1.0, -1.0, -1.0], ReentrantLock()), 2, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000000c3fec0)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000000988790)), 2, 2, [0, 1, 2], [0, 1], [-1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([3, 3], [-0.0, -0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 2.0, 2.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 4.0, 5.00003807246685e-7, 5.00003807246685e-7, -1.0, -1.0, -1.0], ReentrantLock()), false), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}[JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([1], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([2], [1.0])], [1, 2], [1, 2], JSimplex.SuhlSuhlUpdate{Float64}[], [0.0, 0.0], [0.0, 0.0], Vector{Int64}[], JSimplex.SuhlSuhlUpdate{Float64}[], 0, nothing, JSimplex.TriangularRowCache{Float64}([1, 2], Tuple{Int64, Int64, Float64}[], 0, false, Int64[], false, 3, Int64[], JSimplex.TriangularSpikeCache{Float64}((JSimplex.PreparedTriangularSpike{Float64}(nothing, [1.35684107525663e-309, 0.0], [1.356839312418034e-309, 1.356840228372145e-309]), JSimplex.PreparedTriangularSpike{Float64}(nothing, [1.35684022837689e-309, 1.35684022837926e-309], [1.356840763801915e-309, 1.35684022836266e-309])), 1))), JSimplex.SimplexScratch{Float64}(Bool[1, 0, 1], [0.0, 0.0], [0.0, -0.0], [0.0, -0.0], [0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0], Bool[0, 0, 0], false, Int64[], Int64[], Float64[], Float64[], Int64[], nothing, nothing, false, Int64[], Int64[], 0, 0, JSimplex._PivotQualityBuffers{Float64, Float64}([0.0, 0.0], [0.0, 0.0], [1.5e-7, 1.5e-7], [0.0, 0.0], [0, 0], JSimplex.SolveQualityScratch{Float64, Float64}([0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0, 0], Float64[], Float64[]), JSimplex.SolveQualityScratch{Float64, Float64}([0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0, 0], Float64[], Float64[])), :none, 0.0, false, false, false, :limit, JSimplex.RefactorizationState{Float64}(0, 0, 20, 20, 128, false, false, false, nothing, 1.0, 1.0, 0, 1.0e8, 6, 6, 8.0, 0.0, 0.0, 0.0, 0, 0, 0, 0.0, 0.0, 0, 0, 9223372036854775807, 0, 0, 0, 0.0, :none), nothing, nothing, nothing, nothing, nothing, 0.0, 0.0, nothing, true, true, sparse([1, 2, 2], [1, 1, 2], [1.0, 1.0, -1.0], 2, 2), JSimplex.BasisCheckpoint{Float64}[], 0x0000000000000000, Tuple{Int64, Int64}[], 0x0000000000000000, false, false, nothing), 0, 1, false, 0, false, false, 20, 0, 9223372036854775807, 0, 0))
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:36 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:37
+  Expression: JSimplex.event_count(diagnostics, :primal_point_preserved) == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:37 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:26
+  Expression: JSimplex._restore_legacy_primal_point!(ws, candidate, (()->begin
+            #= /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:26 =#
+            false
+        end))
+   Evaluated: JSimplex._restore_legacy_primal_point!(JSimplex.SimplexWorkspace{Float64, JSimplex.BartelsGolubFactorization{Float64, JSimplex.UMFPACKBackend}, :bartels_golub, :native, JSimplex.SimplexDiagnostics{Nothing}}(LinearProblem{Float64}(sparse([1, 2], [1, 1], [1.0, 1.0], 2, 1), [0.0], 0.0, MIN_SENSE, Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(-1.0, true)], Bound{Float64}[Bound{Float64}(0.0, false)], VariableDomain[CONTINUOUS], "", String[], String[]), SolverOptions{Float64, :bartels_golub, :native}(1.0e-7, 1.0e-7, 1.0e-12, 100000, Inf, 20, false, Debug, :primal, :steepest_edge, :bartels_golub, :native, :auto, true, :legacy), JSimplex.SimplexProgressContext{Float64, JSimplex.SimplexDiagnostics{Nothing}}(0x0000789d383a8534, [0.0], 0.0, JSimplex.Scaling{Float64}([1.0, 1.0], [1.0]), 0, 0, JSimplex.SimplexDiagnostics{Nothing}(Dict(:pricing_reset => 0, :pricing_weight_rejected => 0, :pivot_completed => 0, :correction_attempt => 0, :phase_auxiliary => 0, :refactor_fill => 0, :stagnation_watch => 0, :pivot_proposed => 0, :pricing_scanned_entries => 0, :certification_failed => 0…), [:refactor_initial, :refactor_other], 3, nothing, false, Dict(:hypersparse_weight_btran_sparse => 0, :hypersparse_weight_btran_dense => 0, :hypersparse_base_graph => 0, :hypersparse_weight_btran_empty => 0, :btran => 0, :hypersparse_weight_ftran_sparse => 0, :crash => 0, :hypersparse_ftran_sparse => 0, :hypersparse_pricing_empty => 0, :hypersparse_weight_ftran_empty => 0…), Dict{Symbol, UInt64}(:hypersparse_weight_btran_sparse => 0x0000000000000000, :hypersparse_weight_btran_dense => 0x0000000000000000, :hypersparse_base_graph => 0x0000000000000000, :hypersparse_weight_btran_empty => 0x0000000000000000, :btran => 0x0000000000000000, :hypersparse_weight_ftran_sparse => 0x0000000000000000, :crash => 0x0000000000000000, :hypersparse_ftran_sparse => 0x0000000000000000, :hypersparse_pricing_empty => 0x0000000000000000, :hypersparse_weight_ftran_empty => 0x0000000000000000…)), JSimplex.NumericalPolicy{Float64}(5.684341886080802e-14, 1.4901161193847656e-8, 3, 8, 2, 64, 512, 1073741824, 8, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false)), [0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(-1.0, true), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], JSimplex.Basis([1, 3], JSimplex.VariableState[JSimplex.BASIC, JSimplex.AT_UPPER, JSimplex.BASIC]), [1.5e-7, 0.0, 1.5e-7], [0.0, 0.0, 0.0], [1.0, 1.0, 1.0], Bool[0, 1, 1], JSimplex.BartelsGolubFactorization{Float64, JSimplex.UMFPACKBackend}(JSimplex.UMFPACKBackend(SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x00000000009b0a20)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x000000000095a740)), 2, 2, [0, 2, 3], [0, 1, 1], [1.0, 1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([274627519463888, 274627498159440], [-0.0, 0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 2.0, 3.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 6.0, 4.00003045797348e-7, 4.00003045797348e-7, -1.0, -1.0, -1.0], ReentrantLock()), 2, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x00000000009af4d0)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x00000000008c84f0)), 2, 2, [0, 1, 2], [0, 1], [-1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([274627331889600, 0], [-0.0, -0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 2.0, 2.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 4.0, 7.999769877642393e-7, 7.999769877642393e-7, -1.0, -1.0, -1.0], ReentrantLock()), false), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}[JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([1], [1.0]), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([2], [1.0])], [1, 2], [1, 2], JSimplex.BartelsGolubUpdate{Float64}[], [0.0, 0.0], [0.0, 0.0], [Int64[], Int64[]], Int64[], JSimplex.BartelsGolubUpdate{Float64}[], 0, nothing, JSimplex.TriangularRowCache{Float64}([1, 2], Tuple{Int64, Int64, Float64}[], 0, false, Int64[], false, 3, Int64[], JSimplex.TriangularSpikeCache{Float64}((JSimplex.PreparedTriangularSpike{Float64}(nothing, [5.0e-324, 4.15e-322], [1.356840227697053e-309, 1.35684012298059e-309]), JSimplex.PreparedTriangularSpike{Float64}(nothing, [1.356840227697053e-309, 1.35684012298059e-309], [1.356840227697053e-309, 1.35684012298059e-309])), 1)), false), JSimplex.SimplexScratch{Float64}(Bool[1, 0, 1], [0.0, 0.0], [0.0, -0.0], [0.0, -0.0], [0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0], Bool[0, 0, 0], false, Int64[], Int64[], Float64[], Float64[], Int64[], nothing, nothing, false, Int64[], Int64[], 0, 0, JSimplex._PivotQualityBuffers{Float64, Float64}([0.0, 0.0], [0.0, 0.0], [1.5e-7, 1.5e-7], [0.0, 0.0], [0, 0], JSimplex.SolveQualityScratch{Float64, Float64}([0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0, 0], Float64[], Float64[]), JSimplex.SolveQualityScratch{Float64, Float64}([0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0, 0], Float64[], Float64[])), :none, 0.0, false, false, false, :limit, JSimplex.RefactorizationState{Float64}(0, 0, 20, 20, 128, false, false, false, nothing, 1.0, 1.0, 0, 1.0e8, 6, 6, 8.0, 0.0, 0.0, 0.0, 0, 0, 0, 0.0, 0.0, 0, 0, 9223372036854775807, 0, 0, 0, 0.0, :none), nothing, nothing, nothing, nothing, nothing, 0.0, 0.0, nothing, true, true, sparse([1, 2, 2], [1, 1, 2], [1.0, 1.0, -1.0], 2, 2), JSimplex.BasisCheckpoint{Float64}[], 0x0000000000000000, Tuple{Int64, Int64}[], 0x0000000000000000, false, false, nothing), 0, 1, false, 0, false, false, 20, 0, 9223372036854775807, 0, 0), [-1.5e-7, 0.0], var"#2#3"())
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:26 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:29
+  Expression: -1 - tol <= ws.primal[1] <= tol
+   Evaluated: -1.0000001 <= 1.5e-7 <= 1.0e-7
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ERROR: LoadError: Some tests did not pass: 32 passed, 56 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:21
+in expression starting at /tmp/balanced_point_tests.jl:2
+~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:29 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:30
+  Expression: abs(ws.primal[1] - ws.primal[2]) <= tol
+   Evaluated: 1.5e-7 <= 1.0e-7
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:30 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:32
+  Expression: ws.primal[3] <= tol
+   Evaluated: 1.5e-7 <= 1.0e-7
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:32 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:34
+  Expression: ws.scratch.row_solution == ws.primal[ws.basis.basic_indices]
+   Evaluated: [0.0, -0.0] == [1.5e-7, 1.5e-7]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:34 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:36
+  Expression: JSimplex._legacy_primal_point_certified(ws)
+   Evaluated: JSimplex._legacy_primal_point_certified(JSimplex.SimplexWorkspace{Float64, JSimplex.BartelsGolubFactorization{Float64, JSimplex.UMFPACKBackend}, :bartels_golub, :native, JSimplex.SimplexDiagnostics{Nothing}}(LinearProblem{Float64}(sparse([1, 2], [1, 1], [1.0, 1.0], 2, 1), [0.0], 0.0, MIN_SENSE, Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(-1.0, true)], Bound{Float64}[Bound{Float64}(0.0, false)], VariableDomain[CONTINUOUS], "", String[], String[]), SolverOptions{Float64, :bartels_golub, :native}(1.0e-7, 1.0e-7, 1.0e-12, 100000, Inf, 20, false, Debug, :primal, :steepest_edge, :bartels_golub, :native, :auto, true, :legacy), JSimplex.SimplexProgressContext{Float64, JSimplex.SimplexDiagnostics{Nothing}}(0x0000789d383a8534, [0.0], 0.0, JSimplex.Scaling{Float64}([1.0, 1.0], [1.0]), 0, 0, JSimplex.SimplexDiagnostics{Nothing}(Dict(:pricing_reset => 0, :pricing_weight_rejected => 0, :pivot_completed => 0, :correction_attempt => 0, :phase_auxiliary => 0, :refactor_fill => 0, :stagnation_watch => 0, :pivot_proposed => 0, :pricing_scanned_entries => 0, :certification_failed => 0…), [:refactor_initial, :refactor_other], 3, nothing, false, Dict(:hypersparse_weight_btran_sparse => 0, :hypersparse_weight_btran_dense => 0, :hypersparse_base_graph => 0, :hypersparse_weight_btran_empty => 0, :btran => 0, :hypersparse_weight_ftran_sparse => 0, :crash => 0, :hypersparse_ftran_sparse => 0, :hypersparse_pricing_empty => 0, :hypersparse_weight_ftran_empty => 0…), Dict{Symbol, UInt64}(:hypersparse_weight_btran_sparse => 0x0000000000000000, :hypersparse_weight_btran_dense => 0x0000000000000000, :hypersparse_base_graph => 0x0000000000000000, :hypersparse_weight_btran_empty => 0x0000000000000000, :btran => 0x0000000000000000, :hypersparse_weight_ftran_sparse => 0x0000000000000000, :crash => 0x0000000000000000, :hypersparse_ftran_sparse => 0x0000000000000000, :hypersparse_pricing_empty => 0x0000000000000000, :hypersparse_weight_ftran_empty => 0x0000000000000000…)), JSimplex.NumericalPolicy{Float64}(5.684341886080802e-14, 1.4901161193847656e-8, 3, 8, 2, 64, 512, 1073741824, 8, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false)), [0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(-1.0, true), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], JSimplex.Basis([1, 3], JSimplex.VariableState[JSimplex.BASIC, JSimplex.AT_UPPER, JSimplex.BASIC]), [1.5e-7, 0.0, 1.5e-7], [0.0, 0.0, 0.0], [1.0, 1.0, 1.0], Bool[0, 1, 1], JSimplex.BartelsGolubFactorization{Float64, JSimplex.UMFPACKBackend}(JSimplex.UMFPACKBackend(SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x00000000009b0a20)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x000000000095a740)), 2, 2, [0, 2, 3], [0, 1, 1], [1.0, 1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([274627519463888, 274627498159440], [-0.0, 0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 2.0, 3.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 6.0, 4.00003045797348e-7, 4.00003045797348e-7, -1.0, -1.0, -1.0], ReentrantLock()), 2, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x00000000009af4d0)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x00000000008c84f0)), 2, 2, [0, 1, 2], [0, 1], [-1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([274627331889600, 0], [-0.0, -0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 2.0, 2.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 4.0, 7.999769877642393e-7, 7.999769877642393e-7, -1.0, -1.0, -1.0], ReentrantLock()), false), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}[JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([1], [1.0]), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([2], [1.0])], [1, 2], [1, 2], JSimplex.BartelsGolubUpdate{Float64}[], [0.0, 0.0], [0.0, 0.0], [Int64[], Int64[]], Int64[], JSimplex.BartelsGolubUpdate{Float64}[], 0, nothing, JSimplex.TriangularRowCache{Float64}([1, 2], Tuple{Int64, Int64, Float64}[], 0, false, Int64[], false, 3, Int64[], JSimplex.TriangularSpikeCache{Float64}((JSimplex.PreparedTriangularSpike{Float64}(nothing, [5.0e-324, 4.15e-322], [1.356840227697053e-309, 1.35684012298059e-309]), JSimplex.PreparedTriangularSpike{Float64}(nothing, [1.356840227697053e-309, 1.35684012298059e-309], [1.356840227697053e-309, 1.35684012298059e-309])), 1)), false), JSimplex.SimplexScratch{Float64}(Bool[1, 0, 1], [0.0, 0.0], [0.0, -0.0], [0.0, -0.0], [0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0], Bool[0, 0, 0], false, Int64[], Int64[], Float64[], Float64[], Int64[], nothing, nothing, false, Int64[], Int64[], 0, 0, JSimplex._PivotQualityBuffers{Float64, Float64}([0.0, 0.0], [0.0, 0.0], [1.5e-7, 1.5e-7], [0.0, 0.0], [0, 0], JSimplex.SolveQualityScratch{Float64, Float64}([0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0, 0], Float64[], Float64[]), JSimplex.SolveQualityScratch{Float64, Float64}([0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0, 0], Float64[], Float64[])), :none, 0.0, false, false, false, :limit, JSimplex.RefactorizationState{Float64}(0, 0, 20, 20, 128, false, false, false, nothing, 1.0, 1.0, 0, 1.0e8, 6, 6, 8.0, 0.0, 0.0, 0.0, 0, 0, 0, 0.0, 0.0, 0, 0, 9223372036854775807, 0, 0, 0, 0.0, :none), nothing, nothing, nothing, nothing, nothing, 0.0, 0.0, nothing, true, true, sparse([1, 2, 2], [1, 1, 2], [1.0, 1.0, -1.0], 2, 2), JSimplex.BasisCheckpoint{Float64}[], 0x0000000000000000, Tuple{Int64, Int64}[], 0x0000000000000000, false, false, nothing), 0, 1, false, 0, false, false, 20, 0, 9223372036854775807, 0, 0))
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:36 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conflicting point errors admit a certified native recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:37
+  Expression: JSimplex.event_count(diagnostics, :primal_point_preserved) == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:22
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_balanced_point_tests.jl:37 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+Test Summary:                                              | Pass  Fail  Total  Time
+Conflicting point errors admit a certified native recovery |   32    56     88  0.4s
+RNG of the outermost testset: Random.Xoshiro(0x85d549388e4fd102, 0xdf2adecaa256ef9f, 0x88313f14cfd0dd0a, 0x531a24647a03e2b9, 0x12031fbfda842420)

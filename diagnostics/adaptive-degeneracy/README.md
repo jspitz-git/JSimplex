@@ -218,3 +218,9 @@ The captured runtime failure is removed; convergence is not established. The
 combined medium primal run still fails at iteration 5,443, with independently
 confirmed working-bound infeasibility. The report retains this negative result
 and does not recommend enabling the combined path by default.
+
+## Degenerate bound-snap point recovery
+
+[The pre-pivot capture and certified midpoint recovery](balanced-point-recovery.md)
+localize the combined medium Phase-I failure at iteration 5443. The report
+distinguishes the numerical repair from evidence about degeneracy and convergence.
