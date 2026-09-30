@@ -143,7 +143,7 @@ function _observe_workspace_stagnation!(ws,state::WorkspaceStagnation{T,S},
                                        algorithm,primal_step,dual_step) where {T,S}
     m = state.monitor
     objective,primal_violation,dual_violation = _workspace_stagnation_values(ws,state,algorithm)
-    result = observe_progress!(m;objective,primal_violation,dual_violation,
+    result = observe_progress!(m;algorithm,objective,primal_violation,dual_violation,
         primal_step=(S(primal_step)/state.value_scale)*m.primal_scale,
         dual_step=(S(dual_step)/state.cost_scale)*m.dual_scale)
     state.last_iteration = ws.iterations
@@ -194,7 +194,9 @@ function _stagnation_improvement(anchor::T,current::T,scale::T) where {T<:Abstra
 end
 
 function observe_progress!(m::StagnationMonitor{T,S};objective,primal_violation,
-                           dual_violation,primal_step,dual_step)::Symbol where {T,S}
+                           dual_violation,primal_step,dual_step,
+                           algorithm::Symbol=:all)::Symbol where {T,S}
+    algorithm in (:all,:primal,:dual) || throw(ArgumentError("Unknown progress algorithm"))
     objective, primal, dual = S(objective), S(primal_violation), S(dual_violation)
     ps, ds = S(primal_step), S(dual_step)
     # A ratio of finite floating-point inputs can overflow. An infinite step
@@ -230,7 +232,13 @@ function observe_progress!(m::StagnationMonitor{T,S};objective,primal_violation,
         m.objective_improvement = _stagnation_improvement(m.best_objective,objective,m.objective_scale)
         m.primal_improvement = _stagnation_improvement(m.best_primal,primal,m.primal_scale)
         m.dual_improvement = _stagnation_improvement(m.best_dual,dual,m.dual_scale)
-        progress = max(m.objective_improvement,m.primal_improvement,m.dual_improvement) > m.tolerance
+        # A primal pivot must improve the current (possibly auxiliary)
+        # objective. Reduced-price changes at a fixed point are not progress.
+        # Dual pivots can also make useful progress toward primal feasibility
+        # at a constant objective. Retain all metrics for diagnostics.
+        progress = m.objective_improvement > m.tolerance ||
+            (algorithm != :primal && m.primal_improvement > m.tolerance) ||
+            (algorithm == :all && m.dual_improvement > m.tolerance)
         # Retain the reference after a sub-tolerance change so that genuine
         # slow progress can accumulate across the two watched windows.
         m.objective_improvement > m.tolerance && (m.best_objective = min(m.best_objective,m.minimum_objective))
