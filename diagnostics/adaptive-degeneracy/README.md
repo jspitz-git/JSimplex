@@ -299,3 +299,12 @@ original-dimension workspace fails at iteration 102,446 after 1,315 seconds.
 A portable control demonstrates loss of a certified point at this boundary and
 successful recovery when the mapped point is retained. The actual runtime
 transfer point has not yet been captured; its correction remains unverified.
+
+## Captured runtime phase transfer
+
+[The actual boundary replay](phase-transfer-capture.md) now captures that endpoint
+and reproduces all 137 events from the preceding run. Carrying the maintained
+nonbasic values restores a fully certified primal point of the reduced original
+model. The complete export still rejects both primal and dual basis residual
+checks; no production fix is promoted. The saved snapshots allow those numerical
+checks to be investigated without repeating the long Phase-I prefix.
