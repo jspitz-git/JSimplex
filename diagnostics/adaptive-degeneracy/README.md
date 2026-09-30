@@ -271,3 +271,11 @@ tolerances. It redistributes clipped row corrections and preserves a nearby pivo
 prediction when reconstruction has no admissible local box. A fresh runtime run
 passes the captured failures and reaches 14,845 iterations in 300 seconds, with
 Phase I still unfinished. This does not establish convergence or solve medium.
+
+## Extended runtime continuation
+
+[The extended runtime diagnostic](extended-runtime.md) raises the isolated primal
+run budget to 900 seconds. The auxiliary objective continues to fall substantially,
+but point certification fails at iteration 19,222 after 523 seconds. This supersedes
+any interpretation of the preceding 300-second TIME_LIMIT as numerical closure.
+The report separates the failed reconstruction from the actual recovery anchor.

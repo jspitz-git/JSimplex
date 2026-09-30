@@ -216,3 +216,11 @@ and initial failure inspectors refer to that measured source, not the final
 prediction-anchor implementation. The provenance validator reconstructs the patch
 in a temporary directory and checks both measured source digests. Earlier reports
 and their baseline-specific validators describe rejected historical candidates.
+
+## Longer-run follow-up
+
+The [extended runtime diagnostic](extended-runtime.md) continues past this bounded
+300-second result. It records further objective reduction and a new numerical
+point-certification failure at iteration 19,222. The current recovery remains
+bounded and incomplete; passing the earlier captured pivots did not eliminate
+all later numerical barriers.
