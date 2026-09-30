@@ -1,9 +1,9 @@
 using SparseArrays
 
-function stalling_workspace(;constant=0.0,window=4,enabled=true)
+function stalling_workspace(;constant=0.0,window=4,enabled=true,adaptive_pricing=true)
     p = LinearProblem(sparse([1.0;;]),[1.0];row_lower=[1.0],objective_constant=constant)
     policy = JSimplex.NumericalPolicy(Float64;simplex_strategy=:adaptive,
-        adaptive_stalling=enabled,stagnation_window=window,refactor_timing=false)
+        adaptive_stalling=enabled,adaptive_pricing,stagnation_window=window,refactor_timing=false)
     diagnostics = JSimplex.SimplexDiagnostics()
     return JSimplex.initialize_workspace(p,SolverOptions(verbose=false);
         progress=JSimplex.SimplexProgressContext(p;numerical_policy=policy,diagnostics))
@@ -26,6 +26,20 @@ end
     disabled.iterations = 8
     JSimplex._observe_stagnation!(disabled,:dual,0.0,0.0)
     @test isnothing(disabled.scratch.stagnation)
+end
+
+@testset "Disabled adaptive pricing leaves stalled dual monitoring active" begin
+    ws = stalling_workspace(adaptive_pricing=false)
+    for _ in 1:8
+        ws.iterations += 1
+        JSimplex._observe_stagnation!(ws,:dual,0.0,0.0)
+    end
+    @test ws.scratch.stagnation.monitor.state == :stalled
+    @test ws.scratch.stagnation.monitor.observations == 8
+    @test JSimplex.event_count(ws.progress.diagnostics,:stagnation_stalled) == 1
+    @test JSimplex._effective_pricing(ws,:dual) == :steepest_edge
+    @test !ws.dual_pricing_fallback
+    @test JSimplex.event_count(ws.progress.diagnostics,:stagnation_fallback) == 0
 end
 
 @testset "Restoring the same basis preserves the watched window" begin
