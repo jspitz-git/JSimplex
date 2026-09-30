@@ -274,7 +274,7 @@ function _primal_bound_snap_feasible(workspace::SimplexWorkspace{T}, entering::I
     step = (bound_value(bound) - workspace.primal[leaving]) / movement
     step >= zero(T) && return true
     state = movement > zero(T) ? AT_UPPER : AT_LOWER
-    _can_preserve_primal_row_value(workspace, leaving, state, bound) && return true
+    _can_preserve_primal_bound_value(workspace, leaving, state, bound) && return true
     # A tolerated bound violation has a negative ratio. Clipping it to zero
     # does not eliminate the movement imposed by fixing the leaving variable
     # exactly at its bound during the subsequent basis recomputation.

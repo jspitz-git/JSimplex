@@ -151,3 +151,10 @@ and one-pivot snapshots, sweep vectors, interval context, the diagnostic method
 and as-run scripts are retained in `.superpowers/adaptive-degeneracy/extended-runtime/`,
 with hashes in the committed local artifact manifest. The exact rational checks
 are independent diagnostics; the solver and trial point updates use Float64.
+
+## Implemented follow-up
+
+The subsequent [structural-bound retention change](structural-bound-values.md)
+implements and tests the proposed core boundary. Its new long-run trajectory
+supersedes this diagnostic baseline for current behavior; the captured failure
+and exact incompatibility proof above remain baseline evidence.

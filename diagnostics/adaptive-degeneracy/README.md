@@ -279,3 +279,13 @@ run budget to 900 seconds. The auxiliary objective continues to fall substantial
 but point certification fails at iteration 19,222 after 523 seconds. This supersedes
 any interpretation of the preceding 300-second TIME_LIMIT as numerical closure.
 The report separates the failed reconstruction from the actual recovery anchor.
+
+## Structural values across zero primal steps
+
+[The structural-bound retention report](structural-bound-values.md) implements
+the core correction identified by the extended runtime diagnostic. It preserves
+the certified point at the captured structural exit and adds portable scope
+regressions. A fresh 900-second run reaches 77,180 iterations without numerical
+termination; its last completed-pivot sample has auxiliary objective 812.97805.
+Phase I remains unfinished. Perturbations are enabled but never triggered on
+this changed trajectory, so this is not a new combined-intervention success claim.
