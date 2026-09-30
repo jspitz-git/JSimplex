@@ -194,7 +194,11 @@ function _finish_legacy_primal_point!(workspace::SimplexWorkspace, candidate::Ve
     stop() && return DualTermination(TIME_LIMIT, "time limit reached during primal point recovery")
     _legacy_primal_reconstruction_feasible(workspace) && return nothing
     _restore_legacy_primal_point!(workspace, candidate, stop) && return nothing
+    # Native correction reuses the candidate buffer. Preserve the pivot
+    # prediction for local recovery if reconstruction is outside its bound box.
+    prediction = copy(candidate)
     _try_native_primal_point_correction!(workspace, stop) && return nothing
+    _try_joint_primal_point_recovery!(workspace, stop, prediction) && return nothing
     stop() && return DualTermination(TIME_LIMIT, "time limit reached during primal point recovery")
     # Candidate retries assume an unchanged, feasible basis point. This failure
     # invalidates that assumption, including after a fresh-factor retry.

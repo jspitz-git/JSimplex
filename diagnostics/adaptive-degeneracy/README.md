@@ -242,8 +242,8 @@ history, and distinguishes that repair from the remaining convergence problem.
 [The ratio capture and working-row experiments](working-row-values.md) identify
 an original/working-bound mismatch that discards a strong zero-step pivot. The
 report separates exact ratio replay and passing pivot regressions from subsequent
-real-model failures. Both candidate patches are retained only as diagnostic
-artifacts; production sources remain unchanged.
+real-model failures. At that checkpoint both candidate patches were retained only as diagnostic
+artifacts; see the later representable recovery below for the accepted scope fix.
 
 ## Complementary errors in primal point recovery
 
@@ -251,7 +251,7 @@ artifacts; production sources remain unchanged.
 experimental failure and identifies different model rows blocking prediction
 and residual correction. A single joint midpoint repairs that pivot but fails
 125 iterations later in a fresh runtime run. The new candidate is also retained
-only as a diagnostic artifact; none of the working-row experiments is promoted.
+only as a diagnostic artifact at that checkpoint. See the later recovery below.
 
 
 ## Bounded joint primal feasibility recovery
@@ -260,5 +260,14 @@ only as a diagnostic artifact; none of the working-row experiments is promoted.
 projections after existing point recovery, with nonbasic values fixed.
 It repairs the earlier snapshots, but full runtime runs still fail. The controlled
 probes distinguish overly strong interior targets from clipping and representable
-update limitations. Both candidates remain diagnostic artifacts; production
-sources are unchanged.
+update limitations. Both candidates remain diagnostic artifacts. The later recovery below replaces
+their rejected projection method.
+
+## Native recovery with active bounds and representable updates
+
+[The representable-point investigation](representable-point-recovery.md) adds a
+bounded, fully certified core recovery with fixed nonbasic values and unchanged
+tolerances. It redistributes clipped row corrections and preserves a nearby pivot
+prediction when reconstruction has no admissible local box. A fresh runtime run
+passes the captured failures and reaches 14,845 iterations in 300 seconds, with
+Phase I still unfinished. This does not establish convergence or solve medium.

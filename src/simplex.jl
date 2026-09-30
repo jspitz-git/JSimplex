@@ -283,7 +283,7 @@ function _assemble_basis_matrix(workspace::SimplexWorkspace{T},
 end
 
 # A zero primal step may leave a row activity just outside its bound, within
-# the original model tolerance. Retaining that value avoids turning a zero
+# the active model tolerance. Retaining that value avoids turning a zero
 # ratio into a negative step through an exact nonbasic bound assignment.
 _can_preserve_primal_row_value(workspace, index, state, bound) = false
 
@@ -301,9 +301,16 @@ function _can_preserve_primal_row_value(workspace::SimplexWorkspace{T}, index::I
     outside = state == AT_LOWER ? value < bound_value(bound) :
               state == AT_UPPER && value > bound_value(bound)
     outside || return false
-    original = state == AT_LOWER ? workspace.problem.row_lower[index - columns] :
-                                  workspace.problem.row_upper[index - columns]
-    return _primal_interval_at_bound(value, value, original, workspace.options.primal_tolerance)
+    checked_bound = state == AT_LOWER ? workspace.problem.row_lower[index - columns] :
+                                       workspace.problem.row_upper[index - columns]
+    journal = workspace.scratch.perturbations
+    if _has_active_bound_perturbations(journal)
+        _check_perturbation_owner(workspace, journal)
+        # Match the owned working LP used by the primal point certificate.
+        # Restoration removes this exception before original-model cleanup.
+        checked_bound = bound
+    end
+    return _primal_interval_at_bound(value, value, checked_bound, workspace.options.primal_tolerance)
 end
 
 function _nonbasic_value(workspace::SimplexWorkspace{T}, index::Int) where {T}

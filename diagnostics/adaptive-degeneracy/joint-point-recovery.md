@@ -245,3 +245,10 @@ the numerical evidence and validates local artifact hashes when those files are
 present. Text results are in [results/joint-point](results/joint-point/). Full logs,
 point snapshots, generated diagnostic variants and red-test output are kept in
 `.superpowers/adaptive-degeneracy/joint-point/`, with a committed hash manifest.
+
+## Follow-up
+
+The [representable-point investigation](representable-point-recovery.md) replaces
+these rejected candidates with a bounded native recovery that handles clipped
+coordinates, representable updates and the locality anchor. Its runtime result
+and remaining convergence limitations are documented separately.
