@@ -155,3 +155,8 @@ Committed evidence is in [results/structural-values](results/structural-values/)
 Raw red/green logs, the measured source patch and a snapshot of diagnostic scripts are retained in
 `.superpowers/adaptive-degeneracy/structural-values/`, with hashes in the local
 artifact manifest. Older binary snapshots remain in their original directories.
+
+The subsequent [1,800-second run](structural-runtime-continuation.md) reproduces
+this trajectory and reaches auxiliary optimality, but fails while transferring
+the basis to a fresh workspace. It supersedes this bounded TIME_LIMIT observation
+for the next numerical failure boundary.

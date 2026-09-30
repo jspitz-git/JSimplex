@@ -289,3 +289,13 @@ regressions. A fresh 900-second run reaches 77,180 iterations without numerical
 termination; its last completed-pivot sample has auxiliary objective 812.97805.
 Phase I remains unfinished. Perturbations are enabled but never triggered on
 this changed trajectory, so this is not a new combined-intervention success claim.
+
+## Longer runtime and the Phase-I transfer boundary
+
+[The 1,800-second continuation experiment](structural-runtime-continuation.md)
+reproduces all 111 shared events and progresses beyond the prior budget.
+The auxiliary optimization passes its terminal checks, but export to a fresh
+original-dimension workspace fails at iteration 102,446 after 1,315 seconds.
+A portable control demonstrates loss of a certified point at this boundary and
+successful recovery when the mapped point is retained. The actual runtime
+transfer point has not yet been captured; its correction remains unverified.
