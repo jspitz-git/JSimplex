@@ -244,3 +244,11 @@ an original/working-bound mismatch that discards a strong zero-step pivot. The
 report separates exact ratio replay and passing pivot regressions from subsequent
 real-model failures. Both candidate patches are retained only as diagnostic
 artifacts; production sources remain unchanged.
+
+## Complementary errors in primal point recovery
+
+[The coupled-point investigation](coupled-point-recovery.md) captures the next
+experimental failure and identifies different model rows blocking prediction
+and residual correction. A single joint midpoint repairs that pivot but fails
+125 iterations later in a fresh runtime run. The new candidate is also retained
+only as a diagnostic artifact; none of the working-row experiments is promoted.

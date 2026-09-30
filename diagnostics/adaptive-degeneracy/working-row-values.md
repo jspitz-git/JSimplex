@@ -11,6 +11,9 @@ The experiments alter two numerical consistency checks in the native primal
 kernel. They do not change adaptive scheduling, tolerances, precision, or the
 dual progress heuristic.
 
+The subsequent [coupled-point investigation](coupled-point-recovery.md) captures
+the iteration-8,464 candidates and records another rejected recovery experiment.
+
 ## Captured cause
 
 A 300-second baseline runtime primal run captures four ratio-test decisions
