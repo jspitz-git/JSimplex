@@ -298,6 +298,19 @@ function _primal_bound_snap_feasible(workspace::SimplexWorkspace{T}, entering::I
     return true
 end
 
+function _primal_step_bounds_feasible(workspace::SimplexWorkspace{T}, direction::T,
+                                      column::Vector{T}, step::T) where {T}
+    tolerance = workspace.options.primal_tolerance
+    for (row, index) in enumerate(workspace.basis.basic_indices)
+        value = workspace.primal[index] - direction * column[row] * step
+        isfinite(value) || return false
+        violation = max(zero(T), _lower_violation(workspace.lower[index], value),
+                        _upper_violation(workspace.upper[index], value))
+        violation <= tolerance || return false
+    end
+    return true
+end
+
 function _primal_ratio(workspace::SimplexWorkspace{T}, entering::Int, direction::T,
                        tableau_column::Vector{T}) where {T}
     opposite = direction > zero(T) ? workspace.upper[entering] : workspace.lower[entering]
@@ -369,24 +382,20 @@ function _primal_ratio(workspace::SimplexWorkspace{T}, entering::Int, direction:
             largest_pivot = pivot
         end
     end
+    # Tolerated initial bound violations can create zero ratios on coefficients
+    # too small to pivot on. A finite entering bound remains a valid Harris move
+    # when the entire predicted step respects the same per-bound tolerance.
+    if _legacy_primal_row_validation_enabled(workspace) &&
+       largest_pivot <= workspace.options.zero_tolerance && isfinite(opposite) &&
+       isfinite(entering_step) && entering_step > zero(T) && entering_step <= relaxed_limit &&
+       _primal_step_bounds_feasible(workspace, direction, tableau_column, entering_step)
+        return entering_step, 0, BASIC
+    end
     if leaving_row == 0
         return fallback
     end
-    violation = zero(T)
-    for (row, index) in enumerate(workspace.basis.basic_indices)
-        value = workspace.primal[index] - direction * tableau_column[row] * leaving_step
-        if !isfinite(value)
-            return fallback
-        end
-        bound_violation = max(zero(T), _lower_violation(workspace.lower[index], value),
-                              _upper_violation(workspace.upper[index], value))
-        # Legacy feasibility is checked per bound. Summing already tolerated
-        # errors can reject a stable Harris pivot in favor of a tiny fallback.
-        violation = max(violation, bound_violation)
-        if violation > tolerance
-            return fallback
-        end
-    end
+    _primal_step_bounds_feasible(workspace, direction, tableau_column, leaving_step) ||
+        return fallback
     return leaving_step, leaving_row, leaving_state
 end
 

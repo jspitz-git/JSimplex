@@ -336,3 +336,13 @@ reproduces all 136 prior prefix records, passes Phase-I export at iteration
 continuation reaches iteration 128,873 and then rejects a below-threshold primal
 pivot near the reference objective. That endpoint is retained for diagnosis;
 whole-runtime optimality is still unproven.
+
+## Feasible flips at the Phase-II endpoint
+
+[The small-pivot correction](phase-two-small-pivot.md) identifies 47 improving
+variables whose finite bound moves were hidden by zero ratios on unusable
+pivots. The guarded native ratio path now completes those 47 flips and reaches
+the reduced problem certificate. Original-model postsolve still fails: the
+restored target has original-bound violations already present before the flips.
+The target and projection boundary are captured for the next investigation; no
+original-input optimum or new uninterrupted whole-MPS solve is claimed.
