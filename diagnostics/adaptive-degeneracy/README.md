@@ -224,3 +224,9 @@ and does not recommend enabling the combined path by default.
 [The pre-pivot capture and certified midpoint recovery](balanced-point-recovery.md)
 localize the combined medium Phase-I failure at iteration 5443. The report
 distinguishes the numerical repair from evidence about degeneracy and convergence.
+
+## Method-specific progress and intervention ordering
+
+[The ordered-intervention report](intervention-order.md) separates the progress
+metric change from scheduling, records both primal measurements, and checks
+that adaptive shifts do not occur inside a temporary pricing trial.
