@@ -5,7 +5,7 @@ function primal_perturbation_chain(::Type{T}=Float64;enabled=true,update=:pfi,it
     upper=zeros(T,dimension); upper[end]=one(T)
     p=LinearProblem(spdiagm(0=>ones(T,dimension),1=>-ones(T,dimension-1)),objective;row_upper=upper)
     policy=JSimplex.NumericalPolicy(T;simplex_strategy=:adaptive,
-        adaptive_primal_perturbation=enabled,stagnation_window=window,refactor_timing=false)
+        adaptive_pricing=false,adaptive_primal_perturbation=enabled,stagnation_window=window,refactor_timing=false)
     ws=JSimplex.initialize_workspace(p,SolverOptions(T;algorithm=:primal,
         basis_update=update,iteration_limit,time_limit=30.0,verbose=false);
         progress=JSimplex.SimplexProgressContext(p;numerical_policy=policy,

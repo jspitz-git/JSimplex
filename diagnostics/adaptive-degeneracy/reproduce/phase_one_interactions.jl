@@ -55,8 +55,16 @@ end
 end
 
 @testset "Dual cost perturbation and pricing retire before original certification" begin
-    for mode in (:none,:perturb,:pricing,:both)
-        p=LinearProblem(sparse([0.0 0 1 -1;0 1 -1 0;1 -1 0 0;-1 0 0 1]),zeros(4);row_lower=[1.0,1,1,-3])
+    for mode in (:none,:perturb,:pricing,:both), n in (4,12)
+        # The short cycle finishes within a pricing trial; the long one stays
+        # stalled long enough to exercise expiry, perturbation and cleanup.
+        A=zeros(n,n)
+        for row in 1:n-1
+            j=n-row
+            A[row,j]=1.0; A[row,j+1]=-1.0
+        end
+        A[n,1]=-1.0; A[n,n]=1.0
+        p=LinearProblem(sparse(A),zeros(n);row_lower=vcat(ones(n-1),1.0-n))
         perturb=mode in (:perturb,:both); pricing=mode in (:pricing,:both)
         policy=JSimplex.NumericalPolicy(Float64;phase_one=true,adaptive_stalling=true,stagnation_window=1,
             adaptive_dual_perturbation=perturb,adaptive_pricing=pricing,refactor_timing=false)
@@ -69,8 +77,9 @@ end
         @test JSimplex._original_primal_feasible(p,result.primal,ws.options.primal_tolerance)
         @test JSimplex._original_costs_active(ws) && JSimplex._original_bounds_active(ws)
         @test !JSimplex._has_active_perturbations(ws.scratch.perturbations)
-        @test (JSimplex.event_count(d,:perturbation)>0) == perturb
-        if perturb && pricing
+        shifted = JSimplex.event_count(d,:perturbation)>0
+        @test shifted == (perturb && (!pricing || n==12))
+        if shifted && pricing
             @test !isnothing(ws.scratch.pricing) && !ws.scratch.pricing.temporary
             @test JSimplex._effective_pricing(ws,:dual)==:steepest_edge
         end
@@ -107,8 +116,8 @@ end
         @test 0<phase.iterations==ws.iterations==budget.iterations
         if stop_event==:perturbation
             @test JSimplex._has_active_bound_perturbations(phase.scratch.perturbations)
-            @test phase.scratch.pricing.temporary
-            @test phase.scratch.pricing.trial_until-phase.scratch.pricing.observations==4
+            @test !phase.scratch.pricing.temporary
+            @test phase.scratch.pricing.last_transition==:trial_limit
         else
             @test JSimplex._original_bounds_active(phase)
             @test !JSimplex._has_active_perturbations(phase.scratch.perturbations)
