@@ -317,3 +317,12 @@ correction and cleanup pass. Primal cleanup instead removes tiny values needed
 by nonzero right-hand sides and is correctly rejected without changing the live
 point or prices. The next numerical recovery candidate must preserve these local
 relations; no production change or completed phase export is claimed here.
+
+## Local reconstruction of the phase-transfer equations
+
+[The bounded local reconstruction experiment](phase-transfer-local-rows.md)
+repairs the captured primal residuals in two sweeps while retaining the small
+nonzero right-hand sides. The complete diagnostic export passes every original
+check. A portable cycle and zero-sweep export remain rejected. This is a local
+candidate with explicit production-integration requirements, not a Phase-II or
+whole-runtime convergence result.
