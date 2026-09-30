@@ -1,0 +1,9 @@
+working-row-only.patch matches recorded source; numerical failure at 6799
+working-row-rounded.patch matches recorded source; numerical failure at 8464
+Baseline restored; all four ratio decisions reproduce; neither candidate establishes convergence.
+runtime-ratios.toml TIME_LIMIT iterations 7721 ordered shifts 1 method-specific returns 7
+runtime-row-value.toml NUMERICAL_ERROR iterations 6799 ordered shifts 1 method-specific returns 7
+runtime-row-rounded.toml NUMERICAL_ERROR iterations 8464 ordered shifts 1 method-specific returns 7
+runtime-ratios.toml status TIME_LIMIT closed 9 open 0 overlaps [] last_trace [(7000, 602953.0325289716)]
+runtime-row-value.toml status NUMERICAL_ERROR closed 9 open 0 overlaps [] last_trace [(6656, 602968.9040352376)]
+runtime-row-rounded.toml status NUMERICAL_ERROR closed 9 open 0 overlaps [] last_trace [(8000, 602101.7098578443)]

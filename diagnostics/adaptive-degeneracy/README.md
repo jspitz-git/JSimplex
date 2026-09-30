@@ -236,3 +236,11 @@ that adaptive shifts do not occur inside a temporary pricing trial.
 [The cost-history report](dual-cost-history.md) identifies repeated monitor
 replacement during numerical dual cost repairs, preserves comparable feasibility
 history, and distinguishes that repair from the remaining convergence problem.
+
+## Working row values after primal bound perturbation
+
+[The ratio capture and working-row experiments](working-row-values.md) identify
+an original/working-bound mismatch that discards a strong zero-step pivot. The
+report separates exact ratio replay and passing pivot regressions from subsequent
+real-model failures. Both candidate patches are retained only as diagnostic
+artifacts; production sources remain unchanged.

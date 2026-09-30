@@ -1,0 +1,39 @@
+
+Owned working bounds permit a stable zero-step row pivot: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_perturbed_row_value_tests.jl:32
+  Expression: isnothing(terminal)
+   Evaluated: isnothing(JSimplex.DualTermination(NUMERICAL_ERROR, "primal ratio test is inconclusive"))
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_perturbed_row_value_tests.jl:26
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_perturbed_row_value_tests.jl:32 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Owned working bounds permit a stable zero-step row pivot: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_perturbed_row_value_tests.jl:33
+  Expression: ws.basis.basic_indices == [2]
+   Evaluated: [3] == [2]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_perturbed_row_value_tests.jl:26
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_perturbed_row_value_tests.jl:33 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Owned working bounds permit a stable zero-step row pivot: Error During Test at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_perturbed_row_value_tests.jl:41
+  Test threw exception
+  Expression: JSimplex._nonbasic_value(ws, 3) == zero(T)
+  ArgumentError: basic variables do not have nonbasic values
+  Stacktrace:
+
+[Repeated failure traces omitted; complete log preserved locally.]
+
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:750 [inlined]
+Test Summary:                                            | Pass  Fail  Error  Total  Time
+Owned working bounds permit a stable zero-step row pivot |  128    32     16    176  0.5s
+RNG of the outermost testset: Random.Xoshiro(0xfcf9bace2410d574, 0xe93c7680d73e90b6, 0x61ffd31ada4bd623, 0xbbbce8edd690596f, 0xc4d89c57cb3a284e)
