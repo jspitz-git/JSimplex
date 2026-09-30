@@ -165,7 +165,10 @@ function _remove_artificials!(phase::SimplexWorkspace{T},map,original,policy,sto
     fresh = initialize_workspace(original.problem,original.options;progress=original.progress)
     _phase_inherit_work!(fresh,phase)
     fresh.basis=Basis(indices,states,Val(:owned))
+    native_point = _native_phase_transfer_enabled(fresh)
+    native_point && copyto!(fresh.primal,phase.primal[map.original_to_phase])
     _phase_refactor!(fresh,original,stop)
+    native_point && !_complete_native_phase_transfer!(fresh,stop) && return false
     stop() && return false
     _finite_workspace(fresh) && _recomputed_basis_reliable(fresh) && _start_primal_feasible(fresh) || return false
     _original_primal_feasible(fresh,fresh.primal[1:size(fresh.problem.A,2)]) || return false

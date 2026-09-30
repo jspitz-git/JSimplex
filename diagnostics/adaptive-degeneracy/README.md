@@ -326,3 +326,13 @@ nonzero right-hand sides. The complete diagnostic export passes every original
 check. A portable cycle and zero-sweep export remain rejected. This is a local
 candidate with explicit production-integration requirements, not a Phase-II or
 whole-runtime convergence result.
+
+## Production phase export and Phase-II continuation
+
+[The native transfer recovery](phase-transfer-recovery.md) integrates the bounded
+local repair with cancellation, rollback and policy guards. A fresh runtime run
+reproduces all 136 prior prefix records, passes Phase-I export at iteration
+102,446 and reaches 124,750 iterations before its 1,800-second limit. The requested
+continuation reaches iteration 128,873 and then rejects a below-threshold primal
+pivot near the reference objective. That endpoint is retained for diagnosis;
+whole-runtime optimality is still unproven.
