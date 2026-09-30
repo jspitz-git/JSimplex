@@ -308,3 +308,12 @@ nonbasic values restores a fully certified primal point of the reduced original
 model. The complete export still rejects both primal and dual basis residual
 checks; no production fix is promoted. The saved snapshots allow those numerical
 checks to be investigated without repeating the long Phase-I prefix.
+
+## Native correction of the captured transfer residuals
+
+[The residual investigation](phase-transfer-residuals.md) localizes the rejecting
+basis equations and tests one Float64 correction per direction. Separate dual
+correction and cleanup pass. Primal cleanup instead removes tiny values needed
+by nonzero right-hand sides and is correctly rejected without changing the live
+point or prices. The next numerical recovery candidate must preserve these local
+relations; no production change or completed phase export is claimed here.
