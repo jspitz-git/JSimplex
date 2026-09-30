@@ -54,7 +54,6 @@ _restore_legacy_primal_point!(workspace, ::Nothing, stop) = false
 function _restore_legacy_primal_point!(workspace::SimplexWorkspace{T},
                                           candidate::Vector{T}, stop) where {T}
     T === Float32 || T === Float64 || return false
-    tolerance = workspace.options.primal_tolerance
     _legacy_primal_reconstruction_feasible(workspace) && return false
     stop() && return false
     computed = _pivot_quality_buffers(workspace).correction
@@ -63,10 +62,20 @@ function _restore_legacy_primal_point!(workspace::SimplexWorkspace{T},
         workspace.primal[index] = candidate[row]
     end
     accepted = false
+    balanced = false
     try
-        _finite_workspace(workspace) && primal_infeasibility(workspace) <= tolerance || return false
-        _legacy_primal_model_feasible(workspace) || return false
-        _legacy_primal_row_consistent(workspace, tolerance) || return false
+        if !_legacy_primal_point_certified(workspace)
+            stop() && return false
+            # A bound snap can leave the prediction outside the equation
+            # tolerance and reconstruction outside a bound tolerance. Try one
+            # native midpoint, keeping nonbasic values fixed. Certification,
+            # not interpolation itself, decides whether the point is usable.
+            for (row, index) in enumerate(workspace.basis.basic_indices)
+                workspace.primal[index] = candidate[row] / T(2) + computed[row] / T(2)
+            end
+            _legacy_primal_point_certified(workspace) || return false
+            balanced = true
+        end
         stop() && return false
         accepted = true
     finally
@@ -76,9 +85,12 @@ function _restore_legacy_primal_point!(workspace::SimplexWorkspace{T},
             end
         end
     end
-    copyto!(workspace.scratch.row_solution, candidate)
+    for (row, index) in enumerate(workspace.basis.basic_indices)
+        workspace.scratch.row_solution[row] = workspace.primal[index]
+    end
     _pipeline_changed!(workspace, workspace.scratch.row_solution)
     _simplex_event!(workspace, :primal_point_preserved)
+    balanced && _simplex_event!(workspace, :primal_point_balanced)
     return true
 end
 

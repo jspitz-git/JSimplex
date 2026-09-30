@@ -10,7 +10,7 @@ const SIMPLEX_EVENT_REASONS = (
     :pricing_devex, :pricing_dantzig, :pricing_reset, :pricing_weight_rejected,
     :pricing_steepest_edge, :pricing_progress_return, :pricing_trial_expired, :pricing_phase_reset,
     :refactor_other, :correction_attempt, :correction, :pricing, :perturbation, :restore_perturbations,
-    :primal_point_preserved, :primal_point_corrected,
+    :primal_point_preserved, :primal_point_corrected, :primal_point_balanced,
     :certification, :certification_failed, :repair, :checkpoint, :restore_checkpoint,
     :feasibility_recovery, :precision_boost, :lp_refinement,
     :phase_lp_refinement, :lp_correction_certification,
