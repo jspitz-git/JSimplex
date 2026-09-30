@@ -1,6 +1,6 @@
 # A pivot can preserve a feasible approximate point even when a floating
 # factorization reconstructs an infeasible one. Keep the predicted point only
-# after independently certifying both original bounds and row consistency.
+# after independently certifying both active bounds and row consistency.
 _legacy_primal_point_candidate(workspace, entering, leaving_row, step, column) = nothing
 
 function _legacy_primal_point_candidate(workspace::SimplexWorkspace{T}, entering::Int,
@@ -33,6 +33,22 @@ function _legacy_primal_equation_violation(workspace::SimplexWorkspace{T}) where
         (!quality.finite || quality.absolute_error > workspace.options.primal_tolerance)
 end
 
+# Native point recovery belongs to the current working LP. An owned bound
+# perturbation is restored and the original LP certified by the outer driver.
+# Keep original-model checking for unrelated, unowned bound changes.
+function _legacy_primal_model_feasible(workspace::SimplexWorkspace)
+    columns = size(workspace.problem.A, 2)
+    primal = workspace.primal[1:columns]
+    tolerance = workspace.options.primal_tolerance
+    journal = workspace.scratch.perturbations
+    _has_active_bound_perturbations(journal) ||
+        return _original_primal_feasible(workspace.problem, primal, tolerance)
+    _check_perturbation_owner(workspace, journal)
+    return _primal_feasible_with_bounds(workspace.problem, primal, tolerance,
+        @view(workspace.lower[1:columns]), @view(workspace.upper[1:columns]),
+        @view(workspace.lower[(columns+1):end]), @view(workspace.upper[(columns+1):end]))
+end
+
 _restore_legacy_primal_point!(workspace, ::Nothing, stop) = false
 
 function _restore_legacy_primal_point!(workspace::SimplexWorkspace{T},
@@ -49,8 +65,7 @@ function _restore_legacy_primal_point!(workspace::SimplexWorkspace{T},
     accepted = false
     try
         _finite_workspace(workspace) && primal_infeasibility(workspace) <= tolerance || return false
-        columns = size(workspace.problem.A, 2)
-        _original_primal_feasible(workspace.problem, workspace.primal[1:columns], tolerance) || return false
+        _legacy_primal_model_feasible(workspace) || return false
         _legacy_primal_row_consistent(workspace, tolerance) || return false
         stop() && return false
         accepted = true
@@ -101,8 +116,7 @@ function _legacy_primal_point_certified(workspace)
         max(_lower_violation(workspace.lower[index], value),
             _upper_violation(workspace.upper[index], value)) <= tolerance || return false
     end
-    columns = size(workspace.problem.A, 2)
-    return _original_primal_feasible(workspace.problem, workspace.primal[1:columns], tolerance) &&
+    return _legacy_primal_model_feasible(workspace) &&
         _legacy_primal_row_consistent(workspace, tolerance)
 end
 

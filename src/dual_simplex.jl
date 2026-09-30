@@ -1566,13 +1566,15 @@ end
 
 _refined_primal_rows_feasible(::LinearProblem, ::Vector, tolerance, rows) = false
 
-function _original_primal_feasible(problem::LinearProblem{T}, primal::Vector{T}, tolerance::T) where {T}
-    _within_primal_bounds(primal, problem.column_lower, problem.column_upper, tolerance) || return false
+function _primal_feasible_with_bounds(problem::LinearProblem{T}, primal::Vector{T},
+                                      tolerance::T, column_lower, column_upper,
+                                      row_bound_lower, row_bound_upper) where {T}
+    _within_primal_bounds(primal, column_lower, column_upper, tolerance) || return false
     row_lower, row_upper = _primal_row_bounds(problem.A, primal, _is_exact(T))
-    # Certify the entire activity interval in the original absolute units.
+    # Certify the entire activity interval in the requested absolute units.
     # Cancellation uncertainty must not enlarge the configured tolerance.
-    _within_primal_intervals(row_lower, row_upper, problem.row_lower,
-                             problem.row_upper, tolerance) && return true
+    _within_primal_intervals(row_lower, row_upper, row_bound_lower,
+                             row_bound_upper, tolerance) && return true
     # A long floating sum can have a wider enclosure than the absolute
     # tolerance, or overflow before cancellation, even when its exact
     # stored-coefficient activity is feasible. Exact fallback checks finite
@@ -1581,10 +1583,16 @@ function _original_primal_feasible(problem::LinearProblem{T}, primal::Vector{T},
     rows = Int[]
     for row in eachindex(row_lower)
         _primal_interval_within_bounds(row_lower[row], row_upper[row],
-                                       problem.row_lower[row], problem.row_upper[row],
+                                       row_bound_lower[row], row_bound_upper[row],
                                        tolerance) || push!(rows, row)
     end
-    return _refined_primal_rows_feasible(problem, primal, tolerance, rows)
+    return _refined_primal_rows_feasible(problem, primal, tolerance, rows,
+                                          row_bound_lower, row_bound_upper)
+end
+
+function _original_primal_feasible(problem::LinearProblem{T}, primal::Vector{T}, tolerance::T) where {T}
+    return _primal_feasible_with_bounds(problem, primal, tolerance,
+        problem.column_lower, problem.column_upper, problem.row_lower, problem.row_upper)
 end
 
 _original_primal_feasible(workspace::SimplexWorkspace{T}, primal::Vector{T}) where {T} =
