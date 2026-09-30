@@ -206,3 +206,15 @@ These measurements establish the intended lifecycle over the recorded runs.
 They do not show that switching pricing resolves degeneracy: no tested model
 run reaches optimality. In particular, phase-II medium dual is observed only
 from approximately 825 to 900 seconds; longer-term behavior remains untested.
+
+## Phase-I perturbations with bounded adaptive pricing
+
+The next investigation compares monitoring, perturbations, pricing and their
+combination with the same internal `phase_one=true` construction. It reproduces
+and fixes a native point-recovery check against the wrong bounds while an owned
+perturbation is active. See [the interaction report](phase-one-interactions.md)
+for the isolated model measurements, regression evidence and remaining limits.
+The captured runtime failure is removed; convergence is not established. The
+combined medium primal run still fails at iteration 5,443, with independently
+confirmed working-bound infeasibility. The report retains this negative result
+and does not recommend enabling the combined path by default.

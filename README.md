@@ -345,8 +345,10 @@ the solve budget and precedes certification. Adaptive behavior remains opt-in.
 Stalled primal solves can also expand near-active basic bounds outward. These
 shifts have separate bounded escalation within the same journal. Fixed and free
 variables retain their bounds.
-Phase I, auxiliary work, and final cleanup disable bound perturbation. Before
-accepting a result, the driver restores original bounds and recomputes
+The default primal Phase I, dual auxiliary work, and final cleanup disable bound
+perturbation. The separate internal `phase_one=true` path permits it in the
+artificial-variable problem and restores that problem before certifying its
+optimum. Before accepting a result, the driver restores original bounds and recomputes
 feasibility within the same solve budget. See the
 [F13 validation report](diagnostics/simplex-modernization/F13.md).
 

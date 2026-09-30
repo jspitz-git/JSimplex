@@ -92,8 +92,11 @@ Original-cost and original-bound restoration remain mandatory, including when
 resuming an owned journal after heuristic flags have been disabled. Cleanup may
 select the appropriate feasible simplex phase without changing its numerical
 policy. Compare `perturbation`, `restore_perturbations`, and `phase_cleanup`, and
-include cleanup time. Primal bound shifts are excluded during phase I and
-objective cleanup. Perturbation levels are bounded, user tolerances are unchanged,
+include cleanup time. Primal bound shifts are excluded during the default
+primal phase I, dual auxiliary work, and objective cleanup. The separate internal
+`phase_one=true` path permits them, with restoration and certification of the
+unperturbed artificial-variable problem before phase II. Perturbation levels
+are bounded, user tolerances are unchanged,
 and exact arithmetic receives neither primal bound nor dual cost shifts.
 Use `--pricing=steepest_edge|devex|dantzig|auto` for fresh solves; replay retains
 its stored pricing option. `adaptive_pricing=false` disables progress-driven
