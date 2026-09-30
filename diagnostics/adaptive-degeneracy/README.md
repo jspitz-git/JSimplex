@@ -230,3 +230,9 @@ distinguishes the numerical repair from evidence about degeneracy and convergenc
 [The ordered-intervention report](intervention-order.md) separates the progress
 metric change from scheduling, records both primal measurements, and checks
 that adaptive shifts do not occur inside a temporary pricing trial.
+
+## Dual feasibility history across cost repairs
+
+[The cost-history report](dual-cost-history.md) identifies repeated monitor
+replacement during numerical dual cost repairs, preserves comparable feasibility
+history, and distinguishes that repair from the remaining convergence problem.

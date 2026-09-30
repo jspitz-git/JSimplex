@@ -46,7 +46,7 @@ function main(args=ARGS)
     transitions = Set((:pricing_dantzig,:pricing_steepest_edge,:pricing_devex,
         :pricing_progress_return,:pricing_trial_expired,:pricing_phase_reset,
         :phase_one,:phase_auxiliary,:phase_primal,:phase_dual,:phase_cleanup,
-        :perturbation,:restore_perturbations,:stagnation_stalled))
+        :perturbation,:restore_perturbations,:stagnation_stalled,:stagnation_cost_rebase))
     observer = function(event,ws)
         last_workspace[] = ws
         if event == :final_observed_workspace || event in transitions || (event == :pivot_completed && ws.iterations % 1000 == 0)
@@ -79,9 +79,11 @@ function main(args=ARGS)
                 record["monitor"] = string(objectid(history.monitor))
                 record["monitor_observations"] = history.monitor.observations
                 record["monitor_state"] = string(history.monitor.state)
+                record["monitor_value_scale"] = history.value_scale
+                record["monitor_cost_scale"] = history.cost_scale
                 for field in (:window, :window_count, :stalled_windows, :insignificant_steps,
                               :tolerance, :objective_improvement, :primal_improvement,
-                              :dual_improvement)
+                              :dual_improvement,:best_primal,:end_primal,:best_objective,:end_objective)
                     record["monitor_" * string(field)] = getfield(history.monitor, field)
                 end
             end
