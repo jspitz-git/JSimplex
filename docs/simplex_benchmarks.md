@@ -82,7 +82,9 @@ without opting into those alternative stages.
 Set heuristic flags to `false` to isolate their effects. There is no implicit
 legacy zero-step Dantzig switch or 1024-zero-step cost-perturbation trigger.
 Stagnation emits `stagnation_watch`, `stagnation_stalled`, and
-`stagnation_fallback` counters. Set `refactor_timing=false` in both arms of a
+`stagnation_fallback` counters. `stagnation_cost_rebase` records a dual
+cost-only change: objective and dual-price comparisons restart, while the
+unchanged feasible region retains its watched history. Set `refactor_timing=false` in both arms of a
 comparison to exclude clock-based refactor decisions. Interval growth still
 requires positive numerical quality evidence; disabling a quality-producing
 stage does not authorize unconditional growth.

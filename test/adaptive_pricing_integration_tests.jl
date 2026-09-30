@@ -3,7 +3,7 @@
     JSimplex._prepare_auto_pricing!(ws,:primal)
     JSimplex._primal_entering(ws,ws.options.dual_tolerance)
     monitor = JSimplex.StagnationMonitor{Float64}(2)
-    ws.scratch.stagnation = JSimplex.WorkspaceStagnation(monitor,UInt(0),0,1.0,1.0)
+    ws.scratch.stagnation = JSimplex.WorkspaceStagnation(monitor,UInt(0),UInt(0),0,1.0,1.0)
     pricing_observations!(monitor,4)
     JSimplex._observe_auto_pricing!(ws,:primal)
     @test ws.scratch.pricing.active == :dantzig
@@ -70,7 +70,7 @@ end
         original=copy(ws.pricing_weights)
         monitor=JSimplex.StagnationMonitor{Float64}(2)
         pricing_observations!(monitor,4)
-        ws.scratch.stagnation=JSimplex.WorkspaceStagnation(monitor,UInt(0),0,1.0,1.0)
+        ws.scratch.stagnation=JSimplex.WorkspaceStagnation(monitor,UInt(0),UInt(0),0,1.0,1.0)
         @test JSimplex._prepare_auto_pricing!(ws,:primal)
         JSimplex._observe_auto_pricing!(ws,:primal)
         @test isnothing(ws.scratch.pricing)

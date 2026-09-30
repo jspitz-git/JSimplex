@@ -4,7 +4,7 @@ const SIMPLEX_EVENT_REASONS = (
     :pivot_proposed, :pivot_rejected, :pivot_completed, :flip_completed, :bound_flipped,
     :refactor_initial, :refactor_limit, :refactor_residual, :refactor_pivot,
     :refactor_cost, :refactor_growth, :refactor_fill,
-    :stagnation_watch, :stagnation_stalled, :stagnation_fallback,
+    :stagnation_watch, :stagnation_stalled, :stagnation_fallback, :stagnation_cost_rebase,
     :pricing_scanned_entries, :pricing_scored_entries, :pricing_full_scan,
     :pricing_block_scan, :pricing_pool_hit,
     :pricing_devex, :pricing_dantzig, :pricing_reset, :pricing_weight_rejected,

@@ -67,7 +67,7 @@ end
         progress=JSimplex.SimplexProgressContext(problem; numerical_policy=policy))
     @test JSimplex._prepare_auto_pricing!(ws,:dual)
     monitor = JSimplex.StagnationMonitor{Float64}(2)
-    ws.scratch.stagnation = JSimplex.WorkspaceStagnation(monitor,UInt(0),0,1.0,1.0)
+    ws.scratch.stagnation = JSimplex.WorkspaceStagnation(monitor,UInt(0),UInt(0),0,1.0,1.0)
     for _ in 1:4
         JSimplex.observe_progress!(monitor; objective=0.0, primal_violation=1.0,
             dual_violation=0.0, primal_step=0.0, dual_step=0.0)
@@ -255,7 +255,7 @@ end
         force_pricing_trial!(ws,:dual)
         m = JSimplex.StagnationMonitor{Float64}(2)
         pricing_window!(JSimplex.PricingState(Float64),m,policy)
-        history = JSimplex.WorkspaceStagnation(m,UInt(0),0,1.0,1.0)
+        history = JSimplex.WorkspaceStagnation(m,UInt(0),UInt(0),0,1.0,1.0)
         ws.scratch.stagnation = history
         result = try
             JSimplex.make_dual_feasible!(ws,()->interruption == :deadline && reached[])
@@ -362,7 +362,7 @@ end
             progress=JSimplex.SimplexProgressContext(p;diagnostics=d,numerical_policy=policy))
         JSimplex._prepare_auto_pricing!(ws,algorithm)
         monitor=JSimplex.StagnationMonitor{Float64}(2)
-        ws.scratch.stagnation=JSimplex.WorkspaceStagnation(monitor,UInt(0),0,1.0,1.0)
+        ws.scratch.stagnation=JSimplex.WorkspaceStagnation(monitor,UInt(0),UInt(0),0,1.0,1.0)
         for objective in (1.0,1.0,0.75,0.5)
             for _ in 1:2
                 JSimplex.observe_progress!(monitor;objective,primal_violation=1.0,

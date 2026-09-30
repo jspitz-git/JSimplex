@@ -60,19 +60,19 @@ end
     @test ws.scratch.stagnation.monitor.state == :stalled
 end
 
-@testset "A working cost, bound, scaling, or algorithm change resets history" begin
-    for change in (:cost,:bound,:scale,:algorithm)
+@testset "Primal cost and shared feasibility-context changes reset history" begin
+    for change in (:bound,:scale,:algorithm,:cost)
         ws = stalling_workspace()
         for _ in 1:4
             ws.iterations += 1
-            JSimplex._observe_stagnation!(ws,:dual,0.0,0.0)
+            JSimplex._observe_stagnation!(ws,change == :cost ? :primal : :dual,0.0,0.0)
         end
         @test ws.scratch.stagnation.monitor.state == :watch
         change == :cost && (ws.costs[1] += 1.0)
         change == :bound && (ws.upper[1] = JSimplex.Bound(10.0))
         change == :scale && (ws.progress.scaling.row_factors[1] *= 2.0)
         ws.iterations += 1
-        JSimplex._observe_stagnation!(ws,change == :algorithm ? :primal : :dual,0.0,0.0)
+        JSimplex._observe_stagnation!(ws,change in (:algorithm,:cost) ? :primal : :dual,0.0,0.0)
         @test ws.scratch.stagnation.monitor.state == :progress
         @test ws.scratch.stagnation.monitor.window_count == 1
     end
