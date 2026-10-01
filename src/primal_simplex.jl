@@ -406,6 +406,7 @@ function _legacy_primal_iteration!(workspace::SimplexWorkspace, stop_requested,
     failure = DualTermination(NUMERICAL_ERROR, "primal ratio test is inconclusive")
     defer_weak = workspace.progress.numerical_policy.adaptive_pricing
     deferred = 0
+    price_recovery_attempted = false
     try
         # Search stable candidates first, then permit weak but validated pivots
         # if necessary. Each pass is finite, with one fresh-basis retry overall.
@@ -440,7 +441,7 @@ function _legacy_primal_iteration!(workspace::SimplexWorkspace, stop_requested,
                 # Only failures that leave the basis untouched allow another
                 # entering variable. Terminal certificates and limits return.
                 if isnothing(terminal) || terminal.status != NUMERICAL_ERROR ||
-                   workspace.scratch.selected_row != -1
+                   workspace.scratch.selected_row ∉ (-1,-2)
                     return terminal
                 end
                 failure = terminal
@@ -452,6 +453,17 @@ function _legacy_primal_iteration!(workspace::SimplexWorkspace, stop_requested,
                     attempts_left = length(workspace.basis.states)
                 end
                 basis_refreshed |= refreshed
+                if workspace.scratch.selected_row == -2 && !price_recovery_attempted
+                    # A price disagreement may expose an unreliable fresh BTRAN.
+                    # Consume one attempt across both candidate-search passes.
+                    price_recovery_attempted = true
+                    if _try_native_primal_price_recovery!(workspace,stop_requested)
+                        empty!(rejected)
+                        attempts_left = length(workspace.basis.states)
+                        continue
+                    end
+                    stop_requested() && return DualTermination(TIME_LIMIT,"time limit reached during primal price recovery")
+                end
                 entering = workspace.scratch.selected_entering
                 entering > 0 || return failure
                 push!(rejected, entering)
@@ -474,7 +486,8 @@ end
 function _legacy_primal_reject_candidate!(workspace::SimplexWorkspace{T}, entering::Int,
                                          column::Vector{T}, stop_requested,
                                          reduced_cost_tolerance::T, basis_refreshed::Bool,
-                                         defer_weak::Bool, reason::Symbol, message::String) where {T}
+                                         defer_weak::Bool, reason::Symbol, message::String;
+                                         rejection_row::Int=-1) where {T}
     stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
     if !basis_refreshed && !isempty(workspace.factorization.updates)
         candidate = _legacy_primal_point_candidate(workspace, 0, 0, zero(T), column)
@@ -490,7 +503,9 @@ function _legacy_primal_reject_candidate!(workspace::SimplexWorkspace{T}, enteri
         return _primal_iteration_unchecked!(workspace, stop_requested,
                                             reduced_cost_tolerance, true, defer_weak)
     end
-    workspace.scratch.selected_row = -1
+    # Negative rows mark an unchanged basis: -1 is an ordinary rejection,
+    # while -2 permits the outer loop's bounded native price-recovery attempt.
+    workspace.scratch.selected_row = rejection_row
     return DualTermination(NUMERICAL_ERROR, message)
 end
 
@@ -547,7 +562,8 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
                                            reduced_cost_tolerance)
         return _legacy_primal_reject_candidate!(workspace, entering, tableau_column,
             stop_requested, reduced_cost_tolerance, basis_refreshed, defer_weak,
-            :refactor_residual, "primal reduced cost disagrees with its direction")
+            :refactor_residual, "primal reduced cost disagrees with its direction";
+            rejection_row=-2)
     end
     step, leaving_row, leaving_state = if incremental || incremental_pivot
         _with_recovery_precision(workspace, workspace) do

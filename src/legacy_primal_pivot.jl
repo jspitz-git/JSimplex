@@ -39,6 +39,36 @@ function _legacy_primal_direction_price_ok(workspace::SimplexWorkspace{T}, enter
     return abs(cached-implied)<=tolerance
 end
 
+# Repair only a demonstrated native BTRAN residual failure. The fresh solve
+# and all prices stay private until accepted; scratch.rho may hold a pivot row,
+# so it is not a reusable copy of the current objective's dual solution.
+_try_native_primal_price_recovery!(workspace,stop) = false
+function _try_native_primal_price_recovery!(workspace::SimplexWorkspace{T},stop) where {T<:Union{Float32,Float64}}
+    workspace.options.algorithm == :primal &&
+        _legacy_primal_row_validation_enabled(workspace) || return false
+    policy=workspace.progress.numerical_policy
+    policy.max_refinements>0 && !stop() || return false
+    B=_basis_matrix!(workspace)
+    rhs=workspace.costs[workspace.basis.basic_indices]
+    dual=similar(rhs)
+    _timed_simplex(workspace,:btran) do
+        transpose_solve!(dual,workspace.factorization,rhs)
+    end
+    scratch=SolveQualityScratch(T,length(rhs))
+    quality=_compensated_solve_quality!(scratch,B,dual,rhs,policy,true)
+    (isnothing(quality) || !quality.finite || quality.reliable || stop()) && return false
+    _native_cleanup_solve!(dual,workspace,B,rhs,stop;transposed=true) || return false
+    prices=similar(workspace.reduced_costs)
+    _recompute_reduced_costs!(prices,workspace,dual)
+    all(isfinite,prices) && prices!=workspace.reduced_costs && !stop() || return false
+    copyto!(workspace.scratch.rho,dual)
+    copyto!(workspace.reduced_costs,prices)
+    _pipeline_changed!(workspace,workspace.scratch.rho)
+    _invalidate_pricing_pool!(workspace;basis=false)
+    _simplex_event!(workspace,:primal_prices_corrected)
+    return true
+end
+
 # A forward residual alone can miss a spurious pivot in an ill-conditioned
 # basis. Check its transpose row before changing the basis, then share that row
 # with pricing updates instead of computing another BTRAN for the weights.

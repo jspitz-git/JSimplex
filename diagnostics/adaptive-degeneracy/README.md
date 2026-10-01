@@ -395,3 +395,13 @@ basis residual reliability after refactorization. The previously failing mod010
 permutation reaches verified OPTIMAL in 679 iterations. Portable two-precision,
 four-manager regressions and 20 selected real-model runs verify the change;
 three numerical failures outside this transition remain explicitly recorded.
+
+## Native reduced-price reconstruction
+
+[The bounded price correction](native-price-recovery.md) addresses an unreliable
+native BTRAN behind repeated Phase-I direction-price rejections. It preserves
+zero price tolerance, true tiny improving costs and the finite recovery budget.
+Six configurations pass this pricing obstacle but still fail at artificial
+removal; the selected 30-case suite has 17 verified optima and 13 numerical
+errors. The report distinguishes captured auxiliary optimality from full solves
+and includes a paired control with only the new recovery disabled.

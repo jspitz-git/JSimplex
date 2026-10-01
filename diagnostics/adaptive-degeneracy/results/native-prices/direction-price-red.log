@@ -1,0 +1,145 @@
+ERROR: LoadError: Some tests did not pass: 104 passed, 8 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_direction_price_tests.jl:142
+Test Summary:                                               | Pass  Total  Time
+Legacy primal rejects a price contradicted by its direction |   96     96  0.3s
+Test Summary:                                                       | Pass  Total  Time
+An inaccurate price cannot force a flip or an unboundedness failure |   80     80  0.1s
+Test Summary:                                        | Pass  Total  Time
+Phase-I pricing retains genuine tiny improving costs |   24     24  0.0s
+Test Summary:                                     | Pass  Total  Time
+Consistent prices near cancellation remain usable |   24     24  0.0s
+Test Summary:                                                  | Pass  Total  Time
+Multi-term cancellation uses the native accumulation allowance |   40     40  0.0s
+Test Summary:                                                     | Pass  Total  Time
+A contradicted price refreshes an updated basis once and reprices |   72     72  0.1s
+
+Native price recovery removes BTRAN roundoff and retains tiny costs: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_direction_price_tests.jl:148
+  Expression: if genuine
+    isnothing(terminal)
+else
+    !(isnothing(terminal)) && terminal.status == OPTIMAL
+end
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_direction_price_tests.jl:143
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_direction_price_tests.jl:148 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native price recovery removes BTRAN roundoff and retains tiny costs: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_direction_price_tests.jl:148
+  Expression: if genuine
+    isnothing(terminal)
+else
+    !(isnothing(terminal)) && terminal.status == OPTIMAL
+end
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_direction_price_tests.jl:143
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_direction_price_tests.jl:148 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native price recovery removes BTRAN roundoff and retains tiny costs: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_direction_price_tests.jl:148
+  Expression: if genuine
+    isnothing(terminal)
+else
+    !(isnothing(terminal)) && terminal.status == OPTIMAL
+end
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_direction_price_tests.jl:143
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_direction_price_tests.jl:148 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native price recovery removes BTRAN roundoff and retains tiny costs: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_direction_price_tests.jl:148
+  Expression: if genuine
+    isnothing(terminal)
+else
+    !(isnothing(terminal)) && terminal.status == OPTIMAL
+end
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_direction_price_tests.jl:143
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_direction_price_tests.jl:148 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native price recovery removes BTRAN roundoff and retains tiny costs: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_direction_price_tests.jl:148
+  Expression: if genuine
+    isnothing(terminal)
+else
+    !(isnothing(terminal)) && terminal.status == OPTIMAL
+end
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_direction_price_tests.jl:143
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_direction_price_tests.jl:148 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native price recovery removes BTRAN roundoff and retains tiny costs: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_direction_price_tests.jl:148
+  Expression: if genuine
+    isnothing(terminal)
+else
+    !(isnothing(terminal)) && terminal.status == OPTIMAL
+end
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_direction_price_tests.jl:143
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_direction_price_tests.jl:148 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native price recovery removes BTRAN roundoff and retains tiny costs: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_direction_price_tests.jl:148
+  Expression: if genuine
+    isnothing(terminal)
+else
+    !(isnothing(terminal)) && terminal.status == OPTIMAL
+end
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_direction_price_tests.jl:143
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_direction_price_tests.jl:148 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native price recovery removes BTRAN roundoff and retains tiny costs: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_direction_price_tests.jl:148
+  Expression: if genuine
+    isnothing(terminal)
+else
+    !(isnothing(terminal)) && terminal.status == OPTIMAL
+end
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_direction_price_tests.jl:143
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/legacy_primal_direction_price_tests.jl:148 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+Test Summary:                                                       | Pass  Fail  Total  Time
+Native price recovery removes BTRAN roundoff and retains tiny costs |  104     8    112  0.5s
+RNG of the outermost testset: Random.Xoshiro(0xf021330f7925bcc6, 0xda313634d3469879, 0x22e7775658de3521, 0x8e148ba9ce822761, 0x0fc9fc0254dfa37d)
