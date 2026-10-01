@@ -3,6 +3,61 @@
 _native_phase_transfer_enabled(ws) =
     ws.options.algorithm == :primal && _legacy_primal_row_validation_enabled(ws)
 
+# Propose clearing a coupled roundoff component only after local reconstruction
+# stalls. Follow homogeneous rows whose active coordinates are all below the
+# correction-based cutoff; do not spread through rows containing larger values
+# or a nonzero RHS. The caller still certifies every equation, including those
+# outside the component, before publishing the candidate.
+function _native_phase_homogeneous_component!(x,B,rows,rhs,policy,cutoff,scratch,stop)
+    seen=falses(length(rhs))
+    selected=falses(length(x))
+    pending=Int[]
+    for row in eachindex(rhs)
+        stop() && return false
+        if abs(scratch.residual[row]) > policy.solve_tolerance*scratch.work_scale[row]
+            push!(pending,row)
+            seen[row]=true
+        end
+    end
+    head=1
+    changed=false
+    while head<=length(pending)
+        stop() && return false
+        row=pending[head];head+=1
+        iszero(rhs[row]) || continue
+        small=true
+        for p in nzrange(rows,row)
+            stop() && return false
+            iszero(rows.nzval[p]) && continue
+            if !(abs(x[rows.rowval[p]])<=cutoff)
+                small=false
+                break
+            end
+        end
+        small || continue
+        for p in nzrange(rows,row)
+            stop() && return false
+            column=rows.rowval[p]
+            (iszero(rows.nzval[p]) || iszero(x[column]) || selected[column]) && continue
+            selected[column]=true
+            changed=true
+            for q in nzrange(B,column)
+                stop() && return false
+                neighbor=B.rowval[q]
+                (iszero(B.nzval[q]) || seen[neighbor]) && continue
+                seen[neighbor]=true
+                push!(pending,neighbor)
+            end
+        end
+    end
+    changed && !stop() || return false
+    for column in eachindex(x)
+        stop() && return false
+        selected[column] && (x[column]=zero(eltype(x)))
+    end
+    return true
+end
+
 _native_phase_local_rows!(x,B,rhs,policy,cutoff,stop) = false
 function _native_phase_local_rows!(x::Vector{T}, B::SparseMatrixCSC{T}, rhs,
                                     policy, cutoff::T, stop) where {T<:Union{Float32,Float64}}
@@ -61,10 +116,15 @@ function _native_phase_local_rows!(x::Vector{T}, B::SparseMatrixCSC{T}, rhs,
                 changed=true
             end
         end
-        changed || return false
+        changed || break
     end
     quality=_compensated_solve_quality!(scratch,B,trial,rhs,policy,false)
-    (isnothing(quality) || !quality.reliable || stop()) && return false
+    (isnothing(quality) || stop()) && return false
+    if !quality.reliable
+        _native_phase_homogeneous_component!(trial,B,rows,rhs,policy,cutoff,scratch,stop) || return false
+        quality=_compensated_solve_quality!(scratch,B,trial,rhs,policy,false)
+        (isnothing(quality) || !quality.reliable || stop()) && return false
+    end
     copyto!(x,trial)
     return true
 end

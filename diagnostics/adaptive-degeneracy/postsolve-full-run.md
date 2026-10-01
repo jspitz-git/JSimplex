@@ -95,3 +95,8 @@ The 19-MiB detached workspace and exact runner/wrapper copies remain in
 `.superpowers/adaptive-degeneracy/postsolve-full-run/`. The committed artifact
 manifest records their hashes. The runner itself is unchanged from the already
 committed reproduction used for the preceding fresh prefix.
+
+The subsequent [coupled homogeneous recovery](phase-components.md) identifies
+and fixes this specific export failure. A new full solve with the same sampled
+Phase-I trajectory then reaches OPTIMAL; this report remains the evidence for
+the earlier failure before that correction.

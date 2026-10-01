@@ -60,3 +60,73 @@ end
         end
     end
 end
+
+@testset "Phase export clears coupled homogeneous roundoff without erasing tiny data" begin
+    for T in (Float32,Float64)
+        noise=T===Float32 ? T(1e-10) : T(1e-30)
+        tiny=T===Float32 ? T(1e-20) : T(1e-66)
+        cutoff=T(100)*noise
+        # The first five equations form the coupled homogeneous block seen at
+        # runtime's export. The sixth propagates cleanup to a satisfied row.
+        block=T[-1 0 1 0 0 0; 0 -1 0 -1 1 0;
+            -0.50137362625 -0.50137362625 0 -1.825 0 0;
+            -1 -1 0 -1 0 0; 0 0 -0.1 0 1.9 0; 0 0 1 0 0 -1]
+        B=blockdiag(sparse(block),sparse(T[1 1;0 1]))
+        rhs=vcat(zeros(T,7),tiny)
+        initial=vcat(noise*T[-1.3,1,-1.3,-0.4,-0.07,-1.3],T[noise,tiny])
+        policy=JSimplex.NumericalPolicy(T)
+        x=copy(initial)
+        @test JSimplex._native_phase_local_rows!(x,B,rhs,policy,cutoff,()->false)
+        @test all(iszero,x[1:6])
+        @test x[7:8]==T[-tiny,tiny]
+        @test JSimplex.solve_quality!(JSimplex.SolveQualityScratch(T,8),B,x,rhs,policy).reliable
+        # A neighboring large coordinate must never join the cleanup. An
+        # insignificant connection passes; an amplified connection must fail
+        # the full-system certificate and leave the entire input unchanged.
+        for coefficient in (one(T),inv(noise))
+            boundary=blockdiag(B,sparse(reshape(T[1],1,1)))
+            boundary[9,1]=coefficient
+            values=vcat(initial,T(4))
+            boundary_rhs=vcat(rhs,T(4)+coefficient*initial[1])
+            saved=copy(values)
+            accepted=JSimplex._native_phase_local_rows!(values,boundary,boundary_rhs,
+                policy,cutoff,()->false)
+            @test accepted == (coefficient==one(T))
+            @test values[9]==T(4)
+            if accepted
+                @test all(iszero,values[1:6])
+            else
+                @test isequal(values,saved)
+            end
+        end
+        # The final stop checks are inside the component-clearing loop and
+        # then its certificate. Interrupt mid-clear, after tentative zeroing.
+        calls=Ref(0)
+        @test JSimplex._native_phase_local_rows!(copy(initial),B,rhs,policy,cutoff,
+            ()->begin calls[]+=1;false end)
+        cancel_at=calls[]-4
+        for throwing in (false,true)
+            x=copy(initial);calls[]=0;error=ErrorException("cancel component cleanup")
+            stop=()->begin
+                calls[]+=1
+                if calls[]==cancel_at
+                    throwing && throw(error)
+                    return true
+                end
+                false
+            end
+            result=try JSimplex._native_phase_local_rows!(x,B,rhs,policy,cutoff,stop) catch e; e end
+            @test result === (throwing ? error : false)
+            @test calls[]==cancel_at
+            @test isequal(x,initial)
+        end
+        # A nonzero RHS in the block makes clearing it invalid, however tiny.
+        unsafe_rhs=copy(rhs);unsafe_rhs[1]=tiny
+        x=copy(initial)
+        @test !JSimplex._native_phase_local_rows!(x,B,unsafe_rhs,policy,cutoff,()->false)
+        @test isequal(x,initial)
+        x=copy(initial)
+        @test !JSimplex._native_phase_local_rows!(x,B,rhs,policy,zero(T),()->false)
+        @test isequal(x,initial)
+    end
+end

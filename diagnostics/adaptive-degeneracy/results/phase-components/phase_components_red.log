@@ -1,0 +1,117 @@
+ERROR: LoadError: Some tests did not pass: 8 passed, 8 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_phase_transfer_tests.jl:64
+Test Summary:                                  | Pass  Total  Time
+Phase export retains certified nonbasic values |   32     32  0.2s
+Test Summary:                                                     | Pass  Total  Time
+Local phase rows preserve tiny right-hand sides and reject cycles |   24     24  0.0s
+
+Phase export clears coupled homogeneous roundoff without erasing tiny data: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_phase_transfer_tests.jl:79
+  Expression: JSimplex._native_phase_local_rows!(x, B, rhs, policy, cutoff, (()->begin
+            #= /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_phase_transfer_tests.jl:79 =#
+            false
+        end))
+   Evaluated: JSimplex._native_phase_local_rows!(Float32[-1.3f-10, 1.0f-10, -1.3f-10, -4.0f-11, -7.0f-12, -1.3f-10, 1.0f-10, 1.0f-20], sparse([1, 3, 4, 2, 3, 4, 1, 5, 6, 2, 3, 4, 2, 5, 6, 7, 7, 8], [1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 6, 7, 8, 8], Float32[-1.0, -0.50137365, -1.0, -1.0, -0.50137365, -1.0, 1.0, -0.1, 1.0, -1.0, -1.825, -1.0, 1.0, 1.9, -1.0, 1.0, 1.0, 1.0], 8, 8), Float32[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0f-20], JSimplex.NumericalPolicy{Float32}(3.0517578f-5, 0.00034526698f0, 3, 8, 2, 64, 512, 1073741824, 8, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false), 1.0f-8, var"#19#20"())
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_phase_transfer_tests.jl:65
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_phase_transfer_tests.jl:79 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Phase export clears coupled homogeneous roundoff without erasing tiny data: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_phase_transfer_tests.jl:80
+  Expression: all(iszero, x[1:6])
+   Evaluated: all(iszero, Float32[-1.3f-10, 1.0f-10, -1.3f-10, -4.0f-11, -7.0f-12, -1.3f-10])
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_phase_transfer_tests.jl:65
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_phase_transfer_tests.jl:80 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Phase export clears coupled homogeneous roundoff without erasing tiny data: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_phase_transfer_tests.jl:81
+  Expression: x[7:8] == T[-tiny, tiny]
+   Evaluated: Float32[1.0f-10, 1.0f-20] == Float32[-1.0f-20, 1.0f-20]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_phase_transfer_tests.jl:65
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_phase_transfer_tests.jl:81 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Phase export clears coupled homogeneous roundoff without erasing tiny data: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_phase_transfer_tests.jl:82
+  Expression: (JSimplex.solve_quality!(JSimplex.SolveQualityScratch(T, 8), B, x, rhs, policy)).reliable
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_phase_transfer_tests.jl:65
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_phase_transfer_tests.jl:82 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Phase export clears coupled homogeneous roundoff without erasing tiny data: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_phase_transfer_tests.jl:79
+  Expression: JSimplex._native_phase_local_rows!(x, B, rhs, policy, cutoff, (()->begin
+            #= /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_phase_transfer_tests.jl:79 =#
+            false
+        end))
+   Evaluated: JSimplex._native_phase_local_rows!([-1.3000000000000001e-30, 1.0e-30, -1.3000000000000001e-30, -4.0e-31, -7.000000000000001e-32, -1.3000000000000001e-30, 1.0e-30, 1.0e-66], sparse([1, 3, 4, 2, 3, 4, 1, 5, 6, 2, 3, 4, 2, 5, 6, 7, 7, 8], [1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 6, 7, 8, 8], [-1.0, -0.50137362625, -1.0, -1.0, -0.50137362625, -1.0, 1.0, -0.1, 1.0, -1.0, -1.825, -1.0, 1.0, 1.9, -1.0, 1.0, 1.0, 1.0], 8, 8), [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0e-66], JSimplex.NumericalPolicy{Float64}(5.684341886080802e-14, 1.4901161193847656e-8, 3, 8, 2, 64, 512, 1073741824, 8, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false), 1.0000000000000001e-28, var"#19#20"())
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_phase_transfer_tests.jl:65
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_phase_transfer_tests.jl:79 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Phase export clears coupled homogeneous roundoff without erasing tiny data: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_phase_transfer_tests.jl:80
+  Expression: all(iszero, x[1:6])
+   Evaluated: all(iszero, [-1.3000000000000001e-30, 1.0e-30, -1.3000000000000001e-30, -4.0e-31, -7.000000000000001e-32, -1.3000000000000001e-30])
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_phase_transfer_tests.jl:65
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_phase_transfer_tests.jl:80 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Phase export clears coupled homogeneous roundoff without erasing tiny data: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_phase_transfer_tests.jl:81
+  Expression: x[7:8] == T[-tiny, tiny]
+   Evaluated: [1.0e-30, 1.0e-66] == [-1.0e-66, 1.0e-66]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_phase_transfer_tests.jl:65
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_phase_transfer_tests.jl:81 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Phase export clears coupled homogeneous roundoff without erasing tiny data: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_phase_transfer_tests.jl:82
+  Expression: (JSimplex.solve_quality!(JSimplex.SolveQualityScratch(T, 8), B, x, rhs, policy)).reliable
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_phase_transfer_tests.jl:65
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_phase_transfer_tests.jl:82 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+Test Summary:                                                              | Pass  Fail  Total  Time
+Phase export clears coupled homogeneous roundoff without erasing tiny data |    8     8     16  0.1s
+RNG of the outermost testset: Random.Xoshiro(0x0daa39089b5470a1, 0x938e9679f09e463d, 0xcead24d665a887ef, 0xa15b406445898776, 0x3b367764503c9f3d)

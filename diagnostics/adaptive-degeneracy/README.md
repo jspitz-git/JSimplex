@@ -365,3 +365,13 @@ NUMERICAL_ERROR, `artificial removal could not be completed`, after 82,000
 iterations and 597.688 seconds. The new trajectory reaches a different Phase-I
 export state; the previously successful saved continuation is not a complete
 fresh-solve result. The final workspace is retained for targeted diagnosis.
+
+## Coupled homogeneous roundoff at phase export
+
+[The targeted core correction](phase-components.md) clears a certified component
+of tiny homogeneous roundoff after bounded local reconstruction fails. It fixes
+the fresh-run export at iteration 82,000 without changing tolerances or precision.
+A new complete run from MPS in the same isolated adaptive configuration reaches
+**OPTIMAL**, objective **51,425,691.762104236**, with original primal feasibility,
+106,252 iterations, 1,341 refactorizations and 846.284 seconds. All 79 sampled
+Phase-I pivot records match the preceding failed run before the repaired export.
