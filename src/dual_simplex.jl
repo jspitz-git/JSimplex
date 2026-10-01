@@ -1297,6 +1297,21 @@ function _dual_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_request
         end
     end
     checked_pivot = workspace.progress.numerical_policy.pivot_validation
+    if !checked_pivot && _is_exact(T) === Val(false)
+        # A small backward residual cannot certify a pivot in an ill-conditioned
+        # basis. The row used by the ratio test must agree with the direction
+        # used to update primal values before either the flips or pivot publish.
+        row_pivot = tableau_row[entering_index]
+        agreement = sqrt(eps(one(T))) * max(abs(pivot), abs(row_pivot))
+        if !_pivot_agrees(row_pivot, pivot, agreement)
+            _is_staged_workspace(workspace) &&
+                throw(_PivotRejection(leaving_row, entering_index, :refresh))
+            # Ordinary consistent steps retain the direct path. Only a failed
+            # comparison enters the existing bounded, transactional retry.
+            return _retry_simplex_step!(workspace, stop_requested, :dual,
+                workspace.options.dual_tolerance, basis_refreshed, perturb_degenerate)
+        end
+    end
     if checked_pivot
         proposal = PivotCandidate(entering_index,leaving_row,
                                   tableau_row[entering_index],tableau_column,rho)

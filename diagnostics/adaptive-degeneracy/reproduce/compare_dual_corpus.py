@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Compare paired dual runs; retain failed certificates and bounded outcomes."""
+"""Compare paired simplex runs; retain failed certificates and bounded outcomes."""
 import argparse
 import collections
 import json
@@ -10,9 +10,19 @@ parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('base', type=pathlib.Path)
 parser.add_argument('candidate', type=pathlib.Path)
 parser.add_argument('output', type=pathlib.Path, help='Output prefix for JSON and Markdown')
+parser.add_argument('--additional-base', type=pathlib.Path, action='append', default=[],
+                    help='Disjoint baseline reports with identical source, instrumentation and policy')
+parser.add_argument('--algorithm', choices=('primal', 'dual'), default='dual',
+                    help='Select matching algorithm records from the reports')
 args = parser.parse_args()
 base = tomllib.loads(args.base.read_text())
 candidate = tomllib.loads(args.candidate.read_text())
+for path in args.additional_base:
+    extra = tomllib.loads(path.read_text())
+    for field in ('production_sha256', 'julia', 'jump', 'julia_threads', 'blas_threads',
+                  'policy', 'diagnostic_sha256', 'original_retry_enabled', 'weak_pivot_preference'):
+        assert base[field] == extra[field], (str(path), field)
+    base['records'].extend(extra['records'])
 for field in ('julia', 'jump', 'julia_threads', 'blas_threads', 'policy',
               'diagnostic_sha256', 'original_retry_enabled', 'weak_pivot_preference'):
     assert base[field] == candidate[field], (field, base[field], candidate[field])
@@ -23,9 +33,9 @@ def key(row):
     return tuple(row[field] for field in ('id', 'reader', 'algorithm', 'manager', 'seed'))
 
 def records(report):
-    rows = {key(row): row for row in report['records']}
-    assert len(rows) == len(report['records']), 'Duplicate configuration'
-    assert all(row['algorithm'] == 'dual' for row in rows.values())
+    selected = [row for row in report['records'] if row['algorithm'] == args.algorithm]
+    rows = {key(row): row for row in selected}
+    assert rows and len(rows) == len(selected), 'Missing or duplicate configuration'
     return rows
 
 def verified(row):
@@ -68,7 +78,7 @@ summary = {
     'records': rows,
 }
 args.output.with_suffix('.json').write_text(json.dumps(summary, indent=2) + '\n')
-lines = ['# Paired dual corpus results', '',
+lines = [f'# Paired {args.algorithm} corpus results', '',
          'Status, iteration count, refactorizations, phase sequence and objective are compared exactly.',
          'An optimum is verified only if both primal certificates and the independent objective match pass.',
          'Times include compilation and diagnostics; this is not a speed benchmark.', '',

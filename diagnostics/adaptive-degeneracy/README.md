@@ -489,3 +489,20 @@ reader orders (164/142 iterations). An unchanged-trajectory pivot audit and exac
 rational diagnosis confirm that a false accepted pivot changes a nonsingular
 basis into a singular one; FTRAN and BTRAN estimates have opposite signs. The
 report retains reproductions and explicitly makes no production-fix claim.
+
+
+## Mandatory native dual pivot consistency
+
+[Dual pivot consistency](dual-pivot-consistency.md) repairs the diagnosed
+no-presolve pilotnov core failure by comparing the FTRAN pivot with its BTRAN
+row coefficient before publishing the step. Disagreement enters the existing
+bounded transactional recovery in the original scalar type; no adaptive
+heuristic is added.
+
+Both pilotnov reader orders now reach independently verified original optima
+in 1806/2524 iterations. The separate 76-case dual corpus preserves every prior
+status, iteration/refactorization count, phase sequence and objective exactly:
+74 verified optima and two unchanged presolve rejections. All 28 paired primal
+configurations also retain their verified optima and exact trajectories. The
+report retains an independent duplicate-column regression, broader semantic checks,
+and explicit validation limits. The pilotnov presolve discrepancy remains open.

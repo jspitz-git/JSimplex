@@ -1,0 +1,130 @@
+{
+  "base_commit": "0392fb204ab1fe893e84c368f24d29f025bbd5e2",
+  "baseline_reports": [
+    "diagnostics/adaptive-degeneracy/results/dual-corpus/candidate.toml",
+    "diagnostics/adaptive-degeneracy/results/dual-expanded/models.toml"
+  ],
+  "files": [
+    {
+      "path": "diagnostics/adaptive-degeneracy/reproduce/compare_dual_corpus.py",
+      "sha256": "35e9ae22b9cea4e017df2e669e77dfbc7afd8fa87ae0bdb675e8b161f1fc119f"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/dual-corpus/jobs.toml",
+      "sha256": "9aadb5ed95460a8cc58be56f85fb67af1c3435d6944ffc64931e9964eb575ad1"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/dual-expanded/jobs.toml",
+      "sha256": "b14f0c23f8e360e257cc603db1ecc6ee86fee893e212facca315f89a66b54f1f"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/dual-pivot-consistency/dual-jobs.toml",
+      "sha256": "14397f6eb857007575c871ef63ff54ca3b1bf38a6245be67010456c885608bb2"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/dual-pivot-consistency/dual-models.toml",
+      "sha256": "12bc4c9ab4c2c1874445c9c1e724a9847041736b35aac2fdb7e173f2d45f20b0"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/dual-pivot-consistency/pilotnov.toml",
+      "sha256": "dd609a71b2fbc5a94b9a1131c9acaa5f7cb0fffa65b449398a295c78c5e4044b"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/dual-pivot-consistency/primal-jobs.toml",
+      "sha256": "7d43d64cd15ad2bdafe9ff1b563089183c56ed95515c34a0bb0abf3e6fbfe88d"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/dual-pivot-consistency/primal-models.toml",
+      "sha256": "c3d88b0187b5062941893cae723b6fb2aabf9365d1351a4f6ebeebf44f462edc"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/dual-pivot-consistency/semantic-capture.toml",
+      "sha256": "79cd784808c327c07d0c6c3fdf371772c0c16d36573bfe867e97c43ed7874741"
+    },
+    {
+      "path": "test/dual_pivot_consistency_tests.jl",
+      "sha256": "d1da060175cab07dee78c020c831f139a89b05acfe573ba53190375df1a5a1bc"
+    }
+  ],
+  "primal_baseline": "diagnostics/adaptive-degeneracy/results/stocfor2-point/models.toml",
+  "pilotnov_baseline": "diagnostics/adaptive-degeneracy/results/dual-expanded/pilotnov-no-presolve.toml",
+  "production_sha256": "8235d7db61ca1599e9c382e1f13a797b355eefa4ecf6ba0ed07a864245790729",
+  "environment": {
+    "julia": "1.13.0",
+    "architecture": "aarch64",
+    "julia_threads": 1,
+    "blas_threads": 1,
+    "precompile_workload": false,
+    "virtual_memory_gib": 8,
+    "minimum_available_ram_gib": 6,
+    "maximum_swap_used_gib": 1
+  },
+  "verification": {
+    "focused_normal": {
+      "passed": 851,
+      "exit_code": 0
+    },
+    "semantic_compile_min": {
+      "passed": 14592,
+      "exit_code": 0
+    },
+    "whole_suite_normal": {
+      "exit_code": 75,
+      "guard": "wall_time",
+      "seconds": 300,
+      "location": "test/simplex_strategy_separation_tests.jl:57",
+      "completed": false
+    },
+    "review": "Independent read-only review: no blocking findings"
+  },
+  "logs": [
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/dual-pivot-consistency/base-original-costs.log",
+      "sha256": "f9795a2f6ef71dbb11b3148d038a434247e1d245325fd0c566e2bae1ebd95c11"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/dual-pivot-consistency/dual-models.log",
+      "sha256": "d107f3918f431157c63aa3418854a131ec4fc94ad88963be4be6102e0896598b"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/dual-pivot-consistency/expanded-callback-expectations.log",
+      "sha256": "7f7afd7387929b377973f2c356a1f2ee9fbfc9e20320b8a22c657b225a25026f"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/dual-pivot-consistency/expanded-tests.log",
+      "sha256": "6739ae3b5d26de4e9280d1163eabb5ba98cce8484824e0ebd26f06540711449f"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/dual-pivot-consistency/focused.log",
+      "sha256": "95495c2973b672e4ccb694ba3c1b6540dfa7a38a7d48221afe4aa431b51f0d4f"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/dual-pivot-consistency/full-suite.log",
+      "sha256": "86bf729c2462dcf3519d4acce8a61c5cfc39ed68d92a3ff88f0a73dcb060b3c0"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/dual-pivot-consistency/green.log",
+      "sha256": "7094fcf603cf01424dc6cc09a8f1d60b9626dc26aa401eace77632e60c78491e"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/dual-pivot-consistency/pilotnov.log",
+      "sha256": "6f7e655c07d1d05e6110eccc4dfd0629edc8488e1cfd6646c7083a8dae14176f"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/dual-pivot-consistency/primal-models.log",
+      "sha256": "46bc1170d3fb22cd1169a1a0d5383fe679ce92d79a164b934e00fb851d8da04a"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/dual-pivot-consistency/red.log",
+      "sha256": "659f81009bc5235b0c723631f48bb286d994aae0a88c0269b1328b55a9b3f3bb"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/dual-pivot-consistency/semantics-wrong-fixture.log",
+      "sha256": "6cebb9377885fe9b77c6862f65e9a290436fb2dc56f99cde696b0aa9990bea96"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/dual-pivot-consistency/semantics.log",
+      "sha256": "3c373d1822a6aa976eea56cdc0fd3d98754fafc2572a26307333e3f9f0bd787f"
+    }
+  ]
+}

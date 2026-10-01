@@ -1,0 +1,109 @@
+ERROR: LoadError: Some tests did not pass: 4 passed, 8 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:23
+
+Dual cannot exchange a basic column for its exact duplicate: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:30
+  Expression: ws.basis.basic_indices == before
+   Evaluated: [1, 5, 3, 4] == [1, 2, 3, 4]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:24
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:30 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Dual cannot exchange a basic column for its exact duplicate: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:31
+  Expression: ws.iterations == 0
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:24
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:31 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Dual cannot exchange a basic column for its exact duplicate: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:32
+  Expression: issuccess(lu(Matrix{Rational{BigInt}}(JSimplex.basis_matrix(ws)); check = false))
+   Evaluated: issuccess(LU{Rational{BigInt}, Matrix{Rational{BigInt}}, Vector{Int64}}(Rational{BigInt}[1948405184526487//2251799813685248 1948405184526487//2251799813685248 3762381858727567//4503599627370496 2563857184482851//4503599627370496; 2331664518588895//3896810369052974 0 2535814396500553004326809790767//17549673726000458704133348655104 6057838481394419072749024266827//17549673726000458704133348655104; 1796162236713599//1948405184526487 0 -1686159034789792547640248936769//2193709215750057338016668581888 473698320729893695900543976515//4387418431500114676033337163776; 1575376942432121//3896810369052974 0 -3457107852506265032633740618681//4496424092772780127040663831384 6730920145358592446443605822599355743219104615//10125046934355606558284645095400715540320223232], [3, 2, 3, 4], 2))
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:24
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:32 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Dual cannot exchange a basic column for its exact duplicate: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:33
+  Expression: !(isnothing(terminal))
+   Evaluated: !(isnothing(nothing))
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:24
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:33 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Dual cannot exchange a basic column for its exact duplicate: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:30
+  Expression: ws.basis.basic_indices == before
+   Evaluated: [1, 5, 3, 4] == [1, 2, 3, 4]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:24
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:30 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Dual cannot exchange a basic column for its exact duplicate: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:31
+  Expression: ws.iterations == 0
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:24
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:31 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Dual cannot exchange a basic column for its exact duplicate: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:32
+  Expression: issuccess(lu(Matrix{Rational{BigInt}}(JSimplex.basis_matrix(ws)); check = false))
+   Evaluated: issuccess(LU{Rational{BigInt}, Matrix{Rational{BigInt}}, Vector{Int64}}(Rational{BigInt}[1948405184526487//2251799813685248 1948405184526487//2251799813685248 3762381858727567//4503599627370496 2563857184482851//4503599627370496; 2331664518588895//3896810369052974 0 2535814396500553004326809790767//17549673726000458704133348655104 6057838481394419072749024266827//17549673726000458704133348655104; 1796162236713599//1948405184526487 0 -1686159034789792547640248936769//2193709215750057338016668581888 473698320729893695900543976515//4387418431500114676033337163776; 1575376942432121//3896810369052974 0 -3457107852506265032633740618681//4496424092772780127040663831384 6730920145358592446443605822599355743219104615//10125046934355606558284645095400715540320223232], [3, 2, 3, 4], 2))
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:24
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:32 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Dual cannot exchange a basic column for its exact duplicate: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:33
+  Expression: !(isnothing(terminal))
+   Evaluated: !(isnothing(nothing))
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:24
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:33 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+Test Summary:                                               | Pass  Fail  Total  Time
+Dual cannot exchange a basic column for its exact duplicate |    4     8     12  0.1s
+RNG of the outermost testset: Random.Xoshiro(0x56b185ff9c4eb8f1, 0x6dbfd8b38ac43bba, 0xd6ba3f7b50fd9877, 0xa2fa80904954c4e5, 0x466dd174d2e0c8b5)
