@@ -2169,7 +2169,15 @@ function _solve_continuous_dual_once!(workspace::SimplexWorkspace{T}, stop_reque
        primal_infeasibility(workspace) <= options.primal_tolerance
         options.verbose && @info "Starting primal cleanup after restoring original costs"
         workspace.dual_devex_fallback = false
-        terminal = _primal_optimize!(workspace, stop_requested;perturb_degenerate=false)
+        # This direct cleanup bypasses the shared driver, so install the
+        # primal phase explicitly before running its native point safeguards.
+        phase_options = workspace.options
+        terminal = try
+            workspace.options = _phase_options(phase_options,:primal)
+            _primal_optimize!(workspace, stop_requested;perturb_degenerate=false)
+        finally
+            workspace.options = phase_options
+        end
         terminal.status == OPTIMAL || return _internal_solution(workspace, terminal)
     end
     stop_requested() && return _internal_solution(workspace, TIME_LIMIT, "time limit reached")
@@ -2181,16 +2189,24 @@ end
 
 
 function _solve_continuous_dual!(workspace::SimplexWorkspace{T},stop_requested) where T
-    guard = _guard_stop_callback(stop_requested)
-    run = try
-        _solve_continuous_dual_once!(workspace,guard)
-    catch exception
-        exception === guard.exception && rethrow()
-        (workspace.progress.numerical_policy.precision_boosting ||
-         workspace.progress.numerical_policy.lp_refinement) || rethrow()
-        _is_numerical_exception(exception) || rethrow()
-        DualRunResult{T}(NUMERICAL_ERROR,nothing,nothing,
-            workspace.iterations,workspace.refactorizations,sprint(showerror,exception))
+    original_options = workspace.options
+    try
+        # Postsolve may inherit a primal request while explicitly entering dual
+        # cleanup. Driver dispatch and native safeguards must follow this phase.
+        workspace.options = _phase_options(original_options,:dual)
+        guard = _guard_stop_callback(stop_requested)
+        run = try
+            _solve_continuous_dual_once!(workspace,guard)
+        catch exception
+            exception === guard.exception && rethrow()
+            (workspace.progress.numerical_policy.precision_boosting ||
+             workspace.progress.numerical_policy.lp_refinement) || rethrow()
+            _is_numerical_exception(exception) || rethrow()
+            DualRunResult{T}(NUMERICAL_ERROR,nothing,nothing,
+                workspace.iterations,workspace.refactorizations,sprint(showerror,exception))
+        end
+        return _recover_original_failure(workspace,run,guard)
+    finally
+        workspace.options = original_options
     end
-    return _recover_original_failure(workspace,run,guard)
 end

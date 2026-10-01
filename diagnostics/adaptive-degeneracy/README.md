@@ -451,3 +451,16 @@ error**. Native `cycle` reaches its verified original optimum in 963 iterations;
 the other 29 configurations retain status, iteration and refactorization counts,
 phase sequence and objective exactly. JuMP `stocfor2` still fails at iteration
 1957 with primal feasibility lost. This change adds no adaptive policy decision.
+
+## Explicit dual entry and subsequent primal cleanup
+
+[Dual entry phase context](dual-entry-phase.md) fixes the remaining JuMP
+`stocfor2` failure. Its reduced model was already optimal; original-model cleanup
+requested dual simplex but inherited primal options, causing wrong driver
+selection. Explicit dual entry now owns a temporary dual context, and its direct
+original-cost primal cleanup owns a temporary primal context. Both restore the
+caller's settings on every exit.
+
+The paired corpus now reaches **30 verified original optima out of 30**. JuMP
+`stocfor2` finishes in 2322 iterations; the other 29 configurations retain their
+status, iterations, refactorizations, phase sequence and objective exactly.
