@@ -60,6 +60,7 @@ include("presolve_aggregation.jl")
 include("presolve_dual.jl")
 include("presolve_incremental.jl")
 include("presolve_dispatch.jl")
+include("presolve_tolerance.jl")
 include("solver.jl")
 include("moi.jl")
 

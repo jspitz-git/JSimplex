@@ -1,0 +1,46 @@
+ERROR: LoadError: Some tests did not pass: 13 passed, 0 failed, 1 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/presolve_tolerance_tests.jl:75
+Test Summary:                                                           | Pass  Total  Time
+Presolve does not reject a point within the configured primal tolerance |   64     64  0.4s
+Test Summary:                                                   | Pass  Total  Time
+Presolve infeasibility proof uses original row and column units |   44     44  0.1s
+Test Summary:                                                       | Pass  Total  Time
+Conclusive presolve contradictions and zero tolerance remain strict |   33     33  0.1s
+
+Presolve proof bounds enclose rounding and overflow: Error During Test at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/presolve_tolerance_tests.jl:75
+  Got exception outside of a @test
+  OverflowError: 9223372036854775807 + 1 overflowed for type Int64
+  Stacktrace:
+    [1] throw_overflowerr_binaryop(op::Symbol, x::Int64, y::Int64)
+      @ Base.Checked ./checked.jl:164
+    [2] top-level scope
+      @ checked.jl:176
+    [3] top-level scope
+      @ rational.jl:362
+    [4] top-level scope
+      @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:1432
+    [5] top-level scope
+      @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/presolve_tolerance.jl:5
+    [6] top-level scope
+      @ none:0
+    [7] top-level scope
+      @ generator.jl:48
+    [8] top-level scope
+      @ array.jl:828
+    [9] top-level scope
+      @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/presolve_tolerance.jl:11
+   [10] top-level scope
+      @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/presolve_tolerance_tests.jl:76
+   [11] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [12] macro expansion
+      @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/presolve_tolerance_tests.jl:97 [inlined]
+   [13] include(mod::Module, _path::String)
+      @ Base ./Base.jl:309
+   [14] exec_options(opts::Base.JLOptions)
+      @ Base ./client.jl:344
+   [15] _start()
+      @ Base ./client.jl:577
+Test Summary:                                       | Pass  Error  Total  Time
+Presolve proof bounds enclose rounding and overflow |   13      1     14  0.1s
+RNG of the outermost testset: Random.Xoshiro(0xffb34359ff95d7ad, 0x34a580c380d2c33e, 0xaa111412cb076852, 0x38d8ebd8f6709313, 0x7de79cf136473086)

@@ -1,0 +1,41 @@
+LLVM ERROR: out of memory
+Buffer allocation failed
+
+[300935] signal 6 (-6): Aborted
+in expression starting at none:0
+unknown function (ip: 0xf408e56fe0fc) at /usr/lib/aarch64-linux-gnu/libc.so.6
+gsignal at /usr/lib/aarch64-linux-gnu/libc.so.6 (unknown line)
+abort at /usr/lib/aarch64-linux-gnu/libc.so.6 (unknown line)
+_ZN4llvm22report_bad_alloc_errorEPKcb at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+_ZN4llvm15allocate_bufferEmm at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+unknown function (ip: 0xf408df6b1227) at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl
+_ZN4llvm5Value11setMetadataEjPNS_6MDNodeE at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+unknown function (ip: 0xf408e4928937) at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libjulia-codegen.so.1.13
+unknown function (ip: 0xf408e495f83f) at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libjulia-codegen.so.1.13
+unknown function (ip: 0xf408e496aea7) at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libjulia-codegen.so.1.13
+unknown function (ip: 0xf408e4970b9f) at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libjulia-codegen.so.1.13
+unknown function (ip: 0xf408e4976be3) at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libjulia-codegen.so.1.13
+unknown function (ip: 0xf408e4977093) at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libjulia-codegen.so.1.13
+jl_emit_native_impl at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libjulia-codegen.so.1.13 (unknown line)
+jl_create_native_impl at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libjulia-codegen.so.1.13 (unknown line)
+ijl_create_system_image at /cache/build/builder-armageddon-4/julialang/julia-ci/src/staticdata.c:3401
+ijl_write_compiler_output at /cache/build/builder-armageddon-4/julialang/julia-ci/src/precompile.c:140
+ijl_atexit_hook at /cache/build/builder-armageddon-4/julialang/julia-ci/src/init.c:279
+jl_repl_entrypoint at /cache/build/builder-armageddon-4/julialang/julia-ci/src/jlapi.c:1153
+main at /cache/build/builder-armageddon-4/julialang/julia-ci/cli/loader_exe.c:58
+unknown function (ip: 0xf408e5692f1b) at /usr/lib/aarch64-linux-gnu/libc.so.6
+__libc_start_main at /usr/lib/aarch64-linux-gnu/libc.so.6 (unknown line)
+$x at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/julia (unknown line)
+unknown function (ip: 0x42000000400a1b) at (unknown file)
+Allocations: 843206739 (Pool: 843195549; Big: 11190); GC: 61
+
+  1 dependency had output during precompilation:
+┌ JSimplex
+│  [Output was shown above]
+└
+ERROR: LoadError: The following 1 package failed to precompile:
+
+JSimplex
+Failed to precompile JSimplex [68c30f08-d64b-42cf-ac89-1dfed499aac3] to "/home/jspitz/JSimplex.jl/.worktrees/ft-numerical-recovery/.superpowers/ft-recovery/depot/compiled/v1.13/JSimplex/jl_xnDYCF" (ProcessSignaled(6)).
+
+in expression starting at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/diagnostics/adaptive-degeneracy/reproduce/presolve_tolerance_core_probe.jl:2

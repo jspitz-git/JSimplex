@@ -506,3 +506,25 @@ status, iteration/refactorization count, phase sequence and objective exactly:
 configurations also retain their verified optima and exact trajectories. The
 report retains an independent duplicate-column regression, broader semantic checks,
 and explicit validation limits. The pilotnov presolve discrepancy remains open.
+
+
+## Original-space tolerance for presolve infeasibility
+
+[Presolve tolerance](presolve-tolerance.md) resolves the remaining pilotnov
+presolve rejection. After strict presolve reports infeasibility, a separate
+zero-objective model represents the original row and column tolerance using
+bounded error variables. Only a conclusive infeasibility proof is retained;
+otherwise simplex receives the unchanged original LP. Successful strict
+reductions and zero-tolerance behavior remain unchanged.
+
+The final 104-case paired corpus reaches **104 verified original optima**.
+Pilotnov now solves with presolve enabled in 1806/2524 iterations (native/JuMP).
+The other 102 configurations retain their exact previous trajectories and
+diagnostic counts. The report retains the discarded initial representation,
+which rounded small tolerance allowances too widely at huge bounds, and the
+regressions that required its correction.
+
+A separate small binary-relaxation fixture reveals an analogous remaining
+strict-bound certificate issue inside both simplex methods. It reproduces with
+presolve disabled on the base commit; this presolve change does not repair it.
+The report and dedicated core probe record that limitation explicitly.

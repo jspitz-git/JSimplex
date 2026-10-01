@@ -1,0 +1,163 @@
+{
+  "base_commit": "2f959b948c72e8d8e6c58b8de6327e9841e88666",
+  "production_sha256": "63a1d98176bd2b626eeeaad17b820cbaedd34a5e58d3d80d66f828cf7b5e8d69",
+  "baseline_reports": [
+    "diagnostics/adaptive-degeneracy/results/dual-pivot-consistency/dual-models.toml",
+    "diagnostics/adaptive-degeneracy/results/dual-pivot-consistency/primal-models.toml"
+  ],
+  "environment": {
+    "julia": "1.13.0",
+    "architecture": "aarch64",
+    "julia_threads": 1,
+    "blas_threads": 1,
+    "precompile_workload": false,
+    "virtual_memory_gib": 8,
+    "minimum_available_ram_gib": 6,
+    "maximum_swap_used_gib": 1
+  },
+  "review": "Independent read-only design and final code/test review: no blocking findings",
+  "files": [
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/broad-validation/inputs.toml",
+      "sha256": "ab0cfd23fa55b66974fbd8f0a7fb335119946d26cf401cecde4f9d56e26093ce"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/broad-validation/references.toml",
+      "sha256": "13798dc76bcc292848643fad8ae6250cddc28f1b96cd7599787c32705011440c"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/presolve-tolerance/jobs.toml",
+      "sha256": "c165355af2fd6b7bd25549cc12ab9991d9d0aa1cdf0886f494e0426d4b1d1047"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/presolve-tolerance/models.toml",
+      "sha256": "cfd21de28a97b297cac328101b671bd5ac0ff67a494aafb40be210a0c806b795"
+    },
+    {
+      "path": "test/presolve_tolerance_tests.jl",
+      "sha256": "86e4a1fb99b7982249e5fa272a1a52cb69a56aea4c413e419c0f1472d626688a"
+    },
+    {
+      "path": "src/presolve_tolerance.jl",
+      "sha256": "e996017a3edb82349becd1a3a0cb01cafe80dc0be2c725e1c6ee45244d7fdc13"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/reproduce/presolve_tolerance_core_probe.jl",
+      "sha256": "7f05e7f1e3bd7bdb6bd48c42bd0af9ceeb6fc2e005aee4f3be7a48768f50d4f2"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/reproduce/presolve_tolerance_focused.jl",
+      "sha256": "ff300f7b92a01bacc0b6e0045069331b5c2fed197efdd04c8168234cee89db8b"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/reproduce/presolve_tolerance_semantics.jl",
+      "sha256": "9ea273ba1ffb87a15718c39bf494367ad612076f6f2fdec7e2bc98a7335bf3bc"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/presolve-tolerance/initial-proof.patch",
+      "sha256": "0e2142871c2ea10f44b3730c1b9e71e97cc3a13f0e4c06b7ee4567ad731d7582"
+    }
+  ],
+  "baseline_probe": {
+    "commit": "2f959b948c72e8d8e6c58b8de6327e9841e88666",
+    "final_flags": [
+      "--compiled-modules=no",
+      "--compile=min"
+    ],
+    "initial_cache_compilation": "LLVM out of memory under the 8 GiB virtual limit; active environment preference corrected"
+  },
+  "initial_production_sha256": "d273b593d00d58d5cb6d39bf5fa1ddc58bf4146a1ec6e7bd283cd39412d05ce1",
+  "verification": {
+    "independent_compile_min": {
+      "passed": 199,
+      "exit_code": 0
+    },
+    "semantic_compile_min": {
+      "passed": 15951,
+      "exit_code": 0
+    },
+    "external_final": {
+      "configurations": 104,
+      "verified_optimal": 104,
+      "unchanged_previously_optimal_trajectories": 102
+    },
+    "focused_normal": {
+      "passed": 1180,
+      "exit_code": 0,
+      "testset_seconds": 241.0
+    },
+    "whole_suite_normal": {
+      "exit_code": 75,
+      "guard": "wall_time",
+      "seconds": 300,
+      "location": "test/simplex_strategy_separation_tests.jl:17",
+      "completed": false
+    }
+  },
+  "logs": [
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/presolve-tolerance/base-cache-compilation-failure.log",
+      "sha256": "bf4cfe80b073bafc09eecc2fd9439500a328516eefce1b72c2520e2f68d150a0"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/presolve-tolerance/core-probe-base.log",
+      "sha256": "60e3878ac4e79c542335df207858eb85f336fb582ab0e725a057b267aca16a99"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/presolve-tolerance/core-probe-initial-proof.log",
+      "sha256": "b947e1ae8b32dd61ed5da8c74d4231dbc99fa29ed21f5d82909092003ae32641"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/presolve-tolerance/core-probe.log",
+      "sha256": "b947e1ae8b32dd61ed5da8c74d4231dbc99fa29ed21f5d82909092003ae32641"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/presolve-tolerance/expanded-initial.log",
+      "sha256": "7faf8d29082bfa5445fa08ce3fe25a303f6bf6a35dbb98bb83d81781117d18e4"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/presolve-tolerance/focused-core-counterexample.log",
+      "sha256": "63bf91ffc8fbdd8e09915c6026dfe1d863328cfa34d4b391f5bb0822041ff4a5"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/presolve-tolerance/focused.log",
+      "sha256": "9ccb87a130c7e53bc8b5e6bbca26c1676bea0ecf7f70601cbc63685eb6248243"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/presolve-tolerance/full-suite.log",
+      "sha256": "fb37bf1682b451531c6a776bf7692d8dd5f647f3e7f8dd6f1c672aeb297a0776"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/presolve-tolerance/green.log",
+      "sha256": "ef6ed016f9620b298eea70e6650c001d70084a47f527d65c970ab7e9902d8599"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/presolve-tolerance/initial-models.log",
+      "sha256": "86c0b0877db7971bac1899652e67b69078ef7adb78d4e5537ca15b4437091aee"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/presolve-tolerance/lifted-tests.log",
+      "sha256": "054ccbc667c917c46b90a4593951ba8ccb9fe437023424c48d547b17fc90464e"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/presolve-tolerance/models.log",
+      "sha256": "86c0b0877db7971bac1899652e67b69078ef7adb78d4e5537ca15b4437091aee"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/presolve-tolerance/rational-overflow-red.log",
+      "sha256": "04903b77e6f2555093fe465966e660bdca7f6c3450eb9fe3ad24769c1afc062b"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/presolve-tolerance/red.log",
+      "sha256": "9ad7adb817463c81fddf7b59c2851a97b5f3afaf9dd46575c168116cc2717538"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/presolve-tolerance/semantics-initial-proof.log",
+      "sha256": "c2ec238820595cf62037dfb05345151b35dc2237f7dc81e52465048b29add585"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/presolve-tolerance/semantics.log",
+      "sha256": "2e04b763623beca0435afa1e856f5145525d2a5699d5170961c028d6bc229e85"
+    }
+  ]
+}

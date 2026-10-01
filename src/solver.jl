@@ -467,7 +467,8 @@ function _solve_diagnosed(problem::LinearProblem{T}, diagnostics;
     continuous_problem = JSimplex.relax_integrality(problem)
     presolved = if typed_options.presolve
         typed_options.verbose && @info "Starting presolve"
-        presolve_problem(continuous_problem)
+        _presolve_for_solve(continuous_problem, typed_options.primal_tolerance;
+            stop_requested=()->time_limit_reached(context), verbose=typed_options.verbose)
     else
         identity_presolve(continuous_problem)
     end
