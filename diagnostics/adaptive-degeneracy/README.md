@@ -426,3 +426,13 @@ now reach verified optima (3613 and 4089 iterations), bringing the same 30-case
 suite to 23 optima and seven numerical errors. The other 28 numerical outcomes
 are unchanged. Ordinary primal bound-value retention, pricing, tolerance and
 precision are preserved; failed reconstruction cannot publish an original basis.
+
+## Reliable BTRAN with an inaccurate near-zero price
+
+[The price-refinement correction](reliable-price-refinement.md) handles a
+verified direction-price discrepancy even when BTRAN passes the ordinary
+residual threshold. One native correction must strictly improve the residual
+and satisfy the full certificate. The 30-case comparison improves from 23 to
+28 verified optima: mod010 seed 1 with FT/SS, native boeing1, and both p0201
+readers now finish. The other 25 configurations are unchanged; native cycle
+and JuMP stocfor2 retain their earlier numerical failures.

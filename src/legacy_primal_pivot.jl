@@ -39,8 +39,9 @@ function _legacy_primal_direction_price_ok(workspace::SimplexWorkspace{T}, enter
     return abs(cached-implied)<=tolerance
 end
 
-# Repair only a demonstrated native BTRAN residual failure. The fresh solve
-# and all prices stay private until accepted; scratch.rho may hold a pivot row,
+# Repair only a demonstrated native BTRAN price discrepancy. A direction-price
+# disagreement can require more accuracy even below the ordinary solve tolerance.
+# The fresh solve and all prices stay private; scratch.rho may hold a pivot row,
 # so it is not a reusable copy of the current objective's dual solution.
 _try_native_primal_price_recovery!(workspace,stop) = false
 function _try_native_primal_price_recovery!(workspace::SimplexWorkspace{T},stop) where {T<:Union{Float32,Float64}}
@@ -56,8 +57,9 @@ function _try_native_primal_price_recovery!(workspace::SimplexWorkspace{T},stop)
     end
     scratch=SolveQualityScratch(T,length(rhs))
     quality=_compensated_solve_quality!(scratch,B,dual,rhs,policy,true)
-    (isnothing(quality) || !quality.finite || quality.reliable || stop()) && return false
-    _native_cleanup_solve!(dual,workspace,B,rhs,stop;transposed=true) || return false
+    (isnothing(quality) || !quality.finite || iszero(quality.absolute_error) || stop()) && return false
+    _native_cleanup_solve!(dual,workspace,B,rhs,stop;transposed=true,
+        force_refinement=quality.reliable) || return false
     prices=similar(workspace.reduced_costs)
     _recompute_reduced_costs!(prices,workspace,dual)
     all(isfinite,prices) && prices!=workspace.reduced_costs && !stop() || return false

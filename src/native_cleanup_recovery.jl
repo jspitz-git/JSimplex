@@ -2,14 +2,18 @@
 # Its relative residual test can reject a feasible point because homogeneous
 # equations contain tiny roundoff artifacts. Correct only after that test fails;
 # ordinary iterations and the separately selected checked implementation keep
-# their existing solve paths.
+# their existing solve paths. A demonstrated price/direction disagreement may
+# request one correction of a reliable solve, but must improve its residual.
 function _native_cleanup_solve!(x::Vector{T}, ws, B, rhs, stop;
-                                transposed::Bool=false) where {T<:Union{Float32,Float64}}
+                                transposed::Bool=false,
+                                force_refinement::Bool=false) where {T<:Union{Float32,Float64}}
     policy = ws.progress.numerical_policy
     scratch = SolveQualityScratch(T,length(rhs))
     quality = _compensated_solve_quality!(scratch,B,x,rhs,policy,transposed)
     isnothing(quality) && return false
-    quality.reliable && return true
+    quality.reliable && (!force_refinement || iszero(quality.absolute_error)) && return true
+    require_improvement=force_refinement && quality.reliable
+    initial_error=quality.absolute_error
     stop() && return false
     _simplex_event!(ws,:correction_attempt)
     correction = similar(x)
@@ -31,6 +35,7 @@ function _native_cleanup_solve!(x::Vector{T}, ws, B, rhs, stop;
         quality = _compensated_solve_quality!(scratch,B,trial,rhs,policy,transposed)
         (isnothing(quality) || !quality.reliable) && return false
     end
+    require_improvement && !(quality.absolute_error<initial_error) && return false
     stop() && return false
     copyto!(x,trial)
     return true

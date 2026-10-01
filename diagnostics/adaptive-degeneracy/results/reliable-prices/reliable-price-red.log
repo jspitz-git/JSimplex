@@ -1,0 +1,549 @@
+ERROR: LoadError: Some tests did not pass: 120 passed, 40 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:22
+
+Reliable BTRAN can still require price recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:35
+  Expression: if genuine
+    isnothing(terminal)
+else
+    !(isnothing(terminal)) && terminal.status == OPTIMAL
+end
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:23
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:35 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Reliable BTRAN can still require price recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:40
+  Expression: JSimplex.event_count(diagnostics, :primal_prices_corrected) == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:23
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:40 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Reliable BTRAN can still require price recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:41
+  Expression: JSimplex.event_count(diagnostics, :correction_attempt) == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:23
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:41 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Reliable BTRAN can still require price recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:40
+  Expression: JSimplex.event_count(diagnostics, :primal_prices_corrected) == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:23
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:40 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Reliable BTRAN can still require price recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:41
+  Expression: JSimplex.event_count(diagnostics, :correction_attempt) == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:23
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:41 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Reliable BTRAN can still require price recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:35
+  Expression: if genuine
+    isnothing(terminal)
+else
+    !(isnothing(terminal)) && terminal.status == OPTIMAL
+end
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:23
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:35 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Reliable BTRAN can still require price recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:40
+  Expression: JSimplex.event_count(diagnostics, :primal_prices_corrected) == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:23
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:40 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Reliable BTRAN can still require price recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:41
+  Expression: JSimplex.event_count(diagnostics, :correction_attempt) == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:23
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:41 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Reliable BTRAN can still require price recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:40
+  Expression: JSimplex.event_count(diagnostics, :primal_prices_corrected) == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:23
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:40 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Reliable BTRAN can still require price recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:41
+  Expression: JSimplex.event_count(diagnostics, :correction_attempt) == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:23
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:41 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Reliable BTRAN can still require price recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:35
+  Expression: if genuine
+    isnothing(terminal)
+else
+    !(isnothing(terminal)) && terminal.status == OPTIMAL
+end
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:23
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:35 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Reliable BTRAN can still require price recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:40
+  Expression: JSimplex.event_count(diagnostics, :primal_prices_corrected) == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:23
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:40 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Reliable BTRAN can still require price recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:41
+  Expression: JSimplex.event_count(diagnostics, :correction_attempt) == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:23
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:41 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Reliable BTRAN can still require price recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:40
+  Expression: JSimplex.event_count(diagnostics, :primal_prices_corrected) == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:23
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:40 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Reliable BTRAN can still require price recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:41
+  Expression: JSimplex.event_count(diagnostics, :correction_attempt) == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:23
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:41 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Reliable BTRAN can still require price recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:35
+  Expression: if genuine
+    isnothing(terminal)
+else
+    !(isnothing(terminal)) && terminal.status == OPTIMAL
+end
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:23
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:35 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Reliable BTRAN can still require price recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:40
+  Expression: JSimplex.event_count(diagnostics, :primal_prices_corrected) == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:23
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:40 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Reliable BTRAN can still require price recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:41
+  Expression: JSimplex.event_count(diagnostics, :correction_attempt) == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:23
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:41 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Reliable BTRAN can still require price recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:40
+  Expression: JSimplex.event_count(diagnostics, :primal_prices_corrected) == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:23
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:40 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Reliable BTRAN can still require price recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:41
+  Expression: JSimplex.event_count(diagnostics, :correction_attempt) == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:23
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:41 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Reliable BTRAN can still require price recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:35
+  Expression: if genuine
+    isnothing(terminal)
+else
+    !(isnothing(terminal)) && terminal.status == OPTIMAL
+end
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:23
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:35 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Reliable BTRAN can still require price recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:40
+  Expression: JSimplex.event_count(diagnostics, :primal_prices_corrected) == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:23
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:40 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Reliable BTRAN can still require price recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:41
+  Expression: JSimplex.event_count(diagnostics, :correction_attempt) == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:23
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:41 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Reliable BTRAN can still require price recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:40
+  Expression: JSimplex.event_count(diagnostics, :primal_prices_corrected) == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:23
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:40 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Reliable BTRAN can still require price recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:41
+  Expression: JSimplex.event_count(diagnostics, :correction_attempt) == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:23
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:41 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Reliable BTRAN can still require price recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:35
+  Expression: if genuine
+    isnothing(terminal)
+else
+    !(isnothing(terminal)) && terminal.status == OPTIMAL
+end
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:23
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:35 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Reliable BTRAN can still require price recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:40
+  Expression: JSimplex.event_count(diagnostics, :primal_prices_corrected) == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:23
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:40 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Reliable BTRAN can still require price recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:41
+  Expression: JSimplex.event_count(diagnostics, :correction_attempt) == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:23
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:41 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Reliable BTRAN can still require price recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:40
+  Expression: JSimplex.event_count(diagnostics, :primal_prices_corrected) == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:23
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:40 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Reliable BTRAN can still require price recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:41
+  Expression: JSimplex.event_count(diagnostics, :correction_attempt) == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:23
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:41 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Reliable BTRAN can still require price recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:35
+  Expression: if genuine
+    isnothing(terminal)
+else
+    !(isnothing(terminal)) && terminal.status == OPTIMAL
+end
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:23
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:35 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Reliable BTRAN can still require price recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:40
+  Expression: JSimplex.event_count(diagnostics, :primal_prices_corrected) == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:23
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:40 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Reliable BTRAN can still require price recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:41
+  Expression: JSimplex.event_count(diagnostics, :correction_attempt) == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:23
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:41 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Reliable BTRAN can still require price recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:40
+  Expression: JSimplex.event_count(diagnostics, :primal_prices_corrected) == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:23
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:40 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Reliable BTRAN can still require price recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:41
+  Expression: JSimplex.event_count(diagnostics, :correction_attempt) == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:23
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:41 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Reliable BTRAN can still require price recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:35
+  Expression: if genuine
+    isnothing(terminal)
+else
+    !(isnothing(terminal)) && terminal.status == OPTIMAL
+end
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:23
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:35 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Reliable BTRAN can still require price recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:40
+  Expression: JSimplex.event_count(diagnostics, :primal_prices_corrected) == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:23
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:40 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Reliable BTRAN can still require price recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:41
+  Expression: JSimplex.event_count(diagnostics, :correction_attempt) == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:23
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:41 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Reliable BTRAN can still require price recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:40
+  Expression: JSimplex.event_count(diagnostics, :primal_prices_corrected) == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:23
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:40 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Reliable BTRAN can still require price recovery: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:41
+  Expression: JSimplex.event_count(diagnostics, :correction_attempt) == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:23
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_reliable_price_tests.jl:41 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+Test Summary:                                   | Pass  Fail  Total  Time
+Reliable BTRAN can still require price recovery |  120    40    160  0.5s
+RNG of the outermost testset: Random.Xoshiro(0xb4b2a651339291f9, 0x4a2ca000d59704cf, 0xb4722e65d271242e, 0x2157a2f43c593fed, 0x02d8e2fe76fe14c7)

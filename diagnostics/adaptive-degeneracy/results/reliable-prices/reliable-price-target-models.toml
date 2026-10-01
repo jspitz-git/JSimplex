@@ -1,0 +1,185 @@
+process_peak_rss = 0x687c4000
+jump = "1.31.2"
+julia_threads = 1
+original_retry_enabled = false
+weak_pivot_preference = false
+production_sha256 = "8c09245d44f07448cfb955b2b748ebf010478e88e181cab7cd62116596ef7470"
+blas_threads = 1
+julia = "1.13.0"
+
+[policy]
+stable_ratio = false
+precision_boosting = false
+recovery = false
+incremental_primal = false
+partial_pricing = false
+adaptive_primal_perturbation = true
+lp_refinement = false
+adaptive_refactor = false
+sparse_pricing = false
+adaptive_stalling = true
+pivot_validation = false
+adaptive_pricing = true
+feasibility_recovery = false
+adaptive_dual_perturbation = true
+solve_refinement = false
+hypersparse = false
+incremental_primal_pivots = false
+phase_one = true
+crash = false
+
+[[records]]
+objective_matches = true
+pivot_observations = 588
+zero_primal_steps = 312
+time_limit = 90
+objective_relative_error = 4.1770503621643717e-16
+reader_primal_feasible = true
+component_enabled = true
+reference_objective = 6532.083333333331
+nonzeros = 11203
+columns = 2655
+input_sha256 = "0a2a0888816fd25e31ff4512ca8974272dacf387854cd450e94946332d89325d"
+objective = 6532.083333333334
+seed = 1
+original_primal_feasible = true
+refactorizations = 13
+passed = true
+job_index = 1
+seconds = 10.047814994
+reader = "permuted"
+wall_seconds = 29.042346016
+compile_seconds = 28.907859414
+columns_reordered = 2655
+allocated_bytes = 3022208304
+rows_reordered = 144
+captures = []
+algorithm = "primal"
+iterations = 590
+id = "miplib/mod010"
+exact_model_match = true
+manager = "forrest_tomlin"
+status = "OPTIMAL"
+message = "optimal solution found"
+rows = 146
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+    [[records.phases]]
+    iteration = 268
+    event = "phase_primal"
+    [[records.phases]]
+    iteration = 590
+    event = "phase_cleanup"
+    [[records.phases]]
+    iteration = 590
+    event = "phase_primal"
+
+    [records.events]
+    certification = 2
+    refactor_residual = 1
+    phase_primal = 2
+    correction_attempt = 1
+    artificial_removed = 2
+    pricing_scanned_entries = 1696877
+    refactor_other = 5
+    primal_prices_corrected = 1
+    pivot_completed = 588
+    pricing_full_scan = 593
+    pricing = 593
+    pricing_phase_reset = 1
+    refactor_initial = 4
+    pricing_scored_entries = 563552
+    refactor_limit = 7
+    pivot_proposed = 590
+    phase_one = 1
+    phase_cleanup = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 1
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+objective_matches = true
+pivot_observations = 574
+zero_primal_steps = 272
+time_limit = 90
+objective_relative_error = 1.8100551569378946e-15
+reader_primal_feasible = true
+component_enabled = true
+reference_objective = 6532.083333333331
+nonzeros = 11203
+columns = 2655
+input_sha256 = "0a2a0888816fd25e31ff4512ca8974272dacf387854cd450e94946332d89325d"
+objective = 6532.083333333343
+seed = 1
+original_primal_feasible = true
+refactorizations = 12
+passed = true
+job_index = 2
+seconds = 9.963114328
+reader = "permuted"
+wall_seconds = 28.772215495
+compile_seconds = 28.502835992
+columns_reordered = 2655
+allocated_bytes = 2981097280
+rows_reordered = 144
+captures = []
+algorithm = "primal"
+iterations = 576
+id = "miplib/mod010"
+exact_model_match = true
+manager = "suhl_suhl"
+status = "OPTIMAL"
+message = "optimal solution found"
+rows = 146
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+    [[records.phases]]
+    iteration = 267
+    event = "phase_primal"
+    [[records.phases]]
+    iteration = 576
+    event = "phase_cleanup"
+    [[records.phases]]
+    iteration = 576
+    event = "phase_primal"
+
+    [records.events]
+    certification = 2
+    refactor_residual = 1
+    phase_primal = 2
+    correction_attempt = 1
+    artificial_removed = 2
+    pricing_scanned_entries = 1657565
+    refactor_other = 5
+    primal_prices_corrected = 1
+    pivot_completed = 574
+    pricing_full_scan = 579
+    pricing = 579
+    pricing_phase_reset = 1
+    refactor_initial = 4
+    pricing_scored_entries = 575780
+    refactor_limit = 6
+    pivot_proposed = 576
+    phase_one = 1
+    phase_cleanup = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 1
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+
+[diagnostic_sha256]
+export_coverage = "71454a3f606fac53590e58620a00d431a55580452ee4cd930e0e33e84cd14d9c"
+pricing_isolation = "113ee26371ec1f18809eb84452666fee00212950f48c982a3a37eeaf2ce58892"
+no_original_retry = "a1403c682bd88c8931a00b3ad9c296a7910ea49fdbf342bf7e11803922edc79f"

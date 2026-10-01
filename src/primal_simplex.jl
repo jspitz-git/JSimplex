@@ -454,7 +454,7 @@ function _legacy_primal_iteration!(workspace::SimplexWorkspace, stop_requested,
                 end
                 basis_refreshed |= refreshed
                 if workspace.scratch.selected_row == -2 && !price_recovery_attempted
-                    # A price disagreement may expose an unreliable fresh BTRAN.
+                    # A price disagreement may need a more accurate fresh BTRAN.
                     # Consume one attempt across both candidate-search passes.
                     price_recovery_attempted = true
                     if _try_native_primal_price_recovery!(workspace,stop_requested)
