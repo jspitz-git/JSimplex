@@ -1,0 +1,153 @@
+process_peak_rss = 0x689d9000
+jump = "1.31.2"
+julia_threads = 1
+original_retry_enabled = false
+weak_pivot_preference = false
+production_sha256 = "6500645441568dfbee1cc3d20e2cc952fb3b223fc5a62948a92e8a6c006de9af"
+blas_threads = 1
+julia = "1.13.0"
+
+[policy]
+stable_ratio = false
+precision_boosting = false
+recovery = false
+incremental_primal = false
+partial_pricing = false
+adaptive_primal_perturbation = true
+lp_refinement = false
+adaptive_refactor = false
+sparse_pricing = false
+adaptive_stalling = true
+pivot_validation = false
+adaptive_pricing = true
+feasibility_recovery = false
+adaptive_dual_perturbation = true
+solve_refinement = false
+hypersparse = false
+incremental_primal_pivots = false
+phase_one = true
+crash = false
+
+[[records]]
+pivot_observations = 2345
+zero_primal_steps = 1638
+time_limit = 90
+component_enabled = true
+reference_objective = -987.2940000000002
+nonzeros = 24646
+columns = 1818
+input_sha256 = "7a149f601961000bc365c3431276d52d1e13e04ae459f98177d6b459d9a65475"
+passed = false
+seed = 20261001
+refactorizations = 53
+job_index = 1
+seconds = 1.773662714
+reader = "native"
+wall_seconds = 20.632837741
+compile_seconds = 18.981166784
+columns_reordered = 0
+allocated_bytes = 2438443992
+rows_reordered = 0
+captures = []
+failure_snapshot = "/tmp/degen3-phase-capture-job1-seed20261001-netlib-degen3-native-primal-pfi-true-failure.bin"
+algorithm = "primal"
+iterations = 2367
+id = "netlib/degen3"
+exact_model_match = true
+manager = "pfi"
+status = "NUMERICAL_ERROR"
+message = "artificial removal could not be completed"
+rows = 1503
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+
+    [records.events]
+    refactor_residual = 1
+    correction_attempt = 57
+    artificial_removed = 22
+    pricing_scanned_entries = 9112588
+    refactor_other = 23
+    primal_prices_corrected = 1
+    pivot_completed = 2345
+    pricing_full_scan = 2348
+    pricing = 2348
+    refactor_initial = 2
+    pricing_scored_entries = 1909402
+    refactor_limit = 29
+    pivot_proposed = 2347
+    phase_one = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 1
+    export_attempts = 22
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 22
+[[records]]
+pivot_observations = 2890
+zero_primal_steps = 1970
+time_limit = 90
+component_enabled = true
+reference_objective = -987.2940000000002
+nonzeros = 24646
+columns = 1818
+input_sha256 = "7a149f601961000bc365c3431276d52d1e13e04ae459f98177d6b459d9a65475"
+passed = false
+seed = 20261001
+refactorizations = 41
+job_index = 2
+seconds = 1.609885508
+reader = "jump"
+wall_seconds = 1.609898008
+compile_seconds = 0.0
+columns_reordered = 0
+allocated_bytes = 180369912
+rows_reordered = 1500
+captures = []
+failure_snapshot = "/tmp/degen3-phase-capture-job2-seed20261001-netlib-degen3-jump-primal-pfi-true-failure.bin"
+algorithm = "primal"
+iterations = 2894
+id = "netlib/degen3"
+exact_model_match = true
+manager = "pfi"
+status = "NUMERICAL_ERROR"
+message = "artificial removal could not be completed"
+rows = 1503
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+
+    [records.events]
+    refactor_residual = 1
+    flip_completed = 1
+    correction_attempt = 8
+    artificial_removed = 3
+    pricing_scanned_entries = 11231614
+    refactor_other = 4
+    primal_prices_corrected = 1
+    pivot_completed = 2890
+    pricing_full_scan = 2894
+    pricing = 2894
+    refactor_initial = 2
+    pricing_scored_entries = 2355161
+    refactor_limit = 36
+    pivot_proposed = 2893
+    phase_one = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 1
+    export_attempts = 3
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 3
+
+[diagnostic_sha256]
+export_coverage = "71454a3f606fac53590e58620a00d431a55580452ee4cd930e0e33e84cd14d9c"
+pricing_isolation = "113ee26371ec1f18809eb84452666fee00212950f48c982a3a37eeaf2ce58892"
+no_original_retry = "a1403c682bd88c8931a00b3ad9c296a7910ea49fdbf342bf7e11803922edc79f"
+phase_capture = "71f3526a6042addabef3553999d4408ac033df60c379d65b45870c36d9ce1483"

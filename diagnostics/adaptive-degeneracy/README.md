@@ -415,3 +415,14 @@ both degen2 readers and native misc07 now complete. The 24 unchanged
 configurations retain their numerical outcomes and work counts; both degen3
 readers advance through exchanges but still fail removal. Pivot and original
 feasibility certificates remain unchanged.
+
+## Exact nonbasic bounds before a blocked artificial exchange
+
+[The boundary normalization](artificial-bound-normalization.md) repairs an
+auxiliary optimum whose tolerated negative values conceal a basic artificial
+above the removal tolerance. One certified reconstruction with exact nonbasic
+bounds is attempted only at the existing rejection point. Both degen3 readers
+now reach verified optima (3613 and 4089 iterations), bringing the same 30-case
+suite to 23 optima and seven numerical errors. The other 28 numerical outcomes
+are unchanged. Ordinary primal bound-value retention, pricing, tolerance and
+precision are preserved; failed reconstruction cannot publish an original basis.

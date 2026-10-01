@@ -107,7 +107,42 @@ function _adopt_phase_basis!(ws,fresh)
     return nothing
 end
 
+# Tolerated negative nonbasic values can cancel a positive basic artificial
+# in the auxiliary objective. At this boundary only, try the same basis with
+# exact nonbasic bounds before requiring every artificial to be removable.
+# The auxiliary is private; failed reconstruction never publishes an original
+# basis, and all refactorization work remains charged to its owner.
+function _normalize_phase_artificial_bounds!(phase::SimplexWorkspace{T},map,original,policy,stop) where T
+    tolerance=phase.options.primal_tolerance
+    all(j->abs(phase.primal[j])<=tolerance,map.artificial_columns) && return true
+    _native_phase_transfer_enabled(phase) && policy.max_refinements>0 || return false
+    stop() && return false
+    phase.iterations < phase.options.iteration_limit || return false
+    _legacy_primal_point_certified(phase) || return false
+    for j in eachindex(phase.basis.states)
+        stop() && return false
+        state=phase.basis.states[j]
+        state==BASIC && continue
+        value = if state==AT_LOWER
+            isfinite(phase.lower[j]) || return false
+            bound_value(phase.lower[j])
+        elseif state==AT_UPPER
+            isfinite(phase.upper[j]) || return false
+            bound_value(phase.upper[j])
+        elseif state==FREE_NONBASIC
+            zero(T)
+        else
+            return false
+        end
+        phase.primal[j]=value
+    end
+    _phase_refactor!(phase,original,stop)
+    _complete_native_phase_transfer!(phase,stop) || return false
+    return !stop() && all(j->abs(phase.primal[j])<=tolerance,map.artificial_columns)
+end
+
 function _remove_artificials!(phase::SimplexWorkspace{T},map,original,policy,stop) where T
+    normalized=false
     m = length(phase.basis.basic_indices)
     rhs,column,unit,rho = zeros(T,m),zeros(T,m),zeros(T,m),zeros(T,m)
     prices = zeros(T,length(phase.basis.states))
@@ -116,6 +151,11 @@ function _remove_artificials!(phase::SimplexWorkspace{T},map,original,policy,sto
         map.phase_to_original[leaving] != 0 && continue
         stop() && return false
         phase.iterations < phase.options.iteration_limit || return false
+        if !(abs(phase.primal[leaving]) <= phase.options.primal_tolerance)
+            normalized && return false
+            _normalize_phase_artificial_bounds!(phase,map,original,policy,stop) || return false
+            normalized=true
+        end
         abs(phase.primal[leaving]) <= phase.options.primal_tolerance || return false
         fill!(unit,zero(T));unit[row]=one(T)
         _checked_basis_solve!(rho,phase,unit,stop;transposed=true)
