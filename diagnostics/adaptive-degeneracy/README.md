@@ -357,3 +357,11 @@ basis exchanges; the reconstructed original point still requires full certificat
 Reconstructed continuation reaches OPTIMAL with original primal feasibility,
 objective 51,425,691.76210431 and 130,052 cumulative iterations. This is a saved
 Phase-II continuation, not a fresh whole-MPS run.
+
+## Fresh runtime verification after postsolve repair
+
+[The full run from MPS](postsolve-full-run.md) does **not** finish: it returns
+NUMERICAL_ERROR, `artificial removal could not be completed`, after 82,000
+iterations and 597.688 seconds. The new trajectory reaches a different Phase-I
+export state; the previously successful saved continuation is not a complete
+fresh-solve result. The final workspace is retained for targeted diagnosis.

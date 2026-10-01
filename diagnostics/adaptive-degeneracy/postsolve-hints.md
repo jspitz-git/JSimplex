@@ -136,3 +136,7 @@ followed by NUL and its contents) is
 ```sh
 python3 diagnostics/adaptive-degeneracy/reproduce/validate_postsolve_hints.py
 ```
+
+The subsequent [fresh whole-MPS verification](postsolve-full-run.md) fails at a
+different Phase-I export state. The successful continuation reported here must
+not be read as evidence that a fresh runtime solve now completes.
