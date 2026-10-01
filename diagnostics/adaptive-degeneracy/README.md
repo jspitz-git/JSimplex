@@ -475,3 +475,17 @@ refactorizations, objectives, phase sequences and diagnostic counts. These are
 56 completed paired solves under normal compilation, with no original-LP retry
 or time limit. No production change was needed. The report states the coverage
 limits and retains the manifest, source hashes, logs and paired comparison.
+
+## Expanded dual PFI verification and pilotnov diagnosis
+
+[Expanded dual validation](expanded-dual-validation.md) adds 48 runs over the
+remaining 24 models. Together with the matching earlier reader pairs, 64/66
+configurations reach verified optima; both remaining main-suite cases reject
+`pilotnov` in presolve before iteration zero. No main-suite run reaches a time
+limit or numerical error.
+
+Separate `presolve=false` controls expose a dual core failure on both pilotnov
+reader orders (164/142 iterations). An unchanged-trajectory pivot audit and exact
+rational diagnosis confirm that a false accepted pivot changes a nonsingular
+basis into a singular one; FTRAN and BTRAN estimates have opposite signs. The
+report retains reproductions and explicitly makes no production-fix claim.
