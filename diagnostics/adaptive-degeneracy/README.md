@@ -547,3 +547,11 @@ isolated adaptive profile. Native primal reaches its checked optimum; JuMP
 primal fails artificial removal, and both dual orders lose dual feasibility
 near the tolerance boundary. Reports, scripts and local capture provenance are
 retained for diagnosis; no solver code changes accompany these runs.
+
+## Repairing the full-runtime failures
+
+[Runtime failure diagnosis](runtime-failure-repair.md) traces both dual failures
+to marginal working-price repair being disabled by an active perturbation
+journal, and the JuMP primal failure to coupled tiny nonhomogeneous equations
+at phase export. The bounded journal-aware price repair restores native-dual
+convergence; the report tracks the remaining validation and reconstruction work.

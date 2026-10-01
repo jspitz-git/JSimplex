@@ -12,7 +12,8 @@ function runtime_full(args,hashes)
     path="/home/jspitz/mps/runtime.mps"
     digest="d0ac16e1a52a7d3411cbac28616bba9d3beb0c0edbdb2d72ab0477ce075f6c68"
     @assert bytes2hex(open(sha256,path))==digest
-    @assert source_digest()=="40d6fa0140556827f9e353987417296ef513e64c0618ea4afa3fcc8bddcb3718"
+    @assert source_digest()==get(ENV,"JSIMPLEX_EXPECTED_SOURCE",
+        "40d6fa0140556827f9e353987417296ef513e64c0618ea4afa3fcc8bddcb3718")
     reset_counters!();CAPTURE_PREFIX[]=output*"-warmup"
     options=SolverOptions(;algorithm=Symbol(method),pricing=:steepest_edge,basis_update=:pfi,
         basis_refactorization=:native,refactorization_interval=80,simplex_strategy=:adaptive,
