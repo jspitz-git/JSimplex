@@ -1,0 +1,45 @@
+ERROR: LoadError: Some tests did not pass: 0 passed, 0 failed, 1 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/simplex_infeasibility_tolerance_tests.jl:149
+Test Summary:                                                | Pass  Total  Time
+Infeasibility certificates include column and row tolerances |   58     58  0.3s
+Test Summary:                                                    | Pass  Total  Time
+Public simplex cannot reject a tolerance-feasible original point |   16     16  0.3s
+Test Summary:                                               | Pass  Total  Time
+Scaled columns and summed row allowances use original units |   18     18  0.0s
+Test Summary:                                                 | Pass  Total  Time
+Strict contradictions and zero tolerance retain infeasibility |   20     20  0.1s
+Test Summary:                                                 | Pass  Total  Time
+General phase I also rejects the tolerance-inconsistent proof |    4      4  0.0s
+Test Summary:                                         | Pass  Total  Time
+Certificate is conservative at the tolerance boundary |   20     20  0.0s
+Test Summary:                                                   | Pass  Total  Time
+Floating proof retains mixed-precision and subnormal allowances |   11     11  0.0s
+
+Bounded rational overflow makes a proof inconclusive: Error During Test at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/simplex_infeasibility_tolerance_tests.jl:155
+  Test threw exception
+  Expression: !(JSimplex._primal_infeasibility_certified(ws, T[1]))
+  OverflowError: -9223372036854775806 * 1024 overflowed for type Int64
+  Stacktrace:
+    [1] throw_overflowerr_binaryop(op::Symbol, x::Int64, y::Int64)
+      @ Base.Checked ./checked.jl:164
+    [2] top-level scope
+      @ checked.jl:298
+    [3] top-level scope
+      @ rational.jl:371
+    [4] top-level scope
+      @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:738
+    [5] top-level scope
+      @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/primal_simplex.jl:758
+    [6] top-level scope
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:394
+    [7] top-level scope
+      @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/simplex_infeasibility_tolerance_tests.jl:150
+    [8] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+    [9] macro expansion
+      @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/simplex_infeasibility_tolerance_tests.jl:155 [inlined]
+   [10] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:750 [inlined]
+Test Summary:                                        | Error  Total  Time
+Bounded rational overflow makes a proof inconclusive |     1      1  0.1s
+RNG of the outermost testset: Random.Xoshiro(0xbe9040e3ce104411, 0x4cd71541ab02f7f0, 0x211a815940ac696b, 0xe43ab7e483e3dbc6, 0x88350ea6adb23d62)

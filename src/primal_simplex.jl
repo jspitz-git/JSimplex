@@ -755,30 +755,8 @@ function _primal_optimize!(workspace::SimplexWorkspace{T}, stop_requested,
     end
 end
 
-_primal_infeasibility_certified(workspace::SimplexWorkspace{T}, dual::Vector{T}) where {T<:AbstractFloat} =
-    _floating_infeasibility_certified(workspace, dual, false)
-
-function _primal_infeasibility_certified(workspace::SimplexWorkspace{T},
-                                         dual::Vector{T}) where {T<:Rational}
-    A = workspace.problem.A
-    column_count = size(A, 2)
-    minimum_value = zero(T)
-    for index in eachindex(workspace.lower)
-        coefficient = zero(T)
-        if index <= column_count
-            for position in A.colptr[index]:(A.colptr[index + 1] - 1)
-                coefficient -= dual[A.rowval[position]] * A.nzval[position]
-            end
-        else
-            coefficient = dual[index - column_count]
-        end
-        iszero(coefficient) && continue
-        bound = coefficient > zero(T) ? workspace.lower[index] : workspace.upper[index]
-        isfinite(bound) || return false
-        minimum_value += coefficient * bound_value(bound)
-    end
-    return minimum_value > zero(T)
-end
+_primal_infeasibility_certified(workspace::SimplexWorkspace{T}, dual::Vector{T}) where T =
+    _infeasibility_certified(workspace, dual, false)
 
 function _primal_phase_one_matrix(A::SparseMatrixCSC{T,Int}, artificial_rows::Vector{Int},
                                   artificial_signs::Vector{T}) where {T}

@@ -528,3 +528,13 @@ A separate small binary-relaxation fixture reveals an analogous remaining
 strict-bound certificate issue inside both simplex methods. It reproduces with
 presolve disabled on the base commit; this presolve change does not repair it.
 The report and dedicated core probe record that limitation explicitly.
+
+
+## Original-space tolerance in simplex infeasibility certificates
+
+The [simplex certificate report](simplex-infeasibility-tolerance.md) follows the
+presolve fix with a shared row-combination proof for both simplex methods.
+The proof includes original-unit row and column tolerance allowances after
+scaling, uses outward native floating arithmetic, and treats bounded-rational
+overflow as inconclusive. Rejecting a tolerance-inconsistent infeasibility
+certificate does not itself find a feasible point or establish convergence.

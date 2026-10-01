@@ -695,11 +695,64 @@ function _add_product_bounds(lower::T, upper::T, left::T, right::T) where {T<:Ab
     return prevfloat(lower + prevfloat(product)), nextfloat(upper + nextfloat(product))
 end
 
+# In these scaling conventions x_work = column_factor*x_original and
+# row_activity_work = row_activity_original/row_factor. Artificial columns
+# appended in phase I have no original column factor and retain working units.
+function _infeasibility_bound_allowance(workspace::SimplexWorkspace{T}, index::Int) where T
+    tolerance = workspace.options.primal_tolerance
+    iszero(tolerance) && return zero(T)
+    n = size(workspace.problem.A,2)
+    scaling = workspace.progress.scaling
+    allowance = if index <= n
+        index <= length(scaling.column_factors) ?
+            tolerance * scaling.column_factors[index] : tolerance
+    else
+        tolerance / scaling.row_factors[index-n]
+    end
+    # Widen a computed allowance, never the stored bound: adding a sub-ulp
+    # tolerance to a large bound would lose it or expand by a whole ulp.
+    return T <: AbstractFloat ? nextfloat(allowance) : allowance
+end
+
+_infeasibility_certified(workspace::SimplexWorkspace{T}, rho::Vector{T}, below::Bool) where {T<:AbstractFloat} =
+    _floating_infeasibility_certified(workspace,rho,below)
+
+function _infeasibility_certified(workspace::SimplexWorkspace{T},
+                                  rho::Vector{T}, below::Bool) where {T<:Rational}
+    try
+        A = workspace.problem.A
+        n = size(A,2)
+        orientation = below ? one(T) : -one(T)
+        minimum_value = zero(T)
+        for index in eachindex(workspace.lower)
+            coefficient = zero(T)
+            if index <= n
+                for position in nzrange(A,index)
+                    coefficient += orientation*rho[A.rowval[position]]*A.nzval[position]
+                end
+            else
+                coefficient = -orientation*rho[index-n]
+            end
+            iszero(coefficient) && continue
+            bound = coefficient > zero(T) ? workspace.lower[index] : workspace.upper[index]
+            isfinite(bound) || return false
+            minimum_value += coefficient*bound_value(bound) -
+                abs(coefficient)*_infeasibility_bound_allowance(workspace,index)
+        end
+        return minimum_value > zero(T)
+    catch exception
+        # Bounded rational intermediates may exceed their integer storage.
+        # Failure to represent the proof is inconclusive, never infeasibility.
+        exception isa OverflowError || rethrow()
+        return false
+    end
+end
+
 function _floating_infeasibility_certified(workspace::SimplexWorkspace{T},
                                           rho::Vector{T}, below::Bool) where {T<:AbstractFloat}
     # Every feasible working vector satisfies [A -I] * x == 0. A row
-    # combination whose minimum over the bounds is strictly positive proves
-    # a contradiction without relying on the computed basic primal values.
+    # combination must stay positive over the tolerance envelope of the bounds.
+    # This does not rely on the computed basic primal values.
     A = workspace.problem.A
     column_count = size(A, 2)
     orientation = below ? one(T) : -one(T)
@@ -730,7 +783,15 @@ function _floating_infeasibility_certified(workspace::SimplexWorkspace{T},
             term = min(term, coefficient_lower * endpoint, coefficient_upper * endpoint)
         end
         isfinite(term) || return false
-        total = minimum_value + prevfloat(term)
+        contribution = prevfloat(term)
+        allowance = _infeasibility_bound_allowance(workspace,index)
+        if !iszero(allowance)
+            magnitude = nextfloat(max(abs(coefficient_lower),abs(coefficient_upper)))
+            penalty = nextfloat(magnitude*allowance)
+            isfinite(penalty) || return false
+            contribution = prevfloat(contribution-penalty)
+        end
+        total = minimum_value + contribution
         isfinite(total) || return false
         minimum_value = prevfloat(total)
     end
@@ -1202,9 +1263,9 @@ function _dual_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_request
                     perturb_degenerate;force_full_pricing=true)
             end
         end
-        if _is_exact(T) === Val(false) && !_floating_infeasibility_certified(workspace, rho, below)
+        if !_infeasibility_certified(workspace, rho, below)
             return DualTermination(NUMERICAL_ERROR,
-                                   "floating row combination does not certify infeasibility")
+                                   "row combination does not certify infeasibility at primal tolerance")
         end
         return DualTermination(INFEASIBLE, "no eligible dual pivot")
     end
