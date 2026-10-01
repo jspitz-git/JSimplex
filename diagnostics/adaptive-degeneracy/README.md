@@ -464,3 +464,14 @@ caller's settings on every exit.
 The paired corpus now reaches **30 verified original optima out of 30**. JuMP
 `stocfor2` finishes in 2322 iterations; the other 29 configurations retain their
 status, iterations, refactorizations, phase sequence and objective exactly.
+
+## Paired dual corpus verification
+
+[Dual corpus validation](dual-corpus-validation.md) extends the phase-context
+check to 28 dual configurations over nine NetLib/MIPLib models, including both
+readers, explicit permutations and all four basis managers. Both `a7f1fac` and
+`d5390a2` reach 28/28 independently verified optima with identical iterations,
+refactorizations, objectives, phase sequences and diagnostic counts. These are
+56 completed paired solves under normal compilation, with no original-LP retry
+or time limit. No production change was needed. The report states the coverage
+limits and retains the manifest, source hashes, logs and paired comparison.
