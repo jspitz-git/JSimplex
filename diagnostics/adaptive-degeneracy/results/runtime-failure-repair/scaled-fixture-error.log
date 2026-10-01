@@ -1,0 +1,48 @@
+ERROR: LoadError: Some tests did not pass: 9 passed, 3 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_phase_coupled_tests.jl:75
+Test Summary:                                                      | Pass  Total  Time
+Coupled phase reconstruction retains nonzero tiny right-hand sides |   30     30  0.2s
+Test Summary:                                       | Pass  Total  Time
+Coupled reconstruction is bounded and transactional |   11     11  0.1s
+
+Coupled reconstruction survives row and column reordering and scaling: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_phase_coupled_tests.jl:89
+  Expression: maximum(abs, residual) <= Rational{BigInt}(T(128) * eps(T) * tiny)
+   Evaluated: 3//19342813113834066795298816 <= 1547425//10141204801825835211973625643008
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_phase_coupled_tests.jl:76
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_phase_coupled_tests.jl:89 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Coupled reconstruction survives row and column reordering and scaling: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_phase_coupled_tests.jl:89
+  Expression: maximum(abs, residual) <= Rational{BigInt}(T(128) * eps(T) * tiny)
+   Evaluated: 7//237142198758023568227473377297792835283496928595231875152809132048206089502588928 <= 3794275180128377//133499189745056880149688856635597007162669032647290798121690100488888732861290034376435130433536
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_phase_coupled_tests.jl:76
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_phase_coupled_tests.jl:89 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Coupled reconstruction survives row and column reordering and scaling: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_phase_coupled_tests.jl:89
+  Expression: maximum(abs, residual) <= Rational{BigInt}(T(128) * eps(T) * tiny)
+   Evaluated: 3//59285549689505892056868344324448208820874232148807968788202283012051522375647232 <= 3794275180128377//133499189745056880149688856635597007162669032647290798121690100488888732861290034376435130433536
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_phase_coupled_tests.jl:76
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_phase_coupled_tests.jl:89 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+Test Summary:                                                         | Pass  Fail  Total  Time
+Coupled reconstruction survives row and column reordering and scaling |    9     3     12  0.1s
+RNG of the outermost testset: Random.Xoshiro(0x8d4c9b10af59474d, 0x300f1ce6f8214ec5, 0xdca9639bdce5e759, 0xe1e3d112545d3b5e, 0x9a039b5136c757eb)

@@ -71,3 +71,53 @@ The separate adaptive interaction suite passes **3,289 checks** with
 atomicity. Independent read-only review found no actionable defect in the price
 repair. No full-project pass is claimed; broader validation follows the second
 repair. All Julia runs are serial and use the established memory guard.
+
+The fresh JuMP dual solve also reaches verified `OPTIMAL`: **61,775 iterations**,
+**786 refactorizations**, **255.769808547 seconds**, objective
+**51425691.76210435**. Neither full dual run attempts an original-LP retry.
+
+## Coupled reconstruction implementation and targeted verification
+
+After the existing local sweeps and homogeneous proposal fail, reconstruction
+can propose a small block solve in Float32/Float64. It follows only rows whose
+active coordinates are below the existing correction-derived cutoff and limits
+the proposal to **64 columns and 128 internal rows**. These are computational
+bounds, not model-specific accuracy thresholds. Rows connecting to larger
+coordinates are excluded from the solve but retained in the final certificate.
+
+The block uses row-normalized column-pivoted QR and at most `max_refinements`
+compensated corrections, all in the original scalar type. One final scalar
+reconstruction call disables recursive block recovery. Both pre- and post-local
+changes must fit the original cutoff. The unchanged full-system residual check,
+phase-export primal/bound checks and original-model certificate still decide
+acceptance. No precision increase, tolerance widening, pricing switch or new
+adaptive trigger is introduced. Stop requests are latched across proposals,
+including a one-shot cancellation after tentative homogeneous clearing.
+
+The new two-equation example fails before repair in both Float32 and Float64
+(20 passes, 2 failures). The final focused set passes **483 checks**, including
+row/column permutations, row/column scaling, inconsistent/oversized blocks,
+late cancellation, exceptions, original transfer tests and cleanup regressions.
+Existing negative tests specific to homogeneous-only recovery now explicitly
+use `coupled=false`; their rejection assertions are retained.
+
+Two new test-fixture expectations needed correction without production changes:
+the initial inconsistent system differed by less than its relative residual
+allowance; its inconsistency was raised to the scale of its terms. A later
+absolute-residual bound omitted the matrix row scale; it now derives that bound
+from the coefficient norm, while retaining the explicit known-solution checks.
+Both intermediate logs are preserved. Independent read-only review found no
+remaining actionable issue after the one-shot cancellation concern was fixed.
+
+The unmodified detached-export replay passes **19 checks** on the real JuMP
+failure state at iteration 86,607. Before recovery the primal and dual basis
+solves fail their residual checks; afterward both pass. Original primal
+feasibility and all rollback/cancellation checks pass. Maximum primal change is
+**4.656612873077393e-10**; no saved nonbasic coordinate changes. This is an export
+replay, not an outer-driver continuation or a convergence claim.
+
+The fresh whole-MPS JuMP primal verification reaches the same export boundary
+at iteration **86,607**, successfully starts phase II, and matches all **84**
+shared phase-I objective samples exactly. Its subsequent original-model cleanup
+is still running at this checkpoint; this commit establishes the repaired export,
+not the final solve outcome. Later validation below records the completed run.

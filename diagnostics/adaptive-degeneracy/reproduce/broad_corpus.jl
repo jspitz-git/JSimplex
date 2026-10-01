@@ -18,6 +18,24 @@ function instrument!()
     needle="    stop() && return false\n    trial=copy(x)"
     @assert count(needle,source)==1
     source=replace(source,needle=>"    Main.COUNTERS[\"local_attempts\"] += 1\n    component_trial=false\n"*needle)
+    if occursin("        proposed=_native_phase_homogeneous_component!",source)
+        needle="        proposed=_native_phase_homogeneous_component!(trial,B,rows,rhs,policy,cutoff,scratch,guard)"
+        @assert count(needle,source)==1
+        source=replace(source,needle=>"""
+        Main.COUNTERS["component_attempts"] += 1
+        Main.capture_component(trial,B,rhs,policy,cutoff)
+        Main.COMPONENT_ENABLED[] || return false
+        proposed=_native_phase_homogeneous_component!(trial,B,rows,rhs,policy,cutoff,scratch,guard)
+        proposed && (Main.COUNTERS["component_proposals"] += 1)
+        component_trial=proposed""")
+        needle="            _native_phase_coupled_rows!(trial,B,rows,rhs,policy,cutoff,scratch,guard) || return false"
+        @assert count(needle,source)==1
+        source=replace(source,needle=>"""
+            component_trial=false
+            Main.COUNTERS["coupled_attempts"] += 1
+            _native_phase_coupled_rows!(trial,B,rows,rhs,policy,cutoff,scratch,guard) || return false
+            Main.COUNTERS["coupled_certified"] += 1""")
+    else
     needle="        _native_phase_homogeneous_component!(trial,B,rows,rhs,policy,cutoff,scratch,stop) || return false"
     @assert count(needle,source)==1
     source=replace(source,needle=>"""
@@ -27,6 +45,7 @@ function instrument!()
         _native_phase_homogeneous_component!(trial,B,rows,rhs,policy,cutoff,scratch,stop) || return false
         Main.COUNTERS["component_proposals"] += 1
         component_trial=true""")
+    end
     needle="    copyto!(x,trial)\n    return true\nend\n\nfunction _native_phase_primal_solve!"
     @assert count(needle,source)==1
     source=replace(source,needle=>"    component_trial && (Main.COUNTERS[\"component_certified\"] += 1)\n"*needle)
@@ -48,7 +67,7 @@ function instrument!()
 end
 function reset_counters!()
     empty!(COUNTERS);empty!(CAPTURES)
-    for name in ("local_attempts","component_attempts","component_proposals","component_certified","export_attempts","original_retry_blocked")
+    for name in ("local_attempts","component_attempts","component_proposals","component_certified","export_attempts","original_retry_blocked","coupled_attempts","coupled_certified")
         COUNTERS[name]=0
     end
 end

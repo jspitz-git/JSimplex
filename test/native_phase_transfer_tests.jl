@@ -32,7 +32,7 @@ end
         @test x==T[-tiny,tiny]
         for (initial,limit) in ((T[0,tiny],cutoff),(T[noise,tiny],zero(T)))
             x=copy(initial)
-            @test !JSimplex._native_phase_local_rows!(x,B,rhs,policy,limit,()->false)
+            @test !JSimplex._native_phase_local_rows!(x,B,rhs,policy,limit,()->false;coupled=false)
             @test isequal(x,initial)
         end
         for throwing in (false,true)
@@ -120,10 +120,10 @@ end
             @test calls[]==cancel_at
             @test isequal(x,initial)
         end
-        # A nonzero RHS in the block makes clearing it invalid, however tiny.
+        # A nonzero RHS makes clearing invalid, even when coupled solving is disabled.
         unsafe_rhs=copy(rhs);unsafe_rhs[1]=tiny
         x=copy(initial)
-        @test !JSimplex._native_phase_local_rows!(x,B,unsafe_rhs,policy,cutoff,()->false)
+        @test !JSimplex._native_phase_local_rows!(x,B,unsafe_rhs,policy,cutoff,()->false;coupled=false)
         @test isequal(x,initial)
         x=copy(initial)
         @test !JSimplex._native_phase_local_rows!(x,B,rhs,policy,zero(T),()->false)

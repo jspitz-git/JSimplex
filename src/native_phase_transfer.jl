@@ -58,9 +58,9 @@ function _native_phase_homogeneous_component!(x,B,rows,rhs,policy,cutoff,scratch
     return true
 end
 
-_native_phase_local_rows!(x,B,rhs,policy,cutoff,stop) = false
+_native_phase_local_rows!(x,B,rhs,policy,cutoff,stop;coupled=true) = false
 function _native_phase_local_rows!(x::Vector{T}, B::SparseMatrixCSC{T}, rhs,
-                                    policy, cutoff::T, stop) where {T<:Union{Float32,Float64}}
+                                    policy, cutoff::T, stop; coupled::Bool=true) where {T<:Union{Float32,Float64}}
     stop() && return false
     trial=copy(x)
     rows=copy(transpose(B))
@@ -121,9 +121,21 @@ function _native_phase_local_rows!(x::Vector{T}, B::SparseMatrixCSC{T}, rhs,
     quality=_compensated_solve_quality!(scratch,B,trial,rhs,policy,false)
     (isnothing(quality) || stop()) && return false
     if !quality.reliable
-        _native_phase_homogeneous_component!(trial,B,rows,rhs,policy,cutoff,scratch,stop) || return false
-        quality=_compensated_solve_quality!(scratch,B,trial,rhs,policy,false)
-        (isnothing(quality) || !quality.reliable || stop()) && return false
+        before=coupled ? copy(trial) : trial
+        # A failed proposal may mean cancellation after tentative mutation.
+        # Latch it so a one-shot callback cannot accidentally start a fallback.
+        cancelled=Ref(false)
+        guard=()->(cancelled[]=cancelled[] || stop())
+        proposed=_native_phase_homogeneous_component!(trial,B,rows,rhs,policy,cutoff,scratch,guard)
+        quality=proposed ? _compensated_solve_quality!(scratch,B,trial,rhs,policy,false) : nothing
+        guard() && return false
+        if isnothing(quality) || !quality.reliable
+            coupled || return false
+            copyto!(trial,before)
+            quality=_compensated_solve_quality!(scratch,B,trial,rhs,policy,false)
+            (isnothing(quality) || guard()) && return false
+            _native_phase_coupled_rows!(trial,B,rows,rhs,policy,cutoff,scratch,guard) || return false
+        end
     end
     copyto!(x,trial)
     return true
@@ -190,5 +202,100 @@ function _complete_native_phase_transfer!(ws::SimplexWorkspace{T},stop) where {T
     _pipeline_changed!(ws,ws.scratch.row_solution)
     _pipeline_changed!(ws,ws.scratch.rho)
     _invalidate_pricing_pool!(ws;basis=false)
+    return true
+end
+
+# Reconstruct a bounded block of tiny coupled coordinates when scalar row
+# sweeps stall. Only internal equations enter the solve: larger boundary
+# residuals must not overwhelm tiny right-hand sides. The complete system is
+# still certified before any candidate is published.
+function _native_phase_coupled_rows!(x::Vector{T},B,rows,rhs,policy,cutoff,scratch,stop) where {T<:Union{Float32,Float64}}
+    policy.max_refinements>0 && isfinite(cutoff) && cutoff>zero(T) || return false
+    selected=falses(length(x))
+    seen=falses(length(rhs))
+    pending=Int[]
+    columns=Int[]
+    for row in eachindex(rhs)
+        stop() && return false
+        if abs(scratch.residual[row])>policy.solve_tolerance*scratch.work_scale[row]
+            push!(pending,row);seen[row]=true
+        end
+    end
+    head=1
+    while head<=length(pending)
+        stop() && return false
+        row=pending[head];head+=1
+        small=true
+        for p in nzrange(rows,row)
+            stop() && return false
+            if !iszero(rows.nzval[p]) && !(abs(x[rows.rowval[p]])<=cutoff)
+                small=false;break
+            end
+        end
+        small || continue
+        for p in nzrange(rows,row)
+            stop() && return false
+            column=rows.rowval[p]
+            (iszero(rows.nzval[p]) || selected[column]) && continue
+            # Fixed work bounds limit dense storage and factorization cost;
+            # they do not weaken any numerical acceptance criterion.
+            length(columns)<64 || return false
+            selected[column]=true;push!(columns,column)
+            for q in nzrange(B,column)
+                stop() && return false
+                neighbor=B.rowval[q]
+                (iszero(B.nzval[q]) || seen[neighbor]) && continue
+                seen[neighbor]=true;push!(pending,neighbor)
+            end
+        end
+    end
+    isempty(columns) && return false
+    sort!(columns)
+    interior=Int[]
+    for row in pending
+        stop() && return false
+        internal=true;nonempty=false
+        for p in nzrange(rows,row)
+            stop() && return false
+            iszero(rows.nzval[p]) && continue
+            nonempty=true
+            if !selected[rows.rowval[p]]
+                internal=false;break
+            end
+        end
+        internal && nonempty || continue
+        length(interior)<128 || return false
+        push!(interior,row)
+    end
+    isempty(interior) && return false
+    sort!(interior)
+    matrix=Matrix(B[interior,columns])
+    scales=vec(maximum(abs,matrix;dims=2))
+    all(s->isfinite(s) && s>zero(T),scales) || return false
+    matrix ./= scales
+    right=rhs[interior]./scales
+    all(isfinite,matrix) && all(isfinite,right) && !stop() || return false
+    factor=qr(matrix,ColumnNorm())
+    stop() && return false
+    values=factor\right
+    all(isfinite,values) || return false
+    trial=copy(x)
+    trial[columns]=values
+    for _ in 1:policy.max_refinements
+        stop() && return false
+        quality=_compensated_solve_quality!(scratch,B,trial,rhs,policy,false)
+        isnothing(quality) && return false
+        quality.reliable && break
+        correction=factor\(scratch.residual[interior]./scales)
+        all(isfinite,correction) || return false
+        trial[columns]+=correction
+    end
+    stop() && return false
+    all(isfinite,trial) && maximum(abs,trial-x;init=zero(T))<=cutoff || return false
+    # Recover remaining scalar cancellation without recursively solving another
+    # block. This call checks every equation, including all boundary rows.
+    _native_phase_local_rows!(trial,B,rhs,policy,cutoff,stop;coupled=false) || return false
+    maximum(abs,trial-x;init=zero(T))<=cutoff && !stop() || return false
+    copyto!(x,trial)
     return true
 end
