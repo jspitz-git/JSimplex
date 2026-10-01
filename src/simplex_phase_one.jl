@@ -155,7 +155,15 @@ function _remove_artificials!(phase::SimplexWorkspace{T},map,original,policy,sto
         # A tiny artificial is not exactly zero. Recompute the actual exchange
         # and require feasible original bounds before declaring it removable.
         _phase_refactor!(phase,original,stop)
-        _finite_workspace(phase) && _recomputed_basis_reliable(phase) && _start_primal_feasible(phase) || return false
+        _finite_workspace(phase) || return false
+        if !_recomputed_basis_reliable(phase)
+            # Repair the same native reconstruction failure as at final export.
+            # Already reliable exchanges retain their existing acceptance path.
+            _native_phase_transfer_enabled(phase) &&
+                _complete_native_phase_transfer!(phase,stop) &&
+                _recomputed_basis_reliable(phase) || return false
+        end
+        _start_primal_feasible(phase) || return false
         _simplex_event!(phase,:artificial_removed)
     end
     stop() && return false

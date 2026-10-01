@@ -385,3 +385,13 @@ is necessary for verified optima on scsd6 and mod010 in the captured orderings.
 Other numerical failures and a presolve tolerance discrepancy remain; the report
 separates those from direct repair coverage and documents the isolated policy,
 90-second per-case limit and disabled original-model restart.
+
+
+## Native reconstruction after an artificial exchange
+
+[The phase-transition correction](artificial-exchange-recovery.md) applies the
+existing certified native recovery when an individual artificial exchange loses
+basis residual reliability after refactorization. The previously failing mod010
+permutation reaches verified OPTIMAL in 679 iterations. Portable two-precision,
+four-manager regressions and 20 selected real-model runs verify the change;
+three numerical failures outside this transition remain explicitly recorded.

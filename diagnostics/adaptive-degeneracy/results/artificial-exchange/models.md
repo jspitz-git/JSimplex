@@ -1,0 +1,22 @@
+| Model | Reader / seed | Method / manager | Status | Iterations |
+| --- | --- | --- | --- | ---: |
+| miplib/mod010 | permuted/17 | primal/pfi | OPTIMAL | 679 |
+| miplib/mod010 | permuted/17 | primal/forrest_tomlin | OPTIMAL | 621 |
+| miplib/mod010 | permuted/17 | primal/suhl_suhl | OPTIMAL | 647 |
+| miplib/mod010 | permuted/17 | primal/bartels_golub | OPTIMAL | 622 |
+| miplib/mod010 | permuted/1 | primal/pfi | NUMERICAL_ERROR | 272 |
+| miplib/mod010 | permuted/2 | primal/pfi | OPTIMAL | 619 |
+| miplib/mod010 | permuted/29 | primal/pfi | OPTIMAL | 586 |
+| miplib/mod010 | native | primal/pfi | OPTIMAL | 532 |
+| miplib/mod010 | jump | primal/pfi | OPTIMAL | 595 |
+| netlib/scsd6 | native | primal/pfi | OPTIMAL | 340 |
+| netlib/scsd6 | native | primal/forrest_tomlin | OPTIMAL | 326 |
+| netlib/scsd6 | native | primal/suhl_suhl | OPTIMAL | 329 |
+| netlib/scsd6 | native | primal/bartels_golub | OPTIMAL | 337 |
+| netlib/scsd6 | jump | primal/pfi | OPTIMAL | 340 |
+| netlib/cycle | native | primal/pfi | NUMERICAL_ERROR | 868 |
+| netlib/cycle | jump | primal/pfi | OPTIMAL | 1291 |
+| netlib/stocfor2 | native | primal/pfi | OPTIMAL | 1970 |
+| netlib/stocfor2 | jump | primal/pfi | NUMERICAL_ERROR | 1957 |
+| miplib/mod010 | native | dual/pfi | OPTIMAL | 679 |
+| miplib/mod010 | jump | dual/pfi | OPTIMAL | 712 |
