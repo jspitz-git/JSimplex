@@ -375,3 +375,13 @@ A new complete run from MPS in the same isolated adaptive configuration reaches
 **OPTIMAL**, objective **51,425,691.762104236**, with original primal feasibility,
 106,252 iterations, 1,341 refactorizations and 846.284 seconds. All 79 sampled
 Phase-I pivot records match the preceding failed run before the repaired export.
+
+## Broader corpus and ordering validation
+
+[The expanded validation](broad-validation.md) tests 33 additional NetLib/MIPLib
+models through native and JuMP readers, followed by manager, permutation, dual
+and paired disabled-component controls (101 solves in total). The latest repair
+is necessary for verified optima on scsd6 and mod010 in the captured orderings.
+Other numerical failures and a presolve tolerance discrepancy remain; the report
+separates those from direct repair coverage and documents the isolated policy,
+90-second per-case limit and disabled original-model restart.
