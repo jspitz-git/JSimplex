@@ -346,3 +346,14 @@ the reduced problem certificate. Original-model postsolve still fails: the
 restored target has original-bound violations already present before the flips.
 The target and projection boundary are captured for the next investigation; no
 original-input optimum or new uninterrupted whole-MPS solve is claimed.
+
+
+## Original-space postsolve hints
+
+[Original-space recovery from an approximate target](postsolve-hints.md) traces
+the remaining runtime violation to scaled-unit errors amplified by unscaling.
+The native cleanup now accepts finite approximate targets solely as hints for
+basis exchanges; the reconstructed original point still requires full certification.
+Reconstructed continuation reaches OPTIMAL with original primal feasibility,
+objective 51,425,691.76210431 and 130,052 cumulative iterations. This is a saved
+Phase-II continuation, not a fresh whole-MPS run.
