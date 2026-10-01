@@ -436,3 +436,18 @@ and satisfy the full certificate. The 30-case comparison improves from 23 to
 28 verified optima: mod010 seed 1 with FT/SS, native boeing1, and both p0201
 readers now finish. The other 25 configurations are unchanged; native cycle
 and JuMP stocfor2 retain their earlier numerical failures.
+
+## Native cycle driver reconstruction
+
+[Driver local reconstruction](driver-local-reconstruction.md) repairs the
+remaining native `cycle` cleanup failure. After restoring the original bounds,
+the driver needs a reliable but still infeasible basis before dual repair.
+Reusing the existing certified local reconstruction with the same single native
+correction preserves that distinction. Rejected homogeneous clearing is discarded
+before trying the local alternative.
+
+The paired 30-configuration corpus now has **29 verified optima and one numerical
+error**. Native `cycle` reaches its verified original optimum in 963 iterations;
+the other 29 configurations retain status, iteration and refactorization counts,
+phase sequence and objective exactly. JuMP `stocfor2` still fails at iteration
+1957 with primal feasibility lost. This change adds no adaptive policy decision.
