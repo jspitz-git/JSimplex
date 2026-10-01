@@ -119,6 +119,16 @@ function _remove_artificials!(phase::SimplexWorkspace{T},map,original,policy,sto
         abs(phase.primal[leaving]) <= phase.options.primal_tolerance || return false
         fill!(unit,zero(T));unit[row]=one(T)
         _checked_basis_solve!(rho,phase,unit,stop;transposed=true)
+        # An unreliable unit-row BTRAN would make every candidate fail pivot
+        # validation. Repair it once in native precision before pricing; reliable
+        # rows and the separately selected checked kernel keep their old path.
+        if _native_phase_transfer_enabled(phase) && policy.max_refinements>0
+            B=_basis_matrix!(phase)
+            quality=solve_quality!(_pivot_quality_buffers(phase).row,B,rho,unit,policy;transposed=true)
+            if !quality.reliable
+                _native_cleanup_solve!(rho,phase,B,unit,stop;transposed=true) || return false
+            end
+        end
         # One independent sparse column scan avoids an m-vector dot product
         # for every possible original entering column.
         _csc_price!(prices,phase.problem.A,rho)

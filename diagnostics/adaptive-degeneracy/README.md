@@ -405,3 +405,13 @@ Six configurations pass this pricing obstacle but still fail at artificial
 removal; the selected 30-case suite has 17 verified optima and 13 numerical
 errors. The report distinguishes captured auxiliary optimality from full solves
 and includes a paired control with only the new recovery disabled.
+
+## Native pivot rows during artificial removal
+
+[The artificial-row correction](artificial-row-recovery.md) reuses bounded
+native cleanup when the shared BTRAN row would reject every removal candidate.
+The 30-case comparison improves from 17 to 21 verified optima: mod010 seed 1/PFI,
+both degen2 readers and native misc07 now complete. The 24 unchanged
+configurations retain their numerical outcomes and work counts; both degen3
+readers advance through exchanges but still fail removal. Pivot and original
+feasibility certificates remain unchanged.
