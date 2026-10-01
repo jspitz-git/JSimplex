@@ -538,3 +538,12 @@ The proof includes original-unit row and column tolerance allowances after
 scaling, uses outward native floating arithmetic, and treats bounded-rational
 overflow as inconclusive. Rejecting a tolerance-inconsistent infeasibility
 certificate does not itself find a feasible point or establish convergence.
+
+## Fresh runtime reader/method matrix
+
+The [full runtime verification](runtime-reader-full.md) on production base
+`b8955ac` covers native/JuMP readers and primal/dual simplex under the established
+isolated adaptive profile. Native primal reaches its checked optimum; JuMP
+primal fails artificial removal, and both dual orders lose dual feasibility
+near the tolerance boundary. Reports, scripts and local capture provenance are
+retained for diagnosis; no solver code changes accompany these runs.
