@@ -263,8 +263,11 @@ function _transactional_simplex_step!(perform,ws::SimplexWorkspace,stop_requeste
     elseif scratch.post_iteration in (:primal, :primal_flip, :primal_pivot)
         stop_requested() && return DualTermination(TIME_LIMIT,"time limit reached")
         if scratch.post_refactorize
+            completed_updates = length(ws.factorization.updates)
             recompute!(ws;refactorize=true,caller_guard=stop_requested,
                        diagnostic_reason=_refactor_event(scratch.post_refactor_reason))
+            !scratch.post_basis_refreshed && scratch.post_refactor_reason in (:limit, :cost) &&
+                _note_stable_basis_refactorization!(ws, completed_updates)
         end
     end
     return result

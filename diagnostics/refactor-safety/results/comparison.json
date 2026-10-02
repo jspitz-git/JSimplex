@@ -1,0 +1,58 @@
+{
+  "dual": {
+    "status": "OPTIMAL",
+    "iterations": 61387,
+    "refactorizations": 775,
+    "seconds": 266.610841056,
+    "objective": 51425691.762099,
+    "production_sha256": "67b162566ae3b98dc42f15005c95d6cdf35ce89b97ee7dcd49de7ee5f9f43011"
+  },
+  "primal": {
+    "status": "OPTIMAL",
+    "iterations": 106252,
+    "refactorizations": 1341,
+    "seconds": 864.285773326,
+    "objective": 51425691.762104236,
+    "production_sha256": "67b162566ae3b98dc42f15005c95d6cdf35ce89b97ee7dcd49de7ee5f9f43011"
+  },
+  "dual_trace_identical": true,
+  "exact_point_verification": [
+    {
+      "reader": "native",
+      "exact_original_primal_feasible": true,
+      "worst_row": 22447,
+      "exact_maximum_column_violation": "3474651598226631//37778931862957161709568",
+      "exact_objective": "214540255697476863596099955329371029247975902487087496788363875672834499480984355155309476506715091681//4171849679533027504677776769862406473833407270227837441302815640277772901915313574263597826048",
+      "objective_float64": 51425691.762098975,
+      "algorithm": "dual",
+      "maximum_column_violation": 9.197326199774276e-08,
+      "maximum_row_violation": 6.670588233426352e-08,
+      "exact_maximum_row_violation": "20160615868516635//302231454903657293676544",
+      "worst_column": 17769,
+      "reported_objective": 51425691.762099,
+      "native_certificate": true
+    },
+    {
+      "reader": "native",
+      "exact_original_primal_feasible": true,
+      "worst_row": 43021,
+      "exact_maximum_column_violation": "8229251811057193//2475880078570760549798248448",
+      "exact_objective": "2644412817435567049721290564179499854105085901875833176150287282279909//51422017416287688817342786954917203280710495801049370729644032",
+      "objective_float64": 51425691.76210425,
+      "algorithm": "primal",
+      "maximum_column_violation": 3.3237683368766608e-12,
+      "maximum_row_violation": 9.101841364717531e-09,
+      "exact_maximum_row_violation": "468035045176792613856974602737043958020932352912769985//51422017416287688817342786954917203280710495801049370729644032",
+      "worst_column": 6188,
+      "reported_objective": 51425691.762104236,
+      "native_certificate": true
+    }
+  ],
+  "external_cases": 104,
+  "external_models": 33,
+  "external_algorithms": {
+    "dual": 76,
+    "primal": 28
+  },
+  "external_trajectory_changes": []
+}

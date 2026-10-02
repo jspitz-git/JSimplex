@@ -1,3 +1,64 @@
+# A second inaccurate updated solve within three clean factorization cycles
+# lowers the update limit to at most half the earliest observed failure count,
+# with a minimum of one. Each clean cycle doubles a shortened interval back
+# toward the user's configured value, which remains the legacy ceiling.
+function _note_updated_basis_repair!(workspace)
+    _simplex_event!(workspace, :repair)
+    if workspace.progress.numerical_policy.adaptive_refactor
+        workspace.scratch.refactorization.residual_bad = true
+        workspace.scratch.refactorization.pending_cycle = :safety_repair
+    end
+    updates = length(workspace.factorization.updates)
+    updates > 0 || return nothing
+    workspace.dual_recent_repairs += 1
+    workspace.dual_bad_update_min = min(workspace.dual_bad_update_min, updates)
+    workspace.dual_stable_refactorizations = 0
+    if workspace.dual_recent_repairs >= 2
+        workspace.dual_refactorization_interval = min(
+            workspace.dual_refactorization_interval,
+            workspace.options.refactorization_interval,
+            max(1, workspace.dual_bad_update_min ÷ 2),
+        )
+        workspace.dual_recent_repairs = 0
+        workspace.dual_bad_update_min = typemax(Int)
+    end
+    return nothing
+end
+
+function _note_stable_basis_refactorization!(workspace, completed_updates::Int)
+    configured = workspace.options.refactorization_interval
+    interval = workspace.dual_refactorization_interval
+    if interval < configured
+        completed_updates >= interval || return nothing
+        workspace.dual_recent_repairs = 0
+        workspace.dual_bad_update_min = typemax(Int)
+        workspace.dual_refactorization_interval = interval > configured ÷ 2 ?
+            configured : 2 * interval
+        workspace.dual_stable_refactorizations = 0
+        return nothing
+    end
+    # The configured value is still an active cap until a clean cycle at
+    # that value completes. Use an unbounded sentinel after release so late
+    # failures of an economically extended chain can reimpose that same cap,
+    # including a configured interval of one.
+    if !workspace.progress.numerical_policy.adaptive_refactor
+        workspace.dual_refactorization_interval = configured
+    elseif completed_updates >= interval
+        workspace.dual_refactorization_interval = typemax(Int)
+    end
+    if workspace.dual_recent_repairs > 0
+        workspace.dual_stable_refactorizations += 1
+        if workspace.dual_stable_refactorizations >= 3
+            workspace.dual_recent_repairs = 0
+            workspace.dual_bad_update_min = typemax(Int)
+            workspace.dual_stable_refactorizations = 0
+        end
+        return nothing
+    end
+    workspace.dual_stable_refactorizations = 0
+    return nothing
+end
+
 # Numerical triggers precede economic heuristics. Timing data never certifies
 # a basis and never replaces the finite update ceiling.
 _refactor_ceiling(initial::Int, multiplier::Int=8, floor::Int=512) =
@@ -226,9 +287,15 @@ function _scheduled_refactor_reason(ws, algorithm::Symbol)
         state = ws.scratch.refactorization
         state.nupdates = length(ws.factorization.updates)
         state.fixed || _refresh_refactor_metrics!(ws)
-        return refactor_reason(state,ws.progress.numerical_policy)
+        # Preserve numerical reason priority when a safety limit coincides
+        # with a residual or growth trigger.
+        reason = refactor_reason(state,ws.progress.numerical_policy)
+        reason != :none && return reason
+        # Once the numerical limit fully recovers, economics may again grow
+        # the interval beyond the configured initial value.
+        return state.nupdates >= ws.dual_refactorization_interval ? :limit : :none
     end
-    interval = algorithm == :dual ? ws.dual_refactorization_interval : ws.options.refactorization_interval
+    interval = min(ws.options.refactorization_interval, ws.dual_refactorization_interval)
     return length(ws.factorization.updates) >= interval ? :limit : :none
 end
 
@@ -240,13 +307,22 @@ function _before_basis_refactor!(ws, reason::Symbol)
     ws.progress.numerical_policy.adaptive_refactor || return nothing
     state = ws.scratch.refactorization
     state.nupdates = length(ws.factorization.updates)
+    safety_repair = state.pending_cycle == :safety_repair
     state.pending_cycle = :none
     state.nupdates == 0 && return nothing
-    failed = state.residual_bad || reason in (:refactor_pivot,:refactor_residual,:refactor_growth) ||
+    if safety_repair
+        # The common numerical cap owns this failure and its recovery. Do not
+        # independently shorten the economic target for the same event.
+        state.pending_cycle = :safety_failed
+        state.healthy_cycles = 0
+        return nothing
+    end
+    failed = state.residual_bad || reason in (:refactor_residual,:refactor_growth) ||
         (!isnothing(state.latest_quality) && !state.latest_quality.reliable)
     productive = reason != :refactor_fill &&
         state.productive_updates >= state.nupdates-state.nupdates÷4
-    state.pending_cycle = failed ? :failed : isnothing(state.latest_quality) ? :unknown :
+    state.pending_cycle = failed ? :failed :
+        reason == :refactor_pivot || isnothing(state.latest_quality) ? :unknown :
         productive ? :healthy : :unproductive
     state.pending_cycle == :healthy || (state.healthy_cycles = 0)
     return nothing

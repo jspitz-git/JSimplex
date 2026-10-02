@@ -1,0 +1,93 @@
+┌ Info: Refined dual pivot row, direction, and prices
+│   iteration = 0
+│   leaving_row = 1
+│   original_entering_index = 1
+│   entering_index = 1
+│   old_pivot = -0.1
+└   refined_pivot = -1.0
+┌ Info: Refined dual pivot row, direction, and prices
+│   iteration = 1
+│   leaving_row = 2
+│   original_entering_index = 2
+│   entering_index = 2
+│   old_pivot = -0.1
+└   refined_pivot = -1.0
+┌ Info: Refined dual pivot row, direction, and prices
+│   iteration = 0
+│   leaving_row = 1
+│   original_entering_index = 1
+│   entering_index = 1
+│   old_pivot = -0.1
+└   refined_pivot = -1.0
+┌ Info: Refined dual pivot row, direction, and prices
+│   iteration = 1
+│   leaving_row = 2
+│   original_entering_index = 2
+│   entering_index = 2
+│   old_pivot = -0.1
+└   refined_pivot = -1.0
+ERROR: LoadError: Some tests did not pass: 770 passed, 4 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/.superpowers/refactor-safety/focused.jl:2
+
+Sensitive small pivots do not imply inaccurate updated solves: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/refactorization_safety_tests.jl:228
+  Expression: ws.dual_recent_repairs == 0
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/refactorization_safety_tests.jl:210
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/refactorization_safety_tests.jl:228 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Sensitive small pivots do not imply inaccurate updated solves: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/refactorization_safety_tests.jl:229
+  Expression: ws.dual_refactorization_interval == 80
+   Evaluated: 1 == 80
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/refactorization_safety_tests.jl:210
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/refactorization_safety_tests.jl:229 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Sensitive small pivots do not imply inaccurate updated solves: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/refactorization_safety_tests.jl:228
+  Expression: ws.dual_recent_repairs == 0
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/refactorization_safety_tests.jl:210
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/refactorization_safety_tests.jl:228 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Sensitive small pivots do not imply inaccurate updated solves: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/refactorization_safety_tests.jl:229
+  Expression: ws.dual_refactorization_interval == 80
+   Evaluated: 1 == 80
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/refactorization_safety_tests.jl:210
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/refactorization_safety_tests.jl:229 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+Test Summary:                                                                   | Pass  Fail  Total  Time
+Refactor safety                                                                 |  770     4    774  7.9s
+  Both native methods shorten after repeated inaccurate updated solves          |  336          336  1.7s
+  Adaptive economics cannot overrule the numerical limit                        |  212          212  5.3s
+  Degeneracy and cautious small-pivot refreshes do not count as factor failures |  134          134  0.2s
+  Fresh factor failures cannot repeatedly shorten the update limit              |   24           24  0.2s
+  Numerical triggers outrank a coincident safety ceiling                        |   12           12  0.1s
+  Late adaptive failures can impose the configured ceiling                      |   22           22  0.3s
+  A configured one-update ceiling can be reapplied after adaptive release       |   16           16  0.1s
+  Sensitive small pivots do not imply inaccurate updated solves                 |   14     4     18  0.0s
+RNG of the outermost testset: Random.Xoshiro(0x925d688b713969da, 0xfee4ef1481e1a6b0, 0x9f5367110eb6a179, 0x245519184a1141b7, 0xaa00e8c846e85148)
