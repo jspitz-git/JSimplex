@@ -12,7 +12,7 @@ function _phase_options(o::SolverOptions{T,M,R},algorithm::Symbol) where {T,M,R}
     return SolverOptions{T,M,R}(o.primal_tolerance,o.dual_tolerance,o.zero_tolerance,
         o.iteration_limit,o.time_limit,o.refactorization_interval,o.verbose,o.log_level,
         algorithm,o.pricing,o.basis_update,o.basis_refactorization,o.scaling,o.presolve,
-        o.simplex_strategy)
+        o.simplex_strategy,o.partial_pricing)
 end
 
 function _phase_inherit_work!(destination,source)

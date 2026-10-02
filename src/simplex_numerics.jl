@@ -57,7 +57,7 @@ function NumericalPolicy(::Type{T}; simplex_strategy::Symbol=:legacy,
     adaptive_stalling::Bool=(simplex_strategy == :adaptive),
     adaptive_dual_perturbation::Bool=(simplex_strategy == :adaptive),
     adaptive_primal_perturbation::Bool=(simplex_strategy == :adaptive),
-    adaptive_pricing::Bool=(simplex_strategy == :adaptive), partial_pricing::Bool=(simplex_strategy == :adaptive), sparse_pricing::Bool=false, hypersparse::Bool=false,
+    adaptive_pricing::Bool=(simplex_strategy == :adaptive), partial_pricing::Bool=false, sparse_pricing::Bool=false, hypersparse::Bool=false,
     crash::Bool=false, phase_one::Bool=false, precision_boosting::Bool=false,
     lp_refinement::Bool=false,
 ) where {T}
@@ -98,7 +98,7 @@ function NumericalPolicy(::Type{T}; simplex_strategy::Symbol=:legacy,
 end
 
 NumericalPolicy(::Type{T}, options::SolverOptions) where {T} =
-    NumericalPolicy(T; simplex_strategy=options.simplex_strategy)
+    NumericalPolicy(T; simplex_strategy=options.simplex_strategy, partial_pricing=options.partial_pricing)
 
 _native_primal_kernel(policy::NumericalPolicy) =
     !(policy.pivot_validation || policy.recovery || policy.incremental_primal ||

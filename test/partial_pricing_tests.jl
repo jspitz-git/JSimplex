@@ -83,9 +83,9 @@ end
     @test pool.full_scan
 end
 
-@testset "Partial pricing is adaptive and keeps small domains on full scans" begin
+@testset "Partial pricing is opt-in and keeps small domains on full scans" begin
     @test !JSimplex.NumericalPolicy(Float64).partial_pricing
-    @test JSimplex.NumericalPolicy(Float64;simplex_strategy=:adaptive).partial_pricing
+    @test !JSimplex.NumericalPolicy(Float64;simplex_strategy=:adaptive).partial_pricing
     @test !JSimplex.NumericalPolicy(Float64;simplex_strategy=:adaptive,partial_pricing=false).partial_pricing
     problem = LinearProblem(sparse([1.0 1.0]),[-1.0,-2.0];row_upper=[1.0])
     policy = JSimplex.NumericalPolicy(Float64;simplex_strategy=:adaptive,partial_pricing=true)
