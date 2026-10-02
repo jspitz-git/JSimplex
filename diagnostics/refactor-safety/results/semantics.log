@@ -1,0 +1,2832 @@
+CHECK presolve_tolerance
+CHECK presolve_dispatch
+CHECK retry_dispatch
+CHECK benchmark_regression
+CHECK dual_pivot_consistency
+CHECK legacy_dual_correction
+CHECK legacy_dual_price_repair
+CHECK legacy_correction_cycle
+CHECK dual_core_policy
+CHECK legacy_retry_edge
+CHECK dual_small_pivot_price
+CHECK dual_simplex
+[ Info: Loaded problem: rows=14 columns=9 nnz=54
+[ Info: Solve finished: status=MIP_NOT_SUPPORTED reason=discrete domains require relax_integrality=true iterations=0 time=0.0022815s
+[ Info: Loaded problem: rows=18 columns=18 nnz=46
+[ Info: Solve finished: status=MIP_NOT_SUPPORTED reason=discrete domains require relax_integrality=true iterations=0 time=0.0015303s
+[ Info: Loaded problem: rows=4 columns=34 nnz=123
+[ Info: Solve finished: status=MIP_NOT_SUPPORTED reason=discrete domains require relax_integrality=true iterations=0 time=0.0024961s
+[ Info: Loaded problem: rows=45 columns=86 nnz=915
+[ Info: Solve finished: status=MIP_NOT_SUPPORTED reason=discrete domains require relax_integrality=true iterations=0 time=0.0111094s
+┌ Info: Refined dual pivot row, direction, and prices
+│   iteration = 0
+│   leaving_row = 1
+│   original_entering_index = 2
+│   entering_index = 1
+│   old_pivot = -0.4761904761904762
+└   refined_pivot = -1.0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0018747
+[ Info: iter=1 obj=0.0 pinf=9.99998999991e9 (1) dinf=0.0 (0) time=0.005033999s
+[ Info: iter=2 obj=0.0 pinf=0.0 (0) dinf=0.0 (0) time=0.009189098s
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.002521499
+[ Info: iter=1 obj=0.0 pinf=250.00000000000003 (1) dinf=0.0 (0) time=0.005177599s
+[ Info: iter=2 obj=0.0 pinf=0.0 (0) dinf=0.0 (0) time=0.007400498s
+[ Info: iter=2 obj=2.9999999999999996 pinf=0.0 (0) dinf=0.0 (0) time=0.010610598s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 2
+└   time = 0.011035697
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.001806999
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0024486
+[ Info: iter=2 obj=2.9999999999999996 pinf=0.0 (0) dinf=0.0 (0) time=0.008189999s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 2
+└   time = 0.008669799
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.001478099
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0014188
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0014464
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.001432199
+[ Info: iter=1 obj=1.0 pinf=0.0 (0) dinf=0.0 (0) time=0.003531599s
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.001952299
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0019167
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0019145
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0019168
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0019684
+[ Info: iter=1 obj=-3.0 pinf=0.0 (0) dinf=0.0 (0) time=0.008059199s
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.001693299
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0013861
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0015026
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0014167
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.001425
+[ Info: iter=1 obj=1.0 pinf=0.0 (0) dinf=0.0 (0) time=0.003443499s
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.001892
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.001867599
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.001915099
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.001935
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0019349
+[ Info: iter=1 obj=-3.0 pinf=0.0 (0) dinf=0.0 (0) time=0.005635999s
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0017976
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0015682
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0015041
+[ Info: iter=0 obj=0.0 pinf=2.0 (1) dinf=0.0 (0) time=0.0031125s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0005818
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0014039
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0014144
+[ Info: iter=0 obj=0.0 pinf=1.0 (1) dinf=0.0 (0) time=0.0031886s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0013463
+[ Info: iter=0 obj=0.0 pinf=1.0 (1) dinf=0.0 (0) time=0.0027179s
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.001923099
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0013452
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=1 nnz=1
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.005019099
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=original-objective optimality certificate is inconclusive iterations=1 time=0.007287299s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.001435599
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=1 nnz=1
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.005080399
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=structural primal failed original-model feasibility checks iterations=1 time=0.007098899s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.001437999
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=1 nnz=1
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.004542599
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=original-objective optimality certificate is inconclusive iterations=1 time=0.007260899s
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0018853
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=1 nnz=1
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.004979399
+[ Info: iter=1 obj=-1.0e13 pinf=0.0 (0) dinf=0.0 (0) time=0.009059098s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.009436698
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=structural primal failed original-model feasibility checks iterations=1 time=0.010565898s
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0018018
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=1 nnz=1
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.004787199
+[ Info: iter=1 obj=-1.0e12 pinf=0.0 (0) dinf=0.0 (0) time=0.008510798s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.008855898
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=original-objective optimality certificate is inconclusive iterations=1 time=0.010146398s
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.001944299
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=1 nnz=1
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.005178599
+[ Info: iter=1 obj=-1.0e13 pinf=0.0 (0) dinf=0.0 (0) time=0.009030898s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.009401098
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=structural primal failed original-model feasibility checks iterations=1 time=0.010539998s
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.002025299
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=1 nnz=1
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.006085199
+[ Info: iter=1 obj=-1.0e13 pinf=0.0 (0) dinf=0.0 (0) time=0.010091098s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.010501198
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=structural primal failed original-model feasibility checks iterations=1 time=0.011646398s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0014457
+[ Info: iter=0 obj=0.0 pinf=1.0 (1) dinf=0.0 (0) time=0.002951s
+[ Info: Loaded problem: rows=1 columns=1 nnz=0
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=0 nnz=0
+[ Info: Solve finished: status=INFEASIBLE reason=empty row 1 is infeasible iterations=0 time=0.003700099s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0014679
+[ Info: iter=0 obj=0.0 pinf=1.0 (1) dinf=0.0 (0) time=0.002980699s
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=1 nnz=1
+[ Info: Solve finished: status=INFEASIBLE reason=row 1 contradicts current column bounds iterations=0 time=0.006094299s
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.002172899
+[ Info: Loaded problem: rows=1 columns=1 nnz=0
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.002687099
+[ Info: Restarting simplex on original LP after UNBOUNDED: unbounded improving direction; completed iterations=0
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.005182299
+[ Info: Solve finished: status=UNBOUNDED reason=unbounded improving direction iterations=0 time=0.007574298s
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0019352
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.004378199
+[ Info: Restarting simplex on original LP after UNBOUNDED: unbounded improving direction; completed iterations=0
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.006730399
+[ Info: Solve finished: status=UNBOUNDED reason=unbounded improving direction iterations=0 time=0.008599499s
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0018411
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.002972899
+[ Info: Restarting simplex on original LP after UNBOUNDED: unbounded improving direction; completed iterations=0
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.006131498
+[ Info: Solve finished: status=UNBOUNDED reason=unbounded improving direction iterations=0 time=0.008116198s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0013065
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=1 nnz=1
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.004606499
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=eligible pivots are below the Harris safety cutoff iterations=0 time=0.005407399s
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=1 nnz=1
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.004434399
+[ Info: Solve finished: status=OPTIMAL objective=0.0 iterations=1 time=0.007095998s
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0022109
+[ Info: iter=1 obj=-1.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0046388s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.005418799
+[ Info: Restarting simplex on original LP after UNBOUNDED: unbounded improving direction; completed iterations=0
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.008242699
+[ Info: iter=1 obj=-1.0 pinf=0.0 (0) dinf=0.0 (0) time=0.010790798s
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=Original LP retry failed after UNBOUNDED (unbounded improving direction): auxiliary direction has uncertain feasibility or objective improvement iterations=1 time=0.011642598s
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0020675
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.004963999
+[ Info: Restarting simplex on original LP after UNBOUNDED: unbounded improving direction; completed iterations=0
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.007676099
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=Original LP retry failed after UNBOUNDED (unbounded improving direction): auxiliary direction has uncertain feasibility or objective improvement iterations=1 time=0.009464298s
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.00214
+[ Info: iter=1 obj=-1.0 pinf=0.0 (0) dinf=0.0 (0) time=0.004496699s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.004859199
+[ Info: Restarting simplex on original LP after UNBOUNDED: unbounded improving direction; completed iterations=0
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.007541999
+[ Info: iter=1 obj=-1.0 pinf=0.0 (0) dinf=0.0 (0) time=0.009691498s
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=Original LP retry failed after UNBOUNDED (unbounded improving direction): auxiliary direction has uncertain feasibility or objective improvement iterations=1 time=0.010284898s
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0021617
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.005128899
+[ Info: Restarting simplex on original LP after UNBOUNDED: unbounded improving direction; completed iterations=0
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.007946099
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=Original LP retry failed after UNBOUNDED (unbounded improving direction): auxiliary direction has uncertain feasibility or objective improvement iterations=1 time=0.009811598s
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0020802
+[ Info: iter=1 obj=-1.0 pinf=0.0 (0) dinf=0.0 (0) time=0.004296999s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.005285999
+[ Info: Restarting simplex on original LP after UNBOUNDED: unbounded improving direction; completed iterations=0
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.008070699
+[ Info: iter=1 obj=-1.0 pinf=0.0 (0) dinf=0.0 (0) time=0.010204998s
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=Original LP retry failed after UNBOUNDED (unbounded improving direction): auxiliary direction has uncertain feasibility or objective improvement iterations=1 time=0.010822498s
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0021016
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.005102199
+[ Info: Restarting simplex on original LP after UNBOUNDED: unbounded improving direction; completed iterations=0
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.007773199
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=Original LP retry failed after UNBOUNDED (unbounded improving direction): auxiliary direction has uncertain feasibility or objective improvement iterations=1 time=0.009629498s
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0021475
+[ Info: iter=1 obj=-1.0 pinf=0.0 (0) dinf=0.0 (0) time=0.004281999s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=2
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.006088999
+[ Info: iter=1 obj=-2.0 pinf=0.0 (0) dinf=0.0 (0) time=0.008073599s
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=auxiliary direction has uncertain feasibility or objective improvement iterations=1 time=0.008629998s
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0020857
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=2
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.005579398
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=auxiliary direction has uncertain feasibility or objective improvement iterations=1 time=0.007706198s
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.002128999
+[ Info: iter=1 obj=-1.0 pinf=0.0 (0) dinf=0.0 (0) time=0.004337299s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=2
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.005897199
+[ Info: iter=1 obj=-2.0 pinf=0.0 (0) dinf=0.0 (0) time=0.007827198s
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=auxiliary direction has uncertain feasibility or objective improvement iterations=1 time=0.008378398s
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0024512
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=2
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.005840399
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=auxiliary direction has uncertain feasibility or objective improvement iterations=1 time=0.007658099s
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.001926899
+[ Info: iter=1 obj=-1.0 pinf=0.0 (0) dinf=0.0 (0) time=0.003938299s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.005051399
+[ Info: Restarting simplex on original LP after UNBOUNDED: unbounded improving direction; completed iterations=0
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.007698298
+[ Info: iter=1 obj=-1.0 pinf=0.0 (0) dinf=0.0 (0) time=0.009873298s
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=Original LP retry failed after UNBOUNDED (unbounded improving direction): auxiliary direction has uncertain feasibility or objective improvement iterations=1 time=0.010529998s
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.002150199
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.006172999
+[ Info: Restarting simplex on original LP after UNBOUNDED: unbounded improving direction; completed iterations=0
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.009115098
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=Original LP retry failed after UNBOUNDED (unbounded improving direction): auxiliary direction has uncertain feasibility or objective improvement iterations=1 time=0.011126698s
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.002676099
+[ Info: iter=1 obj=-1.0 pinf=1.0 (1) dinf=0.0 (0) time=0.005275699s
+[ Info: iter=2 obj=-1.0 pinf=0.0 (0) dinf=0.0 (0) time=0.007689498s
+[ Info: Loaded problem: rows=2 columns=3 nnz=4
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.008021998
+[ Info: Restarting simplex on original LP after UNBOUNDED: unbounded improving direction; completed iterations=0
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.011225398
+[ Info: iter=1 obj=-1.0 pinf=1.0 (1) dinf=0.0 (0) time=0.013702497s
+[ Info: iter=2 obj=-1.0 pinf=0.0 (0) dinf=0.0 (0) time=0.016249897s
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=Original LP retry failed after UNBOUNDED (unbounded improving direction): auxiliary direction has uncertain feasibility or objective improvement iterations=2 time=0.017005997s
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0025427
+[ Info: Loaded problem: rows=2 columns=3 nnz=4
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.006128199
+[ Info: Restarting simplex on original LP after UNBOUNDED: unbounded improving direction; completed iterations=0
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.009369098
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=Original LP retry failed after UNBOUNDED (unbounded improving direction): auxiliary direction has uncertain feasibility or objective improvement iterations=2 time=0.013330197s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0013568
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=1 nnz=1
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.004264199
+[ Info: iter=1 obj=1.0e13 pinf=0.0 (0) dinf=0.0 (0) time=0.006163299s
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=original-objective optimality certificate is inconclusive iterations=1 time=0.007258198s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0013487
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=1 nnz=1
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.004720199
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=original-objective optimality certificate is inconclusive iterations=1 time=0.007083499s
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0020038
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=1 nnz=1
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.005072299
+[ Info: iter=1 obj=0.0 pinf=0.0 (0) dinf=0.0 (0) time=0.007130998s
+[ Info: iter=1 obj=-1.0e13 pinf=0.0 (0) dinf=0.0 (0) time=0.010540798s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.010927198
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=structural primal failed original-model feasibility checks iterations=1 time=0.012008497s
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0018879
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=1 nnz=1
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.005118399
+[ Info: iter=1 obj=-1.0e13 pinf=0.0 (0) dinf=0.0 (0) time=0.009180998s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.009557698
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=structural primal failed original-model feasibility checks iterations=1 time=0.010609698s
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.002285599
+[ Info: iter=1 obj=-1.0 pinf=0.0 (0) dinf=0.0 (0) time=0.004579599s
+[ Info: Loaded problem: rows=2 columns=2 nnz=3
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=1 nnz=1
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.009024498
+[ Info: iter=1 obj=0.0 pinf=0.0 (0) dinf=0.0 (0) time=0.010972297s
+[ Info: iter=1 obj=-1.0e13 pinf=0.0 (0) dinf=0.0 (0) time=0.013660697s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.014004497
+[ Info: Restarting simplex on original LP after NUMERICAL_ERROR: structural primal failed original-model feasibility checks; completed iterations=1
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.017867196
+[ Info: iter=2 obj=-1.0 pinf=0.0 (0) dinf=0.0 (0) time=0.020265596s
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=Original LP retry failed after NUMERICAL_ERROR (structural primal failed original-model feasibility checks): auxiliary direction has uncertain feasibility or objective improvement iterations=2 time=0.021015895s
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0024076
+[ Info: Loaded problem: rows=2 columns=2 nnz=3
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=1 nnz=1
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.008998398
+[ Info: iter=1 obj=-1.0e13 pinf=0.0 (0) dinf=0.0 (0) time=0.012928598s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.013299098
+[ Info: Restarting simplex on original LP after NUMERICAL_ERROR: structural primal failed original-model feasibility checks; completed iterations=1
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.017423097
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=Original LP retry failed after NUMERICAL_ERROR (structural primal failed original-model feasibility checks): auxiliary direction has uncertain feasibility or objective improvement iterations=2 time=0.020597596s
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0023042
+[ Info: iter=1 obj=-1.0 pinf=0.0 (0) dinf=0.0 (0) time=0.004773499s
+[ Info: Loaded problem: rows=2 columns=2 nnz=3
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=1 nnz=1
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.010587098
+[ Info: iter=1 obj=0.0 pinf=0.0 (0) dinf=0.0 (0) time=0.012592797s
+[ Info: iter=1 obj=-1.0e13 pinf=0.0 (0) dinf=0.0 (0) time=0.015202497s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.015601897
+[ Info: Restarting simplex on original LP after NUMERICAL_ERROR: structural primal failed original-model feasibility checks; completed iterations=1
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.019625196
+[ Info: iter=2 obj=-1.0 pinf=0.0 (0) dinf=0.0 (0) time=0.021961796s
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=Original LP retry failed after NUMERICAL_ERROR (structural primal failed original-model feasibility checks): auxiliary direction has uncertain feasibility or objective improvement iterations=2 time=0.022787095s
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0022833
+[ Info: Loaded problem: rows=2 columns=2 nnz=3
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=1 nnz=1
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.008405299
+[ Info: iter=1 obj=-1.0e13 pinf=0.0 (0) dinf=0.0 (0) time=0.012193398s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.012546498
+[ Info: Restarting simplex on original LP after NUMERICAL_ERROR: structural primal failed original-model feasibility checks; completed iterations=1
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.016336297
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=Original LP retry failed after NUMERICAL_ERROR (structural primal failed original-model feasibility checks): auxiliary direction has uncertain feasibility or objective improvement iterations=2 time=0.018467797s
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.002122399
+[ Info: Loaded problem: rows=1 columns=1 nnz=0
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.002625599
+[ Info: Restarting simplex on original LP after UNBOUNDED: unbounded improving direction; completed iterations=0
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.005015599
+[ Info: Solve finished: status=UNBOUNDED reason=unbounded improving direction iterations=0 time=0.006895499s
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0019036
+[ Info: Loaded problem: rows=1 columns=1 nnz=0
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.002753299
+[ Info: Restarting simplex on original LP after UNBOUNDED: unbounded improving direction; completed iterations=0
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.005280499
+[ Info: Solve finished: status=UNBOUNDED reason=unbounded improving direction iterations=0 time=0.007210098s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0006454
+[ Info: Loaded problem: rows=0 columns=1 nnz=0
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.002368699
+[ Info: Solve finished: status=UNBOUNDED reason=unbounded improving direction iterations=0 time=0.002699399s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0005739
+[ Info: Loaded problem: rows=0 columns=1 nnz=0
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0025149
+[ Info: Solve finished: status=UNBOUNDED reason=unbounded improving direction iterations=0 time=0.0028385s
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0018742
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.001854
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.001962
+[ Info: iter=0 obj=-1.0 pinf=1.0 (1) dinf=0.0 (0) time=0.003625899s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0017773
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0017049
+[ Info: iter=1 obj=1.0 pinf=2.0 (1) dinf=0.0 (0) time=0.004206199s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0017309
+[ Info: iter=1 obj=1.0 pinf=2.0 (1) dinf=0.0 (0) time=0.004225699s
+CHECK dual_ratio
+CHECK pivot_retry
+CHECK pivot_application
+CHECK dual_entry_phase
+CHECK postsolve_cleanup_performance
+CHECK postsolve_hint
+CHECK simplex_driver
+CHECK simplex_precision_entry
+CHECK native_phase_transfer
+CHECK native_cleanup_recovery
+CHECK simplex_phase_one
+CHECK simplex_phase_one_auxiliary
+CHECK simplex_phase_one_guard
+CHECK simplex_phase_one_deadline
+Checking simplex_strategy_separation
+Checking dual_core_policy
+Checking simplex_stalling
+Checking simplex_stalling_integration
+Checking simplex_stalling_edge
+Checking simplex_perturbation
+Checking simplex_perturbation_integration
+Checking primal_perturbation
+Checking primal_perturbation_integration
+Checking adaptive_pricing
+Checking adaptive_pricing_integration
+Checking adaptive_pricing_lifecycle
+Checking simplex_handoff_atomicity
+CHECK legacy_primal_perturbed_point
+CHECK legacy_primal_point
+CHECK legacy_primal_equation_point
+CHECK legacy_primal_point_recovery
+CHECK simplex_strategy_separation
+CHECK primal_perturbation
+CHECK primal_perturbation_integration
+CHECK simplex_phase_one_state
+CHECK simplex_phase_one_completion
+CHECK simplex_precision_activity
+CHECK regression
+[ Info: iter=2 obj=3.0 pinf=0.0 (0) dinf=0.0 (0) time=0.006568199s
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.002653099
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0022304
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0023419
+[ Info: iter=2 obj=-3.0 pinf=0.0 (0) dinf=0.0 (0) time=0.007983899s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 2
+└   time = 0.008443399
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0022806
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.000761
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0006202
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0005189
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0006798
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0006336
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0007116
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.001327
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.001191699
+[ Info: iter=0 obj=4.0 pinf=1.0 (1) dinf=0.0 (0) time=0.002532899s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0013639
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0006397
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.001411399
+[ Info: iter=0 obj=0.0 pinf=1.0 (1) dinf=0.0 (0) time=0.003068999s
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.001906599
+[ Info: iter=1 obj=-3.0 pinf=0.0 (0) dinf=0.0 (0) time=0.006525698s
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0017881
+[ Info: iter=1 obj=-3.0 pinf=0.0 (0) dinf=0.0 (0) time=0.005417399s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.005764899
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0029569
+[ Info: iter=1 obj=-3.0 pinf=0.0 (0) dinf=0.0 (0) time=0.006610899s
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.001920299
+[ Info: iter=1 obj=-3.0 pinf=0.0 (0) dinf=0.0 (0) time=0.005627599s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.005986399
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.001982
+[ Info: iter=1 obj=-6.0 pinf=0.0 (0) dinf=0.0 (0) time=0.005766499s
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.001984099
+[ Info: iter=1 obj=-6.0 pinf=0.0 (0) dinf=0.0 (0) time=0.005828698s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.006172298
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.002097499
+[ Info: iter=1 obj=-8.0 pinf=0.0 (0) dinf=0.0 (0) time=0.006685398s
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0017792
+[ Info: iter=1 obj=-8.0 pinf=0.0 (0) dinf=0.0 (0) time=0.005227799s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.005589099
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0018904
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0019385
+[ Info: iter=1 obj=1.0 pinf=1.0 (1) dinf=0.0 (0) time=0.005603399s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.005970299
+[ Info: iter=1 obj=1.0 pinf=1.0 (1) dinf=0.0 (0) time=0.007764999s
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0024094
+[ Info: iter=0 obj=0.0 pinf=1.0 (1) dinf=0.0 (0) time=0.005295199s
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0021871
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0023258
+[ Info: iter=1 obj=0.0 pinf=0.0 (0) dinf=0.0 (0) time=0.006461899s
+[ Info: Loaded problem: rows=1 columns=3 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=3 nnz=2
+[ Info: Solve finished: status=INFEASIBLE reason=row 1 contradicts current column bounds iterations=0 time=0.008720598s
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0022582
+[ Info: Loaded problem: rows=1 columns=3 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=3 nnz=2
+[ Info: Solve finished: status=INFEASIBLE reason=row 1 contradicts current column bounds iterations=0 time=0.008108198s
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.002558699
+[ Info: iter=1 obj=0.0 pinf=0.0 (0) dinf=0.0 (0) time=0.006477799s
+[ Info: Loaded problem: rows=1 columns=3 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=3 nnz=2
+[ Info: Solve finished: status=INFEASIBLE reason=row 1 contradicts current column bounds iterations=0 time=0.008373499s
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.002337899
+[ Info: Loaded problem: rows=1 columns=3 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=3 nnz=2
+[ Info: Solve finished: status=INFEASIBLE reason=row 1 contradicts current column bounds iterations=0 time=0.007767399s
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0024743
+[ Info: iter=1 obj=0.0 pinf=0.0 (0) dinf=0.0 (0) time=0.006423699s
+[ Info: Loaded problem: rows=1 columns=3 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.004708899
+[ Info: Restarting simplex on original LP after UNBOUNDED: unbounded improving direction; completed iterations=0
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.008604998
+[ Info: iter=1 obj=0.0 pinf=0.0 (0) dinf=0.0 (0) time=0.012486298s
+[ Info: Solve finished: status=UNBOUNDED reason=unbounded improving direction iterations=1 time=0.013114597s
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0023159
+[ Info: Loaded problem: rows=1 columns=3 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.004838699
+[ Info: Restarting simplex on original LP after UNBOUNDED: unbounded improving direction; completed iterations=0
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.007533899
+[ Info: Solve finished: status=UNBOUNDED reason=unbounded improving direction iterations=1 time=0.010784798s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0015455
+[ Info: iter=1 obj=100.0 pinf=0.0 (0) dinf=1.0e-6 (1) time=0.004278699s
+[ Info: Starting primal cleanup after restoring original costs
+[ Info: iter=1 obj=4.0 pinf=0.0 (0) dinf=0.0 (0) time=0.003063399s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0021681
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.00259
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0015025
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0015179
+[ Info: iter=0 obj=0.0 pinf=3.0 (1) dinf=0.0 (0) time=0.0034286s
+[ Info: iter=2 obj=3.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0064812s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0018102
+[ Info: iter=1 obj=1.0 pinf=2.0 (1) dinf=0.0 (0) time=0.004602s
+[ Info: iter=2 obj=3.0 pinf=0.0 (0) dinf=0.0 (0) time=0.006674s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0023926
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0020478
+[ Info: iter=1 obj=-3.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0061341s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.0065611
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0018589
+[ Info: iter=1 obj=-3.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0053201s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.0057142
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0016846
+[ Info: iter=1 obj=-6.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0052246s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.0055895
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0019833
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0018903
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0017155
+[ Info: iter=1 obj=1.0 pinf=1.0 (1) dinf=0.0 (0) time=0.0055276s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.0058949
+[ Info: iter=1 obj=1.0 pinf=1.0 (1) dinf=0.0 (0) time=0.0073354s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.000993
+[ Info: iter=0 obj=0.0 pinf=1.0 (1) dinf=0.0 (0) time=0.0020547s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.000612
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0021329
+[ Info: iter=1 obj=1.0 pinf=2.0 (1) dinf=0.0 (0) time=0.0048364s
+[ Info: iter=2 obj=3.0 pinf=0.0 (0) dinf=0.0 (0) time=0.007477101s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0033187
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0025225
+[ Info: iter=1 obj=-3.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0074184s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.0082078
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0019782
+[ Info: iter=1 obj=-3.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0055523s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.0059118
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0018616
+[ Info: iter=1 obj=-6.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0058786s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.0066148
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0021754
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0020908
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0019785
+[ Info: iter=1 obj=1.0 pinf=1.0 (1) dinf=0.0 (0) time=0.0059437s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.0063413
+[ Info: iter=1 obj=1.0 pinf=1.0 (1) dinf=0.0 (0) time=0.0078398s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0013346
+[ Info: iter=0 obj=0.0 pinf=1.0 (1) dinf=0.0 (0) time=0.0026548s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0005238
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0039019
+[ Info: iter=1 obj=1.0 pinf=2.0 (1) dinf=0.0 (0) time=0.0090599s
+[ Info: iter=2 obj=3.0 pinf=0.0 (0) dinf=0.0 (0) time=0.013694s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0044443
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.014598501
+[ Info: iter=1 obj=-3.0 pinf=0.0 (0) dinf=0.0 (0) time=0.020448401s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.020943101
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0036878
+[ Info: iter=1 obj=-3.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0088875s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.0092887
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0038847
+[ Info: iter=1 obj=-6.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0097598s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.0101793
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0036931
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0035555
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0034013
+[ Info: iter=1 obj=1.0 pinf=1.0 (1) dinf=0.0 (0) time=0.008694s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.0091756
+[ Info: iter=1 obj=1.0 pinf=1.0 (1) dinf=0.0 (0) time=0.0118309s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0021675
+[ Info: iter=0 obj=0.0 pinf=1.0 (1) dinf=0.0 (0) time=0.0046689s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0009543
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0041162
+[ Info: iter=1 obj=1//1 pinf=2//1 (1) dinf=0//1 (0) time=0.0089411s
+[ Info: iter=2 obj=3//1 pinf=0//1 (0) dinf=0//1 (0) time=0.0144092s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0046753
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0101511
+[ Info: iter=1 obj=-3//1 pinf=0//1 (0) dinf=0//1 (0) time=0.0161086s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.0166617
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.003708801
+[ Info: iter=1 obj=-3//1 pinf=0//1 (0) dinf=0//1 (0) time=0.009059901s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.009578401
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0034323
+[ Info: iter=1 obj=-6//1 pinf=0//1 (0) dinf=0//1 (0) time=0.0087523s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.0092171
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0041299
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.003738
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0033977
+[ Info: iter=1 obj=1//1 pinf=1//1 (1) dinf=0//1 (0) time=0.0086844s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.0092144
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0021969
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0009439
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0025058
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0033297
+[ Info: iter=1 obj=-10000000000000//1 pinf=0//1 (0) dinf=0//1 (0) time=0.0089928s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.0094234
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=0 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0041036
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=0 obj=1.7014117e38 pinf=0.0 (0) dinf=0.0 (0) time=0.0073985s
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=1.7014117e38 iterations=0 time=0.0098988s
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=1 nnz=1
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0112095
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=non-finite simplex iterate iterations=1 time=0.0135912s
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=0 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0038639
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=0 obj=8.988465674311579e307 pinf=0.0 (0) dinf=0.0 (0) time=0.0073276s
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=8.988465674311579e307 iterations=0 time=0.009437101s
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=1 nnz=1
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0051983
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=non-finite simplex iterate iterations=1 time=0.0078527s
+[ Info: iter=1 obj=1.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0034464s
+[ Info: iter=1 obj=1.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0030316s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.00141
+[ Info: iter=0 obj=0.0 pinf=2.0 (1) dinf=0.0 (0) time=0.0029231s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0014662
+[ Info: iter=0 obj=0.0 pinf=2.0 (1) dinf=0.0 (0) time=0.0030855s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0029024
+[ Info: iter=0 obj=0.0 pinf=2.0 (1) dinf=0.0 (0) time=0.0058963s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0026363
+[ Info: iter=0 obj=0.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0025191s
+[ Info: iter=0 obj=0.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0026642s
+[ Info: iter=0 obj=1.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0015976s
+[ Info: iter=0 obj=1.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0018635s
+[ Info: iter=0 obj=1.0 pinf=0.0 (0) dinf=0.0 (0) time=0.002978s
+[ Info: iter=0 obj=1//1 pinf=0//1 (0) dinf=0//1 (0) time=0.0028658s
+[ Info: iter=0 obj=0.0 pinf=0.0 (0) dinf=0.0 (0) time=0.001499s
+[ Info: iter=0 obj=0.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0019706s
+[ Info: iter=0 obj=0.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0029659s
+[ Info: iter=0 obj=0//1 pinf=0//1 (0) dinf=0//1 (0) time=0.0026595s
+[ Info: Loaded problem: rows=27 columns=32 nnz=83
+[ Info: Starting presolve
+[ Info: After presolve: rows=20 columns=24 nnz=74
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.149134998
+[ Info: iter=4 obj=-521.7142857142859 pinf=135.72285714285715 (3) dinf=0.0 (0) time=0.187938797s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 4
+└   time = 0.189311497
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=9 obj=-464.75314285714273 pinf=0.0 (0) dinf=0.0 (0) time=0.253114096s
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=-464.75314285714273 iterations=9 time=0.269720296s
+[ Info: Loaded problem: rows=0 columns=1 nnz=0
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=0 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0034505
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=0 obj=-1.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0058258s
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=-1.0 iterations=0 time=0.006992s
+[ Info: Loaded problem: rows=0 columns=1 nnz=0
+[ Info: Solve finished: status=MIP_NOT_SUPPORTED reason=discrete domains require relax_integrality=true iterations=0 time=0.0005276s
+[ Info: Loaded problem: rows=0 columns=1 nnz=0
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=0 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0023364
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=0 obj=0.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0043275s
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=0.0 iterations=0 time=0.0053918s
+[ Info: Loaded problem: rows=0 columns=1 nnz=0
+[ Info: Solve finished: status=MIP_NOT_SUPPORTED reason=discrete domains require relax_integrality=true iterations=0 time=0.0005257s
+[ Info: Loaded problem: rows=0 columns=1 nnz=0
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=0 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0027186
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=0 obj=-1.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0047533s
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=-1.0 iterations=0 time=0.0057883s
+[ Info: Loaded problem: rows=0 columns=1 nnz=0
+[ Info: Solve finished: status=MIP_NOT_SUPPORTED reason=discrete domains require relax_integrality=true iterations=0 time=0.0006028s
+[ Info: Loaded problem: rows=0 columns=1 nnz=0
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=0 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0023404
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=0 obj=0.25 pinf=0.0 (0) dinf=0.0 (0) time=0.0043449s
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=0.25 iterations=0 time=0.0054515s
+[ Info: Loaded problem: rows=0 columns=1 nnz=0
+[ Info: Solve finished: status=MIP_NOT_SUPPORTED reason=discrete domains require relax_integrality=true iterations=0 time=0.0005441s
+[ Info: Loaded problem: rows=0 columns=1 nnz=0
+[ Info: Solve finished: status=INVALID_MODEL reason=binary variable bounds must intersect [0, 1] iterations=0 time=0.0004928s
+[ Info: Loaded problem: rows=0 columns=1 nnz=0
+[ Info: Solve finished: status=INVALID_MODEL reason=binary variable bounds must intersect [0, 1] iterations=0 time=0.0006251s
+[ Info: Loaded problem: rows=0 columns=1 nnz=0
+[ Info: Solve finished: status=INVALID_MODEL reason=binary variable bounds must intersect [0, 1] iterations=0 time=0.0005512s
+[ Info: Loaded problem: rows=0 columns=1 nnz=0
+[ Info: Solve finished: status=INVALID_MODEL reason=binary variable bounds must intersect [0, 1] iterations=0 time=0.0005249s
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=0 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0034582
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=0 obj=1.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0065193s
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=1.0 iterations=0 time=0.0079508s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=2
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.005368499
+[ Info: iter=0 obj=0.0 pinf=1.0 (1) dinf=0.0 (0) time=0.007189199s
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=ZeroPivotException: factorization encountered one or more zero pivots. Consider switching to a pivoted LU factorization. iterations=0 time=0.008994899s
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=0 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0033534
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=0 obj=1.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0063162s
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=1.0 iterations=0 time=0.0077134s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=2
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0052756
+[ Info: iter=0 obj=0.0 pinf=1.0 (1) dinf=0.0 (0) time=0.0069928s
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=ZeroPivotException: factorization encountered one or more zero pivots. Consider switching to a pivoted LU factorization. iterations=0 time=0.0087216s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=2
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0052628
+[ Info: Solve finished: status=OPTIMAL objective=8.0 iterations=1 time=0.008349s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=2
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0050129
+[ Info: Solve finished: status=OPTIMAL objective=8.0 iterations=1 time=0.0081312s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=2
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.007931999
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=1 obj=10.0 pinf=0.0 (0) dinf=1.0 (1) time=0.013794699s
+[ Info: iter=1 obj=13.0 pinf=0.0 (0) dinf=0.0 (0) time=0.015336599s
+[ Info: Projected postsolve basis: exchanges=1
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=13.0 iterations=1 time=0.017750899s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=2
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0071891
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=1 obj=10.0 pinf=0.0 (0) dinf=1.0 (1) time=0.0126949s
+[ Info: iter=1 obj=13.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0140839s
+[ Info: Projected postsolve basis: exchanges=1
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=13.0 iterations=1 time=0.0158476s
+[ Info: Loaded problem: rows=4 columns=4 nnz=4
+[ Info: Solve finished: status=MIP_NOT_SUPPORTED reason=discrete domains require relax_integrality=true iterations=0 time=0.000647s
+[ Info: Loaded problem: rows=4 columns=4 nnz=4
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=0 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.005007
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=0 obj=0.5 pinf=0.0 (0) dinf=0.0 (0) time=0.0091984s
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=0.5 iterations=0 time=0.0123076s
+[ Info: Loaded problem: rows=4 columns=4 nnz=4
+[ Info: Solve finished: status=MIP_NOT_SUPPORTED reason=discrete domains require relax_integrality=true iterations=0 time=0.000623s
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Solve finished: status=INVALID_MODEL reason=objective coefficients must be finite iterations=0 time=0.0004942s
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Solve finished: status=INVALID_MODEL reason=objective length must equal the number of columns iterations=0 time=0.0004666s
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Solve finished: status=ALGORITHM_NOT_SUPPORTED reason=only the dual and primal simplex algorithms are supported iterations=0 time=0.0004283s
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Solve finished: status=ALGORITHM_NOT_SUPPORTED reason=only the dual and primal simplex algorithms are supported iterations=0 time=0.0004332s
+[ Info: Loaded problem: rows=2 columns=2 nnz=4
+[ Info: Solve finished: status=TIME_LIMIT reason=time limit reached iterations=0 time=0.0005067s
+[ Info: Loaded problem: rows=2 columns=2 nnz=4
+[ Info: Solve finished: status=TIME_LIMIT reason=time limit reached iterations=0 time=0.000446s
+[ Info: Loaded problem: rows=2 columns=2 nnz=4
+[ Info: Solve finished: status=TIME_LIMIT reason=time limit reached iterations=0 time=0.0004378s
+[ Info: Loaded problem: rows=2 columns=2 nnz=4
+[ Info: Solve finished: status=TIME_LIMIT reason=time limit reached iterations=0 time=0.0004601s
+[ Info: Loaded problem: rows=2 columns=2 nnz=4
+[ Info: Solve finished: status=TIME_LIMIT reason=time limit reached iterations=0 time=0.000438s
+[ Info: Loaded problem: rows=2 columns=2 nnz=4
+[ Info: Solve finished: status=TIME_LIMIT reason=time limit reached iterations=0 time=0.0004487s
+[ Info: Loaded problem: rows=0 columns=1 nnz=0
+[ Info: Solve finished: status=TIME_LIMIT reason=time limit reached iterations=0 time=0.0004698s
+[ Info: Loaded problem: rows=0 columns=1 nnz=0
+[ Info: Solve finished: status=TIME_LIMIT reason=time limit reached iterations=0 time=0.0004257s
+[ Info: Loaded problem: rows=0 columns=1 nnz=0
+[ Info: Solve finished: status=TIME_LIMIT reason=time limit reached iterations=0 time=0.0004665s
+[ Info: Loaded problem: rows=2 columns=2 nnz=4
+[ Info: Solve finished: status=TIME_LIMIT reason=time limit reached iterations=0 time=0.0004501s
+[ Info: Loaded problem: rows=2 columns=2 nnz=4
+[ Info: Starting presolve
+[ Info: After presolve: rows=2 columns=2 nnz=4
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0072443
+[ Info: Solve finished: status=ITERATION_LIMIT reason=iteration limit reached iterations=0 time=0.0078781s
+[ Info: Loaded problem: rows=2 columns=2 nnz=4
+[ Info: Starting presolve
+[ Info: After presolve: rows=2 columns=2 nnz=4
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.006695
+[ Info: iter=1 obj=4.0 pinf=2.0 (1) dinf=0.0 (0) time=0.0094232s
+[ Info: Solve finished: status=ITERATION_LIMIT reason=iteration limit reached iterations=1 time=0.0098081s
+[ Info: Loaded problem: rows=2 columns=2 nnz=4
+[ Info: Starting presolve
+[ Info: After presolve: rows=2 columns=2 nnz=4
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0069323
+[ Info: iter=1 obj=4.0 pinf=2.0 (1) dinf=0.0 (0) time=0.0092628s
+[ Info: iter=2 obj=5.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0115245s
+[ Info: Solve finished: status=OPTIMAL objective=5.0 iterations=2 time=0.0136846s
+[ Info: Loaded problem: rows=0 columns=1 nnz=0
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=0 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0024024
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=0 obj=0.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0045419s
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=0.0 iterations=0 time=0.0057473s
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+[ Info: Solve finished: status=INFEASIBLE reason=singleton row 1 contradicts column bounds iterations=0 time=0.0047018s
+[ Info: Loaded problem: rows=0 columns=1 nnz=0
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0026333
+[ Info: Solve finished: status=UNBOUNDED reason=unbounded improving direction iterations=0 time=0.0030296s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=2
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0050825
+[ Info: iter=0 obj=0.0 pinf=1.0 (1) dinf=0.0 (0) time=0.006890099s
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=ZeroPivotException: factorization encountered one or more zero pivots. Consider switching to a pivoted LU factorization. iterations=0 time=0.008977699s
+[ Info: Loaded problem: rows=0 columns=1 nnz=0
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0025329
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=non-finite simplex iterate iterations=0 time=0.0030034s
+[ Info: Loaded problem: rows=3 columns=2 nnz=4
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=2
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0078542
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=1 obj=-9.666667 pinf=0.0 (0) dinf=0.0 (0) time=0.0155623s
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=-9.666667 iterations=1 time=0.0180283s
+[ Info: Loaded problem: rows=3 columns=2 nnz=4
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=2
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0079142
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=1 obj=-9.666666666666666 pinf=0.0 (0) dinf=0.0 (0) time=0.0144868s
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=-9.666666666666666 iterations=1 time=0.0166678s
+[ Info: Loaded problem: rows=3 columns=2 nnz=4
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=2
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.010489299
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=1 obj=-9.666666666666666666666666666666666666666666666666666666666666666666666666666575 pinf=0.0 (0) dinf=0.0 (0) time=0.022617099s
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=-9.666666666666666666666666666666666666666666666666666666666666666666666666666713 iterations=1 time=0.025825999s
+[ Info: Loaded problem: rows=3 columns=2 nnz=4
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=2
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.008729
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=1 obj=-29//3 pinf=0//1 (0) dinf=0//1 (0) time=0.022163199s
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=-29//3 iterations=1 time=0.025438899s
+[ Info: Loaded problem: rows=3 columns=2 nnz=4
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=2
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0086455
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=1 obj=-29//3 pinf=0//1 (0) dinf=0//1 (0) time=0.0196015s
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=-29//3 iterations=1 time=0.0228353s
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=0 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0057862
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=0 obj=11//4 pinf=0//1 (0) dinf=0//1 (0) time=0.0104339s
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=11//4 iterations=0 time=0.0125127s
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+[ Info: Solve finished: status=INFEASIBLE reason=singleton row 1 contradicts column bounds iterations=0 time=0.0048613s
+[ Info: Loaded problem: rows=0 columns=1 nnz=0
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0032191
+[ Info: Solve finished: status=UNBOUNDED reason=unbounded improving direction iterations=0 time=0.0036217s
+[ Info: Loaded problem: rows=2 columns=2 nnz=4
+[ Info: Starting presolve
+[ Info: After presolve: rows=2 columns=2 nnz=4
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0069188
+[ Info: Solve finished: status=ITERATION_LIMIT reason=iteration limit reached iterations=0 time=0.0075414s
+[ Info: Loaded problem: rows=2 columns=2 nnz=4
+[ Info: Solve finished: status=TIME_LIMIT reason=time limit reached iterations=0 time=0.0004951s
+[ Info: Loaded problem: rows=0 columns=1 nnz=0
+[ Info: Solve finished: status=MIP_NOT_SUPPORTED reason=discrete domains require relax_integrality=true iterations=0 time=0.0004972s
+[ Info: Loaded problem: rows=2 columns=2 nnz=4
+[ Info: Solve finished: status=ALGORITHM_NOT_SUPPORTED reason=only the dual and primal simplex algorithms are supported iterations=0 time=0.0004938s
+[ Info: Loaded problem: rows=2 columns=2 nnz=4
+[ Info: Solve finished: status=INVALID_MODEL reason=objective length must equal the number of columns iterations=0 time=0.0004615s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=2
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0050179
+[ Info: iter=0 obj=0.0 pinf=1.0 (1) dinf=0.0 (0) time=0.0069332s
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=ZeroPivotException: factorization encountered one or more zero pivots. Consider switching to a pivoted LU factorization. iterations=0 time=0.0090538s
+[ Info: Loaded problem: rows=2 columns=2 nnz=4
+[ Info: Starting presolve
+[ Info: After presolve: rows=2 columns=2 nnz=4
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0068919
+[ Info: iter=1 obj=4.0 pinf=2.0 (1) dinf=0.0 (0) time=0.0092815s
+[ Info: iter=2 obj=5.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0117546s
+[ Info: Solve finished: status=OPTIMAL objective=5.0 iterations=2 time=0.0139896s
+[ Info: Loaded problem: rows=0 columns=1 nnz=0
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=0 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0028875
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=0 obj=7.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0053933s
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=7.0 iterations=0 time=0.0067038s
+[ Info: Loaded problem: rows=0 columns=1 nnz=0
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=0 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.002542699
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=0 obj=-1.0 pinf=0.0 (0) dinf=0.0 (0) time=0.004926699s
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=-1.0 iterations=0 time=0.006198799s
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+[ Info: Solve finished: status=INFEASIBLE reason=singleton row 1 contradicts column bounds iterations=0 time=0.0042879s
+[ Info: Loaded problem: rows=0 columns=1 nnz=0
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0026868
+[ Info: Solve finished: status=UNBOUNDED reason=unbounded improving direction iterations=0 time=0.0030307s
+[ Info: Loaded problem: rows=2 columns=2 nnz=4
+[ Info: Starting presolve
+[ Info: After presolve: rows=2 columns=2 nnz=4
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0071175
+[ Info: Solve finished: status=ITERATION_LIMIT reason=iteration limit reached iterations=0 time=0.0077261s
+[ Info: Loaded problem: rows=2 columns=2 nnz=4
+[ Info: Solve finished: status=TIME_LIMIT reason=time limit reached iterations=0 time=0.0004665s
+[ Info: Loaded problem: rows=0 columns=1 nnz=0
+[ Info: Solve finished: status=MIP_NOT_SUPPORTED reason=discrete domains require relax_integrality=true iterations=0 time=0.0005037s
+[ Info: Loaded problem: rows=2 columns=2 nnz=4
+[ Info: Solve finished: status=ALGORITHM_NOT_SUPPORTED reason=only the dual and primal simplex algorithms are supported iterations=0 time=0.0004545s
+[ Info: Loaded problem: rows=2 columns=2 nnz=4
+[ Info: Solve finished: status=INVALID_MODEL reason=objective length must equal the number of columns iterations=0 time=0.0004807s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=2
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0049427
+[ Info: iter=0 obj=0.0 pinf=1.0 (1) dinf=0.0 (0) time=0.006765s
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=ZeroPivotException: factorization encountered one or more zero pivots. Consider switching to a pivoted LU factorization. iterations=0 time=0.0104065s
+[ Info: Loaded problem: rows=2 columns=2 nnz=4
+[ Info: Starting presolve
+[ Info: After presolve: rows=2 columns=2 nnz=4
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0068561
+[ Info: iter=1 obj=4.0 pinf=2.0 (1) dinf=0.0 (0) time=0.0093804s
+[ Info: iter=2 obj=5.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0117838s
+[ Info: Solve finished: status=OPTIMAL objective=5.0 iterations=2 time=0.0139709s
+[ Info: Loaded problem: rows=0 columns=1 nnz=0
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=0 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0025778
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=0 obj=7.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0048966s
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=7.0 iterations=0 time=0.0060584s
+[ Info: Loaded problem: rows=0 columns=1 nnz=0
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=0 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0023151
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=0 obj=-1.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0043878s
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=-1.0 iterations=0 time=0.0054985s
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+[ Info: Solve finished: status=INFEASIBLE reason=singleton row 1 contradicts column bounds iterations=0 time=0.005478599s
+[ Info: Loaded problem: rows=0 columns=1 nnz=0
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.004012
+[ Info: Solve finished: status=UNBOUNDED reason=unbounded improving direction iterations=0 time=0.0043779s
+[ Info: Loaded problem: rows=2 columns=2 nnz=4
+[ Info: Starting presolve
+[ Info: After presolve: rows=2 columns=2 nnz=4
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.009564
+[ Info: Solve finished: status=ITERATION_LIMIT reason=iteration limit reached iterations=0 time=0.0102246s
+[ Info: Loaded problem: rows=2 columns=2 nnz=4
+[ Info: Solve finished: status=TIME_LIMIT reason=time limit reached iterations=0 time=0.0008714s
+[ Info: Loaded problem: rows=0 columns=1 nnz=0
+[ Info: Solve finished: status=MIP_NOT_SUPPORTED reason=discrete domains require relax_integrality=true iterations=0 time=0.0008126s
+[ Info: Loaded problem: rows=2 columns=2 nnz=4
+[ Info: Solve finished: status=ALGORITHM_NOT_SUPPORTED reason=only the dual and primal simplex algorithms are supported iterations=0 time=0.0008132s
+[ Info: Loaded problem: rows=2 columns=2 nnz=4
+[ Info: Solve finished: status=INVALID_MODEL reason=objective length must equal the number of columns iterations=0 time=0.0008798s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=2
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0064788
+[ Info: iter=0 obj=0.0 pinf=1.0 (1) dinf=0.0 (0) time=0.0096145s
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=ZeroPivotException: factorization encountered one or more zero pivots. Consider switching to a pivoted LU factorization. iterations=0 time=0.0123719s
+[ Info: Loaded problem: rows=2 columns=2 nnz=4
+[ Info: Starting presolve
+[ Info: After presolve: rows=2 columns=2 nnz=4
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0093527
+[ Info: iter=1 obj=4.0 pinf=2.0 (1) dinf=0.0 (0) time=0.014171s
+[ Info: iter=2 obj=5.0 pinf=0.0 (0) dinf=0.0 (0) time=0.018373s
+[ Info: Solve finished: status=OPTIMAL objective=5.0 iterations=2 time=0.0216456s
+[ Info: Loaded problem: rows=0 columns=1 nnz=0
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=0 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0038473
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=0 obj=7.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0073171s
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=7.0 iterations=0 time=0.0090231s
+[ Info: Loaded problem: rows=0 columns=1 nnz=0
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=0 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0034511
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=0 obj=-1.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0066746s
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=-1.0 iterations=0 time=0.0082832s
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+[ Info: Solve finished: status=INFEASIBLE reason=singleton row 1 contradicts column bounds iterations=0 time=0.0013887s
+[ Info: Loaded problem: rows=0 columns=1 nnz=0
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0031904
+[ Info: Solve finished: status=UNBOUNDED reason=unbounded improving direction iterations=0 time=0.003555s
+[ Info: Loaded problem: rows=2 columns=2 nnz=4
+[ Info: Starting presolve
+[ Info: After presolve: rows=2 columns=2 nnz=4
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0082308
+[ Info: Solve finished: status=ITERATION_LIMIT reason=iteration limit reached iterations=0 time=0.0088923s
+[ Info: Loaded problem: rows=2 columns=2 nnz=4
+[ Info: Solve finished: status=TIME_LIMIT reason=time limit reached iterations=0 time=0.0004883s
+[ Info: Loaded problem: rows=0 columns=1 nnz=0
+[ Info: Solve finished: status=MIP_NOT_SUPPORTED reason=discrete domains require relax_integrality=true iterations=0 time=0.0005603s
+[ Info: Loaded problem: rows=2 columns=2 nnz=4
+[ Info: Solve finished: status=ALGORITHM_NOT_SUPPORTED reason=only the dual and primal simplex algorithms are supported iterations=0 time=0.0004688s
+[ Info: Loaded problem: rows=2 columns=2 nnz=4
+[ Info: Solve finished: status=INVALID_MODEL reason=objective length must equal the number of columns iterations=0 time=0.0005286s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=2
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0056104
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=ZeroPivotException: factorization encountered one or more zero pivots. Consider switching to a pivoted LU factorization. iterations=0 time=0.0087258s
+[ Info: Loaded problem: rows=2 columns=2 nnz=4
+[ Info: Starting presolve
+[ Info: After presolve: rows=2 columns=2 nnz=4
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0087979
+[ Info: iter=1 obj=4//1 pinf=2//1 (1) dinf=0//1 (0) time=0.0140714s
+[ Info: iter=2 obj=5//1 pinf=0//1 (0) dinf=0//1 (0) time=0.0188678s
+[ Info: Solve finished: status=OPTIMAL objective=5//1 iterations=2 time=0.0223922s
+[ Info: Loaded problem: rows=0 columns=1 nnz=0
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=0 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0031541
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=0 obj=7//1 pinf=0//1 (0) dinf=0//1 (0) time=0.0071634s
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=7//1 iterations=0 time=0.0089158s
+[ Info: Loaded problem: rows=0 columns=1 nnz=0
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=0 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0027265
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=0 obj=-1//1 pinf=0//1 (0) dinf=0//1 (0) time=0.0057729s
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=-1//1 iterations=0 time=0.0074217s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=2
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0089335
+[ Info: iter=1 obj=-6.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0135761s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.0140346
+[ Info: Restarting simplex on original LP after NUMERICAL_ERROR: original-objective optimality certificate is inconclusive; completed iterations=1
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.0181959
+[ Info: iter=2 obj=-6.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0225905s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 2
+└   time = 0.0230019
+[ Info: Solve finished: status=OPTIMAL objective=-6.0 iterations=2 time=0.0248369s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=2
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0079401
+[ Info: iter=1 obj=0.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0099244s
+[ Info: iter=1 obj=-6.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0125495s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.0129887
+[ Info: Restarting simplex on original LP after NUMERICAL_ERROR: original-objective optimality certificate is inconclusive; completed iterations=1
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.0168823
+[ Info: iter=2 obj=0.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0190858s
+[ Info: iter=2 obj=-6.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0216856s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 2
+└   time = 0.0221315
+[ Info: Solve finished: status=OPTIMAL objective=-6.0 iterations=2 time=0.0239083s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=2
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0095166
+[ Info: iter=1 obj=-6.0 pinf=0.0 (0) dinf=0.0 (0) time=0.013408799s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.013829899
+[ Info: Restarting simplex on original LP after NUMERICAL_ERROR: original-objective optimality certificate is inconclusive; completed iterations=1
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.017523399
+[ Info: iter=2 obj=-6.0 pinf=0.0 (0) dinf=0.0 (0) time=0.021817399s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 2
+└   time = 0.023451599
+[ Info: Solve finished: status=OPTIMAL objective=-6.0 iterations=2 time=0.025692999s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=2
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0079887
+[ Info: iter=1 obj=-6.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0118992s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.0122939
+[ Info: Restarting simplex on original LP after NUMERICAL_ERROR: original-objective optimality certificate is inconclusive; completed iterations=1
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.0168982
+[ Info: iter=2 obj=-6.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0209429s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 2
+└   time = 0.0213224
+[ Info: Solve finished: status=OPTIMAL objective=-6.0 iterations=2 time=0.0230982s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=2
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0092154
+[ Info: iter=1 obj=-6.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0131027s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.013506
+[ Info: Restarting simplex on original LP after NUMERICAL_ERROR: original-objective optimality certificate is inconclusive; completed iterations=1
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.0171691
+[ Info: iter=2 obj=-6.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0212119s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 2
+└   time = 0.0219402
+[ Info: Solve finished: status=OPTIMAL objective=-6.0 iterations=2 time=0.0238831s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=2
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.008184
+[ Info: iter=1 obj=-6.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0123017s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.0127083
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=1 obj=-1.333333333333333 pinf=0.0 (0) dinf=0.6666666666666667 (1) time=0.017560199s
+[ Info: iter=1 obj=-6.0 pinf=0.0 (0) dinf=0.0 (0) time=0.019122099s
+[ Info: Projected postsolve basis: exchanges=1
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=-6.0 iterations=1 time=0.021053799s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=2
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0083952
+[ Info: iter=1 obj=0.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0106642s
+[ Info: iter=1 obj=-6.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0135973s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.014
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=1 obj=-1.333333333333333 pinf=0.0 (0) dinf=0.6666666666666667 (1) time=0.0184347s
+[ Info: iter=1 obj=-6.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0202058s
+[ Info: Projected postsolve basis: exchanges=1
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=-6.0 iterations=1 time=0.0221879s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=2
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0084907
+[ Info: iter=1 obj=-6.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0127161s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.0131178
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=1 obj=-1.333333333333333 pinf=0.0 (0) dinf=0.6666666666666667 (1) time=0.0177549s
+[ Info: iter=1 obj=-6.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0199549s
+[ Info: Projected postsolve basis: exchanges=1
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=-6.0 iterations=1 time=0.0217854s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=2
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0076602
+[ Info: iter=1 obj=-6.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0118269s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.0123564
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=1 obj=-1.333333333333333 pinf=0.0 (0) dinf=0.6666666666666667 (1) time=0.0165535s
+[ Info: iter=1 obj=-6.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0179493s
+[ Info: Projected postsolve basis: exchanges=1
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=-6.0 iterations=1 time=0.0199008s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=2
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.008004199
+[ Info: iter=1 obj=-6.0 pinf=0.0 (0) dinf=0.0 (0) time=0.012723599s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.013178399
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=1 obj=-1.333333333333333 pinf=0.0 (0) dinf=0.6666666666666667 (1) time=0.017579699s
+[ Info: iter=1 obj=-6.0 pinf=0.0 (0) dinf=0.0 (0) time=0.018993899s
+[ Info: Projected postsolve basis: exchanges=1
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=-6.0 iterations=1 time=0.021586099s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=2
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0111504
+[ Info: iter=1 obj=-6.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0171575s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.017627
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=1 obj=-1.333333333333333333333333333333333333333333333333333333333333333333333333333356 pinf=0.0 (0) dinf=0.6666666666666666666666666666666666666666666666666666666666666666666666666666609 (1) time=0.0237703s
+[ Info: iter=1 obj=-6.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0257374s
+[ Info: Projected postsolve basis: exchanges=1
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=-6.0 iterations=1 time=0.028362s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=2
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0106199
+[ Info: iter=1 obj=0.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0142998s
+[ Info: iter=1 obj=-6.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0177246s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.0181621
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=1 obj=-1.333333333333333333333333333333333333333333333333333333333333333333333333333356 pinf=0.0 (0) dinf=0.6666666666666666666666666666666666666666666666666666666666666666666666666666609 (1) time=0.0242923s
+[ Info: iter=1 obj=-6.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0265151s
+[ Info: Projected postsolve basis: exchanges=1
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=-6.0 iterations=1 time=0.0291261s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=2
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.010418699
+[ Info: iter=1 obj=-6.0 pinf=0.0 (0) dinf=0.0 (0) time=0.015885199s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.016331399
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=1 obj=-1.333333333333333333333333333333333333333333333333333333333333333333333333333356 pinf=0.0 (0) dinf=0.6666666666666666666666666666666666666666666666666666666666666666666666666666609 (1) time=0.022466699s
+[ Info: iter=1 obj=-6.0 pinf=0.0 (0) dinf=0.0 (0) time=0.024478599s
+[ Info: Projected postsolve basis: exchanges=1
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=-6.0 iterations=1 time=0.027186299s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=2
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0104784
+[ Info: iter=1 obj=-6.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0161457s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.0166317
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=1 obj=-1.333333333333333333333333333333333333333333333333333333333333333333333333333356 pinf=0.0 (0) dinf=0.6666666666666666666666666666666666666666666666666666666666666666666666666666609 (1) time=0.0228533s
+[ Info: iter=1 obj=-6.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0249454s
+[ Info: Projected postsolve basis: exchanges=1
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=-6.0 iterations=1 time=0.0275269s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=2
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0112811
+[ Info: iter=1 obj=-6.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0167355s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.0172317
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=1 obj=-1.333333333333333333333333333333333333333333333333333333333333333333333333333356 pinf=0.0 (0) dinf=0.6666666666666666666666666666666666666666666666666666666666666666666666666666609 (1) time=0.0233723s
+[ Info: iter=1 obj=-6.0 pinf=0.0 (0) dinf=0.0 (0) time=0.025449499s
+[ Info: Projected postsolve basis: exchanges=1
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=-6.0 iterations=1 time=0.028126899s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=2
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0097475
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=1 obj=-4//3 pinf=0//1 (0) dinf=2//3 (1) time=0.0179522s
+[ Info: iter=1 obj=-6//1 pinf=0//1 (0) dinf=0//1 (0) time=0.0199058s
+[ Info: Projected postsolve basis: exchanges=1
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=-6//1 iterations=1 time=0.0225042s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=2
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0089411
+[ Info: iter=1 obj=-6//1 pinf=0//1 (0) dinf=0//1 (0) time=0.0124243s
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=1 obj=-4//3 pinf=0//1 (0) dinf=2//3 (1) time=0.0184669s
+[ Info: iter=1 obj=-6//1 pinf=0//1 (0) dinf=0//1 (0) time=0.0207244s
+[ Info: Projected postsolve basis: exchanges=1
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=-6//1 iterations=1 time=0.0232235s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=2
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0096778
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=1 obj=-4//3 pinf=0//1 (0) dinf=2//3 (1) time=0.0179761s
+[ Info: iter=1 obj=-6//1 pinf=0//1 (0) dinf=0//1 (0) time=0.0200665s
+[ Info: Projected postsolve basis: exchanges=1
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=-6//1 iterations=1 time=0.0226012s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=2
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.009367399
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=1 obj=-4//3 pinf=0//1 (0) dinf=2//3 (1) time=0.017768999s
+[ Info: iter=1 obj=-6//1 pinf=0//1 (0) dinf=0//1 (0) time=0.019894399s
+[ Info: Projected postsolve basis: exchanges=1
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=-6//1 iterations=1 time=0.022342599s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=2
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0084388
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=1 obj=-4//3 pinf=0//1 (0) dinf=2//3 (1) time=0.0165087s
+CHECK native_artificial_row
+CHECK legacy_primal_direction_price
+CHECK legacy_primal_correlated_pivot
+CHECK legacy_primal_residual_probe
+CHECK simplex_phase_logging
+CHECK simplex_precision_phase
+[ Info: iter=1 obj=-6//1 pinf=0//1 (0) dinf=0//1 (0) time=0.0185003s
+[ Info: Projected postsolve basis: exchanges=1
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=-6//1 iterations=1 time=0.0211101s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=2
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.009095
+[ Info: iter=1 obj=-6.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0134218s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.0138615
+[ Info: Restarting simplex on original LP after NUMERICAL_ERROR: original-objective optimality certificate is inconclusive; completed iterations=1
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.0177278
+[ Info: Solve finished: status=ITERATION_LIMIT reason=iteration limit reached iterations=1 time=0.018289s
+[ Info: Loaded problem: rows=2 columns=2 nnz=4
+[ Info: Starting presolve
+[ Info: After presolve: rows=2 columns=2 nnz=4
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0116806
+[ Info: iter=1 obj=-5.0 pinf=0.3333333 (1) dinf=0.0 (0) time=0.014933s
+[ Info: Restarting simplex on original LP after NUMERICAL_ERROR: dual feasibility lost; completed iterations=2
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 2
+└   time = 0.0200698
+[ Info: iter=4 obj=12.000002 pinf=2.3841858e-7 (1) dinf=0.0 (0) time=0.0242891s
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=Original LP retry failed after NUMERICAL_ERROR (dual feasibility lost): row combination does not certify infeasibility at primal tolerance iterations=4 time=0.025155s
+[ Info: Loaded problem: rows=2 columns=2 nnz=4
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=2
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0086741
+[ Info: iter=1 obj=2.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0128288s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.0132445
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=1 obj=2.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0175076s
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Retrying postsolve cleanup from restored basis after NUMERICAL_ERROR: original-objective optimality certificate is inconclusive
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=1 obj=2.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0216055s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.0224502
+[ Info: Restarting simplex on original LP after NUMERICAL_ERROR: original-objective optimality certificate is inconclusive; completed iterations=1
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.026781
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=Original LP retry failed after NUMERICAL_ERROR (original-objective optimality certificate is inconclusive): auxiliary direction has uncertain feasibility or objective improvement iterations=3 time=0.030322499s
+[ Info: Loaded problem: rows=2 columns=2 nnz=4
+[ Info: Starting presolve
+[ Info: After presolve: rows=2 columns=2 nnz=4
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0516637
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=2 obj=12//1 pinf=0//1 (0) dinf=0//1 (0) time=0.068588s
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=12//1 iterations=2 time=0.0716019s
+[ Info: Loaded problem: rows=2 columns=2 nnz=4
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=2
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0100637
+[ Info: iter=1 obj=2//1 pinf=0//1 (0) dinf=0//1 (0) time=0.0160661s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 1
+└   time = 0.0165832
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=1 obj=2//1 pinf=0//1 (0) dinf=0//1 (0) time=0.0238243s
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=2//1 iterations=1 time=0.0267081s
+[ Info: Loaded problem: rows=2 columns=2 nnz=4
+[ Info: Starting presolve
+[ Info: After presolve: rows=2 columns=2 nnz=4
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0079273
+[ Info: iter=2 obj=-1.7592186e13 pinf=0.0 (0) dinf=0.0 (0) time=0.0136327s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 2
+└   time = 0.0141399
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=structural primal failed original-model feasibility checks iterations=2 time=0.0155996s
+[ Info: Loaded problem: rows=2 columns=2 nnz=4
+[ Info: Starting presolve
+[ Info: After presolve: rows=2 columns=2 nnz=4
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0082297
+[ Info: iter=2 obj=-1.7592186044416062e13 pinf=0.0 (0) dinf=0.0 (0) time=0.0186278s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 2
+└   time = 0.0191498
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=original-objective optimality certificate is inconclusive iterations=2 time=0.0211688s
+[ Info: Loaded problem: rows=2 columns=2 nnz=4
+[ Info: Starting presolve
+[ Info: After presolve: rows=2 columns=2 nnz=4
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0121268
+[ Info: iter=2 obj=-1.7592186044416e13 pinf=0.0 (0) dinf=0.0 (0) time=0.0229757s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 2
+└   time = 0.0234798
+[ Info: Solve finished: status=OPTIMAL objective=-1.7592186044416e13 iterations=2 time=0.0267613s
+[ Info: Loaded problem: rows=2 columns=2 nnz=4
+[ Info: Starting presolve
+[ Info: After presolve: rows=2 columns=2 nnz=4
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.061543099
+[ Info: iter=2 obj=-17592186044416//1 pinf=0//1 (0) dinf=0//1 (0) time=0.072288999s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 2
+└   time = 0.072934299
+[ Info: Solve finished: status=OPTIMAL objective=-17592186044416//1 iterations=2 time=0.076700199s
+[ Info: Loaded problem: rows=2 columns=2 nnz=4
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=1 nnz=1
+[ Info: Solve finished: status=INFEASIBLE reason=row 1 contradicts current column bounds iterations=0 time=0.0173048s
+[ Info: Loaded problem: rows=2 columns=2 nnz=4
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=1 nnz=1
+[ Info: Solve finished: status=INFEASIBLE reason=row 1 contradicts current column bounds iterations=0 time=0.0101762s
+[ Info: Loaded problem: rows=2 columns=3 nnz=4
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=1
+[ Info: Solve finished: status=INFEASIBLE reason=row 1 contradicts current column bounds iterations=0 time=0.010402999s
+[ Info: Loaded problem: rows=2 columns=3 nnz=4
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=1
+[ Info: Solve finished: status=INFEASIBLE reason=row 1 contradicts current column bounds iterations=0 time=0.0105128s
+[ Info: Loaded problem: rows=2 columns=2 nnz=4
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=1 nnz=1
+[ Info: Solve finished: status=INFEASIBLE reason=row 1 contradicts current column bounds iterations=0 time=0.0102899s
+[ Info: Loaded problem: rows=2 columns=2 nnz=4
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=1 nnz=1
+[ Info: Solve finished: status=INFEASIBLE reason=row 1 contradicts current column bounds iterations=0 time=0.0104925s
+[ Info: Loaded problem: rows=2 columns=3 nnz=4
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=1
+[ Info: Solve finished: status=INFEASIBLE reason=row 1 contradicts current column bounds iterations=0 time=0.0101457s
+[ Info: Loaded problem: rows=2 columns=3 nnz=4
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=1
+[ Info: Solve finished: status=INFEASIBLE reason=row 1 contradicts current column bounds iterations=0 time=0.0102742s
+[ Info: Loaded problem: rows=2 columns=2 nnz=4
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=1 nnz=1
+[ Info: Solve finished: status=INFEASIBLE reason=row 1 contradicts current column bounds iterations=0 time=0.023526999s
+[ Info: Loaded problem: rows=2 columns=2 nnz=4
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=1 nnz=1
+[ Info: Solve finished: status=INFEASIBLE reason=row 1 contradicts current column bounds iterations=0 time=0.0123169s
+[ Info: Loaded problem: rows=2 columns=3 nnz=4
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=1
+[ Info: Solve finished: status=INFEASIBLE reason=row 1 contradicts current column bounds iterations=0 time=0.0122952s
+[ Info: Loaded problem: rows=2 columns=3 nnz=4
+[ Info: Starting presolve
+[ Info: After presolve: rows=1 columns=2 nnz=1
+[ Info: Solve finished: status=INFEASIBLE reason=row 1 contradicts current column bounds iterations=0 time=0.0124784s
+[ Info: Loaded problem: rows=2 columns=2 nnz=4
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+[ Info: Solve finished: status=INFEASIBLE reason=singleton row 2 contradicts column bounds iterations=0 time=0.002232s
+[ Info: Loaded problem: rows=2 columns=2 nnz=4
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=1 nnz=0
+[ Info: Solve finished: status=INFEASIBLE reason=singleton row 2 contradicts column bounds iterations=0 time=0.0019984s
+[ Info: Loaded problem: rows=2 columns=3 nnz=4
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=2 nnz=0
+[ Info: Solve finished: status=INFEASIBLE reason=singleton row 2 contradicts column bounds iterations=0 time=0.0021335s
+[ Info: Loaded problem: rows=2 columns=3 nnz=4
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=2 nnz=0
+[ Info: Solve finished: status=INFEASIBLE reason=singleton row 2 contradicts column bounds iterations=0 time=0.00219s
+[ Info: Loaded problem: rows=3 columns=4 nnz=6
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=0 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.016187099
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=0 obj=0.0 pinf=0.0 (0) dinf=0.0 (0) time=0.021277399s
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=0.0 iterations=0 time=0.024187999s
+[ Info: Loaded problem: rows=3 columns=4 nnz=6
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=0 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0094433
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=0 obj=0.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0138851s
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=0.0 iterations=0 time=0.0164643s
+[ Info: Loaded problem: rows=3 columns=4 nnz=6
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=0 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0103216
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=0 obj=0.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0150039s
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=0.0 iterations=0 time=0.0177764s
+[ Info: Loaded problem: rows=3 columns=4 nnz=6
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=0 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0092063
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=0 obj=0.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0139554s
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=0.0 iterations=0 time=0.016678699s
+[ Info: Loaded problem: rows=3 columns=4 nnz=6
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=0 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0097223
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=0 obj=0.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0146771s
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=0.0 iterations=0 time=0.0172427s
+[ Info: Loaded problem: rows=3 columns=4 nnz=6
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=0 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0089839
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=0 obj=0.0 pinf=0.0 (0) dinf=0.0 (0) time=0.01377s
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=0.0 iterations=0 time=0.0169411s
+[ Info: Loaded problem: rows=3 columns=4 nnz=6
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=0 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0098362
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=0 obj=0.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0147774s
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=0.0 iterations=0 time=0.0174367s
+[ Info: Loaded problem: rows=3 columns=4 nnz=6
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=0 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0098839
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=0 obj=0.0 pinf=0.0 (0) dinf=0.0 (0) time=0.015123399s
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=0.0 iterations=0 time=0.017739499s
+[ Info: Loaded problem: rows=3 columns=4 nnz=6
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=0 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0192962
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=0 obj=1.0 pinf=0.0 (0) dinf=1.0 (1) time=0.0278651s
+[ Info: iter=0 obj=0.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0325237s
+[ Info: Projected postsolve basis: exchanges=1
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=0.0 iterations=0 time=0.0363114s
+[ Info: Loaded problem: rows=3 columns=4 nnz=6
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=0 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0099461
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=0 obj=1.0 pinf=0.0 (0) dinf=1.0 (1) time=0.0185426s
+[ Info: iter=0 obj=0.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0228524s
+[ Info: Projected postsolve basis: exchanges=1
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=0.0 iterations=0 time=0.0264052s
+[ Info: Loaded problem: rows=3 columns=4 nnz=6
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=0 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.009787399
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=0 obj=-1.0 pinf=0.0 (0) dinf=1.0 (1) time=0.018465399s
+[ Info: iter=0 obj=0.0 pinf=0.0 (0) dinf=0.0 (0) time=0.023000599s
+[ Info: Projected postsolve basis: exchanges=1
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=0.0 iterations=0 time=0.026606199s
+[ Info: Loaded problem: rows=3 columns=4 nnz=6
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=0 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0099829
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=0 obj=-1.0 pinf=0.0 (0) dinf=1.0 (1) time=0.0189032s
+[ Info: iter=0 obj=0.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0231313s
+[ Info: Projected postsolve basis: exchanges=1
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=0.0 iterations=0 time=0.0269285s
+[ Info: Loaded problem: rows=3 columns=4 nnz=6
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=0 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0148905
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=0 obj=1//1 pinf=0//1 (0) dinf=1//1 (1) time=0.024360499s
+[ Info: iter=0 obj=0//1 pinf=0//1 (0) dinf=0//1 (0) time=0.028973999s
+[ Info: Projected postsolve basis: exchanges=1
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=0//1 iterations=0 time=0.032788099s
+[ Info: Loaded problem: rows=3 columns=4 nnz=6
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=0 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0080398
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=0 obj=1//1 pinf=0//1 (0) dinf=1//1 (1) time=0.0163508s
+[ Info: iter=0 obj=0//1 pinf=0//1 (0) dinf=0//1 (0) time=0.0206193s
+[ Info: Projected postsolve basis: exchanges=1
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=0//1 iterations=0 time=0.0246484s
+[ Info: Loaded problem: rows=3 columns=4 nnz=6
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=0 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0084859
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=0 obj=-1//1 pinf=0//1 (0) dinf=1//1 (1) time=0.0173036s
+[ Info: iter=0 obj=0//1 pinf=0//1 (0) dinf=0//1 (0) time=0.0219772s
+[ Info: Projected postsolve basis: exchanges=1
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=0//1 iterations=0 time=0.0258213s
+[ Info: Loaded problem: rows=3 columns=4 nnz=6
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=0 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.007834199
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=0 obj=-1//1 pinf=0//1 (0) dinf=1//1 (1) time=0.016469199s
+[ Info: iter=0 obj=0//1 pinf=0//1 (0) dinf=0//1 (0) time=0.020731299s
+[ Info: Projected postsolve basis: exchanges=1
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=0//1 iterations=0 time=0.024849399s
+Test Summary:                                            |  Pass  Total     Time
+Runtime failure repairs and simplex semantic regressions | 16279  16279  3m16.8s

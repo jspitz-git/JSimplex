@@ -487,9 +487,10 @@ function _legacy_primal_reject_candidate!(workspace::SimplexWorkspace{T}, enteri
                                          column::Vector{T}, stop_requested,
                                          reduced_cost_tolerance::T, basis_refreshed::Bool,
                                          defer_weak::Bool, reason::Symbol, message::String;
-                                         rejection_row::Int=-1) where {T}
+                                         rejection_row::Int=-1, inaccurate_factor::Bool=false) where {T}
     stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
     if !basis_refreshed && !isempty(workspace.factorization.updates)
+        inaccurate_factor && _note_updated_basis_repair!(workspace)
         candidate = _legacy_primal_point_candidate(workspace, 0, 0, zero(T), column)
         recompute!(workspace; refactorize=true, caller_guard=stop_requested,
                    diagnostic_reason=reason)
@@ -656,13 +657,15 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
         unresolved_pivot = legacy_row && !basis_refreshed &&
             !isempty(workspace.factorization.updates) &&
             abs(tableau_column[leaving_row]) <= eps(one(T)) * maximum(abs, tableau_column)
-        if legacy_row && (unresolved_pivot || !_legacy_primal_pivot_row_ok!(
-                workspace, entering, leaving_row, tableau_column[leaving_row], stop_requested;
-                column=tableau_column))
+        row_status = !legacy_row ? :accept : unresolved_pivot ? :pivot :
+            _legacy_primal_pivot_row_status!(workspace, entering, leaving_row,
+                tableau_column[leaving_row], stop_requested; column=tableau_column)
+        if row_status != :accept
             return _legacy_primal_reject_candidate!(workspace, entering, tableau_column,
                 stop_requested, reduced_cost_tolerance, basis_refreshed, defer_weak,
-                unresolved_pivot ? :refactor_pivot : :refactor_residual,
-                "primal pivot transpose row is inaccurate")
+                row_status == :residual ? :refactor_residual : :refactor_pivot,
+                "primal pivot transpose row is inaccurate";
+                inaccurate_factor=row_status == :residual)
         end
         stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached before pivot application")
         _weight_pricing(workspace,:primal) == :devex &&
@@ -707,6 +710,7 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
     if staged
         workspace.scratch.post_iteration = incremental_pivot && leaving_row > 0 ? :primal_pivot :
             incremental && leaving_row == 0 ? :primal_flip : :primal
+        workspace.scratch.post_basis_refreshed = basis_refreshed
         workspace.scratch.post_refactorize = refactorize
         workspace.scratch.post_refactor_reason = refactor_reason
         return nothing
@@ -719,6 +723,7 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
         end
         return nothing
     end
+    completed_updates = length(workspace.factorization.updates)
     primal_candidate = _legacy_primal_point_candidate(
         workspace, entering, leaving_row, direction * step, tableau_column)
     recompute!(workspace; refactorize, caller_guard=stop_requested,
@@ -729,6 +734,8 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
     workspace.scratch.selected_row = leaving_row
     _simplex_event!(workspace, completion)
     isnothing(recovery) || return recovery
+    refactorize && !basis_refreshed && refactor_reason in (:limit, :cost) &&
+        _note_stable_basis_refactorization!(workspace, completed_updates)
     stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
     return nothing
 end

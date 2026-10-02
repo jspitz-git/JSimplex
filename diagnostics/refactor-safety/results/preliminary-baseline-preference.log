@@ -1,0 +1,49 @@
+ERROR: LoadError: Some tests did not pass: 2 passed, 2 failed, 1 errored, 0 broken.
+in expression starting at /home/jspitz/JSimplex.jl/test/legacy_primal_preference_work_tests.jl:23
+Test Summary:                                                | Pass  Total  Time
+Weak preference work is bounded for similarly scaled columns |   10     10  0.3s
+
+Exhaustion after fresh pricing retains the refresh budget: Error During Test at /home/jspitz/JSimplex.jl/test/legacy_primal_preference_work_tests.jl:38
+  Test threw exception
+  Expression: terminal.status == NUMERICAL_ERROR
+  FieldError: type Nothing has no field `status`; Nothing has no fields at all.
+  Stacktrace:
+   [1] top-level scope
+     @ Base_compiler.jl:57
+   [2] top-level scope
+     @ ~/JSimplex.jl/test/legacy_primal_preference_work_tests.jl:24
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/JSimplex.jl/test/legacy_primal_preference_work_tests.jl:38 [inlined]
+   [5] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:750 [inlined]
+
+Exhaustion after fresh pricing retains the refresh budget: Test Failed at /home/jspitz/JSimplex.jl/test/legacy_primal_preference_work_tests.jl:39
+  Expression: ws.refactorizations == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/legacy_primal_preference_work_tests.jl:24
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/legacy_primal_preference_work_tests.jl:39 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Exhaustion after fresh pricing retains the refresh budget: Test Failed at /home/jspitz/JSimplex.jl/test/legacy_primal_preference_work_tests.jl:40
+  Expression: ws.iterations == 0
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/legacy_primal_preference_work_tests.jl:24
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/legacy_primal_preference_work_tests.jl:40 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+Test Summary:                                             | Pass  Fail  Error  Total  Time
+Exhaustion after fresh pricing retains the refresh budget |    2     2      1      5  0.1s
+RNG of the outermost testset: Random.Xoshiro(0x8b7a87d0da2d5df9, 0xcb8d86b1108f451b, 0xc64b499813871c0f, 0x2b23f0d7a7b04bdb, 0xfb9721c20350cc92)

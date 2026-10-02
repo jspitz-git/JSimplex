@@ -74,28 +74,37 @@ end
 # A forward residual alone can miss a spurious pivot in an ill-conditioned
 # basis. Check its transpose row before changing the basis, then share that row
 # with pricing updates instead of computing another BTRAN for the weights.
-function _legacy_primal_pivot_row_ok!(workspace::SimplexWorkspace{T}, entering::Int,
+function _legacy_primal_pivot_row_status!(workspace::SimplexWorkspace{T}, entering::Int,
                                       leaving_row::Int, pivot::T, stop; column=nothing) where {T}
-    T === Float32 || T === Float64 || return false
-    stop() && return false
+    T === Float32 || T === Float64 || return :pivot
+    stop() && return :pivot
     unit = _pipeline_unit_rhs!(workspace, leaving_row)
     rho = _timed_simplex(workspace, :btran) do
         _pipeline_basis_solve!(workspace.scratch.rho, workspace, unit; transposed=true)
     end
-    all(isfinite, rho) || return false
+    all(isfinite, rho) || return :residual
     if _dual_row_residual_ratio(workspace, rho, leaving_row) > one(T)
         _try_native_dual_correction!(workspace, rho, leaving_row, leaving_row, stop;
-                                     transposed=true) || return false
+                                     transposed=true) || return :residual
     end
     price!(workspace.scratch.tableau_row, workspace, rho)
-    all(isfinite, workspace.scratch.tableau_row) || return false
+    all(isfinite, workspace.scratch.tableau_row) || return :pivot
     row_pivot = workspace.scratch.tableau_row[entering]
     # The absolute zero cutoff must not become an agreement floor: two tiny
     # pivots can differ by a large fraction while both pass that cutoff.
     tolerance = sqrt(eps(one(T))) * max(abs(pivot), abs(row_pivot))
-    sign(row_pivot) == sign(pivot) && abs(row_pivot - pivot) <= tolerance || return false
-    isnothing(column) && return true
-    return _legacy_primal_direction_pivot_ok!(workspace, entering, leaving_row, column, stop)
+    sign(row_pivot) == sign(pivot) && abs(row_pivot - pivot) <= tolerance || return :pivot
+    isnothing(column) && return :accept
+    return _legacy_primal_direction_pivot_ok!(workspace, entering, leaving_row, column, stop) ?
+        :accept : :pivot
+end
+
+# A pivot can be sensitive even when both solves pass their residual checks.
+# Only a failed solve check is evidence for shortening the update chain.
+function _legacy_primal_pivot_row_ok!(workspace::SimplexWorkspace{T}, entering::Int,
+                                      leaving_row::Int, pivot::T, stop; column=nothing) where {T}
+    return _legacy_primal_pivot_row_status!(workspace, entering, leaving_row, pivot, stop;
+        column) == :accept
 end
 
 # Fresh forward and transpose solves can share the same false tiny pivot.

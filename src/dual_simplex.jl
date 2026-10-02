@@ -870,56 +870,6 @@ function _dual_row_residual_ratio(workspace::SimplexWorkspace{T},
     return worst_ratio
 end
 
-# A second inaccurate updated solve within three clean factorization cycles
-# lowers the update limit to at most half the earliest observed failure count,
-# with a minimum of one. Each clean cycle doubles a shortened interval back
-# toward the user's configured value, which remains the legacy ceiling.
-function _note_dual_updated_basis_repair!(workspace::SimplexWorkspace)
-    _simplex_event!(workspace, :repair)
-    if workspace.progress.numerical_policy.adaptive_refactor
-        workspace.scratch.refactorization.residual_bad = true
-        return nothing
-    end
-    updates = length(workspace.factorization.updates)
-    updates > 0 || return nothing
-    workspace.dual_recent_repairs += 1
-    workspace.dual_bad_update_min = min(workspace.dual_bad_update_min, updates)
-    workspace.dual_stable_refactorizations = 0
-    if workspace.dual_recent_repairs >= 2
-        workspace.dual_refactorization_interval = min(
-            workspace.dual_refactorization_interval,
-            max(1, workspace.dual_bad_update_min ÷ 2),
-        )
-        workspace.dual_recent_repairs = 0
-        workspace.dual_bad_update_min = typemax(Int)
-    end
-    return nothing
-end
-
-function _note_stable_dual_refactorization!(workspace::SimplexWorkspace)
-    configured = workspace.options.refactorization_interval
-    interval = workspace.dual_refactorization_interval
-    if interval < configured
-        workspace.dual_recent_repairs = 0
-        workspace.dual_bad_update_min = typemax(Int)
-        workspace.dual_refactorization_interval = interval > configured ÷ 2 ?
-            configured : 2 * interval
-        workspace.dual_stable_refactorizations = 0
-        return nothing
-    end
-    if workspace.dual_recent_repairs > 0
-        workspace.dual_stable_refactorizations += 1
-        if workspace.dual_stable_refactorizations >= 3
-            workspace.dual_recent_repairs = 0
-            workspace.dual_bad_update_min = typemax(Int)
-            workspace.dual_stable_refactorizations = 0
-        end
-        return nothing
-    end
-    workspace.dual_stable_refactorizations = 0
-    return nothing
-end
-
 # A fresh floating LU can still give an inaccurate direction for an
 # ill-conditioned basis. Correct B*d = a in higher precision using the same
 # binary64 matrix entries; this path runs only after the ordinary solve and
@@ -1186,7 +1136,7 @@ function _dual_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_request
             basis_refreshed &&
                 return DualTermination(NUMERICAL_ERROR, "basis transpose solve residual too large")
             stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
-            _note_dual_updated_basis_repair!(workspace)
+            _note_updated_basis_repair!(workspace)
             try
                 @logmsg workspace.options.log_level "Refactorizing inaccurate dual tableau row" iteration=workspace.iterations updates=length(workspace.factorization.updates) row_residual_ratio
             catch exception
@@ -1294,7 +1244,7 @@ function _dual_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_request
     if !direction_ok
         if !basis_refreshed
             stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
-            _note_dual_updated_basis_repair!(workspace)
+            _note_updated_basis_repair!(workspace)
             recompute!(workspace; refactorize=true, caller_guard=stop_requested,
                        diagnostic_reason=:refactor_residual)
             stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
@@ -1483,11 +1433,11 @@ function _dual_after_iteration!(workspace::SimplexWorkspace{T},stop_requested,du
     refactor_reason = _scheduled_refactor_reason(workspace,:dual)
     if refactor_reason != :none
         stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
+        completed_updates = length(workspace.factorization.updates)
         recompute!(workspace; refactorize=true, caller_guard=stop_requested,
                    diagnostic_reason=_refactor_event(refactor_reason))
-        if !workspace.progress.numerical_policy.adaptive_refactor
-            basis_refreshed || _note_stable_dual_refactorization!(workspace)
-        end
+        (!basis_refreshed && refactor_reason in (:limit, :cost)) &&
+            _note_stable_basis_refactorization!(workspace, completed_updates)
     end
     _finite_workspace(workspace) || return _numerical_failure()
     return nothing

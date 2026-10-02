@@ -165,6 +165,8 @@ mutable struct SimplexWorkspace{T<:Real,F,M,R,D}
     zero_dual_step_streak::Int
     dual_pricing_fallback::Bool
     dual_devex_fallback::Bool
+    # Shared numerical update-chain protection. Retain the historical field
+    # layout/names for diagnostic snapshots; both simplex methods use it.
     dual_refactorization_interval::Int
     dual_recent_repairs::Int
     dual_bad_update_min::Int

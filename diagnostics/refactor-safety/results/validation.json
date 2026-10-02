@@ -1,0 +1,140 @@
+[
+  {
+    "name": "checks",
+    "code": 0,
+    "seconds": 182.09590094899977,
+    "command": [
+      "python3",
+      "/home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py",
+      "--seconds",
+      "600",
+      "bash",
+      "/home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/.superpowers/refactor-safety/julia.sh",
+      "--compiled-modules=existing",
+      "--project=.",
+      "--compile=min",
+      "diagnostics/refactor-safety/reproduce/checks.jl"
+    ],
+    "source_sha256": "67b162566ae3b98dc42f15005c95d6cdf35ce89b97ee7dcd49de7ee5f9f43011"
+  },
+  {
+    "name": "semantics",
+    "code": 0,
+    "seconds": 199.10442084199894,
+    "command": [
+      "python3",
+      "/home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py",
+      "--seconds",
+      "600",
+      "bash",
+      "/home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/.superpowers/refactor-safety/julia.sh",
+      "--compiled-modules=existing",
+      "--project=.",
+      "--compile=min",
+      "diagnostics/adaptive-degeneracy/reproduce/runtime_failure_semantics.jl",
+      "/home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/.superpowers/adaptive-degeneracy/native-prices/direction-price-removal-boundary",
+      "/home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/.superpowers/refactor-safety/revised/semantic-replay.toml"
+    ],
+    "source_sha256": "67b162566ae3b98dc42f15005c95d6cdf35ce89b97ee7dcd49de7ee5f9f43011"
+  },
+  {
+    "name": "focused-compiled",
+    "code": 0,
+    "seconds": 73.06083868299902,
+    "command": [
+      "python3",
+      "/home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py",
+      "--seconds",
+      "240",
+      "bash",
+      "/home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/.superpowers/refactor-safety/julia.sh",
+      "--compiled-modules=existing",
+      "--project=.",
+      ".superpowers/refactor-safety/focused.jl"
+    ],
+    "source_sha256": "67b162566ae3b98dc42f15005c95d6cdf35ce89b97ee7dcd49de7ee5f9f43011"
+  },
+  {
+    "name": "runtime-native-dual",
+    "code": 0,
+    "seconds": 349.16700213399963,
+    "command": [
+      "python3",
+      "/home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py",
+      "--seconds",
+      "2100",
+      "bash",
+      "/home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/.superpowers/refactor-safety/julia.sh",
+      "--compiled-modules=existing",
+      "--project=.superpowers/adaptive-degeneracy/broad-validation/env",
+      "diagnostics/adaptive-degeneracy/reproduce/runtime_reader_full.jl",
+      "native",
+      "dual",
+      "1800",
+      "/home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/.superpowers/refactor-safety/revised/runtime-native-dual"
+    ],
+    "source_sha256": "67b162566ae3b98dc42f15005c95d6cdf35ce89b97ee7dcd49de7ee5f9f43011"
+  },
+  {
+    "name": "runtime-native-primal",
+    "code": 0,
+    "seconds": 949.4453036560008,
+    "command": [
+      "python3",
+      "/home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py",
+      "--seconds",
+      "3900",
+      "bash",
+      "/home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/.superpowers/refactor-safety/julia.sh",
+      "--compiled-modules=existing",
+      "--project=.superpowers/adaptive-degeneracy/broad-validation/env",
+      "diagnostics/adaptive-degeneracy/reproduce/runtime_reader_full.jl",
+      "native",
+      "primal",
+      "3600",
+      "/home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/.superpowers/refactor-safety/revised/runtime-native-primal"
+    ],
+    "source_sha256": "67b162566ae3b98dc42f15005c95d6cdf35ce89b97ee7dcd49de7ee5f9f43011"
+  },
+  {
+    "name": "exact-verification",
+    "code": 0,
+    "seconds": 7.038082431998191,
+    "command": [
+      "python3",
+      "/home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py",
+      "--seconds",
+      "300",
+      "bash",
+      "/home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/.superpowers/refactor-safety/julia.sh",
+      "--compiled-modules=existing",
+      "--project=.superpowers/adaptive-degeneracy/broad-validation/env",
+      "diagnostics/adaptive-degeneracy/reproduce/runtime_reader_verify.jl",
+      "/home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/.superpowers/refactor-safety/revised/runtime-native-dual",
+      "/home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/.superpowers/refactor-safety/revised/runtime-native-primal",
+      "/home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/.superpowers/refactor-safety/revised/exact-verification.toml"
+    ],
+    "source_sha256": "67b162566ae3b98dc42f15005c95d6cdf35ce89b97ee7dcd49de7ee5f9f43011"
+  },
+  {
+    "name": "models",
+    "code": 0,
+    "seconds": 266.13825237999845,
+    "command": [
+      "python3",
+      "/home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py",
+      "--seconds",
+      "1800",
+      "bash",
+      "/home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/.superpowers/refactor-safety/julia.sh",
+      "--compiled-modules=existing",
+      "--project=.superpowers/adaptive-degeneracy/broad-validation/env",
+      "diagnostics/adaptive-degeneracy/reproduce/broad_corpus.jl",
+      "diagnostics/adaptive-degeneracy/results/broad-validation/inputs.toml",
+      "diagnostics/adaptive-degeneracy/results/broad-validation/references.toml",
+      "diagnostics/adaptive-degeneracy/results/presolve-tolerance/jobs.toml",
+      "/home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/.superpowers/refactor-safety/revised/models"
+    ],
+    "source_sha256": "67b162566ae3b98dc42f15005c95d6cdf35ce89b97ee7dcd49de7ee5f9f43011"
+  }
+]
