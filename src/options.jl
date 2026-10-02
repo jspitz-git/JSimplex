@@ -35,7 +35,7 @@ end
                   verbose=true, log_level=Logging.Debug, algorithm=:dual,
                   pricing=:steepest_edge, basis_update=:pfi,
                   basis_refactorization=:native, scaling=:auto,
-                  presolve=true, simplex_strategy=:legacy)
+                  presolve=true, simplex_strategy=:legacy, partial_pricing=false)
     SolverOptions(; kwargs...)  # Float64 defaults
     SolverOptions(T, options::SolverOptions)
 
@@ -105,6 +105,8 @@ progress heuristics such as pricing preferences, perturbations, and refactorizat
 scheduling. Both strategies use the same default numerical kernel and safeguards;
 selecting a strategy does not change numerical precision or enable an alternative
 pivot-validation, refinement, or incremental-update implementation.
+`partial_pricing=true` independently enables candidate pools for large pricing
+domains. It defaults to `false` in both strategies.
 
 ```julia
 using JSimplex
@@ -131,6 +133,7 @@ struct SolverOptions{T<:Real,M,R}
     scaling::Symbol
     presolve::Bool
     simplex_strategy::Symbol
+    partial_pricing::Bool
 end
 
 SolverOptions(; kwargs...) = SolverOptions(Float64; kwargs...)
@@ -147,11 +150,11 @@ Base.@constprop :aggressive function SolverOptions(::Type{T};
     verbose::Bool=true, log_level::LogLevel=Logging.Debug, algorithm::Symbol=:dual,
     pricing::Symbol=:steepest_edge, basis_update::Symbol=:pfi,
     basis_refactorization::Symbol=:native, scaling::Symbol=:auto,
-    presolve::Bool=true, simplex_strategy::Symbol=:legacy,
+    presolve::Bool=true, simplex_strategy::Symbol=:legacy, partial_pricing::Bool=false,
 ) where {T}
     arguments = (primal_tolerance, dual_tolerance, zero_tolerance, iteration_limit,
                  time_limit, refactorization_interval, verbose, log_level,
-                 algorithm, pricing, scaling, presolve, simplex_strategy)
+                 algorithm, pricing, scaling, presolve, simplex_strategy, partial_pricing)
     if basis_update === :pfi
         return _validated_refactorization(T, Val(:pfi), basis_refactorization, arguments...)
     elseif basis_update === :forrest_tomlin
@@ -178,7 +181,7 @@ end
 function _validated_options(::Type{T}, ::Val{M}, ::Val{R}, primal_tolerance, dual_tolerance,
                             zero_tolerance, iteration_limit, time_limit,
                             refactorization_interval, verbose, log_level, algorithm,
-                            pricing, scaling, presolve, simplex_strategy) where {T,M,R}
+                            pricing, scaling, presolve, simplex_strategy, partial_pricing) where {T,M,R}
     _supported_value_type(T) || throw(ArgumentError("unsupported solver value type $T"))
     defaults = _is_exact(T) === Val(true) ? (zero(T), zero(T), zero(T)) :
         (_positive_tolerance(T, 1 // 10^7), _positive_tolerance(T, 1 // 10^7),
@@ -216,7 +219,7 @@ function _validated_options(::Type{T}, ::Val{M}, ::Val{R}, primal_tolerance, dua
         throw(ArgumentError("simplex_strategy must be :legacy or :adaptive"))
     return SolverOptions{T,M,R}(tolerances..., Int(iteration_limit), converted_time_limit,
                               Int(refactorization_interval), verbose, log_level,
-                              algorithm, pricing, M, R, scaling, presolve, simplex_strategy)
+                              algorithm, pricing, M, R, scaling, presolve, simplex_strategy, partial_pricing)
 end
 
 SolverOptions(::Type{T}, options::SolverOptions{S,M,R}) where {T,S,M,R} =
@@ -224,7 +227,7 @@ SolverOptions(::Type{T}, options::SolverOptions{S,M,R}) where {T,S,M,R} =
                        options.zero_tolerance, options.iteration_limit,
                        options.time_limit, options.refactorization_interval,
                        options.verbose, options.log_level, options.algorithm,
-                       options.pricing, options.scaling, options.presolve, options.simplex_strategy)
+                       options.pricing, options.scaling, options.presolve, options.simplex_strategy, options.partial_pricing)
 
 """
     SolveStatistics(; iterations=0, elapsed_seconds=0.0, refactorizations=0)

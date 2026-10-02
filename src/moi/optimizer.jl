@@ -13,6 +13,7 @@ mutable struct Optimizer{T<:Real} <: MOI.AbstractOptimizer
     scaling::Symbol
     presolve::Bool
     simplex_strategy::Symbol
+    partial_pricing::Bool
     silent::Bool
     relax_integrality::Bool
     solution::Union{Nothing,Solution{T}}
@@ -38,6 +39,7 @@ function Optimizer{T}() where {T<:Real}
         options.scaling,
         options.presolve,
         options.simplex_strategy,
+        options.partial_pricing,
         false,
         false,
         nothing,

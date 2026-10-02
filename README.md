@@ -154,7 +154,7 @@ wall-clock limit. The stable JSimplex raw optimizer attribute names are
 `relax_integrality`, `iteration_limit`, `time_limit`, `primal_tolerance`, `dual_tolerance`,
 `zero_tolerance`, `refactorization_interval`, `verbose`, `algorithm`,
 `pricing`, `basis_update`, `basis_refactorization`, `scaling`, `presolve`, and
-`simplex_strategy`.
+`simplex_strategy`, and `partial_pricing`.
 `set_optimizer_attribute(model, "time_limit", seconds)` sets the same limit as
 `set_time_limit_sec`. The raw attribute uses nonnegative seconds and `Inf` to
 disable the deadline; `MOI.TimeLimitSec()` reports a disabled limit as `nothing`.
@@ -304,6 +304,7 @@ for `SolverOptions(Float64)`. Floating types use these keyword defaults:
 | `basis_refactorization` | `:native` | Full factorization: `:native` or `:markowitz` |
 | `scaling` | `:auto` | `:auto`, `:on`, or `:off` row and column scaling |
 | `presolve` | `true` | Apply all presolve reductions before simplex; `false` solves the original LP directly |
+| `partial_pricing` | `false` | Explicitly enable candidate pools independently of the simplex strategy |
 | `simplex_strategy` | `:legacy` | Fixed policies or opt-in `:adaptive` progress heuristics; both use the same default numerical kernel |
 
 Both strategies use the same native numerical safeguards, including bounded
@@ -368,14 +369,15 @@ remains fixed. See the
 [pricing lifecycle report](diagnostics/adaptive-degeneracy/README.md) and the
 [original F14 validation](diagnostics/simplex-modernization/F14.md).
 
-For pricing domains above 128 entries, the adaptive strategy uses candidate
-pools and cyclic blocks of 64. Candidate scores and eligibility are checked
+With `SolverOptions(partial_pricing=true)`, pricing domains above 128 entries use
+candidate pools and cyclic blocks of 64. Partial pricing is disabled by default
+in both strategies. JuMP/MOI users can set the `"partial_pricing"` Boolean
+optimizer attribute. Candidate scores and eligibility are checked
 against current values on every selection. An exhausted pool triggers a full
 current scan before an optimum can be reported; numerical uncertainty and a
 dual infeasibility proof also require full scanning. Costs, phase changes,
 recomputation, and recovered bases invalidate cached candidates. Small domains
-retain full pricing. The internal `partial_pricing=false` benchmark policy
-isolates this feature. See the
+retain full pricing. The internal `partial_pricing` benchmark policy can also override this feature. See the
 [F15 validation report](diagnostics/simplex-modernization/F15.md).
 
 Experimental row-based pricing is available through the internal

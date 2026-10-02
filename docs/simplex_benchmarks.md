@@ -69,7 +69,9 @@ Use `--simplex-strategy=legacy` (default) or `adaptive` for fresh solves.
 Reports include the effective numerical policy as well as SolverOptions.
 Both strategies use the native numerical kernel by default. The adaptive strategy
 enables `adaptive_refactor`, `adaptive_stalling`, `adaptive_dual_perturbation`,
-`adaptive_primal_perturbation`, `adaptive_pricing`, and `partial_pricing`.
+`adaptive_primal_perturbation`, and `adaptive_pricing`. Partial pricing defaults
+to false independently of strategy; use `SolverOptions(partial_pricing=true)`
+or the MOI `"partial_pricing"` attribute to enable it explicitly.
 It does not implicitly enable `stable_ratio`, `pivot_validation`,
 `solve_refinement`, `recovery`, `feasibility_recovery`, `incremental_primal`, or
 `incremental_primal_pivots`. These alternative numerical stages require explicit

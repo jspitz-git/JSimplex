@@ -14,6 +14,7 @@ const _RAW_OPTIMIZER_ATTRIBUTES = (
     "scaling",
     "presolve",
     "simplex_strategy",
+    "partial_pricing",
 )
 
 function _solver_options(optimizer::Optimizer{T})::SolverOptions{T} where {T}
@@ -34,6 +35,7 @@ function _solver_options(optimizer::Optimizer{T})::SolverOptions{T} where {T}
         scaling=optimizer.scaling,
         presolve=optimizer.presolve,
         simplex_strategy=optimizer.simplex_strategy,
+        partial_pricing=optimizer.partial_pricing,
     )
 end
 
@@ -53,6 +55,7 @@ function _set_solver_options!(
     scaling=optimizer.scaling,
     presolve=optimizer.presolve,
     simplex_strategy=optimizer.simplex_strategy,
+    partial_pricing=optimizer.partial_pricing,
 ) where {T}
     options = SolverOptions(
         T;
@@ -71,6 +74,7 @@ function _set_solver_options!(
         scaling,
         presolve,
         simplex_strategy,
+        partial_pricing,
     )
     optimizer.primal_tolerance = options.primal_tolerance
     optimizer.dual_tolerance = options.dual_tolerance
@@ -86,6 +90,7 @@ function _set_solver_options!(
     optimizer.scaling = options.scaling
     optimizer.presolve = options.presolve
     optimizer.simplex_strategy = options.simplex_strategy
+    optimizer.partial_pricing = options.partial_pricing
     _clear_result!(optimizer)
     return
 end
@@ -154,6 +159,8 @@ function MOI.get(optimizer::Optimizer, attr::MOI.RawOptimizerAttribute)
         return optimizer.scaling
     elseif attr.name == "presolve"
         return optimizer.presolve
+    elseif attr.name == "partial_pricing"
+        return optimizer.partial_pricing
     elseif attr.name == "simplex_strategy"
         return optimizer.simplex_strategy
     end
@@ -203,6 +210,9 @@ function MOI.set(
     elseif attr.name == "presolve"
         value isa Bool || throw(ArgumentError("presolve must be a Bool"))
         return _set_solver_options!(optimizer; presolve=value)
+    elseif attr.name == "partial_pricing"
+        value isa Bool || throw(ArgumentError("partial_pricing must be a Bool"))
+        return _set_solver_options!(optimizer; partial_pricing=value)
     elseif attr.name == "simplex_strategy"
         value isa Symbol || throw(ArgumentError("simplex_strategy must be a Symbol"))
         return _set_solver_options!(optimizer; simplex_strategy=value)
