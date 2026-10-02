@@ -1,0 +1,85 @@
+--- a/src/legacy_primal_point.jl
++++ b/src/legacy_primal_point.jl
+@@ -134,0 +135,25 @@
++# Adjust only an immediate representable neighbor of a violating basic value.
++# This mutates a correction trial; its caller owns rollback and must still
++# certify the complete point, since even one ULP can change a row substantially.
++function _round_primal_bound_trial_inward!(workspace::SimplexWorkspace{T}) where {T<:Union{Float32,Float64}}
++    tolerance = workspace.options.primal_tolerance
++    changed = false
++    for index in workspace.basis.basic_indices
++        value = workspace.primal[index]
++        isfinite(value) || return false
++        inward = if _lower_violation(workspace.lower[index], value) > tolerance
++            nextfloat(value)
++        elseif _upper_violation(workspace.upper[index], value) > tolerance
++            prevfloat(value)
++        else
++            continue
++        end
++        isfinite(inward) &&
++            max(_lower_violation(workspace.lower[index], inward),
++                _upper_violation(workspace.upper[index], inward)) <= tolerance || return false
++        workspace.primal[index] = inward
++        changed = true
++    end
++    return changed
++end
++
+@@ -138 +163,2 @@
+-function _try_native_primal_point_correction!(workspace::SimplexWorkspace{T}, stop) where {T<:Union{Float32,Float64}}
++function _try_native_primal_point_correction!(workspace::SimplexWorkspace{T}, stop,
++                                               prediction::Union{Nothing,Vector{T}}=nothing) where {T<:Union{Float32,Float64}}
+@@ -165,0 +192,2 @@
++    rounded = false
++    balanced = false
+@@ -170 +198,16 @@
+-        _legacy_primal_point_certified(workspace) || return false
++        if !_legacy_primal_point_certified(workspace)
++            _round_primal_bound_trial_inward!(workspace) || return false
++            rounded = true
++            if !_legacy_primal_point_certified(workspace)
++                isnothing(prediction) && return false
++                stop() && return false
++                # The prediction and the corrected point can fail different
++                # constraints. Try their midpoint once, with nonbasic values
++                # fixed, and accept only the unchanged complete certificate.
++                for (row, index) in enumerate(workspace.basis.basic_indices)
++                    workspace.primal[index] = prediction[row] / T(2) + workspace.primal[index] / T(2)
++                end
++                _legacy_primal_point_certified(workspace) || return false
++                balanced = true
++            end
++        end
+@@ -185,0 +229,2 @@
++    rounded && _simplex_event!(workspace, :primal_bound_roundoff_corrected)
++    balanced && _simplex_event!(workspace, :primal_correction_balanced)
+@@ -197 +242,4 @@
+-    _try_native_primal_point_correction!(workspace, stop) && return nothing
++    # The prediction normally aliases buffers.trial, which correction uses for
++    # rollback. Preserve it only on this uncommon recovery path.
++    prediction = copy(candidate)
++    _try_native_primal_point_correction!(workspace, stop, prediction) && return nothing
+--- a/src/simplex.jl
++++ b/src/simplex.jl
+@@ -286 +286 @@
+-# the original model tolerance. Retaining that value avoids turning a zero
++# the active model tolerance. Retaining that value avoids turning a zero
+@@ -304,3 +304,10 @@
+-    original = state == AT_LOWER ? workspace.problem.row_lower[index - columns] :
+-                                  workspace.problem.row_upper[index - columns]
+-    return _primal_interval_at_bound(value, value, original, workspace.options.primal_tolerance)
++    checked_bound = state == AT_LOWER ? workspace.problem.row_lower[index - columns] :
++                                       workspace.problem.row_upper[index - columns]
++    journal = workspace.scratch.perturbations
++    if _has_active_bound_perturbations(journal)
++        _check_perturbation_owner(workspace, journal)
++        # Match the owned working LP used by the primal point certificate.
++        # Restoration removes this exception before original-model cleanup.
++        checked_bound = bound
++    end
++    return _primal_interval_at_bound(value, value, checked_bound, workspace.options.primal_tolerance)
+--- a/src/simplex_diagnostics.jl
++++ b/src/simplex_diagnostics.jl
+@@ -13,0 +14 @@
++    :primal_bound_roundoff_corrected, :primal_correction_balanced,

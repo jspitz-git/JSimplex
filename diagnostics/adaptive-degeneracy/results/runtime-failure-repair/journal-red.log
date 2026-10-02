@@ -1,0 +1,115 @@
+ERROR: LoadError: Some tests did not pass: 36 passed, 8 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/journal_price_repair_tests.jl:24
+
+Marginal working-price repair composes with active cost perturbations: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/journal_price_repair_tests.jl:30
+  Expression: JSimplex._dual_prices_feasible_or_refined!(ws, (()->begin
+            #= /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/journal_price_repair_tests.jl:30 =#
+            false
+        end); allow_cost_shifts = true)
+   Evaluated: JSimplex._dual_prices_feasible_or_refined!(JSimplex.SimplexWorkspace{Float32, JSimplex.PFIFactorization{Float32, JSimplex.Float32LUBackend{LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}}}, :pfi, :native, JSimplex.SimplexDiagnostics{Nothing}}(LinearProblem{Float32}(sparse([1], [1], Float32[1.0], 1, 2), Float32[0.0, 0.0], 0.0f0, MIN_SENSE, Bound{Float32}[Bound{Float32}(1.0f0, true)], Bound{Float32}[Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, true)], Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(1.0f0, true)], VariableDomain[CONTINUOUS, CONTINUOUS], "", String[], String[]), SolverOptions{Float32, :pfi, :native}(1.0f-7, 1.0f-7, 1.0f-12, 100000, Inf, 20, false, Debug, :dual, :steepest_edge, :pfi, :native, :auto, true, :legacy), JSimplex.SimplexProgressContext{Float32, JSimplex.SimplexDiagnostics{Nothing}}(0x0000f400a5963e82, Float32[0.0, 0.0], 0.0f0, JSimplex.Scaling{Float32}(Float32[1.0], Float32[1.0, 1.0]), 0, 0, JSimplex.SimplexDiagnostics{Nothing}(Dict(:pricing_reset => 0, :stagnation_cost_rebase => 0, :pricing_weight_rejected => 0, :pivot_completed => 0, :correction_attempt => 0, :primal_projection_attempt => 0, :primal_point_balanced => 0, :phase_auxiliary => 0, :refactor_fill => 0, :stagnation_watch => 0…), [:refactor_initial, :perturbation, :refactor_other], 4, nothing, false, Dict(:hypersparse_weight_btran_sparse => 0, :hypersparse_weight_btran_dense => 0, :hypersparse_base_graph => 0, :hypersparse_weight_btran_empty => 0, :btran => 0, :hypersparse_weight_ftran_sparse => 0, :crash => 0, :hypersparse_ftran_sparse => 0, :hypersparse_pricing_empty => 0, :hypersparse_weight_ftran_empty => 0…), Dict{Symbol, UInt64}(:hypersparse_weight_btran_sparse => 0x0000000000000000, :hypersparse_weight_btran_dense => 0x0000000000000000, :hypersparse_base_graph => 0x0000000000000000, :hypersparse_weight_btran_empty => 0x0000000000000000, :btran => 0x0000000000000000, :hypersparse_weight_ftran_sparse => 0x0000000000000000, :crash => 0x0000000000000000, :hypersparse_ftran_sparse => 0x0000000000000000, :hypersparse_pricing_empty => 0x0000000000000000, :hypersparse_weight_ftran_empty => 0x0000000000000000…)), JSimplex.NumericalPolicy{Float32}(3.0517578f-5, 0.00034526698f0, 3, 8, 2, 64, 512, 1073741824, 8, false, false, false, false, false, false, false, false, true, true, true, false, false, false, false, false, false, false, false, false)), Float32[9.0000003f-7, -1.0000001f-7, 0.0], Bound{Float32}[Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, true), Bound{Float32}(1.0f0, true)], Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(1.0f0, true), Bound{Float32}(0.0f0, false)], JSimplex.Basis([3], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC]), Float32[0.0, 0.0, -0.0], Float32[9.0000003f-7, -1.0000001f-7, 0.0], Float32[1.0, 1.0, 1.0], Bool[0, 0, 1], JSimplex.PFIFactorization{Float32, JSimplex.Float32LUBackend{LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}}}(JSimplex.Float32LUBackend{LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}}(LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}(Float32[-1.0;;], [1], 0), LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}(Float32[-1.0;;], [1], 0), true, false), JSimplex.PackedEta{Float32}[], Float32[0.0], JSimplex.PackedEta{Float32}[], 0, nothing), JSimplex.SimplexScratch{Float32}(Bool[0, 0, 1], Float32[0.0], Float32[-0.0], Float32[-0.0], Float32[0.0], Float32[0.0, 0.0, 0.0], Float32[0.0, 0.0, 0.0], Bool[0, 0, 0], false, Int64[], Int64[], Float32[], Float32[], Int64[], nothing, nothing, false, Int64[], Int64[], 0, 0, nothing, :none, 0.0f0, false, false, false, :limit, JSimplex.RefactorizationState{Float32}(0, 0, 20, 20, 512, false, false, false, nothing, 1.0, 1.0f0, 0, 1.0e8, 1, 1, 8.0, 0.0, 0.0, 0.0, 0, 0, 0, 0.0, 0.0, 0, 0, 9223372036854775807, 0, 0, 0, 0.0, :none), nothing, nothing, nothing, nothing, nothing, 0.0f0, 0.0f0, JSimplex.PerturbationJournal{Float32}(0xa87caa7014c581bb, Float32[0.0, 0.0, 0.0], Float32[9.0000003f-7, -1.0000001f-7, 0.0], false, true, 1, JSimplex.StagnationMonitor{Float32, Float32}(2, 1.0f0, 1.0f0, 1.0f0, 3.0517578f-5, 4, 2, 2, 2, :stalled, true, 1.0f0, 1.0f0, 1.0f0, 1.0f0, 1.0f0, 1.0f0, 0.0f0, 0.0f0, 0.0f0, 1.0f0, 1.0f0, 0.0f0, 0.0f0, 0.0f0, 0.0f0), 4, 0, nothing), true, true, sparse([1], [1], Float32[-1.0], 1, 1), JSimplex.BasisCheckpoint{Float32}[], 0x0000000000000001, Tuple{Int64, Int64}[], 0x0000000000000000, false, false, nothing), 0, 1, true, 0, false, false, 20, 0, 9223372036854775807, 0, 0), var"#3#4"(); allow_cost_shifts = true)
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/journal_price_repair_tests.jl:25
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/journal_price_repair_tests.jl:30 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Marginal working-price repair composes with active cost perturbations: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/journal_price_repair_tests.jl:31
+  Expression: JSimplex.dual_infeasibility(ws) <= ws.options.dual_tolerance
+   Evaluated: 1.0000001f-7 <= 1.0f-7
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/journal_price_repair_tests.jl:25
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/journal_price_repair_tests.jl:31 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Marginal working-price repair composes with active cost perturbations: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/journal_price_repair_tests.jl:38
+  Expression: JSimplex.dual_infeasibility(ws) <= ws.options.dual_tolerance
+   Evaluated: 1.0000001f-7 <= 1.0f-7
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/journal_price_repair_tests.jl:25
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/journal_price_repair_tests.jl:38 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Marginal working-price repair composes with active cost perturbations: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/journal_price_repair_tests.jl:30
+  Expression: JSimplex._dual_prices_feasible_or_refined!(ws, (()->begin
+            #= /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/journal_price_repair_tests.jl:30 =#
+            false
+        end); allow_cost_shifts = true)
+   Evaluated: JSimplex._dual_prices_feasible_or_refined!(JSimplex.SimplexWorkspace{Float32, JSimplex.PFIFactorization{Float32, JSimplex.Float32LUBackend{LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}}}, :pfi, :native, JSimplex.SimplexDiagnostics{Nothing}}(LinearProblem{Float32}(sparse([1], [1], Float32[1.0], 1, 2), Float32[0.0, 0.0], 0.0f0, MIN_SENSE, Bound{Float32}[Bound{Float32}(1.0f0, true)], Bound{Float32}[Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, true)], Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(1.0f0, true)], VariableDomain[CONTINUOUS, CONTINUOUS], "", String[], String[]), SolverOptions{Float32, :pfi, :native}(1.0f-7, 1.0f-7, 1.0f-12, 100000, Inf, 20, false, Debug, :dual, :steepest_edge, :pfi, :native, :auto, true, :legacy), JSimplex.SimplexProgressContext{Float32, JSimplex.SimplexDiagnostics{Nothing}}(0x0000f400a9d57ce4, Float32[0.0, 0.0], 0.0f0, JSimplex.Scaling{Float32}(Float32[1.0], Float32[1.0, 1.0]), 0, 0, JSimplex.SimplexDiagnostics{Nothing}(Dict(:pricing_reset => 0, :stagnation_cost_rebase => 0, :pricing_weight_rejected => 0, :pivot_completed => 0, :correction_attempt => 0, :primal_projection_attempt => 0, :primal_point_balanced => 0, :phase_auxiliary => 0, :refactor_fill => 0, :stagnation_watch => 0…), [:refactor_initial, :perturbation, :refactor_other], 4, nothing, false, Dict(:hypersparse_weight_btran_sparse => 0, :hypersparse_weight_btran_dense => 0, :hypersparse_base_graph => 0, :hypersparse_weight_btran_empty => 0, :btran => 0, :hypersparse_weight_ftran_sparse => 0, :crash => 0, :hypersparse_ftran_sparse => 0, :hypersparse_pricing_empty => 0, :hypersparse_weight_ftran_empty => 0…), Dict{Symbol, UInt64}(:hypersparse_weight_btran_sparse => 0x0000000000000000, :hypersparse_weight_btran_dense => 0x0000000000000000, :hypersparse_base_graph => 0x0000000000000000, :hypersparse_weight_btran_empty => 0x0000000000000000, :btran => 0x0000000000000000, :hypersparse_weight_ftran_sparse => 0x0000000000000000, :crash => 0x0000000000000000, :hypersparse_ftran_sparse => 0x0000000000000000, :hypersparse_pricing_empty => 0x0000000000000000, :hypersparse_weight_ftran_empty => 0x0000000000000000…)), JSimplex.NumericalPolicy{Float32}(3.0517578f-5, 0.00034526698f0, 3, 8, 2, 64, 512, 1073741824, 8, false, false, false, false, false, false, false, false, true, true, true, false, false, false, false, false, false, false, false, false)), Float32[9.0000003f-7, 1.0000001f-7, 0.0], Bound{Float32}[Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, true), Bound{Float32}(1.0f0, true)], Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(1.0f0, true), Bound{Float32}(0.0f0, false)], JSimplex.Basis([3], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_UPPER, JSimplex.BASIC]), Float32[0.0, 1.0, -0.0], Float32[9.0000003f-7, 1.0000001f-7, 0.0], Float32[1.0, 1.0, 1.0], Bool[0, 0, 1], JSimplex.PFIFactorization{Float32, JSimplex.Float32LUBackend{LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}}}(JSimplex.Float32LUBackend{LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}}(LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}(Float32[-1.0;;], [1], 0), LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}(Float32[-1.0;;], [1], 0), true, false), JSimplex.PackedEta{Float32}[], Float32[0.0], JSimplex.PackedEta{Float32}[], 0, nothing), JSimplex.SimplexScratch{Float32}(Bool[0, 0, 1], Float32[0.0], Float32[-0.0], Float32[-0.0], Float32[0.0], Float32[0.0, 0.0, 0.0], Float32[0.0, 0.0, 0.0], Bool[0, 0, 0], false, Int64[], Int64[], Float32[], Float32[], Int64[], nothing, nothing, false, Int64[], Int64[], 0, 0, nothing, :none, 0.0f0, false, false, false, :limit, JSimplex.RefactorizationState{Float32}(0, 0, 20, 20, 512, false, false, false, nothing, 1.0, 1.0f0, 0, 1.0e8, 1, 1, 8.0, 0.0, 0.0, 0.0, 0, 0, 0, 0.0, 0.0, 0, 0, 9223372036854775807, 0, 0, 0, 0.0, :none), nothing, nothing, nothing, nothing, nothing, 0.0f0, 0.0f0, JSimplex.PerturbationJournal{Float32}(0x0b9405c15e16be60, Float32[0.0, 0.0, 0.0], Float32[9.0000003f-7, 1.0000001f-7, 0.0], false, true, 1, JSimplex.StagnationMonitor{Float32, Float32}(2, 1.0f0, 1.0f0, 1.0f0, 3.0517578f-5, 4, 2, 2, 2, :stalled, true, 1.0f0, 1.0f0, 1.0f0, 1.0f0, 1.0f0, 1.0f0, 0.0f0, 0.0f0, 0.0f0, 1.0f0, 1.0f0, 0.0f0, 0.0f0, 0.0f0, 0.0f0), 4, 0, nothing), true, true, sparse([1], [1], Float32[-1.0], 1, 1), JSimplex.BasisCheckpoint{Float32}[], 0x0000000000000001, Tuple{Int64, Int64}[], 0x0000000000000000, false, false, nothing), 0, 1, true, 0, false, false, 20, 0, 9223372036854775807, 0, 0), var"#3#4"(); allow_cost_shifts = true)
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/journal_price_repair_tests.jl:25
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/journal_price_repair_tests.jl:30 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Marginal working-price repair composes with active cost perturbations: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/journal_price_repair_tests.jl:31
+  Expression: JSimplex.dual_infeasibility(ws) <= ws.options.dual_tolerance
+   Evaluated: 1.0000001f-7 <= 1.0f-7
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/journal_price_repair_tests.jl:25
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/journal_price_repair_tests.jl:31 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Marginal working-price repair composes with active cost perturbations: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/journal_price_repair_tests.jl:38
+  Expression: JSimplex.dual_infeasibility(ws) <= ws.options.dual_tolerance
+   Evaluated: 1.0000001f-7 <= 1.0f-7
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/journal_price_repair_tests.jl:25
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/journal_price_repair_tests.jl:38 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Marginal working-price repair composes with active cost perturbations: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/journal_price_repair_tests.jl:32
+  Expression: JSimplex.event_count(diagnostics, :correction_attempt) == 0
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/journal_price_repair_tests.jl:25
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/journal_price_repair_tests.jl:32 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Marginal working-price repair composes with active cost perturbations: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/journal_price_repair_tests.jl:32
+  Expression: JSimplex.event_count(diagnostics, :correction_attempt) == 0
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/journal_price_repair_tests.jl:25
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/journal_price_repair_tests.jl:32 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+Test Summary:                                                         | Pass  Fail  Total  Time
+Marginal working-price repair composes with active cost perturbations |   36     8     44  0.2s
+RNG of the outermost testset: Random.Xoshiro(0xb613be70136f7220, 0x032090f08e2eb876, 0xc7b221244c190181, 0xb9b4bd8583a283db, 0xb9e1459dd3ea3e04)

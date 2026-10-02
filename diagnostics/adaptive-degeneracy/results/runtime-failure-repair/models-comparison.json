@@ -1,0 +1,103 @@
+{
+  "cases": 104,
+  "all_verified": true,
+  "trajectory_fields": [
+    "status",
+    "iterations",
+    "refactorizations",
+    "objective",
+    "phases",
+    "events",
+    "pivot_observations",
+    "zero_primal_steps"
+  ],
+  "identical_cases": 103,
+  "changes": [
+    {
+      "case": [
+        "netlib/pilotnov",
+        "native",
+        "dual",
+        "pfi",
+        20261001
+      ],
+      "changes": {
+        "events": {
+          "before": {
+            "certification": 1,
+            "phase_dual": 1,
+            "correction_attempt": 251,
+            "pricing_devex": 1,
+            "perturbation": 1,
+            "correction": 233,
+            "phase_auxiliary": 1,
+            "pricing_scanned_entries": 1774500,
+            "pricing_weight_rejected": 1,
+            "bound_flipped": 720,
+            "refactor_other": 1,
+            "pivot_completed": 1806,
+            "pivot_rejected": 8,
+            "pricing_full_scan": 1820,
+            "pricing": 1820,
+            "pricing_phase_reset": 2,
+            "refactor_initial": 1,
+            "refactor_pivot": 6,
+            "restore_perturbations": 1,
+            "pricing_reset": 25,
+            "stagnation_watch": 1,
+            "pricing_scored_entries": 315769,
+            "stagnation_cost_rebase": 6,
+            "refactor_limit": 21,
+            "pivot_proposed": 1820,
+            "stagnation_stalled": 1,
+            "phase_cleanup": 1
+          },
+          "after": {
+            "certification": 1,
+            "phase_dual": 1,
+            "correction_attempt": 259,
+            "pricing_devex": 1,
+            "perturbation": 1,
+            "correction": 233,
+            "phase_auxiliary": 1,
+            "pricing_scanned_entries": 1774500,
+            "pricing_weight_rejected": 1,
+            "bound_flipped": 720,
+            "refactor_other": 1,
+            "pivot_completed": 1806,
+            "pivot_rejected": 8,
+            "pricing_full_scan": 1820,
+            "pricing": 1820,
+            "pricing_phase_reset": 2,
+            "refactor_initial": 1,
+            "refactor_pivot": 6,
+            "restore_perturbations": 1,
+            "pricing_reset": 25,
+            "stagnation_watch": 1,
+            "pricing_scored_entries": 315769,
+            "stagnation_cost_rebase": 6,
+            "refactor_limit": 21,
+            "pivot_proposed": 1820,
+            "stagnation_stalled": 1,
+            "phase_cleanup": 1
+          }
+        }
+      }
+    }
+  ],
+  "base_production_sha256": "40d6fa0140556827f9e353987417296ef513e64c0618ea4afa3fcc8bddcb3718",
+  "candidate_production_sha256": "647b74f10277b7b01d6f9589b16d519c7c037a0ed0a784c9d165ae5e38a88ccc",
+  "base_diagnostic_sha256": {
+    "export_coverage": "71454a3f606fac53590e58620a00d431a55580452ee4cd930e0e33e84cd14d9c",
+    "pricing_isolation": "c4371346e681a8b5335412dba2cec19eca145b33af9fab27cc26e9e2b43f12f2",
+    "no_original_retry": "a1403c682bd88c8931a00b3ad9c296a7910ea49fdbf342bf7e11803922edc79f"
+  },
+  "candidate_diagnostic_sha256": {
+    "export_coverage": "9c98a3bbc74a664fed62c22b216100b865a150b11312bbf419b4547672e532fc",
+    "pricing_isolation": "c4371346e681a8b5335412dba2cec19eca145b33af9fab27cc26e9e2b43f12f2",
+    "no_original_retry": "a1403c682bd88c8931a00b3ad9c296a7910ea49fdbf342bf7e11803922edc79f"
+  },
+  "instrumentation_note": "Phase coverage now handles the coupled fallback; diagnostic hashes are recorded, not asserted equal.",
+  "coupled_attempts": 1,
+  "coupled_certified": 0
+}

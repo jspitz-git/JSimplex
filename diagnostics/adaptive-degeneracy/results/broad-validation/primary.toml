@@ -1,0 +1,4368 @@
+process_peak_rss = 0x8dd7f000
+jump = "1.31.2"
+julia_threads = 1
+original_retry_enabled = false
+weak_pivot_preference = false
+production_sha256 = "7a0e1517d0685035eb496f1c6c73d4dac5ffe644a1fdb18fd9c05bf771a97e76"
+blas_threads = 1
+julia = "1.13.0"
+
+[policy]
+stable_ratio = false
+precision_boosting = false
+recovery = false
+incremental_primal = false
+partial_pricing = false
+adaptive_primal_perturbation = true
+lp_refinement = false
+adaptive_refactor = false
+sparse_pricing = false
+adaptive_stalling = true
+pivot_validation = false
+adaptive_pricing = true
+feasibility_recovery = false
+adaptive_dual_perturbation = true
+solve_refinement = false
+hypersparse = false
+incremental_primal_pivots = false
+phase_one = true
+crash = false
+
+[[records]]
+pivot_observations = 111358
+zero_primal_steps = 78029
+time_limit = 90
+component_enabled = true
+reference_objective = -987.2940000000002
+nonzeros = 24646
+columns = 1818
+input_sha256 = "7a149f601961000bc365c3431276d52d1e13e04ae459f98177d6b459d9a65475"
+passed = false
+seed = 20261001
+refactorizations = 13065
+job_index = 1
+seconds = 90.000043288
+reader = "native"
+wall_seconds = 108.961477341
+columns_reordered = 0
+allocated_bytes = 34251632464
+rows_reordered = 0
+captures = []
+failure_snapshot = "/tmp/broad-primary-job1-seed20261001-netlib-degen3-native-primal-pfi-true-failure.bin"
+algorithm = "primal"
+iterations = 111358
+id = "netlib/degen3"
+exact_model_match = true
+manager = "pfi"
+status = "TIME_LIMIT"
+message = "time limit reached during phase I optimization"
+rows = 1503
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+
+    [records.events]
+    refactor_residual = 12197
+    pricing_trial_expired = 283
+    pricing_steepest_edge = 283
+    pricing_scanned_entries = 546079986
+    refactor_other = 1
+    pivot_completed = 111358
+    pivot_rejected = 17151
+    pricing_full_scan = 140706
+    pricing = 140706
+    refactor_initial = 2
+    stagnation_watch = 1
+    pricing_scored_entries = 70520049
+    refactor_limit = 867
+    pivot_proposed = 140706
+    stagnation_stalled = 1701
+    phase_one = 1
+    pricing_dantzig = 284
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 0
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+pivot_observations = 113419
+zero_primal_steps = 109271
+time_limit = 90
+component_enabled = true
+reference_objective = -987.2940000000002
+nonzeros = 24646
+columns = 1818
+input_sha256 = "7a149f601961000bc365c3431276d52d1e13e04ae459f98177d6b459d9a65475"
+passed = false
+seed = 20261001
+refactorizations = 18716
+job_index = 2
+seconds = 90.000143717
+reader = "jump"
+wall_seconds = 90.000157817
+columns_reordered = 0
+allocated_bytes = 29156524040
+rows_reordered = 1500
+captures = []
+failure_snapshot = "/tmp/broad-primary-job2-seed20261001-netlib-degen3-jump-primal-pfi-true-failure.bin"
+algorithm = "primal"
+iterations = 113420
+id = "netlib/degen3"
+exact_model_match = true
+manager = "pfi"
+status = "TIME_LIMIT"
+message = "time limit reached during phase I optimization"
+rows = 1503
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+
+    [records.events]
+    refactor_residual = 17824
+    flip_completed = 1
+    pricing_trial_expired = 287
+    pricing_steepest_edge = 287
+    pricing_scanned_entries = 645992450
+    refactor_other = 1
+    pivot_completed = 113419
+    pivot_rejected = 35206
+    pricing_full_scan = 166450
+    pricing = 166450
+    refactor_initial = 2
+    stagnation_watch = 1
+    pricing_scored_entries = 82733476
+    refactor_limit = 891
+    pivot_proposed = 166450
+    stagnation_stalled = 1725
+    phase_one = 1
+    pricing_dantzig = 288
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 0
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+pivot_observations = 868
+zero_primal_steps = 687
+time_limit = 90
+component_enabled = true
+reference_objective = -5.226393024894103
+nonzeros = 20720
+columns = 2857
+input_sha256 = "ea7686737ea072fefde9dc72974709e97064deb59b48c38032ffc8732b314053"
+passed = false
+seed = 20261001
+refactorizations = 11
+job_index = 3
+seconds = 0.236532808
+reader = "native"
+wall_seconds = 0.236543108
+columns_reordered = 0
+allocated_bytes = 101633728
+rows_reordered = 0
+captures = []
+failure_snapshot = "/tmp/broad-primary-job3-seed20261001-netlib-cycle-native-primal-pfi-true-failure.bin"
+algorithm = "primal"
+iterations = 868
+id = "netlib/cycle"
+exact_model_match = true
+manager = "pfi"
+status = "NUMERICAL_ERROR"
+message = "bounded feasibility recovery exhausted"
+rows = 1903
+
+    [[records.phases]]
+    iteration = 868
+    event = "phase_cleanup"
+
+    [records.events]
+    certification_failed = 1
+    correction_attempt = 6
+    pricing_trial_expired = 1
+    perturbation = 1
+    correction = 4
+    pricing_steepest_edge = 1
+    pricing_scanned_entries = 2917233
+    refactor_other = 1
+    pivot_completed = 868
+    feasibility_recovery = 2
+    pricing_full_scan = 869
+    pricing = 869
+    pricing_phase_reset = 1
+    refactor_initial = 1
+    restore_perturbations = 1
+    stagnation_watch = 3
+    pricing_scored_entries = 147939
+    refactor_limit = 10
+    pivot_proposed = 868
+    stagnation_stalled = 2
+    pricing_dantzig = 1
+    phase_cleanup = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 1
+    export_attempts = 0
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+objective_matches = true
+pivot_observations = 1291
+zero_primal_steps = 1010
+time_limit = 90
+objective_relative_error = 8.359383843250254e-10
+reader_primal_feasible = true
+component_enabled = true
+reference_objective = -5.226393024894103
+nonzeros = 20720
+columns = 2857
+input_sha256 = "ea7686737ea072fefde9dc72974709e97064deb59b48c38032ffc8732b314053"
+objective = -5.226393029263045
+seed = 20261001
+original_primal_feasible = true
+refactorizations = 17
+passed = true
+job_index = 4
+seconds = 9.873441914
+reader = "jump"
+wall_seconds = 9.873455514
+columns_reordered = 0
+allocated_bytes = 849050944
+rows_reordered = 1865
+captures = []
+algorithm = "primal"
+iterations = 1291
+id = "netlib/cycle"
+exact_model_match = true
+manager = "pfi"
+status = "OPTIMAL"
+message = "optimal solution found"
+rows = 1903
+
+    [[records.phases]]
+    iteration = 672
+    event = "phase_cleanup"
+    [[records.phases]]
+    iteration = 672
+    event = "phase_primal"
+
+    [records.events]
+    certification = 2
+    phase_primal = 1
+    correction_attempt = 13
+    pricing_trial_expired = 2
+    correction = 13
+    pricing_steepest_edge = 2
+    pricing_scanned_entries = 5210461
+    refactor_other = 2
+    pivot_completed = 1291
+    pricing_full_scan = 1293
+    pricing = 1293
+    refactor_initial = 2
+    stagnation_watch = 4
+    pricing_scored_entries = 163520
+    refactor_limit = 15
+    pivot_proposed = 1291
+    stagnation_stalled = 6
+    pricing_dantzig = 2
+    phase_cleanup = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 0
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+objective_matches = true
+pivot_observations = 99
+zero_primal_steps = 58
+time_limit = 90
+objective_relative_error = 3.5378594869192127e-16
+reader_primal_feasible = true
+component_enabled = true
+reference_objective = -41131.9762194364
+nonzeros = 447
+columns = 111
+input_sha256 = "a7996944d096c3cd74ca7cbeeb77e75804bcaaaba17620dba86108555912b4c3"
+objective = -41131.976219436416
+seed = 20261001
+original_primal_feasible = true
+refactorizations = 4
+passed = true
+job_index = 5
+seconds = 0.0129318
+reader = "native"
+wall_seconds = 0.0129388
+columns_reordered = 0
+allocated_bytes = 11971000
+rows_reordered = 0
+captures = []
+algorithm = "primal"
+iterations = 99
+id = "netlib/stocfor1"
+exact_model_match = true
+manager = "pfi"
+status = "OPTIMAL"
+message = "optimal solution found"
+rows = 117
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+    [[records.phases]]
+    iteration = 54
+    event = "phase_primal"
+    [[records.phases]]
+    iteration = 99
+    event = "phase_cleanup"
+    [[records.phases]]
+    iteration = 99
+    event = "phase_primal"
+
+    [records.events]
+    certification = 2
+    phase_primal = 2
+    pricing_scanned_entries = 21226
+    refactor_other = 4
+    pivot_completed = 99
+    pricing_full_scan = 102
+    pricing = 102
+    pricing_phase_reset = 1
+    refactor_initial = 4
+    pricing_scored_entries = 1800
+    pivot_proposed = 99
+    phase_one = 1
+    phase_cleanup = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 1
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+objective_matches = true
+pivot_observations = 99
+zero_primal_steps = 58
+time_limit = 90
+objective_relative_error = 0.0
+reader_primal_feasible = true
+component_enabled = true
+reference_objective = -41131.9762194364
+nonzeros = 447
+columns = 111
+input_sha256 = "a7996944d096c3cd74ca7cbeeb77e75804bcaaaba17620dba86108555912b4c3"
+objective = -41131.9762194364
+seed = 20261001
+original_primal_feasible = true
+refactorizations = 4
+passed = true
+job_index = 6
+seconds = 0.016636799
+reader = "jump"
+wall_seconds = 0.016645599
+columns_reordered = 0
+allocated_bytes = 16959624
+rows_reordered = 116
+captures = []
+algorithm = "primal"
+iterations = 99
+id = "netlib/stocfor1"
+exact_model_match = true
+manager = "pfi"
+status = "OPTIMAL"
+message = "optimal solution found"
+rows = 117
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+    [[records.phases]]
+    iteration = 54
+    event = "phase_primal"
+    [[records.phases]]
+    iteration = 99
+    event = "phase_cleanup"
+    [[records.phases]]
+    iteration = 99
+    event = "phase_primal"
+
+    [records.events]
+    certification = 2
+    phase_primal = 2
+    pricing_scanned_entries = 21226
+    refactor_other = 4
+    pivot_completed = 99
+    pricing_full_scan = 102
+    pricing = 102
+    pricing_phase_reset = 1
+    refactor_initial = 4
+    pricing_scored_entries = 1778
+    pivot_proposed = 99
+    phase_one = 1
+    phase_cleanup = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 1
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+objective_matches = true
+pivot_observations = 1969
+zero_primal_steps = 1051
+time_limit = 90
+objective_relative_error = 1.118677958763236e-15
+reader_primal_feasible = true
+component_enabled = true
+reference_objective = -39024.40853788211
+nonzeros = 8343
+columns = 2031
+input_sha256 = "60ca18819fe3361758e5ee4aca80badb0d98e94c886adeb83c6299b4f02e5625"
+objective = -39024.40853788207
+seed = 20261001
+original_primal_feasible = true
+refactorizations = 28
+passed = true
+job_index = 7
+seconds = 0.651185585
+reader = "native"
+wall_seconds = 0.651195185
+columns_reordered = 0
+allocated_bytes = 102601704
+rows_reordered = 0
+captures = []
+algorithm = "primal"
+iterations = 1970
+id = "netlib/stocfor2"
+exact_model_match = true
+manager = "pfi"
+status = "OPTIMAL"
+message = "optimal solution found"
+rows = 2157
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+    [[records.phases]]
+    iteration = 1099
+    event = "phase_cleanup"
+    [[records.phases]]
+    iteration = 1099
+    event = "phase_primal"
+    [[records.phases]]
+    iteration = 1970
+    event = "phase_cleanup"
+    [[records.phases]]
+    iteration = 1970
+    event = "phase_primal"
+
+    [records.events]
+    certification = 2
+    flip_completed = 1
+    phase_primal = 2
+    primal_point_preserved = 1
+    correction_attempt = 4
+    pricing_trial_expired = 1
+    perturbation = 1
+    correction = 4
+    pricing_steepest_edge = 1
+    pricing_scanned_entries = 7081700
+    refactor_other = 4
+    pivot_completed = 1969
+    pricing_full_scan = 1974
+    pricing = 1974
+    pricing_phase_reset = 2
+    refactor_initial = 4
+    refactor_pivot = 1
+    restore_perturbations = 1
+    stagnation_watch = 1
+    pricing_scored_entries = 409364
+    primal_point_corrected = 1
+    refactor_limit = 23
+    pivot_proposed = 1971
+    stagnation_stalled = 5
+    phase_one = 1
+    phase_cleanup = 2
+    pricing_dantzig = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 1
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+pivot_observations = 1956
+zero_primal_steps = 1002
+time_limit = 90
+component_enabled = true
+reference_objective = -39024.40853788211
+nonzeros = 8343
+columns = 2031
+input_sha256 = "60ca18819fe3361758e5ee4aca80badb0d98e94c886adeb83c6299b4f02e5625"
+passed = false
+seed = 20261001
+refactorizations = 29
+job_index = 8
+seconds = 0.641118785
+reader = "jump"
+wall_seconds = 0.641130285
+columns_reordered = 0
+allocated_bytes = 99407264
+rows_reordered = 2156
+captures = []
+failure_snapshot = "/tmp/broad-primary-job8-seed20261001-netlib-stocfor2-jump-primal-pfi-true-failure.bin"
+algorithm = "primal"
+iterations = 1957
+id = "netlib/stocfor2"
+exact_model_match = true
+manager = "pfi"
+status = "NUMERICAL_ERROR"
+message = "primal feasibility lost"
+rows = 2157
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+    [[records.phases]]
+    iteration = 1128
+    event = "phase_cleanup"
+    [[records.phases]]
+    iteration = 1128
+    event = "phase_primal"
+    [[records.phases]]
+    iteration = 1957
+    event = "phase_dual"
+
+    [records.events]
+    certification = 1
+    flip_completed = 1
+    certification_failed = 1
+    phase_primal = 1
+    primal_point_preserved = 1
+    phase_dual = 1
+    correction_attempt = 9
+    pricing_trial_expired = 1
+    perturbation = 1
+    correction = 8
+    pricing_steepest_edge = 1
+    phase_auxiliary = 1
+    pricing_scanned_entries = 7031930
+    refactor_other = 5
+    pivot_completed = 1956
+    feasibility_recovery = 1
+    pricing_full_scan = 1960
+    pricing = 1960
+    pricing_phase_reset = 2
+    refactor_initial = 4
+    refactor_pivot = 1
+    restore_perturbations = 1
+    stagnation_watch = 1
+    pricing_scored_entries = 408307
+    refactor_limit = 23
+    pivot_proposed = 1958
+    stagnation_stalled = 5
+    phase_one = 1
+    phase_cleanup = 1
+    pricing_dantzig = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 1
+    export_attempts = 1
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+objective_matches = true
+pivot_observations = 143
+zero_primal_steps = 116
+time_limit = 90
+objective_relative_error = 4.0992850103742714e-16
+reader_primal_feasible = true
+component_enabled = true
+reference_objective = 8.666666674333367
+nonzeros = 2388
+columns = 760
+input_sha256 = "bb9ff57e9f39ddac9f02c96406f664b74861c324d128c3d7abf49c857abe6722"
+objective = 8.666666674333364
+seed = 20261001
+original_primal_feasible = true
+refactorizations = 4
+passed = true
+job_index = 9
+seconds = 0.0249373
+reader = "native"
+wall_seconds = 0.0249469
+columns_reordered = 0
+allocated_bytes = 27063928
+rows_reordered = 0
+captures = []
+algorithm = "primal"
+iterations = 143
+id = "netlib/scsd1"
+exact_model_match = true
+manager = "pfi"
+status = "OPTIMAL"
+message = "optimal solution found"
+rows = 77
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+    [[records.phases]]
+    iteration = 38
+    event = "phase_primal"
+    [[records.phases]]
+    iteration = 143
+    event = "phase_cleanup"
+    [[records.phases]]
+    iteration = 143
+    event = "phase_primal"
+
+    [records.events]
+    certification = 2
+    phase_primal = 2
+    pricing_scanned_entries = 120791
+    refactor_other = 3
+    pivot_completed = 143
+    pricing_full_scan = 146
+    pricing = 146
+    pricing_phase_reset = 1
+    refactor_initial = 4
+    pricing_scored_entries = 16543
+    refactor_limit = 1
+    pivot_proposed = 143
+    phase_one = 1
+    phase_cleanup = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 1
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+objective_matches = true
+pivot_observations = 143
+zero_primal_steps = 116
+time_limit = 90
+objective_relative_error = 4.0992850103742714e-16
+reader_primal_feasible = true
+component_enabled = true
+reference_objective = 8.666666674333367
+nonzeros = 2388
+columns = 760
+input_sha256 = "bb9ff57e9f39ddac9f02c96406f664b74861c324d128c3d7abf49c857abe6722"
+objective = 8.666666674333364
+seed = 20261001
+original_primal_feasible = true
+refactorizations = 4
+passed = true
+job_index = 10
+seconds = 0.025931
+reader = "jump"
+wall_seconds = 0.02594
+columns_reordered = 0
+allocated_bytes = 27066744
+rows_reordered = 0
+captures = []
+algorithm = "primal"
+iterations = 143
+id = "netlib/scsd1"
+exact_model_match = true
+manager = "pfi"
+status = "OPTIMAL"
+message = "optimal solution found"
+rows = 77
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+    [[records.phases]]
+    iteration = 38
+    event = "phase_primal"
+    [[records.phases]]
+    iteration = 143
+    event = "phase_cleanup"
+    [[records.phases]]
+    iteration = 143
+    event = "phase_primal"
+
+    [records.events]
+    certification = 2
+    phase_primal = 2
+    pricing_scanned_entries = 120791
+    refactor_other = 3
+    pivot_completed = 143
+    pricing_full_scan = 146
+    pricing = 146
+    pricing_phase_reset = 1
+    refactor_initial = 4
+    pricing_scored_entries = 16543
+    refactor_limit = 1
+    pivot_proposed = 143
+    phase_one = 1
+    phase_cleanup = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 1
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+objective_matches = true
+pivot_observations = 340
+zero_primal_steps = 247
+time_limit = 90
+objective_relative_error = 8.442091896937853e-16
+reader_primal_feasible = true
+component_enabled = true
+reference_objective = 50.50000007826242
+nonzeros = 4316
+columns = 1350
+input_sha256 = "537ec314ac602d0e00b587d618f89cdf298033ff062deb96c7043a6160caf9cf"
+objective = 50.500000078262374
+seed = 20261001
+original_primal_feasible = true
+refactorizations = 6
+passed = true
+job_index = 11
+seconds = 0.081751098
+reader = "native"
+wall_seconds = 0.081760098
+columns_reordered = 0
+allocated_bytes = 52279968
+rows_reordered = 0
+captures = ["/tmp/broad-primary-job11-seed20261001-netlib-scsd6-native-primal-pfi-true-component-1.bin"]
+algorithm = "primal"
+iterations = 340
+id = "netlib/scsd6"
+exact_model_match = true
+manager = "pfi"
+status = "OPTIMAL"
+message = "optimal solution found"
+rows = 147
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+    [[records.phases]]
+    iteration = 118
+    event = "phase_primal"
+    [[records.phases]]
+    iteration = 340
+    event = "phase_cleanup"
+    [[records.phases]]
+    iteration = 340
+    event = "phase_primal"
+
+    [records.events]
+    certification = 2
+    phase_primal = 2
+    correction_attempt = 1
+    pricing_scanned_entries = 511806
+    refactor_other = 3
+    pivot_completed = 340
+    pricing_full_scan = 343
+    pricing = 343
+    pricing_phase_reset = 1
+    refactor_initial = 4
+    stagnation_watch = 1
+    pricing_scored_entries = 82827
+    refactor_limit = 3
+    pivot_proposed = 340
+    phase_one = 1
+    phase_cleanup = 1
+
+    [records.coverage]
+    component_proposals = 1
+    original_retry_blocked = 0
+    export_attempts = 1
+    component_certified = 1
+    component_attempts = 1
+    local_attempts = 1
+[[records]]
+objective_matches = true
+pivot_observations = 340
+zero_primal_steps = 247
+time_limit = 90
+objective_relative_error = 8.442091896937853e-16
+reader_primal_feasible = true
+component_enabled = true
+reference_objective = 50.50000007826242
+nonzeros = 4316
+columns = 1350
+input_sha256 = "537ec314ac602d0e00b587d618f89cdf298033ff062deb96c7043a6160caf9cf"
+objective = 50.500000078262374
+seed = 20261001
+original_primal_feasible = true
+refactorizations = 6
+passed = true
+job_index = 12
+seconds = 0.061327099
+reader = "jump"
+wall_seconds = 0.061337199
+columns_reordered = 0
+allocated_bytes = 50708816
+rows_reordered = 0
+captures = ["/tmp/broad-primary-job12-seed20261001-netlib-scsd6-jump-primal-pfi-true-component-1.bin"]
+algorithm = "primal"
+iterations = 340
+id = "netlib/scsd6"
+exact_model_match = true
+manager = "pfi"
+status = "OPTIMAL"
+message = "optimal solution found"
+rows = 147
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+    [[records.phases]]
+    iteration = 118
+    event = "phase_primal"
+    [[records.phases]]
+    iteration = 340
+    event = "phase_cleanup"
+    [[records.phases]]
+    iteration = 340
+    event = "phase_primal"
+
+    [records.events]
+    certification = 2
+    phase_primal = 2
+    correction_attempt = 1
+    pricing_scanned_entries = 511806
+    refactor_other = 3
+    pivot_completed = 340
+    pricing_full_scan = 343
+    pricing = 343
+    pricing_phase_reset = 1
+    refactor_initial = 4
+    stagnation_watch = 1
+    pricing_scored_entries = 82827
+    refactor_limit = 3
+    pivot_proposed = 340
+    phase_one = 1
+    phase_cleanup = 1
+
+    [records.coverage]
+    component_proposals = 1
+    original_retry_blocked = 0
+    export_attempts = 1
+    component_certified = 1
+    component_attempts = 1
+    local_attempts = 1
+[[records]]
+pivot_observations = 649
+zero_primal_steps = 442
+time_limit = 90
+component_enabled = true
+reference_objective = 904.9999999254641
+nonzeros = 8584
+columns = 2750
+input_sha256 = "e63c14bbbc69433770a41b2495966d7484de6aa13877f79cbf1d606a8a41eece"
+passed = false
+seed = 20261001
+refactorizations = 10
+job_index = 13
+seconds = 0.120267197
+reader = "native"
+wall_seconds = 0.120276597
+columns_reordered = 0
+allocated_bytes = 17267320
+rows_reordered = 0
+captures = []
+failure_snapshot = "/tmp/broad-primary-job13-seed20261001-netlib-scsd8-native-primal-pfi-true-failure.bin"
+algorithm = "primal"
+iterations = 649
+id = "netlib/scsd8"
+exact_model_match = true
+manager = "pfi"
+status = "NUMERICAL_ERROR"
+message = "bounded feasibility recovery exhausted"
+rows = 397
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+    [[records.phases]]
+    iteration = 649
+    event = "phase_cleanup"
+
+    [records.events]
+    correction_attempt = 3
+    pricing_trial_expired = 1
+    perturbation = 1
+    correction = 1
+    pricing_steepest_edge = 1
+    pricing_scanned_entries = 2051400
+    refactor_other = 2
+    pivot_completed = 649
+    feasibility_recovery = 2
+    pricing_full_scan = 650
+    pricing = 650
+    pricing_phase_reset = 1
+    refactor_initial = 2
+    restore_perturbations = 1
+    stagnation_watch = 1
+    pricing_scored_entries = 537731
+    refactor_limit = 8
+    pivot_proposed = 649
+    stagnation_stalled = 5
+    phase_one = 1
+    phase_cleanup = 1
+    pricing_dantzig = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 1
+    export_attempts = 0
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+pivot_observations = 649
+zero_primal_steps = 442
+time_limit = 90
+component_enabled = true
+reference_objective = 904.9999999254641
+nonzeros = 8584
+columns = 2750
+input_sha256 = "e63c14bbbc69433770a41b2495966d7484de6aa13877f79cbf1d606a8a41eece"
+passed = false
+seed = 20261001
+refactorizations = 10
+job_index = 14
+seconds = 0.121085497
+reader = "jump"
+wall_seconds = 0.121095797
+columns_reordered = 0
+allocated_bytes = 17271208
+rows_reordered = 0
+captures = []
+failure_snapshot = "/tmp/broad-primary-job14-seed20261001-netlib-scsd8-jump-primal-pfi-true-failure.bin"
+algorithm = "primal"
+iterations = 649
+id = "netlib/scsd8"
+exact_model_match = true
+manager = "pfi"
+status = "NUMERICAL_ERROR"
+message = "bounded feasibility recovery exhausted"
+rows = 397
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+    [[records.phases]]
+    iteration = 649
+    event = "phase_cleanup"
+
+    [records.events]
+    correction_attempt = 3
+    pricing_trial_expired = 1
+    perturbation = 1
+    correction = 1
+    pricing_steepest_edge = 1
+    pricing_scanned_entries = 2051400
+    refactor_other = 2
+    pivot_completed = 649
+    feasibility_recovery = 2
+    pricing_full_scan = 650
+    pricing = 650
+    pricing_phase_reset = 1
+    refactor_initial = 2
+    restore_perturbations = 1
+    stagnation_watch = 1
+    pricing_scored_entries = 537731
+    refactor_limit = 8
+    pivot_proposed = 649
+    stagnation_stalled = 5
+    phase_one = 1
+    phase_cleanup = 1
+    pricing_dantzig = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 1
+    export_attempts = 0
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+objective_matches = true
+pivot_observations = 405
+zero_primal_steps = 114
+time_limit = 90
+objective_relative_error = 0.0
+reader_primal_feasible = true
+component_enabled = true
+reference_objective = 1.7987147004453917e6
+nonzeros = 4352
+columns = 1458
+input_sha256 = "07ef030b3ca52791503659a85ae58f8077ef16700468eaea00ca5bd19eb01cd5"
+objective = 1.7987147004453917e6
+seed = 20261001
+original_primal_feasible = true
+refactorizations = 8
+passed = true
+job_index = 15
+seconds = 0.047518199
+reader = "native"
+wall_seconds = 0.047526899
+columns_reordered = 0
+allocated_bytes = 23188232
+rows_reordered = 0
+captures = []
+algorithm = "primal"
+iterations = 405
+id = "netlib/ship04s"
+exact_model_match = true
+manager = "pfi"
+status = "OPTIMAL"
+message = "optimal solution found"
+rows = 402
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+    [[records.phases]]
+    iteration = 271
+    event = "phase_primal"
+    [[records.phases]]
+    iteration = 392
+    event = "phase_cleanup"
+    [[records.phases]]
+    iteration = 392
+    event = "phase_primal"
+
+    [records.events]
+    certification = 2
+    phase_primal = 2
+    pricing_scanned_entries = 713692
+    refactor_other = 4
+    pivot_completed = 405
+    pricing_full_scan = 408
+    pricing = 408
+    pricing_phase_reset = 1
+    refactor_initial = 4
+    pricing_scored_entries = 77587
+    refactor_limit = 4
+    pivot_proposed = 405
+    phase_one = 1
+    phase_cleanup = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 1
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+objective_matches = true
+pivot_observations = 405
+zero_primal_steps = 114
+time_limit = 90
+objective_relative_error = 0.0
+reader_primal_feasible = true
+component_enabled = true
+reference_objective = 1.7987147004453917e6
+nonzeros = 4352
+columns = 1458
+input_sha256 = "07ef030b3ca52791503659a85ae58f8077ef16700468eaea00ca5bd19eb01cd5"
+objective = 1.7987147004453917e6
+seed = 20261001
+original_primal_feasible = true
+refactorizations = 8
+passed = true
+job_index = 16
+seconds = 0.049406499
+reader = "jump"
+wall_seconds = 0.049416599
+columns_reordered = 0
+allocated_bytes = 23190456
+rows_reordered = 57
+captures = []
+algorithm = "primal"
+iterations = 405
+id = "netlib/ship04s"
+exact_model_match = true
+manager = "pfi"
+status = "OPTIMAL"
+message = "optimal solution found"
+rows = 402
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+    [[records.phases]]
+    iteration = 271
+    event = "phase_primal"
+    [[records.phases]]
+    iteration = 392
+    event = "phase_cleanup"
+    [[records.phases]]
+    iteration = 392
+    event = "phase_primal"
+
+    [records.events]
+    certification = 2
+    phase_primal = 2
+    pricing_scanned_entries = 713692
+    refactor_other = 4
+    pivot_completed = 405
+    pricing_full_scan = 408
+    pricing = 408
+    pricing_phase_reset = 1
+    refactor_initial = 4
+    pricing_scored_entries = 77587
+    refactor_limit = 4
+    pivot_proposed = 405
+    phase_one = 1
+    phase_cleanup = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 1
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+objective_matches = true
+pivot_observations = 433
+zero_primal_steps = 107
+time_limit = 90
+objective_relative_error = 9.700780611176839e-16
+reader_primal_feasible = true
+component_enabled = true
+reference_objective = 1.9200982105346182e6
+nonzeros = 7114
+columns = 2387
+input_sha256 = "e65acd93865b9757cfd6f0fb8de0db1d264a7f9c9022ff244fdb88d8d29f2d38"
+objective = 1.92009821053462e6
+seed = 20261001
+original_primal_feasible = true
+refactorizations = 8
+passed = true
+job_index = 17
+seconds = 0.068174998
+reader = "native"
+wall_seconds = 0.068182898
+columns_reordered = 0
+allocated_bytes = 31252296
+rows_reordered = 0
+captures = []
+algorithm = "primal"
+iterations = 433
+id = "netlib/ship08s"
+exact_model_match = true
+manager = "pfi"
+status = "OPTIMAL"
+message = "optimal solution found"
+rows = 778
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+    [[records.phases]]
+    iteration = 287
+    event = "phase_primal"
+    [[records.phases]]
+    iteration = 412
+    event = "phase_cleanup"
+    [[records.phases]]
+    iteration = 412
+    event = "phase_primal"
+
+    [records.events]
+    certification = 2
+    phase_primal = 2
+    pricing_scanned_entries = 1032792
+    refactor_other = 4
+    pivot_completed = 433
+    pricing_full_scan = 436
+    pricing = 436
+    pricing_phase_reset = 1
+    refactor_initial = 4
+    pricing_scored_entries = 144396
+    refactor_limit = 4
+    pivot_proposed = 433
+    phase_one = 1
+    phase_cleanup = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 1
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+objective_matches = true
+pivot_observations = 433
+zero_primal_steps = 107
+time_limit = 90
+objective_relative_error = 9.700780611176839e-16
+reader_primal_feasible = true
+component_enabled = true
+reference_objective = 1.9200982105346182e6
+nonzeros = 7114
+columns = 2387
+input_sha256 = "e65acd93865b9757cfd6f0fb8de0db1d264a7f9c9022ff244fdb88d8d29f2d38"
+objective = 1.92009821053462e6
+seed = 20261001
+original_primal_feasible = true
+refactorizations = 8
+passed = true
+job_index = 18
+seconds = 0.065929199
+reader = "jump"
+wall_seconds = 0.065938899
+columns_reordered = 0
+allocated_bytes = 31255064
+rows_reordered = 89
+captures = []
+algorithm = "primal"
+iterations = 433
+id = "netlib/ship08s"
+exact_model_match = true
+manager = "pfi"
+status = "OPTIMAL"
+message = "optimal solution found"
+rows = 778
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+    [[records.phases]]
+    iteration = 287
+    event = "phase_primal"
+    [[records.phases]]
+    iteration = 412
+    event = "phase_cleanup"
+    [[records.phases]]
+    iteration = 412
+    event = "phase_primal"
+
+    [records.events]
+    certification = 2
+    phase_primal = 2
+    pricing_scanned_entries = 1032792
+    refactor_other = 4
+    pivot_completed = 433
+    pricing_full_scan = 436
+    pricing = 436
+    pricing_phase_reset = 1
+    refactor_initial = 4
+    pricing_scored_entries = 144396
+    refactor_limit = 4
+    pivot_proposed = 433
+    phase_one = 1
+    phase_cleanup = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 1
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+objective_matches = true
+pivot_observations = 648
+zero_primal_steps = 240
+time_limit = 90
+objective_relative_error = 2.657819569825423e-15
+reader_primal_feasible = true
+component_enabled = true
+reference_objective = 1.4892361344061329e6
+nonzeros = 8178
+columns = 2763
+input_sha256 = "1f6c41ae3a2e44ec85ee6a81bd04d14cfab4d3d160d6dc675d9429c7156d4176"
+objective = 1.489236134406129e6
+seed = 20261001
+original_primal_feasible = true
+refactorizations = 10
+passed = true
+job_index = 19
+seconds = 0.116635892
+reader = "native"
+wall_seconds = 0.116645892
+columns_reordered = 0
+allocated_bytes = 39310200
+rows_reordered = 0
+captures = []
+algorithm = "primal"
+iterations = 648
+id = "netlib/ship12s"
+exact_model_match = true
+manager = "pfi"
+status = "OPTIMAL"
+message = "optimal solution found"
+rows = 1151
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+    [[records.phases]]
+    iteration = 459
+    event = "phase_primal"
+    [[records.phases]]
+    iteration = 607
+    event = "phase_cleanup"
+    [[records.phases]]
+    iteration = 607
+    event = "phase_primal"
+
+    [records.events]
+    certification = 2
+    phase_primal = 2
+    pricing_scanned_entries = 2019470
+    refactor_other = 4
+    pivot_completed = 648
+    pricing_full_scan = 651
+    pricing = 651
+    pricing_phase_reset = 1
+    refactor_initial = 4
+    pricing_scored_entries = 194652
+    refactor_limit = 6
+    pivot_proposed = 648
+    phase_one = 1
+    phase_cleanup = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 1
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+objective_matches = true
+pivot_observations = 648
+zero_primal_steps = 240
+time_limit = 90
+objective_relative_error = 2.657819569825423e-15
+reader_primal_feasible = true
+component_enabled = true
+reference_objective = 1.4892361344061329e6
+nonzeros = 8178
+columns = 2763
+input_sha256 = "1f6c41ae3a2e44ec85ee6a81bd04d14cfab4d3d160d6dc675d9429c7156d4176"
+objective = 1.489236134406129e6
+seed = 20261001
+original_primal_feasible = true
+refactorizations = 10
+passed = true
+job_index = 20
+seconds = 0.114168893
+reader = "jump"
+wall_seconds = 0.114179293
+columns_reordered = 0
+allocated_bytes = 39313672
+rows_reordered = 118
+captures = []
+algorithm = "primal"
+iterations = 648
+id = "netlib/ship12s"
+exact_model_match = true
+manager = "pfi"
+status = "OPTIMAL"
+message = "optimal solution found"
+rows = 1151
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+    [[records.phases]]
+    iteration = 459
+    event = "phase_primal"
+    [[records.phases]]
+    iteration = 607
+    event = "phase_cleanup"
+    [[records.phases]]
+    iteration = 607
+    event = "phase_primal"
+
+    [records.events]
+    certification = 2
+    phase_primal = 2
+    pricing_scanned_entries = 2019470
+    refactor_other = 4
+    pivot_completed = 648
+    pricing_full_scan = 651
+    pricing = 651
+    pricing_phase_reset = 1
+    refactor_initial = 4
+    pricing_scored_entries = 194652
+    refactor_limit = 6
+    pivot_proposed = 648
+    phase_one = 1
+    phase_cleanup = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 1
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+objective_matches = true
+pivot_observations = 1122
+zero_primal_steps = 318
+time_limit = 90
+objective_relative_error = 1.2332660646840529e-15
+reader_primal_feasible = true
+component_enabled = true
+reference_objective = -2581.1392588838908
+nonzeros = 5141
+columns = 1000
+input_sha256 = "8d3c89d5be7ce7a591ad06d9b88c584dfb47501a73f9b882ff11eec7f9341387"
+objective = -2581.1392588838876
+seed = 20261001
+original_primal_feasible = true
+refactorizations = 17
+passed = true
+job_index = 21
+seconds = 0.168523888
+reader = "native"
+wall_seconds = 0.168534088
+columns_reordered = 0
+allocated_bytes = 53311496
+rows_reordered = 0
+captures = []
+algorithm = "primal"
+iterations = 1188
+id = "netlib/pilot4"
+exact_model_match = true
+manager = "pfi"
+status = "OPTIMAL"
+message = "optimal solution found"
+rows = 410
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+    [[records.phases]]
+    iteration = 462
+    event = "phase_primal"
+    [[records.phases]]
+    iteration = 1186
+    event = "phase_dual"
+
+    [records.events]
+    certification = 2
+    flip_completed = 66
+    phase_primal = 1
+    phase_dual = 1
+    correction_attempt = 122
+    correction = 118
+    phase_auxiliary = 1
+    pricing_scanned_entries = 1535286
+    refactor_other = 4
+    pivot_completed = 1122
+    pricing_full_scan = 1191
+    pricing = 1191
+    pricing_phase_reset = 1
+    refactor_initial = 4
+    pricing_scored_entries = 238004
+    refactor_limit = 13
+    pivot_proposed = 1188
+    phase_one = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 1
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+objective_matches = true
+pivot_observations = 1074
+zero_primal_steps = 303
+time_limit = 90
+objective_relative_error = 3.188873681540194e-13
+reader_primal_feasible = true
+component_enabled = true
+reference_objective = -2581.1392588838908
+nonzeros = 5141
+columns = 1000
+input_sha256 = "8d3c89d5be7ce7a591ad06d9b88c584dfb47501a73f9b882ff11eec7f9341387"
+objective = -2581.139258884714
+seed = 20261001
+original_primal_feasible = true
+refactorizations = 16
+passed = true
+job_index = 22
+seconds = 0.160566589
+reader = "jump"
+wall_seconds = 0.160578089
+columns_reordered = 0
+allocated_bytes = 53475680
+rows_reordered = 410
+captures = []
+algorithm = "primal"
+iterations = 1123
+id = "netlib/pilot4"
+exact_model_match = true
+manager = "pfi"
+status = "OPTIMAL"
+message = "optimal solution found"
+rows = 410
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+    [[records.phases]]
+    iteration = 479
+    event = "phase_primal"
+    [[records.phases]]
+    iteration = 1121
+    event = "phase_cleanup"
+    [[records.phases]]
+    iteration = 1121
+    event = "phase_primal"
+
+    [records.events]
+    certification = 2
+    flip_completed = 49
+    phase_primal = 2
+    primal_point_preserved = 18
+    correction_attempt = 129
+    correction = 125
+    pricing_scanned_entries = 1456596
+    refactor_other = 4
+    pivot_completed = 1074
+    pricing_full_scan = 1126
+    pricing = 1126
+    pricing_phase_reset = 1
+    refactor_initial = 4
+    pricing_scored_entries = 231418
+    refactor_limit = 12
+    pivot_proposed = 1123
+    phase_one = 1
+    phase_cleanup = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 1
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 1
+[[records]]
+pivot_observations = 0
+zero_primal_steps = 0
+time_limit = 90
+component_enabled = true
+reference_objective = -4497.2761882188715
+phases = []
+nonzeros = 13057
+columns = 2172
+input_sha256 = "0885e278d768e76f1819416f7844eeebf39f7c4e965f5c376b75191253d21f8d"
+passed = false
+seed = 20261001
+refactorizations = 0
+job_index = 23
+seconds = 0.005028299
+reader = "native"
+wall_seconds = 0.005038599
+columns_reordered = 0
+allocated_bytes = 13065296
+rows_reordered = 0
+captures = []
+failure_snapshot = "/tmp/broad-primary-job23-seed20261001-netlib-pilotnov-native-primal-pfi-true-failure.bin"
+algorithm = "primal"
+iterations = 0
+id = "netlib/pilotnov"
+exact_model_match = true
+manager = "pfi"
+status = "INFEASIBLE"
+message = "row 21 contradicts current column bounds"
+rows = 975
+
+    [records.events]
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 0
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+pivot_observations = 0
+zero_primal_steps = 0
+time_limit = 90
+component_enabled = true
+reference_objective = -4497.2761882188715
+phases = []
+nonzeros = 13057
+columns = 2172
+input_sha256 = "0885e278d768e76f1819416f7844eeebf39f7c4e965f5c376b75191253d21f8d"
+passed = false
+seed = 20261001
+refactorizations = 0
+job_index = 24
+seconds = 0.0072409
+reader = "jump"
+wall_seconds = 0.0072525
+columns_reordered = 0
+allocated_bytes = 15917824
+rows_reordered = 975
+captures = []
+failure_snapshot = "/tmp/broad-primary-job24-seed20261001-netlib-pilotnov-jump-primal-pfi-true-failure.bin"
+algorithm = "primal"
+iterations = 0
+id = "netlib/pilotnov"
+exact_model_match = true
+manager = "pfi"
+status = "INFEASIBLE"
+message = "row 290 contradicts current column bounds"
+rows = 975
+
+    [records.events]
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 0
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+objective_matches = true
+pivot_observations = 2052
+zero_primal_steps = 579
+time_limit = 90
+objective_relative_error = 9.918431598121055e-16
+reader_primal_feasible = true
+component_enabled = true
+reference_objective = 5501.845888286749
+nonzeros = 10400
+columns = 1571
+input_sha256 = "07290b464eb79c0ed722e16ed29454b5802fb67daaa03b8ee7fd40aee7f9b508"
+objective = 5501.8458882867435
+seed = 20261001
+original_primal_feasible = true
+refactorizations = 29
+passed = true
+job_index = 25
+seconds = 0.596034261
+reader = "native"
+wall_seconds = 0.596043361
+columns_reordered = 0
+allocated_bytes = 93408024
+rows_reordered = 0
+captures = []
+algorithm = "primal"
+iterations = 2052
+id = "netlib/25fv47"
+exact_model_match = true
+manager = "pfi"
+status = "OPTIMAL"
+message = "optimal solution found"
+rows = 821
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+    [[records.phases]]
+    iteration = 928
+    event = "phase_primal"
+    [[records.phases]]
+    iteration = 2051
+    event = "phase_cleanup"
+    [[records.phases]]
+    iteration = 2051
+    event = "phase_primal"
+
+    [records.events]
+    certification = 2
+    phase_primal = 2
+    correction_attempt = 65
+    correction = 64
+    pricing_scanned_entries = 4881792
+    refactor_other = 4
+    pivot_completed = 2052
+    pricing_full_scan = 2055
+    pricing = 2055
+    pricing_phase_reset = 1
+    refactor_initial = 4
+    pricing_scored_entries = 993757
+    refactor_limit = 25
+    pivot_proposed = 2052
+    phase_one = 1
+    phase_cleanup = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 1
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 1
+[[records]]
+objective_matches = true
+pivot_observations = 2125
+zero_primal_steps = 596
+time_limit = 90
+objective_relative_error = 3.3061438660403516e-16
+reader_primal_feasible = true
+component_enabled = true
+reference_objective = 5501.845888286749
+nonzeros = 10400
+columns = 1571
+input_sha256 = "07290b464eb79c0ed722e16ed29454b5802fb67daaa03b8ee7fd40aee7f9b508"
+objective = 5501.845888286747
+seed = 20261001
+original_primal_feasible = true
+refactorizations = 29
+passed = true
+job_index = 26
+seconds = 0.619836158
+reader = "jump"
+wall_seconds = 0.619845958
+columns_reordered = 0
+allocated_bytes = 93391512
+rows_reordered = 821
+captures = []
+algorithm = "primal"
+iterations = 2125
+id = "netlib/25fv47"
+exact_model_match = true
+manager = "pfi"
+status = "OPTIMAL"
+message = "optimal solution found"
+rows = 821
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+    [[records.phases]]
+    iteration = 931
+    event = "phase_primal"
+    [[records.phases]]
+    iteration = 2123
+    event = "phase_cleanup"
+    [[records.phases]]
+    iteration = 2123
+    event = "phase_primal"
+
+    [records.events]
+    certification = 2
+    phase_primal = 2
+    correction_attempt = 54
+    correction = 53
+    pricing_scanned_entries = 5048716
+    refactor_other = 4
+    pivot_completed = 2125
+    pricing_full_scan = 2128
+    pricing = 2128
+    pricing_phase_reset = 1
+    refactor_initial = 4
+    pricing_scored_entries = 1025645
+    refactor_limit = 25
+    pivot_proposed = 2125
+    phase_one = 1
+    phase_cleanup = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 1
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 1
+[[records]]
+objective_matches = true
+pivot_observations = 4169
+zero_primal_steps = 1482
+time_limit = 90
+objective_relative_error = 7.075312136112693e-16
+reader_primal_feasible = true
+component_enabled = true
+reference_objective = 987224.1924090902
+nonzeros = 21002
+columns = 9799
+input_sha256 = "79029616b71faf3d8690c5565695e93bc2f6dff3aaadbeb71ece21c10a9c50d0"
+objective = 987224.1924090909
+seed = 20261001
+original_primal_feasible = true
+refactorizations = 57
+passed = true
+job_index = 27
+seconds = 3.277786882
+reader = "native"
+wall_seconds = 3.277800682
+columns_reordered = 0
+allocated_bytes = 149967800
+rows_reordered = 0
+captures = []
+algorithm = "primal"
+iterations = 5736
+id = "netlib/80bau3b"
+exact_model_match = true
+manager = "pfi"
+status = "OPTIMAL"
+message = "optimal solution found"
+rows = 2262
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+    [[records.phases]]
+    iteration = 1331
+    event = "phase_primal"
+    [[records.phases]]
+    iteration = 5707
+    event = "phase_cleanup"
+    [[records.phases]]
+    iteration = 5707
+    event = "phase_primal"
+
+    [records.events]
+    certification = 2
+    flip_completed = 1567
+    phase_primal = 2
+    correction_attempt = 3
+    correction = 3
+    pricing_scanned_entries = 65217927
+    refactor_other = 4
+    pivot_completed = 4169
+    pricing_full_scan = 5739
+    pricing = 5739
+    pricing_phase_reset = 1
+    refactor_initial = 4
+    pricing_scored_entries = 10652896
+    refactor_limit = 51
+    pivot_proposed = 5736
+    phase_one = 1
+    phase_cleanup = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 1
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+objective_matches = true
+pivot_observations = 4266
+zero_primal_steps = 1468
+time_limit = 90
+objective_relative_error = 9.433749514816925e-16
+reader_primal_feasible = true
+component_enabled = true
+reference_objective = 987224.1924090902
+nonzeros = 21002
+columns = 9799
+input_sha256 = "79029616b71faf3d8690c5565695e93bc2f6dff3aaadbeb71ece21c10a9c50d0"
+objective = 987224.1924090912
+seed = 20261001
+original_primal_feasible = true
+refactorizations = 58
+passed = true
+job_index = 28
+seconds = 3.294714988
+reader = "jump"
+wall_seconds = 3.294729088
+columns_reordered = 0
+allocated_bytes = 152780544
+rows_reordered = 2262
+captures = []
+algorithm = "primal"
+iterations = 5799
+id = "netlib/80bau3b"
+exact_model_match = true
+manager = "pfi"
+status = "OPTIMAL"
+message = "optimal solution found"
+rows = 2262
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+    [[records.phases]]
+    iteration = 1329
+    event = "phase_primal"
+    [[records.phases]]
+    iteration = 5772
+    event = "phase_cleanup"
+    [[records.phases]]
+    iteration = 5772
+    event = "phase_primal"
+
+    [records.events]
+    certification = 2
+    flip_completed = 1533
+    phase_primal = 2
+    correction_attempt = 5
+    correction = 5
+    pricing_scanned_entries = 65924330
+    refactor_other = 4
+    pivot_completed = 4266
+    pricing_full_scan = 5802
+    pricing = 5802
+    pricing_phase_reset = 1
+    refactor_initial = 4
+    pricing_scored_entries = 11490156
+    refactor_limit = 52
+    pivot_proposed = 5799
+    phase_one = 1
+    phase_cleanup = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 1
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+objective_matches = true
+pivot_observations = 433
+zero_primal_steps = 277
+time_limit = 90
+objective_relative_error = 1.2310997785797785e-15
+reader_primal_feasible = true
+component_enabled = true
+reference_objective = 1.4429024115734075
+nonzeros = 70215
+columns = 2594
+input_sha256 = "aff8022d19be3461fc9b0c71263b1d4cff9147a1cca222d9c004b522e1fa84b7"
+objective = 1.4429024115734093
+seed = 20261001
+original_primal_feasible = true
+refactorizations = 8
+passed = true
+job_index = 29
+seconds = 0.307082648
+reader = "native"
+wall_seconds = 0.307093348
+columns_reordered = 0
+allocated_bytes = 370495968
+rows_reordered = 0
+captures = []
+algorithm = "primal"
+iterations = 433
+id = "netlib/wood1p"
+exact_model_match = true
+manager = "pfi"
+status = "OPTIMAL"
+message = "optimal solution found"
+rows = 244
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+    [[records.phases]]
+    iteration = 173
+    event = "phase_primal"
+    [[records.phases]]
+    iteration = 432
+    event = "phase_cleanup"
+    [[records.phases]]
+    iteration = 432
+    event = "phase_primal"
+
+    [records.events]
+    certification = 2
+    phase_primal = 2
+    correction_attempt = 2
+    correction = 2
+    pricing_scanned_entries = 861004
+    refactor_other = 3
+    pivot_completed = 433
+    pricing_full_scan = 436
+    pricing = 436
+    pricing_phase_reset = 1
+    refactor_initial = 4
+    stagnation_watch = 1
+    pricing_scored_entries = 397088
+    refactor_limit = 5
+    pivot_proposed = 433
+    stagnation_stalled = 1
+    phase_one = 1
+    phase_cleanup = 1
+    pricing_dantzig = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 1
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+objective_matches = true
+pivot_observations = 433
+zero_primal_steps = 277
+time_limit = 90
+objective_relative_error = 7.694373616123616e-16
+reader_primal_feasible = true
+component_enabled = true
+reference_objective = 1.4429024115734075
+nonzeros = 70215
+columns = 2594
+input_sha256 = "aff8022d19be3461fc9b0c71263b1d4cff9147a1cca222d9c004b522e1fa84b7"
+objective = 1.4429024115734086
+seed = 20261001
+original_primal_feasible = true
+refactorizations = 8
+passed = true
+job_index = 30
+seconds = 0.29879786
+reader = "jump"
+wall_seconds = 0.29880866
+columns_reordered = 0
+allocated_bytes = 370507152
+rows_reordered = 244
+captures = []
+algorithm = "primal"
+iterations = 433
+id = "netlib/wood1p"
+exact_model_match = true
+manager = "pfi"
+status = "OPTIMAL"
+message = "optimal solution found"
+rows = 244
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+    [[records.phases]]
+    iteration = 173
+    event = "phase_primal"
+    [[records.phases]]
+    iteration = 432
+    event = "phase_cleanup"
+    [[records.phases]]
+    iteration = 432
+    event = "phase_primal"
+
+    [records.events]
+    certification = 2
+    phase_primal = 2
+    correction_attempt = 2
+    correction = 2
+    pricing_scanned_entries = 861004
+    refactor_other = 3
+    pivot_completed = 433
+    pricing_full_scan = 436
+    pricing = 436
+    pricing_phase_reset = 1
+    refactor_initial = 4
+    stagnation_watch = 1
+    pricing_scored_entries = 397088
+    refactor_limit = 5
+    pivot_proposed = 433
+    stagnation_stalled = 1
+    phase_one = 1
+    phase_cleanup = 1
+    pricing_dantzig = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 1
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+objective_matches = true
+pivot_observations = 1332
+zero_primal_steps = 867
+time_limit = 90
+objective_relative_error = 0.0
+reader_primal_feasible = true
+component_enabled = true
+reference_objective = 1.3044763330842293
+nonzeros = 37474
+columns = 8405
+input_sha256 = "dcb7304ebedae9ffad8421c226bf4c5604591fefb367b6d0414f46608d5a6624"
+objective = 1.3044763330842293
+seed = 20261001
+original_primal_feasible = true
+refactorizations = 20
+passed = true
+job_index = 31
+seconds = 0.537218274
+reader = "native"
+wall_seconds = 0.537230074
+columns_reordered = 0
+allocated_bytes = 126334320
+rows_reordered = 0
+captures = []
+algorithm = "primal"
+iterations = 1332
+id = "netlib/woodw"
+exact_model_match = true
+manager = "pfi"
+status = "OPTIMAL"
+message = "optimal solution found"
+rows = 1098
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+    [[records.phases]]
+    iteration = 400
+    event = "phase_primal"
+    [[records.phases]]
+    iteration = 1053
+    event = "phase_cleanup"
+    [[records.phases]]
+    iteration = 1053
+    event = "phase_primal"
+
+    [records.events]
+    certification = 2
+    phase_primal = 2
+    correction_attempt = 4
+    correction = 4
+    pricing_scanned_entries = 8900640
+    refactor_other = 4
+    pivot_completed = 1332
+    pricing_full_scan = 1335
+    pricing = 1335
+    pricing_phase_reset = 1
+    refactor_initial = 4
+    stagnation_watch = 2
+    pricing_scored_entries = 1369613
+    refactor_limit = 16
+    pivot_proposed = 1332
+    stagnation_stalled = 3
+    phase_one = 1
+    phase_cleanup = 1
+    pricing_dantzig = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 1
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+objective_matches = true
+pivot_observations = 1355
+zero_primal_steps = 862
+time_limit = 90
+objective_relative_error = 0.0
+reader_primal_feasible = true
+component_enabled = true
+reference_objective = 1.3044763330842293
+nonzeros = 37474
+columns = 8405
+input_sha256 = "dcb7304ebedae9ffad8421c226bf4c5604591fefb367b6d0414f46608d5a6624"
+objective = 1.3044763330842293
+seed = 20261001
+original_primal_feasible = true
+refactorizations = 20
+passed = true
+job_index = 32
+seconds = 0.557130477
+reader = "jump"
+wall_seconds = 0.557141877
+columns_reordered = 0
+allocated_bytes = 124434704
+rows_reordered = 1098
+captures = []
+algorithm = "primal"
+iterations = 1355
+id = "netlib/woodw"
+exact_model_match = true
+manager = "pfi"
+status = "OPTIMAL"
+message = "optimal solution found"
+rows = 1098
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+    [[records.phases]]
+    iteration = 402
+    event = "phase_primal"
+    [[records.phases]]
+    iteration = 1076
+    event = "phase_cleanup"
+    [[records.phases]]
+    iteration = 1076
+    event = "phase_primal"
+
+    [records.events]
+    certification = 2
+    phase_primal = 2
+    correction_attempt = 3
+    correction = 3
+    pricing_scanned_entries = 9036505
+    refactor_other = 4
+    pivot_completed = 1355
+    pricing_full_scan = 1358
+    pricing = 1358
+    pricing_phase_reset = 1
+    refactor_initial = 4
+    stagnation_watch = 2
+    pricing_scored_entries = 1393276
+    refactor_limit = 16
+    pivot_proposed = 1355
+    stagnation_stalled = 3
+    phase_one = 1
+    phase_cleanup = 1
+    pricing_dantzig = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 1
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+objective_matches = true
+pivot_observations = 344
+zero_primal_steps = 72
+time_limit = 90
+objective_relative_error = 5.375161911766744e-16
+reader_primal_feasible = true
+component_enabled = true
+reference_objective = -158.62801845012052
+nonzeros = 2494
+columns = 472
+input_sha256 = "244420cb770da5a27d579b09d0cf07228cd3a7f9d6392516edbb6445eff1013d"
+objective = -158.6280184501206
+seed = 20261001
+original_primal_feasible = true
+refactorizations = 7
+passed = true
+job_index = 33
+seconds = 0.082908097
+reader = "native"
+wall_seconds = 0.082916197
+columns_reordered = 0
+allocated_bytes = 51764264
+rows_reordered = 0
+captures = []
+algorithm = "primal"
+iterations = 345
+id = "netlib/bandm"
+exact_model_match = true
+manager = "pfi"
+status = "OPTIMAL"
+message = "optimal solution found"
+rows = 305
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+    [[records.phases]]
+    iteration = 215
+    event = "phase_primal"
+    [[records.phases]]
+    iteration = 340
+    event = "phase_cleanup"
+    [[records.phases]]
+    iteration = 340
+    event = "phase_primal"
+
+    [records.events]
+    certification = 2
+    flip_completed = 1
+    phase_primal = 2
+    correction_attempt = 5
+    correction = 5
+    pricing_scanned_entries = 202680
+    refactor_other = 4
+    pivot_completed = 344
+    pricing_full_scan = 348
+    pricing = 348
+    pricing_phase_reset = 1
+    refactor_initial = 4
+    pricing_scored_entries = 28917
+    refactor_limit = 3
+    pivot_proposed = 345
+    phase_one = 1
+    phase_cleanup = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 1
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+objective_matches = true
+pivot_observations = 344
+zero_primal_steps = 72
+time_limit = 90
+objective_relative_error = 5.375161911766744e-16
+reader_primal_feasible = true
+component_enabled = true
+reference_objective = -158.62801845012052
+nonzeros = 2494
+columns = 472
+input_sha256 = "244420cb770da5a27d579b09d0cf07228cd3a7f9d6392516edbb6445eff1013d"
+objective = -158.6280184501206
+seed = 20261001
+original_primal_feasible = true
+refactorizations = 7
+passed = true
+job_index = 34
+seconds = 0.082899596
+reader = "jump"
+wall_seconds = 0.082908796
+columns_reordered = 0
+allocated_bytes = 51761928
+rows_reordered = 0
+captures = []
+algorithm = "primal"
+iterations = 345
+id = "netlib/bandm"
+exact_model_match = true
+manager = "pfi"
+status = "OPTIMAL"
+message = "optimal solution found"
+rows = 305
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+    [[records.phases]]
+    iteration = 215
+    event = "phase_primal"
+    [[records.phases]]
+    iteration = 340
+    event = "phase_cleanup"
+    [[records.phases]]
+    iteration = 340
+    event = "phase_primal"
+
+    [records.events]
+    certification = 2
+    flip_completed = 1
+    phase_primal = 2
+    correction_attempt = 5
+    correction = 5
+    pricing_scanned_entries = 202680
+    refactor_other = 4
+    pivot_completed = 344
+    pricing_full_scan = 348
+    pricing = 348
+    pricing_phase_reset = 1
+    refactor_initial = 4
+    pricing_scored_entries = 28917
+    refactor_limit = 3
+    pivot_proposed = 345
+    phase_one = 1
+    phase_cleanup = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 1
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+pivot_observations = 198
+zero_primal_steps = 30
+time_limit = 90
+component_enabled = true
+reference_objective = -335.213567507127
+nonzeros = 3485
+columns = 384
+input_sha256 = "3f67c9b14db80aa0f4cff29baccb450623eb8aa609e37dd03aeb936dc785d362"
+passed = false
+seed = 20261001
+refactorizations = 4
+job_index = 35
+seconds = 0.026573399
+reader = "native"
+wall_seconds = 0.026581499
+columns_reordered = 0
+allocated_bytes = 19835888
+rows_reordered = 0
+captures = []
+failure_snapshot = "/tmp/broad-primary-job35-seed20261001-netlib-boeing1-native-primal-pfi-true-failure.bin"
+algorithm = "primal"
+iterations = 202
+id = "netlib/boeing1"
+exact_model_match = true
+manager = "pfi"
+status = "NUMERICAL_ERROR"
+message = "primal reduced cost disagrees with its direction"
+rows = 351
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+
+    [records.events]
+    refactor_residual = 1
+    flip_completed = 4
+    pricing_scanned_entries = 158422
+    refactor_other = 1
+    pivot_completed = 198
+    pivot_rejected = 5
+    pricing_full_scan = 209
+    pricing = 209
+    refactor_initial = 2
+    pricing_scored_entries = 37431
+    refactor_limit = 2
+    pivot_proposed = 208
+    phase_one = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 1
+    export_attempts = 0
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+objective_matches = true
+pivot_observations = 511
+zero_primal_steps = 87
+time_limit = 90
+objective_relative_error = 1.0174424493053874e-15
+reader_primal_feasible = true
+component_enabled = true
+reference_objective = -335.213567507127
+nonzeros = 3485
+columns = 384
+input_sha256 = "3f67c9b14db80aa0f4cff29baccb450623eb8aa609e37dd03aeb936dc785d362"
+objective = -335.21356750712664
+seed = 20261001
+original_primal_feasible = true
+refactorizations = 9
+passed = true
+job_index = 36
+seconds = 0.042199498
+reader = "jump"
+wall_seconds = 0.042210998
+columns_reordered = 0
+allocated_bytes = 23122360
+rows_reordered = 340
+captures = []
+algorithm = "primal"
+iterations = 559
+id = "netlib/boeing1"
+exact_model_match = true
+manager = "pfi"
+status = "OPTIMAL"
+message = "optimal solution found"
+rows = 351
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+    [[records.phases]]
+    iteration = 203
+    event = "phase_primal"
+    [[records.phases]]
+    iteration = 558
+    event = "phase_cleanup"
+    [[records.phases]]
+    iteration = 558
+    event = "phase_primal"
+
+    [records.events]
+    certification = 2
+    flip_completed = 48
+    phase_primal = 2
+    correction_attempt = 3
+    correction = 3
+    pricing_scanned_entries = 390350
+    refactor_other = 4
+    pivot_completed = 511
+    pricing_full_scan = 562
+    pricing = 562
+    pricing_phase_reset = 1
+    refactor_initial = 4
+    pricing_scored_entries = 74116
+    refactor_limit = 5
+    pivot_proposed = 559
+    phase_one = 1
+    phase_cleanup = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 1
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+objective_matches = true
+pivot_observations = 323
+zero_primal_steps = 127
+time_limit = 90
+objective_relative_error = 3.381004965135694e-16
+reader_primal_feasible = true
+component_enabled = true
+reference_objective = 2690.0129137681593
+nonzeros = 1767
+columns = 353
+input_sha256 = "7200826e526a47d53fb57b2b45661675217ede75406945e2820a0a73d3b946c0"
+objective = 2690.01291376816
+seed = 20261001
+original_primal_feasible = true
+refactorizations = 7
+passed = true
+job_index = 37
+seconds = 0.452213181
+reader = "native"
+wall_seconds = 0.452222181
+columns_reordered = 0
+allocated_bytes = 143012456
+rows_reordered = 0
+captures = []
+algorithm = "primal"
+iterations = 326
+id = "netlib/capri"
+exact_model_match = true
+manager = "pfi"
+status = "OPTIMAL"
+message = "optimal solution found"
+rows = 271
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+    [[records.phases]]
+    iteration = 283
+    event = "phase_primal"
+    [[records.phases]]
+    iteration = 326
+    event = "phase_cleanup"
+    [[records.phases]]
+    iteration = 326
+    event = "phase_primal"
+
+    [records.events]
+    certification = 2
+    flip_completed = 3
+    phase_primal = 2
+    pricing_scanned_entries = 207244
+    refactor_other = 4
+    pivot_completed = 323
+    pricing_full_scan = 329
+    pricing = 329
+    pricing_phase_reset = 1
+    refactor_initial = 4
+    pricing_scored_entries = 20530
+    refactor_limit = 3
+    pivot_proposed = 326
+    phase_one = 1
+    phase_cleanup = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 1
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+objective_matches = true
+pivot_observations = 322
+zero_primal_steps = 122
+time_limit = 90
+objective_relative_error = 0.0
+reader_primal_feasible = true
+component_enabled = true
+reference_objective = 2690.0129137681593
+nonzeros = 1767
+columns = 353
+input_sha256 = "7200826e526a47d53fb57b2b45661675217ede75406945e2820a0a73d3b946c0"
+objective = 2690.0129137681593
+seed = 20261001
+original_primal_feasible = true
+refactorizations = 7
+passed = true
+job_index = 38
+seconds = 0.268225089
+reader = "jump"
+wall_seconds = 0.268234889
+columns_reordered = 0
+allocated_bytes = 93131304
+rows_reordered = 270
+captures = []
+algorithm = "primal"
+iterations = 325
+id = "netlib/capri"
+exact_model_match = true
+manager = "pfi"
+status = "OPTIMAL"
+message = "optimal solution found"
+rows = 271
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+    [[records.phases]]
+    iteration = 282
+    event = "phase_primal"
+    [[records.phases]]
+    iteration = 325
+    event = "phase_cleanup"
+    [[records.phases]]
+    iteration = 325
+    event = "phase_primal"
+
+    [records.events]
+    certification = 2
+    flip_completed = 3
+    phase_primal = 2
+    pricing_scanned_entries = 206277
+    refactor_other = 4
+    pivot_completed = 322
+    pricing_full_scan = 328
+    pricing = 328
+    pricing_phase_reset = 1
+    refactor_initial = 4
+    pricing_scored_entries = 20342
+    refactor_limit = 3
+    pivot_proposed = 325
+    phase_one = 1
+    phase_cleanup = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 1
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+objective_matches = true
+pivot_observations = 30
+zero_primal_steps = 17
+time_limit = 90
+objective_relative_error = 8.528133174424334e-16
+reader_primal_feasible = true
+component_enabled = true
+reference_objective = -266.61600000000027
+nonzeros = 663
+columns = 180
+input_sha256 = "f967ab6466e4e9ad1914eb40d07d912149b4c5a6005252e86ba181048c3ca59c"
+objective = -266.61600000000004
+seed = 20261001
+original_primal_feasible = true
+refactorizations = 3
+passed = true
+job_index = 39
+seconds = 0.01182
+reader = "native"
+wall_seconds = 0.0118277
+columns_reordered = 0
+allocated_bytes = 16190736
+rows_reordered = 0
+captures = []
+algorithm = "primal"
+iterations = 32
+id = "netlib/recipe"
+exact_model_match = true
+manager = "pfi"
+status = "OPTIMAL"
+message = "optimal solution found"
+rows = 91
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+    [[records.phases]]
+    iteration = 1
+    event = "phase_primal"
+    [[records.phases]]
+    iteration = 31
+    event = "phase_cleanup"
+    [[records.phases]]
+    iteration = 31
+    event = "phase_primal"
+
+    [records.events]
+    certification = 2
+    flip_completed = 2
+    phase_primal = 2
+    pricing_scanned_entries = 5989
+    refactor_other = 3
+    pivot_completed = 30
+    pricing_full_scan = 35
+    pricing = 35
+    pricing_phase_reset = 1
+    refactor_initial = 4
+    pricing_scored_entries = 357
+    pivot_proposed = 32
+    phase_one = 1
+    phase_cleanup = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 1
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+objective_matches = true
+pivot_observations = 30
+zero_primal_steps = 17
+time_limit = 90
+objective_relative_error = 8.528133174424334e-16
+reader_primal_feasible = true
+component_enabled = true
+reference_objective = -266.61600000000027
+nonzeros = 663
+columns = 180
+input_sha256 = "f967ab6466e4e9ad1914eb40d07d912149b4c5a6005252e86ba181048c3ca59c"
+objective = -266.61600000000004
+seed = 20261001
+original_primal_feasible = true
+refactorizations = 3
+passed = true
+job_index = 40
+seconds = 0.0139386
+reader = "jump"
+wall_seconds = 0.013946
+columns_reordered = 0
+allocated_bytes = 17243376
+rows_reordered = 47
+captures = []
+algorithm = "primal"
+iterations = 32
+id = "netlib/recipe"
+exact_model_match = true
+manager = "pfi"
+status = "OPTIMAL"
+message = "optimal solution found"
+rows = 91
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+    [[records.phases]]
+    iteration = 1
+    event = "phase_primal"
+    [[records.phases]]
+    iteration = 31
+    event = "phase_cleanup"
+    [[records.phases]]
+    iteration = 31
+    event = "phase_primal"
+
+    [records.events]
+    certification = 2
+    flip_completed = 2
+    phase_primal = 2
+    pricing_scanned_entries = 5989
+    refactor_other = 3
+    pivot_completed = 30
+    pricing_full_scan = 35
+    pricing = 35
+    pricing_phase_reset = 1
+    refactor_initial = 4
+    pricing_scored_entries = 357
+    pivot_proposed = 32
+    phase_one = 1
+    phase_cleanup = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 1
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+objective_matches = true
+pivot_observations = 254
+zero_primal_steps = 169
+time_limit = 90
+objective_relative_error = 2.421283960367931e-16
+reader_primal_feasible = true
+component_enabled = true
+reference_objective = 1878.1248227381068
+nonzeros = 1426
+columns = 358
+input_sha256 = "36006710427a2b6c6575f41fdc284ca78e89a0af3f7572742d5336d7d7793130"
+objective = 1878.1248227381072
+seed = 20261001
+original_primal_feasible = true
+refactorizations = 6
+passed = true
+job_index = 41
+seconds = 0.021182099
+reader = "native"
+wall_seconds = 0.021189499
+columns_reordered = 0
+allocated_bytes = 19285432
+rows_reordered = 0
+captures = []
+algorithm = "primal"
+iterations = 256
+id = "netlib/scorpion"
+exact_model_match = true
+manager = "pfi"
+status = "OPTIMAL"
+message = "optimal solution found"
+rows = 388
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+    [[records.phases]]
+    iteration = 137
+    event = "phase_primal"
+    [[records.phases]]
+    iteration = 232
+    event = "phase_cleanup"
+    [[records.phases]]
+    iteration = 232
+    event = "phase_primal"
+
+    [records.events]
+    certification = 2
+    flip_completed = 2
+    phase_primal = 2
+    pricing_scanned_entries = 130580
+    refactor_other = 4
+    pivot_completed = 254
+    pricing_full_scan = 259
+    pricing = 259
+    pricing_phase_reset = 1
+    refactor_initial = 4
+    pricing_scored_entries = 14363
+    refactor_limit = 2
+    pivot_proposed = 256
+    phase_one = 1
+    phase_cleanup = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 1
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+objective_matches = true
+pivot_observations = 253
+zero_primal_steps = 168
+time_limit = 90
+objective_relative_error = 2.421283960367931e-16
+reader_primal_feasible = true
+component_enabled = true
+reference_objective = 1878.1248227381068
+nonzeros = 1426
+columns = 358
+input_sha256 = "36006710427a2b6c6575f41fdc284ca78e89a0af3f7572742d5336d7d7793130"
+objective = 1878.1248227381072
+seed = 20261001
+original_primal_feasible = true
+refactorizations = 6
+passed = true
+job_index = 42
+seconds = 0.028139903
+reader = "jump"
+wall_seconds = 0.028150003
+columns_reordered = 0
+allocated_bytes = 23688136
+rows_reordered = 378
+captures = []
+algorithm = "primal"
+iterations = 255
+id = "netlib/scorpion"
+exact_model_match = true
+manager = "pfi"
+status = "OPTIMAL"
+message = "optimal solution found"
+rows = 388
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+    [[records.phases]]
+    iteration = 137
+    event = "phase_primal"
+    [[records.phases]]
+    iteration = 232
+    event = "phase_cleanup"
+    [[records.phases]]
+    iteration = 232
+    event = "phase_primal"
+
+    [records.events]
+    certification = 2
+    flip_completed = 2
+    phase_primal = 2
+    pricing_scanned_entries = 129834
+    refactor_other = 4
+    pivot_completed = 253
+    pricing_full_scan = 258
+    pricing = 258
+    pricing_phase_reset = 1
+    refactor_initial = 4
+    pricing_scored_entries = 14544
+    refactor_limit = 2
+    pivot_proposed = 255
+    phase_one = 1
+    phase_cleanup = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 1
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+objective_matches = true
+pivot_observations = 266
+zero_primal_steps = 102
+time_limit = 90
+objective_relative_error = 0.0
+reader_primal_feasible = true
+component_enabled = true
+reference_objective = 338864.25
+nonzeros = 91028
+columns = 10757
+input_sha256 = "801237b546a49a28caa8347e3924436a258fc353332cb37a1d23e325289fb5bf"
+objective = 338864.25
+seed = 20261001
+original_primal_feasible = true
+refactorizations = 6
+passed = true
+job_index = 43
+seconds = 0.379335239
+reader = "native"
+wall_seconds = 0.379346539
+columns_reordered = 0
+allocated_bytes = 284534704
+rows_reordered = 0
+captures = []
+algorithm = "primal"
+iterations = 266
+id = "miplib/air03"
+exact_model_match = true
+manager = "pfi"
+status = "OPTIMAL"
+message = "optimal solution found"
+rows = 124
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+    [[records.phases]]
+    iteration = 6
+    event = "phase_primal"
+    [[records.phases]]
+    iteration = 266
+    event = "phase_cleanup"
+    [[records.phases]]
+    iteration = 266
+    event = "phase_primal"
+
+    [records.events]
+    certification = 2
+    phase_primal = 2
+    pricing_scanned_entries = 2891119
+    refactor_other = 3
+    pivot_completed = 266
+    pricing_full_scan = 269
+    pricing = 269
+    pricing_phase_reset = 1
+    refactor_initial = 4
+    pricing_scored_entries = 864783
+    refactor_limit = 3
+    pivot_proposed = 266
+    phase_one = 1
+    phase_cleanup = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 1
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+objective_matches = true
+pivot_observations = 266
+zero_primal_steps = 102
+time_limit = 90
+objective_relative_error = 0.0
+reader_primal_feasible = true
+component_enabled = true
+reference_objective = 338864.25
+nonzeros = 91028
+columns = 10757
+input_sha256 = "801237b546a49a28caa8347e3924436a258fc353332cb37a1d23e325289fb5bf"
+objective = 338864.25
+seed = 20261001
+original_primal_feasible = true
+refactorizations = 6
+passed = true
+job_index = 44
+seconds = 0.379006339
+reader = "jump"
+wall_seconds = 0.379017439
+columns_reordered = 0
+allocated_bytes = 284547760
+rows_reordered = 0
+captures = []
+algorithm = "primal"
+iterations = 266
+id = "miplib/air03"
+exact_model_match = true
+manager = "pfi"
+status = "OPTIMAL"
+message = "optimal solution found"
+rows = 124
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+    [[records.phases]]
+    iteration = 6
+    event = "phase_primal"
+    [[records.phases]]
+    iteration = 266
+    event = "phase_cleanup"
+    [[records.phases]]
+    iteration = 266
+    event = "phase_primal"
+
+    [records.events]
+    certification = 2
+    phase_primal = 2
+    pricing_scanned_entries = 2891119
+    refactor_other = 3
+    pivot_completed = 266
+    pricing_full_scan = 269
+    pricing = 269
+    pricing_phase_reset = 1
+    refactor_initial = 4
+    pricing_scored_entries = 864783
+    refactor_limit = 3
+    pivot_proposed = 266
+    phase_one = 1
+    phase_cleanup = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 1
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+pivot_observations = 21058
+zero_primal_steps = 7039
+time_limit = 90
+component_enabled = true
+reference_objective = 55535.43638822427
+nonzeros = 72965
+columns = 8904
+input_sha256 = "8d0956b998dcaef9b8527bb480a8b96c24aaa8895beaa11491d671973490893e"
+passed = false
+seed = 20261001
+refactorizations = 17141
+job_index = 45
+seconds = 90.005257981
+reader = "native"
+wall_seconds = 90.005271181
+columns_reordered = 0
+allocated_bytes = 41919908144
+rows_reordered = 0
+captures = []
+failure_snapshot = "/tmp/broad-primary-job45-seed20261001-miplib-air04-native-primal-pfi-true-failure.bin"
+algorithm = "primal"
+iterations = 21058
+id = "miplib/air04"
+exact_model_match = true
+manager = "pfi"
+status = "TIME_LIMIT"
+message = "time limit reached during phase I optimization"
+rows = 823
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+
+    [records.events]
+    refactor_residual = 17111
+    correction_attempt = 92
+    pricing_trial_expired = 48
+    correction = 92
+    pricing_steepest_edge = 48
+    pricing_scanned_entries = 1977015128
+    refactor_other = 1
+    pivot_completed = 21058
+    pivot_rejected = 151819
+    pricing_full_scan = 189988
+    pricing = 189988
+    refactor_initial = 2
+    stagnation_watch = 2
+    pricing_scored_entries = 809002703
+    refactor_limit = 29
+    pivot_proposed = 189988
+    stagnation_stalled = 291
+    phase_one = 1
+    pricing_dantzig = 49
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 0
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+pivot_observations = 20562
+zero_primal_steps = 6855
+time_limit = 90
+component_enabled = true
+reference_objective = 55535.43638822427
+nonzeros = 72965
+columns = 8904
+input_sha256 = "8d0956b998dcaef9b8527bb480a8b96c24aaa8895beaa11491d671973490893e"
+passed = false
+seed = 20261001
+refactorizations = 16644
+job_index = 46
+seconds = 90.000077793
+reader = "jump"
+wall_seconds = 90.000089093
+columns_reordered = 0
+allocated_bytes = 40728989312
+rows_reordered = 0
+captures = []
+failure_snapshot = "/tmp/broad-primary-job46-seed20261001-miplib-air04-jump-primal-pfi-true-failure.bin"
+algorithm = "primal"
+iterations = 20562
+id = "miplib/air04"
+exact_model_match = true
+manager = "pfi"
+status = "TIME_LIMIT"
+message = "time limit reached during phase I optimization"
+rows = 823
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+
+    [records.events]
+    refactor_residual = 16614
+    correction_attempt = 92
+    pricing_trial_expired = 47
+    correction = 92
+    pricing_steepest_edge = 47
+    pricing_scanned_entries = 1930718834
+    refactor_other = 1
+    pivot_completed = 20562
+    pivot_rejected = 148363
+    pricing_full_scan = 185539
+    pricing = 185539
+    refactor_initial = 2
+    stagnation_watch = 2
+    pricing_scored_entries = 789841441
+    refactor_limit = 29
+    pivot_proposed = 185539
+    stagnation_stalled = 283
+    phase_one = 1
+    pricing_dantzig = 48
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 0
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+pivot_observations = 34534
+zero_primal_steps = 1683
+time_limit = 90
+component_enabled = true
+reference_objective = 25877.609267851407
+nonzeros = 52121
+columns = 7195
+input_sha256 = "1dcbb9e423a0235d9d890896756a840d3c0a32a8ec057f2127b807ca5a97f5d7"
+passed = false
+seed = 20261001
+refactorizations = 32613
+job_index = 47
+seconds = 90.000551088
+reader = "native"
+wall_seconds = 90.000560088
+columns_reordered = 0
+allocated_bytes = 26789464128
+rows_reordered = 0
+captures = []
+failure_snapshot = "/tmp/broad-primary-job47-seed20261001-miplib-air05-native-primal-pfi-true-failure.bin"
+algorithm = "primal"
+iterations = 34534
+id = "miplib/air05"
+exact_model_match = true
+manager = "pfi"
+status = "TIME_LIMIT"
+message = "time limit reached during phase I optimization"
+rows = 426
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+
+    [records.events]
+    refactor_residual = 32601
+    correction_attempt = 2
+    pricing_trial_expired = 87
+    correction = 2
+    pricing_steepest_edge = 87
+    pricing_scanned_entries = 3381436436
+    refactor_other = 1
+    pivot_completed = 34534
+    pivot_rejected = 355756
+    pricing_full_scan = 422891
+    pricing = 422891
+    refactor_initial = 2
+    stagnation_watch = 2
+    pricing_scored_entries = 1303653654
+    refactor_limit = 11
+    pivot_proposed = 422891
+    stagnation_stalled = 523
+    phase_one = 1
+    pricing_dantzig = 88
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 0
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+pivot_observations = 34704
+zero_primal_steps = 1683
+time_limit = 90
+component_enabled = true
+reference_objective = 25877.609267851407
+nonzeros = 52121
+columns = 7195
+input_sha256 = "1dcbb9e423a0235d9d890896756a840d3c0a32a8ec057f2127b807ca5a97f5d7"
+passed = false
+seed = 20261001
+refactorizations = 32783
+job_index = 48
+seconds = 90.00001461
+reader = "jump"
+wall_seconds = 90.00002631
+columns_reordered = 0
+allocated_bytes = 26927678792
+rows_reordered = 0
+captures = []
+failure_snapshot = "/tmp/broad-primary-job48-seed20261001-miplib-air05-jump-primal-pfi-true-failure.bin"
+algorithm = "primal"
+iterations = 34704
+id = "miplib/air05"
+exact_model_match = true
+manager = "pfi"
+status = "TIME_LIMIT"
+message = "time limit reached during phase I optimization"
+rows = 426
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+
+    [records.events]
+    refactor_residual = 32771
+    correction_attempt = 2
+    pricing_trial_expired = 88
+    correction = 2
+    pricing_steepest_edge = 88
+    pricing_scanned_entries = 3400642828
+    refactor_other = 1
+    pivot_completed = 34704
+    pivot_rejected = 357817
+    pricing_full_scan = 425293
+    pricing = 425293
+    refactor_initial = 2
+    stagnation_watch = 2
+    pricing_scored_entries = 1310979814
+    refactor_limit = 11
+    pivot_proposed = 425293
+    stagnation_stalled = 526
+    phase_one = 1
+    pricing_dantzig = 88
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 0
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+objective_matches = true
+pivot_observations = 532
+zero_primal_steps = 317
+time_limit = 90
+objective_relative_error = 2.6454652293707687e-15
+reader_primal_feasible = true
+component_enabled = true
+reference_objective = 6532.083333333331
+nonzeros = 11203
+columns = 2655
+input_sha256 = "0a2a0888816fd25e31ff4512ca8974272dacf387854cd450e94946332d89325d"
+objective = 6532.0833333333485
+seed = 20261001
+original_primal_feasible = true
+refactorizations = 9
+passed = true
+job_index = 49
+seconds = 0.1043828
+reader = "native"
+wall_seconds = 0.1043914
+columns_reordered = 0
+allocated_bytes = 28595376
+rows_reordered = 0
+captures = ["/tmp/broad-primary-job49-seed20261001-miplib-mod010-native-primal-pfi-true-component-1.bin"]
+algorithm = "primal"
+iterations = 532
+id = "miplib/mod010"
+exact_model_match = true
+manager = "pfi"
+status = "OPTIMAL"
+message = "optimal solution found"
+rows = 146
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+    [[records.phases]]
+    iteration = 273
+    event = "phase_primal"
+    [[records.phases]]
+    iteration = 532
+    event = "phase_cleanup"
+    [[records.phases]]
+    iteration = 532
+    event = "phase_primal"
+
+    [records.events]
+    certification = 2
+    phase_primal = 2
+    correction_attempt = 1
+    pricing_scanned_entries = 1535019
+    refactor_other = 3
+    pivot_completed = 532
+    pricing_full_scan = 535
+    pricing = 535
+    pricing_phase_reset = 1
+    refactor_initial = 4
+    pricing_scored_entries = 537279
+    refactor_limit = 6
+    pivot_proposed = 532
+    phase_one = 1
+    phase_cleanup = 1
+
+    [records.coverage]
+    component_proposals = 1
+    original_retry_blocked = 0
+    export_attempts = 1
+    component_certified = 1
+    component_attempts = 1
+    local_attempts = 1
+[[records]]
+objective_matches = true
+pivot_observations = 595
+zero_primal_steps = 341
+time_limit = 90
+objective_relative_error = 3.7593453259479346e-15
+reader_primal_feasible = true
+component_enabled = true
+reference_objective = 6532.083333333331
+nonzeros = 11203
+columns = 2655
+input_sha256 = "0a2a0888816fd25e31ff4512ca8974272dacf387854cd450e94946332d89325d"
+objective = 6532.083333333356
+seed = 20261001
+original_primal_feasible = true
+refactorizations = 10
+passed = true
+job_index = 50
+seconds = 0.1114469
+reader = "jump"
+wall_seconds = 0.1114551
+columns_reordered = 0
+allocated_bytes = 28493440
+rows_reordered = 2
+captures = []
+algorithm = "primal"
+iterations = 595
+id = "miplib/mod010"
+exact_model_match = true
+manager = "pfi"
+status = "OPTIMAL"
+message = "optimal solution found"
+rows = 146
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+    [[records.phases]]
+    iteration = 266
+    event = "phase_primal"
+    [[records.phases]]
+    iteration = 595
+    event = "phase_cleanup"
+    [[records.phases]]
+    iteration = 595
+    event = "phase_primal"
+
+    [records.events]
+    certification = 2
+    phase_primal = 2
+    pricing_scanned_entries = 1710320
+    refactor_other = 3
+    pivot_completed = 595
+    pricing_full_scan = 598
+    pricing = 598
+    pricing_phase_reset = 1
+    refactor_initial = 4
+    pricing_scored_entries = 564367
+    refactor_limit = 7
+    pivot_proposed = 595
+    phase_one = 1
+    phase_cleanup = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 1
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+pivot_observations = 101
+zero_primal_steps = 57
+time_limit = 90
+component_enabled = true
+reference_objective = 6875.0
+nonzeros = 1923
+columns = 201
+input_sha256 = "f9bd3802c05f506cdba111051baaff6a62288c00f4292b02722303663e8e2392"
+passed = false
+seed = 20261001
+refactorizations = 3
+job_index = 51
+seconds = 0.0152405
+reader = "native"
+wall_seconds = 0.0152481
+columns_reordered = 0
+allocated_bytes = 11412840
+rows_reordered = 0
+captures = []
+failure_snapshot = "/tmp/broad-primary-job51-seed20261001-miplib-p0201-native-primal-pfi-true-failure.bin"
+algorithm = "primal"
+iterations = 110
+id = "miplib/p0201"
+exact_model_match = true
+manager = "pfi"
+status = "NUMERICAL_ERROR"
+message = "primal reduced cost disagrees with its direction"
+rows = 133
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+
+    [records.events]
+    refactor_residual = 1
+    flip_completed = 9
+    pricing_scanned_entries = 62592
+    refactor_other = 1
+    pivot_completed = 101
+    pivot_rejected = 51
+    pricing_full_scan = 163
+    pricing = 163
+    refactor_initial = 2
+    pricing_scored_entries = 15638
+    refactor_limit = 1
+    pivot_proposed = 162
+    phase_one = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 1
+    export_attempts = 0
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+pivot_observations = 101
+zero_primal_steps = 57
+time_limit = 90
+component_enabled = true
+reference_objective = 6875.0
+nonzeros = 1923
+columns = 201
+input_sha256 = "f9bd3802c05f506cdba111051baaff6a62288c00f4292b02722303663e8e2392"
+passed = false
+seed = 20261001
+refactorizations = 3
+job_index = 52
+seconds = 0.0139804
+reader = "jump"
+wall_seconds = 0.0139878
+columns_reordered = 0
+allocated_bytes = 11412744
+rows_reordered = 0
+captures = []
+failure_snapshot = "/tmp/broad-primary-job52-seed20261001-miplib-p0201-jump-primal-pfi-true-failure.bin"
+algorithm = "primal"
+iterations = 110
+id = "miplib/p0201"
+exact_model_match = true
+manager = "pfi"
+status = "NUMERICAL_ERROR"
+message = "primal reduced cost disagrees with its direction"
+rows = 133
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+
+    [records.events]
+    refactor_residual = 1
+    flip_completed = 9
+    pricing_scanned_entries = 62592
+    refactor_other = 1
+    pivot_completed = 101
+    pivot_rejected = 51
+    pricing_full_scan = 163
+    pricing = 163
+    refactor_initial = 2
+    pricing_scored_entries = 15638
+    refactor_limit = 1
+    pivot_proposed = 162
+    phase_one = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 1
+    export_attempts = 0
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+objective_matches = true
+pivot_observations = 167
+zero_primal_steps = 82
+time_limit = 90
+objective_relative_error = 1.284297490928893e-16
+reader_primal_feasible = true
+component_enabled = true
+reference_objective = 6.915675114009083
+nonzeros = 1409
+columns = 353
+input_sha256 = "48c009606d5e949baa8e5e060c8b0cafd3eb96f9d615d98fff0d626d5b6e503f"
+objective = 6.915675114009082
+seed = 20261001
+original_primal_feasible = true
+refactorizations = 5
+passed = true
+job_index = 53
+seconds = 0.0187982
+reader = "native"
+wall_seconds = 0.0188054
+columns_reordered = 0
+allocated_bytes = 21350640
+rows_reordered = 0
+captures = []
+algorithm = "primal"
+iterations = 167
+id = "miplib/blend2"
+exact_model_match = true
+manager = "pfi"
+status = "OPTIMAL"
+message = "optimal solution found"
+rows = 274
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+    [[records.phases]]
+    iteration = 46
+    event = "phase_primal"
+    [[records.phases]]
+    iteration = 167
+    event = "phase_cleanup"
+    [[records.phases]]
+    iteration = 167
+    event = "phase_primal"
+
+    [records.events]
+    certification = 2
+    phase_primal = 2
+    correction_attempt = 16
+    correction = 16
+    pricing_scanned_entries = 71288
+    refactor_other = 4
+    pivot_completed = 167
+    pricing_full_scan = 170
+    pricing = 170
+    pricing_phase_reset = 1
+    refactor_initial = 4
+    pricing_scored_entries = 9082
+    refactor_limit = 1
+    pivot_proposed = 167
+    phase_one = 1
+    phase_cleanup = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 1
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+objective_matches = true
+pivot_observations = 167
+zero_primal_steps = 82
+time_limit = 90
+objective_relative_error = 1.284297490928893e-16
+reader_primal_feasible = true
+component_enabled = true
+reference_objective = 6.915675114009083
+nonzeros = 1409
+columns = 353
+input_sha256 = "48c009606d5e949baa8e5e060c8b0cafd3eb96f9d615d98fff0d626d5b6e503f"
+objective = 6.915675114009082
+seed = 20261001
+original_primal_feasible = true
+refactorizations = 5
+passed = true
+job_index = 54
+seconds = 0.1008548
+reader = "jump"
+wall_seconds = 0.100863
+columns_reordered = 0
+allocated_bytes = 124966440
+rows_reordered = 274
+captures = []
+algorithm = "primal"
+iterations = 167
+id = "miplib/blend2"
+exact_model_match = true
+manager = "pfi"
+status = "OPTIMAL"
+message = "optimal solution found"
+rows = 274
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+    [[records.phases]]
+    iteration = 46
+    event = "phase_primal"
+    [[records.phases]]
+    iteration = 167
+    event = "phase_cleanup"
+    [[records.phases]]
+    iteration = 167
+    event = "phase_primal"
+
+    [records.events]
+    certification = 2
+    phase_primal = 2
+    correction_attempt = 13
+    correction = 13
+    pricing_scanned_entries = 71288
+    refactor_other = 4
+    pivot_completed = 167
+    pricing_full_scan = 170
+    pricing = 170
+    pricing_phase_reset = 1
+    refactor_initial = 4
+    pricing_scored_entries = 9023
+    refactor_limit = 1
+    pivot_proposed = 167
+    phase_one = 1
+    phase_cleanup = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 1
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+objective_matches = true
+pivot_observations = 6
+zero_primal_steps = 0
+time_limit = 90
+objective_relative_error = 0.0
+reader_primal_feasible = true
+component_enabled = true
+reference_objective = 0.0
+nonzeros = 312
+columns = 62
+input_sha256 = "7084187bf6377b664fd78949e597783872b5a40e8b2c2d3e6dec310678f46242"
+objective = 0.0
+seed = 20261001
+original_primal_feasible = true
+refactorizations = 1
+passed = true
+job_index = 55
+seconds = 0.001715
+reader = "native"
+wall_seconds = 0.0017219
+columns_reordered = 0
+allocated_bytes = 2190712
+rows_reordered = 0
+captures = []
+algorithm = "primal"
+iterations = 25
+id = "miplib/markshare1"
+exact_model_match = true
+manager = "pfi"
+status = "OPTIMAL"
+message = "optimal solution found"
+rows = 6
+
+    [[records.phases]]
+    iteration = 25
+    event = "phase_cleanup"
+    [[records.phases]]
+    iteration = 25
+    event = "phase_primal"
+
+    [records.events]
+    certification = 2
+    flip_completed = 19
+    phase_primal = 1
+    pricing_scanned_entries = 1524
+    refactor_other = 1
+    pivot_completed = 6
+    pricing_full_scan = 27
+    pricing = 27
+    refactor_initial = 2
+    pricing_scored_entries = 929
+    pivot_proposed = 25
+    phase_cleanup = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 0
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+objective_matches = true
+pivot_observations = 6
+zero_primal_steps = 0
+time_limit = 90
+objective_relative_error = 0.0
+reader_primal_feasible = true
+component_enabled = true
+reference_objective = 0.0
+nonzeros = 312
+columns = 62
+input_sha256 = "7084187bf6377b664fd78949e597783872b5a40e8b2c2d3e6dec310678f46242"
+objective = 0.0
+seed = 20261001
+original_primal_feasible = true
+refactorizations = 1
+passed = true
+job_index = 56
+seconds = 0.0016755
+reader = "jump"
+wall_seconds = 0.0016814
+columns_reordered = 0
+allocated_bytes = 2191128
+rows_reordered = 0
+captures = []
+algorithm = "primal"
+iterations = 25
+id = "miplib/markshare1"
+exact_model_match = true
+manager = "pfi"
+status = "OPTIMAL"
+message = "optimal solution found"
+rows = 6
+
+    [[records.phases]]
+    iteration = 25
+    event = "phase_cleanup"
+    [[records.phases]]
+    iteration = 25
+    event = "phase_primal"
+
+    [records.events]
+    certification = 2
+    flip_completed = 19
+    phase_primal = 1
+    pricing_scanned_entries = 1524
+    refactor_other = 1
+    pivot_completed = 6
+    pricing_full_scan = 27
+    pricing = 27
+    refactor_initial = 2
+    pricing_scored_entries = 929
+    pivot_proposed = 25
+    phase_cleanup = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 0
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+objective_matches = true
+pivot_observations = 14
+zero_primal_steps = 0
+time_limit = 90
+objective_relative_error = 0.0
+reader_primal_feasible = true
+component_enabled = true
+reference_objective = 0.0
+nonzeros = 434
+columns = 74
+input_sha256 = "35013a309b073f42e163e01a485909055b52a5d816fdd18345576473f8ed1458"
+objective = 0.0
+seed = 20261001
+original_primal_feasible = true
+refactorizations = 1
+passed = true
+job_index = 57
+seconds = 0.0023642
+reader = "native"
+wall_seconds = 0.0023701
+columns_reordered = 0
+allocated_bytes = 3157432
+rows_reordered = 0
+captures = []
+algorithm = "primal"
+iterations = 37
+id = "miplib/markshare2"
+exact_model_match = true
+manager = "pfi"
+status = "OPTIMAL"
+message = "optimal solution found"
+rows = 7
+
+    [[records.phases]]
+    iteration = 37
+    event = "phase_cleanup"
+    [[records.phases]]
+    iteration = 37
+    event = "phase_primal"
+
+    [records.events]
+    certification = 2
+    flip_completed = 23
+    phase_primal = 1
+    pricing_scanned_entries = 2627
+    refactor_other = 1
+    pivot_completed = 14
+    pricing_full_scan = 39
+    pricing = 39
+    refactor_initial = 2
+    pricing_scored_entries = 1553
+    pivot_proposed = 37
+    phase_cleanup = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 0
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+objective_matches = true
+pivot_observations = 14
+zero_primal_steps = 0
+time_limit = 90
+objective_relative_error = 0.0
+reader_primal_feasible = true
+component_enabled = true
+reference_objective = 0.0
+nonzeros = 434
+columns = 74
+input_sha256 = "35013a309b073f42e163e01a485909055b52a5d816fdd18345576473f8ed1458"
+objective = 0.0
+seed = 20261001
+original_primal_feasible = true
+refactorizations = 1
+passed = true
+job_index = 58
+seconds = 0.0023556
+reader = "jump"
+wall_seconds = 0.0023615
+columns_reordered = 0
+allocated_bytes = 3158568
+rows_reordered = 0
+captures = []
+algorithm = "primal"
+iterations = 37
+id = "miplib/markshare2"
+exact_model_match = true
+manager = "pfi"
+status = "OPTIMAL"
+message = "optimal solution found"
+rows = 7
+
+    [[records.phases]]
+    iteration = 37
+    event = "phase_cleanup"
+    [[records.phases]]
+    iteration = 37
+    event = "phase_primal"
+
+    [records.events]
+    certification = 2
+    flip_completed = 23
+    phase_primal = 1
+    pricing_scanned_entries = 2627
+    refactor_other = 1
+    pivot_completed = 14
+    pricing_full_scan = 39
+    pricing = 39
+    refactor_initial = 2
+    pricing_scored_entries = 1553
+    pivot_proposed = 37
+    phase_cleanup = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 0
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+objective_matches = true
+pivot_observations = 110
+zero_primal_steps = 48
+time_limit = 90
+objective_relative_error = 1.1152146265506355e-16
+reader_primal_feasible = true
+component_enabled = true
+reference_objective = 16310.666666666666
+nonzeros = 636666
+columns = 87482
+input_sha256 = "45d11d3c719d94e8c6c4958d0a5d4095a0efc46cc6de36258f384a3d98e51a16"
+objective = 16310.666666666668
+seed = 20261001
+original_primal_feasible = true
+refactorizations = 4
+passed = true
+job_index = 59
+seconds = 2.484091004
+reader = "native"
+wall_seconds = 2.484108504
+columns_reordered = 0
+allocated_bytes = 1902602976
+rows_reordered = 0
+captures = []
+algorithm = "primal"
+iterations = 110
+id = "miplib/nw04"
+exact_model_match = true
+manager = "pfi"
+status = "OPTIMAL"
+message = "optimal solution found"
+rows = 36
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+    [[records.phases]]
+    iteration = 8
+    event = "phase_primal"
+    [[records.phases]]
+    iteration = 110
+    event = "phase_cleanup"
+    [[records.phases]]
+    iteration = 110
+    event = "phase_primal"
+
+    [records.events]
+    certification = 2
+    phase_primal = 2
+    pricing_scanned_entries = 9886358
+    refactor_other = 3
+    pivot_completed = 110
+    pricing_full_scan = 113
+    pricing = 113
+    pricing_phase_reset = 1
+    refactor_initial = 4
+    pricing_scored_entries = 2261402
+    refactor_limit = 1
+    pivot_proposed = 110
+    phase_one = 1
+    phase_cleanup = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 1
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+objective_matches = true
+pivot_observations = 110
+zero_primal_steps = 48
+time_limit = 90
+objective_relative_error = 1.1152146265506355e-16
+reader_primal_feasible = true
+component_enabled = true
+reference_objective = 16310.666666666666
+nonzeros = 636666
+columns = 87482
+input_sha256 = "45d11d3c719d94e8c6c4958d0a5d4095a0efc46cc6de36258f384a3d98e51a16"
+objective = 16310.666666666668
+seed = 20261001
+original_primal_feasible = true
+refactorizations = 4
+passed = true
+job_index = 60
+seconds = 2.4925302
+reader = "jump"
+wall_seconds = 2.4925495
+columns_reordered = 0
+allocated_bytes = 1902584624
+rows_reordered = 0
+captures = []
+algorithm = "primal"
+iterations = 110
+id = "miplib/nw04"
+exact_model_match = true
+manager = "pfi"
+status = "OPTIMAL"
+message = "optimal solution found"
+rows = 36
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+    [[records.phases]]
+    iteration = 8
+    event = "phase_primal"
+    [[records.phases]]
+    iteration = 110
+    event = "phase_cleanup"
+    [[records.phases]]
+    iteration = 110
+    event = "phase_primal"
+
+    [records.events]
+    certification = 2
+    phase_primal = 2
+    pricing_scanned_entries = 9886358
+    refactor_other = 3
+    pivot_completed = 110
+    pricing_full_scan = 113
+    pricing = 113
+    pricing_phase_reset = 1
+    refactor_initial = 4
+    pricing_scored_entries = 2261402
+    refactor_limit = 1
+    pivot_proposed = 110
+    phase_one = 1
+    phase_cleanup = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 1
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+pivot_observations = 198
+zero_primal_steps = 131
+time_limit = 90
+component_enabled = true
+reference_objective = 1415.0
+nonzeros = 8619
+columns = 260
+input_sha256 = "20cb89af2d0ca7ded2dad43817e620893c6b189bd66018d2be3317ba596aa615"
+passed = false
+seed = 20261001
+refactorizations = 5
+job_index = 61
+seconds = 0.0670171
+reader = "native"
+wall_seconds = 0.0670263
+columns_reordered = 0
+allocated_bytes = 77991104
+rows_reordered = 0
+captures = []
+failure_snapshot = "/tmp/broad-primary-job61-seed20261001-miplib-misc07-native-primal-pfi-true-failure.bin"
+algorithm = "primal"
+iterations = 198
+id = "miplib/misc07"
+exact_model_match = true
+manager = "pfi"
+status = "NUMERICAL_ERROR"
+message = "primal reduced cost disagrees with its direction"
+rows = 212
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+
+    [records.events]
+    refactor_residual = 2
+    pricing_scanned_entries = 189210
+    refactor_other = 1
+    pivot_completed = 198
+    pivot_rejected = 117
+    pricing_full_scan = 318
+    pricing = 318
+    refactor_initial = 2
+    pricing_scored_entries = 29991
+    refactor_limit = 2
+    pivot_proposed = 317
+    phase_one = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 1
+    export_attempts = 0
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+objective_matches = true
+pivot_observations = 284
+zero_primal_steps = 161
+time_limit = 90
+objective_relative_error = 1.6068810985387424e-16
+reader_primal_feasible = true
+component_enabled = true
+reference_objective = 1415.0
+nonzeros = 8619
+columns = 260
+input_sha256 = "20cb89af2d0ca7ded2dad43817e620893c6b189bd66018d2be3317ba596aa615"
+objective = 1414.9999999999998
+seed = 20261001
+original_primal_feasible = true
+refactorizations = 6
+passed = true
+job_index = 62
+seconds = 0.0542615
+reader = "jump"
+wall_seconds = 0.0542782
+columns_reordered = 0
+allocated_bytes = 52208728
+rows_reordered = 212
+captures = []
+algorithm = "primal"
+iterations = 284
+id = "miplib/misc07"
+exact_model_match = true
+manager = "pfi"
+status = "OPTIMAL"
+message = "optimal solution found"
+rows = 212
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+    [[records.phases]]
+    iteration = 199
+    event = "phase_primal"
+    [[records.phases]]
+    iteration = 284
+    event = "phase_cleanup"
+    [[records.phases]]
+    iteration = 284
+    event = "phase_primal"
+
+    [records.events]
+    certification = 2
+    phase_primal = 2
+    pricing_scanned_entries = 159404
+    refactor_other = 3
+    pivot_completed = 284
+    pricing_full_scan = 287
+    pricing = 287
+    pricing_phase_reset = 1
+    refactor_initial = 4
+    pricing_scored_entries = 32166
+    refactor_limit = 3
+    pivot_proposed = 284
+    phase_one = 1
+    phase_cleanup = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 1
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+pivot_observations = 68270
+zero_primal_steps = 22680
+time_limit = 90
+component_enabled = true
+reference_objective = 916.9999999999998
+nonzeros = 12150
+columns = 2025
+input_sha256 = "cc5d351ee5e56c64b2931d2205afcd4463e93d587abe546856cf601894b6ec43"
+passed = false
+seed = 20261001
+refactorizations = 67942
+job_index = 63
+seconds = 90.000019337
+reader = "native"
+wall_seconds = 90.000028637
+columns_reordered = 0
+allocated_bytes = 20370282384
+rows_reordered = 0
+captures = []
+failure_snapshot = "/tmp/broad-primary-job63-seed20261001-miplib-10teams-native-primal-pfi-true-failure.bin"
+algorithm = "primal"
+iterations = 68270
+id = "miplib/10teams"
+exact_model_match = true
+manager = "pfi"
+status = "TIME_LIMIT"
+message = "time limit reached during phase I optimization"
+rows = 230
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+
+    [records.events]
+    refactor_residual = 67937
+    pricing_trial_expired = 176
+    pricing_steepest_edge = 176
+    pricing_scanned_entries = 3999245640
+    refactor_other = 1
+    pivot_completed = 68270
+    pivot_rejected = 1935940
+    pricing_full_scan = 2072148
+    pricing = 2072148
+    refactor_initial = 2
+    stagnation_watch = 1
+    pricing_scored_entries = 1443044694
+    refactor_limit = 4
+    pivot_proposed = 2072148
+    stagnation_stalled = 1060
+    phase_one = 1
+    pricing_dantzig = 177
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 0
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+pivot_observations = 68358
+zero_primal_steps = 22750
+time_limit = 90
+component_enabled = true
+reference_objective = 916.9999999999998
+nonzeros = 12150
+columns = 2025
+input_sha256 = "cc5d351ee5e56c64b2931d2205afcd4463e93d587abe546856cf601894b6ec43"
+passed = false
+seed = 20261001
+refactorizations = 68030
+job_index = 64
+seconds = 90.00001172
+reader = "jump"
+wall_seconds = 90.00001942
+columns_reordered = 0
+allocated_bytes = 20393913048
+rows_reordered = 0
+captures = []
+failure_snapshot = "/tmp/broad-primary-job64-seed20261001-miplib-10teams-jump-primal-pfi-true-failure.bin"
+algorithm = "primal"
+iterations = 68358
+id = "miplib/10teams"
+exact_model_match = true
+manager = "pfi"
+status = "TIME_LIMIT"
+message = "time limit reached during phase I optimization"
+rows = 230
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+
+    [records.events]
+    refactor_residual = 68025
+    pricing_trial_expired = 177
+    pricing_steepest_edge = 177
+    pricing_scanned_entries = 4004223110
+    refactor_other = 1
+    pivot_completed = 68358
+    pivot_rejected = 1938343
+    pricing_full_scan = 2074727
+    pricing = 2074727
+    refactor_initial = 2
+    stagnation_watch = 1
+    pricing_scored_entries = 1444942558
+    refactor_limit = 4
+    pivot_proposed = 2074727
+    stagnation_stalled = 1062
+    phase_one = 1
+    pricing_dantzig = 177
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 0
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+
+[diagnostic_sha256]
+export_coverage = "71454a3f606fac53590e58620a00d431a55580452ee4cd930e0e33e84cd14d9c"
+pricing_isolation = "5108e2d40266d6c849b0261881186e67b74096539c14c4cfe76d53c5ec91d811"
+no_original_retry = "a1403c682bd88c8931a00b3ad9c296a7910ea49fdbf342bf7e11803922edc79f"

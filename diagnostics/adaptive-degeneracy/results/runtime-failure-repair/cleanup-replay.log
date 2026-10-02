@@ -1,0 +1,25 @@
+ERROR: LoadError: MethodError: Cannot `convert` an object of type
+  JSimplex.SimplexProgressContext{Float64,JSimplex.SimplexDiagnostics{var"#replay##0#replay##1"}} to an object of type
+  JSimplex.SimplexProgressContext{Float64,Nothing}
+The function `convert` exists, but no method is defined for this combination of argument types.
+
+Closest candidates are:
+  (::Type{JSimplex.SimplexProgressContext{T, D}} where {T<:Real, D})(::Any, !Matched::Any, !Matched::Any, !Matched::Any, !Matched::Any, !Matched::Any, !Matched::Any, !Matched::Any)
+   @ JSimplex ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex.jl:31
+  convert(::Type{T}, !Matched::T) where T
+   @ Base Base_compiler.jl:136
+
+Stacktrace:
+ [1] setproperty!(x::JSimplex.SimplexWorkspace{Float64, JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}, :pfi, :native, Nothing}, f::Symbol, v::JSimplex.SimplexProgressContext{Float64, JSimplex.SimplexDiagnostics{var"#replay##0#replay##1"}})
+   @ Base ./Base_compiler.jl:60
+ [2] replay(args::Vector{String})
+   @ Main ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/diagnostics/adaptive-degeneracy/reproduce/runtime_cleanup_replay.jl:15
+ [3] top-level scope
+   @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/diagnostics/adaptive-degeneracy/reproduce/runtime_cleanup_replay.jl:30
+ [4] include(mod::Module, _path::String)
+   @ Base ./Base.jl:309
+ [5] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:344
+ [6] _start()
+   @ Base ./client.jl:577
+in expression starting at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/diagnostics/adaptive-degeneracy/reproduce/runtime_cleanup_replay.jl:30

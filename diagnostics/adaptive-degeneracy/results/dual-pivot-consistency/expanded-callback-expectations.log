@@ -1,0 +1,775 @@
+Test Summary:                                               | Pass  Total  Time
+Dual cannot exchange a basic column for its exact duplicate |   48     48  0.3s
+
+Failed dual pivot recovery remains bounded and unpublished: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:61
+  Expression: JSimplex.dual_iteration!(ws, (()->begin
+            #= /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:61 =#
+            cancelled[]
+        end))
+    Expected: ErrorException
+      Thrown: JSimplex.DiagnosticObserverFailure{ErrorException}
+      Diagnostic observer failed: rejected pivot observer
+      Stacktrace:
+        [1] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_diagnostics.jl:94
+        [2] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex.jl:175
+        [3] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:362
+        [4] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:303
+        [5] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:1311
+        [6] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:1082
+        [7] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:421
+        [8] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:415
+        [9] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/refactorization_policy.jl:291
+       [10] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/refactorization_policy.jl:289
+       [11] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:414
+       [12] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:684
+       [13] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:672
+       [14] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:44
+       [15] macro expansion
+          @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+       [16] macro expansion
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:61 [inlined]
+       [17] macro expansion
+          @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:865 [inlined]
+       [18] macro expansion
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:61 [inlined]
+      caused by: rejected pivot observer
+      Stacktrace:
+        [1] error(s::String)
+          @ Base ./error.jl:44
+        [2] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:50
+        [3] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_diagnostics.jl:91
+        [4] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex.jl:175
+        [5] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:362
+        [6] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:303
+        [7] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:1311
+        [8] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:1082
+        [9] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:421
+       [10] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:415
+       [11] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/refactorization_policy.jl:291
+       [12] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/refactorization_policy.jl:289
+       [13] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:414
+       [14] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:684
+       [15] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:672
+       [16] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:44
+       [17] macro expansion
+          @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+       [18] macro expansion
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:61 [inlined]
+       [19] macro expansion
+          @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:865 [inlined]
+       [20] macro expansion
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:61 [inlined]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:910
+   [2] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:44
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:61 [inlined]
+
+Failed dual pivot recovery remains bounded and unpublished: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:61
+  Expression: JSimplex.dual_iteration!(ws, (()->begin
+            #= /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:61 =#
+            cancelled[]
+        end))
+    Expected: ErrorException
+      Thrown: JSimplex.DiagnosticObserverFailure{ErrorException}
+      Diagnostic observer failed: rejected pivot observer
+      Stacktrace:
+        [1] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_diagnostics.jl:94
+        [2] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex.jl:175
+        [3] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:362
+        [4] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:303
+        [5] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:1311
+        [6] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:1082
+        [7] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:421
+        [8] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:415
+        [9] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/refactorization_policy.jl:291
+       [10] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/refactorization_policy.jl:289
+       [11] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:414
+       [12] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:684
+       [13] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:672
+       [14] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:44
+       [15] macro expansion
+          @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+       [16] macro expansion
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:61 [inlined]
+       [17] macro expansion
+          @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:865 [inlined]
+       [18] macro expansion
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:61 [inlined]
+      caused by: rejected pivot observer
+      Stacktrace:
+        [1] error(s::String)
+          @ Base ./error.jl:44
+        [2] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:50
+        [3] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_diagnostics.jl:91
+        [4] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex.jl:175
+        [5] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:362
+        [6] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:303
+        [7] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:1311
+        [8] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:1082
+        [9] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:421
+       [10] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:415
+       [11] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/refactorization_policy.jl:291
+       [12] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/refactorization_policy.jl:289
+       [13] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:414
+       [14] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:684
+       [15] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:672
+       [16] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:44
+       [17] macro expansion
+          @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+       [18] macro expansion
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:61 [inlined]
+       [19] macro expansion
+          @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:865 [inlined]
+       [20] macro expansion
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:61 [inlined]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:910
+   [2] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:44
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:61 [inlined]
+
+Failed dual pivot recovery remains bounded and unpublished: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:61
+  Expression: JSimplex.dual_iteration!(ws, (()->begin
+            #= /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:61 =#
+            cancelled[]
+        end))
+    Expected: ErrorException
+      Thrown: JSimplex.DiagnosticObserverFailure{ErrorException}
+      Diagnostic observer failed: rejected pivot observer
+      Stacktrace:
+        [1] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_diagnostics.jl:94
+        [2] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex.jl:175
+        [3] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:362
+        [4] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:303
+        [5] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:1311
+        [6] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:1082
+        [7] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:421
+        [8] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:415
+        [9] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/refactorization_policy.jl:291
+       [10] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/refactorization_policy.jl:289
+       [11] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:414
+       [12] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:684
+       [13] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:672
+       [14] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:44
+       [15] macro expansion
+          @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+       [16] macro expansion
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:61 [inlined]
+       [17] macro expansion
+          @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:865 [inlined]
+       [18] macro expansion
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:61 [inlined]
+      caused by: rejected pivot observer
+      Stacktrace:
+        [1] error(s::String)
+          @ Base ./error.jl:44
+        [2] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:50
+        [3] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_diagnostics.jl:91
+        [4] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex.jl:175
+        [5] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:362
+        [6] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:303
+        [7] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:1311
+        [8] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:1082
+        [9] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:421
+       [10] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:415
+       [11] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/refactorization_policy.jl:291
+       [12] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/refactorization_policy.jl:289
+       [13] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:414
+       [14] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:684
+       [15] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:672
+       [16] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:44
+       [17] macro expansion
+          @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+       [18] macro expansion
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:61 [inlined]
+       [19] macro expansion
+          @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:865 [inlined]
+       [20] macro expansion
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:61 [inlined]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:910
+   [2] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:44
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:61 [inlined]
+
+Failed dual pivot recovery remains bounded and unpublished: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:61
+  Expression: JSimplex.dual_iteration!(ws, (()->begin
+            #= /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:61 =#
+            cancelled[]
+        end))
+    Expected: ErrorException
+      Thrown: JSimplex.DiagnosticObserverFailure{ErrorException}
+      Diagnostic observer failed: rejected pivot observer
+      Stacktrace:
+        [1] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_diagnostics.jl:94
+        [2] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex.jl:175
+        [3] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:362
+        [4] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:303
+        [5] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:1311
+        [6] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:1082
+        [7] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:421
+        [8] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:415
+        [9] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/refactorization_policy.jl:291
+       [10] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/refactorization_policy.jl:289
+       [11] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:414
+       [12] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:684
+       [13] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:672
+       [14] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:44
+       [15] macro expansion
+          @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+       [16] macro expansion
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:61 [inlined]
+       [17] macro expansion
+          @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:865 [inlined]
+       [18] macro expansion
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:61 [inlined]
+      caused by: rejected pivot observer
+      Stacktrace:
+        [1] error(s::String)
+          @ Base ./error.jl:44
+        [2] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:50
+        [3] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_diagnostics.jl:91
+        [4] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex.jl:175
+        [5] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:362
+        [6] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:303
+        [7] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:1311
+        [8] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:1082
+        [9] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:421
+       [10] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:415
+       [11] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/refactorization_policy.jl:291
+       [12] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/refactorization_policy.jl:289
+       [13] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:414
+       [14] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:684
+       [15] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:672
+       [16] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:44
+       [17] macro expansion
+          @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+       [18] macro expansion
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:61 [inlined]
+       [19] macro expansion
+          @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:865 [inlined]
+       [20] macro expansion
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:61 [inlined]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:910
+   [2] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:44
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:61 [inlined]
+
+Failed dual pivot recovery remains bounded and unpublished: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:63
+  Expression: JSimplex.dual_iteration!(ws, (()->begin
+            #= /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:63 =#
+            cancelled[]
+        end))
+    Expected: SingularException
+      Thrown: JSimplex.DiagnosticObserverFailure{SingularException}
+      Diagnostic observer failed: SingularException: matrix is singular; factorization failed. Zero pivot found at index 7
+      Stacktrace:
+        [1] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_diagnostics.jl:94
+        [2] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex.jl:175
+        [3] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:362
+        [4] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:303
+        [5] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:1311
+        [6] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:1082
+        [7] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:421
+        [8] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:415
+        [9] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/refactorization_policy.jl:291
+       [10] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/refactorization_policy.jl:289
+       [11] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:414
+       [12] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:684
+       [13] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:672
+       [14] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:44
+       [15] macro expansion
+          @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+       [16] macro expansion
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:63 [inlined]
+       [17] macro expansion
+          @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:865 [inlined]
+       [18] macro expansion
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:63 [inlined]
+      caused by: SingularException: matrix is singular; factorization failed. Zero pivot found at index 7
+      Stacktrace:
+        [1] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:51
+        [2] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_diagnostics.jl:91
+        [3] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex.jl:175
+        [4] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:362
+        [5] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:303
+        [6] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:1311
+        [7] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:1082
+        [8] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:421
+        [9] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:415
+       [10] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/refactorization_policy.jl:291
+       [11] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/refactorization_policy.jl:289
+       [12] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:414
+       [13] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:684
+       [14] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:672
+       [15] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:44
+       [16] macro expansion
+          @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+       [17] macro expansion
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:63 [inlined]
+       [18] macro expansion
+          @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:865 [inlined]
+       [19] macro expansion
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:63 [inlined]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:910
+   [2] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:44
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:63 [inlined]
+
+Failed dual pivot recovery remains bounded and unpublished: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:63
+  Expression: JSimplex.dual_iteration!(ws, (()->begin
+            #= /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:63 =#
+            cancelled[]
+        end))
+    Expected: SingularException
+      Thrown: JSimplex.DiagnosticObserverFailure{SingularException}
+      Diagnostic observer failed: SingularException: matrix is singular; factorization failed. Zero pivot found at index 7
+      Stacktrace:
+        [1] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_diagnostics.jl:94
+        [2] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex.jl:175
+        [3] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:362
+        [4] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:303
+        [5] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:1311
+        [6] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:1082
+        [7] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:421
+        [8] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:415
+        [9] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/refactorization_policy.jl:291
+       [10] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/refactorization_policy.jl:289
+       [11] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:414
+       [12] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:684
+       [13] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:672
+       [14] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:44
+       [15] macro expansion
+          @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+       [16] macro expansion
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:63 [inlined]
+       [17] macro expansion
+          @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:865 [inlined]
+       [18] macro expansion
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:63 [inlined]
+      caused by: SingularException: matrix is singular; factorization failed. Zero pivot found at index 7
+      Stacktrace:
+        [1] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:51
+        [2] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_diagnostics.jl:91
+        [3] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex.jl:175
+        [4] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:362
+        [5] top-level scope
+ERROR: LoadError: Some tests did not pass: 72 passed, 8 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:43
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:303
+        [6] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:1311
+        [7] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:1082
+        [8] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:421
+        [9] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:415
+       [10] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/refactorization_policy.jl:291
+       [11] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/refactorization_policy.jl:289
+       [12] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:414
+       [13] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:684
+       [14] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:672
+       [15] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:44
+       [16] macro expansion
+          @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+       [17] macro expansion
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:63 [inlined]
+       [18] macro expansion
+          @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:865 [inlined]
+       [19] macro expansion
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:63 [inlined]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:910
+   [2] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:44
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:63 [inlined]
+
+Failed dual pivot recovery remains bounded and unpublished: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:63
+  Expression: JSimplex.dual_iteration!(ws, (()->begin
+            #= /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:63 =#
+            cancelled[]
+        end))
+    Expected: SingularException
+      Thrown: JSimplex.DiagnosticObserverFailure{SingularException}
+      Diagnostic observer failed: SingularException: matrix is singular; factorization failed. Zero pivot found at index 7
+      Stacktrace:
+        [1] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_diagnostics.jl:94
+        [2] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex.jl:175
+        [3] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:362
+        [4] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:303
+        [5] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:1311
+        [6] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:1082
+        [7] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:421
+        [8] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:415
+        [9] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/refactorization_policy.jl:291
+       [10] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/refactorization_policy.jl:289
+       [11] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:414
+       [12] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:684
+       [13] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:672
+       [14] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:44
+       [15] macro expansion
+          @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+       [16] macro expansion
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:63 [inlined]
+       [17] macro expansion
+          @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:865 [inlined]
+       [18] macro expansion
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:63 [inlined]
+      caused by: SingularException: matrix is singular; factorization failed. Zero pivot found at index 7
+      Stacktrace:
+        [1] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:51
+        [2] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_diagnostics.jl:91
+        [3] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex.jl:175
+        [4] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:362
+        [5] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:303
+        [6] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:1311
+        [7] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:1082
+        [8] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:421
+        [9] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:415
+       [10] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/refactorization_policy.jl:291
+       [11] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/refactorization_policy.jl:289
+       [12] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:414
+       [13] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:684
+       [14] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:672
+       [15] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:44
+       [16] macro expansion
+          @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+       [17] macro expansion
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:63 [inlined]
+       [18] macro expansion
+          @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:865 [inlined]
+       [19] macro expansion
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:63 [inlined]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:910
+   [2] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:44
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:63 [inlined]
+
+Failed dual pivot recovery remains bounded and unpublished: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:63
+  Expression: JSimplex.dual_iteration!(ws, (()->begin
+            #= /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:63 =#
+            cancelled[]
+        end))
+    Expected: SingularException
+      Thrown: JSimplex.DiagnosticObserverFailure{SingularException}
+      Diagnostic observer failed: SingularException: matrix is singular; factorization failed. Zero pivot found at index 7
+      Stacktrace:
+        [1] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_diagnostics.jl:94
+        [2] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex.jl:175
+        [3] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:362
+        [4] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:303
+        [5] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:1311
+        [6] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:1082
+        [7] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:421
+        [8] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:415
+        [9] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/refactorization_policy.jl:291
+       [10] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/refactorization_policy.jl:289
+       [11] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:414
+       [12] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:684
+       [13] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:672
+       [14] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:44
+       [15] macro expansion
+          @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+       [16] macro expansion
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:63 [inlined]
+       [17] macro expansion
+          @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:865 [inlined]
+       [18] macro expansion
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:63 [inlined]
+      caused by: SingularException: matrix is singular; factorization failed. Zero pivot found at index 7
+      Stacktrace:
+        [1] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:51
+        [2] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_diagnostics.jl:91
+        [3] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex.jl:175
+        [4] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:362
+        [5] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:303
+        [6] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:1311
+        [7] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:1082
+        [8] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:421
+        [9] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:415
+       [10] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/refactorization_policy.jl:291
+       [11] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/refactorization_policy.jl:289
+       [12] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:414
+       [13] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:684
+       [14] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/dual_simplex.jl:672
+       [15] top-level scope
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:44
+       [16] macro expansion
+          @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+       [17] macro expansion
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:63 [inlined]
+       [18] macro expansion
+          @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:865 [inlined]
+       [19] macro expansion
+          @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:63 [inlined]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:910
+   [2] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:44
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_pivot_consistency_tests.jl:63 [inlined]
+Test Summary:                                              | Pass  Fail  Total  Time
+Failed dual pivot recovery remains bounded and unpublished |   72     8     80  0.3s
+RNG of the outermost testset: Random.Xoshiro(0x674a7599594df2e8, 0x420c44cace18dff5, 0x8dbfc2204c4c5bf2, 0x19dd2e45b38502b1, 0xa73a528329b97158)

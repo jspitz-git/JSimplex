@@ -84,6 +84,7 @@ function _phase_one_workspace(ws::SimplexWorkspace{T},policy,stop) where T
         _finite_workspace(phase) && _recomputed_basis_reliable(phase) && _start_primal_feasible(phase) ||
             throw(_UnreliableBasisSolve())
         reset_devex!(phase)
+        _inherit_primal_phase_pricing!(phase,ws)
         return phase,map
     end
 end
@@ -106,7 +107,42 @@ function _adopt_phase_basis!(ws,fresh)
     return nothing
 end
 
+# Tolerated negative nonbasic values can cancel a positive basic artificial
+# in the auxiliary objective. At this boundary only, try the same basis with
+# exact nonbasic bounds before requiring every artificial to be removable.
+# The auxiliary is private; failed reconstruction never publishes an original
+# basis, and all refactorization work remains charged to its owner.
+function _normalize_phase_artificial_bounds!(phase::SimplexWorkspace{T},map,original,policy,stop) where T
+    tolerance=phase.options.primal_tolerance
+    all(j->abs(phase.primal[j])<=tolerance,map.artificial_columns) && return true
+    _native_phase_transfer_enabled(phase) && policy.max_refinements>0 || return false
+    stop() && return false
+    phase.iterations < phase.options.iteration_limit || return false
+    _legacy_primal_point_certified(phase) || return false
+    for j in eachindex(phase.basis.states)
+        stop() && return false
+        state=phase.basis.states[j]
+        state==BASIC && continue
+        value = if state==AT_LOWER
+            isfinite(phase.lower[j]) || return false
+            bound_value(phase.lower[j])
+        elseif state==AT_UPPER
+            isfinite(phase.upper[j]) || return false
+            bound_value(phase.upper[j])
+        elseif state==FREE_NONBASIC
+            zero(T)
+        else
+            return false
+        end
+        phase.primal[j]=value
+    end
+    _phase_refactor!(phase,original,stop)
+    _complete_native_phase_transfer!(phase,stop) || return false
+    return !stop() && all(j->abs(phase.primal[j])<=tolerance,map.artificial_columns)
+end
+
 function _remove_artificials!(phase::SimplexWorkspace{T},map,original,policy,stop) where T
+    normalized=false
     m = length(phase.basis.basic_indices)
     rhs,column,unit,rho = zeros(T,m),zeros(T,m),zeros(T,m),zeros(T,m)
     prices = zeros(T,length(phase.basis.states))
@@ -115,9 +151,24 @@ function _remove_artificials!(phase::SimplexWorkspace{T},map,original,policy,sto
         map.phase_to_original[leaving] != 0 && continue
         stop() && return false
         phase.iterations < phase.options.iteration_limit || return false
+        if !(abs(phase.primal[leaving]) <= phase.options.primal_tolerance)
+            normalized && return false
+            _normalize_phase_artificial_bounds!(phase,map,original,policy,stop) || return false
+            normalized=true
+        end
         abs(phase.primal[leaving]) <= phase.options.primal_tolerance || return false
         fill!(unit,zero(T));unit[row]=one(T)
         _checked_basis_solve!(rho,phase,unit,stop;transposed=true)
+        # An unreliable unit-row BTRAN would make every candidate fail pivot
+        # validation. Repair it once in native precision before pricing; reliable
+        # rows and the separately selected checked kernel keep their old path.
+        if _native_phase_transfer_enabled(phase) && policy.max_refinements>0
+            B=_basis_matrix!(phase)
+            quality=solve_quality!(_pivot_quality_buffers(phase).row,B,rho,unit,policy;transposed=true)
+            if !quality.reliable
+                _native_cleanup_solve!(rho,phase,B,unit,stop;transposed=true) || return false
+            end
+        end
         # One independent sparse column scan avoids an m-vector dot product
         # for every possible original entering column.
         _csc_price!(prices,phase.problem.A,rho)
@@ -154,7 +205,15 @@ function _remove_artificials!(phase::SimplexWorkspace{T},map,original,policy,sto
         # A tiny artificial is not exactly zero. Recompute the actual exchange
         # and require feasible original bounds before declaring it removable.
         _phase_refactor!(phase,original,stop)
-        _finite_workspace(phase) && _recomputed_basis_reliable(phase) && _start_primal_feasible(phase) || return false
+        _finite_workspace(phase) || return false
+        if !_recomputed_basis_reliable(phase)
+            # Repair the same native reconstruction failure as at final export.
+            # Already reliable exchanges retain their existing acceptance path.
+            _native_phase_transfer_enabled(phase) &&
+                _complete_native_phase_transfer!(phase,stop) &&
+                _recomputed_basis_reliable(phase) || return false
+        end
+        _start_primal_feasible(phase) || return false
         _simplex_event!(phase,:artificial_removed)
     end
     stop() && return false
@@ -164,12 +223,19 @@ function _remove_artificials!(phase::SimplexWorkspace{T},map,original,policy,sto
     fresh = initialize_workspace(original.problem,original.options;progress=original.progress)
     _phase_inherit_work!(fresh,phase)
     fresh.basis=Basis(indices,states,Val(:owned))
+    native_point = _native_phase_transfer_enabled(fresh)
+    native_point && copyto!(fresh.primal,phase.primal[map.original_to_phase])
     _phase_refactor!(fresh,original,stop)
+    native_point && !_complete_native_phase_transfer!(fresh,stop) && return false
     stop() && return false
     _finite_workspace(fresh) && _recomputed_basis_reliable(fresh) && _start_primal_feasible(fresh) || return false
     _original_primal_feasible(fresh,fresh.primal[1:size(fresh.problem.A,2)]) || return false
     reset_devex!(fresh)
+    # Artificial removal changes column indexing. Keep only the safe rule;
+    # weights and progress history belong to the newly initialized workspace.
+    _inherit_primal_phase_pricing!(fresh,phase)
     _adopt_phase_basis!(original,fresh)
+    _reset_auto_pricing!(original)
     return true
 end
 
@@ -228,6 +294,7 @@ function _run_phase_one!(ws::SimplexWorkspace{T},budget::SimplexRunBudget,
             # A failed general-basis extension gets one verified slack fallback.
             slack=initialize_workspace(ws.problem,ws.options;progress=ws.progress)
             _phase_inherit_work!(slack,ws)
+            _inherit_primal_phase_pricing!(slack,ws)
             try
                 _phase_one_workspace(slack,policy,guard)
             finally

@@ -1,0 +1,59 @@
+ERROR: LoadError: Some tests did not pass: 10 passed, 4 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_entry_phase_tests.jl:40
+Test Summary:                                                       | Pass  Total  Time
+Explicit dual entry follows its phase with inherited primal options |  126    126  0.4s
+
+Direct primal cleanup after dual optimization keeps native primal safeguards: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_entry_phase_tests.jl:68
+  Expression: modes == [:dual, :primal]
+   Evaluated: [:dual, :dual] == [:dual, :primal]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_entry_phase_tests.jl:41
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_entry_phase_tests.jl:68 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Direct primal cleanup after dual optimization keeps native primal safeguards: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_entry_phase_tests.jl:69
+  Expression: primal_guards == [true]
+   Evaluated: Bool[0] == Bool[1]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_entry_phase_tests.jl:41
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_entry_phase_tests.jl:69 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Direct primal cleanup after dual optimization keeps native primal safeguards: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_entry_phase_tests.jl:68
+  Expression: modes == [:dual, :primal]
+   Evaluated: [:dual, :dual] == [:dual, :primal]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_entry_phase_tests.jl:41
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_entry_phase_tests.jl:68 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Direct primal cleanup after dual optimization keeps native primal safeguards: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_entry_phase_tests.jl:69
+  Expression: primal_guards == [true]
+   Evaluated: Bool[0] == Bool[1]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_entry_phase_tests.jl:41
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/dual_entry_phase_tests.jl:69 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+Test Summary:                                                                | Pass  Fail  Total  Time
+Direct primal cleanup after dual optimization keeps native primal safeguards |   10     4     14  0.0s
+RNG of the outermost testset: Random.Xoshiro(0xf21592f8b67d9c10, 0xa528e466fe9fc9c2, 0xba3763e8e5827521, 0x8beae05eb087bdd9, 0x58115651019f73ea)

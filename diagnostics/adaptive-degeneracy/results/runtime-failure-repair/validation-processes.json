@@ -1,0 +1,71 @@
+[
+  {
+    "stage": "exact-verification",
+    "exit_code": 0,
+    "outer_seconds": 300,
+    "command": [
+      "python3",
+      "/home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py",
+      "--seconds",
+      "300",
+      "/home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/julia.sh",
+      "--project=.",
+      "diagnostics/adaptive-degeneracy/reproduce/runtime_reader_verify.jl",
+      "/home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/.superpowers/adaptive-degeneracy/runtime-failure-repair/final-native-dual",
+      "/home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/.superpowers/adaptive-degeneracy/runtime-failure-repair/final-jump-dual",
+      "/home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/.superpowers/adaptive-degeneracy/runtime-failure-repair/final-jump-primal",
+      "/home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/.superpowers/adaptive-degeneracy/runtime-reader-full/native-primal",
+      "/home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/diagnostics/adaptive-degeneracy/results/runtime-failure-repair/exact-verification.toml"
+    ]
+  },
+  {
+    "stage": "compiled",
+    "exit_code": 0,
+    "outer_seconds": 240,
+    "command": [
+      "python3",
+      "/home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py",
+      "--seconds",
+      "240",
+      "/home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/julia.sh",
+      "--project=.",
+      "-e",
+      "using JSimplex,Test; include(\"test/native_phase_coupled_tests.jl\"); include(\"test/native_dual_tableau_tests.jl\")"
+    ]
+  },
+  {
+    "stage": "semantics",
+    "exit_code": 0,
+    "outer_seconds": 600,
+    "command": [
+      "python3",
+      "/home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py",
+      "--seconds",
+      "600",
+      "/home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/julia.sh",
+      "--project=.",
+      "--compile=min",
+      "diagnostics/adaptive-degeneracy/reproduce/runtime_failure_semantics.jl",
+      "/home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/.superpowers/adaptive-degeneracy/native-prices/direction-price-removal-boundary",
+      "/home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/diagnostics/adaptive-degeneracy/results/runtime-failure-repair/semantic-replay.toml"
+    ]
+  },
+  {
+    "stage": "models",
+    "exit_code": 0,
+    "outer_seconds": 1800,
+    "command": [
+      "python3",
+      "/home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py",
+      "--seconds",
+      "1800",
+      "/home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/julia.sh",
+      "--project=.superpowers/adaptive-degeneracy/broad-validation/env",
+      "diagnostics/adaptive-degeneracy/reproduce/broad_corpus.jl",
+      "diagnostics/adaptive-degeneracy/results/broad-validation/inputs.toml",
+      "diagnostics/adaptive-degeneracy/results/broad-validation/references.toml",
+      "diagnostics/adaptive-degeneracy/results/presolve-tolerance/jobs.toml",
+      "/home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/.superpowers/adaptive-degeneracy/runtime-failure-repair/models"
+    ]
+  }
+]

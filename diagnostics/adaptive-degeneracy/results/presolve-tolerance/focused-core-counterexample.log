@@ -1,0 +1,196 @@
+CHECK presolve_tolerance
+
+Presolve proof respects stop requests and relaxation domains: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/presolve_tolerance_tests.jl:123
+  Expression: r.status == OPTIMAL
+   Evaluated: INFEASIBLE == OPTIMAL
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/presolve_tolerance_tests.jl:102
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/presolve_tolerance_tests.jl:123 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+CHECK presolve
+CHECK presolve_dispatch
+CHECK presolve_allocation
+CHECK basic_presolve_allocation
+CHECK singleton_bounds_allocation
+CHECK propagation_bounds_allocation
+[ Info: Loaded problem: rows=2 columns=2 nnz=3
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=0 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.125765501
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=0 obj=2.0 pinf=0.0 (0) dinf=0.0 (0) time=0.144936601s
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=2.0 iterations=0 time=0.144978701s
+[ Info: Loaded problem: rows=3 columns=2 nnz=6
+[ Info: Starting presolve
+[ Info: After presolve: rows=2 columns=2 nnz=4
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.000153
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=1 obj=1.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0002491s
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=1.0 iterations=1 time=0.0002753s
+[ Info: Loaded problem: rows=3 columns=3 nnz=7
+[ Info: Starting presolve
+[ Info: After presolve: rows=2 columns=3 nnz=4
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0003147
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=1 obj=1.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0004263s
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=1.0 iterations=1 time=0.0004577s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 1.65e-5
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=0 obj=24.0 pinf=0.0 (0) dinf=0.0 (0) time=9.885433979s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 9.885465079
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=0 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0001343
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=0 obj=24.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0002145s
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=24.0 iterations=0 time=0.0002424s
+[ Info: Loaded problem: rows=1 columns=2 nnz=2
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=0 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :primal
+│   iter = 0
+└   time = 9.51e-5
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=0 obj=24.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0001625s
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=24.0 iterations=0 time=0.0001878s
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=0 obj=0.0 pinf=1.0 (1) dinf=0.0 (0) time=0.0001206s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0001593
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=0 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0001839
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=0 obj=6.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0002924s
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=6.0 iterations=0 time=0.0003266s
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=0 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :primal
+│   iter = 0
+└   time = 3.49e-5
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=0 obj=6.0 pinf=0.0 (0) dinf=0.0 (0) time=7.57e-5s
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=6.0 iterations=0 time=9.29e-5s
+[ Info: Loaded problem: rows=1 columns=1 nnz=1
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=0 nnz=0
+[ Info: Solve finished: status=INFEASIBLE reason=empty row 1 is infeasible iterations=0 time=3.48e-5s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 2.4e-5
+[ Info: iter=0 obj=0.0 pinf=0.0 (0) dinf=1.0 (1) time=0.0001035s
+┌ Info: Starting simplex phase I
+│   algorithm = :primal
+│   iter = 0
+└   time = 0.0002069
+┌ Info: Starting simplex phase II
+│   algorithm = :primal
+│   iter = 1
+└   time = 0.0002864
+[ Info: Loaded problem: rows=0 columns=1 nnz=0
+[ Info: Starting presolve
+[ Info: After presolve: rows=0 columns=0 nnz=0
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.0001358
+[ Info: Starting postsolve cleanup on original LP
+[ Info: iter=0 obj=10.0 pinf=0.0 (0) dinf=0.0 (0) time=0.0002128s
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=10.0 iterations=0 time=0.0002443s
+ERROR: LoadError: Some tests did not pass: 1162 passed, 1 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/diagnostics/adaptive-degeneracy/reproduce/presolve_tolerance_focused.jl:3
+Test Summary:                                                              | Pass  Fail  Total     Time
+Presolve tolerance and allocation regressions                              | 1162     1   1163  3m29.1s
+  Presolve does not reject a point within the configured primal tolerance  |   64           64  2m19.8s
+  Presolve infeasibility proof uses original row and column units          |   44           44     0.6s
+  Conclusive presolve contradictions and zero tolerance remain strict      |   33           33     0.4s
+  Presolve proof bounds enclose rounding and overflow                      |   14           14     0.6s
+  Presolve proof respects stop requests and relaxation domains             |    9     1     10     0.8s
+  Presolve proof preserves mixed-precision BigFloat enclosures             |   17           17     0.1s
+  Singleton equality aggregation preserves LP and basis                    |   21           21     0.2s
+  Rounded singleton objective updates preserve original optimum            |   12           12     0.5s
+  Sparse equality aggregation handles bounds and limited fill              |   24           24     0.4s
+  Dual fixing respects objective and row direction                         |   15           15     0.3s
+  Incremental propagation tracks affected rows                             |    9            9     0.3s
+  Multi-term row bound propagation                                         |   16           16     0.3s
+  Presolve repeats bound propagation and structural passes                 |    7            7     0.0s
+  Original LP resolves an inconclusive reduced numerical run               |    2            2     0.1s
+  Advanced presolve reduces rows and restores solutions                    |    8            8     0.4s
+  Parallel row scan avoids exact work for unique supports                  |    3            3     0.0s
+  Advanced presolve keeps necessary constraints                            |    4            4     0.1s
+  Doubleton substitution and cleanup                                       |   10           10     0.0s
+  Dependent-row proof supports all solver scalar types                     |    4            4     0.5s
+  Exact bounds and signed row coefficients                                 |   15           15     0.1s
+  Problem statistics bracket presolve                                      |    5            5     0.2s
+  Presolve and postsolve cleanup announce their start                      |   12           12     0.2s
+  Presolve can be disabled for a solve                                     |    4            4     0.0s
+  Presolve removes reversible structure                                    |   13           13     0.2s
+  Cleanup resolves the original model from a restored basis                |   14           14    19.6s
+  Postsolve basis projection retains implied-bound values                  |   30           30     2.6s
+  Cleanup can pivot on the original LP                                     |    3            3     0.0s
+  Numerical cleanup failure retries the original LP                        |    3            3    14.3s
+  Original LP retry explains the restart and keeps cumulative iterations   |    6            6     0.1s
+  Presolve handles a completely reduced LP                                 |    9            9     0.0s
+  Optimal simplex runs retain an original-column basis                     |   10           10    13.1s
+  Presolve detects impossible empty rows                                   |    1            1     0.0s
+  Stored zero coefficients count as empty structure                        |    2            2     0.1s
+  Empty columns respect objective sense and bound direction                |    6            6     0.1s
+  Presolve skips inexact floating reductions                               |    2            2     0.1s
+  Presolve supports exact scalar types                                     |   12           12     0.2s
+  Zero shifts retain stored BigFloat precision                             |    4            4     0.2s
+  Exact interval dispatch includes finite and unbounded endpoints          |  338          338     0.5s
+  Aggregate presolve history preserves inferred restoration and ownership  |   72           72     0.8s
+  Presolve allocation budgets                                              |    3            3     0.0s
+  Exact sparse elimination preserves source coefficients                   |    4            4     0.1s
+  Basic presolve avoids an intermediate matrix                             |    2            2     0.5s
+  Basic presolve selects rows and columns and preserves stored zeros       |  100          100     0.5s
+  Basic presolve handles unchanged and empty matrix shapes                 |   16           16     0.0s
+  Singleton pass avoids unused column-bound copies                         |    1            1     0.0s
+  Singleton bounds are copied independently on first tightening            |   72           72     0.6s
+  Propagation avoids bounds copies when no tightening is possible          |    2            2     0.1s
+  Lazy propagation bounds preserve incremental updates and original bounds |   80           80     0.6s
+  Propagation failure after tightening preserves the source                |    4            4     0.0s
+  Solver allocation regression                                             |    1            1     0.0s
+RNG of the outermost testset: Random.Xoshiro(0x446b6ade18531721, 0xbf15cd8c198f4ac8, 0x24a725286566b58b, 0x4d5d3f0a020e9d8f, 0x567d46926e68d219)

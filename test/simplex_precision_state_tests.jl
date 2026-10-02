@@ -15,7 +15,7 @@ if isdefined(JSimplex,:transfer_precision)
         journal.active=true;journal.bounds.active=true
         journal.level=2;journal.bounds.level=1
         journal.cooldown_until=11;journal.bounds.cooldown_until=13
-        monitor=JSimplex._new_workspace_stagnation(ws,UInt(0))
+        monitor=JSimplex._new_workspace_stagnation(ws,UInt(0),:dual)
         journal.last_monitor=monitor.monitor;journal.bounds.last_monitor=monitor.monitor
         journal.last_observation=9;journal.bounds.last_observation=8
         ws.scratch.stagnation=monitor

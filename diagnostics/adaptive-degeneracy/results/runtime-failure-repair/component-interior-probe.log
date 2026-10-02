@@ -1,0 +1,24 @@
+ERROR: LoadError: DimensionMismatch: matrix is not square: dimensions are (27, 29)
+Stacktrace:
+  [1] checksquare
+    @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/LinearAlgebra/src/LinearAlgebra.jl:344 [inlined]
+  [2] UpperTriangular
+    @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/LinearAlgebra/src/triangular.jl:22 [inlined]
+  [3] UpperTriangular
+    @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/LinearAlgebra/src/triangular.jl:28 [inlined]
+  [4] ldiv!(A::LinearAlgebra.QRCompactWY{Float64, Matrix{Float64}, Matrix{Float64}}, b::Vector{Float64})
+    @ LinearAlgebra ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/LinearAlgebra/src/qr.jl:528
+  [5] ldiv(F::LinearAlgebra.QRCompactWY{Float64, Matrix{Float64}, Matrix{Float64}}, B::Vector{Float64})
+    @ LinearAlgebra ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/LinearAlgebra/src/LinearAlgebra.jl:739
+  [6] \(F::LinearAlgebra.QRCompactWY{Float64, Matrix{Float64}, Matrix{Float64}}, B::Vector{Float64})
+    @ LinearAlgebra ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/LinearAlgebra/src/LinearAlgebra.jl:714
+  [7] top-level scope
+    @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/.superpowers/adaptive-degeneracy/runtime-failure-repair/component_probe.jl:26
+  [8] include(mod::Module, _path::String)
+    @ Base ./Base.jl:309
+  [9] exec_options(opts::Base.JLOptions)
+    @ Base ./client.jl:344
+ [10] _start()
+    @ Base ./client.jl:577
+in expression starting at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/.superpowers/adaptive-degeneracy/runtime-failure-repair/component_probe.jl:26
+BLOCK columns=29 rows=27

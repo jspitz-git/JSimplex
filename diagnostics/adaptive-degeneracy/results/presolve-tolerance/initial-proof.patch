@@ -1,0 +1,59 @@
+--- a/src/JSimplex.jl
++++ b/src/JSimplex.jl
+@@ -62,2 +62,3 @@
+ include("presolve_dispatch.jl")
++include("presolve_tolerance.jl")
+ include("solver.jl")
+--- a/src/solver.jl
++++ b/src/solver.jl
+@@ -469,3 +469,4 @@
+         typed_options.verbose && @info "Starting presolve"
+-        presolve_problem(continuous_problem)
++        _presolve_for_solve(continuous_problem, typed_options.primal_tolerance;
++            stop_requested=()->time_limit_reached(context), verbose=typed_options.verbose)
+     else
+--- /dev/null
++++ b/src/presolve_tolerance.jl
+@@ -0,0 +1,42 @@
++function _presolve_tolerance_bound(bound::Bound{T}, tolerance::T, lower::Bool) where {T}
++    isfinite(bound) || return bound
++    # Use the outer endpoint: this proof model must contain every point that
++    # original-space certification can accept at the requested tolerance.
++    value = try
++        lower ? first(_primal_difference_bounds(bound_value(bound), tolerance)) :
++                last(_primal_sum_bounds(bound_value(bound), tolerance))
++    catch exception
++        # Bounded-integer rationals can overflow while forming this proof-only
++        # relaxation. An unbounded side remains a conservative enclosure.
++        exception isa OverflowError || rethrow()
++        return _unbounded_bound(T)
++    end
++    return isfinite(value) ? Bound(value) : _unbounded_bound(T)
++end
++
++function _presolve_tolerance_model(problem::LinearProblem{T}, tolerance::T) where {T}
++    return LinearProblem{T}(
++        problem.A, zeros(T, size(problem.A, 2)), zero(T), MIN_SENSE,
++        [_presolve_tolerance_bound(b, tolerance, true) for b in problem.row_lower],
++        [_presolve_tolerance_bound(b, tolerance, false) for b in problem.row_upper],
++        [_presolve_tolerance_bound(b, tolerance, true) for b in problem.column_lower],
++        [_presolve_tolerance_bound(b, tolerance, false) for b in problem.column_upper],
++        problem.variable_domains, problem.name, problem.row_names, problem.column_names)
++end
++
++function _presolve_for_solve(problem::LinearProblem{T}, tolerance::T;
++                             stop_requested=()->false, verbose::Bool=false) where {T}
++    result = presolve_problem(problem)
++    (!(result isa PresolveFailure) || result.status != INFEASIBLE || iszero(tolerance)) &&
++        return result
++    stop_requested() && return identity_presolve(problem)
++    # A contradiction in a reduced row has different units after elimination.
++    # Recheck only infeasibility on an outward relaxation of ORIGINAL bounds.
++    # This model is never optimized and its reductions never reach postsolve.
++    proof = _presolve_tolerance_model(problem, tolerance)
++    stop_requested() && return identity_presolve(problem)
++    verified = presolve_problem(proof)
++    verified isa PresolveFailure && verified.status == INFEASIBLE && return result
++    verbose && @info "Presolve infeasibility is inconclusive at primal tolerance; retaining original LP"
++    return identity_presolve(problem)
++end

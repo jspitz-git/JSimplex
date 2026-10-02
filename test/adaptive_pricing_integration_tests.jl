@@ -1,32 +1,34 @@
-@testset "Pricing consumes stagnation and rebuilds its reference" begin
+@testset "Pricing consumes stagnation without discarding its maintained reference" begin
     ws,d = automatic_pricing_workspace(Float64)
     JSimplex._prepare_auto_pricing!(ws,:primal)
+    JSimplex._primal_entering(ws,ws.options.dual_tolerance)
     monitor = JSimplex.StagnationMonitor{Float64}(2)
-    ws.scratch.stagnation = JSimplex.WorkspaceStagnation(monitor,UInt(0),0,1.0,1.0)
+    ws.scratch.stagnation = JSimplex.WorkspaceStagnation(monitor,UInt(0),UInt(0),0,1.0,1.0)
     pricing_observations!(monitor,4)
     JSimplex._observe_auto_pricing!(ws,:primal)
     @test ws.scratch.pricing.active == :dantzig
-    pricing_observations!(monitor,4)
-    fill!(ws.pricing_weights,17.0)
+    weights = copy(ws.pricing_weights)
+    pricing_observations!(monitor,8)
     JSimplex._observe_auto_pricing!(ws,:primal)
-    @test ws.scratch.pricing.active == :devex
-    @test all(isone,ws.pricing_weights)
+    @test ws.scratch.pricing.active == :steepest_edge
+    @test ws.pricing_weights == weights
     @test JSimplex.event_count(d,:pricing_dantzig) == 1
-    @test JSimplex.event_count(d,:pricing_devex) == 1
+    @test JSimplex.event_count(d,:pricing_trial_expired) == 1
+    @test JSimplex.event_count(d,:pricing_devex) == 0
     resets = ws.scratch.pricing.resets
-    fill!(ws.pricing_weights,13.0)
     JSimplex.recompute!(ws;refactorize=true)
-    @test all(isone,ws.pricing_weights)
-    @test ws.scratch.pricing.resets == resets+1
+    @test ws.pricing_weights == weights
+    @test ws.scratch.pricing.resets == resets
     state = ws.scratch.pricing
     cooldown = state.cooldown_until
     checkpoint = JSimplex.checkpoint_basis(ws)
     @test JSimplex.restore_checkpoint!(ws,checkpoint,()->false)
     @test ws.scratch.pricing === state
-    @test state.active == :devex && state.cooldown_until == cooldown
+    @test state.active == :steepest_edge && state.cooldown_until == cooldown
     @test state.last_monitor === monitor
     JSimplex._restore_original_costs!(ws)
-    @test isnothing(ws.scratch.pricing)
+    @test state.last_monitor === nothing
+    @test isnothing(ws.scratch.stagnation)
     @test JSimplex._prepare_auto_pricing!(ws,:dual)
     @test ws.scratch.pricing.algorithm == :dual
     @test ws.scratch.pricing.active == :steepest_edge
@@ -61,13 +63,14 @@ end
     end
 end
 
-@testset "Explicit pricing does not allocate automatic histories" begin
+@testset "Disabled adaptive pricing does not allocate explicit pricing histories" begin
     for pricing in (:steepest_edge,:devex,:dantzig)
-        ws,d=automatic_pricing_workspace(Float64;pricing)
+        p=LinearProblem(sparse([1.0;;]),[-1.0];row_upper=[1.0])
+        ws=JSimplex.initialize_workspace(p,SolverOptions(;pricing,verbose=false))
         original=copy(ws.pricing_weights)
         monitor=JSimplex.StagnationMonitor{Float64}(2)
         pricing_observations!(monitor,4)
-        ws.scratch.stagnation=JSimplex.WorkspaceStagnation(monitor,UInt(0),0,1.0,1.0)
+        ws.scratch.stagnation=JSimplex.WorkspaceStagnation(monitor,UInt(0),UInt(0),0,1.0,1.0)
         @test JSimplex._prepare_auto_pricing!(ws,:primal)
         JSimplex._observe_auto_pricing!(ws,:primal)
         @test isnothing(ws.scratch.pricing)
@@ -195,7 +198,7 @@ end
 end
 
 function auto_pricing_chain(::Type{T}=Float64;update=:pfi,limit=30,observer=nothing) where T
-    n=10
+    n=14
     A=spdiagm(0=>ones(T,n),1=>fill(-one(T),n-1))
     p=LinearProblem(A,vcat(-one(T),zeros(T,n-1));row_upper=vcat(zeros(T,n-1),one(T)))
     options=SolverOptions(T;algorithm=:primal,pricing=:auto,simplex_strategy=:adaptive,
@@ -214,12 +217,13 @@ end
         result=JSimplex.run_from_basis!(ws,budget,policy,()->false)
         @test result.status==OPTIMAL
         @test result.objective_value == -one(T)
-        @test result.primal == ones(T,10)
+        @test result.primal == ones(T,14)
         @test JSimplex._original_primal_feasible(ws,result.primal)
-        @test ws.iterations==budget.iterations==10
+        @test ws.iterations==budget.iterations==14
         @test JSimplex.event_count(d,:pricing_dantzig)==1
-        @test JSimplex.event_count(d,:pricing_devex)==1
-        @test ws.scratch.pricing.active==:devex
+        @test JSimplex.event_count(d,:pricing_trial_expired)==1
+        @test JSimplex.event_count(d,:pricing_devex)==0
+        @test ws.scratch.pricing.active==:steepest_edge
         @test ws.scratch.pricing.pricing_passes>0
     end
 end

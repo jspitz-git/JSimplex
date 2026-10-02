@@ -1,0 +1,92 @@
+wall-time guard; terminating owned process group
+
+[302233] signal 15: Terminated
+in expression starting at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/simplex_strategy_separation_tests.jl:17
+unknown function (ip: 0xf95c880ac640) at /usr/lib/aarch64-linux-gnu/libc.so.6
+unknown function (ip: 0xf95c880acc73) at /usr/lib/aarch64-linux-gnu/libc.so.6
+posix_memalign at /usr/lib/aarch64-linux-gnu/libc.so.6 (unknown line)
+_ZnwmSt11align_val_t at /usr/lib/aarch64-linux-gnu/libstdc++.so.6 (unknown line)
+_ZnwmSt11align_val_tRKSt9nothrow_t at /usr/lib/aarch64-linux-gnu/libstdc++.so.6 (unknown line)
+_ZN4llvm15allocate_bufferEmm at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+$x at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+$x at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+$x at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+_ZN4llvm7GVNPass18processInstructionEPNS_11InstructionE at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+_ZN4llvm7GVNPass12processBlockEPNS_10BasicBlockE at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+_ZN4llvm7GVNPass7runImplERNS_8FunctionERNS_15AssumptionCacheERNS_13DominatorTreeERKNS_17TargetLibraryInfoERNS_9AAResultsEPNS_23MemoryDependenceResultsERNS_8LoopInfoEPNS_25OptimizationRemarkEmitterEPNS_9MemorySSAE at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+_ZN4llvm7GVNPass3runERNS_8FunctionERNS_15AnalysisManagerIS1_JEEE at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+run at /cache/build/builder-armageddon-4/julialang/julia-ci/usr/include/llvm/IR/PassManagerInternal.h:91
+_ZN4llvm11PassManagerINS_8FunctionENS_15AnalysisManagerIS1_JEEEJEE3runERS1_RS3_ at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+run at /cache/build/builder-armageddon-4/julialang/julia-ci/usr/include/llvm/IR/PassManagerInternal.h:91
+_ZN4llvm27ModuleToFunctionPassAdaptor3runERNS_6ModuleERNS_15AnalysisManagerIS1_JEEE at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+run at /cache/build/builder-armageddon-4/julialang/julia-ci/usr/include/llvm/IR/PassManagerInternal.h:91
+_ZN4llvm11PassManagerINS_6ModuleENS_15AnalysisManagerIS1_JEEEJEE3runERS1_RS3_ at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+run at /cache/build/builder-armageddon-4/julialang/julia-ci/src/pipeline.cpp:792
+operator() at /cache/build/builder-armageddon-4/julialang/julia-ci/src/jitlayers.cpp:1512
+withModuleDo<(anonymous namespace)::sizedOptimizerT<N>::operator()(llvm::orc::ThreadSafeModule) [with long unsigned int N = 4]::<lambda(llvm::Module&)> > at /cache/build/builder-armageddon-4/julialang/julia-ci/usr/include/llvm/ExecutionEngine/Orc/ThreadSafeModule.h:136 [inlined]
+operator() at /cache/build/builder-armageddon-4/julialang/julia-ci/src/jitlayers.cpp:1473 [inlined]
+operator() at /cache/build/builder-armageddon-4/julialang/julia-ci/src/jitlayers.cpp:1648 [inlined]
+addModule at /cache/build/builder-armageddon-4/julialang/julia-ci/src/jitlayers.cpp:2117
+jl_compile_codeinst_now at /cache/build/builder-armageddon-4/julialang/julia-ci/src/jitlayers.cpp:681
+jl_compile_codeinst_impl at /cache/build/builder-armageddon-4/julialang/julia-ci/src/jitlayers.cpp:875
+jl_compile_method_internal at /cache/build/builder-armageddon-4/julialang/julia-ci/src/gf.c:3709
+_jl_invoke at /cache/build/builder-armageddon-4/julialang/julia-ci/src/gf.c:4171 [inlined]
+ijl_apply_generic at /cache/build/builder-armageddon-4/julialang/julia-ci/src/gf.c:4380
+_measure_basis_iteration! at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/refactorization_policy.jl:289
+_primal_iteration! at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:429 [inlined]
+_primal_iteration! at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/src/simplex_pivot.jl:429
+unknown function (ip: 0xf95c67042153) at (unknown file)
+jl_apply at /cache/build/builder-armageddon-4/julialang/julia-ci/src/julia.h:2318 [inlined]
+do_call at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:123
+eval_value at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:243
+eval_stmt_value at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:194 [inlined]
+eval_body at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:693
+eval_body at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:558
+eval_body at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:558
+eval_body at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:558
+eval_body at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:558
+eval_body at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:558
+jl_interpret_toplevel_thunk at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:884
+jl_toplevel_eval_flex at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:742
+jl_eval_toplevel_stmts at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:585
+jl_toplevel_eval_flex at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:683
+ijl_toplevel_eval at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:754
+ijl_toplevel_eval_in at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:799
+eval at ./boot.jl:489
+include_string at ./loading.jl:3016
+_include at ./loading.jl:3076
+include at ./Base.jl:310
+IncludeInto at ./Base.jl:311
+jfptr_IncludeInto_60777 at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/sys.so (unknown line)
+jl_apply at /cache/build/builder-armageddon-4/julialang/julia-ci/src/julia.h:2318 [inlined]
+do_call at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:123
+eval_value at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:243
+eval_stmt_value at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:194 [inlined]
+eval_body at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:693
+eval_body at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:558
+eval_body at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:558
+eval_body at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:558
+eval_body at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:558
+jl_interpret_toplevel_thunk at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:884
+jl_toplevel_eval_flex at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:742
+jl_eval_toplevel_stmts at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:585
+jl_toplevel_eval_flex at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:683
+ijl_toplevel_eval at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:754
+ijl_toplevel_eval_in at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:799
+eval at ./boot.jl:489
+include_string at ./loading.jl:3016
+_include at ./loading.jl:3076
+include at ./Base.jl:309
+exec_options at ./client.jl:344
+_start at ./client.jl:577
+jfptr__start_61086 at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/sys.so (unknown line)
+jl_apply at /cache/build/builder-armageddon-4/julialang/julia-ci/src/julia.h:2318 [inlined]
+true_main at /cache/build/builder-armageddon-4/julialang/julia-ci/src/jlapi.c:985
+jl_repl_entrypoint at /cache/build/builder-armageddon-4/julialang/julia-ci/src/jlapi.c:1152
+main at /cache/build/builder-armageddon-4/julialang/julia-ci/cli/loader_exe.c:58
+unknown function (ip: 0xf95c88032f1b) at /usr/lib/aarch64-linux-gnu/libc.so.6
+__libc_start_main at /usr/lib/aarch64-linux-gnu/libc.so.6 (unknown line)
+$x at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/julia (unknown line)
+unknown function (ip: 0x52000000400a1b) at (unknown file)
+unknown function (ip: (nil)) at (unknown file)
+Allocations: 796773194 (Pool: 796764145; Big: 9049); GC: 201

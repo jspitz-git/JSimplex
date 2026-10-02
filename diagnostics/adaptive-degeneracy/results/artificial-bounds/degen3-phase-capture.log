@@ -1,0 +1,16 @@
+START 1/2 Dict{String, Any}("job_index" => 1, "seconds" => 90, "reader" => "native", "algorithm" => "primal", "id" => "netlib/degen3", "manager" => "pfi")
+REMOVAL boundary iteration=2345 basic_artificials=25 prefix=/tmp/degen3-phase-capture-job1-seed20261001-netlib-degen3-native-primal-pfi-true-boundary
+REMOVAL rejected-line-10 iteration=2367 basic_artificials=3 prefix=/tmp/degen3-phase-capture-job1-seed20261001-netlib-degen3-native-primal-pfi-true-rejected-line-10
+        abs(phase.primal[leaving]) <= phase.options.primal_tolerance || return false
+DONE 1 netlib/degen3 native NUMERICAL_ERROR passed=false iterations=2367 coverage=Dict("component_proposals" => 0, "original_retry_blocked" => 1, "export_attempts" => 22, "component_certified" => 0, "component_attempts" => 0, "local_attempts" => 22)
+START 2/2 Dict{String, Any}("job_index" => 2, "seconds" => 90, "reader" => "jump", "algorithm" => "primal", "id" => "netlib/degen3", "manager" => "pfi")
+REMOVAL boundary iteration=2891 basic_artificials=4 prefix=/tmp/degen3-phase-capture-job2-seed20261001-netlib-degen3-jump-primal-pfi-true-boundary
+REMOVAL rejected-line-10 iteration=2894 basic_artificials=1 prefix=/tmp/degen3-phase-capture-job2-seed20261001-netlib-degen3-jump-primal-pfi-true-rejected-line-10
+        abs(phase.primal[leaving]) <= phase.options.primal_tolerance || return false
+DONE 2 netlib/degen3 jump NUMERICAL_ERROR passed=false iterations=2894 coverage=Dict("component_proposals" => 0, "original_retry_blocked" => 1, "export_attempts" => 3, "component_certified" => 0, "component_attempts" => 0, "local_attempts" => 3)
+┌ Warning: Replacing docs for `JSimplex.PhaseOneMap :: Union{}` in module `JSimplex`
+└ @ Base.Docs docs/Docs.jl:253
+┌ Warning: Replacing docs for `JSimplex.remove_artificials! :: NTuple{5, Any}` in module `JSimplex`
+└ @ Base.Docs docs/Docs.jl:253
+┌ Warning: Replacing docs for `JSimplex.run_phase_one! :: Union{Tuple{T}, Tuple{JSimplex.SimplexWorkspace{T}, JSimplex.SimplexRunBudget, JSimplex.NumericalPolicy{T}, Any}} where T` in module `JSimplex`
+└ @ Base.Docs docs/Docs.jl:253

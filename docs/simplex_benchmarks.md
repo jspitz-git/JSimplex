@@ -82,7 +82,9 @@ without opting into those alternative stages.
 Set heuristic flags to `false` to isolate their effects. There is no implicit
 legacy zero-step Dantzig switch or 1024-zero-step cost-perturbation trigger.
 Stagnation emits `stagnation_watch`, `stagnation_stalled`, and
-`stagnation_fallback` counters. Set `refactor_timing=false` in both arms of a
+`stagnation_fallback` counters. `stagnation_cost_rebase` records a dual
+cost-only change: objective and dual-price comparisons restart, while the
+unchanged feasible region retains its watched history. Set `refactor_timing=false` in both arms of a
 comparison to exclude clock-based refactor decisions. Interval growth still
 requires positive numerical quality evidence; disabling a quality-producing
 stage does not authorize unconditional growth.
@@ -92,18 +94,26 @@ Original-cost and original-bound restoration remain mandatory, including when
 resuming an owned journal after heuristic flags have been disabled. Cleanup may
 select the appropriate feasible simplex phase without changing its numerical
 policy. Compare `perturbation`, `restore_perturbations`, and `phase_cleanup`, and
-include cleanup time. Primal bound shifts are excluded during phase I and
-objective cleanup. Perturbation levels are bounded, user tolerances are unchanged,
+include cleanup time. Primal bound shifts are excluded during the default
+primal phase I, dual auxiliary work, and objective cleanup. The separate internal
+`phase_one=true` path permits them, with restoration and certification of the
+unperturbed artificial-variable problem before phase II. Perturbation levels
+are bounded, user tolerances are unchanged,
 and exact arithmetic receives neither primal bound nor dual cost shifts.
 Use `--pricing=steepest_edge|devex|dantzig|auto` for fresh solves; replay retains
 its stored pricing option. `adaptive_pricing=false` disables progress-driven
-switches for `pricing=auto` and the native primal preference for stronger pivots,
-while preserving numerical rejection of invalid pivots and recovery of unreliable
+switches for automatic and explicit weighted pricing, ends an active temporary
+Dantzig trial before the next selection, and disables the native primal preference
+for stronger pivots, while preserving numerical rejection of invalid pivots and recovery of unreliable
 weights. The weak-pivot preference is bounded to eight deferred candidates before
 retrying with ordinary numerical checks.
 Compare automatic pricing with its disabled adaptation and with explicit
 steepest edge. Record pricing kernel time/calls together with iterations and
-`pricing_devex`, `pricing_dantzig`, `pricing_reset`, and `pricing_weight_rejected`.
+`pricing_devex`, `pricing_dantzig`, `pricing_steepest_edge`, `pricing_reset`,
+and `pricing_weight_rejected`. `pricing_progress_return`, `pricing_trial_expired`,
+and `pricing_phase_reset` distinguish productive returns, bounded unsuccessful
+trials and phase boundaries. Trial limits and cooldowns use completed
+observations; two productive windows restore the maintained prior rule.
 Mode/reset counters record committed state; weight rejections also count failed
 attempts. These switches are numerical/progress decisions, independent of clocks.
 `--policy=PATH` accepts a TOML file with internal numerical overrides:

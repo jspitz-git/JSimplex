@@ -13,7 +13,7 @@ using JSimplex.SparseArrays
         destination = T[3]
         stop = () -> error("hardware-only helper called an excluded callback")
         @test !JSimplex._legacy_primal_row_validation_enabled(ws)
-        @test !JSimplex._can_preserve_primal_row_value(ws, 2, JSimplex.AT_LOWER, ws.lower[2])
+        @test !JSimplex._can_preserve_primal_bound_value(ws, 2, JSimplex.AT_LOWER, ws.lower[2])
         @test isnothing(JSimplex._legacy_primal_point_candidate(ws, 1, 1, zero(T), T[1]))
         @test !JSimplex._restore_legacy_primal_point!(ws, T[1], stop)
         @test !JSimplex._legacy_primal_row_consistent(ws, options.primal_tolerance)

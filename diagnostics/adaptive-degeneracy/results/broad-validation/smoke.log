@@ -1,0 +1,10 @@
+WARNING: Detected access to binding `Main.isolate_pricing_trials!` in a world prior to its definition world.
+  Julia 1.12 has introduced more strict world age semantics for global bindings.
+  !!! This code may malfunction under Revise.
+  !!! This code will error in future versions of Julia.
+Hint: Add an appropriate `invokelatest` around the access to this binding.
+To make this warning an error, and hence obtain a stack trace, use `julia --depwarn=error`.
+START 1/2 Dict{String, Any}("seconds" => 90, "reader" => "native", "algorithm" => "primal", "id" => "netlib/degen2", "manager" => "pfi")
+DONE 1 netlib/degen2 native NUMERICAL_ERROR passed=false iterations=2160 coverage=Dict("component_proposals" => 0, "original_retry_blocked" => 1, "export_attempts" => 0, "component_certified" => 0, "component_attempts" => 0, "local_attempts" => 0)
+START 2/2 Dict{String, Any}("seconds" => 90, "reader" => "jump", "algorithm" => "primal", "id" => "netlib/degen2", "manager" => "pfi")
+DONE 2 netlib/degen2 jump TIME_LIMIT passed=false iterations=884979 coverage=Dict("component_proposals" => 0, "original_retry_blocked" => 0, "export_attempts" => 0, "component_certified" => 0, "component_attempts" => 0, "local_attempts" => 0)

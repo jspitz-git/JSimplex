@@ -1,0 +1,73 @@
+CHECK simplex_infeasibility_tolerance
+CHECK primal_simplex
+wall-time guard; terminating owned process group
+
+[305328] signal 15: Terminated
+in expression starting at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/primal_simplex_tests.jl:171
+_ZN4llvm9AAResults13getModRefInfoEPKNS_11InstructionERKSt8optionalINS_14MemoryLocationEERNS_11AAQueryInfoE at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+_ZN4llvm23MemoryDependenceResults30getSimplePointerDependencyFromERKNS_14MemoryLocationEbNS_21ilist_iterator_w_bitsINS_12ilist_detail12node_optionsINS_11InstructionELb0ELb0EvLb1ENS_10BasicBlockEEELb0ELb0EEEPS8_PS7_PjRNS_14BatchAAResultsE at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+_ZN4llvm23MemoryDependenceResults24getPointerDependencyFromERKNS_14MemoryLocationEbNS_21ilist_iterator_w_bitsINS_12ilist_detail12node_optionsINS_11InstructionELb0ELb0EvLb1ENS_10BasicBlockEEELb0ELb0EEEPS8_PS7_PjRNS_14BatchAAResultsE at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+_ZN4llvm23MemoryDependenceResults23getNonLocalInfoForBlockEPNS_11InstructionERKNS_14MemoryLocationEbPNS_10BasicBlockEPSt6vectorINS_16NonLocalDepEntryESaIS9_EEjRNS_14BatchAAResultsE at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+_ZN4llvm23MemoryDependenceResults27getNonLocalPointerDepFromBBEPNS_11InstructionERKNS_12PHITransAddrERKNS_14MemoryLocationEbPNS_10BasicBlockERNS_15SmallVectorImplINS_17NonLocalDepResultEEERNS_13SmallDenseMapISA_PNS_5ValueELj16ENS_12DenseMapInfoISA_vEENS_6detail12DenseMapPairISA_SH_EEEEbb at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+_ZN4llvm23MemoryDependenceResults28getNonLocalPointerDependencyEPNS_11InstructionERNS_15SmallVectorImplINS_17NonLocalDepResultEEE at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+$x at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+_ZN4llvm7GVNPass18processInstructionEPNS_11InstructionE at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+_ZN4llvm7GVNPass12processBlockEPNS_10BasicBlockE at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+_ZN4llvm7GVNPass7runImplERNS_8FunctionERNS_15AssumptionCacheERNS_13DominatorTreeERKNS_17TargetLibraryInfoERNS_9AAResultsEPNS_23MemoryDependenceResultsERNS_8LoopInfoEPNS_25OptimizationRemarkEmitterEPNS_9MemorySSAE at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+_ZN4llvm7GVNPass3runERNS_8FunctionERNS_15AnalysisManagerIS1_JEEE at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+run at /cache/build/builder-armageddon-4/julialang/julia-ci/usr/include/llvm/IR/PassManagerInternal.h:91
+_ZN4llvm11PassManagerINS_8FunctionENS_15AnalysisManagerIS1_JEEEJEE3runERS1_RS3_ at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+run at /cache/build/builder-armageddon-4/julialang/julia-ci/usr/include/llvm/IR/PassManagerInternal.h:91
+_ZN4llvm27ModuleToFunctionPassAdaptor3runERNS_6ModuleERNS_15AnalysisManagerIS1_JEEE at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+run at /cache/build/builder-armageddon-4/julialang/julia-ci/usr/include/llvm/IR/PassManagerInternal.h:91
+_ZN4llvm11PassManagerINS_6ModuleENS_15AnalysisManagerIS1_JEEEJEE3runERS1_RS3_ at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+run at /cache/build/builder-armageddon-4/julialang/julia-ci/src/pipeline.cpp:792
+operator() at /cache/build/builder-armageddon-4/julialang/julia-ci/src/jitlayers.cpp:1512
+withModuleDo<(anonymous namespace)::sizedOptimizerT<N>::operator()(llvm::orc::ThreadSafeModule) [with long unsigned int N = 4]::<lambda(llvm::Module&)> > at /cache/build/builder-armageddon-4/julialang/julia-ci/usr/include/llvm/ExecutionEngine/Orc/ThreadSafeModule.h:136 [inlined]
+operator() at /cache/build/builder-armageddon-4/julialang/julia-ci/src/jitlayers.cpp:1473 [inlined]
+operator() at /cache/build/builder-armageddon-4/julialang/julia-ci/src/jitlayers.cpp:1648 [inlined]
+addModule at /cache/build/builder-armageddon-4/julialang/julia-ci/src/jitlayers.cpp:2117
+jl_compile_codeinst_now at /cache/build/builder-armageddon-4/julialang/julia-ci/src/jitlayers.cpp:681
+jl_compile_codeinst_impl at /cache/build/builder-armageddon-4/julialang/julia-ci/src/jitlayers.cpp:875
+jl_compile_method_internal at /cache/build/builder-armageddon-4/julialang/julia-ci/src/gf.c:3709
+_jl_invoke at /cache/build/builder-armageddon-4/julialang/julia-ci/src/gf.c:4171 [inlined]
+ijl_apply_generic at /cache/build/builder-armageddon-4/julialang/julia-ci/src/gf.c:4380
+macro expansion at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/primal_simplex_tests.jl:178 [inlined]
+macro expansion at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+top-level scope at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/primal_simplex_tests.jl:172
+jl_toplevel_eval_flex at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:731
+jl_eval_toplevel_stmts at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:585
+jl_toplevel_eval_flex at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:683
+ijl_toplevel_eval at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:754
+ijl_toplevel_eval_in at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:799
+eval at ./boot.jl:489
+include_string at ./loading.jl:3016
+_include at ./loading.jl:3076
+include at ./Base.jl:310
+IncludeInto at ./Base.jl:311
+jfptr_IncludeInto_60777 at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/sys.so (unknown line)
+macro expansion at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/diagnostics/adaptive-degeneracy/reproduce/simplex_infeasibility_focused.jl:7 [inlined]
+macro expansion at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+top-level scope at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/diagnostics/adaptive-degeneracy/reproduce/simplex_infeasibility_focused.jl:4
+jl_toplevel_eval_flex at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:731
+jl_eval_toplevel_stmts at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:585
+jl_toplevel_eval_flex at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:683
+ijl_toplevel_eval at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:754
+ijl_toplevel_eval_in at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:799
+eval at ./boot.jl:489
+include_string at ./loading.jl:3016
+_include at ./loading.jl:3076
+include at ./Base.jl:309
+exec_options at ./client.jl:344
+_start at ./client.jl:577
+jfptr__start_61086 at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/sys.so (unknown line)
+jl_apply at /cache/build/builder-armageddon-4/julialang/julia-ci/src/julia.h:2318 [inlined]
+true_main at /cache/build/builder-armageddon-4/julialang/julia-ci/src/jlapi.c:985
+jl_repl_entrypoint at /cache/build/builder-armageddon-4/julialang/julia-ci/src/jlapi.c:1152
+main at /cache/build/builder-armageddon-4/julialang/julia-ci/cli/loader_exe.c:58
+unknown function (ip: 0xf7c357842f1b) at /usr/lib/aarch64-linux-gnu/libc.so.6
+__libc_start_main at /usr/lib/aarch64-linux-gnu/libc.so.6 (unknown line)
+$x at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/julia (unknown line)
+unknown function (ip: 0x4e000000400a1b) at (unknown file)
+unknown function (ip: (nil)) at (unknown file)
+Allocations: 515331029 (Pool: 515324644; Big: 6385); GC: 119

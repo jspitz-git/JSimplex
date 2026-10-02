@@ -1012,7 +1012,14 @@ end
         problem = LinearProblem(sparse([1.0 1.0]), [original_cost, 0.0];
                                 row_lower=[1.0], row_upper=[1.0],
                                 column_upper=[1.0, 1.0])
-        workspace = JSimplex.initialize_workspace(problem, SolverOptions(verbose=false))
+        pricing_steps = Tuple{Symbol,Symbol}[]
+        diagnostics = JSimplex.SimplexDiagnostics(; observer=(event, ws)->begin
+            event == :pivot_completed && push!(pricing_steps,
+                (ws.options.algorithm, JSimplex._effective_pricing(ws, ws.options.algorithm)))
+        end)
+        progress = JSimplex.SimplexProgressContext(problem; diagnostics)
+        workspace = JSimplex.initialize_workspace(problem,
+            SolverOptions(verbose=false, pricing=:steepest_edge); progress)
         workspace.basis = JSimplex.Basis([2],
             [starting_state, JSimplex.BASIC, JSimplex.AT_LOWER])
         workspace.costs[1] = shifted_cost
@@ -1028,7 +1035,8 @@ end
         @test run.objective_value ≈ original_cost * expected_x
         @test run.iterations == 1
         @test !workspace.perturbed
-        @test !workspace.dual_devex_fallback
+        # A dual weight-reliability fallback must not override primal cleanup pricing.
+        @test pricing_steps == [(:primal, :steepest_edge)]
     end
 end
 

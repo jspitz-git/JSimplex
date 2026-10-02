@@ -14,10 +14,16 @@ mutable struct PricingState{T<:Real}
     rejected_weights::Int
     switches::Int
     resets::Int
+    return_mode::Symbol
+    temporary::Bool
+    trial_until::Int
+    progress_windows::Int
+    last_transition::Symbol
 end
 
 PricingState(::Type{T}) where {T<:Real} = PricingState{T}(
-    :steepest_edge,:none,:valid,true,false,0,0,nothing,0,0,0,0,0,0)
+    :steepest_edge,:none,:valid,true,false,0,0,nothing,0,0,0,0,0,0,
+    :steepest_edge,false,0,0,:none)
 
 _pricing_add(value::Int, increment::Int) = value + min(increment,typemax(Int)-value)
 _pricing_cooldown(state,policy) =
@@ -26,6 +32,10 @@ _pricing_cooldown(state,policy) =
 function _unreliable_pricing!(state,policy)
     state.active != :devex && (state.switches += 1)
     state.active = :devex
+    state.return_mode = :devex
+    state.temporary = false
+    state.progress_windows = 0
+    state.last_transition = :numerical
     state.weight_quality = :pending
     state.framework_valid = false
     state.needs_reset = true
@@ -55,43 +65,69 @@ end
 """Select a mode from one shared progress history; the caller owns framework resets."""
 function next_pricing!(state::PricingState{T},monitor::StagnationMonitor{T},
                        policy::NumericalPolicy{T})::Symbol where {T}
-    delta = monitor === state.last_monitor ? max(0,monitor.observations-state.last_observation) :
-                                             monitor.observations
+    same_monitor = monitor === state.last_monitor
+    delta = same_monitor ? max(0,monitor.observations-state.last_observation) :
+                           monitor.observations
+    same_monitor || (state.progress_windows = 0)
     state.observations = _pricing_add(state.observations,delta)
     state.last_monitor = monitor
     state.last_observation = monitor.observations
+    state.last_transition = :none
     if state.weight_quality == :unreliable
         return _unreliable_pricing!(state,policy)
     end
     state.needs_reset && return state.active
-    policy.adaptive_pricing || return state.active
-    if state.active == :dantzig
-        if state.observations >= state.cooldown_until && state.framework_valid
-            state.active = :devex
+    enabled = policy.adaptive_pricing && policy.adaptive_stalling
+    closed = delta > 0 && monitor.window_count == monitor.window
+    if state.temporary
+        if closed
+            state.progress_windows = monitor.state == :progress ?
+                state.progress_windows + 1 : 0
+        end
+        reason = !enabled ? :disabled : state.progress_windows >= 2 ? :progress :
+            state.observations >= state.trial_until ? :trial_limit : :none
+        if reason != :none && state.framework_valid
+            state.active = state.return_mode
+            state.temporary = false
+            state.progress_windows = 0
             state.switches += 1
             state.cooldown_until = _pricing_cooldown(state,policy)
+            state.last_transition = reason
         end
-    elseif delta > 0 && monitor.state == :stalled && monitor.window_count == monitor.window &&
+    elseif enabled && closed && monitor.state == :stalled &&
+           state.active != :dantzig && state.framework_valid &&
            state.observations >= state.cooldown_until
+        state.return_mode = state.active
         state.active = :dantzig
-        state.framework_valid = false
+        state.temporary = true
+        state.progress_windows = 0
+        state.trial_until = _pricing_add(state.observations,
+            4min(policy.stagnation_window,typemax(Int)÷4))
         state.switches += 1
-        state.cooldown_until = _pricing_cooldown(state,policy)
+        state.last_transition = :stalled
     end
     return state.active
 end
 
 function _effective_pricing(ws,algorithm::Symbol)
-    if ws.options.pricing == :auto
-        state = ws.scratch.pricing
-        return isnothing(state) ? :steepest_edge : state.active
-    end
     ws.options.pricing == :dantzig && return :dantzig
+    state = ws.scratch.pricing
+    if !isnothing(state) && state.algorithm == algorithm
+        return state.active
+    end
+    ws.options.pricing == :auto && return :steepest_edge
     if algorithm == :dual
         ws.dual_pricing_fallback && return :dantzig
         ws.dual_devex_fallback && return :devex
     end
     return ws.options.pricing
+end
+
+"""Weight maintenance follows the saved rule during a temporary selection trial."""
+function _weight_pricing(ws,algorithm::Symbol)
+    state = ws.scratch.pricing
+    return !isnothing(state) && state.temporary ? state.return_mode :
+        _effective_pricing(ws,algorithm)
 end
 
 function _copy_pricing_state!(destination,source)
@@ -126,17 +162,56 @@ function _copy_pricing_state!(scratch,source::PricingState{T}) where T
     destination.rejected_weights = source.rejected_weights
     destination.switches = source.switches
     destination.resets = source.resets
+    destination.return_mode = source.return_mode
+    destination.temporary = source.temporary
+    destination.trial_until = source.trial_until
+    destination.progress_windows = source.progress_windows
+    destination.last_transition = source.last_transition
     return nothing
 end
 
 function _reset_auto_pricing!(ws)
-    ws.options.pricing == :auto || return nothing
-    ws.scratch.pricing = nothing
+    # Phase history is owned by the workspace. Do not mutate a monitor shared
+    # read-only with an uncommitted candidate.
+    ws.scratch.stagnation = nothing
+    state = ws.scratch.pricing
+    isnothing(state) && return nothing
+    if state.temporary
+        state.active = state.return_mode
+    elseif state.active == :dantzig
+        state.active = ws.options.pricing == :auto ? :steepest_edge : ws.options.pricing
+    end
+    state.temporary = false
+    if !state.framework_valid || state.needs_reset
+        _unreliable_pricing!(state,ws.progress.numerical_policy)
+        reset_devex!(ws)
+    end
+    state.return_mode = state.active
+    state.observations = 0
+    state.cooldown_until = 0
+    state.trial_until = 0
+    state.progress_windows = 0
+    state.last_monitor = nothing
+    state.last_observation = 0
+    state.last_transition = :phase
+    ws.dual_pricing_fallback = false
+    _simplex_event!(ws,:pricing_phase_reset)
+    return nothing
+end
+
+"""Carry a safe rule into freshly initialized primal weights of a different phase."""
+function _inherit_primal_phase_pricing!(destination,source)
+    previous = source.scratch.pricing
+    isnothing(previous) && return nothing
+    state = PricingState(eltype(destination.costs))
+    state.algorithm = :primal
+    state.active = state.return_mode = previous.needs_reset || !previous.framework_valid ?
+        :devex : _weight_pricing(source,previous.algorithm)
+    destination.scratch.pricing = state
     return nothing
 end
 
 function _auto_framework_reset!(ws)
-    ws.options.pricing == :auto || return nothing
     state = ws.scratch.pricing
     isnothing(state) && return nothing
     state.framework_valid = true
@@ -163,24 +238,49 @@ function _reject_auto_weight!(ws)
 end
 
 function _prepare_auto_pricing!(ws,algorithm::Symbol;stop=()->false)::Bool
-    ws.options.pricing == :auto || return true
+    policy = ws.progress.numerical_policy
+    controlled = ws.options.pricing == :auto ||
+        (ws.options.pricing != :dantzig && policy.adaptive_pricing && policy.adaptive_stalling)
+    controlled || !isnothing(ws.scratch.pricing) || return true
     stop() && return false
     algorithm in (:primal,:dual) || throw(ArgumentError("Unknown pricing algorithm"))
     state = ws.scratch.pricing
     if isnothing(state) || state.algorithm != algorithm
+        changed_algorithm = !isnothing(state)
+        safe_devex = changed_algorithm &&
+            (state.temporary ? state.return_mode : state.active) == :devex
         state = PricingState(eltype(ws.costs))
         state.algorithm = algorithm
+        state.active = safe_devex || (algorithm == :dual && ws.dual_devex_fallback) ?
+            :devex : ws.options.pricing == :auto ? :steepest_edge : ws.options.pricing
+        state.return_mode = state.active
         ws.scratch.pricing = state
         ws.dual_pricing_fallback = false
-        ws.dual_devex_fallback = false
-        reset_devex!(ws)
+        # Primal and dual weights have different meanings. Retire the previous
+        # geometry without introducing a mode change merely for that reason.
+        (changed_algorithm || ws.options.pricing == :auto) && reset_devex!(ws)
     end
-    all(w -> isfinite(w) && w > zero(w),ws.pricing_weights) || _reject_auto_weight!(ws)
+    if ws.options.pricing == :auto
+        all(w -> isfinite(w) && w > zero(w),ws.pricing_weights) || _reject_auto_weight!(ws)
+    end
+    if state.temporary && !(policy.adaptive_pricing && policy.adaptive_stalling)
+        if state.framework_valid && !state.needs_reset
+            state.active = state.return_mode
+            state.temporary = false
+            state.progress_windows = 0
+            state.cooldown_until = _pricing_cooldown(state,policy)
+            state.switches += 1
+            state.last_transition = :disabled
+            _simplex_event!(ws,state.active == :devex ? :pricing_devex : :pricing_steepest_edge)
+        else
+            _reject_auto_weight!(ws)
+        end
+    end
     return !stop()
 end
 
 function _validate_primal_edge!(ws,index::Int,direction::AbstractVector{T})::Bool where T
-    ws.options.pricing == :auto && _effective_pricing(ws,:primal) == :steepest_edge || return true
+    ws.options.pricing == :auto && _weight_pricing(ws,:primal) == :steepest_edge || return true
     # Uncacheable norms and fixed-width rationals are already solved exactly
     # on demand by primal pricing, including its scaled-exponent score path.
     ws.scratch.steepest_valid[index] || return true
@@ -192,7 +292,7 @@ function _validate_primal_edge!(ws,index::Int,direction::AbstractVector{T})::Boo
 end
 
 function _validate_dual_edge!(ws,index::Int,rho::AbstractVector{T})::Bool where T
-    ws.options.pricing == :auto && _effective_pricing(ws,:dual) == :steepest_edge || return true
+    ws.options.pricing == :auto && _weight_pricing(ws,:dual) == :steepest_edge || return true
     ws.scratch.pricing.validated_weights += 1
     stored = ws.pricing_weights[index]
     if T <: Rational
@@ -210,26 +310,21 @@ function _validate_dual_edge!(ws,index::Int,rho::AbstractVector{T})::Bool where 
 end
 
 function _observe_auto_pricing!(ws,algorithm::Symbol)
-    ws.options.pricing == :auto || return nothing
     state = ws.scratch.pricing
     isnothing(state) && return nothing
     history = ws.scratch.stagnation
     isnothing(history) && return nothing
     previous = state.active
-    # No weighted updates run during Dantzig pivots. Its old reference cannot
-    # justify a return to weighted pricing after the cooldown.
-    previous == :dantzig && (state.framework_valid = false)
     policy = ws.progress.numerical_policy
     next_pricing!(state,history.monitor,policy)
-    if policy.adaptive_pricing && state.active == :dantzig &&
-       state.observations >= state.cooldown_until
-        reset_devex!(ws)
-        next_pricing!(state,history.monitor,policy)
-    elseif state.needs_reset
+    if state.needs_reset
         reset_devex!(ws)
     end
     if state.active != previous
-        _simplex_event!(ws,state.active == :dantzig ? :pricing_dantzig : :pricing_devex)
+        _simplex_event!(ws,state.active == :dantzig ? :pricing_dantzig :
+            state.active == :devex ? :pricing_devex : :pricing_steepest_edge)
+        state.last_transition == :progress && _simplex_event!(ws,:pricing_progress_return)
+        state.last_transition == :trial_limit && _simplex_event!(ws,:pricing_trial_expired)
     end
     return nothing
 end

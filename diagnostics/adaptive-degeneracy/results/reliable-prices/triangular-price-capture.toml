@@ -1,0 +1,148 @@
+process_peak_rss = 0x6920c000
+jump = "1.31.2"
+julia_threads = 1
+original_retry_enabled = false
+weak_pivot_preference = false
+production_sha256 = "c45f33f73dde24d285b3af014540d0efaa0c695fe6e5e3b9fdb3ddf60b20baab"
+blas_threads = 1
+julia = "1.13.0"
+
+[policy]
+stable_ratio = false
+precision_boosting = false
+recovery = false
+incremental_primal = false
+partial_pricing = false
+adaptive_primal_perturbation = true
+lp_refinement = false
+adaptive_refactor = false
+sparse_pricing = false
+adaptive_stalling = true
+pivot_validation = false
+adaptive_pricing = true
+feasibility_recovery = false
+adaptive_dual_perturbation = true
+solve_refinement = false
+hypersparse = false
+incremental_primal_pivots = false
+phase_one = true
+crash = false
+
+[[records]]
+pivot_observations = 266
+zero_primal_steps = 180
+time_limit = 90
+component_enabled = true
+reference_objective = 6532.083333333331
+nonzeros = 11203
+columns = 2655
+input_sha256 = "0a2a0888816fd25e31ff4512ca8974272dacf387854cd450e94946332d89325d"
+passed = false
+seed = 1
+refactorizations = 5
+job_index = 1
+seconds = 0.252174131
+reader = "permuted"
+wall_seconds = 19.665170397
+compile_seconds = 19.590252686
+columns_reordered = 2655
+allocated_bytes = 2357350640
+rows_reordered = 144
+captures = []
+failure_snapshot = "/tmp/triangular-price-capture-job1-seed1-miplib-mod010-permuted-primal-forrest_tomlin-true-failure.bin"
+algorithm = "primal"
+iterations = 266
+id = "miplib/mod010"
+exact_model_match = true
+manager = "forrest_tomlin"
+status = "NUMERICAL_ERROR"
+message = "primal reduced cost disagrees with its direction"
+rows = 146
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+
+    [records.events]
+    refactor_residual = 1
+    pricing_scanned_entries = 837330
+    refactor_other = 1
+    pivot_completed = 266
+    pivot_rejected = 17
+    pricing_full_scan = 285
+    pricing = 285
+    refactor_initial = 2
+    pricing_scored_entries = 370371
+    refactor_limit = 3
+    pivot_proposed = 284
+    phase_one = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 1
+    export_attempts = 0
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+pivot_observations = 265
+zero_primal_steps = 149
+time_limit = 90
+component_enabled = true
+reference_objective = 6532.083333333331
+nonzeros = 11203
+columns = 2655
+input_sha256 = "0a2a0888816fd25e31ff4512ca8974272dacf387854cd450e94946332d89325d"
+passed = false
+seed = 1
+refactorizations = 5
+job_index = 2
+seconds = 0.671866178
+reader = "permuted"
+wall_seconds = 19.517585185
+compile_seconds = 18.860743709
+columns_reordered = 2655
+allocated_bytes = 2260223752
+rows_reordered = 144
+captures = []
+failure_snapshot = "/tmp/triangular-price-capture-job2-seed1-miplib-mod010-permuted-primal-suhl_suhl-true-failure.bin"
+algorithm = "primal"
+iterations = 265
+id = "miplib/mod010"
+exact_model_match = true
+manager = "suhl_suhl"
+status = "NUMERICAL_ERROR"
+message = "primal reduced cost disagrees with its direction"
+rows = 146
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_one"
+
+    [records.events]
+    refactor_residual = 1
+    pricing_scanned_entries = 4727242
+    refactor_other = 1
+    pivot_completed = 265
+    pivot_rejected = 1342
+    pricing_full_scan = 1609
+    pricing = 1609
+    refactor_initial = 2
+    pricing_scored_entries = 1270136
+    refactor_limit = 3
+    pivot_proposed = 1608
+    phase_one = 1
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 1
+    export_attempts = 0
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+
+[diagnostic_sha256]
+export_coverage = "71454a3f606fac53590e58620a00d431a55580452ee4cd930e0e33e84cd14d9c"
+pricing_isolation = "113ee26371ec1f18809eb84452666fee00212950f48c982a3a37eeaf2ce58892"
+triangular_price_capture = "9be1eae51872a2edf7a61a80528307478237b483c8ea78a0b01de15304479305"
+no_original_retry = "a1403c682bd88c8931a00b3ad9c296a7910ea49fdbf342bf7e11803922edc79f"

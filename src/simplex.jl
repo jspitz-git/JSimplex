@@ -282,12 +282,15 @@ function _assemble_basis_matrix(workspace::SimplexWorkspace{T},
     return reuse ? storage : SparseMatrixCSC(row_count, row_count, column_pointers, rows, values)
 end
 
-# A zero primal step may leave a row activity just outside its bound, within
-# the original model tolerance. Retaining that value avoids turning a zero
+# A zero primal step may leave a variable just outside its bound, within
+# the active model tolerance. Retaining that value avoids turning a zero
 # ratio into a negative step through an exact nonbasic bound assignment.
-_can_preserve_primal_row_value(workspace, index, state, bound) = false
+# An old value outside the selected bound has a negative ratio, so a primal
+# exit at that bound has zero step. Existing nonbasic values must then survive
+# later reconstructions too; positive-step exits still reach their exact bound.
+_can_preserve_primal_bound_value(workspace, index, state, bound) = false
 
-function _can_preserve_primal_row_value(workspace::SimplexWorkspace{T}, index::Int,
+function _can_preserve_primal_bound_value(workspace::SimplexWorkspace{T}, index::Int,
                                         state::VariableState, bound::Bound{T}) where {T}
     T === Float32 || T === Float64 || return false
     workspace.options.algorithm == :primal || return false
@@ -295,15 +298,34 @@ function _can_preserve_primal_row_value(workspace::SimplexWorkspace{T}, index::I
     (policy.pivot_validation || policy.recovery || policy.incremental_primal ||
      policy.incremental_primal_pivots || _is_staged_workspace(workspace)) && return false
     columns = size(workspace.problem.A, 2)
-    index > columns || return false
+    if index <= columns
+        # Structural retention relies on the full legacy point certificate.
+        _legacy_primal_row_validation_enabled(workspace) || return false
+        # Fixed structural variables retain their exact assignment, including
+        # when an owned working journal temporarily relaxes their bounds.
+        (_is_fixed(workspace.lower[index], workspace.upper[index]) ||
+         _is_fixed(workspace.problem.column_lower[index], workspace.problem.column_upper[index])) && return false
+    end
     value = workspace.primal[index]
     isfinite(value) && isfinite(bound) || return false
     outside = state == AT_LOWER ? value < bound_value(bound) :
               state == AT_UPPER && value > bound_value(bound)
     outside || return false
-    original = state == AT_LOWER ? workspace.problem.row_lower[index - columns] :
-                                  workspace.problem.row_upper[index - columns]
-    return _primal_interval_at_bound(value, value, original, workspace.options.primal_tolerance)
+    index <= columns &&
+        !_primal_interval_at_bound(value, value, bound, workspace.options.primal_tolerance) && return false
+    checked_bound = if index <= columns
+        state == AT_LOWER ? workspace.problem.column_lower[index] : workspace.problem.column_upper[index]
+    else
+        state == AT_LOWER ? workspace.problem.row_lower[index-columns] : workspace.problem.row_upper[index-columns]
+    end
+    journal = workspace.scratch.perturbations
+    if _has_active_bound_perturbations(journal)
+        _check_perturbation_owner(workspace, journal)
+        # Match the owned working LP used by the primal point certificate.
+        # Restoration removes this exception before original-model cleanup.
+        checked_bound = bound
+    end
+    return _primal_interval_at_bound(value, value, checked_bound, workspace.options.primal_tolerance)
 end
 
 function _nonbasic_value(workspace::SimplexWorkspace{T}, index::Int) where {T}
@@ -311,13 +333,13 @@ function _nonbasic_value(workspace::SimplexWorkspace{T}, index::Int) where {T}
     if state == AT_LOWER
         value = workspace.lower[index]
         isfinite(value) || throw(ArgumentError("a lower-bound nonbasic variable needs a finite lower bound"))
-        workspace.iterations > 0 && _can_preserve_primal_row_value(workspace, index, state, value) &&
+        workspace.iterations > 0 && _can_preserve_primal_bound_value(workspace, index, state, value) &&
             return workspace.primal[index]
         return bound_value(value)
     elseif state == AT_UPPER
         value = workspace.upper[index]
         isfinite(value) || throw(ArgumentError("an upper-bound nonbasic variable needs a finite upper bound"))
-        workspace.iterations > 0 && _can_preserve_primal_row_value(workspace, index, state, value) &&
+        workspace.iterations > 0 && _can_preserve_primal_bound_value(workspace, index, state, value) &&
             return workspace.primal[index]
         return bound_value(value)
     elseif state == FREE_NONBASIC
@@ -370,8 +392,8 @@ function recompute!(workspace::SimplexWorkspace{T}; refactorize::Bool=false,
         workspace.refactorizations += 1
         _simplex_event!(workspace, diagnostic_reason)
         workspace.dual_nonzero_steps_since_refactorization = 0
-        pricing = _effective_pricing(workspace,:dual)
-        if pricing == :devex || (workspace.options.pricing == :auto && pricing == :dantzig)
+        pricing = _weight_pricing(workspace,:dual)
+        if pricing == :devex
             reset_devex!(workspace)
         end
         # Refactorization preserves the basis and its steepest-edge weights.

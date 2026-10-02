@@ -21,7 +21,8 @@ function (observer::_StageObserver)(reason::Symbol, candidate)
     isnothing(observer.live.progress.diagnostics) && return nothing
     if candidate.scratch.pending_factor_update || candidate.scratch.post_iteration != :none ||
        reason in (:pivot_completed,:flip_completed,:bound_flipped,
-                  :pricing_devex,:pricing_dantzig,:pricing_reset)
+                  :pricing_devex,:pricing_dantzig,:pricing_reset,
+                  :pricing_steepest_edge,:pricing_progress_return,:pricing_trial_expired,:pricing_phase_reset)
         push!(observer.pending,reason)
     else
         _diagnostic_event!(observer.live.progress.diagnostics,reason,candidate)
@@ -201,7 +202,8 @@ function _discard_candidate!(ws,candidate)
     if !isnothing(ws.progress.diagnostics)
         for reason in pending
             reason in (:pivot_completed,:flip_completed,:bound_flipped,
-                       :pricing_devex,:pricing_dantzig,:pricing_reset) && continue
+                       :pricing_devex,:pricing_dantzig,:pricing_reset,
+                  :pricing_steepest_edge,:pricing_progress_return,:pricing_trial_expired,:pricing_phase_reset) && continue
             record_event!(ws.progress.diagnostics,reason)
         end
     end

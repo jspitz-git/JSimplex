@@ -1,0 +1,36 @@
+ERROR: LoadError: Some tests did not pass: 9 passed, 2 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_phase_coupled_tests.jl:40
+Test Summary:                                                      | Pass  Total  Time
+Coupled phase reconstruction retains nonzero tiny right-hand sides |   30     30  0.2s
+
+Coupled reconstruction is bounded and transactional: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_phase_coupled_tests.jl:49
+  Expression: !(JSimplex._native_phase_local_rows!(x, B, rhs, policy, cutoff, (()->begin
+                #= /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_phase_coupled_tests.jl:49 =#
+                false
+            end)))
+   Evaluated: !(JSimplex._native_phase_local_rows!([1.0e-30, -5.0e-31], sparse([1, 2, 1, 2], [1, 1, 2, 2], [1.0, 2.0, 2.0, 4.0], 2, 2), [1.0e-66, 0.0], JSimplex.NumericalPolicy{Float64}(5.684341886080802e-14, 1.4901161193847656e-8, 3, 8, 2, 64, 512, 1073741824, 8, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false), 1.0e-28, var"#19#20"()))
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_phase_coupled_tests.jl:41
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_phase_coupled_tests.jl:49 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Coupled reconstruction is bounded and transactional: Test Failed at /home/jspitz/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_phase_coupled_tests.jl:50
+  Expression: isequal(x, initial)
+   Evaluated: isequal([1.0e-30, -5.0e-31], [1.0e-30, -1.0e-30])
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_phase_coupled_tests.jl:41
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/adaptive-degeneracy/JSimplex.jl/test/native_phase_coupled_tests.jl:50 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+Test Summary:                                       | Pass  Fail  Total  Time
+Coupled reconstruction is bounded and transactional |    9     2     11  0.1s
+RNG of the outermost testset: Random.Xoshiro(0xcfa2686cb0102fcd, 0xb02dc1d2c6faf1cb, 0xd4bda38bc3d92c3b, 0x5a481a503348014f, 0x7fd897d13f36eb7e)

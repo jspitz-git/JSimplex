@@ -59,7 +59,7 @@ function perturbation_chain_workspace(::Type{T}=Float64;enabled=true,update=:pfi
     A = T[0 0 1 -1; 0 1 -1 0; 1 -1 0 0; -1 0 0 1]
     p = LinearProblem(sparse(A),zeros(T,4);row_lower=T[1,1,1,-3])
     policy = JSimplex.NumericalPolicy(T;simplex_strategy=:adaptive,
-        adaptive_dual_perturbation=enabled,stagnation_window=1,refactor_timing=false)
+        adaptive_pricing=false,adaptive_dual_perturbation=enabled,stagnation_window=1,refactor_timing=false)
     diagnostics = JSimplex.SimplexDiagnostics()
     ws = JSimplex.initialize_workspace(p,SolverOptions(T;algorithm=:dual,
         basis_update=update,verbose=false,iteration_limit,time_limit=30.0);

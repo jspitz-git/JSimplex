@@ -1,6 +1,6 @@
 # A pivot can preserve a feasible approximate point even when a floating
 # factorization reconstructs an infeasible one. Keep the predicted point only
-# after independently certifying both original bounds and row consistency.
+# after independently certifying both active bounds and row consistency.
 _legacy_primal_point_candidate(workspace, entering, leaving_row, step, column) = nothing
 
 function _legacy_primal_point_candidate(workspace::SimplexWorkspace{T}, entering::Int,
@@ -33,12 +33,27 @@ function _legacy_primal_equation_violation(workspace::SimplexWorkspace{T}) where
         (!quality.finite || quality.absolute_error > workspace.options.primal_tolerance)
 end
 
+# Native point recovery belongs to the current working LP. An owned bound
+# perturbation is restored and the original LP certified by the outer driver.
+# Keep original-model checking for unrelated, unowned bound changes.
+function _legacy_primal_model_feasible(workspace::SimplexWorkspace)
+    columns = size(workspace.problem.A, 2)
+    primal = workspace.primal[1:columns]
+    tolerance = workspace.options.primal_tolerance
+    journal = workspace.scratch.perturbations
+    _has_active_bound_perturbations(journal) ||
+        return _original_primal_feasible(workspace.problem, primal, tolerance)
+    _check_perturbation_owner(workspace, journal)
+    return _primal_feasible_with_bounds(workspace.problem, primal, tolerance,
+        @view(workspace.lower[1:columns]), @view(workspace.upper[1:columns]),
+        @view(workspace.lower[(columns+1):end]), @view(workspace.upper[(columns+1):end]))
+end
+
 _restore_legacy_primal_point!(workspace, ::Nothing, stop) = false
 
 function _restore_legacy_primal_point!(workspace::SimplexWorkspace{T},
                                           candidate::Vector{T}, stop) where {T}
     T === Float32 || T === Float64 || return false
-    tolerance = workspace.options.primal_tolerance
     _legacy_primal_reconstruction_feasible(workspace) && return false
     stop() && return false
     computed = _pivot_quality_buffers(workspace).correction
@@ -47,11 +62,20 @@ function _restore_legacy_primal_point!(workspace::SimplexWorkspace{T},
         workspace.primal[index] = candidate[row]
     end
     accepted = false
+    balanced = false
     try
-        _finite_workspace(workspace) && primal_infeasibility(workspace) <= tolerance || return false
-        columns = size(workspace.problem.A, 2)
-        _original_primal_feasible(workspace.problem, workspace.primal[1:columns], tolerance) || return false
-        _legacy_primal_row_consistent(workspace, tolerance) || return false
+        if !_legacy_primal_point_certified(workspace)
+            stop() && return false
+            # A bound snap can leave the prediction outside the equation
+            # tolerance and reconstruction outside a bound tolerance. Try one
+            # native midpoint, keeping nonbasic values fixed. Certification,
+            # not interpolation itself, decides whether the point is usable.
+            for (row, index) in enumerate(workspace.basis.basic_indices)
+                workspace.primal[index] = candidate[row] / T(2) + computed[row] / T(2)
+            end
+            _legacy_primal_point_certified(workspace) || return false
+            balanced = true
+        end
         stop() && return false
         accepted = true
     finally
@@ -61,9 +85,12 @@ function _restore_legacy_primal_point!(workspace::SimplexWorkspace{T},
             end
         end
     end
-    copyto!(workspace.scratch.row_solution, candidate)
+    for (row, index) in enumerate(workspace.basis.basic_indices)
+        workspace.scratch.row_solution[row] = workspace.primal[index]
+    end
     _pipeline_changed!(workspace, workspace.scratch.row_solution)
     _simplex_event!(workspace, :primal_point_preserved)
+    balanced && _simplex_event!(workspace, :primal_point_balanced)
     return true
 end
 
@@ -101,8 +128,7 @@ function _legacy_primal_point_certified(workspace)
         max(_lower_violation(workspace.lower[index], value),
             _upper_violation(workspace.upper[index], value)) <= tolerance || return false
     end
-    columns = size(workspace.problem.A, 2)
-    return _original_primal_feasible(workspace.problem, workspace.primal[1:columns], tolerance) &&
+    return _legacy_primal_model_feasible(workspace) &&
         _legacy_primal_row_consistent(workspace, tolerance)
 end
 
@@ -168,7 +194,11 @@ function _finish_legacy_primal_point!(workspace::SimplexWorkspace, candidate::Ve
     stop() && return DualTermination(TIME_LIMIT, "time limit reached during primal point recovery")
     _legacy_primal_reconstruction_feasible(workspace) && return nothing
     _restore_legacy_primal_point!(workspace, candidate, stop) && return nothing
+    # Native correction reuses the candidate buffer. Preserve the pivot
+    # prediction for local recovery if reconstruction is outside its bound box.
+    prediction = copy(candidate)
     _try_native_primal_point_correction!(workspace, stop) && return nothing
+    _try_joint_primal_point_recovery!(workspace, stop, prediction) && return nothing
     stop() && return DualTermination(TIME_LIMIT, "time limit reached during primal point recovery")
     # Candidate retries assume an unchanged, feasible basis point. This failure
     # invalidates that assumption, including after a fresh-factor retry.

@@ -1,0 +1,166 @@
+process_peak_rss = 0x695ab000
+production_sha256 = "90207a20d1dfa07cf548706f456191f31401f4dd98907342db138a2a9149e8a0"
+blas_threads = 1
+jump = "1.31.2"
+julia = "1.13.0"
+presolve = false
+julia_threads = 1
+original_retry_enabled = false
+weak_pivot_preference = false
+
+[[records]]
+pivot_observations = 164
+zero_primal_steps = 0
+time_limit = 90
+component_enabled = true
+reference_objective = -4497.2761882188715
+nonzeros = 13057
+columns = 2172
+input_sha256 = "0885e278d768e76f1819416f7844eeebf39f7c4e965f5c376b75191253d21f8d"
+passed = false
+seed = 20261001
+refactorizations = 2
+job_index = 1
+seconds = 0.046918916
+reader = "native"
+wall_seconds = 19.362985937
+compile_seconds = 19.316028121
+columns_reordered = 0
+allocated_bytes = 2262143320
+rows_reordered = 0
+captures = []
+failure_snapshot = ".superpowers/adaptive-degeneracy/dual-expanded/pilotnov-no-presolve-job1-seed20261001-netlib-pilotnov-native-dual-pfi-true-failure.bin"
+algorithm = "dual"
+iterations = 164
+id = "netlib/pilotnov"
+exact_model_match = true
+manager = "pfi"
+status = "NUMERICAL_ERROR"
+message = "SingularException: matrix is singular; factorization failed. Zero pivot found at index 0"
+rows = 975
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_dual"
+
+    [records.events]
+    certification_failed = 1
+    phase_dual = 1
+    correction_attempt = 56
+    pricing_devex = 1
+    correction = 41
+    phase_auxiliary = 1
+    pricing_scanned_entries = 161850
+    pricing_weight_rejected = 1
+    bound_flipped = 178
+    refactor_other = 1
+    pivot_completed = 164
+    pricing_full_scan = 166
+    pricing = 166
+    repair = 1
+    pricing_phase_reset = 1
+    refactor_initial = 1
+    pricing_reset = 1
+    stagnation_watch = 1
+    pricing_scored_entries = 38536
+    refactor_limit = 1
+    pivot_proposed = 166
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 0
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+[[records]]
+pivot_observations = 142
+zero_primal_steps = 0
+time_limit = 90
+component_enabled = true
+reference_objective = -4497.2761882188715
+nonzeros = 13057
+columns = 2172
+input_sha256 = "0885e278d768e76f1819416f7844eeebf39f7c4e965f5c376b75191253d21f8d"
+passed = false
+seed = 20261001
+refactorizations = 2
+job_index = 2
+seconds = 0.099133135
+reader = "jump"
+wall_seconds = 0.099147035
+compile_seconds = 0.0
+columns_reordered = 0
+allocated_bytes = 86117896
+rows_reordered = 975
+captures = []
+failure_snapshot = ".superpowers/adaptive-degeneracy/dual-expanded/pilotnov-no-presolve-job2-seed20261001-netlib-pilotnov-jump-dual-pfi-true-failure.bin"
+algorithm = "dual"
+iterations = 142
+id = "netlib/pilotnov"
+exact_model_match = true
+manager = "pfi"
+status = "NUMERICAL_ERROR"
+message = "SingularException: matrix is singular; factorization failed. Zero pivot found at index 0"
+rows = 975
+
+    [[records.phases]]
+    iteration = 0
+    event = "phase_dual"
+
+    [records.events]
+    certification_failed = 1
+    phase_dual = 1
+    correction_attempt = 22
+    pricing_devex = 1
+    correction = 19
+    phase_auxiliary = 1
+    pricing_scanned_entries = 140400
+    pricing_weight_rejected = 1
+    bound_flipped = 180
+    refactor_other = 1
+    pivot_completed = 142
+    pricing_full_scan = 144
+    pricing = 144
+    repair = 1
+    pricing_phase_reset = 1
+    refactor_initial = 1
+    pricing_reset = 1
+    pricing_scored_entries = 31511
+    refactor_limit = 1
+    pivot_proposed = 144
+
+    [records.coverage]
+    component_proposals = 0
+    original_retry_blocked = 0
+    export_attempts = 0
+    component_certified = 0
+    component_attempts = 0
+    local_attempts = 0
+
+[policy]
+stable_ratio = false
+precision_boosting = false
+recovery = false
+incremental_primal = false
+partial_pricing = false
+adaptive_primal_perturbation = true
+lp_refinement = false
+adaptive_refactor = false
+sparse_pricing = false
+adaptive_stalling = true
+pivot_validation = false
+adaptive_pricing = true
+feasibility_recovery = false
+adaptive_dual_perturbation = true
+solve_refinement = false
+hypersparse = false
+incremental_primal_pivots = false
+phase_one = true
+crash = false
+
+[diagnostic_sha256]
+presolve_disabled_runner = "5bf96929fc40feafccb67d23de9fbf5e334d605bbd46da95075c900262dfee46"
+export_coverage = "71454a3f606fac53590e58620a00d431a55580452ee4cd930e0e33e84cd14d9c"
+pricing_isolation = "c4371346e681a8b5335412dba2cec19eca145b33af9fab27cc26e9e2b43f12f2"
+no_original_retry = "a1403c682bd88c8931a00b3ad9c296a7910ea49fdbf342bf7e11803922edc79f"

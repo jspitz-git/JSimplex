@@ -82,7 +82,13 @@ function _project_postsolve_basis!(workspace::SimplexWorkspace{T}, target::Vecto
     A = problem.A
     row_count, column_count = size(A)
     length(target) == column_count && all(isfinite, target) || return nothing
-    _original_primal_feasible(problem, target, options.primal_tolerance) || return nothing
+    target_feasible = _original_primal_feasible(problem, target, options.primal_tolerance)
+    # Unscaling can amplify a tolerated working-point error. The native path
+    # uses this point only to select exchanges, then reconstructs and certifies
+    # the resulting original-model basis before cleanup may optimize it.
+    native_hint = T <: Union{Float32,Float64} &&
+                  _native_primal_kernel(workspace.progress.numerical_policy)
+    (target_feasible || native_hint) || return nothing
     target_values = vcat(target, A * target)
     all(isfinite, target_values) || return nothing
 
@@ -97,7 +103,7 @@ function _project_postsolve_basis!(workspace::SimplexWorkspace{T}, target::Vecto
         abs(workspace.primal[column] - target[column]) > options.primal_tolerance &&
             push!(displaced, column)
     end
-    isempty(displaced) && return 0
+    isempty(displaced) && return target_feasible ? 0 : nothing
 
     for entering in displaced
         stop_requested() && return nothing
@@ -461,7 +467,8 @@ function _solve_diagnosed(problem::LinearProblem{T}, diagnostics;
     continuous_problem = JSimplex.relax_integrality(problem)
     presolved = if typed_options.presolve
         typed_options.verbose && @info "Starting presolve"
-        presolve_problem(continuous_problem)
+        _presolve_for_solve(continuous_problem, typed_options.primal_tolerance;
+            stop_requested=()->time_limit_reached(context), verbose=typed_options.verbose)
     else
         identity_presolve(continuous_problem)
     end

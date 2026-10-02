@@ -1,0 +1,562 @@
+# Isolated adaptive anti-degeneracy investigation
+
+Base: `621380f35f1b5ea6e9352067b6fc39d578723595` (master).
+The unrelated scan-performance experiments remain on
+`codex/simplex-scan-performance`; none are included here.
+
+## Respect the pricing policy during stagnation monitoring
+
+The legacy zero-step Dantzig trigger has already been removed from the numerical
+core. A separate adaptive trigger in `_observe_workspace_stagnation!` still
+selected Dantzig when the dual monitor reported stagnation, even with
+`adaptive_pricing=false`. Thus enabling only the monitor could change pricing,
+confounding isolated anti-degeneracy experiments.
+
+The trigger now also requires `adaptive_pricing`. With it disabled, monitoring
+continues to advance and report stalled windows, but does not set the dual
+Dantzig fallback. The existing positive case with adaptive pricing enabled is
+unchanged. Numerical recovery of invalid edge weights remains independent;
+this change does not reset an already active pricing fallback with stale weights.
+
+The new regression observed three expected failures before the fix: effective
+pricing became Dantzig, the fallback flag was set, and a fallback event was
+emitted. Its three monitoring assertions already passed. All six assertions
+pass after the added policy guard.
+
+`reproduce/focused.jl` passes **2,764 checks** with Julia 1.13.0 aarch64,
+`--compile=min`, one Julia thread and one BLAS thread. It covers numerical/strategy
+separation, legacy dual policy, stagnation, both perturbation mechanisms and
+adaptive pricing, including existing positive and disabled cases. The run uses
+the existing owned-process memory guard and finishes within its 240-second
+budget (testset time 68.4 seconds). See `results/policy-isolation.log`.
+
+Reproduce from this checkout through the established wrapper:
+
+```sh
+python3 /home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py --seconds 240 \
+  /home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/julia.sh \
+  --project=. --compile=min diagnostics/adaptive-degeneracy/reproduce/focused.jl
+```
+
+Independent read-only review found no blocking issue. This is targeted semantic
+verification, not a full-suite pass or a real-model convergence result. No
+medium/runtime solve or anti-degeneracy intervention has been performed in this
+change. Isolated experiments still need explicit policy settings for the other
+adaptive mechanisms; `simplex_strategy=:adaptive` alone enables several defaults.
+Phase-I perturbation eligibility and original-model cleanup are unchanged.
+
+## Temporary adaptive pricing lifecycle
+
+This change builds on `af7c68a`. The policy-isolation result above describes
+that earlier commit; the direct switch inside the stagnation monitor is now
+replaced by the shared pricing controller.
+
+Automatic and explicit weighted pricing in both algorithms now use the same
+bounded trial. A completed stalled window can select Dantzig only when both
+`adaptive_stalling` and `adaptive_pricing` are enabled. The controller saves the
+previous weighted rule. Two consecutive completed productive windows restore
+that rule. An unsuccessful trial expires after four windows of observations;
+either return starts a two-window cooldown. With the default window of 64,
+the trial budget is 256 observations and the cooldown is 128. Duplicate monitor
+reads do not count as progress, and replacing a monitor does not renew the
+trial budget. Disabling adaptation ends an owned trial before another selection.
+
+Candidate selection and weight maintenance are separate. Temporary Dantzig
+pivots retain the previous rule's existing weight updates and validation in
+the problem's scalar type. Refactorization preserves steepest-edge geometry;
+checkpoint recovery rebuilds the appropriate maintained framework. Returning
+to weighted pricing therefore does not treat stale weights or a vector of ones
+as current steepest-edge weights. Maintaining weights costs more than the old
+unweighted Dantzig path; this is a lifecycle correction, not a speed claim.
+Explicitly requested Dantzig stays unweighted and fixed.
+
+Phase changes end the trial and clear progress history. Dual auxiliary handoff
+transfers weights, reference membership, cache validity and pricing state
+together; the live monitor resets only after the candidate is accepted.
+Primal artificial-column construction/removal transfers only the safe rule to
+new weights with the new indexing. Numerical rejection of steepest-edge weights
+ends a trial and establishes a fresh Devex reference independently of adaptive
+pricing. That numerical fallback survives phase changes. A change of algorithm
+alone does not introduce a Devex heuristic.
+
+Diagnostics distinguish the selected rule (`pricing_dantzig`,
+`pricing_steepest_edge`, `pricing_devex`) from the reason for returning
+(`pricing_progress_return`, `pricing_trial_expired`, `pricing_phase_reset`).
+Events from discarded candidates are not published as completed transitions.
+
+### Regression evidence
+
+The first lifecycle regressions failed 14 of 42 assertions before source
+changes. A real dual pivot then independently exposed a stale weight of `1`
+where the current inverse-row norm squared was `0.25`. Additional review
+regressions reproduced disabled-policy selection (12 failures), an unwanted
+algorithm-change Devex (one), lost numerical Devex during artificial removal
+(one), and lost numerical Devex at phase entry (two).
+
+After the fixes:
+
+- The focused semantic runner passes **3,209 checks** with `--compile=min`.
+- The expanded lifecycle suite passes **441 checks** with normal compilation,
+  including real primal/dual pivots, independent steepest-edge norms, comparison
+  with fixed Devex on all four basis managers, phase transitions, cancellation,
+  monitor replacement, and disabled policies.
+- The additional phase, recovery, atomic-pivot and partial-pricing runner passes
+  **1,818 checks** with `--compile=min`.
+
+These suites overlap; their counts are not a count of distinct tests. This is
+not a full project-suite pass. The first additional-runner attempt had a
+test-helper include-order error; the corrected runner passed. Independent
+read-only review found the phase/policy integration omissions described above;
+all were reproduced and fixed before the model experiments.
+
+### Isolated model experiment
+
+`reproduce/models.jl` verifies each input SHA-256 and runs Float64 PFI, native
+refactorization, interval 80, steepest-edge, relaxed integrality and a shared
+1,000,000-iteration budget. Only the stagnation monitor and adaptive pricing
+policy are enabled. All other numerical-policy switches are explicitly checked
+as false; the common native numerical safeguards remain active.
+
+The production `adaptive_pricing` flag also controls a separate primal
+weak-pivot preference. For these experiments only, the runner loads the exact
+current `_legacy_primal_iteration!` body with its preference initializer replaced
+by `defer_weak = false`. A small independent pivot regression verifies the
+override before solving a model. The numerical checks and bounded rejection
+and retry code are unchanged. The report records both the production source
+digest and the isolated method digest. This is an explicitly instrumented
+diagnostic configuration, not a benchmark of the public adaptive preset.
+
+The runs use Julia 1.13.0 aarch64, one Julia thread and one BLAS thread. The
+existing guard caps the owned process at 8 GiB virtual memory and stops its
+process group below 6 GiB available RAM or above 1 GiB swap use. An afiro solve
+warms common paths; rare-path compilation and diagnostic recording still affect
+timings. Each process runs one model. A time limit never certifies convergence.
+
+Reproduce from this worktree through the existing guarded wrapper:
+
+```sh
+julia --project=. --compile=min diagnostics/adaptive-degeneracy/reproduce/focused.jl
+julia --project=. --compile=min diagnostics/adaptive-degeneracy/reproduce/regressions.jl
+julia --project=. diagnostics/adaptive-degeneracy/reproduce/models.jl runtime primal 300 runtime-primal.toml
+julia --project=. diagnostics/adaptive-degeneracy/reproduce/models.jl medium primal 900 medium-primal.toml
+julia --project=. diagnostics/adaptive-degeneracy/reproduce/models.jl medium dual 900 medium-dual.toml
+```
+
+The focused runner additionally includes the final 80 lifecycle assertions
+that were added for the normal-compilation run; its earlier recorded count
+predates those additions. The lifecycle suite itself can be run with `using Test,
+JSimplex; include("test/adaptive_pricing_lifecycle_tests.jl")`.
+
+### Runtime primal result
+
+The isolated 300-second runtime primal run ends with `TIME_LIMIT` after 11,551
+iterations and 5,275 refactorizations. It stays in phase I. There are 21 Dantzig
+trials: eight productive returns, 12 expired trials and one still active when
+the solve limit stops the run. Completed trials consume 128 or 256 observations,
+within the configured maximum. The last trace point (iteration 11,328, 180.36
+seconds) has working objective 602,968.8953; it is not a final original-model
+objective or feasibility certificate. The initial productive episodes change
+the trajectory, but later trials still stagnate. This does not solve runtime.
+See [the structured result](results/runtime-primal-lifecycle.toml).
+
+### Medium dual result
+
+The isolated 900-second medium dual run ends with `TIME_LIMIT` after 38,724
+iterations and 484 refactorizations. It completes the auxiliary phase. All 64
+Dantzig trials return after productive windows; none expire. At iteration
+35,395 (824.91 seconds), the accepted original-bound handoff records steepest
+edge, `temporary=false` and zero pricing observations. No trial is carried into
+phase II. Its later recorded points stay on steepest edge.
+
+The early flat objective accompanies decreasing primal infeasibility and does
+not trigger Dantzig. Later in phase I, repeated stalled weighted intervals
+alternate with productive Dantzig trials and returns. At the phase boundary the
+working objective and primal infeasibility still jump to approximately
+-7.37362e13 and 1.28412e9, respectively; dual infeasibility is zero. The last
+recorded phase-II point at iteration 38,000 has objective -7.37037e13 and primal
+infeasibility 5.12854e9. These working metrics do not certify an original-model
+solution, and the run does not reach optimality. See
+[the structured result](results/medium-dual-lifecycle.toml).
+
+### Medium primal result
+
+The isolated 900-second medium primal run ends with `TIME_LIMIT` after 26,893
+iterations and 337 refactorizations, still in phase I. Its 35 Dantzig trials
+include two productive returns and 33 expirations. Completed trial lengths are
+128, 192 or 256 observations. The last recorded working objective is 148,923,900
+at iteration 26,000 (872.65 seconds), down from the initial 346,750,000. Long
+plateaus remain between occasional improvements. Original-model optimality is
+not established. See [the structured result](results/medium-primal-lifecycle.toml).
+
+| Model | Algorithm | Limit (s) | Iterations | Refactorizations | Productive returns | Expired trials | Status |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | --- |
+| runtime | primal | 300 | 11,551 | 5,275 | 8 | 12 | TIME_LIMIT |
+| medium | dual | 900 | 38,724 | 484 | 64 | 0 | TIME_LIMIT |
+| medium | primal | 900 | 26,893 | 337 | 2 | 33 | TIME_LIMIT |
+
+All three reports have production digest
+`ab4555ffebf4a641216bc3676e2bf0ade9a5f8d1479e3761ab3654dd2d6cc3c1`.
+A post-run check of every recorded entry and return confirms at most 256
+observations per completed trial, exactly 256 for expiry, restoration of the
+saved rule, and at least 128 observations before a subsequent trial. Phase
+resets start with zero observations and no active trial. The final runtime
+trial is interrupted by the overall solve limit rather than completed.
+
+These measurements establish the intended lifecycle over the recorded runs.
+They do not show that switching pricing resolves degeneracy: no tested model
+run reaches optimality. In particular, phase-II medium dual is observed only
+from approximately 825 to 900 seconds; longer-term behavior remains untested.
+
+## Phase-I perturbations with bounded adaptive pricing
+
+The next investigation compares monitoring, perturbations, pricing and their
+combination with the same internal `phase_one=true` construction. It reproduces
+and fixes a native point-recovery check against the wrong bounds while an owned
+perturbation is active. See [the interaction report](phase-one-interactions.md)
+for the isolated model measurements, regression evidence and remaining limits.
+The captured runtime failure is removed; convergence is not established. The
+combined medium primal run still fails at iteration 5,443, with independently
+confirmed working-bound infeasibility. The report retains this negative result
+and does not recommend enabling the combined path by default.
+
+## Degenerate bound-snap point recovery
+
+[The pre-pivot capture and certified midpoint recovery](balanced-point-recovery.md)
+localize the combined medium Phase-I failure at iteration 5443. The report
+distinguishes the numerical repair from evidence about degeneracy and convergence.
+
+## Method-specific progress and intervention ordering
+
+[The ordered-intervention report](intervention-order.md) separates the progress
+metric change from scheduling, records both primal measurements, and checks
+that adaptive shifts do not occur inside a temporary pricing trial.
+
+## Dual feasibility history across cost repairs
+
+[The cost-history report](dual-cost-history.md) identifies repeated monitor
+replacement during numerical dual cost repairs, preserves comparable feasibility
+history, and distinguishes that repair from the remaining convergence problem.
+
+## Working row values after primal bound perturbation
+
+[The ratio capture and working-row experiments](working-row-values.md) identify
+an original/working-bound mismatch that discards a strong zero-step pivot. The
+report separates exact ratio replay and passing pivot regressions from subsequent
+real-model failures. At that checkpoint both candidate patches were retained only as diagnostic
+artifacts; see the later representable recovery below for the accepted scope fix.
+
+## Complementary errors in primal point recovery
+
+[The coupled-point investigation](coupled-point-recovery.md) captures the next
+experimental failure and identifies different model rows blocking prediction
+and residual correction. A single joint midpoint repairs that pivot but fails
+125 iterations later in a fresh runtime run. The new candidate is also retained
+only as a diagnostic artifact at that checkpoint. See the later recovery below.
+
+
+## Bounded joint primal feasibility recovery
+
+[The joint-recovery investigation](joint-point-recovery.md) adds coupled row
+projections after existing point recovery, with nonbasic values fixed.
+It repairs the earlier snapshots, but full runtime runs still fail. The controlled
+probes distinguish overly strong interior targets from clipping and representable
+update limitations. Both candidates remain diagnostic artifacts. The later recovery below replaces
+their rejected projection method.
+
+## Native recovery with active bounds and representable updates
+
+[The representable-point investigation](representable-point-recovery.md) adds a
+bounded, fully certified core recovery with fixed nonbasic values and unchanged
+tolerances. It redistributes clipped row corrections and preserves a nearby pivot
+prediction when reconstruction has no admissible local box. A fresh runtime run
+passes the captured failures and reaches 14,845 iterations in 300 seconds, with
+Phase I still unfinished. This does not establish convergence or solve medium.
+
+## Extended runtime continuation
+
+[The extended runtime diagnostic](extended-runtime.md) raises the isolated primal
+run budget to 900 seconds. The auxiliary objective continues to fall substantially,
+but point certification fails at iteration 19,222 after 523 seconds. This supersedes
+any interpretation of the preceding 300-second TIME_LIMIT as numerical closure.
+The report separates the failed reconstruction from the actual recovery anchor.
+
+## Structural values across zero primal steps
+
+[The structural-bound retention report](structural-bound-values.md) implements
+the core correction identified by the extended runtime diagnostic. It preserves
+the certified point at the captured structural exit and adds portable scope
+regressions. A fresh 900-second run reaches 77,180 iterations without numerical
+termination; its last completed-pivot sample has auxiliary objective 812.97805.
+Phase I remains unfinished. Perturbations are enabled but never triggered on
+this changed trajectory, so this is not a new combined-intervention success claim.
+
+## Longer runtime and the Phase-I transfer boundary
+
+[The 1,800-second continuation experiment](structural-runtime-continuation.md)
+reproduces all 111 shared events and progresses beyond the prior budget.
+The auxiliary optimization passes its terminal checks, but export to a fresh
+original-dimension workspace fails at iteration 102,446 after 1,315 seconds.
+A portable control demonstrates loss of a certified point at this boundary and
+successful recovery when the mapped point is retained. The actual runtime
+transfer point has not yet been captured; its correction remains unverified.
+
+## Captured runtime phase transfer
+
+[The actual boundary replay](phase-transfer-capture.md) now captures that endpoint
+and reproduces all 137 events from the preceding run. Carrying the maintained
+nonbasic values restores a fully certified primal point of the reduced original
+model. The complete export still rejects both primal and dual basis residual
+checks; no production fix is promoted. The saved snapshots allow those numerical
+checks to be investigated without repeating the long Phase-I prefix.
+
+## Native correction of the captured transfer residuals
+
+[The residual investigation](phase-transfer-residuals.md) localizes the rejecting
+basis equations and tests one Float64 correction per direction. Separate dual
+correction and cleanup pass. Primal cleanup instead removes tiny values needed
+by nonzero right-hand sides and is correctly rejected without changing the live
+point or prices. The next numerical recovery candidate must preserve these local
+relations; no production change or completed phase export is claimed here.
+
+## Local reconstruction of the phase-transfer equations
+
+[The bounded local reconstruction experiment](phase-transfer-local-rows.md)
+repairs the captured primal residuals in two sweeps while retaining the small
+nonzero right-hand sides. The complete diagnostic export passes every original
+check. A portable cycle and zero-sweep export remain rejected. This is a local
+candidate with explicit production-integration requirements, not a Phase-II or
+whole-runtime convergence result.
+
+## Production phase export and Phase-II continuation
+
+[The native transfer recovery](phase-transfer-recovery.md) integrates the bounded
+local repair with cancellation, rollback and policy guards. A fresh runtime run
+reproduces all 136 prior prefix records, passes Phase-I export at iteration
+102,446 and reaches 124,750 iterations before its 1,800-second limit. The requested
+continuation reaches iteration 128,873 and then rejects a below-threshold primal
+pivot near the reference objective. That endpoint is retained for diagnosis;
+whole-runtime optimality is still unproven.
+
+## Feasible flips at the Phase-II endpoint
+
+[The small-pivot correction](phase-two-small-pivot.md) identifies 47 improving
+variables whose finite bound moves were hidden by zero ratios on unusable
+pivots. The guarded native ratio path now completes those 47 flips and reaches
+the reduced problem certificate. Original-model postsolve still fails: the
+restored target has original-bound violations already present before the flips.
+The target and projection boundary are captured for the next investigation; no
+original-input optimum or new uninterrupted whole-MPS solve is claimed.
+
+
+## Original-space postsolve hints
+
+[Original-space recovery from an approximate target](postsolve-hints.md) traces
+the remaining runtime violation to scaled-unit errors amplified by unscaling.
+The native cleanup now accepts finite approximate targets solely as hints for
+basis exchanges; the reconstructed original point still requires full certification.
+Reconstructed continuation reaches OPTIMAL with original primal feasibility,
+objective 51,425,691.76210431 and 130,052 cumulative iterations. This is a saved
+Phase-II continuation, not a fresh whole-MPS run.
+
+## Fresh runtime verification after postsolve repair
+
+[The full run from MPS](postsolve-full-run.md) does **not** finish: it returns
+NUMERICAL_ERROR, `artificial removal could not be completed`, after 82,000
+iterations and 597.688 seconds. The new trajectory reaches a different Phase-I
+export state; the previously successful saved continuation is not a complete
+fresh-solve result. The final workspace is retained for targeted diagnosis.
+
+## Coupled homogeneous roundoff at phase export
+
+[The targeted core correction](phase-components.md) clears a certified component
+of tiny homogeneous roundoff after bounded local reconstruction fails. It fixes
+the fresh-run export at iteration 82,000 without changing tolerances or precision.
+A new complete run from MPS in the same isolated adaptive configuration reaches
+**OPTIMAL**, objective **51,425,691.762104236**, with original primal feasibility,
+106,252 iterations, 1,341 refactorizations and 846.284 seconds. All 79 sampled
+Phase-I pivot records match the preceding failed run before the repaired export.
+
+## Broader corpus and ordering validation
+
+[The expanded validation](broad-validation.md) tests 33 additional NetLib/MIPLib
+models through native and JuMP readers, followed by manager, permutation, dual
+and paired disabled-component controls (101 solves in total). The latest repair
+is necessary for verified optima on scsd6 and mod010 in the captured orderings.
+Other numerical failures and a presolve tolerance discrepancy remain; the report
+separates those from direct repair coverage and documents the isolated policy,
+90-second per-case limit and disabled original-model restart.
+
+
+## Native reconstruction after an artificial exchange
+
+[The phase-transition correction](artificial-exchange-recovery.md) applies the
+existing certified native recovery when an individual artificial exchange loses
+basis residual reliability after refactorization. The previously failing mod010
+permutation reaches verified OPTIMAL in 679 iterations. Portable two-precision,
+four-manager regressions and 20 selected real-model runs verify the change;
+three numerical failures outside this transition remain explicitly recorded.
+
+## Native reduced-price reconstruction
+
+[The bounded price correction](native-price-recovery.md) addresses an unreliable
+native BTRAN behind repeated Phase-I direction-price rejections. It preserves
+zero price tolerance, true tiny improving costs and the finite recovery budget.
+Six configurations pass this pricing obstacle but still fail at artificial
+removal; the selected 30-case suite has 17 verified optima and 13 numerical
+errors. The report distinguishes captured auxiliary optimality from full solves
+and includes a paired control with only the new recovery disabled.
+
+## Native pivot rows during artificial removal
+
+[The artificial-row correction](artificial-row-recovery.md) reuses bounded
+native cleanup when the shared BTRAN row would reject every removal candidate.
+The 30-case comparison improves from 17 to 21 verified optima: mod010 seed 1/PFI,
+both degen2 readers and native misc07 now complete. The 24 unchanged
+configurations retain their numerical outcomes and work counts; both degen3
+readers advance through exchanges but still fail removal. Pivot and original
+feasibility certificates remain unchanged.
+
+## Exact nonbasic bounds before a blocked artificial exchange
+
+[The boundary normalization](artificial-bound-normalization.md) repairs an
+auxiliary optimum whose tolerated negative values conceal a basic artificial
+above the removal tolerance. One certified reconstruction with exact nonbasic
+bounds is attempted only at the existing rejection point. Both degen3 readers
+now reach verified optima (3613 and 4089 iterations), bringing the same 30-case
+suite to 23 optima and seven numerical errors. The other 28 numerical outcomes
+are unchanged. Ordinary primal bound-value retention, pricing, tolerance and
+precision are preserved; failed reconstruction cannot publish an original basis.
+
+## Reliable BTRAN with an inaccurate near-zero price
+
+[The price-refinement correction](reliable-price-refinement.md) handles a
+verified direction-price discrepancy even when BTRAN passes the ordinary
+residual threshold. One native correction must strictly improve the residual
+and satisfy the full certificate. The 30-case comparison improves from 23 to
+28 verified optima: mod010 seed 1 with FT/SS, native boeing1, and both p0201
+readers now finish. The other 25 configurations are unchanged; native cycle
+and JuMP stocfor2 retain their earlier numerical failures.
+
+## Native cycle driver reconstruction
+
+[Driver local reconstruction](driver-local-reconstruction.md) repairs the
+remaining native `cycle` cleanup failure. After restoring the original bounds,
+the driver needs a reliable but still infeasible basis before dual repair.
+Reusing the existing certified local reconstruction with the same single native
+correction preserves that distinction. Rejected homogeneous clearing is discarded
+before trying the local alternative.
+
+The paired 30-configuration corpus now has **29 verified optima and one numerical
+error**. Native `cycle` reaches its verified original optimum in 963 iterations;
+the other 29 configurations retain status, iteration and refactorization counts,
+phase sequence and objective exactly. JuMP `stocfor2` still fails at iteration
+1957 with primal feasibility lost. This change adds no adaptive policy decision.
+
+## Explicit dual entry and subsequent primal cleanup
+
+[Dual entry phase context](dual-entry-phase.md) fixes the remaining JuMP
+`stocfor2` failure. Its reduced model was already optimal; original-model cleanup
+requested dual simplex but inherited primal options, causing wrong driver
+selection. Explicit dual entry now owns a temporary dual context, and its direct
+original-cost primal cleanup owns a temporary primal context. Both restore the
+caller's settings on every exit.
+
+The paired corpus now reaches **30 verified original optima out of 30**. JuMP
+`stocfor2` finishes in 2322 iterations; the other 29 configurations retain their
+status, iterations, refactorizations, phase sequence and objective exactly.
+
+## Paired dual corpus verification
+
+[Dual corpus validation](dual-corpus-validation.md) extends the phase-context
+check to 28 dual configurations over nine NetLib/MIPLib models, including both
+readers, explicit permutations and all four basis managers. Both `a7f1fac` and
+`d5390a2` reach 28/28 independently verified optima with identical iterations,
+refactorizations, objectives, phase sequences and diagnostic counts. These are
+56 completed paired solves under normal compilation, with no original-LP retry
+or time limit. No production change was needed. The report states the coverage
+limits and retains the manifest, source hashes, logs and paired comparison.
+
+## Expanded dual PFI verification and pilotnov diagnosis
+
+[Expanded dual validation](expanded-dual-validation.md) adds 48 runs over the
+remaining 24 models. Together with the matching earlier reader pairs, 64/66
+configurations reach verified optima; both remaining main-suite cases reject
+`pilotnov` in presolve before iteration zero. No main-suite run reaches a time
+limit or numerical error.
+
+Separate `presolve=false` controls expose a dual core failure on both pilotnov
+reader orders (164/142 iterations). An unchanged-trajectory pivot audit and exact
+rational diagnosis confirm that a false accepted pivot changes a nonsingular
+basis into a singular one; FTRAN and BTRAN estimates have opposite signs. The
+report retains reproductions and explicitly makes no production-fix claim.
+
+
+## Mandatory native dual pivot consistency
+
+[Dual pivot consistency](dual-pivot-consistency.md) repairs the diagnosed
+no-presolve pilotnov core failure by comparing the FTRAN pivot with its BTRAN
+row coefficient before publishing the step. Disagreement enters the existing
+bounded transactional recovery in the original scalar type; no adaptive
+heuristic is added.
+
+Both pilotnov reader orders now reach independently verified original optima
+in 1806/2524 iterations. The separate 76-case dual corpus preserves every prior
+status, iteration/refactorization count, phase sequence and objective exactly:
+74 verified optima and two unchanged presolve rejections. All 28 paired primal
+configurations also retain their verified optima and exact trajectories. The
+report retains an independent duplicate-column regression, broader semantic checks,
+and explicit validation limits. The pilotnov presolve discrepancy remains open.
+
+
+## Original-space tolerance for presolve infeasibility
+
+[Presolve tolerance](presolve-tolerance.md) resolves the remaining pilotnov
+presolve rejection. After strict presolve reports infeasibility, a separate
+zero-objective model represents the original row and column tolerance using
+bounded error variables. Only a conclusive infeasibility proof is retained;
+otherwise simplex receives the unchanged original LP. Successful strict
+reductions and zero-tolerance behavior remain unchanged.
+
+The final 104-case paired corpus reaches **104 verified original optima**.
+Pilotnov now solves with presolve enabled in 1806/2524 iterations (native/JuMP).
+The other 102 configurations retain their exact previous trajectories and
+diagnostic counts. The report retains the discarded initial representation,
+which rounded small tolerance allowances too widely at huge bounds, and the
+regressions that required its correction.
+
+A separate small binary-relaxation fixture reveals an analogous remaining
+strict-bound certificate issue inside both simplex methods. It reproduces with
+presolve disabled on the base commit; this presolve change does not repair it.
+The report and dedicated core probe record that limitation explicitly.
+
+
+## Original-space tolerance in simplex infeasibility certificates
+
+The [simplex certificate report](simplex-infeasibility-tolerance.md) follows the
+presolve fix with a shared row-combination proof for both simplex methods.
+The proof includes original-unit row and column tolerance allowances after
+scaling, uses outward native floating arithmetic, and treats bounded-rational
+overflow as inconclusive. Rejecting a tolerance-inconsistent infeasibility
+certificate does not itself find a feasible point or establish convergence.
+
+## Fresh runtime reader/method matrix
+
+The [full runtime verification](runtime-reader-full.md) on production base
+`b8955ac` covers native/JuMP readers and primal/dual simplex under the established
+isolated adaptive profile. Native primal reaches its checked optimum; JuMP
+primal fails artificial removal, and both dual orders lose dual feasibility
+near the tolerance boundary. Reports, scripts and local capture provenance are
+retained for diagnosis; no solver code changes accompany these runs.
+
+## Repairing the full-runtime failures
+
+[Runtime failure diagnosis](runtime-failure-repair.md) traces both dual failures
+to marginal working-price repair being disabled by an active perturbation
+journal, and the JuMP primal failure to coupled tiny nonhomogeneous equations
+at phase export. Both dual reader orders now converge after the bounded
+journal-aware repair. The repaired JuMP primal export exposes a later native
+FTRAN/BTRAN pivot disagreement during original-model cleanup; the report
+records that diagnosis and bounded tableau recovery. Fresh runs of all three
+previously failed combinations now reach verified optima. Validation includes
+16,279 semantic checks, 124 normally compiled checks, 104 external cases and
+independent exact evaluation of the returned runtime points.

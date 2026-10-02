@@ -274,7 +274,7 @@ function _primal_bound_snap_feasible(workspace::SimplexWorkspace{T}, entering::I
     step = (bound_value(bound) - workspace.primal[leaving]) / movement
     step >= zero(T) && return true
     state = movement > zero(T) ? AT_UPPER : AT_LOWER
-    _can_preserve_primal_row_value(workspace, leaving, state, bound) && return true
+    _can_preserve_primal_bound_value(workspace, leaving, state, bound) && return true
     # A tolerated bound violation has a negative ratio. Clipping it to zero
     # does not eliminate the movement imposed by fixing the leaving variable
     # exactly at its bound during the subsequent basis recomputation.
@@ -293,6 +293,19 @@ function _primal_bound_snap_feasible(workspace::SimplexWorkspace{T}, entering::I
         # Use the same per-bound feasibility criterion as legacy Harris pricing
         # and recomputation, including the movement imposed by this bound snap.
         violation = max(violation, bound_violation)
+        violation <= tolerance || return false
+    end
+    return true
+end
+
+function _primal_step_bounds_feasible(workspace::SimplexWorkspace{T}, direction::T,
+                                      column::Vector{T}, step::T) where {T}
+    tolerance = workspace.options.primal_tolerance
+    for (row, index) in enumerate(workspace.basis.basic_indices)
+        value = workspace.primal[index] - direction * column[row] * step
+        isfinite(value) || return false
+        violation = max(zero(T), _lower_violation(workspace.lower[index], value),
+                        _upper_violation(workspace.upper[index], value))
         violation <= tolerance || return false
     end
     return true
@@ -369,24 +382,20 @@ function _primal_ratio(workspace::SimplexWorkspace{T}, entering::Int, direction:
             largest_pivot = pivot
         end
     end
+    # Tolerated initial bound violations can create zero ratios on coefficients
+    # too small to pivot on. A finite entering bound remains a valid Harris move
+    # when the entire predicted step respects the same per-bound tolerance.
+    if _legacy_primal_row_validation_enabled(workspace) &&
+       largest_pivot <= workspace.options.zero_tolerance && isfinite(opposite) &&
+       isfinite(entering_step) && entering_step > zero(T) && entering_step <= relaxed_limit &&
+       _primal_step_bounds_feasible(workspace, direction, tableau_column, entering_step)
+        return entering_step, 0, BASIC
+    end
     if leaving_row == 0
         return fallback
     end
-    violation = zero(T)
-    for (row, index) in enumerate(workspace.basis.basic_indices)
-        value = workspace.primal[index] - direction * tableau_column[row] * leaving_step
-        if !isfinite(value)
-            return fallback
-        end
-        bound_violation = max(zero(T), _lower_violation(workspace.lower[index], value),
-                              _upper_violation(workspace.upper[index], value))
-        # Legacy feasibility is checked per bound. Summing already tolerated
-        # errors can reject a stable Harris pivot in favor of a tiny fallback.
-        violation = max(violation, bound_violation)
-        if violation > tolerance
-            return fallback
-        end
-    end
+    _primal_step_bounds_feasible(workspace, direction, tableau_column, leaving_step) ||
+        return fallback
     return leaving_step, leaving_row, leaving_state
 end
 
@@ -397,6 +406,7 @@ function _legacy_primal_iteration!(workspace::SimplexWorkspace, stop_requested,
     failure = DualTermination(NUMERICAL_ERROR, "primal ratio test is inconclusive")
     defer_weak = workspace.progress.numerical_policy.adaptive_pricing
     deferred = 0
+    price_recovery_attempted = false
     try
         # Search stable candidates first, then permit weak but validated pivots
         # if necessary. Each pass is finite, with one fresh-basis retry overall.
@@ -431,7 +441,7 @@ function _legacy_primal_iteration!(workspace::SimplexWorkspace, stop_requested,
                 # Only failures that leave the basis untouched allow another
                 # entering variable. Terminal certificates and limits return.
                 if isnothing(terminal) || terminal.status != NUMERICAL_ERROR ||
-                   workspace.scratch.selected_row != -1
+                   workspace.scratch.selected_row ∉ (-1,-2)
                     return terminal
                 end
                 failure = terminal
@@ -443,6 +453,17 @@ function _legacy_primal_iteration!(workspace::SimplexWorkspace, stop_requested,
                     attempts_left = length(workspace.basis.states)
                 end
                 basis_refreshed |= refreshed
+                if workspace.scratch.selected_row == -2 && !price_recovery_attempted
+                    # A price disagreement may need a more accurate fresh BTRAN.
+                    # Consume one attempt across both candidate-search passes.
+                    price_recovery_attempted = true
+                    if _try_native_primal_price_recovery!(workspace,stop_requested)
+                        empty!(rejected)
+                        attempts_left = length(workspace.basis.states)
+                        continue
+                    end
+                    stop_requested() && return DualTermination(TIME_LIMIT,"time limit reached during primal price recovery")
+                end
                 entering = workspace.scratch.selected_entering
                 entering > 0 || return failure
                 push!(rejected, entering)
@@ -465,7 +486,8 @@ end
 function _legacy_primal_reject_candidate!(workspace::SimplexWorkspace{T}, entering::Int,
                                          column::Vector{T}, stop_requested,
                                          reduced_cost_tolerance::T, basis_refreshed::Bool,
-                                         defer_weak::Bool, reason::Symbol, message::String) where {T}
+                                         defer_weak::Bool, reason::Symbol, message::String;
+                                         rejection_row::Int=-1) where {T}
     stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
     if !basis_refreshed && !isempty(workspace.factorization.updates)
         candidate = _legacy_primal_point_candidate(workspace, 0, 0, zero(T), column)
@@ -481,7 +503,9 @@ function _legacy_primal_reject_candidate!(workspace::SimplexWorkspace{T}, enteri
         return _primal_iteration_unchecked!(workspace, stop_requested,
                                             reduced_cost_tolerance, true, defer_weak)
     end
-    workspace.scratch.selected_row = -1
+    # Negative rows mark an unchanged basis: -1 is an ordinary rejection,
+    # while -2 permits the outer loop's bounded native price-recovery attempt.
+    workspace.scratch.selected_row = rejection_row
     return DualTermination(NUMERICAL_ERROR, message)
 end
 
@@ -538,7 +562,8 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
                                            reduced_cost_tolerance)
         return _legacy_primal_reject_candidate!(workspace, entering, tableau_column,
             stop_requested, reduced_cost_tolerance, basis_refreshed, defer_weak,
-            :refactor_residual, "primal reduced cost disagrees with its direction")
+            :refactor_residual, "primal reduced cost disagrees with its direction";
+            rejection_row=-2)
     end
     step, leaving_row, leaving_state = if incremental || incremental_pivot
         _with_recovery_precision(workspace, workspace) do
@@ -640,10 +665,10 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
                 "primal pivot transpose row is inaccurate")
         end
         stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached before pivot application")
-        _effective_pricing(workspace,:primal) == :devex &&
+        _weight_pricing(workspace,:primal) == :devex &&
             _primal_update_devex!(workspace, entering, leaving_row,
                                    tableau_column[leaving_row];shared_row=incremental_pivot || legacy_row)
-        _effective_pricing(workspace,:primal) == :steepest_edge &&
+        _weight_pricing(workspace,:primal) == :steepest_edge &&
             _primal_update_steepest!(workspace, entering, leaving_row,
                                      tableau_column[leaving_row];shared_row=incremental_pivot || legacy_row)
         if incremental_pivot
@@ -730,30 +755,8 @@ function _primal_optimize!(workspace::SimplexWorkspace{T}, stop_requested,
     end
 end
 
-_primal_infeasibility_certified(workspace::SimplexWorkspace{T}, dual::Vector{T}) where {T<:AbstractFloat} =
-    _floating_infeasibility_certified(workspace, dual, false)
-
-function _primal_infeasibility_certified(workspace::SimplexWorkspace{T},
-                                         dual::Vector{T}) where {T<:Rational}
-    A = workspace.problem.A
-    column_count = size(A, 2)
-    minimum_value = zero(T)
-    for index in eachindex(workspace.lower)
-        coefficient = zero(T)
-        if index <= column_count
-            for position in A.colptr[index]:(A.colptr[index + 1] - 1)
-                coefficient -= dual[A.rowval[position]] * A.nzval[position]
-            end
-        else
-            coefficient = dual[index - column_count]
-        end
-        iszero(coefficient) && continue
-        bound = coefficient > zero(T) ? workspace.lower[index] : workspace.upper[index]
-        isfinite(bound) || return false
-        minimum_value += coefficient * bound_value(bound)
-    end
-    return minimum_value > zero(T)
-end
+_primal_infeasibility_certified(workspace::SimplexWorkspace{T}, dual::Vector{T}) where T =
+    _infeasibility_certified(workspace, dual, false)
 
 function _primal_phase_one_matrix(A::SparseMatrixCSC{T,Int}, artificial_rows::Vector{Int},
                                   artificial_signs::Vector{T}) where {T}
@@ -841,6 +844,7 @@ function _primal_phase_one(problem::LinearProblem{T}, options::SolverOptions{T},
         workspace.basis.states[row_variable] = row_states[artificial]
     end
     recompute!(workspace; refactorize=true, caller_guard=stop_requested)
+    _inherit_primal_phase_pricing!(workspace,initial)
     return workspace, artificial_count, initial
 end
 

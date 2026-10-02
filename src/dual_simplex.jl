@@ -42,7 +42,7 @@ end
 function _finite_workspace(workspace::SimplexWorkspace{T}) where {T}
     return _finite_values(workspace.primal,Val(false)) && _finite_values(workspace.reduced_costs,Val(false)) &&
            _finite_values(workspace.costs,Val(false)) &&
-           (_effective_pricing(workspace,:dual) == :dantzig ||
+           (_weight_pricing(workspace,:dual) == :dantzig ||
             _finite_values(workspace.pricing_weights,Val(true)))
 end
 
@@ -600,8 +600,9 @@ function _switch_dual_pricing_to_devex!(workspace::SimplexWorkspace{T},
                                         stop_requested, reason::String;
                                         stored_weight::Union{Nothing,T}=nothing,
                                         actual_weight::Union{Nothing,T}=nothing) where {T}
-    if workspace.options.pricing == :auto
+    if !isnothing(workspace.scratch.pricing)
         _reject_auto_weight!(workspace)
+        workspace.options.pricing == :auto || (workspace.dual_devex_fallback = true)
     else
         workspace.dual_devex_fallback = true
         reset_devex!(workspace)
@@ -618,7 +619,7 @@ end
 function _recover_invalid_dse_weights!(workspace::SimplexWorkspace{T},
                                        stop_requested) where {T}
     if (_is_exact(T) === Val(false) || workspace.options.pricing == :auto) &&
-       _effective_pricing(workspace,:dual) == :steepest_edge &&
+       _weight_pricing(workspace,:dual) == :steepest_edge &&
        any(weight -> !isfinite(weight) || weight <= zero(T), workspace.pricing_weights)
         _switch_dual_pricing_to_devex!(workspace, stop_requested,
                                        "invalid steepest-edge weight")
@@ -652,7 +653,7 @@ function update_dual_pricing_weights!(workspace::SimplexWorkspace{T},
                                       rho::Vector{T}, tableau_row::Vector{T},
                                       tableau_column::Vector{T}, entering_index::Int,
                                       pivot::T, dse_weight::T, stop_requested) where {T}
-    if _effective_pricing(workspace,:dual) == :steepest_edge
+    if _weight_pricing(workspace,:dual) == :steepest_edge
         update_dse!(workspace, rho, tableau_column, entering_index, pivot,
                     dse_weight)
         if !_finite_workspace(workspace)
@@ -662,7 +663,7 @@ function update_dual_pricing_weights!(workspace::SimplexWorkspace{T},
             # pivot before replacing its basis column.
             update_devex!(workspace, tableau_row, tableau_column, entering_index, pivot)
         end
-    elseif _effective_pricing(workspace,:dual) == :devex
+    elseif _weight_pricing(workspace,:dual) == :devex
         update_devex!(workspace, tableau_row, tableau_column, entering_index, pivot)
     end
     return _finite_workspace(workspace)
@@ -694,11 +695,64 @@ function _add_product_bounds(lower::T, upper::T, left::T, right::T) where {T<:Ab
     return prevfloat(lower + prevfloat(product)), nextfloat(upper + nextfloat(product))
 end
 
+# In these scaling conventions x_work = column_factor*x_original and
+# row_activity_work = row_activity_original/row_factor. Artificial columns
+# appended in phase I have no original column factor and retain working units.
+function _infeasibility_bound_allowance(workspace::SimplexWorkspace{T}, index::Int) where T
+    tolerance = workspace.options.primal_tolerance
+    iszero(tolerance) && return zero(T)
+    n = size(workspace.problem.A,2)
+    scaling = workspace.progress.scaling
+    allowance = if index <= n
+        index <= length(scaling.column_factors) ?
+            tolerance * scaling.column_factors[index] : tolerance
+    else
+        tolerance / scaling.row_factors[index-n]
+    end
+    # Widen a computed allowance, never the stored bound: adding a sub-ulp
+    # tolerance to a large bound would lose it or expand by a whole ulp.
+    return T <: AbstractFloat ? nextfloat(allowance) : allowance
+end
+
+_infeasibility_certified(workspace::SimplexWorkspace{T}, rho::Vector{T}, below::Bool) where {T<:AbstractFloat} =
+    _floating_infeasibility_certified(workspace,rho,below)
+
+function _infeasibility_certified(workspace::SimplexWorkspace{T},
+                                  rho::Vector{T}, below::Bool) where {T<:Rational}
+    try
+        A = workspace.problem.A
+        n = size(A,2)
+        orientation = below ? one(T) : -one(T)
+        minimum_value = zero(T)
+        for index in eachindex(workspace.lower)
+            coefficient = zero(T)
+            if index <= n
+                for position in nzrange(A,index)
+                    coefficient += orientation*rho[A.rowval[position]]*A.nzval[position]
+                end
+            else
+                coefficient = -orientation*rho[index-n]
+            end
+            iszero(coefficient) && continue
+            bound = coefficient > zero(T) ? workspace.lower[index] : workspace.upper[index]
+            isfinite(bound) || return false
+            minimum_value += coefficient*bound_value(bound) -
+                abs(coefficient)*_infeasibility_bound_allowance(workspace,index)
+        end
+        return minimum_value > zero(T)
+    catch exception
+        # Bounded rational intermediates may exceed their integer storage.
+        # Failure to represent the proof is inconclusive, never infeasibility.
+        exception isa OverflowError || rethrow()
+        return false
+    end
+end
+
 function _floating_infeasibility_certified(workspace::SimplexWorkspace{T},
                                           rho::Vector{T}, below::Bool) where {T<:AbstractFloat}
     # Every feasible working vector satisfies [A -I] * x == 0. A row
-    # combination whose minimum over the bounds is strictly positive proves
-    # a contradiction without relying on the computed basic primal values.
+    # combination must stay positive over the tolerance envelope of the bounds.
+    # This does not rely on the computed basic primal values.
     A = workspace.problem.A
     column_count = size(A, 2)
     orientation = below ? one(T) : -one(T)
@@ -729,7 +783,15 @@ function _floating_infeasibility_certified(workspace::SimplexWorkspace{T},
             term = min(term, coefficient_lower * endpoint, coefficient_upper * endpoint)
         end
         isfinite(term) || return false
-        total = minimum_value + prevfloat(term)
+        contribution = prevfloat(term)
+        allowance = _infeasibility_bound_allowance(workspace,index)
+        if !iszero(allowance)
+            magnitude = nextfloat(max(abs(coefficient_lower),abs(coefficient_upper)))
+            penalty = nextfloat(magnitude*allowance)
+            isfinite(penalty) || return false
+            contribution = prevfloat(contribution-penalty)
+        end
+        total = minimum_value + contribution
         isfinite(total) || return false
         minimum_value = prevfloat(total)
     end
@@ -1148,7 +1210,7 @@ function _dual_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_request
         stop_requested() && return DualTermination(TIME_LIMIT,"time limit reached during pricing recovery")
         return _dual_iteration_unchecked!(workspace,stop_requested,basis_refreshed,perturb_degenerate)
     end
-    if _effective_pricing(workspace,:dual) == :steepest_edge &&
+    if _weight_pricing(workspace,:dual) == :steepest_edge &&
        _is_exact(T) === Val(false)
         dse_weight = dot(rho, rho)
         stored_weight = workspace.pricing_weights[leaving_index]
@@ -1201,9 +1263,9 @@ function _dual_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_request
                     perturb_degenerate;force_full_pricing=true)
             end
         end
-        if _is_exact(T) === Val(false) && !_floating_infeasibility_certified(workspace, rho, below)
+        if !_infeasibility_certified(workspace, rho, below)
             return DualTermination(NUMERICAL_ERROR,
-                                   "floating row combination does not certify infeasibility")
+                                   "row combination does not certify infeasibility at primal tolerance")
         end
         return DualTermination(INFEASIBLE, "no eligible dual pivot")
     end
@@ -1296,6 +1358,30 @@ function _dual_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_request
         end
     end
     checked_pivot = workspace.progress.numerical_policy.pivot_validation
+    if !checked_pivot && _is_exact(T) === Val(false)
+        # A small backward residual cannot certify a pivot in an ill-conditioned
+        # basis. The row used by the ratio test must agree with the direction
+        # used to update primal values before either the flips or pivot publish.
+        row_pivot = tableau_row[entering_index]
+        agreement = sqrt(eps(one(T))) * max(abs(pivot), abs(row_pivot))
+        if !_pivot_agrees(row_pivot, pivot, agreement)
+            cancelled=Ref(false)
+            guard=()->(cancelled[]=cancelled[] || stop_requested())
+            if _try_native_dual_tableau!(workspace,leaving_row,entering_index,
+                    orientation,abs(delta),flips,guard)
+                pivot=tableau_column[leaving_row]
+                refined_row=true
+            else
+                cancelled[] && return DualTermination(TIME_LIMIT,"time limit reached during native tableau recovery")
+                _is_staged_workspace(workspace) &&
+                    throw(_PivotRejection(leaving_row, entering_index, :refresh))
+                # Ordinary consistent steps retain the direct path. Only a failed
+                # comparison enters the existing bounded, transactional retry.
+                return _retry_simplex_step!(workspace, stop_requested, :dual,
+                    workspace.options.dual_tolerance, basis_refreshed, perturb_degenerate)
+            end
+        end
+    end
     if checked_pivot
         proposal = PivotCandidate(entering_index,leaving_row,
                                   tableau_row[entering_index],tableau_column,rho)
@@ -1323,7 +1409,7 @@ function _dual_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_request
         stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
         return DualTermination(NUMERICAL_ERROR, "small pivot dual price could not be certified")
     end
-    if refined_row && _effective_pricing(workspace,:dual) == :steepest_edge
+    if refined_row && _weight_pricing(workspace,:dual) == :steepest_edge
         dse_weight = dot(rho, rho)
         stored_weight = workspace.pricing_weights[leaving_index]
         if workspace.options.pricing == :auto
@@ -1352,7 +1438,7 @@ function _dual_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_request
     end
     update_duals!(workspace, tableau_row, leaving_index, entering_index, dual_step)
     update_primals!(workspace, tableau_column, entering_index, leaving_row, primal_step)
-    if _effective_pricing(workspace,:dual) == :steepest_edge &&
+    if _weight_pricing(workspace,:dual) == :steepest_edge &&
        _is_exact(T) === Val(true)
         dse_weight = dot(rho, rho)
     end
@@ -1565,13 +1651,15 @@ end
 
 _refined_primal_rows_feasible(::LinearProblem, ::Vector, tolerance, rows) = false
 
-function _original_primal_feasible(problem::LinearProblem{T}, primal::Vector{T}, tolerance::T) where {T}
-    _within_primal_bounds(primal, problem.column_lower, problem.column_upper, tolerance) || return false
+function _primal_feasible_with_bounds(problem::LinearProblem{T}, primal::Vector{T},
+                                      tolerance::T, column_lower, column_upper,
+                                      row_bound_lower, row_bound_upper) where {T}
+    _within_primal_bounds(primal, column_lower, column_upper, tolerance) || return false
     row_lower, row_upper = _primal_row_bounds(problem.A, primal, _is_exact(T))
-    # Certify the entire activity interval in the original absolute units.
+    # Certify the entire activity interval in the requested absolute units.
     # Cancellation uncertainty must not enlarge the configured tolerance.
-    _within_primal_intervals(row_lower, row_upper, problem.row_lower,
-                             problem.row_upper, tolerance) && return true
+    _within_primal_intervals(row_lower, row_upper, row_bound_lower,
+                             row_bound_upper, tolerance) && return true
     # A long floating sum can have a wider enclosure than the absolute
     # tolerance, or overflow before cancellation, even when its exact
     # stored-coefficient activity is feasible. Exact fallback checks finite
@@ -1580,10 +1668,16 @@ function _original_primal_feasible(problem::LinearProblem{T}, primal::Vector{T},
     rows = Int[]
     for row in eachindex(row_lower)
         _primal_interval_within_bounds(row_lower[row], row_upper[row],
-                                       problem.row_lower[row], problem.row_upper[row],
+                                       row_bound_lower[row], row_bound_upper[row],
                                        tolerance) || push!(rows, row)
     end
-    return _refined_primal_rows_feasible(problem, primal, tolerance, rows)
+    return _refined_primal_rows_feasible(problem, primal, tolerance, rows,
+                                          row_bound_lower, row_bound_upper)
+end
+
+function _original_primal_feasible(problem::LinearProblem{T}, primal::Vector{T}, tolerance::T) where {T}
+    return _primal_feasible_with_bounds(problem, primal, tolerance,
+        problem.column_lower, problem.column_upper, problem.row_lower, problem.row_upper)
 end
 
 _original_primal_feasible(workspace::SimplexWorkspace{T}, primal::Vector{T}) where {T} =
@@ -1816,6 +1910,10 @@ function _auxiliary_workspace(workspace::SimplexWorkspace{T}) where {T}
             fill(CONTINUOUS,column_count),workspace.problem.name,String[],String[])
         auxiliary.perturbed = false
     end
+    _copy_pricing_state!(auxiliary,workspace)
+    copyto!(auxiliary.scratch.steepest_valid,workspace.scratch.steepest_valid)
+    auxiliary.scratch.steepest_initialized = workspace.scratch.steepest_initialized
+    _reset_auto_pricing!(auxiliary)
     auxiliary.scratch.refactorization = deepcopy(workspace.scratch.refactorization)
     auxiliary.scratch.refactorization.timing_depth = 0
     auxiliary.scratch.dual_perturbation_allowed = false
@@ -1964,7 +2062,6 @@ function _make_dual_feasible!(workspace::SimplexWorkspace{T}, stop_requested) wh
 
     auxiliary = _auxiliary_workspace(workspace)
     _report_simplex_phase(auxiliary, :I, :dual, stop_requested)
-    _reset_workspace_stagnation!(workspace)
     # Artificial auxiliary bounds can reverse a nonbasic state when the basis
     # returns to the original LP. Keep anti-degeneracy cost shifts out of this
     # phase so a shifted price cannot become infeasible after that remapping.
@@ -2018,14 +2115,18 @@ function _make_dual_feasible!(workspace::SimplexWorkspace{T}, stop_requested) wh
     trial.factorization = copy_basis_factorization(workspace.factorization)
     trial.scratch.refactorization = deepcopy(workspace.scratch.refactorization)
     trial.basis = basis
-    _reset_auto_pricing!(trial)
+    _copy_pricing_state!(trial,auxiliary)
     trial.pricing_weights .= auxiliary.pricing_weights
+    trial.devex_reference .= auxiliary.devex_reference
+    trial.scratch.steepest_valid .= auxiliary.scratch.steepest_valid
+    trial.scratch.steepest_initialized = auxiliary.scratch.steepest_initialized
     trial.costs .= auxiliary.costs
     trial.perturbed = auxiliary.perturbed
     # Start the stall count on the original bounds and objective.
     trial.zero_dual_step_streak = 0
     trial.dual_pricing_fallback = auxiliary.dual_pricing_fallback
     trial.dual_devex_fallback = auxiliary.dual_devex_fallback
+    _reset_auto_pricing!(trial)
     trial.dual_refactorization_interval = auxiliary.dual_refactorization_interval
     trial.dual_recent_repairs = auxiliary.dual_recent_repairs
     trial.dual_bad_update_min = auxiliary.dual_bad_update_min
@@ -2046,6 +2147,7 @@ function _make_dual_feasible!(workspace::SimplexWorkspace{T}, stop_requested) wh
     # No caller code runs while basis, values and factor are published together.
     _invalidate_basis_checkpoints!(workspace)
     _copy_pivot_state!(workspace, trial)
+    workspace.scratch.stagnation = nothing
     workspace.factorization = trial.factorization
     for reason in trial.progress.diagnostics.observer.pending
         _simplex_event!(workspace, reason)
@@ -2152,7 +2254,15 @@ function _solve_continuous_dual_once!(workspace::SimplexWorkspace{T}, stop_reque
        primal_infeasibility(workspace) <= options.primal_tolerance
         options.verbose && @info "Starting primal cleanup after restoring original costs"
         workspace.dual_devex_fallback = false
-        terminal = _primal_optimize!(workspace, stop_requested;perturb_degenerate=false)
+        # This direct cleanup bypasses the shared driver, so install the
+        # primal phase explicitly before running its native point safeguards.
+        phase_options = workspace.options
+        terminal = try
+            workspace.options = _phase_options(phase_options,:primal)
+            _primal_optimize!(workspace, stop_requested;perturb_degenerate=false)
+        finally
+            workspace.options = phase_options
+        end
         terminal.status == OPTIMAL || return _internal_solution(workspace, terminal)
     end
     stop_requested() && return _internal_solution(workspace, TIME_LIMIT, "time limit reached")
@@ -2164,16 +2274,24 @@ end
 
 
 function _solve_continuous_dual!(workspace::SimplexWorkspace{T},stop_requested) where T
-    guard = _guard_stop_callback(stop_requested)
-    run = try
-        _solve_continuous_dual_once!(workspace,guard)
-    catch exception
-        exception === guard.exception && rethrow()
-        (workspace.progress.numerical_policy.precision_boosting ||
-         workspace.progress.numerical_policy.lp_refinement) || rethrow()
-        _is_numerical_exception(exception) || rethrow()
-        DualRunResult{T}(NUMERICAL_ERROR,nothing,nothing,
-            workspace.iterations,workspace.refactorizations,sprint(showerror,exception))
+    original_options = workspace.options
+    try
+        # Postsolve may inherit a primal request while explicitly entering dual
+        # cleanup. Driver dispatch and native safeguards must follow this phase.
+        workspace.options = _phase_options(original_options,:dual)
+        guard = _guard_stop_callback(stop_requested)
+        run = try
+            _solve_continuous_dual_once!(workspace,guard)
+        catch exception
+            exception === guard.exception && rethrow()
+            (workspace.progress.numerical_policy.precision_boosting ||
+             workspace.progress.numerical_policy.lp_refinement) || rethrow()
+            _is_numerical_exception(exception) || rethrow()
+            DualRunResult{T}(NUMERICAL_ERROR,nothing,nothing,
+                workspace.iterations,workspace.refactorizations,sprint(showerror,exception))
+        end
+        return _recover_original_failure(workspace,run,guard)
+    finally
+        workspace.options = original_options
     end
-    return _recover_original_failure(workspace,run,guard)
 end

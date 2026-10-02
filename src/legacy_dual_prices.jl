@@ -5,7 +5,15 @@ function _shift_marginal_dual_prices!(ws::SimplexWorkspace{T}, stop) where T
     T === Float32 || T === Float64 || return false
     policy = ws.progress.numerical_policy
     (policy.pivot_validation || policy.solve_refinement || policy.recovery) && return false
-    _has_active_perturbations(ws.scratch.perturbations) && return false
+    journal = ws.scratch.perturbations
+    active = _has_active_perturbations(journal)
+    if active
+        # Repairs share the journal's working buffer and its cumulative cap.
+        # Never alter saved costs or attach shifts to a foreign/detached journal.
+        journal.active && journal.workspace_id == objectid(ws) &&
+            ws.costs === journal.active_costs &&
+            length(journal.original_costs) == length(ws.costs) || return false
+    end
     ws.perturbed || return false
     isempty(ws.factorization.updates) || return false
     stop() && return false
@@ -30,6 +38,10 @@ function _shift_marginal_dual_prices!(ws::SimplexWorkspace{T}, stop) where T
         isfinite(new_cost) || return false
         actual_shift = new_cost - old_cost
         isfinite(actual_shift) && abs(actual_shift) <= cap || return false
+        if active
+            displacement = new_cost - journal.original_costs[index]
+            isfinite(displacement) && abs(displacement) <= T(512) * tolerance || return false
+        end
         new_price = price + actual_shift
         isfinite(new_price) || return false
         # A large cost may not represent a sufficiently small shift. Require

@@ -125,7 +125,7 @@ end
     @test JSimplex._shift_marginal_dual_prices!(ws,()->false)
     ws=marginal_price_workspace()
     journal=JSimplex.PerturbationJournal(ws)
-    journal.active=true;ws.scratch.perturbations=journal;ws.costs=journal.active_costs
+    journal.active=true;ws.scratch.perturbations=journal;ws.costs=copy(journal.active_costs)
     costs,prices=copy(ws.costs),copy(ws.reduced_costs)
     @test !JSimplex._shift_marginal_dual_prices!(ws,()->false)
     @test ws.costs==costs && ws.reduced_costs==prices

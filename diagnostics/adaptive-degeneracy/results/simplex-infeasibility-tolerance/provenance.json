@@ -1,0 +1,163 @@
+{
+  "base_commit": "ada39e9896672d0e848e1f110e66bc8b69285f1c",
+  "production_sha256": "40d6fa0140556827f9e353987417296ef513e64c0618ea4afa3fcc8bddcb3718",
+  "environment": {
+    "julia": "1.13.0",
+    "architecture": "aarch64",
+    "julia_threads": 1,
+    "blas_threads": 1,
+    "precompile_workload": false,
+    "virtual_memory_gib": 8,
+    "minimum_available_ram_gib": 6,
+    "maximum_swap_used_gib": 1
+  },
+  "review": "Independent read-only review; rational overflow regression reproduced and fixed; no remaining blocking findings.",
+  "verification": {
+    "new_checks": 148,
+    "semantic_checks": 16099,
+    "semantic_seconds": 179.1,
+    "external_configurations": 104,
+    "external_verified": 104,
+    "external_unchanged_trajectories": 104,
+    "external_unchanged_events_and_coverage": 104,
+    "public_probe_statuses": [
+      "NUMERICAL_ERROR",
+      "NUMERICAL_ERROR",
+      "NUMERICAL_ERROR",
+      "NUMERICAL_ERROR"
+    ],
+    "full_suite_exit_code": 75,
+    "full_suite_limit_seconds": 300,
+    "preexisting_assertion_failures": 23,
+    "preexisting_test_errors": 2,
+    "base_candidate_control_passes": 297,
+    "same_base_candidate_failure_locations_and_evaluations": true,
+    "legacy_points_verified": 5
+  },
+  "files": [
+    {
+      "path": "diagnostics/adaptive-degeneracy/reproduce/simplex_infeasibility_focused.jl",
+      "sha256": "4873a8f3100770434b5204048a53ccdbde2838c1402f7bf4a10923aaa77c2131"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/reproduce/simplex_infeasibility_legacy_checks.jl",
+      "sha256": "f39c24ab182230b76cac938ac59ca0fcb9cb59fd8106f39f319e9b815d9817c6"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/reproduce/simplex_infeasibility_legacy_points.jl",
+      "sha256": "b0f0ff3f36bb958faaf3a7e426c0e16df40a83079777baa3049bf38b48fb706e"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/reproduce/simplex_infeasibility_semantics.jl",
+      "sha256": "9177f45c13bfb6d46c155d8c29ba4cea306d988354b311e7a119939bc04544d0"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/broad-validation/inputs.toml",
+      "sha256": "ab0cfd23fa55b66974fbd8f0a7fb335119946d26cf401cecde4f9d56e26093ce"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/broad-validation/references.toml",
+      "sha256": "13798dc76bcc292848643fad8ae6250cddc28f1b96cd7599787c32705011440c"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/presolve-tolerance/jobs.toml",
+      "sha256": "c165355af2fd6b7bd25549cc12ab9991d9d0aa1cdf0886f494e0426d4b1d1047"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/simplex-infeasibility-tolerance/core-probe.log",
+      "sha256": "d31d2772bfbbec29077371d64d9cc5726bcd76ac5b10530399c764e0a1512d50"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/simplex-infeasibility-tolerance/core-probe.toml",
+      "sha256": "d31d2772bfbbec29077371d64d9cc5726bcd76ac5b10530399c764e0a1512d50"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/simplex-infeasibility-tolerance/dual-comparison.json",
+      "sha256": "cde8689769cafe672fba9b8c383748ee0b0f04646e955b6a70bbd1137447973f"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/simplex-infeasibility-tolerance/dual-comparison.md",
+      "sha256": "1861de63e5c952e82ca97df2798dcc6c8703cf0d02cc11945fdc00fc835553b4"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/simplex-infeasibility-tolerance/focused.log",
+      "sha256": "6c3590ea3857cfcb36f3c8c7896e2235d3f984b4afe14692b790a903dcd16f38"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/simplex-infeasibility-tolerance/full-suite.log",
+      "sha256": "919bc7ac54875b072527b8e7e86a50e5c8195b963d35690538ce12c1524f96b5"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/simplex-infeasibility-tolerance/green.log",
+      "sha256": "d7096b956ffef3650754597d6eb416eee83dce4f4a19d11a7f85b877e132aa86"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/simplex-infeasibility-tolerance/legacy-base.log",
+      "sha256": "335b25b21c3c5f62a298916ec8a0d67748dc9d81fa320e9d33b9de011370b1dc"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/simplex-infeasibility-tolerance/legacy-candidate.log",
+      "sha256": "65eec0efa8cb860b35b4067e358f4cef7c72e522bd94750f8183e7aba40b43ff"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/simplex-infeasibility-tolerance/legacy-comparison.json",
+      "sha256": "1c9276e8886342f3cb7fb2d8bfba614fdba94d9127396d354fd357bc53efe504"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/simplex-infeasibility-tolerance/legacy-points.log",
+      "sha256": "2f0891647a10c6d2970943efbcea0595076f00e987d071bbdd88200b0d2de0d3"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/simplex-infeasibility-tolerance/legacy-points.toml",
+      "sha256": "2f0891647a10c6d2970943efbcea0595076f00e987d071bbdd88200b0d2de0d3"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/simplex-infeasibility-tolerance/models.log",
+      "sha256": "86c0b0877db7971bac1899652e67b69078ef7adb78d4e5537ca15b4437091aee"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/simplex-infeasibility-tolerance/models.toml",
+      "sha256": "ba34bc29b7a82cb0c20dc92fc7b84282b5aebad92275d49ec7c112d582942d6b"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/simplex-infeasibility-tolerance/overflow-red.log",
+      "sha256": "1a479d2b002973a2906a2f35c75938b61678f3dc61751ac4c3bd39afbc6c1334"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/simplex-infeasibility-tolerance/primal-comparison.json",
+      "sha256": "eb20694f70973636a170067e6f1e1d1e13caf0d509f6c8081f1bc00465eb575f"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/simplex-infeasibility-tolerance/primal-comparison.md",
+      "sha256": "529b5bcc19f9c72ac3f48c99f6785c9b61a2665d5a53371831b3934956ccdfc9"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/simplex-infeasibility-tolerance/red.log",
+      "sha256": "d1228edad4e0ca33bde5a88aef1ef708fec60bd392f519f523d182b064ee140f"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/simplex-infeasibility-tolerance/semantics-invalid-zero-tolerance.log",
+      "sha256": "3b52fdf1c11c24fafca0865b35ca4f1db7775ef078ffd2c0cf253e032e2eb867"
+    },
+    {
+      "path": "diagnostics/adaptive-degeneracy/results/simplex-infeasibility-tolerance/semantics.log",
+      "sha256": "3dc0f56c4b4fd2cd6ac29e55fd456c6ce822a428d3e3e3b741593a0538da7a3b"
+    },
+    {
+      "path": "src/dual_simplex.jl",
+      "sha256": "06a059d9bd9d7b0c6fcd5d8806237aba7cb72f8ac7ed5bdab6093f715a51d79a"
+    },
+    {
+      "path": "src/primal_simplex.jl",
+      "sha256": "6baebb9a17726e65ae91667ccf26e17aa12e518257fbf8223019d82dc831369d"
+    },
+    {
+      "path": "test/runtests.jl",
+      "sha256": "c6eb6453328064964b18edc5f0fcdbacfec1f5610b4d1c4152130731245f667a"
+    },
+    {
+      "path": "test/simplex_infeasibility_tolerance_tests.jl",
+      "sha256": "3b9fcb0226789f21d83d7f68e0c8e86b2178dee7813a1d98bc8b7330ecbf21e2"
+    }
+  ]
+}

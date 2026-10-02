@@ -1,9 +1,9 @@
 using SparseArrays
 
-function stalling_workspace(;constant=0.0,window=4,enabled=true)
+function stalling_workspace(;constant=0.0,window=4,enabled=true,adaptive_pricing=true)
     p = LinearProblem(sparse([1.0;;]),[1.0];row_lower=[1.0],objective_constant=constant)
     policy = JSimplex.NumericalPolicy(Float64;simplex_strategy=:adaptive,
-        adaptive_stalling=enabled,stagnation_window=window,refactor_timing=false)
+        adaptive_stalling=enabled,adaptive_pricing,stagnation_window=window,refactor_timing=false)
     diagnostics = JSimplex.SimplexDiagnostics()
     return JSimplex.initialize_workspace(p,SolverOptions(verbose=false);
         progress=JSimplex.SimplexProgressContext(p;numerical_policy=policy,diagnostics))
@@ -11,21 +11,39 @@ end
 
 @testset "Only distinct completed steps advance workspace stagnation" begin
     ws = stalling_workspace()
+    JSimplex._prepare_auto_pricing!(ws,:dual)
     for i in 1:8
         ws.iterations += 1
         JSimplex._observe_stagnation!(ws,:dual,1e-30,1e-30)
         JSimplex._observe_stagnation!(ws,:dual,1e-30,1e-30)
+        JSimplex._observe_auto_pricing!(ws,:dual)
         @test ws.scratch.stagnation.monitor.observations == i
     end
     @test ws.scratch.stagnation.monitor.state == :stalled
-    @test ws.dual_pricing_fallback
+    @test JSimplex._effective_pricing(ws,:dual) == :dantzig
     @test JSimplex.event_count(ws.progress.diagnostics,:stagnation_watch) == 1
     @test JSimplex.event_count(ws.progress.diagnostics,:stagnation_stalled) == 1
-    @test JSimplex.event_count(ws.progress.diagnostics,:stagnation_fallback) == 1
+    @test JSimplex.event_count(ws.progress.diagnostics,:pricing_dantzig) == 1
     disabled = stalling_workspace(enabled=false)
     disabled.iterations = 8
     JSimplex._observe_stagnation!(disabled,:dual,0.0,0.0)
     @test isnothing(disabled.scratch.stagnation)
+end
+
+@testset "Disabled adaptive pricing leaves stalled dual monitoring active" begin
+    ws = stalling_workspace(adaptive_pricing=false)
+    JSimplex._prepare_auto_pricing!(ws,:dual)
+    for _ in 1:8
+        ws.iterations += 1
+        JSimplex._observe_stagnation!(ws,:dual,0.0,0.0)
+        JSimplex._observe_auto_pricing!(ws,:dual)
+    end
+    @test ws.scratch.stagnation.monitor.state == :stalled
+    @test ws.scratch.stagnation.monitor.observations == 8
+    @test JSimplex.event_count(ws.progress.diagnostics,:stagnation_stalled) == 1
+    @test JSimplex._effective_pricing(ws,:dual) == :steepest_edge
+    @test !ws.dual_pricing_fallback
+    @test JSimplex.event_count(ws.progress.diagnostics,:pricing_dantzig) == 0
 end
 
 @testset "Restoring the same basis preserves the watched window" begin
@@ -42,19 +60,19 @@ end
     @test ws.scratch.stagnation.monitor.state == :stalled
 end
 
-@testset "A working cost, bound, scaling, or algorithm change resets history" begin
-    for change in (:cost,:bound,:scale,:algorithm)
+@testset "Primal cost and shared feasibility-context changes reset history" begin
+    for change in (:bound,:scale,:algorithm,:cost)
         ws = stalling_workspace()
         for _ in 1:4
             ws.iterations += 1
-            JSimplex._observe_stagnation!(ws,:dual,0.0,0.0)
+            JSimplex._observe_stagnation!(ws,change == :cost ? :primal : :dual,0.0,0.0)
         end
         @test ws.scratch.stagnation.monitor.state == :watch
         change == :cost && (ws.costs[1] += 1.0)
         change == :bound && (ws.upper[1] = JSimplex.Bound(10.0))
         change == :scale && (ws.progress.scaling.row_factors[1] *= 2.0)
         ws.iterations += 1
-        JSimplex._observe_stagnation!(ws,change == :algorithm ? :primal : :dual,0.0,0.0)
+        JSimplex._observe_stagnation!(ws,change in (:algorithm,:cost) ? :primal : :dual,0.0,0.0)
         @test ws.scratch.stagnation.monitor.state == :progress
         @test ws.scratch.stagnation.monitor.window_count == 1
     end

@@ -179,6 +179,9 @@ function _maybe_perturb_dual_costs!(ws,stop)::Int
 end
 
 function _maybe_perturb_dual_costs!(ws,state::WorkspaceStagnation{T,S},stop)::Int where {T,S}
+    # Complete the bounded pricing trial before changing the working LP.
+    pricing = ws.scratch.pricing
+    !isnothing(pricing) && pricing.temporary && return 0
     monitor = state.monitor
     monitor.state == :stalled && monitor.window_count == monitor.window || return 0
     primal_infeasibility(ws) > ws.options.primal_tolerance || return 0
@@ -322,6 +325,9 @@ function _maybe_perturb_primal_bounds!(ws,stop)::Int
 end
 
 function _maybe_perturb_primal_bounds!(ws,state::WorkspaceStagnation{T,S},stop)::Int where {T,S}
+    # Complete the bounded pricing trial before changing the working LP.
+    pricing = ws.scratch.pricing
+    !isnothing(pricing) && pricing.temporary && return 0
     monitor = state.monitor
     monitor.state == :stalled && monitor.window_count == monitor.window || return 0
     dual_infeasibility(ws) > ws.options.dual_tolerance || return 0

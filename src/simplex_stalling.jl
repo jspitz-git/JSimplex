@@ -35,6 +35,7 @@ end
 mutable struct WorkspaceStagnation{T<:Real,S<:Real}
     monitor::StagnationMonitor{T,S}
     context_key::UInt
+    feasibility_context_key::UInt
     last_iteration::Int
     cost_scale::S
     value_scale::S
@@ -44,16 +45,17 @@ _stagnation_price_step(price,pivot) = price/pivot
 _stagnation_price_step(price::Rational,pivot::Rational) =
     Rational{BigInt}(price)/Rational{BigInt}(pivot)
 
-function _stagnation_context(ws,algorithm)
+function _stagnation_context(ws,algorithm;include_costs=true)
     p = ws.progress.numerical_policy
     # Checkpoint/cache generations also change at ordinary refactorizations.
     # They are not phase changes and must not erase a watched window.
     key = hash((algorithm,objectid(ws.problem.A),size(ws.problem.A),ws.options.primal_tolerance,
         ws.options.dual_tolerance,p.solve_tolerance,p.stagnation_window))
     # Base's array hash samples sufficiently large arrays. Inspect every entry
-    # so a cost or bound change outside that sample still resets the window.
+    # so a change outside that sample still invalidates the affected history.
     for values in (ws.costs,ws.lower,ws.upper,ws.progress.scaling.row_factors,
                    ws.progress.scaling.column_factors)
+        values === ws.costs && !include_costs && continue
         key = hash(length(values),key)
         for value in values
             key = hash(value,key)
@@ -62,7 +64,7 @@ function _stagnation_context(ws,algorithm)
     return key
 end
 
-function _new_workspace_stagnation(ws,key)
+function _new_workspace_stagnation(ws,key,algorithm)
     T = eltype(ws.costs)
     S = T <: Rational ? Rational{BigInt} : T
     cost_scale, value_scale = one(S),one(S)
@@ -82,7 +84,9 @@ function _new_workspace_stagnation(ws,key)
     policy = ws.progress.numerical_policy
     monitor = StagnationMonitor{T}(policy.stagnation_window;objective_scale,
         primal_scale,dual_scale=objective_scale,tolerance=policy.solve_tolerance)
-    return WorkspaceStagnation(monitor,key,ws.iterations-1,cost_scale,value_scale)
+    return WorkspaceStagnation(monitor,key,
+        _stagnation_context(ws,algorithm;include_costs=false),
+        ws.iterations-1,cost_scale,value_scale)
 end
 
 function _workspace_stagnation_values(ws,state::WorkspaceStagnation{T,S},algorithm) where {T,S}
@@ -132,31 +136,44 @@ end
 function _observe_stagnation_precise!(ws,algorithm,primal_step,dual_step)
     key = _stagnation_context(ws,algorithm)
     state = ws.scratch.stagnation
-    if isnothing(state) || state.context_key != key
-        state = _new_workspace_stagnation(ws,key)
+    if !isnothing(state) && state.context_key != key && algorithm == :dual &&
+       state.feasibility_context_key == _stagnation_context(ws,algorithm;include_costs=false)
+        _rebase_dual_stagnation_costs!(ws,state,key)
+    elseif isnothing(state) || state.context_key != key
+        state = _new_workspace_stagnation(ws,key,algorithm)
         ws.scratch.stagnation = state
     end
     return _observe_workspace_stagnation!(ws,state,algorithm,primal_step,dual_step)
+end
+
+# Numerical price repairs change the working objective, but not the feasible
+# region. Preserve its history and window cadence; never compare objectives or
+# dual violations across different cost vectors. Explicit phase/perturbation
+# resets still invalidate the monitor before the next observation.
+function _rebase_dual_stagnation_costs!(ws,state::WorkspaceStagnation{T,S},key) where {T,S}
+    state.cost_scale = maximum(x -> abs(S(x)),ws.costs;init=one(S))
+    objective,_,dual = _workspace_stagnation_values(ws,state,:dual)
+    m = state.monitor
+    m.start_objective = m.minimum_objective = m.end_objective = m.best_objective = objective
+    m.start_dual = m.minimum_dual = m.end_dual = m.best_dual = dual
+    m.objective_improvement = m.dual_improvement = zero(S)
+    state.context_key = key
+    _simplex_event!(ws,:stagnation_cost_rebase)
+    return nothing
 end
 
 function _observe_workspace_stagnation!(ws,state::WorkspaceStagnation{T,S},
                                        algorithm,primal_step,dual_step) where {T,S}
     m = state.monitor
     objective,primal_violation,dual_violation = _workspace_stagnation_values(ws,state,algorithm)
-    result = observe_progress!(m;objective,primal_violation,dual_violation,
+    result = observe_progress!(m;algorithm,objective,primal_violation,dual_violation,
         primal_step=(S(primal_step)/state.value_scale)*m.primal_scale,
         dual_step=(S(dual_step)/state.cost_scale)*m.dual_scale)
     state.last_iteration = ws.iterations
     if m.window_count == m.window
         result == :watch && _simplex_event!(ws,:stagnation_watch)
         result == :stalled && _simplex_event!(ws,:stagnation_stalled)
-        if result == :stalled && algorithm == :dual &&
-           _is_exact(eltype(ws.costs)) === Val(false) &&
-           ws.options.pricing == :steepest_edge && !ws.dual_pricing_fallback &&
-           primal_infeasibility(ws) > ws.options.primal_tolerance
-            ws.dual_pricing_fallback = true
-            _simplex_event!(ws,:stagnation_fallback)
-        end
+
     end
     return result
 end
@@ -200,7 +217,9 @@ function _stagnation_improvement(anchor::T,current::T,scale::T) where {T<:Abstra
 end
 
 function observe_progress!(m::StagnationMonitor{T,S};objective,primal_violation,
-                           dual_violation,primal_step,dual_step)::Symbol where {T,S}
+                           dual_violation,primal_step,dual_step,
+                           algorithm::Symbol=:all)::Symbol where {T,S}
+    algorithm in (:all,:primal,:dual) || throw(ArgumentError("Unknown progress algorithm"))
     objective, primal, dual = S(objective), S(primal_violation), S(dual_violation)
     ps, ds = S(primal_step), S(dual_step)
     # A ratio of finite floating-point inputs can overflow. An infinite step
@@ -236,7 +255,13 @@ function observe_progress!(m::StagnationMonitor{T,S};objective,primal_violation,
         m.objective_improvement = _stagnation_improvement(m.best_objective,objective,m.objective_scale)
         m.primal_improvement = _stagnation_improvement(m.best_primal,primal,m.primal_scale)
         m.dual_improvement = _stagnation_improvement(m.best_dual,dual,m.dual_scale)
-        progress = max(m.objective_improvement,m.primal_improvement,m.dual_improvement) > m.tolerance
+        # A primal pivot must improve the current (possibly auxiliary)
+        # objective. Reduced-price changes at a fixed point are not progress.
+        # Dual pivots can also make useful progress toward primal feasibility
+        # at a constant objective. Retain all metrics for diagnostics.
+        progress = m.objective_improvement > m.tolerance ||
+            (algorithm != :primal && m.primal_improvement > m.tolerance) ||
+            (algorithm == :all && m.dual_improvement > m.tolerance)
         # Retain the reference after a sub-tolerance change so that genuine
         # slow progress can accumulate across the two watched windows.
         m.objective_improvement > m.tolerance && (m.best_objective = min(m.best_objective,m.minimum_objective))
