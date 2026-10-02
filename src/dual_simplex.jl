@@ -1365,12 +1365,21 @@ function _dual_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_request
         row_pivot = tableau_row[entering_index]
         agreement = sqrt(eps(one(T))) * max(abs(pivot), abs(row_pivot))
         if !_pivot_agrees(row_pivot, pivot, agreement)
-            _is_staged_workspace(workspace) &&
-                throw(_PivotRejection(leaving_row, entering_index, :refresh))
-            # Ordinary consistent steps retain the direct path. Only a failed
-            # comparison enters the existing bounded, transactional retry.
-            return _retry_simplex_step!(workspace, stop_requested, :dual,
-                workspace.options.dual_tolerance, basis_refreshed, perturb_degenerate)
+            cancelled=Ref(false)
+            guard=()->(cancelled[]=cancelled[] || stop_requested())
+            if _try_native_dual_tableau!(workspace,leaving_row,entering_index,
+                    orientation,abs(delta),flips,guard)
+                pivot=tableau_column[leaving_row]
+                refined_row=true
+            else
+                cancelled[] && return DualTermination(TIME_LIMIT,"time limit reached during native tableau recovery")
+                _is_staged_workspace(workspace) &&
+                    throw(_PivotRejection(leaving_row, entering_index, :refresh))
+                # Ordinary consistent steps retain the direct path. Only a failed
+                # comparison enters the existing bounded, transactional retry.
+                return _retry_simplex_step!(workspace, stop_requested, :dual,
+                    workspace.options.dual_tolerance, basis_refreshed, perturb_degenerate)
+            end
         end
     end
     if checked_pivot
