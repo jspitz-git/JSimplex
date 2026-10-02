@@ -553,5 +553,10 @@ retained for diagnosis; no solver code changes accompany these runs.
 [Runtime failure diagnosis](runtime-failure-repair.md) traces both dual failures
 to marginal working-price repair being disabled by an active perturbation
 journal, and the JuMP primal failure to coupled tiny nonhomogeneous equations
-at phase export. The bounded journal-aware price repair restores native-dual
-convergence; the report tracks the remaining validation and reconstruction work.
+at phase export. Both dual reader orders now converge after the bounded
+journal-aware repair. The repaired JuMP primal export exposes a later native
+FTRAN/BTRAN pivot disagreement during original-model cleanup; the report
+records that diagnosis and bounded tableau recovery. Fresh runs of all three
+previously failed combinations now reach verified optima. Validation includes
+16,279 semantic checks, 124 normally compiled checks, 104 external cases and
+independent exact evaluation of the returned runtime points.

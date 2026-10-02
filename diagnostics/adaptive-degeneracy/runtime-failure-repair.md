@@ -121,3 +121,139 @@ at iteration **86,607**, successfully starts phase II, and matches all **84**
 shared phase-I objective samples exactly. Its subsequent original-model cleanup
 is still running at this checkpoint; this commit establishes the repaired export,
 not the final solve outcome. Later validation below records the completed run.
+
+## Later original-model cleanup failure
+
+The completed JuMP/primal run with the first two repairs reached phase II and
+then the original-model cleanup, but returned `NUMERICAL_ERROR` at **165,969
+iterations**, after **1270.607121923 seconds**. The reason was `bounded pivot
+validation and basis recovery attempts exhausted`. This supersedes the running
+checkpoint above; repairing the original export did not finish this solve.
+The full trace and report are `results/runtime-failure-repair/jump-primal.*`.
+
+A detached observed cleanup workspace reproduces the rejection after a fresh
+native factorization. It is not an outer-driver checkpoint. At leaving row
+23,224 / entering column 18,805, the uncorrected FTRAN and BTRAN pivots differ
+by about 3.58e-12, exceeding their existing strict 1.11e-13 agreement allowance.
+A native compensated-residual correction brings FTRAN to the independently
+computed 256-bit reference, -7.420996551845639e-6. Rounding the BTRAN correction
+into the large row entries first loses the information required to recover
+this small coefficient. Compensating the dot product of that already-rounded
+row alone is insufficient. Pricing the row and its correction separately with
+compensated FMA products recovers the reference coefficient in Float64.
+A second independent pivot (row 12,418 / column 17,609) shows the same mechanism.
+The higher-precision calculations occur only in the diagnostic probe.
+
+The bounded recovery therefore retains the two terms while pricing. It runs
+only in an existing transactional retry with fresh factors, after the original
+strict pivot comparison failed. It corrects FTRAN in native arithmetic, keeps
+the strict comparison, and repeats the ratio test. Both the selected entering
+variable and pending bound flips must remain identical. Rejection restores the
+scratch row and flips; acceptance invalidates the affected solve caches and
+rechecks steepest-edge weights. Existing factor provenance checks prevent an
+old prepared update from being reused for a changed direction.
+
+The independent two-row regression failed before the repair (4 passes,
+12 failures). The expanded focused set passes **361 checks**, covering all four
+basis managers, factor solves after the update, singular duplicate columns,
+bounded exhaustion, changed flips, cancellation and callback exceptions. A
+short replay of the actual observed workspace advances from iteration 165,969
+to 165,970 instead of exhausting recovery. These checks establish the repaired
+pivot mechanism, not whole-problem convergence. The completed validations below
+record the subsequent result. Independent read-only review found no actionable
+implementation defect; its requested atomicity tests were added.
+
+The separate `runtime_cleanup_replay.jl` attempt to re-enter the complete dual
+driver from the same detached observation returns `bounded feasibility recovery
+exhausted` before advancing. This observation can be a speculative candidate and
+lacks an outer-driver checkpoint; the result does not establish continuation of
+the original solve. Fresh whole-MPS verification is required. The first replay
+script attempt had a diagnostic context type mismatch before any solver call;
+its corrected construction and both logs are retained. Likewise, an initial
+fresh-run launcher attempt stopped at the source-hash assertion before solving:
+Python path-component sorting differed from Julia string sorting. The launcher
+now uses the identical string order. Neither diagnostic correction changes the
+solver source.
+
+## Fresh whole-MPS verification of all three repairs
+
+Production SHA-256:
+`647b74f10277b7b01d6f9589b16d519c7c037a0ed0a784c9d165ae5e38a88ccc`.
+The fresh JuMP/primal run reaches verified `OPTIMAL` at **174,385 iterations**,
+**2,189 refactorizations**, and **1426.008775741 seconds**, with objective
+**51425691.76210436**. Reader and original-model primal checks and reference
+objective agreement all pass. The coupled phase reconstruction is attempted
+and certified once; there is no outer original-LP retry. Pivot rejections are
+20, compared with 455 in the preceding failed full run; the trajectories differ,
+so this is not a paired kernel timing comparison. The fresh log first differs
+from the preceding run's sampled objective around iteration 129,000.
+`final-jump-primal.log` and `.toml` preserve the complete observation record.
+
+The final-source native dual run returns verified `OPTIMAL` at **61,387 iterations**, **775 refactorizations**, and **273.347902658 seconds** (objective **51425691.762099**). JuMP dual returns verified `OPTIMAL` at **59,617 iterations**, **758 refactorizations**, and **263.339850860 seconds** (objective **51425691.76210435**). Both retain the original feasibility and reference-objective checks and make no outer original-LP retry. These are fresh whole-MPS solves under the same isolated adaptive profile.
+
+Independent verification in a new process evaluates the stored Float64 model and returned points as exact `Rational{BigInt}` values. All four points satisfy the original absolute primal tolerance of `1e-7`. The native-primal point is the already successful baseline run, **not a fourth fresh solve of the final source**; the other three are the fresh repaired runs.
+
+| Reader | Requested method | Maximum exact row violation (shown as Float64) | Maximum exact column violation (shown as Float64) |
+|---|---|---:|---:|
+| native | dual | 6.67058823343e-08 | 9.19732619977e-08 |
+| jump | dual | 8.79120688694e-09 | 2.12478101502e-12 |
+| jump | primal | 1.09835564826e-10 | 0 |
+| native | primal | 9.10184136472e-09 | 3.32376833688e-12 |
+
+`exact-verification.toml` retains the exact rational violations and objectives. Higher precision here is independent diagnosis only. The solver repairs retain the original scalar type, original tolerances and final certificates.
+
+## Regression validation
+
+The focused reconstruction/tableau tests pass **124 checks with normal
+compilation**, including Float32/Float64 arithmetic and all four basis managers.
+The wider semantic runner passes **16,279 checks with `--compile=min`** in
+195.3 seconds. It includes phase transfers, native recovery, pivot consistency,
+pricing/perturbation interactions, rollback and cancellation, presolve and
+terminal certificates. The eight split-pricing checks added after the original
+361-check focused run are included in both final runners.
+
+This is not a full-project pass. The previously established full-suite failures
+and compiler timeout remain documented in
+[simplex-infeasibility-tolerance.md](simplex-infeasibility-tolerance.md#main-suite-pre-existing-legacy-test-failures).
+The unchanged failing primal fixture tests and known LLVM timeout were not
+repeated here; validation targets the modified paths and the broader semantic
+suite instead. `runtime_failure_validate.py` retains an explicit `full-suite`
+option for reproduction but it is not part of the completed checks above.
+
+Fresh solves are reproduced serially with:
+
+```sh
+python3 diagnostics/adaptive-degeneracy/reproduce/runtime_failure_full.py jump-primal native-dual jump-dual
+```
+
+The runner refuses to overwrite existing output prefixes, enforces an unchanged
+source digest and stops on a non-passing solve. The completed final validation
+uses:
+
+```sh
+python3 diagnostics/adaptive-degeneracy/reproduce/runtime_failure_validate.py exact-verification compiled semantics models
+```
+
+Both launchers use the existing memory guard and a single Julia/BLAS thread.
+Local snapshots remain under `.superpowers/adaptive-degeneracy/runtime-failure-repair/`;
+no old worktree or depot was removed, and local manifests/preferences are not
+part of the commits.
+
+The external suite passes **104/104 cases on 33 distinct models**: 76 dual and
+28 primal solves, 48 native reads, 42 JuMP reads and 14 explicit permutations.
+Every case reaches the reference optimum and passes both reader and original
+primal checks. Inputs, reference values and isolated numerical-policy settings
+match the prior suite. All iteration counts, refactorizations, objectives,
+phase records, pivot observations and zero-step counts are unchanged. Of all
+compared fields, only `pilotnov/native/dual/pfi` differs: correction attempts
+increase from 251 to 259, without changing its accepted trajectory statistics.
+103 cases match every compared field, including event counts. The coupled
+fallback is attempted once and accepts no block in this external corpus; the
+runtime export and portable small-system tests provide its positive coverage.
+The result is a non-regression check, not a claim of robustness on every LP.
+
+`models-comparison.json` records the full comparison. Diagnostic instrumentation
+hashes differ because the phase probe now recognizes the new bounded block
+fallback; they are recorded explicitly rather than assumed identical.
+`validation-processes.json` records the guarded commands and successful exits.
+`artifacts.json` records source, reproduction and local snapshot hashes.
