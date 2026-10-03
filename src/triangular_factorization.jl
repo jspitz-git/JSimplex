@@ -697,15 +697,17 @@ function transpose_solve!(destination::Vector{T},
             factor.work[column] = convert(T, source[factor.column_order[column]])
         end
         _upper_transpose_solve!(factor.work, factor.upper, _dense_upper_columns(factor))
+        return _finish_triangular_transpose!(destination, factor, nothing)
     else
         for column in 1:n
             factor.work[order.order[column]] = convert(T, source[factor.column_order[column]])
         end
         _stable_upper_transpose_solve!(factor.work, factor.upper,
                                       _dense_upper_columns(factor), order)
+        # Keep the concrete row-order type across the call boundary; merging
+        # it with `nothing` boxes the immutable wrapper on each BG BTRAN.
+        return _finish_triangular_transpose!(destination, factor, order)
     end
-    return _finish_triangular_transpose!(destination, factor, order)
-
 end
 
 function transpose_solve(factor::AbstractTriangularBasisFactorization{T}, rhs::AbstractVector) where {T}
