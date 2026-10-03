@@ -58,3 +58,37 @@ A separate regression exposed eleven implicit Float64 growth-reduction results;
 typed reduction seeds fixed them. Static review also found a missing 32-bit
 platform guard in precision-transfer tests; only Float64-involving cases are
 skipped on that platform, which was not available for execution here.
+
+The subsequent BigFloat hypersparse regression exposed a real integration error:
+precision selection attempted to build an unsupported indexed HH cache even
+though the numerical kernel selected dense fallback. The fix obtains the maximum
+stored precision directly from HH's factors/updates and the RHS. All 111 checks
+pass for independently wider base/update/RHS values, forward/transpose solves,
+forced/automatic modes and aliases. Ambient precision is restored after each call.
+Precision transfer is also checked with the hypersparse policy enabled.
+
+## External scalar results and limitations
+
+The default-tolerance paired run completed all 48 solves, but **did not pass**:
+70 assertions passed and 40 failed. Each manager certified 14 of its 24 cases.
+Both HH and PFI solved afiro, adlittle, primal pk1 and flugpl in BigFloat and
+Rational{BigInt}. Exact rational objective values agree exactly between managers.
+Both reached the 90-second limit on dual pk1 in those two scalar types; these
+interpreter-mode runs do not establish convergence or native-compiled performance.
+
+All eight Float32 configurations failed to certify an optimum for both managers:
+PFI returned NUMERICAL_ERROR in all eight; HH returned NUMERICAL_ERROR in seven
+and TIME_LIMIT in dual pk1. This is not a successful full external Float32 suite.
+A separate, predeclared afiro diagnostic used
+`primal_tolerance=dual_tolerance=sqrt(eps(Float32))`, keeping the same input and
+all other options. Both managers and both algorithms then returned certified
+OPTIMAL with objective `-464.75317f0` (12 checks passed). This establishes usable
+single-precision solving on that control, and implicates default-tolerance
+sensitivity there; it does not explain every other Float32 failure. No solver
+defaults, tolerances, pivot heuristics or recovery limits were changed.
+
+Raw statuses, objectives, timing, input digests and source commits are retained in
+[the scalar report](results/scalars.json). Timings use `--compile=min` and are not
+speed comparisons. The paired runner intentionally fails if a case is not
+certified, retaining all records before its failing exit. Reproduce the separate
+tolerance diagnostic with `reproduce/float32-tolerance.jl OUTPUT.toml`.
