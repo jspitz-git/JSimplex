@@ -44,7 +44,7 @@ end
         Int !== Int64 && (T === Float64 || S === Float64) && continue
         p=LinearProblem(sparse(T[2 1;1 3]),T[1,2];row_lower=T[2,1],row_upper=T[2,1])
         options=SolverOptions(T;basis_update=:huangfu_hall,verbose=false,presolve=false)
-        policy=JSimplex.NumericalPolicy(T;precision_boosting=true)
+        policy=JSimplex.NumericalPolicy(T;precision_boosting=true,hypersparse=true)
         basis=JSimplex.Basis([1,2],[JSimplex.BASIC,JSimplex.BASIC,JSimplex.AT_LOWER,JSimplex.AT_LOWER])
         ws=JSimplex.initialize_from_basis(p,basis,options;policy)
         budget=JSimplex.SimplexRunBudget(ws)
@@ -57,5 +57,49 @@ end
         rhs=S[3,4]
         @test JSimplex.basis_matrix(fresh)*JSimplex.forward_solve(fresh.factorization,rhs) ≈ rhs
         @test eltype(ws.factorization.base.lower)===T
+    end
+end
+
+@testset "BigFloat HH hypersparse policy uses a precision-safe dense fallback" begin
+    for wider in (:base,:update,:rhs)
+        bits=wider === :base ? 256 : 64
+        ws,B=setprecision(BigFloat,bits) do
+            alpha=wider === :base ? 1+BigFloat(2)^(-180) : BigFloat(1)
+            B=BigFloat[1 alpha;0 1]
+            p=LinearProblem(sparse(B),BigFloat[1,2];row_lower=BigFloat[2,1],row_upper=BigFloat[2,1])
+            o=SolverOptions(BigFloat;basis_update=:huangfu_hall,verbose=false,presolve=false)
+            policy=JSimplex.NumericalPolicy(BigFloat;hypersparse=true)
+            basis=JSimplex.Basis([1,2],[JSimplex.BASIC,JSimplex.BASIC,JSimplex.AT_LOWER,JSimplex.AT_LOWER])
+            ws=try
+                JSimplex.initialize_from_basis(p,basis,o;policy)
+            catch err
+                err
+            end
+            ws,B
+        end
+        @test ws isa JSimplex.SimplexWorkspace{BigFloat}
+        ws isa JSimplex.SimplexWorkspace{BigFloat} || continue
+        setprecision(BigFloat,256) do
+            if wider === :update
+                delta=BigFloat(2)^(-180)
+                direction=BigFloat[1+2delta,delta]
+                JSimplex.replace_column!(ws.factorization,direction,1)
+                B[:,1]=B*direction
+            end
+            rhs=setprecision(BigFloat,wider === :rhs ? 256 : 64) do
+                wider === :rhs ? BigFloat[1+BigFloat(2)^(-180),1] : BigFloat[1,1]
+            end
+            for transposed in (false,true), mode in (:auto,:sparse,:dense), alias in (false,true)
+                expected=transposed ? transpose(B)\rhs : B\rhs
+                actual=copy(rhs)
+                setprecision(BigFloat,64) do
+                    JSimplex._pipeline_basis_solve!(actual,ws,alias ? actual : rhs;
+                        transposed,kernel_mode=mode)
+                    @test precision(BigFloat)==64
+                end
+                @test actual ≈ expected rtol=8eps(BigFloat) atol=8eps(BigFloat)
+                @test all(v->precision(v)>=256,actual)
+            end
+        end
     end
 end

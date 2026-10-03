@@ -132,6 +132,15 @@ _factor_growth_measure(f::HuangfuHallFactorization{T}) where {T}=maximum(t->
 _finite_updated_factor(f::HuangfuHallFactorization)=all(t->isfinite(t.pivot) &&
     all(isfinite,t.u_values) && all(isfinite,t.v_values),f.updates)
 
+function _hh_stored_precision(f::HuangfuHallFactorization{BigFloat})
+    base_bits = max(maximum(precision,f.base.lower.nzval;init=2),
+        maximum(precision,f.base.upper.nzval;init=2),
+        maximum(precision,f.base.scaling;init=2))
+    return maximum(t->max(precision(t.pivot),
+        maximum(precision,t.u_values;init=2),maximum(precision,t.v_values;init=2)),
+        f.updates;init=base_bits)
+end
+
 # Match the tested Julia 1.13/aarch64 SparseArrays fused CSC accumulation.
 # Exact-product tests gate portability; no abs.(A) sparse matrix copy is needed.
 function _hh_abs_mul!(out,A,x)
