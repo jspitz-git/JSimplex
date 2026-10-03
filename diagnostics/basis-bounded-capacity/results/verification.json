@@ -1,0 +1,37 @@
+{
+  "base_commit": "7abb8cfb5212006ab53da8da4967a41377956e0d",
+  "source_commit": "da7deb6e74ab8d6fbfb55f9d167d46510b0d54be",
+  "semantic": {
+    "passed": 17148,
+    "failed": 0,
+    "exit_code": 0,
+    "compile": "min"
+  },
+  "allocation_and_reset": {
+    "passed": 13956,
+    "failed": 1,
+    "exit_code": 1,
+    "compile": "normal",
+    "failure": "Known BG transpose solve allocation, 32 bytes versus zero, factorization_tests.jl:262"
+  },
+  "unchanged_master_factorization_baseline": {
+    "passed": 362,
+    "failed": 1,
+    "exit_code": 1,
+    "same_failure": true
+  },
+  "file_sha256": {
+    "src/triangular_factorization.jl": "eef442ef0515b0de0f55d590eaab52e205c528a92569871c77f0afc25e90534b",
+    "test/triangular_capacity_tests.jl": "221fd073c6debea8e5ff33e5cd0b1881f44fa5b573a3b8e01a5d3df46bcb2437",
+    "test/runtests.jl": "fc7d83cad8698af86f1b51ac85e82ccd2dad9e97393e39cc760e43e54c0d9d96",
+    "diagnostics/basis-bounded-capacity/reproduce/regression.jl": "4f4d0a970a4ddccee1753956b07246e1e47811dc7485ccaa9de7f32061e070dd",
+    "diagnostics/basis-bounded-capacity/reproduce/allocations.jl": "67f1bef56d8f05dced7374497b22661c00b3fc26136f3e28c21e926bcc73201b"
+  },
+  "local_log_sha256": {
+    "semantic.log": "d8d6266d82af70af5cf8098a0871d062dbed55eebb8744f97eea2889b5c73079",
+    "allocations.log": "d21e6b6a8280ada05ebf3c98158bf66eeaa2bee2a00341eb40b3e7ed38e3828a",
+    "baseline.log": "22a4b31641e79e732229bd45f6dcc451b2a8d6133f491f632a85a5885699412c"
+  },
+  "full_project_suite_rerun": false,
+  "full_runtime_benchmark_rerun": false
+}
