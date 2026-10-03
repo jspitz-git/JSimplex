@@ -89,8 +89,9 @@ with a finite update ceiling and conservative growth after reliable cycles.
 `basis_update` selects product-form (`:pfi`), Forrest–Tomlin
 (`:forrest_tomlin`), Bartels–Golub (`:bartels_golub`), or Suhl–Suhl
 (`:suhl_suhl`) basis updates, or Huangfu–Hall middle product form
-(`:huangfu_hall`). Huangfu–Hall currently requires `Float64`, `:native`
-refactorization and 64-bit indices; unsupported combinations throw `ArgumentError`.
+(`:huangfu_hall`). Huangfu–Hall supports the same scalar types with `:native`
+refactorization (Float64 requires 64-bit indices); unsupported combinations throw
+`ArgumentError`.
 `basis_refactorization` selects the existing backend (`:native`: UMFPACK for
 `Float64`, dense LU otherwise) or sparse Markowitz elimination followed by a
 dense trailing core (`:markowitz`).
@@ -183,8 +184,8 @@ Base.@constprop :aggressive function _validated_refactorization(
 end
 
 function _validate_huangfu_hall(::Type{T}, ::Val{R}) where {T,R}
-    T === Float64 && R === :native && Int === Int64 || throw(ArgumentError(
-        "basis_update=:huangfu_hall requires Float64, basis_refactorization=:native, and 64-bit indices"))
+    _supported_value_type(T) && R === :native && (T !== Float64 || Int === Int64) || throw(ArgumentError(
+        "basis_update=:huangfu_hall requires a supported scalar, basis_refactorization=:native, and 64-bit indices for Float64"))
     return nothing
 end
 

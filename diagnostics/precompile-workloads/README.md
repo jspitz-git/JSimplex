@@ -6,7 +6,8 @@ The implementation is based on `dd200cb` and uses PrecompileTools 1.3.4.
 
 The original measurements below describe the first native-only workload.
 The current workload also covers shared Float32/Float64 Markowitz backend kernels
-and Huangfu–Hall for Float64/native on 64-bit platforms. See the
+and Huangfu–Hall for Float32/Float64 native refactorization (Float64 requires
+64-bit indices). See the
 [public-manager verification record](../huangfu-hall-public/README.md) for the extension.
 
 ## Coverage and reuse

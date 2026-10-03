@@ -447,9 +447,6 @@ function _solve_diagnosed(problem::LinearProblem{T}, diagnostics;
     start_ns = time_ns()
     typed_options = options === nothing ? SolverOptions(T) : SolverOptions(T, options)
     policy = isnothing(numerical_policy) ? _automatic_numerical_policy(problem,typed_options) : numerical_policy
-    if typed_options.basis_update === :huangfu_hall && (policy.precision_boosting || policy.lp_refinement)
-        throw(ArgumentError("Huangfu-Hall does not support policies requiring higher-precision basis factorizations"))
-    end
     context = SolveContext(start_ns, typed_options.time_limit, diagnostics, policy)
     @logmsg typed_options.log_level "Starting solve" name=problem.name algorithm=typed_options.algorithm
     _report_problem_statistics("Loaded problem", problem, typed_options)

@@ -268,6 +268,8 @@ include("legacy_primal_relative_pivot_tests.jl")
     include("mps_allocation_tests.jl")
     include("factorization_tests.jl")
     include("huangfu_hall_option_tests.jl")
+    include("huangfu_hall_precision_tests.jl")
+    include("huangfu_hall_scalar_integration_tests.jl")
     if Int === Int64
         include("huangfu_hall_tests.jl")
         include("huangfu_hall_integration_tests.jl")

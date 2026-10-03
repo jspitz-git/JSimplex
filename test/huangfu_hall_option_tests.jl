@@ -20,8 +20,8 @@ import MathOptInterface as MOI
         @test factor isa JSimplex.HuangfuHallFactorization
         @test JSimplex.forward_solve(factor, [1.0, 4.0]) ≈ [-0.2, 1.4]
         for T in (Float32, BigFloat, Rational{BigInt})
-            @test_throws ArgumentError SolverOptions(T; basis_update=:huangfu_hall)
-            @test_throws ArgumentError SolverOptions(T, options)
+            @test SolverOptions(T; basis_update=:huangfu_hall) isa SolverOptions{T,:huangfu_hall,:native}
+            @test SolverOptions(T, options).basis_update === :huangfu_hall
         end
         @test_throws ArgumentError SolverOptions(basis_update=:huangfu_hall,
             basis_refactorization=:markowitz)
@@ -42,7 +42,7 @@ import MathOptInterface as MOI
         @test_throws ArgumentError MOI.set(optimizer, update, :huangfu_hall)
         @test MOI.get(optimizer, update) === :pfi
         single = JSimplex.Optimizer{Float32}()
-        @test_throws ArgumentError MOI.set(single, update, :huangfu_hall)
-        @test MOI.get(single, update) === :pfi
+        MOI.set(single, update, :huangfu_hall)
+        @test MOI.get(single, update) === :huangfu_hall
     end
 end

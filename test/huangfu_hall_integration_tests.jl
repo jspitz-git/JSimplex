@@ -46,7 +46,7 @@ end
     catch
         false
     end
-    @test_throws ArgumentError JSimplex._copy_precision_options(BigFloat, options)
+    @test JSimplex._copy_precision_options(BigFloat, options).basis_update === :huangfu_hall
     exception = try
         JSimplex._hh_pack_update([Inf], JSimplex.HHUnitWorkspace(1), 1.0)
         nothing
@@ -57,7 +57,7 @@ end
     p = LinearProblem(sparse([1.0 1; -1 1]), [1.0, 2.0]; row_lower=[3.0, 1.0])
     for keyword in (:precision_boosting, :lp_refinement)
         policy = JSimplex.NumericalPolicy(Float64; (keyword=>true,)...)
-        @test_throws ArgumentError JSimplex._solve_diagnosed(p, nothing; options, numerical_policy=policy)
+        @test JSimplex._solve_diagnosed(p, nothing; options, numerical_policy=policy).status == OPTIMAL
     end
     policy = JSimplex.NumericalPolicy(Float64; hypersparse=true)
     basis = JSimplex.Basis([1, 2], [JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_LOWER])
