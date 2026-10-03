@@ -49,16 +49,35 @@ function _identity_upper(::Type{T}, n::Int) where {T<:Real}
     return [PackedUpperColumn{T}(Int[index], T[one(T)]) for index in 1:n]
 end
 
-function _reset_identity_upper!(upper::Vector{PackedUpperColumn{T,Vector{Int}}}, n::Int) where {T}
+# Bound per-column historical reserve, while keeping small buffers reusable.
+# This is a storage policy only; active update columns can grow without a cap.
+const _UPPER_RETAINED_CAPACITY = 256
+
+@inline function _reset_upper_storage!(values::Vector, retained_capacity::Int)
+    resize!(values, 1)
+    # Julia 1.13 (the supported minimum) stores total backing capacity here,
+    # including spare space before a vector shifted by popfirst!. Checking it
+    # avoids sizehint! growing small buffers up to the retention threshold.
+    if length(getfield(values, :ref).mem) > retained_capacity
+        sizehint!(values, 1)
+    end
+    return values
+end
+@inline _reset_upper_storage!(indices::UpperRowIndices, retained_capacity::Int) =
+    (_reset_upper_storage!(indices.ids, retained_capacity); indices)
+
+function _reset_identity_upper!(upper::Vector{PackedUpperColumn{T,Vector{Int}}}, n::Int,
+                                retained_capacity::Int=_UPPER_RETAINED_CAPACITY) where {T}
+    retained_capacity >= 1 || throw(ArgumentError("Retained capacity must be positive"))
     old_length = length(upper)
     resize!(upper, n)
     for index in 1:n
         if index <= old_length
             # Columns own their arrays, including in copied factorizations.
-            # Retain their capacity for subsequent updates after the reset.
+            # Retain modest capacity, but release oversized historical buffers.
             column = upper[index]
-            resize!(column.indices, 1)
-            resize!(column.values, 1)
+            _reset_upper_storage!(column.indices, retained_capacity)
+            _reset_upper_storage!(column.values, retained_capacity)
             column.indices[1] = index
             column.values[1] = one(T)
         else
@@ -68,7 +87,9 @@ function _reset_identity_upper!(upper::Vector{PackedUpperColumn{T,Vector{Int}}},
     return upper
 end
 
-function _reset_identity_upper!(upper::Vector{PackedUpperColumn{T,UpperRowIndices}}, n::Int) where {T}
+function _reset_identity_upper!(upper::Vector{PackedUpperColumn{T,UpperRowIndices}}, n::Int,
+                                retained_capacity::Int=_UPPER_RETAINED_CAPACITY) where {T}
+    retained_capacity >= 1 || throw(ArgumentError("Retained capacity must be positive"))
     old_length = length(upper)
     order = old_length > 0 ? upper[1].indices.order : nothing
     if isnothing(order)
@@ -84,14 +105,14 @@ function _reset_identity_upper!(upper::Vector{PackedUpperColumn{T,UpperRowIndice
     for index in 1:n
         if index <= old_length
             # Columns own their arrays, including in copied factorizations.
-            # Retain their capacity for subsequent updates after the reset.
+            # Retain modest capacity, but release oversized historical buffers.
             column = upper[index]
             if column.indices.order !== order
                 column = PackedUpperColumn{T}(UpperRowIndices(column.indices.ids, order), column.values)
                 upper[index] = column
             end
-            resize!(column.indices, 1)
-            resize!(column.values, 1)
+            _reset_upper_storage!(column.indices, retained_capacity)
+            _reset_upper_storage!(column.values, retained_capacity)
             column.indices[1] = index
             column.values[1] = one(T)
         else
@@ -1048,12 +1069,16 @@ function _reset_row_scratch!(factor::BartelsGolubFactorization, n::Int)
     return nothing
 end
 
-function refactorize!(factor::AbstractTriangularBasisFactorization{T},
-                      B::AbstractMatrix{T}) where {T}
+refactorize!(factor::AbstractTriangularBasisFactorization{T}, B::AbstractMatrix{T}) where {T} =
+    _refactorize_triangular!(factor, B, _UPPER_RETAINED_CAPACITY)
+
+function _refactorize_triangular!(factor::AbstractTriangularBasisFactorization{T},
+                                 B::AbstractMatrix{T}, retained_capacity::Int) where {T}
+    retained_capacity >= 1 || throw(ArgumentError("Retained capacity must be positive"))
     new_base = _refactorize_backend(factor.base, B)
     factor.base = new_base
     n = _backend_dimension(new_base)
-    _reset_identity_upper!(factor.upper, n)
+    _reset_identity_upper!(factor.upper, n, retained_capacity)
     resize!(factor.column_order, n)
     resize!(factor.positions, n)
     for index in 1:n
