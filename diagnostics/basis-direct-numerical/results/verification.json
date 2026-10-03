@@ -1,0 +1,51 @@
+{
+  "base_commit": "084a74920a3c752acef50666331f11cbea473daa",
+  "ported_commits": [
+    "39f3ad205ecdd1b9e5c8ef60265421575163a9f0",
+    "40518ae38ec2aa6bcc1572e819c0e4f170c9545e"
+  ],
+  "checks": {
+    "bg_new_normal": 432,
+    "factorization_reset_normal": 13957,
+    "bg_exact_equality": 1296,
+    "dual_semantic": 4722,
+    "dual_normal": 1007,
+    "external": 245
+  },
+  "failed": 0,
+  "errored": 0,
+  "all_process_exit_codes": 0,
+  "external_solves": 80,
+  "all_original_primal_certified": true,
+  "all_reference_objectives_matched": true,
+  "bg_warmed_bytes": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "bg_profiled_allocations": 0,
+  "julia": "1.13.0",
+  "architecture": "aarch64",
+  "julia_threads": 1,
+  "blas_threads": 1,
+  "full_project_suite_rerun": false,
+  "full_runtime_rerun": false,
+  "file_sha256": {
+    "src/triangular_factorization.jl": "283170d8071e6d1b8eeaec97b20587db0675f195f993d20d620d7ed4a3fb6213",
+    "src/native_cleanup_recovery.jl": "31731c811881c5d274e0da865eeb67cfeca6406db5bdf0f532deff0c7611c4ea",
+    "test/triangular_transpose_allocation_tests.jl": "2e1be87aacb819643154032a7a44831a4a6ac13271f9f896fa1e3964825923d3",
+    "test/native_dual_reconstruction_tests.jl": "3ad1c65640d33b65896d9fb5bc82ee65a229ea019f6bd7ef858b68c8e02690e5",
+    "test/runtests.jl": "131efb497368a22aba355a109d002f1403d76ffd57a8e8f7be42913c8b08bbca",
+    "diagnostics/basis-direct-numerical/reproduce/regression.jl": "ddfdb5614d922d512aaae71b1d437ee016eae6aadb2c281a809e383a90903315",
+    "diagnostics/bg-transpose-allocation/reproduce/identity.jl": "2fa5cd4d6c7c67775f538aadf8b995f328e798bf4632e6cb1d4615fb9f3b85fb",
+    "diagnostics/bg-transpose-allocation/reproduce/probe.jl": "7daa4b6e237144bcf2ce93ac9d3070c35ec117960ab993cd4f3e8dac0ecc7ebf"
+  },
+  "local_log_sha256": {
+    "bg-normal.log": "cf6587d6713594d31f910b891dcf3e6c2a59bb8cde1a2cccdf64b16e213665a1",
+    "bg-identity.log": "38ea580287d2b16db20d92838f6864b7231561eb8b82ac6b10227cbeeaaf9a53",
+    "dual-semantic.log": "fd4ad11e0bf4e56761ac32173cd35ddaf781966b911967cb330b840fa760d376",
+    "dual-normal-external.log": "5bd8988410d025941e9b802ba720bbf66e8dfe9ad26d6e6d379dcede7377df57"
+  }
+}
