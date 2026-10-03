@@ -39,12 +39,16 @@ function _native_cleanup_solve!(x::Vector{T}, ws, B, rhs, stop;
             # Driver cleanup may need a reliable but bound-infeasible basis.
             # Recover tiny terms lost in x + correction using the same budget
             # and cutoff, then certify every equation before publication.
-            local_reconstruction && !transposed || return false
+            local_reconstruction || return false
             # Failed homogeneous cleanup may have erased coupled tiny terms.
             # Reconstruct from the original corrected candidate instead.
             @. trial = x + correction
-            _native_phase_local_rows!(trial,B,rhs,policy,cutoff,stop) || return false
-            quality = _compensated_solve_quality!(scratch,B,trial,rhs,policy,false)
+            # BTRAN needs the same reconstruction as FTRAN, with equations
+            # and unknowns exchanged. Keep the original orientation for the
+            # independent residual check before publishing either result.
+            equations = transposed ? copy(transpose(B)) : B
+            _native_phase_local_rows!(trial,equations,rhs,policy,cutoff,stop) || return false
+            quality = _compensated_solve_quality!(scratch,B,trial,rhs,policy,transposed)
             (isnothing(quality) || !quality.reliable) && return false
         end
     end
@@ -65,7 +69,7 @@ function _try_native_cleanup_recompute!(ws::SimplexWorkspace{T},stop) where {T<:
     # Keep both corrections private until the complete state is verified.
     _native_cleanup_solve!(basic,ws,B,rhs,stop;local_reconstruction=true) || return false
     _native_cleanup_solve!(dual,ws,B,ws.costs[ws.basis.basic_indices],stop;
-        transposed=true) || return false
+        transposed=true,local_reconstruction=true) || return false
     prices = similar(ws.reduced_costs)
     _recompute_reduced_costs!(prices,ws,dual)
     all(isfinite,prices) || return false

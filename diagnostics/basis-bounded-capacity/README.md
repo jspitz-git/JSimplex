@@ -53,6 +53,11 @@ its retained local environments; the independent integration tests below do not.
 
 ## Integration verification
 
+The results below record the capacity-only integration at `a738b41`. The
+subsequent [BG allocation repair](../bg-transpose-allocation/README.md) removes
+the known failure recorded here; all 13,957 checks in the unchanged allocation
+driver now pass. The historical verification record is preserved.
+
 The focused capacity tests cover oversized buffers, front offsets, preservation
 of small buffers and copies, dimension changes, subsequent updates, FT/SS/BG,
 native/Markowitz, Float32/Float64/BigFloat and two rational types. The standalone
