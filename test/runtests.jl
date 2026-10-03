@@ -267,6 +267,11 @@ include("legacy_primal_relative_pivot_tests.jl")
     include("mps_build_tests.jl")
     include("mps_allocation_tests.jl")
     include("factorization_tests.jl")
+    include("huangfu_hall_option_tests.jl")
+    if Int === Int64
+        include("huangfu_hall_tests.jl")
+        include("huangfu_hall_integration_tests.jl")
+    end
     include("triangular_transpose_allocation_tests.jl")
     include("bartels_golub_rows_tests.jl")
     include("triangular_composed_rows_tests.jl")

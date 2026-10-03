@@ -88,7 +88,9 @@ floating simplex can also lengthen it using numerical and sampled-work evidence,
 with a finite update ceiling and conservative growth after reliable cycles.
 `basis_update` selects product-form (`:pfi`), Forrest–Tomlin
 (`:forrest_tomlin`), Bartels–Golub (`:bartels_golub`), or Suhl–Suhl
-(`:suhl_suhl`) basis updates.
+(`:suhl_suhl`) basis updates, or Huangfu–Hall middle product form
+(`:huangfu_hall`). Huangfu–Hall currently requires `Float64`, `:native`
+refactorization and 64-bit indices; unsupported combinations throw `ArgumentError`.
 `basis_refactorization` selects the existing backend (`:native`: UMFPACK for
 `Float64`, dense LU otherwise) or sparse Markowitz elimination followed by a
 dense trailing core (`:markowitz`).
@@ -161,10 +163,12 @@ Base.@constprop :aggressive function SolverOptions(::Type{T};
         return _validated_refactorization(T, Val(:forrest_tomlin), basis_refactorization, arguments...)
     elseif basis_update === :bartels_golub
         return _validated_refactorization(T, Val(:bartels_golub), basis_refactorization, arguments...)
+    elseif basis_update === :huangfu_hall
+        return _validated_refactorization(T, Val(:huangfu_hall), basis_refactorization, arguments...)
     elseif basis_update === :suhl_suhl
         return _validated_refactorization(T, Val(:suhl_suhl), basis_refactorization, arguments...)
     end
-    throw(ArgumentError("basis_update must be :pfi, :forrest_tomlin, :bartels_golub, or :suhl_suhl"))
+    throw(ArgumentError("basis_update must be :pfi, :forrest_tomlin, :bartels_golub, :suhl_suhl, or :huangfu_hall"))
 end
 
 Base.@constprop :aggressive function _validated_refactorization(
@@ -178,11 +182,18 @@ Base.@constprop :aggressive function _validated_refactorization(
     throw(ArgumentError("basis_refactorization must be :native or :markowitz"))
 end
 
+function _validate_huangfu_hall(::Type{T}, ::Val{R}) where {T,R}
+    T === Float64 && R === :native && Int === Int64 || throw(ArgumentError(
+        "basis_update=:huangfu_hall requires Float64, basis_refactorization=:native, and 64-bit indices"))
+    return nothing
+end
+
 function _validated_options(::Type{T}, ::Val{M}, ::Val{R}, primal_tolerance, dual_tolerance,
                             zero_tolerance, iteration_limit, time_limit,
                             refactorization_interval, verbose, log_level, algorithm,
                             pricing, scaling, presolve, simplex_strategy, partial_pricing) where {T,M,R}
     _supported_value_type(T) || throw(ArgumentError("unsupported solver value type $T"))
+    M === :huangfu_hall && _validate_huangfu_hall(T, Val(R))
     defaults = _is_exact(T) === Val(true) ? (zero(T), zero(T), zero(T)) :
         (_positive_tolerance(T, 1 // 10^7), _positive_tolerance(T, 1 // 10^7),
          _positive_tolerance(T, 1 // 10^12))

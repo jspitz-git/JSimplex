@@ -4,6 +4,11 @@ This change adds native-code caching without changing numerical algorithms,
 basis storage or precision policy. Stable-index experiments remain deferred.
 The implementation is based on `dd200cb` and uses PrecompileTools 1.3.4.
 
+The original measurements below describe the first native-only workload.
+The current workload also covers shared Float32/Float64 Markowitz backend kernels
+and Huangfu–Hall for Float64/native on 64-bit platforms. See the
+[public-manager verification record](../huangfu-hall-public/README.md) for the extension.
+
 ## Coverage and reuse
 
 `src/precompile.jl` runs two tiny, synthetic LPs during package precompilation.

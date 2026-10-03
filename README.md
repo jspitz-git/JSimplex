@@ -300,7 +300,7 @@ for `SolverOptions(Float64)`. Floating types use these keyword defaults:
 | `log_level` | `Logging.Debug` | Level emitted through Julia's logging system |
 | `algorithm` | `:dual` | `:dual` or `:primal` |
 | `pricing` | `:steepest_edge` | Dual or primal pricing rule: `:steepest_edge`, `:devex`, `:dantzig`, or `:auto`; floating dual steepest-edge switches to Devex if a checked weight becomes unreliable; stagnation-driven switching requires adaptive policies |
-| `basis_update` | `:pfi` | Basis update: `:pfi`, `:forrest_tomlin`, `:bartels_golub`, or `:suhl_suhl` |
+| `basis_update` | `:pfi` | Basis update: `:pfi`, `:forrest_tomlin`, `:bartels_golub`, `:suhl_suhl`, or `:huangfu_hall` (Float64/native only) |
 | `basis_refactorization` | `:native` | Full factorization: `:native` or `:markowitz` |
 | `scaling` | `:auto` | `:auto`, `:on`, or `:off` row and column scaling |
 | `presolve` | `true` | Apply all presolve reductions before simplex; `false` solves the original LP directly |
@@ -562,6 +562,28 @@ The primal vector uses original structural variables, and the objective includes
 the original sense and constant. Every result retains a `message` and
 `SolveStatistics` with `iterations`, `elapsed_seconds`, and `refactorizations`.
 
+### Huangfu–Hall middle product form
+
+Select `SolverOptions(basis_update=:huangfu_hall)` or the MOI raw optimizer
+attribute `"basis_update" => :huangfu_hall`. This manager implements the middle
+product form from Huangfu and Hall (ERGO-13-001, section 3.1.2), independently of
+the existing `:pfi` manager. It currently requires `Float64`,
+`basis_refactorization=:native`, and a 64-bit platform. Other scalar/backend
+combinations are rejected, including MOI changes that would create an unsupported
+combination; a rejected attribute change preserves the previous settings.
+
+Both primal and dual simplex and both public strategies are supported. Internal
+hypersparse policies use the dense basis kernels for this manager. Policies that
+require higher-precision basis reconstruction (`precision_boosting` or
+`lp_refinement`) are rejected explicitly. No automatic precision conversion or
+manager substitution is performed.
+
+The implementation retains native LU scratch, reachable unit-transpose update
+preparation, allocation-light scaling checks, bounded retired update arrays, and
+bounded CSR extraction scratch. It excludes the slower experimental sparse
+ordinary solves and copy-free update packing. See the
+[promotion and verification record](diagnostics/huangfu-hall-public/README.md).
+
 ### Explicit LP relaxation
 
 ```julia
@@ -669,7 +691,7 @@ raises `ArgumentError`. File access errors propagate normally.
 Run the package tests (no GLPK or external datasets):
 
 ```sh
-julia --startup-file=no --project=. -e 'using Pkg; Pkg.instantiate(); Pkg.precompile(); Pkg.test()'
+julia --startup-file=no --project=. -e 'using Pkg; Pkg.instantiate(); Pkg.precompile(; strict=true); Pkg.test()'
 ```
 
 After initial environment setup, run the fixture-based tests offline with:
@@ -680,9 +702,12 @@ JULIA_PKG_OFFLINE=true julia --startup-file=no --project=. -e 'using Pkg; Pkg.te
 
 ### Reusing compiled solver code
 
-JSimplex uses PrecompileTools to cache common Float32/Float64 native simplex
-calls for both algorithms and all four basis update managers, including
-presolve. The first package precompilation runs small synthetic problems;
+JSimplex uses PrecompileTools to cache common Float32/Float64 simplex calls
+for both algorithms and all four original basis update managers with native
+refactorization and Huangfu–Hall with Float64/native on 64-bit
+platforms, including presolve. It also caches shared Float32/Float64 Markowitz
+factorization, refactorization and basis-solve kernels; complete Markowitz simplex
+entry points are compiled on demand. The first package precompilation runs small synthetic problems;
 subsequent processes reuse their compiled call signatures. These examples do
 not run during ordinary package loading and do not read external datasets.
 
@@ -690,9 +715,17 @@ For repeated direct test runs, prepare and reuse the same environment. The
 preparation command uses one compiler worker to limit peak memory:
 
 ```sh
-JULIA_NUM_PRECOMPILE_TASKS=1 JULIA_IMAGE_THREADS=1 julia --startup-file=no --project=. -e 'using Pkg; Pkg.instantiate(); Pkg.precompile()'
+JULIA_NUM_PRECOMPILE_TASKS=1 JULIA_IMAGE_THREADS=1 julia --startup-file=no --project=. -e 'using Pkg; Pkg.instantiate(); Pkg.precompile(; strict=true)'
 julia --startup-file=no --project=. test/runtests.jl
 ```
+
+On the measured Julia 1.13/aarch64 system, the extended default `-g1` cache build
+exceeded a 16 GiB virtual-memory limit even with one worker. The validated `-g0`
+variant omits debug information while retaining `-O2`; use `-g0` for both cache
+preparation and subsequent processes to reuse that variant. Alternatively, disable
+the workload during development as shown below. See the
+[extension measurements](diagnostics/huangfu-hall-public/README.md) for memory costs
+and the limits of this validation.
 
 Cache selection depends on the Julia version, source/dependency versions, CPU
 compatibility and compiler flags. In particular, `--check-bounds` must match.
@@ -700,7 +733,7 @@ compatibility and compiler flags. In particular, `--check-bounds` must match.
 be prepared with:
 
 ```sh
-JULIA_NUM_PRECOMPILE_TASKS=1 JULIA_IMAGE_THREADS=1 julia --startup-file=no --check-bounds=yes --project=. -e 'using Pkg; Pkg.precompile()'
+JULIA_NUM_PRECOMPILE_TASKS=1 JULIA_IMAGE_THREADS=1 julia --startup-file=no --check-bounds=yes --project=. -e 'using Pkg; Pkg.precompile(; strict=true)'
 ```
 
 A source change can require rebuilding the cache. To skip the workload during

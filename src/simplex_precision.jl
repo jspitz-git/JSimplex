@@ -88,6 +88,7 @@ function _copy_precision_policy(::Type{S},policy::NumericalPolicy) where S
 end
 
 function _copy_precision_options(::Type{S},o::SolverOptions{T,M,R}) where {S,T,M,R}
+    M === :huangfu_hall && _validate_huangfu_hall(S, Val(R))
     return SolverOptions{S,M,R}(_copy_precision_scalar(S,o.primal_tolerance),
         _copy_precision_scalar(S,o.dual_tolerance),_copy_precision_scalar(S,o.zero_tolerance),
         o.iteration_limit,o.time_limit,o.refactorization_interval,o.verbose,o.log_level,

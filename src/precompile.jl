@@ -14,10 +14,14 @@
         with_logger(NullLogger()) do
             for (upper, lower) in examples
                 T = eltype(upper.objective)
-                for update in (:pfi, :bartels_golub, :forrest_tomlin, :suhl_suhl),
+                for update in (:pfi, :bartels_golub, :forrest_tomlin, :suhl_suhl, :huangfu_hall),
+                    refactorization in (:native,),
                     algorithm in (:primal, :dual), presolve in (false, true)
+                    # The public MPF manager currently supports native Float64 only.
+                    update === :huangfu_hall &&
+                        !(T === Float64 && refactorization === :native && Int === Int64) && continue
                     options = SolverOptions(T; algorithm, basis_update=update,
-                        basis_refactorization=:native, pricing=:steepest_edge,
+                        basis_refactorization=refactorization, pricing=:steepest_edge,
                         simplex_strategy=:legacy, presolve, verbose=false,
                         iteration_limit=32, refactorization_interval=1)
                     for (problem, objective) in ((upper, -10), (lower, 5))
@@ -32,6 +36,27 @@
                 result = solve(upper)
                 @assert result.status == OPTIMAL
                 @assert isapprox(result.objective_value, T(-10))
+            end
+            # Warm the shared Markowitz backend without duplicating every complete
+            # simplex specialization. Cover sparse pivots and the dense trailing core.
+            for T in (Float64, Float32)
+                matrices = (spdiagm(0 => T[2, 3, 4]), sparse(T[4 1 2; 2 5 1; 1 3 6]))
+                expected = T[1, -2, 3]
+                destination = zeros(T, 3)
+                for (i, matrix) in enumerate(matrices)
+                    backend = _factorize_basis(matrix, Val(:markowitz))
+                    @assert (backend.sparse_pivots > 0) == (i == 1)
+                    _backend_forward_solve!(destination, backend, matrix * expected)
+                    @assert destination ≈ expected
+                    _backend_transpose_solve!(destination, backend, transpose(matrix) * expected)
+                    @assert destination ≈ expected
+                    replacement = matrices[3 - i]
+                    backend = _refactorize_backend(backend, replacement)
+                    _backend_forward_solve!(destination, backend, replacement * expected)
+                    @assert destination ≈ expected
+                    _backend_transpose_solve!(destination, backend, transpose(replacement) * expected)
+                    @assert destination ≈ expected
+                end
             end
         end
     end

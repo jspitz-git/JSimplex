@@ -309,6 +309,7 @@ end
 
 function _pipeline_sparse_available!(ws)
     factor = ws.factorization
+    factor isa HuangfuHallFactorization && return false
     factor.base isa DenseLUBackend && return false
     cache = _sparse_basis_workspace!(factor)
     if !cache.base_ready
@@ -329,6 +330,12 @@ function _pipeline_sparse_available!(ws)
         end
     end
     return true
+end
+
+# The middle product form has its own alias-safe dense scratch and no indexed kernel.
+function _pipeline_dense_basis!(destination, factor::HuangfuHallFactorization, rhs, transposed)
+    return transposed ? transpose_solve!(destination, factor, rhs) :
+                        forward_solve!(destination, factor, rhs)
 end
 
 function _pipeline_dense_basis!(destination,factor,rhs,transposed)
