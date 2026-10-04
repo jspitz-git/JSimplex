@@ -14,7 +14,7 @@ import MathOptInterface as MOI
             @test JSimplex._original_primal_feasible(problem, result.primal, options.primal_tolerance)
         end
     end
-    for algorithm in (:primal, :dual)
+    for algorithm in (:primal, :dual), backend in (:native,:markowitz)
         source = MOI.Utilities.Model{Float64}()
         x = MOI.add_variables(source, 2)
         for v in x; MOI.add_constraint(source, v, MOI.GreaterThan(0.0)); end
@@ -26,6 +26,7 @@ import MathOptInterface as MOI
         MOI.set(source, MOI.ObjectiveFunction{typeof(objective)}(), objective)
         optimizer = JSimplex.Optimizer()
         MOI.set(optimizer, MOI.RawOptimizerAttribute("basis_update"), :huangfu_hall)
+        MOI.set(optimizer, MOI.RawOptimizerAttribute("basis_refactorization"), backend)
         MOI.set(optimizer, MOI.RawOptimizerAttribute("algorithm"), algorithm)
         MOI.set(optimizer, MOI.RawOptimizerAttribute("presolve"), false)
         MOI.set(optimizer, MOI.Silent(), true)

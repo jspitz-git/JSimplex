@@ -40,7 +40,8 @@ The external runner reuses the pinned afiro, adlittle, pk1, flugpl and fast0507
 inputs and the public HH harness utilities. Every solve must reach OPTIMAL,
 match the reference objective and certify feasibility in the original model.
 The runtime selection solves only dual runtime.mps with its pinned input digest,
-a 900-second solver limit, steepest-edge pricing, legacy strategy, no partial
+a default 900-second solver limit (optional fourth argument overrides it),
+steepest-edge pricing, legacy strategy, no partial
 pricing and an 80-update interval. Reports retain failures before the runner
 exits unsuccessfully; a timeout is not classified as convergence.
 
@@ -66,3 +67,60 @@ The earlier full
 suite's baseline failures and compilation limit are documented in the
 [scalar-extension record](../huangfu-hall-precision/README.md); this change does
 not alter unrelated primal tests or solver heuristics.
+
+## Extended runtime check
+
+The initial 900-second Markowitz runtime check reached TIME_LIMIT after 60,732
+iterations and 763 refactorizations, with no original-model restart. Its final
+logged objective was 51,178,463.86519393, primal infeasibility 1,610.1267947153437,
+and dual infeasibility zero. This was not an optimal or feasible result. Only
+0.184 seconds of the solve were attributed to compilation. One SIGUSR1 profiling
+peek was requested during this diagnostic; its timings are not a performance
+comparison. A second run used a predeclared 1,800-second limit to check completion.
+The runner now flushes diagnostic messages promptly.
+
+Source review identified potential costs, without attributing the slowdown:
+Markowitz's existing dictionary elimination and pivot search, conversion of its
+dense core to CSC, and any additional fill in the extracted factors. Both HH
+backends use the same triangular/update kernels after extraction. No heuristic,
+precision or factorization-interval change was introduced to alter convergence.
+
+The scalar external controls use afiro and adlittle in BigFloat and
+Rational{BigInt}, both algorithms, plus afiro in Float32 with the previously
+measured `sqrt(eps(Float32))` primal/dual tolerances. Defaults remain unchanged;
+these controls do not claim to fix the known default-tolerance Float32 failures.
+
+The extended runtime check returned **OPTIMAL** after 66,158 iterations and
+835 refactorizations, with zero original-model restarts. The objective was
+51,425,691.76206371, matching the reference, and original-model feasibility was
+independently certified. Solve time was 1,011.180 seconds, including 0.274 seconds
+of compilation. Whole-process peak RSS was 2,481,856 KiB (2.37 GiB), including
+warmup and parsing. It used one Julia/BLAS thread and the 8 GiB virtual limit.
+The shared logged trajectory prefix matches the initial attempt exactly; the
+longer time limit allowed the same solve to finish, including postsolve cleanup.
+
+This backend is substantially slower on this control than the previously
+recorded native HH run (166.439 seconds, 61,705 iterations). These are different
+factorizations and trajectories, not an isolated measurement of extraction cost.
+The new backend is an additional explicit choice; the default remains native.
+
+## Clean integration verification
+
+On the integration branch based directly on master, all **2,516 semantic checks**
+and **1,833 normally compiled checks** passed. This includes the additional
+Float64 MOI solves through both backends. All ten external Markowitz controls
+(afiro, adlittle, pk1, flugpl and fast0507, both algorithms) reached certified
+OPTIMAL, with no original-model restarts. Ten further native HH controls match
+the earlier certified native trajectories exactly: objectives, iteration and
+refactorization counts, restarts, primal-vector bits and progress-log digests.
+
+All ten scalar external controls also reached certified OPTIMAL (30 assertions).
+These cover afiro/adlittle with BigFloat and Rational{BigInt}, and the predeclared
+Float32 afiro tolerance control. The full runtime result above is additional.
+No excluded large model was solved or factorized. The full project suite was
+not rerun; this is the targeted/backend verification, with the pre-existing
+broader-suite limitations linked above. No full package cache build was repeated.
+
+[The machine-readable report](results/final.json) retains the successful runs,
+the initial runtime timeout, input/source/harness digests and resource summaries.
+Run `reproduce/audit.py` against the retained local reports to repeat the audit.

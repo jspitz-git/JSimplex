@@ -1,6 +1,17 @@
 # Reuse input validation, source digests, atomic reports and progress logging.
 include(joinpath(@__DIR__,"../../huangfu-hall-public/reproduce/external.jl"))
-function main(backend,selection,out)
+# Flush diagnostics promptly without changing solver options or arithmetic.
+struct HHFlushLogger <: AbstractLogger
+    inner::HHLogger
+end
+Logging.min_enabled_level(l::HHFlushLogger)=Logging.min_enabled_level(l.inner)
+Logging.shouldlog(l::HHFlushLogger,args...)=Logging.shouldlog(l.inner,args...)
+Logging.catch_exceptions(::HHFlushLogger)=false
+function Logging.handle_message(l::HHFlushLogger,args...;kwargs...)
+    Logging.handle_message(l.inner,args...;kwargs...)
+    flush(stderr)
+end
+function main(backend,selection,out,runtime_seconds=900.0)
 backend in (:native,:markowitz) || error("Unknown backend")
 selection in ("small","runtime") || error("Unknown selection")
 ispath(out) && error("Use a new output directory");mkpath(out)
@@ -24,15 +35,15 @@ passed=true
 for entry in entries, algorithm in (selection=="runtime" ? (:dual,) : (:primal,:dual))
     path=allowed_input(entry["path"])
     digest=bytes2hex(open(sha256,path));@assert digest==entry["sha256"]
-    p=read_mps(path);o=opts(algorithm;seconds=selection=="runtime" ? 900.0 : 180.0)
+    p=read_mps(path);o=opts(algorithm;seconds=selection=="runtime" ? runtime_seconds : 180.0)
     logger=HHLogger();GC.gc()
     println("START ",backend," ",entry["id"]," ",algorithm);flush(stdout)
-    t=@timed with_logger(logger) do;solve(p;options=o,relax_integrality=true);end
+    t=@timed with_logger(HHFlushLogger(logger)) do;solve(p;options=o,relax_integrality=true);end
     r=t.value;optimal=r.status==OPTIMAL
     feasible=optimal && JSimplex._original_primal_feasible(p,r.primal,o.primal_tolerance)
     matched=optimal && isapprox(r.objective_value,entry["objective"];rtol=1e-8,atol=1e-7)
     report=Dict{String,Any}("input"=>entry["id"],"input_sha256"=>digest,
-        "algorithm"=>string(algorithm),"basis_refactorization"=>string(backend),
+        "algorithm"=>string(algorithm),"basis_refactorization"=>string(backend),"time_limit"=>o.time_limit,
         "status"=>string(r.status),"certified"=>feasible,"objective_matches"=>matched,
         "message"=>r.message,"iterations"=>r.statistics.iterations,
         "refactorizations"=>r.statistics.refactorizations,"restarts"=>logger.restarts,
@@ -51,4 +62,4 @@ for entry in entries, algorithm in (selection=="runtime" ? (:dual,) : (:primal,:
 end
 passed || error("Some external solves were not certified; see all saved reports")
 end
-main(Symbol(ARGS[1]),ARGS[2],ARGS[3])
+main(Symbol(ARGS[1]),ARGS[2],ARGS[3],length(ARGS)>3 ? parse(Float64,ARGS[4]) : 900.0)
