@@ -23,8 +23,8 @@ import MathOptInterface as MOI
             @test SolverOptions(T; basis_update=:huangfu_hall) isa SolverOptions{T,:huangfu_hall,:native}
             @test SolverOptions(T, options).basis_update === :huangfu_hall
         end
-        @test_throws ArgumentError SolverOptions(basis_update=:huangfu_hall,
-            basis_refactorization=:markowitz)
+        @test SolverOptions(basis_update=:huangfu_hall,
+            basis_refactorization=:markowitz) isa SolverOptions{Float64,:huangfu_hall,:markowitz}
 
         optimizer = JSimplex.Optimizer()
         update = MOI.RawOptimizerAttribute("basis_update")
@@ -32,15 +32,15 @@ import MathOptInterface as MOI
         @test MOI.supports(optimizer, update)
         MOI.set(optimizer, update, :huangfu_hall)
         @test MOI.get(optimizer, update) === :huangfu_hall
-        @test_throws ArgumentError MOI.set(optimizer, backend, :markowitz)
-        @test MOI.get(optimizer, backend) === :native
+        MOI.set(optimizer, backend, :markowitz)
+        @test MOI.get(optimizer, backend) === :markowitz
         @test MOI.get(optimizer, update) === :huangfu_hall
         MOI.empty!(optimizer)
         @test MOI.get(optimizer, update) === :huangfu_hall
         MOI.set(optimizer, update, :pfi)
         MOI.set(optimizer, backend, :markowitz)
-        @test_throws ArgumentError MOI.set(optimizer, update, :huangfu_hall)
-        @test MOI.get(optimizer, update) === :pfi
+        MOI.set(optimizer, update, :huangfu_hall)
+        @test MOI.get(optimizer, update) === :huangfu_hall
         single = JSimplex.Optimizer{Float32}()
         MOI.set(single, update, :huangfu_hall)
         @test MOI.get(single, update) === :huangfu_hall

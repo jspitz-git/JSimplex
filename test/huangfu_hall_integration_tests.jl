@@ -4,8 +4,8 @@ import MathOptInterface as MOI
 @testset "Huangfu-Hall public solves" begin
     upper = LinearProblem(sparse([1.0 1; 1 0; 0 1]), [-3.0, -2.0]; row_upper=[4.0, 2.0, 3.0])
     lower = LinearProblem(sparse([1.0 1; -1 1]), [1.0, 2.0]; row_lower=[3.0, 1.0], column_lower=[0.0, 1.0])
-    for algorithm in (:primal, :dual), strategy in (:legacy, :adaptive), presolve in (false, true)
-        options = SolverOptions(; algorithm, basis_update=:huangfu_hall,
+    for algorithm in (:primal, :dual), strategy in (:legacy, :adaptive), presolve in (false, true), backend in (:native,:markowitz)
+        options = SolverOptions(; algorithm, basis_update=:huangfu_hall, basis_refactorization=backend,
             simplex_strategy=strategy, presolve, verbose=false, refactorization_interval=2)
         for (problem, objective) in ((upper, -10.0), (lower, 5.0))
             result = solve(problem; options)
