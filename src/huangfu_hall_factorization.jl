@@ -105,7 +105,7 @@ function _hh_extract_parts(F::SparseArrays.UMFPACK.UmfpackLU{Float64,Int64},w::H
     L,SparseMatrixCSC(n,n,Up,Ui,Ux),p,q,scaling
 end
 
-mutable struct HuangfuHallFactorization{T<:Real,F}
+mutable struct HuangfuHallFactorization{T<:Real,F,R}
     base::HHBase{T}
     updates::Vector{HHUpdate{T}}
     work::Vector{T}
@@ -192,6 +192,45 @@ function _hh_extract_parts(F::LinearAlgebra.LU{T},::HHExtractWorkspace) where {T
     n=size(F,1)
     sparse(F.L),sparse(F.U),F.p,collect(1:n),ones(T,n)
 end
+# Fold the trailing core's row pivots into the sparse L and outer permutation.
+# If P*B*Q = Ls*diag(I,C)*Us and Pc*C = Lc*Uc, the full lower-left
+# block is Pc*Ls21; the sparse U rows keep their original column coordinates.
+function _hh_extract_parts(F::MarkowitzBackend{T},::HHExtractWorkspace) where {T}
+    n,k=F.dimension,F.sparse_pivots
+    core_order=F.core.p
+    core_positions=invperm(core_order)
+    rows=copy(F.row_order)
+    for i in eachindex(core_order)
+        rows[k+i]=F.row_order[k+core_order[i]]
+    end
+    li,lj,lv=collect(1:n),collect(1:n),ones(T,n)
+    ui,uj,uv=Int[],Int[],T[]
+    for pivot in 1:k
+        push!(ui,pivot);push!(uj,pivot);push!(uv,F.diagonal[pivot])
+        lower,upper=F.lower[pivot],F.upper[pivot]
+        for j in eachindex(lower.indices)
+            row=lower.indices[j]
+            row>k && (row=k+core_positions[row-k])
+            push!(li,row);push!(lj,pivot);push!(lv,lower.values[j])
+        end
+        for j in eachindex(upper.indices)
+            push!(ui,pivot);push!(uj,upper.indices[j]);push!(uv,upper.values[j])
+        end
+    end
+    # Read the existing dense LU storage, without forming another dense matrix.
+    core=F.core.factors
+    for j in axes(core,2), i in axes(core,1)
+        value=core[i,j]
+        iszero(value) && continue
+        if i>j
+            push!(li,k+i);push!(lj,k+j);push!(lv,value)
+        else
+            push!(ui,k+i);push!(uj,k+j);push!(uv,value)
+        end
+    end
+    return sparse(li,lj,lv,n,n),sparse(ui,uj,uv,n,n),rows,copy(F.column_order),ones(T,n)
+end
+_hh_base_scale_mode(F::MarkowitzBackend,args...)=false
 _hh_base_scale_mode(F::LinearAlgebra.LU,args...)=false
 _hh_base_scale_mode(F::Float64UMFPACK,args...)=_hh_scale_mode(F,args...)
 
@@ -225,12 +264,15 @@ _hh_initial_lu(B::AbstractMatrix{Float64})=iszero(size(B,1)) ? nothing : _hh_nat
 _hh_workspace_type(::Nothing)=Float64UMFPACK
 _hh_workspace_type(F)=typeof(F)
 
-function HuangfuHallFactorization(B::AbstractMatrix{T}) where {T<:Real}
-    _validate_huangfu_hall(T,Val(:native))
+_hh_initial_lu(B,::Val{:native})=_hh_initial_lu(B)
+_hh_initial_lu(B,::Val{:markowitz})=MarkowitzBackend(B)
+
+function HuangfuHallFactorization(B::AbstractMatrix{T},backend::Val{R}=Val(:native)) where {T<:Real,R}
+    _validate_huangfu_hall(T,backend)
     size(B,1)==size(B,2) || throw(DimensionMismatch("Basis must be square"))
-    n=size(B,1);F=_hh_initial_lu(B)
+    n=size(B,1);F=_hh_initial_lu(B,backend)
     work=zeros(T,n);auxiliary=zeros(T,n);extraction=HHExtractWorkspace()
-    HuangfuHallFactorization{T,_hh_workspace_type(F)}(_hh_extract_base(F,work,auxiliary,extraction),HHUpdate{T}[],work,auxiliary,zeros(T,n),zeros(T,n),false,F,HHUnitWorkspace(n,T),0,HHPool(T),HHPool(T),extraction)
+    HuangfuHallFactorization{T,_hh_workspace_type(F),R}(_hh_extract_base(F,work,auxiliary,extraction),HHUpdate{T}[],work,auxiliary,zeros(T,n),zeros(T,n),false,F,HHUnitWorkspace(n,T),0,HHPool(T),HHPool(T),extraction)
 end
 
 function _hh_lower!(x,b::HHBase,transposed::Bool)
@@ -402,20 +444,22 @@ _hh_refactor_lu!(F::Float64UMFPACK,B)=
     lu!(F,convert(SparseMatrixCSC{Float64,Int},B);reuse_symbolic=false)
 _hh_refactor_lu!(F::LinearAlgebra.LU,B)=_hh_native_lu(B)
 
-function refactorize!(f::HuangfuHallFactorization{T},B::AbstractMatrix{T}) where {T}
+function _hh_refactor_backend(F,B,::Val{:native})
+    size(B,1)==0 && return nothing
+    (isnothing(F) || size(F)!=size(B)) && return _hh_native_lu(B)
+    return _hh_refactor_lu!(F,B)
+end
+_hh_refactor_backend(F,B,::Val{:markowitz}) =
+    isnothing(F) ? MarkowitzBackend(B) : _refactorize_backend(F,B)
+
+function refactorize!(f::HuangfuHallFactorization{T,FType,R},B::AbstractMatrix{T}) where {T,FType,R}
     size(B,1)==size(B,2) || throw(DimensionMismatch("Basis must be square"))
     n=size(B,1);F=f.refactor_workspace
     local base
     try
-        if n==0
-            F=nothing
-        elseif isnothing(F) || size(F)!=size(B)
-            F=_hh_native_lu(B)
-        else
-            # Repeat symbolic analysis as in fresh LU; only reuse native workspace.
-            # A failed candidate cannot damage the independent active L/U.
-            F=_hh_refactor_lu!(F,B)
-        end
+        # Extracted L/U own their storage; failed backend construction cannot
+        # damage the active factors or copies. Preserve backend choice on retry.
+        F=_hh_refactor_backend(F,B,Val(R))
         # Borrow only disposable solve scratch, never the prepared direction.
         work=length(f.work)==n ? f.work : zeros(T,n)
         auxiliary=length(f.auxiliary)==n ? f.auxiliary : zeros(T,n)
@@ -447,17 +491,17 @@ function refactorize!(f::HuangfuHallFactorization{T},B::AbstractMatrix{T}) where
     empty!(f.updates);f.prepared_valid=false
     f
 end
-function copy_basis_factorization(f::HuangfuHallFactorization{T,F}) where {T,F}
+function copy_basis_factorization(f::HuangfuHallFactorization{T,F,R}) where {T,F,R}
     n=length(f.work)
     f.shared_update_count=length(f.updates)
-    HuangfuHallFactorization{T,F}(f.base,copy(f.updates),zeros(T,n),zeros(T,n),zeros(T,n),zeros(T,n),false,nothing,HHUnitWorkspace(n,T),length(f.updates),HHPool(T),HHPool(T),HHExtractWorkspace())
+    HuangfuHallFactorization{T,F,R}(f.base,copy(f.updates),zeros(T,n),zeros(T,n),zeros(T,n),zeros(T,n),false,nothing,HHUnitWorkspace(n,T),length(f.updates),HHPool(T),HHPool(T),HHExtractWorkspace())
 end
 
 # Keep unsupported combinations explicit even for internal factory callers.
 function _basis_factorization(B::AbstractMatrix{T}, ::Val{:huangfu_hall},
                               ::Val{R}) where {T,R}
     _validate_huangfu_hall(T, Val(R))
-    return HuangfuHallFactorization(B)
+    return HuangfuHallFactorization(B,Val(R))
 end
 _basis_factorization(B, mode::Val{:huangfu_hall}) =
     _basis_factorization(B, mode, Val(:native))

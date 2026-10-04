@@ -1,12 +1,12 @@
 using Test, JSimplex, SparseArrays
 import MathOptInterface as MOI
 
-for T in (Float32, BigFloat, Rational{BigInt}, Rational{Int})
-@testset "Huangfu-Hall public solves $T" begin
+for T in (Float32, BigFloat, Rational{BigInt}, Rational{Int}), backend in (:native,:markowitz)
+@testset "Huangfu-Hall public solves $T $backend" begin
     upper = LinearProblem(sparse(T[1.0 1; 1 0; 0 1]), T[-3.0, -2.0]; row_upper=T[4.0, 2.0, 3.0])
     lower = LinearProblem(sparse(T[1.0 1; -1 1]), T[1.0, 2.0]; row_lower=T[3.0, 1.0], column_lower=T[0.0, 1.0])
     for algorithm in (:primal, :dual), strategy in (:legacy, :adaptive), presolve in (false, true)
-        options = SolverOptions(T; algorithm, basis_update=:huangfu_hall,
+        options = SolverOptions(T; algorithm, basis_update=:huangfu_hall, basis_refactorization=backend,
             simplex_strategy=strategy, presolve, verbose=false, refactorization_interval=2)
         for (problem, objective) in ((upper, -10.0), (lower, 5.0))
             result = solve(problem; options)
@@ -27,6 +27,7 @@ for T in (Float32, BigFloat, Rational{BigInt}, Rational{Int})
         MOI.set(source, MOI.ObjectiveFunction{typeof(objective)}(), objective)
         optimizer = JSimplex.Optimizer{T}()
         MOI.set(optimizer, MOI.RawOptimizerAttribute("basis_update"), :huangfu_hall)
+        MOI.set(optimizer, MOI.RawOptimizerAttribute("basis_refactorization"), backend)
         MOI.set(optimizer, MOI.RawOptimizerAttribute("algorithm"), algorithm)
         MOI.set(optimizer, MOI.RawOptimizerAttribute("presolve"), false)
         MOI.set(optimizer, MOI.Silent(), true)
@@ -40,10 +41,10 @@ end
 end
 
 @testset "Huangfu-Hall working precision transfer" begin
-    for (T,S,bits) in ((Float32,Float64,53),(Float64,BigFloat,128),(BigFloat,BigFloat,512))
-        Int !== Int64 && (T === Float64 || S === Float64) && continue
+    for (T,S,bits) in ((Float32,Float64,53),(Float64,BigFloat,128),(BigFloat,BigFloat,512)), backend in (:native,:markowitz)
+        backend === :native && Int !== Int64 && (T === Float64 || S === Float64) && continue
         p=LinearProblem(sparse(T[2 1;1 3]),T[1,2];row_lower=T[2,1],row_upper=T[2,1])
-        options=SolverOptions(T;basis_update=:huangfu_hall,verbose=false,presolve=false)
+        options=SolverOptions(T;basis_update=:huangfu_hall,basis_refactorization=backend,verbose=false,presolve=false)
         policy=JSimplex.NumericalPolicy(T;precision_boosting=true,hypersparse=true)
         basis=JSimplex.Basis([1,2],[JSimplex.BASIC,JSimplex.BASIC,JSimplex.AT_LOWER,JSimplex.AT_LOWER])
         ws=JSimplex.initialize_from_basis(p,basis,options;policy)
@@ -52,6 +53,7 @@ end
         @test fresh isa JSimplex.SimplexWorkspace{S}
         @test fresh.factorization isa JSimplex.HuangfuHallFactorization{S}
         @test fresh.basis.basic_indices==basis.basic_indices
+        @test fresh.options.basis_refactorization===backend
         @test eltype(fresh.factorization.base.lower)===S
         @test JSimplex._recomputed_basis_reliable(fresh)
         rhs=S[3,4]
@@ -61,13 +63,13 @@ end
 end
 
 @testset "BigFloat HH hypersparse policy uses a precision-safe dense fallback" begin
-    for wider in (:base,:update,:rhs)
+    for wider in (:base,:update,:rhs), backend in (:native,:markowitz)
         bits=wider === :base ? 256 : 64
         ws,B=setprecision(BigFloat,bits) do
             alpha=wider === :base ? 1+BigFloat(2)^(-180) : BigFloat(1)
             B=BigFloat[1 alpha;0 1]
             p=LinearProblem(sparse(B),BigFloat[1,2];row_lower=BigFloat[2,1],row_upper=BigFloat[2,1])
-            o=SolverOptions(BigFloat;basis_update=:huangfu_hall,verbose=false,presolve=false)
+            o=SolverOptions(BigFloat;basis_update=:huangfu_hall,basis_refactorization=backend,verbose=false,presolve=false)
             policy=JSimplex.NumericalPolicy(BigFloat;hypersparse=true)
             basis=JSimplex.Basis([1,2],[JSimplex.BASIC,JSimplex.BASIC,JSimplex.AT_LOWER,JSimplex.AT_LOWER])
             ws=try

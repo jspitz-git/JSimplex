@@ -300,7 +300,7 @@ for `SolverOptions(Float64)`. Floating types use these keyword defaults:
 | `log_level` | `Logging.Debug` | Level emitted through Julia's logging system |
 | `algorithm` | `:dual` | `:dual` or `:primal` |
 | `pricing` | `:steepest_edge` | Dual or primal pricing rule: `:steepest_edge`, `:devex`, `:dantzig`, or `:auto`; floating dual steepest-edge switches to Devex if a checked weight becomes unreliable; stagnation-driven switching requires adaptive policies |
-| `basis_update` | `:pfi` | Basis update: `:pfi`, `:forrest_tomlin`, `:bartels_golub`, `:suhl_suhl`, or `:huangfu_hall` (native refactorization only) |
+| `basis_update` | `:pfi` | Basis update: `:pfi`, `:forrest_tomlin`, `:bartels_golub`, `:suhl_suhl`, or `:huangfu_hall` |
 | `basis_refactorization` | `:native` | Full factorization: `:native` or `:markowitz` |
 | `scaling` | `:auto` | `:auto`, `:on`, or `:off` row and column scaling |
 | `presolve` | `true` | Apply all presolve reductions before simplex; `false` solves the original LP directly |
@@ -569,10 +569,12 @@ attribute `"basis_update" => :huangfu_hall`. This manager implements the middle
 product form from Huangfu and Hall (ERGO-13-001, section 3.1.2), independently of
 the existing `:pfi` manager. It supports the same scalar types as the other
 managers, including `Float32`, `Float64`, `BigFloat`, and `Rational{BigInt}`,
-with `basis_refactorization=:native`. Float64 uses UMFPACK and requires a 64-bit
-platform; other types use dense LU in their own precision. Markowitz remains
-unsupported for this manager. A rejected MOI attribute change preserves the
-previous settings.
+with either `basis_refactorization=:native` or `:markowitz`. Native Float64 uses
+UMFPACK and requires a 64-bit platform; other native types use dense LU in their
+own precision. Markowitz combines its sparse pivots and trailing dense LU into
+HH's private triangular factors, preserving both row and column permutations.
+Select the backend through the MOI raw attribute `"basis_refactorization"` as well.
+A rejected MOI attribute change preserves the previous settings.
 
 Both primal and dual simplex and both public strategies are supported. Internal
 hypersparse policies use the dense basis kernels for this manager. Explicit
@@ -585,7 +587,8 @@ preparation, allocation-light scaling checks, bounded retired update arrays, and
 bounded CSR extraction scratch. It excludes the slower experimental sparse
 ordinary solves and copy-free update packing. See the
 [promotion and verification record](diagnostics/huangfu-hall-public/README.md) and
-[scalar-extension checks](diagnostics/huangfu-hall-precision/README.md). Retired
+[scalar-extension checks](diagnostics/huangfu-hall-precision/README.md), plus the
+[Markowitz integration checks](diagnostics/huangfu-hall-markowitz/README.md). Retired
 arrays containing variable-size `BigFloat` or `BigInt` values are released instead
 of pooled; fixed-size scalar pools retain the same 4 MiB payload limit.
 
