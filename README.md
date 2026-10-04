@@ -300,7 +300,7 @@ for `SolverOptions(Float64)`. Floating types use these keyword defaults:
 | `log_level` | `Logging.Debug` | Level emitted through Julia's logging system |
 | `algorithm` | `:dual` | `:dual` or `:primal` |
 | `pricing` | `:steepest_edge` | Dual or primal pricing rule: `:steepest_edge`, `:devex`, `:dantzig`, or `:auto`; floating dual steepest-edge switches to Devex if a checked weight becomes unreliable; stagnation-driven switching requires adaptive policies |
-| `basis_update` | `:pfi` | Basis update: `:pfi`, `:forrest_tomlin`, `:bartels_golub`, `:suhl_suhl`, or `:huangfu_hall` (Float64/native only) |
+| `basis_update` | `:pfi` | Basis update: `:pfi`, `:forrest_tomlin`, `:bartels_golub`, `:suhl_suhl`, or `:huangfu_hall` (native refactorization only) |
 | `basis_refactorization` | `:native` | Full factorization: `:native` or `:markowitz` |
 | `scaling` | `:auto` | `:auto`, `:on`, or `:off` row and column scaling |
 | `presolve` | `true` | Apply all presolve reductions before simplex; `false` solves the original LP directly |
@@ -567,22 +567,27 @@ the original sense and constant. Every result retains a `message` and
 Select `SolverOptions(basis_update=:huangfu_hall)` or the MOI raw optimizer
 attribute `"basis_update" => :huangfu_hall`. This manager implements the middle
 product form from Huangfu and Hall (ERGO-13-001, section 3.1.2), independently of
-the existing `:pfi` manager. It currently requires `Float64`,
-`basis_refactorization=:native`, and a 64-bit platform. Other scalar/backend
-combinations are rejected, including MOI changes that would create an unsupported
-combination; a rejected attribute change preserves the previous settings.
+the existing `:pfi` manager. It supports the same scalar types as the other
+managers, including `Float32`, `Float64`, `BigFloat`, and `Rational{BigInt}`,
+with `basis_refactorization=:native`. Float64 uses UMFPACK and requires a 64-bit
+platform; other types use dense LU in their own precision. Markowitz remains
+unsupported for this manager. A rejected MOI attribute change preserves the
+previous settings.
 
 Both primal and dual simplex and both public strategies are supported. Internal
-hypersparse policies use the dense basis kernels for this manager. Policies that
-require higher-precision basis reconstruction (`precision_boosting` or
-`lp_refinement`) are rejected explicitly. No automatic precision conversion or
-manager substitution is performed.
+hypersparse policies use the dense basis kernels for this manager. Explicit
+precision-recovery policies can reconstruct it in the requested working type;
+ordinary updates and refactorizations preserve the task precision. No implicit
+precision promotion or manager substitution is performed.
 
 The implementation retains native LU scratch, reachable unit-transpose update
 preparation, allocation-light scaling checks, bounded retired update arrays, and
 bounded CSR extraction scratch. It excludes the slower experimental sparse
 ordinary solves and copy-free update packing. See the
-[promotion and verification record](diagnostics/huangfu-hall-public/README.md).
+[promotion and verification record](diagnostics/huangfu-hall-public/README.md) and
+[scalar-extension checks](diagnostics/huangfu-hall-precision/README.md). Retired
+arrays containing variable-size `BigFloat` or `BigInt` values are released instead
+of pooled; fixed-size scalar pools retain the same 4 MiB payload limit.
 
 ### Explicit LP relaxation
 
@@ -704,8 +709,8 @@ JULIA_PKG_OFFLINE=true julia --startup-file=no --project=. -e 'using Pkg; Pkg.te
 
 JSimplex uses PrecompileTools to cache common Float32/Float64 simplex calls
 for both algorithms and all four original basis update managers with native
-refactorization and Huangfu–Hall with Float64/native on 64-bit
-platforms, including presolve. It also caches shared Float32/Float64 Markowitz
+refactorization, including Huangfu–Hall and presolve. Huangfu–Hall Float64
+requires a 64-bit platform. It also caches shared Float32/Float64 Markowitz
 factorization, refactorization and basis-solve kernels; complete Markowitz simplex
 entry points are compiled on demand. The first package precompilation runs small synthetic problems;
 subsequent processes reuse their compiled call signatures. These examples do

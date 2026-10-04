@@ -1,40 +1,42 @@
 # Middle product form (Huangfu--Hall, ERGO-13-001, section 3.1.2).
 # In native scaled/permuted coordinates: P*S*B*Q = L*T1*...*Tk*U.
 # Factors and live/shared update records are immutable; private retired arrays may be reused.
-struct HHBase
-    lower::SparseMatrixCSC{Float64,Int}
-    upper::SparseMatrixCSC{Float64,Int}
+struct HHBase{T<:Real}
+    lower::SparseMatrixCSC{T,Int}
+    upper::SparseMatrixCSC{T,Int}
     rows::Vector{Int}
     columns::Vector{Int}
     positions::Vector{Int}
-    scaling::Vector{Float64}
+    scaling::Vector{T}
     divide_scaling::Bool
     upper_rowptr::Vector{Int}
     upper_columns::Vector{Int}
 end
-struct HHUpdate
+struct HHUpdate{T<:Real}
     u_indices::Vector{Int}
-    u_values::Vector{Float64}
+    u_values::Vector{T}
     v_indices::Vector{Int}
-    v_values::Vector{Float64}
-    pivot::Float64
+    v_values::Vector{T}
+    pivot::T
 end
-# Each pool retains at most 4 MiB of index/value payload and 256 array pairs.
+# Each pool retains at most 4 MiB of fixed-size index/value payload and 256 pairs.
+# Arbitrary-precision values have variable payload sizes and are not retained.
 # Exact-length reuse avoids hidden oversized vector capacity and resize overhead.
-mutable struct HHPool
-    pairs::Vector{Tuple{Vector{Int},Vector{Float64}}}
+mutable struct HHPool{T<:Real}
+    pairs::Vector{Tuple{Vector{Int},Vector{T}}}
     entries::Int
 end
-HHPool()=HHPool(Tuple{Vector{Int},Vector{Float64}}[],0)
-function _hh_retire_pair!(pool::HHPool,indices,values)
+HHPool(::Type{T}=Float64) where {T<:Real}=HHPool(Tuple{Vector{Int},Vector{T}}[],0)
+function _hh_retire_pair!(pool::HHPool{T},indices,values) where {T}
     n=length(indices)
-    if length(pool.pairs)<256 && pool.entries+n<=262144
+    if isbitstype(T) && length(pool.pairs)<256 &&
+       pool.entries+n<=div(4*1024^2,sizeof(Int)+sizeof(T))
         push!(pool.pairs,(indices,values));pool.entries+=n
     end
     nothing
 end
-_hh_take_pair!(::Nothing,n)=(Vector{Int}(undef,n),Vector{Float64}(undef,n))
-function _hh_take_pair!(pool::HHPool,n)
+_hh_take_pair!(::Nothing,n,::Type{T}=Float64) where {T}=(Vector{Int}(undef,n),Vector{T}(undef,n))
+function _hh_take_pair!(pool::HHPool{T},n,::Type{T}=T) where {T}
     for i in length(pool.pairs):-1:1
         pair=pool.pairs[i]
         if length(pair[1])==n
@@ -42,15 +44,15 @@ function _hh_take_pair!(pool::HHPool,n)
             return pair
         end
     end
-    _hh_take_pair!(nothing,n)
+    _hh_take_pair!(nothing,n,T)
 end
 
-struct HHUnitWorkspace
-    values::Vector{Float64}
+struct HHUnitWorkspace{T<:Real}
+    values::Vector{T}
     marked::BitVector
     indices::Vector{Int}
 end
-HHUnitWorkspace(n)=HHUnitWorkspace(zeros(n),falses(n),Int[])
+HHUnitWorkspace(n,::Type{T}=Float64) where {T}=HHUnitWorkspace(zeros(T,n),falses(n),Int[])
 
 # Private CSR extraction scratch; output L/U never alias these buffers.
 mutable struct HHExtractWorkspace
@@ -103,20 +105,20 @@ function _hh_extract_parts(F::SparseArrays.UMFPACK.UmfpackLU{Float64,Int64},w::H
     L,SparseMatrixCSC(n,n,Up,Ui,Ux),p,q,scaling
 end
 
-mutable struct HuangfuHallFactorization
-    base::HHBase
-    updates::Vector{HHUpdate}
-    work::Vector{Float64}
-    auxiliary::Vector{Float64}
-    prepared_partial::Vector{Float64}
-    prepared_direction::Vector{Float64}
+mutable struct HuangfuHallFactorization{T<:Real,F}
+    base::HHBase{T}
+    updates::Vector{HHUpdate{T}}
+    work::Vector{T}
+    auxiliary::Vector{T}
+    prepared_partial::Vector{T}
+    prepared_direction::Vector{T}
     prepared_valid::Bool
     # Private native scratch; extracted L/U and saved copies never alias it.
-    refactor_workspace::Union{Nothing,Float64UMFPACK}
-    unit_workspace::HHUnitWorkspace
+    refactor_workspace::Union{Nothing,F}
+    unit_workspace::HHUnitWorkspace{T}
     shared_update_count::Int
-    u_pool::HHPool
-    v_pool::HHPool
+    u_pool::HHPool{T}
+    v_pool::HHPool{T}
     extract_workspace::HHExtractWorkspace
 end
 _backend_dimension(b::HHBase)=length(b.rows)
@@ -124,11 +126,20 @@ _backend_storage_count(b::HHBase)=nnz(b.lower)+nnz(b.upper)
 sparse_solve_view(::HHBase)=nothing
 _factor_storage_count(f::HuangfuHallFactorization)=_backend_storage_count(f.base)+
     sum(t->length(t.u_values)+length(t.v_values),f.updates;init=0)
-_factor_growth_reference(::HuangfuHallFactorization)=1.0
-_factor_growth_measure(f::HuangfuHallFactorization)=maximum(t->
-    max(maximum(abs,t.u_values;init=1.0),maximum(abs,t.v_values;init=1.0),abs(inv(t.pivot))),f.updates;init=1.0)
+_factor_growth_reference(::HuangfuHallFactorization{T}) where {T}=one(T)
+_factor_growth_measure(f::HuangfuHallFactorization{T}) where {T}=maximum(t->
+    max(maximum(abs,t.u_values;init=one(T)),maximum(abs,t.v_values;init=one(T)),abs(inv(t.pivot))),f.updates;init=one(T))
 _finite_updated_factor(f::HuangfuHallFactorization)=all(t->isfinite(t.pivot) &&
     all(isfinite,t.u_values) && all(isfinite,t.v_values),f.updates)
+
+function _hh_stored_precision(f::HuangfuHallFactorization{BigFloat})
+    base_bits = max(maximum(precision,f.base.lower.nzval;init=2),
+        maximum(precision,f.base.upper.nzval;init=2),
+        maximum(precision,f.base.scaling;init=2))
+    return maximum(t->max(precision(t.pivot),
+        maximum(precision,t.u_values;init=2),maximum(precision,t.v_values;init=2)),
+        f.updates;init=base_bits)
+end
 
 # Match the tested Julia 1.13/aarch64 SparseArrays fused CSC accumulation.
 # Exact-product tests gate portability; no abs.(A) sparse matrix copy is needed.
@@ -177,13 +188,20 @@ function _hh_scale_mode(F,L,U,p,q,scaling,work,auxiliary)
     divisive
 end
 
-function _hh_extract_base(F,work,auxiliary,extract_workspace=HHExtractWorkspace())
-    isnothing(F) && return HHBase(spzeros(0,0),spzeros(0,0),Int[],Int[],Int[],Float64[],false,[1],Int[])
+function _hh_extract_parts(F::LinearAlgebra.LU{T},::HHExtractWorkspace) where {T}
+    n=size(F,1)
+    sparse(F.L),sparse(F.U),F.p,collect(1:n),ones(T,n)
+end
+_hh_base_scale_mode(F::LinearAlgebra.LU,args...)=false
+_hh_base_scale_mode(F::Float64UMFPACK,args...)=_hh_scale_mode(F,args...)
+
+function _hh_extract_base(F,work::Vector{T},auxiliary,extract_workspace=HHExtractWorkspace()) where {T}
+    isnothing(F) && return HHBase(spzeros(T,0,0),spzeros(T,0,0),Int[],Int[],Int[],T[],false,[1],Int[])
     L,U,p,q,s=_hh_extract_parts(F,extract_workspace)
-    divide=_hh_scale_mode(F,L,U,p,q,s,work,auxiliary)
+    divide=_hh_base_scale_mode(F,L,U,p,q,s,work,auxiliary)
     isnothing(divide) && throw(_UnreliableBasisSolve())
     n=length(p)
-    all(i->L.rowval[L.colptr[i]]==i && L.nzval[L.colptr[i]]==1.0 &&
+    all(i->L.rowval[L.colptr[i]]==i && L.nzval[L.colptr[i]]==one(T) &&
         U.rowval[U.colptr[i+1]-1]==i && isfinite(U.nzval[U.colptr[i+1]-1]) &&
         !iszero(U.nzval[U.colptr[i+1]-1]),1:n) || throw(_UnreliableBasisSolve())
     # Outgoing edges of U's rows; numeric evaluation still uses original CSC order.
@@ -199,11 +217,20 @@ function _hh_extract_base(F,work,auxiliary,extract_workspace=HHExtractWorkspace(
     end
     HHBase(L,U,p,q,invperm(q),s,divide,rowptr,columns)
 end
-function HuangfuHallFactorization(B::AbstractMatrix{Float64})
+# Dense native LU preserves every non-Float64 scalar, like the other managers.
+_hh_native_lu(B::AbstractMatrix{T}) where {T}=lu!(Matrix{T}(B))
+_hh_native_lu(B::AbstractMatrix{Float64})=lu(convert(SparseMatrixCSC{Float64,Int},B))
+_hh_initial_lu(B::AbstractMatrix)=_hh_native_lu(B)
+_hh_initial_lu(B::AbstractMatrix{Float64})=iszero(size(B,1)) ? nothing : _hh_native_lu(B)
+_hh_workspace_type(::Nothing)=Float64UMFPACK
+_hh_workspace_type(F)=typeof(F)
+
+function HuangfuHallFactorization(B::AbstractMatrix{T}) where {T<:Real}
+    _validate_huangfu_hall(T,Val(:native))
     size(B,1)==size(B,2) || throw(DimensionMismatch("Basis must be square"))
-    n=size(B,1);F=n==0 ? nothing : lu(convert(SparseMatrixCSC{Float64,Int}, B))
-    work=zeros(n);auxiliary=zeros(n);extraction=HHExtractWorkspace()
-    HuangfuHallFactorization(_hh_extract_base(F,work,auxiliary,extraction),HHUpdate[],work,auxiliary,zeros(n),zeros(n),false,F,HHUnitWorkspace(n),0,HHPool(),HHPool(),extraction)
+    n=size(B,1);F=_hh_initial_lu(B)
+    work=zeros(T,n);auxiliary=zeros(T,n);extraction=HHExtractWorkspace()
+    HuangfuHallFactorization{T,_hh_workspace_type(F)}(_hh_extract_base(F,work,auxiliary,extraction),HHUpdate{T}[],work,auxiliary,zeros(T,n),zeros(T,n),false,F,HHUnitWorkspace(n,T),0,HHPool(T),HHPool(T),extraction)
 end
 
 function _hh_lower!(x,b::HHBase,transposed::Bool)
@@ -246,9 +273,9 @@ function _hh_upper!(x,b::HHBase,transposed::Bool)
     end
     x
 end
-function _hh_unit_transpose!(f,p)
+function _hh_unit_transpose!(f::HuangfuHallFactorization{T},p) where {T}
     w=f.unit_workspace;b=f.base;U=b.upper
-    for i in w.indices;w.values[i]=0.0;w.marked[i]=false;end
+    for i in w.indices;w.values[i]=zero(T);w.marked[i]=false;end
     empty!(w.indices);push!(w.indices,p);w.marked[p]=true
     cursor=1
     while cursor<=length(w.indices)
@@ -260,7 +287,7 @@ function _hh_unit_transpose!(f,p)
     end
     sort!(w.indices)
     for j in w.indices
-        value=j==p ? 1.0 : 0.0;last=U.colptr[j+1]-1
+        value=j==p ? one(T) : zero(T);last=U.colptr[j+1]-1
         @inbounds for k in U.colptr[j]:(last-1)
             value-=U.nzval[k]*w.values[U.rowval[k]]
         end
@@ -269,9 +296,9 @@ function _hh_unit_transpose!(f,p)
     w
 end
 
-@inline function _hh_apply!(x,t::HHUpdate,transposed::Bool)
+@inline function _hh_apply!(x,t::HHUpdate{T},transposed::Bool) where {T}
     rows,values=transposed ? (t.u_indices,t.u_values) : (t.v_indices,t.v_values)
-    value=0.0
+    value=zero(T)
     @inbounds for i in eachindex(rows);value+=values[i]*x[rows[i]];end
     value/=t.pivot
     if !iszero(value)
@@ -285,7 +312,7 @@ function _hh_dimensions(destination,f,rhs)
     destination===f.work && throw(ArgumentError("Destination aliases private solve scratch"))
     nothing
 end
-function _hh_forward!(destination::Vector{Float64},f::HuangfuHallFactorization,rhs,prepare::Bool)
+function _hh_forward!(destination::Vector{T},f::HuangfuHallFactorization{T},rhs,prepare::Bool) where {T}
     _hh_dimensions(destination,f,rhs)
     b=f.base;x=f.work
     source=rhs===x ? copyto!(f.auxiliary,rhs) : rhs
@@ -303,12 +330,12 @@ function _hh_forward!(destination::Vector{Float64},f::HuangfuHallFactorization,r
     end
     destination
 end
-forward_solve!(destination::Vector{Float64},f::HuangfuHallFactorization,rhs::AbstractVector)=
+forward_solve!(destination::Vector{T},f::HuangfuHallFactorization{T},rhs::AbstractVector) where {T}=
     _hh_forward!(destination,f,rhs,true)
-_ordinary_forward_solve!(destination::Vector{Float64},f::HuangfuHallFactorization,rhs::AbstractVector)=
+_ordinary_forward_solve!(destination::Vector{T},f::HuangfuHallFactorization{T},rhs::AbstractVector) where {T}=
     _hh_forward!(destination,f,rhs,false)
-forward_solve(f::HuangfuHallFactorization,rhs::AbstractVector)=forward_solve!(zeros(length(rhs)),f,rhs)
-function transpose_solve!(destination::Vector{Float64},f::HuangfuHallFactorization,rhs::AbstractVector)
+forward_solve(f::HuangfuHallFactorization{T},rhs::AbstractVector) where {T}=forward_solve!(zeros(T,length(rhs)),f,rhs)
+function transpose_solve!(destination::Vector{T},f::HuangfuHallFactorization{T},rhs::AbstractVector) where {T}
     _hh_dimensions(destination,f,rhs)
     b=f.base;x=f.work
     source=rhs===x ? copyto!(f.auxiliary,rhs) : rhs
@@ -322,10 +349,10 @@ function transpose_solve!(destination::Vector{Float64},f::HuangfuHallFactorizati
     end
     destination
 end
-transpose_solve(f::HuangfuHallFactorization,rhs::AbstractVector)=transpose_solve!(zeros(length(rhs)),f,rhs)
+transpose_solve(f::HuangfuHallFactorization{T},rhs::AbstractVector) where {T}=transpose_solve!(zeros(T,length(rhs)),f,rhs)
 
 # Count and pack in ascending index order without temporary bit masks.
-function _hh_pack_update(u,w::HHUnitWorkspace,pivot,u_pool=nothing,v_pool=nothing)
+function _hh_pack_update(u,w::HHUnitWorkspace{T},pivot,u_pool=nothing,v_pool=nothing) where {T}
     nu=0;nv=0;finite=true;v=w.values
     @inbounds @simd for i in eachindex(u)
         finite &= isfinite(u[i]);nu += !iszero(u[i])
@@ -334,8 +361,8 @@ function _hh_pack_update(u,w::HHUnitWorkspace,pivot,u_pool=nothing,v_pool=nothin
         finite &= isfinite(v[i]);nv += !iszero(v[i])
     end
     finite || throw(_UnreliableBasisSolve())
-    ui,uv=_hh_take_pair!(u_pool,nu)
-    vi,vv=_hh_take_pair!(v_pool,nv)
+    ui,uv=_hh_take_pair!(u_pool,nu,T)
+    vi,vv=_hh_take_pair!(v_pool,nv,T)
     ju=0;jv=0
     @inbounds for i in eachindex(u)
         if !iszero(u[i]);ju+=1;ui[ju]=i;uv[ju]=u[i];end
@@ -346,13 +373,15 @@ function _hh_pack_update(u,w::HHUnitWorkspace,pivot,u_pool=nothing,v_pool=nothin
     HHUpdate(ui,uv,vi,vv,pivot)
 end
 
-function replace_column!(f::HuangfuHallFactorization,direction::AbstractVector,pivot_row::Integer;
-                         zero_tolerance::Real=1e-12)
-    isfinite(zero_tolerance) && zero_tolerance>=0 || throw(ArgumentError("Invalid pivot tolerance"))
+function replace_column!(f::HuangfuHallFactorization{T},direction::AbstractVector,pivot_row::Integer;
+                         zero_tolerance::Real=_is_exact(T) === Val(true) ? zero(T) :
+                             _positive_tolerance(T,1//10^12)) where {T}
+    tolerance=convert(T,zero_tolerance)
+    isfinite(tolerance) && tolerance>=zero(T) || throw(ArgumentError("Invalid pivot tolerance"))
     n=length(f.work);length(direction)==n || throw(DimensionMismatch("Update dimensions"))
     checkbounds(direction,pivot_row)
     all(isfinite,direction) || throw(ArgumentError("Nonfinite direction"))
-    mu=Float64(direction[pivot_row]);abs(mu)>zero_tolerance || throw(LinearAlgebra.ZeroPivotException(pivot_row))
+    mu=convert(T,direction[pivot_row]);_pivot_magnitude(mu)>tolerance || throw(LinearAlgebra.ZeroPivotException(pivot_row))
     b=f.base;p=b.positions[pivot_row];u=f.auxiliary;v=f.work
     if f.prepared_valid && isequal(direction,f.prepared_direction)
         copyto!(u,f.prepared_partial)
@@ -369,7 +398,11 @@ function replace_column!(f::HuangfuHallFactorization,direction::AbstractVector,p
     f.prepared_valid=false
     f
 end
-function refactorize!(f::HuangfuHallFactorization,B::AbstractMatrix{Float64})
+_hh_refactor_lu!(F::Float64UMFPACK,B)=
+    lu!(F,convert(SparseMatrixCSC{Float64,Int},B);reuse_symbolic=false)
+_hh_refactor_lu!(F::LinearAlgebra.LU,B)=_hh_native_lu(B)
+
+function refactorize!(f::HuangfuHallFactorization{T},B::AbstractMatrix{T}) where {T}
     size(B,1)==size(B,2) || throw(DimensionMismatch("Basis must be square"))
     n=size(B,1);F=f.refactor_workspace
     local base
@@ -377,15 +410,15 @@ function refactorize!(f::HuangfuHallFactorization,B::AbstractMatrix{Float64})
         if n==0
             F=nothing
         elseif isnothing(F) || size(F)!=size(B)
-            F=lu(convert(SparseMatrixCSC{Float64,Int}, B))
+            F=_hh_native_lu(B)
         else
             # Repeat symbolic analysis as in fresh LU; only reuse native workspace.
             # A failed candidate cannot damage the independent active L/U.
-            lu!(F,convert(SparseMatrixCSC{Float64,Int}, B);reuse_symbolic=false)
+            F=_hh_refactor_lu!(F,B)
         end
         # Borrow only disposable solve scratch, never the prepared direction.
-        work=length(f.work)==n ? f.work : zeros(n)
-        auxiliary=length(f.auxiliary)==n ? f.auxiliary : zeros(n)
+        work=length(f.work)==n ? f.work : zeros(T,n)
+        auxiliary=length(f.auxiliary)==n ? f.auxiliary : zeros(T,n)
         base=_hh_extract_base(F,work,auxiliary,f.extract_workspace)
     catch
         f.refactor_workspace=nothing
@@ -409,15 +442,15 @@ function refactorize!(f::HuangfuHallFactorization,B::AbstractMatrix{Float64})
         resize!(scratch,n)
     end
     if length(f.unit_workspace.values)!=n
-        f.unit_workspace=HHUnitWorkspace(n)
+        f.unit_workspace=HHUnitWorkspace(n,T)
     end
     empty!(f.updates);f.prepared_valid=false
     f
 end
-function copy_basis_factorization(f::HuangfuHallFactorization)
+function copy_basis_factorization(f::HuangfuHallFactorization{T,F}) where {T,F}
     n=length(f.work)
     f.shared_update_count=length(f.updates)
-    HuangfuHallFactorization(f.base,copy(f.updates),zeros(n),zeros(n),zeros(n),zeros(n),false,nothing,HHUnitWorkspace(n),length(f.updates),HHPool(),HHPool(),HHExtractWorkspace())
+    HuangfuHallFactorization{T,F}(f.base,copy(f.updates),zeros(T,n),zeros(T,n),zeros(T,n),zeros(T,n),false,nothing,HHUnitWorkspace(n,T),length(f.updates),HHPool(T),HHPool(T),HHExtractWorkspace())
 end
 
 # Keep unsupported combinations explicit even for internal factory callers.

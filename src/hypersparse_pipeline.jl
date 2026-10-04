@@ -352,8 +352,16 @@ end
 
 @inline function _pipeline_basis_precision(f::F,ws::SimplexWorkspace{T},rhs) where {F,T}
     T === BigFloat || return f()
-    cache = _sparse_basis_workspace!(ws.factorization)
-    bits = _sparse_working_precision!(cache,ws.factorization,rhs)
+    factor = ws.factorization
+    bits = if factor isa HuangfuHallFactorization
+        # HH uses dense kernels even under a hypersparse policy and has no
+        # indexed solve cache. Retain stored factor/update and RHS precision.
+        max(precision(BigFloat), _hh_stored_precision(factor),
+            maximum(i->precision(rhs.values[i]),rhs.indices;init=2))
+    else
+        cache = _sparse_basis_workspace!(factor)
+        _sparse_working_precision!(cache,factor,rhs)
+    end
     return setprecision(f,BigFloat,bits)
 end
 

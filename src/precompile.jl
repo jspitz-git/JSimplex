@@ -17,9 +17,9 @@
                 for update in (:pfi, :bartels_golub, :forrest_tomlin, :suhl_suhl, :huangfu_hall),
                     refactorization in (:native,),
                     algorithm in (:primal, :dual), presolve in (false, true)
-                    # The public MPF manager currently supports native Float64 only.
+                    # Native Float64 extraction currently requires 64-bit indices.
                     update === :huangfu_hall &&
-                        !(T === Float64 && refactorization === :native && Int === Int64) && continue
+                        T === Float64 && Int !== Int64 && continue
                     options = SolverOptions(T; algorithm, basis_update=update,
                         basis_refactorization=refactorization, pricing=:steepest_edge,
                         simplex_strategy=:legacy, presolve, verbose=false,
