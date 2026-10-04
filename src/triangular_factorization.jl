@@ -91,6 +91,8 @@ function _reset_identity_upper!(upper::Vector{PackedUpperColumn{T,UpperRowIndice
                                 retained_capacity::Int=_UPPER_RETAINED_CAPACITY) where {T}
     retained_capacity >= 1 || throw(ArgumentError("Retained capacity must be positive"))
     old_length = length(upper)
+    # An empty factor has no columns that could retain or need a row map.
+    old_length == 0 && n == 0 && return upper
     order = old_length > 0 ? upper[1].indices.order : nothing
     if isnothing(order)
         order = UpperRowOrder(n)
