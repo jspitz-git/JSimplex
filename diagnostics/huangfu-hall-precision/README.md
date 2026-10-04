@@ -92,3 +92,54 @@ Raw statuses, objectives, timing, input digests and source commits are retained 
 speed comparisons. The paired runner intentionally fails if a case is not
 certified, retaining all records before its failing exit. Reproduce the separate
 tolerance diagnostic with `reproduce/float32-tolerance.jl OUTPUT.toml`.
+
+## Final integration checks
+
+The clean integration branch contains only the scalar extension and its BigFloat
+hypersparse fix, without the experimental triangular incidence-slot changes.
+All 2,783 HH component, allocation, type, precision-transfer, public solve and MOI
+checks passed with normal `-g0 -O2` compilation on that source. Earlier broader
+semantic checks passed 11,617 existing assertions plus 762 scalar/transfer checks.
+
+All 12 Float64 external controls passed and match the previously certified HH
+trajectory fields exactly: objective, iterations, refactorizations, restarts,
+primal-vector bits and progress-log digest. Runtime dual returned OPTIMAL at
+61,705 iterations, 788 refactorizations and zero restarts, with objective
+51,425,691.762104705. Its solve took 166.439 seconds, including 0.005 seconds of
+compilation. The full process (including warmup and fast0507) peaked at
+1,263,540 KiB RSS; this is not an isolated runtime allocation measurement.
+These controls establish preserved Float64 behavior, not a measured speedup.
+
+The expanded Float32/Float64 PrecompileTools workload built successfully with
+`-g0 -O2`: 746.950 seconds, peak RSS 14,556,764 KiB (13.88 GiB), one compiler/image
+worker, a 2 GiB GC hint, and the 16 GiB virtual-memory ceiling. A fresh process
+verified all 20 native solve configurations and four Markowitz backend cases.
+The 20 sequential solve calls totaled 0.02447 seconds, including 0.02248 seconds
+of residual compilation; these are shared-process samples, not 20 independent
+cold starts. The previous default `-g1` memory limitation was not retested or
+fixed by this change. BigFloat and rational specializations still compile on
+demand, as for the other managers.
+
+[The final integration report](results/final.json) binds these results to source,
+input, harness and environment digests. Run `reproduce/audit.py` after collecting
+the local reports to repeat the trajectory/cache audit. Cache build and latency
+scripts require a separate workload-enabled environment pointing at the tested
+checkout; do not change the development checkout's disabled local preference.
+
+The shared hypersparse pipeline storage, kernel and subtraction checks, plus
+public HH solves with explicit hypersparse policy in Float16, Float32, BigFloat
+and Rational{BigInt}, passed all 1,905 checks in interpreter mode. Reproduce with
+`julia --compile=min --project=. diagnostics/huangfu-hall-precision/reproduce/pipeline.jl`.
+
+The full project suite was attempted with normal `-g0 -O2` compilation and a
+300-second wall guard. It was interrupted during Julia inference/inlining in
+`simplex_strategy_separation_tests.jl:78`; peak RSS was 1,446,532 KiB. Before
+that timeout, three older primal test files reported 25 failed assertions and
+two errors. A separate interpreter-mode comparison reproduced exactly the same
+313 passes, 25 failures and two errors on both the unmodified master
+`efd7a97329be7391fcedc95a852d8a8713760c7e` and the integration branch. The failing
+files are `primal_bound_snap_tests.jl`, `primal_candidate_retry_tests.jl` and
+`primal_retry_pricing_tests.jl`; they do not exercise HH. The failures concern
+expected bound-snap values, candidate rejection and refactor diagnostic reasons.
+They remain open baseline failures, not a passing full suite or failures fixed
+by this scalar extension. No unrelated primal behavior or assertions were changed.
