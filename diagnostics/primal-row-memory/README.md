@@ -61,16 +61,79 @@ cancellation cases explicitly require a native Boolean decision. Allocation
 profiling checks that a conclusive native check creates no BigInt objects;
 a separate allocation contract checks the bounded exact fallback on a long row.
 
-The first broad semantic run passed 15,025 assertions. The final focused run
-before the full medium continuation passed 986 numerical assertions and 69
-compiled certification/allocation assertions. Additional noncancelling FMA
-boundary tests and final full-suite validation are pending.
+The first broad semantic run passed 15,025 assertions. The focused run after
+both medium continuations passes 998 numerical assertions and 69 compiled
+certification/allocation assertions, including 12 additional noncancelling FMA
+boundary checks. The follow-up uses Int64 explicitly for the Float64 significand,
+avoiding a 32-bit machine-Int assumption; this is type-identical on the tested
+aarch64 host. The final semantic suite passes 15,681 assertions with `--compile=min`.
+All **100 external solves** pass (305 assertions): five hash-matched inputs,
+both algorithms, both native/Markowitz backends and all five public managers.
+The audit verifies every unique combination, original primal feasibility and
+reference-objective agreement. A fresh full HH/native160 dual runtime solve
+finishes OPTIMAL in 55,469 iterations at objective `51425691.76210457`, with
+original primal feasibility. Its timed solve block is 179.53 seconds, including
+0.010 seconds of measured compilation; this is validation, not a new speed study.
 
-The complete medium continuations run sequentially under the unchanged guard:
+The whole-project normal-compilation attempt is **not a pass**. It records
+27 failed assertions and 3 test errors before the 600-second guard terminates
+it in Julia/LLVM code generation at `dual_pivot_consistency_tests.jl:93`.
+Isolated `--compile=min` runs of the four affected files on unchanged master
+`50fdc02` and the repaired source both give 329 passed, 27 failed and 3 errors.
+All failure locations, assertions and printed evaluated values agree, including
+those in the compiled project attempt. The affected files are
+`primal_bound_snap_tests.jl`, `primal_candidate_retry_tests.jl`,
+`primal_retry_pricing_tests.jl`, and `legacy_primal_preference_work_tests.jl`.
+These are existing failures, not repaired by this memory change; the rest of
+the interrupted project suite remains unverified. Complete logs and the
+comparison are retained in `results/project-failure-attribution.json`.
+
+The complete medium continuations ran sequentially under the unchanged guard:
 8 GiB virtual-memory cap, 6 GiB RAM floor, 1 GiB swap ceiling, one Julia/BLAS
 thread, `--heap-size-hint=2G`, `-g0 -O1`, no solve time limit. Memory is sampled
-externally, with no observer-triggered GC or structure traversal. Their results
-remain pending; passing the previous crash point alone is not a completed solve.
+externally, with no observer-triggered GC or structure traversal. **Both saved
+terminal-state continuations now finish OPTIMAL**, with the same objective
+`22389455.645278454` and verified original-model primal feasibility. Both use
+primal cleanup; the labels identify the originating simplex algorithm.
+
+| Saved handoff | Additional pivots | Total iterations | Cleanup seconds | Process peak RSS | Sampled peak VM |
+|---|---:|---:|---:|---:|---:|
+| Primal | 18,422 | 353,468 | 2238.03 | 1.849 GiB | 2.203 GiB |
+| Dual | 21,205 | 233,485 | 2515.95 | 1.855 GiB | 2.191 GiB |
+
+Times include approximately 11.3 seconds of measured compilation in each call.
+They are functional observations, not paired speed benchmarks. These are
+continuations from the preserved terminal states, **not fresh complete multi-hour
+medium solves**. They exercise the production postsolve cleanup and terminal
+certificate, without an independent external solver comparison of the final point.
+The retained earlier primal attempt exited 139 in GC/GMP at peak RSS 7.068 GiB;
+the repaired process completes below 1.86 GiB. The old attempt had a GC observer,
+so its elapsed time is not a fair speed baseline.
+
+The ten shared primal progress samples at iterations 335100--336000 have
+identical printed pinf/dinf values. This supports preservation of that prefix,
+not bitwise identity of the complete pivot sequence. Raw reports, original
+handoff hashes, sampled-memory maxima and report hashes are checked by
+`reproduce/audit_cleanup.py`; compact outputs are in
+`results/medium-cleanup-audit.json`. An earlier task-owned interruption before
+the final FTZ fix remains preserved as exit143, not a solver result.
+
+Medium used source aggregate
+`afdebdb6ede3da184ca8ca27c1ea982936bf5c59b90e1b58b89544423ac72564`
+(commit9c3ca17). Subsequent verification uses the explicit Int64 spelling and
+added tests; its aggregate is
+`fb37933b9882dafc8886f17ad33dad14237aa4a08803cf586190c86a794082ee`.
+
+## Independent final review
+
+Read-only review found no remaining blocker in the native filter, exact fallback,
+FTZ handling or Int64 follow-up. It independently checked the medium handoff and
+source hashes, memory maxima, original feasibility, final objectives and shared
+progress samples. A second evidence pass checked all 100 external combinations,
+input hashes, objective comparisons, final runtime and final source aggregate.
+The project-suite limitation and baseline attribution are retained explicitly.
+No new Julia process was launched by the reviewer. Master is unchanged; this
+repair and its results remain on `codex/cleanup-memory`, without merge or push.
 
 ## Reproduction
 

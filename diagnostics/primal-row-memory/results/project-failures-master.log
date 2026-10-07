@@ -1,0 +1,442 @@
+ERROR: LoadError: Some tests did not pass: 329 passed, 27 failed, 3 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/simplex-certificate-repair/JSimplex.jl/.superpowers/cleanup-memory/failing-files.jl:2
+
+Exhaustion after fresh pricing retains the refresh budget: Error During Test at /home/jspitz/JSimplex.jl/test/legacy_primal_preference_work_tests.jl:38
+  Test threw exception
+  Expression: terminal.status == NUMERICAL_ERROR
+  FieldError: type Nothing has no field `status`; Nothing has no fields at all.
+  Stacktrace:
+   [1] top-level scope
+     @ Base_compiler.jl:57
+   [2] top-level scope
+     @ ~/JSimplex.jl/test/legacy_primal_preference_work_tests.jl:24
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/JSimplex.jl/test/legacy_primal_preference_work_tests.jl:38 [inlined]
+   [5] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:750 [inlined]
+
+Exhaustion after fresh pricing retains the refresh budget: Test Failed at /home/jspitz/JSimplex.jl/test/legacy_primal_preference_work_tests.jl:39
+  Expression: ws.refactorizations == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/legacy_primal_preference_work_tests.jl:24
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/legacy_primal_preference_work_tests.jl:39 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Exhaustion after fresh pricing retains the refresh budget: Test Failed at /home/jspitz/JSimplex.jl/test/legacy_primal_preference_work_tests.jl:40
+  Expression: ws.iterations == 0
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/legacy_primal_preference_work_tests.jl:24
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/legacy_primal_preference_work_tests.jl:40 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/test/primal_bound_snap_tests.jl:61
+  Expression: workspace.primal[5] ≈ -offset
+   Evaluated: 0.0f0 ≈ 7.0f-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/primal_bound_snap_tests.jl:61 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/test/primal_bound_snap_tests.jl:61
+  Expression: workspace.primal[5] ≈ -offset
+   Evaluated: 0.0f0 ≈ 7.0f-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/primal_bound_snap_tests.jl:61 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/test/primal_bound_snap_tests.jl:61
+  Expression: workspace.primal[5] ≈ -offset
+   Evaluated: 0.0f0 ≈ 7.0f-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/primal_bound_snap_tests.jl:61 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/test/primal_bound_snap_tests.jl:61
+  Expression: workspace.primal[5] ≈ -offset
+   Evaluated: 0.0f0 ≈ 7.0f-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/primal_bound_snap_tests.jl:61 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/test/primal_bound_snap_tests.jl:61
+  Expression: workspace.primal[5] ≈ -offset
+   Evaluated: 0.0f0 ≈ -7.0f-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/primal_bound_snap_tests.jl:61 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/test/primal_bound_snap_tests.jl:61
+  Expression: workspace.primal[5] ≈ -offset
+   Evaluated: 0.0f0 ≈ -7.0f-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/primal_bound_snap_tests.jl:61 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/test/primal_bound_snap_tests.jl:61
+  Expression: workspace.primal[5] ≈ -offset
+   Evaluated: 0.0f0 ≈ -7.0f-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/primal_bound_snap_tests.jl:61 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/test/primal_bound_snap_tests.jl:61
+  Expression: workspace.primal[5] ≈ -offset
+   Evaluated: 0.0f0 ≈ -7.0f-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/primal_bound_snap_tests.jl:61 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/test/primal_bound_snap_tests.jl:61
+  Expression: workspace.primal[5] ≈ -offset
+   Evaluated: 0.0 ≈ 7.0e-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/primal_bound_snap_tests.jl:61 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/test/primal_bound_snap_tests.jl:61
+  Expression: workspace.primal[5] ≈ -offset
+   Evaluated: 0.0 ≈ 7.0e-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/primal_bound_snap_tests.jl:61 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/test/primal_bound_snap_tests.jl:61
+  Expression: workspace.primal[5] ≈ -offset
+   Evaluated: 0.0 ≈ 7.0e-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/primal_bound_snap_tests.jl:61 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/test/primal_bound_snap_tests.jl:61
+  Expression: workspace.primal[5] ≈ -offset
+   Evaluated: 0.0 ≈ 7.0e-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/primal_bound_snap_tests.jl:61 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/test/primal_bound_snap_tests.jl:61
+  Expression: workspace.primal[5] ≈ -offset
+   Evaluated: 0.0 ≈ -7.0e-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/primal_bound_snap_tests.jl:61 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/test/primal_bound_snap_tests.jl:61
+  Expression: workspace.primal[5] ≈ -offset
+   Evaluated: 0.0 ≈ -7.0e-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/primal_bound_snap_tests.jl:61 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/test/primal_bound_snap_tests.jl:61
+  Expression: workspace.primal[5] ≈ -offset
+   Evaluated: 0.0 ≈ -7.0e-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/primal_bound_snap_tests.jl:61 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/JSimplex.jl/test/primal_bound_snap_tests.jl:61
+  Expression: workspace.primal[5] ≈ -offset
+   Evaluated: 0.0 ≈ -7.0e-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/primal_bound_snap_tests.jl:61 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal rejects an unsafe sole pivot without mutating the basis: Error During Test at /home/jspitz/JSimplex.jl/test/primal_bound_snap_tests.jl:85
+  Test threw exception
+  Expression: terminal.status == NUMERICAL_ERROR
+  FieldError: type Nothing has no field `status`; Nothing has no fields at all.
+  Stacktrace:
+   [1] top-level scope
+     @ Base_compiler.jl:57
+   [2] top-level scope
+     @ ~/JSimplex.jl/test/primal_bound_snap_tests.jl:82
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/JSimplex.jl/test/primal_bound_snap_tests.jl:85 [inlined]
+   [5] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:750 [inlined]
+
+Legacy primal rejects an unsafe sole pivot without mutating the basis: Test Failed at /home/jspitz/JSimplex.jl/test/primal_bound_snap_tests.jl:86
+  Expression: workspace.iterations == 0
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/primal_bound_snap_tests.jl:82
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/primal_bound_snap_tests.jl:86 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal rejects an unsafe sole pivot without mutating the basis: Test Failed at /home/jspitz/JSimplex.jl/test/primal_bound_snap_tests.jl:87
+  Expression: workspace.basis.basic_indices == before
+   Evaluated: [3] == [1]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/primal_bound_snap_tests.jl:82
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/primal_bound_snap_tests.jl:87 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal accepts a tolerated bound snap that stays feasible: Test Failed at /home/jspitz/JSimplex.jl/test/primal_bound_snap_tests.jl:96
+  Expression: workspace.primal[3] ≈ -7.0e-8
+   Evaluated: 0.0 ≈ -7.0e-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/primal_bound_snap_tests.jl:92
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/primal_bound_snap_tests.jl:96 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal tries another entering variable before failing a ratio test: Test Failed at /home/jspitz/JSimplex.jl/test/primal_candidate_retry_tests.jl:29
+  Expression: 4 in workspace.basis.basic_indices
+   Evaluated: 4 in [3, 6]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/primal_candidate_retry_tests.jl:25
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/primal_candidate_retry_tests.jl:29 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal does not report optimality after exhausting unsafe candidates: Error During Test at /home/jspitz/JSimplex.jl/test/primal_candidate_retry_tests.jl:52
+  Test threw exception
+  Expression: terminal.status == NUMERICAL_ERROR
+  FieldError: type Nothing has no field `status`; Nothing has no fields at all.
+  Stacktrace:
+   [1] top-level scope
+     @ Base_compiler.jl:57
+   [2] top-level scope
+     @ ~/JSimplex.jl/test/primal_candidate_retry_tests.jl:50
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/JSimplex.jl/test/primal_candidate_retry_tests.jl:52 [inlined]
+   [5] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:750 [inlined]
+
+Legacy primal does not report optimality after exhausting unsafe candidates: Test Failed at /home/jspitz/JSimplex.jl/test/primal_candidate_retry_tests.jl:53
+  Expression: workspace.iterations == 0
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/primal_candidate_retry_tests.jl:50
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/primal_candidate_retry_tests.jl:53 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal does not report optimality after exhausting unsafe candidates: Test Failed at /home/jspitz/JSimplex.jl/test/primal_candidate_retry_tests.jl:54
+  Expression: workspace.basis.basic_indices == [1, 6]
+   Evaluated: [3, 6] == [1, 6]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/primal_candidate_retry_tests.jl:50
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/primal_candidate_retry_tests.jl:54 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal searches beyond eight unsafe entering candidates: Test Failed at /home/jspitz/JSimplex.jl/test/primal_candidate_retry_tests.jl:63
+  Expression: 12 in workspace.basis.basic_indices
+   Evaluated: 12 in [3, 14]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/primal_candidate_retry_tests.jl:59
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/primal_candidate_retry_tests.jl:63 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Refactorization preserves unrelated steepest-edge weights: Test Failed at /home/jspitz/JSimplex.jl/test/primal_retry_pricing_tests.jl:20
+  Expression: JSimplex.event_count(diagnostics, :refactor_residual) == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/primal_retry_pricing_tests.jl:3
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/primal_retry_pricing_tests.jl:20 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Refactorization preserves unrelated steepest-edge weights: Test Failed at /home/jspitz/JSimplex.jl/test/primal_retry_pricing_tests.jl:20
+  Expression: JSimplex.event_count(diagnostics, :refactor_residual) == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/JSimplex.jl/test/primal_retry_pricing_tests.jl:3
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/JSimplex.jl/test/primal_retry_pricing_tests.jl:20 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+Test Summary:                                                                 | Pass  Fail  Error  Total  Time
+Project failure attribution                                                   |  329    27      3    359  1.1s
+  Weak preference work is bounded for similarly scaled columns                |   10                  10  0.2s
+  Exhaustion after fresh pricing retains the refresh budget                   |    2     2      1      5  0.1s
+  Cancellation during preference clears exclusions                            |    4                   4  0.0s
+  Legacy primal pivots preserve feasibility when a leaving bound is snapped   |  192                 192  0.3s
+  Bound snapping checks each tolerated violation independently                |   80    16            96  0.2s
+  Legacy primal rejects an unsafe sole pivot without mutating the basis       |    1     2      1      4  0.0s
+  Legacy primal accepts a tolerated bound snap that stays feasible            |    3     1             4  0.0s
+  Legacy primal tries another entering variable before failing a ratio test   |    6     1             7  0.0s
+  Legacy primal candidate retry honors cancellation and clears rejections     |    6                   6  0.0s
+  Legacy primal does not report optimality after exhausting unsafe candidates |    1     2      1      4  0.0s
+  Legacy primal searches beyond eight unsafe entering candidates              |    3     1             4  0.0s
+  Legacy primal skips tiny pivots after a single basis refresh                |    5                   5  0.0s
+  Refactorization preserves unrelated steepest-edge weights                   |   10     2            12  0.1s
+  Retry preserves usable estimates on a non-unit basis                        |    6                   6  0.0s
+RNG of the outermost testset: Random.Xoshiro(0xb7cd83e5611e0bc3, 0x2697973c179cdd30, 0x7853827b85635932, 0x86271c1ceeecd2df, 0x30479acdcb5f2566)
+Command exited with non-zero status 1
+	Command being timed: "python3 /home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py --seconds 300 bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --heap-size-hint=2G --project=/home/jspitz/JSimplex.jl -g0 -O1 --compile=min .superpowers/cleanup-memory/failing-files.jl"
+	User time (seconds): 1.55
+	System time (seconds): 0.23
+	Percent of CPU this job got: 88%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:02.02
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 478480
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 63539
+	Voluntary context switches: 128
+	Involuntary context switches: 22
+	Swaps: 0
+	File system inputs: 12168
+	File system outputs: 48
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 1

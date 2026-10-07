@@ -1,0 +1,124 @@
+{
+  "external_cases": 100,
+  "unique_expected_combinations": true,
+  "all_original_primal_certified": true,
+  "all_reference_objectives_match": true,
+  "runtime": {
+    "compile_seconds": 0.0103537,
+    "iterations": 55469,
+    "message": "optimal solution found",
+    "objective": 51425691.76210457,
+    "original_primal_feasible": true,
+    "seconds": 179.527914283,
+    "status": "OPTIMAL",
+    "source_sha256": {
+      "native_certificate_recovery.jl": "9ff6b7bb0a1b59506de14102ebdcfe6aa91af828cd4d5f60cc6acfa3c80e8d22",
+      "solver.jl": "397c75ae74ddeefa2c7f24223a7858f1ce674e60350a6bf30c04ab9f1bd3eb67"
+    }
+  },
+  "source_sha256": "fb37933b9882dafc8886f17ad33dad14237aa4a08803cf586190c86a794082ee",
+  "project_suite_status": "incomplete:600s guard during compilation;27failures and3errors independently reproduce with identical assertions/values on unchanged master50fdc02 and repaired source",
+  "processes": {
+    "semantic-final": {
+      "exit_code": 0,
+      "seconds": 99.06366777420044,
+      "source_unchanged": true,
+      "source_sha256": "fb37933b9882dafc8886f17ad33dad14237aa4a08803cf586190c86a794082ee",
+      "command": [
+        "/usr/bin/time",
+        "-v",
+        "python3",
+        "/home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py",
+        "--seconds",
+        "600",
+        "bash",
+        "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+        "--heap-size-hint=2G",
+        "--project=.",
+        "-g0",
+        "-O1",
+        "--compile=min",
+        "diagnostics/primal-row-memory/reproduce/semantic.jl"
+      ]
+    },
+    "project-suite-final": {
+      "exit_code": 75,
+      "seconds": 600.6640284061432,
+      "source_unchanged": true,
+      "source_sha256": "fb37933b9882dafc8886f17ad33dad14237aa4a08803cf586190c86a794082ee",
+      "command": [
+        "/usr/bin/time",
+        "-v",
+        "python3",
+        "/home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py",
+        "--seconds",
+        "600",
+        "bash",
+        "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+        "--heap-size-hint=2G",
+        "--project=.",
+        "-g0",
+        "-O1",
+        "test/runtests.jl"
+      ]
+    },
+    "external-final": {
+      "exit_code": 0,
+      "seconds": 589.3475339412689,
+      "source_unchanged": true,
+      "source_sha256": "fb37933b9882dafc8886f17ad33dad14237aa4a08803cf586190c86a794082ee",
+      "command": [
+        "/usr/bin/time",
+        "-v",
+        "python3",
+        "/home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py",
+        "--seconds",
+        "3600",
+        "bash",
+        "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+        "--heap-size-hint=2G",
+        "--project=.",
+        "-g0",
+        "-O1",
+        "diagnostics/native-certificate-recovery/reproduce/external.jl",
+        "diagnostics/basis-selective-preparation/reproduce/external-inputs.toml",
+        "/home/jspitz/.codex/worktrees/simplex-certificate-repair/JSimplex.jl/.superpowers/cleanup-memory/external-final.toml"
+      ]
+    },
+    "runtime-final": {
+      "exit_code": 0,
+      "seconds": 213.82951259613037,
+      "source_unchanged": true,
+      "source_sha256": "fb37933b9882dafc8886f17ad33dad14237aa4a08803cf586190c86a794082ee",
+      "command": [
+        "/usr/bin/time",
+        "-v",
+        "python3",
+        "/home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py",
+        "--seconds",
+        "2100",
+        "bash",
+        "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+        "--heap-size-hint=2G",
+        "--project=.",
+        "-g0",
+        "-O1",
+        "diagnostics/native-certificate-recovery/reproduce/runtime.jl",
+        "/home/jspitz/.codex/worktrees/simplex-certificate-repair/JSimplex.jl/.superpowers/cleanup-memory/runtime-final.toml"
+      ]
+    }
+  },
+  "file_sha256": {
+    "external-final.toml": "b1b7e6776b94b49347d6cf22e71fc6c5e8987c8839ef063b7b495672e4c85973",
+    "runtime-final.toml": "50c958e7dc041c51229c9db33b7afc7473217a5446304c49fd7fd18bd0812c4a",
+    "final-validation-source.json": "6354bd72d6f403886889c15178ee9e152c5ed3a81afa41d0c902ef0bda1481e9",
+    "semantic-final-process.json": "b612cd2e3ea9c2524176b992b0a14469df8ee913815db79d87c017cdd8a92fcb",
+    "semantic-final.log": "f36eb32c092a10d284185759069526081b9873da5df1b3d2b58a08028a0d2738",
+    "project-suite-final-process.json": "6057c67b25f53a8a1ae0aaee0c3b2672281d7fa20fe7b0af07f84105af06f398",
+    "project-suite-final.log": "1c8bf44b65bca7e29de2d9dac2b1bcb5ec8dfd274b91eb72e68da714027d2dc1",
+    "external-final-process.json": "662db5ab756340251209b522e9fb7b7ed7c34c83a84add944d39d6b9a211cb2d",
+    "external-final.log": "04a147898554ac2b06d9c9beded225428ad2626c109c4f550deb24e86f9f71e8",
+    "runtime-final-process.json": "c4c82de503c25f1470d439d03c9f706dd6e033784727850bce21412a9b644dd6",
+    "runtime-final.log": "984d60859f89bdb156e62c2a60ee9347e886b7d8f0445259cadb18b1b48b6109"
+  }
+}

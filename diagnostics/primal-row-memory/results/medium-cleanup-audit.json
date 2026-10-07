@@ -1,0 +1,60 @@
+{
+  "source_sha256": "afdebdb6ede3da184ca8ca27c1ea982936bf5c59b90e1b58b89544423ac72564",
+  "outcomes": [
+    {
+      "algorithm": "primal",
+      "status": "OPTIMAL",
+      "iterations": 353468,
+      "additional_iterations": 18422,
+      "objective": 22389455.645278454,
+      "original_primal_feasible": true,
+      "seconds": 2238.027006025,
+      "compile_seconds": 11.311564163,
+      "process_hwm_kib": 1938732,
+      "peak_sample_rss_kib": 1934044,
+      "peak_sample_vm_kib": 2309876,
+      "sample_count": 1116,
+      "cleanup_algorithm": "primal",
+      "scope": "saved terminal-state handoff continuation"
+    },
+    {
+      "algorithm": "dual",
+      "status": "OPTIMAL",
+      "iterations": 233485,
+      "additional_iterations": 21205,
+      "objective": 22389455.645278454,
+      "original_primal_feasible": true,
+      "seconds": 2515.952598353,
+      "compile_seconds": 11.237365535,
+      "process_hwm_kib": 1944948,
+      "peak_sample_rss_kib": 1936800,
+      "peak_sample_vm_kib": 2297264,
+      "sample_count": 1255,
+      "cleanup_algorithm": "primal",
+      "scope": "saved terminal-state handoff continuation"
+    }
+  ],
+  "common_primal_progress": {
+    "count": 10,
+    "first": 335100,
+    "last": 336000,
+    "identical": true,
+    "limitation": "Sampled pinf/dinf only, not complete pivot or state hashes; baseline has GC observer."
+  },
+  "incomplete_attempt": {
+    "path": ".superpowers/cleanup-memory/interrupted-before-ftz-fix",
+    "exit_code": 143,
+    "reason": "Task-owned interruption before final FTZ fix; not a solver result."
+  },
+  "file_sha256": {
+    ".superpowers/cleanup-memory/medium-primal.toml": "622fb23b1148cdc6eff5f975c2d4a06d0e342189d10a9583f86bf8e1ff4a0b99",
+    ".superpowers/cleanup-memory/medium-primal-process.json": "b7a2307d479470890da5048cd6503e64bf60392edfda7a2950fc94a9e1c068b0",
+    ".superpowers/cleanup-memory/medium-primal-memory.csv": "54318e8ca98dc0d7c4414ca81f689514c746f16927b58fd9e4b2701541cd05fa",
+    ".superpowers/cleanup-memory/medium-primal.log": "574ae635390501e93cc448c1bd950f568d6c3ef0141265853e9e201ba8412200",
+    ".superpowers/cleanup-memory/medium-dual.toml": "c89160454087fd500711cdcaea0cb193272d24b2208d1030bf53ffc4ef470543",
+    ".superpowers/cleanup-memory/medium-dual-process.json": "fbd54649c163e6c1afda059d8276a50c923fe5eafaf0903def99ac228cbec5c4",
+    ".superpowers/cleanup-memory/medium-dual-memory.csv": "85affde6dbc0f4fcef7bee571b8b2aa4c286fbfe4b9070fb48be5d71d37a431d",
+    ".superpowers/cleanup-memory/medium-dual.log": "ff335dfb84fedf0cca075e114a02cb61dee551366b7314d1cb320d739266c549",
+    ".superpowers/certificate-repair/medium-primal-cleanup-gc-final.log": "40b4873cbec0eef781390110b4ffbd52329cfeb2649de10e96a27a7495a43c02"
+  }
+}

@@ -95,3 +95,17 @@ end
         end
     end
 end
+
+
+@testset "Native row bounds retain noncancelling product residuals" begin
+    for T in (Float32,Float64)
+        for (a,x,lo,hi) in (
+            (nextfloat(one(T)),prevfloat(one(T)),nothing,one(T)),
+            (one(T)+eps(T),one(T)-eps(T),one(T),nothing))
+            @test a*x == one(T)
+            p=LinearProblem(sparse(reshape(T[a],1,1)),zeros(T,1);row_lower=[lo],row_upper=[hi])
+            @test JSimplex._native_primal_rows_filter(p,T[x],zero(T),[1],p.row_lower,p.row_upper) === false
+            @test !JSimplex._refined_primal_rows_feasible(p,T[x],zero(T),[1])
+        end
+    end
+end

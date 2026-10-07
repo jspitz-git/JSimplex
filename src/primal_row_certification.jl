@@ -4,7 +4,7 @@
 function _native_dyadic_parts(x::Float64)
     bits = reinterpret(UInt64, x)
     exponent_bits = Int((bits >> 52) & 0x7ff)
-    significand_bits = Int(bits & 0x000fffffffffffff) | ((exponent_bits != 0) << 52)
+    significand_bits = Int64(bits & 0x000fffffffffffff) | (Int64(exponent_bits != 0) << 52)
     return significand_bits, exponent_bits - 1075 + (exponent_bits == 0), signbit(x) ? -1 : 1
 end
 function _native_dyadic_parts(x::Float32)
