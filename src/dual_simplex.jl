@@ -1723,8 +1723,10 @@ end
 function _original_optimality_certified(workspace::SimplexWorkspace{T}, primal::Vector{T}) where T
     dual = _original_dual_witness(workspace)
     isnothing(dual) && return false
-    return _original_witness_certified(workspace.problem, workspace.options,
-        workspace.basis, primal, dual)
+    _original_witness_certified(workspace.problem, workspace.options,
+        workspace.basis, primal, dual) && return true
+    return _try_native_certificate_recovery(workspace, primal, dual,
+        _basis_solve_stop(workspace, nothing))
 end
 
 function _internal_solution(workspace::SimplexWorkspace{T}, status::TerminationStatus,
