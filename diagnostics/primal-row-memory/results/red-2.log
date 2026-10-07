@@ -1,0 +1,76 @@
+ERROR: LoadError: Some tests did not pass: 2 passed, 2 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/simplex-certificate-repair/JSimplex.jl/test/certification_allocation_tests.jl:70
+in expression starting at /home/jspitz/.codex/worktrees/simplex-certificate-repair/JSimplex.jl/.superpowers/cleanup-memory/tests.jl:3
+Test Summary:                                                       | Pass  Total  Time
+Exact row feasibility preserves binary products and absolute bounds |   42     42  1.0s
+Test Summary:                                                       | Pass  Total  Time
+Exact row feasibility agrees with independent rational dot products |  300    300  0.4s
+Test Summary:                                         | Pass  Total  Time
+Optimality certification avoids concatenation scratch |    3      3  1.6s
+Test Summary:                                                   | Pass  Total  Time
+Reduced-cost intervals own their arrays and retain slack values |   32     32  4.0s
+Test Summary:                                                | Pass  Total  Time
+Certificate reads original basic costs and actual row values |   24     24  0.3s
+Test Summary:                                                   | Pass  Total  Time
+Reduced-cost slack intervals preserve stored BigFloat precision |    2      2  0.0s
+
+Exact row fallback does not allocate per matrix coefficient: Test Failed at /home/jspitz/.codex/worktrees/simplex-certificate-repair/JSimplex.jl/test/certification_allocation_tests.jl:80
+  Expression: #= /home/jspitz/.codex/worktrees/simplex-certificate-repair/JSimplex.jl/test/certification_allocation_tests.jl:80 =# @allocated(JSimplex._refined_primal_rows_feasible(problem, primal, zero(T), rows)) < 100000
+   Evaluated: 13795056 < 100000
+  Stacktrace:
+   [1] record(ts::Test.DefaultTestSet, t::Union{Test.Error, Test.Fail}; print_result::Bool)
+     @ Test ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1291
+   [2] include(mapexpr::Function, mod::Module, _path::String)
+     @ Base ./Base.jl:310
+   [3] top-level scope
+     @ ~/.codex/worktrees/simplex-certificate-repair/JSimplex.jl/.superpowers/cleanup-memory/tests.jl:3
+   [4] include(mod::Module, _path::String)
+     @ Base ./Base.jl:309
+   [5] exec_options(opts::Base.JLOptions)
+     @ Base ./client.jl:344
+   [6] _start()
+     @ Base ./client.jl:577
+
+Exact row fallback does not allocate per matrix coefficient: Test Failed at /home/jspitz/.codex/worktrees/simplex-certificate-repair/JSimplex.jl/test/certification_allocation_tests.jl:80
+  Expression: #= /home/jspitz/.codex/worktrees/simplex-certificate-repair/JSimplex.jl/test/certification_allocation_tests.jl:80 =# @allocated(JSimplex._refined_primal_rows_feasible(problem, primal, zero(T), rows)) < 100000
+   Evaluated: 13796704 < 100000
+  Stacktrace:
+   [1] record(ts::Test.DefaultTestSet, t::Union{Test.Error, Test.Fail}; print_result::Bool)
+     @ Test ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1291
+   [2] include(mapexpr::Function, mod::Module, _path::String)
+     @ Base ./Base.jl:310
+   [3] top-level scope
+     @ ~/.codex/worktrees/simplex-certificate-repair/JSimplex.jl/.superpowers/cleanup-memory/tests.jl:3
+   [4] include(mod::Module, _path::String)
+     @ Base ./Base.jl:309
+   [5] exec_options(opts::Base.JLOptions)
+     @ Base ./client.jl:344
+   [6] _start()
+     @ Base ./client.jl:577
+Test Summary:                                               | Pass  Fail  Total  Time
+Exact row fallback does not allocate per matrix coefficient |    2     2      4  0.6s
+RNG of the outermost testset: Xoshiro(0x5e3c994b1f2750bd, 0x9ceca92d26486bfc, 0xd609c405901c470a, 0x680c19581086ce49, 0x3b881a56d63d9be2)
+Command exited with non-zero status 1
+	Command being timed: "python3 /home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py --seconds 180 bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --heap-size-hint=2G --project=. -g0 -O1 .superpowers/cleanup-memory/tests.jl"
+	User time (seconds): 9.66
+	System time (seconds): 0.35
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:10.02
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 718708
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 119599
+	Voluntary context switches: 62
+	Involuntary context switches: 85
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 8
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 1

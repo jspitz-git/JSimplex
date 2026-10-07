@@ -1,0 +1,67 @@
+ERROR: Some tests did not pass: 66 passed, 3 failed, 0 errored, 0 broken.
+
+Exact row fallback does not allocate per matrix coefficient: Test Failed at /home/jspitz/.codex/worktrees/simplex-certificate-repair/JSimplex.jl/test/certification_allocation_tests.jl:81
+  Expression: #= /home/jspitz/.codex/worktrees/simplex-certificate-repair/JSimplex.jl/test/certification_allocation_tests.jl:81 =# @allocated(JSimplex._refined_primal_rows_feasible(problem, primal, zero(T), rows)) < 100000
+   Evaluated: 3841432 < 100000
+  Stacktrace:
+   [1] record(ts::Test.DefaultTestSet, t::Union{Test.Error, Test.Fail}; print_result::Bool)
+     @ Test ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1291
+   [2] include(mapexpr::Function, mod::Module, _path::String)
+     @ Base ./Base.jl:310
+   [3] top-level scope
+     @ none:1
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [5] macro expansion
+     @ none:1 [inlined]
+   [6] eval(m::Module, e::Any)
+     @ Core ./boot.jl:489
+   [7] exec_options(opts::Base.JLOptions)
+     @ Base ./client.jl:310
+   [8] _start()
+     @ Base ./client.jl:577
+
+Conclusive native row checks do not allocate arbitrary-precision numbers: Test Failed at /home/jspitz/.codex/worktrees/simplex-certificate-repair/JSimplex.jl/test/certification_allocation_tests.jl:97
+  Expression: all((a->begin
+            #= /home/jspitz/.codex/worktrees/simplex-certificate-repair/JSimplex.jl/test/certification_allocation_tests.jl:97 =#
+            a.type !== BigInt
+        end), allocations)
+   Evaluated: all(var"#17#18"(), Profile.Allocs.Alloc[Profile.Allocs.Alloc(Memory{Int64}, Base.StackTraces.StackFrame[maybe_record_alloc_to_profile at gc-alloc-profiler.h:43 [inlined], ...], 24), Profile.Allocs.Alloc(Vector{Int64}, Base.StackTraces.StackFrame[maybe_record_alloc_to_profile at gc-alloc-profiler.h:43 [inlined], ...], 32), Profile.Allocs.Alloc(BigInt, Base.StackTraces.StackFrame[maybe_record_alloc_to_profile at gc-alloc-profiler.h:43 [inlined], ...], 32), Profile.Allocs.Alloc(Memory{BigInt}, Base.StackTraces.StackFrame[maybe_record_alloc_to_profile at gc-alloc-profiler.h:43 [inlined], ...], 24), Profile.Allocs.Alloc(Vector{BigInt}, Base.StackTraces.StackFrame[maybe_record_alloc_to_profile at gc-alloc-profiler.h:43 [inlined], ...], 32), Profile.Allocs.Alloc(BigInt, Base.StackTraces.StackFrame[maybe_record_alloc_to_profile at gc-alloc-profiler.h:43 [inlined], ...], 32), Profile.Allocs.Alloc(BigInt, Base.StackTraces.StackFrame[maybe_record_alloc_to_profile at gc-alloc-profiler.h:43 [inlined], ...], 32), Profile.Allocs.Alloc(Memory{Int64}, Base.StackTraces.StackFrame[maybe_record_alloc_to_profile at gc-alloc-profiler.h:43 [inlined], ...], 48), Profile.Allocs.Alloc(Vector{Int64}, Base.StackTraces.StackFrame[maybe_record_alloc_to_profile at gc-alloc-profiler.h:43 [inlined], ...], 32), Profile.Allocs.Alloc(Tuple{Int32, Int64, Int64}, Base.StackTraces.StackFrame[maybe_record_alloc_to_profile at gc-alloc-profiler.h:43 [inlined], ...], 32)  …  Profile.Allocs.Alloc(Memory{Int64}, Base.StackTraces.StackFrame[maybe_record_alloc_to_profile at gc-alloc-profiler.h:43 [inlined], ...], 48), Profile.Allocs.Alloc(Vector{Int64}, Base.StackTraces.StackFrame[maybe_record_alloc_to_profile at gc-alloc-profiler.h:43 [inlined], ...], 32), Profile.Allocs.Alloc(Tuple{Int32, Int64, Int64}, Base.StackTraces.StackFrame[maybe_record_alloc_to_profile at gc-alloc-profiler.h:43 [inlined], ...], 32), Profile.Allocs.Alloc(Tuple{Int32, Int64, Int64}, Base.StackTraces.StackFrame[maybe_record_alloc_to_profile at gc-alloc-profiler.h:43 [inlined], ...], 32), Profile.Allocs.Alloc(Int64, Base.StackTraces.StackFrame[maybe_record_alloc_to_profile at gc-alloc-profiler.h:43 [inlined], ...], 8), Profile.Allocs.Alloc(Tuple{Int64, Int64, Int64}, Base.StackTraces.StackFrame[maybe_record_alloc_to_profile at gc-alloc-profiler.h:43 [inlined], ...], 24), Profile.Allocs.Alloc(Core.MethodMatch, Base.StackTraces.StackFrame[maybe_record_alloc_to_profile at gc-alloc-profiler.h:43 [inlined], ...], 32), Profile.Allocs.Alloc(Memory{Any}, Base.StackTraces.StackFrame[maybe_record_alloc_to_profile at gc-alloc-profiler.h:43 [inlined], ...], 24), Profile.Allocs.Alloc(Vector{Any}, Base.StackTraces.StackFrame[maybe_record_alloc_to_profile at gc-alloc-profiler.h:43 [inlined], ...], 24), Profile.Allocs.Alloc(Core.TypeMapEntry, Base.StackTraces.StackFrame[maybe_record_alloc_to_profile at gc-alloc-profiler.h:43 [inlined], ...], 64)])
+  Stacktrace:
+   [1] record(ts::Test.DefaultTestSet, t::Union{Test.Error, Test.Fail}; print_result::Bool)
+     @ Test ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1291
+   [2] top-level scope
+     @ ~/.codex/worktrees/simplex-certificate-repair/JSimplex.jl/test/certification_allocation_tests.jl:88
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/.codex/worktrees/simplex-certificate-repair/JSimplex.jl/test/certification_allocation_tests.jl:97 [inlined]
+   [5] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Conclusive native row checks do not allocate arbitrary-precision numbers: Test Failed at /home/jspitz/.codex/worktrees/simplex-certificate-repair/JSimplex.jl/test/certification_allocation_tests.jl:97
+  Expression: all((a->begin
+            #= /home/jspitz/.codex/worktrees/simplex-certificate-repair/JSimplex.jl/test/certification_allocation_tests.jl:97 =#
+            a.type !== BigInt
+        end), allocations)
+   Evaluated: all(var"#17#18"(), Profile.Allocs.Alloc[Profile.Allocs.Alloc(Memory{Int64}, Base.StackTraces.StackFrame[maybe_record_alloc_to_profile at gc-alloc-profiler.h:43 [inlined], ...], 24), Profile.Allocs.Alloc(Vector{Int64}, Base.StackTraces.StackFrame[maybe_record_alloc_to_profile at gc-alloc-profiler.h:43 [inlined], ...], 32), Profile.Allocs.Alloc(BigInt, Base.StackTraces.StackFrame[maybe_record_alloc_to_profile at gc-alloc-profiler.h:43 [inlined], ...], 32), Profile.Allocs.Alloc(Memory{BigInt}, Base.StackTraces.StackFrame[maybe_record_alloc_to_profile at gc-alloc-profiler.h:43 [inlined], ...], 24), Profile.Allocs.Alloc(Vector{BigInt}, Base.StackTraces.StackFrame[maybe_record_alloc_to_profile at gc-alloc-profiler.h:43 [inlined], ...], 32), Profile.Allocs.Alloc(BigInt, Base.StackTraces.StackFrame[maybe_record_alloc_to_profile at gc-alloc-profiler.h:43 [inlined], ...], 32), Profile.Allocs.Alloc(BigInt, Base.StackTraces.StackFrame[maybe_record_alloc_to_profile at gc-alloc-profiler.h:43 [inlined], ...], 32), Profile.Allocs.Alloc(BigInt, Base.StackTraces.StackFrame[maybe_record_alloc_to_profile at gc-alloc-profiler.h:43 [inlined], ...], 32), Profile.Allocs.Alloc(BigInt, Base.StackTraces.StackFrame[maybe_record_alloc_to_profile at gc-alloc-profiler.h:43 [inlined], ...], 32), Profile.Allocs.Alloc(BigInt, Base.StackTraces.StackFrame[maybe_record_alloc_to_profile at gc-alloc-profiler.h:43 [inlined], ...], 32)])
+  Stacktrace:
+   [1] record(ts::Test.DefaultTestSet, t::Union{Test.Error, Test.Fail}; print_result::Bool)
+     @ Test ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1291
+   [2] top-level scope
+     @ ~/.codex/worktrees/simplex-certificate-repair/JSimplex.jl/test/certification_allocation_tests.jl:88
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/.codex/worktrees/simplex-certificate-repair/JSimplex.jl/test/certification_allocation_tests.jl:97 [inlined]
+   [5] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+Test Summary:                                                              | Pass  Fail  Total  Time
+All allocation contracts                                                   |   66     3     69  8.3s
+  Optimality certification avoids concatenation scratch                    |    3            3  1.8s
+  Reduced-cost intervals own their arrays and retain slack values          |   32           32  4.0s
+  Certificate reads original basic costs and actual row values             |   24           24  0.4s
+  Reduced-cost slack intervals preserve stored BigFloat precision          |    2            2  0.0s
+  Exact row fallback does not allocate per matrix coefficient              |    3     1      4  0.7s
+  Conclusive native row checks do not allocate arbitrary-precision numbers |    2     2      4  0.2s
+RNG of the outermost testset: Random.Xoshiro(0xe3c52cbf5f17f46c, 0x5fcb440ab8f738a1, 0x9ef244897a34db22, 0xfbecb7068c321075, 0x015b50bcc264592c)

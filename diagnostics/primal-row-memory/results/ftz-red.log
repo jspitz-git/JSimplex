@@ -1,0 +1,92 @@
+ERROR: Some tests did not pass: 982 passed, 4 failed, 0 errored, 0 broken.
+
+Exact fallback reads subnormal bits under flush-to-zero mode: Test Failed at /home/jspitz/.codex/worktrees/simplex-certificate-repair/JSimplex.jl/test/exact_primal_rows_tests.jl:88
+  Expression: !(JSimplex._refined_primal_rows_feasible(p, x, zero(T), [1]))
+   Evaluated: !(JSimplex._refined_primal_rows_feasible(LinearProblem{Float32}(sparse([1], [1], Float32[0.0], 1, 1), Float32[0.0], 0.0f0, MIN_SENSE, Bound{Float32}[Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, true)], Bound{Float32}[Bound{Float32}(0.0f0, true)], Bound{Float32}[Bound{Float32}(0.0f0, false)], VariableDomain[CONTINUOUS], "", String[], String[]), Float32[1.0], 0.0f0, [1]))
+  Stacktrace:
+   [1] record(ts::Test.DefaultTestSet, t::Union{Test.Error, Test.Fail}; print_result::Bool)
+     @ Test ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1291
+   [2] include(mapexpr::Function, mod::Module, _path::String)
+     @ Base ./Base.jl:310
+   [3] top-level scope
+     @ none:1
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [5] macro expansion
+     @ none:1 [inlined]
+   [6] eval(m::Module, e::Any)
+     @ Core ./boot.jl:489
+   [7] exec_options(opts::Base.JLOptions)
+     @ Base ./client.jl:310
+   [8] _start()
+     @ Base ./client.jl:577
+
+Exact fallback reads subnormal bits under flush-to-zero mode: Test Failed at /home/jspitz/.codex/worktrees/simplex-certificate-repair/JSimplex.jl/test/exact_primal_rows_tests.jl:88
+  Expression: !(JSimplex._refined_primal_rows_feasible(p, x, zero(T), [1]))
+   Evaluated: !(JSimplex._refined_primal_rows_feasible(LinearProblem{Float32}(sparse([1], [1], Float32[1.0], 1, 1), Float32[0.0], 0.0f0, MIN_SENSE, Bound{Float32}[Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, true)], Bound{Float32}[Bound{Float32}(0.0f0, true)], Bound{Float32}[Bound{Float32}(0.0f0, false)], VariableDomain[CONTINUOUS], "", String[], String[]), Float32[0.0], 0.0f0, [1]))
+  Stacktrace:
+   [1] record(ts::Test.DefaultTestSet, t::Union{Test.Error, Test.Fail}; print_result::Bool)
+     @ Test ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1291
+   [2] include(mapexpr::Function, mod::Module, _path::String)
+     @ Base ./Base.jl:310
+   [3] top-level scope
+     @ none:1
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [5] macro expansion
+     @ none:1 [inlined]
+   [6] eval(m::Module, e::Any)
+     @ Core ./boot.jl:489
+   [7] exec_options(opts::Base.JLOptions)
+     @ Base ./client.jl:310
+   [8] _start()
+     @ Base ./client.jl:577
+
+Exact fallback reads subnormal bits under flush-to-zero mode: Test Failed at /home/jspitz/.codex/worktrees/simplex-certificate-repair/JSimplex.jl/test/exact_primal_rows_tests.jl:88
+  Expression: !(JSimplex._refined_primal_rows_feasible(p, x, zero(T), [1]))
+   Evaluated: !(JSimplex._refined_primal_rows_feasible(LinearProblem{Float64}(sparse([1], [1], [0.0], 1, 1), [0.0], 0.0, MIN_SENSE, Bound{Float64}[Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false)], VariableDomain[CONTINUOUS], "", String[], String[]), [1.0], 0.0, [1]))
+  Stacktrace:
+   [1] record(ts::Test.DefaultTestSet, t::Union{Test.Error, Test.Fail}; print_result::Bool)
+     @ Test ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1291
+   [2] include(mapexpr::Function, mod::Module, _path::String)
+     @ Base ./Base.jl:310
+   [3] top-level scope
+     @ none:1
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [5] macro expansion
+     @ none:1 [inlined]
+   [6] eval(m::Module, e::Any)
+     @ Core ./boot.jl:489
+   [7] exec_options(opts::Base.JLOptions)
+     @ Base ./client.jl:310
+   [8] _start()
+     @ Base ./client.jl:577
+
+Exact fallback reads subnormal bits under flush-to-zero mode: Test Failed at /home/jspitz/.codex/worktrees/simplex-certificate-repair/JSimplex.jl/test/exact_primal_rows_tests.jl:88
+  Expression: !(JSimplex._refined_primal_rows_feasible(p, x, zero(T), [1]))
+   Evaluated: !(JSimplex._refined_primal_rows_feasible(LinearProblem{Float64}(sparse([1], [1], [1.0], 1, 1), [0.0], 0.0, MIN_SENSE, Bound{Float64}[Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false)], VariableDomain[CONTINUOUS], "", String[], String[]), [0.0], 0.0, [1]))
+  Stacktrace:
+   [1] record(ts::Test.DefaultTestSet, t::Union{Test.Error, Test.Fail}; print_result::Bool)
+     @ Test ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1291
+   [2] include(mapexpr::Function, mod::Module, _path::String)
+     @ Base ./Base.jl:310
+   [3] top-level scope
+     @ none:1
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [5] macro expansion
+     @ none:1 [inlined]
+   [6] eval(m::Module, e::Any)
+     @ Core ./boot.jl:489
+   [7] exec_options(opts::Base.JLOptions)
+     @ Base ./client.jl:310
+   [8] _start()
+     @ Base ./client.jl:577
+Test Summary:                                                         | Pass  Fail  Total  Time
+Native row edge cases                                                 |  982     4    986  3.1s
+  Exact row feasibility preserves binary products and absolute bounds |   42           42  1.1s
+  Exact row feasibility agrees with independent rational dot products |  300          300  0.4s
+  Moderate cancellation is decided in native precision                |  640          640  0.3s
+  Exact fallback reads subnormal bits under flush-to-zero mode        |          4      4  0.9s
+RNG of the outermost testset: Xoshiro(0x68b89137ca5c7c42, 0xa4731c35cce2baa6, 0x86940b66fcdce129, 0xeb30f445fe0fd7cd, 0x654cccc613c3f89c)

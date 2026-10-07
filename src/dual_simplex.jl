@@ -1558,46 +1558,6 @@ _within_primal_bounds(values::AbstractVector{T}, lower::AbstractVector{Bound{T}}
                       upper::AbstractVector{Bound{T}}, tolerance::T) where {T} =
     _within_primal_intervals(values, values, lower, upper, tolerance)
 
-function _refined_primal_rows_feasible(problem::LinearProblem{T}, primal::Vector{T},
-                                       tolerance::T, rows::Vector{Int},
-                                       row_lower=problem.row_lower,
-                                       row_upper=problem.row_upper) where {T<:Union{Float32,Float64}}
-    A = problem.A
-    row_slot = zeros(Int, size(A, 1))
-    for (slot, row) in enumerate(rows)
-        row_slot[row] = slot
-    end
-    activities = zeros(Rational{BigInt}, length(rows))
-    for column in axes(A, 2)
-        value = Rational{BigInt}(primal[column])
-        for position in A.colptr[column]:(A.colptr[column + 1] - 1)
-            slot = row_slot[A.rowval[position]]
-            slot == 0 && continue
-            coefficient = A.nzval[position]
-            isfinite(coefficient) || return false
-            activities[slot] += Rational{BigInt}(coefficient) * value
-        end
-    end
-    exact_tolerance = Rational{BigInt}(tolerance)
-    finite_limit = Rational{BigInt}(floatmax(T))
-    for (slot, row) in enumerate(rows)
-        # Cancellation may recover a finite original-type activity after an
-        # intermediate overflow. An out-of-range final activity remains unsafe,
-        # including on an unbounded row or when rounding would hide the excess.
-        abs(activities[slot]) <= finite_limit || return false
-        lower = row_lower[row]
-        upper = row_upper[row]
-        if isfinite(lower)
-            activities[slot] >= Rational{BigInt}(bound_value(lower)) - exact_tolerance ||
-                return false
-        end
-        if isfinite(upper)
-            activities[slot] <= Rational{BigInt}(bound_value(upper)) + exact_tolerance ||
-                return false
-        end
-    end
-    return true
-end
 
 _refined_primal_rows_feasible(::LinearProblem, ::Vector, tolerance, rows) = false
 

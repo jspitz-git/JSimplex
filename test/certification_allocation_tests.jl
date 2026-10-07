@@ -1,3 +1,4 @@
+using Profile
 @testset "Optimality certification avoids concatenation scratch" begin
     problem = LinearProblem(JSimplex.SparseArrays.spzeros(Float64, 0, 1024), ones(1024))
     workspace = JSimplex.initialize_workspace(problem, SolverOptions(verbose=false))
@@ -64,5 +65,36 @@ end
         lower, upper = JSimplex._original_reduced_cost_bounds(problem, dual)
         @test isequal(lower, dual) && isequal(upper, dual)
         @test precision(only(lower)) == precision(only(upper)) == 512
+    end
+end
+
+@testset "Exact row fallback does not allocate per matrix coefficient" begin
+    for T in (Float32,Float64)
+        columns=10_000
+        A=JSimplex.SparseArrays.sparse(ones(Int,columns),collect(1:columns),ones(T,columns),1,columns)
+        problem=LinearProblem(A,zeros(T,columns);row_lower=T[1250],row_upper=T[1250])
+        primal=fill(T(0.125),columns)
+        rows=[1]
+        @test JSimplex._exact_primal_rows_feasible(problem,primal,zero(T),rows)
+        # Storage should scale with the checked rows, not millions of temporary
+        # BigInts as more coefficients enter the same exact dot product.
+        @test (@allocated JSimplex._exact_primal_rows_feasible(problem,primal,zero(T),rows)) < 100_000
+    end
+end
+
+@testset "Conclusive native row checks do not allocate arbitrary-precision numbers" begin
+    # The large terms cancel exactly; naive intervals are wider than tolerance,
+    # but compensated native arithmetic can certify the stored activity 1.
+    for T in (Float32,Float64)
+        big=T(2)^(T===Float32 ? 24 : 53)
+        p=LinearProblem(JSimplex.SparseArrays.sparse(reshape(T[big,1,-big],1,3)),zeros(T,3);
+            row_lower=T[1],row_upper=T[1])
+        x=ones(T,3);rows=[1];tol=T(1e-7)
+        @test JSimplex._refined_primal_rows_feasible(p,x,tol,rows)
+        Profile.Allocs.clear()
+        Profile.Allocs.@profile sample_rate=1.0 JSimplex._refined_primal_rows_feasible(p,x,tol,rows)
+        allocations=Profile.Allocs.fetch().allocs
+        @test all(a->a.type!==BigInt,allocations)
+        Profile.Allocs.clear()
     end
 end
