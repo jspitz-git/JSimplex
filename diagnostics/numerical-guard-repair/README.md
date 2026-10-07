@@ -70,3 +70,89 @@ directory must be fresh. `reproduce/probe_terminal.jl SNAPSHOT OUTPUT` separates
 feasibility, stationarity, and row/column complementarity; its 256-bit selected
 price dots are independent diagnostics, not production iteration arithmetic.
 `reproduce/targeted.jl` runs the focused numerical and allocation regressions.
+
+## Fresh dual rows and configured small-pivot refinement
+
+Two independent core defects were reproduced and repaired after the greenbea
+change. These changes do not constitute a complete pilotnov repair.
+
+* A fresh factorization bypassed the legacy BTRAN row-residual check. Fresh LU
+  does not guarantee a reliable transpose solve. Apply the existing check to
+  fresh factors too, preserve stop precedence, and allow the existing bounded
+  native correction budget. When correction disproves a tableau candidate,
+  the transactional recovery repeats the same configured ratio test and checks
+  the replacement direction and bound flips before publication. Retaining the
+  final low correction during compensated pricing avoids rounding away a small
+  tableau coefficient. This is the narrow core port of experimental `3f4e973`;
+  no experimental factor optimizations or pricing-policy changes are included.
+  The focused regression changes from 190 passes, 43 failures and 12 errors to
+  419 passes.
+* Exceptional small-pivot certification unconditionally constructed native LU,
+  even when Markowitz was selected. On the captured pilotnov iteration663 basis,
+  this preconditioner exhausted the existing 32 corrections, leaving a relative
+  residual around2.37e-25 instead of the required1e-40. The selected Float64
+  Markowitz factor reaches the existing256/512-bit diagnostic targets in2/5
+  corrections. Preserve the chosen backend for this exceptional path. This
+  does **not** introduce another precision escalation: the existing BigFloat
+  certificate and its targets remain unchanged; its preconditioner and solves
+  remain Float64. Native-backend callers retain the previous solve path.
+  A portable2x2 regression first fails its certification assertion, then passes;
+  expanded positive, infeasible-price, stop, orientation and ownership checks
+  pass50 assertions across all five Markowitz managers.
+
+### Pilotnov remains unresolved
+
+`results/pilotnov-cases.json` distinguishes the successive experiments. On
+PFI/Markowitz80, current-master-based code first fails at355. The fresh-row port
+reproduces the historical experimental failure at663. Retaining Markowitz in
+small-pivot certification passes that point, but a fresh BTRAN fails at696 in
+phaseII. There is no postsolve or cleanup transition at this failure.
+
+The row696 inverse action has infinity norm about1.60e30. Fresh native and
+Markowitz factors both fail the legacy row-residual test; twelve native
+corrections do not recover it. Independent direct256/512-bit factorizations
+agree, and their Float64-rounded result passes the unchanged row check
+(ratio0.002775). Thus the solution is representable, but ordinary factorization
+is unreliable for this extremely sensitive basis. Independently equilibrating
+that basis allows native Markowitz and two compensated corrections to pass.
+An isolated full-solve prototype, however, changes the trajectory and fails at
+435. This scaling prototype is **not** in production.
+
+All696 recorded accepted pivot entries agree with independent refined reference
+solves; this alone says nothing about the rest of their directions or states.
+The subsequent full-state reference audit in `pilotnov-state-reference.toml`
+checks selected early growth transitions, including49 and121. Accurate directions
+and reconstructed basic values reproduce the enormous increases, from about
+5.4e6 to9.2e10 and3.4e11 to2.5e17. These next-point estimates use the recorded primal step and old basic slots;
+they are not an independent ratio/step audit. The sampled early growth is
+reproduced by reference basic values and directions, and no false-pivot cause
+was found. Later primal values still have substantial absolute drift. Investigate
+the ratio decisions and basis conditioning further; do not claim convergence
+from passing iteration663.
+
+### Direct SS: distinguish stored-factor error from application error
+
+The preserved fast0507 tape with directSS/native and interval320 reproduces the
+historical step640 dense-RHS residual4.476e-10; freshLU gives5.90e-17. Probing
+every step561..640 locates an earlier failure at631. A late elimination
+multiplier reaches2.4e6. Applying the *same stored factors* at256 bits, then rounding the result to
+Float64 for residual measurement, leaves
+residual3.48e-11, so both factor storage and application contribute. In contrast,
+one existing native compensated residual correction reduces all probed failing
+dense solves to about1e-17. No early refactorization is used in these probes.
+
+Diagnostic-only FMA elimination, FMA application, and compensated row-operation
+application improve selected samples but do not clear every probe. They are not
+production changes or successful fixes. `ss-native-probes.json` retains all
+failing probes for each valid variant. Earlier `ss-fma-both` changed an inactive
+application path (effectively elimination only); `ss-compensated`,
+`ss-compensated-counted`, and `ss-compensated-dispatch` did not exercise their
+new method and are invalid application experiments. Their raw files are retained;
+the valid `ss-compensated-finish` run asserts2341 calls to the actual specialized
+finish path. No speed benefit is claimed for these arithmetic prototypes.
+
+The combined production repairs pass1,850 focused/numerical/allocation checks
+with normal compilation and15,688 semantic checks with `--compile=min`.
+Independent final static review found no blocker. Source and log hashes are in
+`results/dual-recovery-validation.json`. These checks are selected regressions;
+final broader external and runtime validation is still pending at this checkpoint.

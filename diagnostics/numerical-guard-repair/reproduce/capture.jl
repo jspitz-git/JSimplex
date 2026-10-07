@@ -36,7 +36,7 @@ function main(input,manager,backend,out)
         "iterations"=>r.statistics.iterations,"seconds"=>t.time,"compile_seconds"=>t.compile_time,
         "input_sha256"=>bytes2hex(open(sha256,path)),"manager"=>manager,"backend"=>backend,
         "events"=>Dict(string(k)=>v for (k,v) in diag.counts if v!=0),
-        "snapshots"=>saved[],"source_revision"=>strip(read(`git rev-parse HEAD`,String)),
+        "snapshots"=>saved[],"source_revision"=>strip(read(`git -C $root rev-parse HEAD`,String)),
         "source_sha256"=>source_sha256)
     if r.status==OPTIMAL
         report["objective"]=r.objective_value

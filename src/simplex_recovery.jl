@@ -499,12 +499,23 @@ end
 # Precision-specialized repair retains the legacy absolute residual targets,
 # 32-correction budget and independent 256/512-bit agreement checks in callers.
 # These stronger repairs are separate from ordinary backward-error acceptance.
+# Preserve the selected refactorization backend in exceptional small-pivot
+# refinement. Existing callers that pass a native LU retain their solve path.
+_refinement_basis_solve(factor, rhs, transposed::Bool) =
+    transposed ? transpose(factor) \ rhs : factor \ rhs
+function _refinement_basis_solve(factor::MarkowitzBackend{Float64}, rhs::Vector{Float64},
+                                  transposed::Bool)
+    destination = similar(rhs)
+    return transposed ? _backend_transpose_solve!(destination, factor, rhs) :
+                        _backend_forward_solve!(destination, factor, rhs)
+end
+
 function _refined_basis_solution(factor,B,rhs::Vector{Float64},bits::Int,stop;
                                   transposed::Bool=false)
     return setprecision(BigFloat,bits) do
         rhs_big = BigFloat.(rhs)
         values = BigFloat.(B.nzval)
-        solution = BigFloat.(transposed ? transpose(factor) \ rhs : factor \ rhs)
+        solution = BigFloat.(_refinement_basis_solve(factor, rhs, transposed))
         all(isfinite,solution) || return nothing
         residual = similar(rhs_big)
         scale = max(one(BigFloat),maximum(abs,rhs_big;init=zero(BigFloat)))
@@ -536,7 +547,7 @@ function _refined_basis_solution(factor,B,rhs::Vector{Float64},bits::Int,stop;
             correction == 32 && return nothing
             narrow_residual = Float64.(residual)
             all(isfinite,narrow_residual) || return nothing
-            step = transposed ? transpose(factor) \ narrow_residual : factor \ narrow_residual
+            step = _refinement_basis_solve(factor, narrow_residual, transposed)
             all(isfinite,step) || return nothing
             changed = false
             for i in eachindex(solution)

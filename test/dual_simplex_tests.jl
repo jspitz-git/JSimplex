@@ -108,7 +108,11 @@ end
         terminal = JSimplex.dual_iteration!(workspace, () -> false)
         @test isnothing(terminal)
         @test workspace.basis.basic_indices == [1, 4]
-        @test workspace.refactorizations == 1
+        # The fresh row is now corrected before the false candidate enters
+        # the ratio test, so the existing factor needs no refresh.
+        @test workspace.refactorizations == 0
+        @test workspace.primal[1] ≈ 1.0
+        @test JSimplex._original_primal_feasible(problem,workspace.primal[1:2],workspace.options.primal_tolerance)
     end
 end
 
@@ -305,8 +309,14 @@ end
         sparse([-1.0 0.4; 0.4 -1.0]),
     )
     JSimplex.recompute!(stale)
-    @test isnothing(JSimplex._dual_iteration!(stale, () -> false, true))
+    # This injected factor is stale, not a just-refactored current basis.
+    @test isnothing(JSimplex.dual_iteration!(stale, () -> false))
+    @test stale.refactorizations == 1
     @test stale.basis.basic_indices == [1, 4]
+    B=JSimplex.basis_matrix(stale)
+    rhs=[0.25,-0.5]
+    @test B*JSimplex.forward_solve(stale.factorization,rhs) ≈ rhs
+    @test transpose(B)*JSimplex.transpose_solve(stale.factorization,rhs) ≈ rhs
     @test stale.iterations == 1
     @test !stale.dual_devex_fallback
     @test stale.pricing_weights[1] ≈ 1.0

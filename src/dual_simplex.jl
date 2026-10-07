@@ -164,6 +164,10 @@ end
 
 _try_refine_dual_prices!(::SimplexWorkspace, stop_requested) = false
 
+_small_dual_refinement_factor(B, ::SolverOptions) = lu(B)
+_small_dual_refinement_factor(B, ::SolverOptions{Float64,U,:markowitz}) where U =
+    _factorize_basis(B, Val(:markowitz))
+
 # An entering price hidden by Float64 cancellation can become a much larger
 # infeasibility when divided by a small pivot. Check the price independently
 # before the basis changes and, for a backward Harris step, shift its working
@@ -176,7 +180,7 @@ function _stabilize_small_dual_pivot!(workspace::SimplexWorkspace{Float64},
     stop_requested() && return false
     B = basis_matrix(workspace)
     factor = try
-        lu(B)
+        _small_dual_refinement_factor(B, workspace.options)
     catch exception
         _is_numerical_exception(exception) || rethrow()
         return false
@@ -1124,7 +1128,9 @@ function _dual_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_request
         price!(tableau_row, workspace, rho)
     end
     all(isfinite, rho) && all(isfinite, tableau_row) || return _numerical_failure()
-    if _is_exact(T) === Val(false) && !isempty(workspace.factorization.updates)
+    # A fresh LU can also have an inaccurate transpose solve. Its row must
+    # pass the same check before it participates in the ratio test.
+    if _is_exact(T) === Val(false)
         row_residual_ratio = _dual_row_residual_ratio(workspace, rho, leaving_row)
         if row_residual_ratio > one(T) && _try_native_dual_correction!(
                 workspace, rho, leaving_row, leaving_row, stop_requested; transposed=true)
@@ -1133,9 +1139,9 @@ function _dual_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_request
             row_residual_ratio = _dual_row_residual_ratio(workspace, rho, leaving_row)
         end
         if row_residual_ratio > one(T)
+            stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
             basis_refreshed &&
                 return DualTermination(NUMERICAL_ERROR, "basis transpose solve residual too large")
-            stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
             _note_updated_basis_repair!(workspace)
             try
                 @logmsg workspace.options.log_level "Refactorizing inaccurate dual tableau row" iteration=workspace.iterations updates=length(workspace.factorization.updates) row_residual_ratio
@@ -1317,9 +1323,13 @@ function _dual_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_request
         if !_pivot_agrees(row_pivot, pivot, agreement)
             cancelled=Ref(false)
             guard=()->(cancelled[]=cancelled[] || stop_requested())
-            if _try_native_dual_tableau!(workspace,leaving_row,entering_index,
-                    orientation,abs(delta),flips,guard)
-                pivot=tableau_column[leaving_row]
+            decision=_try_native_dual_tableau!(workspace,leaving_row,entering_index,
+                    orientation,abs(delta),flips,guard;reselect=true)
+            if decision !== false
+                entering_index=decision.entering_index
+                workspace.scratch.selected_entering=entering_index
+                flips=decision.flips
+                pivot=decision.pivot
                 refined_row=true
             else
                 cancelled[] && return DualTermination(TIME_LIMIT,"time limit reached during native tableau recovery")
