@@ -153,9 +153,18 @@ function _project_postsolve_basis!(workspace::SimplexWorkspace{T}, target::Vecto
     stop_requested() && return nothing
     recompute!(workspace; refactorize=true, caller_guard=stop_requested)
     _finite_workspace(workspace) || return nothing
-    primal_infeasibility(workspace) <= options.primal_tolerance || return nothing
     projected = workspace.primal[1:column_count]
-    _original_primal_feasible(problem, projected, options.primal_tolerance) || return nothing
+    if primal_infeasibility(workspace) > options.primal_tolerance ||
+       !_original_primal_feasible(problem, projected, options.primal_tolerance)
+        # Projection can find the right basis while native reconstruction loses
+        # feasibility to rounding. Repair it before discarding the exchanges and
+        # restarting auxiliary optimization from the old, infeasible basis.
+        native_hint && _try_native_cleanup_recompute!(workspace, stop_requested) || return nothing
+        _finite_workspace(workspace) || return nothing
+        primal_infeasibility(workspace) <= options.primal_tolerance || return nothing
+        copyto!(projected, 1, workspace.primal, 1, column_count)
+        _original_primal_feasible(problem, projected, options.primal_tolerance) || return nothing
+    end
     # A valid original-model basis may land elsewhere on a degenerate face.
     # Legacy cleanup optimizes its original costs; coordinate identity with
     # the supplied target is neither a feasibility nor an optimality test.
