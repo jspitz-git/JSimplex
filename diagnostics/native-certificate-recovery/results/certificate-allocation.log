@@ -1,0 +1,31 @@
+Test Summary:                                         | Pass  Total  Time
+Optimality certification avoids concatenation scratch |    3      3  1.8s
+Test Summary:                                                   | Pass  Total  Time
+Reduced-cost intervals own their arrays and retain slack values |   32     32  3.9s
+Test Summary:                                                | Pass  Total  Time
+Certificate reads original basic costs and actual row values |   24     24  0.5s
+Test Summary:                                                   | Pass  Total  Time
+Reduced-cost slack intervals preserve stored BigFloat precision |    2      2  0.0s
+	Command being timed: "python3 /home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py --seconds 180 bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --heap-size-hint=2G --project=. -g0 -O1 -e using JSimplex,Test;include("test/certification_allocation_tests.jl")"
+	User time (seconds): 7.64
+	System time (seconds): 0.27
+	Percent of CPU this job got: 98%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:08.07
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 601584
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 103912
+	Voluntary context switches: 58
+	Involuntary context switches: 42
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 8
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

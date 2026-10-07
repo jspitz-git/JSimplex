@@ -1,0 +1,50 @@
+[
+  {
+    "local_log": ".superpowers/certificate-repair/medium-dual-3.log",
+    "sha256": "56b10329123f96bf1fe334bcf68cd6da8cd598f8bc573c53ead1da88479d4be5",
+    "status": "TIME_LIMIT",
+    "notes": "Certificate-only repair; 600 seconds of original cleanup, 14639 additional iterations."
+  },
+  {
+    "local_log": ".superpowers/certificate-repair/medium-dual-cleanup-fixed.log",
+    "sha256": "eb74e5db42db94fa47ba16c27d98095bc55f1b2fb34fb8b70e8c53359652ce16",
+    "status": "PROCESS_FAILURE",
+    "notes": "First projection repair continuation; OutOfMemoryError, no result report; owned process terminated after failure."
+  },
+  {
+    "local_log": ".superpowers/certificate-repair/medium-dual-cleanup-gc.log",
+    "sha256": "e0ada7c81a20a849a292184789006c05f59f7d34ad6984508bc3551252c51475",
+    "status": "PROCESS_FAILURE",
+    "notes": "Earlier GC, still 8 GiB VM; LLVM out-of-memory abort, last progress iteration 213200; no result report."
+  },
+  {
+    "local_log": ".superpowers/certificate-repair/allocation.log",
+    "sha256": "fe4eda822021f2961ee8eccd09aaa0e609a22a8bbb7c4e290e19fb2240d883dc",
+    "status": "WALL_TIME",
+    "notes": "300-second guard terminated broader compiled solver tests inside LLVM debug-info cloning; no test failure established."
+  },
+  {
+    "local_log": ".superpowers/certificate-repair/primal-handoff.log",
+    "sha256": "f9b2ec541a5ddcd8654e9b24b16639f70d428cd26a62c903b143ed0b22e5576e",
+    "status": "HARNESS_ASSERTION",
+    "notes": "Saved primal terminal certificate passed; comparison wrongly required the augmented primal objective constant to match the unaugmented working constant. Production uses zero in the augmented workspace. Corrected assertion and successful handoff are in primal-handoff-2.log."
+  },
+  {
+    "local_log": ".superpowers/certificate-repair/medium-dual-cleanup-o1.log",
+    "sha256": "21bc86b996536ed64695b7eea46a7f8625295727f7bc5a0b06afbf5526269a37",
+    "status": "DIAGNOSTIC_PROCESS_FAILURE",
+    "notes": "Native cleanup progressed to iteration 213200. At the VM cap a requested SIGUSR1 profile could not allocate its buffer/TLS; exit 127 and no solver result. Do not interpret the diagnostic abort as a numerical status."
+  },
+  {
+    "local_log": ".superpowers/certificate-repair/medium-primal-cleanup-memory.log",
+    "sha256": "c21c695da87f30fb4db8586c2fd1a1021d61ff109529ba527511df87680c4a0f",
+    "status": "DIAGNOSTIC_INTERRUPTION",
+    "notes": "Read-only structure-size probe stopped by this task after iteration 335300 to compare diagnostic full GC. No solver result."
+  },
+  {
+    "local_log": ".superpowers/certificate-repair/medium-primal-cleanup-gc-final.log",
+    "sha256": "40b4873cbec0eef781390110b4ffbd52329cfeb2649de10e96a27a7495a43c02",
+    "status": "NATIVE_PROCESS_CRASH",
+    "notes": "Diagnostic full GC every 100 pivots; last progress 336000, pinf=0. SIGSEGV in finalizer/GC stack reached from __gmpz_init2, exit139, peak RSS7410120KiB under8GiB VM. No solver result; root cause unconfirmed. The queued dual repeat was not started."
+  }
+]

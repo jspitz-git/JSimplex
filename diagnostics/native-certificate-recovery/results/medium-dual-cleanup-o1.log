@@ -1,0 +1,42 @@
+EVENT phase_cleanup iteration=212280 pinf=0.0 dinf=1371.9396202037494
+EVENT phase_primal iteration=212280 pinf=0.0 dinf=1371.9396202037494
+EVENT pivot_completed iteration=212300 pinf=0.0 dinf=1351.8996202037795
+EVENT pivot_completed iteration=212400 pinf=0.0 dinf=1228.4025242454265
+EVENT pivot_completed iteration=212500 pinf=0.0 dinf=1055.6947417512124
+EVENT pivot_completed iteration=212600 pinf=0.0 dinf=671.9975828414914
+EVENT pivot_completed iteration=212700 pinf=0.0 dinf=520.0797483131961
+EVENT pivot_completed iteration=212800 pinf=0.0 dinf=516.6747499605674
+EVENT pivot_completed iteration=212900 pinf=0.0 dinf=517.3490221541776
+EVENT pivot_completed iteration=213000 pinf=0.0 dinf=515.3495636820259
+EVENT pivot_completed iteration=213100 pinf=0.0 dinf=516.2043345548254
+EVENT pivot_completed iteration=213200 pinf=0.0 dinf=516.2717901619
+
+======================================================================================
+Information request received. A stacktrace will print followed by a 1.0 second profile.
+--trace-compile is enabled during profile collection.
+======================================================================================
+ERROR: could not initialize the profile buffercannot allocate memory for thread-local data: ABORT
+Command exited with non-zero status 127
+	Command being timed: "python3 /home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py --seconds inf bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --heap-size-hint=2G --project=. -g0 -O1 diagnostics/native-certificate-recovery/reproduce/handoff_cleanup.jl /home/jspitz/.codex/worktrees/simplex-certificate-repair/JSimplex.jl/.superpowers/certificate-repair/medium-dual-handoff.bin /home/jspitz/.codex/worktrees/simplex-certificate-repair/JSimplex.jl/.superpowers/certificate-repair/medium-dual-cleanup-o1.toml Inf"
+	User time (seconds): 512.85
+	System time (seconds): 253.13
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 12:48.47
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 7437280
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 42389370
+	Voluntary context switches: 837
+	Involuntary context switches: 9027
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 96
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 127
