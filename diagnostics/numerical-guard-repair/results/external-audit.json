@@ -1,0 +1,54 @@
+{
+  "cases": 100,
+  "unique_combinations": 100,
+  "all_optimal": true,
+  "all_original_primal_certified": true,
+  "all_reference_objectives_matched": true,
+  "processes": {
+    "semantic": {
+      "exit_code": 0,
+      "seconds": 97.06471371650696,
+      "source_unchanged": true,
+      "source_sha256": "75c93afb205be18d6b55dd5b77eed3d02b24c7418061f4d9b48f3a8cb95f3988",
+      "command": [
+        "/usr/bin/time",
+        "-v",
+        "python3",
+        "/home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py",
+        "--seconds",
+        "600",
+        "bash",
+        "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+        "--heap-size-hint=2G",
+        "--project=.",
+        "-g0",
+        "-O1",
+        "--compile=min",
+        "diagnostics/primal-row-memory/reproduce/semantic.jl"
+      ]
+    },
+    "external": {
+      "exit_code": 0,
+      "seconds": 603.2671060562134,
+      "source_unchanged": true,
+      "source_sha256": "75c93afb205be18d6b55dd5b77eed3d02b24c7418061f4d9b48f3a8cb95f3988",
+      "command": [
+        "/usr/bin/time",
+        "-v",
+        "python3",
+        "/home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py",
+        "--seconds",
+        "3600",
+        "bash",
+        "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+        "--heap-size-hint=2G",
+        "--project=.",
+        "-g0",
+        "-O1",
+        "diagnostics/native-certificate-recovery/reproduce/external.jl",
+        "diagnostics/basis-selective-preparation/reproduce/external-inputs.toml",
+        "/home/jspitz/.codex/worktrees/simplex-certificate-repair/JSimplex.jl/.superpowers/numerical-guard-repair/external.toml"
+      ]
+    }
+  }
+}

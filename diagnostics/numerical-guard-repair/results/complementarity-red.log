@@ -1,0 +1,81 @@
+ERROR: LoadError: Some tests did not pass: 24 passed, 4 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/simplex-certificate-repair/JSimplex.jl/test/native_complementarity_rows_tests.jl:3
+
+Complementarity resolves cancellation at active row bounds: Test Failed at /home/jspitz/.codex/worktrees/simplex-certificate-repair/JSimplex.jl/test/native_complementarity_rows_tests.jl:17
+  Expression: JSimplex._original_witness_certified(p, options, basis, x, y)
+   Evaluated: JSimplex._original_witness_certified(LinearProblem{Float32}(sparse([1, 1, 1], [1, 2, 3], Float32[1.0737418f9, 1.0, -1.0737418f9], 1, 3), Float32[-1.0737418f9, -1.0, 1.0737418f9], 0.0f0, MIN_SENSE, Bound{Float32}[Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(50.0f0, true)], Bound{Float32}[Bound{Float32}(1.0f0, true), Bound{Float32}(0.0f0, true), Bound{Float32}(1.0f0, true)], Bound{Float32}[Bound{Float32}(1.0f0, true), Bound{Float32}(0.0f0, false), Bound{Float32}(1.0f0, true)], VariableDomain[CONTINUOUS, CONTINUOUS, CONTINUOUS], "", String[], String[]), SolverOptions{Float32, :pfi, :native}(1.0f-7, 1.0f-7, 1.0f-12, 100000, Inf, 20, false, Debug, :dual, :steepest_edge, :pfi, :native, :auto, true, :legacy, false), JSimplex.Basis([2], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_UPPER]), Float32[1.0, 50.0, 1.0], Float32[-1.0])
+  Stacktrace:
+   [1] record(ts::Test.DefaultTestSet, t::Union{Test.Error, Test.Fail}; print_result::Bool)
+     @ Test ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1291
+   [2] include(mod::Module, _path::String)
+     @ Base ./Base.jl:309
+   [3] exec_options(opts::Base.JLOptions)
+     @ Base ./client.jl:344
+   [4] _start()
+     @ Base ./client.jl:577
+
+Complementarity resolves cancellation at active row bounds: Test Failed at /home/jspitz/.codex/worktrees/simplex-certificate-repair/JSimplex.jl/test/native_complementarity_rows_tests.jl:17
+  Expression: JSimplex._original_witness_certified(p, options, basis, x, y)
+   Evaluated: JSimplex._original_witness_certified(LinearProblem{Float32}(sparse([1, 1, 1], [1, 2, 3], Float32[1.0737418f9, 1.0, -1.0737418f9], 1, 3), Float32[1.0737418f9, 1.0, -1.0737418f9], 0.0f0, MIN_SENSE, Bound{Float32}[Bound{Float32}(50.0f0, true)], Bound{Float32}[Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(1.0f0, true), Bound{Float32}(0.0f0, true), Bound{Float32}(1.0f0, true)], Bound{Float32}[Bound{Float32}(1.0f0, true), Bound{Float32}(0.0f0, false), Bound{Float32}(1.0f0, true)], VariableDomain[CONTINUOUS, CONTINUOUS, CONTINUOUS], "", String[], String[]), SolverOptions{Float32, :pfi, :native}(1.0f-7, 1.0f-7, 1.0f-12, 100000, Inf, 20, false, Debug, :dual, :steepest_edge, :pfi, :native, :auto, true, :legacy, false), JSimplex.Basis([2], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_LOWER]), Float32[1.0, 50.0, 1.0], Float32[1.0])
+  Stacktrace:
+   [1] record(ts::Test.DefaultTestSet, t::Union{Test.Error, Test.Fail}; print_result::Bool)
+     @ Test ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1291
+   [2] include(mod::Module, _path::String)
+     @ Base ./Base.jl:309
+   [3] exec_options(opts::Base.JLOptions)
+     @ Base ./client.jl:344
+   [4] _start()
+     @ Base ./client.jl:577
+
+Complementarity resolves cancellation at active row bounds: Test Failed at /home/jspitz/.codex/worktrees/simplex-certificate-repair/JSimplex.jl/test/native_complementarity_rows_tests.jl:17
+  Expression: JSimplex._original_witness_certified(p, options, basis, x, y)
+   Evaluated: JSimplex._original_witness_certified(LinearProblem{Float64}(sparse([1, 1, 1], [1, 2, 3], [1.152921504606847e18, 1.0, -1.152921504606847e18], 1, 3), [-1.152921504606847e18, -1.0, 1.152921504606847e18], 0.0, MIN_SENSE, Bound{Float64}[Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(50.0, true)], Bound{Float64}[Bound{Float64}(1.0, true), Bound{Float64}(0.0, true), Bound{Float64}(1.0, true)], Bound{Float64}[Bound{Float64}(1.0, true), Bound{Float64}(0.0, false), Bound{Float64}(1.0, true)], VariableDomain[CONTINUOUS, CONTINUOUS, CONTINUOUS], "", String[], String[]), SolverOptions{Float64, :pfi, :native}(1.0e-7, 1.0e-7, 1.0e-12, 100000, Inf, 20, false, Debug, :dual, :steepest_edge, :pfi, :native, :auto, true, :legacy, false), JSimplex.Basis([2], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_UPPER]), [1.0, 50.0, 1.0], [-1.0])
+  Stacktrace:
+   [1] record(ts::Test.DefaultTestSet, t::Union{Test.Error, Test.Fail}; print_result::Bool)
+     @ Test ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1291
+   [2] include(mod::Module, _path::String)
+     @ Base ./Base.jl:309
+   [3] exec_options(opts::Base.JLOptions)
+     @ Base ./client.jl:344
+   [4] _start()
+     @ Base ./client.jl:577
+
+Complementarity resolves cancellation at active row bounds: Test Failed at /home/jspitz/.codex/worktrees/simplex-certificate-repair/JSimplex.jl/test/native_complementarity_rows_tests.jl:17
+  Expression: JSimplex._original_witness_certified(p, options, basis, x, y)
+   Evaluated: JSimplex._original_witness_certified(LinearProblem{Float64}(sparse([1, 1, 1], [1, 2, 3], [1.152921504606847e18, 1.0, -1.152921504606847e18], 1, 3), [1.152921504606847e18, 1.0, -1.152921504606847e18], 0.0, MIN_SENSE, Bound{Float64}[Bound{Float64}(50.0, true)], Bound{Float64}[Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(1.0, true), Bound{Float64}(0.0, true), Bound{Float64}(1.0, true)], Bound{Float64}[Bound{Float64}(1.0, true), Bound{Float64}(0.0, false), Bound{Float64}(1.0, true)], VariableDomain[CONTINUOUS, CONTINUOUS, CONTINUOUS], "", String[], String[]), SolverOptions{Float64, :pfi, :native}(1.0e-7, 1.0e-7, 1.0e-12, 100000, Inf, 20, false, Debug, :dual, :steepest_edge, :pfi, :native, :auto, true, :legacy, false), JSimplex.Basis([2], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_LOWER]), [1.0, 50.0, 1.0], [1.0])
+  Stacktrace:
+   [1] record(ts::Test.DefaultTestSet, t::Union{Test.Error, Test.Fail}; print_result::Bool)
+     @ Test ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1291
+   [2] include(mod::Module, _path::String)
+     @ Base ./Base.jl:309
+   [3] exec_options(opts::Base.JLOptions)
+     @ Base ./client.jl:344
+   [4] _start()
+     @ Base ./client.jl:577
+Test Summary:                                              | Pass  Fail  Total  Time
+Complementarity resolves cancellation at active row bounds |   24     4     28  1.7s
+RNG of the outermost testset: Random.Xoshiro(0x8b9c3a856539151f, 0xd3c7b9945f7c5f58, 0xbfe91938a807a621, 0x7a17ef4fb39bc4b5, 0x1d28708bb516d2bf)
+Command exited with non-zero status 1
+	Command being timed: "python3 /home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py --seconds 180 bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --heap-size-hint=2G --project=. -g0 -O1 test/native_complementarity_rows_tests.jl"
+	User time (seconds): 2.73
+	System time (seconds): 0.23
+	Percent of CPU this job got: 97%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:03.02
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 540620
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 77438
+	Voluntary context switches: 52
+	Involuntary context switches: 23
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 16
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 1

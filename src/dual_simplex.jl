@@ -1657,6 +1657,8 @@ function _original_witness_certified(problem::LinearProblem{T}, options::SolverO
     all(isfinite, reduced_lower) && all(isfinite, reduced_upper) || return false
     row_lower, row_upper = _primal_row_bounds(problem.A, primal, _is_exact(T))
     _, negative_tolerance = _primal_difference_bounds(zero(T), options.dual_tolerance)
+    uncertain_rows = nothing
+    active_bounds = nothing
     for index in eachindex(reduced_lower)
         stationary = reduced_lower[index] >= negative_tolerance &&
                      reduced_upper[index] <= options.dual_tolerance
@@ -1675,9 +1677,27 @@ function _original_witness_certified(problem::LinearProblem{T}, options::SolverO
         at_upper = reduced_upper[index] <= options.dual_tolerance &&
                    _primal_interval_at_bound(value_lower, value_upper, upper,
                                              options.primal_tolerance)
-        at_lower || at_upper || return false
+        at_lower || at_upper || begin
+            # Cancellation can make the coarse activity interval inconclusive
+            # even when native compensated feasibility has already succeeded.
+            # Recheck distance to the priced bound, not just row feasibility.
+            index > column_count && T <: Union{Float32,Float64} || return false
+            active_bound = reduced_lower[index] >= negative_tolerance ? lower :
+                           reduced_upper[index] <= options.dual_tolerance ? upper : nothing
+            isnothing(active_bound) && return false
+            isfinite(active_bound) || return false
+            if isnothing(uncertain_rows)
+                uncertain_rows = Int[]
+                active_bounds = copy(problem.row_lower)
+            end
+            row = index - column_count
+            push!(uncertain_rows, row)
+            active_bounds[row] = active_bound
+        end
     end
-    return true
+    isnothing(uncertain_rows) && return true
+    return _refined_primal_rows_feasible(problem, primal, options.primal_tolerance,
+                                         uncertain_rows, active_bounds, active_bounds)
 end
 
 function _original_optimality_certified(workspace::SimplexWorkspace{T}, primal::Vector{T}) where T

@@ -1,0 +1,22 @@
+{
+  "exit_code": 0,
+  "seconds": 97.06471371650696,
+  "source_unchanged": true,
+  "source_sha256": "75c93afb205be18d6b55dd5b77eed3d02b24c7418061f4d9b48f3a8cb95f3988",
+  "command": [
+    "/usr/bin/time",
+    "-v",
+    "python3",
+    "/home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py",
+    "--seconds",
+    "600",
+    "bash",
+    "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+    "--heap-size-hint=2G",
+    "--project=.",
+    "-g0",
+    "-O1",
+    "--compile=min",
+    "diagnostics/primal-row-memory/reproduce/semantic.jl"
+  ]
+}
