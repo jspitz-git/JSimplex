@@ -89,6 +89,19 @@ function _project_postsolve_basis!(workspace::SimplexWorkspace{T}, target::Vecto
     native_hint = T <: Union{Float32,Float64} &&
                   _native_primal_kernel(workspace.progress.numerical_policy)
     (target_feasible || native_hint) || return nothing
+    if native_hint && !target_feasible
+        # Unscaling may amplify a tolerated column-bound error. Use a private
+        # box projection only as a basis-construction hint: trying to make an
+        # out-of-bound nonbasic value basic can block the useful exchanges.
+        # The reconstructed point still has to pass the original certificates.
+        target = copy(target)
+        for column in 1:column_count
+            lower, upper = workspace.lower[column], workspace.upper[column]
+            isfinite(lower) && (target[column] = max(target[column], bound_value(lower)))
+            isfinite(upper) && (target[column] = min(target[column], bound_value(upper)))
+        end
+        target_feasible = _original_primal_feasible(problem, target, options.primal_tolerance)
+    end
     target_values = vcat(target, A * target)
     all(isfinite, target_values) || return nothing
 
