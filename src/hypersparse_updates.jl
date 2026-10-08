@@ -109,7 +109,12 @@ function _apply_row_update!(vector::IndexedVector,
     last = _update_last(update,length(vector.values))
     _rotate_indexed!(vector,scratch,update.pivot,last,true)
     for p in eachindex(update.indices)
-        add_entry!(vector,last,_finite_sparse_value(update.multipliers[p]*vector.values[update.indices[p]]))
+        row = update.indices[p]
+        if _row_update_swapped(update,row)
+            top,bottom = vector.values[row],vector.values[last]
+            set_entry!(vector,row,bottom); set_entry!(vector,last,top)
+        end
+        add_entry!(vector,last,_finite_sparse_value(update.multipliers[p]*vector.values[row]))
     end
     return compact_support!(vector)
 end
@@ -117,9 +122,20 @@ end
 function _apply_transposed_row_update!(vector::IndexedVector,
                             update::Union{ForrestTomlinUpdate,SuhlSuhlUpdate},scratch)
     last = _update_last(update,length(vector.values))
-    bottom = vector.values[last]
-    for p in eachindex(update.indices)
-        add_entry!(vector,update.indices[p],_finite_sparse_value(update.multipliers[p]*bottom))
+    if isempty(update.swapped_rows)
+        bottom = vector.values[last]
+        for p in eachindex(update.indices)
+            add_entry!(vector,update.indices[p],_finite_sparse_value(update.multipliers[p]*bottom))
+        end
+    else
+        for p in reverse(eachindex(update.indices))
+            row = update.indices[p]
+            add_entry!(vector,row,_finite_sparse_value(update.multipliers[p]*vector.values[last]))
+            if _row_update_swapped(update,row)
+                top,bottom = vector.values[row],vector.values[last]
+                set_entry!(vector,row,bottom); set_entry!(vector,last,top)
+            end
+        end
     end
     return _rotate_indexed!(vector,scratch,update.pivot,last,false)
 end

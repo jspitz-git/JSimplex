@@ -1,0 +1,50 @@
+TEST exact_primal_rows_tests.jl
+TEST legacy_primal_point_tests.jl
+TEST legacy_primal_point_recovery_tests.jl
+TEST legacy_primal_working_row_scope_tests.jl
+TEST native_certificate_recovery_tests.jl
+TEST postsolve_native_projection_tests.jl
+TEST postsolve_hint_tests.jl
+TEST dual_simplex_tests.jl
+TEST primal_simplex_tests.jl
+TEST primal_update_tests.jl
+TEST native_cleanup_recovery_tests.jl
+TEST native_reliable_price_tests.jl
+TEST native_driver_reconstruction_tests.jl
+TEST native_dual_reconstruction_tests.jl
+TEST simplex_driver_tests.jl
+TEST simplex_start_tests.jl
+TEST simplex_start_guard_tests.jl
+TEST simplex_phase_one_tests.jl
+TEST simplex_phase_one_state_tests.jl
+TEST simplex_phase_logging_tests.jl
+TEST simplex_precision_entry_tests.jl
+TEST simplex_precision_exception_tests.jl
+TEST simplex_precision_guard_tests.jl
+TEST lp_refinement_terminal_tests.jl
+TEST regression_tests.jl
+Test Summary:                                    |  Pass  Total     Time
+Native terminal certificate semantic regressions | 15689  15689  1m39.7s
+	Command being timed: "python3 /home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py --seconds 900 bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --heap-size-hint=2G --project=. -g0 -O1 --compile=min diagnostics/primal-row-memory/reproduce/semantic.jl"
+	User time (seconds): 98.58
+	System time (seconds): 1.65
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:41.06
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1487780
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 1
+	Minor (reclaiming a frame) page faults: 487151
+	Voluntary context switches: 161
+	Involuntary context switches: 1517
+	Swaps: 0
+	File system inputs: 1920
+	File system outputs: 112
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

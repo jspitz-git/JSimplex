@@ -37,6 +37,11 @@ function _append_compiled_rows!(cache, update::Union{ForrestTomlinUpdate,SuhlSuh
     cache.permuted |= update.pivot < last
     _rotate_row_order!(order, update.pivot, last)
     for index in eachindex(update.indices)
+        row = update.indices[index]
+        if _row_update_swapped(update, row)
+            cache.permuted = true
+            order[row], order[last] = order[last], order[row]
+        end
         push!(cache.operations,
             (order[last], order[update.indices[index]], update.multipliers[index]))
     end
@@ -86,9 +91,8 @@ function _apply_dense_transposed_row_updates!(vector, factor::ComposedRowFactori
         copyto!(vector, factor.spike)
     end
     operation = _row_operation(factor)
-    # FT/SS operations within one update have distinct targets and a common,
-    # unchanged source. Their transpose operations are independent; reversing
-    # them preserves each target's arithmetic as well as update order.
+    # Reverse every elimination, including dependent operations separated by
+    # row swaps. Permutations are already incorporated in physical coordinates.
     for (target, source, multiplier) in Iterators.reverse(cache.operations)
         _compiled_row_operation!(vector, source, target, multiplier, operation)
     end

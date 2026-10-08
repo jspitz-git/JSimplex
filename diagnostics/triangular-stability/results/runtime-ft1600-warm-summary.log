@@ -1,0 +1,78 @@
+HARNESS warm_start forrest_tomlin primal
+HARNESS warm_done forrest_tomlin primal
+HARNESS warm_start forrest_tomlin dual
+HARNESS warm_done forrest_tomlin dual
+HARNESS warm_start suhl_suhl primal
+HARNESS warm_done suhl_suhl primal
+HARNESS warm_start suhl_suhl dual
+HARNESS warm_done suhl_suhl dual
+HARNESS read_start
+HARNESS read_done
+HARNESS solve_start diagnosed
+PROGRESS pivots=1600 max_primal=4.209619849355943e6
+PROGRESS pivots=3200 max_primal=1.7364894647061184e7
+PROGRESS pivots=4800 max_primal=4.006527059107593e8
+PROGRESS pivots=6400 max_primal=4.006527059107593e8
+PROGRESS pivots=8000 max_primal=4.006527059107593e8
+PROGRESS pivots=9600 max_primal=2.2058937743171e9
+PROGRESS pivots=11200 max_primal=6.015573207330987e9
+PROGRESS pivots=12800 max_primal=1.1742816534192995e10
+PROGRESS pivots=14400 max_primal=3.855454062210401e10
+PROGRESS pivots=16000 max_primal=9.664946488456854e10
+PROGRESS pivots=17600 max_primal=9.664946488456854e10
+PROGRESS pivots=19200 max_primal=9.664946488456854e10
+PROGRESS pivots=20800 max_primal=9.664946488456854e10
+PROGRESS pivots=22400 max_primal=9.664946488456854e10
+PROGRESS pivots=24000 max_primal=9.664946488456854e10
+PROGRESS pivots=25600 max_primal=9.664946488456854e10
+PROGRESS pivots=27200 max_primal=9.664946488456854e10
+PROGRESS pivots=28800 max_primal=9.664946488456854e10
+PROGRESS pivots=30400 max_primal=9.664946488456854e10
+PROGRESS pivots=32000 max_primal=1.236141151806304e11
+PROGRESS pivots=33600 max_primal=1.236141151806304e11
+PROGRESS pivots=35200 max_primal=1.236141151806304e11
+PROGRESS pivots=36800 max_primal=1.236141151806304e11
+PROGRESS pivots=38400 max_primal=1.236141151806304e11
+PROGRESS pivots=40000 max_primal=1.236141151806304e11
+PROGRESS pivots=41600 max_primal=1.236141151806304e11
+PROGRESS pivots=43200 max_primal=1.236141151806304e11
+PROGRESS pivots=44800 max_primal=1.236141151806304e11
+PROGRESS pivots=46400 max_primal=3.490884062743734e13
+PROGRESS pivots=48000 max_primal=3.490884062743734e13
+PROGRESS pivots=49600 max_primal=3.490884062743734e13
+PROGRESS pivots=51200 max_primal=3.490884062743734e13
+PROGRESS pivots=52800 max_primal=3.490884062743734e13
+PROGRESS pivots=54400 max_primal=3.490884062743734e13
+PROGRESS pivots=56000 max_primal=3.490884062743734e13
+PROGRESS pivots=57600 max_primal=3.490884062743734e13
+PROGRESS pivots=59200 max_primal=3.490884062743734e13
+PROGRESS pivots=60800 max_primal=3.490884062743734e13
+PROGRESS pivots=62400 max_primal=3.490884062743734e13
+PROGRESS pivots=64000 max_primal=3.490884062743734e13
+PROGRESS pivots=65600 max_primal=3.490884062743734e13
+PROGRESS pivots=67200 max_primal=3.490884062743734e13
+PROGRESS pivots=68800 max_primal=3.490884062743734e13
+Dict{String, Any}("objective_matches" => true, "maximum_completed_primal_magnitude" => 3.490884062743734e13, "diagnostics_enabled" => true, "backend" => "native", "interval" => 1600, "objective" => 5.142569176208826e7, "input_sha256" => "d0ac16e1a52a7d3411cbac28616bba9d3beb0c0edbdb2d72ab0477ce075f6c68", "julia_threads" => 1, "original_primal_feasible" => true, "seconds" => 1161.729848981, "compile_seconds" => 32.578954721, "verbose" => false, "blas_threads" => 1, "same_process_warmup" => true, "allocated_bytes" => 22817250768, "events" => Dict("certification" => 2, "phase_primal" => 2, "phase_dual" => 2, "correction_attempt" => 21453, "correction" => 21443, "phase_auxiliary" => 1, "pricing_scanned_entries" => 2063057116, "bound_flipped" => 26005, "refactor_other" => 3, "pivot_completed" => 69900, "pivot_rejected" => 11, "pricing_full_scan" => 69926, "pricing" => 69926, "refactor_initial" => 2, "refactor_pivot" => 11, "restore_perturbations" => 1, "pricing_scored_entries" => 235225285, "refactor_limit" => 40, "pivot_proposed" => 69924, "phase_cleanup" => 2), "algorithm" => "dual", "iterations" => 69900, "manager" => "forrest_tomlin", "status" => "OPTIMAL", "message" => "optimal solution found")
+	Command being timed: "python3 /home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py --seconds 2100 bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --heap-size-hint=2G --project=. -g1 -O1 diagnostics/triangular-stability/reproduce/runtime.jl forrest_tomlin /home/jspitz/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/.superpowers/triangular-stability/runtime-ft1600-warm.toml"
+	User time (seconds): 1228.38
+	System time (seconds): 3.09
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 20:32.75
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 2489448
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 815595
+	Voluntary context switches: 1501
+	Involuntary context switches: 6234
+	Swaps: 0
+	File system inputs: 7552
+	File system outputs: 232
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

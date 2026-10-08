@@ -18,7 +18,15 @@ function precise_direct_forward(f,b)
             old=v[u.pivot]
             for i in u.pivot:(u.last-1);v[i]=v[i+1];end
             v[u.last]=old
-            for i in eachindex(u.indices);v[u.last]+=BigFloat(u.multipliers[i])*v[u.indices[i]];end
+            for i in eachindex(u.indices)
+                row=u.indices[i]
+                # Preserve independent high-precision application after the
+                # production history gained explicit local row interchanges.
+                if hasproperty(u,:swapped_rows) && row in u.swapped_rows
+                    v[row],v[u.last]=v[u.last],v[row]
+                end
+                v[u.last]+=BigFloat(u.multipliers[i])*v[row]
+            end
         end
         for j in n:-1:1
             col=f.upper[j];v[j]/=JSimplex._upper_diagonal(col,j)

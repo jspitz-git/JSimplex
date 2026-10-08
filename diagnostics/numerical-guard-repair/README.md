@@ -163,3 +163,16 @@ with normal compilation and15,688 semantic checks with `--compile=min`.
 Independent final static review found no blocker. Source and log hashes are in
 `results/dual-recovery-validation.json`. These checks are selected regressions;
 final broader external and runtime validation is still pending at this checkpoint.
+
+## FT/SS row-pivoting follow-up
+
+The unpivoted row-spike elimination issue is isolated and repaired in
+[`../triangular-stability/README.md`](../triangular-stability/README.md).
+A well-conditioned two-row final basis reproduces large FT/SS solve errors
+without any simplex phase transition. Local partial row pivoting bounds the
+elimination multipliers and repairs the preserved original/direct FT/SS runtime
+histories at interval 1600 and direct SS fast0507 history at interval 320.
+These seven complete fixed-history checks use unchanged probes and only scheduled
+refactorizations. Historical attempts above remain evidence of the old code;
+the follow-up does not claim exhaustive revalidation of every interval-sweep
+configuration or resolution of every earlier direct-prototype terminal failure.

@@ -298,14 +298,29 @@ struct ForrestTomlinUpdate{T<:Real}
     pivot::Int
     indices::Vector{Int}
     multipliers::Vector{T}
+    swapped_rows::Vector{Int}
 end
+ForrestTomlinUpdate{T}(pivot, indices, multipliers) where {T} =
+    ForrestTomlinUpdate{T}(pivot, indices, multipliers, Int[])
+
+ForrestTomlinUpdate(pivot, indices, multipliers::Vector{T}) where {T} =
+    ForrestTomlinUpdate{T}(pivot, indices, multipliers)
 
 struct SuhlSuhlUpdate{T<:Real}
     pivot::Int
     last::Int
     indices::Vector{Int}
     multipliers::Vector{T}
+    swapped_rows::Vector{Int}
 end
+SuhlSuhlUpdate{T}(pivot, last, indices, multipliers) where {T} =
+    SuhlSuhlUpdate{T}(pivot, last, indices, multipliers, Int[])
+
+SuhlSuhlUpdate(pivot, last, indices, multipliers::Vector{T}) where {T} =
+    SuhlSuhlUpdate{T}(pivot, last, indices, multipliers)
+
+@inline _row_update_swapped(update, row) =
+    insorted(row, update.swapped_rows)
 
 struct BartelsGolubStep{T<:Real}
     row::Int
@@ -467,7 +482,11 @@ function _apply_row_update!(vector::Vector, update::ForrestTomlinUpdate)
     end
     vector[last] = old
     for i in eachindex(update.indices)
-        vector[last] += update.multipliers[i] * vector[update.indices[i]]
+        row = update.indices[i]
+        if _row_update_swapped(update, row)
+            vector[row], vector[last] = vector[last], vector[row]
+        end
+        vector[last] += update.multipliers[i] * vector[row]
     end
     return vector
 end
@@ -475,10 +494,22 @@ end
 function _apply_transposed_row_update!(vector::Vector, update::ForrestTomlinUpdate)
     pivot = update.pivot
     last = length(vector)
-    bottom = vector[last]
-    for i in eachindex(update.indices)
-        vector[update.indices[i]] += update.multipliers[i] * bottom
+    if isempty(update.swapped_rows)
+        bottom = vector[last]
+        for i in eachindex(update.indices)
+            vector[update.indices[i]] += update.multipliers[i] * bottom
+        end
+    else
+        # Swaps make successive eliminations dependent; undo them in reverse.
+        for i in reverse(eachindex(update.indices))
+            row = update.indices[i]
+            vector[row] += update.multipliers[i] * vector[last]
+            if _row_update_swapped(update, row)
+                vector[row], vector[last] = vector[last], vector[row]
+            end
+        end
     end
+    bottom = vector[last]
     for row in last:-1:(pivot + 1)
         vector[row] = vector[row - 1]
     end
@@ -495,7 +526,11 @@ function _apply_row_update!(vector::Vector, update::SuhlSuhlUpdate)
     end
     vector[last] = old
     for i in eachindex(update.indices)
-        vector[last] += update.multipliers[i] * vector[update.indices[i]]
+        row = update.indices[i]
+        if _row_update_swapped(update, row)
+            vector[row], vector[last] = vector[last], vector[row]
+        end
+        vector[last] += update.multipliers[i] * vector[row]
     end
     return vector
 end
@@ -503,10 +538,22 @@ end
 function _apply_transposed_row_update!(vector::Vector, update::SuhlSuhlUpdate)
     pivot = update.pivot
     last = update.last
-    bottom = vector[last]
-    for i in eachindex(update.indices)
-        vector[update.indices[i]] += update.multipliers[i] * bottom
+    if isempty(update.swapped_rows)
+        bottom = vector[last]
+        for i in eachindex(update.indices)
+            vector[update.indices[i]] += update.multipliers[i] * bottom
+        end
+    else
+        # Swaps make successive eliminations dependent; undo them in reverse.
+        for i in reverse(eachindex(update.indices))
+            row = update.indices[i]
+            vector[row] += update.multipliers[i] * vector[last]
+            if _row_update_swapped(update, row)
+                vector[row], vector[last] = vector[last], vector[row]
+            end
+        end
     end
+    bottom = vector[last]
     for row in last:-1:(pivot + 1)
         vector[row] = vector[row - 1]
     end
@@ -766,9 +813,9 @@ end
 function _take_triangular_update_buffers!(
     factor::Union{ForrestTomlinFactorization{T},SuhlSuhlFactorization{T}},
 ) where {T}
-    isempty(factor.recycled_updates) && return Int[], T[]
+    isempty(factor.recycled_updates) && return Int[], T[], Int[]
     update = pop!(factor.recycled_updates)
-    return update.indices, update.multipliers
+    return update.indices, update.multipliers, update.swapped_rows
 end
 
 function _take_bartels_golub_steps!(factor::BartelsGolubFactorization{T}) where {T}
@@ -779,6 +826,7 @@ end
 function _clear_triangular_update!(update::Union{ForrestTomlinUpdate,SuhlSuhlUpdate})
     empty!(update.indices)
     empty!(update.multipliers)
+    empty!(update.swapped_rows)
     return nothing
 end
 
@@ -799,10 +847,10 @@ function _recycle_triangular_updates!(factor::AbstractTriangularBasisFactorizati
     return nothing
 end
 
-# Only the moved row changes during FT/SS elimination. Keep it in dense scratch
-# instead of repeatedly searching, inserting and deleting its packed entries.
-# Row rotation has populated factor.spike and removed the eliminated entries.
-# The pivot rows remain unchanged, so their incidence can be indexed once.
+# Keep the moved row in dense scratch. Partial row pivoting bounds elimination
+# multipliers even when an intermediate basis had a tiny diagonal. Row rotation
+# has populated factor.spike and removed its subdiagonal packed entries.
+# A row interchange invalidates the optional incidence index.
 function _eliminate_triangular_row_spike!(
     factor::Union{ForrestTomlinFactorization{T},SuhlSuhlFactorization{T}},
     position::Int, last::Int, stored_entries::Int,
@@ -816,11 +864,28 @@ function _eliminate_triangular_row_spike!(
     end
     use_row_index = last - position >= 16 && stored_entries ÷ n <= (last - position) ÷ 4
     row_index_ready = false
-    indices, multipliers = _take_triangular_update_buffers!(factor)
+    indices, multipliers, swapped_rows = _take_triangular_update_buffers!(factor)
     for column_index in position:(last - 1)
         column = factor.upper[column_index]
-        multiplier = -(spike[column_index] / _upper_diagonal(column, column_index))
-        iszero(multiplier) && continue
+        diagonal = _upper_diagonal(column, column_index)
+        swapped = isfinite(spike[column_index]) && isfinite(diagonal) &&
+            abs(spike[column_index]) > abs(diagonal)
+        if swapped
+            push!(swapped_rows, column_index)
+            # Only columns at or to the right of this pivot can contain either
+            # row. Earlier spike entries have already been eliminated.
+            for trailing in column_index:n
+                packed = factor.upper[trailing]
+                old = _upper_value(packed, column_index)
+                _set_upper_value!(packed, column_index, spike[trailing])
+                spike[trailing] = old
+                trailing >= last && (touched[trailing] = marker)
+            end
+            diagonal = _upper_diagonal(column, column_index)
+            use_row_index = false
+        end
+        multiplier = -(spike[column_index] / diagonal)
+        iszero(multiplier) && !swapped && continue
         push!(indices, column_index)
         push!(multipliers, multiplier)
         if use_row_index && !row_index_ready
@@ -842,7 +907,7 @@ function _eliminate_triangular_row_spike!(
         iszero(touched[column_index]) && continue
         _set_upper_value!(factor.upper[column_index], last, spike[column_index])
     end
-    return indices, multipliers
+    return indices, multipliers, swapped_rows
 end
 
 function replace_column!(factor::SuhlSuhlFactorization{T},
@@ -861,8 +926,8 @@ function replace_column!(factor::SuhlSuhlFactorization{T},
     # The replacement is already triangular: there is no row rotation and no
     # elimination. Avoid visiting every other column just to restore its entry.
     if position == last
-        indices, multipliers = _take_triangular_update_buffers!(factor)
-        push!(factor.updates, SuhlSuhlUpdate{T}(position, last, indices, multipliers))
+        indices, multipliers, swapped_rows = _take_triangular_update_buffers!(factor)
+        push!(factor.updates, SuhlSuhlUpdate{T}(position, last, indices, multipliers, swapped_rows))
         return factor
     end
 
@@ -887,8 +952,8 @@ function replace_column!(factor::SuhlSuhlFactorization{T},
         stored_entries += length(column.indices)
     end
 
-    indices, multipliers = _eliminate_triangular_row_spike!(factor, position, last, stored_entries)
-    push!(factor.updates, SuhlSuhlUpdate{T}(position, last, indices, multipliers))
+    indices, multipliers, swapped_rows = _eliminate_triangular_row_spike!(factor, position, last, stored_entries)
+    push!(factor.updates, SuhlSuhlUpdate{T}(position, last, indices, multipliers, swapped_rows))
     return factor
 end
 
@@ -943,8 +1008,8 @@ function replace_column!(factor::ForrestTomlinFactorization{T},
         end
         stored_entries += length(column.indices)
     end
-    indices, multipliers = _eliminate_triangular_row_spike!(factor, first_spike, n, stored_entries)
-    push!(factor.updates, ForrestTomlinUpdate{T}(position, indices, multipliers))
+    indices, multipliers, swapped_rows = _eliminate_triangular_row_spike!(factor, first_spike, n, stored_entries)
+    push!(factor.updates, ForrestTomlinUpdate{T}(position, indices, multipliers, swapped_rows))
     return factor
 end
 
