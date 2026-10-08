@@ -12,6 +12,10 @@ jobs:
       - uses: julia-actions/setup-julia@v2
         with:
           version: '1.13'
+      - name: Disable package precompile workload for tests
+        shell: bash
+        run: |
+          printf '%s\n' '[JSimplex]' 'precompile_workload = false' > LocalPreferences.toml
       - uses: julia-actions/cache@v2
       - uses: julia-actions/julia-buildpkg@v1
       - uses: julia-actions/julia-runtest@v1
