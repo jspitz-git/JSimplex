@@ -20,7 +20,7 @@ using SparseArrays, Random
     @test flips == sortperm(costs)
 end
 
-@testset "Legacy breakpoints preserve signed-zero and stable ties" begin
+@testset "Legacy breakpoints treat signed zeros equally and preserve index ties" begin
     for T in (Float32,Float64,BigFloat,Rational{BigInt})
         costs = T[0,0,1,1]
         T <: AbstractFloat && (costs[2] = -zero(T))
@@ -30,7 +30,7 @@ end
         ws.reduced_costs[1:4] .= costs
         enter,flips,exhausted = JSimplex._bound_flipping_ratio_test(ws,T[1,1,1,1,0],one(T),T(5//2))
         @test enter == 3
-        @test flips == (T <: AbstractFloat ? [2,1] : [1,2])
+        @test flips == [1,2]
         @test !exhausted
         many = T[mod(i,3) for i in 1:128]
         T <: AbstractFloat && (many[64] = -zero(T))
@@ -41,6 +41,6 @@ end
         enter,flips,exhausted = JSimplex._bound_flipping_ratio_test(
             large,[ones(T,128);zero(T)],one(T),T(200))
         @test enter == -1 && exhausted
-        @test flips == sortperm(many)
+        @test flips == sortperm([iszero(x) ? zero(T) : x for x in many])
     end
 end

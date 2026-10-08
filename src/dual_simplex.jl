@@ -350,21 +350,26 @@ function dual_ratio_test(workspace::SimplexWorkspace{T}, tableau_row::Vector{T},
     return entering_index
 end
 
-# The stable sorted order is (breakpoint, original column index), including
-# the ordering of signed zeros. A heap exposes only the prefix that is used.
-@inline function _breakpoint_before(a::Int,b::Int,steps)
+# Equal breakpoints must not select an arbitrarily weak pivot by column index.
+# Compare finite steps numerically: signed zeros denote the same step. Then
+# prefer the larger coefficient and finally the original index. No tolerance
+# window is introduced.
+@inline function _breakpoint_before(a::Int,b::Int,steps,row)
     left,right = steps[a],steps[b]
-    return isless(left,right) || (!isless(right,left) && a < b)
+    left < right && return true
+    right < left && return false
+    strength_a,strength_b = abs(row[a]),abs(row[b])
+    return strength_a > strength_b || (strength_a == strength_b && a < b)
 end
 
-function _sift_breakpoint!(candidates,steps,root::Int,count::Int)
+function _sift_breakpoint!(candidates,steps,row,root::Int,count::Int)
     value = candidates[root]
     while root <= count÷2
         child = 2root
-        if child < count && _breakpoint_before(candidates[child+1],candidates[child],steps)
+        if child < count && _breakpoint_before(candidates[child+1],candidates[child],steps,row)
             child += 1
         end
-        _breakpoint_before(candidates[child],value,steps) || break
+        _breakpoint_before(candidates[child],value,steps,row) || break
         candidates[root] = candidates[child]
         root = child
     end
@@ -372,19 +377,19 @@ function _sift_breakpoint!(candidates,steps,root::Int,count::Int)
     return nothing
 end
 
-function _heapify_breakpoints!(candidates,steps)
+function _heapify_breakpoints!(candidates,steps,row)
     for root in length(candidates)÷2:-1:1
-        _sift_breakpoint!(candidates,steps,root,length(candidates))
+        _sift_breakpoint!(candidates,steps,row,root,length(candidates))
     end
     return nothing
 end
 
-function _pop_breakpoint!(candidates,steps)
+function _pop_breakpoint!(candidates,steps,row)
     first = candidates[1]
     last = pop!(candidates)
     if !isempty(candidates)
         candidates[1] = last
-        _sift_breakpoint!(candidates,steps,1,length(candidates))
+        _sift_breakpoint!(candidates,steps,row,1,length(candidates))
     end
     return first
 end
@@ -426,7 +431,7 @@ function _bound_flipping_ratio_test(workspace::SimplexWorkspace{T}, tableau_row:
     isempty(candidates) && return -1, flips, false
     # Most pivots consume a small prefix. Building a heap costs linear work
     # and reuses the candidate buffer instead of sorting every breakpoint.
-    _heapify_breakpoints!(candidates,steps)
+    _heapify_breakpoints!(candidates,steps,tableau_row)
     sort_after = max(32,length(candidates)÷16)
     sorted_tail = false
     tail_position = 1
@@ -438,7 +443,7 @@ function _bound_flipping_ratio_test(workspace::SimplexWorkspace{T}, tableau_row:
             tail_position += 1
             value
         else
-            _pop_breakpoint!(candidates,steps)
+            _pop_breakpoint!(candidates,steps,tableau_row)
         end
         state = workspace.basis.states[index]
         opposite = state == AT_LOWER ? workspace.upper[index] : workspace.lower[index]
@@ -461,8 +466,8 @@ function _bound_flipping_ratio_test(workspace::SimplexWorkspace{T}, tableau_row:
         if !sorted_tail && length(flips) >= sort_after
             # A long flip sequence no longer benefits from extracting a
             # prefix. Finish in-place; the explicit index key restores the
-            # original stable ties after heap construction shuffled the tail.
-            sort!(candidates;by=index -> (steps[index],index),alg=QuickSort)
+            # same stable ties after heap construction shuffled the tail.
+            sort!(candidates;lt=(a,b) -> _breakpoint_before(a,b,steps,tableau_row),alg=QuickSort)
             sorted_tail = true
         end
     end

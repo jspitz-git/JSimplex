@@ -1325,7 +1325,10 @@ end
     workspace = JSimplex.initialize_workspace(tied_breakpoints, SolverOptions())
     @test isnothing(JSimplex.dual_iteration!(workspace, () -> false))
     @test workspace.basis.basic_indices == [1]
-    @test workspace.primal[1:2] == [2.0, 0.0]
+    # The stronger equal breakpoint is flipped first; the final pivot and
+    # objective remain valid with the other nonbasic variable at its upper bound.
+    @test workspace.primal[1:2] == [1.8, 0.1]
+    @test dot(tied_breakpoints.objective, workspace.primal[1:2]) == 2.0
     @test JSimplex.primal_infeasibility(workspace) == 0.0
 
     irrelevant_box = LinearProblem(

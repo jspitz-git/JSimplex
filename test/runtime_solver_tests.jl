@@ -14,8 +14,8 @@ using SparseArrays, Random
     @test JSimplex.time_limit_reached(JSimplex.SolveContext(now, -Inf))
 end
 
-# Independent allocating oracle: stable sortperm on breakpoint values, followed
-# by the historical bound traversal. It also checks borrowed scratch ownership.
+# Independent allocating oracle: sort breakpoint/strength/index keys, followed
+# by bound traversal. It also checks borrowed scratch ownership.
 function runtime_reference_flips(w, row, orientation, violation)
     T = eltype(row)
     candidates = findall(i -> JSimplex._dual_pivot_eligible(w, i,
@@ -26,7 +26,8 @@ function runtime_reference_flips(w, row, orientation, violation)
     any(x -> !isfinite(x) || x < zero(T), steps) && return fallback()
     flips = Int[]
     remaining = violation
-    for position in sortperm(steps)
+    keys = [(iszero(steps[k]) ? zero(T) : steps[k], -abs(row[candidates[k]]), candidates[k]) for k in eachindex(steps)]
+    for position in sortperm(keys)
         i = candidates[position]
         state = w.basis.states[i]
         opposite = state == JSimplex.AT_LOWER ? w.upper[i] : w.lower[i]
@@ -122,5 +123,16 @@ end
         w, row = runtime_ratio_fixture(T)
         runtime_ratio_probe(w, row)
         @test (@allocated runtime_ratio_probe(w, row)) <= budget
+    end
+end
+
+@testset "Long equal-breakpoint runs agree across heap and sorted tail" begin
+    for T in (Float32, Float64, BigFloat, Rational{Int64}, Rational{BigInt})
+        w, row = runtime_ratio_fixture(T, 128)
+        fill!(w.reduced_costs, zero(T))
+        # Enough displacement requires more than 32 flips, crossing the heap limit.
+        expected = runtime_reference_flips(w, row, one(T), T(300))
+        @test length(expected[2]) > 32
+        @test JSimplex._bound_flipping_ratio_test(w, row, one(T), T(300)) == expected
     end
 end
