@@ -1,0 +1,81 @@
+ERROR: LoadError: Some tests did not pass: 6 passed, 4 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/dual_bfrt_tie_tests.jl:14
+
+Equal BFRT breakpoints preserve a strong available pivot: Test Failed at /home/jspitz/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/dual_bfrt_tie_tests.jl:18
+  Expression: entering == 2
+   Evaluated: 1 == 2
+  Stacktrace:
+   [1] record(ts::Test.DefaultTestSet, t::Union{Test.Error, Test.Fail}; print_result::Bool)
+     @ Test ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1291
+   [2] include(mod::Module, _path::String)
+     @ Base ./Base.jl:309
+   [3] exec_options(opts::Base.JLOptions)
+     @ Base ./client.jl:344
+   [4] _start()
+     @ Base ./client.jl:577
+
+Equal BFRT breakpoints preserve a strong available pivot: Test Failed at /home/jspitz/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/dual_bfrt_tie_tests.jl:26
+  Expression: (JSimplex._bound_flipping_ratio_test(ws, row, -(one(T)), one(T)))[1] == 2
+   Evaluated: 1 == 2
+  Stacktrace:
+   [1] record(ts::Test.DefaultTestSet, t::Union{Test.Error, Test.Fail}; print_result::Bool)
+     @ Test ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1291
+   [2] include(mod::Module, _path::String)
+     @ Base ./Base.jl:309
+   [3] exec_options(opts::Base.JLOptions)
+     @ Base ./client.jl:344
+   [4] _start()
+     @ Base ./client.jl:577
+
+Equal BFRT breakpoints preserve a strong available pivot: Test Failed at /home/jspitz/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/dual_bfrt_tie_tests.jl:18
+  Expression: entering == 2
+   Evaluated: 1 == 2
+  Stacktrace:
+   [1] record(ts::Test.DefaultTestSet, t::Union{Test.Error, Test.Fail}; print_result::Bool)
+     @ Test ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1291
+   [2] include(mod::Module, _path::String)
+     @ Base ./Base.jl:309
+   [3] exec_options(opts::Base.JLOptions)
+     @ Base ./client.jl:344
+   [4] _start()
+     @ Base ./client.jl:577
+
+Equal BFRT breakpoints preserve a strong available pivot: Test Failed at /home/jspitz/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/dual_bfrt_tie_tests.jl:26
+  Expression: (JSimplex._bound_flipping_ratio_test(ws, row, -(one(T)), one(T)))[1] == 2
+   Evaluated: 1 == 2
+  Stacktrace:
+   [1] record(ts::Test.DefaultTestSet, t::Union{Test.Error, Test.Fail}; print_result::Bool)
+     @ Test ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1291
+   [2] include(mod::Module, _path::String)
+     @ Base ./Base.jl:309
+   [3] exec_options(opts::Base.JLOptions)
+     @ Base ./client.jl:344
+   [4] _start()
+     @ Base ./client.jl:577
+Test Summary:                                            | Pass  Fail  Total  Time
+Equal BFRT breakpoints preserve a strong available pivot |    6     4     10  3.2s
+RNG of the outermost testset: Random.Xoshiro(0xa537f1551910bc90, 0x40e4466799524c1c, 0x7b136819f17d5bb3, 0xadfd925bff47c02d, 0x9134cd919770ac9e)
+Command exited with non-zero status 1
+	Command being timed: "python3 /home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py --seconds 180 bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --heap-size-hint=2G --project=. -g0 -O1 test/dual_bfrt_tie_tests.jl"
+	User time (seconds): 4.45
+	System time (seconds): 0.28
+	Percent of CPU this job got: 94%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:05.03
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 617904
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 6
+	Minor (reclaiming a frame) page faults: 96353
+	Voluntary context switches: 63
+	Involuntary context switches: 30
+	Swaps: 0
+	File system inputs: 163920
+	File system outputs: 8
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 1

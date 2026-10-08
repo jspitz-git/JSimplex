@@ -1,0 +1,31 @@
+TEST dual_bfrt_tie_tests.jl
+TEST dual_breakpoint_queue_tests.jl
+TEST runtime_solver_tests.jl
+TEST dual_ratio_tests.jl
+TEST iteration_kernel_allocation_tests.jl
+TEST hypersparse_pipeline_solver_tests.jl
+Test Summary:                            | Pass  Total     Time
+BFRT tie stability and ratio regressions | 1568   1568  3m27.5s
+	Command being timed: "python3 /home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py --seconds 600 bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --heap-size-hint=2G --project=. -g0 -O1 diagnostics/pilotnov-ratio-audit/reproduce/targeted.jl"
+	User time (seconds): 205.95
+	System time (seconds): 2.31
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 3:29.10
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 2296204
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 409217
+	Voluntary context switches: 370
+	Involuntary context switches: 974
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 16
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

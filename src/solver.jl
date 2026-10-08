@@ -397,6 +397,8 @@ Floating models use reversible row and column scaling by default. Set
 explicitly. Rational models use identity scaling; `scaling=:on` is invalid for
 them. The objective is not scaled as a whole. Progress objective values and
 optimal results use original units; simplex tolerances apply in working units.
+If unscaling violates original feasibility, the existing original-model cleanup
+also applies when presolve made no reductions, within the remaining budgets.
 
 Omitted options create `SolverOptions(T)`; explicit options are converted and
 validated through `SolverOptions(T, options)`, preserving supplied tolerance
@@ -538,11 +540,16 @@ function _solve_diagnosed(problem::LinearProblem{T}, diagnostics;
 
     primal = retried_original ? run.primal :
              postsolve_primal(presolved, unscale_primal(scaling, run.primal))
-    if reduced && !retried_original
+    # A scaled certificate uses working-unit tolerances. Even without presolve
+    # reductions, unscaling can expose an original-row violation. Reuse the
+    # original certificate on the fast path; only failed points need cleanup.
+    original_feasible = (retried_original || !reduced) &&
+        _original_primal_feasible(continuous_problem, primal, typed_options.primal_tolerance)
+    if !retried_original && (reduced || !original_feasible)
         if isnothing(run.basis)
             run = _retry_original(continuous_problem, typed_options, context, run)
         else
-            basis = restore_basis(presolved, run.basis)
+            basis = reduced ? restore_basis(presolved, run.basis) : run.basis
             run = _cleanup_or_retry_original(continuous_problem, basis,
                 typed_options, context, run.iterations, run.refactorizations;
                 target_primal=primal)
@@ -552,6 +559,8 @@ function _solve_diagnosed(problem::LinearProblem{T}, diagnostics;
                                  iterations=run.iterations, refactorizations=run.refactorizations)
         end
         primal = run.primal
+        original_feasible = _original_primal_feasible(
+            continuous_problem, primal, typed_options.primal_tolerance)
     end
     objective = _restored_objective(problem, primal)
     if isnothing(objective)
@@ -559,9 +568,7 @@ function _solve_diagnosed(problem::LinearProblem{T}, diagnostics;
                              "original-objective evaluation is inconclusive at the current precision";
                              iterations=run.iterations, refactorizations=run.refactorizations)
     end
-    tolerance = typed_options.primal_tolerance
-    if !isfinite(objective) ||
-       !_original_primal_feasible(continuous_problem, primal, tolerance)
+    if !isfinite(objective) || !original_feasible
         return _finish_solve(T, context, typed_options, NUMERICAL_ERROR,
                              "restored primal failed original-model feasibility checks";
                              iterations=run.iterations, refactorizations=run.refactorizations)

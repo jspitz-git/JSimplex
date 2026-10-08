@@ -1,0 +1,72 @@
+ERROR: LoadError: Some tests did not pass: 6 passed, 3 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/dual_bfrt_tie_tests.jl:44
+Test Summary:                                            | Pass  Total  Time
+Equal BFRT breakpoints preserve a strong available pivot |   50     50  7.4s
+Test Summary:                                                   | Pass  Total  Time
+Equal strengths keep index order and do not mutate ratio inputs |    3      3  0.1s
+
+Signed zero breakpoints represent the same dual step: Test Failed at /home/jspitz/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/dual_bfrt_tie_tests.jl:55
+  Expression: (JSimplex._bound_flipping_ratio_test(ws, row, one(T), one(T)))[1] == 2
+   Evaluated: 1 == 2
+  Stacktrace:
+   [1] record(ts::Test.DefaultTestSet, t::Union{Test.Error, Test.Fail}; print_result::Bool)
+     @ Test ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1291
+   [2] include(mod::Module, _path::String)
+     @ Base ./Base.jl:309
+   [3] exec_options(opts::Base.JLOptions)
+     @ Base ./client.jl:344
+   [4] _start()
+     @ Base ./client.jl:577
+
+Signed zero breakpoints represent the same dual step: Test Failed at /home/jspitz/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/dual_bfrt_tie_tests.jl:55
+  Expression: (JSimplex._bound_flipping_ratio_test(ws, row, one(T), one(T)))[1] == 2
+   Evaluated: 1 == 2
+  Stacktrace:
+   [1] record(ts::Test.DefaultTestSet, t::Union{Test.Error, Test.Fail}; print_result::Bool)
+     @ Test ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1291
+   [2] include(mod::Module, _path::String)
+     @ Base ./Base.jl:309
+   [3] exec_options(opts::Base.JLOptions)
+     @ Base ./client.jl:344
+   [4] _start()
+     @ Base ./client.jl:577
+
+Signed zero breakpoints represent the same dual step: Test Failed at /home/jspitz/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/dual_bfrt_tie_tests.jl:55
+  Expression: (JSimplex._bound_flipping_ratio_test(ws, row, one(T), one(T)))[1] == 2
+   Evaluated: 1 == 2
+  Stacktrace:
+   [1] record(ts::Test.DefaultTestSet, t::Union{Test.Error, Test.Fail}; print_result::Bool)
+     @ Test ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1291
+   [2] include(mod::Module, _path::String)
+     @ Base ./Base.jl:309
+   [3] exec_options(opts::Base.JLOptions)
+     @ Base ./client.jl:344
+   [4] _start()
+     @ Base ./client.jl:577
+Test Summary:                                        | Pass  Fail  Total  Time
+Signed zero breakpoints represent the same dual step |    6     3      9  0.5s
+RNG of the outermost testset: Random.Xoshiro(0xd7f2636569327b1f, 0xe78ebd6a55f155b4, 0x6b1d09aecd02fcbb, 0x232b75f8a871f2d4, 0x9c6005db07330fae)
+Command exited with non-zero status 1
+	Command being timed: "python3 /home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py --seconds 180 bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --heap-size-hint=2G --project=. -g0 -O1 test/dual_bfrt_tie_tests.jl"
+	User time (seconds): 9.23
+	System time (seconds): 0.38
+	Percent of CPU this job got: 95%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:10.03
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 741048
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 132810
+	Voluntary context switches: 60
+	Involuntary context switches: 1891
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 8
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 1

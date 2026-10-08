@@ -1,0 +1,57 @@
+ERROR: LoadError: Some tests did not pass: 12 passed, 2 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/unscaled_cleanup_tests.jl:26
+Test Summary:                                                      | Pass  Total  Time
+Unscaling without presolve reductions repairs original feasibility |   28     28  0.1s
+
+Unscaled cleanup keeps budgets and does not accept original infeasibility: Test Failed at /home/jspitz/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/unscaled_cleanup_tests.jl:43
+  Expression: rejected.status == INFEASIBLE
+   Evaluated: NUMERICAL_ERROR == INFEASIBLE
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/unscaled_cleanup_tests.jl:27
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/unscaled_cleanup_tests.jl:43 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Unscaled cleanup keeps budgets and does not accept original infeasibility: Test Failed at /home/jspitz/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/unscaled_cleanup_tests.jl:43
+  Expression: rejected.status == INFEASIBLE
+   Evaluated: NUMERICAL_ERROR == INFEASIBLE
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/unscaled_cleanup_tests.jl:27
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/unscaled_cleanup_tests.jl:43 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+Test Summary:                                                             | Pass  Fail  Total  Time
+Unscaled cleanup keeps budgets and does not accept original infeasibility |   12     2     14  0.1s
+RNG of the outermost testset: Random.Xoshiro(0xb2c0e5fbcb34cc01, 0xa2d6e630b758e78e, 0x295bc88e38d6bca4, 0x85d6674bfa2e2f80, 0x12ed5668e4b47e5f)
+Command exited with non-zero status 1
+	Command being timed: "python3 /home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py --seconds 180 bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --heap-size-hint=2G --project=. -g0 -O1 --compile=min -e using Test,JSimplex; include("test/unscaled_cleanup_tests.jl")"
+	User time (seconds): 0.78
+	System time (seconds): 0.19
+	Percent of CPU this job got: 95%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:01.03
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 463308
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 60147
+	Voluntary context switches: 51
+	Involuntary context switches: 6
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 8
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 1

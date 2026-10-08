@@ -100,7 +100,14 @@ change. These changes do not constitute a complete pilotnov repair.
   expanded positive, infeasible-price, stop, orientation and ownership checks
   pass50 assertions across all five Markowitz managers.
 
-### Pilotnov remains unresolved
+### Pilotnov: historical failure, subsequently repaired
+
+The account below records the unresolved state at this report's revision.
+The subsequent [ratio and restoration audit](../pilotnov-ratio-audit/README.md)
+identifies exact-breakpoint pivot selection and a scaling-only cleanup gap.
+With those repairs, all ten public manager/backend combinations solve pilotnov
+with the dual algorithm and pass original feasibility and the reference objective.
+The earlier failed experiments below remain historical evidence.
 
 `results/pilotnov-cases.json` distinguishes the successive experiments. On
 PFI/Markowitz80, current-master-based code first fails at355. The fresh-row port
