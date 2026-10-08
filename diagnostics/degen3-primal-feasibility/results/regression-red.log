@@ -1,0 +1,44 @@
+ERROR: LoadError: Some tests did not pass: 1 passed, 1 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/diagnostics/degen3-primal-feasibility/reproduce/regression.jl:2
+
+Legacy primal phase transition solves degen3: Test Failed at /home/jspitz/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/diagnostics/degen3-primal-feasibility/reproduce/regression.jl:10
+  Expression: r.status == OPTIMAL
+   Evaluated: NUMERICAL_ERROR == OPTIMAL
+  Stacktrace:
+   [1] record(ts::Test.DefaultTestSet, t::Union{Test.Error, Test.Fail}; print_result::Bool)
+     @ Test ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1291
+   [2] top-level scope
+     @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/diagnostics/degen3-primal-feasibility/reproduce/regression.jl:3
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/diagnostics/degen3-primal-feasibility/reproduce/regression.jl:10 [inlined]
+   [5] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+Test Summary:                                | Pass  Fail  Total   Time
+Legacy primal phase transition solves degen3 |    1     1      2  38.3s
+RNG of the outermost testset: Random.Xoshiro(0xcbe41f95a2789757, 0x82bf29008f845cbd, 0x59008a7ccc8ddc52, 0xd165027d9679ba0d, 0xcae760766d1f1183)
+Command exited with non-zero status 1
+	Command being timed: "python3 /home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py --seconds 240 bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --heap-size-hint=2G --project=. -g0 -O1 diagnostics/degen3-primal-feasibility/reproduce/regression.jl"
+	User time (seconds): 38.48
+	System time (seconds): 0.92
+	Percent of CPU this job got: 98%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:40.04
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1855152
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 225474
+	Voluntary context switches: 108
+	Involuntary context switches: 385
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 8
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 1

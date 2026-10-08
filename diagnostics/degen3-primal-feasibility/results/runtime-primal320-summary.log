@@ -1,0 +1,97 @@
+
+======================================================================================
+Information request received. A stacktrace will print followed by a 1.0 second profile.
+--trace-compile is enabled during profile collection.
+======================================================================================
+
+cmd: /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/julia 275683 running 1 of 1
+
+signal (10): User defined signal 1
+unknown function (ip: 0xfa4374f600f0) at (unknown file)
+unknown function (ip: 0xfa439796f1ff) at (unknown file)
+unknown function (ip: 0xfa4374c6e3e7) at (unknown file)
+unknown function (ip: 0xfa4397df752f) at (unknown file)
+unknown function (ip: 0xfa439791b427) at (unknown file)
+unknown function (ip: 0xfa439717723f) at (unknown file)
+unknown function (ip: 0xfa439746d10f) at (unknown file)
+unknown function (ip: 0xfa4397fe6f77) at (unknown file)
+unknown function (ip: 0xfa43978d86a3) at (unknown file)
+unknown function (ip: 0xfa4397bb23cf) at (unknown file)
+unknown function (ip: 0xfa4397bb2abb) at (unknown file)
+jl_apply at /cache/build/builder-armageddon-4/julialang/julia-ci/src/julia.h:2318 [inlined]
+jl_f_invokelatest at /cache/build/builder-armageddon-4/julialang/julia-ci/src/builtins.c:889
+jl_apply at /cache/build/builder-armageddon-4/julialang/julia-ci/src/julia.h:2318 [inlined]
+jl_f__apply_iterate at /cache/build/builder-armageddon-4/julialang/julia-ci/src/builtins.c:876
+jl_apply at /cache/build/builder-armageddon-4/julialang/julia-ci/src/julia.h:2318 [inlined]
+do_call at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:123
+eval_value at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:243
+eval_stmt_value at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:194 [inlined]
+eval_body at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:693
+jl_interpret_toplevel_thunk at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:884
+jl_toplevel_eval_flex at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:742
+jl_eval_toplevel_stmts at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:585
+jl_toplevel_eval_flex at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:683
+ijl_toplevel_eval at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:754
+ijl_toplevel_eval_in at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:799
+eval at ./boot.jl:489
+include_string at ./loading.jl:3016
+_include at ./loading.jl:3076
+include at ./Base.jl:309
+exec_options at ./client.jl:344
+_start at ./client.jl:577
+jfptr__start_61086 at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/sys.so (unknown line)
+jl_apply at /cache/build/builder-armageddon-4/julialang/julia-ci/src/julia.h:2318 [inlined]
+true_main at /cache/build/builder-armageddon-4/julialang/julia-ci/src/jlapi.c:985
+jl_repl_entrypoint at /cache/build/builder-armageddon-4/julialang/julia-ci/src/jlapi.c:1152
+main at /cache/build/builder-armageddon-4/julialang/julia-ci/cli/loader_exe.c:58
+unknown function (ip: 0xfa43b8482f1b) at /usr/lib/aarch64-linux-gnu/libc.so.6
+__libc_start_main at /usr/lib/aarch64-linux-gnu/libc.so.6 (unknown line)
+$x at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/julia (unknown line)
+unknown function (ip: 0x6d000000400a1b) at (unknown file)
+unknown function (ip: (nil)) at (unknown file)
+
+
+==============================================================
+Profile collected. A report will print at the next yield point.
+Disabling --trace-compile
+==============================================================
+
+[ Info: Loaded problem: rows=43021 columns=47148 nnz=277210
+[ Info: Starting presolve
+[ Info: After presolve: rows=28453 columns=31615 nnz=211789
+┌ Info: Starting simplex phase I
+│   algorithm = :primal
+│   iter = 0
+└   time = 1.70465712
+┌ Info: Starting simplex phase II
+│   algorithm = :primal
+│   iter = 87106
+└   time = 497.343672931
+[ Info: Starting postsolve cleanup on original LP
+[ Info: Projected postsolve basis: exchanges=343
+[ Info: Starting primal postsolve cleanup from feasible basis
+[ Info: Solve finished: status=OPTIMAL objective=5.142569176210442e7 iterations=121219 time=759.542087314s
+Dict{String, Any}("seconds" => 759.547052512, "iterations" => 121219, "compile_seconds" => 0.155695299, "status" => "OPTIMAL", "objective" => 5.142569176210442e7, "message" => "optimal solution found", "source_sha256" => Dict("solver.jl" => "89db55c442dcf378e4a1d01204382bf877ff811a4e22f472bd1c6364e37cab86", "primal_simplex.jl" => "0b7b099a95499b475ed11a51ba479b0d7775d09bd95ff566b03abc09be541565", "simplex_phase_one.jl" => "65c2323a984a1d28c2237fef8054f23f5d2760c2f153bf18c692e54f61007a9d", "native_certificate_recovery.jl" => "9ff6b7bb0a1b59506de14102ebdcfe6aa91af828cd4d5f60cc6acfa3c80e8d22"), "original_primal_feasible" => true)
+	Command being timed: "python3 /home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py --seconds 2400 bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --heap-size-hint=2G --project=. -g0 -O1 diagnostics/degen3-primal-feasibility/reproduce/runtime.jl /home/jspitz/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/.superpowers/degen3-primal-feasibility/runtime-primal320.toml"
+	User time (seconds): 791.96
+	System time (seconds): 1.75
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 13:14.37
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1942804
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 331164
+	Voluntary context switches: 1557
+	Involuntary context switches: 4338
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 120
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

@@ -1,0 +1,32 @@
+Testing native_artificial_bound_tests.jl
+Testing legacy_phase_artificial_bound_tests.jl
+Testing simplex_phase_one_tests.jl
+Testing simplex_phase_one_state_tests.jl
+Testing simplex_phase_one_auxiliary_tests.jl
+Testing simplex_phase_logging_tests.jl
+Testing primal_simplex_tests.jl
+Test Summary:                                           | Pass  Total   Time
+Legacy phase artificial bounds and transfer regressions | 1673   1673  19.2s
+	Command being timed: "python3 /home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py --seconds 600 bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --heap-size-hint=2G --project=. -g0 -O1 --compile=min diagnostics/degen3-primal-feasibility/reproduce/targeted.jl"
+	User time (seconds): 19.05
+	System time (seconds): 0.83
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:20.03
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1200816
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 301996
+	Voluntary context switches: 70
+	Involuntary context switches: 102
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 8
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

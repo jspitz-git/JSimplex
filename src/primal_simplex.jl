@@ -882,6 +882,37 @@ function _primal_original_basis(workspace::SimplexWorkspace, column_count::Int,
     return Basis(indices, states, Val(:owned))
 end
 
+# A tolerated negative nonbasic artificial can hide a positive basic one in
+# the phase-I objective. Normalize that private auxiliary point before fixing
+# artificials to zero, using the same bounded native check as general phase I.
+function _prepare_legacy_primal_phase_two!(workspace::SimplexWorkspace{T}, original,
+                                          column_count::Int, artificial_count::Int,
+                                          stop_requested) where T
+    stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached during phase I transfer")
+    policy = workspace.progress.numerical_policy
+    if _native_phase_transfer_enabled(workspace)
+        mapping = (artificial_columns=(column_count + 1):(column_count + artificial_count),)
+        normalized = _normalize_phase_artificial_bounds!(
+            workspace, mapping, original, policy, stop_requested)
+        stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached during phase I transfer")
+        if !normalized
+            status = workspace.iterations >= workspace.options.iteration_limit ? ITERATION_LIMIT : NUMERICAL_ERROR
+            return DualTermination(status, "phase I artificial bounds could not be normalized")
+        end
+    end
+    for artificial in 1:artificial_count
+        index = column_count + artificial
+        workspace.upper[index] = Bound(zero(T))
+        workspace.problem.column_upper[index] = Bound(zero(T))
+        workspace.problem.objective[index] = zero(T)
+    end
+    workspace.problem.objective[1:column_count] .= original.problem.objective
+    _restore_original_costs!(workspace)
+    workspace.scratch.primal_perturbation_allowed = true
+    policy.feasibility_recovery || recompute!(workspace; caller_guard=stop_requested)
+    return nothing
+end
+
 function _solve_continuous_primal(problem::LinearProblem{T}, options::SolverOptions{T};
                                   stop_requested::Function=() -> false,
                                   progress::SimplexProgressContext{T}=
@@ -969,16 +1000,10 @@ function _solve_continuous_primal(problem::LinearProblem{T}, options::SolverOpti
                 return _recover_original_failure(original,
                     _internal_solution(workspace,status,message),stop_requested)
             end
-            for artificial in 1:artificial_count
-                index = column_count + artificial
-                workspace.upper[index] = Bound(zero(T))
-                workspace.problem.column_upper[index] = Bound(zero(T))
-                workspace.problem.objective[index] = zero(T)
-            end
-            workspace.problem.objective[1:column_count] .= problem.objective
-            _restore_original_costs!(workspace)
-            workspace.scratch.primal_perturbation_allowed = true
-            policy.feasibility_recovery || recompute!(workspace)
+            transition = _prepare_legacy_primal_phase_two!(workspace, original,
+                column_count, artificial_count, stop_requested)
+            isnothing(transition) || return _recover_original_failure(original,
+                _internal_solution(workspace, transition), stop_requested)
             _simplex_event!(workspace, :phase_primal)
             _report_simplex_phase(workspace, :II, :primal, stop_requested)
             terminal = _original_objective_driver_required(workspace) ?
