@@ -611,10 +611,19 @@ function _upper_backsolve!(vector::Vector{T}, upper::Vector{<:PackedUpperColumn{
         vector[column_index] = value
         # Packed rows and paired values are owned by the factor; callers
         # validate vector dimensions before entering this coefficient loop.
-        @inbounds for index in eachindex(column.indices)
-            row = column.indices[index]
-            row == column_index && continue
-            vector[row] -= column.values[index] * value
+        # Canonical packed columns have unique, ordered rows. With the
+        # diagonal last, exclude it once instead of testing every coefficient.
+        if !isempty(column.indices) && column.indices[end] == column_index
+            @inbounds for index in 1:(length(column.indices) - 1)
+                row = column.indices[index]
+                vector[row] -= column.values[index] * value
+            end
+        else
+            @inbounds for index in eachindex(column.indices)
+                row = column.indices[index]
+                row == column_index && continue
+                vector[row] -= column.values[index] * value
+            end
         end
     end
     return vector
@@ -627,10 +636,19 @@ function _upper_transpose_solve!(vector::Vector{T}, upper::Vector{<:PackedUpperC
         value = vector[column_index]
         # Packed rows and paired values are owned by the factor; callers
         # validate vector dimensions before entering this coefficient loop.
-        @inbounds for index in eachindex(column.indices)
-            row = column.indices[index]
-            row == column_index && continue
-            value -= column.values[index] * vector[row]
+        # Canonical packed columns have unique, ordered rows. With the
+        # diagonal last, exclude it once instead of testing every coefficient.
+        if !isempty(column.indices) && column.indices[end] == column_index
+            @inbounds for index in 1:(length(column.indices) - 1)
+                row = column.indices[index]
+                value -= column.values[index] * vector[row]
+            end
+        else
+            @inbounds for index in eachindex(column.indices)
+                row = column.indices[index]
+                row == column_index && continue
+                value -= column.values[index] * vector[row]
+            end
         end
         vector[column_index] = value / _upper_diagonal(column, column_index)
     end

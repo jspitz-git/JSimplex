@@ -161,8 +161,12 @@ function forward_solve!(destination::Vector{T}, factor::PFIFactorization{T},
     for eta in factor.updates
         pivot = destination[eta.pivot_row]
         destination[eta.pivot_row] = zero(T)
-        for index in eachindex(eta.indices)
-            destination[eta.indices[index]] += pivot * eta.values[index]
+        # Check payload axes once, then load paired entries without repeating
+        # those checks per coefficient. Indirect destination access stays checked.
+        for index in eachindex(eta.indices, eta.values)
+            row = @inbounds eta.indices[index]
+            coefficient = @inbounds eta.values[index]
+            destination[row] += pivot * coefficient
         end
     end
     return destination
@@ -192,8 +196,10 @@ function transpose_solve!(destination::Vector{T}, factor::PFIFactorization{T},
     copyto!(factor.work, rhs)
     for eta in Iterators.reverse(factor.updates)
         value = zero(T)
-        for index in eachindex(eta.indices)
-            value += eta.values[index] * factor.work[eta.indices[index]]
+        for index in eachindex(eta.indices, eta.values)
+            row = @inbounds eta.indices[index]
+            coefficient = @inbounds eta.values[index]
+            value += coefficient * factor.work[row]
         end
         factor.work[eta.pivot_row] = value
     end

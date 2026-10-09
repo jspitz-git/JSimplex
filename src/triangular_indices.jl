@@ -94,10 +94,19 @@ function _stable_upper_backsolve_physical!(work, upper, columns, order)
         value = work[diagonal] / _upper_diagonal(column, column_index)
         work[diagonal] = value
         ids = column.indices.ids
-        @inbounds for slot in eachindex(ids)
-            row = ids[slot]
-            row == diagonal && continue
-            work[row] -= column.values[slot] * value
+        # Canonical packed columns have unique, ordered rows. With the
+        # diagonal last, exclude it once instead of testing every coefficient.
+        if !isempty(ids) && ids[end] == diagonal
+            @inbounds for slot in 1:(length(ids) - 1)
+                row = ids[slot]
+                work[row] -= column.values[slot] * value
+            end
+        else
+            @inbounds for slot in eachindex(ids)
+                row = ids[slot]
+                row == diagonal && continue
+                work[row] -= column.values[slot] * value
+            end
         end
     end
     return work
@@ -110,10 +119,19 @@ function _stable_upper_transpose_solve!(work::Vector{T}, upper,
         diagonal = order.order[column_index]
         value = work[diagonal]
         ids = column.indices.ids
-        @inbounds for slot in eachindex(ids)
-            row = ids[slot]
-            row == diagonal && continue
-            value -= column.values[slot] * work[row]
+        # Canonical packed columns have unique, ordered rows. With the
+        # diagonal last, exclude it once instead of testing every coefficient.
+        if !isempty(ids) && ids[end] == diagonal
+            @inbounds for slot in 1:(length(ids) - 1)
+                row = ids[slot]
+                value -= column.values[slot] * work[row]
+            end
+        else
+            @inbounds for slot in eachindex(ids)
+                row = ids[slot]
+                row == diagonal && continue
+                value -= column.values[slot] * work[row]
+            end
         end
         work[diagonal] = value / _upper_diagonal(column, column_index)
     end
