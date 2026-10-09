@@ -433,14 +433,21 @@ end
 
 function _pipeline_basis_solve!(destination,ws,rhs;transposed::Bool=false,
     operation::Symbol=transposed ? :btran : :ftran,kernel_mode::Symbol=:auto,
-    prepare_update::Bool=false,clock=time_ns)
+    prepare_update::Bool=false,unit_row::Int=0,clock=time_ns)
     kernel_mode in (:auto,:sparse,:dense) || throw(ArgumentError("Unknown pipeline kernel mode"))
     _invalidate_prepared_destination!(ws.factorization,destination)
     if !ws.progress.numerical_policy.hypersparse
         _pipeline_changed!(ws,destination)
-        return transposed ? transpose_solve!(destination,ws.factorization,rhs) :
-               prepare_update ?
-                   forward_solve!(destination,ws.factorization,rhs) :
+        # Unit metadata only affects the dense BTRAN handoff. Indexed kernels
+        # retain their existing support tracking and arithmetic.
+        if transposed
+            if unit_row != 0
+                return transpose_solve!(destination,ws.factorization,
+                    _unit_transpose_rhs(ws.factorization,rhs,unit_row))
+            end
+            return transpose_solve!(destination,ws.factorization,rhs)
+        end
+        return prepare_update ? forward_solve!(destination,ws.factorization,rhs) :
                                 _ordinary_forward_solve!(destination,ws.factorization,rhs)
     end
     n = _backend_dimension(ws.factorization.base)

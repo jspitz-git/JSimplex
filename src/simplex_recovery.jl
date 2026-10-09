@@ -488,9 +488,10 @@ function _maybe_refine_basis_solve!(destination,ws,rhs,stop=nothing;transposed=f
 end
 
 function _checked_basis_solve!(destination,ws,rhs,stop=nothing;transposed=false,
-                               operation=transposed ? :btran : :ftran,prepare_update::Bool=false)
+                               operation=transposed ? :btran : :ftran,prepare_update::Bool=false,
+                               unit_row::Int=0)
     _timed_simplex(ws, transposed ? :btran : :ftran) do
-        _pipeline_basis_solve!(destination,ws,rhs;transposed,operation,prepare_update)
+        _pipeline_basis_solve!(destination,ws,rhs;transposed,operation,prepare_update,unit_row)
     end
     _maybe_refine_basis_solve!(destination,ws,rhs,stop;transposed) || throw(_UnreliableBasisSolve())
     return destination

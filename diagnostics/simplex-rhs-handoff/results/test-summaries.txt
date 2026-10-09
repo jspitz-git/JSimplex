@@ -1,0 +1,102 @@
+final-targeted
+Test Summary:              |  Pass  Total   Time
+Unit transpose RHS handoff | 11001  11001  18.0s
+Test Summary:                                       | Pass  Total   Time
+Unit metadata preserves pipeline and refinement RHS |  560    560  21.3s
+Test Summary:                                       | Pass  Total  Time
+Unit BTRAN invalidates same-rounded prepared output |   12     12  0.0s
+Test Summary:                                               | Pass  Total  Time
+HH unit BTRAN uses a nonidentity inverse column permutation |   33     33  0.1s
+Test Summary:                         | Pass  Total  Time
+Unit BTRAN metadata does not allocate |   20     20  0.1s
+Test Summary:                            | Pass  Total  Time
+Triangular BTRAN avoids row-order boxing |  432    432  0.2s
+Test Summary:                                                 | Pass  Total  Time
+Copy-free auxiliary solves retain the original cache lifetime |   96     96  0.6s
+	Command being timed: "python3 /home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py --seconds 600 bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --heap-size-hint=2G --project=/home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl -O1 -e using Test, JSimplex; include("test/unit_transpose_rhs_tests.jl"); include("test/unit_transpose_allocation_tests.jl"); include("test/triangular_transpose_allocation_tests.jl"); include("test/triangular_preparation_lifecycle_tests.jl")"
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:44.04
+	Maximum resident set size (kbytes): 754016
+	Exit status: 0
+
+targeted-2
+Test Summary:              |  Pass  Total   Time
+Unit transpose RHS handoff | 11001  11001  18.0s
+Test Summary:                                       | Pass  Total   Time
+Unit metadata preserves pipeline and refinement RHS |  560    560  21.3s
+Test Summary:                         | Pass  Total  Time
+Unit BTRAN metadata does not allocate |   20     20  0.1s
+Test Summary:                            | Pass  Total  Time
+Triangular BTRAN avoids row-order boxing |  432    432  0.1s
+Test Summary:                                                 | Pass  Total  Time
+Copy-free auxiliary solves retain the original cache lifetime |   96     96  0.6s
+Test Summary:                                             | Pass  Total  Time
+Pipeline owns support and borrows existing scratch values |  165    165  3.4s
+Test Summary:                                        | Pass  Total  Time
+Dense fallback retains the original scratch contract |    6      6  0.0s
+Test Summary:                                                  | Pass  Total  Time
+Pipeline solve and price preserve owned support across kernels | 1680   1680  6.4s
+Test Summary:                                                | Pass  Total  Time
+Pipeline repairs support after dense writes and empty solves |    7      7  0.0s
+Test Summary:                                           | Pass  Total  Time
+Every pipeline branch retains stored BigFloat precision |   18     18  0.1s
+Test Summary:                                               | Pass  Total  Time
+Checked solves, pricing, and recomputation use the pipeline |    7      7  0.0s
+Test Summary:                                                      | Pass  Total  Time
+Weight RHS preserves sparse support without a dense reconstruction |   12     12  0.1s
+Test Summary:                                    | Pass  Total  Time
+Accepted refinement invalidates pipeline support |    5      5  0.1s
+Test Summary:                                                  | Pass  Total  Time
+Checkpoint recovery replaces sparse caches at stored precision |    6      6  0.5s
+Test Summary:                                                       | Pass  Total  Time
+Numerical overflow discards a partially computed pipeline candidate |    5      5  0.1s
+Test Summary:                                         | Pass  Total  Time
+Warm sparse pipeline reuses storage across operations |   12     12  0.0s
+	Command being timed: "python3 /home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py --seconds 600 bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --heap-size-hint=2G --project=/home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl -O1 -e using Test, JSimplex; include("test/unit_transpose_rhs_tests.jl"); include("test/unit_transpose_allocation_tests.jl"); include("test/triangular_transpose_allocation_tests.jl"); include("test/triangular_preparation_lifecycle_tests.jl"); include("test/hypersparse_pipeline_storage_tests.jl"); include("test/hypersparse_pipeline_kernel_tests.jl"); include("test/hypersparse_pipeline_integration_tests.jl"); include("test/hypersparse_pipeline_recovery_tests.jl")"
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:58.04
+	Maximum resident set size (kbytes): 858764
+	Exit status: 0
+
+semantic
+TEST exact_primal_rows_tests.jl
+TEST legacy_primal_point_tests.jl
+TEST legacy_primal_point_recovery_tests.jl
+TEST legacy_primal_working_row_scope_tests.jl
+TEST native_certificate_recovery_tests.jl
+TEST postsolve_native_projection_tests.jl
+TEST postsolve_hint_tests.jl
+TEST dual_simplex_tests.jl
+[ Info: Restarting simplex on original LP after NUMERICAL_ERROR: structural primal failed original-model feasibility checks; completed iterations=1
+[ Info: Restarting simplex on original LP after NUMERICAL_ERROR: structural primal failed original-model feasibility checks; completed iterations=1
+[ Info: Restarting simplex on original LP after NUMERICAL_ERROR: structural primal failed original-model feasibility checks; completed iterations=1
+[ Info: Restarting simplex on original LP after NUMERICAL_ERROR: structural primal failed original-model feasibility checks; completed iterations=1
+TEST primal_simplex_tests.jl
+TEST primal_update_tests.jl
+TEST native_cleanup_recovery_tests.jl
+TEST native_reliable_price_tests.jl
+TEST native_driver_reconstruction_tests.jl
+TEST native_dual_reconstruction_tests.jl
+TEST simplex_driver_tests.jl
+TEST simplex_start_tests.jl
+TEST simplex_start_guard_tests.jl
+TEST simplex_phase_one_tests.jl
+TEST simplex_phase_one_state_tests.jl
+TEST simplex_phase_logging_tests.jl
+TEST simplex_precision_entry_tests.jl
+TEST simplex_precision_exception_tests.jl
+TEST simplex_precision_guard_tests.jl
+TEST lp_refinement_terminal_tests.jl
+TEST regression_tests.jl
+Test Summary:                                    |  Pass  Total     Time
+Native terminal certificate semantic regressions | 15689  15689  1m44.8s
+	Command being timed: "python3 /home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py --seconds 900 bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --heap-size-hint=2G --project=/home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl --compile=min diagnostics/primal-row-memory/reproduce/semantic.jl"
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:49.07
+	Maximum resident set size (kbytes): 1520488
+	Exit status: 0
+
+project-suite
+wall-time guard; terminating owned process group
+[31690] signal 15: Terminated
+	Command being timed: "python3 /home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py --seconds 600 bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --heap-size-hint=2G --project=/home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl -O1 test/runtests.jl"
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 10:10.38
+	Maximum resident set size (kbytes): 2206520
+	Exit status: 75

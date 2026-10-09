@@ -1,3 +1,17 @@
+# Call-local metadata for an already materialized unit RHS. The dense values stay
+# available to residual checks and generic fallbacks; callers must not modify them
+# between construction and BTRAN. No metadata is cached across solves.
+struct _UnitTransposeRHS{T} <: AbstractVector{T}
+    values::Vector{T}
+    row::Int
+end
+Base.size(rhs::_UnitTransposeRHS) = size(rhs.values)
+Base.IndexStyle(::Type{<:_UnitTransposeRHS}) = IndexLinear()
+Base.getindex(rhs::_UnitTransposeRHS, index::Int) = rhs.values[index]
+
+# Unsupported managers/precisions retain the original dense input path.
+_unit_transpose_rhs(factor, rhs, row::Int) = rhs
+
 const Float64UMFPACK = SparseArrays.UMFPACK.UmfpackLU{Float64,Int}
 
 mutable struct UMFPACKBackend

@@ -80,7 +80,8 @@ function _legacy_primal_pivot_row_status!(workspace::SimplexWorkspace{T}, enteri
     stop() && return :pivot
     unit = _pipeline_unit_rhs!(workspace, leaving_row)
     rho = _timed_simplex(workspace, :btran) do
-        _pipeline_basis_solve!(workspace.scratch.rho, workspace, unit; transposed=true)
+        _pipeline_basis_solve!(workspace.scratch.rho, workspace, unit; transposed=true,
+                               unit_row=leaving_row)
     end
     all(isfinite, rho) || return :residual
     if _dual_row_residual_ratio(workspace, rho, leaving_row) > one(T)

@@ -1128,7 +1128,8 @@ function _dual_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_request
     row_count, column_count = size(workspace.problem.A)
     unit = _pipeline_unit_rhs!(workspace,leaving_row)
     rho = _timed_simplex(workspace, :btran) do
-        _pipeline_basis_solve!(workspace.scratch.rho,workspace,unit;transposed=true)
+        _pipeline_basis_solve!(workspace.scratch.rho,workspace,unit;transposed=true,
+                               unit_row=leaving_row)
     end
     policy = workspace.progress.numerical_policy
     if policy.pivot_validation || policy.solve_refinement

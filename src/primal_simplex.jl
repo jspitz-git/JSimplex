@@ -164,7 +164,8 @@ function _primal_update_steepest!(workspace::SimplexWorkspace{T}, entering::Int,
     tau = _checked_basis_solve!(scratch.tau,workspace,h;transposed=true,operation=:weight_btran)
     if !shared_row
         _pipeline_unit_rhs!(workspace,leaving_row)
-        _checked_basis_solve!(scratch.rho,workspace,h;transposed=true,operation=:weight_btran)
+        _checked_basis_solve!(scratch.rho,workspace,h;transposed=true,operation=:weight_btran,
+                              unit_row=leaving_row)
         price!(scratch.tableau_row, workspace, scratch.rho)
     end
     rho = scratch.rho
@@ -243,7 +244,7 @@ function _primal_update_devex!(workspace::SimplexWorkspace{T}, entering::Int,
     if !shared_row
         unit = _pipeline_unit_rhs!(workspace,leaving_row)
         rho = _checked_basis_solve!(workspace.scratch.rho,workspace,unit;
-                                    transposed=true,operation=:weight_btran)
+                                    transposed=true,operation=:weight_btran,unit_row=leaving_row)
         price!(tableau_row, workspace, rho)
     end
     leaving = workspace.basis.basic_indices[leaving_row]
@@ -619,7 +620,8 @@ function _primal_iteration_unchecked!(workspace::SimplexWorkspace{T}, stop_reque
         if checked_pivot
             _pipeline_unit_rhs!(workspace,leaving_row)
             rho = _timed_simplex(workspace, :btran) do
-                _pipeline_basis_solve!(workspace.scratch.rho,workspace,column;transposed=true)
+                _pipeline_basis_solve!(workspace.scratch.rho,workspace,column;transposed=true,
+                                       unit_row=leaving_row)
             end
             refine_basis_solve!(rho,workspace,column,workspace.progress.numerical_policy,
                                  stop_requested;transposed=true)

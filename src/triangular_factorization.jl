@@ -731,6 +731,35 @@ function _finish_triangular_transpose!(destination, factor, order)
     return _backend_transpose_solve!(destination, factor.base, factor.work)
 end
 
+function _unit_transpose_rhs(factor::AbstractTriangularBasisFactorization{T},
+                             rhs::Vector{T}, row::Int) where {T<:Union{Float32,Float64}}
+    checkbounds(rhs, row)
+    return _UnitTransposeRHS(rhs, row)
+end
+
+function _prepare_transpose_rhs!(factor::AbstractTriangularBasisFactorization{T},
+                                 rhs, ::Nothing) where {T}
+    for column in eachindex(factor.work)
+        factor.work[column] = convert(T, rhs[factor.column_order[column]])
+    end
+end
+function _prepare_transpose_rhs!(factor::AbstractTriangularBasisFactorization{T},
+                                 rhs, order) where {T}
+    for column in eachindex(factor.work)
+        factor.work[order.order[column]] = convert(T, rhs[factor.column_order[column]])
+    end
+end
+function _prepare_transpose_rhs!(factor::AbstractTriangularBasisFactorization{T},
+                                 rhs::_UnitTransposeRHS{T}, ::Nothing) where {T<:Real}
+    fill!(factor.work, zero(T))
+    factor.work[factor.positions[rhs.row]] = one(T)
+end
+function _prepare_transpose_rhs!(factor::AbstractTriangularBasisFactorization{T},
+                                 rhs::_UnitTransposeRHS{T}, order) where {T<:Real}
+    fill!(factor.work, zero(T))
+    factor.work[order.order[factor.positions[rhs.row]]] = one(T)
+end
+
 function transpose_solve!(destination::Vector{T},
                           factor::AbstractTriangularBasisFactorization{T},
                           rhs::AbstractVector) where {T}
@@ -742,15 +771,11 @@ function transpose_solve!(destination::Vector{T},
     source = rhs === factor.work ? copyto!(factor.spike, rhs) : rhs
     order = _upper_order(factor.upper)
     if isnothing(order)
-        for column in 1:n
-            factor.work[column] = convert(T, source[factor.column_order[column]])
-        end
+        _prepare_transpose_rhs!(factor, source, nothing)
         _upper_transpose_solve!(factor.work, factor.upper, _dense_upper_columns(factor))
         return _finish_triangular_transpose!(destination, factor, nothing)
     else
-        for column in 1:n
-            factor.work[order.order[column]] = convert(T, source[factor.column_order[column]])
-        end
+        _prepare_transpose_rhs!(factor, source, order)
         _stable_upper_transpose_solve!(factor.work, factor.upper,
                                       _dense_upper_columns(factor), order)
         # Keep the concrete row-order type across the call boundary; merging

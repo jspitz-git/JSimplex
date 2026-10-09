@@ -379,11 +379,23 @@ forward_solve!(destination::Vector{T},f::HuangfuHallFactorization{T},rhs::Abstra
 _ordinary_forward_solve!(destination::Vector{T},f::HuangfuHallFactorization{T},rhs::AbstractVector) where {T}=
     _hh_forward!(destination,f,rhs,false)
 forward_solve(f::HuangfuHallFactorization{T},rhs::AbstractVector) where {T}=forward_solve!(zeros(T,length(rhs)),f,rhs)
+function _unit_transpose_rhs(f::HuangfuHallFactorization{T}, rhs::Vector{T},
+                             row::Int) where {T<:Union{Float32,Float64}}
+    checkbounds(rhs, row)
+    return _UnitTransposeRHS(rhs, row)
+end
+function _prepare_transpose_rhs!(f::HuangfuHallFactorization, rhs)
+    for i in eachindex(f.work); f.work[i] = rhs[f.base.columns[i]]; end
+end
+function _prepare_transpose_rhs!(f::HuangfuHallFactorization{T}, rhs::_UnitTransposeRHS{T}) where {T<:Real}
+    fill!(f.work, zero(T))
+    f.work[f.base.positions[rhs.row]] = one(T)
+end
 function transpose_solve!(destination::Vector{T},f::HuangfuHallFactorization{T},rhs::AbstractVector) where {T}
     _hh_dimensions(destination,f,rhs)
     b=f.base;x=f.work
     source=rhs===x ? copyto!(f.auxiliary,rhs) : rhs
-    for i in eachindex(x);x[i]=source[b.columns[i]];end
+    _prepare_transpose_rhs!(f,source)
     _hh_upper!(x,b,true)
     for t in Iterators.reverse(f.updates);_hh_apply!(x,t,true);end
     _hh_lower!(x,b,true)
