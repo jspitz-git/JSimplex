@@ -1,0 +1,67 @@
+targeted
+Test Summary:                                                 | Pass  Total  Time
+PFI packing preserves pivot-first order and scalar arithmetic |  724    724  6.6s
+Test Summary:                                | Pass  Total  Time
+PFI update storage follows the nonzero count |    2      2  0.1s
+Test Summary:                             | Pass  Total  Time
+PFI updates retain their own coefficients |   16     16  0.3s
+Test Summary:                                   | Pass  Total  Time
+PFI packing tests zeros after scalar conversion |    2      2  0.0s
+Test Summary:                                         | Pass  Total  Time
+PFI mixed-type updates convert coefficients only once |    1      1  0.4s
+Test Summary:                                        | Pass  Total  Time
+PFI reuses retired eta storage after refactorization |    8      8  0.5s
+Test Summary:                                              | Pass  Total  Time
+PFI recycled histories isolate copies and copies of copies | 2880   2880  0.7s
+Test Summary:                        | Pass  Total  Time
+PFI retires only the unshared suffix |   10     10  0.0s
+Test Summary:                                                             | Pass  Total  Time
+PFI history reuse retains capacity through sparsity and dimension changes |   30     30  0.0s
+Test Summary:                                                    | Pass  Total  Time
+PFI reuse preserves rejected updates and failed refactorizations |  130    130  0.7s
+Test Summary:                                                       | Pass  Total  Time
+Reused PFI buffers preserve mixed conversion and BigFloat precision |   10     10  0.1s
+Test Summary:                        | Pass  Total  Time
+Scalar-aware default pivot tolerance |   21     21  0.7s
+Test Summary:                     | Pass  Total  Time
+Parametric factorization backends |   25     25  1.0s
+Test Summary:                           | Pass  Total  Time
+Float64 factorization backend stability |    4      4  0.0s
+Test Summary:                                            | Pass  Total  Time
+Dimension-changing refactorization resizes solve scratch |    4      4  0.0s
+Test Summary:                                               | Pass  Total  Time
+Factorization solves reject internal scratch as destination |    4      4  0.0s
+Test Summary:                    | Pass  Total  Time
+Product-form basis factorization |    6      6  0.2s
+Test Summary:                         | Pass  Total  Time
+Product-form factorization validation |    5      5  0.0s
+Test Summary:                                   | Pass  Total  Time
+Factorization solves allocate only their result |    3      3  0.0s
+Test Summary:                                 | Pass  Total  Time
+Mutating factorization solves do not allocate |    4      4  0.1s
+Test Summary:                              | Pass  Total  Time
+Product-form transpose solve RHS precision |    4      4  0.1s
+Test Summary:                                  | Pass  Total  Time
+Triangular basis updates match refactorization |  180    180  3.6s
+Test Summary:                                           | Pass  Total  Time
+Triangular basis updates validate pivots and dimensions |   12     12  0.1s
+Test Summary:                         | Pass  Total  Time
+Triangular basis solves reuse scratch |    6      6  0.0s
+Test Summary:                                    | Pass  Total  Time
+Triangular factors keep an identity basis sparse |    6      6  0.1s
+Test Summary:                        | Pass  Total  Time
+Triangular updates reuse row scratch |    3      3  0.0s
+Test Summary:                                          | Pass  Total  Time
+Repeated exact triangular updates preserve both solves |   56     56  0.0s
+Test Summary:                                              | Pass  Total  Time
+Triangular transpose solve accepts internal scratch as RHS |    3      3  0.0s
+Test Summary:                                        | Pass  Total  Time
+Suhl-Suhl stops rotation at the spike's last nonzero |    4      4  0.0s
+Test Summary:                                     | Pass  Total  Time
+Bartels-Golub compacts consecutive pure row swaps |    6      6  0.1s
+Test Summary:                                     | Pass  Total  Time
+Bartels-Golub swaps sparse adjacent rows in place |    7      7  0.0s
+
+semantic
+Test Summary:                                    |  Pass  Total     Time
+Native terminal certificate semantic regressions | 15689  15689  1m36.5s

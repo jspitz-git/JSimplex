@@ -229,14 +229,17 @@ function replace_column!(
     _pivot_magnitude(pivot_value) > tolerance || throw(LinearAlgebra.ZeroPivotException(pivot))
 
     inverse_pivot = inv(pivot_value)
+    direct_pack = tableau_column isa Vector{T} && T <: Union{Float32,Float64}
     if !isempty(factor.recycled_updates)
         retired = pop!(factor.recycled_updates)
         entry_count = tableau_column isa AbstractVector{T} ?
             count(!iszero, tableau_column) : 1
         indices = resize!(retired.indices, entry_count)
         values = resize!(retired.values, entry_count)
-        resize!(indices, 1)
-        resize!(values, 1)
+        if !direct_pack
+            resize!(indices, 1)
+            resize!(values, 1)
+        end
         indices[1] = pivot
         values[1] = inverse_pivot
     elseif tableau_column isa AbstractVector{T}
@@ -245,8 +248,10 @@ function replace_column!(
         entry_count = count(!iszero, tableau_column)
         indices = Vector{Int}(undef, entry_count)
         values = Vector{T}(undef, entry_count)
-        resize!(indices, 1)
-        resize!(values, 1)
+        if !direct_pack
+            resize!(indices, 1)
+            resize!(values, 1)
+        end
         indices[1] = pivot
         values[1] = inverse_pivot
     else
@@ -255,12 +260,26 @@ function replace_column!(
         indices = Int[pivot]
         values = T[inverse_pivot]
     end
-    for row in eachindex(tableau_column)
-        row == pivot && continue
-        value = convert(T, tableau_column[row])
-        iszero(value) && continue
-        push!(indices, row)
-        push!(values, -(value / pivot_value))
+    if direct_pack
+        # The stable native vector was counted above, so every destination
+        # index fits. Keep pivot-first order and the original scalar divisions.
+        entry = 1
+        @inbounds for row in eachindex(tableau_column)
+            row == pivot && continue
+            value = convert(T, tableau_column[row])
+            iszero(value) && continue
+            entry += 1
+            indices[entry] = row
+            values[entry] = -(value / pivot_value)
+        end
+    else
+        for row in eachindex(tableau_column)
+            row == pivot && continue
+            value = convert(T, tableau_column[row])
+            iszero(value) && continue
+            push!(indices, row)
+            push!(values, -(value / pivot_value))
+        end
     end
     push!(factor.updates, PackedEta{T}(indices, values, pivot))
     return factor
