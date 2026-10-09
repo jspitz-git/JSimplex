@@ -528,6 +528,22 @@ end
 
 primal_infeasibility(workspace::SimplexWorkspace) = first(primal_infeasibility_summary(workspace))
 
+_primal_feasible(workspace::SimplexWorkspace) =
+    primal_infeasibility(workspace) <= workspace.options.primal_tolerance
+
+function _primal_feasible(workspace::SimplexWorkspace{T}) where {T<:Union{Float32,Float64}}
+    # The summary adds only violations strictly above the positive tolerance.
+    # For hardware floats, one such term already makes its sum infeasible.
+    # Keep generic arithmetic on the original path (including its precision).
+    tolerance = workspace.options.primal_tolerance
+    for index in workspace.basis.basic_indices
+        value = workspace.primal[index]
+        (_lower_violation(workspace.lower[index], value) > tolerance ||
+         _upper_violation(workspace.upper[index], value) > tolerance) && return false
+    end
+    return true
+end
+
 function dual_infeasibility_summary(workspace::SimplexWorkspace{T}) where {T}
     infeasibility = zero(T)
     count = 0

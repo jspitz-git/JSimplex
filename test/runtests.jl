@@ -3,6 +3,7 @@ using Test
 
 @testset "JSimplex" begin
     include("numeric_tests.jl")
+    include("primal_feasibility_predicate_tests.jl")
     include("primal_bound_snap_tests.jl")
     include("primal_candidate_retry_tests.jl")
     include("primal_retry_pricing_tests.jl")

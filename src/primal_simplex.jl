@@ -748,7 +748,7 @@ function _primal_optimize!(workspace::SimplexWorkspace{T}, stop_requested,
         _prepare_auto_pricing!(workspace,:primal;stop=stop_requested) ||
             return DualTermination(TIME_LIMIT,"time limit reached during pricing recovery")
         _finite_workspace(workspace) || return _numerical_failure()
-        primal_infeasibility(workspace) <= workspace.options.primal_tolerance ||
+        _primal_feasible(workspace) ||
             return DualTermination(NUMERICAL_ERROR, "primal feasibility lost")
         terminal = _primal_iteration!(workspace, stop_requested, reduced_cost_tolerance)
         isnothing(terminal) && _observe_stagnation!(workspace,:primal,

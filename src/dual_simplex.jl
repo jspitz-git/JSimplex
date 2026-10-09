@@ -1799,7 +1799,7 @@ function _dual_optimize!(workspace::SimplexWorkspace{T}, stop_requested;
                 return DualTermination(NUMERICAL_ERROR, "dual feasibility lost")
             end
         end
-        if primal_infeasibility(workspace) <= workspace.options.primal_tolerance
+        if _primal_feasible(workspace)
             return DualTermination(OPTIMAL, "optimal solution found")
         end
         workspace.iterations < workspace.options.iteration_limit ||
