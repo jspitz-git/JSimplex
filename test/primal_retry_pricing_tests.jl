@@ -17,7 +17,11 @@ using JSimplex,Test,SparseArrays
         @test ws.primal[1]≈1.0
         @test all(iszero,ws.primal[2:columns])
         @test ws.refactorizations==1
-        @test JSimplex.event_count(diagnostics,:refactor_residual)==1
+        # The corrected transpose row still disagrees with the FTRAN pivot.
+        # Its refresh must preserve unrelated pricing estimates.
+        @test JSimplex.event_count(diagnostics,:refactor_pivot)==1
+        @test JSimplex._original_primal_feasible(problem,ws.primal[1:columns],
+            options.primal_tolerance)
         @test calls<=12
     end
 end

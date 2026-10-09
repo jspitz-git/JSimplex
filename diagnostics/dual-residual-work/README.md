@@ -237,3 +237,11 @@ The bounded optimization's evidence is the exact accumulator comparisons,
 targeted numerical regressions, certified external runs, unchanged runtime
 fingerprints and unchanged baseline failure signatures. Full-project health
 remains an explicit limitation.
+
+## Follow-up
+
+The 25 legacy assertions and two test errors above are resolved by the
+[test-fixture repair](../legacy-suite-repair/README.md). It separates mandatory
+fixed-variable snapping from allowed nonfixed retention and corrects the
+pivot-refresh diagnostic expectation. Production code is unchanged; the
+historical failed-run evidence in this directory is preserved.

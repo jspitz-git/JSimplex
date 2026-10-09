@@ -32,8 +32,8 @@ using JSimplex.SparseArrays
     end
 end
 
-@testset "Bound snapping checks each tolerated violation independently" begin
-    for T in (Float32, Float64), sign in (-1, 1),
+@testset "Bound snapping and retention use per-bound feasibility" begin
+    for T in (Float32, Float64), sign in (-1, 1), fixed_leaving in (false, true),
         update in (:pfi, :bartels_golub, :forrest_tomlin, :suhl_suhl)
         # Three structural basic variables lie just outside their bounds.
         # Exchanging the first one snaps its value and moves the entering
@@ -43,6 +43,9 @@ end
         lower = fill(T(sign > 0 ? 0 : -Inf), 5)
         upper = fill(T(sign > 0 ? Inf : 0), 5)
         lower[4] = upper[4] = one(T)
+        # A fixed leaving variable must snap; a nonfixed one may retain its
+        # tolerated value. Exercise both contracts on the same equations.
+        fixed_leaving && (lower[1] = upper[1] = zero(T))
         problem = LinearProblem(A, T[0, 0, 0, 0, -sign];
             row_lower=zeros(T, 3), row_upper=zeros(T, 3),
             column_lower=lower, column_upper=upper)
@@ -54,20 +57,28 @@ end
         workspace.basis.states[6:8] .= JSimplex.AT_LOWER
         JSimplex.recompute!(workspace; refactorize=true)
         @test JSimplex.primal_infeasibility(workspace) == zero(T)
+        before = copy(workspace.primal)
         terminal = JSimplex._primal_iteration!(workspace, () -> false,
             options.dual_tolerance)
         @test isnothing(terminal)
         @test workspace.basis.basic_indices == [5, 2, 3]
-        @test workspace.primal[5] ≈ -offset
+        if fixed_leaving
+            @test workspace.primal[1] == zero(T)
+            @test workspace.primal[5] ≈ -offset
+        else
+            @test workspace.primal == before
+        end
+        @test JSimplex._original_primal_feasible(problem, workspace.primal[1:5],
+            options.primal_tolerance)
         @test JSimplex.primal_infeasibility(workspace) == zero(T)
         @test maximum(abs, A * workspace.primal[1:5]) <= eps(T)
     end
 end
 
-function structural_bound_snap_workspace(coefficient)
+function structural_bound_snap_workspace(coefficient; fixed_leaving=true)
     problem = LinearProblem(sparse([1.0 7e-8 coefficient]), [0.0, 0.0, -1.0];
         row_lower=[0.0], row_upper=[0.0], column_lower=[0.0, 1.0, 0.0],
-        column_upper=[Inf, 1.0, Inf])
+        column_upper=[fixed_leaving ? 0.0 : Inf, 1.0, Inf])
     options = SolverOptions(algorithm=:primal, simplex_strategy=:legacy, verbose=false)
     workspace = JSimplex.initialize_workspace(problem, options)
     workspace.basis.basic_indices[1] = 1
@@ -81,10 +92,12 @@ end
 @testset "Legacy primal rejects an unsafe sole pivot without mutating the basis" begin
     workspace = structural_bound_snap_workspace(0.01)
     before = copy(workspace.basis.basic_indices)
+    primal_before = copy(workspace.primal)
     terminal = JSimplex._primal_iteration!(workspace, () -> false, workspace.options.dual_tolerance)
     @test terminal.status == NUMERICAL_ERROR
     @test workspace.iterations == 0
     @test workspace.basis.basic_indices == before
+    @test workspace.primal == primal_before
     @test JSimplex.primal_infeasibility(workspace) == 0.0
 end
 
@@ -95,4 +108,20 @@ end
     @test workspace.iterations == 1
     @test workspace.primal[3] ≈ -7e-8
     @test JSimplex.primal_infeasibility(workspace) == 0.0
+end
+
+@testset "Nonfixed structural zero steps preserve a certified point" begin
+    for coefficient in (0.01, 1.0)
+        workspace = structural_bound_snap_workspace(coefficient; fixed_leaving=false)
+        before = copy(workspace.primal)
+        terminal = JSimplex._primal_iteration!(workspace, () -> false,
+            workspace.options.dual_tolerance)
+        @test isnothing(terminal)
+        @test workspace.iterations == 1
+        @test workspace.basis.basic_indices == [3]
+        @test workspace.primal == before
+        @test workspace.problem.A * workspace.primal[1:3] == workspace.primal[4:end]
+        @test JSimplex._original_primal_feasible(workspace.problem,
+            workspace.primal[1:3], workspace.options.primal_tolerance)
+    end
 end

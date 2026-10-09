@@ -1,6 +1,6 @@
 using JSimplex.SparseArrays
 
-function unsafe_structural_candidates(count; safe=true)
+function unsafe_structural_candidates(count; safe=true, fixed_leaving=true)
     columns = 2 + count + Int(safe)
     A = zeros(2, columns)
     A[1, 1:2] = [1.0, 7e-8]
@@ -9,7 +9,9 @@ function unsafe_structural_candidates(count; safe=true)
     costs = [0.0; 0.0; fill(-2.0, count); safe ? [-1.0] : Float64[]]
     problem = LinearProblem(sparse(A), costs; row_lower=[0.0, 0.0],
         row_upper=[0.0, Inf], column_lower=[0.0; 1.0; zeros(columns-2)],
-        column_upper=[Inf; 1.0; fill(Inf, columns-2)])
+        column_upper=[fixed_leaving ? 0.0 : Inf; 1.0; fill(Inf, columns-2)])
+    # By default force the leaving value to its fixed bound, so unsafe directions
+    # cannot use the independently tested nonfixed-value retention path.
     options = SolverOptions(algorithm=:primal, simplex_strategy=:legacy,
         basis_update=:bartels_golub, pricing=:steepest_edge, verbose=false)
     workspace = JSimplex.initialize_workspace(problem, options)
@@ -75,4 +77,22 @@ end
     @test workspace.primal[3] ≈ 1.0
     @test workspace.refactorizations == 1
     @test isempty(workspace.scratch.rejected_entering)
+end
+
+@testset "Retained structural values make zero-step candidates usable" begin
+    for count in (1, 2, 9)
+        workspace = unsafe_structural_candidates(count; safe=false, fixed_leaving=false)
+        before = copy(workspace.primal)
+        terminal = JSimplex._primal_iteration!(workspace, () -> false,
+            workspace.options.dual_tolerance)
+        columns = size(workspace.problem.A, 2)
+        @test isnothing(terminal)
+        @test workspace.iterations == 1
+        @test 3 in workspace.basis.basic_indices
+        @test workspace.primal == before
+        @test isempty(workspace.scratch.rejected_entering)
+        @test workspace.problem.A * workspace.primal[1:columns] == workspace.primal[columns+1:end]
+        @test JSimplex._original_primal_feasible(workspace.problem,
+            workspace.primal[1:columns], workspace.options.primal_tolerance)
+    end
 end
