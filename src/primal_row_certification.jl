@@ -55,48 +55,67 @@ end
 # bound does not round away the user's small absolute tolerance.
 function _native_primal_rows_filter(problem::LinearProblem{T}, primal::Vector{T},
                                     tolerance::T, rows::Vector{Int},row_lower,row_upper,
-                                    scratch=nothing) where {T<:Union{Float32,Float64}}
+                                    scratch=nothing, share_native::Bool=false) where {T<:Union{Float32,Float64}}
     (rounding(T) == RoundNearest && !get_zero_subnormals()) || return rows
     A = problem.A
+    sharing = share_native && !isnothing(scratch)
+    previous = sharing ? scratch.valid_rows : 0
     if isnothing(scratch)
         slots = zeros(Int,size(A,1))
         high = zeros(T,length(rows))
         lower, upper = zeros(T,length(rows)),zeros(T,length(rows))
         uncertain = falses(length(rows))
-    else
-        # Every call observes a new point/row selection, even when capacity is reused.
+    elseif !sharing || previous == 0
         slots = resize!(scratch.slots, size(A,1)); fill!(slots, 0)
         high = resize!(scratch.high, length(rows)); fill!(high, zero(T))
         lower = resize!(scratch.lower, length(rows)); fill!(lower, zero(T))
         upper = resize!(scratch.upper, length(rows)); fill!(upper, zero(T))
         uncertain = resize!(scratch.uncertain, length(rows)); fill!(uncertain, false)
-    end
-    for (slot,row) in enumerate(rows); slots[row]=slot; end
-    for column in axes(A,2), position in nzrange(A,column)
-        slot = slots[A.rowval[position]]
-        slot == 0 && continue
-        a,x = A.nzval[position],primal[column]
-        isfinite(a) && isfinite(x) || return false
-        uncertain[slot] && continue
-        product = _native_row_product_pair(a,x)
-        if isnothing(product)
-            uncertain[slot]=true
-            continue
+        scratch.valid_rows = 0
+    else
+        slots = scratch.slots
+        high, lower, upper, uncertain = scratch.high, scratch.lower, scratch.upper, scratch.uncertain
+        # Only the enclosing certificate enables sharing, for its fixed point.
+        # Preserve term order for old rows and accumulate only newly selected rows.
+        for row in rows
+            slots[row] != 0 && continue
+            push!(high,zero(T)); push!(lower,zero(T)); push!(upper,zero(T))
+            push!(uncertain,false)
+            slots[row] = length(high)
         end
-        value, product_error = product
-        pair = _native_row_sum_pair(high[slot],value)
-        if isnothing(pair)
-            uncertain[slot]=true
-            continue
-        end
-        high[slot], sum_error = pair
-        lower[slot], _ = _primal_sum_bounds(lower[slot],product_error)
-        _, upper[slot] = _primal_sum_bounds(upper[slot],product_error)
-        lower[slot], _ = _primal_sum_bounds(lower[slot],sum_error)
-        _, upper[slot] = _primal_sum_bounds(upper[slot],sum_error)
     end
+    if !sharing || previous == 0
+        for (slot,row) in enumerate(rows); slots[row]=slot; end
+    end
+    if !sharing || length(high) > previous
+        for column in axes(A,2), position in nzrange(A,column)
+            slot = slots[A.rowval[position]]
+            slot <= previous && continue
+            a,x = A.nzval[position],primal[column]
+            isfinite(a) && isfinite(x) || return false
+            uncertain[slot] && continue
+            product = _native_row_product_pair(a,x)
+            if isnothing(product)
+                uncertain[slot]=true
+                continue
+            end
+            value, product_error = product
+            pair = _native_row_sum_pair(high[slot],value)
+            if isnothing(pair)
+                uncertain[slot]=true
+                continue
+            end
+            high[slot], sum_error = pair
+            lower[slot], _ = _primal_sum_bounds(lower[slot],product_error)
+            _, upper[slot] = _primal_sum_bounds(upper[slot],product_error)
+            lower[slot], _ = _primal_sum_bounds(lower[slot],sum_error)
+            _, upper[slot] = _primal_sum_bounds(upper[slot],sum_error)
+        end
+    end
+    sharing && (scratch.valid_rows = length(high))
     unresolved = isnothing(scratch) ? Int[] : empty!(scratch.unresolved)
-    for (slot,row) in enumerate(rows)
+    for (index,row) in enumerate(rows)
+        slot = sharing ? slots[row] : index
         h,lo,hi = high[slot],lower[slot],upper[slot]
         value_lower, _ = _primal_sum_bounds(h,lo)
         _, value_upper = _primal_sum_bounds(h,hi)
@@ -129,10 +148,10 @@ end
 function _refined_primal_rows_feasible(problem::LinearProblem{T}, primal::Vector{T},
                                       tolerance::T, rows::Vector{Int},
                                       row_lower=problem.row_lower,
-                                      row_upper=problem.row_upper, buffers=nothing) where {T<:Union{Float32,Float64}}
+                                      row_upper=problem.row_upper, buffers=nothing, share_native::Bool=false) where {T<:Union{Float32,Float64}}
     scratch = isnothing(buffers) || rounding(T) != RoundNearest || get_zero_subnormals() ?
         nothing : _primal_point_native_scratch!(buffers)
-    native = _native_primal_rows_filter(problem,primal,tolerance,rows,row_lower,row_upper,scratch)
+    native = _native_primal_rows_filter(problem,primal,tolerance,rows,row_lower,row_upper,scratch,share_native)
     native isa Bool && return native
     return _exact_primal_rows_feasible(problem,primal,tolerance,native,row_lower,row_upper)
 end

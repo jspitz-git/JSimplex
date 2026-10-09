@@ -70,3 +70,39 @@ Base.getindex(b::PCWCountingBounds,i::Int)=(b.reads[]+=1;b.values[i])
     @test PCW_JS._primal_feasible_with_bounds(p,ones(n),1e-7,p.column_lower,p.column_upper,bounds,p.row_upper,(lo,hi),buffers)
     @test bounds.reads[] <= n+4
 end
+
+@testset "Shared native row aggregates retain independent bounds" begin
+    for T in (Float32,Float64)
+        w=pcw_fallback_workspace(T,8);p=w.problem;x=T[3,3,1];tol=eps(T)^2
+        scratch=PCW_JS._NativePrimalRowsScratch(T)
+        for rows in ([2,4],[4,3],[5,6],[8,2,1],[1,3,4,8])
+            shared=PCW_JS._native_primal_rows_filter(p,x,tol,rows,p.row_lower,p.row_upper,scratch,true)
+            fresh=PCW_JS._native_primal_rows_filter(p,x,tol,rows,p.row_lower,p.row_upper)
+            @test shared==fresh==true
+        end
+        changed=copy(p.row_upper);changed[4]=Bound(prevfloat(one(T)))
+        @test PCW_JS._native_primal_rows_filter(p,x,tol,[4],p.row_lower,changed,scratch,true)==false
+        # A nonsharing call always rebuilds scratch, even after sharing.
+        x[1]=nextfloat(x[1])
+        @test PCW_JS._native_primal_rows_filter(p,x,tol,[2],p.row_lower,p.row_upper,scratch)==false
+        @test scratch.valid_rows==0
+        # Model bounds can accept the rough interval while activity consistency
+        # still needs its own first native accumulation.
+        w=pcw_fallback_workspace(T,8)
+        fill!(w.problem.row_lower,Bound(T(0)));fill!(w.problem.row_upper,Bound(T(2)))
+        @test PCW_JS._legacy_primal_point_certified(w)
+        w.primal[4]=nextfloat(one(T))
+        @test !PCW_JS._legacy_primal_point_certified(w)
+        w.primal[4]=one(T)
+        @test PCW_JS._legacy_primal_point_certified(w)
+        # Native overflow remains unresolved; each bound set reaches exact
+        # fallback independently, including on a reused aggregate.
+        A=sparse(T[floatmax(T) -floatmax(T) 1; 0 0 1])
+        p=LinearProblem(A,zeros(T,3);row_lower=ones(T,2),row_upper=ones(T,2))
+        buffers=PCW_JS._PrimalPointBuffers(zeros(T,3),zeros(T,2),zeros(T,2))
+        x=T[2,2,1]
+        @test PCW_JS._refined_primal_rows_feasible(p,x,tol,[1],p.row_lower,p.row_upper,buffers,true)
+        changed=copy(p.row_upper);changed[1]=Bound(prevfloat(one(T)))
+        @test !PCW_JS._refined_primal_rows_feasible(p,x,tol,[1],p.row_lower,changed,buffers,true)
+    end
+end

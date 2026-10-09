@@ -38,7 +38,7 @@ end
 # Keep original-model checking for unrelated, unowned bound changes.
 function _legacy_primal_model_feasible(workspace::SimplexWorkspace,
                                        primal=workspace.primal[1:size(workspace.problem.A,2)],
-                                       row_bounds=nothing, buffers=nothing)
+                                       row_bounds=nothing, buffers=nothing, share_native::Bool=false)
     columns = size(workspace.problem.A, 2)
     tolerance = workspace.options.primal_tolerance
     journal = workspace.scratch.perturbations
@@ -46,13 +46,13 @@ function _legacy_primal_model_feasible(workspace::SimplexWorkspace,
         problem = workspace.problem
         return _primal_feasible_with_bounds(problem, primal, tolerance,
             problem.column_lower, problem.column_upper, problem.row_lower,
-            problem.row_upper, row_bounds, buffers)
+            problem.row_upper, row_bounds, buffers, share_native)
     end
     _check_perturbation_owner(workspace, journal)
     return _primal_feasible_with_bounds(workspace.problem, primal, tolerance,
         @view(workspace.lower[1:columns]), @view(workspace.upper[1:columns]),
         @view(workspace.lower[(columns+1):end]), @view(workspace.upper[(columns+1):end]),
-        row_bounds, buffers)
+        row_bounds, buffers, share_native)
 end
 
 _restore_legacy_primal_point!(workspace, ::Nothing, stop) = false
@@ -114,7 +114,7 @@ Base.IndexStyle(::Type{<:_PrimalActivityBounds}) = IndexLinear()
 end
 
 function _legacy_primal_row_consistent(workspace::SimplexWorkspace{T}, tolerance::T,
-                                      primal=nothing, row_bounds=nothing, buffers=nothing) where {T}
+                                      primal=nothing, row_bounds=nothing, buffers=nothing, share_native::Bool=false) where {T}
     T === Float32 || T === Float64 || return false
     columns = size(workspace.problem.A, 2)
     isnothing(primal) && (primal = workspace.primal[1:columns])
@@ -133,7 +133,7 @@ function _legacy_primal_row_consistent(workspace::SimplexWorkspace{T}, tolerance
         Bound.(@view(workspace.primal[(columns + 1):end])) :
         _PrimalActivityBounds(workspace.primal, columns)
     return _refined_primal_rows_feasible(workspace.problem, primal, tolerance,
-                                         rows, activities, activities, buffers)
+                                         rows, activities, activities, buffers, share_native)
 end
 
 # Match the former reconstruction fast path: no extra matrix scan or basis
@@ -163,12 +163,14 @@ function _legacy_primal_point_certified(workspace)
                 Vector{T}(undef, rows), Vector{T}(undef, rows))
             workspace.scratch.primal_point_buffers = buffers
         end
+        # Never carry row aggregates across point certificates.
+        isnothing(buffers.native_rows) || (buffers.native_rows.valid_rows = 0)
         primal = buffers.primal
         copyto!(primal, 1, workspace.primal, 1, columns)
         row_bounds = _primal_row_bounds!(buffers.lower, buffers.upper,
             workspace.problem.A, primal)
-        return _legacy_primal_model_feasible(workspace, primal, row_bounds, buffers) &&
-            _legacy_primal_row_consistent(workspace, tolerance, primal, row_bounds, buffers)
+        return _legacy_primal_model_feasible(workspace, primal, row_bounds, buffers, true) &&
+            _legacy_primal_row_consistent(workspace, tolerance, primal, row_bounds, buffers, true)
     end
     return _legacy_primal_model_feasible(workspace) &&
         _legacy_primal_row_consistent(workspace, tolerance)

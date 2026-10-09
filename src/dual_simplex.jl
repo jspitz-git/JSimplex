@@ -1597,7 +1597,7 @@ _refined_primal_rows_feasible(::LinearProblem, ::Vector, tolerance, rows) = fals
 
 function _primal_feasible_with_bounds(problem::LinearProblem{T}, primal::Vector{T},
                                       tolerance::T, column_lower, column_upper,
-                                      row_bound_lower, row_bound_upper, row_bounds=nothing, buffers=nothing) where {T}
+                                      row_bound_lower, row_bound_upper, row_bounds=nothing, buffers=nothing, share_native::Bool=false) where {T}
     _within_primal_bounds(primal, column_lower, column_upper, tolerance) || return false
     row_lower, row_upper = isnothing(row_bounds) ?
         _primal_row_bounds(problem.A, primal, _is_exact(T)) : row_bounds
@@ -1620,7 +1620,7 @@ function _primal_feasible_with_bounds(problem::LinearProblem{T}, primal::Vector{
     end
     isempty(rows) && return true
     return _refined_primal_rows_feasible(problem, primal, tolerance, rows,
-                                          row_bound_lower, row_bound_upper, buffers)
+                                          row_bound_lower, row_bound_upper, buffers, share_native)
 end
 
 function _original_primal_feasible(problem::LinearProblem{T}, primal::Vector{T}, tolerance::T) where {T}
