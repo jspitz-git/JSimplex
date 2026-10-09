@@ -277,6 +277,8 @@ end
 
 function _hh_lower!(x,b::HHBase,transposed::Bool)
     L=b.lower;n=length(x)
+    # Extracted L has one explicit unit diagonal in each column.
+    nnz(L) == n && n == size(L,1) && return x
     if transposed
         for j in n:-1:1
             value=x[j]
