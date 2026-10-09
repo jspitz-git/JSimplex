@@ -1,0 +1,48 @@
+julia = "1.13.0"
+architecture = "aarch64"
+julia_threads = 1
+blas_threads = 1
+
+[[cases]]
+objective_matches = true
+basis_update = "forrest_tomlin"
+seconds = 0.025698
+backend = "native"
+original_primal_certified = true
+algorithm = "primal"
+reference_objective = -464.75314285714285
+id = "netlib/afiro"
+iterations = 9
+status = "OPTIMAL"
+objective = -464.75314285714273
+input_sha256 = "fd3562804ff19382a9cd8bcb22ec81bffd24a4143a2290783831d8c64516a24b"
+[[cases]]
+objective_matches = true
+basis_update = "suhl_suhl"
+seconds = 0.003772
+backend = "native"
+original_primal_certified = true
+algorithm = "primal"
+reference_objective = -464.75314285714285
+id = "netlib/afiro"
+iterations = 9
+status = "OPTIMAL"
+objective = -464.75314285714273
+input_sha256 = "fd3562804ff19382a9cd8bcb22ec81bffd24a4143a2290783831d8c64516a24b"
+[[cases]]
+objective_matches = true
+basis_update = "bartels_golub"
+seconds = 0.0037058
+backend = "native"
+original_primal_certified = true
+algorithm = "primal"
+reference_objective = -464.75314285714285
+id = "netlib/afiro"
+iterations = 9
+status = "OPTIMAL"
+objective = -464.75314285714273
+input_sha256 = "fd3562804ff19382a9cd8bcb22ec81bffd24a4143a2290783831d8c64516a24b"
+
+[source_sha256]
+"triangular_factorization.jl" = "de443b38af106eaa2c24af88566e867cb8f9286376c0bd30a7947c4fb569f09b"
+"markowitz_factorization.jl" = "12057d791438e8f4cbee16d63139066949c23fa59af49b3d45630da5e0d426dc"

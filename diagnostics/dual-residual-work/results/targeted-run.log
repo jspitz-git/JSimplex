@@ -1,0 +1,48 @@
+ERROR: LoadError: Some tests did not pass: 0 passed, 0 failed, 1 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/diagnostics/dual-residual-work/reproduce/targeted.jl:2
+
+Native residual and correction integration: Error During Test at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/diagnostics/dual-residual-work/reproduce/targeted.jl:2
+  Got exception outside of a @test
+  SystemError: opening file "/home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/diagnostics/dual-residual-work/reproduce/test/compensated_transpose_work_tests.jl": No such file or directory
+  Stacktrace:
+   [1] include(mapexpr::Function, mod::Module, _path::String)
+     @ Base ./Base.jl:310
+   [2] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/diagnostics/dual-residual-work/reproduce/targeted.jl:4 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/diagnostics/dual-residual-work/reproduce/targeted.jl:3
+   [5] include(mod::Module, _path::String)
+     @ Base ./Base.jl:309
+   [6] exec_options(opts::Base.JLOptions)
+     @ Base ./client.jl:344
+   [7] _start()
+     @ Base ./client.jl:577
+Test Summary:                              | Error  Total  Time
+Native residual and correction integration |     1      1  0.6s
+RNG of the outermost testset: Random.Xoshiro(0xe69b6b78ef5839ed, 0x48596e7824fcfa10, 0x94cf66e3c089bd80, 0xa73c911d1896eeb6, 0x3a5cb11fcd206297)
+Command exited with non-zero status 1
+	Command being timed: "python3 /home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py --seconds 600 bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --heap-size-hint=2G --project=/home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl -O2 diagnostics/dual-residual-work/reproduce/targeted.jl"
+	User time (seconds): 4.06
+	System time (seconds): 0.76
+	Percent of CPU this job got: 95%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:05.03
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 486600
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 8
+	Minor (reclaiming a frame) page faults: 129197
+	Voluntary context switches: 271
+	Involuntary context switches: 37
+	Swaps: 0
+	File system inputs: 175376
+	File system outputs: 22976
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 1

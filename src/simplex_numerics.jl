@@ -162,6 +162,55 @@ function _compensated_quality_components!(scratch,B,x,transposed)
     return nothing
 end
 
+# Each transposed CSC column owns one residual component. Keep its ordered
+# Dot2Err accumulators local instead of loading/storing five arrays per term.
+# The arithmetic and zero-product handling match _compensated_quality_term!.
+function _compensated_transpose_components!(scratch::SolveQualityScratch{T,T},
+                                            B::SparseMatrixCSC{T}, x::Vector{T}) where {T<:Union{Float32,Float64}}
+    for column in axes(B,2)
+        first_position = B.colptr[column]
+        last_position = B.colptr[column+1]-1
+        # Empty and singleton columns cannot amortize local accumulator traffic.
+        if first_position >= last_position
+            if first_position == last_position
+                _compensated_quality_term!(scratch,B.nzval[first_position],
+                    x[B.rowval[first_position]],column)
+            end
+            continue
+        end
+        total = scratch.work_residual[column]
+        compensation = scratch.compensation[column]
+        error_sum = scratch.error_sum[column]
+        scale = scratch.work_scale[column]
+        terms = scratch.terms[column]
+        for p in nzrange(B,column)
+            a = B.nzval[p]
+            value = x[B.rowval[p]]
+            (iszero(a) || iszero(value)) && continue
+            h = -a*value
+            product_error = fma(-a,value,-h)
+            old = total
+            total = old+h
+            part = total-old
+            sum_error = (old-(total-part))+(h-part)
+            correction = sum_error+product_error
+            compensation += correction
+            error_sum += abs(correction)
+            scale += abs(h)
+            terms += 2
+        end
+        scratch.work_residual[column] = total
+        scratch.compensation[column] = compensation
+        scratch.error_sum[column] = error_sum
+        scratch.work_scale[column] = scale
+        scratch.terms[column] = terms
+    end
+    return nothing
+end
+
+@inline _compensated_transpose_components!(scratch,B,x) =
+    _compensated_quality_components!(scratch,B,x,true)
+
 function _compensated_solve_quality!(scratch::SolveQualityScratch{T},B,x,rhs,policy,
                                      transposed) where {T<:Union{Float32,Float64}}
     rounding(T) == RoundNearest || return nothing
@@ -177,7 +226,11 @@ function _compensated_solve_quality!(scratch::SolveQualityScratch{T},B,x,rhs,pol
         scratch.work_scale[i] = abs(rhs[i])
         scratch.terms[i] = 1
     end
-    _compensated_quality_components!(scratch,B,x,transposed)
+    if transposed
+        _compensated_transpose_components!(scratch,B,x)
+    else
+        _compensated_quality_components!(scratch,B,x,false)
+    end
     u = eps(T)/2
     absolute = relative = zero(T)
     accepted = true

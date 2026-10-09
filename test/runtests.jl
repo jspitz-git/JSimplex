@@ -3,6 +3,7 @@ using Test
 
 @testset "JSimplex" begin
     include("numeric_tests.jl")
+    include("compensated_transpose_work_tests.jl")
     include("unit_transpose_rhs_tests.jl")
     include("unit_transpose_allocation_tests.jl")
     include("primal_feasibility_predicate_tests.jl")

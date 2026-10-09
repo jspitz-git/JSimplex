@@ -1,0 +1,46 @@
+synthetic_sparse Float32 transpose=false speedup=0.9847661556374927
+synthetic_sparse Float32 transpose=true speedup=1.3951076841265622
+synthetic_dense_csc Float32 transpose=false speedup=0.9713778422682067
+synthetic_dense_csc Float32 transpose=true speedup=2.470056144728634
+synthetic_sparse Float64 transpose=false speedup=0.9610625202461939
+synthetic_sparse Float64 transpose=true speedup=1.3737929184549353
+synthetic_dense_csc Float64 transpose=false speedup=1.0029455081001473
+synthetic_dense_csc Float64 transpose=true speedup=2.4674098157609534
+empty_columns Float32 transpose=true speedup=0.9822073950514317
+zero_vector Float32 transpose=true speedup=0.9869760479041917
+mostly_zero_vector Float32 transpose=true speedup=1.0116117045982351
+diagonal Float32 transpose=true speedup=1.027415852334419
+dense_matrix Float32 transpose=true speedup=1.0104633781763825
+empty_columns Float64 transpose=true speedup=1.0141395908543924
+zero_vector Float64 transpose=true speedup=0.9910700047839259
+mostly_zero_vector Float64 transpose=true speedup=0.9915859660263534
+diagonal Float64 transpose=true speedup=1.0625177607274794
+dense_matrix Float64 transpose=true speedup=1.009113924050633
+runtime_1000 Float64 transpose=true speedup=1.0514524600707473
+runtime_10000 Float64 transpose=true speedup=1.372089064415089
+runtime_30000 Float64 transpose=true speedup=1.3852648178776106
+runtime_50000 Float64 transpose=true speedup=1.384050203996957
+medium_basis_random_vector Float64 transpose=true speedup=1.049859023735885
+	Command being timed: "python3 /home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py --seconds 600 bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --heap-size-hint=2G --project=/home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl -O2 diagnostics/dual-residual-work/reproduce/paired.jl /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/.superpowers/dual-residual-work/paired-direct-dispatch-v2/results.toml"
+	User time (seconds): 17.93
+	System time (seconds): 0.57
+	Percent of CPU this job got: 97%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:19.03
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 643648
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 9
+	Minor (reclaiming a frame) page faults: 161637
+	Voluntary context switches: 306
+	Involuntary context switches: 150
+	Swaps: 0
+	File system inputs: 55240
+	File system outputs: 23000
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

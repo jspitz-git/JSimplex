@@ -1,0 +1,57 @@
+function _compensated_solve_quality!(scratch::SolveQualityScratch{T},B,x,rhs,policy,
+                                     transposed) where {T<:Union{Float32,Float64}}
+    rounding(T) == RoundNearest || return nothing
+    # Error-free products and Dot2Err's underflow allowance require gradual
+    # underflow. A caller may have enabled a thread-local flush-to-zero mode.
+    get_zero_subnormals() && return nothing
+    resize!(scratch.compensation,length(rhs))
+    resize!(scratch.error_sum,length(rhs))
+    fill!(scratch.compensation,zero(T))
+    fill!(scratch.error_sum,zero(T))
+    for i in eachindex(rhs)
+        scratch.work_residual[i] = rhs[i]
+        scratch.work_scale[i] = abs(rhs[i])
+        scratch.terms[i] = 1
+    end
+    _compensated_quality_components!(scratch,B,x,transposed)
+    u = eps(T)/2
+    absolute = relative = zero(T)
+    accepted = true
+    rejected = false
+    for i in eachindex(rhs)
+        residual = scratch.work_residual[i]+scratch.compensation[i]
+        scale = scratch.work_scale[i]
+        error_sum = scratch.error_sum[i]
+        all(isfinite,(residual,scale,error_sum)) || return nothing
+        # Account for rounding in the positive componentwise scale as well.
+        # eps(T) (twice unit roundoff) leaves slack in this computed gamma.
+        k = T(scratch.terms[i])*eps(T)
+        k < T(1)/4 || return nothing
+        gamma = k/(one(T)-k)
+        n = T(1+(scratch.terms[i]-1)÷2)
+        delta = (n*u)/(one(T)-2*n*u)
+        error = (u*abs(residual)+(delta*error_sum+3*nextfloat(zero(T))/u))/(one(T)-2*u)
+        if iszero(scale)
+            # Nonzero products may have underflowed to zero; the native check
+            # cannot distinguish those from a truly homogeneous zero row.
+            scratch.terms[i] == 1 && iszero(residual) || return nothing
+            ratio = zero(T)
+        else
+            lower_scale = prevfloat(scale*(one(T)-gamma))
+            upper_scale = nextfloat(scale/(one(T)-gamma))
+            lower_scale > zero(T) && isfinite(upper_scale) || return nothing
+            upper_error = nextfloat((nextfloat(abs(residual)+error))/lower_scale)
+            lower_error = prevfloat(max(zero(T),prevfloat(abs(residual)-error))/upper_scale)
+            accepted &= upper_error <= policy.solve_tolerance
+            rejected |= lower_error > policy.solve_tolerance
+            ratio = abs(residual)/scale
+        end
+        scratch.residual[i] = residual
+        absolute = max(absolute,abs(residual))
+        relative = max(relative,ratio)
+    end
+    # Only an ambiguous enclosure needs arbitrary precision. A demonstrably
+    # bad residual can proceed directly to an ordinary working-type correction.
+    accepted || rejected || return nothing
+    return SolveQuality{T}(absolute,relative,true,accepted)
+end

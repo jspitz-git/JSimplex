@@ -1,0 +1,53 @@
+ERROR: LoadError: Some tests did not pass: 0 passed, 0 failed, 1 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/compensated_transpose_work_tests.jl:21
+
+Transposed compensated accumulation preserves term order and storage: Error During Test at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/compensated_transpose_work_tests.jl:21
+  Got exception outside of a @test
+  UndefVarError: `_compensated_transpose_components!` not defined in `JSimplex`
+  Suggestion: check for spelling errors or missing imports.
+  Stacktrace:
+   [1] getproperty(x::Module, f::Symbol)
+     @ Base ./Base_compiler.jl:50
+   [2] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/compensated_transpose_work_tests.jl:27 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/compensated_transpose_work_tests.jl:22
+   [5] include(mapexpr::Function, mod::Module, _path::String)
+     @ Base ./Base.jl:310
+   [6] top-level scope
+     @ none:1
+   [7] eval(m::Module, e::Any)
+     @ Core ./boot.jl:489
+   [8] exec_options(opts::Base.JLOptions)
+     @ Base ./client.jl:310
+   [9] _start()
+     @ Base ./client.jl:577
+Test Summary:                                                        | Error  Total  Time
+Transposed compensated accumulation preserves term order and storage |     1      1  0.9s
+RNG of the outermost testset: Xoshiro(0x5b455105690efec1, 0x43b4b55d4ff493f6, 0xf3c15a21edff8411, 0x5059ce76f3ab4072, 0x1b9ed907a8991216)
+Command exited with non-zero status 1
+	Command being timed: "python3 /home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py --seconds 300 bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --heap-size-hint=2G --project=/home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl -O2 -e using JSimplex,Test; include("test/compensated_transpose_work_tests.jl")"
+	User time (seconds): 1.81
+	System time (seconds): 0.46
+	Percent of CPU this job got: 75%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:03.03
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 500120
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 103
+	Minor (reclaiming a frame) page faults: 65670
+	Voluntary context switches: 862
+	Involuntary context switches: 6
+	Swaps: 0
+	File system inputs: 1310736
+	File system outputs: 8
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 1

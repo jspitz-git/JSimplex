@@ -1,0 +1,60 @@
+{
+  "runtime": [
+    {
+      "job": "runtime-baseline-1",
+      "seconds": 170.692622881,
+      "compile_seconds": 0.0517287,
+      "gc_seconds": 2.896918921,
+      "allocations": 96009317,
+      "bytes": 13670833544
+    },
+    {
+      "job": "runtime-candidate-1",
+      "seconds": 169.957175832,
+      "compile_seconds": 0.049904803,
+      "gc_seconds": 2.884491187,
+      "allocations": 96009316,
+      "bytes": 13670812312
+    },
+    {
+      "job": "runtime-candidate-2",
+      "seconds": 172.755407976,
+      "compile_seconds": 0.0486266,
+      "gc_seconds": 2.96751606,
+      "allocations": 96009316,
+      "bytes": 13670864232
+    },
+    {
+      "job": "runtime-baseline-2",
+      "seconds": 173.865251213,
+      "compile_seconds": 0.04699281,
+      "gc_seconds": 2.92339448,
+      "allocations": 96009313,
+      "bytes": 13670920184
+    }
+  ],
+  "external_unique_certified": 100,
+  "external_objectives_and_iterations_match_prior": true,
+  "paired_cases": 23,
+  "all_runtime_fingerprints_and_events_match": true,
+  "source_and_input_provenance_checked": true,
+  "process_outcomes": {
+    "paired": "passed",
+    "runtime-baseline-1": "passed",
+    "runtime-candidate-1": "passed",
+    "runtime-candidate-2": "passed",
+    "runtime-baseline-2": "passed",
+    "targeted-external": "passed",
+    "semantic": "passed",
+    "project-suite": "guard_timeout_with_test_failures"
+  },
+  "baseline_mean": 172.278937047,
+  "candidate_mean": 171.356291904,
+  "relative_reduction": 0.005355530738782699,
+  "existing_suite_failures": {
+    "baseline_and_candidate_identical": true,
+    "failures": 25,
+    "errors": 2,
+    "passed": 313
+  }
+}

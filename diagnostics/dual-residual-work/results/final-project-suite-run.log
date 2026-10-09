@@ -1,0 +1,472 @@
+wall-time guard; terminating owned process group
+
+[73641] signal 15: Terminated
+in expression starting at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/legacy_primal_direction_price_tests.jl:157
+__kernel_clock_gettime at linux-vdso.so.1 (unknown line)
+clock_gettime at /usr/lib/aarch64-linux-gnu/libc.so.6 (unknown line)
+uv__hrtime at /workspace/srcdir/libuv/src/unix/linux.c:1591
+uv_hrtime at /workspace/srcdir/libuv/src/unix/core.c:134
+_time_ns at ./../usr/share/julia/Compiler/src/utilities.jl:364 [inlined]
+InferenceState at ./../usr/share/julia/Compiler/src/inferencestate.jl:394
+InferenceState at ./../usr/share/julia/Compiler/src/inferencestate.jl:606 [inlined]
+typeinf_edge at ./../usr/share/julia/Compiler/src/typeinfer.jl:1104
+abstract_call_method at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:746
+infercalls at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:178
+abstract_call_gf_by_type at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:349
+abstract_call_known at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:2869
+abstract_call at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:2975
+abstract_call at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:2968 [inlined]
+abstract_call at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:3128
+abstract_eval_call at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:3146 [inlined]
+abstract_eval_statement_expr at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:3502
+abstract_eval_basic_statement at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:3896 [inlined]
+abstract_eval_basic_statement at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:3853 [inlined]
+typeinf_local at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:4402
+jfptr_typeinf_local_85869 at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/sys.so (unknown line)
+typeinf at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:4563
+typeinf_ext at ./../usr/share/julia/Compiler/src/typeinfer.jl:1404
+typeinf_ext_toplevel at ./../usr/share/julia/Compiler/src/typeinfer.jl:1601 [inlined]
+typeinf_ext_toplevel at ./../usr/share/julia/Compiler/src/typeinfer.jl:1610
+jfptr_typeinf_ext_toplevel_87690 at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/sys.so (unknown line)
+jl_apply at /cache/build/builder-armageddon-4/julialang/julia-ci/src/julia.h:2318 [inlined]
+jl_type_infer at /cache/build/builder-armageddon-4/julialang/julia-ci/src/gf.c:478
+jl_compile_method_internal at /cache/build/builder-armageddon-4/julialang/julia-ci/src/gf.c:3697
+_jl_invoke at /cache/build/builder-armageddon-4/julialang/julia-ci/src/gf.c:4171 [inlined]
+ijl_apply_generic at /cache/build/builder-armageddon-4/julialang/julia-ci/src/gf.c:4380
+#native_price_roundoff_fixture#103 at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/legacy_primal_direction_price_tests.jl:134
+unknown function (ip: 0xf623149b730f) at (unknown file)
+native_price_roundoff_fixture at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/legacy_primal_direction_price_tests.jl:123
+unknown function (ip: 0xf623149b4117) at (unknown file)
+jl_apply at /cache/build/builder-armageddon-4/julialang/julia-ci/src/julia.h:2318 [inlined]
+do_call at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:123
+eval_value at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:243
+eval_body at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:581
+eval_body at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:558
+eval_body at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:558
+eval_body at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:558
+eval_body at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:558
+jl_interpret_toplevel_thunk at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:884
+jl_toplevel_eval_flex at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:742
+jl_eval_toplevel_stmts at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:585
+jl_toplevel_eval_flex at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:683
+ijl_toplevel_eval at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:754
+ijl_toplevel_eval_in at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:799
+eval at ./boot.jl:489
+include_string at ./loading.jl:3016
+_include at ./loading.jl:3076
+include at ./Base.jl:310
+IncludeInto at ./Base.jl:311
+jfptr_IncludeInto_60777 at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/sys.so (unknown line)
+jl_apply at /cache/build/builder-armageddon-4/julialang/julia-ci/src/julia.h:2318 [inlined]
+do_call at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:123
+eval_value at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:243
+eval_stmt_value at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:194 [inlined]
+eval_body at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:693
+eval_body at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:558
+eval_body at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:558
+eval_body at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:558
+eval_body at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:558
+jl_interpret_toplevel_thunk at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:884
+jl_toplevel_eval_flex at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:742
+jl_eval_toplevel_stmts at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:585
+jl_toplevel_eval_flex at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:683
+ijl_toplevel_eval at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:754
+ijl_toplevel_eval_in at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:799
+eval at ./boot.jl:489
+include_string at ./loading.jl:3016
+_include at ./loading.jl:3076
+include at ./Base.jl:309
+exec_options at ./client.jl:344
+_start at ./client.jl:577
+jfptr__start_61086 at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/sys.so (unknown line)
+jl_apply at /cache/build/builder-armageddon-4/julialang/julia-ci/src/julia.h:2318 [inlined]
+true_main at /cache/build/builder-armageddon-4/julialang/julia-ci/src/jlapi.c:985
+jl_repl_entrypoint at /cache/build/builder-armageddon-4/julialang/julia-ci/src/jlapi.c:1152
+main at /cache/build/builder-armageddon-4/julialang/julia-ci/cli/loader_exe.c:58
+unknown function (ip: 0xf62371d02f1b) at /usr/lib/aarch64-linux-gnu/libc.so.6
+__libc_start_main at /usr/lib/aarch64-linux-gnu/libc.so.6 (unknown line)
+$x at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/julia (unknown line)
+unknown function (ip: 0x51000000400a1b) at (unknown file)
+unknown function (ip: (nil)) at (unknown file)
+Allocations: 684901858 (Pool: 684894679; Big: 7179); GC: 186
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:61
+  Expression: workspace.primal[5] ≈ -offset
+   Evaluated: 0.0f0 ≈ 7.0f-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:61 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:61
+  Expression: workspace.primal[5] ≈ -offset
+   Evaluated: 0.0f0 ≈ 7.0f-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:61 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:61
+  Expression: workspace.primal[5] ≈ -offset
+   Evaluated: 0.0f0 ≈ 7.0f-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:61 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:61
+  Expression: workspace.primal[5] ≈ -offset
+   Evaluated: 0.0f0 ≈ 7.0f-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:61 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:61
+  Expression: workspace.primal[5] ≈ -offset
+   Evaluated: 0.0f0 ≈ -7.0f-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:61 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:61
+  Expression: workspace.primal[5] ≈ -offset
+   Evaluated: 0.0f0 ≈ -7.0f-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:61 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:61
+  Expression: workspace.primal[5] ≈ -offset
+   Evaluated: 0.0f0 ≈ -7.0f-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:61 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:61
+  Expression: workspace.primal[5] ≈ -offset
+   Evaluated: 0.0f0 ≈ -7.0f-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:61 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:61
+  Expression: workspace.primal[5] ≈ -offset
+   Evaluated: 0.0 ≈ 7.0e-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:61 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:61
+  Expression: workspace.primal[5] ≈ -offset
+   Evaluated: 0.0 ≈ 7.0e-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:61 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:61
+  Expression: workspace.primal[5] ≈ -offset
+   Evaluated: 0.0 ≈ 7.0e-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:61 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:61
+  Expression: workspace.primal[5] ≈ -offset
+   Evaluated: 0.0 ≈ 7.0e-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:61 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:61
+  Expression: workspace.primal[5] ≈ -offset
+   Evaluated: 0.0 ≈ -7.0e-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:61 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:61
+  Expression: workspace.primal[5] ≈ -offset
+   Evaluated: 0.0 ≈ -7.0e-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:61 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:61
+  Expression: workspace.primal[5] ≈ -offset
+   Evaluated: 0.0 ≈ -7.0e-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:61 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bound snapping checks each tolerated violation independently: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:61
+  Expression: workspace.primal[5] ≈ -offset
+   Evaluated: 0.0 ≈ -7.0e-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:61 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal rejects an unsafe sole pivot without mutating the basis: Error During Test at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:85
+  Test threw exception
+  Expression: terminal.status == NUMERICAL_ERROR
+  FieldError: type Nothing has no field `status`; Nothing has no fields at all.
+  Stacktrace:
+   [1] getproperty(x::Nothing, f::Symbol)
+     @ Base ./Base_compiler.jl:57
+   [2] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:82
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:85 [inlined]
+   [5] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:750 [inlined]
+
+Legacy primal rejects an unsafe sole pivot without mutating the basis: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:86
+  Expression: workspace.iterations == 0
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:82
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:86 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal rejects an unsafe sole pivot without mutating the basis: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:87
+  Expression: workspace.basis.basic_indices == before
+   Evaluated: [3] == [1]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:82
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:87 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal accepts a tolerated bound snap that stays feasible: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:96
+  Expression: workspace.primal[3] ≈ -7.0e-8
+   Evaluated: 0.0 ≈ -7.0e-8
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:92
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_bound_snap_tests.jl:96 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal tries another entering variable before failing a ratio test: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_candidate_retry_tests.jl:29
+  Expression: 4 in workspace.basis.basic_indices
+   Evaluated: 4 in [3, 6]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_candidate_retry_tests.jl:25
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_candidate_retry_tests.jl:29 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal does not report optimality after exhausting unsafe candidates: Error During Test at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_candidate_retry_tests.jl:52
+  Test threw exception
+  Expression: terminal.status == NUMERICAL_ERROR
+  FieldError: type Nothing has no field `status`; Nothing has no fields at all.
+  Stacktrace:
+   [1] getproperty(x::Nothing, f::Symbol)
+     @ Base ./Base_compiler.jl:57
+   [2] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_candidate_retry_tests.jl:50
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_candidate_retry_tests.jl:52 [inlined]
+   [5] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:750 [inlined]
+
+Legacy primal does not report optimality after exhausting unsafe candidates: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_candidate_retry_tests.jl:53
+  Expression: workspace.iterations == 0
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_candidate_retry_tests.jl:50
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_candidate_retry_tests.jl:53 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal does not report optimality after exhausting unsafe candidates: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_candidate_retry_tests.jl:54
+  Expression: workspace.basis.basic_indices == [1, 6]
+   Evaluated: [3, 6] == [1, 6]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_candidate_retry_tests.jl:50
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_candidate_retry_tests.jl:54 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Legacy primal searches beyond eight unsafe entering candidates: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_candidate_retry_tests.jl:63
+  Expression: 12 in workspace.basis.basic_indices
+   Evaluated: 12 in [3, 14]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_candidate_retry_tests.jl:59
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_candidate_retry_tests.jl:63 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Refactorization preserves unrelated steepest-edge weights: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_retry_pricing_tests.jl:20
+  Expression: JSimplex.event_count(diagnostics, :refactor_residual) == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_retry_pricing_tests.jl:3
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_retry_pricing_tests.jl:20 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Refactorization preserves unrelated steepest-edge weights: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_retry_pricing_tests.jl:20
+  Expression: JSimplex.event_count(diagnostics, :refactor_residual) == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_retry_pricing_tests.jl:3
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/primal_retry_pricing_tests.jl:20 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+Command exited with non-zero status 75
+	Command being timed: "python3 /home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py --seconds 300 bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --heap-size-hint=2G --project=/home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl -O2 test/runtests.jl"
+	User time (seconds): 295.68
+	System time (seconds): 4.42
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 5:00.30
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1219792
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 3
+	Minor (reclaiming a frame) page faults: 251856
+	Voluntary context switches: 472
+	Involuntary context switches: 1265
+	Swaps: 0
+	File system inputs: 25240
+	File system outputs: 64
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 75

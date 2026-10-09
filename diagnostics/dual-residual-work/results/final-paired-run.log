@@ -1,0 +1,46 @@
+synthetic_sparse Float32 transpose=false speedup=0.9956127522667447
+synthetic_sparse Float32 transpose=true speedup=1.3907663650878128
+synthetic_dense_csc Float32 transpose=false speedup=0.9917463385609101
+synthetic_dense_csc Float32 transpose=true speedup=2.457440198819509
+synthetic_sparse Float64 transpose=false speedup=1.0147188695908154
+synthetic_sparse Float64 transpose=true speedup=1.3903526550466152
+synthetic_dense_csc Float64 transpose=false speedup=0.9975845410628019
+synthetic_dense_csc Float64 transpose=true speedup=2.5093234704885194
+empty_columns Float32 transpose=true speedup=1.0273284997211378
+zero_vector Float32 transpose=true speedup=0.9939675174013921
+mostly_zero_vector Float32 transpose=true speedup=0.9998486453761163
+diagonal Float32 transpose=true speedup=1.0275932549821156
+dense_matrix Float32 transpose=true speedup=0.9997568093385215
+empty_columns Float64 transpose=true speedup=1.0224032586558045
+zero_vector Float64 transpose=true speedup=0.988348919208953
+mostly_zero_vector Float64 transpose=true speedup=1.0063595470761595
+diagonal Float64 transpose=true speedup=1.0197639308262418
+dense_matrix Float64 transpose=true speedup=1.001516300227445
+runtime_1000 Float64 transpose=true speedup=1.069726583946415
+runtime_10000 Float64 transpose=true speedup=1.3905409519943166
+runtime_30000 Float64 transpose=true speedup=1.3293995750136103
+runtime_50000 Float64 transpose=true speedup=1.3072020395156152
+medium_basis_random_vector Float64 transpose=true speedup=1.0649753470742467
+	Command being timed: "python3 /home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py --seconds 600 bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --heap-size-hint=2G --project=/home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl -O2 diagnostics/dual-residual-work/reproduce/paired.jl /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/.superpowers/dual-residual-work/final/paired/results.toml"
+	User time (seconds): 15.97
+	System time (seconds): 0.35
+	Percent of CPU this job got: 95%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:17.06
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 661996
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 95811
+	Voluntary context switches: 67
+	Involuntary context switches: 75
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 40
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
