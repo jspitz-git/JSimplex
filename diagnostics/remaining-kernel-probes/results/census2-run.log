@@ -1,0 +1,96 @@
+ERROR: LoadError: UndefVarError: `B` not defined in `JSimplex`
+Suggestion: check for spelling errors or missing imports.
+Stacktrace:
+  [1] _try_native_dual_correction!(workspace::JSimplex.SimplexWorkspace{Float64, JSimplex.HuangfuHallFactorization{Float64, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}, :native}, :huangfu_hall, :native, JSimplex.SimplexDiagnostics{var"#main##1#main##2"{var"#checkpoint#main##0", Vector{Float64}, Vector{Int64}, Base.RefValue{Any}}}}, destination::Vector{Float64}, index::Int64, leaving_row::Int64, stop::JSimplex._StopCallback{JSimplex.var"#_run_basis_terminal!##0#_run_basis_terminal!##1"{JSimplex.SimplexWorkspace{Float64, JSimplex.HuangfuHallFactorization{Float64, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}, :native}, :huangfu_hall, :native, JSimplex.SimplexDiagnostics{var"#main##1#main##2"{var"#checkpoint#main##0", Vector{Float64}, Vector{Int64}, Base.RefValue{Any}}}}, JSimplex.SimplexRunBudget, JSimplex._StopCallback{JSimplex.var"#487#488"{JSimplex.SolveContext{JSimplex.SimplexDiagnostics{var"#main##1#main##2"{var"#checkpoint#main##0", Vector{Float64}, Vector{Int64}, Base.RefValue{Any}}}, JSimplex.NumericalPolicy{Float64}}}}}}; transposed::Bool)
+    @ JSimplex ./none:41
+  [2] _try_native_dual_correction!
+    @ ./none:1 [inlined]
+  [3] _dual_iteration_unchecked!(workspace::JSimplex.SimplexWorkspace{Float64, JSimplex.HuangfuHallFactorization{Float64, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}, :native}, :huangfu_hall, :native, JSimplex.SimplexDiagnostics{var"#main##1#main##2"{var"#checkpoint#main##0", Vector{Float64}, Vector{Int64}, Base.RefValue{Any}}}}, stop_requested::JSimplex._StopCallback{JSimplex.var"#_run_basis_terminal!##0#_run_basis_terminal!##1"{JSimplex.SimplexWorkspace{Float64, JSimplex.HuangfuHallFactorization{Float64, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}, :native}, :huangfu_hall, :native, JSimplex.SimplexDiagnostics{var"#main##1#main##2"{var"#checkpoint#main##0", Vector{Float64}, Vector{Int64}, Base.RefValue{Any}}}}, JSimplex.SimplexRunBudget, JSimplex._StopCallback{JSimplex.var"#487#488"{JSimplex.SolveContext{JSimplex.SimplexDiagnostics{var"#main##1#main##2"{var"#checkpoint#main##0", Vector{Float64}, Vector{Int64}, Base.RefValue{Any}}}, JSimplex.NumericalPolicy{Float64}}}}}}, basis_refreshed::Bool, perturb_degenerate::Bool; force_full_pricing::Bool)
+    @ JSimplex ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/dual_simplex.jl:1151
+  [4] _dual_iteration_unchecked!
+    @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/dual_simplex.jl:1112 [inlined]
+  [5] _dual_iteration_core!
+    @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/simplex_pivot.jl:424 [inlined]
+  [6] #_dual_iteration!##0
+    @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/simplex_pivot.jl:418 [inlined]
+  [7] _measure_basis_iteration!(f::JSimplex.var"#_dual_iteration!##0#_dual_iteration!##1"{JSimplex.SimplexWorkspace{Float64, JSimplex.HuangfuHallFactorization{Float64, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}, :native}, :huangfu_hall, :native, JSimplex.SimplexDiagnostics{var"#main##1#main##2"{var"#checkpoint#main##0", Vector{Float64}, Vector{Int64}, Base.RefValue{Any}}}}, JSimplex._StopCallback{JSimplex.var"#_run_basis_terminal!##0#_run_basis_terminal!##1"{JSimplex.SimplexWorkspace{Float64, JSimplex.HuangfuHallFactorization{Float64, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}, :native}, :huangfu_hall, :native, JSimplex.SimplexDiagnostics{var"#main##1#main##2"{var"#checkpoint#main##0", Vector{Float64}, Vector{Int64}, Base.RefValue{Any}}}}, JSimplex.SimplexRunBudget, JSimplex._StopCallback{JSimplex.var"#487#488"{JSimplex.SolveContext{JSimplex.SimplexDiagnostics{var"#main##1#main##2"{var"#checkpoint#main##0", Vector{Float64}, Vector{Int64}, Base.RefValue{Any}}}, JSimplex.NumericalPolicy{Float64}}}}}}, Bool, Bool}, ws::JSimplex.SimplexWorkspace{Float64, JSimplex.HuangfuHallFactorization{Float64, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}, :native}, :huangfu_hall, :native, JSimplex.SimplexDiagnostics{var"#main##1#main##2"{var"#checkpoint#main##0", Vector{Float64}, Vector{Int64}, Base.RefValue{Any}}}}; clock::typeof(time_ns))
+    @ JSimplex ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/refactorization_policy.jl:367
+  [8] _measure_basis_iteration!
+    @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/refactorization_policy.jl:365 [inlined]
+  [9] _dual_iteration!
+    @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/simplex_pivot.jl:417 [inlined]
+ [10] dual_iteration!(workspace::JSimplex.SimplexWorkspace{Float64, JSimplex.HuangfuHallFactorization{Float64, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}, :native}, :huangfu_hall, :native, JSimplex.SimplexDiagnostics{var"#main##1#main##2"{var"#checkpoint#main##0", Vector{Float64}, Vector{Int64}, Base.RefValue{Any}}}}, stop_requested::JSimplex._StopCallback{JSimplex.var"#_run_basis_terminal!##0#_run_basis_terminal!##1"{JSimplex.SimplexWorkspace{Float64, JSimplex.HuangfuHallFactorization{Float64, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}, :native}, :huangfu_hall, :native, JSimplex.SimplexDiagnostics{var"#main##1#main##2"{var"#checkpoint#main##0", Vector{Float64}, Vector{Int64}, Base.RefValue{Any}}}}, JSimplex.SimplexRunBudget, JSimplex._StopCallback{JSimplex.var"#487#488"{JSimplex.SolveContext{JSimplex.SimplexDiagnostics{var"#main##1#main##2"{var"#checkpoint#main##0", Vector{Float64}, Vector{Int64}, Base.RefValue{Any}}}, JSimplex.NumericalPolicy{Float64}}}}}}; perturb_degenerate::Bool)
+    @ JSimplex ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/dual_simplex.jl:696
+ [11] dual_iteration!
+    @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/dual_simplex.jl:684 [inlined]
+ [12] _dual_optimize!(workspace::JSimplex.SimplexWorkspace{Float64, JSimplex.HuangfuHallFactorization{Float64, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}, :native}, :huangfu_hall, :native, JSimplex.SimplexDiagnostics{var"#main##1#main##2"{var"#checkpoint#main##0", Vector{Float64}, Vector{Int64}, Base.RefValue{Any}}}}, stop_requested::JSimplex._StopCallback{JSimplex.var"#_run_basis_terminal!##0#_run_basis_terminal!##1"{JSimplex.SimplexWorkspace{Float64, JSimplex.HuangfuHallFactorization{Float64, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}, :native}, :huangfu_hall, :native, JSimplex.SimplexDiagnostics{var"#main##1#main##2"{var"#checkpoint#main##0", Vector{Float64}, Vector{Int64}, Base.RefValue{Any}}}}, JSimplex.SimplexRunBudget, JSimplex._StopCallback{JSimplex.var"#487#488"{JSimplex.SolveContext{JSimplex.SimplexDiagnostics{var"#main##1#main##2"{var"#checkpoint#main##0", Vector{Float64}, Vector{Int64}, Base.RefValue{Any}}}, JSimplex.NumericalPolicy{Float64}}}}}}; perturb_degenerate::Bool)
+    @ JSimplex ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/dual_simplex.jl:1822
+ [13] _dual_optimize!
+    @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/dual_simplex.jl:1796 [inlined]
+ [14] _run_basis_terminal!(ws::JSimplex.SimplexWorkspace{Float64, JSimplex.HuangfuHallFactorization{Float64, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}, :native}, :huangfu_hall, :native, JSimplex.SimplexDiagnostics{var"#main##1#main##2"{var"#checkpoint#main##0", Vector{Float64}, Vector{Int64}, Base.RefValue{Any}}}}, budget::JSimplex.SimplexRunBudget, policy::JSimplex.NumericalPolicy{Float64}, stop::JSimplex._StopCallback{JSimplex.var"#487#488"{JSimplex.SolveContext{JSimplex.SimplexDiagnostics{var"#main##1#main##2"{var"#checkpoint#main##0", Vector{Float64}, Vector{Int64}, Base.RefValue{Any}}}, JSimplex.NumericalPolicy{Float64}}}}, ::Val{true}, reduced_cost_tolerance::Float64, perturb_degenerate::Bool, perturb_primal::Bool, force_feasibility::Bool)
+    @ JSimplex ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/simplex_driver.jl:166
+ [15] _run_original_objective_terminal!(ws::JSimplex.SimplexWorkspace{Float64, JSimplex.HuangfuHallFactorization{Float64, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}, :native}, :huangfu_hall, :native, JSimplex.SimplexDiagnostics{var"#main##1#main##2"{var"#checkpoint#main##0", Vector{Float64}, Vector{Int64}, Base.RefValue{Any}}}}, budget::JSimplex.SimplexRunBudget, policy::JSimplex.NumericalPolicy{Float64}, stop::JSimplex._StopCallback{JSimplex.var"#487#488"{JSimplex.SolveContext{JSimplex.SimplexDiagnostics{var"#main##1#main##2"{var"#checkpoint#main##0", Vector{Float64}, Vector{Int64}, Base.RefValue{Any}}}, JSimplex.NumericalPolicy{Float64}}}}, allow_auxiliary::Val{true}, reduced_cost_tolerance::Float64, phase_perturbations::Bool)
+    @ JSimplex ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/simplex_driver.jl:293
+ [16] #_run_original_objective_terminal!#236
+    @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/simplex_driver.jl:277 [inlined]
+ [17] _run_original_objective_terminal!
+    @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/simplex_driver.jl:274 [inlined]
+ [18] #_run_from_basis_once!#237
+    @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/simplex_driver.jl:326 [inlined]
+ [19] _run_from_basis_once!
+    @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/simplex_driver.jl:323 [inlined]
+ [20] _solve_continuous_dual_once!(workspace::JSimplex.SimplexWorkspace{Float64, JSimplex.HuangfuHallFactorization{Float64, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}, :native}, :huangfu_hall, :native, JSimplex.SimplexDiagnostics{var"#main##1#main##2"{var"#checkpoint#main##0", Vector{Float64}, Vector{Int64}, Base.RefValue{Any}}}}, stop_requested::JSimplex._StopCallback{JSimplex.var"#487#488"{JSimplex.SolveContext{JSimplex.SimplexDiagnostics{var"#main##1#main##2"{var"#checkpoint#main##0", Vector{Float64}, Vector{Int64}, Base.RefValue{Any}}}, JSimplex.NumericalPolicy{Float64}}}})
+    @ JSimplex ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/dual_simplex.jl:2207
+ [21] _solve_continuous_dual!(workspace::JSimplex.SimplexWorkspace{Float64, JSimplex.HuangfuHallFactorization{Float64, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}, :native}, :huangfu_hall, :native, JSimplex.SimplexDiagnostics{var"#main##1#main##2"{var"#checkpoint#main##0", Vector{Float64}, Vector{Int64}, Base.RefValue{Any}}}}, stop_requested::JSimplex._StopCallback{JSimplex.var"#487#488"{JSimplex.SolveContext{JSimplex.SimplexDiagnostics{var"#main##1#main##2"{var"#checkpoint#main##0", Vector{Float64}, Vector{Int64}, Base.RefValue{Any}}}, JSimplex.NumericalPolicy{Float64}}}})
+    @ JSimplex ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/dual_simplex.jl:2254
+ [22] _solve_continuous_dual(problem::LinearProblem{Float64}, options::SolverOptions{Float64, :huangfu_hall, :native}; stop_requested::JSimplex.var"#487#488"{JSimplex.SolveContext{JSimplex.SimplexDiagnostics{var"#main##1#main##2"{var"#checkpoint#main##0", Vector{Float64}, Vector{Int64}, Base.RefValue{Any}}}, JSimplex.NumericalPolicy{Float64}}}, progress::JSimplex.SimplexProgressContext{Float64, JSimplex.SimplexDiagnostics{var"#main##1#main##2"{var"#checkpoint#main##0", Vector{Float64}, Vector{Int64}, Base.RefValue{Any}}}})
+    @ JSimplex ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/dual_simplex.jl:2156
+ [23] _solve_continuous_dual
+    @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/dual_simplex.jl:2128 [inlined]
+ [24] _solve_diagnosed(problem::LinearProblem{Float64}, diagnostics::JSimplex.SimplexDiagnostics{var"#main##1#main##2"{var"#checkpoint#main##0", Vector{Float64}, Vector{Int64}, Base.RefValue{Any}}}; relax_integrality::Bool, options::SolverOptions{Float64, :huangfu_hall, :native}, numerical_policy::Nothing)
+    @ JSimplex ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/solver.jl:524
+ [25] _solve_diagnosed
+    @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/solver.jl:468 [inlined]
+ [26] #main##5
+    @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/diagnostics/remaining-kernel-probes/reproduce/correction-census.jl:96 [inlined]
+ [27] with_logstate(f::var"#main##5#main##6"{JSimplex.SimplexDiagnostics{var"#main##1#main##2"{var"#checkpoint#main##0", Vector{Float64}, Vector{Int64}, Base.RefValue{Any}}}, LinearProblem{Float64}, SolverOptions{Float64, :huangfu_hall, :native}}, logstate::Base.CoreLogging.LogState)
+    @ Base.CoreLogging ./logging/logging.jl:542
+ [28] with_logger
+    @ ./logging/logging.jl:653 [inlined]
+ [29] macro expansion
+    @ ./timing.jl:699 [inlined]
+ [30] main(out::String)
+    @ Main ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/diagnostics/remaining-kernel-probes/reproduce/correction-census.jl:96
+ [31] top-level scope
+    @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/diagnostics/remaining-kernel-probes/reproduce/correction-census.jl:110
+ [32] include(mod::Module, _path::String)
+    @ Base ./Base.jl:309
+ [33] exec_options(opts::Base.JLOptions)
+    @ Base ./client.jl:344
+ [34] _start()
+    @ Base ./client.jl:577
+in expression starting at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/diagnostics/remaining-kernel-probes/reproduce/correction-census.jl:110
+Command exited with non-zero status 1
+	Command being timed: "python3 /home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py --seconds 600 bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --heap-size-hint=2G --project=/home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl diagnostics/remaining-kernel-probes/reproduce/correction-census.jl .superpowers/remaining-kernel-probes/census2/result.toml"
+	User time (seconds): 64.35
+	System time (seconds): 1.02
+	Percent of CPU this job got: 98%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:06.05
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 2072960
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 289762
+	Voluntary context switches: 136
+	Involuntary context switches: 313
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 32
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 1

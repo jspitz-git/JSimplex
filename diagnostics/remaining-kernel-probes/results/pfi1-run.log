@@ -1,0 +1,59 @@
+WARNING: Detected access to binding `JSimplex._probe_eta_forward!` in a world prior to its definition world.
+  Julia 1.12 has introduced more strict world age semantics for global bindings.
+  !!! This code may malfunction under Revise.
+  !!! This code will error in future versions of Julia.
+Hint: Add an appropriate `invokelatest` around the access to this binding.
+To make this warning an error, and hence obtain a stack trace, use `julia --depwarn=error`.
+WARNING: Detected access to binding `JSimplex._probe_eta_transpose!` in a world prior to its definition world.
+  Julia 1.12 has introduced more strict world age semantics for global bindings.
+  !!! This code may malfunction under Revise.
+  !!! This code will error in future versions of Julia.
+Hint: Add an appropriate `invokelatest` around the access to this binding.
+To make this warning an error, and hence obtain a stack trace, use `julia --depwarn=error`.
+runtime-40000 0 ftran actual ratio=1.0077190542420027
+runtime-40000 0 ftran dense ratio=1.0236353040212394
+runtime-40000 0 btran actual ratio=1.03281212023009
+runtime-40000 0 btran dense ratio=0.9969384079721455
+runtime-40000 80 ftran actual ratio=0.8793146147822055
+runtime-40000 80 ftran dense ratio=0.9069106263194933
+runtime-40000 80 btran actual ratio=1.0254395908575649
+runtime-40000 80 btran dense ratio=1.0168157076205286
+runtime-40000 320 ftran actual ratio=0.8723177007476454
+runtime-40000 320 ftran dense ratio=0.8408770335954986
+runtime-40000 320 btran actual ratio=0.9807345818800931
+runtime-40000 320 btran dense ratio=0.9719561536688315
+fast0507-1000 0 ftran actual ratio=0.9619289340101522
+fast0507-1000 0 ftran dense ratio=0.8548009367681498
+fast0507-1000 0 btran actual ratio=0.9156908665105387
+fast0507-1000 0 btran dense ratio=1.0020366598778003
+fast0507-1000 80 ftran actual ratio=0.8843441466854727
+fast0507-1000 80 ftran dense ratio=0.8967741935483872
+fast0507-1000 80 btran actual ratio=0.915036674816626
+fast0507-1000 80 btran dense ratio=0.9546553808948004
+fast0507-1000 320 ftran actual ratio=0.9175879396984924
+fast0507-1000 320 ftran dense ratio=0.889412689059124
+fast0507-1000 320 btran actual ratio=0.8897350993377483
+fast0507-1000 320 btran dense ratio=0.8794212218649515
+	Command being timed: "python3 /home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py --seconds 300 bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --heap-size-hint=2G --project=/home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl diagnostics/remaining-kernel-probes/reproduce/pfi-bounds.jl .superpowers/remaining-kernel-probes/pfi1/result.toml"
+	User time (seconds): 23.32
+	System time (seconds): 0.31
+	Percent of CPU this job got: 98%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:24.04
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 593020
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 96647
+	Voluntary context switches: 74
+	Involuntary context switches: 161
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 40
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
