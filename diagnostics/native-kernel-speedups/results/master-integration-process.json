@@ -1,0 +1,23 @@
+{
+  "command": [
+    "/usr/bin/time",
+    "-v",
+    "python3",
+    "/home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py",
+    "--seconds",
+    "300",
+    "bash",
+    "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+    "--heap-size-hint=2G",
+    "--project=/home/jspitz/JSimplex.jl",
+    "-O1",
+    "-e",
+    "include(\"test/native_kernel_dimension_tests.jl\"); include(\"test/native_dual_tableau_tests.jl\"); include(\"test/dual_pivot_consistency_tests.jl\"); include(\"test/legacy_primal_perturbed_point_tests.jl\"); include(\"test/legacy_primal_joint_point_tests.jl\"); include(\"test/primal_certificate_reuse_tests.jl\")"
+  ],
+  "started": 1791506676.620822,
+  "effective_project": "/home/jspitz/JSimplex.jl",
+  "pid": 320614,
+  "returncode": 0,
+  "ended": 1791506802.728613,
+  "sources_unchanged": true
+}

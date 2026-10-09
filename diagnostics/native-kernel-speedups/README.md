@@ -180,3 +180,14 @@ was 2,739,832 KiB. No memory-guard trigger occurred. This is an incomplete suite
 not a pass. The same targeted pivot-consistency tests passed in the separate
 normal-compilation kernel regression run; semantic regressions also passed with
 `--compile=min`. Complete failure evidence is retained in `results/project-suite.log`.
+
+## Master integration verification
+
+The self-contained change was cherry-picked onto master as `fec9f28`, excluding
+the earlier profiling-only history. Source, test and diagnostic trees matched
+the reviewed candidate exactly before the check. A fresh guarded normal-
+compilation run on master passed 813 targeted checks, including dimensions,
+offset rejection, generic reduced costs, native tableau/pivot consistency,
+perturbed and joint point certificates, and allocation savings. It exited zero
+in 126.1 seconds with unchanged pins and peak RSS 1,159,392 KiB. The retained
+`master-integration.log` and process record contain the exact command and results.

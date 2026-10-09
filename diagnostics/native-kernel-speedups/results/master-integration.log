@@ -1,0 +1,75 @@
+Test Summary:                                              | Pass  Total  Time
+Native kernels validate dimensions before mutating scratch |   12     12  2.7s
+Test Summary:                                            | Pass  Total  Time
+Reduced-cost kernel rejects offset vectors before writes |    4      4  0.0s
+Test Summary:                                        | Pass  Total  Time
+Ordered reduced costs retain generic numeric support |    4      4  2.9s
+Test Summary:                                                | Pass  Total   Time
+Native dual tableau recovery retains small pivot information |   32     32  15.8s
+Test Summary:                                                         | Pass  Total  Time
+Native tableau recovery publishes only a complete consistent proposal |   19     19  1.1s
+Test Summary:                                     | Pass  Total  Time
+Recovered pivot factors solve the published basis |   12     12  5.5s
+Test Summary:                                                        | Pass  Total  Time
+Split tableau pricing retains native Float32 and Float64 corrections |    8      8  0.1s
+Test Summary:                                               | Pass  Total  Time
+Dual cannot exchange a basic column for its exact duplicate |   48     48  5.7s
+Test Summary:                                              | Pass  Total   Time
+Failed dual pivot recovery remains bounded and unpublished |   80     80  27.3s
+Test Summary:                                       | Pass  Total   Time
+Consistent small dual pivots retain the direct path |   60     60  36.2s
+Test Summary:                                          | Pass  Total   Time
+Cancellation after dual refresh cannot publish a pivot |   28     28  14.4s
+Test Summary:                                        | Pass  Total  Time
+Native point recovery certifies owned working bounds |   64     64  2.5s
+Test Summary:                                          | Pass  Total  Time
+Working-only points cannot certify the original result |    9      9  0.4s
+Test Summary:                                         | Pass  Total  Time
+Owned row shifts retain exact row cancellation checks |   24     24  0.3s
+Test Summary:                                                   | Pass  Total  Time
+Joint recovery satisfies column, actual row and equation bounds |   96     96  2.2s
+Test Summary:                                                       | Pass  Total  Time
+Joint recovery preserves state when feasibility or its budget fails |   80     80  0.5s
+Test Summary:                                        | Pass  Total  Time
+Joint recovery uses only owned active working bounds |   18     18  0.6s
+Test Summary:                                             | Pass  Total  Time
+Joint recovery cancels within a partially projected sweep |   16     16  0.5s
+Test Summary:                                              | Pass  Total  Time
+Finite-input overflow rolls back a partially changed point |    8      8  0.3s
+Test Summary:                                         | Pass  Total  Time
+Joint recovery preserves a thin feasible intersection |   12     12  0.3s
+Test Summary:                                                | Pass  Total  Time
+Representable joint recovery with an active coordinate bound |   68     68  0.6s
+Test Summary:                                                            | Pass  Total  Time
+Joint recovery retains a nearby prediction when reconstruction is remote |   20     20  0.3s
+Test Summary:                                                       | Pass  Total  Time
+Prediction-anchored recovery rolls back failed and cancelled trials |   50     50  0.5s
+Test Summary:                                                   | Pass  Total  Time
+A locally repairable reconstruction remains the recovery anchor |   10     10  0.2s
+Test Summary:                                                   | Pass  Total  Time
+Shared primal enclosures preserve both independent certificates |   28     28  0.2s
+Test Summary:                                                   | Pass  Total  Time
+Primal point certificate avoids duplicate enclosure allocations |    3      3  0.0s
+	Command being timed: "python3 /home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py --seconds 300 bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --heap-size-hint=2G --project=/home/jspitz/JSimplex.jl -O1 -e include("test/native_kernel_dimension_tests.jl"); include("test/native_dual_tableau_tests.jl"); include("test/dual_pivot_consistency_tests.jl"); include("test/legacy_primal_perturbed_point_tests.jl"); include("test/legacy_primal_joint_point_tests.jl"); include("test/primal_certificate_reuse_tests.jl")"
+	User time (seconds): 123.71
+	System time (seconds): 1.90
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 2:06.10
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1159392
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 1
+	Minor (reclaiming a frame) page faults: 313225
+	Voluntary context switches: 414
+	Involuntary context switches: 848
+	Swaps: 0
+	File system inputs: 288
+	File system outputs: 22704
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
