@@ -671,6 +671,9 @@ function update_dual_pricing_weights!(workspace::SimplexWorkspace{T},
             # The Devex reference is the pre-pivot basis. Account for this
             # pivot before replacing its basis column.
             update_devex!(workspace, tableau_row, tableau_column, entering_index, pivot)
+        else
+            # No state changes before the final check: reuse this successful check.
+            return true
         end
     elseif _weight_pricing(workspace,:dual) == :devex
         update_devex!(workspace, tableau_row, tableau_column, entering_index, pivot)
