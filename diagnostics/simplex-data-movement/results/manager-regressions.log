@@ -1,0 +1,79 @@
+ERROR: Some tests did not pass: 3558 passed, 2 failed, 0 errored, 0 broken.
+
+Sparse MPF packing allocation: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/huangfu_hall_tests.jl:88
+  Expression: sparse_update_bytes(100000) < 4096
+   Evaluated: 349865616 < 4096
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/huangfu_hall_tests.jl:87
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/huangfu_hall_tests.jl:88 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Bounded retired update recycling: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/huangfu_hall_tests.jl:244
+  Expression: recycled < allocated / 2
+   Evaluated: 320480 < 160888.0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/huangfu_hall_tests.jl:166
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/huangfu_hall_tests.jl:244 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+Test Summary:                                                            | Pass  Fail  Total   Time
+Manager semantic regressions                                             | 3558     2   3560  29.3s
+  Huangfu-Hall middle product form                                       | 1273         1273  10.0s
+  Sparse MPF packing allocation                                          |    4     1      5  10.8s
+  Refactorization scratch, copies and failure isolation                  |   10           10   0.0s
+  Reachable unit transpose solve                                         |  451          451   0.4s
+  Signed zero and cancellation in reachable solve                        |    9            9   0.0s
+  Allocation-light scaling verification                                  |    7            7   0.0s
+  Bounded retired update recycling                                       |   28     1     29   4.2s
+  Bounded native extraction scratch                                      |   39           39   0.2s
+  Huangfu-Hall Float32                                                   |   97           97   0.1s
+  Huangfu-Hall BigFloat                                                  |   99           99   0.1s
+  Huangfu-Hall Rational{BigInt}                                          |  100          100   0.1s
+  Huangfu-Hall Rational{Int64}                                           |   97           97   0.2s
+  Huangfu-Hall Float16                                                   |   97           97   0.1s
+  BigFloat preserves sub-Float64 coefficient bits                        |   15           15   0.0s
+  Growth diagnostics retain the working scalar                           |   20           20   0.0s
+  Huangfu-Hall Markowitz backend                                         |  828          828   2.3s
+  Markowitz HH fill and precision                                        |   24           24   0.1s
+  Prepared triangular spikes follow the exact forward output             |  123          123   0.2s
+  Other solve destinations cannot retain FTRAN provenance                |   36           36   0.0s
+  Pipeline alias copies invalidate the original destination              |   36           36   0.0s
+  Auxiliary FTRAN preserves direction values while omitting preparation  |  109          109   0.1s
+  Auxiliary overwrite invalidates rounded-equal prepared output          |   28           28   0.0s
+  Legacy pipeline prepares only explicit entering columns                |   13           13   0.0s
+  Legacy residual corrections do not prepare an update                   |    9            9   0.0s
+  Disabled hypersparsity prepares updates only when explicitly requested |    6            6   0.0s
+RNG of the outermost testset: Xoshiro(0x508abf7c9a513eef, 0x80f6f2d031006c8d, 0x0c8c7e061419328e, 0x5d77e71882b80e49, 0xa0755fb724d8e55b)
+Command exited with non-zero status 1
+	Command being timed: "python3 /home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py --seconds 600 bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --heap-size-hint=2G --project=/home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl --compile=min -e using JSimplex,Test,LinearAlgebra,SparseArrays; @testset "Manager semantic regressions" begin; for f in ("huangfu_hall_tests.jl","huangfu_hall_precision_tests.jl","huangfu_hall_markowitz_tests.jl","triangular_prepared_spike_tests.jl","triangular_selective_preparation_tests.jl"); include(joinpath("test",f)); end; end"
+	User time (seconds): 29.62
+	System time (seconds): 0.26
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:30.04
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 555136
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 85900
+	Voluntary context switches: 79
+	Involuntary context switches: 532
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 16
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 1

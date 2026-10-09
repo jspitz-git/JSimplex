@@ -1,0 +1,31 @@
+Test Summary:                                              | Pass  Total  Time
+Repeated native point certification reuses numeric storage |   12     12  4.7s
+Test Summary:                                                              | Pass  Total  Time
+Point certificate refreshes owned storage and preserves fallback decisions |  136    136  7.8s
+Test Summary:                                      | Pass  Total  Time
+Native row fallback avoids a copied activity slice |    2      2  0.0s
+Test Summary:                                                            | Pass  Total  Time
+Prepared hardware handoff preserves exceptional and corrected directions |  102    102  0.9s
+	Command being timed: "python3 /home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py --seconds 300 bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --heap-size-hint=2G --project=/home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl -O2 -e using JSimplex,Test,SparseArrays; include("test/primal_point_storage_tests.jl"); include("test/prepared_handoff_validation_tests.jl")"
+	User time (seconds): 17.18
+	System time (seconds): 0.55
+	Percent of CPU this job got: 98%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:18.03
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 572224
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 1
+	Minor (reclaiming a frame) page faults: 169972
+	Voluntary context switches: 298
+	Involuntary context switches: 92
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 22952
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

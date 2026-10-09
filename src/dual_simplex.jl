@@ -1543,7 +1543,15 @@ end
 
 function _primal_row_bounds(A::SparseMatrixCSC{T,Int}, primal::Vector{T},
                             ::Val{false}) where {T<:AbstractFloat}
-    lower, upper = zeros(T, size(A, 1)), zeros(T, size(A, 1))
+    lower, upper = Vector{T}(undef, size(A, 1)), Vector{T}(undef, size(A, 1))
+    return _primal_row_bounds!(lower, upper, A, primal)
+end
+
+# Keep the allocating and reusable paths in the same arithmetic order.
+function _primal_row_bounds!(lower::Vector{T}, upper::Vector{T},
+                             A::SparseMatrixCSC{T,Int}, primal::Vector{T}) where {T<:AbstractFloat}
+    fill!(lower, zero(T))
+    fill!(upper, zero(T))
     for column in axes(A, 2)
         for position in A.colptr[column]:(A.colptr[column + 1] - 1)
             row = A.rowval[position]

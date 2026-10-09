@@ -429,6 +429,35 @@ function _hh_pack_update(u,w::HHUnitWorkspace{T},pivot,u_pool=nothing,v_pool=not
     HHUpdate(ui,uv,vi,vv,pivot)
 end
 
+# Hardware vectors allow independent finite/equality predicates in one pass.
+# Generic inputs keep their original validation and comparison order.
+_hh_direction_status(direction, prepared, valid) = (all(isfinite, direction), nothing)
+function _hh_direction_status(direction::Vector{T},prepared::Vector{T},valid::Bool) where {T<:Union{Float32,Float64}}
+    valid && length(direction) == length(prepared) || return (all(isfinite,direction),false)
+    finite = true
+    matched = true
+    count = length(direction)
+    first_index = 1
+    # Stop comparing prepared values after the first mismatching block, while
+    # still validating every remaining direction entry before pivot handling.
+    while first_index <= count
+        last_index = min(first_index + 127, count)
+        @inbounds @simd for index in first_index:last_index
+            value = direction[index]
+            finite &= isfinite(value)
+            matched &= isequal(value,prepared[index])
+        end
+        if !matched
+            @inbounds @simd for index in (last_index+1):count
+                finite &= isfinite(direction[index])
+            end
+            return finite,false
+        end
+        first_index = last_index+1
+    end
+    return finite,matched
+end
+
 function replace_column!(f::HuangfuHallFactorization{T},direction::AbstractVector,pivot_row::Integer;
                          zero_tolerance::Real=_is_exact(T) === Val(true) ? zero(T) :
                              _positive_tolerance(T,1//10^12)) where {T}
@@ -436,10 +465,11 @@ function replace_column!(f::HuangfuHallFactorization{T},direction::AbstractVecto
     isfinite(tolerance) && tolerance>=zero(T) || throw(ArgumentError("Invalid pivot tolerance"))
     n=length(f.work);length(direction)==n || throw(DimensionMismatch("Update dimensions"))
     checkbounds(direction,pivot_row)
-    all(isfinite,direction) || throw(ArgumentError("Nonfinite direction"))
+    finite,prepared = _hh_direction_status(direction,f.prepared_direction,f.prepared_valid)
+    finite || throw(ArgumentError("Nonfinite direction"))
     mu=convert(T,direction[pivot_row]);_pivot_magnitude(mu)>tolerance || throw(LinearAlgebra.ZeroPivotException(pivot_row))
     b=f.base;p=b.positions[pivot_row];u=f.auxiliary;v=f.work
-    if f.prepared_valid && isequal(direction,f.prepared_direction)
+    if isnothing(prepared) ? f.prepared_valid && isequal(direction,f.prepared_direction) : prepared
         copyto!(u,f.prepared_partial)
     else
         # Interface fallback for independently corrected or supplied directions.

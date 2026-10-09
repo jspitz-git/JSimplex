@@ -107,16 +107,15 @@ function _legacy_primal_row_consistent(workspace::SimplexWorkspace{T}, tolerance
     isnothing(primal) && (primal = workspace.primal[1:columns])
     lower, upper = isnothing(row_bounds) ?
         _primal_row_bounds(workspace.problem.A, primal, Val(false)) : row_bounds
+    activities = Bound.(workspace.primal[(columns + 1):end])
     rows = Int[]
     for row in eachindex(lower)
-        activity = Bound(workspace.primal[columns + row])
-        _primal_interval_within_bounds(lower[row], upper[row], activity,
-                                       activity, tolerance) || push!(rows, row)
+        _primal_interval_within_bounds(lower[row], upper[row], activities[row],
+                                       activities[row], tolerance) || push!(rows, row)
     end
     isempty(rows) && return true
     # Reuse the original-model certificate's exact fallback only when the
     # native enclosure is inconclusive. Solver values remain in their type.
-    activities = Bound.(@view(workspace.primal[(columns + 1):end]))
     return _refined_primal_rows_feasible(workspace.problem, primal, tolerance,
                                          rows, activities, activities)
 end
@@ -140,18 +139,8 @@ function _legacy_primal_point_certified(workspace)
     if eltype(workspace.primal) <: Union{Float32,Float64}
         # Both certificates inspect the same immutable point during this call.
         # Reuse its enclosure, retaining their independent bounds and fallbacks.
-        rows, columns = size(workspace.problem.A)
-        buffers = workspace.scratch.primal_point_buffers
-        if isnothing(buffers)
-            T = eltype(workspace.primal)
-            buffers = _PrimalPointBuffers(Vector{T}(undef, columns),
-                Vector{T}(undef, rows), Vector{T}(undef, rows))
-            workspace.scratch.primal_point_buffers = buffers
-        end
-        primal = buffers.primal
-        copyto!(primal, 1, workspace.primal, 1, columns)
-        row_bounds = _primal_row_bounds!(buffers.lower, buffers.upper,
-            workspace.problem.A, primal)
+        primal = workspace.primal[1:size(workspace.problem.A,2)]
+        row_bounds = _primal_row_bounds(workspace.problem.A, primal, Val(false))
         return _legacy_primal_model_feasible(workspace, primal, row_bounds) &&
             _legacy_primal_row_consistent(workspace, tolerance, primal, row_bounds)
     end
