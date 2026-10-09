@@ -1597,7 +1597,7 @@ _refined_primal_rows_feasible(::LinearProblem, ::Vector, tolerance, rows) = fals
 
 function _primal_feasible_with_bounds(problem::LinearProblem{T}, primal::Vector{T},
                                       tolerance::T, column_lower, column_upper,
-                                      row_bound_lower, row_bound_upper, row_bounds=nothing) where {T}
+                                      row_bound_lower, row_bound_upper, row_bounds=nothing, buffers=nothing) where {T}
     _within_primal_bounds(primal, column_lower, column_upper, tolerance) || return false
     row_lower, row_upper = isnothing(row_bounds) ?
         _primal_row_bounds(problem.A, primal, _is_exact(T)) : row_bounds
@@ -1610,14 +1610,14 @@ function _primal_feasible_with_bounds(problem::LinearProblem{T}, primal::Vector{
     # stored-coefficient activity is feasible. Exact fallback checks finite
     # coefficients independently and does not enlarge the user tolerance.
     T <: Union{Float32,Float64} || return false
-    rows = Int[]
+    rows = isnothing(buffers) ? Int[] : empty!(buffers.rows)
     for row in eachindex(row_lower)
         _primal_interval_within_bounds(row_lower[row], row_upper[row],
                                        row_bound_lower[row], row_bound_upper[row],
                                        tolerance) || push!(rows, row)
     end
     return _refined_primal_rows_feasible(problem, primal, tolerance, rows,
-                                          row_bound_lower, row_bound_upper)
+                                          row_bound_lower, row_bound_upper, buffers)
 end
 
 function _original_primal_feasible(problem::LinearProblem{T}, primal::Vector{T}, tolerance::T) where {T}

@@ -63,10 +63,34 @@ end
 
 # Owned storage for repeated certification of a hardware-float primal point.
 # Values are rebuilt on every call; no feasibility result is cached.
-struct _PrimalPointBuffers{T<:Real}
+struct _NativePrimalRowsScratch{T<:Real}
+    slots::Vector{Int}
+    high::Vector{T}
+    lower::Vector{T}
+    upper::Vector{T}
+    uncertain::BitVector
+    unresolved::Vector{Int}
+end
+_NativePrimalRowsScratch(::Type{T}) where {T<:Real} =
+    _NativePrimalRowsScratch(Int[], T[], T[], T[], BitVector(), Int[])
+
+mutable struct _PrimalPointBuffers{T<:Real}
     primal::Vector{T}
     lower::Vector{T}
     upper::Vector{T}
+    rows::Vector{Int}
+    native_rows::Union{Nothing,_NativePrimalRowsScratch{T}}
+end
+_PrimalPointBuffers(primal::Vector{T}, lower::Vector{T}, upper::Vector{T}) where {T<:Real} =
+    _PrimalPointBuffers(primal, lower, upper, Int[], nothing)
+
+function _primal_point_native_scratch!(buffers::_PrimalPointBuffers{T}) where T
+    scratch = buffers.native_rows
+    if isnothing(scratch)
+        scratch = _NativePrimalRowsScratch(T)
+        buffers.native_rows = scratch
+    end
+    return scratch
 end
 
 mutable struct SimplexScratch{T<:Real}
