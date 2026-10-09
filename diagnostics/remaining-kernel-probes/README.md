@@ -4,6 +4,11 @@ This diagnostic-only investigation follows `primal-certificate-work` at baseline
 `21a3fae8fe15107b6f09475d1acd03a9f986b9c8`. No production source file or solver
 option is changed. All prototypes below are experiments, not deployed fixes.
 
+The subsequent [basis-kernel savings](../basis-kernel-savings/README.md) work
+evaluates safer production eta traversal and diagonal-last upper solve loops.
+The measurements and experimental status recorded below describe this earlier
+diagnostic commit.
+
 The three questions were whether native correction data movement, initial
 interval row activities, and the actual late-state solves of all five production
 basis managers offer useful savings while preserving numerical operations.

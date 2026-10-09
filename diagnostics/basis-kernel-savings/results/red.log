@@ -1,0 +1,473 @@
+ERROR: LoadError: Some tests did not pass: 60 passed, 12 failed, 1 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/diagnostics/basis-kernel-savings/reproduce/targeted.jl:3
+
+PFI eta payload dimensions and indirect indices remain checked: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:9
+  Expression: solve!(zeros(T, 3), f, ones(T, 3))
+    Expected: DimensionMismatch
+      Thrown: BoundsError
+      BoundsError: attempt to access 1-element Vector{Float16} at index [2]
+      Stacktrace:
+       [1] top-level scope
+         @ essentials.jl:14
+       [2] top-level scope
+         @ essentials.jl:389
+       [3] top-level scope
+         @ essentials.jl:969
+       [4] top-level scope
+         @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/factorization.jl:165
+       [5] top-level scope
+         @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:4
+       [6] macro expansion
+         @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+       [7] macro expansion
+         @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:9 [inlined]
+       [8] macro expansion
+         @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:865 [inlined]
+       [9] macro expansion
+         @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:9 [inlined]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:910
+   [2] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:4
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:9 [inlined]
+
+PFI eta payload dimensions and indirect indices remain checked: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:9
+  Expression: solve!(zeros(T, 3), f, ones(T, 3))
+    Expected: DimensionMismatch
+      Thrown: BoundsError
+      BoundsError: attempt to access 1-element Vector{Float16} at index [2]
+      Stacktrace:
+       [1] top-level scope
+         @ essentials.jl:14
+       [2] top-level scope
+         @ essentials.jl:389
+       [3] top-level scope
+         @ essentials.jl:969
+       [4] top-level scope
+         @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/factorization.jl:196
+       [5] top-level scope
+         @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:4
+       [6] macro expansion
+         @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+       [7] macro expansion
+         @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:9 [inlined]
+       [8] macro expansion
+         @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:865 [inlined]
+       [9] macro expansion
+         @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:9 [inlined]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:910
+   [2] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:4
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:9 [inlined]
+
+PFI eta payload dimensions and indirect indices remain checked: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:9
+  Expression: solve!(zeros(T, 3), f, ones(T, 3))
+    Expected: DimensionMismatch
+      Thrown: BoundsError
+      BoundsError: attempt to access 1-element Vector{Float32} at index [2]
+      Stacktrace:
+       [1] throw_boundserror(A::Vector{Float32}, I::Tuple{Int64})
+         @ Base ./essentials.jl:14
+       [2] top-level scope
+         @ essentials.jl:389
+       [3] top-level scope
+         @ essentials.jl:969
+       [4] top-level scope
+         @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/factorization.jl:165
+       [5] top-level scope
+         @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:4
+       [6] macro expansion
+         @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+       [7] macro expansion
+         @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:9 [inlined]
+       [8] macro expansion
+         @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:865 [inlined]
+       [9] macro expansion
+         @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:9 [inlined]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:910
+   [2] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:4
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:9 [inlined]
+
+PFI eta payload dimensions and indirect indices remain checked: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:9
+  Expression: solve!(zeros(T, 3), f, ones(T, 3))
+    Expected: DimensionMismatch
+      Thrown: BoundsError
+      BoundsError: attempt to access 1-element Vector{Float32} at index [2]
+      Stacktrace:
+       [1] throw_boundserror(A::Vector{Float32}, I::Tuple{Int64})
+         @ Base ./essentials.jl:14
+       [2] top-level scope
+         @ essentials.jl:389
+       [3] top-level scope
+         @ essentials.jl:969
+       [4] top-level scope
+         @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/factorization.jl:196
+       [5] top-level scope
+         @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:4
+       [6] macro expansion
+         @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+       [7] macro expansion
+         @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:9 [inlined]
+       [8] macro expansion
+         @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:865 [inlined]
+       [9] macro expansion
+         @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:9 [inlined]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:910
+   [2] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:4
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:9 [inlined]
+
+PFI eta payload dimensions and indirect indices remain checked: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:9
+  Expression: solve!(zeros(T, 3), f, ones(T, 3))
+    Expected: DimensionMismatch
+      Thrown: BoundsError
+      BoundsError: attempt to access 1-element Vector{Float64} at index [2]
+      Stacktrace:
+       [1] throw_boundserror(A::Vector{Float64}, I::Tuple{Int64})
+         @ Base ./essentials.jl:14
+       [2] top-level scope
+         @ essentials.jl:389
+       [3] top-level scope
+         @ essentials.jl:969
+       [4] top-level scope
+         @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/factorization.jl:165
+       [5] top-level scope
+         @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:4
+       [6] macro expansion
+         @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+       [7] macro expansion
+         @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:9 [inlined]
+       [8] macro expansion
+         @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:865 [inlined]
+       [9] macro expansion
+         @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:9 [inlined]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:910
+   [2] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:4
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:9 [inlined]
+
+PFI eta payload dimensions and indirect indices remain checked: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:9
+  Expression: solve!(zeros(T, 3), f, ones(T, 3))
+    Expected: DimensionMismatch
+      Thrown: BoundsError
+      BoundsError: attempt to access 1-element Vector{Float64} at index [2]
+      Stacktrace:
+       [1] throw_boundserror(A::Vector{Float64}, I::Tuple{Int64})
+         @ Base ./essentials.jl:14
+       [2] top-level scope
+         @ essentials.jl:389
+       [3] top-level scope
+         @ essentials.jl:969
+       [4] top-level scope
+         @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/factorization.jl:196
+       [5] top-level scope
+         @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:4
+       [6] macro expansion
+         @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+       [7] macro expansion
+         @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:9 [inlined]
+       [8] macro expansion
+         @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:865 [inlined]
+       [9] macro expansion
+         @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:9 [inlined]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:910
+   [2] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:4
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:9 [inlined]
+
+PFI eta payload dimensions and indirect indices remain checked: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:9
+  Expression: solve!(zeros(T, 3), f, ones(T, 3))
+    Expected: DimensionMismatch
+      Thrown: BoundsError
+      BoundsError: attempt to access 1-element Vector{BigFloat} at index [2]
+      Stacktrace:
+       [1] top-level scope
+         @ essentials.jl:14
+       [2] top-level scope
+         @ essentials.jl:389
+       [3] top-level scope
+         @ essentials.jl:969
+       [4] top-level scope
+         @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/factorization.jl:165
+       [5] top-level scope
+         @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:4
+       [6] macro expansion
+         @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+       [7] macro expansion
+         @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:9 [inlined]
+       [8] macro expansion
+         @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:865 [inlined]
+       [9] macro expansion
+         @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:9 [inlined]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:910
+   [2] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:4
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:9 [inlined]
+
+PFI eta payload dimensions and indirect indices remain checked: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:9
+  Expression: solve!(zeros(T, 3), f, ones(T, 3))
+    Expected: DimensionMismatch
+      Thrown: BoundsError
+      BoundsError: attempt to access 1-element Vector{BigFloat} at index [2]
+      Stacktrace:
+       [1] top-level scope
+         @ essentials.jl:14
+       [2] top-level scope
+         @ essentials.jl:389
+       [3] top-level scope
+         @ essentials.jl:969
+       [4] top-level scope
+         @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/factorization.jl:196
+       [5] top-level scope
+         @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:4
+       [6] macro expansion
+         @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+       [7] macro expansion
+         @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:9 [inlined]
+       [8] macro expansion
+         @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:865 [inlined]
+       [9] macro expansion
+         @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:9 [inlined]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:910
+   [2] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:4
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:9 [inlined]
+
+PFI eta payload dimensions and indirect indices remain checked: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:9
+  Expression: solve!(zeros(T, 3), f, ones(T, 3))
+    Expected: DimensionMismatch
+      Thrown: BoundsError
+      BoundsError: attempt to access 1-element Vector{Rational{Int64}} at index [2]
+      Stacktrace:
+       [1] top-level scope
+         @ essentials.jl:14
+       [2] top-level scope
+         @ essentials.jl:389
+       [3] top-level scope
+         @ essentials.jl:969
+       [4] top-level scope
+         @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/factorization.jl:165
+       [5] top-level scope
+         @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:4
+       [6] macro expansion
+         @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+       [7] macro expansion
+         @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:9 [inlined]
+       [8] macro expansion
+         @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:865 [inlined]
+       [9] macro expansion
+         @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:9 [inlined]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:910
+   [2] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:4
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:9 [inlined]
+
+PFI eta payload dimensions and indirect indices remain checked: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:9
+  Expression: solve!(zeros(T, 3), f, ones(T, 3))
+    Expected: DimensionMismatch
+      Thrown: BoundsError
+      BoundsError: attempt to access 1-element Vector{Rational{Int64}} at index [2]
+      Stacktrace:
+       [1] top-level scope
+         @ essentials.jl:14
+       [2] top-level scope
+         @ essentials.jl:389
+       [3] top-level scope
+         @ essentials.jl:969
+       [4] top-level scope
+         @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/factorization.jl:196
+       [5] top-level scope
+         @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:4
+       [6] macro expansion
+         @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+       [7] macro expansion
+         @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:9 [inlined]
+       [8] macro expansion
+         @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:865 [inlined]
+       [9] macro expansion
+         @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:9 [inlined]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:910
+   [2] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:4
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:9 [inlined]
+
+PFI eta payload dimensions and indirect indices remain checked: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:9
+  Expression: solve!(zeros(T, 3), f, ones(T, 3))
+    Expected: DimensionMismatch
+      Thrown: BoundsError
+      BoundsError: attempt to access 1-element Vector{Rational{BigInt}} at index [2]
+      Stacktrace:
+       [1] top-level scope
+         @ essentials.jl:14
+       [2] top-level scope
+         @ essentials.jl:389
+       [3] top-level scope
+         @ essentials.jl:969
+       [4] top-level scope
+         @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/factorization.jl:165
+       [5] top-level scope
+         @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:4
+       [6] macro expansion
+         @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+       [7] macro expansion
+         @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:9 [inlined]
+       [8] macro expansion
+         @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:865 [inlined]
+       [9] macro expansion
+         @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:9 [inlined]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:910
+   [2] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:4
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:9 [inlined]
+
+PFI eta payload dimensions and indirect indices remain checked: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:9
+  Expression: solve!(zeros(T, 3), f, ones(T, 3))
+    Expected: DimensionMismatch
+      Thrown: BoundsError
+      BoundsError: attempt to access 1-element Vector{Rational{BigInt}} at index [2]
+      Stacktrace:
+       [1] top-level scope
+         @ essentials.jl:14
+       [2] top-level scope
+         @ essentials.jl:389
+       [3] top-level scope
+         @ essentials.jl:969
+       [4] top-level scope
+         @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/factorization.jl:196
+       [5] top-level scope
+         @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:4
+       [6] macro expansion
+         @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+       [7] macro expansion
+         @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:9 [inlined]
+       [8] macro expansion
+         @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:865 [inlined]
+       [9] macro expansion
+         @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:9 [inlined]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:910
+   [2] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:4
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:9 [inlined]
+
+PFI solve order across precisions, ownership and aliases: Error During Test at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:49
+  Got exception outside of a @test
+  MethodError: no method matching copy(::JSimplex.PFIFactorization{Float16, JSimplex.DenseLUBackend{Float16, LU{Float16, Matrix{Float16}, Vector{Int64}}}})
+  The function `copy` exists, but no method is defined for this combination of argument types.
+  Closest candidates are:
+    copy(!Matched::Transpose{Bool, BitMatrix})
+     @ LinearAlgebra ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/LinearAlgebra/src/bitarray.jl:240
+    copy(!Matched::Core.PhiNode)
+     @ Base expr.jl:42
+    copy(!Matched::Compiler.DFSTree)
+     @ Base ../usr/share/julia/Compiler/src/ssair/domtree.jl:98
+    ...
+  Stacktrace:
+    [1] top-level scope
+      @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:50
+    [2] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+    [3] macro expansion
+      @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/pfi_kernel_safety_tests.jl:62 [inlined]
+    [4] include(mapexpr::Function, mod::Module, _path::String)
+      @ Base ./Base.jl:310
+    [5] top-level scope
+      @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/diagnostics/basis-kernel-savings/reproduce/targeted.jl:4
+    [6] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+    [7] macro expansion
+      @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/diagnostics/basis-kernel-savings/reproduce/targeted.jl:4 [inlined]
+    [8] include(mod::Module, _path::String)
+      @ Base ./Base.jl:309
+    [9] exec_options(opts::Base.JLOptions)
+      @ Base ./client.jl:344
+   [10] _start()
+      @ Base ./client.jl:577
+Test Summary:                                                    | Pass  Fail  Error  Total  Time
+Basis kernel safety                                              |   60    12      1     73  0.3s
+  PFI eta payload dimensions and indirect indices remain checked |   60    12            72  0.3s
+  PFI solve order across precisions, ownership and aliases       |                 1      1  0.0s
+RNG of the outermost testset: Random.Xoshiro(0x8db31ecf192d8130, 0x7b687836b1f43ee1, 0x4e8922701f83775b, 0xc5f689ca35673f73, 0xf257f82b426e4ebf)
+Command exited with non-zero status 1
+	Command being timed: "python3 /home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py --seconds 120 bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --heap-size-hint=2G --project=/home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl --compile=min diagnostics/basis-kernel-savings/reproduce/targeted.jl"
+	User time (seconds): 0.81
+	System time (seconds): 0.25
+	Percent of CPU this job got: 52%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:02.03
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 476872
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 61076
+	Voluntary context switches: 52
+	Involuntary context switches: 9
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 56
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 1

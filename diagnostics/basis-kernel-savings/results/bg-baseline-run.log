@@ -1,0 +1,105 @@
+
+======================================================================================
+Information request received. A stacktrace will print followed by a 1.0 second profile.
+--trace-compile is enabled during profile collection.
+======================================================================================
+
+cmd: /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/julia 99739 running 1 of 1
+
+signal (10): User defined signal 1
+checkbounds at ./essentials.jl:385 [inlined]
+checkbounds at ./essentials.jl:389 [inlined]
+getindex at ./essentials.jl:969 [inlined]
+update_devex! at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/dual_simplex.jl:655
+update_dual_pricing_weights! at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/dual_simplex.jl:0
+#_dual_iteration_unchecked!#252 at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/dual_simplex.jl:1421
+_dual_iteration_unchecked! at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/dual_simplex.jl:1112 [inlined]
+_dual_iteration_core! at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/simplex_pivot.jl:424 [inlined]
+#_dual_iteration!##0 at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/simplex_pivot.jl:418 [inlined]
+#_measure_basis_iteration!#20 at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/refactorization_policy.jl:367
+_measure_basis_iteration! at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/refactorization_policy.jl:365 [inlined]
+_dual_iteration! at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/simplex_pivot.jl:417 [inlined]
+#dual_iteration!#250 at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/dual_simplex.jl:696
+dual_iteration! at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/dual_simplex.jl:684 [inlined]
+#_dual_optimize!#271 at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/dual_simplex.jl:1822
+_dual_optimize! at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/dual_simplex.jl:1796 [inlined]
+_run_basis_terminal! at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/simplex_driver.jl:166
+_run_original_objective_terminal! at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/simplex_driver.jl:293
+#_run_original_objective_terminal!#236 at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/simplex_driver.jl:277 [inlined]
+_run_original_objective_terminal! at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/simplex_driver.jl:274 [inlined]
+#_run_from_basis_once!#237 at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/simplex_driver.jl:326 [inlined]
+_run_from_basis_once! at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/simplex_driver.jl:323 [inlined]
+_solve_continuous_dual_once! at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/dual_simplex.jl:2207
+_solve_continuous_dual! at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/dual_simplex.jl:2254
+#_solve_continuous_dual#272 at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/dual_simplex.jl:2156
+_solve_continuous_dual at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/dual_simplex.jl:2128 [inlined]
+_retry_original at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/solver.jl:324
+#_solve_diagnosed#482 at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/solver.jl:533
+_solve_diagnosed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/solver.jl:468 [inlined]
+#main##5 at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/diagnostics/basis-kernel-savings/reproduce/runtime.jl:41 [inlined]
+with_logstate at ./logging/logging.jl:542
+unknown function (ip: 0xff318d3fa41b) at (unknown file)
+with_logger at ./logging/logging.jl:653
+macro expansion at ./timing.jl:699 [inlined]
+main at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/diagnostics/basis-kernel-savings/reproduce/runtime.jl:41
+unknown function (ip: 0xff31cf58b60b) at (unknown file)
+jl_apply at /cache/build/builder-armageddon-4/julialang/julia-ci/src/julia.h:2318 [inlined]
+jl_f_invokelatest at /cache/build/builder-armageddon-4/julialang/julia-ci/src/builtins.c:889
+jl_apply at /cache/build/builder-armageddon-4/julialang/julia-ci/src/julia.h:2318 [inlined]
+do_call at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:123
+eval_value at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:243
+eval_stmt_value at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:194 [inlined]
+eval_body at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:693
+jl_interpret_toplevel_thunk at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:884
+jl_toplevel_eval_flex at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:742
+jl_eval_toplevel_stmts at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:585
+jl_toplevel_eval_flex at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:683
+ijl_toplevel_eval at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:754
+ijl_toplevel_eval_in at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:799
+eval at ./boot.jl:489
+include_string at ./loading.jl:3016
+_include at ./loading.jl:3076
+include at ./Base.jl:309
+exec_options at ./client.jl:344
+_start at ./client.jl:577
+jfptr__start_61086 at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/sys.so (unknown line)
+jl_apply at /cache/build/builder-armageddon-4/julialang/julia-ci/src/julia.h:2318 [inlined]
+true_main at /cache/build/builder-armageddon-4/julialang/julia-ci/src/jlapi.c:985
+jl_repl_entrypoint at /cache/build/builder-armageddon-4/julialang/julia-ci/src/jlapi.c:1152
+main at /cache/build/builder-armageddon-4/julialang/julia-ci/cli/loader_exe.c:58
+unknown function (ip: 0xff31f0922f1b) at /usr/lib/aarch64-linux-gnu/libc.so.6
+__libc_start_main at /usr/lib/aarch64-linux-gnu/libc.so.6 (unknown line)
+$x at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/julia (unknown line)
+unknown function (ip: 0x14000000400a1b) at (unknown file)
+unknown function (ip: (nil)) at (unknown file)
+
+
+==============================================================
+Profile collected. A report will print at the next yield point.
+Disabling --trace-compile
+==============================================================
+
+Dict{String, Any}("source" => "/home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/src/JSimplex.jl", "original_feasible" => true, "gc_seconds" => 50.974677896, "objective" => 5.142569176209167e7, "input_sha256" => "d0ac16e1a52a7d3411cbac28616bba9d3beb0c0edbdb2d72ab0477ce075f6c68", "allocations" => 471964210, "refactorizations" => 462, "seconds" => 1394.693341583, "compile_seconds" => 0.068358897, "mode" => "baseline", "events" => Dict("flip_completed" => 0, "precision_boost" => 0, "phase_dual" => 4, "correction_attempt" => 34624, "crash_pivot" => 0, "lp_refinement" => 0, "pricing_devex" => 0, "checkpoint" => 0, "restore_checkpoint" => 0, "correction" => 34120, "artificial_removed" => 0, "phase_auxiliary" => 2, "pricing_pool_hit" => 0, "stagnation_fallback" => 0, "pricing_weight_rejected" => 0, "bound_flipped" => 26361, "lp_correction_certification" => 0, "refactor_other" => 3, "pivot_completed" => 128742, "feasibility_recovery" => 2, "pricing_full_scan" => 128887, "pricing" => 128887, "repair" => 0, "pricing_phase_reset" => 0, "primal_point_balanced" => 0, "refactor_pivot" => 69, "phase_crash" => 0, "stagnation_watch" => 0, "pricing_scored_entries" => 586199017, "phase_lp_refinement" => 0, "primal_projection_attempt" => 0, "crash_rejected_quality" => 0, "primal_point_corrected" => 0, "phase_one" => 0, "phase_cleanup" => 1, "refactor_growth" => 0, "crash_fallback" => 0, "certification" => 1, "refactor_residual" => 0, "certification_failed" => 1, "refactor_fill" => 0, "phase_primal" => 1, "primal_point_preserved" => 0, "pricing_block_scan" => 0, "pricing_trial_expired" => 0, "perturbation" => 0, "crash_rejected_fill" => 0, "primal_point_projected" => 0, "pricing_steepest_edge" => 0, "refactor_cost" => 0, "crash_accepted" => 0, "pricing_scanned_entries" => 4806371875, "certificate_corrected" => 0, "primal_prices_corrected" => 0, "pivot_rejected" => 69, "pricing_progress_return" => 0, "refactor_initial" => 2, "restore_perturbations" => 1, "pricing_reset" => 0, "stagnation_cost_rebase" => 0, "refactor_limit" => 390, "pivot_proposed" => 128886, "stagnation_stalled" => 0, "pricing_dantzig" => 0), "bytes" => 59074441792, "iterations" => 128742, "states_hash" => "daa0dfb62708227f3814ba5c961b72ced3c87c3240e1a20bb3a1930148254f03", "manager" => "bartels_golub", "status" => "OPTIMAL", "events_hash" => "5c2022130b35b79b869e672cf2bf5d8c564da1acc2ba58aba8cf6e63369296a3")
+	Command being timed: "python3 /home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py --seconds 1500 bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --heap-size-hint=2G --project=/home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl diagnostics/basis-kernel-savings/reproduce/runtime.jl baseline bartels_golub .superpowers/basis-kernel-savings/bartels_golub-baseline/result.toml"
+	User time (seconds): 1470.10
+	System time (seconds): 5.36
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 24:36.61
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 2785220
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 6
+	Minor (reclaiming a frame) page faults: 2111332
+	Voluntary context switches: 2313
+	Involuntary context switches: 6132
+	Swaps: 0
+	File system inputs: 163920
+	File system outputs: 40
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

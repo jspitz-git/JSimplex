@@ -1,0 +1,33 @@
+TEST pfi_kernel_safety_tests.jl
+TEST upper_kernel_order_tests.jl
+TEST factorization_tests.jl
+TEST factorization_allocation_tests.jl
+TEST pfi_history_reuse_allocation_tests.jl
+TEST triangular_transpose_allocation_tests.jl
+TEST hypersparse_update_allocation_tests.jl
+TEST lu_allocation_tests.jl
+Test Summary:                     | Pass  Total   Time
+Basis kernel compiled regressions | 4910   4910  30.6s
+	Command being timed: "python3 /home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py --seconds 300 bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --heap-size-hint=2G --project=/home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl diagnostics/basis-kernel-savings/reproduce/compiled.jl"
+	User time (seconds): 30.68
+	System time (seconds): 0.79
+	Percent of CPU this job got: 98%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:32.04
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 663824
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 128389
+	Voluntary context switches: 96
+	Involuntary context switches: 138
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 8
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
