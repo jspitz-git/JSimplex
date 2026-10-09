@@ -36,17 +36,23 @@ end
 # Native point recovery belongs to the current working LP. An owned bound
 # perturbation is restored and the original LP certified by the outer driver.
 # Keep original-model checking for unrelated, unowned bound changes.
-function _legacy_primal_model_feasible(workspace::SimplexWorkspace)
+function _legacy_primal_model_feasible(workspace::SimplexWorkspace,
+                                       primal=workspace.primal[1:size(workspace.problem.A,2)],
+                                       row_bounds=nothing)
     columns = size(workspace.problem.A, 2)
-    primal = workspace.primal[1:columns]
     tolerance = workspace.options.primal_tolerance
     journal = workspace.scratch.perturbations
-    _has_active_bound_perturbations(journal) ||
-        return _original_primal_feasible(workspace.problem, primal, tolerance)
+    if !_has_active_bound_perturbations(journal)
+        problem = workspace.problem
+        return _primal_feasible_with_bounds(problem, primal, tolerance,
+            problem.column_lower, problem.column_upper, problem.row_lower,
+            problem.row_upper, row_bounds)
+    end
     _check_perturbation_owner(workspace, journal)
     return _primal_feasible_with_bounds(workspace.problem, primal, tolerance,
         @view(workspace.lower[1:columns]), @view(workspace.upper[1:columns]),
-        @view(workspace.lower[(columns+1):end]), @view(workspace.upper[(columns+1):end]))
+        @view(workspace.lower[(columns+1):end]), @view(workspace.upper[(columns+1):end]),
+        row_bounds)
 end
 
 _restore_legacy_primal_point!(workspace, ::Nothing, stop) = false
@@ -94,11 +100,13 @@ function _restore_legacy_primal_point!(workspace::SimplexWorkspace{T},
     return true
 end
 
-function _legacy_primal_row_consistent(workspace::SimplexWorkspace{T}, tolerance::T) where {T}
+function _legacy_primal_row_consistent(workspace::SimplexWorkspace{T}, tolerance::T,
+                                      primal=nothing, row_bounds=nothing) where {T}
     T === Float32 || T === Float64 || return false
     columns = size(workspace.problem.A, 2)
-    primal = workspace.primal[1:columns]
-    lower, upper = _primal_row_bounds(workspace.problem.A, primal, Val(false))
+    isnothing(primal) && (primal = workspace.primal[1:columns])
+    lower, upper = isnothing(row_bounds) ?
+        _primal_row_bounds(workspace.problem.A, primal, Val(false)) : row_bounds
     activities = Bound.(workspace.primal[(columns + 1):end])
     rows = Int[]
     for row in eachindex(lower)
@@ -127,6 +135,14 @@ function _legacy_primal_point_certified(workspace)
         value = workspace.primal[index]
         max(_lower_violation(workspace.lower[index], value),
             _upper_violation(workspace.upper[index], value)) <= tolerance || return false
+    end
+    if eltype(workspace.primal) <: Union{Float32,Float64}
+        # Both certificates inspect the same immutable point during this call.
+        # Reuse its enclosure, retaining their independent bounds and fallbacks.
+        primal = workspace.primal[1:size(workspace.problem.A,2)]
+        row_bounds = _primal_row_bounds(workspace.problem.A, primal, Val(false))
+        return _legacy_primal_model_feasible(workspace, primal, row_bounds) &&
+            _legacy_primal_row_consistent(workspace, tolerance, primal, row_bounds)
     end
     return _legacy_primal_model_feasible(workspace) &&
         _legacy_primal_row_consistent(workspace, tolerance)

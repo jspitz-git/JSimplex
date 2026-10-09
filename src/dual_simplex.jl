@@ -810,20 +810,24 @@ end
 function _dual_direction_residual_ok!(workspace::SimplexWorkspace{T},
                                       direction::Vector{T}, pivot::T) where {T<:AbstractFloat}
     A = workspace.problem.A
-    column_count = size(A, 2)
+    row_count, column_count = size(A)
+    length(direction) == length(workspace.basis.basic_indices) == row_count &&
+        length(workspace.scratch.tau) == length(workspace.scratch.row_rhs) == row_count ||
+        throw(DimensionMismatch("direction residual vectors must match the row count"))
     residual = workspace.scratch.tau
     scale = workspace.scratch.row_rhs
     _pipeline_changed!(workspace,residual)
     _pipeline_changed!(workspace,scale)
-    for row in eachindex(residual)
+    @inbounds for row in eachindex(residual)
         rhs = scale[row]
         residual[row] = -rhs
         scale[row] = abs(rhs)
     end
     for (basis_row, index) in enumerate(workspace.basis.basic_indices)
-        value = direction[basis_row]
+        1 <= index <= column_count + row_count || throw(BoundsError(workspace.primal, index))
+        value = @inbounds direction[basis_row]
         if index <= column_count
-            for position in A.colptr[index]:(A.colptr[index + 1] - 1)
+            @inbounds for position in A.colptr[index]:(A.colptr[index + 1] - 1)
                 row = A.rowval[position]
                 term = A.nzval[position] * value
                 residual[row] += term
@@ -831,13 +835,13 @@ function _dual_direction_residual_ok!(workspace::SimplexWorkspace{T},
             end
         else
             row = index - column_count
-            residual[row] -= value
-            scale[row] += abs(value)
+            @inbounds residual[row] -= value
+            @inbounds scale[row] += abs(value)
         end
     end
     roundoff = T(256) * eps(one(T))
     pivot_tolerance = sqrt(eps(one(T))) * abs(pivot)
-    for row in eachindex(residual)
+    @inbounds for row in eachindex(residual)
         isfinite(residual[row]) && isfinite(scale[row]) || return false
         tolerance = max(workspace.options.zero_tolerance, pivot_tolerance,
                         roundoff * (scale[row] + one(T)))
@@ -852,21 +856,24 @@ end
 function _dual_row_residual_ratio(workspace::SimplexWorkspace{T},
                                   rho::Vector{T}, leaving_row::Int) where {T<:AbstractFloat}
     A = workspace.problem.A
-    column_count = size(A, 2)
+    row_count, column_count = size(A)
+    length(rho) == length(workspace.basis.basic_indices) == row_count ||
+        throw(DimensionMismatch("tableau residual vectors must match the row count"))
     roundoff = T(256) * eps(one(T))
     worst_ratio = zero(T)
     for (basis_row, index) in enumerate(workspace.basis.basic_indices)
+        1 <= index <= column_count + row_count || throw(BoundsError(workspace.primal, index))
         expected = basis_row == leaving_row ? one(T) : zero(T)
         residual = -expected
         scale = expected
         if index <= column_count
-            for position in A.colptr[index]:(A.colptr[index + 1] - 1)
+            @inbounds for position in A.colptr[index]:(A.colptr[index + 1] - 1)
                 term = A.nzval[position] * rho[A.rowval[position]]
                 residual += term
                 scale += abs(term)
             end
         else
-            term = -rho[index - column_count]
+            term = @inbounds -rho[index - column_count]
             residual += term
             scale += abs(term)
         end
@@ -1578,9 +1585,10 @@ _refined_primal_rows_feasible(::LinearProblem, ::Vector, tolerance, rows) = fals
 
 function _primal_feasible_with_bounds(problem::LinearProblem{T}, primal::Vector{T},
                                       tolerance::T, column_lower, column_upper,
-                                      row_bound_lower, row_bound_upper) where {T}
+                                      row_bound_lower, row_bound_upper, row_bounds=nothing) where {T}
     _within_primal_bounds(primal, column_lower, column_upper, tolerance) || return false
-    row_lower, row_upper = _primal_row_bounds(problem.A, primal, _is_exact(T))
+    row_lower, row_upper = isnothing(row_bounds) ?
+        _primal_row_bounds(problem.A, primal, _is_exact(T)) : row_bounds
     # Certify the entire activity interval in the requested absolute units.
     # Cancellation uncertainty must not enlarge the configured tolerance.
     _within_primal_intervals(row_lower, row_upper, row_bound_lower,

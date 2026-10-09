@@ -1,0 +1,311 @@
+ERROR: LoadError: Some tests did not pass: 0 passed, 12 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:3
+
+Native kernels validate dimensions before mutating scratch: Test Failed at /home/jspitz/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:8
+  Expression: JSimplex._dual_row_residual_ratio(ws, zeros(T, 1), 1)
+    Expected: DimensionMismatch
+      Thrown: BoundsError
+      BoundsError: attempt to access 1-element Vector{Float32} at index [2]
+      Stacktrace:
+       [1] throw_boundserror(A::Vector{Float32}, I::Tuple{Int64})
+         @ Base ./essentials.jl:14
+       [2] checkbounds
+         @ ./essentials.jl:389 [inlined]
+       [3] getindex
+         @ ./essentials.jl:969 [inlined]
+       [4] _dual_row_residual_ratio(workspace::JSimplex.SimplexWorkspace{Float32, JSimplex.PFIFactorization{Float32, JSimplex.Float32LUBackend{LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}}}, :pfi, :native, Nothing}, rho::Vector{Float32}, leaving_row::Int64)
+         @ JSimplex ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/src/dual_simplex.jl:869
+       [5] macro expansion
+         @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:8 [inlined]
+       [6] macro expansion
+         @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:865 [inlined]
+       [7] macro expansion
+         @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:8 [inlined]
+       [8] macro expansion
+         @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+       [9] top-level scope
+         @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:4
+  Stacktrace:
+   [1] do_test_throws(result::Test.ExecutionResult, orig_expr::Any, extype::Any)
+     @ Test ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:910
+   [2] macro expansion
+     @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:8 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] top-level scope
+     @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:4
+
+Native kernels validate dimensions before mutating scratch: Test Failed at /home/jspitz/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:11
+  Expression: JSimplex._dual_direction_residual_ok!(ws, ones(T, 1), one(T))
+    Expected: DimensionMismatch
+      Thrown: BoundsError
+      BoundsError: attempt to access 1-element Vector{Float32} at index [2]
+      Stacktrace:
+       [1] throw_boundserror(A::Vector{Float32}, I::Tuple{Int64})
+         @ Base ./essentials.jl:14
+       [2] checkbounds
+         @ ./essentials.jl:389 [inlined]
+       [3] getindex
+         @ ./essentials.jl:969 [inlined]
+       [4] _dual_direction_residual_ok!(workspace::JSimplex.SimplexWorkspace{Float32, JSimplex.PFIFactorization{Float32, JSimplex.Float32LUBackend{LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}}}, :pfi, :native, Nothing}, direction::Vector{Float32}, pivot::Float32)
+         @ JSimplex ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/src/dual_simplex.jl:824
+       [5] macro expansion
+         @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:11 [inlined]
+       [6] macro expansion
+         @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:865 [inlined]
+       [7] macro expansion
+         @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:11 [inlined]
+       [8] macro expansion
+         @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+       [9] top-level scope
+         @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:4
+  Stacktrace:
+   [1] do_test_throws(result::Test.ExecutionResult, orig_expr::Any, extype::Any)
+     @ Test ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:910
+   [2] macro expansion
+     @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:11 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] top-level scope
+     @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:4
+
+Native kernels validate dimensions before mutating scratch: Test Failed at /home/jspitz/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:12
+  Expression: ws.scratch.tau == T[7, 7]
+   Evaluated: Float32[-4.0, -3.0] == Float32[7.0, 7.0]
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:12 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] top-level scope
+     @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:4
+
+Native kernels validate dimensions before mutating scratch: Test Failed at /home/jspitz/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:13
+  Expression: ws.scratch.row_rhs == T[3, 3]
+   Evaluated: Float32[4.0, 3.0] == Float32[3.0, 3.0]
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:13 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] top-level scope
+     @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:4
+
+Native kernels validate dimensions before mutating scratch: Test Failed at /home/jspitz/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:15
+  Expression: JSimplex._recompute_reduced_costs!(prices, ws, ones(T, 2))
+    Expected: DimensionMismatch
+      Thrown: BoundsError
+      BoundsError: attempt to access 3-element Vector{Float32} at index [4]
+      Stacktrace:
+       [1] throw_boundserror(A::Vector{Float32}, I::Tuple{Int64})
+         @ Base ./essentials.jl:14
+       [2] _setindex!
+         @ ./array.jl:1024 [inlined]
+       [3] setindex!
+         @ ./array.jl:1020 [inlined]
+       [4] _recompute_reduced_costs!(prices::Vector{Float32}, workspace::JSimplex.SimplexWorkspace{Float32, JSimplex.PFIFactorization{Float32, JSimplex.Float32LUBackend{LinearAlgebra.LU{Float32, Matrix{Float32}, Vector{Int64}}}}, :pfi, :native, Nothing}, dual::Vector{Float32})
+         @ JSimplex ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/src/simplex.jl:365
+       [5] macro expansion
+         @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:15 [inlined]
+       [6] macro expansion
+         @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:865 [inlined]
+       [7] macro expansion
+         @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:15 [inlined]
+       [8] macro expansion
+         @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+       [9] top-level scope
+         @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:4
+  Stacktrace:
+   [1] do_test_throws(result::Test.ExecutionResult, orig_expr::Any, extype::Any)
+     @ Test ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:910
+   [2] macro expansion
+     @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:15 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] top-level scope
+     @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:4
+
+Native kernels validate dimensions before mutating scratch: Test Failed at /home/jspitz/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:16
+  Expression: prices == T[9, 9, 9]
+   Evaluated: Float32[-1.0, -1.0, 1.0] == Float32[9.0, 9.0, 9.0]
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:16 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] top-level scope
+     @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:4
+
+Native kernels validate dimensions before mutating scratch: Test Failed at /home/jspitz/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:8
+  Expression: JSimplex._dual_row_residual_ratio(ws, zeros(T, 1), 1)
+    Expected: DimensionMismatch
+      Thrown: BoundsError
+      BoundsError: attempt to access 1-element Vector{Float64} at index [2]
+      Stacktrace:
+       [1] throw_boundserror(A::Vector{Float64}, I::Tuple{Int64})
+         @ Base ./essentials.jl:14
+       [2] checkbounds
+         @ ./essentials.jl:389 [inlined]
+       [3] getindex
+         @ ./essentials.jl:969 [inlined]
+       [4] _dual_row_residual_ratio(workspace::JSimplex.SimplexWorkspace{Float64, JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}, :pfi, :native, Nothing}, rho::Vector{Float64}, leaving_row::Int64)
+         @ JSimplex ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/src/dual_simplex.jl:869
+       [5] macro expansion
+         @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:8 [inlined]
+       [6] macro expansion
+         @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:865 [inlined]
+       [7] macro expansion
+         @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:8 [inlined]
+       [8] macro expansion
+         @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+       [9] top-level scope
+         @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:4
+  Stacktrace:
+   [1] do_test_throws(result::Test.ExecutionResult, orig_expr::Any, extype::Any)
+     @ Test ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:910
+   [2] macro expansion
+     @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:8 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] top-level scope
+     @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:4
+
+Native kernels validate dimensions before mutating scratch: Test Failed at /home/jspitz/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:11
+  Expression: JSimplex._dual_direction_residual_ok!(ws, ones(T, 1), one(T))
+    Expected: DimensionMismatch
+      Thrown: BoundsError
+      BoundsError: attempt to access 1-element Vector{Float64} at index [2]
+      Stacktrace:
+       [1] throw_boundserror(A::Vector{Float64}, I::Tuple{Int64})
+         @ Base ./essentials.jl:14
+       [2] checkbounds
+         @ ./essentials.jl:389 [inlined]
+       [3] getindex
+         @ ./essentials.jl:969 [inlined]
+       [4] _dual_direction_residual_ok!(workspace::JSimplex.SimplexWorkspace{Float64, JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}, :pfi, :native, Nothing}, direction::Vector{Float64}, pivot::Float64)
+         @ JSimplex ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/src/dual_simplex.jl:824
+       [5] macro expansion
+         @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:11 [inlined]
+       [6] macro expansion
+         @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:865 [inlined]
+       [7] macro expansion
+         @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:11 [inlined]
+       [8] macro expansion
+         @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+       [9] top-level scope
+         @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:4
+  Stacktrace:
+   [1] do_test_throws(result::Test.ExecutionResult, orig_expr::Any, extype::Any)
+     @ Test ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:910
+   [2] macro expansion
+     @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:11 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] top-level scope
+     @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:4
+
+Native kernels validate dimensions before mutating scratch: Test Failed at /home/jspitz/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:12
+  Expression: ws.scratch.tau == T[7, 7]
+   Evaluated: [-4.0, -3.0] == [7.0, 7.0]
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:12 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] top-level scope
+     @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:4
+
+Native kernels validate dimensions before mutating scratch: Test Failed at /home/jspitz/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:13
+  Expression: ws.scratch.row_rhs == T[3, 3]
+   Evaluated: [4.0, 3.0] == [3.0, 3.0]
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:13 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] top-level scope
+     @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:4
+
+Native kernels validate dimensions before mutating scratch: Test Failed at /home/jspitz/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:15
+  Expression: JSimplex._recompute_reduced_costs!(prices, ws, ones(T, 2))
+    Expected: DimensionMismatch
+      Thrown: BoundsError
+      BoundsError: attempt to access 3-element Vector{Float64} at index [4]
+      Stacktrace:
+       [1] throw_boundserror(A::Vector{Float64}, I::Tuple{Int64})
+         @ Base ./essentials.jl:14
+       [2] _setindex!
+         @ ./array.jl:1024 [inlined]
+       [3] setindex!
+         @ ./array.jl:1020 [inlined]
+       [4] _recompute_reduced_costs!(prices::Vector{Float64}, workspace::JSimplex.SimplexWorkspace{Float64, JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}, :pfi, :native, Nothing}, dual::Vector{Float64})
+         @ JSimplex ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/src/simplex.jl:365
+       [5] macro expansion
+         @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:15 [inlined]
+       [6] macro expansion
+         @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:865 [inlined]
+       [7] macro expansion
+         @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:15 [inlined]
+       [8] macro expansion
+         @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+       [9] top-level scope
+         @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:4
+  Stacktrace:
+   [1] do_test_throws(result::Test.ExecutionResult, orig_expr::Any, extype::Any)
+     @ Test ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:910
+   [2] macro expansion
+     @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:15 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] top-level scope
+     @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:4
+
+Native kernels validate dimensions before mutating scratch: Test Failed at /home/jspitz/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:16
+  Expression: prices == T[9, 9, 9]
+   Evaluated: [-1.0, -1.0, 1.0] == [9.0, 9.0, 9.0]
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:16 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] top-level scope
+     @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:4
+Test Summary:                                              | Fail  Total  Time
+Native kernels validate dimensions before mutating scratch |   12     12  3.5s
+RNG of the outermost testset: Random.Xoshiro(0xb2b7d3fff874982b, 0x7d5c0f437036d7ed, 0x17edd017cf05a42c, 0x96c4fe31f2ef142d, 0xc1d4059ef8bee209)
+Command exited with non-zero status 1
+	Command being timed: "python3 /home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py --seconds 180 bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --heap-size-hint=2G --project=/home/jspitz/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl -O1 -e include("test/native_kernel_dimension_tests.jl")"
+	User time (seconds): 4.72
+	System time (seconds): 0.34
+	Percent of CPU this job got: 83%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:06.05
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 626164
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 6
+	Minor (reclaiming a frame) page faults: 92727
+	Voluntary context switches: 63
+	Involuntary context switches: 39
+	Swaps: 0
+	File system inputs: 163920
+	File system outputs: 40
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 1

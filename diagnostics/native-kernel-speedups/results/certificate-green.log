@@ -1,0 +1,66 @@
+ERROR: SystemError: opening file "/home/jspitz/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/primal_row_memory_tests.jl": No such file or directory
+Stacktrace:
+ [1] include(mapexpr::Function, mod::Module, _path::String)
+   @ Base ./Base.jl:310
+ [2] top-level scope
+   @ none:1
+ [3] eval(m::Module, e::Any)
+   @ Core ./boot.jl:489
+ [4] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:310
+ [5] _start()
+   @ Base ./client.jl:577
+Test Summary:                                                   | Pass  Total  Time
+Shared primal enclosures preserve both independent certificates |   28     28  4.5s
+Test Summary:                                                   | Pass  Total  Time
+Primal point certificate avoids duplicate enclosure allocations |    3      3  0.0s
+Test Summary:                                        | Pass  Total  Time
+Native point recovery certifies owned working bounds |   64     64  5.1s
+Test Summary:                                          | Pass  Total  Time
+Working-only points cannot certify the original result |    9      9  0.4s
+Test Summary:                                         | Pass  Total  Time
+Owned row shifts retain exact row cancellation checks |   24     24  0.2s
+Test Summary:                                                   | Pass  Total  Time
+Joint recovery satisfies column, actual row and equation bounds |   96     96  5.0s
+Test Summary:                                                       | Pass  Total  Time
+Joint recovery preserves state when feasibility or its budget fails |   80     80  0.4s
+Test Summary:                                        | Pass  Total  Time
+Joint recovery uses only owned active working bounds |   18     18  0.6s
+Test Summary:                                             | Pass  Total  Time
+Joint recovery cancels within a partially projected sweep |   16     16  0.6s
+Test Summary:                                              | Pass  Total  Time
+Finite-input overflow rolls back a partially changed point |    8      8  0.3s
+Test Summary:                                         | Pass  Total  Time
+Joint recovery preserves a thin feasible intersection |   12     12  0.3s
+Test Summary:                                                | Pass  Total  Time
+Representable joint recovery with an active coordinate bound |   68     68  0.5s
+Test Summary:                                                            | Pass  Total  Time
+Joint recovery retains a nearby prediction when reconstruction is remote |   20     20  0.3s
+Test Summary:                                                       | Pass  Total  Time
+Prediction-anchored recovery rolls back failed and cancelled trials |   50     50  0.3s
+Test Summary:                                                   | Pass  Total  Time
+A locally repairable reconstruction remains the recovery anchor |   10     10  0.2s
+Command exited with non-zero status 1
+	Command being timed: "python3 /home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py --seconds 300 bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --heap-size-hint=2G --project=/home/jspitz/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl -O1 -e include("test/primal_certificate_reuse_tests.jl"); include("test/legacy_primal_perturbed_point_tests.jl"); include("test/legacy_primal_joint_point_tests.jl"); include("test/primal_row_memory_tests.jl")"
+	User time (seconds): 23.28
+	System time (seconds): 0.87
+	Percent of CPU this job got: 96%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:25.06
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 814728
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 125
+	Minor (reclaiming a frame) page faults: 219672
+	Voluntary context switches: 1117
+	Involuntary context switches: 138
+	Swaps: 0
+	File system inputs: 1390776
+	File system outputs: 22712
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 1

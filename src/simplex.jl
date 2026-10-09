@@ -351,16 +351,21 @@ function _nonbasic_value(workspace::SimplexWorkspace{T}, index::Int) where {T}
 end
 
 function _recompute_reduced_costs!(prices, workspace::SimplexWorkspace{T}, dual) where T
+    Base.require_one_based_indexing(prices, dual)
     A = workspace.problem.A
     row_count, column_count = size(A)
-    for column in 1:column_count
+    length(prices) == length(workspace.costs) == row_count + column_count &&
+        length(dual) == row_count ||
+        throw(DimensionMismatch("reduced-cost vectors must match the working model"))
+    # Keep the original subtraction order; only remove repeated array checks.
+    @inbounds for column in 1:column_count
         reduced_cost = workspace.costs[column]
         for position in A.colptr[column]:(A.colptr[column + 1] - 1)
             reduced_cost -= A.nzval[position] * dual[A.rowval[position]]
         end
         prices[column] = reduced_cost
     end
-    for row in 1:row_count
+    @inbounds for row in 1:row_count
         index = column_count + row
         prices[index] = workspace.costs[index] + dual[row]
     end

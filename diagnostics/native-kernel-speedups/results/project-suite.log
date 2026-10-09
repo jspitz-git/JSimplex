@@ -1,0 +1,108 @@
+wall-time guard; terminating owned process group
+
+[319469] signal 15: Terminated
+in expression starting at /home/jspitz/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/dual_pivot_consistency_tests.jl:43
+_ZNK4llvm11Instruction16getNumSuccessorsEv at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+$x at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+_ZN4llvm10SSAUpdater28GetValueAtEndOfBlockInternalEPNS_10BasicBlockE at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+_ZN4llvm20LoadAndStorePromoter3runERKNS_15SmallVectorImplIPNS_11InstructionEEE at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+$x at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+$x at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+_ZN4llvm8SROAPass3runERNS_8FunctionERNS_15AnalysisManagerIS1_JEEE at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+run at /cache/build/builder-armageddon-4/julialang/julia-ci/usr/include/llvm/IR/PassManagerInternal.h:91
+_ZN4llvm11PassManagerINS_8FunctionENS_15AnalysisManagerIS1_JEEEJEE3runERS1_RS3_ at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+run at /cache/build/builder-armageddon-4/julialang/julia-ci/usr/include/llvm/IR/PassManagerInternal.h:91
+_ZN4llvm27ModuleToFunctionPassAdaptor3runERNS_6ModuleERNS_15AnalysisManagerIS1_JEEE at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+run at /cache/build/builder-armageddon-4/julialang/julia-ci/usr/include/llvm/IR/PassManagerInternal.h:91
+_ZN4llvm11PassManagerINS_6ModuleENS_15AnalysisManagerIS1_JEEEJEE3runERS1_RS3_ at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/../lib/julia/libLLVM.so.20.1jl (unknown line)
+run at /cache/build/builder-armageddon-4/julialang/julia-ci/src/pipeline.cpp:792
+operator() at /cache/build/builder-armageddon-4/julialang/julia-ci/src/jitlayers.cpp:1512
+withModuleDo<(anonymous namespace)::sizedOptimizerT<N>::operator()(llvm::orc::ThreadSafeModule) [with long unsigned int N = 4]::<lambda(llvm::Module&)> > at /cache/build/builder-armageddon-4/julialang/julia-ci/usr/include/llvm/ExecutionEngine/Orc/ThreadSafeModule.h:136 [inlined]
+operator() at /cache/build/builder-armageddon-4/julialang/julia-ci/src/jitlayers.cpp:1473 [inlined]
+operator() at /cache/build/builder-armageddon-4/julialang/julia-ci/src/jitlayers.cpp:1648 [inlined]
+addModule at /cache/build/builder-armageddon-4/julialang/julia-ci/src/jitlayers.cpp:2117
+jl_compile_codeinst_now at /cache/build/builder-armageddon-4/julialang/julia-ci/src/jitlayers.cpp:681
+jl_compile_codeinst_impl at /cache/build/builder-armageddon-4/julialang/julia-ci/src/jitlayers.cpp:875
+jl_compile_method_internal at /cache/build/builder-armageddon-4/julialang/julia-ci/src/gf.c:3709
+_jl_invoke at /cache/build/builder-armageddon-4/julialang/julia-ci/src/gf.c:4171 [inlined]
+ijl_apply_generic at /cache/build/builder-armageddon-4/julialang/julia-ci/src/gf.c:4380
+dual_iteration! at /home/jspitz/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/src/dual_simplex.jl:681
+unknown function (ip: 0xf70158ddd077) at (unknown file)
+jl_apply at /cache/build/builder-armageddon-4/julialang/julia-ci/src/julia.h:2318 [inlined]
+do_call at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:123
+eval_value at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:243
+eval_stmt_value at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:194 [inlined]
+eval_body at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:693
+eval_body at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:558
+eval_body at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:558
+eval_body at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:558
+eval_body at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:558
+eval_body at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:558
+jl_interpret_toplevel_thunk at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:884
+jl_toplevel_eval_flex at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:742
+jl_eval_toplevel_stmts at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:585
+jl_toplevel_eval_flex at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:683
+ijl_toplevel_eval at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:754
+ijl_toplevel_eval_in at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:799
+eval at ./boot.jl:489
+include_string at ./loading.jl:3016
+_include at ./loading.jl:3076
+include at ./Base.jl:310
+IncludeInto at ./Base.jl:311
+jfptr_IncludeInto_60777 at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/sys.so (unknown line)
+jl_apply at /cache/build/builder-armageddon-4/julialang/julia-ci/src/julia.h:2318 [inlined]
+do_call at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:123
+eval_value at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:243
+eval_stmt_value at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:194 [inlined]
+eval_body at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:693
+eval_body at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:558
+eval_body at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:558
+eval_body at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:558
+eval_body at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:558
+jl_interpret_toplevel_thunk at /cache/build/builder-armageddon-4/julialang/julia-ci/src/interpreter.c:884
+jl_toplevel_eval_flex at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:742
+jl_eval_toplevel_stmts at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:585
+jl_toplevel_eval_flex at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:683
+ijl_toplevel_eval at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:754
+ijl_toplevel_eval_in at /cache/build/builder-armageddon-4/julialang/julia-ci/src/toplevel.c:799
+eval at ./boot.jl:489
+include_string at ./loading.jl:3016
+_include at ./loading.jl:3076
+include at ./Base.jl:309
+exec_options at ./client.jl:344
+_start at ./client.jl:577
+jfptr__start_61086 at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/sys.so (unknown line)
+jl_apply at /cache/build/builder-armageddon-4/julialang/julia-ci/src/julia.h:2318 [inlined]
+true_main at /cache/build/builder-armageddon-4/julialang/julia-ci/src/jlapi.c:985
+jl_repl_entrypoint at /cache/build/builder-armageddon-4/julialang/julia-ci/src/jlapi.c:1152
+main at /cache/build/builder-armageddon-4/julialang/julia-ci/cli/loader_exe.c:58
+unknown function (ip: 0xf701da8d2f1b) at /usr/lib/aarch64-linux-gnu/libc.so.6
+__libc_start_main at /usr/lib/aarch64-linux-gnu/libc.so.6 (unknown line)
+$x at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/julia (unknown line)
+unknown function (ip: 0x24000000400a1b) at (unknown file)
+unknown function (ip: (nil)) at (unknown file)
+Allocations: 1960803595 (Pool: 1960781175; Big: 22420); GC: 361
+Command exited with non-zero status 75
+	Command being timed: "python3 /home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py --seconds 600 bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --heap-size-hint=2G --project=/home/jspitz/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl -O1 test/runtests.jl"
+	User time (seconds): 592.08
+	System time (seconds): 9.47
+	Percent of CPU this job got: 98%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 10:10.52
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 2739832
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 12
+	Minor (reclaiming a frame) page faults: 551825
+	Voluntary context switches: 1107
+	Involuntary context switches: 2970
+	Swaps: 0
+	File system inputs: 142864
+	File system outputs: 16
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 75

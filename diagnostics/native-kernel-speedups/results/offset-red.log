@@ -1,0 +1,117 @@
+ERROR: LoadError: Some tests did not pass: 0 passed, 4 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:35
+Test Summary:                                              | Pass  Total  Time
+Native kernels validate dimensions before mutating scratch |   12     12  2.7s
+
+Reduced-cost kernel rejects offset vectors before writes: Test Failed at /home/jspitz/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:40
+  Expression: JSimplex._recompute_reduced_costs!(KernelOffsetVector(storage), ws, ones(2))
+    Expected: ArgumentError
+      Thrown: BoundsError
+      BoundsError: attempt to access 4-element KernelOffsetVector{Float64} with indices 0:3 at index [4]
+      Stacktrace:
+       [1] setindex!
+         @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:31 [inlined]
+       [2] _recompute_reduced_costs!(prices::KernelOffsetVector{Float64}, workspace::JSimplex.SimplexWorkspace{Float64, JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}, :pfi, :native, Nothing}, dual::Vector{Float64})
+         @ JSimplex ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/src/simplex.jl:369
+       [3] top-level scope
+         @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:36
+       [4] macro expansion
+         @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+       [5] macro expansion
+         @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:40 [inlined]
+       [6] macro expansion
+         @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:865 [inlined]
+       [7] macro expansion
+         @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:40 [inlined]
+  Stacktrace:
+   [1] do_test_throws(result::Test.ExecutionResult, orig_expr::Any, extype::Any)
+     @ Test ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:910
+   [2] top-level scope
+     @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:36
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:40 [inlined]
+
+Reduced-cost kernel rejects offset vectors before writes: Test Failed at /home/jspitz/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:41
+  Expression: storage == fill(9.0, 4)
+   Evaluated: [9.0, -1.0, -1.0, 1.0] == [9.0, 9.0, 9.0, 9.0]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:41 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Reduced-cost kernel rejects offset vectors before writes: Test Failed at /home/jspitz/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:43
+  Expression: JSimplex._recompute_reduced_costs!(prices, ws, KernelOffsetVector(ones(2)))
+    Expected: ArgumentError
+      Thrown: BoundsError
+      BoundsError: attempt to access 2-element KernelOffsetVector{Float64} with indices 0:1 at index [2]
+      Stacktrace:
+       [1] getindex
+         @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:27 [inlined]
+       [2] _recompute_reduced_costs!(prices::Vector{Float64}, workspace::JSimplex.SimplexWorkspace{Float64, JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}, :pfi, :native, Nothing}, dual::KernelOffsetVector{Float64})
+         @ JSimplex ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/src/simplex.jl:363
+       [3] top-level scope
+         @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:36
+       [4] macro expansion
+         @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+       [5] macro expansion
+         @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:43 [inlined]
+       [6] macro expansion
+         @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:865 [inlined]
+       [7] macro expansion
+         @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:43 [inlined]
+  Stacktrace:
+   [1] do_test_throws(result::Test.ExecutionResult, orig_expr::Any, extype::Any)
+     @ Test ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:910
+   [2] top-level scope
+     @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:36
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:43 [inlined]
+
+Reduced-cost kernel rejects offset vectors before writes: Test Failed at /home/jspitz/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:44
+  Expression: prices == fill(9.0, 4)
+   Evaluated: [-1.0, 9.0, 9.0, 9.0] == [9.0, 9.0, 9.0, 9.0]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:36
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/native_kernel_dimension_tests.jl:44 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+Test Summary:                                            | Fail  Total  Time
+Reduced-cost kernel rejects offset vectors before writes |    4      4  0.8s
+RNG of the outermost testset: Random.Xoshiro(0xdbeca92825379aab, 0xa9a4ada385900718, 0x7544b4ec69040da3, 0x114553616f32b787, 0x9c17825acd5ef8d3)
+Command exited with non-zero status 1
+	Command being timed: "python3 /home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py --seconds 180 bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --heap-size-hint=2G --project=/home/jspitz/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl -O1 -e include("test/native_kernel_dimension_tests.jl")"
+	User time (seconds): 4.83
+	System time (seconds): 0.25
+	Percent of CPU this job got: 84%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:06.05
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 607260
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 92018
+	Voluntary context switches: 56
+	Involuntary context switches: 23
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 16
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 1

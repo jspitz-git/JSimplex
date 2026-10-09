@@ -1,0 +1,44 @@
+ERROR: LoadError: Some tests did not pass: 2 passed, 1 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/primal_certificate_reuse_tests.jl:59
+Test Summary:                                                   | Pass  Total  Time
+Shared primal enclosures preserve both independent certificates |   28     28  4.2s
+
+Primal point certificate avoids duplicate enclosure allocations: Test Failed at /home/jspitz/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/primal_certificate_reuse_tests.jl:67
+  Expression: reused_bytes + sizeof(Float64) * (2m + n) <= separate_bytes + 512
+   Evaluated: 22232 <= 16600
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/primal_certificate_reuse_tests.jl:67 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] top-level scope
+     @ ~/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl/test/primal_certificate_reuse_tests.jl:60
+Test Summary:                                                   | Pass  Fail  Total  Time
+Primal point certificate avoids duplicate enclosure allocations |    2     1      3  0.5s
+RNG of the outermost testset: Random.Xoshiro(0x69ae3ad08f3e39d1, 0xa1ab1db1d8684ef8, 0x2cf7c2cb169c1491, 0xec88b306848cd142, 0xa743470b295d465c)
+Command exited with non-zero status 1
+	Command being timed: "python3 /home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py --seconds 300 bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --heap-size-hint=2G --project=/home/jspitz/.codex/worktrees/bg-empty-ci-workload/JSimplex.jl -O1 -e include("test/primal_certificate_reuse_tests.jl")"
+	User time (seconds): 6.37
+	System time (seconds): 0.60
+	Percent of CPU this job got: 86%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:08.07
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 755128
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 109
+	Minor (reclaiming a frame) page faults: 138640
+	Voluntary context switches: 885
+	Involuntary context switches: 31
+	Swaps: 0
+	File system inputs: 1311984
+	File system outputs: 8
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 1
