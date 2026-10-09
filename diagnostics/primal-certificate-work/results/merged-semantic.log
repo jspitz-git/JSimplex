@@ -1,0 +1,31 @@
+TEST legacy_primal_point_tests.jl
+TEST legacy_primal_point_recovery_tests.jl
+TEST legacy_primal_perturbed_point_tests.jl
+TEST legacy_primal_balanced_point_tests.jl
+TEST legacy_primal_joint_point_tests.jl
+TEST legacy_primal_equation_point_tests.jl
+Test Summary:                         | Pass  Total  Time
+Point certificate regression coverage | 1304   1304  3.0s
+	Command being timed: "python3 /home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py --seconds 120 bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --heap-size-hint=2G --project=/home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl --project=/home/jspitz/JSimplex.jl --compile=min diagnostics/primal-certificate-work/reproduce/targeted.jl semantic"
+	User time (seconds): 3.51
+	System time (seconds): 0.14
+	Percent of CPU this job got: 90%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:04.03
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 418600
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 70024
+	Voluntary context switches: 54
+	Involuntary context switches: 19
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 8
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
