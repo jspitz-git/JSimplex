@@ -156,6 +156,20 @@ function _invalidate_sparse_pricing_scratch!(scratch)
     return nothing
 end
 
+# Indexed storage canonicalizes zeros. Preserve CSC slack signs when copying
+# back to hardware-float dense storage, without adding another full-vector pass.
+_copy_sparse_prices!(out,values,rho,n) = copyto!(out,values)
+
+function _copy_sparse_prices!(out::AbstractVector{T},values,rho::AbstractVector{T},n) where {T<:Union{Float16,Float32,Float64}}
+    Base.require_one_based_indexing(out,values,rho)
+    source = Base.mightalias(out,rho) && !(n == 0 && out === rho) ? copy(rho) : rho
+    copyto!(out,1,values,1,n)
+    @inbounds for i in eachindex(source)
+        out[n+i] = -source[i]
+    end
+    return out
+end
+
 function _sparse_workspace_price!(tableau_row,ws,rho)
     length(tableau_row) == sum(size(ws.problem.A)) ||
         throw(DimensionMismatch("Sparse pricing output dimension"))
@@ -164,6 +178,6 @@ function _sparse_workspace_price!(tableau_row,ws,rho)
     cache = _sparse_pricing_workspace!(ws)
     load_indexed!(cache.rhs,rho)
     sparse_price!(cache.out,ws.problem.A,cache.rhs,cache.rows;ordered_rows=cache.ordered_rows)
-    copyto!(tableau_row,cache.out.values)
+    _copy_sparse_prices!(tableau_row,cache.out.values,rho,size(ws.problem.A,2))
     return nothing
 end
