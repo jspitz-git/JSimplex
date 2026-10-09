@@ -1,0 +1,94 @@
+[[cases]]
+certificate_bytes_per_call = 1.878428e7
+certificate_seconds_per_call = 0.02138021
+verdict = true
+origin = "primal"
+
+    [cases.continuation]
+    seconds = 72.574074379
+    iterations = 335078
+    compile_seconds = 18.834936306
+    status = "ITERATION_LIMIT"
+
+    [[cases.timing]]
+    inclusive_seconds = 0.2137765
+    kernel = "point_certificate"
+    calls = 10
+    exclusive_seconds = 0.013365
+    [[cases.timing]]
+    inclusive_seconds = 0.080405
+    kernel = "row_bounds"
+    calls = 10
+    exclusive_seconds = 0.080405
+    [[cases.timing]]
+    inclusive_seconds = 0.0748817
+    kernel = "model_feasible"
+    calls = 10
+    exclusive_seconds = 9.4e-6
+    [[cases.timing]]
+    inclusive_seconds = 0.0451248
+    kernel = "row_consistent"
+    calls = 10
+    exclusive_seconds = 0.0305562
+    [[cases.timing]]
+    inclusive_seconds = 0.0304909
+    kernel = "native_filter"
+    calls = 20
+    exclusive_seconds = 0.0304909
+    [[cases.timing]]
+    inclusive_seconds = 0.0
+    kernel = "exact_rows"
+    calls = 0
+    exclusive_seconds = 0.0
+    [[cases.timing]]
+    inclusive_seconds = 0.0748723
+    kernel = "feasible_with_bounds"
+    calls = 10
+    exclusive_seconds = 0.05895
+[[cases]]
+certificate_bytes_per_call = 1.878428e7
+certificate_seconds_per_call = 0.0218849702
+verdict = true
+origin = "dual"
+
+    [cases.continuation]
+    seconds = 65.835847836
+    iterations = 212312
+    compile_seconds = 0.0
+    status = "ITERATION_LIMIT"
+
+    [[cases.timing]]
+    inclusive_seconds = 0.218830002
+    kernel = "point_certificate"
+    calls = 10
+    exclusive_seconds = 0.0138073
+    [[cases.timing]]
+    inclusive_seconds = 0.0807469
+    kernel = "row_bounds"
+    calls = 10
+    exclusive_seconds = 0.0807469
+    [[cases.timing]]
+    inclusive_seconds = 0.076358502
+    kernel = "model_feasible"
+    calls = 10
+    exclusive_seconds = 9.1e-6
+    [[cases.timing]]
+    inclusive_seconds = 0.0479173
+    kernel = "row_consistent"
+    calls = 10
+    exclusive_seconds = 0.0324769
+    [[cases.timing]]
+    inclusive_seconds = 0.0319581
+    kernel = "native_filter"
+    calls = 20
+    exclusive_seconds = 0.0319581
+    [[cases.timing]]
+    inclusive_seconds = 0.0
+    kernel = "exact_rows"
+    calls = 0
+    exclusive_seconds = 0.0
+    [[cases.timing]]
+    inclusive_seconds = 0.076349402
+    kernel = "feasible_with_bounds"
+    calls = 10
+    exclusive_seconds = 0.059831702

@@ -1,0 +1,25 @@
+primal Dict{String, Any}("certificate_bytes_per_call" => 1.878428e7, "continuation" => Dict{String, Any}("seconds" => 72.574074379, "iterations" => 335078, "compile_seconds" => 18.834936306, "status" => "ITERATION_LIMIT"), "timing" => Dict{String, Any}[Dict("inclusive_seconds" => 0.2137765, "kernel" => "point_certificate", "calls" => 10, "exclusive_seconds" => 0.013365), Dict("inclusive_seconds" => 0.080405, "kernel" => "row_bounds", "calls" => 10, "exclusive_seconds" => 0.080405), Dict("inclusive_seconds" => 0.0748817, "kernel" => "model_feasible", "calls" => 10, "exclusive_seconds" => 9.4e-6), Dict("inclusive_seconds" => 0.0451248, "kernel" => "row_consistent", "calls" => 10, "exclusive_seconds" => 0.0305562), Dict("inclusive_seconds" => 0.0304909, "kernel" => "native_filter", "calls" => 20, "exclusive_seconds" => 0.0304909), Dict("inclusive_seconds" => 0.0, "kernel" => "exact_rows", "calls" => 0, "exclusive_seconds" => 0.0), Dict("inclusive_seconds" => 0.0748723, "kernel" => "feasible_with_bounds", "calls" => 10, "exclusive_seconds" => 0.05895)], "certificate_seconds_per_call" => 0.02138021, "verdict" => true, "origin" => "primal")
+dual Dict{String, Any}("certificate_bytes_per_call" => 1.878428e7, "continuation" => Dict{String, Any}("seconds" => 65.835847836, "iterations" => 212312, "compile_seconds" => 0.0, "status" => "ITERATION_LIMIT"), "timing" => Dict{String, Any}[Dict("inclusive_seconds" => 0.218830002, "kernel" => "point_certificate", "calls" => 10, "exclusive_seconds" => 0.0138073), Dict("inclusive_seconds" => 0.0807469, "kernel" => "row_bounds", "calls" => 10, "exclusive_seconds" => 0.0807469), Dict("inclusive_seconds" => 0.076358502, "kernel" => "model_feasible", "calls" => 10, "exclusive_seconds" => 9.1e-6), Dict("inclusive_seconds" => 0.0479173, "kernel" => "row_consistent", "calls" => 10, "exclusive_seconds" => 0.0324769), Dict("inclusive_seconds" => 0.0319581, "kernel" => "native_filter", "calls" => 20, "exclusive_seconds" => 0.0319581), Dict("inclusive_seconds" => 0.0, "kernel" => "exact_rows", "calls" => 0, "exclusive_seconds" => 0.0), Dict("inclusive_seconds" => 0.076349402, "kernel" => "feasible_with_bounds", "calls" => 10, "exclusive_seconds" => 0.059831702)], "certificate_seconds_per_call" => 0.0218849702, "verdict" => true, "origin" => "dual")
+	Command being timed: "python3 /home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py --seconds 600 bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --heap-size-hint=2G --project=/home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl -O2 diagnostics/residual-followup-probes/reproduce/certificate-census.jl .superpowers/residual-followup-probes/certificate1/results.toml"
+	User time (seconds): 149.94
+	System time (seconds): 1.51
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 2:32.09
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 2430392
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 396553
+	Voluntary context switches: 203
+	Involuntary context switches: 6635
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 32
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

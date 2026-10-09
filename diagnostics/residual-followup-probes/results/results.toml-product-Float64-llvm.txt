@@ -1,0 +1,48 @@
+; Function Signature: _native_row_product_pair(Float64, Float64)
+define { ptr, i8 } @julia__native_row_product_pair_1709(ptr noalias nocapture noundef nonnull align 8 dereferenceable(16) %union_bytes_return, double %"left::Float64", double %"right::Float64") local_unnamed_addr #0 {
+top:
+  %0 = fcmp une double %"left::Float64", 0.000000e+00
+  %1 = fcmp une double %"right::Float64", 0.000000e+00
+  %or.cond = select i1 %0, i1 %1, i1 false
+  br i1 %or.cond, label %L7, label %common.ret
+
+L7:                                               ; preds = %top
+  %2 = call double @llvm.fabs.f64(double %"left::Float64")
+  %3 = fcmp une double %2, 1.000000e+00
+  br i1 %3, label %L13, label %L10
+
+L10:                                              ; preds = %L7
+  %4 = fmul double %"left::Float64", %"right::Float64"
+  br label %common.ret.sink.split
+
+L13:                                              ; preds = %L7
+  %5 = call double @llvm.fabs.f64(double %"right::Float64")
+  %6 = fcmp une double %5, 1.000000e+00
+  %7 = fmul double %"left::Float64", %"right::Float64"
+  br i1 %6, label %L19, label %common.ret.sink.split
+
+L19:                                              ; preds = %L13
+  %8 = fsub double %7, %7
+  %9 = fcmp uno double %8, 0.000000e+00
+  %10 = call double @llvm.fabs.f64(double %7)
+  %11 = fcmp ult double %10, 0x370000000000000
+  %narrow.not = or i1 %9, %11
+  br i1 %narrow.not, label %common.ret, label %L39
+
+L39:                                              ; preds = %L19
+  %12 = fneg double %7
+  %13 = call double @llvm.fma.f64(double %"left::Float64", double %"right::Float64", double %12)
+  br label %common.ret.sink.split
+
+common.ret.sink.split:                            ; preds = %L39, %L13, %L10
+  %.sink15 = phi double [ %7, %L39 ], [ %4, %L10 ], [ %7, %L13 ]
+  %.sink = phi double [ %13, %L39 ], [ 0.000000e+00, %L10 ], [ 0.000000e+00, %L13 ]
+  store double %.sink15, ptr %union_bytes_return, align 8
+  %"new::Tuple8.sroa.2.0.union_bytes_return.sroa_idx" = getelementptr inbounds nuw i8, ptr %union_bytes_return, i64 8
+  store double %.sink, ptr %"new::Tuple8.sroa.2.0.union_bytes_return.sroa_idx", align 8
+  br label %common.ret
+
+common.ret:                                       ; preds = %common.ret.sink.split, %L19, %top
+  %common.ret.op = phi { ptr, i8 } [ { ptr null, i8 1 }, %L19 ], [ { ptr @"jl_global#1712.jit", i8 -126 }, %top ], [ { ptr null, i8 2 }, %common.ret.sink.split ]
+  ret { ptr, i8 } %common.ret.op
+}
