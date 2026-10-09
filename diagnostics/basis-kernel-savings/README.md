@@ -238,3 +238,9 @@ regressions, measurement dispatch, HH index-only memory savings and the BG
 profile intervention. This is a native-Float64 kernel improvement with broader
 semantic checks, not a claim of universal speedup across all managers,
 precisions, refactorization backends or problems.
+
+After fast-forward integration at `d7aa374`, the 4,910 normally compiled checks
+were rerun against `/home/jspitz/JSimplex.jl` and passed, with unchanged pinned
+sources and process exit zero. See `results/master-compiled.log` and the
+matching process/source-hash record. The subsequent evidence-only commit does
+not change production sources or tests.
