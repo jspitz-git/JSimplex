@@ -1,0 +1,24 @@
+{
+  "command": [
+    "/usr/bin/time",
+    "-v",
+    "python3",
+    "/home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py",
+    "--seconds",
+    "1800",
+    "bash",
+    "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+    "--heap-size-hint=2G",
+    "--project=/home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl",
+    "-O2",
+    "diagnostics/dual-allocation-cost/reproduce/allocations.jl",
+    "/home/jspitz/mps/runtime.mps",
+    "/home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/.superpowers/dual-allocation-cost/runtime-allocations/runtime"
+  ],
+  "started": 1791569822.4124987,
+  "effective_project": "/home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl",
+  "pid": 62267,
+  "returncode": 1,
+  "ended": 1791570042.5346694,
+  "sources_unchanged": true
+}

@@ -1,0 +1,70 @@
+{
+  "baseline": "9c67ab2e3f28af338ed5d8a061d6c661a759b6db",
+  "attempts": [
+    {
+      "attempt": "runtime-allocations",
+      "returncode": 1,
+      "sources_unchanged": true,
+      "peak_rss_kib": 1974824,
+      "source_digest": "7dfa70e427d4fb9336afacdea8e13e2f1fdde674055253cd25a3bd01a856d8c5",
+      "raw_report_digests": {
+        "runtime-plain.toml": "81dbdfdf66673c4580187ac9a56b1ab99b07a19a735e37c3ac250d41a7995f7b"
+      }
+    },
+    {
+      "attempt": "runtime-allocations-v2",
+      "returncode": 0,
+      "sources_unchanged": true,
+      "peak_rss_kib": 1960504,
+      "source_digest": "7dfa70e427d4fb9336afacdea8e13e2f1fdde674055253cd25a3bd01a856d8c5",
+      "raw_report_digests": {
+        "runtime-allocations.toml": "b30f8a10297388b1549e5c0dc59d00af204240df262c206cfa2842d60f7b3702",
+        "runtime-plain.toml": "1c11da256f92857f79e42b229c7d4a9537b2a114b2cacec90796243e41e38f66"
+      }
+    },
+    {
+      "attempt": "census",
+      "returncode": 0,
+      "sources_unchanged": true,
+      "peak_rss_kib": 3196528,
+      "source_digest": "7dfa70e427d4fb9336afacdea8e13e2f1fdde674055253cd25a3bd01a856d8c5",
+      "raw_report_digests": {
+        "cost-runtime-repeat.toml": "101dcc98b8a1d1b3d2693912cc9b122a5488341d24e3a6d4c03da5882f4f16c1",
+        "cost-medium.toml": "6d781338914fc4377a22dcde30ba347cc1b506bd270891018dca16bb9cc3e786",
+        "cost-runtime.toml": "f65aca487eeba2767c5e042a0285f34279b29bb776d661b5f858c651c4ede531",
+        "cost-calibration.toml": "8c87d255d2d2383d7c3f8833fd70ada6c71a8ad4d8660ce66a90539bf76d0750"
+      }
+    },
+    {
+      "attempt": "selection-replay",
+      "returncode": 1,
+      "sources_unchanged": true,
+      "peak_rss_kib": 831980,
+      "source_digest": "7dfa70e427d4fb9336afacdea8e13e2f1fdde674055253cd25a3bd01a856d8c5",
+      "raw_report_digests": {}
+    },
+    {
+      "attempt": "selection-replay-v2",
+      "returncode": 0,
+      "sources_unchanged": true,
+      "peak_rss_kib": 750716,
+      "source_digest": "7dfa70e427d4fb9336afacdea8e13e2f1fdde674055253cd25a3bd01a856d8c5",
+      "raw_report_digests": {
+        "results.toml": "8dc1cd3f9d6b6ede29a8517983867a6a68b8b67951655942c50f07109b9f7ace"
+      }
+    },
+    {
+      "attempt": "selection-replay-v3",
+      "returncode": 0,
+      "sources_unchanged": true,
+      "peak_rss_kib": 758488,
+      "raw_report_digests": {
+        "results.toml": "651d42146efb45062196d1364ba51a0afc7fa6e9da72ac4dcd5f4100c7cece12"
+      }
+    }
+  ],
+  "identical_runtime_fingerprints": true,
+  "production_diff_empty": true,
+  "selector_cases": 12,
+  "selector_whole_batches_zero_bytes_allocations_compilation": true
+}
