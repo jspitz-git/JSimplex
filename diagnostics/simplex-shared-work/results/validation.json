@@ -1,0 +1,291 @@
+{
+  "baseline": "6b891d0",
+  "source_changes": {
+    "src/simplex.jl": {
+      "baseline": "b6725f4f723468c95ed4fffc25bab94c2939b02ddcbd65ac95383dc2614b8959",
+      "candidate": "a03ebff1e1523e607ba1691b284b49bea9e9ea1ba27e1315ca79b7436f39deb4"
+    },
+    "src/primal_simplex.jl": {
+      "baseline": "0b7b099a95499b475ed11a51ba479b0d7775d09bd95ff566b03abc09be541565",
+      "candidate": "ac7ef84487aadf5b57764ce8aaf9eeab44762f935f6f9d31f64ceb5c7306be8a"
+    },
+    "src/dual_simplex.jl": {
+      "baseline": "7551232aaa82f1e4788ba1093dcaacb8d4ab24b539e218680e74cbeb2c62be71",
+      "candidate": "7166d048c25dedd1166b4e4b9b79a67bf0303f92fe08a2c499611bab3857fde4"
+    }
+  },
+  "all_jobs_passed": true,
+  "predicate_tests": 295,
+  "semantic_tests": 15689,
+  "external_cases": 100,
+  "paired_cases": 13,
+  "paired_results_identical": true,
+  "environment": {
+    "julia": "1.13.0",
+    "architecture": "aarch64",
+    "julia_threads": 1,
+    "blas_threads": 1
+  },
+  "processes": [
+    {
+      "job": "predicate-final",
+      "exit_code": 0,
+      "sources_unchanged": true,
+      "wall_seconds": 11.041009902954102,
+      "max_rss_kib": 673536,
+      "log_sha256": "5b7a1bf24ad5007dc534680df87f82ba89743a15bd287aec2510a404302ead1c",
+      "preflight_sha256": "679bb5d0748ea6f45705d74dfeb2376b4314c234a4d818e7c9c33b2aab7fec4e",
+      "command": [
+        "/usr/bin/time",
+        "-v",
+        "python3",
+        "/home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py",
+        "--seconds",
+        "240",
+        "bash",
+        "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+        "--heap-size-hint=2G",
+        "--project=/home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl",
+        "-O1",
+        "test/primal_feasibility_predicate_tests.jl"
+      ]
+    },
+    {
+      "job": "production-kernel",
+      "exit_code": 0,
+      "sources_unchanged": true,
+      "wall_seconds": 24.044090509414673,
+      "max_rss_kib": 588000,
+      "log_sha256": "140e6620421a4f66de777aa79b824c2693dfe42b18cd0f11ddc824ffa9923b0b",
+      "preflight_sha256": "679bb5d0748ea6f45705d74dfeb2376b4314c234a4d818e7c9c33b2aab7fec4e",
+      "command": [
+        "/usr/bin/time",
+        "-v",
+        "python3",
+        "/home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py",
+        "--seconds",
+        "300",
+        "bash",
+        "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+        "--heap-size-hint=2G",
+        "--project=/home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl",
+        "-O1",
+        "diagnostics/simplex-shared-work/reproduce/feasibility-probe.jl",
+        "/home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/.superpowers/simplex-shared-work/production-kernel.toml",
+        "production"
+      ]
+    },
+    {
+      "job": "semantic",
+      "exit_code": 0,
+      "sources_unchanged": true,
+      "wall_seconds": 100.06931471824646,
+      "max_rss_kib": 1541296,
+      "log_sha256": "304a4741e51d2115b725623a89a4e71d18370cbf4e0f50a8d5369104d038f74c",
+      "preflight_sha256": "2a0ba282eeb865c3f781087b35aeb4d4e71597f463d593d03ac3c429993b711a",
+      "command": [
+        "/usr/bin/time",
+        "-v",
+        "python3",
+        "/home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py",
+        "--seconds",
+        "600",
+        "bash",
+        "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+        "--heap-size-hint=2G",
+        "--project=/home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl",
+        "--compile=min",
+        "diagnostics/primal-row-memory/reproduce/semantic.jl"
+      ]
+    },
+    {
+      "job": "external",
+      "exit_code": 0,
+      "sources_unchanged": true,
+      "wall_seconds": 638.273788690567,
+      "max_rss_kib": 2464312,
+      "log_sha256": "9df09b943d877722a36d80e03316058d44b06859678161b055498659d6176798",
+      "preflight_sha256": "447b8fc0daa1ddac71c5cfb7025c81a9a54450b1920507ea4ca96695e14039d9",
+      "command": [
+        "/usr/bin/time",
+        "-v",
+        "python3",
+        "/home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py",
+        "--seconds",
+        "1800",
+        "bash",
+        "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+        "--heap-size-hint=2G",
+        "--project=/home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl",
+        "-O1",
+        "diagnostics/native-certificate-recovery/reproduce/external.jl",
+        "diagnostics/basis-selective-preparation/reproduce/external-inputs.toml",
+        "/home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/.superpowers/simplex-shared-work/external.toml"
+      ]
+    },
+    {
+      "job": "fast-baseline",
+      "exit_code": 0,
+      "sources_unchanged": true,
+      "wall_seconds": 387.19198346138,
+      "max_rss_kib": 2834648,
+      "log_sha256": "05e51e18e7d670d7008acbfe81f28e189d871874918daad065a71a4e48c0bfd7",
+      "preflight_sha256": "d959a3f18d6871d1ec1cf1bcd394e0f7a032af8b628ff1efdc71d8a73bb0d579",
+      "command": [
+        "/usr/bin/time",
+        "-v",
+        "python3",
+        "/home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py",
+        "--seconds",
+        "1500",
+        "bash",
+        "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+        "--heap-size-hint=2G",
+        "--project=/home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl",
+        "-O1",
+        "--project=/home/jspitz/JSimplex.jl",
+        "diagnostics/simplex-shared-work/reproduce/paired.jl",
+        "fast",
+        "/home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/.superpowers/simplex-shared-work/fast-baseline.toml"
+      ]
+    },
+    {
+      "job": "fast-candidate",
+      "exit_code": 0,
+      "sources_unchanged": true,
+      "wall_seconds": 387.1887493133545,
+      "max_rss_kib": 2848372,
+      "log_sha256": "9726994203d078beed46fab2ddbb831c52f269281576627d0fda019c88358bac",
+      "preflight_sha256": "679bb5d0748ea6f45705d74dfeb2376b4314c234a4d818e7c9c33b2aab7fec4e",
+      "command": [
+        "/usr/bin/time",
+        "-v",
+        "python3",
+        "/home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py",
+        "--seconds",
+        "1500",
+        "bash",
+        "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+        "--heap-size-hint=2G",
+        "--project=/home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl",
+        "-O1",
+        "diagnostics/simplex-shared-work/reproduce/paired.jl",
+        "fast",
+        "/home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/.superpowers/simplex-shared-work/fast-candidate.toml"
+      ]
+    },
+    {
+      "job": "medium-baseline",
+      "exit_code": 0,
+      "sources_unchanged": true,
+      "wall_seconds": 259.13801980018616,
+      "max_rss_kib": 3235692,
+      "log_sha256": "fd58bab4da044e60068aadab26754ef08e8bf1deaa4427b7c55fab119b944370",
+      "preflight_sha256": "d959a3f18d6871d1ec1cf1bcd394e0f7a032af8b628ff1efdc71d8a73bb0d579",
+      "command": [
+        "/usr/bin/time",
+        "-v",
+        "python3",
+        "/home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py",
+        "--seconds",
+        "1500",
+        "bash",
+        "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+        "--heap-size-hint=2G",
+        "--project=/home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl",
+        "-O1",
+        "--project=/home/jspitz/JSimplex.jl",
+        "diagnostics/simplex-shared-work/reproduce/paired.jl",
+        "medium",
+        "/home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/.superpowers/simplex-shared-work/medium-baseline.toml"
+      ]
+    },
+    {
+      "job": "medium-candidate",
+      "exit_code": 0,
+      "sources_unchanged": true,
+      "wall_seconds": 262.1494550704956,
+      "max_rss_kib": 3377828,
+      "log_sha256": "4fc4fe1f8276beb1da1b090523156a4a278e3f7d8c86e4bc149934977e8cf8e0",
+      "preflight_sha256": "679bb5d0748ea6f45705d74dfeb2376b4314c234a4d818e7c9c33b2aab7fec4e",
+      "command": [
+        "/usr/bin/time",
+        "-v",
+        "python3",
+        "/home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py",
+        "--seconds",
+        "1500",
+        "bash",
+        "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+        "--heap-size-hint=2G",
+        "--project=/home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl",
+        "-O1",
+        "diagnostics/simplex-shared-work/reproduce/paired.jl",
+        "medium",
+        "/home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/.superpowers/simplex-shared-work/medium-candidate.toml"
+      ]
+    },
+    {
+      "job": "runtime-baseline",
+      "exit_code": 0,
+      "sources_unchanged": true,
+      "wall_seconds": 303.17170906066895,
+      "max_rss_kib": 2841128,
+      "log_sha256": "a0a865516c12619e01ff1650ec8f3d6915a054e803198ddd8d2eb4738c0ac422",
+      "preflight_sha256": "d959a3f18d6871d1ec1cf1bcd394e0f7a032af8b628ff1efdc71d8a73bb0d579",
+      "command": [
+        "/usr/bin/time",
+        "-v",
+        "python3",
+        "/home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py",
+        "--seconds",
+        "1500",
+        "bash",
+        "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+        "--heap-size-hint=2G",
+        "--project=/home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl",
+        "-O1",
+        "--project=/home/jspitz/JSimplex.jl",
+        "diagnostics/simplex-shared-work/reproduce/paired.jl",
+        "runtime",
+        "/home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/.superpowers/simplex-shared-work/runtime-baseline.toml"
+      ]
+    },
+    {
+      "job": "runtime-candidate",
+      "exit_code": 0,
+      "sources_unchanged": true,
+      "wall_seconds": 295.1473469734192,
+      "max_rss_kib": 2798612,
+      "log_sha256": "292140cb8cbda1495a9c30e2f7c930665ee9a273a1835618e88f72c4ad873693",
+      "preflight_sha256": "679bb5d0748ea6f45705d74dfeb2376b4314c234a4d818e7c9c33b2aab7fec4e",
+      "command": [
+        "/usr/bin/time",
+        "-v",
+        "python3",
+        "/home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py",
+        "--seconds",
+        "1500",
+        "bash",
+        "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+        "--heap-size-hint=2G",
+        "--project=/home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl",
+        "-O1",
+        "diagnostics/simplex-shared-work/reproduce/paired.jl",
+        "runtime",
+        "/home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/.superpowers/simplex-shared-work/runtime-candidate.toml"
+      ]
+    }
+  ],
+  "report_sha256": {
+    "production-kernel.toml": "8741a027053b691773455daa5a5eef874de2a98efb24dc8763680ebd6e688790",
+    "external.toml": "0db9645527931c7fc6740f41045e770336d6d78489795c2453abeac5c72cacf7",
+    "fast-baseline.toml": "4f33e45ab5287ef3410fcc6e04e19fe2f5715a248638851236ff5ab71c992631",
+    "fast-candidate.toml": "b6ae402aca93cfefa31a3dedb9160de64bce8cc8417bdae62cb082de857abc27",
+    "medium-baseline.toml": "164aa55a4aeee7c9b1e70a1aa3a9d15fe37e929cfc7c0d648cce62e705d9edb4",
+    "medium-candidate.toml": "88b9d4ed4c72480c574b8320974a0656e557ba1065bc6ca461dbbff1ffaf4273",
+    "runtime-baseline.toml": "aa008908aa3ad163057b0307d511d45c5d12c348ba4426f2244ba2b8d8cc99cf",
+    "runtime-candidate.toml": "c2d90c6bd51817941175cc5272282ec424f6235c814a5574e8a1b941a9c942b7"
+  },
+  "full_project_suite_run": false
+}
