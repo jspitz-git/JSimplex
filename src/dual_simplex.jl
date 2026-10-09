@@ -1603,8 +1603,10 @@ function _primal_feasible_with_bounds(problem::LinearProblem{T}, primal::Vector{
         _primal_row_bounds(problem.A, primal, _is_exact(T)) : row_bounds
     # Certify the entire activity interval in the requested absolute units.
     # Cancellation uncertainty must not enlarge the configured tolerance.
-    _within_primal_intervals(row_lower, row_upper, row_bound_lower,
-                             row_bound_upper, tolerance) && return true
+    if isnothing(buffers) || !(T <: Union{Float32,Float64})
+        _within_primal_intervals(row_lower, row_upper, row_bound_lower,
+                                 row_bound_upper, tolerance) && return true
+    end
     # A long floating sum can have a wider enclosure than the absolute
     # tolerance, or overflow before cancellation, even when its exact
     # stored-coefficient activity is feasible. Exact fallback checks finite
@@ -1616,6 +1618,7 @@ function _primal_feasible_with_bounds(problem::LinearProblem{T}, primal::Vector{
                                        row_bound_lower[row], row_bound_upper[row],
                                        tolerance) || push!(rows, row)
     end
+    isempty(rows) && return true
     return _refined_primal_rows_feasible(problem, primal, tolerance, rows,
                                           row_bound_lower, row_bound_upper, buffers)
 end

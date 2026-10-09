@@ -100,6 +100,19 @@ function _restore_legacy_primal_point!(workspace::SimplexWorkspace{T},
     return true
 end
 
+# This view is only used inside a point certificate, after the complete primal
+# vector has passed its finite check. Bounds are read from the same fixed point.
+struct _PrimalActivityBounds{T} <: AbstractVector{Bound{T}}
+    primal::Vector{T}
+    offset::Int
+end
+Base.size(bounds::_PrimalActivityBounds) = (length(bounds.primal)-bounds.offset,)
+Base.IndexStyle(::Type{<:_PrimalActivityBounds}) = IndexLinear()
+@inline function Base.getindex(bounds::_PrimalActivityBounds, row::Int)
+    @boundscheck checkbounds(bounds, row)
+    return Bound(@inbounds bounds.primal[bounds.offset+row])
+end
+
 function _legacy_primal_row_consistent(workspace::SimplexWorkspace{T}, tolerance::T,
                                       primal=nothing, row_bounds=nothing, buffers=nothing) where {T}
     T === Float32 || T === Float64 || return false
@@ -116,7 +129,9 @@ function _legacy_primal_row_consistent(workspace::SimplexWorkspace{T}, tolerance
     isempty(rows) && return true
     # Reuse the original-model certificate's exact fallback only when the
     # native enclosure is inconclusive. Solver values remain in their type.
-    activities = Bound.(@view(workspace.primal[(columns + 1):end]))
+    activities = isnothing(buffers) ?
+        Bound.(@view(workspace.primal[(columns + 1):end])) :
+        _PrimalActivityBounds(workspace.primal, columns)
     return _refined_primal_rows_feasible(workspace.problem, primal, tolerance,
                                          rows, activities, activities, buffers)
 end
