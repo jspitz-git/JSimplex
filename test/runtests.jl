@@ -291,6 +291,7 @@ include("primal_point_storage_tests.jl")
     include("huangfu_hall_option_tests.jl")
     include("huangfu_hall_precision_tests.jl")
     include("huangfu_hall_identity_tests.jl")
+    include("hh_prefix_btran_tests.jl")
     include("huangfu_hall_markowitz_tests.jl")
     include("huangfu_hall_scalar_integration_tests.jl")
     if Int === Int64

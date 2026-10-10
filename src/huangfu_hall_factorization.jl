@@ -11,6 +11,16 @@ struct HHBase{T<:Real}
     divide_scaling::Bool
     upper_rowptr::Vector{Int}
     upper_columns::Vector{Int}
+    # Hardware unit-BTRAN eligibility belongs to this immutable base, not a RHS.
+    finite_upper::Bool
+end
+# Keep explicit-base construction useful for diagnostics. Production extraction
+# accumulates this predicate in its existing CSC traversal instead.
+function HHBase(L::SparseMatrixCSC{T,Int},U::SparseMatrixCSC{T,Int},p,q,positions,s,
+                divide,rowptr,columns) where {T<:Real}
+    eligible = T <: Union{Float32,Float64} && all(isfinite,U.nzval) &&
+        all(i->!iszero(U[i,i]),1:size(U,1))
+    HHBase(L,U,p,q,positions,s,divide,rowptr,columns,eligible)
 end
 struct HHUpdate{T<:Real}
     u_indices::Vector{Int}
@@ -245,8 +255,12 @@ function _hh_extract_base(F,work::Vector{T},auxiliary,extract_workspace=HHExtrac
         !iszero(U.nzval[U.colptr[i+1]-1]),1:n) || throw(_UnreliableBasisSolve())
     # Outgoing edges of U's rows; numeric evaluation still uses original CSC order.
     rowptr=zeros(Int,n+1)
+    finite_upper = T <: Union{Float32,Float64}
     for j in 1:n, k in U.colptr[j]:(U.colptr[j+1]-2)
         rowptr[U.rowval[k]+1]+=1
+        if T <: Union{Float32,Float64}
+            finite_upper &= isfinite(U.nzval[k])
+        end
     end
     rowptr[1]=1
     for i in 1:n;rowptr[i+1]+=rowptr[i];end
@@ -254,7 +268,7 @@ function _hh_extract_base(F,work::Vector{T},auxiliary,extract_workspace=HHExtrac
     for j in 1:n, k in U.colptr[j]:(U.colptr[j+1]-2)
         i=U.rowval[k];columns[next[i]]=j;next[i]+=1
     end
-    HHBase(L,U,p,q,invperm(q),s,divide,rowptr,columns)
+    HHBase(L,U,p,q,invperm(q),s,divide,rowptr,columns,finite_upper)
 end
 # Dense native LU preserves every non-Float64 scalar, like the other managers.
 _hh_native_lu(B::AbstractMatrix{T}) where {T}=lu!(Matrix{T}(B))
@@ -391,12 +405,34 @@ function _prepare_transpose_rhs!(f::HuangfuHallFactorization{T}, rhs::_UnitTrans
     fill!(f.work, zero(T))
     f.work[f.base.positions[rhs.row]] = one(T)
 end
+function _hh_transpose_upper!(f::HuangfuHallFactorization,rhs)
+    _prepare_transpose_rhs!(f,rhs)
+    _hh_upper!(f.work,f.base,true)
+end
+function _hh_transpose_upper!(f::HuangfuHallFactorization{T},rhs::_UnitTransposeRHS{T}) where {T<:Union{Float32,Float64}}
+    b=f.base;U=b.upper;x=f.work;p=b.positions[rhs.row]
+    if !b.finite_upper || U.colptr[p]==p
+        _prepare_transpose_rhs!(f,rhs)
+        return _hh_upper!(x,b,true)
+    end
+    # Columns before p cannot be reached by a unit RHS in upper-transpose order.
+    # Keep zero/diagonal division to preserve signs; never omit suffix products
+    # (including explicit zeros after overflow). Nonfinite bases use the full path.
+    for j in 1:(p-1);x[j]=zero(T)/U.nzval[U.colptr[j+1]-1];end
+    for j in p:length(x)
+        value=j==p ? one(T) : zero(T);last=U.colptr[j+1]-1
+        @inbounds for k in U.colptr[j]:(last-1)
+            value-=U.nzval[k]*x[U.rowval[k]]
+        end
+        x[j]=value/U.nzval[last]
+    end
+    x
+end
 function transpose_solve!(destination::Vector{T},f::HuangfuHallFactorization{T},rhs::AbstractVector) where {T}
     _hh_dimensions(destination,f,rhs)
     b=f.base;x=f.work
     source=rhs===x ? copyto!(f.auxiliary,rhs) : rhs
-    _prepare_transpose_rhs!(f,source)
-    _hh_upper!(x,b,true)
+    _hh_transpose_upper!(f,source)
     for t in Iterators.reverse(f.updates);_hh_apply!(x,t,true);end
     _hh_lower!(x,b,true)
     for i in eachindex(x)
