@@ -1,0 +1,34 @@
+# Frozen, deterministic input recipes. Indices are one-based; mod is nonnegative.
+# Generate coefficients as integers before conversion to the requested type.
+version = 1
+algorithms = ["primal", "dual"]
+public_managers = ["pfi", "huangfu_hall", "forrest_tomlin", "suhl_suhl", "bartels_golub"]
+refactorizations = ["native", "markowitz"]
+precisions = ["Float32", "Float64", "BigFloat(128)", "BigFloat(256)", "Rational{BigInt}"]
+update_chain_lengths = [0, 8, 64, 160, 320]
+vector_lengths = [192, 12288, 547479, 1007498]
+vector_values = "v[i] = (mod(17*i, 31) - 15) / 16; weights[i] = 1 + mod(i, 7) / 8"
+invalid_positions = ["first", "middle", "last"]
+invalid_values = ["NaN", "+Inf", "-Inf", "zero_weight", "negative_weight"]
+
+[[kernels]]
+id = "sparse"
+m = 64
+n = 128
+coefficient = "A[i,j] = (i == 1+mod(j-1,64) ? 4 : i == 1+mod(j,64) ? -1 : 0)"
+basis = "first 64 structural columns; strictly diagonally dominant cyclic matrix"
+lower = "0 for structural variables"
+upper = "2 for structural variables"
+feasible_point = "all structural values 1; exact row lower = row upper = A*ones(n)"
+objective = "c[j] = mod(7*j,19)-9"
+
+[[kernels]]
+id = "dense"
+m = 64
+n = 128
+coefficient = "A[i,j] = (i == j ? 256 : 1+mod(3*i+5*j,3))"
+basis = "first 64 structural columns; strictly diagonally dominant matrix"
+lower = "0 for structural variables"
+upper = "2 for structural variables"
+feasible_point = "all structural values 1; exact row lower = row upper = A*ones(n)"
+objective = "c[j] = mod(7*j,19)-9"

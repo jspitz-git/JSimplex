@@ -4,13 +4,17 @@ Updated: 2026-10-11. This is the entry point after interruption.
 
 ## Current state
 
-**Planning only. No implementation or numerical job was started by this plan.**
+**S0 local preflight/harness and S1 static inventory verified; production work remains pending. No production edits or Julia launch.**
 The source baseline is `fe839aa72171d7496c9c931d9393278448c7317e`.
 Completed diagnostic evidence is commit `6ded1fc`.
 
-Planning checkout:
+Active checkout:
+`/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl`
+Branch: `codex/simplex-core-architecture`, based on `7d6a8e1`.
+
+Preserved planning checkout:
 `/home/jspitz/.codex/worktrees/simplex-time-budget/JSimplex.jl`
-Branch: `codex/simplex-time-budget`.
+Branch: `codex/simplex-time-budget` (unchanged).
 
 - [Implementation roadmap](../../docs/superpowers/plans/2026-10-11-simplex-core-architecture.md)
 - [Design and constraints](../../docs/superpowers/specs/2026-10-11-simplex-core-architecture-design.md)
@@ -28,8 +32,8 @@ main also has a user-modified .vscode/settings.json. Do not stage those files.
 | ID | Deliverable | State | Evidence / next action |
 | --- | --- | --- | --- |
 | P0 | Design, roadmap, continuation record | Done | This documentation; production unchanged |
-| S0 | Frozen baseline and coverage plan | Pending | Inspect current refs/processes; write BASELINE.md |
-| S1 | State ownership and validation reuse | Pending | Mutation/dependency inventory first |
+| S0 | Frozen baseline and coverage plan | Active | Local chunk Verified (REVIEW.md); long-run implementation/calibration/reference pending |
+| S1 | State ownership and validation reuse | Active | Inventory/subplan Verified (REVIEW.md); no production changes |
 | S2 | Audited incremental primal maintenance | Pending | Existing kernels and missing guards inventory |
 | S3 | End-to-end exact sparsity support | Pending | Support propagation and full-scan inventory |
 | S4 | Refactorization memory lifecycle | Pending | Backend ownership/allocation attribution |
@@ -42,12 +46,17 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-Execute S0's read-only preflight, then prepare BASELINE.md and the S1 mutation
-inventory. Reuse the completed time-budget evidence; do not rerun all four slices
-merely because the conversation restarted. Prepare the long phase-II coverage
-method before making whole-medium claims, but do not block the local S1 inventory
-on a multi-hour run. No production edits or Julia launch are required for the
-initial inventory.
+Characterize S1-A's owned-deadline interval before any production edit. The local
+S0/S1 evidence and Python-only guard review are complete. Read
+[BASELINE.md](BASELINE.md), [S1-OWNERSHIP.md](S1-OWNERSHIP.md),
+[LONG-PHASE-II.md](LONG-PHASE-II.md) and the
+[S1-A subplan](../../docs/superpowers/plans/2026-10-11-simplex-state-entry.md).
+No global validity cache is selected. Do not claim the remaining finite checks
+redundant: observers/stop callbacks, cost shifts, weights and recomputation
+separate them. The simplest local DSE reuse already exists in baseline.
+
+S0 long phase-II instrumentation, calibration and reference remain pending.
+No whole-medium claim is allowed. No historical profiling slice was repeated.
 
 ## Evidence gaps and traps to retain
 
@@ -97,3 +106,41 @@ initial inventory.
 Keep portable summaries committed; retain large local logs and snapshots in
 `.superpowers/simplex-core-architecture/`. Update this ledger before handoff and
 after every verified/integrated chunk. Never store secrets in continuation notes.
+
+## Initial execution milestone (2026-10-11)
+
+- Owner: current architecture chat; active checkout above. Last source verified:
+  `fe839aa`; documentation base `7d6a8e1`. Source and environment/input digests:
+  `results/S0/preflight.json`.
+- Host process audit: no Python/Julia numerical runner; all six old attempts
+  have process reports. Four measurement attempts exit 0 with matching paired
+  hashes; they end at ITERATION_LIMIT. The preserved sampling attempt exits 137.
+- Milestone files: baseline, long-run method, ownership inventory, S1-A
+  subplan, guard/tests/fixture definitions and compact preflight. Roadmap/STATUS
+  record the accepted local deliverables. Local environment copies are untracked and excluded.
+- Guard tests: initial 12 absent-runner failures then 12 passes; lifecycle and
+  symlink regressions failed before their fixes; final suite 18/18 passed. Two
+  independent review findings fixed, no deferred findings; see REVIEW.md. Raw logs live under
+  `.superpowers/simplex-core-architecture/S0/`.
+- No numerical command has been launched; no production merge performed.
+  Commit identity is recorded below after the milestone commit. Push is not
+  performed: automatic approval review requires explicit authorization for this
+  diagnostic milestone, distinguishing it from authorized production fixes.
+- Local baseline pins: `.superpowers/simplex-core-architecture/S0/expected-pins-v1.json`.
+  Before S1-A launch, create new pins including its not-yet-written Julia scripts
+  and every transitive dependency; this baseline set is not a complete future
+  experiment manifest.
+- Ruling: retain the plan's committed STATUS as authoritative and preserve all
+  raw attempts instead of deleting execution scratch at finish — explicit user
+  preservation requirements override generic skill cleanup. Cost: local disk use.
+- Ruling: perform local S0 and S1 inventory before the long phase-II run, as the
+  roadmap explicitly permits. S0 remains partial. Cost: no whole-medium evidence
+  yet; prevents premature S2 performance claims.
+
+### Local acceptance gate
+
+S0-local and S1-inventory: Verified. Independent review found two diagnostic
+runner defects; both have failing-before/passing-after regressions. Author ran
+all 18 Python tests after fixes. Source hashes and absence of production diff
+verified. S0-long and S1-production remain Pending within their Active stages.
+No completed numerical experiment was repeated.

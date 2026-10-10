@@ -68,11 +68,11 @@ prevents speculative caches and duplicate mechanisms already present in core.
 **Create during execution:** `diagnostics/simplex-core-architecture/BASELINE.md`
 and stage-specific scripts under `diagnostics/simplex-core-architecture/reproduce/`.
 
-- [ ] Verify branch, master/origin state, local dirt, active processes and previous
+- [x] Verify branch, master/origin state, local dirt, active processes and previous
   reports. Record baseline source/environment/input hashes and exact options.
-- [ ] Write BASELINE.md separating measured prefixes/cleanup from missing long
+- [x] Write BASELINE.md separating measured prefixes/cleanup from missing long
   phase II; record actual executing algorithm and working dimensions per slice.
-- [ ] Prepare a guarded runner with exclusive numerical-process ownership,
+- [x] Prepare a guarded runner with exclusive numerical-process ownership,
   immutable per-attempt directories and pre/post digest checks. Test its refusal
   of concurrent runs, changed pins and existing output directories without Julia.
 - [ ] Define low-overhead chronological timing and operation counters for a real
@@ -84,7 +84,7 @@ and stage-specific scripts under `diagnostics/simplex-core-architecture/reproduc
 - [ ] Freeze representative sparse/dense kernel inputs and the external manifest;
   include both algorithms and all five public managers over subsequent validation.
   Resolve inputs and check hashes to exclude forbidden aliases.
-- [ ] Commit the baseline/harness evidence and update STATUS with the next task.
+- [x] Commit the baseline/harness evidence and update STATUS with the next task.
 
 **Gate:** The next experiment has a reproducible starting state, measured work
 counts and explicit coverage limitations. A missing long run remains pending;
@@ -98,13 +98,13 @@ primal_updates,simplex_recovery,simplex_phase_one,simplex_pivot}.jl`.
 primal_certificate_reuse,simplex_precision_recovery_state}_tests.jl`;
 new `test/simplex_state_validity_tests.jl` if a shared contract is introduced.
 
-- [ ] Inventory every write to basis identity/factors, primal values, reduced
+- [x] Inventory every write to basis identity/factors, primal values, reduced
   costs, objective costs, bounds, weights and scratch support. Include recovery,
   callbacks, phase changes, exceptions and in-place mutation through aliases.
-- [ ] Save `diagnostics/simplex-core-architecture/S1-OWNERSHIP.md`: for each check,
+- [x] Save `diagnostics/simplex-core-architecture/S1-OWNERSHIP.md`: for each check,
   list exact dependencies, producers, consumers and invalidation rules. Identify
   which repeated scans are provably redundant and which validate different data.
-- [ ] Write the S1 implementation subplan. Choose the smallest owned validation
+- [x] Write the S1 implementation subplan. Choose the smallest owned validation
   contract justified by that inventory; do not add a global version framework
   where local reuse already suffices. Specify rollover and exception behavior.
 - [ ] Add tests where an unchanged state reuses validation and every dependency
@@ -279,3 +279,15 @@ files and tests. High-risk inputs map to S1–S5; integration and historical gap
 map to S0/S6. No production API is declared implemented. This documentation adds
 no runtime work, allocations or retained memory, so no numerical benchmark is
 required for this commit. Planning is complete; all execution stages are pending.
+
+## 2026-10-11 local execution checkpoint
+
+S0 preflight and baseline are recorded in BASELINE.md; a Python-only guarded
+runner passed review fixes and all 18 safety tests. Fixture recipes are frozen, but materialized numerical
+coverage is pending. LONG-PHASE-II.md specifies the method; no calibration or
+long reference has run. S0 is therefore Active, not complete.
+
+S1 mutation/check inventory and the owned-deadline S1-A subplan are written.
+The inventory does not authorize a global validity cache or removal of independent
+residual checks. All production implementation, numerical validation and
+integration checkboxes remain pending. See STATUS.md for exact continuation.
