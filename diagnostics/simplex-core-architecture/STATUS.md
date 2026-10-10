@@ -123,9 +123,11 @@ after every verified/integrated chunk. Never store secrets in continuation notes
   independent review findings fixed, no deferred findings; see REVIEW.md. Raw logs live under
   `.superpowers/simplex-core-architecture/S0/`.
 - No numerical command has been launched; no production merge performed.
-  Commit identity is recorded below after the milestone commit. Push is not
-  performed: automatic approval review requires explicit authorization for this
-  diagnostic milestone, distinguishing it from authorized production fixes.
+  Milestone commit: `150aea5fea0a441160fd6338efa0de80c201d4a8`, pushed to
+  `origin/codex/simplex-core-architecture` and verified with `git ls-remote`.
+  Automatic approval initially distinguished diagnostic pushes from the standing
+  production-fix authorization; the user then explicitly approved this branch
+  push. The refusal is resolved. Master remains at `fe839aa`.
 - Local baseline pins: `.superpowers/simplex-core-architecture/S0/expected-pins-v1.json`.
   Before S1-A launch, create new pins including its not-yet-written Julia scripts
   and every transitive dependency; this baseline set is not a complete future
@@ -144,3 +146,12 @@ runner defects; both have failing-before/passing-after regressions. Author ran
 all 18 Python tests after fixes. Source hashes and absence of production diff
 verified. S0-long and S1-production remain Pending within their Active stages.
 No completed numerical experiment was repeated.
+
+### Published continuation checkpoint
+
+The initial local milestone is committed and pushed as `150aea5`. This small
+follow-up records the confirmed remote identity and is pushed on the same branch.
+The next task is the first unchecked S1-A characterization gate. No numerical
+runner is active; do a fresh host process check before any Julia launch. Long
+phase-II measurement remains pending; no prior measurements need repetition
+until a new instrumentation or production-change hypothesis requires comparison.
