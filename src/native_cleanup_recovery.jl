@@ -15,6 +15,7 @@ function _native_cleanup_solve!(x::Vector{T}, ws, B, rhs, stop;
     quality.reliable && (!force_refinement || iszero(quality.absolute_error)) && return true
     require_improvement=force_refinement && quality.reliable
     initial_error=quality.absolute_error
+    initial_relative_error=quality.relative_error
     stop() && return false
     _simplex_event!(ws,:correction_attempt)
     correction = similar(x)
@@ -28,6 +29,7 @@ function _native_cleanup_solve!(x::Vector{T}, ws, B, rhs, stop;
     quality = _compensated_solve_quality!(scratch,B,trial,rhs,policy,transposed)
     isnothing(quality) && return false
     if !quality.reliable
+        corrected_relative_error=quality.relative_error
         # Scale a proposed zero cleanup by the correction's rounding error,
         # not the full solution norm, which may include large unrelated values.
         # Accept it only if every equation passes the unchanged residual test.
@@ -47,7 +49,29 @@ function _native_cleanup_solve!(x::Vector{T}, ws, B, rhs, stop;
             # and unknowns exchanged. Keep the original orientation for the
             # independent residual check before publishing either result.
             equations = transposed ? copy(transpose(B)) : B
-            _native_phase_local_rows!(trial,equations,rhs,policy,cutoff,stop) || return false
+            # A rejected local proposal must not hide a one-shot cancellation
+            # and accidentally enable another solve.
+            cancelled=Ref(false)
+            guard=()->(cancelled[]=cancelled[] || stop())
+            reconstructed=_native_phase_local_rows!(trial,equations,rhs,policy,cutoff,guard)
+            guard() && return false
+            if !reconstructed
+                # Only terminal reconstruction may retry an improving solve.
+                # Reuse private storage and retain the original equation test;
+                # a first correction can still leave cancellation roundoff.
+                policy.max_refinements>=2 &&
+                    corrected_relative_error<initial_relative_error || return false
+                quality=_compensated_solve_quality!(scratch,B,trial,rhs,policy,transposed)
+                isnothing(quality) && return false
+                _simplex_event!(ws,:correction_attempt)
+                _timed_simplex(ws,transposed ? :btran : :ftran) do
+                    transposed ? transpose_solve!(correction,ws.factorization,scratch.residual) :
+                        _ordinary_forward_solve!(correction,ws.factorization,scratch.residual)
+                end
+                all(isfinite,correction) || return false
+                @. trial += correction
+                all(isfinite,trial) || return false
+            end
             quality = _compensated_solve_quality!(scratch,B,trial,rhs,policy,transposed)
             (isnothing(quality) || !quality.reliable) && return false
         end
