@@ -144,7 +144,7 @@ function _packed_column(values::Vector{T}) where {T<:Real}
 end
 
 # `values` must be separate from the packed arrays (the factor's spike scratch).
-function _packed_column!(column::PackedUpperColumn{T}, values::Vector{T}) where {T}
+function _packed_column!(column::PackedUpperColumn{T}, values::Vector{T}, cache=nothing) where {T}
     entry_count = count(!iszero, values)
     # Keep the same spare slot as the allocating packer for subsequent row rotation.
     capacity = entry_count + !iszero(entry_count)
@@ -152,12 +152,19 @@ function _packed_column!(column::PackedUpperColumn{T}, values::Vector{T}) where 
     resize!(column.values, capacity)
     resize!(column.indices, entry_count)
     resize!(column.values, entry_count)
+    finite_entries = true
     next_entry = 1
     for row in eachindex(values)
         iszero(values[row]) && continue
         column.indices[next_entry] = row
         column.values[next_entry] = values[row]
+        if T <: Union{Float32,Float64} && cache !== nothing
+            finite_entries &= isfinite(values[row])
+        end
         next_entry += 1
+    end
+    if T <: Union{Float32,Float64} && cache !== nothing
+        cache.upper_prefix_candidate &= finite_entries
     end
     return column
 end
@@ -366,11 +373,38 @@ mutable struct TriangularRowCache{T<:Real}
     active_upper::Vector{Int}
     upper_dirty::Bool
     upper_dirty_from::Int
+    upper_prefix_safe::Bool
+    upper_prefix_candidate::Bool
     incidence_touched::Vector{Int}
     prepared::Union{Nothing,TriangularSpikeCache{T}}
 end
 TriangularRowCache(::Type{T}, n::Int) where {T<:Real} =
-    TriangularRowCache{T}(collect(1:n), Tuple{Int,Int,T}[], 0, false, Int[], true, 1, Int[], nothing)
+    TriangularRowCache{T}(collect(1:n), Tuple{Int,Int,T}[], 0, false, Int[], true, 1,
+                          T <: Union{Float32,Float64}, false, Int[], nothing)
+
+# Publish eligibility only after a complete update. Invalidated or failed states
+# remain conservative until refactorization; no solve needs a full finite scan.
+function _begin_upper_update!(factor, position)
+    safe = factor.row_cache.upper_prefix_safe
+    _invalidate_sparse_upper!(factor, position)
+    factor.row_cache.upper_prefix_candidate = safe
+    return nothing
+end
+function _finish_upper_update!(factor)
+    factor.row_cache.upper_prefix_safe = factor.row_cache.upper_prefix_candidate
+    return factor
+end
+@inline function _track_upper_value!(factor, value::T) where {T}
+    if T <: Union{Float32,Float64} && !isfinite(value)
+        factor.row_cache.upper_prefix_candidate = false
+    end
+    return value
+end
+function _copy_triangular_row_cache(factor)
+    cache = TriangularRowCache(eltype(factor.work), length(factor.work))
+    cache.upper_prefix_safe = factor.row_cache.upper_prefix_safe
+    return cache
+end
 
 mutable struct ForrestTomlinFactorization{T<:Real,F} <: AbstractTriangularBasisFactorization{T}
     base::F
@@ -778,6 +812,11 @@ function _prepare_transpose_rhs!(factor::AbstractTriangularBasisFactorization{T}
     factor.work[order.order[factor.positions[rhs.row]]] = one(T)
 end
 
+_transpose_upper_for_rhs!(factor, rhs, columns, ::Nothing) =
+    _upper_transpose_solve!(factor.work, factor.upper, columns)
+_transpose_upper_for_rhs!(factor, rhs, columns, order) =
+    _stable_upper_transpose_solve!(factor.work, factor.upper, columns, order)
+
 function transpose_solve!(destination::Vector{T},
                           factor::AbstractTriangularBasisFactorization{T},
                           rhs::AbstractVector) where {T}
@@ -790,12 +829,11 @@ function transpose_solve!(destination::Vector{T},
     order = _upper_order(factor.upper)
     if isnothing(order)
         _prepare_transpose_rhs!(factor, source, nothing)
-        _upper_transpose_solve!(factor.work, factor.upper, _dense_upper_columns(factor))
+        _transpose_upper_for_rhs!(factor, source, _dense_upper_columns(factor), nothing)
         return _finish_triangular_transpose!(destination, factor, nothing)
     else
         _prepare_transpose_rhs!(factor, source, order)
-        _stable_upper_transpose_solve!(factor.work, factor.upper,
-                                      _dense_upper_columns(factor), order)
+        _transpose_upper_for_rhs!(factor, source, _dense_upper_columns(factor), order)
         # Keep the concrete row-order type across the call boundary; merging
         # it with `nothing` boxes the immutable wrapper on each BG BTRAN.
         return _finish_triangular_transpose!(destination, factor, order)
@@ -837,7 +875,7 @@ end
 function _rotate_columns!(factor::AbstractTriangularBasisFactorization,
                           position::Int, last::Int=length(factor.column_order))
     # The leaving column owns its buffers; the completed spike is separate scratch.
-    replacement = _packed_column!(factor.upper[position], factor.spike)
+    replacement = _packed_column!(factor.upper[position], factor.spike, factor.row_cache)
     for column in position:(last - 1)
         factor.upper[column] = factor.upper[column + 1]
     end
@@ -920,7 +958,7 @@ function _eliminate_triangular_row_spike!(
             for trailing in column_index:n
                 packed = factor.upper[trailing]
                 old = _upper_value(packed, column_index)
-                _set_upper_value!(packed, column_index, spike[trailing])
+                _set_upper_value!(packed, column_index, _track_upper_value!(factor, spike[trailing]))
                 spike[trailing] = old
                 trailing >= last && (touched[trailing] = marker)
             end
@@ -948,7 +986,7 @@ function _eliminate_triangular_row_spike!(
     for column_index in last:n
         # Preserve untouched stored zeros as well as ordinary coefficients.
         iszero(touched[column_index]) && continue
-        _set_upper_value!(factor.upper[column_index], last, spike[column_index])
+        _set_upper_value!(factor.upper[column_index], last, _track_upper_value!(factor, spike[column_index]))
     end
     return indices, multipliers, swapped_rows
 end
@@ -958,7 +996,7 @@ function replace_column!(factor::SuhlSuhlFactorization{T},
                          zero_tolerance::Real=_is_exact(T) === Val(true) ? zero(T) :
                                               _positive_tolerance(T, 1 // 10^12)) where {T}
     position = _prepare_spike!(factor, tableau_column, pivot_row, zero_tolerance)
-    _invalidate_sparse_upper!(factor, position)
+    _begin_upper_update!(factor, position)
     n = length(factor.upper)
     last = n
     while iszero(factor.spike[last])
@@ -971,7 +1009,7 @@ function replace_column!(factor::SuhlSuhlFactorization{T},
     if position == last
         indices, multipliers, swapped_rows = _take_triangular_update_buffers!(factor)
         push!(factor.updates, SuhlSuhlUpdate{T}(position, last, indices, multipliers, swapped_rows))
-        return factor
+        return _finish_upper_update!(factor)
     end
 
     # Move the leaving row only as far as the spike reaches. Columns beyond
@@ -997,7 +1035,7 @@ function replace_column!(factor::SuhlSuhlFactorization{T},
 
     indices, multipliers, swapped_rows = _eliminate_triangular_row_spike!(factor, position, last, stored_entries)
     push!(factor.updates, SuhlSuhlUpdate{T}(position, last, indices, multipliers, swapped_rows))
-    return factor
+    return _finish_upper_update!(factor)
 end
 
 function replace_column!(factor::ForrestTomlinFactorization{T},
@@ -1005,7 +1043,7 @@ function replace_column!(factor::ForrestTomlinFactorization{T},
                          zero_tolerance::Real=_is_exact(T) === Val(true) ? zero(T) :
                                               _positive_tolerance(T, 1 // 10^12)) where {T}
     position = _prepare_spike!(factor, tableau_column, pivot_row, zero_tolerance)
-    _invalidate_sparse_upper!(factor, position)
+    _begin_upper_update!(factor, position)
     _rotate_columns!(factor, position)
     n = length(factor.upper)
     # Rotate the leaving row to the bottom. This leaves one row spike.
@@ -1053,7 +1091,7 @@ function replace_column!(factor::ForrestTomlinFactorization{T},
     end
     indices, multipliers, swapped_rows = _eliminate_triangular_row_spike!(factor, first_spike, n, stored_entries)
     push!(factor.updates, ForrestTomlinUpdate{T}(position, indices, multipliers, swapped_rows))
-    return factor
+    return _finish_upper_update!(factor)
 end
 
 function replace_column!(factor::BartelsGolubFactorization{T},
@@ -1061,7 +1099,7 @@ function replace_column!(factor::BartelsGolubFactorization{T},
                          zero_tolerance::Real=_is_exact(T) === Val(true) ? zero(T) :
                                               _positive_tolerance(T, 1 // 10^12)) where {T}
     position = _prepare_spike!(factor, tableau_column, pivot_row, zero_tolerance)
-    _invalidate_sparse_upper!(factor, position)
+    _begin_upper_update!(factor, position)
     _ensure_bartels_golub_incidence!(factor)
     _replace_bartels_golub_incidence_column!(factor, position)
     _rotate_columns!(factor, position)
@@ -1107,7 +1145,8 @@ function replace_column!(factor::BartelsGolubFactorization{T},
                 value = _upper_value(trailing_column, column_index)
                 slot, old = _upper_entry(trailing_column, column_index + 1)
                 _set_upper_value_at!(factor.upper, columns_by_row,
-                                    trailing, column_index + 1, old - multiplier * value, slot, column_id)
+                                    trailing, column_index + 1,
+                                    _track_upper_value!(factor, old - multiplier * value), slot, column_id)
             end
         end
         if swapped && iszero(multiplier)
@@ -1127,7 +1166,7 @@ function replace_column!(factor::BartelsGolubFactorization{T},
     run_start == 0 ||
         push!(steps, BartelsGolubStep{T}(run_start, run_last, true, zero(T)))
     push!(factor.updates, BartelsGolubUpdate{T}(steps))
-    return factor
+    return _finish_upper_update!(factor)
 end
 
 # Only the target row changes during FT/SS elimination. Index the other rows
@@ -1213,7 +1252,7 @@ function copy_basis_factorization(factor::ForrestTomlinFactorization{T,F}) where
         copy(factor.column_order), copy(factor.positions),
         copy(factor.updates), similar(factor.work), similar(factor.spike), Vector{Int}[],
         ForrestTomlinUpdate{T}[], factor.shared_update_count, _copy_sparse_basis_cache(factor.sparse),
-        TriangularRowCache(T, length(factor.work)),
+        _copy_triangular_row_cache(factor),
     )
 end
 
@@ -1224,7 +1263,7 @@ function copy_basis_factorization(factor::SuhlSuhlFactorization{T,F}) where {T,F
         copy(factor.column_order), copy(factor.positions),
         copy(factor.updates), similar(factor.work), similar(factor.spike), Vector{Int}[],
         SuhlSuhlUpdate{T}[], factor.shared_update_count, _copy_sparse_basis_cache(factor.sparse),
-        TriangularRowCache(T, length(factor.work)),
+        _copy_triangular_row_cache(factor),
     )
 end
 
@@ -1236,6 +1275,6 @@ function copy_basis_factorization(factor::BartelsGolubFactorization{T,F}) where 
         copy(factor.updates), similar(factor.work), similar(factor.spike),
         [Int[] for _ in eachindex(factor.row_columns)], Int[],
         BartelsGolubUpdate{T}[], factor.shared_update_count, _copy_sparse_basis_cache(factor.sparse),
-        TriangularRowCache(T, length(factor.work)), false,
+        _copy_triangular_row_cache(factor), false,
     )
 end

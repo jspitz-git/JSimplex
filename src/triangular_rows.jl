@@ -111,6 +111,8 @@ function _reset_dense_row_cache!(factor::ComposedRowFactorization, n::Int)
     empty!(cache.active_upper)
     cache.upper_dirty = false
     cache.upper_dirty_from = n + 1
+    cache.upper_prefix_safe = eltype(factor.work) <: Union{Float32,Float64}
+    cache.upper_prefix_candidate = false
     _invalidate_prepared_spikes!(factor)
     return nothing
 end
@@ -121,6 +123,7 @@ function _invalidate_dense_upper!(factor::ComposedRowFactorization, first_column
     # leaving column. Multiple pending mutations retain the earliest boundary.
     cache.upper_dirty_from = cache.upper_dirty ? min(cache.upper_dirty_from, first_column) : first_column
     cache.upper_dirty = true
+    cache.upper_prefix_safe = false
     _invalidate_prepared_spikes!(factor)
     return nothing
 end
@@ -137,6 +140,13 @@ function _dense_upper_columns(factor::Union{ForrestTomlinFactorization{T},
             identity = length(column.indices) == 1 && column.indices[1] == index &&
                 column.values[1] == one(T)
             identity || push!(cache.active_upper, index)
+            # New values were checked at their stores. Validate the diagonal in
+            # the existing dirty-column pass, before a solve reads eligibility.
+            if !identity && cache.upper_prefix_safe &&
+                    (isempty(column.indices) || column.indices[end] != index ||
+                     iszero(column.values[end]))
+                cache.upper_prefix_safe = false
+            end
         end
         cache.upper_dirty = false
         cache.upper_dirty_from = length(factor.upper) + 1
@@ -193,4 +203,39 @@ function _finish_triangular_transpose!(destination, factor::ComposedRowFactoriza
     # Public callers may use spike as output; backend input must remain separate.
     destination === source && (source = copyto!(factor.work, source))
     return _backend_transpose_solve!(destination, factor.base, source)
+end
+
+# Unit RHS preparation initializes the strict triangular prefix to +0. With
+# finite coefficients and nonzero diagonals, only its divisions can affect the
+# signed zeros; the suffix retains the original scalar subtraction order.
+function _transpose_upper_for_rhs!(factor::Union{ForrestTomlinFactorization{T},
+        SuhlSuhlFactorization{T},BartelsGolubFactorization{T}},
+        rhs::_UnitTransposeRHS{T}, columns, ::Nothing) where {T<:Union{Float32,Float64}}
+    if factor.row_cache.upper_prefix_safe
+        split = searchsortedfirst(columns, factor.positions[rhs.row])
+        if split > 1
+            for slot in 1:(split - 1)
+                j = columns[slot]
+                factor.work[j] /= _upper_diagonal(factor.upper[j], j)
+            end
+            return _upper_transpose_solve!(factor.work, factor.upper, @view(columns[split:end]))
+        end
+    end
+    return _upper_transpose_solve!(factor.work, factor.upper, columns)
+end
+function _transpose_upper_for_rhs!(factor::BartelsGolubFactorization{T},
+        rhs::_UnitTransposeRHS{T}, columns, order::UpperRowOrder) where {T<:Union{Float32,Float64}}
+    if factor.row_cache.upper_prefix_safe
+        split = searchsortedfirst(columns, factor.positions[rhs.row])
+        if split > 1
+            for slot in 1:(split - 1)
+                j = columns[slot]
+                physical = order.order[j]
+                factor.work[physical] /= _upper_diagonal(factor.upper[j], j)
+            end
+            return _stable_upper_transpose_solve!(factor.work, factor.upper,
+                                                  @view(columns[split:end]), order)
+        end
+    end
+    return _stable_upper_transpose_solve!(factor.work, factor.upper, columns, order)
 end
