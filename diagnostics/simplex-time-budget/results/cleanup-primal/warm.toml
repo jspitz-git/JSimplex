@@ -1,0 +1,53 @@
+read_seconds = 0.482885407
+source_revision = "fe839aa72171d7496c9c931d9393278448c7317e"
+gc_seconds = 10.400757143
+input = "/home/jspitz/.codex/worktrees/simplex-certificate-repair/JSimplex.jl/.superpowers/certificate-repair/medium-primal-handoff.bin"
+original_rows = 586972
+input_sha256 = "242d37ae60aa4a0d0f4768000024da8623b7c3d94d47f0c01d24eccbfba5a8cc"
+windows = []
+case = "cleanup-primal"
+allocations = 79718410
+original_columns = 420526
+seconds = 119.77897233
+compile_seconds = 58.849764975
+threads = 1
+mode = "warm"
+blas_threads = 1
+bytes = 8763877664
+iterations = 335078
+original_nnz = 1446423
+states_hash = "81e9f40a1bda3a378b806cc4921d7416851302a4386bb498c885cbc9ce367fdb"
+julia = "1.13.0"
+status = "ITERATION_LIMIT"
+events_hash = "1cd2cba8a29c1065f01e59a7a7a8dbee704739d5ece26bc8747e78e17b8799a9"
+
+[[phases]]
+iteration = 335046
+offset = 0
+columns = 420526
+event = "phase_cleanup"
+rows = 586972
+nnz = 1446423
+[[phases]]
+iteration = 335046
+offset = 0
+columns = 420526
+event = "phase_primal"
+rows = 586972
+nnz = 1446423
+
+[events]
+phase_primal = 1
+primal_point_preserved = 32
+correction_attempt = 2
+checkpoint = 1
+correction = 1
+pricing_scanned_entries = 33247434
+refactor_other = 2
+pivot_completed = 32
+pricing_full_scan = 33
+pricing = 33
+refactor_initial = 1
+pricing_scored_entries = 535920
+pivot_proposed = 32
+phase_cleanup = 1

@@ -1,0 +1,369 @@
+read_seconds = 4.460859179
+source_revision = "fe839aa72171d7496c9c931d9393278448c7317e"
+gc_seconds = 12.957763922
+input = "/home/jspitz/mps/medium.mps"
+original_rows = 586972
+input_sha256 = "79c374a584b1463305cf4b0faee8920d0364df2dd5d0468a44ab58d9e9d49dc0"
+case = "medium-primal"
+allocations = 168120501
+original_columns = 420526
+seconds = 61.53703798
+compile_seconds = 0.0
+threads = 1
+mode = "census"
+blas_threads = 1
+bytes = 10777630472
+iterations = 2000
+original_nnz = 1446423
+states_hash = "392bbc4e6bf161d25de676666195165f1f3b2a3a74dfdde526d0559abe69947c"
+julia = "1.13.0"
+status = "ITERATION_LIMIT"
+events_hash = "2ecd9e15753a5d993db9e4269a313d9a35be2cacf3a0242a748ef6a28f68fb75"
+
+[[counters]]
+inclusive_bytes = 10777630472
+exclusive_bytes = 225455744
+function = "outer_unattributed"
+inclusive_gc_seconds = 12.957763922
+inclusive_allocations = 168120501
+inclusive_seconds = 61.53703478
+exclusive_allocations = 239
+exclusive_gc_seconds = 0.537912712
+calls = 1
+exclusive_seconds = 1.271269911
+[[counters]]
+inclusive_bytes = 384800
+exclusive_bytes = 384800
+function = "observer"
+inclusive_gc_seconds = 0.0
+inclusive_allocations = 12455
+inclusive_seconds = 0.793054098
+exclusive_allocations = 12455
+exclusive_gc_seconds = 0.0
+calls = 6012
+exclusive_seconds = 0.793054098
+[[counters]]
+inclusive_bytes = 8172910120
+exclusive_bytes = 8172910120
+function = "presolve_problem"
+inclusive_gc_seconds = 8.963087883
+inclusive_allocations = 168091971
+inclusive_seconds = 15.138724539
+exclusive_allocations = 168091971
+exclusive_gc_seconds = 8.963087883
+calls = 1
+exclusive_seconds = 15.138724539
+[[counters]]
+inclusive_bytes = 669850928
+exclusive_bytes = 669850832
+function = "initialize_workspace"
+inclusive_gc_seconds = 1.161868127
+inclusive_allocations = 554
+inclusive_seconds = 1.309447632
+exclusive_allocations = 552
+exclusive_gc_seconds = 1.161868127
+calls = 2
+exclusive_seconds = 1.30053613
+[[counters]]
+inclusive_bytes = 9643472
+exclusive_bytes = 9643472
+function = "_basis_matrix!"
+inclusive_gc_seconds = 0.0
+inclusive_allocations = 4
+inclusive_seconds = 0.011554799
+exclusive_allocations = 4
+exclusive_gc_seconds = 0.0
+calls = 7
+exclusive_seconds = 0.011554799
+[[counters]]
+inclusive_bytes = 1529622440
+exclusive_bytes = 448
+function = "recompute!"
+inclusive_gc_seconds = 1.761508995
+inclusive_allocations = 934
+inclusive_seconds = 15.4873853
+exclusive_allocations = 14
+exclusive_gc_seconds = 0.0
+calls = 2003
+exclusive_seconds = 9.902430291
+[[counters]]
+inclusive_bytes = 136055328
+exclusive_bytes = 136055328
+function = "_replace_pivot_column!"
+inclusive_gc_seconds = 0.533386205
+inclusive_allocations = 12307
+inclusive_seconds = 1.529651003
+exclusive_allocations = 12307
+exclusive_gc_seconds = 0.533386205
+calls = 2000
+exclusive_seconds = 1.529651003
+[[counters]]
+inclusive_bytes = 1500903112
+exclusive_bytes = 43351368
+function = "_primal_iteration_unchecked!"
+inclusive_gc_seconds = 2.2948952
+inclusive_allocations = 27593
+inclusive_seconds = 43.128270097
+exclusive_allocations = 2048
+exclusive_gc_seconds = 0.0
+calls = 2001
+exclusive_seconds = 8.979795085
+[[counters]]
+inclusive_bytes = 64
+exclusive_bytes = 64
+function = "_primal_entering"
+inclusive_gc_seconds = 0.0
+inclusive_allocations = 2
+inclusive_seconds = 1.543166395
+exclusive_allocations = 2
+exclusive_gc_seconds = 0.0
+calls = 2001
+exclusive_seconds = 1.543166395
+[[counters]]
+inclusive_bytes = 0
+exclusive_bytes = 0
+function = "_primal_ratio"
+inclusive_gc_seconds = 0.0
+inclusive_allocations = 0
+inclusive_seconds = 1.951997996
+exclusive_allocations = 0
+exclusive_gc_seconds = 0.0
+calls = 2000
+exclusive_seconds = 1.951062696
+[[counters]]
+inclusive_bytes = 0
+exclusive_bytes = 0
+function = "_primal_update_steepest!"
+inclusive_gc_seconds = 0.0
+inclusive_allocations = 0
+inclusive_seconds = 6.513450503
+exclusive_allocations = 0
+exclusive_gc_seconds = 0.0
+calls = 2000
+exclusive_seconds = 2.857316789
+[[counters]]
+inclusive_bytes = 0
+exclusive_bytes = 0
+function = "_validate_primal_edge!"
+inclusive_gc_seconds = 0.0
+inclusive_allocations = 0
+inclusive_seconds = 0.0005327
+exclusive_allocations = 0
+exclusive_gc_seconds = 0.0
+calls = 2000
+exclusive_seconds = 0.0005327
+[[counters]]
+inclusive_bytes = 0
+exclusive_bytes = 0
+function = "_legacy_primal_direction_price_ok"
+inclusive_gc_seconds = 0.0
+inclusive_allocations = 0
+inclusive_seconds = 0.380119799
+exclusive_allocations = 0
+exclusive_gc_seconds = 0.0
+calls = 2000
+exclusive_seconds = 0.380119799
+[[counters]]
+inclusive_bytes = 0
+exclusive_bytes = 0
+function = "_primal_bound_snap_feasible"
+inclusive_gc_seconds = 0.0
+inclusive_allocations = 0
+inclusive_seconds = 0.0009353
+exclusive_allocations = 0
+exclusive_gc_seconds = 0.0
+calls = 4000
+exclusive_seconds = 0.0009353
+[[counters]]
+inclusive_bytes = 0
+exclusive_bytes = 0
+function = "price!"
+inclusive_gc_seconds = 0.0
+inclusive_allocations = 0
+inclusive_seconds = 2.827504302
+exclusive_allocations = 0
+exclusive_gc_seconds = 0.0
+calls = 4000
+exclusive_seconds = 2.827504302
+[[counters]]
+inclusive_bytes = 0
+exclusive_bytes = 0
+function = "_dual_row_residual_ratio"
+inclusive_gc_seconds = 0.0
+inclusive_allocations = 0
+inclusive_seconds = 1.007029401
+exclusive_allocations = 0
+exclusive_gc_seconds = 0.0
+calls = 2000
+exclusive_seconds = 1.007029401
+[[counters]]
+inclusive_bytes = 0
+exclusive_bytes = 0
+function = "_finite_workspace"
+inclusive_gc_seconds = 0.0
+inclusive_allocations = 0
+inclusive_seconds = 0.6411653
+exclusive_allocations = 0
+exclusive_gc_seconds = 0.0
+calls = 2001
+exclusive_seconds = 0.6411653
+[[counters]]
+inclusive_bytes = 0
+exclusive_bytes = 0
+function = "_pipeline_basis_solve!"
+inclusive_gc_seconds = 0.0
+inclusive_allocations = 0
+inclusive_seconds = 9.418478847
+exclusive_allocations = 0
+exclusive_gc_seconds = 0.0
+calls = 10006
+exclusive_seconds = 9.418478847
+[[counters]]
+inclusive_bytes = 32
+exclusive_bytes = 0
+function = "_internal_solution"
+inclusive_gc_seconds = 0.0
+inclusive_allocations = 1
+inclusive_seconds = 1.6e-6
+exclusive_allocations = 0
+exclusive_gc_seconds = 0.0
+calls = 1
+exclusive_seconds = 1.4e-6
+[[counters]]
+inclusive_bytes = 1519978296
+exclusive_bytes = 1519978296
+function = "refactorize!"
+inclusive_gc_seconds = 1.761508995
+inclusive_allocations = 909
+inclusive_seconds = 1.982705995
+exclusive_allocations = 909
+exclusive_gc_seconds = 1.761508995
+calls = 7
+exclusive_seconds = 1.982705995
+
+[[phases]]
+iteration = 0
+offset = 0
+columns = 239057
+event = "phase_one"
+rows = 360982
+nnz = 1014403
+
+[[windows]]
+gc_seconds = 11.196254927
+iteration = 128
+seconds = 20.510445653
+bytes = 9373811504
+offset = 0
+allocations = 168095143
+[[windows]]
+gc_seconds = 0.0
+iteration = 256
+seconds = 3.934680844
+bytes = 53920680
+offset = 0
+allocations = 2206
+[[windows]]
+gc_seconds = 0.0
+iteration = 384
+seconds = 3.601245734
+bytes = 262295136
+offset = 0
+allocations = 2223
+[[windows]]
+gc_seconds = 0.0
+iteration = 512
+seconds = 2.411957696
+bytes = 67536
+offset = 0
+allocations = 1947
+[[windows]]
+gc_seconds = 0.701578499
+iteration = 640
+seconds = 3.217204095
+bytes = 218357328
+offset = 0
+allocations = 2075
+[[windows]]
+gc_seconds = 0.0
+iteration = 768
+seconds = 2.554454597
+bytes = 46592
+offset = 0
+allocations = 1424
+[[windows]]
+gc_seconds = 0.0
+iteration = 896
+seconds = 2.552502803
+bytes = 48512
+offset = 0
+allocations = 1472
+[[windows]]
+gc_seconds = 0.0
+iteration = 1024
+seconds = 2.609180603
+bytes = 217215008
+offset = 0
+allocations = 1810
+[[windows]]
+gc_seconds = 0.0
+iteration = 1152
+seconds = 2.565919303
+bytes = 47072
+offset = 0
+allocations = 1436
+[[windows]]
+gc_seconds = 0.552153701
+iteration = 1280
+seconds = 3.140852704
+bytes = 217217024
+offset = 0
+allocations = 1864
+[[windows]]
+gc_seconds = 0.0
+iteration = 1408
+seconds = 2.537966404
+bytes = 46896
+offset = 0
+allocations = 1425
+[[windows]]
+gc_seconds = 0.0
+iteration = 1536
+seconds = 2.459152998
+bytes = 48512
+offset = 0
+allocations = 1472
+[[windows]]
+gc_seconds = 0.507776795
+iteration = 1664
+seconds = 2.965941872
+bytes = 217215056
+offset = 0
+allocations = 1813
+[[windows]]
+gc_seconds = 0.0
+iteration = 1792
+seconds = 2.437041876
+bytes = 47072
+offset = 0
+allocations = 1436
+[[windows]]
+gc_seconds = 0.0
+iteration = 1920
+seconds = 2.522768364
+bytes = 217216928
+offset = 0
+allocations = 1858
+
+[events]
+checkpoint = 1
+pricing_scanned_entries = 1200678039
+refactor_other = 1
+pivot_completed = 2000
+pricing_full_scan = 2001
+pricing = 2001
+refactor_initial = 2
+pricing_scored_entries = 105177758
+refactor_limit = 6
+pivot_proposed = 2000
+phase_one = 1

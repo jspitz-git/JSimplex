@@ -1,0 +1,544 @@
+read_seconds = 4.663125827
+source_revision = "fe839aa72171d7496c9c931d9393278448c7317e"
+gc_seconds = 13.470137679
+input = "/home/jspitz/mps/medium.mps"
+original_rows = 586972
+input_sha256 = "79c374a584b1463305cf4b0faee8920d0364df2dd5d0468a44ab58d9e9d49dc0"
+case = "medium-dual"
+allocations = 168139254
+original_columns = 420526
+seconds = 59.444772046
+compile_seconds = 0.0
+threads = 1
+mode = "census"
+blas_threads = 1
+bytes = 11363898808
+iterations = 4000
+original_nnz = 1446423
+states_hash = "f8b59eda7c9a9c5771fa6526f9f94695c19023c540bbc573e61fa7a015320654"
+julia = "1.13.0"
+status = "ITERATION_LIMIT"
+events_hash = "bf1aec55de001be871daff4ec8127be7accf736fe06bf039ddc15d328583aabe"
+
+[[counters]]
+inclusive_bytes = 11363898808
+exclusive_bytes = 234033280
+function = "outer_unattributed"
+inclusive_gc_seconds = 13.470137679
+inclusive_allocations = 168139254
+inclusive_seconds = 59.444768546
+exclusive_allocations = 238
+exclusive_gc_seconds = 0.0
+calls = 1
+exclusive_seconds = 1.079367003
+[[counters]]
+inclusive_bytes = 898864
+exclusive_bytes = 898864
+function = "observer"
+inclusive_gc_seconds = 0.0
+inclusive_allocations = 28929
+inclusive_seconds = 1.521827305
+exclusive_allocations = 28929
+exclusive_gc_seconds = 0.0
+calls = 16016
+exclusive_seconds = 1.521827305
+[[counters]]
+inclusive_bytes = 8172662648
+exclusive_bytes = 8172662648
+function = "presolve_problem"
+inclusive_gc_seconds = 9.196164866
+inclusive_allocations = 168091971
+inclusive_seconds = 15.374450913
+exclusive_allocations = 168091971
+exclusive_gc_seconds = 9.196164866
+calls = 1
+exclusive_seconds = 15.374450913
+[[counters]]
+inclusive_bytes = 332577496
+exclusive_bytes = 332577448
+function = "initialize_workspace"
+inclusive_gc_seconds = 0.520614003
+inclusive_allocations = 277
+inclusive_seconds = 0.560971903
+exclusive_allocations = 276
+exclusive_gc_seconds = 0.520614003
+calls = 1
+exclusive_seconds = 0.556531703
+[[counters]]
+inclusive_bytes = 18339992
+exclusive_bytes = 18339992
+function = "_basis_matrix!"
+inclusive_gc_seconds = 0.0
+inclusive_allocations = 14
+inclusive_seconds = 0.0265589
+exclusive_allocations = 14
+exclusive_gc_seconds = 0.0
+calls = 12
+exclusive_seconds = 0.0265589
+[[counters]]
+inclusive_bytes = 2618831200
+exclusive_bytes = 768
+function = "recompute!"
+inclusive_gc_seconds = 3.75335881
+inclusive_allocations = 1649
+inclusive_seconds = 4.276993111
+exclusive_allocations = 24
+exclusive_gc_seconds = 0.0
+calls = 16
+exclusive_seconds = 0.0620428
+[[counters]]
+inclusive_bytes = 323824
+exclusive_bytes = 323824
+function = "_replace_pivot_column!"
+inclusive_gc_seconds = 0.0
+inclusive_allocations = 8200
+inclusive_seconds = 1.662043506
+exclusive_allocations = 8200
+exclusive_gc_seconds = 0.0
+calls = 4000
+exclusive_seconds = 1.662043506
+[[counters]]
+inclusive_bytes = 2624621848
+exclusive_bytes = 192000
+function = "_dual_iteration_unchecked!"
+inclusive_gc_seconds = 3.75335881
+inclusive_allocations = 46720
+inclusive_seconds = 40.238682624
+exclusive_allocations = 8000
+exclusive_gc_seconds = 0.0
+calls = 4000
+exclusive_seconds = 1.978482602
+[[counters]]
+inclusive_bytes = 0
+exclusive_bytes = 0
+function = "dual_edge_selection"
+inclusive_gc_seconds = 0.0
+inclusive_allocations = 0
+inclusive_seconds = 1.500195203
+exclusive_allocations = 0
+exclusive_gc_seconds = 0.0
+calls = 4000
+exclusive_seconds = 1.500195203
+[[counters]]
+inclusive_bytes = 0
+exclusive_bytes = 0
+function = "price!"
+inclusive_gc_seconds = 0.0
+inclusive_allocations = 0
+inclusive_seconds = 2.935787413
+exclusive_allocations = 0
+exclusive_gc_seconds = 0.0
+calls = 4000
+exclusive_seconds = 2.935787413
+[[counters]]
+inclusive_bytes = 4379928
+exclusive_bytes = 0
+function = "_configured_dual_ratio_test"
+inclusive_gc_seconds = 0.0
+inclusive_allocations = 3
+inclusive_seconds = 3.31543331
+exclusive_allocations = 0
+exclusive_gc_seconds = 0.0
+calls = 4000
+exclusive_seconds = 0.0052235
+[[counters]]
+inclusive_bytes = 4379928
+exclusive_bytes = 4379928
+function = "_bound_flipping_ratio_test"
+inclusive_gc_seconds = 0.0
+inclusive_allocations = 3
+inclusive_seconds = 3.31020981
+exclusive_allocations = 3
+exclusive_gc_seconds = 0.0
+calls = 4000
+exclusive_seconds = 3.31020981
+[[counters]]
+inclusive_bytes = 128000
+exclusive_bytes = 0
+function = "_apply_bound_flips!"
+inclusive_gc_seconds = 0.0
+inclusive_allocations = 4000
+inclusive_seconds = 5.215367518
+exclusive_allocations = 0
+exclusive_gc_seconds = 0.0
+calls = 4000
+exclusive_seconds = 2.763341107
+[[counters]]
+inclusive_bytes = 0
+exclusive_bytes = 0
+function = "update_dual_pricing_weights!"
+inclusive_gc_seconds = 0.0
+inclusive_allocations = 0
+inclusive_seconds = 5.263368116
+exclusive_allocations = 0
+exclusive_gc_seconds = 0.0
+calls = 4000
+exclusive_seconds = 0.0070192
+[[counters]]
+inclusive_bytes = 0
+exclusive_bytes = 0
+function = "_validate_dual_edge!"
+inclusive_gc_seconds = 0.0
+inclusive_allocations = 0
+inclusive_seconds = 0.0012494
+exclusive_allocations = 0
+exclusive_gc_seconds = 0.0
+calls = 4000
+exclusive_seconds = 0.0012494
+[[counters]]
+inclusive_bytes = 0
+exclusive_bytes = 0
+function = "_dual_row_residual_ratio"
+inclusive_gc_seconds = 0.0
+inclusive_allocations = 0
+inclusive_seconds = 1.800867107
+exclusive_allocations = 0
+exclusive_gc_seconds = 0.0
+calls = 4000
+exclusive_seconds = 1.800867107
+[[counters]]
+inclusive_bytes = 0
+exclusive_bytes = 0
+function = "_dual_direction_residual_ok!"
+inclusive_gc_seconds = 0.0
+inclusive_allocations = 0
+inclusive_seconds = 2.609151506
+exclusive_allocations = 0
+exclusive_gc_seconds = 0.0
+calls = 4000
+exclusive_seconds = 2.609151506
+[[counters]]
+inclusive_bytes = 0
+exclusive_bytes = 0
+function = "_finite_workspace"
+inclusive_gc_seconds = 0.0
+inclusive_allocations = 0
+inclusive_seconds = 4.589442208
+exclusive_allocations = 0
+exclusive_gc_seconds = 0.0
+calls = 16004
+exclusive_seconds = 4.589442208
+[[counters]]
+inclusive_bytes = 0
+exclusive_bytes = 0
+function = "update_duals!"
+inclusive_gc_seconds = 0.0
+inclusive_allocations = 0
+inclusive_seconds = 1.267062501
+exclusive_allocations = 0
+exclusive_gc_seconds = 0.0
+calls = 4000
+exclusive_seconds = 1.267062501
+[[counters]]
+inclusive_bytes = 0
+exclusive_bytes = 0
+function = "update_primals!"
+inclusive_gc_seconds = 0.0
+inclusive_allocations = 0
+inclusive_seconds = 0.650285503
+exclusive_allocations = 0
+exclusive_gc_seconds = 0.0
+calls = 4000
+exclusive_seconds = 0.650285503
+[[counters]]
+inclusive_bytes = 0
+exclusive_bytes = 0
+function = "_pipeline_basis_solve!"
+inclusive_gc_seconds = 0.0
+inclusive_allocations = 0
+inclusive_seconds = 10.161160939
+exclusive_allocations = 0
+exclusive_gc_seconds = 0.0
+calls = 16032
+exclusive_seconds = 10.161160939
+[[counters]]
+inclusive_bytes = 0
+exclusive_bytes = 0
+function = "update_dse!"
+inclusive_gc_seconds = 0.0
+inclusive_allocations = 0
+inclusive_seconds = 3.956675214
+exclusive_allocations = 0
+exclusive_gc_seconds = 0.0
+calls = 4000
+exclusive_seconds = 1.410677006
+[[counters]]
+inclusive_bytes = 0
+exclusive_bytes = 0
+function = "_stabilize_small_dual_pivot!"
+inclusive_gc_seconds = 0.0
+inclusive_allocations = 0
+inclusive_seconds = 0.0023409
+exclusive_allocations = 0
+exclusive_gc_seconds = 0.0
+calls = 4000
+exclusive_seconds = 0.0023409
+[[counters]]
+inclusive_bytes = 32
+exclusive_bytes = 0
+function = "_internal_solution"
+inclusive_gc_seconds = 0.0
+inclusive_allocations = 1
+inclusive_seconds = 1.02e-5
+exclusive_allocations = 0
+exclusive_gc_seconds = 0.0
+calls = 1
+exclusive_seconds = 6.5e-6
+[[counters]]
+inclusive_bytes = 2600490056
+exclusive_bytes = 2600490056
+function = "refactorize!"
+inclusive_gc_seconds = 3.75335881
+inclusive_allocations = 1599
+inclusive_seconds = 4.169444011
+exclusive_allocations = 1599
+exclusive_gc_seconds = 3.75335881
+calls = 12
+exclusive_seconds = 4.169444011
+
+[[phases]]
+iteration = 0
+offset = 0
+columns = 186497
+event = "phase_dual"
+rows = 360982
+nnz = 961843
+[[phases]]
+iteration = 0
+offset = 0
+columns = 186497
+event = "phase_auxiliary"
+rows = 360982
+nnz = 961843
+
+[[windows]]
+gc_seconds = 9.716778869
+iteration = 128
+seconds = 17.169495622
+bytes = 8743734128
+offset = 0
+allocations = 168094719
+[[windows]]
+gc_seconds = 0.0
+iteration = 256
+seconds = 1.212310706
+bytes = 93096
+offset = 0
+allocations = 2206
+[[windows]]
+gc_seconds = 0.553589402
+iteration = 384
+seconds = 1.825061509
+bytes = 237563280
+offset = 0
+allocations = 1872
+[[windows]]
+gc_seconds = 0.0
+iteration = 512
+seconds = 1.21829941
+bytes = 34768
+offset = 0
+allocations = 1179
+[[windows]]
+gc_seconds = 0.0
+iteration = 640
+seconds = 1.255648411
+bytes = 53312
+offset = 0
+allocations = 1693
+[[windows]]
+gc_seconds = 0.0
+iteration = 768
+seconds = 1.369681612
+bytes = 233768608
+offset = 0
+allocations = 1318
+[[windows]]
+gc_seconds = 0.0
+iteration = 896
+seconds = 1.242902011
+bytes = 34784
+offset = 0
+allocations = 1180
+[[windows]]
+gc_seconds = 0.546028005
+iteration = 1024
+seconds = 1.811160516
+bytes = 214527072
+offset = 0
+allocations = 1828
+[[windows]]
+gc_seconds = 0.0
+iteration = 1152
+seconds = 1.254847809
+bytes = 34784
+offset = 0
+allocations = 1180
+[[windows]]
+gc_seconds = 0.0
+iteration = 1280
+seconds = 1.244202603
+bytes = 53216
+offset = 0
+allocations = 1692
+[[windows]]
+gc_seconds = 0.531586602
+iteration = 1408
+seconds = 1.845226905
+bytes = 214574432
+offset = 0
+allocations = 1314
+[[windows]]
+gc_seconds = 0.0
+iteration = 1536
+seconds = 1.272288103
+bytes = 34784
+offset = 0
+allocations = 1180
+[[windows]]
+gc_seconds = 0.0
+iteration = 1664
+seconds = 1.286430603
+bytes = 214653952
+offset = 0
+allocations = 1822
+[[windows]]
+gc_seconds = 0.0
+iteration = 1792
+seconds = 1.261118703
+bytes = 34784
+offset = 0
+allocations = 1180
+[[windows]]
+gc_seconds = 0.0
+iteration = 1920
+seconds = 1.261936203
+bytes = 53216
+offset = 0
+allocations = 1692
+[[windows]]
+gc_seconds = 0.5139617
+iteration = 2048
+seconds = 1.799291002
+bytes = 214701152
+offset = 0
+allocations = 1316
+[[windows]]
+gc_seconds = 0.0
+iteration = 2176
+seconds = 1.245946401
+bytes = 34784
+offset = 0
+allocations = 1180
+[[windows]]
+gc_seconds = 0.0
+iteration = 2304
+seconds = 1.337471801
+bytes = 214780928
+offset = 0
+allocations = 1822
+[[windows]]
+gc_seconds = 0.0
+iteration = 2432
+seconds = 1.272936101
+bytes = 34784
+offset = 0
+allocations = 1180
+[[windows]]
+gc_seconds = 0.0
+iteration = 2560
+seconds = 1.265904302
+bytes = 53216
+offset = 0
+allocations = 1692
+[[windows]]
+gc_seconds = 0.5758612
+iteration = 2688
+seconds = 1.878348102
+bytes = 214824032
+offset = 0
+allocations = 1316
+[[windows]]
+gc_seconds = 0.0
+iteration = 2816
+seconds = 1.258867501
+bytes = 34784
+offset = 0
+allocations = 1180
+[[windows]]
+gc_seconds = 0.509563301
+iteration = 2944
+seconds = 1.805582503
+bytes = 214907984
+offset = 0
+allocations = 1827
+[[windows]]
+gc_seconds = 0.0
+iteration = 3072
+seconds = 1.244177301
+bytes = 34784
+offset = 0
+allocations = 1180
+[[windows]]
+gc_seconds = 0.0
+iteration = 3200
+seconds = 1.258778602
+bytes = 53216
+offset = 0
+allocations = 1692
+[[windows]]
+gc_seconds = 0.0
+iteration = 3328
+seconds = 1.285390601
+bytes = 214949312
+offset = 0
+allocations = 1310
+[[windows]]
+gc_seconds = 0.0
+iteration = 3456
+seconds = 1.257276201
+bytes = 34784
+offset = 0
+allocations = 1180
+[[windows]]
+gc_seconds = 0.5227686
+iteration = 3584
+seconds = 1.8198469
+bytes = 215030848
+offset = 0
+allocations = 1826
+[[windows]]
+gc_seconds = 0.0
+iteration = 3712
+seconds = 1.247066301
+bytes = 34784
+offset = 0
+allocations = 1180
+[[windows]]
+gc_seconds = 0.0
+iteration = 3840
+seconds = 1.293017
+bytes = 53216
+offset = 0
+allocations = 1692
+[[windows]]
+gc_seconds = 0.0
+iteration = 3968
+seconds = 1.317937601
+bytes = 215077888
+offset = 0
+allocations = 1310
+
+[events]
+phase_dual = 1
+checkpoint = 1
+phase_auxiliary = 1
+pricing_scanned_entries = 1443928000
+bound_flipped = 4000
+pivot_completed = 4000
+pricing_full_scan = 4000
+pricing = 4000
+refactor_initial = 1
+pricing_scored_entries = 622092000
+refactor_limit = 12
+pivot_proposed = 4000

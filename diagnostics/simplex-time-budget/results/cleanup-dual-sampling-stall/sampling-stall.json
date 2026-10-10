@@ -1,0 +1,18 @@
+{
+  "pid": 216436,
+  "pgid": 216436,
+  "cmdline": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/julia --startup-file=no --heap-size-hint=2G --project=/home/jspitz/.codex/worktrees/simplex-time-budget/JSimplex.jl /home/jspitz/.codex/worktrees/simplex-time-budget/JSimplex.jl/diagnostics/simplex-time-budget/reproduce/measure.jl cleanup-dual /home/jspitz/.codex/worktrees/simplex-time-budget/JSimplex.jl/.superpowers/time-budget/cleanup-dual-1 ",
+  "observations": [
+    {
+      "time": 1791671187.463201,
+      "threads": "    PID     TID ELAPSED     TIME %CPU STAT WCHAN                          COMMAND\n 216436  216436     924 00:04:41 30.4 Ssl  do_wait_intr_irq               julia\n 216436  216440     924 00:00:00  0.0 Ssl  io_sq_thread                   iou-sqp-27065\n 216436  216441     924 00:10:42 69.4 Rsl  -                              julia\n",
+      "io": "rchar: 751852476\nwchar: 5059\nsyscr: 20983\nsyscw: 619\nread_bytes: 0\nwrite_bytes: 20480\ncancelled_write_bytes: 0\n"
+    },
+    {
+      "time": 1791671197.4702287,
+      "threads": "    PID     TID ELAPSED     TIME %CPU STAT WCHAN                          COMMAND\n 216436  216436     934 00:04:41 30.1 Ssl  do_wait_intr_irq               julia\n 216436  216440     934 00:00:00  0.0 Ssl  io_sq_thread                   iou-sqp-27065\n 216436  216441     934 00:10:52 69.7 Rsl  -                              julia\n",
+      "io": "rchar: 751852476\nwchar: 5059\nsyscr: 20983\nsyscw: 619\nread_bytes: 0\nwrite_bytes: 20480\ncancelled_write_bytes: 0\n"
+    }
+  ],
+  "interpretation": "Main thread CPU and output are stationary while helper thread consumes CPU during Profile sampling. Suspected profiler stall, not a solver numerical failure. No stack debugger available; exact internal location is unverified."
+}
