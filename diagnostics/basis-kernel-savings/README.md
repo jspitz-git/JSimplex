@@ -194,7 +194,7 @@ compilation and 2.277/2.408 s GC. Cumulative allocation is
 RSS is 2.394/2.379 GiB. This single pair does not establish an end-to-end speedup;
 the tiny cold allocation-count difference does not establish hot-loop overhead.
 
-The original-method BG baseline recorded one failed certification, and a
+The original-method BG baseline recorded one `certification_failed` event, and a
 diagnostic profile observed execution inside the original-LP retry. It ultimately
 reached OPTIMAL with 128,742 iterations and 462 refactorizations, passing original
 primal feasibility. One SIGUSR1 profiling intervention occurred during this run;
@@ -204,15 +204,16 @@ captured by the quiet logger.
 
 The optimized BG run also reached OPTIMAL with original primal feasibility.
 Both runs have exactly matching objective, event counts, pivot/flip hashes and
-sampled-state hashes, including the failed-certification/recovery trajectory.
+sampled-state hashes, including the numerical-recovery trajectory.
 The optimized solve took 1,387.023 s with 0.0661 s compilation and 54.167 s GC;
 its cumulative allocation was 59,074,397,536 bytes in 471,964,210 allocations.
 For context only, the profiled baseline recorded 1,394.693 s, 0.0684 s
 compilation, 50.975 s GC and 59,074,441,792 bytes in the same allocation count.
 These timings do not establish a solver speedup. This change preserves the
-existing recovery behavior; it does not repair or explain that certificate
-rejection. Both runs stayed below the external watchdog and returned exit code
-zero with unchanged pinned sources.
+existing recovery behavior. Follow-up [BG diagnosis](../bg-certificate-diagnosis/README.md)
+shows that the event was emitted for exhausted basis recovery **before**
+optimality certification, not a rejected certificate. Both runs stayed below the
+external watchdog and returned exit code zero with unchanged pinned sources.
 
 
 

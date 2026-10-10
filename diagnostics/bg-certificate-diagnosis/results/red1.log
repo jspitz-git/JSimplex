@@ -1,0 +1,1129 @@
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23
+  Expression: JSimplex._native_cleanup_solve!(x, ws, B, rhs, (()->begin
+            #= /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23 =#
+            false
+        end); transposed, local_reconstruction = true)
+   Evaluated: JSimplex._native_cleanup_solve!(Float32[0.0, 0.0], JSimplex.SimplexWorkspace{Float32, JSimplex.PFIFactorization{Float32, JSimplex.Float32LUBackend{LU{Float32, Matrix{Float32}, Vector{Int64}}}}, :pfi, :native, JSimplex.SimplexDiagnostics{Nothing}}(LinearProblem{Float32}(sparse([1, 2], [1, 2], Float32[1.0, 2.0], 2, 2), Float32[0.0, 0.0], 0.0f0, MIN_SENSE, Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, true)], Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], VariableDomain[CONTINUOUS, CONTINUOUS], "", String[], String[]), SolverOptions{Float32, :pfi, :native}(1.0f-7, 1.0f-7, 1.0f-12, 100000, Inf, 20, false, Debug, :dual, :steepest_edge, :pfi, :native, :auto, true, :legacy, false), JSimplex.SimplexProgressContext{Float32, JSimplex.SimplexDiagnostics{Nothing}}(0x00002bd633a09068, Float32[0.0, 0.0], 0.0f0, JSimplex.Scaling{Float32}(Float32[1.0, 1.0], Float32[1.0, 1.0]), 0, 0, JSimplex.SimplexDiagnostics{Nothing}(Dict(:pricing_reset => 0, :stagnation_cost_rebase => 0, :pricing_weight_rejected => 0, :pivot_completed => 0, :correction_attempt => 1, :primal_projection_attempt => 0, :primal_point_balanced => 0, :phase_auxiliary => 0, :refactor_fill => 0, :stagnation_watch => 0…), [:refactor_initial, :correction_attempt], 3, nothing, false, Dict(:hypersparse_weight_btran_sparse => 0, :hypersparse_weight_btran_dense => 0, :hypersparse_base_graph => 0, :hypersparse_weight_btran_empty => 0, :btran => 0, :hypersparse_weight_ftran_sparse => 0, :crash => 0, :hypersparse_ftran_sparse => 0, :hypersparse_pricing_empty => 0, :hypersparse_weight_ftran_empty => 0…), Dict{Symbol, UInt64}(:hypersparse_weight_btran_sparse => 0x0000000000000000, :hypersparse_weight_btran_dense => 0x0000000000000000, :hypersparse_base_graph => 0x0000000000000000, :hypersparse_weight_btran_empty => 0x0000000000000000, :btran => 0x0000000000000000, :hypersparse_weight_ftran_sparse => 0x0000000000000000, :crash => 0x0000000000000000, :hypersparse_ftran_sparse => 0x0000000000000000, :hypersparse_pricing_empty => 0x0000000000000000, :hypersparse_weight_ftran_empty => 0x0000000000000000…)), JSimplex.NumericalPolicy{Float32}(3.0517578f-5, 0.00034526698f0, 3, 8, 2, 64, 512, 1073741824, 8, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false)), Float32[0.0, 0.0, 0.0, 0.0], Bound{Float32}[Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], JSimplex.Basis([3, 4], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC]), Float32[0.0, 0.0, -0.0, -0.0], Float32[0.0, 0.0, 0.0, 0.0], Float32[1.0, 1.0, 1.0, 1.0], Bool[0, 0, 1, 1], JSimplex.PFIFactorization{Float32, JSimplex.Float32LUBackend{LU{Float32, Matrix{Float32}, Vector{Int64}}}}(JSimplex.Float32LUBackend{LU{Float32, Matrix{Float32}, Vector{Int64}}}(LU{Float32, Matrix{Float32}, Vector{Int64}}(Float32[1.001 0.0; 0.0 2.002], [1, 2], 0), LU{Float32, Matrix{Float32}, Vector{Int64}}(Float32[-1.0 0.0; -0.0 -1.0], [1, 2], 0), true, false), JSimplex.PackedEta{Float32}[], Float32[0.0, 0.0], JSimplex.PackedEta{Float32}[], 0, nothing), JSimplex.SimplexScratch{Float32}(Bool[0, 0, 1, 1], Float32[0.0, 0.0], Float32[-0.0, -0.0], Float32[-0.0, -0.0], Float32[0.0, 0.0], Float32[0.0, 0.0, 0.0, 0.0], Float32[0.0, 0.0, 0.0, 0.0], Bool[0, 0, 0, 0], false, Int64[], Int64[], Float32[], Float32[], Int64[], nothing, nothing, false, Int64[], Int64[], 0, 0, nothing, :none, 0.0f0, false, false, false, :limit, JSimplex.RefactorizationState{Float32}(0, 0, 20, 20, 512, false, false, false, nothing, 1.0, 1.0f0, 0, 1.0e8, 4, 4, 8.0, 0.0, 0.0, 0.0, 0, 0, 0, 0.0, 0.0, 0, 0, 9223372036854775807, 0, 0, 0, 0.0, :none), nothing, nothing, nothing, nothing, nothing, 0.0f0, 0.0f0, nothing, true, true, sparse([1, 2], [1, 2], Float32[-1.0, -1.0], 2, 2), JSimplex.BasisCheckpoint{Float32}[], 0x0000000000000000, Tuple{Int64, Int64}[], 0x0000000000000000, false, false, nothing, nothing), 0, 0, false, 0, false, false, 20, 0, 9223372036854775807, 0, 0), sparse([1, 2], [1, 2], Float32[1.0, 2.0], 2, 2), Float32[1.0, 2.0], var"#3#4"(); transposed = false, local_reconstruction = true)
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:25
+  Expression: x ≈ ones(T, 2)
+   Evaluated: Float32[0.0, 0.0] ≈ Float32[1.0, 1.0]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:25 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:26
+  Expression: norm(B * x - rhs, Inf) <= T(256) * eps(T) * norm(rhs, Inf)
+   Evaluated: 2.0f0 <= 6.1035156f-5
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:26 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:27
+  Expression: JSimplex.event_count(d, :correction_attempt) == 2
+   Evaluated: 1 == 2
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:27 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23
+  Expression: JSimplex._native_cleanup_solve!(x, ws, B, rhs, (()->begin
+            #= /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23 =#
+            false
+        end); transposed, local_reconstruction = true)
+   Evaluated: JSimplex._native_cleanup_solve!(Float32[0.0, 0.0], JSimplex.SimplexWorkspace{Float32, JSimplex.PFIFactorization{Float32, JSimplex.Float32LUBackend{LU{Float32, Matrix{Float32}, Vector{Int64}}}}, :pfi, :native, JSimplex.SimplexDiagnostics{Nothing}}(LinearProblem{Float32}(sparse([1, 2], [1, 2], Float32[1.0, 2.0], 2, 2), Float32[0.0, 0.0], 0.0f0, MIN_SENSE, Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, true)], Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], VariableDomain[CONTINUOUS, CONTINUOUS], "", String[], String[]), SolverOptions{Float32, :pfi, :native}(1.0f-7, 1.0f-7, 1.0f-12, 100000, Inf, 20, false, Debug, :dual, :steepest_edge, :pfi, :native, :auto, true, :legacy, false), JSimplex.SimplexProgressContext{Float32, JSimplex.SimplexDiagnostics{Nothing}}(0x00002bd720bdd9cd, Float32[0.0, 0.0], 0.0f0, JSimplex.Scaling{Float32}(Float32[1.0, 1.0], Float32[1.0, 1.0]), 0, 0, JSimplex.SimplexDiagnostics{Nothing}(Dict(:pricing_reset => 0, :stagnation_cost_rebase => 0, :pricing_weight_rejected => 0, :pivot_completed => 0, :correction_attempt => 1, :primal_projection_attempt => 0, :primal_point_balanced => 0, :phase_auxiliary => 0, :refactor_fill => 0, :stagnation_watch => 0…), [:refactor_initial, :correction_attempt], 3, nothing, false, Dict(:hypersparse_weight_btran_sparse => 0, :hypersparse_weight_btran_dense => 0, :hypersparse_base_graph => 0, :hypersparse_weight_btran_empty => 0, :btran => 0, :hypersparse_weight_ftran_sparse => 0, :crash => 0, :hypersparse_ftran_sparse => 0, :hypersparse_pricing_empty => 0, :hypersparse_weight_ftran_empty => 0…), Dict{Symbol, UInt64}(:hypersparse_weight_btran_sparse => 0x0000000000000000, :hypersparse_weight_btran_dense => 0x0000000000000000, :hypersparse_base_graph => 0x0000000000000000, :hypersparse_weight_btran_empty => 0x0000000000000000, :btran => 0x0000000000000000, :hypersparse_weight_ftran_sparse => 0x0000000000000000, :crash => 0x0000000000000000, :hypersparse_ftran_sparse => 0x0000000000000000, :hypersparse_pricing_empty => 0x0000000000000000, :hypersparse_weight_ftran_empty => 0x0000000000000000…)), JSimplex.NumericalPolicy{Float32}(3.0517578f-5, 0.00034526698f0, 3, 8, 2, 64, 512, 1073741824, 8, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false)), Float32[0.0, 0.0, 0.0, 0.0], Bound{Float32}[Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], JSimplex.Basis([3, 4], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC]), Float32[0.0, 0.0, -0.0, -0.0], Float32[0.0, 0.0, 0.0, 0.0], Float32[1.0, 1.0, 1.0, 1.0], Bool[0, 0, 1, 1], JSimplex.PFIFactorization{Float32, JSimplex.Float32LUBackend{LU{Float32, Matrix{Float32}, Vector{Int64}}}}(JSimplex.Float32LUBackend{LU{Float32, Matrix{Float32}, Vector{Int64}}}(LU{Float32, Matrix{Float32}, Vector{Int64}}(Float32[1.001 0.0; 0.0 2.002], [1, 2], 0), LU{Float32, Matrix{Float32}, Vector{Int64}}(Float32[-1.0 0.0; -0.0 -1.0], [1, 2], 0), true, false), JSimplex.PackedEta{Float32}[], Float32[1.0, 2.0], JSimplex.PackedEta{Float32}[], 0, nothing), JSimplex.SimplexScratch{Float32}(Bool[0, 0, 1, 1], Float32[0.0, 0.0], Float32[-0.0, -0.0], Float32[-0.0, -0.0], Float32[0.0, 0.0], Float32[0.0, 0.0, 0.0, 0.0], Float32[0.0, 0.0, 0.0, 0.0], Bool[0, 0, 0, 0], false, Int64[], Int64[], Float32[], Float32[], Int64[], nothing, nothing, false, Int64[], Int64[], 0, 0, nothing, :none, 0.0f0, false, false, false, :limit, JSimplex.RefactorizationState{Float32}(0, 0, 20, 20, 512, false, false, false, nothing, 1.0, 1.0f0, 0, 1.0e8, 4, 4, 8.0, 0.0, 0.0, 0.0, 0, 0, 0, 0.0, 0.0, 0, 0, 9223372036854775807, 0, 0, 0, 0.0, :none), nothing, nothing, nothing, nothing, nothing, 0.0f0, 0.0f0, nothing, true, true, sparse([1, 2], [1, 2], Float32[-1.0, -1.0], 2, 2), JSimplex.BasisCheckpoint{Float32}[], 0x0000000000000000, Tuple{Int64, Int64}[], 0x0000000000000000, false, false, nothing, nothing), 0, 0, false, 0, false, false, 20, 0, 9223372036854775807, 0, 0), sparse([1, 2], [1, 2], Float32[1.0, 2.0], 2, 2), Float32[1.0, 2.0], var"#3#4"(); transposed = true, local_reconstruction = true)
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:25
+  Expression: x ≈ ones(T, 2)
+   Evaluated: Float32[0.0, 0.0] ≈ Float32[1.0, 1.0]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:25 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:26
+  Expression: norm(B * x - rhs, Inf) <= T(256) * eps(T) * norm(rhs, Inf)
+   Evaluated: 2.0f0 <= 6.1035156f-5
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:26 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:27
+  Expression: JSimplex.event_count(d, :correction_attempt) == 2
+   Evaluated: 1 == 2
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:27 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23
+  Expression: JSimplex._native_cleanup_solve!(x, ws, B, rhs, (()->begin
+            #= /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23 =#
+            false
+        end); transposed, local_reconstruction = true)
+   Evaluated: JSimplex._native_cleanup_solve!(Float32[0.0, 0.0], JSimplex.SimplexWorkspace{Float32, JSimplex.ForrestTomlinFactorization{Float32, JSimplex.Float32LUBackend{LU{Float32, Matrix{Float32}, Vector{Int64}}}}, :forrest_tomlin, :native, JSimplex.SimplexDiagnostics{Nothing}}(LinearProblem{Float32}(sparse([1, 2], [1, 2], Float32[1.0, 2.0], 2, 2), Float32[0.0, 0.0], 0.0f0, MIN_SENSE, Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, true)], Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], VariableDomain[CONTINUOUS, CONTINUOUS], "", String[], String[]), SolverOptions{Float32, :forrest_tomlin, :native}(1.0f-7, 1.0f-7, 1.0f-12, 100000, Inf, 20, false, Debug, :dual, :steepest_edge, :forrest_tomlin, :native, :auto, true, :legacy, false), JSimplex.SimplexProgressContext{Float32, JSimplex.SimplexDiagnostics{Nothing}}(0x00002bd721500f7d, Float32[0.0, 0.0], 0.0f0, JSimplex.Scaling{Float32}(Float32[1.0, 1.0], Float32[1.0, 1.0]), 0, 0, JSimplex.SimplexDiagnostics{Nothing}(Dict(:pricing_reset => 0, :stagnation_cost_rebase => 0, :pricing_weight_rejected => 0, :pivot_completed => 0, :correction_attempt => 1, :primal_projection_attempt => 0, :primal_point_balanced => 0, :phase_auxiliary => 0, :refactor_fill => 0, :stagnation_watch => 0…), [:refactor_initial, :correction_attempt], 3, nothing, false, Dict(:hypersparse_weight_btran_sparse => 0, :hypersparse_weight_btran_dense => 0, :hypersparse_base_graph => 0, :hypersparse_weight_btran_empty => 0, :btran => 0, :hypersparse_weight_ftran_sparse => 0, :crash => 0, :hypersparse_ftran_sparse => 0, :hypersparse_pricing_empty => 0, :hypersparse_weight_ftran_empty => 0…), Dict{Symbol, UInt64}(:hypersparse_weight_btran_sparse => 0x0000000000000000, :hypersparse_weight_btran_dense => 0x0000000000000000, :hypersparse_base_graph => 0x0000000000000000, :hypersparse_weight_btran_empty => 0x0000000000000000, :btran => 0x0000000000000000, :hypersparse_weight_ftran_sparse => 0x0000000000000000, :crash => 0x0000000000000000, :hypersparse_ftran_sparse => 0x0000000000000000, :hypersparse_pricing_empty => 0x0000000000000000, :hypersparse_weight_ftran_empty => 0x0000000000000000…)), JSimplex.NumericalPolicy{Float32}(3.0517578f-5, 0.00034526698f0, 3, 8, 2, 64, 512, 1073741824, 8, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false)), Float32[0.0, 0.0, 0.0, 0.0], Bound{Float32}[Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], JSimplex.Basis([3, 4], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC]), Float32[0.0, 0.0, -0.0, -0.0], Float32[0.0, 0.0, 0.0, 0.0], Float32[1.0, 1.0, 1.0, 1.0], Bool[0, 0, 1, 1], JSimplex.ForrestTomlinFactorization{Float32, JSimplex.Float32LUBackend{LU{Float32, Matrix{Float32}, Vector{Int64}}}}(JSimplex.Float32LUBackend{LU{Float32, Matrix{Float32}, Vector{Int64}}}(LU{Float32, Matrix{Float32}, Vector{Int64}}(Float32[1.001 0.0; 0.0 2.002], [1, 2], 0), LU{Float32, Matrix{Float32}, Vector{Int64}}(Float32[-1.0 0.0; -0.0 -1.0], [1, 2], 0), true, false), JSimplex.PackedUpperColumn{Float32, Vector{Int64}}[JSimplex.PackedUpperColumn{Float32, Vector{Int64}}([1], Float32[1.0]), JSimplex.PackedUpperColumn{Float32, Vector{Int64}}([2], Float32[1.0])], [1, 2], [1, 2], JSimplex.ForrestTomlinUpdate{Float32}[], Float32[0.99900097, 0.99900097], Float32[0.0, 0.0], Vector{Int64}[], JSimplex.ForrestTomlinUpdate{Float32}[], 0, nothing, JSimplex.TriangularRowCache{Float32}([1, 2], Tuple{Int64, Int64, Float32}[], 0, false, Int64[], false, 3, Int64[], JSimplex.TriangularSpikeCache{Float32}((JSimplex.PreparedTriangularSpike{Float32}(nothing, Float32[9.0f-44, 0.0], Float32[9.4f-44, 0.0]), JSimplex.PreparedTriangularSpike{Float32}(nothing, Float32[3.0f-45, 6.0f-45], Float32[241460.75, 8.8217f-41])), 1))), JSimplex.SimplexScratch{Float32}(Bool[0, 0, 1, 1], Float32[0.0, 0.0], Float32[-0.0, -0.0], Float32[-0.0, -0.0], Float32[0.0, 0.0], Float32[0.0, 0.0, 0.0, 0.0], Float32[0.0, 0.0, 0.0, 0.0], Bool[0, 0, 0, 0], false, Int64[], Int64[], Float32[], Float32[], Int64[], nothing, nothing, false, Int64[], Int64[], 0, 0, nothing, :none, 0.0f0, false, false, false, :limit, JSimplex.RefactorizationState{Float32}(0, 0, 20, 20, 128, false, false, false, nothing, 1.0, 1.0f0, 0, 1.0e8, 6, 6, 8.0, 0.0, 0.0, 0.0, 0, 0, 0, 0.0, 0.0, 0, 0, 9223372036854775807, 0, 0, 0, 0.0, :none), nothing, nothing, nothing, nothing, nothing, 0.0f0, 0.0f0, nothing, true, true, sparse([1, 2], [1, 2], Float32[-1.0, -1.0], 2, 2), JSimplex.BasisCheckpoint{Float32}[], 0x0000000000000000, Tuple{Int64, Int64}[], 0x0000000000000000, false, false, nothing, nothing), 0, 0, false, 0, false, false, 20, 0, 9223372036854775807, 0, 0), sparse([1, 2], [1, 2], Float32[1.0, 2.0], 2, 2), Float32[1.0, 2.0], var"#3#4"(); transposed = false, local_reconstruction = true)
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:25
+  Expression: x ≈ ones(T, 2)
+   Evaluated: Float32[0.0, 0.0] ≈ Float32[1.0, 1.0]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:25 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:26
+  Expression: norm(B * x - rhs, Inf) <= T(256) * eps(T) * norm(rhs, Inf)
+   Evaluated: 2.0f0 <= 6.1035156f-5
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:26 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:27
+  Expression: JSimplex.event_count(d, :correction_attempt) == 2
+   Evaluated: 1 == 2
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:27 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23
+  Expression: JSimplex._native_cleanup_solve!(x, ws, B, rhs, (()->begin
+            #= /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23 =#
+            false
+        end); transposed, local_reconstruction = true)
+   Evaluated: JSimplex._native_cleanup_solve!(Float32[0.0, 0.0], JSimplex.SimplexWorkspace{Float32, JSimplex.ForrestTomlinFactorization{Float32, JSimplex.Float32LUBackend{LU{Float32, Matrix{Float32}, Vector{Int64}}}}, :forrest_tomlin, :native, JSimplex.SimplexDiagnostics{Nothing}}(LinearProblem{Float32}(sparse([1, 2], [1, 2], Float32[1.0, 2.0], 2, 2), Float32[0.0, 0.0], 0.0f0, MIN_SENSE, Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, true)], Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], VariableDomain[CONTINUOUS, CONTINUOUS], "", String[], String[]), SolverOptions{Float32, :forrest_tomlin, :native}(1.0f-7, 1.0f-7, 1.0f-12, 100000, Inf, 20, false, Debug, :dual, :steepest_edge, :forrest_tomlin, :native, :auto, true, :legacy, false), JSimplex.SimplexProgressContext{Float32, JSimplex.SimplexDiagnostics{Nothing}}(0x00002bd76d36bb0a, Float32[0.0, 0.0], 0.0f0, JSimplex.Scaling{Float32}(Float32[1.0, 1.0], Float32[1.0, 1.0]), 0, 0, JSimplex.SimplexDiagnostics{Nothing}(Dict(:pricing_reset => 0, :stagnation_cost_rebase => 0, :pricing_weight_rejected => 0, :pivot_completed => 0, :correction_attempt => 1, :primal_projection_attempt => 0, :primal_point_balanced => 0, :phase_auxiliary => 0, :refactor_fill => 0, :stagnation_watch => 0…), [:refactor_initial, :correction_attempt], 3, nothing, false, Dict(:hypersparse_weight_btran_sparse => 0, :hypersparse_weight_btran_dense => 0, :hypersparse_base_graph => 0, :hypersparse_weight_btran_empty => 0, :btran => 0, :hypersparse_weight_ftran_sparse => 0, :crash => 0, :hypersparse_ftran_sparse => 0, :hypersparse_pricing_empty => 0, :hypersparse_weight_ftran_empty => 0…), Dict{Symbol, UInt64}(:hypersparse_weight_btran_sparse => 0x0000000000000000, :hypersparse_weight_btran_dense => 0x0000000000000000, :hypersparse_base_graph => 0x0000000000000000, :hypersparse_weight_btran_empty => 0x0000000000000000, :btran => 0x0000000000000000, :hypersparse_weight_ftran_sparse => 0x0000000000000000, :crash => 0x0000000000000000, :hypersparse_ftran_sparse => 0x0000000000000000, :hypersparse_pricing_empty => 0x0000000000000000, :hypersparse_weight_ftran_empty => 0x0000000000000000…)), JSimplex.NumericalPolicy{Float32}(3.0517578f-5, 0.00034526698f0, 3, 8, 2, 64, 512, 1073741824, 8, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false)), Float32[0.0, 0.0, 0.0, 0.0], Bound{Float32}[Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], JSimplex.Basis([3, 4], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC]), Float32[0.0, 0.0, -0.0, -0.0], Float32[0.0, 0.0, 0.0, 0.0], Float32[1.0, 1.0, 1.0, 1.0], Bool[0, 0, 1, 1], JSimplex.ForrestTomlinFactorization{Float32, JSimplex.Float32LUBackend{LU{Float32, Matrix{Float32}, Vector{Int64}}}}(JSimplex.Float32LUBackend{LU{Float32, Matrix{Float32}, Vector{Int64}}}(LU{Float32, Matrix{Float32}, Vector{Int64}}(Float32[1.001 0.0; 0.0 2.002], [1, 2], 0), LU{Float32, Matrix{Float32}, Vector{Int64}}(Float32[-1.0 0.0; -0.0 -1.0], [1, 2], 0), true, false), JSimplex.PackedUpperColumn{Float32, Vector{Int64}}[JSimplex.PackedUpperColumn{Float32, Vector{Int64}}([1], Float32[1.0]), JSimplex.PackedUpperColumn{Float32, Vector{Int64}}([2], Float32[1.0])], [1, 2], [1, 2], JSimplex.ForrestTomlinUpdate{Float32}[], Float32[1.0, 2.0], Float32[0.0, 0.0], Vector{Int64}[], JSimplex.ForrestTomlinUpdate{Float32}[], 0, nothing, JSimplex.TriangularRowCache{Float32}([1, 2], Tuple{Int64, Int64, Float32}[], 0, false, Int64[], false, 3, Int64[], JSimplex.TriangularSpikeCache{Float32}((JSimplex.PreparedTriangularSpike{Float32}(nothing, Float32[6.2371267f10, 8.8217f-41], Float32[2.0974112f7, 8.8217f-41]), JSimplex.PreparedTriangularSpike{Float32}(nothing, Float32[9.5366414f11, 8.8217f-41], Float32[2.0979872f7, 8.8217f-41])), 2))), JSimplex.SimplexScratch{Float32}(Bool[0, 0, 1, 1], Float32[0.0, 0.0], Float32[-0.0, -0.0], Float32[-0.0, -0.0], Float32[0.0, 0.0], Float32[0.0, 0.0, 0.0, 0.0], Float32[0.0, 0.0, 0.0, 0.0], Bool[0, 0, 0, 0], false, Int64[], Int64[], Float32[], Float32[], Int64[], nothing, nothing, false, Int64[], Int64[], 0, 0, nothing, :none, 0.0f0, false, false, false, :limit, JSimplex.RefactorizationState{Float32}(0, 0, 20, 20, 128, false, false, false, nothing, 1.0, 1.0f0, 0, 1.0e8, 6, 6, 8.0, 0.0, 0.0, 0.0, 0, 0, 0, 0.0, 0.0, 0, 0, 9223372036854775807, 0, 0, 0, 0.0, :none), nothing, nothing, nothing, nothing, nothing, 0.0f0, 0.0f0, nothing, true, true, sparse([1, 2], [1, 2], Float32[-1.0, -1.0], 2, 2), JSimplex.BasisCheckpoint{Float32}[], 0x0000000000000000, Tuple{Int64, Int64}[], 0x0000000000000000, false, false, nothing, nothing), 0, 0, false, 0, false, false, 20, 0, 9223372036854775807, 0, 0), sparse([1, 2], [1, 2], Float32[1.0, 2.0], 2, 2), Float32[1.0, 2.0], var"#3#4"(); transposed = true, local_reconstruction = true)
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:25
+  Expression: x ≈ ones(T, 2)
+   Evaluated: Float32[0.0, 0.0] ≈ Float32[1.0, 1.0]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:25 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:26
+  Expression: norm(B * x - rhs, Inf) <= T(256) * eps(T) * norm(rhs, Inf)
+   Evaluated: 2.0f0 <= 6.1035156f-5
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:26 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:27
+  Expression: JSimplex.event_count(d, :correction_attempt) == 2
+   Evaluated: 1 == 2
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:27 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23
+  Expression: JSimplex._native_cleanup_solve!(x, ws, B, rhs, (()->begin
+            #= /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23 =#
+            false
+        end); transposed, local_reconstruction = true)
+   Evaluated: JSimplex._native_cleanup_solve!(Float32[0.0, 0.0], JSimplex.SimplexWorkspace{Float32, JSimplex.SuhlSuhlFactorization{Float32, JSimplex.Float32LUBackend{LU{Float32, Matrix{Float32}, Vector{Int64}}}}, :suhl_suhl, :native, JSimplex.SimplexDiagnostics{Nothing}}(LinearProblem{Float32}(sparse([1, 2], [1, 2], Float32[1.0, 2.0], 2, 2), Float32[0.0, 0.0], 0.0f0, MIN_SENSE, Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, true)], Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], VariableDomain[CONTINUOUS, CONTINUOUS], "", String[], String[]), SolverOptions{Float32, :suhl_suhl, :native}(1.0f-7, 1.0f-7, 1.0f-12, 100000, Inf, 20, false, Debug, :dual, :steepest_edge, :suhl_suhl, :native, :auto, true, :legacy, false), JSimplex.SimplexProgressContext{Float32, JSimplex.SimplexDiagnostics{Nothing}}(0x00002bd76de32bf6, Float32[0.0, 0.0], 0.0f0, JSimplex.Scaling{Float32}(Float32[1.0, 1.0], Float32[1.0, 1.0]), 0, 0, JSimplex.SimplexDiagnostics{Nothing}(Dict(:pricing_reset => 0, :stagnation_cost_rebase => 0, :pricing_weight_rejected => 0, :pivot_completed => 0, :correction_attempt => 1, :primal_projection_attempt => 0, :primal_point_balanced => 0, :phase_auxiliary => 0, :refactor_fill => 0, :stagnation_watch => 0…), [:refactor_initial, :correction_attempt], 3, nothing, false, Dict(:hypersparse_weight_btran_sparse => 0, :hypersparse_weight_btran_dense => 0, :hypersparse_base_graph => 0, :hypersparse_weight_btran_empty => 0, :btran => 0, :hypersparse_weight_ftran_sparse => 0, :crash => 0, :hypersparse_ftran_sparse => 0, :hypersparse_pricing_empty => 0, :hypersparse_weight_ftran_empty => 0…), Dict{Symbol, UInt64}(:hypersparse_weight_btran_sparse => 0x0000000000000000, :hypersparse_weight_btran_dense => 0x0000000000000000, :hypersparse_base_graph => 0x0000000000000000, :hypersparse_weight_btran_empty => 0x0000000000000000, :btran => 0x0000000000000000, :hypersparse_weight_ftran_sparse => 0x0000000000000000, :crash => 0x0000000000000000, :hypersparse_ftran_sparse => 0x0000000000000000, :hypersparse_pricing_empty => 0x0000000000000000, :hypersparse_weight_ftran_empty => 0x0000000000000000…)), JSimplex.NumericalPolicy{Float32}(3.0517578f-5, 0.00034526698f0, 3, 8, 2, 64, 512, 1073741824, 8, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false)), Float32[0.0, 0.0, 0.0, 0.0], Bound{Float32}[Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], JSimplex.Basis([3, 4], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC]), Float32[0.0, 0.0, -0.0, -0.0], Float32[0.0, 0.0, 0.0, 0.0], Float32[1.0, 1.0, 1.0, 1.0], Bool[0, 0, 1, 1], JSimplex.SuhlSuhlFactorization{Float32, JSimplex.Float32LUBackend{LU{Float32, Matrix{Float32}, Vector{Int64}}}}(JSimplex.Float32LUBackend{LU{Float32, Matrix{Float32}, Vector{Int64}}}(LU{Float32, Matrix{Float32}, Vector{Int64}}(Float32[1.001 0.0; 0.0 2.002], [1, 2], 0), LU{Float32, Matrix{Float32}, Vector{Int64}}(Float32[-1.0 0.0; -0.0 -1.0], [1, 2], 0), true, false), JSimplex.PackedUpperColumn{Float32, Vector{Int64}}[JSimplex.PackedUpperColumn{Float32, Vector{Int64}}([1], Float32[1.0]), JSimplex.PackedUpperColumn{Float32, Vector{Int64}}([2], Float32[1.0])], [1, 2], [1, 2], JSimplex.SuhlSuhlUpdate{Float32}[], Float32[0.99900097, 0.99900097], Float32[0.0, 0.0], Vector{Int64}[], JSimplex.SuhlSuhlUpdate{Float32}[], 0, nothing, JSimplex.TriangularRowCache{Float32}([1, 2], Tuple{Int64, Int64, Float32}[], 0, false, Int64[], false, 3, Int64[], JSimplex.TriangularSpikeCache{Float32}((JSimplex.PreparedTriangularSpike{Float32}(nothing, Float32[1.0235646f-11, 8.8217f-41], Float32[1.02356595f-11, 8.8217f-41]), JSimplex.PreparedTriangularSpike{Float32}(nothing, Float32[0.0, 0.0], Float32[9.390879f11, 8.8217f-41])), 1))), JSimplex.SimplexScratch{Float32}(Bool[0, 0, 1, 1], Float32[0.0, 0.0], Float32[-0.0, -0.0], Float32[-0.0, -0.0], Float32[0.0, 0.0], Float32[0.0, 0.0, 0.0, 0.0], Float32[0.0, 0.0, 0.0, 0.0], Bool[0, 0, 0, 0], false, Int64[], Int64[], Float32[], Float32[], Int64[], nothing, nothing, false, Int64[], Int64[], 0, 0, nothing, :none, 0.0f0, false, false, false, :limit, JSimplex.RefactorizationState{Float32}(0, 0, 20, 20, 128, false, false, false, nothing, 1.0, 1.0f0, 0, 1.0e8, 6, 6, 8.0, 0.0, 0.0, 0.0, 0, 0, 0, 0.0, 0.0, 0, 0, 9223372036854775807, 0, 0, 0, 0.0, :none), nothing, nothing, nothing, nothing, nothing, 0.0f0, 0.0f0, nothing, true, true, sparse([1, 2], [1, 2], Float32[-1.0, -1.0], 2, 2), JSimplex.BasisCheckpoint{Float32}[], 0x0000000000000000, Tuple{Int64, Int64}[], 0x0000000000000000, false, false, nothing, nothing), 0, 0, false, 0, false, false, 20, 0, 9223372036854775807, 0, 0), sparse([1, 2], [1, 2], Float32[1.0, 2.0], 2, 2), Float32[1.0, 2.0], var"#3#4"(); transposed = false, local_reconstruction = true)
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:25
+  Expression: x ≈ ones(T, 2)
+   Evaluated: Float32[0.0, 0.0] ≈ Float32[1.0, 1.0]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:25 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:26
+  Expression: norm(B * x - rhs, Inf) <= T(256) * eps(T) * norm(rhs, Inf)
+   Evaluated: 2.0f0 <= 6.1035156f-5
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:26 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:27
+  Expression: JSimplex.event_count(d, :correction_attempt) == 2
+   Evaluated: 1 == 2
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:27 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23
+  Expression: JSimplex._native_cleanup_solve!(x, ws, B, rhs, (()->begin
+            #= /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23 =#
+            false
+        end); transposed, local_reconstruction = true)
+   Evaluated: JSimplex._native_cleanup_solve!(Float32[0.0, 0.0], JSimplex.SimplexWorkspace{Float32, JSimplex.SuhlSuhlFactorization{Float32, JSimplex.Float32LUBackend{LU{Float32, Matrix{Float32}, Vector{Int64}}}}, :suhl_suhl, :native, JSimplex.SimplexDiagnostics{Nothing}}(LinearProblem{Float32}(sparse([1, 2], [1, 2], Float32[1.0, 2.0], 2, 2), Float32[0.0, 0.0], 0.0f0, MIN_SENSE, Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, true)], Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], VariableDomain[CONTINUOUS, CONTINUOUS], "", String[], String[]), SolverOptions{Float32, :suhl_suhl, :native}(1.0f-7, 1.0f-7, 1.0f-12, 100000, Inf, 20, false, Debug, :dual, :steepest_edge, :suhl_suhl, :native, :auto, true, :legacy, false), JSimplex.SimplexProgressContext{Float32, JSimplex.SimplexDiagnostics{Nothing}}(0x00002bd7a6cd9365, Float32[0.0, 0.0], 0.0f0, JSimplex.Scaling{Float32}(Float32[1.0, 1.0], Float32[1.0, 1.0]), 0, 0, JSimplex.SimplexDiagnostics{Nothing}(Dict(:pricing_reset => 0, :stagnation_cost_rebase => 0, :pricing_weight_rejected => 0, :pivot_completed => 0, :correction_attempt => 1, :primal_projection_attempt => 0, :primal_point_balanced => 0, :phase_auxiliary => 0, :refactor_fill => 0, :stagnation_watch => 0…), [:refactor_initial, :correction_attempt], 3, nothing, false, Dict(:hypersparse_weight_btran_sparse => 0, :hypersparse_weight_btran_dense => 0, :hypersparse_base_graph => 0, :hypersparse_weight_btran_empty => 0, :btran => 0, :hypersparse_weight_ftran_sparse => 0, :crash => 0, :hypersparse_ftran_sparse => 0, :hypersparse_pricing_empty => 0, :hypersparse_weight_ftran_empty => 0…), Dict{Symbol, UInt64}(:hypersparse_weight_btran_sparse => 0x0000000000000000, :hypersparse_weight_btran_dense => 0x0000000000000000, :hypersparse_base_graph => 0x0000000000000000, :hypersparse_weight_btran_empty => 0x0000000000000000, :btran => 0x0000000000000000, :hypersparse_weight_ftran_sparse => 0x0000000000000000, :crash => 0x0000000000000000, :hypersparse_ftran_sparse => 0x0000000000000000, :hypersparse_pricing_empty => 0x0000000000000000, :hypersparse_weight_ftran_empty => 0x0000000000000000…)), JSimplex.NumericalPolicy{Float32}(3.0517578f-5, 0.00034526698f0, 3, 8, 2, 64, 512, 1073741824, 8, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false)), Float32[0.0, 0.0, 0.0, 0.0], Bound{Float32}[Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], JSimplex.Basis([3, 4], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC]), Float32[0.0, 0.0, -0.0, -0.0], Float32[0.0, 0.0, 0.0, 0.0], Float32[1.0, 1.0, 1.0, 1.0], Bool[0, 0, 1, 1], JSimplex.SuhlSuhlFactorization{Float32, JSimplex.Float32LUBackend{LU{Float32, Matrix{Float32}, Vector{Int64}}}}(JSimplex.Float32LUBackend{LU{Float32, Matrix{Float32}, Vector{Int64}}}(LU{Float32, Matrix{Float32}, Vector{Int64}}(Float32[1.001 0.0; 0.0 2.002], [1, 2], 0), LU{Float32, Matrix{Float32}, Vector{Int64}}(Float32[-1.0 0.0; -0.0 -1.0], [1, 2], 0), true, false), JSimplex.PackedUpperColumn{Float32, Vector{Int64}}[JSimplex.PackedUpperColumn{Float32, Vector{Int64}}([1], Float32[1.0]), JSimplex.PackedUpperColumn{Float32, Vector{Int64}}([2], Float32[1.0])], [1, 2], [1, 2], JSimplex.SuhlSuhlUpdate{Float32}[], Float32[1.0, 2.0], Float32[0.0, 0.0], Vector{Int64}[], JSimplex.SuhlSuhlUpdate{Float32}[], 0, nothing, JSimplex.TriangularRowCache{Float32}([1, 2], Tuple{Int64, Int64, Float32}[], 0, false, Int64[], false, 3, Int64[], JSimplex.TriangularSpikeCache{Float32}((JSimplex.PreparedTriangularSpike{Float32}(nothing, Float32[1.0f-45, 0.0], Float32[3.0f-45, 0.0]), JSimplex.PreparedTriangularSpike{Float32}(nothing, Float32[1.0f-45, 0.0], Float32[1.0f-44, 0.0])), 2))), JSimplex.SimplexScratch{Float32}(Bool[0, 0, 1, 1], Float32[0.0, 0.0], Float32[-0.0, -0.0], Float32[-0.0, -0.0], Float32[0.0, 0.0], Float32[0.0, 0.0, 0.0, 0.0], Float32[0.0, 0.0, 0.0, 0.0], Bool[0, 0, 0, 0], false, Int64[], Int64[], Float32[], Float32[], Int64[], nothing, nothing, false, Int64[], Int64[], 0, 0, nothing, :none, 0.0f0, false, false, false, :limit, JSimplex.RefactorizationState{Float32}(0, 0, 20, 20, 128, false, false, false, nothing, 1.0, 1.0f0, 0, 1.0e8, 6, 6, 8.0, 0.0, 0.0, 0.0, 0, 0, 0, 0.0, 0.0, 0, 0, 9223372036854775807, 0, 0, 0, 0.0, :none), nothing, nothing, nothing, nothing, nothing, 0.0f0, 0.0f0, nothing, true, true, sparse([1, 2], [1, 2], Float32[-1.0, -1.0], 2, 2), JSimplex.BasisCheckpoint{Float32}[], 0x0000000000000000, Tuple{Int64, Int64}[], 0x0000000000000000, false, false, nothing, nothing), 0, 0, false, 0, false, false, 20, 0, 9223372036854775807, 0, 0), sparse([1, 2], [1, 2], Float32[1.0, 2.0], 2, 2), Float32[1.0, 2.0], var"#3#4"(); transposed = true, local_reconstruction = true)
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:25
+  Expression: x ≈ ones(T, 2)
+   Evaluated: Float32[0.0, 0.0] ≈ Float32[1.0, 1.0]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:25 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:26
+  Expression: norm(B * x - rhs, Inf) <= T(256) * eps(T) * norm(rhs, Inf)
+   Evaluated: 2.0f0 <= 6.1035156f-5
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:26 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:27
+  Expression: JSimplex.event_count(d, :correction_attempt) == 2
+   Evaluated: 1 == 2
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:27 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23
+  Expression: JSimplex._native_cleanup_solve!(x, ws, B, rhs, (()->begin
+            #= /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23 =#
+            false
+        end); transposed, local_reconstruction = true)
+   Evaluated: JSimplex._native_cleanup_solve!(Float32[0.0, 0.0], JSimplex.SimplexWorkspace{Float32, JSimplex.BartelsGolubFactorization{Float32, JSimplex.Float32LUBackend{LU{Float32, Matrix{Float32}, Vector{Int64}}}}, :bartels_golub, :native, JSimplex.SimplexDiagnostics{Nothing}}(LinearProblem{Float32}(sparse([1, 2], [1, 2], Float32[1.0, 2.0], 2, 2), Float32[0.0, 0.0], 0.0f0, MIN_SENSE, Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, true)], Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], VariableDomain[CONTINUOUS, CONTINUOUS], "", String[], String[]), SolverOptions{Float32, :bartels_golub, :native}(1.0f-7, 1.0f-7, 1.0f-12, 100000, Inf, 20, false, Debug, :dual, :steepest_edge, :bartels_golub, :native, :auto, true, :legacy, false), JSimplex.SimplexProgressContext{Float32, JSimplex.SimplexDiagnostics{Nothing}}(0x00002bd7a76cb995, Float32[0.0, 0.0], 0.0f0, JSimplex.Scaling{Float32}(Float32[1.0, 1.0], Float32[1.0, 1.0]), 0, 0, JSimplex.SimplexDiagnostics{Nothing}(Dict(:pricing_reset => 0, :stagnation_cost_rebase => 0, :pricing_weight_rejected => 0, :pivot_completed => 0, :correction_attempt => 1, :primal_projection_attempt => 0, :primal_point_balanced => 0, :phase_auxiliary => 0, :refactor_fill => 0, :stagnation_watch => 0…), [:refactor_initial, :correction_attempt], 3, nothing, false, Dict(:hypersparse_weight_btran_sparse => 0, :hypersparse_weight_btran_dense => 0, :hypersparse_base_graph => 0, :hypersparse_weight_btran_empty => 0, :btran => 0, :hypersparse_weight_ftran_sparse => 0, :crash => 0, :hypersparse_ftran_sparse => 0, :hypersparse_pricing_empty => 0, :hypersparse_weight_ftran_empty => 0…), Dict{Symbol, UInt64}(:hypersparse_weight_btran_sparse => 0x0000000000000000, :hypersparse_weight_btran_dense => 0x0000000000000000, :hypersparse_base_graph => 0x0000000000000000, :hypersparse_weight_btran_empty => 0x0000000000000000, :btran => 0x0000000000000000, :hypersparse_weight_ftran_sparse => 0x0000000000000000, :crash => 0x0000000000000000, :hypersparse_ftran_sparse => 0x0000000000000000, :hypersparse_pricing_empty => 0x0000000000000000, :hypersparse_weight_ftran_empty => 0x0000000000000000…)), JSimplex.NumericalPolicy{Float32}(3.0517578f-5, 0.00034526698f0, 3, 8, 2, 64, 512, 1073741824, 8, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false)), Float32[0.0, 0.0, 0.0, 0.0], Bound{Float32}[Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], JSimplex.Basis([3, 4], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC]), Float32[0.0, 0.0, -0.0, -0.0], Float32[0.0, 0.0, 0.0, 0.0], Float32[1.0, 1.0, 1.0, 1.0], Bool[0, 0, 1, 1], JSimplex.BartelsGolubFactorization{Float32, JSimplex.Float32LUBackend{LU{Float32, Matrix{Float32}, Vector{Int64}}}}(JSimplex.Float32LUBackend{LU{Float32, Matrix{Float32}, Vector{Int64}}}(LU{Float32, Matrix{Float32}, Vector{Int64}}(Float32[1.001 0.0; 0.0 2.002], [1, 2], 0), LU{Float32, Matrix{Float32}, Vector{Int64}}(Float32[-1.0 0.0; -0.0 -1.0], [1, 2], 0), true, false), JSimplex.PackedUpperColumn{Float32, JSimplex.UpperRowIndices}[JSimplex.PackedUpperColumn{Float32, JSimplex.UpperRowIndices}([1], Float32[1.0]), JSimplex.PackedUpperColumn{Float32, JSimplex.UpperRowIndices}([2], Float32[1.0])], [1, 2], [1, 2], JSimplex.BartelsGolubUpdate{Float32}[], Float32[0.99900097, 0.99900097], Float32[0.0, 0.0], [Int64[], Int64[]], Int64[], JSimplex.BartelsGolubUpdate{Float32}[], 0, nothing, JSimplex.TriangularRowCache{Float32}([1, 2], Tuple{Int64, Int64, Float32}[], 0, false, Int64[], false, 3, Int64[], JSimplex.TriangularSpikeCache{Float32}((JSimplex.PreparedTriangularSpike{Float32}(nothing, Float32[5.218618f-8, 8.8217f-41], Float32[9.390879f11, 8.8217f-41]), JSimplex.PreparedTriangularSpike{Float32}(nothing, Float32[4.0f-45, 0.0], Float32[152744.75, 8.8217f-41])), 1)), false), JSimplex.SimplexScratch{Float32}(Bool[0, 0, 1, 1], Float32[0.0, 0.0], Float32[-0.0, -0.0], Float32[-0.0, -0.0], Float32[0.0, 0.0], Float32[0.0, 0.0, 0.0, 0.0], Float32[0.0, 0.0, 0.0, 0.0], Bool[0, 0, 0, 0], false, Int64[], Int64[], Float32[], Float32[], Int64[], nothing, nothing, false, Int64[], Int64[], 0, 0, nothing, :none, 0.0f0, false, false, false, :limit, JSimplex.RefactorizationState{Float32}(0, 0, 20, 20, 128, false, false, false, nothing, 1.0, 1.0f0, 0, 1.0e8, 6, 6, 8.0, 0.0, 0.0, 0.0, 0, 0, 0, 0.0, 0.0, 0, 0, 9223372036854775807, 0, 0, 0, 0.0, :none), nothing, nothing, nothing, nothing, nothing, 0.0f0, 0.0f0, nothing, true, true, sparse([1, 2], [1, 2], Float32[-1.0, -1.0], 2, 2), JSimplex.BasisCheckpoint{Float32}[], 0x0000000000000000, Tuple{Int64, Int64}[], 0x0000000000000000, false, false, nothing, nothing), 0, 0, false, 0, false, false, 20, 0, 9223372036854775807, 0, 0), sparse([1, 2], [1, 2], Float32[1.0, 2.0], 2, 2), Float32[1.0, 2.0], var"#3#4"(); transposed = false, local_reconstruction = true)
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:25
+  Expression: x ≈ ones(T, 2)
+   Evaluated: Float32[0.0, 0.0] ≈ Float32[1.0, 1.0]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:25 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:26
+  Expression: norm(B * x - rhs, Inf) <= T(256) * eps(T) * norm(rhs, Inf)
+   Evaluated: 2.0f0 <= 6.1035156f-5
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:26 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:27
+  Expression: JSimplex.event_count(d, :correction_attempt) == 2
+   Evaluated: 1 == 2
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:27 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23
+  Expression: JSimplex._native_cleanup_solve!(x, ws, B, rhs, (()->begin
+            #= /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23 =#
+            false
+        end); transposed, local_reconstruction = true)
+   Evaluated: JSimplex._native_cleanup_solve!(Float32[0.0, 0.0], JSimplex.SimplexWorkspace{Float32, JSimplex.BartelsGolubFactorization{Float32, JSimplex.Float32LUBackend{LU{Float32, Matrix{Float32}, Vector{Int64}}}}, :bartels_golub, :native, JSimplex.SimplexDiagnostics{Nothing}}(LinearProblem{Float32}(sparse([1, 2], [1, 2], Float32[1.0, 2.0], 2, 2), Float32[0.0, 0.0], 0.0f0, MIN_SENSE, Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, true)], Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], VariableDomain[CONTINUOUS, CONTINUOUS], "", String[], String[]), SolverOptions{Float32, :bartels_golub, :native}(1.0f-7, 1.0f-7, 1.0f-12, 100000, Inf, 20, false, Debug, :dual, :steepest_edge, :bartels_golub, :native, :auto, true, :legacy, false), JSimplex.SimplexProgressContext{Float32, JSimplex.SimplexDiagnostics{Nothing}}(0x00002bd7f03ad69a, Float32[0.0, 0.0], 0.0f0, JSimplex.Scaling{Float32}(Float32[1.0, 1.0], Float32[1.0, 1.0]), 0, 0, JSimplex.SimplexDiagnostics{Nothing}(Dict(:pricing_reset => 0, :stagnation_cost_rebase => 0, :pricing_weight_rejected => 0, :pivot_completed => 0, :correction_attempt => 1, :primal_projection_attempt => 0, :primal_point_balanced => 0, :phase_auxiliary => 0, :refactor_fill => 0, :stagnation_watch => 0…), [:refactor_initial, :correction_attempt], 3, nothing, false, Dict(:hypersparse_weight_btran_sparse => 0, :hypersparse_weight_btran_dense => 0, :hypersparse_base_graph => 0, :hypersparse_weight_btran_empty => 0, :btran => 0, :hypersparse_weight_ftran_sparse => 0, :crash => 0, :hypersparse_ftran_sparse => 0, :hypersparse_pricing_empty => 0, :hypersparse_weight_ftran_empty => 0…), Dict{Symbol, UInt64}(:hypersparse_weight_btran_sparse => 0x0000000000000000, :hypersparse_weight_btran_dense => 0x0000000000000000, :hypersparse_base_graph => 0x0000000000000000, :hypersparse_weight_btran_empty => 0x0000000000000000, :btran => 0x0000000000000000, :hypersparse_weight_ftran_sparse => 0x0000000000000000, :crash => 0x0000000000000000, :hypersparse_ftran_sparse => 0x0000000000000000, :hypersparse_pricing_empty => 0x0000000000000000, :hypersparse_weight_ftran_empty => 0x0000000000000000…)), JSimplex.NumericalPolicy{Float32}(3.0517578f-5, 0.00034526698f0, 3, 8, 2, 64, 512, 1073741824, 8, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false)), Float32[0.0, 0.0, 0.0, 0.0], Bound{Float32}[Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], JSimplex.Basis([3, 4], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC]), Float32[0.0, 0.0, -0.0, -0.0], Float32[0.0, 0.0, 0.0, 0.0], Float32[1.0, 1.0, 1.0, 1.0], Bool[0, 0, 1, 1], JSimplex.BartelsGolubFactorization{Float32, JSimplex.Float32LUBackend{LU{Float32, Matrix{Float32}, Vector{Int64}}}}(JSimplex.Float32LUBackend{LU{Float32, Matrix{Float32}, Vector{Int64}}}(LU{Float32, Matrix{Float32}, Vector{Int64}}(Float32[1.001 0.0; 0.0 2.002], [1, 2], 0), LU{Float32, Matrix{Float32}, Vector{Int64}}(Float32[-1.0 0.0; -0.0 -1.0], [1, 2], 0), true, false), JSimplex.PackedUpperColumn{Float32, JSimplex.UpperRowIndices}[JSimplex.PackedUpperColumn{Float32, JSimplex.UpperRowIndices}([1], Float32[1.0]), JSimplex.PackedUpperColumn{Float32, JSimplex.UpperRowIndices}([2], Float32[1.0])], [1, 2], [1, 2], JSimplex.BartelsGolubUpdate{Float32}[], Float32[1.0, 2.0], Float32[1.0, 2.0], [Int64[], Int64[]], Int64[], JSimplex.BartelsGolubUpdate{Float32}[], 0, nothing, JSimplex.TriangularRowCache{Float32}([1, 2], Tuple{Int64, Int64, Float32}[], 0, false, Int64[], false, 3, Int64[], JSimplex.TriangularSpikeCache{Float32}((JSimplex.PreparedTriangularSpike{Float32}(nothing, Float32[6.7f-44, 0.0], Float32[7.8f-44, 0.0]), JSimplex.PreparedTriangularSpike{Float32}(nothing, Float32[7.7f-44, 0.0], Float32[8.7f-44, 0.0])), 2)), false), JSimplex.SimplexScratch{Float32}(Bool[0, 0, 1, 1], Float32[0.0, 0.0], Float32[-0.0, -0.0], Float32[-0.0, -0.0], Float32[0.0, 0.0], Float32[0.0, 0.0, 0.0, 0.0], Float32[0.0, 0.0, 0.0, 0.0], Bool[0, 0, 0, 0], false, Int64[], Int64[], Float32[], Float32[], Int64[], nothing, nothing, false, Int64[], Int64[], 0, 0, nothing, :none, 0.0f0, false, false, false, :limit, JSimplex.RefactorizationState{Float32}(0, 0, 20, 20, 128, false, false, false, nothing, 1.0, 1.0f0, 0, 1.0e8, 6, 6, 8.0, 0.0, 0.0, 0.0, 0, 0, 0, 0.0, 0.0, 0, 0, 9223372036854775807, 0, 0, 0, 0.0, :none), nothing, nothing, nothing, nothing, nothing, 0.0f0, 0.0f0, nothing, true, true, sparse([1, 2], [1, 2], Float32[-1.0, -1.0], 2, 2), JSimplex.BasisCheckpoint{Float32}[], 0x0000000000000000, Tuple{Int64, Int64}[], 0x0000000000000000, false, false, nothing, nothing), 0, 0, false, 0, false, false, 20, 0, 9223372036854775807, 0, 0), sparse([1, 2], [1, 2], Float32[1.0, 2.0], 2, 2), Float32[1.0, 2.0], var"#3#4"(); transposed = true, local_reconstruction = true)
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:25
+  Expression: x ≈ ones(T, 2)
+   Evaluated: Float32[0.0, 0.0] ≈ Float32[1.0, 1.0]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:25 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:26
+  Expression: norm(B * x - rhs, Inf) <= T(256) * eps(T) * norm(rhs, Inf)
+   Evaluated: 2.0f0 <= 6.1035156f-5
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:26 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:27
+  Expression: JSimplex.event_count(d, :correction_attempt) == 2
+   Evaluated: 1 == 2
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:27 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23
+  Expression: JSimplex._native_cleanup_solve!(x, ws, B, rhs, (()->begin
+            #= /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23 =#
+            false
+        end); transposed, local_reconstruction = true)
+   Evaluated: JSimplex._native_cleanup_solve!(Float32[0.0, 0.0], JSimplex.SimplexWorkspace{Float32, JSimplex.HuangfuHallFactorization{Float32, LU{Float32, Matrix{Float32}, Vector{Int64}}, :native}, :huangfu_hall, :native, JSimplex.SimplexDiagnostics{Nothing}}(LinearProblem{Float32}(sparse([1, 2], [1, 2], Float32[1.0, 2.0], 2, 2), Float32[0.0, 0.0], 0.0f0, MIN_SENSE, Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, true)], Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], VariableDomain[CONTINUOUS, CONTINUOUS], "", String[], String[]), SolverOptions{Float32, :huangfu_hall, :native}(1.0f-7, 1.0f-7, 1.0f-12, 100000, Inf, 20, false, Debug, :dual, :steepest_edge, :huangfu_hall, :native, :auto, true, :legacy, false), JSimplex.SimplexProgressContext{Float32, JSimplex.SimplexDiagnostics{Nothing}}(0x00002bd7f0eb16ea, Float32[0.0, 0.0], 0.0f0, JSimplex.Scaling{Float32}(Float32[1.0, 1.0], Float32[1.0, 1.0]), 0, 0, JSimplex.SimplexDiagnostics{Nothing}(Dict(:pricing_reset => 0, :stagnation_cost_rebase => 0, :pricing_weight_rejected => 0, :pivot_completed => 0, :correction_attempt => 1, :primal_projection_attempt => 0, :primal_point_balanced => 0, :phase_auxiliary => 0, :refactor_fill => 0, :stagnation_watch => 0…), [:refactor_initial, :correction_attempt], 3, nothing, false, Dict(:hypersparse_weight_btran_sparse => 0, :hypersparse_weight_btran_dense => 0, :hypersparse_base_graph => 0, :hypersparse_weight_btran_empty => 0, :btran => 0, :hypersparse_weight_ftran_sparse => 0, :crash => 0, :hypersparse_ftran_sparse => 0, :hypersparse_pricing_empty => 0, :hypersparse_weight_ftran_empty => 0…), Dict{Symbol, UInt64}(:hypersparse_weight_btran_sparse => 0x0000000000000000, :hypersparse_weight_btran_dense => 0x0000000000000000, :hypersparse_base_graph => 0x0000000000000000, :hypersparse_weight_btran_empty => 0x0000000000000000, :btran => 0x0000000000000000, :hypersparse_weight_ftran_sparse => 0x0000000000000000, :crash => 0x0000000000000000, :hypersparse_ftran_sparse => 0x0000000000000000, :hypersparse_pricing_empty => 0x0000000000000000, :hypersparse_weight_ftran_empty => 0x0000000000000000…)), JSimplex.NumericalPolicy{Float32}(3.0517578f-5, 0.00034526698f0, 3, 8, 2, 64, 512, 1073741824, 8, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false)), Float32[0.0, 0.0, 0.0, 0.0], Bound{Float32}[Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], JSimplex.Basis([3, 4], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC]), Float32[0.0, 0.0, -0.0, -0.0], Float32[0.0, 0.0, 0.0, 0.0], Float32[1.0, 1.0, 1.0, 1.0], Bool[0, 0, 1, 1], JSimplex.HuangfuHallFactorization{Float32, LU{Float32, Matrix{Float32}, Vector{Int64}}, :native}(JSimplex.HHBase{Float32}(sparse([1, 2], [1, 2], Float32[1.0, 1.0], 2, 2), sparse([1, 2], [1, 2], Float32[1.001, 2.002], 2, 2), [1, 2], [1, 2], [1, 2], Float32[1.0, 1.0], false, [1, 1, 1], Int64[]), JSimplex.HHUpdate{Float32}[], Float32[0.99900097, 0.99900097], Float32[0.0, 0.0], Float32[0.0, 0.0], Float32[0.0, 0.0], false, LU{Float32, Matrix{Float32}, Vector{Int64}}(Float32[1.001 0.0; 0.0 2.002], [1, 2], 0), JSimplex.HHUnitWorkspace{Float32}(Float32[0.0, 0.0], Bool[0, 0], Int64[]), 0, JSimplex.HHPool{Float32}(Tuple{Vector{Int64}, Vector{Float32}}[], 0), JSimplex.HHPool{Float32}(Tuple{Vector{Int64}, Vector{Float32}}[], 0), JSimplex.HHExtractWorkspace(Int64[], Int64[], Float64[])), JSimplex.SimplexScratch{Float32}(Bool[0, 0, 1, 1], Float32[0.0, 0.0], Float32[-0.0, -0.0], Float32[-0.0, -0.0], Float32[0.0, 0.0], Float32[0.0, 0.0, 0.0, 0.0], Float32[0.0, 0.0, 0.0, 0.0], Bool[0, 0, 0, 0], false, Int64[], Int64[], Float32[], Float32[], Int64[], nothing, nothing, false, Int64[], Int64[], 0, 0, nothing, :none, 0.0f0, false, false, false, :limit, JSimplex.RefactorizationState{Float32}(0, 0, 20, 20, 128, false, false, false, nothing, 1.0, 1.0f0, 0, 1.0e8, 4, 4, 8.0, 0.0, 0.0, 0.0, 0, 0, 0, 0.0, 0.0, 0, 0, 9223372036854775807, 0, 0, 0, 0.0, :none), nothing, nothing, nothing, nothing, nothing, 0.0f0, 0.0f0, nothing, true, true, sparse([1, 2], [1, 2], Float32[-1.0, -1.0], 2, 2), JSimplex.BasisCheckpoint{Float32}[], 0x0000000000000000, Tuple{Int64, Int64}[], 0x0000000000000000, false, false, nothing, nothing), 0, 0, false, 0, false, false, 20, 0, 9223372036854775807, 0, 0), sparse([1, 2], [1, 2], Float32[1.0, 2.0], 2, 2), Float32[1.0, 2.0], var"#3#4"(); transposed = false, local_reconstruction = true)
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:25
+  Expression: x ≈ ones(T, 2)
+   Evaluated: Float32[0.0, 0.0] ≈ Float32[1.0, 1.0]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:25 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:26
+  Expression: norm(B * x - rhs, Inf) <= T(256) * eps(T) * norm(rhs, Inf)
+   Evaluated: 2.0f0 <= 6.1035156f-5
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:26 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:27
+  Expression: JSimplex.event_count(d, :correction_attempt) == 2
+   Evaluated: 1 == 2
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:27 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23
+  Expression: JSimplex._native_cleanup_solve!(x, ws, B, rhs, (()->begin
+            #= /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23 =#
+            false
+        end); transposed, local_reconstruction = true)
+   Evaluated: JSimplex._native_cleanup_solve!(Float32[0.0, 0.0], JSimplex.SimplexWorkspace{Float32, JSimplex.HuangfuHallFactorization{Float32, LU{Float32, Matrix{Float32}, Vector{Int64}}, :native}, :huangfu_hall, :native, JSimplex.SimplexDiagnostics{Nothing}}(LinearProblem{Float32}(sparse([1, 2], [1, 2], Float32[1.0, 2.0], 2, 2), Float32[0.0, 0.0], 0.0f0, MIN_SENSE, Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, true)], Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], VariableDomain[CONTINUOUS, CONTINUOUS], "", String[], String[]), SolverOptions{Float32, :huangfu_hall, :native}(1.0f-7, 1.0f-7, 1.0f-12, 100000, Inf, 20, false, Debug, :dual, :steepest_edge, :huangfu_hall, :native, :auto, true, :legacy, false), JSimplex.SimplexProgressContext{Float32, JSimplex.SimplexDiagnostics{Nothing}}(0x00002bd82c652efc, Float32[0.0, 0.0], 0.0f0, JSimplex.Scaling{Float32}(Float32[1.0, 1.0], Float32[1.0, 1.0]), 0, 0, JSimplex.SimplexDiagnostics{Nothing}(Dict(:pricing_reset => 0, :stagnation_cost_rebase => 0, :pricing_weight_rejected => 0, :pivot_completed => 0, :correction_attempt => 1, :primal_projection_attempt => 0, :primal_point_balanced => 0, :phase_auxiliary => 0, :refactor_fill => 0, :stagnation_watch => 0…), [:refactor_initial, :correction_attempt], 3, nothing, false, Dict(:hypersparse_weight_btran_sparse => 0, :hypersparse_weight_btran_dense => 0, :hypersparse_base_graph => 0, :hypersparse_weight_btran_empty => 0, :btran => 0, :hypersparse_weight_ftran_sparse => 0, :crash => 0, :hypersparse_ftran_sparse => 0, :hypersparse_pricing_empty => 0, :hypersparse_weight_ftran_empty => 0…), Dict{Symbol, UInt64}(:hypersparse_weight_btran_sparse => 0x0000000000000000, :hypersparse_weight_btran_dense => 0x0000000000000000, :hypersparse_base_graph => 0x0000000000000000, :hypersparse_weight_btran_empty => 0x0000000000000000, :btran => 0x0000000000000000, :hypersparse_weight_ftran_sparse => 0x0000000000000000, :crash => 0x0000000000000000, :hypersparse_ftran_sparse => 0x0000000000000000, :hypersparse_pricing_empty => 0x0000000000000000, :hypersparse_weight_ftran_empty => 0x0000000000000000…)), JSimplex.NumericalPolicy{Float32}(3.0517578f-5, 0.00034526698f0, 3, 8, 2, 64, 512, 1073741824, 8, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false)), Float32[0.0, 0.0, 0.0, 0.0], Bound{Float32}[Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, true), Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], Bound{Float32}[Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false), Bound{Float32}(0.0f0, false)], JSimplex.Basis([3, 4], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC]), Float32[0.0, 0.0, -0.0, -0.0], Float32[0.0, 0.0, 0.0, 0.0], Float32[1.0, 1.0, 1.0, 1.0], Bool[0, 0, 1, 1], JSimplex.HuangfuHallFactorization{Float32, LU{Float32, Matrix{Float32}, Vector{Int64}}, :native}(JSimplex.HHBase{Float32}(sparse([1, 2], [1, 2], Float32[1.0, 1.0], 2, 2), sparse([1, 2], [1, 2], Float32[1.001, 2.002], 2, 2), [1, 2], [1, 2], [1, 2], Float32[1.0, 1.0], false, [1, 1, 1], Int64[]), JSimplex.HHUpdate{Float32}[], Float32[0.99900097, 0.99900097], Float32[0.0, 0.0], Float32[0.0, 0.0], Float32[0.0, 0.0], false, LU{Float32, Matrix{Float32}, Vector{Int64}}(Float32[1.001 0.0; 0.0 2.002], [1, 2], 0), JSimplex.HHUnitWorkspace{Float32}(Float32[0.0, 0.0], Bool[0, 0], Int64[]), 0, JSimplex.HHPool{Float32}(Tuple{Vector{Int64}, Vector{Float32}}[], 0), JSimplex.HHPool{Float32}(Tuple{Vector{Int64}, Vector{Float32}}[], 0), JSimplex.HHExtractWorkspace(Int64[], Int64[], Float64[])), JSimplex.SimplexScratch{Float32}(Bool[0, 0, 1, 1], Float32[0.0, 0.0], Float32[-0.0, -0.0], Float32[-0.0, -0.0], Float32[0.0, 0.0], Float32[0.0, 0.0, 0.0, 0.0], Float32[0.0, 0.0, 0.0, 0.0], Bool[0, 0, 0, 0], false, Int64[], Int64[], Float32[], Float32[], Int64[], nothing, nothing, false, Int64[], Int64[], 0, 0, nothing, :none, 0.0f0, false, false, false, :limit, JSimplex.RefactorizationState{Float32}(0, 0, 20, 20, 128, false, false, false, nothing, 1.0, 1.0f0, 0, 1.0e8, 4, 4, 8.0, 0.0, 0.0, 0.0, 0, 0, 0, 0.0, 0.0, 0, 0, 9223372036854775807, 0, 0, 0, 0.0, :none), nothing, nothing, nothing, nothing, nothing, 0.0f0, 0.0f0, nothing, true, true, sparse([1, 2], [1, 2], Float32[-1.0, -1.0], 2, 2), JSimplex.BasisCheckpoint{Float32}[], 0x0000000000000000, Tuple{Int64, Int64}[], 0x0000000000000000, false, false, nothing, nothing), 0, 0, false, 0, false, false, 20, 0, 9223372036854775807, 0, 0), sparse([1, 2], [1, 2], Float32[1.0, 2.0], 2, 2), Float32[1.0, 2.0], var"#3#4"(); transposed = true, local_reconstruction = true)
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:25
+  Expression: x ≈ ones(T, 2)
+   Evaluated: Float32[0.0, 0.0] ≈ Float32[1.0, 1.0]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:25 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:26
+  Expression: norm(B * x - rhs, Inf) <= T(256) * eps(T) * norm(rhs, Inf)
+   Evaluated: 2.0f0 <= 6.1035156f-5
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:26 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:27
+  Expression: JSimplex.event_count(d, :correction_attempt) == 2
+   Evaluated: 1 == 2
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:27 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23
+  Expression: JSimplex._native_cleanup_solve!(x, ws, B, rhs, (()->begin
+            #= /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23 =#
+            false
+        end); transposed, local_reconstruction = true)
+   Evaluated: JSimplex._native_cleanup_solve!([0.0, 0.0], JSimplex.SimplexWorkspace{Float64, JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}, :pfi, :native, JSimplex.SimplexDiagnostics{Nothing}}(LinearProblem{Float64}(sparse([1, 2], [1, 2], [1.0, 2.0], 2, 2), [0.0, 0.0], 0.0, MIN_SENSE, Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], VariableDomain[CONTINUOUS, CONTINUOUS], "", String[], String[]), SolverOptions{Float64, :pfi, :native}(1.0e-7, 1.0e-7, 1.0e-12, 100000, Inf, 20, false, Debug, :dual, :steepest_edge, :pfi, :native, :auto, true, :legacy, false), JSimplex.SimplexProgressContext{Float64, JSimplex.SimplexDiagnostics{Nothing}}(0x00002bd850b24ed3, [0.0, 0.0], 0.0, JSimplex.Scaling{Float64}([1.0, 1.0], [1.0, 1.0]), 0, 0, JSimplex.SimplexDiagnostics{Nothing}(Dict(:pricing_reset => 0, :stagnation_cost_rebase => 0, :pricing_weight_rejected => 0, :pivot_completed => 0, :correction_attempt => 1, :primal_projection_attempt => 0, :primal_point_balanced => 0, :phase_auxiliary => 0, :refactor_fill => 0, :stagnation_watch => 0…), [:refactor_initial, :correction_attempt], 3, nothing, false, Dict(:hypersparse_weight_btran_sparse => 0, :hypersparse_weight_btran_dense => 0, :hypersparse_base_graph => 0, :hypersparse_weight_btran_empty => 0, :btran => 0, :hypersparse_weight_ftran_sparse => 0, :crash => 0, :hypersparse_ftran_sparse => 0, :hypersparse_pricing_empty => 0, :hypersparse_weight_ftran_empty => 0…), Dict{Symbol, UInt64}(:hypersparse_weight_btran_sparse => 0x0000000000000000, :hypersparse_weight_btran_dense => 0x0000000000000000, :hypersparse_base_graph => 0x0000000000000000, :hypersparse_weight_btran_empty => 0x0000000000000000, :btran => 0x0000000000000000, :hypersparse_weight_ftran_sparse => 0x0000000000000000, :crash => 0x0000000000000000, :hypersparse_ftran_sparse => 0x0000000000000000, :hypersparse_pricing_empty => 0x0000000000000000, :hypersparse_weight_ftran_empty => 0x0000000000000000…)), JSimplex.NumericalPolicy{Float64}(5.684341886080802e-14, 1.4901161193847656e-8, 3, 8, 2, 64, 512, 1073741824, 8, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false)), [0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], JSimplex.Basis([3, 4], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC]), [0.0, 0.0, -0.0, -0.0], [0.0, 0.0, 0.0, 0.0], [1.0, 1.0, 1.0, 1.0], Bool[0, 0, 1, 1], JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}(JSimplex.UMFPACKBackend(SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x00000000024ed2a0)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x00000000046f8150)), 2, 2, [0, 1, 2], [0, 1], [1.00000001, 2.00000002], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([270386752123280, 270386197045200], [0.9999999900000002, 0.9999999900000002]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 2.0, 2.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 4.0, 3.1000017770566046e-6, 3.1000017770566046e-6, -1.0, -1.0, -1.0], ReentrantLock()), 2, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x000000000497c6d0)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x00000000046f32c0)), 2, 2, [0, 1, 2], [0, 1], [-1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([270386789647312, 270386640131280], [-0.0, -0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 2.0, 2.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 4.0, 7.999988156370819e-7, 7.999988156370819e-7, -1.0, -1.0, -1.0], ReentrantLock()), false), JSimplex.PackedEta{Float64}[], [0.0, 0.0], JSimplex.PackedEta{Float64}[], 0, nothing), JSimplex.SimplexScratch{Float64}(Bool[0, 0, 1, 1], [0.0, 0.0], [-0.0, -0.0], [-0.0, -0.0], [0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], Bool[0, 0, 0, 0], false, Int64[], Int64[], Float64[], Float64[], Int64[], nothing, nothing, false, Int64[], Int64[], 0, 0, nothing, :none, 0.0, false, false, false, :limit, JSimplex.RefactorizationState{Float64}(0, 0, 20, 20, 512, false, false, false, nothing, 1.0, 1.0, 0, 1.0e8, 4, 4, 8.0, 0.0, 0.0, 0.0, 0, 0, 0, 0.0, 0.0, 0, 0, 9223372036854775807, 0, 0, 0, 0.0, :none), nothing, nothing, nothing, nothing, nothing, 0.0, 0.0, nothing, true, true, sparse([1, 2], [1, 2], [-1.0, -1.0], 2, 2), JSimplex.BasisCheckpoint{Float64}[], 0x0000000000000000, Tuple{Int64, Int64}[], 0x0000000000000000, false, false, nothing, nothing), 0, 0, false, 0, false, false, 20, 0, 9223372036854775807, 0, 0), sparse([1, 2], [1, 2], [1.0, 2.0], 2, 2), [1.0, 2.0], var"#3#4"(); transposed = false, local_reconstruction = true)
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:25
+  Expression: x ≈ ones(T, 2)
+   Evaluated: [0.0, 0.0] ≈ [1.0, 1.0]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:25 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:26
+  Expression: norm(B * x - rhs, Inf) <= T(256) * eps(T) * norm(rhs, Inf)
+   Evaluated: 2.0 <= 1.1368683772161603e-13
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:26 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:27
+  Expression: JSimplex.event_count(d, :correction_attempt) == 2
+   Evaluated: 1 == 2
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:27 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23
+  Expression: JSimplex._native_cleanup_solve!(x, ws, B, rhs, (()->begin
+            #= /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23 =#
+            false
+        end); transposed, local_reconstruction = true)
+   Evaluated: JSimplex._native_cleanup_solve!([0.0, 0.0], JSimplex.SimplexWorkspace{Float64, JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}, :pfi, :native, JSimplex.SimplexDiagnostics{Nothing}}(LinearProblem{Float64}(sparse([1, 2], [1, 2], [1.0, 2.0], 2, 2), [0.0, 0.0], 0.0, MIN_SENSE, Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], VariableDomain[CONTINUOUS, CONTINUOUS], "", String[], String[]), SolverOptions{Float64, :pfi, :native}(1.0e-7, 1.0e-7, 1.0e-12, 100000, Inf, 20, false, Debug, :dual, :steepest_edge, :pfi, :native, :auto, true, :legacy, false), JSimplex.SimplexProgressContext{Float64, JSimplex.SimplexDiagnostics{Nothing}}(0x00002bd8f8fea88e, [0.0, 0.0], 0.0, JSimplex.Scaling{Float64}([1.0, 1.0], [1.0, 1.0]), 0, 0, JSimplex.SimplexDiagnostics{Nothing}(Dict(:pricing_reset => 0, :stagnation_cost_rebase => 0, :pricing_weight_rejected => 0, :pivot_completed => 0, :correction_attempt => 1, :primal_projection_attempt => 0, :primal_point_balanced => 0, :phase_auxiliary => 0, :refactor_fill => 0, :stagnation_watch => 0…), [:refactor_initial, :correction_attempt], 3, nothing, false, Dict(:hypersparse_weight_btran_sparse => 0, :hypersparse_weight_btran_dense => 0, :hypersparse_base_graph => 0, :hypersparse_weight_btran_empty => 0, :btran => 0, :hypersparse_weight_ftran_sparse => 0, :crash => 0, :hypersparse_ftran_sparse => 0, :hypersparse_pricing_empty => 0, :hypersparse_weight_ftran_empty => 0…), Dict{Symbol, UInt64}(:hypersparse_weight_btran_sparse => 0x0000000000000000, :hypersparse_weight_btran_dense => 0x0000000000000000, :hypersparse_base_graph => 0x0000000000000000, :hypersparse_weight_btran_empty => 0x0000000000000000, :btran => 0x0000000000000000, :hypersparse_weight_ftran_sparse => 0x0000000000000000, :crash => 0x0000000000000000, :hypersparse_ftran_sparse => 0x0000000000000000, :hypersparse_pricing_empty => 0x0000000000000000, :hypersparse_weight_ftran_empty => 0x0000000000000000…)), JSimplex.NumericalPolicy{Float64}(5.684341886080802e-14, 1.4901161193847656e-8, 3, 8, 2, 64, 512, 1073741824, 8, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false)), [0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], JSimplex.Basis([3, 4], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC]), [0.0, 0.0, -0.0, -0.0], [0.0, 0.0, 0.0, 0.0], [1.0, 1.0, 1.0, 1.0], Bool[0, 0, 1, 1], JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}(JSimplex.UMFPACKBackend(SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x00000000029bba90)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x00000000012d0a10)), 2, 2, [0, 1, 2], [0, 1], [1.00000001, 2.00000002], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([270386624189184, 270386624189168], [1.0, 2.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 2.0, 2.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 4.0, 2.00001522898674e-7, 2.00001522898674e-7, -1.0, -1.0, -1.0], ReentrantLock()), 2, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000000f98e90)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000001586630)), 2, 2, [0, 1, 2], [0, 1], [-1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([270386720983600, 270386789997984], [-0.0, -0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 2.0, 2.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 4.0, 7.999988156370819e-7, 7.999988156370819e-7, -1.0, -1.0, -1.0], ReentrantLock()), false), JSimplex.PackedEta{Float64}[], [1.0, 2.0], JSimplex.PackedEta{Float64}[], 0, nothing), JSimplex.SimplexScratch{Float64}(Bool[0, 0, 1, 1], [0.0, 0.0], [-0.0, -0.0], [-0.0, -0.0], [0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], Bool[0, 0, 0, 0], false, Int64[], Int64[], Float64[], Float64[], Int64[], nothing, nothing, false, Int64[], Int64[], 0, 0, nothing, :none, 0.0, false, false, false, :limit, JSimplex.RefactorizationState{Float64}(0, 0, 20, 20, 512, false, false, false, nothing, 1.0, 1.0, 0, 1.0e8, 4, 4, 8.0, 0.0, 0.0, 0.0, 0, 0, 0, 0.0, 0.0, 0, 0, 9223372036854775807, 0, 0, 0, 0.0, :none), nothing, nothing, nothing, nothing, nothing, 0.0, 0.0, nothing, true, true, sparse([1, 2], [1, 2], [-1.0, -1.0], 2, 2), JSimplex.BasisCheckpoint{Float64}[], 0x0000000000000000, Tuple{Int64, Int64}[], 0x0000000000000000, false, false, nothing, nothing), 0, 0, false, 0, false, false, 20, 0, 9223372036854775807, 0, 0), sparse([1, 2], [1, 2], [1.0, 2.0], 2, 2), [1.0, 2.0], var"#3#4"(); transposed = true, local_reconstruction = true)
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:25
+  Expression: x ≈ ones(T, 2)
+   Evaluated: [0.0, 0.0] ≈ [1.0, 1.0]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:25 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:26
+  Expression: norm(B * x - rhs, Inf) <= T(256) * eps(T) * norm(rhs, Inf)
+   Evaluated: 2.0 <= 1.1368683772161603e-13
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:26 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:27
+  Expression: JSimplex.event_count(d, :correction_attempt) == 2
+   Evaluated: 1 == 2
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:27 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23
+  Expression: JSimplex._native_cleanup_solve!(x, ws, B, rhs, (()->begin
+            #= /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23 =#
+            false
+        end); transposed, local_reconstruction = true)
+   Evaluated: JSimplex._native_cleanup_solve!([0.0, 0.0], JSimplex.SimplexWorkspace{Float64, JSimplex.ForrestTomlinFactorization{Float64, JSimplex.UMFPACKBackend}, :forrest_tomlin, :native, JSimplex.SimplexDiagnostics{Nothing}}(LinearProblem{Float64}(sparse([1, 2], [1, 2], [1.0, 2.0], 2, 2), [0.0, 0.0], 0.0, MIN_SENSE, Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], VariableDomain[CONTINUOUS, CONTINUOUS], "", String[], String[]), SolverOptions{Float64, :forrest_tomlin, :native}(1.0e-7, 1.0e-7, 1.0e-12, 100000, Inf, 20, false, Debug, :dual, :steepest_edge, :forrest_tomlin, :native, :auto, true, :legacy, false), JSimplex.SimplexProgressContext{Float64, JSimplex.SimplexDiagnostics{Nothing}}(0x00002bd8f9a9efd2, [0.0, 0.0], 0.0, JSimplex.Scaling{Float64}([1.0, 1.0], [1.0, 1.0]), 0, 0, JSimplex.SimplexDiagnostics{Nothing}(Dict(:pricing_reset => 0, :stagnation_cost_rebase => 0, :pricing_weight_rejected => 0, :pivot_completed => 0, :correction_attempt => 1, :primal_projection_attempt => 0, :primal_point_balanced => 0, :phase_auxiliary => 0, :refactor_fill => 0, :stagnation_watch => 0…), [:refactor_initial, :correction_attempt], 3, nothing, false, Dict(:hypersparse_weight_btran_sparse => 0, :hypersparse_weight_btran_dense => 0, :hypersparse_base_graph => 0, :hypersparse_weight_btran_empty => 0, :btran => 0, :hypersparse_weight_ftran_sparse => 0, :crash => 0, :hypersparse_ftran_sparse => 0, :hypersparse_pricing_empty => 0, :hypersparse_weight_ftran_empty => 0…), Dict{Symbol, UInt64}(:hypersparse_weight_btran_sparse => 0x0000000000000000, :hypersparse_weight_btran_dense => 0x0000000000000000, :hypersparse_base_graph => 0x0000000000000000, :hypersparse_weight_btran_empty => 0x0000000000000000, :btran => 0x0000000000000000, :hypersparse_weight_ftran_sparse => 0x0000000000000000, :crash => 0x0000000000000000, :hypersparse_ftran_sparse => 0x0000000000000000, :hypersparse_pricing_empty => 0x0000000000000000, :hypersparse_weight_ftran_empty => 0x0000000000000000…)), JSimplex.NumericalPolicy{Float64}(5.684341886080802e-14, 1.4901161193847656e-8, 3, 8, 2, 64, 512, 1073741824, 8, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false)), [0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], JSimplex.Basis([3, 4], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC]), [0.0, 0.0, -0.0, -0.0], [0.0, 0.0, 0.0, 0.0], [1.0, 1.0, 1.0, 1.0], Bool[0, 0, 1, 1], JSimplex.ForrestTomlinFactorization{Float64, JSimplex.UMFPACKBackend}(JSimplex.UMFPACKBackend(SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000002bcf6a0)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000002dd1580)), 2, 2, [0, 1, 2], [0, 1], [1.00000001, 2.00000002], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([5, 9], [0.9999999900000002, 0.9999999900000002]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 2.0, 2.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 4.0, 3.2000025385059416e-6, 3.2000025385059416e-6, -1.0, -1.0, -1.0], ReentrantLock()), 2, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000001fd31d0)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x00000000029a2a40)), 2, 2, [0, 1, 2], [0, 1], [-1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([0, 0], [-0.0, -0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 2.0, 2.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 4.0, 1.0000003385357559e-6, 1.0000003385357559e-6, -1.0, -1.0, -1.0], ReentrantLock()), false), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}[JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([1], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([2], [1.0])], [1, 2], [1, 2], JSimplex.ForrestTomlinUpdate{Float64}[], [0.9999999900000002, 0.9999999900000002], [0.0, 0.0], Vector{Int64}[], JSimplex.ForrestTomlinUpdate{Float64}[], 0, nothing, JSimplex.TriangularRowCache{Float64}([1, 2], Tuple{Int64, Int64, Float64}[], 0, false, Int64[], false, 3, Int64[], JSimplex.TriangularSpikeCache{Float64}((JSimplex.PreparedTriangularSpike{Float64}(nothing, [1.33588749902674e-309, 1.335885317964303e-309], [4.0e-322, 4.05e-322]), JSimplex.PreparedTriangularSpike{Float64}(nothing, [1.335887500054634e-309, 1.33588531796438e-309], [1.33588749890342e-309, 1.33588749902911e-309])), 1))), JSimplex.SimplexScratch{Float64}(Bool[0, 0, 1, 1], [0.0, 0.0], [-0.0, -0.0], [-0.0, -0.0], [0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], Bool[0, 0, 0, 0], false, Int64[], Int64[], Float64[], Float64[], Int64[], nothing, nothing, false, Int64[], Int64[], 0, 0, nothing, :none, 0.0, false, false, false, :limit, JSimplex.RefactorizationState{Float64}(0, 0, 20, 20, 128, false, false, false, nothing, 1.0, 1.0, 0, 1.0e8, 6, 6, 8.0, 0.0, 0.0, 0.0, 0, 0, 0, 0.0, 0.0, 0, 0, 9223372036854775807, 0, 0, 0, 0.0, :none), nothing, nothing, nothing, nothing, nothing, 0.0, 0.0, nothing, true, true, sparse([1, 2], [1, 2], [-1.0, -1.0], 2, 2), JSimplex.BasisCheckpoint{Float64}[], 0x0000000000000000, Tuple{Int64, Int64}[], 0x0000000000000000, false, false, nothing, nothing), 0, 0, false, 0, false, false, 20, 0, 9223372036854775807, 0, 0), sparse([1, 2], [1, 2], [1.0, 2.0], 2, 2), [1.0, 2.0], var"#3#4"(); transposed = false, local_reconstruction = true)
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:25
+  Expression: x ≈ ones(T, 2)
+   Evaluated: [0.0, 0.0] ≈ [1.0, 1.0]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:25 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:26
+  Expression: norm(B * x - rhs, Inf) <= T(256) * eps(T) * norm(rhs, Inf)
+   Evaluated: 2.0 <= 1.1368683772161603e-13
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:26 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:27
+  Expression: JSimplex.event_count(d, :correction_attempt) == 2
+   Evaluated: 1 == 2
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:27 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23
+  Expression: JSimplex._native_cleanup_solve!(x, ws, B, rhs, (()->begin
+            #= /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23 =#
+            false
+        end); transposed, local_reconstruction = true)
+   Evaluated: JSimplex._native_cleanup_solve!([0.0, 0.0], JSimplex.SimplexWorkspace{Float64, JSimplex.ForrestTomlinFactorization{Float64, JSimplex.UMFPACKBackend}, :forrest_tomlin, :native, JSimplex.SimplexDiagnostics{Nothing}}(LinearProblem{Float64}(sparse([1, 2], [1, 2], [1.0, 2.0], 2, 2), [0.0, 0.0], 0.0, MIN_SENSE, Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], VariableDomain[CONTINUOUS, CONTINUOUS], "", String[], String[]), SolverOptions{Float64, :forrest_tomlin, :native}(1.0e-7, 1.0e-7, 1.0e-12, 100000, Inf, 20, false, Debug, :dual, :steepest_edge, :forrest_tomlin, :native, :auto, true, :legacy, false), JSimplex.SimplexProgressContext{Float64, JSimplex.SimplexDiagnostics{Nothing}}(0x00002bd945da9ab4, [0.0, 0.0], 0.0, JSimplex.Scaling{Float64}([1.0, 1.0], [1.0, 1.0]), 0, 0, JSimplex.SimplexDiagnostics{Nothing}(Dict(:pricing_reset => 0, :stagnation_cost_rebase => 0, :pricing_weight_rejected => 0, :pivot_completed => 0, :correction_attempt => 1, :primal_projection_attempt => 0, :primal_point_balanced => 0, :phase_auxiliary => 0, :refactor_fill => 0, :stagnation_watch => 0…), [:refactor_initial, :correction_attempt], 3, nothing, false, Dict(:hypersparse_weight_btran_sparse => 0, :hypersparse_weight_btran_dense => 0, :hypersparse_base_graph => 0, :hypersparse_weight_btran_empty => 0, :btran => 0, :hypersparse_weight_ftran_sparse => 0, :crash => 0, :hypersparse_ftran_sparse => 0, :hypersparse_pricing_empty => 0, :hypersparse_weight_ftran_empty => 0…), Dict{Symbol, UInt64}(:hypersparse_weight_btran_sparse => 0x0000000000000000, :hypersparse_weight_btran_dense => 0x0000000000000000, :hypersparse_base_graph => 0x0000000000000000, :hypersparse_weight_btran_empty => 0x0000000000000000, :btran => 0x0000000000000000, :hypersparse_weight_ftran_sparse => 0x0000000000000000, :crash => 0x0000000000000000, :hypersparse_ftran_sparse => 0x0000000000000000, :hypersparse_pricing_empty => 0x0000000000000000, :hypersparse_weight_ftran_empty => 0x0000000000000000…)), JSimplex.NumericalPolicy{Float64}(5.684341886080802e-14, 1.4901161193847656e-8, 3, 8, 2, 64, 512, 1073741824, 8, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false)), [0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], JSimplex.Basis([3, 4], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC]), [0.0, 0.0, -0.0, -0.0], [0.0, 0.0, 0.0, 0.0], [1.0, 1.0, 1.0, 1.0], Bool[0, 0, 1, 1], JSimplex.ForrestTomlinFactorization{Float64, JSimplex.UMFPACKBackend}(JSimplex.UMFPACKBackend(SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x00000000040776c0)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000000c9aba0)), 2, 2, [0, 1, 2], [0, 1], [1.00000001, 2.00000002], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([1, 270386721504000], [1.0, 2.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 2.0, 2.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 4.0, 3.00002284348011e-7, 3.00002284348011e-7, -1.0, -1.0, -1.0], ReentrantLock()), 2, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000001d48bd0)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000000ecedd0)), 2, 2, [0, 1, 2], [0, 1], [-1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([270386639938800, 270386639939280], [-0.0, -0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 2.0, 2.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 4.0, 7.999988156370819e-7, 7.999988156370819e-7, -1.0, -1.0, -1.0], ReentrantLock()), false), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}[JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([1], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([2], [1.0])], [1, 2], [1, 2], JSimplex.ForrestTomlinUpdate{Float64}[], [1.0, 2.0], [0.0, 0.0], Vector{Int64}[], JSimplex.ForrestTomlinUpdate{Float64}[], 0, nothing, JSimplex.TriangularRowCache{Float64}([1, 2], Tuple{Int64, Int64, Float64}[], 0, false, Int64[], false, 3, Int64[], JSimplex.TriangularSpikeCache{Float64}((JSimplex.PreparedTriangularSpike{Float64}(nothing, [5.0e-324, 5.0e-324], [1.0e-323, 5.0e-324]), JSimplex.PreparedTriangularSpike{Float64}(nothing, [2.0e-323, 5.0e-324], [1.5e-323, 1.0e-323])), 2))), JSimplex.SimplexScratch{Float64}(Bool[0, 0, 1, 1], [0.0, 0.0], [-0.0, -0.0], [-0.0, -0.0], [0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], Bool[0, 0, 0, 0], false, Int64[], Int64[], Float64[], Float64[], Int64[], nothing, nothing, false, Int64[], Int64[], 0, 0, nothing, :none, 0.0, false, false, false, :limit, JSimplex.RefactorizationState{Float64}(0, 0, 20, 20, 128, false, false, false, nothing, 1.0, 1.0, 0, 1.0e8, 6, 6, 8.0, 0.0, 0.0, 0.0, 0, 0, 0, 0.0, 0.0, 0, 0, 9223372036854775807, 0, 0, 0, 0.0, :none), nothing, nothing, nothing, nothing, nothing, 0.0, 0.0, nothing, true, true, sparse([1, 2], [1, 2], [-1.0, -1.0], 2, 2), JSimplex.BasisCheckpoint{Float64}[], 0x0000000000000000, Tuple{Int64, Int64}[], 0x0000000000000000, false, false, nothing, nothing), 0, 0, false, 0, false, false, 20, 0, 9223372036854775807, 0, 0), sparse([1, 2], [1, 2], [1.0, 2.0], 2, 2), [1.0, 2.0], var"#3#4"(); transposed = true, local_reconstruction = true)
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:25
+  Expression: x ≈ ones(T, 2)
+   Evaluated: [0.0, 0.0] ≈ [1.0, 1.0]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:25 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:26
+  Expression: norm(B * x - rhs, Inf) <= T(256) * eps(T) * norm(rhs, Inf)
+   Evaluated: 2.0 <= 1.1368683772161603e-13
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:26 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:27
+  Expression: JSimplex.event_count(d, :correction_attempt) == 2
+   Evaluated: 1 == 2
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:27 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23
+  Expression: JSimplex._native_cleanup_solve!(x, ws, B, rhs, (()->begin
+            #= /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23 =#
+            false
+        end); transposed, local_reconstruction = true)
+   Evaluated: JSimplex._native_cleanup_solve!([0.0, 0.0], JSimplex.SimplexWorkspace{Float64, JSimplex.SuhlSuhlFactorization{Float64, JSimplex.UMFPACKBackend}, :suhl_suhl, :native, JSimplex.SimplexDiagnostics{Nothing}}(LinearProblem{Float64}(sparse([1, 2], [1, 2], [1.0, 2.0], 2, 2), [0.0, 0.0], 0.0, MIN_SENSE, Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], VariableDomain[CONTINUOUS, CONTINUOUS], "", String[], String[]), SolverOptions{Float64, :suhl_suhl, :native}(1.0e-7, 1.0e-7, 1.0e-12, 100000, Inf, 20, false, Debug, :dual, :steepest_edge, :suhl_suhl, :native, :auto, true, :legacy, false), JSimplex.SimplexProgressContext{Float64, JSimplex.SimplexDiagnostics{Nothing}}(0x00002bd946919cb3, [0.0, 0.0], 0.0, JSimplex.Scaling{Float64}([1.0, 1.0], [1.0, 1.0]), 0, 0, JSimplex.SimplexDiagnostics{Nothing}(Dict(:pricing_reset => 0, :stagnation_cost_rebase => 0, :pricing_weight_rejected => 0, :pivot_completed => 0, :correction_attempt => 1, :primal_projection_attempt => 0, :primal_point_balanced => 0, :phase_auxiliary => 0, :refactor_fill => 0, :stagnation_watch => 0…), [:refactor_initial, :correction_attempt], 3, nothing, false, Dict(:hypersparse_weight_btran_sparse => 0, :hypersparse_weight_btran_dense => 0, :hypersparse_base_graph => 0, :hypersparse_weight_btran_empty => 0, :btran => 0, :hypersparse_weight_ftran_sparse => 0, :crash => 0, :hypersparse_ftran_sparse => 0, :hypersparse_pricing_empty => 0, :hypersparse_weight_ftran_empty => 0…), Dict{Symbol, UInt64}(:hypersparse_weight_btran_sparse => 0x0000000000000000, :hypersparse_weight_btran_dense => 0x0000000000000000, :hypersparse_base_graph => 0x0000000000000000, :hypersparse_weight_btran_empty => 0x0000000000000000, :btran => 0x0000000000000000, :hypersparse_weight_ftran_sparse => 0x0000000000000000, :crash => 0x0000000000000000, :hypersparse_ftran_sparse => 0x0000000000000000, :hypersparse_pricing_empty => 0x0000000000000000, :hypersparse_weight_ftran_empty => 0x0000000000000000…)), JSimplex.NumericalPolicy{Float64}(5.684341886080802e-14, 1.4901161193847656e-8, 3, 8, 2, 64, 512, 1073741824, 8, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false)), [0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], JSimplex.Basis([3, 4], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC]), [0.0, 0.0, -0.0, -0.0], [0.0, 0.0, 0.0, 0.0], [1.0, 1.0, 1.0, 1.0], Bool[0, 0, 1, 1], JSimplex.SuhlSuhlFactorization{Float64, JSimplex.UMFPACKBackend}(JSimplex.UMFPACKBackend(SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000000b67da0)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x00000000015291d0)), 2, 2, [0, 1, 2], [0, 1], [1.00000001, 2.00000002], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([53, 0], [0.9999999900000002, 0.9999999900000002]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 2.0, 2.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 4.0, 3.0999945010989904e-6, 3.0999945010989904e-6, -1.0, -1.0, -1.0], ReentrantLock()), 2, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x00000000011b42d0)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000001297840)), 2, 2, [0, 1, 2], [0, 1], [-1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([50, 52], [-0.0, -0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 2.0, 2.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 4.0, 8.999995770864189e-7, 8.999995770864189e-7, -1.0, -1.0, -1.0], ReentrantLock()), false), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}[JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([1], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([2], [1.0])], [1, 2], [1, 2], JSimplex.SuhlSuhlUpdate{Float64}[], [0.9999999900000002, 0.9999999900000002], [0.0, 0.0], Vector{Int64}[], JSimplex.SuhlSuhlUpdate{Float64}[], 0, nothing, JSimplex.TriangularRowCache{Float64}([1, 2], Tuple{Int64, Int64, Float64}[], 0, false, Int64[], false, 3, Int64[], JSimplex.TriangularSpikeCache{Float64}((JSimplex.PreparedTriangularSpike{Float64}(nothing, [1.1e-322, 1.24e-322], [1.2e-322, 1.3e-322]), JSimplex.PreparedTriangularSpike{Float64}(nothing, [1.33e-322, 1.4e-322], [1.43e-322, 1.5e-322])), 1))), JSimplex.SimplexScratch{Float64}(Bool[0, 0, 1, 1], [0.0, 0.0], [-0.0, -0.0], [-0.0, -0.0], [0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], Bool[0, 0, 0, 0], false, Int64[], Int64[], Float64[], Float64[], Int64[], nothing, nothing, false, Int64[], Int64[], 0, 0, nothing, :none, 0.0, false, false, false, :limit, JSimplex.RefactorizationState{Float64}(0, 0, 20, 20, 128, false, false, false, nothing, 1.0, 1.0, 0, 1.0e8, 6, 6, 8.0, 0.0, 0.0, 0.0, 0, 0, 0, 0.0, 0.0, 0, 0, 9223372036854775807, 0, 0, 0, 0.0, :none), nothing, nothing, nothing, nothing, nothing, 0.0, 0.0, nothing, true, true, sparse([1, 2], [1, 2], [-1.0, -1.0], 2, 2), JSimplex.BasisCheckpoint{Float64}[], 0x0000000000000000, Tuple{Int64, Int64}[], 0x0000000000000000, false, false, nothing, nothing), 0, 0, false, 0, false, false, 20, 0, 9223372036854775807, 0, 0), sparse([1, 2], [1, 2], [1.0, 2.0], 2, 2), [1.0, 2.0], var"#3#4"(); transposed = false, local_reconstruction = true)
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:25
+  Expression: x ≈ ones(T, 2)
+   Evaluated: [0.0, 0.0] ≈ [1.0, 1.0]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:25 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:26
+  Expression: norm(B * x - rhs, Inf) <= T(256) * eps(T) * norm(rhs, Inf)
+   Evaluated: 2.0 <= 1.1368683772161603e-13
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:26 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:27
+  Expression: JSimplex.event_count(d, :correction_attempt) == 2
+   Evaluated: 1 == 2
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:27 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23
+  Expression: JSimplex._native_cleanup_solve!(x, ws, B, rhs, (()->begin
+            #= /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23 =#
+            false
+        end); transposed, local_reconstruction = true)
+   Evaluated: JSimplex._native_cleanup_solve!([0.0, 0.0], JSimplex.SimplexWorkspace{Float64, JSimplex.SuhlSuhlFactorization{Float64, JSimplex.UMFPACKBackend}, :suhl_suhl, :native, JSimplex.SimplexDiagnostics{Nothing}}(LinearProblem{Float64}(sparse([1, 2], [1, 2], [1.0, 2.0], 2, 2), [0.0, 0.0], 0.0, MIN_SENSE, Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], VariableDomain[CONTINUOUS, CONTINUOUS], "", String[], String[]), SolverOptions{Float64, :suhl_suhl, :native}(1.0e-7, 1.0e-7, 1.0e-12, 100000, Inf, 20, false, Debug, :dual, :steepest_edge, :suhl_suhl, :native, :auto, true, :legacy, false), JSimplex.SimplexProgressContext{Float64, JSimplex.SimplexDiagnostics{Nothing}}(0x00002bd9806f1f5b, [0.0, 0.0], 0.0, JSimplex.Scaling{Float64}([1.0, 1.0], [1.0, 1.0]), 0, 0, JSimplex.SimplexDiagnostics{Nothing}(Dict(:pricing_reset => 0, :stagnation_cost_rebase => 0, :pricing_weight_rejected => 0, :pivot_completed => 0, :correction_attempt => 1, :primal_projection_attempt => 0, :primal_point_balanced => 0, :phase_auxiliary => 0, :refactor_fill => 0, :stagnation_watch => 0…), [:refactor_initial, :correction_attempt], 3, nothing, false, Dict(:hypersparse_weight_btran_sparse => 0, :hypersparse_weight_btran_dense => 0, :hypersparse_base_graph => 0, :hypersparse_weight_btran_empty => 0, :btran => 0, :hypersparse_weight_ftran_sparse => 0, :crash => 0, :hypersparse_ftran_sparse => 0, :hypersparse_pricing_empty => 0, :hypersparse_weight_ftran_empty => 0…), Dict{Symbol, UInt64}(:hypersparse_weight_btran_sparse => 0x0000000000000000, :hypersparse_weight_btran_dense => 0x0000000000000000, :hypersparse_base_graph => 0x0000000000000000, :hypersparse_weight_btran_empty => 0x0000000000000000, :btran => 0x0000000000000000, :hypersparse_weight_ftran_sparse => 0x0000000000000000, :crash => 0x0000000000000000, :hypersparse_ftran_sparse => 0x0000000000000000, :hypersparse_pricing_empty => 0x0000000000000000, :hypersparse_weight_ftran_empty => 0x0000000000000000…)), JSimplex.NumericalPolicy{Float64}(5.684341886080802e-14, 1.4901161193847656e-8, 3, 8, 2, 64, 512, 1073741824, 8, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false)), [0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], JSimplex.Basis([3, 4], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC]), [0.0, 0.0, -0.0, -0.0], [0.0, 0.0, 0.0, 0.0], [1.0, 1.0, 1.0, 1.0], Bool[0, 0, 1, 1], JSimplex.SuhlSuhlFactorization{Float64, JSimplex.UMFPACKBackend}(JSimplex.UMFPACKBackend(SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000002c4f3e0)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x00000000046f8150)), 2, 2, [0, 1, 2], [0, 1], [1.00000001, 2.00000002], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([270386776936896, 270386790002368], [1.0, 2.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 2.0, 2.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 4.0, 2.00001522898674e-7, 2.00001522898674e-7, -1.0, -1.0, -1.0], ReentrantLock()), 2, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x00000000028d5110)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000002c3c480)), 2, 2, [0, 1, 2], [0, 1], [-1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([1, 270386640014080], [-0.0, -0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 2.0, 2.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 4.0, 8.00006091594696e-7, 8.00006091594696e-7, -1.0, -1.0, -1.0], ReentrantLock()), false), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}[JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([1], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([2], [1.0])], [1, 2], [1, 2], JSimplex.SuhlSuhlUpdate{Float64}[], [1.0, 2.0], [0.0, 0.0], Vector{Int64}[], JSimplex.SuhlSuhlUpdate{Float64}[], 0, nothing, JSimplex.TriangularRowCache{Float64}([1, 2], Tuple{Int64, Int64, Float64}[], 0, false, Int64[], false, 3, Int64[], JSimplex.TriangularSpikeCache{Float64}((JSimplex.PreparedTriangularSpike{Float64}(nothing, [1.335887969094076e-309, 1.335887499305873e-309], [NaN, 1.335887499294485e-309]), JSimplex.PreparedTriangularSpike{Float64}(nothing, [2.130317216e-314, 1.335887167192574e-309], [1.33588562109666e-309, 1.335885621096343e-309])), 2))), JSimplex.SimplexScratch{Float64}(Bool[0, 0, 1, 1], [0.0, 0.0], [-0.0, -0.0], [-0.0, -0.0], [0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], Bool[0, 0, 0, 0], false, Int64[], Int64[], Float64[], Float64[], Int64[], nothing, nothing, false, Int64[], Int64[], 0, 0, nothing, :none, 0.0, false, false, false, :limit, JSimplex.RefactorizationState{Float64}(0, 0, 20, 20, 128, false, false, false, nothing, 1.0, 1.0, 0, 1.0e8, 6, 6, 8.0, 0.0, 0.0, 0.0, 0, 0, 0, 0.0, 0.0, 0, 0, 9223372036854775807, 0, 0, 0, 0.0, :none), nothing, nothing, nothing, nothing, nothing, 0.0, 0.0, nothing, true, true, sparse([1, 2], [1, 2], [-1.0, -1.0], 2, 2), JSimplex.BasisCheckpoint{Float64}[], 0x0000000000000000, Tuple{Int64, Int64}[], 0x0000000000000000, false, false, nothing, nothing), 0, 0, false, 0, false, false, 20, 0, 9223372036854775807, 0, 0), sparse([1, 2], [1, 2], [1.0, 2.0], 2, 2), [1.0, 2.0], var"#3#4"(); transposed = true, local_reconstruction = true)
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:25
+  Expression: x ≈ ones(T, 2)
+   Evaluated: [0.0, 0.0] ≈ [1.0, 1.0]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:25 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:26
+  Expression: norm(B * x - rhs, Inf) <= T(256) * eps(T) * norm(rhs, Inf)
+   Evaluated: 2.0 <= 1.1368683772161603e-13
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:26 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:27
+  Expression: JSimplex.event_count(d, :correction_attempt) == 2
+   Evaluated: 1 == 2
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:27 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23
+  Expression: JSimplex._native_cleanup_solve!(x, ws, B, rhs, (()->begin
+            #= /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23 =#
+            false
+        end); transposed, local_reconstruction = true)
+   Evaluated: JSimplex._native_cleanup_solve!([0.0, 0.0], JSimplex.SimplexWorkspace{Float64, JSimplex.BartelsGolubFactorization{Float64, JSimplex.UMFPACKBackend}, :bartels_golub, :native, JSimplex.SimplexDiagnostics{Nothing}}(LinearProblem{Float64}(sparse([1, 2], [1, 2], [1.0, 2.0], 2, 2), [0.0, 0.0], 0.0, MIN_SENSE, Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], VariableDomain[CONTINUOUS, CONTINUOUS], "", String[], String[]), SolverOptions{Float64, :bartels_golub, :native}(1.0e-7, 1.0e-7, 1.0e-12, 100000, Inf, 20, false, Debug, :dual, :steepest_edge, :bartels_golub, :native, :auto, true, :legacy, false), JSimplex.SimplexProgressContext{Float64, JSimplex.SimplexDiagnostics{Nothing}}(0x00002bd98127dde2, [0.0, 0.0], 0.0, JSimplex.Scaling{Float64}([1.0, 1.0], [1.0, 1.0]), 0, 0, JSimplex.SimplexDiagnostics{Nothing}(Dict(:pricing_reset => 0, :stagnation_cost_rebase => 0, :pricing_weight_rejected => 0, :pivot_completed => 0, :correction_attempt => 1, :primal_projection_attempt => 0, :primal_point_balanced => 0, :phase_auxiliary => 0, :refactor_fill => 0, :stagnation_watch => 0…), [:refactor_initial, :correction_attempt], 3, nothing, false, Dict(:hypersparse_weight_btran_sparse => 0, :hypersparse_weight_btran_dense => 0, :hypersparse_base_graph => 0, :hypersparse_weight_btran_empty => 0, :btran => 0, :hypersparse_weight_ftran_sparse => 0, :crash => 0, :hypersparse_ftran_sparse => 0, :hypersparse_pricing_empty => 0, :hypersparse_weight_ftran_empty => 0…), Dict{Symbol, UInt64}(:hypersparse_weight_btran_sparse => 0x0000000000000000, :hypersparse_weight_btran_dense => 0x0000000000000000, :hypersparse_base_graph => 0x0000000000000000, :hypersparse_weight_btran_empty => 0x0000000000000000, :btran => 0x0000000000000000, :hypersparse_weight_ftran_sparse => 0x0000000000000000, :crash => 0x0000000000000000, :hypersparse_ftran_sparse => 0x0000000000000000, :hypersparse_pricing_empty => 0x0000000000000000, :hypersparse_weight_ftran_empty => 0x0000000000000000…)), JSimplex.NumericalPolicy{Float64}(5.684341886080802e-14, 1.4901161193847656e-8, 3, 8, 2, 64, 512, 1073741824, 8, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false)), [0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], JSimplex.Basis([3, 4], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC]), [0.0, 0.0, -0.0, -0.0], [0.0, 0.0, 0.0, 0.0], [1.0, 1.0, 1.0, 1.0], Bool[0, 0, 1, 1], JSimplex.BartelsGolubFactorization{Float64, JSimplex.UMFPACKBackend}(JSimplex.UMFPACKBackend(SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x000000000303f7d0)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x00000000044ba3d0)), 2, 2, [0, 1, 2], [0, 1], [1.00000001, 2.00000002], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([270386188663152, 270386188662976], [0.9999999900000002, 0.9999999900000002]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 2.0, 2.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 4.0, 3.1000017770566046e-6, 3.1000017770566046e-6, -1.0, -1.0, -1.0], ReentrantLock()), 2, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x000000000359ca10)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x00000000015291d0)), 2, 2, [0, 1, 2], [0, 1], [-1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([0, 0], [-0.0, -0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 2.0, 2.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 4.0, 8.999995770864189e-7, 8.999995770864189e-7, -1.0, -1.0, -1.0], ReentrantLock()), false), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}[JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([1], [1.0]), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([2], [1.0])], [1, 2], [1, 2], JSimplex.BartelsGolubUpdate{Float64}[], [0.9999999900000002, 0.9999999900000002], [0.0, 0.0], [Int64[], Int64[]], Int64[], JSimplex.BartelsGolubUpdate{Float64}[], 0, nothing, JSimplex.TriangularRowCache{Float64}([1, 2], Tuple{Int64, Int64, Float64}[], 0, false, Int64[], false, 3, Int64[], JSimplex.TriangularSpikeCache{Float64}((JSimplex.PreparedTriangularSpike{Float64}(nothing, [1.335887498879707e-309, 1.33588749888682e-309], [1.335887498877335e-309, 1.335887498891564e-309]), JSimplex.PreparedTriangularSpike{Float64}(nothing, [1.335888140602523e-309, 1.335887498893936e-309], [1.335887502283384e-309, 1.33588750532746e-309])), 1)), false), JSimplex.SimplexScratch{Float64}(Bool[0, 0, 1, 1], [0.0, 0.0], [-0.0, -0.0], [-0.0, -0.0], [0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], Bool[0, 0, 0, 0], false, Int64[], Int64[], Float64[], Float64[], Int64[], nothing, nothing, false, Int64[], Int64[], 0, 0, nothing, :none, 0.0, false, false, false, :limit, JSimplex.RefactorizationState{Float64}(0, 0, 20, 20, 128, false, false, false, nothing, 1.0, 1.0, 0, 1.0e8, 6, 6, 8.0, 0.0, 0.0, 0.0, 0, 0, 0, 0.0, 0.0, 0, 0, 9223372036854775807, 0, 0, 0, 0.0, :none), nothing, nothing, nothing, nothing, nothing, 0.0, 0.0, nothing, true, true, sparse([1, 2], [1, 2], [-1.0, -1.0], 2, 2), JSimplex.BasisCheckpoint{Float64}[], 0x0000000000000000, Tuple{Int64, Int64}[], 0x0000000000000000, false, false, nothing, nothing), 0, 0, false, 0, false, false, 20, 0, 9223372036854775807, 0, 0), sparse([1, 2], [1, 2], [1.0, 2.0], 2, 2), [1.0, 2.0], var"#3#4"(); transposed = false, local_reconstruction = true)
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:25
+  Expression: x ≈ ones(T, 2)
+   Evaluated: [0.0, 0.0] ≈ [1.0, 1.0]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:25 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:26
+  Expression: norm(B * x - rhs, Inf) <= T(256) * eps(T) * norm(rhs, Inf)
+   Evaluated: 2.0 <= 1.1368683772161603e-13
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:26 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:27
+  Expression: JSimplex.event_count(d, :correction_attempt) == 2
+   Evaluated: 1 == 2
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:27 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23
+  Expression: JSimplex._native_cleanup_solve!(x, ws, B, rhs, (()->begin
+            #= /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23 =#
+            false
+        end); transposed, local_reconstruction = true)
+   Evaluated: ERROR: LoadError: Some tests did not pass: 0 passed, 80 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:20
+JSimplex._native_cleanup_solve!([0.0, 0.0], JSimplex.SimplexWorkspace{Float64, JSimplex.BartelsGolubFactorization{Float64, JSimplex.UMFPACKBackend}, :bartels_golub, :native, JSimplex.SimplexDiagnostics{Nothing}}(LinearProblem{Float64}(sparse([1, 2], [1, 2], [1.0, 2.0], 2, 2), [0.0, 0.0], 0.0, MIN_SENSE, Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], VariableDomain[CONTINUOUS, CONTINUOUS], "", String[], String[]), SolverOptions{Float64, :bartels_golub, :native}(1.0e-7, 1.0e-7, 1.0e-12, 100000, Inf, 20, false, Debug, :dual, :steepest_edge, :bartels_golub, :native, :auto, true, :legacy, false), JSimplex.SimplexProgressContext{Float64, JSimplex.SimplexDiagnostics{Nothing}}(0x00002bd9c833e75e, [0.0, 0.0], 0.0, JSimplex.Scaling{Float64}([1.0, 1.0], [1.0, 1.0]), 0, 0, JSimplex.SimplexDiagnostics{Nothing}(Dict(:pricing_reset => 0, :stagnation_cost_rebase => 0, :pricing_weight_rejected => 0, :pivot_completed => 0, :correction_attempt => 1, :primal_projection_attempt => 0, :primal_point_balanced => 0, :phase_auxiliary => 0, :refactor_fill => 0, :stagnation_watch => 0…), [:refactor_initial, :correction_attempt], 3, nothing, false, Dict(:hypersparse_weight_btran_sparse => 0, :hypersparse_weight_btran_dense => 0, :hypersparse_base_graph => 0, :hypersparse_weight_btran_empty => 0, :btran => 0, :hypersparse_weight_ftran_sparse => 0, :crash => 0, :hypersparse_ftran_sparse => 0, :hypersparse_pricing_empty => 0, :hypersparse_weight_ftran_empty => 0…), Dict{Symbol, UInt64}(:hypersparse_weight_btran_sparse => 0x0000000000000000, :hypersparse_weight_btran_dense => 0x0000000000000000, :hypersparse_base_graph => 0x0000000000000000, :hypersparse_weight_btran_empty => 0x0000000000000000, :btran => 0x0000000000000000, :hypersparse_weight_ftran_sparse => 0x0000000000000000, :crash => 0x0000000000000000, :hypersparse_ftran_sparse => 0x0000000000000000, :hypersparse_pricing_empty => 0x0000000000000000, :hypersparse_weight_ftran_empty => 0x0000000000000000…)), JSimplex.NumericalPolicy{Float64}(5.684341886080802e-14, 1.4901161193847656e-8, 3, 8, 2, 64, 512, 1073741824, 8, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false)), [0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], JSimplex.Basis([3, 4], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC]), [0.0, 0.0, -0.0, -0.0], [0.0, 0.0, 0.0, 0.0], [1.0, 1.0, 1.0, 1.0], Bool[0, 0, 1, 1], JSimplex.BartelsGolubFactorization{Float64, JSimplex.UMFPACKBackend}(JSimplex.UMFPACKBackend(SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000003cb1510)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x00000000012d0a10)), 2, 2, [0, 1, 2], [0, 1], [1.00000001, 2.00000002], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([270386809724704, 270386809724688], [1.0, 2.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 2.0, 2.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 4.0, 2.00001522898674e-7, 2.00001522898674e-7, -1.0, -1.0, -1.0], ReentrantLock()), 2, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x00000000024ed2a0)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000000e3f830)), 2, 2, [0, 1, 2], [0, 1], [-1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([44, 48], [-0.0, -0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 2.0, 2.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 4.0, 6.999980541877449e-7, 6.999980541877449e-7, -1.0, -1.0, -1.0], ReentrantLock()), false), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}[JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([1], [1.0]), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([2], [1.0])], [1, 2], [1, 2], JSimplex.BartelsGolubUpdate{Float64}[], [1.0, 2.0], [1.0, 2.0], [Int64[], Int64[]], Int64[], JSimplex.BartelsGolubUpdate{Float64}[], 0, nothing, JSimplex.TriangularRowCache{Float64}([1, 2], Tuple{Int64, Int64, Float64}[], 0, false, Int64[], false, 3, Int64[], JSimplex.TriangularSpikeCache{Float64}((JSimplex.PreparedTriangularSpike{Float64}(nothing, [4.0e-322, 4.05e-322], [1.335887499014883e-309, 1.335887307366977e-309]), JSimplex.PreparedTriangularSpike{Float64}(nothing, [1.335887498941366e-309, 1.335887307367056e-309], [1.3358883377359e-309, 1.33588833773582e-309])), 2)), false), JSimplex.SimplexScratch{Float64}(Bool[0, 0, 1, 1], [0.0, 0.0], [-0.0, -0.0], [-0.0, -0.0], [0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], Bool[0, 0, 0, 0], false, Int64[], Int64[], Float64[], Float64[], Int64[], nothing, nothing, false, Int64[], Int64[], 0, 0, nothing, :none, 0.0, false, false, false, :limit, JSimplex.RefactorizationState{Float64}(0, 0, 20, 20, 128, false, false, false, nothing, 1.0, 1.0, 0, 1.0e8, 6, 6, 8.0, 0.0, 0.0, 0.0, 0, 0, 0, 0.0, 0.0, 0, 0, 9223372036854775807, 0, 0, 0, 0.0, :none), nothing, nothing, nothing, nothing, nothing, 0.0, 0.0, nothing, true, true, sparse([1, 2], [1, 2], [-1.0, -1.0], 2, 2), JSimplex.BasisCheckpoint{Float64}[], 0x0000000000000000, Tuple{Int64, Int64}[], 0x0000000000000000, false, false, nothing, nothing), 0, 0, false, 0, false, false, 20, 0, 9223372036854775807, 0, 0), sparse([1, 2], [1, 2], [1.0, 2.0], 2, 2), [1.0, 2.0], var"#3#4"(); transposed = true, local_reconstruction = true)
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:25
+  Expression: x ≈ ones(T, 2)
+   Evaluated: [0.0, 0.0] ≈ [1.0, 1.0]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:25 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:26
+  Expression: norm(B * x - rhs, Inf) <= T(256) * eps(T) * norm(rhs, Inf)
+   Evaluated: 2.0 <= 1.1368683772161603e-13
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:26 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:27
+  Expression: JSimplex.event_count(d, :correction_attempt) == 2
+   Evaluated: 1 == 2
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:27 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23
+  Expression: JSimplex._native_cleanup_solve!(x, ws, B, rhs, (()->begin
+            #= /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23 =#
+            false
+        end); transposed, local_reconstruction = true)
+   Evaluated: JSimplex._native_cleanup_solve!([0.0, 0.0], JSimplex.SimplexWorkspace{Float64, JSimplex.HuangfuHallFactorization{Float64, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}, :native}, :huangfu_hall, :native, JSimplex.SimplexDiagnostics{Nothing}}(LinearProblem{Float64}(sparse([1, 2], [1, 2], [1.0, 2.0], 2, 2), [0.0, 0.0], 0.0, MIN_SENSE, Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], VariableDomain[CONTINUOUS, CONTINUOUS], "", String[], String[]), SolverOptions{Float64, :huangfu_hall, :native}(1.0e-7, 1.0e-7, 1.0e-12, 100000, Inf, 20, false, Debug, :dual, :steepest_edge, :huangfu_hall, :native, :auto, true, :legacy, false), JSimplex.SimplexProgressContext{Float64, JSimplex.SimplexDiagnostics{Nothing}}(0x00002bd9c8e68719, [0.0, 0.0], 0.0, JSimplex.Scaling{Float64}([1.0, 1.0], [1.0, 1.0]), 0, 0, JSimplex.SimplexDiagnostics{Nothing}(Dict(:pricing_reset => 0, :stagnation_cost_rebase => 0, :pricing_weight_rejected => 0, :pivot_completed => 0, :correction_attempt => 1, :primal_projection_attempt => 0, :primal_point_balanced => 0, :phase_auxiliary => 0, :refactor_fill => 0, :stagnation_watch => 0…), [:refactor_initial, :correction_attempt], 3, nothing, false, Dict(:hypersparse_weight_btran_sparse => 0, :hypersparse_weight_btran_dense => 0, :hypersparse_base_graph => 0, :hypersparse_weight_btran_empty => 0, :btran => 0, :hypersparse_weight_ftran_sparse => 0, :crash => 0, :hypersparse_ftran_sparse => 0, :hypersparse_pricing_empty => 0, :hypersparse_weight_ftran_empty => 0…), Dict{Symbol, UInt64}(:hypersparse_weight_btran_sparse => 0x0000000000000000, :hypersparse_weight_btran_dense => 0x0000000000000000, :hypersparse_base_graph => 0x0000000000000000, :hypersparse_weight_btran_empty => 0x0000000000000000, :btran => 0x0000000000000000, :hypersparse_weight_ftran_sparse => 0x0000000000000000, :crash => 0x0000000000000000, :hypersparse_ftran_sparse => 0x0000000000000000, :hypersparse_pricing_empty => 0x0000000000000000, :hypersparse_weight_ftran_empty => 0x0000000000000000…)), JSimplex.NumericalPolicy{Float64}(5.684341886080802e-14, 1.4901161193847656e-8, 3, 8, 2, 64, 512, 1073741824, 8, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false)), [0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], JSimplex.Basis([3, 4], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC]), [0.0, 0.0, -0.0, -0.0], [0.0, 0.0, 0.0, 0.0], [1.0, 1.0, 1.0, 1.0], Bool[0, 0, 1, 1], JSimplex.HuangfuHallFactorization{Float64, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}, :native}(JSimplex.HHBase{Float64}(sparse([1, 2], [1, 2], [1.0, 1.0], 2, 2), sparse([1, 2], [1, 2], [1.0, 1.0], 2, 2), [1, 2], [1, 2], [1, 2], [0.9999999900000002, 0.4999999950000001], false, [1, 1, 1], Int64[]), JSimplex.HHUpdate{Float64}[], [0.9999999900000002, 0.9999999900000002], [0.0, 0.2499999950000001], [0.0, 0.0], [0.0, 0.0], false, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000002aae850)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000001a536f0)), 2, 2, [0, 1, 2], [0, 1], [1.00000001, 2.00000002], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([22, 29], [0.0, 0.2499999950000001]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 2.0, 2.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 4.0, 1.2999953469261527e-6, 1.2999953469261527e-6, -1.0, -1.0, -1.0], ReentrantLock()), JSimplex.HHUnitWorkspace{Float64}([0.0, 0.0], Bool[0, 0], Int64[]), 0, JSimplex.HHPool{Float64}(Tuple{Vector{Int64}, Vector{Float64}}[], 0), JSimplex.HHPool{Float64}(Tuple{Vector{Int64}, Vector{Float64}}[], 0), JSimplex.HHExtractWorkspace([1, 2, 3], [1, 2], [1.0, 1.0])), JSimplex.SimplexScratch{Float64}(Bool[0, 0, 1, 1], [0.0, 0.0], [-0.0, -0.0], [-0.0, -0.0], [0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], Bool[0, 0, 0, 0], false, Int64[], Int64[], Float64[], Float64[], Int64[], nothing, nothing, false, Int64[], Int64[], 0, 0, nothing, :none, 0.0, false, false, false, :limit, JSimplex.RefactorizationState{Float64}(0, 0, 20, 20, 128, false, false, false, nothing, 1.0, 1.0, 0, 1.0e8, 4, 4, 8.0, 0.0, 0.0, 0.0, 0, 0, 0, 0.0, 0.0, 0, 0, 9223372036854775807, 0, 0, 0, 0.0, :none), nothing, nothing, nothing, nothing, nothing, 0.0, 0.0, nothing, true, true, sparse([1, 2], [1, 2], [-1.0, -1.0], 2, 2), JSimplex.BasisCheckpoint{Float64}[], 0x0000000000000000, Tuple{Int64, Int64}[], 0x0000000000000000, false, false, nothing, nothing), 0, 0, false, 0, false, false, 20, 0, 9223372036854775807, 0, 0), sparse([1, 2], [1, 2], [1.0, 2.0], 2, 2), [1.0, 2.0], var"#3#4"(); transposed = false, local_reconstruction = true)
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:25
+  Expression: x ≈ ones(T, 2)
+   Evaluated: [0.0, 0.0] ≈ [1.0, 1.0]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:25 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:26
+  Expression: norm(B * x - rhs, Inf) <= T(256) * eps(T) * norm(rhs, Inf)
+   Evaluated: 2.0 <= 1.1368683772161603e-13
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:26 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:27
+  Expression: JSimplex.event_count(d, :correction_attempt) == 2
+   Evaluated: 1 == 2
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:27 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23
+  Expression: JSimplex._native_cleanup_solve!(x, ws, B, rhs, (()->begin
+            #= /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23 =#
+            false
+        end); transposed, local_reconstruction = true)
+   Evaluated: JSimplex._native_cleanup_solve!([0.0, 0.0], JSimplex.SimplexWorkspace{Float64, JSimplex.HuangfuHallFactorization{Float64, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}, :native}, :huangfu_hall, :native, JSimplex.SimplexDiagnostics{Nothing}}(LinearProblem{Float64}(sparse([1, 2], [1, 2], [1.0, 2.0], 2, 2), [0.0, 0.0], 0.0, MIN_SENSE, Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], VariableDomain[CONTINUOUS, CONTINUOUS], "", String[], String[]), SolverOptions{Float64, :huangfu_hall, :native}(1.0e-7, 1.0e-7, 1.0e-12, 100000, Inf, 20, false, Debug, :dual, :steepest_edge, :huangfu_hall, :native, :auto, true, :legacy, false), JSimplex.SimplexProgressContext{Float64, JSimplex.SimplexDiagnostics{Nothing}}(0x00002bda05bc4ea4, [0.0, 0.0], 0.0, JSimplex.Scaling{Float64}([1.0, 1.0], [1.0, 1.0]), 0, 0, JSimplex.SimplexDiagnostics{Nothing}(Dict(:pricing_reset => 0, :stagnation_cost_rebase => 0, :pricing_weight_rejected => 0, :pivot_completed => 0, :correction_attempt => 1, :primal_projection_attempt => 0, :primal_point_balanced => 0, :phase_auxiliary => 0, :refactor_fill => 0, :stagnation_watch => 0…), [:refactor_initial, :correction_attempt], 3, nothing, false, Dict(:hypersparse_weight_btran_sparse => 0, :hypersparse_weight_btran_dense => 0, :hypersparse_base_graph => 0, :hypersparse_weight_btran_empty => 0, :btran => 0, :hypersparse_weight_ftran_sparse => 0, :crash => 0, :hypersparse_ftran_sparse => 0, :hypersparse_pricing_empty => 0, :hypersparse_weight_ftran_empty => 0…), Dict{Symbol, UInt64}(:hypersparse_weight_btran_sparse => 0x0000000000000000, :hypersparse_weight_btran_dense => 0x0000000000000000, :hypersparse_base_graph => 0x0000000000000000, :hypersparse_weight_btran_empty => 0x0000000000000000, :btran => 0x0000000000000000, :hypersparse_weight_ftran_sparse => 0x0000000000000000, :crash => 0x0000000000000000, :hypersparse_ftran_sparse => 0x0000000000000000, :hypersparse_pricing_empty => 0x0000000000000000, :hypersparse_weight_ftran_empty => 0x0000000000000000…)), JSimplex.NumericalPolicy{Float64}(5.684341886080802e-14, 1.4901161193847656e-8, 3, 8, 2, 64, 512, 1073741824, 8, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false)), [0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false)], JSimplex.Basis([3, 4], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC]), [0.0, 0.0, -0.0, -0.0], [0.0, 0.0, 0.0, 0.0], [1.0, 1.0, 1.0, 1.0], Bool[0, 0, 1, 1], JSimplex.HuangfuHallFactorization{Float64, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}, :native}(JSimplex.HHBase{Float64}(sparse([1, 2], [1, 2], [1.0, 1.0], 2, 2), sparse([1, 2], [1, 2], [1.0, 1.0], 2, 2), [1, 2], [1, 2], [1, 2], [0.9999999900000002, 0.4999999950000001], false, [1, 1, 1], Int64[]), JSimplex.HHUpdate{Float64}[], [1.0, 2.0], [0.0, 0.2499999950000001], [0.0, 0.0], [0.0, 0.0], false, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000001751c90)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x00000000044ba3d0)), 2, 2, [0, 1, 2], [0, 1], [1.00000001, 2.00000002], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([270386762214192, 270386174963168], [0.0, 0.2499999950000001]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 2.0, 2.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 4.0, 1.400003384333104e-6, 1.400003384333104e-6, -1.0, -1.0, -1.0], ReentrantLock()), JSimplex.HHUnitWorkspace{Float64}([0.0, 0.0], Bool[0, 0], Int64[]), 0, JSimplex.HHPool{Float64}(Tuple{Vector{Int64}, Vector{Float64}}[], 0), JSimplex.HHPool{Float64}(Tuple{Vector{Int64}, Vector{Float64}}[], 0), JSimplex.HHExtractWorkspace([1, 2, 3], [1, 2], [1.0, 1.0])), JSimplex.SimplexScratch{Float64}(Bool[0, 0, 1, 1], [0.0, 0.0], [-0.0, -0.0], [-0.0, -0.0], [0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], Bool[0, 0, 0, 0], false, Int64[], Int64[], Float64[], Float64[], Int64[], nothing, nothing, false, Int64[], Int64[], 0, 0, nothing, :none, 0.0, false, false, false, :limit, JSimplex.RefactorizationState{Float64}(0, 0, 20, 20, 128, false, false, false, nothing, 1.0, 1.0, 0, 1.0e8, 4, 4, 8.0, 0.0, 0.0, 0.0, 0, 0, 0, 0.0, 0.0, 0, 0, 9223372036854775807, 0, 0, 0, 0.0, :none), nothing, nothing, nothing, nothing, nothing, 0.0, 0.0, nothing, true, true, sparse([1, 2], [1, 2], [-1.0, -1.0], 2, 2), JSimplex.BasisCheckpoint{Float64}[], 0x0000000000000000, Tuple{Int64, Int64}[], 0x0000000000000000, false, false, nothing, nothing), 0, 0, false, 0, false, false, 20, 0, 9223372036854775807, 0, 0), sparse([1, 2], [1, 2], [1.0, 2.0], 2, 2), [1.0, 2.0], var"#3#4"(); transposed = true, local_reconstruction = true)
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:23 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:25
+  Expression: x ≈ ones(T, 2)
+   Evaluated: [0.0, 0.0] ≈ [1.0, 1.0]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:25 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:26
+  Expression: norm(B * x - rhs, Inf) <= T(256) * eps(T) * norm(rhs, Inf)
+   Evaluated: 2.0 <= 1.1368683772161603e-13
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:26 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Native terminal cleanup permits one improving second correction: Test Failed at /home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:27
+  Expression: JSimplex.event_count(d, :correction_attempt) == 2
+   Evaluated: 1 == 2
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:21
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-shared-work/JSimplex.jl/test/native_cleanup_second_correction_tests.jl:27 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+Test Summary:                                                   | Fail  Total   Time
+Native terminal cleanup permits one improving second correction |   80     80  18.4s
+RNG of the outermost testset: Random.Xoshiro(0x6f78658d495063e2, 0xfef1d38b1d2f3d93, 0x1996cc02b1bd21cc, 0x82c138a69ab7154f, 0x7f8868ca54915ac0)
+Command exited with non-zero status 1
+	Command being timed: "python3 /home/jspitz/JSimplex.jl/.worktrees/primal-direction-prices/.superpowers/primal-prices/guard.py --seconds 180 bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --heap-size-hint=2G --project=/home/jspitz/.codex/worktrees/simplex-shared-work/JSimplex.jl test/native_cleanup_second_correction_tests.jl"
+	User time (seconds): 18.94
+	System time (seconds): 0.52
+	Percent of CPU this job got: 97%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:20.03
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 740744
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 138535
+	Voluntary context switches: 70
+	Involuntary context switches: 129
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 352
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 1

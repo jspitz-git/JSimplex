@@ -1,0 +1,423 @@
+[[cases]]
+native_recompute = false
+cutoff = 4.533960306610549e-22
+correction_norm = 7.976227323189019e-9
+tolerance = 5.684341886080802e-14
+local_success = false
+original_costs = false
+
+    [cases.second_correction]
+    bad = []
+    bad_count = 0
+
+        [cases.second_correction.plain]
+        reliable = true
+        relative_error = 1.0538682679765426e-16
+        finite = true
+        absolute_error = 1.2538362154557393e-10
+
+        [cases.second_correction.compensated]
+        reliable = true
+        relative_error = 1.0538682679765426e-16
+        finite = true
+        absolute_error = 1.2538362154557393e-10
+
+    [cases.initial]
+    bad_count = 14
+
+        [cases.initial.plain]
+        reliable = false
+        relative_error = 3.4219307227306743e-13
+        finite = true
+        absolute_error = 2.8648128628925254e-9
+
+        [cases.initial.compensated]
+        reliable = false
+        relative_error = 3.4219307227306743e-13
+        finite = true
+        absolute_error = 2.8648128628925254e-9
+
+        [[cases.initial.bad]]
+        scale = 1854.4652101982613
+        rhs = 0.0
+        residual = -1.3290690834390337e-10
+        row = 2215
+        [[cases.initial.bad]]
+        scale = 1518.0400496457282
+        rhs = 59.471624806
+        residual = -8.83624663401348e-11
+        row = 2569
+        [[cases.initial.bad]]
+        scale = 4005.45724752135
+        rhs = 0.0
+        residual = -3.766318661785569e-10
+        row = 3113
+        [[cases.initial.bad]]
+        scale = 4005.457247521448
+        rhs = 6.841353455638145e-14
+        residual = -2.789721760522202e-10
+        row = 4232
+        [[cases.initial.bad]]
+        scale = 1768.6521258167963
+        rhs = 0.0
+        residual = -1.3101238317706993e-10
+        row = 7098
+        [[cases.initial.bad]]
+        scale = 4005.4572475213636
+        rhs = 1.5006657767380523e-9
+        residual = -3.631234565483426e-10
+        row = 11203
+        [[cases.initial.bad]]
+        scale = 2100.7090147920308
+        rhs = 0.0
+        residual = 2.477380392420563e-10
+        row = 11286
+        [[cases.initial.bad]]
+        scale = 1037.1954323927412
+        rhs = 0.0
+        residual = -1.10642162098884e-10
+        row = 12328
+        [[cases.initial.bad]]
+        scale = 97.86614842986201
+        rhs = 16.788641824
+        residual = 2.7241009102412526e-11
+        row = 13378
+        [[cases.initial.bad]]
+        scale = 8371.919524444455
+        rhs = 0.0
+        residual = -2.8648128628925254e-9
+        row = 13463
+        [[cases.initial.bad]]
+        scale = 10141.795963320712
+        rhs = 0.0
+        residual = 6.525135553938584e-10
+        row = 13510
+        [[cases.initial.bad]]
+        scale = 1019.3842005253019
+        rhs = 0.0
+        residual = -1.765142474067672e-10
+        row = 14147
+        [[cases.initial.bad]]
+        scale = 5.198173346227091
+        rhs = 0.234928132
+        residual = 3.5370414404389384e-13
+        row = 21155
+        [[cases.initial.bad]]
+        scale = 5533.836567921644
+        rhs = 0.0
+        residual = 3.826636804119434e-10
+        row = 23957
+
+    [cases.summary]
+    iterations = 50718
+    original_bounds = true
+    algorithm = "dual"
+    dinf = 0.0
+    driver_mode = "certify"
+    pinf = 0.0
+    updates = 0
+    primal_tolerance = 1.0e-7
+    dual_tolerance = 1.0e-7
+    original_costs = false
+
+    [cases.local]
+    bad_count = 1
+
+        [cases.local.plain]
+        reliable = false
+        relative_error = 7.803841006103988e-14
+        finite = true
+        absolute_error = 1.2538362154557393e-10
+
+        [cases.local.compensated]
+        reliable = false
+        relative_error = 7.803841006103988e-14
+        finite = true
+        absolute_error = 1.2538362154557393e-10
+
+        [[cases.local.bad]]
+        scale = 4.63305517736396e-18
+        rhs = 0.0
+        residual = -3.615562597665526e-31
+        row = 27613
+
+    [cases.corrected]
+    bad_count = 1
+
+        [cases.corrected.plain]
+        reliable = false
+        relative_error = 7.803841006103988e-14
+        finite = true
+        absolute_error = 1.2538362154557393e-10
+
+        [cases.corrected.compensated]
+        reliable = false
+        relative_error = 7.803841006103988e-14
+        finite = true
+        absolute_error = 1.2538362154557393e-10
+
+        [[cases.corrected.bad]]
+        scale = 4.63305517736396e-18
+        rhs = 0.0
+        residual = -3.615562597665526e-31
+        row = 27613
+
+    [cases.homogeneous]
+    bad_count = 6
+
+        [cases.homogeneous.plain]
+        reliable = false
+        relative_error = 1.0
+        finite = true
+        absolute_error = 1.2538362154557393e-10
+
+        [cases.homogeneous.compensated]
+        reliable = false
+        relative_error = 1.0
+        finite = true
+        absolute_error = 1.2538362154557393e-10
+
+        [[cases.homogeneous.bad]]
+        scale = 5.393910473396309e-34
+        rhs = 5.393910473396309e-34
+        residual = 5.393910473396309e-34
+        row = 3409
+        [[cases.homogeneous.bad]]
+        scale = 1.63777322335491e-34
+        rhs = -1.63777322335491e-34
+        residual = -1.63777322335491e-34
+        row = 8381
+        [[cases.homogeneous.bad]]
+        scale = 2.1421735320370935e-32
+        rhs = 2.1421735320370935e-32
+        residual = 2.1421735320370935e-32
+        row = 25815
+        [[cases.homogeneous.bad]]
+        scale = 1.1570241372826222e-36
+        rhs = 1.1570241372826222e-36
+        residual = 1.1570241372826222e-36
+        row = 27595
+        [[cases.homogeneous.bad]]
+        scale = 4.63305517736396e-18
+        rhs = 0.0
+        residual = -3.615562597665526e-31
+        row = 27613
+        [[cases.homogeneous.bad]]
+        scale = 3.5722603832488625e-36
+        rhs = 3.5722603832488625e-36
+        residual = 3.5722603832488625e-36
+        row = 27632
+[[cases]]
+native_recompute = true
+cutoff = 4.395982188967122e-22
+correction_norm = 7.73349365162487e-9
+tolerance = 5.684341886080802e-14
+local_success = true
+original_costs = true
+
+    [cases.second_correction]
+    bad = []
+    bad_count = 0
+
+        [cases.second_correction.plain]
+        reliable = true
+        relative_error = 9.901550884215482e-17
+        finite = true
+        absolute_error = 1.5543991712111597e-10
+
+        [cases.second_correction.compensated]
+        reliable = true
+        relative_error = 9.901550884215482e-17
+        finite = true
+        absolute_error = 1.5543991712111597e-10
+
+    [cases.initial]
+    bad_count = 8
+
+        [cases.initial.plain]
+        reliable = false
+        relative_error = 4.390222478109519e-13
+        finite = true
+        absolute_error = 1.2550299781220238e-9
+
+        [cases.initial.compensated]
+        reliable = false
+        relative_error = 4.390222478109519e-13
+        finite = true
+        absolute_error = 1.2550299781220238e-9
+
+        [[cases.initial.bad]]
+        scale = 1690.0139430848012
+        rhs = 0.0
+        residual = -1.8428233888403113e-10
+        row = 1783
+        [[cases.initial.bad]]
+        scale = 4005.457247564201
+        rhs = 0.0
+        residual = -2.9437391626412813e-10
+        row = 3113
+        [[cases.initial.bad]]
+        scale = 4005.457247564231
+        rhs = 0.0
+        residual = -2.650930639523331e-10
+        row = 11203
+        [[cases.initial.bad]]
+        scale = 2100.7090149797477
+        rhs = 0.0
+        residual = -1.5436280137259284e-10
+        row = 11286
+        [[cases.initial.bad]]
+        scale = 97.86614845336271
+        rhs = 16.788641824
+        residual = 4.296541647859561e-11
+        row = 13378
+        [[cases.initial.bad]]
+        scale = 8371.9195255692
+        rhs = 0.0
+        residual = -1.2550299781220238e-9
+        row = 13463
+        [[cases.initial.bad]]
+        scale = 1019.38420055217
+        rhs = 0.0
+        residual = -9.827416446661155e-11
+        row = 14147
+        [[cases.initial.bad]]
+        scale = 5.198173346127749
+        rhs = 0.234928132
+        residual = 4.949317730404189e-13
+        row = 21155
+
+    [cases.summary]
+    iterations = 50718
+    original_bounds = true
+    algorithm = "dual"
+    dinf = 0.0
+    driver_mode = "certify"
+    pinf = 0.0
+    updates = 0
+    primal_tolerance = 1.0e-7
+    dual_tolerance = 1.0e-7
+    original_costs = false
+
+    [cases.local]
+    bad = []
+    bad_count = 0
+
+        [cases.local.plain]
+        reliable = true
+        relative_error = 9.901550884215482e-17
+        finite = true
+        absolute_error = 1.5543991712111597e-10
+
+        [cases.local.compensated]
+        reliable = true
+        relative_error = 9.901550884215482e-17
+        finite = true
+        absolute_error = 1.5543991712111597e-10
+
+    [cases.corrected]
+    bad_count = 15
+
+        [cases.corrected.plain]
+        reliable = false
+        relative_error = 0.07441034767256327
+        finite = true
+        absolute_error = 1.5543991712111597e-10
+
+        [cases.corrected.compensated]
+        reliable = false
+        relative_error = 0.07441034767256327
+        finite = true
+        absolute_error = 1.5543991712111597e-10
+
+        [[cases.corrected.bad]]
+        scale = 7.620248342478702e-30
+        rhs = 0.0
+        residual = 5.042057390040713e-32
+        row = 21217
+        [[cases.corrected.bad]]
+        scale = 5.098660100126999e-30
+        rhs = 0.0
+        residual = -2.2632174215360344e-31
+        row = 21218
+        [[cases.corrected.bad]]
+        scale = 4.573467645067238e-31
+        rhs = 0.0
+        residual = 8.147585079834548e-33
+        row = 21587
+        [[cases.corrected.bad]]
+        scale = 8.565542187902294e-30
+        rhs = 0.0
+        residual = -6.80522138821476e-32
+        row = 22765
+        [[cases.corrected.bad]]
+        scale = 1.1509703156552617e-29
+        rhs = 0.0
+        residual = -3.1548478956320276e-31
+        row = 22774
+        [[cases.corrected.bad]]
+        scale = 7.8360604398495785e-31
+        rhs = 0.0
+        residual = -2.7469184327077796e-32
+        row = 27224
+        [[cases.corrected.bad]]
+        scale = 5.3121076884466954e-30
+        rhs = 0.0
+        residual = -3.95275779971415e-31
+        row = 27578
+        [[cases.corrected.bad]]
+        scale = 5.098660100126999e-30
+        rhs = 0.0
+        residual = -2.2632174215360344e-31
+        row = 27580
+        [[cases.corrected.bad]]
+        scale = 5.096018824774696e-30
+        rhs = 0.0
+        residual = -2.2368046680130093e-31
+        row = 27581
+        [[cases.corrected.bad]]
+        scale = 7.231564742244691e-31
+        rhs = 0.0
+        residual = 1.8722859358835468e-33
+        row = 27594
+        [[cases.corrected.bad]]
+        scale = 3.5455632840496824e-31
+        rhs = 0.0
+        residual = -6.102814220937008e-34
+        row = 27602
+        [[cases.corrected.bad]]
+        scale = 3.5289254961657425e-31
+        rhs = 0.0
+        residual = -2.1494423740697984e-33
+        row = 27603
+        [[cases.corrected.bad]]
+        scale = 3.5273978334072114e-31
+        rhs = 0.0
+        residual = -1.9966760982166677e-33
+        row = 27604
+        [[cases.corrected.bad]]
+        scale = 3.5273978334072114e-31
+        rhs = 0.0
+        residual = -1.9966760982166677e-33
+        row = 27605
+        [[cases.corrected.bad]]
+        scale = 7.991969457653394e-31
+        rhs = 0.0
+        residual = -1.1878282546696288e-32
+        row = 27613
+
+    [cases.homogeneous]
+    bad = []
+    bad_count = 0
+
+        [cases.homogeneous.plain]
+        reliable = true
+        relative_error = 9.901550884215482e-17
+        finite = true
+        absolute_error = 1.5543991712111597e-10
+
+        [cases.homogeneous.compensated]
+        reliable = true
+        relative_error = 9.901550884215482e-17
+        finite = true
+        absolute_error = 1.5543991712111597e-10
