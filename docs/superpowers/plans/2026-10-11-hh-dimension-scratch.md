@@ -2,6 +2,9 @@
 
 > **For agentic workers:** Use `superpowers:executing-plans` sequentially.
 
+**Status:** Complete locally: production8701a58 -> master4143dad, pushed.
+Focused4366 and integrated344 assertions pass; broader S4 remains pending.
+
 **Goal:** Release obsolete HH solve-scratch capacity after a successful dimension
 change and retain the extraction buffers already allocated for the new shape.
 
@@ -17,11 +20,9 @@ No public API, numerical policy, tolerance, symbolic-reuse or coefficient change
 
 One guarded numerical Julia process, one Julia/BLAS thread, heap hint2G,8GiB VM,
 6GiB RAM floor,1GiB swap maximum. Preserve all old worktrees/environments and
-attempts. No excluded model or alias. Repository content English. The active
-S0 isolated calibration has priority: write/review this plan and unpinned tests,
-but launch no Julia and edit no pinned file while it runs. Source/test pin sets
-for that calibration belong to the preserved time-budget checkout; active
-architecture src/test are not in those sets. Verify actual manifests again.
+attempts. No excluded model or alias. Repository content English. At plan creation, the
+S0 isolated calibration had priority; its process absence was confirmed before
+S4 RED. Always inspect actual pin manifests and the host before edits/launches.
 
 Ruling: the roadmap permits S4 independently after an earlier rejected experiment.
 This small memory-lifecycle task follows the static inventory while S0's timing
@@ -118,23 +119,21 @@ repository's existing packed-upper retention implementation.
 - [x] Leave S4 broad/backend attribution and S0 long reference pending; resume
   the already planned S0 next gate without repeating accepted calibration.
 
-Static design review accepts the scope, with two clarifications: pool retirement
-must use the old dimension before publishing new work, and the failure contract
-covers candidate construction/extraction/vector preparation rather than arbitrary
-allocation failures later in existing pool/unit-workspace publication. No new
-per-iteration work, scans, solves or copies are proposed. RED tests are written
-but not run while S0 owns the numerical guard. Production source is unchanged.
+## Completed execution record
 
-Execution: red-1 exit1/pins unchanged,6 passes/2 intended capacity failures;
-host absence verified before edits. green-1 printed344 passes; final process
-report, focused suite, cost comparison and final code review remain pending.
+Static and final code review accepted this scope. Pool retirement uses the old
+dimension before publication; failure promises cover candidate construction/
+extraction/vector preparation rather than arbitrary later allocation failures.
+No new per-iteration scans, solves or copies were introduced.
 
-Final review accepts the local scratch retention fix after focused4366pass and
-cost60records, exit0/pins unchanged. No blocker or unnecessary work/retention.
-Architecture production commit8701a58; master cherry-pick4143dad. integration-1
-is running the344-assertion regression directly from master before push. Broader
-S4 and S0 long reference remain pending. See S4-SCRATCH.md for exact costs.
+red-1 exit1/pins unchanged:6 passes/2 intended capacity failures. green-1
+exit0/pins unchanged:344 passes. focused-1 normal compilation exit0/pins unchanged:
+4366 passes, including the344 regression assertions. cost-1 exit0/pins unchanged:
+60 matched records, unchanged same-size allocations and released changed-shape
+scratch capacity. Exact costs/limits are in S4-SCRATCH.md.
 
-S4-A complete: master integration-1 passed344 assertions, exit0/pins unchanged,
-process absence verified, user-file hashes preserved. Master4143dad pushed and
-remote identity confirmed. S0 driver-smoke-1 is next and now active.
+Architecture production8701a58 cherry-picked to master4143dad. integration-1
+passed344 assertions directly from master, exit0/pins unchanged. Host process
+absence and unchanged main user-file hashes were verified. Master4143dad pushed
+and remote identity confirmed. Subsequent S0 smoke passed and its long reference
+is active; consult STATUS.md for current process identity. No S4 process remains.

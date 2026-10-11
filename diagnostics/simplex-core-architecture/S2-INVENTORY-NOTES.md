@@ -111,3 +111,24 @@ this inventory does not authorize such reuse or count it as an achieved saving.
 
 Static review confirms the map after adding the basis-reliability audit costs;
 no additional numerical experiment is required for this documentation.
+
+## Error-controller prerequisite found during S0 reference
+
+validate_pivot! explicitly bounds forward/transpose contractions, not forward
+error in an arbitrary ill-conditioned basis. A scalar budget that sums local
+update roundoff and assumes an accurately solved direction would omit amplified
+direction/price error. Do not use it as a certificate or skip reconstruction on
+that argument. Native residual reliability and pivot agreement are not a bound
+on the complete stored point's accumulated error.
+
+The existing _legacy_primal_point_certified checks bounds, original/owned working
+model feasibility and row consistency with independent enclosures/fallbacks.
+_primal_price_prediction_reliable uses the objective dual from scratch.rho only
+immediately after recompute!: an iteration later that array may hold a selected
+pivot row. A new controller must own any persistent objective-dual state and
+reset it after correction/refactorization/phase or model changes. It cannot
+relabel the current scratch.rho as an unchanged objective dual.
+
+A future subplan must count the full independent point/price audit cost before
+assuming fewer reconstruction solves saves work. No controller formula, default
+change, experiment or reconstructed-state elision is accepted by these notes.

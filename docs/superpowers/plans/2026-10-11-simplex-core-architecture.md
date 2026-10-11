@@ -75,7 +75,7 @@ and stage-specific scripts under `diagnostics/simplex-core-architecture/reproduc
 - [x] Prepare a guarded runner with exclusive numerical-process ownership,
   immutable per-attempt directories and pre/post digest checks. Test its refusal
   of concurrent runs, changed pins and existing output directories without Julia.
-- [ ] Define low-overhead chronological timing and operation counters for a real
+- [x] Define low-overhead chronological timing and operation counters for a real
   long medium phase-II run. Preserve live pricing/recovery state; do not call
   reconstructed event snapshots faithful checkpoints. Calibrate instrumentation
   on paired short runs before requesting its timings as evidence.
@@ -369,3 +369,12 @@ backend attribution or whole-solve validation; see S4-SCRATCH.md and its subplan
 S4-A integrated-master regression passed344, normal exit/pins unchanged.
 Master4143dad is pushed/remote verified; preservation hashes match. The local
 S4-A subplan is complete; broad S4 remains partial. S0 driver-smoke-1 is active.
+
+Reordering ruling during L3: while medium-dual-counted-1 occupies the exclusive
+numerical slot, prepare only static S2/S3/S5 inventories and private designs.
+S1 ownership findings are already accepted; no later numerical implementation
+or acceptance gate is bypassed. S3 and S5 maps are partial, so their inventory
+checkboxes remain open. S2-A audited-bound-flip proposal is under review and
+avoids unsupported conditioning assumptions; no prototype is running. L2 counter/
+chronology definition is now checked after calibrated/reviewed smoke success;
+the separate phase-II reference gate remains unchecked until actual audit.

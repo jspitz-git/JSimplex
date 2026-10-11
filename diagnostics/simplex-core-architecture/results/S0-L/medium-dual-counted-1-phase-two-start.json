@@ -1,0 +1,52 @@
+{
+  "attempt": "medium-dual-counted-1",
+  "snapshot_kind": "running_partial_windows_not_final_audit",
+  "snapshot_utc_unix": 1791712235.5745673,
+  "runner": {
+    "pid": 268789,
+    "pgid": 268778,
+    "start_ticks": 16921100,
+    "boot_id": "20de7dde-704e-41c8-bee7-b8511c0a86b0",
+    "command": "/usr/bin/python3 /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/guarded_run.py run /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/simplex-core-architecture/S0-L/medium-dual-counted-1-pins.json /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/simplex-core-architecture/S0-L/medium-dual-counted-1 --seconds 43200 -- bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --heap-size-hint=2G --project=/home/jspitz/.codex/worktrees/simplex-time-budget/JSimplex.jl /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_measure.jl /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/simplex-core-architecture/S0-L/medium-dual-counted-1/reference.toml counted dual medium 1000000 "
+  },
+  "child": {
+    "pid": 268790,
+    "pgid": 268790,
+    "start_ticks": 16921182,
+    "boot_id": "20de7dde-704e-41c8-bee7-b8511c0a86b0",
+    "command": "bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --heap-size-hint=2G --project=/home/jspitz/.codex/worktrees/simplex-time-budget/JSimplex.jl /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_measure.jl /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/simplex-core-architecture/S0-L/medium-dual-counted-1/reference.toml counted dual medium 1000000 "
+  },
+  "pins_sha256": "a24597f2ddb774e72ade444c01c3f25f255b2c55b40ba4a1a47556f257f5fa7e",
+  "complete_prior_windows": 67,
+  "last_complete_window": {
+    "phase": "phase_two",
+    "algorithm": "dual",
+    "iteration": 65536,
+    "accepted_steps": 1024,
+    "seconds": 15.301131364,
+    "reason": "periodic"
+  },
+  "phase_two_windows": 30,
+  "phase_two_accepted_steps": 29831,
+  "phase_two_seconds": 419.815092775,
+  "first_phase_two_window": {
+    "phase": "phase_two",
+    "algorithm": "dual",
+    "iteration": 35840,
+    "accepted_steps": 135,
+    "seconds": 1.468093379,
+    "reason": "periodic"
+  },
+  "latest_resource_sample": {
+    "available_kib": 19257688,
+    "swap_used_kib": 0,
+    "elapsed": 1007.5801288689836,
+    "child_memory": [
+      "VmPeak:\t 4254364 kB",
+      "VmRSS:\t 3006156 kB",
+      "VmSwap:\t       0 kB"
+    ]
+  },
+  "final_status": "PENDING",
+  "certification": "PENDING"
+}

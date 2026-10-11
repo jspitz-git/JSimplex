@@ -32,12 +32,12 @@ main also has a user-modified .vscode/settings.json. Do not stage those files.
 | ID | Deliverable | State | Evidence / next action |
 | --- | --- | --- | --- |
 | P0 | Design, roadmap, continuation record | Done | This documentation; production unchanged |
-| S0 | Frozen baseline and coverage plan | Active | Reduced-density kernel/full calibration; prior overhead failures preserved; no long reference |
+| S0 | Frozen baseline and coverage plan | Active | L2 accepted; smoke passed; medium-dual-counted-1 live reference active |
 | S1 | State ownership and validation reuse | Integrated | Inventory and local S1-A contract; master beb161b, report S1-ENTRY.md |
-| S2 | Audited incremental primal maintenance | Pending | Existing kernels and missing guards inventory |
-| S3 | End-to-end exact sparsity support | Pending | Support propagation and full-scan inventory |
+| S2 | Audited incremental primal maintenance | Active | Guard inventory and private audited-flip subplan under review; no numerical prototype |
+| S3 | End-to-end exact sparsity support | Active | Partial reviewed static support/consumer map; no implementation or measured savings |
 | S4 | Refactorization memory lifecycle | Active | S4-A integrated at master4143dad; RED/GREEN, focused4366, paired cost60; broader attribution pending |
-| S5 | Phase/cleanup handoff contract | Pending | Mapping and reusable-state inventory |
+| S5 | Phase/cleanup handoff contract | Active | Partial static phase/cleanup ownership map; no implementation |
 | S6 | Broad validation and final comparison | Pending | Requires accepted production chunks |
 
 Allowed execution states: Pending, Active, Blocked (reason required), Verified,
@@ -52,12 +52,13 @@ its medium-primal5.90404% remains explicitly FAIL. The reviewed process-isolated
 follow-up completed all12 serial samples, ratio-of-medians0.24214%, compile0,
 matching results/options/policy and exact counted window sums, retained2880B.
 All process reports are exit0/pins unchanged. Host verified final runner266320,
-child266321 and orchestrator264004 absent. No smoke or long reference yet.
+child266321 and orchestrator264004 absent. Subsequent smoke passed and L3 is
+now active as recorded below.
 Read results/S0-L/isolated-primal-calibration-1.json and provenance/attempt records.
 Independent L2 review accepts this deployment-matching calibration. The isolated
 prefix driver returned empty primal_hash/objective=nothing, so matching result
 metadata is not a new exact final-state hash check; full suite3's earlier separate
-trace gates remain the state evidence. Smoke and long certification remain open.
+trace gates remain the state evidence. Smoke subsequently passed; long medium certification remains open.
 
 S4-A is integrated and pushed: architecture8701a58 -> master4143dad27581cf1230fa74203306f956b89109a6.
 RED6pass/2intended failures, GREEN344pass, normal focused4366pass, paired cost60
@@ -79,14 +80,17 @@ counted dual medium, step cap1000000, old planning baseline. Runner268789
 20de7dde-704e-41c8-bee7-b8511c0a86b0; verify current host identity, not PID alone.
 Pins digest a24597f2ddb774e72ade444c01c3f25f255b2c55b40ba4a1a47556f257f5fa7e.
 Raw reference.toml/windows/current/resources/process are under the attempt path.
+current.json reason=launch_error is the runner's pre-launch placeholder, not a
+final outcome; inspect host identity/resources and final process.json.
 Do not edit any pinned old src/test/env or active diagnostic Julia file, and do
 not launch another numerical process while it runs. Read only completed windows;
 no final status/certification is inferred before process exit and JSON audit.
 
-Diagnostic checkpoint7fce7dd is pushed. The current diagnostic checkpoint includes S4 inventory/subplan/results,
+Diagnostic checkpoint788bd8a is pushed. The current diagnostic checkpoint includes S4 inventory/subplan/results,
 suite3 attribution and isolated-calibration evidence. Main user dirt and all
 worktrees/environments remain intact. S2 static prerequisite mapping is reviewed;
-its controller/subplan/numerical work remains pending. S4 broader attribution
+the bounded flip proposal is under review; pivot controller and numerical work
+remain pending. S4 broader attribution
 is also pending; the integrated fix concerns four private solve/preparation vectors.
 
 Long reference is now active. Its guarded baseline is the preserved
@@ -96,8 +100,8 @@ A separate plain elapsed run and primal-origin reference remain later serial wor
 User explicitly requested continuous execution through diagnostic failures.
 
 S1-A production commit `8e0a7c7def505604ccfe50cdbc2cf9cee453092d` was integrated
-as master `beb161b310afd9dc7126eca98e3c15898a69efbf` and pushed. Its src/test/Project
-trees remain unchanged. Diagnostics/experiments are separate on the architecture
+as master `beb161b310afd9dc7126eca98e3c15898a69efbf` and pushed. Its accepted behavior remains in the subsequent S4-A production
+tree. Diagnostics/experiments are separate on the architecture
 branch (published S1 evidence: 1fcaa16). All worktrees and local environments,
 including main's modified .vscode/settings.json, remain preserved.
 Read [S1-ENTRY.md](S1-ENTRY.md) for accepted local savings and coverage limitations.
@@ -375,3 +379,18 @@ event-ablation-1 isolates none/counts/noop/recorder in one baseline module, with
 rotated order and identical operation counts/state. It asserts no cold regions
 or periodic writes occur in the measured sparse batch. This tests event overhead
 instead of repeating the failed whole-recorder pilot unchanged.
+
+## Static work during the sole L3 process
+
+S3-INVENTORY-NOTES.md maps current exact-support propagation, dense rebuilds,
+manager fallback/invalidation and dense consumers. Partial map independently
+reviewed; numerical counts and S3 subplan remain pending. S5-INVENTORY-NOTES.md
+records phase/cleanup ownership and potential redundant initial reconstruction;
+review/full inventory still pending. Neither document changes pinned code.
+
+S2 bounded proposal docs/superpowers/plans/2026-10-11-primal-flip-audit-prototype.md
+is under design review: unchanged-basis flips only, every candidate independently
+point-certified, original reconstruction/fallback and mandatory endpoint refresh.
+No incremental flags, default change or unsupported forward-error estimate. A1
+context/hook/alias ownership must be resolved before implementation. S2 broader
+pivot controller remains open. All numerical work waits behind the active L3 job.
