@@ -79,7 +79,7 @@ and stage-specific scripts under `diagnostics/simplex-core-architecture/reproduc
   long medium phase-II run. Preserve live pricing/recovery state; do not call
   reconstructed event snapshots faithful checkpoints. Calibrate instrumentation
   on paired short runs before requesting its timings as evidence.
-- [ ] Obtain a phase-II reference before claiming a whole-medium improvement in
+- [x] Obtain a phase-II reference before claiming a whole-medium improvement in
   S2. Existing prefix evidence is sufficient to begin the local S1 work.
 - [x] Freeze representative sparse/dense kernel inputs and the external manifest;
   include both algorithms and all five public managers over subsequent validation.
@@ -400,3 +400,11 @@ Its completed windows are preserved, but final certificate/exit/pins audit and
 separate plain/primal-origin references remain open. Attached-chat automatic
 continuation watches the existing guarded job and resumes the reviewed S3-A gate
 after release; it does not start a second numerical process.
+
+
+S0-L final counted dual reference audit passed:256 windows,198675 actual phase-II
+steps,255798 total steps,OPTIMAL and original primal feasibility with internal
+certificate observed. Exact baseline/medium hash and pins verified; see STATUS
+and medium-dual-counted-1-audit.json. Separate plain elapsed and primal-origin
+long coverage remain pending; counted live timing includes0.022926199s compilation.
+Proceed with reviewed S3-A safety RED before source changes.

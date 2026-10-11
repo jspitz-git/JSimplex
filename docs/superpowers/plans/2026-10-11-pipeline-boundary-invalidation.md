@@ -2,8 +2,8 @@
 
 > **For agentic workers:** Use superpowers:executing-plans sequentially.
 
-**Status:** Two static correctness hypotheses; targeted regressions prepared,
-not executed. Production remains unchanged. S0 owns the only numerical slot.
+**Status:** Both hypotheses reproduced; minimal repair passed smoke32 and
+extended1645. Existing integration regressions active; cost/review/integration pending.
 
 **Parent:** 2026-10-11-simplex-core-architecture.md S3, its design spec, and
 S3-INVENTORY-NOTES.md. This is a narrow prerequisite repair, not a sparse pipeline
@@ -69,12 +69,12 @@ record that result and revise the smallest plan necessary before implementation.
 ### B1: reproduce and freeze
 
 - [x] Independently review the test and bounded alias/publication contract.
-- [ ] Once S0 exits, freeze current architecture sources/tests/environment and
+- [x] Once S0 exits, freeze current architecture sources/tests/environment and
   exact diagnostic script in a new S3-A attempt; verify one-process preflight.
-- [ ] Run smoke regression on unchanged production with normal compilation.
+- [x] Run smoke regression on unchanged production with normal compilation.
   Expected: whole-vector/no-metadata controls pass; view support/pricing and
   observer-created probe support/pricing assertions fail for the named reasons.
-- [ ] Read exit/pins and verify runner/Julia absence on the host before any edit.
+- [x] Read exit/pins and verify runner/Julia absence on the host before any edit.
 
 ### B2: minimal repair and contracts
 
@@ -117,3 +117,14 @@ Independent static review accepts the prepared reproduction and bounded change
 contract. It confirms the assertions do not repair stale support before the
 subsequent pricing check. Runtime reproduction and all implementation gates remain
 open while S0 owns the numerical process.
+
+B1 executed: boundary-red-1 normal compilation,27 pass/5 intended failures,
+no setup errors. View has3 stale support/pricing failures, observed witness2;
+whole-vector and no-metadata controls pass. Exit1/pins unchanged; runner280106,
+Julia280107 and driver absent verified before edits. Minimal two source changes
+now applied; identical smoke GREEN is next.
+
+B2 extended matrix passed1645 tests normally:1500 across250 combinations
+(5precisions x5managers x2backends x5destination forms),105 ownership/rejected/
+model-alias assertions,40 witness/publication/observer-provenance assertions.
+Exit0/pins unchanged; runner280408/Julia280409/driver absent before focused launch.

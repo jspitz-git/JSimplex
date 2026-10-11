@@ -4,7 +4,7 @@ Updated: 2026-10-11. This is the entry point after interruption.
 
 ## Current state
 
-**S1-A and S4-A integrated; master `4143dad` pushed. S0-L2 accepted; medium dual long reference active.**
+**S1-A and S4-A integrated; master `4143dad` pushed. S0-L medium dual counted reference audited; S3-A integration tests active.**
 The source baseline is `fe839aa72171d7496c9c931d9393278448c7317e`.
 Completed diagnostic evidence is commit `6ded1fc`.
 
@@ -32,10 +32,10 @@ main also has a user-modified .vscode/settings.json. Do not stage those files.
 | ID | Deliverable | State | Evidence / next action |
 | --- | --- | --- | --- |
 | P0 | Design, roadmap, continuation record | Done | This documentation; production unchanged |
-| S0 | Frozen baseline and coverage plan | Active | L2 accepted; smoke passed; medium-dual-counted-1 live reference active |
+| S0 | Frozen baseline and coverage plan | Active | Counted dual long reference audited; plain elapsed and primal-origin coverage pending |
 | S1 | State ownership and validation reuse | Integrated | Inventory and local S1-A contract; master beb161b, report S1-ENTRY.md |
 | S2 | Audited incremental primal maintenance | Active | Guard inventory and private audited-flip design accepted; characterization pending; no numerical prototype |
-| S3 | End-to-end exact sparsity support | Active | Partial reviewed static support/consumer map; no implementation or measured savings |
+| S3 | End-to-end exact sparsity support | Active | S3-A RED confirmed2 defects; smoke32/matrix1645 passed; focused/cost/review pending |
 | S4 | Refactorization memory lifecycle | Active | S4-A integrated at master4143dad; RED/GREEN, focused4366, paired cost60; broader attribution pending |
 | S5 | Phase/cleanup handoff contract | Active | Partial static phase/cleanup ownership map; no implementation |
 | S6 | Broad validation and final comparison | Pending | Requires accepted production chunks |
@@ -449,3 +449,37 @@ results/S0-L/medium-dual-counted-1-phase-two-end.json with the raw prefix digest
 This remains running partial evidence, NOT an accepted final medium certificate.
 Pins matched at capture. The same runner268789/Julia268790 remain active; do not
 launch S3 or change pinned files until final report and separate host absence checks.
+
+
+## Completed S0-L medium dual counted reference
+
+medium-dual-counted-1 exited0, pins unchanged and independently reverified.
+Post-exit long_audit JSON passes every gate: OPTIMAL, explicit original primal
+feasibility, observed internal optimality certification,256 complete windows with
+exact counter sums,198675 actual dual phase-II steps (3634.343694575s).
+Total255798 steps includes21418 original-model primal cleanup steps.
+Counted elapsed5926.881033309s includes0.022926199s compilation and503.750702521s
+GC; this is not a compilation-free or authoritative plain timing comparison.
+Objective2.2389455645278454e7; final primal digest and exact baseline source,
+allowed medium hash, final reports and phase totals are preserved in
+results/S0-L/medium-dual-counted-1-audit.json and companion raw report copies.
+Separate plain elapsed and primal-origin references remain pending; no speedup
+or whole-S0 completion is claimed. Guard/Julia/driver268789/268790/268787 were
+confirmed absent in a separate host call after the final process report.
+Next: execute the prepared S3-A boundary-red-1 before any production edit.
+
+S3-A B1 confirmed both hypotheses: boundary-red-1 has27pass/5intended failures,
+no errors; controls pass and corrected dense values/certification pass. Exit1,
+pins unchanged; host runner/child/driver absent. Minimal invalidation changes
+applied after RED; identical smoke GREEN next, no production commit yet.
+
+S3-A identical smoke GREEN passed32/32,exit0/pins unchanged; runner280264/
+Julia280265 and driver absent. Extended production regression covers250
+precision/manager/backend/destination combinations, all six scratch aliases,
+no-cache/rejected-write/model-alias contracts and witness callback provenance.
+Extended matrix is prepared, not yet accepted.
+
+S3-A boundary-matrix-1 passed1645/1645 with normal compilation; pins unchanged.
+All5precisions/5managers/2backends supported in this fixture. Existing focused
+pipeline/refinement/projection/guard regressions are now the sole numerical job
+(boundary-focused-1). Production/test changes remain uncommitted pending gates.

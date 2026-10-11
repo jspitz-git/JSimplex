@@ -1,0 +1,49 @@
+[
+  {
+    "attempt": "boundary-green-1",
+    "reason": "exit0",
+    "returncode": 0,
+    "pins_unchanged": true,
+    "pins_sha256": "a4024675a5230670d8163965d51c4e78bcf73fe04eb6993f585cdf0bba00cbd7",
+    "command": [
+      "bash",
+      "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+      "--heap-size-hint=2G",
+      "--project=/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl",
+      "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/pipeline_boundary_regressions.jl",
+      "smoke"
+    ],
+    "seconds": 11.014102935791016
+  },
+  {
+    "attempt": "boundary-matrix-1",
+    "reason": "exit0",
+    "returncode": 0,
+    "pins_unchanged": true,
+    "pins_sha256": "2b005e49dd4ade1cea1a98aff64eb734a64983cf2eda844454091dd751be6727",
+    "command": [
+      "bash",
+      "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+      "--heap-size-hint=2G",
+      "--project=/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl",
+      "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/pipeline_boundary_tests.jl"
+    ],
+    "seconds": 80.05520677566528
+  },
+  {
+    "attempt": "boundary-red-1",
+    "reason": "exit1",
+    "returncode": 1,
+    "pins_unchanged": true,
+    "pins_sha256": "9b35ba88fb78ed2748c0b5c38d24b782178f4f336f87208c94c98d9d107a475b",
+    "command": [
+      "bash",
+      "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+      "--heap-size-hint=2G",
+      "--project=/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl",
+      "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/pipeline_boundary_regressions.jl",
+      "smoke"
+    ],
+    "seconds": 9.018754720687866
+  }
+]
