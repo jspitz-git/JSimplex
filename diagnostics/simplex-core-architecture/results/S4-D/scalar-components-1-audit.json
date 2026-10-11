@@ -1,0 +1,3038 @@
+{
+  "accepted": true,
+  "scope": "Bounded scalar diagnostic; BigFloat original Serialization hashes are not canonical input equality evidence. Separate same-recipe probe proves exact unchanged inputs/canonical pairs, not retroactive hashes for original cost records. No speedup or full S4/S6 closure",
+  "checks": {
+    "normal_exit": true,
+    "pins_unchanged": true,
+    "pins_reverified": true,
+    "pin_digest": true,
+    "complete": true,
+    "single_threads": true,
+    "source": true,
+    "bigfloat_precision": true,
+    "sample_count": true,
+    "compile_zero": true,
+    "cases": true,
+    "retention_cases": true,
+    "lifecycle_cases": true,
+    "lifecycle_checks": true,
+    "sample_settings": true,
+    "finite_metrics": true,
+    "all_groups_complete": true,
+    "non_bigfloat_backend_hashes": true,
+    "probe_exit_pins": true,
+    "probe_eight_unchanged_inputs": true,
+    "probe_canonical_pairs": true,
+    "serialization_representation_mismatch_reproduced": true
+  },
+  "reference_sha256": "873619fb5d65430c8af4a34f6bd03801fcef05b9bac645f83a5bc7d06229a04a",
+  "pins_sha256": "40d049e8c1a7756b03e24b643c51b14263973e116f1f21d61e9e477aa0a24b70",
+  "groups": [
+    {
+      "case": "BigFloat/markowitz/dense32",
+      "region": "backend",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 0.0023502,
+        "min": 0.002298201,
+        "max": 0.0023672
+      },
+      "bytes": {
+        "median": 8808200,
+        "min": 8808200,
+        "max": 8808200
+      },
+      "allocations": {
+        "median": 91665,
+        "min": 91665,
+        "max": 91665
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "BigFloat/markowitz/dense32",
+      "region": "extraction",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 0.0001483,
+        "min": 0.0001228,
+        "max": 0.0002322
+      },
+      "bytes": {
+        "median": 287712,
+        "min": 287712,
+        "max": 287712
+      },
+      "allocations": {
+        "median": 428,
+        "min": 428,
+        "max": 428
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "BigFloat/markowitz/dense32",
+      "region": "whole_refactor",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 0.0025278,
+        "min": 0.0024966,
+        "max": 0.002945301
+      },
+      "bytes": {
+        "median": 9095912,
+        "min": 9095912,
+        "max": 9095912
+      },
+      "allocations": {
+        "median": 92093,
+        "min": 92093,
+        "max": 92093
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "BigFloat/markowitz/dense8",
+      "region": "backend",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 6.67e-05,
+        "min": 6.59e-05,
+        "max": 6.68e-05
+      },
+      "bytes": {
+        "median": 161088,
+        "min": 161088,
+        "max": 161088
+      },
+      "allocations": {
+        "median": 1680,
+        "min": 1680,
+        "max": 1680
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "BigFloat/markowitz/dense8",
+      "region": "extraction",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 1.88e-05,
+        "min": 1.46e-05,
+        "max": 2.19e-05
+      },
+      "bytes": {
+        "median": 32768,
+        "min": 32768,
+        "max": 32768
+      },
+      "allocations": {
+        "median": 272,
+        "min": 272,
+        "max": 272
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "BigFloat/markowitz/dense8",
+      "region": "whole_refactor",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 6.81e-05,
+        "min": 6.61e-05,
+        "max": 7.93e-05
+      },
+      "bytes": {
+        "median": 193856,
+        "min": 193856,
+        "max": 193856
+      },
+      "allocations": {
+        "median": 1952,
+        "min": 1952,
+        "max": 1952
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "BigFloat/markowitz/sparse32",
+      "region": "backend",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 0.0001168,
+        "min": 0.0001102,
+        "max": 0.0001198
+      },
+      "bytes": {
+        "median": 270784,
+        "min": 270784,
+        "max": 270784
+      },
+      "allocations": {
+        "median": 2889,
+        "min": 2889,
+        "max": 2889
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "BigFloat/markowitz/sparse32",
+      "region": "extraction",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 2.45e-05,
+        "min": 2.14e-05,
+        "max": 2.52e-05
+      },
+      "bytes": {
+        "median": 56832,
+        "min": 56832,
+        "max": 56832
+      },
+      "allocations": {
+        "median": 368,
+        "min": 368,
+        "max": 368
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "BigFloat/markowitz/sparse32",
+      "region": "whole_refactor",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 0.0001402,
+        "min": 0.0001367,
+        "max": 0.0001759
+      },
+      "bytes": {
+        "median": 327616,
+        "min": 327616,
+        "max": 327616
+      },
+      "allocations": {
+        "median": 3257,
+        "min": 3257,
+        "max": 3257
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "BigFloat/markowitz/sparse8",
+      "region": "backend",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 4.83e-05,
+        "min": 3.88e-05,
+        "max": 4.89e-05
+      },
+      "bytes": {
+        "median": 39664,
+        "min": 39664,
+        "max": 39664
+      },
+      "allocations": {
+        "median": 432,
+        "min": 432,
+        "max": 432
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "BigFloat/markowitz/sparse8",
+      "region": "extraction",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 1.74e-05,
+        "min": 1.55e-05,
+        "max": 1.84e-05
+      },
+      "bytes": {
+        "median": 20096,
+        "min": 20096,
+        "max": 20096
+      },
+      "allocations": {
+        "median": 272,
+        "min": 272,
+        "max": 272
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "BigFloat/markowitz/sparse8",
+      "region": "whole_refactor",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 5.6e-05,
+        "min": 4.76e-05,
+        "max": 6.07e-05
+      },
+      "bytes": {
+        "median": 59760,
+        "min": 59760,
+        "max": 59760
+      },
+      "allocations": {
+        "median": 704,
+        "min": 704,
+        "max": 704
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "BigFloat/native/dense32",
+      "region": "backend",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 0.0029592,
+        "min": 0.0024048,
+        "max": 0.0030004
+      },
+      "bytes": {
+        "median": 8832352,
+        "min": 8832352,
+        "max": 8832352
+      },
+      "allocations": {
+        "median": 91668,
+        "min": 91668,
+        "max": 91668
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "BigFloat/native/dense32",
+      "region": "extraction",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 0.0001524,
+        "min": 0.0001496,
+        "max": 0.0002999
+      },
+      "bytes": {
+        "median": 567264,
+        "min": 567264,
+        "max": 567264
+      },
+      "allocations": {
+        "median": 4376,
+        "min": 4376,
+        "max": 4376
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "BigFloat/native/dense32",
+      "region": "whole_refactor",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 0.0025455,
+        "min": 0.0025181,
+        "max": 0.0028181
+      },
+      "bytes": {
+        "median": 9399616,
+        "min": 9399616,
+        "max": 9399616
+      },
+      "allocations": {
+        "median": 96044,
+        "min": 96044,
+        "max": 96044
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "BigFloat/native/dense8",
+      "region": "backend",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 6.06e-05,
+        "min": 6.05e-05,
+        "max": 6.06e-05
+      },
+      "bytes": {
+        "median": 162368,
+        "min": 162368,
+        "max": 162368
+      },
+      "allocations": {
+        "median": 1680,
+        "min": 1680,
+        "max": 1680
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "BigFloat/native/dense8",
+      "region": "extraction",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 1.86e-05,
+        "min": 1.85e-05,
+        "max": 1.92e-05
+      },
+      "bytes": {
+        "median": 43904,
+        "min": 43904,
+        "max": 43904
+      },
+      "allocations": {
+        "median": 412,
+        "min": 412,
+        "max": 412
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "BigFloat/native/dense8",
+      "region": "whole_refactor",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 7.8e-05,
+        "min": 7.15e-05,
+        "max": 8.94e-05
+      },
+      "bytes": {
+        "median": 206272,
+        "min": 206272,
+        "max": 206272
+      },
+      "allocations": {
+        "median": 2092,
+        "min": 2092,
+        "max": 2092
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "BigFloat/native/sparse32",
+      "region": "backend",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 0.0012868,
+        "min": 0.0012037,
+        "max": 0.0012875
+      },
+      "bytes": {
+        "median": 8832352,
+        "min": 8832352,
+        "max": 8832352
+      },
+      "allocations": {
+        "median": 91668,
+        "min": 91668,
+        "max": 91668
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "BigFloat/native/sparse32",
+      "region": "extraction",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 0.0001058,
+        "min": 9.27e-05,
+        "max": 0.0001068
+      },
+      "bytes": {
+        "median": 490816,
+        "min": 490816,
+        "max": 490816
+      },
+      "allocations": {
+        "median": 4356,
+        "min": 4356,
+        "max": 4356
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "BigFloat/native/sparse32",
+      "region": "whole_refactor",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 0.0013237,
+        "min": 0.0013026,
+        "max": 0.0015078
+      },
+      "bytes": {
+        "median": 9323168,
+        "min": 9323168,
+        "max": 9323168
+      },
+      "allocations": {
+        "median": 96024,
+        "min": 96024,
+        "max": 96024
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "BigFloat/native/sparse8",
+      "region": "backend",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 4.18e-05,
+        "min": 3.89e-05,
+        "max": 4.41e-05
+      },
+      "bytes": {
+        "median": 162368,
+        "min": 162368,
+        "max": 162368
+      },
+      "allocations": {
+        "median": 1680,
+        "min": 1680,
+        "max": 1680
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "BigFloat/native/sparse8",
+      "region": "extraction",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 1.93e-05,
+        "min": 1.7e-05,
+        "max": 1.94e-05
+      },
+      "bytes": {
+        "median": 39808,
+        "min": 39808,
+        "max": 39808
+      },
+      "allocations": {
+        "median": 412,
+        "min": 412,
+        "max": 412
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "BigFloat/native/sparse8",
+      "region": "whole_refactor",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 5.96e-05,
+        "min": 5.7e-05,
+        "max": 7.08e-05
+      },
+      "bytes": {
+        "median": 202176,
+        "min": 202176,
+        "max": 202176
+      },
+      "allocations": {
+        "median": 2092,
+        "min": 2092,
+        "max": 2092
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Float16/markowitz/dense32",
+      "region": "backend",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 4.62e-05,
+        "min": 4.54e-05,
+        "max": 4.68e-05
+      },
+      "bytes": {
+        "median": 3656,
+        "min": 3656,
+        "max": 3656
+      },
+      "allocations": {
+        "median": 19,
+        "min": 19,
+        "max": 19
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Float16/markowitz/dense32",
+      "region": "extraction",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 4.93e-05,
+        "min": 4.76e-05,
+        "max": 4.99e-05
+      },
+      "bytes": {
+        "median": 197664,
+        "min": 197664,
+        "max": 197664
+      },
+      "allocations": {
+        "median": 268,
+        "min": 268,
+        "max": 268
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Float16/markowitz/dense32",
+      "region": "whole_refactor",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 7.79e-05,
+        "min": 7.55e-05,
+        "max": 8.07e-05
+      },
+      "bytes": {
+        "median": 201320,
+        "min": 201320,
+        "max": 201320
+      },
+      "allocations": {
+        "median": 287,
+        "min": 287,
+        "max": 287
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Float16/markowitz/dense8",
+      "region": "backend",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 9.4e-06,
+        "min": 8e-06,
+        "max": 6.04e-05
+      },
+      "bytes": {
+        "median": 1056,
+        "min": 1056,
+        "max": 1056
+      },
+      "allocations": {
+        "median": 18,
+        "min": 18,
+        "max": 18
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Float16/markowitz/dense8",
+      "region": "extraction",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 1.2e-05,
+        "min": 9.3e-06,
+        "max": 1.22e-05
+      },
+      "bytes": {
+        "median": 22976,
+        "min": 22976,
+        "max": 22976
+      },
+      "allocations": {
+        "median": 232,
+        "min": 232,
+        "max": 232
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Float16/markowitz/dense8",
+      "region": "whole_refactor",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 2.11e-05,
+        "min": 1.54e-05,
+        "max": 2.13e-05
+      },
+      "bytes": {
+        "median": 24032,
+        "min": 24032,
+        "max": 24032
+      },
+      "allocations": {
+        "median": 250,
+        "min": 250,
+        "max": 250
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Float16/markowitz/sparse32",
+      "region": "backend",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 3.26e-05,
+        "min": 3.1e-05,
+        "max": 3.38e-05
+      },
+      "bytes": {
+        "median": 12656,
+        "min": 12656,
+        "max": 12656
+      },
+      "allocations": {
+        "median": 211,
+        "min": 211,
+        "max": 211
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Float16/markowitz/sparse32",
+      "region": "extraction",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 1.24e-05,
+        "min": 1.11e-05,
+        "max": 1.25e-05
+      },
+      "bytes": {
+        "median": 35328,
+        "min": 35328,
+        "max": 35328
+      },
+      "allocations": {
+        "median": 232,
+        "min": 232,
+        "max": 232
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Float16/markowitz/sparse32",
+      "region": "whole_refactor",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 4.39e-05,
+        "min": 4.03e-05,
+        "max": 4.41e-05
+      },
+      "bytes": {
+        "median": 47984,
+        "min": 47984,
+        "max": 47984
+      },
+      "allocations": {
+        "median": 443,
+        "min": 443,
+        "max": 443
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Float16/markowitz/sparse8",
+      "region": "backend",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 1.69e-05,
+        "min": 1.48e-05,
+        "max": 1.74e-05
+      },
+      "bytes": {
+        "median": 3456,
+        "min": 3456,
+        "max": 3456
+      },
+      "allocations": {
+        "median": 58,
+        "min": 58,
+        "max": 58
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Float16/markowitz/sparse8",
+      "region": "extraction",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 1.08e-05,
+        "min": 1.06e-05,
+        "max": 1.09e-05
+      },
+      "bytes": {
+        "median": 14144,
+        "min": 14144,
+        "max": 14144
+      },
+      "allocations": {
+        "median": 232,
+        "min": 232,
+        "max": 232
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Float16/markowitz/sparse8",
+      "region": "whole_refactor",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 2.43e-05,
+        "min": 2.08e-05,
+        "max": 2.64e-05
+      },
+      "bytes": {
+        "median": 17600,
+        "min": 17600,
+        "max": 17600
+      },
+      "allocations": {
+        "median": 290,
+        "min": 290,
+        "max": 290
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Float16/native/dense32",
+      "region": "backend",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 3.5e-05,
+        "min": 3.48e-05,
+        "max": 4.64e-05
+      },
+      "bytes": {
+        "median": 9952,
+        "min": 9952,
+        "max": 9952
+      },
+      "allocations": {
+        "median": 24,
+        "min": 24,
+        "max": 24
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Float16/native/dense32",
+      "region": "extraction",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 3.3e-05,
+        "min": 3.07e-05,
+        "max": 3.75e-05
+      },
+      "bytes": {
+        "median": 86048,
+        "min": 86048,
+        "max": 86048
+      },
+      "allocations": {
+        "median": 140,
+        "min": 140,
+        "max": 140
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Float16/native/dense32",
+      "region": "whole_refactor",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 5.86e-05,
+        "min": 5.76e-05,
+        "max": 5.89e-05
+      },
+      "bytes": {
+        "median": 96000,
+        "min": 96000,
+        "max": 96000
+      },
+      "allocations": {
+        "median": 164,
+        "min": 164,
+        "max": 164
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Float16/native/dense8",
+      "region": "backend",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 4.9e-06,
+        "min": 4.5e-06,
+        "max": 6.2e-06
+      },
+      "bytes": {
+        "median": 1472,
+        "min": 1472,
+        "max": 1472
+      },
+      "allocations": {
+        "median": 20,
+        "min": 20,
+        "max": 20
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Float16/native/dense8",
+      "region": "extraction",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 1e-05,
+        "min": 1e-05,
+        "max": 1.01e-05
+      },
+      "bytes": {
+        "median": 10688,
+        "min": 10688,
+        "max": 10688
+      },
+      "allocations": {
+        "median": 120,
+        "min": 120,
+        "max": 120
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Float16/native/dense8",
+      "region": "whole_refactor",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 1.47e-05,
+        "min": 1.44e-05,
+        "max": 1.48e-05
+      },
+      "bytes": {
+        "median": 12160,
+        "min": 12160,
+        "max": 12160
+      },
+      "allocations": {
+        "median": 140,
+        "min": 140,
+        "max": 140
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Float16/native/sparse32",
+      "region": "backend",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 2.67e-05,
+        "min": 2.65e-05,
+        "max": 2.69e-05
+      },
+      "bytes": {
+        "median": 9952,
+        "min": 9952,
+        "max": 9952
+      },
+      "allocations": {
+        "median": 24,
+        "min": 24,
+        "max": 24
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Float16/native/sparse32",
+      "region": "extraction",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 2.42e-05,
+        "min": 2.12e-05,
+        "max": 2.44e-05
+      },
+      "bytes": {
+        "median": 32448,
+        "min": 32448,
+        "max": 32448
+      },
+      "allocations": {
+        "median": 128,
+        "min": 128,
+        "max": 128
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Float16/native/sparse32",
+      "region": "whole_refactor",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 4.65e-05,
+        "min": 4.45e-05,
+        "max": 5.1e-05
+      },
+      "bytes": {
+        "median": 42400,
+        "min": 42400,
+        "max": 42400
+      },
+      "allocations": {
+        "median": 152,
+        "min": 152,
+        "max": 152
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Float16/native/sparse8",
+      "region": "backend",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 5e-06,
+        "min": 4.5e-06,
+        "max": 5.8e-06
+      },
+      "bytes": {
+        "median": 1472,
+        "min": 1472,
+        "max": 1472
+      },
+      "allocations": {
+        "median": 20,
+        "min": 20,
+        "max": 20
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Float16/native/sparse8",
+      "region": "extraction",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 9.5e-06,
+        "min": 9.2e-06,
+        "max": 9.7e-06
+      },
+      "bytes": {
+        "median": 7872,
+        "min": 7872,
+        "max": 7872
+      },
+      "allocations": {
+        "median": 120,
+        "min": 120,
+        "max": 120
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Float16/native/sparse8",
+      "region": "whole_refactor",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 1.34e-05,
+        "min": 9.9e-06,
+        "max": 1.41e-05
+      },
+      "bytes": {
+        "median": 9344,
+        "min": 9344,
+        "max": 9344
+      },
+      "allocations": {
+        "median": 140,
+        "min": 140,
+        "max": 140
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Float32/markowitz/dense32",
+      "region": "backend",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 6.15e-05,
+        "min": 6.06e-05,
+        "max": 6.28e-05
+      },
+      "bytes": {
+        "median": 5832,
+        "min": 5832,
+        "max": 5832
+      },
+      "allocations": {
+        "median": 19,
+        "min": 19,
+        "max": 19
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Float32/markowitz/dense32",
+      "region": "extraction",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 5.53e-05,
+        "min": 5.48e-05,
+        "max": 6.31e-05
+      },
+      "bytes": {
+        "median": 223456,
+        "min": 223456,
+        "max": 223456
+      },
+      "allocations": {
+        "median": 292,
+        "min": 292,
+        "max": 292
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Float32/markowitz/dense32",
+      "region": "whole_refactor",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 0.0001004,
+        "min": 8.67e-05,
+        "max": 0.0001038
+      },
+      "bytes": {
+        "median": 229288,
+        "min": 229288,
+        "max": 229288
+      },
+      "allocations": {
+        "median": 311,
+        "min": 311,
+        "max": 311
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Float32/markowitz/dense8",
+      "region": "backend",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 1.74e-05,
+        "min": 1.67e-05,
+        "max": 1.93e-05
+      },
+      "bytes": {
+        "median": 1216,
+        "min": 1216,
+        "max": 1216
+      },
+      "allocations": {
+        "median": 18,
+        "min": 18,
+        "max": 18
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Float32/markowitz/dense8",
+      "region": "extraction",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 1.11e-05,
+        "min": 1.05e-05,
+        "max": 1.13e-05
+      },
+      "bytes": {
+        "median": 24960,
+        "min": 24960,
+        "max": 24960
+      },
+      "allocations": {
+        "median": 232,
+        "min": 232,
+        "max": 232
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Float32/markowitz/dense8",
+      "region": "whole_refactor",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 2.73e-05,
+        "min": 2.7e-05,
+        "max": 2.77e-05
+      },
+      "bytes": {
+        "median": 26176,
+        "min": 26176,
+        "max": 26176
+      },
+      "allocations": {
+        "median": 250,
+        "min": 250,
+        "max": 250
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Float32/markowitz/sparse32",
+      "region": "backend",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 4.06e-05,
+        "min": 3.95e-05,
+        "max": 4.13e-05
+      },
+      "bytes": {
+        "median": 13312,
+        "min": 13312,
+        "max": 13312
+      },
+      "allocations": {
+        "median": 211,
+        "min": 211,
+        "max": 211
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Float32/markowitz/sparse32",
+      "region": "extraction",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 1.3e-05,
+        "min": 1.23e-05,
+        "max": 1.31e-05
+      },
+      "bytes": {
+        "median": 37888,
+        "min": 37888,
+        "max": 37888
+      },
+      "allocations": {
+        "median": 232,
+        "min": 232,
+        "max": 232
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Float32/markowitz/sparse32",
+      "region": "whole_refactor",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 4.77e-05,
+        "min": 4.57e-05,
+        "max": 5.05e-05
+      },
+      "bytes": {
+        "median": 51200,
+        "min": 51200,
+        "max": 51200
+      },
+      "allocations": {
+        "median": 443,
+        "min": 443,
+        "max": 443
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Float32/markowitz/sparse8",
+      "region": "backend",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 2.83e-05,
+        "min": 2.56e-05,
+        "max": 6.39e-05
+      },
+      "bytes": {
+        "median": 3616,
+        "min": 3616,
+        "max": 3616
+      },
+      "allocations": {
+        "median": 58,
+        "min": 58,
+        "max": 58
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Float32/markowitz/sparse8",
+      "region": "extraction",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 1.02e-05,
+        "min": 1.02e-05,
+        "max": 1.04e-05
+      },
+      "bytes": {
+        "median": 14976,
+        "min": 14976,
+        "max": 14976
+      },
+      "allocations": {
+        "median": 232,
+        "min": 232,
+        "max": 232
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Float32/markowitz/sparse8",
+      "region": "whole_refactor",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 3.45e-05,
+        "min": 3.43e-05,
+        "max": 3.49e-05
+      },
+      "bytes": {
+        "median": 18592,
+        "min": 18592,
+        "max": 18592
+      },
+      "allocations": {
+        "median": 290,
+        "min": 290,
+        "max": 290
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Float32/native/dense32",
+      "region": "backend",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 4.96e-05,
+        "min": 4.94e-05,
+        "max": 5.19e-05
+      },
+      "bytes": {
+        "median": 18144,
+        "min": 18144,
+        "max": 18144
+      },
+      "allocations": {
+        "median": 24,
+        "min": 24,
+        "max": 24
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Float32/native/dense32",
+      "region": "extraction",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 3.8e-05,
+        "min": 3.69e-05,
+        "max": 3.93e-05
+      },
+      "bytes": {
+        "median": 111200,
+        "min": 111200,
+        "max": 111200
+      },
+      "allocations": {
+        "median": 148,
+        "min": 148,
+        "max": 148
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Float32/native/dense32",
+      "region": "whole_refactor",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 7.3e-05,
+        "min": 7.3e-05,
+        "max": 7.31e-05
+      },
+      "bytes": {
+        "median": 129344,
+        "min": 129344,
+        "max": 129344
+      },
+      "allocations": {
+        "median": 172,
+        "min": 172,
+        "max": 172
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Float32/native/dense8",
+      "region": "backend",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 1.29e-05,
+        "min": 8.3e-06,
+        "max": 1.3e-05
+      },
+      "bytes": {
+        "median": 1984,
+        "min": 1984,
+        "max": 1984
+      },
+      "allocations": {
+        "median": 20,
+        "min": 20,
+        "max": 20
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Float32/native/dense8",
+      "region": "extraction",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 9.3e-06,
+        "min": 7.2e-06,
+        "max": 9.8e-06
+      },
+      "bytes": {
+        "median": 12416,
+        "min": 12416,
+        "max": 12416
+      },
+      "allocations": {
+        "median": 120,
+        "min": 120,
+        "max": 120
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Float32/native/dense8",
+      "region": "whole_refactor",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 2.26e-05,
+        "min": 2.21e-05,
+        "max": 3.17e-05
+      },
+      "bytes": {
+        "median": 14400,
+        "min": 14400,
+        "max": 14400
+      },
+      "allocations": {
+        "median": 140,
+        "min": 140,
+        "max": 140
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Float32/native/sparse32",
+      "region": "backend",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 4.31e-05,
+        "min": 4.22e-05,
+        "max": 4.67e-05
+      },
+      "bytes": {
+        "median": 18144,
+        "min": 18144,
+        "max": 18144
+      },
+      "allocations": {
+        "median": 24,
+        "min": 24,
+        "max": 24
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Float32/native/sparse32",
+      "region": "extraction",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 2.93e-05,
+        "min": 2.84e-05,
+        "max": 2.96e-05
+      },
+      "bytes": {
+        "median": 49856,
+        "min": 49856,
+        "max": 49856
+      },
+      "allocations": {
+        "median": 128,
+        "min": 128,
+        "max": 128
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Float32/native/sparse32",
+      "region": "whole_refactor",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 6.59e-05,
+        "min": 6.52e-05,
+        "max": 6.65e-05
+      },
+      "bytes": {
+        "median": 68000,
+        "min": 68000,
+        "max": 68000
+      },
+      "allocations": {
+        "median": 152,
+        "min": 152,
+        "max": 152
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Float32/native/sparse8",
+      "region": "backend",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 1.19e-05,
+        "min": 6.7e-06,
+        "max": 1.24e-05
+      },
+      "bytes": {
+        "median": 1984,
+        "min": 1984,
+        "max": 1984
+      },
+      "allocations": {
+        "median": 20,
+        "min": 20,
+        "max": 20
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Float32/native/sparse8",
+      "region": "extraction",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 9.1e-06,
+        "min": 8.9e-06,
+        "max": 1.63e-05
+      },
+      "bytes": {
+        "median": 9216,
+        "min": 9216,
+        "max": 9216
+      },
+      "allocations": {
+        "median": 120,
+        "min": 120,
+        "max": 120
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Float32/native/sparse8",
+      "region": "whole_refactor",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 2.07e-05,
+        "min": 1.86e-05,
+        "max": 2.22e-05
+      },
+      "bytes": {
+        "median": 11200,
+        "min": 11200,
+        "max": 11200
+      },
+      "allocations": {
+        "median": 140,
+        "min": 140,
+        "max": 140
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Rational{BigInt}/markowitz/dense32",
+      "region": "backend",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 0.010861101,
+        "min": 0.010682102,
+        "max": 0.011150602
+      },
+      "bytes": {
+        "median": 28526168,
+        "min": 28525816,
+        "max": 28526472
+      },
+      "allocations": {
+        "median": 742555,
+        "min": 742555,
+        "max": 742555
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Rational{BigInt}/markowitz/dense32",
+      "region": "extraction",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 0.0002905,
+        "min": 0.0002431,
+        "max": 0.0003231
+      },
+      "bytes": {
+        "median": 393888,
+        "min": 393856,
+        "max": 393904
+      },
+      "allocations": {
+        "median": 836,
+        "min": 836,
+        "max": 836
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Rational{BigInt}/markowitz/dense32",
+      "region": "whole_refactor",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 0.010915601,
+        "min": 0.010613701,
+        "max": 0.010979401
+      },
+      "bytes": {
+        "median": 28919336,
+        "min": 28918456,
+        "max": 28921208
+      },
+      "allocations": {
+        "median": 743391,
+        "min": 743391,
+        "max": 743391
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Rational{BigInt}/markowitz/dense8",
+      "region": "backend",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 0.0001956,
+        "min": 0.0001735,
+        "max": 0.0001977
+      },
+      "bytes": {
+        "median": 456192,
+        "min": 455648,
+        "max": 456240
+      },
+      "allocations": {
+        "median": 11578,
+        "min": 11578,
+        "max": 11578
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Rational{BigInt}/markowitz/dense8",
+      "region": "extraction",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 1.73e-05,
+        "min": 1.69e-05,
+        "max": 1.75e-05
+      },
+      "bytes": {
+        "median": 40576,
+        "min": 40576,
+        "max": 40576
+      },
+      "allocations": {
+        "median": 392,
+        "min": 392,
+        "max": 392
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Rational{BigInt}/markowitz/dense8",
+      "region": "whole_refactor",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 0.0002718,
+        "min": 0.0001974,
+        "max": 0.0003187
+      },
+      "bytes": {
+        "median": 494880,
+        "min": 494656,
+        "max": 496272
+      },
+      "allocations": {
+        "median": 11970,
+        "min": 11970,
+        "max": 11970
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Rational{BigInt}/markowitz/sparse32",
+      "region": "backend",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 0.0004759,
+        "min": 0.0004725,
+        "max": 0.0005313
+      },
+      "bytes": {
+        "median": 812304,
+        "min": 812000,
+        "max": 812448
+      },
+      "allocations": {
+        "median": 29227,
+        "min": 29227,
+        "max": 29227
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Rational{BigInt}/markowitz/sparse32",
+      "region": "extraction",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 2.9e-05,
+        "min": 2.64e-05,
+        "max": 4.06e-05
+      },
+      "bytes": {
+        "median": 71296,
+        "min": 71280,
+        "max": 71360
+      },
+      "allocations": {
+        "median": 776,
+        "min": 776,
+        "max": 776
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Rational{BigInt}/markowitz/sparse32",
+      "region": "whole_refactor",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 0.000507501,
+        "min": 0.0004762,
+        "max": 0.0005112
+      },
+      "bytes": {
+        "median": 881216,
+        "min": 881104,
+        "max": 881264
+      },
+      "allocations": {
+        "median": 30003,
+        "min": 30003,
+        "max": 30003
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Rational{BigInt}/markowitz/sparse8",
+      "region": "backend",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 8.78e-05,
+        "min": 7.99e-05,
+        "max": 0.000103
+      },
+      "bytes": {
+        "median": 115872,
+        "min": 115808,
+        "max": 115936
+      },
+      "allocations": {
+        "median": 3202,
+        "min": 3202,
+        "max": 3202
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Rational{BigInt}/markowitz/sparse8",
+      "region": "extraction",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 1.58e-05,
+        "min": 1.48e-05,
+        "max": 1.67e-05
+      },
+      "bytes": {
+        "median": 23296,
+        "min": 23296,
+        "max": 23296
+      },
+      "allocations": {
+        "median": 392,
+        "min": 392,
+        "max": 392
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Rational{BigInt}/markowitz/sparse8",
+      "region": "whole_refactor",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 0.0001341,
+        "min": 0.0001022,
+        "max": 0.0001379
+      },
+      "bytes": {
+        "median": 139664,
+        "min": 139408,
+        "max": 139920
+      },
+      "allocations": {
+        "median": 3594,
+        "min": 3594,
+        "max": 3594
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Rational{BigInt}/native/dense32",
+      "region": "backend",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 0.010761601,
+        "min": 0.010533101,
+        "max": 0.011038001
+      },
+      "bytes": {
+        "median": 28569648,
+        "min": 28568960,
+        "max": 28569840
+      },
+      "allocations": {
+        "median": 742552,
+        "min": 742552,
+        "max": 742552
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Rational{BigInt}/native/dense32",
+      "region": "extraction",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 0.0004685,
+        "min": 0.0004532,
+        "max": 0.0005413
+      },
+      "bytes": {
+        "median": 747936,
+        "min": 747904,
+        "max": 747968
+      },
+      "allocations": {
+        "median": 17060,
+        "min": 17060,
+        "max": 17060
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Rational{BigInt}/native/dense32",
+      "region": "whole_refactor",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 0.010627101,
+        "min": 0.010453201,
+        "max": 0.010885701
+      },
+      "bytes": {
+        "median": 29308064,
+        "min": 29305504,
+        "max": 29309232
+      },
+      "allocations": {
+        "median": 759612,
+        "min": 759612,
+        "max": 759612
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Rational{BigInt}/native/dense8",
+      "region": "backend",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 0.000199,
+        "min": 0.0001901,
+        "max": 0.0002044
+      },
+      "bytes": {
+        "median": 457600,
+        "min": 457344,
+        "max": 457936
+      },
+      "allocations": {
+        "median": 11572,
+        "min": 11572,
+        "max": 11572
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Rational{BigInt}/native/dense8",
+      "region": "extraction",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 3.44e-05,
+        "min": 3.29e-05,
+        "max": 3.52e-05
+      },
+      "bytes": {
+        "median": 62288,
+        "min": 62224,
+        "max": 62352
+      },
+      "allocations": {
+        "median": 1288,
+        "min": 1288,
+        "max": 1288
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Rational{BigInt}/native/dense8",
+      "region": "whole_refactor",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 0.0002564,
+        "min": 0.0002126,
+        "max": 0.0002724
+      },
+      "bytes": {
+        "median": 513408,
+        "min": 513248,
+        "max": 513664
+      },
+      "allocations": {
+        "median": 12860,
+        "min": 12860,
+        "max": 12860
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Rational{BigInt}/native/sparse32",
+      "region": "backend",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 0.0067521,
+        "min": 0.0066797,
+        "max": 0.007358401
+      },
+      "bytes": {
+        "median": 27364704,
+        "min": 27362848,
+        "max": 27364752
+      },
+      "allocations": {
+        "median": 664600,
+        "min": 664600,
+        "max": 664600
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Rational{BigInt}/native/sparse32",
+      "region": "extraction",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 0.0004318,
+        "min": 0.0004187,
+        "max": 0.000469901
+      },
+      "bytes": {
+        "median": 642368,
+        "min": 642352,
+        "max": 642432
+      },
+      "allocations": {
+        "median": 17040,
+        "min": 17040,
+        "max": 17040
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Rational{BigInt}/native/sparse32",
+      "region": "whole_refactor",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 0.007186801,
+        "min": 0.007054001,
+        "max": 0.007726201
+      },
+      "bytes": {
+        "median": 27992272,
+        "min": 27991776,
+        "max": 27993376
+      },
+      "allocations": {
+        "median": 681640,
+        "min": 681640,
+        "max": 681640
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Rational{BigInt}/native/sparse8",
+      "region": "backend",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 0.0001356,
+        "min": 0.000133,
+        "max": 0.0001523
+      },
+      "bytes": {
+        "median": 443184,
+        "min": 443104,
+        "max": 443264
+      },
+      "allocations": {
+        "median": 10836,
+        "min": 10836,
+        "max": 10836
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Rational{BigInt}/native/sparse8",
+      "region": "extraction",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 3.07e-05,
+        "min": 2.95e-05,
+        "max": 3.49e-05
+      },
+      "bytes": {
+        "median": 55872,
+        "min": 55856,
+        "max": 55968
+      },
+      "allocations": {
+        "median": 1288,
+        "min": 1288,
+        "max": 1288
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Rational{BigInt}/native/sparse8",
+      "region": "whole_refactor",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 0.000204,
+        "min": 0.0001719,
+        "max": 0.0002066
+      },
+      "bytes": {
+        "median": 492816,
+        "min": 492688,
+        "max": 493136
+      },
+      "allocations": {
+        "median": 12124,
+        "min": 12124,
+        "max": 12124
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Rational{Int64}/markowitz/dense32",
+      "region": "backend",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 0.0010562,
+        "min": 0.001051601,
+        "max": 0.0010644
+      },
+      "bytes": {
+        "median": 18888,
+        "min": 18888,
+        "max": 18888
+      },
+      "allocations": {
+        "median": 19,
+        "min": 19,
+        "max": 19
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Rational{Int64}/markowitz/dense32",
+      "region": "extraction",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 0.0001087,
+        "min": 0.0001062,
+        "max": 0.0001161
+      },
+      "bytes": {
+        "median": 377056,
+        "min": 377056,
+        "max": 377056
+      },
+      "allocations": {
+        "median": 292,
+        "min": 292,
+        "max": 292
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Rational{Int64}/markowitz/dense32",
+      "region": "whole_refactor",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 0.0011008,
+        "min": 0.0010939,
+        "max": 0.0011401
+      },
+      "bytes": {
+        "median": 395944,
+        "min": 395944,
+        "max": 395944
+      },
+      "allocations": {
+        "median": 311,
+        "min": 311,
+        "max": 311
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Rational{Int64}/markowitz/dense8",
+      "region": "backend",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 2.36e-05,
+        "min": 2.02e-05,
+        "max": 2.75e-05
+      },
+      "bytes": {
+        "median": 2208,
+        "min": 2208,
+        "max": 2208
+      },
+      "allocations": {
+        "median": 18,
+        "min": 18,
+        "max": 18
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Rational{Int64}/markowitz/dense8",
+      "region": "extraction",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 1.27e-05,
+        "min": 1.24e-05,
+        "max": 1.28e-05
+      },
+      "bytes": {
+        "median": 36096,
+        "min": 36096,
+        "max": 36096
+      },
+      "allocations": {
+        "median": 232,
+        "min": 232,
+        "max": 232
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Rational{Int64}/markowitz/dense8",
+      "region": "whole_refactor",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 3.58e-05,
+        "min": 3.07e-05,
+        "max": 3.66e-05
+      },
+      "bytes": {
+        "median": 38304,
+        "min": 38304,
+        "max": 38304
+      },
+      "allocations": {
+        "median": 250,
+        "min": 250,
+        "max": 250
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Rational{Int64}/markowitz/sparse32",
+      "region": "backend",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 4.93e-05,
+        "min": 4.92e-05,
+        "max": 5.07e-05
+      },
+      "bytes": {
+        "median": 15392,
+        "min": 15392,
+        "max": 15392
+      },
+      "allocations": {
+        "median": 211,
+        "min": 211,
+        "max": 211
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Rational{Int64}/markowitz/sparse32",
+      "region": "extraction",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 1.59e-05,
+        "min": 1.54e-05,
+        "max": 1.67e-05
+      },
+      "bytes": {
+        "median": 53632,
+        "min": 53632,
+        "max": 53632
+      },
+      "allocations": {
+        "median": 232,
+        "min": 232,
+        "max": 232
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Rational{Int64}/markowitz/sparse32",
+      "region": "whole_refactor",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 6.41e-05,
+        "min": 6.32e-05,
+        "max": 6.51e-05
+      },
+      "bytes": {
+        "median": 69024,
+        "min": 69024,
+        "max": 69024
+      },
+      "allocations": {
+        "median": 443,
+        "min": 443,
+        "max": 443
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Rational{Int64}/markowitz/sparse8",
+      "region": "backend",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 2.28e-05,
+        "min": 2.16e-05,
+        "max": 2.45e-05
+      },
+      "bytes": {
+        "median": 4224,
+        "min": 4224,
+        "max": 4224
+      },
+      "allocations": {
+        "median": 58,
+        "min": 58,
+        "max": 58
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Rational{Int64}/markowitz/sparse8",
+      "region": "extraction",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 1.12e-05,
+        "min": 9.7e-06,
+        "max": 1.17e-05
+      },
+      "bytes": {
+        "median": 18816,
+        "min": 18816,
+        "max": 18816
+      },
+      "allocations": {
+        "median": 232,
+        "min": 232,
+        "max": 232
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Rational{Int64}/markowitz/sparse8",
+      "region": "whole_refactor",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 3.06e-05,
+        "min": 2.95e-05,
+        "max": 0.0001311
+      },
+      "bytes": {
+        "median": 23040,
+        "min": 23040,
+        "max": 23040
+      },
+      "allocations": {
+        "median": 290,
+        "min": 290,
+        "max": 290
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Rational{Int64}/native/dense32",
+      "region": "backend",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 0.0010822,
+        "min": 0.0010476,
+        "max": 0.0016287
+      },
+      "bytes": {
+        "median": 67296,
+        "min": 67296,
+        "max": 67296
+      },
+      "allocations": {
+        "median": 24,
+        "min": 24,
+        "max": 24
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Rational{Int64}/native/dense32",
+      "region": "extraction",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 8.59e-05,
+        "min": 8.27e-05,
+        "max": 0.0001007
+      },
+      "bytes": {
+        "median": 261728,
+        "min": 261728,
+        "max": 261728
+      },
+      "allocations": {
+        "median": 148,
+        "min": 148,
+        "max": 148
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Rational{Int64}/native/dense32",
+      "region": "whole_refactor",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 0.0011114,
+        "min": 0.0010995,
+        "max": 0.001142601
+      },
+      "bytes": {
+        "median": 329024,
+        "min": 329024,
+        "max": 329024
+      },
+      "allocations": {
+        "median": 172,
+        "min": 172,
+        "max": 172
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Rational{Int64}/native/dense8",
+      "region": "backend",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 1.91e-05,
+        "min": 1.87e-05,
+        "max": 1.99e-05
+      },
+      "bytes": {
+        "median": 5184,
+        "min": 5184,
+        "max": 5184
+      },
+      "allocations": {
+        "median": 20,
+        "min": 20,
+        "max": 20
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Rational{Int64}/native/dense8",
+      "region": "extraction",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 1.04e-05,
+        "min": 1e-05,
+        "max": 1.11e-05
+      },
+      "bytes": {
+        "median": 22784,
+        "min": 22784,
+        "max": 22784
+      },
+      "allocations": {
+        "median": 120,
+        "min": 120,
+        "max": 120
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Rational{Int64}/native/dense8",
+      "region": "whole_refactor",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 2.97e-05,
+        "min": 2.73e-05,
+        "max": 3e-05
+      },
+      "bytes": {
+        "median": 27968,
+        "min": 27968,
+        "max": 27968
+      },
+      "allocations": {
+        "median": 140,
+        "min": 140,
+        "max": 140
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Rational{Int64}/native/sparse32",
+      "region": "backend",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 0.0004869,
+        "min": 0.0004792,
+        "max": 0.0005157
+      },
+      "bytes": {
+        "median": 67296,
+        "min": 67296,
+        "max": 67296
+      },
+      "allocations": {
+        "median": 24,
+        "min": 24,
+        "max": 24
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Rational{Int64}/native/sparse32",
+      "region": "extraction",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 6.35e-05,
+        "min": 6.26e-05,
+        "max": 6.39e-05
+      },
+      "bytes": {
+        "median": 154432,
+        "min": 154432,
+        "max": 154432
+      },
+      "allocations": {
+        "median": 128,
+        "min": 128,
+        "max": 128
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Rational{Int64}/native/sparse32",
+      "region": "whole_refactor",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 0.0005148,
+        "min": 0.000496,
+        "max": 0.0006192
+      },
+      "bytes": {
+        "median": 221728,
+        "min": 221728,
+        "max": 221728
+      },
+      "allocations": {
+        "median": 152,
+        "min": 152,
+        "max": 152
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Rational{Int64}/native/sparse8",
+      "region": "backend",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 1.33e-05,
+        "min": 1.27e-05,
+        "max": 1.46e-05
+      },
+      "bytes": {
+        "median": 5184,
+        "min": 5184,
+        "max": 5184
+      },
+      "allocations": {
+        "median": 20,
+        "min": 20,
+        "max": 20
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Rational{Int64}/native/sparse8",
+      "region": "extraction",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 1.01e-05,
+        "min": 9.3e-06,
+        "max": 1.03e-05
+      },
+      "bytes": {
+        "median": 17152,
+        "min": 17152,
+        "max": 17152
+      },
+      "allocations": {
+        "median": 120,
+        "min": 120,
+        "max": 120
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "Rational{Int64}/native/sparse8",
+      "region": "whole_refactor",
+      "calls_per_sample": 4,
+      "seconds": {
+        "median": 2.26e-05,
+        "min": 2.26e-05,
+        "max": 2.31e-05
+      },
+      "bytes": {
+        "median": 22336,
+        "min": 22336,
+        "max": 22336
+      },
+      "allocations": {
+        "median": 140,
+        "min": 140,
+        "max": 140
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    }
+  ],
+  "resources": {
+    "peak_vm_kib": 1253368,
+    "max_sampled_rss_kib": 699792,
+    "min_available_kib": 22207412,
+    "max_swap_used_kib": 0
+  }
+}

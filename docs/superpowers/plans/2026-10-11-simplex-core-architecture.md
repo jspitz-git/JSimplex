@@ -497,3 +497,17 @@ integration1294/1294,source/pins/user-file hashes verified,master pushed.
 S4-TRIPLETS.md and the triplet subplan contain full evidence. Broader S4 scalar
 component cost and S5/S6 remain open; do not repeat completed Float64 attribution
 or S0-L references. Next choose a bounded scalar attribution subplan before Julia.
+
+
+## 2026-10-12 S4-D scalar diagnostic checkpoint
+
+Bounded non-Float64 HH component attribution accepted:360compile0samples,40cases,
+10lifecycle/failure cases,all22qualified audit gates,independent pins/source and
+fresh final review. BigFloat Serialization hashes rejected as canonical equality;
+original failed audit preserved and separate8case exact/canonical probe accepted
+without retroactively replacing old hashes or rerunning costs. No production edit.
+See S4-SCALARS.md for type/backend mechanism, graph limits and deferred P3 auditor
+rerun-preservation minor. Broader manager/history/medium/S6 gates remain open.
+Next S5-A ordinary cleanup entry work census/contract, per explicit subplan
+2026-10-12-cleanup-entry-contract.md; observer/deadline/checkpoint/recovery semantics
+must be resolved before any removal of default reconstruction.

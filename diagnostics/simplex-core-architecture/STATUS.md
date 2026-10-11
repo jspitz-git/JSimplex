@@ -36,7 +36,7 @@ main also has a user-modified .vscode/settings.json. Do not stage those files.
 | S1 | State ownership and validation reuse | Integrated | Inventory and local S1-A contract; master beb161b, report S1-ENTRY.md |
 | S2 | Audited incremental primal maintenance | Active | S2-A REJECTED after numerical/cost qualification and independent review; broader pivot controller unresolved |
 | S3 | End-to-end exact sparsity support | Active | S3-A/S3-B integrated, latest masterb720674; exact-support consumer savings qualified; broader S3 partial |
-| S4 | Refactorization memory lifecycle | Active | S4-A/S4-C integrated; master3220118; Float64 component attribution/cost and exact triplet optimization accepted; scalar component coverage pending |
+| S4 | Refactorization memory lifecycle | Active | S4-A/S4-C integrated; master3220118; Float64 component attribution/cost and exact triplet optimization accepted; bounded scalar component attribution360samples accepted; broader manager/history/medium coverage open |
 | S5 | Phase/cleanup handoff contract | Active | Partial static phase/cleanup ownership map; no implementation |
 | S6 | Broad validation and final comparison | Pending | Requires accepted production chunks |
 
@@ -138,9 +138,20 @@ is explicit; all7cost fixtures reduce bytes, mostly-zero256 side-median1.0258
 is a timing limitation, not a speedup. No whole-solver speedup inferred.
 Runner358060/child358061/driver358052 separately absent on boot
 20de7dde-704e-41c8-bee7-b8511c0a86b0; no Julia at this milestone. Always recheck host.
-Next: bounded scalar component attribution subplan for remaining S4 precision
-coverage, without repeating accepted Float64 or long references; then explicit
-S5 handoff contract and S6 validation. Native symbolic reuse remains unqualified.
+S4-D scalar attribution completed360compile0samples/40cases/10lifecycles on
+Float16/Float32/BigFloat256/RationalBigInt/RationalInt64, native and Markowitz.
+All22qualified audit checks pass with independently verified pins/source. Initial
+BigFloat Serialization hash gate rejected; raw initial audit preserved. Separate
+8case canonical/mutation probe proves equal unchanged inputs, not retroactive
+canonical hashes for original cost records. See S4-SCALARS.md and scalar subplan.
+Fresh independent final review accepted without blockers; no production edits.
+One deferred P3: initial audit write_text is not rerun-safe; do not rerun it on
+accepted evidence. Committed raw/audit artifacts preserve the original result. Latest hash-probe
+runner359346/child359347/driver359331 separately absent on the same boot; no Julia.
+Next exact S5-A census plan: docs/superpowers/plans/2026-10-12-cleanup-entry-contract.md.
+It selects ordinary original cleanup's discarded default reconstruction, preserving
+observer/deadline/checkpoint/recovery contracts before any reuse implementation.
+No medium/reference repeats. Native symbolic reuse remains unqualified.
 Keep CI disabled as requested; previous failing full CI is not a passing S6 gate.
 All original user/environment files and raw attempts are preserved.
 

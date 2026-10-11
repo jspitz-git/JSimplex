@@ -1,0 +1,5444 @@
+source = "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src"
+rounds = 3
+scope = "HH small scalar component attribution only; fresh owner per sample, GC included, not speedup comparison"
+julia_version = "1.13.0"
+julia_threads = 1
+blas_threads = 1
+calls_per_sample = 4
+source_hh_sha256 = "855e8d612c33c4ad2425c1c379d476be416431098de8dde3c8f4f8687d1615cf"
+complete = true
+bigfloat_precision = 256
+
+[[lifecycle]]
+failed_refactor_preserved = true
+precision = "Float16"
+backend = "native"
+
+    [[lifecycle.transitions]]
+    transition = "changed_pattern"
+    dimension = 32
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 3372
+        solve_scratch_julia_bytes = 688
+        lower_nnz = 48
+        checkpoint_julia_bytes = 4364
+        backend_julia_bytes = 2416
+        combined_deduplicated_julia_bytes = 7868
+        live_julia_bytes = 6780
+        upper_nnz = 50
+    [[lifecycle.transitions]]
+    transition = "shrink"
+    dimension = 8
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 1320
+        solve_scratch_julia_bytes = 448
+        lower_nnz = 12
+        checkpoint_julia_bytes = 2072
+        backend_julia_bytes = 304
+        combined_deduplicated_julia_bytes = 3224
+        live_julia_bytes = 2376
+        upper_nnz = 12
+    [[lifecycle.transitions]]
+    transition = "dense_regrow"
+    dimension = 32
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 16776
+        solve_scratch_julia_bytes = 688
+        lower_nnz = 528
+        checkpoint_julia_bytes = 17768
+        backend_julia_bytes = 2416
+        combined_deduplicated_julia_bytes = 21272
+        live_julia_bytes = 20184
+        upper_nnz = 528
+    [[lifecycle.transitions]]
+    transition = "empty"
+    dimension = 0
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 536
+        solve_scratch_julia_bytes = 296
+        lower_nnz = 0
+        checkpoint_julia_bytes = 1104
+        backend_julia_bytes = 0
+        combined_deduplicated_julia_bytes = 1768
+        live_julia_bytes = 1104
+        upper_nnz = 0
+    [[lifecycle.transitions]]
+    transition = "restore"
+    dimension = 32
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 3336
+        solve_scratch_julia_bytes = 688
+        lower_nnz = 48
+        checkpoint_julia_bytes = 4328
+        backend_julia_bytes = 2416
+        combined_deduplicated_julia_bytes = 7832
+        live_julia_bytes = 6744
+        upper_nnz = 48
+[[lifecycle]]
+failed_refactor_preserved = true
+precision = "Float16"
+backend = "markowitz"
+
+    [[lifecycle.transitions]]
+    transition = "changed_pattern"
+    dimension = 32
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 3354
+        solve_scratch_julia_bytes = 688
+        lower_nnz = 48
+        checkpoint_julia_bytes = 4346
+        backend_julia_bytes = 36750
+        combined_deduplicated_julia_bytes = 42168
+        live_julia_bytes = 41080
+        upper_nnz = 49
+    [[lifecycle.transitions]]
+    transition = "shrink"
+    dimension = 8
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 1320
+        solve_scratch_julia_bytes = 448
+        lower_nnz = 12
+        checkpoint_julia_bytes = 2072
+        backend_julia_bytes = 37870
+        combined_deduplicated_julia_bytes = 40774
+        live_julia_bytes = 39926
+        upper_nnz = 12
+    [[lifecycle.transitions]]
+    transition = "dense_regrow"
+    dimension = 32
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 16776
+        solve_scratch_julia_bytes = 688
+        lower_nnz = 528
+        checkpoint_julia_bytes = 17768
+        backend_julia_bytes = 41270
+        combined_deduplicated_julia_bytes = 60110
+        live_julia_bytes = 59022
+        upper_nnz = 528
+    [[lifecycle.transitions]]
+    transition = "empty"
+    dimension = 0
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 536
+        solve_scratch_julia_bytes = 296
+        lower_nnz = 0
+        checkpoint_julia_bytes = 1104
+        backend_julia_bytes = 41174
+        combined_deduplicated_julia_bytes = 42910
+        live_julia_bytes = 42246
+        upper_nnz = 0
+    [[lifecycle.transitions]]
+    transition = "restore"
+    dimension = 32
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 3336
+        solve_scratch_julia_bytes = 688
+        lower_nnz = 48
+        checkpoint_julia_bytes = 4328
+        backend_julia_bytes = 38934
+        combined_deduplicated_julia_bytes = 44334
+        live_julia_bytes = 43246
+        upper_nnz = 48
+[[lifecycle]]
+failed_refactor_preserved = true
+precision = "Float32"
+backend = "native"
+
+    [[lifecycle.transitions]]
+    transition = "changed_pattern"
+    dimension = 32
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 3632
+        solve_scratch_julia_bytes = 1008
+        lower_nnz = 48
+        checkpoint_julia_bytes = 4944
+        backend_julia_bytes = 4464
+        combined_deduplicated_julia_bytes = 10816
+        live_julia_bytes = 9408
+        upper_nnz = 50
+    [[lifecycle.transitions]]
+    transition = "shrink"
+    dimension = 8
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 1384
+        solve_scratch_julia_bytes = 528
+        lower_nnz = 12
+        checkpoint_julia_bytes = 2216
+        backend_julia_bytes = 432
+        combined_deduplicated_julia_bytes = 3576
+        live_julia_bytes = 2648
+        upper_nnz = 12
+    [[lifecycle.transitions]]
+    transition = "dense_regrow"
+    dimension = 32
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 18952
+        solve_scratch_julia_bytes = 1008
+        lower_nnz = 528
+        checkpoint_julia_bytes = 20264
+        backend_julia_bytes = 4464
+        combined_deduplicated_julia_bytes = 26136
+        live_julia_bytes = 24728
+        upper_nnz = 528
+    [[lifecycle.transitions]]
+    transition = "empty"
+    dimension = 0
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 536
+        solve_scratch_julia_bytes = 296
+        lower_nnz = 0
+        checkpoint_julia_bytes = 1104
+        backend_julia_bytes = 0
+        combined_deduplicated_julia_bytes = 1768
+        live_julia_bytes = 1104
+        upper_nnz = 0
+    [[lifecycle.transitions]]
+    transition = "restore"
+    dimension = 32
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 3592
+        solve_scratch_julia_bytes = 1008
+        lower_nnz = 48
+        checkpoint_julia_bytes = 4904
+        backend_julia_bytes = 4464
+        combined_deduplicated_julia_bytes = 10776
+        live_julia_bytes = 9368
+        upper_nnz = 48
+[[lifecycle]]
+failed_refactor_preserved = true
+precision = "Float32"
+backend = "markowitz"
+
+    [[lifecycle.transitions]]
+    transition = "changed_pattern"
+    dimension = 32
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 3612
+        solve_scratch_julia_bytes = 1008
+        lower_nnz = 48
+        checkpoint_julia_bytes = 4924
+        backend_julia_bytes = 37884
+        combined_deduplicated_julia_bytes = 44200
+        live_julia_bytes = 42792
+        upper_nnz = 49
+    [[lifecycle.transitions]]
+    transition = "shrink"
+    dimension = 8
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 1384
+        solve_scratch_julia_bytes = 528
+        lower_nnz = 12
+        checkpoint_julia_bytes = 2216
+        backend_julia_bytes = 39004
+        combined_deduplicated_julia_bytes = 42132
+        live_julia_bytes = 41204
+        upper_nnz = 12
+    [[lifecycle.transitions]]
+    transition = "dense_regrow"
+    dimension = 32
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 18952
+        solve_scratch_julia_bytes = 1008
+        lower_nnz = 528
+        checkpoint_julia_bytes = 20264
+        backend_julia_bytes = 44476
+        combined_deduplicated_julia_bytes = 66132
+        live_julia_bytes = 64724
+        upper_nnz = 528
+    [[lifecycle.transitions]]
+    transition = "empty"
+    dimension = 0
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 536
+        solve_scratch_julia_bytes = 296
+        lower_nnz = 0
+        checkpoint_julia_bytes = 1104
+        backend_julia_bytes = 44348
+        combined_deduplicated_julia_bytes = 46084
+        live_julia_bytes = 45420
+        upper_nnz = 0
+    [[lifecycle.transitions]]
+    transition = "restore"
+    dimension = 32
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 3592
+        solve_scratch_julia_bytes = 1008
+        lower_nnz = 48
+        checkpoint_julia_bytes = 4904
+        backend_julia_bytes = 40092
+        combined_deduplicated_julia_bytes = 46388
+        live_julia_bytes = 44980
+        upper_nnz = 48
+[[lifecycle]]
+failed_refactor_preserved = true
+precision = "BigFloat"
+backend = "native"
+
+    [[lifecycle.transitions]]
+    transition = "changed_pattern"
+    dimension = 32
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 11992
+        solve_scratch_julia_bytes = 9488
+        lower_nnz = 48
+        checkpoint_julia_bytes = 14344
+        backend_julia_bytes = 90400
+        combined_deduplicated_julia_bytes = 109432
+        live_julia_bytes = 106984
+        upper_nnz = 50
+    [[lifecycle.transitions]]
+    transition = "shrink"
+    dimension = 8
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 3512
+        solve_scratch_julia_bytes = 2768
+        lower_nnz = 12
+        checkpoint_julia_bytes = 4904
+        backend_julia_bytes = 5808
+        combined_deduplicated_julia_bytes = 12600
+        live_julia_bytes = 11112
+        upper_nnz = 12
+    [[lifecycle.transitions]]
+    transition = "dense_regrow"
+    dimension = 32
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 107864
+        solve_scratch_julia_bytes = 9488
+        lower_nnz = 528
+        checkpoint_julia_bytes = 110216
+        backend_julia_bytes = 90480
+        combined_deduplicated_julia_bytes = 128664
+        live_julia_bytes = 126216
+        upper_nnz = 528
+    [[lifecycle.transitions]]
+    transition = "empty"
+    dimension = 0
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 536
+        solve_scratch_julia_bytes = 296
+        lower_nnz = 0
+        checkpoint_julia_bytes = 1104
+        backend_julia_bytes = 0
+        combined_deduplicated_julia_bytes = 1768
+        live_julia_bytes = 1104
+        upper_nnz = 0
+    [[lifecycle.transitions]]
+    transition = "restore"
+    dimension = 32
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 11864
+        solve_scratch_julia_bytes = 9488
+        lower_nnz = 48
+        checkpoint_julia_bytes = 14216
+        backend_julia_bytes = 90480
+        combined_deduplicated_julia_bytes = 109464
+        live_julia_bytes = 107016
+        upper_nnz = 48
+[[lifecycle]]
+failed_refactor_preserved = true
+precision = "BigFloat"
+backend = "markowitz"
+
+    [[lifecycle.transitions]]
+    transition = "changed_pattern"
+    dimension = 32
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 7168
+        solve_scratch_julia_bytes = 9488
+        lower_nnz = 48
+        checkpoint_julia_bytes = 9520
+        backend_julia_bytes = 47352
+        combined_deduplicated_julia_bytes = 63864
+        live_julia_bytes = 61416
+        upper_nnz = 49
+    [[lifecycle.transitions]]
+    transition = "shrink"
+    dimension = 8
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 2632
+        solve_scratch_julia_bytes = 2768
+        lower_nnz = 12
+        checkpoint_julia_bytes = 4024
+        backend_julia_bytes = 46552
+        combined_deduplicated_julia_bytes = 52768
+        live_julia_bytes = 51280
+        upper_nnz = 12
+    [[lifecycle.transitions]]
+    transition = "dense_regrow"
+    dimension = 32
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 105384
+        solve_scratch_julia_bytes = 9488
+        lower_nnz = 528
+        checkpoint_julia_bytes = 107736
+        backend_julia_bytes = 134728
+        combined_deduplicated_julia_bytes = 170416
+        live_julia_bytes = 167968
+        upper_nnz = 528
+    [[lifecycle.transitions]]
+    transition = "empty"
+    dimension = 0
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 536
+        solve_scratch_julia_bytes = 296
+        lower_nnz = 0
+        checkpoint_julia_bytes = 1104
+        backend_julia_bytes = 133016
+        combined_deduplicated_julia_bytes = 134752
+        live_julia_bytes = 134088
+        upper_nnz = 0
+    [[lifecycle.transitions]]
+    transition = "restore"
+    dimension = 32
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 7144
+        solve_scratch_julia_bytes = 9488
+        lower_nnz = 48
+        checkpoint_julia_bytes = 9496
+        backend_julia_bytes = 46008
+        combined_deduplicated_julia_bytes = 62496
+        live_julia_bytes = 60048
+        upper_nnz = 48
+[[lifecycle]]
+failed_refactor_preserved = true
+precision = "Rational{BigInt}"
+backend = "native"
+
+    [[lifecycle.transitions]]
+    transition = "changed_pattern"
+    dimension = 32
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 11448
+        solve_scratch_julia_bytes = 10104
+        lower_nnz = 48
+        checkpoint_julia_bytes = 17400
+        backend_julia_bytes = 70504
+        combined_deduplicated_julia_bytes = 96328
+        live_julia_bytes = 90280
+        upper_nnz = 50
+    [[lifecycle.transitions]]
+    transition = "shrink"
+    dimension = 8
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 3320
+        solve_scratch_julia_bytes = 2848
+        lower_nnz = 12
+        checkpoint_julia_bytes = 5432
+        backend_julia_bytes = 4656
+        combined_deduplicated_julia_bytes = 12824
+        live_julia_bytes = 10616
+        upper_nnz = 12
+    [[lifecycle.transitions]]
+    transition = "dense_regrow"
+    dimension = 32
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 95656
+        solve_scratch_julia_bytes = 9768
+        lower_nnz = 528
+        checkpoint_julia_bytes = 101608
+        backend_julia_bytes = 78320
+        combined_deduplicated_julia_bytes = 157328
+        live_julia_bytes = 151280
+        upper_nnz = 528
+    [[lifecycle.transitions]]
+    transition = "empty"
+    dimension = 0
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 536
+        solve_scratch_julia_bytes = 296
+        lower_nnz = 0
+        checkpoint_julia_bytes = 1104
+        backend_julia_bytes = 0
+        combined_deduplicated_julia_bytes = 1768
+        live_julia_bytes = 1104
+        upper_nnz = 0
+    [[lifecycle.transitions]]
+    transition = "restore"
+    dimension = 32
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 11288
+        solve_scratch_julia_bytes = 10112
+        lower_nnz = 48
+        checkpoint_julia_bytes = 17240
+        backend_julia_bytes = 70512
+        combined_deduplicated_julia_bytes = 96216
+        live_julia_bytes = 90168
+        upper_nnz = 48
+[[lifecycle]]
+failed_refactor_preserved = true
+precision = "Rational{BigInt}"
+backend = "markowitz"
+
+    [[lifecycle.transitions]]
+    transition = "changed_pattern"
+    dimension = 32
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 9240
+        solve_scratch_julia_bytes = 10088
+        lower_nnz = 48
+        checkpoint_julia_bytes = 15192
+        backend_julia_bytes = 53552
+        combined_deduplicated_julia_bytes = 78064
+        live_julia_bytes = 72016
+        upper_nnz = 49
+    [[lifecycle.transitions]]
+    transition = "shrink"
+    dimension = 8
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 2936
+        solve_scratch_julia_bytes = 2848
+        lower_nnz = 12
+        checkpoint_julia_bytes = 5048
+        backend_julia_bytes = 52176
+        combined_deduplicated_julia_bytes = 60072
+        live_julia_bytes = 57864
+        upper_nnz = 12
+    [[lifecycle.transitions]]
+    transition = "dense_regrow"
+    dimension = 32
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 94664
+        solve_scratch_julia_bytes = 9768
+        lower_nnz = 528
+        checkpoint_julia_bytes = 100616
+        backend_julia_bytes = 128320
+        combined_deduplicated_julia_bytes = 206320
+        live_julia_bytes = 200272
+        upper_nnz = 528
+    [[lifecycle.transitions]]
+    transition = "empty"
+    dimension = 0
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 536
+        solve_scratch_julia_bytes = 296
+        lower_nnz = 0
+        checkpoint_julia_bytes = 1104
+        backend_julia_bytes = 126592
+        combined_deduplicated_julia_bytes = 128328
+        live_julia_bytes = 127664
+        upper_nnz = 0
+    [[lifecycle.transitions]]
+    transition = "restore"
+    dimension = 32
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 9176
+        solve_scratch_julia_bytes = 10112
+        lower_nnz = 48
+        checkpoint_julia_bytes = 15128
+        backend_julia_bytes = 51904
+        combined_deduplicated_julia_bytes = 76376
+        live_julia_bytes = 70328
+        upper_nnz = 48
+[[lifecycle]]
+failed_refactor_preserved = true
+precision = "Rational{Int64}"
+backend = "native"
+
+    [[lifecycle.transitions]]
+    transition = "changed_pattern"
+    dimension = 32
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 5192
+        solve_scratch_julia_bytes = 2928
+        lower_nnz = 48
+        checkpoint_julia_bytes = 8424
+        backend_julia_bytes = 16752
+        combined_deduplicated_julia_bytes = 28504
+        live_julia_bytes = 25176
+        upper_nnz = 50
+    [[lifecycle.transitions]]
+    transition = "shrink"
+    dimension = 8
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 1768
+        solve_scratch_julia_bytes = 1008
+        lower_nnz = 12
+        checkpoint_julia_bytes = 3080
+        backend_julia_bytes = 1200
+        combined_deduplicated_julia_bytes = 5688
+        live_julia_bytes = 4280
+        upper_nnz = 12
+    [[lifecycle.transitions]]
+    transition = "dense_regrow"
+    dimension = 32
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 32008
+        solve_scratch_julia_bytes = 2928
+        lower_nnz = 528
+        checkpoint_julia_bytes = 35240
+        backend_julia_bytes = 16752
+        combined_deduplicated_julia_bytes = 55320
+        live_julia_bytes = 51992
+        upper_nnz = 528
+    [[lifecycle.transitions]]
+    transition = "empty"
+    dimension = 0
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 536
+        solve_scratch_julia_bytes = 296
+        lower_nnz = 0
+        checkpoint_julia_bytes = 1104
+        backend_julia_bytes = 0
+        combined_deduplicated_julia_bytes = 1768
+        live_julia_bytes = 1104
+        upper_nnz = 0
+    [[lifecycle.transitions]]
+    transition = "restore"
+    dimension = 32
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 5128
+        solve_scratch_julia_bytes = 2928
+        lower_nnz = 48
+        checkpoint_julia_bytes = 8360
+        backend_julia_bytes = 16752
+        combined_deduplicated_julia_bytes = 28440
+        live_julia_bytes = 25112
+        upper_nnz = 48
+[[lifecycle]]
+failed_refactor_preserved = true
+precision = "Rational{Int64}"
+backend = "markowitz"
+
+    [[lifecycle.transitions]]
+    transition = "changed_pattern"
+    dimension = 32
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 5160
+        solve_scratch_julia_bytes = 2928
+        lower_nnz = 48
+        checkpoint_julia_bytes = 8392
+        backend_julia_bytes = 44688
+        combined_deduplicated_julia_bytes = 56392
+        live_julia_bytes = 53064
+        upper_nnz = 49
+    [[lifecycle.transitions]]
+    transition = "shrink"
+    dimension = 8
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 1768
+        solve_scratch_julia_bytes = 1008
+        lower_nnz = 12
+        checkpoint_julia_bytes = 3080
+        backend_julia_bytes = 45808
+        combined_deduplicated_julia_bytes = 50280
+        live_julia_bytes = 48872
+        upper_nnz = 12
+    [[lifecycle.transitions]]
+    transition = "dense_regrow"
+    dimension = 32
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 32008
+        solve_scratch_julia_bytes = 2928
+        lower_nnz = 528
+        checkpoint_julia_bytes = 35240
+        backend_julia_bytes = 63712
+        combined_deduplicated_julia_bytes = 102264
+        live_julia_bytes = 98936
+        upper_nnz = 528
+    [[lifecycle.transitions]]
+    transition = "empty"
+    dimension = 0
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 536
+        solve_scratch_julia_bytes = 296
+        lower_nnz = 0
+        checkpoint_julia_bytes = 1104
+        backend_julia_bytes = 63392
+        combined_deduplicated_julia_bytes = 65128
+        live_julia_bytes = 64464
+        upper_nnz = 0
+    [[lifecycle.transitions]]
+    transition = "restore"
+    dimension = 32
+
+        [lifecycle.transitions.graph]
+        extraction_scratch_julia_bytes = 128
+        base_julia_bytes = 5128
+        solve_scratch_julia_bytes = 2928
+        lower_nnz = 48
+        checkpoint_julia_bytes = 8360
+        backend_julia_bytes = 47040
+        combined_deduplicated_julia_bytes = 58712
+        live_julia_bytes = 55384
+        upper_nnz = 48
+
+[[retention]]
+state = "fresh"
+case = "Float16/native/sparse8"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 1320
+    solve_scratch_julia_bytes = 448
+    lower_nnz = 12
+    checkpoint_julia_bytes = 2072
+    backend_julia_bytes = 304
+    combined_deduplicated_julia_bytes = 3224
+    live_julia_bytes = 2376
+    upper_nnz = 12
+[[retention]]
+state = "cycled"
+case = "Float16/native/sparse8"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 1320
+    solve_scratch_julia_bytes = 448
+    lower_nnz = 12
+    checkpoint_julia_bytes = 2072
+    backend_julia_bytes = 304
+    combined_deduplicated_julia_bytes = 3224
+    live_julia_bytes = 2376
+    upper_nnz = 12
+[[retention]]
+state = "fresh"
+case = "Float16/native/dense8"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 1992
+    solve_scratch_julia_bytes = 448
+    lower_nnz = 36
+    checkpoint_julia_bytes = 2744
+    backend_julia_bytes = 304
+    combined_deduplicated_julia_bytes = 3896
+    live_julia_bytes = 3048
+    upper_nnz = 36
+[[retention]]
+state = "cycled"
+case = "Float16/native/dense8"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 1992
+    solve_scratch_julia_bytes = 448
+    lower_nnz = 36
+    checkpoint_julia_bytes = 2744
+    backend_julia_bytes = 304
+    combined_deduplicated_julia_bytes = 3896
+    live_julia_bytes = 3048
+    upper_nnz = 36
+[[retention]]
+state = "fresh"
+case = "Float16/native/sparse32"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 3336
+    solve_scratch_julia_bytes = 688
+    lower_nnz = 48
+    checkpoint_julia_bytes = 4328
+    backend_julia_bytes = 2416
+    combined_deduplicated_julia_bytes = 7832
+    live_julia_bytes = 6744
+    upper_nnz = 48
+[[retention]]
+state = "cycled"
+case = "Float16/native/sparse32"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 3336
+    solve_scratch_julia_bytes = 688
+    lower_nnz = 48
+    checkpoint_julia_bytes = 4328
+    backend_julia_bytes = 2416
+    combined_deduplicated_julia_bytes = 7832
+    live_julia_bytes = 6744
+    upper_nnz = 48
+[[retention]]
+state = "fresh"
+case = "Float16/native/dense32"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 16776
+    solve_scratch_julia_bytes = 688
+    lower_nnz = 528
+    checkpoint_julia_bytes = 17768
+    backend_julia_bytes = 2416
+    combined_deduplicated_julia_bytes = 21272
+    live_julia_bytes = 20184
+    upper_nnz = 528
+[[retention]]
+state = "cycled"
+case = "Float16/native/dense32"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 16776
+    solve_scratch_julia_bytes = 688
+    lower_nnz = 528
+    checkpoint_julia_bytes = 17768
+    backend_julia_bytes = 2416
+    combined_deduplicated_julia_bytes = 21272
+    live_julia_bytes = 20184
+    upper_nnz = 528
+[[retention]]
+state = "fresh"
+case = "Float16/markowitz/sparse8"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 1320
+    solve_scratch_julia_bytes = 448
+    lower_nnz = 12
+    checkpoint_julia_bytes = 2072
+    backend_julia_bytes = 8162
+    combined_deduplicated_julia_bytes = 11066
+    live_julia_bytes = 10218
+    upper_nnz = 12
+[[retention]]
+state = "cycled"
+case = "Float16/markowitz/sparse8"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 1320
+    solve_scratch_julia_bytes = 448
+    lower_nnz = 12
+    checkpoint_julia_bytes = 2072
+    backend_julia_bytes = 10508
+    combined_deduplicated_julia_bytes = 13412
+    live_julia_bytes = 12564
+    upper_nnz = 12
+[[retention]]
+state = "fresh"
+case = "Float16/markowitz/dense8"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 1992
+    solve_scratch_julia_bytes = 448
+    lower_nnz = 36
+    checkpoint_julia_bytes = 2744
+    backend_julia_bytes = 888
+    combined_deduplicated_julia_bytes = 4480
+    live_julia_bytes = 3632
+    upper_nnz = 36
+[[retention]]
+state = "cycled"
+case = "Float16/markowitz/dense8"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 1992
+    solve_scratch_julia_bytes = 448
+    lower_nnz = 36
+    checkpoint_julia_bytes = 2744
+    backend_julia_bytes = 1744
+    combined_deduplicated_julia_bytes = 5336
+    live_julia_bytes = 4488
+    upper_nnz = 36
+[[retention]]
+state = "fresh"
+case = "Float16/markowitz/sparse32"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 3336
+    solve_scratch_julia_bytes = 688
+    lower_nnz = 48
+    checkpoint_julia_bytes = 4328
+    backend_julia_bytes = 29876
+    combined_deduplicated_julia_bytes = 35276
+    live_julia_bytes = 34188
+    upper_nnz = 48
+[[retention]]
+state = "cycled"
+case = "Float16/markowitz/sparse32"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 3336
+    solve_scratch_julia_bytes = 688
+    lower_nnz = 48
+    checkpoint_julia_bytes = 4328
+    backend_julia_bytes = 38912
+    combined_deduplicated_julia_bytes = 44312
+    live_julia_bytes = 43224
+    upper_nnz = 48
+[[retention]]
+state = "fresh"
+case = "Float16/markowitz/dense32"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 16776
+    solve_scratch_julia_bytes = 688
+    lower_nnz = 528
+    checkpoint_julia_bytes = 17768
+    backend_julia_bytes = 3480
+    combined_deduplicated_julia_bytes = 22336
+    live_julia_bytes = 21248
+    upper_nnz = 528
+[[retention]]
+state = "cycled"
+case = "Float16/markowitz/dense32"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 16776
+    solve_scratch_julia_bytes = 688
+    lower_nnz = 528
+    checkpoint_julia_bytes = 17768
+    backend_julia_bytes = 6928
+    combined_deduplicated_julia_bytes = 25784
+    live_julia_bytes = 24696
+    upper_nnz = 528
+[[retention]]
+state = "fresh"
+case = "Float32/native/sparse8"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 1384
+    solve_scratch_julia_bytes = 528
+    lower_nnz = 12
+    checkpoint_julia_bytes = 2216
+    backend_julia_bytes = 432
+    combined_deduplicated_julia_bytes = 3576
+    live_julia_bytes = 2648
+    upper_nnz = 12
+[[retention]]
+state = "cycled"
+case = "Float32/native/sparse8"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 1384
+    solve_scratch_julia_bytes = 528
+    lower_nnz = 12
+    checkpoint_julia_bytes = 2216
+    backend_julia_bytes = 432
+    combined_deduplicated_julia_bytes = 3576
+    live_julia_bytes = 2648
+    upper_nnz = 12
+[[retention]]
+state = "fresh"
+case = "Float32/native/dense8"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 2152
+    solve_scratch_julia_bytes = 528
+    lower_nnz = 36
+    checkpoint_julia_bytes = 2984
+    backend_julia_bytes = 432
+    combined_deduplicated_julia_bytes = 4344
+    live_julia_bytes = 3416
+    upper_nnz = 36
+[[retention]]
+state = "cycled"
+case = "Float32/native/dense8"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 2152
+    solve_scratch_julia_bytes = 528
+    lower_nnz = 36
+    checkpoint_julia_bytes = 2984
+    backend_julia_bytes = 432
+    combined_deduplicated_julia_bytes = 4344
+    live_julia_bytes = 3416
+    upper_nnz = 36
+[[retention]]
+state = "fresh"
+case = "Float32/native/sparse32"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 3592
+    solve_scratch_julia_bytes = 1008
+    lower_nnz = 48
+    checkpoint_julia_bytes = 4904
+    backend_julia_bytes = 4464
+    combined_deduplicated_julia_bytes = 10776
+    live_julia_bytes = 9368
+    upper_nnz = 48
+[[retention]]
+state = "cycled"
+case = "Float32/native/sparse32"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 3592
+    solve_scratch_julia_bytes = 1008
+    lower_nnz = 48
+    checkpoint_julia_bytes = 4904
+    backend_julia_bytes = 4464
+    combined_deduplicated_julia_bytes = 10776
+    live_julia_bytes = 9368
+    upper_nnz = 48
+[[retention]]
+state = "fresh"
+case = "Float32/native/dense32"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 18952
+    solve_scratch_julia_bytes = 1008
+    lower_nnz = 528
+    checkpoint_julia_bytes = 20264
+    backend_julia_bytes = 4464
+    combined_deduplicated_julia_bytes = 26136
+    live_julia_bytes = 24728
+    upper_nnz = 528
+[[retention]]
+state = "cycled"
+case = "Float32/native/dense32"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 18952
+    solve_scratch_julia_bytes = 1008
+    lower_nnz = 528
+    checkpoint_julia_bytes = 20264
+    backend_julia_bytes = 4464
+    combined_deduplicated_julia_bytes = 26136
+    live_julia_bytes = 24728
+    upper_nnz = 528
+[[retention]]
+state = "fresh"
+case = "Float32/markowitz/sparse8"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 1384
+    solve_scratch_julia_bytes = 528
+    lower_nnz = 12
+    checkpoint_julia_bytes = 2216
+    backend_julia_bytes = 8372
+    combined_deduplicated_julia_bytes = 11500
+    live_julia_bytes = 10572
+    upper_nnz = 12
+[[retention]]
+state = "cycled"
+case = "Float32/markowitz/sparse8"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 1384
+    solve_scratch_julia_bytes = 528
+    lower_nnz = 12
+    checkpoint_julia_bytes = 2216
+    backend_julia_bytes = 10816
+    combined_deduplicated_julia_bytes = 13944
+    live_julia_bytes = 13016
+    upper_nnz = 12
+[[retention]]
+state = "fresh"
+case = "Float32/markowitz/dense8"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 2152
+    solve_scratch_julia_bytes = 528
+    lower_nnz = 36
+    checkpoint_julia_bytes = 2984
+    backend_julia_bytes = 1048
+    combined_deduplicated_julia_bytes = 4960
+    live_julia_bytes = 4032
+    upper_nnz = 36
+[[retention]]
+state = "cycled"
+case = "Float32/markowitz/dense8"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 2152
+    solve_scratch_julia_bytes = 528
+    lower_nnz = 36
+    checkpoint_julia_bytes = 2984
+    backend_julia_bytes = 2064
+    combined_deduplicated_julia_bytes = 5976
+    live_julia_bytes = 5048
+    upper_nnz = 36
+[[retention]]
+state = "fresh"
+case = "Float32/markowitz/sparse32"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 3592
+    solve_scratch_julia_bytes = 1008
+    lower_nnz = 48
+    checkpoint_julia_bytes = 4904
+    backend_julia_bytes = 30664
+    combined_deduplicated_julia_bytes = 36960
+    live_julia_bytes = 35552
+    upper_nnz = 48
+[[retention]]
+state = "cycled"
+case = "Float32/markowitz/sparse32"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 3592
+    solve_scratch_julia_bytes = 1008
+    lower_nnz = 48
+    checkpoint_julia_bytes = 4904
+    backend_julia_bytes = 40040
+    combined_deduplicated_julia_bytes = 46336
+    live_julia_bytes = 44928
+    upper_nnz = 48
+[[retention]]
+state = "fresh"
+case = "Float32/markowitz/dense32"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 18952
+    solve_scratch_julia_bytes = 1008
+    lower_nnz = 528
+    checkpoint_julia_bytes = 20264
+    backend_julia_bytes = 5656
+    combined_deduplicated_julia_bytes = 27328
+    live_julia_bytes = 25920
+    upper_nnz = 528
+[[retention]]
+state = "cycled"
+case = "Float32/markowitz/dense32"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 18952
+    solve_scratch_julia_bytes = 1008
+    lower_nnz = 528
+    checkpoint_julia_bytes = 20264
+    backend_julia_bytes = 11280
+    combined_deduplicated_julia_bytes = 32952
+    live_julia_bytes = 31544
+    upper_nnz = 528
+[[retention]]
+state = "fresh"
+case = "BigFloat/native/sparse8"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 3512
+    solve_scratch_julia_bytes = 2768
+    lower_nnz = 12
+    checkpoint_julia_bytes = 4904
+    backend_julia_bytes = 5808
+    combined_deduplicated_julia_bytes = 12600
+    live_julia_bytes = 11112
+    upper_nnz = 12
+[[retention]]
+state = "cycled"
+case = "BigFloat/native/sparse8"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 3512
+    solve_scratch_julia_bytes = 2768
+    lower_nnz = 12
+    checkpoint_julia_bytes = 4904
+    backend_julia_bytes = 5808
+    combined_deduplicated_julia_bytes = 12600
+    live_julia_bytes = 11112
+    upper_nnz = 12
+[[retention]]
+state = "fresh"
+case = "BigFloat/native/dense8"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 8312
+    solve_scratch_julia_bytes = 2768
+    lower_nnz = 36
+    checkpoint_julia_bytes = 9704
+    backend_julia_bytes = 5808
+    combined_deduplicated_julia_bytes = 13560
+    live_julia_bytes = 12072
+    upper_nnz = 36
+[[retention]]
+state = "cycled"
+case = "BigFloat/native/dense8"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 8312
+    solve_scratch_julia_bytes = 2768
+    lower_nnz = 36
+    checkpoint_julia_bytes = 9704
+    backend_julia_bytes = 5808
+    combined_deduplicated_julia_bytes = 13560
+    live_julia_bytes = 12072
+    upper_nnz = 36
+[[retention]]
+state = "fresh"
+case = "BigFloat/native/sparse32"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 11864
+    solve_scratch_julia_bytes = 9488
+    lower_nnz = 48
+    checkpoint_julia_bytes = 14216
+    backend_julia_bytes = 90480
+    combined_deduplicated_julia_bytes = 109464
+    live_julia_bytes = 107016
+    upper_nnz = 48
+[[retention]]
+state = "cycled"
+case = "BigFloat/native/sparse32"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 11864
+    solve_scratch_julia_bytes = 9488
+    lower_nnz = 48
+    checkpoint_julia_bytes = 14216
+    backend_julia_bytes = 90480
+    combined_deduplicated_julia_bytes = 109464
+    live_julia_bytes = 107016
+    upper_nnz = 48
+[[retention]]
+state = "fresh"
+case = "BigFloat/native/dense32"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 107864
+    solve_scratch_julia_bytes = 9488
+    lower_nnz = 528
+    checkpoint_julia_bytes = 110216
+    backend_julia_bytes = 90480
+    combined_deduplicated_julia_bytes = 128664
+    live_julia_bytes = 126216
+    upper_nnz = 528
+[[retention]]
+state = "cycled"
+case = "BigFloat/native/dense32"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 107864
+    solve_scratch_julia_bytes = 9488
+    lower_nnz = 528
+    checkpoint_julia_bytes = 110216
+    backend_julia_bytes = 90480
+    combined_deduplicated_julia_bytes = 128664
+    live_julia_bytes = 126216
+    upper_nnz = 528
+[[retention]]
+state = "fresh"
+case = "BigFloat/markowitz/sparse8"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 2632
+    solve_scratch_julia_bytes = 2768
+    lower_nnz = 12
+    checkpoint_julia_bytes = 4024
+    backend_julia_bytes = 10472
+    combined_deduplicated_julia_bytes = 16688
+    live_julia_bytes = 15200
+    upper_nnz = 12
+[[retention]]
+state = "cycled"
+case = "BigFloat/markowitz/sparse8"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 2632
+    solve_scratch_julia_bytes = 2768
+    lower_nnz = 12
+    checkpoint_julia_bytes = 4024
+    backend_julia_bytes = 14632
+    combined_deduplicated_julia_bytes = 20848
+    live_julia_bytes = 19360
+    upper_nnz = 12
+[[retention]]
+state = "fresh"
+case = "BigFloat/markowitz/dense8"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 7752
+    solve_scratch_julia_bytes = 2768
+    lower_nnz = 36
+    checkpoint_julia_bytes = 9144
+    backend_julia_bytes = 6648
+    combined_deduplicated_julia_bytes = 13840
+    live_julia_bytes = 12352
+    upper_nnz = 36
+[[retention]]
+state = "cycled"
+case = "BigFloat/markowitz/dense8"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 7752
+    solve_scratch_julia_bytes = 2768
+    lower_nnz = 36
+    checkpoint_julia_bytes = 9144
+    backend_julia_bytes = 12624
+    combined_deduplicated_julia_bytes = 19816
+    live_julia_bytes = 18328
+    upper_nnz = 36
+[[retention]]
+state = "fresh"
+case = "BigFloat/markowitz/sparse32"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 7144
+    solve_scratch_julia_bytes = 9488
+    lower_nnz = 48
+    checkpoint_julia_bytes = 9496
+    backend_julia_bytes = 35840
+    combined_deduplicated_julia_bytes = 52328
+    live_julia_bytes = 49880
+    upper_nnz = 48
+[[retention]]
+state = "cycled"
+case = "BigFloat/markowitz/sparse32"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 7144
+    solve_scratch_julia_bytes = 9488
+    lower_nnz = 48
+    checkpoint_julia_bytes = 9496
+    backend_julia_bytes = 49336
+    combined_deduplicated_julia_bytes = 65824
+    live_julia_bytes = 63376
+    upper_nnz = 48
+[[retention]]
+state = "fresh"
+case = "BigFloat/markowitz/dense32"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 105384
+    solve_scratch_julia_bytes = 9488
+    lower_nnz = 528
+    checkpoint_julia_bytes = 107736
+    backend_julia_bytes = 92088
+    combined_deduplicated_julia_bytes = 127792
+    live_julia_bytes = 125344
+    upper_nnz = 528
+[[retention]]
+state = "cycled"
+case = "BigFloat/markowitz/dense32"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 105384
+    solve_scratch_julia_bytes = 9488
+    lower_nnz = 528
+    checkpoint_julia_bytes = 107736
+    backend_julia_bytes = 181584
+    combined_deduplicated_julia_bytes = 217288
+    live_julia_bytes = 214840
+    upper_nnz = 528
+[[retention]]
+state = "fresh"
+case = "Rational{BigInt}/native/sparse8"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 3320
+    solve_scratch_julia_bytes = 2848
+    lower_nnz = 12
+    checkpoint_julia_bytes = 5432
+    backend_julia_bytes = 4656
+    combined_deduplicated_julia_bytes = 12824
+    live_julia_bytes = 10616
+    upper_nnz = 12
+[[retention]]
+state = "cycled"
+case = "Rational{BigInt}/native/sparse8"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 3320
+    solve_scratch_julia_bytes = 2848
+    lower_nnz = 12
+    checkpoint_julia_bytes = 5432
+    backend_julia_bytes = 4656
+    combined_deduplicated_julia_bytes = 12824
+    live_julia_bytes = 10616
+    upper_nnz = 12
+[[retention]]
+state = "fresh"
+case = "Rational{BigInt}/native/dense8"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 7528
+    solve_scratch_julia_bytes = 2744
+    lower_nnz = 36
+    checkpoint_julia_bytes = 9640
+    backend_julia_bytes = 5072
+    combined_deduplicated_julia_bytes = 15808
+    live_julia_bytes = 13600
+    upper_nnz = 36
+[[retention]]
+state = "cycled"
+case = "Rational{BigInt}/native/dense8"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 7528
+    solve_scratch_julia_bytes = 2744
+    lower_nnz = 36
+    checkpoint_julia_bytes = 9640
+    backend_julia_bytes = 5072
+    combined_deduplicated_julia_bytes = 15808
+    live_julia_bytes = 13600
+    upper_nnz = 36
+[[retention]]
+state = "fresh"
+case = "Rational{BigInt}/native/sparse32"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 11288
+    solve_scratch_julia_bytes = 10112
+    lower_nnz = 48
+    checkpoint_julia_bytes = 17240
+    backend_julia_bytes = 70512
+    combined_deduplicated_julia_bytes = 96216
+    live_julia_bytes = 90168
+    upper_nnz = 48
+[[retention]]
+state = "cycled"
+case = "Rational{BigInt}/native/sparse32"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 11288
+    solve_scratch_julia_bytes = 10112
+    lower_nnz = 48
+    checkpoint_julia_bytes = 17240
+    backend_julia_bytes = 70512
+    combined_deduplicated_julia_bytes = 96216
+    live_julia_bytes = 90168
+    upper_nnz = 48
+[[retention]]
+state = "fresh"
+case = "Rational{BigInt}/native/dense32"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 95656
+    solve_scratch_julia_bytes = 9768
+    lower_nnz = 528
+    checkpoint_julia_bytes = 101608
+    backend_julia_bytes = 78320
+    combined_deduplicated_julia_bytes = 157328
+    live_julia_bytes = 151280
+    upper_nnz = 528
+[[retention]]
+state = "cycled"
+case = "Rational{BigInt}/native/dense32"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 95656
+    solve_scratch_julia_bytes = 9768
+    lower_nnz = 528
+    checkpoint_julia_bytes = 101608
+    backend_julia_bytes = 78320
+    combined_deduplicated_julia_bytes = 157328
+    live_julia_bytes = 151280
+    upper_nnz = 528
+[[retention]]
+state = "fresh"
+case = "Rational{BigInt}/markowitz/sparse8"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 2936
+    solve_scratch_julia_bytes = 2848
+    lower_nnz = 12
+    checkpoint_julia_bytes = 5048
+    backend_julia_bytes = 11616
+    combined_deduplicated_julia_bytes = 19512
+    live_julia_bytes = 17304
+    upper_nnz = 12
+[[retention]]
+state = "cycled"
+case = "Rational{BigInt}/markowitz/sparse8"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 2936
+    solve_scratch_julia_bytes = 2848
+    lower_nnz = 12
+    checkpoint_julia_bytes = 5048
+    backend_julia_bytes = 16056
+    combined_deduplicated_julia_bytes = 23952
+    live_julia_bytes = 21744
+    upper_nnz = 12
+[[retention]]
+state = "fresh"
+case = "Rational{BigInt}/markowitz/dense8"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 7304
+    solve_scratch_julia_bytes = 2744
+    lower_nnz = 36
+    checkpoint_julia_bytes = 9416
+    backend_julia_bytes = 6200
+    combined_deduplicated_julia_bytes = 16712
+    live_julia_bytes = 14504
+    upper_nnz = 36
+[[retention]]
+state = "cycled"
+case = "Rational{BigInt}/markowitz/dense8"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 7304
+    solve_scratch_julia_bytes = 2744
+    lower_nnz = 36
+    checkpoint_julia_bytes = 9416
+    backend_julia_bytes = 12112
+    combined_deduplicated_julia_bytes = 22624
+    live_julia_bytes = 20416
+    upper_nnz = 36
+[[retention]]
+state = "fresh"
+case = "Rational{BigInt}/markowitz/sparse32"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 9176
+    solve_scratch_julia_bytes = 10112
+    lower_nnz = 48
+    checkpoint_julia_bytes = 15128
+    backend_julia_bytes = 40256
+    combined_deduplicated_julia_bytes = 64728
+    live_julia_bytes = 58680
+    upper_nnz = 48
+[[retention]]
+state = "cycled"
+case = "Rational{BigInt}/markowitz/sparse32"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 9176
+    solve_scratch_julia_bytes = 10112
+    lower_nnz = 48
+    checkpoint_julia_bytes = 15128
+    backend_julia_bytes = 55576
+    combined_deduplicated_julia_bytes = 80048
+    live_julia_bytes = 74000
+    upper_nnz = 48
+[[retention]]
+state = "fresh"
+case = "Rational{BigInt}/markowitz/dense32"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 94664
+    solve_scratch_julia_bytes = 9768
+    lower_nnz = 528
+    checkpoint_julia_bytes = 100616
+    backend_julia_bytes = 81368
+    combined_deduplicated_julia_bytes = 159384
+    live_julia_bytes = 153336
+    upper_nnz = 528
+[[retention]]
+state = "cycled"
+case = "Rational{BigInt}/markowitz/dense32"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 94664
+    solve_scratch_julia_bytes = 9768
+    lower_nnz = 528
+    checkpoint_julia_bytes = 100616
+    backend_julia_bytes = 161680
+    combined_deduplicated_julia_bytes = 239696
+    live_julia_bytes = 233648
+    upper_nnz = 528
+[[retention]]
+state = "fresh"
+case = "Rational{Int64}/native/sparse8"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 1768
+    solve_scratch_julia_bytes = 1008
+    lower_nnz = 12
+    checkpoint_julia_bytes = 3080
+    backend_julia_bytes = 1200
+    combined_deduplicated_julia_bytes = 5688
+    live_julia_bytes = 4280
+    upper_nnz = 12
+[[retention]]
+state = "cycled"
+case = "Rational{Int64}/native/sparse8"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 1768
+    solve_scratch_julia_bytes = 1008
+    lower_nnz = 12
+    checkpoint_julia_bytes = 3080
+    backend_julia_bytes = 1200
+    combined_deduplicated_julia_bytes = 5688
+    live_julia_bytes = 4280
+    upper_nnz = 12
+[[retention]]
+state = "fresh"
+case = "Rational{Int64}/native/dense8"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 3112
+    solve_scratch_julia_bytes = 1008
+    lower_nnz = 36
+    checkpoint_julia_bytes = 4424
+    backend_julia_bytes = 1200
+    combined_deduplicated_julia_bytes = 7032
+    live_julia_bytes = 5624
+    upper_nnz = 36
+[[retention]]
+state = "cycled"
+case = "Rational{Int64}/native/dense8"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 3112
+    solve_scratch_julia_bytes = 1008
+    lower_nnz = 36
+    checkpoint_julia_bytes = 4424
+    backend_julia_bytes = 1200
+    combined_deduplicated_julia_bytes = 7032
+    live_julia_bytes = 5624
+    upper_nnz = 36
+[[retention]]
+state = "fresh"
+case = "Rational{Int64}/native/sparse32"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 5128
+    solve_scratch_julia_bytes = 2928
+    lower_nnz = 48
+    checkpoint_julia_bytes = 8360
+    backend_julia_bytes = 16752
+    combined_deduplicated_julia_bytes = 28440
+    live_julia_bytes = 25112
+    upper_nnz = 48
+[[retention]]
+state = "cycled"
+case = "Rational{Int64}/native/sparse32"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 5128
+    solve_scratch_julia_bytes = 2928
+    lower_nnz = 48
+    checkpoint_julia_bytes = 8360
+    backend_julia_bytes = 16752
+    combined_deduplicated_julia_bytes = 28440
+    live_julia_bytes = 25112
+    upper_nnz = 48
+[[retention]]
+state = "fresh"
+case = "Rational{Int64}/native/dense32"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 32008
+    solve_scratch_julia_bytes = 2928
+    lower_nnz = 528
+    checkpoint_julia_bytes = 35240
+    backend_julia_bytes = 16752
+    combined_deduplicated_julia_bytes = 55320
+    live_julia_bytes = 51992
+    upper_nnz = 528
+[[retention]]
+state = "cycled"
+case = "Rational{Int64}/native/dense32"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 32008
+    solve_scratch_julia_bytes = 2928
+    lower_nnz = 528
+    checkpoint_julia_bytes = 35240
+    backend_julia_bytes = 16752
+    combined_deduplicated_julia_bytes = 55320
+    live_julia_bytes = 51992
+    upper_nnz = 528
+[[retention]]
+state = "fresh"
+case = "Rational{Int64}/markowitz/sparse8"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 1768
+    solve_scratch_julia_bytes = 1008
+    lower_nnz = 12
+    checkpoint_julia_bytes = 3080
+    backend_julia_bytes = 9632
+    combined_deduplicated_julia_bytes = 14104
+    live_julia_bytes = 12696
+    upper_nnz = 12
+[[retention]]
+state = "cycled"
+case = "Rational{Int64}/markowitz/sparse8"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 1768
+    solve_scratch_julia_bytes = 1008
+    lower_nnz = 12
+    checkpoint_julia_bytes = 3080
+    backend_julia_bytes = 12664
+    combined_deduplicated_julia_bytes = 17136
+    live_julia_bytes = 15728
+    upper_nnz = 12
+[[retention]]
+state = "fresh"
+case = "Rational{Int64}/markowitz/dense8"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 3112
+    solve_scratch_julia_bytes = 1008
+    lower_nnz = 36
+    checkpoint_julia_bytes = 4424
+    backend_julia_bytes = 2008
+    combined_deduplicated_julia_bytes = 7840
+    live_julia_bytes = 6432
+    upper_nnz = 36
+[[retention]]
+state = "cycled"
+case = "Rational{Int64}/markowitz/dense8"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 3112
+    solve_scratch_julia_bytes = 1008
+    lower_nnz = 36
+    checkpoint_julia_bytes = 4424
+    backend_julia_bytes = 3984
+    combined_deduplicated_julia_bytes = 9816
+    live_julia_bytes = 8408
+    upper_nnz = 36
+[[retention]]
+state = "fresh"
+case = "Rational{Int64}/markowitz/sparse32"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 5128
+    solve_scratch_julia_bytes = 2928
+    lower_nnz = 48
+    checkpoint_julia_bytes = 8360
+    backend_julia_bytes = 35392
+    combined_deduplicated_julia_bytes = 47064
+    live_julia_bytes = 43736
+    upper_nnz = 48
+[[retention]]
+state = "cycled"
+case = "Rational{Int64}/markowitz/sparse32"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 5128
+    solve_scratch_julia_bytes = 2928
+    lower_nnz = 48
+    checkpoint_julia_bytes = 8360
+    backend_julia_bytes = 46808
+    combined_deduplicated_julia_bytes = 58480
+    live_julia_bytes = 55152
+    upper_nnz = 48
+[[retention]]
+state = "fresh"
+case = "Rational{Int64}/markowitz/dense32"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 32008
+    solve_scratch_julia_bytes = 2928
+    lower_nnz = 528
+    checkpoint_julia_bytes = 35240
+    backend_julia_bytes = 18712
+    combined_deduplicated_julia_bytes = 57280
+    live_julia_bytes = 53952
+    upper_nnz = 528
+[[retention]]
+state = "cycled"
+case = "Rational{Int64}/markowitz/dense32"
+
+    [retention.graph]
+    extraction_scratch_julia_bytes = 128
+    base_julia_bytes = 32008
+    solve_scratch_julia_bytes = 2928
+    lower_nnz = 528
+    checkpoint_julia_bytes = 35240
+    backend_julia_bytes = 37392
+    combined_deduplicated_julia_bytes = 75960
+    live_julia_bytes = 72632
+    upper_nnz = 528
+
+[[samples]]
+gc_seconds = 0.0
+allocations = 20
+seconds = 5.8e-6
+bytes = 1472
+round = 1
+compile_seconds = 0.0
+case = "Float16/native/sparse8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 120
+seconds = 9.7e-6
+bytes = 7872
+round = 1
+compile_seconds = 0.0
+case = "Float16/native/sparse8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 140
+seconds = 1.41e-5
+bytes = 9344
+round = 1
+compile_seconds = 0.0
+case = "Float16/native/sparse8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 120
+seconds = 9.5e-6
+bytes = 7872
+round = 2
+compile_seconds = 0.0
+case = "Float16/native/sparse8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 140
+seconds = 1.34e-5
+bytes = 9344
+round = 2
+compile_seconds = 0.0
+case = "Float16/native/sparse8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 20
+seconds = 5.0e-6
+bytes = 1472
+round = 2
+compile_seconds = 0.0
+case = "Float16/native/sparse8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 140
+seconds = 9.9e-6
+bytes = 9344
+round = 3
+compile_seconds = 0.0
+case = "Float16/native/sparse8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 20
+seconds = 4.5e-6
+bytes = 1472
+round = 3
+compile_seconds = 0.0
+case = "Float16/native/sparse8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 120
+seconds = 9.2e-6
+bytes = 7872
+round = 3
+compile_seconds = 0.0
+case = "Float16/native/sparse8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 20
+seconds = 6.2e-6
+bytes = 1472
+round = 1
+compile_seconds = 0.0
+case = "Float16/native/dense8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 120
+seconds = 1.01e-5
+bytes = 10688
+round = 1
+compile_seconds = 0.0
+case = "Float16/native/dense8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 140
+seconds = 1.47e-5
+bytes = 12160
+round = 1
+compile_seconds = 0.0
+case = "Float16/native/dense8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 120
+seconds = 1.0e-5
+bytes = 10688
+round = 2
+compile_seconds = 0.0
+case = "Float16/native/dense8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 140
+seconds = 1.48e-5
+bytes = 12160
+round = 2
+compile_seconds = 0.0
+case = "Float16/native/dense8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 20
+seconds = 4.9e-6
+bytes = 1472
+round = 2
+compile_seconds = 0.0
+case = "Float16/native/dense8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 140
+seconds = 1.44e-5
+bytes = 12160
+round = 3
+compile_seconds = 0.0
+case = "Float16/native/dense8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 20
+seconds = 4.5e-6
+bytes = 1472
+round = 3
+compile_seconds = 0.0
+case = "Float16/native/dense8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 120
+seconds = 1.0e-5
+bytes = 10688
+round = 3
+compile_seconds = 0.0
+case = "Float16/native/dense8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 24
+seconds = 2.67e-5
+bytes = 9952
+round = 1
+compile_seconds = 0.0
+case = "Float16/native/sparse32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 128
+seconds = 2.12e-5
+bytes = 32448
+round = 1
+compile_seconds = 0.0
+case = "Float16/native/sparse32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 152
+seconds = 4.65e-5
+bytes = 42400
+round = 1
+compile_seconds = 0.0
+case = "Float16/native/sparse32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 128
+seconds = 2.42e-5
+bytes = 32448
+round = 2
+compile_seconds = 0.0
+case = "Float16/native/sparse32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 152
+seconds = 5.1e-5
+bytes = 42400
+round = 2
+compile_seconds = 0.0
+case = "Float16/native/sparse32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 24
+seconds = 2.65e-5
+bytes = 9952
+round = 2
+compile_seconds = 0.0
+case = "Float16/native/sparse32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 152
+seconds = 4.45e-5
+bytes = 42400
+round = 3
+compile_seconds = 0.0
+case = "Float16/native/sparse32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 24
+seconds = 2.69e-5
+bytes = 9952
+round = 3
+compile_seconds = 0.0
+case = "Float16/native/sparse32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 128
+seconds = 2.44e-5
+bytes = 32448
+round = 3
+compile_seconds = 0.0
+case = "Float16/native/sparse32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 24
+seconds = 3.48e-5
+bytes = 9952
+round = 1
+compile_seconds = 0.0
+case = "Float16/native/dense32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 140
+seconds = 3.75e-5
+bytes = 86048
+round = 1
+compile_seconds = 0.0
+case = "Float16/native/dense32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 164
+seconds = 5.76e-5
+bytes = 96000
+round = 1
+compile_seconds = 0.0
+case = "Float16/native/dense32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 140
+seconds = 3.3e-5
+bytes = 86048
+round = 2
+compile_seconds = 0.0
+case = "Float16/native/dense32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 164
+seconds = 5.86e-5
+bytes = 96000
+round = 2
+compile_seconds = 0.0
+case = "Float16/native/dense32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 24
+seconds = 4.64e-5
+bytes = 9952
+round = 2
+compile_seconds = 0.0
+case = "Float16/native/dense32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 164
+seconds = 5.89e-5
+bytes = 96000
+round = 3
+compile_seconds = 0.0
+case = "Float16/native/dense32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 24
+seconds = 3.5e-5
+bytes = 9952
+round = 3
+compile_seconds = 0.0
+case = "Float16/native/dense32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 140
+seconds = 3.07e-5
+bytes = 86048
+round = 3
+compile_seconds = 0.0
+case = "Float16/native/dense32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 58
+seconds = 1.48e-5
+bytes = 3456
+round = 1
+compile_seconds = 0.0
+case = "Float16/markowitz/sparse8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 232
+seconds = 1.06e-5
+bytes = 14144
+round = 1
+compile_seconds = 0.0
+case = "Float16/markowitz/sparse8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 290
+seconds = 2.43e-5
+bytes = 17600
+round = 1
+compile_seconds = 0.0
+case = "Float16/markowitz/sparse8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 232
+seconds = 1.09e-5
+bytes = 14144
+round = 2
+compile_seconds = 0.0
+case = "Float16/markowitz/sparse8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 290
+seconds = 2.64e-5
+bytes = 17600
+round = 2
+compile_seconds = 0.0
+case = "Float16/markowitz/sparse8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 58
+seconds = 1.74e-5
+bytes = 3456
+round = 2
+compile_seconds = 0.0
+case = "Float16/markowitz/sparse8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 290
+seconds = 2.08e-5
+bytes = 17600
+round = 3
+compile_seconds = 0.0
+case = "Float16/markowitz/sparse8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 58
+seconds = 1.69e-5
+bytes = 3456
+round = 3
+compile_seconds = 0.0
+case = "Float16/markowitz/sparse8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 232
+seconds = 1.08e-5
+bytes = 14144
+round = 3
+compile_seconds = 0.0
+case = "Float16/markowitz/sparse8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 18
+seconds = 8.0e-6
+bytes = 1056
+round = 1
+compile_seconds = 0.0
+case = "Float16/markowitz/dense8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 232
+seconds = 9.3e-6
+bytes = 22976
+round = 1
+compile_seconds = 0.0
+case = "Float16/markowitz/dense8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 250
+seconds = 1.54e-5
+bytes = 24032
+round = 1
+compile_seconds = 0.0
+case = "Float16/markowitz/dense8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 232
+seconds = 1.22e-5
+bytes = 22976
+round = 2
+compile_seconds = 0.0
+case = "Float16/markowitz/dense8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 250
+seconds = 2.11e-5
+bytes = 24032
+round = 2
+compile_seconds = 0.0
+case = "Float16/markowitz/dense8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 18
+seconds = 6.04e-5
+bytes = 1056
+round = 2
+compile_seconds = 0.0
+case = "Float16/markowitz/dense8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 250
+seconds = 2.13e-5
+bytes = 24032
+round = 3
+compile_seconds = 0.0
+case = "Float16/markowitz/dense8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 18
+seconds = 9.4e-6
+bytes = 1056
+round = 3
+compile_seconds = 0.0
+case = "Float16/markowitz/dense8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 232
+seconds = 1.2e-5
+bytes = 22976
+round = 3
+compile_seconds = 0.0
+case = "Float16/markowitz/dense8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 211
+seconds = 3.38e-5
+bytes = 12656
+round = 1
+compile_seconds = 0.0
+case = "Float16/markowitz/sparse32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 232
+seconds = 1.24e-5
+bytes = 35328
+round = 1
+compile_seconds = 0.0
+case = "Float16/markowitz/sparse32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 443
+seconds = 4.39e-5
+bytes = 47984
+round = 1
+compile_seconds = 0.0
+case = "Float16/markowitz/sparse32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 232
+seconds = 1.11e-5
+bytes = 35328
+round = 2
+compile_seconds = 0.0
+case = "Float16/markowitz/sparse32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 443
+seconds = 4.41e-5
+bytes = 47984
+round = 2
+compile_seconds = 0.0
+case = "Float16/markowitz/sparse32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 211
+seconds = 3.1e-5
+bytes = 12656
+round = 2
+compile_seconds = 0.0
+case = "Float16/markowitz/sparse32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 443
+seconds = 4.03e-5
+bytes = 47984
+round = 3
+compile_seconds = 0.0
+case = "Float16/markowitz/sparse32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 211
+seconds = 3.26e-5
+bytes = 12656
+round = 3
+compile_seconds = 0.0
+case = "Float16/markowitz/sparse32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 232
+seconds = 1.25e-5
+bytes = 35328
+round = 3
+compile_seconds = 0.0
+case = "Float16/markowitz/sparse32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 19
+seconds = 4.68e-5
+bytes = 3656
+round = 1
+compile_seconds = 0.0
+case = "Float16/markowitz/dense32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 268
+seconds = 4.93e-5
+bytes = 197664
+round = 1
+compile_seconds = 0.0
+case = "Float16/markowitz/dense32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 287
+seconds = 7.79e-5
+bytes = 201320
+round = 1
+compile_seconds = 0.0
+case = "Float16/markowitz/dense32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 268
+seconds = 4.99e-5
+bytes = 197664
+round = 2
+compile_seconds = 0.0
+case = "Float16/markowitz/dense32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 287
+seconds = 8.07e-5
+bytes = 201320
+round = 2
+compile_seconds = 0.0
+case = "Float16/markowitz/dense32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 19
+seconds = 4.54e-5
+bytes = 3656
+round = 2
+compile_seconds = 0.0
+case = "Float16/markowitz/dense32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 287
+seconds = 7.55e-5
+bytes = 201320
+round = 3
+compile_seconds = 0.0
+case = "Float16/markowitz/dense32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 19
+seconds = 4.62e-5
+bytes = 3656
+round = 3
+compile_seconds = 0.0
+case = "Float16/markowitz/dense32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 268
+seconds = 4.76e-5
+bytes = 197664
+round = 3
+compile_seconds = 0.0
+case = "Float16/markowitz/dense32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 20
+seconds = 1.19e-5
+bytes = 1984
+round = 1
+compile_seconds = 0.0
+case = "Float32/native/sparse8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 120
+seconds = 9.1e-6
+bytes = 9216
+round = 1
+compile_seconds = 0.0
+case = "Float32/native/sparse8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 140
+seconds = 2.07e-5
+bytes = 11200
+round = 1
+compile_seconds = 0.0
+case = "Float32/native/sparse8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 120
+seconds = 1.63e-5
+bytes = 9216
+round = 2
+compile_seconds = 0.0
+case = "Float32/native/sparse8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 140
+seconds = 2.22e-5
+bytes = 11200
+round = 2
+compile_seconds = 0.0
+case = "Float32/native/sparse8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 20
+seconds = 6.7e-6
+bytes = 1984
+round = 2
+compile_seconds = 0.0
+case = "Float32/native/sparse8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 140
+seconds = 1.86e-5
+bytes = 11200
+round = 3
+compile_seconds = 0.0
+case = "Float32/native/sparse8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 20
+seconds = 1.24e-5
+bytes = 1984
+round = 3
+compile_seconds = 0.0
+case = "Float32/native/sparse8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 120
+seconds = 8.9e-6
+bytes = 9216
+round = 3
+compile_seconds = 0.0
+case = "Float32/native/sparse8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 20
+seconds = 8.3e-6
+bytes = 1984
+round = 1
+compile_seconds = 0.0
+case = "Float32/native/dense8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 120
+seconds = 9.3e-6
+bytes = 12416
+round = 1
+compile_seconds = 0.0
+case = "Float32/native/dense8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 140
+seconds = 2.26e-5
+bytes = 14400
+round = 1
+compile_seconds = 0.0
+case = "Float32/native/dense8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 120
+seconds = 7.2e-6
+bytes = 12416
+round = 2
+compile_seconds = 0.0
+case = "Float32/native/dense8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 140
+seconds = 2.21e-5
+bytes = 14400
+round = 2
+compile_seconds = 0.0
+case = "Float32/native/dense8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 20
+seconds = 1.3e-5
+bytes = 1984
+round = 2
+compile_seconds = 0.0
+case = "Float32/native/dense8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 140
+seconds = 3.17e-5
+bytes = 14400
+round = 3
+compile_seconds = 0.0
+case = "Float32/native/dense8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 20
+seconds = 1.29e-5
+bytes = 1984
+round = 3
+compile_seconds = 0.0
+case = "Float32/native/dense8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 120
+seconds = 9.8e-6
+bytes = 12416
+round = 3
+compile_seconds = 0.0
+case = "Float32/native/dense8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 24
+seconds = 4.67e-5
+bytes = 18144
+round = 1
+compile_seconds = 0.0
+case = "Float32/native/sparse32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 128
+seconds = 2.84e-5
+bytes = 49856
+round = 1
+compile_seconds = 0.0
+case = "Float32/native/sparse32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 152
+seconds = 6.59e-5
+bytes = 68000
+round = 1
+compile_seconds = 0.0
+case = "Float32/native/sparse32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 128
+seconds = 2.93e-5
+bytes = 49856
+round = 2
+compile_seconds = 0.0
+case = "Float32/native/sparse32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 152
+seconds = 6.65e-5
+bytes = 68000
+round = 2
+compile_seconds = 0.0
+case = "Float32/native/sparse32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 24
+seconds = 4.22e-5
+bytes = 18144
+round = 2
+compile_seconds = 0.0
+case = "Float32/native/sparse32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 152
+seconds = 6.52e-5
+bytes = 68000
+round = 3
+compile_seconds = 0.0
+case = "Float32/native/sparse32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 24
+seconds = 4.31e-5
+bytes = 18144
+round = 3
+compile_seconds = 0.0
+case = "Float32/native/sparse32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 128
+seconds = 2.96e-5
+bytes = 49856
+round = 3
+compile_seconds = 0.0
+case = "Float32/native/sparse32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 24
+seconds = 5.19e-5
+bytes = 18144
+round = 1
+compile_seconds = 0.0
+case = "Float32/native/dense32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 148
+seconds = 3.8e-5
+bytes = 111200
+round = 1
+compile_seconds = 0.0
+case = "Float32/native/dense32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 172
+seconds = 7.31e-5
+bytes = 129344
+round = 1
+compile_seconds = 0.0
+case = "Float32/native/dense32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 148
+seconds = 3.93e-5
+bytes = 111200
+round = 2
+compile_seconds = 0.0
+case = "Float32/native/dense32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 172
+seconds = 7.3e-5
+bytes = 129344
+round = 2
+compile_seconds = 0.0
+case = "Float32/native/dense32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 24
+seconds = 4.96e-5
+bytes = 18144
+round = 2
+compile_seconds = 0.0
+case = "Float32/native/dense32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 172
+seconds = 7.3e-5
+bytes = 129344
+round = 3
+compile_seconds = 0.0
+case = "Float32/native/dense32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 24
+seconds = 4.94e-5
+bytes = 18144
+round = 3
+compile_seconds = 0.0
+case = "Float32/native/dense32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 148
+seconds = 3.69e-5
+bytes = 111200
+round = 3
+compile_seconds = 0.0
+case = "Float32/native/dense32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 58
+seconds = 2.83e-5
+bytes = 3616
+round = 1
+compile_seconds = 0.0
+case = "Float32/markowitz/sparse8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 232
+seconds = 1.02e-5
+bytes = 14976
+round = 1
+compile_seconds = 0.0
+case = "Float32/markowitz/sparse8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 290
+seconds = 3.45e-5
+bytes = 18592
+round = 1
+compile_seconds = 0.0
+case = "Float32/markowitz/sparse8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 232
+seconds = 1.04e-5
+bytes = 14976
+round = 2
+compile_seconds = 0.0
+case = "Float32/markowitz/sparse8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 290
+seconds = 3.49e-5
+bytes = 18592
+round = 2
+compile_seconds = 0.0
+case = "Float32/markowitz/sparse8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 58
+seconds = 2.56e-5
+bytes = 3616
+round = 2
+compile_seconds = 0.0
+case = "Float32/markowitz/sparse8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 290
+seconds = 3.43e-5
+bytes = 18592
+round = 3
+compile_seconds = 0.0
+case = "Float32/markowitz/sparse8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 58
+seconds = 6.39e-5
+bytes = 3616
+round = 3
+compile_seconds = 0.0
+case = "Float32/markowitz/sparse8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 232
+seconds = 1.02e-5
+bytes = 14976
+round = 3
+compile_seconds = 0.0
+case = "Float32/markowitz/sparse8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 18
+seconds = 1.93e-5
+bytes = 1216
+round = 1
+compile_seconds = 0.0
+case = "Float32/markowitz/dense8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 232
+seconds = 1.05e-5
+bytes = 24960
+round = 1
+compile_seconds = 0.0
+case = "Float32/markowitz/dense8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 250
+seconds = 2.73e-5
+bytes = 26176
+round = 1
+compile_seconds = 0.0
+case = "Float32/markowitz/dense8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 232
+seconds = 1.13e-5
+bytes = 24960
+round = 2
+compile_seconds = 0.0
+case = "Float32/markowitz/dense8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 250
+seconds = 2.7e-5
+bytes = 26176
+round = 2
+compile_seconds = 0.0
+case = "Float32/markowitz/dense8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 18
+seconds = 1.74e-5
+bytes = 1216
+round = 2
+compile_seconds = 0.0
+case = "Float32/markowitz/dense8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 250
+seconds = 2.77e-5
+bytes = 26176
+round = 3
+compile_seconds = 0.0
+case = "Float32/markowitz/dense8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 18
+seconds = 1.67e-5
+bytes = 1216
+round = 3
+compile_seconds = 0.0
+case = "Float32/markowitz/dense8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 232
+seconds = 1.11e-5
+bytes = 24960
+round = 3
+compile_seconds = 0.0
+case = "Float32/markowitz/dense8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 211
+seconds = 4.13e-5
+bytes = 13312
+round = 1
+compile_seconds = 0.0
+case = "Float32/markowitz/sparse32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 232
+seconds = 1.23e-5
+bytes = 37888
+round = 1
+compile_seconds = 0.0
+case = "Float32/markowitz/sparse32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 443
+seconds = 5.05e-5
+bytes = 51200
+round = 1
+compile_seconds = 0.0
+case = "Float32/markowitz/sparse32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 232
+seconds = 1.3e-5
+bytes = 37888
+round = 2
+compile_seconds = 0.0
+case = "Float32/markowitz/sparse32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 443
+seconds = 4.57e-5
+bytes = 51200
+round = 2
+compile_seconds = 0.0
+case = "Float32/markowitz/sparse32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 211
+seconds = 3.95e-5
+bytes = 13312
+round = 2
+compile_seconds = 0.0
+case = "Float32/markowitz/sparse32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 443
+seconds = 4.77e-5
+bytes = 51200
+round = 3
+compile_seconds = 0.0
+case = "Float32/markowitz/sparse32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 211
+seconds = 4.06e-5
+bytes = 13312
+round = 3
+compile_seconds = 0.0
+case = "Float32/markowitz/sparse32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 232
+seconds = 1.31e-5
+bytes = 37888
+round = 3
+compile_seconds = 0.0
+case = "Float32/markowitz/sparse32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 19
+seconds = 6.15e-5
+bytes = 5832
+round = 1
+compile_seconds = 0.0
+case = "Float32/markowitz/dense32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 292
+seconds = 5.48e-5
+bytes = 223456
+round = 1
+compile_seconds = 0.0
+case = "Float32/markowitz/dense32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 311
+seconds = 0.0001004
+bytes = 229288
+round = 1
+compile_seconds = 0.0
+case = "Float32/markowitz/dense32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 292
+seconds = 6.31e-5
+bytes = 223456
+round = 2
+compile_seconds = 0.0
+case = "Float32/markowitz/dense32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 311
+seconds = 0.0001038
+bytes = 229288
+round = 2
+compile_seconds = 0.0
+case = "Float32/markowitz/dense32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 19
+seconds = 6.06e-5
+bytes = 5832
+round = 2
+compile_seconds = 0.0
+case = "Float32/markowitz/dense32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 311
+seconds = 8.67e-5
+bytes = 229288
+round = 3
+compile_seconds = 0.0
+case = "Float32/markowitz/dense32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 19
+seconds = 6.28e-5
+bytes = 5832
+round = 3
+compile_seconds = 0.0
+case = "Float32/markowitz/dense32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 292
+seconds = 5.53e-5
+bytes = 223456
+round = 3
+compile_seconds = 0.0
+case = "Float32/markowitz/dense32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 1680
+seconds = 3.89e-5
+bytes = 162368
+round = 1
+compile_seconds = 0.0
+case = "BigFloat/native/sparse8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 412
+seconds = 1.93e-5
+bytes = 39808
+round = 1
+compile_seconds = 0.0
+case = "BigFloat/native/sparse8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 2092
+seconds = 5.7e-5
+bytes = 202176
+round = 1
+compile_seconds = 0.0
+case = "BigFloat/native/sparse8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 412
+seconds = 1.7e-5
+bytes = 39808
+round = 2
+compile_seconds = 0.0
+case = "BigFloat/native/sparse8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 2092
+seconds = 7.08e-5
+bytes = 202176
+round = 2
+compile_seconds = 0.0
+case = "BigFloat/native/sparse8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 1680
+seconds = 4.41e-5
+bytes = 162368
+round = 2
+compile_seconds = 0.0
+case = "BigFloat/native/sparse8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 2092
+seconds = 5.96e-5
+bytes = 202176
+round = 3
+compile_seconds = 0.0
+case = "BigFloat/native/sparse8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 1680
+seconds = 4.18e-5
+bytes = 162368
+round = 3
+compile_seconds = 0.0
+case = "BigFloat/native/sparse8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 412
+seconds = 1.94e-5
+bytes = 39808
+round = 3
+compile_seconds = 0.0
+case = "BigFloat/native/sparse8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 1680
+seconds = 6.06e-5
+bytes = 162368
+round = 1
+compile_seconds = 0.0
+case = "BigFloat/native/dense8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 412
+seconds = 1.86e-5
+bytes = 43904
+round = 1
+compile_seconds = 0.0
+case = "BigFloat/native/dense8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 2092
+seconds = 7.8e-5
+bytes = 206272
+round = 1
+compile_seconds = 0.0
+case = "BigFloat/native/dense8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 412
+seconds = 1.92e-5
+bytes = 43904
+round = 2
+compile_seconds = 0.0
+case = "BigFloat/native/dense8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 2092
+seconds = 7.15e-5
+bytes = 206272
+round = 2
+compile_seconds = 0.0
+case = "BigFloat/native/dense8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 1680
+seconds = 6.05e-5
+bytes = 162368
+round = 2
+compile_seconds = 0.0
+case = "BigFloat/native/dense8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 2092
+seconds = 8.94e-5
+bytes = 206272
+round = 3
+compile_seconds = 0.0
+case = "BigFloat/native/dense8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 1680
+seconds = 6.06e-5
+bytes = 162368
+round = 3
+compile_seconds = 0.0
+case = "BigFloat/native/dense8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 412
+seconds = 1.85e-5
+bytes = 43904
+round = 3
+compile_seconds = 0.0
+case = "BigFloat/native/dense8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 91668
+seconds = 0.0012037
+bytes = 8832352
+round = 1
+compile_seconds = 0.0
+case = "BigFloat/native/sparse32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 4356
+seconds = 0.0001068
+bytes = 490816
+round = 1
+compile_seconds = 0.0
+case = "BigFloat/native/sparse32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 96024
+seconds = 0.0013237
+bytes = 9323168
+round = 1
+compile_seconds = 0.0
+case = "BigFloat/native/sparse32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 4356
+seconds = 9.27e-5
+bytes = 490816
+round = 2
+compile_seconds = 0.0
+case = "BigFloat/native/sparse32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 96024
+seconds = 0.0013026
+bytes = 9323168
+round = 2
+compile_seconds = 0.0
+case = "BigFloat/native/sparse32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 91668
+seconds = 0.0012875
+bytes = 8832352
+round = 2
+compile_seconds = 0.0
+case = "BigFloat/native/sparse32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 96024
+seconds = 0.0015078
+bytes = 9323168
+round = 3
+compile_seconds = 0.0
+case = "BigFloat/native/sparse32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 91668
+seconds = 0.0012868
+bytes = 8832352
+round = 3
+compile_seconds = 0.0
+case = "BigFloat/native/sparse32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 4356
+seconds = 0.0001058
+bytes = 490816
+round = 3
+compile_seconds = 0.0
+case = "BigFloat/native/sparse32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 91668
+seconds = 0.0024048
+bytes = 8832352
+round = 1
+compile_seconds = 0.0
+case = "BigFloat/native/dense32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 4376
+seconds = 0.0001524
+bytes = 567264
+round = 1
+compile_seconds = 0.0
+case = "BigFloat/native/dense32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 96044
+seconds = 0.0025455
+bytes = 9399616
+round = 1
+compile_seconds = 0.0
+case = "BigFloat/native/dense32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 4376
+seconds = 0.0001496
+bytes = 567264
+round = 2
+compile_seconds = 0.0
+case = "BigFloat/native/dense32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 96044
+seconds = 0.0025181
+bytes = 9399616
+round = 2
+compile_seconds = 0.0
+case = "BigFloat/native/dense32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 91668
+seconds = 0.0030004
+bytes = 8832352
+round = 2
+compile_seconds = 0.0
+case = "BigFloat/native/dense32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 96044
+seconds = 0.0028181
+bytes = 9399616
+round = 3
+compile_seconds = 0.0
+case = "BigFloat/native/dense32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 91668
+seconds = 0.0029592
+bytes = 8832352
+round = 3
+compile_seconds = 0.0
+case = "BigFloat/native/dense32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 4376
+seconds = 0.0002999
+bytes = 567264
+round = 3
+compile_seconds = 0.0
+case = "BigFloat/native/dense32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 432
+seconds = 3.88e-5
+bytes = 39664
+round = 1
+compile_seconds = 0.0
+case = "BigFloat/markowitz/sparse8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 272
+seconds = 1.84e-5
+bytes = 20096
+round = 1
+compile_seconds = 0.0
+case = "BigFloat/markowitz/sparse8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 704
+seconds = 5.6e-5
+bytes = 59760
+round = 1
+compile_seconds = 0.0
+case = "BigFloat/markowitz/sparse8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 272
+seconds = 1.74e-5
+bytes = 20096
+round = 2
+compile_seconds = 0.0
+case = "BigFloat/markowitz/sparse8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 704
+seconds = 6.07e-5
+bytes = 59760
+round = 2
+compile_seconds = 0.0
+case = "BigFloat/markowitz/sparse8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 432
+seconds = 4.89e-5
+bytes = 39664
+round = 2
+compile_seconds = 0.0
+case = "BigFloat/markowitz/sparse8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 704
+seconds = 4.76e-5
+bytes = 59760
+round = 3
+compile_seconds = 0.0
+case = "BigFloat/markowitz/sparse8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 432
+seconds = 4.83e-5
+bytes = 39664
+round = 3
+compile_seconds = 0.0
+case = "BigFloat/markowitz/sparse8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 272
+seconds = 1.55e-5
+bytes = 20096
+round = 3
+compile_seconds = 0.0
+case = "BigFloat/markowitz/sparse8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 1680
+seconds = 6.67e-5
+bytes = 161088
+round = 1
+compile_seconds = 0.0
+case = "BigFloat/markowitz/dense8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 272
+seconds = 1.46e-5
+bytes = 32768
+round = 1
+compile_seconds = 0.0
+case = "BigFloat/markowitz/dense8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 1952
+seconds = 7.93e-5
+bytes = 193856
+round = 1
+compile_seconds = 0.0
+case = "BigFloat/markowitz/dense8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 272
+seconds = 2.19e-5
+bytes = 32768
+round = 2
+compile_seconds = 0.0
+case = "BigFloat/markowitz/dense8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 1952
+seconds = 6.81e-5
+bytes = 193856
+round = 2
+compile_seconds = 0.0
+case = "BigFloat/markowitz/dense8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 1680
+seconds = 6.68e-5
+bytes = 161088
+round = 2
+compile_seconds = 0.0
+case = "BigFloat/markowitz/dense8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 1952
+seconds = 6.61e-5
+bytes = 193856
+round = 3
+compile_seconds = 0.0
+case = "BigFloat/markowitz/dense8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 1680
+seconds = 6.59e-5
+bytes = 161088
+round = 3
+compile_seconds = 0.0
+case = "BigFloat/markowitz/dense8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 272
+seconds = 1.88e-5
+bytes = 32768
+round = 3
+compile_seconds = 0.0
+case = "BigFloat/markowitz/dense8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 2889
+seconds = 0.0001102
+bytes = 270784
+round = 1
+compile_seconds = 0.0
+case = "BigFloat/markowitz/sparse32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 368
+seconds = 2.14e-5
+bytes = 56832
+round = 1
+compile_seconds = 0.0
+case = "BigFloat/markowitz/sparse32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 3257
+seconds = 0.0001402
+bytes = 327616
+round = 1
+compile_seconds = 0.0
+case = "BigFloat/markowitz/sparse32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 368
+seconds = 2.52e-5
+bytes = 56832
+round = 2
+compile_seconds = 0.0
+case = "BigFloat/markowitz/sparse32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 3257
+seconds = 0.0001759
+bytes = 327616
+round = 2
+compile_seconds = 0.0
+case = "BigFloat/markowitz/sparse32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 2889
+seconds = 0.0001168
+bytes = 270784
+round = 2
+compile_seconds = 0.0
+case = "BigFloat/markowitz/sparse32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 3257
+seconds = 0.0001367
+bytes = 327616
+round = 3
+compile_seconds = 0.0
+case = "BigFloat/markowitz/sparse32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 2889
+seconds = 0.0001198
+bytes = 270784
+round = 3
+compile_seconds = 0.0
+case = "BigFloat/markowitz/sparse32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 368
+seconds = 2.45e-5
+bytes = 56832
+round = 3
+compile_seconds = 0.0
+case = "BigFloat/markowitz/sparse32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 91665
+seconds = 0.002298201
+bytes = 8808200
+round = 1
+compile_seconds = 0.0
+case = "BigFloat/markowitz/dense32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 428
+seconds = 0.0002322
+bytes = 287712
+round = 1
+compile_seconds = 0.0
+case = "BigFloat/markowitz/dense32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 92093
+seconds = 0.002945301
+bytes = 9095912
+round = 1
+compile_seconds = 0.0
+case = "BigFloat/markowitz/dense32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 428
+seconds = 0.0001483
+bytes = 287712
+round = 2
+compile_seconds = 0.0
+case = "BigFloat/markowitz/dense32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 92093
+seconds = 0.0024966
+bytes = 9095912
+round = 2
+compile_seconds = 0.0
+case = "BigFloat/markowitz/dense32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 91665
+seconds = 0.0023502
+bytes = 8808200
+round = 2
+compile_seconds = 0.0
+case = "BigFloat/markowitz/dense32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 92093
+seconds = 0.0025278
+bytes = 9095912
+round = 3
+compile_seconds = 0.0
+case = "BigFloat/markowitz/dense32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 91665
+seconds = 0.0023672
+bytes = 8808200
+round = 3
+compile_seconds = 0.0
+case = "BigFloat/markowitz/dense32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 428
+seconds = 0.0001228
+bytes = 287712
+round = 3
+compile_seconds = 0.0
+case = "BigFloat/markowitz/dense32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 10836
+seconds = 0.0001523
+bytes = 443264
+round = 1
+compile_seconds = 0.0
+case = "Rational{BigInt}/native/sparse8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 1288
+seconds = 2.95e-5
+bytes = 55968
+round = 1
+compile_seconds = 0.0
+case = "Rational{BigInt}/native/sparse8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 12124
+seconds = 0.0002066
+bytes = 493136
+round = 1
+compile_seconds = 0.0
+case = "Rational{BigInt}/native/sparse8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 1288
+seconds = 3.49e-5
+bytes = 55872
+round = 2
+compile_seconds = 0.0
+case = "Rational{BigInt}/native/sparse8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 12124
+seconds = 0.000204
+bytes = 492688
+round = 2
+compile_seconds = 0.0
+case = "Rational{BigInt}/native/sparse8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 10836
+seconds = 0.000133
+bytes = 443104
+round = 2
+compile_seconds = 0.0
+case = "Rational{BigInt}/native/sparse8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 12124
+seconds = 0.0001719
+bytes = 492816
+round = 3
+compile_seconds = 0.0
+case = "Rational{BigInt}/native/sparse8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 10836
+seconds = 0.0001356
+bytes = 443184
+round = 3
+compile_seconds = 0.0
+case = "Rational{BigInt}/native/sparse8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 1288
+seconds = 3.07e-5
+bytes = 55856
+round = 3
+compile_seconds = 0.0
+case = "Rational{BigInt}/native/sparse8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 11572
+seconds = 0.0002044
+bytes = 457344
+round = 1
+compile_seconds = 0.0
+case = "Rational{BigInt}/native/dense8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 1288
+seconds = 3.52e-5
+bytes = 62352
+round = 1
+compile_seconds = 0.0
+case = "Rational{BigInt}/native/dense8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 12860
+seconds = 0.0002564
+bytes = 513408
+round = 1
+compile_seconds = 0.0
+case = "Rational{BigInt}/native/dense8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 1288
+seconds = 3.29e-5
+bytes = 62224
+round = 2
+compile_seconds = 0.0
+case = "Rational{BigInt}/native/dense8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 12860
+seconds = 0.0002724
+bytes = 513248
+round = 2
+compile_seconds = 0.0
+case = "Rational{BigInt}/native/dense8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 11572
+seconds = 0.000199
+bytes = 457600
+round = 2
+compile_seconds = 0.0
+case = "Rational{BigInt}/native/dense8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 12860
+seconds = 0.0002126
+bytes = 513664
+round = 3
+compile_seconds = 0.0
+case = "Rational{BigInt}/native/dense8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 11572
+seconds = 0.0001901
+bytes = 457936
+round = 3
+compile_seconds = 0.0
+case = "Rational{BigInt}/native/dense8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 1288
+seconds = 3.44e-5
+bytes = 62288
+round = 3
+compile_seconds = 0.0
+case = "Rational{BigInt}/native/dense8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 664600
+seconds = 0.0067521
+bytes = 27364704
+round = 1
+compile_seconds = 0.0
+case = "Rational{BigInt}/native/sparse32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 17040
+seconds = 0.0004187
+bytes = 642352
+round = 1
+compile_seconds = 0.0
+case = "Rational{BigInt}/native/sparse32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 681640
+seconds = 0.007054001
+bytes = 27991776
+round = 1
+compile_seconds = 0.0
+case = "Rational{BigInt}/native/sparse32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 17040
+seconds = 0.000469901
+bytes = 642368
+round = 2
+compile_seconds = 0.0
+case = "Rational{BigInt}/native/sparse32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 681640
+seconds = 0.007186801
+bytes = 27992272
+round = 2
+compile_seconds = 0.0
+case = "Rational{BigInt}/native/sparse32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 664600
+seconds = 0.007358401
+bytes = 27362848
+round = 2
+compile_seconds = 0.0
+case = "Rational{BigInt}/native/sparse32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 681640
+seconds = 0.007726201
+bytes = 27993376
+round = 3
+compile_seconds = 0.0
+case = "Rational{BigInt}/native/sparse32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 664600
+seconds = 0.0066797
+bytes = 27364752
+round = 3
+compile_seconds = 0.0
+case = "Rational{BigInt}/native/sparse32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 17040
+seconds = 0.0004318
+bytes = 642432
+round = 3
+compile_seconds = 0.0
+case = "Rational{BigInt}/native/sparse32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 742552
+seconds = 0.010533101
+bytes = 28569648
+round = 1
+compile_seconds = 0.0
+case = "Rational{BigInt}/native/dense32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 17060
+seconds = 0.0004532
+bytes = 747968
+round = 1
+compile_seconds = 0.0
+case = "Rational{BigInt}/native/dense32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 759612
+seconds = 0.010885701
+bytes = 29309232
+round = 1
+compile_seconds = 0.0
+case = "Rational{BigInt}/native/dense32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 17060
+seconds = 0.0004685
+bytes = 747904
+round = 2
+compile_seconds = 0.0
+case = "Rational{BigInt}/native/dense32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 759612
+seconds = 0.010627101
+bytes = 29305504
+round = 2
+compile_seconds = 0.0
+case = "Rational{BigInt}/native/dense32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 742552
+seconds = 0.011038001
+bytes = 28568960
+round = 2
+compile_seconds = 0.0
+case = "Rational{BigInt}/native/dense32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 759612
+seconds = 0.010453201
+bytes = 29308064
+round = 3
+compile_seconds = 0.0
+case = "Rational{BigInt}/native/dense32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 742552
+seconds = 0.010761601
+bytes = 28569840
+round = 3
+compile_seconds = 0.0
+case = "Rational{BigInt}/native/dense32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 17060
+seconds = 0.0005413
+bytes = 747936
+round = 3
+compile_seconds = 0.0
+case = "Rational{BigInt}/native/dense32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 3202
+seconds = 0.000103
+bytes = 115872
+round = 1
+compile_seconds = 0.0
+case = "Rational{BigInt}/markowitz/sparse8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 392
+seconds = 1.48e-5
+bytes = 23296
+round = 1
+compile_seconds = 0.0
+case = "Rational{BigInt}/markowitz/sparse8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 3594
+seconds = 0.0001341
+bytes = 139408
+round = 1
+compile_seconds = 0.0
+case = "Rational{BigInt}/markowitz/sparse8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 392
+seconds = 1.58e-5
+bytes = 23296
+round = 2
+compile_seconds = 0.0
+case = "Rational{BigInt}/markowitz/sparse8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 3594
+seconds = 0.0001379
+bytes = 139920
+round = 2
+compile_seconds = 0.0
+case = "Rational{BigInt}/markowitz/sparse8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 3202
+seconds = 8.78e-5
+bytes = 115808
+round = 2
+compile_seconds = 0.0
+case = "Rational{BigInt}/markowitz/sparse8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 3594
+seconds = 0.0001022
+bytes = 139664
+round = 3
+compile_seconds = 0.0
+case = "Rational{BigInt}/markowitz/sparse8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 3202
+seconds = 7.99e-5
+bytes = 115936
+round = 3
+compile_seconds = 0.0
+case = "Rational{BigInt}/markowitz/sparse8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 392
+seconds = 1.67e-5
+bytes = 23296
+round = 3
+compile_seconds = 0.0
+case = "Rational{BigInt}/markowitz/sparse8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 11578
+seconds = 0.0001956
+bytes = 456192
+round = 1
+compile_seconds = 0.0
+case = "Rational{BigInt}/markowitz/dense8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 392
+seconds = 1.75e-5
+bytes = 40576
+round = 1
+compile_seconds = 0.0
+case = "Rational{BigInt}/markowitz/dense8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 11970
+seconds = 0.0002718
+bytes = 494656
+round = 1
+compile_seconds = 0.0
+case = "Rational{BigInt}/markowitz/dense8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 392
+seconds = 1.69e-5
+bytes = 40576
+round = 2
+compile_seconds = 0.0
+case = "Rational{BigInt}/markowitz/dense8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 11970
+seconds = 0.0003187
+bytes = 494880
+round = 2
+compile_seconds = 0.0
+case = "Rational{BigInt}/markowitz/dense8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 11578
+seconds = 0.0001977
+bytes = 456240
+round = 2
+compile_seconds = 0.0
+case = "Rational{BigInt}/markowitz/dense8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 11970
+seconds = 0.0001974
+bytes = 496272
+round = 3
+compile_seconds = 0.0
+case = "Rational{BigInt}/markowitz/dense8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 11578
+seconds = 0.0001735
+bytes = 455648
+round = 3
+compile_seconds = 0.0
+case = "Rational{BigInt}/markowitz/dense8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 392
+seconds = 1.73e-5
+bytes = 40576
+round = 3
+compile_seconds = 0.0
+case = "Rational{BigInt}/markowitz/dense8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 29227
+seconds = 0.0004725
+bytes = 812304
+round = 1
+compile_seconds = 0.0
+case = "Rational{BigInt}/markowitz/sparse32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 776
+seconds = 2.64e-5
+bytes = 71296
+round = 1
+compile_seconds = 0.0
+case = "Rational{BigInt}/markowitz/sparse32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 30003
+seconds = 0.0005112
+bytes = 881264
+round = 1
+compile_seconds = 0.0
+case = "Rational{BigInt}/markowitz/sparse32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 776
+seconds = 4.06e-5
+bytes = 71360
+round = 2
+compile_seconds = 0.0
+case = "Rational{BigInt}/markowitz/sparse32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 30003
+seconds = 0.0004762
+bytes = 881104
+round = 2
+compile_seconds = 0.0
+case = "Rational{BigInt}/markowitz/sparse32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 29227
+seconds = 0.0005313
+bytes = 812000
+round = 2
+compile_seconds = 0.0
+case = "Rational{BigInt}/markowitz/sparse32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 30003
+seconds = 0.000507501
+bytes = 881216
+round = 3
+compile_seconds = 0.0
+case = "Rational{BigInt}/markowitz/sparse32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 29227
+seconds = 0.0004759
+bytes = 812448
+round = 3
+compile_seconds = 0.0
+case = "Rational{BigInt}/markowitz/sparse32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 776
+seconds = 2.9e-5
+bytes = 71280
+round = 3
+compile_seconds = 0.0
+case = "Rational{BigInt}/markowitz/sparse32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 742555
+seconds = 0.010682102
+bytes = 28526168
+round = 1
+compile_seconds = 0.0
+case = "Rational{BigInt}/markowitz/dense32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 836
+seconds = 0.0003231
+bytes = 393856
+round = 1
+compile_seconds = 0.0
+case = "Rational{BigInt}/markowitz/dense32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 743391
+seconds = 0.010979401
+bytes = 28919336
+round = 1
+compile_seconds = 0.0
+case = "Rational{BigInt}/markowitz/dense32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 836
+seconds = 0.0002905
+bytes = 393888
+round = 2
+compile_seconds = 0.0
+case = "Rational{BigInt}/markowitz/dense32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 743391
+seconds = 0.010613701
+bytes = 28918456
+round = 2
+compile_seconds = 0.0
+case = "Rational{BigInt}/markowitz/dense32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 742555
+seconds = 0.011150602
+bytes = 28526472
+round = 2
+compile_seconds = 0.0
+case = "Rational{BigInt}/markowitz/dense32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 743391
+seconds = 0.010915601
+bytes = 28921208
+round = 3
+compile_seconds = 0.0
+case = "Rational{BigInt}/markowitz/dense32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 742555
+seconds = 0.010861101
+bytes = 28525816
+round = 3
+compile_seconds = 0.0
+case = "Rational{BigInt}/markowitz/dense32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 836
+seconds = 0.0002431
+bytes = 393904
+round = 3
+compile_seconds = 0.0
+case = "Rational{BigInt}/markowitz/dense32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 20
+seconds = 1.46e-5
+bytes = 5184
+round = 1
+compile_seconds = 0.0
+case = "Rational{Int64}/native/sparse8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 120
+seconds = 1.01e-5
+bytes = 17152
+round = 1
+compile_seconds = 0.0
+case = "Rational{Int64}/native/sparse8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 140
+seconds = 2.26e-5
+bytes = 22336
+round = 1
+compile_seconds = 0.0
+case = "Rational{Int64}/native/sparse8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 120
+seconds = 9.3e-6
+bytes = 17152
+round = 2
+compile_seconds = 0.0
+case = "Rational{Int64}/native/sparse8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 140
+seconds = 2.26e-5
+bytes = 22336
+round = 2
+compile_seconds = 0.0
+case = "Rational{Int64}/native/sparse8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 20
+seconds = 1.33e-5
+bytes = 5184
+round = 2
+compile_seconds = 0.0
+case = "Rational{Int64}/native/sparse8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 140
+seconds = 2.31e-5
+bytes = 22336
+round = 3
+compile_seconds = 0.0
+case = "Rational{Int64}/native/sparse8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 20
+seconds = 1.27e-5
+bytes = 5184
+round = 3
+compile_seconds = 0.0
+case = "Rational{Int64}/native/sparse8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 120
+seconds = 1.03e-5
+bytes = 17152
+round = 3
+compile_seconds = 0.0
+case = "Rational{Int64}/native/sparse8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 20
+seconds = 1.99e-5
+bytes = 5184
+round = 1
+compile_seconds = 0.0
+case = "Rational{Int64}/native/dense8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 120
+seconds = 1.11e-5
+bytes = 22784
+round = 1
+compile_seconds = 0.0
+case = "Rational{Int64}/native/dense8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 140
+seconds = 3.0e-5
+bytes = 27968
+round = 1
+compile_seconds = 0.0
+case = "Rational{Int64}/native/dense8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 120
+seconds = 1.0e-5
+bytes = 22784
+round = 2
+compile_seconds = 0.0
+case = "Rational{Int64}/native/dense8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 140
+seconds = 2.73e-5
+bytes = 27968
+round = 2
+compile_seconds = 0.0
+case = "Rational{Int64}/native/dense8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 20
+seconds = 1.91e-5
+bytes = 5184
+round = 2
+compile_seconds = 0.0
+case = "Rational{Int64}/native/dense8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 140
+seconds = 2.97e-5
+bytes = 27968
+round = 3
+compile_seconds = 0.0
+case = "Rational{Int64}/native/dense8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 20
+seconds = 1.87e-5
+bytes = 5184
+round = 3
+compile_seconds = 0.0
+case = "Rational{Int64}/native/dense8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 120
+seconds = 1.04e-5
+bytes = 22784
+round = 3
+compile_seconds = 0.0
+case = "Rational{Int64}/native/dense8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 24
+seconds = 0.0005157
+bytes = 67296
+round = 1
+compile_seconds = 0.0
+case = "Rational{Int64}/native/sparse32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 128
+seconds = 6.35e-5
+bytes = 154432
+round = 1
+compile_seconds = 0.0
+case = "Rational{Int64}/native/sparse32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 152
+seconds = 0.0006192
+bytes = 221728
+round = 1
+compile_seconds = 0.0
+case = "Rational{Int64}/native/sparse32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 128
+seconds = 6.39e-5
+bytes = 154432
+round = 2
+compile_seconds = 0.0
+case = "Rational{Int64}/native/sparse32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 152
+seconds = 0.0005148
+bytes = 221728
+round = 2
+compile_seconds = 0.0
+case = "Rational{Int64}/native/sparse32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 24
+seconds = 0.0004869
+bytes = 67296
+round = 2
+compile_seconds = 0.0
+case = "Rational{Int64}/native/sparse32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 152
+seconds = 0.000496
+bytes = 221728
+round = 3
+compile_seconds = 0.0
+case = "Rational{Int64}/native/sparse32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 24
+seconds = 0.0004792
+bytes = 67296
+round = 3
+compile_seconds = 0.0
+case = "Rational{Int64}/native/sparse32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 128
+seconds = 6.26e-5
+bytes = 154432
+round = 3
+compile_seconds = 0.0
+case = "Rational{Int64}/native/sparse32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 24
+seconds = 0.0010822
+bytes = 67296
+round = 1
+compile_seconds = 0.0
+case = "Rational{Int64}/native/dense32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 148
+seconds = 8.59e-5
+bytes = 261728
+round = 1
+compile_seconds = 0.0
+case = "Rational{Int64}/native/dense32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 172
+seconds = 0.0010995
+bytes = 329024
+round = 1
+compile_seconds = 0.0
+case = "Rational{Int64}/native/dense32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 148
+seconds = 0.0001007
+bytes = 261728
+round = 2
+compile_seconds = 0.0
+case = "Rational{Int64}/native/dense32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 172
+seconds = 0.001142601
+bytes = 329024
+round = 2
+compile_seconds = 0.0
+case = "Rational{Int64}/native/dense32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 24
+seconds = 0.0016287
+bytes = 67296
+round = 2
+compile_seconds = 0.0
+case = "Rational{Int64}/native/dense32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 172
+seconds = 0.0011114
+bytes = 329024
+round = 3
+compile_seconds = 0.0
+case = "Rational{Int64}/native/dense32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 24
+seconds = 0.0010476
+bytes = 67296
+round = 3
+compile_seconds = 0.0
+case = "Rational{Int64}/native/dense32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 148
+seconds = 8.27e-5
+bytes = 261728
+round = 3
+compile_seconds = 0.0
+case = "Rational{Int64}/native/dense32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 58
+seconds = 2.45e-5
+bytes = 4224
+round = 1
+compile_seconds = 0.0
+case = "Rational{Int64}/markowitz/sparse8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 232
+seconds = 1.17e-5
+bytes = 18816
+round = 1
+compile_seconds = 0.0
+case = "Rational{Int64}/markowitz/sparse8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 290
+seconds = 2.95e-5
+bytes = 23040
+round = 1
+compile_seconds = 0.0
+case = "Rational{Int64}/markowitz/sparse8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 232
+seconds = 9.7e-6
+bytes = 18816
+round = 2
+compile_seconds = 0.0
+case = "Rational{Int64}/markowitz/sparse8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 290
+seconds = 0.0001311
+bytes = 23040
+round = 2
+compile_seconds = 0.0
+case = "Rational{Int64}/markowitz/sparse8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 58
+seconds = 2.28e-5
+bytes = 4224
+round = 2
+compile_seconds = 0.0
+case = "Rational{Int64}/markowitz/sparse8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 290
+seconds = 3.06e-5
+bytes = 23040
+round = 3
+compile_seconds = 0.0
+case = "Rational{Int64}/markowitz/sparse8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 58
+seconds = 2.16e-5
+bytes = 4224
+round = 3
+compile_seconds = 0.0
+case = "Rational{Int64}/markowitz/sparse8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 232
+seconds = 1.12e-5
+bytes = 18816
+round = 3
+compile_seconds = 0.0
+case = "Rational{Int64}/markowitz/sparse8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 18
+seconds = 2.75e-5
+bytes = 2208
+round = 1
+compile_seconds = 0.0
+case = "Rational{Int64}/markowitz/dense8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 232
+seconds = 1.27e-5
+bytes = 36096
+round = 1
+compile_seconds = 0.0
+case = "Rational{Int64}/markowitz/dense8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 250
+seconds = 3.58e-5
+bytes = 38304
+round = 1
+compile_seconds = 0.0
+case = "Rational{Int64}/markowitz/dense8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 232
+seconds = 1.24e-5
+bytes = 36096
+round = 2
+compile_seconds = 0.0
+case = "Rational{Int64}/markowitz/dense8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 250
+seconds = 3.07e-5
+bytes = 38304
+round = 2
+compile_seconds = 0.0
+case = "Rational{Int64}/markowitz/dense8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 18
+seconds = 2.02e-5
+bytes = 2208
+round = 2
+compile_seconds = 0.0
+case = "Rational{Int64}/markowitz/dense8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 250
+seconds = 3.66e-5
+bytes = 38304
+round = 3
+compile_seconds = 0.0
+case = "Rational{Int64}/markowitz/dense8"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 18
+seconds = 2.36e-5
+bytes = 2208
+round = 3
+compile_seconds = 0.0
+case = "Rational{Int64}/markowitz/dense8"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 232
+seconds = 1.28e-5
+bytes = 36096
+round = 3
+compile_seconds = 0.0
+case = "Rational{Int64}/markowitz/dense8"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 211
+seconds = 5.07e-5
+bytes = 15392
+round = 1
+compile_seconds = 0.0
+case = "Rational{Int64}/markowitz/sparse32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 232
+seconds = 1.54e-5
+bytes = 53632
+round = 1
+compile_seconds = 0.0
+case = "Rational{Int64}/markowitz/sparse32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 443
+seconds = 6.51e-5
+bytes = 69024
+round = 1
+compile_seconds = 0.0
+case = "Rational{Int64}/markowitz/sparse32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 232
+seconds = 1.59e-5
+bytes = 53632
+round = 2
+compile_seconds = 0.0
+case = "Rational{Int64}/markowitz/sparse32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 443
+seconds = 6.41e-5
+bytes = 69024
+round = 2
+compile_seconds = 0.0
+case = "Rational{Int64}/markowitz/sparse32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 211
+seconds = 4.93e-5
+bytes = 15392
+round = 2
+compile_seconds = 0.0
+case = "Rational{Int64}/markowitz/sparse32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 443
+seconds = 6.32e-5
+bytes = 69024
+round = 3
+compile_seconds = 0.0
+case = "Rational{Int64}/markowitz/sparse32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 211
+seconds = 4.92e-5
+bytes = 15392
+round = 3
+compile_seconds = 0.0
+case = "Rational{Int64}/markowitz/sparse32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 232
+seconds = 1.67e-5
+bytes = 53632
+round = 3
+compile_seconds = 0.0
+case = "Rational{Int64}/markowitz/sparse32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 19
+seconds = 0.001051601
+bytes = 18888
+round = 1
+compile_seconds = 0.0
+case = "Rational{Int64}/markowitz/dense32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 292
+seconds = 0.0001161
+bytes = 377056
+round = 1
+compile_seconds = 0.0
+case = "Rational{Int64}/markowitz/dense32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 311
+seconds = 0.0011008
+bytes = 395944
+round = 1
+compile_seconds = 0.0
+case = "Rational{Int64}/markowitz/dense32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 292
+seconds = 0.0001087
+bytes = 377056
+round = 2
+compile_seconds = 0.0
+case = "Rational{Int64}/markowitz/dense32"
+region = "extraction"
+[[samples]]
+gc_seconds = 0.0
+allocations = 311
+seconds = 0.0011401
+bytes = 395944
+round = 2
+compile_seconds = 0.0
+case = "Rational{Int64}/markowitz/dense32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 19
+seconds = 0.0010644
+bytes = 18888
+round = 2
+compile_seconds = 0.0
+case = "Rational{Int64}/markowitz/dense32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 311
+seconds = 0.0010939
+bytes = 395944
+round = 3
+compile_seconds = 0.0
+case = "Rational{Int64}/markowitz/dense32"
+region = "whole_refactor"
+[[samples]]
+gc_seconds = 0.0
+allocations = 19
+seconds = 0.0010562
+bytes = 18888
+round = 3
+compile_seconds = 0.0
+case = "Rational{Int64}/markowitz/dense32"
+region = "backend"
+[[samples]]
+gc_seconds = 0.0
+allocations = 292
+seconds = 0.0001062
+bytes = 377056
+round = 3
+compile_seconds = 0.0
+case = "Rational{Int64}/markowitz/dense32"
+region = "extraction"
+
+[[cases]]
+input_nnz = 16
+matrix_sha256 = "230fdfbb420d47aceb16c08ac6307c140a74d7b721080e43a2dd93cf675a71fd"
+dimension = 8
+actual_factor_type = "LU{Float16, Matrix{Float16}, Vector{Int64}}"
+precision = "Float16"
+backend = "native"
+case = "Float16/native/sparse8"
+[[cases]]
+input_nnz = 64
+matrix_sha256 = "72abf7520f52862e9752723a591ae36b954c540d6522e4a292b4dc139ccb3bfc"
+dimension = 8
+actual_factor_type = "LU{Float16, Matrix{Float16}, Vector{Int64}}"
+precision = "Float16"
+backend = "native"
+case = "Float16/native/dense8"
+[[cases]]
+input_nnz = 64
+matrix_sha256 = "3c80dbe64976fdb6d881850171532d89c8e7a231e951e18eecb88ec67ce067d7"
+dimension = 32
+actual_factor_type = "LU{Float16, Matrix{Float16}, Vector{Int64}}"
+precision = "Float16"
+backend = "native"
+case = "Float16/native/sparse32"
+[[cases]]
+input_nnz = 1024
+matrix_sha256 = "dc3e2095e9ea0e5d31a8ee8cfdcc7f3abe611698f03c56248fac52aede7c91b7"
+dimension = 32
+actual_factor_type = "LU{Float16, Matrix{Float16}, Vector{Int64}}"
+precision = "Float16"
+backend = "native"
+case = "Float16/native/dense32"
+[[cases]]
+input_nnz = 16
+matrix_sha256 = "230fdfbb420d47aceb16c08ac6307c140a74d7b721080e43a2dd93cf675a71fd"
+dimension = 8
+actual_factor_type = "JSimplex.MarkowitzBackend{Float16, LU{Float16, Matrix{Float16}, Vector{Int64}}, OrderedCollections.OrderedDict{Int64, Float16}}"
+precision = "Float16"
+backend = "markowitz"
+case = "Float16/markowitz/sparse8"
+[[cases]]
+input_nnz = 64
+matrix_sha256 = "72abf7520f52862e9752723a591ae36b954c540d6522e4a292b4dc139ccb3bfc"
+dimension = 8
+actual_factor_type = "JSimplex.MarkowitzBackend{Float16, LU{Float16, Matrix{Float16}, Vector{Int64}}, OrderedCollections.OrderedDict{Int64, Float16}}"
+precision = "Float16"
+backend = "markowitz"
+case = "Float16/markowitz/dense8"
+[[cases]]
+input_nnz = 64
+matrix_sha256 = "3c80dbe64976fdb6d881850171532d89c8e7a231e951e18eecb88ec67ce067d7"
+dimension = 32
+actual_factor_type = "JSimplex.MarkowitzBackend{Float16, LU{Float16, Matrix{Float16}, Vector{Int64}}, OrderedCollections.OrderedDict{Int64, Float16}}"
+precision = "Float16"
+backend = "markowitz"
+case = "Float16/markowitz/sparse32"
+[[cases]]
+input_nnz = 1024
+matrix_sha256 = "dc3e2095e9ea0e5d31a8ee8cfdcc7f3abe611698f03c56248fac52aede7c91b7"
+dimension = 32
+actual_factor_type = "JSimplex.MarkowitzBackend{Float16, LU{Float16, Matrix{Float16}, Vector{Int64}}, OrderedCollections.OrderedDict{Int64, Float16}}"
+precision = "Float16"
+backend = "markowitz"
+case = "Float16/markowitz/dense32"
+[[cases]]
+input_nnz = 16
+matrix_sha256 = "8b08c3a23bebd07d1e5d5cf26a722274c8c0d6f8dce169412c119c1f51f28154"
+dimension = 8
+actual_factor_type = "LU{Float32, Matrix{Float32}, Vector{Int64}}"
+precision = "Float32"
+backend = "native"
+case = "Float32/native/sparse8"
+[[cases]]
+input_nnz = 64
+matrix_sha256 = "9f54da5524a1a4c180117c916a706bc0bb17ab07f25b0026031402b10c99e167"
+dimension = 8
+actual_factor_type = "LU{Float32, Matrix{Float32}, Vector{Int64}}"
+precision = "Float32"
+backend = "native"
+case = "Float32/native/dense8"
+[[cases]]
+input_nnz = 64
+matrix_sha256 = "1cd1b15470d4d4a54041ae9bb1acfe36f4bd1cd5f6dda3d67993cdd6786d30d0"
+dimension = 32
+actual_factor_type = "LU{Float32, Matrix{Float32}, Vector{Int64}}"
+precision = "Float32"
+backend = "native"
+case = "Float32/native/sparse32"
+[[cases]]
+input_nnz = 1024
+matrix_sha256 = "bf8542c52c8fc3c21e998680a92be269ea48a5fa44e36dec6ca316cbac705a61"
+dimension = 32
+actual_factor_type = "LU{Float32, Matrix{Float32}, Vector{Int64}}"
+precision = "Float32"
+backend = "native"
+case = "Float32/native/dense32"
+[[cases]]
+input_nnz = 16
+matrix_sha256 = "8b08c3a23bebd07d1e5d5cf26a722274c8c0d6f8dce169412c119c1f51f28154"
+dimension = 8
+actual_factor_type = "JSimplex.MarkowitzBackend{Float32, LU{Float32, Matrix{Float32}, Vector{Int64}}, OrderedCollections.OrderedDict{Int64, Float32}}"
+precision = "Float32"
+backend = "markowitz"
+case = "Float32/markowitz/sparse8"
+[[cases]]
+input_nnz = 64
+matrix_sha256 = "9f54da5524a1a4c180117c916a706bc0bb17ab07f25b0026031402b10c99e167"
+dimension = 8
+actual_factor_type = "JSimplex.MarkowitzBackend{Float32, LU{Float32, Matrix{Float32}, Vector{Int64}}, OrderedCollections.OrderedDict{Int64, Float32}}"
+precision = "Float32"
+backend = "markowitz"
+case = "Float32/markowitz/dense8"
+[[cases]]
+input_nnz = 64
+matrix_sha256 = "1cd1b15470d4d4a54041ae9bb1acfe36f4bd1cd5f6dda3d67993cdd6786d30d0"
+dimension = 32
+actual_factor_type = "JSimplex.MarkowitzBackend{Float32, LU{Float32, Matrix{Float32}, Vector{Int64}}, OrderedCollections.OrderedDict{Int64, Float32}}"
+precision = "Float32"
+backend = "markowitz"
+case = "Float32/markowitz/sparse32"
+[[cases]]
+input_nnz = 1024
+matrix_sha256 = "bf8542c52c8fc3c21e998680a92be269ea48a5fa44e36dec6ca316cbac705a61"
+dimension = 32
+actual_factor_type = "JSimplex.MarkowitzBackend{Float32, LU{Float32, Matrix{Float32}, Vector{Int64}}, OrderedCollections.OrderedDict{Int64, Float32}}"
+precision = "Float32"
+backend = "markowitz"
+case = "Float32/markowitz/dense32"
+[[cases]]
+input_nnz = 16
+matrix_sha256 = "1f7bb15b60c7e0342911e9f822ac6a6f02e012ffa932683b271b95ddb5d72422"
+dimension = 8
+actual_factor_type = "LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}"
+precision = "BigFloat"
+backend = "native"
+case = "BigFloat/native/sparse8"
+[[cases]]
+input_nnz = 64
+matrix_sha256 = "fbe51b76c936cf4282e4ba62e5f7989542ba5af112a67ec4836cc2a53967c06b"
+dimension = 8
+actual_factor_type = "LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}"
+precision = "BigFloat"
+backend = "native"
+case = "BigFloat/native/dense8"
+[[cases]]
+input_nnz = 64
+matrix_sha256 = "094eabbeadba01d3ee48627ddbcf4e8e6e41d8e9a34eb9c8e7098d7d0ab20a6f"
+dimension = 32
+actual_factor_type = "LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}"
+precision = "BigFloat"
+backend = "native"
+case = "BigFloat/native/sparse32"
+[[cases]]
+input_nnz = 1024
+matrix_sha256 = "74e6f9f236bd83b5c5bf06c16254dce93182568407c4a678cc502e92be56b5f7"
+dimension = 32
+actual_factor_type = "LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}"
+precision = "BigFloat"
+backend = "native"
+case = "BigFloat/native/dense32"
+[[cases]]
+input_nnz = 16
+matrix_sha256 = "7b871ef63a12f354725f1d0f307774b84d2e5677bed04453ebbe6aff8301abde"
+dimension = 8
+actual_factor_type = "JSimplex.MarkowitzBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}, OrderedCollections.OrderedDict{Int64, BigFloat}}"
+precision = "BigFloat"
+backend = "markowitz"
+case = "BigFloat/markowitz/sparse8"
+[[cases]]
+input_nnz = 64
+matrix_sha256 = "26cdb4058d642dd6f2addf96637c11c67df715de9514ba833eee7d1ff08188e6"
+dimension = 8
+actual_factor_type = "JSimplex.MarkowitzBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}, OrderedCollections.OrderedDict{Int64, BigFloat}}"
+precision = "BigFloat"
+backend = "markowitz"
+case = "BigFloat/markowitz/dense8"
+[[cases]]
+input_nnz = 64
+matrix_sha256 = "86ef89489af36638df45bdad391c3dfc966fa78a2936420965456e45cd2d77f5"
+dimension = 32
+actual_factor_type = "JSimplex.MarkowitzBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}, OrderedCollections.OrderedDict{Int64, BigFloat}}"
+precision = "BigFloat"
+backend = "markowitz"
+case = "BigFloat/markowitz/sparse32"
+[[cases]]
+input_nnz = 1024
+matrix_sha256 = "4f21068781e4d64993d9b906fc8b30156e868914d292f0017c188551e50ab502"
+dimension = 32
+actual_factor_type = "JSimplex.MarkowitzBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}, OrderedCollections.OrderedDict{Int64, BigFloat}}"
+precision = "BigFloat"
+backend = "markowitz"
+case = "BigFloat/markowitz/dense32"
+[[cases]]
+input_nnz = 16
+matrix_sha256 = "95868cb88c07508165e466ca662e151ed63c364fc11842d270033377cababa3f"
+dimension = 8
+actual_factor_type = "LU{Rational{BigInt}, Matrix{Rational{BigInt}}, Vector{Int64}}"
+precision = "Rational{BigInt}"
+backend = "native"
+case = "Rational{BigInt}/native/sparse8"
+[[cases]]
+input_nnz = 64
+matrix_sha256 = "7686e27d73bd33882d2e74ff6c2a01f09481963d6b15d937a6023209d15fa820"
+dimension = 8
+actual_factor_type = "LU{Rational{BigInt}, Matrix{Rational{BigInt}}, Vector{Int64}}"
+precision = "Rational{BigInt}"
+backend = "native"
+case = "Rational{BigInt}/native/dense8"
+[[cases]]
+input_nnz = 64
+matrix_sha256 = "b5658b8ef754e9f5a7b5fc5009e45d77f3471cc1d32d7d46d5bbdd843de677f5"
+dimension = 32
+actual_factor_type = "LU{Rational{BigInt}, Matrix{Rational{BigInt}}, Vector{Int64}}"
+precision = "Rational{BigInt}"
+backend = "native"
+case = "Rational{BigInt}/native/sparse32"
+[[cases]]
+input_nnz = 1024
+matrix_sha256 = "42b69925bf7548c7fe0f0e943ae29f0562a2d22634f10ff6d5c8f0cd12e14884"
+dimension = 32
+actual_factor_type = "LU{Rational{BigInt}, Matrix{Rational{BigInt}}, Vector{Int64}}"
+precision = "Rational{BigInt}"
+backend = "native"
+case = "Rational{BigInt}/native/dense32"
+[[cases]]
+input_nnz = 16
+matrix_sha256 = "95868cb88c07508165e466ca662e151ed63c364fc11842d270033377cababa3f"
+dimension = 8
+actual_factor_type = "JSimplex.MarkowitzBackend{Rational{BigInt}, LU{Rational{BigInt}, Matrix{Rational{BigInt}}, Vector{Int64}}, OrderedCollections.OrderedDict{Int64, Rational{BigInt}}}"
+precision = "Rational{BigInt}"
+backend = "markowitz"
+case = "Rational{BigInt}/markowitz/sparse8"
+[[cases]]
+input_nnz = 64
+matrix_sha256 = "7686e27d73bd33882d2e74ff6c2a01f09481963d6b15d937a6023209d15fa820"
+dimension = 8
+actual_factor_type = "JSimplex.MarkowitzBackend{Rational{BigInt}, LU{Rational{BigInt}, Matrix{Rational{BigInt}}, Vector{Int64}}, OrderedCollections.OrderedDict{Int64, Rational{BigInt}}}"
+precision = "Rational{BigInt}"
+backend = "markowitz"
+case = "Rational{BigInt}/markowitz/dense8"
+[[cases]]
+input_nnz = 64
+matrix_sha256 = "b5658b8ef754e9f5a7b5fc5009e45d77f3471cc1d32d7d46d5bbdd843de677f5"
+dimension = 32
+actual_factor_type = "JSimplex.MarkowitzBackend{Rational{BigInt}, LU{Rational{BigInt}, Matrix{Rational{BigInt}}, Vector{Int64}}, OrderedCollections.OrderedDict{Int64, Rational{BigInt}}}"
+precision = "Rational{BigInt}"
+backend = "markowitz"
+case = "Rational{BigInt}/markowitz/sparse32"
+[[cases]]
+input_nnz = 1024
+matrix_sha256 = "42b69925bf7548c7fe0f0e943ae29f0562a2d22634f10ff6d5c8f0cd12e14884"
+dimension = 32
+actual_factor_type = "JSimplex.MarkowitzBackend{Rational{BigInt}, LU{Rational{BigInt}, Matrix{Rational{BigInt}}, Vector{Int64}}, OrderedCollections.OrderedDict{Int64, Rational{BigInt}}}"
+precision = "Rational{BigInt}"
+backend = "markowitz"
+case = "Rational{BigInt}/markowitz/dense32"
+[[cases]]
+input_nnz = 16
+matrix_sha256 = "902eea1c7ee79a710a53a7a393eb3e3249a3c17d0d063c299d9725158cb8c4ce"
+dimension = 8
+actual_factor_type = "LU{Rational{Int64}, Matrix{Rational{Int64}}, Vector{Int64}}"
+precision = "Rational{Int64}"
+backend = "native"
+case = "Rational{Int64}/native/sparse8"
+[[cases]]
+input_nnz = 64
+matrix_sha256 = "78d2f29db6df86dc16a8b8238c4ea6b986868d0c3787319466b2ccc1196527ef"
+dimension = 8
+actual_factor_type = "LU{Rational{Int64}, Matrix{Rational{Int64}}, Vector{Int64}}"
+precision = "Rational{Int64}"
+backend = "native"
+case = "Rational{Int64}/native/dense8"
+[[cases]]
+input_nnz = 64
+matrix_sha256 = "150217534c04c5d1c47ada21bb14dc0df02c4f95015113df330f8f66c8f69d5c"
+dimension = 32
+actual_factor_type = "LU{Rational{Int64}, Matrix{Rational{Int64}}, Vector{Int64}}"
+precision = "Rational{Int64}"
+backend = "native"
+case = "Rational{Int64}/native/sparse32"
+[[cases]]
+input_nnz = 1024
+matrix_sha256 = "1ab7506c66ee0b9c381c61747a7676d1a7e5f106bb3a036051c01ea450933a13"
+dimension = 32
+actual_factor_type = "LU{Rational{Int64}, Matrix{Rational{Int64}}, Vector{Int64}}"
+precision = "Rational{Int64}"
+backend = "native"
+case = "Rational{Int64}/native/dense32"
+[[cases]]
+input_nnz = 16
+matrix_sha256 = "902eea1c7ee79a710a53a7a393eb3e3249a3c17d0d063c299d9725158cb8c4ce"
+dimension = 8
+actual_factor_type = "JSimplex.MarkowitzBackend{Rational{Int64}, LU{Rational{Int64}, Matrix{Rational{Int64}}, Vector{Int64}}, OrderedCollections.OrderedDict{Int64, Rational{Int64}}}"
+precision = "Rational{Int64}"
+backend = "markowitz"
+case = "Rational{Int64}/markowitz/sparse8"
+[[cases]]
+input_nnz = 64
+matrix_sha256 = "78d2f29db6df86dc16a8b8238c4ea6b986868d0c3787319466b2ccc1196527ef"
+dimension = 8
+actual_factor_type = "JSimplex.MarkowitzBackend{Rational{Int64}, LU{Rational{Int64}, Matrix{Rational{Int64}}, Vector{Int64}}, OrderedCollections.OrderedDict{Int64, Rational{Int64}}}"
+precision = "Rational{Int64}"
+backend = "markowitz"
+case = "Rational{Int64}/markowitz/dense8"
+[[cases]]
+input_nnz = 64
+matrix_sha256 = "150217534c04c5d1c47ada21bb14dc0df02c4f95015113df330f8f66c8f69d5c"
+dimension = 32
+actual_factor_type = "JSimplex.MarkowitzBackend{Rational{Int64}, LU{Rational{Int64}, Matrix{Rational{Int64}}, Vector{Int64}}, OrderedCollections.OrderedDict{Int64, Rational{Int64}}}"
+precision = "Rational{Int64}"
+backend = "markowitz"
+case = "Rational{Int64}/markowitz/sparse32"
+[[cases]]
+input_nnz = 1024
+matrix_sha256 = "1ab7506c66ee0b9c381c61747a7676d1a7e5f106bb3a036051c01ea450933a13"
+dimension = 32
+actual_factor_type = "JSimplex.MarkowitzBackend{Rational{Int64}, LU{Rational{Int64}, Matrix{Rational{Int64}}, Vector{Int64}}, OrderedCollections.OrderedDict{Int64, Rational{Int64}}}"
+precision = "Rational{Int64}"
+backend = "markowitz"
+case = "Rational{Int64}/markowitz/dense32"
