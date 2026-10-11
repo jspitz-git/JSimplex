@@ -4,7 +4,7 @@ Updated: 2026-10-11. This is the entry point after interruption.
 
 ## Current state
 
-**S1-A integrated and pushed to master (`beb161b`). S0-L2: reduced probe density under calibration; no long reference yet.**
+**S1-A integrated and pushed to master (`beb161b`). S0-L2: kernel10 passed; full suite3 rejected medium primal; no long reference.**
 The source baseline is `fe839aa72171d7496c9c931d9393278448c7317e`.
 Completed diagnostic evidence is commit `6ded1fc`.
 
@@ -46,35 +46,49 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-Read current S0-L process reports before source edits or another Julia launch.
-Pilot8 with128 kernels/six balanced pairs rejected sparse6.5645% (dense1.9616%
-passes). Sampling is now fixed; do not keep increasing repeats to seek acceptance.
-The current changed hypothesis omits8 entry probes for dispatch/iteration/auto-edge
-wrappers and pricing selectors. Required primitive, residual, finite-element,
-pipeline-role, pricing bulk, support, copy, region/recovery/certificate counters
-remain. Original numerical bodies/checks do not change. Reports list omitted
-entries separately; they are not zero calls. Steps do not count every attempted
-iteration entry; DSE counts do not count every possible Devex fallback update.
-Review accepts this coverage, with no added work/retention or numerical changes.
-counts-green-3 passed40, exit0/pins unchanged. Next serialized driver:
-metadata-green-4 -> window-pilot-9 -> solve-suite-3 only if kernel gates pass ->
-driver-smoke-1 only if all six full-suite gates pass. Full suite uses six balanced
-pairs; thresholds remain5%. Inspect which stage is active from its process.json.
+S0-L2 remains rejected: window-pilot-10 passed sparse4.64385%/dense2.96326%,
+but full solve-suite-3 rejected medium primal5.90404% (the other five gates pass).
+All traces match, measured compilation is zero, recorder retention2860B constant.
+Process exit0/pins unchanged; host separately verified runner262104/child262110
+and conditional-driver261939 absent before edits. Smoke1 and long reference
+were correctly not launched. That driver is stopped; the new isolated calibration below is active.
 
-Streaming writer passed10 tests, window19/nested-phase19. Isolated writer medians
-per256 windows6.8623->1.88675ms, bytes5537792->2445312, allocations116992->71936;
-this is serialization-only evidence. All earlier failures/snapshots remain.
-Suite2 rejected sparse primal15.70% and medium dual5.47%, despite exact traces,
-compile0 and constant retention; no long acceptance transfers across versions.
-Current full-calibration/L3 snapshots precede the untimed final primal check;
-older calibration counts include that check and cannot be summed against windows.
+Current diagnostic source: reduced8 wrapper/selector probes, streaming writer,
+fixed pricing metadata and owned-event inline/constant-propagation specialization.
+Event semantics17 tests pass; counter40, metadata16, phase/window/stream evidence
+is retained with exact snapshots. No production changes. Checkpoint1ceadcb pushed;
+current annotation, ablation, tests/evidence and review notes are uncommitted.
 
-Reviewed long_measure.jl and long_audit.py are prepared. Python audit10 tests pass;
-Julia driver smoke remains required. After L2/smoke and review, follow the L3
-subplan: baseline-source failfast, pinned allowed medium, live state,1024-step
-windows,1000000-step cap/external12-hour guard, one numerical process only.
-No long reference has launched. S2-INVENTORY-NOTES.md is static prerequisite work.
-User explicitly requested continuous execution through diagnostic failures.
+Reviewed next experiment is active: process-isolated medium/primal64 calibration,
+`/tmp/jsimplex-isolated-calibration.py`, manifest/results under
+`.superpowers/simplex-core-architecture/S0-L/isolated-primal-calibration-1.json`.
+Twelve serialized guarded processes: six fixed alternating plain/counted pairs,
+one measured fresh prefix after actual L3 warmups; each process owns only one
+module/model graph. This tests the concrete residency mismatch with suite3.
+The5% ratio-of-medians limit is unchanged; no GC subtraction or discarded samples.
+Current first attempt: isolated-primal-p01-plain-1. Follow its current/process
+reports and manifest before editing pinned Julia scripts or starting anything.
+The orchestrator is pinned too; do not edit it until all child jobs have stopped.
+It never launches a long reference automatically. After all samples, inspect
+complete/accepted, all identities and exact counted window sums. Keep suite3 FAIL.
+
+Suite3's six paired medium-primal elapsed differences were roughly
++0.56%,-0.46%,+0.26%,+7.72%,+9.46%,+1.51%. GC is2.5–3.3s within9.9–11.1s
+elapsed; the two large paired gaps include0.396s/0.675s extra GC. Each run
+allocates~9.346GB/168million objects, instrumentation adds~540 allocation events
+and only two windows. This supports investigating GC sensitivity, not attributing
+all excess to GC or accepting the failed test. Removing more probes lacks evidence.
+
+Static final diagnostic review found no new numerical, unnecessary-work or
+retention defect. long_measure.jl/long_audit.py are prepared, Python audit10
+passes, but Julia smoke and L2 acceptance remain required. Audit CLIexit0 alone
+is insufficient: inspect chronology_reference_success. L3 must use pinned
+baseline+allowed medium, live1024-step windows,1000000-step cap and external12h
+guard. A limit is incomplete. No long reference has launched.
+
+S2-INVENTORY-NOTES.md was statically reviewed and corrected to include all known
+independent-audit allocations and basis residual work. No S2 experiment or API
+selection yet. User explicitly requested continuous execution through failures.
 
 S1-A production commit `8e0a7c7def505604ccfe50cdbc2cf9cee453092d` was integrated
 as master `beb161b310afd9dc7126eca98e3c15898a69efbf` and pushed. Its src/test/Project

@@ -1,0 +1,2139 @@
+source = "/home/jspitz/.codex/worktrees/simplex-time-budget/JSimplex.jl/src"
+prefix_limit = 10000
+omitted_entry_probes = ["_primal_iteration_unchecked!", "_dual_iteration_unchecked!", "_configured_dual_ratio_test", "_validate_primal_edge!", "_validate_dual_edge!", "update_dual_pricing_weights!", "_primal_entering", "dual_edge_selection"]
+section_labels = ["presolve", "initialization", "ordinary", "recovery", "refactorization", "projection", "cleanup_entry", "cleanup_steps", "certification", "instrumentation"]
+pairs = 6
+model = "dense"
+counter_labels = ["presolve_problem", "postsolve_primal", "cleanup_original", "initialize_workspace", "_basis_matrix!", "recompute!", "_replace_pivot_column!", "_legacy_primal_point_certified", "_primal_row_bounds!", "_native_primal_rows_filter", "_legacy_primal_row_consistent", "_legacy_primal_model_feasible", "_restore_legacy_primal_point!", "_try_native_primal_point_correction!", "_audit_primal_values!", "_primal_ratio", "_primal_update_steepest!", "_legacy_primal_direction_price_ok", "_primal_price_prediction_reliable", "apply_primal_pivot!", "_primal_bound_snap_feasible", "price!", "dual_ratio_test", "_bound_flipping_ratio_test", "_apply_bound_flips!", "_try_native_dual_correction!", "_try_native_dual_tableau!", "_dual_row_residual_ratio", "_dual_direction_residual_ok!", "_finite_workspace", "update_duals!", "update_primals!", "_pipeline_basis_solve!", "update_dse!", "_stabilize_small_dual_pivot!", "_refined_dual_prices", "_refined_basis_solution", "_try_refine_dual_prices!", "_refined_tableau_row", "_try_refine_dual_pivot!", "_try_refine_dual_direction!", "_try_native_certificate_recovery", "_project_postsolve_basis!", "_internal_solution", "refactorize!", "_rebuild_pipeline_support!", "_pipeline_output_support!", "_copy_pivot_state!", "_sparse_pricing_workspace!", "_original_optimality_certified", "finite_value_elements", "pipeline_ftran_forward", "pipeline_ftran_transpose", "pipeline_btran_forward", "pipeline_btran_transpose", "pipeline_pricing_forward", "pipeline_pricing_transpose", "pipeline_bfrt_forward", "pipeline_bfrt_transpose", "pipeline_weight_ftran_forward", "pipeline_weight_ftran_transpose", "pipeline_weight_btran_forward", "pipeline_weight_btran_transpose", "committed_restore_checkpoint", "committed_repair", "committed_checkpoint", "committed_pricing_reset", "discarded_metadata_events", "pricing_scanned_entries", "pricing_scored_entries", "pricing_full_scan", "pricing_block_scan", "pricing_pool_hit"]
+
+[[options]]
+basis_update = "huangfu_hall"
+iteration_limit = "10000"
+pricing = "steepest_edge"
+simplex_strategy = "legacy"
+basis_refactorization = "native"
+time_limit = "Inf"
+log_level = "Debug"
+verbose = "false"
+scaling = "auto"
+partial_pricing = "false"
+algorithm = "dual"
+zero_tolerance = "1.0e-12"
+presolve = "true"
+primal_tolerance = "1.0e-7"
+dual_tolerance = "1.0e-7"
+refactorization_interval = "160"
+[[options]]
+basis_update = "huangfu_hall"
+iteration_limit = "10000"
+pricing = "steepest_edge"
+simplex_strategy = "legacy"
+basis_refactorization = "native"
+time_limit = "Inf"
+log_level = "Debug"
+verbose = "false"
+scaling = "auto"
+partial_pricing = "false"
+algorithm = "primal"
+zero_tolerance = "1.0e-12"
+presolve = "true"
+primal_tolerance = "1.0e-7"
+dual_tolerance = "1.0e-7"
+refactorization_interval = "160"
+
+[[samples]]
+counted = false
+last_callback_state = ""
+gc_seconds = 0.099111496
+primal_hash = "cb6e44878ef6be74e4fe3c8d9ec09421b6e9510de93262af80480f665f35abd5"
+objective = "-306.000491246992"
+allocations = 13702286
+seconds = 0.518727176
+recorder_retained_bytes = 0
+compile_seconds = 0.0
+pair = 1
+trace = false
+bytes = 514511256
+algorithm = "dual"
+iterations = 65
+states_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+status = "OPTIMAL"
+events_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+    [samples.counts]
+
+    [samples.recorder_tail]
+
+    [samples.events]
+[[samples]]
+counted = true
+last_callback_state = ""
+gc_seconds = 0.0
+primal_hash = "cb6e44878ef6be74e4fe3c8d9ec09421b6e9510de93262af80480f665f35abd5"
+objective = "-306.000491246992"
+allocations = 13703619
+seconds = 0.265295582
+recorder_retained_bytes = 2860
+compile_seconds = 0.0
+pair = 1
+trace = false
+bytes = 514250488
+algorithm = "dual"
+iterations = 65
+states_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+status = "OPTIMAL"
+events_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+    [samples.counts]
+    _refined_tableau_row = 0
+    postsolve_primal = 1
+    "update_primals!" = 65
+    pipeline_ftran_transpose = 0
+    _dual_row_residual_ratio = 65
+    "_try_refine_dual_pivot!" = 0
+    cleanup_original = 1
+    "_stabilize_small_dual_pivot!" = 65
+    discarded_metadata_events = 0
+    _legacy_primal_point_certified = 0
+    pipeline_pricing_forward = 0
+    committed_pricing_reset = 0
+    pricing_full_scan = 66
+    finite_value_elements = 205824
+    "_dual_direction_residual_ok!" = 65
+    "_try_native_primal_point_correction!" = 0
+    committed_checkpoint = 0
+    _refined_dual_prices = 0
+    "_pipeline_output_support!" = 0
+    pipeline_btran_forward = 0
+    "_try_native_dual_correction!" = 0
+    pipeline_bfrt_transpose = 0
+    "_try_refine_dual_direction!" = 0
+    pipeline_ftran_forward = 71
+    pricing_block_scan = 0
+    initialize_workspace = 2
+    _legacy_primal_direction_price_ok = 0
+    "_primal_row_bounds!" = 6
+    presolve_problem = 1
+    "apply_primal_pivot!" = 0
+    _try_native_certificate_recovery = 0
+    pricing_scanned_entries = 4352
+    "update_duals!" = 65
+    committed_repair = 0
+    pipeline_weight_ftran_transpose = 0
+    _legacy_primal_row_consistent = 0
+    dual_ratio_test = 1
+    _original_optimality_certified = 2
+    pipeline_pricing_transpose = 0
+    "_try_refine_dual_prices!" = 0
+    "update_dse!" = 65
+    "_copy_pivot_state!" = 0
+    "price!" = 65
+    "_project_postsolve_basis!" = 1
+    pipeline_weight_ftran_forward = 65
+    pricing_pool_hit = 0
+    _primal_ratio = 0
+    "_primal_update_steepest!" = 0
+    committed_restore_checkpoint = 0
+    "_apply_bound_flips!" = 65
+    "_replace_pivot_column!" = 65
+    "_restore_legacy_primal_point!" = 0
+    _bound_flipping_ratio_test = 65
+    "_audit_primal_values!" = 0
+    "_rebuild_pipeline_support!" = 0
+    "recompute!" = 6
+    pipeline_weight_btran_transpose = 0
+    pricing_scored_entries = 1978
+    _legacy_primal_model_feasible = 0
+    _refined_basis_solution = 0
+    pipeline_bfrt_forward = 7
+    pipeline_weight_btran_forward = 0
+    _native_primal_rows_filter = 0
+    "_try_native_dual_tableau!" = 0
+    "_pipeline_basis_solve!" = 214
+    "_basis_matrix!" = 1
+    pipeline_btran_transpose = 71
+    _primal_bound_snap_feasible = 0
+    "refactorize!" = 1
+    "_sparse_pricing_workspace!" = 0
+    _internal_solution = 2
+    _primal_price_prediction_reliable = 0
+    _finite_workspace = 268
+
+    [samples.recorder_tail]
+    tail_instrumentation_nanoseconds = 16100
+    tail_instrumentation_bytes = 9056
+    windows = 5
+
+    [samples.events]
+[[samples]]
+counted = true
+last_callback_state = ""
+gc_seconds = 0.102884192
+primal_hash = "cb6e44878ef6be74e4fe3c8d9ec09421b6e9510de93262af80480f665f35abd5"
+objective = "-306.000491246992"
+allocations = 13703619
+seconds = 0.458238768
+recorder_retained_bytes = 2860
+compile_seconds = 0.0
+pair = 2
+trace = false
+bytes = 515675624
+algorithm = "dual"
+iterations = 65
+states_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+status = "OPTIMAL"
+events_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+    [samples.counts]
+    _refined_tableau_row = 0
+    postsolve_primal = 1
+    "update_primals!" = 65
+    pipeline_ftran_transpose = 0
+    _dual_row_residual_ratio = 65
+    "_try_refine_dual_pivot!" = 0
+    cleanup_original = 1
+    "_stabilize_small_dual_pivot!" = 65
+    discarded_metadata_events = 0
+    _legacy_primal_point_certified = 0
+    pipeline_pricing_forward = 0
+    committed_pricing_reset = 0
+    pricing_full_scan = 66
+    finite_value_elements = 205824
+    "_dual_direction_residual_ok!" = 65
+    "_try_native_primal_point_correction!" = 0
+    committed_checkpoint = 0
+    _refined_dual_prices = 0
+    "_pipeline_output_support!" = 0
+    pipeline_btran_forward = 0
+    "_try_native_dual_correction!" = 0
+    pipeline_bfrt_transpose = 0
+    "_try_refine_dual_direction!" = 0
+    pipeline_ftran_forward = 71
+    pricing_block_scan = 0
+    initialize_workspace = 2
+    _legacy_primal_direction_price_ok = 0
+    "_primal_row_bounds!" = 6
+    presolve_problem = 1
+    "apply_primal_pivot!" = 0
+    _try_native_certificate_recovery = 0
+    pricing_scanned_entries = 4352
+    "update_duals!" = 65
+    committed_repair = 0
+    pipeline_weight_ftran_transpose = 0
+    _legacy_primal_row_consistent = 0
+    dual_ratio_test = 1
+    _original_optimality_certified = 2
+    pipeline_pricing_transpose = 0
+    "_try_refine_dual_prices!" = 0
+    "update_dse!" = 65
+    "_copy_pivot_state!" = 0
+    "price!" = 65
+    "_project_postsolve_basis!" = 1
+    pipeline_weight_ftran_forward = 65
+    pricing_pool_hit = 0
+    _primal_ratio = 0
+    "_primal_update_steepest!" = 0
+    committed_restore_checkpoint = 0
+    "_apply_bound_flips!" = 65
+    "_replace_pivot_column!" = 65
+    "_restore_legacy_primal_point!" = 0
+    _bound_flipping_ratio_test = 65
+    "_audit_primal_values!" = 0
+    "_rebuild_pipeline_support!" = 0
+    "recompute!" = 6
+    pipeline_weight_btran_transpose = 0
+    pricing_scored_entries = 1978
+    _legacy_primal_model_feasible = 0
+    _refined_basis_solution = 0
+    pipeline_bfrt_forward = 7
+    pipeline_weight_btran_forward = 0
+    _native_primal_rows_filter = 0
+    "_try_native_dual_tableau!" = 0
+    "_pipeline_basis_solve!" = 214
+    "_basis_matrix!" = 1
+    pipeline_btran_transpose = 71
+    _primal_bound_snap_feasible = 0
+    "refactorize!" = 1
+    "_sparse_pricing_workspace!" = 0
+    _internal_solution = 2
+    _primal_price_prediction_reliable = 0
+    _finite_workspace = 268
+
+    [samples.recorder_tail]
+    tail_instrumentation_nanoseconds = 7100
+    tail_instrumentation_bytes = 9056
+    windows = 5
+
+    [samples.events]
+[[samples]]
+counted = false
+last_callback_state = ""
+gc_seconds = 0.060245195
+primal_hash = "cb6e44878ef6be74e4fe3c8d9ec09421b6e9510de93262af80480f665f35abd5"
+objective = "-306.000491246992"
+allocations = 13702286
+seconds = 0.391096873
+recorder_retained_bytes = 0
+compile_seconds = 0.0
+pair = 2
+trace = false
+bytes = 515636360
+algorithm = "dual"
+iterations = 65
+states_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+status = "OPTIMAL"
+events_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+    [samples.counts]
+
+    [samples.recorder_tail]
+
+    [samples.events]
+[[samples]]
+counted = false
+last_callback_state = ""
+gc_seconds = 0.064053195
+primal_hash = "cb6e44878ef6be74e4fe3c8d9ec09421b6e9510de93262af80480f665f35abd5"
+objective = "-306.000491246992"
+allocations = 13702286
+seconds = 0.405117272
+recorder_retained_bytes = 0
+compile_seconds = 0.0
+pair = 3
+trace = false
+bytes = 515618088
+algorithm = "dual"
+iterations = 65
+states_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+status = "OPTIMAL"
+events_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+    [samples.counts]
+
+    [samples.recorder_tail]
+
+    [samples.events]
+[[samples]]
+counted = true
+last_callback_state = ""
+gc_seconds = 0.062805096
+primal_hash = "cb6e44878ef6be74e4fe3c8d9ec09421b6e9510de93262af80480f665f35abd5"
+objective = "-306.000491246992"
+allocations = 13703619
+seconds = 0.404846272
+recorder_retained_bytes = 2860
+compile_seconds = 0.0
+pair = 3
+trace = false
+bytes = 515667544
+algorithm = "dual"
+iterations = 65
+states_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+status = "OPTIMAL"
+events_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+    [samples.counts]
+    _refined_tableau_row = 0
+    postsolve_primal = 1
+    "update_primals!" = 65
+    pipeline_ftran_transpose = 0
+    _dual_row_residual_ratio = 65
+    "_try_refine_dual_pivot!" = 0
+    cleanup_original = 1
+    "_stabilize_small_dual_pivot!" = 65
+    discarded_metadata_events = 0
+    _legacy_primal_point_certified = 0
+    pipeline_pricing_forward = 0
+    committed_pricing_reset = 0
+    pricing_full_scan = 66
+    finite_value_elements = 205824
+    "_dual_direction_residual_ok!" = 65
+    "_try_native_primal_point_correction!" = 0
+    committed_checkpoint = 0
+    _refined_dual_prices = 0
+    "_pipeline_output_support!" = 0
+    pipeline_btran_forward = 0
+    "_try_native_dual_correction!" = 0
+    pipeline_bfrt_transpose = 0
+    "_try_refine_dual_direction!" = 0
+    pipeline_ftran_forward = 71
+    pricing_block_scan = 0
+    initialize_workspace = 2
+    _legacy_primal_direction_price_ok = 0
+    "_primal_row_bounds!" = 6
+    presolve_problem = 1
+    "apply_primal_pivot!" = 0
+    _try_native_certificate_recovery = 0
+    pricing_scanned_entries = 4352
+    "update_duals!" = 65
+    committed_repair = 0
+    pipeline_weight_ftran_transpose = 0
+    _legacy_primal_row_consistent = 0
+    dual_ratio_test = 1
+    _original_optimality_certified = 2
+    pipeline_pricing_transpose = 0
+    "_try_refine_dual_prices!" = 0
+    "update_dse!" = 65
+    "_copy_pivot_state!" = 0
+    "price!" = 65
+    "_project_postsolve_basis!" = 1
+    pipeline_weight_ftran_forward = 65
+    pricing_pool_hit = 0
+    _primal_ratio = 0
+    "_primal_update_steepest!" = 0
+    committed_restore_checkpoint = 0
+    "_apply_bound_flips!" = 65
+    "_replace_pivot_column!" = 65
+    "_restore_legacy_primal_point!" = 0
+    _bound_flipping_ratio_test = 65
+    "_audit_primal_values!" = 0
+    "_rebuild_pipeline_support!" = 0
+    "recompute!" = 6
+    pipeline_weight_btran_transpose = 0
+    pricing_scored_entries = 1978
+    _legacy_primal_model_feasible = 0
+    _refined_basis_solution = 0
+    pipeline_bfrt_forward = 7
+    pipeline_weight_btran_forward = 0
+    _native_primal_rows_filter = 0
+    "_try_native_dual_tableau!" = 0
+    "_pipeline_basis_solve!" = 214
+    "_basis_matrix!" = 1
+    pipeline_btran_transpose = 71
+    _primal_bound_snap_feasible = 0
+    "refactorize!" = 1
+    "_sparse_pricing_workspace!" = 0
+    _internal_solution = 2
+    _primal_price_prediction_reliable = 0
+    _finite_workspace = 268
+
+    [samples.recorder_tail]
+    tail_instrumentation_nanoseconds = 6700
+    tail_instrumentation_bytes = 9056
+    windows = 5
+
+    [samples.events]
+[[samples]]
+counted = true
+last_callback_state = ""
+gc_seconds = 0.070312395
+primal_hash = "cb6e44878ef6be74e4fe3c8d9ec09421b6e9510de93262af80480f665f35abd5"
+objective = "-306.000491246992"
+allocations = 13703619
+seconds = 0.419739371
+recorder_retained_bytes = 2860
+compile_seconds = 0.0
+pair = 4
+trace = false
+bytes = 515667480
+algorithm = "dual"
+iterations = 65
+states_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+status = "OPTIMAL"
+events_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+    [samples.counts]
+    _refined_tableau_row = 0
+    postsolve_primal = 1
+    "update_primals!" = 65
+    pipeline_ftran_transpose = 0
+    _dual_row_residual_ratio = 65
+    "_try_refine_dual_pivot!" = 0
+    cleanup_original = 1
+    "_stabilize_small_dual_pivot!" = 65
+    discarded_metadata_events = 0
+    _legacy_primal_point_certified = 0
+    pipeline_pricing_forward = 0
+    committed_pricing_reset = 0
+    pricing_full_scan = 66
+    finite_value_elements = 205824
+    "_dual_direction_residual_ok!" = 65
+    "_try_native_primal_point_correction!" = 0
+    committed_checkpoint = 0
+    _refined_dual_prices = 0
+    "_pipeline_output_support!" = 0
+    pipeline_btran_forward = 0
+    "_try_native_dual_correction!" = 0
+    pipeline_bfrt_transpose = 0
+    "_try_refine_dual_direction!" = 0
+    pipeline_ftran_forward = 71
+    pricing_block_scan = 0
+    initialize_workspace = 2
+    _legacy_primal_direction_price_ok = 0
+    "_primal_row_bounds!" = 6
+    presolve_problem = 1
+    "apply_primal_pivot!" = 0
+    _try_native_certificate_recovery = 0
+    pricing_scanned_entries = 4352
+    "update_duals!" = 65
+    committed_repair = 0
+    pipeline_weight_ftran_transpose = 0
+    _legacy_primal_row_consistent = 0
+    dual_ratio_test = 1
+    _original_optimality_certified = 2
+    pipeline_pricing_transpose = 0
+    "_try_refine_dual_prices!" = 0
+    "update_dse!" = 65
+    "_copy_pivot_state!" = 0
+    "price!" = 65
+    "_project_postsolve_basis!" = 1
+    pipeline_weight_ftran_forward = 65
+    pricing_pool_hit = 0
+    _primal_ratio = 0
+    "_primal_update_steepest!" = 0
+    committed_restore_checkpoint = 0
+    "_apply_bound_flips!" = 65
+    "_replace_pivot_column!" = 65
+    "_restore_legacy_primal_point!" = 0
+    _bound_flipping_ratio_test = 65
+    "_audit_primal_values!" = 0
+    "_rebuild_pipeline_support!" = 0
+    "recompute!" = 6
+    pipeline_weight_btran_transpose = 0
+    pricing_scored_entries = 1978
+    _legacy_primal_model_feasible = 0
+    _refined_basis_solution = 0
+    pipeline_bfrt_forward = 7
+    pipeline_weight_btran_forward = 0
+    _native_primal_rows_filter = 0
+    "_try_native_dual_tableau!" = 0
+    "_pipeline_basis_solve!" = 214
+    "_basis_matrix!" = 1
+    pipeline_btran_transpose = 71
+    _primal_bound_snap_feasible = 0
+    "refactorize!" = 1
+    "_sparse_pricing_workspace!" = 0
+    _internal_solution = 2
+    _primal_price_prediction_reliable = 0
+    _finite_workspace = 268
+
+    [samples.recorder_tail]
+    tail_instrumentation_nanoseconds = 7000
+    tail_instrumentation_bytes = 9056
+    windows = 5
+
+    [samples.events]
+[[samples]]
+counted = false
+last_callback_state = ""
+gc_seconds = 0.068231496
+primal_hash = "cb6e44878ef6be74e4fe3c8d9ec09421b6e9510de93262af80480f665f35abd5"
+objective = "-306.000491246992"
+allocations = 13702286
+seconds = 0.405476172
+recorder_retained_bytes = 0
+compile_seconds = 0.0
+pair = 4
+trace = false
+bytes = 515625704
+algorithm = "dual"
+iterations = 65
+states_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+status = "OPTIMAL"
+events_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+    [samples.counts]
+
+    [samples.recorder_tail]
+
+    [samples.events]
+[[samples]]
+counted = false
+last_callback_state = ""
+gc_seconds = 0.43144227
+primal_hash = "cb6e44878ef6be74e4fe3c8d9ec09421b6e9510de93262af80480f665f35abd5"
+objective = "-306.000491246992"
+allocations = 13702286
+seconds = 0.772999746
+recorder_retained_bytes = 0
+compile_seconds = 0.0
+pair = 5
+trace = false
+bytes = 515620040
+algorithm = "dual"
+iterations = 65
+states_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+status = "OPTIMAL"
+events_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+    [samples.counts]
+
+    [samples.recorder_tail]
+
+    [samples.events]
+[[samples]]
+counted = true
+last_callback_state = ""
+gc_seconds = 0.420808671
+primal_hash = "cb6e44878ef6be74e4fe3c8d9ec09421b6e9510de93262af80480f665f35abd5"
+objective = "-306.000491246992"
+allocations = 13703619
+seconds = 0.767443347
+recorder_retained_bytes = 2860
+compile_seconds = 0.0
+pair = 5
+trace = false
+bytes = 515657048
+algorithm = "dual"
+iterations = 65
+states_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+status = "OPTIMAL"
+events_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+    [samples.counts]
+    _refined_tableau_row = 0
+    postsolve_primal = 1
+    "update_primals!" = 65
+    pipeline_ftran_transpose = 0
+    _dual_row_residual_ratio = 65
+    "_try_refine_dual_pivot!" = 0
+    cleanup_original = 1
+    "_stabilize_small_dual_pivot!" = 65
+    discarded_metadata_events = 0
+    _legacy_primal_point_certified = 0
+    pipeline_pricing_forward = 0
+    committed_pricing_reset = 0
+    pricing_full_scan = 66
+    finite_value_elements = 205824
+    "_dual_direction_residual_ok!" = 65
+    "_try_native_primal_point_correction!" = 0
+    committed_checkpoint = 0
+    _refined_dual_prices = 0
+    "_pipeline_output_support!" = 0
+    pipeline_btran_forward = 0
+    "_try_native_dual_correction!" = 0
+    pipeline_bfrt_transpose = 0
+    "_try_refine_dual_direction!" = 0
+    pipeline_ftran_forward = 71
+    pricing_block_scan = 0
+    initialize_workspace = 2
+    _legacy_primal_direction_price_ok = 0
+    "_primal_row_bounds!" = 6
+    presolve_problem = 1
+    "apply_primal_pivot!" = 0
+    _try_native_certificate_recovery = 0
+    pricing_scanned_entries = 4352
+    "update_duals!" = 65
+    committed_repair = 0
+    pipeline_weight_ftran_transpose = 0
+    _legacy_primal_row_consistent = 0
+    dual_ratio_test = 1
+    _original_optimality_certified = 2
+    pipeline_pricing_transpose = 0
+    "_try_refine_dual_prices!" = 0
+    "update_dse!" = 65
+    "_copy_pivot_state!" = 0
+    "price!" = 65
+    "_project_postsolve_basis!" = 1
+    pipeline_weight_ftran_forward = 65
+    pricing_pool_hit = 0
+    _primal_ratio = 0
+    "_primal_update_steepest!" = 0
+    committed_restore_checkpoint = 0
+    "_apply_bound_flips!" = 65
+    "_replace_pivot_column!" = 65
+    "_restore_legacy_primal_point!" = 0
+    _bound_flipping_ratio_test = 65
+    "_audit_primal_values!" = 0
+    "_rebuild_pipeline_support!" = 0
+    "recompute!" = 6
+    pipeline_weight_btran_transpose = 0
+    pricing_scored_entries = 1978
+    _legacy_primal_model_feasible = 0
+    _refined_basis_solution = 0
+    pipeline_bfrt_forward = 7
+    pipeline_weight_btran_forward = 0
+    _native_primal_rows_filter = 0
+    "_try_native_dual_tableau!" = 0
+    "_pipeline_basis_solve!" = 214
+    "_basis_matrix!" = 1
+    pipeline_btran_transpose = 71
+    _primal_bound_snap_feasible = 0
+    "refactorize!" = 1
+    "_sparse_pricing_workspace!" = 0
+    _internal_solution = 2
+    _primal_price_prediction_reliable = 0
+    _finite_workspace = 268
+
+    [samples.recorder_tail]
+    tail_instrumentation_nanoseconds = 10100
+    tail_instrumentation_bytes = 9056
+    windows = 5
+
+    [samples.events]
+[[samples]]
+counted = true
+last_callback_state = ""
+gc_seconds = 0.407667672
+primal_hash = "cb6e44878ef6be74e4fe3c8d9ec09421b6e9510de93262af80480f665f35abd5"
+objective = "-306.000491246992"
+allocations = 13703619
+seconds = 0.737678249
+recorder_retained_bytes = 2860
+compile_seconds = 0.0
+pair = 6
+trace = false
+bytes = 515647528
+algorithm = "dual"
+iterations = 65
+states_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+status = "OPTIMAL"
+events_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+    [samples.counts]
+    _refined_tableau_row = 0
+    postsolve_primal = 1
+    "update_primals!" = 65
+    pipeline_ftran_transpose = 0
+    _dual_row_residual_ratio = 65
+    "_try_refine_dual_pivot!" = 0
+    cleanup_original = 1
+    "_stabilize_small_dual_pivot!" = 65
+    discarded_metadata_events = 0
+    _legacy_primal_point_certified = 0
+    pipeline_pricing_forward = 0
+    committed_pricing_reset = 0
+    pricing_full_scan = 66
+    finite_value_elements = 205824
+    "_dual_direction_residual_ok!" = 65
+    "_try_native_primal_point_correction!" = 0
+    committed_checkpoint = 0
+    _refined_dual_prices = 0
+    "_pipeline_output_support!" = 0
+    pipeline_btran_forward = 0
+    "_try_native_dual_correction!" = 0
+    pipeline_bfrt_transpose = 0
+    "_try_refine_dual_direction!" = 0
+    pipeline_ftran_forward = 71
+    pricing_block_scan = 0
+    initialize_workspace = 2
+    _legacy_primal_direction_price_ok = 0
+    "_primal_row_bounds!" = 6
+    presolve_problem = 1
+    "apply_primal_pivot!" = 0
+    _try_native_certificate_recovery = 0
+    pricing_scanned_entries = 4352
+    "update_duals!" = 65
+    committed_repair = 0
+    pipeline_weight_ftran_transpose = 0
+    _legacy_primal_row_consistent = 0
+    dual_ratio_test = 1
+    _original_optimality_certified = 2
+    pipeline_pricing_transpose = 0
+    "_try_refine_dual_prices!" = 0
+    "update_dse!" = 65
+    "_copy_pivot_state!" = 0
+    "price!" = 65
+    "_project_postsolve_basis!" = 1
+    pipeline_weight_ftran_forward = 65
+    pricing_pool_hit = 0
+    _primal_ratio = 0
+    "_primal_update_steepest!" = 0
+    committed_restore_checkpoint = 0
+    "_apply_bound_flips!" = 65
+    "_replace_pivot_column!" = 65
+    "_restore_legacy_primal_point!" = 0
+    _bound_flipping_ratio_test = 65
+    "_audit_primal_values!" = 0
+    "_rebuild_pipeline_support!" = 0
+    "recompute!" = 6
+    pipeline_weight_btran_transpose = 0
+    pricing_scored_entries = 1978
+    _legacy_primal_model_feasible = 0
+    _refined_basis_solution = 0
+    pipeline_bfrt_forward = 7
+    pipeline_weight_btran_forward = 0
+    _native_primal_rows_filter = 0
+    "_try_native_dual_tableau!" = 0
+    "_pipeline_basis_solve!" = 214
+    "_basis_matrix!" = 1
+    pipeline_btran_transpose = 71
+    _primal_bound_snap_feasible = 0
+    "refactorize!" = 1
+    "_sparse_pricing_workspace!" = 0
+    _internal_solution = 2
+    _primal_price_prediction_reliable = 0
+    _finite_workspace = 268
+
+    [samples.recorder_tail]
+    tail_instrumentation_nanoseconds = 7100
+    tail_instrumentation_bytes = 9056
+    windows = 5
+
+    [samples.events]
+[[samples]]
+counted = false
+last_callback_state = ""
+gc_seconds = 0.402634673
+primal_hash = "cb6e44878ef6be74e4fe3c8d9ec09421b6e9510de93262af80480f665f35abd5"
+objective = "-306.000491246992"
+allocations = 13702286
+seconds = 0.742979449
+recorder_retained_bytes = 0
+compile_seconds = 0.0
+pair = 6
+trace = false
+bytes = 515567272
+algorithm = "dual"
+iterations = 65
+states_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+status = "OPTIMAL"
+events_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+    [samples.counts]
+
+    [samples.recorder_tail]
+
+    [samples.events]
+[[samples]]
+counted = false
+last_callback_state = ""
+gc_seconds = 0.286415988
+primal_hash = "400b1e7dcfef46c6ac673ee36226747bfd865e9276658f115962d69582027a05"
+objective = "-306.00049124699314"
+allocations = 13702724
+seconds = 0.604749975
+recorder_retained_bytes = 0
+compile_seconds = 0.0
+pair = 1
+trace = false
+bytes = 515705672
+algorithm = "primal"
+iterations = 158
+states_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+status = "OPTIMAL"
+events_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+    [samples.counts]
+
+    [samples.recorder_tail]
+
+    [samples.events]
+[[samples]]
+counted = true
+last_callback_state = ""
+gc_seconds = 0.284919688
+primal_hash = "400b1e7dcfef46c6ac673ee36226747bfd865e9276658f115962d69582027a05"
+objective = "-306.00049124699314"
+allocations = 13704057
+seconds = 0.605129975
+recorder_retained_bytes = 2860
+compile_seconds = 0.0
+pair = 1
+trace = false
+bytes = 515736792
+algorithm = "primal"
+iterations = 158
+states_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+status = "OPTIMAL"
+events_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+    [samples.counts]
+    _refined_tableau_row = 0
+    postsolve_primal = 1
+    "update_primals!" = 0
+    pipeline_ftran_transpose = 0
+    _dual_row_residual_ratio = 64
+    "_try_refine_dual_pivot!" = 0
+    cleanup_original = 1
+    "_stabilize_small_dual_pivot!" = 0
+    discarded_metadata_events = 0
+    _legacy_primal_point_certified = 0
+    pipeline_pricing_forward = 0
+    committed_pricing_reset = 0
+    pricing_full_scan = 161
+    finite_value_elements = 167168
+    "_dual_direction_residual_ok!" = 0
+    "_try_native_primal_point_correction!" = 0
+    committed_checkpoint = 0
+    _refined_dual_prices = 0
+    "_pipeline_output_support!" = 0
+    pipeline_btran_forward = 0
+    "_try_native_dual_correction!" = 0
+    pipeline_bfrt_transpose = 0
+    "_try_refine_dual_direction!" = 0
+    pipeline_ftran_forward = 322
+    pricing_block_scan = 0
+    initialize_workspace = 3
+    _legacy_primal_direction_price_ok = 158
+    "_primal_row_bounds!" = 7
+    presolve_problem = 1
+    "apply_primal_pivot!" = 0
+    _try_native_certificate_recovery = 0
+    pricing_scanned_entries = 41152
+    "update_duals!" = 0
+    committed_repair = 0
+    pipeline_weight_ftran_transpose = 0
+    _legacy_primal_row_consistent = 0
+    dual_ratio_test = 0
+    _original_optimality_certified = 3
+    pipeline_pricing_transpose = 0
+    "_try_refine_dual_prices!" = 0
+    "update_dse!" = 0
+    "_copy_pivot_state!" = 0
+    "price!" = 128
+    "_project_postsolve_basis!" = 1
+    pipeline_weight_ftran_forward = 0
+    pricing_pool_hit = 0
+    _primal_ratio = 158
+    "_primal_update_steepest!" = 64
+    committed_restore_checkpoint = 0
+    "_apply_bound_flips!" = 0
+    "_replace_pivot_column!" = 64
+    "_restore_legacy_primal_point!" = 0
+    _bound_flipping_ratio_test = 0
+    "_audit_primal_values!" = 0
+    "_rebuild_pipeline_support!" = 0
+    "recompute!" = 164
+    pipeline_weight_btran_transpose = 64
+    pricing_scored_entries = 8721
+    _legacy_primal_model_feasible = 0
+    _refined_basis_solution = 0
+    pipeline_bfrt_forward = 0
+    pipeline_weight_btran_forward = 0
+    _native_primal_rows_filter = 0
+    "_try_native_dual_tableau!" = 0
+    "_pipeline_basis_solve!" = 614
+    "_basis_matrix!" = 2
+    pipeline_btran_transpose = 228
+    _primal_bound_snap_feasible = 128
+    "refactorize!" = 2
+    "_sparse_pricing_workspace!" = 0
+    _internal_solution = 2
+    _primal_price_prediction_reliable = 0
+    _finite_workspace = 164
+
+    [samples.recorder_tail]
+    tail_instrumentation_nanoseconds = 7200
+    tail_instrumentation_bytes = 9056
+    windows = 5
+
+    [samples.events]
+[[samples]]
+counted = true
+last_callback_state = ""
+gc_seconds = 0.282820388
+primal_hash = "400b1e7dcfef46c6ac673ee36226747bfd865e9276658f115962d69582027a05"
+objective = "-306.00049124699314"
+allocations = 13704057
+seconds = 0.606929675
+recorder_retained_bytes = 2860
+compile_seconds = 0.0
+pair = 2
+trace = false
+bytes = 515731848
+algorithm = "primal"
+iterations = 158
+states_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+status = "OPTIMAL"
+events_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+    [samples.counts]
+    _refined_tableau_row = 0
+    postsolve_primal = 1
+    "update_primals!" = 0
+    pipeline_ftran_transpose = 0
+    _dual_row_residual_ratio = 64
+    "_try_refine_dual_pivot!" = 0
+    cleanup_original = 1
+    "_stabilize_small_dual_pivot!" = 0
+    discarded_metadata_events = 0
+    _legacy_primal_point_certified = 0
+    pipeline_pricing_forward = 0
+    committed_pricing_reset = 0
+    pricing_full_scan = 161
+    finite_value_elements = 167168
+    "_dual_direction_residual_ok!" = 0
+    "_try_native_primal_point_correction!" = 0
+    committed_checkpoint = 0
+    _refined_dual_prices = 0
+    "_pipeline_output_support!" = 0
+    pipeline_btran_forward = 0
+    "_try_native_dual_correction!" = 0
+    pipeline_bfrt_transpose = 0
+    "_try_refine_dual_direction!" = 0
+    pipeline_ftran_forward = 322
+    pricing_block_scan = 0
+    initialize_workspace = 3
+    _legacy_primal_direction_price_ok = 158
+    "_primal_row_bounds!" = 7
+    presolve_problem = 1
+    "apply_primal_pivot!" = 0
+    _try_native_certificate_recovery = 0
+    pricing_scanned_entries = 41152
+    "update_duals!" = 0
+    committed_repair = 0
+    pipeline_weight_ftran_transpose = 0
+    _legacy_primal_row_consistent = 0
+    dual_ratio_test = 0
+    _original_optimality_certified = 3
+    pipeline_pricing_transpose = 0
+    "_try_refine_dual_prices!" = 0
+    "update_dse!" = 0
+    "_copy_pivot_state!" = 0
+    "price!" = 128
+    "_project_postsolve_basis!" = 1
+    pipeline_weight_ftran_forward = 0
+    pricing_pool_hit = 0
+    _primal_ratio = 158
+    "_primal_update_steepest!" = 64
+    committed_restore_checkpoint = 0
+    "_apply_bound_flips!" = 0
+    "_replace_pivot_column!" = 64
+    "_restore_legacy_primal_point!" = 0
+    _bound_flipping_ratio_test = 0
+    "_audit_primal_values!" = 0
+    "_rebuild_pipeline_support!" = 0
+    "recompute!" = 164
+    pipeline_weight_btran_transpose = 64
+    pricing_scored_entries = 8721
+    _legacy_primal_model_feasible = 0
+    _refined_basis_solution = 0
+    pipeline_bfrt_forward = 0
+    pipeline_weight_btran_forward = 0
+    _native_primal_rows_filter = 0
+    "_try_native_dual_tableau!" = 0
+    "_pipeline_basis_solve!" = 614
+    "_basis_matrix!" = 2
+    pipeline_btran_transpose = 228
+    _primal_bound_snap_feasible = 128
+    "refactorize!" = 2
+    "_sparse_pricing_workspace!" = 0
+    _internal_solution = 2
+    _primal_price_prediction_reliable = 0
+    _finite_workspace = 164
+
+    [samples.recorder_tail]
+    tail_instrumentation_nanoseconds = 8100
+    tail_instrumentation_bytes = 9056
+    windows = 5
+
+    [samples.events]
+[[samples]]
+counted = false
+last_callback_state = ""
+gc_seconds = 0.276941088
+primal_hash = "400b1e7dcfef46c6ac673ee36226747bfd865e9276658f115962d69582027a05"
+objective = "-306.00049124699314"
+allocations = 13702724
+seconds = 0.601452476
+recorder_retained_bytes = 0
+compile_seconds = 0.0
+pair = 2
+trace = false
+bytes = 515685256
+algorithm = "primal"
+iterations = 158
+states_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+status = "OPTIMAL"
+events_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+    [samples.counts]
+
+    [samples.recorder_tail]
+
+    [samples.events]
+[[samples]]
+counted = false
+last_callback_state = ""
+gc_seconds = 0.27989399
+primal_hash = "400b1e7dcfef46c6ac673ee36226747bfd865e9276658f115962d69582027a05"
+objective = "-306.00049124699314"
+allocations = 13702724
+seconds = 0.602224275
+recorder_retained_bytes = 0
+compile_seconds = 0.0
+pair = 3
+trace = false
+bytes = 515700920
+algorithm = "primal"
+iterations = 158
+states_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+status = "OPTIMAL"
+events_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+    [samples.counts]
+
+    [samples.recorder_tail]
+
+    [samples.events]
+[[samples]]
+counted = true
+last_callback_state = ""
+gc_seconds = 0.288320088
+primal_hash = "400b1e7dcfef46c6ac673ee36226747bfd865e9276658f115962d69582027a05"
+objective = "-306.00049124699314"
+allocations = 13704057
+seconds = 0.617541374
+recorder_retained_bytes = 2860
+compile_seconds = 0.0
+pair = 3
+trace = false
+bytes = 515748296
+algorithm = "primal"
+iterations = 158
+states_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+status = "OPTIMAL"
+events_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+    [samples.counts]
+    _refined_tableau_row = 0
+    postsolve_primal = 1
+    "update_primals!" = 0
+    pipeline_ftran_transpose = 0
+    _dual_row_residual_ratio = 64
+    "_try_refine_dual_pivot!" = 0
+    cleanup_original = 1
+    "_stabilize_small_dual_pivot!" = 0
+    discarded_metadata_events = 0
+    _legacy_primal_point_certified = 0
+    pipeline_pricing_forward = 0
+    committed_pricing_reset = 0
+    pricing_full_scan = 161
+    finite_value_elements = 167168
+    "_dual_direction_residual_ok!" = 0
+    "_try_native_primal_point_correction!" = 0
+    committed_checkpoint = 0
+    _refined_dual_prices = 0
+    "_pipeline_output_support!" = 0
+    pipeline_btran_forward = 0
+    "_try_native_dual_correction!" = 0
+    pipeline_bfrt_transpose = 0
+    "_try_refine_dual_direction!" = 0
+    pipeline_ftran_forward = 322
+    pricing_block_scan = 0
+    initialize_workspace = 3
+    _legacy_primal_direction_price_ok = 158
+    "_primal_row_bounds!" = 7
+    presolve_problem = 1
+    "apply_primal_pivot!" = 0
+    _try_native_certificate_recovery = 0
+    pricing_scanned_entries = 41152
+    "update_duals!" = 0
+    committed_repair = 0
+    pipeline_weight_ftran_transpose = 0
+    _legacy_primal_row_consistent = 0
+    dual_ratio_test = 0
+    _original_optimality_certified = 3
+    pipeline_pricing_transpose = 0
+    "_try_refine_dual_prices!" = 0
+    "update_dse!" = 0
+    "_copy_pivot_state!" = 0
+    "price!" = 128
+    "_project_postsolve_basis!" = 1
+    pipeline_weight_ftran_forward = 0
+    pricing_pool_hit = 0
+    _primal_ratio = 158
+    "_primal_update_steepest!" = 64
+    committed_restore_checkpoint = 0
+    "_apply_bound_flips!" = 0
+    "_replace_pivot_column!" = 64
+    "_restore_legacy_primal_point!" = 0
+    _bound_flipping_ratio_test = 0
+    "_audit_primal_values!" = 0
+    "_rebuild_pipeline_support!" = 0
+    "recompute!" = 164
+    pipeline_weight_btran_transpose = 64
+    pricing_scored_entries = 8721
+    _legacy_primal_model_feasible = 0
+    _refined_basis_solution = 0
+    pipeline_bfrt_forward = 0
+    pipeline_weight_btran_forward = 0
+    _native_primal_rows_filter = 0
+    "_try_native_dual_tableau!" = 0
+    "_pipeline_basis_solve!" = 614
+    "_basis_matrix!" = 2
+    pipeline_btran_transpose = 228
+    _primal_bound_snap_feasible = 128
+    "refactorize!" = 2
+    "_sparse_pricing_workspace!" = 0
+    _internal_solution = 2
+    _primal_price_prediction_reliable = 0
+    _finite_workspace = 164
+
+    [samples.recorder_tail]
+    tail_instrumentation_nanoseconds = 7700
+    tail_instrumentation_bytes = 9056
+    windows = 5
+
+    [samples.events]
+[[samples]]
+counted = true
+last_callback_state = ""
+gc_seconds = 0.282347088
+primal_hash = "400b1e7dcfef46c6ac673ee36226747bfd865e9276658f115962d69582027a05"
+objective = "-306.00049124699314"
+allocations = 13704057
+seconds = 0.616399373
+recorder_retained_bytes = 2860
+compile_seconds = 0.0
+pair = 4
+trace = false
+bytes = 515737480
+algorithm = "primal"
+iterations = 158
+states_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+status = "OPTIMAL"
+events_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+    [samples.counts]
+    _refined_tableau_row = 0
+    postsolve_primal = 1
+    "update_primals!" = 0
+    pipeline_ftran_transpose = 0
+    _dual_row_residual_ratio = 64
+    "_try_refine_dual_pivot!" = 0
+    cleanup_original = 1
+    "_stabilize_small_dual_pivot!" = 0
+    discarded_metadata_events = 0
+    _legacy_primal_point_certified = 0
+    pipeline_pricing_forward = 0
+    committed_pricing_reset = 0
+    pricing_full_scan = 161
+    finite_value_elements = 167168
+    "_dual_direction_residual_ok!" = 0
+    "_try_native_primal_point_correction!" = 0
+    committed_checkpoint = 0
+    _refined_dual_prices = 0
+    "_pipeline_output_support!" = 0
+    pipeline_btran_forward = 0
+    "_try_native_dual_correction!" = 0
+    pipeline_bfrt_transpose = 0
+    "_try_refine_dual_direction!" = 0
+    pipeline_ftran_forward = 322
+    pricing_block_scan = 0
+    initialize_workspace = 3
+    _legacy_primal_direction_price_ok = 158
+    "_primal_row_bounds!" = 7
+    presolve_problem = 1
+    "apply_primal_pivot!" = 0
+    _try_native_certificate_recovery = 0
+    pricing_scanned_entries = 41152
+    "update_duals!" = 0
+    committed_repair = 0
+    pipeline_weight_ftran_transpose = 0
+    _legacy_primal_row_consistent = 0
+    dual_ratio_test = 0
+    _original_optimality_certified = 3
+    pipeline_pricing_transpose = 0
+    "_try_refine_dual_prices!" = 0
+    "update_dse!" = 0
+    "_copy_pivot_state!" = 0
+    "price!" = 128
+    "_project_postsolve_basis!" = 1
+    pipeline_weight_ftran_forward = 0
+    pricing_pool_hit = 0
+    _primal_ratio = 158
+    "_primal_update_steepest!" = 64
+    committed_restore_checkpoint = 0
+    "_apply_bound_flips!" = 0
+    "_replace_pivot_column!" = 64
+    "_restore_legacy_primal_point!" = 0
+    _bound_flipping_ratio_test = 0
+    "_audit_primal_values!" = 0
+    "_rebuild_pipeline_support!" = 0
+    "recompute!" = 164
+    pipeline_weight_btran_transpose = 64
+    pricing_scored_entries = 8721
+    _legacy_primal_model_feasible = 0
+    _refined_basis_solution = 0
+    pipeline_bfrt_forward = 0
+    pipeline_weight_btran_forward = 0
+    _native_primal_rows_filter = 0
+    "_try_native_dual_tableau!" = 0
+    "_pipeline_basis_solve!" = 614
+    "_basis_matrix!" = 2
+    pipeline_btran_transpose = 228
+    _primal_bound_snap_feasible = 128
+    "refactorize!" = 2
+    "_sparse_pricing_workspace!" = 0
+    _internal_solution = 2
+    _primal_price_prediction_reliable = 0
+    _finite_workspace = 164
+
+    [samples.recorder_tail]
+    tail_instrumentation_nanoseconds = 6800
+    tail_instrumentation_bytes = 9056
+    windows = 5
+
+    [samples.events]
+[[samples]]
+counted = false
+last_callback_state = ""
+gc_seconds = 0.287668688
+primal_hash = "400b1e7dcfef46c6ac673ee36226747bfd865e9276658f115962d69582027a05"
+objective = "-306.00049124699314"
+allocations = 13702724
+seconds = 0.626781273
+recorder_retained_bytes = 0
+compile_seconds = 0.0
+pair = 4
+trace = false
+bytes = 515695528
+algorithm = "primal"
+iterations = 158
+states_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+status = "OPTIMAL"
+events_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+    [samples.counts]
+
+    [samples.recorder_tail]
+
+    [samples.events]
+[[samples]]
+counted = false
+last_callback_state = ""
+gc_seconds = 0.288664187
+primal_hash = "400b1e7dcfef46c6ac673ee36226747bfd865e9276658f115962d69582027a05"
+objective = "-306.00049124699314"
+allocations = 13702724
+seconds = 0.626191973
+recorder_retained_bytes = 0
+compile_seconds = 0.0
+pair = 5
+trace = false
+bytes = 515688072
+algorithm = "primal"
+iterations = 158
+states_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+status = "OPTIMAL"
+events_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+    [samples.counts]
+
+    [samples.recorder_tail]
+
+    [samples.events]
+[[samples]]
+counted = true
+last_callback_state = ""
+gc_seconds = 0.292577187
+primal_hash = "400b1e7dcfef46c6ac673ee36226747bfd865e9276658f115962d69582027a05"
+objective = "-306.00049124699314"
+allocations = 13704057
+seconds = 0.631199073
+recorder_retained_bytes = 2860
+compile_seconds = 0.0
+pair = 5
+trace = false
+bytes = 515711784
+algorithm = "primal"
+iterations = 158
+states_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+status = "OPTIMAL"
+events_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+    [samples.counts]
+    _refined_tableau_row = 0
+    postsolve_primal = 1
+    "update_primals!" = 0
+    pipeline_ftran_transpose = 0
+    _dual_row_residual_ratio = 64
+    "_try_refine_dual_pivot!" = 0
+    cleanup_original = 1
+    "_stabilize_small_dual_pivot!" = 0
+    discarded_metadata_events = 0
+    _legacy_primal_point_certified = 0
+    pipeline_pricing_forward = 0
+    committed_pricing_reset = 0
+    pricing_full_scan = 161
+    finite_value_elements = 167168
+    "_dual_direction_residual_ok!" = 0
+    "_try_native_primal_point_correction!" = 0
+    committed_checkpoint = 0
+    _refined_dual_prices = 0
+    "_pipeline_output_support!" = 0
+    pipeline_btran_forward = 0
+    "_try_native_dual_correction!" = 0
+    pipeline_bfrt_transpose = 0
+    "_try_refine_dual_direction!" = 0
+    pipeline_ftran_forward = 322
+    pricing_block_scan = 0
+    initialize_workspace = 3
+    _legacy_primal_direction_price_ok = 158
+    "_primal_row_bounds!" = 7
+    presolve_problem = 1
+    "apply_primal_pivot!" = 0
+    _try_native_certificate_recovery = 0
+    pricing_scanned_entries = 41152
+    "update_duals!" = 0
+    committed_repair = 0
+    pipeline_weight_ftran_transpose = 0
+    _legacy_primal_row_consistent = 0
+    dual_ratio_test = 0
+    _original_optimality_certified = 3
+    pipeline_pricing_transpose = 0
+    "_try_refine_dual_prices!" = 0
+    "update_dse!" = 0
+    "_copy_pivot_state!" = 0
+    "price!" = 128
+    "_project_postsolve_basis!" = 1
+    pipeline_weight_ftran_forward = 0
+    pricing_pool_hit = 0
+    _primal_ratio = 158
+    "_primal_update_steepest!" = 64
+    committed_restore_checkpoint = 0
+    "_apply_bound_flips!" = 0
+    "_replace_pivot_column!" = 64
+    "_restore_legacy_primal_point!" = 0
+    _bound_flipping_ratio_test = 0
+    "_audit_primal_values!" = 0
+    "_rebuild_pipeline_support!" = 0
+    "recompute!" = 164
+    pipeline_weight_btran_transpose = 64
+    pricing_scored_entries = 8721
+    _legacy_primal_model_feasible = 0
+    _refined_basis_solution = 0
+    pipeline_bfrt_forward = 0
+    pipeline_weight_btran_forward = 0
+    _native_primal_rows_filter = 0
+    "_try_native_dual_tableau!" = 0
+    "_pipeline_basis_solve!" = 614
+    "_basis_matrix!" = 2
+    pipeline_btran_transpose = 228
+    _primal_bound_snap_feasible = 128
+    "refactorize!" = 2
+    "_sparse_pricing_workspace!" = 0
+    _internal_solution = 2
+    _primal_price_prediction_reliable = 0
+    _finite_workspace = 164
+
+    [samples.recorder_tail]
+    tail_instrumentation_nanoseconds = 9400
+    tail_instrumentation_bytes = 9056
+    windows = 5
+
+    [samples.events]
+[[samples]]
+counted = true
+last_callback_state = ""
+gc_seconds = 0.297447388
+primal_hash = "400b1e7dcfef46c6ac673ee36226747bfd865e9276658f115962d69582027a05"
+objective = "-306.00049124699314"
+allocations = 13704057
+seconds = 0.641558073
+recorder_retained_bytes = 2860
+compile_seconds = 0.0
+pair = 6
+trace = false
+bytes = 515697512
+algorithm = "primal"
+iterations = 158
+states_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+status = "OPTIMAL"
+events_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+    [samples.counts]
+    _refined_tableau_row = 0
+    postsolve_primal = 1
+    "update_primals!" = 0
+    pipeline_ftran_transpose = 0
+    _dual_row_residual_ratio = 64
+    "_try_refine_dual_pivot!" = 0
+    cleanup_original = 1
+    "_stabilize_small_dual_pivot!" = 0
+    discarded_metadata_events = 0
+    _legacy_primal_point_certified = 0
+    pipeline_pricing_forward = 0
+    committed_pricing_reset = 0
+    pricing_full_scan = 161
+    finite_value_elements = 167168
+    "_dual_direction_residual_ok!" = 0
+    "_try_native_primal_point_correction!" = 0
+    committed_checkpoint = 0
+    _refined_dual_prices = 0
+    "_pipeline_output_support!" = 0
+    pipeline_btran_forward = 0
+    "_try_native_dual_correction!" = 0
+    pipeline_bfrt_transpose = 0
+    "_try_refine_dual_direction!" = 0
+    pipeline_ftran_forward = 322
+    pricing_block_scan = 0
+    initialize_workspace = 3
+    _legacy_primal_direction_price_ok = 158
+    "_primal_row_bounds!" = 7
+    presolve_problem = 1
+    "apply_primal_pivot!" = 0
+    _try_native_certificate_recovery = 0
+    pricing_scanned_entries = 41152
+    "update_duals!" = 0
+    committed_repair = 0
+    pipeline_weight_ftran_transpose = 0
+    _legacy_primal_row_consistent = 0
+    dual_ratio_test = 0
+    _original_optimality_certified = 3
+    pipeline_pricing_transpose = 0
+    "_try_refine_dual_prices!" = 0
+    "update_dse!" = 0
+    "_copy_pivot_state!" = 0
+    "price!" = 128
+    "_project_postsolve_basis!" = 1
+    pipeline_weight_ftran_forward = 0
+    pricing_pool_hit = 0
+    _primal_ratio = 158
+    "_primal_update_steepest!" = 64
+    committed_restore_checkpoint = 0
+    "_apply_bound_flips!" = 0
+    "_replace_pivot_column!" = 64
+    "_restore_legacy_primal_point!" = 0
+    _bound_flipping_ratio_test = 0
+    "_audit_primal_values!" = 0
+    "_rebuild_pipeline_support!" = 0
+    "recompute!" = 164
+    pipeline_weight_btran_transpose = 64
+    pricing_scored_entries = 8721
+    _legacy_primal_model_feasible = 0
+    _refined_basis_solution = 0
+    pipeline_bfrt_forward = 0
+    pipeline_weight_btran_forward = 0
+    _native_primal_rows_filter = 0
+    "_try_native_dual_tableau!" = 0
+    "_pipeline_basis_solve!" = 614
+    "_basis_matrix!" = 2
+    pipeline_btran_transpose = 228
+    _primal_bound_snap_feasible = 128
+    "refactorize!" = 2
+    "_sparse_pricing_workspace!" = 0
+    _internal_solution = 2
+    _primal_price_prediction_reliable = 0
+    _finite_workspace = 164
+
+    [samples.recorder_tail]
+    tail_instrumentation_nanoseconds = 8300
+    tail_instrumentation_bytes = 9056
+    windows = 5
+
+    [samples.events]
+[[samples]]
+counted = false
+last_callback_state = ""
+gc_seconds = 0.299949587
+primal_hash = "400b1e7dcfef46c6ac673ee36226747bfd865e9276658f115962d69582027a05"
+objective = "-306.00049124699314"
+allocations = 13702724
+seconds = 0.649231772
+recorder_retained_bytes = 0
+compile_seconds = 0.0
+pair = 6
+trace = false
+bytes = 515616264
+algorithm = "primal"
+iterations = 158
+states_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+status = "OPTIMAL"
+events_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+    [samples.counts]
+
+    [samples.recorder_tail]
+
+    [samples.events]
+
+[[traces]]
+    [traces.plain]
+    counted = false
+    last_callback_state = "4c2334b6f0bff6ee129c64ab242540e07e1fad713dbd36ec58631f8e9a477675"
+    gc_seconds = 0.091492796
+    primal_hash = "cb6e44878ef6be74e4fe3c8d9ec09421b6e9510de93262af80480f665f35abd5"
+    objective = "-306.000491246992"
+    allocations = 13703343
+    seconds = 0.464738081
+    recorder_retained_bytes = 0
+    compile_seconds = 0.0
+    trace = true
+    bytes = 514624888
+    algorithm = "dual"
+    iterations = 65
+    states_hash = "74f84017e4886327ee6e829023a46d36c106279645529a3579f7b32a2e715bab"
+    status = "OPTIMAL"
+    events_hash = "0d8556e083ab052d477360d938e5029a50c2ae0a2e40858694907ab4829d517a"
+
+        [traces.plain.counts]
+
+        [traces.plain.recorder_tail]
+
+        [traces.plain.events]
+        certification = 2
+        phase_primal = 1
+        phase_dual = 1
+        bound_flipped = 28
+        refactor_other = 1
+        pricing = 66
+        pivot_completed = 65
+        refactor_initial = 2
+        restore_perturbations = 1
+        pivot_proposed = 65
+        phase_cleanup = 1
+
+    [traces.counted]
+    counted = true
+    last_callback_state = "4c2334b6f0bff6ee129c64ab242540e07e1fad713dbd36ec58631f8e9a477675"
+    gc_seconds = 0.096659296
+    primal_hash = "cb6e44878ef6be74e4fe3c8d9ec09421b6e9510de93262af80480f665f35abd5"
+    objective = "-306.000491246992"
+    allocations = 13704676
+    seconds = 0.442757882
+    recorder_retained_bytes = 2860
+    compile_seconds = 0.0
+    trace = true
+    bytes = 514628088
+    algorithm = "dual"
+    iterations = 65
+    states_hash = "74f84017e4886327ee6e829023a46d36c106279645529a3579f7b32a2e715bab"
+    status = "OPTIMAL"
+    events_hash = "0d8556e083ab052d477360d938e5029a50c2ae0a2e40858694907ab4829d517a"
+
+        [traces.counted.counts]
+        _refined_tableau_row = 0
+        postsolve_primal = 1
+        "update_primals!" = 65
+        pipeline_ftran_transpose = 0
+        _dual_row_residual_ratio = 65
+        "_try_refine_dual_pivot!" = 0
+        cleanup_original = 1
+        "_stabilize_small_dual_pivot!" = 65
+        discarded_metadata_events = 0
+        _legacy_primal_point_certified = 0
+        pipeline_pricing_forward = 0
+        committed_pricing_reset = 0
+        pricing_full_scan = 66
+        finite_value_elements = 205824
+        "_dual_direction_residual_ok!" = 65
+        "_try_native_primal_point_correction!" = 0
+        committed_checkpoint = 0
+        _refined_dual_prices = 0
+        "_pipeline_output_support!" = 0
+        pipeline_btran_forward = 0
+        "_try_native_dual_correction!" = 0
+        pipeline_bfrt_transpose = 0
+        "_try_refine_dual_direction!" = 0
+        pipeline_ftran_forward = 71
+        pricing_block_scan = 0
+        initialize_workspace = 2
+        _legacy_primal_direction_price_ok = 0
+        "_primal_row_bounds!" = 6
+        presolve_problem = 1
+        "apply_primal_pivot!" = 0
+        _try_native_certificate_recovery = 0
+        pricing_scanned_entries = 4352
+        "update_duals!" = 65
+        committed_repair = 0
+        pipeline_weight_ftran_transpose = 0
+        _legacy_primal_row_consistent = 0
+        dual_ratio_test = 1
+        _original_optimality_certified = 2
+        pipeline_pricing_transpose = 0
+        "_try_refine_dual_prices!" = 0
+        "update_dse!" = 65
+        "_copy_pivot_state!" = 0
+        "price!" = 65
+        "_project_postsolve_basis!" = 1
+        pipeline_weight_ftran_forward = 65
+        pricing_pool_hit = 0
+        _primal_ratio = 0
+        "_primal_update_steepest!" = 0
+        committed_restore_checkpoint = 0
+        "_apply_bound_flips!" = 65
+        "_replace_pivot_column!" = 65
+        "_restore_legacy_primal_point!" = 0
+        _bound_flipping_ratio_test = 65
+        "_audit_primal_values!" = 0
+        "_rebuild_pipeline_support!" = 0
+        "recompute!" = 6
+        pipeline_weight_btran_transpose = 0
+        pricing_scored_entries = 1978
+        _legacy_primal_model_feasible = 0
+        _refined_basis_solution = 0
+        pipeline_bfrt_forward = 7
+        pipeline_weight_btran_forward = 0
+        _native_primal_rows_filter = 0
+        "_try_native_dual_tableau!" = 0
+        "_pipeline_basis_solve!" = 214
+        "_basis_matrix!" = 1
+        pipeline_btran_transpose = 71
+        _primal_bound_snap_feasible = 0
+        "refactorize!" = 1
+        "_sparse_pricing_workspace!" = 0
+        _internal_solution = 2
+        _primal_price_prediction_reliable = 0
+        _finite_workspace = 268
+
+        [traces.counted.recorder_tail]
+        tail_instrumentation_nanoseconds = 14500
+        tail_instrumentation_bytes = 9056
+        windows = 5
+
+        [traces.counted.events]
+        certification = 2
+        phase_primal = 1
+        phase_dual = 1
+        bound_flipped = 28
+        refactor_other = 1
+        pricing = 66
+        pivot_completed = 65
+        refactor_initial = 2
+        restore_perturbations = 1
+        pivot_proposed = 65
+        phase_cleanup = 1
+[[traces]]
+    [traces.plain]
+    counted = false
+    last_callback_state = "59bb0fa6dc7fb13bc27290e203bfdddbfcd12ec0eddaf20f2e552f8bc851560e"
+    gc_seconds = 0.415152582
+    primal_hash = "400b1e7dcfef46c6ac673ee36226747bfd865e9276658f115962d69582027a05"
+    objective = "-306.00049124699314"
+    allocations = 13705125
+    seconds = 0.760965266
+    recorder_retained_bytes = 0
+    compile_seconds = 0.0
+    trace = true
+    bytes = 516132568
+    algorithm = "primal"
+    iterations = 158
+    states_hash = "8689a52f634edc9e231476447c5292b3d3d5fc2b079127dcf4b632bd524d263c"
+    status = "OPTIMAL"
+    events_hash = "0a1c23dffe877e278117fc7e04292d38de46e104963b2a2a4a2dd2b57e14322c"
+
+        [traces.plain.counts]
+
+        [traces.plain.recorder_tail]
+
+        [traces.plain.events]
+        certification = 2
+        refactor_other = 2
+        flip_completed = 94
+        pricing = 161
+        pivot_completed = 64
+        pivot_proposed = 158
+        phase_primal = 2
+        phase_one = 1
+        refactor_initial = 3
+        phase_cleanup = 1
+
+    [traces.counted]
+    counted = true
+    last_callback_state = "59bb0fa6dc7fb13bc27290e203bfdddbfcd12ec0eddaf20f2e552f8bc851560e"
+    gc_seconds = 0.416034183
+    primal_hash = "400b1e7dcfef46c6ac673ee36226747bfd865e9276658f115962d69582027a05"
+    objective = "-306.00049124699314"
+    allocations = 13706458
+    seconds = 0.777429668
+    recorder_retained_bytes = 2860
+    compile_seconds = 0.0
+    trace = true
+    bytes = 516034600
+    algorithm = "primal"
+    iterations = 158
+    states_hash = "8689a52f634edc9e231476447c5292b3d3d5fc2b079127dcf4b632bd524d263c"
+    status = "OPTIMAL"
+    events_hash = "0a1c23dffe877e278117fc7e04292d38de46e104963b2a2a4a2dd2b57e14322c"
+
+        [traces.counted.counts]
+        _refined_tableau_row = 0
+        postsolve_primal = 1
+        "update_primals!" = 0
+        pipeline_ftran_transpose = 0
+        _dual_row_residual_ratio = 64
+        "_try_refine_dual_pivot!" = 0
+        cleanup_original = 1
+        "_stabilize_small_dual_pivot!" = 0
+        discarded_metadata_events = 0
+        _legacy_primal_point_certified = 0
+        pipeline_pricing_forward = 0
+        committed_pricing_reset = 0
+        pricing_full_scan = 161
+        finite_value_elements = 167168
+        "_dual_direction_residual_ok!" = 0
+        "_try_native_primal_point_correction!" = 0
+        committed_checkpoint = 0
+        _refined_dual_prices = 0
+        "_pipeline_output_support!" = 0
+        pipeline_btran_forward = 0
+        "_try_native_dual_correction!" = 0
+        pipeline_bfrt_transpose = 0
+        "_try_refine_dual_direction!" = 0
+        pipeline_ftran_forward = 322
+        pricing_block_scan = 0
+        initialize_workspace = 3
+        _legacy_primal_direction_price_ok = 158
+        "_primal_row_bounds!" = 7
+        presolve_problem = 1
+        "apply_primal_pivot!" = 0
+        _try_native_certificate_recovery = 0
+        pricing_scanned_entries = 41152
+        "update_duals!" = 0
+        committed_repair = 0
+        pipeline_weight_ftran_transpose = 0
+        _legacy_primal_row_consistent = 0
+        dual_ratio_test = 0
+        _original_optimality_certified = 3
+        pipeline_pricing_transpose = 0
+        "_try_refine_dual_prices!" = 0
+        "update_dse!" = 0
+        "_copy_pivot_state!" = 0
+        "price!" = 128
+        "_project_postsolve_basis!" = 1
+        pipeline_weight_ftran_forward = 0
+        pricing_pool_hit = 0
+        _primal_ratio = 158
+        "_primal_update_steepest!" = 64
+        committed_restore_checkpoint = 0
+        "_apply_bound_flips!" = 0
+        "_replace_pivot_column!" = 64
+        "_restore_legacy_primal_point!" = 0
+        _bound_flipping_ratio_test = 0
+        "_audit_primal_values!" = 0
+        "_rebuild_pipeline_support!" = 0
+        "recompute!" = 164
+        pipeline_weight_btran_transpose = 64
+        pricing_scored_entries = 8721
+        _legacy_primal_model_feasible = 0
+        _refined_basis_solution = 0
+        pipeline_bfrt_forward = 0
+        pipeline_weight_btran_forward = 0
+        _native_primal_rows_filter = 0
+        "_try_native_dual_tableau!" = 0
+        "_pipeline_basis_solve!" = 614
+        "_basis_matrix!" = 2
+        pipeline_btran_transpose = 228
+        _primal_bound_snap_feasible = 128
+        "refactorize!" = 2
+        "_sparse_pricing_workspace!" = 0
+        _internal_solution = 2
+        _primal_price_prediction_reliable = 0
+        _finite_workspace = 164
+
+        [traces.counted.recorder_tail]
+        tail_instrumentation_nanoseconds = 7400
+        tail_instrumentation_bytes = 9056
+        windows = 5
+
+        [traces.counted.events]
+        certification = 2
+        refactor_other = 2
+        flip_completed = 94
+        pricing = 161
+        pivot_completed = 64
+        pivot_proposed = 158
+        phase_primal = 2
+        phase_one = 1
+        refactor_initial = 3
+        phase_cleanup = 1
+
+[[policies]]
+refactor_timing = "true"
+stable_ratio = "false"
+precision_boosting = "false"
+max_precision_memory_bytes = "1073741824"
+recovery = "false"
+max_refinements = "3"
+incremental_primal = "false"
+partial_pricing = "false"
+adaptive_primal_perturbation = "false"
+pivot_error_tolerance = "1.4901161193847656e-8"
+lp_refinement = "false"
+adaptive_refactor = "false"
+sparse_pricing = "false"
+solve_tolerance = "5.684341886080802e-14"
+max_lp_refinements = "8"
+adaptive_stalling = "false"
+max_pivot_candidates = "8"
+pivot_validation = "false"
+adaptive_pricing = "false"
+feasibility_recovery = "false"
+max_recovery_rounds = "2"
+adaptive_dual_perturbation = "false"
+solve_refinement = "false"
+hypersparse = "false"
+incremental_primal_pivots = "false"
+phase_one = "false"
+crash = "false"
+stagnation_window = "64"
+max_precision_bits = "512"
+[[policies]]
+refactor_timing = "true"
+stable_ratio = "false"
+precision_boosting = "false"
+max_precision_memory_bytes = "1073741824"
+recovery = "false"
+max_refinements = "3"
+incremental_primal = "false"
+partial_pricing = "false"
+adaptive_primal_perturbation = "false"
+pivot_error_tolerance = "1.4901161193847656e-8"
+lp_refinement = "false"
+adaptive_refactor = "false"
+sparse_pricing = "false"
+solve_tolerance = "5.684341886080802e-14"
+max_lp_refinements = "8"
+adaptive_stalling = "false"
+max_pivot_candidates = "8"
+pivot_validation = "false"
+adaptive_pricing = "false"
+feasibility_recovery = "false"
+max_recovery_rounds = "2"
+adaptive_dual_perturbation = "false"
+solve_refinement = "false"
+hypersparse = "false"
+incremental_primal_pivots = "false"
+phase_one = "false"
+crash = "false"
+stagnation_window = "64"
+max_precision_bits = "512"
+
+[[warmups]]
+counted = false
+last_callback_state = ""
+gc_seconds = 0.084858496
+primal_hash = "cb6e44878ef6be74e4fe3c8d9ec09421b6e9510de93262af80480f665f35abd5"
+objective = "-306.000491246992"
+allocations = 13702286
+seconds = 0.442289282
+recorder_retained_bytes = 0
+compile_seconds = 0.0
+trace = false
+bytes = 514401448
+algorithm = "dual"
+iterations = 65
+states_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+status = "OPTIMAL"
+events_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+    [warmups.counts]
+
+    [warmups.recorder_tail]
+
+    [warmups.events]
+[[warmups]]
+counted = true
+last_callback_state = ""
+gc_seconds = 0.0
+primal_hash = "cb6e44878ef6be74e4fe3c8d9ec09421b6e9510de93262af80480f665f35abd5"
+objective = "-306.000491246992"
+allocations = 13703619
+seconds = 0.270423589
+recorder_retained_bytes = 2860
+compile_seconds = 0.0
+trace = false
+bytes = 514246120
+algorithm = "dual"
+iterations = 65
+states_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+status = "OPTIMAL"
+events_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+    [warmups.counts]
+    _refined_tableau_row = 0
+    postsolve_primal = 1
+    "update_primals!" = 65
+    pipeline_ftran_transpose = 0
+    _dual_row_residual_ratio = 65
+    "_try_refine_dual_pivot!" = 0
+    cleanup_original = 1
+    "_stabilize_small_dual_pivot!" = 65
+    discarded_metadata_events = 0
+    _legacy_primal_point_certified = 0
+    pipeline_pricing_forward = 0
+    committed_pricing_reset = 0
+    pricing_full_scan = 66
+    finite_value_elements = 205824
+    "_dual_direction_residual_ok!" = 65
+    "_try_native_primal_point_correction!" = 0
+    committed_checkpoint = 0
+    _refined_dual_prices = 0
+    "_pipeline_output_support!" = 0
+    pipeline_btran_forward = 0
+    "_try_native_dual_correction!" = 0
+    pipeline_bfrt_transpose = 0
+    "_try_refine_dual_direction!" = 0
+    pipeline_ftran_forward = 71
+    pricing_block_scan = 0
+    initialize_workspace = 2
+    _legacy_primal_direction_price_ok = 0
+    "_primal_row_bounds!" = 6
+    presolve_problem = 1
+    "apply_primal_pivot!" = 0
+    _try_native_certificate_recovery = 0
+    pricing_scanned_entries = 4352
+    "update_duals!" = 65
+    committed_repair = 0
+    pipeline_weight_ftran_transpose = 0
+    _legacy_primal_row_consistent = 0
+    dual_ratio_test = 1
+    _original_optimality_certified = 2
+    pipeline_pricing_transpose = 0
+    "_try_refine_dual_prices!" = 0
+    "update_dse!" = 65
+    "_copy_pivot_state!" = 0
+    "price!" = 65
+    "_project_postsolve_basis!" = 1
+    pipeline_weight_ftran_forward = 65
+    pricing_pool_hit = 0
+    _primal_ratio = 0
+    "_primal_update_steepest!" = 0
+    committed_restore_checkpoint = 0
+    "_apply_bound_flips!" = 65
+    "_replace_pivot_column!" = 65
+    "_restore_legacy_primal_point!" = 0
+    _bound_flipping_ratio_test = 65
+    "_audit_primal_values!" = 0
+    "_rebuild_pipeline_support!" = 0
+    "recompute!" = 6
+    pipeline_weight_btran_transpose = 0
+    pricing_scored_entries = 1978
+    _legacy_primal_model_feasible = 0
+    _refined_basis_solution = 0
+    pipeline_bfrt_forward = 7
+    pipeline_weight_btran_forward = 0
+    _native_primal_rows_filter = 0
+    "_try_native_dual_tableau!" = 0
+    "_pipeline_basis_solve!" = 214
+    "_basis_matrix!" = 1
+    pipeline_btran_transpose = 71
+    _primal_bound_snap_feasible = 0
+    "refactorize!" = 1
+    "_sparse_pricing_workspace!" = 0
+    _internal_solution = 2
+    _primal_price_prediction_reliable = 0
+    _finite_workspace = 268
+
+    [warmups.recorder_tail]
+    tail_instrumentation_nanoseconds = 7600
+    tail_instrumentation_bytes = 9056
+    windows = 5
+
+    [warmups.events]
+[[warmups]]
+counted = false
+last_callback_state = ""
+gc_seconds = 0.279235988
+primal_hash = "400b1e7dcfef46c6ac673ee36226747bfd865e9276658f115962d69582027a05"
+objective = "-306.00049124699314"
+allocations = 13702724
+seconds = 0.599415075
+recorder_retained_bytes = 0
+compile_seconds = 0.0
+trace = false
+bytes = 515705624
+algorithm = "primal"
+iterations = 158
+states_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+status = "OPTIMAL"
+events_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+    [warmups.counts]
+
+    [warmups.recorder_tail]
+
+    [warmups.events]
+[[warmups]]
+counted = true
+last_callback_state = ""
+gc_seconds = 0.409013682
+primal_hash = "400b1e7dcfef46c6ac673ee36226747bfd865e9276658f115962d69582027a05"
+objective = "-306.00049124699314"
+allocations = 13704057
+seconds = 0.759014868
+recorder_retained_bytes = 2860
+compile_seconds = 0.0
+trace = false
+bytes = 515994520
+algorithm = "primal"
+iterations = 158
+states_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+status = "OPTIMAL"
+events_hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+    [warmups.counts]
+    _refined_tableau_row = 0
+    postsolve_primal = 1
+    "update_primals!" = 0
+    pipeline_ftran_transpose = 0
+    _dual_row_residual_ratio = 64
+    "_try_refine_dual_pivot!" = 0
+    cleanup_original = 1
+    "_stabilize_small_dual_pivot!" = 0
+    discarded_metadata_events = 0
+    _legacy_primal_point_certified = 0
+    pipeline_pricing_forward = 0
+    committed_pricing_reset = 0
+    pricing_full_scan = 161
+    finite_value_elements = 167168
+    "_dual_direction_residual_ok!" = 0
+    "_try_native_primal_point_correction!" = 0
+    committed_checkpoint = 0
+    _refined_dual_prices = 0
+    "_pipeline_output_support!" = 0
+    pipeline_btran_forward = 0
+    "_try_native_dual_correction!" = 0
+    pipeline_bfrt_transpose = 0
+    "_try_refine_dual_direction!" = 0
+    pipeline_ftran_forward = 322
+    pricing_block_scan = 0
+    initialize_workspace = 3
+    _legacy_primal_direction_price_ok = 158
+    "_primal_row_bounds!" = 7
+    presolve_problem = 1
+    "apply_primal_pivot!" = 0
+    _try_native_certificate_recovery = 0
+    pricing_scanned_entries = 41152
+    "update_duals!" = 0
+    committed_repair = 0
+    pipeline_weight_ftran_transpose = 0
+    _legacy_primal_row_consistent = 0
+    dual_ratio_test = 0
+    _original_optimality_certified = 3
+    pipeline_pricing_transpose = 0
+    "_try_refine_dual_prices!" = 0
+    "update_dse!" = 0
+    "_copy_pivot_state!" = 0
+    "price!" = 128
+    "_project_postsolve_basis!" = 1
+    pipeline_weight_ftran_forward = 0
+    pricing_pool_hit = 0
+    _primal_ratio = 158
+    "_primal_update_steepest!" = 64
+    committed_restore_checkpoint = 0
+    "_apply_bound_flips!" = 0
+    "_replace_pivot_column!" = 64
+    "_restore_legacy_primal_point!" = 0
+    _bound_flipping_ratio_test = 0
+    "_audit_primal_values!" = 0
+    "_rebuild_pipeline_support!" = 0
+    "recompute!" = 164
+    pipeline_weight_btran_transpose = 64
+    pricing_scored_entries = 8721
+    _legacy_primal_model_feasible = 0
+    _refined_basis_solution = 0
+    pipeline_bfrt_forward = 0
+    pipeline_weight_btran_forward = 0
+    _native_primal_rows_filter = 0
+    "_try_native_dual_tableau!" = 0
+    "_pipeline_basis_solve!" = 614
+    "_basis_matrix!" = 2
+    pipeline_btran_transpose = 228
+    _primal_bound_snap_feasible = 128
+    "refactorize!" = 2
+    "_sparse_pricing_workspace!" = 0
+    _internal_solution = 2
+    _primal_price_prediction_reliable = 0
+    _finite_workspace = 164
+
+    [warmups.recorder_tail]
+    tail_instrumentation_nanoseconds = 18900
+    tail_instrumentation_bytes = 9056
+    windows = 5
+
+    [warmups.events]
+
+[[gates]]
+median_overhead = -0.05001627520613572
+pass = true
+algorithm = "dual"
+constant_recorder_retention = true
+[[gates]]
+median_overhead = 0.0024361823113370207
+pass = true
+algorithm = "primal"
+constant_recorder_retention = true

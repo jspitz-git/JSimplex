@@ -57,13 +57,13 @@ Interfaces: `LongRecorder(io, JS)` owns only bounded metadata; its `(event, ws)`
 observer writes a phase boundary or every 1024 accepted steps. `finish!(recorder)`
 writes the partial window; it does not certify a solution.
 
-- [ ] Test window boundaries, offsets/phase algorithms, staged rejection,
+- [x] Test window boundaries, offsets/phase algorithms, staged rejection,
   exception unwind and constant retained storage before implementing streaming.
-- [ ] Add time/GC/allocation deltas only at windows and cold section boundaries
+- [x] Add time/GC/allocation deltas only at windows and cold section boundaries
   (presolve, initialization, refactorization, recovery, projection, cleanup entry,
   final certification). Use nesting to avoid double attribution; report window
   wall time separately from exclusive region totals.
-- [ ] Verify plain/counted state+event fingerprints in separate trace mode on
+- [x] Verify plain/counted state+event fingerprints in separate trace mode on
   frozen sparse/dense fixtures and a bounded medium prefix. Hashes are excluded
   from authoritative timing; no snapshots used as restart state.
 - [ ] Warm independently, interleave >=3 plain/counted pairs for each calibration
@@ -73,7 +73,7 @@ writes the partial window; it does not certify a solution.
 
 ## L3: serial live references
 
-- [ ] Independent diagnostic correctness/work/memory review before long launch.
+- [x] Independent diagnostic correctness/work/memory review before long launch.
 - [ ] Freeze each exact command/input/source/env; stream a fresh medium dual live
   solve then primal in separate guarded attempts. Preserve all phase/recovery
   state. Use the calibrated mode; separate plain solve is authoritative for time.
@@ -258,3 +258,48 @@ or check is removed. Reports list omitted entries, which must not be read as zer
 calls. Counter tests and fresh kernel/full gates are required; keep batch/pairs
 and threshold unchanged. Also move full-calibration count snapshot before the
 untimed final primal check, matching the already reviewed L3 driver fix.
+
+Reduced probe kernel9 still rejects sparse8.1536% (dense1.8140% passes), so the
+conditional driver did not start full suite3/smoke1. current-ablation-1 uses the
+current profile with fixed pricing metadata,128 kernels and6 rotations: medians
+none2.8860ms,owned-noop2.8586505ms,recorder2.98875ms. All common operation counts
+and states match, owned metadata match, compile0; only recorder has1 periodic
+write. none includes count probes and is not an uninstrumented production baseline.
+This localizes remaining measured difference to recorder delivery/body/output;
+none->noop also differs in metadata/staging and is not a pure callback benchmark.
+
+Next hypothesis: a diagnostic-only owned _diagnostic_event! specialization with
+@inline/@constprop exposes literal reasons to the recorder. Preserve validation
+before try, observer-only exception wrapping (including nested failures), default
+state and return. Public and staged dispatch remain original. Review accepts
+semantics; compiler/code-size improvement is a hypothesis requiring measurement.
+Existing failed performance gate is the regression; event-sink semantics plus
+fresh kernel/full gates and memory/compilation observations remain required.
+
+Current annotation: event17GREEN; kernel10 accepted sparse4.64385%/dense2.96326%
+with the same128 kernels/six pairs and exact separate traces, compile0. Final
+static review finds no new blocker/unnecessary work/growing retention. Full suite3
+is still running (five gates pass so far), followed conditionally by smoke1.
+Audit CLI exit0 is not acceptance: inspect its JSON success boolean explicitly.
+No long launch before all six completed gates, unchanged pins and successful smoke.
+
+Full suite3 finished exit0/pins unchanged: five gates pass, medium primal rejects
+5.90404%; smoke/long not launched. Preserve this rejection. The two large paired
+elapsed gaps0.796/0.933s include0.396/0.675s extra GC, but GC does not explain all.
+Diagnostic overhead is~540 additional allocation events among168million, two
+windows and constant2860B retained recorder; removing more probes lacks evidence.
+
+Ruling (reviewed): one focused process-isolated medium/primal64 calibration using
+the existing long_measure.jl and its actual L3 warmups. Each plain/counted sample
+gets a fresh single-module/single-model process, unlike suite3's simultaneously
+resident two module/model graphs. This tests a concrete deployment mismatch, not
+proof that it caused the rejection. Six fixed pairs (AB/BA alternating), one
+measured prefix per process, serial guard600s each, unchanged5% ratio-of-medians
+budget; no subtraction of GC or sample deletion. Require normal exit, unchanged
+pins, zero measured compilation, matching final status/iterations/objective/hash,
+options/policy and exact counted window sums. ITERATION_LIMIT is expected here
+and cannot qualify as a successful long reference. The driver never launches L3.
+Commands/manifest/results are preserved in S0-L/isolated-primal-calibration-1.json;
+exact orchestrator /tmp/jsimplex-isolated-calibration.py is additionally pinned
+and copied into the stage. Existing five full gates and kernel10 remain evidence;
+this focused experiment addresses only the failed medium-primal timing gate.

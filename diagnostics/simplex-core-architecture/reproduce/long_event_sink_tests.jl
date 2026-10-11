@@ -37,6 +37,15 @@ function check_sink()
   throwing=JS.SimplexDiagnostics(;observer=LongTraceObserver(r,(event,ws)->throw(failure)))
   err=try JS._diagnostic_event!(throwing,:pivot_rejected,ws) catch e;e end
   @test err isa JS.DiagnosticObserverFailure && err.cause===failure
+  # Default state and nested failures keep the generic dispatch contract.
+  states=Any[]
+  defaults=JS.SimplexDiagnostics(;observer=LongTraceObserver(r,(event,state)->push!(states,state)))
+  @test JS._diagnostic_event!(defaults,:pricing)===nothing
+  @test states==[nothing]
+  wrapped=JS.DiagnosticObserverFailure(failure)
+  nested=JS.SimplexDiagnostics(;observer=LongTraceObserver(r,(event,state)->throw(wrapped)))
+  err=try JS._diagnostic_event!(nested,:pricing,ws) catch e;e end
+  @test err isa JS.DiagnosticObserverFailure && err.cause===wrapped
   # Keep the standard wrapper and exact exception identity for recorder errors.
   close(r.io)
   caught=try JS._diagnostic_event!(diag,:phase_one,ws) catch e;e end

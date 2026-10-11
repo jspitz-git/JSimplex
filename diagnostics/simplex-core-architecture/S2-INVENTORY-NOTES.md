@@ -51,7 +51,7 @@ cost bounds, not measured exclusive costs; a residual scan can reuse buffers.
 | Weak-candidate deferral and bounded search | primal_simplex.jl `defer_weak`; legacy candidate retry route | Candidate selection/retry behavior changes when switching to `_retry_simplex_step!`; preserve protections explicitly rather than treating the checked route as equivalent. |
 | Bound-value and native point retention | legacy_primal_point/joint_point and `_can_preserve_primal_bound_value` | Policies and staged ownership disable current preservation paths. A failed audit/reconstruction must use a validated fallback, never publish the predicted point because it was finite. |
 | Atomic incremental mutation | primal_updates.jl `apply_primal_flip!`, `apply_primal_pivot!` | Predict-before-write m scan, then m value updates; pivot also n price validation/update and factor update. Preserve alias/shape checks, basis generation and masks; do not add another copy of these operations. |
-| Independent audit | `_audit_primal_values!` | Two n-sized copies, recompute, finite/basis-quality checks, value comparison and independent price residual. Account for this in total cost and invalidate the error budget after any correction. |
+| Independent audit | `_audit_primal_values!` | Two n-sized prediction copies, recompute, finite/basis-quality checks and value comparison. The independent price residual additionally allocates vcat(rho,predicted_costs) and SolveQualityScratch, then traverses the implicit system (including A nonzeros). The basis-reliability check also builds an m-sized RHS by scanning states/nonbasic column nonzeros, allocates SolveQualityScratch(T,m) and indexed primal/basic-cost copies, and runs up to two basis residual checks. Account for all of this and invalidate the error budget after any correction. |
 | Publication and interruptions | simplex_pivot.jl `_transactional_simplex_step!` | Candidate copies plus staged completion events; audit every20 for current incremental flags. The new controller must specify failure rollback and final stop semantics instead of inheriting an unexplained interval. |
 | Final original certificate | `_internal_solution`, solver postsolve/cleanup/retry | Independent original feasibility and optimality remain mandatory; any local estimate is insufficient to certify final success. |
 
@@ -61,3 +61,53 @@ their existing paths until their numerical contract is explicitly implemented
 and tested. This inventory does not infer cross-precision safety from a Float64
 benchmark. Before implementation, the subplan must specify how an experimental
 path preserves each row above without simply enabling an existing policy flag.
+
+
+## Existing regression coverage to retain
+
+- primal_update_tests.jl already checks incremental pivots against independent
+  basis solves, mixed chains and corrected audits, signed/free steps, deadline
+  and overflow rollback, high stored BigFloat precision, cancellation-aware
+  price audits and infeasible reconstruction before unboundedness certification.
+  Extend these contracts for any new controller rather than recreating toy tests
+  that merely mirror its formulas.
+- legacy_primal_correlated_pivot_tests.jl covers false correlated pivots, genuine
+  scaled small pivots, strong-pivot fast paths and interruption of the weak-pivot
+  probe. legacy_primal_direction_price_tests.jl covers contradicted prices before
+  flips/unboundedness, genuine tiny Phase-I costs, cancellation, one bounded
+  reprice/refactor, atomic native correction and nonrenewable recovery budgets.
+- The inspected hardware guard loops in those two legacy files enumerate PFI,
+  FT, SS and BG, not HH. S2 validation must explicitly include HH rather than
+  treating the existing loops as all-five-manager coverage. Supported precision,
+  native/Markowitz and original-certificate gates remain separate obligations.
+
+## Ownership and reconstruction boundaries
+
+Source anchors (relative to this unchanged production tree):
+
+| Boundary | Current implementation | Consequence for S2 |
+| --- | --- | --- |
+| Candidate creation | simplex_pivot.jl `_new_candidate_workspace`, `_copy_pivot_state!` | Candidate values/scratch are reused, but all live value arrays and basis/pricing state are copied on every attempt. The factor is initially shared, so this is not an independent factor checkpoint. Include both copy directions in total work. |
+| Factor mutation | `_replace_pivot_column!` | Marks `pending_factor_update` before mutation because triangular updates can mutate before throwing. `_discard_candidate!` rebuilds live factors if needed; an estimator reset cannot replace rollback. |
+| Publication | `_transactional_simplex_step!` | Reconstruct or audit before copying candidate state to live. No callback is allowed between publication copies; completion events follow consistent values/basis/factor/count. Preserve this visibility contract for failures and deadlines. |
+| Refactorization after publication | same function, `post_refactorize` branch | Performs a fresh `recompute!` after the accepted step. Any accumulated error state must reset only after successful reconstruction, and cannot be reused across a failed refactorization. |
+| Apparent optimum | primal_simplex.jl `_primal_iteration_unchecked!`, `entering == 0` | Incremental-pivot mode recomputes, checks finiteness and primal feasibility, then reprices before reporting OPTIMAL. A local error estimate cannot bypass this independent endpoint check. |
+| Apparent unboundedness | same function, `isnothing(step)` | Incremental-pivot mode refreshes once and checks feasibility before certifying the recession direction. Finite incremental values do not establish a valid starting point or ray. |
+| Model/bounds/cost changes | S1-OWNERSHIP.md; phase and recovery owners | A per-step budget belongs to the exact working matrix, basis, bounds, costs and accepted primal/prices. Invalidate on phase/precision/recovery transfer, bound/cost perturbation and external mutation. No reuse across original-model postsolve. |
+
+Ruling: S2's first experiment should measure one explicitly protected update
+path rather than compare the current legacy policy with an arbitrary incremental
+flag combination. The existing transactional route adds copies and changes
+candidate/recovery behavior; these costs and protections must be named in the
+subplan before choosing its private experimental entry. No estimator formula or
+production API is selected by this static inventory.
+
+The price-audit allocation detail is explicit in primal_updates.jl
+`_primal_price_prediction_reliable`: a length-(m+n) concatenation plus new
+`SolveQualityScratch(T,n)` for the implicit `_PriceAuditMatrix`. Here n includes
+working structural and slack variables. Reusing scratch would require accounting
+for aliasing with reconstruction scratch and supported arbitrary-precision values;
+this inventory does not authorize such reuse or count it as an achieved saving.
+
+Static review confirms the map after adding the basis-reliability audit costs;
+no additional numerical experiment is required for this documentation.

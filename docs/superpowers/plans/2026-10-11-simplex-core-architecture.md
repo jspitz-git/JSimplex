@@ -127,7 +127,7 @@ legacy_primal_point,legacy_primal_pivot,simplex_recovery}.jl`.
 `test/native_primal_completion_tests.jl`, `test/native_certificate_recovery_tests.jl`,
 `test/simplex_strategy_separation_tests.jl`.
 
-- [ ] Map existing incremental operations and audit paths to the protections in
+- [x] Map existing incremental operations and audit paths to the protections in
   the working legacy path. List guards bypassed by current incremental flags.
 - [ ] Write the S2 subplan defining error accounting in problem precision,
   mandatory reconstruction points, failure fallback and test instrumentation.
@@ -336,3 +336,17 @@ current kernel/full calibration and driver smoke remain mandatory. S0 is still
 Active, not a completed long reference. See STATUS.md and S0-LONG.md for current
 attempts. S2 static guard/work inventory is in S2-INVENTORY-NOTES.md; no S2
 production experiment or master change has been made.
+
+S0-L2 current checkpoint: kernel10 passes, full suite3 medium primal rejects5.904%
+with all traces matching and stable retention; no long reference. A reviewed
+single-module process-isolated calibration now tests the specific difference
+between the suite's resident two-module/model graphs and actual L3. Preserve
+six alternating pairs,5% ratio-of-medians, all samples and old failure.
+
+Ruling: complete S2's static mapping prerequisite during S0 calibration waits,
+without starting an experiment or changing production. S2-INVENTORY-NOTES.md
+maps bypassed legacy safeguards, factor ownership/rollback, publication and
+terminal reconstruction, plus all known independent-audit allocation/scan costs.
+Independent review confirms the map after adding basis-reliability RHS/scratch,
+indexed copies and residual passes. The subplan/controller and all S2 numerical
+gates remain pending. No benchmark is needed for the documentation itself.

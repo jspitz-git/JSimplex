@@ -292,6 +292,19 @@ function install_long_event_sink!(JS)
         # distinct _StageObserver dispatch that buffers candidate completions.
         # Generic history remains omitted. long_metadata.jl separately preserves
         # pricing work, committed recovery reasons and discarded metadata totals.
+        # Expose literal event reasons to constant propagation in owned callbacks.
+        # Validation stays outside try; only observer failures get wrapped.
+        Base.@constprop :aggressive @inline function _diagnostic_event!(
+            d::SimplexDiagnostics{F},reason::Symbol,state=nothing
+        ) where {F<:_lc_owned_observer_type}
+            record_event!(d,reason)
+            try
+                d.observer(reason,state)
+            catch exception
+                throw(DiagnosticObserverFailure(exception))
+            end
+            return nothing
+        end
         @inline function record_event!(d::SimplexDiagnostics{F},reason::Symbol)::Nothing where {F<:_lc_owned_observer_type}
             reason in SIMPLEX_EVENT_REASONS || throw(ArgumentError("Unknown simplex diagnostic event: $reason"))
             nothing

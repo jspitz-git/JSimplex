@@ -279,3 +279,65 @@ cold regions remain instrumented. counts-green-3 passed40, normal exit/pins.
 New kernel9/full suite3 and driver smoke are required before a long reference.
 The full calibration now also snapshots counts before the untimed primal audit,
 so its current count totals can be compared with complete window groups.
+
+## Owned event delivery (current snapshot)
+
+Reduced-density kernel9 still rejected sparse8.1536%, while dense1.8140% passed.
+The conditional driver correctly skipped full suite3/smoke1 at that point.
+current-ablation-1 then compared128 sparse kernels in six mode rotations with
+identical shared counts/states: none2.8860ms, owned-noop2.8586505ms,
+recorder2.98875ms. Both owned modes have identical pricing metadata; only the
+recorder emits one periodic window. None still includes operation probes and
+has different metadata/staging, so none-to-noop is not a pure callback test.
+
+The next changed hypothesis specializes owned `_diagnostic_event!` with inline
+and constant-propagation annotations. Event validation stays before try; only
+observer failures are wrapped, preserving default state and nested exception
+identity. Public/staged dispatch is unchanged. event-sink-green-3 passes17.
+Review finds no added numerical scan, solve, copy or retained solver state;
+annotations may change compiled code size, so compilation/memory are observed.
+Cross-attempt timing changes do not isolate a compiler-level causal speedup.
+
+window-pilot-10 passed the unchanged5% gate: sparse4.6438513%, dense2.9632604%,
+128 kernels/six balanced pairs, exact separate traces and zero measured
+compilation. Full solve-suite-3 is active on this identical snapshot. Its completed
+sparse/dense gates all pass; medium prefixes and L3 smoke remain required.
+No long reference has launched. Preserve all preceding rejected attempts.
+
+Uncertainty already visible in suite3: dense dual plain samples0.3911–0.7730s
+and counted0.2653–0.7674s have broad overlapping spread. Negative median overhead
+is not an instrumentation speedup; the predeclared calibration gate uses all
+six pairs and never discards a slow sample. Recorder retention is2860B in the
+completed cases. Warm measured compilation is zero; compilation and process
+peak memory remain separately recorded by each attempt.
+
+Final static diagnostic review verified byte agreement of the current four core
+scripts with kernel10/fullsuite3 snapshots, event17/17 and the fixed phase/audit
+contracts. No new blocking correctness, unnecessary-work or accumulating-retention
+finding. Launch approval remains conditional on all completed full-suite gates
+and a successful driver smoke; neither partial logs nor the audit CLI's exit0
+substitute for `chronology_reference_success=true`. Review ran no Julia process.
+
+## Full suite3 outcome and isolated follow-up
+
+All traces match, compile0 and retained recorder2860B constant. Normal exit/pins.
+Median overhead sparse dual/primal -2.1680%/-0.6648%, dense -5.0016%/+0.2436%,
+medium -2.7288%/+5.9040%. The final medium-primal gate FAILS; smoke/long were
+not launched. Portable per-case reports retain every sample. Kernel10 is still
+accepted, but it alone does not accept L2. Negative values are not speedup claims.
+
+Medium-primal two largest paired gaps are0.796/0.933s with0.396/0.675s extra GC;
+GC is significant but cannot explain all. Diagnostics add about540 allocation
+events to168million, two windows and constant retention. That is not proof of
+zero timing impact: even small allocations can move collections. Review advises
+one focused process-isolated calibration to match L3's single-module/model
+environment, rather than remove additional probes without evidence. Existing
+suite3 holds both JSimplex and CountedSource and both input models concurrently.
+
+New isolated-primal-calibration-1 fixes six alternating AB/BA pairs before launch,
+one measured medium/primal64 prefix per process following the existing actual
+L3 warmups. All guard settings and5% ratio-of-medians gate remain. Require
+zero measured compilation, matching final result/options/policy, normal exit,
+unchanged pins and exact counted window sums. It investigates the residency
+hypothesis and cannot revise the old failure. ITERATION_LIMIT is expected and
+is not a solved medium. The first sample is active; no new result is claimed.
