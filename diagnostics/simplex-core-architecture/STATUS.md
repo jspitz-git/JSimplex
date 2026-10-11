@@ -34,7 +34,7 @@ main also has a user-modified .vscode/settings.json. Do not stage those files.
 | P0 | Design, roadmap, continuation record | Done | This documentation; production unchanged |
 | S0 | Frozen baseline and coverage plan | Active | L2 accepted; smoke passed; medium-dual-counted-1 live reference active |
 | S1 | State ownership and validation reuse | Integrated | Inventory and local S1-A contract; master beb161b, report S1-ENTRY.md |
-| S2 | Audited incremental primal maintenance | Active | Guard inventory and private audited-flip subplan under review; no numerical prototype |
+| S2 | Audited incremental primal maintenance | Active | Guard inventory and private audited-flip design accepted; characterization pending; no numerical prototype |
 | S3 | End-to-end exact sparsity support | Active | Partial reviewed static support/consumer map; no implementation or measured savings |
 | S4 | Refactorization memory lifecycle | Active | S4-A integrated at master4143dad; RED/GREEN, focused4366, paired cost60; broader attribution pending |
 | S5 | Phase/cleanup handoff contract | Active | Partial static phase/cleanup ownership map; no implementation |
@@ -86,10 +86,10 @@ Do not edit any pinned old src/test/env or active diagnostic Julia file, and do
 not launch another numerical process while it runs. Read only completed windows;
 no final status/certification is inferred before process exit and JSON audit.
 
-Diagnostic checkpoint788bd8a is pushed. The current diagnostic checkpoint includes S4 inventory/subplan/results,
+Diagnostic checkpoint8f87306 is pushed. The current diagnostic checkpoint includes S4 inventory/subplan/results,
 suite3 attribution and isolated-calibration evidence. Main user dirt and all
 worktrees/environments remain intact. S2 static prerequisite mapping is reviewed;
-the bounded flip proposal is under review; pivot controller and numerical work
+the bounded flip design is accepted for private qualification; pivot controller and numerical work
 remain pending. S4 broader attribution
 is also pending; the integrated fix concerns four private solve/preparation vectors.
 
@@ -386,11 +386,20 @@ S3-INVENTORY-NOTES.md maps current exact-support propagation, dense rebuilds,
 manager fallback/invalidation and dense consumers. Partial map independently
 reviewed; numerical counts and S3 subplan remain pending. S5-INVENTORY-NOTES.md
 records phase/cleanup ownership and potential redundant initial reconstruction;
-review/full inventory still pending. Neither document changes pinned code.
+review accepted the partial map; full inventory still pending. Neither document changes pinned code.
 
 S2 bounded proposal docs/superpowers/plans/2026-10-11-primal-flip-audit-prototype.md
-is under design review: unchanged-basis flips only, every candidate independently
+has passed independent design review: unchanged-basis flips only, every candidate independently
 point-certified, original reconstruction/fallback and mandatory endpoint refresh.
 No incremental flags, default change or unsupported forward-error estimate. A1
-context/hook/alias ownership must be resolved before implementation. S2 broader
+context/hook/alias ownership and endpoint state table are resolved; freeze, branch
+characterization and RED remain pending before implementation. S2 broader
 pivot controller remains open. All numerical work waits behind the active L3 job.
+
+S2-A design is independently accepted. New unexecuted control fixtures and
+characterization driver cover80 planned cases (Float32/64,5managers,2backends,
+4branch recipes). Static review confirms API/reset and scheduled-refactor setup;
+its requested reason-specific assertion records exactly one limit refactor and
+no other refactor reason, separated from final certification. The census is NOT
+run or accepted, and no prototype implementation exists. Execute only after the
+current S0 process exits and its host identity is confirmed absent.

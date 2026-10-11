@@ -2,7 +2,7 @@
 
 > **For agentic workers:** Use superpowers:executing-plans sequentially.
 
-**Status:** Proposed private experiment, pending independent design review.
+**Status:** Private experiment design independently accepted; characterization pending.
 No production implementation/default change or numerical measurement yet.
 
 **Goal:** Test whether an unchanged-basis bound flip can avoid reconstructing
@@ -124,11 +124,11 @@ The observer must own no live workspace after its run.
 
 ### A1: resolve design details before RED
 
-- [ ] Independently review eligibility, exact injection points, endpoint dirty
+- [x] Independently review eligibility, exact injection points, endpoint dirty
   state ownership and certificate/fallback scratch aliasing against source.
-- [ ] Identify each endpoint that needs reconstruction before declaring optimum
+- [x] Identify each endpoint that needs reconstruction before declaring optimum
   or unboundedness, and every successful recompute that clears dirty state.
-- [ ] Specify a concrete private owned context and kernel hook signature before
+- [x] Specify a concrete private owned context and kernel hook signature before
   implementation; verify no public closure/callback gains trusted ownership.
 - [ ] Freeze raw baseline, module construction, options/input and guard commands.
   The S0 reference must have released the numerical slot first.
@@ -238,9 +238,9 @@ checks can require separate fallback work. Rejection adds these costs to full
 reconstruction and recovery. Measure both acceptance and rejection-heavy cases;
 no inexpensive-certificate assumption is made.
 
-A1 remains open until the explicit signatures/AST transformations and endpoint
-state table are independently accepted and fixtures are characterized. The long
-S0 job still holds the numerical slot; no RED or implementation has started.
+The explicit signatures/AST whitelist and endpoint state table are independently
+accepted. A1 freeze and A2 fixture characterization remain open. The long S0 job
+still holds the numerical slot; no RED or implementation has started.
 
 ## Concrete private seam and state table for implementation review
 
@@ -278,7 +278,8 @@ numerical work. Context owner checks are constant-cost, no vector equality scan.
 | audit accepted / no refactor | Set dirty before completion, retain unchanged prices/basis/factors | dirty |
 | audit rejected or numerical exception after application | Copy current basic values to trial; reconstruct flipped state, finish existing recovery | clean only if finish succeeds; otherwise terminal dirty |
 | prediction fails before any write | Execute original legacy flip mutation/reconstruction once | clean only after successful original finish |
-| scheduled refactor or ordinary pivot | Preserve original reconstruction and point recovery | clean only after successful finish |
+| scheduled refactor after an already applied flip | Copy current basic values to trial; reconstruct and finish recovery without predicting a second movement | clean only after successful finish |
+| ordinary pivot | Preserve original candidate prediction, reconstruction and point recovery | clean only after successful finish |
 | dirty / entering==0 | Preserve current basic point, reconstruct+finish, restart entering selection with same tolerance/budget | clean after successful finish; no stale OPTIMAL decision |
 | dirty / apparent unbounded ratio | Same refresh; restart entering and ratio selection before recession certification | clean after successful finish; no stale UNBOUNDED decision |
 | dirty / early optimizer finite or primal-feasibility failure | One reconstruction+finish if not expired, then re-evaluate checks | clean only if successful; otherwise original terminal error |
@@ -299,3 +300,9 @@ flip and iteration increment; successful skip has zero fallback-candidate copies
 endpoint/refactor/rejection counts include every added reconstruction. For a lone
 flip that reaches optimum, mandatory endpoint refresh can consume the would-be
 saving: report zero net savings instead of hiding endpoint work.
+
+Characterization preparation: scheduled refactorization depends on factor update
+count, not flip count. An ordinary flip-only chain cannot naturally reach a new
+refactor limit. Seed a real pivot under the original policy, then lower the owned
+workspace refactor interval before the measured/test invocation. Record this
+fixture preparation separately; no production scheduling rule is changed.

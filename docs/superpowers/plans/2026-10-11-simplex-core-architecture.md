@@ -378,3 +378,11 @@ checkboxes remain open. S2-A audited-bound-flip proposal is under review and
 avoids unsupported conditioning assumptions; no prototype is running. L2 counter/
 chronology definition is now checked after calibrated/reviewed smoke success;
 the separate phase-II reference gate remains unchecked until actual audit.
+
+S2-A static design milestone: the private audited-flip context, clone whitelist,
+endpoint transitions and fallback alias ownership passed independent review.
+The scheduled-refactor branch must copy an already applied current point rather
+than predict the movement twice. Control characterization scripts are prepared
+but unexecuted while L3 owns the numerical slot. Their80-case matrix includes HH
+and explicitly asserts the limit-refactor reason. Design acceptance is not A1
+freeze, A2 branch evidence, RED/GREEN or general S2 acceptance.
