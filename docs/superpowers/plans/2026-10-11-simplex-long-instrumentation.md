@@ -132,3 +132,54 @@ in the script and report and remains a long-reference prerequisite.
 Next matched-mode ablation must identify remaining cost before another pilot;
 consider reduced-density/count-only mode without losing required coverage.
 All eleven attempts stopped and retained. No long reference or production change.
+
+Ruling (continued execution): the user explicitly revoked stopping at calibration
+failures. Preserve failed evidence, diagnose and continue until acceptance or a
+true external blocker. Keep the 5% budget, all numerical/memory constraints and
+long-reference prerequisites. Next owned ablation adds the specialized sink to
+the original four-mode same-module comparison, so owned-noop versus recorder
+separates remaining callback bookkeeping from recorder body cost.
+
+owned-ablation-1 (exit0/pins unchanged): no diagnostics 1.4330ms, generic counts
+1.490801ms, owned noop1.4645ms (+2.20%), recorder1.5157ms (+5.77%) per64 kernels.
+State/steps/operation counts equal, compile0. New hypothesis: separate the cold
+phase/output body and inline scalar observer filtering. This targets the measured
+noop/recorder difference without dropping counters or changing the interval.
+The existing failed overhead gate is the regression; rerun boundary/staging
+semantics and a revised paired calibration after this code change.
+
+window-pilot-3 completed with identical traces but failed sparse +12.49%;
+dense +2.99%. Cold/hot splitting did not meet the gate; do not claim a speedup.
+Next narrow change: replace the three/five generic pricing dictionary updates
+with owned fixed counters, preserving public diagnostics and staged ownership.
+Add cold committed-recovery and discarded-metadata counters simultaneously to
+close review coverage. No new scans, solves, tolerances or numerical policy.
+
+metadata-red-1 failed on absent counters; metadata-green-1 passed16. Fixed pricing
+counts include staged/discarded work; cold direct recovery counts distinguish
+committed checkpoint/repair/restore/pricing reset. Discarded metadata event total
+is separate from accepted steps. Public diagnostic bodies remain the fallback.
+window-pilot-4 passed sparse4.69%, dense2.62%, compile0 and full recorder+trace
+agreement. Continue full-solve sparse/dense and bounded-medium calibration for
+both algorithms, with final flush inside timing and retained recorder size.
+
+Review correction plan: derive phase I/II from _report_simplex_phase before
+verbose early return; derive actual algorithm from optimizer entry (covers
+legacy reduced-LP primal cleanup); mark original cleanup at cleanup_original
+entry, including its dual fallback. phase_* callbacks alone are insufficient.
+Use a fixed bounded region stack plus base section so phase changes cannot erase
+nested refactor/recovery/certification attribution; cleanup_entry ends when its
+optimizer starts. Test nested transitions and exclusive totals before a new
+calibration. Remove four redundant copies of already-copied metric columns.
+solve-sparse-1 reached identical OPTIMAL dual traces but failed serialization
+because TOML cannot encode the section-label tuple. Convert it to a vector;
+the attempt is incomplete and has no accepted timed pairs.
+
+Review fixes verified: phase RED1/3 -> GREEN19; actual phase/optimizer entry and
+interrupted recovery publication16 pass. Five serial regression attempts pass
+39/19/14/16/19. Follow-up static review has no blocker or unnecessary numerical
+work/retention finding. Recalibrate current snapshot (old pilot is not transferable).
+Ruling: reuse compilation across sparse,dense,medium within one numerical process,
+fresh state each solve; this reduces repeated compilation without reusing solver
+state or weakening per-case gates. Exact diagnostic source copies now accompany
+each new attempt. All previous attempts remain preserved.

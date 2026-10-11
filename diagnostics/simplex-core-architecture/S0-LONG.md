@@ -164,3 +164,44 @@ instrumentation without silently losing required phase/recovery evidence.
 Do not infer that medium will pass, repeat an unchanged pilot or relax the limit.
 All eleven completed attempts are preserved and no numerical process remains.
 No long reference was launched; S0-L2 and subsequent gates remain incomplete.
+
+## Continuous execution and reviewed chronology corrections
+
+The user requested continued execution through failed calibration gates.
+owned-ablation-1 measured 1.4330 / 1.490801 / 1.4645 / 1.5157 ms for none /
+generic counts / owned noop / recorder (64 sparse kernels, five rounds, compile0).
+Splitting the cold observer body alone did not pass (window-pilot-3 sparse12.49%,
+dense2.99%). Fixed pricing metadata then passed16 tests and window-pilot-4
+sparse4.69%, dense2.62%; allocation equality remained for sparse. Dense added
+44288 bytes / 930 allocation events for two periodic writes. These cross-attempt
+differences are not a controlled causal speedup claim.
+
+Independent full review found three blocking diagnostic defects: callback-only
+phase inference missed auxiliary-to-II return and a direct primal optimization;
+dual original cleanup lacked its phase callback; the full calibration serialized
+a tuple that TOML rejects. Review also found four redundant metric-column copies.
+The latter full solve attempt exited1 after matching OPTIMAL dual traces and
+before timed pairs. Its raw outputs are incomplete, not accepted measurements.
+
+Corrections: hook _report_simplex_phase before verbose return, optimizer entries
+for actual algorithm, and cleanup_original entry for both branches. A fixed
+32-entry cold-region stack and base section preserve nested attribution; cleanup
+entry ends only when its optimizer begins. Four redundant copies are removed.
+Phase-hook exceptions remain DiagnosticObserverFailure. No numerical body,
+tolerance or safeguard is changed. The TOML labels are now a vector.
+
+RED phase tests had1pass/3fail; GREEN19. Actual hooked optimizer/phase entry and
+interrupted recovery publication pass16: observer proposal followed by stop does
+not increment committed counters; successful publication does. Regression tests
+after the fixes pass39 counters,19 windows,14 sink,16 metadata,19 phases. Total123
+accepted focused assertions including integration, normal compilation, all exit0
+with unchanged pins. Review follow-up found no new blocker, unnecessary numerical
+scan/solve/copy or growing retention. New costs are O(1) cold hooks and a bounded
+stack; unchanged optimizer boundaries do not read clocks.
+
+The new snapshot requires fresh calibration. The old4.69%/2.62% result is historical,
+not acceptance of corrected chronology. Full solve calibration covers both
+algorithms and final flush; sparse/dense/medium cases can reuse compilation in one
+process. Generic per-reason history remains omitted, but fixed counters preserve
+pricing work, committed recovery reasons and discarded metadata totals.
+Future launches retain exact source snapshots alongside per-attempt hashes.

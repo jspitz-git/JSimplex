@@ -4,7 +4,7 @@ Updated: 2026-10-11. This is the entry point after interruption.
 
 ## Current state
 
-**S1-A integrated and pushed to master (`beb161b`). S0-L2 remains rejected after the event-sink fix: sparse overhead 8.78% versus 5% budget.**
+**S1-A integrated and pushed to master (`beb161b`). S0-L2 active: chronology review fixes pass 123 focused assertions; fresh kernel and both-algorithm/full-solve calibration next.**
 The source baseline is `fe839aa72171d7496c9c931d9393278448c7317e`.
 Completed diagnostic evidence is commit `6ded1fc`.
 
@@ -46,24 +46,24 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-The revised chronology pilot still fails the predeclared budget (sparse 8.78%,
-dense 1.71%). Read [S0-LONG.md](S0-LONG.md), results/S0-L/event-sink-acceptance.json,
-and the [instrumentation subplan](../../docs/superpowers/plans/2026-10-11-simplex-long-instrumentation.md).
-The targeted owned-observer sink passed 14 tests and actual recorder+trace
-checks. Independent review found no numerical or unnecessary-work/retention
-defect, but identified missing direct-event/committed-recovery coverage; this
-limitation is explicit and must be addressed before a complete long report.
+Kernel window-pilot-4 passed 4.69%/2.62%, but review then found incorrect phase
+labels and nested-region attribution, so these numbers do not accept the current
+snapshot. The fixes use actual phase reports, optimizer entries, explicit
+cleanup_original entry and a fixed region stack. Review follow-up has no blocker.
+Tests: 39 counters + 19 windows + 14 sink + 16 metadata + 19 nested-phase +
+16 actual hook/interrupted-recovery integration = 123 passing assertions.
+All raw attempts, including failures, remain. solve-sparse-1 ended at a TOML
+tuple serialization error after equal dual traces; no timing pair was accepted.
 
-Next hypothesis: isolate remaining overhead in the same module using matched
-count-only, owned-noop and owned-recorder modes before selecting lower-density
-or count-only instrumentation. Do not repeat the unchanged pilot, loosen the
-budget, or launch a long reference. No production work is pending integration.
+Next: window-pilot-5, then solve-suite-1 (sparse,dense,medium; both algorithms).
+The suite reuses compiled methods within one guarded process and reads only the
+pinned allowed medium input. It uses fresh live solves, no state reconstruction,
+three interleaved pairs, complete final flush inside timing, fixed-retention and
+compile0 gates. Inspect newest process.json before any pinned-source mutation.
+No long reference is authorized by a small pilot alone; L2 remains incomplete.
+User explicitly requested continuous execution through diagnostic failures.
 
-All numerical processes have stopped (host runner/child absence verified).
-Eleven S0-L attempts and all S1-A attempts remain preserved locally, including
-failures. No long medium solve was launched. Medium/both-algorithm calibration
-and final full diagnostic review remain pending. Execution stops at this renewed
-acceptance failure under the user's requested problem boundary.
+All tests are stopped at this checkpoint; no long reference has launched.
 
 S1-A production commit `8e0a7c7def505604ccfe50cdbc2cf9cee453092d` was integrated
 as master `beb161b310afd9dc7126eca98e3c15898a69efbf` and pushed. Its src/test/Project

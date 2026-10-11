@@ -20,6 +20,7 @@ function window_tests()
   r(:phase_cleanup,merge(ws,(iterations=1024,)))
   r(:phase_primal,merge(ws,(iterations=1024,)))
   @test r.algorithm==:primal && r.phase==:cleanup
+  long_algorithm!(r,:primal,merge(ws,(iterations=1024,)))
   old=long_enter!(r,:recovery)
   err=ErrorException("region sentinel")
   caught=try

@@ -1,0 +1,44 @@
+ERROR: LoadError: Some tests did not pass: 1 passed, 3 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_phase_tests.jl:52
+
+Authoritative phase and nested exclusive regions: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_phase_tests.jl:10
+  Expression: r.phase != :phase_two
+   Evaluated: phase_two != phase_two
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_phase_tests.jl:10 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] phase_tests()
+     @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_phase_tests.jl:7
+
+Authoritative phase and nested exclusive regions: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_phase_tests.jl:14
+  Expression: LONG_SECTIONS[r.section] == :refactorization
+   Evaluated: ordinary == refactorization
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_phase_tests.jl:14 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] phase_tests()
+     @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_phase_tests.jl:7
+
+Authoritative phase and nested exclusive regions: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_phase_tests.jl:18
+  Expression: all((isdefined(Main, name) for name = (:long_report_phase!, :long_algorithm!, :long_cleanup!)))
+   Evaluated: all(Base.Generator{Tuple{Symbol, Symbol, Symbol}, var"#phase_tests##0#phase_tests##1"}(var"#phase_tests##0#phase_tests##1"(), (:long_report_phase!, :long_algorithm!, :long_cleanup!)))
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_phase_tests.jl:18 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] phase_tests()
+     @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_phase_tests.jl:7
+Test Summary:                                    | Pass  Fail  Total  Time
+Authoritative phase and nested exclusive regions |    1     3      4  0.8s
+RNG of the outermost testset: Random.Xoshiro(0xa6f9f4d1982346a7, 0x0c68385574890682, 0x7d09440dab248a61, 0x1dd02fa83f82f23e, 0x0e123fb00a09adc4)

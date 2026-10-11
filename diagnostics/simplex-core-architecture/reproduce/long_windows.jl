@@ -34,12 +34,16 @@ mutable struct LongRecorder{I<:IO} <: AbstractLongObserver
     previous_rejected::Int
     windows::Int
     closed::Bool
+    region_stack::Vector{Int}
+    region_depth::Int
+    base_section::Int
+    cleanup_steps::Bool
 end
 function LongRecorder(io::IO,counters::Vector{Int64})
     length(counters)==length(LONG_COUNTER_LABELS) || throw(DimensionMismatch("counter schema"))
     now=time_ns()
     LongRecorder(io,counters,copy(counters),zeros(Int64,length(LONG_SECTIONS),4),
-      now,Base.gc_num(),now,2,:initialization,:none,false,0,0,0,0,0,0,0,0,0,0,false)
+      now,Base.gc_num(),now,2,:initialization,:none,false,0,0,0,0,0,0,0,0,0,0,false,zeros(Int,32),0,2,false)
 end
 function reset_long_recorder!(r::LongRecorder)
     fill!(r.counters,0);fill!(r.previous_counts,0);fill!(r.metrics,0)
@@ -48,6 +52,7 @@ function reset_long_recorder!(r::LongRecorder)
     r.iteration=0;r.offset=0;r.rows=0;r.columns=0;r.nonzeros=0
     r.accepted=0;r.previous_accepted=0;r.rejected=0;r.previous_rejected=0
     r.windows=0;r.closed=false
+    fill!(r.region_stack,0);r.region_depth=0;r.base_section=2;r.cleanup_steps=false
     return r
 end
 function long_account!(r::LongRecorder)
@@ -58,13 +63,31 @@ function long_account!(r::LongRecorder)
     r.last_ns=now;r.last_gc=gc
     nothing
 end
+function long_select_section!(r::LongRecorder)
+    r.section=r.base_section
+    for i in r.region_depth:-1:1
+        candidate=r.region_stack[i]
+        candidate==7 && r.cleanup_steps && continue
+        r.section=candidate
+        break
+    end
+    nothing
+end
 function long_enter!(r::LongRecorder,section::Symbol)
     index=findfirst(==(section),LONG_SECTIONS)
     isnothing(index) && throw(ArgumentError("Unknown chronological section"))
-    old=r.section;long_account!(r);r.section=index;old
+    token=r.region_depth
+    token<length(r.region_stack) || error("Chronological region nesting overflow")
+    long_account!(r)
+    r.region_depth+=1;r.region_stack[r.region_depth]=index
+    long_select_section!(r)
+    token
 end
-function long_leave!(r::LongRecorder,old::Int)
-    long_account!(r);r.section=old;nothing
+function long_leave!(r::LongRecorder,token::Int)
+    r.region_depth==token+1 || error("Unbalanced chronological region nesting")
+    long_account!(r);r.region_depth=token
+    long_select_section!(r)
+    nothing
 end
 function long_emit!(r::LongRecorder,reason::Symbol)
     r.closed && throw(ArgumentError("Recorder already finished"))
@@ -75,8 +98,8 @@ function long_emit!(r::LongRecorder,reason::Symbol)
       "accepted_steps"=>r.accepted-r.previous_accepted,"rejected_candidates"=>r.rejected-r.previous_rejected,
       "seconds"=>Float64(end_ns-r.window_start)/1e9,
       "counter_deltas"=>r.counters-r.previous_counts,
-      "exclusive_nanoseconds"=>copy(r.metrics[:,1]),"exclusive_bytes"=>copy(r.metrics[:,2]),
-      "exclusive_allocations"=>copy(r.metrics[:,3]),"exclusive_gc_nanoseconds"=>copy(r.metrics[:,4]))
+      "exclusive_nanoseconds"=>r.metrics[:,1],"exclusive_bytes"=>r.metrics[:,2],
+      "exclusive_allocations"=>r.metrics[:,3],"exclusive_gc_nanoseconds"=>r.metrics[:,4])
     copyto!(r.previous_counts,r.counters);fill!(r.metrics,0)
     r.previous_accepted=r.accepted;r.previous_rejected=r.rejected
     r.window_start=end_ns;r.windows+=1
@@ -90,30 +113,73 @@ function long_emit!(r::LongRecorder,reason::Symbol)
     end
     nothing
 end
-function (r::LongRecorder)(event::Symbol,ws)
-    phase_event=event in (:phase_primal,:phase_dual,:phase_one,:phase_auxiliary,:phase_cleanup,:phase_lp_refinement,:phase_crash)
-    if phase_event
+# Cold phase changes must not overwrite an active recovery/refactor region.
+function long_set_phase!(r::LongRecorder,phase,algorithm,ws)
+    rows,columns=size(ws.problem.A)
+    if (r.phase,r.algorithm,r.rows,r.columns,r.offset)!=(phase,algorithm,rows,columns,ws.progress.iteration_offset)
         long_emit!(r,:phase_transition)
-        r.iteration=ws.iterations;r.offset=ws.progress.iteration_offset
-        r.rows,r.columns=size(ws.problem.A);r.nonzeros=nnz(ws.problem.A)
-        if event==:phase_cleanup
-            r.cleanup=true;r.phase=:cleanup;r.algorithm=:primal
-        elseif event==:phase_one
-            r.phase=:phase_one;r.algorithm=:primal
-        elseif event==:phase_auxiliary
-            r.phase=:auxiliary;r.algorithm=:dual
-        elseif event==:phase_primal || event==:phase_dual
-            r.algorithm=event==:phase_primal ? :primal : :dual
-            r.phase=r.cleanup ? :cleanup : :phase_two
-        else
-            r.phase=event
-        end
-        long_account!(r);r.section=r.cleanup ? 8 : 3
-    elseif event in (:pivot_completed,:flip_completed)
+    end
+    long_account!(r)
+    r.phase=phase;r.algorithm=algorithm
+    r.iteration=ws.iterations;r.offset=ws.progress.iteration_offset
+    r.rows=rows;r.columns=columns;r.nonzeros=nnz(ws.problem.A)
+    long_select_section!(r)
+    nothing
+end
+function long_report_phase!(r::LongRecorder,phase::Symbol,algorithm::Symbol,ws)
+    name=r.cleanup ? :cleanup : phase==:I ? (algorithm==:dual ? :auxiliary : :phase_one) : :phase_two
+    long_set_phase!(r,name,algorithm,ws)
+    r.base_section=r.cleanup ? (r.cleanup_steps ? 8 : 7) : 3
+    long_select_section!(r)
+    nothing
+end
+function long_algorithm!(r::LongRecorder,algorithm::Symbol,ws)
+    if r.algorithm==algorithm && (r.rows,r.columns)==size(ws.problem.A) &&
+       r.offset==ws.progress.iteration_offset && (!r.cleanup || r.cleanup_steps) &&
+       r.base_section==(r.cleanup ? 8 : 3)
+        r.iteration=ws.iterations
+        return nothing
+    end
+    long_set_phase!(r,r.phase,algorithm,ws)
+    r.cleanup && (r.cleanup_steps=true)
+    r.base_section=r.cleanup ? 8 : 3
+    long_select_section!(r)
+    nothing
+end
+function long_cleanup!(r::LongRecorder,problem,prior_iterations)
+    long_emit!(r,:cleanup_entry)
+    r.cleanup=true;r.cleanup_steps=false;r.phase=:cleanup;r.algorithm=:none
+    r.iteration=prior_iterations;r.offset=0
+    r.rows,r.columns=size(problem.A);r.nonzeros=nnz(problem.A)
+    r.base_section=7;long_select_section!(r)
+    nothing
+end
+function long_phase!(r::LongRecorder,event::Symbol,ws)
+    if event==:phase_cleanup
+        r.cleanup=true
+        long_set_phase!(r,:cleanup,:primal,ws)
+        r.base_section=r.cleanup_steps ? 8 : 7
+    elseif event==:phase_one || event==:phase_auxiliary
+        long_set_phase!(r,r.cleanup ? :cleanup : event==:phase_one ? :phase_one : :auxiliary,
+            event==:phase_one ? :primal : :dual,ws)
+        r.base_section=r.cleanup ? (r.cleanup_steps ? 8 : 7) : 3
+    elseif event==:phase_primal || event==:phase_dual
+        # Method selection is not evidence that initialization/phase I ended.
+        long_set_phase!(r,r.phase,event==:phase_primal ? :primal : :dual,ws)
+    else
+        long_set_phase!(r,r.cleanup ? :cleanup : event,r.algorithm,ws)
+    end
+    long_select_section!(r)
+    nothing
+end
+@inline function (r::LongRecorder)(event::Symbol,ws)
+    if event in (:pivot_completed,:flip_completed)
         r.accepted+=1;r.iteration=ws.iterations;r.offset=ws.progress.iteration_offset
         r.accepted%1024==0 && long_emit!(r,:periodic)
     elseif event==:pivot_rejected
         r.rejected+=1
+    elseif event in (:phase_primal,:phase_dual,:phase_one,:phase_auxiliary,:phase_cleanup,:phase_lp_refinement,:phase_crash)
+        long_phase!(r,event,ws)
     end
     nothing
 end
@@ -137,16 +203,42 @@ function install_long_regions!(JS,source_root,recorder::LongRecorder)
     Core.eval(JS,:(const _lc_recorder=$recorder))
     Core.eval(JS,:(const _lc_enter! = $(long_enter!)))
     Core.eval(JS,:(const _lc_leave! = $(long_leave!)))
+    Core.eval(JS,:(const _lc_phase! = $(long_report_phase!)))
+    Core.eval(JS,:(const _lc_algorithm! = $(long_algorithm!)))
+    Core.eval(JS,:(const _lc_cleanup! = $(long_cleanup!)))
     for (index,section,expression) in entries
         body=expression.args[2];token=gensym(:region)
+        cleanup=section==:cleanup_entry ? :(_lc_cleanup!(_lc_recorder,problem,prior_iterations)) : nothing
         expression.args[2]=quote
             _lc_counts[$index]+=1
+            try
+                $cleanup
+            catch exception
+                throw(DiagnosticObserverFailure(exception))
+            end
             local $token=_lc_enter!(_lc_recorder,$(QuoteNode(section)))
             try
                 $body
             finally
                 _lc_leave!(_lc_recorder,$token)
             end
+        end
+        Core.eval(JS,expression)
+    end
+    for (name,file,observation) in (
+        (:_report_simplex_phase,"simplex.jl",:(_lc_phase!(_lc_recorder,phase,algorithm,workspace))),
+        (:_primal_optimize!,"primal_simplex.jl",:(_lc_algorithm!(_lc_recorder,:primal,workspace))),
+        (:_dual_optimize!,"dual_simplex.jl",:(_lc_algorithm!(_lc_recorder,:dual,workspace))),
+    )
+        expression=long_function(source_root,file,"function $(name)(")
+        body=expression.args[2]
+        expression.args[2]=quote
+            try
+                $observation
+            catch exception
+                throw(DiagnosticObserverFailure(exception))
+            end
+            $body
         end
         Core.eval(JS,expression)
     end
@@ -171,9 +263,8 @@ function install_long_event_sink!(JS)
         # windows instead of the generic event dictionary and 64-event history.
         # Keep event validation, standard callback exception wrapping, and the
         # distinct _StageObserver dispatch that buffers candidate completions.
-        # Direct metadata writes (discarded-candidate work and committed
-        # recovery) are also omitted. Operation counters remain, but do not
-        # establish complete event/recovery coverage; see S0-LONG.md.
+        # Generic history remains omitted. long_metadata.jl separately preserves
+        # pricing work, committed recovery reasons and discarded metadata totals.
         @inline function record_event!(d::SimplexDiagnostics{F},reason::Symbol)::Nothing where {F<:_lc_owned_observer_type}
             reason in SIMPLEX_EVENT_REASONS || throw(ArgumentError("Unknown simplex diagnostic event: $reason"))
             nothing

@@ -30,7 +30,7 @@ function verify_long_trace(bench,kind;recorder=nothing)
  context=J.SolveContext(time_ns(),Inf,diag)
  stop=J._guard_stop_callback(()->J.time_limit_reached(context))
  if !isnothing(recorder)
-  reset_long_recorder!(recorder);recorder.phase=:phase_two;recorder.algorithm=:dual;recorder.section=3
+  reset_long_recorder!(recorder);recorder.phase=:phase_two;recorder.algorithm=:dual;recorder.section=3;recorder.base_section=3
  end
  capturing[]=true
  result=J._dual_optimize!(ws,stop)

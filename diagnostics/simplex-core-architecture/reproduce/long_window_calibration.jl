@@ -8,6 +8,8 @@ include("long_counters.jl")
 install_long_counters!(CountedSource.JSimplex,BASELINE_SOURCE)
 include("long_windows.jl")
 install_long_event_sink!(CountedSource.JSimplex)
+include("long_metadata.jl")
+install_long_metadata!(CountedSource.JSimplex,BASELINE_SOURCE)
 const WINDOW_IO=open(ARGS[1]*".windows.toml","w")
 const RECORDER=LongRecorder(WINDOW_IO,CountedSource.JSimplex._lc_counts)
 install_long_regions!(CountedSource.JSimplex,BASELINE_SOURCE,RECORDER)
@@ -41,7 +43,7 @@ function run_batch(bench,kind;batch=32)
   reset_long_recorder!(RECORDER)
   RECORDER.phase=:phase_two;RECORDER.algorithm=:dual
   RECORDER.rows,RECORDER.columns=size(p.A);RECORDER.nonzeros=nnz(p.A)
-  RECORDER.section=3
+  RECORDER.section=3;RECORDER.base_section=3
  end
  timed=@timed for ws in workspaces
   terminal=J._dual_optimize!(ws,stop)
@@ -91,7 +93,7 @@ function main(output)
  end
  open(output,"w") do io
   TOML.print(io,Dict("pilot_only"=>true,"source"=>BASELINE_SOURCE,
-   "limitations"=>"Dual HH small kernels only; medium/both-algorithm calibration still required; final recorder flush excluded from kernel timing and reported separately. Trace covers observer callbacks, not direct record_event! writes from discarded candidates or committed recovery. The owned sink drops these metadata writes; operation counts are not committed recovery/event counts.",
+   "limitations"=>"Dual HH small kernels only; medium/both-algorithm calibration still required; final recorder flush excluded from kernel timing and reported separately. Trace covers observer callbacks. Separate fixed counters retain committed recovery reasons and discarded metadata totals; per-reason generic event history is omitted.",
    "gates"=>gates,"samples"=>records,"traces"=>traces))
  end
 end

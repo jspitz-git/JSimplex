@@ -11,7 +11,10 @@ const LONG_HOOKS = vcat(HOOKS, [
 const LONG_ROLES = (:ftran,:btran,:pricing,:bfrt,:weight_ftran,:weight_btran)
 const LONG_COUNTER_LABELS = vcat(string.(first.(LONG_HOOKS)),
     ["finite_value_elements"],
-    ["pipeline_$(role)_$(direction)" for role in LONG_ROLES for direction in ("forward","transpose")])
+    ["pipeline_$(role)_$(direction)" for role in LONG_ROLES for direction in ("forward","transpose")],
+    ["committed_restore_checkpoint","committed_repair","committed_checkpoint","committed_pricing_reset",
+     "discarded_metadata_events","pricing_scanned_entries","pricing_scored_entries",
+     "pricing_full_scan","pricing_block_scan","pricing_pool_hit"])
 
 function long_function(source_root,file,prefix)
     source=read(joinpath(source_root,file),String)
