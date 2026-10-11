@@ -83,3 +83,60 @@ and UMFPACK symbolic construction also receives numeric values. Changed numeric
 values, ordering, patterns and failed construction need qualification; same shape
 alone never authorizes reuse. No tolerance, numerical policy or production code
 was changed. No full-medium speedup or entire-S4 completion is claimed.
+
+## Markowitz Float64 slice accepted (2026-10-12)
+
+Separate driver hh_component_markowitz.jl preserves the native measurement.
+Attempt markowitz-components-1: exit0, independent full pins, all17 audit gates,
+72 samples (six rounds x16 calls x3 scopes x4 cases), all compile0. Matrix hashes
+exactly match accepted native fixtures. No cross-backend arithmetic identity is
+claimed. Fresh owners include first inactive-slot allocation in each timed batch;
+this is compilation-warm, not pure steady-state allocation.
+
+| Fixture | Region | Median ms / 16 calls | Allocated bytes | Allocation events | GC ms |
+| --- | --- | ---: | ---: | ---: | ---: |
+| dense-256 | backend | 5.326900 | 535280 | 24 | 0.000000 |
+| dense-256 | extraction | 8.194550 | 1.21989e+08 | 2832 | 0.403100 |
+| dense-256 | whole_refactor | 13.619950 | 1.22524e+08 | 2856 | 0.418150 |
+| dense-64 | backend | 0.386550 | 36040 | 19 | 0.000000 |
+| dense-64 | extraction | 0.676850 | 6.76096e+06 | 1888 | 0.000000 |
+| dense-64 | whole_refactor | 0.983250 | 6.797e+06 | 1907 | 0.000000 |
+| sparse-256 | backend | 1.167650 | 164432 | 1949 | 0.000000 |
+| sparse-256 | extraction | 0.301000 | 1.59501e+06 | 1632 | 0.000000 |
+| sparse-256 | whole_refactor | 1.426300 | 1.75944e+06 | 3581 | 0.000000 |
+| sparse-64 | backend | 0.206350 | 42048 | 504 | 0.000000 |
+| sparse-64 | extraction | 0.080100 | 465280 | 1168 | 0.000000 |
+| sparse-64 | whole_refactor | 0.266600 | 507328 | 1672 | 0.000000 |
+
+On dense256, extraction allocates121988864B/2832events versus backend535280B/24.
+The independently timed scopes must not be summed. This identifies triplet
+construction/CSC assembly as the next target, not proven avoidability or speedup.
+
+Saved base hashes and both solve directions survive changed pattern/dimensions,
+slot cycling, dense-to-sparse, empty transitions and singular failure. All four
+saved scratch vectors are independently owned. Published factor arrays remain
+separate from mutable backend construction state.
+
+After sparse256->dense256->sparse64, the first smaller factor retains a65536-element
+dense core in its spare; a second smaller refactor reduces both cores to16elements.
+Workspace dictionary counts remain256. Repeated empty resets retain the same
+332846B live Julia graph; the live-plus-old-checkpoint graph is375766B. These
+are reachable object sizes, excluding hidden capacity/native memory, not allocator
+or RSS-release claims. Separate workspace/spare/backend sizes overlap. The raw
+backend_pooled_vectors field counts active-slot pools only; spare pools are
+included in spare graph bytes, so zero does not mean all pools are empty.
+
+Resource samples: maximum RSS496276KiB, VmPeak1097476KiB, minimum available
+22434776KiB,swap0. Runner355464/child355465/driver355453 separately absent after exit.
+
+Fresh gpt-6-astra read-only numerical/work/memory review: no blocker, no added
+unnecessary production work or retention. Diagnostic scans/copies/GC and report
+serialization are validation/isolation work outside timed scopes. Optional naming
+minor resolved by documenting active-slot-only pool scope above; no rerun needed.
+Coverage excludes other precisions, long update chains and real-model performance.
+
+Next hypothesis: bound temporary triplet-vector capacity from sparse factor lengths
+and triangular dense-core dimensions before filling. Preserve output ownership,
+numeric order, zero handling and the existing sparse CSC constructor. Count any
+new length scans and test whether avoided growth survives sparse/dense, small-core
+and precision coverage. No production edit until its concrete subplan/RED gate.

@@ -478,3 +478,9 @@ review. S4-COMPONENTS.md separates cumulative traffic from Julia-visible retaine
 objects and native-memory limitations. No production changes or speedup claim.
 The broader S4 checkbox remains open for backend/precision coverage; next is a
 separate Markowitz attribution slice, not a repeat of the accepted native data.
+
+
+S4 Markowitz diagnostic slice also accepted:72 compile0 samples,all17 audit gates,
+independent pins and review. Dense256 extraction121988864B/16calls dominates this
+backend's535280B/16calls. Next measured hypothesis is temporary triplet capacity
+reservation; no production change accepted yet. Broader precision/S4/S6 remain open.
