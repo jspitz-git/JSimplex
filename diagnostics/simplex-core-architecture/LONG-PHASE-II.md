@@ -1,4 +1,4 @@
-# Long medium phase-II coverage protocol (not yet executed)
+# Long medium phase-II coverage protocol
 
 ## Purpose and prerequisite
 
@@ -76,3 +76,31 @@ Source, options, scripts and inputs are immutable while the runner is active.
 Status: method specified; instrumentation implementation, calibration and long
 reference pending. It is deliberate that S1's static ownership inventory does not
 wait for several hours of numerical work.
+
+
+## Next serialized reference: plain dual medium
+
+Counted dual medium completed and passed its chronology/certificate audit. Do not
+repeat it. The remaining authoritative plain elapsed reference uses the identical
+old7d6a8e1 checkout (productionfe839aa),driver/input,HH/native160,legacy policy,
+1000000step cap and43200s external guard, with long_measure.jl mode=plain.
+A preflight compared513 old source/test/environment and actual driver dependency
+hashes with the accepted counted pins; medium SHA256 also matches.
+
+Run only after S3-B master integration releases the sole Julia guard. This order
+finishes the qualified small production change before filling the existing S0
+plain-time gap. It is a new measurement mode required by the original protocol,
+not a repeat of accepted instrumentation or a current-master performance claim.
+
+Post-exit acceptance for plain mode differs from chronology audit: require exit0,
+unchanged pins,modeplain,solver_returned,OPTIMAL,original_primal_feasible,true source
+and input hashes,identical options/policy and baseline result objective/primal hash,
+iterations/refactorizations versus the counted reference. Report elapsed,compile,
+GC and allocations separately. Plain mode has no windows or observed counter;
+never run long_audit.py and interpret its counted-only rejection as a plain failure
+or claim fresh phase-window coverage from a plain solve. Actual dual-phase coverage
+belongs to the already accepted counted reference. Any result mismatch requires
+investigation rather than force-fitting acceptance. A timeout/failure stays incomplete.
+
+After this reference, primal-origin coverage remains pending. Continue broad S4/S5
+inventory/subplans and S6 according to STATUS; no whole-plan completion is implied.

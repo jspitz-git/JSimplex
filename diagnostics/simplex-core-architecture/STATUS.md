@@ -4,9 +4,9 @@ Updated: 2026-10-11. This is the entry point after interruption.
 
 ## Current state
 
-**S1-A, S3-A and S4-A integrated; master `d8ad4ec` pushed. S0-L counted dual reference audited; S2-A rejected after qualification; broader S3 inventory next.**
+**S1-A, S3-A/S3-B and S4-A integrated; master `b720674` pushed. S2-A rejected; next S0-L plain dual reference.**
 The source baseline is `fe839aa72171d7496c9c931d9393278448c7317e`.
-Completed diagnostic evidence is commit `6ded1fc`.
+Initial time-budget diagnostic evidence is commit `6ded1fc`.
 
 Active checkout:
 `/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl`
@@ -35,7 +35,7 @@ main also has a user-modified .vscode/settings.json. Do not stage those files.
 | S0 | Frozen baseline and coverage plan | Active | Counted dual long reference audited; plain elapsed and primal-origin coverage pending |
 | S1 | State ownership and validation reuse | Integrated | Inventory and local S1-A contract; master beb161b, report S1-ENTRY.md |
 | S2 | Audited incremental primal maintenance | Active | S2-A REJECTED after numerical/cost qualification and independent review; broader pivot controller unresolved |
-| S3 | End-to-end exact sparsity support | Active | S3-A integrated at masterd8ad4ec; RED/GREEN, matrix1645, focused3214+LP70, cost120, reviewed; broader S3 pending |
+| S3 | End-to-end exact sparsity support | Active | S3-A/S3-B integrated, latest masterb720674; exact-support consumer savings qualified; broader S3 partial |
 | S4 | Refactorization memory lifecycle | Active | S4-A integrated at master4143dad; RED/GREEN, focused4366, paired cost60; broader attribution pending |
 | S5 | Phase/cleanup handoff contract | Active | Partial static phase/cleanup ownership map; no implementation |
 | S6 | Broad validation and final comparison | Pending | Requires accepted production chunks |
@@ -58,16 +58,21 @@ and found no closure blocker. Dense accepted cases regress22–30%; no productio
 promotion or guessed density heuristic. Diagnostic5321ea1 records the result;
 closure documentation follows. master remainsd8ad4ec; old environments preserved.
 
-S3-B subplan is docs/superpowers/plans/2026-10-11-pipeline-canonical-support.md.
-Current sole numerical job: S3-B/support-census-1, runner286446/start_ticks18018519,
-child286450/start_ticks18018603, boot20de7dde-704e-41c8-bee7-b8511c0a86b0.
-Verify live identity via current.json, not PID alone. Unchanged production census
-uses pipeline_support_census.jl census OUTPUT through /tmp/jsimplex-s3b-attempt.py.
-Read final process.json, check pins and all assertions/1900case rows; then separately
-verify runner/child/driver absent before the small red mode or any pinned edit.
-No S3-B production edit exists. Proposed local successful-producer canonical flag
-must preserve input cancellation compaction and dense/external checks. The controlled
-legacy hypersparse=false baseline remains distinct from these fixed-policy probes.
+S3-B subplan docs/superpowers/plans/2026-10-11-pipeline-canonical-support.md is
+complete. Productionb6a4064 -> masterb720674, master1611/1611, reviewed and pushed.
+ReportS3-SUPPORT.md records1900paired work cases,936cost samples,80exact paired
+trajectories,focused10645+9,all5precision contracts and two preserved Float32 cost
+fixture failures. No unnecessary work/retention finding; no general speed claim.
+Main user/environment hashes preserved; final runner289833/child289858/driver
+separately absent. No numerical process currently active.
+
+Next fill the pending S0 plain dual medium elapsed reference using unchanged
+old7d6a8e1 source/long_measure.jl modeplain; details in LONG-PHASE-II.md. This is
+not a repeat of counted reference or a current-master timing claim. After launch
+verify current.json start_ticks/boot_id; one guarded Julia only. Plain has no
+chronology windows: audit its actual exit,pins,source/input,options/policy,status,
+original feasibility and exact result versus the accepted counted reference.
+Then continue primal-origin gap and broad S4/S5/S6. Never infer whole-plan completion.
 
 ## Evidence gaps and traps to retain
 
@@ -612,3 +617,81 @@ zero/one genuine pivot history,3input shapes,forcedsparse/dense,3operations and
 external fallback. No production edit. Host has no numerical process before
 launch; sole next job S3-B/support-census-1 via /tmp/jsimplex-s3b-attempt.py.
 After census acceptance run its small red mode before proposed production edits.
+
+S3-B support-census-1 passed20000/20000 assertions across1900cases, exit0/pins
+unchanged, current source hashes verified. Output consumers executed992 extra
+compactions visiting5156support entries;600empty cases contribute calls but no
+entries. All source-type/backend/history modes and exact values/support passed.
+Host runner286446/child286450/driver absent. Next support-red-1, unchanged source.
+
+S3-B support-red-1:74pass/6intended failures,0errors. Sparse FTRAN/BTRAN/pricing
+output consumers each compact once (1/1/3entries); dense/external controls pass.
+Exit1/pins unchanged; host286814/286815/driver absent. Minimal production change
+adds a local canonical flag after successful indexed/empty production only;
+generic calls/dense rebuild/external checks unchanged. Permanent boundary tests
+prepared/registered. Next identical small support-green-1 (driver red mode).
+
+S3-B identical small GREEN passed80/80, exit0/pins unchanged, no output-consumer
+compaction. Host286907/286908/driver absent. Next support-qualification-1 runs
+new permanent tests then the extended1900case work matrix on the candidate.
+Source/test remain uncommitted until acceptance.
+
+S3-B qualification-1 passed1611permanent assertions plus20000work-matrix checks,
+exit0/pins unchanged. All1900paired cases match modes/support/rebuilds; total
+compaction reduction exactly992calls/5156entries. Source hashes match. Host
+287028/287029/driver absent. Only runtests include indentation changed afterward.
+Focused driver now includes sparse-pricing signed-zero/order tests, existing
+full-solver pipeline matrix and explicit HH supplement. Next support-focused-1
+under1800s guard, then prepared whole-pipeline cost comparison.
+
+Static dependency check while support-focused-1 runs found that the added
+sparse_pricing_edge_tests requires sparse_pricing_workspace from the omitted
+sparse_pricing_integration_tests. Do not mutate the pinned driver. After final
+report/absence, include that dependency for future driver use and run only the
+affected alias/storage testset using prepared pipeline_support_pricing_followup.jl.
+Do not repeat completed full-solver or broad factorization groups for this harness
+issue. Confirm actual final error output before classifying the attempt.
+
+S3-B focused-1 completed10645pass/0fail/1missing-fixture error. Targeted pricing
+follow-up passed9/9,exit0/pins unchanged; runner288131/child288135/driver separately
+absent. No broad repetition. Sole next run support-cost-1: three interleaved warm
+pairs, fixed actual kernel modes, unchanged numerical arithmetic/control clone.
+
+S3-B cost-1 failed before measurement: AST clone renamed the return-annotation
+wrapper rather than the pricing function call signature. Exit1/pins unchanged;
+host288220/288221/driver absent. Unwrap ::/where before renaming; source unchanged.
+Preserve failed attempt; cost-2 executes the same planned workload.
+
+Cost-2 ended exit1/pins unchanged after828samples/276warmups/23setups; the next
+Float32/Markowitz PFI dense/history8 fixture returned a status before8pivots.
+No claim of complete cost acceptance. Host288358/288359/driver separately absent.
+Next targeted old/new fixture probe; preserve successful pairs and do not repeat
+them. No tolerance or arithmetic change will be used to rescue this fixture.
+
+Fixture probe confirms both old/new PFI/HH Float32 dense/history8 stop at the
+third pivot with identical NUMERICAL_ERROR: primal point could not be certified.
+Exit0/pins unchanged; host288739/288740/driver absent. Ruling: preserve this known
+fixture limitation without weakening guards/tolerances; all5Float64 managers cover
+dense/history8. Run remaining3 HH/Float32 fixtures only; timing coverage26/28.
+
+S3-B cost completed936samples/312warmups/26fixtures (2known Float32 dense/history8
+fixture failures excluded with old/new evidence). All156groups have exact paired
+output hashes,compile0 and identical allocation bytes/events. Sparse group median
+ratio0.9367, dense1.0020; broad pair noise prohibits universal elapsed claims.
+Remaining attempt exit0/pins unchanged; host288828/288829/driver absent.
+Next support-trajectory-1:80paired full solver state/event comparisons.
+
+S3-B support-trajectory-1 passed1041assertions/80exact paired traces,exit0/pins
+unchanged; host288952/288953/driver absent. Cost data/source/frozen baseline helper
+hashes independently verified. Final review requested before production commit.
+
+S3-B final independent review approves with explicit no-unnecessary-work/memory
+finding. Cost/work/trajectory/source hashes independently reproduced; scope limits
+accepted and no deferred minors. Productionb6a4064 -> masterb720674; preservation
+hashes match. Sole guarded job support-master-1; do not push until acceptance.
+
+S3-B integrated milestone: productionb6a4064 -> masterb720674, master1611/1611,
+exit0/pins unchanged, separate host absence, authorized push and remote verification.
+Independent reviewer accepts source/work/cost/trajectory proof with no findings.
+All old worktrees/env/user dirt preserved. S0 final window allocation attribution
+was aggregated without another Julia run; S4/S5 maps now cite completed evidence.

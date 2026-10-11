@@ -12,7 +12,8 @@ Ordinary input compaction, dense output rebuild and external checks remain.
 
 **Tech Stack:** Julia existing IndexedVector/pipeline, Test, TOML, guarded Python.
 **Spec:** 2026-10-11-simplex-core-architecture-design.md, S3.
-**Status:** Source proof prepared; characterization and RED pending. No production edit.
+**Status:** Census20,000, RED74pass/6fail, smoke GREEN80 and extended GREEN20,000+1611 accepted.
+Focused10645 plus targeted missing-fixture follow-up9 passed; cost936samples/26fixtures audited with2known fixture limitations. Trajectory80pairs/1041assertions passed. Reviewed, integrated at masterb720674 and pushed; master regression1611/1611.
 
 ## Scope and source proof
 
@@ -64,24 +65,24 @@ views covered by S3-A; no relaxation of alias invalidation.
 
 ## Sequential gates
 
-- [ ] Guarded unchanged-production census: all five public managers, native and
+- [x] Guarded unchanged-production census: all five public managers, native and
   Markowitz, all five supported precisions, empty/sparse/dense input and genuine
   update history. Check exact dense values, canonical indices/membership and modes.
   Count compact calls/elements globally and inside output-support; separate rebuilds.
-- [ ] Intended small RED: successful indexed solve/pricing should have zero
+- [x] Intended small RED: successful indexed solve/pricing should have zero
   output-consumer compaction; unchanged control has one. Dense/external controls
   and ordinary input cancellation continue to require their original work.
-- [ ] After final exit/pins and separate host process absence, implement only the
+- [x] After final exit/pins and separate host process absence, implement only the
   above local fact and rerun identical GREEN. Add permanent regressions that fail
   if noncanonical generic inputs are trusted or post-write support stays stale.
-- [ ] Repeat extended matrix because source changed. Cover signed zeros, exact
+- [x] Repeat extended matrix because source changed. Cover signed zeros, exact
   cancellation, retained BigFloat precision, dense fallback, aliasing, empty
   outputs, exceptions and both basis directions; no old S3-A rerun without scope.
-- [ ] Existing indexed/hypersparse factorization/update/pipeline regression groups.
-- [ ] At least three interleaved warm sparse/dense pairs: whole solve/pricing and
+- [x] Existing indexed/hypersparse factorization/update/pipeline regression groups.
+- [x] At least three interleaved warm sparse/dense pairs: whole solve/pricing and
   focused support work, separate compilation/setup, actual work and allocations.
   Baseline clone changes only this helper call/parameter, same fixed policies.
-- [ ] Independent numerical/work/memory review, minimal production commit,
+- [x] Independent numerical/work/memory review, minimal production commit,
   isolated integration tests and authorized master push; diagnostics separate.
 
 ## Process and ownership
@@ -97,3 +98,29 @@ architecture investigation and standing instruction to continue without repeated
 confirmation. It adds no public behavior or optimization policy. If canonical
 producer proof or cost validation fails, keep the experiment isolated/reject it;
 do not broaden trust or remove numerical checks to rescue a result.
+
+
+Qualification pair audit matched all1900cases' modes, support cardinalities and
+rebuilds. Removed precisely992output-consumer compactions/5156visited elements;
+input cancellation compaction remains. Both reports independently assert dense
+values against explicit basis equations/pricing products. These are kernel
+contracts, not a full-solver trajectory equivalence claim. Existing adaptive
+mode selection can react to changed measured cost; fixed modes isolate this cost
+comparison, and controlled legacy hypersparse=false behavior remains unchanged.
+
+Additional qualification gate: fixed-mode before/after solver event/state hashes
+for both algorithms,5managers,2backends,sparse/dense fixtures. Existing broad solver
+checks certify outcomes but do not pair trajectories. The spec requires this for
+identical-arithmetic changes. Prepared diagnostic temporarily replaces only the
+output helper and forces the same existing mode in both sides, inside one isolated
+process; all other source identical. No elapsed claim from method redefinition.
+
+Ruling: the two Float32/Markowitz dense/history8 cost fixtures fail independent
+point certification at pivot3 in both old/new code. Preserve identical failure
+evidence, do not relax tolerance or modify arithmetic. Accept only completed
+paired groups and run the3 remaining HH/Float32 groups; report26/28 cost fixtures
+and no Float32 dense/history8 timing. Float64 dense/history8 covers all5managers.
+
+Completed: productionb6a4064 -> masterb720674, remote verified; master1611/1611.
+Independent review found no unnecessary work/allocations/retention and no deferred
+minor issue. All known scope and fixture limitations retained in S3-SUPPORT.md.

@@ -1,0 +1,49 @@
+Measured Float64/pfi/sparse/history0
+Measured Float64/pfi/sparse/history8
+Measured Float64/pfi/dense/history0
+Measured Float64/pfi/dense/history8
+Measured Float64/huangfu_hall/sparse/history0
+Measured Float64/huangfu_hall/sparse/history8
+Measured Float64/huangfu_hall/dense/history0
+Measured Float64/huangfu_hall/dense/history8
+Measured Float64/forrest_tomlin/sparse/history0
+Measured Float64/forrest_tomlin/sparse/history8
+Measured Float64/forrest_tomlin/dense/history0
+Measured Float64/forrest_tomlin/dense/history8
+Measured Float64/suhl_suhl/sparse/history0
+Measured Float64/suhl_suhl/sparse/history8
+Measured Float64/suhl_suhl/dense/history0
+Measured Float64/suhl_suhl/dense/history8
+Measured Float64/bartels_golub/sparse/history0
+Measured Float64/bartels_golub/sparse/history8
+Measured Float64/bartels_golub/dense/history0
+Measured Float64/bartels_golub/dense/history8
+Measured Float32/pfi/sparse/history0
+Measured Float32/pfi/sparse/history8
+Measured Float32/pfi/dense/history0
+ERROR: LoadError: AssertionError: isnothing(JS._primal_iteration!(ws, (()->begin
+                #= /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/pipeline_support_cost.jl:47 =#
+                false
+            end), o.dual_tolerance))
+Stacktrace:
+  [1] fixture(T::Type{Float32}, manager::Symbol, backend::Symbol, kind::Symbol, history::Int64)
+    @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/pipeline_support_cost.jl:47
+  [2] macro expansion
+    @ ./timing.jl:699 [inlined]
+  [3] (::var"#main##4#main##5"{Vector{Tuple{DataType, Symbol, Symbol}}, Vector{Dict}, Vector{Dict}, Vector{Dict}})()
+    @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/pipeline_support_cost.jl:100
+  [4] with_logstate(f::var"#main##4#main##5"{Vector{Tuple{DataType, Symbol, Symbol}}, Vector{Dict}, Vector{Dict}, Vector{Dict}}, logstate::Base.CoreLogging.LogState)
+    @ Base.CoreLogging ./logging/logging.jl:542
+  [5] with_logger
+    @ ./logging/logging.jl:653 [inlined]
+  [6] main()
+    @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/pipeline_support_cost.jl:98
+  [7] top-level scope
+    @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/pipeline_support_cost.jl:138
+  [8] include(mod::Module, _path::String)
+    @ Base ./Base.jl:309
+  [9] exec_options(opts::Base.JLOptions)
+    @ Base ./client.jl:344
+ [10] _start()
+    @ Base ./client.jl:577
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/pipeline_support_cost.jl:138

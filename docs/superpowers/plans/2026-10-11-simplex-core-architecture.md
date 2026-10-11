@@ -426,3 +426,14 @@ add an inferred density threshold. Broad S2 pivot error accounting remains open.
 Ruling: continue S3 producer/consumer support inventory and work census after
 this bounded rejected experiment, following the roadmap's staged investigation;
 any future S2 proposal needs a distinct numerical/cost hypothesis and subplan.
+
+
+S3-B local canonical-support consumer optimization is reviewed, integrated and
+pushed: productionb6a4064 -> masterb720674, master regression1611/1611. Evidence
+in S3-SUPPORT.md:1900work pairs save992compactions/5156visits,936cost records retain
+identical allocations and output hashes,80paired solver traces match exactly.
+Two Float32 dense/history8 cost fixtures fail equally before timing and remain
+explicit gaps. No new heuristic, arithmetic change or universal speed claim.
+Broader S3 stays partial; next close existing S0 plain elapsed gap before further
+long comparisons. S4/S5 attribution now uses completed old counted windows with
+no repeated solve. No unsafe handoff or factor reuse is inferred from those costs.

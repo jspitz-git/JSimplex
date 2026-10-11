@@ -99,3 +99,31 @@ still missing. These observations motivate measuring construction/extraction/liv
 factor ownership separately. They do not prove all GC allocations originated in
 the refactorization scope or that the S4-A scratch change speeds this fixed-size
 history. The existing paired S4-A measurements remain the evidence for that fix.
+
+
+## Final counted-reference attribution (supersedes the partial snapshot)
+
+The completed old-baseline medium dual reference is OPTIMAL with original-primal
+feasibility, observed certification and256 audited windows. No numerical run was
+repeated for this update. The full aggregation and original window-file SHA256 are
+in results/S0-L/medium-dual-counted-1-final-attribution.json.
+
+Actual dual phase II:198675 steps,3634.343695s. Exclusive ordinary scope accounts
+for3227.503s and560927824 cumulative allocated bytes; refactorization404.877s,
+291518039968 bytes and353.050s GC. This is allocation traffic, not retained factor
+size or proof that all collected garbage originated in that scope. Do not subtract
+GC and label the remainder a measured arithmetic speed.
+
+Auxiliary dual:35705steps,440.860452s; refactorization68.572s/48792783424B,
+62.520sGC. Original-model primal cleanup:21418steps; cleanup_steps scope1737.949s/
+125114160B, plus77.292s/51602139640B refactorization during primal cleanup.
+The separate cleanup/none handoff windows contain11.709s projection/585242536B,
+7.863s refactorization/5462458160B and0.883s initialization/551257816B.
+Chronological phase windows and exclusive scopes answer different questions;
+phase seconds must not be silently treated as exclusive function times.
+
+These data strengthen the next attribution hypothesis: construction/extraction
+and live/checkpoint/private backend ownership should be separated before any
+broader memory reuse change. S4-A remains a dimension-change fix, with no claimed
+benefit for this fixed-dimension history. Separate plain elapsed and primal-origin
+coverage are still pending; current master has not been timed by this reference.

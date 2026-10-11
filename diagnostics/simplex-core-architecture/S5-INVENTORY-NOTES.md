@@ -144,3 +144,15 @@ failure/event contracts. Neither is selected or implemented here. Before choosin
 use the existing cleanup-entry attribution, name eligible observer/policy cases,
 and count the actual factor/solve/RHS/price work removed. Full phase handoff reuse
 still needs model/order/cost/bound/weight ownership and original certification.
+
+
+## Final reference boundary attribution
+
+The completed S0 counted dual reference (see S4-INVENTORY-NOTES.md and its final
+attribution JSON) separates original cleanup entry from21418 actual primal steps.
+The handoff projection scope is11.709s versus1737.949s of ordinary cleanup_steps;
+initialization0.883s and handoff refactorization7.863s are separate scopes. These
+old-source counted results do not measure a proposed S5 change. They argue for
+keeping entry optimization claims narrow: no shortcut in the cold constructor
+can justify claiming an hours-scale ordinary-iteration speedup. Reuse this evidence
+when selecting the concrete S5 contract; do not repeat the completed counted run.

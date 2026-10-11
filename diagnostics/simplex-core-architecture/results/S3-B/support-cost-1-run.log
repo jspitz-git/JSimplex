@@ -1,0 +1,17 @@
+ERROR: LoadError: syntax: invalid assignment location "((thismodule).m, (thismodule).n)"
+Stacktrace:
+ [1] top-level scope
+   @ none:1
+ [2] eval(m::Module, e::Any)
+   @ Core ./boot.jl:489
+ [3] control_function(name::String, newname::Symbol)
+   @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/pipeline_support_cost.jl:26
+ [4] top-level scope
+   @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/pipeline_support_cost.jl:29
+ [5] include(mod::Module, _path::String)
+   @ Base ./Base.jl:309
+ [6] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:344
+ [7] _start()
+   @ Base ./client.jl:577
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/pipeline_support_cost.jl:29
