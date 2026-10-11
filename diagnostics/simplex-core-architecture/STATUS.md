@@ -4,7 +4,7 @@ Updated: 2026-10-11. This is the entry point after interruption.
 
 ## Current state
 
-**S1-A, S3-A/S3-B and S4-A integrated; master `b720674` pushed. S2-A rejected; next S0-L plain dual reference.**
+**S1-A, S3-A/S3-B and S4-A integrated; master `b720674` pushed. S2-A rejected; S0-L plain dual reference active.**
 The source baseline is `fe839aa72171d7496c9c931d9393278448c7317e`.
 Initial time-budget diagnostic evidence is commit `6ded1fc`.
 
@@ -63,16 +63,26 @@ complete. Productionb6a4064 -> masterb720674, master1611/1611, reviewed and push
 ReportS3-SUPPORT.md records1900paired work cases,936cost samples,80exact paired
 trajectories,focused10645+9,all5precision contracts and two preserved Float32 cost
 fixture failures. No unnecessary work/retention finding; no general speed claim.
-Main user/environment hashes preserved; final runner289833/child289858/driver
-separately absent. No numerical process currently active.
+Main user/environment hashes preserved; prior runner289833/child289858/driver
+separately absent before the new S0 reference. Diagnostic evidence79df8f2 pushed.
 
-Next fill the pending S0 plain dual medium elapsed reference using unchanged
-old7d6a8e1 source/long_measure.jl modeplain; details in LONG-PHASE-II.md. This is
-not a repeat of counted reference or a current-master timing claim. After launch
-verify current.json start_ticks/boot_id; one guarded Julia only. Plain has no
-chronology windows: audit its actual exit,pins,source/input,options/policy,status,
-original feasibility and exact result versus the accepted counted reference.
-Then continue primal-origin gap and broad S4/S5/S6. Never infer whole-plan completion.
+Current sole numerical process: S0-L/medium-dual-plain-1 (43200s guard), unified
+session78615. Runner290175/start_ticks18286453, child290176/start_ticks18286539,
+boot20de7dde-704e-41c8-bee7-b8511c0a86b0; driver290166. Verify current.json against
+host start identity, never PID alone. Old7d6a8e1 source/long_measure.jl modeplain,
+HH/native160,legacy,medium hash fixed,1000000step cap. Guard memory settings retained.
+This is the missing plain mode, not repetition of counted evidence/current-master
+comparison. Source/input/driver preflight matched513 accepted counted pins.
+
+While it runs, do not start Julia or mutate pinned old src/test/env or existing
+diagnostic Julia files. Healthy unchanged process needs no routine notification.
+After final process.json inspect exit,pins and reference.toml. Plain has no windows:
+long_audit.py is counted-only and cannot accept this mode. Audit actual source/input,
+options/policy,status,original feasibility,objective/primal hash,iteration/refactor
+counts against counted reference; report compile/GC/time separately. Then confirm
+runner/child/driver absence in a separate host call before further work. Preserve
+any incomplete or mismatching result; never infer fresh phase-window coverage.
+Continue primal-origin gap and broad S4/S5/S6 after release; see LONG-PHASE-II.md.
 
 ## Evidence gaps and traps to retain
 
@@ -695,3 +705,7 @@ exit0/pins unchanged, separate host absence, authorized push and remote verifica
 Independent reviewer accepts source/work/cost/trajectory proof with no findings.
 All old worktrees/env/user dirt preserved. S0 final window allocation attribution
 was aggregated without another Julia run; S4/S5 maps now cite completed evidence.
+
+S0 plain reference launched after reviewed/pushed S3-B integration. Sole Julia
+identity290176 verified with start_ticks/boot ID; guard290175 healthy, memory within
+limits and no swap. This is only an active attempt, not accepted final evidence.

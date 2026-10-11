@@ -437,3 +437,8 @@ explicit gaps. No new heuristic, arithmetic change or universal speed claim.
 Broader S3 stays partial; next close existing S0 plain elapsed gap before further
 long comparisons. S4/S5 attribution now uses completed old counted windows with
 no repeated solve. No unsafe handoff or factor reuse is inferred from those costs.
+
+S0-L medium-dual-plain-1 is now active under the same43200s guarded old baseline.
+This fills missing plain elapsed coverage; no new success/speedup claim. STATUS
+contains live identities and distinct plain-mode audit requirements. Primal-origin
+long coverage and broader stages remain pending.
