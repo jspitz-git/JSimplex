@@ -296,6 +296,7 @@ include("primal_point_storage_tests.jl")
     include("huangfu_hall_markowitz_tests.jl")
     include("huangfu_hall_scalar_integration_tests.jl")
     if Int === Int64
+        include("hh_dimension_scratch_tests.jl")
         include("huangfu_hall_tests.jl")
         include("huangfu_hall_integration_tests.jl")
     end
