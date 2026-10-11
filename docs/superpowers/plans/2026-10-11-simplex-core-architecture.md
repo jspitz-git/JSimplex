@@ -415,3 +415,14 @@ masterd8ad4ec, reviewed/pushed; smoke32, matrix1645, existing focused3214 plus
 LP follow-up70, cost120 and integration1645. See S3-BOUNDARIES.md for preserved
 driver errors and cost limits. Broad S3 optimization checkboxes remain open.
 Next execute S2-A control census and its private RED/qualification plan.
+
+
+S2-A private audited-flip experiment is REJECTED after qualified local numerics
+(control1000, candidate960, safety139, dirty-entry26, existing focused10381) and
+128cost samples/64warmups. Sparse cases improve but dense accepted cases regress
+22–30%, with extra certificate scratch and rejection costs. Independent review
+accepts rejection; no production/default change. Preserve all evidence and do not
+add an inferred density threshold. Broad S2 pivot error accounting remains open.
+Ruling: continue S3 producer/consumer support inventory and work census after
+this bounded rejected experiment, following the roadmap's staged investigation;
+any future S2 proposal needs a distinct numerical/cost hypothesis and subplan.

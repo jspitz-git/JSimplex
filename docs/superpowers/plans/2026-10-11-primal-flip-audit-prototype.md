@@ -4,7 +4,7 @@
 
 **Status:** Control census1000, work RED/GREEN12 and candidate matrix960 accepted.
 Safety139, dirty-entry26, focused10381 and cost128 completed.
-Proposed broad eligibility rejected by cost gate; independent review pending.
+REJECTED: broad eligibility fails cost gate; independent final review accepts closure.
 
 **Goal:** Test whether an unchanged-basis bound flip can avoid reconstructing
 both primal values and unchanged prices when an independently certified predicted
@@ -165,7 +165,7 @@ The observer must own no live workspace after its run.
 - [ ] Reuse existing medium/runtime evidence only where it actually covers this
   path. Long phase-II and both cleanup origins remain mandatory before general
   S2 acceptance; avoid rerunning unrelated completed baselines.
-- [ ] Independently review work/memory and numerics. If no repeatable net saving,
+- [x] Independently review work/memory and numerics. If no repeatable net saving,
   preserve the rejection with no production change. If qualified, write a small
   production-integration subplan preserving the same guarded contract; do not
   automatically merge private source rewriting or instrumentation.
@@ -375,3 +375,10 @@ is not required to reject this candidate; it remains mandatory for any future
 production proposal. No safeguards are removed and no new density policy added.
 Cost if too conservative: a useful narrow sparse specialization is deferred,
 with its exact evidence preserved in S2-FLIPS.md/results/S2-A.
+
+
+Final independent review reproduced all16cost groups and accepted REJECTED
+closure without critical/important findings. Two minor report/status wording
+issues are corrected. Remaining unchecked broad numerical gates explicitly were
+not completed and cannot support future promotion; this rejected subplan has no
+remaining production implementation step. Continue the parent S3 inventory.

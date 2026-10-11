@@ -1,7 +1,7 @@
 # S2-A: private audited-flip qualification
 
-Status: cost gate rejected for the proposed unconditional eligible path; independent
-review pending. No production source, default option or API was changed.
+Status: REJECTED for the proposed unconditional eligible path; independent
+review accepts closure. No production source, default option or API was changed.
 
 ## Numerical and process evidence
 
@@ -76,7 +76,7 @@ Retain all samples; do not select only favorable pairs.
 Accepted skips reduce 128 FTRAN / 64 BTRAN to 65 / 1, including the mandatory
 endpoint refresh. Reject-all retains 128 / 64 and adds 64 full certificates,
 64 current-point copies and prediction work. No solve-count reduction is labeled
-an elapsed saving by itself. The four-step unbounded fixture instead increases
+an elapsed saving by itself. The one-flip unbounded fixture instead increases
 its direction/refresh work from 3/1 to 4/1; scheduled refactorization saves nothing.
 
 Source accounting: each reconstruction visits all nonbasic states, every stored
@@ -114,3 +114,16 @@ both cleanup origins are not qualified by this experiment. It is sufficient to
 reject this candidate without spending those broader acceptance runs. Existing
 regressions protect helper semantics but do not execute the private cloned path
 in every ill-conditioned case. No original-model long performance claim follows.
+
+## Independent final review
+
+Fresh read-only review independently reproduced all 16 cost groups, count and
+compilation gates, result fingerprints and current source SHA values. It found
+no critical/important blocker to closing this private experiment as REJECTED.
+Static clone review found no double flip, skipped scheduled refactorization or
+dirty successful endpoint. Additional full certificates/candidate copies and
+point buffers are necessary for this design's safeguards; no further unnecessary
+copy, growing history or global workspace retention was identified. The cost
+regression supports rejecting the design rather than weakening its checks.
+Two minor documentation issues (stale current status and an unbounded work label)
+were corrected at closure. This review does not approve production promotion.

@@ -4,7 +4,7 @@ Updated: 2026-10-11. This is the entry point after interruption.
 
 ## Current state
 
-**S1-A, S3-A and S4-A integrated; master `d8ad4ec` pushed. S0-L counted dual reference audited; S2-A candidate qualification active.**
+**S1-A, S3-A and S4-A integrated; master `d8ad4ec` pushed. S0-L counted dual reference audited; S2-A rejected after qualification; broader S3 inventory next.**
 The source baseline is `fe839aa72171d7496c9c931d9393278448c7317e`.
 Completed diagnostic evidence is commit `6ded1fc`.
 
@@ -34,7 +34,7 @@ main also has a user-modified .vscode/settings.json. Do not stage those files.
 | P0 | Design, roadmap, continuation record | Done | This documentation; production unchanged |
 | S0 | Frozen baseline and coverage plan | Active | Counted dual long reference audited; plain elapsed and primal-origin coverage pending |
 | S1 | State ownership and validation reuse | Integrated | Inventory and local S1-A contract; master beb161b, report S1-ENTRY.md |
-| S2 | Audited incremental primal maintenance | Active | Private audited-flip prototype: control1000, matrix960, safety139; cost and final review pending |
+| S2 | Audited incremental primal maintenance | Active | S2-A REJECTED after numerical/cost qualification and independent review; broader pivot controller unresolved |
 | S3 | End-to-end exact sparsity support | Active | S3-A integrated at masterd8ad4ec; RED/GREEN, matrix1645, focused3214+LP70, cost120, reviewed; broader S3 pending |
 | S4 | Refactorization memory lifecycle | Active | S4-A integrated at master4143dad; RED/GREEN, focused4366, paired cost60; broader attribution pending |
 | S5 | Phase/cleanup handoff contract | Active | Partial static phase/cleanup ownership map; no implementation |
@@ -51,26 +51,22 @@ integration-tested1645/1645 and pushed. Diagnostics milestone1c6ee5d is pushed.
 Main user-file preservation checks passed. S0 counted dual long reference audit
 passed; separate plain elapsed and primal-origin coverage remain pending.
 
-Continue docs/superpowers/plans/2026-10-11-primal-flip-audit-prototype.md.
-S2-A control census passed80cases/1000assertions. Work RED passed6state checks and
-failed2 intended solve-count assertions8/4 versus5/1. Work-green-1 failed only in
-module loading; fixed explicit Symbol entries. Work-green-2 passed12/12 including
-mandatory endpoint refresh, retained basis/prices, original certificate and5/1work.
-Private prototype is reproduce/primal_flip_prototype.jl; no production change.
-It clones six exact source definitions into a private module with source hashes,
-AST anchors, context-owner checks and no overwritten production methods.
+S2-A private audited-flip subplan is closed as REJECTED; see S2-FLIPS.md.
+Control1000, work RED/GREEN12, candidate960, safety139, dirty-entry26, focused10381
+and cost128/64warmups are preserved. Independent review reproduced the cost data
+and found no closure blocker. Dense accepted cases regress22–30%; no production
+promotion or guessed density heuristic. Diagnostic5321ea1 records the result;
+closure documentation follows. master remainsd8ad4ec; old environments preserved.
 
-candidate-matrix-1 passed960/960, safety-contracts-2 passed139/139, existing
-focused-1 passed10381/10381 normal compilation, dirty-entry-2 passed26/26.
-Both diagnostic assertion/fixture failures are preserved, not production bugs.
-Current sole numerical job: S2-A/cost-1, private primal_flip_cost.jl. Verify
-current.json start_ticks/boot identity; inspect final process.json and separately
-confirm host runner/child/driver absence before another Julia or pinned edit.
-Cost has16groups, each3interleaved plain pairs plus1counted pair, and separate
-warmups/setup. Audit all128 samples/64warmups, compile times, source/outcome hashes
-and work/retention. /tmp/jsimplex-s2-cost-report.py is a prepared Python auditor.
-Then independently review the private experiment; do not automatically promote
-it to production. Latest pushed checkpoint3b164ea precedes these latest results.
+No numerical process remains: last cost runner285175/child285176/driver were
+separately confirmed absent after exit0/pins report. Before the next Julia,
+recheck host processes. Continue S3-INVENTORY-NOTES.md/roadmap with the canonical
+output-support producer/consumer audit and focused work census. Inspect whether
+pipeline consumers repeat compact_support! immediately after kernels already
+return canonical support; prove all empty/dense-fallback/exception paths before
+proposing any elision. No S3-B source change, RED or accepted design exists yet.
+Keep the controlled legacy hypersparse=false baseline distinct from fixed-policy
+pipeline diagnostics; do not enable adaptive selection to manufacture a speedup.
 
 ## Evidence gaps and traps to retain
 
@@ -600,3 +596,9 @@ ratios0.472–0.753, dense1.219–1.302; reject-all1.105–2.202. Extra allocati
 1040–4976B, retained point buffers968–4872B. Proposed broad eligible path is
 rejected pending independent review; do not merge or add an unreviewed density
 heuristic. See S2-FLIPS.md. No numerical process remains.
+
+S2-A final independent review accepts REJECTED closure, with no critical/important
+blocker and no hidden unnecessary copies or retained global workspace. Extra
+certificate/fallback work and point-buffer memory are necessary for this design,
+so the design is rejected instead of removing protections. Both minor report
+wording/current-status corrections applied. Continue broad S3 inventory/census.
