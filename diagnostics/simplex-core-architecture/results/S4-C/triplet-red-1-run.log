@@ -1,0 +1,20 @@
+ERROR: LoadError: Some tests did not pass: 1 passed, 1 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/hh_triplet_checks.jl:60
+Test Summary:              | Pass  Total  Time
+exact Markowitz extraction |  440    440  4.1s
+
+triplet allocation reduction: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/hh_triplet_checks.jl:57
+  Expression: b.bytes <= 0.8 * a.bytes
+   Evaluated: 7356880 <= 5.885504e6
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/hh_triplet_checks.jl:57 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] main(output::String)
+     @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/hh_triplet_checks.jl:56
+Test Summary:                | Pass  Fail  Total  Time
+triplet allocation reduction |    1     1      2  0.5s
+RNG of the outermost testset: Random.Xoshiro(0xa6b709f04fba51bc, 0xaff9df5bbd8d1496, 0x262ae57c7ff0f9c2, 0x61f5bfaaa804032a, 0x2333611ca032866e)

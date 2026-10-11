@@ -484,3 +484,16 @@ S4 Markowitz diagnostic slice also accepted:72 compile0 samples,all17 audit gate
 independent pins and review. Dense256 extraction121988864B/16calls dominates this
 backend's535280B/16calls. Next measured hypothesis is temporary triplet capacity
 reservation; no production change accepted yet. Broader precision/S4/S6 remain open.
+
+
+## 2026-10-12 S4-C integration
+
+Exact Markowitz HH triplet allocation is accepted: RED/GREEN442,focused4366,
+84compile0paired cost samples,8exact whole-solve pairs/121assertions. Fresh final
+review found no unnecessary work/retention or numerical blocker; exact count adds
+O(k+c²) extraction work while reducing triplet allocation traffic. Mostly-zero256
+side-median1.0258 is retained as a timing limit. Production0f2c468 -> master3220118,
+integration1294/1294,source/pins/user-file hashes verified,master pushed.
+S4-TRIPLETS.md and the triplet subplan contain full evidence. Broader S4 scalar
+component cost and S5/S6 remain open; do not repeat completed Float64 attribution
+or S0-L references. Next choose a bounded scalar attribution subplan before Julia.

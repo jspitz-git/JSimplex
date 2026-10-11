@@ -4,7 +4,7 @@ Updated: 2026-10-12. This is the entry point after interruption.
 
 ## Current state
 
-**S1-A, S3-A/S3-B and S4-A integrated; master `b720674` pushed. S2-A rejected; S0-L all four long references audited and complete.**
+**S1-A, S3-A/S3-B and S4-A/S4-C integrated; master `3220118` pushed. S2-A rejected; S0-L all four long references audited and complete.**
 The source baseline is `fe839aa72171d7496c9c931d9393278448c7317e`.
 Initial time-budget diagnostic evidence is commit `6ded1fc`.
 
@@ -36,7 +36,7 @@ main also has a user-modified .vscode/settings.json. Do not stage those files.
 | S1 | State ownership and validation reuse | Integrated | Inventory and local S1-A contract; master beb161b, report S1-ENTRY.md |
 | S2 | Audited incremental primal maintenance | Active | S2-A REJECTED after numerical/cost qualification and independent review; broader pivot controller unresolved |
 | S3 | End-to-end exact sparsity support | Active | S3-A/S3-B integrated, latest masterb720674; exact-support consumer savings qualified; broader S3 partial |
-| S4 | Refactorization memory lifecycle | Active | S4-A integrated at master4143dad; RED/GREEN, focused4366, paired cost60; native and Markowitz Float64 component attribution accepted; other precisions pending |
+| S4 | Refactorization memory lifecycle | Active | S4-A/S4-C integrated; master3220118; Float64 component attribution/cost and exact triplet optimization accepted; scalar component coverage pending |
 | S5 | Phase/cleanup handoff contract | Active | Partial static phase/cleanup ownership map; no implementation |
 | S6 | Broad validation and final comparison | Pending | Requires accepted production chunks |
 
@@ -128,13 +128,21 @@ Markowitz component attribution also passed:72 compile0 samples,all17 post-exit
 checks, independent pins and fresh review without blocker. See S4-COMPONENTS.md
 and docs/superpowers/plans/2026-10-12-hh-markowitz-attribution.md. Active-only pool
 count scope is documented. Runner355464/child355465/driver355453 separately absent.
-No numerical job is active. Next concrete hypothesis: reserve Markowitz extraction
-triplet capacity before filling to reduce measured growth/assembly traffic, while
-preserving owned output/arithmetic/zero handling. Write its subplan and allocation
-regression before production edits. Native symbolic reuse remains unqualified.
-
-Keep CI disabled as requested; the failed full-suite CI run is not a passing S6
-gate. Master remainsb720674. All original user/environment files are preserved.
+S4-C exact triplet allocation is integrated and pushed: production0f2c468 ->
+master322011855af909d0d93b6f9bbecbe4200512fc67. RED/GREEN442,cost84compile0samples
+with14audit checks,focused4366/4366,8exact paired trajectories/121assertions.
+Fresh independent numerical/cost review approved without blockers/deferred minors.
+Master integration1294/1294,all7audit gates,actual source/pins/user hashes verified.
+See S4-TRIPLETS.md and2026-10-12-hh-markowitz-triplets.md. Extra O(k+c²) counting
+is explicit; all7cost fixtures reduce bytes, mostly-zero256 side-median1.0258
+is a timing limitation, not a speedup. No whole-solver speedup inferred.
+Runner358060/child358061/driver358052 separately absent on boot
+20de7dde-704e-41c8-bee7-b8511c0a86b0; no Julia at this milestone. Always recheck host.
+Next: bounded scalar component attribution subplan for remaining S4 precision
+coverage, without repeating accepted Float64 or long references; then explicit
+S5 handoff contract and S6 validation. Native symbolic reuse remains unqualified.
+Keep CI disabled as requested; previous failing full CI is not a passing S6 gate.
+All original user/environment files and raw attempts are preserved.
 
 ## Evidence gaps and traps to retain
 

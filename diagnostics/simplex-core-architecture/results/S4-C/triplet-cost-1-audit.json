@@ -1,0 +1,473 @@
+{
+  "accepted": true,
+  "scope": "Complete synthetic extraction cost evidence, not production promotion or general solver speedup",
+  "checks": {
+    "normal_exit": true,
+    "pins_unchanged": true,
+    "pins_reverified": true,
+    "pin_digest": true,
+    "complete": true,
+    "single_threads": true,
+    "source": true,
+    "sample_count": true,
+    "compile_zero": true,
+    "sample_settings": true,
+    "fixtures": true,
+    "finite_metrics": true,
+    "all_groups_complete": true,
+    "alternating_order": true
+  },
+  "reference_sha256": "8c33d33ccb001e3beaa27a70eb562ad097cae990862eeb33fcb84395aebbc85d",
+  "pins_sha256": "e008fcb09671713491b24e811c77b382ba66495911cc903be20782342f67d254",
+  "groups": [
+    {
+      "case": "dense256",
+      "side": "baseline",
+      "calls_per_sample": 16,
+      "seconds": {
+        "median": 0.00733225,
+        "min": 0.0069584,
+        "max": 0.0100466
+      },
+      "bytes": {
+        "median": 117710080.0,
+        "min": 117710080,
+        "max": 117710080
+      },
+      "allocations": {
+        "median": 2640.0,
+        "min": 2640,
+        "max": 2640
+      },
+      "gc_seconds": {
+        "median": 0.0003682,
+        "min": 0.0003059,
+        "max": 0.0004745
+      }
+    },
+    {
+      "case": "dense256",
+      "side": "candidate",
+      "calls_per_sample": 16,
+      "seconds": {
+        "median": 0.0045885000000000006,
+        "min": 0.004423,
+        "max": 0.0049183
+      },
+      "bytes": {
+        "median": 59285632.0,
+        "min": 59285632,
+        "max": 59285632
+      },
+      "allocations": {
+        "median": 1200.0,
+        "min": 1200,
+        "max": 1200
+      },
+      "gc_seconds": {
+        "median": 9.7e-05,
+        "min": 9.42e-05,
+        "max": 0.0001127
+      }
+    },
+    {
+      "case": "dense64",
+      "side": "baseline",
+      "calls_per_sample": 16,
+      "seconds": {
+        "median": 0.0005693,
+        "min": 0.0005348,
+        "max": 0.0012197
+      },
+      "bytes": {
+        "median": 6475136.0,
+        "min": 6475136,
+        "max": 6475136
+      },
+      "allocations": {
+        "median": 1744.0,
+        "min": 1744,
+        "max": 1744
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "dense64",
+      "side": "candidate",
+      "calls_per_sample": 16,
+      "seconds": {
+        "median": 0.00038185,
+        "min": 0.0003658,
+        "max": 0.0007907
+      },
+      "bytes": {
+        "median": 3830528.0,
+        "min": 3830528,
+        "max": 3830528
+      },
+      "allocations": {
+        "median": 1024.0,
+        "min": 1024,
+        "max": 1024
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "mixed64",
+      "side": "baseline",
+      "calls_per_sample": 16,
+      "seconds": {
+        "median": 0.00027820000000000004,
+        "min": 0.0002675,
+        "max": 0.0003507
+      },
+      "bytes": {
+        "median": 1914112.0,
+        "min": 1914112,
+        "max": 1914112
+      },
+      "allocations": {
+        "median": 1456.0,
+        "min": 1456,
+        "max": 1456
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "mixed64",
+      "side": "candidate",
+      "calls_per_sample": 16,
+      "seconds": {
+        "median": 0.00022134999999999999,
+        "min": 0.0002048,
+        "max": 0.0004576
+      },
+      "bytes": {
+        "median": 1158400.0,
+        "min": 1158400,
+        "max": 1158400
+      },
+      "allocations": {
+        "median": 1024.0,
+        "min": 1024,
+        "max": 1024
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "mostly_zero_core256",
+      "side": "baseline",
+      "calls_per_sample": 16,
+      "seconds": {
+        "median": 0.0008199500000000001,
+        "min": 0.0007919,
+        "max": 0.000862
+      },
+      "bytes": {
+        "median": 1037184.0,
+        "min": 1037184,
+        "max": 1037184
+      },
+      "allocations": {
+        "median": 1392.0,
+        "min": 1392,
+        "max": 1392
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "mostly_zero_core256",
+      "side": "candidate",
+      "calls_per_sample": 16,
+      "seconds": {
+        "median": 0.0008411,
+        "min": 0.0008084,
+        "max": 0.0008521
+      },
+      "bytes": {
+        "median": 852096.0,
+        "min": 852096,
+        "max": 852096
+      },
+      "allocations": {
+        "median": 1200.0,
+        "min": 1200,
+        "max": 1200
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "mostly_zero_core64",
+      "side": "baseline",
+      "calls_per_sample": 16,
+      "seconds": {
+        "median": 7.869999999999999e-05,
+        "min": 7.6e-05,
+        "max": 7.95e-05
+      },
+      "bytes": {
+        "median": 281856.0,
+        "min": 281856,
+        "max": 281856
+      },
+      "allocations": {
+        "median": 944.0,
+        "min": 944,
+        "max": 944
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "mostly_zero_core64",
+      "side": "candidate",
+      "calls_per_sample": 16,
+      "seconds": {
+        "median": 7.26e-05,
+        "min": 7.05e-05,
+        "max": 7.51e-05
+      },
+      "bytes": {
+        "median": 230400.0,
+        "min": 230400,
+        "max": 230400
+      },
+      "allocations": {
+        "median": 800.0,
+        "min": 800,
+        "max": 800
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "sparse256",
+      "side": "baseline",
+      "calls_per_sample": 16,
+      "seconds": {
+        "median": 0.00026900000000000003,
+        "min": 0.0002589,
+        "max": 0.0002832
+      },
+      "bytes": {
+        "median": 1461760.0,
+        "min": 1461760,
+        "max": 1461760
+      },
+      "allocations": {
+        "median": 1456.0,
+        "min": 1456,
+        "max": 1456
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "sparse256",
+      "side": "candidate",
+      "calls_per_sample": 16,
+      "seconds": {
+        "median": 0.0002416,
+        "min": 0.0002284,
+        "max": 0.0002586
+      },
+      "bytes": {
+        "median": 1188736.0,
+        "min": 1188736,
+        "max": 1188736
+      },
+      "allocations": {
+        "median": 1168.0,
+        "min": 1168,
+        "max": 1168
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "sparse64",
+      "side": "baseline",
+      "calls_per_sample": 16,
+      "seconds": {
+        "median": 6.43e-05,
+        "min": 6.22e-05,
+        "max": 7.16e-05
+      },
+      "bytes": {
+        "median": 429184.0,
+        "min": 429184,
+        "max": 429184
+      },
+      "allocations": {
+        "median": 1040.0,
+        "min": 1040,
+        "max": 1040
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    {
+      "case": "sparse64",
+      "side": "candidate",
+      "calls_per_sample": 16,
+      "seconds": {
+        "median": 4.015e-05,
+        "min": 3.83e-05,
+        "max": 7.44e-05
+      },
+      "bytes": {
+        "median": 318976.0,
+        "min": 318976,
+        "max": 318976
+      },
+      "allocations": {
+        "median": 800.0,
+        "min": 800,
+        "max": 800
+      },
+      "gc_seconds": {
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    }
+  ],
+  "paired_ratios": {
+    "dense256": {
+      "median": 0.6378441225810338,
+      "min": 0.45607469193558026,
+      "max": 0.6564848415578478,
+      "all": [
+        0.45607469193558026,
+        0.622308575221606,
+        0.6564848415578478,
+        0.6400536165118034,
+        0.6528009471021902,
+        0.6356346286502644
+      ]
+    },
+    "dense64": {
+      "median": 0.6575467513022817,
+      "min": 0.3312289907354268,
+      "max": 1.477115636091911,
+      "all": [
+        0.7075542258788332,
+        1.477115636091911,
+        0.3562207670720299,
+        0.3312289907354268,
+        0.6582430806257521,
+        0.6568504219788113
+      ]
+    },
+    "mixed64": {
+      "median": 0.7723821244044675,
+      "min": 0.6087824351297405,
+      "max": 1.7106542056074767,
+      "all": [
+        0.6087824351297405,
+        1.7106542056074767,
+        0.7485303723056825,
+        0.7817240103588605,
+        0.8171967843411394,
+        0.7630402384500744
+      ]
+    },
+    "mostly_zero_core256": {
+      "median": 1.0087739953803574,
+      "min": 0.9783371656783251,
+      "max": 1.0760196994570022,
+      "all": [
+        0.9783371656783251,
+        1.0760196994570022,
+        0.9808231992516371,
+        1.0307730487653555,
+        0.9867749419953595,
+        1.0366273352999016
+      ]
+    },
+    "mostly_zero_core64": {
+      "median": 0.9288366716782256,
+      "min": 0.8867924528301888,
+      "max": 0.9539473684210525,
+      "all": [
+        0.9539473684210525,
+        0.9081632653061225,
+        0.8867924528301888,
+        0.9202531645569622,
+        0.9482323232323232,
+        0.937420178799489
+      ]
+    },
+    "sparse256": {
+      "median": 0.9043345001908265,
+      "min": 0.8512858740216175,
+      "max": 0.9499431171786121,
+      "all": [
+        0.8512858740216175,
+        0.895533407161314,
+        0.913135593220339,
+        0.9499431171786121,
+        0.8794957360029663,
+        0.929316338354577
+      ]
+    },
+    "sparse64": {
+      "median": 0.6189505205309802,
+      "min": 0.5712290502793296,
+      "max": 1.1087928464977646,
+      "all": [
+        0.5712290502793296,
+        1.1087928464977646,
+        0.6219135802469135,
+        0.6108452950558213,
+        0.6430868167202574,
+        0.615987460815047
+      ]
+    }
+  },
+  "resources": {
+    "peak_vm_kib": 739736,
+    "max_sampled_rss_kib": 424572,
+    "min_available_kib": 22482404,
+    "max_swap_used_kib": 0
+  }
+}

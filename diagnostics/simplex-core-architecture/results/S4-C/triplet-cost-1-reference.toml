@@ -1,0 +1,807 @@
+source = "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src"
+complete = true
+scope = "Markowitz HH extraction only; reference frozen before exact triplet allocation"
+julia_threads = 1
+blas_threads = 1
+calls_per_sample = 16
+pairs = 6
+
+[[fixtures]]
+core_dimension = 4
+dimension = 64
+core_nonzeros = 10
+sparse_pivots = 60
+case = "sparse64"
+[[fixtures]]
+core_dimension = 64
+dimension = 64
+core_nonzeros = 4078
+sparse_pivots = 0
+case = "dense64"
+[[fixtures]]
+core_dimension = 64
+dimension = 64
+core_nonzeros = 64
+sparse_pivots = 0
+case = "mostly_zero_core64"
+[[fixtures]]
+core_dimension = 4
+dimension = 256
+core_nonzeros = 10
+sparse_pivots = 252
+case = "sparse256"
+[[fixtures]]
+core_dimension = 256
+dimension = 256
+core_nonzeros = 65463
+sparse_pivots = 0
+case = "dense256"
+[[fixtures]]
+core_dimension = 256
+dimension = 256
+core_nonzeros = 256
+sparse_pivots = 0
+case = "mostly_zero_core256"
+[[fixtures]]
+core_dimension = 42
+dimension = 64
+core_nonzeros = 1041
+sparse_pivots = 22
+case = "mixed64"
+
+[[samples]]
+gc_seconds = 0.0
+seconds = 7.16e-5
+bytes = 429184
+compile_seconds = 0.0
+side = "baseline"
+pair = 1
+case = "sparse64"
+allocations = 1040
+[[samples]]
+gc_seconds = 0.0
+seconds = 4.09e-5
+bytes = 318976
+compile_seconds = 0.0
+side = "candidate"
+pair = 1
+case = "sparse64"
+allocations = 800
+[[samples]]
+gc_seconds = 0.0
+seconds = 7.44e-5
+bytes = 318976
+compile_seconds = 0.0
+side = "candidate"
+pair = 2
+case = "sparse64"
+allocations = 800
+[[samples]]
+gc_seconds = 0.0
+seconds = 6.71e-5
+bytes = 429184
+compile_seconds = 0.0
+side = "baseline"
+pair = 2
+case = "sparse64"
+allocations = 1040
+[[samples]]
+gc_seconds = 0.0
+seconds = 6.48e-5
+bytes = 429184
+compile_seconds = 0.0
+side = "baseline"
+pair = 3
+case = "sparse64"
+allocations = 1040
+[[samples]]
+gc_seconds = 0.0
+seconds = 4.03e-5
+bytes = 318976
+compile_seconds = 0.0
+side = "candidate"
+pair = 3
+case = "sparse64"
+allocations = 800
+[[samples]]
+gc_seconds = 0.0
+seconds = 3.83e-5
+bytes = 318976
+compile_seconds = 0.0
+side = "candidate"
+pair = 4
+case = "sparse64"
+allocations = 800
+[[samples]]
+gc_seconds = 0.0
+seconds = 6.27e-5
+bytes = 429184
+compile_seconds = 0.0
+side = "baseline"
+pair = 4
+case = "sparse64"
+allocations = 1040
+[[samples]]
+gc_seconds = 0.0
+seconds = 6.22e-5
+bytes = 429184
+compile_seconds = 0.0
+side = "baseline"
+pair = 5
+case = "sparse64"
+allocations = 1040
+[[samples]]
+gc_seconds = 0.0
+seconds = 4.0e-5
+bytes = 318976
+compile_seconds = 0.0
+side = "candidate"
+pair = 5
+case = "sparse64"
+allocations = 800
+[[samples]]
+gc_seconds = 0.0
+seconds = 3.93e-5
+bytes = 318976
+compile_seconds = 0.0
+side = "candidate"
+pair = 6
+case = "sparse64"
+allocations = 800
+[[samples]]
+gc_seconds = 0.0
+seconds = 6.38e-5
+bytes = 429184
+compile_seconds = 0.0
+side = "baseline"
+pair = 6
+case = "sparse64"
+allocations = 1040
+[[samples]]
+gc_seconds = 0.0
+seconds = 0.0005348
+bytes = 6475136
+compile_seconds = 0.0
+side = "baseline"
+pair = 1
+case = "dense64"
+allocations = 1744
+[[samples]]
+gc_seconds = 0.0
+seconds = 0.0003784
+bytes = 3830528
+compile_seconds = 0.0
+side = "candidate"
+pair = 1
+case = "dense64"
+allocations = 1024
+[[samples]]
+gc_seconds = 0.0
+seconds = 0.0007907
+bytes = 3830528
+compile_seconds = 0.0
+side = "candidate"
+pair = 2
+case = "dense64"
+allocations = 1024
+[[samples]]
+gc_seconds = 0.0
+seconds = 0.0005353
+bytes = 6475136
+compile_seconds = 0.0
+side = "baseline"
+pair = 2
+case = "dense64"
+allocations = 1744
+[[samples]]
+gc_seconds = 0.0
+seconds = 0.001069
+bytes = 6475136
+compile_seconds = 0.0
+side = "baseline"
+pair = 3
+case = "dense64"
+allocations = 1744
+[[samples]]
+gc_seconds = 0.0
+seconds = 0.0003808
+bytes = 3830528
+compile_seconds = 0.0
+side = "candidate"
+pair = 3
+case = "dense64"
+allocations = 1024
+[[samples]]
+gc_seconds = 0.0
+seconds = 0.000404
+bytes = 3830528
+compile_seconds = 0.0
+side = "candidate"
+pair = 4
+case = "dense64"
+allocations = 1024
+[[samples]]
+gc_seconds = 0.0
+seconds = 0.0012197
+bytes = 6475136
+compile_seconds = 0.0
+side = "baseline"
+pair = 4
+case = "dense64"
+allocations = 1744
+[[samples]]
+gc_seconds = 0.0
+seconds = 0.0005817
+bytes = 6475136
+compile_seconds = 0.0
+side = "baseline"
+pair = 5
+case = "dense64"
+allocations = 1744
+[[samples]]
+gc_seconds = 0.0
+seconds = 0.0003829
+bytes = 3830528
+compile_seconds = 0.0
+side = "candidate"
+pair = 5
+case = "dense64"
+allocations = 1024
+[[samples]]
+gc_seconds = 0.0
+seconds = 0.0003658
+bytes = 3830528
+compile_seconds = 0.0
+side = "candidate"
+pair = 6
+case = "dense64"
+allocations = 1024
+[[samples]]
+gc_seconds = 0.0
+seconds = 0.0005569
+bytes = 6475136
+compile_seconds = 0.0
+side = "baseline"
+pair = 6
+case = "dense64"
+allocations = 1744
+[[samples]]
+gc_seconds = 0.0
+seconds = 7.6e-5
+bytes = 281856
+compile_seconds = 0.0
+side = "baseline"
+pair = 1
+case = "mostly_zero_core64"
+allocations = 944
+[[samples]]
+gc_seconds = 0.0
+seconds = 7.25e-5
+bytes = 230400
+compile_seconds = 0.0
+side = "candidate"
+pair = 1
+case = "mostly_zero_core64"
+allocations = 800
+[[samples]]
+gc_seconds = 0.0
+seconds = 7.12e-5
+bytes = 230400
+compile_seconds = 0.0
+side = "candidate"
+pair = 2
+case = "mostly_zero_core64"
+allocations = 800
+[[samples]]
+gc_seconds = 0.0
+seconds = 7.84e-5
+bytes = 281856
+compile_seconds = 0.0
+side = "baseline"
+pair = 2
+case = "mostly_zero_core64"
+allocations = 944
+[[samples]]
+gc_seconds = 0.0
+seconds = 7.95e-5
+bytes = 281856
+compile_seconds = 0.0
+side = "baseline"
+pair = 3
+case = "mostly_zero_core64"
+allocations = 944
+[[samples]]
+gc_seconds = 0.0
+seconds = 7.05e-5
+bytes = 230400
+compile_seconds = 0.0
+side = "candidate"
+pair = 3
+case = "mostly_zero_core64"
+allocations = 800
+[[samples]]
+gc_seconds = 0.0
+seconds = 7.27e-5
+bytes = 230400
+compile_seconds = 0.0
+side = "candidate"
+pair = 4
+case = "mostly_zero_core64"
+allocations = 800
+[[samples]]
+gc_seconds = 0.0
+seconds = 7.9e-5
+bytes = 281856
+compile_seconds = 0.0
+side = "baseline"
+pair = 4
+case = "mostly_zero_core64"
+allocations = 944
+[[samples]]
+gc_seconds = 0.0
+seconds = 7.92e-5
+bytes = 281856
+compile_seconds = 0.0
+side = "baseline"
+pair = 5
+case = "mostly_zero_core64"
+allocations = 944
+[[samples]]
+gc_seconds = 0.0
+seconds = 7.51e-5
+bytes = 230400
+compile_seconds = 0.0
+side = "candidate"
+pair = 5
+case = "mostly_zero_core64"
+allocations = 800
+[[samples]]
+gc_seconds = 0.0
+seconds = 7.34e-5
+bytes = 230400
+compile_seconds = 0.0
+side = "candidate"
+pair = 6
+case = "mostly_zero_core64"
+allocations = 800
+[[samples]]
+gc_seconds = 0.0
+seconds = 7.83e-5
+bytes = 281856
+compile_seconds = 0.0
+side = "baseline"
+pair = 6
+case = "mostly_zero_core64"
+allocations = 944
+[[samples]]
+gc_seconds = 0.0
+seconds = 0.0002683
+bytes = 1461760
+compile_seconds = 0.0
+side = "baseline"
+pair = 1
+case = "sparse256"
+allocations = 1456
+[[samples]]
+gc_seconds = 0.0
+seconds = 0.0002284
+bytes = 1188736
+compile_seconds = 0.0
+side = "candidate"
+pair = 1
+case = "sparse256"
+allocations = 1168
+[[samples]]
+gc_seconds = 0.0
+seconds = 0.0002426
+bytes = 1188736
+compile_seconds = 0.0
+side = "candidate"
+pair = 2
+case = "sparse256"
+allocations = 1168
+[[samples]]
+gc_seconds = 0.0
+seconds = 0.0002709
+bytes = 1461760
+compile_seconds = 0.0
+side = "baseline"
+pair = 2
+case = "sparse256"
+allocations = 1456
+[[samples]]
+gc_seconds = 0.0
+seconds = 0.0002832
+bytes = 1461760
+compile_seconds = 0.0
+side = "baseline"
+pair = 3
+case = "sparse256"
+allocations = 1456
+[[samples]]
+gc_seconds = 0.0
+seconds = 0.0002586
+bytes = 1188736
+compile_seconds = 0.0
+side = "candidate"
+pair = 3
+case = "sparse256"
+allocations = 1168
+[[samples]]
+gc_seconds = 0.0
+seconds = 0.0002505
+bytes = 1188736
+compile_seconds = 0.0
+side = "candidate"
+pair = 4
+case = "sparse256"
+allocations = 1168
+[[samples]]
+gc_seconds = 0.0
+seconds = 0.0002637
+bytes = 1461760
+compile_seconds = 0.0
+side = "baseline"
+pair = 4
+case = "sparse256"
+allocations = 1456
+[[samples]]
+gc_seconds = 0.0
+seconds = 0.0002697
+bytes = 1461760
+compile_seconds = 0.0
+side = "baseline"
+pair = 5
+case = "sparse256"
+allocations = 1456
+[[samples]]
+gc_seconds = 0.0
+seconds = 0.0002372
+bytes = 1188736
+compile_seconds = 0.0
+side = "candidate"
+pair = 5
+case = "sparse256"
+allocations = 1168
+[[samples]]
+gc_seconds = 0.0
+seconds = 0.0002406
+bytes = 1188736
+compile_seconds = 0.0
+side = "candidate"
+pair = 6
+case = "sparse256"
+allocations = 1168
+[[samples]]
+gc_seconds = 0.0
+seconds = 0.0002589
+bytes = 1461760
+compile_seconds = 0.0
+side = "baseline"
+pair = 6
+case = "sparse256"
+allocations = 1456
+[[samples]]
+gc_seconds = 0.0003951
+seconds = 0.0100466
+bytes = 117710080
+compile_seconds = 0.0
+side = "baseline"
+pair = 1
+case = "dense256"
+allocations = 2640
+[[samples]]
+gc_seconds = 9.42e-5
+seconds = 0.004582
+bytes = 59285632
+compile_seconds = 0.0
+side = "candidate"
+pair = 1
+case = "dense256"
+allocations = 1200
+[[samples]]
+gc_seconds = 9.63e-5
+seconds = 0.0045001
+bytes = 59285632
+compile_seconds = 0.0
+side = "candidate"
+pair = 2
+case = "dense256"
+allocations = 1200
+[[samples]]
+gc_seconds = 0.0003344
+seconds = 0.0072313
+bytes = 117710080
+compile_seconds = 0.0
+side = "baseline"
+pair = 2
+case = "dense256"
+allocations = 2640
+[[samples]]
+gc_seconds = 0.0003059
+seconds = 0.0069994
+bytes = 117710080
+compile_seconds = 0.0
+side = "baseline"
+pair = 3
+case = "dense256"
+allocations = 2640
+[[samples]]
+gc_seconds = 0.0001127
+seconds = 0.004595
+bytes = 59285632
+compile_seconds = 0.0
+side = "candidate"
+pair = 3
+case = "dense256"
+allocations = 1200
+[[samples]]
+gc_seconds = 9.77e-5
+seconds = 0.0049183
+bytes = 59285632
+compile_seconds = 0.0
+side = "candidate"
+pair = 4
+case = "dense256"
+allocations = 1200
+[[samples]]
+gc_seconds = 0.0004745
+seconds = 0.0076842
+bytes = 117710080
+compile_seconds = 0.0
+side = "baseline"
+pair = 4
+case = "dense256"
+allocations = 2640
+[[samples]]
+gc_seconds = 0.0003413
+seconds = 0.0074332
+bytes = 117710080
+compile_seconds = 0.0
+side = "baseline"
+pair = 5
+case = "dense256"
+allocations = 2640
+[[samples]]
+gc_seconds = 9.85e-5
+seconds = 0.0048524
+bytes = 59285632
+compile_seconds = 0.0
+side = "candidate"
+pair = 5
+case = "dense256"
+allocations = 1200
+[[samples]]
+gc_seconds = 9.55e-5
+seconds = 0.004423
+bytes = 59285632
+compile_seconds = 0.0
+side = "candidate"
+pair = 6
+case = "dense256"
+allocations = 1200
+[[samples]]
+gc_seconds = 0.0004402
+seconds = 0.0069584
+bytes = 117710080
+compile_seconds = 0.0
+side = "baseline"
+pair = 6
+case = "dense256"
+allocations = 2640
+[[samples]]
+gc_seconds = 0.0
+seconds = 0.0008263
+bytes = 1037184
+compile_seconds = 0.0
+side = "baseline"
+pair = 1
+case = "mostly_zero_core256"
+allocations = 1392
+[[samples]]
+gc_seconds = 0.0
+seconds = 0.0008084
+bytes = 852096
+compile_seconds = 0.0
+side = "candidate"
+pair = 1
+case = "mostly_zero_core256"
+allocations = 1200
+[[samples]]
+gc_seconds = 0.0
+seconds = 0.0008521
+bytes = 852096
+compile_seconds = 0.0
+side = "candidate"
+pair = 2
+case = "mostly_zero_core256"
+allocations = 1200
+[[samples]]
+gc_seconds = 0.0
+seconds = 0.0007919
+bytes = 1037184
+compile_seconds = 0.0
+side = "baseline"
+pair = 2
+case = "mostly_zero_core256"
+allocations = 1392
+[[samples]]
+gc_seconds = 0.0
+seconds = 0.0008552
+bytes = 1037184
+compile_seconds = 0.0
+side = "baseline"
+pair = 3
+case = "mostly_zero_core256"
+allocations = 1392
+[[samples]]
+gc_seconds = 0.0
+seconds = 0.0008388
+bytes = 852096
+compile_seconds = 0.0
+side = "candidate"
+pair = 3
+case = "mostly_zero_core256"
+allocations = 1200
+[[samples]]
+gc_seconds = 0.0
+seconds = 0.0008307
+bytes = 852096
+compile_seconds = 0.0
+side = "candidate"
+pair = 4
+case = "mostly_zero_core256"
+allocations = 1200
+[[samples]]
+gc_seconds = 0.0
+seconds = 0.0008059
+bytes = 1037184
+compile_seconds = 0.0
+side = "baseline"
+pair = 4
+case = "mostly_zero_core256"
+allocations = 1392
+[[samples]]
+gc_seconds = 0.0
+seconds = 0.000862
+bytes = 1037184
+compile_seconds = 0.0
+side = "baseline"
+pair = 5
+case = "mostly_zero_core256"
+allocations = 1392
+[[samples]]
+gc_seconds = 0.0
+seconds = 0.0008506
+bytes = 852096
+compile_seconds = 0.0
+side = "candidate"
+pair = 5
+case = "mostly_zero_core256"
+allocations = 1200
+[[samples]]
+gc_seconds = 0.0
+seconds = 0.0008434
+bytes = 852096
+compile_seconds = 0.0
+side = "candidate"
+pair = 6
+case = "mostly_zero_core256"
+allocations = 1200
+[[samples]]
+gc_seconds = 0.0
+seconds = 0.0008136
+bytes = 1037184
+compile_seconds = 0.0
+side = "baseline"
+pair = 6
+case = "mostly_zero_core256"
+allocations = 1392
+[[samples]]
+gc_seconds = 0.0
+seconds = 0.0003507
+bytes = 1914112
+compile_seconds = 0.0
+side = "baseline"
+pair = 1
+case = "mixed64"
+allocations = 1456
+[[samples]]
+gc_seconds = 0.0
+seconds = 0.0002135
+bytes = 1158400
+compile_seconds = 0.0
+side = "candidate"
+pair = 1
+case = "mixed64"
+allocations = 1024
+[[samples]]
+gc_seconds = 0.0
+seconds = 0.0004576
+bytes = 1158400
+compile_seconds = 0.0
+side = "candidate"
+pair = 2
+case = "mixed64"
+allocations = 1024
+[[samples]]
+gc_seconds = 0.0
+seconds = 0.0002675
+bytes = 1914112
+compile_seconds = 0.0
+side = "baseline"
+pair = 2
+case = "mixed64"
+allocations = 1456
+[[samples]]
+gc_seconds = 0.0
+seconds = 0.0003062
+bytes = 1914112
+compile_seconds = 0.0
+side = "baseline"
+pair = 3
+case = "mixed64"
+allocations = 1456
+[[samples]]
+gc_seconds = 0.0
+seconds = 0.0002292
+bytes = 1158400
+compile_seconds = 0.0
+side = "candidate"
+pair = 3
+case = "mixed64"
+allocations = 1024
+[[samples]]
+gc_seconds = 0.0
+seconds = 0.0002113
+bytes = 1158400
+compile_seconds = 0.0
+side = "candidate"
+pair = 4
+case = "mixed64"
+allocations = 1024
+[[samples]]
+gc_seconds = 0.0
+seconds = 0.0002703
+bytes = 1914112
+compile_seconds = 0.0
+side = "baseline"
+pair = 4
+case = "mixed64"
+allocations = 1456
+[[samples]]
+gc_seconds = 0.0
+seconds = 0.0002861
+bytes = 1914112
+compile_seconds = 0.0
+side = "baseline"
+pair = 5
+case = "mixed64"
+allocations = 1456
+[[samples]]
+gc_seconds = 0.0
+seconds = 0.0002338
+bytes = 1158400
+compile_seconds = 0.0
+side = "candidate"
+pair = 5
+case = "mixed64"
+allocations = 1024
+[[samples]]
+gc_seconds = 0.0
+seconds = 0.0002048
+bytes = 1158400
+compile_seconds = 0.0
+side = "candidate"
+pair = 6
+case = "mixed64"
+allocations = 1024
+[[samples]]
+gc_seconds = 0.0
+seconds = 0.0002684
+bytes = 1914112
+compile_seconds = 0.0
+side = "baseline"
+pair = 6
+case = "mixed64"
+allocations = 1456
