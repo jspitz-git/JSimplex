@@ -383,8 +383,11 @@ end
     return setprecision(f,BigFloat,bits)
 end
 
-function _pipeline_output_support!(ws,cache,index,values)
+# Only an immediately completed indexed/empty producer proves canonical support.
+# A valid cache alone may still contain canceled entries from other writers.
+function _pipeline_output_support!(ws,cache,index,values,canonical::Bool=false)
     if index > 0
+        canonical && return length(cache.buffers[index].indices)
         return length(_pipeline_vector!(ws,values).indices)
     end
     all(isfinite,values) || throw(OverflowError("Pipeline solve overflowed"))
@@ -486,7 +489,8 @@ function _pipeline_basis_solve!(destination,ws,rhs;transposed::Bool=false,
                 _pipeline_basis_kernel!(destination,ws,rhs,cache,input_index,output_index,selected_mode,transposed)
             end
         end
-        result_support = _pipeline_output_support!(ws,cache,output_index,destination)
+        result_support = _pipeline_output_support!(ws,cache,output_index,destination,
+            mode in (:sparse,:empty))
         state.output_density = iszero(n) ? 0.0 : result_support/n
         successful = true
         return destination
@@ -535,7 +539,8 @@ function _pipeline_price!(destination,ws,rho;operation::Symbol=:pricing,
                 _pipeline_price_kernel!(destination,ws,rho,cache,input_index,output_index,selected_mode)
             end
         end
-        result_support = _pipeline_output_support!(ws,cache,output_index,destination)
+        result_support = _pipeline_output_support!(ws,cache,output_index,destination,
+            mode in (:sparse,:empty))
         state.output_density = iszero(m+n) ? 0.0 : result_support/(m+n)
         successful = true
         return nothing
