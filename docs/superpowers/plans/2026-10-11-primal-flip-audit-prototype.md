@@ -2,8 +2,8 @@
 
 > **For agentic workers:** Use superpowers:executing-plans sequentially.
 
-**Status:** Control census accepted:80cases/1000assertions. First work RED next.
-No private candidate or production/default change yet.
+**Status:** Control census1000, work RED/GREEN12 and candidate matrix960 accepted.
+Private fault/scope qualification active; no production/default change.
 
 **Goal:** Test whether an unchanged-basis bound flip can avoid reconstructing
 both primal values and unchanged prices when an independently certified predicted
@@ -15,10 +15,10 @@ S2-INVENTORY-NOTES.md remain authoritative. Communicate Czech, repository Englis
 
 ## Constraints and prerequisites
 
-medium-dual-counted-1 currently owns the sole numerical Julia process. Read its
-process report and confirm host identity/absence before any numerical test. Keep
-old baseline src/test/env and every pinned diagnostic file unchanged while it
-runs. New unpinned planning/test artifacts may be written but not executed.
+S0-L medium-dual-counted-1 has completed with an accepted audit. Inspect the
+latest S2 process report and separately confirm host runner/child/driver absence
+before each next numerical test or pinned-source edit. Keep every pinned file
+unchanged during a run; raw attempts and source snapshots remain preserved.
 One guarded Julia/BLAS thread, heap hint2G,8GiB VM,6GiB available RAM,1GiB swap;
 exclude big/largo/AnyMOD and aliases. Preserve every attempt and local environment.
 
@@ -130,7 +130,7 @@ The observer must own no live workspace after its run.
   or unboundedness, and every successful recompute that clears dirty state.
 - [x] Specify a concrete private owned context and kernel hook signature before
   implementation; verify no public closure/callback gains trusted ownership.
-- [ ] Freeze raw baseline, module construction, options/input and guard commands.
+- [x] Freeze raw baseline, module construction, options/input and guard commands.
   The S0 reference must have released the numerical slot first.
 
 ### A2: behavior and work characterization, then RED/GREEN
@@ -138,7 +138,7 @@ The observer must own no live workspace after its run.
 - [ ] Build deterministic fixtures with an actual nonzero bound flip followed by
   another step, multiple/degenerate flip chains, a scheduled refactor and both
   endpoints. Assert that each fixture executes the intended branch.
-- [ ] Add a failing work assertion for an eligible independently certified flip:
+- [x] Add a failing work assertion for an eligible independently certified flip:
   the control reconstructs; the candidate should avoid exactly one routine
   reconstruction while retaining required endpoint/refactor reconstruction.
 - [ ] Inject finite-but-infeasible predicted points, inconsistent rows, failure
@@ -147,12 +147,12 @@ The observer must own no live workspace after its run.
 - [ ] Cover zero/overflow/unsupported precision, staged/external-callback and
   changed cost/bounds cases as conservative original-path fallbacks. Existing
   primal-update and legacy point/direction-price regressions remain mandatory.
-- [ ] Run RED on the unchanged private control under the serial guard. Implement
+- [x] Run RED on the unchanged private control under the serial guard. Implement
   only after its intended failure and host-confirmed process exit. Run GREEN.
 
 ### A3: reject or qualify the private experiment
 
-- [ ] All five public managers, native/Markowitz where supported, Float32/64;
+- [x] All five public managers, native/Markowitz where supported, Float32/64;
   other supported precisions explicitly retain original behavior. No experimental
   direct manager promotion. Validate original feasibility, objective and certificate.
 - [ ] Separate trace state comparisons where arithmetic is unchanged from changed
@@ -338,3 +338,28 @@ qualification must add a new explicitly owned fixture constructor, never weaken
 production callback contracts. Counters called direct_recomputations count only
 the cloned direct reconstruction calls and endpoint helper; real kernel counters
 include helper recovery work. Do not label the direct count a global solve census.
+
+
+Ruling: generation assertions include applied flips plus actual direct recompute!
+calls. Source simplex.jl recompute! invalidates the pool with basis=true; this is
+independent of flip application. safety-contracts-1 passed111 and failed7 solely
+on the omitted reconstruction increments. Correct the test, preserve the failure;
+otherwise a valid fallback would be mislabeled double application.
+
+
+Safety-contracts-2 passed139/139, normal compilation, exit0/pins unchanged. The
+first failed generation expectation is preserved. Twelve fault/limit contracts
+plus scope/overflow/unsupported precision pass. Dirty-entry corruption repair
+has a separate unexecuted driver; existing primal-update/point/direction-price
+regressions run as focused-1. These are prerequisite coverage, not cost acceptance.
+
+Cost fixture preparation is explicit and outside optimizer timing:64 finite flips
+on sparse256-row or dense64-row matrices, with0 or8 actual PFI pivot updates.
+For seeded history only, temporarily zero owned flip costs during preparation,
+restore the final immutable costs and reconstruct before measured invocation.
+All final costs/bounds stay unchanged during candidate/control execution.
+Three interleaved warm plain pairs and a separate counted pair are planned for
+each precision/density/history/rejection combination. Reject-all executes the
+real full certificate before forcing its failure. Report initialization, warmup,
+compilation, allocations and endpoint work separately. No retained growing trace.
+This is a bounded PFI cost probe, not all-manager or whole-medium performance.

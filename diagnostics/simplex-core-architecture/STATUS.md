@@ -34,7 +34,7 @@ main also has a user-modified .vscode/settings.json. Do not stage those files.
 | P0 | Design, roadmap, continuation record | Done | This documentation; production unchanged |
 | S0 | Frozen baseline and coverage plan | Active | Counted dual long reference audited; plain elapsed and primal-origin coverage pending |
 | S1 | State ownership and validation reuse | Integrated | Inventory and local S1-A contract; master beb161b, report S1-ENTRY.md |
-| S2 | Audited incremental primal maintenance | Active | Guard inventory and private audited-flip design accepted; characterization pending; no numerical prototype |
+| S2 | Audited incremental primal maintenance | Active | Private audited-flip prototype: control1000, matrix960, safety139; cost and final review pending |
 | S3 | End-to-end exact sparsity support | Active | S3-A integrated at masterd8ad4ec; RED/GREEN, matrix1645, focused3214+LP70, cost120, reviewed; broader S3 pending |
 | S4 | Refactorization memory lifecycle | Active | S4-A integrated at master4143dad; RED/GREEN, focused4366, paired cost60; broader attribution pending |
 | S5 | Phase/cleanup handoff contract | Active | Partial static phase/cleanup ownership map; no implementation |
@@ -60,13 +60,15 @@ Private prototype is reproduce/primal_flip_prototype.jl; no production change.
 It clones six exact source definitions into a private module with source hashes,
 AST anchors, context-owner checks and no overwritten production methods.
 
-candidate-matrix-1 is the sole numerical job, qualifying80characterized cases.
-Check .superpowers/simplex-core-architecture/S2-A/candidate-matrix-1/current.json
-for runner/child start_ticks and boot ID; verify real host identity. Read final
-process.json/pins and results, then separately verify runner/child/driver absent
-before changing pinned files or another Julia. After acceptance add private fault
-and unsupported-path contracts, then full cost/qualification review. Do not treat
-first GREEN or fewer solves as speedup or permission to merge this experiment.
+candidate-matrix-1 passed960/960 across80cases. safety-contracts-2 passed139/139;
+the first attempt's erroneous generation expectation is preserved and corrected
+from recompute! source. Current sole numerical job: S2-A/focused-1, existing
+primal-update/point/direction-price regressions. Verify current.json start_ticks
+and boot identity; inspect final process.json and separately confirm host absence
+before any next Julia or pinned edit. New unexecuted drivers are primal_flip_dirty_entry.jl
+and primal_flip_cost.jl; run dirty-entry then cost after focused completion.
+Cost qualification and independent review remain open; no speedup or production
+qualification claimed. Latest pushed checkpoint845aadb precedes these additions.
 
 ## Evidence gaps and traps to retain
 
@@ -557,3 +559,18 @@ S2 work-green-1 failed at module loading (unspaced bang-symbol Pair syntax in
 RENAMES evaluated an undefined target name), before numerical tests. Exit1/pins
 unchanged, host absence verified. Replaced only the rename dictionary entries
 with explicit Symbol constructors; work-green-2 next. Production unchanged.
+
+S2 candidate-matrix-1 passed960/960 across80cases,exit0/pins unchanged.
+Host runner283268/child283270/driver absent. Flip->pivot reduces4/3solves to3/2;
+flip-chain8/4 to5/1; scheduled flip unchanged2/1; flip->unbounded increases3/1 to4/1
+due required endpoint refresh and repeated direction. No timing saving claimed.
+Two private context-dispatch hooks now allow tests to inject apply/certificate
+failures without replacing any production helper. Default hook bodies call the
+unchanged helpers. Next safety/unsupported/exception qualification.
+
+S2 safety-contracts-2 passed139/139 (118 fault/publication +21 scope/precision),
+exit0/pins unchanged; host runner283985/child283986/driver absent. Successful
+rejection reconstruction, before-write overflow, time/iteration limits and owned
+callback/numerical exception provenance passed. BigFloat and Rational Int64/BigInt
+use the original8/4 path. Injected reconstruction exception is not coverage of
+all ill-conditioned recovery failures. Next focused existing regressions.

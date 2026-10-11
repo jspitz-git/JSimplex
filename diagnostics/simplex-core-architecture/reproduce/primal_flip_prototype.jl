@@ -50,9 +50,12 @@ function _flip_eligible(ctx,ws,entering,change)
     target=state==AT_LOWER ? ws.upper[entering] : ws.lower[entering]
     return isfinite(target) && change==bound_value(target)-ws.primal[entering]
 end
+# Private qualification hooks dispatch only on the private context type.
+_flip_apply_kernel!(ctx,ws,entering,change,column)=apply_primal_flip!(ws,entering,change,column)
+_flip_certificate(ctx,ws)=_legacy_primal_point_certified(ws)
 function _flip_apply!(ctx,ws,entering,change,column)
     try
-        apply_primal_flip!(ws,entering,change,column)
+        _flip_apply_kernel!(ctx,ws,entering,change,column)
     catch exception
         exception isa _UnreliableBasisSolve || exception isa OverflowError || rethrow()
         # Existing apply kernel validates every value before its first write.
@@ -65,7 +68,7 @@ end
 function _flip_audit!(ctx,ws)
     ctx.audits+=1
     return try
-        _legacy_primal_point_certified(ws)
+        _flip_certificate(ctx,ws)
     catch exception
         exception isa _UnreliableBasisSolve || exception isa OverflowError || rethrow()
         false

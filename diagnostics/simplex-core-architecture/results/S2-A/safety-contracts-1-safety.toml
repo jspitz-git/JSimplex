@@ -1,0 +1,108 @@
+[[cases]]
+iterations = 4
+fault = "none"
+exception = "Nothing"
+dirty = false
+candidate_copies = 1
+direct_recomputations = 1
+endpoint_refreshes = 1
+[[cases]]
+iterations = 4
+fault = "reject_once"
+exception = "Nothing"
+dirty = false
+candidate_copies = 2
+direct_recomputations = 2
+endpoint_refreshes = 1
+[[cases]]
+iterations = 4
+fault = "reject_all"
+exception = "Nothing"
+dirty = false
+candidate_copies = 4
+direct_recomputations = 4
+endpoint_refreshes = 0
+[[cases]]
+iterations = 4
+fault = "infeasible"
+exception = "Nothing"
+dirty = false
+candidate_copies = 2
+direct_recomputations = 2
+endpoint_refreshes = 1
+[[cases]]
+iterations = 4
+fault = "inconsistent"
+exception = "Nothing"
+dirty = false
+candidate_copies = 2
+direct_recomputations = 2
+endpoint_refreshes = 1
+[[cases]]
+iterations = 4
+fault = "audit_exception"
+exception = "Nothing"
+dirty = false
+candidate_copies = 2
+direct_recomputations = 2
+endpoint_refreshes = 1
+[[cases]]
+iterations = 4
+fault = "before_apply_exception"
+exception = "Nothing"
+dirty = false
+candidate_copies = 1
+direct_recomputations = 2
+endpoint_refreshes = 1
+[[cases]]
+iterations = 1
+fault = "time_limit"
+exception = "Nothing"
+dirty = true
+candidate_copies = 0
+direct_recomputations = 0
+endpoint_refreshes = 0
+[[cases]]
+iterations = 1
+fault = "iteration_limit"
+exception = "Nothing"
+dirty = true
+candidate_copies = 0
+direct_recomputations = 0
+endpoint_refreshes = 0
+[[cases]]
+iterations = 1
+fault = "deadline_exception"
+exception = "ErrorException"
+dirty = true
+candidate_copies = 0
+direct_recomputations = 0
+endpoint_refreshes = 0
+[[cases]]
+iterations = 1
+fault = "observer_exception"
+exception = "JSimplex.DiagnosticObserverFailure{ErrorException}"
+dirty = true
+candidate_copies = 0
+direct_recomputations = 0
+endpoint_refreshes = 0
+[[cases]]
+iterations = 4
+fault = "recompute_exception"
+exception = "JSimplex._UnreliableBasisSolve"
+dirty = true
+candidate_copies = 1
+direct_recomputations = 0
+endpoint_refreshes = 1
+
+[source_hashes]
+"simplex_pivot.jl" = "2cf399478648b82aa1502acdc33651c1afd914fa22ef833ca00a3765295e70a9"
+"primal_simplex.jl" = "6246c3f92e1535561cc8a1fd2cf6b5a128ca39bfcc5d52eedd2fbb3a91417d41"
+
+[rewritten_hashes]
+"_legacy_primal_iteration!" = "822020daa4b5be9f88fba452f161e74464b2500475f3edcbd78a7dc7db07fff3"
+"_primal_optimize!" = "01ed0425499e06f5dbf2d7c19ba74b113ae3c317248b5a73a1e090f4123537ff"
+"_legacy_primal_reject_candidate!" = "8d92578cfc463ced2ced90c05ed9fb099f35c5afe684eadaab74c1aab6bc4c50"
+"_primal_iteration!" = "269e630ae8c2d3499e28e2dff56a819a231931a2023762709ef9dc32e2b1cc8d"
+"_primal_iteration_core!" = "09c5aa9d31a31a3d0661a34818543aec175153c7769f091c121584e5771ec768"
+"_primal_iteration_unchecked!" = "ec9055ad259aaf204afbfad5eaa859a5c240086492873b20cf8a542f4a27fa81"
