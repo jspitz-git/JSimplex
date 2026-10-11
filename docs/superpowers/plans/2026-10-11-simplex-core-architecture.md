@@ -468,3 +468,13 @@ Plain13200.181889727s includes compile0.023769598s/GC732.537595438s. See STATUS 
 LONG-PHASE-II for full evidence and limits. S0 is Verified; this closes the long
 subplan, not the whole architecture roadmap. Next S4 component attribution uses
 new small deterministic native HH histories, not a repeat of accepted medium.
+
+
+## 2026-10-12 S4-B diagnostic checkpoint
+
+Native Float64 HH component attribution passed72 compile-free samples and all13
+post-exit audit checks, residual/ownership/failure assertions and independent
+review. S4-COMPONENTS.md separates cumulative traffic from Julia-visible retained
+objects and native-memory limitations. No production changes or speedup claim.
+The broader S4 checkbox remains open for backend/precision coverage; next is a
+separate Markowitz attribution slice, not a repeat of the accepted native data.

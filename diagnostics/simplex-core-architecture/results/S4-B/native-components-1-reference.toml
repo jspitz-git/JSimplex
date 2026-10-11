@@ -1,0 +1,190 @@
+retention_limits = "Julia reachable object graph only; excludes external UMFPACK storage and hidden backing capacity. Region lifetimes differ; do not add independent timings or subtract GC to infer arithmetic time."
+source = "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src"
+rounds = 6
+scope = "HH/native Float64 synthetic component attribution; no speedup comparison"
+julia_threads = 1
+blas_threads = 1
+calls_per_sample = 16
+retention = []
+julia_version = "1.13.0"
+
+[[samples]]
+matrix_sha256 = "dbb70d53ef92fd95b01a5a0b2fcd56a7dacccbe74c9b2df8ee99658795dbc7f9"
+gc_seconds = 0.0
+seconds = 0.000399501
+bytes = 1271872
+round = 1
+allocations = 960
+compile_seconds = 0.0
+case = "sparse-64"
+region = "backend"
+[[samples]]
+matrix_sha256 = "dbb70d53ef92fd95b01a5a0b2fcd56a7dacccbe74c9b2df8ee99658795dbc7f9"
+gc_seconds = 0.0
+seconds = 7.33e-5
+bytes = 185856
+round = 1
+allocations = 608
+compile_seconds = 0.0
+case = "sparse-64"
+region = "extraction"
+[[samples]]
+matrix_sha256 = "dbb70d53ef92fd95b01a5a0b2fcd56a7dacccbe74c9b2df8ee99658795dbc7f9"
+gc_seconds = 0.0
+seconds = 0.000613
+bytes = 1457760
+round = 1
+allocations = 1568
+compile_seconds = 0.0
+case = "sparse-64"
+region = "whole_refactor"
+[[samples]]
+matrix_sha256 = "dbb70d53ef92fd95b01a5a0b2fcd56a7dacccbe74c9b2df8ee99658795dbc7f9"
+gc_seconds = 0.0
+seconds = 7.16e-5
+bytes = 185856
+round = 2
+allocations = 608
+compile_seconds = 0.0
+case = "sparse-64"
+region = "extraction"
+[[samples]]
+matrix_sha256 = "dbb70d53ef92fd95b01a5a0b2fcd56a7dacccbe74c9b2df8ee99658795dbc7f9"
+gc_seconds = 0.0
+seconds = 0.000488
+bytes = 1458000
+round = 2
+allocations = 1568
+compile_seconds = 0.0
+case = "sparse-64"
+region = "whole_refactor"
+[[samples]]
+matrix_sha256 = "dbb70d53ef92fd95b01a5a0b2fcd56a7dacccbe74c9b2df8ee99658795dbc7f9"
+gc_seconds = 0.0
+seconds = 0.000360501
+bytes = 1271792
+round = 2
+allocations = 960
+compile_seconds = 0.0
+case = "sparse-64"
+region = "backend"
+[[samples]]
+matrix_sha256 = "dbb70d53ef92fd95b01a5a0b2fcd56a7dacccbe74c9b2df8ee99658795dbc7f9"
+gc_seconds = 0.0
+seconds = 0.0004164
+bytes = 1457712
+round = 3
+allocations = 1568
+compile_seconds = 0.0
+case = "sparse-64"
+region = "whole_refactor"
+[[samples]]
+matrix_sha256 = "dbb70d53ef92fd95b01a5a0b2fcd56a7dacccbe74c9b2df8ee99658795dbc7f9"
+gc_seconds = 0.0
+seconds = 0.000474101
+bytes = 1272048
+round = 3
+allocations = 960
+compile_seconds = 0.0
+case = "sparse-64"
+region = "backend"
+[[samples]]
+matrix_sha256 = "dbb70d53ef92fd95b01a5a0b2fcd56a7dacccbe74c9b2df8ee99658795dbc7f9"
+gc_seconds = 0.0
+seconds = 6.64e-5
+bytes = 185856
+round = 3
+allocations = 608
+compile_seconds = 0.0
+case = "sparse-64"
+region = "extraction"
+[[samples]]
+matrix_sha256 = "dbb70d53ef92fd95b01a5a0b2fcd56a7dacccbe74c9b2df8ee99658795dbc7f9"
+gc_seconds = 0.0
+seconds = 0.0004313
+bytes = 1272128
+round = 4
+allocations = 960
+compile_seconds = 0.0
+case = "sparse-64"
+region = "backend"
+[[samples]]
+matrix_sha256 = "dbb70d53ef92fd95b01a5a0b2fcd56a7dacccbe74c9b2df8ee99658795dbc7f9"
+gc_seconds = 0.0
+seconds = 6.84e-5
+bytes = 185856
+round = 4
+allocations = 608
+compile_seconds = 0.0
+case = "sparse-64"
+region = "extraction"
+[[samples]]
+matrix_sha256 = "dbb70d53ef92fd95b01a5a0b2fcd56a7dacccbe74c9b2df8ee99658795dbc7f9"
+gc_seconds = 0.0
+seconds = 0.0004982
+bytes = 1457952
+round = 4
+allocations = 1568
+compile_seconds = 0.0
+case = "sparse-64"
+region = "whole_refactor"
+[[samples]]
+matrix_sha256 = "dbb70d53ef92fd95b01a5a0b2fcd56a7dacccbe74c9b2df8ee99658795dbc7f9"
+gc_seconds = 0.0
+seconds = 7.26e-5
+bytes = 185856
+round = 5
+allocations = 608
+compile_seconds = 0.0
+case = "sparse-64"
+region = "extraction"
+[[samples]]
+matrix_sha256 = "dbb70d53ef92fd95b01a5a0b2fcd56a7dacccbe74c9b2df8ee99658795dbc7f9"
+gc_seconds = 0.0
+seconds = 0.0005173
+bytes = 1457952
+round = 5
+allocations = 1568
+compile_seconds = 0.0
+case = "sparse-64"
+region = "whole_refactor"
+[[samples]]
+matrix_sha256 = "dbb70d53ef92fd95b01a5a0b2fcd56a7dacccbe74c9b2df8ee99658795dbc7f9"
+gc_seconds = 0.0
+seconds = 0.0003545
+bytes = 1272080
+round = 5
+allocations = 960
+compile_seconds = 0.0
+case = "sparse-64"
+region = "backend"
+[[samples]]
+matrix_sha256 = "dbb70d53ef92fd95b01a5a0b2fcd56a7dacccbe74c9b2df8ee99658795dbc7f9"
+gc_seconds = 0.0
+seconds = 0.0004491
+bytes = 1457952
+round = 6
+allocations = 1568
+compile_seconds = 0.0
+case = "sparse-64"
+region = "whole_refactor"
+[[samples]]
+matrix_sha256 = "dbb70d53ef92fd95b01a5a0b2fcd56a7dacccbe74c9b2df8ee99658795dbc7f9"
+gc_seconds = 0.0
+seconds = 0.0003541
+bytes = 1272080
+round = 6
+allocations = 960
+compile_seconds = 0.0
+case = "sparse-64"
+region = "backend"
+[[samples]]
+matrix_sha256 = "dbb70d53ef92fd95b01a5a0b2fcd56a7dacccbe74c9b2df8ee99658795dbc7f9"
+gc_seconds = 0.0
+seconds = 6.84e-5
+bytes = 185856
+round = 6
+allocations = 608
+compile_seconds = 0.0
+case = "sparse-64"
+region = "extraction"

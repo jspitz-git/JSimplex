@@ -1,0 +1,816 @@
+source = "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src"
+rounds = 6
+scope = "HH/native Float64 synthetic component attribution; no speedup comparison"
+julia_version = "1.13.0"
+julia_threads = 1
+blas_threads = 1
+calls_per_sample = 16
+retention_limits = "Julia reachable object graph only; excludes external UMFPACK storage and hidden backing capacity. Region lifetimes differ; do not add independent timings or subtract GC to infer arithmetic time."
+complete = true
+
+[[lifecycle]]
+dimension = 256
+base_julia_bytes = 31936
+solve_scratch_julia_bytes = 10632
+combined_deduplicated_julia_bytes = 82304
+case = "changed_pattern"
+upper_nnz = 475
+extraction_scratch_julia_bytes = 9864
+lower_nnz = 475
+checkpoint_julia_bytes = 42872
+live_julia_bytes = 71256
+backend_julia_bytes = 18632
+[[lifecycle]]
+dimension = 64
+base_julia_bytes = 8528
+solve_scratch_julia_bytes = 2928
+combined_deduplicated_julia_bytes = 23248
+case = "shrink"
+upper_nnz = 121
+extraction_scratch_julia_bytes = 2568
+lower_nnz = 119
+checkpoint_julia_bytes = 11760
+live_julia_bytes = 19904
+backend_julia_bytes = 5688
+[[lifecycle]]
+dimension = 256
+base_julia_bytes = 32000
+solve_scratch_julia_bytes = 10632
+combined_deduplicated_julia_bytes = 82368
+case = "regrow"
+upper_nnz = 475
+extraction_scratch_julia_bytes = 9864
+lower_nnz = 479
+checkpoint_julia_bytes = 42936
+live_julia_bytes = 71320
+backend_julia_bytes = 18632
+
+[[retention]]
+dimension = 64
+base_julia_bytes = 8528
+solve_scratch_julia_bytes = 2928
+combined_deduplicated_julia_bytes = 23248
+case = "sparse-64"
+upper_nnz = 121
+extraction_scratch_julia_bytes = 2568
+lower_nnz = 119
+checkpoint_julia_bytes = 11760
+live_julia_bytes = 19904
+backend_julia_bytes = 5688
+[[retention]]
+dimension = 64
+base_julia_bytes = 86600
+solve_scratch_julia_bytes = 2928
+combined_deduplicated_julia_bytes = 186104
+case = "dense-64"
+upper_nnz = 2072
+extraction_scratch_julia_bytes = 33816
+lower_nnz = 2072
+checkpoint_julia_bytes = 89832
+live_julia_bytes = 182760
+backend_julia_bytes = 59224
+[[retention]]
+dimension = 256
+base_julia_bytes = 32000
+solve_scratch_julia_bytes = 10632
+combined_deduplicated_julia_bytes = 82368
+case = "sparse-256"
+upper_nnz = 475
+extraction_scratch_julia_bytes = 9864
+lower_nnz = 479
+checkpoint_julia_bytes = 42936
+live_julia_bytes = 71320
+backend_julia_bytes = 18632
+[[retention]]
+dimension = 256
+base_julia_bytes = 1327320
+solve_scratch_julia_bytes = 10632
+combined_deduplicated_julia_bytes = 2784024
+case = "dense-256"
+upper_nnz = 32860
+extraction_scratch_julia_bytes = 527944
+lower_nnz = 32859
+checkpoint_julia_bytes = 1338256
+live_julia_bytes = 2772976
+backend_julia_bytes = 906888
+
+[[samples]]
+matrix_sha256 = "dbb70d53ef92fd95b01a5a0b2fcd56a7dacccbe74c9b2df8ee99658795dbc7f9"
+gc_seconds = 0.0
+seconds = 0.0004028
+bytes = 1271904
+round = 1
+allocations = 960
+compile_seconds = 0.0
+case = "sparse-64"
+region = "backend"
+[[samples]]
+matrix_sha256 = "dbb70d53ef92fd95b01a5a0b2fcd56a7dacccbe74c9b2df8ee99658795dbc7f9"
+gc_seconds = 0.0
+seconds = 7.89e-5
+bytes = 185856
+round = 1
+allocations = 608
+compile_seconds = 0.0
+case = "sparse-64"
+region = "extraction"
+[[samples]]
+matrix_sha256 = "dbb70d53ef92fd95b01a5a0b2fcd56a7dacccbe74c9b2df8ee99658795dbc7f9"
+gc_seconds = 0.0
+seconds = 0.0004908
+bytes = 1457824
+round = 1
+allocations = 1568
+compile_seconds = 0.0
+case = "sparse-64"
+region = "whole_refactor"
+[[samples]]
+matrix_sha256 = "dbb70d53ef92fd95b01a5a0b2fcd56a7dacccbe74c9b2df8ee99658795dbc7f9"
+gc_seconds = 0.0
+seconds = 6.44e-5
+bytes = 185856
+round = 2
+allocations = 608
+compile_seconds = 0.0
+case = "sparse-64"
+region = "extraction"
+[[samples]]
+matrix_sha256 = "dbb70d53ef92fd95b01a5a0b2fcd56a7dacccbe74c9b2df8ee99658795dbc7f9"
+gc_seconds = 0.0
+seconds = 0.0005036
+bytes = 1458288
+round = 2
+allocations = 1568
+compile_seconds = 0.0
+case = "sparse-64"
+region = "whole_refactor"
+[[samples]]
+matrix_sha256 = "dbb70d53ef92fd95b01a5a0b2fcd56a7dacccbe74c9b2df8ee99658795dbc7f9"
+gc_seconds = 0.0
+seconds = 0.0003686
+bytes = 1272064
+round = 2
+allocations = 960
+compile_seconds = 0.0
+case = "sparse-64"
+region = "backend"
+[[samples]]
+matrix_sha256 = "dbb70d53ef92fd95b01a5a0b2fcd56a7dacccbe74c9b2df8ee99658795dbc7f9"
+gc_seconds = 0.0
+seconds = 0.00048
+bytes = 1458256
+round = 3
+allocations = 1568
+compile_seconds = 0.0
+case = "sparse-64"
+region = "whole_refactor"
+[[samples]]
+matrix_sha256 = "dbb70d53ef92fd95b01a5a0b2fcd56a7dacccbe74c9b2df8ee99658795dbc7f9"
+gc_seconds = 0.0
+seconds = 0.0003603
+bytes = 1272400
+round = 3
+allocations = 960
+compile_seconds = 0.0
+case = "sparse-64"
+region = "backend"
+[[samples]]
+matrix_sha256 = "dbb70d53ef92fd95b01a5a0b2fcd56a7dacccbe74c9b2df8ee99658795dbc7f9"
+gc_seconds = 0.0
+seconds = 6.69e-5
+bytes = 185856
+round = 3
+allocations = 608
+compile_seconds = 0.0
+case = "sparse-64"
+region = "extraction"
+[[samples]]
+matrix_sha256 = "dbb70d53ef92fd95b01a5a0b2fcd56a7dacccbe74c9b2df8ee99658795dbc7f9"
+gc_seconds = 0.0
+seconds = 0.0004452
+bytes = 1272368
+round = 4
+allocations = 960
+compile_seconds = 0.0
+case = "sparse-64"
+region = "backend"
+[[samples]]
+matrix_sha256 = "dbb70d53ef92fd95b01a5a0b2fcd56a7dacccbe74c9b2df8ee99658795dbc7f9"
+gc_seconds = 0.0
+seconds = 7.59e-5
+bytes = 185856
+round = 4
+allocations = 608
+compile_seconds = 0.0
+case = "sparse-64"
+region = "extraction"
+[[samples]]
+matrix_sha256 = "dbb70d53ef92fd95b01a5a0b2fcd56a7dacccbe74c9b2df8ee99658795dbc7f9"
+gc_seconds = 0.0
+seconds = 0.0005079
+bytes = 1458016
+round = 4
+allocations = 1568
+compile_seconds = 0.0
+case = "sparse-64"
+region = "whole_refactor"
+[[samples]]
+matrix_sha256 = "dbb70d53ef92fd95b01a5a0b2fcd56a7dacccbe74c9b2df8ee99658795dbc7f9"
+gc_seconds = 0.0
+seconds = 7.4e-5
+bytes = 185856
+round = 5
+allocations = 608
+compile_seconds = 0.0
+case = "sparse-64"
+region = "extraction"
+[[samples]]
+matrix_sha256 = "dbb70d53ef92fd95b01a5a0b2fcd56a7dacccbe74c9b2df8ee99658795dbc7f9"
+gc_seconds = 0.0
+seconds = 0.000506
+bytes = 1458304
+round = 5
+allocations = 1568
+compile_seconds = 0.0
+case = "sparse-64"
+region = "whole_refactor"
+[[samples]]
+matrix_sha256 = "dbb70d53ef92fd95b01a5a0b2fcd56a7dacccbe74c9b2df8ee99658795dbc7f9"
+gc_seconds = 0.0
+seconds = 0.0003534
+bytes = 1272080
+round = 5
+allocations = 960
+compile_seconds = 0.0
+case = "sparse-64"
+region = "backend"
+[[samples]]
+matrix_sha256 = "dbb70d53ef92fd95b01a5a0b2fcd56a7dacccbe74c9b2df8ee99658795dbc7f9"
+gc_seconds = 0.0
+seconds = 0.0004207
+bytes = 1457952
+round = 6
+allocations = 1568
+compile_seconds = 0.0
+case = "sparse-64"
+region = "whole_refactor"
+[[samples]]
+matrix_sha256 = "dbb70d53ef92fd95b01a5a0b2fcd56a7dacccbe74c9b2df8ee99658795dbc7f9"
+gc_seconds = 0.0
+seconds = 0.000343
+bytes = 1272288
+round = 6
+allocations = 960
+compile_seconds = 0.0
+case = "sparse-64"
+region = "backend"
+[[samples]]
+matrix_sha256 = "dbb70d53ef92fd95b01a5a0b2fcd56a7dacccbe74c9b2df8ee99658795dbc7f9"
+gc_seconds = 0.0
+seconds = 6.87e-5
+bytes = 185856
+round = 6
+allocations = 608
+compile_seconds = 0.0
+case = "sparse-64"
+region = "extraction"
+[[samples]]
+matrix_sha256 = "9c588f7d65c1591909afb222ce6300e034d8f4c4fbe08d33db775165d5a49733"
+gc_seconds = 0.0
+seconds = 0.0013569
+bytes = 6458480
+round = 1
+allocations = 976
+compile_seconds = 0.0
+case = "dense-64"
+region = "backend"
+[[samples]]
+matrix_sha256 = "9c588f7d65c1591909afb222ce6300e034d8f4c4fbe08d33db775165d5a49733"
+gc_seconds = 0.0
+seconds = 0.000341
+bytes = 1434496
+round = 1
+allocations = 688
+compile_seconds = 0.0
+case = "dense-64"
+region = "extraction"
+[[samples]]
+matrix_sha256 = "9c588f7d65c1591909afb222ce6300e034d8f4c4fbe08d33db775165d5a49733"
+gc_seconds = 0.0
+seconds = 0.0017636
+bytes = 7894816
+round = 1
+allocations = 1664
+compile_seconds = 0.0
+case = "dense-64"
+region = "whole_refactor"
+[[samples]]
+matrix_sha256 = "9c588f7d65c1591909afb222ce6300e034d8f4c4fbe08d33db775165d5a49733"
+gc_seconds = 0.0
+seconds = 0.0003436
+bytes = 1434496
+round = 2
+allocations = 688
+compile_seconds = 0.0
+case = "dense-64"
+region = "extraction"
+[[samples]]
+matrix_sha256 = "9c588f7d65c1591909afb222ce6300e034d8f4c4fbe08d33db775165d5a49733"
+gc_seconds = 0.0
+seconds = 0.0017801
+bytes = 7893584
+round = 2
+allocations = 1664
+compile_seconds = 0.0
+case = "dense-64"
+region = "whole_refactor"
+[[samples]]
+matrix_sha256 = "9c588f7d65c1591909afb222ce6300e034d8f4c4fbe08d33db775165d5a49733"
+gc_seconds = 0.0
+seconds = 0.001350301
+bytes = 6460112
+round = 2
+allocations = 976
+compile_seconds = 0.0
+case = "dense-64"
+region = "backend"
+[[samples]]
+matrix_sha256 = "9c588f7d65c1591909afb222ce6300e034d8f4c4fbe08d33db775165d5a49733"
+gc_seconds = 0.0
+seconds = 0.0016354
+bytes = 7894432
+round = 3
+allocations = 1664
+compile_seconds = 0.0
+case = "dense-64"
+region = "whole_refactor"
+[[samples]]
+matrix_sha256 = "9c588f7d65c1591909afb222ce6300e034d8f4c4fbe08d33db775165d5a49733"
+gc_seconds = 0.0
+seconds = 0.001315
+bytes = 6460080
+round = 3
+allocations = 976
+compile_seconds = 0.0
+case = "dense-64"
+region = "backend"
+[[samples]]
+matrix_sha256 = "9c588f7d65c1591909afb222ce6300e034d8f4c4fbe08d33db775165d5a49733"
+gc_seconds = 0.0
+seconds = 0.0003642
+bytes = 1434496
+round = 3
+allocations = 688
+compile_seconds = 0.0
+case = "dense-64"
+region = "extraction"
+[[samples]]
+matrix_sha256 = "9c588f7d65c1591909afb222ce6300e034d8f4c4fbe08d33db775165d5a49733"
+gc_seconds = 0.0
+seconds = 0.0014722
+bytes = 6460144
+round = 4
+allocations = 976
+compile_seconds = 0.0
+case = "dense-64"
+region = "backend"
+[[samples]]
+matrix_sha256 = "9c588f7d65c1591909afb222ce6300e034d8f4c4fbe08d33db775165d5a49733"
+gc_seconds = 0.0
+seconds = 0.0004709
+bytes = 1434496
+round = 4
+allocations = 688
+compile_seconds = 0.0
+case = "dense-64"
+region = "extraction"
+[[samples]]
+matrix_sha256 = "9c588f7d65c1591909afb222ce6300e034d8f4c4fbe08d33db775165d5a49733"
+gc_seconds = 0.0
+seconds = 0.001765
+bytes = 7893840
+round = 4
+allocations = 1664
+compile_seconds = 0.0
+case = "dense-64"
+region = "whole_refactor"
+[[samples]]
+matrix_sha256 = "9c588f7d65c1591909afb222ce6300e034d8f4c4fbe08d33db775165d5a49733"
+gc_seconds = 0.0
+seconds = 0.0003345
+bytes = 1434496
+round = 5
+allocations = 688
+compile_seconds = 0.0
+case = "dense-64"
+region = "extraction"
+[[samples]]
+matrix_sha256 = "9c588f7d65c1591909afb222ce6300e034d8f4c4fbe08d33db775165d5a49733"
+gc_seconds = 0.0
+seconds = 0.0017196
+bytes = 7893744
+round = 5
+allocations = 1664
+compile_seconds = 0.0
+case = "dense-64"
+region = "whole_refactor"
+[[samples]]
+matrix_sha256 = "9c588f7d65c1591909afb222ce6300e034d8f4c4fbe08d33db775165d5a49733"
+gc_seconds = 0.0
+seconds = 0.0013318
+bytes = 6458896
+round = 5
+allocations = 976
+compile_seconds = 0.0
+case = "dense-64"
+region = "backend"
+[[samples]]
+matrix_sha256 = "9c588f7d65c1591909afb222ce6300e034d8f4c4fbe08d33db775165d5a49733"
+gc_seconds = 0.0
+seconds = 0.0017929
+bytes = 7892832
+round = 6
+allocations = 1664
+compile_seconds = 0.0
+case = "dense-64"
+region = "whole_refactor"
+[[samples]]
+matrix_sha256 = "9c588f7d65c1591909afb222ce6300e034d8f4c4fbe08d33db775165d5a49733"
+gc_seconds = 0.0
+seconds = 0.0013344
+bytes = 6460032
+round = 6
+allocations = 976
+compile_seconds = 0.0
+case = "dense-64"
+region = "backend"
+[[samples]]
+matrix_sha256 = "9c588f7d65c1591909afb222ce6300e034d8f4c4fbe08d33db775165d5a49733"
+gc_seconds = 0.0
+seconds = 0.000709
+bytes = 1434496
+round = 6
+allocations = 688
+compile_seconds = 0.0
+case = "dense-64"
+region = "extraction"
+[[samples]]
+matrix_sha256 = "942b42a5821ed3596a861e28dff41941dffd0c605da4b388dd5e0e5c4c6db5cb"
+gc_seconds = 0.0
+seconds = 0.0011823
+bytes = 4301392
+round = 1
+allocations = 960
+compile_seconds = 0.0
+case = "sparse-256"
+region = "backend"
+[[samples]]
+matrix_sha256 = "942b42a5821ed3596a861e28dff41941dffd0c605da4b388dd5e0e5c4c6db5cb"
+gc_seconds = 0.0
+seconds = 0.0002533
+bytes = 690944
+round = 1
+allocations = 832
+compile_seconds = 0.0
+case = "sparse-256"
+region = "extraction"
+[[samples]]
+matrix_sha256 = "942b42a5821ed3596a861e28dff41941dffd0c605da4b388dd5e0e5c4c6db5cb"
+gc_seconds = 0.0
+seconds = 0.0017798
+bytes = 4992512
+round = 1
+allocations = 1792
+compile_seconds = 0.0
+case = "sparse-256"
+region = "whole_refactor"
+[[samples]]
+matrix_sha256 = "942b42a5821ed3596a861e28dff41941dffd0c605da4b388dd5e0e5c4c6db5cb"
+gc_seconds = 0.0
+seconds = 0.0002496
+bytes = 690944
+round = 2
+allocations = 832
+compile_seconds = 0.0
+case = "sparse-256"
+region = "extraction"
+[[samples]]
+matrix_sha256 = "942b42a5821ed3596a861e28dff41941dffd0c605da4b388dd5e0e5c4c6db5cb"
+gc_seconds = 0.0
+seconds = 0.0013764
+bytes = 4992400
+round = 2
+allocations = 1792
+compile_seconds = 0.0
+case = "sparse-256"
+region = "whole_refactor"
+[[samples]]
+matrix_sha256 = "942b42a5821ed3596a861e28dff41941dffd0c605da4b388dd5e0e5c4c6db5cb"
+gc_seconds = 0.0
+seconds = 0.001102
+bytes = 4301408
+round = 2
+allocations = 960
+compile_seconds = 0.0
+case = "sparse-256"
+region = "backend"
+[[samples]]
+matrix_sha256 = "942b42a5821ed3596a861e28dff41941dffd0c605da4b388dd5e0e5c4c6db5cb"
+gc_seconds = 0.0
+seconds = 0.0013013
+bytes = 4992464
+round = 3
+allocations = 1792
+compile_seconds = 0.0
+case = "sparse-256"
+region = "whole_refactor"
+[[samples]]
+matrix_sha256 = "942b42a5821ed3596a861e28dff41941dffd0c605da4b388dd5e0e5c4c6db5cb"
+gc_seconds = 0.0
+seconds = 0.001058
+bytes = 4301392
+round = 3
+allocations = 960
+compile_seconds = 0.0
+case = "sparse-256"
+region = "backend"
+[[samples]]
+matrix_sha256 = "942b42a5821ed3596a861e28dff41941dffd0c605da4b388dd5e0e5c4c6db5cb"
+gc_seconds = 0.0
+seconds = 0.0003055
+bytes = 690944
+round = 3
+allocations = 832
+compile_seconds = 0.0
+case = "sparse-256"
+region = "extraction"
+[[samples]]
+matrix_sha256 = "942b42a5821ed3596a861e28dff41941dffd0c605da4b388dd5e0e5c4c6db5cb"
+gc_seconds = 0.0
+seconds = 0.0012666
+bytes = 4301328
+round = 4
+allocations = 960
+compile_seconds = 0.0
+case = "sparse-256"
+region = "backend"
+[[samples]]
+matrix_sha256 = "942b42a5821ed3596a861e28dff41941dffd0c605da4b388dd5e0e5c4c6db5cb"
+gc_seconds = 0.0
+seconds = 0.0002393
+bytes = 690944
+round = 4
+allocations = 832
+compile_seconds = 0.0
+case = "sparse-256"
+region = "extraction"
+[[samples]]
+matrix_sha256 = "942b42a5821ed3596a861e28dff41941dffd0c605da4b388dd5e0e5c4c6db5cb"
+gc_seconds = 0.0
+seconds = 0.0013538
+bytes = 4992448
+round = 4
+allocations = 1792
+compile_seconds = 0.0
+case = "sparse-256"
+region = "whole_refactor"
+[[samples]]
+matrix_sha256 = "942b42a5821ed3596a861e28dff41941dffd0c605da4b388dd5e0e5c4c6db5cb"
+gc_seconds = 0.0
+seconds = 0.0002801
+bytes = 690944
+round = 5
+allocations = 832
+compile_seconds = 0.0
+case = "sparse-256"
+region = "extraction"
+[[samples]]
+matrix_sha256 = "942b42a5821ed3596a861e28dff41941dffd0c605da4b388dd5e0e5c4c6db5cb"
+gc_seconds = 0.0
+seconds = 0.0016711
+bytes = 4992416
+round = 5
+allocations = 1792
+compile_seconds = 0.0
+case = "sparse-256"
+region = "whole_refactor"
+[[samples]]
+matrix_sha256 = "942b42a5821ed3596a861e28dff41941dffd0c605da4b388dd5e0e5c4c6db5cb"
+gc_seconds = 0.0
+seconds = 0.0010787
+bytes = 4301392
+round = 5
+allocations = 960
+compile_seconds = 0.0
+case = "sparse-256"
+region = "backend"
+[[samples]]
+matrix_sha256 = "942b42a5821ed3596a861e28dff41941dffd0c605da4b388dd5e0e5c4c6db5cb"
+gc_seconds = 0.0
+seconds = 0.0012764
+bytes = 4992416
+round = 6
+allocations = 1792
+compile_seconds = 0.0
+case = "sparse-256"
+region = "whole_refactor"
+[[samples]]
+matrix_sha256 = "942b42a5821ed3596a861e28dff41941dffd0c605da4b388dd5e0e5c4c6db5cb"
+gc_seconds = 0.0
+seconds = 0.0011038
+bytes = 4301408
+round = 6
+allocations = 960
+compile_seconds = 0.0
+case = "sparse-256"
+region = "backend"
+[[samples]]
+matrix_sha256 = "942b42a5821ed3596a861e28dff41941dffd0c605da4b388dd5e0e5c4c6db5cb"
+gc_seconds = 0.0
+seconds = 0.0002406
+bytes = 690944
+round = 6
+allocations = 832
+compile_seconds = 0.0
+case = "sparse-256"
+region = "extraction"
+[[samples]]
+matrix_sha256 = "1836ed7e428c17094b40f3d193b861a5ade9b665234e135b6fc149a1be418577"
+gc_seconds = 0.0001483
+seconds = 0.019161801
+bytes = 84613968
+round = 1
+allocations = 999
+compile_seconds = 0.0
+case = "dense-256"
+region = "backend"
+[[samples]]
+matrix_sha256 = "1836ed7e428c17094b40f3d193b861a5ade9b665234e135b6fc149a1be418577"
+gc_seconds = 0.0
+seconds = 0.0040818
+bytes = 21417088
+round = 1
+allocations = 848
+compile_seconds = 0.0
+case = "dense-256"
+region = "extraction"
+[[samples]]
+matrix_sha256 = "1836ed7e428c17094b40f3d193b861a5ade9b665234e135b6fc149a1be418577"
+gc_seconds = 0.0003225
+seconds = 0.021906801
+bytes = 106031296
+round = 1
+allocations = 1865
+compile_seconds = 0.0
+case = "dense-256"
+region = "whole_refactor"
+[[samples]]
+matrix_sha256 = "1836ed7e428c17094b40f3d193b861a5ade9b665234e135b6fc149a1be418577"
+gc_seconds = 0.0
+seconds = 0.003980001
+bytes = 21417088
+round = 2
+allocations = 848
+compile_seconds = 0.0
+case = "dense-256"
+region = "extraction"
+[[samples]]
+matrix_sha256 = "1836ed7e428c17094b40f3d193b861a5ade9b665234e135b6fc149a1be418577"
+gc_seconds = 0.0003535
+seconds = 0.023030602
+bytes = 106031520
+round = 2
+allocations = 1865
+compile_seconds = 0.0
+case = "dense-256"
+region = "whole_refactor"
+[[samples]]
+matrix_sha256 = "1836ed7e428c17094b40f3d193b861a5ade9b665234e135b6fc149a1be418577"
+gc_seconds = 0.0001785
+seconds = 0.018943901
+bytes = 84613872
+round = 2
+allocations = 999
+compile_seconds = 0.0
+case = "dense-256"
+region = "backend"
+[[samples]]
+matrix_sha256 = "1836ed7e428c17094b40f3d193b861a5ade9b665234e135b6fc149a1be418577"
+gc_seconds = 0.0004169
+seconds = 0.027900402
+bytes = 106032720
+round = 3
+allocations = 1865
+compile_seconds = 0.0
+case = "dense-256"
+region = "whole_refactor"
+[[samples]]
+matrix_sha256 = "1836ed7e428c17094b40f3d193b861a5ade9b665234e135b6fc149a1be418577"
+gc_seconds = 0.0001919
+seconds = 0.024783901
+bytes = 84616176
+round = 3
+allocations = 999
+compile_seconds = 0.0
+case = "dense-256"
+region = "backend"
+[[samples]]
+matrix_sha256 = "1836ed7e428c17094b40f3d193b861a5ade9b665234e135b6fc149a1be418577"
+gc_seconds = 0.0
+seconds = 0.0041609
+bytes = 21417088
+round = 3
+allocations = 848
+compile_seconds = 0.0
+case = "dense-256"
+region = "extraction"
+[[samples]]
+matrix_sha256 = "1836ed7e428c17094b40f3d193b861a5ade9b665234e135b6fc149a1be418577"
+gc_seconds = 0.0002216
+seconds = 0.024346201
+bytes = 84613904
+round = 4
+allocations = 999
+compile_seconds = 0.0
+case = "dense-256"
+region = "backend"
+[[samples]]
+matrix_sha256 = "1836ed7e428c17094b40f3d193b861a5ade9b665234e135b6fc149a1be418577"
+gc_seconds = 0.0
+seconds = 0.0042747
+bytes = 21417088
+round = 4
+allocations = 848
+compile_seconds = 0.0
+case = "dense-256"
+region = "extraction"
+[[samples]]
+matrix_sha256 = "1836ed7e428c17094b40f3d193b861a5ade9b665234e135b6fc149a1be418577"
+gc_seconds = 0.0003932
+seconds = 0.023326302
+bytes = 106031360
+round = 4
+allocations = 1865
+compile_seconds = 0.0
+case = "dense-256"
+region = "whole_refactor"
+[[samples]]
+matrix_sha256 = "1836ed7e428c17094b40f3d193b861a5ade9b665234e135b6fc149a1be418577"
+gc_seconds = 0.0
+seconds = 0.0042378
+bytes = 21417088
+round = 5
+allocations = 848
+compile_seconds = 0.0
+case = "dense-256"
+region = "extraction"
+[[samples]]
+matrix_sha256 = "1836ed7e428c17094b40f3d193b861a5ade9b665234e135b6fc149a1be418577"
+gc_seconds = 0.0004379
+seconds = 0.023378301
+bytes = 106031296
+round = 5
+allocations = 1865
+compile_seconds = 0.0
+case = "dense-256"
+region = "whole_refactor"
+[[samples]]
+matrix_sha256 = "1836ed7e428c17094b40f3d193b861a5ade9b665234e135b6fc149a1be418577"
+gc_seconds = 0.000182
+seconds = 0.019157301
+bytes = 84613968
+round = 5
+allocations = 999
+compile_seconds = 0.0
+case = "dense-256"
+region = "backend"
+[[samples]]
+matrix_sha256 = "1836ed7e428c17094b40f3d193b861a5ade9b665234e135b6fc149a1be418577"
+gc_seconds = 0.0004611
+seconds = 0.029118902
+bytes = 106032720
+round = 6
+allocations = 1865
+compile_seconds = 0.0
+case = "dense-256"
+region = "whole_refactor"
+[[samples]]
+matrix_sha256 = "1836ed7e428c17094b40f3d193b861a5ade9b665234e135b6fc149a1be418577"
+gc_seconds = 0.0001887
+seconds = 0.024420001
+bytes = 84616176
+round = 6
+allocations = 999
+compile_seconds = 0.0
+case = "dense-256"
+region = "backend"
+[[samples]]
+matrix_sha256 = "1836ed7e428c17094b40f3d193b861a5ade9b665234e135b6fc149a1be418577"
+gc_seconds = 0.0
+seconds = 0.0039592
+bytes = 21417088
+round = 6
+allocations = 848
+compile_seconds = 0.0
+case = "dense-256"
+region = "extraction"

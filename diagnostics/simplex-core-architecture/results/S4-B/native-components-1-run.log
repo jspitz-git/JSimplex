@@ -1,0 +1,26 @@
+ERROR: LoadError: MethodError: Cannot `convert` an object of type String to an object of type Int64
+The function `convert` exists, but no method is defined for this combination of argument types.
+
+Closest candidates are:
+  convert(::Type{T}, !Matched::T) where T<:Number
+   @ Base number.jl:6
+  convert(::Type{T}, !Matched::Number) where T<:Number
+   @ Base number.jl:7
+  convert(::Type{T}, !Matched::T) where T
+   @ Base Base_compiler.jl:136
+  ...
+
+Stacktrace:
+ [1] setindex!(h::Dict{String, Int64}, v0::String, key::String)
+   @ Base ./dict.jl:357
+ [2] main(output::String)
+   @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/hh_component_attribution.jl:137
+ [3] top-level scope
+   @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/hh_component_attribution.jl:145
+ [4] include(mod::Module, _path::String)
+   @ Base ./Base.jl:309
+ [5] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:344
+ [6] _start()
+   @ Base ./client.jl:577
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/hh_component_attribution.jl:145

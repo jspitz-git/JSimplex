@@ -141,3 +141,12 @@ component attribution, not a claim of retained-memory growth or pure arithmetic
 cost. Plain primal and dual are now accepted; current-master comparison remains
 pending. Next characterize native Float64 HH backend construction, extraction
 and immutable live/checkpoint ownership separately on deterministic small bases.
+
+
+## Native component slice accepted
+
+See S4-COMPONENTS.md:72 warm samples separate backend/extraction/whole refactor,
+with independent pin/report audit and fresh numerical/work/memory review. Backend
+traffic dominates these small synthetic fixtures; no avoidable cost or general
+speedup is established. This closes one native Float64 attribution slice only.
+Markowitz and other precisions remain open; preserve the accepted native run.

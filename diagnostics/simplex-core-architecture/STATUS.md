@@ -36,7 +36,7 @@ main also has a user-modified .vscode/settings.json. Do not stage those files.
 | S1 | State ownership and validation reuse | Integrated | Inventory and local S1-A contract; master beb161b, report S1-ENTRY.md |
 | S2 | Audited incremental primal maintenance | Active | S2-A REJECTED after numerical/cost qualification and independent review; broader pivot controller unresolved |
 | S3 | End-to-end exact sparsity support | Active | S3-A/S3-B integrated, latest masterb720674; exact-support consumer savings qualified; broader S3 partial |
-| S4 | Refactorization memory lifecycle | Active | S4-A integrated at master4143dad; RED/GREEN, focused4366, paired cost60; broader attribution pending |
+| S4 | Refactorization memory lifecycle | Active | S4-A integrated at master4143dad; RED/GREEN, focused4366, paired cost60; native Float64 component attribution accepted; Markowitz/other precisions pending |
 | S5 | Phase/cleanup handoff contract | Active | Partial static phase/cleanup ownership map; no implementation |
 | S6 | Broad validation and final comparison | Pending | Requires accepted production chunks |
 
@@ -117,11 +117,18 @@ current-master speedup. No full trajectory hash follows from final-state equalit
 Existing failed/incomplete calibrations and raw attempts remain preserved.
 Broader S2/S3/S4/S5/S6 and the historical test.mps failure remain unresolved.
 
-Next: S4 native HH component attribution on deterministic small matrices, with
-fresh backend/extraction/whole-refactor allocation measurements and ownership
-checks. Write the concrete diagnostic subplan before launching. No numerical job
-is active. Keep CI disabled as requested; the failed full-suite CI run is not a
-passing S6 gate. Production master remainsb720674; no new production code.
+S0-L completion milestoneb6d32ca is pushed. S4-B native component attribution is
+accepted:72 warm samples,all13 audit gates,source/pins verified,exit0; residuals,
+saved bases, changed pattern/dimension and failed-refactor preservation pass.
+Independent review found no blocker/unnecessary production cost. See
+S4-COMPONENTS.md and docs/superpowers/plans/2026-10-12-hh-component-attribution.md.
+Failed native-components-1 (report dictionary type) remains preserved; corrected
+native-components-2 passed. Runner354351/child354352/driver354342 separately absent.
+No numerical job is active. Next create a separate Markowitz component-attribution
+subplan/driver with the same small fixtures, preserving native evidence. Native
+symbolic reuse is only an unqualified hypothesis, not a production change.
+Keep CI disabled as requested; the failed full-suite CI run is not a passing S6
+gate. Master remainsb720674. All original user/environment files are preserved.
 
 ## Evidence gaps and traps to retain
 
