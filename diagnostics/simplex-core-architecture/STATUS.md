@@ -4,7 +4,7 @@ Updated: 2026-10-11. This is the entry point after interruption.
 
 ## Current state
 
-**S1-A integrated and pushed to master (`beb161b`). S0-L2: kernel10 passed; full suite3 rejected medium primal; no long reference.**
+**S1-A and S4-A integrated; master `4143dad` pushed. S0-L2 accepted; driver smoke active.**
 The source baseline is `fe839aa72171d7496c9c931d9393278448c7317e`.
 Completed diagnostic evidence is commit `6ded1fc`.
 
@@ -36,7 +36,7 @@ main also has a user-modified .vscode/settings.json. Do not stage those files.
 | S1 | State ownership and validation reuse | Integrated | Inventory and local S1-A contract; master beb161b, report S1-ENTRY.md |
 | S2 | Audited incremental primal maintenance | Pending | Existing kernels and missing guards inventory |
 | S3 | End-to-end exact sparsity support | Pending | Support propagation and full-scan inventory |
-| S4 | Refactorization memory lifecycle | Pending | Backend ownership/allocation attribution |
+| S4 | Refactorization memory lifecycle | Active | S4-A integrated at master4143dad; RED/GREEN, focused4366, paired cost60; broader attribution pending |
 | S5 | Phase/cleanup handoff contract | Pending | Mapping and reusable-state inventory |
 | S6 | Broad validation and final comparison | Pending | Requires accepted production chunks |
 
@@ -46,49 +46,46 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-S0-L2 remains rejected: window-pilot-10 passed sparse4.64385%/dense2.96326%,
-but full solve-suite-3 rejected medium primal5.90404% (the other five gates pass).
-All traces match, measured compilation is zero, recorder retention2860B constant.
-Process exit0/pins unchanged; host separately verified runner262104/child262110
-and conditional-driver261939 absent before edits. Smoke1 and long reference
-were correctly not launched. That driver is stopped; the new isolated calibration below is active.
+S0-L2 current calibration gates pass for the actual L3 environment. Kernel10
+passes sparse4.64385%/dense2.96326%; full suite3's five other gates pass, while
+its medium-primal5.90404% remains explicitly FAIL. The reviewed process-isolated
+follow-up completed all12 serial samples, ratio-of-medians0.24214%, compile0,
+matching results/options/policy and exact counted window sums, retained2880B.
+All process reports are exit0/pins unchanged. Host verified final runner266320,
+child266321 and orchestrator264004 absent. No smoke or long reference yet.
+Read results/S0-L/isolated-primal-calibration-1.json and provenance/attempt records.
+Independent L2 review accepts this deployment-matching calibration. The isolated
+prefix driver returned empty primal_hash/objective=nothing, so matching result
+metadata is not a new exact final-state hash check; full suite3's earlier separate
+trace gates remain the state evidence. Smoke and long certification remain open.
 
-Current diagnostic source: reduced8 wrapper/selector probes, streaming writer,
-fixed pricing metadata and owned-event inline/constant-propagation specialization.
-Event semantics17 tests pass; counter40, metadata16, phase/window/stream evidence
-is retained with exact snapshots. No production changes. Checkpoint1ceadcb pushed;
-current annotation, ablation, tests/evidence and review notes are uncommitted.
+S4-A is integrated and pushed: architecture8701a58 -> master4143dad27581cf1230fa74203306f956b89109a6.
+RED6pass/2intended failures, GREEN344pass, normal focused4366pass, paired cost60
+records, master integration344pass; all completed pins unchanged. Independent
+review accepts the local memory fix, with no unnecessary work/retention finding.
+See S4-SCRATCH.md. Same-size allocation cost unchanged; obsolete four-vector
+capacity released after dimension changes. No timing speedup or whole-S4 claim.
+Master remote identity verified; old worktrees, local environments and main user
+files preserved. No S4 runner remains.
 
-Reviewed next experiment is active: process-isolated medium/primal64 calibration,
-`/tmp/jsimplex-isolated-calibration.py`, manifest/results under
-`.superpowers/simplex-core-architecture/S0-L/isolated-primal-calibration-1.json`.
-Twelve serialized guarded processes: six fixed alternating plain/counted pairs,
-one measured fresh prefix after actual L3 warmups; each process owns only one
-module/model graph. This tests the concrete residency mismatch with suite3.
-The5% ratio-of-medians limit is unchanged; no GC subtraction or discarded samples.
-Current first attempt: isolated-primal-p01-plain-1. Follow its current/process
-reports and manifest before editing pinned Julia scripts or starting anything.
-The orchestrator is pinned too; do not edit it until all child jobs have stopped.
-It never launches a long reference automatically. After all samples, inspect
-complete/accepted, all identities and exact counted window sums. Keep suite3 FAIL.
+Current sole numerical job: S0-L/driver-smoke-1,600-second guard, counted dual
+sparse fixture, step cap10000 on old planning baseline. Inspect process report,
+then run long_audit.py and require chronology_reference_success=true. Verify host
+absence before another numerical launch. A passing sparse smoke is driver
+validation, not medium coverage. Then freeze and launch medium dual counted L3
+on the already documented1m-step/12h protocol; no accepted calibration repeats.
 
-Suite3's six paired medium-primal elapsed differences were roughly
-+0.56%,-0.46%,+0.26%,+7.72%,+9.46%,+1.51%. GC is2.5–3.3s within9.9–11.1s
-elapsed; the two large paired gaps include0.396s/0.675s extra GC. Each run
-allocates~9.346GB/168million objects, instrumentation adds~540 allocation events
-and only two windows. This supports investigating GC sensitivity, not attributing
-all excess to GC or accepting the failed test. Removing more probes lacks evidence.
+Checkpointfe89e39 is pushed. The current diagnostic checkpoint includes S4 inventory/subplan/results,
+suite3 attribution and isolated-calibration evidence. Main user dirt and all
+worktrees/environments remain intact. S2 static prerequisite mapping is reviewed;
+its controller/subplan/numerical work remains pending. S4 broader attribution
+is also pending; the integrated fix concerns four private solve/preparation vectors.
 
-Static final diagnostic review found no new numerical, unnecessary-work or
-retention defect. long_measure.jl/long_audit.py are prepared, Python audit10
-passes, but Julia smoke and L2 acceptance remain required. Audit CLIexit0 alone
-is insufficient: inspect chronology_reference_success. L3 must use pinned
-baseline+allowed medium, live1024-step windows,1000000-step cap and external12h
-guard. A limit is incomplete. No long reference has launched.
-
-S2-INVENTORY-NOTES.md was statically reviewed and corrected to include all known
-independent-audit allocations and basis residual work. No S2 experiment or API
-selection yet. User explicitly requested continuous execution through failures.
+Long reference remains unlaunched. Its guarded baseline is the preserved
+7d6a8e1 checkout (productionfe839aa), allowed medium hash, live1024-step windows,
+1000000-step cap and external12h guard. Preserve every limit/failure as incomplete.
+A separate plain elapsed run and primal-origin reference remain later serial work.
+User explicitly requested continuous execution through diagnostic failures.
 
 S1-A production commit `8e0a7c7def505604ccfe50cdbc2cf9cee453092d` was integrated
 as master `beb161b310afd9dc7126eca98e3c15898a69efbf` and pushed. Its src/test/Project

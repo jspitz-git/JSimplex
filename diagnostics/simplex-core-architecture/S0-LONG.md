@@ -341,3 +341,39 @@ zero measured compilation, matching final result/options/policy, normal exit,
 unchanged pins and exact counted window sums. It investigates the residency
 hypothesis and cannot revise the old failure. ITERATION_LIMIT is expected and
 is not a solved medium. The first sample is active; no new result is claimed.
+
+## Reusing completed windows for phase attribution
+
+All48 counted window groups in suite3 match their separately saved count totals
+exactly, including trace/warmup groups. The new solve-suite-3-attribution.json
+stores only the six timed samples per case and their exclusive sections. No
+numerical experiment was repeated. Section medians need not sum to the median
+whole solve; each sample and final instrumentation tail remain available.
+
+Medium dual/primal presolve medians are10.2781/8.6324s, with8.1734/8.1717GB and
+168091971 allocation events each. Ordinary64-step work is0.5763/1.3414s with
+4.407/70.125MB and589/771 allocation events, with no GC in these ordinary windows.
+The explicit instrumentation section is about157/94microseconds before the final
+tail; hot scalar probe cost is charged where it executes, not isolated by this
+section. These are diagnostic prefix attributions, not plain elapsed speedups,
+not phase-II coverage and not proof that all calibration excess is GC. They also
+prevent misattributing presolve's allocation volume to factorization scratch.
+
+## Isolated calibration accepted after independent review
+
+All12 predeclared serial samples completed exit0/pins unchanged, compile0.
+Plain median17.1937581295s versus counted17.235391545s gives0.2421426% overhead,
+under the unchanged5% gate. Ranges16.9486–18.1256s and16.7978–17.6391s overlap;
+GC medians9.9281/9.9229s. Counted retention2880B is constant, with540 additional
+allocation events. All six counted window sums match their saved totals.
+Independent review recomputed these values and checked matching core snapshots,
+options/policy/input and returned metadata. No unnecessary work or growing
+retention was found. This accepts the actual L3 single-module/model environment;
+original suite3's5.90404% failure remains valid for its different environment.
+
+Every isolated sample is an ITERATION_LIMIT64 prefix with empty primal_hash
+and objective=nothing. It provides no new nonempty final-state hash evidence;
+prior suite3 exact trace gates remain the separate numerical-state evidence.
+This is not phase-II completion, certification, a speedup or proof of the GC
+hypothesis. L2 calibration is accepted; driver smoke and L3 audit remain open.
+Portable calibration/provenance and attribution JSON preserve the exact values.

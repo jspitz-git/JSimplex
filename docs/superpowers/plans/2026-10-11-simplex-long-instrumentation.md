@@ -66,7 +66,7 @@ writes the partial window; it does not certify a solution.
 - [x] Verify plain/counted state+event fingerprints in separate trace mode on
   frozen sparse/dense fixtures and a bounded medium prefix. Hashes are excluded
   from authoritative timing; no snapshots used as restart state.
-- [ ] Warm independently, interleave >=3 plain/counted pairs for each calibration
+- [x] Warm independently, interleave >=3 plain/counted pairs for each calibration
   case and both algorithms. Require zero measured compilation, <=5% median
   overhead and no accumulating retention. Report ranges/allocations/GC, including
   failed calibration. Reduce density or use count-only if the budget fails.
@@ -303,3 +303,10 @@ Commands/manifest/results are preserved in S0-L/isolated-primal-calibration-1.js
 exact orchestrator /tmp/jsimplex-isolated-calibration.py is additionally pinned
 and copied into the stage. Existing five full gates and kernel10 remain evidence;
 this focused experiment addresses only the failed medium-primal timing gate.
+
+L2 accepted after independent review: kernel10 and five full-suite3 gates pass;
+medium-primal process-isolated six-pair calibration matches actual L3 residency
+and passes0.2421426% overhead, compile0, fixed2880B retention. Original suite3
+5.90404% failure remains recorded. Empty isolated primal_hash is not state-hash
+evidence; prior separate exact trace gates remain required and passed. Driver
+smoke is still pending and long launch remains conditional on its JSON audit.

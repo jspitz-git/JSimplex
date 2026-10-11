@@ -350,3 +350,22 @@ terminal reconstruction, plus all known independent-audit allocation/scan costs.
 Independent review confirms the map after adding basis-reliability RHS/scratch,
 indexed copies and residual passes. The subplan/controller and all S2 numerical
 gates remain pending. No benchmark is needed for the documentation itself.
+
+Ruling: while serialized S0 process-isolation samples compile/run, prepare only
+S4's static ownership/reuse map under the roadmap's independent-stage allowance.
+S4-INVENTORY-NOTES.md distinguishes live/shared factors, private scratch, pooled
+updates and candidate backends; records existing caps/fixes and missing HH in
+older assembly loops. No S4 numerical gate is checked, no API selected and no
+production code changed. Completed suite3 windows are reused for attribution,
+not remeasured; presolve allocation must not be mistaken for HH storage.
+
+S4-A local scratch chunk accepted after RED/GREEN344, focused4366 and60 paired
+cost records. Same-size allocations unchanged, dimension changes release old
+four-vector capacity, all factor/solve fingerprints identical. Review found no
+unnecessary work or memory cost. Commit8701a58 integrated as master4143dad;
+master regression/push currently pending. This does not complete broader S4
+backend attribution or whole-solve validation; see S4-SCRATCH.md and its subplan.
+
+S4-A integrated-master regression passed344, normal exit/pins unchanged.
+Master4143dad is pushed/remote verified; preservation hashes match. The local
+S4-A subplan is complete; broad S4 remains partial. S0 driver-smoke-1 is active.

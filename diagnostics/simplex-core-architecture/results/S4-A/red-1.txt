@@ -1,0 +1,31 @@
+ERROR: LoadError: Some tests did not pass: 6 passed, 2 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/hh_dimension_scratch_tests.jl:7
+
+HH dimension change releases obsolete solve scratch: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/hh_dimension_scratch_tests.jl:16
+  Expression: _hh_scratch_capacity(f) == 4n
+   Evaluated: 262144 == 16
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/hh_dimension_scratch_tests.jl:8
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/hh_dimension_scratch_tests.jl:16 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+HH dimension change releases obsolete solve scratch: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/hh_dimension_scratch_tests.jl:16
+  Expression: _hh_scratch_capacity(f) == 4n
+   Evaluated: 262144 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/hh_dimension_scratch_tests.jl:8
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/hh_dimension_scratch_tests.jl:16 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+Test Summary:                                       | Pass  Fail  Total  Time
+HH dimension change releases obsolete solve scratch |    6     2      8  1.4s
+RNG of the outermost testset: Random.Xoshiro(0xe3158ea4f2f16fdf, 0xc9b540e0c3104343, 0x66a8cdfe82599d75, 0x7f9918b230824e84, 0xbeb1041f1b72728d)
