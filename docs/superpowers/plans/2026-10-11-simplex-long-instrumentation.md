@@ -354,3 +354,7 @@ GC from interpretation of elapsed. The dual/primal final hashes differ because
 these are different solver trajectories; do not require a cross-origin hash match.
 Neither counted elapsed nor a single plain/count pair proves current-master
 speedup, universal performance, or instrumentation overhead.
+
+medium-primal-plain-1 is now active under the unchanged43200s guarded baseline.
+STATUS records verified live identities and the distinct post-exit plain audit.
+Primal counted acceptance6e793ec is pushed; L3 final elapsed gate remains open.

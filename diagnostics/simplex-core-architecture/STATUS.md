@@ -4,7 +4,7 @@ Updated: 2026-10-11. This is the entry point after interruption.
 
 ## Current state
 
-**S1-A, S3-A/S3-B and S4-A integrated; master `b720674` pushed. S2-A rejected; S0-L dual references and primal counted audited; primal plain next.**
+**S1-A, S3-A/S3-B and S4-A integrated; master `b720674` pushed. S2-A rejected; S0-L dual references and primal counted audited; primal plain active.**
 The source baseline is `fe839aa72171d7496c9c931d9393278448c7317e`.
 Initial time-budget diagnostic evidence is commit `6ded1fc`.
 
@@ -93,10 +93,23 @@ This is old-baseline chronology, not current-master performance. Primal and dual
 origins have different trajectories/final primal hashes; compare the forthcoming
 plain primal only with this counted primal for exact final-result acceptance.
 Runner300579/child300580/driver300570 separately confirmed absent after exit.
-Next: medium-primal-plain-1 with unchanged old source/env/input/options/policy,
-HH/native160,1000000step cap,43200s guard. No repeat of completed references.
-Plain has no windows/counters; use LONG-PHASE-II.md plain acceptance gates,
-not counted-only long_audit.py. Broader S4/S5/S6 remain pending.
+Primal counted acceptance milestone6e793ec is pushed.
+Current sole numerical job: S0-L/medium-primal-plain-1, unifiedsession79257,
+43200s guard. Runner321988/start_ticks20237178, child321989/start_ticks20237263,
+boot20de7dde-704e-41c8-bee7-b8511c0a86b0; driver321979. Live identities, command,
+sole Julia and fresh guard resource sample verified after launch. Recheck current.json
+and host rather than trusting this record. Old source/env/input/options/policy,
+HH/native160,1000000step cap unchanged; only instrumentation mode becomesplain.
+While healthy remain quiet; no second Julia or edits to pinned old src/test/env
+and existing diagnostic Julia files. This active attempt is not accepted evidence.
+After exit, verify process.json, independently rehash pins/source/input, validate
+plain mode/solver_returned/OPTIMAL/original_primal_feasible and exact final objective,
+primal hash,353468iterations,2240refactorizations/configuration against counted
+primal. Plain has no windows/counters; use LONG-PHASE-II.md acceptance gates,
+not counted-only long_audit.py. Report compilation/GC/elapsed separately; no new
+phase-window coverage or speedup/overhead claim from one pair. Preserve failures.
+Before next Julia or pinned edits, separately confirm runner/child/driver absent.
+Then continue broader S4/S5/S6 concrete subplans; no whole-plan completion.
 
 ## Evidence gaps and traps to retain
 
