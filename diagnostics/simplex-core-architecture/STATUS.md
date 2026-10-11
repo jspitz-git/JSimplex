@@ -58,15 +58,16 @@ and found no closure blocker. Dense accepted cases regress22–30%; no productio
 promotion or guessed density heuristic. Diagnostic5321ea1 records the result;
 closure documentation follows. master remainsd8ad4ec; old environments preserved.
 
-No numerical process remains: last cost runner285175/child285176/driver were
-separately confirmed absent after exit0/pins report. Before the next Julia,
-recheck host processes. Continue S3-INVENTORY-NOTES.md/roadmap with the canonical
-output-support producer/consumer audit and focused work census. Inspect whether
-pipeline consumers repeat compact_support! immediately after kernels already
-return canonical support; prove all empty/dense-fallback/exception paths before
-proposing any elision. No S3-B source change, RED or accepted design exists yet.
-Keep the controlled legacy hypersparse=false baseline distinct from fixed-policy
-pipeline diagnostics; do not enable adaptive selection to manufacture a speedup.
+S3-B subplan is docs/superpowers/plans/2026-10-11-pipeline-canonical-support.md.
+Current sole numerical job: S3-B/support-census-1, runner286446/start_ticks18018519,
+child286450/start_ticks18018603, boot20de7dde-704e-41c8-bee7-b8511c0a86b0.
+Verify live identity via current.json, not PID alone. Unchanged production census
+uses pipeline_support_census.jl census OUTPUT through /tmp/jsimplex-s3b-attempt.py.
+Read final process.json, check pins and all assertions/1900case rows; then separately
+verify runner/child/driver absent before the small red mode or any pinned edit.
+No S3-B production edit exists. Proposed local successful-producer canonical flag
+must preserve input cancellation compaction and dense/external checks. The controlled
+legacy hypersparse=false baseline remains distinct from these fixed-policy probes.
 
 ## Evidence gaps and traps to retain
 
@@ -602,3 +603,12 @@ blocker and no hidden unnecessary copies or retained global workspace. Extra
 certificate/fallback work and point-buffer memory are necessary for this design,
 so the design is rejected instead of removing protections. Both minor report
 wording/current-status corrections applied. Continue broad S3 inventory/census.
+
+S3-B subplan prepared: docs/superpowers/plans/2026-10-11-pipeline-canonical-support.md.
+New pipeline_support_census.jl instruments unchanged parsed method bodies in an
+isolated process, counting output-consumer compaction separately from producer/
+input work and dense rebuilds. Full census covers5types/5managers/2backends,
+zero/one genuine pivot history,3input shapes,forcedsparse/dense,3operations and
+external fallback. No production edit. Host has no numerical process before
+launch; sole next job S3-B/support-census-1 via /tmp/jsimplex-s3b-attempt.py.
+After census acceptance run its small red mode before proposed production edits.

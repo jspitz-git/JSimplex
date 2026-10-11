@@ -190,3 +190,22 @@ occupied. No production fix or runtime failure is claimed yet. The next availabl
 serial slot should reproduce these safety gaps before implementing S2 or widening
 S3 reuse. A validated correction will need a small implementation subplan and
 focused cost review; do not add broad per-call overlap scans speculatively.
+
+
+## S3-B canonical producer audit after S2-A rejection
+
+Inspected current production d8ad4ec (S3-A alias boundaries included). Every
+successful indexed basis output is canonical: hypersparse base solves compact,
+dense reload clears then writes each distinct index once, PFI forward copies
+and compacts, PFI transpose returns a canonical base solve, triangular forward
+compacts final permutation and transpose returns canonical base solve. Pricing
+compacts after exact cancellation. Empty pipeline output explicitly clears
+support. HH/DenseLUBackend outer dense paths require the existing full rebuild.
+
+Current _pipeline_output_support! calls _pipeline_vector!, which compacts again
+when those outputs are valid. This is a candidate extra O(output support) scan,
+not a measured saving. cache.valid alone is insufficient: other valid writers
+may leave canceled indices. Only the local successful producer can justify
+reading length directly, with no callback between production and consumption.
+See 2026-10-11-pipeline-canonical-support.md for the bounded S3-B subplan.
+Census, intended RED and all production acceptance gates are pending.
