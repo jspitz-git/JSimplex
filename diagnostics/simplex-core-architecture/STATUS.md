@@ -37,7 +37,7 @@ main also has a user-modified .vscode/settings.json. Do not stage those files.
 | S2 | Audited incremental primal maintenance | Active | S2-A REJECTED after numerical/cost qualification and independent review; broader pivot controller unresolved |
 | S3 | End-to-end exact sparsity support | Active | S3-A/S3-B integrated, latest masterb720674; exact-support consumer savings qualified; broader S3 partial |
 | S4 | Refactorization memory lifecycle | Active | S4-A/S4-C integrated; master3220118; Float64 component attribution/cost and exact triplet optimization accepted; bounded scalar component attribution360samples accepted; broader manager/history/medium coverage open |
-| S5 | Phase/cleanup handoff contract | Active | S5-A184 exact pairs/20audit gates; unconditional default reconstruction omission rejected; objective restoration contract next |
+| S5 | Phase/cleanup handoff contract | Active | S5-A184 pairs/20gates and S5-B144 pairs/21gates accepted; S5-C guarded cost-copy RED/GREEN next |
 | S6 | Broad validation and final comparison | Pending | Requires accepted production chunks |
 
 Allowed execution states: Pending, Active, Blocked (reason required), Verified,
@@ -810,7 +810,7 @@ Broader S4/S5/S6 remain open; CI stays disabled.
 ## S5-B objective/bound restoration census (2026-10-12)
 
 Census-2 completed144selected-representation pairs/all21audit gates, exit0, source
-and whole pins independently verified. Report S5-RESTORATION.md; final review pending.
+and whole pins independently verified. Report S5-RESTORATION.md; independent review accepted with alias-proof plan correction.
 Census-1 overconstrained alien-bound oracle failed; probe-1 showed valid original
 optima. Both attempts preserved. Corrected existing working-infeasibility fixture
 rejects alien proof. Current result80OPTIMAL/32TIME_LIMIT/16NUMERICAL_ERROR/16throws.
@@ -820,3 +820,14 @@ Next exact RED/GREEN plan:2026-10-12-restore-alias-copies.md, after final census
 Production unchanged/master3220118; no speedup claim. Runner363940/child363945/
 driver363931 separately absent on boot20de7dde-704e-41c8-bee7-b8511c0a86b0.
 CI disabled, historical failures and broader S4/S5/S6 remain open.
+
+S5-B final review closed: evidenceef9749d, no production changes. One important
+next-plan correction: Base.mightalias alone misses offset unsafe_wrap overlaps.
+Alias-probe-1 proves4counterexamples; diagnostic range predicate passes10Float64
+cases,12audit checks/586independent pins. It is not all-scalar production proof.
+S5-RESTORATION-REVIEW.md records accepted scope and all declined-review rulings.
+Next exact action:2026-10-12-restore-alias-copies.md; establish storage-layout/range
+contract then focused work RED, preserving every overlap/failure/event safeguard.
+Keep both copies when disjointness cannot be established. Bound copies excluded.
+Last runner364759/child364760/driver364750 separately absent; no Julia, same boot.
+S5-C implementation/cost/regression/review gates and broader S4/S5/S6 remain open.

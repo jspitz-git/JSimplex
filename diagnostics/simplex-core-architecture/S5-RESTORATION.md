@@ -1,7 +1,7 @@
 # S5-B: original objective and bound restoration contract
 
 Base master3220118 / architecturefb56929. Diagnostic-only qualification; no
-production change, cost benchmark or certificate-reuse claim. Census-2 accepted144pairs/all21audit gates; final review pending.
+production change, cost benchmark or certificate-reuse claim. Census-2 accepted144pairs/all21audit gates; independent review accepted with the next-plan alias-proof correction below.
 
 ## Existing evidence reused
 
@@ -51,7 +51,8 @@ relationships, not exhaustive bitwise workspace/factor equivalence. Foreign-mode
 checkpoint rejection and phase invalidation are asserted. Objective0 at original
 primal[0] is the bounded normal oracle. Unowned infeasible bounds must not become
 an original infeasibility certificate. Expired/cancelled outcomes cannot publish
-an optimum. Caller input model remains unchanged. No model/order/scaling transfer,
+an optimum. Recorded caller objective and column bounds remain unchanged; the input assertion
+does not establish immutability of every model field. No model/order/scaling transfer,
 large input, full manager/precision matrix, update-chain scaling or future Julia
 compatibility follows from this census.
 
@@ -63,8 +64,11 @@ Owned bounds can similarly alias active bound buffers. Identity checks are O(1);
 value equality would require O(N) and would not prove ownership. A candidate may
 skip the immediately consecutive cost copy only when destinations are identical
 AND the original source does not overlap that destination: repeated partial-overlap
-memmoves need not be idempotent. Base.mightalias for Vector can provide a conservative
-constant-time guard; verify it in a separate implementation/cost gate. Bound copies
+memmoves need not be idempotent. Base.mightalias is insufficient for offset
+unsafe_wrap vectors. Require a qualified contiguous storage-range nonoverlap
+predicate (actual storage stride, empty buffers, overflow-safe arithmetic and
+GC preservation), or keep both copies when disjointness cannot be proven.
+All-scalar correctness and cost qualification remain separate implementation gates. Bound copies
 are excluded from that first change because intervening writes complicate source
 cross-aliasing. Preserve detached/overlapping copies, failures, events, phase
 increments and all reconstruction/certification. No cache, tolerance change or certificate reuse
@@ -113,3 +117,18 @@ only. Bound-copy deduplication is deliberately excluded from the first candidate
 Separate S5-C plan2026-10-12-restore-alias-copies.md defines RED/GREEN, overlap/failure
 contracts, changed-source cost pairs and integration review. No optimization is
 accepted or speedup claimed by the census itself.
+
+## Final review and alias counterexample
+
+Fresh independent gpt-6-astra review accepted the census and ownership conclusions.
+One important next-plan defect was corrected: Base.mightalias was wrongly described
+as a sufficient nonoverlap proof. No production implementation used that proposal.
+Alias-probe-1 (exit0, all12 supplemental checks,586 independently rehashed pins)
+demonstrates four naive wrong skips in eight Float64 vector pairs; the diagnostic
+range predicate preserves the legacy double-copy result in all eight, and separate
+empty/distinct cases pass (10 range cases total). This is a counterexample and a
+bounded diagnostic check, not production RED/GREEN or all-precision qualification.
+Julia Base source was pinned. Evidence is results/S5-B/alias-probe-1-*.
+Runner364759/child364760/driver364750 separately absent on boot
+20de7dde-704e-41c8-bee7-b8511c0a86b0; no Julia at closure.
+See S5-RESTORATION-REVIEW.md for review scope and deferred implementation gates.

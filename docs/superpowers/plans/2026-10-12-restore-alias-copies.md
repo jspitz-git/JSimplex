@@ -11,10 +11,19 @@ and independent review. Do not remove invalidations, scans, events or reconstruc
 In src/simplex_perturbation.jl::restore_perturbations!, retain the first
 copyto!(ws.costs,journal.original_costs). Skip the immediately consecutive second
 copy only if journal.active_costs === ws.costs AND the original source is proven
-nonaliasing by Base.mightalias on these Vectors. Otherwise retain the original
+nonoverlapping by a qualified contiguous storage-range predicate. Otherwise retain the original
 copy. Identity alone is insufficient for a partially overlapping source/destination:
 two memmoves need not be idempotent. Test partial overlap explicitly with an owned
 backing vector/GC preservation and preserve the legacy result for that path.
+
+Base.mightalias alone is insufficient: offset unsafe_wrap vectors may overlap
+while their storage identifiers differ. S5-B alias-probe-1 demonstrates four
+wrong skips with that test. A range predicate must use actual storage stride
+(including reference-containing element layouts), handle empty buffers and checked
+byte-length overflow, compare pointer distances without address-end overflow,
+and preserve objects across pointer access with GC.@preserve. If disjointness
+cannot be established, retain both copies. The diagnostic Float64 predicate is
+not an all-scalar production proof; establish the supported layout contract first.
 
 This removes at most one O(N) cost copy at cold restoration, adding only constant-
 time identity/alias checks (verify specialization/allocation in cost gate). No
@@ -37,7 +46,7 @@ so deduplicating them is a separate unqualified hypothesis.
   Float16/Float32/Float64/BigFloat/RationalInt64/RationalBigInt and empty vectors.
   Include source/destination identity overlaps where representable; distinct
   buffers must retain both copies. Check caller-owned model and journal state.
-- [ ] Implement only identity guards, run GREEN on actual production bodies, inspect
+- [ ] Implement only identity and qualified storage-range guards, run GREEN on actual production bodies, inspect
   work removed. Compare baseline/candidate complete recorded state and events.
 - [ ] Run relevant existing restoration/perturbation/checkpoint/partial-pricing
   regressions on the changed source; assemble dependencies explicitly. Keep full
@@ -56,7 +65,7 @@ so deduplicating them is a separate unqualified hypothesis.
   equality; original feasibility/certification, shared budget, observer failures
   and foreign checkpoint rejection remain mandatory. No certificate reuse.
 - [ ] Audit process/source/pins, failure preservation, and independent numerical/
-  work/memory review. Added work is constant-time identity/Vector alias checks, no scans,
+  work/memory review. Added work is constant-time identity/storage-range checks, no scans,
   solves, allocation or retained cache. Retained active journal buffers are still
   required for detached ownership; do not delete them.
 - [ ] Only after gates: separate production commit, integrate to master under

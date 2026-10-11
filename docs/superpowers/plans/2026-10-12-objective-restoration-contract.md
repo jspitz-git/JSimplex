@@ -35,12 +35,15 @@ No repeated accepted medium or component references. CI stays disabled.
   unchanged-body control equivalence. Separate cold handoff from ordinary pivots.
 - [x] Decide whether a concrete redundant operation has an owned validity proof;
   reject speculative caches or flags that cannot survive aliases and callbacks.
-- [ ] Audit exit/pins/source/outcomes, independent numerical/work review, report,
+- [x] Audit exit/pins/source/outcomes, independent numerical/work review, report,
   STATUS and diagnostic commit/push. Only then a focused implementation subplan
   if warranted. Broader S4/S5/S6 and historical CI failures remain open.
 
 Census-2 accepted144recorded pairs/21audit gates. Preserved census-1 oracle failure
 and alien-probe-1 clarify that an original-feasible optimum is not an invalid proof.
-Report S5-RESTORATION.md; final review pending. Conditional next S5-C subplan
+Report S5-RESTORATION.md; fresh independent review accepted after correcting
+the conditional next plan: Base.mightalias cannot prove nonoverlap for offset
+unsafe_wrap vectors. Alias-probe-1 preserves four counterexamples; all12audit
+checks and586pins pass. S5-RESTORATION-REVIEW.md records the one-pass fix. Conditional next S5-C subplan
 2026-10-12-restore-alias-copies.md narrows to nonoverlapping identity-aliased costs;
 bound copies/events/invalidation/reconstruction remain unchanged.
