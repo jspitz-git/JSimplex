@@ -4,7 +4,7 @@ Updated: 2026-10-11. This is the entry point after interruption.
 
 ## Current state
 
-**S1-A and S4-A integrated; master `4143dad` pushed. S0-L2 accepted; driver smoke active.**
+**S1-A and S4-A integrated; master `4143dad` pushed. S0-L2 accepted; medium dual long reference active.**
 The source baseline is `fe839aa72171d7496c9c931d9393278448c7317e`.
 Completed diagnostic evidence is commit `6ded1fc`.
 
@@ -68,20 +68,28 @@ capacity released after dimension changes. No timing speedup or whole-S4 claim.
 Master remote identity verified; old worktrees, local environments and main user
 files preserved. No S4 runner remains.
 
-Current sole numerical job: S0-L/driver-smoke-1,600-second guard, counted dual
-sparse fixture, step cap10000 on old planning baseline. Inspect process report,
-then run long_audit.py and require chronology_reference_success=true. Verify host
-absence before another numerical launch. A passing sparse smoke is driver
-validation, not medium coverage. Then freeze and launch medium dual counted L3
-on the already documented1m-step/12h protocol; no accepted calibration repeats.
+driver-smoke-1 passed: exit0/pins unchanged, OPTIMAL/original-primal feasible,
+certificate observed,7 phase-II steps,5 complete windows and exact counter sums.
+Its JSON chronology_reference_success=true. Host verified runner268482/child268483
+absent. Calibration and smoke permit long launch, not a medium-success claim.
 
-Checkpointfe89e39 is pushed. The current diagnostic checkpoint includes S4 inventory/subplan/results,
+Current sole numerical job: S0-L/medium-dual-counted-1,43200-second guard,
+counted dual medium, step cap1000000, old planning baseline. Runner268789
+(start_ticks16921100), child268790 (start_ticks16921182), boot ID
+20de7dde-704e-41c8-bee7-b8511c0a86b0; verify current host identity, not PID alone.
+Pins digest a24597f2ddb774e72ade444c01c3f25f255b2c55b40ba4a1a47556f257f5fa7e.
+Raw reference.toml/windows/current/resources/process are under the attempt path.
+Do not edit any pinned old src/test/env or active diagnostic Julia file, and do
+not launch another numerical process while it runs. Read only completed windows;
+no final status/certification is inferred before process exit and JSON audit.
+
+Diagnostic checkpoint7fce7dd is pushed. The current diagnostic checkpoint includes S4 inventory/subplan/results,
 suite3 attribution and isolated-calibration evidence. Main user dirt and all
 worktrees/environments remain intact. S2 static prerequisite mapping is reviewed;
 its controller/subplan/numerical work remains pending. S4 broader attribution
 is also pending; the integrated fix concerns four private solve/preparation vectors.
 
-Long reference remains unlaunched. Its guarded baseline is the preserved
+Long reference is now active. Its guarded baseline is the preserved
 7d6a8e1 checkout (productionfe839aa), allowed medium hash, live1024-step windows,
 1000000-step cap and external12h guard. Preserve every limit/failure as incomplete.
 A separate plain elapsed run and primal-origin reference remain later serial work.

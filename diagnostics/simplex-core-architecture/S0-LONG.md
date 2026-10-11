@@ -377,3 +377,19 @@ prior suite3 exact trace gates remain the separate numerical-state evidence.
 This is not phase-II completion, certification, a speedup or proof of the GC
 hypothesis. L2 calibration is accepted; driver smoke and L3 audit remain open.
 Portable calibration/provenance and attribution JSON preserve the exact values.
+
+## L3 first live reference launched
+
+driver-smoke-1 passed the JSON audit: normal exit/pins unchanged, certified
+OPTIMAL, original primal feasible,7 phase-II steps,5 complete windows/exact
+counter sums. Warmups are separate; final sparse solve compilation is zero.
+This validates driver/audit operation only. It is not medium coverage.
+
+medium-dual-counted-1 now runs fresh from the preserved baseline on the frozen
+allowed medium input, HH/native160/legacy/steepest-edge, no adaptive policies,
+1000000-step cap and43200-second external guard, time_limit=Inf. Warmups precede
+the new live state; no snapshot restart. Only one numerical Julia process.
+Current runner268789/child268790 identities and pins are recorded in STATUS.
+Pending: actual completed-phase attribution and final certified result; preserve
+any limit/failure as incomplete. Separate plain elapsed and primal-origin runs
+remain serial follow-ups. Static prerequisite inventories may proceed meanwhile.

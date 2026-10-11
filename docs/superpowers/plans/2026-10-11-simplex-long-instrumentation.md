@@ -310,3 +310,8 @@ and passes0.2421426% overhead, compile0, fixed2880B retention. Original suite3
 5.90404% failure remains recorded. Empty isolated primal_hash is not state-hash
 evidence; prior separate exact trace gates remain required and passed. Driver
 smoke is still pending and long launch remains conditional on its JSON audit.
+
+L3 launch gate passed: driver-smoke-1 JSON success,7 phase-II steps,5 windows,
+normal exit/pins. medium-dual-counted-1 launched under frozen baseline/input and
+12h guard. First L3 checkbox remains partial until separate primal reference;
+no medium result or certification is claimed from a running attempt.
