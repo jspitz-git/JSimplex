@@ -1,0 +1,1925 @@
+{
+  "attempt": "cost-1",
+  "groups": [
+    {
+      "type": "Float32",
+      "matrix": "sparse",
+      "history": 0,
+      "reject_all": false,
+      "ratio_of_medians": 0.5255174176644913,
+      "control_seconds": 0.001126701,
+      "candidate_seconds": 0.000592101,
+      "paired_ratios": [
+        0.534001141773862,
+        0.5856922111545122,
+        0.47000576905577435
+      ],
+      "bytes": {
+        "control": [
+          20072,
+          20072,
+          20072
+        ],
+        "candidate": [
+          22712,
+          22712,
+          22712
+        ]
+      },
+      "allocations": {
+        "control": [
+          38,
+          38,
+          38
+        ],
+        "candidate": [
+          46,
+          46,
+          46
+        ]
+      },
+      "work": {
+        "control": {
+          "kernel_calls": {
+            "hypersparse_ftran_sparse": 0,
+            "hypersparse_bfrt_empty": 0,
+            "refactorization": 0,
+            "hypersparse_support": 0,
+            "hypersparse_btran_sparse": 0,
+            "hypersparse_weight_ftran_dense": 0,
+            "hypersparse_pricing_dense": 0,
+            "hypersparse_base_graph": 0,
+            "hypersparse_btran_empty": 0,
+            "hypersparse_weight_btran_sparse": 0,
+            "ftran": 128,
+            "hypersparse_weight_ftran_sparse": 0,
+            "hypersparse_pricing_empty": 0,
+            "hypersparse_bfrt_dense": 0,
+            "hypersparse_ftran_dense": 0,
+            "pricing": 65,
+            "hypersparse_btran_dense": 0,
+            "row_index": 0,
+            "btran": 64,
+            "hypersparse_ftran_empty": 0,
+            "hypersparse_upper_graph": 0,
+            "hypersparse_pricing_sparse": 0,
+            "hypersparse_weight_btran_dense": 0,
+            "hypersparse_weight_ftran_empty": 0,
+            "crash": 0,
+            "hypersparse_bfrt_sparse": 0,
+            "hypersparse_weight_btran_empty": 0,
+            "hypersparse_setup": 0
+          },
+          "audits": 0,
+          "skips": 0,
+          "fallbacks": 0,
+          "direct_recomputations": 0,
+          "candidate_copies": 0,
+          "endpoint_refreshes": 0,
+          "point_buffer_before_bytes": 0,
+          "point_buffer_retained_bytes": 0
+        },
+        "candidate": {
+          "kernel_calls": {
+            "hypersparse_ftran_sparse": 0,
+            "hypersparse_bfrt_empty": 0,
+            "refactorization": 0,
+            "hypersparse_support": 0,
+            "hypersparse_btran_sparse": 0,
+            "hypersparse_weight_ftran_dense": 0,
+            "hypersparse_pricing_dense": 0,
+            "hypersparse_base_graph": 0,
+            "hypersparse_btran_empty": 0,
+            "hypersparse_weight_btran_sparse": 0,
+            "ftran": 65,
+            "hypersparse_weight_ftran_sparse": 0,
+            "hypersparse_pricing_empty": 0,
+            "hypersparse_bfrt_dense": 0,
+            "hypersparse_ftran_dense": 0,
+            "pricing": 66,
+            "hypersparse_btran_dense": 0,
+            "row_index": 0,
+            "btran": 1,
+            "hypersparse_ftran_empty": 0,
+            "hypersparse_upper_graph": 0,
+            "hypersparse_pricing_sparse": 0,
+            "hypersparse_weight_btran_dense": 0,
+            "hypersparse_weight_ftran_empty": 0,
+            "crash": 0,
+            "hypersparse_bfrt_sparse": 0,
+            "hypersparse_weight_btran_empty": 0,
+            "hypersparse_setup": 0
+          },
+          "audits": 64,
+          "skips": 64,
+          "fallbacks": 0,
+          "direct_recomputations": 1,
+          "candidate_copies": 1,
+          "endpoint_refreshes": 1,
+          "point_buffer_before_bytes": 0,
+          "point_buffer_retained_bytes": 2504
+        }
+      }
+    },
+    {
+      "type": "Float32",
+      "matrix": "sparse",
+      "history": 0,
+      "reject_all": true,
+      "ratio_of_medians": 1.104911770570109,
+      "control_seconds": 0.001168601,
+      "candidate_seconds": 0.001291201,
+      "paired_ratios": [
+        1.1260053150111,
+        0.9584936371707606,
+        1.104911770570109
+      ],
+      "bytes": {
+        "control": [
+          20072,
+          20072,
+          20072
+        ],
+        "candidate": [
+          22712,
+          22712,
+          22712
+        ]
+      },
+      "allocations": {
+        "control": [
+          38,
+          38,
+          38
+        ],
+        "candidate": [
+          46,
+          46,
+          46
+        ]
+      },
+      "work": {
+        "control": {
+          "kernel_calls": {
+            "hypersparse_ftran_sparse": 0,
+            "hypersparse_bfrt_empty": 0,
+            "refactorization": 0,
+            "hypersparse_support": 0,
+            "hypersparse_btran_sparse": 0,
+            "hypersparse_weight_ftran_dense": 0,
+            "hypersparse_pricing_dense": 0,
+            "hypersparse_base_graph": 0,
+            "hypersparse_btran_empty": 0,
+            "hypersparse_weight_btran_sparse": 0,
+            "ftran": 128,
+            "hypersparse_weight_ftran_sparse": 0,
+            "hypersparse_pricing_empty": 0,
+            "hypersparse_bfrt_dense": 0,
+            "hypersparse_ftran_dense": 0,
+            "pricing": 65,
+            "hypersparse_btran_dense": 0,
+            "row_index": 0,
+            "btran": 64,
+            "hypersparse_ftran_empty": 0,
+            "hypersparse_upper_graph": 0,
+            "hypersparse_pricing_sparse": 0,
+            "hypersparse_weight_btran_dense": 0,
+            "hypersparse_weight_ftran_empty": 0,
+            "crash": 0,
+            "hypersparse_bfrt_sparse": 0,
+            "hypersparse_weight_btran_empty": 0,
+            "hypersparse_setup": 0
+          },
+          "audits": 0,
+          "skips": 0,
+          "fallbacks": 0,
+          "direct_recomputations": 0,
+          "candidate_copies": 0,
+          "endpoint_refreshes": 0,
+          "point_buffer_before_bytes": 0,
+          "point_buffer_retained_bytes": 0
+        },
+        "candidate": {
+          "kernel_calls": {
+            "hypersparse_ftran_sparse": 0,
+            "hypersparse_bfrt_empty": 0,
+            "refactorization": 0,
+            "hypersparse_support": 0,
+            "hypersparse_btran_sparse": 0,
+            "hypersparse_weight_ftran_dense": 0,
+            "hypersparse_pricing_dense": 0,
+            "hypersparse_base_graph": 0,
+            "hypersparse_btran_empty": 0,
+            "hypersparse_weight_btran_sparse": 0,
+            "ftran": 128,
+            "hypersparse_weight_ftran_sparse": 0,
+            "hypersparse_pricing_empty": 0,
+            "hypersparse_bfrt_dense": 0,
+            "hypersparse_ftran_dense": 0,
+            "pricing": 65,
+            "hypersparse_btran_dense": 0,
+            "row_index": 0,
+            "btran": 64,
+            "hypersparse_ftran_empty": 0,
+            "hypersparse_upper_graph": 0,
+            "hypersparse_pricing_sparse": 0,
+            "hypersparse_weight_btran_dense": 0,
+            "hypersparse_weight_ftran_empty": 0,
+            "crash": 0,
+            "hypersparse_bfrt_sparse": 0,
+            "hypersparse_weight_btran_empty": 0,
+            "hypersparse_setup": 0
+          },
+          "audits": 64,
+          "skips": 0,
+          "fallbacks": 64,
+          "direct_recomputations": 64,
+          "candidate_copies": 64,
+          "endpoint_refreshes": 0,
+          "point_buffer_before_bytes": 0,
+          "point_buffer_retained_bytes": 2504
+        }
+      }
+    },
+    {
+      "type": "Float32",
+      "matrix": "sparse",
+      "history": 8,
+      "reject_all": false,
+      "ratio_of_medians": 0.472495788489592,
+      "control_seconds": 0.001107085,
+      "candidate_seconds": 0.000523093,
+      "paired_ratios": [
+        0.472495788489592,
+        0.37686416709075915,
+        0.4995871839162089
+      ],
+      "bytes": {
+        "control": [
+          64,
+          64,
+          64
+        ],
+        "candidate": [
+          2752,
+          2752,
+          2752
+        ]
+      },
+      "allocations": {
+        "control": [
+          2,
+          2,
+          2
+        ],
+        "candidate": [
+          10,
+          10,
+          10
+        ]
+      },
+      "work": {
+        "control": {
+          "kernel_calls": {
+            "hypersparse_ftran_sparse": 0,
+            "hypersparse_bfrt_empty": 0,
+            "refactorization": 0,
+            "hypersparse_support": 0,
+            "hypersparse_btran_sparse": 0,
+            "hypersparse_weight_ftran_dense": 0,
+            "hypersparse_pricing_dense": 0,
+            "hypersparse_base_graph": 0,
+            "hypersparse_btran_empty": 0,
+            "hypersparse_weight_btran_sparse": 0,
+            "ftran": 128,
+            "hypersparse_weight_ftran_sparse": 0,
+            "hypersparse_pricing_empty": 0,
+            "hypersparse_bfrt_dense": 0,
+            "hypersparse_ftran_dense": 0,
+            "pricing": 65,
+            "hypersparse_btran_dense": 0,
+            "row_index": 0,
+            "btran": 64,
+            "hypersparse_ftran_empty": 0,
+            "hypersparse_upper_graph": 0,
+            "hypersparse_pricing_sparse": 0,
+            "hypersparse_weight_btran_dense": 0,
+            "hypersparse_weight_ftran_empty": 0,
+            "crash": 0,
+            "hypersparse_bfrt_sparse": 0,
+            "hypersparse_weight_btran_empty": 0,
+            "hypersparse_setup": 0
+          },
+          "audits": 0,
+          "skips": 0,
+          "fallbacks": 0,
+          "direct_recomputations": 0,
+          "candidate_copies": 0,
+          "endpoint_refreshes": 0,
+          "point_buffer_before_bytes": 0,
+          "point_buffer_retained_bytes": 0
+        },
+        "candidate": {
+          "kernel_calls": {
+            "hypersparse_ftran_sparse": 0,
+            "hypersparse_bfrt_empty": 0,
+            "refactorization": 0,
+            "hypersparse_support": 0,
+            "hypersparse_btran_sparse": 0,
+            "hypersparse_weight_ftran_dense": 0,
+            "hypersparse_pricing_dense": 0,
+            "hypersparse_base_graph": 0,
+            "hypersparse_btran_empty": 0,
+            "hypersparse_weight_btran_sparse": 0,
+            "ftran": 65,
+            "hypersparse_weight_ftran_sparse": 0,
+            "hypersparse_pricing_empty": 0,
+            "hypersparse_bfrt_dense": 0,
+            "hypersparse_ftran_dense": 0,
+            "pricing": 66,
+            "hypersparse_btran_dense": 0,
+            "row_index": 0,
+            "btran": 1,
+            "hypersparse_ftran_empty": 0,
+            "hypersparse_upper_graph": 0,
+            "hypersparse_pricing_sparse": 0,
+            "hypersparse_weight_btran_dense": 0,
+            "hypersparse_weight_ftran_empty": 0,
+            "crash": 0,
+            "hypersparse_bfrt_sparse": 0,
+            "hypersparse_weight_btran_empty": 0,
+            "hypersparse_setup": 0
+          },
+          "audits": 64,
+          "skips": 64,
+          "fallbacks": 0,
+          "direct_recomputations": 1,
+          "candidate_copies": 1,
+          "endpoint_refreshes": 1,
+          "point_buffer_before_bytes": 0,
+          "point_buffer_retained_bytes": 2536
+        }
+      }
+    },
+    {
+      "type": "Float32",
+      "matrix": "sparse",
+      "history": 8,
+      "reject_all": true,
+      "ratio_of_medians": 1.1653803610035698,
+      "control_seconds": 0.001113784,
+      "candidate_seconds": 0.001297982,
+      "paired_ratios": [
+        1.1330236130987457,
+        1.1653803610035698,
+        1.2286628115943348
+      ],
+      "bytes": {
+        "control": [
+          64,
+          64,
+          64
+        ],
+        "candidate": [
+          2752,
+          2752,
+          2752
+        ]
+      },
+      "allocations": {
+        "control": [
+          2,
+          2,
+          2
+        ],
+        "candidate": [
+          10,
+          10,
+          10
+        ]
+      },
+      "work": {
+        "control": {
+          "kernel_calls": {
+            "hypersparse_ftran_sparse": 0,
+            "hypersparse_bfrt_empty": 0,
+            "refactorization": 0,
+            "hypersparse_support": 0,
+            "hypersparse_btran_sparse": 0,
+            "hypersparse_weight_ftran_dense": 0,
+            "hypersparse_pricing_dense": 0,
+            "hypersparse_base_graph": 0,
+            "hypersparse_btran_empty": 0,
+            "hypersparse_weight_btran_sparse": 0,
+            "ftran": 128,
+            "hypersparse_weight_ftran_sparse": 0,
+            "hypersparse_pricing_empty": 0,
+            "hypersparse_bfrt_dense": 0,
+            "hypersparse_ftran_dense": 0,
+            "pricing": 65,
+            "hypersparse_btran_dense": 0,
+            "row_index": 0,
+            "btran": 64,
+            "hypersparse_ftran_empty": 0,
+            "hypersparse_upper_graph": 0,
+            "hypersparse_pricing_sparse": 0,
+            "hypersparse_weight_btran_dense": 0,
+            "hypersparse_weight_ftran_empty": 0,
+            "crash": 0,
+            "hypersparse_bfrt_sparse": 0,
+            "hypersparse_weight_btran_empty": 0,
+            "hypersparse_setup": 0
+          },
+          "audits": 0,
+          "skips": 0,
+          "fallbacks": 0,
+          "direct_recomputations": 0,
+          "candidate_copies": 0,
+          "endpoint_refreshes": 0,
+          "point_buffer_before_bytes": 0,
+          "point_buffer_retained_bytes": 0
+        },
+        "candidate": {
+          "kernel_calls": {
+            "hypersparse_ftran_sparse": 0,
+            "hypersparse_bfrt_empty": 0,
+            "refactorization": 0,
+            "hypersparse_support": 0,
+            "hypersparse_btran_sparse": 0,
+            "hypersparse_weight_ftran_dense": 0,
+            "hypersparse_pricing_dense": 0,
+            "hypersparse_base_graph": 0,
+            "hypersparse_btran_empty": 0,
+            "hypersparse_weight_btran_sparse": 0,
+            "ftran": 128,
+            "hypersparse_weight_ftran_sparse": 0,
+            "hypersparse_pricing_empty": 0,
+            "hypersparse_bfrt_dense": 0,
+            "hypersparse_ftran_dense": 0,
+            "pricing": 65,
+            "hypersparse_btran_dense": 0,
+            "row_index": 0,
+            "btran": 64,
+            "hypersparse_ftran_empty": 0,
+            "hypersparse_upper_graph": 0,
+            "hypersparse_pricing_sparse": 0,
+            "hypersparse_weight_btran_dense": 0,
+            "hypersparse_weight_ftran_empty": 0,
+            "crash": 0,
+            "hypersparse_bfrt_sparse": 0,
+            "hypersparse_weight_btran_empty": 0,
+            "hypersparse_setup": 0
+          },
+          "audits": 64,
+          "skips": 0,
+          "fallbacks": 64,
+          "direct_recomputations": 64,
+          "candidate_copies": 64,
+          "endpoint_refreshes": 0,
+          "point_buffer_before_bytes": 0,
+          "point_buffer_retained_bytes": 2536
+        }
+      }
+    },
+    {
+      "type": "Float32",
+      "matrix": "dense",
+      "history": 0,
+      "reject_all": false,
+      "ratio_of_medians": 1.2817828297935987,
+      "control_seconds": 0.0010029,
+      "candidate_seconds": 0.0012855,
+      "paired_ratios": [
+        1.3088560923296906,
+        1.141550483971228,
+        1.4007378602054046
+      ],
+      "bytes": {
+        "control": [
+          5840,
+          5840,
+          5840
+        ],
+        "candidate": [
+          6880,
+          6880,
+          6880
+        ]
+      },
+      "allocations": {
+        "control": [
+          35,
+          35,
+          35
+        ],
+        "candidate": [
+          43,
+          43,
+          43
+        ]
+      },
+      "work": {
+        "control": {
+          "kernel_calls": {
+            "hypersparse_ftran_sparse": 0,
+            "hypersparse_bfrt_empty": 0,
+            "refactorization": 0,
+            "hypersparse_support": 0,
+            "hypersparse_btran_sparse": 0,
+            "hypersparse_weight_ftran_dense": 0,
+            "hypersparse_pricing_dense": 0,
+            "hypersparse_base_graph": 0,
+            "hypersparse_btran_empty": 0,
+            "hypersparse_weight_btran_sparse": 0,
+            "ftran": 128,
+            "hypersparse_weight_ftran_sparse": 0,
+            "hypersparse_pricing_empty": 0,
+            "hypersparse_bfrt_dense": 0,
+            "hypersparse_ftran_dense": 0,
+            "pricing": 65,
+            "hypersparse_btran_dense": 0,
+            "row_index": 0,
+            "btran": 64,
+            "hypersparse_ftran_empty": 0,
+            "hypersparse_upper_graph": 0,
+            "hypersparse_pricing_sparse": 0,
+            "hypersparse_weight_btran_dense": 0,
+            "hypersparse_weight_ftran_empty": 0,
+            "crash": 0,
+            "hypersparse_bfrt_sparse": 0,
+            "hypersparse_weight_btran_empty": 0,
+            "hypersparse_setup": 0
+          },
+          "audits": 0,
+          "skips": 0,
+          "fallbacks": 0,
+          "direct_recomputations": 0,
+          "candidate_copies": 0,
+          "endpoint_refreshes": 0,
+          "point_buffer_before_bytes": 0,
+          "point_buffer_retained_bytes": 0
+        },
+        "candidate": {
+          "kernel_calls": {
+            "hypersparse_ftran_sparse": 0,
+            "hypersparse_bfrt_empty": 0,
+            "refactorization": 0,
+            "hypersparse_support": 0,
+            "hypersparse_btran_sparse": 0,
+            "hypersparse_weight_ftran_dense": 0,
+            "hypersparse_pricing_dense": 0,
+            "hypersparse_base_graph": 0,
+            "hypersparse_btran_empty": 0,
+            "hypersparse_weight_btran_sparse": 0,
+            "ftran": 65,
+            "hypersparse_weight_ftran_sparse": 0,
+            "hypersparse_pricing_empty": 0,
+            "hypersparse_bfrt_dense": 0,
+            "hypersparse_ftran_dense": 0,
+            "pricing": 66,
+            "hypersparse_btran_dense": 0,
+            "row_index": 0,
+            "btran": 1,
+            "hypersparse_ftran_empty": 0,
+            "hypersparse_upper_graph": 0,
+            "hypersparse_pricing_sparse": 0,
+            "hypersparse_weight_btran_dense": 0,
+            "hypersparse_weight_ftran_empty": 0,
+            "crash": 0,
+            "hypersparse_bfrt_sparse": 0,
+            "hypersparse_weight_btran_empty": 0,
+            "hypersparse_setup": 0
+          },
+          "audits": 64,
+          "skips": 64,
+          "fallbacks": 0,
+          "direct_recomputations": 1,
+          "candidate_copies": 1,
+          "endpoint_refreshes": 1,
+          "point_buffer_before_bytes": 0,
+          "point_buffer_retained_bytes": 968
+        }
+      }
+    },
+    {
+      "type": "Float32",
+      "matrix": "dense",
+      "history": 0,
+      "reject_all": true,
+      "ratio_of_medians": 2.0031235806207417,
+      "control_seconds": 0.0010568,
+      "candidate_seconds": 0.002116901,
+      "paired_ratios": [
+        2.2657402518277823,
+        1.9964988644965933,
+        1.556659313184793
+      ],
+      "bytes": {
+        "control": [
+          5840,
+          5840,
+          5840
+        ],
+        "candidate": [
+          6880,
+          6880,
+          6880
+        ]
+      },
+      "allocations": {
+        "control": [
+          35,
+          35,
+          35
+        ],
+        "candidate": [
+          43,
+          43,
+          43
+        ]
+      },
+      "work": {
+        "control": {
+          "kernel_calls": {
+            "hypersparse_ftran_sparse": 0,
+            "hypersparse_bfrt_empty": 0,
+            "refactorization": 0,
+            "hypersparse_support": 0,
+            "hypersparse_btran_sparse": 0,
+            "hypersparse_weight_ftran_dense": 0,
+            "hypersparse_pricing_dense": 0,
+            "hypersparse_base_graph": 0,
+            "hypersparse_btran_empty": 0,
+            "hypersparse_weight_btran_sparse": 0,
+            "ftran": 128,
+            "hypersparse_weight_ftran_sparse": 0,
+            "hypersparse_pricing_empty": 0,
+            "hypersparse_bfrt_dense": 0,
+            "hypersparse_ftran_dense": 0,
+            "pricing": 65,
+            "hypersparse_btran_dense": 0,
+            "row_index": 0,
+            "btran": 64,
+            "hypersparse_ftran_empty": 0,
+            "hypersparse_upper_graph": 0,
+            "hypersparse_pricing_sparse": 0,
+            "hypersparse_weight_btran_dense": 0,
+            "hypersparse_weight_ftran_empty": 0,
+            "crash": 0,
+            "hypersparse_bfrt_sparse": 0,
+            "hypersparse_weight_btran_empty": 0,
+            "hypersparse_setup": 0
+          },
+          "audits": 0,
+          "skips": 0,
+          "fallbacks": 0,
+          "direct_recomputations": 0,
+          "candidate_copies": 0,
+          "endpoint_refreshes": 0,
+          "point_buffer_before_bytes": 0,
+          "point_buffer_retained_bytes": 0
+        },
+        "candidate": {
+          "kernel_calls": {
+            "hypersparse_ftran_sparse": 0,
+            "hypersparse_bfrt_empty": 0,
+            "refactorization": 0,
+            "hypersparse_support": 0,
+            "hypersparse_btran_sparse": 0,
+            "hypersparse_weight_ftran_dense": 0,
+            "hypersparse_pricing_dense": 0,
+            "hypersparse_base_graph": 0,
+            "hypersparse_btran_empty": 0,
+            "hypersparse_weight_btran_sparse": 0,
+            "ftran": 128,
+            "hypersparse_weight_ftran_sparse": 0,
+            "hypersparse_pricing_empty": 0,
+            "hypersparse_bfrt_dense": 0,
+            "hypersparse_ftran_dense": 0,
+            "pricing": 65,
+            "hypersparse_btran_dense": 0,
+            "row_index": 0,
+            "btran": 64,
+            "hypersparse_ftran_empty": 0,
+            "hypersparse_upper_graph": 0,
+            "hypersparse_pricing_sparse": 0,
+            "hypersparse_weight_btran_dense": 0,
+            "hypersparse_weight_ftran_empty": 0,
+            "crash": 0,
+            "hypersparse_bfrt_sparse": 0,
+            "hypersparse_weight_btran_empty": 0,
+            "hypersparse_setup": 0
+          },
+          "audits": 64,
+          "skips": 0,
+          "fallbacks": 64,
+          "direct_recomputations": 64,
+          "candidate_copies": 64,
+          "endpoint_refreshes": 0,
+          "point_buffer_before_bytes": 0,
+          "point_buffer_retained_bytes": 968
+        }
+      }
+    },
+    {
+      "type": "Float32",
+      "matrix": "dense",
+      "history": 8,
+      "reject_all": false,
+      "ratio_of_medians": 1.218794964116264,
+      "control_seconds": 0.001027903,
+      "candidate_seconds": 0.001252803,
+      "paired_ratios": [
+        1.300029282918719,
+        1.1991536648290055,
+        1.238433456603035
+      ],
+      "bytes": {
+        "control": [
+          64,
+          64,
+          64
+        ],
+        "candidate": [
+          1152,
+          1152,
+          1152
+        ]
+      },
+      "allocations": {
+        "control": [
+          2,
+          2,
+          2
+        ],
+        "candidate": [
+          10,
+          10,
+          10
+        ]
+      },
+      "work": {
+        "control": {
+          "kernel_calls": {
+            "hypersparse_ftran_sparse": 0,
+            "hypersparse_bfrt_empty": 0,
+            "refactorization": 0,
+            "hypersparse_support": 0,
+            "hypersparse_btran_sparse": 0,
+            "hypersparse_weight_ftran_dense": 0,
+            "hypersparse_pricing_dense": 0,
+            "hypersparse_base_graph": 0,
+            "hypersparse_btran_empty": 0,
+            "hypersparse_weight_btran_sparse": 0,
+            "ftran": 128,
+            "hypersparse_weight_ftran_sparse": 0,
+            "hypersparse_pricing_empty": 0,
+            "hypersparse_bfrt_dense": 0,
+            "hypersparse_ftran_dense": 0,
+            "pricing": 65,
+            "hypersparse_btran_dense": 0,
+            "row_index": 0,
+            "btran": 64,
+            "hypersparse_ftran_empty": 0,
+            "hypersparse_upper_graph": 0,
+            "hypersparse_pricing_sparse": 0,
+            "hypersparse_weight_btran_dense": 0,
+            "hypersparse_weight_ftran_empty": 0,
+            "crash": 0,
+            "hypersparse_bfrt_sparse": 0,
+            "hypersparse_weight_btran_empty": 0,
+            "hypersparse_setup": 0
+          },
+          "audits": 0,
+          "skips": 0,
+          "fallbacks": 0,
+          "direct_recomputations": 0,
+          "candidate_copies": 0,
+          "endpoint_refreshes": 0,
+          "point_buffer_before_bytes": 0,
+          "point_buffer_retained_bytes": 0
+        },
+        "candidate": {
+          "kernel_calls": {
+            "hypersparse_ftran_sparse": 0,
+            "hypersparse_bfrt_empty": 0,
+            "refactorization": 0,
+            "hypersparse_support": 0,
+            "hypersparse_btran_sparse": 0,
+            "hypersparse_weight_ftran_dense": 0,
+            "hypersparse_pricing_dense": 0,
+            "hypersparse_base_graph": 0,
+            "hypersparse_btran_empty": 0,
+            "hypersparse_weight_btran_sparse": 0,
+            "ftran": 65,
+            "hypersparse_weight_ftran_sparse": 0,
+            "hypersparse_pricing_empty": 0,
+            "hypersparse_bfrt_dense": 0,
+            "hypersparse_ftran_dense": 0,
+            "pricing": 66,
+            "hypersparse_btran_dense": 0,
+            "row_index": 0,
+            "btran": 1,
+            "hypersparse_ftran_empty": 0,
+            "hypersparse_upper_graph": 0,
+            "hypersparse_pricing_sparse": 0,
+            "hypersparse_weight_btran_dense": 0,
+            "hypersparse_weight_ftran_empty": 0,
+            "crash": 0,
+            "hypersparse_bfrt_sparse": 0,
+            "hypersparse_weight_btran_empty": 0,
+            "hypersparse_setup": 0
+          },
+          "audits": 64,
+          "skips": 64,
+          "fallbacks": 0,
+          "direct_recomputations": 1,
+          "candidate_copies": 1,
+          "endpoint_refreshes": 1,
+          "point_buffer_before_bytes": 0,
+          "point_buffer_retained_bytes": 1000
+        }
+      }
+    },
+    {
+      "type": "Float32",
+      "matrix": "dense",
+      "history": 8,
+      "reject_all": true,
+      "ratio_of_medians": 2.123974730207405,
+      "control_seconds": 0.001035703,
+      "candidate_seconds": 0.002199807,
+      "paired_ratios": [
+        2.222092555057361,
+        1.9772131913920115,
+        2.123974730207405
+      ],
+      "bytes": {
+        "control": [
+          64,
+          64,
+          64
+        ],
+        "candidate": [
+          1152,
+          1152,
+          1152
+        ]
+      },
+      "allocations": {
+        "control": [
+          2,
+          2,
+          2
+        ],
+        "candidate": [
+          10,
+          10,
+          10
+        ]
+      },
+      "work": {
+        "control": {
+          "kernel_calls": {
+            "hypersparse_ftran_sparse": 0,
+            "hypersparse_bfrt_empty": 0,
+            "refactorization": 0,
+            "hypersparse_support": 0,
+            "hypersparse_btran_sparse": 0,
+            "hypersparse_weight_ftran_dense": 0,
+            "hypersparse_pricing_dense": 0,
+            "hypersparse_base_graph": 0,
+            "hypersparse_btran_empty": 0,
+            "hypersparse_weight_btran_sparse": 0,
+            "ftran": 128,
+            "hypersparse_weight_ftran_sparse": 0,
+            "hypersparse_pricing_empty": 0,
+            "hypersparse_bfrt_dense": 0,
+            "hypersparse_ftran_dense": 0,
+            "pricing": 65,
+            "hypersparse_btran_dense": 0,
+            "row_index": 0,
+            "btran": 64,
+            "hypersparse_ftran_empty": 0,
+            "hypersparse_upper_graph": 0,
+            "hypersparse_pricing_sparse": 0,
+            "hypersparse_weight_btran_dense": 0,
+            "hypersparse_weight_ftran_empty": 0,
+            "crash": 0,
+            "hypersparse_bfrt_sparse": 0,
+            "hypersparse_weight_btran_empty": 0,
+            "hypersparse_setup": 0
+          },
+          "audits": 0,
+          "skips": 0,
+          "fallbacks": 0,
+          "direct_recomputations": 0,
+          "candidate_copies": 0,
+          "endpoint_refreshes": 0,
+          "point_buffer_before_bytes": 0,
+          "point_buffer_retained_bytes": 0
+        },
+        "candidate": {
+          "kernel_calls": {
+            "hypersparse_ftran_sparse": 0,
+            "hypersparse_bfrt_empty": 0,
+            "refactorization": 0,
+            "hypersparse_support": 0,
+            "hypersparse_btran_sparse": 0,
+            "hypersparse_weight_ftran_dense": 0,
+            "hypersparse_pricing_dense": 0,
+            "hypersparse_base_graph": 0,
+            "hypersparse_btran_empty": 0,
+            "hypersparse_weight_btran_sparse": 0,
+            "ftran": 128,
+            "hypersparse_weight_ftran_sparse": 0,
+            "hypersparse_pricing_empty": 0,
+            "hypersparse_bfrt_dense": 0,
+            "hypersparse_ftran_dense": 0,
+            "pricing": 65,
+            "hypersparse_btran_dense": 0,
+            "row_index": 0,
+            "btran": 64,
+            "hypersparse_ftran_empty": 0,
+            "hypersparse_upper_graph": 0,
+            "hypersparse_pricing_sparse": 0,
+            "hypersparse_weight_btran_dense": 0,
+            "hypersparse_weight_ftran_empty": 0,
+            "crash": 0,
+            "hypersparse_bfrt_sparse": 0,
+            "hypersparse_weight_btran_empty": 0,
+            "hypersparse_setup": 0
+          },
+          "audits": 64,
+          "skips": 0,
+          "fallbacks": 64,
+          "direct_recomputations": 64,
+          "candidate_copies": 64,
+          "endpoint_refreshes": 0,
+          "point_buffer_before_bytes": 0,
+          "point_buffer_retained_bytes": 1000
+        }
+      }
+    },
+    {
+      "type": "Float64",
+      "matrix": "sparse",
+      "history": 0,
+      "reject_all": false,
+      "ratio_of_medians": 0.7529233533147863,
+      "control_seconds": 0.000504301,
+      "candidate_seconds": 0.0003797,
+      "paired_ratios": [
+        0.3278357723323713,
+        0.7529233533147863,
+        0.7388124129699621
+      ],
+      "bytes": {
+        "control": [
+          32072,
+          32072,
+          32072
+        ],
+        "candidate": [
+          36968,
+          36968,
+          36968
+        ]
+      },
+      "allocations": {
+        "control": [
+          50,
+          50,
+          50
+        ],
+        "candidate": [
+          60,
+          60,
+          60
+        ]
+      },
+      "work": {
+        "control": {
+          "kernel_calls": {
+            "hypersparse_ftran_sparse": 0,
+            "hypersparse_bfrt_empty": 0,
+            "refactorization": 0,
+            "hypersparse_support": 0,
+            "hypersparse_btran_sparse": 0,
+            "hypersparse_weight_ftran_dense": 0,
+            "hypersparse_pricing_dense": 0,
+            "hypersparse_base_graph": 0,
+            "hypersparse_btran_empty": 0,
+            "hypersparse_weight_btran_sparse": 0,
+            "ftran": 128,
+            "hypersparse_weight_ftran_sparse": 0,
+            "hypersparse_pricing_empty": 0,
+            "hypersparse_bfrt_dense": 0,
+            "hypersparse_ftran_dense": 0,
+            "pricing": 65,
+            "hypersparse_btran_dense": 0,
+            "row_index": 0,
+            "btran": 64,
+            "hypersparse_ftran_empty": 0,
+            "hypersparse_upper_graph": 0,
+            "hypersparse_pricing_sparse": 0,
+            "hypersparse_weight_btran_dense": 0,
+            "hypersparse_weight_ftran_empty": 0,
+            "crash": 0,
+            "hypersparse_bfrt_sparse": 0,
+            "hypersparse_weight_btran_empty": 0,
+            "hypersparse_setup": 0
+          },
+          "audits": 0,
+          "skips": 0,
+          "fallbacks": 0,
+          "direct_recomputations": 0,
+          "candidate_copies": 0,
+          "endpoint_refreshes": 0,
+          "point_buffer_before_bytes": 0,
+          "point_buffer_retained_bytes": 0
+        },
+        "candidate": {
+          "kernel_calls": {
+            "hypersparse_ftran_sparse": 0,
+            "hypersparse_bfrt_empty": 0,
+            "refactorization": 0,
+            "hypersparse_support": 0,
+            "hypersparse_btran_sparse": 0,
+            "hypersparse_weight_ftran_dense": 0,
+            "hypersparse_pricing_dense": 0,
+            "hypersparse_base_graph": 0,
+            "hypersparse_btran_empty": 0,
+            "hypersparse_weight_btran_sparse": 0,
+            "ftran": 65,
+            "hypersparse_weight_ftran_sparse": 0,
+            "hypersparse_pricing_empty": 0,
+            "hypersparse_bfrt_dense": 0,
+            "hypersparse_ftran_dense": 0,
+            "pricing": 66,
+            "hypersparse_btran_dense": 0,
+            "row_index": 0,
+            "btran": 1,
+            "hypersparse_ftran_empty": 0,
+            "hypersparse_upper_graph": 0,
+            "hypersparse_pricing_sparse": 0,
+            "hypersparse_weight_btran_dense": 0,
+            "hypersparse_weight_ftran_empty": 0,
+            "crash": 0,
+            "hypersparse_bfrt_sparse": 0,
+            "hypersparse_weight_btran_empty": 0,
+            "hypersparse_setup": 0
+          },
+          "audits": 64,
+          "skips": 64,
+          "fallbacks": 0,
+          "direct_recomputations": 1,
+          "candidate_copies": 1,
+          "endpoint_refreshes": 1,
+          "point_buffer_before_bytes": 0,
+          "point_buffer_retained_bytes": 4808
+        }
+      }
+    },
+    {
+      "type": "Float64",
+      "matrix": "sparse",
+      "history": 0,
+      "reject_all": true,
+      "ratio_of_medians": 1.4267969863571575,
+      "control_seconds": 0.0004911,
+      "candidate_seconds": 0.0007007,
+      "paired_ratios": [
+        1.436165750356343,
+        1.3963651215029609,
+        1.3969298245614032
+      ],
+      "bytes": {
+        "control": [
+          32072,
+          32072,
+          32072
+        ],
+        "candidate": [
+          36968,
+          36968,
+          36968
+        ]
+      },
+      "allocations": {
+        "control": [
+          50,
+          50,
+          50
+        ],
+        "candidate": [
+          60,
+          60,
+          60
+        ]
+      },
+      "work": {
+        "control": {
+          "kernel_calls": {
+            "hypersparse_ftran_sparse": 0,
+            "hypersparse_bfrt_empty": 0,
+            "refactorization": 0,
+            "hypersparse_support": 0,
+            "hypersparse_btran_sparse": 0,
+            "hypersparse_weight_ftran_dense": 0,
+            "hypersparse_pricing_dense": 0,
+            "hypersparse_base_graph": 0,
+            "hypersparse_btran_empty": 0,
+            "hypersparse_weight_btran_sparse": 0,
+            "ftran": 128,
+            "hypersparse_weight_ftran_sparse": 0,
+            "hypersparse_pricing_empty": 0,
+            "hypersparse_bfrt_dense": 0,
+            "hypersparse_ftran_dense": 0,
+            "pricing": 65,
+            "hypersparse_btran_dense": 0,
+            "row_index": 0,
+            "btran": 64,
+            "hypersparse_ftran_empty": 0,
+            "hypersparse_upper_graph": 0,
+            "hypersparse_pricing_sparse": 0,
+            "hypersparse_weight_btran_dense": 0,
+            "hypersparse_weight_ftran_empty": 0,
+            "crash": 0,
+            "hypersparse_bfrt_sparse": 0,
+            "hypersparse_weight_btran_empty": 0,
+            "hypersparse_setup": 0
+          },
+          "audits": 0,
+          "skips": 0,
+          "fallbacks": 0,
+          "direct_recomputations": 0,
+          "candidate_copies": 0,
+          "endpoint_refreshes": 0,
+          "point_buffer_before_bytes": 0,
+          "point_buffer_retained_bytes": 0
+        },
+        "candidate": {
+          "kernel_calls": {
+            "hypersparse_ftran_sparse": 0,
+            "hypersparse_bfrt_empty": 0,
+            "refactorization": 0,
+            "hypersparse_support": 0,
+            "hypersparse_btran_sparse": 0,
+            "hypersparse_weight_ftran_dense": 0,
+            "hypersparse_pricing_dense": 0,
+            "hypersparse_base_graph": 0,
+            "hypersparse_btran_empty": 0,
+            "hypersparse_weight_btran_sparse": 0,
+            "ftran": 128,
+            "hypersparse_weight_ftran_sparse": 0,
+            "hypersparse_pricing_empty": 0,
+            "hypersparse_bfrt_dense": 0,
+            "hypersparse_ftran_dense": 0,
+            "pricing": 65,
+            "hypersparse_btran_dense": 0,
+            "row_index": 0,
+            "btran": 64,
+            "hypersparse_ftran_empty": 0,
+            "hypersparse_upper_graph": 0,
+            "hypersparse_pricing_sparse": 0,
+            "hypersparse_weight_btran_dense": 0,
+            "hypersparse_weight_ftran_empty": 0,
+            "crash": 0,
+            "hypersparse_bfrt_sparse": 0,
+            "hypersparse_weight_btran_empty": 0,
+            "hypersparse_setup": 0
+          },
+          "audits": 64,
+          "skips": 0,
+          "fallbacks": 64,
+          "direct_recomputations": 64,
+          "candidate_copies": 64,
+          "endpoint_refreshes": 0,
+          "point_buffer_before_bytes": 0,
+          "point_buffer_retained_bytes": 4808
+        }
+      }
+    },
+    {
+      "type": "Float64",
+      "matrix": "sparse",
+      "history": 8,
+      "reject_all": false,
+      "ratio_of_medians": 0.7392595525638488,
+      "control_seconds": 0.0005051,
+      "candidate_seconds": 0.0003734,
+      "paired_ratios": [
+        1.567782852397758,
+        0.7392595525638488,
+        0.6915547024952016
+      ],
+      "bytes": {
+        "control": [
+          64,
+          64,
+          64
+        ],
+        "candidate": [
+          5040,
+          5040,
+          5040
+        ]
+      },
+      "allocations": {
+        "control": [
+          2,
+          2,
+          2
+        ],
+        "candidate": [
+          12,
+          12,
+          12
+        ]
+      },
+      "work": {
+        "control": {
+          "kernel_calls": {
+            "hypersparse_ftran_sparse": 0,
+            "hypersparse_bfrt_empty": 0,
+            "refactorization": 0,
+            "hypersparse_support": 0,
+            "hypersparse_btran_sparse": 0,
+            "hypersparse_weight_ftran_dense": 0,
+            "hypersparse_pricing_dense": 0,
+            "hypersparse_base_graph": 0,
+            "hypersparse_btran_empty": 0,
+            "hypersparse_weight_btran_sparse": 0,
+            "ftran": 128,
+            "hypersparse_weight_ftran_sparse": 0,
+            "hypersparse_pricing_empty": 0,
+            "hypersparse_bfrt_dense": 0,
+            "hypersparse_ftran_dense": 0,
+            "pricing": 65,
+            "hypersparse_btran_dense": 0,
+            "row_index": 0,
+            "btran": 64,
+            "hypersparse_ftran_empty": 0,
+            "hypersparse_upper_graph": 0,
+            "hypersparse_pricing_sparse": 0,
+            "hypersparse_weight_btran_dense": 0,
+            "hypersparse_weight_ftran_empty": 0,
+            "crash": 0,
+            "hypersparse_bfrt_sparse": 0,
+            "hypersparse_weight_btran_empty": 0,
+            "hypersparse_setup": 0
+          },
+          "audits": 0,
+          "skips": 0,
+          "fallbacks": 0,
+          "direct_recomputations": 0,
+          "candidate_copies": 0,
+          "endpoint_refreshes": 0,
+          "point_buffer_before_bytes": 0,
+          "point_buffer_retained_bytes": 0
+        },
+        "candidate": {
+          "kernel_calls": {
+            "hypersparse_ftran_sparse": 0,
+            "hypersparse_bfrt_empty": 0,
+            "refactorization": 0,
+            "hypersparse_support": 0,
+            "hypersparse_btran_sparse": 0,
+            "hypersparse_weight_ftran_dense": 0,
+            "hypersparse_pricing_dense": 0,
+            "hypersparse_base_graph": 0,
+            "hypersparse_btran_empty": 0,
+            "hypersparse_weight_btran_sparse": 0,
+            "ftran": 65,
+            "hypersparse_weight_ftran_sparse": 0,
+            "hypersparse_pricing_empty": 0,
+            "hypersparse_bfrt_dense": 0,
+            "hypersparse_ftran_dense": 0,
+            "pricing": 66,
+            "hypersparse_btran_dense": 0,
+            "row_index": 0,
+            "btran": 1,
+            "hypersparse_ftran_empty": 0,
+            "hypersparse_upper_graph": 0,
+            "hypersparse_pricing_sparse": 0,
+            "hypersparse_weight_btran_dense": 0,
+            "hypersparse_weight_ftran_empty": 0,
+            "crash": 0,
+            "hypersparse_bfrt_sparse": 0,
+            "hypersparse_weight_btran_empty": 0,
+            "hypersparse_setup": 0
+          },
+          "audits": 64,
+          "skips": 64,
+          "fallbacks": 0,
+          "direct_recomputations": 1,
+          "candidate_copies": 1,
+          "endpoint_refreshes": 1,
+          "point_buffer_before_bytes": 0,
+          "point_buffer_retained_bytes": 4872
+        }
+      }
+    },
+    {
+      "type": "Float64",
+      "matrix": "sparse",
+      "history": 8,
+      "reject_all": true,
+      "ratio_of_medians": 1.4070655903128155,
+      "control_seconds": 0.0004955,
+      "candidate_seconds": 0.000697201,
+      "paired_ratios": [
+        1.3918172609400326,
+        1.4172185430463575,
+        1.4070655903128155
+      ],
+      "bytes": {
+        "control": [
+          64,
+          64,
+          64
+        ],
+        "candidate": [
+          5040,
+          5040,
+          5040
+        ]
+      },
+      "allocations": {
+        "control": [
+          2,
+          2,
+          2
+        ],
+        "candidate": [
+          12,
+          12,
+          12
+        ]
+      },
+      "work": {
+        "control": {
+          "kernel_calls": {
+            "hypersparse_ftran_sparse": 0,
+            "hypersparse_bfrt_empty": 0,
+            "refactorization": 0,
+            "hypersparse_support": 0,
+            "hypersparse_btran_sparse": 0,
+            "hypersparse_weight_ftran_dense": 0,
+            "hypersparse_pricing_dense": 0,
+            "hypersparse_base_graph": 0,
+            "hypersparse_btran_empty": 0,
+            "hypersparse_weight_btran_sparse": 0,
+            "ftran": 128,
+            "hypersparse_weight_ftran_sparse": 0,
+            "hypersparse_pricing_empty": 0,
+            "hypersparse_bfrt_dense": 0,
+            "hypersparse_ftran_dense": 0,
+            "pricing": 65,
+            "hypersparse_btran_dense": 0,
+            "row_index": 0,
+            "btran": 64,
+            "hypersparse_ftran_empty": 0,
+            "hypersparse_upper_graph": 0,
+            "hypersparse_pricing_sparse": 0,
+            "hypersparse_weight_btran_dense": 0,
+            "hypersparse_weight_ftran_empty": 0,
+            "crash": 0,
+            "hypersparse_bfrt_sparse": 0,
+            "hypersparse_weight_btran_empty": 0,
+            "hypersparse_setup": 0
+          },
+          "audits": 0,
+          "skips": 0,
+          "fallbacks": 0,
+          "direct_recomputations": 0,
+          "candidate_copies": 0,
+          "endpoint_refreshes": 0,
+          "point_buffer_before_bytes": 0,
+          "point_buffer_retained_bytes": 0
+        },
+        "candidate": {
+          "kernel_calls": {
+            "hypersparse_ftran_sparse": 0,
+            "hypersparse_bfrt_empty": 0,
+            "refactorization": 0,
+            "hypersparse_support": 0,
+            "hypersparse_btran_sparse": 0,
+            "hypersparse_weight_ftran_dense": 0,
+            "hypersparse_pricing_dense": 0,
+            "hypersparse_base_graph": 0,
+            "hypersparse_btran_empty": 0,
+            "hypersparse_weight_btran_sparse": 0,
+            "ftran": 128,
+            "hypersparse_weight_ftran_sparse": 0,
+            "hypersparse_pricing_empty": 0,
+            "hypersparse_bfrt_dense": 0,
+            "hypersparse_ftran_dense": 0,
+            "pricing": 65,
+            "hypersparse_btran_dense": 0,
+            "row_index": 0,
+            "btran": 64,
+            "hypersparse_ftran_empty": 0,
+            "hypersparse_upper_graph": 0,
+            "hypersparse_pricing_sparse": 0,
+            "hypersparse_weight_btran_dense": 0,
+            "hypersparse_weight_ftran_empty": 0,
+            "crash": 0,
+            "hypersparse_bfrt_sparse": 0,
+            "hypersparse_weight_btran_empty": 0,
+            "hypersparse_setup": 0
+          },
+          "audits": 64,
+          "skips": 0,
+          "fallbacks": 64,
+          "direct_recomputations": 64,
+          "candidate_copies": 64,
+          "endpoint_refreshes": 0,
+          "point_buffer_before_bytes": 0,
+          "point_buffer_retained_bytes": 4872
+        }
+      }
+    },
+    {
+      "type": "Float64",
+      "matrix": "dense",
+      "history": 0,
+      "reject_all": false,
+      "ratio_of_medians": 1.302120825295057,
+      "control_seconds": 0.000937701,
+      "candidate_seconds": 0.001221,
+      "paired_ratios": [
+        1.302120825295057,
+        1.6460009169541359,
+        1.317157368763682
+      ],
+      "bytes": {
+        "control": [
+          8912,
+          8912,
+          8912
+        ],
+        "candidate": [
+          10720,
+          10720,
+          10720
+        ]
+      },
+      "allocations": {
+        "control": [
+          35,
+          35,
+          35
+        ],
+        "candidate": [
+          43,
+          43,
+          43
+        ]
+      },
+      "work": {
+        "control": {
+          "kernel_calls": {
+            "hypersparse_ftran_sparse": 0,
+            "hypersparse_bfrt_empty": 0,
+            "refactorization": 0,
+            "hypersparse_support": 0,
+            "hypersparse_btran_sparse": 0,
+            "hypersparse_weight_ftran_dense": 0,
+            "hypersparse_pricing_dense": 0,
+            "hypersparse_base_graph": 0,
+            "hypersparse_btran_empty": 0,
+            "hypersparse_weight_btran_sparse": 0,
+            "ftran": 128,
+            "hypersparse_weight_ftran_sparse": 0,
+            "hypersparse_pricing_empty": 0,
+            "hypersparse_bfrt_dense": 0,
+            "hypersparse_ftran_dense": 0,
+            "pricing": 65,
+            "hypersparse_btran_dense": 0,
+            "row_index": 0,
+            "btran": 64,
+            "hypersparse_ftran_empty": 0,
+            "hypersparse_upper_graph": 0,
+            "hypersparse_pricing_sparse": 0,
+            "hypersparse_weight_btran_dense": 0,
+            "hypersparse_weight_ftran_empty": 0,
+            "crash": 0,
+            "hypersparse_bfrt_sparse": 0,
+            "hypersparse_weight_btran_empty": 0,
+            "hypersparse_setup": 0
+          },
+          "audits": 0,
+          "skips": 0,
+          "fallbacks": 0,
+          "direct_recomputations": 0,
+          "candidate_copies": 0,
+          "endpoint_refreshes": 0,
+          "point_buffer_before_bytes": 0,
+          "point_buffer_retained_bytes": 0
+        },
+        "candidate": {
+          "kernel_calls": {
+            "hypersparse_ftran_sparse": 0,
+            "hypersparse_bfrt_empty": 0,
+            "refactorization": 0,
+            "hypersparse_support": 0,
+            "hypersparse_btran_sparse": 0,
+            "hypersparse_weight_ftran_dense": 0,
+            "hypersparse_pricing_dense": 0,
+            "hypersparse_base_graph": 0,
+            "hypersparse_btran_empty": 0,
+            "hypersparse_weight_btran_sparse": 0,
+            "ftran": 65,
+            "hypersparse_weight_ftran_sparse": 0,
+            "hypersparse_pricing_empty": 0,
+            "hypersparse_bfrt_dense": 0,
+            "hypersparse_ftran_dense": 0,
+            "pricing": 66,
+            "hypersparse_btran_dense": 0,
+            "row_index": 0,
+            "btran": 1,
+            "hypersparse_ftran_empty": 0,
+            "hypersparse_upper_graph": 0,
+            "hypersparse_pricing_sparse": 0,
+            "hypersparse_weight_btran_dense": 0,
+            "hypersparse_weight_ftran_empty": 0,
+            "crash": 0,
+            "hypersparse_bfrt_sparse": 0,
+            "hypersparse_weight_btran_empty": 0,
+            "hypersparse_setup": 0
+          },
+          "audits": 64,
+          "skips": 64,
+          "fallbacks": 0,
+          "direct_recomputations": 1,
+          "candidate_copies": 1,
+          "endpoint_refreshes": 1,
+          "point_buffer_before_bytes": 0,
+          "point_buffer_retained_bytes": 1736
+        }
+      }
+    },
+    {
+      "type": "Float64",
+      "matrix": "dense",
+      "history": 0,
+      "reject_all": true,
+      "ratio_of_medians": 2.20222512452725,
+      "control_seconds": 0.000925701,
+      "candidate_seconds": 0.002038602,
+      "paired_ratios": [
+        2.1921222888138723,
+        2.20222512452725,
+        2.652091173515678
+      ],
+      "bytes": {
+        "control": [
+          8912,
+          8912,
+          8912
+        ],
+        "candidate": [
+          10720,
+          10720,
+          10720
+        ]
+      },
+      "allocations": {
+        "control": [
+          35,
+          35,
+          35
+        ],
+        "candidate": [
+          43,
+          43,
+          43
+        ]
+      },
+      "work": {
+        "control": {
+          "kernel_calls": {
+            "hypersparse_ftran_sparse": 0,
+            "hypersparse_bfrt_empty": 0,
+            "refactorization": 0,
+            "hypersparse_support": 0,
+            "hypersparse_btran_sparse": 0,
+            "hypersparse_weight_ftran_dense": 0,
+            "hypersparse_pricing_dense": 0,
+            "hypersparse_base_graph": 0,
+            "hypersparse_btran_empty": 0,
+            "hypersparse_weight_btran_sparse": 0,
+            "ftran": 128,
+            "hypersparse_weight_ftran_sparse": 0,
+            "hypersparse_pricing_empty": 0,
+            "hypersparse_bfrt_dense": 0,
+            "hypersparse_ftran_dense": 0,
+            "pricing": 65,
+            "hypersparse_btran_dense": 0,
+            "row_index": 0,
+            "btran": 64,
+            "hypersparse_ftran_empty": 0,
+            "hypersparse_upper_graph": 0,
+            "hypersparse_pricing_sparse": 0,
+            "hypersparse_weight_btran_dense": 0,
+            "hypersparse_weight_ftran_empty": 0,
+            "crash": 0,
+            "hypersparse_bfrt_sparse": 0,
+            "hypersparse_weight_btran_empty": 0,
+            "hypersparse_setup": 0
+          },
+          "audits": 0,
+          "skips": 0,
+          "fallbacks": 0,
+          "direct_recomputations": 0,
+          "candidate_copies": 0,
+          "endpoint_refreshes": 0,
+          "point_buffer_before_bytes": 0,
+          "point_buffer_retained_bytes": 0
+        },
+        "candidate": {
+          "kernel_calls": {
+            "hypersparse_ftran_sparse": 0,
+            "hypersparse_bfrt_empty": 0,
+            "refactorization": 0,
+            "hypersparse_support": 0,
+            "hypersparse_btran_sparse": 0,
+            "hypersparse_weight_ftran_dense": 0,
+            "hypersparse_pricing_dense": 0,
+            "hypersparse_base_graph": 0,
+            "hypersparse_btran_empty": 0,
+            "hypersparse_weight_btran_sparse": 0,
+            "ftran": 128,
+            "hypersparse_weight_ftran_sparse": 0,
+            "hypersparse_pricing_empty": 0,
+            "hypersparse_bfrt_dense": 0,
+            "hypersparse_ftran_dense": 0,
+            "pricing": 65,
+            "hypersparse_btran_dense": 0,
+            "row_index": 0,
+            "btran": 64,
+            "hypersparse_ftran_empty": 0,
+            "hypersparse_upper_graph": 0,
+            "hypersparse_pricing_sparse": 0,
+            "hypersparse_weight_btran_dense": 0,
+            "hypersparse_weight_ftran_empty": 0,
+            "crash": 0,
+            "hypersparse_bfrt_sparse": 0,
+            "hypersparse_weight_btran_empty": 0,
+            "hypersparse_setup": 0
+          },
+          "audits": 64,
+          "skips": 0,
+          "fallbacks": 64,
+          "direct_recomputations": 64,
+          "candidate_copies": 64,
+          "endpoint_refreshes": 0,
+          "point_buffer_before_bytes": 0,
+          "point_buffer_retained_bytes": 1736
+        }
+      }
+    },
+    {
+      "type": "Float64",
+      "matrix": "dense",
+      "history": 8,
+      "reject_all": false,
+      "ratio_of_medians": 1.29970295743072,
+      "control_seconds": 0.000977301,
+      "candidate_seconds": 0.001270201,
+      "paired_ratios": [
+        1.29970295743072,
+        1.249750199889998,
+        1.5167666740618826
+      ],
+      "bytes": {
+        "control": [
+          64,
+          64,
+          64
+        ],
+        "candidate": [
+          1952,
+          1952,
+          1952
+        ]
+      },
+      "allocations": {
+        "control": [
+          2,
+          2,
+          2
+        ],
+        "candidate": [
+          10,
+          10,
+          10
+        ]
+      },
+      "work": {
+        "control": {
+          "kernel_calls": {
+            "hypersparse_ftran_sparse": 0,
+            "hypersparse_bfrt_empty": 0,
+            "refactorization": 0,
+            "hypersparse_support": 0,
+            "hypersparse_btran_sparse": 0,
+            "hypersparse_weight_ftran_dense": 0,
+            "hypersparse_pricing_dense": 0,
+            "hypersparse_base_graph": 0,
+            "hypersparse_btran_empty": 0,
+            "hypersparse_weight_btran_sparse": 0,
+            "ftran": 128,
+            "hypersparse_weight_ftran_sparse": 0,
+            "hypersparse_pricing_empty": 0,
+            "hypersparse_bfrt_dense": 0,
+            "hypersparse_ftran_dense": 0,
+            "pricing": 65,
+            "hypersparse_btran_dense": 0,
+            "row_index": 0,
+            "btran": 64,
+            "hypersparse_ftran_empty": 0,
+            "hypersparse_upper_graph": 0,
+            "hypersparse_pricing_sparse": 0,
+            "hypersparse_weight_btran_dense": 0,
+            "hypersparse_weight_ftran_empty": 0,
+            "crash": 0,
+            "hypersparse_bfrt_sparse": 0,
+            "hypersparse_weight_btran_empty": 0,
+            "hypersparse_setup": 0
+          },
+          "audits": 0,
+          "skips": 0,
+          "fallbacks": 0,
+          "direct_recomputations": 0,
+          "candidate_copies": 0,
+          "endpoint_refreshes": 0,
+          "point_buffer_before_bytes": 0,
+          "point_buffer_retained_bytes": 0
+        },
+        "candidate": {
+          "kernel_calls": {
+            "hypersparse_ftran_sparse": 0,
+            "hypersparse_bfrt_empty": 0,
+            "refactorization": 0,
+            "hypersparse_support": 0,
+            "hypersparse_btran_sparse": 0,
+            "hypersparse_weight_ftran_dense": 0,
+            "hypersparse_pricing_dense": 0,
+            "hypersparse_base_graph": 0,
+            "hypersparse_btran_empty": 0,
+            "hypersparse_weight_btran_sparse": 0,
+            "ftran": 65,
+            "hypersparse_weight_ftran_sparse": 0,
+            "hypersparse_pricing_empty": 0,
+            "hypersparse_bfrt_dense": 0,
+            "hypersparse_ftran_dense": 0,
+            "pricing": 66,
+            "hypersparse_btran_dense": 0,
+            "row_index": 0,
+            "btran": 1,
+            "hypersparse_ftran_empty": 0,
+            "hypersparse_upper_graph": 0,
+            "hypersparse_pricing_sparse": 0,
+            "hypersparse_weight_btran_dense": 0,
+            "hypersparse_weight_ftran_empty": 0,
+            "crash": 0,
+            "hypersparse_bfrt_sparse": 0,
+            "hypersparse_weight_btran_empty": 0,
+            "hypersparse_setup": 0
+          },
+          "audits": 64,
+          "skips": 64,
+          "fallbacks": 0,
+          "direct_recomputations": 1,
+          "candidate_copies": 1,
+          "endpoint_refreshes": 1,
+          "point_buffer_before_bytes": 0,
+          "point_buffer_retained_bytes": 1800
+        }
+      }
+    },
+    {
+      "type": "Float64",
+      "matrix": "dense",
+      "history": 8,
+      "reject_all": true,
+      "ratio_of_medians": 2.1905828052158984,
+      "control_seconds": 0.000972795,
+      "candidate_seconds": 0.002130988,
+      "paired_ratios": [
+        2.196235589204303,
+        2.1356993527722152,
+        2.191238916658229
+      ],
+      "bytes": {
+        "control": [
+          64,
+          64,
+          64
+        ],
+        "candidate": [
+          1952,
+          1952,
+          1952
+        ]
+      },
+      "allocations": {
+        "control": [
+          2,
+          2,
+          2
+        ],
+        "candidate": [
+          10,
+          10,
+          10
+        ]
+      },
+      "work": {
+        "control": {
+          "kernel_calls": {
+            "hypersparse_ftran_sparse": 0,
+            "hypersparse_bfrt_empty": 0,
+            "refactorization": 0,
+            "hypersparse_support": 0,
+            "hypersparse_btran_sparse": 0,
+            "hypersparse_weight_ftran_dense": 0,
+            "hypersparse_pricing_dense": 0,
+            "hypersparse_base_graph": 0,
+            "hypersparse_btran_empty": 0,
+            "hypersparse_weight_btran_sparse": 0,
+            "ftran": 128,
+            "hypersparse_weight_ftran_sparse": 0,
+            "hypersparse_pricing_empty": 0,
+            "hypersparse_bfrt_dense": 0,
+            "hypersparse_ftran_dense": 0,
+            "pricing": 65,
+            "hypersparse_btran_dense": 0,
+            "row_index": 0,
+            "btran": 64,
+            "hypersparse_ftran_empty": 0,
+            "hypersparse_upper_graph": 0,
+            "hypersparse_pricing_sparse": 0,
+            "hypersparse_weight_btran_dense": 0,
+            "hypersparse_weight_ftran_empty": 0,
+            "crash": 0,
+            "hypersparse_bfrt_sparse": 0,
+            "hypersparse_weight_btran_empty": 0,
+            "hypersparse_setup": 0
+          },
+          "audits": 0,
+          "skips": 0,
+          "fallbacks": 0,
+          "direct_recomputations": 0,
+          "candidate_copies": 0,
+          "endpoint_refreshes": 0,
+          "point_buffer_before_bytes": 0,
+          "point_buffer_retained_bytes": 0
+        },
+        "candidate": {
+          "kernel_calls": {
+            "hypersparse_ftran_sparse": 0,
+            "hypersparse_bfrt_empty": 0,
+            "refactorization": 0,
+            "hypersparse_support": 0,
+            "hypersparse_btran_sparse": 0,
+            "hypersparse_weight_ftran_dense": 0,
+            "hypersparse_pricing_dense": 0,
+            "hypersparse_base_graph": 0,
+            "hypersparse_btran_empty": 0,
+            "hypersparse_weight_btran_sparse": 0,
+            "ftran": 128,
+            "hypersparse_weight_ftran_sparse": 0,
+            "hypersparse_pricing_empty": 0,
+            "hypersparse_bfrt_dense": 0,
+            "hypersparse_ftran_dense": 0,
+            "pricing": 65,
+            "hypersparse_btran_dense": 0,
+            "row_index": 0,
+            "btran": 64,
+            "hypersparse_ftran_empty": 0,
+            "hypersparse_upper_graph": 0,
+            "hypersparse_pricing_sparse": 0,
+            "hypersparse_weight_btran_dense": 0,
+            "hypersparse_weight_ftran_empty": 0,
+            "crash": 0,
+            "hypersparse_bfrt_sparse": 0,
+            "hypersparse_weight_btran_empty": 0,
+            "hypersparse_setup": 0
+          },
+          "audits": 64,
+          "skips": 0,
+          "fallbacks": 64,
+          "direct_recomputations": 64,
+          "candidate_copies": 64,
+          "endpoint_refreshes": 0,
+          "point_buffer_before_bytes": 0,
+          "point_buffer_retained_bytes": 1800
+        }
+      }
+    }
+  ]
+}

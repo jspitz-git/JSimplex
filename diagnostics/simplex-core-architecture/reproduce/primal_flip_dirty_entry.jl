@@ -12,7 +12,8 @@ try
         c=FA.FlipAuditContext(f.ws);stop=FA.PF.deadline(f.ws,f.diagnostics)
         @test isnothing(FA._flip_iteration!(c,f.ws,stop,f.ws.options.dual_tolerance))
         @test c.dirty && c.skips==1 && f.ws.iterations==1
-        f.ws.primal[end]=fault==:nonfinite ? NaN : -1.0
+        f.ws.primal[end]=fault==:nonfinite ? NaN : 6.0
+        @test fault==:nonfinite ? !JS._finite_workspace(f.ws) : !JS._primal_feasible(f.ws)
         final_stop=expired ? JS._guard_stop_callback(()->true) : stop
         terminal=FA._flip_optimize!(c,f.ws,final_stop,f.ws.options.dual_tolerance;perturb_degenerate=false)
         run=JS._internal_solution(f.ws,terminal)

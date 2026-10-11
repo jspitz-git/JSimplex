@@ -3,7 +3,8 @@
 > **For agentic workers:** Use superpowers:executing-plans sequentially.
 
 **Status:** Control census1000, work RED/GREEN12 and candidate matrix960 accepted.
-Private fault/scope qualification active; no production/default change.
+Safety139, dirty-entry26, focused10381 and cost128 completed.
+Proposed broad eligibility rejected by cost gate; independent review pending.
 
 **Goal:** Test whether an unchanged-basis bound flip can avoid reconstructing
 both primal values and unchanged prices when an independently certified predicted
@@ -158,7 +159,7 @@ The observer must own no live workspace after its run.
 - [ ] Separate trace state comparisons where arithmetic is unchanged from changed
   predicted trajectories. On changed trajectories compare valid outcomes and
   independent certificates; never claim fewer iterations as kernel savings.
-- [ ] Warm separately; at least three interleaved pairs on representative sparse
+- [x] Warm separately; at least three interleaved pairs on representative sparse
   and dense flip histories, including a rejection-heavy case and update chains.
   Count the full certificate and fallback cost, setup/compilation separately.
 - [ ] Reuse existing medium/runtime evidence only where it actually covers this
@@ -363,3 +364,14 @@ each precision/density/history/rejection combination. Reject-all executes the
 real full certificate before forcing its failure. Report initialization, warmup,
 compilation, allocations and endpoint work separately. No retained growing trace.
 This is a bounded PFI cost probe, not all-manager or whole-medium performance.
+
+
+A3 cost ruling: reject the proposed broad eligibility rather than infer a new
+sparsity threshold from these samples. All four dense accepted cases regress
+22–30%; reject-all is1.1–2.2x control. Sparse medians improve but samples are
+short/noisy and no all-manager or long-path saving follows. Additional broad
+numerical qualification (degenerate/ill-conditioned trajectories, long origins)
+is not required to reject this candidate; it remains mandatory for any future
+production proposal. No safeguards are removed and no new density policy added.
+Cost if too conservative: a useful narrow sparse specialization is deferred,
+with its exact evidence preserved in S2-FLIPS.md/results/S2-A.

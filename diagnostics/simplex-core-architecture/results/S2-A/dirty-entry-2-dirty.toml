@@ -1,0 +1,28 @@
+[[cases]]
+iterations = 4
+fault = "nonfinite"
+status = "OPTIMAL"
+expired = false
+refreshes = 2
+[[cases]]
+iterations = 1
+fault = "nonfinite"
+status = "TIME_LIMIT"
+expired = true
+refreshes = 0
+[[cases]]
+iterations = 4
+fault = "infeasible"
+status = "OPTIMAL"
+expired = false
+refreshes = 2
+[[cases]]
+iterations = 1
+fault = "infeasible"
+status = "TIME_LIMIT"
+expired = true
+refreshes = 0
+
+[source_hashes]
+"simplex_pivot.jl" = "2cf399478648b82aa1502acdc33651c1afd914fa22ef833ca00a3765295e70a9"
+"primal_simplex.jl" = "6246c3f92e1535561cc8a1fd2cf6b5a128ca39bfcc5d52eedd2fbb3a91417d41"

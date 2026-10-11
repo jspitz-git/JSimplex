@@ -60,15 +60,17 @@ Private prototype is reproduce/primal_flip_prototype.jl; no production change.
 It clones six exact source definitions into a private module with source hashes,
 AST anchors, context-owner checks and no overwritten production methods.
 
-candidate-matrix-1 passed960/960 across80cases. safety-contracts-2 passed139/139;
-the first attempt's erroneous generation expectation is preserved and corrected
-from recompute! source. Current sole numerical job: S2-A/focused-1, existing
-primal-update/point/direction-price regressions. Verify current.json start_ticks
-and boot identity; inspect final process.json and separately confirm host absence
-before any next Julia or pinned edit. New unexecuted drivers are primal_flip_dirty_entry.jl
-and primal_flip_cost.jl; run dirty-entry then cost after focused completion.
-Cost qualification and independent review remain open; no speedup or production
-qualification claimed. Latest pushed checkpoint845aadb precedes these additions.
+candidate-matrix-1 passed960/960, safety-contracts-2 passed139/139, existing
+focused-1 passed10381/10381 normal compilation, dirty-entry-2 passed26/26.
+Both diagnostic assertion/fixture failures are preserved, not production bugs.
+Current sole numerical job: S2-A/cost-1, private primal_flip_cost.jl. Verify
+current.json start_ticks/boot identity; inspect final process.json and separately
+confirm host runner/child/driver absence before another Julia or pinned edit.
+Cost has16groups, each3interleaved plain pairs plus1counted pair, and separate
+warmups/setup. Audit all128 samples/64warmups, compile times, source/outcome hashes
+and work/retention. /tmp/jsimplex-s2-cost-report.py is a prepared Python auditor.
+Then independently review the private experiment; do not automatically promote
+it to production. Latest pushed checkpoint3b164ea precedes these latest results.
 
 ## Evidence gaps and traps to retain
 
@@ -574,3 +576,27 @@ rejection reconstruction, before-write overflow, time/iteration limits and owned
 callback/numerical exception provenance passed. BigFloat and Rational Int64/BigInt
 use the original8/4 path. Injected reconstruction exception is not coverage of
 all ill-conditioned recovery failures. Next focused existing regressions.
+
+S2 focused-1 passed10381/10381 across9existing primal-update/point/direction-price
+files in normal compilation (783.6s test time), exit0/pins unchanged. Host
+runner284158/child284159/driver absent. No repeat needed. Next dirty-entry-1
+then cost-1; both prepared at diagnostic3b164ea.
+
+Dirty-entry-1 passed21/failed1: the alleged infeasible slack=-1 was actually
+within its one-sided (-Inf,5] row bounds, so a later certificate fallback repaired
+it without the expected early-bound refresh. Correct the fixture to6 and assert
+the actual guard fails before invocation. Both final optima and expired limits
+passed; no prototype defect inferred. Exit1/pins unchanged, host285025/285026/
+driver absent. Next dirty-entry-2; production unchanged.
+
+Dirty-entry-2 passed26/26 with explicit failed guard preconditions, exit0/pins
+unchanged. Both nonfinite and out-of-bound dirty points refresh successfully;
+expired attempts return TIME_LIMIT without reconstruction or published primal.
+Host285110/285111/driver absent. Sole next numerical job: cost-1.
+
+S2 cost-1 completed128samples/64warmups, exit0/pins unchanged, all outcome hashes
+match and plain compilation=0. Host285175/285176/driver absent. Sparse median
+ratios0.472–0.753, dense1.219–1.302; reject-all1.105–2.202. Extra allocations
+1040–4976B, retained point buffers968–4872B. Proposed broad eligible path is
+rejected pending independent review; do not merge or add an unreviewed density
+heuristic. See S2-FLIPS.md. No numerical process remains.
