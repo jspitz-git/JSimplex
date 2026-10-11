@@ -221,6 +221,7 @@ function _lp_project_certificate(ws::SimplexWorkspace{T},auxiliary,map,values,du
         end
         isnothing(probe) && continue
         copyto!(probe.primal,values)
+        _pipeline_changed!(probe,probe.scratch.rho)
         copyto!(probe.scratch.rho,dual)
         residuals=_lp_residuals(ws,values,dual)
         copyto!(probe.reduced_costs,T.(residuals.dual))

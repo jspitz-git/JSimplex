@@ -83,11 +83,22 @@ function _pipeline_vector!(ws::SimplexWorkspace{T},values)::IndexedVector{T} whe
     return compact_support!(cache.buffers[i])
 end
 
-function _pipeline_changed!(ws,values)::Nothing
+function _pipeline_changed!(ws,values::Vector)::Nothing
     cache = ws.scratch.hypersparse
     isnothing(cache) && return nothing
     i = _pipeline_buffer_index(cache,values)
     i > 0 && (cache.valid[i] = false)
+    return nothing
+end
+
+
+# Accepted writes through views must invalidate the borrowed parent support too.
+function _pipeline_changed!(ws,values::AbstractVector)::Nothing
+    cache = ws.scratch.hypersparse
+    isnothing(cache) && return nothing
+    for i in 1:6
+        Base.mightalias(cache.buffers[i].values,values) && (cache.valid[i] = false)
+    end
     return nothing
 end
 
