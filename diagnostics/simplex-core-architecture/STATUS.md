@@ -1,10 +1,10 @@
 # Simplex core architecture: progress and continuation
 
-Updated: 2026-10-11. This is the entry point after interruption.
+Updated: 2026-10-12. This is the entry point after interruption.
 
 ## Current state
 
-**S1-A, S3-A/S3-B and S4-A integrated; master `b720674` pushed. S2-A rejected; S0-L dual references and primal counted audited; primal plain active.**
+**S1-A, S3-A/S3-B and S4-A integrated; master `b720674` pushed. S2-A rejected; S0-L all four long references audited and complete.**
 The source baseline is `fe839aa72171d7496c9c931d9393278448c7317e`.
 Initial time-budget diagnostic evidence is commit `6ded1fc`.
 
@@ -32,7 +32,7 @@ main also has a user-modified .vscode/settings.json. Do not stage those files.
 | ID | Deliverable | State | Evidence / next action |
 | --- | --- | --- | --- |
 | P0 | Design, roadmap, continuation record | Done | This documentation; production unchanged |
-| S0 | Frozen baseline and coverage plan | Active | Both counted origins and dual plain audited; primal plain pending |
+| S0 | Frozen baseline and coverage plan | Verified | Both counted and plain origins audited; old-baseline only, no current-master comparison |
 | S1 | State ownership and validation reuse | Integrated | Inventory and local S1-A contract; master beb161b, report S1-ENTRY.md |
 | S2 | Audited incremental primal maintenance | Active | S2-A REJECTED after numerical/cost qualification and independent review; broader pivot controller unresolved |
 | S3 | End-to-end exact sparsity support | Active | S3-A/S3-B integrated, latest masterb720674; exact-support consumer savings qualified; broader S3 partial |
@@ -94,27 +94,40 @@ origins have different trajectories/final primal hashes; compare the forthcoming
 plain primal only with this counted primal for exact final-result acceptance.
 Runner300579/child300580/driver300570 separately confirmed absent after exit.
 Primal counted acceptance milestone6e793ec is pushed.
-Current sole numerical job: S0-L/medium-primal-plain-1, unifiedsession79257,
-43200s guard. Runner321988/start_ticks20237178, child321989/start_ticks20237263,
-boot20de7dde-704e-41c8-bee7-b8511c0a86b0; driver321979. Live identities, command,
-sole Julia and fresh guard resource sample verified after launch. Recheck current.json
-and host rather than trusting this record. Old source/env/input/options/policy,
-HH/native160,1000000step cap unchanged; only instrumentation mode becomesplain.
-While healthy remain quiet; no second Julia or edits to pinned old src/test/env
-and existing diagnostic Julia files. This active attempt is not accepted evidence.
-After exit, verify process.json, independently rehash pins/source/input, validate
-plain mode/solver_returned/OPTIMAL/original_primal_feasible and exact final objective,
-primal hash,353468iterations,2240refactorizations/configuration against counted
-primal. Plain has no windows/counters; use LONG-PHASE-II.md acceptance gates,
-not counted-only long_audit.py. Report compilation/GC/elapsed separately; no new
-phase-window coverage or speedup/overhead claim from one pair. Preserve failures.
-Before next Julia or pinned edits, separately confirm runner/child/driver absent.
-Then continue broader S4/S5/S6 concrete subplans; no whole-plan completion.
+
+## S0-L complete: primal plain accepted (2026-10-12)
+
+medium-primal-plain-1 completed with exit0 and independently verified unchanged
+pins/source/input. All18 checks pass, including568 shared counted-primal pins.
+Returned OPTIMAL and original primal feasible; objective2.2389455645278454e7,
+primalSHAeabfbba9bf2ce9d3f63f5b8cdf21e5831a332ef5f2d4faca7bda12e49ab21197,
+353468iterations and2240refactorizations exactly match counted primal, as do
+source/input/options/policy. Plain elapsed13200.181889727s includes compile
+0.023769598s andGC732.537595438s;548208082416allocatedB/175674777events.
+Peak VM4601128KiB, max sampled RSS3856372KiB, minimum available19042772KiB,
+swap0. Plain has no windows/counters and retains no recorder. Portable evidence:
+results/S0-L/medium-primal-plain-1-{audit.json,process.json,reference.toml,run.log}.
+The final process.json supersedes the launch-time placeholder in current.json.
+Runner321988,child321989,driver321979 separately confirmed absent on the same boot.
+
+All four planned old-baseline long references are now accepted. Counted origins
+supply actual phase-II chronology; plain origins supply elapsed references. These
+are single samples per mode/origin, not an instrumentation-overhead estimate or
+current-master speedup. No full trajectory hash follows from final-state equality.
+Existing failed/incomplete calibrations and raw attempts remain preserved.
+Broader S2/S3/S4/S5/S6 and the historical test.mps failure remain unresolved.
+
+Next: S4 native HH component attribution on deterministic small matrices, with
+fresh backend/extraction/whole-refactor allocation measurements and ownership
+checks. Write the concrete diagnostic subplan before launching. No numerical job
+is active. Keep CI disabled as requested; the failed full-suite CI run is not a
+passing S6 gate. Production master remainsb720674; no new production code.
 
 ## Evidence gaps and traps to retain
 
-- Long reduced-model medium phase II is not covered by the prefix/cleanup study.
-  Event snapshots are not complete pricing-state checkpoints.
+- The prefix/cleanup study alone does not cover long reduced-model phase II.
+  S0-L now adds both counted origins; event snapshots still are not complete
+  pricing-state checkpoints, and current-master full-medium comparison is pending.
 - Fresh prefixes are HH/native320; historical cleanup is HH/native160. Both
   cleanup origins execute primal steps. Their origin labels are not algorithms.
 - Existing measurements are mostly single paired timings and HH-only. They are

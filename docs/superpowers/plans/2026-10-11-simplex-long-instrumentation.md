@@ -74,12 +74,12 @@ writes the partial window; it does not certify a solution.
 ## L3: serial live references
 
 - [x] Independent diagnostic correctness/work/memory review before long launch.
-- [ ] Freeze each exact command/input/source/env; stream a fresh medium dual live
+- [x] Freeze each exact command/input/source/env; stream a fresh medium dual live
   solve then primal in separate guarded attempts. Preserve all phase/recovery
   state. Use the calibrated mode; separate plain solve is authoritative for time.
-- [ ] Audit actual phase-II coverage, original feasibility/certificate, normal
+- [x] Audit actual phase-II coverage, original feasibility/certificate, normal
   exit and unchanged pins. A resource/time limit is incomplete, not success.
-- [ ] Commit compact evidence and update parent roadmap/STATUS at each gate.
+- [x] Commit compact evidence and update parent roadmap/STATUS at each gate.
 
 Ruling: L1 is a separately testable first gate. Do not launch a long solve merely
 because counters pass; L2/L3 remain mandatory. The old census cannot meet the
@@ -358,3 +358,26 @@ speedup, universal performance, or instrumentation overhead.
 medium-primal-plain-1 is now active under the unchanged43200s guarded baseline.
 STATUS records verified live identities and the distinct post-exit plain audit.
 Primal counted acceptance6e793ec is pushed; L3 final elapsed gate remains open.
+
+
+## S0-L complete: primal plain accepted (2026-10-12)
+
+medium-primal-plain-1 completed with exit0 and independently verified unchanged
+pins/source/input. All18 checks pass, including568 shared counted-primal pins.
+Returned OPTIMAL and original primal feasible; objective2.2389455645278454e7,
+primalSHAeabfbba9bf2ce9d3f63f5b8cdf21e5831a332ef5f2d4faca7bda12e49ab21197,
+353468iterations and2240refactorizations exactly match counted primal, as do
+source/input/options/policy. Plain elapsed13200.181889727s includes compile
+0.023769598s andGC732.537595438s;548208082416allocatedB/175674777events.
+Peak VM4601128KiB, max sampled RSS3856372KiB, minimum available19042772KiB,
+swap0. Plain has no windows/counters and retains no recorder. Portable evidence:
+results/S0-L/medium-primal-plain-1-{audit.json,process.json,reference.toml,run.log}.
+The final process.json supersedes the launch-time placeholder in current.json.
+Runner321988,child321989,driver321979 separately confirmed absent on the same boot.
+
+All four planned old-baseline long references are now accepted. Counted origins
+supply actual phase-II chronology; plain origins supply elapsed references. These
+are single samples per mode/origin, not an instrumentation-overhead estimate or
+current-master speedup. No full trajectory hash follows from final-state equality.
+Existing failed/incomplete calibrations and raw attempts remain preserved.
+Broader S2/S3/S4/S5/S6 and the historical test.mps failure remain unresolved.

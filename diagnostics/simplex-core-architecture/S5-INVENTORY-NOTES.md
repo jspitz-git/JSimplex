@@ -156,3 +156,16 @@ old-source counted results do not measure a proposed S5 change. They argue for
 keeping entry optimization claims narrow: no shortcut in the cold constructor
 can justify claiming an hours-scale ordinary-iteration speedup. Reuse this evidence
 when selecting the concrete S5 contract; do not repeat the completed counted run.
+
+
+## Completed primal-origin boundary attribution (2026-10-12)
+
+Reuse the existing accepted primal audit JSON: cleanup/none10.926570371s includes
+projection4.701423045s/462512832B, initialization0.928856291s/551257848B and
+refactorization5.269829135s/3150994496B. Actual cleanup/primal18422steps include
+1545.349544564s/123473480B in cleanup_steps and68.157536639s refactorization.
+Both origins therefore separate small cold-entry work from long ordinary cleanup.
+All plain references are now accepted; these costs remain old-source counted
+attribution, not a proposed constructor's benefit. S4 component attribution is
+next; S5 contracts/exception ownership still require a concrete implementation
+subplan before edits. No new measurement or runtime work was introduced here.

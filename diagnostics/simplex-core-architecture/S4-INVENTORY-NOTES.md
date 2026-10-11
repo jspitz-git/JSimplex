@@ -127,3 +127,17 @@ and live/checkpoint/private backend ownership should be separated before any
 broader memory reuse change. S4-A remains a dimension-change fix, with no claimed
 benefit for this fixed-dimension history. Separate plain elapsed and primal-origin
 coverage are still pending; current master has not been timed by this reference.
+
+
+## Completed primal-origin attribution (2026-10-12)
+
+The accepted350-window primal audit already contains exact exclusive-region sums;
+no new solve was needed. Actual primal phase II263984steps/9599.932126833s contains
+ordinary9002.053823365s/2093634688B, refactorization587.028736540s/386403653624B
+with504.360613439sGC, and recovery10.790782426s/41368200B. Phase-I refactorization
+154.583157047s/100967727240B/139.945998705sGC; original-primal cleanup refactorization
+68.157536639s/44675650152B/57.952000536sGC. The large cumulative traffic motivates
+component attribution, not a claim of retained-memory growth or pure arithmetic
+cost. Plain primal and dual are now accepted; current-master comparison remains
+pending. Next characterize native Float64 HH backend construction, extraction
+and immutable live/checkpoint ownership separately on deterministic small bases.

@@ -457,3 +457,14 @@ feasibility/internal certificate, normal exit and independent pin verification.
 Both counted origins are now covered; plain primal remains the next serialized
 reference. See STATUS/LONG-PHASE-II and results/S0-L/medium-primal-counted-1-audit.json.
 No new production change or current-master performance claim.
+
+
+## 2026-10-12 S0-L completion
+
+All four frozen old-baseline long references are audited and accepted. The final
+plain primal matches counted primal exactly (353468iterations,2240refactors,
+objective/primalSHA/options/policy); all18 audit checks and independent pins pass.
+Plain13200.181889727s includes compile0.023769598s/GC732.537595438s. See STATUS and
+LONG-PHASE-II for full evidence and limits. S0 is Verified; this closes the long
+subplan, not the whole architecture roadmap. Next S4 component attribution uses
+new small deterministic native HH histories, not a repeat of accepted medium.

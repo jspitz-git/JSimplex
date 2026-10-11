@@ -1,0 +1,192 @@
+source = "/home/jspitz/.codex/worktrees/simplex-time-budget/JSimplex.jl/src"
+schema_version = 1
+section_labels = ["presolve", "initialization", "ordinary", "recovery", "refactorization", "projection", "cleanup_entry", "cleanup_steps", "certification", "instrumentation"]
+timing_semantics = "final window flush is inside timing; explicit final primal check and report serialization are outside; plain elapsed is authoritative"
+phase_two_coverage = "requires post-exit audit of actual phase_two windows, not inferred from status"
+solver_returned = true
+blas_threads = 1
+mode = "plain"
+julia_version = "1.13.0"
+model = "medium"
+algorithm = "primal"
+blas_config = "LBTConfig([ILP64] libopenblas64_.so)"
+omitted_entry_probes = ["_primal_iteration_unchecked!", "_dual_iteration_unchecked!", "_configured_dual_ratio_test", "_validate_primal_edge!", "_validate_dual_edge!", "update_dual_pricing_weights!", "_primal_entering", "dual_edge_selection"]
+input_sha256 = "79c374a584b1463305cf4b0faee8920d0364df2dd5d0468a44ab58d9e9d49dc0"
+julia_threads = 1
+counter_labels = ["presolve_problem", "postsolve_primal", "cleanup_original", "initialize_workspace", "_basis_matrix!", "recompute!", "_replace_pivot_column!", "_legacy_primal_point_certified", "_primal_row_bounds!", "_native_primal_rows_filter", "_legacy_primal_row_consistent", "_legacy_primal_model_feasible", "_restore_legacy_primal_point!", "_try_native_primal_point_correction!", "_audit_primal_values!", "_primal_ratio", "_primal_update_steepest!", "_legacy_primal_direction_price_ok", "_primal_price_prediction_reliable", "apply_primal_pivot!", "_primal_bound_snap_feasible", "price!", "dual_ratio_test", "_bound_flipping_ratio_test", "_apply_bound_flips!", "_try_native_dual_correction!", "_try_native_dual_tableau!", "_dual_row_residual_ratio", "_dual_direction_residual_ok!", "_finite_workspace", "update_duals!", "update_primals!", "_pipeline_basis_solve!", "update_dse!", "_stabilize_small_dual_pivot!", "_refined_dual_prices", "_refined_basis_solution", "_try_refine_dual_prices!", "_refined_tableau_row", "_try_refine_dual_pivot!", "_try_refine_dual_direction!", "_try_native_certificate_recovery", "_project_postsolve_basis!", "_internal_solution", "refactorize!", "_rebuild_pipeline_support!", "_pipeline_output_support!", "_copy_pivot_state!", "_sparse_pricing_workspace!", "_original_optimality_certified", "finite_value_elements", "pipeline_ftran_forward", "pipeline_ftran_transpose", "pipeline_btran_forward", "pipeline_btran_transpose", "pipeline_pricing_forward", "pipeline_pricing_transpose", "pipeline_bfrt_forward", "pipeline_bfrt_transpose", "pipeline_weight_ftran_forward", "pipeline_weight_ftran_transpose", "pipeline_weight_btran_forward", "pipeline_weight_btran_transpose", "committed_restore_checkpoint", "committed_repair", "committed_checkpoint", "committed_pricing_reset", "discarded_metadata_events", "pricing_scanned_entries", "pricing_scored_entries", "pricing_full_scan", "pricing_block_scan", "pricing_pool_hit"]
+dimension_semantics = "initialization/none uses input_model dimensions; subsequent windows use workspace dimensions; cleanup entry uses the original LP"
+
+[options]
+basis_update = "huangfu_hall"
+iteration_limit = "1000000"
+pricing = "steepest_edge"
+simplex_strategy = "legacy"
+basis_refactorization = "native"
+time_limit = "Inf"
+log_level = "Debug"
+verbose = "false"
+scaling = "auto"
+partial_pricing = "false"
+algorithm = "primal"
+zero_tolerance = "1.0e-12"
+presolve = "true"
+primal_tolerance = "1.0e-7"
+dual_tolerance = "1.0e-7"
+refactorization_interval = "160"
+
+[policy]
+refactor_timing = "true"
+stable_ratio = "false"
+precision_boosting = "false"
+max_precision_memory_bytes = "1073741824"
+recovery = "false"
+max_refinements = "3"
+incremental_primal = "false"
+partial_pricing = "false"
+adaptive_primal_perturbation = "false"
+pivot_error_tolerance = "1.4901161193847656e-8"
+lp_refinement = "false"
+adaptive_refactor = "false"
+sparse_pricing = "false"
+solve_tolerance = "5.684341886080802e-14"
+max_lp_refinements = "8"
+adaptive_stalling = "false"
+max_pivot_candidates = "8"
+pivot_validation = "false"
+adaptive_pricing = "false"
+feasibility_recovery = "false"
+max_recovery_rounds = "2"
+adaptive_dual_perturbation = "false"
+solve_refinement = "false"
+hypersparse = "false"
+incremental_primal_pivots = "false"
+phase_one = "false"
+crash = "false"
+stagnation_window = "64"
+max_precision_bits = "512"
+
+[result]
+gc_seconds = 732.537595438
+primal_hash = "eabfbba9bf2ce9d3f63f5b8cdf21e5831a332ef5f2d4faca7bda12e49ab21197"
+objective = "2.2389455645278454e7"
+original_primal_feasible = true
+allocations = 175674777
+refactorizations = 2240
+seconds = 13200.181889727
+recorder_retained_bytes = 0
+compile_seconds = 0.023769598
+certificate_evidence = "OPTIMAL requires the solver's internal optimality certificate; the returned original primal is checked again outside timing"
+bytes = 548208082416
+iterations = 353468
+status = "OPTIMAL"
+message = "optimal solution found"
+
+    [result.counts]
+
+    [result.recorder_tail]
+
+[[warmups]]
+gc_seconds = 0.0
+primal_hash = "ce7ec9fde7182d98092f4d1f67db3b633a13fdb50ee0612600e7e479b8eace93"
+objective = "-592.0"
+original_primal_feasible = true
+allocations = 168108
+refactorizations = 1
+seconds = 0.0271423
+recorder_retained_bytes = 0
+compile_seconds = 0.0193651
+certificate_evidence = "OPTIMAL requires the solver's internal optimality certificate; the returned original primal is checked again outside timing"
+model = "sparse"
+bytes = 6694800
+iterations = 7
+algorithm = "dual"
+status = "OPTIMAL"
+message = "optimal solution found"
+
+    [warmups.counts]
+
+    [warmups.recorder_tail]
+[[warmups]]
+gc_seconds = 0.0
+primal_hash = "c01850aefa9dcd94d24c0c34082053e9448919abd9acfa9e2a589fc5c4eee173"
+objective = "-592.0"
+original_primal_feasible = true
+allocations = 163774
+refactorizations = 2
+seconds = 0.0045829
+recorder_retained_bytes = 0
+compile_seconds = 0.0
+certificate_evidence = "OPTIMAL requires the solver's internal optimality certificate; the returned original primal is checked again outside timing"
+model = "sparse"
+bytes = 6669800
+iterations = 63
+algorithm = "primal"
+status = "OPTIMAL"
+message = "optimal solution found"
+
+    [warmups.counts]
+
+    [warmups.recorder_tail]
+[[warmups]]
+gc_seconds = 0.059573601
+primal_hash = "cb6e44878ef6be74e4fe3c8d9ec09421b6e9510de93262af80480f665f35abd5"
+objective = "-306.000491246992"
+original_primal_feasible = true
+allocations = 13702281
+refactorizations = 1
+seconds = 0.336550701
+recorder_retained_bytes = 0
+compile_seconds = 0.0
+certificate_evidence = "OPTIMAL requires the solver's internal optimality certificate; the returned original primal is checked again outside timing"
+model = "dense"
+bytes = 514261736
+iterations = 65
+algorithm = "dual"
+status = "OPTIMAL"
+message = "optimal solution found"
+
+    [warmups.counts]
+
+    [warmups.recorder_tail]
+[[warmups]]
+gc_seconds = 0.0628024
+primal_hash = "400b1e7dcfef46c6ac673ee36226747bfd865e9276658f115962d69582027a05"
+objective = "-306.00049124699314"
+original_primal_feasible = true
+allocations = 13702719
+refactorizations = 2
+seconds = 0.348910801
+recorder_retained_bytes = 0
+compile_seconds = 0.0
+certificate_evidence = "OPTIMAL requires the solver's internal optimality certificate; the returned original primal is checked again outside timing"
+model = "dense"
+bytes = 514759544
+iterations = 158
+algorithm = "primal"
+status = "OPTIMAL"
+message = "optimal solution found"
+
+    [warmups.counts]
+
+    [warmups.recorder_tail]
+[[warmups]]
+gc_seconds = 14.722993848
+primal_hash = ""
+objective = "nothing"
+original_primal_feasible = false
+allocations = 168093640
+refactorizations = 1
+seconds = 22.575018437
+recorder_retained_bytes = 0
+compile_seconds = 0.0
+certificate_evidence = "OPTIMAL requires the solver's internal optimality certificate; the returned original primal is checked again outside timing"
+model = "medium-prefix"
+bytes = 9348733408
+iterations = 64
+algorithm = "primal"
+status = "ITERATION_LIMIT"
+message = "iteration limit reached"
+
+    [warmups.counts]
+
+    [warmups.recorder_tail]
