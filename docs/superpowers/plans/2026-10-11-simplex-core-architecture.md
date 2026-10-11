@@ -394,3 +394,9 @@ support. The accepted narrow S3-A reproduction/subplan is
 2026-10-11-pipeline-boundary-invalidation.md. Ruling: use the next free serial
 slot to test these correctness boundaries before S2 prototype implementation;
 S0 remains uninterrupted. No source patch or completed S3 gate is claimed.
+
+S0 live checkpoint: phase II reached original-model cleanup at iteration234380.
+Its completed windows are preserved, but final certificate/exit/pins audit and
+separate plain/primal-origin references remain open. Attached-chat automatic
+continuation watches the existing guarded job and resumes the reviewed S3-A gate
+after release; it does not start a second numerical process.

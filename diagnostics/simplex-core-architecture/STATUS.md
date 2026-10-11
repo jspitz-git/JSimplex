@@ -430,3 +430,22 @@ same existing guard/launcher. It was Python syntax-checked only. Check process.j
 then host runner/child/driver absence in a separate call before launching.
 S5 inventory now records callback-visible initial reconstructed state, prior-work
 assignment timing and constructor failure ownership; no S5 source change.
+
+
+## Automatic continuation and live cleanup checkpoint
+
+Diagnostic checkpointbb1bdd5 is pushed. The attached-thread heartbeat
+`pokra-ov-n-v-voje-jsimplex` is ACTIVE, checking every5minutes to continue after the
+sole numerical job releases its guard. It is instructed to remain quiet while
+unchanged, audit final evidence first, then execute the reviewed S3-A RED and
+subsequent plan autonomously. This scheduling is not another numerical process.
+Respect any newer human stop/scope instruction; disable the heartbeat on completion
+or when actual user intervention is necessary. Check app automation state rather
+than assuming this local scheduling follows the repository to another host.
+
+The live reference reached original-model cleanup at iteration234380. Completed
+phase-II windows and their counters/sections are preserved in
+results/S0-L/medium-dual-counted-1-phase-two-end.json with the raw prefix digest.
+This remains running partial evidence, NOT an accepted final medium certificate.
+Pins matched at capture. The same runner268789/Julia268790 remain active; do not
+launch S3 or change pinned files until final report and separate host absence checks.
