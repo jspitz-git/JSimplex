@@ -4,7 +4,7 @@ Updated: 2026-10-11. This is the entry point after interruption.
 
 ## Current state
 
-**S1-A Integrated and pushed to master (`beb161b`). Stopped at S0-L2 calibration failure: sparse chronology overhead 11.90% exceeds 5%. No active numerical process.**
+**S1-A integrated and pushed to master (`beb161b`). S0-L2 remains rejected after the event-sink fix: sparse overhead 8.78% versus 5% budget.**
 The source baseline is `fe839aa72171d7496c9c931d9393278448c7317e`.
 Completed diagnostic evidence is commit `6ded1fc`.
 
@@ -32,7 +32,7 @@ main also has a user-modified .vscode/settings.json. Do not stage those files.
 | ID | Deliverable | State | Evidence / next action |
 | --- | --- | --- | --- |
 | P0 | Design, roadmap, continuation record | Done | This documentation; production unchanged |
-| S0 | Frozen baseline and coverage plan | Active | Local/count-only gates passed; chronological pilot rejected (11.90% > 5%); long reference pending |
+| S0 | Frozen baseline and coverage plan | Active | Local/count-only gates passed; revised chronology pilot rejected (8.78% > 5%); long reference pending |
 | S1 | State ownership and validation reuse | Integrated | Inventory and local S1-A contract; master beb161b, report S1-ENTRY.md |
 | S2 | Audited incremental primal maintenance | Pending | Existing kernels and missing guards inventory |
 | S3 | End-to-end exact sparsity support | Pending | Support propagation and full-scan inventory |
@@ -46,18 +46,24 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-Execution stopped at the user's requested problem boundary. Resolve the S0-L2
-chronology pilot's sparse overhead (11.90% versus a predeclared 5% budget) before
-any long reference. Read [S0-LONG.md](S0-LONG.md), its results/S0-L/acceptance.json,
+The revised chronology pilot still fails the predeclared budget (sparse 8.78%,
+dense 1.71%). Read [S0-LONG.md](S0-LONG.md), results/S0-L/event-sink-acceptance.json,
 and the [instrumentation subplan](../../docs/superpowers/plans/2026-10-11-simplex-long-instrumentation.md).
-The count-only pilot passed; the full recorder is an unaccepted diagnostic
-prototype. Isolate event-bookkeeping/region overhead and reduce work; preserve
-staging semantics and add recorder+trace ordering checks. Do not loosen the
-budget or repeat the unchanged pilot without a changed hypothesis.
+The targeted owned-observer sink passed 14 tests and actual recorder+trace
+checks. Independent review found no numerical or unnecessary-work/retention
+defect, but identified missing direct-event/committed-recovery coverage; this
+limitation is explicit and must be addressed before a complete long report.
 
-All numerical processes have stopped. Seven S0-L attempts and all S1-A attempts
-remain preserved locally, including failures. No long medium solve was launched.
-S0 medium/both-algorithm calibration and final diagnostic review remain pending.
+Next hypothesis: isolate remaining overhead in the same module using matched
+count-only, owned-noop and owned-recorder modes before selecting lower-density
+or count-only instrumentation. Do not repeat the unchanged pilot, loosen the
+budget, or launch a long reference. No production work is pending integration.
+
+All numerical processes have stopped (host runner/child absence verified).
+Eleven S0-L attempts and all S1-A attempts remain preserved locally, including
+failures. No long medium solve was launched. Medium/both-algorithm calibration
+and final full diagnostic review remain pending. Execution stops at this renewed
+acceptance failure under the user's requested problem boundary.
 
 S1-A production commit `8e0a7c7def505604ccfe50cdbc2cf9cee453092d` was integrated
 as master `beb161b310afd9dc7126eca98e3c15898a69efbf` and pushed. Its src/test/Project
@@ -332,3 +338,10 @@ All source/script pins verified again; runner and child absent, no Julia process
 Tests/results/failed attempts and the exact next hypothesis are recorded in
 S0-LONG.md. No S0 production changes; no long reference. Stop follows the user's
 explicit instruction to continue only until encountering a problem.
+
+Resumed after explicit user request. Preflight: master/origin beb161b, architecture
+4070155, user environments/dirt preserved, no Julia or guard process. New
+event-ablation-1 isolates none/counts/noop/recorder in one baseline module, with
+rotated order and identical operation counts/state. It asserts no cold regions
+or periodic writes occur in the measured sparse batch. This tests event overhead
+instead of repeating the failed whole-recorder pilot unchanged.

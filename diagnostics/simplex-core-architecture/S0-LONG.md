@@ -99,3 +99,68 @@ concrete failed acceptance gate. No long solve was launched, no production code
 changed, and no Julia/runner remains active. All seven completed attempts and
 the parse-error source snapshot are retained; portable acceptance.json records
 the rejection independently of the successful process exit.
+
+## Resumed event-overhead investigation
+
+User authorized continuation after the first failed gate. event-ablation-1 used
+one instrumented baseline module, five rotated rounds of 64 sparse kernels and
+four modes: no diagnostics, generic counts, noop observer, full recorder. Median
+times were 1.3991 / 1.5079 / 1.527499 / 1.520899 ms. No periodic writes or cold
+regions executed, measured compilation was zero, and states/operation counts
+matched. Generic event bookkeeping contributed most of the measured difference
+(+7.78% versus no diagnostics); this does not by itself predict the next pilot.
+
+The diagnostic-only fix specializes record_event! for an owned observer type,
+omitting unused generic dictionary/history writes. It keeps callback wrapping,
+valid-event checks and separate candidate staging. Public observers retain their
+original behavior. event-sink-red-1 had 9 passes / 3 expected metadata failures;
+event-sink-green-1 passed all 14 checks with normal compilation and unchanged pins.
+The test covers deferred/discarded completion, public history, invalid reason,
+composed trace delivery and exception identity. No production source changed.
+
+window-pilot-2 exercises the actual recorder composed with a full trace outside
+timing, with native160 in both trace and timed work. Both sparse/dense entry,
+completion-state, callback order/count, final-state, step and refactorization
+fingerprints match exactly. Five interleaved pairs of 32 kernels have zero
+measured compilation. Exit0 and unchanged pins mean the experiment completed;
+the sparse acceptance gate still fails:
+
+| Model | Plain median ms (range) | Instrumented median ms (range) | Median overhead | Gate |
+| --- | ---: | ---: | ---: | --- |
+| sparse | 0.7806 (0.7503–0.7978) | 0.8491 (0.8196–0.8770) | +8.78% | Reject |
+| dense | 23.7074 (23.4322–24.0375) | 24.1127 (23.4495–24.2158) | +1.71% | Pass |
+
+Sparse allocation counts/bytes remain equal (3424 / 180736 per batch); dense
+again adds 42912 bytes / 890 allocation events for two periodic writes. All
+26 streamed windows parse, including the two new verification final windows.
+The final flush is outside kernel timing and its tail is reported. No independent
+retained-memory profile has been taken. Cross-attempt timing differences are not
+a measured causal speedup of the fix; the new within-attempt gate is authoritative.
+
+### Independent review and coverage limitation
+
+Static review found no numerical dependence on suppressed counts/history, no
+changed callback ordering, and no unnecessarily added scan/solve/copy or growing
+retention. Existing diagnostic dictionaries/history capacity still allocate at
+setup; timed recorder storage is fixed and has no workspace field. Trace hashing
+of six state arrays occurs only in verification, outside authoritative timing.
+
+Review finding P2: direct record_event! calls in _discard_candidate! and
+_record_recovery! are also dropped by the owned sink. These originally record
+uncommitted-candidate work without callbacks, or committed recovery after the
+observer and last stop check. The operation hooks still count their instrumented
+work, but cannot establish all event reasons or committed recovery counts.
+Callback-trace equality is therefore not full recovery/event coverage. This
+limitation is now explicit in the script/report; a complete long-run report must
+add the required fixed counters or narrow its claims, with a new acceptance gate.
+No numerical tests were run by the reviewer. The final script edits after the
+measured attempt only add this limitation string/comments; the exact measured
+source hashes are retained in window-pilot-2-pinned-source.json.
+
+The fix is insufficient for the <=5% budget. Next experiment, if continued:
+isolate remaining cost in matched count-only, owned-noop and owned-recorder
+modes in the same baseline module; then choose reduced-density or count-only
+instrumentation without silently losing required phase/recovery evidence.
+Do not infer that medium will pass, repeat an unchanged pilot or relax the limit.
+All eleven completed attempts are preserved and no numerical process remains.
+No long reference was launched; S0-L2 and subsequent gates remain incomplete.

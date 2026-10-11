@@ -7,6 +7,7 @@ end
 include("long_counters.jl")
 install_long_counters!(CountedSource.JSimplex,BASELINE_SOURCE)
 include("long_windows.jl")
+install_long_event_sink!(CountedSource.JSimplex)
 const WINDOW_IO=open(ARGS[1]*".windows.toml","w")
 const RECORDER=LongRecorder(WINDOW_IO,CountedSource.JSimplex._lc_counts)
 install_long_regions!(CountedSource.JSimplex,BASELINE_SOURCE,RECORDER)
@@ -18,6 +19,7 @@ module CountedBench
  const JS=Main.CountedSource.JSimplex
  include("entry_kernel_common.jl")
 end
+include("long_trace_check.jl")
 function run_batch(bench,kind;batch=32)
  J=bench.JS
  counted=isdefined(J,:_lc_counts)
@@ -60,11 +62,12 @@ function run_batch(bench,kind;batch=32)
 end
 function main(output)
  @assert Threads.nthreads()==BLAS.get_num_threads()==1
- records=Dict[];gates=Dict[]
+ records=Dict[];gates=Dict[];traces=Dict[]
  for kind in (:sparse,:dense)
-  # Event/state cross-check is separate from authoritative count-only timings.
-  a=PlainBench.run_kernel(PlainBench.fixture(kind),:huangfu_hall;trace=true)
-  b=CountedBench.run_kernel(CountedBench.fixture(kind),:huangfu_hall;trace=true)
+  # The actual recorder and trace run together, outside authoritative timings.
+  a=verify_long_trace(PlainBench,kind)
+  b=verify_long_trace(CountedBench,kind;recorder=RECORDER)
+  push!(traces,Dict("model"=>string(kind),"plain"=>a,"counted"=>b))
   for key in ("entry_state_hash","state_hash","completion_states_hash","events_hash","event_counts","steps","refactorizations")
    @assert a[key]==b[key] key
   end
@@ -88,8 +91,8 @@ function main(output)
  end
  open(output,"w") do io
   TOML.print(io,Dict("pilot_only"=>true,"source"=>BASELINE_SOURCE,
-   "limitations"=>"Dual HH small kernels only; medium/both-algorithm calibration still required; final recorder flush excluded from kernel timing and reported separately.",
-   "gates"=>gates,"samples"=>records))
+   "limitations"=>"Dual HH small kernels only; medium/both-algorithm calibration still required; final recorder flush excluded from kernel timing and reported separately. Trace covers observer callbacks, not direct record_event! writes from discarded candidates or committed recovery. The owned sink drops these metadata writes; operation counts are not committed recovery/event counts.",
+   "gates"=>gates,"samples"=>records,"traces"=>traces))
  end
 end
 try

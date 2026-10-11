@@ -10,7 +10,8 @@ const LONG_REGIONS = (
     (:_try_native_primal_point_correction!,:recovery),
     (:_try_native_certificate_recovery,:recovery),(:_refined_basis_solution,:recovery),
 )
-mutable struct LongRecorder{I<:IO}
+abstract type AbstractLongObserver end
+mutable struct LongRecorder{I<:IO} <: AbstractLongObserver
     io::I
     counters::Vector{Int64}
     previous_counts::Vector{Int64}
@@ -149,5 +150,34 @@ function install_long_regions!(JS,source_root,recorder::LongRecorder)
         end
         Core.eval(JS,expression)
     end
+    nothing
+end
+
+# Verification-only composition: the timed recorder has no trace field/branch.
+struct LongTraceObserver{R,F} <: AbstractLongObserver
+    recorder::R
+    trace::F
+end
+function (observer::LongTraceObserver)(event,ws)
+    observer.recorder(event,ws)
+    observer.trace(event,ws)
+    nothing
+end
+function install_long_event_sink!(JS)
+    isdefined(JS,:_lc_owned_observer_type) && throw(ArgumentError("Owned event sink already installed"))
+    Core.eval(JS,:(const _lc_owned_observer_type=$AbstractLongObserver))
+    Core.eval(JS,quote
+        # Only this diagnostic script's observers use fixed counters/streamed
+        # windows instead of the generic event dictionary and 64-event history.
+        # Keep event validation, standard callback exception wrapping, and the
+        # distinct _StageObserver dispatch that buffers candidate completions.
+        # Direct metadata writes (discarded-candidate work and committed
+        # recovery) are also omitted. Operation counters remain, but do not
+        # establish complete event/recovery coverage; see S0-LONG.md.
+        @inline function record_event!(d::SimplexDiagnostics{F},reason::Symbol)::Nothing where {F<:_lc_owned_observer_type}
+            reason in SIMPLEX_EVENT_REASONS || throw(ArgumentError("Unknown simplex diagnostic event: $reason"))
+            nothing
+        end
+    end)
     nothing
 end

@@ -53,6 +53,58 @@
     "max_sampled_swap_used_kib": 0
   },
   {
+    "attempt": "event-ablation-1",
+    "reason": "exit0",
+    "returncode": 0,
+    "pins_unchanged": true,
+    "pins_sha256": "88ef4eba09451fdcd94ba75dcc61d6219f4e7dfba6b702e95c2d40a4e9454cf3",
+    "command": [
+      "bash",
+      "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+      "--heap-size-hint=2G",
+      "--project=/home/jspitz/.codex/worktrees/simplex-time-budget/JSimplex.jl",
+      "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_event_ablation.jl",
+      "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/simplex-core-architecture/S0-L/event-ablation-1/ablation.toml"
+    ],
+    "elapsed_seconds": 79.04870700836182,
+    "peak_sampled_child_rss_kib": 1822564,
+    "max_sampled_swap_used_kib": 0
+  },
+  {
+    "attempt": "event-sink-green-1",
+    "reason": "exit0",
+    "returncode": 0,
+    "pins_unchanged": true,
+    "pins_sha256": "4b7a1ab2eb79641c6aa1eb1c8e06ae48211a3c2df01c90e7a43d7f6ff44ac588",
+    "command": [
+      "bash",
+      "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+      "--heap-size-hint=2G",
+      "--project=/home/jspitz/.codex/worktrees/simplex-time-budget/JSimplex.jl",
+      "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_event_sink_tests.jl"
+    ],
+    "elapsed_seconds": 3.0088300704956055,
+    "peak_sampled_child_rss_kib": 420840,
+    "max_sampled_swap_used_kib": 0
+  },
+  {
+    "attempt": "event-sink-red-1",
+    "reason": "exit1",
+    "returncode": 1,
+    "pins_unchanged": true,
+    "pins_sha256": "982442691610ec2d2e24d92cf1256287c7cd9883f042ced6fdbbc8d95be0003c",
+    "command": [
+      "bash",
+      "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+      "--heap-size-hint=2G",
+      "--project=/home/jspitz/.codex/worktrees/simplex-time-budget/JSimplex.jl",
+      "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_event_sink_tests.jl"
+    ],
+    "elapsed_seconds": 3.008700132369995,
+    "peak_sampled_child_rss_kib": 435748,
+    "max_sampled_swap_used_kib": 0
+  },
+  {
     "attempt": "window-pilot-1",
     "reason": "exit0",
     "returncode": 0,
@@ -69,6 +121,25 @@
     ],
     "elapsed_seconds": 107.09017491340637,
     "peak_sampled_child_rss_kib": 1949232,
+    "max_sampled_swap_used_kib": 0
+  },
+  {
+    "attempt": "window-pilot-2",
+    "reason": "exit0",
+    "returncode": 0,
+    "pins_unchanged": true,
+    "pins_sha256": "5e468e9e03867f91535f3c11a1eae42e28d2c74e68819d64870a6a47643bd4f5",
+    "command": [
+      "bash",
+      "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+      "--heap-size-hint=2G",
+      "--project=/home/jspitz/.codex/worktrees/simplex-time-budget/JSimplex.jl",
+      "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_window_calibration.jl",
+      "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/simplex-core-architecture/S0-L/window-pilot-2/pilot.toml",
+      "/home/jspitz/.codex/worktrees/simplex-time-budget/JSimplex.jl/src"
+    ],
+    "elapsed_seconds": 103.06254410743713,
+    "peak_sampled_child_rss_kib": 1889788,
     "max_sampled_swap_used_kib": 0
   },
   {

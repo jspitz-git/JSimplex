@@ -108,3 +108,27 @@ Stopped at the user's requested problem boundary. Next: isolate/reduce event
 bookkeeping overhead and test recorder+trace ordering together before a new
 calibration attempt. No long reference or further numerical job is active.
 The threshold and numerical protections remain unchanged.
+
+Resumed: event-ablation-1 compares four diagnostic modes in one baseline module.
+Medians per 64 sparse kernels: none 1.3991 ms, counts 1.5079 ms (+7.78%), noop
+1.527499 ms, recorder 1.520899 ms (+8.71%). All operation counts, states and steps
+match; zero measured compilation; no periodic writes or cold regions execute.
+This identifies generic diagnostic bookkeeping as the main measured cost.
+
+Chosen diagnostic-only fix: specialize record_event! for this script's owned
+observer marker. Preserve valid-event checking, existing callback wrapping and
+_StageObserver buffering; omit the unused duplicate dictionary/history. Generic
+public observers and bulk pricing-work counters retain their behavior. A trace
+composition uses the same owned dispatch only in verification, avoiding a trace
+field or branch in timed recorder calls. No production files are edited.
+RED event-sink test: 9 pass / 3 expected duplicate-history/work failures.
+
+Event-sink GREEN: 14/14 pass, exit0/pins unchanged. window-pilot-2 now verifies
+the actual recorder+trace composition with native160; both fingerprints match.
+Five interleaved pairs, compile0: sparse +8.78% fails, dense +1.71% passes.
+L2 remains unaccepted. Independent static review found no numerical or added
+work/retention defect; P2 direct-event/committed-recovery coverage is documented
+in the script and report and remains a long-reference prerequisite.
+Next matched-mode ablation must identify remaining cost before another pilot;
+consider reduced-density/count-only mode without losing required coverage.
+All eleven attempts stopped and retained. No long reference or production change.

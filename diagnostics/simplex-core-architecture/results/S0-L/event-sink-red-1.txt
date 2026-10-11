@@ -1,0 +1,43 @@
+ERROR: LoadError: Some tests did not pass: 9 passed, 3 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_event_sink_tests.jl:39
+
+Owned recorder avoids duplicate history but preserves delivery: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_event_sink_tests.jl:14
+  Expression: isempty(diag.events)
+   Evaluated: isempty([:pivot_completed])
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_event_sink_tests.jl:14 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] check_sink()
+     @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_event_sink_tests.jl:9
+
+Owned recorder avoids duplicate history but preserves delivery: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_event_sink_tests.jl:15
+  Expression: all(iszero, values(diag.counts))
+   Evaluated: all(iszero, [0, 0, 0, 1, 0, 0, 0, 0, 0, 0  …  0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_event_sink_tests.jl:15 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] check_sink()
+     @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_event_sink_tests.jl:9
+
+Owned recorder avoids duplicate history but preserves delivery: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_event_sink_tests.jl:31
+  Expression: r.accepted == 2 && isempty(diag.events)
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_event_sink_tests.jl:31 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] check_sink()
+     @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_event_sink_tests.jl:9
+Test Summary:                                                  | Pass  Fail  Total  Time
+Owned recorder avoids duplicate history but preserves delivery |    9     3     12  0.7s
+RNG of the outermost testset: Random.Xoshiro(0xb9581cd3f38cdc49, 0x09f2e5c36750cb99, 0x135412cf3505891f, 0xfd8df03cbdce149c, 0x26b6bdd3633d7cf3)

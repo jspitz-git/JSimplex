@@ -315,3 +315,10 @@ median overhead is 11.90%, above the predeclared 5% budget (dense: 2.02%). S0-L2
 is not accepted; no long reference was launched. See S0-LONG.md and the new
 2026-10-11-simplex-long-instrumentation.md subplan. Execution stopped at this
 concrete problem as requested; S1 production remains integrated and unchanged.
+
+Resumed investigation: owned-observer event sink passed 14 tests and actual
+recorder+trace checks. Revised pilot still fails sparse overhead (8.78% > 5%;
+dense 1.71%). No long reference. Direct metadata-event/committed-recovery
+coverage limitation is documented following independent review. Next: matched
+mode ablation before reducing instrumentation density or adopting count-only.
+No production changes; all eleven S0-L attempts are preserved and stopped.
