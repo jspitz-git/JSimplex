@@ -324,3 +324,7 @@ GC531.464386642s. No overhead/speedup claim from one pair. Next serial primal co
 reference uses existing accepted L2 and reviewed L3 driver, unchanged baseline,
 HH/native160,legacy,1000000steps,43200s guard. Both-origin L3 checkboxes remain open
 until actual primal completion/audit; subsequent primal plain is separate.
+
+medium-primal-counted-1 is active under the above guard. STATUS records verified
+runner300579/child300580/start identities and exact audit/resume requirements.
+No primal long result or final phaseII coverage is inferred from launch.

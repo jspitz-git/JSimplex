@@ -4,7 +4,7 @@ Updated: 2026-10-11. This is the entry point after interruption.
 
 ## Current state
 
-**S1-A, S3-A/S3-B and S4-A integrated; master `b720674` pushed. S2-A rejected; S0-L dual counted/plain references audited; primal reference next.**
+**S1-A, S3-A/S3-B and S4-A integrated; master `b720674` pushed. S2-A rejected; S0-L dual references audited; primal counted reference active.**
 The source baseline is `fe839aa72171d7496c9c931d9393278448c7317e`.
 Initial time-budget diagnostic evidence is commit `6ded1fc`.
 
@@ -56,7 +56,7 @@ Control1000, work RED/GREEN12, candidate960, safety139, dirty-entry26, focused10
 and cost128/64warmups are preserved. Independent review reproduced the cost data
 and found no closure blocker. Dense accepted cases regress22–30%; no production
 promotion or guessed density heuristic. Diagnostic5321ea1 records the result;
-closure documentation follows. master remainsd8ad4ec; old environments preserved.
+closure documentation is published. Master wasd8ad4ec at S2 closure; old environments preserved.
 
 S3-B subplan docs/superpowers/plans/2026-10-11-pipeline-canonical-support.md is
 complete. Productionb6a4064 -> masterb720674, master1611/1611, reviewed and pushed.
@@ -74,15 +74,25 @@ OPTIMAL, original primal feasible, exact objective/primal hash,255798iterations,
 408471253952allocated bytes/172692055events. This is one old-baseline sample,
 not current-master speedup or a fresh phase-window trace. Full plain audit:
 results/S0-L/medium-dual-plain-1-audit.json; all15checks true.
-Runner290175/child290176/driver290166 absent in a separate host call. No numerical
-process active. Next medium-primal-counted-1 under the same reviewed L3 protocol:
-old7d6a8e1,HH/native160,legacy,1000000step cap,43200s guard; only algorithm changes.
-Use long_measure.jl counted primal medium. Prior reviewed L2 calibration includes
-primal, so no recalibration or repeat of finished dual references is needed.
-After launch verify live identities; preserve every incomplete attempt. Require
-counted-only long_audit JSON success, actual phaseII and original certification,
-source/input/options/pins before acceptance. Subsequent primal plain and broader
-S4/S5/S6 remain pending. Do not infer whole-plan completion.
+Runner290175/child290176/driver290166 absent in separate host calls before next
+launch. Plain acceptance milestone914b59f is pushed.
+
+Current sole numerical job: S0-L/medium-primal-counted-1, unifiedsession38999,
+43200s guard. Runner300579/start_ticks18918137, child300580/start_ticks18918221,
+boot20de7dde-704e-41c8-bee7-b8511c0a86b0; driver300570. Live identities and sole Julia
+verified after launch; recheck current.json/host rather than trusting this record.
+Old7d6a8e1,HH/native160,legacy,medium fixed hash,1000000step cap; only requested
+origin algorithm changes from the completed dual runs. Reviewed L2 calibration
+includes primal; no repeat of finished calibration or dual references.
+While healthy, remain quiet; no second Julia or edits to pinned old src/test/env
+and existing diagnostic Julia files. This active attempt is not accepted coverage.
+After completion read process.json and independently reverify pins/source/input;
+run counted long_audit.py and inspect all JSON gates/read_errors (CLI exit0 alone
+is insufficient). Verify actual phaseII algorithm, window counter totals, final
+OPTIMAL/original feasibility/certificate. Record failures/time/iteration/resource
+limits as incomplete. Then separately confirm runner/child/driver absent before
+next Julia or pinned-file edits. Primal plain elapsed and broader S4/S5/S6 remain
+pending; continue their concrete subplans after release. No whole-plan completion.
 
 ## Evidence gaps and traps to retain
 
@@ -715,3 +725,7 @@ S0-L plain dual acceptance: exit0/pins independently reverified, all15audit gate
 true; exact final result/configuration matches counted baseline. Separate host
 absence verified before further Julia. Committed compact report copies preserve
 elapsed/compile/GC/allocation/resource evidence; no repeated numerical measurement.
+
+S0-L medium-primal-counted-1 launched with calibrated existing instrumentation,
+unchanged old baseline and guard settings. Runner300579/Julia300580 identities
+verified; session38999; no concurrent Julia. Await actual final audit before claims.
