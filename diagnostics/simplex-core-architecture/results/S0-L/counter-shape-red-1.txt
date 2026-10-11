@@ -1,0 +1,19 @@
+ERROR: LoadError: Some tests did not pass: 39 passed, 1 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_counter_tests.jl:50
+
+Long count-only instrumentation: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_counter_tests.jl:43
+  Expression: reset_long_counters!(JS)
+    Expected: DimensionMismatch
+  No exception thrown
+  Stacktrace:
+   [1] do_test_throws
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:910 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_counter_tests.jl:43 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] check_long_counters()
+     @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_counter_tests.jl:9
+Test Summary:                   | Pass  Fail  Total  Time
+Long count-only instrumentation |   39     1     40  2.2s
+RNG of the outermost testset: Random.Xoshiro(0x3889b6fd86bdfb68, 0x33007ac02c5ba5af, 0xe83b7532a482895e, 0x1845234fa0f574b9, 0x04986868a913cc5a)

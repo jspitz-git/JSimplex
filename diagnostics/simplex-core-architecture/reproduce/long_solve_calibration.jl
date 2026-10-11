@@ -61,6 +61,7 @@ function solve_case(bench,p,algorithm,steps;trace=false)
   result
  end
  result=timed.value
+ counts=counted ? long_counter_rows(J) : Dict{String,Int64}()
  @assert result.status in (J.OPTIMAL,J.ITERATION_LIMIT)
  if result.status==J.OPTIMAL
   @assert J._original_primal_feasible(p,result.primal,options.primal_tolerance)
@@ -76,7 +77,7 @@ function solve_case(bench,p,algorithm,steps;trace=false)
   "events_hash"=>bytes2hex(SHA.digest!(names)),"states_hash"=>bytes2hex(SHA.digest!(states)),
   "last_callback_state"=>state,"events"=>events,"recorder_tail"=>tail,
   "recorder_retained_bytes"=>counted ? Base.summarysize(RECORDER) : 0,
-  "counts"=>counted ? long_counter_rows(J) : Dict{String,Int64}())
+  "counts"=>counts)
  println(algorithm," counted=",counted," trace=",trace," ",row["status"]," seconds=",row["seconds"]," compile=",row["compile_seconds"]);flush(stdout)
  row
 end
@@ -86,7 +87,8 @@ function main(output,kind)
  plain=kind==:medium ? PlainBench.JS.read_mps("/home/jspitz/mps/medium.mps") : PlainBench.fixture(kind)
  counted=kind==:medium ? CountedBench.JS.read_mps("/home/jspitz/mps/medium.mps") : CountedBench.fixture(kind)
  steps=kind==:medium ? 64 : 10000
- results=Dict("source"=>BASELINE_SOURCE,"model"=>string(kind),"prefix_limit"=>steps,
+ results=Dict("source"=>BASELINE_SOURCE,"model"=>string(kind),"prefix_limit"=>steps,"pairs"=>6,
+  "omitted_entry_probes"=>string.(collect(LONG_OMITTED_ENTRY_PROBES)),
   "counter_labels"=>LONG_COUNTER_LABELS,"section_labels"=>collect(string.(LONG_SECTIONS)),
   "samples"=>Dict[],"traces"=>Dict[],"warmups"=>Dict[],"gates"=>Dict[],"options"=>Dict[],"policies"=>Dict[])
  save()=open(io->TOML.print(io,results),output,"w")
@@ -105,7 +107,7 @@ function main(output,kind)
    push!(results["warmups"],solve_case(bench,p,algorithm,steps))
   end
   rows=Dict[]
-  for pair in 1:3
+  for pair in 1:6
    order=isodd(pair) ? ((PlainBench,plain),(CountedBench,counted)) : ((CountedBench,counted),(PlainBench,plain))
    for (bench,p) in order
     row=solve_case(bench,p,algorithm,steps);row["pair"]=pair

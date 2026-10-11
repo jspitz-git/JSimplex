@@ -183,3 +183,78 @@ Ruling: reuse compilation across sparse,dense,medium within one numerical proces
 fresh state each solve; this reduces repeated compilation without reusing solver
 state or weakening per-case gates. Exact diagnostic source copies now accompany
 each new attempt. All previous attempts remain preserved.
+
+window-pilot-5: corrected chronology, exact fingerprints, compile0, exit0/pins
+unchanged. Sparse5.1285% narrowly fails, dense1.8986% passes. Keep the threshold.
+Ruling: run the already required full-solve/both-algorithm calibration to locate
+cold/setup/output overhead and obtain independent medium-prefix coverage before
+another density change. This does not accept the failed kernel or authorize a
+long reference. No unchanged kernel rerun merely to seek a passing sample.
+
+solve-suite-1 completed exit0/pins unchanged, all6 case/algorithm gates pass,
+compile0 and matching traces. Sparse dual/primal3.41%/4.48%, dense-1.89%/3.63%,
+medium3.24%/-4.27%. Recorder retained size2983B is constant. Medium64 prefixes
+remain ITERATION_LIMIT, not solved models. Kernelpilot5 alone is still5.1285%.
+Next narrowly scoped cost fix: remove per-increment bounds checks from the
+internally owned fixed counter vector, after validating its shape at installation
+and reset. This does not remove any numerical data check. Every index is a
+validated schema literal or a literal plus Bool direction. No resize occurs
+during a measured solve. Run shape regression and recalibrate changed snapshot.
+
+Counter-shape RED39/1 -> GREEN40; metadata16 and phase19 remain green.
+Review proves indices within H+23 fixed slots. Pricing previous[2:4] is also
+inside @inbounds; the sole production caller supplies a fixed four-tuple.
+window-pilot-6 passes sparse0.2608%/dense2.2118%, compile0 and exact traces.
+solve-suite-2 is the current-snapshot full calibration; do not transfer suite1
+numbers across the bounds-check change. Long driver preparation is outside pinned
+files while the one guarded numerical process runs.
+
+Full suite2: two rejected overhead gates (sparse primal15.70%, medium dual5.47%);
+traces/compile0/retention pass. Next reviewed fix streams numeric TOML fields
+without dictionaries/slices. Test full parsed-schema equality, escaped symbols,
+input immutability, final-window continuity and output allocations. Six balanced
+pairs are fixed before the new run, same5% limit, all earlier attempts preserved.
+L3 driver review corrected the counter snapshot before untimed feasibility and
+added a baseline path failfast. Post-exit audit tests10GREEN; smoke still pending.
+
+Streaming RED fails on missing writer; GREEN10 preserves parsed schema, escapes,
+input metadata and final continuity. First cost reporter failed on Dict inference
+(String mode into Dict{String,Real}); corrected to Dict{String,Any}. Six isolated
+writer pairs x256 windows, compile0: old6.8623ms/5537792B/116992alloc versus
+stream1.88675ms/2445312B/71936alloc. No inference about solver speed from this.
+Window19/nested-phase19 regressions pass; kernelpilot7 now calibrates streaming.
+
+L3 execution detail (after current L2 acceptance): use long_measure.jl through
+the same guard and baseline project; the driver rejects any other pathof(JS).
+First validate counted sparse smoke and post-exit audit (normal exit, unchanged
+pins, final marker/count, all window counter sums, actual phaseII steps, internal
+OPTIMAL certificate plus independent final primal feasibility). Smoke cannot
+qualify medium coverage. Only then freeze medium dual counted with1000000 steps,
+time_limit=Inf and an external43200-second guard, keeping every memory constraint.
+This budget allows the historical seven-hour trajectory plus warmup; expiration
+still means incomplete. Plain elapsed and primal-origin reference remain separate
+serial attempts, not inferred from the counted run. Do not start any long job
+while a calibration or smoke gate is unresolved.
+
+window-pilot-7: sparse2.13% passes, dense5.3384% fails despite lower output
+allocations (19168 extraB/566 events for two writes). Dense samples range23–26ms;
+within-pair differences are -3.84%,-0.84%,+13.62%,+0.52%,+2.85%, indicating noise
+and order imbalance. Do not call this accepted. Ruling: improve measurement
+resolution once with a predeclared128-kernel batch and6 balanced pairs (formerly
+32/five). No instrumentation change, same5% gate, no discarded samples; this is
+a concrete sampling-method correction, not repeated unchanged runs until pass.
+The larger sparse batch also exercises its first periodic write (1152 steps),
+closing the former no-output sparse kernel regime. Full six-pair solve gate and
+smoke remain independent requirements. If this fails, diagnose/reduce probe
+density; do not keep increasing repeat counts to seek acceptance.
+
+Pilot8 completed: sparse6.5645% rejects, dense1.9616% passes, exact states and
+compile0. Larger sampling did not resolve the gate. Ruling: follow protocol's
+reduced-density path; omit8 entry probes for iteration/dispatch/auto-edge wrappers
+and pricing selectors, while retaining pricing work metadata, actual ratio/DSE
+kernels, finite visits, reconstruction, residual checks, pipeline roles, support,
+candidate copies, all cold regions and certification/recovery. No numerical body
+or check is removed. Reports list omitted entries, which must not be read as zero
+calls. Counter tests and fresh kernel/full gates are required; keep batch/pairs
+and threshold unchanged. Also move full-calibration count snapshot before the
+untimed final primal check, matching the already reviewed L3 driver fix.

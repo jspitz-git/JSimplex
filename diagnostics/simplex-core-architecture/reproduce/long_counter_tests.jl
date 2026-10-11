@@ -37,6 +37,13 @@ function check_long_counters()
   @test JS._lc_counts===storage
   @test length(storage)==length(LONG_COUNTER_LABELS)
   @test all(iszero,storage)
+  # The private counter shape is checked at reset before unchecked probes run.
+  resize!(storage,length(LONG_COUNTER_LABELS)-1)
+  try
+   @test_throws DimensionMismatch reset_long_counters!(JS)
+  finally
+   resize!(storage,length(LONG_COUNTER_LABELS));fill!(storage,0)
+  end
  end
 end
 

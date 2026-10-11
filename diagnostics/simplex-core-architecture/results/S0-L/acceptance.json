@@ -1,25 +1,9 @@
 {
   "accepted_for_long_reference": false,
-  "reason": "Sparse chronological pilot median overhead exceeds the predeclared 5% budget.",
-  "gates": [
-    {
-      "median_overhead": 0.11903936584710473,
-      "model": "sparse",
-      "chronology_pilot_pass": false,
-      "batch": 32,
-      "pairs": 5,
-      "same_allocations": true
-    },
-    {
-      "median_overhead": 0.020175938305700525,
-      "model": "dense",
-      "chronology_pilot_pass": true,
-      "batch": 32,
-      "pairs": 5,
-      "same_allocations": false
-    }
-  ],
-  "process_exit": "exit0",
-  "pins_unchanged": true,
-  "no_measured_compilation": true
+  "reason": "Reduced probe-density snapshot requires kernel9/full suite3 and driver smoke; prior overhead failures remain preserved.",
+  "kernel_attempt": "window-pilot-9",
+  "full_solve_next": "solve-suite-3",
+  "historical_first_pilot": "acceptance-pilot-1.json",
+  "budget": 0.05,
+  "discarded_samples": 0
 }

@@ -322,3 +322,17 @@ dense 1.71%). No long reference. Direct metadata-event/committed-recovery
 coverage limitation is documented following independent review. Next: matched
 mode ablation before reducing instrumentation density or adopting count-only.
 No production changes; all eleven S0-L attempts are preserved and stopped.
+
+
+## S0 continued calibration checkpoint
+
+Continuous execution was explicitly authorized by the user. Chronology phase
+labels, nested attribution and committed metadata coverage were corrected and
+reviewed. Fixed counter bounds and streaming serialization reduce diagnostic
+costs, but failed overhead gates remain preserved. The current hypothesis omits
+8 redundant entry probes while retaining all LONG-PHASE-II required work fields.
+Counter40/window19/phase19/stream10 tests and static review support this change;
+current kernel/full calibration and driver smoke remain mandatory. S0 is still
+Active, not a completed long reference. See STATUS.md and S0-LONG.md for current
+attempts. S2 static guard/work inventory is in S2-INVENTORY-NOTES.md; no S2
+production experiment or master change has been made.

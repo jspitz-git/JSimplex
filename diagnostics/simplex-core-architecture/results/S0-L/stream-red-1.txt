@@ -1,0 +1,25 @@
+ERROR: LoadError: Some tests did not pass: 0 passed, 0 failed, 1 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_stream_tests.jl:38
+
+Streaming serialization preserves complete window schema: Error During Test at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_stream_tests.jl:13
+  Got exception outside of a @test
+  UndefVarError: `long_write_window!` not defined in `Main`
+  Suggestion: check for spelling errors or missing imports.
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_stream_tests.jl:22 [inlined]
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] test_stream()
+     @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_stream_tests.jl:14
+   [4] top-level scope
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_stream_tests.jl:38
+   [5] include(mod::Module, _path::String)
+     @ Base ./Base.jl:309
+   [6] exec_options(opts::Base.JLOptions)
+     @ Base ./client.jl:344
+   [7] _start()
+     @ Base ./client.jl:577
+Test Summary:                                            | Error  Total  Time
+Streaming serialization preserves complete window schema |     1      1  0.6s
+RNG of the outermost testset: Random.Xoshiro(0x3cd260654690256e, 0x54536da33941cfb0, 0xaf31dea7046d97c9, 0xb45a76e8b10bb637, 0x943f42eedfcb86ec)

@@ -4,7 +4,7 @@ Updated: 2026-10-11. This is the entry point after interruption.
 
 ## Current state
 
-**S1-A integrated and pushed to master (`beb161b`). S0-L2 active: chronology review fixes pass 123 focused assertions; fresh kernel and both-algorithm/full-solve calibration next.**
+**S1-A integrated and pushed to master (`beb161b`). S0-L2: reduced probe density under calibration; no long reference yet.**
 The source baseline is `fe839aa72171d7496c9c931d9393278448c7317e`.
 Completed diagnostic evidence is commit `6ded1fc`.
 
@@ -32,7 +32,7 @@ main also has a user-modified .vscode/settings.json. Do not stage those files.
 | ID | Deliverable | State | Evidence / next action |
 | --- | --- | --- | --- |
 | P0 | Design, roadmap, continuation record | Done | This documentation; production unchanged |
-| S0 | Frozen baseline and coverage plan | Active | Local/count-only gates passed; revised chronology pilot rejected (8.78% > 5%); long reference pending |
+| S0 | Frozen baseline and coverage plan | Active | Reduced-density kernel/full calibration; prior overhead failures preserved; no long reference |
 | S1 | State ownership and validation reuse | Integrated | Inventory and local S1-A contract; master beb161b, report S1-ENTRY.md |
 | S2 | Audited incremental primal maintenance | Pending | Existing kernels and missing guards inventory |
 | S3 | End-to-end exact sparsity support | Pending | Support propagation and full-scan inventory |
@@ -46,24 +46,35 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-Kernel window-pilot-4 passed 4.69%/2.62%, but review then found incorrect phase
-labels and nested-region attribution, so these numbers do not accept the current
-snapshot. The fixes use actual phase reports, optimizer entries, explicit
-cleanup_original entry and a fixed region stack. Review follow-up has no blocker.
-Tests: 39 counters + 19 windows + 14 sink + 16 metadata + 19 nested-phase +
-16 actual hook/interrupted-recovery integration = 123 passing assertions.
-All raw attempts, including failures, remain. solve-sparse-1 ended at a TOML
-tuple serialization error after equal dual traces; no timing pair was accepted.
+Read current S0-L process reports before source edits or another Julia launch.
+Pilot8 with128 kernels/six balanced pairs rejected sparse6.5645% (dense1.9616%
+passes). Sampling is now fixed; do not keep increasing repeats to seek acceptance.
+The current changed hypothesis omits8 entry probes for dispatch/iteration/auto-edge
+wrappers and pricing selectors. Required primitive, residual, finite-element,
+pipeline-role, pricing bulk, support, copy, region/recovery/certificate counters
+remain. Original numerical bodies/checks do not change. Reports list omitted
+entries separately; they are not zero calls. Steps do not count every attempted
+iteration entry; DSE counts do not count every possible Devex fallback update.
+Review accepts this coverage, with no added work/retention or numerical changes.
+counts-green-3 passed40, exit0/pins unchanged. Next serialized driver:
+metadata-green-4 -> window-pilot-9 -> solve-suite-3 only if kernel gates pass ->
+driver-smoke-1 only if all six full-suite gates pass. Full suite uses six balanced
+pairs; thresholds remain5%. Inspect which stage is active from its process.json.
 
-Next: window-pilot-5, then solve-suite-1 (sparse,dense,medium; both algorithms).
-The suite reuses compiled methods within one guarded process and reads only the
-pinned allowed medium input. It uses fresh live solves, no state reconstruction,
-three interleaved pairs, complete final flush inside timing, fixed-retention and
-compile0 gates. Inspect newest process.json before any pinned-source mutation.
-No long reference is authorized by a small pilot alone; L2 remains incomplete.
+Streaming writer passed10 tests, window19/nested-phase19. Isolated writer medians
+per256 windows6.8623->1.88675ms, bytes5537792->2445312, allocations116992->71936;
+this is serialization-only evidence. All earlier failures/snapshots remain.
+Suite2 rejected sparse primal15.70% and medium dual5.47%, despite exact traces,
+compile0 and constant retention; no long acceptance transfers across versions.
+Current full-calibration/L3 snapshots precede the untimed final primal check;
+older calibration counts include that check and cannot be summed against windows.
+
+Reviewed long_measure.jl and long_audit.py are prepared. Python audit10 tests pass;
+Julia driver smoke remains required. After L2/smoke and review, follow the L3
+subplan: baseline-source failfast, pinned allowed medium, live state,1024-step
+windows,1000000-step cap/external12-hour guard, one numerical process only.
+No long reference has launched. S2-INVENTORY-NOTES.md is static prerequisite work.
 User explicitly requested continuous execution through diagnostic failures.
-
-All tests are stopped at this checkpoint; no long reference has launched.
 
 S1-A production commit `8e0a7c7def505604ccfe50cdbc2cf9cee453092d` was integrated
 as master `beb161b310afd9dc7126eca98e3c15898a69efbf` and pushed. Its src/test/Project

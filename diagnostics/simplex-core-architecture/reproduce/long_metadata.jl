@@ -19,11 +19,11 @@ function install_long_metadata!(JS,source_root)
     pool_expression.args[2]=quote
         if _lc_owned(diagnostics)
             local scanned=pool.scanned_entries-previous[1]
-            _lc_counts[$scanned]+=scanned
-            _lc_counts[$scored]+=pool.scored_entries-previous[2]
-            _lc_counts[$full]+=pool.full_scans-previous[3]
-            _lc_counts[$block]+=pool.block_scans-previous[4]
-            _lc_counts[$hit]+=Int(scanned==0 && result!=0)
+            @inbounds _lc_counts[$scanned]+=scanned
+            @inbounds _lc_counts[$scored]+=pool.scored_entries-previous[2]
+            @inbounds _lc_counts[$full]+=pool.full_scans-previous[3]
+            @inbounds _lc_counts[$block]+=pool.block_scans-previous[4]
+            @inbounds _lc_counts[$hit]+=Int(scanned==0 && result!=0)
             return nothing
         end
         $old
@@ -31,9 +31,9 @@ function install_long_metadata!(JS,source_root)
     old=full_expression.args[2]
     full_expression.args[2]=quote
         if _lc_owned(diagnostics)
-            _lc_counts[$scanned]+=count
-            _lc_counts[$scored]+=scored
-            _lc_counts[$full]+=1
+            @inbounds _lc_counts[$scanned]+=count
+            @inbounds _lc_counts[$scored]+=scored
+            @inbounds _lc_counts[$full]+=1
             return nothing
         end
         $old

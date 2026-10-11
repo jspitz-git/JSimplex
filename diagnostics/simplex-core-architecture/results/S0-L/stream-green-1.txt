@@ -1,0 +1,34 @@
+ERROR: LoadError: MethodError: Cannot `convert` an object of type String to an object of type Real
+The function `convert` exists, but no method is defined for this combination of argument types.
+
+Closest candidates are:
+  convert(::Type{T}, !Matched::T) where T<:Number
+   @ Base number.jl:6
+  convert(::Type{T}, !Matched::Number) where T<:Number
+   @ Base number.jl:7
+  convert(::Type{T}, !Matched::T) where T
+   @ Base Base_compiler.jl:136
+  ...
+
+Stacktrace:
+ [1] setindex!(h::Dict{String, Real}, v0::String, key::String)
+   @ Base ./dict.jl:357
+ [2] (::var"#main##0#main##1"{Vector{Dict}, UInt64, LongRecorder{IOBuffer}})(io::IOStream)
+   @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_stream_cost.jl:26
+ [3] #open#324
+   @ ./io.jl:429 [inlined]
+ [4] open
+   @ ./io.jl:426 [inlined]
+ [5] main(output::String)
+   @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_stream_cost.jl:22
+ [6] top-level scope
+   @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_stream_cost.jl:39
+ [7] include(mod::Module, _path::String)
+   @ Base ./Base.jl:309
+ [8] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:344
+ [9] _start()
+   @ Base ./client.jl:577
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_stream_cost.jl:39
+Test Summary:                                            | Pass  Total  Time
+Streaming serialization preserves complete window schema |   10     10  0.0s

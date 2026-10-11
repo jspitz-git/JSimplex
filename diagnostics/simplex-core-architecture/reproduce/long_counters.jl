@@ -1,6 +1,16 @@
 # Diagnostic-only entry counts. Load into a separate, guarded Julia process.
 include(joinpath(@__DIR__,"../../simplex-time-budget/reproduce/hooks.jl"))
-const LONG_HOOKS = vcat(HOOKS, [
+# Omit entry probes for dispatch/iteration wrappers and pricing selection entries.
+# Their numerical bodies remain original. Actual pricing scans, ratio kernels,
+# DSE/finite work and all required primitive/recovery probes remain counted.
+# Accepted/rejected events are not all iteration-entry attempts. DSE counts do
+# not include every possible Devex fallback update; omitted labels are not zeros.
+const LONG_OMITTED_ENTRY_PROBES = (
+    :_primal_iteration_unchecked!, :_dual_iteration_unchecked!,
+    :_configured_dual_ratio_test, :_validate_primal_edge!, :_validate_dual_edge!,
+    :update_dual_pricing_weights!, :_primal_entering, :dual_edge_selection,
+)
+const LONG_HOOKS = vcat(filter(entry->!(first(entry) in LONG_OMITTED_ENTRY_PROBES),HOOKS), [
     (:refactorize!,"huangfu_hall_factorization.jl"),
     (:_rebuild_pipeline_support!,"hypersparse_pipeline.jl"),
     (:_pipeline_output_support!,"hypersparse_pipeline.jl"),
@@ -30,6 +40,8 @@ function install_long_counters!(JS,source_root)
     # Validate all source locations before mutating any method in the module.
     expressions=[long_function(source_root,file,"function $(name)(") for (name,file) in LONG_HOOKS]
     values=long_function(source_root,"dual_simplex.jl","function _finite_values(values::Vector")
+    # Private storage is never resized during a solve. All probe indices are
+    # schema literals (or a schema literal plus a Bool direction), validated here.
     count=length(LONG_COUNTER_LABELS)
     Core.eval(JS,:(const _lc_counts=zeros(Int64,$count)))
     for (index,expression) in enumerate(expressions)
@@ -42,17 +54,17 @@ function install_long_counters!(JS,source_root)
             for (role_index,role) in enumerate(LONG_ROLES)
                 forward=first_role+2*(role_index-1)
                 push!(role_code.args,:(if operation==$(QuoteNode(role))
-                    _lc_counts[$forward+Int(transposed)]+=1
+                    @inbounds _lc_counts[$forward+Int(transposed)]+=1
                 end))
             end
             expression.args[2]=quote
-                _lc_counts[$index]+=1
+                @inbounds _lc_counts[$index]+=1
                 $role_code
                 $body
             end
         else
             expression.args[2]=quote
-                _lc_counts[$index]+=1
+                @inbounds _lc_counts[$index]+=1
                 $body
             end
         end
@@ -62,12 +74,17 @@ function install_long_counters!(JS,source_root)
     # This hardware-float implementation visits the entire executed vector.
     # The surrounding && determines which arrays are actually scanned.
     values.args[2]=quote
-        _lc_counts[$index]+=length(values)
+        @inbounds _lc_counts[$index]+=length(values)
         $body
     end
     Core.eval(JS,values)
     return nothing
 end
 
-reset_long_counters!(JS) = (fill!(JS._lc_counts,0); nothing)
+function reset_long_counters!(JS)
+    length(JS._lc_counts)==length(LONG_COUNTER_LABELS) ||
+        throw(DimensionMismatch("counter schema"))
+    fill!(JS._lc_counts,0)
+    nothing
+end
 long_counter_rows(JS) = Dict(label=>JS._lc_counts[i] for (i,label) in enumerate(LONG_COUNTER_LABELS))

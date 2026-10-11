@@ -1,7 +1,8 @@
 # S0-L: long phase-II instrumentation work
 
-Status: chronological pilot rejected by the <=5% overhead gate. Count-only
-pilot passed. No long reference; further execution stopped at this problem.
+Status: S0-L2 remains active. Kernel pilot6 passes; full suite2 rejects two
+case overheads. A reviewed streaming serialization change is under test. No
+long reference has launched. Historical failures below remain preserved.
 Source baseline: preserved 7d6a8e1 (production fe839aa). Production changes are
 not part of these diagnostic-only experiments.
 Plan: [instrumentation subplan](../../docs/superpowers/plans/2026-10-11-simplex-long-instrumentation.md).
@@ -205,3 +206,76 @@ algorithms and final flush; sparse/dense/medium cases can reuse compilation in o
 process. Generic per-reason history remains omitted, but fixed counters preserve
 pricing work, committed recovery reasons and discarded metadata totals.
 Future launches retain exact source snapshots alongside per-attempt hashes.
+
+
+## Fixed-counter bounds and full-solve coverage
+
+Counter-shape RED39/1 -> GREEN40; metadata16 and phases19 pass. Reviewed @inbounds
+indices are schema literals or a literal plus Bool; the owned H+23 vector cannot
+resize during solve. Pricing previous[2:4] also loses bounds checks, justified by
+the sole caller's fixed four-tuple. No numerical data checks are removed.
+window-pilot-6 passes sparse0.2608% and dense2.2118%, five pairs, exact traces and
+compile0. Full suite1 before this change passed all6 cases, but does not transfer.
+
+Full suite2 after the change: sparse dual/primal -0.71%/+15.70%, dense
+-1.19%/+1.56%, medium +5.47%/-1.95%. Three pairs each, matching separate traces,
+zero measured compilation, constant recorder2983B. Both medium64 prefixes end
+ITERATION_LIMIT. Exit0/pins unchanged do not override the two overhead failures.
+These negative differences are timing variability, not instrumentation speedups.
+
+Sparse primal has five streamed windows and roughly0.24ms output bookkeeping
+inside ~5.5ms solve. The next writer streams numeric scalar/array fields directly
+while retaining TOML escaping for strings; it removes temporary numeric Dict and
+five vector slices/deltas, not data or window frequency. Static review finds no
+numerical mutation, new scan/solve or growing retention; print cost needs testing.
+
+Medium-dual samples show marked drift: plain13.290/11.921/11.974s against
+counted12.628/12.721/11.777s. For the changed writer, predeclare six balanced pairs
+(3AB+3BA), preserve all samples and retain ratio-of-medians<=5% for every case.
+This addresses order imbalance, not permission to rerun unchanged until passing.
+
+Report limitation found by L3 review: calibration counts are collected after the
+explicit untimed feasibility check, so include its hooks. Timing/trace gates are
+unaffected; do not compare these reported counts to window sums. The long driver
+snapshots counts before that check, and its post-exit audit requires exact window
+sum equality plus final marker/window count. Missing reports, limits or failed
+pins can never qualify a successful chronology reference.
+
+
+## Streaming output and measurement resolution
+
+Streaming RED: missing writer; GREEN10 verifies complete parsed-schema equality,
+escaped string fields and final continuity. The first cost helper's inferred
+Dict{String,Real} rejected its string mode label; fixed to Dict{String,Any}, then
+six isolated pairs of256 windows had compile0: old6.8623ms/5537792B/116992alloc;
+stream1.88675ms/2445312B/71936alloc. This tests serialization, not solver speed.
+Window19 and nested-phase19 regressions remain green; static review has no
+numerical, unnecessary-work or growing-retention finding.
+
+window-pilot-7: sparse2.13% passes; dense5.3384% rejects. Dense allocation overhead
+fell to19168B/566 events for two writes; elapsed samples still range23–26ms.
+A single predefined measurement-method correction now uses128 kernels per batch
+and six balanced pairs. This increases timing resolution and includes a sparse
+periodic write at1152 total steps, while retaining every prior failed sample and
+the same5% gate. Do not keep changing sampling until a desired answer appears.
+Full-solve/both-algorithm calibration and driver smoke remain independent gates.
+
+
+## Reduced probe density
+
+Pilot8 (128 kernels/six pairs) rejected sparse6.5645%, dense1.9616% passed.
+No further repeat-count adjustment is used. The protocol explicitly permits
+reduced density:8 entry probes are omitted for iteration/dispatch/auto-edge
+wrappers and pricing selection. Their numerical bodies are unchanged; actual
+ratio/DSE kernels, finite work/elements, recompute, residual checks, role solves,
+pricing bulk/support, candidate copies, cold regions and certificate/recovery
+probes remain. Reports list omitted entries separately, not as zero work.
+
+Review found no missing mandatory protocol field, numerical mutation or added
+work/retention. Limits: completion/rejection events are not all iteration entry
+attempts; DSE counts are not every weight update (Devex fallback can occur even
+with explicit steepest-edge). Counter offsets remain schema-derived and all
+cold regions remain instrumented. counts-green-3 passed40, normal exit/pins.
+New kernel9/full suite3 and driver smoke are required before a long reference.
+The full calibration now also snapshots counts before the untimed primal audit,
+so its current count totals can be compared with complete window groups.

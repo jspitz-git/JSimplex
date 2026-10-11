@@ -22,7 +22,7 @@ module CountedBench
  include("entry_kernel_common.jl")
 end
 include("long_trace_check.jl")
-function run_batch(bench,kind;batch=32)
+function run_batch(bench,kind;batch=128)
  J=bench.JS
  counted=isdefined(J,:_lc_counts)
  counted && reset_long_recorder!(RECORDER)
@@ -75,7 +75,7 @@ function main(output)
   end
   run_batch(PlainBench,kind);run_batch(CountedBench,kind)
   samples=Dict[]
-  for pair in 1:5
+  for pair in 1:6
    for bench in (isodd(pair) ? (PlainBench,CountedBench) : (CountedBench,PlainBench))
     row=run_batch(bench,kind);row["pair"]=pair
     @assert row["compile_seconds"]==0
@@ -87,12 +87,13 @@ function main(output)
   plain=filter(r->!r["counted"],samples);counted=filter(r->r["counted"],samples)
   ratio=median(r["seconds"] for r in counted)/median(r["seconds"] for r in plain)
   gate=Dict("model"=>string(kind),"median_overhead"=>ratio-1,
-    "chronology_pilot_pass"=>ratio<=1.05,"pairs"=>5,"batch"=>32,
+    "chronology_pilot_pass"=>ratio<=1.05,"pairs"=>6,"batch"=>128,
     "same_allocations"=>all(a["bytes"]==b["bytes"] && a["allocations"]==b["allocations"] for (a,b) in zip(plain,counted)))
   push!(gates,gate);println(gate);flush(stdout)
  end
  open(output,"w") do io
   TOML.print(io,Dict("pilot_only"=>true,"source"=>BASELINE_SOURCE,
+   "omitted_entry_probes"=>string.(collect(LONG_OMITTED_ENTRY_PROBES)),
    "limitations"=>"Dual HH small kernels only; medium/both-algorithm calibration still required; final recorder flush excluded from kernel timing and reported separately. Trace covers observer callbacks. Separate fixed counters retain committed recovery reasons and discarded metadata totals; per-reason generic event history is omitted.",
    "gates"=>gates,"samples"=>records,"traces"=>traces))
  end

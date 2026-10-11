@@ -1,0 +1,26 @@
+{
+  "accepted_for_long_reference": false,
+  "reason": "Sparse chronological pilot median overhead exceeds the predeclared 5% budget.",
+  "gates": [
+    {
+      "median_overhead": 0.11903936584710473,
+      "model": "sparse",
+      "chronology_pilot_pass": false,
+      "batch": 32,
+      "pairs": 5,
+      "same_allocations": true
+    },
+    {
+      "median_overhead": 0.020175938305700525,
+      "model": "dense",
+      "chronology_pilot_pass": true,
+      "batch": 32,
+      "pairs": 5,
+      "same_allocations": false
+    }
+  ],
+  "process_exit": "exit0",
+  "pins_unchanged": true,
+  "no_measured_compilation": true,
+  "historical_attempt": "window-pilot-1"
+}

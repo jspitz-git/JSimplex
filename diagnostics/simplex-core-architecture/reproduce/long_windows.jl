@@ -46,6 +46,8 @@ function LongRecorder(io::IO,counters::Vector{Int64})
       now,Base.gc_num(),now,2,:initialization,:none,false,0,0,0,0,0,0,0,0,0,0,false,zeros(Int,32),0,2,false)
 end
 function reset_long_recorder!(r::LongRecorder)
+    length(r.counters)==length(r.previous_counts)==length(LONG_COUNTER_LABELS) ||
+        throw(DimensionMismatch("counter schema"))
     fill!(r.counters,0);fill!(r.previous_counts,0);fill!(r.metrics,0)
     r.last_ns=time_ns();r.last_gc=Base.gc_num();r.window_start=r.last_ns
     r.section=2;r.phase=:initialization;r.algorithm=:none;r.cleanup=false
@@ -89,30 +91,55 @@ function long_leave!(r::LongRecorder,token::Int)
     long_select_section!(r)
     nothing
 end
+# Schema-specific streaming avoids temporary dictionaries and vector slices for
+# numeric arrays. TOML still escapes the three string fields correctly.
+function long_write_array!(io,label,values)
+    print(io,label," = [")
+    first=true
+    for value in values
+        first || print(io,", ")
+        print(io,value)
+        first=false
+    end
+    print(io,"]\n")
+    nothing
+end
+function long_write_window!(io,r::LongRecorder,reason::Symbol,end_ns::UInt64)
+    print(io,"[[windows]]\n")
+    TOML.print(io,Dict("reason"=>string(reason),"phase"=>string(r.phase),"algorithm"=>string(r.algorithm)))
+    for (label,value) in (("iteration",r.iteration),("offset",r.offset),
+        ("rows",r.rows),("columns",r.columns),("nnz",r.nonzeros),
+        ("accepted_steps",r.accepted-r.previous_accepted),
+        ("rejected_candidates",r.rejected-r.previous_rejected))
+        print(io,label," = ",value,"\n")
+    end
+    print(io,"seconds = ",Float64(end_ns-r.window_start)/1e9,"\n")
+    long_write_array!(io,"counter_deltas",(r.counters[i]-r.previous_counts[i] for i in eachindex(r.counters)))
+    for (column,label) in enumerate(("exclusive_nanoseconds","exclusive_bytes","exclusive_allocations","exclusive_gc_nanoseconds"))
+        long_write_array!(io,label,(r.metrics[i,column] for i in axes(r.metrics,1)))
+    end
+    print(io,"\n")
+    nothing
+end
 function long_emit!(r::LongRecorder,reason::Symbol)
     r.closed && throw(ArgumentError("Recorder already finished"))
     long_account!(r)
     end_ns=r.last_ns
-    row=Dict("reason"=>string(reason),"phase"=>string(r.phase),"algorithm"=>string(r.algorithm),
-      "iteration"=>r.iteration,"offset"=>r.offset,"rows"=>r.rows,"columns"=>r.columns,"nnz"=>r.nonzeros,
-      "accepted_steps"=>r.accepted-r.previous_accepted,"rejected_candidates"=>r.rejected-r.previous_rejected,
-      "seconds"=>Float64(end_ns-r.window_start)/1e9,
-      "counter_deltas"=>r.counters-r.previous_counts,
-      "exclusive_nanoseconds"=>r.metrics[:,1],"exclusive_bytes"=>r.metrics[:,2],
-      "exclusive_allocations"=>r.metrics[:,3],"exclusive_gc_nanoseconds"=>r.metrics[:,4])
-    copyto!(r.previous_counts,r.counters);fill!(r.metrics,0)
-    r.previous_accepted=r.accepted;r.previous_rejected=r.rejected
-    r.window_start=end_ns;r.windows+=1
     old=r.section;r.section=length(LONG_SECTIONS)
     try
-        TOML.print(r.io,Dict("windows"=>[row]));flush(r.io)
+        long_write_window!(r.io,r,reason,end_ns)
+        flush(r.io)
     finally
-        # Recorder construction/output cost is retained in the next window's
-        # instrumentation bucket; the last tail is returned by finish!.
+        # Snapshot/reset after writing; no numerical code runs in between.
+        # The next window (or finish! tail) receives all construction/output work.
+        copyto!(r.previous_counts,r.counters);fill!(r.metrics,0)
+        r.previous_accepted=r.accepted;r.previous_rejected=r.rejected
+        r.window_start=end_ns;r.windows+=1
         long_account!(r);r.section=old
     end
     nothing
 end
+
 # Cold phase changes must not overwrite an active recovery/refactor region.
 function long_set_phase!(r::LongRecorder,phase,algorithm,ws)
     rows,columns=size(ws.problem.A)
@@ -210,7 +237,7 @@ function install_long_regions!(JS,source_root,recorder::LongRecorder)
         body=expression.args[2];token=gensym(:region)
         cleanup=section==:cleanup_entry ? :(_lc_cleanup!(_lc_recorder,problem,prior_iterations)) : nothing
         expression.args[2]=quote
-            _lc_counts[$index]+=1
+            @inbounds _lc_counts[$index]+=1
             try
                 $cleanup
             catch exception
