@@ -1,0 +1,71 @@
+{
+  "plain_reference_success": true,
+  "checks": {
+    "normal_exit": true,
+    "pins_unchanged_report": true,
+    "pins_independently_reverified": true,
+    "pins_file_hash": true,
+    "plain_mode": true,
+    "certified_solver_result": true,
+    "expected_source": true,
+    "expected_medium_hash": true,
+    "single_threads": true,
+    "counted_configuration_match": true,
+    "counted_final_result_match": true,
+    "counted_source_environment_driver_pins_match": true,
+    "counted_chronology_previously_accepted": true,
+    "expected_command": true,
+    "metrics_complete": true
+  },
+  "compared_result_fields": [
+    "status",
+    "objective",
+    "primal_hash",
+    "original_primal_feasible",
+    "iterations",
+    "refactorizations"
+  ],
+  "compared_configuration_fields": [
+    "source",
+    "model",
+    "algorithm",
+    "input_sha256",
+    "options",
+    "policy",
+    "julia_version",
+    "blas_config",
+    "julia_threads",
+    "blas_threads"
+  ],
+  "shared_counted_pin_entries": 513,
+  "result": {
+    "gc_seconds": 531.464386642,
+    "primal_hash": "020312e4ce121d4be48740866fd4195095bdfd2ebdb630020f965aac64a6534a",
+    "objective": "2.2389455645278454e7",
+    "original_primal_feasible": true,
+    "allocations": 172692055,
+    "refactorizations": 1612,
+    "seconds": 6006.247837068,
+    "recorder_retained_bytes": 0,
+    "compile_seconds": 0.020784797,
+    "certificate_evidence": "OPTIMAL requires the solver's internal optimality certificate; the returned original primal is checked again outside timing",
+    "bytes": 408471253952,
+    "iterations": 255798,
+    "status": "OPTIMAL",
+    "message": "optimal solution found",
+    "counts": {},
+    "recorder_tail": {}
+  },
+  "source": "/home/jspitz/.codex/worktrees/simplex-time-budget/JSimplex.jl/src",
+  "input_sha256": "79c374a584b1463305cf4b0faee8920d0364df2dd5d0468a44ab58d9e9d49dc0",
+  "pins_sha256": "58cc0ad3b30b5135fdd5014bd70f8b7943ccf86abfa61601cd707ec5d82e988d",
+  "reference_sha256": "2fd558176ada0fcc70c1e147962eceffdcba242462ca1a2f8958d825e3f00ba9",
+  "resources": {
+    "peak_vm_kib": 4330872,
+    "max_sampled_rss_kib": 3820048,
+    "min_available_kib": 19192072,
+    "max_swap_used_kib": 0
+  },
+  "counted_seconds": 5926.881033309,
+  "limits": "One plain elapsed sample on old baseline. Final point/objective and aggregate counts match; no full trajectory hash or new phase windows. Compilation and GC included and reported; no current-master speedup or instrumentation-overhead estimate inferred."
+}

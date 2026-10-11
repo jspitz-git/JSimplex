@@ -73,7 +73,7 @@ Record the exact exit reason otherwise. Capture Julia/BLAS versions, launch and
 resource logs. Each attempt gets a new directory and separate expected-pins file.
 Source, options, scripts and inputs are immutable while the runner is active.
 
-Status: method specified; instrumentation implementation, calibration and long
+Initial protocol status (superseded by the execution records below): method specified; instrumentation implementation, calibration and long
 reference pending. It is deliberate that S1's static ownership inventory does not
 wait for several hours of numerical work.
 
@@ -104,3 +104,25 @@ investigation rather than force-fitting acceptance. A timeout/failure stays inco
 
 After this reference, primal-origin coverage remains pending. Continue broad S4/S5
 inventory/subplans and S6 according to STATUS; no whole-plan completion is implied.
+
+
+## Plain dual accepted; next primal counted reference
+
+medium-dual-plain-1 passed all15 audit checks, exit0/pins independently verified,
+source/env/driver identical to513 shared counted pins, exact result match:
+OPTIMAL,original primal feasible,objective2.2389455645278454e7,255798iterations,
+1612refactorizations,primalSHA020312e4ce121d4be48740866fd4195095bdfd2ebdb630020f965aac64a6534a.
+Elapsed6006.247837068s includes0.020784797s compilation/531.464386642sGC;
+408471253952allocatedB/172692055events. VM peak4330872KiB, max sampled RSS3820048KiB,
+minimum available19192072KiB, swap0. Plain supplies one elapsed reference only;
+its lack of windows/counters is intentional. Counted5926.881s versus plain6006.248s
+is not a repeated paired overhead estimate or evidence that instrumentation is faster.
+
+The next previously planned L3 job is medium-primal-counted-1, using the same driver,
+old source/environment/input/HH/native160/legacy,1000000step cap and43200s guard.
+Only requested origin algorithm changes toprimal. Existing accepted L2 calibration
+covers this path, including the reviewed process-isolated primal gate. Do not rerun
+completed calibration. Preserve genuine phase-I/II/cleanup transitions; no restart
+from snapshots. Final counted JSON audit must prove actual phaseII and original
+certification before any claim of long primal coverage. Later primal plain elapsed
+remains separate. Failure/limit is retained as incomplete and investigated.

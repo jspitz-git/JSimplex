@@ -442,3 +442,10 @@ S0-L medium-dual-plain-1 is now active under the same43200s guarded old baseline
 This fills missing plain elapsed coverage; no new success/speedup claim. STATUS
 contains live identities and distinct plain-mode audit requirements. Primal-origin
 long coverage and broader stages remain pending.
+
+
+S0 dual plain reference accepted:6006.247837068s including compile/GC,OPTIMAL,
+original feasible,exact result/configuration match with counted dual; independent
+post-exit pin/source audit and separate process absence passed. See plain auditJSON.
+Next primal counted long reference as already planned; no dual repeat/current-master
+speedup claim. S0 and broad stages remain partial.

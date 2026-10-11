@@ -315,3 +315,12 @@ L3 launch gate passed: driver-smoke-1 JSON success,7 phase-II steps,5 windows,
 normal exit/pins. medium-dual-counted-1 launched under frozen baseline/input and
 12h guard. First L3 checkbox remains partial until separate primal reference;
 no medium result or certification is claimed from a running attempt.
+
+
+L3 dual references completed: counted chronology/certification accepted previously;
+plain now exit0,pins independently verified,all15audit checks pass and exact final
+result/options/policy match. Plain6006.247837068s includes compile0.020784797s and
+GC531.464386642s. No overhead/speedup claim from one pair. Next serial primal counted
+reference uses existing accepted L2 and reviewed L3 driver, unchanged baseline,
+HH/native160,legacy,1000000steps,43200s guard. Both-origin L3 checkboxes remain open
+until actual primal completion/audit; subsequent primal plain is separate.
