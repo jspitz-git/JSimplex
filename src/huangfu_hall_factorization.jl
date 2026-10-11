@@ -213,29 +213,43 @@ function _hh_extract_parts(F::MarkowitzBackend{T},::HHExtractWorkspace) where {T
     for i in eachindex(core_order)
         rows[k+i]=F.row_order[k+core_order[i]]
     end
-    li,lj,lv=collect(1:n),collect(1:n),ones(T,n)
-    ui,uj,uv=Int[],Int[],T[]
+    # Count exact temporary lengths before filling. A mostly-zero dense core
+    # must not reserve a full triangle; output CSC factors still own their data.
+    lower_count=n;upper_count=k
     for pivot in 1:k
-        push!(ui,pivot);push!(uj,pivot);push!(uv,F.diagonal[pivot])
+        lower_count+=length(F.lower[pivot].values)
+        upper_count+=length(F.upper[pivot].values)
+    end
+    core=F.core.factors
+    for j in axes(core,2), i in axes(core,1)
+        iszero(core[i,j]) && continue
+        if i>j;lower_count+=1;else;upper_count+=1;end
+    end
+    li=Vector{Int}(undef,lower_count);lj=similar(li);lv=Vector{T}(undef,lower_count)
+    ui=Vector{Int}(undef,upper_count);uj=similar(ui);uv=Vector{T}(undef,upper_count)
+    unit=one(T)
+    for i in 1:n;li[i]=i;lj[i]=i;lv[i]=unit;end
+    lslot=n;uslot=0
+    for pivot in 1:k
+        uslot+=1;ui[uslot]=pivot;uj[uslot]=pivot;uv[uslot]=F.diagonal[pivot]
         lower,upper=F.lower[pivot],F.upper[pivot]
         for j in eachindex(lower.indices)
             row=lower.indices[j]
             row>k && (row=k+core_positions[row-k])
-            push!(li,row);push!(lj,pivot);push!(lv,lower.values[j])
+            lslot+=1;li[lslot]=row;lj[lslot]=pivot;lv[lslot]=lower.values[j]
         end
         for j in eachindex(upper.indices)
-            push!(ui,pivot);push!(uj,upper.indices[j]);push!(uv,upper.values[j])
+            uslot+=1;ui[uslot]=pivot;uj[uslot]=upper.indices[j];uv[uslot]=upper.values[j]
         end
     end
-    # Read the existing dense LU storage, without forming another dense matrix.
-    core=F.core.factors
+    # Preserve the original triplet and CSC accumulation order exactly.
     for j in axes(core,2), i in axes(core,1)
         value=core[i,j]
         iszero(value) && continue
         if i>j
-            push!(li,k+i);push!(lj,k+j);push!(lv,value)
+            lslot+=1;li[lslot]=k+i;lj[lslot]=k+j;lv[lslot]=value
         else
-            push!(ui,k+i);push!(uj,k+j);push!(uv,value)
+            uslot+=1;ui[uslot]=k+i;uj[uslot]=k+j;uv[uslot]=value
         end
     end
     return sparse(li,lj,lv,n,n),sparse(ui,uj,uv,n,n),rows,copy(F.column_order),ones(T,n)
