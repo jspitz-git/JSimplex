@@ -1,0 +1,409 @@
+{
+  "chronology_reference_success": true,
+  "checks": {
+    "counted_cli_audit": true,
+    "independent_audit_matches": true,
+    "pins_independently_reverified": true,
+    "pinfile_digest": true,
+    "baseline_commit": true,
+    "baseline_source_test_clean": true,
+    "baseline_shared_pins": true,
+    "actual_source": true,
+    "input_hash": true,
+    "primal_counted": true,
+    "options_match_except_origin": true,
+    "policy_unchanged": true,
+    "single_threads": true,
+    "phase_two_actual_primal": true,
+    "nonnegative_exact_counter_totals": true,
+    "accepted_steps_match": true,
+    "command_mode_origin": true
+  },
+  "counted_audit": {
+    "chronology_reference_success": true,
+    "normal_exit": true,
+    "pins_unchanged": true,
+    "certified_solver_result": true,
+    "certificate_call_observed": true,
+    "complete_counter_windows": true,
+    "complete_window_sequence": true,
+    "phase_two_steps": 263984,
+    "phase_two_seconds": 9599.932126832999,
+    "accepted_steps": 353468,
+    "windows": 350,
+    "status": "OPTIMAL",
+    "reason": "exit0",
+    "read_errors": []
+  },
+  "shared_baseline_pin_entries": 508,
+  "result": {
+    "gc_seconds": 719.815014698,
+    "primal_hash": "eabfbba9bf2ce9d3f63f5b8cdf21e5831a332ef5f2d4faca7bda12e49ab21197",
+    "objective": "2.2389455645278454e7",
+    "original_primal_feasible": true,
+    "allocations": 175769276,
+    "refactorizations": 2240,
+    "seconds": 12916.673064291,
+    "recorder_retained_bytes": 2874,
+    "compile_seconds": 0.0176922,
+    "certificate_evidence": "OPTIMAL requires the solver's internal optimality certificate; the returned original primal is checked again outside timing",
+    "bytes": 548211597024,
+    "iterations": 353468,
+    "status": "OPTIMAL",
+    "message": "optimal solution found",
+    "recorder_tail": {
+      "tail_instrumentation_nanoseconds": 82300,
+      "tail_instrumentation_bytes": 9104,
+      "windows": 350
+    }
+  },
+  "source": "/home/jspitz/.codex/worktrees/simplex-time-budget/JSimplex.jl/src",
+  "input_sha256": "79c374a584b1463305cf4b0faee8920d0364df2dd5d0468a44ab58d9e9d49dc0",
+  "pins_sha256": "ec15ced0200cd17283601b0fdd71e69381f301b280ce60a29aba4f00e83f7603",
+  "reference_sha256": "4523ed9d8ee3ad89630c5b432a29be373046f1ab7a4f36c612065eff90d974bc",
+  "windows_sha256": "498f933368c48d3d75953428fb8a6d8690283456f1ea0afdf274246489440f8a",
+  "phases": {
+    "initialization/none": {
+      "windows": 1,
+      "accepted_steps": 0,
+      "seconds": 16.905210398,
+      "regions": {
+        "presolve": {
+          "nanoseconds": 15103493795,
+          "bytes": 8173370120,
+          "allocations": 168091971,
+          "gc_nanoseconds": 9027306541
+        },
+        "initialization": {
+          "nanoseconds": 1434941782,
+          "bytes": 895307384,
+          "allocations": 781,
+          "gc_nanoseconds": 1256902530
+        },
+        "ordinary": {
+          "nanoseconds": 0,
+          "bytes": 0,
+          "allocations": 0,
+          "gc_nanoseconds": 0
+        },
+        "recovery": {
+          "nanoseconds": 0,
+          "bytes": 0,
+          "allocations": 0,
+          "gc_nanoseconds": 0
+        },
+        "refactorization": {
+          "nanoseconds": 366774821,
+          "bytes": 208509272,
+          "allocations": 118,
+          "gc_nanoseconds": 326499929
+        },
+        "projection": {
+          "nanoseconds": 0,
+          "bytes": 0,
+          "allocations": 0,
+          "gc_nanoseconds": 0
+        },
+        "cleanup_entry": {
+          "nanoseconds": 0,
+          "bytes": 0,
+          "allocations": 0,
+          "gc_nanoseconds": 0
+        },
+        "cleanup_steps": {
+          "nanoseconds": 0,
+          "bytes": 0,
+          "allocations": 0,
+          "gc_nanoseconds": 0
+        },
+        "certification": {
+          "nanoseconds": 0,
+          "bytes": 0,
+          "allocations": 0,
+          "gc_nanoseconds": 0
+        },
+        "instrumentation": {
+          "nanoseconds": 0,
+          "bytes": 0,
+          "allocations": 0,
+          "gc_nanoseconds": 0
+        }
+      }
+    },
+    "phase_one/primal": {
+      "windows": 70,
+      "accepted_steps": 71062,
+      "seconds": 1675.3590252889999,
+      "regions": {
+        "presolve": {
+          "nanoseconds": 0,
+          "bytes": 0,
+          "allocations": 0,
+          "gc_nanoseconds": 0
+        },
+        "initialization": {
+          "nanoseconds": 200,
+          "bytes": 0,
+          "allocations": 0,
+          "gc_nanoseconds": 0
+        },
+        "ordinary": {
+          "nanoseconds": 1505433546021,
+          "bytes": 303673832,
+          "allocations": 475315,
+          "gc_nanoseconds": 302192990
+        },
+        "recovery": {
+          "nanoseconds": 15323205821,
+          "bytes": 5775824,
+          "allocations": 4,
+          "gc_nanoseconds": 0
+        },
+        "refactorization": {
+          "nanoseconds": 154583157047,
+          "bytes": 100967727240,
+          "allocations": 59757,
+          "gc_nanoseconds": 139945998705
+        },
+        "projection": {
+          "nanoseconds": 0,
+          "bytes": 0,
+          "allocations": 0,
+          "gc_nanoseconds": 0
+        },
+        "cleanup_entry": {
+          "nanoseconds": 0,
+          "bytes": 0,
+          "allocations": 0,
+          "gc_nanoseconds": 0
+        },
+        "cleanup_steps": {
+          "nanoseconds": 0,
+          "bytes": 0,
+          "allocations": 0,
+          "gc_nanoseconds": 0
+        },
+        "certification": {
+          "nanoseconds": 11361700,
+          "bytes": 21152560,
+          "allocations": 18,
+          "gc_nanoseconds": 0
+        },
+        "instrumentation": {
+          "nanoseconds": 7754500,
+          "bytes": 638400,
+          "allocations": 18899,
+          "gc_nanoseconds": 0
+        }
+      }
+    },
+    "phase_two/primal": {
+      "windows": 259,
+      "accepted_steps": 263984,
+      "seconds": 9599.932126832999,
+      "regions": {
+        "presolve": {
+          "nanoseconds": 0,
+          "bytes": 0,
+          "allocations": 0,
+          "gc_nanoseconds": 0
+        },
+        "initialization": {
+          "nanoseconds": 0,
+          "bytes": 0,
+          "allocations": 0,
+          "gc_nanoseconds": 0
+        },
+        "ordinary": {
+          "nanoseconds": 9002053823365,
+          "bytes": 2093634688,
+          "allocations": 2333865,
+          "gc_nanoseconds": 330716798
+        },
+        "recovery": {
+          "nanoseconds": 10790782426,
+          "bytes": 41368200,
+          "allocations": 41,
+          "gc_nanoseconds": 298374797
+        },
+        "refactorization": {
+          "nanoseconds": 587028736540,
+          "bytes": 386403653624,
+          "allocations": 209425,
+          "gc_nanoseconds": 504360613439
+        },
+        "projection": {
+          "nanoseconds": 0,
+          "bytes": 0,
+          "allocations": 0,
+          "gc_nanoseconds": 0
+        },
+        "cleanup_entry": {
+          "nanoseconds": 0,
+          "bytes": 0,
+          "allocations": 0,
+          "gc_nanoseconds": 0
+        },
+        "cleanup_steps": {
+          "nanoseconds": 0,
+          "bytes": 0,
+          "allocations": 0,
+          "gc_nanoseconds": 0
+        },
+        "certification": {
+          "nanoseconds": 29463800,
+          "bytes": 32329144,
+          "allocations": 34,
+          "gc_nanoseconds": 0
+        },
+        "instrumentation": {
+          "nanoseconds": 29320702,
+          "bytes": 2362080,
+          "allocations": 69929,
+          "gc_nanoseconds": 0
+        }
+      }
+    },
+    "cleanup/none": {
+      "windows": 1,
+      "accepted_steps": 0,
+      "seconds": 10.926570371,
+      "regions": {
+        "presolve": {
+          "nanoseconds": 0,
+          "bytes": 0,
+          "allocations": 0,
+          "gc_nanoseconds": 0
+        },
+        "initialization": {
+          "nanoseconds": 928856291,
+          "bytes": 551257848,
+          "allocations": 281,
+          "gc_nanoseconds": 862096291
+        },
+        "ordinary": {
+          "nanoseconds": 0,
+          "bytes": 0,
+          "allocations": 0,
+          "gc_nanoseconds": 0
+        },
+        "recovery": {
+          "nanoseconds": 0,
+          "bytes": 0,
+          "allocations": 0,
+          "gc_nanoseconds": 0
+        },
+        "refactorization": {
+          "nanoseconds": 5269829135,
+          "bytes": 3150994496,
+          "allocations": 1036,
+          "gc_nanoseconds": 4605283242
+        },
+        "projection": {
+          "nanoseconds": 4701423045,
+          "bytes": 462512832,
+          "allocations": 4342934,
+          "gc_nanoseconds": 271404597
+        },
+        "cleanup_entry": {
+          "nanoseconds": 26355900,
+          "bytes": 39954264,
+          "allocations": 23,
+          "gc_nanoseconds": 0
+        },
+        "cleanup_steps": {
+          "nanoseconds": 0,
+          "bytes": 0,
+          "allocations": 0,
+          "gc_nanoseconds": 0
+        },
+        "certification": {
+          "nanoseconds": 0,
+          "bytes": 0,
+          "allocations": 0,
+          "gc_nanoseconds": 0
+        },
+        "instrumentation": {
+          "nanoseconds": 106000,
+          "bytes": 9104,
+          "allocations": 269,
+          "gc_nanoseconds": 0
+        }
+      }
+    },
+    "cleanup/primal": {
+      "windows": 19,
+      "accepted_steps": 18422,
+      "seconds": 1613.5500087999994,
+      "regions": {
+        "presolve": {
+          "nanoseconds": 0,
+          "bytes": 0,
+          "allocations": 0,
+          "gc_nanoseconds": 0
+        },
+        "initialization": {
+          "nanoseconds": 0,
+          "bytes": 0,
+          "allocations": 0,
+          "gc_nanoseconds": 0
+        },
+        "ordinary": {
+          "nanoseconds": 0,
+          "bytes": 0,
+          "allocations": 0,
+          "gc_nanoseconds": 0
+        },
+        "recovery": {
+          "nanoseconds": 0,
+          "bytes": 0,
+          "allocations": 0,
+          "gc_nanoseconds": 0
+        },
+        "refactorization": {
+          "nanoseconds": 68157536639,
+          "bytes": 44675650152,
+          "allocations": 14605,
+          "gc_nanoseconds": 57952000536
+        },
+        "projection": {
+          "nanoseconds": 0,
+          "bytes": 0,
+          "allocations": 0,
+          "gc_nanoseconds": 0
+        },
+        "cleanup_entry": {
+          "nanoseconds": 2700,
+          "bytes": 0,
+          "allocations": 0,
+          "gc_nanoseconds": 0
+        },
+        "cleanup_steps": {
+          "nanoseconds": 1545349544564,
+          "bytes": 123473480,
+          "allocations": 144520,
+          "gc_nanoseconds": 275624303
+        },
+        "certification": {
+          "nanoseconds": 40522297,
+          "bytes": 58059648,
+          "allocations": 49,
+          "gc_nanoseconds": 0
+        },
+        "instrumentation": {
+          "nanoseconds": 2402600,
+          "bytes": 173280,
+          "allocations": 5129,
+          "gc_nanoseconds": 0
+        }
+      }
+    }
+  },
+  "resources": {
+    "peak_vm_kib": 4745708,
+    "max_sampled_rss_kib": 4000368,
+    "min_available_kib": 19030460,
+    "max_swap_used_kib": 0
+  },
+  "limits": "One counted chronological reference on old baseline; elapsed includes compilation and GC. Plain primal is still required. Different primal final hash from dual is not a paired trajectory comparison or a current-master speedup."
+}

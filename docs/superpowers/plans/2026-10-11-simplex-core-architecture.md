@@ -449,3 +449,11 @@ original feasible,exact result/configuration match with counted dual; independen
 post-exit pin/source audit and separate process absence passed. See plain auditJSON.
 Next primal counted long reference as already planned; no dual repeat/current-master
 speedup claim. S0 and broad stages remain partial.
+
+
+S0-L checkpoint: primal counted reference accepted with350complete windows,
+263984actual primal phase-II steps,353468total iterations,OPTIMAL and original
+feasibility/internal certificate, normal exit and independent pin verification.
+Both counted origins are now covered; plain primal remains the next serialized
+reference. See STATUS/LONG-PHASE-II and results/S0-L/medium-primal-counted-1-audit.json.
+No new production change or current-master performance claim.

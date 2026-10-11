@@ -4,7 +4,7 @@ Updated: 2026-10-11. This is the entry point after interruption.
 
 ## Current state
 
-**S1-A, S3-A/S3-B and S4-A integrated; master `b720674` pushed. S2-A rejected; S0-L dual references audited; primal counted reference active.**
+**S1-A, S3-A/S3-B and S4-A integrated; master `b720674` pushed. S2-A rejected; S0-L dual references and primal counted audited; primal plain next.**
 The source baseline is `fe839aa72171d7496c9c931d9393278448c7317e`.
 Initial time-budget diagnostic evidence is commit `6ded1fc`.
 
@@ -32,7 +32,7 @@ main also has a user-modified .vscode/settings.json. Do not stage those files.
 | ID | Deliverable | State | Evidence / next action |
 | --- | --- | --- | --- |
 | P0 | Design, roadmap, continuation record | Done | This documentation; production unchanged |
-| S0 | Frozen baseline and coverage plan | Active | Dual counted/plain references audited; primal-origin coverage pending |
+| S0 | Frozen baseline and coverage plan | Active | Both counted origins and dual plain audited; primal plain pending |
 | S1 | State ownership and validation reuse | Integrated | Inventory and local S1-A contract; master beb161b, report S1-ENTRY.md |
 | S2 | Audited incremental primal maintenance | Active | S2-A REJECTED after numerical/cost qualification and independent review; broader pivot controller unresolved |
 | S3 | End-to-end exact sparsity support | Active | S3-A/S3-B integrated, latest masterb720674; exact-support consumer savings qualified; broader S3 partial |
@@ -77,22 +77,26 @@ results/S0-L/medium-dual-plain-1-audit.json; all15checks true.
 Runner290175/child290176/driver290166 absent in separate host calls before next
 launch. Plain acceptance milestone914b59f is pushed.
 
-Current sole numerical job: S0-L/medium-primal-counted-1, unifiedsession38999,
-43200s guard. Runner300579/start_ticks18918137, child300580/start_ticks18918221,
-boot20de7dde-704e-41c8-bee7-b8511c0a86b0; driver300570. Live identities and sole Julia
-verified after launch; recheck current.json/host rather than trusting this record.
-Old7d6a8e1,HH/native160,legacy,medium fixed hash,1000000step cap; only requested
-origin algorithm changes from the completed dual runs. Reviewed L2 calibration
-includes primal; no repeat of finished calibration or dual references.
-While healthy, remain quiet; no second Julia or edits to pinned old src/test/env
-and existing diagnostic Julia files. This active attempt is not accepted coverage.
-After completion read process.json and independently reverify pins/source/input;
-run counted long_audit.py and inspect all JSON gates/read_errors (CLI exit0 alone
-is insufficient). Verify actual phaseII algorithm, window counter totals, final
-OPTIMAL/original feasibility/certificate. Record failures/time/iteration/resource
-limits as incomplete. Then separately confirm runner/child/driver absent before
-next Julia or pinned-file edits. Primal plain elapsed and broader S4/S5/S6 remain
-pending; continue their concrete subplans after release. No whole-plan completion.
+S0-L medium-primal-counted-1 completed normally (exit0), with independently
+reverified immutable pins and source/input hashes. All17 supplemental checks and
+all counted-audit gates pass, read_errors empty.350 complete windows sum exactly
+to all counters and353468 accepted iterations. Actual phase_two/primal263984steps,
+9599.932126833s; phase_one/primal71062steps, cleanup/primal18422steps.
+OPTIMAL, original primal feasible, internal certificate observed;
+objective2.2389455645278454e7,2240refactorizations,
+primalSHAeabfbba9bf2ce9d3f63f5b8cdf21e5831a332ef5f2d4faca7bda12e49ab21197.
+Counted elapsed12916.673064291s includes0.0176922s compilation/719.815014698sGC;
+548211597024allocatedB/175769276events; bounded recorder2874B.
+VM peak4745708KiB, max sampled RSS4000368KiB, minimum available19030460KiB,
+swap0. Audit and original report/windows are in results/S0-L/medium-primal-counted-1-*.
+This is old-baseline chronology, not current-master performance. Primal and dual
+origins have different trajectories/final primal hashes; compare the forthcoming
+plain primal only with this counted primal for exact final-result acceptance.
+Runner300579/child300580/driver300570 separately confirmed absent after exit.
+Next: medium-primal-plain-1 with unchanged old source/env/input/options/policy,
+HH/native160,1000000step cap,43200s guard. No repeat of completed references.
+Plain has no windows/counters; use LONG-PHASE-II.md plain acceptance gates,
+not counted-only long_audit.py. Broader S4/S5/S6 remain pending.
 
 ## Evidence gaps and traps to retain
 

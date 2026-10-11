@@ -126,3 +126,29 @@ completed calibration. Preserve genuine phase-I/II/cleanup transitions; no resta
 from snapshots. Final counted JSON audit must prove actual phaseII and original
 certification before any claim of long primal coverage. Later primal plain elapsed
 remains separate. Failure/limit is retained as incomplete and investigated.
+
+
+## Primal counted accepted; primal plain next
+
+medium-primal-counted-1 passed the counted audit (no read errors), all17 additional
+checks, independent pin inventory and source/input verification.350 windows sum
+exactly to all final counters and353468accepted steps. Phase one/primal71062steps,
+phase two/primal263984steps/9599.932126833s, original cleanup/primal18422steps.
+OPTIMAL, original primal feasible, internal certificate observed, objective
+2.2389455645278454e7,2240refactorizations, primalSHA
+ eabfbba9bf2ce9d3f63f5b8cdf21e5831a332ef5f2d4faca7bda12e49ab21197.
+Counted elapsed12916.673064291s includes0.0176922s compilation/719.815014698sGC;
+548211597024allocatedB/175769276events. VM peak4745708KiB, max sampled RSS4000368KiB,
+minimum available19030460KiB, swap0. Portable audit includes exact phase/region
+aggregation from original windows; no remeasurement. Runner/child/driver absent
+in a separate host call after completion.
+
+Next missing L3 reference is medium-primal-plain-1 under the identical old baseline,
+input/options/policy and43200s guard. Validate plain against counted primal:
+exit0, pins independently unchanged, correct source/input, modeplain without
+windows/counters, returned OPTIMAL/original feasibility, exact objective/primal
+hash/iterations/refactorizations, configuration match. Separate compilation and
+GC from interpretation of elapsed. The dual/primal final hashes differ because
+these are different solver trajectories; do not require a cross-origin hash match.
+Neither counted elapsed nor a single plain/count pair proves current-master
+speedup, universal performance, or instrumentation overhead.
