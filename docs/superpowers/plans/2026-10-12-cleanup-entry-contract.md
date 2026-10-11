@@ -75,11 +75,12 @@ Create S5-ENTRY.md; update S5 inventory, STATUS and parent plan.
   material savings, reject this hypothesis explicitly instead of weakening them.
 - [x] State removed/full-vector scans/solves versus added eligibility work and
   retained state. No production-code change or speedup claim in this census.
-- [ ] Fresh independent numerical/work/memory review, diagnostic commit/push.
+- [x] Fresh independent numerical/work/memory review, diagnostic commit/push.
 - [x] Only if accepted, write a separate implementation subplan with focused RED,
   exact state/result gates, sparse/dense cold-entry cost pairs and unchanged full
   cleanup regression. Whole S5/S6 remain open until their own acceptance gates.
 
 Outcome: census184 exact pairs/all20audit gates accepted; unconditional omission rejected.
 The conditional implementation-plan item is not applicable: no production shortcut
-is qualified. See S5-ENTRY.md. Final review/push pending.
+is qualified. See S5-ENTRY.md. Fresh review accepted without blockers; one deferred representation-scope minor
+recorded in S5-ENTRY-REVIEW.md. Evidence43dfa89; closure commit/push follows.

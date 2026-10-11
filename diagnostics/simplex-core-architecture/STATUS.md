@@ -801,5 +801,8 @@ Native initial1FTRAN/1BTRAN/1pricing/1basis-validation; checked same kernels plu
 Unconditional omission rejected; no production change or speedup claim.
 Two diagnostic world-age warnings retained; future Julia/Revise portability open.
 Runner361287/child361288/driver361278 separately absent, same boot20de7dde-704e-41c8-bee7-b8511c0a86b0.
-Fresh review/push pending. Next concrete plan:2026-10-12-objective-restoration-contract.md.
+Fresh gpt-6-astra review accepted, no blockers. Deferred minor: exact means recorded
+representation/fields, not bitwise full workspace; BigFloat signed zero is canonicalized.
+See S5-ENTRY-REVIEW.md. Evidence43dfa89; closure push follows.
+Next concrete plan:2026-10-12-objective-restoration-contract.md.
 Broader S4/S5/S6 remain open; CI stays disabled.
