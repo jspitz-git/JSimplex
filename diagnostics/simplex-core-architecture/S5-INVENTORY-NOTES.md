@@ -178,3 +178,11 @@ production change. TIME_LIMIT returns no primal/objective/basis, while diagnosti
 observers see the initialized state. Checked initialization publishes a checkpoint,
 but the ordinary outer singular-refactor handler does not consume it. Complete
 original-objective restoration ownership remains the next separate S5-B task.
+
+## S5-B qualified restoration map
+
+S5-RESTORATION.md records144paired cases/all21audit gates. Owned journal restoration
+can issue two copies to the same cost destination; a nonoverlapping-source guard
+is required before deduplication. Bound writes interleave, so their alias proof
+is distinct and excluded from the first S5-C proposal. No restoration scan, phase
+generation increment, observer event or original-model certificate is removed.

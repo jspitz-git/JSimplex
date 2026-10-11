@@ -806,3 +806,17 @@ representation/fields, not bitwise full workspace; BigFloat signed zero is canon
 See S5-ENTRY-REVIEW.md. Evidence43dfa89; closure push follows.
 Next concrete plan:2026-10-12-objective-restoration-contract.md.
 Broader S4/S5/S6 remain open; CI stays disabled.
+
+## S5-B objective/bound restoration census (2026-10-12)
+
+Census-2 completed144selected-representation pairs/all21audit gates, exit0, source
+and whole pins independently verified. Report S5-RESTORATION.md; final review pending.
+Census-1 overconstrained alien-bound oracle failed; probe-1 showed valid original
+optima. Both attempts preserved. Corrected existing working-infeasibility fixture
+rejects alien proof. Current result80OPTIMAL/32TIME_LIMIT/16NUMERICAL_ERROR/16throws.
+Identity-aliased cost copies are a candidate only with a nonoverlapping-source
+guard; bound deduplication excluded due intervening writes/source aliases.
+Next exact RED/GREEN plan:2026-10-12-restore-alias-copies.md, after final census review.
+Production unchanged/master3220118; no speedup claim. Runner363940/child363945/
+driver363931 separately absent on boot20de7dde-704e-41c8-bee7-b8511c0a86b0.
+CI disabled, historical failures and broader S4/S5/S6 remain open.

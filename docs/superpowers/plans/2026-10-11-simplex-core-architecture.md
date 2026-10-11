@@ -516,3 +516,7 @@ S5-A update (2026-10-12): ordinary cleanup entry census184 exact pairs,20audit
 gates; unconditional initialization omission rejected. S5-ENTRY.md records
 qualified scope and exclusions; broad S5 checkboxes remain open. Next concrete
 subplan:2026-10-12-objective-restoration-contract.md. No production change.
+
+S5-B update: original objective/bound restoration census144pairs/21audit gates,
+no production change. S5-RESTORATION.md and separate S5-C alias-copy subplan define
+a concrete cold-copy candidate without shared certificate reuse. Broad S5 open.

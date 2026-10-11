@@ -1,0 +1,25 @@
+ERROR: LoadError: AssertionError: result.status == NUMERICAL_ERROR
+Stacktrace:
+  [1] run_case(T::Type{Float64}, algorithm::Symbol, backend::Symbol, profile::Symbol, mode::Symbol, counted::Bool)
+    @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/objective_restore_census.jl:98
+  [2] (::var"#main##10#main##11")(c::Tuple{DataType, Vararg{Symbol, 4}})
+    @ Main ./none:-1
+  [3] iterate
+    @ ./generator.jl:48 [inlined]
+  [4] collect_to!
+    @ ./array.jl:886 [inlined]
+  [5] collect_to_with_first!
+    @ ./array.jl:864 [inlined]
+  [6] collect(itr::Base.Generator{Vector{Tuple{DataType, Vararg{Symbol, 4}}}, var"#main##10#main##11"})
+    @ Base ./array.jl:838
+  [7] main(out::String)
+    @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/objective_restore_census.jl:158
+  [8] top-level scope
+    @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/objective_restore_census.jl:167
+  [9] include(mod::Module, _path::String)
+    @ Base ./Base.jl:309
+ [10] exec_options(opts::Base.JLOptions)
+    @ Base ./client.jl:344
+ [11] _start()
+    @ Base ./client.jl:577
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/objective_restore_census.jl:167

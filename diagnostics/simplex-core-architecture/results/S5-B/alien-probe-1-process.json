@@ -1,0 +1,32 @@
+{
+  "command": [
+    "bash",
+    "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+    "--heap-size-hint=2G",
+    "--project=/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl",
+    "--compile=min",
+    "diagnostics/simplex-core-architecture/reproduce/objective_restore_failure_probe.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/simplex-core-architecture/S5-B/alien-probe-1/reference.toml"
+  ],
+  "cwd": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl",
+  "started": 1791761985.1858501,
+  "runner": {
+    "pid": 363849,
+    "pgid": 363840,
+    "start_ticks": 21996907,
+    "boot_id": "20de7dde-704e-41c8-bee7-b8511c0a86b0",
+    "command": "/usr/bin/python3 /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/guarded_run.py run /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/simplex-core-architecture/S5-B/alien-probe-1-pins.json /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/simplex-core-architecture/S5-B/alien-probe-1 --seconds 300 -- bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --heap-size-hint=2G --project=/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl --compile=min diagnostics/simplex-core-architecture/reproduce/objective_restore_failure_probe.jl /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/simplex-core-architecture/S5-B/alien-probe-1/reference.toml "
+  },
+  "pins_sha256": "09d017c10141212c12f820728c8467530792813213570e409ee3b91c540cec49",
+  "reason": "exit0",
+  "returncode": 0,
+  "child": {
+    "pid": 363850,
+    "pgid": 363850,
+    "start_ticks": 21996988,
+    "boot_id": "20de7dde-704e-41c8-bee7-b8511c0a86b0",
+    "command": "bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --heap-size-hint=2G --project=/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl --compile=min diagnostics/simplex-core-architecture/reproduce/objective_restore_failure_probe.jl /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/simplex-core-architecture/S5-B/alien-probe-1/reference.toml "
+  },
+  "ended": 1791761987.1933482,
+  "pins_unchanged": true
+}

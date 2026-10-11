@@ -21,20 +21,26 @@ No repeated accepted medium or component references. CI stays disabled.
 
 ## Tasks
 
-- [ ] Map costs/bounds/journal/phase generation/checkpoints/pricing validity before
+- [x] Map costs/bounds/journal/phase generation/checkpoints/pricing validity before
   and after restoration, including alien unjournaled bound edits and exceptions.
-- [ ] Reuse existing cost_restore_allocation_tests, simplex_perturbation_integration_tests,
+- [x] Reuse existing cost_restore_allocation_tests, simplex_perturbation_integration_tests,
   basis_recovery_tests and partial_pricing_integration_tests as source evidence;
   determine which exact assertions have already run on current production before
   launching anything. Do not automatically rerun whole suites.
-- [ ] Define bounded paired diagnostic fixtures for both algorithms: cost-only
+- [x] Define bounded paired diagnostic fixtures for both algorithms: cost-only
   perturbation, owned bound restoration, unowned bound mutation, already-original
   state, expired shared budget and observer failure. Include changed phase/model
   checkpoint rejection. No certificate transfers from a changed model.
-- [ ] Count actual restoration, scans, invalidation and reconstruction scopes with
+- [x] Count actual restoration, scans, invalidation and reconstruction scopes with
   unchanged-body control equivalence. Separate cold handoff from ordinary pivots.
-- [ ] Decide whether a concrete redundant operation has an owned validity proof;
+- [x] Decide whether a concrete redundant operation has an owned validity proof;
   reject speculative caches or flags that cannot survive aliases and callbacks.
 - [ ] Audit exit/pins/source/outcomes, independent numerical/work review, report,
   STATUS and diagnostic commit/push. Only then a focused implementation subplan
   if warranted. Broader S4/S5/S6 and historical CI failures remain open.
+
+Census-2 accepted144recorded pairs/21audit gates. Preserved census-1 oracle failure
+and alien-probe-1 clarify that an original-feasible optimum is not an invalid proof.
+Report S5-RESTORATION.md; final review pending. Conditional next S5-C subplan
+2026-10-12-restore-alias-copies.md narrows to nonoverlapping identity-aliased costs;
+bound copies/events/invalidation/reconstruction remain unchanged.

@@ -1,0 +1,402 @@
+[[cases]]
+primal = ["0.0"]
+profile = "native"
+budget_refactorizations = 2
+key = "Float64/primal/native/native/bounds_alien"
+mode = "bounds_alien"
+backend = "native"
+original_feasible = true
+checkpoint_still_matches = true
+type = "Float64"
+algorithm = "primal"
+budget_iterations = 5
+input_unchanged = true
+status = "OPTIMAL"
+foreign_checkpoint_rejected = true
+objective = "0.0"
+
+    [cases.initial]
+    perturbed = false
+    pricing_present = true
+    steepest_valid = [false, false]
+    lower = ["Bound{Float64}(0.0, true)", "Bound{Float64}(0.0, false)"]
+    basis = [2]
+    active_costs_same = false
+    journal_present = false
+    prices = ["1.0", "0.0"]
+    refactorizations = 2
+    pricing_mode = "steepest_edge"
+    primal = ["0.0", "-0.0"]
+    weights = ["1.0", "1.0"]
+    states = ["AT_LOWER", "BASIC"]
+    bounds_active = false
+    checkpoints = 0
+    iterations = 5
+    journal_active = false
+    upper = ["Bound{Float64}(-1.0, true)", "Bound{Float64}(0.0, false)"]
+    costs = ["1.0", "0.0"]
+    phase = 0
+    pricing_needs_reset = true
+
+    [[cases.events]]
+    reason = "certification"
+
+        [cases.events.state]
+        perturbed = false
+        pricing_present = true
+        steepest_valid = [false, false]
+        lower = ["Bound{Float64}(0.0, true)", "Bound{Float64}(0.0, false)"]
+        basis = [2]
+        active_costs_same = false
+        journal_present = false
+        prices = ["1.0", "0.0"]
+        refactorizations = 2
+        pricing_mode = "steepest_edge"
+        primal = ["0.0", "-0.0"]
+        weights = ["1.0", "1.0"]
+        states = ["AT_LOWER", "BASIC"]
+        bounds_active = false
+        checkpoints = 0
+        iterations = 5
+        journal_active = false
+        upper = ["Bound{Float64}(-1.0, true)", "Bound{Float64}(0.0, false)"]
+        costs = ["1.0", "0.0"]
+        phase = 0
+        pricing_needs_reset = true
+
+    [cases.final]
+    perturbed = false
+    pricing_present = true
+    steepest_valid = [false, false]
+    lower = ["Bound{Float64}(0.0, true)", "Bound{Float64}(0.0, false)"]
+    basis = [2]
+    active_costs_same = false
+    journal_present = false
+    prices = ["1.0", "0.0"]
+    refactorizations = 2
+    pricing_mode = "steepest_edge"
+    primal = ["0.0", "-0.0"]
+    weights = ["1.0", "1.0"]
+    states = ["AT_LOWER", "BASIC"]
+    bounds_active = false
+    checkpoints = 0
+    iterations = 5
+    journal_active = false
+    upper = ["Bound{Float64}(-1.0, true)", "Bound{Float64}(0.0, false)"]
+    costs = ["1.0", "0.0"]
+    phase = 0
+    pricing_needs_reset = true
+[[cases]]
+primal = ["0.0"]
+profile = "checked"
+budget_refactorizations = 2
+key = "Float64/primal/native/checked/bounds_alien"
+mode = "bounds_alien"
+backend = "native"
+original_feasible = true
+checkpoint_still_matches = true
+type = "Float64"
+algorithm = "primal"
+budget_iterations = 5
+input_unchanged = true
+status = "OPTIMAL"
+foreign_checkpoint_rejected = true
+objective = "0.0"
+
+    [cases.initial]
+    perturbed = false
+    pricing_present = true
+    steepest_valid = [false, false]
+    lower = ["Bound{Float64}(0.0, true)", "Bound{Float64}(0.0, false)"]
+    basis = [2]
+    active_costs_same = false
+    journal_present = false
+    prices = ["1.0", "0.0"]
+    refactorizations = 2
+    pricing_mode = "steepest_edge"
+    primal = ["0.0", "-0.0"]
+    weights = ["1.0", "1.0"]
+    states = ["AT_LOWER", "BASIC"]
+    bounds_active = false
+    checkpoints = 2
+    iterations = 5
+    journal_active = false
+    upper = ["Bound{Float64}(-1.0, true)", "Bound{Float64}(0.0, false)"]
+    costs = ["1.0", "0.0"]
+    phase = 0
+    pricing_needs_reset = true
+
+    [[cases.events]]
+    reason = "checkpoint"
+
+        [cases.events.state]
+        perturbed = false
+        pricing_present = true
+        steepest_valid = [false, false]
+        lower = ["Bound{Float64}(0.0, true)", "Bound{Float64}(0.0, false)"]
+        basis = [2]
+        active_costs_same = false
+        journal_present = false
+        prices = ["1.0", "0.0"]
+        refactorizations = 2
+        pricing_mode = "steepest_edge"
+        primal = ["0.0", "-0.0"]
+        weights = ["1.0", "1.0"]
+        states = ["AT_LOWER", "BASIC"]
+        bounds_active = false
+        checkpoints = 2
+        iterations = 5
+        journal_active = false
+        upper = ["Bound{Float64}(-1.0, true)", "Bound{Float64}(0.0, false)"]
+        costs = ["1.0", "0.0"]
+        phase = 0
+        pricing_needs_reset = true
+    [[cases.events]]
+    reason = "certification"
+
+        [cases.events.state]
+        perturbed = false
+        pricing_present = true
+        steepest_valid = [false, false]
+        lower = ["Bound{Float64}(0.0, true)", "Bound{Float64}(0.0, false)"]
+        basis = [2]
+        active_costs_same = false
+        journal_present = false
+        prices = ["1.0", "0.0"]
+        refactorizations = 2
+        pricing_mode = "steepest_edge"
+        primal = ["0.0", "-0.0"]
+        weights = ["1.0", "1.0"]
+        states = ["AT_LOWER", "BASIC"]
+        bounds_active = false
+        checkpoints = 2
+        iterations = 5
+        journal_active = false
+        upper = ["Bound{Float64}(-1.0, true)", "Bound{Float64}(0.0, false)"]
+        costs = ["1.0", "0.0"]
+        phase = 0
+        pricing_needs_reset = true
+
+    [cases.final]
+    perturbed = false
+    pricing_present = true
+    steepest_valid = [false, false]
+    lower = ["Bound{Float64}(0.0, true)", "Bound{Float64}(0.0, false)"]
+    basis = [2]
+    active_costs_same = false
+    journal_present = false
+    prices = ["1.0", "0.0"]
+    refactorizations = 2
+    pricing_mode = "steepest_edge"
+    primal = ["0.0", "-0.0"]
+    weights = ["1.0", "1.0"]
+    states = ["AT_LOWER", "BASIC"]
+    bounds_active = false
+    checkpoints = 2
+    iterations = 5
+    journal_active = false
+    upper = ["Bound{Float64}(-1.0, true)", "Bound{Float64}(0.0, false)"]
+    costs = ["1.0", "0.0"]
+    phase = 0
+    pricing_needs_reset = true
+[[cases]]
+primal = ["0.0"]
+profile = "native"
+budget_refactorizations = 2
+key = "Float64/dual/native/native/bounds_alien"
+mode = "bounds_alien"
+backend = "native"
+original_feasible = true
+checkpoint_still_matches = true
+type = "Float64"
+algorithm = "dual"
+budget_iterations = 5
+input_unchanged = true
+status = "OPTIMAL"
+foreign_checkpoint_rejected = true
+objective = "0.0"
+
+    [cases.initial]
+    perturbed = false
+    pricing_present = true
+    steepest_valid = [false, false]
+    lower = ["Bound{Float64}(0.0, true)", "Bound{Float64}(0.0, false)"]
+    basis = [2]
+    active_costs_same = false
+    journal_present = false
+    prices = ["1.0", "0.0"]
+    refactorizations = 2
+    pricing_mode = "steepest_edge"
+    primal = ["0.0", "-0.0"]
+    weights = ["1.0", "1.0"]
+    states = ["AT_LOWER", "BASIC"]
+    bounds_active = false
+    checkpoints = 0
+    iterations = 5
+    journal_active = false
+    upper = ["Bound{Float64}(-1.0, true)", "Bound{Float64}(0.0, false)"]
+    costs = ["1.0", "0.0"]
+    phase = 0
+    pricing_needs_reset = true
+
+    [[cases.events]]
+    reason = "certification"
+
+        [cases.events.state]
+        perturbed = false
+        pricing_present = true
+        steepest_valid = [false, false]
+        lower = ["Bound{Float64}(0.0, true)", "Bound{Float64}(0.0, false)"]
+        basis = [2]
+        active_costs_same = false
+        journal_present = false
+        prices = ["1.0", "0.0"]
+        refactorizations = 2
+        pricing_mode = "steepest_edge"
+        primal = ["0.0", "-0.0"]
+        weights = ["1.0", "1.0"]
+        states = ["AT_LOWER", "BASIC"]
+        bounds_active = false
+        checkpoints = 0
+        iterations = 5
+        journal_active = false
+        upper = ["Bound{Float64}(-1.0, true)", "Bound{Float64}(0.0, false)"]
+        costs = ["1.0", "0.0"]
+        phase = 0
+        pricing_needs_reset = true
+
+    [cases.final]
+    perturbed = false
+    pricing_present = true
+    steepest_valid = [false, false]
+    lower = ["Bound{Float64}(0.0, true)", "Bound{Float64}(0.0, false)"]
+    basis = [2]
+    active_costs_same = false
+    journal_present = false
+    prices = ["1.0", "0.0"]
+    refactorizations = 2
+    pricing_mode = "steepest_edge"
+    primal = ["0.0", "-0.0"]
+    weights = ["1.0", "1.0"]
+    states = ["AT_LOWER", "BASIC"]
+    bounds_active = false
+    checkpoints = 0
+    iterations = 5
+    journal_active = false
+    upper = ["Bound{Float64}(-1.0, true)", "Bound{Float64}(0.0, false)"]
+    costs = ["1.0", "0.0"]
+    phase = 0
+    pricing_needs_reset = true
+[[cases]]
+primal = ["0.0"]
+profile = "checked"
+budget_refactorizations = 2
+key = "Float64/dual/native/checked/bounds_alien"
+mode = "bounds_alien"
+backend = "native"
+original_feasible = true
+checkpoint_still_matches = true
+type = "Float64"
+algorithm = "dual"
+budget_iterations = 5
+input_unchanged = true
+status = "OPTIMAL"
+foreign_checkpoint_rejected = true
+objective = "0.0"
+
+    [cases.initial]
+    perturbed = false
+    pricing_present = true
+    steepest_valid = [false, false]
+    lower = ["Bound{Float64}(0.0, true)", "Bound{Float64}(0.0, false)"]
+    basis = [2]
+    active_costs_same = false
+    journal_present = false
+    prices = ["1.0", "0.0"]
+    refactorizations = 2
+    pricing_mode = "steepest_edge"
+    primal = ["0.0", "-0.0"]
+    weights = ["1.0", "1.0"]
+    states = ["AT_LOWER", "BASIC"]
+    bounds_active = false
+    checkpoints = 2
+    iterations = 5
+    journal_active = false
+    upper = ["Bound{Float64}(-1.0, true)", "Bound{Float64}(0.0, false)"]
+    costs = ["1.0", "0.0"]
+    phase = 0
+    pricing_needs_reset = true
+
+    [[cases.events]]
+    reason = "checkpoint"
+
+        [cases.events.state]
+        perturbed = false
+        pricing_present = true
+        steepest_valid = [false, false]
+        lower = ["Bound{Float64}(0.0, true)", "Bound{Float64}(0.0, false)"]
+        basis = [2]
+        active_costs_same = false
+        journal_present = false
+        prices = ["1.0", "0.0"]
+        refactorizations = 2
+        pricing_mode = "steepest_edge"
+        primal = ["0.0", "-0.0"]
+        weights = ["1.0", "1.0"]
+        states = ["AT_LOWER", "BASIC"]
+        bounds_active = false
+        checkpoints = 2
+        iterations = 5
+        journal_active = false
+        upper = ["Bound{Float64}(-1.0, true)", "Bound{Float64}(0.0, false)"]
+        costs = ["1.0", "0.0"]
+        phase = 0
+        pricing_needs_reset = true
+    [[cases.events]]
+    reason = "certification"
+
+        [cases.events.state]
+        perturbed = false
+        pricing_present = true
+        steepest_valid = [false, false]
+        lower = ["Bound{Float64}(0.0, true)", "Bound{Float64}(0.0, false)"]
+        basis = [2]
+        active_costs_same = false
+        journal_present = false
+        prices = ["1.0", "0.0"]
+        refactorizations = 2
+        pricing_mode = "steepest_edge"
+        primal = ["0.0", "-0.0"]
+        weights = ["1.0", "1.0"]
+        states = ["AT_LOWER", "BASIC"]
+        bounds_active = false
+        checkpoints = 2
+        iterations = 5
+        journal_active = false
+        upper = ["Bound{Float64}(-1.0, true)", "Bound{Float64}(0.0, false)"]
+        costs = ["1.0", "0.0"]
+        phase = 0
+        pricing_needs_reset = true
+
+    [cases.final]
+    perturbed = false
+    pricing_present = true
+    steepest_valid = [false, false]
+    lower = ["Bound{Float64}(0.0, true)", "Bound{Float64}(0.0, false)"]
+    basis = [2]
+    active_costs_same = false
+    journal_present = false
+    prices = ["1.0", "0.0"]
+    refactorizations = 2
+    pricing_mode = "steepest_edge"
+    primal = ["0.0", "-0.0"]
+    weights = ["1.0", "1.0"]
+    states = ["AT_LOWER", "BASIC"]
+    bounds_active = false
+    checkpoints = 2
+    iterations = 5
+    journal_active = false
+    upper = ["Bound{Float64}(-1.0, true)", "Bound{Float64}(0.0, false)"]
+    costs = ["1.0", "0.0"]
+    phase = 0
+    pricing_needs_reset = true
