@@ -109,3 +109,38 @@ LP refinement use their separate initialization path.
 
 Independent static review accepts the map as partial after these additions.
 No new runtime work/retention is introduced and no numerical experiment was run.
+
+
+## Initialization events, counters and failure ownership
+
+`_initialize_workspace_state` already separates allocation/default slack factor
+construction from `_finish_workspace_initialization!`, which reconstructs values
+and then emits refactor_initial. This is an existing seam, not an invitation to
+publish zero scratch as an initialized point. simplex_start_guard_tests explicitly
+observes the first reconstructed slack at refactor_initial and checks its stored
+BigFloat precision even under a lowered ambient precision. Callback-visible
+initialization order is therefore part of the regression contract.
+
+Ordinary cleanup assigns prior iteration/refactorization totals only after its
+initial default workspace returns, then checks the original shared deadline and
+installs the restored basis before recompute!(refactorize=true). Generic phase
+helpers explicitly inherit work on private attempts. A direct-basis constructor
+must specify when an owned workspace exists if factor construction throws and
+which work total recovery receives; returning a new factor alone does not solve
+that failure boundary. Keep attempted and completed work distinctions explicit.
+
+`initialize_from_basis` additionally checks basis shape/state consistency, rejects
+free nonbasics with finite bounds and states naming absent bounds, invalidates
+basis checkpoints, reconstructs and checks finite/basis solve quality, then resets
+Devex. These safeguards differ from merely replacing `workspace.basis`. Existing
+simplex_start_guard_tests cover singular inputs, invalid nonbasic states, overflow
+fallback, callback failure provenance and stored precision. A cleanup-only change
+must not silently alter this broader initializer or precision/crash entry paths.
+
+A minimal future hypothesis could avoid only an unobserved discarded default
+reconstruction while retaining its factor owner; a broader direct-basis constructor
+could also avoid default factor construction. They have different savings and
+failure/event contracts. Neither is selected or implemented here. Before choosing,
+use the existing cleanup-entry attribution, name eligible observer/policy cases,
+and count the actual factor/solve/RHS/price work removed. Full phase handoff reuse
+still needs model/order/cost/bound/weight ownership and original certification.

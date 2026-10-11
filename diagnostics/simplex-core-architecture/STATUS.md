@@ -421,3 +421,12 @@ writer map now explicitly qualifies view aliases and observer-created metadata.
 S0 partial-attribution snapshot: iteration125952,90247 phase-II steps, no final
 certificate. Pins matched at snapshot; raw prefix and compact report preserved.
 Refactorization178.2594s includes157.4598s GC, so it is not an arithmetic timing.
+
+
+Next-slot command is prepared but MUST NOT run before S0 release:
+`python3 /tmp/jsimplex-s3-attempt.py boundary-red-1 <active>/diagnostics/simplex-core-architecture/reproduce/pipeline_boundary_regressions.jl smoke --seconds 600`.
+The new helper targets S3-A, freezes src/test/environment/scripts and uses the
+same existing guard/launcher. It was Python syntax-checked only. Check process.json,
+then host runner/child/driver absence in a separate call before launching.
+S5 inventory now records callback-visible initial reconstructed state, prior-work
+assignment timing and constructor failure ownership; no S5 source change.
