@@ -306,3 +306,12 @@ work counts and broader correctness gates passed in the documented modes.
 Normal-mode full-suite completion remains unverified due to bounded compilation
 stalls also reproduced on baseline. No whole-medium result or universal elapsed
 speedup follows. S0 long instrumentation/calibration/reference is next before S2.
+
+## S0 long instrumentation checkpoint
+
+The diagnostic count-only prototype passed 39 tests and its small HH calibration.
+The chronological prototype passed boundary/staging tests, but its sparse pilot
+median overhead is 11.90%, above the predeclared 5% budget (dense: 2.02%). S0-L2
+is not accepted; no long reference was launched. See S0-LONG.md and the new
+2026-10-11-simplex-long-instrumentation.md subplan. Execution stopped at this
+concrete problem as requested; S1 production remains integrated and unchanged.

@@ -1,0 +1,22 @@
+ERROR: LoadError: ParseError:
+# Error @ /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_windows.jl:137:20
+    Core.eval(JS,:(const _lc_recorder=$recorder))
+    Core.eval(JS,:(const _lc_enter!=$(long_enter!)))
+#                  └─────────────────────────────┘ ── expected assignment after `const`
+Stacktrace:
+ [1] top-level scope
+   @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_windows.jl:137
+ [2] include(mapexpr::Function, mod::Module, _path::String)
+   @ Base ./Base.jl:310
+ [3] top-level scope
+   @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_window_tests.jl:8
+ [4] include(mod::Module, _path::String)
+   @ Base ./Base.jl:309
+ [5] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:344
+ [6] _start()
+   @ Base ./client.jl:577
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_windows.jl:137
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_window_tests.jl:8
+Test Summary:                             | Pass  Total  Time
+Long chronological windows implementation |    1      1  0.1s

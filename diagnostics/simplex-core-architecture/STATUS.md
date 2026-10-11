@@ -4,7 +4,7 @@ Updated: 2026-10-11. This is the entry point after interruption.
 
 ## Current state
 
-**S1-A Integrated and pushed to master (`beb161b`). S0-long instrumentation/reference remains pending.**
+**S1-A Integrated and pushed to master (`beb161b`). Stopped at S0-L2 calibration failure: sparse chronology overhead 11.90% exceeds 5%. No active numerical process.**
 The source baseline is `fe839aa72171d7496c9c931d9393278448c7317e`.
 Completed diagnostic evidence is commit `6ded1fc`.
 
@@ -32,7 +32,7 @@ main also has a user-modified .vscode/settings.json. Do not stage those files.
 | ID | Deliverable | State | Evidence / next action |
 | --- | --- | --- | --- |
 | P0 | Design, roadmap, continuation record | Done | This documentation; production unchanged |
-| S0 | Frozen baseline and coverage plan | Active | Local chunk Verified (REVIEW.md); long-run implementation/calibration/reference pending |
+| S0 | Frozen baseline and coverage plan | Active | Local/count-only gates passed; chronological pilot rejected (11.90% > 5%); long reference pending |
 | S1 | State ownership and validation reuse | Integrated | Inventory and local S1-A contract; master beb161b, report S1-ENTRY.md |
 | S2 | Audited incremental primal maintenance | Pending | Existing kernels and missing guards inventory |
 | S3 | End-to-end exact sparsity support | Pending | Support propagation and full-scan inventory |
@@ -46,21 +46,25 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-Implement and calibrate the diagnostic-only S0 long phase-II instrumentation
-specified in [LONG-PHASE-II.md](LONG-PHASE-II.md), starting with a concrete
-small subplan. The old census has excessive timing overhead on runtime; do not
-reuse it as a calibrated long-run timing source. Preserve the unchanged source
-baseline, live solver state and <=5% calibration gate. No numerical process is
-active at this checkpoint. Do not repeat the completed S1-A measurements.
+Execution stopped at the user's requested problem boundary. Resolve the S0-L2
+chronology pilot's sparse overhead (11.90% versus a predeclared 5% budget) before
+any long reference. Read [S0-LONG.md](S0-LONG.md), its results/S0-L/acceptance.json,
+and the [instrumentation subplan](../../docs/superpowers/plans/2026-10-11-simplex-long-instrumentation.md).
+The count-only pilot passed; the full recorder is an unaccepted diagnostic
+prototype. Isolate event-bookkeeping/region overhead and reduce work; preserve
+staging semantics and add recorder+trace ordering checks. Do not loosen the
+budget or repeat the unchanged pilot without a changed hypothesis.
 
-S1-A is integrated: architecture commit `8e0a7c7def505604ccfe50cdbc2cf9cee453092d`,
-cherry-picked to master as `beb161b310afd9dc7126eca98e3c15898a69efbf` and pushed.
-Production src/test/Project trees match. The main .vscode/settings.json and both
-local environment files are preserved. All worktrees and raw attempts remain.
-No global validity cache is selected; other independent guards remain intact.
+All numerical processes have stopped. Seven S0-L attempts and all S1-A attempts
+remain preserved locally, including failures. No long medium solve was launched.
+S0 medium/both-algorithm calibration and final diagnostic review remain pending.
 
-Read [S1-ENTRY.md](S1-ENTRY.md) for the accepted numerical/work evidence and
-limits. Long phase-II reference is still required before S2 whole-medium claims.
+S1-A production commit `8e0a7c7def505604ccfe50cdbc2cf9cee453092d` was integrated
+as master `beb161b310afd9dc7126eca98e3c15898a69efbf` and pushed. Its src/test/Project
+trees remain unchanged. Diagnostics/experiments are separate on the architecture
+branch (published S1 evidence: 1fcaa16). All worktrees and local environments,
+including main's modified .vscode/settings.json, remain preserved.
+Read [S1-ENTRY.md](S1-ENTRY.md) for accepted local savings and coverage limitations.
 
 ## Evidence gaps and traps to retain
 
@@ -299,3 +303,32 @@ Portable results include 15 attempt records and source digests; full raw evidenc
 is preserved locally. 1807 accepted validation assertions plus 242 integration
 assertions passed; no complete normal-mode suite or whole-medium solution claim.
 Next: S0 long-run diagnostic subplan, implementation and calibrated short runs.
+
+S0-L started after integrated S1-A: concrete subplan
+docs/superpowers/plans/2026-10-11-simplex-long-instrumentation.md. First launcher
+call failed before Julia because the new stage directory did not exist; corrected.
+counts-red-1 then failed as intended on missing counter implementation, exit1,
+pins unchanged. Count-only implementation/tests are uncommitted; normal guarded
+counts-green-1 is next. No long solve or calibration acceptance yet.
+
+S0-L counts-green-1 passed 39 assertions with normal compilation, exit0/pins
+unchanged. Count-only pilot calibration is next: a new instrumentation test,
+not another S1 baseline/candidate benchmark. Sparse/dense HH, five interleaved
+pairs of 32 prepared kernels, separate trace verification. L2 chronology and
+medium/both-algorithm calibration still pending. Production remains unchanged.
+
+Active S0-L attempt: count-pilot-1, guarded 300 seconds on preserved baseline
+7d6a8e1. Inspect process.json/current.json before edits or any Julia launch.
+The count-only pilot does not qualify long-run instrumentation; L2 windows and
+full calibration remain mandatory. Published diagnostic milestone is 1fcaa16;
+master remote verified at beb161b. Current S0-L files are diagnostic-only.
+
+## S0-L2 stopped checkpoint
+
+window-pilot-1 completed exit0/pins unchanged. Sparse chronology overhead 11.90%
+exceeds the 5% gate; dense 2.02%. Final state/step comparisons and zero measured
+compilation checks passed, but these do not override the performance rejection.
+All source/script pins verified again; runner and child absent, no Julia process.
+Tests/results/failed attempts and the exact next hypothesis are recorded in
+S0-LONG.md. No S0 production changes; no long reference. Stop follows the user's
+explicit instruction to continue only until encountering a problem.

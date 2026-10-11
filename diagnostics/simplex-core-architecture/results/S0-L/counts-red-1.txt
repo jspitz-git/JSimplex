@@ -1,0 +1,18 @@
+ERROR: LoadError: Some tests did not pass: 0 passed, 1 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_counter_tests.jl:4
+
+Long count-only instrumentation: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_counter_tests.jl:5
+  Expression: isfile(implementation)
+   Evaluated: isfile("/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_counters.jl")
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_counter_tests.jl:5 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] top-level scope
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_counter_tests.jl:5
+Test Summary:                   | Fail  Total  Time
+Long count-only instrumentation |    1      1  0.6s
+RNG of the outermost testset: Random.Xoshiro(0x736f85d07bd4f5ae, 0xfd0860f20bf261b5, 0x98b72f09922d555a, 0x070151e6a43c5a84, 0x9725d124f8353f2b)

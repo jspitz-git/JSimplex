@@ -1,0 +1,18 @@
+ERROR: LoadError: Some tests did not pass: 0 passed, 1 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_window_tests.jl:4
+
+Long chronological windows implementation: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_window_tests.jl:5
+  Expression: isfile(implementation)
+   Evaluated: isfile("/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_windows.jl")
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_window_tests.jl:5
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/long_window_tests.jl:5 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+Test Summary:                             | Fail  Total  Time
+Long chronological windows implementation |    1      1  0.6s
+RNG of the outermost testset: Random.Xoshiro(0x2b459daa0c4fde35, 0x76bddac143c83879, 0xb06b9751df99c7a6, 0xb23188863bde22da, 0xe0f3de32d8bc61d4)
