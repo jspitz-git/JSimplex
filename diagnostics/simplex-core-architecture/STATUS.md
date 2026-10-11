@@ -4,7 +4,7 @@ Updated: 2026-10-11. This is the entry point after interruption.
 
 ## Current state
 
-**S1-A, S3-A and S4-A integrated; master `d8ad4ec` pushed. S0-L counted dual reference audited; S2-A control census next.**
+**S1-A, S3-A and S4-A integrated; master `d8ad4ec` pushed. S0-L counted dual reference audited; S2-A candidate qualification active.**
 The source baseline is `fe839aa72171d7496c9c931d9393278448c7317e`.
 Completed diagnostic evidence is commit `6ded1fc`.
 
@@ -46,23 +46,27 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-S3-A production cd91a1a was cherry-picked to masterd8ad4ec5651225a512d5f533f48ce7d8fc8f90cc
-and pushed after independent numerical/work-memory review and1645/1645 normal
-integration tests. Original main user files still match the preservation digest.
-All S3 runner/child/driver processes are absent; final master runner282199 and
-Julia282200 were checked in a separate host call after exit0/pins unchanged.
-See S3-BOUNDARIES.md and results/S3-A for complete results and limitations.
-Do not repeat completed S0/S1/S3/S4 evidence without a concrete new hypothesis.
+S3-A production cd91a1a -> masterd8ad4ec5651225a512d5f533f48ce7d8fc8f90cc is reviewed,
+integration-tested1645/1645 and pushed. Diagnostics milestone1c6ee5d is pushed.
+Main user-file preservation checks passed. S0 counted dual long reference audit
+passed; separate plain elapsed and primal-origin coverage remain pending.
 
 Continue docs/superpowers/plans/2026-10-11-primal-flip-audit-prototype.md.
-Next numerical step is the unexecuted80-case control branch census:
-`python3 /tmp/jsimplex-s2-attempt.py control-census-1 <active>/diagnostics/simplex-core-architecture/reproduce/primal_flip_characterization.jl '{out}/census.toml' --seconds 1200`.
-The helper was Python syntax-checked and uses the same guard/launcher; validate
-real process state before launch. No S2 prototype, RED or production change exists.
-After the census, qualify fixtures and build the planned private control RED before
-implementing the candidate. Preserve all numerical safeguards and endpoint refresh.
-The separate plain elapsed and primal-origin long references remain pending;
-S0 counted chronology alone does not permit a whole-solver timing claim.
+S2-A control census passed80cases/1000assertions. Work RED passed6state checks and
+failed2 intended solve-count assertions8/4 versus5/1. Work-green-1 failed only in
+module loading; fixed explicit Symbol entries. Work-green-2 passed12/12 including
+mandatory endpoint refresh, retained basis/prices, original certificate and5/1work.
+Private prototype is reproduce/primal_flip_prototype.jl; no production change.
+It clones six exact source definitions into a private module with source hashes,
+AST anchors, context-owner checks and no overwritten production methods.
+
+candidate-matrix-1 is the sole numerical job, qualifying80characterized cases.
+Check .superpowers/simplex-core-architecture/S2-A/candidate-matrix-1/current.json
+for runner/child start_ticks and boot ID; verify real host identity. Read final
+process.json/pins and results, then separately verify runner/child/driver absent
+before changing pinned files or another Julia. After acceptance add private fault
+and unsupported-path contracts, then full cost/qualification review. Do not treat
+first GREEN or fewer solves as speedup or permission to merge this experiment.
 
 ## Evidence gaps and traps to retain
 
@@ -532,3 +536,24 @@ unchanged, measured0B/0events; timing mixed, no speedup. Alias invalidation adds
 bounded6metadata checks and necessary later support rebuilds. Generic view
 benchmark boxing and nonspecialized single-call overhead explicitly documented.
 No broader S3 completion or whole-medium improvement claim. Next S2-A census.
+
+
+S2-A control-census-1 is active under the guard; runner282455 (start_ticks17692061), Julia282456 (start_ticks17692145), boot20de7dde-704e-41c8-bee7-b8511c0a86b0. Verify current identity. No S2 candidate exists.
+A new unexecuted primal_flip_work_contracts.jl specifies the first intended RED:
+four actual flips, certified final optimum, target5FTRAN/1BTRAN including mandatory
+endpoint refresh versus the unchanged control expected8/4. Run only after census
+acceptance and separate host absence; no private candidate before that RED.
+
+S2-A control-census-1 completed1000/1000 assertions and80/80rows,exit0/pins
+unchanged; source hashes verified. Host runner282455/child282456/driver absent.
+Next work-red-1 on unchanged control; no candidate implementation yet.
+
+S2-A work-red-1 produced the intended RED:6state/certificate checks pass,
+2work assertions fail (actual8FTRAN/4BTRAN versus target5/1),0errors,exit1/pins
+unchanged. Host runner282737/child282738/driver absent. Private AST-clone
+implementation may now begin; production remains unchanged.
+
+S2 work-green-1 failed at module loading (unspaced bang-symbol Pair syntax in
+RENAMES evaluated an undefined target name), before numerical tests. Exit1/pins
+unchanged, host absence verified. Replaced only the rename dictionary entries
+with explicit Symbol constructors; work-green-2 next. Production unchanged.

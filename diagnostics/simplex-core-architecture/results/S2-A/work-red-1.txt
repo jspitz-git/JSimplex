@@ -1,0 +1,31 @@
+ERROR: LoadError: Some tests did not pass: 6 passed, 2 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/primal_flip_work_contracts.jl:12
+
+Audited flip work contract before implementation: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/primal_flip_work_contracts.jl:33
+  Expression: calls[:ftran] == 5
+   Evaluated: 8 == 5
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/primal_flip_work_contracts.jl:14
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/primal_flip_work_contracts.jl:33 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Audited flip work contract before implementation: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/primal_flip_work_contracts.jl:34
+  Expression: calls[:btran] == 1
+   Evaluated: 4 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/primal_flip_work_contracts.jl:14
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/primal_flip_work_contracts.jl:34 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+Test Summary:                                    | Pass  Fail  Total   Time
+Audited flip work contract before implementation |    6     2      8  13.8s
+RNG of the outermost testset: Random.Xoshiro(0x228dfd1655c5aabb, 0x370b06348eba2d79, 0x5b6bac098fba206b, 0xf75e4eff73b3ae9d, 0x545d94dffa809b88)

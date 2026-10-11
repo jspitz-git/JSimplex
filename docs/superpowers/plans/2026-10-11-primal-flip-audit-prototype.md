@@ -2,8 +2,8 @@
 
 > **For agentic workers:** Use superpowers:executing-plans sequentially.
 
-**Status:** Private experiment design independently accepted; characterization pending.
-No production implementation/default change or numerical measurement yet.
+**Status:** Control census accepted:80cases/1000assertions. First work RED next.
+No private candidate or production/default change yet.
 
 **Goal:** Test whether an unchanged-basis bound flip can avoid reconstructing
 both primal values and unchanged prices when an independently certified predicted
@@ -306,3 +306,35 @@ count, not flip count. An ordinary flip-only chain cannot naturally reach a new
 refactor limit. Seed a real pivot under the original policy, then lower the owned
 workspace refactor interval before the measured/test invocation. Record this
 fixture preparation separately; no production scheduling rule is changed.
+
+## Control census execution
+
+control-census-1 passed1000/1000 assertions across80cases,normal compilation,
+exit0/pins unchanged. All returned rows and source hashes verified. All five
+managers and native/Markowitz support the four characterized recipes in Float32/64.
+Actual flip-chain work is8FTRAN/4BTRAN; scheduled-refactor assertions pass.
+Host runner282455/child282456/driver absent separately verified. This establishes
+control behavior, not an optimization. Next run primal_flip_work_contracts.jl on
+unchanged control: target5FTRAN/1BTRAN for four flips including endpoint refresh,
+with accepted state/branch checks expected to pass and work assertions RED.
+Degenerate, rejected, exception and unsupported-path qualification still pending.
+
+## Private work RED/GREEN checkpoint
+
+work-red-1:6state/certificate checks pass,2intended work failures8/4 versus5/1.
+work-green-1 failed at module load before numerical execution; explicit Symbol
+Pair entries repaired that diagnostic parser issue. work-green-2 passed12/12,
+with four audits/skips, one endpoint refresh/reconstruction, no fallback and final
+dirty=false. All exits/pins read and host process absence separately checked.
+candidate-matrix-1 now qualifies the80characterized recipes; broader fault/
+unsupported-path tests and all cost/acceptance work remain pending.
+
+Ruling: the private public-facing diagnostic entry constructs its own workspace,
+options, observer and deadline from type/fixture identifiers, accepting no supplied
+workspace/callback/logger. This is narrower than the planned ws+owned-config seam
+and eliminates ownership inference from arbitrary callbacks. Internal cloned
+methods still take ctx first and enforce owner identity. Cost if inadequate:
+qualification must add a new explicitly owned fixture constructor, never weaken
+production callback contracts. Counters called direct_recomputations count only
+the cloned direct reconstruction calls and endpoint helper; real kernel counters
+include helper recovery work. Do not label the direct count a global solve census.
