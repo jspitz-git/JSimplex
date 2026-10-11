@@ -535,7 +535,7 @@ _hh_refactor_backend(F,B,::Val{:markowitz}) =
 function refactorize!(f::HuangfuHallFactorization{T,FType,R},B::AbstractMatrix{T}) where {T,FType,R}
     size(B,1)==size(B,2) || throw(DimensionMismatch("Basis must be square"))
     n=size(B,1);F=f.refactor_workspace
-    local base
+    local base, work, auxiliary, prepared_partial, prepared_direction
     try
         # Extracted L/U own their storage; failed backend construction cannot
         # damage the active factors or copies. Preserve backend choice on retry.
@@ -544,6 +544,10 @@ function refactorize!(f::HuangfuHallFactorization{T,FType,R},B::AbstractMatrix{T
         work=length(f.work)==n ? f.work : zeros(T,n)
         auxiliary=length(f.auxiliary)==n ? f.auxiliary : zeros(T,n)
         base=_hh_extract_base(F,work,auxiliary,f.extract_workspace)
+        # New dimensions must release obsolete private backing storage. Prepare
+        # all references before publication; valid prepared data survives failure.
+        prepared_partial=length(f.prepared_partial)==n ? f.prepared_partial : Vector{T}(undef,n)
+        prepared_direction=length(f.prepared_direction)==n ? f.prepared_direction : Vector{T}(undef,n)
     catch
         f.refactor_workspace=nothing
         rethrow()
@@ -562,9 +566,8 @@ function refactorize!(f::HuangfuHallFactorization{T,FType,R},B::AbstractMatrix{T
     n==0 && (f.extract_workspace=HHExtractWorkspace())
     f.shared_update_count=0
     f.base=base;f.refactor_workspace=F
-    for scratch in (f.work,f.auxiliary,f.prepared_partial,f.prepared_direction)
-        resize!(scratch,n)
-    end
+    f.work=work;f.auxiliary=auxiliary
+    f.prepared_partial=prepared_partial;f.prepared_direction=prepared_direction
     if length(f.unit_workspace.values)!=n
         f.unit_workspace=HHUnitWorkspace(n,T)
     end
