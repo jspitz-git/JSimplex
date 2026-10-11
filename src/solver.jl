@@ -12,6 +12,9 @@ SolveContext(start_ns::UInt64, limit::Float64, diagnostics) =
 _context_numerical_policy(context::SolveContext, options::SolverOptions{T}) where {T} =
     isnothing(context.numerical_policy) ? NumericalPolicy(T,options) : context.numerical_policy
 
+_SolveDeadline(context::SolveContext) =
+    _SolveDeadline(context.start_ns, context.time_limit_seconds)
+
 elapsed_seconds(context::SolveContext) = (time_ns() - context.start_ns) / 1.0e9
 time_limit_reached(context::SolveContext) =
     context.time_limit_seconds != Inf && elapsed_seconds(context) >= context.time_limit_seconds
@@ -215,7 +218,7 @@ function cleanup_original(problem::LinearProblem{T}, restored_basis::Basis,
                           prior_iterations::Int, prior_refactorizations::Int;
                           target_primal::Union{Nothing,Vector{T}}=nothing) where {T}
     options.verbose && @info "Starting postsolve cleanup on original LP"
-    stop_requested = _guard_stop_callback(() -> time_limit_reached(context))
+    stop_requested = _guard_stop_callback(_SolveDeadline(context))
     workspace = nothing
     try
         progress = SimplexProgressContext(problem; start_ns=context.start_ns,
@@ -314,7 +317,7 @@ function _retry_original(problem::LinearProblem{T}, options::SolverOptions{T},
     end
     retry_problem = _minimization_problem(problem)
     retry_options = _remaining_options(options; iterations=previous.iterations)
-    stop_requested = () -> time_limit_reached(context)
+    stop_requested = _SolveDeadline(context)
     progress = SimplexProgressContext(problem; start_ns=context.start_ns,
                                      iteration_offset=previous.iterations,
                                      refactorization_offset=previous.refactorizations,
@@ -524,7 +527,7 @@ function _solve_diagnosed(problem::LinearProblem{T}, diagnostics;
     run = algorithm(
         working_problem,
         typed_options;
-        stop_requested=() -> time_limit_reached(context),
+        stop_requested=_SolveDeadline(context),
         progress,
     )
     reduced = !isempty(presolved.postsolve_stack)

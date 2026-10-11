@@ -2,6 +2,15 @@ _is_numerical_exception(exception) =
     exception isa SingularException || exception isa ZeroPivotException ||
     exception isa _UnreliableBasisSolve
 
+# Internal deadline owns only clock scalars; unlike an arbitrary stop closure,
+# it cannot mutate a workspace or invoke caller code between two local checks.
+struct _SolveDeadline <: Function
+    start_ns::UInt64
+    time_limit_seconds::Float64
+end
+(deadline::_SolveDeadline)() = deadline.time_limit_seconds != Inf &&
+    (time_ns() - deadline.start_ns) / 1.0e9 >= deadline.time_limit_seconds
+
 mutable struct _StopCallback{F}
     callback::F
     exception::Any
@@ -683,12 +692,17 @@ end
 
 function dual_iteration!(workspace::SimplexWorkspace{T}, stop_requested;
                          perturb_degenerate::Bool=true)::Union{Nothing,DualTermination} where {T}
-    stop_requested = _guard_stop_callback(stop_requested)
+    return _dual_iteration_entry!(workspace, _guard_stop_callback(stop_requested),
+                                  perturb_degenerate, Val(false))
+end
+
+function _dual_iteration_entry!(workspace::SimplexWorkspace, stop_requested::_StopCallback,
+                                perturb_degenerate::Bool, ::Val{Validated}) where Validated
     stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
     _prepare_auto_pricing!(workspace,:dual;stop=stop_requested) ||
         return DualTermination(TIME_LIMIT,"time limit reached during pricing recovery")
     try
-        if !_finite_workspace(workspace)
+        if !Validated && !_finite_workspace(workspace)
             _recover_invalid_dse_weights!(workspace, stop_requested) ||
                 return _numerical_failure()
             _finite_workspace(workspace) || return _numerical_failure()
@@ -1793,6 +1807,16 @@ function _flip_bounds!(workspace::SimplexWorkspace{T}) where {T}
     return nothing
 end
 
+_can_reuse_dual_entry_validation(workspace, stop) = false
+function _can_reuse_dual_entry_validation(workspace::SimplexWorkspace{T},
+                                         stop::_StopCallback{_SolveDeadline}) where {T<:Union{Float32,Float64}}
+    # This is a conservative subset of _prepare_auto_pricing!'s no-op branch.
+    # Generic scalar arithmetic and arbitrary callbacks keep independent checks.
+    return workspace.options.pricing != :auto &&
+           !workspace.progress.numerical_policy.adaptive_pricing &&
+           isnothing(workspace.scratch.pricing)
+end
+
 function _dual_optimize!(workspace::SimplexWorkspace{T}, stop_requested;
                          perturb_degenerate::Bool=true)::DualTermination where {T}
     while true
@@ -1800,7 +1824,9 @@ function _dual_optimize!(workspace::SimplexWorkspace{T}, stop_requested;
         _prepare_auto_pricing!(workspace,:dual;stop=stop_requested) ||
             return DualTermination(TIME_LIMIT,"time limit reached during pricing recovery")
         _finite_workspace(workspace) || return _numerical_failure()
+        reuse_entry_check = _can_reuse_dual_entry_validation(workspace, stop_requested)
         if dual_infeasibility(workspace) > workspace.options.dual_tolerance
+            reuse_entry_check = false
             if _is_exact(T) === Val(false) && !isempty(workspace.factorization.updates)
                 # Updated factors and reduced costs can drift between rebuilds.
                 # Confirm the failure against the current basis before stopping.
@@ -1819,7 +1845,11 @@ function _dual_optimize!(workspace::SimplexWorkspace{T}, stop_requested;
         end
         workspace.iterations < workspace.options.iteration_limit ||
             return DualTermination(ITERATION_LIMIT, "iteration limit reached")
-        terminal = dual_iteration!(workspace, stop_requested; perturb_degenerate)
+        # Feasibility summaries above only read hardware-float state. Reuse is
+        # local to this call; no result crosses an observer, repair or iteration.
+        terminal = reuse_entry_check ?
+            _dual_iteration_entry!(workspace, stop_requested, perturb_degenerate, Val(true)) :
+            dual_iteration!(workspace, stop_requested; perturb_degenerate)
         isnothing(terminal) && _observe_stagnation!(workspace,:dual,
             workspace.scratch.last_primal_step,workspace.scratch.last_dual_step)
         isnothing(terminal) && _observe_auto_pricing!(workspace,:dual)
