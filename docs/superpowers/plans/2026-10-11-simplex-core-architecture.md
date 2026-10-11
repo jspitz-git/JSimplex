@@ -511,3 +511,8 @@ rerun-preservation minor. Broader manager/history/medium/S6 gates remain open.
 Next S5-A ordinary cleanup entry work census/contract, per explicit subplan
 2026-10-12-cleanup-entry-contract.md; observer/deadline/checkpoint/recovery semantics
 must be resolved before any removal of default reconstruction.
+
+S5-A update (2026-10-12): ordinary cleanup entry census184 exact pairs,20audit
+gates; unconditional initialization omission rejected. S5-ENTRY.md records
+qualified scope and exclusions; broad S5 checkboxes remain open. Next concrete
+subplan:2026-10-12-objective-restoration-contract.md. No production change.

@@ -169,3 +169,12 @@ All plain references are now accepted; these costs remain old-source counted
 attribution, not a proposed constructor's benefit. S4 component attribution is
 next; S5 contracts/exception ownership still require a concrete implementation
 subplan before edits. No new measurement or runtime work was introduced here.
+
+## S5-A bounded qualification
+
+See S5-ENTRY.md:184 exact paired cases/all20audit gates qualify the ordinary
+cleanup entry map on master3220118. Unconditional omission rejected; no
+production change. TIME_LIMIT returns no primal/objective/basis, while diagnostic
+observers see the initialized state. Checked initialization publishes a checkpoint,
+but the ordinary outer singular-refactor handler does not consume it. Complete
+original-objective restoration ownership remains the next separate S5-B task.

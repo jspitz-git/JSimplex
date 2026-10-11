@@ -1,0 +1,65 @@
+{
+  "accepted": true,
+  "checks": {
+    "normal_exit": true,
+    "process_pins": true,
+    "independent_pins": true,
+    "pin_manifest": true,
+    "source": true,
+    "script": true,
+    "case_coverage": true,
+    "exact_pairs": true,
+    "caller_basis_preserved": true,
+    "initial_scope": true,
+    "initial_work": true,
+    "normal_optima": true,
+    "expired": true,
+    "singular": true,
+    "exceptions": true,
+    "policy": true,
+    "native_no_checkpoint": true,
+    "checked_checkpoint": true,
+    "observed_initial": true,
+    "restored_scope": true
+  },
+  "initial_summary": [
+    {
+      "profile": "native",
+      "cases": 92,
+      "initial_counts": [
+        [
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "profile": "checked",
+      "cases": 92,
+      "initial_counts": [
+        [
+          1,
+          1,
+          1,
+          5,
+          1,
+          1,
+          0
+        ]
+      ]
+    }
+  ],
+  "resources": {
+    "min_available_kib": 20881760,
+    "max_swap_kib": 0,
+    "VmPeak_kib": 2615600,
+    "VmRSS_kib": 1954108
+  },
+  "reference_sha256": "5e045586a20e4a7f223ab90e16e734b5da84812a5bbd5e50c99f12942f5be4ba",
+  "scope": "Bounded unchanged-body census; no timing, raw-factor-solve count, full recovery coverage or production optimization claim"
+}

@@ -50,32 +50,36 @@ src/simplex_recovery.jl checkpoint ownership and src/simplex_start.jl initialize
 validation. Use Test fixtures from postsolve_cleanup_performance_tests.jl,
 dual_entry_phase_tests.jl, simplex_start_guard_tests.jl and presolve_tests.jl.
 
-- [ ] Complete ownership table with observer/no-observer, recovery on/off as already
+- [x] Complete ownership table with observer/no-observer, recovery on/off as already
   configured by each policy, expired entry, singular restored basis, projection
   success/failure and precision-boost/refinement exclusion. Cite concrete branches.
-- [ ] Count `_finish_workspace_initialization!` and subsequent restored recompute
+- [x] Count `_finish_workspace_initialization!` and subsequent restored recompute
   separately in process-local diagnostic wrappers around unchanged function bodies.
   Record FTRAN/BTRAN/pricing/refactor kernels, checkpoint publication, basis/primal/
   cost/price/weight state and event order; never infer a cost from iteration count.
-- [ ] Use Float32/Float64/BigFloat/Rational{BigInt}, both algorithm options, and
+- [x] Use Float32/Float64/BigFloat/Rational{BigInt}, both algorithm options, and
   HH native/Markowitz. Restrict additional manager cases to failure/ownership
   contracts not covered by these; no broad repeated benchmark by default.
-- [ ] Verify original feasible optima on normal tiny fixtures, exact same state/
+- [x] Verify original feasible optima on normal tiny fixtures, exact same state/
   outcome between instrumented and plain controls, expected deadline/callback/
   failure provenance. Separate cold initialization from projection/ordinary cleanup.
-- [ ] After normal exit, independently audit pins/source, complete case keys and
+- [x] After normal exit, independently audit pins/source, complete case keys and
   outcomes. No medium rerun; reuse completed old entry/ordinary attribution.
 
 ## Task 2: eligibility ruling and next implementation gate
 
 Create S5-ENTRY.md; update S5 inventory, STATUS and parent plan.
 
-- [ ] Decide whether a bounded predicate can avoid default reconstruction while
+- [x] Decide whether a bounded predicate can avoid default reconstruction while
   preserving every contract above. If recovery/observer/deadline semantics prevent
   material savings, reject this hypothesis explicitly instead of weakening them.
-- [ ] State removed/full-vector scans/solves versus added eligibility work and
+- [x] State removed/full-vector scans/solves versus added eligibility work and
   retained state. No production-code change or speedup claim in this census.
 - [ ] Fresh independent numerical/work/memory review, diagnostic commit/push.
-- [ ] Only if accepted, write a separate implementation subplan with focused RED,
+- [x] Only if accepted, write a separate implementation subplan with focused RED,
   exact state/result gates, sparse/dense cold-entry cost pairs and unchanged full
   cleanup regression. Whole S5/S6 remain open until their own acceptance gates.
+
+Outcome: census184 exact pairs/all20audit gates accepted; unconditional omission rejected.
+The conditional implementation-plan item is not applicable: no production shortcut
+is qualified. See S5-ENTRY.md. Final review/push pending.

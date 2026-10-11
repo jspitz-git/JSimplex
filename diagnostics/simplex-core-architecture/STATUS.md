@@ -37,7 +37,7 @@ main also has a user-modified .vscode/settings.json. Do not stage those files.
 | S2 | Audited incremental primal maintenance | Active | S2-A REJECTED after numerical/cost qualification and independent review; broader pivot controller unresolved |
 | S3 | End-to-end exact sparsity support | Active | S3-A/S3-B integrated, latest masterb720674; exact-support consumer savings qualified; broader S3 partial |
 | S4 | Refactorization memory lifecycle | Active | S4-A/S4-C integrated; master3220118; Float64 component attribution/cost and exact triplet optimization accepted; bounded scalar component attribution360samples accepted; broader manager/history/medium coverage open |
-| S5 | Phase/cleanup handoff contract | Active | Partial static phase/cleanup ownership map; no implementation |
+| S5 | Phase/cleanup handoff contract | Active | S5-A184 exact pairs/20audit gates; unconditional default reconstruction omission rejected; objective restoration contract next |
 | S6 | Broad validation and final comparison | Pending | Requires accepted production chunks |
 
 Allowed execution states: Pending, Active, Blocked (reason required), Verified,
@@ -791,3 +791,15 @@ elapsed/compile/GC/allocation/resource evidence; no repeated numerical measureme
 S0-L medium-primal-counted-1 launched with calibrated existing instrumentation,
 unchanged old baseline and guard settings. Runner300579/Julia300580 identities
 verified; session38999; no concurrent Julia. Await actual final audit before claims.
+
+## S5-A cleanup entry census (2026-10-12)
+
+Census-1 completed184 exact control/instrumented pairs, exit0, all20audit gates,
+independent source/pins verified. See S5-ENTRY.md and cleanup-entry subplan.
+Native initial1FTRAN/1BTRAN/1pricing/1basis-validation; checked same kernels plus
+5validations/1checkpoint. Observer/deadline/caller exception contracts pass.
+Unconditional omission rejected; no production change or speedup claim.
+Two diagnostic world-age warnings retained; future Julia/Revise portability open.
+Runner361287/child361288/driver361278 separately absent, same boot20de7dde-704e-41c8-bee7-b8511c0a86b0.
+Fresh review/push pending. Next concrete plan:2026-10-12-objective-restoration-contract.md.
+Broader S4/S5/S6 remain open; CI stays disabled.
