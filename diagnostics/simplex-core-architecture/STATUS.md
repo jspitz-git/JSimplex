@@ -4,7 +4,7 @@ Updated: 2026-10-11. This is the entry point after interruption.
 
 ## Current state
 
-**S0 local preflight/harness and S1 static inventory verified; production work remains pending. No production edits or Julia launch.**
+**S1-A Integrated and pushed to master (`beb161b`). S0-long instrumentation/reference remains pending.**
 The source baseline is `fe839aa72171d7496c9c931d9393278448c7317e`.
 Completed diagnostic evidence is commit `6ded1fc`.
 
@@ -33,7 +33,7 @@ main also has a user-modified .vscode/settings.json. Do not stage those files.
 | --- | --- | --- | --- |
 | P0 | Design, roadmap, continuation record | Done | This documentation; production unchanged |
 | S0 | Frozen baseline and coverage plan | Active | Local chunk Verified (REVIEW.md); long-run implementation/calibration/reference pending |
-| S1 | State ownership and validation reuse | Active | Inventory/subplan Verified (REVIEW.md); no production changes |
+| S1 | State ownership and validation reuse | Integrated | Inventory and local S1-A contract; master beb161b, report S1-ENTRY.md |
 | S2 | Audited incremental primal maintenance | Pending | Existing kernels and missing guards inventory |
 | S3 | End-to-end exact sparsity support | Pending | Support propagation and full-scan inventory |
 | S4 | Refactorization memory lifecycle | Pending | Backend ownership/allocation attribution |
@@ -46,17 +46,21 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-Characterize S1-A's owned-deadline interval before any production edit. The local
-S0/S1 evidence and Python-only guard review are complete. Read
-[BASELINE.md](BASELINE.md), [S1-OWNERSHIP.md](S1-OWNERSHIP.md),
-[LONG-PHASE-II.md](LONG-PHASE-II.md) and the
-[S1-A subplan](../../docs/superpowers/plans/2026-10-11-simplex-state-entry.md).
-No global validity cache is selected. Do not claim the remaining finite checks
-redundant: observers/stop callbacks, cost shifts, weights and recomputation
-separate them. The simplest local DSE reuse already exists in baseline.
+Implement and calibrate the diagnostic-only S0 long phase-II instrumentation
+specified in [LONG-PHASE-II.md](LONG-PHASE-II.md), starting with a concrete
+small subplan. The old census has excessive timing overhead on runtime; do not
+reuse it as a calibrated long-run timing source. Preserve the unchanged source
+baseline, live solver state and <=5% calibration gate. No numerical process is
+active at this checkpoint. Do not repeat the completed S1-A measurements.
 
-S0 long phase-II instrumentation, calibration and reference remain pending.
-No whole-medium claim is allowed. No historical profiling slice was repeated.
+S1-A is integrated: architecture commit `8e0a7c7def505604ccfe50cdbc2cf9cee453092d`,
+cherry-picked to master as `beb161b310afd9dc7126eca98e3c15898a69efbf` and pushed.
+Production src/test/Project trees match. The main .vscode/settings.json and both
+local environment files are preserved. All worktrees and raw attempts remain.
+No global validity cache is selected; other independent guards remain intact.
+
+Read [S1-ENTRY.md](S1-ENTRY.md) for the accepted numerical/work evidence and
+limits. Long phase-II reference is still required before S2 whole-medium claims.
 
 ## Evidence gaps and traps to retain
 
@@ -155,3 +159,143 @@ The next task is the first unchecked S1-A characterization gate. No numerical
 runner is active; do a fresh host process check before any Julia launch. Long
 phase-II measurement remains pending; no prior measurements need repetition
 until a new instrumentation or production-change hypothesis requires comparison.
+
+## S1-A execution started
+
+Preflight on 2026-10-11: HEAD 94442cf, master/origin at fe839aa; no numerical
+process on host. Characterization completed. New contract tests and dedicated
+work-count probe written before production changes. First guarded RED attempt
+is about to run under `.superpowers/simplex-core-architecture/S1-A/red-1`.
+No other Julia launch is allowed while this attempt owns the guard.
+
+S1-A RED completed: process exit1, unchanged pins, 25 passes / 3 intended
+work-count failures (9 vs 7 checks for two pivots). Candidate changes are limited
+to dual_simplex.jl and three context-only deadline call sites in solver.jl; new
+contract tests are included in runtests.jl. Candidate source patch/new files are
+retained with green-1. The first normal-compilation focused attempt is still
+running under its 600-second guard; inspect its process.json before any next
+launch or pinned-source edit. No production commit/merge has occurred.
+
+S1-A green-1 ended at the 600-second wall limit, exit -15, pins unchanged.
+The termination stack identifies Julia type inference/backedge storage in
+`simplex_precision_recovery_state_tests.jl:58`; no test-failure output. This is
+incomplete evidence, not a passing suite or numerical failure. Host confirmed no
+remaining Julia. Next: normal focused tests with per-file output, a separate
+compile=min precision-recovery semantic run, then work counts and paired timing.
+Static independent review found no production correctness or unnecessary-work
+defect; four validation gaps are being closed. Raw attempts remain preserved.
+
+S1-A validation checkpoint: green-2 was deliberately interrupted after about
+280 seconds via its verified runner identity. Four completed normal-compilation
+files passed 469 assertions (242 new contract, 71 weights, 125 residual, 31
+certificate reuse). The remaining dual-entry file was compiling in LLVM at
+line 85; guard cleanup ended with -9, pins unchanged. semantic-1 separately
+passed precision-recovery-state (30) and dual-entry-phase (182) under compile=min,
+exit0/pins unchanged. No timing claim is drawn from semantic mode.
+
+count-1 passed all 41 assertions, exit0/pins unchanged. Two ordinary pivots use
+7 instead of 9 finite checks: steepest-edge/Devex visit 112 instead of 144 vector
+elements; Dantzig 84 instead of 108. Successful price repair retains its first
+entry check; auto/existing-state/adaptive-policy exclusions retain check counts.
+The counter sums lengths at each actually executed hardware-float scan, whose
+loop visits every element; skipped arrays contribute zero.
+
+paired-1 is now running baseline and candidate in independent modules in one
+guarded Julia process, with identical sparse/dense fixtures and all five managers.
+It compares full event/state fingerprints separately from three interleaved warm
+plain timing/allocation pairs. Both source trees and all shared scripts are pinned.
+Inspect its process.json before editing any pinned file or starting another job.
+
+paired-1 deliberately stopped: author found a diagnostic comparator defect.
+Baseline used ()->false rather than its real context clock closure. Earlier
+state/hash matches are useful, but timings are rejected as production before/after
+evidence. Process exited via owned guard cleanup (-9), pins unchanged; old scripts
+are saved inside the attempt. The corrected helper uses each revision's actual
+context-only stop factory and tests expiry equivalence before measurement.
+Next runs: broad semantic boundaries, then corrected paired-2.
+
+Boundaries-1 passed 780 assertions, exit0/pins unchanged. External-1 is active
+under a 900-second guard, using the frozen five-case external manifest, both
+algorithms, all five managers and native/Markowitz factorization. Its source and
+measurement scripts are also copied into source-snapshot/ before later edits.
+Measurement review accepted the corrected real-clock comparator but requests
+trace/plain cross-checks and complete event-name/count/refactorization metadata
+before paired-2. Production source has not changed since the focused tests.
+
+External-1 completed normally: all 100 combinations OPTIMAL, original-primal
+certified and reference-objective matched (305 assertions), pins unchanged.
+Process group and runner confirmed absent on host before diagnostic edits.
+The benchmark review fixes now compare trace/plain entry and final states,
+steps/refactorizations and complete event names/counts scoped to the measured
+kernel. Unused prototype scripts are retained under unused-prototypes/.
+
+Baseline-precision-1 is active: original project/source at preserved 7d6a8e1,
+normal compilation, only the unchanged precision-recovery-state file, 300-second
+guard. This control determines whether the earlier compilation problem also
+occurs without the candidate; no numerical benchmark is concurrent. Actual test
+file and helper outside the baseline test tree are explicitly pinned. The local
+launch helper is preserved as attempt-launcher.py for reproducibility.
+
+Baseline-precision-1 ended at its 300-second wall limit, exit -15, pins unchanged.
+The old production source also stalls in type inference (precision-recovery-state
+line 31; candidate combined run had reached line 58). This reproduces an inability
+to finish bounded normal compilation without the candidate; it does not establish
+equal compile costs or a full-suite pass. No original checkout file was changed.
+Paired-2 is active with the corrected deadline comparator and reviewed metadata
+checks, 600-second guard. Both baseline/candidate source trees are pinned.
+
+Paired-2 passed all 10 sparse/dense manager cases, 30 interleaved timing pairs
+plus separate traces, exit0/pins unchanged. All entry/final/completion states,
+event sequences/counts and step/refactorization counts match; trace/plain checks
+also pass. Allocation bytes/counts equal, measured compilation zero. Tiny-case
+timing scatter is reported without a universal speedup claim in S1-ENTRY.md.
+Medium-dual-1 candidate prefix is active, 600-second guard, 4000 HH/native320
+steps plus a separately warmed census with actual vector-element counting.
+A new baseline run is justified by this new element metric and production change;
+the old report only counted helper calls. No sampling/profiler run is repeated.
+
+Medium-dual-1 completed, exit0/pins unchanged. The 4000-step HH/native320
+candidate plain and census runs have identical hashes/events and zero measured
+compilation. Candidate also exactly matches the historical baseline status,
+iterations, event/state hashes, event counts and input hash. Finite-workspace
+calls are 12004 versus historical 16004; actual candidate vector visits are
+26287751664. This remains ITERATION_LIMIT, not a solved LP.
+Medium-dual-baseline-1 is active on the preserved old source with the same new
+element counter; this closes the missing baseline element metric. Runtime dual
+paired validation and final acceptance/integration remain pending.
+
+Medium-dual-baseline-1 completed exit0/pins unchanged; its long warm-up did not
+hit the guard. Fresh baseline/candidate plaintext and census trajectories match.
+Actual element visits: 35047415664 -> 26287751664, saved 8759664000 (24.994%).
+Runtime-dual-baseline-1 is active (512-step prefix, old source, 600-second guard);
+then run the candidate with identical input/scripts/options and compare hashes.
+No production source edits since focused validation; no master integration yet.
+
+Runtime-dual-baseline-1 completed exit0/pins unchanged. On resume the candidate
+attempt had not started; runtime-dual-1 is now the sole guarded Julia process,
+600-second limit. See its current.json and resources.jsonl. All 507 source/test
+files still match seven accepted candidate-validation pin sets. Remote master
+is fe839aa and diagnostic branch 94442cf. Final independent review accepts local
+integration conditional on the runtime gate; no new blocking finding.
+
+Runtime-dual-1 completed exit0/pins unchanged. Its four-way trajectory comparison
+passed, with 62230448 fewer actual element visits; only finite-workspace calls
+change (2055 -> 1796). Independent review and all S1-A local gates are complete.
+All 507 source/test files match eight candidate validation pin sets. No Julia
+process remains; source files can now be committed. Full normal-mode project
+suite remains incomplete (old-source compilation timeout also reproduced).
+Do not repeat numerical measurements without a new reason.
+
+## S1-A integrated milestone
+
+Architecture production commit 8e0a7c7; master cherry-pick beb161b, pushed. Only
+two production files and three test files were integrated; diagnostics remain
+on the architecture branch. Final staged whitespace check removed one trailing
+blank line from the test helper after the main validation; production code did
+not change. integration-1 passed all 242 new contract assertions directly from
+master under compile=min, exit0/pins unchanged. No numerical process remains.
+
+Portable results include 15 attempt records and source digests; full raw evidence
+is preserved locally. 1807 accepted validation assertions plus 242 integration
+assertions passed; no complete normal-mode suite or whole-medium solution claim.
+Next: S0 long-run diagnostic subplan, implementation and calibrated short runs.

@@ -1,0 +1,87 @@
+read_seconds = 0.284834421
+source_revision = "94442cfb73cbd49e04c79e603eeef1fb9a1cd906"
+gc_seconds = 0.978500559
+input = "/home/jspitz/mps/runtime.mps"
+original_rows = 43021
+input_sha256 = "d0ac16e1a52a7d3411cbac28616bba9d3beb0c0edbdb2d72ab0477ce075f6c68"
+case = "runtime-dual"
+allocations = 35585371
+original_columns = 47148
+seconds = 2.400705063
+source_root = "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl"
+compile_seconds = 0.0
+threads = 1
+mode = "plain"
+blas_threads = 1
+bytes = 1806428968
+iterations = 512
+original_nnz = 277210
+states_hash = "ec9c9ca692a2f01e14e5a9284b20aa051a72e7c78d011605f1d02f214b70a581"
+julia = "1.13.0"
+status = "ITERATION_LIMIT"
+events_hash = "ed3a622d9692f46b4465a3bc224e06397924e97eb167b4f90cd00049c37b6e39"
+
+[[phases]]
+iteration = 0
+offset = 0
+columns = 31615
+event = "phase_dual"
+rows = 28453
+nnz = 211789
+[[phases]]
+iteration = 0
+offset = 0
+columns = 31615
+event = "phase_auxiliary"
+rows = 28453
+nnz = 211789
+[[phases]]
+iteration = 259
+offset = 0
+columns = 31615
+event = "phase_dual"
+rows = 28453
+nnz = 211789
+
+[[windows]]
+gc_seconds = 0.978500559
+iteration = 128
+seconds = 2.106537835
+bytes = 1776339400
+offset = 0
+allocations = 35578981
+[[windows]]
+gc_seconds = 0.0
+iteration = 256
+seconds = 0.088610569
+bytes = 94248
+offset = 0
+allocations = 1974
+[[windows]]
+gc_seconds = 0.0
+iteration = 384
+seconds = 0.105972082
+bytes = 29899488
+offset = 0
+allocations = 2382
+[[windows]]
+gc_seconds = 0.0
+iteration = 512
+seconds = 0.099471877
+bytes = 93832
+offset = 0
+allocations = 2005
+
+[events]
+phase_dual = 2
+checkpoint = 1
+phase_auxiliary = 1
+pricing_scanned_entries = 14567936
+bound_flipped = 260
+refactor_other = 1
+pivot_completed = 512
+pricing_full_scan = 512
+pricing = 512
+refactor_initial = 1
+pricing_scored_entries = 831496
+pivot_proposed = 512

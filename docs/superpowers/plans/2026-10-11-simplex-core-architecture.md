@@ -81,7 +81,7 @@ and stage-specific scripts under `diagnostics/simplex-core-architecture/reproduc
   on paired short runs before requesting its timings as evidence.
 - [ ] Obtain a phase-II reference before claiming a whole-medium improvement in
   S2. Existing prefix evidence is sufficient to begin the local S1 work.
-- [ ] Freeze representative sparse/dense kernel inputs and the external manifest;
+- [x] Freeze representative sparse/dense kernel inputs and the external manifest;
   include both algorithms and all five public managers over subsequent validation.
   Resolve inputs and check hashes to exclude forbidden aliases.
 - [x] Commit the baseline/harness evidence and update STATUS with the next task.
@@ -107,14 +107,14 @@ new `test/simplex_state_validity_tests.jl` if a shared contract is introduced.
 - [x] Write the S1 implementation subplan. Choose the smallest owned validation
   contract justified by that inventory; do not add a global version framework
   where local reuse already suffices. Specify rollover and exception behavior.
-- [ ] Add tests where an unchanged state reuses validation and every dependency
+- [x] Add tests where an unchanged state reuses validation and every dependency
   mutation forces checking; include NaN/Inf injection, alias/callback access,
   failed updates, dimension changes and generation rollover if counters are used.
-- [ ] Implement one consumer at a time, starting with repeated dual finite-state
+- [x] Implement one consumer at a time, starting with repeated dual finite-state
   checks. Preserve independent row/direction residuals unless reuse is proved.
-- [ ] Compare event/state hashes and work counts with baseline; measure avoided
+- [x] Compare event/state hashes and work counts with baseline; measure avoided
   scans, counter overhead and retained metadata on sparse and dense inputs.
-- [ ] Review, commit and integrate only passing chunks; record links and results.
+- [x] Review, commit and integrate only passing chunks; record links and results.
 
 **Gate:** No reusable result outlives its inputs; no material new per-candidate
 scan or allocation. Demonstrate saved work and unchanged arithmetic trajectory.
@@ -291,3 +291,18 @@ S1 mutation/check inventory and the owned-deadline S1-A subplan are written.
 The inventory does not authorize a global validity cache or removal of independent
 residual checks. All production implementation, numerical validation and
 integration checkboxes remain pending. See STATUS.md for exact continuation.
+
+## 2026-10-11 S1-A integration checkpoint
+
+S1's local owned-deadline contract is integrated and pushed to master as beb161b
+(architecture commit 8e0a7c7). Sparse/dense recipes and the external manifest have
+now been exercised across all five managers; the 100-case correctness matrix
+covers both algorithms/backends. Evidence: S1-ENTRY.md and results/S1-A/.
+
+The tested chunk saves one finite-state scan on eligible local entries, with no
+changed arithmetic trajectory, new workspace cache or independent-guard removal.
+Review found no unnecessary added work or retention. All named focused checks,
+work counts and broader correctness gates passed in the documented modes.
+Normal-mode full-suite completion remains unverified due to bounded compilation
+stalls also reproduced on baseline. No whole-medium result or universal elapsed
+speedup follows. S0 long instrumentation/calibration/reference is next before S2.
