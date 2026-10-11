@@ -134,3 +134,59 @@ call _invalidate_sparse_upper!, which also invalidates the dense upper cache and
 marks stored upper precision dirty. _copy_sparse_basis_cache copies independent
 indexed/reach/dense scratch while sharing immutable graph coefficients/metadata.
 A new result-support cache cannot outlive these factor/shape transitions.
+
+
+## Concrete scratch writers and invalidation
+
+Additional source inspection at architecture e519fbe (production unchanged).
+The direct `scratch.<field>` search was followed through local aliases and generic
+`destination` helpers; the search alone is not a completeness proof.
+
+| Writer / boundary | Arrays and frequency | Publication rule |
+| --- | --- | --- |
+| `simplex.jl recompute!` | row_rhs: dense zero, nonbasic RHS accumulation, then basis costs; each reconstruction | Invalidates row_rhs before both distinct constructions; checked solves own row_solution/rho output metadata. No support survives from the primal RHS into the cost RHS. |
+| Pipeline unit/column/BFRT/weight builders | row_rhs; each corresponding solve | Known indexed construction maintains membership. Dense and nonfinite weight paths invalidate; a nonfinite estimate remains visible to the existing weight-reset guard. |
+| `dual_simplex.jl _dual_direction_residual_ok!` | tau becomes residual, row_rhs becomes scale; each native direction check | Invalidates both before any write. These arrays no longer contain solved changes/RHS after this call, even if the direction passes. |
+| `simplex_recovery.jl refine_basis_solve!` | Generic destination; only accepted correction | Builds trials privately and invalidates after accepted whole-vector copy. Rejected trial leaves that destination result/support unchanged; other recovery scratch is not rolled back. See view qualification below. |
+| Native dual correction/refinement | row_rhs, row_solution, rho, tableau_row; recovery | Each accepted copy has explicit invalidation. `_try_native_dual_tableau!` also invalidates the restored old tableau on rejected correction. |
+| `legacy_primal_pivot.jl` price recovery | rho; recovery | Private dual/prices are checked before publication, then rho invalidated. Selected pivot rho is not persistent objective-dual metadata. |
+| Native primal point/joint recovery | row_solution; successful recovery | Rewrites it from the accepted basic primal point and invalidates. No solved-column support may survive point restoration. |
+| Native phase transfer / cleanup point retention | row_solution and rho; handoff | Restores basic/dual values and invalidates each; recovered certificates do not confer support validity. |
+| `_copy_pivot_state!` | All six dense buffers; candidate creation/publication | Dense copies precede `_copy_hypersparse_cache!`. Valid metadata is reconstructed in destination-owned membership, invalid source buffers stay invalid. Shared matrix/mode metadata does not share value arrays. |
+| `price!` and `_pipeline_price!` | tableau_row or pricing_row, sometimes external output; each pricing call | Invalidate before dense writing; indexed branch marks valid only after success. `price!` also invalidates before standalone sparse-pricing copyback. |
+| LP-refinement witness probe | rho; fresh probe construction | Fresh scratch initially has no support metadata, but `_lp_workspace` emits refactor_other before returning. The subsequent rho copy lacks invalidation if an observer creates metadata during that event. See pending regression below. |
+
+`_dual_row_residual_ratio` is a read-only scalar contraction; unlike the direction
+residual check, it does not rewrite tau/row_rhs. Primal/dual value and weight loops
+consume these buffers but do not themselves modify their support. Their separate
+finite checks, bound repairs and weight floors still matter for sparse consumers.
+
+A possible pricing producer can maintain exact support during its already required
+N-entry output write, but its immediate density consumer currently calls
+`_pipeline_vector!` and compacts valid support again. Counting only an avoided
+N-entry rebuild would therefore overstate savings if another O(s) pass remained.
+Any future subplan must specify both publication and consumption, preserve signed
+zeros and CSC accumulation order, and include dense-output bookkeeping cost.
+The default legacy policy has no hypersparse metadata to rebuild; an opt-in-only
+saving cannot be reported as a default whole-solver improvement.
+
+
+Static review identified two pending correctness regressions, not verified fixes:
+
+1. `refine_basis_solve!` accepts AbstractVector, while `_pipeline_changed!` matches
+   exact owned Vector identity only. A view into rho can receive an accepted
+   correction while the parent's formerly empty support remains marked valid.
+   Ordinary inspected callsites use whole vectors; the broader helper interface
+   permits the view. Reproduce both the stale support and the next pricing result.
+2. `_lp_workspace(...;recompute=false)` emits refactor_other with the fresh probe
+   before `_lp_project_certificate` writes its accepted dual into rho. An observer
+   that only constructs metadata for the zero scratch can expose the missing
+   subsequent invalidation. Test a valid original witness, callback-created empty
+   metadata, accepted projection, and the next sparse pricing result.
+
+New diagnostic `reproduce/pipeline_boundary_regressions.jl` prepares those tests,
+with whole-vector/no-observer controls. It is not executed while the S0 guard is
+occupied. No production fix or runtime failure is claimed yet. The next available
+serial slot should reproduce these safety gaps before implementing S2 or widening
+S3 reuse. A validated correction will need a small implementation subplan and
+focused cost review; do not add broad per-call overlap scans speculatively.

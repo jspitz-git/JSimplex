@@ -76,3 +76,26 @@ Next S4 deliverable, if selected under the roadmap's independent-stage rule:
 choose one measured lifetime/cost hypothesis, then write the small backend
 subplan with exact invalidation, sharing/failure and retention bounds. No API,
 capacity increase, symbolic reuse or implementation is authorized by this map.
+
+
+## Later live attribution (partial, not a completed reference)
+
+The original map above preceded the S4-A four-vector dimension lifecycle fix,
+now integrated at master4143dad; see S4-SCRATCH.md for its completed evidence.
+This does not resolve allocation ownership for the entire backend.
+
+The S0 medium-dual-counted-1 partial snapshot ending at iteration125952 contains
+90247 phase-II accepted steps and1456.061697 seconds. Ordinary work accounts for
+1277.777120s and154991368 allocated bytes; refactorization for178.259400s,
+129075529624 cumulative allocated bytes and157.459843s GC. Recovery contributes
+0.015602s and43319368 bytes. These are exclusive recorded scopes on the frozen
+old source, not current-master timings or retained-memory sizes. Instrumentation
+work is retained in its separate scope; no GC subtraction is used to claim speed.
+The raw completed-window prefix is preserved with a SHA256 in
+results/S0-L/medium-dual-counted-1-partial-attribution.json. Pins matched at capture.
+
+The long solve has not returned or certified; plain elapsed and primal origin are
+still missing. These observations motivate measuring construction/extraction/live
+factor ownership separately. They do not prove all GC allocations originated in
+the refactorization scope or that the S4-A scratch change speeds this fixed-size
+history. The existing paired S4-A measurements remain the evidence for that fix.

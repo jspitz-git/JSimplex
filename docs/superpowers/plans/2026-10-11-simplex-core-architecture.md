@@ -386,3 +386,11 @@ than predict the movement twice. Control characterization scripts are prepared
 but unexecuted while L3 owns the numerical slot. Their80-case matrix includes HH
 and explicitly asserts the limit-refactor reason. Design acceptance is not A1
 freeze, A2 branch evidence, RED/GREEN or general S2 acceptance.
+
+
+S3 static writer review identified two reproducible-looking safety gaps before
+new reuse: AbstractVector refinement aliases and observer-created LP witness
+support. The accepted narrow S3-A reproduction/subplan is
+2026-10-11-pipeline-boundary-invalidation.md. Ruling: use the next free serial
+slot to test these correctness boundaries before S2 prototype implementation;
+S0 remains uninterrupted. No source patch or completed S3 gate is claimed.

@@ -403,3 +403,21 @@ its requested reason-specific assertion records exactly one limit refactor and
 no other refactor reason, separated from final certification. The census is NOT
 run or accepted, and no prototype implementation exists. Execute only after the
 current S0 process exits and its host identity is confirmed absent.
+
+
+S3 static writer review found two pending safety cases: accepted refinement into
+an AbstractVector view does not invalidate the owned parent support by identity;
+LP witness projection writes rho after refactor_other allows an observer to build
+metadata for the fresh zero scratch. New diagnostic pipeline_boundary_regressions.jl
+prepares whole-vector/no-metadata controls and view/observer cases. NO Julia run,
+RED evidence or production fix yet. Prioritize this narrow reproduction at the
+next free serial slot; do not interrupt or modify the active S0 reference.
+
+
+Diagnostic e519fbe is pushed. Static review accepts the S3-A reproduction and
+small subplan 2026-10-11-pipeline-boundary-invalidation.md; its first numerical
+step remains RED on unchanged production after S0 releases the guard. The S3
+writer map now explicitly qualifies view aliases and observer-created metadata.
+S0 partial-attribution snapshot: iteration125952,90247 phase-II steps, no final
+certificate. Pins matched at snapshot; raw prefix and compact report preserved.
+Refactorization178.2594s includes157.4598s GC, so it is not an arithmetic timing.
