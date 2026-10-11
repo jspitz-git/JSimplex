@@ -408,3 +408,10 @@ certificate observed. Exact baseline/medium hash and pins verified; see STATUS
 and medium-dual-counted-1-audit.json. Separate plain elapsed and primal-origin
 long coverage remain pending; counted live timing includes0.022926199s compilation.
 Proceed with reviewed S3-A safety RED before source changes.
+
+
+S3-A narrow correctness prerequisite is integrated: productioncd91a1a ->
+masterd8ad4ec, reviewed/pushed; smoke32, matrix1645, existing focused3214 plus
+LP follow-up70, cost120 and integration1645. See S3-BOUNDARIES.md for preserved
+driver errors and cost limits. Broad S3 optimization checkboxes remain open.
+Next execute S2-A control census and its private RED/qualification plan.

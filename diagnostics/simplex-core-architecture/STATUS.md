@@ -4,7 +4,7 @@ Updated: 2026-10-11. This is the entry point after interruption.
 
 ## Current state
 
-**S1-A and S4-A integrated; master `4143dad` pushed. S0-L medium dual counted reference audited; S3-A integration tests active.**
+**S1-A, S3-A and S4-A integrated; master `d8ad4ec` pushed. S0-L counted dual reference audited; S2-A control census next.**
 The source baseline is `fe839aa72171d7496c9c931d9393278448c7317e`.
 Completed diagnostic evidence is commit `6ded1fc`.
 
@@ -35,7 +35,7 @@ main also has a user-modified .vscode/settings.json. Do not stage those files.
 | S0 | Frozen baseline and coverage plan | Active | Counted dual long reference audited; plain elapsed and primal-origin coverage pending |
 | S1 | State ownership and validation reuse | Integrated | Inventory and local S1-A contract; master beb161b, report S1-ENTRY.md |
 | S2 | Audited incremental primal maintenance | Active | Guard inventory and private audited-flip design accepted; characterization pending; no numerical prototype |
-| S3 | End-to-end exact sparsity support | Active | S3-A RED confirmed2 defects; smoke32/matrix1645 passed; focused/cost/review pending |
+| S3 | End-to-end exact sparsity support | Active | S3-A integrated at masterd8ad4ec; RED/GREEN, matrix1645, focused3214+LP70, cost120, reviewed; broader S3 pending |
 | S4 | Refactorization memory lifecycle | Active | S4-A integrated at master4143dad; RED/GREEN, focused4366, paired cost60; broader attribution pending |
 | S5 | Phase/cleanup handoff contract | Active | Partial static phase/cleanup ownership map; no implementation |
 | S6 | Broad validation and final comparison | Pending | Requires accepted production chunks |
@@ -46,65 +46,23 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-S0-L2 current calibration gates pass for the actual L3 environment. Kernel10
-passes sparse4.64385%/dense2.96326%; full suite3's five other gates pass, while
-its medium-primal5.90404% remains explicitly FAIL. The reviewed process-isolated
-follow-up completed all12 serial samples, ratio-of-medians0.24214%, compile0,
-matching results/options/policy and exact counted window sums, retained2880B.
-All process reports are exit0/pins unchanged. Host verified final runner266320,
-child266321 and orchestrator264004 absent. Subsequent smoke passed and L3 is
-now active as recorded below.
-Read results/S0-L/isolated-primal-calibration-1.json and provenance/attempt records.
-Independent L2 review accepts this deployment-matching calibration. The isolated
-prefix driver returned empty primal_hash/objective=nothing, so matching result
-metadata is not a new exact final-state hash check; full suite3's earlier separate
-trace gates remain the state evidence. Smoke subsequently passed; long medium certification remains open.
+S3-A production cd91a1a was cherry-picked to masterd8ad4ec5651225a512d5f533f48ce7d8fc8f90cc
+and pushed after independent numerical/work-memory review and1645/1645 normal
+integration tests. Original main user files still match the preservation digest.
+All S3 runner/child/driver processes are absent; final master runner282199 and
+Julia282200 were checked in a separate host call after exit0/pins unchanged.
+See S3-BOUNDARIES.md and results/S3-A for complete results and limitations.
+Do not repeat completed S0/S1/S3/S4 evidence without a concrete new hypothesis.
 
-S4-A is integrated and pushed: architecture8701a58 -> master4143dad27581cf1230fa74203306f956b89109a6.
-RED6pass/2intended failures, GREEN344pass, normal focused4366pass, paired cost60
-records, master integration344pass; all completed pins unchanged. Independent
-review accepts the local memory fix, with no unnecessary work/retention finding.
-See S4-SCRATCH.md. Same-size allocation cost unchanged; obsolete four-vector
-capacity released after dimension changes. No timing speedup or whole-S4 claim.
-Master remote identity verified; old worktrees, local environments and main user
-files preserved. No S4 runner remains.
-
-driver-smoke-1 passed: exit0/pins unchanged, OPTIMAL/original-primal feasible,
-certificate observed,7 phase-II steps,5 complete windows and exact counter sums.
-Its JSON chronology_reference_success=true. Host verified runner268482/child268483
-absent. Calibration and smoke permit long launch, not a medium-success claim.
-
-Current sole numerical job: S0-L/medium-dual-counted-1,43200-second guard,
-counted dual medium, step cap1000000, old planning baseline. Runner268789
-(start_ticks16921100), child268790 (start_ticks16921182), boot ID
-20de7dde-704e-41c8-bee7-b8511c0a86b0; verify current host identity, not PID alone.
-Pins digest a24597f2ddb774e72ade444c01c3f25f255b2c55b40ba4a1a47556f257f5fa7e.
-Raw reference.toml/windows/current/resources/process are under the attempt path.
-current.json reason=launch_error is the runner's pre-launch placeholder, not a
-final outcome; inspect host identity/resources and final process.json.
-Do not edit any pinned old src/test/env or active diagnostic Julia file, and do
-not launch another numerical process while it runs. Read only completed windows;
-no final status/certification is inferred before process exit and JSON audit.
-
-Diagnostic checkpoint8f87306 is pushed. The current diagnostic checkpoint includes S4 inventory/subplan/results,
-suite3 attribution and isolated-calibration evidence. Main user dirt and all
-worktrees/environments remain intact. S2 static prerequisite mapping is reviewed;
-the bounded flip design is accepted for private qualification; pivot controller and numerical work
-remain pending. S4 broader attribution
-is also pending; the integrated fix concerns four private solve/preparation vectors.
-
-Long reference is now active. Its guarded baseline is the preserved
-7d6a8e1 checkout (productionfe839aa), allowed medium hash, live1024-step windows,
-1000000-step cap and external12h guard. Preserve every limit/failure as incomplete.
-A separate plain elapsed run and primal-origin reference remain later serial work.
-User explicitly requested continuous execution through diagnostic failures.
-
-S1-A production commit `8e0a7c7def505604ccfe50cdbc2cf9cee453092d` was integrated
-as master `beb161b310afd9dc7126eca98e3c15898a69efbf` and pushed. Its accepted behavior remains in the subsequent S4-A production
-tree. Diagnostics/experiments are separate on the architecture
-branch (published S1 evidence: 1fcaa16). All worktrees and local environments,
-including main's modified .vscode/settings.json, remain preserved.
-Read [S1-ENTRY.md](S1-ENTRY.md) for accepted local savings and coverage limitations.
+Continue docs/superpowers/plans/2026-10-11-primal-flip-audit-prototype.md.
+Next numerical step is the unexecuted80-case control branch census:
+`python3 /tmp/jsimplex-s2-attempt.py control-census-1 <active>/diagnostics/simplex-core-architecture/reproduce/primal_flip_characterization.jl '{out}/census.toml' --seconds 1200`.
+The helper was Python syntax-checked and uses the same guard/launcher; validate
+real process state before launch. No S2 prototype, RED or production change exists.
+After the census, qualify fixtures and build the planned private control RED before
+implementing the candidate. Preserve all numerical safeguards and endpoint refresh.
+The separate plain elapsed and primal-origin long references remain pending;
+S0 counted chronology alone does not permit a whole-solver timing claim.
 
 ## Evidence gaps and traps to retain
 
@@ -483,3 +441,94 @@ S3-A boundary-matrix-1 passed1645/1645 with normal compilation; pins unchanged.
 All5precisions/5managers/2backends supported in this fixture. Existing focused
 pipeline/refinement/projection/guard regressions are now the sole numerical job
 (boundary-focused-1). Production/test changes remain uncommitted pending gates.
+
+S3-A focused-1 completed3214pass/0fail/3errors,exit1/pins unchanged. All three
+errors are UndefVarError(lp_recovery_fixture) in lp_refinement_state_tests: the
+diagnostic driver omitted its lp_refinement_recovery_tests dependency. Source
+unchanged. Ruling: add the missing include and rerun only the LP recovery/state
+group, retaining the3214 passed assertions; no repeat of the completed broad
+solver matrix. Runner280590/child280591/driver absent before driver repair.
+Cost driver additionally asserts actual cache/no-cache setup before timing.
+
+LP recovery/state follow-up passed70/70,exit0/pins unchanged. Cost-1 failed
+before producing a report: its measurement row inferred Dict{String,Real} and
+could not accept later String labels. No accepted timing evidence from that
+attempt. Fix only report container type to Dict{String,Any}; new cost-2 attempt
+keeps the measurement workload unchanged. Exit1/pins unchanged, host process
+absence confirmed before editing.
+
+
+## Historical S0/S4 handoff snapshot (superseded)
+
+S0-L2 current calibration gates pass for the actual L3 environment. Kernel10
+passes sparse4.64385%/dense2.96326%; full suite3's five other gates pass, while
+its medium-primal5.90404% remains explicitly FAIL. The reviewed process-isolated
+follow-up completed all12 serial samples, ratio-of-medians0.24214%, compile0,
+matching results/options/policy and exact counted window sums, retained2880B.
+All process reports are exit0/pins unchanged. Host verified final runner266320,
+child266321 and orchestrator264004 absent. Subsequent smoke passed and L3 is
+now active as recorded below.
+Read results/S0-L/isolated-primal-calibration-1.json and provenance/attempt records.
+Independent L2 review accepts this deployment-matching calibration. The isolated
+prefix driver returned empty primal_hash/objective=nothing, so matching result
+metadata is not a new exact final-state hash check; full suite3's earlier separate
+trace gates remain the state evidence. Smoke subsequently passed; long medium certification remains open.
+
+S4-A is integrated and pushed: architecture8701a58 -> master4143dad27581cf1230fa74203306f956b89109a6.
+RED6pass/2intended failures, GREEN344pass, normal focused4366pass, paired cost60
+records, master integration344pass; all completed pins unchanged. Independent
+review accepts the local memory fix, with no unnecessary work/retention finding.
+See S4-SCRATCH.md. Same-size allocation cost unchanged; obsolete four-vector
+capacity released after dimension changes. No timing speedup or whole-S4 claim.
+Master remote identity verified; old worktrees, local environments and main user
+files preserved. No S4 runner remains.
+
+driver-smoke-1 passed: exit0/pins unchanged, OPTIMAL/original-primal feasible,
+certificate observed,7 phase-II steps,5 complete windows and exact counter sums.
+Its JSON chronology_reference_success=true. Host verified runner268482/child268483
+absent. Calibration and smoke permit long launch, not a medium-success claim.
+
+Current sole numerical job: S0-L/medium-dual-counted-1,43200-second guard,
+counted dual medium, step cap1000000, old planning baseline. Runner268789
+(start_ticks16921100), child268790 (start_ticks16921182), boot ID
+20de7dde-704e-41c8-bee7-b8511c0a86b0; verify current host identity, not PID alone.
+Pins digest a24597f2ddb774e72ade444c01c3f25f255b2c55b40ba4a1a47556f257f5fa7e.
+Raw reference.toml/windows/current/resources/process are under the attempt path.
+current.json reason=launch_error is the runner's pre-launch placeholder, not a
+final outcome; inspect host identity/resources and final process.json.
+Do not edit any pinned old src/test/env or active diagnostic Julia file, and do
+not launch another numerical process while it runs. Read only completed windows;
+no final status/certification is inferred before process exit and JSON audit.
+
+Diagnostic checkpoint8f87306 is pushed. The current diagnostic checkpoint includes S4 inventory/subplan/results,
+suite3 attribution and isolated-calibration evidence. Main user dirt and all
+worktrees/environments remain intact. S2 static prerequisite mapping is reviewed;
+the bounded flip design is accepted for private qualification; pivot controller and numerical work
+remain pending. S4 broader attribution
+is also pending; the integrated fix concerns four private solve/preparation vectors.
+
+Long reference is now active. Its guarded baseline is the preserved
+7d6a8e1 checkout (productionfe839aa), allowed medium hash, live1024-step windows,
+1000000-step cap and external12h guard. Preserve every limit/failure as incomplete.
+A separate plain elapsed run and primal-origin reference remain later serial work.
+User explicitly requested continuous execution through diagnostic failures.
+
+S1-A production commit `8e0a7c7def505604ccfe50cdbc2cf9cee453092d` was integrated
+as master `beb161b310afd9dc7126eca98e3c15898a69efbf` and pushed. Its accepted behavior remains in the subsequent S4-A production
+tree. Diagnostics/experiments are separate on the architecture
+branch (published S1 evidence: 1fcaa16). All worktrees and local environments,
+including main's modified .vscode/settings.json, remain preserved.
+Read [S1-ENTRY.md](S1-ENTRY.md) for accepted local savings and coverage limitations.
+
+
+
+## S3-A integrated milestone
+
+Productioncd91a1a -> masterd8ad4ec; reviewed and pushed. Smoke32,extended1645,
+focused3214 successful assertions plus missing-fixture errors closed by targeted
+LP70, cost120, allocation-attribution28, master integration1645. All attempts and
+failures preserved; no source change after first smoke GREEN. WholeVector body
+unchanged, measured0B/0events; timing mixed, no speedup. Alias invalidation adds
+bounded6metadata checks and necessary later support rebuilds. Generic view
+benchmark boxing and nonspecialized single-call overhead explicitly documented.
+No broader S3 completion or whole-medium improvement claim. Next S2-A census.

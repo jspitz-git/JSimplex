@@ -1,5 +1,72 @@
 [
   {
+    "attempt": "boundary-allocation-1",
+    "reason": "exit0",
+    "returncode": 0,
+    "pins_unchanged": true,
+    "pins_sha256": "95efc2ca269116a7b4d9e81c91d44e76a1c60a52c931da163dfe0708e029292d",
+    "command": [
+      "bash",
+      "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+      "--heap-size-hint=2G",
+      "--project=/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl",
+      "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/pipeline_boundary_allocation_probe.jl",
+      "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/simplex-core-architecture/S3-A/boundary-allocation-1/allocation.toml"
+    ],
+    "seconds": 8.013887882232666,
+    "peak_sampled_rss_kib": 649512
+  },
+  {
+    "attempt": "boundary-cost-1",
+    "reason": "exit1",
+    "returncode": 1,
+    "pins_unchanged": true,
+    "pins_sha256": "9cae0682a5e8f1e206edca80337256f2685b8d247194e719171f8ed62ad84f22",
+    "command": [
+      "bash",
+      "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+      "--heap-size-hint=2G",
+      "--project=/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl",
+      "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/pipeline_boundary_cost.jl",
+      "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/simplex-core-architecture/S3-A/boundary-cost-1/cost.toml"
+    ],
+    "seconds": 6.009305953979492,
+    "peak_sampled_rss_kib": 722980
+  },
+  {
+    "attempt": "boundary-cost-2",
+    "reason": "exit0",
+    "returncode": 0,
+    "pins_unchanged": true,
+    "pins_sha256": "e9348c81adfa26c47756053af690e9d76762fe4ba1455d2ada0928c2e1d4d5ec",
+    "command": [
+      "bash",
+      "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+      "--heap-size-hint=2G",
+      "--project=/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl",
+      "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/pipeline_boundary_cost.jl",
+      "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/simplex-core-architecture/S3-A/boundary-cost-2/cost.toml"
+    ],
+    "seconds": 13.015878200531006,
+    "peak_sampled_rss_kib": 667916
+  },
+  {
+    "attempt": "boundary-focused-1",
+    "reason": "exit1",
+    "returncode": 1,
+    "pins_unchanged": true,
+    "pins_sha256": "8245292e4ccdd761d7e0774a0dbd3e2dc421545beafbb9eaa4d2638a4cd86d5d",
+    "command": [
+      "bash",
+      "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+      "--heap-size-hint=2G",
+      "--project=/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl",
+      "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/pipeline_boundary_focused_tests.jl"
+    ],
+    "seconds": 397.244508266449,
+    "peak_sampled_rss_kib": 1868652
+  },
+  {
     "attempt": "boundary-green-1",
     "reason": "exit0",
     "returncode": 0,
@@ -13,7 +80,41 @@
       "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/pipeline_boundary_regressions.jl",
       "smoke"
     ],
-    "seconds": 11.014102935791016
+    "seconds": 11.014102935791016,
+    "peak_sampled_rss_kib": 712512
+  },
+  {
+    "attempt": "boundary-lp-state-1",
+    "reason": "exit0",
+    "returncode": 0,
+    "pins_unchanged": true,
+    "pins_sha256": "9620fea0b68d5f095507fb6e2232775a95470a13980413a56d17dba86c3f3068",
+    "command": [
+      "bash",
+      "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+      "--heap-size-hint=2G",
+      "--project=/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl",
+      "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/pipeline_boundary_focused_tests.jl",
+      "lp-state"
+    ],
+    "seconds": 124.09477710723877,
+    "peak_sampled_rss_kib": 1192792
+  },
+  {
+    "attempt": "boundary-master-1",
+    "reason": "exit0",
+    "returncode": 0,
+    "pins_unchanged": true,
+    "pins_sha256": "70ad69ee655a19712964a65ee0c91203bbfccd52126df87c429fb8fb718a7a25",
+    "command": [
+      "bash",
+      "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+      "--heap-size-hint=2G",
+      "--project=/home/jspitz/JSimplex.jl",
+      "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/pipeline_boundary_tests.jl"
+    ],
+    "seconds": 82.06095671653748,
+    "peak_sampled_rss_kib": 793140
   },
   {
     "attempt": "boundary-matrix-1",
@@ -28,7 +129,8 @@
       "--project=/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl",
       "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/pipeline_boundary_tests.jl"
     ],
-    "seconds": 80.05520677566528
+    "seconds": 80.05520677566528,
+    "peak_sampled_rss_kib": 780780
   },
   {
     "attempt": "boundary-red-1",
@@ -44,6 +146,7 @@
       "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/pipeline_boundary_regressions.jl",
       "smoke"
     ],
-    "seconds": 9.018754720687866
+    "seconds": 9.018754720687866,
+    "peak_sampled_rss_kib": 710080
   }
 ]

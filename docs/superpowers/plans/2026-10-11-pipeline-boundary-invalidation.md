@@ -2,8 +2,8 @@
 
 > **For agentic workers:** Use superpowers:executing-plans sequentially.
 
-**Status:** Both hypotheses reproduced; minimal repair passed smoke32 and
-extended1645. Existing integration regressions active; cost/review/integration pending.
+**Status:** Complete and integrated. Production cd91a1a -> masterd8ad4ec, pushed
+after independent review and1645 normal integration assertions. Broad S3 remains open.
 
 **Parent:** 2026-10-11-simplex-core-architecture.md S3, its design spec, and
 S3-INVENTORY-NOTES.md. This is a narrow prerequisite repair, not a sparse pipeline
@@ -78,35 +78,35 @@ record that result and revise the smallest plan necessary before implementation.
 
 ### B2: minimal repair and contracts
 
-- [ ] Apply only the verified invalidation changes, then run the same smoke GREEN.
-- [ ] Extend the view case to Float32,Float64,BigFloat,Rational{Int64}/BigInt,
+- [x] Apply only the verified invalidation changes, then run the same smoke GREEN.
+- [x] Extend the view case to Float32,Float64,BigFloat,Rational{Int64}/BigInt,
   all five managers and native/Markowitz where supported. Check direct Vector,
   full view, reordered view with unchanged dimensionality, and independent
   external destination. Preserve RHS/private/model alias rejection tests.
-- [ ] Verify no-cache and unrelated-view cases introduce no metadata ownership;
+- [x] Verify no-cache and unrelated-view cases introduce no metadata ownership;
   owned metadata rebuilds after accepted alias writes, not rejected corrections.
-- [ ] Verify observer-created witness support, no-observer control, source owner
+- [x] Verify observer-created witness support, no-observer control, source owner
   isolation, preserved certificate and unchanged callback exception propagation.
-- [ ] Run existing hypersparse pipeline/storage/edge/recovery and refinement
+- [x] Run existing hypersparse pipeline/storage/edge/recovery and refinement
   regressions, plus LP refinement projection/guard tests. Unsupported combinations
   must be reported; do not silently skip a failing manager/precision.
 
 ### B3: work review and integration
 
-- [ ] Compare repeated whole-vector invalidation with/without cache on frozen
+- [x] Compare repeated whole-vector invalidation with/without cache on frozen
   sparse and dense scratch fixtures, at least three interleaved warm pairs.
   Record allocation events/bytes and spread; no new per-vector scans/solves or
   persistent metadata. Keep compilation and new alias-path work separate.
-- [ ] Use work counts to establish that witness publication adds at most the
-  existing bounded identity lookup, once per accepted probe. No cold-path
+- [x] Use work counts to establish that witness publication adds at most the
+  existing bounded identity lookup, once per constructed certified candidate. No cold-path
   benchmark is required absent a material concern; broader solver speedup is
   not this fix's claim.
-- [ ] Independent numerical/work-memory review. State explicitly whether
+- [x] Independent numerical/work-memory review. State explicitly whether
   unnecessary work or retention was found and cite the executed evidence.
-- [ ] Commit only passing production/test changes; integrate into current master,
+- [x] Commit only passing production/test changes; integrate into current master,
   preserve user dirt/local environments, run focused integration and push under
   standing user authorization. Diagnostics remain on their branch.
-- [ ] Update STATUS and parent plan without completing broad S3 checkboxes.
+- [x] Update STATUS and parent plan without completing broad S3 checkboxes.
 
 Reordering rationale: reproducing and repairing a stale-support safety boundary
 precedes new support reuse or the S2 private experiment. The S0 live run is
@@ -128,3 +128,16 @@ B2 extended matrix passed1645 tests normally:1500 across250 combinations
 (5precisions x5managers x2backends x5destination forms),105 ownership/rejected/
 model-alias assertions,40 witness/publication/observer-provenance assertions.
 Exit0/pins unchanged; runner280408/Julia280409/driver absent before focused launch.
+
+B2/B3 evidence: focused3214pass/3missing-fixture errors preserved; targeted
+recovery/state follow-up70pass closes those errors without repeating the broad
+matrix. Cost-1 reporting failure preserved; cost-2 has120samples/48paired Vector
+comparisons,0Vector allocations, mixed timing. Allocation attribution28rows proves
+generic view barrier also allocates for noop; specialized barriers0alloc. See
+S3-BOUNDARIES.md for calling-context limitations and required subsequent rebuilds.
+Independent final review and master integration remain.
+
+Final: independent review accepted with no unnecessary work/retained-memory or
+numerical blocker. Productioncd91a1a cherry-picked to masterd8ad4ec; master
+integration1645pass,exit0/pins unchanged; host runner282199/child282200/driver
+absent; user files preserved. Master pushed and remote identity checked.

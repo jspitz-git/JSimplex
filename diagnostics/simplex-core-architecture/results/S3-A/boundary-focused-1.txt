@@ -1,0 +1,148 @@
+Starting hypersparse_pipeline_tests.jl
+Starting hypersparse_pipeline_storage_tests.jl
+Starting hypersparse_pipeline_kernel_tests.jl
+Starting hypersparse_pipeline_integration_tests.jl
+Starting hypersparse_pipeline_edge_tests.jl
+Starting hypersparse_pipeline_accounting_tests.jl
+Starting hypersparse_pipeline_solver_tests.jl
+Starting hypersparse_pipeline_recovery_tests.jl
+Starting hypersparse_pipeline_subtraction_tests.jl
+Starting simplex_refinement_tests.jl
+Starting lp_refinement_projection_tests.jl
+Starting lp_refinement_diagnostic_tests.jl
+Starting lp_refinement_limit_tests.jl
+Starting lp_refinement_state_tests.jl
+ERROR: LoadError: Some tests did not pass: 3214 passed, 0 failed, 3 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/pipeline_boundary_focused_tests.jl:4
+
+LP recovery retains shared work, deadlines, and callback provenance: Error During Test at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/lp_refinement_state_tests.jl:3
+  Got exception outside of a @test
+  UndefVarError: `lp_recovery_fixture` not defined in `Main`
+  Suggestion: check for spelling errors or missing imports.
+  Stacktrace:
+    [1] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/lp_refinement_state_tests.jl:4
+    [2] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+    [3] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/lp_refinement_state_tests.jl:4 [inlined]
+    [4] include(mapexpr::Function, mod::Module, _path::String)
+      @ Base ./Base.jl:310
+    [5] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/pipeline_boundary_focused_tests.jl:13 [inlined]
+    [6] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+    [7] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/pipeline_boundary_focused_tests.jl:5
+    [8] include(mod::Module, _path::String)
+      @ Base ./Base.jl:309
+    [9] exec_options(opts::Base.JLOptions)
+      @ Base ./client.jl:344
+   [10] _start()
+      @ Base ./client.jl:577
+
+A rejected correction falls back with the remaining budget: Error During Test at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/lp_refinement_state_tests.jl:46
+  Got exception outside of a @test
+  UndefVarError: `lp_recovery_fixture` not defined in `Main`
+  Suggestion: check for spelling errors or missing imports.
+  Stacktrace:
+    [1] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/lp_refinement_state_tests.jl:47
+    [2] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+    [3] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/lp_refinement_state_tests.jl:48 [inlined]
+    [4] include(mapexpr::Function, mod::Module, _path::String)
+      @ Base ./Base.jl:310
+    [5] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/pipeline_boundary_focused_tests.jl:13 [inlined]
+    [6] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+    [7] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/pipeline_boundary_focused_tests.jl:5
+    [8] include(mod::Module, _path::String)
+      @ Base ./Base.jl:309
+    [9] exec_options(opts::Base.JLOptions)
+      @ Base ./client.jl:344
+   [10] _start()
+      @ Base ./client.jl:577
+
+LP recovery restores owned working perturbations: Error During Test at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/lp_refinement_state_tests.jl:63
+  Got exception outside of a @test
+  UndefVarError: `lp_recovery_fixture` not defined in `Main`
+  Suggestion: check for spelling errors or missing imports.
+  Stacktrace:
+    [1] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/lp_refinement_state_tests.jl:64
+    [2] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+    [3] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/lp_refinement_state_tests.jl:64 [inlined]
+    [4] include(mapexpr::Function, mod::Module, _path::String)
+      @ Base ./Base.jl:310
+    [5] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/pipeline_boundary_focused_tests.jl:13 [inlined]
+    [6] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+    [7] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/pipeline_boundary_focused_tests.jl:5
+    [8] include(mod::Module, _path::String)
+      @ Base ./Base.jl:309
+    [9] exec_options(opts::Base.JLOptions)
+      @ Base ./client.jl:344
+   [10] _start()
+      @ Base ./client.jl:577
+Test Summary:                                                             | Pass  Error  Total     Time
+Pipeline boundary focused integration                                     | 3214      3   3217  6m35.2s
+  Kernel mode uses hysteresis, occupancy, and valid costs                 |   22            22     0.2s
+  Kernel costs retain total work and robust bounded samples               |   11            11     0.1s
+  Pipeline owns support and borrows existing scratch values               |  165           165    13.3s
+  Dense fallback retains the original scratch contract                    |    6             6     0.0s
+  Pipeline solve and price preserve owned support across kernels          | 1680          1680    38.5s
+  Pipeline repairs support after dense writes and empty solves            |    7             7     0.0s
+  Every pipeline branch retains stored BigFloat precision                 |   18            18     0.1s
+  Checked solves, pricing, and recomputation use the pipeline             |    7             7     0.1s
+  Weight RHS preserves sparse support without a dense reconstruction      |   12            12     0.1s
+  Accepted refinement invalidates pipeline support                        |    5             5     0.1s
+  Pipeline observes dense reachability and sparse recovery                |   12            12     0.0s
+  Mode probes measure one complete call and keep state independent        |    8             8     0.1s
+  Pipeline numerical failure preserves reusable support                   |   10            10     0.0s
+  Empty pipeline and dimension guards                                     |    5             5     0.0s
+  Factor accounting includes lazy coefficient snapshots                   |   20            20     0.1s
+  Pipeline diagnostics include preparation, conversion, and rejected work |    9             9     1.0s
+  Both simplex algorithms certify block sparse LPs with the pipeline      |  880           880  3m05.7s
+  Small dense and degenerate LPs retain original certificates             |   36            36    40.0s
+  BFRT cancellation and support changes preserve the entering direction   |   40            40     0.9s
+  Hypersparse recovery shares limits and preserves callback failures      |    4             4     8.4s
+  Checkpoint recovery replaces sparse caches at stored precision          |    6             6     0.5s
+  Numerical overflow discards a partially computed pipeline candidate     |    5             5     0.1s
+  Warm sparse pipeline reuses storage across operations                   |   12            12     0.0s
+  BFRT subtraction does not negate a fixed-width minimum                  |    3             3     0.0s
+  Sparse weight coefficients retain stored BigFloat precision             |    2             2     0.0s
+  Shared refinement repairs normal and transposed basis solves            |   48            48     2.1s
+  Shared refinement honors alias, deadline and exception boundaries       |    9             9     0.3s
+  Shared refinement rejects overlapping private buffers before mutation   |   32            32     0.3s
+  Failed corrections preserve the last finite solution                    |    6             6     0.1s
+  BigFloat refinement retains stored precision                            |    4             4     0.1s
+  Shared solve refinement is independently configurable                   |    4             4     0.0s
+  Recomputation rejects an unreliable solve without changing costs        |    2             2     0.1s
+  Aggregate BFRT refinement preserves the entering direction on failure   |    3             3     0.2s
+  Bound-flip refinement events observe committed primal prices            |   22            22     7.7s
+  Correction observers retain exception identity and working costs        |    4             4     1.0s
+  Precision-specialized repairs retain their stronger residual targets    |   21            21     0.5s
+  Refinement removes a lone rounding artifact in a homogeneous equation   |    6             6     0.2s
+  Discarded candidate corrections retain actual work counts               |    7             7     1.0s
+  Homogeneous cleanup preserves small nonzero right-hand sides            |    3             3     0.1s
+  Refinement removes coupled rounding artifacts in a homogeneous equation |    6             6     0.1s
+  Rejected homogeneous cleanup restores the ordinary correction           |    4             4     0.1s
+  Fixed correction activities do not become uncertified original basics   |   11            11     1.4s
+  Correction acceptance requires improvement without material degradation |    4             4     0.0s
+  Auxiliary witnesses finish before their diagnostic context is closed    |    4             4    13.5s
+  LP correction consumes no steps beyond the shared iteration limit       |    4             4    13.3s
+  LP recovery certifies the representable original-type point             |   10            10    20.2s
+  Zero-row corrections retain free and fixed bounds                       |    3             3     8.4s
+  LP recovery retains shared work, deadlines, and callback provenance     |           1      1     1.0s
+  A rejected correction falls back with the remaining budget              |           1      1     0.0s
+  LP recovery restores owned working perturbations                        |           1      1     0.0s
+  Enabling LP recovery leaves rational arithmetic exact                   |   12            12    27.3s
+RNG of the outermost testset: Random.Xoshiro(0x1d7a96e43f26dc3a, 0x7309a315fba98fb4, 0xfdefa2927e7f4aea, 0x51de43e8c2634f77, 0xa959885ffb572e29)

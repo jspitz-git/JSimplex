@@ -1,0 +1,28 @@
+ERROR: LoadError: MethodError: Cannot `convert` an object of type String to an object of type Real
+The function `convert` exists, but no method is defined for this combination of argument types.
+
+Closest candidates are:
+  convert(::Type{T}, !Matched::T) where T<:Number
+   @ Base number.jl:6
+  convert(::Type{T}, !Matched::Number) where T<:Number
+   @ Base number.jl:7
+  convert(::Type{T}, !Matched::T) where T
+   @ Base Base_compiler.jl:136
+  ...
+
+Stacktrace:
+ [1] setindex!(h::Dict{String, Real}, v0::String, key::String)
+   @ Base ./dict.jl:357
+ [2] merge!(d::Dict{String, Real}, others::Dict{String, Any})
+   @ Base ./abstractdict.jl:230
+ [3] main()
+   @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/pipeline_boundary_cost.jl:55
+ [4] top-level scope
+   @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/pipeline_boundary_cost.jl:78
+ [5] include(mod::Module, _path::String)
+   @ Base ./Base.jl:309
+ [6] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:344
+ [7] _start()
+   @ Base ./client.jl:577
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/pipeline_boundary_cost.jl:78
