@@ -752,3 +752,16 @@ source-only bootstrap contract:2026-10-12-hh-isolated-bootstrap-contract.md. S m
 unchanged; later controller budget must still close before any pair. Review tracked in
 S4-ISOLATED-PUBLIC-LP-WORK-CONTRACT-REVIEW.md. Native HH reuse disabled/retention OPEN,
 Q evidence/all prior rejections/broader S4/S6/fullsuite unchanged.
+
+
+### S4-U existing-cache bootstrap boundary, 2026-10-12
+
+Source-only20checks627hashes,author6/full627;67cache metadata records without content
+read/parse/runtime validity. Existing permits source fallback; strict errors before
+compilecache/source fallback but still reaches cache timestamp touch and dependency
+initializers. CLI-only current writable-cache route not qualified; actual cache selection,
+write confinement and transitive initializer work remain OPEN. No numerical plan/launch,
+cache/env/production/test/CI change, T LP rerun or repeated S/Q evidence. Next ONE bounded
+read-only confinement feasibility decision:2026-10-12-hh-readonly-bootstrap-feasibility.md;
+no trial mount/import, reject route if unsupported. Review recorded separately. NativeHH
+reuse disabled, native retention/wholecontrollercaps/broaderS4S6/fullsuite remain OPEN.

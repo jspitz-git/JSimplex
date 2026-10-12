@@ -46,7 +46,21 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-**Current continuation: S4-T exact LP witness completed offline; whole public qualification remains OPEN. Next S4-U source-only bootstrap/cache contract, `docs/superpowers/plans/2026-10-12-hh-isolated-bootstrap-contract.md`. No numerical plan/launch; native retention OPEN and HH reuse disabled.**
+**Current continuation: S4-U source-only bootstrap diagnosis; CLI-only writable-cache route NOT qualified. Next S4-V read-only confinement feasibility decision, `docs/superpowers/plans/2026-10-12-hh-readonly-bootstrap-feasibility.md`. No numerical plan/launch; bootstrap/controller caps remain OPEN.**
+
+S4-U: SOURCE/EVIDENCEONLY,noJulia/loading/nativecalls. Installed loading: existing can
+sourcefallback; strict(mode3)errors before compilecache/sourceinclude but cache search
+can touch timestamp and initialize dependencies. Read-only touch failure is caught;
+no filesystem confinement is established.67cachemetadataentries(10ji10so46temporary1pidfile),
+NOcachecontents/validity/selectedgraph.20checks627read-timehashes,author6/full627/excerpts.
+SelectedLA/LBT/BLAScheck anddeferredSuiteSparseinit bound,NOTcompleteinitclosure.
+T604603current+1preserved/Tcorrectedhash unchanged. No production/test/env/master/CIchange,
+old reruns or newLP. Report S4-ISOLATED-BOOTSTRAP-CONTRACT.md/results/S4-U.
+Fresh gpt-6-astra review no unresolved Critical/Important/Minor and no unnecessary
+production work/memory; reviewer independently full627/sevenexcerpts/Tprovenance/user6.
+No correction/newdeferredissue. NextV one bounded readonlyhost/source decision, no trialmount/
+namespace/import and rejectrouteifunsupported. HHreuse disabled/retention/broaderS4S6open.
+
 
 S4-T: ONE frozen finite two-row/three-column LP; exact original optimum [0,4/3,10/3],
 objective -47/3, dual[-16/3,-5/3].11exact checks; conditional unique Dantzig basis path
