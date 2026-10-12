@@ -538,11 +538,23 @@ end
 end
 
 @testset "A nearly singular bounded model has no recession ray" begin
-    scale = ldexp(1f0, -20)
-    coefficients = Float32[scale scale; scale nextfloat(scale)]
+    # Equal binary row sums keep the strict objective check independent of
+    # rounding in non-dyadic row normalization of this nearly dependent basis.
+    scale = ldexp(1f0, -21)
+    delta = ldexp(1f0, -44)
+    coefficients = Float32[scale scale; scale-delta scale+delta]
+    row_limits = Float32[1, 1+ldexp(1f0, -23)]
+    exact_coefficients = Rational{BigInt}.(coefficients)
+    exact_primal = Rational{BigInt}[-big(2)^44-big(2)^21, big(2)^44]
+    @test size(coefficients) == (2, 2)
+    @test all(!iszero, coefficients)
+    @test det(exact_coefficients) == big(1)//big(2)^64
+    @test sum(exact_coefficients; dims=2) == fill(2Rational{BigInt}(scale), 2, 1)
+    @test row_limits == Float32[1, 1+ldexp(1f0, -23)]
+    @test exact_coefficients * exact_primal == [-Rational{BigInt}(row_limits[1]), Rational{BigInt}(row_limits[2])]
     for T in (Float32, Float64, BigFloat, Rational{BigInt})
         problem = LinearProblem(sparse(T.(coefficients)), T[0, -1];
-            row_lower=T[-1, -1], row_upper=T[1, 1], column_lower=[nothing, nothing])
+            row_lower=-T.(row_limits), row_upper=T.(row_limits), column_lower=[nothing, nothing])
         result = @inferred solve(problem)
         @test result isa Solution{T}
         # The two rows bound an invertible transformation of the free columns.
