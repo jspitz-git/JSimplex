@@ -1,0 +1,58 @@
+ERROR: LoadError: Some tests did not pass: 2 passed, 4 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/solver_tests.jl:1
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/nearly_singular_fixture_repair.jl:27
+
+A nearly singular bounded model has no recession ray: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/solver_tests.jl:9
+  Expression: det(exact_coefficients) == big(1) // big(2) ^ 64
+   Evaluated: 1//9223372036854775808 == 1//18446744073709551616
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/solver_tests.jl:2
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/solver_tests.jl:9 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+A nearly singular bounded model has no recession ray: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/solver_tests.jl:10
+  Expression: sum(exact_coefficients; dims = 2) == fill(2 * Rational{BigInt}(scale), 2, 1)
+   Evaluated: Rational{BigInt}[1//524288; 16777217//8796093022208;;] == Rational{BigInt}[1//524288; 1//524288;;]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/solver_tests.jl:2
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/solver_tests.jl:10 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+A nearly singular bounded model has no recession ray: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/solver_tests.jl:11
+  Expression: row_limits == Float32[1, 1 + ldexp(1.0f0, -23)]
+   Evaluated: Float32[1.0, 1.0] == Float32[1.0, 1.0000001]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/solver_tests.jl:2
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/solver_tests.jl:11 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+A nearly singular bounded model has no recession ray: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/solver_tests.jl:12
+  Expression: exact_coefficients * exact_primal == [-(Rational{BigInt}(row_limits[1])), Rational{BigInt}(row_limits[2])]
+   Evaluated: Rational{BigInt}[-2, 0] == Rational{BigInt}[-1, 1]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/solver_tests.jl:2
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/solver_tests.jl:12 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+Test Summary:                                        | Pass  Fail  Total  Time
+A nearly singular bounded model has no recession ray |    2     4      6  1.1s
+RNG of the outermost testset: Random.Xoshiro(0x48ba52802bd22fe6, 0x58955b9c617e953f, 0xd763bafa0a3e897b, 0x952e5ccc2fc674b2, 0x9bb195ccd1f3cfe8)

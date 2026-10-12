@@ -1,0 +1,11 @@
+source = "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/JSimplex.jl"
+julia_version = "1.13.0"
+test_sha256 = "10444572b4941dd6969157080d1940436260c7e3bfb672f59484a430b3e75d9e"
+globals_preserved = true
+arch = "aarch64"
+julia_threads = 1
+selected_source = """@testset \"A nearly singular bounded model has no recession ray\" begin\n    scale = ldexp(1f0, -20)\n    coefficients = Float32[scale scale; scale nextfloat(scale)]\n    row_limits = Float32[1, 1]\n    exact_coefficients = Rational{BigInt}.(coefficients)\n    exact_primal = Rational{BigInt}[-big(2)^44-big(2)^21, big(2)^44]\n    @test size(coefficients) == (2, 2)\n    @test all(!iszero, coefficients)\n    @test det(exact_coefficients) == big(1)//big(2)^64\n    @test sum(exact_coefficients; dims=2) == fill(2Rational{BigInt}(scale), 2, 1)\n    @test row_limits == Float32[1, 1+ldexp(1f0, -23)]\n    @test exact_coefficients * exact_primal == [-Rational{BigInt}(row_limits[1]), Rational{BigInt}(row_limits[2])]\nend\n"""
+selected_sha256 = "4555815192584f58e7f287393703654afeca643be02d92a4edf2f835b5eca516"
+blas_threads = 1
+mode = "red"
+titles = ["A nearly singular bounded model has no recession ray"]
