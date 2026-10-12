@@ -46,7 +46,27 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-**Current continuation: S4-R source-only public-controller seam assessment; no numerical qualification authorized. Next S4-S source-only isolated-module loading contract, `docs/superpowers/plans/2026-10-12-hh-isolated-module-loading-contract.md`. Native retention stays OPEN and HH reuse disabled.**
+**Current continuation: S4-S conditional isolated solver-core loading manifest; runtime UNEXECUTED. Next S4-T source/exact-offline public LP/work contract, `docs/superpowers/plans/2026-10-12-hh-isolated-public-lp-work-contract.md`. No numerical launch; native retention OPEN and HH reuse disabled.**
+
+S4-S: SOURCE/EVIDENCE ONLY,70original/64selectedfiles per side,128orderedmanifestentries.
+Seven root substitutions +ONEcandidateHHkeyword, exactinverse/ZEROroutingrenames.
+Main.S4HHReference.JSimplex/Main.S4HHCandidate.JSimplex fresh namespaces; fourdependency
+aliases require ALREADYresident pinned production bindings. Explicit62externalmethods,
+29selected with9localnominaltypes,33MOIexcluded;4enums add20ownedtype signatures.
+PrecompileTools1.3.4 BOTHmacros verbose override; import/workload/MOI explicitlyexcluded.
+No hidden solver/factor calls in selected top-level source; regex/metadata/JIT/sharedBase
+methodadditions NOTzero work. Bootstrap separatelyUNQUALIFIED, runtimeUNEXECUTED.
+28sourcegates586hashes,authorindependent10/full586; all570R/Qevidenceunchanged.
+No production/test/env/master/CIchange, allrejectionsunchanged. Report
+S4-ISOLATED-MODULE-LOADING-CONTRACT.md/results/S4-S. Fresh gpt-6-astra review:
+no Critical/Important; one Minor keyword-lowering count clarification fixed offline,
+before report/next-plan preserved. Core.kwcall implicit entries explicitly accounted;
+29+20 is NOT a full runtime method count. Reviewer independently full586 +128manifest
+entries/inverses, author10checks separate;586inventory binds BEFORE the textual fix.
+NextT MUST pin reached refactor CSC representation and count guard/conversion work;
+same-type identity does not prove generic conversion is allocation-free.
+
+
 
 S4-R: SOURCE/EVIDENCE ONLY,24literal-source checks/570read-time hashes, separate author
 8checks/full570/all558Q unchanged and8selectedG/I source matches. Narrow Q clone does

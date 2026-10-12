@@ -716,3 +716,24 @@ Next ONE source-only S4-S:2026-10-12-hh-isolated-module-loading-contract.md, exa
 manifest/inverse/imported-method ownership/load-time work. No H caller census repeat or
 Q timing rerun. Public numerical/work qualification, native retention, broader S4/S6 and
 all prior rejections remain open/unchanged; HH reuse disabled and CI off.
+
+
+### S4-S isolated loading manifest, 2026-10-12
+
+Source-only conditional solver-core isolation:70original/64selectedfiles per side,
+128manifestentries, seven identical root substitutions/one candidate HH keyword;
+exactinverse/no function routing renames. Resident production dependency aliases,
+fresh nested JSimplex namespaces, explicit MOI/precompile/import exclusions.29selected
+external methods own local nominal types;20additional enum-generated signatures.
+Methodtable additions/JIT/metadata/regex/input reconstitution are not zero work.
+28offlinegates586hashes,author10checks/full586. Bootstrap remains a separate obligation;
+runtime loading/public trajectory not executed or proved. Fresh gpt-6-astra review no
+Critical/Important; one Minor keyword-lowering count issue corrected offline, originals
+preserved. Full586 read-time reviewer rehash and128manifest checks; source inventory
+binds BEFORE corrected report/next-plan. Core.kwcall is additional;29+20 not full count.
+T must pin native refactor input representation/count conversions (identity only for
+matching CSC). No unnecessary production work/memory and no numerical rerun.
+Next ONE S4-T source/exact-offline public LP/work contract:
+2026-10-12-hh-isolated-public-lp-work-contract.md. No numerical launch or repetition of
+H/R inventories/Qcost. Production/test/env/master/CI unchanged, HH reuse disabled,
+native retention/fullsuite/broader S4/S6 OPEN and all prior rejections unchanged.
