@@ -65,19 +65,24 @@ REACHABILITY.md. No production/test changes, no accepted full-file rerun. One Im
 gap fixed: mandatory count of fresh cost-RHS BTRAN detects a silently renewed
 attempt even when exact residual suppresses correction events. See review report.
 
-Next: docs/superpowers/plans/2026-10-12-primal-price-boundary-qualification.md,
-S6-V. Qualify a scoped one-shot cost-BTRAN adapter on a new dyadic identity fixture,
-with new exact/seed-only controls and unchanged repeated-budget oracle. Proposed
-boundary is not numerically qualified. Keep native fixture/adjacent integration
-coverage intact; permanent repair requires separate RED/GREEN plan. Do not promote
-S6-J or infer historical x64 cause from local success.
+S6-V completed pending independent review: qualification-1,124/124,12newidentity
+iterations+4negativeboundarycalls,exit0,21gates616pins. Exact/seed/subject controls
+show0/1/1freshcostBTRAN and0/0/1correctionBTRAN. Subject keeps all5oldassertions;
+negative extra freshBTRAN leaves oldoracletrue but newbudgetoraclefalse, preserved.
+No production/test changes; general wrapper lifecycle and x64 remain unqualified.
+See S6-PRIMAL-PRICE-BOUNDARY.md. Do not rerun accepted S6-U/V.
+Next after review: docs/superpowers/plans/2026-10-12-primal-price-budget-fixture-repair.md,
+S6-W: separate test-only structuralRED/no oldsolve, minimal bounded-counter adapter,
+newsource GREEN selected target/native neighbor, freshreview/mastergate/push.
+Preserve all5oldassertions and adjacent native coverage; mandatory freshcostBTRANcount
+must detect a silently renewed attempt. No production/options/tolerance/CI change.
 
 S6-S accepted evidence90811de/closure6c5ef37: fourtype13/13 + factor6/6; initial
 comparability30/31false preserved with517pin/current-external supplement; no
 retroactive launch pin. Factor19gates615pins/exactLU/primal/dual residuals0.
 S6-R accepted08b7485/3baf29b:12/12/21gates613pins,componentdecomposition-1/16.
 Do not rerun old N/O/P/Q/R/S/T/corpus/reference/cost drivers against changed tests.
-Last fresh host392305/392306/392297 absent,noJulia,boot20de7dde-704e-41c8-bee7-b8511c0a86b0.
+Last fresh host394992/394993/394984 absent,noJulia,boot20de7dde-704e-41c8-bee7-b8511c0a86b0.
 Verify new host state before edits or any new Julia. User environment/dirt preserved.
 
 S6-Q remains accepted:11events,5/5,24gates611pins,exact S6-N endpoint. Refactor event

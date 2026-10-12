@@ -79,3 +79,25 @@ could let a broken renewed budget pass the five old assertions. The mandatory
 fresh-cost BTRAN count and negative sensitivity check above close the proposed
 acceptance gap. This is a corrected diagnostic plan, not completed qualification
 or an executable repair. No S6-U evidence or numerical run is changed or repeated.
+
+## Launch contract
+
+Twelve iterations (three modes times four managers), no public solve or old rerun.
+All modes use a recording-only forwarding factor; subject additionally substitutes
+one declared output after a real cost BTRAN. Seed setup uses production reduced-cost
+reconstruction outside callbacks before wrapping. Actual identity B gives exact
+raw solves; declared residual is -2^-40 at coordinate3. Controls predict OPTIMAL/
+no recovery for exact prices and NUMERICAL_ERROR/one fresh BTRAN/no correction for
+seed-only. Subject retains all five original assertions plus budget-sensitive counts.
+After freezing each subject record, directly invoke the exhausted recovery function
+once as a separate negative component check (four extra BTRANs total, not iterations).
+It must return false with no events/state change; the old oracle stays true while
+the added work oracle is false. This proves sensitivity to an extra boundary call,
+not a captured or simulated faulty production control-flow trajectory.
+
+## Result
+
+Qualification-1:124/124,12iterations+4negativeboundarycalls,exit0,21gates616pins.
+All expected statuses/work and exact dyadic residuals qualified locally. The four
+negative budget oracles are false as intended while the old five booleans stay true.
+Fresh review pending; no permanent test/production changes. See S6-PRIMAL-PRICE-BOUNDARY.md.
