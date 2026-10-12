@@ -46,7 +46,17 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-**Current continuation: S3-D offline preparation completed and independently accepted; no numerical execution authorized. Next S3-E: `docs/superpowers/plans/2026-10-13-dse-mixed-route-driver.md`, ONE bounded diagnostic driver/counter-seam preparation without Julia. Complete observed internal-attempt accounting is unimplemented; reject this qualification route if it requires global method overwrite or full-module cloning. Do not reopen HH bootstrap/controller audits.**
+**Current continuation: S3-E source-only decision completed and independently accepted. Complete observed internal-attempt accounting is REJECTED for the frozen three-wrapper route with unchanged factor dispatch; stop that qualification route. No DSE defect or general instrumentation impossibility is claimed. Next S5-D: `docs/superpowers/plans/2026-10-13-precision-journal-transfer-contract.md`, ONE distinct SOURCE/EVIDENCE ONLY precision-transfer journal ownership contract, reconciling old execution evidence first. No Julia or numerical launch, no HH/bootstrap/controller or equivalent DSE audit.**
+
+S3-E: eleven source/integrity checks, 84 fresh read-time hashes; author seven checks,
+reviewer full84/all69 D pins/17 frozen D closure files and source edges. base_builds
+counts successful post-return publication; native orientation calls and HH constructor/
+update internals remain outside three wrappers. Typed native ownership precludes silent
+forwarding substitution without dispatch change. Source-derived conditional counts remain
+unobserved. No executable driver/snapshots, no unnecessary production work/memory. Fresh
+review no Critical/Important/Minor; all prior source/test/env/master/CI and evidence remain
+unchanged. Read S3-DSE-COUNTER-SEAM-LIMIT.md/REVIEW and results/S3-E. New prepare/source
+checks/closure are exclusive, never rerun. Separate passing closure before fail-fast push.
 
 S3-D: 11 exact offline checks, ten source checks, 69 read-time hashes; author eight
 independent checks/full69, reviewer independently full69 and all1,168 rational/

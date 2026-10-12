@@ -861,3 +861,21 @@ qualification route if complete internal accounting needs global method overwrit
 or full-module cloning; do not reopen HH isolation or controller audits. No launch
 authorization. CI off, HH reuse disabled; bootstrap/cache/init/public-budget/native-
 retention/broader S3/S4/S6/fullsuite and previous rejections remain unchanged.
+
+
+## S3-E route rejection and distinct S5-D continuation (2026-10-13)
+
+S3-E resolves the bounded pre-driver question: REJECT complete observed internal-
+attempt accounting for the frozen three-wrapper seam with unchanged dispatch. Post-
+return cache counts miss throws and conditional orientation work; HH constructor/update
+internals are outside the clones. Stop this qualification route, not a general
+instrumentation impossibility or demonstrated DSE defect. Eleven source checks/84 hashes,
+author seven checks; reviewer full84/all69 D pins/17 frozen D closure files, no findings
+or unnecessary production work/memory. No Julia, driver, old rerun or production change.
+
+Reorder to S5-D precision-transfer journal ownership, already named in S5 inventory
+and excluded from ordinary S5-A. Read new plan
+`docs/superpowers/plans/2026-10-13-precision-journal-transfer-contract.md`.
+ONE source/evidence contract, reconcile prior execution first; no speculative repair,
+precision increase or numerical launch. Do not reopen HH/bootstrap/controller/DSE
+accounting routes. CI/HH reuse disabled; broader gates and prior rejections unchanged.

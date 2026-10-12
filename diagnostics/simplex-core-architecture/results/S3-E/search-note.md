@@ -1,0 +1,1 @@
+One exploratory rg used absent src/eta_factorization.jl and exited 2 after returning other matches. Actual PFI source is src/factorization.jl, subsequently read directly. This was not an audit or Julia execution.
