@@ -151,14 +151,23 @@ conditional proof/no unnecessary production work/memory. Important H equality sc
 fixed offline textual RED/GREEN: non-event compared fields only, events excluded.
 Minor DEFERRED: work paragraph 'copy' means factor copy; existing vector copies are
 explicitly mapped. See S6-DUAL-CAUSAL-CONTRACT.md/REVIEW,immutable results/S6-AD.
-Next: docs/superpowers/plans/2026-10-12-dual-dyadic-component-qualification.md,S6-AE.
-First new component-only qualification,Float64 fourmanagers x freshB/-I-refactorB,
-8setups4refactors24basis solves +8native compensated-quality entries. No workspace,
-publicsolve/dualiteration/adapter,metadata guessing or old accepted reruns. Read
-source/interface/options/runtime/pins first, preserve all failures. Exact component
-endpoints do not establish public retry/callback/ownership; separate later plan.
-Production/test/master/CI unchanged. S6-J/S2-A rejected,actualCIcause/hidden states/
-x64/fullsuite/broaderS6 open.
+S6-AE accepted: 8 new Float64 component cases,73/73,exit0,25audit gates626pins,
+517sharedpins/11ADsource hashes and7raw/portable/bit supplements verified. Exactly
+8initial factors4refactors24basis solves8quality entries8explicit invalidations;
+real unit/prepared/correction outputs and native quality RHS match exact AD values.
+All quality finite/reliable; no workspace/publiciteration/adapter/certificate calls.
+Fresh gpt-6-astra review no Critical/Important/Minor, no unnecessary production
+work/memory. Source, input bits, globals, user hashes and process closure checked.
+See S6-DUAL-DYADIC-COMPONENTS.md/REVIEW; accepted AE driver/auditor must not rerun.
+Next: docs/superpowers/plans/2026-10-12-dual-public-boundary-qualification.md,S6-AF.
+Mandatory source preflight resolves shared-factor wrapper compatibility, metadata and
+invalidation counts before implementation/launch. Max24new public calls:4real controls
+and20subjects(five original modes/four managers), Float64 only. Two genuine-forward
+unit BTRAN declarations required; all calls counted before forwarding, after consumption
+and on throws. Preserve original108recovery assertions and remaining108native assertions.
+No direct retry shortcut; unexpected ordinary refactor/work rejects qualification.
+Production/test/master/CI unchanged. S6-J/S2-A rejected; historicalCIcause/hidden states/
+x64/fullsuite/broaderS6 open. No accepted old driver/corpus/reference/cost reruns.
 
 
 S6-S accepted evidence90811de/closure6c5ef37: fourtype13/13 + factor6/6; initial
@@ -166,7 +175,7 @@ comparability30/31false preserved with517pin/current-external supplement; no
 retroactive launch pin. Factor19gates615pins/exactLU/primal/dual residuals0.
 S6-R accepted08b7485/3baf29b:12/12/21gates613pins,componentdecomposition-1/16.
 Do not rerun old N/O/P/Q/R/S/T/corpus/reference/cost drivers against changed tests.
-Last fresh host runner407128/child407129/launchgroup407116 absent,noJulia,boot20de7dde-704e-41c8-bee7-b8511c0a86b0.
+Last fresh host runner409838/child409839/launchgroup409829 absent,noJulia,boot20de7dde-704e-41c8-bee7-b8511c0a86b0.
 Verify new host state before edits or any new Julia. User environment/dirt preserved.
 
 S6-Q remains accepted:11events,5/5,24gates611pins,exact S6-N endpoint. Refactor event
