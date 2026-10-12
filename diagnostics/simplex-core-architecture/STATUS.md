@@ -46,7 +46,25 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-**Current continuation: S5-G limited two-case qualification completed and independently accepted. Original offline auditor62/63/all_passed=false/exit1 remains preserved; separate outcome-supplement7/7 resolves only qualified exception type spelling. Next S5-H: `docs/superpowers/plans/2026-10-13-precision-journal-interruption-test-preparation.md`, ONE minimal permanent test candidate as a separate artifact WITHOUT Julia execution or test-file edits.**
+**Current continuation: S5-H offline permanent-test preparation independently accepted. Next S5-I: `docs/superpowers/plans/2026-10-13-precision-journal-interruption-test-integration.md`. First prepare/review a NEW focused launcher and pins; then integrate the exact reviewed candidate, at most two guarded cases on GREEN and two on actual master. No Julia or test-file change occurred in H.**
+
+S5-H: separate candidate preserves the entire10583-byte test prefix and appends
+exactly two prospective active-journal detached-buffer stop/throw cases.18 offline
+source/evidence checks, four missing-coverage structural RED predicates,780 fresh
+hashes and10 author-independent checks. Fresh gpt-6-astra streamed all780 hashes,
+G752/F176 coverage, fixture/prefix/raw/source/work review; no Critical/Important/
+Minor findings or unnecessary new production work/memory. Direct Julia exception
+wrapper/cause identity avoids string-name matching. Per case31 source snapshots76
+entries plus three detachment copies9 entries:34 explicit copies85 entries; no
+callback snapshots or encoding, no extra numerical calls. Source old checkpoint
+phase key preserved without revalidation; fresh cache/checkpoints empty. Existing
+counters partial/finally, direct weight unit BTRAN untimed and up to3 correction
+BTRANs possible; no complete native/import-work/certificate/observer-neutrality claim.
+Runtime/syntax untested. Read S5-PRECISION-JOURNAL-INTERRUPTION-TEST-PREPARATION.md
+and REVIEW, results/S5-H. Frozen H preparation/evidence/independent/candidate and
+all F/G artifacts NEVER rerun/rewrite; G audit62/63 FALSE plus separate7 PASS remain.
+No source/test/env/master/CI change; all prior rejection, HH-disabled, full-suite,
+historical/x64, bootstrap/cache/init/controller/native-retention gates unchanged.
 
 S5-G: exactly one guarded attempt, two existing stop/throw transfers,48 explicit
 result predicates true/exit0,752 launch pins unchanged. Initial auditor62/63 FALSE

@@ -961,3 +961,26 @@ assertions and bounded snapshots without diagnostic serialization. Read
 or launch in H. Full-suite/historical CI/x64 and broader stages remain open; all
 rejections, HH-disabled, CI-off, bootstrap/cache/init/controller/native-retention
 limits unchanged. All accepted old/frozen drivers and exclusive audits remain immutable.
+
+
+## S5-H offline test preparation and S5-I integration (2026-10-13)
+
+S5-H independently accepted without Julia execution or actual test-file edits.
+Separate candidate preserves10583-byte original prefix. Two prospective existing
+active-journal stop/throw cases carry G ownership/cause/ambient/partial-work oracles
+as direct assertions, with31 source copies76 entries and3 detached copies9 entries
+per case.18 offline checks,4 missing-coverage structural RED predicates,780 hashes,
+10 author-independent checks; fresh reviewer full780/3,576,930,876 bytes and source/
+fixture/raw analysis, no findings or unnecessary production work/memory. Structural
+RED/GREEN are textual coverage checks, not failing/passing Julia tests. G false
+original auditor and separate passing supplement remain unchanged. Runtime pending.
+
+Next2026-10-13-precision-journal-interruption-test-integration.md: first NEW focused
+launcher/pins/auditor and fresh independent review, then exact candidate integration;
+at most one guarded two-case GREEN and one two-case actual-master check, no old
+file/suite or success-control rerun. Prefix and actual extracted suffix must bind,
+no F/G driver reuse; guard wall120s inclusive, single Julia compiled-modules=existing,
+threads1/heap2GiB/VM8GiB/RAM6GiB/swap1GiB. Fresh process absence before pinned edits
+or launches. Preserve any failure without silent tuning/retry. No solver repair,
+full-suite/x64/CI-cause/observer-neutrality or performance claim. All broader gates,
+CI-off/HH-disabled/rejections/native-retention/bootstrap limits remain unchanged.
