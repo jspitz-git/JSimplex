@@ -1,0 +1,108 @@
+source = "/home/jspitz/JSimplex.jl/src/JSimplex.jl"
+executed = """@testset \"A repeated price disagreement cannot renew the recovery budget\" begin\n    for manager in (:pfi,:forrest_tomlin,:suhl_suhl,:bartels_golub)\n        diagnostics=JSimplex.SimplexDiagnostics(;observer=(event,ws)->begin\n            # Fault injection after publication forces a second disagreement.\n            event==:primal_prices_corrected && (ws.reduced_costs[7]=-1.0)\n        end)\n        ws=repeated_price_budget_fixture(manager;diagnostics)\n        before=state(ws)\n        result=JSimplex._primal_iteration!(ws,()->false,0.0)\n        push!(RECORDS,Dict(\"manager\"=>string(manager),\"before\"=>before,\"after\"=>state(ws),\"cost\"=>ws.factorization.cost_btrans,\"correction\"=>ws.factorization.correction_btrans,\"total\"=>ws.factorization.total_btrans,\"hits\"=>ws.factorization.hits))\n        @test !isnothing(result) && result.status==NUMERICAL_ERROR\n        @test JSimplex.event_count(diagnostics,:primal_prices_corrected)==1\n        @test JSimplex.event_count(diagnostics,:correction_attempt)==1\n        @test ws.iterations==0\n        @test isempty(ws.scratch.rejected_entering)\n        @test ws.factorization.cost_btrans==1\n        @test ws.factorization.correction_btrans==1\n        @test ws.factorization.total_btrans==2\n        @test ws.factorization.hits==1\n    end\nend\n"""
+julia_version = "1.13.0"
+test_sha256 = "001d0ed44f75e0d69bf9b18365fbea308bb89ed64b0a42bc0757ea8751c0185b"
+globals_preserved = true
+selected = """@testset \"A repeated price disagreement cannot renew the recovery budget\" begin\n    for manager in (:pfi,:forrest_tomlin,:suhl_suhl,:bartels_golub)\n        diagnostics=JSimplex.SimplexDiagnostics(;observer=(event,ws)->begin\n            # Fault injection after publication forces a second disagreement.\n            event==:primal_prices_corrected && (ws.reduced_costs[7]=-1.0)\n        end)\n        ws=repeated_price_budget_fixture(manager;diagnostics)\n        result=JSimplex._primal_iteration!(ws,()->false,0.0)\n        @test !isnothing(result) && result.status==NUMERICAL_ERROR\n        @test JSimplex.event_count(diagnostics,:primal_prices_corrected)==1\n        @test JSimplex.event_count(diagnostics,:correction_attempt)==1\n        @test ws.iterations==0\n        @test isempty(ws.scratch.rejected_entering)\n        @test ws.factorization.cost_btrans==1\n        @test ws.factorization.correction_btrans==1\n        @test ws.factorization.total_btrans==2\n        @test ws.factorization.hits==1\n    end\nend\n"""
+arch = "aarch64"
+julia_threads = 1
+target = """@testset \"A repeated price disagreement cannot renew the recovery budget\" begin\n    for manager in (:pfi,:forrest_tomlin,:suhl_suhl,:bartels_golub)\n        diagnostics=JSimplex.SimplexDiagnostics(;observer=(event,ws)->begin\n            # Fault injection after publication forces a second disagreement.\n            event==:primal_prices_corrected && (ws.reduced_costs[7]=-1.0)\n        end)\n        ws=repeated_price_budget_fixture(manager;diagnostics)\n        result=JSimplex._primal_iteration!(ws,()->false,0.0)\n        @test !isnothing(result) && result.status==NUMERICAL_ERROR\n        @test JSimplex.event_count(diagnostics,:primal_prices_corrected)==1\n        @test JSimplex.event_count(diagnostics,:correction_attempt)==1\n        @test ws.iterations==0\n        @test isempty(ws.scratch.rejected_entering)\n        @test ws.factorization.cost_btrans==1\n        @test ws.factorization.correction_btrans==1\n        @test ws.factorization.total_btrans==2\n        @test ws.factorization.hits==1\n    end\nend\n"""
+blas_threads = 1
+mode = "master"
+
+[[records]]
+correction = 1
+cost = 1
+manager = "pfi"
+hits = 1
+total = 2
+
+    [records.after]
+    primal = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+    iterations = 0
+    states = ["BASIC", "BASIC", "BASIC", "BASIC", "BASIC", "BASIC", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER"]
+    updates = 0
+    basis = [1, 2, 3, 4, 5, 6]
+    costs = [1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    refactorizations = 1
+
+    [records.before]
+    primal = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+    iterations = 0
+    states = ["BASIC", "BASIC", "BASIC", "BASIC", "BASIC", "BASIC", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER"]
+    updates = 0
+    basis = [1, 2, 3, 4, 5, 6]
+    costs = [1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    refactorizations = 1
+[[records]]
+correction = 1
+cost = 1
+manager = "forrest_tomlin"
+hits = 1
+total = 2
+
+    [records.after]
+    primal = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+    iterations = 0
+    states = ["BASIC", "BASIC", "BASIC", "BASIC", "BASIC", "BASIC", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER"]
+    updates = 0
+    basis = [1, 2, 3, 4, 5, 6]
+    costs = [1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    refactorizations = 1
+
+    [records.before]
+    primal = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+    iterations = 0
+    states = ["BASIC", "BASIC", "BASIC", "BASIC", "BASIC", "BASIC", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER"]
+    updates = 0
+    basis = [1, 2, 3, 4, 5, 6]
+    costs = [1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    refactorizations = 1
+[[records]]
+correction = 1
+cost = 1
+manager = "suhl_suhl"
+hits = 1
+total = 2
+
+    [records.after]
+    primal = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+    iterations = 0
+    states = ["BASIC", "BASIC", "BASIC", "BASIC", "BASIC", "BASIC", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER"]
+    updates = 0
+    basis = [1, 2, 3, 4, 5, 6]
+    costs = [1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    refactorizations = 1
+
+    [records.before]
+    primal = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+    iterations = 0
+    states = ["BASIC", "BASIC", "BASIC", "BASIC", "BASIC", "BASIC", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER"]
+    updates = 0
+    basis = [1, 2, 3, 4, 5, 6]
+    costs = [1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    refactorizations = 1
+[[records]]
+correction = 1
+cost = 1
+manager = "bartels_golub"
+hits = 1
+total = 2
+
+    [records.after]
+    primal = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+    iterations = 0
+    states = ["BASIC", "BASIC", "BASIC", "BASIC", "BASIC", "BASIC", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER"]
+    updates = 0
+    basis = [1, 2, 3, 4, 5, 6]
+    costs = [1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    refactorizations = 1
+
+    [records.before]
+    primal = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+    iterations = 0
+    states = ["BASIC", "BASIC", "BASIC", "BASIC", "BASIC", "BASIC", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER"]
+    updates = 0
+    basis = [1, 2, 3, 4, 5, 6]
+    costs = [1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    refactorizations = 1

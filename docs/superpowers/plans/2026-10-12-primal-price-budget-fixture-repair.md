@@ -47,3 +47,15 @@ No accepted census/corpus/reference/cost rerun, CI stays disabled, no assertion
 weakening. No promotion of S6-J or S2-A. Single guarded Julia/BLAS1,heap2GiB,VM8GiB,
 minRAM6GiB,maxswap1GiB. Fresh separate host absence before pinned edits/launch;
 no pinned mutations during runs. Preserve raw failures/worktrees/environments.
+
+## Execution record (2026-10-12)
+
+Steps1–5 accepted. Structural RED2expected failures/zero solves,13 gates617 pins.
+GREEN109/109 (target36,neighbor68,selected-state5),18 gates617 pins; all original
+assertions and surrounding native coverage byte-identical. Fresh independent
+review gpt-6-astra/high: no findings, no unnecessary production work/memory.
+Test-only4c42fe3 cherry-picked as masterb9e7cb1; step6 actual-master gate passed41/41,19gates617pins,exit0.
+Source/GREEN identity and user hashes verified; no Julia remains.
+No accepted old runs repeated, no CI/solver/tolerance/precision changes.
+See S6-PRIMAL-PRICE-FIXTURE.md and S6-PRIMAL-PRICE-FIXTURE-REVIEW.md for scope.
+Next separate diagnostic plan: 2026-10-12-phase-transfer-reconstruction-reachability.md.

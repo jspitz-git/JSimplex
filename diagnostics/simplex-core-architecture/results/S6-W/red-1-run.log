@@ -1,0 +1,31 @@
+ERROR: LoadError: Some tests did not pass: 0 passed, 2 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/primal_price_fixture_repair.jl:25
+
+Repeated price structural contract: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/primal_price_fixture_repair.jl:28
+  Expression: occursin("ws=repeated_price_budget_fixture(manager;diagnostics)", TARGET)
+   Evaluated: occursin("ws=repeated_price_budget_fixture(manager;diagnostics)", "@testset \"A repeated price disagreement cannot renew the recovery budget\" begin\n    for manager in (:pfi,:forrest_tomlin,:suhl_suhl,:bartels_golub)\n        diagnostics=JSimplex.SimplexDiagnostics(;observer=(event,ws)->begin\n            # Fault injection after publication forces a second disagreement.\n            event==:primal_prices_corrected && (ws.reduced_costs[7]=-1.0)\n        end)\n        ws=native_price_roundoff_fixture(Float64,manager;diagnostics)\n        result=JSimplex._primal_iteration!(ws,()->false,0.0)\n        @test !isnothing(result) && result.status==NUMERICAL_ERROR\n        @test JSimplex.event_count(diagnostics,:primal_prices_corrected)==1\n        @test JSimplex.event_count(diagnostics,:correction_attempt)==1\n        @test ws.iterations==0\n        @test isempty(ws.scratch.rejected_entering)\n    end\nend\n")
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/primal_price_fixture_repair.jl:28
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/primal_price_fixture_repair.jl:28 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Repeated price structural contract: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/primal_price_fixture_repair.jl:29
+  Expression: occursin("@test ws.factorization.cost_btrans==1", TARGET)
+   Evaluated: occursin("@test ws.factorization.cost_btrans==1", "@testset \"A repeated price disagreement cannot renew the recovery budget\" begin\n    for manager in (:pfi,:forrest_tomlin,:suhl_suhl,:bartels_golub)\n        diagnostics=JSimplex.SimplexDiagnostics(;observer=(event,ws)->begin\n            # Fault injection after publication forces a second disagreement.\n            event==:primal_prices_corrected && (ws.reduced_costs[7]=-1.0)\n        end)\n        ws=native_price_roundoff_fixture(Float64,manager;diagnostics)\n        result=JSimplex._primal_iteration!(ws,()->false,0.0)\n        @test !isnothing(result) && result.status==NUMERICAL_ERROR\n        @test JSimplex.event_count(diagnostics,:primal_prices_corrected)==1\n        @test JSimplex.event_count(diagnostics,:correction_attempt)==1\n        @test ws.iterations==0\n        @test isempty(ws.scratch.rejected_entering)\n    end\nend\n")
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/primal_price_fixture_repair.jl:28
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/primal_price_fixture_repair.jl:29 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+Test Summary:                      | Fail  Total  Time
+Repeated price structural contract |    2      2  0.7s
+RNG of the outermost testset: Random.Xoshiro(0x1770b1e44775cf0e, 0xa1bd423da03d4e1e, 0xe1244df9f8715ba0, 0xdbc333340b797be9, 0x64b464eb52b6e6e7)

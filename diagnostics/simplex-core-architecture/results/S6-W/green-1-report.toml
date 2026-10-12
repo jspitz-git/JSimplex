@@ -1,0 +1,108 @@
+source = "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/JSimplex.jl"
+executed = """@testset \"A repeated price disagreement cannot renew the recovery budget\" begin\n    for manager in (:pfi,:forrest_tomlin,:suhl_suhl,:bartels_golub)\n        diagnostics=JSimplex.SimplexDiagnostics(;observer=(event,ws)->begin\n            # Fault injection after publication forces a second disagreement.\n            event==:primal_prices_corrected && (ws.reduced_costs[7]=-1.0)\n        end)\n        ws=repeated_price_budget_fixture(manager;diagnostics)\n        before=state(ws)\n        result=JSimplex._primal_iteration!(ws,()->false,0.0)\n        push!(RECORDS,Dict(\"manager\"=>string(manager),\"before\"=>before,\"after\"=>state(ws),\"cost\"=>ws.factorization.cost_btrans,\"correction\"=>ws.factorization.correction_btrans,\"total\"=>ws.factorization.total_btrans,\"hits\"=>ws.factorization.hits))\n        @test !isnothing(result) && result.status==NUMERICAL_ERROR\n        @test JSimplex.event_count(diagnostics,:primal_prices_corrected)==1\n        @test JSimplex.event_count(diagnostics,:correction_attempt)==1\n        @test ws.iterations==0\n        @test isempty(ws.scratch.rejected_entering)\n        @test ws.factorization.cost_btrans==1\n        @test ws.factorization.correction_btrans==1\n        @test ws.factorization.total_btrans==2\n        @test ws.factorization.hits==1\n    end\nend\n\n@testset \"Native price recovery is atomic and respects policy limits\" begin\n    for manager in (:pfi,:forrest_tomlin,:suhl_suhl,:bartels_golub)\n        for mode in (:budget,:checked,:dual,:cancel,:exception)\n            correcting=Ref(false)\n            diagnostics=JSimplex.SimplexDiagnostics(;observer=(event,ws)->begin\n                event==:correction_attempt && (correcting[]=true)\n            end)\n            ws=native_price_roundoff_fixture(Float64,manager;\n                max_refinements=mode==:budget ? 0 : 3,diagnostics)\n            mode==:checked && (ws.progress=JSimplex.SimplexProgressContext(ws.problem;\n                numerical_policy=JSimplex.NumericalPolicy(Float64;solve_refinement=true),diagnostics))\n            mode==:dual && (ws.options=JSimplex._phase_options(ws.options,:dual))\n            saved=deepcopy((ws.primal,ws.costs,ws.reduced_costs,ws.scratch.rho,\n                ws.basis.basic_indices,ws.basis.states))\n            failure=SingularException(924)\n            stop=()->begin\n                correcting[] && mode==:exception && throw(failure)\n                correcting[] && mode==:cancel\n            end\n            result=try JSimplex._try_native_primal_price_recovery!(ws,stop) catch e; e end\n            @test result === (mode==:exception ? failure : false)\n            @test isequal(saved,(ws.primal,ws.costs,ws.reduced_costs,ws.scratch.rho,\n                ws.basis.basic_indices,ws.basis.states))\n            @test JSimplex.event_count(diagnostics,:primal_prices_corrected)==0\n            mode in (:cancel,:exception) && (@test correcting[])\n        end\n    end\nend\n"""
+julia_version = "1.13.0"
+test_sha256 = "001d0ed44f75e0d69bf9b18365fbea308bb89ed64b0a42bc0757ea8751c0185b"
+globals_preserved = true
+selected = """@testset \"A repeated price disagreement cannot renew the recovery budget\" begin\n    for manager in (:pfi,:forrest_tomlin,:suhl_suhl,:bartels_golub)\n        diagnostics=JSimplex.SimplexDiagnostics(;observer=(event,ws)->begin\n            # Fault injection after publication forces a second disagreement.\n            event==:primal_prices_corrected && (ws.reduced_costs[7]=-1.0)\n        end)\n        ws=repeated_price_budget_fixture(manager;diagnostics)\n        result=JSimplex._primal_iteration!(ws,()->false,0.0)\n        @test !isnothing(result) && result.status==NUMERICAL_ERROR\n        @test JSimplex.event_count(diagnostics,:primal_prices_corrected)==1\n        @test JSimplex.event_count(diagnostics,:correction_attempt)==1\n        @test ws.iterations==0\n        @test isempty(ws.scratch.rejected_entering)\n        @test ws.factorization.cost_btrans==1\n        @test ws.factorization.correction_btrans==1\n        @test ws.factorization.total_btrans==2\n        @test ws.factorization.hits==1\n    end\nend\n\n@testset \"Native price recovery is atomic and respects policy limits\" begin\n    for manager in (:pfi,:forrest_tomlin,:suhl_suhl,:bartels_golub)\n        for mode in (:budget,:checked,:dual,:cancel,:exception)\n            correcting=Ref(false)\n            diagnostics=JSimplex.SimplexDiagnostics(;observer=(event,ws)->begin\n                event==:correction_attempt && (correcting[]=true)\n            end)\n            ws=native_price_roundoff_fixture(Float64,manager;\n                max_refinements=mode==:budget ? 0 : 3,diagnostics)\n            mode==:checked && (ws.progress=JSimplex.SimplexProgressContext(ws.problem;\n                numerical_policy=JSimplex.NumericalPolicy(Float64;solve_refinement=true),diagnostics))\n            mode==:dual && (ws.options=JSimplex._phase_options(ws.options,:dual))\n            saved=deepcopy((ws.primal,ws.costs,ws.reduced_costs,ws.scratch.rho,\n                ws.basis.basic_indices,ws.basis.states))\n            failure=SingularException(924)\n            stop=()->begin\n                correcting[] && mode==:exception && throw(failure)\n                correcting[] && mode==:cancel\n            end\n            result=try JSimplex._try_native_primal_price_recovery!(ws,stop) catch e; e end\n            @test result === (mode==:exception ? failure : false)\n            @test isequal(saved,(ws.primal,ws.costs,ws.reduced_costs,ws.scratch.rho,\n                ws.basis.basic_indices,ws.basis.states))\n            @test JSimplex.event_count(diagnostics,:primal_prices_corrected)==0\n            mode in (:cancel,:exception) && (@test correcting[])\n        end\n    end\nend\n"""
+arch = "aarch64"
+julia_threads = 1
+target = """@testset \"A repeated price disagreement cannot renew the recovery budget\" begin\n    for manager in (:pfi,:forrest_tomlin,:suhl_suhl,:bartels_golub)\n        diagnostics=JSimplex.SimplexDiagnostics(;observer=(event,ws)->begin\n            # Fault injection after publication forces a second disagreement.\n            event==:primal_prices_corrected && (ws.reduced_costs[7]=-1.0)\n        end)\n        ws=repeated_price_budget_fixture(manager;diagnostics)\n        result=JSimplex._primal_iteration!(ws,()->false,0.0)\n        @test !isnothing(result) && result.status==NUMERICAL_ERROR\n        @test JSimplex.event_count(diagnostics,:primal_prices_corrected)==1\n        @test JSimplex.event_count(diagnostics,:correction_attempt)==1\n        @test ws.iterations==0\n        @test isempty(ws.scratch.rejected_entering)\n        @test ws.factorization.cost_btrans==1\n        @test ws.factorization.correction_btrans==1\n        @test ws.factorization.total_btrans==2\n        @test ws.factorization.hits==1\n    end\nend\n"""
+blas_threads = 1
+mode = "green"
+
+[[records]]
+correction = 1
+cost = 1
+manager = "pfi"
+hits = 1
+total = 2
+
+    [records.after]
+    primal = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+    iterations = 0
+    states = ["BASIC", "BASIC", "BASIC", "BASIC", "BASIC", "BASIC", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER"]
+    updates = 0
+    basis = [1, 2, 3, 4, 5, 6]
+    costs = [1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    refactorizations = 1
+
+    [records.before]
+    primal = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+    iterations = 0
+    states = ["BASIC", "BASIC", "BASIC", "BASIC", "BASIC", "BASIC", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER"]
+    updates = 0
+    basis = [1, 2, 3, 4, 5, 6]
+    costs = [1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    refactorizations = 1
+[[records]]
+correction = 1
+cost = 1
+manager = "forrest_tomlin"
+hits = 1
+total = 2
+
+    [records.after]
+    primal = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+    iterations = 0
+    states = ["BASIC", "BASIC", "BASIC", "BASIC", "BASIC", "BASIC", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER"]
+    updates = 0
+    basis = [1, 2, 3, 4, 5, 6]
+    costs = [1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    refactorizations = 1
+
+    [records.before]
+    primal = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+    iterations = 0
+    states = ["BASIC", "BASIC", "BASIC", "BASIC", "BASIC", "BASIC", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER"]
+    updates = 0
+    basis = [1, 2, 3, 4, 5, 6]
+    costs = [1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    refactorizations = 1
+[[records]]
+correction = 1
+cost = 1
+manager = "suhl_suhl"
+hits = 1
+total = 2
+
+    [records.after]
+    primal = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+    iterations = 0
+    states = ["BASIC", "BASIC", "BASIC", "BASIC", "BASIC", "BASIC", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER"]
+    updates = 0
+    basis = [1, 2, 3, 4, 5, 6]
+    costs = [1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    refactorizations = 1
+
+    [records.before]
+    primal = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+    iterations = 0
+    states = ["BASIC", "BASIC", "BASIC", "BASIC", "BASIC", "BASIC", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER"]
+    updates = 0
+    basis = [1, 2, 3, 4, 5, 6]
+    costs = [1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    refactorizations = 1
+[[records]]
+correction = 1
+cost = 1
+manager = "bartels_golub"
+hits = 1
+total = 2
+
+    [records.after]
+    primal = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+    iterations = 0
+    states = ["BASIC", "BASIC", "BASIC", "BASIC", "BASIC", "BASIC", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER"]
+    updates = 0
+    basis = [1, 2, 3, 4, 5, 6]
+    costs = [1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    refactorizations = 1
+
+    [records.before]
+    primal = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+    iterations = 0
+    states = ["BASIC", "BASIC", "BASIC", "BASIC", "BASIC", "BASIC", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER", "AT_LOWER"]
+    updates = 0
+    basis = [1, 2, 3, 4, 5, 6]
+    costs = [1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    refactorizations = 1
