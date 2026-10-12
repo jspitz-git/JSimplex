@@ -1,0 +1,6 @@
+from pathlib import Path
+import json,hashlib,tomllib,subprocess
+r=Path('.');d=r/'diagnostics/simplex-core-architecture';o=d/'results/S6-AL';b=r/'.superpowers/simplex-core-architecture/S6-AL/provenance-1';h=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+pre=json.loads((o/'preflight.json').read_text());a=json.loads((o/'provenance-1-audit.json').read_text());pins=json.loads((b/'pins.json').read_text())
+c={'raw_portable':all((o/('provenance-1-'+n)).read_bytes()==(b/n).read_bytes() for n in ['report.toml','process.json','pins.json','run.log']), 'driver_exact':h(o/'provenance-1-driver.jl')==h(d/'reproduce/native_cleanup_provenance.jl')==pre['driver_sha256'], 'all_628_pins':len(pins['inventory'])==628 and all(h(Path(k))==v['sha256'] for k,v in pins['inventory'].items()),'audit32':len(a['checks'])==32 and all(a['checks'].values()),'no_source_test_CI_diff':subprocess.check_output(['git','diff','master','--','src','test','.github'],text=True)=='','six_users':len(pre['user_hashes'])==6 and all(h(Path(k))==v for k,v in pre['user_hashes'].items())}
+(o/'independent-verification.json').write_text(json.dumps({'checks':c,'all_passed':all(c.values())},indent=2)+'\n');print(c);assert all(c.values())

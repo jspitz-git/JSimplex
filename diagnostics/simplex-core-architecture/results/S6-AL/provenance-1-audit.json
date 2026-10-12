@@ -1,0 +1,120 @@
+{
+  "checks": {
+    "exit0": true,
+    "seven_original_assertions": true,
+    "actual_exception_accounting": true,
+    "guard_pins": true,
+    "independent_pins": true,
+    "AG627_shared": true,
+    "contract_source_hashes": true,
+    "actual_driver_source": true,
+    "actual_helper_source": true,
+    "processes_gone_same_boot": true,
+    "one_lifecycle": true,
+    "threads_globals": true,
+    "PFI_no_observer": true,
+    "model_owned_preserved": true,
+    "options_same_defaults": true,
+    "policies_scoped_replacement": true,
+    "clock_budget_preserved": true,
+    "monotonic_brackets": true,
+    "new_driver_deadline_excluded": true,
+    "actual_bits": true,
+    "same_unit_scaling": true,
+    "owned_journal_before": true,
+    "initial_exact_shift": true,
+    "exact_working_equations": true,
+    "original_predicates_recorded": true,
+    "original_point_publication": true,
+    "timing_only_after_setup": true,
+    "observed_initial_work": true,
+    "observed_cleanup_work": true,
+    "ordered_restore_certification": true,
+    "user_hashes": true
+  },
+  "all_passed": true,
+  "pin_count": 628,
+  "represented_float_checks": 102,
+  "intervals": {
+    "helper": {
+      "before_elapsed_ns": -2748537172,
+      "after_elapsed_ns": 6136600,
+      "duration_ns": 2754673772,
+      "deadline_class": "excluded_within_bracket"
+    },
+    "setup_capture": {
+      "before_elapsed_ns": 6140300,
+      "after_elapsed_ns": 89874999,
+      "duration_ns": 83734699,
+      "deadline_class": "excluded_within_bracket"
+    },
+    "initial": {
+      "before_elapsed_ns": 99266799,
+      "after_elapsed_ns": 7432490917,
+      "duration_ns": 7333224118,
+      "deadline_class": "excluded_within_bracket"
+    },
+    "initial_capture": {
+      "before_elapsed_ns": 7437741817,
+      "after_elapsed_ns": 7437762917,
+      "duration_ns": 21100,
+      "deadline_class": "excluded_within_bracket"
+    },
+    "driver_capture": {
+      "before_elapsed_ns": 7501163517,
+      "after_elapsed_ns": 7501183517,
+      "duration_ns": 20000,
+      "deadline_class": "excluded_within_bracket"
+    },
+    "driver": {
+      "before_elapsed_ns": 7501187517,
+      "after_elapsed_ns": 16137016355,
+      "duration_ns": 8635828838,
+      "deadline_class": "excluded_within_bracket"
+    },
+    "final_capture": {
+      "before_elapsed_ns": 16137020855,
+      "after_elapsed_ns": 16137061955,
+      "duration_ns": 41100,
+      "deadline_class": "excluded_within_bracket"
+    }
+  },
+  "initial_kernel_delta": {
+    "ftran": 2,
+    "pricing": 2,
+    "btran": 3
+  },
+  "cleanup_kernel_delta": {
+    "ftran": 2,
+    "btran": 2
+  },
+  "policy_changes": {
+    "refactor_timing": [
+      false,
+      true
+    ],
+    "adaptive_primal_perturbation": [
+      true,
+      false
+    ],
+    "adaptive_refactor": [
+      true,
+      false
+    ],
+    "adaptive_stalling": [
+      true,
+      false
+    ],
+    "adaptive_pricing": [
+      true,
+      false
+    ],
+    "adaptive_dual_perturbation": [
+      true,
+      false
+    ]
+  },
+  "exact_point_before": "-8500259669165361/9444732965739290427392",
+  "exact_point_after": "0",
+  "scope": "One new local instrumented lifecycle. Timings include compilation and shared-budget capture overhead. No historical elapsed/status/CI cause or instrumentation neutrality proof. Setup zero disabled counters are not zero work."
+}

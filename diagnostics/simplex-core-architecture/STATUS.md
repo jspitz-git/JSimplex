@@ -230,16 +230,25 @@ production/test/master/CIchange. Freshgpt6astra noCriticalImportant/no unnecessa
 productionworkmemory. MinorDEFERRED: table "two quality checks" means UPTO TWO,
 primalqualityshortcircuits; successfulpathboth. No countoracle depends onshorthand.
 See S6-NATIVE-CLEANUP-CONTRACT.md/REVIEW,results/S6-AK. OfflineexclusivewriterNERERUN.
-Next: docs/superpowers/plans/2026-10-12-native-cleanup-provenance.md,S6-AL.
-ONEnewFloat64PFIlifecycle:exacthelperonce+initial_primal_optimize!once+run_from_basis!once.
-Originalsixassertions+helperassert unchanged, nativepolicy/defaultoptions/time30;
-no clockreset/warmup/toleranceprecisionfix/observer/adapter/extraqualitycertificate.
-Enableexistingkerneltiming ONLYafterrealsetup; ownedtinybeforeaftercaptures/status/
-message/payload/clockbrackets/bounds/journal/pointbasisstates/optionspolicies/events/
-work; setupzero kernels notzerowork. Instrumentation consumes sharedbudget/notneutral.
-Mandatoryhost/runtime/source/inputcomparability/preflight/resourceguard/pins/rawaudit,
-originalfailuresexitpreserved/norerun; freshreviewbeforeanyfuturepermanentrepair.
-No historicalCIcausefromnewlocalpass/timeout; CI remainsdisabled.
+S6-AL complete:ONEnewFloat64PFIlifecycle,original7/7,exit0,31auditgates628pins,
+627AGshared,102binary64checks,corrected6/6independent supplements. Actualhelper once,
+initialoptimizer once,budget once,driver once; source/policy/options/globals bound.
+Initial2FTRAN3BTRAN2pricing,cleanup2FTRAN2BTRAN/no newiteration/refactorkernel.
+OPTIMAL/primal[0]/objective0,exactpoint[0,0],originalboundsrestored/journalretired;
+events restore,pricingreset,phasecleanup,certification. Sharedclock unchanged;
+driverbracket7.501187517->16.137016355s within30s, excludesexpiry innewbracket only.
+Instrumentation/snapshotsconsume budget/notneutral; disabledsetupcountersNOTzerowork.
+Freshgpt6astra noCriticalImportantMinor/no unnecessaryproductionworkmemory. First
+supplement expected32instead31/falsegate/exit1/source preserved, correctedoffline;
+no numerical/auditorrerun. Production/test/master/CIunchanged. See
+S6-NATIVE-CLEANUP-PROVENANCE.md/REVIEW,results/S6-AL. Driver/exclusiveauditorNERERUN.
+Historicalthreefailures/status/elapsed/cause/fullsuite/x64stillunresolved.
+Next: docs/superpowers/plans/2026-10-12-native-cleanup-clock-coverage-decision.md,
+S6-AM SOURCE/EVIDENCEONLY:map existingdeadline/cancellationjournalcoverage by actual
+policy/boundary/payload/work/sharedclock; noJulia,clockreset,warmup,limitincrease,
+toleranceprecision/safeguardchange. Do notrepeatAK analysis. Decidejustifiedgap or
+deferhistoricalcause and selectconcretebroaderarchitectureobligation fromroadmap.
+Anynewnumericsrequireseparateboundedplan/review; no speculativeoldfullfile/corpus.
 BroaderS2/S3/S4/S5/S6/native symbolicreuse/originalcertificatelimits remainopen.
 CI disabled, S6-J/S2-A rejected; historicalCIcause/hidden states/fullsuite/x64 open.
 
@@ -249,7 +258,7 @@ comparability30/31false preserved with517pin/current-external supplement; no
 retroactive launch pin. Factor19gates615pins/exactLU/primal/dual residuals0.
 S6-R accepted08b7485/3baf29b:12/12/21gates613pins,componentdecomposition-1/16.
 Do not rerun old N/O/P/Q/R/S/T/corpus/reference/cost drivers against changed tests.
-Last fresh host runner417368/child417369/launchgroup417360 absent,noJulia,boot20de7dde-704e-41c8-bee7-b8511c0a86b0.
+Last fresh host runner425975/child425976/launchgroup425967 absent,noJulia,boot20de7dde-704e-41c8-bee7-b8511c0a86b0.
 Verify new host state before edits or any new Julia. User environment/dirt preserved.
 
 S6-Q remains accepted:11events,5/5,24gates611pins,exact S6-N endpoint. Refactor event
