@@ -614,3 +614,16 @@ from authorfull551. No production/test/CI edit or symbolic enablement. Next S4-L
 source-only representative lifecycle cost/native-memory measurement contract in
 2026-10-12-hh-symbolic-cost-contract.md. No numerical launch or old lifecycle rerun
 in L; all broader S4/S6 and original historical rejections remain unchanged.
+
+### S4-L closure, 2026-10-12
+
+Source/evidence-only cost/native-memory contract:36checks527hashes,15author
+independentchecks/full527. Fresh gpt-6-astra numerical/work review,30samplehashes,
+no unnecessary productionworkmemory. Two Minor regraded Important for future
+measurement/classification premise, one offline RED3/GREEN3 fix, before documents
+preserved. Native allocation/free balance remains OPEN; no Julia or production
+change. Next bounded NEW sparse/dense S4-M plan:
+2026-10-12-hh-symbolic-cost-measurement.md. Four constructors,128warmup+512measured
+refactors,88directsolves,balanced8rounds per fixture,compilezero+exact residual
+gates; native Info/graph/RSS observations do not prove native retention. No old
+accepted driver/auditor/corpus reruns, CI enablement, fullsuite or promotion claim.

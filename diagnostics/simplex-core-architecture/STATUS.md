@@ -46,7 +46,24 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-**Current continuation: S4-K accepted narrow nonfinite refactor qualification; next S4-L SOURCE/EVIDENCE ONLY cost/native-retention measurement contract, `docs/superpowers/plans/2026-10-12-hh-symbolic-cost-contract.md`. Historical entries below remain preserved.**
+**Current continuation: S4-L source/evidence cost contract accepted; next S4-M bounded NEW sparse/dense whole-HH cost observations, `docs/superpowers/plans/2026-10-12-hh-symbolic-cost-measurement.md`. Native retention remains OPEN and symbolic reuse stays disabled.**
+
+S4-L: no Julia,36offlinechecks527read-timehashes,15authorindependentchecks/full527
+rehash. Installed wrapper/convert/info/finalizer sources bound; versioned upstream
+6.3.5 header NOTinstalled/buildproof. Native Info/Julia graph/RSS cannot close native
+retention. Freshgpt6astra confirmed exact4fixturecontracts/workcounts,30samplehashes
+(notfull527), no unnecessaryproductionworkmemory. Two reviewerMinor authorregraded
+Important: phase/orderconfounding and wrapperJuliaCSC/nativeallocation wording;
+oneofflineRED3/GREEN3 correction, before plan/report preserved, no oldscript rerun.
+No newdeferredMinor. NextM: NEWsparse/dense96 (nnz474/9216),twoexactdyadicphases;
+4constructors128warmup512measuredrefactors,32samples/16pairs,88directsolves;644
+extractions/numericentries and UPTO644orientation sourcebounds. Phase00110011 with
+oddRC/evenCR balancesphase/order. Exact64epsscaledresidual andcompilezero/stop
+freeze; boundedgraph/nativeInfo/RSS only, no native-retention/productionacceptance.
+ReportS4-SYMBOLIC-COST-CONTRACT.md/REVIEW,results/S4-L. All accepted old evidence
+unchanged; production/test/master0eb75c3/CI unchanged, originalrejections/fullsuite
+obligations open. L exclusive source/independent/fix/closure scripts NERERUN.
+
 
 S4-K nonfinite-1:fourNEWFloat64/Int64nativeHHcases(+Infref/candidate,NaNref/candidate),
 49runtimechecks/exit0,26auditgates551pins,9authorindependentchecks. Actual4constructors/
