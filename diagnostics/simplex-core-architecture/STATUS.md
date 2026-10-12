@@ -46,7 +46,21 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-**Current continuation: S4-V source/host-read-only decision completed; inspected installed sandbox examples are NOT qualified for strict read-only bootstrap. Kernel/tool primitives exist; no OS-impossibility claim, custom launcher or launch authorization. Bootstrap investigation stops here. Next independent S4-W controller attempt accounting: `docs/superpowers/plans/2026-10-12-hh-public-controller-attempt-contract.md`, SOURCE ONLY.**
+**Current continuation: S4-W source-only attempt ledger completed and independently reviewed. Whole-controller caps remain UNKNOWN. Next bounded S4-X original-cleanup dual/auxiliary composition: `docs/superpowers/plans/2026-10-12-hh-postsolve-dual-work-contract.md`, SOURCE ONLY. Bootstrap investigation remains closed with qualification OPEN; no numerical plan or launch.**
+
+S4-W: 26 ledger rows, 22 literal source checks, 556 read-time hashes, 16 exact excerpts;
+author eight independent checks/full 556, reviewer full 556/excerpts and seven correction
+hashes. Direct terminal witness adds untimed BTRAN; original projection can perform up to
+three FTRAN/update pairs and scheduled refactors without simplex iteration increments.
+These are conditional local source bounds, not runtime counts or a complete budget.
+Two Important review findings resolved in one offline RED3/GREEN5 correction: cap+1
+nonprogress bodies due to post-body counter check, and other UNKNOWN multiplicities kept
+alongside selected dual composition. Before report/plan preserved; original ledger/audit
+unchanged, separate ledger amendment. Final review has no unresolved findings or unnecessary
+production work/memory. No Julia/new LP arithmetic/old scripts; source/test/env/master/CI
+unchanged. S manifest/T LP/Q preserved; native HH reuse disabled, retention/broaderS4S6/
+fullsuite/rejections unchanged. Read S4-PUBLIC-CONTROLLER-ATTEMPT-CONTRACT.md/REVIEW and
+results/S4-W. Separate passing closure is required before fail-fast publication.
 
 S4-V:17 read-only checks/656 hashes, author8 independent checks/full656; all627 U pins
 unchanged. Installed bubblewrap0.11.1-1ubuntu0.3 and WSL2 namespace kernel options present,

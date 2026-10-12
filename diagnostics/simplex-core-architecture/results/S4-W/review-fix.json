@@ -1,0 +1,26 @@
+{
+  "red_expected_findings": {
+    "body_count_off_by_one": true,
+    "remaining_dependency_overclaim": true,
+    "partial_budget_gate": true
+  },
+  "green": {
+    "body_limit_explicit": true,
+    "ordering_explicit": true,
+    "other_unknowns_kept": true,
+    "complete_budget_gate": true,
+    "selected_composition_insufficient": true
+  },
+  "all_passed": true,
+  "scope": "Source/text correction only; no numerical calls, old evidence/scripts unchanged",
+  "ledger_amendment": "cleanup driver row: at most cap+1 consecutive no-progress loop bodies from rounds=0, since rounds limit is checked after verification/dispatch; cap=min(2,max_recovery_rounds). At most three at cap=2, plus conditional final verification. Progress resets; no whole-controller bound.",
+  "sha256": {
+    "diagnostics/simplex-core-architecture/S4-PUBLIC-CONTROLLER-ATTEMPT-CONTRACT.md": "5e92e34a27f11aea908bd9ce9f470b5d0ca5367973ebd9cd7b6c5416b430f686",
+    "docs/superpowers/plans/2026-10-12-hh-postsolve-dual-work-contract.md": "fc8573de9e2656da4cbab50cd3252a3e219a0cd44a4a763ddfe05e7231bf9292",
+    "diagnostics/simplex-core-architecture/results/S4-W/report-before-review.md": "bb0633fc4f28d8f32f91de468727037e79a1dc4a98272f03477ebefc4a7b75a8",
+    "diagnostics/simplex-core-architecture/results/S4-W/next-plan-before-review.md": "8eb99378f593c696dc75403b1ab6135fc965206d123e76d76f087bb18d87c715",
+    "diagnostics/simplex-core-architecture/results/S4-W/source-contract.json": "0677a9dafda1eb3b5643c99f21b4fb83fbf24e116ceb4446d132b6aeff47d5bb",
+    "diagnostics/simplex-core-architecture/results/S4-W/attempt-ledger.json": "ac8d3853f1e2ad6e559ae2554ef80786ff8baa726667d85ea94419b1319b8551",
+    "diagnostics/simplex-core-architecture/results/S4-W/independent.json": "6586c7af72a211c29c35a88c4582f5ad0dda11c6c5f02e735d4e60e5cb27289e"
+  }
+}

@@ -787,3 +787,20 @@ make progress while bootstrap/cache validity/initializer closure remain OPEN; it
 no numerical plan. Native HH reuse disabled, production/test/env/master/CI unchanged;
 Q evidence/retention/broaderS4S6/fullsuite/allrejections unchanged. U original failed closure
 and separate supplement preserved; new publication must pass separate closure first.
+
+
+### S4-W public-controller attempt contract, 2026-10-12
+
+SOURCE/EVIDENCE ONLY: 26 local-bound ledger rows, 22 source checks/556 read-time hashes,
+16 exact excerpts; author eight checks/full 556, fresh reviewer full 556/excerpts and seven
+supplement hashes. Direct terminal witness BTRAN and iteration-free postsolve projection
+are separate work categories. Aggregate public-route caps remain UNKNOWN, including direct
+primal candidate retries and selected original-cleanup dual/auxiliary composition.
+Two Important findings resolved once offline RED3/GREEN5 with before texts preserved:
+post-body round check permits cap+1 nonprogress bodies; selected dual composition is not
+the only missing dependency. Final independent review has no unresolved findings and finds
+no unnecessary production work/memory. No numerical execution, production/test/env/master/
+CI change, old rerun or new LP. Next bounded source-only task:
+2026-10-12-hh-postsolve-dual-work-contract.md. It cannot by itself qualify the complete
+budget or authorize a numerical plan. Bootstrap investigation stays closed; qualification,
+native retention/broaderS4S6/fullsuite remain OPEN; HH disabled/Q/rejections unchanged.

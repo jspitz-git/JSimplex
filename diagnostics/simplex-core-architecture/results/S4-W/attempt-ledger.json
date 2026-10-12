@@ -1,0 +1,188 @@
+{
+  "scope": "Source-derived local bounds and UNKNOWN aggregate, no execution",
+  "rows": [
+    {
+      "id": "public",
+      "source": "solver.jl:447,471",
+      "boundary": "solve -> _solve_diagnosed(...,nothing)",
+      "count_scope": "One public entry; diagnostics absent. Internal observer entry is a different route.",
+      "work_ownership": "No input clone/observer call is silently counted as solver work."
+    },
+    {
+      "id": "model setup",
+      "source": "solver.jl:495-527; transformations.jl:14,17,154",
+      "boundary": "validation, owned continuous model, identity presolve/scaling, minimization",
+      "count_scope": "Once per top-level call before core; presolve reductions and scaling arithmetic disabled by T options.",
+      "work_ownership": "Owned sparse/model/bound copies and identity metadata; not zero setup."
+    },
+    {
+      "id": "policy",
+      "source": "simplex_numerics.jl:43-105",
+      "boundary": "native legacy Dantzig defaults",
+      "count_scope": "checked/recovery/incremental/crash/precision/LP switches false; max_refinements=3 remains live for native corrections.",
+      "work_ownership": "No internal policy override; options are T candidate, not a runtime payload."
+    },
+    {
+      "id": "workspace",
+      "source": "simplex.jl:486-543",
+      "boundary": "initial -I factor plus recompute",
+      "count_scope": "One constructor and F+B per initialization that reaches completion; not all counted by refactorizations.",
+      "work_ownership": "O(m+n) state and basis CSC/factor storage."
+    },
+    {
+      "id": "legacy phase",
+      "source": "primal_simplex.jl:807-858,918-1038",
+      "boundary": "initial activity scan; artificial construction if violated",
+      "count_scope": "No artificials on T conditional initial-feasible route; generic reached phase calls remain conditional, not assumed zero after arbitrary failures.",
+      "work_ownership": "Potential new workspace/expanded model/phase transfer; source guards retained."
+    },
+    {
+      "id": "pricing",
+      "source": "primal_simplex.jl:197-238; simplex_pricing.jl:282",
+      "boundary": "Dantzig scan",
+      "count_scope": "Each candidate attempt scans m+n states; auto edge retry inactive for :dantzig.",
+      "work_ownership": "No steepest/devex solve charge on direct Dantzig route."
+    },
+    {
+      "id": "candidate retry",
+      "source": "primal_simplex.jl:403-512",
+      "boundary": "legacy attempts_left and basis_refreshed/price_recovery_attempted",
+      "count_scope": "Initial pass length m+n=5; resets after refresh/price correction. Price recovery called at most once per enclosing legacy iteration. Aggregate attempt cap not derived.",
+      "work_ownership": "Rejected set cleared in finally; no whole-pass count inferred from length alone."
+    },
+    {
+      "id": "entering F",
+      "source": "primal_simplex.jl:540-546; hypersparse_pipeline.jl:457",
+      "boundary": "prepare_update=true",
+      "count_scope": "One prepared FTRAN per unchecked candidate reaching solve.",
+      "work_ownership": "Preparation scratch belongs to HH; failed calls remain attempts."
+    },
+    {
+      "id": "native row B",
+      "source": "legacy_primal_pivot.jl:77-103",
+      "boundary": "unit metadata BTRAN, residual and price",
+      "count_scope": "At most one initial row BTRAN per row-status call; up to3 correction BTRAN per invoked native correction helper.",
+      "work_ownership": "Unit metadata is not separate additional full BTRAN; row pricing scans A."
+    },
+    {
+      "id": "tiny direction",
+      "source": "legacy_primal_pivot.jl:115-145",
+      "boundary": "compensated residual then correction",
+      "count_scope": "At most1 ordinary correction FTRAN per helper invocation; conditional tiny pivot.",
+      "work_ownership": "Does not mutate chosen direction; owned quality scratch/scans."
+    },
+    {
+      "id": "price repair",
+      "source": "legacy_primal_pivot.jl:47-71",
+      "boundary": "fresh cost BTRAN then cleanup helper",
+      "count_scope": "At most1 fresh B plus1 correction B for local_reconstruction=false per helper invocation.",
+      "work_ownership": "Private RHS/dual/prices and residual scratch; not cached-rho reuse."
+    },
+    {
+      "id": "update",
+      "source": "huangfu_hall_factorization.jl:511-533",
+      "boundary": "replace_column!",
+      "count_scope": "At most1 HH internal unit transpose per reached update after prechecks.",
+      "work_ownership": "Prepared mismatch can multiply U*d; packed update retained until retirement."
+    },
+    {
+      "id": "recompute",
+      "source": "simplex.jl:412-479",
+      "boundary": "optional refactor then ordinary F+B",
+      "count_scope": "Up to1 refactor,1 F and1 B per invocation, before additional callers/recovery.",
+      "work_ownership": "Basis validation and RHS/prices scans; throw can stop before later calls."
+    },
+    {
+      "id": "point repair",
+      "source": "legacy_primal_point.jl:182-251",
+      "boundary": "certify/restore -> native correction -> joint repair",
+      "count_scope": "At most1 correction F per native point helper; joint helper at most8 sweeps and row-local nnz+1 passes.",
+      "work_ownership": "Additional full point/equation checks, prediction copy and temporary candidate state."
+    },
+    {
+      "id": "HH native",
+      "source": "huangfu_hall_factorization.jl:167-177,261-303,537-587",
+      "boundary": "constructor/refactor native setup and extract",
+      "count_scope": "At most1 numeric backend entry and1 extraction per HH entry reaching them; at most1 native orientation ldiv per extraction.",
+      "work_ownership": "Orientation is source-derived bound, not instrumented solve count; failure drops backend, not whole-workspace rollback."
+    },
+    {
+      "id": "HH reuse guard",
+      "source": "results/S4-S/manifest.json; simplex.jl:266",
+      "boundary": "candidate same-pattern keyword",
+      "count_scope": "Matching Float64/Int64 CSC only identity convert; guard O(m+nnz); otherwise duplicate conversions may allocate.",
+      "work_ownership": "No candidate/production modification in W; S inverse unchanged."
+    },
+    {
+      "id": "terminal witness",
+      "source": "dual_simplex.jl:1683-1788",
+      "boundary": "original primal + dual witness + witness certificate",
+      "count_scope": "Per optimal internal-solution attempt reaching witness:1 direct BTRAN outside ordinary diagnostic timer; up to1 extra certificate correction B.",
+      "work_ownership": "Allocated basic-cost/dual vectors and independent original equation/bound/complementarity scans."
+    },
+    {
+      "id": "native cleanup correction",
+      "source": "native_cleanup_recovery.jl:7-112",
+      "boundary": "primal then dual private cleanup",
+      "count_scope": "Per local_reconstruction=true helper:at most2 correction solves in its orientation; recompute helper at most2F+2B, short-circuits.",
+      "work_ownership": "Up to8 local-row sweeps/coupled scans, transpose copy for dual; quality checks separate from basis solves."
+    },
+    {
+      "id": "outer acceptance",
+      "source": "solver.jl:533-583",
+      "boundary": "original feasibility/postsolve/objective",
+      "count_scope": "Presolve=false disables reduced-model failure retry, not failed original-feasibility cleanup. At most1 outer cleanup-or-retry decision.",
+      "work_ownership": "Working certificate does not replace original check; objective restoration still required."
+    },
+    {
+      "id": "postsolve projection",
+      "source": "solver.jl:86-190",
+      "boundary": "displaced structural columns",
+      "count_scope": "At mostn=3 prepared F/update pairs, at most3 scheduled refactors plus1 final refactor+F+B per projection invocation; early return lowers count.",
+      "work_ownership": "No workspace.iterations increment; direct update/refactor sites bypass existing diagnostic wrappers; public owned basis matrix."
+    },
+    {
+      "id": "cleanup recursion",
+      "source": "solver.jl:218-297",
+      "boundary": "new workspace/restored basis/projection/terminal",
+      "count_scope": "At most2 cleanup_original invocations per outer call:recursive retry drops target_primal, preventing same condition again.",
+      "work_ownership": "Each initialization work remains real even when scalar counters overwritten with prior work; dual/primal dispatch conditional."
+    },
+    {
+      "id": "original retry",
+      "source": "solver.jl:309-349",
+      "boundary": "retry direct core on original model",
+      "count_scope": "At most1 retry from outer cleanup-or-retry; shares start clock and remaining iteration allowance. Complete core attempts UNKNOWN.",
+      "work_ownership": "New workspace/setup; refactorization aggregate not complete setup/kernel budget."
+    },
+    {
+      "id": "cleanup driver",
+      "source": "simplex_driver.jl:102-235,281-320",
+      "boundary": "objective cleanup and forced feasibility",
+      "count_scope": "At most3 cleanup passes per call; feasibility rounds capped between progress, reset after progress plus final verification. Not3 total factor calls.",
+      "work_ownership": "Original bounds/costs/journal checked before guard; zero kernels does not imply zero scans."
+    },
+    {
+      "id": "dual auxiliary",
+      "source": "dual_simplex.jl:1864-1924,2203-2300",
+      "boundary": "cleanup can select dual and auxiliary workspace",
+      "count_scope": "An invoked auxiliary constructor copies factor once and recomputes F+B; number of invocations and nested dual repairs unresolved.",
+      "work_ownership": "HH shared extracted base/history prefix with private scratch and absent native workspace; not a fresh independent native factor."
+    },
+    {
+      "id": "exceptions and diagnostics",
+      "source": "simplex_diagnostics.jl:47-96; primal_simplex.jl:1025",
+      "boundary": "timers finally; provenance-preserving catches",
+      "count_scope": "Existing enabled timer counts its covered call on throw, after return in finally; not PRE-forward enforcement or complete coverage.",
+      "work_ownership": "Public observer nothing; optional64-event ring vs complete counts; serialization external to solve."
+    },
+    {
+      "id": "full aggregate",
+      "source": "all preceding rows",
+      "boundary": "sum with branch/nesting proof",
+      "count_scope": "UNKNOWN: no finite complete launch budget or instrumentation inverse approved.",
+      "work_ownership": "No huge arbitrary cap; bootstrap independently OPEN."
+    }
+  ],
+  "complete_attempt_caps_qualified": false
+}

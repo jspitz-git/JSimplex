@@ -1,0 +1,1 @@
+Initial rg named four nonexistent source paths (solve.jl, simplex_cleanup.jl, simplex_workspace.jl, basis_factorizations.jl) and exited2. set-e stopped the remaining reads. No mutation or numerical command ran. Subsequent discovery used rg --files and actual names. This was a search failure, not solver evidence.
