@@ -4,7 +4,7 @@ Updated: 2026-10-12. This is the entry point after interruption.
 
 ## Current state
 
-**S1-A, S3-A/S3-B, S4-A/S4-C and S5-C integrated; master `3c0af5c` (includes S6-C/S6-G/S6-M/S6-T/S6-W/S6-AA/S6-AC test repairs). S2-A rejected; S0-L all four long references audited and complete.**
+**S1-A, S3-A/S3-B, S4-A/S4-C and S5-C integrated; master `354bb1f` (includes S6-C/S6-G/S6-M/S6-T/S6-W/S6-AA/S6-AC/S6-AI test repairs). S2-A rejected; S0-L all four long references audited and complete.**
 The source baseline is `fe839aa72171d7496c9c931d9393278448c7317e`.
 Initial time-budget diagnostic evidence is commit `6ded1fc`.
 
@@ -38,7 +38,7 @@ main also has a user-modified .vscode/settings.json. Do not stage those files.
 | S3 | End-to-end exact sparsity support | Active | S3-A/S3-B integrated, latest masterb720674; exact-support consumer savings qualified; broader S3 partial |
 | S4 | Refactorization memory lifecycle | Active | S4-A/S4-C integrated; master3220118; Float64 component attribution/cost and exact triplet optimization accepted; bounded scalar component attribution360samples accepted; broader manager/history/medium coverage open |
 | S5 | Phase/cleanup handoff contract | Active | S5-A/S5-B accepted; S5-C production88a2411 -> mastere7014fb, reviewed, master668/668; broader handoffs partial |
-| S6 | Broad validation and final comparison | Active | S6-A/B triage accepted; S6-C test repair integrated as mastera465da5, focused20/20. S6-G artificial-row test repair master8516e0d; S6-M BigFloat fixture repair master7fea422, focused1477/1477; S6-T no-recession fixture masterafb37d9,focused192/master19; S6-W repeated-price fixture masterb9e7cb1,focused109/master41; S6-AA reliable exchange fixture master74f7835,focused127/master19; S6-AC reconstruction fixture master3c0af5c,focused339/master215; other CI families and full validation remain open |
+| S6 | Broad validation and final comparison | Active | S6-A/B triage accepted; S6-C test repair integrated as mastera465da5, focused20/20. S6-G artificial-row test repair master8516e0d; S6-M BigFloat fixture repair master7fea422, focused1477/1477; S6-T no-recession fixture masterafb37d9,focused192/master19; S6-W repeated-price fixture masterb9e7cb1,focused109/master41; S6-AA reliable exchange fixture master74f7835,focused127/master19; S6-AC reconstruction fixture master3c0af5c,focused339/master215; S6-AI dual recovery fixture master354bb1f,focused339/master252; other CI families and full validation remain open |
 
 Allowed execution states: Pending, Active, Blocked (reason required), Verified,
 Integrated, Rejected (evidence required). Mark an optimization Verified only after
@@ -195,18 +195,28 @@ Freshgpt6astra supports decision/no unnecessaryproductionworkmemory. ReviewerMin
 collective "accepted" driver wording authorregradedImportant for acceptanceinstructions;
 one offlineRED/GREEN -> "historical", beforeplan preserved. No newdeferredMinor;
 ADcopywording and AFvacuousno_errors remain deferred. See S6-DUAL-BUDGET-CONTRACT.md/REVIEW.
-Next: docs/superpowers/plans/2026-10-12-dual-budget-fixture-repair.md,S6-AI.
-NEWpermanenttest-only candidate, not AFretroacceptance. StructuralREDzero oldsolves;
-scopedFloat64dyadic helper+two real-forward declarations, all108originalpredicates/
-publicentry/direct@test_throws/options/policies/callbackbodies preserved. Nativehelper/
-other108byteidentical. Preforwardcounts after2hits/throws, sharedfactor, whole2F3B0ref
-or3F4B1ref, outerinvalid4/6,metadata2,hits2,copy/updatefailfast; noledgers/snapshots/
-extrapermanentiterations. Explicitdriver-only9sentinelcalls accounting amendment,
-zero realbackend/workspace/publiccalls. GREEN20changed+10directsmallneighbor calls;
-native48reuse/static; actualmaster20targets afterfreshreview. Newsource/pins/raw/user
-checks mandatory. No implementation or numerical launch occurred in AH.
-Production/test/master/CI unchanged. S6-J/S2-A rejected; historicalCIcause/hidden states/
-x64/fullsuite/broaderS6 open. No historical driver/corpus/reference/cost reruns.
+S6-AI complete and integrated: test62e6535 -> master354bb1f. StructuralRED3missing
+predicates viaPythonanalysisexit0/zero oldnumerics (not failingJulia/reproduction).
+GREEN339/339 (targets192+56,neighbor60,structural3,micro27,global1),22gates627pins,
+4supplements. Freshgpt6astra review noCriticalImportantMinor/no unnecessaryproduction
+workmemory. Actualmaster252/252,21gates627pins,4supplements,actualsource/GREENidentity/
+userhashes verified. ScopedFloat64dyadichelper/two real-forwarddeclaredunitoutputs;
+all108originalpredicates/directpublic@test_throws/callbackbodies/options/policies,
+nativehelper/other108byteidentical. Completepreforwardcounts afterhits/throws,
+2F3B0ref or3F4B1ref, outerinvalid4/6,metadata2,hits2,copy/updatefailfast;sharedfactor.
+Fixedtuples/scalars/oneobserverRef, no growingledgers/persolvesnapshots/extrapermanent
+iterations.9driveronlysentinel/failfastcalls proveattemptaccounting,notbackend recovery.
+No production/tolerance/precision/CIchange. AFwholequalification NOTaccepted unchanged.
+See S6-DUAL-BUDGET-FIXTURE.md/REVIEW. AI/old drivers/auditors NERERUN.
+Next: docs/superpowers/plans/2026-10-12-remaining-failure-coverage.md,S6-AJ.
+SOURCE/EVIDENCEONLY, noJulia/adapter/testchange. Reconcile EVERY197+1/200+1historical
+failure/error withcurrentmaster/acceptedtestrepairs/nativecoverage/remaininggap;
+keepseparateruntotals/scalarunknowncases, no overlappingassertiondoublecount and no
+historicalCIcause/fullsuite/x64claim fromlocalfixtures. Reuseacceptedinventorywithout
+oldparser/driver/census/corpus/reference/costrerun. Selectonenextconcreteunresolved
+obligation and writeboundedseparatenumericalplan onlyifjustified; freshreviewfirst.
+BroaderS2/S3/S4/S5/S6/native symbolicreuse/originalcertificatelimits remainopen.
+CI disabled, S6-J/S2-A rejected; historicalCIcause/hidden states/fullsuite/x64 open.
 
 
 S6-S accepted evidence90811de/closure6c5ef37: fourtype13/13 + factor6/6; initial
@@ -214,7 +224,7 @@ comparability30/31false preserved with517pin/current-external supplement; no
 retroactive launch pin. Factor19gates615pins/exactLU/primal/dual residuals0.
 S6-R accepted08b7485/3baf29b:12/12/21gates613pins,componentdecomposition-1/16.
 Do not rerun old N/O/P/Q/R/S/T/corpus/reference/cost drivers against changed tests.
-Last fresh host runner413092/child413093/launchgroup413083 absent,noJulia,boot20de7dde-704e-41c8-bee7-b8511c0a86b0.
+Last fresh host runner417368/child417369/launchgroup417360 absent,noJulia,boot20de7dde-704e-41c8-bee7-b8511c0a86b0.
 Verify new host state before edits or any new Julia. User environment/dirt preserved.
 
 S6-Q remains accepted:11events,5/5,24gates611pins,exact S6-N endpoint. Refactor event

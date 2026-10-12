@@ -108,3 +108,12 @@ verify remote refs, update STATUS/plans/automation. Preserve old worktrees/evide
 
 No production/options/tolerance/precision/safeguard or CI changes. No speedup,
 historical CI cause, general lifecycle/observer-neutrality, fullsuite or x64 claim.
+
+## Closure
+
+S6-AI accepted after fresh review (no findings), test62e6535 -> master354bb1f.
+Structural RED3missing predicates/zero numerics was Python analysisexit0, explicitly
+not a Julia failure reproduction. GREEN339/339/22gates627pins; master252/252/21gates
+627pins. Both raw/source/user verification supplements4/4. No accepted numerical
+rerun, no production change, no AF retroacceptance. See S6-DUAL-BUDGET-FIXTURE.md
+and REVIEW. Next source-only S6-AJ:2026-10-12-remaining-failure-coverage.md.
