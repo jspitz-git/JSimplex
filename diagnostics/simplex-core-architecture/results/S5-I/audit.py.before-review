@@ -1,0 +1,48 @@
+"""Exclusive per-run offline audit: no Julia, no old audit imports/reruns."""
+from pathlib import Path
+import hashlib,json,sys,tomllib,time,re
+ROOT=Path('/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl');HERE=Path(__file__).resolve().parent
+label=sys.argv[1];assert label in ('green-1','master-1');OUT=ROOT/'.superpowers/simplex-core-architecture/S5-I'/label
+TARGET=ROOT if label=='green-1' else Path('/home/jspitz/JSimplex.jl')
+def sha(p):
+ h=hashlib.sha256()
+ with Path(p).open('rb') as f:
+  for b in iter(lambda:f.read(1048576),b''):h.update(b)
+ return h.hexdigest()
+process=json.loads((OUT/'process.json').read_text());pins=json.loads((OUT/'pins.json').read_text());report=tomllib.loads((OUT/'raw/report.toml').read_text());expected=tomllib.loads((HERE/'expected.toml').read_text())
+text=(TARGET/'test/simplex_precision_state_tests.jl').read_bytes();suffix=(HERE.parent/'S5-H/append.jl').read_text();executed=suffix
+patches=tomllib.loads((HERE/'insertions.toml').read_text())['insertions']
+for p in patches:
+ assert executed.count(p['anchor'])==1
+ executed=executed.replace(p['anchor'],p['insert']+p['anchor'])
+resources=[json.loads(s) for s in (OUT/'resources.jsonl').read_text().splitlines()]
+checks={'exit0':process['reason']=='exit0' and process['returncode']==0,'guard_pins_unchanged':process['pins_unchanged'],
+ 'full_independent_inventory':all(sha(p)==v['sha256'] and str(Path(p).resolve())==v['resolved'] for p,v in pins['inventory'].items()),
+ 'complete_tree_membership':all({str(p) for p in Path(t).rglob('*') if p.is_file()}<={p for p in pins['inventory']} for t in pins['trees']),
+ 'pins_identity':sha(OUT/'pins.json')==process['pins_sha256'],
+ 'candidate_actual':sha(TARGET/'test/simplex_precision_state_tests.jl')==expected['candidate']==report['test_sha256'],
+ 'prefix_exact':len(text)-len(suffix.encode())==10583 and hashlib.sha256(text[:-len(suffix.encode())]).hexdigest()==expected['prefix']==report['prefix_sha256'],
+ 'suffix_exact':text[-len(suffix.encode()):]==suffix.encode() and hashlib.sha256(suffix.encode()).hexdigest()==expected['suffix']==report['suffix_sha256'],
+ 'executed_inverse':(OUT/'raw/executed-suffix.jl').read_text()==executed and hashlib.sha256(executed.encode()).hexdigest()==report['executed_sha256'],
+ 'test_summary':report['passes']>100 and report['fails']==report['errors']==report['broken']==0,
+ 'two_lifecycles':report['entry_counts']==[2,2,2] and [x['mode'] for x in report['cases']]==['stop','throw'],
+ 'actual_module':str(Path(report['module_path']).resolve())==str((TARGET/'src/JSimplex.jl').resolve()) and report['source_root']==str(TARGET),
+ 'thread_limits':report['julia_threads']==report['blas_threads']==1,
+ 'resource_limits':bool(resources) and min(s['available_kib'] for s in resources)>=6*1024**2 and max(s['swap_used_kib'] for s in resources)<=1024**2,
+ 'reviewed_command': '--compiled-modules=existing' in process['command'] and '--heap-size-hint=2G' in process['command'] and '--threads=1' in process['command'],
+ 'user_files':all(sha(p)==v for p,v in json.loads((HERE/'host-before.json').read_text())['user_hashes'].items())}
+for case in report['cases']:
+ k=dict(zip(report['kernel_keys'],case['kernels']));e=dict(zip(report['event_keys'],case['events']))
+ checks[case['mode']+'.work']=case['iteration_delta']==0 and case['refactor_delta']==1 and k['ftran']==k['refactorization']==1 and 1<=k['btran']<=4 and all(v==0 for key,v in k.items() if key not in ('ftran','btran','refactorization'))
+ checks[case['mode']+'.events']=e['refactor_other']==1 and e['correction_attempt']==k['btran']-1 and 0<=e['correction_attempt']<=3 and 0<=e['correction']<=e['correction_attempt'] and all(v==0 for key,v in e.items() if key not in ('refactor_other','correction_attempt','correction'))
+ checks[case['mode']+'.observer']=case['hits']==1 and (case['true_stops']>0 if case['mode']=='stop' else case['true_stops']==0)
+groups={49081,49084,23249,23257,process['runner']['pgid'],process['child']['pgid']};matches=[]
+for q in Path('/proc').glob('[0-9]*'):
+ try:
+  s=(q/'stat').read_text();f=s[s.rindex(')')+2:].split()
+  if int(f[2]) in groups or (q/'comm').read_text().strip()=='julia':matches.append({'pid':int(q.name),'pgid':int(f[2]),'start_ticks':f[19],'command':(q/'cmdline').read_bytes().replace(b'\0',b' ').decode(errors='replace')})
+ except FileNotFoundError:pass
+checks['full_groups_absent']=not matches and Path('/proc/sys/kernel/random/boot_id').read_text().strip()==process['runner']['boot_id']
+x={'checks':checks,'all_passed':all(checks.values()),'pin_count':len(pins['inventory']),'passes':report['passes'],'matches':matches,'time_ns':time.time_ns(),'raw_sha256':{str(p.relative_to(OUT)):sha(p) for p in OUT.rglob('*') if p.is_file()}}
+with (HERE/(label+'-audit.json')).open('x') as f:json.dump(x,f,indent=2);f.write('\n')
+print(json.dumps(x));raise SystemExit(0 if x['all_passed'] else 1)

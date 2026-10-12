@@ -4,7 +4,7 @@ Updated: 2026-10-13. This is the entry point after interruption.
 
 ## Current state
 
-**S1-A, S3-A/S3-B, S4-A/S4-C and S5-C integrated; master `0eb75c3` (includes S6-C/S6-G/S6-M/S6-T/S6-W/S6-AA/S6-AC/S6-AI repairs and S6-AO coverage). S2-A rejected; S0-L all four long references audited and complete.**
+**S1-A, S3-A/S3-B, S4-A/S4-C and S5-C integrated; master `513c053` (includes S5-I coverage and S6-C/S6-G/S6-M/S6-T/S6-W/S6-AA/S6-AC/S6-AI repairs and S6-AO coverage). S2-A rejected; S0-L all four long references audited and complete.**
 The source baseline is `fe839aa72171d7496c9c931d9393278448c7317e`.
 Initial time-budget diagnostic evidence is commit `6ded1fc`.
 
@@ -46,7 +46,25 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-**Current continuation: S5-H offline permanent-test preparation independently accepted. Next S5-I: `docs/superpowers/plans/2026-10-13-precision-journal-interruption-test-integration.md`. First prepare/review a NEW focused launcher and pins; then integrate the exact reviewed candidate, at most two guarded cases on GREEN and two on actual master. No Julia or test-file change occurred in H.**
+**Current continuation: S5-I permanent test coverage integrated and locally validated on master513c053. Next S5-J: `docs/superpowers/plans/2026-10-13-dual-auxiliary-handoff-ownership.md`, ONE bounded source/evidence-only ownership reconciliation; no Julia or new numerical plan.**
+
+S5-I integrated as test fddfa737 -> master513c053: exact H candidate,203-line
+append with10583-byte prefix preserved. GREEN and actual master each300/300
+(298 permanent+2 driver-only),24/25 audit gates,801/1322 pins,9 independent checks
+each. Exactly FOUR new setup/transfer lifecycles total. Prelaunch three Important
+findings resolved once offline RED3/GREEN4; preserved before evidence. Fresh GREEN
+numerical/work review accepted before promotion; master review is separate. Source/
+test511 files match GREEN, all user hashes/raw portable bindings checked. Observed
+per transfer1 counted F/1B/1ref and refactor_other1, other deltas0; partial counters,
+additional untimed weight unit B and up to3 corrections remain source-possible.
+No new production work/memory; cold test68 explicit copies170 entries per pair,
+plus fixture/solver allocations. No callback snapshots/extra solves. Direct cause
+identity/source ownership/fresh aliases/history/cache/checkpoints/precision covered.
+No full-suite, native-work, certificate-transfer or observer-neutrality claim.
+Read S5-PRECISION-JOURNAL-INTERRUPTION-TEST-INTEGRATION.md and REVIEW, results/S5-I.
+Frozen I/F/G/H scripts/driver/launcher/audits/raw NEVER rerun or rewrite; G original
+62/63 FALSE plus separate7 PASS remain. CI off, HH disabled and all prior gates
+and rejections unchanged.
 
 S5-H: separate candidate preserves the entire10583-byte test prefix and appends
 exactly two prospective active-journal detached-buffer stop/throw cases.18 offline

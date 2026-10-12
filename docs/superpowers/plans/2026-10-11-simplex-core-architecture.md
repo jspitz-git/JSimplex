@@ -984,3 +984,27 @@ threads1/heap2GiB/VM8GiB/RAM6GiB/swap1GiB. Fresh process absence before pinned e
 or launches. Preserve any failure without silent tuning/retry. No solver repair,
 full-suite/x64/CI-cause/observer-neutrality or performance claim. All broader gates,
 CI-off/HH-disabled/rejections/native-retention/bootstrap limits remain unchanged.
+
+## S5-I permanent coverage and S5-J ownership reconciliation (2026-10-13)
+
+S5-I integrated as test fddfa737 -> master513c053: exact H candidate,203-line
+append with10583-byte prefix preserved. GREEN and actual master each300/300
+(298 permanent+2 driver-only),24/25 audit gates,801/1322 pins,9 independent checks
+each. Exactly FOUR new setup/transfer lifecycles total. Prelaunch three Important
+findings resolved once offline RED3/GREEN4; preserved before evidence. Fresh GREEN
+numerical/work review accepted before promotion; master review is separate. Source/
+test511 files match GREEN, all user hashes/raw portable bindings checked. Observed
+per transfer1 counted F/1B/1ref and refactor_other1, other deltas0; partial counters,
+additional untimed weight unit B and up to3 corrections remain source-possible.
+No new production work/memory; cold test68 explicit copies170 entries per pair,
+plus fixture/solver allocations. No callback snapshots/extra solves. Direct cause
+identity/source ownership/fresh aliases/history/cache/checkpoints/precision covered.
+No full-suite, native-work, certificate-transfer or observer-neutrality claim.
+Read S5-PRECISION-JOURNAL-INTERRUPTION-TEST-INTEGRATION.md and REVIEW, results/S5-I.
+Frozen I/F/G/H scripts/driver/launcher/audits/raw NEVER rerun or rewrite; G original
+62/63 FALSE plus separate7 PASS remain. CI off, HH disabled and all prior gates
+and rejections unchanged.
+
+Next ONE source/evidence-only plan2026-10-13-dual-auxiliary-handoff-ownership.md.
+Reconcile existing exact-composition execution first; no new fixture, Julia or
+production/test change and no reopened HH/DSE/controller-budget audit.
