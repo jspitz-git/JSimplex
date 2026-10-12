@@ -1,6 +1,6 @@
 # S6-V: controlled price-recovery boundary qualification
 
-Diagnostic-only, pending fresh independent review. Production and permanent tests
+Diagnostic-only, accepted by fresh independent gpt-6-astra review without findings. Production and permanent tests
 are unchanged. Twelve new Float64 iterations (three cases × four managers), four
 additional negative component invocations,124/124 assertions,exit0,21 offline audit
 gates,616 independently checked launch pins. No old census/corpus/full-file rerun.
@@ -83,6 +83,6 @@ speedup, overhead estimate or benchmark follows from these instrumented tiny run
 A permanent test adapter should keep only bounded counters/declared vectors, not
 retain this diagnostic call ledger or recorder; no new production dependency.
 
-Next, only after review: separate S6-W minimal test-only RED/GREEN plan. Keep native
+Next: separate S6-W minimal test-only RED/GREEN plan. Keep native
 roundoff helper and adjacent native integration tests unchanged. Full-suite/x64,
 original CI cause, observer neutrality and general wrapper lifecycle remain open.

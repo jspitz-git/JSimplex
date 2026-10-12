@@ -65,13 +65,13 @@ REACHABILITY.md. No production/test changes, no accepted full-file rerun. One Im
 gap fixed: mandatory count of fresh cost-RHS BTRAN detects a silently renewed
 attempt even when exact residual suppresses correction events. See review report.
 
-S6-V completed pending independent review: qualification-1,124/124,12newidentity
+S6-V accepted, evidence d6630d5, fresh gpt-6-astra review no findings: qualification-1,124/124,12newidentity
 iterations+4negativeboundarycalls,exit0,21gates616pins. Exact/seed/subject controls
 show0/1/1freshcostBTRAN and0/0/1correctionBTRAN. Subject keeps all5oldassertions;
 negative extra freshBTRAN leaves oldoracletrue but newbudgetoraclefalse, preserved.
 No production/test changes; general wrapper lifecycle and x64 remain unqualified.
 See S6-PRIMAL-PRICE-BOUNDARY.md. Do not rerun accepted S6-U/V.
-Next after review: docs/superpowers/plans/2026-10-12-primal-price-budget-fixture-repair.md,
+Next: docs/superpowers/plans/2026-10-12-primal-price-budget-fixture-repair.md,
 S6-W: separate test-only structuralRED/no oldsolve, minimal bounded-counter adapter,
 newsource GREEN selected target/native neighbor, freshreview/mastergate/push.
 Preserve all5oldassertions and adjacent native coverage; mandatory freshcostBTRANcount
