@@ -189,3 +189,104 @@ end
     @test isnothing(ws.scratch.perturbations)
     @test !ws.progress.numerical_policy.feasibility_recovery
 end
+
+# Exercise native cleanup's first public entry with an owned bound journal.
+# These are caller interruptions, not experiments in actual deadline expiry.
+function native_bound_entry_interruption(mode)
+    ws, _ = shifted_primal_workspace()
+    d = ws.progress.diagnostics
+    # Real setup has already run; disabled setup counters are not zero setup work.
+    d.kernel_timing = true
+    @test JSimplex._primal_optimize!(ws, ()->false).status == OPTIMAL
+    @test all(d.kernel_calls[k] == get((ftran=2, btran=3, pricing=2), k, 0)
+              for k in keys(d.kernel_calls))
+    @test all(reinterpret(UInt64, x) == 0xbeae32f0ee144531 for x in ws.primal)
+    @test ws.basis.basic_indices == [2]
+    @test ws.basis.states == [JSimplex.AT_LOWER, JSimplex.BASIC]
+    policy = JSimplex.NumericalPolicy(Float64)
+    JSimplex._install_driver_policy!(ws, policy)
+    budget = JSimplex.SimplexRunBudget(ws)
+    journal = ws.scratch.perturbations
+    @test journal.workspace_id == objectid(ws) && journal.bounds.active
+    @test ws.lower === journal.bounds.active_lower && ws.upper === journal.bounds.active_upper
+    # One owned snapshot of this tiny fixture; never a per-solve snapshot.
+    p = ws.problem
+    before = (point=copy(ws.primal), costs=copy(ws.costs), prices=copy(ws.reduced_costs),
+        rho=copy(ws.scratch.rho), lower=copy(ws.lower), upper=copy(ws.upper),
+        basis=copy(ws.basis.basic_indices), states=copy(ws.basis.states),
+        original_lower=copy(journal.bounds.original_lower), original_upper=copy(journal.bounds.original_upper),
+        original_costs=copy(journal.original_costs), active_costs=copy(journal.active_costs),
+        journal_flags=(journal.workspace_id, journal.active, journal.original_perturbed, journal.bounds.level),
+        storage=(objectid(ws.lower), objectid(ws.upper)), perturbed=ws.perturbed,
+        options=ws.options, policy=ws.progress.numerical_policy, start_ns=ws.progress.start_ns,
+        offsets=(ws.progress.iteration_offset, ws.progress.refactorization_offset),
+        work=(ws.iterations, ws.refactorizations),
+        row_scaling=copy(ws.progress.scaling.row_factors), column_scaling=copy(ws.progress.scaling.column_factors),
+        matrix=copy(p.A), objective=copy(p.objective), row_lower=copy(p.row_lower), row_upper=copy(p.row_upper),
+        column_lower=copy(p.column_lower), column_upper=copy(p.column_upper), domains=copy(p.variable_domains),
+        model_scalars=(p.objective_constant, p.objective_sense, p.name),
+        kernel_calls=copy(d.kernel_calls), event_counts=copy(d.counts), next_event=d.next_event)
+    callback_calls = Ref(0)
+    sentinel = JSimplex.LinearAlgebra.SingularException(29)
+    stop = () -> begin
+        callback_calls[] += 1
+        mode == :throw && throw(sentinel)
+        true
+    end
+    run = nothing
+    caught = nothing
+    try
+        run = JSimplex.run_from_basis!(ws, budget, policy, stop)
+    catch exception
+        caught = exception
+    end
+    @test callback_calls[] == 1
+    # Existing pre-guard cost/bound scans are not counted as numerical kernels.
+    @test d.kernel_calls == before.kernel_calls
+    @test (ws.iterations, ws.refactorizations) == before.work
+    @test ws.scratch.perturbations === journal
+    @test journal.workspace_id == objectid(ws) && journal.bounds.active
+    @test ws.lower === journal.bounds.active_lower && ws.upper === journal.bounds.active_upper
+    @test (objectid(ws.lower), objectid(ws.upper)) == before.storage
+    @test (journal.workspace_id, journal.active, journal.original_perturbed, journal.bounds.level) == before.journal_flags
+    @test isequal((ws.primal, ws.costs, ws.reduced_costs, ws.scratch.rho, ws.lower, ws.upper,
+                   ws.basis.basic_indices, ws.basis.states),
+                  (before.point, before.costs, before.prices, before.rho, before.lower, before.upper,
+                   before.basis, before.states))
+    @test isequal((journal.bounds.original_lower, journal.bounds.original_upper,
+                   journal.original_costs, journal.active_costs),
+                  (before.original_lower, before.original_upper, before.original_costs, before.active_costs))
+    @test ws.perturbed == before.perturbed
+    @test ws.options == before.options && ws.progress.numerical_policy == before.policy
+    @test ws.progress.start_ns == budget.start_ns == before.start_ns
+    @test (ws.progress.iteration_offset, ws.progress.refactorization_offset) == before.offsets
+    @test (budget.iterations, budget.refactorizations) == before.work
+    @test budget.iteration_limit == before.options.iteration_limit == 20
+    @test budget.time_limit_seconds == before.options.time_limit == 30.0
+    @test isequal((ws.progress.scaling.row_factors, ws.progress.scaling.column_factors),
+                  (before.row_scaling, before.column_scaling))
+    @test ws.problem === p
+    @test isequal((p.A, p.objective, p.row_lower, p.row_upper, p.column_lower, p.column_upper, p.variable_domains),
+                  (before.matrix, before.objective, before.row_lower, before.row_upper,
+                   before.column_lower, before.column_upper, before.domains))
+    @test (p.objective_constant, p.objective_sense, p.name) == before.model_scalars
+    @test isnothing(d.observer)
+    if mode == :stop
+        @test isnothing(caught) && !isnothing(run)
+        @test run.status == TIME_LIMIT && run.message == "time limit reached during feasibility recovery"
+        @test isnothing(run.primal) && isnothing(run.objective_value) && isnothing(run.basis)
+    else
+        @test caught === sentinel && isnothing(run)
+    end
+    @test d.next_event == before.next_event + (mode == :stop ? 1 : 0)
+    @test all(d.counts[k] - before.event_counts[k] == (mode == :stop && k == :checkpoint ? 1 : 0)
+              for k in keys(d.counts))
+end
+
+@testset "Native owned-bound entry interruptions preserve working state" begin
+    for mode in (:stop, :throw)
+        @testset "$mode" begin
+            native_bound_entry_interruption(mode)
+        end
+    end
+end
