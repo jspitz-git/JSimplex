@@ -78,13 +78,23 @@ or unnecessary production work/memory. Every cost BTRAN is counted after one-sho
 consumption; all5originalassertions/callback/nativehelper/adjacenttestsets preserved.
 No solver/tolerance/precision/CI change, no fullsuite/x64 or general lifecycle proof.
 See S6-PRIMAL-PRICE-FIXTURE.md and REVIEW. U/V/W drivers/audits must not be rerun.
-Next: docs/superpowers/plans/2026-10-12-phase-transfer-reconstruction-reachability.md,
-S6-X: reconcile existing artificial_exchange_roundoff_fixture and reconstruction/
-export/policy/publication evidence before a bounded original-fixture census.
-results/S6-X/existing-failure-map.json only aggregates8historicalCIassertions/run;
-no new census yet. Do not infer scalar type for the accepted=false group from
-ordering. Read ownership, observer/certificate timing and cancellation contracts
-before observations; no callback solves/refactors/certificates or production fix.
+S6-X completed and independently accepted:12original exchanges,72/72originaloracle,
+exit0,23gates618pins,77sharedsource/runtime/environment. Float32including0budget
+accepts without correction,5FTRAN/4BTRAN/2countedrefactors;Float64corrects phase and
+temporaryexport separately,7FTRAN/4BTRAN/2countedrefactors. Freshinitfactor is additional
+setup.56events+48endpoints,owned snapshots only; no new solver/reference/corpus rerun.
+Five relevanttest/sourcefiles byte-identical to failedCI. Historical printedFloat32
+phase point row3residual256694483/2^51>tol;local192128033/2^51<tol.52offlinechecks
+verify8CIvalues/bits/work; initialparserfailurepreserved. PrivateCIexportpoint absent;
+actualrejectbranch/backendcause/observerneutrality/fullsuite/x64 not proved.
+No production/test/CI change. Freshgpt6astra nofindings/no unnecessaryworkmemory.
+See S6-PHASE-TRANSFER-REACHABILITY.md/REVIEW; acceptedXdrivers/audits NERERUN.
+Next: docs/superpowers/plans/2026-10-12-phase-transfer-printed-point-certificates.md,
+S6-Y: three immutable Float32 points (printedCIphase,localendpoint,exactknownpoint),
+production primalbasisquality+originalcertificate onceeach, no workspace/solve/factor.
+results/S6-Y/point-inputs.json is offlineinputpreparation only; no componentcalls yet.
+Reconcile exact bits/options/source, distinguish relativebasisquality from absolute
+originalfeasibility. No inference of privateCIcandidate or repair before evidence.
 
 
 S6-S accepted evidence90811de/closure6c5ef37: fourtype13/13 + factor6/6; initial
@@ -92,7 +102,7 @@ comparability30/31false preserved with517pin/current-external supplement; no
 retroactive launch pin. Factor19gates615pins/exactLU/primal/dual residuals0.
 S6-R accepted08b7485/3baf29b:12/12/21gates613pins,componentdecomposition-1/16.
 Do not rerun old N/O/P/Q/R/S/T/corpus/reference/cost drivers against changed tests.
-Last fresh host397548/397549/397540 absent,noJulia,boot20de7dde-704e-41c8-bee7-b8511c0a86b0.
+Last fresh host398449/398450/398441 absent,noJulia,boot20de7dde-704e-41c8-bee7-b8511c0a86b0.
 Verify new host state before edits or any new Julia. User environment/dirt preserved.
 
 S6-Q remains accepted:11events,5/5,24gates611pins,exact S6-N endpoint. Refactor event

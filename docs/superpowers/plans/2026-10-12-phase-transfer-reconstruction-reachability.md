@@ -54,3 +54,16 @@ Fresh separate host boot/start_ticks/command checks before any launch or pinned
 edit; none during runs. No big/largo/AnyMOD or aliases. Keep user files, raw
 attempts, old environments/worktrees. CI remains disabled. Broader S6, actual x64
 and full-suite validation remain open. S6-U/V/W accepted drivers must not be rerun.
+
+## Execution record (2026-10-12)
+
+Steps1–4 complete: unchanged fixture and original72assertions on12exchanges,
+exit0,23diagnostic gates618pins,77shared runtime/source/environment pins. All local
+cases accept. Float32 uses no correction; Float64 corrects phase and temporary
+export separately. Exact offline printedCI phase row3violates original tolerance;
+localFloat32point is inside. The private CI export point remains unknown. A52check
+printed-state supplement verifies values/bits/work. Initial text-parser failure
+preserved; no numerical rerun. Source/test/CI unchanged. Fresh independent gpt-6-astra/high review accepted without findings. Step5complete;
+master unchanged, no production/test repair or CI action.
+Next separate3pointcomponent plan:2026-10-12-phase-transfer-printed-point-certificates.md;
+inputs prepared offline at results/S6-Y/point-inputs.json, not executed.

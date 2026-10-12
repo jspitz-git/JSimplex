@@ -1,0 +1,5751 @@
+{
+  "checks": {
+    "process_completed": true,
+    "exit_matches_oracle": true,
+    "pins_guard": true,
+    "pins_independent": true,
+    "actual_source": true,
+    "test_hash": true,
+    "exact_helper": true,
+    "original_oracle": true,
+    "only_passive_routing": true,
+    "no_harness_errors": true,
+    "one_thread": true,
+    "globals": true,
+    "inventory_membership": true,
+    "twelve_complete": true,
+    "exact_case_grid": true,
+    "original_fixture_matrix": true,
+    "initial_basis_and_point": true,
+    "default_options_policy": true,
+    "work_monotonic": true,
+    "failed_publication_preserved": true,
+    "snapshot_roles": true,
+    "finite_endpoint": true,
+    "shared_runtime_source_environment": true
+  },
+  "all_passed": true,
+  "pin_count": 618,
+  "shared_count": 77,
+  "shared_paths": [
+    "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/.superpowers/basis-chain-cost/julia.sh",
+    "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/LocalPreferences.toml",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/Manifest.toml",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/Project.toml",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/JSimplex.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/bartels_golub_rows.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/dual_ratio.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/dual_simplex.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/factorization.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/huangfu_hall_factorization.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/hypersparse_factorization.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/hypersparse_pipeline.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/hypersparse_pipeline_types.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/hypersparse_types.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/hypersparse_updates.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/indexed_vector.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/legacy_dual_correction.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/legacy_dual_prices.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/legacy_primal_joint_point.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/legacy_primal_pivot.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/legacy_primal_point.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/lp_refinement.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/lp_refinement_driver.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/markowitz_factorization.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/model.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/moi/attributes.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/moi/optimizer.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/moi/results.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/moi/translation.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/moi.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/mps/build.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/mps/parser.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/mps/records.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/mps.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/native_certificate_recovery.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/native_cleanup_recovery.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/native_phase_transfer.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/numeric.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/options.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/precompile.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/presolve.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/presolve_aggregation.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/presolve_dependencies.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/presolve_dispatch.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/presolve_dual.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/presolve_incremental.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/presolve_propagation.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/presolve_rows.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/presolve_substitution.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/presolve_tolerance.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/primal_row_certification.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/primal_simplex.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/primal_updates.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/refactorization_policy.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/simplex.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/simplex_diagnostics.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/simplex_driver.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/simplex_numerics.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/simplex_perturbation.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/simplex_phase_one.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/simplex_pivot.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/simplex_precision.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/simplex_precision_recovery.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/simplex_pricing.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/simplex_recovery.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/simplex_stalling.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/simplex_start.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/solver.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/sparse_pricing.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/transformations.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/triangular_factorization.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/triangular_indices.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/triangular_rows.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/triangular_spikes.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/Project.toml",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/julia"
+  ],
+  "summary": [
+    "S6-X original phase-transfer oracle |   72     72  23.1s"
+  ],
+  "cases": [
+    {
+      "scalar": "Float32",
+      "manager": "pfi",
+      "budget": 3,
+      "accepted": true,
+      "phase": {
+        "finite": true,
+        "basis": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "rhs_from_nonbasic_point": [
+          "6",
+          "8",
+          "-1",
+          "2",
+          "0",
+          "0"
+        ],
+        "rhs_from_bounds": [
+          "6",
+          "8",
+          "-1",
+          "2",
+          "0",
+          "0"
+        ],
+        "rhs_agree": true,
+        "primal_residual": [
+          "6879/2199023255552",
+          "-910455/70368744177664",
+          "-192128033/2251799813685248",
+          "-17141689/2251799813685248",
+          "1/281474976710656",
+          "3/2251799813685248"
+        ],
+        "dual_residual": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "primal_exact": false,
+        "dual_exact": true,
+        "bound_violation": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "bounds_within_primal_tolerance": true,
+        "max_exact_relative_indicator": "2/47413409",
+        "indicator_within_solve_tolerance": true
+      },
+      "original": {
+        "finite": true,
+        "basis": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "rhs_from_nonbasic_point": [
+          "6",
+          "8",
+          "-1",
+          "2",
+          "0",
+          "0"
+        ],
+        "rhs_from_bounds": [
+          "6",
+          "8",
+          "-1",
+          "2",
+          "0",
+          "0"
+        ],
+        "rhs_agree": true,
+        "primal_residual": [
+          "6879/2199023255552",
+          "-910455/70368744177664",
+          "-192128033/2251799813685248",
+          "-17141689/2251799813685248",
+          "1/281474976710656",
+          "3/2251799813685248"
+        ],
+        "dual_residual": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "primal_exact": false,
+        "dual_exact": true,
+        "bound_violation": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "bounds_within_primal_tolerance": true,
+        "max_exact_relative_indicator": "2/47413409",
+        "indicator_within_solve_tolerance": true
+      },
+      "events": [
+        {
+          "event": "refactor_other",
+          "role": "phase",
+          "iterations": 1,
+          "refactorizations": 2,
+          "equations": {
+            "finite": true,
+            "basis": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "rhs_from_nonbasic_point": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "dual_residual": [
+              "0",
+              "-3/268435456",
+              "7/536870912",
+              "3/268435456",
+              "1/134217728",
+              "-268435467/268435456"
+            ],
+            "primal_exact": true,
+            "dual_exact": false,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": true,
+            "max_exact_relative_indicator": "0",
+            "indicator_within_solve_tolerance": true
+          }
+        },
+        {
+          "event": "artificial_removed",
+          "role": "phase",
+          "iterations": 1,
+          "refactorizations": 2,
+          "equations": {
+            "finite": true,
+            "basis": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "rhs_from_nonbasic_point": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "6879/2199023255552",
+              "-910455/70368744177664",
+              "-192128033/2251799813685248",
+              "-17141689/2251799813685248",
+              "1/281474976710656",
+              "3/2251799813685248"
+            ],
+            "dual_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "primal_exact": false,
+            "dual_exact": true,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": true,
+            "max_exact_relative_indicator": "2/47413409",
+            "indicator_within_solve_tolerance": true
+          }
+        },
+        {
+          "event": "refactor_initial",
+          "role": "temporary",
+          "iterations": 0,
+          "refactorizations": 0,
+          "equations": {
+            "finite": true,
+            "basis": [
+              7,
+              8,
+              9,
+              10,
+              11,
+              12
+            ],
+            "rhs_from_nonbasic_point": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "dual_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "primal_exact": true,
+            "dual_exact": true,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "6",
+              "8",
+              "1",
+              "2",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": false,
+            "max_exact_relative_indicator": "0",
+            "indicator_within_solve_tolerance": true
+          }
+        },
+        {
+          "event": "refactor_other",
+          "role": "temporary",
+          "iterations": 1,
+          "refactorizations": 3,
+          "equations": {
+            "finite": true,
+            "basis": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "rhs_from_nonbasic_point": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "6879/2199023255552",
+              "-910455/70368744177664",
+              "-192128033/2251799813685248",
+              "-17141689/2251799813685248",
+              "1/281474976710656",
+              "3/2251799813685248"
+            ],
+            "dual_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "primal_exact": false,
+            "dual_exact": true,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": true,
+            "max_exact_relative_indicator": "2/47413409",
+            "indicator_within_solve_tolerance": true
+          }
+        }
+      ],
+      "kernels": {
+        "refactorization": 2,
+        "ftran": 5,
+        "btran": 4
+      },
+      "counts": {
+        "artificial_removed": 1,
+        "refactor_other": 2,
+        "refactor_initial": 1
+      }
+    },
+    {
+      "scalar": "Float32",
+      "manager": "forrest_tomlin",
+      "budget": 3,
+      "accepted": true,
+      "phase": {
+        "finite": true,
+        "basis": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "rhs_from_nonbasic_point": [
+          "6",
+          "8",
+          "-1",
+          "2",
+          "0",
+          "0"
+        ],
+        "rhs_from_bounds": [
+          "6",
+          "8",
+          "-1",
+          "2",
+          "0",
+          "0"
+        ],
+        "rhs_agree": true,
+        "primal_residual": [
+          "6879/2199023255552",
+          "-910455/70368744177664",
+          "-192128033/2251799813685248",
+          "-17141689/2251799813685248",
+          "1/281474976710656",
+          "3/2251799813685248"
+        ],
+        "dual_residual": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "primal_exact": false,
+        "dual_exact": true,
+        "bound_violation": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "bounds_within_primal_tolerance": true,
+        "max_exact_relative_indicator": "2/47413409",
+        "indicator_within_solve_tolerance": true
+      },
+      "original": {
+        "finite": true,
+        "basis": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "rhs_from_nonbasic_point": [
+          "6",
+          "8",
+          "-1",
+          "2",
+          "0",
+          "0"
+        ],
+        "rhs_from_bounds": [
+          "6",
+          "8",
+          "-1",
+          "2",
+          "0",
+          "0"
+        ],
+        "rhs_agree": true,
+        "primal_residual": [
+          "6879/2199023255552",
+          "-910455/70368744177664",
+          "-192128033/2251799813685248",
+          "-17141689/2251799813685248",
+          "1/281474976710656",
+          "3/2251799813685248"
+        ],
+        "dual_residual": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "primal_exact": false,
+        "dual_exact": true,
+        "bound_violation": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "bounds_within_primal_tolerance": true,
+        "max_exact_relative_indicator": "2/47413409",
+        "indicator_within_solve_tolerance": true
+      },
+      "events": [
+        {
+          "event": "refactor_other",
+          "role": "phase",
+          "iterations": 1,
+          "refactorizations": 2,
+          "equations": {
+            "finite": true,
+            "basis": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "rhs_from_nonbasic_point": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "dual_residual": [
+              "0",
+              "-3/268435456",
+              "7/536870912",
+              "3/268435456",
+              "1/134217728",
+              "-268435467/268435456"
+            ],
+            "primal_exact": true,
+            "dual_exact": false,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": true,
+            "max_exact_relative_indicator": "0",
+            "indicator_within_solve_tolerance": true
+          }
+        },
+        {
+          "event": "artificial_removed",
+          "role": "phase",
+          "iterations": 1,
+          "refactorizations": 2,
+          "equations": {
+            "finite": true,
+            "basis": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "rhs_from_nonbasic_point": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "6879/2199023255552",
+              "-910455/70368744177664",
+              "-192128033/2251799813685248",
+              "-17141689/2251799813685248",
+              "1/281474976710656",
+              "3/2251799813685248"
+            ],
+            "dual_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "primal_exact": false,
+            "dual_exact": true,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": true,
+            "max_exact_relative_indicator": "2/47413409",
+            "indicator_within_solve_tolerance": true
+          }
+        },
+        {
+          "event": "refactor_initial",
+          "role": "temporary",
+          "iterations": 0,
+          "refactorizations": 0,
+          "equations": {
+            "finite": true,
+            "basis": [
+              7,
+              8,
+              9,
+              10,
+              11,
+              12
+            ],
+            "rhs_from_nonbasic_point": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "dual_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "primal_exact": true,
+            "dual_exact": true,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "6",
+              "8",
+              "1",
+              "2",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": false,
+            "max_exact_relative_indicator": "0",
+            "indicator_within_solve_tolerance": true
+          }
+        },
+        {
+          "event": "refactor_other",
+          "role": "temporary",
+          "iterations": 1,
+          "refactorizations": 3,
+          "equations": {
+            "finite": true,
+            "basis": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "rhs_from_nonbasic_point": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "6879/2199023255552",
+              "-910455/70368744177664",
+              "-192128033/2251799813685248",
+              "-17141689/2251799813685248",
+              "1/281474976710656",
+              "3/2251799813685248"
+            ],
+            "dual_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "primal_exact": false,
+            "dual_exact": true,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": true,
+            "max_exact_relative_indicator": "2/47413409",
+            "indicator_within_solve_tolerance": true
+          }
+        }
+      ],
+      "kernels": {
+        "refactorization": 2,
+        "ftran": 5,
+        "btran": 4
+      },
+      "counts": {
+        "artificial_removed": 1,
+        "refactor_other": 2,
+        "refactor_initial": 1
+      }
+    },
+    {
+      "scalar": "Float32",
+      "manager": "suhl_suhl",
+      "budget": 3,
+      "accepted": true,
+      "phase": {
+        "finite": true,
+        "basis": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "rhs_from_nonbasic_point": [
+          "6",
+          "8",
+          "-1",
+          "2",
+          "0",
+          "0"
+        ],
+        "rhs_from_bounds": [
+          "6",
+          "8",
+          "-1",
+          "2",
+          "0",
+          "0"
+        ],
+        "rhs_agree": true,
+        "primal_residual": [
+          "6879/2199023255552",
+          "-910455/70368744177664",
+          "-192128033/2251799813685248",
+          "-17141689/2251799813685248",
+          "1/281474976710656",
+          "3/2251799813685248"
+        ],
+        "dual_residual": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "primal_exact": false,
+        "dual_exact": true,
+        "bound_violation": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "bounds_within_primal_tolerance": true,
+        "max_exact_relative_indicator": "2/47413409",
+        "indicator_within_solve_tolerance": true
+      },
+      "original": {
+        "finite": true,
+        "basis": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "rhs_from_nonbasic_point": [
+          "6",
+          "8",
+          "-1",
+          "2",
+          "0",
+          "0"
+        ],
+        "rhs_from_bounds": [
+          "6",
+          "8",
+          "-1",
+          "2",
+          "0",
+          "0"
+        ],
+        "rhs_agree": true,
+        "primal_residual": [
+          "6879/2199023255552",
+          "-910455/70368744177664",
+          "-192128033/2251799813685248",
+          "-17141689/2251799813685248",
+          "1/281474976710656",
+          "3/2251799813685248"
+        ],
+        "dual_residual": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "primal_exact": false,
+        "dual_exact": true,
+        "bound_violation": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "bounds_within_primal_tolerance": true,
+        "max_exact_relative_indicator": "2/47413409",
+        "indicator_within_solve_tolerance": true
+      },
+      "events": [
+        {
+          "event": "refactor_other",
+          "role": "phase",
+          "iterations": 1,
+          "refactorizations": 2,
+          "equations": {
+            "finite": true,
+            "basis": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "rhs_from_nonbasic_point": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "dual_residual": [
+              "0",
+              "-3/268435456",
+              "7/536870912",
+              "3/268435456",
+              "1/134217728",
+              "-268435467/268435456"
+            ],
+            "primal_exact": true,
+            "dual_exact": false,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": true,
+            "max_exact_relative_indicator": "0",
+            "indicator_within_solve_tolerance": true
+          }
+        },
+        {
+          "event": "artificial_removed",
+          "role": "phase",
+          "iterations": 1,
+          "refactorizations": 2,
+          "equations": {
+            "finite": true,
+            "basis": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "rhs_from_nonbasic_point": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "6879/2199023255552",
+              "-910455/70368744177664",
+              "-192128033/2251799813685248",
+              "-17141689/2251799813685248",
+              "1/281474976710656",
+              "3/2251799813685248"
+            ],
+            "dual_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "primal_exact": false,
+            "dual_exact": true,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": true,
+            "max_exact_relative_indicator": "2/47413409",
+            "indicator_within_solve_tolerance": true
+          }
+        },
+        {
+          "event": "refactor_initial",
+          "role": "temporary",
+          "iterations": 0,
+          "refactorizations": 0,
+          "equations": {
+            "finite": true,
+            "basis": [
+              7,
+              8,
+              9,
+              10,
+              11,
+              12
+            ],
+            "rhs_from_nonbasic_point": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "dual_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "primal_exact": true,
+            "dual_exact": true,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "6",
+              "8",
+              "1",
+              "2",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": false,
+            "max_exact_relative_indicator": "0",
+            "indicator_within_solve_tolerance": true
+          }
+        },
+        {
+          "event": "refactor_other",
+          "role": "temporary",
+          "iterations": 1,
+          "refactorizations": 3,
+          "equations": {
+            "finite": true,
+            "basis": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "rhs_from_nonbasic_point": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "6879/2199023255552",
+              "-910455/70368744177664",
+              "-192128033/2251799813685248",
+              "-17141689/2251799813685248",
+              "1/281474976710656",
+              "3/2251799813685248"
+            ],
+            "dual_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "primal_exact": false,
+            "dual_exact": true,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": true,
+            "max_exact_relative_indicator": "2/47413409",
+            "indicator_within_solve_tolerance": true
+          }
+        }
+      ],
+      "kernels": {
+        "refactorization": 2,
+        "ftran": 5,
+        "btran": 4
+      },
+      "counts": {
+        "artificial_removed": 1,
+        "refactor_other": 2,
+        "refactor_initial": 1
+      }
+    },
+    {
+      "scalar": "Float32",
+      "manager": "bartels_golub",
+      "budget": 3,
+      "accepted": true,
+      "phase": {
+        "finite": true,
+        "basis": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "rhs_from_nonbasic_point": [
+          "6",
+          "8",
+          "-1",
+          "2",
+          "0",
+          "0"
+        ],
+        "rhs_from_bounds": [
+          "6",
+          "8",
+          "-1",
+          "2",
+          "0",
+          "0"
+        ],
+        "rhs_agree": true,
+        "primal_residual": [
+          "6879/2199023255552",
+          "-910455/70368744177664",
+          "-192128033/2251799813685248",
+          "-17141689/2251799813685248",
+          "1/281474976710656",
+          "3/2251799813685248"
+        ],
+        "dual_residual": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "primal_exact": false,
+        "dual_exact": true,
+        "bound_violation": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "bounds_within_primal_tolerance": true,
+        "max_exact_relative_indicator": "2/47413409",
+        "indicator_within_solve_tolerance": true
+      },
+      "original": {
+        "finite": true,
+        "basis": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "rhs_from_nonbasic_point": [
+          "6",
+          "8",
+          "-1",
+          "2",
+          "0",
+          "0"
+        ],
+        "rhs_from_bounds": [
+          "6",
+          "8",
+          "-1",
+          "2",
+          "0",
+          "0"
+        ],
+        "rhs_agree": true,
+        "primal_residual": [
+          "6879/2199023255552",
+          "-910455/70368744177664",
+          "-192128033/2251799813685248",
+          "-17141689/2251799813685248",
+          "1/281474976710656",
+          "3/2251799813685248"
+        ],
+        "dual_residual": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "primal_exact": false,
+        "dual_exact": true,
+        "bound_violation": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "bounds_within_primal_tolerance": true,
+        "max_exact_relative_indicator": "2/47413409",
+        "indicator_within_solve_tolerance": true
+      },
+      "events": [
+        {
+          "event": "refactor_other",
+          "role": "phase",
+          "iterations": 1,
+          "refactorizations": 2,
+          "equations": {
+            "finite": true,
+            "basis": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "rhs_from_nonbasic_point": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "dual_residual": [
+              "0",
+              "-3/268435456",
+              "7/536870912",
+              "3/268435456",
+              "1/134217728",
+              "-268435467/268435456"
+            ],
+            "primal_exact": true,
+            "dual_exact": false,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": true,
+            "max_exact_relative_indicator": "0",
+            "indicator_within_solve_tolerance": true
+          }
+        },
+        {
+          "event": "artificial_removed",
+          "role": "phase",
+          "iterations": 1,
+          "refactorizations": 2,
+          "equations": {
+            "finite": true,
+            "basis": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "rhs_from_nonbasic_point": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "6879/2199023255552",
+              "-910455/70368744177664",
+              "-192128033/2251799813685248",
+              "-17141689/2251799813685248",
+              "1/281474976710656",
+              "3/2251799813685248"
+            ],
+            "dual_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "primal_exact": false,
+            "dual_exact": true,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": true,
+            "max_exact_relative_indicator": "2/47413409",
+            "indicator_within_solve_tolerance": true
+          }
+        },
+        {
+          "event": "refactor_initial",
+          "role": "temporary",
+          "iterations": 0,
+          "refactorizations": 0,
+          "equations": {
+            "finite": true,
+            "basis": [
+              7,
+              8,
+              9,
+              10,
+              11,
+              12
+            ],
+            "rhs_from_nonbasic_point": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "dual_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "primal_exact": true,
+            "dual_exact": true,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "6",
+              "8",
+              "1",
+              "2",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": false,
+            "max_exact_relative_indicator": "0",
+            "indicator_within_solve_tolerance": true
+          }
+        },
+        {
+          "event": "refactor_other",
+          "role": "temporary",
+          "iterations": 1,
+          "refactorizations": 3,
+          "equations": {
+            "finite": true,
+            "basis": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "rhs_from_nonbasic_point": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "6879/2199023255552",
+              "-910455/70368744177664",
+              "-192128033/2251799813685248",
+              "-17141689/2251799813685248",
+              "1/281474976710656",
+              "3/2251799813685248"
+            ],
+            "dual_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "primal_exact": false,
+            "dual_exact": true,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": true,
+            "max_exact_relative_indicator": "2/47413409",
+            "indicator_within_solve_tolerance": true
+          }
+        }
+      ],
+      "kernels": {
+        "refactorization": 2,
+        "ftran": 5,
+        "btran": 4
+      },
+      "counts": {
+        "artificial_removed": 1,
+        "refactor_other": 2,
+        "refactor_initial": 1
+      }
+    },
+    {
+      "scalar": "Float64",
+      "manager": "pfi",
+      "budget": 3,
+      "accepted": true,
+      "phase": {
+        "finite": true,
+        "basis": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "rhs_from_nonbasic_point": [
+          "6",
+          "8",
+          "-1",
+          "2",
+          "0",
+          "0"
+        ],
+        "rhs_from_bounds": [
+          "6",
+          "8",
+          "-1",
+          "2",
+          "0",
+          "0"
+        ],
+        "rhs_agree": true,
+        "primal_residual": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "dual_residual": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "primal_exact": true,
+        "dual_exact": true,
+        "bound_violation": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "bounds_within_primal_tolerance": true,
+        "max_exact_relative_indicator": "0",
+        "indicator_within_solve_tolerance": true
+      },
+      "original": {
+        "finite": true,
+        "basis": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "rhs_from_nonbasic_point": [
+          "6",
+          "8",
+          "-1",
+          "2",
+          "0",
+          "0"
+        ],
+        "rhs_from_bounds": [
+          "6",
+          "8",
+          "-1",
+          "2",
+          "0",
+          "0"
+        ],
+        "rhs_agree": true,
+        "primal_residual": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "dual_residual": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "primal_exact": true,
+        "dual_exact": true,
+        "bound_violation": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "bounds_within_primal_tolerance": true,
+        "max_exact_relative_indicator": "0",
+        "indicator_within_solve_tolerance": true
+      },
+      "events": [
+        {
+          "event": "refactor_other",
+          "role": "phase",
+          "iterations": 1,
+          "refactorizations": 2,
+          "equations": {
+            "finite": true,
+            "basis": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "rhs_from_nonbasic_point": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "dual_residual": [
+              "-5/144115188075855872",
+              "-1/144115188075855872",
+              "1/144115188075855872",
+              "-3/144115188075855872",
+              "3/36028797018963968",
+              "-144115188075855885/144115188075855872"
+            ],
+            "primal_exact": true,
+            "dual_exact": false,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": true,
+            "max_exact_relative_indicator": "0",
+            "indicator_within_solve_tolerance": true
+          }
+        },
+        {
+          "event": "correction_attempt",
+          "role": "phase",
+          "iterations": 1,
+          "refactorizations": 2,
+          "equations": {
+            "finite": true,
+            "basis": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "rhs_from_nonbasic_point": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "525601059972087019/649037107316853453566312041152512",
+              "163368680454824851/1298074214633706907132624082305024",
+              "71387541845534879/1298074214633706907132624082305024",
+              "8138488765853945/324518553658426726783156020576256",
+              "5/1298074214633706907132624082305024",
+              "28082270853971331/1298074214633706907132624082305024"
+            ],
+            "dual_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "primal_exact": false,
+            "dual_exact": true,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": true,
+            "max_exact_relative_indicator": "9360756951323777/127673973524055681",
+            "indicator_within_solve_tolerance": false
+          }
+        },
+        {
+          "event": "artificial_removed",
+          "role": "phase",
+          "iterations": 1,
+          "refactorizations": 2,
+          "equations": {
+            "finite": true,
+            "basis": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "rhs_from_nonbasic_point": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "dual_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "primal_exact": true,
+            "dual_exact": true,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": true,
+            "max_exact_relative_indicator": "0",
+            "indicator_within_solve_tolerance": true
+          }
+        },
+        {
+          "event": "refactor_initial",
+          "role": "temporary",
+          "iterations": 0,
+          "refactorizations": 0,
+          "equations": {
+            "finite": true,
+            "basis": [
+              7,
+              8,
+              9,
+              10,
+              11,
+              12
+            ],
+            "rhs_from_nonbasic_point": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "dual_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "primal_exact": true,
+            "dual_exact": true,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "6",
+              "8",
+              "1",
+              "2",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": false,
+            "max_exact_relative_indicator": "0",
+            "indicator_within_solve_tolerance": true
+          }
+        },
+        {
+          "event": "refactor_other",
+          "role": "temporary",
+          "iterations": 1,
+          "refactorizations": 3,
+          "equations": {
+            "finite": true,
+            "basis": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "rhs_from_nonbasic_point": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "dual_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "primal_exact": true,
+            "dual_exact": true,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": true,
+            "max_exact_relative_indicator": "0",
+            "indicator_within_solve_tolerance": true
+          }
+        },
+        {
+          "event": "correction_attempt",
+          "role": "temporary",
+          "iterations": 1,
+          "refactorizations": 3,
+          "equations": {
+            "finite": true,
+            "basis": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "rhs_from_nonbasic_point": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "525601059972087019/649037107316853453566312041152512",
+              "163368680454824851/1298074214633706907132624082305024",
+              "71387541845534879/1298074214633706907132624082305024",
+              "8138488765853945/324518553658426726783156020576256",
+              "5/1298074214633706907132624082305024",
+              "28082270853971331/1298074214633706907132624082305024"
+            ],
+            "dual_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "primal_exact": false,
+            "dual_exact": true,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": true,
+            "max_exact_relative_indicator": "9360756951323777/127673973524055681",
+            "indicator_within_solve_tolerance": false
+          }
+        }
+      ],
+      "kernels": {
+        "refactorization": 2,
+        "ftran": 7,
+        "btran": 4
+      },
+      "counts": {
+        "correction_attempt": 2,
+        "artificial_removed": 1,
+        "refactor_other": 2,
+        "refactor_initial": 1
+      }
+    },
+    {
+      "scalar": "Float64",
+      "manager": "forrest_tomlin",
+      "budget": 3,
+      "accepted": true,
+      "phase": {
+        "finite": true,
+        "basis": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "rhs_from_nonbasic_point": [
+          "6",
+          "8",
+          "-1",
+          "2",
+          "0",
+          "0"
+        ],
+        "rhs_from_bounds": [
+          "6",
+          "8",
+          "-1",
+          "2",
+          "0",
+          "0"
+        ],
+        "rhs_agree": true,
+        "primal_residual": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "dual_residual": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "primal_exact": true,
+        "dual_exact": true,
+        "bound_violation": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "bounds_within_primal_tolerance": true,
+        "max_exact_relative_indicator": "0",
+        "indicator_within_solve_tolerance": true
+      },
+      "original": {
+        "finite": true,
+        "basis": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "rhs_from_nonbasic_point": [
+          "6",
+          "8",
+          "-1",
+          "2",
+          "0",
+          "0"
+        ],
+        "rhs_from_bounds": [
+          "6",
+          "8",
+          "-1",
+          "2",
+          "0",
+          "0"
+        ],
+        "rhs_agree": true,
+        "primal_residual": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "dual_residual": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "primal_exact": true,
+        "dual_exact": true,
+        "bound_violation": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "bounds_within_primal_tolerance": true,
+        "max_exact_relative_indicator": "0",
+        "indicator_within_solve_tolerance": true
+      },
+      "events": [
+        {
+          "event": "refactor_other",
+          "role": "phase",
+          "iterations": 1,
+          "refactorizations": 2,
+          "equations": {
+            "finite": true,
+            "basis": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "rhs_from_nonbasic_point": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "dual_residual": [
+              "-5/144115188075855872",
+              "-1/144115188075855872",
+              "1/144115188075855872",
+              "-3/144115188075855872",
+              "3/36028797018963968",
+              "-144115188075855885/144115188075855872"
+            ],
+            "primal_exact": true,
+            "dual_exact": false,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": true,
+            "max_exact_relative_indicator": "0",
+            "indicator_within_solve_tolerance": true
+          }
+        },
+        {
+          "event": "correction_attempt",
+          "role": "phase",
+          "iterations": 1,
+          "refactorizations": 2,
+          "equations": {
+            "finite": true,
+            "basis": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "rhs_from_nonbasic_point": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "525601059972087019/649037107316853453566312041152512",
+              "163368680454824851/1298074214633706907132624082305024",
+              "71387541845534879/1298074214633706907132624082305024",
+              "8138488765853945/324518553658426726783156020576256",
+              "5/1298074214633706907132624082305024",
+              "28082270853971331/1298074214633706907132624082305024"
+            ],
+            "dual_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "primal_exact": false,
+            "dual_exact": true,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": true,
+            "max_exact_relative_indicator": "9360756951323777/127673973524055681",
+            "indicator_within_solve_tolerance": false
+          }
+        },
+        {
+          "event": "artificial_removed",
+          "role": "phase",
+          "iterations": 1,
+          "refactorizations": 2,
+          "equations": {
+            "finite": true,
+            "basis": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "rhs_from_nonbasic_point": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "dual_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "primal_exact": true,
+            "dual_exact": true,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": true,
+            "max_exact_relative_indicator": "0",
+            "indicator_within_solve_tolerance": true
+          }
+        },
+        {
+          "event": "refactor_initial",
+          "role": "temporary",
+          "iterations": 0,
+          "refactorizations": 0,
+          "equations": {
+            "finite": true,
+            "basis": [
+              7,
+              8,
+              9,
+              10,
+              11,
+              12
+            ],
+            "rhs_from_nonbasic_point": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "dual_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "primal_exact": true,
+            "dual_exact": true,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "6",
+              "8",
+              "1",
+              "2",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": false,
+            "max_exact_relative_indicator": "0",
+            "indicator_within_solve_tolerance": true
+          }
+        },
+        {
+          "event": "refactor_other",
+          "role": "temporary",
+          "iterations": 1,
+          "refactorizations": 3,
+          "equations": {
+            "finite": true,
+            "basis": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "rhs_from_nonbasic_point": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "dual_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "primal_exact": true,
+            "dual_exact": true,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": true,
+            "max_exact_relative_indicator": "0",
+            "indicator_within_solve_tolerance": true
+          }
+        },
+        {
+          "event": "correction_attempt",
+          "role": "temporary",
+          "iterations": 1,
+          "refactorizations": 3,
+          "equations": {
+            "finite": true,
+            "basis": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "rhs_from_nonbasic_point": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "525601059972087019/649037107316853453566312041152512",
+              "163368680454824851/1298074214633706907132624082305024",
+              "71387541845534879/1298074214633706907132624082305024",
+              "8138488765853945/324518553658426726783156020576256",
+              "5/1298074214633706907132624082305024",
+              "28082270853971331/1298074214633706907132624082305024"
+            ],
+            "dual_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "primal_exact": false,
+            "dual_exact": true,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": true,
+            "max_exact_relative_indicator": "9360756951323777/127673973524055681",
+            "indicator_within_solve_tolerance": false
+          }
+        }
+      ],
+      "kernels": {
+        "refactorization": 2,
+        "ftran": 7,
+        "btran": 4
+      },
+      "counts": {
+        "correction_attempt": 2,
+        "artificial_removed": 1,
+        "refactor_other": 2,
+        "refactor_initial": 1
+      }
+    },
+    {
+      "scalar": "Float64",
+      "manager": "suhl_suhl",
+      "budget": 3,
+      "accepted": true,
+      "phase": {
+        "finite": true,
+        "basis": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "rhs_from_nonbasic_point": [
+          "6",
+          "8",
+          "-1",
+          "2",
+          "0",
+          "0"
+        ],
+        "rhs_from_bounds": [
+          "6",
+          "8",
+          "-1",
+          "2",
+          "0",
+          "0"
+        ],
+        "rhs_agree": true,
+        "primal_residual": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "dual_residual": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "primal_exact": true,
+        "dual_exact": true,
+        "bound_violation": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "bounds_within_primal_tolerance": true,
+        "max_exact_relative_indicator": "0",
+        "indicator_within_solve_tolerance": true
+      },
+      "original": {
+        "finite": true,
+        "basis": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "rhs_from_nonbasic_point": [
+          "6",
+          "8",
+          "-1",
+          "2",
+          "0",
+          "0"
+        ],
+        "rhs_from_bounds": [
+          "6",
+          "8",
+          "-1",
+          "2",
+          "0",
+          "0"
+        ],
+        "rhs_agree": true,
+        "primal_residual": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "dual_residual": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "primal_exact": true,
+        "dual_exact": true,
+        "bound_violation": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "bounds_within_primal_tolerance": true,
+        "max_exact_relative_indicator": "0",
+        "indicator_within_solve_tolerance": true
+      },
+      "events": [
+        {
+          "event": "refactor_other",
+          "role": "phase",
+          "iterations": 1,
+          "refactorizations": 2,
+          "equations": {
+            "finite": true,
+            "basis": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "rhs_from_nonbasic_point": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "dual_residual": [
+              "-5/144115188075855872",
+              "-1/144115188075855872",
+              "1/144115188075855872",
+              "-3/144115188075855872",
+              "3/36028797018963968",
+              "-144115188075855885/144115188075855872"
+            ],
+            "primal_exact": true,
+            "dual_exact": false,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": true,
+            "max_exact_relative_indicator": "0",
+            "indicator_within_solve_tolerance": true
+          }
+        },
+        {
+          "event": "correction_attempt",
+          "role": "phase",
+          "iterations": 1,
+          "refactorizations": 2,
+          "equations": {
+            "finite": true,
+            "basis": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "rhs_from_nonbasic_point": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "525601059972087019/649037107316853453566312041152512",
+              "163368680454824851/1298074214633706907132624082305024",
+              "71387541845534879/1298074214633706907132624082305024",
+              "8138488765853945/324518553658426726783156020576256",
+              "5/1298074214633706907132624082305024",
+              "28082270853971331/1298074214633706907132624082305024"
+            ],
+            "dual_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "primal_exact": false,
+            "dual_exact": true,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": true,
+            "max_exact_relative_indicator": "9360756951323777/127673973524055681",
+            "indicator_within_solve_tolerance": false
+          }
+        },
+        {
+          "event": "artificial_removed",
+          "role": "phase",
+          "iterations": 1,
+          "refactorizations": 2,
+          "equations": {
+            "finite": true,
+            "basis": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "rhs_from_nonbasic_point": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "dual_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "primal_exact": true,
+            "dual_exact": true,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": true,
+            "max_exact_relative_indicator": "0",
+            "indicator_within_solve_tolerance": true
+          }
+        },
+        {
+          "event": "refactor_initial",
+          "role": "temporary",
+          "iterations": 0,
+          "refactorizations": 0,
+          "equations": {
+            "finite": true,
+            "basis": [
+              7,
+              8,
+              9,
+              10,
+              11,
+              12
+            ],
+            "rhs_from_nonbasic_point": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "dual_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "primal_exact": true,
+            "dual_exact": true,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "6",
+              "8",
+              "1",
+              "2",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": false,
+            "max_exact_relative_indicator": "0",
+            "indicator_within_solve_tolerance": true
+          }
+        },
+        {
+          "event": "refactor_other",
+          "role": "temporary",
+          "iterations": 1,
+          "refactorizations": 3,
+          "equations": {
+            "finite": true,
+            "basis": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "rhs_from_nonbasic_point": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "dual_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "primal_exact": true,
+            "dual_exact": true,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": true,
+            "max_exact_relative_indicator": "0",
+            "indicator_within_solve_tolerance": true
+          }
+        },
+        {
+          "event": "correction_attempt",
+          "role": "temporary",
+          "iterations": 1,
+          "refactorizations": 3,
+          "equations": {
+            "finite": true,
+            "basis": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "rhs_from_nonbasic_point": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "525601059972087019/649037107316853453566312041152512",
+              "163368680454824851/1298074214633706907132624082305024",
+              "71387541845534879/1298074214633706907132624082305024",
+              "8138488765853945/324518553658426726783156020576256",
+              "5/1298074214633706907132624082305024",
+              "28082270853971331/1298074214633706907132624082305024"
+            ],
+            "dual_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "primal_exact": false,
+            "dual_exact": true,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": true,
+            "max_exact_relative_indicator": "9360756951323777/127673973524055681",
+            "indicator_within_solve_tolerance": false
+          }
+        }
+      ],
+      "kernels": {
+        "refactorization": 2,
+        "ftran": 7,
+        "btran": 4
+      },
+      "counts": {
+        "correction_attempt": 2,
+        "artificial_removed": 1,
+        "refactor_other": 2,
+        "refactor_initial": 1
+      }
+    },
+    {
+      "scalar": "Float64",
+      "manager": "bartels_golub",
+      "budget": 3,
+      "accepted": true,
+      "phase": {
+        "finite": true,
+        "basis": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "rhs_from_nonbasic_point": [
+          "6",
+          "8",
+          "-1",
+          "2",
+          "0",
+          "0"
+        ],
+        "rhs_from_bounds": [
+          "6",
+          "8",
+          "-1",
+          "2",
+          "0",
+          "0"
+        ],
+        "rhs_agree": true,
+        "primal_residual": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "dual_residual": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "primal_exact": true,
+        "dual_exact": true,
+        "bound_violation": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "bounds_within_primal_tolerance": true,
+        "max_exact_relative_indicator": "0",
+        "indicator_within_solve_tolerance": true
+      },
+      "original": {
+        "finite": true,
+        "basis": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "rhs_from_nonbasic_point": [
+          "6",
+          "8",
+          "-1",
+          "2",
+          "0",
+          "0"
+        ],
+        "rhs_from_bounds": [
+          "6",
+          "8",
+          "-1",
+          "2",
+          "0",
+          "0"
+        ],
+        "rhs_agree": true,
+        "primal_residual": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "dual_residual": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "primal_exact": true,
+        "dual_exact": true,
+        "bound_violation": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "bounds_within_primal_tolerance": true,
+        "max_exact_relative_indicator": "0",
+        "indicator_within_solve_tolerance": true
+      },
+      "events": [
+        {
+          "event": "refactor_other",
+          "role": "phase",
+          "iterations": 1,
+          "refactorizations": 2,
+          "equations": {
+            "finite": true,
+            "basis": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "rhs_from_nonbasic_point": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "dual_residual": [
+              "-5/144115188075855872",
+              "-1/144115188075855872",
+              "1/144115188075855872",
+              "-3/144115188075855872",
+              "3/36028797018963968",
+              "-144115188075855885/144115188075855872"
+            ],
+            "primal_exact": true,
+            "dual_exact": false,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": true,
+            "max_exact_relative_indicator": "0",
+            "indicator_within_solve_tolerance": true
+          }
+        },
+        {
+          "event": "correction_attempt",
+          "role": "phase",
+          "iterations": 1,
+          "refactorizations": 2,
+          "equations": {
+            "finite": true,
+            "basis": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "rhs_from_nonbasic_point": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "525601059972087019/649037107316853453566312041152512",
+              "163368680454824851/1298074214633706907132624082305024",
+              "71387541845534879/1298074214633706907132624082305024",
+              "8138488765853945/324518553658426726783156020576256",
+              "5/1298074214633706907132624082305024",
+              "28082270853971331/1298074214633706907132624082305024"
+            ],
+            "dual_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "primal_exact": false,
+            "dual_exact": true,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": true,
+            "max_exact_relative_indicator": "9360756951323777/127673973524055681",
+            "indicator_within_solve_tolerance": false
+          }
+        },
+        {
+          "event": "artificial_removed",
+          "role": "phase",
+          "iterations": 1,
+          "refactorizations": 2,
+          "equations": {
+            "finite": true,
+            "basis": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "rhs_from_nonbasic_point": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "dual_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "primal_exact": true,
+            "dual_exact": true,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": true,
+            "max_exact_relative_indicator": "0",
+            "indicator_within_solve_tolerance": true
+          }
+        },
+        {
+          "event": "refactor_initial",
+          "role": "temporary",
+          "iterations": 0,
+          "refactorizations": 0,
+          "equations": {
+            "finite": true,
+            "basis": [
+              7,
+              8,
+              9,
+              10,
+              11,
+              12
+            ],
+            "rhs_from_nonbasic_point": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "dual_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "primal_exact": true,
+            "dual_exact": true,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "6",
+              "8",
+              "1",
+              "2",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": false,
+            "max_exact_relative_indicator": "0",
+            "indicator_within_solve_tolerance": true
+          }
+        },
+        {
+          "event": "refactor_other",
+          "role": "temporary",
+          "iterations": 1,
+          "refactorizations": 3,
+          "equations": {
+            "finite": true,
+            "basis": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "rhs_from_nonbasic_point": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "dual_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "primal_exact": true,
+            "dual_exact": true,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": true,
+            "max_exact_relative_indicator": "0",
+            "indicator_within_solve_tolerance": true
+          }
+        },
+        {
+          "event": "correction_attempt",
+          "role": "temporary",
+          "iterations": 1,
+          "refactorizations": 3,
+          "equations": {
+            "finite": true,
+            "basis": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "rhs_from_nonbasic_point": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "525601059972087019/649037107316853453566312041152512",
+              "163368680454824851/1298074214633706907132624082305024",
+              "71387541845534879/1298074214633706907132624082305024",
+              "8138488765853945/324518553658426726783156020576256",
+              "5/1298074214633706907132624082305024",
+              "28082270853971331/1298074214633706907132624082305024"
+            ],
+            "dual_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "primal_exact": false,
+            "dual_exact": true,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": true,
+            "max_exact_relative_indicator": "9360756951323777/127673973524055681",
+            "indicator_within_solve_tolerance": false
+          }
+        }
+      ],
+      "kernels": {
+        "refactorization": 2,
+        "ftran": 7,
+        "btran": 4
+      },
+      "counts": {
+        "correction_attempt": 2,
+        "artificial_removed": 1,
+        "refactor_other": 2,
+        "refactor_initial": 1
+      }
+    },
+    {
+      "scalar": "Float32",
+      "manager": "pfi",
+      "budget": 0,
+      "accepted": true,
+      "phase": {
+        "finite": true,
+        "basis": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "rhs_from_nonbasic_point": [
+          "6",
+          "8",
+          "-1",
+          "2",
+          "0",
+          "0"
+        ],
+        "rhs_from_bounds": [
+          "6",
+          "8",
+          "-1",
+          "2",
+          "0",
+          "0"
+        ],
+        "rhs_agree": true,
+        "primal_residual": [
+          "6879/2199023255552",
+          "-910455/70368744177664",
+          "-192128033/2251799813685248",
+          "-17141689/2251799813685248",
+          "1/281474976710656",
+          "3/2251799813685248"
+        ],
+        "dual_residual": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "primal_exact": false,
+        "dual_exact": true,
+        "bound_violation": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "bounds_within_primal_tolerance": true,
+        "max_exact_relative_indicator": "2/47413409",
+        "indicator_within_solve_tolerance": true
+      },
+      "original": {
+        "finite": true,
+        "basis": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "rhs_from_nonbasic_point": [
+          "6",
+          "8",
+          "-1",
+          "2",
+          "0",
+          "0"
+        ],
+        "rhs_from_bounds": [
+          "6",
+          "8",
+          "-1",
+          "2",
+          "0",
+          "0"
+        ],
+        "rhs_agree": true,
+        "primal_residual": [
+          "6879/2199023255552",
+          "-910455/70368744177664",
+          "-192128033/2251799813685248",
+          "-17141689/2251799813685248",
+          "1/281474976710656",
+          "3/2251799813685248"
+        ],
+        "dual_residual": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "primal_exact": false,
+        "dual_exact": true,
+        "bound_violation": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "bounds_within_primal_tolerance": true,
+        "max_exact_relative_indicator": "2/47413409",
+        "indicator_within_solve_tolerance": true
+      },
+      "events": [
+        {
+          "event": "refactor_other",
+          "role": "phase",
+          "iterations": 1,
+          "refactorizations": 2,
+          "equations": {
+            "finite": true,
+            "basis": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "rhs_from_nonbasic_point": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "dual_residual": [
+              "0",
+              "-3/268435456",
+              "7/536870912",
+              "3/268435456",
+              "1/134217728",
+              "-268435467/268435456"
+            ],
+            "primal_exact": true,
+            "dual_exact": false,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": true,
+            "max_exact_relative_indicator": "0",
+            "indicator_within_solve_tolerance": true
+          }
+        },
+        {
+          "event": "artificial_removed",
+          "role": "phase",
+          "iterations": 1,
+          "refactorizations": 2,
+          "equations": {
+            "finite": true,
+            "basis": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "rhs_from_nonbasic_point": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "6879/2199023255552",
+              "-910455/70368744177664",
+              "-192128033/2251799813685248",
+              "-17141689/2251799813685248",
+              "1/281474976710656",
+              "3/2251799813685248"
+            ],
+            "dual_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "primal_exact": false,
+            "dual_exact": true,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": true,
+            "max_exact_relative_indicator": "2/47413409",
+            "indicator_within_solve_tolerance": true
+          }
+        },
+        {
+          "event": "refactor_initial",
+          "role": "temporary",
+          "iterations": 0,
+          "refactorizations": 0,
+          "equations": {
+            "finite": true,
+            "basis": [
+              7,
+              8,
+              9,
+              10,
+              11,
+              12
+            ],
+            "rhs_from_nonbasic_point": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "dual_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "primal_exact": true,
+            "dual_exact": true,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "6",
+              "8",
+              "1",
+              "2",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": false,
+            "max_exact_relative_indicator": "0",
+            "indicator_within_solve_tolerance": true
+          }
+        },
+        {
+          "event": "refactor_other",
+          "role": "temporary",
+          "iterations": 1,
+          "refactorizations": 3,
+          "equations": {
+            "finite": true,
+            "basis": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "rhs_from_nonbasic_point": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "6879/2199023255552",
+              "-910455/70368744177664",
+              "-192128033/2251799813685248",
+              "-17141689/2251799813685248",
+              "1/281474976710656",
+              "3/2251799813685248"
+            ],
+            "dual_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "primal_exact": false,
+            "dual_exact": true,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": true,
+            "max_exact_relative_indicator": "2/47413409",
+            "indicator_within_solve_tolerance": true
+          }
+        }
+      ],
+      "kernels": {
+        "refactorization": 2,
+        "ftran": 5,
+        "btran": 4
+      },
+      "counts": {
+        "artificial_removed": 1,
+        "refactor_other": 2,
+        "refactor_initial": 1
+      }
+    },
+    {
+      "scalar": "Float32",
+      "manager": "forrest_tomlin",
+      "budget": 0,
+      "accepted": true,
+      "phase": {
+        "finite": true,
+        "basis": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "rhs_from_nonbasic_point": [
+          "6",
+          "8",
+          "-1",
+          "2",
+          "0",
+          "0"
+        ],
+        "rhs_from_bounds": [
+          "6",
+          "8",
+          "-1",
+          "2",
+          "0",
+          "0"
+        ],
+        "rhs_agree": true,
+        "primal_residual": [
+          "6879/2199023255552",
+          "-910455/70368744177664",
+          "-192128033/2251799813685248",
+          "-17141689/2251799813685248",
+          "1/281474976710656",
+          "3/2251799813685248"
+        ],
+        "dual_residual": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "primal_exact": false,
+        "dual_exact": true,
+        "bound_violation": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "bounds_within_primal_tolerance": true,
+        "max_exact_relative_indicator": "2/47413409",
+        "indicator_within_solve_tolerance": true
+      },
+      "original": {
+        "finite": true,
+        "basis": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "rhs_from_nonbasic_point": [
+          "6",
+          "8",
+          "-1",
+          "2",
+          "0",
+          "0"
+        ],
+        "rhs_from_bounds": [
+          "6",
+          "8",
+          "-1",
+          "2",
+          "0",
+          "0"
+        ],
+        "rhs_agree": true,
+        "primal_residual": [
+          "6879/2199023255552",
+          "-910455/70368744177664",
+          "-192128033/2251799813685248",
+          "-17141689/2251799813685248",
+          "1/281474976710656",
+          "3/2251799813685248"
+        ],
+        "dual_residual": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "primal_exact": false,
+        "dual_exact": true,
+        "bound_violation": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "bounds_within_primal_tolerance": true,
+        "max_exact_relative_indicator": "2/47413409",
+        "indicator_within_solve_tolerance": true
+      },
+      "events": [
+        {
+          "event": "refactor_other",
+          "role": "phase",
+          "iterations": 1,
+          "refactorizations": 2,
+          "equations": {
+            "finite": true,
+            "basis": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "rhs_from_nonbasic_point": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "dual_residual": [
+              "0",
+              "-3/268435456",
+              "7/536870912",
+              "3/268435456",
+              "1/134217728",
+              "-268435467/268435456"
+            ],
+            "primal_exact": true,
+            "dual_exact": false,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": true,
+            "max_exact_relative_indicator": "0",
+            "indicator_within_solve_tolerance": true
+          }
+        },
+        {
+          "event": "artificial_removed",
+          "role": "phase",
+          "iterations": 1,
+          "refactorizations": 2,
+          "equations": {
+            "finite": true,
+            "basis": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "rhs_from_nonbasic_point": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "6879/2199023255552",
+              "-910455/70368744177664",
+              "-192128033/2251799813685248",
+              "-17141689/2251799813685248",
+              "1/281474976710656",
+              "3/2251799813685248"
+            ],
+            "dual_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "primal_exact": false,
+            "dual_exact": true,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": true,
+            "max_exact_relative_indicator": "2/47413409",
+            "indicator_within_solve_tolerance": true
+          }
+        },
+        {
+          "event": "refactor_initial",
+          "role": "temporary",
+          "iterations": 0,
+          "refactorizations": 0,
+          "equations": {
+            "finite": true,
+            "basis": [
+              7,
+              8,
+              9,
+              10,
+              11,
+              12
+            ],
+            "rhs_from_nonbasic_point": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "dual_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "primal_exact": true,
+            "dual_exact": true,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "6",
+              "8",
+              "1",
+              "2",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": false,
+            "max_exact_relative_indicator": "0",
+            "indicator_within_solve_tolerance": true
+          }
+        },
+        {
+          "event": "refactor_other",
+          "role": "temporary",
+          "iterations": 1,
+          "refactorizations": 3,
+          "equations": {
+            "finite": true,
+            "basis": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "rhs_from_nonbasic_point": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "6879/2199023255552",
+              "-910455/70368744177664",
+              "-192128033/2251799813685248",
+              "-17141689/2251799813685248",
+              "1/281474976710656",
+              "3/2251799813685248"
+            ],
+            "dual_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "primal_exact": false,
+            "dual_exact": true,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": true,
+            "max_exact_relative_indicator": "2/47413409",
+            "indicator_within_solve_tolerance": true
+          }
+        }
+      ],
+      "kernels": {
+        "refactorization": 2,
+        "ftran": 5,
+        "btran": 4
+      },
+      "counts": {
+        "artificial_removed": 1,
+        "refactor_other": 2,
+        "refactor_initial": 1
+      }
+    },
+    {
+      "scalar": "Float32",
+      "manager": "suhl_suhl",
+      "budget": 0,
+      "accepted": true,
+      "phase": {
+        "finite": true,
+        "basis": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "rhs_from_nonbasic_point": [
+          "6",
+          "8",
+          "-1",
+          "2",
+          "0",
+          "0"
+        ],
+        "rhs_from_bounds": [
+          "6",
+          "8",
+          "-1",
+          "2",
+          "0",
+          "0"
+        ],
+        "rhs_agree": true,
+        "primal_residual": [
+          "6879/2199023255552",
+          "-910455/70368744177664",
+          "-192128033/2251799813685248",
+          "-17141689/2251799813685248",
+          "1/281474976710656",
+          "3/2251799813685248"
+        ],
+        "dual_residual": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "primal_exact": false,
+        "dual_exact": true,
+        "bound_violation": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "bounds_within_primal_tolerance": true,
+        "max_exact_relative_indicator": "2/47413409",
+        "indicator_within_solve_tolerance": true
+      },
+      "original": {
+        "finite": true,
+        "basis": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "rhs_from_nonbasic_point": [
+          "6",
+          "8",
+          "-1",
+          "2",
+          "0",
+          "0"
+        ],
+        "rhs_from_bounds": [
+          "6",
+          "8",
+          "-1",
+          "2",
+          "0",
+          "0"
+        ],
+        "rhs_agree": true,
+        "primal_residual": [
+          "6879/2199023255552",
+          "-910455/70368744177664",
+          "-192128033/2251799813685248",
+          "-17141689/2251799813685248",
+          "1/281474976710656",
+          "3/2251799813685248"
+        ],
+        "dual_residual": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "primal_exact": false,
+        "dual_exact": true,
+        "bound_violation": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "bounds_within_primal_tolerance": true,
+        "max_exact_relative_indicator": "2/47413409",
+        "indicator_within_solve_tolerance": true
+      },
+      "events": [
+        {
+          "event": "refactor_other",
+          "role": "phase",
+          "iterations": 1,
+          "refactorizations": 2,
+          "equations": {
+            "finite": true,
+            "basis": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "rhs_from_nonbasic_point": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "dual_residual": [
+              "0",
+              "-3/268435456",
+              "7/536870912",
+              "3/268435456",
+              "1/134217728",
+              "-268435467/268435456"
+            ],
+            "primal_exact": true,
+            "dual_exact": false,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": true,
+            "max_exact_relative_indicator": "0",
+            "indicator_within_solve_tolerance": true
+          }
+        },
+        {
+          "event": "artificial_removed",
+          "role": "phase",
+          "iterations": 1,
+          "refactorizations": 2,
+          "equations": {
+            "finite": true,
+            "basis": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "rhs_from_nonbasic_point": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "6879/2199023255552",
+              "-910455/70368744177664",
+              "-192128033/2251799813685248",
+              "-17141689/2251799813685248",
+              "1/281474976710656",
+              "3/2251799813685248"
+            ],
+            "dual_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "primal_exact": false,
+            "dual_exact": true,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": true,
+            "max_exact_relative_indicator": "2/47413409",
+            "indicator_within_solve_tolerance": true
+          }
+        },
+        {
+          "event": "refactor_initial",
+          "role": "temporary",
+          "iterations": 0,
+          "refactorizations": 0,
+          "equations": {
+            "finite": true,
+            "basis": [
+              7,
+              8,
+              9,
+              10,
+              11,
+              12
+            ],
+            "rhs_from_nonbasic_point": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "dual_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "primal_exact": true,
+            "dual_exact": true,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "6",
+              "8",
+              "1",
+              "2",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": false,
+            "max_exact_relative_indicator": "0",
+            "indicator_within_solve_tolerance": true
+          }
+        },
+        {
+          "event": "refactor_other",
+          "role": "temporary",
+          "iterations": 1,
+          "refactorizations": 3,
+          "equations": {
+            "finite": true,
+            "basis": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "rhs_from_nonbasic_point": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "6879/2199023255552",
+              "-910455/70368744177664",
+              "-192128033/2251799813685248",
+              "-17141689/2251799813685248",
+              "1/281474976710656",
+              "3/2251799813685248"
+            ],
+            "dual_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "primal_exact": false,
+            "dual_exact": true,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": true,
+            "max_exact_relative_indicator": "2/47413409",
+            "indicator_within_solve_tolerance": true
+          }
+        }
+      ],
+      "kernels": {
+        "refactorization": 2,
+        "ftran": 5,
+        "btran": 4
+      },
+      "counts": {
+        "artificial_removed": 1,
+        "refactor_other": 2,
+        "refactor_initial": 1
+      }
+    },
+    {
+      "scalar": "Float32",
+      "manager": "bartels_golub",
+      "budget": 0,
+      "accepted": true,
+      "phase": {
+        "finite": true,
+        "basis": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "rhs_from_nonbasic_point": [
+          "6",
+          "8",
+          "-1",
+          "2",
+          "0",
+          "0"
+        ],
+        "rhs_from_bounds": [
+          "6",
+          "8",
+          "-1",
+          "2",
+          "0",
+          "0"
+        ],
+        "rhs_agree": true,
+        "primal_residual": [
+          "6879/2199023255552",
+          "-910455/70368744177664",
+          "-192128033/2251799813685248",
+          "-17141689/2251799813685248",
+          "1/281474976710656",
+          "3/2251799813685248"
+        ],
+        "dual_residual": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "primal_exact": false,
+        "dual_exact": true,
+        "bound_violation": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "bounds_within_primal_tolerance": true,
+        "max_exact_relative_indicator": "2/47413409",
+        "indicator_within_solve_tolerance": true
+      },
+      "original": {
+        "finite": true,
+        "basis": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "rhs_from_nonbasic_point": [
+          "6",
+          "8",
+          "-1",
+          "2",
+          "0",
+          "0"
+        ],
+        "rhs_from_bounds": [
+          "6",
+          "8",
+          "-1",
+          "2",
+          "0",
+          "0"
+        ],
+        "rhs_agree": true,
+        "primal_residual": [
+          "6879/2199023255552",
+          "-910455/70368744177664",
+          "-192128033/2251799813685248",
+          "-17141689/2251799813685248",
+          "1/281474976710656",
+          "3/2251799813685248"
+        ],
+        "dual_residual": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "primal_exact": false,
+        "dual_exact": true,
+        "bound_violation": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "bounds_within_primal_tolerance": true,
+        "max_exact_relative_indicator": "2/47413409",
+        "indicator_within_solve_tolerance": true
+      },
+      "events": [
+        {
+          "event": "refactor_other",
+          "role": "phase",
+          "iterations": 1,
+          "refactorizations": 2,
+          "equations": {
+            "finite": true,
+            "basis": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "rhs_from_nonbasic_point": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "dual_residual": [
+              "0",
+              "-3/268435456",
+              "7/536870912",
+              "3/268435456",
+              "1/134217728",
+              "-268435467/268435456"
+            ],
+            "primal_exact": true,
+            "dual_exact": false,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": true,
+            "max_exact_relative_indicator": "0",
+            "indicator_within_solve_tolerance": true
+          }
+        },
+        {
+          "event": "artificial_removed",
+          "role": "phase",
+          "iterations": 1,
+          "refactorizations": 2,
+          "equations": {
+            "finite": true,
+            "basis": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "rhs_from_nonbasic_point": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "6879/2199023255552",
+              "-910455/70368744177664",
+              "-192128033/2251799813685248",
+              "-17141689/2251799813685248",
+              "1/281474976710656",
+              "3/2251799813685248"
+            ],
+            "dual_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "primal_exact": false,
+            "dual_exact": true,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": true,
+            "max_exact_relative_indicator": "2/47413409",
+            "indicator_within_solve_tolerance": true
+          }
+        },
+        {
+          "event": "refactor_initial",
+          "role": "temporary",
+          "iterations": 0,
+          "refactorizations": 0,
+          "equations": {
+            "finite": true,
+            "basis": [
+              7,
+              8,
+              9,
+              10,
+              11,
+              12
+            ],
+            "rhs_from_nonbasic_point": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "dual_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "primal_exact": true,
+            "dual_exact": true,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "6",
+              "8",
+              "1",
+              "2",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": false,
+            "max_exact_relative_indicator": "0",
+            "indicator_within_solve_tolerance": true
+          }
+        },
+        {
+          "event": "refactor_other",
+          "role": "temporary",
+          "iterations": 1,
+          "refactorizations": 3,
+          "equations": {
+            "finite": true,
+            "basis": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "rhs_from_nonbasic_point": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_from_bounds": [
+              "6",
+              "8",
+              "-1",
+              "2",
+              "0",
+              "0"
+            ],
+            "rhs_agree": true,
+            "primal_residual": [
+              "6879/2199023255552",
+              "-910455/70368744177664",
+              "-192128033/2251799813685248",
+              "-17141689/2251799813685248",
+              "1/281474976710656",
+              "3/2251799813685248"
+            ],
+            "dual_residual": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "primal_exact": false,
+            "dual_exact": true,
+            "bound_violation": [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "bounds_within_primal_tolerance": true,
+            "max_exact_relative_indicator": "2/47413409",
+            "indicator_within_solve_tolerance": true
+          }
+        }
+      ],
+      "kernels": {
+        "refactorization": 2,
+        "ftran": 5,
+        "btran": 4
+      },
+      "counts": {
+        "artificial_removed": 1,
+        "refactor_other": 2,
+        "refactor_initial": 1
+      }
+    }
+  ],
+  "scope": "Exact equations of owned observations, not production quality replay, hidden trajectory/observer neutrality or x64 backend proof; refactor events precede solves and rho may be stale."
+}
