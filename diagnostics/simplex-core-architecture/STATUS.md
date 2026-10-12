@@ -116,13 +116,25 @@ findings/no unnecessary production work or memory. Only new identity6 helper and
 zero-budget target call; original4assertions/nativehelper/allneighbors unchanged.
 Same structural singleton; different equations/activities/cancellation. No production,
 options,tolerance,precision or CI change. See S6-RELIABLE-EXCHANGE-FIXTURE.md/REVIEW.
-Next: docs/superpowers/plans/2026-10-12-phase-reconstruction-boundary-qualification.md,
-S6-AB. Mandatory phase-factor ownership/dispatch/copy/update/refactor/invalidation
-and full solve-attempt counting preflight before wrapper or numerics. Unqualified
-identity6 phase-only real-forward declared FTRAN output injection, at most16new
-exchanges across two scalars/four managers/control+subject. Original/export factors
-remain real. No old X/Y/Z/AA/corpus/reference/cost reruns. First4scalar-unknown CI
-failures, private CI export/cause, broader S6/fullsuite/x64 remain unresolved.
+S6-AB independently accepted:16newidentity exchanges,305/305,exit0,27audit gates
+622pins517sharedsource/runtime/env,5raw/portable checks,32offline exact checks.
+Phase-only declared2^-10coordinate3 after real primalFTRAN causes exactly1correction;
+phase4FTRAN/2BTRAN/1update/1refactor/5invalidations/1primalRHS/1correctionRHS/1hit.
+Whole remove6FTRAN/4BTRAN/2refactor kernels vs realcontrol5/4/2; freshsetup additional.
+All seven original assertions and exact endpoint/certificates; realoriginal/export.
+Successful calls only logged; no throwing-attempt proof,copyfailfast unsupported.
+Freshgpt6astra accepts; reviewerMinor next-plan missing workoracle regradedImportant
+and fixed offline RED3missing/GREEN3checks without numerical rerun. No deferredminor,
+production/test/master/CI unchanged. See S6-PHASE-RECONSTRUCTION-BOUNDARY.md/REVIEW.
+Next: docs/superpowers/plans/2026-10-12-phase-reconstruction-fixture-repair.md,S6-AC.
+Separate permanent test-only phase helper and targetcall; nativehelper/allneighbors
+byteidentical,original7assertions retained. Structural zero-solve RED; qualified
+real-forward one-shot phaseoutput with pre-forward attemptcounters and fullremove
+kernel6/4/2,invalidations5; no diagnostic snapshotledgers/extra permanent exchanges.
+Actual GREEN target+nativecancel+reliable neighbors, freshreview,actualmastergate
+and source/pins/userhashes before integration/push. X/Y/Z/AA/AB accepteddrivers and
+oldcorpus/reference/cost NERERUN. First4scalar-unknownhistoricalfailures/privateCI
+export/cause and broaderS6/fullsuite/x64 remain unresolved.
 
 
 S6-S accepted evidence90811de/closure6c5ef37: fourtype13/13 + factor6/6; initial
@@ -130,7 +142,7 @@ comparability30/31false preserved with517pin/current-external supplement; no
 retroactive launch pin. Factor19gates615pins/exactLU/primal/dual residuals0.
 S6-R accepted08b7485/3baf29b:12/12/21gates613pins,componentdecomposition-1/16.
 Do not rerun old N/O/P/Q/R/S/T/corpus/reference/cost drivers against changed tests.
-Last fresh host403571/403572/403563 absent,noJulia,boot20de7dde-704e-41c8-bee7-b8511c0a86b0.
+Last fresh host404646/404647/404634 absent,noJulia,boot20de7dde-704e-41c8-bee7-b8511c0a86b0.
 Verify new host state before edits or any new Julia. User environment/dirt preserved.
 
 S6-Q remains accepted:11events,5/5,24gates611pins,exact S6-N endpoint. Refactor event

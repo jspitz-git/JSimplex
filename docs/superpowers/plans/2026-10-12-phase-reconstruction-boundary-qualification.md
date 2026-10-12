@@ -58,3 +58,23 @@ before edits/launch; no pinned mutations while active. No big/largo/AnyMOD/alias
 Preserve all raw/user/environment/worktree evidence. No accepted corpus/reference/
 cost/driver reruns; no weakening of assertions,tolerances,precision or safeguards.
 CI disabled; actual x64/fullsuite and broader S6 remain open.
+
+## Preflight ruling
+
+Native removal never calls factor copy. A diagnostic fail-fast copy guard records
+unsupported use; copy is deliberately unqualified, not falsely forwarded. Required
+update/refactor/destination invalidation dispatch is checked by bounded subjects.
+Exact phase work oracle4FTRAN/2BTRAN/1update/1refactor/1primalRHS/1correctionRHS/1hit,
+whole remove6/4/2 vs realcontrol5/4/2. Static extra-primal-call negative oracle uses
+a copied count dictionary, no additional numerical calls. See results/S6-AB/preflight.md.
+
+## Completion
+
+Qualification-1:16newexchanges,305/305,exit0,27gates622pins517shared;5raw identity
+checks and32offline exact boundary checks. Fresh independent review accepted.
+Actual logs count successful forwards, not throws; all removals succeeded and
+scoped source propagates throwing factor calls, so no failed attempt is hidden here.
+No general exception accounting claimed. Next permanent plan counts before forwarding
+and explicitly guards phase invalidations and whole-remove kernels after review fix.
+No production/test change; no accepted reruns. Reports S6-PHASE-RECONSTRUCTION-BOUNDARY
+and REVIEW; next2026-10-12-phase-reconstruction-fixture-repair.md,S6-AC.
