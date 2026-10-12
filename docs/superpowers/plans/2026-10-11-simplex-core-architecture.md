@@ -602,3 +602,15 @@ Next S4-K four nonfinite same-pattern refactor cases in
 2026-10-12-hh-nonfinite-reuse-boundary.md. Strict failure preservation/no retry;
 source-derived and bounded hidden native work remain explicit. No enablement,
 fullsuite/speed/native-retention proof. Keep all old raw and accepted scripts.
+
+### S4-K closure, 2026-10-12
+
+Four new same-pattern nonfinite HH cases qualified49checks/26gates551pins,
+9authorindependent checks;4constructors4refactorattempts8retainedHHsolves.
+All reject before publication, old extracted state preserved; eight exact nonzero
+residuals satisfy PRELAUNCH frozen bound (JMinor resolved). Fresh gpt-6-astra no
+findings/no unnecessary productionworkmemory; reviewer16pins/raw4/exact8 separate
+from authorfull551. No production/test/CI edit or symbolic enablement. Next S4-L
+source-only representative lifecycle cost/native-memory measurement contract in
+2026-10-12-hh-symbolic-cost-contract.md. No numerical launch or old lifecycle rerun
+in L; all broader S4/S6 and original historical rejections remain unchanged.

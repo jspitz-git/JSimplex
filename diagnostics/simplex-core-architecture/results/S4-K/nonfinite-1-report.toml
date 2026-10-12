@@ -1,0 +1,695 @@
+source = "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src"
+scope = "S4-K nonfinite internal HH refactor boundary"
+precision = 256
+threads = 1
+blas_threads = 1
+rounding = "RoundingMode{:Nearest}()"
+clone_sha256 = "d4590820f1b61aeacf7a00675f59424b42ee4f945b252604c249dd0824e42e2b"
+julia = "1.13.0"
+complete = true
+native_path = "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libumfpack.so.6.3.5"
+arch = "aarch64"
+native_sha256 = "ab4db5e6b6930084f804ce6712858a41779b992af6619bed0ad7f55dcecfc949"
+
+[[records]]
+exception = "SingularException"
+symbolic_same = false
+pattern_before = true
+native_status = 1
+control_before = ["3ff0000000000000", "3fc999999999999a", "3fc999999999999a", "3fb999999999999a", "4040000000000000", "0000000000000000", "3fe6666666666666", "0000000000000000", "3ff0000000000000", "3fd3333333333333", "3ff0000000000000", "3ff0000000000000", "3feccccccccccccd", "0000000000000000", "4024000000000000", "3f50624dd2f1a9fc", "3ff0000000000000", "3fe0000000000000", "0000000000000000", "3ff0000000000000"]
+label = "inf_reference"
+candidate = false
+discarded = true
+control_after = ["3ff0000000000000", "3fc999999999999a", "3fc999999999999a", "3fb999999999999a", "4040000000000000", "0000000000000000", "3fe6666666666666", "0000000000000000", "3ff0000000000000", "3fd3333333333333", "3ff0000000000000", "3ff0000000000000", "3feccccccccccccd", "0000000000000000", "4024000000000000", "3f50624dd2f1a9fc", "3ff0000000000000", "3fe0000000000000", "0000000000000000", "3ff0000000000000"]
+complete = true
+numeric_same = false
+message = "SingularException: matrix is singular; factorization failed. Zero pivot found at index 0"
+
+    [records.B0]
+    rowval = [1, 2, 1, 2]
+    n = 2
+    colptr = [1, 3, 5]
+    m = 2
+    bits = ["4010000000000000", "3ff0000000000000", "3ff0000000000000", "4008000000000000"]
+
+    [records.target]
+    rowval = [1, 2, 1, 2]
+    n = 2
+    colptr = [1, 3, 5]
+    m = 2
+    bits = ["7ff0000000000000", "3ff0000000000000", "3ff0000000000000", "4008000000000000"]
+
+    [records.after]
+    base_id = "6716463169189453877"
+    updates_id = "14562551992627285186"
+    direction_id = "6977943795831726243"
+    shared = 0
+    updates = []
+    prepared_valid = false
+    partial = ["0000000000000000", "0000000000000000"]
+    direction = ["0000000000000000", "0000000000000000"]
+    partial_id = "909553823683603074"
+
+        [records.after.u_pool]
+        id = "17936279108348057517"
+        pairs_id = "10436857035242996466"
+        entries = 0
+        pairs = []
+
+        [records.after.base]
+        upper_rowptr = [1, 2, 2]
+        finite_upper = true
+        positions = [1, 2]
+        upper_columns = [2]
+        columns = [1, 2]
+        scaling = ["3fc999999999999a", "3fd0000000000000"]
+        rows = [1, 2]
+        divide_scaling = false
+
+            [records.after.base.upper]
+            rowval = [1, 1, 2]
+            n = 2
+            colptr = [1, 2, 4]
+            m = 2
+            bits = ["3fe999999999999a", "3fc999999999999a", "3fe6000000000000"]
+
+            [records.after.base.lower]
+            rowval = [1, 2, 2]
+            n = 2
+            colptr = [1, 3, 4]
+            m = 2
+            bits = ["3ff0000000000000", "3fd4000000000000", "3ff0000000000000"]
+
+        [records.after.v_pool]
+        id = "6877613907358783782"
+        pairs_id = "1868835817663927846"
+        entries = 0
+        pairs = []
+
+    [records.before]
+    base_id = "6716463169189453877"
+    updates_id = "14562551992627285186"
+    direction_id = "6977943795831726243"
+    shared = 0
+    updates = []
+    prepared_valid = false
+    partial = ["0000000000000000", "0000000000000000"]
+    direction = ["0000000000000000", "0000000000000000"]
+    partial_id = "909553823683603074"
+
+        [records.before.u_pool]
+        id = "17936279108348057517"
+        pairs_id = "10436857035242996466"
+        entries = 0
+        pairs = []
+
+        [records.before.base]
+        upper_rowptr = [1, 2, 2]
+        finite_upper = true
+        positions = [1, 2]
+        upper_columns = [2]
+        columns = [1, 2]
+        scaling = ["3fc999999999999a", "3fd0000000000000"]
+        rows = [1, 2]
+        divide_scaling = false
+
+            [records.before.base.upper]
+            rowval = [1, 1, 2]
+            n = 2
+            colptr = [1, 2, 4]
+            m = 2
+            bits = ["3fe999999999999a", "3fc999999999999a", "3fe6000000000000"]
+
+            [records.before.base.lower]
+            rowval = [1, 2, 2]
+            n = 2
+            colptr = [1, 3, 4]
+            m = 2
+            bits = ["3ff0000000000000", "3fd4000000000000", "3ff0000000000000"]
+
+        [records.before.v_pool]
+        id = "6877613907358783782"
+        pairs_id = "1868835817663927846"
+        entries = 0
+        pairs = []
+
+    [records.native_after]
+    rowval = [0, 1, 0, 1]
+    n = 2
+    colptr = [0, 2, 4]
+    m = 2
+    bits = ["7ff0000000000000", "3ff0000000000000", "3ff0000000000000", "4008000000000000"]
+[[records]]
+exception = "SingularException"
+symbolic_same = true
+pattern_before = true
+native_status = 1
+control_before = ["3ff0000000000000", "3fc999999999999a", "3fc999999999999a", "3fb999999999999a", "4040000000000000", "0000000000000000", "3fe6666666666666", "0000000000000000", "3ff0000000000000", "3fd3333333333333", "3ff0000000000000", "3ff0000000000000", "3feccccccccccccd", "0000000000000000", "4024000000000000", "3f50624dd2f1a9fc", "3ff0000000000000", "3fe0000000000000", "0000000000000000", "3ff0000000000000"]
+label = "inf_candidate"
+candidate = true
+discarded = true
+control_after = ["3ff0000000000000", "3fc999999999999a", "3fc999999999999a", "3fb999999999999a", "4040000000000000", "0000000000000000", "3fe6666666666666", "0000000000000000", "3ff0000000000000", "3fd3333333333333", "3ff0000000000000", "3ff0000000000000", "3feccccccccccccd", "0000000000000000", "4024000000000000", "3f50624dd2f1a9fc", "3ff0000000000000", "3fe0000000000000", "0000000000000000", "3ff0000000000000"]
+complete = true
+numeric_same = false
+message = "SingularException: matrix is singular; factorization failed. Zero pivot found at index 0"
+
+    [records.B0]
+    rowval = [1, 2, 1, 2]
+    n = 2
+    colptr = [1, 3, 5]
+    m = 2
+    bits = ["4010000000000000", "3ff0000000000000", "3ff0000000000000", "4008000000000000"]
+
+    [records.target]
+    rowval = [1, 2, 1, 2]
+    n = 2
+    colptr = [1, 3, 5]
+    m = 2
+    bits = ["7ff0000000000000", "3ff0000000000000", "3ff0000000000000", "4008000000000000"]
+
+    [records.after]
+    base_id = "12119243566572225008"
+    updates_id = "10135309337592656165"
+    direction_id = "8348195735775129513"
+    shared = 0
+    updates = []
+    prepared_valid = false
+    partial = ["0000000000000000", "0000000000000000"]
+    direction = ["0000000000000000", "0000000000000000"]
+    partial_id = "4777766494412292953"
+
+        [records.after.u_pool]
+        id = "10203795582603984746"
+        pairs_id = "13082886795823729722"
+        entries = 0
+        pairs = []
+
+        [records.after.base]
+        upper_rowptr = [1, 2, 2]
+        finite_upper = true
+        positions = [1, 2]
+        upper_columns = [2]
+        columns = [1, 2]
+        scaling = ["3fc999999999999a", "3fd0000000000000"]
+        rows = [1, 2]
+        divide_scaling = false
+
+            [records.after.base.upper]
+            rowval = [1, 1, 2]
+            n = 2
+            colptr = [1, 2, 4]
+            m = 2
+            bits = ["3fe999999999999a", "3fc999999999999a", "3fe6000000000000"]
+
+            [records.after.base.lower]
+            rowval = [1, 2, 2]
+            n = 2
+            colptr = [1, 3, 4]
+            m = 2
+            bits = ["3ff0000000000000", "3fd4000000000000", "3ff0000000000000"]
+
+        [records.after.v_pool]
+        id = "5021156177304002534"
+        pairs_id = "1313432415712946771"
+        entries = 0
+        pairs = []
+
+    [records.before]
+    base_id = "12119243566572225008"
+    updates_id = "10135309337592656165"
+    direction_id = "8348195735775129513"
+    shared = 0
+    updates = []
+    prepared_valid = false
+    partial = ["0000000000000000", "0000000000000000"]
+    direction = ["0000000000000000", "0000000000000000"]
+    partial_id = "4777766494412292953"
+
+        [records.before.u_pool]
+        id = "10203795582603984746"
+        pairs_id = "13082886795823729722"
+        entries = 0
+        pairs = []
+
+        [records.before.base]
+        upper_rowptr = [1, 2, 2]
+        finite_upper = true
+        positions = [1, 2]
+        upper_columns = [2]
+        columns = [1, 2]
+        scaling = ["3fc999999999999a", "3fd0000000000000"]
+        rows = [1, 2]
+        divide_scaling = false
+
+            [records.before.base.upper]
+            rowval = [1, 1, 2]
+            n = 2
+            colptr = [1, 2, 4]
+            m = 2
+            bits = ["3fe999999999999a", "3fc999999999999a", "3fe6000000000000"]
+
+            [records.before.base.lower]
+            rowval = [1, 2, 2]
+            n = 2
+            colptr = [1, 3, 4]
+            m = 2
+            bits = ["3ff0000000000000", "3fd4000000000000", "3ff0000000000000"]
+
+        [records.before.v_pool]
+        id = "5021156177304002534"
+        pairs_id = "1313432415712946771"
+        entries = 0
+        pairs = []
+
+    [records.native_after]
+    rowval = [0, 1, 0, 1]
+    n = 2
+    colptr = [0, 2, 4]
+    m = 2
+    bits = ["7ff0000000000000", "3ff0000000000000", "3ff0000000000000", "4008000000000000"]
+[[records]]
+exception = "SingularException"
+symbolic_same = false
+pattern_before = true
+native_status = 1
+control_before = ["3ff0000000000000", "3fc999999999999a", "3fc999999999999a", "3fb999999999999a", "4040000000000000", "0000000000000000", "3fe6666666666666", "0000000000000000", "3ff0000000000000", "3fd3333333333333", "3ff0000000000000", "3ff0000000000000", "3feccccccccccccd", "0000000000000000", "4024000000000000", "3f50624dd2f1a9fc", "3ff0000000000000", "3fe0000000000000", "0000000000000000", "3ff0000000000000"]
+label = "nan_reference"
+candidate = false
+discarded = true
+control_after = ["3ff0000000000000", "3fc999999999999a", "3fc999999999999a", "3fb999999999999a", "4040000000000000", "0000000000000000", "3fe6666666666666", "0000000000000000", "3ff0000000000000", "3fd3333333333333", "3ff0000000000000", "3ff0000000000000", "3feccccccccccccd", "0000000000000000", "4024000000000000", "3f50624dd2f1a9fc", "3ff0000000000000", "3fe0000000000000", "0000000000000000", "3ff0000000000000"]
+complete = true
+numeric_same = false
+message = "SingularException: matrix is singular; factorization failed. Zero pivot found at index 0"
+
+    [records.B0]
+    rowval = [1, 2, 1, 2]
+    n = 2
+    colptr = [1, 3, 5]
+    m = 2
+    bits = ["4010000000000000", "3ff0000000000000", "3ff0000000000000", "4008000000000000"]
+
+    [records.target]
+    rowval = [1, 2, 1, 2]
+    n = 2
+    colptr = [1, 3, 5]
+    m = 2
+    bits = ["7ff8000000000000", "3ff0000000000000", "3ff0000000000000", "4008000000000000"]
+
+    [records.after]
+    base_id = "908853107290788438"
+    updates_id = "7805519741429159875"
+    direction_id = "12032400318718337361"
+    shared = 0
+    updates = []
+    prepared_valid = false
+    partial = ["0000000000000000", "0000000000000000"]
+    direction = ["0000000000000000", "0000000000000000"]
+    partial_id = "16565216534097590662"
+
+        [records.after.u_pool]
+        id = "7271121802629869763"
+        pairs_id = "3117947489854151691"
+        entries = 0
+        pairs = []
+
+        [records.after.base]
+        upper_rowptr = [1, 2, 2]
+        finite_upper = true
+        positions = [1, 2]
+        upper_columns = [2]
+        columns = [1, 2]
+        scaling = ["3fc999999999999a", "3fd0000000000000"]
+        rows = [1, 2]
+        divide_scaling = false
+
+            [records.after.base.upper]
+            rowval = [1, 1, 2]
+            n = 2
+            colptr = [1, 2, 4]
+            m = 2
+            bits = ["3fe999999999999a", "3fc999999999999a", "3fe6000000000000"]
+
+            [records.after.base.lower]
+            rowval = [1, 2, 2]
+            n = 2
+            colptr = [1, 3, 4]
+            m = 2
+            bits = ["3ff0000000000000", "3fd4000000000000", "3ff0000000000000"]
+
+        [records.after.v_pool]
+        id = "5734550872566010114"
+        pairs_id = "16861528022351216043"
+        entries = 0
+        pairs = []
+
+    [records.before]
+    base_id = "908853107290788438"
+    updates_id = "7805519741429159875"
+    direction_id = "12032400318718337361"
+    shared = 0
+    updates = []
+    prepared_valid = false
+    partial = ["0000000000000000", "0000000000000000"]
+    direction = ["0000000000000000", "0000000000000000"]
+    partial_id = "16565216534097590662"
+
+        [records.before.u_pool]
+        id = "7271121802629869763"
+        pairs_id = "3117947489854151691"
+        entries = 0
+        pairs = []
+
+        [records.before.base]
+        upper_rowptr = [1, 2, 2]
+        finite_upper = true
+        positions = [1, 2]
+        upper_columns = [2]
+        columns = [1, 2]
+        scaling = ["3fc999999999999a", "3fd0000000000000"]
+        rows = [1, 2]
+        divide_scaling = false
+
+            [records.before.base.upper]
+            rowval = [1, 1, 2]
+            n = 2
+            colptr = [1, 2, 4]
+            m = 2
+            bits = ["3fe999999999999a", "3fc999999999999a", "3fe6000000000000"]
+
+            [records.before.base.lower]
+            rowval = [1, 2, 2]
+            n = 2
+            colptr = [1, 3, 4]
+            m = 2
+            bits = ["3ff0000000000000", "3fd4000000000000", "3ff0000000000000"]
+
+        [records.before.v_pool]
+        id = "5734550872566010114"
+        pairs_id = "16861528022351216043"
+        entries = 0
+        pairs = []
+
+    [records.native_after]
+    rowval = [0, 1, 0, 1]
+    n = 2
+    colptr = [0, 2, 4]
+    m = 2
+    bits = ["7ff8000000000000", "3ff0000000000000", "3ff0000000000000", "4008000000000000"]
+[[records]]
+exception = "SingularException"
+symbolic_same = true
+pattern_before = true
+native_status = 1
+control_before = ["3ff0000000000000", "3fc999999999999a", "3fc999999999999a", "3fb999999999999a", "4040000000000000", "0000000000000000", "3fe6666666666666", "0000000000000000", "3ff0000000000000", "3fd3333333333333", "3ff0000000000000", "3ff0000000000000", "3feccccccccccccd", "0000000000000000", "4024000000000000", "3f50624dd2f1a9fc", "3ff0000000000000", "3fe0000000000000", "0000000000000000", "3ff0000000000000"]
+label = "nan_candidate"
+candidate = true
+discarded = true
+control_after = ["3ff0000000000000", "3fc999999999999a", "3fc999999999999a", "3fb999999999999a", "4040000000000000", "0000000000000000", "3fe6666666666666", "0000000000000000", "3ff0000000000000", "3fd3333333333333", "3ff0000000000000", "3ff0000000000000", "3feccccccccccccd", "0000000000000000", "4024000000000000", "3f50624dd2f1a9fc", "3ff0000000000000", "3fe0000000000000", "0000000000000000", "3ff0000000000000"]
+complete = true
+numeric_same = false
+message = "SingularException: matrix is singular; factorization failed. Zero pivot found at index 0"
+
+    [records.B0]
+    rowval = [1, 2, 1, 2]
+    n = 2
+    colptr = [1, 3, 5]
+    m = 2
+    bits = ["4010000000000000", "3ff0000000000000", "3ff0000000000000", "4008000000000000"]
+
+    [records.target]
+    rowval = [1, 2, 1, 2]
+    n = 2
+    colptr = [1, 3, 5]
+    m = 2
+    bits = ["7ff8000000000000", "3ff0000000000000", "3ff0000000000000", "4008000000000000"]
+
+    [records.after]
+    base_id = "17103134897601607221"
+    updates_id = "12937621327389724185"
+    direction_id = "15142297920571062289"
+    shared = 0
+    updates = []
+    prepared_valid = false
+    partial = ["0000000000000000", "0000000000000000"]
+    direction = ["0000000000000000", "0000000000000000"]
+    partial_id = "11019456077750577610"
+
+        [records.after.u_pool]
+        id = "9161022415793461411"
+        pairs_id = "697899744333955055"
+        entries = 0
+        pairs = []
+
+        [records.after.base]
+        upper_rowptr = [1, 2, 2]
+        finite_upper = true
+        positions = [1, 2]
+        upper_columns = [2]
+        columns = [1, 2]
+        scaling = ["3fc999999999999a", "3fd0000000000000"]
+        rows = [1, 2]
+        divide_scaling = false
+
+            [records.after.base.upper]
+            rowval = [1, 1, 2]
+            n = 2
+            colptr = [1, 2, 4]
+            m = 2
+            bits = ["3fe999999999999a", "3fc999999999999a", "3fe6000000000000"]
+
+            [records.after.base.lower]
+            rowval = [1, 2, 2]
+            n = 2
+            colptr = [1, 3, 4]
+            m = 2
+            bits = ["3ff0000000000000", "3fd4000000000000", "3ff0000000000000"]
+
+        [records.after.v_pool]
+        id = "6095216922451434247"
+        pairs_id = "6381664258095977002"
+        entries = 0
+        pairs = []
+
+    [records.before]
+    base_id = "17103134897601607221"
+    updates_id = "12937621327389724185"
+    direction_id = "15142297920571062289"
+    shared = 0
+    updates = []
+    prepared_valid = false
+    partial = ["0000000000000000", "0000000000000000"]
+    direction = ["0000000000000000", "0000000000000000"]
+    partial_id = "11019456077750577610"
+
+        [records.before.u_pool]
+        id = "9161022415793461411"
+        pairs_id = "697899744333955055"
+        entries = 0
+        pairs = []
+
+        [records.before.base]
+        upper_rowptr = [1, 2, 2]
+        finite_upper = true
+        positions = [1, 2]
+        upper_columns = [2]
+        columns = [1, 2]
+        scaling = ["3fc999999999999a", "3fd0000000000000"]
+        rows = [1, 2]
+        divide_scaling = false
+
+            [records.before.base.upper]
+            rowval = [1, 1, 2]
+            n = 2
+            colptr = [1, 2, 4]
+            m = 2
+            bits = ["3fe999999999999a", "3fc999999999999a", "3fe6000000000000"]
+
+            [records.before.base.lower]
+            rowval = [1, 2, 2]
+            n = 2
+            colptr = [1, 3, 4]
+            m = 2
+            bits = ["3ff0000000000000", "3fd4000000000000", "3ff0000000000000"]
+
+        [records.before.v_pool]
+        id = "6095216922451434247"
+        pairs_id = "6381664258095977002"
+        entries = 0
+        pairs = []
+
+    [records.native_after]
+    rowval = [0, 1, 0, 1]
+    n = 2
+    colptr = [0, 2, 4]
+    m = 2
+    bits = ["7ff8000000000000", "3ff0000000000000", "3ff0000000000000", "4008000000000000"]
+
+[[solves]]
+rhs_bits = ["3ff0000000000000", "4000000000000000"]
+label = "inf_reference_FTRAN"
+solution_bits = ["3fb745d1745d1745", "3fe45d1745d1745d"]
+residual = 0.0
+transpose = false
+bound = 4.5216355912006373e-14
+
+    [solves.matrix]
+    rowval = [1, 2, 1, 2]
+    n = 2
+    colptr = [1, 3, 5]
+    m = 2
+    bits = ["4010000000000000", "3ff0000000000000", "3ff0000000000000", "4008000000000000"]
+[[solves]]
+rhs_bits = ["3ff0000000000000", "4000000000000000"]
+label = "inf_reference_BTRAN"
+solution_bits = ["3fb745d1745d1747", "3fe45d1745d1745d"]
+residual = 0.0
+transpose = true
+bound = 4.5216355912006373e-14
+
+    [solves.matrix]
+    rowval = [1, 2, 1, 2]
+    n = 2
+    colptr = [1, 3, 5]
+    m = 2
+    bits = ["4010000000000000", "3ff0000000000000", "3ff0000000000000", "4008000000000000"]
+[[solves]]
+rhs_bits = ["3ff0000000000000", "4000000000000000"]
+label = "inf_candidate_FTRAN"
+solution_bits = ["3fb745d1745d1745", "3fe45d1745d1745d"]
+residual = 0.0
+transpose = false
+bound = 4.5216355912006373e-14
+
+    [solves.matrix]
+    rowval = [1, 2, 1, 2]
+    n = 2
+    colptr = [1, 3, 5]
+    m = 2
+    bits = ["4010000000000000", "3ff0000000000000", "3ff0000000000000", "4008000000000000"]
+[[solves]]
+rhs_bits = ["3ff0000000000000", "4000000000000000"]
+label = "inf_candidate_BTRAN"
+solution_bits = ["3fb745d1745d1747", "3fe45d1745d1745d"]
+residual = 0.0
+transpose = true
+bound = 4.5216355912006373e-14
+
+    [solves.matrix]
+    rowval = [1, 2, 1, 2]
+    n = 2
+    colptr = [1, 3, 5]
+    m = 2
+    bits = ["4010000000000000", "3ff0000000000000", "3ff0000000000000", "4008000000000000"]
+[[solves]]
+rhs_bits = ["3ff0000000000000", "4000000000000000"]
+label = "nan_reference_FTRAN"
+solution_bits = ["3fb745d1745d1745", "3fe45d1745d1745d"]
+residual = 0.0
+transpose = false
+bound = 4.5216355912006373e-14
+
+    [solves.matrix]
+    rowval = [1, 2, 1, 2]
+    n = 2
+    colptr = [1, 3, 5]
+    m = 2
+    bits = ["4010000000000000", "3ff0000000000000", "3ff0000000000000", "4008000000000000"]
+[[solves]]
+rhs_bits = ["3ff0000000000000", "4000000000000000"]
+label = "nan_reference_BTRAN"
+solution_bits = ["3fb745d1745d1747", "3fe45d1745d1745d"]
+residual = 0.0
+transpose = true
+bound = 4.5216355912006373e-14
+
+    [solves.matrix]
+    rowval = [1, 2, 1, 2]
+    n = 2
+    colptr = [1, 3, 5]
+    m = 2
+    bits = ["4010000000000000", "3ff0000000000000", "3ff0000000000000", "4008000000000000"]
+[[solves]]
+rhs_bits = ["3ff0000000000000", "4000000000000000"]
+label = "nan_candidate_FTRAN"
+solution_bits = ["3fb745d1745d1745", "3fe45d1745d1745d"]
+residual = 0.0
+transpose = false
+bound = 4.5216355912006373e-14
+
+    [solves.matrix]
+    rowval = [1, 2, 1, 2]
+    n = 2
+    colptr = [1, 3, 5]
+    m = 2
+    bits = ["4010000000000000", "3ff0000000000000", "3ff0000000000000", "4008000000000000"]
+[[solves]]
+rhs_bits = ["3ff0000000000000", "4000000000000000"]
+label = "nan_candidate_BTRAN"
+solution_bits = ["3fb745d1745d1747", "3fe45d1745d1745d"]
+residual = 0.0
+transpose = true
+bound = 4.5216355912006373e-14
+
+    [solves.matrix]
+    rowval = [1, 2, 1, 2]
+    n = 2
+    colptr = [1, 3, 5]
+    m = 2
+    bits = ["4010000000000000", "3ff0000000000000", "3ff0000000000000", "4008000000000000"]
+
+[entries]
+refactor = 4
+constructor = 4
+FTRAN = 4
+BTRAN = 4
+
+[checks]
+inf_reference_pattern = true
+inf_reference_FTRAN_residual = true
+nan_reference_pattern = true
+inf_candidate_qualified_rejection = true
+inf_candidate_BTRAN_residual = true
+inf_reference_BTRAN_residual = true
+native_pinned = true
+nan_candidate_discarded = true
+nan_candidate_caller_preserved = true
+inf_candidate_caller_preserved = true
+inf_reference_caller_preserved = true
+nan_candidate_owned_preservation = true
+inf_candidate_owned_inputs = true
+nan_candidate_FTRAN_residual = true
+nan_reference_owned_inputs = true
+inf_reference_discarded = true
+inf_reference_controls_preserved = true
+nan_reference_BTRAN_residual = true
+nan_reference_caller_preserved = true
+nan_reference_qualified_rejection = true
+inf_reference_owned_inputs = true
+nan_reference_discarded = true
+single_threads = true
+inf_candidate_controls_preserved = true
+inf_candidate_discarded = true
+nan_reference_FTRAN_residual = true
+inf_candidate_owned_preservation = true
+nan_candidate_BTRAN_residual = true
+inf_reference_qualified_rejection = true
+inf_candidate_default_native = true
+inf_reference_owned_preservation = true
+nan_reference_default_native = true
+nan_candidate_default_native = true
+nan_candidate_owned_inputs = true
+nan_candidate_controls_preserved = true
+nan_candidate_qualified_rejection = true
+budget = true
+inf_candidate_pattern = true
+nan_candidate_input_bits = true
+nan_candidate_pattern = true
+inf_reference_default_native = true
+nan_reference_owned_preservation = true
+inf_reference_input_bits = true
+nan_reference_controls_preserved = true
+nan_reference_input_bits = true
+inf_candidate_input_bits = true
+one_native_library = true
+inf_candidate_FTRAN_residual = true
+ambient_preserved = true

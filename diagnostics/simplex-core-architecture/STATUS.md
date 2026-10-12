@@ -46,7 +46,27 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-**Current continuation: S4-J accepted source-only eligibility contract; next S4-K bounded nonfinite same-pattern HH refactor diagnostic, `docs/superpowers/plans/2026-10-12-hh-nonfinite-reuse-boundary.md`. Before K launch, freeze the exact scaled residual formula with the B0/RHS oracle (review Minor deferred). Historical entries below remain preserved.**
+**Current continuation: S4-K accepted narrow nonfinite refactor qualification; next S4-L SOURCE/EVIDENCE ONLY cost/native-retention measurement contract, `docs/superpowers/plans/2026-10-12-hh-symbolic-cost-contract.md`. Historical entries below remain preserved.**
+
+S4-K nonfinite-1:fourNEWFloat64/Int64nativeHHcases(+Infref/candidate,NaNref/candidate),
+49runtimechecks/exit0,26auditgates551pins,9authorindependentchecks. Actual4constructors/
+4refactorattempts/8retainedHHsolves4F4B. AllSingularException/status1; candidatekeeps
+symbolic/reference rebuilds, allnumericownersnew. Discardnativeworkspace,preserve
+oldextracted/emptyhistory/prepared/pools before later oldB0solves. NOnative rollback,
+generalnonfinite/publicmodel/control/platformclaim. Native8entries source-derived,
+UPTO4targetnumeric/UPTO4targetextract/UPTO8totalorientation bounds, not capturedcalls.
+JMinor exact64epsscaledformula frozenPRELAUNCH; all8exactresidualsNONZERO withinbound.
+Onepre/postsnapshot percase; boundedheldnativeownersNOTretention/speedbenchmark.
+Freshgpt6astra noCriticalImportantMinor/no unnecessaryproductionworkmemory; reviewer
+16selectedpins/raw4/all8exact residuals, authorfull551 separate. Postexitauditorhash
+separate NOTlaunchpin. Fourresourcesampleswithinguard. Runner12359/start500785/
+group12358,child12360/start500867/group12360/fullgroups absent,noJulia,bootdade7243-
+9103-4398-bb45-fa28fbc0be72. Source/test/master0eb75c3/CI unchanged, nativeHHreuse
+stilldisabled. AcceptedKdriver/clone/auditor/independentcheck andallold J/I/H/G/F/E
+scripts NERERUN. ReportsS4-NONFINITE-REUSE-BOUNDARY.md/REVIEW,results/S4-K.
+No newdeferredMinor. NextL defines ONE separate representative cost/retention plan,
+noJulia inL, no genericlifecycle reruns; broaderS4/S6/fullsuite remainopen.
+
 
 S4-J:27source/evidence checks530hashes,9authorindependentchecks; no Julia.
 First parser ValueError/exit1/source preserved; new exclusive parser scopes its

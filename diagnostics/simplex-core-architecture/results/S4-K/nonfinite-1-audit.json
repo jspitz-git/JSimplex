@@ -1,0 +1,130 @@
+{
+  "checks": {
+    "process_exit": true,
+    "runtime49": true,
+    "counts": true,
+    "four_cases_order": true,
+    "eight_solve_records": true,
+    "exact_input_bits": true,
+    "solve_binding": true,
+    "fixed_exact_residuals": true,
+    "qualified_errors": true,
+    "discarded": true,
+    "owned_state_preserved": true,
+    "empty_histories_pools": true,
+    "controls_same": true,
+    "actual_symbolic_identity": true,
+    "owned_native_target": true,
+    "single_threads_globals": true,
+    "actual_source": true,
+    "full551pins": true,
+    "raw_portable4": true,
+    "driver_clone_source": true,
+    "native_pinned": true,
+    "oracle_prelaunch": true,
+    "user6": true,
+    "source_test_CI_master": true,
+    "postexit_host": true,
+    "resource_guard": true
+  },
+  "all_passed": true,
+  "exact_solves": [
+    {
+      "label": "inf_reference_FTRAN",
+      "residuals": [
+        "-1/18014398509481984",
+        "-3/72057594037927936"
+      ],
+      "bound": "28659270355994065/633825300114114700748351602688",
+      "passed": true,
+      "runtime_bound_matches": true
+    },
+    {
+      "label": "inf_reference_BTRAN",
+      "residuals": [
+        "1/18014398509481984",
+        "-1/72057594037927936"
+      ],
+      "bound": "28659270355994065/633825300114114700748351602688",
+      "passed": true,
+      "runtime_bound_matches": true
+    },
+    {
+      "label": "inf_candidate_FTRAN",
+      "residuals": [
+        "-1/18014398509481984",
+        "-3/72057594037927936"
+      ],
+      "bound": "28659270355994065/633825300114114700748351602688",
+      "passed": true,
+      "runtime_bound_matches": true
+    },
+    {
+      "label": "inf_candidate_BTRAN",
+      "residuals": [
+        "1/18014398509481984",
+        "-1/72057594037927936"
+      ],
+      "bound": "28659270355994065/633825300114114700748351602688",
+      "passed": true,
+      "runtime_bound_matches": true
+    },
+    {
+      "label": "nan_reference_FTRAN",
+      "residuals": [
+        "-1/18014398509481984",
+        "-3/72057594037927936"
+      ],
+      "bound": "28659270355994065/633825300114114700748351602688",
+      "passed": true,
+      "runtime_bound_matches": true
+    },
+    {
+      "label": "nan_reference_BTRAN",
+      "residuals": [
+        "1/18014398509481984",
+        "-1/72057594037927936"
+      ],
+      "bound": "28659270355994065/633825300114114700748351602688",
+      "passed": true,
+      "runtime_bound_matches": true
+    },
+    {
+      "label": "nan_candidate_FTRAN",
+      "residuals": [
+        "-1/18014398509481984",
+        "-3/72057594037927936"
+      ],
+      "bound": "28659270355994065/633825300114114700748351602688",
+      "passed": true,
+      "runtime_bound_matches": true
+    },
+    {
+      "label": "nan_candidate_BTRAN",
+      "residuals": [
+        "1/18014398509481984",
+        "-1/72057594037927936"
+      ],
+      "bound": "28659270355994065/633825300114114700748351602688",
+      "passed": true,
+      "runtime_bound_matches": true
+    }
+  ],
+  "observed_exceptions": [
+    "SingularException",
+    "SingularException",
+    "SingularException",
+    "SingularException"
+  ],
+  "observed_status": [
+    1,
+    1,
+    1,
+    1
+  ],
+  "resource_samples": 4,
+  "raw_sha256": "cd2d0000c898a64908707f4d0ec4de65ada2c654eda27922103faa7d314f313c",
+  "auditor_sha256": "21f7a66bb48c3138666fe72be9594c4681d6b01f630b7e5c38615586a0cfa2be",
+  "auditor_scope": "written after exit; separate hash, NOT a launch pin",
+  "implicit_work": "8native entries source-derived; target numeric<=4/extraction<=4/orientation total<=8 bounds, not instrumentation"
+}
