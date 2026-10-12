@@ -53,3 +53,17 @@ Julia/BLAS1,heap2GiB,VM8GiB,minRAM6GiB,maxswap1GiB; one numerical process. Fresh
 separate host absence check before pinned edits/launch; no pinned changes in flight.
 No big/largo/AnyMOD/aliases. Preserve raw failures, user changes, environments,
 worktrees and accepted evidence. CI disabled; fullsuite/x64/broader S6 remain open.
+
+## Scope erratum and completion
+
+The earlier different-feasible-set description above is incorrect for structural
+variables: det(old A)=31071 and rhs=A*[1,1,0,0,0,0], so both sets are the same
+singleton. The equation representation, extended activity coordinates, sparsity
+and cancellation behavior differ. This is an exact offline correction, not a
+new Julia run. Preserve original raw preflight wording as historical evidence.
+
+qualification-1:29/29,exit0,23audit gates621pins517sharedpins;four managers accept
+identity exchange with zero corrections and exact original point. Independent
+gpt-6-astra review accepts qualification; one mathematical wording finding is
+corrected in live report/next plan, with exact offline proof. No production/test
+change or historical CI/x64/fullsuite claim. Next separate S6-AA repair plan.

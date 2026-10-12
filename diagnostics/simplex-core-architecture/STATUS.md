@@ -99,13 +99,21 @@ these calls; no budget0 exchange replay. Actual privateCIcandidate/rejection bra
 and backend cause remain unknown. Freshgpt6astra no findings/no unnecessary work
 or memory; production/test/master/CI unchanged. See S6-PHASE-POINT-CERTIFICATES.md
 and REVIEW. Accepted X/Y drivers/audits must not be rerun.
-Next: docs/superpowers/plans/2026-10-12-reliable-phase-exchange-fixture.md, S6-Z.
-Qualify only reliable-zero-budget exchange on new exact identity6 Float32 fixture,
-max4manager exchanges; original4assertions plus exactbasis/point/certificate, same
-options/policy. Native roundoff helper/success/recovery/cancel tests untouched.
-Different feasible set, not solver repair; first4scalar-unknown accepted=false CI
-failures remain unresolved. No numerical qualification yet; permanent repair needs
-separate RED/GREEN/review/integration subplan.
+S6-Z qualified and independently accepted:qualification-1,4new Float32 manager
+exchanges,29/29,exit0,23audit gates621pins517sharedpins,9supplementchecks. Identity6
+basis and point exact; original4assertions preserved.5FTRAN/4BTRAN/2refactor kernels
+per remove,additional fresh export factor setup;no correction events. Production/
+test/CI unchanged. Review one scope wording issue corrected offline RED/GREEN:
+old det31071 means same structural singleton, not different feasible set;equations,
+activity coordinates/sparsity/cancellation differ. Original raw/preflight retained,
+plan erratum appended; no numerical rerun. No unnecessary production work/memory.
+See S6-RELIABLE-EXCHANGE.md/REVIEW; accepted X/Y/Z drivers/audits NERERUN.
+Next: docs/superpowers/plans/2026-10-12-reliable-phase-exchange-repair.md,S6-AA.
+Permanent test-only helper+zero-budget target call;original4assertions, nativehelper
+and adjacenttestsets unchanged. Structural pre-solve RED; actual GREEN target plus
+selected native cancellation/policy neighbor,review,actualmastergate beforepush.
+No solver/options/tolerance/precision/CI change. First4scalar-unknownacceptedfalse
+CI failures remain unresolved; broaderS6/fullsuite/x64 remain open.
 
 
 S6-S accepted evidence90811de/closure6c5ef37: fourtype13/13 + factor6/6; initial
@@ -113,7 +121,7 @@ comparability30/31false preserved with517pin/current-external supplement; no
 retroactive launch pin. Factor19gates615pins/exactLU/primal/dual residuals0.
 S6-R accepted08b7485/3baf29b:12/12/21gates613pins,componentdecomposition-1/16.
 Do not rerun old N/O/P/Q/R/S/T/corpus/reference/cost drivers against changed tests.
-Last fresh host400191/400192/400183 absent,noJulia,boot20de7dde-704e-41c8-bee7-b8511c0a86b0.
+Last fresh host401309/401310/401301 absent,noJulia,boot20de7dde-704e-41c8-bee7-b8511c0a86b0.
 Verify new host state before edits or any new Julia. User environment/dirt preserved.
 
 S6-Q remains accepted:11events,5/5,24gates611pins,exact S6-N endpoint. Refactor event
