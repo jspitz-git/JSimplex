@@ -1,0 +1,109 @@
+{
+  "checks": {
+    "four_types_in_original_order": true,
+    "actual_source": true,
+    "source_test_pin": true,
+    "guard_complete": true,
+    "pins_guard": true,
+    "pins_independent": true,
+    "single_threads": true,
+    "unchanged_oracle": true,
+    "globals_preserved": true,
+    "models_preserved": true,
+    "default_options": true,
+    "matrix_exact": true,
+    "strict_proof": true,
+    "no_invalid_status_publication": true,
+    "objective_matches_primal": true,
+    "exact_rows_recomputed": true,
+    "original_feasibility": true,
+    "gap_residual_identity": true,
+    "analytic_witness": true,
+    "tolerance_envelope": true,
+    "rational_exact": true,
+    "original_oracle_passed": true,
+    "exact_returned_optima": true,
+    "changed_bounds": true
+  },
+  "all_passed": true,
+  "pin_count": 608,
+  "summary": [
+    {
+      "type": "Float32",
+      "status": "OPTIMAL",
+      "message": "optimal solution found",
+      "iterations": 1,
+      "refactorizations": 1,
+      "has_primal": true,
+      "has_objective": true,
+      "objective_gap_exact": "0//1",
+      "rows_exact": [
+        "1//1",
+        "2//1"
+      ],
+      "row_violations_exact": [
+        "0//1",
+        "0//1"
+      ],
+      "analytic_witness_certificate": true
+    },
+    {
+      "type": "Float64",
+      "status": "OPTIMAL",
+      "message": "optimal solution found",
+      "iterations": 0,
+      "refactorizations": 2,
+      "has_primal": true,
+      "has_objective": true,
+      "objective_gap_exact": "0//1",
+      "rows_exact": [
+        "-1//1",
+        "2//1"
+      ],
+      "row_violations_exact": [
+        "0//1",
+        "0//1"
+      ],
+      "analytic_witness_certificate": true
+    },
+    {
+      "type": "BigFloat",
+      "status": "OPTIMAL",
+      "message": "optimal solution found",
+      "iterations": 0,
+      "refactorizations": 2,
+      "has_primal": true,
+      "has_objective": true,
+      "objective_gap_exact": "0//1",
+      "rows_exact": [
+        "-1//1",
+        "2//1"
+      ],
+      "row_violations_exact": [
+        "0//1",
+        "0//1"
+      ],
+      "analytic_witness_certificate": true
+    },
+    {
+      "type": "Rational{BigInt}",
+      "status": "OPTIMAL",
+      "message": "optimal solution found",
+      "iterations": 0,
+      "refactorizations": 2,
+      "has_primal": true,
+      "has_objective": true,
+      "objective_gap_exact": "0//1",
+      "rows_exact": [
+        "-1//1",
+        "2//1"
+      ],
+      "row_violations_exact": [
+        "0//1",
+        "0//1"
+      ],
+      "analytic_witness_certificate": true
+    }
+  ],
+  "scope": "Local unchanged public oracle, postsolve analytic witness only; no runtime dual/basis trace, x64/full-suite or performance proof."
+}
