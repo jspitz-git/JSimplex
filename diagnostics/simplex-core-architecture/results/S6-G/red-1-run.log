@@ -1,0 +1,705 @@
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:104
+  Expression: phase.factorization isa ArtificialRowTestFactor
+   Evaluated: JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}(JSimplex.UMFPACKBackend(SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000000c1e570)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x000000000072fed0)), 6, 6, [0, 6, 11, 16, 20, 26, 30], [0, 1, 2, 3, 4, 5, 0, 1, 2, 4  …  0, 1, 2, 3, 4, 5, 2, 3, 4, 5], [-3.0, 4.0, 1.0, -1.0, 2.0, -1.0, 2.0, -2.0, 3.0, -3.0  …  -3.0, 3.0, 3.0, -2.0, 8.0, 2.0, -3.0, 1.0, -1.0, 4.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([1, 2, 5, 4, 2, 3], [1.2231357997302227e-15, 10.999999999999979, 11.999999999999984, 1.2579472303097127e-15, -3.943029444595785e-15, -6.270182171892281e-16]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 30.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 64.0, 1.0999792721122503e-6, 1.0999792721122503e-6, -1.0, -1.0, -1.0], ReentrantLock()), 6, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000003a6cc20)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x00000000009b1750)), 6, 6, [0, 1, 2, 3, 4, 5, 6], [0, 1, 2, 3, 4, 5], [-1.0, -1.0, -1.0, -1.0, -1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([-1, 280744721104896, 280744945886320, 280744774239056, 1, 280744763857712], [-0.0, -0.0, -0.0, -0.0, -0.0, -0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 6.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 12.0, 1.00000761449337e-7, 1.00000761449337e-7, -1.0, -1.0, -1.0], ReentrantLock()), false), JSimplex.PackedEta{Float64}[], [1.0, 0.0, 0.0, 0.0, 0.0, 0.0], JSimplex.PackedEta{Float64}[], 0, nothing) isa ArtificialRowTestFactor
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:104 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:113
+  Expression: phase.factorization isa ArtificialRowTestFactor && phase.factorization.hits == 1
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:113 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:104
+  Expression: phase.factorization isa ArtificialRowTestFactor
+   Evaluated: JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}(JSimplex.UMFPACKBackend(SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x00000000010cc8a0)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000000a3c2d0)), 6, 6, [0, 6, 11, 16, 20, 26, 30], [0, 1, 2, 3, 4, 5, 0, 1, 2, 4  …  0, 1, 2, 3, 4, 5, 2, 3, 4, 5], [-3.0, 4.0, 1.0, -1.0, 2.0, -1.0, 2.0, -2.0, 3.0, -3.0  …  -3.0, 3.0, 3.0, -2.0, 8.0, 2.0, -3.0, 1.0, -1.0, 4.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([1, 2, 5, 4, 2, 3], [1.2231357997302227e-15, 10.999999999999979, 11.999999999999984, 1.2579472303097127e-15, -3.943029444595785e-15, -6.270182171892281e-16]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 30.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 64.0, 4.999747034162283e-7, 4.999747034162283e-7, -1.0, -1.0, -1.0], ReentrantLock()), 6, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x00000000026f0be0)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000001380b20)), 6, 6, [0, 1, 2, 3, 4, 5, 6], [0, 1, 2, 3, 4, 5], [-1.0, -1.0, -1.0, -1.0, -1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([-1, 0, 280744945886320, 280744883420480, 280744960057089, 280744477626736], [-0.0, -0.0, -0.0, -0.0, -0.0, -0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 6.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 12.0, 2.00001522898674e-7, 2.00001522898674e-7, -1.0, -1.0, -1.0], ReentrantLock()), false), JSimplex.PackedEta{Float64}[], [1.0, 0.0, 0.0, 0.0, 0.0, 0.0], JSimplex.PackedEta{Float64}[], 0, nothing) isa ArtificialRowTestFactor
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:104 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:113
+  Expression: phase.factorization isa ArtificialRowTestFactor && phase.factorization.hits == 1
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:113 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:104
+  Expression: phase.factorization isa ArtificialRowTestFactor
+   Evaluated: JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}(JSimplex.UMFPACKBackend(SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000001780c90)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000003e3c220)), 6, 6, [0, 6, 11, 16, 20, 26, 30], [0, 1, 2, 3, 4, 5, 0, 1, 2, 4  …  0, 1, 2, 3, 4, 5, 2, 3, 4, 5], [-3.0, 4.0, 1.0, -1.0, 2.0, -1.0, 2.0, -2.0, 3.0, -3.0  …  -3.0, 3.0, 3.0, -2.0, 8.0, 2.0, -3.0, 1.0, -1.0, 4.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([1, 2, 5, 4, 2, 3], [1.2231357997302227e-15, 10.999999999999979, 11.999999999999984, 1.2579472303097127e-15, -3.943029444595785e-15, -6.270182171892281e-16]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 30.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 64.0, 5.00003807246685e-7, 5.00003807246685e-7, -1.0, -1.0, -1.0], ReentrantLock()), 6, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000000a3bc90)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x000000000288c470)), 6, 6, [0, 1, 2, 3, 4, 5, 6], [0, 1, 2, 3, 4, 5], [-1.0, -1.0, -1.0, -1.0, -1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([1, 1, 1, 1, 1, 1], [-0.0, -0.0, -0.0, -0.0, -0.0, -0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 6.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 12.0, 2.00001522898674e-7, 2.00001522898674e-7, -1.0, -1.0, -1.0], ReentrantLock()), false), JSimplex.PackedEta{Float64}[], [1.0, 0.0, 0.0, 0.0, 0.0, 0.0], JSimplex.PackedEta{Float64}[], 0, nothing) isa ArtificialRowTestFactor
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:104 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:113
+  Expression: phase.factorization isa ArtificialRowTestFactor && phase.factorization.hits == 1
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:113 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:104
+  Expression: phase.factorization isa ArtificialRowTestFactor
+   Evaluated: JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}(JSimplex.UMFPACKBackend(SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000003e34590)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000004af6ae0)), 6, 6, [0, 6, 11, 16, 20, 26, 30], [0, 1, 2, 3, 4, 5, 0, 1, 2, 4  …  0, 1, 2, 3, 4, 5, 2, 3, 4, 5], [-3.0, 4.0, 1.0, -1.0, 2.0, -1.0, 2.0, -2.0, 3.0, -3.0  …  -3.0, 3.0, 3.0, -2.0, 8.0, 2.0, -3.0, 1.0, -1.0, 4.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([1, 2, 5, 4, 2, 3], [1.2231357997302227e-15, 10.999999999999979, 11.999999999999984, 1.2579472303097127e-15, -3.943029444595785e-15, -6.270182171892281e-16]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 30.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 64.0, 4.00003045797348e-7, 4.00003045797348e-7, -1.0, -1.0, -1.0], ReentrantLock()), 6, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x00000000016f09d0)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000002008c10)), 6, 6, [0, 1, 2, 3, 4, 5, 6], [0, 1, 2, 3, 4, 5], [-1.0, -1.0, -1.0, -1.0, -1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([280744478672112, 280744478672144, 280744478672176, 280744478672208, 280744478672240, 280744478672272], [-0.0, -0.0, -0.0, -0.0, -0.0, -0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 6.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 12.0, 2.00001522898674e-7, 2.00001522898674e-7, -1.0, -1.0, -1.0], ReentrantLock()), false), JSimplex.PackedEta{Float64}[], [1.0, 0.0, 0.0, 0.0, 0.0, 0.0], JSimplex.PackedEta{Float64}[], 0, nothing) isa ArtificialRowTestFactor
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:104 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:113
+  Expression: phase.factorization isa ArtificialRowTestFactor && phase.factorization.hits == 1
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:113 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:104
+  Expression: phase.factorization isa ArtificialRowTestFactor
+   Evaluated: JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}(JSimplex.UMFPACKBackend(SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000002ed6160)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000004603cd0)), 6, 6, [0, 6, 11, 16, 20, 26, 30], [0, 1, 2, 3, 4, 5, 0, 1, 2, 4  …  0, 1, 2, 3, 4, 5, 2, 3, 4, 5], [-3.0, 4.0, 1.0, -1.0, 2.0, -1.0, 2.0, -2.0, 3.0, -3.0  …  -3.0, 3.0, 3.0, -2.0, 8.0, 2.0, -3.0, 1.0, -1.0, 4.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([1, 2, 5, 4, 2, 3], [1.2231357997302227e-15, 10.999999999999979, 11.999999999999984, 1.2579472303097127e-15, -3.943029444595785e-15, -6.270182171892281e-16]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 30.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 64.0, 2.00001522898674e-7, 2.00001522898674e-7, -1.0, -1.0, -1.0], ReentrantLock()), 6, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000003cf6210)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000004452f10)), 6, 6, [0, 1, 2, 3, 4, 5, 6], [0, 1, 2, 3, 4, 5], [-1.0, -1.0, -1.0, -1.0, -1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([280744883458352, 280744940334864, 280744883386272, 280744788369921, 280744479310672, 1], [-0.0, -0.0, -0.0, -0.0, -0.0, -0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 6.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 12.0, 2.00001522898674e-7, 2.00001522898674e-7, -1.0, -1.0, -1.0], ReentrantLock()), false), JSimplex.PackedEta{Float64}[], [1.0, 0.0, 0.0, 0.0, 0.0, 0.0], JSimplex.PackedEta{Float64}[], 0, nothing) isa ArtificialRowTestFactor
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:104 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:113
+  Expression: phase.factorization isa ArtificialRowTestFactor && phase.factorization.hits == 1
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:113 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:104
+  Expression: phase.factorization isa ArtificialRowTestFactor
+   Evaluated: JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}(JSimplex.UMFPACKBackend(SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000002360750)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000002b20290)), 6, 6, [0, 6, 11, 16, 20, 26, 30], [0, 1, 2, 3, 4, 5, 0, 1, 2, 4  …  0, 1, 2, 3, 4, 5, 2, 3, 4, 5], [-3.0, 4.0, 1.0, -1.0, 2.0, -1.0, 2.0, -2.0, 3.0, -3.0  …  -3.0, 3.0, 3.0, -2.0, 8.0, 2.0, -3.0, 1.0, -1.0, 4.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([1, 2, 5, 4, 2, 3], [1.2231357997302227e-15, 10.999999999999979, 11.999999999999984, 1.2579472303097127e-15, -3.943029444595785e-15, -6.270182171892281e-16]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 30.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 64.0, 2.00001522898674e-7, 2.00001522898674e-7, -1.0, -1.0, -1.0], ReentrantLock()), 6, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000002365b90)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x000000000382b470)), 6, 6, [0, 1, 2, 3, 4, 5, 6], [0, 1, 2, 3, 4, 5], [-1.0, -1.0, -1.0, -1.0, -1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([1, 3, 5, 2, 4, 6], [-0.0, -0.0, -0.0, -0.0, -0.0, -0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 6.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 12.0, 1.00000761449337e-7, 1.00000761449337e-7, -1.0, -1.0, -1.0], ReentrantLock()), false), JSimplex.PackedEta{Float64}[], [1.0, 0.0, 0.0, 0.0, 0.0, 0.0], JSimplex.PackedEta{Float64}[], 0, nothing) isa ArtificialRowTestFactor
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:104 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:113
+  Expression: phase.factorization isa ArtificialRowTestFactor && phase.factorization.hits == 1
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:113 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:104
+  Expression: phase.factorization isa ArtificialRowTestFactor
+   Evaluated: JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}(JSimplex.UMFPACKBackend(SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000000642980)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x00000000018e2950)), 6, 6, [0, 6, 11, 16, 20, 26, 30], [0, 1, 2, 3, 4, 5, 0, 1, 2, 4  …  0, 1, 2, 3, 4, 5, 2, 3, 4, 5], [-3.0, 4.0, 1.0, -1.0, 2.0, -1.0, 2.0, -2.0, 3.0, -3.0  …  -3.0, 3.0, 3.0, -2.0, 8.0, 2.0, -3.0, 1.0, -1.0, 4.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([1, 2, 5, 4, 2, 3], [1.2231357997302227e-15, 10.999999999999979, 11.999999999999984, 1.2579472303097127e-15, -3.943029444595785e-15, -6.270182171892281e-16]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 30.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 64.0, 3.00002284348011e-7, 3.00002284348011e-7, -1.0, -1.0, -1.0], ReentrantLock()), 6, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x000000000155ebd0)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000002895bc0)), 6, 6, [0, 1, 2, 3, 4, 5, 6], [0, 1, 2, 3, 4, 5], [-1.0, -1.0, -1.0, -1.0, -1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([1, 280744480115920, 0, 0, 0, 0], [-0.0, -0.0, -0.0, -0.0, -0.0, -0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 6.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 12.0, 2.00001522898674e-7, 2.00001522898674e-7, -1.0, -1.0, -1.0], ReentrantLock()), false), JSimplex.PackedEta{Float64}[], [1.0, 0.0, 0.0, 0.0, 0.0, 0.0], JSimplex.PackedEta{Float64}[], 0, nothing) isa ArtificialRowTestFactor
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:104 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:113
+  Expression: phase.factorization isa ArtificialRowTestFactor && phase.factorization.hits == 1
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:113 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:104
+  Expression: phase.factorization isa ArtificialRowTestFactor
+   Evaluated: JSimplex.ForrestTomlinFactorization{Float64, JSimplex.UMFPACKBackend}(JSimplex.UMFPACKBackend(SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000003884460)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x000000000097e1c0)), 6, 6, [0, 6, 11, 16, 20, 26, 30], [0, 1, 2, 3, 4, 5, 0, 1, 2, 4  …  0, 1, 2, 3, 4, 5, 2, 3, 4, 5], [-3.0, 4.0, 1.0, -1.0, 2.0, -1.0, 2.0, -2.0, 3.0, -3.0  …  -3.0, 3.0, 3.0, -2.0, 8.0, 2.0, -3.0, 1.0, -1.0, 4.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([1, 2, 5, 4, 2, 3], [1.2231357997302227e-15, 10.999999999999979, 11.999999999999984, 1.2579472303097127e-15, -3.943029444595785e-15, -6.270182171892281e-16]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 30.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 64.0, 8.00006091594696e-7, 8.00006091594696e-7, -1.0, -1.0, -1.0], ReentrantLock()), 6, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x00000000034e5fc0)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000000c12ef0)), 6, 6, [0, 1, 2, 3, 4, 5, 6], [0, 1, 2, 3, 4, 5], [-1.0, -1.0, -1.0, -1.0, -1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([1, 280744370580080, 1, 280744370580112, 1, 280744370580144], [-0.0, -0.0, -0.0, -0.0, -0.0, -0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 6.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 12.0, 9.997165761888027e-8, 9.997165761888027e-8, -1.0, -1.0, -1.0], ReentrantLock()), false), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}[JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([1], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([2], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([3], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([4], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([5], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([6], [1.0])], [1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6], JSimplex.ForrestTomlinUpdate{Float64}[], [1.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Vector{Int64}[], JSimplex.ForrestTomlinUpdate{Float64}[], 0, nothing, JSimplex.TriangularRowCache{Float64}([1, 2, 3, 4, 5, 6], Tuple{Int64, Int64, Float64}[], 0, false, Int64[], false, 7, true, false, Int64[], JSimplex.TriangularSpikeCache{Float64}((JSimplex.PreparedTriangularSpike{Float64}(nothing, [NaN, 5.0e-324, 5.0e-324, 5.0e-324, 1.0e-323, 1.0e-323], [1.387061487795896e-309, 1.387061487796054e-309, 1.38706148779621e-309, 1.38706148779637e-309, 1.38706148779653e-309, 1.387061487796686e-309]), JSimplex.PreparedTriangularSpike{Float64}(nothing, [1.38706148779874e-309, 1.387061487799216e-309, 1.38706148779969e-309, 1.387061487800164e-309, 1.38706148780064e-309, 1.38706148780127e-309], [1.38706355113494e-309, 1.38706355113494e-309, 1.38706148779384e-309, 1.387061413374115e-309, 0.0, 0.0])), 1))) isa ArtificialRowTestFactor
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:104 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:113
+  Expression: phase.factorization isa ArtificialRowTestFactor && phase.factorization.hits == 1
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:113 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:104
+  Expression: phase.factorization isa ArtificialRowTestFactor
+   Evaluated: JSimplex.ForrestTomlinFactorization{Float64, JSimplex.UMFPACKBackend}(JSimplex.UMFPACKBackend(SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000000bc3990)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x00000000019bdad0)), 6, 6, [0, 6, 11, 16, 20, 26, 30], [0, 1, 2, 3, 4, 5, 0, 1, 2, 4  …  0, 1, 2, 3, 4, 5, 2, 3, 4, 5], [-3.0, 4.0, 1.0, -1.0, 2.0, -1.0, 2.0, -2.0, 3.0, -3.0  …  -3.0, 3.0, 3.0, -2.0, 8.0, 2.0, -3.0, 1.0, -1.0, 4.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([1, 2, 5, 4, 2, 3], [1.2231357997302227e-15, 10.999999999999979, 11.999999999999984, 1.2579472303097127e-15, -3.943029444595785e-15, -6.270182171892281e-16]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 30.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 64.0, 4.00003045797348e-7, 4.00003045797348e-7, -1.0, -1.0, -1.0], ReentrantLock()), 6, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x000000000078bd90)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x00000000025332a0)), 6, 6, [0, 1, 2, 3, 4, 5, 6], [0, 1, 2, 3, 4, 5], [-1.0, -1.0, -1.0, -1.0, -1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([280744398533936, 280744385098464, 280744299112592, 280744401935776, 280744402473024, 280744401935776], [-0.0, -0.0, -0.0, -0.0, -0.0, -0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 6.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 12.0, 2.00001522898674e-7, 2.00001522898674e-7, -1.0, -1.0, -1.0], ReentrantLock()), false), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}[JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([1], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([2], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([3], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([4], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([5], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([6], [1.0])], [1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6], JSimplex.ForrestTomlinUpdate{Float64}[], [1.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Vector{Int64}[], JSimplex.ForrestTomlinUpdate{Float64}[], 0, nothing, JSimplex.TriangularRowCache{Float64}([1, 2, 3, 4, 5, 6], Tuple{Int64, Int64, Float64}[], 0, false, Int64[], false, 7, true, false, Int64[], JSimplex.TriangularSpikeCache{Float64}((JSimplex.PreparedTriangularSpike{Float64}(nothing, [1.387063355355025e-309, 1.38706430263207e-309, 1.387063963388256e-309, 5.064e-321, 1.387061249839177e-309, 5.0e-324], [NaN, 5.06e-321, 1.387064330059905e-309, 1.38706121891367e-309, 2.535e-321, 1.387061249839177e-309]), JSimplex.PreparedTriangularSpike{Float64}(nothing, [1.387064234924047e-309, 1.38706430263207e-309, 1.38706423491954e-309, 5.064e-321, 1.38706124984234e-309, 5.0e-324], [NaN, 5.06e-321, 1.387064330059905e-309, 1.387064234924047e-309, 5.0e-324, 1.38706124984234e-309])), 1))) isa ArtificialRowTestFactor
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:104 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:113
+  Expression: phase.factorization isa ArtificialRowTestFactor && phase.factorization.hits == 1
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:113 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:104
+  Expression: phase.factorization isa ArtificialRowTestFactor
+   Evaluated: JSimplex.ForrestTomlinFactorization{Float64, JSimplex.UMFPACKBackend}(JSimplex.UMFPACKBackend(SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x00000000037262c0)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000000fb75a0)), 6, 6, [0, 6, 11, 16, 20, 26, 30], [0, 1, 2, 3, 4, 5, 0, 1, 2, 4  …  0, 1, 2, 3, 4, 5, 2, 3, 4, 5], [-3.0, 4.0, 1.0, -1.0, 2.0, -1.0, 2.0, -2.0, 3.0, -3.0  …  -3.0, 3.0, 3.0, -2.0, 8.0, 2.0, -3.0, 1.0, -1.0, 4.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([1, 2, 5, 4, 2, 3], [1.2231357997302227e-15, 10.999999999999979, 11.999999999999984, 1.2579472303097127e-15, -3.943029444595785e-15, -6.270182171892281e-16]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 30.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 64.0, 3.00002284348011e-7, 3.00002284348011e-7, -1.0, -1.0, -1.0], ReentrantLock()), 6, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x00000000039ecab0)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000000f83800)), 6, 6, [0, 1, 2, 3, 4, 5, 6], [0, 1, 2, 3, 4, 5], [-1.0, -1.0, -1.0, -1.0, -1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([280744903510128, 280744940334864, 280744927802448, 1793, 280744323811312, 1], [-0.0, -0.0, -0.0, -0.0, -0.0, -0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 6.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 12.0, 1.00000761449337e-7, 1.00000761449337e-7, -1.0, -1.0, -1.0], ReentrantLock()), false), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}[JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([1], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([2], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([3], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([4], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([5], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([6], [1.0])], [1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6], JSimplex.ForrestTomlinUpdate{Float64}[], [1.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Vector{Int64}[], JSimplex.ForrestTomlinUpdate{Float64}[], 0, nothing, JSimplex.TriangularRowCache{Float64}([1, 2, 3, 4, 5, 6], Tuple{Int64, Int64, Float64}[], 0, false, Int64[], false, 7, true, false, Int64[], JSimplex.TriangularSpikeCache{Float64}((JSimplex.PreparedTriangularSpike{Float64}(nothing, [NaN, 0.0, 1.387064330059905e-309, 1.38706406260059e-309, 5.0e-324, 1.38706125663942e-309], [1.38706406260059e-309, 1.38706430263207e-309, 1.38706397076746e-309, 8.86e-321, 1.387061256641473e-309, 5.0e-324]), JSimplex.PreparedTriangularSpike{Float64}(nothing, [NaN, 1.3870642018407e-309, 1.387064330059905e-309, 1.38706406260059e-309, 5.0e-324, 1.387061256641473e-309], [1.38706406260059e-309, 1.38706430263207e-309, 1.38706397076746e-309, 5.0e-324, 1.38706125664353e-309, 5.0e-324])), 1))) isa ArtificialRowTestFactor
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:104 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:113
+  Expression: phase.factorization isa ArtificialRowTestFactor && phase.factorization.hits == 1
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:113 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:104
+  Expression: phase.factorization isa ArtificialRowTestFactor
+   Evaluated: JSimplex.ForrestTomlinFactorization{Float64, JSimplex.UMFPACKBackend}(JSimplex.UMFPACKBackend(SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000002943e60)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000000d05790)), 6, 6, [0, 6, 11, 16, 20, 26, 30], [0, 1, 2, 3, 4, 5, 0, 1, 2, 4  …  0, 1, 2, 3, 4, 5, 2, 3, 4, 5], [-3.0, 4.0, 1.0, -1.0, 2.0, -1.0, 2.0, -2.0, 3.0, -3.0  …  -3.0, 3.0, 3.0, -2.0, 8.0, 2.0, -3.0, 1.0, -1.0, 4.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([1, 2, 5, 4, 2, 3], [1.2231357997302227e-15, 10.999999999999979, 11.999999999999984, 1.2579472303097127e-15, -3.943029444595785e-15, -6.270182171892281e-16]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 30.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 64.0, 3.00002284348011e-7, 3.00002284348011e-7, -1.0, -1.0, -1.0], ReentrantLock()), 6, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000000687400)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x00000000024de940)), 6, 6, [0, 1, 2, 3, 4, 5, 6], [0, 1, 2, 3, 4, 5], [-1.0, -1.0, -1.0, -1.0, -1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([280744765729488, 280744765726080, 280744748847104, 280744765734752, 280744765733376, 280744765733376], [-0.0, -0.0, -0.0, -0.0, -0.0, -0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 6.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 12.0, 2.00001522898674e-7, 2.00001522898674e-7, -1.0, -1.0, -1.0], ReentrantLock()), false), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}[JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([1], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([2], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([3], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([4], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([5], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([6], [1.0])], [1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6], JSimplex.ForrestTomlinUpdate{Float64}[], [1.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Vector{Int64}[], JSimplex.ForrestTomlinUpdate{Float64}[], 0, nothing, JSimplex.TriangularRowCache{Float64}([1, 2, 3, 4, 5, 6], Tuple{Int64, Int64, Float64}[], 0, false, Int64[], false, 7, true, false, Int64[], JSimplex.TriangularSpikeCache{Float64}((JSimplex.PreparedTriangularSpike{Float64}(nothing, [1.387063553826096e-309, 2.144e-321, 1.387063553826096e-309, 2.194e-321, 0.0, 0.0], [1.387063553826096e-309, 2.243e-321, 1.387063553826096e-309, 2.29e-321, 0.0, 0.0]), JSimplex.PreparedTriangularSpike{Float64}(nothing, [1.387063553826096e-309, 2.44e-321, 1.387063553826096e-309, 2.49e-321, 0.0, 0.0], [1.387063553826096e-309, 2.64e-321, 1.387063553826096e-309, 2.69e-321, 0.0, 0.0])), 1))) isa ArtificialRowTestFactor
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:104 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:113
+  Expression: phase.factorization isa ArtificialRowTestFactor && phase.factorization.hits == 1
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:113 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:104
+  Expression: phase.factorization isa ArtificialRowTestFactor
+   Evaluated: JSimplex.ForrestTomlinFactorization{Float64, JSimplex.UMFPACKBackend}(JSimplex.UMFPACKBackend(SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x00000000009aa8c0)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x000000000469f760)), 6, 6, [0, 6, 11, 16, 20, 26, 30], [0, 1, 2, 3, 4, 5, 0, 1, 2, 4  …  0, 1, 2, 3, 4, 5, 2, 3, 4, 5], [-3.0, 4.0, 1.0, -1.0, 2.0, -1.0, 2.0, -2.0, 3.0, -3.0  …  -3.0, 3.0, 3.0, -2.0, 8.0, 2.0, -3.0, 1.0, -1.0, 4.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([1, 2, 5, 4, 2, 3], [1.2231357997302227e-15, 10.999999999999979, 11.999999999999984, 1.2579472303097127e-15, -3.943029444595785e-15, -6.270182171892281e-16]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 30.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 64.0, 2.00001522898674e-7, 2.00001522898674e-7, -1.0, -1.0, -1.0], ReentrantLock()), 6, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000004742250)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x000000000382b470)), 6, 6, [0, 1, 2, 3, 4, 5, 6], [0, 1, 2, 3, 4, 5], [-1.0, -1.0, -1.0, -1.0, -1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([-1, 0, 280744945886320, 280744393298832, 1, 280744337347088], [-0.0, -0.0, -0.0, -0.0, -0.0, -0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 6.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 12.0, 2.00001522898674e-7, 2.00001522898674e-7, -1.0, -1.0, -1.0], ReentrantLock()), false), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}[JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([1], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([2], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([3], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([4], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([5], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([6], [1.0])], [1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6], JSimplex.ForrestTomlinUpdate{Float64}[], [1.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Vector{Int64}[], JSimplex.ForrestTomlinUpdate{Float64}[], 0, nothing, JSimplex.TriangularRowCache{Float64}([1, 2, 3, 4, 5, 6], Tuple{Int64, Int64, Float64}[], 0, false, Int64[], false, 7, true, false, Int64[], JSimplex.TriangularSpikeCache{Float64}((JSimplex.PreparedTriangularSpike{Float64}(nothing, [1.387061884790527e-309, 1.387063257314536e-309, 1.38706406347821e-309, 5.0e-324, 1.387061323522784e-309, 5.0e-324], [1.387061323524365e-309, 1.38706132352468e-309, 1.387061323524997e-309, 1.38706132352547e-309, 1.38706132352579e-309, 1.387061323526104e-309]), JSimplex.PreparedTriangularSpike{Float64}(nothing, [1.387064303552927e-309, 1.38706396286676e-309, 1.387063962866285e-309, 1.387064302610013e-309, 1.387064302610013e-309, 1.387061885292024e-309], [1.38706132352721e-309, 1.387061323527527e-309, 1.387061323527843e-309, 1.387063552351804e-309, 1.387063552349433e-309, 1.38706132352879e-309])), 1))) isa ArtificialRowTestFactor
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:104 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:113
+  Expression: phase.factorization isa ArtificialRowTestFactor && phase.factorization.hits == 1
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:113 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:104
+  Expression: phase.factorization isa ArtificialRowTestFactor
+   Evaluated: JSimplex.ForrestTomlinFactorization{Float64, JSimplex.UMFPACKBackend}(JSimplex.UMFPACKBackend(SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000002ed6160)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000000e71850)), 6, 6, [0, 6, 11, 16, 20, 26, 30], [0, 1, 2, 3, 4, 5, 0, 1, 2, 4  …  0, 1, 2, 3, 4, 5, 2, 3, 4, 5], [-3.0, 4.0, 1.0, -1.0, 2.0, -1.0, 2.0, -2.0, 3.0, -3.0  …  -3.0, 3.0, 3.0, -2.0, 8.0, 2.0, -3.0, 1.0, -1.0, 4.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([1, 2, 5, 4, 2, 3], [1.2231357997302227e-15, 10.999999999999979, 11.999999999999984, 1.2579472303097127e-15, -3.943029444595785e-15, -6.270182171892281e-16]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 30.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 64.0, 2.00001522898674e-7, 2.00001522898674e-7, -1.0, -1.0, -1.0], ReentrantLock()), 6, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x00000000038c8220)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000000b46ec0)), 6, 6, [0, 1, 2, 3, 4, 5, 6], [0, 1, 2, 3, 4, 5], [-1.0, -1.0, -1.0, -1.0, -1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([280744354133680, 280744940333696, 280744940333696, 280744371576272, 280744371576272, 280744940333696], [-0.0, -0.0, -0.0, -0.0, -0.0, -0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 6.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 12.0, 1.00000761449337e-7, 1.00000761449337e-7, -1.0, -1.0, -1.0], ReentrantLock()), false), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}[JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([1], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([2], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([3], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([4], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([5], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([6], [1.0])], [1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6], JSimplex.ForrestTomlinUpdate{Float64}[], [1.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Vector{Int64}[], JSimplex.ForrestTomlinUpdate{Float64}[], 0, nothing, JSimplex.TriangularRowCache{Float64}([1, 2, 3, 4, 5, 6], Tuple{Int64, Int64, Float64}[], 0, false, Int64[], false, 7, true, false, Int64[], JSimplex.TriangularSpikeCache{Float64}((JSimplex.PreparedTriangularSpike{Float64}(nothing, [2.96e-322, 0.0, 2.96e-322, 0.0, 4.25e-322, 0.0], [1.38706202161525e-309, 1.38706204951478e-309, 1.38706355121008e-309, 1.387063551252765e-309, 1.387063551345254e-309, 1.387063551440115e-309]), JSimplex.PreparedTriangularSpike{Float64}(nothing, [1.387061892038826e-309, 1.387061613520504e-309, 0.0, 0.0, 0.0, 0.0], [5.0e-324, 1.387061613520504e-309, 3.0e-323, 1.38706161352161e-309, 4.4e-323, 1.387061613522717e-309])), 1))) isa ArtificialRowTestFactor
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:104 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:113
+  Expression: phase.factorization isa ArtificialRowTestFactor && phase.factorization.hits == 1
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:113 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:104
+  Expression: phase.factorization isa ArtificialRowTestFactor
+   Evaluated: JSimplex.ForrestTomlinFactorization{Float64, JSimplex.UMFPACKBackend}(JSimplex.UMFPACKBackend(SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000000958a90)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000004d0b390)), 6, 6, [0, 6, 11, 16, 20, 26, 30], [0, 1, 2, 3, 4, 5, 0, 1, 2, 4  …  0, 1, 2, 3, 4, 5, 2, 3, 4, 5], [-3.0, 4.0, 1.0, -1.0, 2.0, -1.0, 2.0, -2.0, 3.0, -3.0  …  -3.0, 3.0, 3.0, -2.0, 8.0, 2.0, -3.0, 1.0, -1.0, 4.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([1, 2, 5, 4, 2, 3], [1.2231357997302227e-15, 10.999999999999979, 11.999999999999984, 1.2579472303097127e-15, -3.943029444595785e-15, -6.270182171892281e-16]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 30.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 64.0, 2.00001522898674e-7, 2.00001522898674e-7, -1.0, -1.0, -1.0], ReentrantLock()), 6, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x000000000272b910)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000002533490)), 6, 6, [0, 1, 2, 3, 4, 5, 6], [0, 1, 2, 3, 4, 5], [-1.0, -1.0, -1.0, -1.0, -1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([-1, 0, 280744945886320, 280744875536176, 280744788230145, 280744339642736], [-0.0, -0.0, -0.0, -0.0, -0.0, -0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 6.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 12.0, 1.00000761449337e-7, 1.00000761449337e-7, -1.0, -1.0, -1.0], ReentrantLock()), false), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}[JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([1], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([2], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([3], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([4], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([5], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([6], [1.0])], [1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6], JSimplex.ForrestTomlinUpdate{Float64}[], [1.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Vector{Int64}[], JSimplex.ForrestTomlinUpdate{Float64}[], 0, nothing, JSimplex.TriangularRowCache{Float64}([1, 2, 3, 4, 5, 6], Tuple{Int64, Int64, Float64}[], 0, false, Int64[], false, 7, true, false, Int64[], JSimplex.TriangularSpikeCache{Float64}((JSimplex.PreparedTriangularSpike{Float64}(nothing, [1.38706425969571e-309, 1.38706430263207e-309, 1.38706425968053e-309, 1.387063551502965e-309, 1.38706133484677e-309, 5.0e-324], [NaN, 0.0, 1.387064330059905e-309, 1.38706425969571e-309, 1.387063551134906e-309, 1.38706133484677e-309]), JSimplex.PreparedTriangularSpike{Float64}(nothing, [1.38706205581645e-309, 1.38706430263207e-309, 1.38706205581408e-309, 5.0e-324, 1.38706133484898e-309, 5.0e-324], [NaN, 0.0, 1.387064330059905e-309, 1.38706205581645e-309, 1.387063551134906e-309, 1.38706133484898e-309])), 1))) isa ArtificialRowTestFactor
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:104 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:113
+  Expression: phase.factorization isa ArtificialRowTestFactor && phase.factorization.hits == 1
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:113 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:104
+  Expression: phase.factorization isa ArtificialRowTestFactor
+   Evaluated: JSimplex.SuhlSuhlFactorization{Float64, JSimplex.UMFPACKBackend}(JSimplex.UMFPACKBackend(SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000000bac210)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000001bb0170)), 6, 6, [0, 6, 11, 16, 20, 26, 30], [0, 1, 2, 3, 4, 5, 0, 1, 2, 4  …  0, 1, 2, 3, 4, 5, 2, 3, 4, 5], [-3.0, 4.0, 1.0, -1.0, 2.0, -1.0, 2.0, -2.0, 3.0, -3.0  …  -3.0, 3.0, 3.0, -2.0, 8.0, 2.0, -3.0, 1.0, -1.0, 4.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([1, 2, 5, 4, 2, 3], [1.2231357997302227e-15, 10.999999999999979, 11.999999999999984, 1.2579472303097127e-15, -3.943029444595785e-15, -6.270182171892281e-16]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 30.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 64.0, 9.00006853044033e-7, 9.00006853044033e-7, -1.0, -1.0, -1.0], ReentrantLock()), 6, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000002ed90d0)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x00000000035cb0d0)), 6, 6, [0, 1, 2, 3, 4, 5, 6], [0, 1, 2, 3, 4, 5], [-1.0, -1.0, -1.0, -1.0, -1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([280744788774848, 1061, 0, 0, 0, 0], [-0.0, -0.0, -0.0, -0.0, -0.0, -0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 6.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 12.0, 2.00001522898674e-7, 2.00001522898674e-7, -1.0, -1.0, -1.0], ReentrantLock()), false), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}[JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([1], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([2], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([3], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([4], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([5], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([6], [1.0])], [1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6], JSimplex.SuhlSuhlUpdate{Float64}[], [1.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Vector{Int64}[], JSimplex.SuhlSuhlUpdate{Float64}[], 0, nothing, JSimplex.TriangularRowCache{Float64}([1, 2, 3, 4, 5, 6], Tuple{Int64, Int64, Float64}[], 0, false, Int64[], false, 7, true, false, Int64[], JSimplex.TriangularSpikeCache{Float64}((JSimplex.PreparedTriangularSpike{Float64}(nothing, [9.0e-323, 0.0, 1.2e-322, 1.38706401566222e-309, 1.9e-322, 1.387063428076666e-309], [7.0e-323, 0.0, 9.4e-323, 0.0, 1.14e-322, 0.0]), JSimplex.PreparedTriangularSpike{Float64}(nothing, [1.387061554427644e-309, 1.387064303552927e-309, 1.38706147593563e-309, 1.387061554427723e-309, 1.387061218071705e-309, 1.38706334684603e-309], [1.38706346231067e-309, 1.38706349048941e-309, 0.0, 0.0, 0.0, 0.0])), 1))) isa ArtificialRowTestFactor
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:104 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:113
+  Expression: phase.factorization isa ArtificialRowTestFactor && phase.factorization.hits == 1
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:113 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:104
+  Expression: phase.factorization isa ArtificialRowTestFactor
+   Evaluated: JSimplex.SuhlSuhlFactorization{Float64, JSimplex.UMFPACKBackend}(JSimplex.UMFPACKBackend(SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000002cc9760)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x00000000015239e0)), 6, 6, [0, 6, 11, 16, 20, 26, 30], [0, 1, 2, 3, 4, 5, 0, 1, 2, 4  …  0, 1, 2, 3, 4, 5, 2, 3, 4, 5], [-3.0, 4.0, 1.0, -1.0, 2.0, -1.0, 2.0, -2.0, 3.0, -3.0  …  -3.0, 3.0, 3.0, -2.0, 8.0, 2.0, -3.0, 1.0, -1.0, 4.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([1, 2, 5, 4, 2, 3], [1.2231357997302227e-15, 10.999999999999979, 11.999999999999984, 1.2579472303097127e-15, -3.943029444595785e-15, -6.270182171892281e-16]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 30.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 64.0, 5.00003807246685e-7, 5.00003807246685e-7, -1.0, -1.0, -1.0], ReentrantLock()), 6, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000004d72aa0)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000000c9f210)), 6, 6, [0, 1, 2, 3, 4, 5, 6], [0, 1, 2, 3, 4, 5], [-1.0, -1.0, -1.0, -1.0, -1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([1, 3, 4, 6, 1, 280744429071376], [-0.0, -0.0, -0.0, -0.0, -0.0, -0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 6.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 12.0, 1.00000761449337e-7, 1.00000761449337e-7, -1.0, -1.0, -1.0], ReentrantLock()), false), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}[JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([1], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([2], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([3], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([4], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([5], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([6], [1.0])], [1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6], JSimplex.SuhlSuhlUpdate{Float64}[], [1.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Vector{Int64}[], JSimplex.SuhlSuhlUpdate{Float64}[], 0, nothing, JSimplex.TriangularRowCache{Float64}([1, 2, 3, 4, 5, 6], Tuple{Int64, Int64, Float64}[], 0, false, Int64[], false, 7, true, false, Int64[], JSimplex.TriangularSpikeCache{Float64}((JSimplex.PreparedTriangularSpike{Float64}(nothing, [5.0e-324, NaN, 1.0e-323, 1.5e-323, NaN, 2.0e-323], [1.38706397835149e-309, 1.38706341611071e-309, 0.0, 0.0, 0.0, 0.0]), JSimplex.PreparedTriangularSpike{Float64}(nothing, [0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [1.3870615290933e-309, 1.38706396278534e-309, 1.38706152912097e-309, 1.387063552351804e-309, 1.387061312993494e-309, 1.38706355116265e-309])), 1))) isa ArtificialRowTestFactor
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:104 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:113
+  Expression: phase.factorization isa ArtificialRowTestFactor && phase.factorization.hits == 1
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:113 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:104
+  Expression: phase.factorization isa ArtificialRowTestFactor
+   Evaluated: JSimplex.SuhlSuhlFactorization{Float64, JSimplex.UMFPACKBackend}(JSimplex.UMFPACKBackend(SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000000eb35c0)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000004452f10)), 6, 6, [0, 6, 11, 16, 20, 26, 30], [0, 1, 2, 3, 4, 5, 0, 1, 2, 4  …  0, 1, 2, 3, 4, 5, 2, 3, 4, 5], [-3.0, 4.0, 1.0, -1.0, 2.0, -1.0, 2.0, -2.0, 3.0, -3.0  …  -3.0, 3.0, 3.0, -2.0, 8.0, 2.0, -3.0, 1.0, -1.0, 4.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([1, 2, 5, 4, 2, 3], [1.2231357997302227e-15, 10.999999999999979, 11.999999999999984, 1.2579472303097127e-15, -3.943029444595785e-15, -6.270182171892281e-16]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 30.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 64.0, 3.00002284348011e-7, 3.00002284348011e-7, -1.0, -1.0, -1.0], ReentrantLock()), 6, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000004c1ae90)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x000000000371f400)), 6, 6, [0, 1, 2, 3, 4, 5, 6], [0, 1, 2, 3, 4, 5], [-1.0, -1.0, -1.0, -1.0, -1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([0, 280744379442256, 280744379442288, 280744379442352, 280744379442416, 280744379436144], [-0.0, -0.0, -0.0, -0.0, -0.0, -0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 6.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 12.0, 2.00001522898674e-7, 2.00001522898674e-7, -1.0, -1.0, -1.0], ReentrantLock()), false), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}[JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([1], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([2], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([3], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([4], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([5], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([6], [1.0])], [1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6], JSimplex.SuhlSuhlUpdate{Float64}[], [1.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Vector{Int64}[], JSimplex.SuhlSuhlUpdate{Float64}[], 0, nothing, JSimplex.TriangularRowCache{Float64}([1, 2, 3, 4, 5, 6], Tuple{Int64, Int64, Float64}[], 0, false, Int64[], false, 7, true, false, Int64[], JSimplex.TriangularSpikeCache{Float64}((JSimplex.PreparedTriangularSpike{Float64}(nothing, [1.387061441647635e-309, 1.38706430263207e-309, 1.387063997199737e-309, 1.387061523113847e-309, 1.387061533780206e-309, 5.0e-324], [NaN, 1.38706152311384e-309, 1.387064330059905e-309, 1.38706144422563e-309, 1.387063551134906e-309, 1.387061533780206e-309]), JSimplex.PreparedTriangularSpike{Float64}(nothing, [1.387061479922307e-309, 1.387061533779257e-309, 0.0, 0.0, 0.0, 0.0], [1.387064257617233e-309, 1.38706430263207e-309, 1.387064257617787e-309, 1.38706355114123e-309, 1.38706153378321e-309, 5.0e-324])), 1))) isa ArtificialRowTestFactor
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:104 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:113
+  Expression: phase.factorization isa ArtificialRowTestFactor && phase.factorization.hits == 1
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:113 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:104
+  Expression: phase.factorization isa ArtificialRowTestFactor
+   Evaluated: JSimplex.SuhlSuhlFactorization{Float64, JSimplex.UMFPACKBackend}(JSimplex.UMFPACKBackend(SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x000000000274ada0)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000002530870)), 6, 6, [0, 6, 11, 16, 20, 26, 30], [0, 1, 2, 3, 4, 5, 0, 1, 2, 4  …  0, 1, 2, 3, 4, 5, 2, 3, 4, 5], [-3.0, 4.0, 1.0, -1.0, 2.0, -1.0, 2.0, -2.0, 3.0, -3.0  …  -3.0, 3.0, 3.0, -2.0, 8.0, 2.0, -3.0, 1.0, -1.0, 4.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([1, 2, 5, 4, 2, 3], [1.2231357997302227e-15, 10.999999999999979, 11.999999999999984, 1.2579472303097127e-15, -3.943029444595785e-15, -6.270182171892281e-16]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 30.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 64.0, 4.00003045797348e-7, 4.00003045797348e-7, -1.0, -1.0, -1.0], ReentrantLock()), 6, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000004c1cb30)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000002895dc0)), 6, 6, [0, 1, 2, 3, 4, 5, 6], [0, 1, 2, 3, 4, 5], [-1.0, -1.0, -1.0, -1.0, -1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([280744940470272, 280744439973392, 280744362295888, 280744788230152, 280744383290096, 280744383289872], [-0.0, -0.0, -0.0, -0.0, -0.0, -0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 6.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 12.0, 2.00001522898674e-7, 2.00001522898674e-7, -1.0, -1.0, -1.0], ReentrantLock()), false), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}[JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([1], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([2], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([3], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([4], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([5], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([6], [1.0])], [1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6], JSimplex.SuhlSuhlUpdate{Float64}[], [1.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Vector{Int64}[], JSimplex.SuhlSuhlUpdate{Float64}[], 0, nothing, JSimplex.TriangularRowCache{Float64}([1, 2, 3, 4, 5, 6], Tuple{Int64, Int64, Float64}[], 0, false, Int64[], false, 7, true, false, Int64[], JSimplex.TriangularSpikeCache{Float64}((JSimplex.PreparedTriangularSpike{Float64}(nothing, [NaN, 0.0, 1.387064330059905e-309, 1.38706407782461e-309, 1.38706355121206e-309, 1.387061551069816e-309], [1.387064039950408e-309, 1.38706430263207e-309, 1.387064039769224e-309, 1.387063551242414e-309, 1.387061551074717e-309, 5.0e-324]), JSimplex.PreparedTriangularSpike{Float64}(nothing, [5.0e-324, 4.243991582e-314, 0.0, 1.5e-323, 8.487983164e-314, 0.0], [0.0, 0.0, 0.0, 1.0e-322, 4.45619116103e-313, 0.0])), 1))) isa ArtificialRowTestFactor
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:104 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:113
+  Expression: phase.factorization isa ArtificialRowTestFactor && phase.factorization.hits == 1
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:113 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:104
+  Expression: phase.factorization isa ArtificialRowTestFactor
+   Evaluated: JSimplex.SuhlSuhlFactorization{Float64, JSimplex.UMFPACKBackend}(JSimplex.UMFPACKBackend(SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x000000000150dd90)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000000827720)), 6, 6, [0, 6, 11, 16, 20, 26, 30], [0, 1, 2, 3, 4, 5, 0, 1, 2, 4  …  0, 1, 2, 3, 4, 5, 2, 3, 4, 5], [-3.0, 4.0, 1.0, -1.0, 2.0, -1.0, 2.0, -2.0, 3.0, -3.0  …  -3.0, 3.0, 3.0, -2.0, 8.0, 2.0, -3.0, 1.0, -1.0, 4.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([1, 2, 5, 4, 2, 3], [1.2231357997302227e-15, 10.999999999999979, 11.999999999999984, 1.2579472303097127e-15, -3.943029444595785e-15, -6.270182171892281e-16]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 30.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 64.0, 2.00001522898674e-7, 2.00001522898674e-7, -1.0, -1.0, -1.0], ReentrantLock()), 6, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000002cc7e50)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000002dcfca0)), 6, 6, [0, 1, 2, 3, 4, 5, 6], [0, 1, 2, 3, 4, 5], [-1.0, -1.0, -1.0, -1.0, -1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([280744871322256, 280744871322256, 280744871322256, 280744871322256, 280744362871184, 280744945797728], [-0.0, -0.0, -0.0, -0.0, -0.0, -0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 6.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 12.0, 1.00000761449337e-7, 1.00000761449337e-7, -1.0, -1.0, -1.0], ReentrantLock()), false), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}[JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([1], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([2], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([3], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([4], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([5], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([6], [1.0])], [1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6], JSimplex.SuhlSuhlUpdate{Float64}[], [1.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Vector{Int64}[], JSimplex.SuhlSuhlUpdate{Float64}[], 0, nothing, JSimplex.TriangularRowCache{Float64}([1, 2, 3, 4, 5, 6], Tuple{Int64, Int64, Float64}[], 0, false, Int64[], false, 7, true, false, Int64[], JSimplex.TriangularSpikeCache{Float64}((JSimplex.PreparedTriangularSpike{Float64}(nothing, [1.38706355113494e-309, 1.38706355113494e-309, 1.38706355113494e-309, 1.38706355113494e-309, 1.387061774726614e-309, 1.387061309030613e-309], [1.38706396166448e-309, 1.38706396166448e-309, 1.38706396166448e-309, 1.38706396166448e-309, 1.38706144958241e-309, 1.3870643296222e-309]), JSimplex.PreparedTriangularSpike{Float64}(nothing, [1.38706355113494e-309, 1.38706355113494e-309, 1.38706355113494e-309, 1.38706355113494e-309, 1.387061774727563e-309, 1.387061309030613e-309], [1.38706396166448e-309, 1.38706396166448e-309, 1.38706396166448e-309, 1.38706396166448e-309, 1.38706177473436e-309, 1.3870643296222e-309])), 1))) isa ArtificialRowTestFactor
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:104 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:113
+  Expression: phase.factorization isa ArtificialRowTestFactor && phase.factorization.hits == 1
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:113 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:104
+  Expression: phase.factorization isa ArtificialRowTestFactor
+   Evaluated: JSimplex.SuhlSuhlFactorization{Float64, JSimplex.UMFPACKBackend}(JSimplex.UMFPACKBackend(SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000002dcfb20)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000002698750)), 6, 6, [0, 6, 11, 16, 20, 26, 30], [0, 1, 2, 3, 4, 5, 0, 1, 2, 4  …  0, 1, 2, 3, 4, 5, 2, 3, 4, 5], [-3.0, 4.0, 1.0, -1.0, 2.0, -1.0, 2.0, -2.0, 3.0, -3.0  …  -3.0, 3.0, 3.0, -2.0, 8.0, 2.0, -3.0, 1.0, -1.0, 4.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([1, 2, 5, 4, 2, 3], [1.2231357997302227e-15, 10.999999999999979, 11.999999999999984, 1.2579472303097127e-15, -3.943029444595785e-15, -6.270182171892281e-16]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 30.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 64.0, 2.00001522898674e-7, 2.00001522898674e-7, -1.0, -1.0, -1.0], ReentrantLock()), 6, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000000a66dd0)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x000000000382b470)), 6, 6, [0, 1, 2, 3, 4, 5, 6], [0, 1, 2, 3, 4, 5], [-1.0, -1.0, -1.0, -1.0, -1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([280744871322256, 280744871322256, 280744334388464, 280744945797728, 0, 0], [-0.0, -0.0, -0.0, -0.0, -0.0, -0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 6.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 12.0, 2.00001522898674e-7, 2.00001522898674e-7, -1.0, -1.0, -1.0], ReentrantLock()), false), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}[JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([1], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([2], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([3], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([4], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([5], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([6], [1.0])], [1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6], JSimplex.SuhlSuhlUpdate{Float64}[], [1.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Vector{Int64}[], JSimplex.SuhlSuhlUpdate{Float64}[], 0, nothing, JSimplex.TriangularRowCache{Float64}([1, 2, 3, 4, 5, 6], Tuple{Int64, Int64, Float64}[], 0, false, Int64[], false, 7, true, false, Int64[], JSimplex.TriangularSpikeCache{Float64}((JSimplex.PreparedTriangularSpike{Float64}(nothing, [5.0e-324, 1.38706176925205e-309, 1.0e-323, 1.38706176925221e-309, 1.5e-323, 1.387061769252367e-309], [NaN, 0.0, 1.387064330059905e-309, 1.387063964577176e-309, 1.387063973154555e-309, 1.38706179988096e-309]), JSimplex.PreparedTriangularSpike{Float64}(nothing, [1.38706176924952e-309, 1.387061769249995e-309, 1.387061769250786e-309, 1.387061769250944e-309, 1.3870617692511e-309, 1.38706176925126e-309], [NaN, 0.0, 1.387064330059905e-309, 1.387061793333206e-309, 1.387063551218383e-309, 1.387061799884753e-309])), 1))) isa ArtificialRowTestFactor
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:104 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:113
+  Expression: phase.factorization isa ArtificialRowTestFactor && phase.factorization.hits == 1
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:113 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:104
+  Expression: phase.factorization isa ArtificialRowTestFactor
+   Evaluated: JSimplex.SuhlSuhlFactorization{Float64, JSimplex.UMFPACKBackend}(JSimplex.UMFPACKBackend(SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000000a0edd0)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000001e14730)), 6, 6, [0, 6, 11, 16, 20, 26, 30], [0, 1, 2, 3, 4, 5, 0, 1, 2, 4  …  0, 1, 2, 3, 4, 5, 2, 3, 4, 5], [-3.0, 4.0, 1.0, -1.0, 2.0, -1.0, 2.0, -2.0, 3.0, -3.0  …  -3.0, 3.0, 3.0, -2.0, 8.0, 2.0, -3.0, 1.0, -1.0, 4.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([1, 2, 5, 4, 2, 3], [1.2231357997302227e-15, 10.999999999999979, 11.999999999999984, 1.2579472303097127e-15, -3.943029444595785e-15, -6.270182171892281e-16]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 30.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 64.0, 2.00001522898674e-7, 2.00001522898674e-7, -1.0, -1.0, -1.0], ReentrantLock()), 6, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x00000000018e27d0)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x000000000143a810)), 6, 6, [0, 1, 2, 3, 4, 5, 6], [0, 1, 2, 3, 4, 5], [-1.0, -1.0, -1.0, -1.0, -1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([280744916518160, 280744785859184, 0, 0, 0, 0], [-0.0, -0.0, -0.0, -0.0, -0.0, -0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 6.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 12.0, 2.999731805175543e-7, 2.999731805175543e-7, -1.0, -1.0, -1.0], ReentrantLock()), false), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}[JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([1], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([2], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([3], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([4], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([5], [1.0]), JSimplex.PackedUpperColumn{Float64, Vector{Int64}}([6], [1.0])], [1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6], JSimplex.SuhlSuhlUpdate{Float64}[], [1.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Vector{Int64}[], JSimplex.SuhlSuhlUpdate{Float64}[], 0, nothing, JSimplex.TriangularRowCache{Float64}([1, 2, 3, 4, 5, 6], Tuple{Int64, Int64, Float64}[], 0, false, Int64[], false, 7, true, false, Int64[], JSimplex.TriangularSpikeCache{Float64}((JSimplex.PreparedTriangularSpike{Float64}(nothing, [1.387063552432436e-309, 1.387063552449036e-309, 1.38706355250358e-309, 1.387063552434807e-309, 1.38706355245141e-309, 1.38706355250121e-309], [NaN, 0.0, 1.387064330059905e-309, 1.38706145266e-309, 5.0e-324, 1.38706176478617e-309]), JSimplex.PreparedTriangularSpike{Float64}(nothing, [1.38706130384332e-309, 1.3870642201186e-309, 1.387064002998645e-309, 1.387064303549765e-309, 1.3870613038434e-309, 1.387064303549765e-309], [1.38706408907737e-309, 1.3870642201186e-309, 1.387064002998645e-309, 1.387064303549765e-309, 1.387063961613414e-309, 1.387064303549765e-309])), 1))) isa ArtificialRowTestFactor
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:104 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:113
+  Expression: phase.factorization isa ArtificialRowTestFactor && phase.factorization.hits == 1
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:113 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:104
+  Expression: phase.factorization isa ArtificialRowTestFactor
+   Evaluated: JSimplex.BartelsGolubFactorization{Float64, JSimplex.UMFPACKBackend}(JSimplex.UMFPACKBackend(SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000002912ad0)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x000000000090fb50)), 6, 6, [0, 6, 11, 16, 20, 26, 30], [0, 1, 2, 3, 4, 5, 0, 1, 2, 4  …  0, 1, 2, 3, 4, 5, 2, 3, 4, 5], [-3.0, 4.0, 1.0, -1.0, 2.0, -1.0, 2.0, -2.0, 3.0, -3.0  …  -3.0, 3.0, 3.0, -2.0, 8.0, 2.0, -3.0, 1.0, -1.0, 4.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([1, 2, 5, 4, 2, 3], [1.2231357997302227e-15, 10.999999999999979, 11.999999999999984, 1.2579472303097127e-15, -3.943029444595785e-15, -6.270182171892281e-16]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 30.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 64.0, 8.00006091594696e-7, 8.00006091594696e-7, -1.0, -1.0, -1.0], ReentrantLock()), 6, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x000000000177fdd0)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000002988de0)), 6, 6, [0, 1, 2, 3, 4, 5, 6], [0, 1, 2, 3, 4, 5], [-1.0, -1.0, -1.0, -1.0, -1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([280744419678960, 280744419678992, 280744419679024, 280744419679056, 280744419679088, 280744419679248], [-0.0, -0.0, -0.0, -0.0, -0.0, -0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 6.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 12.0, 2.00001522898674e-7, 2.00001522898674e-7, -1.0, -1.0, -1.0], ReentrantLock()), false), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}[JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([1], [1.0]), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([2], [1.0]), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([3], [1.0]), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([4], [1.0]), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([5], [1.0]), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([6], [1.0])], [1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6], JSimplex.BartelsGolubUpdate{Float64}[], [1.0, 0.0, 0.0, 0.0, 0.0, 0.0], [1.0, 0.0, 0.0, 0.0, 0.0, 0.0], [Int64[], Int64[], Int64[], Int64[], Int64[], Int64[]], Int64[], JSimplex.BartelsGolubUpdate{Float64}[], 0, nothing, JSimplex.TriangularRowCache{Float64}([1, 2, 3, 4, 5, 6], Tuple{Int64, Int64, Float64}[], 0, false, Int64[], false, 7, true, false, Int64[], JSimplex.TriangularSpikeCache{Float64}((JSimplex.PreparedTriangularSpike{Float64}(nothing, [5.0e-324, 1.38706173057185e-309, 1.0e-323, 1.387061730572007e-309, 1.5e-323, 1.387061730572165e-309], [1.38706173056916e-309, 1.38706173056932e-309, 1.387061730569477e-309, 1.38706173057011e-309, 1.38706173057027e-309, 1.387061730570426e-309]), JSimplex.PreparedTriangularSpike{Float64}(nothing, [0.0, 0.0, 0.0, 1.0e-322, 4.45619116103e-313, 0.0], [1.0e-323, 2.0e-323, 0.0, 0.0, 0.0, 0.0])), 1)), false) isa ArtificialRowTestFactor
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:104 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:113
+  Expression: phase.factorization isa ArtificialRowTestFactor && phase.factorization.hits == 1
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:113 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:104
+  Expression: phase.factorization isa ArtificialRowTestFactor
+   Evaluated: JSimplex.BartelsGolubFactorization{Float64, JSimplex.UMFPACKBackend}(JSimplex.UMFPACKBackend(SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x00000000009571e0)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000001f2ea90)), 6, 6, [0, 6, 11, 16, 20, 26, 30], [0, 1, 2, 3, 4, 5, 0, 1, 2, 4  …  0, 1, 2, 3, 4, 5, 2, 3, 4, 5], [-3.0, 4.0, 1.0, -1.0, 2.0, -1.0, 2.0, -2.0, 3.0, -3.0  …  -3.0, 3.0, 3.0, -2.0, 8.0, 2.0, -3.0, 1.0, -1.0, 4.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([1, 2, 5, 4, 2, 3], [1.2231357997302227e-15, 10.999999999999979, 11.999999999999984, 1.2579472303097127e-15, -3.943029444595785e-15, -6.270182171892281e-16]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 30.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 64.0, 4.00003045797348e-7, 4.00003045797348e-7, -1.0, -1.0, -1.0], ReentrantLock()), 6, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000000972b80)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000004af6ae0)), 6, 6, [0, 1, 2, 3, 4, 5, 6], [0, 1, 2, 3, 4, 5], [-1.0, -1.0, -1.0, -1.0, -1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([280744940329424, 280744406812496, 280744902260320, 280744872832336, 280744871860544, 280744927288912], [-0.0, -0.0, -0.0, -0.0, -0.0, -0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 6.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 12.0, 1.00000761449337e-7, 1.00000761449337e-7, -1.0, -1.0, -1.0], ReentrantLock()), false), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}[JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([1], [1.0]), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([2], [1.0]), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([3], [1.0]), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([4], [1.0]), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([5], [1.0]), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([6], [1.0])], [1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6], JSimplex.BartelsGolubUpdate{Float64}[], [1.0, 0.0, 0.0, 0.0, 0.0, 0.0], [1.0, 0.0, 0.0, 0.0, 0.0, 0.0], [Int64[], Int64[], Int64[], Int64[], Int64[], Int64[]], Int64[], JSimplex.BartelsGolubUpdate{Float64}[], 0, nothing, JSimplex.TriangularRowCache{Float64}([1, 2, 3, 4, 5, 6], Tuple{Int64, Int64, Float64}[], 0, false, Int64[], false, 7, true, false, Int64[], JSimplex.TriangularSpikeCache{Float64}((JSimplex.PreparedTriangularSpike{Float64}(nothing, [1.387064064405787e-309, 1.387063551143675e-309, 1.387063551160276e-309, 1.38706203974564e-309, 1.38706355116265e-309, 1.38706203974572e-309], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]), JSimplex.PreparedTriangularSpike{Float64}(nothing, [1.387063555075806e-309, 1.387063553852104e-309, 1.38706355363424e-309, 1.387063553697283e-309, 1.387063553659062e-309, 1.38706355363424e-309], [1.38706203974501e-309, 1.387062039744296e-309, 1.387062039745087e-309, 1.387062039745166e-309, 1.387063964323977e-309, 1.387062039745245e-309])), 1)), false) isa ArtificialRowTestFactor
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:104 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:113
+  Expression: phase.factorization isa ArtificialRowTestFactor && phase.factorization.hits == 1
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:113 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:104
+  Expression: phase.factorization isa ArtificialRowTestFactor
+   Evaluated: JSimplex.BartelsGolubFactorization{Float64, JSimplex.UMFPACKBackend}(JSimplex.UMFPACKBackend(SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x00000000036aeda0)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000004837cf0)), 6, 6, [0, 6, 11, 16, 20, 26, 30], [0, 1, 2, 3, 4, 5, 0, 1, 2, 4  …  0, 1, 2, 3, 4, 5, 2, 3, 4, 5], [-3.0, 4.0, 1.0, -1.0, 2.0, -1.0, 2.0, -2.0, 3.0, -3.0  …  -3.0, 3.0, 3.0, -2.0, 8.0, 2.0, -3.0, 1.0, -1.0, 4.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([1, 2, 5, 4, 2, 3], [1.2231357997302227e-15, 10.999999999999979, 11.999999999999984, 1.2579472303097127e-15, -3.943029444595785e-15, -6.270182171892281e-16]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 30.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 64.0, 3.999739419668913e-7, 3.999739419668913e-7, -1.0, -1.0, -1.0], ReentrantLock()), 6, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000004576d40)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000002cc4050)), 6, 6, [0, 1, 2, 3, 4, 5, 6], [0, 1, 2, 3, 4, 5], [-1.0, -1.0, -1.0, -1.0, -1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([0, 1, 2, 3, 4, 5], [-0.0, -0.0, -0.0, -0.0, -0.0, -0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 6.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 12.0, 1.00000761449337e-7, 1.00000761449337e-7, -1.0, -1.0, -1.0], ReentrantLock()), false), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}[JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([1], [1.0]), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([2], [1.0]), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([3], [1.0]), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([4], [1.0]), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([5], [1.0]), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([6], [1.0])], [1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6], JSimplex.BartelsGolubUpdate{Float64}[], [1.0, 0.0, 0.0, 0.0, 0.0, 0.0], [1.0, 0.0, 0.0, 0.0, 0.0, 0.0], [Int64[], Int64[], Int64[], Int64[], Int64[], Int64[]], Int64[], JSimplex.BartelsGolubUpdate{Float64}[], 0, nothing, JSimplex.TriangularRowCache{Float64}([1, 2, 3, 4, 5, 6], Tuple{Int64, Int64, Float64}[], 0, false, Int64[], false, 7, true, false, Int64[], JSimplex.TriangularSpikeCache{Float64}((JSimplex.PreparedTriangularSpike{Float64}(nothing, [3.0e-323, 1.73e-322, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]), JSimplex.PreparedTriangularSpike{Float64}(nothing, [1.38706432206798e-309, 1.387063551143675e-309, 1.38706203975315e-309, 1.38706192634382e-309, 1.3870619263439e-309, 1.38706192634398e-309], [1.38706142733048e-309, 1.38706142733064e-309, 1.3870614273308e-309, 1.387061427330956e-309, 1.387061427331114e-309, 1.38706142733127e-309])), 1)), false) isa ArtificialRowTestFactor
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:104 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:113
+  Expression: phase.factorization isa ArtificialRowTestFactor && phase.factorization.hits == 1
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:113 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:104
+  Expression: phase.factorization isa ArtificialRowTestFactor
+   Evaluated: ERROR: LoadError: Some tests did not pass: 196 passed, 56 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/artificial_row_permanent.jl:5
+JSimplex.BartelsGolubFactorization{Float64, JSimplex.UMFPACKBackend}(JSimplex.UMFPACKBackend(SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000001dc5a10)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000001f27990)), 6, 6, [0, 6, 11, 16, 20, 26, 30], [0, 1, 2, 3, 4, 5, 0, 1, 2, 4  …  0, 1, 2, 3, 4, 5, 2, 3, 4, 5], [-3.0, 4.0, 1.0, -1.0, 2.0, -1.0, 2.0, -2.0, 3.0, -3.0  …  -3.0, 3.0, 3.0, -2.0, 8.0, 2.0, -3.0, 1.0, -1.0, 4.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([1, 2, 5, 4, 2, 3], [1.2231357997302227e-15, 10.999999999999979, 11.999999999999984, 1.2579472303097127e-15, -3.943029444595785e-15, -6.270182171892281e-16]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 30.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 64.0, 3.00002284348011e-7, 3.00002284348011e-7, -1.0, -1.0, -1.0], ReentrantLock()), 6, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000000b33ea0)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000000b46ec0)), 6, 6, [0, 1, 2, 3, 4, 5, 6], [0, 1, 2, 3, 4, 5], [-1.0, -1.0, -1.0, -1.0, -1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([280744484976256, 280744403502288, 280744783399312, 280744871860544, 280744871860544, 280744447407568], [-0.0, -0.0, -0.0, -0.0, -0.0, -0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 6.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 12.0, 1.00000761449337e-7, 1.00000761449337e-7, -1.0, -1.0, -1.0], ReentrantLock()), false), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}[JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([1], [1.0]), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([2], [1.0]), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([3], [1.0]), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([4], [1.0]), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([5], [1.0]), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([6], [1.0])], [1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6], JSimplex.BartelsGolubUpdate{Float64}[], [1.0, 0.0, 0.0, 0.0, 0.0, 0.0], [1.0, 0.0, 0.0, 0.0, 0.0, 0.0], [Int64[], Int64[], Int64[], Int64[], Int64[], Int64[]], Int64[], JSimplex.BartelsGolubUpdate{Float64}[], 0, nothing, JSimplex.TriangularRowCache{Float64}([1, 2, 3, 4, 5, 6], Tuple{Int64, Int64, Float64}[], 0, false, Int64[], false, 7, true, false, Int64[], JSimplex.TriangularSpikeCache{Float64}((JSimplex.PreparedTriangularSpike{Float64}(nothing, [NaN, 1.38706142354689e-309, 1.387064330059905e-309, 1.387063526772563e-309, 5.0e-324, 1.387061435290077e-309], [1.38706140388995e-309, 1.38706430263207e-309, 1.38706410867905e-309, 5.0e-324, 1.387061435292923e-309, 5.0e-324]), JSimplex.PreparedTriangularSpike{Float64}(nothing, [1.38706410866996e-309, 1.3870641086698e-309, 1.387064108607034e-309, 5.0e-324, 1.387061435302567e-309, 5.0e-324], [1.38706419532441e-309, 1.38706419532425e-309, 1.387063975631993e-309, 1.387061423573453e-309, 1.387061435314425e-309, 5.0e-324])), 1)), false) isa ArtificialRowTestFactor
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:104 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:113
+  Expression: phase.factorization isa ArtificialRowTestFactor && phase.factorization.hits == 1
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:113 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:104
+  Expression: phase.factorization isa ArtificialRowTestFactor
+   Evaluated: JSimplex.BartelsGolubFactorization{Float64, JSimplex.UMFPACKBackend}(JSimplex.UMFPACKBackend(SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x00000000008cf350)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000001a733d0)), 6, 6, [0, 6, 11, 16, 20, 26, 30], [0, 1, 2, 3, 4, 5, 0, 1, 2, 4  …  0, 1, 2, 3, 4, 5, 2, 3, 4, 5], [-3.0, 4.0, 1.0, -1.0, 2.0, -1.0, 2.0, -2.0, 3.0, -3.0  …  -3.0, 3.0, 3.0, -2.0, 8.0, 2.0, -3.0, 1.0, -1.0, 4.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([1, 2, 5, 4, 2, 3], [1.2231357997302227e-15, 10.999999999999979, 11.999999999999984, 1.2579472303097127e-15, -3.943029444595785e-15, -6.270182171892281e-16]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 30.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 64.0, 4.00003045797348e-7, 4.00003045797348e-7, -1.0, -1.0, -1.0], ReentrantLock()), 6, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000003a8eaa0)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000003c82d10)), 6, 6, [0, 1, 2, 3, 4, 5, 6], [0, 1, 2, 3, 4, 5], [-1.0, -1.0, -1.0, -1.0, -1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([280744396725152, 280744396724432, 280744396724544, 280744396724720, 280744396724896, 280744396725072], [-0.0, -0.0, -0.0, -0.0, -0.0, -0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 6.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 12.0, 1.00000761449337e-7, 1.00000761449337e-7, -1.0, -1.0, -1.0], ReentrantLock()), false), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}[JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([1], [1.0]), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([2], [1.0]), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([3], [1.0]), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([4], [1.0]), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([5], [1.0]), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([6], [1.0])], [1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6], JSimplex.BartelsGolubUpdate{Float64}[], [1.0, 0.0, 0.0, 0.0, 0.0, 0.0], [1.0, 0.0, 0.0, 0.0, 0.0, 0.0], [Int64[], Int64[], Int64[], Int64[], Int64[], Int64[]], Int64[], JSimplex.BartelsGolubUpdate{Float64}[], 0, nothing, JSimplex.TriangularRowCache{Float64}([1, 2, 3, 4, 5, 6], Tuple{Int64, Int64, Float64}[], 0, false, Int64[], false, 7, true, false, Int64[], JSimplex.TriangularSpikeCache{Float64}((JSimplex.PreparedTriangularSpike{Float64}(nothing, [NaN, 1.387062039680423e-309, 1.387064330059905e-309, 1.38706191251512e-309, 5.0e-324, 1.38706143854996e-309], [1.387063239605168e-309, 1.38706430263207e-309, 1.38706396425528e-309, 5.0e-324, 1.387061438558657e-309, 5.0e-324]), JSimplex.PreparedTriangularSpike{Float64}(nothing, [NaN, 1.3870635514296e-309, 1.387064330059905e-309, 1.387063239605168e-309, 5.0e-324, 1.387061438558657e-309], [1.38706396390817e-309, 1.38706430263207e-309, 1.387063963910147e-309, 1.38706127887056e-309, 1.387061439461414e-309, 5.0e-324])), 1)), false) isa ArtificialRowTestFactor
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:104 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:113
+  Expression: phase.factorization isa ArtificialRowTestFactor && phase.factorization.hits == 1
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:113 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:104
+  Expression: phase.factorization isa ArtificialRowTestFactor
+   Evaluated: JSimplex.BartelsGolubFactorization{Float64, JSimplex.UMFPACKBackend}(JSimplex.UMFPACKBackend(SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x0000000003e89b70)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000002dcfca0)), 6, 6, [0, 6, 11, 16, 20, 26, 30], [0, 1, 2, 3, 4, 5, 0, 1, 2, 4  …  0, 1, 2, 3, 4, 5, 2, 3, 4, 5], [-3.0, 4.0, 1.0, -1.0, 2.0, -1.0, 2.0, -2.0, 3.0, -3.0  …  -3.0, 3.0, 3.0, -2.0, 8.0, 2.0, -3.0, 1.0, -1.0, 4.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([1, 2, 5, 4, 2, 3], [1.2231357997302227e-15, 10.999999999999979, 11.999999999999984, 1.2579472303097127e-15, -3.943029444595785e-15, -6.270182171892281e-16]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 30.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 64.0, 2.00001522898674e-7, 2.00001522898674e-7, -1.0, -1.0, -1.0], ReentrantLock()), 6, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x000000000078bd90)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000000fbf010)), 6, 6, [0, 1, 2, 3, 4, 5, 6], [0, 1, 2, 3, 4, 5], [-1.0, -1.0, -1.0, -1.0, -1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([40097814684792, 40097814684792, 40097814684792, 40097814684792, 40097814684792, 567519798624256], [-0.0, -0.0, -0.0, -0.0, -0.0, -0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 6.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 12.0, 2.00001522898674e-7, 2.00001522898674e-7, -1.0, -1.0, -1.0], ReentrantLock()), false), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}[JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([1], [1.0]), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([2], [1.0]), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([3], [1.0]), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([4], [1.0]), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([5], [1.0]), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([6], [1.0])], [1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6], JSimplex.BartelsGolubUpdate{Float64}[], [1.0, 0.0, 0.0, 0.0, 0.0, 0.0], [1.0, 0.0, 0.0, 0.0, 0.0, 0.0], [Int64[], Int64[], Int64[], Int64[], Int64[], Int64[]], Int64[], JSimplex.BartelsGolubUpdate{Float64}[], 0, nothing, JSimplex.TriangularRowCache{Float64}([1, 2, 3, 4, 5, 6], Tuple{Int64, Int64, Float64}[], 0, false, Int64[], false, 7, true, false, Int64[], JSimplex.TriangularSpikeCache{Float64}((JSimplex.PreparedTriangularSpike{Float64}(nothing, [1.38706396390817e-309, 1.38706430263207e-309, 1.387063963910147e-309, 1.387063964323665e-309, 1.387061448583526e-309, 5.0e-324], [NaN, 1.387063346845634e-309, 1.387064330059905e-309, 1.38706396390817e-309, 5.0e-324, 1.387061448583526e-309]), JSimplex.PreparedTriangularSpike{Float64}(nothing, [1.38706163320882e-309, 1.38706430263207e-309, 1.38706396425528e-309, 1.387063553729027e-309, 1.38706144858716e-309, 5.0e-324], [NaN, 1.38706432962173e-309, 1.387064330059905e-309, 1.38706163320882e-309, 5.0e-324, 1.38706144858716e-309])), 1)), false) isa ArtificialRowTestFactor
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:104 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:113
+  Expression: phase.factorization isa ArtificialRowTestFactor && phase.factorization.hits == 1
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:113 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:104
+  Expression: phase.factorization isa ArtificialRowTestFactor
+   Evaluated: JSimplex.BartelsGolubFactorization{Float64, JSimplex.UMFPACKBackend}(JSimplex.UMFPACKBackend(SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x00000000020557e0)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000001dbd870)), 6, 6, [0, 6, 11, 16, 20, 26, 30], [0, 1, 2, 3, 4, 5, 0, 1, 2, 4  …  0, 1, 2, 3, 4, 5, 2, 3, 4, 5], [-3.0, 4.0, 1.0, -1.0, 2.0, -1.0, 2.0, -2.0, 3.0, -3.0  …  -3.0, 3.0, 3.0, -2.0, 8.0, 2.0, -3.0, 1.0, -1.0, 4.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([1, 2, 5, 4, 2, 3], [1.2231357997302227e-15, 10.999999999999979, 11.999999999999984, 1.2579472303097127e-15, -3.943029444595785e-15, -6.270182171892281e-16]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 30.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 64.0, 2.00001522898674e-7, 2.00001522898674e-7, -1.0, -1.0, -1.0], ReentrantLock()), 6, SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}(SparseArrays.UMFPACK.Symbolic{Float64, Int64}(Ptr{Nothing}(0x000000000204fce0)), SparseArrays.UMFPACK.Numeric{Float64, Int64}(Ptr{Nothing}(0x0000000000869110)), 6, 6, [0, 1, 2, 3, 4, 5, 6], [0, 1, 2, 3, 4, 5], [-1.0, -1.0, -1.0, -1.0, -1.0, -1.0], 0, SparseArrays.UMFPACK.UmfpackWS{Int64}([9223372036854775807, 1, 280744945886320, 280744725179408, 1, 280744359774128], [-0.0, -0.0, -0.0, -0.0, -0.0, -0.0]), [1.0, 0.2, 0.2, 0.1, 32.0, 0.0, 0.7, 0.0, 1.0, 0.3, 1.0, 1.0, 0.9, 0.0, 10.0, 0.001, 1.0, 0.5, 0.0, 1.0], [0.0, 6.0, 6.0, 16.0, 4.0, 8.0, 8.0, 8.0, 0.0, 0.0  …  0.0, 0.0, -1.0, -1.0, 12.0, 1.00000761449337e-7, 1.00000761449337e-7, -1.0, -1.0, -1.0], ReentrantLock()), false), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}[JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([1], [1.0]), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([2], [1.0]), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([3], [1.0]), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([4], [1.0]), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([5], [1.0]), JSimplex.PackedUpperColumn{Float64, JSimplex.UpperRowIndices}([6], [1.0])], [1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6], JSimplex.BartelsGolubUpdate{Float64}[], [1.0, 0.0, 0.0, 0.0, 0.0, 0.0], [1.0, 0.0, 0.0, 0.0, 0.0, 0.0], [Int64[], Int64[], Int64[], Int64[], Int64[], Int64[]], Int64[], JSimplex.BartelsGolubUpdate{Float64}[], 0, nothing, JSimplex.TriangularRowCache{Float64}([1, 2, 3, 4, 5, 6], Tuple{Int64, Int64, Float64}[], 0, false, Int64[], false, 7, true, false, Int64[], JSimplex.TriangularSpikeCache{Float64}((JSimplex.PreparedTriangularSpike{Float64}(nothing, [1.38706145080927e-309, 1.38706145080943e-309, 1.38706145080959e-309, 1.387061450809746e-309, 1.387061450809904e-309, 1.38706145081006e-309], [1.38706145081212e-309, 1.38706145081259e-309, 1.387061450813066e-309, 1.38706145081354e-309, 1.387061450814015e-309, 1.38706145081449e-309]), JSimplex.PreparedTriangularSpike{Float64}(nothing, [1.38706355113494e-309, 1.38706355113494e-309, 1.387061450807216e-309, 1.38706152521303e-309, 0.0, 0.0], [1.38706396166448e-309, 1.38706396166448e-309, 1.387063958815105e-309, 1.3870643296222e-309, 0.0, 0.0])), 1)), false) isa ArtificialRowTestFactor
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:104 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:113
+  Expression: phase.factorization isa ArtificialRowTestFactor && phase.factorization.hits == 1
+  Stacktrace:
+   [1] top-level scope
+     @ none:88
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:113 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+Test Summary:                                                                       | Pass  Fail  Total   Time
+Artificial-row recovery respects budgets and preserves the original on cancellation |  196    56    252  12.0s
+RNG of the outermost testset: Random.Xoshiro(0x5a0f0dc81d3bd9b7, 0xcbefd481102d4f70, 0xf7c99b34455e2657, 0xb6d09cfc764ae018, 0x9482de37e4a6a862)

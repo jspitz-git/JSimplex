@@ -22,26 +22,30 @@ are not exactCItrajectory proof; actual CI row/backend cause remains unknown.
 
 ## Tasks
 
-- [ ] Inspect SimplexWorkspace constructor fields, _pipeline_basis_solve!, factor
+- [x] Inspect SimplexWorkspace constructor fields, _pipeline_basis_solve!, factor
   traits, forward/transpose solves, update/refactor/finite checks, copying and
   recovery ownership. List exact methods the adapter must forward. If this requires
   changes to production or hides a safety gate, reject the design and document the
   smallest alternative diagnostic plan; never grow a production API for this test.
-- [ ] Build an isolated diagnostic adapter forwarding all ordinary behavior to its
+- [x] Build an isolated diagnostic adapter forwarding all ordinary behavior to its
   owned real manager. Arm only after fixture setup. Target exactly the first unit
   BTRAN in artificial removal, not setup/pricing/refinement. Count hits and capture
   input/output; preserve subsequent solves/update/refactor and callback ordering.
   Qualification must prove disabled adapter matches real factor selected state;
   enabled seam changes only its declared row output. Avoid global method overrides.
-- [ ] Propose one explicit finite row perturbation and prove independent unchanged
+- [x] Propose one explicit finite row perturbation and prove independent unchanged
   solve-quality rejects it, while the real correction path can repair it. A fixed
   small rational/integer fixture may reduce dependence on native LU roundoff.
   Record actual matrix/row/error, not a platform-dependent claim from eps alone.
-- [ ] Run bounded manager/mode matrix including zero budget, checked/dual exclusion,
+- [x] Run bounded manager/mode matrix including zero budget, checked/dual exclusion,
   cancellation, exact callback exception, stringent pivot, infeasible original
   export, successful correction and reliable no-correction control. Require all
   old semantic assertions plus actual injection and correction reachability.
   Export checks stay against original model; charge consumed work on failure.
-- [ ] Audit source/pins/process and forwarding work. If qualified, write a separate
+- [x] Audit source/pins/process and forwarding work. If qualified, write a separate
   permanent test RED/GREEN/integration subplan; otherwise preserve all failures.
   One fresh final review. No claim of x64CIvalidation from local AArch64 evidence.
+
+Closure: S6-ARTIFICIAL-FIXTURE.md/REVIEW.md; review accepted without findings,
+master8516e0d integration348/348/13gates, source/pins/userhashes verified.
+Actual x64CI validation and broader S6 remain open.
