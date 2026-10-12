@@ -46,7 +46,20 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-**Current continuation: S5-D precision-journal transfer contract completed and independently accepted. Existing success and no-journal interruption tests have historical execution; their active-journal final-observer interruption composition remains unqualified, not a demonstrated defect. Next S5-E: `docs/superpowers/plans/2026-10-13-precision-journal-interruption-preparation.md`, ONE bounded OFFLINE source/oracle preparation, at most two prospective stop/throw cases. No executable numerical driver or launch; no production or precision-policy change.**
+**Current continuation: S5-E offline precision-journal interruption preparation completed; two prospective final-observer stop/throw cases are frozen, not executed. Next S5-F: `docs/superpowers/plans/2026-10-13-precision-journal-interruption-driver.md`, ONE bounded diagnostic driver preparation and independent review WITHOUT Julia or numerical launch. Preserve the existing fixture/default native policy, options and 128-bit request. No production/test/environment/CI change.**
+
+S5-E: sixteen source/evidence checks, 115 fresh hashes, four scoped transfer test
+files and four reused historical success/failure rows. Six author checks/full115;
+three snapshot groups per case, 88 arrays/215 scalar entries, two cases only.
+Native despite adaptive strategy; reconstruction refinement is gated off but the
+one steepest-edge unit solve directly permits up to three correction BTRANs.
+Fresh checkpoint and sparse-pricing cache are empty before lazy helper calls;
+source's pre-detachment checkpoint key is preserved, not revalidated against new
+working-buffer identities. Observer retains fresh before final stop/wrapped throw;
+source arrays preserved while work/shared diagnostics advance. No rollback/free/
+certificate claim. Read S5-PRECISION-JOURNAL-INTERRUPTION-PREPARATION.md/REVIEW and
+results/S5-E. Frozen prepare/evidence/independent/closure never rerun. Separate
+passing closure precedes fail-fast publication; all prior rejections/gates unchanged.
 
 S5-D: thirteen source/evidence checks, 103 fresh hashes, fourteen original CI rows
 (seven groups/1617 pass in EACH failed run), sixteen source comparisons (12 equal,

@@ -898,3 +898,24 @@ no numerical driver/launch or precision increase. Check for existing exact-compo
 evidence first. Preserve all prior rejections and S4/S6/fullsuite limitations; do not
 reopen DSE counters, HH bootstrap or controller audits. Separate passing closure
 before fail-fast diagnostic publication.
+
+
+## S5-E offline oracle preparation and S5-F continuation (2026-10-13)
+
+S5-E freezes exactly two prospective active-journal final-observer cases: stop and
+wrapped throw, using the existing fixture plus detached equal-value working arrays.
+No Julia or executable numerical driver, new LP arithmetic or production/test/CI
+change. Sixteen source checks/115 fresh pins; six author checks and independent
+numerical/work review. Existing active success and no-journal failures are separate
+historical rows, not executed composition. Fixed source-before/source-after/fresh
+snapshot schema is 88 arrays/215 entries per case; observer only retains one fresh
+reference and signals stop/throw. Source pre-detachment checkpoint key is preserved,
+not asserted valid for detached costs. Fresh checkpoint/cache are empty. Native
+profile does not gate the direct weight-refinement call: up to three correction
+BTRANs remain source-possible; no observed count or benchmark claim.
+
+Next S5-F is ONE bounded diagnostic driver implementation/review WITHOUT execution,
+per 2026-10-13-precision-journal-interruption-driver.md. Do not add success controls,
+warmups, fixture tuning, policy changes, hooks, full-module clones or old reruns.
+A future guarded launch requires its own complete reviewed plan. CI off, HH reuse
+disabled, S2-A/S6-J/whole-AF rejections, Q GC/outlier and S4 broader gates unchanged.
