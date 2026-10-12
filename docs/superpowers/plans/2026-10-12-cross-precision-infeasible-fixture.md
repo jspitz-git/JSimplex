@@ -9,29 +9,29 @@ proves its g/2 witness; do not repeat that accepted census or the broad corpus.
 
 ## Tasks
 
-- [ ] Reconcile existing supplied-option preservation tests and S6-K exact proof.
+- [x] Reconcile existing supplied-option preservation tests and S6-K exact proof.
   The old fixture tests g>t but infeasibility requires accounting for both row and
   column allowances. The independent stored-value/options tests retain their exact
   value/precision obligations; do not claim the new status case alone distinguishes
   a last-bit tolerance rounding error.
-- [ ] Diagnostic-only qualification of candidate row_lower=4g, original fixed-zero
+- [x] Diagnostic-only qualification of candidate row_lower=4g, original fixed-zero
   column and matrix coefficient1. Keep supplied t=g-2^-80 and every other option.
   Exact maximum tolerance-accepted x is t; row acceptance needs x>=4g-t, so the
   contradiction margin4g-2t is positive and well separated at all ambient precisions.
   Check this with rational arithmetic and original-space witness rejection.
   No permanent test edit before complete30case qualification with all original
   INFEASIBLE/model/option/global assertions preserved. Count source replacements.
-- [ ] Add a meaningful exact-margin precondition in a separate focused RED/GREEN
+- [x] Add a meaningful exact-margin precondition in a separate focused RED/GREEN
   subplan before permanent edit. Its RED may use one old fixture construction with
   no solver repeat: old g-2t<0 versus new4g-2t>0. Preserve the old census status RED.
   Transfer only the qualified construction/comment/precondition. Keep dual/zero
   fixture branches and original status assertions unchanged; do not replace
   INFEASIBLE with a permissive status list or enlarge tolerance.
-- [ ] Verify the new permanent slice and appropriate neighboring supplied-option
+- [x] Verify the new permanent slice and appropriate neighboring supplied-option
   coverage without repeating already accepted broad runs. Preserve source/pins,
   actual scope and failures. One combined independent final numerical/work review
   may cover qualification+permanent candidate only after gates complete.
-- [ ] Integrate only if accepted; master targeted checks/source/user hashes, push
+- [x] Integrate only if accepted; master targeted checks/source/user hashes, push
   and remote verification. Update STATUS; never re-enable CI or claim actual x64
   or full-suite success from local focused evidence.
 
@@ -42,4 +42,14 @@ Use one Julia/memory guard and separate fresh absence checks before launch/edits
 
 Independent S6-K final review accepts this as a qualification plan only. Stored
 option precision tests do not establish end-to-end last-bit status sensitivity;
-that broader obligation remains open. No4g run or permanent test edit yet.
+that broader obligation remains open. At that historical S6-K review point, no4g
+run or permanent test edit had occurred. S6-L/M completion is recorded below.
+
+S6-L qualification300/300/18gates; S6-M RED one exact-margin failure, GREEN1477/1477
+and13gates. Combined final review accepts without blockers. Test2c3e0eb -> master
+7fea422; master1477/1477/14gates and push verified. Deferred minor diagnostic duplicate
+rationalization does not justify changing accepted evidence.
+
+Closed: test2c3e0eb -> master7fea422249442003b53f6f245bb569a5e0cf9bcf; fresh
+independent review, master1477 assertions/14gates, source/pins/user hashes and
+remote master ref verified. S6-N is the next bounded plan; full S6 remains open.

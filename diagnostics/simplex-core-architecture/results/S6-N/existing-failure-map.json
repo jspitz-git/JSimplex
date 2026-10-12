@@ -1,0 +1,40 @@
+{
+  "source": "results/S6-A/ci-inventory-1.json",
+  "records": [
+    {
+      "run": 38149970679,
+      "head": "4914cbb1b22f2c6bf4a18eef6816382682a65902",
+      "failures": [
+        {
+          "title": "A nearly singular bounded model has no recession ray",
+          "kind": "Test Failed",
+          "file": "test/solver_tests.jl",
+          "line": 552,
+          "log_line": 5895,
+          "details": [
+            "Expression: result.objective_value == -(T(big(2) ^ 44))",
+            "Evaluated: -1.7592186044416062e13 == -1.7592186044416e13"
+          ]
+        }
+      ]
+    },
+    {
+      "run": 38142752357,
+      "head": "b720674097f662e2f8c3ea81590ea551d66a7e9a",
+      "failures": [
+        {
+          "title": "A nearly singular bounded model has no recession ray",
+          "kind": "Test Failed",
+          "file": "test/solver_tests.jl",
+          "line": 552,
+          "log_line": 5922,
+          "details": [
+            "Expression: result.objective_value == -(T(big(2) ^ 44))",
+            "Evaluated: -1.7592186044416062e13 == -1.7592186044416e13"
+          ]
+        }
+      ]
+    }
+  ],
+  "scope": "Existing evidence only; no numerical S6-N census yet"
+}

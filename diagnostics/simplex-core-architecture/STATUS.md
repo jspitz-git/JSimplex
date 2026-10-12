@@ -4,7 +4,7 @@ Updated: 2026-10-12. This is the entry point after interruption.
 
 ## Current state
 
-**S1-A, S3-A/S3-B, S4-A/S4-C and S5-C integrated; master `8516e0d` pushed (includes S6-C/S6-G test repairs). S2-A rejected; S0-L all four long references audited and complete.**
+**S1-A, S3-A/S3-B, S4-A/S4-C and S5-C integrated; master `7fea422` pushed (includes S6-C/S6-G/S6-M test repairs). S2-A rejected; S0-L all four long references audited and complete.**
 The source baseline is `fe839aa72171d7496c9c931d9393278448c7317e`.
 Initial time-budget diagnostic evidence is commit `6ded1fc`.
 
@@ -38,7 +38,7 @@ main also has a user-modified .vscode/settings.json. Do not stage those files.
 | S3 | End-to-end exact sparsity support | Active | S3-A/S3-B integrated, latest masterb720674; exact-support consumer savings qualified; broader S3 partial |
 | S4 | Refactorization memory lifecycle | Active | S4-A/S4-C integrated; master3220118; Float64 component attribution/cost and exact triplet optimization accepted; bounded scalar component attribution360samples accepted; broader manager/history/medium coverage open |
 | S5 | Phase/cleanup handoff contract | Active | S5-A/S5-B accepted; S5-C production88a2411 -> mastere7014fb, reviewed, master668/668; broader handoffs partial |
-| S6 | Broad validation and final comparison | Active | S6-A/B triage accepted; S6-C test repair integrated as mastera465da5, focused20/20. S6-G artificial-row test repair master8516e0d; other CI families and full validation remain open |
+| S6 | Broad validation and final comparison | Active | S6-A/B triage accepted; S6-C test repair integrated as mastera465da5, focused20/20. S6-G artificial-row test repair master8516e0d; S6-M BigFloat fixture repair master7fea422, focused1477/1477; other CI families and full validation remain open |
 
 Allowed execution states: Pending, Active, Blocked (reason required), Verified,
 Integrated, Rejected (evidence required). Mark an optimization Verified only after
@@ -46,37 +46,30 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-S6-F/G are accepted and integrated: test commita9be911 -> master8516e0d,
-independent review without findings, master348/348/13audit gates with unchanged
-pins/source/userhashes. See S6-ARTIFICIAL-FIXTURE.md/REVIEW.md. Qualification36triples/
-564pass; RED196pass56expectedfail; GREEN348/348. CI remains disabled; no actual
-x64CI success or whole-suite pass is claimed.
-S6-H census now completed:20pairs/20pass and original oracle108/108,exit0,
-all17audit gates, independent pins/source; see S6-DUAL-RECOVERY.md. Current local
-native pivot estimates disagree in sign, entering transactional retry. ActualCI
-row/path remains unknown. No production/test change; fresh independent review accepted without findings.
-S6-I local qualification completed248/248/16gates. S6-J permanent candidate is
-REJECTED after final independent review: explicit retry still permits downstream
-native numerical refactors, so zero/exact-one work assertions remain conditional.
-RED108pass20expectedfail and GREEN292/292/11gates preserved with exact candidate
-source; permanent test restored byte-identically to HEAD. Master8516e0d unchanged.
-See S6-DUAL-FIXTURE.md and S6-DUAL-BOUNDARY-REVIEW.md. Do not promote or rerun this
-candidate. Future dual fixture must control downstream cause and retain public
-integration coverage without weakening assertions or numerical safeguards.
-Last host check:runner377979/child377981/driver377970 absent, noJulia,
-boot20de7dde-704e-41c8-bee7-b8511c0a86b0.
-Next bounded census: docs/superpowers/plans/2026-10-12-cross-precision-status-census.md.
-S6-K census now completed270pass30originalstatusfail/all19diagnostic gates. Exact
-x=g/2 witness satisfies each original row/column tolerance in all30cases, accepted
-by the production primal certificate. Actual algorithm is default dual despite
-fixture kind=:primal. Supplied tolerance/precision unchanged. S6-PRECISION-STATUS.md
-records the stale oracle cause and failed run; final independent review accepts
-diagnostic scope with no blockers. See S6-PRECISION-STATUS-REVIEW.md; minor redundant
-diagnostic rationalization deferred without rerun. Broader end-to-end last-bit
-status sensitivity remains open; stored-option tests alone do not establish it.
-No production/test edit. Next qualification plan after review:
-2026-10-12-cross-precision-infeasible-fixture.md. Last runner379310/child379311/
-driver379301 separately absent, noJulia, same boot.
+S6-L/M completed and independently reviewed without blocking findings. The test-only
+change2c3e0eb is integrated as master7fea422249442003b53f6f245bb569a5e0cf9bcf, pushed
+and remote verified. Qualification30cases/300pass/18gates; exact-margin RED one
+expected failure; GREEN1477/1477/13gates; master1477/1477/14gates. Actual source,
+independent pins, globals and three user-file hashes verified. See
+S6-PRECISION-FIXTURE.md and S6-PRECISION-FIXTURE-REVIEW.md. Supplied tolerances,
+all original INFEASIBLE assertions and production code remain unchanged. No actual
+x64/full-suite success or end-to-end last-bit sensitivity claim. Minor duplicated
+diagnostic rationalization is deferred without rerun; historical plan note clarified.
+
+Next: docs/superpowers/plans/2026-10-12-nearly-singular-objective-census.md, S6-N.
+Reconcile existing original-space/recession evidence before a bounded four-type
+census of solver_tests.jl:552. Two historical CI objective failures are copied in
+results/S6-N/existing-failure-map.json; no new S6-N numerical run yet. Do not relax
+equality or raise precision without diagnosis and a separate implementation plan.
+Last separate host check: runner381786, child381787, driver381778 absent, no Julia,
+boot20de7dde-704e-41c8-bee7-b8511c0a86b0. Verify fresh identities before new work.
+
+S6-H census and S6-K exact tolerance-witness diagnostics remain accepted; do not
+repeat them. S6-J permanent explicit-retry substitution remains REJECTED after
+review: it still permits native numerical refactors and loses public recovery
+coverage. Exact candidate and all local GREEN evidence are preserved; test restored.
+Never promote it or weaken its original assertions/safeguards. Broader S2/S3/S4/S5/S6
+remain open. CI stays disabled; no accepted reference/cost/corpus reruns.
 
 
 S3-A production cd91a1a -> masterd8ad4ec5651225a512d5f533f48ce7d8fc8f90cc is reviewed,

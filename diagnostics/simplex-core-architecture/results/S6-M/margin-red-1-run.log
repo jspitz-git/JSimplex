@@ -1,0 +1,26 @@
+ERROR: LoadError: Some tests did not pass: 0 passed, 1 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/cross_precision_fixture_repair.jl:13
+
+Exact infeasibility fixture margin: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/bigfloat_integrity_tests.jl:25
+  Expression: integrity_exact(bound_value(only(problem.row_lower))) > 2 * integrity_exact(options.primal_tolerance)
+   Evaluated: 1//16777216 > 72057594037927935//604462909807314587353088
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/bigfloat_integrity_tests.jl:25
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [3] eval(m::Module, e::Any)
+     @ Core ./boot.jl:489
+   [4] include_string(mapexpr::typeof(identity), mod::Module, code::String, filename::String)
+     @ Base ./loading.jl:3016
+   [5] include_string(m::Module, txt::String, fname::String)
+     @ Base ./loading.jl:3026
+   [6] top-level scope
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/cross_precision_fixture_repair.jl:14
+   [7] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [8] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/cross_precision_fixture_repair.jl:14 [inlined]
+Test Summary:                      | Fail  Total  Time
+Exact infeasibility fixture margin |    1      1  1.2s
+RNG of the outermost testset: Random.Xoshiro(0xb2c6549d894cd260, 0x5ca14843ba3e1277, 0x29a5c556a7b1bf54, 0x21da779dfb87ffc3, 0x85e04d6bdf37c4be)
