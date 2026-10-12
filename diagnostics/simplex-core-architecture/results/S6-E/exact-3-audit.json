@@ -1,0 +1,705 @@
+{
+  "checks": {
+    "expected_exit1": true,
+    "guard_pins": true,
+    "independent_pins": true,
+    "manifest": true,
+    "source": true,
+    "test_hash": true,
+    "clone_hash": true,
+    "single_threads": true,
+    "counterfactual_labeled": true,
+    "case_count": true,
+    "case_keys": true,
+    "twin_fields": true,
+    "exact_reliable_probes": true,
+    "oracle72pass96fail": true,
+    "ci_lines_expressions_match": true,
+    "ci_nonstate_values_match": true,
+    "no_production_change": true
+  },
+  "pins_sha256": "48a8b6f6534e97c88d877273f9400c9351d5da43e4c6c2ad203ffedcd4d463a9",
+  "pin_count": 598,
+  "full_ci_state_details_match": false,
+  "failure_lines": {
+    "65": 20,
+    "66": 20,
+    "68": 20,
+    "71": 20,
+    "70": 16
+  },
+  "failure_details": [
+    {
+      "line": 65,
+      "details": [
+        "Expression: result === if mode == :exception",
+        "Evaluated: true === false"
+      ]
+    },
+    {
+      "line": 66,
+      "details": [
+        "Expression: isequal(before, (original.basis.basic_indices, original.basis.states, original.primal, original.costs, original.lower, original.upper, original.reduced_costs))",
+        "Evaluated: isequal(([7, 8, 9, 10, 11, 12], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]), ([1, 2, 3, 4, 5, 6], JSimplex.VariableState[JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER], [-0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]))"
+      ]
+    },
+    {
+      "line": 68,
+      "details": [
+        "Expression: original.iterations == if mode == :point",
+        "Evaluated: 1 == 0"
+      ]
+    },
+    {
+      "line": 71,
+      "details": [
+        "Expression: JSimplex.event_count(diagnostics, :artificial_removed) == if mode == :point",
+        "Evaluated: 1 == 0"
+      ]
+    },
+    {
+      "line": 65,
+      "details": [
+        "Expression: result === if mode == :exception",
+        "Evaluated: true === false"
+      ]
+    },
+    {
+      "line": 66,
+      "details": [
+        "Expression: isequal(before, (original.basis.basic_indices, original.basis.states, original.primal, original.costs, original.lower, original.upper, original.reduced_costs))",
+        "Evaluated: isequal(([7, 8, 9, 10, 11, 12], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]), ([1, 2, 3, 4, 5, 6], JSimplex.VariableState[JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER], [-0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]))"
+      ]
+    },
+    {
+      "line": 68,
+      "details": [
+        "Expression: original.iterations == if mode == :point",
+        "Evaluated: 1 == 0"
+      ]
+    },
+    {
+      "line": 71,
+      "details": [
+        "Expression: JSimplex.event_count(diagnostics, :artificial_removed) == if mode == :point",
+        "Evaluated: 1 == 0"
+      ]
+    },
+    {
+      "line": 65,
+      "details": [
+        "Expression: result === if mode == :exception",
+        "Evaluated: true === false"
+      ]
+    },
+    {
+      "line": 66,
+      "details": [
+        "Expression: isequal(before, (original.basis.basic_indices, original.basis.states, original.primal, original.costs, original.lower, original.upper, original.reduced_costs))",
+        "Evaluated: isequal(([7, 8, 9, 10, 11, 12], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]), ([1, 2, 3, 4, 5, 6], JSimplex.VariableState[JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER], [-0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]))"
+      ]
+    },
+    {
+      "line": 68,
+      "details": [
+        "Expression: original.iterations == if mode == :point",
+        "Evaluated: 1 == 0"
+      ]
+    },
+    {
+      "line": 71,
+      "details": [
+        "Expression: JSimplex.event_count(diagnostics, :artificial_removed) == if mode == :point",
+        "Evaluated: 1 == 0"
+      ]
+    },
+    {
+      "line": 65,
+      "details": [
+        "Expression: result === if mode == :exception",
+        "Evaluated: true === false"
+      ]
+    },
+    {
+      "line": 66,
+      "details": [
+        "Expression: isequal(before, (original.basis.basic_indices, original.basis.states, original.primal, original.costs, original.lower, original.upper, original.reduced_costs))",
+        "Evaluated: isequal(([7, 8, 9, 10, 11, 12], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]), ([1, 2, 3, 4, 5, 6], JSimplex.VariableState[JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER], [-0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]))"
+      ]
+    },
+    {
+      "line": 68,
+      "details": [
+        "Expression: original.iterations == if mode == :point",
+        "Evaluated: 1 == 0"
+      ]
+    },
+    {
+      "line": 70,
+      "details": [
+        "Expression: correcting[] == (mode in (:cancel, :exception, :pivot, :point))",
+        "Evaluated: false == true"
+      ]
+    },
+    {
+      "line": 71,
+      "details": [
+        "Expression: JSimplex.event_count(diagnostics, :artificial_removed) == if mode == :point",
+        "Evaluated: 1 == 0"
+      ]
+    },
+    {
+      "line": 65,
+      "details": [
+        "Expression: result === if mode == :exception",
+        "Evaluated: true === SingularException(927)"
+      ]
+    },
+    {
+      "line": 66,
+      "details": [
+        "Expression: isequal(before, (original.basis.basic_indices, original.basis.states, original.primal, original.costs, original.lower, original.upper, original.reduced_costs))",
+        "Evaluated: isequal(([7, 8, 9, 10, 11, 12], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]), ([1, 2, 3, 4, 5, 6], JSimplex.VariableState[JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER], [-0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]))"
+      ]
+    },
+    {
+      "line": 68,
+      "details": [
+        "Expression: original.iterations == if mode == :point",
+        "Evaluated: 1 == 0"
+      ]
+    },
+    {
+      "line": 70,
+      "details": [
+        "Expression: correcting[] == (mode in (:cancel, :exception, :pivot, :point))",
+        "Evaluated: false == true"
+      ]
+    },
+    {
+      "line": 71,
+      "details": [
+        "Expression: JSimplex.event_count(diagnostics, :artificial_removed) == if mode == :point",
+        "Evaluated: 1 == 0"
+      ]
+    },
+    {
+      "line": 70,
+      "details": [
+        "Expression: correcting[] == (mode in (:cancel, :exception, :pivot, :point))",
+        "Evaluated: false == true"
+      ]
+    },
+    {
+      "line": 70,
+      "details": [
+        "Expression: correcting[] == (mode in (:cancel, :exception, :pivot, :point))",
+        "Evaluated: false == true"
+      ]
+    },
+    {
+      "line": 65,
+      "details": [
+        "Expression: result === if mode == :exception",
+        "Evaluated: true === false"
+      ]
+    },
+    {
+      "line": 66,
+      "details": [
+        "Expression: isequal(before, (original.basis.basic_indices, original.basis.states, original.primal, original.costs, original.lower, original.upper, original.reduced_costs))",
+        "Evaluated: isequal(([7, 8, 9, 10, 11, 12], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]), ([1, 2, 3, 4, 5, 6], JSimplex.VariableState[JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER], [-0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]))"
+      ]
+    },
+    {
+      "line": 68,
+      "details": [
+        "Expression: original.iterations == if mode == :point",
+        "Evaluated: 1 == 0"
+      ]
+    },
+    {
+      "line": 71,
+      "details": [
+        "Expression: JSimplex.event_count(diagnostics, :artificial_removed) == if mode == :point",
+        "Evaluated: 1 == 0"
+      ]
+    },
+    {
+      "line": 65,
+      "details": [
+        "Expression: result === if mode == :exception",
+        "Evaluated: true === false"
+      ]
+    },
+    {
+      "line": 66,
+      "details": [
+        "Expression: isequal(before, (original.basis.basic_indices, original.basis.states, original.primal, original.costs, original.lower, original.upper, original.reduced_costs))",
+        "Evaluated: isequal(([7, 8, 9, 10, 11, 12], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]), ([1, 2, 3, 4, 5, 6], JSimplex.VariableState[JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER], [-0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]))"
+      ]
+    },
+    {
+      "line": 68,
+      "details": [
+        "Expression: original.iterations == if mode == :point",
+        "Evaluated: 1 == 0"
+      ]
+    },
+    {
+      "line": 71,
+      "details": [
+        "Expression: JSimplex.event_count(diagnostics, :artificial_removed) == if mode == :point",
+        "Evaluated: 1 == 0"
+      ]
+    },
+    {
+      "line": 65,
+      "details": [
+        "Expression: result === if mode == :exception",
+        "Evaluated: true === false"
+      ]
+    },
+    {
+      "line": 66,
+      "details": [
+        "Expression: isequal(before, (original.basis.basic_indices, original.basis.states, original.primal, original.costs, original.lower, original.upper, original.reduced_costs))",
+        "Evaluated: isequal(([7, 8, 9, 10, 11, 12], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]), ([1, 2, 3, 4, 5, 6], JSimplex.VariableState[JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER], [-0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]))"
+      ]
+    },
+    {
+      "line": 68,
+      "details": [
+        "Expression: original.iterations == if mode == :point",
+        "Evaluated: 1 == 0"
+      ]
+    },
+    {
+      "line": 71,
+      "details": [
+        "Expression: JSimplex.event_count(diagnostics, :artificial_removed) == if mode == :point",
+        "Evaluated: 1 == 0"
+      ]
+    },
+    {
+      "line": 65,
+      "details": [
+        "Expression: result === if mode == :exception",
+        "Evaluated: true === false"
+      ]
+    },
+    {
+      "line": 66,
+      "details": [
+        "Expression: isequal(before, (original.basis.basic_indices, original.basis.states, original.primal, original.costs, original.lower, original.upper, original.reduced_costs))",
+        "Evaluated: isequal(([7, 8, 9, 10, 11, 12], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]), ([1, 2, 3, 4, 5, 6], JSimplex.VariableState[JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER], [-0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]))"
+      ]
+    },
+    {
+      "line": 68,
+      "details": [
+        "Expression: original.iterations == if mode == :point",
+        "Evaluated: 1 == 0"
+      ]
+    },
+    {
+      "line": 70,
+      "details": [
+        "Expression: correcting[] == (mode in (:cancel, :exception, :pivot, :point))",
+        "Evaluated: false == true"
+      ]
+    },
+    {
+      "line": 71,
+      "details": [
+        "Expression: JSimplex.event_count(diagnostics, :artificial_removed) == if mode == :point",
+        "Evaluated: 1 == 0"
+      ]
+    },
+    {
+      "line": 65,
+      "details": [
+        "Expression: result === if mode == :exception",
+        "Evaluated: true === SingularException(927)"
+      ]
+    },
+    {
+      "line": 66,
+      "details": [
+        "Expression: isequal(before, (original.basis.basic_indices, original.basis.states, original.primal, original.costs, original.lower, original.upper, original.reduced_costs))",
+        "Evaluated: isequal(([7, 8, 9, 10, 11, 12], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]), ([1, 2, 3, 4, 5, 6], JSimplex.VariableState[JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER], [-0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]))"
+      ]
+    },
+    {
+      "line": 68,
+      "details": [
+        "Expression: original.iterations == if mode == :point",
+        "Evaluated: 1 == 0"
+      ]
+    },
+    {
+      "line": 70,
+      "details": [
+        "Expression: correcting[] == (mode in (:cancel, :exception, :pivot, :point))",
+        "Evaluated: false == true"
+      ]
+    },
+    {
+      "line": 71,
+      "details": [
+        "Expression: JSimplex.event_count(diagnostics, :artificial_removed) == if mode == :point",
+        "Evaluated: 1 == 0"
+      ]
+    },
+    {
+      "line": 70,
+      "details": [
+        "Expression: correcting[] == (mode in (:cancel, :exception, :pivot, :point))",
+        "Evaluated: false == true"
+      ]
+    },
+    {
+      "line": 70,
+      "details": [
+        "Expression: correcting[] == (mode in (:cancel, :exception, :pivot, :point))",
+        "Evaluated: false == true"
+      ]
+    },
+    {
+      "line": 65,
+      "details": [
+        "Expression: result === if mode == :exception",
+        "Evaluated: true === false"
+      ]
+    },
+    {
+      "line": 66,
+      "details": [
+        "Expression: isequal(before, (original.basis.basic_indices, original.basis.states, original.primal, original.costs, original.lower, original.upper, original.reduced_costs))",
+        "Evaluated: isequal(([7, 8, 9, 10, 11, 12], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]), ([1, 2, 3, 4, 5, 6], JSimplex.VariableState[JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER], [-0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]))"
+      ]
+    },
+    {
+      "line": 68,
+      "details": [
+        "Expression: original.iterations == if mode == :point",
+        "Evaluated: 1 == 0"
+      ]
+    },
+    {
+      "line": 71,
+      "details": [
+        "Expression: JSimplex.event_count(diagnostics, :artificial_removed) == if mode == :point",
+        "Evaluated: 1 == 0"
+      ]
+    },
+    {
+      "line": 65,
+      "details": [
+        "Expression: result === if mode == :exception",
+        "Evaluated: true === false"
+      ]
+    },
+    {
+      "line": 66,
+      "details": [
+        "Expression: isequal(before, (original.basis.basic_indices, original.basis.states, original.primal, original.costs, original.lower, original.upper, original.reduced_costs))",
+        "Evaluated: isequal(([7, 8, 9, 10, 11, 12], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]), ([1, 2, 3, 4, 5, 6], JSimplex.VariableState[JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER], [-0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]))"
+      ]
+    },
+    {
+      "line": 68,
+      "details": [
+        "Expression: original.iterations == if mode == :point",
+        "Evaluated: 1 == 0"
+      ]
+    },
+    {
+      "line": 71,
+      "details": [
+        "Expression: JSimplex.event_count(diagnostics, :artificial_removed) == if mode == :point",
+        "Evaluated: 1 == 0"
+      ]
+    },
+    {
+      "line": 65,
+      "details": [
+        "Expression: result === if mode == :exception",
+        "Evaluated: true === false"
+      ]
+    },
+    {
+      "line": 66,
+      "details": [
+        "Expression: isequal(before, (original.basis.basic_indices, original.basis.states, original.primal, original.costs, original.lower, original.upper, original.reduced_costs))",
+        "Evaluated: isequal(([7, 8, 9, 10, 11, 12], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]), ([1, 2, 3, 4, 5, 6], JSimplex.VariableState[JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER], [-0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]))"
+      ]
+    },
+    {
+      "line": 68,
+      "details": [
+        "Expression: original.iterations == if mode == :point",
+        "Evaluated: 1 == 0"
+      ]
+    },
+    {
+      "line": 71,
+      "details": [
+        "Expression: JSimplex.event_count(diagnostics, :artificial_removed) == if mode == :point",
+        "Evaluated: 1 == 0"
+      ]
+    },
+    {
+      "line": 65,
+      "details": [
+        "Expression: result === if mode == :exception",
+        "Evaluated: true === false"
+      ]
+    },
+    {
+      "line": 66,
+      "details": [
+        "Expression: isequal(before, (original.basis.basic_indices, original.basis.states, original.primal, original.costs, original.lower, original.upper, original.reduced_costs))",
+        "Evaluated: isequal(([7, 8, 9, 10, 11, 12], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]), ([1, 2, 3, 4, 5, 6], JSimplex.VariableState[JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER], [-0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]))"
+      ]
+    },
+    {
+      "line": 68,
+      "details": [
+        "Expression: original.iterations == if mode == :point",
+        "Evaluated: 1 == 0"
+      ]
+    },
+    {
+      "line": 70,
+      "details": [
+        "Expression: correcting[] == (mode in (:cancel, :exception, :pivot, :point))",
+        "Evaluated: false == true"
+      ]
+    },
+    {
+      "line": 71,
+      "details": [
+        "Expression: JSimplex.event_count(diagnostics, :artificial_removed) == if mode == :point",
+        "Evaluated: 1 == 0"
+      ]
+    },
+    {
+      "line": 65,
+      "details": [
+        "Expression: result === if mode == :exception",
+        "Evaluated: true === SingularException(927)"
+      ]
+    },
+    {
+      "line": 66,
+      "details": [
+        "Expression: isequal(before, (original.basis.basic_indices, original.basis.states, original.primal, original.costs, original.lower, original.upper, original.reduced_costs))",
+        "Evaluated: isequal(([7, 8, 9, 10, 11, 12], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]), ([1, 2, 3, 4, 5, 6], JSimplex.VariableState[JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER], [-0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]))"
+      ]
+    },
+    {
+      "line": 68,
+      "details": [
+        "Expression: original.iterations == if mode == :point",
+        "Evaluated: 1 == 0"
+      ]
+    },
+    {
+      "line": 70,
+      "details": [
+        "Expression: correcting[] == (mode in (:cancel, :exception, :pivot, :point))",
+        "Evaluated: false == true"
+      ]
+    },
+    {
+      "line": 71,
+      "details": [
+        "Expression: JSimplex.event_count(diagnostics, :artificial_removed) == if mode == :point",
+        "Evaluated: 1 == 0"
+      ]
+    },
+    {
+      "line": 70,
+      "details": [
+        "Expression: correcting[] == (mode in (:cancel, :exception, :pivot, :point))",
+        "Evaluated: false == true"
+      ]
+    },
+    {
+      "line": 70,
+      "details": [
+        "Expression: correcting[] == (mode in (:cancel, :exception, :pivot, :point))",
+        "Evaluated: false == true"
+      ]
+    },
+    {
+      "line": 65,
+      "details": [
+        "Expression: result === if mode == :exception",
+        "Evaluated: true === false"
+      ]
+    },
+    {
+      "line": 66,
+      "details": [
+        "Expression: isequal(before, (original.basis.basic_indices, original.basis.states, original.primal, original.costs, original.lower, original.upper, original.reduced_costs))",
+        "Evaluated: isequal(([7, 8, 9, 10, 11, 12], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]), ([1, 2, 3, 4, 5, 6], JSimplex.VariableState[JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER], [-0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]))"
+      ]
+    },
+    {
+      "line": 68,
+      "details": [
+        "Expression: original.iterations == if mode == :point",
+        "Evaluated: 1 == 0"
+      ]
+    },
+    {
+      "line": 71,
+      "details": [
+        "Expression: JSimplex.event_count(diagnostics, :artificial_removed) == if mode == :point",
+        "Evaluated: 1 == 0"
+      ]
+    },
+    {
+      "line": 65,
+      "details": [
+        "Expression: result === if mode == :exception",
+        "Evaluated: true === false"
+      ]
+    },
+    {
+      "line": 66,
+      "details": [
+        "Expression: isequal(before, (original.basis.basic_indices, original.basis.states, original.primal, original.costs, original.lower, original.upper, original.reduced_costs))",
+        "Evaluated: isequal(([7, 8, 9, 10, 11, 12], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]), ([1, 2, 3, 4, 5, 6], JSimplex.VariableState[JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER], [-0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]))"
+      ]
+    },
+    {
+      "line": 68,
+      "details": [
+        "Expression: original.iterations == if mode == :point",
+        "Evaluated: 1 == 0"
+      ]
+    },
+    {
+      "line": 71,
+      "details": [
+        "Expression: JSimplex.event_count(diagnostics, :artificial_removed) == if mode == :point",
+        "Evaluated: 1 == 0"
+      ]
+    },
+    {
+      "line": 65,
+      "details": [
+        "Expression: result === if mode == :exception",
+        "Evaluated: true === false"
+      ]
+    },
+    {
+      "line": 66,
+      "details": [
+        "Expression: isequal(before, (original.basis.basic_indices, original.basis.states, original.primal, original.costs, original.lower, original.upper, original.reduced_costs))",
+        "Evaluated: isequal(([7, 8, 9, 10, 11, 12], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]), ([1, 2, 3, 4, 5, 6], JSimplex.VariableState[JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER], [-0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]))"
+      ]
+    },
+    {
+      "line": 68,
+      "details": [
+        "Expression: original.iterations == if mode == :point",
+        "Evaluated: 1 == 0"
+      ]
+    },
+    {
+      "line": 71,
+      "details": [
+        "Expression: JSimplex.event_count(diagnostics, :artificial_removed) == if mode == :point",
+        "Evaluated: 1 == 0"
+      ]
+    },
+    {
+      "line": 65,
+      "details": [
+        "Expression: result === if mode == :exception",
+        "Evaluated: true === false"
+      ]
+    },
+    {
+      "line": 66,
+      "details": [
+        "Expression: isequal(before, (original.basis.basic_indices, original.basis.states, original.primal, original.costs, original.lower, original.upper, original.reduced_costs))",
+        "Evaluated: ERROR: LoadError: Some tests did not pass: 72 passed, 96 failed, 0 errored, 0 broken."
+      ]
+    },
+    {
+      "line": 68,
+      "details": [
+        "Expression: original.iterations == if mode == :point",
+        "Evaluated: 1 == 0"
+      ]
+    },
+    {
+      "line": 70,
+      "details": [
+        "Expression: correcting[] == (mode in (:cancel, :exception, :pivot, :point))",
+        "Evaluated: false == true"
+      ]
+    },
+    {
+      "line": 71,
+      "details": [
+        "Expression: JSimplex.event_count(diagnostics, :artificial_removed) == if mode == :point",
+        "Evaluated: 1 == 0"
+      ]
+    },
+    {
+      "line": 65,
+      "details": [
+        "Expression: result === if mode == :exception",
+        "Evaluated: true === SingularException(927)"
+      ]
+    },
+    {
+      "line": 66,
+      "details": [
+        "Expression: isequal(before, (original.basis.basic_indices, original.basis.states, original.primal, original.costs, original.lower, original.upper, original.reduced_costs))",
+        "Evaluated: isequal(([7, 8, 9, 10, 11, 12], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]), ([1, 2, 3, 4, 5, 6], JSimplex.VariableState[JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER], [-0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]))"
+      ]
+    },
+    {
+      "line": 68,
+      "details": [
+        "Expression: original.iterations == if mode == :point",
+        "Evaluated: 1 == 0"
+      ]
+    },
+    {
+      "line": 70,
+      "details": [
+        "Expression: correcting[] == (mode in (:cancel, :exception, :pivot, :point))",
+        "Evaluated: false == true"
+      ]
+    },
+    {
+      "line": 71,
+      "details": [
+        "Expression: JSimplex.event_count(diagnostics, :artificial_removed) == if mode == :point",
+        "Evaluated: 1 == 0"
+      ]
+    },
+    {
+      "line": 70,
+      "details": [
+        "Expression: correcting[] == (mode in (:cancel, :exception, :pivot, :point))",
+        "Evaluated: false == true"
+      ]
+    },
+    {
+      "line": 70,
+      "details": [
+        "Expression: correcting[] == (mode in (:cancel, :exception, :pivot, :point))",
+        "Evaluated: false == true"
+      ]
+    }
+  ]
+}

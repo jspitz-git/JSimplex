@@ -1,0 +1,15 @@
+ERROR: LoadError: ArgumentError: Collection is empty, must contain exactly 1 element
+Stacktrace:
+ [1] _only
+   @ ./iterators.jl:1622 [inlined]
+ [2] only(x::Vector{Any})
+   @ Base.Iterators ./iterators.jl:1617
+ [3] top-level scope
+   @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/artificial_row_exact_counterfactual.jl:21
+ [4] include(mod::Module, _path::String)
+   @ Base ./Base.jl:309
+ [5] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:344
+ [6] _start()
+   @ Base ./client.jl:577
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/artificial_row_exact_counterfactual.jl:21

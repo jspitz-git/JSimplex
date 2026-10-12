@@ -46,12 +46,13 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-S6-A/B/C are reviewed and complete within their narrow scopes. Test-only repair
-3e91736 -> mastera465da5 is pushed, focused master20/20 and11audit gates.
-Next: docs/superpowers/plans/2026-10-12-artificial-row-recovery-reproduction.md.
-First reconcile existing artificial-row coverage; then diagnose current fixture
-reachability without weakening assertions or numerical guards. Do not repeat S6-B/C,
-old medium/HH/reference measurements or enable CI. Earlier entries are historical.
+S6-D/E are audited and independently reviewed; see S6-ARTIFICIAL-ROW.md.
+Current original oracle168/168;28 passive-observer pairs. Exact-row counterfactual
+72pass96expectedfail matches CI predicates, NOT full-state trajectory or actual
+CI row. Next: docs/superpowers/plans/2026-10-12-artificial-row-controlled-fixture.md.
+Qualify test-only factor forwarding and deterministic unreliable-row injection
+against unmodified production removal before any permanent test change.
+No production/test edit since mastera465da5. CI stays disabled; no accepted repeat.
 
 
 S3-A production cd91a1a -> masterd8ad4ec5651225a512d5f533f48ce7d8fc8f90cc is reviewed,
@@ -892,3 +893,14 @@ Reports S6-FAILURES.md,S6-FIXTURE.md,S6-FIXTURE-REVIEW.md retain every failed ha
 attempt and limited scope. Two trailing spaces in a raw failed log are preserved.
 Next bounded S6-D artificial-row recovery reachability subplan; historical96CI
 assertions are not yet diagnosed. Full CI/S6 and broader S2/S3/S4/S5 remain open.
+
+## S6-D/E diagnostic closure (2026-10-12)
+
+Current census28pairs/168pass/13gates; private exact-row counterfactual28pairs/
+72pass96expectedfail/17gates. Same failed CI predicates and76nonstate evaluated
+values; full-state comparison rejected/preserved (original column1 vs CI7).
+Both failed parser attempts preserved. Fresh independent review accepts, two minor
+publication clarifications applied without code/rerun. No production/test changes.
+Last runner373223/child373224/driver373214 separately absent,noJulia,sameboot.
+Next S6-F controlled test adapter qualification; all current results localAArch64,
+actualCIbackend/row cause unresolved. Never relax safeguards to force a test outcome.

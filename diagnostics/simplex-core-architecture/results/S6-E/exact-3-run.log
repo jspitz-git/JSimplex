@@ -1,0 +1,1493 @@
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:65
+  Expression: result === if mode == :exception
+        failure
+    else
+        false
+    end
+   Evaluated: true === false
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:65 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:66
+  Expression: isequal(before, (original.basis.basic_indices, original.basis.states, original.primal, original.costs, original.lower, original.upper, original.reduced_costs))
+   Evaluated: isequal(([7, 8, 9, 10, 11, 12], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]), ([1, 2, 3, 4, 5, 6], JSimplex.VariableState[JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER], [-0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]))
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:66 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:68
+  Expression: original.iterations == if mode == :point
+        1
+    else
+        0
+    end
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:68 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:71
+  Expression: JSimplex.event_count(diagnostics, :artificial_removed) == if mode == :point
+        1
+    else
+        0
+    end
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:71 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:65
+  Expression: result === if mode == :exception
+        failure
+    else
+        false
+    end
+   Evaluated: true === false
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:65 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:66
+  Expression: isequal(before, (original.basis.basic_indices, original.basis.states, original.primal, original.costs, original.lower, original.upper, original.reduced_costs))
+   Evaluated: isequal(([7, 8, 9, 10, 11, 12], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]), ([1, 2, 3, 4, 5, 6], JSimplex.VariableState[JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER], [-0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]))
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:66 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:68
+  Expression: original.iterations == if mode == :point
+        1
+    else
+        0
+    end
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:68 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:71
+  Expression: JSimplex.event_count(diagnostics, :artificial_removed) == if mode == :point
+        1
+    else
+        0
+    end
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:71 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:65
+  Expression: result === if mode == :exception
+        failure
+    else
+        false
+    end
+   Evaluated: true === false
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:65 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:66
+  Expression: isequal(before, (original.basis.basic_indices, original.basis.states, original.primal, original.costs, original.lower, original.upper, original.reduced_costs))
+   Evaluated: isequal(([7, 8, 9, 10, 11, 12], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]), ([1, 2, 3, 4, 5, 6], JSimplex.VariableState[JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER], [-0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]))
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:66 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:68
+  Expression: original.iterations == if mode == :point
+        1
+    else
+        0
+    end
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:68 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:71
+  Expression: JSimplex.event_count(diagnostics, :artificial_removed) == if mode == :point
+        1
+    else
+        0
+    end
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:71 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:65
+  Expression: result === if mode == :exception
+        failure
+    else
+        false
+    end
+   Evaluated: true === false
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:65 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:66
+  Expression: isequal(before, (original.basis.basic_indices, original.basis.states, original.primal, original.costs, original.lower, original.upper, original.reduced_costs))
+   Evaluated: isequal(([7, 8, 9, 10, 11, 12], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]), ([1, 2, 3, 4, 5, 6], JSimplex.VariableState[JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER], [-0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]))
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:66 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:68
+  Expression: original.iterations == if mode == :point
+        1
+    else
+        0
+    end
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:68 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:70
+  Expression: correcting[] == (mode in (:cancel, :exception, :pivot, :point))
+   Evaluated: false == true
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:70 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:71
+  Expression: JSimplex.event_count(diagnostics, :artificial_removed) == if mode == :point
+        1
+    else
+        0
+    end
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:71 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:65
+  Expression: result === if mode == :exception
+        failure
+    else
+        false
+    end
+   Evaluated: true === SingularException(927)
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:65 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:66
+  Expression: isequal(before, (original.basis.basic_indices, original.basis.states, original.primal, original.costs, original.lower, original.upper, original.reduced_costs))
+   Evaluated: isequal(([7, 8, 9, 10, 11, 12], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]), ([1, 2, 3, 4, 5, 6], JSimplex.VariableState[JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER], [-0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]))
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:66 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:68
+  Expression: original.iterations == if mode == :point
+        1
+    else
+        0
+    end
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:68 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:70
+  Expression: correcting[] == (mode in (:cancel, :exception, :pivot, :point))
+   Evaluated: false == true
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:70 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:71
+  Expression: JSimplex.event_count(diagnostics, :artificial_removed) == if mode == :point
+        1
+    else
+        0
+    end
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:71 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:70
+  Expression: correcting[] == (mode in (:cancel, :exception, :pivot, :point))
+   Evaluated: false == true
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:70 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:70
+  Expression: correcting[] == (mode in (:cancel, :exception, :pivot, :point))
+   Evaluated: false == true
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:70 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:65
+  Expression: result === if mode == :exception
+        failure
+    else
+        false
+    end
+   Evaluated: true === false
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:65 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:66
+  Expression: isequal(before, (original.basis.basic_indices, original.basis.states, original.primal, original.costs, original.lower, original.upper, original.reduced_costs))
+   Evaluated: isequal(([7, 8, 9, 10, 11, 12], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]), ([1, 2, 3, 4, 5, 6], JSimplex.VariableState[JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER], [-0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]))
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:66 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:68
+  Expression: original.iterations == if mode == :point
+        1
+    else
+        0
+    end
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:68 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:71
+  Expression: JSimplex.event_count(diagnostics, :artificial_removed) == if mode == :point
+        1
+    else
+        0
+    end
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:71 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:65
+  Expression: result === if mode == :exception
+        failure
+    else
+        false
+    end
+   Evaluated: true === false
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:65 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:66
+  Expression: isequal(before, (original.basis.basic_indices, original.basis.states, original.primal, original.costs, original.lower, original.upper, original.reduced_costs))
+   Evaluated: isequal(([7, 8, 9, 10, 11, 12], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]), ([1, 2, 3, 4, 5, 6], JSimplex.VariableState[JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER], [-0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]))
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:66 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:68
+  Expression: original.iterations == if mode == :point
+        1
+    else
+        0
+    end
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:68 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:71
+  Expression: JSimplex.event_count(diagnostics, :artificial_removed) == if mode == :point
+        1
+    else
+        0
+    end
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:71 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:65
+  Expression: result === if mode == :exception
+        failure
+    else
+        false
+    end
+   Evaluated: true === false
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:65 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:66
+  Expression: isequal(before, (original.basis.basic_indices, original.basis.states, original.primal, original.costs, original.lower, original.upper, original.reduced_costs))
+   Evaluated: isequal(([7, 8, 9, 10, 11, 12], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]), ([1, 2, 3, 4, 5, 6], JSimplex.VariableState[JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER], [-0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]))
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:66 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:68
+  Expression: original.iterations == if mode == :point
+        1
+    else
+        0
+    end
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:68 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:71
+  Expression: JSimplex.event_count(diagnostics, :artificial_removed) == if mode == :point
+        1
+    else
+        0
+    end
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:71 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:65
+  Expression: result === if mode == :exception
+        failure
+    else
+        false
+    end
+   Evaluated: true === false
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:65 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:66
+  Expression: isequal(before, (original.basis.basic_indices, original.basis.states, original.primal, original.costs, original.lower, original.upper, original.reduced_costs))
+   Evaluated: isequal(([7, 8, 9, 10, 11, 12], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]), ([1, 2, 3, 4, 5, 6], JSimplex.VariableState[JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER], [-0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]))
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:66 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:68
+  Expression: original.iterations == if mode == :point
+        1
+    else
+        0
+    end
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:68 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:70
+  Expression: correcting[] == (mode in (:cancel, :exception, :pivot, :point))
+   Evaluated: false == true
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:70 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:71
+  Expression: JSimplex.event_count(diagnostics, :artificial_removed) == if mode == :point
+        1
+    else
+        0
+    end
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:71 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:65
+  Expression: result === if mode == :exception
+        failure
+    else
+        false
+    end
+   Evaluated: true === SingularException(927)
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:65 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:66
+  Expression: isequal(before, (original.basis.basic_indices, original.basis.states, original.primal, original.costs, original.lower, original.upper, original.reduced_costs))
+   Evaluated: isequal(([7, 8, 9, 10, 11, 12], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]), ([1, 2, 3, 4, 5, 6], JSimplex.VariableState[JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER], [-0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]))
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:66 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:68
+  Expression: original.iterations == if mode == :point
+        1
+    else
+        0
+    end
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:68 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:70
+  Expression: correcting[] == (mode in (:cancel, :exception, :pivot, :point))
+   Evaluated: false == true
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:70 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:71
+  Expression: JSimplex.event_count(diagnostics, :artificial_removed) == if mode == :point
+        1
+    else
+        0
+    end
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:71 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:70
+  Expression: correcting[] == (mode in (:cancel, :exception, :pivot, :point))
+   Evaluated: false == true
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:70 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:70
+  Expression: correcting[] == (mode in (:cancel, :exception, :pivot, :point))
+   Evaluated: false == true
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:70 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:65
+  Expression: result === if mode == :exception
+        failure
+    else
+        false
+    end
+   Evaluated: true === false
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:65 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:66
+  Expression: isequal(before, (original.basis.basic_indices, original.basis.states, original.primal, original.costs, original.lower, original.upper, original.reduced_costs))
+   Evaluated: isequal(([7, 8, 9, 10, 11, 12], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]), ([1, 2, 3, 4, 5, 6], JSimplex.VariableState[JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER], [-0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]))
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:66 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:68
+  Expression: original.iterations == if mode == :point
+        1
+    else
+        0
+    end
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:68 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:71
+  Expression: JSimplex.event_count(diagnostics, :artificial_removed) == if mode == :point
+        1
+    else
+        0
+    end
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:71 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:65
+  Expression: result === if mode == :exception
+        failure
+    else
+        false
+    end
+   Evaluated: true === false
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:65 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:66
+  Expression: isequal(before, (original.basis.basic_indices, original.basis.states, original.primal, original.costs, original.lower, original.upper, original.reduced_costs))
+   Evaluated: isequal(([7, 8, 9, 10, 11, 12], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]), ([1, 2, 3, 4, 5, 6], JSimplex.VariableState[JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER], [-0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]))
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:66 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:68
+  Expression: original.iterations == if mode == :point
+        1
+    else
+        0
+    end
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:68 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:71
+  Expression: JSimplex.event_count(diagnostics, :artificial_removed) == if mode == :point
+        1
+    else
+        0
+    end
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:71 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:65
+  Expression: result === if mode == :exception
+        failure
+    else
+        false
+    end
+   Evaluated: true === false
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:65 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:66
+  Expression: isequal(before, (original.basis.basic_indices, original.basis.states, original.primal, original.costs, original.lower, original.upper, original.reduced_costs))
+   Evaluated: isequal(([7, 8, 9, 10, 11, 12], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]), ([1, 2, 3, 4, 5, 6], JSimplex.VariableState[JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER], [-0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]))
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:66 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:68
+  Expression: original.iterations == if mode == :point
+        1
+    else
+        0
+    end
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:68 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:71
+  Expression: JSimplex.event_count(diagnostics, :artificial_removed) == if mode == :point
+        1
+    else
+        0
+    end
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:71 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:65
+  Expression: result === if mode == :exception
+        failure
+    else
+        false
+    end
+   Evaluated: true === false
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:65 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:66
+  Expression: isequal(before, (original.basis.basic_indices, original.basis.states, original.primal, original.costs, original.lower, original.upper, original.reduced_costs))
+   Evaluated: isequal(([7, 8, 9, 10, 11, 12], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]), ([1, 2, 3, 4, 5, 6], JSimplex.VariableState[JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER], [-0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]))
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:66 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:68
+  Expression: original.iterations == if mode == :point
+        1
+    else
+        0
+    end
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:68 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:70
+  Expression: correcting[] == (mode in (:cancel, :exception, :pivot, :point))
+   Evaluated: false == true
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:70 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:71
+  Expression: JSimplex.event_count(diagnostics, :artificial_removed) == if mode == :point
+        1
+    else
+        0
+    end
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:71 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:65
+  Expression: result === if mode == :exception
+        failure
+    else
+        false
+    end
+   Evaluated: true === SingularException(927)
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:65 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:66
+  Expression: isequal(before, (original.basis.basic_indices, original.basis.states, original.primal, original.costs, original.lower, original.upper, original.reduced_costs))
+   Evaluated: isequal(([7, 8, 9, 10, 11, 12], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]), ([1, 2, 3, 4, 5, 6], JSimplex.VariableState[JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER], [-0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]))
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:66 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:68
+  Expression: original.iterations == if mode == :point
+        1
+    else
+        0
+    end
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:68 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:70
+  Expression: correcting[] == (mode in (:cancel, :exception, :pivot, :point))
+   Evaluated: false == true
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:70 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:71
+  Expression: JSimplex.event_count(diagnostics, :artificial_removed) == if mode == :point
+        1
+    else
+        0
+    end
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:71 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:70
+  Expression: correcting[] == (mode in (:cancel, :exception, :pivot, :point))
+   Evaluated: false == true
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:70 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:70
+  Expression: correcting[] == (mode in (:cancel, :exception, :pivot, :point))
+   Evaluated: false == true
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:70 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:65
+  Expression: result === if mode == :exception
+        failure
+    else
+        false
+    end
+   Evaluated: true === false
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:65 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:66
+  Expression: isequal(before, (original.basis.basic_indices, original.basis.states, original.primal, original.costs, original.lower, original.upper, original.reduced_costs))
+   Evaluated: isequal(([7, 8, 9, 10, 11, 12], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]), ([1, 2, 3, 4, 5, 6], JSimplex.VariableState[JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER], [-0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]))
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:66 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:68
+  Expression: original.iterations == if mode == :point
+        1
+    else
+        0
+    end
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:68 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:71
+  Expression: JSimplex.event_count(diagnostics, :artificial_removed) == if mode == :point
+        1
+    else
+        0
+    end
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:71 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:65
+  Expression: result === if mode == :exception
+        failure
+    else
+        false
+    end
+   Evaluated: true === false
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:65 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:66
+  Expression: isequal(before, (original.basis.basic_indices, original.basis.states, original.primal, original.costs, original.lower, original.upper, original.reduced_costs))
+   Evaluated: isequal(([7, 8, 9, 10, 11, 12], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]), ([1, 2, 3, 4, 5, 6], JSimplex.VariableState[JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER], [-0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]))
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:66 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:68
+  Expression: original.iterations == if mode == :point
+        1
+    else
+        0
+    end
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:68 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:71
+  Expression: JSimplex.event_count(diagnostics, :artificial_removed) == if mode == :point
+        1
+    else
+        0
+    end
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:71 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:65
+  Expression: result === if mode == :exception
+        failure
+    else
+        false
+    end
+   Evaluated: true === false
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:65 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:66
+  Expression: isequal(before, (original.basis.basic_indices, original.basis.states, original.primal, original.costs, original.lower, original.upper, original.reduced_costs))
+   Evaluated: isequal(([7, 8, 9, 10, 11, 12], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]), ([1, 2, 3, 4, 5, 6], JSimplex.VariableState[JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER], [-0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]))
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:66 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:68
+  Expression: original.iterations == if mode == :point
+        1
+    else
+        0
+    end
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:68 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:71
+  Expression: JSimplex.event_count(diagnostics, :artificial_removed) == if mode == :point
+        1
+    else
+        0
+    end
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:71 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:65
+  Expression: result === if mode == :exception
+        failure
+    else
+        false
+    end
+   Evaluated: true === false
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:65 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:66
+  Expression: isequal(before, (original.basis.basic_indices, original.basis.states, original.primal, original.costs, original.lower, original.upper, original.reduced_costs))
+   Evaluated: ERROR: LoadError: Some tests did not pass: 72 passed, 96 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/artificial_row_exact_counterfactual.jl:148
+isequal(([7, 8, 9, 10, 11, 12], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]), ([1, 2, 3, 4, 5, 6], JSimplex.VariableState[JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER], [-0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]))
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:66 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:68
+  Expression: original.iterations == if mode == :point
+        1
+    else
+        0
+    end
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:68 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:70
+  Expression: correcting[] == (mode in (:cancel, :exception, :pivot, :point))
+   Evaluated: false == true
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:70 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:71
+  Expression: JSimplex.event_count(diagnostics, :artificial_removed) == if mode == :point
+        1
+    else
+        0
+    end
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:71 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:65
+  Expression: result === if mode == :exception
+        failure
+    else
+        false
+    end
+   Evaluated: true === SingularException(927)
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:65 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:66
+  Expression: isequal(before, (original.basis.basic_indices, original.basis.states, original.primal, original.costs, original.lower, original.upper, original.reduced_costs))
+   Evaluated: isequal(([7, 8, 9, 10, 11, 12], JSimplex.VariableState[JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.0, -0.0, -0.0, -0.0, -0.0, -0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]), ([1, 2, 3, 4, 5, 6], JSimplex.VariableState[JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER], [-0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], Bound{Float64}[Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], Bound{Float64}[Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, false), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true), Bound{Float64}(0.0, true)], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]))
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:66 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:68
+  Expression: original.iterations == if mode == :point
+        1
+    else
+        0
+    end
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:68 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:70
+  Expression: correcting[] == (mode in (:cancel, :exception, :pivot, :point))
+   Evaluated: false == true
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:70 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:71
+  Expression: JSimplex.event_count(diagnostics, :artificial_removed) == if mode == :point
+        1
+    else
+        0
+    end
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:71 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:70
+  Expression: correcting[] == (mode in (:cancel, :exception, :pivot, :point))
+   Evaluated: false == true
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:70 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Artificial-row recovery respects budgets and preserves the original on cancellation: Test Failed at none:70
+  Expression: correcting[] == (mode in (:cancel, :exception, :pivot, :point))
+   Evaluated: false == true
+  Stacktrace:
+   [1] top-level scope
+     @ none:46
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:70 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+Test Summary:                                                                       | Pass  Fail  Total  Time
+Artificial-row recovery respects budgets and preserves the original on cancellation |   72    96    168  5.6s
+RNG of the outermost testset: Random.Xoshiro(0xcae19f3e8955e00c, 0xe17135f66d6f072a, 0x2f16c046fbf0315e, 0xaac009b662f1f149, 0x05e7468171f1855f)
