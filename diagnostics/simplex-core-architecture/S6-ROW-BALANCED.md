@@ -75,5 +75,6 @@ Last separate host check:389862runner/389863child/389852driver absent,noJulia,
 boot20de7dde-704e-41c8-bee7-b8511c0a86b0. CI remains disabled. Actual x64/full-suite
 success, broader S6 and end-to-end last-bit sensitivity are unproved.
 
-Final independent numerical/work review pending. Only after acceptance proceed to
+Fresh independent gpt-6-astra numerical/work review accepted without findings. See
+S6-ROW-BALANCED-REVIEW.md. Proceed only through
 2026-10-12-nearly-singular-fixture-repair.md, a separate permanent RED/GREEN plan.
