@@ -27,6 +27,48 @@ function artificial_row_roundoff_fixture(T,manager;diagnostics=nothing,infeasibl
     return phase,mapping,original,policy
 end
 
+# Test-only adapter: real factor ownership remains private to the phase workspace.
+mutable struct ArtificialRowTestFactor{F}
+    inner::F
+    armed::Bool
+    exact::Bool
+    hits::Int
+    calls::Int
+end
+Base.getproperty(f::ArtificialRowTestFactor,name::Symbol)=name in fieldnames(typeof(f)) ?
+    getfield(f,name) : getproperty(getfield(f,:inner),name)
+const ARTIFICIAL_TEST_BAD_ROW=Float64[0.9999999999999981,0.9999999999999987,
+    6.289736151548563e-17,1.2231357997302227e-16,-2.4643934028723657e-16,-4.478701551351629e-17]
+function JSimplex.transpose_solve!(dest::Vector{Float64},f::ArtificialRowTestFactor,rhs::AbstractVector)
+    f.calls+=1
+    JSimplex.transpose_solve!(dest,f.inner,rhs)
+    if f.armed
+        @assert length(rhs)==6 && rhs==[1.0,0.0,0.0,0.0,0.0,0.0]
+        f.armed=false;f.hits+=1
+        copyto!(dest,f.exact ? [1.0,1.0,0.0,0.0,0.0,0.0] : ARTIFICIAL_TEST_BAD_ROW)
+    end
+    dest
+end
+JSimplex.forward_solve!(dest::Vector{Float64},f::ArtificialRowTestFactor,rhs::AbstractVector)=JSimplex.forward_solve!(dest,f.inner,rhs)
+JSimplex._ordinary_forward_solve!(dest::Vector{Float64},f::ArtificialRowTestFactor,rhs::AbstractVector)=JSimplex._ordinary_forward_solve!(dest,f.inner,rhs)
+JSimplex._invalidate_prepared_destination!(f::ArtificialRowTestFactor,dest)=JSimplex._invalidate_prepared_destination!(f.inner,dest)
+JSimplex._finite_updated_factor(f::ArtificialRowTestFactor)=JSimplex._finite_updated_factor(f.inner)
+JSimplex.refactorize!(f::ArtificialRowTestFactor,B::AbstractMatrix)=JSimplex.refactorize!(f.inner,B)
+JSimplex.replace_column!(f::ArtificialRowTestFactor,direction::AbstractVector,row::Integer;kwargs...)=JSimplex.replace_column!(f.inner,direction,row;kwargs...)
+function wrap_artificial_row_phase(ws;armed=false,exact=false)
+    @assert !ws.progress.numerical_policy.hypersparse
+    factor=ArtificialRowTestFactor(ws.factorization,armed,exact,0,0)
+    # Phase owns all fields; reconstruct only its concrete factor type. Never
+    # wrap original: final adoption assigns a fresh ordinary original factor.
+    JSimplex.SimplexWorkspace((name==:factorization ? factor : getfield(ws,name)
+        for name in fieldnames(typeof(ws)))...)
+end
+function artificial_row_controlled_fixture(args...;kwargs...)
+    phase,map,original,policy=artificial_row_roundoff_fixture(args...;kwargs...)
+    return wrap_artificial_row_phase(phase;armed=true),map,original,policy
+end
+
+
 @testset "Artificial removal repairs an unreliable native pivot row" begin
     for T in (Float32,Float64), manager in (:pfi,:forrest_tomlin,:suhl_suhl,:bartels_golub)
         phase,mapping,original,policy=artificial_row_roundoff_fixture(T,manager)
@@ -49,11 +91,17 @@ end
             diagnostics=JSimplex.SimplexDiagnostics(;observer=(event,ws)->begin
                 event==:correction_attempt && (correcting[]=true)
             end)
-            phase,mapping,original,policy=artificial_row_roundoff_fixture(Float64,manager;
+            phase,mapping,original,policy=artificial_row_controlled_fixture(Float64,manager;
                 diagnostics,infeasible_original=mode==:point,max_refinements=mode==:budget ? 0 : 3,
                 pivot_validation=mode==:checked,
                 pivot_error_tolerance=mode==:pivot ? eps(Float64)^2 : sqrt(eps(Float64)))
             mode==:dual && (phase.options=JSimplex._phase_options(phase.options,:dual))
+            # This oracle requires an unreliable row, not incidental LU roundoff.
+            unit=[1.0,0.0,0.0,0.0,0.0,0.0]
+            quality=JSimplex.solve_quality!(JSimplex.SolveQualityScratch(Float64,6),
+                JSimplex.basis_matrix(phase),ARTIFICIAL_TEST_BAD_ROW,unit,policy;transposed=true)
+            @test !quality.reliable
+            @test phase.factorization isa ArtificialRowTestFactor
             before=deepcopy((original.basis.basic_indices,original.basis.states,original.primal,
                 original.costs,original.lower,original.upper,original.reduced_costs))
             failure=SingularException(927)
@@ -62,6 +110,7 @@ end
                 correcting[] && mode==:cancel
             end
             result=try JSimplex.remove_artificials!(phase,mapping,original,policy,stop) catch e; e end
+            @test phase.factorization isa ArtificialRowTestFactor && phase.factorization.hits==1
             @test result === (mode==:exception ? failure : false)
             @test isequal(before,(original.basis.basic_indices,original.basis.states,original.primal,
                 original.costs,original.lower,original.upper,original.reduced_costs))
