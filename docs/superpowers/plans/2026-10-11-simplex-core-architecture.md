@@ -1008,3 +1008,25 @@ and rejections unchanged.
 Next ONE source/evidence-only plan2026-10-13-dual-auxiliary-handoff-ownership.md.
 Reconcile existing exact-composition execution first; no new fixture, Julia or
 production/test change and no reopened HH/DSE/controller-budget audit.
+
+## S5-J auxiliary ownership reconciliation and S5-K offline oracle (2026-10-13)
+
+S5-J source/evidence reconciliation:21 literal checks,97 fresh read-time hashes,
+eight author-independent checks. Reviewer Minor original-bound terminology was
+author-regraded Important for contract scope and fixed once offline RED2/GREEN5;
+original report/plan preserved, original independent evidence unchanged. Live
+working bounds after restoration are not automatically authoritative model bounds. Sixteen original CI rows/eight named testsets give
+237 passing assertions SEPARATELY in each failed run;16 exact blocks/whole test
+files match.18 production comparisons16 equal, known simplex_perturbation S5-C
+change twice. Existing78 private interruption/resume and19 phase publication tests
+reused;19 observer throws at prepublication refactor_other, not pending replay.
+Source publishes basis/values/factor before queued observer events; diagnostic work
+and earlier live restoration mutations survive. No wholefunction rollback or
+auxiliary certificate transfer. ONE remaining composition: throwing observer on
+pending pricing_phase_reset AFTER publication, not a defect/neverexecuted claim.
+Next S5-K OFFLINE observer-identity/reachability and selected-oracle specification,
+no fixture/driver/runtime plan. No Julia/production/test/env/master/CI change,
+no new production work/memory or performance claim; all prior gates unchanged.
+Read S5-DUAL-AUXILIARY-HANDOFF-OWNERSHIP.md and REVIEW, results/S5-J. Frozen J
+source_contract/independent/evidence/excerpts NEVER rerun or rewrite; I/F/G/H and
+G false62/63 plus separate7 PASS preserved. I continuation texts saved before-J.

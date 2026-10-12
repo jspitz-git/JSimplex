@@ -1,0 +1,39 @@
+@testset "Auxiliary handoff publishes a fresh phase only on acceptance" begin
+    for interruption in (:none,:deadline,:observer)
+        p = LinearProblem(sparse([2.0;;]),[-1.0];row_upper=[2.0])
+        policy = isolated_pricing_policy()
+        reached = Ref(false)
+        d = JSimplex.SimplexDiagnostics(observer=(reason,trial)->begin
+            if reason == :refactor_other
+                reached[] = true
+                interruption == :observer && error("handoff observer interruption")
+            end
+        end)
+        ws = JSimplex.initialize_workspace(p,SolverOptions(algorithm=:dual,pricing=:steepest_edge,verbose=false);
+            progress=JSimplex.SimplexProgressContext(p;diagnostics=d,numerical_policy=policy))
+        force_pricing_trial!(ws,:dual)
+        m = JSimplex.StagnationMonitor{Float64}(2)
+        pricing_window!(JSimplex.PricingState(Float64),m,policy)
+        history = JSimplex.WorkspaceStagnation(m,UInt(0),UInt(0),0,1.0,1.0)
+        ws.scratch.stagnation = history
+        result = try
+            JSimplex.make_dual_feasible!(ws,()->interruption == :deadline && reached[])
+        catch exception
+            exception
+        end
+        @test reached[]
+        if interruption == :none
+            @test isnothing(result)
+            @test !ws.scratch.pricing.temporary
+            @test JSimplex._effective_pricing(ws,:dual) == :steepest_edge
+            @test isnothing(ws.scratch.stagnation)
+            check_basis_weights(ws,:dual)
+        else
+            @test interruption == :deadline ? result.status == TIME_LIMIT : result isa JSimplex.DiagnosticObserverFailure && result.cause isa ErrorException
+            @test ws.scratch.stagnation === history
+            @test history.monitor.window_count == 2
+            @test ws.scratch.pricing.temporary
+            @test ws.basis.basic_indices == [2]
+        end
+    end
+end

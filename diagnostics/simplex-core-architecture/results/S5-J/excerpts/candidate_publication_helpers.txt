@@ -1,0 +1,125 @@
+# Both estimates must have the same sign and be separated from their error.
+function _pivot_agrees(row_pivot, column_pivot, error_bound)::Bool
+    all(isfinite, (row_pivot,column_pivot,error_bound)) || return false
+    error_bound >= zero(error_bound) || return false
+    sign(row_pivot) == sign(column_pivot) || return false
+    min(abs(row_pivot),abs(column_pivot)) > error_bound || return false
+    return abs(row_pivot-column_pivot) <= error_bound
+end
+
+struct _StageObserver{W}
+    live::W
+    pending::Vector{Symbol}
+end
+
+_is_staged_workspace(ws) = !isnothing(ws.progress.diagnostics) &&
+                           ws.progress.diagnostics.observer isa _StageObserver
+
+struct _PivotDeadline <: Exception end
+
+function (observer::_StageObserver)(reason::Symbol, candidate)
+    isnothing(observer.live.progress.diagnostics) && return nothing
+    if candidate.scratch.pending_factor_update || candidate.scratch.post_iteration != :none ||
+       reason in (:pivot_completed,:flip_completed,:bound_flipped,
+                  :pricing_devex,:pricing_dantzig,:pricing_reset,
+                  :pricing_steepest_edge,:pricing_progress_return,:pricing_trial_expired,:pricing_phase_reset)
+        push!(observer.pending,reason)
+    else
+        _diagnostic_event!(observer.live.progress.diagnostics,reason,candidate)
+    end
+    return nothing
+end
+
+# Internal staging already forwards user observers through the guarded live
+# observer. Buffering completion events itself is not a user callback.
+function _diagnostic_event!(d::SimplexDiagnostics{F},reason::Symbol,state=nothing) where {F<:_StageObserver}
+    d.observer(reason,state)
+    return nothing
+end
+
+const _PIVOT_STATE_SCALARS = (:iterations,:refactorizations,:perturbed,
+    :zero_dual_step_streak,:dual_pricing_fallback,:dual_devex_fallback,
+    :dual_refactorization_interval,:dual_recent_repairs,:dual_bad_update_min,
+    :dual_stable_refactorizations,:dual_nonzero_steps_since_refactorization)
+
+function _new_candidate_workspace(ws::SimplexWorkspace{T}) where {T}
+    if isnothing(ws.scratch.stage_values)
+        ws.scratch.stage_values = _PivotStageValues(copy(ws.costs),copy(ws.lower),copy(ws.upper),
+            Basis(ws.basis.basic_indices,ws.basis.states),copy(ws.primal),copy(ws.reduced_costs),
+            copy(ws.pricing_weights),copy(ws.devex_reference),Symbol[],SimplexDiagnostics())
+        ws.scratch.stage_scratch = SimplexScratch(T,size(ws.problem.A,1),length(ws.costs))
+    end
+    values = ws.scratch.stage_values::_PivotStageValues{T}
+    scratch = ws.scratch.stage_scratch::SimplexScratch{T}
+    empty!(values.pending_events)
+    observer = _StageObserver(ws,values.pending_events)
+    base = isnothing(ws.progress.diagnostics) ? values.diagnostics : ws.progress.diagnostics
+    # Counts and timers belong to the live solve. The internal observer delays
+    # only completion events, so failed attempts still retain actual kernel work.
+    diagnostics = SimplexDiagnostics(base.counts,base.events,base.next_event,observer,
+        base.kernel_timing,base.kernel_calls,base.kernel_nanoseconds)
+    old = ws.progress
+    progress = SimplexProgressContext{T,typeof(diagnostics)}(old.start_ns,
+        old.objective,old.objective_constant,old.scaling,old.iteration_offset,old.refactorization_offset,
+        diagnostics,old.numerical_policy)
+    return SimplexWorkspace(ws.problem,ws.options,progress,
+        values.costs,values.lower,values.upper,values.basis,values.primal,
+        values.reduced_costs,values.pricing_weights,values.devex_reference,
+        ws.factorization,scratch,
+        (getfield(ws,key) for key in _PIVOT_STATE_SCALARS)...)
+end
+
+# Explicit fields keep array element types concrete in this inner-loop copy.
+function _copy_pivot_state!(destination,source)
+    _copy_pricing_state!(destination,source)
+    _copy_pricing_pool!(destination,source)
+    _copy_sparse_pricing_cache!(destination,source)
+    copyto!(destination.costs,source.costs)
+    copyto!(destination.lower,source.lower)
+    copyto!(destination.upper,source.upper)
+    copyto!(destination.primal,source.primal)
+    copyto!(destination.reduced_costs,source.reduced_costs)
+    copyto!(destination.pricing_weights,source.pricing_weights)
+    copyto!(destination.devex_reference,source.devex_reference)
+    copyto!(destination.basis.basic_indices,source.basis.basic_indices)
+    copyto!(destination.basis.states,source.basis.states)
+    destination.iterations = source.iterations
+    destination.refactorizations = source.refactorizations
+    destination.perturbed = source.perturbed
+    destination.zero_dual_step_streak = source.zero_dual_step_streak
+    destination.dual_pricing_fallback = source.dual_pricing_fallback
+    destination.dual_devex_fallback = source.dual_devex_fallback
+    destination.dual_refactorization_interval = source.dual_refactorization_interval
+    destination.dual_recent_repairs = source.dual_recent_repairs
+    destination.dual_bad_update_min = source.dual_bad_update_min
+    destination.dual_stable_refactorizations = source.dual_stable_refactorizations
+    destination.dual_nonzero_steps_since_refactorization = source.dual_nonzero_steps_since_refactorization
+    destination.scratch.refactorization = source.scratch.refactorization
+    destination.scratch.last_primal_step = source.scratch.last_primal_step
+    destination.scratch.last_dual_step = source.scratch.last_dual_step
+    # Progress history belongs to the live phase, not a speculative candidate
+    # or a restored factor. Only completed optimize-loop steps advance it.
+    copyto!(destination.scratch.basic_mask,source.scratch.basic_mask)
+    copyto!(destination.scratch.steepest_valid,source.scratch.steepest_valid)
+    copyto!(destination.scratch.row_rhs,source.scratch.row_rhs)
+    copyto!(destination.scratch.row_solution,source.scratch.row_solution)
+    copyto!(destination.scratch.rho,source.scratch.rho)
+    copyto!(destination.scratch.tau,source.scratch.tau)
+    copyto!(destination.scratch.tableau_row,source.scratch.tableau_row)
+    copyto!(destination.scratch.pricing_row,source.scratch.pricing_row)
+    _copy_hypersparse_cache!(destination,source)
+    destination.scratch.steepest_initialized = source.scratch.steepest_initialized
+    copyto!(resize!(destination.scratch.recovery_rejections,length(source.scratch.recovery_rejections)),
+        source.scratch.recovery_rejections)
+    destination.scratch.recovery_basis_key = source.scratch.recovery_basis_key
+    return destination
+end
+
+function _candidate_workspace(ws::SimplexWorkspace{T,F,M,R,D}) where {T,F,M,R,D}
+    candidate = _new_candidate_workspace(ws)
+    _copy_pivot_state!(candidate,ws)
+    candidate.scratch.pending_factor_update = false
+    candidate.scratch.post_iteration = :none
+    return candidate
+end
+

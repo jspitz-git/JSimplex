@@ -1,0 +1,633 @@
+{
+  "checks": {
+    "16_actual_historical_rows": true,
+    "237_pass_each_failed_run": true,
+    "16_exact_test_blocks": true,
+    "restore_precedes_auxiliary": true,
+    "auxiliary_work_finally": true,
+    "no_auxiliary_certificate_transfer": true,
+    "trial_explicit_factor_copy": true,
+    "trial_explicit_policy_deepcopy": true,
+    "trial_uses_original_problem": true,
+    "basis_remap_pretrial": true,
+    "last_stop_before_publication": true,
+    "consumed_refactors_before_publication": true,
+    "factor_published_before_pending": true,
+    "stage_buffers_phase_reset": true,
+    "stage_forwards_other_events": true,
+    "shared_diagnostic_counters": true,
+    "observer_count_precedes_wrapped_failure": true,
+    "phase_reset_conditional_pricing_state": true,
+    "existing_observer_is_prepublication": true,
+    "existing_atomic_no_observer": true,
+    "trial_refactor_event_before_reconstruction": true
+  },
+  "all_passed": true,
+  "time_ns": 1791849005142746132,
+  "rows": [
+    {
+      "run": "38142752357",
+      "head": "b720674097f662e2f8c3ea81590ea551d66a7e9a",
+      "run_conclusion": "failure",
+      "name": "Interrupted auxiliary handoff preserves the live basis and factor",
+      "file": "test/simplex_handoff_atomicity_tests.jl",
+      "line": 12246,
+      "passed": 78,
+      "total": 78,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2650569Z   Interrupted auxiliary handoff preserves the live basis and factor                   | ^[[32m    78  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m    78  ^[[39m^[[0m    34.8s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2650569Z   Interrupted auxiliary handoff preserves the live basis and factor                   |     78                   78      34.8s"
+    },
+    {
+      "run": "38142752357",
+      "head": "b720674097f662e2f8c3ea81590ea551d66a7e9a",
+      "run_conclusion": "failure",
+      "name": "Auxiliary handoff publishes a fresh phase only on acceptance",
+      "file": "test/adaptive_pricing_lifecycle_tests.jl",
+      "line": 11046,
+      "passed": 19,
+      "total": 19,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.1301528Z   Auxiliary handoff publishes a fresh phase only on acceptance                        | ^[[32m    19  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m    19  ^[[39m^[[0m    26.9s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.1301528Z   Auxiliary handoff publishes a fresh phase only on acceptance                        |     19                   19      26.9s"
+    },
+    {
+      "run": "38142752357",
+      "head": "b720674097f662e2f8c3ea81590ea551d66a7e9a",
+      "run_conclusion": "failure",
+      "name": "Completed auxiliary work survives a callback exception",
+      "file": "test/simplex_driver_tests.jl",
+      "line": 12228,
+      "passed": 3,
+      "total": 3,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2632476Z   Completed auxiliary work survives a callback exception                              | ^[[32m     3  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     3  ^[[39m^[[0m    32.0s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2632476Z   Completed auxiliary work survives a callback exception                              |      3                    3      32.0s"
+    },
+    {
+      "run": "38142752357",
+      "head": "b720674097f662e2f8c3ea81590ea551d66a7e9a",
+      "run_conclusion": "failure",
+      "name": "Modern auxiliary dual owns its bound and cost model",
+      "file": "test/simplex_phase_one_auxiliary_tests.jl",
+      "line": 12276,
+      "passed": 12,
+      "total": 12,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2679195Z   Modern auxiliary dual owns its bound and cost model                                 | ^[[32m    12  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m    12  ^[[39m^[[0m     0.3s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2679195Z   Modern auxiliary dual owns its bound and cost model                                 |     12                   12       0.3s"
+    },
+    {
+      "run": "38142752357",
+      "head": "b720674097f662e2f8c3ea81590ea551d66a7e9a",
+      "run_conclusion": "failure",
+      "name": "Modern auxiliary dual preserves recession and feasibility proofs",
+      "file": "test/simplex_phase_one_auxiliary_tests.jl",
+      "line": 12277,
+      "passed": 16,
+      "total": 16,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2679827Z   Modern auxiliary dual preserves recession and feasibility proofs                    | ^[[32m    16  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m    16  ^[[39m^[[0m     0.0s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2679827Z   Modern auxiliary dual preserves recession and feasibility proofs                    |     16                   16       0.0s"
+    },
+    {
+      "run": "38142752357",
+      "head": "b720674097f662e2f8c3ea81590ea551d66a7e9a",
+      "run_conclusion": "failure",
+      "name": "Bound flips and auxiliary dual feasibility",
+      "file": "test/dual_simplex_tests.jl",
+      "line": 12139,
+      "passed": 106,
+      "total": 106,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2543827Z   Bound flips and auxiliary dual feasibility                                          | ^[[32m   106  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m   106  ^[[39m^[[0m    35.5s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2543827Z   Bound flips and auxiliary dual feasibility                                          |    106                  106      35.5s"
+    },
+    {
+      "run": "38142752357",
+      "head": "b720674097f662e2f8c3ea81590ea551d66a7e9a",
+      "run_conclusion": "failure",
+      "name": "Auxiliary workspaces own their factorization backend",
+      "file": "test/dual_simplex_tests.jl",
+      "line": 12130,
+      "passed": 1,
+      "total": 1,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2535050Z   Auxiliary workspaces own their factorization backend                                | ^[[32m     1  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     1  ^[[39m^[[0m     0.0s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2535050Z   Auxiliary workspaces own their factorization backend                                |      1                    1       0.0s"
+    },
+    {
+      "run": "38142752357",
+      "head": "b720674097f662e2f8c3ea81590ea551d66a7e9a",
+      "run_conclusion": "failure",
+      "name": "Diagnostic observer failures do not become numerical statuses",
+      "file": "test/simplex_diagnostics_tests.jl",
+      "line": 12087,
+      "passed": 2,
+      "total": 2,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2492299Z   Diagnostic observer failures do not become numerical statuses                       | ^[[32m     2  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     2  ^[[39m^[[0m     1.7s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2492299Z   Diagnostic observer failures do not become numerical statuses                       |      2                    2       1.7s"
+    },
+    {
+      "run": "38149970679",
+      "head": "4914cbb1b22f2c6bf4a18eef6816382682a65902",
+      "run_conclusion": "failure",
+      "name": "Interrupted auxiliary handoff preserves the live basis and factor",
+      "file": "test/simplex_handoff_atomicity_tests.jl",
+      "line": 12219,
+      "passed": 78,
+      "total": 78,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4855138Z   Interrupted auxiliary handoff preserves the live basis and factor                   | ^[[32m    78  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m    78  ^[[39m^[[0m    39.9s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4855138Z   Interrupted auxiliary handoff preserves the live basis and factor                   |     78                   78      39.9s"
+    },
+    {
+      "run": "38149970679",
+      "head": "4914cbb1b22f2c6bf4a18eef6816382682a65902",
+      "run_conclusion": "failure",
+      "name": "Auxiliary handoff publishes a fresh phase only on acceptance",
+      "file": "test/adaptive_pricing_lifecycle_tests.jl",
+      "line": 11019,
+      "passed": 19,
+      "total": 19,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.3521514Z   Auxiliary handoff publishes a fresh phase only on acceptance                        | ^[[32m    19  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m    19  ^[[39m^[[0m    27.6s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.3521514Z   Auxiliary handoff publishes a fresh phase only on acceptance                        |     19                   19      27.6s"
+    },
+    {
+      "run": "38149970679",
+      "head": "4914cbb1b22f2c6bf4a18eef6816382682a65902",
+      "run_conclusion": "failure",
+      "name": "Completed auxiliary work survives a callback exception",
+      "file": "test/simplex_driver_tests.jl",
+      "line": 12201,
+      "passed": 3,
+      "total": 3,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4837398Z   Completed auxiliary work survives a callback exception                              | ^[[32m     3  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     3  ^[[39m^[[0m    32.5s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4837398Z   Completed auxiliary work survives a callback exception                              |      3                    3      32.5s"
+    },
+    {
+      "run": "38149970679",
+      "head": "4914cbb1b22f2c6bf4a18eef6816382682a65902",
+      "run_conclusion": "failure",
+      "name": "Modern auxiliary dual owns its bound and cost model",
+      "file": "test/simplex_phase_one_auxiliary_tests.jl",
+      "line": 12249,
+      "passed": 12,
+      "total": 12,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4883318Z   Modern auxiliary dual owns its bound and cost model                                 | ^[[32m    12  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m    12  ^[[39m^[[0m     0.3s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4883318Z   Modern auxiliary dual owns its bound and cost model                                 |     12                   12       0.3s"
+    },
+    {
+      "run": "38149970679",
+      "head": "4914cbb1b22f2c6bf4a18eef6816382682a65902",
+      "run_conclusion": "failure",
+      "name": "Modern auxiliary dual preserves recession and feasibility proofs",
+      "file": "test/simplex_phase_one_auxiliary_tests.jl",
+      "line": 12250,
+      "passed": 16,
+      "total": 16,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4883826Z   Modern auxiliary dual preserves recession and feasibility proofs                    | ^[[32m    16  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m    16  ^[[39m^[[0m     0.0s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4883826Z   Modern auxiliary dual preserves recession and feasibility proofs                    |     16                   16       0.0s"
+    },
+    {
+      "run": "38149970679",
+      "head": "4914cbb1b22f2c6bf4a18eef6816382682a65902",
+      "run_conclusion": "failure",
+      "name": "Bound flips and auxiliary dual feasibility",
+      "file": "test/dual_simplex_tests.jl",
+      "line": 12112,
+      "passed": 106,
+      "total": 106,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4750047Z   Bound flips and auxiliary dual feasibility                                          | ^[[32m   106  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m   106  ^[[39m^[[0m    37.1s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4750047Z   Bound flips and auxiliary dual feasibility                                          |    106                  106      37.1s"
+    },
+    {
+      "run": "38149970679",
+      "head": "4914cbb1b22f2c6bf4a18eef6816382682a65902",
+      "run_conclusion": "failure",
+      "name": "Auxiliary workspaces own their factorization backend",
+      "file": "test/dual_simplex_tests.jl",
+      "line": 12103,
+      "passed": 1,
+      "total": 1,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4741377Z   Auxiliary workspaces own their factorization backend                                | ^[[32m     1  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     1  ^[[39m^[[0m     0.0s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4741377Z   Auxiliary workspaces own their factorization backend                                |      1                    1       0.0s"
+    },
+    {
+      "run": "38149970679",
+      "head": "4914cbb1b22f2c6bf4a18eef6816382682a65902",
+      "run_conclusion": "failure",
+      "name": "Diagnostic observer failures do not become numerical statuses",
+      "file": "test/simplex_diagnostics_tests.jl",
+      "line": 12060,
+      "passed": 2,
+      "total": 2,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4691479Z   Diagnostic observer failures do not become numerical statuses                       | ^[[32m     2  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     2  ^[[39m^[[0m     1.8s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4691479Z   Diagnostic observer failures do not become numerical statuses                       |      2                    2       1.8s"
+    }
+  ],
+  "test_block_comparisons": [
+    {
+      "run": "38142752357",
+      "name": "Interrupted auxiliary handoff preserves the live basis and factor",
+      "file": "test/simplex_handoff_atomicity_tests.jl",
+      "historical_sha256": "92545b5d96e3cd5691b3db478f25234f48d14b486c757702d90f45534672e0cd",
+      "current_sha256": "92545b5d96e3cd5691b3db478f25234f48d14b486c757702d90f45534672e0cd",
+      "block_equal": true,
+      "whole_file_equal": true
+    },
+    {
+      "run": "38142752357",
+      "name": "Auxiliary handoff publishes a fresh phase only on acceptance",
+      "file": "test/adaptive_pricing_lifecycle_tests.jl",
+      "historical_sha256": "e4d5f0812f6c89ac81dea6c586c90113f74c0d9a6cb6f563b4ca949e3ca0190d",
+      "current_sha256": "e4d5f0812f6c89ac81dea6c586c90113f74c0d9a6cb6f563b4ca949e3ca0190d",
+      "block_equal": true,
+      "whole_file_equal": true
+    },
+    {
+      "run": "38142752357",
+      "name": "Completed auxiliary work survives a callback exception",
+      "file": "test/simplex_driver_tests.jl",
+      "historical_sha256": "a76e94ad5d51d81c33422f8568d5d5fa886c036cc58684abdbc89078182b49fe",
+      "current_sha256": "a76e94ad5d51d81c33422f8568d5d5fa886c036cc58684abdbc89078182b49fe",
+      "block_equal": true,
+      "whole_file_equal": true
+    },
+    {
+      "run": "38142752357",
+      "name": "Modern auxiliary dual owns its bound and cost model",
+      "file": "test/simplex_phase_one_auxiliary_tests.jl",
+      "historical_sha256": "449e580918826df9ab5cf74d4635dfbb6dcb46697c053e84e551ea6d84f0b47b",
+      "current_sha256": "449e580918826df9ab5cf74d4635dfbb6dcb46697c053e84e551ea6d84f0b47b",
+      "block_equal": true,
+      "whole_file_equal": true
+    },
+    {
+      "run": "38142752357",
+      "name": "Modern auxiliary dual preserves recession and feasibility proofs",
+      "file": "test/simplex_phase_one_auxiliary_tests.jl",
+      "historical_sha256": "4dd45e0c64215e534ea9674ce3189f2af4156ef54f81ea824d3f4aab5d567bcc",
+      "current_sha256": "4dd45e0c64215e534ea9674ce3189f2af4156ef54f81ea824d3f4aab5d567bcc",
+      "block_equal": true,
+      "whole_file_equal": true
+    },
+    {
+      "run": "38142752357",
+      "name": "Bound flips and auxiliary dual feasibility",
+      "file": "test/dual_simplex_tests.jl",
+      "historical_sha256": "cf5706cb78ccbd0ebc3f4a968f5acab820abd46be2989b544f8eb111e6b5f730",
+      "current_sha256": "cf5706cb78ccbd0ebc3f4a968f5acab820abd46be2989b544f8eb111e6b5f730",
+      "block_equal": true,
+      "whole_file_equal": true
+    },
+    {
+      "run": "38142752357",
+      "name": "Auxiliary workspaces own their factorization backend",
+      "file": "test/dual_simplex_tests.jl",
+      "historical_sha256": "6cdef62051adc7afbdc0915abdebaf776bfe3de15b74917b330633405b2ea3ba",
+      "current_sha256": "6cdef62051adc7afbdc0915abdebaf776bfe3de15b74917b330633405b2ea3ba",
+      "block_equal": true,
+      "whole_file_equal": true
+    },
+    {
+      "run": "38142752357",
+      "name": "Diagnostic observer failures do not become numerical statuses",
+      "file": "test/simplex_diagnostics_tests.jl",
+      "historical_sha256": "242060e7aded0000b4bd350bda92e28cabe6a811818a1767c9489ca3b0f7c611",
+      "current_sha256": "242060e7aded0000b4bd350bda92e28cabe6a811818a1767c9489ca3b0f7c611",
+      "block_equal": true,
+      "whole_file_equal": true
+    },
+    {
+      "run": "38149970679",
+      "name": "Interrupted auxiliary handoff preserves the live basis and factor",
+      "file": "test/simplex_handoff_atomicity_tests.jl",
+      "historical_sha256": "92545b5d96e3cd5691b3db478f25234f48d14b486c757702d90f45534672e0cd",
+      "current_sha256": "92545b5d96e3cd5691b3db478f25234f48d14b486c757702d90f45534672e0cd",
+      "block_equal": true,
+      "whole_file_equal": true
+    },
+    {
+      "run": "38149970679",
+      "name": "Auxiliary handoff publishes a fresh phase only on acceptance",
+      "file": "test/adaptive_pricing_lifecycle_tests.jl",
+      "historical_sha256": "e4d5f0812f6c89ac81dea6c586c90113f74c0d9a6cb6f563b4ca949e3ca0190d",
+      "current_sha256": "e4d5f0812f6c89ac81dea6c586c90113f74c0d9a6cb6f563b4ca949e3ca0190d",
+      "block_equal": true,
+      "whole_file_equal": true
+    },
+    {
+      "run": "38149970679",
+      "name": "Completed auxiliary work survives a callback exception",
+      "file": "test/simplex_driver_tests.jl",
+      "historical_sha256": "a76e94ad5d51d81c33422f8568d5d5fa886c036cc58684abdbc89078182b49fe",
+      "current_sha256": "a76e94ad5d51d81c33422f8568d5d5fa886c036cc58684abdbc89078182b49fe",
+      "block_equal": true,
+      "whole_file_equal": true
+    },
+    {
+      "run": "38149970679",
+      "name": "Modern auxiliary dual owns its bound and cost model",
+      "file": "test/simplex_phase_one_auxiliary_tests.jl",
+      "historical_sha256": "449e580918826df9ab5cf74d4635dfbb6dcb46697c053e84e551ea6d84f0b47b",
+      "current_sha256": "449e580918826df9ab5cf74d4635dfbb6dcb46697c053e84e551ea6d84f0b47b",
+      "block_equal": true,
+      "whole_file_equal": true
+    },
+    {
+      "run": "38149970679",
+      "name": "Modern auxiliary dual preserves recession and feasibility proofs",
+      "file": "test/simplex_phase_one_auxiliary_tests.jl",
+      "historical_sha256": "4dd45e0c64215e534ea9674ce3189f2af4156ef54f81ea824d3f4aab5d567bcc",
+      "current_sha256": "4dd45e0c64215e534ea9674ce3189f2af4156ef54f81ea824d3f4aab5d567bcc",
+      "block_equal": true,
+      "whole_file_equal": true
+    },
+    {
+      "run": "38149970679",
+      "name": "Bound flips and auxiliary dual feasibility",
+      "file": "test/dual_simplex_tests.jl",
+      "historical_sha256": "cf5706cb78ccbd0ebc3f4a968f5acab820abd46be2989b544f8eb111e6b5f730",
+      "current_sha256": "cf5706cb78ccbd0ebc3f4a968f5acab820abd46be2989b544f8eb111e6b5f730",
+      "block_equal": true,
+      "whole_file_equal": true
+    },
+    {
+      "run": "38149970679",
+      "name": "Auxiliary workspaces own their factorization backend",
+      "file": "test/dual_simplex_tests.jl",
+      "historical_sha256": "6cdef62051adc7afbdc0915abdebaf776bfe3de15b74917b330633405b2ea3ba",
+      "current_sha256": "6cdef62051adc7afbdc0915abdebaf776bfe3de15b74917b330633405b2ea3ba",
+      "block_equal": true,
+      "whole_file_equal": true
+    },
+    {
+      "run": "38149970679",
+      "name": "Diagnostic observer failures do not become numerical statuses",
+      "file": "test/simplex_diagnostics_tests.jl",
+      "historical_sha256": "242060e7aded0000b4bd350bda92e28cabe6a811818a1767c9489ca3b0f7c611",
+      "current_sha256": "242060e7aded0000b4bd350bda92e28cabe6a811818a1767c9489ca3b0f7c611",
+      "block_equal": true,
+      "whole_file_equal": true
+    }
+  ],
+  "source_comparisons": [
+    {
+      "run": "38142752357",
+      "file": "src/dual_simplex.jl",
+      "historical_sha256": "dcbf4dd3260044f8f25138b4cad5d936f4b7b15cab0267404e77a0a3d3647c68",
+      "current_sha256": "dcbf4dd3260044f8f25138b4cad5d936f4b7b15cab0267404e77a0a3d3647c68",
+      "equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "src/simplex_pivot.jl",
+      "historical_sha256": "2cf399478648b82aa1502acdc33651c1afd914fa22ef833ca00a3765295e70a9",
+      "current_sha256": "2cf399478648b82aa1502acdc33651c1afd914fa22ef833ca00a3765295e70a9",
+      "equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "src/simplex.jl",
+      "historical_sha256": "adcff4aee5f6b3bde5988e82fc2c7c9ad75749e06c33250a526dff0a7f0462b8",
+      "current_sha256": "adcff4aee5f6b3bde5988e82fc2c7c9ad75749e06c33250a526dff0a7f0462b8",
+      "equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "src/simplex_diagnostics.jl",
+      "historical_sha256": "0c27c8675e87fdaa6f97e834453c35121f0bdc080b845ef8c960dba55d8cfa12",
+      "current_sha256": "0c27c8675e87fdaa6f97e834453c35121f0bdc080b845ef8c960dba55d8cfa12",
+      "equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "src/simplex_recovery.jl",
+      "historical_sha256": "d68055947b8cedfd0eb6cb554f656ef80b942bf85a64e3b8ccd2881d9e37761c",
+      "current_sha256": "d68055947b8cedfd0eb6cb554f656ef80b942bf85a64e3b8ccd2881d9e37761c",
+      "equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "src/simplex_pricing.jl",
+      "historical_sha256": "0cfdf2f757e9d4521f5d895fe31a0df0b62a63257e199d841ad6115923486b10",
+      "current_sha256": "0cfdf2f757e9d4521f5d895fe31a0df0b62a63257e199d841ad6115923486b10",
+      "equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "src/sparse_pricing.jl",
+      "historical_sha256": "e860c1c7ba7f447bb5939747f97a4a5903196c73fe3f381eb5f7ac60dedc79a9",
+      "current_sha256": "e860c1c7ba7f447bb5939747f97a4a5903196c73fe3f381eb5f7ac60dedc79a9",
+      "equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "src/hypersparse_pipeline.jl",
+      "historical_sha256": "f1c9d010e3be89d7ac78d05f6339fe812c5496afbee647756409be4fd93bbe09",
+      "current_sha256": "f1c9d010e3be89d7ac78d05f6339fe812c5496afbee647756409be4fd93bbe09",
+      "equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "src/simplex_perturbation.jl",
+      "historical_sha256": "5de8c95b2ed663bb964a03b54d974493c883e0eb302ff32d4aef28fabfdc4e5c",
+      "current_sha256": "8eb35a82a124e841517859e907f13928ad433edcd9598d75f02184c29e1c38e7",
+      "equal": false
+    },
+    {
+      "run": "38149970679",
+      "file": "src/dual_simplex.jl",
+      "historical_sha256": "dcbf4dd3260044f8f25138b4cad5d936f4b7b15cab0267404e77a0a3d3647c68",
+      "current_sha256": "dcbf4dd3260044f8f25138b4cad5d936f4b7b15cab0267404e77a0a3d3647c68",
+      "equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "src/simplex_pivot.jl",
+      "historical_sha256": "2cf399478648b82aa1502acdc33651c1afd914fa22ef833ca00a3765295e70a9",
+      "current_sha256": "2cf399478648b82aa1502acdc33651c1afd914fa22ef833ca00a3765295e70a9",
+      "equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "src/simplex.jl",
+      "historical_sha256": "adcff4aee5f6b3bde5988e82fc2c7c9ad75749e06c33250a526dff0a7f0462b8",
+      "current_sha256": "adcff4aee5f6b3bde5988e82fc2c7c9ad75749e06c33250a526dff0a7f0462b8",
+      "equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "src/simplex_diagnostics.jl",
+      "historical_sha256": "0c27c8675e87fdaa6f97e834453c35121f0bdc080b845ef8c960dba55d8cfa12",
+      "current_sha256": "0c27c8675e87fdaa6f97e834453c35121f0bdc080b845ef8c960dba55d8cfa12",
+      "equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "src/simplex_recovery.jl",
+      "historical_sha256": "d68055947b8cedfd0eb6cb554f656ef80b942bf85a64e3b8ccd2881d9e37761c",
+      "current_sha256": "d68055947b8cedfd0eb6cb554f656ef80b942bf85a64e3b8ccd2881d9e37761c",
+      "equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "src/simplex_pricing.jl",
+      "historical_sha256": "0cfdf2f757e9d4521f5d895fe31a0df0b62a63257e199d841ad6115923486b10",
+      "current_sha256": "0cfdf2f757e9d4521f5d895fe31a0df0b62a63257e199d841ad6115923486b10",
+      "equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "src/sparse_pricing.jl",
+      "historical_sha256": "e860c1c7ba7f447bb5939747f97a4a5903196c73fe3f381eb5f7ac60dedc79a9",
+      "current_sha256": "e860c1c7ba7f447bb5939747f97a4a5903196c73fe3f381eb5f7ac60dedc79a9",
+      "equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "src/hypersparse_pipeline.jl",
+      "historical_sha256": "f1c9d010e3be89d7ac78d05f6339fe812c5496afbee647756409be4fd93bbe09",
+      "current_sha256": "f1c9d010e3be89d7ac78d05f6339fe812c5496afbee647756409be4fd93bbe09",
+      "equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "src/simplex_perturbation.jl",
+      "historical_sha256": "5de8c95b2ed663bb964a03b54d974493c883e0eb302ff32d4aef28fabfdc4e5c",
+      "current_sha256": "8eb35a82a124e841517859e907f13928ad433edcd9598d75f02184c29e1c38e7",
+      "equal": false
+    }
+  ],
+  "excerpts": [
+    {
+      "name": "handoff",
+      "file": "src/dual_simplex.jl",
+      "start_line": 2052,
+      "sha256": "067ebd9faeef08a006c5aa19cd6ed79bde6848b2ef1032d2167b1b35201cd6d8"
+    },
+    {
+      "name": "auxiliary",
+      "file": "src/dual_simplex.jl",
+      "start_line": 1864,
+      "sha256": "a3bb283e20996fde958f59981de8fb2182cba136ff9953691cfbe18e02c2dcf9"
+    },
+    {
+      "name": "candidate_publication_helpers",
+      "file": "src/simplex_pivot.jl",
+      "start_line": 1,
+      "sha256": "98fe413bc20faaf22a1c85722fe435a9d9e2126b3363b9597299484ca2cc4122"
+    },
+    {
+      "name": "phase_reset",
+      "file": "src/simplex_pricing.jl",
+      "start_line": 173,
+      "sha256": "b848a02073bfbccf39d960b7a86b8ed003fad2498012c91187229760d9ca896f"
+    },
+    {
+      "name": "diagnostic_wrapper",
+      "file": "src/simplex_diagnostics.jl",
+      "start_line": 81,
+      "sha256": "f3018858986711defd71282e8708d496772563090f299ddc97693f33df248027"
+    },
+    {
+      "name": "existing_adaptive_test",
+      "file": "test/adaptive_pricing_lifecycle_tests.jl",
+      "start_line": 242,
+      "sha256": "e4d5f0812f6c89ac81dea6c586c90113f74c0d9a6cb6f563b4ca949e3ca0190d"
+    }
+  ],
+  "sha256": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/simplex-core-architecture/S6-A/ci-inventory-1/38142752357-failed.log": "419dcf4520b9d77a40b7030ccf9fe41980733a34e06d5fcd880000d6dbfc5d01",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/simplex-core-architecture/S6-A/ci-inventory-1/38149970679-failed.log": "f57f68637b08b25f15035a186e128a3132a2e59a97478f10168e2d68da7ee9de",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.vscode/settings.json": "16ecc4f117e03a0cd5d0ce7436475429fd93d93f9539eff8978f471e8b782247",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/LocalPreferences.toml": "172f3f5c30b44e8fbaf126aeb0b32bba900c83069215e9aaed3b4c3314119e54",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/Manifest.toml": "bfa0397481a520ef9e793c224c9cd856b151973c6a65060132e2e792c6e13ae3",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/S4-POSTSOLVE-DUAL-WORK-CONTRACT-REVIEW.md": "ed43781df897c2841fa71927565a953aff89172c253e042018686519c095b74c",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/S4-POSTSOLVE-DUAL-WORK-CONTRACT.md": "e64a38e562dac42dfb88024d79300249897f00893547045f05100ae3eb8a0854",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/S5-COPIES-REVIEW.md": "d3c3ec5edae162025057a30d900c1a7a0ea374cd93d4f750f9c5e8fff4ceed8b",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/S5-COPIES.md": "cf27365e24bc9701cf0743e28e7344bb38a790fe05b70c997bf89a2dd9a5f733",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/S5-INVENTORY-NOTES.md": "ddb409274f89cbe31338daeeaed19f70147d7a60a853e01f1d184fcd96bbc715",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/S5-PRECISION-JOURNAL-INTERRUPTION-TEST-INTEGRATION-REVIEW.md": "4e06d1a4d9cc163ea01361f1b9fdcd51073bf5506475767ef13abe58b6c8bac0",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/S5-PRECISION-JOURNAL-INTERRUPTION-TEST-INTEGRATION.md": "427f454fea59ad1c7e67b3d3a802c38cf1205c4b3bb5f5e82c96bfe7b544a488",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/S5-RESTORATION-REVIEW.md": "f08c877ec9435b68263bcbd19d34fb38015d5629c86fbf7f2d5eda726e5f0ada",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/S5-RESTORATION.md": "0b377ad75d39b9b547a92528ad055df2d26cc88ae06d84a3fbc7a41b184fde51",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-I/closure.json": "da663c6a7bb923d33e5bc113e5c896440d27cf19ab390afe4b4f05acf8934452",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-I/green-review.md": "8c8dd7a38d41eeae81d728ed6250a941b9872d787a2f517f04457121f70b91e9",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-I/master-1/pins.json": "51b3328731ee9bb77b8721b3c411600ad132ec659395392a93e836352ffdbbc3",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-I/master-1-audit.json": "b35fc2db044094b5cd6e1c04361dac0e10236d60128e7802436917f1aef854ab",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-I/master-1-independent.json": "541c28c7d7a7311dcbc170ff1540bf9c7aee32e91604b7aa75bbadfb2628683f",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-I/master-review.md": "9bfe5ceabc7085c8c29bdfefdc85583b75b1bb296c5014bd743467f7850b5269",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-J/excerpts/auxiliary.txt": "a3bb283e20996fde958f59981de8fb2182cba136ff9953691cfbe18e02c2dcf9",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-J/excerpts/candidate_publication_helpers.txt": "98fe413bc20faaf22a1c85722fe435a9d9e2126b3363b9597299484ca2cc4122",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-J/excerpts/diagnostic_wrapper.txt": "f3018858986711defd71282e8708d496772563090f299ddc97693f33df248027",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-J/excerpts/existing_adaptive_test.txt": "e4d5f0812f6c89ac81dea6c586c90113f74c0d9a6cb6f563b4ca949e3ca0190d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-J/excerpts/handoff.txt": "067ebd9faeef08a006c5aa19cd6ed79bde6848b2ef1032d2167b1b35201cd6d8",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-J/excerpts/phase_reset.txt": "b848a02073bfbccf39d960b7a86b8ed003fad2498012c91187229760d9ca896f",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-J/host-before.json": "3afe7ea7673bf2f0c54148812ecab55842d5ef97a70e64e98d18f336da42c40a",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-J/source_contract.py": "dbfc301875d5034c10f0d94273ecb77c50d2b7281f4a375022d88db963d54d82",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S6-A/ci-inventory-1-38142752357-metadata.json": "3b08bb44f097fa63715d5210d83214b7ad7706a347f221a096f5b8374f635b97",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S6-A/ci-inventory-1-38149970679-metadata.json": "99c8d5557d9ff08b6912c18b66ce6504f4fce794ab573a93a24370bb4c12b687",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/docs/superpowers/plans/2026-10-13-dual-auxiliary-handoff-ownership.md": "4b1c7a2bc7673a5b6a1820856fb378948e0bb22b78f2d0a96e916b85a6868ab2",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/dual_simplex.jl": "dcbf4dd3260044f8f25138b4cad5d936f4b7b15cab0267404e77a0a3d3647c68",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/hypersparse_pipeline.jl": "f1c9d010e3be89d7ac78d05f6339fe812c5496afbee647756409be4fd93bbe09",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/simplex.jl": "adcff4aee5f6b3bde5988e82fc2c7c9ad75749e06c33250a526dff0a7f0462b8",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/simplex_diagnostics.jl": "0c27c8675e87fdaa6f97e834453c35121f0bdc080b845ef8c960dba55d8cfa12",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/simplex_perturbation.jl": "8eb35a82a124e841517859e907f13928ad433edcd9598d75f02184c29e1c38e7",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/simplex_pivot.jl": "2cf399478648b82aa1502acdc33651c1afd914fa22ef833ca00a3765295e70a9",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/simplex_pricing.jl": "0cfdf2f757e9d4521f5d895fe31a0df0b62a63257e199d841ad6115923486b10",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/simplex_recovery.jl": "d68055947b8cedfd0eb6cb554f656ef80b942bf85a64e3b8ccd2881d9e37761c",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/sparse_pricing.jl": "e860c1c7ba7f447bb5939747f97a4a5903196c73fe3f381eb5f7ac60dedc79a9",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/adaptive_pricing_lifecycle_tests.jl": "1680b0f132c87c5b24422da56f3b848b22dc2b3547c3985b80fd2d0312c8989f",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/dual_simplex_tests.jl": "eb7dfe8d4f388e78873eb6c9ffa3dfc7fa081a621c69290e490541b8b72d6288",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/simplex_diagnostics_tests.jl": "192e82e017678f2f796791019c65d13c465bde9fd873276e02cbe26dee90a01b",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/simplex_driver_tests.jl": "cb594f1dad2307422d2da14bd429f98c10769fee88d5cea1993a44779b336083",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/simplex_handoff_atomicity_tests.jl": "ae9b07e59fa270a968b80f25c5305807e85878e31dbe4601ebb90e7cebd7964f",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/simplex_phase_one_auxiliary_tests.jl": "f740aebdb015359f9415512678b514b56ea8f43537b21d7ea7aad5cf534b5a97",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/julia": "ca0ca02a2fbae8ecf7291a76b2231d02df953b3f1bc6f2a2ec41801f5a21cf2a",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libLLVM-20jl.so": "d9a3cd50d464a933f6c74f25a41b768d13edafed7e154cf8480c1765026cf0cd",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libLLVM.so": "d9a3cd50d464a933f6c74f25a41b768d13edafed7e154cf8480c1765026cf0cd",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libamd.so": "25a9b19bb63f9dfc72ae0264d26eb08731aeda57aa60b381b17b3ab0e65fc2b1",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libatomic.so": "090ae096cd1dd366d3d031438b106f74ad992b066c0f2b3590213866ea88933b",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libblastrampoline.so": "d787d0d9cea73be77ce202b0c15b3833bb1fa6180bde1319f1bea3728e4d9c4b",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libbtf.so": "c1097bc81dd7495ca2fa81033878e60fe59a73ebbb6aa89f9c171b51ee3197ba",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libcamd.so": "6b7cf7ef19357bdb60d3da856e43f9da6cd92a3ad5b74a1ca7f3b568ab240ef4",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libccalllazybar.so": "337120d311b7749ee924ee1ea9aeee1b481c9c08884142f5bda7a6e0cb4d6b1c",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libccalllazyfoo.so": "acf4b5c1733164d23e92b66c748a1395d9fc3776f8ade1a151f11032857ed8f3",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libccalltest.so": "3e265c66e33b98b1019a9852ee17405b58a7204dcac5c2da7e423fe6528e69e0",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libccolamd.so": "18447e56bfefb5ae19ee21cfdf3565d2ec158002c7d9a4ea3f7648a5208f41d2",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libcholmod.so": "95746e0e07fd77314397f00c755f13f2ca2ef9f1b6718609b591eddaac2b05fd",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libcolamd.so": "dae6956a8349a85a3c1f8517b6edead1ade57411bc7d57d22199102b6960682d",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libcrypto.so": "1d3d609580303e8938e0de61b9344dc18bdb0ab75c90362e9f51a284ad0faf4a",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libcurl.so": "e21a2687e8eec3ea1188111cd5eced33da8db11a97312a3af33ad846b1db351d",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libdSFMT.so": "ad955fd65a08d97b28a9e1d86cb1cb9d7d48c6b646bd94083c8da6bf0892d92e",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libgcc_s.so": "0878796c5a36528b5e505efe73d0c546e814aa15737f85212428a025e3807b79",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libgfortran.so": "04845b31c73b986d5e4f814ce39524ce01a13f039ce5f76a67085b4f77c0cc9c",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libgit2.so": "5fc427ceea00e98f0b6519586405586d5e7d04ddc64a78b129280aeea0529265",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libgmp.so": "04236c039b46e97f1b7873a121dee4ae5271473f235712214e796fd19eb266e7",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libgmpxx.so": "3a8e6a922d9e2a0bead461d5ce9768ee12ea7b2df2677ddd97a3fa0957e48632",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libgomp.so": "c8cac5a40516cfa91dd3da0a4ed260f3eeeaa525be013a0a8e137c4f185d1e3b",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libjulia-codegen.so": "524ca0b756b363748161fc6d7a03fa9675d52ea239c135a699bf1a7b6100598c",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libjulia-internal.so": "1e01d92bd7431b31fd31b9c95bc3df796c7fbacbcc84bdbb3e9067aa0c0ec780",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libklu.so": "4bee1c4607475cc1a618d47b372f86e6dfb2ed2c994e024f551aaaf16719f430",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libldl.so": "5a21baab7eeccd3e9bf7866f3d0e8b1a35247cbd01bf8260143d1dd2c3066a76",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libllvmcalltest.so": "441b6c12f5d72674df581a6952247ddb12a7addd42dcb149b39e79d9ce2f2fe6",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libmpfr.so": "c98976bbe46a32f9518374f3f07e66d882ca86a2574f3d7b7ae7b9ab1509f6df",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libnghttp2.so": "7d89e7215153b56e6e9142c7e8f8f4623a3c3eeb732748322db5456350f5352d",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libopenblas64_.0.3.30.so": "4b3e2fc3277824ff3aa808e5a771d1ec6e0b7b297622065cf60123f8a1484c36",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libopenblas64_.so": "4b3e2fc3277824ff3aa808e5a771d1ec6e0b7b297622065cf60123f8a1484c36",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libopenlibm.so": "aae6e637275b12152883dc3215925f943075fad7284fd6349a3081d725c0b871",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libpcre2-8.so": "71848e488f0d4029e5dda21ed34d1e12f97305913bac540172d74d49ded2f5a4",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/librbio.so": "89f314548518189d8de60b85a097f7229e5d8213e0711b7ac3cbf8494b6998ca",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libspqr.so": "9aa206e04f78ec08ed75f6a8e35b7d813a6368df53480adec6fb3787550b2f85",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libssh2.so": "930a35915c5a82bc6a30f28355d59878842bd56d845cb361d383358d22b357d5",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libssl.so": "64762128a6bb5858bee9d51f9688dd4efa961593da0f84ab36601e7dd491813a",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libssp.so": "57e11f83929fe192cc16cffc26728a48a58d89bbfc0a3b0e90e1c0f33a8052a4",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libstdc++.so": "7a65a6748a08ae61498729249313a92ea528f8492ef670bb9bbbb045f16773a0",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libsuitesparseconfig.so": "ec7f4fb7af921ede7a836e9314bb530c34bd1119216ad8d029ca9d0be0c496bc",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libumfpack.so": "ab4db5e6b6930084f804ce6712858a41779b992af6619bed0ad7f55dcecfc949",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libunwind.so": "b175636dae8a359fc80fa10353dcec486124d6bd0463602ad3fa274ca55f857b",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libuv.so": "85d2025b5959f8f884a9c4f73b58605bfbe073011dbbe29c5b16bc66e0b3fcb1",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libz.so": "6f2159f3ddd23f65fb1bb0df8a6c81a95385cc30e2f5b67005895eb8c82fe086",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libzstd.so": "e889e932aa607122580842be45127323a8d72bdeb0960e5af5f68c6895e6ff77",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/sys.so": "84f975d243930d424ff384c568c2c7844412a528299c126085358aa8ac39f246",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/libjulia.so": "66bb2b41b09db16fd79d6c80aab47a7f2e33ce6bd9e04d62dcac5482b778a73d",
+    "/home/jspitz/JSimplex.jl/.vscode/settings.json": "8eb95bcbc154530931e15fc418c8b1fe991095671409552099ea1aa596999ede",
+    "/home/jspitz/JSimplex.jl/LocalPreferences.toml": "172f3f5c30b44e8fbaf126aeb0b32bba900c83069215e9aaed3b4c3314119e54",
+    "/home/jspitz/JSimplex.jl/Manifest.toml": "bfa0397481a520ef9e793c224c9cd856b151973c6a65060132e2e792c6e13ae3"
+  },
+  "scope": "Source/evidence only; existing interrupted private trial is covered, post-publication pending observer throw remains unqualified by inspected evidence. No new numerical call."
+}

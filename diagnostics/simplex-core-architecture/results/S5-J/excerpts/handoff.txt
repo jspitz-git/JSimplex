@@ -1,0 +1,105 @@
+function _make_dual_feasible!(workspace::SimplexWorkspace{T}, stop_requested) where {T}
+    _restore_active_perturbations!(workspace)
+    if workspace.progress.numerical_policy.phase_one
+        _restore_original_costs!(workspace)
+        workspace.perturbed = false
+    end
+    recompute!(workspace)
+    _flip_bounds!(workspace)
+    _finite_workspace(workspace) || return _numerical_failure()
+    dual_infeasibility(workspace) <= workspace.options.dual_tolerance && return nothing
+
+    auxiliary = _auxiliary_workspace(workspace)
+    _report_simplex_phase(auxiliary, :I, :dual, stop_requested)
+    # Artificial auxiliary bounds can reverse a nonbasic state when the basis
+    # returns to the original LP. Keep anti-degeneracy cost shifts out of this
+    # phase so a shifted price cannot become infeasible after that remapping.
+    terminal = try
+        if workspace.progress.numerical_policy.phase_one
+            _run_original_objective_terminal!(auxiliary,SimplexRunBudget(auxiliary),
+                workspace.progress.numerical_policy,stop_requested;allow_auxiliary=Val(false))
+        else
+            _dual_optimize!(auxiliary, stop_requested; perturb_degenerate=false)
+        end
+    finally
+        workspace.iterations = auxiliary.iterations
+        workspace.refactorizations = auxiliary.refactorizations
+    end
+    if terminal.status != OPTIMAL
+        # The auxiliary box always contains zero. Its failure is not an
+        # original-LP infeasibility or unboundedness certificate.
+        return workspace.progress.numerical_policy.phase_one && terminal.status in (INFEASIBLE,UNBOUNDED) ?
+            DualTermination(NUMERICAL_ERROR,"auxiliary box terminal proof is inconclusive") : terminal
+    end
+    if workspace.progress.numerical_policy.phase_one
+        _original_optimality_certified(auxiliary,auxiliary.primal[1:size(auxiliary.problem.A,2)]) ||
+            return DualTermination(NUMERICAL_ERROR,"auxiliary box optimum is inconclusive")
+    end
+    if dot(workspace.costs, auxiliary.primal) < -workspace.options.dual_tolerance
+        direction_status = _recession_direction_status(workspace, auxiliary)
+        direction_status == :ambiguous &&
+            return DualTermination(NUMERICAL_ERROR, "auxiliary direction has uncertain feasibility or objective improvement")
+        direction_status == :certified ||
+            return DualTermination(NUMERICAL_ERROR, "auxiliary vector does not certify an improving direction")
+        return _classify_recession!(workspace, stop_requested)
+    end
+
+    basis = Basis(auxiliary.basis.basic_indices, auxiliary.basis.states)
+    for index in eachindex(basis.states)
+        basis.states[index] == BASIC && continue
+        if !isfinite(workspace.lower[index]) && !isfinite(workspace.upper[index])
+            basis.states[index] = FREE_NONBASIC
+        elseif !isfinite(workspace.lower[index])
+            basis.states[index] = AT_UPPER
+        elseif !isfinite(workspace.upper[index])
+            basis.states[index] = AT_LOWER
+        end
+    end
+    stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached")
+    # The auxiliary basis must not become live before its factor and original-
+    # bound values agree. Own both mutable factor and refactor-policy storage;
+    # logger, observer and deadline failures discard only this private trial.
+    trial = _candidate_workspace(workspace)
+    _invalidate_basis_checkpoints!(trial)
+    trial.factorization = copy_basis_factorization(workspace.factorization)
+    trial.scratch.refactorization = deepcopy(workspace.scratch.refactorization)
+    trial.basis = basis
+    _copy_pricing_state!(trial,auxiliary)
+    trial.pricing_weights .= auxiliary.pricing_weights
+    trial.devex_reference .= auxiliary.devex_reference
+    trial.scratch.steepest_valid .= auxiliary.scratch.steepest_valid
+    trial.scratch.steepest_initialized = auxiliary.scratch.steepest_initialized
+    trial.costs .= auxiliary.costs
+    trial.perturbed = auxiliary.perturbed
+    # Start the stall count on the original bounds and objective.
+    trial.zero_dual_step_streak = 0
+    trial.dual_pricing_fallback = auxiliary.dual_pricing_fallback
+    trial.dual_devex_fallback = auxiliary.dual_devex_fallback
+    _reset_auto_pricing!(trial)
+    trial.dual_refactorization_interval = auxiliary.dual_refactorization_interval
+    trial.dual_recent_repairs = auxiliary.dual_recent_repairs
+    trial.dual_bad_update_min = auxiliary.dual_bad_update_min
+    trial.dual_stable_refactorizations = auxiliary.dual_stable_refactorizations
+    trial.dual_nonzero_steps_since_refactorization =
+        auxiliary.dual_nonzero_steps_since_refactorization
+    try
+        recompute!(trial; refactorize=true, caller_guard=stop_requested)
+        _flip_bounds!(trial)
+        _finite_workspace(trial) || return _numerical_failure()
+        if dual_infeasibility(trial) > trial.options.dual_tolerance
+            return DualTermination(NUMERICAL_ERROR, "auxiliary basis is not dual feasible")
+        end
+        stop_requested() && return DualTermination(TIME_LIMIT, "time limit reached before auxiliary handoff")
+    finally
+        workspace.refactorizations = max(workspace.refactorizations, trial.refactorizations)
+    end
+    # No caller code runs while basis, values and factor are published together.
+    _invalidate_basis_checkpoints!(workspace)
+    _copy_pivot_state!(workspace, trial)
+    workspace.scratch.stagnation = nothing
+    workspace.factorization = trial.factorization
+    for reason in trial.progress.diagnostics.observer.pending
+        _simplex_event!(workspace, reason)
+    end
+    return nothing
+end

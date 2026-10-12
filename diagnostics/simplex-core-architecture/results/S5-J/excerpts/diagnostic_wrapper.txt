@@ -1,0 +1,18 @@
+struct DiagnosticObserverFailure{E} <: Exception
+    cause::E
+end
+Base.showerror(io::IO, failure::DiagnosticObserverFailure) =
+    (print(io, "Diagnostic observer failed: "); showerror(io, failure.cause))
+
+function _diagnostic_event!(d::SimplexDiagnostics, reason::Symbol, state=nothing)
+    record_event!(d, reason)
+    if !isnothing(d.observer)
+        try
+            d.observer(reason, state)
+        catch exception
+            # A recorder failure must not be caught as a singular numerical solve.
+            throw(DiagnosticObserverFailure(exception))
+        end
+    end
+    return nothing
+end

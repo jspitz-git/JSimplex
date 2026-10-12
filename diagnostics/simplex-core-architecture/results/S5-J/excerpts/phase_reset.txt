@@ -1,0 +1,29 @@
+function _reset_auto_pricing!(ws)
+    # Phase history is owned by the workspace. Do not mutate a monitor shared
+    # read-only with an uncommitted candidate.
+    ws.scratch.stagnation = nothing
+    state = ws.scratch.pricing
+    isnothing(state) && return nothing
+    if state.temporary
+        state.active = state.return_mode
+    elseif state.active == :dantzig
+        state.active = ws.options.pricing == :auto ? :steepest_edge : ws.options.pricing
+    end
+    state.temporary = false
+    if !state.framework_valid || state.needs_reset
+        _unreliable_pricing!(state,ws.progress.numerical_policy)
+        reset_devex!(ws)
+    end
+    state.return_mode = state.active
+    state.observations = 0
+    state.cooldown_until = 0
+    state.trial_until = 0
+    state.progress_windows = 0
+    state.last_monitor = nothing
+    state.last_observation = 0
+    state.last_transition = :phase
+    ws.dual_pricing_fallback = false
+    _simplex_event!(ws,:pricing_phase_reset)
+    return nothing
+end
+
