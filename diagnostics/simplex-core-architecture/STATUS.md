@@ -55,9 +55,19 @@ S6-H census now completed:20pairs/20pass and original oracle108/108,exit0,
 all17audit gates, independent pins/source; see S6-DUAL-RECOVERY.md. Current local
 native pivot estimates disagree in sign, entering transactional retry. ActualCI
 row/path remains unknown. No production/test change; fresh independent review accepted without findings.
-Next qualification plan:2026-10-12-dual-retry-boundary-qualification.md.
-Last host check:runner376596/child376597/driver376588 absent,noJulia,
+S6-I local qualification completed248/248/16gates. S6-J permanent candidate is
+REJECTED after final independent review: explicit retry still permits downstream
+native numerical refactors, so zero/exact-one work assertions remain conditional.
+RED108pass20expectedfail and GREEN292/292/11gates preserved with exact candidate
+source; permanent test restored byte-identically to HEAD. Master8516e0d unchanged.
+See S6-DUAL-FIXTURE.md and S6-DUAL-BOUNDARY-REVIEW.md. Do not promote or rerun this
+candidate. Future dual fixture must control downstream cause and retain public
+integration coverage without weakening assertions or numerical safeguards.
+Last host check:runner377979/child377981/driver377970 absent, noJulia,
 boot20de7dde-704e-41c8-bee7-b8511c0a86b0.
+Next bounded census: docs/superpowers/plans/2026-10-12-cross-precision-status-census.md.
+S6-K has no new numerical run yet. Static inventory confirms30 primal status failures
+in each historical CI run; preserve original supplied-tolerance/status assertions.
 
 
 S3-A production cd91a1a -> masterd8ad4ec5651225a512d5f533f48ce7d8fc8f90cc is reviewed,
