@@ -50,3 +50,11 @@ A permanent test edit needs its own review; S6-S acceptance alone does not merge
 Single Julia/BLAS1,heap2GiB,VM8GiB,minRAM6GiB,maxswap1GiB,existing guard. No forbidden
 big/largo/AnyMOD or aliases. Before edits/launch check prior389862/389863/389852
 identities/absence on fresh boot; preserve raw failures, old worktrees and user dirt.
+
+## Completion
+
+All six tasks complete. RED2pass4expectedfailures/zero solves; GREEN192/192,
+14gates614pins. Fresh gpt-6-astra review no findings. Testfa8144d integrated as
+masterafb37d9,19/19/15gates614pins,source/user hashes verified, separate process
+absence confirmed. See S6-NEARLY-SINGULAR-FIXTURE.md/review for scope and evidence.
+No broad CI/fullsuite/x64 claim. Next S6-U diagnostic plan; preserve all raw attempts.

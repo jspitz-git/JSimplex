@@ -1,8 +1,7 @@
 # S6-T: nearly singular no-recession test repair
 
-Candidate test-only correction following independently accepted S6-S. Production,
-options, tolerances, arithmetic precision and CI remain unchanged. Master7fea422;
-review/integration pending. No claim of full-suite/x64 success.
+Accepted and integrated test-only correction following independently accepted S6-S. Production,
+options, tolerances, arithmetic precision and CI remain unchanged. Testfa8144d -> masterafb37d9; independent review accepted without findings. No claim of full-suite/x64 success.
 
 The old cancellation-sensitive fixture allows tolerance-feasible Float64 points
 with a strict objective difference (S6-N/Q/R); exact equality was not guaranteed
@@ -49,7 +48,9 @@ testset, outside four-type loop. Bound-vector construction is tiny cold test wor
 No material hot-path cost change; no benchmark/speedup warranted or claimed.
 
 Full-suite historical failures in other families and actual CI platform remain
-open. CI remains manually disabled. Fresh final numerical/work review and one
-actual-master affected-testset check are required before authorized push.
+open. CI remains manually disabled. Fresh final review accepted without findings; see S6-NEARLY-SINGULAR-FIXTURE-REVIEW.md.
+Actual-master19/19,exit0,15audit gates614pins, reviewed candidate bytes equal,
+main user/env hashes preserved. Separate392305runner/392306child/392297driver
+absence verified on the same boot. Authorized push follows all these gates.
 Next bounded diagnostic plan:2026-10-12-primal-price-recovery-reachability.md.
 Existing S6-U failure map merely aggregates twelve historical assertions per run.

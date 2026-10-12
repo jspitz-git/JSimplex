@@ -1,0 +1,11 @@
+source = "/home/jspitz/JSimplex.jl/src/JSimplex.jl"
+julia_version = "1.13.0"
+test_sha256 = "66656a8b1f790f2d4a7d6977b559102a5790503f69868d74cc37b403f7bfe5b4"
+globals_preserved = true
+arch = "aarch64"
+julia_threads = 1
+selected_source = """@testset \"A nearly singular bounded model has no recession ray\" begin\n    # Equal binary row sums keep the strict objective check independent of\n    # rounding in non-dyadic row normalization of this nearly dependent basis.\n    scale = ldexp(1f0, -21)\n    delta = ldexp(1f0, -44)\n    coefficients = Float32[scale scale; scale-delta scale+delta]\n    row_limits = Float32[1, 1+ldexp(1f0, -23)]\n    exact_coefficients = Rational{BigInt}.(coefficients)\n    exact_primal = Rational{BigInt}[-big(2)^44-big(2)^21, big(2)^44]\n    @test size(coefficients) == (2, 2)\n    @test all(!iszero, coefficients)\n    @test det(exact_coefficients) == big(1)//big(2)^64\n    @test sum(exact_coefficients; dims=2) == fill(2Rational{BigInt}(scale), 2, 1)\n    @test row_limits == Float32[1, 1+ldexp(1f0, -23)]\n    @test exact_coefficients * exact_primal == [-Rational{BigInt}(row_limits[1]), Rational{BigInt}(row_limits[2])]\n    for T in (Float32, Float64, BigFloat, Rational{BigInt})\n        problem = LinearProblem(sparse(T.(coefficients)), T[0, -1];\n            row_lower=-T.(row_limits), row_upper=T.(row_limits), column_lower=[nothing, nothing])\n        result = @inferred solve(problem)\n        @test result isa Solution{T}\n        # The two rows bound an invertible transformation of the free columns.\n        @test result.status in (OPTIMAL, NUMERICAL_ERROR)\n        T <: Rational && @test result.status == OPTIMAL\n        if result.status == OPTIMAL\n            @test result.objective_value == -T(big(2)^44)\n        else\n            @test isnothing(result.primal)\n            @test isnothing(result.objective_value)\n        end\n    end\nend\n"""
+selected_sha256 = "3b782c7935dcc167e60b8677d563b79166012e445579646992a3900f6493d0aa"
+blas_threads = 1
+mode = "master"
+titles = ["A nearly singular bounded model has no recession ray"]

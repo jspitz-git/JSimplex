@@ -4,7 +4,7 @@ Updated: 2026-10-12. This is the entry point after interruption.
 
 ## Current state
 
-**S1-A, S3-A/S3-B, S4-A/S4-C and S5-C integrated; master `7fea422` pushed (includes S6-C/S6-G/S6-M test repairs). S2-A rejected; S0-L all four long references audited and complete.**
+**S1-A, S3-A/S3-B, S4-A/S4-C and S5-C integrated; master `afb37d9` (includes S6-C/S6-G/S6-M/S6-T test repairs). S2-A rejected; S0-L all four long references audited and complete.**
 The source baseline is `fe839aa72171d7496c9c931d9393278448c7317e`.
 Initial time-budget diagnostic evidence is commit `6ded1fc`.
 
@@ -38,7 +38,7 @@ main also has a user-modified .vscode/settings.json. Do not stage those files.
 | S3 | End-to-end exact sparsity support | Active | S3-A/S3-B integrated, latest masterb720674; exact-support consumer savings qualified; broader S3 partial |
 | S4 | Refactorization memory lifecycle | Active | S4-A/S4-C integrated; master3220118; Float64 component attribution/cost and exact triplet optimization accepted; bounded scalar component attribution360samples accepted; broader manager/history/medium coverage open |
 | S5 | Phase/cleanup handoff contract | Active | S5-A/S5-B accepted; S5-C production88a2411 -> mastere7014fb, reviewed, master668/668; broader handoffs partial |
-| S6 | Broad validation and final comparison | Active | S6-A/B triage accepted; S6-C test repair integrated as mastera465da5, focused20/20. S6-G artificial-row test repair master8516e0d; S6-M BigFloat fixture repair master7fea422, focused1477/1477; other CI families and full validation remain open |
+| S6 | Broad validation and final comparison | Active | S6-A/B triage accepted; S6-C test repair integrated as mastera465da5, focused20/20. S6-G artificial-row test repair master8516e0d; S6-M BigFloat fixture repair master7fea422, focused1477/1477; S6-T no-recession fixture masterafb37d9,focused192/master19; other CI families and full validation remain open |
 
 Allowed execution states: Pending, Active, Blocked (reason required), Verified,
 Integrated, Rejected (evidence required). Mark an optimization Verified only after
@@ -46,31 +46,33 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-S6-S complete and independently accepted without findings:evidence90811de,
-S6-ROW-BALANCED.md and S6-ROW-BALANCED-REVIEW.md. New row-balanced candidate,
-not equivalent original feasible set. Four public types13/13/exact optimum-2^44,
-unchanged original oracle/options/policy/tolerances,2/2/4 visible topology/both phases,
-two iterations/one refactor. Exit0/612pins. Initial audit30/31/all_passed=false
-preserved: extra external umfpack.jl not pinned by this launch. Supplement proves
-517shared pins and additional current hash,not retroactive launch coverage.
-Separate component6/6,exit0,19gates615pins,one scaling/factorization/two solves:
-actual dyadic L/U/Rs and exact factor/primal/dual residuals zero. No hidden public
-factor/trajectory/platform/speedup claim. Production/test/CI unchanged.
+S6-T accepted and integrated: evidence6574f9a,testfa8144d -> masterafb37d9.
+Fresh independent gpt-6-astra review no findings. Structural RED2pass/4expected
+failures with zero solves; GREEN192/192 (19affected+17+68+88neighbors),14gates614pins;
+actual-master19/19,15gates614pins. Source/pins/user hashes verified. All original
+postsolve assertions byte-identical; only no-recession testset constructor/bounds/
+comment and six structural checks changed. No production/tolerance/precision/CI edit.
+New feasible set preserves no-recession regression intent,not equivalent matrix or
+solver repair. Old cancellation stress remains preserved. See S6-NEARLY-SINGULAR-
+FIXTURE.md and S6-NEARLY-SINGULAR-FIXTURE-REVIEW.md. No fullsuite/x64/speedup claim.
 
-Next: docs/superpowers/plans/2026-10-12-nearly-singular-fixture-repair.md,S6-T.
-Separate permanent test-only RED/GREEN for qualified A=[s s;s-d s+d],s2^-21,d2^-44,
-rowbounds±[1,1+2^-23],same original four types/publicsolve/assertions/defaults.
-Structural pre-solve RED on old constructor without old solve rerun; then minimal
-constructor/comment/bounds correction, exact GREEN and selected neighboring
-new-source regressions. Preserve strict equality,all numerical safeguards,source/
-pins/user files, fresh independent review and actual-master integration gates.
-Original cancellation stress remains preserved in S6-N; no fullsuite/x64 claim.
+Next: docs/superpowers/plans/2026-10-12-primal-price-recovery-reachability.md,S6-U.
+First reconcile existing native_price_roundoff_fixture, exact historical12assertions
+per run in repeated-price budget test, accepted local S2 evidence and current paths.
+results/S6-U/existing-failure-map.json is aggregation only; no new census yet.
+Map quality/correction/direction/ratio/retry/observer/budget/publication. Then bounded
+current-source four-manager census preserving original oracle and existing fault
+injection; additional snapshots read-only/no callback solves/refactors/certificates.
+No inferred x64 cause, no weakening exact-one/zero work assertions, no rejected
+S6-J promotion. A repair needs separate RED/GREEN plan and fresh review.
 
-S6-R complete:evidence08b7485,closure3baf29b,12/12/21gates613pins,new component
-factor decomposition explains-1/16. No old N/O/P/Q/R/corpus/reference/cost reruns.
-Last executor and reviewer fresh host check389862/389863/389852 (and previous
-389599/389600/389589) absent,noJulia,boot20de7dde-704e-41c8-bee7-b8511c0a86b0.
-Verify fresh host state before edits or any next launch. Master remains7fea422.
+S6-S accepted evidence90811de/closure6c5ef37: fourtype13/13 + factor6/6; initial
+comparability30/31false preserved with517pin/current-external supplement; no
+retroactive launch pin. Factor19gates615pins/exactLU/primal/dual residuals0.
+S6-R accepted08b7485/3baf29b:12/12/21gates613pins,componentdecomposition-1/16.
+Do not rerun old N/O/P/Q/R/S/T/corpus/reference/cost drivers against changed tests.
+Last fresh host392305/392306/392297 absent,noJulia,boot20de7dde-704e-41c8-bee7-b8511c0a86b0.
+Verify new host state before edits or any new Julia. User environment/dirt preserved.
 
 S6-Q remains accepted:11events,5/5,24gates611pins,exact S6-N endpoint. Refactor event
 precedes FTRAN/BTRAN,certification precedes checks. Final scratch RHS[0,-1] is BTRAN;
