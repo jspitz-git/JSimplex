@@ -1,0 +1,20 @@
+
+/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libjulia-internal.so.1.13.0:     file format elf64-littleaarch64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .text:
+
+00000000000b2450 <jl_cumulative_compile_timing_enable>:
+   b2450:	d0001100 	adrp	x0, 2d4000 <_ZTVSt21__ctype_abstract_baseIwE+0x20>
+   b2454:	f946c000 	ldr	x0, [x0, #3456]
+   b2458:	085ffc01 	ldaxrb	w1, [x0]
+   b245c:	11000421 	add	w1, w1, #0x1
+   b2460:	0802fc01 	stlxrb	w2, w1, [x0]
+   b2464:	35ffffa2 	cbnz	w2, b2458 <jl_cumulative_compile_timing_enable+0x8>
+   b2468:	d65f03c0 	ret
+
+Disassembly of section .fini:

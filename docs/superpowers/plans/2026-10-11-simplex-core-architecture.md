@@ -683,3 +683,18 @@ and mixed GC counters explicitly qualified. Freshgpt6astra nofindings/no unneces
 production work/memory; reviewerall19,138inputs/12selectedhashes, authorfull567 separate.
 Next ONE bounded numerical S4-Q plan:2026-10-12-hh-history-lifecycle-cost-measurement.md.
 No launch in P. Native retention OPEN, HH reuse disabled, production/test/CI unchanged.
+
+
+### S4-Q nonsymmetric fixed-history measurement, 2026-10-12
+
+ONE new cost-1 accepted by runtime/exact audit:6176checks/exit0,28gates/558pins,
+11authorindependentchecks/full558/P567 unchanged.40constructors80refactors240updates
+960directsolves; all960exactresiduals pass/nonzero,96measuredcompilezero windows,
+16output-equal pairs. Outerpairedmedians0.981266sparse/1.015527dense withGCdominance,
+no consistent inclusive speedup. Inner dense2outlier5.757909 preserved. Complete
+work/diagnostic/owner limits explicit, native retentionOPEN. Freshgpt6astra accepted,
+no unresolved findings/no unnecessary production work/memory; reviewerallinputs/residuals/
+16samplehashes/raw5, authorfull558 separate;
+input-file wording finding fixed offline RED2/GREEN3, no numeric rerun/raw change.
+Next ONE source-only S4-R:2026-10-12-hh-public-controller-reuse-contract.md. Public
+controller/original certificate not qualified by component agreement; no enablement.

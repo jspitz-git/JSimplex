@@ -46,7 +46,22 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-**Current continuation: S4-P source-only fixed-history lifecycle cost contract accepted; next prospective S4-Q bounded measurement, `docs/superpowers/plans/2026-10-12-hh-history-lifecycle-cost-measurement.md`. No numerical launch in P. Native retention stays OPEN and HH reuse disabled.**
+**Current continuation: S4-Q nonsymmetric fixed-history measurement accepted; next S4-R source-only public-controller reuse contract, `docs/superpowers/plans/2026-10-12-hh-public-controller-reuse-contract.md`. Native retention stays OPEN and HH reuse disabled.**
+
+S4-Q: ONEnewguardedcost-1,6176runtimechecks/exit0,28auditgates558launchpins,
+11authorindependentchecks/full558+P567. Actual40constructors80refactors240updates960
+solves600F360B,40preGC40postGC; source-derived120native/extraction/240unittransposes/
+1200historyapplications,<=120orientationbound. All960exactresidualsNONZERO/pass,
+maxratio0.0619643049; all96measuredwindowscompile/recompile0;16sidepairsoutputbitsequal.
+Outerpairedmedian0.981266sparse/1.015527dense, bothrangescross1/GCdominates; NOTconsistent
+inclusive speedup. Dense second-refactor outlier5.757909 retained, causeUNKNOWN.
+19,138 values in P JSON; Q TOML19,042 plus96knownsolutions in P. Reviewer Minor input
+file wording corrected once offline RED2/GREEN3; before report preserved, no raw change.
+No nativeidentity/free capture; native retentionOPEN, diagnostics/retainednumericoutputs
+consumeGC and counted costs. No production/test/master/CIchange or old reruns.
+Reports S4-HISTORY-LIFECYCLE-COST-MEASUREMENT.md/REVIEW,results/S4-Q. Freshgpt6astra
+accepted/no unresolved findings/no unnecessary production work/memory. Reviewerallinputs/
+all960residuals/16samplehashes/raw5; authorfull558 separate. No newdeferredMinor.
 
 S4-P: two NEW nonsymmetric48 inputs, sparse142/dense2304 nonzeros, seven exact stages,
 six nonunit column replacements [3,17,31,31,17,3], all row-dominance margins>5,
