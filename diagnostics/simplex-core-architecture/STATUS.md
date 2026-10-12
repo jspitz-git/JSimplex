@@ -46,7 +46,20 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-**Current continuation: S4-X source-only dual/auxiliary work composition completed and independently reviewed. Whole public caps remain UNKNOWN; this ends the bounded HH controller-budget investigation. Next distinct S3-C DSE support consumer contract: `docs/superpowers/plans/2026-10-12-dse-support-consumer-contract.md`, SOURCE ONLY. No numerical plan or bootstrap reopening.**
+**Current continuation: S3-C DSE consumer source contract completed and independently accepted. One unqualified mixed-route entering-FTRAN -> weight-FTRAN -> replacement composition is selected, with no demonstrated production defect. Next S3-D: `docs/superpowers/plans/2026-10-12-dse-mixed-route-qualification.md`, bounded OFFLINE preparation only; freeze inputs/route seam/complete work accounting before any later launch. No Julia launch authorization and no reopening HH bootstrap/controller audits.**
+
+S3-C: 16 literal source checks, 53 relevant read-time hashes, 36 historical comparisons,
+nine exact excerpts; author nine independent checks, reviewer full53/36/9 and all80
+saved trajectory pairs plus historical launch-pin bindings. DSE remains dense ordered
+arithmetic with its floor/finite checks; support is not permission to skip zero rows.
+Fixed-mode old/new trajectories bind weights, but adaptive mixed entering/weight modes
+and their prepared-state transition are not explicitly captured. Current full HH source
+mismatch remains explicit. One Minor refinement-cost omission corrected offline RED4/
+GREEN5, original report preserved; final review no unresolved findings and no unnecessary
+new production work/memory. No Julia, old rerun, production/test/env/master/CI changes.
+Read S3-DSE-CONSUMER-CONTRACT.md/REVIEW and results/S3-C. Frozen S3-C collector/audits/
+closure must not rerun. Separate passing closure precedes fail-fast publication.
+
 
 S4-X: 18 literal checks, 558 fresh read-time hashes, 13 exact source excerpts; author six
 checks/full 558, reviewer full 558/excerpts and three correction hashes. Local retry ceiling

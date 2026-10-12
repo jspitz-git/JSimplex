@@ -822,3 +822,22 @@ existing S3-A/B evidence first, do not rerun or repeat the accepted mode-selecti
 No HH numerical plan/instrumentation/bootstrap reopening. Source/test/env/master/CI and
 S/T/Q evidence unchanged; HH reuse disabled, native retention/broaderS4S6/fullsuite and
 all rejection decisions remain unchanged. Publication requires separate passing closure.
+
+
+### S3-C DSE consumer composition, 2026-10-12
+
+Source/evidence-only contract accepted: 16 checks/53 hashes/36 historical comparisons/
+9 excerpts, independent author9 and reviewer full verification. Existing DSE recurrence
+visits all basic weights in order and retains its floor and finite validation. S3-A/B
+reused, not rerun; preserved focused exit1 and HH source mismatch remain explicit.
+One unqualified local mixed entering/weight FTRAN route plus replacement composition
+selected, not a demonstrated defect. Minor optional-refinement cost omission corrected
+once offline RED4/GREEN5 with before report preserved; final review no outstanding
+findings or unnecessary new production work/memory. Broader S3 checkboxes stay open.
+
+Next 2026-10-12-dse-mixed-route-qualification.md: bounded offline preparation for at
+most ten Float64/native component sequences, all five managers with actual HH fallback,
+one prior update. Freeze source seam/inverse, inputs, residual/weight/work oracles and
+complete attempt budget; no launch from this contract alone. No repeated S3 census or
+HH bootstrap/controller audit. S4/S6 gates, CI off, HH reuse disabled and rejected
+candidates unchanged. Separate passing closure before fail-fast diagnostic publication.
