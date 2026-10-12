@@ -1,0 +1,1686 @@
+julia_version = "1.13.0"
+globals_preserved = true
+nonworkspace_probe_passed = true
+julia_threads = 1
+blas_threads = 1
+iterations = 2
+source = "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/JSimplex.jl"
+solver_returned = true
+arch = "aarch64"
+refactorizations = 1
+control_sha256 = "4ad331cd7aa9e0de644ca48af6a977b89586feac148b0727894fff0f8544886b"
+endpoint_equal = true
+status = "OPTIMAL"
+coverage = "All observer events; owned arrays only; raw scratch role may be stale; no opaque factor, runtime dual witness or backend permutation/scaling capture"
+
+[counts]
+flip_completed = 0
+precision_boost = 0
+phase_dual = 1
+correction_attempt = 0
+crash_pivot = 0
+lp_refinement = 0
+pricing_devex = 0
+checkpoint = 0
+restore_checkpoint = 0
+correction = 0
+artificial_removed = 0
+phase_auxiliary = 1
+pricing_pool_hit = 0
+stagnation_fallback = 0
+pricing_weight_rejected = 0
+bound_flipped = 0
+lp_correction_certification = 0
+refactor_other = 1
+pivot_completed = 2
+feasibility_recovery = 0
+pricing_full_scan = 2
+pricing = 2
+repair = 0
+pricing_phase_reset = 0
+primal_point_balanced = 0
+refactor_pivot = 0
+phase_crash = 0
+stagnation_watch = 0
+pricing_scored_entries = 2
+phase_lp_refinement = 0
+primal_projection_attempt = 0
+crash_rejected_quality = 0
+primal_point_corrected = 0
+phase_one = 0
+phase_cleanup = 0
+refactor_growth = 0
+crash_fallback = 0
+certification = 1
+refactor_residual = 0
+certification_failed = 0
+refactor_fill = 0
+phase_primal = 0
+primal_point_preserved = 0
+pricing_block_scan = 0
+pricing_trial_expired = 0
+perturbation = 0
+crash_rejected_fill = 0
+primal_point_projected = 0
+pricing_steepest_edge = 0
+refactor_cost = 0
+crash_accepted = 0
+pricing_scanned_entries = 4
+certificate_corrected = 0
+primal_prices_corrected = 0
+pivot_rejected = 0
+pricing_progress_return = 0
+refactor_initial = 1
+restore_perturbations = 0
+pricing_reset = 0
+stagnation_cost_rebase = 0
+refactor_limit = 0
+pivot_proposed = 2
+stagnation_stalled = 0
+pricing_dantzig = 0
+
+[model_after]
+name = ""
+rowval = [1, 2, 1, 2]
+row_names = []
+colptr = [1, 3, 5]
+sense = "MIN_SENSE"
+column_names = []
+domains = ["CONTINUOUS", "CONTINUOUS"]
+
+    [model_after.constant]
+    exact = "0//1"
+    repr = "0.0"
+    precision = 53
+
+    [[model_after.matrix]]
+    exact = "1//1048576"
+    repr = "9.5367431640625e-7"
+    precision = 53
+    [[model_after.matrix]]
+    exact = "1//1048576"
+    repr = "9.5367431640625e-7"
+    precision = 53
+    [[model_after.matrix]]
+    exact = "1//1048576"
+    repr = "9.5367431640625e-7"
+    precision = 53
+    [[model_after.matrix]]
+    exact = "8388609//8796093022208"
+    repr = "9.536744300930877e-7"
+    precision = 53
+
+    [[model_after.objective]]
+    exact = "0//1"
+    repr = "0.0"
+    precision = 53
+    [[model_after.objective]]
+    exact = "-1//1"
+    repr = "-1.0"
+    precision = 53
+
+    [[model_after.bounds.column_lower]]
+    unbounded = true
+    [[model_after.bounds.column_lower]]
+    unbounded = true
+
+    [[model_after.bounds.column_upper]]
+    unbounded = true
+    [[model_after.bounds.column_upper]]
+    unbounded = true
+
+    [[model_after.bounds.row_upper]]
+    exact = "1//1"
+    repr = "1.0"
+    precision = 53
+    [[model_after.bounds.row_upper]]
+    exact = "1//1"
+    repr = "1.0"
+    precision = 53
+
+    [[model_after.bounds.row_lower]]
+    exact = "-1//1"
+    repr = "-1.0"
+    precision = 53
+    [[model_after.bounds.row_lower]]
+    exact = "-1//1"
+    repr = "-1.0"
+    precision = 53
+
+[[primal]]
+exact = "-281474993487873//16"
+repr = "-1.7592187092992062e13"
+precision = 53
+[[primal]]
+exact = "281474976710657//16"
+repr = "1.7592186044416062e13"
+precision = 53
+
+[model_before]
+name = ""
+rowval = [1, 2, 1, 2]
+row_names = []
+colptr = [1, 3, 5]
+sense = "MIN_SENSE"
+column_names = []
+domains = ["CONTINUOUS", "CONTINUOUS"]
+
+    [model_before.constant]
+    exact = "0//1"
+    repr = "0.0"
+    precision = 53
+
+    [[model_before.matrix]]
+    exact = "1//1048576"
+    repr = "9.5367431640625e-7"
+    precision = 53
+    [[model_before.matrix]]
+    exact = "1//1048576"
+    repr = "9.5367431640625e-7"
+    precision = 53
+    [[model_before.matrix]]
+    exact = "1//1048576"
+    repr = "9.5367431640625e-7"
+    precision = 53
+    [[model_before.matrix]]
+    exact = "8388609//8796093022208"
+    repr = "9.536744300930877e-7"
+    precision = 53
+
+    [[model_before.objective]]
+    exact = "0//1"
+    repr = "0.0"
+    precision = 53
+    [[model_before.objective]]
+    exact = "-1//1"
+    repr = "-1.0"
+    precision = 53
+
+    [[model_before.bounds.column_lower]]
+    unbounded = true
+    [[model_before.bounds.column_lower]]
+    unbounded = true
+
+    [[model_before.bounds.column_upper]]
+    unbounded = true
+    [[model_before.bounds.column_upper]]
+    unbounded = true
+
+    [[model_before.bounds.row_upper]]
+    exact = "1//1"
+    repr = "1.0"
+    precision = 53
+    [[model_before.bounds.row_upper]]
+    exact = "1//1"
+    repr = "1.0"
+    precision = 53
+
+    [[model_before.bounds.row_lower]]
+    exact = "-1//1"
+    repr = "-1.0"
+    precision = 53
+    [[model_before.bounds.row_lower]]
+    exact = "-1//1"
+    repr = "-1.0"
+    precision = 53
+
+[options]
+basis_update = ":pfi"
+iteration_limit = "100000"
+pricing = ":steepest_edge"
+simplex_strategy = ":legacy"
+basis_refactorization = ":native"
+time_limit = "Inf"
+log_level = "Debug"
+verbose = "true"
+scaling = ":auto"
+partial_pricing = "false"
+algorithm = ":dual"
+zero_tolerance = "1.0e-12"
+presolve = "true"
+primal_tolerance = "1.0e-7"
+dual_tolerance = "1.0e-7"
+refactorization_interval = "20"
+
+[policy]
+refactor_timing = "true"
+stable_ratio = "false"
+precision_boosting = "false"
+max_precision_memory_bytes = "1073741824"
+recovery = "false"
+max_refinements = "3"
+incremental_primal = "false"
+partial_pricing = "false"
+adaptive_primal_perturbation = "false"
+pivot_error_tolerance = "1.4901161193847656e-8"
+lp_refinement = "false"
+adaptive_refactor = "false"
+sparse_pricing = "false"
+solve_tolerance = "5.684341886080802e-14"
+max_lp_refinements = "8"
+adaptive_stalling = "false"
+max_pivot_candidates = "8"
+pivot_validation = "false"
+adaptive_pricing = "false"
+feasibility_recovery = "false"
+max_recovery_rounds = "2"
+adaptive_dual_perturbation = "false"
+solve_refinement = "false"
+hypersparse = "false"
+incremental_primal_pivots = "false"
+phase_one = "false"
+crash = "false"
+stagnation_window = "64"
+max_precision_bits = "512"
+
+[objective]
+exact = "-281474976710657//16"
+repr = "-1.7592186044416062e13"
+precision = 53
+
+[[events]]
+staged_workspace = false
+factor_type = "JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}"
+base_type = "JSimplex.UMFPACKBackend"
+matrix_shape = [2, 2]
+matrix_nzval = ["1//1", "1//1", "1//1", "8388609//8388608"]
+column_scaling = ["1//1", "1//1"]
+journal_present = false
+matrix_colptr = [1, 3, 5]
+scratch_row_solution = ["0//1", "0//1"]
+model_objective = ["0//1", "-1//1"]
+primal = ["0//1", "0//1", "0//1", "0//1"]
+row_scaling = ["1//1048576", "1//1048576"]
+iterations = 0
+scratch_tau = ["0//1", "0//1"]
+reduced_costs = ["0//1", "-1//1", "0//1", "0//1"]
+perturbed = false
+devex_reference = [false, false, true, true]
+model_id = "17125216115336293410"
+basis_states = ["FREE_NONBASIC", "FREE_NONBASIC", "BASIC", "BASIC"]
+refactorizations = 0
+scratch_pricing_row = ["0//1", "0//1", "0//1", "0//1"]
+model_constant = "0//1"
+refactorization_offset = 0
+state_type = "JSimplex.SimplexWorkspace{Float64, JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}, :pfi, :native, JSimplex.SimplexDiagnostics{typeof(capture)}}"
+event = "refactor_initial"
+scratch_rho = ["0//1", "0//1"]
+pending_factor_update = false
+scratch_row_rhs = ["0//1", "0//1"]
+basis_indices = [3, 4]
+iteration_offset = 0
+updates = []
+workspace_id = "17936490656922098430"
+scratch_tableau_row = ["0//1", "0//1", "0//1", "0//1"]
+post_iteration = "none"
+pricing_weights = ["1//1", "1//1", "1//1", "1//1"]
+matrix_rowval = [1, 2, 1, 2]
+costs = ["0//1", "-1//1", "0//1", "0//1"]
+scratch_role_note = "Raw scratch may be stale or repurposed; not a certified dual witness"
+
+    [[events.upper]]
+    unbounded = true
+    [[events.upper]]
+    unbounded = true
+    [[events.upper]]
+    exact = "1048576//1"
+    [[events.upper]]
+    exact = "1048576//1"
+
+    [events.options]
+    basis_update = ":pfi"
+    iteration_limit = "100000"
+    pricing = ":steepest_edge"
+    simplex_strategy = ":legacy"
+    basis_refactorization = ":native"
+    time_limit = "Inf"
+    log_level = "Debug"
+    verbose = "true"
+    scaling = ":auto"
+    partial_pricing = "false"
+    algorithm = ":dual"
+    zero_tolerance = "1.0e-12"
+    presolve = "true"
+    primal_tolerance = "1.0e-7"
+    dual_tolerance = "1.0e-7"
+    refactorization_interval = "20"
+
+    [events.policy]
+    max_precision_bits = "512"
+    stable_ratio = "false"
+    precision_boosting = "false"
+    max_precision_memory_bytes = "1073741824"
+    recovery = "false"
+    max_refinements = "3"
+    incremental_primal = "false"
+    partial_pricing = "false"
+    adaptive_primal_perturbation = "false"
+    pivot_error_tolerance = "1.4901161193847656e-8"
+    lp_refinement = "false"
+    adaptive_refactor = "false"
+    sparse_pricing = "false"
+    solve_tolerance = "5.684341886080802e-14"
+    max_lp_refinements = "8"
+    adaptive_stalling = "false"
+    max_pivot_candidates = "8"
+    pivot_validation = "false"
+    adaptive_pricing = "false"
+    feasibility_recovery = "false"
+    max_recovery_rounds = "2"
+    adaptive_dual_perturbation = "false"
+    solve_refinement = "false"
+    hypersparse = "false"
+    incremental_primal_pivots = "false"
+    phase_one = "false"
+    crash = "false"
+    stagnation_window = "64"
+    refactor_timing = "true"
+
+    [[events.lower]]
+    unbounded = true
+    [[events.lower]]
+    unbounded = true
+    [[events.lower]]
+    exact = "-1048576//1"
+    [[events.lower]]
+    exact = "-1048576//1"
+
+    [[events.model_row_lower]]
+    exact = "-1048576//1"
+    [[events.model_row_lower]]
+    exact = "-1048576//1"
+
+    [[events.model_row_upper]]
+    exact = "1048576//1"
+    [[events.model_row_upper]]
+    exact = "1048576//1"
+
+    [[events.model_column_lower]]
+    unbounded = true
+    [[events.model_column_lower]]
+    unbounded = true
+
+    [[events.model_column_upper]]
+    unbounded = true
+    [[events.model_column_upper]]
+    unbounded = true
+[[events]]
+staged_workspace = false
+factor_type = "JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}"
+base_type = "JSimplex.UMFPACKBackend"
+matrix_shape = [2, 2]
+matrix_nzval = ["1//1", "1//1", "1//1", "8388609//8388608"]
+column_scaling = ["1//1", "1//1"]
+journal_present = false
+matrix_colptr = [1, 3, 5]
+scratch_row_solution = ["0//1", "0//1"]
+model_objective = ["0//1", "-1//1"]
+primal = ["0//1", "0//1", "0//1", "0//1"]
+row_scaling = ["1//1048576", "1//1048576"]
+iterations = 0
+scratch_tau = ["0//1", "0//1"]
+reduced_costs = ["0//1", "-1//1", "0//1", "0//1"]
+perturbed = false
+devex_reference = [false, false, true, true]
+model_id = "17125216115336293410"
+basis_states = ["FREE_NONBASIC", "FREE_NONBASIC", "BASIC", "BASIC"]
+refactorizations = 0
+scratch_pricing_row = ["0//1", "0//1", "0//1", "0//1"]
+model_constant = "0//1"
+refactorization_offset = 0
+state_type = "JSimplex.SimplexWorkspace{Float64, JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}, :pfi, :native, JSimplex.SimplexDiagnostics{typeof(capture)}}"
+event = "phase_dual"
+scratch_rho = ["0//1", "0//1"]
+pending_factor_update = false
+scratch_row_rhs = ["0//1", "0//1"]
+basis_indices = [3, 4]
+iteration_offset = 0
+updates = []
+workspace_id = "17936490656922098430"
+scratch_tableau_row = ["0//1", "0//1", "0//1", "0//1"]
+post_iteration = "none"
+pricing_weights = ["1//1", "1//1", "1//1", "1//1"]
+matrix_rowval = [1, 2, 1, 2]
+costs = ["0//1", "-1//1", "0//1", "0//1"]
+scratch_role_note = "Raw scratch may be stale or repurposed; not a certified dual witness"
+
+    [[events.upper]]
+    unbounded = true
+    [[events.upper]]
+    unbounded = true
+    [[events.upper]]
+    exact = "1048576//1"
+    [[events.upper]]
+    exact = "1048576//1"
+
+    [events.options]
+    basis_update = ":pfi"
+    iteration_limit = "100000"
+    pricing = ":steepest_edge"
+    simplex_strategy = ":legacy"
+    basis_refactorization = ":native"
+    time_limit = "Inf"
+    log_level = "Debug"
+    verbose = "true"
+    scaling = ":auto"
+    partial_pricing = "false"
+    algorithm = ":dual"
+    zero_tolerance = "1.0e-12"
+    presolve = "true"
+    primal_tolerance = "1.0e-7"
+    dual_tolerance = "1.0e-7"
+    refactorization_interval = "20"
+
+    [events.policy]
+    max_precision_bits = "512"
+    stable_ratio = "false"
+    precision_boosting = "false"
+    max_precision_memory_bytes = "1073741824"
+    recovery = "false"
+    max_refinements = "3"
+    incremental_primal = "false"
+    partial_pricing = "false"
+    adaptive_primal_perturbation = "false"
+    pivot_error_tolerance = "1.4901161193847656e-8"
+    lp_refinement = "false"
+    adaptive_refactor = "false"
+    sparse_pricing = "false"
+    solve_tolerance = "5.684341886080802e-14"
+    max_lp_refinements = "8"
+    adaptive_stalling = "false"
+    max_pivot_candidates = "8"
+    pivot_validation = "false"
+    adaptive_pricing = "false"
+    feasibility_recovery = "false"
+    max_recovery_rounds = "2"
+    adaptive_dual_perturbation = "false"
+    solve_refinement = "false"
+    hypersparse = "false"
+    incremental_primal_pivots = "false"
+    phase_one = "false"
+    crash = "false"
+    stagnation_window = "64"
+    refactor_timing = "true"
+
+    [[events.lower]]
+    unbounded = true
+    [[events.lower]]
+    unbounded = true
+    [[events.lower]]
+    exact = "-1048576//1"
+    [[events.lower]]
+    exact = "-1048576//1"
+
+    [[events.model_row_lower]]
+    exact = "-1048576//1"
+    [[events.model_row_lower]]
+    exact = "-1048576//1"
+
+    [[events.model_row_upper]]
+    exact = "1048576//1"
+    [[events.model_row_upper]]
+    exact = "1048576//1"
+
+    [[events.model_column_lower]]
+    unbounded = true
+    [[events.model_column_lower]]
+    unbounded = true
+
+    [[events.model_column_upper]]
+    unbounded = true
+    [[events.model_column_upper]]
+    unbounded = true
+[[events]]
+staged_workspace = false
+factor_type = "JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}"
+base_type = "JSimplex.UMFPACKBackend"
+matrix_shape = [2, 2]
+matrix_nzval = ["1//1", "1//1", "1//1", "8388609//8388608"]
+column_scaling = ["1//1", "1//1"]
+journal_present = false
+matrix_colptr = [1, 3, 5]
+scratch_row_solution = ["0//1", "125//1048576"]
+model_objective = ["0//1", "-1//1"]
+primal = ["-1000//1", "1000//1", "0//1", "125//1048576"]
+row_scaling = ["1//1048576", "1//1048576"]
+iterations = 0
+scratch_tau = ["0//1", "0//1"]
+reduced_costs = ["0//1", "-1//1", "0//1", "0//1"]
+perturbed = false
+devex_reference = [false, false, true, true]
+model_id = "17125216115336293410"
+basis_states = ["AT_LOWER", "AT_UPPER", "BASIC", "BASIC"]
+refactorizations = 0
+scratch_pricing_row = ["0//1", "0//1", "0//1", "0//1"]
+model_constant = "0//1"
+refactorization_offset = 0
+state_type = "JSimplex.SimplexWorkspace{Float64, JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}, :pfi, :native, JSimplex.SimplexDiagnostics{typeof(capture)}}"
+event = "phase_auxiliary"
+scratch_rho = ["0//1", "0//1"]
+pending_factor_update = false
+scratch_row_rhs = ["0//1", "0//1"]
+basis_indices = [3, 4]
+iteration_offset = 0
+updates = []
+workspace_id = "1607826682079484967"
+scratch_tableau_row = ["0//1", "0//1", "0//1", "0//1"]
+post_iteration = "none"
+pricing_weights = ["1//1", "1//1", "1//1", "1//1"]
+matrix_rowval = [1, 2, 1, 2]
+costs = ["0//1", "-1//1", "0//1", "0//1"]
+scratch_role_note = "Raw scratch may be stale or repurposed; not a certified dual witness"
+
+    [[events.upper]]
+    exact = "1000//1"
+    [[events.upper]]
+    exact = "1000//1"
+    [[events.upper]]
+    exact = "0//1"
+    [[events.upper]]
+    exact = "0//1"
+
+    [events.options]
+    basis_update = ":pfi"
+    iteration_limit = "100000"
+    pricing = ":steepest_edge"
+    simplex_strategy = ":legacy"
+    basis_refactorization = ":native"
+    time_limit = "Inf"
+    log_level = "Debug"
+    verbose = "true"
+    scaling = ":auto"
+    partial_pricing = "false"
+    algorithm = ":dual"
+    zero_tolerance = "1.0e-12"
+    presolve = "true"
+    primal_tolerance = "1.0e-7"
+    dual_tolerance = "1.0e-7"
+    refactorization_interval = "20"
+
+    [events.policy]
+    max_precision_bits = "512"
+    stable_ratio = "false"
+    precision_boosting = "false"
+    max_precision_memory_bytes = "1073741824"
+    recovery = "false"
+    max_refinements = "3"
+    incremental_primal = "false"
+    partial_pricing = "false"
+    adaptive_primal_perturbation = "false"
+    pivot_error_tolerance = "1.4901161193847656e-8"
+    lp_refinement = "false"
+    adaptive_refactor = "false"
+    sparse_pricing = "false"
+    solve_tolerance = "5.684341886080802e-14"
+    max_lp_refinements = "8"
+    adaptive_stalling = "false"
+    max_pivot_candidates = "8"
+    pivot_validation = "false"
+    adaptive_pricing = "false"
+    feasibility_recovery = "false"
+    max_recovery_rounds = "2"
+    adaptive_dual_perturbation = "false"
+    solve_refinement = "false"
+    hypersparse = "false"
+    incremental_primal_pivots = "false"
+    phase_one = "false"
+    crash = "false"
+    stagnation_window = "64"
+    refactor_timing = "true"
+
+    [[events.lower]]
+    exact = "-1000//1"
+    [[events.lower]]
+    exact = "-1000//1"
+    [[events.lower]]
+    exact = "0//1"
+    [[events.lower]]
+    exact = "0//1"
+
+    [[events.model_row_lower]]
+    exact = "-1048576//1"
+    [[events.model_row_lower]]
+    exact = "-1048576//1"
+
+    [[events.model_row_upper]]
+    exact = "1048576//1"
+    [[events.model_row_upper]]
+    exact = "1048576//1"
+
+    [[events.model_column_lower]]
+    unbounded = true
+    [[events.model_column_lower]]
+    unbounded = true
+
+    [[events.model_column_upper]]
+    unbounded = true
+    [[events.model_column_upper]]
+    unbounded = true
+[[events]]
+staged_workspace = false
+factor_type = "JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}"
+base_type = "JSimplex.UMFPACKBackend"
+matrix_shape = [2, 2]
+matrix_nzval = ["1//1", "1//1", "1//1", "8388609//8388608"]
+column_scaling = ["1//1", "1//1"]
+journal_present = false
+matrix_colptr = [1, 3, 5]
+scratch_row_solution = ["0//1", "125//1048576"]
+model_objective = ["0//1", "-1//1"]
+primal = ["-1000//1", "1000//1", "0//1", "125//1048576"]
+row_scaling = ["1//1048576", "1//1048576"]
+iterations = 0
+scratch_tau = ["0//1", "0//1"]
+reduced_costs = ["0//1", "-1//1", "0//1", "0//1"]
+perturbed = false
+devex_reference = [false, false, true, true]
+model_id = "17125216115336293410"
+basis_states = ["AT_LOWER", "AT_UPPER", "BASIC", "BASIC"]
+refactorizations = 0
+scratch_pricing_row = ["0//1", "0//1", "0//1", "0//1"]
+model_constant = "0//1"
+refactorization_offset = 0
+state_type = "JSimplex.SimplexWorkspace{Float64, JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}, :pfi, :native, JSimplex.SimplexDiagnostics{typeof(capture)}}"
+event = "pricing"
+scratch_rho = ["0//1", "0//1"]
+pending_factor_update = false
+scratch_row_rhs = ["0//1", "0//1"]
+basis_indices = [3, 4]
+iteration_offset = 0
+updates = []
+workspace_id = "1607826682079484967"
+scratch_tableau_row = ["0//1", "0//1", "0//1", "0//1"]
+post_iteration = "none"
+pricing_weights = ["1//1", "1//1", "1//1", "1//1"]
+matrix_rowval = [1, 2, 1, 2]
+costs = ["0//1", "-1//1", "0//1", "0//1"]
+scratch_role_note = "Raw scratch may be stale or repurposed; not a certified dual witness"
+
+    [[events.upper]]
+    exact = "1000//1"
+    [[events.upper]]
+    exact = "1000//1"
+    [[events.upper]]
+    exact = "0//1"
+    [[events.upper]]
+    exact = "0//1"
+
+    [events.options]
+    basis_update = ":pfi"
+    iteration_limit = "100000"
+    pricing = ":steepest_edge"
+    simplex_strategy = ":legacy"
+    basis_refactorization = ":native"
+    time_limit = "Inf"
+    log_level = "Debug"
+    verbose = "true"
+    scaling = ":auto"
+    partial_pricing = "false"
+    algorithm = ":dual"
+    zero_tolerance = "1.0e-12"
+    presolve = "true"
+    primal_tolerance = "1.0e-7"
+    dual_tolerance = "1.0e-7"
+    refactorization_interval = "20"
+
+    [events.policy]
+    max_precision_bits = "512"
+    stable_ratio = "false"
+    precision_boosting = "false"
+    max_precision_memory_bytes = "1073741824"
+    recovery = "false"
+    max_refinements = "3"
+    incremental_primal = "false"
+    partial_pricing = "false"
+    adaptive_primal_perturbation = "false"
+    pivot_error_tolerance = "1.4901161193847656e-8"
+    lp_refinement = "false"
+    adaptive_refactor = "false"
+    sparse_pricing = "false"
+    solve_tolerance = "5.684341886080802e-14"
+    max_lp_refinements = "8"
+    adaptive_stalling = "false"
+    max_pivot_candidates = "8"
+    pivot_validation = "false"
+    adaptive_pricing = "false"
+    feasibility_recovery = "false"
+    max_recovery_rounds = "2"
+    adaptive_dual_perturbation = "false"
+    solve_refinement = "false"
+    hypersparse = "false"
+    incremental_primal_pivots = "false"
+    phase_one = "false"
+    crash = "false"
+    stagnation_window = "64"
+    refactor_timing = "true"
+
+    [[events.lower]]
+    exact = "-1000//1"
+    [[events.lower]]
+    exact = "-1000//1"
+    [[events.lower]]
+    exact = "0//1"
+    [[events.lower]]
+    exact = "0//1"
+
+    [[events.model_row_lower]]
+    exact = "-1048576//1"
+    [[events.model_row_lower]]
+    exact = "-1048576//1"
+
+    [[events.model_row_upper]]
+    exact = "1048576//1"
+    [[events.model_row_upper]]
+    exact = "1048576//1"
+
+    [[events.model_column_lower]]
+    unbounded = true
+    [[events.model_column_lower]]
+    unbounded = true
+
+    [[events.model_column_upper]]
+    unbounded = true
+    [[events.model_column_upper]]
+    unbounded = true
+[[events]]
+staged_workspace = false
+factor_type = "JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}"
+base_type = "JSimplex.UMFPACKBackend"
+matrix_shape = [2, 2]
+matrix_nzval = ["1//1", "1//1", "1//1", "8388609//8388608"]
+column_scaling = ["1//1", "1//1"]
+journal_present = false
+matrix_colptr = [1, 3, 5]
+scratch_row_solution = ["0//1", "125//1048576"]
+model_objective = ["0//1", "-1//1"]
+primal = ["-1000//1", "1000//1", "0//1", "125//1048576"]
+row_scaling = ["1//1048576", "1//1048576"]
+iterations = 0
+scratch_tau = ["0//1", "0//1"]
+reduced_costs = ["0//1", "-1//1", "0//1", "0//1"]
+perturbed = false
+devex_reference = [false, false, true, true]
+model_id = "17125216115336293410"
+basis_states = ["AT_LOWER", "AT_UPPER", "BASIC", "BASIC"]
+refactorizations = 0
+scratch_pricing_row = ["0//1", "0//1", "0//1", "0//1"]
+model_constant = "0//1"
+refactorization_offset = 0
+state_type = "JSimplex.SimplexWorkspace{Float64, JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}, :pfi, :native, JSimplex.SimplexDiagnostics{typeof(capture)}}"
+event = "pivot_proposed"
+scratch_rho = ["0//1", "0//1"]
+pending_factor_update = false
+scratch_row_rhs = ["0//1", "0//1"]
+basis_indices = [3, 4]
+iteration_offset = 0
+updates = []
+workspace_id = "1607826682079484967"
+scratch_tableau_row = ["0//1", "0//1", "0//1", "0//1"]
+post_iteration = "none"
+pricing_weights = ["1//1", "1//1", "1//1", "1//1"]
+matrix_rowval = [1, 2, 1, 2]
+costs = ["0//1", "-1//1", "0//1", "0//1"]
+scratch_role_note = "Raw scratch may be stale or repurposed; not a certified dual witness"
+
+    [[events.upper]]
+    exact = "1000//1"
+    [[events.upper]]
+    exact = "1000//1"
+    [[events.upper]]
+    exact = "0//1"
+    [[events.upper]]
+    exact = "0//1"
+
+    [events.options]
+    basis_update = ":pfi"
+    iteration_limit = "100000"
+    pricing = ":steepest_edge"
+    simplex_strategy = ":legacy"
+    basis_refactorization = ":native"
+    time_limit = "Inf"
+    log_level = "Debug"
+    verbose = "true"
+    scaling = ":auto"
+    partial_pricing = "false"
+    algorithm = ":dual"
+    zero_tolerance = "1.0e-12"
+    presolve = "true"
+    primal_tolerance = "1.0e-7"
+    dual_tolerance = "1.0e-7"
+    refactorization_interval = "20"
+
+    [events.policy]
+    max_precision_bits = "512"
+    stable_ratio = "false"
+    precision_boosting = "false"
+    max_precision_memory_bytes = "1073741824"
+    recovery = "false"
+    max_refinements = "3"
+    incremental_primal = "false"
+    partial_pricing = "false"
+    adaptive_primal_perturbation = "false"
+    pivot_error_tolerance = "1.4901161193847656e-8"
+    lp_refinement = "false"
+    adaptive_refactor = "false"
+    sparse_pricing = "false"
+    solve_tolerance = "5.684341886080802e-14"
+    max_lp_refinements = "8"
+    adaptive_stalling = "false"
+    max_pivot_candidates = "8"
+    pivot_validation = "false"
+    adaptive_pricing = "false"
+    feasibility_recovery = "false"
+    max_recovery_rounds = "2"
+    adaptive_dual_perturbation = "false"
+    solve_refinement = "false"
+    hypersparse = "false"
+    incremental_primal_pivots = "false"
+    phase_one = "false"
+    crash = "false"
+    stagnation_window = "64"
+    refactor_timing = "true"
+
+    [[events.lower]]
+    exact = "-1000//1"
+    [[events.lower]]
+    exact = "-1000//1"
+    [[events.lower]]
+    exact = "0//1"
+    [[events.lower]]
+    exact = "0//1"
+
+    [[events.model_row_lower]]
+    exact = "-1048576//1"
+    [[events.model_row_lower]]
+    exact = "-1048576//1"
+
+    [[events.model_row_upper]]
+    exact = "1048576//1"
+    [[events.model_row_upper]]
+    exact = "1048576//1"
+
+    [[events.model_column_lower]]
+    unbounded = true
+    [[events.model_column_lower]]
+    unbounded = true
+
+    [[events.model_column_upper]]
+    unbounded = true
+    [[events.model_column_upper]]
+    unbounded = true
+[[events]]
+staged_workspace = false
+factor_type = "JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}"
+base_type = "JSimplex.UMFPACKBackend"
+matrix_shape = [2, 2]
+matrix_nzval = ["1//1", "1//1", "1//1", "8388609//8388608"]
+column_scaling = ["1//1", "1//1"]
+journal_present = false
+matrix_colptr = [1, 3, 5]
+scratch_row_solution = ["-1//1", "-8388609//8388608"]
+model_objective = ["0//1", "-1//1"]
+primal = ["-1000//1", "8796091973632125//8796093022208", "-8796091973632125//73786976294838206464", "0//1"]
+row_scaling = ["1//1048576", "1//1048576"]
+iterations = 1
+scratch_tau = ["0//1", "1//1"]
+reduced_costs = ["70368735789057//70368744177664", "0//1", "0//1", "-70368735789057//70368744177664"]
+perturbed = false
+devex_reference = [false, false, true, true]
+model_id = "17125216115336293410"
+basis_states = ["AT_LOWER", "BASIC", "BASIC", "AT_UPPER"]
+refactorizations = 0
+scratch_pricing_row = ["0//1", "0//1", "0//1", "0//1"]
+model_constant = "0//1"
+refactorization_offset = 0
+state_type = "JSimplex.SimplexWorkspace{Float64, JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}, :pfi, :native, JSimplex.SimplexDiagnostics{typeof(capture)}}"
+event = "pivot_completed"
+scratch_rho = ["0//1", "-1//1"]
+pending_factor_update = true
+scratch_row_rhs = ["2//1", "8388609//4194304"]
+basis_indices = [3, 2]
+iteration_offset = 0
+workspace_id = "1607826682079484967"
+scratch_tableau_row = ["-1//1", "-8388609//8388608", "0//1", "1//1"]
+post_iteration = "none"
+pricing_weights = ["1//1", "70368727400451//70368744177664", "140737471578115//70368744177664", "7378697629483821//73786976294838206464"]
+matrix_rowval = [1, 2, 1, 2]
+costs = ["0//1", "-1//1", "0//1", "0//1"]
+scratch_role_note = "Raw scratch may be stale or repurposed; not a certified dual witness"
+
+    [[events.upper]]
+    exact = "1000//1"
+    [[events.upper]]
+    exact = "1000//1"
+    [[events.upper]]
+    exact = "0//1"
+    [[events.upper]]
+    exact = "0//1"
+
+    [events.options]
+    basis_update = ":pfi"
+    iteration_limit = "100000"
+    pricing = ":steepest_edge"
+    simplex_strategy = ":legacy"
+    basis_refactorization = ":native"
+    time_limit = "Inf"
+    log_level = "Debug"
+    verbose = "true"
+    scaling = ":auto"
+    partial_pricing = "false"
+    algorithm = ":dual"
+    zero_tolerance = "1.0e-12"
+    presolve = "true"
+    primal_tolerance = "1.0e-7"
+    dual_tolerance = "1.0e-7"
+    refactorization_interval = "20"
+
+    [events.policy]
+    max_precision_bits = "512"
+    stable_ratio = "false"
+    precision_boosting = "false"
+    max_precision_memory_bytes = "1073741824"
+    recovery = "false"
+    max_refinements = "3"
+    incremental_primal = "false"
+    partial_pricing = "false"
+    adaptive_primal_perturbation = "false"
+    pivot_error_tolerance = "1.4901161193847656e-8"
+    lp_refinement = "false"
+    adaptive_refactor = "false"
+    sparse_pricing = "false"
+    solve_tolerance = "5.684341886080802e-14"
+    max_lp_refinements = "8"
+    adaptive_stalling = "false"
+    max_pivot_candidates = "8"
+    pivot_validation = "false"
+    adaptive_pricing = "false"
+    feasibility_recovery = "false"
+    max_recovery_rounds = "2"
+    adaptive_dual_perturbation = "false"
+    solve_refinement = "false"
+    hypersparse = "false"
+    incremental_primal_pivots = "false"
+    phase_one = "false"
+    crash = "false"
+    stagnation_window = "64"
+    refactor_timing = "true"
+
+    [[events.lower]]
+    exact = "-1000//1"
+    [[events.lower]]
+    exact = "-1000//1"
+    [[events.lower]]
+    exact = "0//1"
+    [[events.lower]]
+    exact = "0//1"
+
+    [[events.model_row_lower]]
+    exact = "-1048576//1"
+    [[events.model_row_lower]]
+    exact = "-1048576//1"
+
+    [[events.model_row_upper]]
+    exact = "1048576//1"
+    [[events.model_row_upper]]
+    exact = "1048576//1"
+
+    [[events.model_column_lower]]
+    unbounded = true
+    [[events.model_column_lower]]
+    unbounded = true
+
+    [[events.model_column_upper]]
+    unbounded = true
+    [[events.model_column_upper]]
+    unbounded = true
+
+    [[events.updates]]
+    values = ["-70368735789057//70368744177664", "-70368735789057//70368744177664"]
+    indices = [2, 1]
+    pivot_row = 2
+[[events]]
+staged_workspace = false
+factor_type = "JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}"
+base_type = "JSimplex.UMFPACKBackend"
+matrix_shape = [2, 2]
+matrix_nzval = ["1//1", "1//1", "1//1", "8388609//8388608"]
+column_scaling = ["1//1", "1//1"]
+journal_present = false
+matrix_colptr = [1, 3, 5]
+scratch_row_solution = ["-1//1", "-8388609//8388608"]
+model_objective = ["0//1", "-1//1"]
+primal = ["-1000//1", "8796091973632125//8796093022208", "-8796091973632125//73786976294838206464", "0//1"]
+row_scaling = ["1//1048576", "1//1048576"]
+iterations = 1
+scratch_tau = ["0//1", "1//1"]
+reduced_costs = ["70368735789057//70368744177664", "0//1", "0//1", "-70368735789057//70368744177664"]
+perturbed = false
+devex_reference = [false, false, true, true]
+model_id = "17125216115336293410"
+basis_states = ["AT_LOWER", "BASIC", "BASIC", "AT_UPPER"]
+refactorizations = 0
+scratch_pricing_row = ["0//1", "0//1", "0//1", "0//1"]
+model_constant = "0//1"
+refactorization_offset = 0
+state_type = "JSimplex.SimplexWorkspace{Float64, JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}, :pfi, :native, JSimplex.SimplexDiagnostics{typeof(capture)}}"
+event = "pricing"
+scratch_rho = ["0//1", "-1//1"]
+pending_factor_update = true
+scratch_row_rhs = ["2//1", "8388609//4194304"]
+basis_indices = [3, 2]
+iteration_offset = 0
+workspace_id = "1607826682079484967"
+scratch_tableau_row = ["-1//1", "-8388609//8388608", "0//1", "1//1"]
+post_iteration = "none"
+pricing_weights = ["1//1", "70368727400451//70368744177664", "140737471578115//70368744177664", "7378697629483821//73786976294838206464"]
+matrix_rowval = [1, 2, 1, 2]
+costs = ["0//1", "-1//1", "0//1", "0//1"]
+scratch_role_note = "Raw scratch may be stale or repurposed; not a certified dual witness"
+
+    [[events.upper]]
+    exact = "1000//1"
+    [[events.upper]]
+    exact = "1000//1"
+    [[events.upper]]
+    exact = "0//1"
+    [[events.upper]]
+    exact = "0//1"
+
+    [events.options]
+    basis_update = ":pfi"
+    iteration_limit = "100000"
+    pricing = ":steepest_edge"
+    simplex_strategy = ":legacy"
+    basis_refactorization = ":native"
+    time_limit = "Inf"
+    log_level = "Debug"
+    verbose = "true"
+    scaling = ":auto"
+    partial_pricing = "false"
+    algorithm = ":dual"
+    zero_tolerance = "1.0e-12"
+    presolve = "true"
+    primal_tolerance = "1.0e-7"
+    dual_tolerance = "1.0e-7"
+    refactorization_interval = "20"
+
+    [events.policy]
+    max_precision_bits = "512"
+    stable_ratio = "false"
+    precision_boosting = "false"
+    max_precision_memory_bytes = "1073741824"
+    recovery = "false"
+    max_refinements = "3"
+    incremental_primal = "false"
+    partial_pricing = "false"
+    adaptive_primal_perturbation = "false"
+    pivot_error_tolerance = "1.4901161193847656e-8"
+    lp_refinement = "false"
+    adaptive_refactor = "false"
+    sparse_pricing = "false"
+    solve_tolerance = "5.684341886080802e-14"
+    max_lp_refinements = "8"
+    adaptive_stalling = "false"
+    max_pivot_candidates = "8"
+    pivot_validation = "false"
+    adaptive_pricing = "false"
+    feasibility_recovery = "false"
+    max_recovery_rounds = "2"
+    adaptive_dual_perturbation = "false"
+    solve_refinement = "false"
+    hypersparse = "false"
+    incremental_primal_pivots = "false"
+    phase_one = "false"
+    crash = "false"
+    stagnation_window = "64"
+    refactor_timing = "true"
+
+    [[events.lower]]
+    exact = "-1000//1"
+    [[events.lower]]
+    exact = "-1000//1"
+    [[events.lower]]
+    exact = "0//1"
+    [[events.lower]]
+    exact = "0//1"
+
+    [[events.model_row_lower]]
+    exact = "-1048576//1"
+    [[events.model_row_lower]]
+    exact = "-1048576//1"
+
+    [[events.model_row_upper]]
+    exact = "1048576//1"
+    [[events.model_row_upper]]
+    exact = "1048576//1"
+
+    [[events.model_column_lower]]
+    unbounded = true
+    [[events.model_column_lower]]
+    unbounded = true
+
+    [[events.model_column_upper]]
+    unbounded = true
+    [[events.model_column_upper]]
+    unbounded = true
+
+    [[events.updates]]
+    values = ["-70368735789057//70368744177664", "-70368735789057//70368744177664"]
+    indices = [2, 1]
+    pivot_row = 2
+[[events]]
+staged_workspace = false
+factor_type = "JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}"
+base_type = "JSimplex.UMFPACKBackend"
+matrix_shape = [2, 2]
+matrix_nzval = ["1//1", "1//1", "1//1", "8388609//8388608"]
+column_scaling = ["1//1", "1//1"]
+journal_present = false
+matrix_colptr = [1, 3, 5]
+scratch_row_solution = ["-1//1", "-8388609//8388608"]
+model_objective = ["0//1", "-1//1"]
+primal = ["-1000//1", "8796091973632125//8796093022208", "-8796091973632125//73786976294838206464", "0//1"]
+row_scaling = ["1//1048576", "1//1048576"]
+iterations = 1
+scratch_tau = ["0//1", "1//1"]
+reduced_costs = ["70368735789057//70368744177664", "0//1", "0//1", "-70368735789057//70368744177664"]
+perturbed = false
+devex_reference = [false, false, true, true]
+model_id = "17125216115336293410"
+basis_states = ["AT_LOWER", "BASIC", "BASIC", "AT_UPPER"]
+refactorizations = 0
+scratch_pricing_row = ["0//1", "0//1", "0//1", "0//1"]
+model_constant = "0//1"
+refactorization_offset = 0
+state_type = "JSimplex.SimplexWorkspace{Float64, JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}, :pfi, :native, JSimplex.SimplexDiagnostics{typeof(capture)}}"
+event = "pivot_proposed"
+scratch_rho = ["0//1", "-1//1"]
+pending_factor_update = true
+scratch_row_rhs = ["2//1", "8388609//4194304"]
+basis_indices = [3, 2]
+iteration_offset = 0
+workspace_id = "1607826682079484967"
+scratch_tableau_row = ["-1//1", "-8388609//8388608", "0//1", "1//1"]
+post_iteration = "none"
+pricing_weights = ["1//1", "70368727400451//70368744177664", "140737471578115//70368744177664", "7378697629483821//73786976294838206464"]
+matrix_rowval = [1, 2, 1, 2]
+costs = ["0//1", "-1//1", "0//1", "0//1"]
+scratch_role_note = "Raw scratch may be stale or repurposed; not a certified dual witness"
+
+    [[events.upper]]
+    exact = "1000//1"
+    [[events.upper]]
+    exact = "1000//1"
+    [[events.upper]]
+    exact = "0//1"
+    [[events.upper]]
+    exact = "0//1"
+
+    [events.options]
+    basis_update = ":pfi"
+    iteration_limit = "100000"
+    pricing = ":steepest_edge"
+    simplex_strategy = ":legacy"
+    basis_refactorization = ":native"
+    time_limit = "Inf"
+    log_level = "Debug"
+    verbose = "true"
+    scaling = ":auto"
+    partial_pricing = "false"
+    algorithm = ":dual"
+    zero_tolerance = "1.0e-12"
+    presolve = "true"
+    primal_tolerance = "1.0e-7"
+    dual_tolerance = "1.0e-7"
+    refactorization_interval = "20"
+
+    [events.policy]
+    max_precision_bits = "512"
+    stable_ratio = "false"
+    precision_boosting = "false"
+    max_precision_memory_bytes = "1073741824"
+    recovery = "false"
+    max_refinements = "3"
+    incremental_primal = "false"
+    partial_pricing = "false"
+    adaptive_primal_perturbation = "false"
+    pivot_error_tolerance = "1.4901161193847656e-8"
+    lp_refinement = "false"
+    adaptive_refactor = "false"
+    sparse_pricing = "false"
+    solve_tolerance = "5.684341886080802e-14"
+    max_lp_refinements = "8"
+    adaptive_stalling = "false"
+    max_pivot_candidates = "8"
+    pivot_validation = "false"
+    adaptive_pricing = "false"
+    feasibility_recovery = "false"
+    max_recovery_rounds = "2"
+    adaptive_dual_perturbation = "false"
+    solve_refinement = "false"
+    hypersparse = "false"
+    incremental_primal_pivots = "false"
+    phase_one = "false"
+    crash = "false"
+    stagnation_window = "64"
+    refactor_timing = "true"
+
+    [[events.lower]]
+    exact = "-1000//1"
+    [[events.lower]]
+    exact = "-1000//1"
+    [[events.lower]]
+    exact = "0//1"
+    [[events.lower]]
+    exact = "0//1"
+
+    [[events.model_row_lower]]
+    exact = "-1048576//1"
+    [[events.model_row_lower]]
+    exact = "-1048576//1"
+
+    [[events.model_row_upper]]
+    exact = "1048576//1"
+    [[events.model_row_upper]]
+    exact = "1048576//1"
+
+    [[events.model_column_lower]]
+    unbounded = true
+    [[events.model_column_lower]]
+    unbounded = true
+
+    [[events.model_column_upper]]
+    unbounded = true
+    [[events.model_column_upper]]
+    unbounded = true
+
+    [[events.updates]]
+    values = ["-70368735789057//70368744177664", "-70368735789057//70368744177664"]
+    indices = [2, 1]
+    pivot_row = 2
+[[events]]
+staged_workspace = false
+factor_type = "JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}"
+base_type = "JSimplex.UMFPACKBackend"
+matrix_shape = [2, 2]
+matrix_nzval = ["1//1", "1//1", "1//1", "8388609//8388608"]
+column_scaling = ["1//1", "1//1"]
+journal_present = false
+matrix_colptr = [1, 3, 5]
+scratch_row_solution = ["-8388607//70368744177664", "70368735789057//70368744177664"]
+model_objective = ["0//1", "-1//1"]
+primal = ["125//8796093022208", "-125//8796093022208", "0//1", "0//1"]
+row_scaling = ["1//1048576", "1//1048576"]
+iterations = 2
+scratch_tau = ["140737471578115//70368744177664", "70368727400451//70368744177664"]
+reduced_costs = ["0//1", "0//1", "70368744177665//8388608", "-70368744177665//8388608"]
+perturbed = false
+devex_reference = [false, false, true, true]
+model_id = "17125216115336293410"
+basis_states = ["BASIC", "BASIC", "AT_LOWER", "AT_UPPER"]
+refactorizations = 0
+scratch_pricing_row = ["0//1", "0//1", "0//1", "0//1"]
+model_constant = "0//1"
+refactorization_offset = 0
+state_type = "JSimplex.SimplexWorkspace{Float64, JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}, :pfi, :native, JSimplex.SimplexDiagnostics{typeof(capture)}}"
+event = "pivot_completed"
+scratch_rho = ["-1//1", "70368735789057//70368744177664"]
+pending_factor_update = true
+scratch_row_rhs = ["2//1", "2//1"]
+basis_indices = [1, 2]
+iteration_offset = 0
+workspace_id = "1607826682079484967"
+scratch_tableau_row = ["-8388607//70368744177664", "0//1", "1//1", "-70368735789057//70368744177664"]
+post_iteration = "none"
+pricing_weights = ["140737505132549//1", "140737488355332//1", "7378697629483821//73786976294838206464", "7378697629483821//73786976294838206464"]
+matrix_rowval = [1, 2, 1, 2]
+costs = ["0//1", "-1//1", "0//1", "0//1"]
+scratch_role_note = "Raw scratch may be stale or repurposed; not a certified dual witness"
+
+    [[events.upper]]
+    exact = "1000//1"
+    [[events.upper]]
+    exact = "1000//1"
+    [[events.upper]]
+    exact = "0//1"
+    [[events.upper]]
+    exact = "0//1"
+
+    [events.options]
+    basis_update = ":pfi"
+    iteration_limit = "100000"
+    pricing = ":steepest_edge"
+    simplex_strategy = ":legacy"
+    basis_refactorization = ":native"
+    time_limit = "Inf"
+    log_level = "Debug"
+    verbose = "true"
+    scaling = ":auto"
+    partial_pricing = "false"
+    algorithm = ":dual"
+    zero_tolerance = "1.0e-12"
+    presolve = "true"
+    primal_tolerance = "1.0e-7"
+    dual_tolerance = "1.0e-7"
+    refactorization_interval = "20"
+
+    [events.policy]
+    max_precision_bits = "512"
+    stable_ratio = "false"
+    precision_boosting = "false"
+    max_precision_memory_bytes = "1073741824"
+    recovery = "false"
+    max_refinements = "3"
+    incremental_primal = "false"
+    partial_pricing = "false"
+    adaptive_primal_perturbation = "false"
+    pivot_error_tolerance = "1.4901161193847656e-8"
+    lp_refinement = "false"
+    adaptive_refactor = "false"
+    sparse_pricing = "false"
+    solve_tolerance = "5.684341886080802e-14"
+    max_lp_refinements = "8"
+    adaptive_stalling = "false"
+    max_pivot_candidates = "8"
+    pivot_validation = "false"
+    adaptive_pricing = "false"
+    feasibility_recovery = "false"
+    max_recovery_rounds = "2"
+    adaptive_dual_perturbation = "false"
+    solve_refinement = "false"
+    hypersparse = "false"
+    incremental_primal_pivots = "false"
+    phase_one = "false"
+    crash = "false"
+    stagnation_window = "64"
+    refactor_timing = "true"
+
+    [[events.lower]]
+    exact = "-1000//1"
+    [[events.lower]]
+    exact = "-1000//1"
+    [[events.lower]]
+    exact = "0//1"
+    [[events.lower]]
+    exact = "0//1"
+
+    [[events.model_row_lower]]
+    exact = "-1048576//1"
+    [[events.model_row_lower]]
+    exact = "-1048576//1"
+
+    [[events.model_row_upper]]
+    exact = "1048576//1"
+    [[events.model_row_upper]]
+    exact = "1048576//1"
+
+    [[events.model_column_lower]]
+    unbounded = true
+    [[events.model_column_lower]]
+    unbounded = true
+
+    [[events.model_column_upper]]
+    unbounded = true
+    [[events.model_column_upper]]
+    unbounded = true
+
+    [[events.updates]]
+    values = ["-70368735789057//70368744177664", "-70368735789057//70368744177664"]
+    indices = [2, 1]
+    pivot_row = 2
+    [[events.updates]]
+    values = ["-70368752566273//8388608", "70368744177665//8388608"]
+    indices = [1, 2]
+    pivot_row = 1
+[[events]]
+staged_workspace = true
+factor_type = "JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}"
+base_type = "JSimplex.UMFPACKBackend"
+matrix_shape = [2, 2]
+matrix_nzval = ["1//1", "1//1", "1//1", "8388609//8388608"]
+column_scaling = ["1//1", "1//1"]
+journal_present = false
+matrix_colptr = [1, 3, 5]
+scratch_row_solution = ["0//1", "0//1"]
+model_objective = ["0//1", "-1//1"]
+primal = ["0//1", "0//1", "0//1", "0//1"]
+row_scaling = ["1//1048576", "1//1048576"]
+iterations = 2
+scratch_tau = ["0//1", "0//1"]
+reduced_costs = ["0//1", "-1//1", "0//1", "0//1"]
+perturbed = false
+devex_reference = [false, false, true, true]
+model_id = "17125216115336293410"
+basis_states = ["BASIC", "BASIC", "AT_LOWER", "AT_UPPER"]
+refactorizations = 1
+scratch_pricing_row = ["0//1", "0//1", "0//1", "0//1"]
+model_constant = "0//1"
+refactorization_offset = 0
+state_type = "JSimplex.SimplexWorkspace{Float64, JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}, :pfi, :native, JSimplex.SimplexDiagnostics{JSimplex._StageObserver{JSimplex.SimplexWorkspace{Float64, JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}, :pfi, :native, JSimplex.SimplexDiagnostics{typeof(capture)}}}}}"
+event = "refactor_other"
+scratch_rho = ["0//1", "0//1"]
+pending_factor_update = false
+scratch_row_rhs = ["0//1", "0//1"]
+basis_indices = [1, 2]
+iteration_offset = 0
+updates = []
+workspace_id = "16967432776385161662"
+scratch_tableau_row = ["0//1", "0//1", "0//1", "0//1"]
+post_iteration = "none"
+pricing_weights = ["140737505132549//1", "140737488355332//1", "7378697629483821//73786976294838206464", "7378697629483821//73786976294838206464"]
+matrix_rowval = [1, 2, 1, 2]
+costs = ["0//1", "-1//1", "0//1", "0//1"]
+scratch_role_note = "Raw scratch may be stale or repurposed; not a certified dual witness"
+
+    [[events.upper]]
+    unbounded = true
+    [[events.upper]]
+    unbounded = true
+    [[events.upper]]
+    exact = "1048576//1"
+    [[events.upper]]
+    exact = "1048576//1"
+
+    [events.options]
+    basis_update = ":pfi"
+    iteration_limit = "100000"
+    pricing = ":steepest_edge"
+    simplex_strategy = ":legacy"
+    basis_refactorization = ":native"
+    time_limit = "Inf"
+    log_level = "Debug"
+    verbose = "true"
+    scaling = ":auto"
+    partial_pricing = "false"
+    algorithm = ":dual"
+    zero_tolerance = "1.0e-12"
+    presolve = "true"
+    primal_tolerance = "1.0e-7"
+    dual_tolerance = "1.0e-7"
+    refactorization_interval = "20"
+
+    [events.policy]
+    max_precision_bits = "512"
+    stable_ratio = "false"
+    precision_boosting = "false"
+    max_precision_memory_bytes = "1073741824"
+    recovery = "false"
+    max_refinements = "3"
+    incremental_primal = "false"
+    partial_pricing = "false"
+    adaptive_primal_perturbation = "false"
+    pivot_error_tolerance = "1.4901161193847656e-8"
+    lp_refinement = "false"
+    adaptive_refactor = "false"
+    sparse_pricing = "false"
+    solve_tolerance = "5.684341886080802e-14"
+    max_lp_refinements = "8"
+    adaptive_stalling = "false"
+    max_pivot_candidates = "8"
+    pivot_validation = "false"
+    adaptive_pricing = "false"
+    feasibility_recovery = "false"
+    max_recovery_rounds = "2"
+    adaptive_dual_perturbation = "false"
+    solve_refinement = "false"
+    hypersparse = "false"
+    incremental_primal_pivots = "false"
+    phase_one = "false"
+    crash = "false"
+    stagnation_window = "64"
+    refactor_timing = "true"
+
+    [[events.lower]]
+    unbounded = true
+    [[events.lower]]
+    unbounded = true
+    [[events.lower]]
+    exact = "-1048576//1"
+    [[events.lower]]
+    exact = "-1048576//1"
+
+    [[events.model_row_lower]]
+    exact = "-1048576//1"
+    [[events.model_row_lower]]
+    exact = "-1048576//1"
+
+    [[events.model_row_upper]]
+    exact = "1048576//1"
+    [[events.model_row_upper]]
+    exact = "1048576//1"
+
+    [[events.model_column_lower]]
+    unbounded = true
+    [[events.model_column_lower]]
+    unbounded = true
+
+    [[events.model_column_upper]]
+    unbounded = true
+    [[events.model_column_upper]]
+    unbounded = true
+[[events]]
+staged_workspace = false
+factor_type = "JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}"
+base_type = "JSimplex.UMFPACKBackend"
+matrix_shape = [2, 2]
+matrix_nzval = ["1//1", "1//1", "1//1", "8388609//8388608"]
+column_scaling = ["1//1", "1//1"]
+journal_present = false
+matrix_colptr = [1, 3, 5]
+scratch_row_solution = ["-281474993487873//16", "281474976710657//16"]
+model_objective = ["0//1", "-1//1"]
+primal = ["-281474993487873//16", "281474976710657//16", "-1048576//1", "1048576//1"]
+row_scaling = ["1//1048576", "1//1048576"]
+iterations = 2
+scratch_tau = ["0//1", "0//1"]
+reduced_costs = ["0//1", "0//1", "281474976710657//33554432", "-281474976710657//33554432"]
+perturbed = false
+devex_reference = [false, false, true, true]
+model_id = "17125216115336293410"
+basis_states = ["BASIC", "BASIC", "AT_LOWER", "AT_UPPER"]
+refactorizations = 1
+scratch_pricing_row = ["0//1", "0//1", "0//1", "0//1"]
+model_constant = "0//1"
+refactorization_offset = 0
+state_type = "JSimplex.SimplexWorkspace{Float64, JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}, :pfi, :native, JSimplex.SimplexDiagnostics{typeof(capture)}}"
+event = "certification"
+scratch_rho = ["281474976710657//33554432", "-281474976710657//33554432"]
+pending_factor_update = false
+scratch_row_rhs = ["0//1", "-1//1"]
+basis_indices = [1, 2]
+iteration_offset = 0
+updates = []
+workspace_id = "17936490656922098430"
+scratch_tableau_row = ["0//1", "0//1", "0//1", "0//1"]
+post_iteration = "none"
+pricing_weights = ["140737505132549//1", "140737488355332//1", "7378697629483821//73786976294838206464", "7378697629483821//73786976294838206464"]
+matrix_rowval = [1, 2, 1, 2]
+costs = ["0//1", "-1//1", "0//1", "0//1"]
+scratch_role_note = "Raw scratch may be stale or repurposed; not a certified dual witness"
+
+    [[events.upper]]
+    unbounded = true
+    [[events.upper]]
+    unbounded = true
+    [[events.upper]]
+    exact = "1048576//1"
+    [[events.upper]]
+    exact = "1048576//1"
+
+    [events.options]
+    basis_update = ":pfi"
+    iteration_limit = "100000"
+    pricing = ":steepest_edge"
+    simplex_strategy = ":legacy"
+    basis_refactorization = ":native"
+    time_limit = "Inf"
+    log_level = "Debug"
+    verbose = "true"
+    scaling = ":auto"
+    partial_pricing = "false"
+    algorithm = ":dual"
+    zero_tolerance = "1.0e-12"
+    presolve = "true"
+    primal_tolerance = "1.0e-7"
+    dual_tolerance = "1.0e-7"
+    refactorization_interval = "20"
+
+    [events.policy]
+    max_precision_bits = "512"
+    stable_ratio = "false"
+    precision_boosting = "false"
+    max_precision_memory_bytes = "1073741824"
+    recovery = "false"
+    max_refinements = "3"
+    incremental_primal = "false"
+    partial_pricing = "false"
+    adaptive_primal_perturbation = "false"
+    pivot_error_tolerance = "1.4901161193847656e-8"
+    lp_refinement = "false"
+    adaptive_refactor = "false"
+    sparse_pricing = "false"
+    solve_tolerance = "5.684341886080802e-14"
+    max_lp_refinements = "8"
+    adaptive_stalling = "false"
+    max_pivot_candidates = "8"
+    pivot_validation = "false"
+    adaptive_pricing = "false"
+    feasibility_recovery = "false"
+    max_recovery_rounds = "2"
+    adaptive_dual_perturbation = "false"
+    solve_refinement = "false"
+    hypersparse = "false"
+    incremental_primal_pivots = "false"
+    phase_one = "false"
+    crash = "false"
+    stagnation_window = "64"
+    refactor_timing = "true"
+
+    [[events.lower]]
+    unbounded = true
+    [[events.lower]]
+    unbounded = true
+    [[events.lower]]
+    exact = "-1048576//1"
+    [[events.lower]]
+    exact = "-1048576//1"
+
+    [[events.model_row_lower]]
+    exact = "-1048576//1"
+    [[events.model_row_lower]]
+    exact = "-1048576//1"
+
+    [[events.model_row_upper]]
+    exact = "1048576//1"
+    [[events.model_row_upper]]
+    exact = "1048576//1"
+
+    [[events.model_column_lower]]
+    unbounded = true
+    [[events.model_column_lower]]
+    unbounded = true
+
+    [[events.model_column_upper]]
+    unbounded = true
+    [[events.model_column_upper]]
+    unbounded = true
