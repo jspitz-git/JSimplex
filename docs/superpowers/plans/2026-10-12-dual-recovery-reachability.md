@@ -21,25 +21,25 @@ passes are not x64 proof. S6-F/G controlled artificial-row fixture is independen
 
 ## Tasks
 
-- [ ] Inventory exact failing predicates/evaluated values by testset and manager
+- [x] Inventory exact failing predicates/evaluated values by testset and manager
   using preserved CI logs. Reconcile prior local diagnostic source/options before
   claiming the original duplicate fixture is portable or recovery is reached.
-- [ ] Map dual_iteration! ratio, FTRAN/BTRAN agreement, transactional rejection,
+- [x] Map dual_iteration! ratio, FTRAN/BTRAN agreement, transactional rejection,
   observer wrapping, candidate/recovery budgets, refresh and publication ownership.
   Determine which failure assertions require a particular event to occur. Keep
   exact duplicate/singular-basis rejection distinct from recovery-path coverage.
-- [ ] Create a bounded current-source census on the unchanged small fixture:
+- [x] Create a bounded current-source census on the unchanged small fixture:
   four managers, four rejection modes and cancellation after refresh. Preserve
   behavior-driving callbacks in both twins; only passive event recording differs.
   Record selected state, terminal/exception identity, event counts, work budgets,
   scratch rejection sets and factor update count. Independent fresh-fixture
   direction/row/ratio probes run after the twins, never perturb their scratch.
   Run exact original selected oracle once; preserve a failure as evidence.
-- [ ] Audit final process/exit, whole independent pins, actual source and selected
+- [x] Audit final process/exit, whole independent pins, actual source and selected
   equality/failed-predicate counts. Report unknown CI numerical path honestly.
   If a concrete reproducible cause emerges, write a separate bounded RED/GREEN
   subplan; do not weaken assertions or modify production in this census.
-- [ ] One fresh independent numerical/work/memory review before diagnostic closure;
+- [x] One fresh independent numerical/work/memory review before diagnostic closure;
   publish STATUS and precise next action. No full S6 pass from this subset.
 
 ## Resource and acceptance constraints
@@ -50,3 +50,6 @@ pins, independently verify previous runner/child/driver absent using host identi
 Retain all failed attempts/user files and keep CI disabled. No accepted medium,
 HH/scalar, S0 or whole-corpus repeats. No same-size symbolic reuse or working-model
 certificate transfer. This diagnostic adds no production cost and claims no speedup.
+
+Closure:20pairs/108original oracle,17gates601pins; independent review no findings.
+Reports S6-DUAL-RECOVERY.md and S6-DUAL-RECOVERY-REVIEW.md. S6-I remains qualification.

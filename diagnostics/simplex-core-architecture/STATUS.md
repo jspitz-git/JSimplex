@@ -51,11 +51,13 @@ independent review without findings, master348/348/13audit gates with unchanged
 pins/source/userhashes. See S6-ARTIFICIAL-FIXTURE.md/REVIEW.md. Qualification36triples/
 564pass; RED196pass56expectedfail; GREEN348/348. CI remains disabled; no actual
 x64CI success or whole-suite pass is claimed.
-Next: docs/superpowers/plans/2026-10-12-dual-recovery-reachability.md, S6-H bounded
-current-source dual recovery census. Existing CI reaggregation records48failures
-per run (44 bounded recovery,4afterrefresh cancellation), no numerical rerun yet.
-Reuse accepted prior evidence; no medium/HH/corpus repeats. Last host check:
-runner375704/child375705/driver375695 absent,noJulia,boot20de7dde-704e-41c8-bee7-b8511c0a86b0.
+S6-H census now completed:20pairs/20pass and original oracle108/108,exit0,
+all17audit gates, independent pins/source; see S6-DUAL-RECOVERY.md. Current local
+native pivot estimates disagree in sign, entering transactional retry. ActualCI
+row/path remains unknown. No production/test change; fresh independent review accepted without findings.
+Next qualification plan:2026-10-12-dual-retry-boundary-qualification.md.
+Last host check:runner376596/child376597/driver376588 absent,noJulia,
+boot20de7dde-704e-41c8-bee7-b8511c0a86b0.
 
 
 S3-A production cd91a1a -> masterd8ad4ec5651225a512d5f533f48ce7d8fc8f90cc is reviewed,
