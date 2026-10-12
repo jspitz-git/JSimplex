@@ -22,9 +22,11 @@ end
 
 @testset "Exhaustion after fresh pricing retains the refresh budget" begin
     problem=LinearProblem(sparse([1e-14 0.0;0.0 1.0;1.0 0.0]),[-2.0,1.0];
-        row_upper=[0.0,1.0,Inf],column_upper=[1.0,1.0])
+        row_upper=[0.0,1.0,Inf],column_upper=[1.0e8,1.0])
     options=SolverOptions(algorithm=:primal,simplex_strategy=:adaptive,
         basis_update=:pfi,pricing=:steepest_edge,verbose=false)
+    # Prevent a valid finite-bound Harris flip before the intended refresh path.
+    @test problem.A[1,1] * JSimplex.bound_value(problem.column_upper[1]) > options.primal_tolerance
     ws=JSimplex.initialize_workspace(problem,options;
             progress=JSimplex.SimplexProgressContext(problem;
                 numerical_policy=JSimplex.NumericalPolicy(eltype(problem.objective);adaptive_pricing=true)))
@@ -35,7 +37,7 @@ end
     ws.factorization.base=JSimplex._factorize_basis(sparse([-1.0 1.0 0.0;0.0 -1.0 0.0;0.0 0.0 -1.0]))
     JSimplex.replace_column!(ws.factorization,[1.0,0.0,0.0],1)
     terminal=JSimplex._primal_iteration!(ws,()->false,options.dual_tolerance)
-    @test terminal.status==NUMERICAL_ERROR
+    @test !isnothing(terminal) && terminal.status==NUMERICAL_ERROR
     @test ws.refactorizations==1
     @test ws.iterations==0
     @test ws.basis.basic_indices==[3,4,5]
