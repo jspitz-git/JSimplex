@@ -879,3 +879,22 @@ and excluded from ordinary S5-A. Read new plan
 ONE source/evidence contract, reconcile prior execution first; no speculative repair,
 precision increase or numerical launch. Do not reopen HH/bootstrap/controller/DSE
 accounting routes. CI/HH reuse disabled; broader gates and prior rejections unchanged.
+
+
+## S5-D contract and S5-E offline continuation (2026-10-13)
+
+S5-D accepted: 13 source/evidence checks, 103 hashes, seven groups/1617 passing
+assertions in EACH of two failed historical CI runs. Six compared source/test files
+match each historical commit; perturbation and runtests full files differ explicitly.
+Active journal success21 and no-journal failure19 do not qualify their composition.
+Final observer sees fresh state before return guard; source counters/shared diagnostics
+are not immutable. Existing nine working/journal vector conversions remain unchanged.
+Author five checks; fresh reviewer full103/all14 raw rows/16 comparisons, no findings
+or unnecessary new production work/memory. No Julia or production/test/CI changes.
+
+Next S5-E: docs/superpowers/plans/2026-10-13-precision-journal-interruption-preparation.md,
+ONE OFFLINE two-case stop/throw ownership-oracle preparation on existing fixture,
+no numerical driver/launch or precision increase. Check for existing exact-composition
+evidence first. Preserve all prior rejections and S4/S6/fullsuite limitations; do not
+reopen DSE counters, HH bootstrap or controller audits. Separate passing closure
+before fail-fast diagnostic publication.

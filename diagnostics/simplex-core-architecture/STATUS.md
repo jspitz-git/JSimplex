@@ -46,7 +46,20 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-**Current continuation: S3-E source-only decision completed and independently accepted. Complete observed internal-attempt accounting is REJECTED for the frozen three-wrapper route with unchanged factor dispatch; stop that qualification route. No DSE defect or general instrumentation impossibility is claimed. Next S5-D: `docs/superpowers/plans/2026-10-13-precision-journal-transfer-contract.md`, ONE distinct SOURCE/EVIDENCE ONLY precision-transfer journal ownership contract, reconciling old execution evidence first. No Julia or numerical launch, no HH/bootstrap/controller or equivalent DSE audit.**
+**Current continuation: S5-D precision-journal transfer contract completed and independently accepted. Existing success and no-journal interruption tests have historical execution; their active-journal final-observer interruption composition remains unqualified, not a demonstrated defect. Next S5-E: `docs/superpowers/plans/2026-10-13-precision-journal-interruption-preparation.md`, ONE bounded OFFLINE source/oracle preparation, at most two prospective stop/throw cases. No executable numerical driver or launch; no production or precision-policy change.**
+
+S5-D: thirteen source/evidence checks, 103 fresh hashes, fourteen original CI rows
+(seven groups/1617 pass in EACH failed run), sixteen source comparisons (12 equal,
+4 explicit differences). Author five checks/full103; reviewer full103/allfour bound
+artifacts/allrawrows/16comparisons, no findings or unnecessary new production work/
+memory. Active-journal21 and no-journal-failure19 are separate coverage; checkpoint
+all() may be vacuous. Fresh journal attachment precedes recompute and final observer;
+observer can retain fresh state before final stop/throw, no transactional invisibility.
+Source work counters/shared diagnostics can change; no unconditional source immutability
+against arbitrary callbacks. Three working plus six journal vector conversions are
+existing costs, not optimized. No Julia/old rerun/production/test/env/master/CI change.
+Read S5-PRECISION-JOURNAL-CONTRACT.md/REVIEW and results/S5-D. Frozen collector/evidence/
+independent/closure never rerun. Separate passing closure precedes fail-fast publication.
 
 S3-E: eleven source/integrity checks, 84 fresh read-time hashes; author seven checks,
 reviewer full84/all69 D pins/17 frozen D closure files and source edges. base_builds
