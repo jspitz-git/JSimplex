@@ -24,6 +24,85 @@ function reliable_artificial_exchange_fixture(T,manager;max_refinements=3,diagno
     return phase,mapping,original,policy
 end
 
+# Inject one declared reconstruction error after a real phase solve. The native
+# roundoff fixture below separately covers backend arithmetic and cancellation.
+mutable struct PhaseReconstructionFactor{T,F}
+    inner::F
+    primal_rhs::Vector{T}
+    correction_rhs::Vector{T}
+    unit_rhs::Vector{T}
+    armed::Bool
+    updated::Bool
+    hits::Int
+    ftran_calls::Int
+    btran_calls::Int
+    primal_calls::Int
+    correction_calls::Int
+    update_calls::Int
+    refactor_calls::Int
+    invalidations::Int
+end
+PhaseReconstructionFactor(inner,::Type{T}) where T = PhaseReconstructionFactor(
+    inner,T[1,1,0,0,0,0],T[0,0,-T(2)^(-10),0,0,0],T[0,0,0,0,0,1],
+    false,false,0,0,0,0,0,0,0,0)
+Base.getproperty(f::PhaseReconstructionFactor,k::Symbol)=k in fieldnames(typeof(f)) ?
+    getfield(f,k) : getproperty(getfield(f,:inner),k)
+function phase_reconstruction_forward!(dest,f,rhs,prepared)
+    f.ftran_calls+=1
+    primal=rhs==f.primal_rhs
+    correction=rhs==f.correction_rhs
+    f.primal_calls+=primal;f.correction_calls+=correction
+    @assert primal || correction || rhs==f.unit_rhs
+    @assert !prepared || rhs==f.unit_rhs
+    prepared ? JSimplex.forward_solve!(dest,f.inner,rhs) :
+        JSimplex._ordinary_forward_solve!(dest,f.inner,rhs)
+    if f.armed && primal
+        @assert f.updated && f.refactor_calls==1 && f.hits==0 && dest==f.primal_rhs
+        dest[3]+=eltype(dest)(2)^(-10)
+        f.armed=false;f.hits+=1
+    end
+    return dest
+end
+JSimplex._ordinary_forward_solve!(d::Vector{T},f::PhaseReconstructionFactor{T},r::AbstractVector) where T =
+    phase_reconstruction_forward!(d,f,r,false)
+JSimplex.forward_solve!(d::Vector{T},f::PhaseReconstructionFactor{T},r::AbstractVector) where T =
+    phase_reconstruction_forward!(d,f,r,true)
+function JSimplex.transpose_solve!(d::Vector{T},f::PhaseReconstructionFactor{T},r::AbstractVector) where T
+    f.btran_calls+=1
+    @assert r==f.unit_rhs || all(iszero,r)
+    return JSimplex.transpose_solve!(d,f.inner,r)
+end
+function JSimplex._invalidate_prepared_destination!(f::PhaseReconstructionFactor,d)
+    f.invalidations+=1
+    return JSimplex._invalidate_prepared_destination!(f.inner,d)
+end
+JSimplex._finite_updated_factor(f::PhaseReconstructionFactor)=JSimplex._finite_updated_factor(f.inner)
+function JSimplex.replace_column!(f::PhaseReconstructionFactor,d::AbstractVector,row::Integer;kwargs...)
+    f.update_calls+=1;f.armed=false;f.updated=false
+    @assert f.update_calls==1 && row==6 && d==f.unit_rhs
+    result=JSimplex.replace_column!(f.inner,d,row;kwargs...)
+    f.updated=true
+    return result
+end
+function JSimplex.refactorize!(f::PhaseReconstructionFactor{T},B::AbstractMatrix) where T
+    f.refactor_calls+=1;f.armed=false
+    @assert f.updated && f.refactor_calls==1 && B==Matrix{T}(I,6,6)
+    result=JSimplex.refactorize!(f.inner,B)
+    f.armed=f.hits==0
+    return result
+end
+JSimplex.copy_basis_factorization(::PhaseReconstructionFactor)=
+    error("Phase reconstruction fixture does not support factor copies")
+function phase_reconstruction_fixture(T,manager;diagnostics)
+    phase,map,original,policy=reliable_artificial_exchange_fixture(T,manager;diagnostics)
+    @assert !policy.hypersparse && !policy.solve_refinement && !policy.recovery
+    factor=PhaseReconstructionFactor(phase.factorization,T)
+    phase=JSimplex.SimplexWorkspace((k==:factorization ? factor : getfield(phase,k)
+        for k in fieldnames(typeof(phase)))...)
+    return phase,map,original,policy
+end
+
+
 @testset "Phase export retains certified nonbasic values" begin
     for T in (Float32,Float64), manager in (:pfi,:forrest_tomlin,:suhl_suhl,:bartels_golub)
         options=SolverOptions(T;algorithm=:primal,basis_update=manager,verbose=false)
@@ -182,9 +261,29 @@ end
 
 @testset "Artificial exchanges certify native reconstruction before export" begin
     for T in (Float32,Float64), manager in (:pfi,:forrest_tomlin,:suhl_suhl,:bartels_golub)
-        phase,mapping,original,policy=artificial_exchange_roundoff_fixture(T,manager)
+        enabled=Ref(false);stage=Ref(0);event_order=Ref(true);export_real=Ref(true)
+        diagnostics=JSimplex.SimplexDiagnostics(;kernel_timing=true,observer=(event,ws)->begin
+            enabled[] && ws isa JSimplex.SimplexWorkspace || return
+            if size(ws.problem.A,2)==6
+                export_real[] &= !(ws.factorization isa PhaseReconstructionFactor)
+            end
+            if ws.factorization isa PhaseReconstructionFactor
+                expected=event==:refactor_other ? 0 : event==:correction_attempt ? 1 : event==:artificial_removed ? 2 : -1
+                event_order[] &= stage[]==expected
+                stage[]+=1
+            end
+        end)
+        phase,mapping,original,policy=phase_reconstruction_fixture(T,manager;diagnostics)
+        factor=phase.factorization
+        enabled[]=true
+        ftran_before=diagnostics.kernel_calls[:ftran]
+        btran_before=diagnostics.kernel_calls[:btran]
+        refactor_before=diagnostics.kernel_calls[:refactorization]
         @test JSimplex._legacy_primal_point_certified(phase)
         accepted=JSimplex.remove_artificials!(phase,mapping,original,policy,()->false)
+        @test diagnostics.kernel_calls[:ftran]-ftran_before==6
+        @test diagnostics.kernel_calls[:btran]-btran_before==4
+        @test diagnostics.kernel_calls[:refactorization]-refactor_before==2
         @test accepted
         if accepted
             @test original.iterations==1
@@ -193,6 +292,20 @@ end
             @test JSimplex._legacy_primal_point_certified(original)
             @test JSimplex._original_primal_feasible(original,original.primal[1:6])
         end
+        @test factor.ftran_calls==4
+        @test factor.btran_calls==2
+        @test factor.primal_calls==1
+        @test factor.correction_calls==1
+        @test factor.update_calls==1
+        @test factor.refactor_calls==1
+        @test factor.hits==1
+        @test factor.invalidations==5
+        @test JSimplex.event_count(diagnostics,:correction_attempt)==1
+        @test stage[]==3
+        @test event_order[]
+        @test !(original.factorization isa PhaseReconstructionFactor)
+        @test export_real[]
+        @test original.primal==T[1,1,0,0,0,0,1,1,0,0,0,0]
     end
 end
 
