@@ -1,0 +1,11 @@
+"""Exclusive X publication closure; execute only after final independent review."""
+import hashlib,json,subprocess
+from pathlib import Path
+root=Path(__file__).resolve().parents[4];r=Path(__file__).resolve().parent
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+a=json.loads((r/'source-contract.json').read_text());i=json.loads((r/'independent.json').read_text());f=json.loads((r/'review-fix.json').read_text());h=json.loads((r/'host-after.json').read_text());b=json.loads((r/'host-before.json').read_text())
+review=root/'diagnostics/simplex-core-architecture/S4-POSTSOLVE-DUAL-WORK-CONTRACT-REVIEW.md';rv=' '.join(review.read_text().split())
+c={'eighteen_literal_checks':a['all_passed'] and len(a['checks'])==18,'author_six_checks':i['all_passed'] and len(i['checks'])==6,'bound_evidence_unchanged':all(sha(root/p)==v for p,v in i['sha256'].items()),'minor_fix_passes':f['all_passed'] and len(f['green'])==3,'three_fix_hashes':all(sha(root/p)==v for p,v in f['sha256'].items()),'final_review_pass':'Final PASS for source/evidence-only publication.' in rv and 'No unresolved Critical, Important or Minor findings.' in rv,'user6_unchanged':all(sha(p)==v for p,v in b['user_hashes'].items()),'host_no_groups_refs_unchanged':not h['matches'] and h['refs']==b['refs'] and h['boot_id']==b['boot_id'],'production_unchanged':not subprocess.check_output(['git','diff','master','--','src','test','.github','Project.toml'],cwd=root,text=True),'next_different_source_only': 'S3-C' in (root/'diagnostics/simplex-core-architecture/STATUS.md').read_text() and 'No Julia' in (root/'docs/superpowers/plans/2026-10-12-dse-support-consumer-contract.md').read_text()}
+paths=[p for p in r.iterdir() if p.is_file()]+[review,root/'diagnostics/simplex-core-architecture/S4-POSTSOLVE-DUAL-WORK-CONTRACT.md',root/'diagnostics/simplex-core-architecture/STATUS.md',root/'docs/superpowers/plans/2026-10-11-simplex-core-architecture.md',root/'docs/superpowers/plans/2026-10-12-dse-support-consumer-contract.md']
+with (r/'closure.json').open('x') as z:json.dump({'checks':c,'all_passed':all(c.values()),'sha256':{str(p.relative_to(root)):sha(p) for p in paths}},z,indent=2);z.write('\n')
+print(c);raise SystemExit(0 if all(c.values()) else 1)

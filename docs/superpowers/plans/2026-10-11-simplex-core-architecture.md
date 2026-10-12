@@ -804,3 +804,21 @@ CI change, old rerun or new LP. Next bounded source-only task:
 2026-10-12-hh-postsolve-dual-work-contract.md. It cannot by itself qualify the complete
 budget or authorize a numerical plan. Bootstrap investigation stays closed; qualification,
 native retention/broaderS4S6/fullsuite remain OPEN; HH disabled/Q/rejections unchanged.
+
+
+### S4-X dual/auxiliary work composition and S3 continuation, 2026-10-12
+
+SOURCE/EVIDENCE ONLY: 18 checks/558 hashes/13 exact excerpts, author six checks/full hashes,
+reviewer full hashes/excerpts and three fix hashes. Source-local staged retry192 and legacy
+33/66/198 backend-entry limits expose additional work; two auxiliary factor copies and
+post-deadline shared-factor restoration are distinct. No observed path or complete budget.
+Original restoration into primal and forced-driver composition remain unsummed; no proof
+of unbounded execution. One Minor BFRT guard wording fixed offline RED1/GREEN3 with before
+report preserved. Final review has no unresolved findings or unnecessary production cost.
+
+End the bounded HH controller-budget audit sequence. Reorder the independent broader S3
+DSE support consumer question next: 2026-10-12-dse-support-consumer-contract.md. Reconcile
+existing S3-A/B evidence first, do not rerun or repeat the accepted mode-selection census.
+No HH numerical plan/instrumentation/bootstrap reopening. Source/test/env/master/CI and
+S/T/Q evidence unchanged; HH reuse disabled, native retention/broaderS4S6/fullsuite and
+all rejection decisions remain unchanged. Publication requires separate passing closure.

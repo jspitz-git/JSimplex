@@ -46,7 +46,20 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-**Current continuation: S4-W source-only attempt ledger completed and independently reviewed. Whole-controller caps remain UNKNOWN. Next bounded S4-X original-cleanup dual/auxiliary composition: `docs/superpowers/plans/2026-10-12-hh-postsolve-dual-work-contract.md`, SOURCE ONLY. Bootstrap investigation remains closed with qualification OPEN; no numerical plan or launch.**
+**Current continuation: S4-X source-only dual/auxiliary work composition completed and independently reviewed. Whole public caps remain UNKNOWN; this ends the bounded HH controller-budget investigation. Next distinct S3-C DSE support consumer contract: `docs/superpowers/plans/2026-10-12-dse-support-consumer-contract.md`, SOURCE ONLY. No numerical plan or bootstrap reopening.**
+
+S4-X: 18 literal checks, 558 fresh read-time hashes, 13 exact source excerpts; author six
+checks/full 558, reviewer full 558/excerpts and three correction hashes. Local retry ceiling
+192 staged attempts, legacy helper ceilings 33/66/198 backend entries; global precision
+recovery=false does not disable older local 256/512-bit refinements. Two auxiliary factor
+copies distinguished from ordinary staged shared factor; discard may restore after deadline.
+Source-local conditional limits, not observed or complete public budgets. Unsummed original
+restoration -> primal and altered-model forced-driver composition remain explicit UNKNOWN.
+One Minor BFRT wording corrected offline RED1/GREEN3, before report preserved; no unresolved
+findings or unnecessary new production work/memory. No Julia/old rerun/new LP/source/test/
+env/master/CI change; S/T/Q and rejected candidates unchanged. Read S4-POSTSOLVE-DUAL-WORK-
+CONTRACT.md/REVIEW and results/S4-X. Separate passing closure precedes fail-fast publication.
+
 
 S4-W: 26 ledger rows, 22 literal source checks, 556 read-time hashes, 16 exact excerpts;
 author eight independent checks/full 556, reviewer full 556/excerpts and seven correction
