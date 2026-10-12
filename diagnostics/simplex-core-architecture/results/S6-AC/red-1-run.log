@@ -1,0 +1,30 @@
+ERROR: LoadError: Some tests did not pass: 0 passed, 2 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/phase_reconstruction_repair.jl:51
+
+Phase reconstruction structural contract: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/phase_reconstruction_repair.jl:53
+  Expression: occursin("phase_reconstruction_fixture(T,manager;diagnostics)", TARGET)
+   Evaluated: occursin("phase_reconstruction_fixture(T,manager;diagnostics)", "@testset \"Artificial exchanges certify native reconstruction before export\" begin\n    for T in (Float32,Float64), manager in (:pfi,:forrest_tomlin,:suhl_suhl,:bartels_golub)\n        phase,mapping,original,policy=artificial_exchange_roundoff_fixture(T,manager)\n        @test JSimplex._legacy_primal_point_certified(phase)\n        accepted=JSimplex.remove_artificials!(phase,mapping,original,policy,()->false)\n        @test accepted\n        if accepted\n            @test original.iterations==1\n            @test original.basis.basic_indices==collect(1:6)\n            @test JSimplex._recomputed_basis_reliable(original)\n            @test JSimplex._legacy_primal_point_certified(original)\n            @test JSimplex._original_primal_feasible(original,original.primal[1:6])\n        end\n    end\nend\n")
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/phase_reconstruction_repair.jl:53
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/phase_reconstruction_repair.jl:53 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Phase reconstruction structural contract: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/phase_reconstruction_repair.jl:54
+  Expression: occursin("factor.invalidations==5", TARGET) && occursin("diagnostics.kernel_calls[:ftran]-ftran_before==6", TARGET)
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/phase_reconstruction_repair.jl:53
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/phase_reconstruction_repair.jl:54 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+Test Summary:                            | Fail  Total  Time
+Phase reconstruction structural contract |    2      2  0.6s
+RNG of the outermost testset: Random.Xoshiro(0xf45ac963195484e2, 0xe3a3da51d11165fb, 0x7eb175e5a9dc8cc7, 0x2965d479f596bb81, 0x3a86752a94f6973d)

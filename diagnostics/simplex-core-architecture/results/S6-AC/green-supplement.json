@@ -1,0 +1,34 @@
+{
+  "checks": {
+    "report.toml": true,
+    "process.json": true,
+    "pins.json": true,
+    "run.log": true,
+    "driver": true,
+    "actual_work_assertions": true,
+    "extra_primal_rejected": true,
+    "hit_unchanged": true
+  },
+  "all_passed": true,
+  "expected": {
+    "ftran_calls": 4,
+    "btran_calls": 2,
+    "primal_calls": 1,
+    "correction_calls": 1,
+    "update_calls": 1,
+    "refactor_calls": 1,
+    "hits": 1,
+    "invalidations": 5
+  },
+  "negative": {
+    "ftran_calls": 5,
+    "btran_calls": 2,
+    "primal_calls": 2,
+    "correction_calls": 1,
+    "update_calls": 1,
+    "refactor_calls": 1,
+    "hits": 1,
+    "invalidations": 5
+  },
+  "scope": "Static negative work oracle, no extra numerical call or mutated-loop proof."
+}

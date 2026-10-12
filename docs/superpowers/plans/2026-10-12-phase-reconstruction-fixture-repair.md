@@ -53,3 +53,24 @@ One Julia/BLAS1,heap2GiB,VM8GiB,minRAM6GiB,maxswap1GiB; separate fresh host abse
 before pinned edits/each launch, no pinned edits in flight. No big/largo/AnyMOD/aliases.
 Preserve raw failures/old worktrees/env/userchanges. CI disabled. No old accepted
 X/Y/Z/AA/AB/corpus/reference/cost runs. S6-J and S2-A remain rejected. Broader S6 open.
+
+## Bounded pre-forward accounting microtest amendment
+
+Before implementation: GREEN additionally invokes six new adapter operations against
+a diagnostic-only throwing inner object (ordinary/prepared/transpose/update/refactor/
+destination invalidation), each once, zero numerical solves/exchanges/workspaces.
+The exact exception must propagate and the relevant counter must already equal1;
+failed update/refactor cannot arm injection. Copy guard is checked once, zero copies.
+This does not qualify real backend failure recovery; it checks wrapper accounting
+only. Driver-only microtest, not an extra permanent testset. Master gate repeats it
+on actual master helper, alongside changed target, as new-source integration.
+
+## Completion
+
+Structural RED2expected failures/zero exchanges,15gates623pins. GREEN339/339,
+20gates623pins and8supplement checks; original oracle/native helper/neighbors intact.
+Fresh gpt-6-astra review: no findings or unnecessary work/memory. Test610c4bd integrated
+as master3c0af5c; actual-master215/215,20gates623pins,7supplement checks. Source/GREEN/
+rawportable/driver/user identity verified. Master push/remote full ref verified.
+No accepted driver reruns or production/tolerance/precision/CI changes. Next separate
+S6-AD source and exact-offline causal contract; broader S6/x64/fullsuite remain open.
