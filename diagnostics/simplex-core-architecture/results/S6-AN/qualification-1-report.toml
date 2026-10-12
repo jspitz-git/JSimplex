@@ -1,0 +1,2992 @@
+[metadata]
+source = "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/JSimplex.jl"
+exception = "none"
+julia_version = "1.13.0"
+globals_preserved = true
+helper_sha256 = "a19a6f1c1cb9e452a319d4c8870d230f47afac4c1ddcee3e85355306f37189e6"
+arch = "aarch64"
+globals_after = "(256, RoundingMode{:Nearest}(), RoundingMode{:Nearest}(), false)"
+julia_threads = 1
+globals_before = "(256, RoundingMode{:Nearest}(), RoundingMode{:Nearest}(), false)"
+blas_threads = 1
+monitor_sha256 = "21ca3cd654844367b1307e8b54fbc801e517d0424c47638136e88baa6c5594fd"
+
+[cases.stop.times]
+initial_after = "248960470096770"
+helper_before = "248960409504970"
+initial_before = "248960461226270"
+helper_after = "248960461191570"
+driver_after = "248960541095870"
+driver_before = "248960541088770"
+
+[cases.stop.payloads]
+callback_calls = 1
+
+    [cases.stop.payloads.budget_before]
+    iteration_limit = 20
+    iterations = 1
+    start_ns = "248960460911170"
+    refactorizations = 1
+
+        [cases.stop.payloads.budget_before.time_limit_seconds]
+        exact = "30//1"
+        bits = "403e000000000000"
+
+    [cases.stop.payloads.initial]
+    status = "OPTIMAL"
+    message = "optimal solution found"
+
+    [cases.stop.payloads.caught]
+    type = "Nothing"
+    message = "none"
+    same_sentinel = false
+
+    [cases.stop.payloads.budget_after]
+    iteration_limit = 20
+    iterations = 1
+    start_ns = "248960460911170"
+    refactorizations = 1
+
+        [cases.stop.payloads.budget_after.time_limit_seconds]
+        exact = "30//1"
+        bits = "403e000000000000"
+
+    [cases.stop.payloads.run]
+    primal = "nothing"
+    status = "TIME_LIMIT"
+    objective = "nothing"
+    message = "time limit reached during feasibility recovery"
+    basis = "nothing"
+
+[cases.stop.snapshots.before_driver]
+refactorization_offset = 0
+event_ring = ["refactor_initial", "refactor_other", "perturbation", "pricing", "pivot_proposed", "pivot_completed", "pricing"]
+kernel_timing = true
+perturbed = true
+start_ns = "248960460911170"
+factor_type = "JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}"
+basis = [2]
+next_event = 8
+refactorizations = 1
+iteration_offset = 0
+states = ["AT_LOWER", "BASIC"]
+iterations = 1
+observer_absent = true
+
+    [cases.stop.snapshots.before_driver.options]
+    basis_update = "pfi"
+    simplex_strategy = "legacy"
+    basis_refactorization = "native"
+    partial_pricing = false
+    scaling = "auto"
+    iteration_limit = 20
+    pricing = "steepest_edge"
+    log_level = "Debug"
+    verbose = false
+    algorithm = "primal"
+    presolve = true
+    refactorization_interval = 20
+
+        [cases.stop.snapshots.before_driver.options.time_limit]
+        exact = "30//1"
+        bits = "403e000000000000"
+
+        [cases.stop.snapshots.before_driver.options.zero_tolerance]
+        exact = "4951760157141521//4951760157141521099596496896"
+        bits = "3d719799812dea11"
+
+        [cases.stop.snapshots.before_driver.options.primal_tolerance]
+        exact = "944473296573929//9444732965739290427392"
+        bits = "3e7ad7f29abcaf48"
+
+        [cases.stop.snapshots.before_driver.options.dual_tolerance]
+        exact = "944473296573929//9444732965739290427392"
+        bits = "3e7ad7f29abcaf48"
+
+    [cases.stop.snapshots.before_driver.kernel_nanoseconds]
+    hypersparse_ftran_sparse = "0"
+    hypersparse_bfrt_empty = "0"
+    refactorization = "0"
+    hypersparse_support = "0"
+    hypersparse_btran_sparse = "0"
+    hypersparse_weight_ftran_dense = "0"
+    hypersparse_pricing_dense = "0"
+    hypersparse_base_graph = "0"
+    hypersparse_btran_empty = "0"
+    hypersparse_weight_btran_sparse = "0"
+    ftran = "6000"
+    hypersparse_weight_ftran_sparse = "0"
+    hypersparse_pricing_empty = "0"
+    hypersparse_bfrt_dense = "0"
+    hypersparse_ftran_dense = "0"
+    pricing = "4600"
+    hypersparse_btran_dense = "0"
+    row_index = "0"
+    btran = "2600"
+    hypersparse_ftran_empty = "0"
+    hypersparse_upper_graph = "0"
+    hypersparse_pricing_sparse = "0"
+    hypersparse_weight_btran_dense = "0"
+    hypersparse_weight_ftran_empty = "0"
+    crash = "0"
+    hypersparse_bfrt_sparse = "0"
+    hypersparse_weight_btran_empty = "0"
+    hypersparse_setup = "0"
+
+    [cases.stop.snapshots.before_driver.policy]
+    refactor_timing = true
+    stable_ratio = false
+    precision_boosting = false
+    max_precision_memory_bytes = 1073741824
+    recovery = false
+    max_refinements = 3
+    incremental_primal = false
+    partial_pricing = false
+    adaptive_primal_perturbation = false
+    lp_refinement = false
+    adaptive_refactor = false
+    sparse_pricing = false
+    max_lp_refinements = 8
+    adaptive_stalling = false
+    max_pivot_candidates = 8
+    pivot_validation = false
+    adaptive_pricing = false
+    feasibility_recovery = false
+    max_recovery_rounds = 2
+    adaptive_dual_perturbation = false
+    solve_refinement = false
+    hypersparse = false
+    incremental_primal_pivots = false
+    phase_one = false
+    crash = false
+    max_precision_bits = 512
+    stagnation_window = 64
+
+        [cases.stop.snapshots.before_driver.policy.pivot_error_tolerance]
+        exact = "1//67108864"
+        bits = "3e50000000000000"
+
+        [cases.stop.snapshots.before_driver.policy.solve_tolerance]
+        exact = "1//17592186044416"
+        bits = "3d30000000000000"
+
+    [[cases.stop.snapshots.before_driver.lower]]
+    finite = true
+
+        [cases.stop.snapshots.before_driver.lower.value]
+        exact = "-8500259669165361//9444732965739290427392"
+        bits = "beae32f0ee144531"
+    [[cases.stop.snapshots.before_driver.lower]]
+    finite = false
+    value = "infinite"
+
+    [[cases.stop.snapshots.before_driver.column_scaling]]
+    exact = "1//1"
+    bits = "3ff0000000000000"
+
+    [cases.stop.snapshots.before_driver.event_counts]
+    flip_completed = 0
+    precision_boost = 0
+    phase_dual = 0
+    correction_attempt = 0
+    crash_pivot = 0
+    lp_refinement = 0
+    pricing_devex = 0
+    checkpoint = 0
+    restore_checkpoint = 0
+    correction = 0
+    artificial_removed = 0
+    phase_auxiliary = 0
+    pricing_pool_hit = 0
+    stagnation_fallback = 0
+    pricing_weight_rejected = 0
+    bound_flipped = 0
+    lp_correction_certification = 0
+    refactor_other = 1
+    pivot_completed = 1
+    feasibility_recovery = 0
+    pricing_full_scan = 2
+    pricing = 2
+    repair = 0
+    pricing_phase_reset = 0
+    primal_point_balanced = 0
+    refactor_pivot = 0
+    phase_crash = 0
+    stagnation_watch = 0
+    pricing_scored_entries = 1
+    phase_lp_refinement = 0
+    primal_projection_attempt = 0
+    crash_rejected_quality = 0
+    primal_point_corrected = 0
+    phase_one = 0
+    phase_cleanup = 0
+    refactor_growth = 0
+    crash_fallback = 0
+    certification = 0
+    refactor_residual = 0
+    certification_failed = 0
+    refactor_fill = 0
+    phase_primal = 0
+    primal_point_preserved = 0
+    pricing_block_scan = 0
+    pricing_trial_expired = 0
+    perturbation = 1
+    crash_rejected_fill = 0
+    primal_point_projected = 0
+    pricing_steepest_edge = 0
+    refactor_cost = 0
+    crash_accepted = 0
+    pricing_scanned_entries = 4
+    certificate_corrected = 0
+    primal_prices_corrected = 0
+    pivot_rejected = 0
+    pricing_progress_return = 0
+    refactor_initial = 1
+    restore_perturbations = 0
+    pricing_reset = 0
+    stagnation_cost_rebase = 0
+    refactor_limit = 0
+    pivot_proposed = 1
+    stagnation_stalled = 0
+    pricing_dantzig = 0
+
+    [[cases.stop.snapshots.before_driver.prices]]
+    exact = "1//1"
+    bits = "3ff0000000000000"
+    [[cases.stop.snapshots.before_driver.prices]]
+    exact = "0//1"
+    bits = "0000000000000000"
+
+    [cases.stop.snapshots.before_driver.kernel_calls]
+    hypersparse_ftran_sparse = 0
+    hypersparse_bfrt_empty = 0
+    refactorization = 0
+    hypersparse_support = 0
+    hypersparse_btran_sparse = 0
+    hypersparse_weight_ftran_dense = 0
+    hypersparse_pricing_dense = 0
+    hypersparse_base_graph = 0
+    hypersparse_btran_empty = 0
+    hypersparse_weight_btran_sparse = 0
+    ftran = 2
+    hypersparse_weight_ftran_sparse = 0
+    hypersparse_pricing_empty = 0
+    hypersparse_bfrt_dense = 0
+    hypersparse_ftran_dense = 0
+    pricing = 2
+    hypersparse_btran_dense = 0
+    row_index = 0
+    btran = 3
+    hypersparse_ftran_empty = 0
+    hypersparse_upper_graph = 0
+    hypersparse_pricing_sparse = 0
+    hypersparse_weight_btran_dense = 0
+    hypersparse_weight_ftran_empty = 0
+    crash = 0
+    hypersparse_bfrt_sparse = 0
+    hypersparse_weight_btran_empty = 0
+    hypersparse_setup = 0
+
+    [[cases.stop.snapshots.before_driver.row_scaling]]
+    exact = "1//1"
+    bits = "3ff0000000000000"
+
+    [cases.stop.snapshots.before_driver.journal]
+    owner = "10246029858197381371"
+    lower_identity = "8270001856657401304"
+    original_perturbed = false
+    lower_alias = true
+    cost_length_match = true
+    identity = "126389541851085420"
+    upper_identity = "5935595344595761875"
+    upper_alias = true
+    owner_match = true
+    active = false
+
+        [[cases.stop.snapshots.before_driver.journal.active_costs]]
+        exact = "1//1"
+        bits = "3ff0000000000000"
+        [[cases.stop.snapshots.before_driver.journal.active_costs]]
+        exact = "0//1"
+        bits = "0000000000000000"
+
+        [[cases.stop.snapshots.before_driver.journal.original_costs]]
+        exact = "1//1"
+        bits = "3ff0000000000000"
+        [[cases.stop.snapshots.before_driver.journal.original_costs]]
+        exact = "0//1"
+        bits = "0000000000000000"
+
+        [cases.stop.snapshots.before_driver.journal.bounds]
+        level = 1
+        active = true
+
+            [[cases.stop.snapshots.before_driver.journal.bounds.original_lower]]
+            finite = true
+
+                [cases.stop.snapshots.before_driver.journal.bounds.original_lower.value]
+                exact = "0//1"
+                bits = "0000000000000000"
+            [[cases.stop.snapshots.before_driver.journal.bounds.original_lower]]
+            finite = false
+            value = "infinite"
+
+            [[cases.stop.snapshots.before_driver.journal.bounds.original_upper]]
+            finite = false
+            value = "infinite"
+            [[cases.stop.snapshots.before_driver.journal.bounds.original_upper]]
+            finite = false
+            value = "infinite"
+
+            [[cases.stop.snapshots.before_driver.journal.bounds.active_lower]]
+            finite = true
+
+                [cases.stop.snapshots.before_driver.journal.bounds.active_lower.value]
+                exact = "-8500259669165361//9444732965739290427392"
+                bits = "beae32f0ee144531"
+            [[cases.stop.snapshots.before_driver.journal.bounds.active_lower]]
+            finite = false
+            value = "infinite"
+
+            [[cases.stop.snapshots.before_driver.journal.bounds.active_upper]]
+            finite = false
+            value = "infinite"
+            [[cases.stop.snapshots.before_driver.journal.bounds.active_upper]]
+            finite = false
+            value = "infinite"
+
+    [cases.stop.snapshots.before_driver.model]
+    name = ""
+    objective_sense = "MIN_SENSE"
+    rowval = [1]
+    colptr = [1, 2]
+    variable_domains = ["CONTINUOUS"]
+
+        [[cases.stop.snapshots.before_driver.model.nzval]]
+        exact = "1//1"
+        bits = "3ff0000000000000"
+
+        [[cases.stop.snapshots.before_driver.model.objective]]
+        exact = "1//1"
+        bits = "3ff0000000000000"
+
+        [[cases.stop.snapshots.before_driver.model.row_lower]]
+        finite = false
+        value = "infinite"
+
+        [[cases.stop.snapshots.before_driver.model.column_lower]]
+        finite = true
+
+            [cases.stop.snapshots.before_driver.model.column_lower.value]
+            exact = "0//1"
+            bits = "0000000000000000"
+
+        [[cases.stop.snapshots.before_driver.model.column_upper]]
+        finite = false
+        value = "infinite"
+
+        [cases.stop.snapshots.before_driver.model.objective_constant]
+        exact = "0//1"
+        bits = "0000000000000000"
+
+        [[cases.stop.snapshots.before_driver.model.row_upper]]
+        finite = false
+        value = "infinite"
+
+    [[cases.stop.snapshots.before_driver.upper]]
+    finite = false
+    value = "infinite"
+    [[cases.stop.snapshots.before_driver.upper]]
+    finite = false
+    value = "infinite"
+
+    [[cases.stop.snapshots.before_driver.point]]
+    exact = "-8500259669165361//9444732965739290427392"
+    bits = "beae32f0ee144531"
+    [[cases.stop.snapshots.before_driver.point]]
+    exact = "-8500259669165361//9444732965739290427392"
+    bits = "beae32f0ee144531"
+
+    [[cases.stop.snapshots.before_driver.costs]]
+    exact = "1//1"
+    bits = "3ff0000000000000"
+    [[cases.stop.snapshots.before_driver.costs]]
+    exact = "0//1"
+    bits = "0000000000000000"
+
+    [[cases.stop.snapshots.before_driver.rho]]
+    exact = "0//1"
+    bits = "0000000000000000"
+
+[cases.stop.snapshots.setup]
+refactorization_offset = 0
+event_ring = ["refactor_initial", "refactor_other", "perturbation"]
+kernel_timing = false
+perturbed = true
+start_ns = "248960460911170"
+factor_type = "JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}"
+basis = [1]
+next_event = 4
+refactorizations = 1
+iteration_offset = 0
+states = ["BASIC", "FREE_NONBASIC"]
+iterations = 0
+observer_absent = true
+
+    [cases.stop.snapshots.setup.options]
+    basis_update = "pfi"
+    simplex_strategy = "legacy"
+    basis_refactorization = "native"
+    partial_pricing = false
+    scaling = "auto"
+    iteration_limit = 20
+    pricing = "steepest_edge"
+    log_level = "Debug"
+    verbose = false
+    algorithm = "primal"
+    presolve = true
+    refactorization_interval = 20
+
+        [cases.stop.snapshots.setup.options.time_limit]
+        exact = "30//1"
+        bits = "403e000000000000"
+
+        [cases.stop.snapshots.setup.options.zero_tolerance]
+        exact = "4951760157141521//4951760157141521099596496896"
+        bits = "3d719799812dea11"
+
+        [cases.stop.snapshots.setup.options.primal_tolerance]
+        exact = "944473296573929//9444732965739290427392"
+        bits = "3e7ad7f29abcaf48"
+
+        [cases.stop.snapshots.setup.options.dual_tolerance]
+        exact = "944473296573929//9444732965739290427392"
+        bits = "3e7ad7f29abcaf48"
+
+    [cases.stop.snapshots.setup.kernel_nanoseconds]
+    hypersparse_ftran_sparse = "0"
+    hypersparse_bfrt_empty = "0"
+    refactorization = "0"
+    hypersparse_support = "0"
+    hypersparse_btran_sparse = "0"
+    hypersparse_weight_ftran_dense = "0"
+    hypersparse_pricing_dense = "0"
+    hypersparse_base_graph = "0"
+    hypersparse_btran_empty = "0"
+    hypersparse_weight_btran_sparse = "0"
+    ftran = "0"
+    hypersparse_weight_ftran_sparse = "0"
+    hypersparse_pricing_empty = "0"
+    hypersparse_bfrt_dense = "0"
+    hypersparse_ftran_dense = "0"
+    pricing = "0"
+    hypersparse_btran_dense = "0"
+    row_index = "0"
+    btran = "0"
+    hypersparse_ftran_empty = "0"
+    hypersparse_upper_graph = "0"
+    hypersparse_pricing_sparse = "0"
+    hypersparse_weight_btran_dense = "0"
+    hypersparse_weight_ftran_empty = "0"
+    crash = "0"
+    hypersparse_bfrt_sparse = "0"
+    hypersparse_weight_btran_empty = "0"
+    hypersparse_setup = "0"
+
+    [cases.stop.snapshots.setup.policy]
+    refactor_timing = false
+    stable_ratio = false
+    precision_boosting = false
+    max_precision_memory_bytes = 1073741824
+    recovery = false
+    max_refinements = 3
+    incremental_primal = false
+    partial_pricing = false
+    adaptive_primal_perturbation = true
+    lp_refinement = false
+    adaptive_refactor = true
+    sparse_pricing = false
+    max_lp_refinements = 8
+    adaptive_stalling = true
+    max_pivot_candidates = 8
+    pivot_validation = false
+    adaptive_pricing = true
+    feasibility_recovery = false
+    max_recovery_rounds = 2
+    adaptive_dual_perturbation = true
+    solve_refinement = false
+    hypersparse = false
+    incremental_primal_pivots = false
+    phase_one = false
+    crash = false
+    max_precision_bits = 512
+    stagnation_window = 64
+
+        [cases.stop.snapshots.setup.policy.pivot_error_tolerance]
+        exact = "1//67108864"
+        bits = "3e50000000000000"
+
+        [cases.stop.snapshots.setup.policy.solve_tolerance]
+        exact = "1//17592186044416"
+        bits = "3d30000000000000"
+
+    [[cases.stop.snapshots.setup.lower]]
+    finite = true
+
+        [cases.stop.snapshots.setup.lower.value]
+        exact = "-8500259669165361//9444732965739290427392"
+        bits = "beae32f0ee144531"
+    [[cases.stop.snapshots.setup.lower]]
+    finite = false
+    value = "infinite"
+
+    [[cases.stop.snapshots.setup.column_scaling]]
+    exact = "1//1"
+    bits = "3ff0000000000000"
+
+    [cases.stop.snapshots.setup.event_counts]
+    flip_completed = 0
+    precision_boost = 0
+    phase_dual = 0
+    correction_attempt = 0
+    crash_pivot = 0
+    lp_refinement = 0
+    pricing_devex = 0
+    checkpoint = 0
+    restore_checkpoint = 0
+    correction = 0
+    artificial_removed = 0
+    phase_auxiliary = 0
+    pricing_pool_hit = 0
+    stagnation_fallback = 0
+    pricing_weight_rejected = 0
+    bound_flipped = 0
+    lp_correction_certification = 0
+    refactor_other = 1
+    pivot_completed = 0
+    feasibility_recovery = 0
+    pricing_full_scan = 0
+    pricing = 0
+    repair = 0
+    pricing_phase_reset = 0
+    primal_point_balanced = 0
+    refactor_pivot = 0
+    phase_crash = 0
+    stagnation_watch = 0
+    pricing_scored_entries = 0
+    phase_lp_refinement = 0
+    primal_projection_attempt = 0
+    crash_rejected_quality = 0
+    primal_point_corrected = 0
+    phase_one = 0
+    phase_cleanup = 0
+    refactor_growth = 0
+    crash_fallback = 0
+    certification = 0
+    refactor_residual = 0
+    certification_failed = 0
+    refactor_fill = 0
+    phase_primal = 0
+    primal_point_preserved = 0
+    pricing_block_scan = 0
+    pricing_trial_expired = 0
+    perturbation = 1
+    crash_rejected_fill = 0
+    primal_point_projected = 0
+    pricing_steepest_edge = 0
+    refactor_cost = 0
+    crash_accepted = 0
+    pricing_scanned_entries = 0
+    certificate_corrected = 0
+    primal_prices_corrected = 0
+    pivot_rejected = 0
+    pricing_progress_return = 0
+    refactor_initial = 1
+    restore_perturbations = 0
+    pricing_reset = 0
+    stagnation_cost_rebase = 0
+    refactor_limit = 0
+    pivot_proposed = 0
+    stagnation_stalled = 0
+    pricing_dantzig = 0
+
+    [[cases.stop.snapshots.setup.prices]]
+    exact = "0//1"
+    bits = "0000000000000000"
+    [[cases.stop.snapshots.setup.prices]]
+    exact = "1//1"
+    bits = "3ff0000000000000"
+
+    [cases.stop.snapshots.setup.kernel_calls]
+    hypersparse_ftran_sparse = 0
+    hypersparse_bfrt_empty = 0
+    refactorization = 0
+    hypersparse_support = 0
+    hypersparse_btran_sparse = 0
+    hypersparse_weight_ftran_dense = 0
+    hypersparse_pricing_dense = 0
+    hypersparse_base_graph = 0
+    hypersparse_btran_empty = 0
+    hypersparse_weight_btran_sparse = 0
+    ftran = 0
+    hypersparse_weight_ftran_sparse = 0
+    hypersparse_pricing_empty = 0
+    hypersparse_bfrt_dense = 0
+    hypersparse_ftran_dense = 0
+    pricing = 0
+    hypersparse_btran_dense = 0
+    row_index = 0
+    btran = 0
+    hypersparse_ftran_empty = 0
+    hypersparse_upper_graph = 0
+    hypersparse_pricing_sparse = 0
+    hypersparse_weight_btran_dense = 0
+    hypersparse_weight_ftran_empty = 0
+    crash = 0
+    hypersparse_bfrt_sparse = 0
+    hypersparse_weight_btran_empty = 0
+    hypersparse_setup = 0
+
+    [[cases.stop.snapshots.setup.row_scaling]]
+    exact = "1//1"
+    bits = "3ff0000000000000"
+
+    [cases.stop.snapshots.setup.journal]
+    owner = "10246029858197381371"
+    lower_identity = "8270001856657401304"
+    original_perturbed = false
+    lower_alias = true
+    cost_length_match = true
+    identity = "126389541851085420"
+    upper_identity = "5935595344595761875"
+    upper_alias = true
+    owner_match = true
+    active = false
+
+        [[cases.stop.snapshots.setup.journal.active_costs]]
+        exact = "1//1"
+        bits = "3ff0000000000000"
+        [[cases.stop.snapshots.setup.journal.active_costs]]
+        exact = "0//1"
+        bits = "0000000000000000"
+
+        [[cases.stop.snapshots.setup.journal.original_costs]]
+        exact = "1//1"
+        bits = "3ff0000000000000"
+        [[cases.stop.snapshots.setup.journal.original_costs]]
+        exact = "0//1"
+        bits = "0000000000000000"
+
+        [cases.stop.snapshots.setup.journal.bounds]
+        level = 1
+        active = true
+
+            [[cases.stop.snapshots.setup.journal.bounds.original_lower]]
+            finite = true
+
+                [cases.stop.snapshots.setup.journal.bounds.original_lower.value]
+                exact = "0//1"
+                bits = "0000000000000000"
+            [[cases.stop.snapshots.setup.journal.bounds.original_lower]]
+            finite = false
+            value = "infinite"
+
+            [[cases.stop.snapshots.setup.journal.bounds.original_upper]]
+            finite = false
+            value = "infinite"
+            [[cases.stop.snapshots.setup.journal.bounds.original_upper]]
+            finite = false
+            value = "infinite"
+
+            [[cases.stop.snapshots.setup.journal.bounds.active_lower]]
+            finite = true
+
+                [cases.stop.snapshots.setup.journal.bounds.active_lower.value]
+                exact = "-8500259669165361//9444732965739290427392"
+                bits = "beae32f0ee144531"
+            [[cases.stop.snapshots.setup.journal.bounds.active_lower]]
+            finite = false
+            value = "infinite"
+
+            [[cases.stop.snapshots.setup.journal.bounds.active_upper]]
+            finite = false
+            value = "infinite"
+            [[cases.stop.snapshots.setup.journal.bounds.active_upper]]
+            finite = false
+            value = "infinite"
+
+    [cases.stop.snapshots.setup.model]
+    name = ""
+    objective_sense = "MIN_SENSE"
+    rowval = [1]
+    colptr = [1, 2]
+    variable_domains = ["CONTINUOUS"]
+
+        [[cases.stop.snapshots.setup.model.nzval]]
+        exact = "1//1"
+        bits = "3ff0000000000000"
+
+        [[cases.stop.snapshots.setup.model.objective]]
+        exact = "1//1"
+        bits = "3ff0000000000000"
+
+        [[cases.stop.snapshots.setup.model.row_lower]]
+        finite = false
+        value = "infinite"
+
+        [[cases.stop.snapshots.setup.model.column_lower]]
+        finite = true
+
+            [cases.stop.snapshots.setup.model.column_lower.value]
+            exact = "0//1"
+            bits = "0000000000000000"
+
+        [[cases.stop.snapshots.setup.model.column_upper]]
+        finite = false
+        value = "infinite"
+
+        [cases.stop.snapshots.setup.model.objective_constant]
+        exact = "0//1"
+        bits = "0000000000000000"
+
+        [[cases.stop.snapshots.setup.model.row_upper]]
+        finite = false
+        value = "infinite"
+
+    [[cases.stop.snapshots.setup.upper]]
+    finite = false
+    value = "infinite"
+    [[cases.stop.snapshots.setup.upper]]
+    finite = false
+    value = "infinite"
+
+    [[cases.stop.snapshots.setup.point]]
+    exact = "0//1"
+    bits = "0000000000000000"
+    [[cases.stop.snapshots.setup.point]]
+    exact = "0//1"
+    bits = "0000000000000000"
+
+    [[cases.stop.snapshots.setup.costs]]
+    exact = "1//1"
+    bits = "3ff0000000000000"
+    [[cases.stop.snapshots.setup.costs]]
+    exact = "0//1"
+    bits = "0000000000000000"
+
+    [[cases.stop.snapshots.setup.rho]]
+    exact = "1//1"
+    bits = "3ff0000000000000"
+
+[cases.stop.snapshots.initial]
+refactorization_offset = 0
+event_ring = ["refactor_initial", "refactor_other", "perturbation", "pricing", "pivot_proposed", "pivot_completed", "pricing"]
+kernel_timing = true
+perturbed = true
+start_ns = "248960460911170"
+factor_type = "JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}"
+basis = [2]
+next_event = 8
+refactorizations = 1
+iteration_offset = 0
+states = ["AT_LOWER", "BASIC"]
+iterations = 1
+observer_absent = true
+
+    [cases.stop.snapshots.initial.options]
+    basis_update = "pfi"
+    simplex_strategy = "legacy"
+    basis_refactorization = "native"
+    partial_pricing = false
+    scaling = "auto"
+    iteration_limit = 20
+    pricing = "steepest_edge"
+    log_level = "Debug"
+    verbose = false
+    algorithm = "primal"
+    presolve = true
+    refactorization_interval = 20
+
+        [cases.stop.snapshots.initial.options.time_limit]
+        exact = "30//1"
+        bits = "403e000000000000"
+
+        [cases.stop.snapshots.initial.options.zero_tolerance]
+        exact = "4951760157141521//4951760157141521099596496896"
+        bits = "3d719799812dea11"
+
+        [cases.stop.snapshots.initial.options.primal_tolerance]
+        exact = "944473296573929//9444732965739290427392"
+        bits = "3e7ad7f29abcaf48"
+
+        [cases.stop.snapshots.initial.options.dual_tolerance]
+        exact = "944473296573929//9444732965739290427392"
+        bits = "3e7ad7f29abcaf48"
+
+    [cases.stop.snapshots.initial.kernel_nanoseconds]
+    hypersparse_ftran_sparse = "0"
+    hypersparse_bfrt_empty = "0"
+    refactorization = "0"
+    hypersparse_support = "0"
+    hypersparse_btran_sparse = "0"
+    hypersparse_weight_ftran_dense = "0"
+    hypersparse_pricing_dense = "0"
+    hypersparse_base_graph = "0"
+    hypersparse_btran_empty = "0"
+    hypersparse_weight_btran_sparse = "0"
+    ftran = "6000"
+    hypersparse_weight_ftran_sparse = "0"
+    hypersparse_pricing_empty = "0"
+    hypersparse_bfrt_dense = "0"
+    hypersparse_ftran_dense = "0"
+    pricing = "4600"
+    hypersparse_btran_dense = "0"
+    row_index = "0"
+    btran = "2600"
+    hypersparse_ftran_empty = "0"
+    hypersparse_upper_graph = "0"
+    hypersparse_pricing_sparse = "0"
+    hypersparse_weight_btran_dense = "0"
+    hypersparse_weight_ftran_empty = "0"
+    crash = "0"
+    hypersparse_bfrt_sparse = "0"
+    hypersparse_weight_btran_empty = "0"
+    hypersparse_setup = "0"
+
+    [cases.stop.snapshots.initial.policy]
+    refactor_timing = false
+    stable_ratio = false
+    precision_boosting = false
+    max_precision_memory_bytes = 1073741824
+    recovery = false
+    max_refinements = 3
+    incremental_primal = false
+    partial_pricing = false
+    adaptive_primal_perturbation = true
+    lp_refinement = false
+    adaptive_refactor = true
+    sparse_pricing = false
+    max_lp_refinements = 8
+    adaptive_stalling = true
+    max_pivot_candidates = 8
+    pivot_validation = false
+    adaptive_pricing = true
+    feasibility_recovery = false
+    max_recovery_rounds = 2
+    adaptive_dual_perturbation = true
+    solve_refinement = false
+    hypersparse = false
+    incremental_primal_pivots = false
+    phase_one = false
+    crash = false
+    max_precision_bits = 512
+    stagnation_window = 64
+
+        [cases.stop.snapshots.initial.policy.pivot_error_tolerance]
+        exact = "1//67108864"
+        bits = "3e50000000000000"
+
+        [cases.stop.snapshots.initial.policy.solve_tolerance]
+        exact = "1//17592186044416"
+        bits = "3d30000000000000"
+
+    [[cases.stop.snapshots.initial.lower]]
+    finite = true
+
+        [cases.stop.snapshots.initial.lower.value]
+        exact = "-8500259669165361//9444732965739290427392"
+        bits = "beae32f0ee144531"
+    [[cases.stop.snapshots.initial.lower]]
+    finite = false
+    value = "infinite"
+
+    [[cases.stop.snapshots.initial.column_scaling]]
+    exact = "1//1"
+    bits = "3ff0000000000000"
+
+    [cases.stop.snapshots.initial.event_counts]
+    flip_completed = 0
+    precision_boost = 0
+    phase_dual = 0
+    correction_attempt = 0
+    crash_pivot = 0
+    lp_refinement = 0
+    pricing_devex = 0
+    checkpoint = 0
+    restore_checkpoint = 0
+    correction = 0
+    artificial_removed = 0
+    phase_auxiliary = 0
+    pricing_pool_hit = 0
+    stagnation_fallback = 0
+    pricing_weight_rejected = 0
+    bound_flipped = 0
+    lp_correction_certification = 0
+    refactor_other = 1
+    pivot_completed = 1
+    feasibility_recovery = 0
+    pricing_full_scan = 2
+    pricing = 2
+    repair = 0
+    pricing_phase_reset = 0
+    primal_point_balanced = 0
+    refactor_pivot = 0
+    phase_crash = 0
+    stagnation_watch = 0
+    pricing_scored_entries = 1
+    phase_lp_refinement = 0
+    primal_projection_attempt = 0
+    crash_rejected_quality = 0
+    primal_point_corrected = 0
+    phase_one = 0
+    phase_cleanup = 0
+    refactor_growth = 0
+    crash_fallback = 0
+    certification = 0
+    refactor_residual = 0
+    certification_failed = 0
+    refactor_fill = 0
+    phase_primal = 0
+    primal_point_preserved = 0
+    pricing_block_scan = 0
+    pricing_trial_expired = 0
+    perturbation = 1
+    crash_rejected_fill = 0
+    primal_point_projected = 0
+    pricing_steepest_edge = 0
+    refactor_cost = 0
+    crash_accepted = 0
+    pricing_scanned_entries = 4
+    certificate_corrected = 0
+    primal_prices_corrected = 0
+    pivot_rejected = 0
+    pricing_progress_return = 0
+    refactor_initial = 1
+    restore_perturbations = 0
+    pricing_reset = 0
+    stagnation_cost_rebase = 0
+    refactor_limit = 0
+    pivot_proposed = 1
+    stagnation_stalled = 0
+    pricing_dantzig = 0
+
+    [[cases.stop.snapshots.initial.prices]]
+    exact = "1//1"
+    bits = "3ff0000000000000"
+    [[cases.stop.snapshots.initial.prices]]
+    exact = "0//1"
+    bits = "0000000000000000"
+
+    [cases.stop.snapshots.initial.kernel_calls]
+    hypersparse_ftran_sparse = 0
+    hypersparse_bfrt_empty = 0
+    refactorization = 0
+    hypersparse_support = 0
+    hypersparse_btran_sparse = 0
+    hypersparse_weight_ftran_dense = 0
+    hypersparse_pricing_dense = 0
+    hypersparse_base_graph = 0
+    hypersparse_btran_empty = 0
+    hypersparse_weight_btran_sparse = 0
+    ftran = 2
+    hypersparse_weight_ftran_sparse = 0
+    hypersparse_pricing_empty = 0
+    hypersparse_bfrt_dense = 0
+    hypersparse_ftran_dense = 0
+    pricing = 2
+    hypersparse_btran_dense = 0
+    row_index = 0
+    btran = 3
+    hypersparse_ftran_empty = 0
+    hypersparse_upper_graph = 0
+    hypersparse_pricing_sparse = 0
+    hypersparse_weight_btran_dense = 0
+    hypersparse_weight_ftran_empty = 0
+    crash = 0
+    hypersparse_bfrt_sparse = 0
+    hypersparse_weight_btran_empty = 0
+    hypersparse_setup = 0
+
+    [[cases.stop.snapshots.initial.row_scaling]]
+    exact = "1//1"
+    bits = "3ff0000000000000"
+
+    [cases.stop.snapshots.initial.journal]
+    owner = "10246029858197381371"
+    lower_identity = "8270001856657401304"
+    original_perturbed = false
+    lower_alias = true
+    cost_length_match = true
+    identity = "126389541851085420"
+    upper_identity = "5935595344595761875"
+    upper_alias = true
+    owner_match = true
+    active = false
+
+        [[cases.stop.snapshots.initial.journal.active_costs]]
+        exact = "1//1"
+        bits = "3ff0000000000000"
+        [[cases.stop.snapshots.initial.journal.active_costs]]
+        exact = "0//1"
+        bits = "0000000000000000"
+
+        [[cases.stop.snapshots.initial.journal.original_costs]]
+        exact = "1//1"
+        bits = "3ff0000000000000"
+        [[cases.stop.snapshots.initial.journal.original_costs]]
+        exact = "0//1"
+        bits = "0000000000000000"
+
+        [cases.stop.snapshots.initial.journal.bounds]
+        level = 1
+        active = true
+
+            [[cases.stop.snapshots.initial.journal.bounds.original_lower]]
+            finite = true
+
+                [cases.stop.snapshots.initial.journal.bounds.original_lower.value]
+                exact = "0//1"
+                bits = "0000000000000000"
+            [[cases.stop.snapshots.initial.journal.bounds.original_lower]]
+            finite = false
+            value = "infinite"
+
+            [[cases.stop.snapshots.initial.journal.bounds.original_upper]]
+            finite = false
+            value = "infinite"
+            [[cases.stop.snapshots.initial.journal.bounds.original_upper]]
+            finite = false
+            value = "infinite"
+
+            [[cases.stop.snapshots.initial.journal.bounds.active_lower]]
+            finite = true
+
+                [cases.stop.snapshots.initial.journal.bounds.active_lower.value]
+                exact = "-8500259669165361//9444732965739290427392"
+                bits = "beae32f0ee144531"
+            [[cases.stop.snapshots.initial.journal.bounds.active_lower]]
+            finite = false
+            value = "infinite"
+
+            [[cases.stop.snapshots.initial.journal.bounds.active_upper]]
+            finite = false
+            value = "infinite"
+            [[cases.stop.snapshots.initial.journal.bounds.active_upper]]
+            finite = false
+            value = "infinite"
+
+    [cases.stop.snapshots.initial.model]
+    name = ""
+    objective_sense = "MIN_SENSE"
+    rowval = [1]
+    colptr = [1, 2]
+    variable_domains = ["CONTINUOUS"]
+
+        [[cases.stop.snapshots.initial.model.nzval]]
+        exact = "1//1"
+        bits = "3ff0000000000000"
+
+        [[cases.stop.snapshots.initial.model.objective]]
+        exact = "1//1"
+        bits = "3ff0000000000000"
+
+        [[cases.stop.snapshots.initial.model.row_lower]]
+        finite = false
+        value = "infinite"
+
+        [[cases.stop.snapshots.initial.model.column_lower]]
+        finite = true
+
+            [cases.stop.snapshots.initial.model.column_lower.value]
+            exact = "0//1"
+            bits = "0000000000000000"
+
+        [[cases.stop.snapshots.initial.model.column_upper]]
+        finite = false
+        value = "infinite"
+
+        [cases.stop.snapshots.initial.model.objective_constant]
+        exact = "0//1"
+        bits = "0000000000000000"
+
+        [[cases.stop.snapshots.initial.model.row_upper]]
+        finite = false
+        value = "infinite"
+
+    [[cases.stop.snapshots.initial.upper]]
+    finite = false
+    value = "infinite"
+    [[cases.stop.snapshots.initial.upper]]
+    finite = false
+    value = "infinite"
+
+    [[cases.stop.snapshots.initial.point]]
+    exact = "-8500259669165361//9444732965739290427392"
+    bits = "beae32f0ee144531"
+    [[cases.stop.snapshots.initial.point]]
+    exact = "-8500259669165361//9444732965739290427392"
+    bits = "beae32f0ee144531"
+
+    [[cases.stop.snapshots.initial.costs]]
+    exact = "1//1"
+    bits = "3ff0000000000000"
+    [[cases.stop.snapshots.initial.costs]]
+    exact = "0//1"
+    bits = "0000000000000000"
+
+    [[cases.stop.snapshots.initial.rho]]
+    exact = "0//1"
+    bits = "0000000000000000"
+
+[cases.stop.snapshots.final]
+refactorization_offset = 0
+event_ring = ["refactor_initial", "refactor_other", "perturbation", "pricing", "pivot_proposed", "pivot_completed", "pricing", "checkpoint"]
+kernel_timing = true
+perturbed = true
+start_ns = "248960460911170"
+factor_type = "JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}"
+basis = [2]
+next_event = 9
+refactorizations = 1
+iteration_offset = 0
+states = ["AT_LOWER", "BASIC"]
+iterations = 1
+observer_absent = true
+
+    [cases.stop.snapshots.final.options]
+    basis_update = "pfi"
+    simplex_strategy = "legacy"
+    basis_refactorization = "native"
+    partial_pricing = false
+    scaling = "auto"
+    iteration_limit = 20
+    pricing = "steepest_edge"
+    log_level = "Debug"
+    verbose = false
+    algorithm = "primal"
+    presolve = true
+    refactorization_interval = 20
+
+        [cases.stop.snapshots.final.options.time_limit]
+        exact = "30//1"
+        bits = "403e000000000000"
+
+        [cases.stop.snapshots.final.options.zero_tolerance]
+        exact = "4951760157141521//4951760157141521099596496896"
+        bits = "3d719799812dea11"
+
+        [cases.stop.snapshots.final.options.primal_tolerance]
+        exact = "944473296573929//9444732965739290427392"
+        bits = "3e7ad7f29abcaf48"
+
+        [cases.stop.snapshots.final.options.dual_tolerance]
+        exact = "944473296573929//9444732965739290427392"
+        bits = "3e7ad7f29abcaf48"
+
+    [cases.stop.snapshots.final.kernel_nanoseconds]
+    hypersparse_ftran_sparse = "0"
+    hypersparse_bfrt_empty = "0"
+    refactorization = "0"
+    hypersparse_support = "0"
+    hypersparse_btran_sparse = "0"
+    hypersparse_weight_ftran_dense = "0"
+    hypersparse_pricing_dense = "0"
+    hypersparse_base_graph = "0"
+    hypersparse_btran_empty = "0"
+    hypersparse_weight_btran_sparse = "0"
+    ftran = "6000"
+    hypersparse_weight_ftran_sparse = "0"
+    hypersparse_pricing_empty = "0"
+    hypersparse_bfrt_dense = "0"
+    hypersparse_ftran_dense = "0"
+    pricing = "4600"
+    hypersparse_btran_dense = "0"
+    row_index = "0"
+    btran = "2600"
+    hypersparse_ftran_empty = "0"
+    hypersparse_upper_graph = "0"
+    hypersparse_pricing_sparse = "0"
+    hypersparse_weight_btran_dense = "0"
+    hypersparse_weight_ftran_empty = "0"
+    crash = "0"
+    hypersparse_bfrt_sparse = "0"
+    hypersparse_weight_btran_empty = "0"
+    hypersparse_setup = "0"
+
+    [cases.stop.snapshots.final.policy]
+    refactor_timing = true
+    stable_ratio = false
+    precision_boosting = false
+    max_precision_memory_bytes = 1073741824
+    recovery = false
+    max_refinements = 3
+    incremental_primal = false
+    partial_pricing = false
+    adaptive_primal_perturbation = false
+    lp_refinement = false
+    adaptive_refactor = false
+    sparse_pricing = false
+    max_lp_refinements = 8
+    adaptive_stalling = false
+    max_pivot_candidates = 8
+    pivot_validation = false
+    adaptive_pricing = false
+    feasibility_recovery = false
+    max_recovery_rounds = 2
+    adaptive_dual_perturbation = false
+    solve_refinement = false
+    hypersparse = false
+    incremental_primal_pivots = false
+    phase_one = false
+    crash = false
+    max_precision_bits = 512
+    stagnation_window = 64
+
+        [cases.stop.snapshots.final.policy.pivot_error_tolerance]
+        exact = "1//67108864"
+        bits = "3e50000000000000"
+
+        [cases.stop.snapshots.final.policy.solve_tolerance]
+        exact = "1//17592186044416"
+        bits = "3d30000000000000"
+
+    [[cases.stop.snapshots.final.lower]]
+    finite = true
+
+        [cases.stop.snapshots.final.lower.value]
+        exact = "-8500259669165361//9444732965739290427392"
+        bits = "beae32f0ee144531"
+    [[cases.stop.snapshots.final.lower]]
+    finite = false
+    value = "infinite"
+
+    [[cases.stop.snapshots.final.column_scaling]]
+    exact = "1//1"
+    bits = "3ff0000000000000"
+
+    [cases.stop.snapshots.final.event_counts]
+    flip_completed = 0
+    precision_boost = 0
+    phase_dual = 0
+    correction_attempt = 0
+    crash_pivot = 0
+    lp_refinement = 0
+    pricing_devex = 0
+    checkpoint = 1
+    restore_checkpoint = 0
+    correction = 0
+    artificial_removed = 0
+    phase_auxiliary = 0
+    pricing_pool_hit = 0
+    stagnation_fallback = 0
+    pricing_weight_rejected = 0
+    bound_flipped = 0
+    lp_correction_certification = 0
+    refactor_other = 1
+    pivot_completed = 1
+    feasibility_recovery = 0
+    pricing_full_scan = 2
+    pricing = 2
+    repair = 0
+    pricing_phase_reset = 0
+    primal_point_balanced = 0
+    refactor_pivot = 0
+    phase_crash = 0
+    stagnation_watch = 0
+    pricing_scored_entries = 1
+    phase_lp_refinement = 0
+    primal_projection_attempt = 0
+    crash_rejected_quality = 0
+    primal_point_corrected = 0
+    phase_one = 0
+    phase_cleanup = 0
+    refactor_growth = 0
+    crash_fallback = 0
+    certification = 0
+    refactor_residual = 0
+    certification_failed = 0
+    refactor_fill = 0
+    phase_primal = 0
+    primal_point_preserved = 0
+    pricing_block_scan = 0
+    pricing_trial_expired = 0
+    perturbation = 1
+    crash_rejected_fill = 0
+    primal_point_projected = 0
+    pricing_steepest_edge = 0
+    refactor_cost = 0
+    crash_accepted = 0
+    pricing_scanned_entries = 4
+    certificate_corrected = 0
+    primal_prices_corrected = 0
+    pivot_rejected = 0
+    pricing_progress_return = 0
+    refactor_initial = 1
+    restore_perturbations = 0
+    pricing_reset = 0
+    stagnation_cost_rebase = 0
+    refactor_limit = 0
+    pivot_proposed = 1
+    stagnation_stalled = 0
+    pricing_dantzig = 0
+
+    [[cases.stop.snapshots.final.prices]]
+    exact = "1//1"
+    bits = "3ff0000000000000"
+    [[cases.stop.snapshots.final.prices]]
+    exact = "0//1"
+    bits = "0000000000000000"
+
+    [cases.stop.snapshots.final.kernel_calls]
+    hypersparse_ftran_sparse = 0
+    hypersparse_bfrt_empty = 0
+    refactorization = 0
+    hypersparse_support = 0
+    hypersparse_btran_sparse = 0
+    hypersparse_weight_ftran_dense = 0
+    hypersparse_pricing_dense = 0
+    hypersparse_base_graph = 0
+    hypersparse_btran_empty = 0
+    hypersparse_weight_btran_sparse = 0
+    ftran = 2
+    hypersparse_weight_ftran_sparse = 0
+    hypersparse_pricing_empty = 0
+    hypersparse_bfrt_dense = 0
+    hypersparse_ftran_dense = 0
+    pricing = 2
+    hypersparse_btran_dense = 0
+    row_index = 0
+    btran = 3
+    hypersparse_ftran_empty = 0
+    hypersparse_upper_graph = 0
+    hypersparse_pricing_sparse = 0
+    hypersparse_weight_btran_dense = 0
+    hypersparse_weight_ftran_empty = 0
+    crash = 0
+    hypersparse_bfrt_sparse = 0
+    hypersparse_weight_btran_empty = 0
+    hypersparse_setup = 0
+
+    [[cases.stop.snapshots.final.row_scaling]]
+    exact = "1//1"
+    bits = "3ff0000000000000"
+
+    [cases.stop.snapshots.final.journal]
+    owner = "10246029858197381371"
+    lower_identity = "8270001856657401304"
+    original_perturbed = false
+    lower_alias = true
+    cost_length_match = true
+    identity = "126389541851085420"
+    upper_identity = "5935595344595761875"
+    upper_alias = true
+    owner_match = true
+    active = false
+
+        [[cases.stop.snapshots.final.journal.active_costs]]
+        exact = "1//1"
+        bits = "3ff0000000000000"
+        [[cases.stop.snapshots.final.journal.active_costs]]
+        exact = "0//1"
+        bits = "0000000000000000"
+
+        [[cases.stop.snapshots.final.journal.original_costs]]
+        exact = "1//1"
+        bits = "3ff0000000000000"
+        [[cases.stop.snapshots.final.journal.original_costs]]
+        exact = "0//1"
+        bits = "0000000000000000"
+
+        [cases.stop.snapshots.final.journal.bounds]
+        level = 1
+        active = true
+
+            [[cases.stop.snapshots.final.journal.bounds.original_lower]]
+            finite = true
+
+                [cases.stop.snapshots.final.journal.bounds.original_lower.value]
+                exact = "0//1"
+                bits = "0000000000000000"
+            [[cases.stop.snapshots.final.journal.bounds.original_lower]]
+            finite = false
+            value = "infinite"
+
+            [[cases.stop.snapshots.final.journal.bounds.original_upper]]
+            finite = false
+            value = "infinite"
+            [[cases.stop.snapshots.final.journal.bounds.original_upper]]
+            finite = false
+            value = "infinite"
+
+            [[cases.stop.snapshots.final.journal.bounds.active_lower]]
+            finite = true
+
+                [cases.stop.snapshots.final.journal.bounds.active_lower.value]
+                exact = "-8500259669165361//9444732965739290427392"
+                bits = "beae32f0ee144531"
+            [[cases.stop.snapshots.final.journal.bounds.active_lower]]
+            finite = false
+            value = "infinite"
+
+            [[cases.stop.snapshots.final.journal.bounds.active_upper]]
+            finite = false
+            value = "infinite"
+            [[cases.stop.snapshots.final.journal.bounds.active_upper]]
+            finite = false
+            value = "infinite"
+
+    [cases.stop.snapshots.final.model]
+    name = ""
+    objective_sense = "MIN_SENSE"
+    rowval = [1]
+    colptr = [1, 2]
+    variable_domains = ["CONTINUOUS"]
+
+        [[cases.stop.snapshots.final.model.nzval]]
+        exact = "1//1"
+        bits = "3ff0000000000000"
+
+        [[cases.stop.snapshots.final.model.objective]]
+        exact = "1//1"
+        bits = "3ff0000000000000"
+
+        [[cases.stop.snapshots.final.model.row_lower]]
+        finite = false
+        value = "infinite"
+
+        [[cases.stop.snapshots.final.model.column_lower]]
+        finite = true
+
+            [cases.stop.snapshots.final.model.column_lower.value]
+            exact = "0//1"
+            bits = "0000000000000000"
+
+        [[cases.stop.snapshots.final.model.column_upper]]
+        finite = false
+        value = "infinite"
+
+        [cases.stop.snapshots.final.model.objective_constant]
+        exact = "0//1"
+        bits = "0000000000000000"
+
+        [[cases.stop.snapshots.final.model.row_upper]]
+        finite = false
+        value = "infinite"
+
+    [[cases.stop.snapshots.final.upper]]
+    finite = false
+    value = "infinite"
+    [[cases.stop.snapshots.final.upper]]
+    finite = false
+    value = "infinite"
+
+    [[cases.stop.snapshots.final.point]]
+    exact = "-8500259669165361//9444732965739290427392"
+    bits = "beae32f0ee144531"
+    [[cases.stop.snapshots.final.point]]
+    exact = "-8500259669165361//9444732965739290427392"
+    bits = "beae32f0ee144531"
+
+    [[cases.stop.snapshots.final.costs]]
+    exact = "1//1"
+    bits = "3ff0000000000000"
+    [[cases.stop.snapshots.final.costs]]
+    exact = "0//1"
+    bits = "0000000000000000"
+
+    [[cases.stop.snapshots.final.rho]]
+    exact = "0//1"
+    bits = "0000000000000000"
+
+[cases.stop.entries]
+budget_constructor = 1
+run_from_basis = 1
+initial_optimizer = 1
+helper = 1
+
+[cases.throw.times]
+initial_after = "248960899383472"
+helper_before = "248960899251172"
+initial_before = "248960899345972"
+helper_after = "248960899330272"
+driver_after = "248960901698172"
+driver_before = "248960899422772"
+
+[cases.throw.payloads]
+callback_calls = 1
+run = "nothing"
+
+    [cases.throw.payloads.budget_before]
+    iteration_limit = 20
+    iterations = 1
+    start_ns = "248960899268572"
+    refactorizations = 1
+
+        [cases.throw.payloads.budget_before.time_limit_seconds]
+        exact = "30//1"
+        bits = "403e000000000000"
+
+    [cases.throw.payloads.initial]
+    status = "OPTIMAL"
+    message = "optimal solution found"
+
+    [cases.throw.payloads.caught]
+    type = "SingularException"
+    message = "SingularException: matrix is singular; factorization failed. Zero pivot found at index 29"
+    same_sentinel = true
+
+    [cases.throw.payloads.budget_after]
+    iteration_limit = 20
+    iterations = 1
+    start_ns = "248960899268572"
+    refactorizations = 1
+
+        [cases.throw.payloads.budget_after.time_limit_seconds]
+        exact = "30//1"
+        bits = "403e000000000000"
+
+[cases.throw.snapshots.before_driver]
+refactorization_offset = 0
+event_ring = ["refactor_initial", "refactor_other", "perturbation", "pricing", "pivot_proposed", "pivot_completed", "pricing"]
+kernel_timing = true
+perturbed = true
+start_ns = "248960899268572"
+factor_type = "JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}"
+basis = [2]
+next_event = 8
+refactorizations = 1
+iteration_offset = 0
+states = ["AT_LOWER", "BASIC"]
+iterations = 1
+observer_absent = true
+
+    [cases.throw.snapshots.before_driver.options]
+    basis_update = "pfi"
+    simplex_strategy = "legacy"
+    basis_refactorization = "native"
+    partial_pricing = false
+    scaling = "auto"
+    iteration_limit = 20
+    pricing = "steepest_edge"
+    log_level = "Debug"
+    verbose = false
+    algorithm = "primal"
+    presolve = true
+    refactorization_interval = 20
+
+        [cases.throw.snapshots.before_driver.options.time_limit]
+        exact = "30//1"
+        bits = "403e000000000000"
+
+        [cases.throw.snapshots.before_driver.options.zero_tolerance]
+        exact = "4951760157141521//4951760157141521099596496896"
+        bits = "3d719799812dea11"
+
+        [cases.throw.snapshots.before_driver.options.primal_tolerance]
+        exact = "944473296573929//9444732965739290427392"
+        bits = "3e7ad7f29abcaf48"
+
+        [cases.throw.snapshots.before_driver.options.dual_tolerance]
+        exact = "944473296573929//9444732965739290427392"
+        bits = "3e7ad7f29abcaf48"
+
+    [cases.throw.snapshots.before_driver.kernel_nanoseconds]
+    hypersparse_ftran_sparse = "0"
+    hypersparse_bfrt_empty = "0"
+    refactorization = "0"
+    hypersparse_support = "0"
+    hypersparse_btran_sparse = "0"
+    hypersparse_weight_ftran_dense = "0"
+    hypersparse_pricing_dense = "0"
+    hypersparse_base_graph = "0"
+    hypersparse_btran_empty = "0"
+    hypersparse_weight_btran_sparse = "0"
+    ftran = "1400"
+    hypersparse_weight_ftran_sparse = "0"
+    hypersparse_pricing_empty = "0"
+    hypersparse_bfrt_dense = "0"
+    hypersparse_ftran_dense = "0"
+    pricing = "3600"
+    hypersparse_btran_dense = "0"
+    row_index = "0"
+    btran = "1400"
+    hypersparse_ftran_empty = "0"
+    hypersparse_upper_graph = "0"
+    hypersparse_pricing_sparse = "0"
+    hypersparse_weight_btran_dense = "0"
+    hypersparse_weight_ftran_empty = "0"
+    crash = "0"
+    hypersparse_bfrt_sparse = "0"
+    hypersparse_weight_btran_empty = "0"
+    hypersparse_setup = "0"
+
+    [cases.throw.snapshots.before_driver.policy]
+    refactor_timing = true
+    stable_ratio = false
+    precision_boosting = false
+    max_precision_memory_bytes = 1073741824
+    recovery = false
+    max_refinements = 3
+    incremental_primal = false
+    partial_pricing = false
+    adaptive_primal_perturbation = false
+    lp_refinement = false
+    adaptive_refactor = false
+    sparse_pricing = false
+    max_lp_refinements = 8
+    adaptive_stalling = false
+    max_pivot_candidates = 8
+    pivot_validation = false
+    adaptive_pricing = false
+    feasibility_recovery = false
+    max_recovery_rounds = 2
+    adaptive_dual_perturbation = false
+    solve_refinement = false
+    hypersparse = false
+    incremental_primal_pivots = false
+    phase_one = false
+    crash = false
+    max_precision_bits = 512
+    stagnation_window = 64
+
+        [cases.throw.snapshots.before_driver.policy.pivot_error_tolerance]
+        exact = "1//67108864"
+        bits = "3e50000000000000"
+
+        [cases.throw.snapshots.before_driver.policy.solve_tolerance]
+        exact = "1//17592186044416"
+        bits = "3d30000000000000"
+
+    [[cases.throw.snapshots.before_driver.lower]]
+    finite = true
+
+        [cases.throw.snapshots.before_driver.lower.value]
+        exact = "-8500259669165361//9444732965739290427392"
+        bits = "beae32f0ee144531"
+    [[cases.throw.snapshots.before_driver.lower]]
+    finite = false
+    value = "infinite"
+
+    [[cases.throw.snapshots.before_driver.column_scaling]]
+    exact = "1//1"
+    bits = "3ff0000000000000"
+
+    [cases.throw.snapshots.before_driver.event_counts]
+    flip_completed = 0
+    precision_boost = 0
+    phase_dual = 0
+    correction_attempt = 0
+    crash_pivot = 0
+    lp_refinement = 0
+    pricing_devex = 0
+    checkpoint = 0
+    restore_checkpoint = 0
+    correction = 0
+    artificial_removed = 0
+    phase_auxiliary = 0
+    pricing_pool_hit = 0
+    stagnation_fallback = 0
+    pricing_weight_rejected = 0
+    bound_flipped = 0
+    lp_correction_certification = 0
+    refactor_other = 1
+    pivot_completed = 1
+    feasibility_recovery = 0
+    pricing_full_scan = 2
+    pricing = 2
+    repair = 0
+    pricing_phase_reset = 0
+    primal_point_balanced = 0
+    refactor_pivot = 0
+    phase_crash = 0
+    stagnation_watch = 0
+    pricing_scored_entries = 1
+    phase_lp_refinement = 0
+    primal_projection_attempt = 0
+    crash_rejected_quality = 0
+    primal_point_corrected = 0
+    phase_one = 0
+    phase_cleanup = 0
+    refactor_growth = 0
+    crash_fallback = 0
+    certification = 0
+    refactor_residual = 0
+    certification_failed = 0
+    refactor_fill = 0
+    phase_primal = 0
+    primal_point_preserved = 0
+    pricing_block_scan = 0
+    pricing_trial_expired = 0
+    perturbation = 1
+    crash_rejected_fill = 0
+    primal_point_projected = 0
+    pricing_steepest_edge = 0
+    refactor_cost = 0
+    crash_accepted = 0
+    pricing_scanned_entries = 4
+    certificate_corrected = 0
+    primal_prices_corrected = 0
+    pivot_rejected = 0
+    pricing_progress_return = 0
+    refactor_initial = 1
+    restore_perturbations = 0
+    pricing_reset = 0
+    stagnation_cost_rebase = 0
+    refactor_limit = 0
+    pivot_proposed = 1
+    stagnation_stalled = 0
+    pricing_dantzig = 0
+
+    [[cases.throw.snapshots.before_driver.prices]]
+    exact = "1//1"
+    bits = "3ff0000000000000"
+    [[cases.throw.snapshots.before_driver.prices]]
+    exact = "0//1"
+    bits = "0000000000000000"
+
+    [cases.throw.snapshots.before_driver.kernel_calls]
+    hypersparse_ftran_sparse = 0
+    hypersparse_bfrt_empty = 0
+    refactorization = 0
+    hypersparse_support = 0
+    hypersparse_btran_sparse = 0
+    hypersparse_weight_ftran_dense = 0
+    hypersparse_pricing_dense = 0
+    hypersparse_base_graph = 0
+    hypersparse_btran_empty = 0
+    hypersparse_weight_btran_sparse = 0
+    ftran = 2
+    hypersparse_weight_ftran_sparse = 0
+    hypersparse_pricing_empty = 0
+    hypersparse_bfrt_dense = 0
+    hypersparse_ftran_dense = 0
+    pricing = 2
+    hypersparse_btran_dense = 0
+    row_index = 0
+    btran = 3
+    hypersparse_ftran_empty = 0
+    hypersparse_upper_graph = 0
+    hypersparse_pricing_sparse = 0
+    hypersparse_weight_btran_dense = 0
+    hypersparse_weight_ftran_empty = 0
+    crash = 0
+    hypersparse_bfrt_sparse = 0
+    hypersparse_weight_btran_empty = 0
+    hypersparse_setup = 0
+
+    [[cases.throw.snapshots.before_driver.row_scaling]]
+    exact = "1//1"
+    bits = "3ff0000000000000"
+
+    [cases.throw.snapshots.before_driver.journal]
+    owner = "7035251385686234167"
+    lower_identity = "17551670138457336707"
+    original_perturbed = false
+    lower_alias = true
+    cost_length_match = true
+    identity = "16301363714093122437"
+    upper_identity = "9095650971394051134"
+    upper_alias = true
+    owner_match = true
+    active = false
+
+        [[cases.throw.snapshots.before_driver.journal.active_costs]]
+        exact = "1//1"
+        bits = "3ff0000000000000"
+        [[cases.throw.snapshots.before_driver.journal.active_costs]]
+        exact = "0//1"
+        bits = "0000000000000000"
+
+        [[cases.throw.snapshots.before_driver.journal.original_costs]]
+        exact = "1//1"
+        bits = "3ff0000000000000"
+        [[cases.throw.snapshots.before_driver.journal.original_costs]]
+        exact = "0//1"
+        bits = "0000000000000000"
+
+        [cases.throw.snapshots.before_driver.journal.bounds]
+        level = 1
+        active = true
+
+            [[cases.throw.snapshots.before_driver.journal.bounds.original_lower]]
+            finite = true
+
+                [cases.throw.snapshots.before_driver.journal.bounds.original_lower.value]
+                exact = "0//1"
+                bits = "0000000000000000"
+            [[cases.throw.snapshots.before_driver.journal.bounds.original_lower]]
+            finite = false
+            value = "infinite"
+
+            [[cases.throw.snapshots.before_driver.journal.bounds.original_upper]]
+            finite = false
+            value = "infinite"
+            [[cases.throw.snapshots.before_driver.journal.bounds.original_upper]]
+            finite = false
+            value = "infinite"
+
+            [[cases.throw.snapshots.before_driver.journal.bounds.active_lower]]
+            finite = true
+
+                [cases.throw.snapshots.before_driver.journal.bounds.active_lower.value]
+                exact = "-8500259669165361//9444732965739290427392"
+                bits = "beae32f0ee144531"
+            [[cases.throw.snapshots.before_driver.journal.bounds.active_lower]]
+            finite = false
+            value = "infinite"
+
+            [[cases.throw.snapshots.before_driver.journal.bounds.active_upper]]
+            finite = false
+            value = "infinite"
+            [[cases.throw.snapshots.before_driver.journal.bounds.active_upper]]
+            finite = false
+            value = "infinite"
+
+    [cases.throw.snapshots.before_driver.model]
+    name = ""
+    objective_sense = "MIN_SENSE"
+    rowval = [1]
+    colptr = [1, 2]
+    variable_domains = ["CONTINUOUS"]
+
+        [[cases.throw.snapshots.before_driver.model.nzval]]
+        exact = "1//1"
+        bits = "3ff0000000000000"
+
+        [[cases.throw.snapshots.before_driver.model.objective]]
+        exact = "1//1"
+        bits = "3ff0000000000000"
+
+        [[cases.throw.snapshots.before_driver.model.row_lower]]
+        finite = false
+        value = "infinite"
+
+        [[cases.throw.snapshots.before_driver.model.column_lower]]
+        finite = true
+
+            [cases.throw.snapshots.before_driver.model.column_lower.value]
+            exact = "0//1"
+            bits = "0000000000000000"
+
+        [[cases.throw.snapshots.before_driver.model.column_upper]]
+        finite = false
+        value = "infinite"
+
+        [cases.throw.snapshots.before_driver.model.objective_constant]
+        exact = "0//1"
+        bits = "0000000000000000"
+
+        [[cases.throw.snapshots.before_driver.model.row_upper]]
+        finite = false
+        value = "infinite"
+
+    [[cases.throw.snapshots.before_driver.upper]]
+    finite = false
+    value = "infinite"
+    [[cases.throw.snapshots.before_driver.upper]]
+    finite = false
+    value = "infinite"
+
+    [[cases.throw.snapshots.before_driver.point]]
+    exact = "-8500259669165361//9444732965739290427392"
+    bits = "beae32f0ee144531"
+    [[cases.throw.snapshots.before_driver.point]]
+    exact = "-8500259669165361//9444732965739290427392"
+    bits = "beae32f0ee144531"
+
+    [[cases.throw.snapshots.before_driver.costs]]
+    exact = "1//1"
+    bits = "3ff0000000000000"
+    [[cases.throw.snapshots.before_driver.costs]]
+    exact = "0//1"
+    bits = "0000000000000000"
+
+    [[cases.throw.snapshots.before_driver.rho]]
+    exact = "0//1"
+    bits = "0000000000000000"
+
+[cases.throw.snapshots.setup]
+refactorization_offset = 0
+event_ring = ["refactor_initial", "refactor_other", "perturbation"]
+kernel_timing = false
+perturbed = true
+start_ns = "248960899268572"
+factor_type = "JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}"
+basis = [1]
+next_event = 4
+refactorizations = 1
+iteration_offset = 0
+states = ["BASIC", "FREE_NONBASIC"]
+iterations = 0
+observer_absent = true
+
+    [cases.throw.snapshots.setup.options]
+    basis_update = "pfi"
+    simplex_strategy = "legacy"
+    basis_refactorization = "native"
+    partial_pricing = false
+    scaling = "auto"
+    iteration_limit = 20
+    pricing = "steepest_edge"
+    log_level = "Debug"
+    verbose = false
+    algorithm = "primal"
+    presolve = true
+    refactorization_interval = 20
+
+        [cases.throw.snapshots.setup.options.time_limit]
+        exact = "30//1"
+        bits = "403e000000000000"
+
+        [cases.throw.snapshots.setup.options.zero_tolerance]
+        exact = "4951760157141521//4951760157141521099596496896"
+        bits = "3d719799812dea11"
+
+        [cases.throw.snapshots.setup.options.primal_tolerance]
+        exact = "944473296573929//9444732965739290427392"
+        bits = "3e7ad7f29abcaf48"
+
+        [cases.throw.snapshots.setup.options.dual_tolerance]
+        exact = "944473296573929//9444732965739290427392"
+        bits = "3e7ad7f29abcaf48"
+
+    [cases.throw.snapshots.setup.kernel_nanoseconds]
+    hypersparse_ftran_sparse = "0"
+    hypersparse_bfrt_empty = "0"
+    refactorization = "0"
+    hypersparse_support = "0"
+    hypersparse_btran_sparse = "0"
+    hypersparse_weight_ftran_dense = "0"
+    hypersparse_pricing_dense = "0"
+    hypersparse_base_graph = "0"
+    hypersparse_btran_empty = "0"
+    hypersparse_weight_btran_sparse = "0"
+    ftran = "0"
+    hypersparse_weight_ftran_sparse = "0"
+    hypersparse_pricing_empty = "0"
+    hypersparse_bfrt_dense = "0"
+    hypersparse_ftran_dense = "0"
+    pricing = "0"
+    hypersparse_btran_dense = "0"
+    row_index = "0"
+    btran = "0"
+    hypersparse_ftran_empty = "0"
+    hypersparse_upper_graph = "0"
+    hypersparse_pricing_sparse = "0"
+    hypersparse_weight_btran_dense = "0"
+    hypersparse_weight_ftran_empty = "0"
+    crash = "0"
+    hypersparse_bfrt_sparse = "0"
+    hypersparse_weight_btran_empty = "0"
+    hypersparse_setup = "0"
+
+    [cases.throw.snapshots.setup.policy]
+    refactor_timing = false
+    stable_ratio = false
+    precision_boosting = false
+    max_precision_memory_bytes = 1073741824
+    recovery = false
+    max_refinements = 3
+    incremental_primal = false
+    partial_pricing = false
+    adaptive_primal_perturbation = true
+    lp_refinement = false
+    adaptive_refactor = true
+    sparse_pricing = false
+    max_lp_refinements = 8
+    adaptive_stalling = true
+    max_pivot_candidates = 8
+    pivot_validation = false
+    adaptive_pricing = true
+    feasibility_recovery = false
+    max_recovery_rounds = 2
+    adaptive_dual_perturbation = true
+    solve_refinement = false
+    hypersparse = false
+    incremental_primal_pivots = false
+    phase_one = false
+    crash = false
+    max_precision_bits = 512
+    stagnation_window = 64
+
+        [cases.throw.snapshots.setup.policy.pivot_error_tolerance]
+        exact = "1//67108864"
+        bits = "3e50000000000000"
+
+        [cases.throw.snapshots.setup.policy.solve_tolerance]
+        exact = "1//17592186044416"
+        bits = "3d30000000000000"
+
+    [[cases.throw.snapshots.setup.lower]]
+    finite = true
+
+        [cases.throw.snapshots.setup.lower.value]
+        exact = "-8500259669165361//9444732965739290427392"
+        bits = "beae32f0ee144531"
+    [[cases.throw.snapshots.setup.lower]]
+    finite = false
+    value = "infinite"
+
+    [[cases.throw.snapshots.setup.column_scaling]]
+    exact = "1//1"
+    bits = "3ff0000000000000"
+
+    [cases.throw.snapshots.setup.event_counts]
+    flip_completed = 0
+    precision_boost = 0
+    phase_dual = 0
+    correction_attempt = 0
+    crash_pivot = 0
+    lp_refinement = 0
+    pricing_devex = 0
+    checkpoint = 0
+    restore_checkpoint = 0
+    correction = 0
+    artificial_removed = 0
+    phase_auxiliary = 0
+    pricing_pool_hit = 0
+    stagnation_fallback = 0
+    pricing_weight_rejected = 0
+    bound_flipped = 0
+    lp_correction_certification = 0
+    refactor_other = 1
+    pivot_completed = 0
+    feasibility_recovery = 0
+    pricing_full_scan = 0
+    pricing = 0
+    repair = 0
+    pricing_phase_reset = 0
+    primal_point_balanced = 0
+    refactor_pivot = 0
+    phase_crash = 0
+    stagnation_watch = 0
+    pricing_scored_entries = 0
+    phase_lp_refinement = 0
+    primal_projection_attempt = 0
+    crash_rejected_quality = 0
+    primal_point_corrected = 0
+    phase_one = 0
+    phase_cleanup = 0
+    refactor_growth = 0
+    crash_fallback = 0
+    certification = 0
+    refactor_residual = 0
+    certification_failed = 0
+    refactor_fill = 0
+    phase_primal = 0
+    primal_point_preserved = 0
+    pricing_block_scan = 0
+    pricing_trial_expired = 0
+    perturbation = 1
+    crash_rejected_fill = 0
+    primal_point_projected = 0
+    pricing_steepest_edge = 0
+    refactor_cost = 0
+    crash_accepted = 0
+    pricing_scanned_entries = 0
+    certificate_corrected = 0
+    primal_prices_corrected = 0
+    pivot_rejected = 0
+    pricing_progress_return = 0
+    refactor_initial = 1
+    restore_perturbations = 0
+    pricing_reset = 0
+    stagnation_cost_rebase = 0
+    refactor_limit = 0
+    pivot_proposed = 0
+    stagnation_stalled = 0
+    pricing_dantzig = 0
+
+    [[cases.throw.snapshots.setup.prices]]
+    exact = "0//1"
+    bits = "0000000000000000"
+    [[cases.throw.snapshots.setup.prices]]
+    exact = "1//1"
+    bits = "3ff0000000000000"
+
+    [cases.throw.snapshots.setup.kernel_calls]
+    hypersparse_ftran_sparse = 0
+    hypersparse_bfrt_empty = 0
+    refactorization = 0
+    hypersparse_support = 0
+    hypersparse_btran_sparse = 0
+    hypersparse_weight_ftran_dense = 0
+    hypersparse_pricing_dense = 0
+    hypersparse_base_graph = 0
+    hypersparse_btran_empty = 0
+    hypersparse_weight_btran_sparse = 0
+    ftran = 0
+    hypersparse_weight_ftran_sparse = 0
+    hypersparse_pricing_empty = 0
+    hypersparse_bfrt_dense = 0
+    hypersparse_ftran_dense = 0
+    pricing = 0
+    hypersparse_btran_dense = 0
+    row_index = 0
+    btran = 0
+    hypersparse_ftran_empty = 0
+    hypersparse_upper_graph = 0
+    hypersparse_pricing_sparse = 0
+    hypersparse_weight_btran_dense = 0
+    hypersparse_weight_ftran_empty = 0
+    crash = 0
+    hypersparse_bfrt_sparse = 0
+    hypersparse_weight_btran_empty = 0
+    hypersparse_setup = 0
+
+    [[cases.throw.snapshots.setup.row_scaling]]
+    exact = "1//1"
+    bits = "3ff0000000000000"
+
+    [cases.throw.snapshots.setup.journal]
+    owner = "7035251385686234167"
+    lower_identity = "17551670138457336707"
+    original_perturbed = false
+    lower_alias = true
+    cost_length_match = true
+    identity = "16301363714093122437"
+    upper_identity = "9095650971394051134"
+    upper_alias = true
+    owner_match = true
+    active = false
+
+        [[cases.throw.snapshots.setup.journal.active_costs]]
+        exact = "1//1"
+        bits = "3ff0000000000000"
+        [[cases.throw.snapshots.setup.journal.active_costs]]
+        exact = "0//1"
+        bits = "0000000000000000"
+
+        [[cases.throw.snapshots.setup.journal.original_costs]]
+        exact = "1//1"
+        bits = "3ff0000000000000"
+        [[cases.throw.snapshots.setup.journal.original_costs]]
+        exact = "0//1"
+        bits = "0000000000000000"
+
+        [cases.throw.snapshots.setup.journal.bounds]
+        level = 1
+        active = true
+
+            [[cases.throw.snapshots.setup.journal.bounds.original_lower]]
+            finite = true
+
+                [cases.throw.snapshots.setup.journal.bounds.original_lower.value]
+                exact = "0//1"
+                bits = "0000000000000000"
+            [[cases.throw.snapshots.setup.journal.bounds.original_lower]]
+            finite = false
+            value = "infinite"
+
+            [[cases.throw.snapshots.setup.journal.bounds.original_upper]]
+            finite = false
+            value = "infinite"
+            [[cases.throw.snapshots.setup.journal.bounds.original_upper]]
+            finite = false
+            value = "infinite"
+
+            [[cases.throw.snapshots.setup.journal.bounds.active_lower]]
+            finite = true
+
+                [cases.throw.snapshots.setup.journal.bounds.active_lower.value]
+                exact = "-8500259669165361//9444732965739290427392"
+                bits = "beae32f0ee144531"
+            [[cases.throw.snapshots.setup.journal.bounds.active_lower]]
+            finite = false
+            value = "infinite"
+
+            [[cases.throw.snapshots.setup.journal.bounds.active_upper]]
+            finite = false
+            value = "infinite"
+            [[cases.throw.snapshots.setup.journal.bounds.active_upper]]
+            finite = false
+            value = "infinite"
+
+    [cases.throw.snapshots.setup.model]
+    name = ""
+    objective_sense = "MIN_SENSE"
+    rowval = [1]
+    colptr = [1, 2]
+    variable_domains = ["CONTINUOUS"]
+
+        [[cases.throw.snapshots.setup.model.nzval]]
+        exact = "1//1"
+        bits = "3ff0000000000000"
+
+        [[cases.throw.snapshots.setup.model.objective]]
+        exact = "1//1"
+        bits = "3ff0000000000000"
+
+        [[cases.throw.snapshots.setup.model.row_lower]]
+        finite = false
+        value = "infinite"
+
+        [[cases.throw.snapshots.setup.model.column_lower]]
+        finite = true
+
+            [cases.throw.snapshots.setup.model.column_lower.value]
+            exact = "0//1"
+            bits = "0000000000000000"
+
+        [[cases.throw.snapshots.setup.model.column_upper]]
+        finite = false
+        value = "infinite"
+
+        [cases.throw.snapshots.setup.model.objective_constant]
+        exact = "0//1"
+        bits = "0000000000000000"
+
+        [[cases.throw.snapshots.setup.model.row_upper]]
+        finite = false
+        value = "infinite"
+
+    [[cases.throw.snapshots.setup.upper]]
+    finite = false
+    value = "infinite"
+    [[cases.throw.snapshots.setup.upper]]
+    finite = false
+    value = "infinite"
+
+    [[cases.throw.snapshots.setup.point]]
+    exact = "0//1"
+    bits = "0000000000000000"
+    [[cases.throw.snapshots.setup.point]]
+    exact = "0//1"
+    bits = "0000000000000000"
+
+    [[cases.throw.snapshots.setup.costs]]
+    exact = "1//1"
+    bits = "3ff0000000000000"
+    [[cases.throw.snapshots.setup.costs]]
+    exact = "0//1"
+    bits = "0000000000000000"
+
+    [[cases.throw.snapshots.setup.rho]]
+    exact = "1//1"
+    bits = "3ff0000000000000"
+
+[cases.throw.snapshots.initial]
+refactorization_offset = 0
+event_ring = ["refactor_initial", "refactor_other", "perturbation", "pricing", "pivot_proposed", "pivot_completed", "pricing"]
+kernel_timing = true
+perturbed = true
+start_ns = "248960899268572"
+factor_type = "JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}"
+basis = [2]
+next_event = 8
+refactorizations = 1
+iteration_offset = 0
+states = ["AT_LOWER", "BASIC"]
+iterations = 1
+observer_absent = true
+
+    [cases.throw.snapshots.initial.options]
+    basis_update = "pfi"
+    simplex_strategy = "legacy"
+    basis_refactorization = "native"
+    partial_pricing = false
+    scaling = "auto"
+    iteration_limit = 20
+    pricing = "steepest_edge"
+    log_level = "Debug"
+    verbose = false
+    algorithm = "primal"
+    presolve = true
+    refactorization_interval = 20
+
+        [cases.throw.snapshots.initial.options.time_limit]
+        exact = "30//1"
+        bits = "403e000000000000"
+
+        [cases.throw.snapshots.initial.options.zero_tolerance]
+        exact = "4951760157141521//4951760157141521099596496896"
+        bits = "3d719799812dea11"
+
+        [cases.throw.snapshots.initial.options.primal_tolerance]
+        exact = "944473296573929//9444732965739290427392"
+        bits = "3e7ad7f29abcaf48"
+
+        [cases.throw.snapshots.initial.options.dual_tolerance]
+        exact = "944473296573929//9444732965739290427392"
+        bits = "3e7ad7f29abcaf48"
+
+    [cases.throw.snapshots.initial.kernel_nanoseconds]
+    hypersparse_ftran_sparse = "0"
+    hypersparse_bfrt_empty = "0"
+    refactorization = "0"
+    hypersparse_support = "0"
+    hypersparse_btran_sparse = "0"
+    hypersparse_weight_ftran_dense = "0"
+    hypersparse_pricing_dense = "0"
+    hypersparse_base_graph = "0"
+    hypersparse_btran_empty = "0"
+    hypersparse_weight_btran_sparse = "0"
+    ftran = "1400"
+    hypersparse_weight_ftran_sparse = "0"
+    hypersparse_pricing_empty = "0"
+    hypersparse_bfrt_dense = "0"
+    hypersparse_ftran_dense = "0"
+    pricing = "3600"
+    hypersparse_btran_dense = "0"
+    row_index = "0"
+    btran = "1400"
+    hypersparse_ftran_empty = "0"
+    hypersparse_upper_graph = "0"
+    hypersparse_pricing_sparse = "0"
+    hypersparse_weight_btran_dense = "0"
+    hypersparse_weight_ftran_empty = "0"
+    crash = "0"
+    hypersparse_bfrt_sparse = "0"
+    hypersparse_weight_btran_empty = "0"
+    hypersparse_setup = "0"
+
+    [cases.throw.snapshots.initial.policy]
+    refactor_timing = false
+    stable_ratio = false
+    precision_boosting = false
+    max_precision_memory_bytes = 1073741824
+    recovery = false
+    max_refinements = 3
+    incremental_primal = false
+    partial_pricing = false
+    adaptive_primal_perturbation = true
+    lp_refinement = false
+    adaptive_refactor = true
+    sparse_pricing = false
+    max_lp_refinements = 8
+    adaptive_stalling = true
+    max_pivot_candidates = 8
+    pivot_validation = false
+    adaptive_pricing = true
+    feasibility_recovery = false
+    max_recovery_rounds = 2
+    adaptive_dual_perturbation = true
+    solve_refinement = false
+    hypersparse = false
+    incremental_primal_pivots = false
+    phase_one = false
+    crash = false
+    max_precision_bits = 512
+    stagnation_window = 64
+
+        [cases.throw.snapshots.initial.policy.pivot_error_tolerance]
+        exact = "1//67108864"
+        bits = "3e50000000000000"
+
+        [cases.throw.snapshots.initial.policy.solve_tolerance]
+        exact = "1//17592186044416"
+        bits = "3d30000000000000"
+
+    [[cases.throw.snapshots.initial.lower]]
+    finite = true
+
+        [cases.throw.snapshots.initial.lower.value]
+        exact = "-8500259669165361//9444732965739290427392"
+        bits = "beae32f0ee144531"
+    [[cases.throw.snapshots.initial.lower]]
+    finite = false
+    value = "infinite"
+
+    [[cases.throw.snapshots.initial.column_scaling]]
+    exact = "1//1"
+    bits = "3ff0000000000000"
+
+    [cases.throw.snapshots.initial.event_counts]
+    flip_completed = 0
+    precision_boost = 0
+    phase_dual = 0
+    correction_attempt = 0
+    crash_pivot = 0
+    lp_refinement = 0
+    pricing_devex = 0
+    checkpoint = 0
+    restore_checkpoint = 0
+    correction = 0
+    artificial_removed = 0
+    phase_auxiliary = 0
+    pricing_pool_hit = 0
+    stagnation_fallback = 0
+    pricing_weight_rejected = 0
+    bound_flipped = 0
+    lp_correction_certification = 0
+    refactor_other = 1
+    pivot_completed = 1
+    feasibility_recovery = 0
+    pricing_full_scan = 2
+    pricing = 2
+    repair = 0
+    pricing_phase_reset = 0
+    primal_point_balanced = 0
+    refactor_pivot = 0
+    phase_crash = 0
+    stagnation_watch = 0
+    pricing_scored_entries = 1
+    phase_lp_refinement = 0
+    primal_projection_attempt = 0
+    crash_rejected_quality = 0
+    primal_point_corrected = 0
+    phase_one = 0
+    phase_cleanup = 0
+    refactor_growth = 0
+    crash_fallback = 0
+    certification = 0
+    refactor_residual = 0
+    certification_failed = 0
+    refactor_fill = 0
+    phase_primal = 0
+    primal_point_preserved = 0
+    pricing_block_scan = 0
+    pricing_trial_expired = 0
+    perturbation = 1
+    crash_rejected_fill = 0
+    primal_point_projected = 0
+    pricing_steepest_edge = 0
+    refactor_cost = 0
+    crash_accepted = 0
+    pricing_scanned_entries = 4
+    certificate_corrected = 0
+    primal_prices_corrected = 0
+    pivot_rejected = 0
+    pricing_progress_return = 0
+    refactor_initial = 1
+    restore_perturbations = 0
+    pricing_reset = 0
+    stagnation_cost_rebase = 0
+    refactor_limit = 0
+    pivot_proposed = 1
+    stagnation_stalled = 0
+    pricing_dantzig = 0
+
+    [[cases.throw.snapshots.initial.prices]]
+    exact = "1//1"
+    bits = "3ff0000000000000"
+    [[cases.throw.snapshots.initial.prices]]
+    exact = "0//1"
+    bits = "0000000000000000"
+
+    [cases.throw.snapshots.initial.kernel_calls]
+    hypersparse_ftran_sparse = 0
+    hypersparse_bfrt_empty = 0
+    refactorization = 0
+    hypersparse_support = 0
+    hypersparse_btran_sparse = 0
+    hypersparse_weight_ftran_dense = 0
+    hypersparse_pricing_dense = 0
+    hypersparse_base_graph = 0
+    hypersparse_btran_empty = 0
+    hypersparse_weight_btran_sparse = 0
+    ftran = 2
+    hypersparse_weight_ftran_sparse = 0
+    hypersparse_pricing_empty = 0
+    hypersparse_bfrt_dense = 0
+    hypersparse_ftran_dense = 0
+    pricing = 2
+    hypersparse_btran_dense = 0
+    row_index = 0
+    btran = 3
+    hypersparse_ftran_empty = 0
+    hypersparse_upper_graph = 0
+    hypersparse_pricing_sparse = 0
+    hypersparse_weight_btran_dense = 0
+    hypersparse_weight_ftran_empty = 0
+    crash = 0
+    hypersparse_bfrt_sparse = 0
+    hypersparse_weight_btran_empty = 0
+    hypersparse_setup = 0
+
+    [[cases.throw.snapshots.initial.row_scaling]]
+    exact = "1//1"
+    bits = "3ff0000000000000"
+
+    [cases.throw.snapshots.initial.journal]
+    owner = "7035251385686234167"
+    lower_identity = "17551670138457336707"
+    original_perturbed = false
+    lower_alias = true
+    cost_length_match = true
+    identity = "16301363714093122437"
+    upper_identity = "9095650971394051134"
+    upper_alias = true
+    owner_match = true
+    active = false
+
+        [[cases.throw.snapshots.initial.journal.active_costs]]
+        exact = "1//1"
+        bits = "3ff0000000000000"
+        [[cases.throw.snapshots.initial.journal.active_costs]]
+        exact = "0//1"
+        bits = "0000000000000000"
+
+        [[cases.throw.snapshots.initial.journal.original_costs]]
+        exact = "1//1"
+        bits = "3ff0000000000000"
+        [[cases.throw.snapshots.initial.journal.original_costs]]
+        exact = "0//1"
+        bits = "0000000000000000"
+
+        [cases.throw.snapshots.initial.journal.bounds]
+        level = 1
+        active = true
+
+            [[cases.throw.snapshots.initial.journal.bounds.original_lower]]
+            finite = true
+
+                [cases.throw.snapshots.initial.journal.bounds.original_lower.value]
+                exact = "0//1"
+                bits = "0000000000000000"
+            [[cases.throw.snapshots.initial.journal.bounds.original_lower]]
+            finite = false
+            value = "infinite"
+
+            [[cases.throw.snapshots.initial.journal.bounds.original_upper]]
+            finite = false
+            value = "infinite"
+            [[cases.throw.snapshots.initial.journal.bounds.original_upper]]
+            finite = false
+            value = "infinite"
+
+            [[cases.throw.snapshots.initial.journal.bounds.active_lower]]
+            finite = true
+
+                [cases.throw.snapshots.initial.journal.bounds.active_lower.value]
+                exact = "-8500259669165361//9444732965739290427392"
+                bits = "beae32f0ee144531"
+            [[cases.throw.snapshots.initial.journal.bounds.active_lower]]
+            finite = false
+            value = "infinite"
+
+            [[cases.throw.snapshots.initial.journal.bounds.active_upper]]
+            finite = false
+            value = "infinite"
+            [[cases.throw.snapshots.initial.journal.bounds.active_upper]]
+            finite = false
+            value = "infinite"
+
+    [cases.throw.snapshots.initial.model]
+    name = ""
+    objective_sense = "MIN_SENSE"
+    rowval = [1]
+    colptr = [1, 2]
+    variable_domains = ["CONTINUOUS"]
+
+        [[cases.throw.snapshots.initial.model.nzval]]
+        exact = "1//1"
+        bits = "3ff0000000000000"
+
+        [[cases.throw.snapshots.initial.model.objective]]
+        exact = "1//1"
+        bits = "3ff0000000000000"
+
+        [[cases.throw.snapshots.initial.model.row_lower]]
+        finite = false
+        value = "infinite"
+
+        [[cases.throw.snapshots.initial.model.column_lower]]
+        finite = true
+
+            [cases.throw.snapshots.initial.model.column_lower.value]
+            exact = "0//1"
+            bits = "0000000000000000"
+
+        [[cases.throw.snapshots.initial.model.column_upper]]
+        finite = false
+        value = "infinite"
+
+        [cases.throw.snapshots.initial.model.objective_constant]
+        exact = "0//1"
+        bits = "0000000000000000"
+
+        [[cases.throw.snapshots.initial.model.row_upper]]
+        finite = false
+        value = "infinite"
+
+    [[cases.throw.snapshots.initial.upper]]
+    finite = false
+    value = "infinite"
+    [[cases.throw.snapshots.initial.upper]]
+    finite = false
+    value = "infinite"
+
+    [[cases.throw.snapshots.initial.point]]
+    exact = "-8500259669165361//9444732965739290427392"
+    bits = "beae32f0ee144531"
+    [[cases.throw.snapshots.initial.point]]
+    exact = "-8500259669165361//9444732965739290427392"
+    bits = "beae32f0ee144531"
+
+    [[cases.throw.snapshots.initial.costs]]
+    exact = "1//1"
+    bits = "3ff0000000000000"
+    [[cases.throw.snapshots.initial.costs]]
+    exact = "0//1"
+    bits = "0000000000000000"
+
+    [[cases.throw.snapshots.initial.rho]]
+    exact = "0//1"
+    bits = "0000000000000000"
+
+[cases.throw.snapshots.final]
+refactorization_offset = 0
+event_ring = ["refactor_initial", "refactor_other", "perturbation", "pricing", "pivot_proposed", "pivot_completed", "pricing"]
+kernel_timing = true
+perturbed = true
+start_ns = "248960899268572"
+factor_type = "JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}"
+basis = [2]
+next_event = 8
+refactorizations = 1
+iteration_offset = 0
+states = ["AT_LOWER", "BASIC"]
+iterations = 1
+observer_absent = true
+
+    [cases.throw.snapshots.final.options]
+    basis_update = "pfi"
+    simplex_strategy = "legacy"
+    basis_refactorization = "native"
+    partial_pricing = false
+    scaling = "auto"
+    iteration_limit = 20
+    pricing = "steepest_edge"
+    log_level = "Debug"
+    verbose = false
+    algorithm = "primal"
+    presolve = true
+    refactorization_interval = 20
+
+        [cases.throw.snapshots.final.options.time_limit]
+        exact = "30//1"
+        bits = "403e000000000000"
+
+        [cases.throw.snapshots.final.options.zero_tolerance]
+        exact = "4951760157141521//4951760157141521099596496896"
+        bits = "3d719799812dea11"
+
+        [cases.throw.snapshots.final.options.primal_tolerance]
+        exact = "944473296573929//9444732965739290427392"
+        bits = "3e7ad7f29abcaf48"
+
+        [cases.throw.snapshots.final.options.dual_tolerance]
+        exact = "944473296573929//9444732965739290427392"
+        bits = "3e7ad7f29abcaf48"
+
+    [cases.throw.snapshots.final.kernel_nanoseconds]
+    hypersparse_ftran_sparse = "0"
+    hypersparse_bfrt_empty = "0"
+    refactorization = "0"
+    hypersparse_support = "0"
+    hypersparse_btran_sparse = "0"
+    hypersparse_weight_ftran_dense = "0"
+    hypersparse_pricing_dense = "0"
+    hypersparse_base_graph = "0"
+    hypersparse_btran_empty = "0"
+    hypersparse_weight_btran_sparse = "0"
+    ftran = "1400"
+    hypersparse_weight_ftran_sparse = "0"
+    hypersparse_pricing_empty = "0"
+    hypersparse_bfrt_dense = "0"
+    hypersparse_ftran_dense = "0"
+    pricing = "3600"
+    hypersparse_btran_dense = "0"
+    row_index = "0"
+    btran = "1400"
+    hypersparse_ftran_empty = "0"
+    hypersparse_upper_graph = "0"
+    hypersparse_pricing_sparse = "0"
+    hypersparse_weight_btran_dense = "0"
+    hypersparse_weight_ftran_empty = "0"
+    crash = "0"
+    hypersparse_bfrt_sparse = "0"
+    hypersparse_weight_btran_empty = "0"
+    hypersparse_setup = "0"
+
+    [cases.throw.snapshots.final.policy]
+    refactor_timing = true
+    stable_ratio = false
+    precision_boosting = false
+    max_precision_memory_bytes = 1073741824
+    recovery = false
+    max_refinements = 3
+    incremental_primal = false
+    partial_pricing = false
+    adaptive_primal_perturbation = false
+    lp_refinement = false
+    adaptive_refactor = false
+    sparse_pricing = false
+    max_lp_refinements = 8
+    adaptive_stalling = false
+    max_pivot_candidates = 8
+    pivot_validation = false
+    adaptive_pricing = false
+    feasibility_recovery = false
+    max_recovery_rounds = 2
+    adaptive_dual_perturbation = false
+    solve_refinement = false
+    hypersparse = false
+    incremental_primal_pivots = false
+    phase_one = false
+    crash = false
+    max_precision_bits = 512
+    stagnation_window = 64
+
+        [cases.throw.snapshots.final.policy.pivot_error_tolerance]
+        exact = "1//67108864"
+        bits = "3e50000000000000"
+
+        [cases.throw.snapshots.final.policy.solve_tolerance]
+        exact = "1//17592186044416"
+        bits = "3d30000000000000"
+
+    [[cases.throw.snapshots.final.lower]]
+    finite = true
+
+        [cases.throw.snapshots.final.lower.value]
+        exact = "-8500259669165361//9444732965739290427392"
+        bits = "beae32f0ee144531"
+    [[cases.throw.snapshots.final.lower]]
+    finite = false
+    value = "infinite"
+
+    [[cases.throw.snapshots.final.column_scaling]]
+    exact = "1//1"
+    bits = "3ff0000000000000"
+
+    [cases.throw.snapshots.final.event_counts]
+    flip_completed = 0
+    precision_boost = 0
+    phase_dual = 0
+    correction_attempt = 0
+    crash_pivot = 0
+    lp_refinement = 0
+    pricing_devex = 0
+    checkpoint = 0
+    restore_checkpoint = 0
+    correction = 0
+    artificial_removed = 0
+    phase_auxiliary = 0
+    pricing_pool_hit = 0
+    stagnation_fallback = 0
+    pricing_weight_rejected = 0
+    bound_flipped = 0
+    lp_correction_certification = 0
+    refactor_other = 1
+    pivot_completed = 1
+    feasibility_recovery = 0
+    pricing_full_scan = 2
+    pricing = 2
+    repair = 0
+    pricing_phase_reset = 0
+    primal_point_balanced = 0
+    refactor_pivot = 0
+    phase_crash = 0
+    stagnation_watch = 0
+    pricing_scored_entries = 1
+    phase_lp_refinement = 0
+    primal_projection_attempt = 0
+    crash_rejected_quality = 0
+    primal_point_corrected = 0
+    phase_one = 0
+    phase_cleanup = 0
+    refactor_growth = 0
+    crash_fallback = 0
+    certification = 0
+    refactor_residual = 0
+    certification_failed = 0
+    refactor_fill = 0
+    phase_primal = 0
+    primal_point_preserved = 0
+    pricing_block_scan = 0
+    pricing_trial_expired = 0
+    perturbation = 1
+    crash_rejected_fill = 0
+    primal_point_projected = 0
+    pricing_steepest_edge = 0
+    refactor_cost = 0
+    crash_accepted = 0
+    pricing_scanned_entries = 4
+    certificate_corrected = 0
+    primal_prices_corrected = 0
+    pivot_rejected = 0
+    pricing_progress_return = 0
+    refactor_initial = 1
+    restore_perturbations = 0
+    pricing_reset = 0
+    stagnation_cost_rebase = 0
+    refactor_limit = 0
+    pivot_proposed = 1
+    stagnation_stalled = 0
+    pricing_dantzig = 0
+
+    [[cases.throw.snapshots.final.prices]]
+    exact = "1//1"
+    bits = "3ff0000000000000"
+    [[cases.throw.snapshots.final.prices]]
+    exact = "0//1"
+    bits = "0000000000000000"
+
+    [cases.throw.snapshots.final.kernel_calls]
+    hypersparse_ftran_sparse = 0
+    hypersparse_bfrt_empty = 0
+    refactorization = 0
+    hypersparse_support = 0
+    hypersparse_btran_sparse = 0
+    hypersparse_weight_ftran_dense = 0
+    hypersparse_pricing_dense = 0
+    hypersparse_base_graph = 0
+    hypersparse_btran_empty = 0
+    hypersparse_weight_btran_sparse = 0
+    ftran = 2
+    hypersparse_weight_ftran_sparse = 0
+    hypersparse_pricing_empty = 0
+    hypersparse_bfrt_dense = 0
+    hypersparse_ftran_dense = 0
+    pricing = 2
+    hypersparse_btran_dense = 0
+    row_index = 0
+    btran = 3
+    hypersparse_ftran_empty = 0
+    hypersparse_upper_graph = 0
+    hypersparse_pricing_sparse = 0
+    hypersparse_weight_btran_dense = 0
+    hypersparse_weight_ftran_empty = 0
+    crash = 0
+    hypersparse_bfrt_sparse = 0
+    hypersparse_weight_btran_empty = 0
+    hypersparse_setup = 0
+
+    [[cases.throw.snapshots.final.row_scaling]]
+    exact = "1//1"
+    bits = "3ff0000000000000"
+
+    [cases.throw.snapshots.final.journal]
+    owner = "7035251385686234167"
+    lower_identity = "17551670138457336707"
+    original_perturbed = false
+    lower_alias = true
+    cost_length_match = true
+    identity = "16301363714093122437"
+    upper_identity = "9095650971394051134"
+    upper_alias = true
+    owner_match = true
+    active = false
+
+        [[cases.throw.snapshots.final.journal.active_costs]]
+        exact = "1//1"
+        bits = "3ff0000000000000"
+        [[cases.throw.snapshots.final.journal.active_costs]]
+        exact = "0//1"
+        bits = "0000000000000000"
+
+        [[cases.throw.snapshots.final.journal.original_costs]]
+        exact = "1//1"
+        bits = "3ff0000000000000"
+        [[cases.throw.snapshots.final.journal.original_costs]]
+        exact = "0//1"
+        bits = "0000000000000000"
+
+        [cases.throw.snapshots.final.journal.bounds]
+        level = 1
+        active = true
+
+            [[cases.throw.snapshots.final.journal.bounds.original_lower]]
+            finite = true
+
+                [cases.throw.snapshots.final.journal.bounds.original_lower.value]
+                exact = "0//1"
+                bits = "0000000000000000"
+            [[cases.throw.snapshots.final.journal.bounds.original_lower]]
+            finite = false
+            value = "infinite"
+
+            [[cases.throw.snapshots.final.journal.bounds.original_upper]]
+            finite = false
+            value = "infinite"
+            [[cases.throw.snapshots.final.journal.bounds.original_upper]]
+            finite = false
+            value = "infinite"
+
+            [[cases.throw.snapshots.final.journal.bounds.active_lower]]
+            finite = true
+
+                [cases.throw.snapshots.final.journal.bounds.active_lower.value]
+                exact = "-8500259669165361//9444732965739290427392"
+                bits = "beae32f0ee144531"
+            [[cases.throw.snapshots.final.journal.bounds.active_lower]]
+            finite = false
+            value = "infinite"
+
+            [[cases.throw.snapshots.final.journal.bounds.active_upper]]
+            finite = false
+            value = "infinite"
+            [[cases.throw.snapshots.final.journal.bounds.active_upper]]
+            finite = false
+            value = "infinite"
+
+    [cases.throw.snapshots.final.model]
+    name = ""
+    objective_sense = "MIN_SENSE"
+    rowval = [1]
+    colptr = [1, 2]
+    variable_domains = ["CONTINUOUS"]
+
+        [[cases.throw.snapshots.final.model.nzval]]
+        exact = "1//1"
+        bits = "3ff0000000000000"
+
+        [[cases.throw.snapshots.final.model.objective]]
+        exact = "1//1"
+        bits = "3ff0000000000000"
+
+        [[cases.throw.snapshots.final.model.row_lower]]
+        finite = false
+        value = "infinite"
+
+        [[cases.throw.snapshots.final.model.column_lower]]
+        finite = true
+
+            [cases.throw.snapshots.final.model.column_lower.value]
+            exact = "0//1"
+            bits = "0000000000000000"
+
+        [[cases.throw.snapshots.final.model.column_upper]]
+        finite = false
+        value = "infinite"
+
+        [cases.throw.snapshots.final.model.objective_constant]
+        exact = "0//1"
+        bits = "0000000000000000"
+
+        [[cases.throw.snapshots.final.model.row_upper]]
+        finite = false
+        value = "infinite"
+
+    [[cases.throw.snapshots.final.upper]]
+    finite = false
+    value = "infinite"
+    [[cases.throw.snapshots.final.upper]]
+    finite = false
+    value = "infinite"
+
+    [[cases.throw.snapshots.final.point]]
+    exact = "-8500259669165361//9444732965739290427392"
+    bits = "beae32f0ee144531"
+    [[cases.throw.snapshots.final.point]]
+    exact = "-8500259669165361//9444732965739290427392"
+    bits = "beae32f0ee144531"
+
+    [[cases.throw.snapshots.final.costs]]
+    exact = "1//1"
+    bits = "3ff0000000000000"
+    [[cases.throw.snapshots.final.costs]]
+    exact = "0//1"
+    bits = "0000000000000000"
+
+    [[cases.throw.snapshots.final.rho]]
+    exact = "0//1"
+    bits = "0000000000000000"
+
+[cases.throw.entries]
+budget_constructor = 1
+run_from_basis = 1
+initial_optimizer = 1
+helper = 1

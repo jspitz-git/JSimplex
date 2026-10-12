@@ -1,0 +1,17 @@
+function shifted_primal_workspace(;unbounded=false)
+    A=unbounded ? [1.0 0.0] : [1.0;;]
+    p=LinearProblem(sparse(A),unbounded ? [0.0,-1.0] : [1.0];
+        row_lower=[nothing],row_upper=[nothing])
+    policy=JSimplex.NumericalPolicy(Float64;simplex_strategy=:adaptive,refactor_timing=false)
+    ws=JSimplex.initialize_workspace(p,SolverOptions(algorithm=:primal,
+        iteration_limit=20,time_limit=30.0,verbose=false);
+        progress=JSimplex.SimplexProgressContext(p;numerical_policy=policy,
+            diagnostics=JSimplex.SimplexDiagnostics()))
+    states=unbounded ? [JSimplex.BASIC,JSimplex.AT_LOWER,JSimplex.FREE_NONBASIC] :
+        [JSimplex.BASIC,JSimplex.FREE_NONBASIC]
+    ws.basis=JSimplex.Basis([1],states)
+    JSimplex.recompute!(ws;refactorize=true)
+    journal=JSimplex.PerturbationJournal(ws)
+    @test JSimplex.perturb_primal_bounds!(ws,primal_stalled_monitor(Float64,policy),journal,policy)==1
+    return ws,policy
+end

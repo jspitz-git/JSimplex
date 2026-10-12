@@ -1,0 +1,8 @@
+function primal_stalled_monitor(::Type{T},policy) where T
+    m=JSimplex.StagnationMonitor{T}(2;tolerance=policy.solve_tolerance)
+    for _ in 1:4
+        JSimplex.observe_progress!(m;objective=one(T),primal_violation=zero(T),
+            dual_violation=one(T),primal_step=zero(T),dual_step=zero(T))
+    end
+    return m
+end

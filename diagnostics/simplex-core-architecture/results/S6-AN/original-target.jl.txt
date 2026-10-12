@@ -1,0 +1,12 @@
+@testset "Native cleanup retires an owned bound journal after heuristics are disabled" begin
+    ws, _ = shifted_primal_workspace()
+    @test JSimplex._primal_optimize!(ws, ()->false).status == OPTIMAL
+    policy = JSimplex.NumericalPolicy(Float64)
+    JSimplex._install_driver_policy!(ws, policy)
+    @test JSimplex._original_objective_driver_required(ws)
+    run = JSimplex.run_from_basis!(ws, JSimplex.SimplexRunBudget(ws), policy, ()->false)
+    @test run.status == OPTIMAL && run.primal == [0.0]
+    @test JSimplex._original_bounds_active(ws)
+    @test isnothing(ws.scratch.perturbations)
+    @test !ws.progress.numerical_policy.feasibility_recovery
+end

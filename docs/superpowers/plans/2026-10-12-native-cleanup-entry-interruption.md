@@ -83,3 +83,15 @@ source/test/workflow changes and no changed successful-test oracle.
     does not measure real deadline expiration, establish oldCIcause, validate all
     recovery lifecycles or satisfy fullsuite/x64/broaderS6. Preserve the older three
     failures and all S2-A/S6-J/wholeAF rejections. Update STATUS and continuation.
+
+## Completion (2026-10-12)
+
+Both NEW cases executed once:72/72 assertions,exit0,49audit gates629pins,628AL
+sharedpins,212binary64checks,10independentchecks. Initial2F3B2pricing0ref each;
+driverzero existingkernels,callback1 each. StopTIME_LIMIT/exactmessage/nopayload/
+checkpoint1;throwidenticalSingularException29/noresult/noevents. Owned selected
+state/journalidentity/aliases/options/clock preserved. Existing entry scans remain.
+Freshgpt6astra review noCriticalImportantMinor/no unnecessaryproductionworkmemory.
+No numerical rerun or production/test/master/CI change. No new deferredMinor.
+Next separate S6-AO plan:2026-10-12-native-cleanup-entry-coverage.md, written after
+review acceptance. Historicalcause/realexpiry/fullsuite/x64 remainopen.

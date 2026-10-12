@@ -1,0 +1,113 @@
+{
+  "checks": {
+    "normal_exit": true,
+    "no_logged_test_failure": true,
+    "runtime_error_accounted": true,
+    "pins_independent": true,
+    "AL_shared_pins": true,
+    "source_and_users": true,
+    "actual_driver": true,
+    "actual_helper": true,
+    "processes_absent": true,
+    "two_cases": true,
+    "threads_globals": true,
+    "actual_bits": true,
+    "original_six_unchanged": true,
+    "stop_one_each_entry": true,
+    "stop_one_callback": true,
+    "stop_initial_OPTIMAL": true,
+    "stop_initial_work": true,
+    "stop_driver_work": true,
+    "stop_selected_state_preserved": true,
+    "stop_AL_initial_selected_match": true,
+    "stop_options_policies_match_AL": true,
+    "stop_real_PFI_no_observer": true,
+    "stop_model_preserved": true,
+    "stop_owned_active_journal": true,
+    "stop_exact_working_equation": true,
+    "stop_exact_initial_margin": true,
+    "stop_clock_and_budget": true,
+    "stop_monotonic_brackets": true,
+    "stop_setup_not_counted": true,
+    "stop_events_exact": true,
+    "stop_result_exact": true,
+    "throw_one_each_entry": true,
+    "throw_one_callback": true,
+    "throw_initial_OPTIMAL": true,
+    "throw_initial_work": true,
+    "throw_driver_work": true,
+    "throw_selected_state_preserved": true,
+    "throw_AL_initial_selected_match": true,
+    "throw_options_policies_match_AL": true,
+    "throw_real_PFI_no_observer": true,
+    "throw_model_preserved": true,
+    "throw_owned_active_journal": true,
+    "throw_exact_working_equation": true,
+    "throw_exact_initial_margin": true,
+    "throw_clock_and_budget": true,
+    "throw_monotonic_brackets": true,
+    "throw_setup_not_counted": true,
+    "throw_events_exact": true,
+    "throw_exception_identity_no_result": true
+  },
+  "all_passed": true,
+  "pin_count": 629,
+  "actual_bit_checks": 212,
+  "cases": {
+    "stop": {
+      "initial_work": {
+        "ftran": 2,
+        "pricing": 2,
+        "btran": 3
+      },
+      "driver_work": {},
+      "driver_elapsed_ns": [
+        80177600,
+        80184700
+      ],
+      "deadline_class": "excluded_within_bracket",
+      "callback_calls": 1,
+      "journal_aliases": {
+        "lower_alias": true,
+        "upper_alias": true
+      },
+      "result": {
+        "primal": "nothing",
+        "status": "TIME_LIMIT",
+        "objective": "nothing",
+        "message": "time limit reached during feasibility recovery",
+        "basis": "nothing"
+      },
+      "caught": {
+        "type": "Nothing",
+        "message": "none",
+        "same_sentinel": false
+      }
+    },
+    "throw": {
+      "initial_work": {
+        "ftran": 2,
+        "pricing": 2,
+        "btran": 3
+      },
+      "driver_work": {},
+      "driver_elapsed_ns": [
+        154200,
+        2429600
+      ],
+      "deadline_class": "excluded_within_bracket",
+      "callback_calls": 1,
+      "journal_aliases": {
+        "lower_alias": true,
+        "upper_alias": true
+      },
+      "result": "nothing",
+      "caught": {
+        "type": "SingularException",
+        "message": "SingularException: matrix is singular; factorization failed. Zero pivot found at index 29",
+        "same_sentinel": true
+      }
+    }
+  },
+  "scope": "Two declared callback entry interruptions only; bracket classification is not private clock capture or historical cause. Zero driver kernels is not zero total work; disabled setup counters are not zero setup work. Captures consume shared budget."
+}

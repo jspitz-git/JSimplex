@@ -252,18 +252,26 @@ first-publicentry cancellation/identitythrow coverage justifies boundedAN, not
 oldtimeoutfix. Freshgpt6astra noCriticalImportantMinor/no unnecessaryproductionwork
 memory; no newdeferredMinor. NoJulia/production/test/master/CIchange. See
 S6-NATIVE-CLEANUP-CLOCK-COVERAGE.md/REVIEW,results/S6-AM;exclusive map NERERUN.
-Next: docs/superpowers/plans/2026-10-12-native-cleanup-entry-interruption.md,S6-AN.
-At most2newFloat64PFIlifecycles(:stop/:throw),eachactualhelper+initialoptimizer+
-budget+publicdriver once. No successcontrol or oldALrerun. Callbackpreforwardcount1,
-stoptrue versus sameSingularException(29); no adapter/observer/extracomponentcall.
-Originalsixpermanentpredicates/helper byteidentical. Originalclock/time30/iter20/
-options/tols/policies unchanged, nowarmup/reset/extension/removal. InitialALbits/work
-comparability; driverzeroallkernels/no newiteration/refactor, selectedstate/active
-journalidentity/boundaliases/options/budget preserved. StopTIME_LIMIT/nopayload/
-checkpoint1;throwidentity/noresult/noevents. Count0 or unexpectedwork/state rejects;
-firstfailurestops, preserve raw/actualcounts/no retry. Mandatoryfreshhost/pins/
-resourceguard/offlineactualbits/process/source/useraudit;freshreviewbeforeanytestfix.
-Notactualdeadlineexpiry/historicalCIcause/fullsuite/x64proof;CI disabled.
+S6-AN complete:two NEW Float64PFI lifecycles,72/72,exit0,49auditgates629pins,
+628ALsharedpins/212binary64checks/10independentchecks. Each helper+initialoptimizer+
+budget+publicdriver once, originalhelper/sixsuccesspredicates unchanged. Initial
+2F3B2pricing0ref each; driverzero existingkernels/iteration/refactordeltas.
+Callback pre-count1 each; stopTIME_LIMIT/exactrecoverymessage/nopayload/checkpoint1;
+throwidenticalSingularException29/noresult/noevents. Owned selectedstate/journal
+identity/owner/aliases/options/sharedclock/budget preserved. Newbracketsbelow30,
+notprivateclock/realexpiry/historicalcause. Existing preguard cost/bound scans
+remain:zero kernelsNOTzero work. Eighttinyownedcaptures/notneutral;no speedup.
+Freshgpt6astra noCriticalImportantMinor/no unnecessaryproductionworkmemory.
+22resource samples within guard;runner430176/child430177/group430144 absent,
+boot20de7dde-704e-41c8-bee7-b8511c0a86b0. No production/test/master/CIchange.
+See S6-NATIVE-CLEANUP-ENTRY-INTERRUPTION.md/REVIEW,results/S6-AN. AcceptedANdriver/
+exclusiveauditor NERERUN. No newdeferredMinor;historicalthreefailuresstillopen.
+Next:docs/superpowers/plans/2026-10-12-native-cleanup-entry-coverage.md,S6-AO,
+NEW permanenttest-onlycoverage afterANreview. Preserveentireoldfilebyteprefix,
+appendtwo cold nativeentrycases,originalclock/options/limits/tols unchanged.
+StructuralPythonREDzeroJulia;actualnewsourceGREEN2lifecycles,review,actualmaster
+2lifecycles. Nooldacceptedruns/neighbor/fullfile/corpus/CI. Atmost4newlifecycles
+acrossGREEN/master;failurespreserved/no retry/oracleweakening. No oldtimeoutfix.
 BroaderS2/S3/S4/S5/S6/native symbolicreuse/originalcertificatelimits remainopen.
 CI disabled, S6-J/S2-A rejected; historicalCIcause/hidden states/fullsuite/x64 open.
 
