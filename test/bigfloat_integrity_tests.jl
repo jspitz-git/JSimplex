@@ -256,8 +256,9 @@ end
             gap = BigFloat(2)^(kind == :zero ? -20 : -24)
             tolerance = gap - BigFloat(2)^-80
             if kind == :primal
+                # Keep a strict contradiction after both tolerance allowances.
                 problem = LinearProblem(sparse(reshape(BigFloat[1], 1, 1)), BigFloat[0];
-                    row_lower=BigFloat[gap], column_lower=BigFloat[0], column_upper=BigFloat[0])
+                    row_lower=BigFloat[4gap], column_lower=BigFloat[0], column_upper=BigFloat[0])
                 options = SolverOptions(BigFloat; primal_tolerance=tolerance,
                     refactorization_interval=interval)
             elseif kind == :dual
@@ -272,6 +273,11 @@ end
                     refactorization_interval=interval)
             end
             problem, options
+        end
+        if kind == :primal
+            # Infeasibility must exceed independent row and column allowances.
+            @test integrity_exact(bound_value(only(problem.row_lower))) >
+                  2 * integrity_exact(options.primal_tolerance)
         end
         original_values = integrity_exact.(integrity_model_values(problem))
         setprecision(BigFloat, working_precision) do
