@@ -4,7 +4,7 @@ Updated: 2026-10-12. This is the entry point after interruption.
 
 ## Current state
 
-**S1-A, S3-A/S3-B and S4-A/S4-C integrated; master `3220118` pushed. S2-A rejected; S0-L all four long references audited and complete.**
+**S1-A, S3-A/S3-B, S4-A/S4-C and S5-C integrated; master `e7014fb` pushed. S2-A rejected; S0-L all four long references audited and complete.**
 The source baseline is `fe839aa72171d7496c9c931d9393278448c7317e`.
 Initial time-budget diagnostic evidence is commit `6ded1fc`.
 
@@ -37,7 +37,7 @@ main also has a user-modified .vscode/settings.json. Do not stage those files.
 | S2 | Audited incremental primal maintenance | Active | S2-A REJECTED after numerical/cost qualification and independent review; broader pivot controller unresolved |
 | S3 | End-to-end exact sparsity support | Active | S3-A/S3-B integrated, latest masterb720674; exact-support consumer savings qualified; broader S3 partial |
 | S4 | Refactorization memory lifecycle | Active | S4-A/S4-C integrated; master3220118; Float64 component attribution/cost and exact triplet optimization accepted; bounded scalar component attribution360samples accepted; broader manager/history/medium coverage open |
-| S5 | Phase/cleanup handoff contract | Active | S5-A184 pairs/20gates and S5-B144 pairs/21gates accepted; S5-C guarded cost-copy RED/GREEN next |
+| S5 | Phase/cleanup handoff contract | Active | S5-A/S5-B accepted; S5-C production88a2411 -> mastere7014fb, reviewed, master668/668; broader handoffs partial |
 | S6 | Broad validation and final comparison | Pending | Requires accepted production chunks |
 
 Allowed execution states: Pending, Active, Blocked (reason required), Verified,
@@ -45,6 +45,11 @@ Integrated, Rejected (evidence required). Mark an optimization Verified only aft
 its acceptance gate. Record individual chunks separately when a stage is partial.
 
 ## Exact next action
+
+Execute2026-10-12-integration-failure-inventory.md.
+S6-A first reads existing CI failures and prior local coverage; no full suite or
+old baseline rerun, no CI enable. Earlier entries below are historical checkpoints.
+
 
 S3-A production cd91a1a -> masterd8ad4ec5651225a512d5f533f48ce7d8fc8f90cc is reviewed,
 integration-tested1645/1645 and pushed. Diagnostics milestone1c6ee5d is pushed.
@@ -831,3 +836,30 @@ contract then focused work RED, preserving every overlap/failure/event safeguard
 Keep both copies when disjointness cannot be established. Bound copies excluded.
 Last runner364759/child364760/driver364750 separately absent; no Julia, same boot.
 S5-C implementation/cost/regression/review gates and broader S4/S5/S6 remain open.
+
+## S5-C qualification in progress (2026-10-12)
+
+Minimal cost-copy guard implemented on architecture branch, not integrated.
+Layout184, RED462semantic/12expectedworkfailures, GREEN504, focused1463,
+cost312compile0samples/52fixtures,152exact trajectory pairs/153assertions.
+All process/source/pin gates verified. Report S5-COPIES.md; final review pending.
+Cost events equal; bytes differ144/156pairs, initial analysis assumption rejected
+and preserved. Large eligible timing ratios0.4496–0.9354; small and detached
+spread explicitly documented, no universal speedup/no-byte-growth claim.
+Last runner367367/child367368/driver367359 separately absent, no Julia, same boot.
+Master remains3220118. Next final independent numerical/work/memory review.
+
+## S5-C accepted and integrated (2026-10-12)
+
+Fresh independent gpt-6-astra review accepts with no findings; no unnecessary
+scan/solve/allocation/cache/retention found. Production88a2411 -> mastere7014fb.
+Master-1 passes668/668,all12audit gates/592pins, actual source and user hashes.
+Separate host check: runner368680/child368681/driver368668 absent, no Julia,
+boot20de7dde-704e-41c8-bee7-b8511c0a86b0. Source benefit is one O(N) copy removed
+at eligible cold restoration; cost-byte differences and detached/small timing
+uncertainty remain explicit. See S5-COPIES.md and S5-COPIES-REVIEW.md.
+Next S6-A failure/coverage inventory uses existing logs, without rerunning accepted
+measurements. Ruling: triage historical CI now before more optimization so broader
+validation blockers are explicit; this is not closure of broader S2/S3/S4/S5.
+CI confirmed disabled_manually; two old runs cancelled. Extended validation is a
+separate active workflow, not launched here. Master push verified by ls-remote:e7014fb92ae6dce633afc714793a2f89b39aea76.

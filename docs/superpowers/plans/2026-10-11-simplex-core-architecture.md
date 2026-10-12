@@ -520,3 +520,14 @@ subplan:2026-10-12-objective-restoration-contract.md. No production change.
 S5-B update: original objective/bound restoration census144pairs/21audit gates,
 no production change. S5-RESTORATION.md and separate S5-C alias-copy subplan define
 a concrete cold-copy candidate without shared certificate reuse. Broad S5 open.
+
+## S5-C integration and S6-A ordering (2026-10-12)
+
+S5-C bounded cost-copy reduction completed: production88a2411 -> mastere7014fb,
+review accepted without findings, master668/668/12audit gates/592pins and user hashes.
+Master push verified. See S5-COPIES.md for exact work and timing/byte limitations.
+No broader handoff/certificate reuse or whole-solver speedup is established.
+Next2026-10-12-integration-failure-inventory.md performs read-only S6-A triage of
+already-failed CI before additional optimization. Ruling: make known validation
+blockers explicit without redoing accepted measurements; broader S2/S3/S4/S5 and
+final S6 coverage remain open. CI stays disabled.

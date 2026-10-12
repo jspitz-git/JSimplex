@@ -1,0 +1,902 @@
+{
+  "checks": {
+    "52fixtures": true,
+    "312samples": true,
+    "compile0": true,
+    "source": true,
+    "script": true,
+    "all_round_pairs": true,
+    "repeats_equal": true,
+    "all_allocation_events_equal": true,
+    "copy_counts_match_work_contract": true
+  },
+  "groups": [
+    {
+      "type": "Float16",
+      "n": 32,
+      "detached": false,
+      "bounds": false,
+      "side_median_ratio": 0.7256944444444444,
+      "paired_median_ratio": 0.7256944444444444,
+      "baseline_seconds_per_restore_median": 2.25e-07,
+      "candidate_seconds_per_restore_median": 1.6328125e-07,
+      "byte_deltas_per_batch": [
+        -3728,
+        608,
+        208
+      ],
+      "allocation_events_equal": true,
+      "repeats": 128
+    },
+    {
+      "type": "Float16",
+      "n": 32,
+      "detached": false,
+      "bounds": true,
+      "side_median_ratio": 1.0206489675516226,
+      "paired_median_ratio": 0.9759759759759759,
+      "baseline_seconds_per_restore_median": 2.6484375e-07,
+      "candidate_seconds_per_restore_median": 2.703125e-07,
+      "byte_deltas_per_batch": [
+        -5632,
+        -32,
+        -320
+      ],
+      "allocation_events_equal": true,
+      "repeats": 128
+    },
+    {
+      "type": "Float16",
+      "n": 32,
+      "detached": true,
+      "bounds": false,
+      "side_median_ratio": 1.0236686390532543,
+      "paired_median_ratio": 0.9763313609467456,
+      "baseline_seconds_per_restore_median": 1.3203125e-07,
+      "candidate_seconds_per_restore_median": 1.3515625e-07,
+      "byte_deltas_per_batch": [
+        -4432,
+        800,
+        -304
+      ],
+      "allocation_events_equal": true,
+      "repeats": 128
+    },
+    {
+      "type": "Float16",
+      "n": 32,
+      "detached": true,
+      "bounds": true,
+      "side_median_ratio": 0.8450980392156863,
+      "paired_median_ratio": 0.8450980392156863,
+      "baseline_seconds_per_restore_median": 3.984375e-07,
+      "candidate_seconds_per_restore_median": 3.3671875e-07,
+      "byte_deltas_per_batch": [
+        -5504,
+        112,
+        -256
+      ],
+      "allocation_events_equal": true,
+      "repeats": 128
+    },
+    {
+      "type": "Float16",
+      "n": 8192,
+      "detached": false,
+      "bounds": false,
+      "side_median_ratio": 0.6744186046511628,
+      "paired_median_ratio": 0.6744186046511628,
+      "baseline_seconds_per_restore_median": 4.03125e-07,
+      "candidate_seconds_per_restore_median": 2.71875e-07,
+      "byte_deltas_per_batch": [
+        464,
+        1136,
+        -576
+      ],
+      "allocation_events_equal": true,
+      "repeats": 32
+    },
+    {
+      "type": "Float16",
+      "n": 8192,
+      "detached": false,
+      "bounds": true,
+      "side_median_ratio": 0.8641826923076923,
+      "paired_median_ratio": 0.9218749999999999,
+      "baseline_seconds_per_restore_median": 2.6e-06,
+      "candidate_seconds_per_restore_median": 2.246875e-06,
+      "byte_deltas_per_batch": [
+        -2880,
+        208,
+        16
+      ],
+      "allocation_events_equal": true,
+      "repeats": 32
+    },
+    {
+      "type": "Float16",
+      "n": 8192,
+      "detached": true,
+      "bounds": false,
+      "side_median_ratio": 1.0317460317460316,
+      "paired_median_ratio": 1.0317460317460316,
+      "baseline_seconds_per_restore_median": 3.9375e-07,
+      "candidate_seconds_per_restore_median": 4.0625e-07,
+      "byte_deltas_per_batch": [
+        432,
+        1184,
+        -624
+      ],
+      "allocation_events_equal": true,
+      "repeats": 32
+    },
+    {
+      "type": "Float16",
+      "n": 8192,
+      "detached": true,
+      "bounds": true,
+      "side_median_ratio": 1.0355731225296443,
+      "paired_median_ratio": 0.990578734858681,
+      "baseline_seconds_per_restore_median": 2.371875e-06,
+      "candidate_seconds_per_restore_median": 2.45625e-06,
+      "byte_deltas_per_batch": [
+        -2912,
+        304,
+        -416
+      ],
+      "allocation_events_equal": true,
+      "repeats": 32
+    },
+    {
+      "type": "Float32",
+      "n": 32,
+      "detached": false,
+      "bounds": false,
+      "side_median_ratio": 1.298913043478261,
+      "paired_median_ratio": 0.9891304347826086,
+      "baseline_seconds_per_restore_median": 1.4375e-07,
+      "candidate_seconds_per_restore_median": 1.8671875e-07,
+      "byte_deltas_per_batch": [
+        -5792,
+        1120,
+        -64
+      ],
+      "allocation_events_equal": true,
+      "repeats": 128
+    },
+    {
+      "type": "Float32",
+      "n": 32,
+      "detached": false,
+      "bounds": true,
+      "side_median_ratio": 0.9726775956284152,
+      "paired_median_ratio": 1.0178041543026706,
+      "baseline_seconds_per_restore_median": 2.859375e-07,
+      "candidate_seconds_per_restore_median": 2.78125e-07,
+      "byte_deltas_per_batch": [
+        -6224,
+        160,
+        -784
+      ],
+      "allocation_events_equal": true,
+      "repeats": 128
+    },
+    {
+      "type": "Float32",
+      "n": 32,
+      "detached": true,
+      "bounds": false,
+      "side_median_ratio": 0.9617486338797814,
+      "paired_median_ratio": 0.9180327868852458,
+      "baseline_seconds_per_restore_median": 1.4296875e-07,
+      "candidate_seconds_per_restore_median": 1.375e-07,
+      "byte_deltas_per_batch": [
+        -6640,
+        848,
+        -80
+      ],
+      "allocation_events_equal": true,
+      "repeats": 128
+    },
+    {
+      "type": "Float32",
+      "n": 32,
+      "detached": true,
+      "bounds": true,
+      "side_median_ratio": 0.8970588235294118,
+      "paired_median_ratio": 1.011142061281337,
+      "baseline_seconds_per_restore_median": 3.1875e-07,
+      "candidate_seconds_per_restore_median": 2.859375e-07,
+      "byte_deltas_per_batch": [
+        -6016,
+        -64,
+        -368
+      ],
+      "allocation_events_equal": true,
+      "repeats": 128
+    },
+    {
+      "type": "Float32",
+      "n": 8192,
+      "detached": false,
+      "bounds": false,
+      "side_median_ratio": 0.6507177033492824,
+      "paired_median_ratio": 0.6310679611650485,
+      "baseline_seconds_per_restore_median": 6.53125e-07,
+      "candidate_seconds_per_restore_median": 4.25e-07,
+      "byte_deltas_per_batch": [
+        1408,
+        240,
+        624
+      ],
+      "allocation_events_equal": true,
+      "repeats": 32
+    },
+    {
+      "type": "Float32",
+      "n": 8192,
+      "detached": false,
+      "bounds": true,
+      "side_median_ratio": 0.9216494845360824,
+      "paired_median_ratio": 0.8714776632302405,
+      "baseline_seconds_per_restore_median": 4.546875e-06,
+      "candidate_seconds_per_restore_median": 4.190625e-06,
+      "byte_deltas_per_batch": [
+        -1584,
+        480,
+        -176
+      ],
+      "allocation_events_equal": true,
+      "repeats": 32
+    },
+    {
+      "type": "Float32",
+      "n": 8192,
+      "detached": true,
+      "bounds": false,
+      "side_median_ratio": 0.9913793103448275,
+      "paired_median_ratio": 0.9913793103448275,
+      "baseline_seconds_per_restore_median": 7.25e-07,
+      "candidate_seconds_per_restore_median": 7.1875e-07,
+      "byte_deltas_per_batch": [
+        1376,
+        320,
+        560
+      ],
+      "allocation_events_equal": true,
+      "repeats": 32
+    },
+    {
+      "type": "Float32",
+      "n": 8192,
+      "detached": true,
+      "bounds": true,
+      "side_median_ratio": 1.0529753265602324,
+      "paired_median_ratio": 0.9949201741654573,
+      "baseline_seconds_per_restore_median": 4.30625e-06,
+      "candidate_seconds_per_restore_median": 4.534375e-06,
+      "byte_deltas_per_batch": [
+        -1568,
+        480,
+        -640
+      ],
+      "allocation_events_equal": true,
+      "repeats": 32
+    },
+    {
+      "type": "Float64",
+      "n": 32,
+      "detached": false,
+      "bounds": false,
+      "side_median_ratio": 1.1693989071038249,
+      "paired_median_ratio": 0.9651162790697674,
+      "baseline_seconds_per_restore_median": 1.4296875e-07,
+      "candidate_seconds_per_restore_median": 1.671875e-07,
+      "byte_deltas_per_batch": [
+        -6928,
+        1696,
+        -128
+      ],
+      "allocation_events_equal": true,
+      "repeats": 128
+    },
+    {
+      "type": "Float64",
+      "n": 32,
+      "detached": false,
+      "bounds": true,
+      "side_median_ratio": 0.8985507246376813,
+      "paired_median_ratio": 1.0,
+      "baseline_seconds_per_restore_median": 3.234375e-07,
+      "candidate_seconds_per_restore_median": 2.90625e-07,
+      "byte_deltas_per_batch": [
+        -8448,
+        48,
+        -256
+      ],
+      "allocation_events_equal": true,
+      "repeats": 128
+    },
+    {
+      "type": "Float64",
+      "n": 32,
+      "detached": true,
+      "bounds": false,
+      "side_median_ratio": 1.0342857142857143,
+      "paired_median_ratio": 1.011834319526627,
+      "baseline_seconds_per_restore_median": 1.3671875e-07,
+      "candidate_seconds_per_restore_median": 1.4140625e-07,
+      "byte_deltas_per_batch": [
+        -6352,
+        336,
+        96
+      ],
+      "allocation_events_equal": true,
+      "repeats": 128
+    },
+    {
+      "type": "Float64",
+      "n": 32,
+      "detached": true,
+      "bounds": true,
+      "side_median_ratio": 1.0330578512396693,
+      "paired_median_ratio": 1.0330578512396693,
+      "baseline_seconds_per_restore_median": 2.8359375e-07,
+      "candidate_seconds_per_restore_median": 2.9296875e-07,
+      "byte_deltas_per_batch": [
+        -8432,
+        64,
+        112
+      ],
+      "allocation_events_equal": true,
+      "repeats": 128
+    },
+    {
+      "type": "Float64",
+      "n": 8192,
+      "detached": false,
+      "bounds": false,
+      "side_median_ratio": 0.5599999999999999,
+      "paired_median_ratio": 0.5599999999999999,
+      "baseline_seconds_per_restore_median": 1.796875e-06,
+      "candidate_seconds_per_restore_median": 1.00625e-06,
+      "byte_deltas_per_batch": [
+        2000,
+        1824,
+        -720
+      ],
+      "allocation_events_equal": true,
+      "repeats": 32
+    },
+    {
+      "type": "Float64",
+      "n": 8192,
+      "detached": false,
+      "bounds": true,
+      "side_median_ratio": 0.8924118275739225,
+      "paired_median_ratio": 0.8635553972212326,
+      "baseline_seconds_per_restore_median": 8.771875e-06,
+      "candidate_seconds_per_restore_median": 7.828125e-06,
+      "byte_deltas_per_batch": [
+        208,
+        -48,
+        -496
+      ],
+      "allocation_events_equal": true,
+      "repeats": 32
+    },
+    {
+      "type": "Float64",
+      "n": 8192,
+      "detached": true,
+      "bounds": false,
+      "side_median_ratio": 0.996551724137931,
+      "paired_median_ratio": 0.996551724137931,
+      "baseline_seconds_per_restore_median": 1.8125e-06,
+      "candidate_seconds_per_restore_median": 1.80625e-06,
+      "byte_deltas_per_batch": [
+        1984,
+        1824,
+        -880
+      ],
+      "allocation_events_equal": true,
+      "repeats": 32
+    },
+    {
+      "type": "Float64",
+      "n": 8192,
+      "detached": true,
+      "bounds": true,
+      "side_median_ratio": 1.0161943319838056,
+      "paired_median_ratio": 0.9885903570114097,
+      "baseline_seconds_per_restore_median": 8.490625e-06,
+      "candidate_seconds_per_restore_median": 8.628125e-06,
+      "byte_deltas_per_batch": [
+        224,
+        -48,
+        -528
+      ],
+      "allocation_events_equal": true,
+      "repeats": 32
+    },
+    {
+      "type": "Float64",
+      "n": 262144,
+      "detached": false,
+      "bounds": false,
+      "side_median_ratio": 0.5660237388724035,
+      "paired_median_ratio": 0.5761877172653534,
+      "baseline_seconds_per_restore_median": 6.74e-05,
+      "candidate_seconds_per_restore_median": 3.815e-05,
+      "byte_deltas_per_batch": [
+        0,
+        0,
+        64
+      ],
+      "allocation_events_equal": true,
+      "repeats": 4
+    },
+    {
+      "type": "Float64",
+      "n": 262144,
+      "detached": false,
+      "bounds": true,
+      "side_median_ratio": 0.9353798646746289,
+      "paired_median_ratio": 0.8721030042918455,
+      "baseline_seconds_per_restore_median": 0.000550525,
+      "candidate_seconds_per_restore_median": 0.00051495,
+      "byte_deltas_per_batch": [
+        0,
+        -32,
+        0
+      ],
+      "allocation_events_equal": true,
+      "repeats": 4
+    },
+    {
+      "type": "Float64",
+      "n": 262144,
+      "detached": true,
+      "bounds": false,
+      "side_median_ratio": 0.9793741109530584,
+      "paired_median_ratio": 0.9945828819068256,
+      "baseline_seconds_per_restore_median": 7.03e-05,
+      "candidate_seconds_per_restore_median": 6.885e-05,
+      "byte_deltas_per_batch": [
+        0,
+        0,
+        64
+      ],
+      "allocation_events_equal": true,
+      "repeats": 4
+    },
+    {
+      "type": "Float64",
+      "n": 262144,
+      "detached": true,
+      "bounds": true,
+      "side_median_ratio": 1.0863242285820827,
+      "paired_median_ratio": 1.0499855054458112,
+      "baseline_seconds_per_restore_median": 0.00053635,
+      "candidate_seconds_per_restore_median": 0.00058265,
+      "byte_deltas_per_batch": [
+        0,
+        -16,
+        0
+      ],
+      "allocation_events_equal": true,
+      "repeats": 4
+    },
+    {
+      "type": "BigFloat",
+      "n": 32,
+      "detached": false,
+      "bounds": false,
+      "side_median_ratio": 1.3140096618357489,
+      "paired_median_ratio": 1.21256038647343,
+      "baseline_seconds_per_restore_median": 1.6171875e-07,
+      "candidate_seconds_per_restore_median": 2.125e-07,
+      "byte_deltas_per_batch": [
+        -7424,
+        896,
+        -320
+      ],
+      "allocation_events_equal": true,
+      "repeats": 128
+    },
+    {
+      "type": "BigFloat",
+      "n": 32,
+      "detached": false,
+      "bounds": true,
+      "side_median_ratio": 0.9739999999999999,
+      "paired_median_ratio": 1.0041237113402062,
+      "baseline_seconds_per_restore_median": 3.90625e-07,
+      "candidate_seconds_per_restore_median": 3.8046875e-07,
+      "byte_deltas_per_batch": [
+        -10368,
+        560,
+        416
+      ],
+      "allocation_events_equal": true,
+      "repeats": 128
+    },
+    {
+      "type": "BigFloat",
+      "n": 32,
+      "detached": true,
+      "bounds": false,
+      "side_median_ratio": 1.146341463414634,
+      "paired_median_ratio": 1.065989847715736,
+      "baseline_seconds_per_restore_median": 1.6015625e-07,
+      "candidate_seconds_per_restore_median": 1.8359375e-07,
+      "byte_deltas_per_batch": [
+        -6672,
+        96,
+        -32
+      ],
+      "allocation_events_equal": true,
+      "repeats": 128
+    },
+    {
+      "type": "BigFloat",
+      "n": 32,
+      "detached": true,
+      "bounds": true,
+      "side_median_ratio": 0.9676113360323887,
+      "paired_median_ratio": 0.9676113360323887,
+      "baseline_seconds_per_restore_median": 3.859375e-07,
+      "candidate_seconds_per_restore_median": 3.734375e-07,
+      "byte_deltas_per_batch": [
+        -9008,
+        480,
+        48
+      ],
+      "allocation_events_equal": true,
+      "repeats": 128
+    },
+    {
+      "type": "BigFloat",
+      "n": 8192,
+      "detached": false,
+      "bounds": false,
+      "side_median_ratio": 0.5255889520714866,
+      "paired_median_ratio": 0.5271381578947368,
+      "baseline_seconds_per_restore_median": 3.846875e-06,
+      "candidate_seconds_per_restore_median": 2.021875e-06,
+      "byte_deltas_per_batch": [
+        2464,
+        80,
+        32
+      ],
+      "allocation_events_equal": true,
+      "repeats": 32
+    },
+    {
+      "type": "BigFloat",
+      "n": 8192,
+      "detached": false,
+      "bounds": true,
+      "side_median_ratio": 0.903928632698576,
+      "paired_median_ratio": 0.8829987991079087,
+      "baseline_seconds_per_restore_median": 1.8215625e-05,
+      "candidate_seconds_per_restore_median": 1.6465625e-05,
+      "byte_deltas_per_batch": [
+        2528,
+        912,
+        704
+      ],
+      "allocation_events_equal": true,
+      "repeats": 32
+    },
+    {
+      "type": "BigFloat",
+      "n": 8192,
+      "detached": true,
+      "bounds": false,
+      "side_median_ratio": 1.0426421404682273,
+      "paired_median_ratio": 0.9974640743871512,
+      "baseline_seconds_per_restore_median": 3.7375e-06,
+      "candidate_seconds_per_restore_median": 3.896875e-06,
+      "byte_deltas_per_batch": [
+        2480,
+        80,
+        0
+      ],
+      "allocation_events_equal": true,
+      "repeats": 32
+    },
+    {
+      "type": "BigFloat",
+      "n": 8192,
+      "detached": true,
+      "bounds": true,
+      "side_median_ratio": 0.9869998311666385,
+      "paired_median_ratio": 1.0046842470506592,
+      "baseline_seconds_per_restore_median": 1.8509375e-05,
+      "candidate_seconds_per_restore_median": 1.826875e-05,
+      "byte_deltas_per_batch": [
+        2480,
+        928,
+        768
+      ],
+      "allocation_events_equal": true,
+      "repeats": 32
+    },
+    {
+      "type": "Rational{Int64}",
+      "n": 32,
+      "detached": false,
+      "bounds": false,
+      "side_median_ratio": 1.2027649769585254,
+      "paired_median_ratio": 1.0568181818181819,
+      "baseline_seconds_per_restore_median": 1.6953125e-07,
+      "candidate_seconds_per_restore_median": 2.0390625e-07,
+      "byte_deltas_per_batch": [
+        -7488,
+        1632,
+        32
+      ],
+      "allocation_events_equal": true,
+      "repeats": 128
+    },
+    {
+      "type": "Rational{Int64}",
+      "n": 32,
+      "detached": false,
+      "bounds": true,
+      "side_median_ratio": 1.0331384015594542,
+      "paired_median_ratio": 0.9902534113060429,
+      "baseline_seconds_per_restore_median": 4.0078125e-07,
+      "candidate_seconds_per_restore_median": 4.140625e-07,
+      "byte_deltas_per_batch": [
+        -11472,
+        880,
+        448
+      ],
+      "allocation_events_equal": true,
+      "repeats": 128
+    },
+    {
+      "type": "Rational{Int64}",
+      "n": 32,
+      "detached": true,
+      "bounds": false,
+      "side_median_ratio": 1.112,
+      "paired_median_ratio": 1.112,
+      "baseline_seconds_per_restore_median": 1.953125e-07,
+      "candidate_seconds_per_restore_median": 2.171875e-07,
+      "byte_deltas_per_batch": [
+        -7232,
+        416,
+        -944
+      ],
+      "allocation_events_equal": true,
+      "repeats": 128
+    },
+    {
+      "type": "Rational{Int64}",
+      "n": 32,
+      "detached": true,
+      "bounds": true,
+      "side_median_ratio": 1.045009784735812,
+      "paired_median_ratio": 1.045009784735812,
+      "baseline_seconds_per_restore_median": 3.9921875e-07,
+      "candidate_seconds_per_restore_median": 4.171875e-07,
+      "byte_deltas_per_batch": [
+        -11376,
+        928,
+        -160
+      ],
+      "allocation_events_equal": true,
+      "repeats": 128
+    },
+    {
+      "type": "Rational{Int64}",
+      "n": 8192,
+      "detached": false,
+      "bounds": false,
+      "side_median_ratio": 0.5708117443868739,
+      "paired_median_ratio": 0.5562556255625563,
+      "baseline_seconds_per_restore_median": 3.61875e-06,
+      "candidate_seconds_per_restore_median": 2.065625e-06,
+      "byte_deltas_per_batch": [
+        1952,
+        0,
+        -208
+      ],
+      "allocation_events_equal": true,
+      "repeats": 32
+    },
+    {
+      "type": "Rational{Int64}",
+      "n": 8192,
+      "detached": false,
+      "bounds": true,
+      "side_median_ratio": 0.8691419515508264,
+      "paired_median_ratio": 0.8691419515508264,
+      "baseline_seconds_per_restore_median": 1.3803125e-05,
+      "candidate_seconds_per_restore_median": 1.1996875e-05,
+      "byte_deltas_per_batch": [
+        1776,
+        2048,
+        -1408
+      ],
+      "allocation_events_equal": true,
+      "repeats": 32
+    },
+    {
+      "type": "Rational{Int64}",
+      "n": 8192,
+      "detached": true,
+      "bounds": false,
+      "side_median_ratio": 0.9792703150912105,
+      "paired_median_ratio": 0.9792703150912105,
+      "baseline_seconds_per_restore_median": 3.76875e-06,
+      "candidate_seconds_per_restore_median": 3.690625e-06,
+      "byte_deltas_per_batch": [
+        1824,
+        -16,
+        -256
+      ],
+      "allocation_events_equal": true,
+      "repeats": 32
+    },
+    {
+      "type": "Rational{Int64}",
+      "n": 8192,
+      "detached": true,
+      "bounds": true,
+      "side_median_ratio": 1.0022967386311437,
+      "paired_median_ratio": 0.9967845659163986,
+      "baseline_seconds_per_restore_median": 1.360625e-05,
+      "candidate_seconds_per_restore_median": 1.36375e-05,
+      "byte_deltas_per_batch": [
+        1808,
+        2000,
+        -1344
+      ],
+      "allocation_events_equal": true,
+      "repeats": 32
+    },
+    {
+      "type": "Rational{BigInt}",
+      "n": 32,
+      "detached": false,
+      "bounds": false,
+      "side_median_ratio": 1.0480349344978166,
+      "paired_median_ratio": 0.9854368932038835,
+      "baseline_seconds_per_restore_median": 1.7890625e-07,
+      "candidate_seconds_per_restore_median": 1.875e-07,
+      "byte_deltas_per_batch": [
+        -8368,
+        2336,
+        0
+      ],
+      "allocation_events_equal": true,
+      "repeats": 128
+    },
+    {
+      "type": "Rational{BigInt}",
+      "n": 32,
+      "detached": false,
+      "bounds": true,
+      "side_median_ratio": 1.0292682926829266,
+      "paired_median_ratio": 0.975609756097561,
+      "baseline_seconds_per_restore_median": 4.8046875e-07,
+      "candidate_seconds_per_restore_median": 4.9453125e-07,
+      "byte_deltas_per_batch": [
+        -10880,
+        1008,
+        64
+      ],
+      "allocation_events_equal": true,
+      "repeats": 128
+    },
+    {
+      "type": "Rational{BigInt}",
+      "n": 32,
+      "detached": true,
+      "bounds": false,
+      "side_median_ratio": 1.075601374570447,
+      "paired_median_ratio": 1.075601374570447,
+      "baseline_seconds_per_restore_median": 2.2734375e-07,
+      "candidate_seconds_per_restore_median": 2.4453125e-07,
+      "byte_deltas_per_batch": [
+        -6192,
+        144,
+        80
+      ],
+      "allocation_events_equal": true,
+      "repeats": 128
+    },
+    {
+      "type": "Rational{BigInt}",
+      "n": 32,
+      "detached": true,
+      "bounds": true,
+      "side_median_ratio": 1.0163447251114412,
+      "paired_median_ratio": 0.9539375928677564,
+      "baseline_seconds_per_restore_median": 5.2578125e-07,
+      "candidate_seconds_per_restore_median": 5.34375e-07,
+      "byte_deltas_per_batch": [
+        -10720,
+        2112,
+        -224
+      ],
+      "allocation_events_equal": true,
+      "repeats": 128
+    },
+    {
+      "type": "Rational{BigInt}",
+      "n": 8192,
+      "detached": false,
+      "bounds": false,
+      "side_median_ratio": 0.44962352097526,
+      "paired_median_ratio": 0.4438866977411258,
+      "baseline_seconds_per_restore_median": 8.715625e-06,
+      "candidate_seconds_per_restore_median": 3.91875e-06,
+      "byte_deltas_per_batch": [
+        2480,
+        -32,
+        -1552
+      ],
+      "allocation_events_equal": true,
+      "repeats": 32
+    },
+    {
+      "type": "Rational{BigInt}",
+      "n": 8192,
+      "detached": false,
+      "bounds": true,
+      "side_median_ratio": 0.8674472088647293,
+      "paired_median_ratio": 0.8991223317802578,
+      "baseline_seconds_per_restore_median": 2.989375e-05,
+      "candidate_seconds_per_restore_median": 2.593125e-05,
+      "byte_deltas_per_batch": [
+        2496,
+        2832,
+        -1280
+      ],
+      "allocation_events_equal": true,
+      "repeats": 32
+    },
+    {
+      "type": "Rational{BigInt}",
+      "n": 8192,
+      "detached": true,
+      "bounds": false,
+      "side_median_ratio": 0.9474103585657372,
+      "paired_median_ratio": 0.9474103585657372,
+      "baseline_seconds_per_restore_median": 7.84375e-06,
+      "candidate_seconds_per_restore_median": 7.43125e-06,
+      "byte_deltas_per_batch": [
+        2400,
+        0,
+        -1872
+      ],
+      "allocation_events_equal": true,
+      "repeats": 32
+    },
+    {
+      "type": "Rational{BigInt}",
+      "n": 8192,
+      "detached": true,
+      "bounds": true,
+      "side_median_ratio": 0.9835728952772074,
+      "paired_median_ratio": 0.9804928131416838,
+      "baseline_seconds_per_restore_median": 3.04375e-05,
+      "candidate_seconds_per_restore_median": 2.99375e-05,
+      "byte_deltas_per_batch": [
+        2640,
+        2912,
+        -1312
+      ],
+      "allocation_events_equal": true,
+      "repeats": 32
+    }
+  ],
+  "unequal_byte_pairs": 144,
+  "scope": "Warm repeated cold-restoration kernel plus identical journal rearming; initialization excluded; no natural-frequency or solver speedup claim",
+  "limitation": "Bytes differ in 144/156 pairs. Cause not established by these data; full-kernel allocation byte equality is not claimed. Permanent direct predicate check is zero Julia allocation, not proof of identical whole-kernel byte accounting."
+}
