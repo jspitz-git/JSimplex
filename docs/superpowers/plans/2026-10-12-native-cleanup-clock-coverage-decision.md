@@ -36,3 +36,15 @@ permanent test or workflow change. No old driver/auditor/full-file/corpus rerun.
    STATUS. Preserve S2-A/S6-J/wholeAF rejections and all historical raw failures.
    Historical x64/full-suite/broader S2/S3/S4/S5/S6 remain open. Do not turn reviewed
    local evidence into an unsupported platform or historical-cause claim.
+
+## Completed 2026-10-12
+
+SOURCE/EVIDENCEONLY,10namedtestsets,21sourcechecks528hashes8independentchecks.
+Five rows reuse exactsource/executedS5-C1463aggregate; five are source-only despite
+pins. Existingchecked/adaptive,postrestorecallback,privatecallback and native
+success scopes do not assert nativeactiveboundjournal publicentry interruption.
+Decision: separately bounded AN with stoptrue/identitythrow, at most2lifecycles,
+no successfulcontrol rerun or historicalrepairclaim. Freshgpt6astra review has
+noCriticalImportantMinor/no unnecessaryproductionworkmemory. No Julia/production/
+test/master/CI change. See S6-NATIVE-CLEANUP-CLOCK-COVERAGE.md/REVIEW,results/S6-AM.
+Exclusive mapping script must not rerun. Next2026-10-12-native-cleanup-entry-interruption.md.

@@ -243,12 +243,27 @@ supplement expected32instead31/falsegate/exit1/source preserved, correctedofflin
 no numerical/auditorrerun. Production/test/master/CIunchanged. See
 S6-NATIVE-CLEANUP-PROVENANCE.md/REVIEW,results/S6-AL. Driver/exclusiveauditorNERERUN.
 Historicalthreefailures/status/elapsed/cause/fullsuite/x64stillunresolved.
-Next: docs/superpowers/plans/2026-10-12-native-cleanup-clock-coverage-decision.md,
-S6-AM SOURCE/EVIDENCEONLY:map existingdeadline/cancellationjournalcoverage by actual
-policy/boundary/payload/work/sharedclock; noJulia,clockreset,warmup,limitincrease,
-toleranceprecision/safeguardchange. Do notrepeatAK analysis. Decidejustifiedgap or
-deferhistoricalcause and selectconcretebroaderarchitectureobligation fromroadmap.
-Anynewnumericsrequireseparateboundedplan/review; no speculativeoldfullfile/corpus.
+S6-AM complete:SOURCE/EVIDENCEONLY,10mappedtestsets,21sourcechecks528hashes,
+8independentchecks. Five exactsource/executedrows reuseS5-C1463aggregate; fourdriver
+rows andprivatecleanup source-only, pinpresenceNOTexecution. Checked/adaptivehelper,
+postrestoreboundcallback,private:deadlinecallbackthirdcall distinguished. Native
+successAL separate, no historicalCIcause. Scopedmissingnativeactiveboundjournal
+first-publicentry cancellation/identitythrow coverage justifies boundedAN, not
+oldtimeoutfix. Freshgpt6astra noCriticalImportantMinor/no unnecessaryproductionwork
+memory; no newdeferredMinor. NoJulia/production/test/master/CIchange. See
+S6-NATIVE-CLEANUP-CLOCK-COVERAGE.md/REVIEW,results/S6-AM;exclusive map NERERUN.
+Next: docs/superpowers/plans/2026-10-12-native-cleanup-entry-interruption.md,S6-AN.
+At most2newFloat64PFIlifecycles(:stop/:throw),eachactualhelper+initialoptimizer+
+budget+publicdriver once. No successcontrol or oldALrerun. Callbackpreforwardcount1,
+stoptrue versus sameSingularException(29); no adapter/observer/extracomponentcall.
+Originalsixpermanentpredicates/helper byteidentical. Originalclock/time30/iter20/
+options/tols/policies unchanged, nowarmup/reset/extension/removal. InitialALbits/work
+comparability; driverzeroallkernels/no newiteration/refactor, selectedstate/active
+journalidentity/boundaliases/options/budget preserved. StopTIME_LIMIT/nopayload/
+checkpoint1;throwidentity/noresult/noevents. Count0 or unexpectedwork/state rejects;
+firstfailurestops, preserve raw/actualcounts/no retry. Mandatoryfreshhost/pins/
+resourceguard/offlineactualbits/process/source/useraudit;freshreviewbeforeanytestfix.
+Notactualdeadlineexpiry/historicalCIcause/fullsuite/x64proof;CI disabled.
 BroaderS2/S3/S4/S5/S6/native symbolicreuse/originalcertificatelimits remainopen.
 CI disabled, S6-J/S2-A rejected; historicalCIcause/hidden states/fullsuite/x64 open.
 
