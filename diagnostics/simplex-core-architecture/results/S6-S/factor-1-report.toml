@@ -1,0 +1,50 @@
+source = "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/JSimplex.jl"
+globals_preserved = true
+scope = "New single Float64 scaled basis component; no public solve, workspace or captured runtime factor. Two basis solves; metadata after solves."
+arch = "aarch64"
+input_sha256 = "98dbd24433a148992a3af2695b63fb762ed958aeedecf042500e948e34aae56b"
+julia_threads = 1
+blas_threads = 1
+julia_version = "1.13.0"
+
+[options]
+basis_update = ":pfi"
+iteration_limit = "100000"
+pricing = ":steepest_edge"
+simplex_strategy = ":legacy"
+basis_refactorization = ":native"
+time_limit = "Inf"
+log_level = "Debug"
+verbose = "true"
+scaling = ":auto"
+partial_pricing = "false"
+algorithm = ":dual"
+zero_tolerance = "1.0e-12"
+presolve = "true"
+primal_tolerance = "1.0e-7"
+dual_tolerance = "1.0e-7"
+refactorization_interval = "20"
+
+[record]
+original_matrix = ["1//2097152", "8388607//17592186044416", "1//2097152", "8388609//17592186044416"]
+btran_calls = 1
+matrix = ["1//1", "8388607//8388608", "1//1", "8388609//8388608"]
+ftran_calls = 1
+refinement_steps = 0.0
+column_scaling = ["1//1", "1//1"]
+input_unchanged = true
+q = [1, 2]
+control_before = ["1//1", "3602879701896397//18014398509481984", "3602879701896397//18014398509481984", "3602879701896397//36028797018963968", "32//1", "0//1", "3152519739159347//4503599627370496", "0//1", "1//1", "5404319552844595//18014398509481984", "1//1", "1//1", "8106479329266893//9007199254740992", "0//1", "10//1", "1152921504606847//1152921504606846976", "1//1", "1//2", "0//1", "1//1"]
+dual = ["8388607//2", "-4194304//1"]
+primal = ["-17592188141568//1", "17592186044416//1"]
+U = ["1//2", "0//1", "1//2", "1//8388608"]
+rhs = ["-2097152//1", "8388609//4"]
+row_scaling = ["1//2097152", "1//2097152"]
+Rs = ["1//2", "1//2"]
+dual_rhs = ["0//1", "-1//1"]
+p = [1, 2]
+control_after = ["1//1", "3602879701896397//18014398509481984", "3602879701896397//18014398509481984", "3602879701896397//36028797018963968", "32//1", "0//1", "3152519739159347//4503599627370496", "0//1", "1//1", "5404319552844595//18014398509481984", "1//1", "1//1", "8106479329266893//9007199254740992", "0//1", "10//1", "1152921504606847//1152921504606846976", "1//1", "1//2", "0//1", "1//1"]
+updates = 0
+L = ["1//1", "8388607//8388608", "0//1", "1//1"]
+scaling_mode = 1.0
+factorizations = 1
