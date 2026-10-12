@@ -48,7 +48,8 @@ raw evidence/user files/old environments; large inputs forbidden, CI stays disab
 One observed solve matches saved S6-N endpoint;11events,5assertions,24gates,611pins.
 First exact equation residual is auxiliary pivot1, while the first original-bound
 violation is certification after private original-bound refactor/recompute. Backend
-operation not isolated. See S6-POINT-PROVENANCE.md. Independent final review pending.
+operation not isolated. See S6-POINT-PROVENANCE.md. Independent final review accepted with a deferred unit-scaling-only audit limitation;
+see S6-POINT-PROVENANCE-REVIEW.md.
 Deferred comparator minor from S6-O/P was implemented in preflight:517matching
 source/test/environment/runtime/launcher pins plus model/options/policy/threads.
 No old driver edits or repeated accepted census. Next separate S6-R replay plan.

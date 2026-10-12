@@ -1,6 +1,6 @@
 # S6-Q: original Float64 point provenance
 
-Status: observed trace and independent post-exit audit complete; final review pending.
+Status: observed trace and independent post-exit audit complete; independent final review accepted; see S6-POINT-PROVENANCE-REVIEW.md.
 No production/test/tolerance/precision/CI change. One new observed solve, not a
 repeat of the accepted four-type census or an unobserved control solve.
 
@@ -79,3 +79,8 @@ repair is established. All accepted old measurements remain unchanged.
 Next: S6-R minimal factor-component replay on captured immutable B and derived
 RHS, with explicit fresh-versus-refactor lifecycle and public backend metadata
 contract inspection. No complete solver rerun or opaque factor serialization.
+
+Deferred minor: the audit's general column-scaling formulas are reversed. All
+captured column factors are1, and the reviewer independently reproduced every
+result using production's convention. Fixed-unit-scaling scope only; correct or
+explicitly restrict before reuse. Accepted driver/audit/artifacts remain unchanged.

@@ -46,30 +46,34 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-S6-O/P diagnostic evidence65e4555 is independently accepted without blockers;
-see S6-BINARY-QUALIFICATION.md and S6-BINARY-QUALIFICATION-REVIEW.md.
-S6-O triangular:13/13,exit0,24gates,608pins; presolve2/2/3->1/2/2 changes the main
-route, so no permanent replacement accepted. S6-P balanced:12pass/1original
-Float64 equality failure,exit1,23/25checks,609pins; two acceptance gates false and
-all_passed=false preserved. Float64 rows[1,-1-2^-47],gap-1/16; candidate REJECTED.
-No production/test/CI change, no new performance or full-suite/x64 claim.
-S6-N original census remains accepted:13pass/1equality failure,22gates,607pins;
-no repeat. Analytical witness certificates are not runtime witness capture.
+S6-Q complete and independently accepted: evidence4444119,report
+S6-POINT-PROVENANCE.md and S6-POINT-PROVENANCE-REVIEW.md. One original Float64
+observed solve;5/5diagnostic assertions,11events,24gates,611pins,exit0. Saved S6-N
+endpoint matches exactly.517source/test/environment/runtime/launcher pins and
+model/options/policy/threads compared; no new unobserved control or census rerun.
+First exact working-equation residual is auxiliary pivot1(event6),125/2^66 per row.
+First original-bound violation is event11certification after private original-bound
+refactor/recompute:2^-47 original,2^-27 scaled,gap-1/16. Event10refactor is before
+FTRAN/BTRAN; no proof of particular arithmetic cause. No eta at handoff. Captured
+final scratch RHS[0,-1] is BTRAN costs; primal RHS[-2^20,2^20] derives from states/
+bounds. Raw scratch is not a certified runtime dual witness.
 
-Next: docs/superpowers/plans/2026-10-12-nearly-singular-point-provenance.md, S6-Q.
-Reconcile events and saved S6-N control, then one bounded original Float64 observed
-solve with owned snapshots and offline exact residuals. Do not launch another
-unobserved control or repeat censuses/corpora/reference/cost measurements.
-Deferred review minor to carry into preflight: compare runtime/environment,
-launchers/options/policy/thread configuration as well as source/model/test hashes.
-Current runtime/environment/launcher pins already match S6-N. No accepted driver
-rewrite/rerun for this clarification. First observed deviation is not proof of
-originating arithmetic operation; certification event precedes actual checks.
-No observer solves/refactors/certificates/mutation; no speculative fixture tuning.
-Permanent change needs concrete evidence and a separate RED/GREEN/review plan.
-Last separate executor and reviewer host checks: runner384575,child384576,
-driver384567 absent,no Julia,boot20de7dde-704e-41c8-bee7-b8511c0a86b0.
-Always recheck fresh identity before new work. Master remains7fea422.
+Next: docs/superpowers/plans/2026-10-12-nearly-singular-factor-replay.md,S6-R.
+Inspect production/backend contracts,then minimal fresh-versus-copy/refactor
+component replay with captured B and derived RHS; no solver/census/trace rerun.
+No opaque factor serialization/control changes/tolerance or precision changes.
+Deferred minor: S6-Q audit reverses GENERAL column-scaling convention. All captured
+column factors1, independent reviewer recomputation using production convention
+confirms every result. Do NOT reuse for nonunit scaling without correction or
+explicit restriction; preserve accepted artifacts, no rerun for this minor.
+S6-R results are not yet available. No production/test/CI change or speed claim.
+Last separate executor/reviewer host checks: runner386534,child386535,driver386526
+absent,noJulia,boot20de7dde-704e-41c8-bee7-b8511c0a86b0. Always recheck identities.
+Master remains7fea422; original equality/full-suite/x64 remain unresolved.
+
+S6-N/O/P remain accepted diagnostics, not repairs. S6-O changes main presolve route;
+S6-P candidate REJECTED with12pass/1equality failure,exit1,two false acceptance
+gates/all_passed=false preserved. Do not repeat accepted census/corpus/cost runs.
 
 S6-L/M remains complete: test2c3e0eb -> master7fea422 pushed, qualification300pass,
 GREEN1477/1477/master1477/1477 and14master gates, independent review accepted.
