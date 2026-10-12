@@ -46,7 +46,22 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-**Current continuation: S4-M bounded cost evidence accepted; next S4-N SOURCE/EVIDENCE ONLY native allocation accounting feasibility, `docs/superpowers/plans/2026-10-12-hh-native-accounting-feasibility.md`. Native retention remains OPEN and HH symbolic reuse stays disabled.**
+**Current continuation: S4-N source-only accounting feasibility accepted; next S4-O source-only allocation-counter attribution, `docs/superpowers/plans/2026-10-12-hh-allocation-counter-attribution.md`. Native retention remains OPEN and HH symbolic reuse stays disabled.**
+
+S4-N: zero Julia/native calls/hooks. Installed ELF branches establish actual long-index
+UMFPACK helper -> SuiteSparseConfig callback paths. SparseArrays source configures
+jl_malloc/calloc/realloc/free, so libc restoration is not equivalent. Complete native
+accounting unsupported by current evidence: transitive allocation domain, quiescence,
+unknown preexisting pointers, reentrancy/finalizer drain unqualified. Native retention
+OPEN. 20 source checks/61 explicit read-time hashes; separate 5-check full inventory
+matches all 554 M pins, union 572. Initial guessed symbol selectors empty and optional
+header 404 preserved. Versioned upstream sources not installed/build proof. Next ONE
+source-only S4-O traces existing allocation counters; no new numerical plan or hook
+launch. Reports S4-NATIVE-ACCOUNTING-FEASIBILITY.md/REVIEW and results/S4-N.
+Fresh gpt-6-astra review: no Critical/Important/Minor; no unnecessary production work
+or retained memory. Reviewer independently sampled11 hashes; author full572 separate.
+All old accepted drivers/evidence unchanged; production/test/master/CI unchanged.
+
 
 S4-M:oneNEWguardedcost-1,231runtimechecks/exit0,24auditgates554launchpins,10author
 independentchecks/full554/20,148rebuiltinputRHSentries. FourHHfactors sparse/dense96

@@ -639,3 +639,17 @@ reviewer33samplepins and all exact inputs/residuals/statistics,authorfull554sepa
 StableJulia graph/nativeInfo/RSS do not close native retention. Next source-only
 S4-N in2026-10-12-hh-native-accounting-feasibility.md; no Julia or hooks in N.
 No symbolic enablement, production/test/CI changes or broaderS4/S6 acceptance.
+
+
+### S4-N source-only accounting feasibility, 2026-10-12
+
+Installed long-index UMFPACK helpers route through the SuiteSparseConfig callback
+slots; actual binary branches checked, not inferred from symbols alone. Installed
+SparseArrays initialization delegates to jl_* allocators. Current evidence does not
+qualify complete allocation/free balance or safe hook lifetime/drain; native retention
+stays OPEN. No native calls or production work. 20 source checks/61 explicit hashes,
+separate full 572 read-time inventory/5 checks, all 554 M pins unchanged. Fresh independent gpt-6-astra review found no Critical/Important/Minor and no
+unnecessary production work/memory. Reviewer11sample hashes; author full572 separate.
+Next ONE source-only S4-O plan: 2026-10-12-hh-allocation-counter-attribution.md,
+which binds existing timed fields to allocator implementation; no numerical launch,
+hooks or performance rerun. Native symbolic reuse remains disabled.
