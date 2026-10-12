@@ -1,6 +1,6 @@
 # Simplex core architecture: progress and continuation
 
-Updated: 2026-10-12. This is the entry point after interruption.
+Updated: 2026-10-13. This is the entry point after interruption.
 
 ## Current state
 
@@ -46,7 +46,22 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-**Current continuation: S3-C DSE consumer source contract completed and independently accepted. One unqualified mixed-route entering-FTRAN -> weight-FTRAN -> replacement composition is selected, with no demonstrated production defect. Next S3-D: `docs/superpowers/plans/2026-10-12-dse-mixed-route-qualification.md`, bounded OFFLINE preparation only; freeze inputs/route seam/complete work accounting before any later launch. No Julia launch authorization and no reopening HH bootstrap/controller audits.**
+**Current continuation: S3-D offline preparation completed and independently accepted; no numerical execution authorized. Next S3-E: `docs/superpowers/plans/2026-10-13-dse-mixed-route-driver.md`, ONE bounded diagnostic driver/counter-seam preparation without Julia. Complete observed internal-attempt accounting is unimplemented; reject this qualification route if it requires global method overwrite or full-module cloning. Do not reopen HH bootstrap/controller audits.**
+
+S3-D: 11 exact offline checks, ten source checks, 69 read-time hashes; author eight
+independent checks/full69, reviewer independently full69 and all1,168 rational/
+binary64 entries, six equations, 32 ordered weight bits and three exact inverse
+clones. Existing m16 fixture, one prior update, ten planned Float64/native sequences.
+Source-derived ten constructors/twenty updates/sixty outer solves (40F/20B), separately
+four HH internal unit operations and at most ten nested orientation solves; not
+observed counts or 74 equivalent backend entries. HH dense fallback and inner sparse
+fallback explicit; zero-coefficient row still receives weight floor. No demonstrated
+defect/public reachability/certificate/speedup claim. Internal pre-forward observation
+remains unqualified; S3-E must resolve it or stop this route. Fresh review no findings
+and no unnecessary production work/memory. No Julia/import/native/compile/old rerun or
+production/test/env/master/CI change. Read S3-DSE-MIXED-ROUTE-PREPARATION.md/REVIEW and
+results/S3-D. Frozen preparation/source checks/closure must not rerun. Separate passing
+closure precedes fail-fast publication.
 
 S3-C: 16 literal source checks, 53 relevant read-time hashes, 36 historical comparisons,
 nine exact excerpts; author nine independent checks, reviewer full53/36/9 and all80

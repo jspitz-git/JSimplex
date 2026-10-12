@@ -1,0 +1,15 @@
+function _s3d_update_dse!(workspace::SimplexWorkspace{T}, rho::Vector{T}, tableau_column::Vector{T},
+                    entering_index::Int, pivot::T, squared_norm::T)::Nothing where {T}
+    entering_weight = squared_norm / pivot^2
+    tau = _s3d_checked_basis_solve!(workspace.scratch.tau,workspace,rho;operation=:weight_ftran)
+    for (row, index) in enumerate(workspace.basis.basic_indices)
+        coefficient = tableau_column[row]
+        workspace.pricing_weights[index] = max(
+            _typed_ratio(T, 1, 10^4), workspace.pricing_weights[index] + coefficient *
+            (coefficient * entering_weight - T(2) * tau[row] / pivot),
+        )
+    end
+    workspace.pricing_weights[entering_index] = entering_weight
+    return nothing
+end
+

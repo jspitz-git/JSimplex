@@ -841,3 +841,23 @@ one prior update. Freeze source seam/inverse, inputs, residual/weight/work oracl
 complete attempt budget; no launch from this contract alone. No repeated S3 census or
 HH bootstrap/controller audit. S4/S6 gates, CI off, HH reuse disabled and rejected
 candidates unchanged. Separate passing closure before fail-fast diagnostic publication.
+
+
+## S3-D closure and S3-E continuation (2026-10-13)
+
+S3-D is accepted OFFLINE PREPARATION ONLY; see S3-DSE-MIXED-ROUTE-PREPARATION.md
+and its independent review. Eleven exact checks, ten source checks, 69 hashes,
+eight author independent checks; reviewer verified all69 hashes, all1,168 binary64/
+rational entries, six equations, 32 weight bits and three exact inverse clones.
+One existing m16 fixture and ten component sequences are frozen; no Julia executed.
+Conditional source budget: ten constructors, twenty updates, sixty outer solves
+(40F/20B), separately four internal HH unit calls and <=10 orientation solves.
+No complete observed internal-attempt counter seam has been implemented.
+No source/test/env/master/CI changes or unnecessary production work/memory.
+
+Next: docs/superpowers/plans/2026-10-13-dse-mixed-route-driver.md, ONE bounded
+S3-E driver/counter preparation and independent review WITHOUT Julia. Reject this
+qualification route if complete internal accounting needs global method overwrite
+or full-module cloning; do not reopen HH isolation or controller audits. No launch
+authorization. CI off, HH reuse disabled; bootstrap/cache/init/public-budget/native-
+retention/broader S3/S4/S6/fullsuite and previous rejections remain unchanged.
