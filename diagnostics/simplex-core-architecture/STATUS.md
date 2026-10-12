@@ -58,7 +58,11 @@ T604603current+1preserved/Tcorrectedhash unchanged. No production/test/env/maste
 old reruns or newLP. Report S4-ISOLATED-BOOTSTRAP-CONTRACT.md/results/S4-U.
 Fresh gpt-6-astra review no unresolved Critical/Important/Minor and no unnecessary
 production work/memory; reviewer independently full627/sevenexcerpts/Tprovenance/user6.
-No correction/newdeferredissue. NextV one bounded readonlyhost/source decision, no trialmount/
+Original closure8/9/all_passedfalse/exit1 preserved: acceptance literal crossed newline.
+Shell continued and published ae874717 despite failure. Separate offline supplement7/7
+normalizes only whitespace, proves unchanged review/full627/originalboundhashes; no rerun.
+Before STATUS/roadmap preserved, subsequent publication uses fail-fast shell. No new
+deferred review issue. NextV one bounded readonlyhost/source decision, no trialmount/
 namespace/import and rejectrouteifunsupported. HHreuse disabled/retention/broaderS4S6open.
 
 

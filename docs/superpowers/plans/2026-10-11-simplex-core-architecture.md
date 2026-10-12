@@ -765,3 +765,9 @@ cache/env/production/test/CI change, T LP rerun or repeated S/Q evidence. Next O
 read-only confinement feasibility decision:2026-10-12-hh-readonly-bootstrap-feasibility.md;
 no trial mount/import, reject route if unsupported. Review recorded separately. NativeHH
 reuse disabled, native retention/wholecontrollercaps/broaderS4S6/fullsuite remain OPEN.
+
+S4-U closure amendment: original8/9/all_passedfalse/exit1 is preserved. The acceptance
+phrase crossed a line break; shell continued into ae874717 publication despite the failed
+audit. Separate closure-supplement7/7 verifies normalized text and unchanged original
+review/full627 evidence. No numerical/script rerun; prior STATUS/roadmap copies preserved.
+Further publication is fail-fast. This does not qualify bootstrap or alter its OPEN gates.
