@@ -46,7 +46,23 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-**Current continuation: S4-S conditional isolated solver-core loading manifest; runtime UNEXECUTED. Next S4-T source/exact-offline public LP/work contract, `docs/superpowers/plans/2026-10-12-hh-isolated-public-lp-work-contract.md`. No numerical launch; native retention OPEN and HH reuse disabled.**
+**Current continuation: S4-T exact LP witness completed offline; whole public qualification remains OPEN. Next S4-U source-only bootstrap/cache contract, `docs/superpowers/plans/2026-10-12-hh-isolated-bootstrap-contract.md`. No numerical plan/launch; native retention OPEN and HH reuse disabled.**
+
+S4-T: ONE frozen finite two-row/three-column LP; exact original optimum [0,4/3,10/3],
+objective -47/3, dual[-16/3,-5/3].11exact checks; conditional unique Dantzig basis path
+[4,5]->[1,5]->[1,2]->[3,2], last two bases same CSC pattern/different values.
+Not a native trajectory/certificate acceptance proof.17source checks604read-time hashes,
+separate author8checks/full604/allinputbits/120exactvertexcombinations(6vertices).
+S586before-fix inventory reconciled584current+2preserved; all558Qpins unchanged.
+Bootstrap and complete controller attempt caps NOT qualified; no numeric plan/driver.
+Conditional full import workload82publicsolves+4Markowitzfactors4refactors16solves,
+NOT observed counts or complete internal budget. No production/test/env/master/CI change.
+Report S4-ISOLATED-PUBLIC-LP-WORK-CONTRACT.md/results/S4-T. Fresh gpt-6-astra review accepted/no unresolved findings/no unnecessary production work
+or memory. One Minor macro-guard wording fixed offline RED1/GREEN4, before report
+preserved;604inventory binds603unchanged+1preserved, final corrected hash separate.
+Reviewer allinputs/tableaux/ratios/witness +16samplehashes, author full604 separate.
+No launch authorization. Preserve QGCdominance/outlier/allrejections.
+
 
 S4-S: SOURCE/EVIDENCE ONLY,70original/64selectedfiles per side,128orderedmanifestentries.
 Seven root substitutions +ONEcandidateHHkeyword, exactinverse/ZEROroutingrenames.

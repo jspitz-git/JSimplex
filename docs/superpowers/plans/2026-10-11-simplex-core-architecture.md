@@ -737,3 +737,18 @@ Next ONE S4-T source/exact-offline public LP/work contract:
 2026-10-12-hh-isolated-public-lp-work-contract.md. No numerical launch or repetition of
 H/R inventories/Qcost. Production/test/env/master/CI unchanged, HH reuse disabled,
 native retention/fullsuite/broader S4/S6 OPEN and all prior rejections unchanged.
+
+
+### S4-T exact LP candidate and whole-work gap, 2026-10-12
+
+One exact finite LP has original feasible/optimal witness x=[0,4/3,10/3], objective-47/3,
+and three unique conditional Dantzig pivots. Final two ordered bases share CSC pattern;
+this is algebraic reachability, not proof of native path/certificate acceptance.11exact
+checks,17source checks604hashes,8separate author checks/full604/120exactvertexcombinations.
+S inventory correction provenance and all558Qpins unchanged. Whole qualification stays
+OPEN: no qualified fresh-process bootstrap and no complete controller attempt budget.
+No numerical plan/launch, production/test/env/CI change or cost measurement. Next ONE
+source-only bootstrap contract:2026-10-12-hh-isolated-bootstrap-contract.md. S manifest
+unchanged; later controller budget must still close before any pair. Review tracked in
+S4-ISOLATED-PUBLIC-LP-WORK-CONTRACT-REVIEW.md. Native HH reuse disabled/retention OPEN,
+Q evidence/all prior rejections/broader S4/S6/fullsuite unchanged.
