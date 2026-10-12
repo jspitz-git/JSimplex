@@ -56,15 +56,19 @@ New feasible set preserves no-recession regression intent,not equivalent matrix 
 solver repair. Old cancellation stress remains preserved. See S6-NEARLY-SINGULAR-
 FIXTURE.md and S6-NEARLY-SINGULAR-FIXTURE-REVIEW.md. No fullsuite/x64/speedup claim.
 
-Next: docs/superpowers/plans/2026-10-12-primal-price-recovery-reachability.md,S6-U.
-First reconcile existing native_price_roundoff_fixture, exact historical12assertions
-per run in repeated-price budget test, accepted local S2 evidence and current paths.
-results/S6-U/existing-failure-map.json is aggregation only; no new census yet.
-Map quality/correction/direction/ratio/retry/observer/budget/publication. Then bounded
-current-source four-manager census preserving original oracle and existing fault
-injection; additional snapshots read-only/no callback solves/refactors/certificates.
-No inferred x64 cause, no weakening exact-one/zero work assertions, no rejected
-S6-J promotion. A repair needs separate RED/GREEN plan and fresh review.
+S6-U census complete, independent review pending: four original manager cases,
+20/20 assertions, exit0,47gates615pins. One correction/publication then injected
+price7=-1 is rejected without renewed budget; zero iterations/refactors. Selected
+point/basis state unchanged. Initial cached-rho exact residual nonzero, published
+rho exact. Not private fresh BTRAN capture or x64 cause. See S6-PRIMAL-PRICE-
+REACHABILITY.md. No production/test changes, no accepted full-file rerun.
+
+Next after review: docs/superpowers/plans/2026-10-12-primal-price-boundary-qualification.md,
+S6-V. Qualify a scoped one-shot cost-BTRAN adapter on a new dyadic identity fixture,
+with new exact/seed-only controls and unchanged repeated-budget oracle. Proposed
+boundary is not numerically qualified. Keep native fixture/adjacent integration
+coverage intact; permanent repair requires separate RED/GREEN plan. Do not promote
+S6-J or infer historical x64 cause from local success.
 
 S6-S accepted evidence90811de/closure6c5ef37: fourtype13/13 + factor6/6; initial
 comparability30/31false preserved with517pin/current-external supplement; no

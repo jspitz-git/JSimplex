@@ -34,3 +34,24 @@ file. No tolerance/precision/safeguard changes, certificate transfers or CI enab
 No fullsuite/x64/speedup claim. Single guarded Julia/BLAS1,heap2GiB,VM8GiB,
 minRAM6GiB,maxswap1GiB. Fresh separate boot/start_ticks/command process absence
 before edits/launch. Preserve old worktrees/environment/user changes.
+
+## Preflight observation contract
+
+The old log establishes zero publication/correction events, not the actual returned
+status or the private BTRAN residual. The existing local S2 full file is accepted
+and is not rerun. This census executes only the original target testset once (four
+managers), retaining its five assertions and its sole reduced_costs[7] injection.
+Additional owned snapshots are taken before callbacks and after that injection,
+and around the iteration. Kernel diagnostics are enabled to count actual calls;
+this is an observed current-source run, not an observer-neutrality comparison.
+Snapshots never solve, refactor, certify, or mutate the workspace. Private fresh
+BTRAN candidates and the local price_recovery_attempted variable are not exposed
+by events; event ordering and source control flow give bounded inferences only.
+Exact offline residuals use the captured matrix/basis/costs, not extra live solves.
+A zero/absent correction event alone does not identify which prerequisite failed.
+
+## Result
+
+Four unchanged cases passed 20/20 original assertions; exit0, 47 audit gates,
+615 unchanged pins. See S6-PRIMAL-PRICE-REACHABILITY.md. Private BTRAN/CI cause
+and observer neutrality remain unproved. Independent final review pending.
