@@ -1,0 +1,60 @@
+[ Info: Loaded problem: rows=2 columns=2 nnz=4
+[ Info: Starting presolve
+[ Info: After presolve: rows=2 columns=2 nnz=4
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.124898902
+[ Info: iter=2 obj=-1.7592186e13 pinf=0.0 (0) dinf=0.0 (0) time=0.140873979s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 2
+└   time = 0.141911184
+[ Info: Solve finished: status=NUMERICAL_ERROR reason=structural primal failed original-model feasibility checks iterations=2 time=0.141951984s
+[ Info: Loaded problem: rows=2 columns=2 nnz=4
+[ Info: Starting presolve
+[ Info: After presolve: rows=2 columns=2 nnz=4
+┌ Info: Starting simplex phase I
+│   algorithm = :dual
+│   iter = 0
+└   time = 0.000766801
+[ Info: iter=2 obj=-1.7592186044416062e13 pinf=0.0 (0) dinf=0.0 (0) time=0.013839807s
+┌ Info: Starting simplex phase II
+│   algorithm = :dual
+│   iter = 2
+└   time = 0.013904807
+[ Info: Solve finished: status=OPTIMAL objective=-1.7592186044416062e13 iterations=2 time=0.013964307s
+ERROR: LoadError: Some tests did not pass: 4 passed, 0 failed, 1 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/solver_tests.jl:1
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/nearly_singular_objective_census.jl:72
+
+A nearly singular bounded model has no recession ray: Error During Test at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/solver_tests.jl:1
+  Got exception outside of a @test
+  UndefVarError: `Basis` not defined in `Main`
+  Suggestion: check for spelling errors or missing imports.
+  Stacktrace:
+    [1] record_case(problem::LinearProblem{Float64}, result::Solution{Float64}, before::Dict{String, Any})
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/nearly_singular_objective_census.jl:50
+    [2] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/solver_tests.jl:9 [inlined]
+    [3] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+    [4] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/solver_tests.jl:2
+    [5] eval(m::Module, e::Any)
+      @ Core ./boot.jl:489
+    [6] include_string(mapexpr::typeof(identity), mod::Module, code::String, filename::String)
+      @ Base ./loading.jl:3016
+    [7] include_string(m::Module, txt::String, fname::String)
+      @ Base ./loading.jl:3026
+    [8] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/nearly_singular_objective_census.jl:73
+    [9] include(mod::Module, _path::String)
+      @ Base ./Base.jl:309
+   [10] exec_options(opts::Base.JLOptions)
+      @ Base ./client.jl:344
+   [11] _start()
+      @ Base ./client.jl:577
+Test Summary:                                        | Pass  Error  Total   Time
+A nearly singular bounded model has no recession ray |    4      1      5  51.6s
+RNG of the outermost testset: Random.Xoshiro(0x2ce9669bc4483ef6, 0x9ae7bad4bf5b05d4, 0xa5351aaeb8a03ae5, 0x953999857e9055e1, 0x4c3d4f2a136cd012)

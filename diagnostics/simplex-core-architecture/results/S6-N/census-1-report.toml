@@ -1,0 +1,221 @@
+source = "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/JSimplex.jl"
+julia_version = "1.13.0"
+test_sha256 = "f35b6010c9a5df8ba48e90b553cdd4fa497da47e2e31b860549a8d9cd240751a"
+initial_precision = 256
+certificate_scope = "Postsolve original primal and separately supplied analytic dual/basis; no runtime witness capture"
+arch = "aarch64"
+julia_threads = 1
+blas_threads = 1
+default_public_solve_unchanged = true
+oracle_assertions_unchanged = true
+initial_rounding = "RoundingMode{:Nearest}()"
+globals_restored = true
+
+[[records]]
+delta_exact = "1//8796093022208"
+tolerance_objective_lower_exact = "-140737502429077//8"
+globals_unchanged_after_solve = true
+has_objective = false
+dual_exact = ["8796093022208//1", "-8796093022208//1"]
+strict_rows_exact = ["-1//1", "1//1"]
+refactorizations = 1
+dual_stationarity_exact = ["0//1", "0//1"]
+strict_primal_exact = ["-17592187092992//1", "17592186044416//1"]
+model_unchanged = true
+type = "Float32"
+iterations = 2
+has_primal = false
+status = "NUMERICAL_ERROR"
+message = "structural primal failed original-model feasibility checks"
+determinant_exact = "1//9223372036854775808"
+strict_optimum_exact = "-17592186044416//1"
+
+    [records.options]
+    basis_update = ":pfi"
+    iteration_limit = "100000"
+    pricing = ":steepest_edge"
+    simplex_strategy = ":legacy"
+    basis_refactorization = ":native"
+    time_limit = "Inf"
+    log_level = "Debug"
+    verbose = "true"
+    scaling = ":auto"
+    partial_pricing = "false"
+    algorithm = ":dual"
+    zero_tolerance = "1.0f-12"
+    presolve = "true"
+    primal_tolerance = "1.0f-7"
+    dual_tolerance = "1.0f-7"
+    refactorization_interval = "20"
+
+    [records.policy]
+    refactor_timing = "true"
+    stable_ratio = "false"
+    precision_boosting = "false"
+    max_precision_memory_bytes = "1073741824"
+    recovery = "false"
+    max_refinements = "3"
+    incremental_primal = "false"
+    partial_pricing = "false"
+    adaptive_primal_perturbation = "false"
+    pivot_error_tolerance = "0.00034526698f0"
+    lp_refinement = "false"
+    adaptive_refactor = "false"
+    sparse_pricing = "false"
+    solve_tolerance = "3.0517578f-5"
+    max_lp_refinements = "8"
+    adaptive_stalling = "false"
+    max_pivot_candidates = "8"
+    pivot_validation = "false"
+    adaptive_pricing = "false"
+    feasibility_recovery = "false"
+    max_recovery_rounds = "2"
+    adaptive_dual_perturbation = "false"
+    solve_refinement = "false"
+    hypersparse = "false"
+    incremental_primal_pivots = "false"
+    phase_one = "false"
+    crash = "false"
+    stagnation_window = "64"
+    max_precision_bits = "512"
+
+    [records.model_after]
+    name = ""
+    rowval = [1, 2, 1, 2]
+    row_names = []
+    colptr = [1, 3, 5]
+    sense = "MIN_SENSE"
+    column_names = []
+    domains = ["CONTINUOUS", "CONTINUOUS"]
+
+        [records.model_after.constant]
+        exact = "0//1"
+        repr = "0.0f0"
+        precision = 24
+
+        [[records.model_after.matrix]]
+        exact = "1//1048576"
+        repr = "9.536743f-7"
+        precision = 24
+        [[records.model_after.matrix]]
+        exact = "1//1048576"
+        repr = "9.536743f-7"
+        precision = 24
+        [[records.model_after.matrix]]
+        exact = "1//1048576"
+        repr = "9.536743f-7"
+        precision = 24
+        [[records.model_after.matrix]]
+        exact = "8388609//8796093022208"
+        repr = "9.536744f-7"
+        precision = 24
+
+        [[records.model_after.objective]]
+        exact = "0//1"
+        repr = "0.0f0"
+        precision = 24
+        [[records.model_after.objective]]
+        exact = "-1//1"
+        repr = "-1.0f0"
+        precision = 24
+
+        [[records.model_after.bounds.column_lower]]
+        unbounded = true
+        [[records.model_after.bounds.column_lower]]
+        unbounded = true
+
+        [[records.model_after.bounds.column_upper]]
+        unbounded = true
+        [[records.model_after.bounds.column_upper]]
+        unbounded = true
+
+        [[records.model_after.bounds.row_upper]]
+        exact = "1//1"
+        repr = "1.0f0"
+        precision = 24
+        [[records.model_after.bounds.row_upper]]
+        exact = "1//1"
+        repr = "1.0f0"
+        precision = 24
+
+        [[records.model_after.bounds.row_lower]]
+        exact = "-1//1"
+        repr = "-1.0f0"
+        precision = 24
+        [[records.model_after.bounds.row_lower]]
+        exact = "-1//1"
+        repr = "-1.0f0"
+        precision = 24
+
+    [records.model_before]
+    name = ""
+    rowval = [1, 2, 1, 2]
+    row_names = []
+    colptr = [1, 3, 5]
+    sense = "MIN_SENSE"
+    column_names = []
+    domains = ["CONTINUOUS", "CONTINUOUS"]
+
+        [records.model_before.constant]
+        exact = "0//1"
+        repr = "0.0f0"
+        precision = 24
+
+        [[records.model_before.matrix]]
+        exact = "1//1048576"
+        repr = "9.536743f-7"
+        precision = 24
+        [[records.model_before.matrix]]
+        exact = "1//1048576"
+        repr = "9.536743f-7"
+        precision = 24
+        [[records.model_before.matrix]]
+        exact = "1//1048576"
+        repr = "9.536743f-7"
+        precision = 24
+        [[records.model_before.matrix]]
+        exact = "8388609//8796093022208"
+        repr = "9.536744f-7"
+        precision = 24
+
+        [[records.model_before.objective]]
+        exact = "0//1"
+        repr = "0.0f0"
+        precision = 24
+        [[records.model_before.objective]]
+        exact = "-1//1"
+        repr = "-1.0f0"
+        precision = 24
+
+        [[records.model_before.bounds.column_lower]]
+        unbounded = true
+        [[records.model_before.bounds.column_lower]]
+        unbounded = true
+
+        [[records.model_before.bounds.column_upper]]
+        unbounded = true
+        [[records.model_before.bounds.column_upper]]
+        unbounded = true
+
+        [[records.model_before.bounds.row_upper]]
+        exact = "1//1"
+        repr = "1.0f0"
+        precision = 24
+        [[records.model_before.bounds.row_upper]]
+        exact = "1//1"
+        repr = "1.0f0"
+        precision = 24
+
+        [[records.model_before.bounds.row_lower]]
+        exact = "-1//1"
+        repr = "-1.0f0"
+        precision = 24
+        [[records.model_before.bounds.row_lower]]
+        exact = "-1//1"
+        repr = "-1.0f0"
+        precision = 24
+
+    [records.tolerances_exact]
+    zero_tolerance = "2305843//2305843009213693952"
+    primal_tolerance = "14073749//140737488355328"
+    dual_tolerance = "14073749//140737488355328"
