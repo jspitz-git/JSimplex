@@ -919,3 +919,24 @@ per 2026-10-13-precision-journal-interruption-driver.md. Do not add success cont
 warmups, fixture tuning, policy changes, hooks, full-module clones or old reruns.
 A future guarded launch requires its own complete reviewed plan. CI off, HH reuse
 disabled, S2-A/S6-J/whole-AF rejections, Q GC/outlier and S4 broader gates unchanged.
+
+
+## S5-F driver preparation and S5-G guarded qualification (2026-10-13)
+
+S5-F accepted offline only. Canonical driver-reviewed.jl implements exactly the
+existing fixture's detached-journal stop/throw cases and three fixed snapshot groups
+(88 arrays/215 entries each). Initial18 structural checks/170 read-time pins and six
+author checks remain preserved. Independent review found an Important raw-outcome
+observability gap and Minor import-scope wording; separate amendment RED7/GREEN7,
+nine checks/176pins resolves them without new cases, callbacks or numerical work.
+Original driver/manifest/evidence and pre-fix report/plan are preserved; no rerun.
+Final reviewer full176+original170+five preserved bindings, no unresolved findings.
+No unnecessary new production work/memory; no Julia execution or runtime pass.
+
+Proceed to S5-G qualification plan PLUS precision-journal-launcher-admission addendum.
+Prepare concrete launcher, independent launch pins and auditor and review them first.
+Ensure one Julia process including compilecache behavior; resolve actual wrappers
+and supported compiled-modules mode from source/docs, no Julia inspection probe.
+Then at most one guarded120-second attempt containing the two frozen cases, no
+warmup/trial/retry, unchanged policy/tolerances/128-bit request. Failed attempts/raw
+are preserved. All old rejections, CI-off/HH-disabled and broader gates persist.

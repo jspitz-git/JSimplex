@@ -46,7 +46,23 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-**Current continuation: S5-E offline precision-journal interruption preparation completed; two prospective final-observer stop/throw cases are frozen, not executed. Next S5-F: `docs/superpowers/plans/2026-10-13-precision-journal-interruption-driver.md`, ONE bounded diagnostic driver preparation and independent review WITHOUT Julia or numerical launch. Preserve the existing fixture/default native policy, options and 128-bit request. No production/test/environment/CI change.**
+**Current continuation: S5-F diagnostic driver preparation completed and independently accepted WITHOUT Julia execution. Canonical driver is results/S5-F/driver-reviewed.jl with source-pins-reviewed.toml; original driver.jl is superseded, unexecuted and preserved. Next S5-G: read `docs/superpowers/plans/2026-10-13-precision-journal-interruption-qualification.md` AND `2026-10-13-precision-journal-launcher-admission.md`. FIRST prepare and review concrete launcher/pins/auditor, including compiled-modules admission for one Julia process; only then one guarded two-case attempt. No trial/warmup or fixture/policy change.**
+
+S5-F: original18 source checks/170 pins, six author checks; Important raw-observation
+omission and Minor import wording fixed in a separate reviewed driver/manifest.
+One offline RED7/GREEN7, nine amendment checks/176 final pins; reviewer full176,
+original170 and five original artifact bindings reconciled through preserved texts.
+No unresolved final findings or unnecessary new production work/memory. Exact
+fixture/callback preserved, three groups88arrays215entries per case unchanged;
+fixed raw outcome/cause/ambient/type tokens added. No Julia syntax/runtime test,
+import/compile/numerical execution or source/test/env/CI change. Existing finally
+kernel counters are partial, direct weight BTRAN is untimed. Source checkpoint key
+predates detached buffers; preserve it without _checkpoint_matches. Fresh cache/
+checkpoint empty. Frozen prepare/review_fix/evidence/manifests/closure never rerun.
+Read S5-PRECISION-JOURNAL-INTERRUPTION-DRIVER.md/REVIEW. S5-G must independently
+resolve actual wrappers and prevent automatic compilecache subprocesses; Pkg flag
+alone insufficient. No cache confinement or complete import-work claim. All prior
+rejections and broader gates unchanged.
 
 S5-E: sixteen source/evidence checks, 115 fresh hashes, four scoped transfer test
 files and four reused historical success/failure rows. Six author checks/full115;
