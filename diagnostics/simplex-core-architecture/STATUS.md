@@ -184,17 +184,29 @@ no correction/rejection/pivot/boundflip, noobserver/adapter/extrahelpercalls.
 Freshgpt6astra accepts/noCriticalImportantMinor/no unnecessaryproductionworkmemory.
 See S6-DUAL-CONTROL-PROVENANCE.md/REVIEW. AGdriver/auditor NERERUN. AFwholequalification
 stillNOTaccepted; its4failures/threefalsegates and deferredno_errorsminor retained.
-Next: docs/superpowers/plans/2026-10-12-dual-budget-acceptance-contract.md,S6-AH.
-SOURCE/EVIDENCEONLY, noJulia/adapter/permanenttestchanges. Explicitly distinguish
-recoverynegativecontrol purpose (events/work/publication) from INFEASIBLEcertificate
-hypothesis. Reconcile identifiedAFsubject248 checks/original108predicates and real
-controlrecordeddata plusAGnewPFIprovenance, withoutretroacceptingAF or changingoracles.
-If evidence supports narrowbudgetfixture, write NEW structuralRED/GREEN/actualmaster
-plan preservingpublicentry/all108recoveryassertions/nativehelper/other108byteidentical,
-completepreforwardcounts/wholework/2declarations/zero-one refs. Freshreviewfirst,
-no implementation thissubplan. Otherwise identifyprecisemissingcausalobservation.
+S6-AH complete, source/evidence only:22 checks plus1 explicit scope declaration,
+534 hashes; original108subject predicates reconciled from saved records, no Julia.
+New narrow recovery-budget contract supported; AFwholequalification remains NOT
+accepted with4failures/exit1/threefalsegates. Control events/work distinguish paths,
+not genericNUMERRORstatus; controls are not matched-policy pairs. AGprovenance only
+newPFI. Native108/helper/src/test/CI/master unchanged. Initialparserwrongexit_code
+KeyError/source preserved, reconciliation-2 uses actualreturncode without oldreruns.
+Freshgpt6astra supports decision/no unnecessaryproductionworkmemory. ReviewerMinor
+collective "accepted" driver wording authorregradedImportant for acceptanceinstructions;
+one offlineRED/GREEN -> "historical", beforeplan preserved. No newdeferredMinor;
+ADcopywording and AFvacuousno_errors remain deferred. See S6-DUAL-BUDGET-CONTRACT.md/REVIEW.
+Next: docs/superpowers/plans/2026-10-12-dual-budget-fixture-repair.md,S6-AI.
+NEWpermanenttest-only candidate, not AFretroacceptance. StructuralREDzero oldsolves;
+scopedFloat64dyadic helper+two real-forward declarations, all108originalpredicates/
+publicentry/direct@test_throws/options/policies/callbackbodies preserved. Nativehelper/
+other108byteidentical. Preforwardcounts after2hits/throws, sharedfactor, whole2F3B0ref
+or3F4B1ref, outerinvalid4/6,metadata2,hits2,copy/updatefailfast; noledgers/snapshots/
+extrapermanentiterations. Explicitdriver-only9sentinelcalls accounting amendment,
+zero realbackend/workspace/publiccalls. GREEN20changed+10directsmallneighbor calls;
+native48reuse/static; actualmaster20targets afterfreshreview. Newsource/pins/raw/user
+checks mandatory. No implementation or numerical launch occurred in AH.
 Production/test/master/CI unchanged. S6-J/S2-A rejected; historicalCIcause/hidden states/
-x64/fullsuite/broaderS6 open. No accepted old driver/corpus/reference/cost reruns.
+x64/fullsuite/broaderS6 open. No historical driver/corpus/reference/cost reruns.
 
 
 S6-S accepted evidence90811de/closure6c5ef37: fourtype13/13 + factor6/6; initial

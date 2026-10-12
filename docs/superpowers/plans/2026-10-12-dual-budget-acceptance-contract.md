@@ -41,3 +41,12 @@ private certificate proof. Never rerun AF/AE/AG or historical accepted evidence.
 Preserve all raw/test/user/env/worktrees and process/source identities. No benchmark
 needed for source/evidence-only analysis; no speedup inference. CI remains disabled;
 S6-J/S2-A rejected, historical CI cause/fullsuite/x64/broaderS6 unresolved.
+
+## Closure
+
+S6-AH completed source/evidence only. See S6-DUAL-BUDGET-CONTRACT.md and its review.
+22 checked conditions plus1 explicit scope declaration,534 hashes; no numerical calls.
+Fresh review supports the narrower NEW proposal without accepting AF. One acceptance-
+label wording finding fixed offline in successor plan, before-version preserved.
+Next S6-AI is 2026-10-12-dual-budget-fixture-repair.md with its own structural RED,
+new-source GREEN, independent review and actual-master gates. Nothing implemented here.
