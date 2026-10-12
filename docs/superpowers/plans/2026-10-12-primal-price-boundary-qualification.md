@@ -30,13 +30,28 @@ production or other tests. Retain original post-publication reduced_costs[7]=-1.
 1. Reconcile adapter interfaces and ownership against existing accepted test
    adapters without rerunning their drivers. Establish exact model/basis/price
    arithmetic and expected residual B' rho-cB analytically. Derive the selected
-   direction/price disagreement with unchanged default options and tolerances.
+   direction/price disagreement with unchanged default options and the original
+   `_primal_iteration!(ws, ()->false, 0.0)` call (explicit zero price tolerance).
 2. Before launch, specify three cases per existing manager: exact initial prices
    with real factor; seeded prices with real exact factor; seeded prices with the
    single declared fresh BTRAN output. The first two are new controls, not reruns
    of S6-U. Qualify their predicted statuses/events rather than assuming them.
    Four subjects retain all five original repeated-budget assertions, including
    exactly one correction/publication, zero iterations, empty exclusions.
+   ADD a budget-sensitive work oracle: exactly one fresh cost-RHS BTRAN during the
+   iteration, separately exactly one residual-correction BTRAN, total two BTRANs.
+   Count every real forwarded call, including calls after the one-shot replacement
+   has been consumed; the adapter replacement hit count alone is insufficient.
+   Exclude initialization and identify cost/correction RHS by owned values and the
+   declared basis-cost contract. These RHS vectors are distinct for this fixture.
+   A wrongly renewed second recovery can return false on exact zero residual before
+   emitting correction_attempt; it MUST fail the fresh-cost-BTRAN count oracle.
+   Preserve all five original assertions in addition to these new work assertions.
+   Include a narrowly scoped budget-renewal negative check in the qualification
+   design: prove the count oracle rejects an extra fresh cost solve even when the
+   old event/status assertions stay true. This is not a second original control
+   run or permission to alter production safeguards; preserve the failed oracle
+   evidence in a separate diagnostic record.
 3. One guarded process, at most twelve iterations on these tiny new workspaces.
    Additional observation is read-only, owned, nonworkspace-safe and performs no
    numerical calls in callbacks. Capture wrapper hits/raw/declared output, residual
@@ -56,3 +71,11 @@ precision, tolerance, safeguard or certificate changes. CI remains disabled;
 full-suite/x64/broader S6 unresolved. Single Julia/BLAS1, heap2GiB,VM8GiB,minRAM6GiB,
 maxswap1GiB; separate fresh boot/start_ticks/command process absence before each
 launch or pinned edit. Do not mutate pinned inputs while running.
+
+## Final-review correction
+
+S6-U final review identified P2: the one-shot adapter plus an exact identity factor
+could let a broken renewed budget pass the five old assertions. The mandatory
+fresh-cost BTRAN count and negative sensitivity check above close the proposed
+acceptance gap. This is a corrected diagnostic plan, not completed qualification
+or an executable repair. No S6-U evidence or numerical run is changed or repeated.

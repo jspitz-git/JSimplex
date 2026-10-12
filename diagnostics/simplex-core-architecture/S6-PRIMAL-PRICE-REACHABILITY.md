@@ -83,7 +83,10 @@ neither that fact nor initial cached rho captures its exact private input.
 
 ## Decision, cost and limitations
 
-Accept as current-source reachability evidence pending independent review. No
+Accepted by fresh independent gpt-6-astra review as current-source reachability
+evidence. The review found one Important gap in the unqualified next plan, fixed
+by requiring a budget-sensitive fresh-cost BTRAN count and negative check; see
+S6-PRIMAL-PRICE-REACHABILITY-REVIEW.md. No
 repair is promoted and no historical x64 arithmetic cause is asserted. The test's
 entry depends on native roundoff creating prices that reach a demonstrated recovery;
 the old CI zero counts alone cannot choose among the missing prerequisites.

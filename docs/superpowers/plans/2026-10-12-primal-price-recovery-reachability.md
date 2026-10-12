@@ -54,4 +54,5 @@ A zero/absent correction event alone does not identify which prerequisite failed
 
 Four unchanged cases passed 20/20 original assertions; exit0, 47 audit gates,
 615 unchanged pins. See S6-PRIMAL-PRICE-REACHABILITY.md. Private BTRAN/CI cause
-and observer neutrality remain unproved. Independent final review pending.
+and observer neutrality remain unproved. Fresh independent gpt-6-astra final review accepted S6-U; one Important next-plan
+budget-observability gap corrected in one documentation pass. No numerical rerun.
