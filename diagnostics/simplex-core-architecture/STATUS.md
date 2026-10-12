@@ -46,6 +46,26 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
+**Current continuation: S4-G accepted diagnostic qualification; next S4-H source/evidence-only actual borrowed assembly contract, `docs/superpowers/plans/2026-10-12-hh-borrowed-assembly-contract.md`. Historical entries below remain preserved.**
+
+S4-G publication-1 has79/79 runtime checks, exit0,26audit gates653pins and10
+independent author supplements. Two new HH lifecycles:2constructors/2copies/
+6updates/4refactors/24HHsolves(16F8B); six native numeric entries and at most4
+scale-orientation native solves are source-derived, not observed native counts.
+Exact clone only routing names and guarded Float64 reuse keyword differ. True
+prepared state invalidates on success; both singular failures discard private
+native workspace but preserve extracted base/history/prepared values/saved copy.
+Private suffix retired, shared prefix untouched; caller CSC overwrite safe in
+this direct-factor scope. All24exact residual audits pass;22residuals nonzero.
+Fresh gpt-6-astra review no Critical/Important/Minor or unnecessary production
+work/memory. Reviewer eight targeted pin hashes, author full653 separately.
+Production/test/CI unchanged, master0eb75c3; no speedup/native-memory bound/public
+workspace/fullsuite/x64 proof. No accepted driver/auditor/independent rerun.
+Runner5238/start202699/group5234,child5239/start202780/group5239 absent including
+full group scans on bootdade7243-9103-4398-bb45-fa28fbc0be72. See S4-SYMBOLIC-
+PUBLICATION.md/REVIEW and results/S4-G.
+
+
 S6-T accepted and integrated: evidence6574f9a,testfa8144d -> masterafb37d9.
 Fresh independent gpt-6-astra review no findings. Structural RED2pass/4expected
 failures with zero solves; GREEN192/192 (19affected+17+68+88neighbors),14gates614pins;

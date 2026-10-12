@@ -555,3 +555,15 @@ Six new native component pairs179checks/24auditgates649pins,12setup12refactor20s
 plus10metadata10graphs. Fresh independent review accepts scoped result; no HH
 production change or speedup claim. Next S4-G separately qualifies HH publication/
 shared updates/prepared state with a fixed24HHsolve budget. Other S4/S6gates open.
+
+### S4-G diagnostic publication qualification (2026-10-12)
+
+Two new HH lifecycles pass79checks;26audit gates653pins and10independent author
+supplements. Fresh gpt-6-astra review no findings/no unnecessary production work
+or memory. Diagnostic exact-source candidate only, production still unchanged.
+Success prepared invalidation/private suffix retirement and LU-failure live/saved
+owned-value preservation qualified for tiny Float64 native inputs. Exact call
+boundary2constructors/2copies/6updates/4refactors/24HHsolves, with internal work
+explicitly outside that count. No speedup/public-workspace/fullsuite/x64 claim.
+Next S4-H actual borrowed basis assembly/recompute source/evidence contract:
+2026-10-12-hh-borrowed-assembly-contract.md. Do not rerun accepted G/F/E evidence.

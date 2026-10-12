@@ -1,0 +1,17 @@
+from pathlib import Path
+import argparse,subprocess,sys,shutil
+p=argparse.ArgumentParser();p.add_argument('name');p.add_argument('script');p.add_argument('--project',default='/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl');p.add_argument('--seconds',default='600');p.add_argument('--compile-min',action='store_true');p.add_argument('--input',action='append',default=[]);p.add_argument('--file',action='append',default=[]);p.add_argument('args',nargs='*');a=p.parse_args()
+root=Path('/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl');project=Path(a.project);runner=root/'diagnostics/simplex-core-architecture/reproduce/guarded_run.py';base=root/'.superpowers/simplex-core-architecture/S4-G';base.mkdir(parents=True,exist_ok=True);pins=base/(a.name+'-pins.json');out=base/a.name
+launcher=Path('/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh')
+files=[project/'Project.toml',project/'Manifest.toml',project/'LocalPreferences.toml',launcher,launcher.parents[3]/'.superpowers/basis-chain-cost/julia.sh',Path('/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/julia'),Path(__file__),*sorted((root/'diagnostics/simplex-core-architecture/reproduce').glob('*.jl')),*map(Path,a.file)]
+cmd=[sys.executable,str(runner),'freeze',str(pins),'--tree',str(project/'src'),'--tree',str(project/'test')]
+for f in files:cmd+=['--file',str(f)]
+for f in a.input:cmd+=['--input',f]
+for f in ('big.mps','largo.mps','AnyMOD.mps'):cmd+=['--forbidden','/home/jspitz/mps/'+f]
+subprocess.run(cmd,check=True)
+snapshot=base/(a.name+'-source')
+snapshot.mkdir()
+for script in sorted((root/'diagnostics/simplex-core-architecture/reproduce').glob('hh_symbolic_publication*.jl')):
+ shutil.copyfile(script,snapshot/script.name)
+command=['bash',str(launcher),'--heap-size-hint=2G','--project='+str(project)]+(['--compile=min'] if a.compile_min else [])+[a.script]+[s.replace('{out}',str(out)) for s in a.args]
+raise SystemExit(subprocess.call([sys.executable,str(runner),'run',str(pins),str(out),'--seconds',a.seconds,'--',*command]))
