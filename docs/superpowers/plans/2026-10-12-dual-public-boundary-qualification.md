@@ -60,3 +60,26 @@ original216assertions/public coverage; S6-J direct retry substitution remains re
 One Julia/BLAS1,heap2GiB,VM8GiB,minRAM6GiB,maxswap1GiB. Separate host absence before
 pinned changes/launch, no edits in flight. No big/largo/AnyMOD aliases. Preserve all
 raw/worktrees/environment/user changes. CI remains disabled; broaderS6 open.
+
+## Execution outcome (2026-10-12)
+
+Exactly24public calls completed under guard,265pass4fail,exit1. All20subjects retain
+108original assertion predicates plus140boundary checks; four real controls fail
+only the INFEASIBLE status hypothesis (actual NUMERICAL_ERROR, inconclusive row
+combination certificate). Other16control/global1 checks pass. No repeated calls.
+All false outcomes retained: audit28/31 with exit0/assertions269/control_oracle false,
+all_passed=false,627pins. Supplement9checks validates raw/pins and conditional exact
+AE-rho interval explanation; it does not repair the control gate. No production/test
+or CI edits. Overall qualification NOT accepted; fresh independent gpt-6-astra review accepts
+the diagnostic evidence with that rejection retained. No Critical/new Important
+defect; one deferred Minor: audit no_errors field is vacuous, raw/status gates carry
+the outcome. No driver/auditor edit or rerun. See final report/review.
+
+Source preflight resolved outer invalidations4/6, unitmetadata2; wholework2/3/0 or
+refresh3/4/1 and live/candidate factor identity match allsubjects. Controls correctly
+use1/3/1 but exact equations do not ensure a positive outward-rounded certificate.
+Missing control runtime rho requires new observation, not an assumed transfer fromAE.
+Successor S6-AG plan:2026-10-12-dual-control-certificate-provenance.md, exactlyONEnew
+PFI public call with post-return rho/source binding, no re-certification/observer/
+adapter. This is separate gap qualification, not silent replacement of this oracle.
+No permanent repair authorized; original216testassertions remain untouched.

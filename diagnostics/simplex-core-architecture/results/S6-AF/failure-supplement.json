@@ -1,0 +1,31 @@
+{
+  "checks": {
+    "report.toml": true,
+    "process.json": true,
+    "pins.json": true,
+    "run.log": true,
+    "driver": true,
+    "all627pins": true,
+    "three_failed_acceptance_gates_preserved": true,
+    "observed_control_failures": true,
+    "exact_zero_interval_straddles": true
+  },
+  "all_passed": true,
+  "source_sha256": "dcbf4dd3260044f8f25138b4cad5d936f4b7b15cab0267404e77a0a3d3647c68",
+  "exact_column1_price": "0",
+  "binary64_source_interval_steps": [
+    {
+      "product": "-8388607/2",
+      "lower": "-4503599090499585/1073741824",
+      "upper": "-4503599090499583/1073741824"
+    },
+    {
+      "product": "8388607/2",
+      "lower": "-6755399441055745/4835703278458516698824704",
+      "upper": "6755399441055745/4835703278458516698824704"
+    }
+  ],
+  "conditional_branch": "For exact AE rho, column1 has interval lower<0 and unbounded upper, so dual_simplex.jl:800 returns false before bound penalties. Column5 duplicates column1.",
+  "limitation": "Control runtime rho not captured; this source-matched offline Python binary64 calculation is conditional on AE rho, not a capture of the private control certificate coefficient interval or historical CI arithmetic.",
+  "qualification_accepted": false
+}

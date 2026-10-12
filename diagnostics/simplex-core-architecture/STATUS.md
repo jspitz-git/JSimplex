@@ -159,13 +159,27 @@ All quality finite/reliable; no workspace/publiciteration/adapter/certificate ca
 Fresh gpt-6-astra review no Critical/Important/Minor, no unnecessary production
 work/memory. Source, input bits, globals, user hashes and process closure checked.
 See S6-DUAL-DYADIC-COMPONENTS.md/REVIEW; accepted AE driver/auditor must not rerun.
-Next: docs/superpowers/plans/2026-10-12-dual-public-boundary-qualification.md,S6-AF.
-Mandatory source preflight resolves shared-factor wrapper compatibility, metadata and
-invalidation counts before implementation/launch. Max24new public calls:4real controls
-and20subjects(five original modes/four managers), Float64 only. Two genuine-forward
-unit BTRAN declarations required; all calls counted before forwarding, after consumption
-and on throws. Preserve original108recovery assertions and remaining108native assertions.
-No direct retry shortcut; unexpected ordinary refactor/work rejects qualification.
+S6-AF diagnostic complete, qualification NOT accepted:24newpubliccalls,
+265pass4controlstatusfailures,exit1. Subjects108original+140added checks pass,
+controlsNUMERICAL_ERROR "row combination does not certify infeasibility at primal
+tolerance" instead of INFEASIBLE. Raw/oracle untouched, no rerun. Audit28/31/627pins,
+exit0/assertions269/control_oracle FALSE,all_passed=false. Supplement9checks raw/pins/
+conditional exactAE-rho interval: column1 zero exact but outward interval crosses0,
+infinite upper triggers conservative refusal IF rho==AE. Actual controlrho NOT captured.
+Two real-forward declared unitoutputs, sharedcandidatefactor, all20subject budgets
+2FTRAN3BTRAN0refactor orrefresh3/4/1, outerinvalidations4/6, metadata2,hits2 match.
+Original108recovery predicates and unchanged other108native tests protected.
+Freshgpt6astra accepts diagnostic/rejectedqualification, no Critical/newImportant,
+no unnecessaryproductionworkmemory. Minor DEFERRED: auditor no_errors field never
+updated/vacuous; raw/status/assertiongates establish outcome. Do not claim all28true
+booleans independent. See S6-DUAL-PUBLIC-BOUNDARY.md/REVIEW. AFdriver/auditor NERERUN.
+Next: docs/superpowers/plans/2026-10-12-dual-control-certificate-provenance.md,S6-AG.
+ONE new Float64PFI unwrappedpubliccontrol, after mandatorysourceproof finalscratchrho
+is certificate input and unchanged onreturn. Postcallownedrho/model/scaling/bounds/
+state/options/policy/kernelcapture only, noobserver/adapter/extra quality/certificate/
+basis calls. Separate setup, expectedwork1FTRAN3BTRAN1refactor and savedNUMERRORmessage
+are provenance targets, NOT a replacement of AFcontroloracle or retroactiveacceptance.
+Offline exact/sourceinterval analysis then freshreview; no permanentrepair authorized.
 Production/test/master/CI unchanged. S6-J/S2-A rejected; historicalCIcause/hidden states/
 x64/fullsuite/broaderS6 open. No accepted old driver/corpus/reference/cost reruns.
 
@@ -175,7 +189,7 @@ comparability30/31false preserved with517pin/current-external supplement; no
 retroactive launch pin. Factor19gates615pins/exactLU/primal/dual residuals0.
 S6-R accepted08b7485/3baf29b:12/12/21gates613pins,componentdecomposition-1/16.
 Do not rerun old N/O/P/Q/R/S/T/corpus/reference/cost drivers against changed tests.
-Last fresh host runner409838/child409839/launchgroup409829 absent,noJulia,boot20de7dde-704e-41c8-bee7-b8511c0a86b0.
+Last fresh host runner411521/child411522/launchgroup411513 absent,noJulia,boot20de7dde-704e-41c8-bee7-b8511c0a86b0.
 Verify new host state before edits or any new Julia. User environment/dirt preserved.
 
 S6-Q remains accepted:11events,5/5,24gates611pins,exact S6-N endpoint. Refactor event

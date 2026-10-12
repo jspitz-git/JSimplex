@@ -1,0 +1,77 @@
+ERROR: LoadError: Some tests did not pass: 265 passed, 4 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/dual_public_boundary.jl:204
+
+pfi control: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/dual_public_boundary.jl:162
+  Expression: result isa JS.DualTermination && result.status == JS.INFEASIBLE
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/dual_public_boundary.jl:162 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] run_case(manager::Symbol, mode::Symbol)
+     @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/dual_public_boundary.jl:161
+
+forrest_tomlin control: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/dual_public_boundary.jl:162
+  Expression: result isa JS.DualTermination && result.status == JS.INFEASIBLE
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/dual_public_boundary.jl:162 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] run_case(manager::Symbol, mode::Symbol)
+     @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/dual_public_boundary.jl:161
+
+suhl_suhl control: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/dual_public_boundary.jl:162
+  Expression: result isa JS.DualTermination && result.status == JS.INFEASIBLE
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/dual_public_boundary.jl:162 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] run_case(manager::Symbol, mode::Symbol)
+     @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/dual_public_boundary.jl:161
+
+bartels_golub control: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/dual_public_boundary.jl:162
+  Expression: result isa JS.DualTermination && result.status == JS.INFEASIBLE
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/dual_public_boundary.jl:162 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] run_case(manager::Symbol, mode::Symbol)
+     @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/dual_public_boundary.jl:161
+Test Summary:                             | Pass  Fail  Total   Time
+Public dual dyadic boundary qualification |  265     4    269  54.9s
+  pfi control                             |    4     1      5   0.5s
+  forrest_tomlin control                  |    4     1      5   0.0s
+  suhl_suhl control                       |    4     1      5   0.0s
+  bartels_golub control                   |    4     1      5   0.0s
+  pfi exhausted                           |   12           12   0.1s
+  forrest_tomlin exhausted                |   12           12   0.0s
+  suhl_suhl exhausted                     |   12           12   0.0s
+  bartels_golub exhausted                 |   12           12   0.0s
+  pfi cancelled                           |   12           12   0.0s
+  forrest_tomlin cancelled                |   12           12   0.0s
+  suhl_suhl cancelled                     |   12           12   0.0s
+  bartels_golub cancelled                 |   12           12   0.0s
+  pfi callback_error                      |   12           12   0.0s
+  forrest_tomlin callback_error           |   12           12   0.0s
+  suhl_suhl callback_error                |   12           12   0.0s
+  bartels_golub callback_error            |   12           12   0.0s
+  pfi numerical_callback_error            |   12           12   0.0s
+  forrest_tomlin numerical_callback_error |   12           12   0.0s
+  suhl_suhl numerical_callback_error      |   12           12   0.0s
+  bartels_golub numerical_callback_error  |   12           12   0.0s
+  pfi after_refresh                       |   14           14   0.0s
+  forrest_tomlin after_refresh            |   14           14   0.0s
+  suhl_suhl after_refresh                 |   14           14   0.0s
+  bartels_golub after_refresh             |   14           14   0.0s
+RNG of the outermost testset: Random.Xoshiro(0x6ff19a6f1b105ebb, 0xa6af78bd7ae5f103, 0x2b79b28f66a66c48, 0xc3e98c9f076bc094, 0x98c359cdc0f49338)
