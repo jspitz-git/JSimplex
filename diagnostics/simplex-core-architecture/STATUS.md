@@ -66,8 +66,17 @@ integration coverage without weakening assertions or numerical safeguards.
 Last host check:runner377979/child377981/driver377970 absent, noJulia,
 boot20de7dde-704e-41c8-bee7-b8511c0a86b0.
 Next bounded census: docs/superpowers/plans/2026-10-12-cross-precision-status-census.md.
-S6-K has no new numerical run yet. Static inventory confirms30 primal status failures
-in each historical CI run; preserve original supplied-tolerance/status assertions.
+S6-K census now completed270pass30originalstatusfail/all19diagnostic gates. Exact
+x=g/2 witness satisfies each original row/column tolerance in all30cases, accepted
+by the production primal certificate. Actual algorithm is default dual despite
+fixture kind=:primal. Supplied tolerance/precision unchanged. S6-PRECISION-STATUS.md
+records the stale oracle cause and failed run; final independent review accepts
+diagnostic scope with no blockers. See S6-PRECISION-STATUS-REVIEW.md; minor redundant
+diagnostic rationalization deferred without rerun. Broader end-to-end last-bit
+status sensitivity remains open; stored-option tests alone do not establish it.
+No production/test edit. Next qualification plan after review:
+2026-10-12-cross-precision-infeasible-fixture.md. Last runner379310/child379311/
+driver379301 separately absent, noJulia, same boot.
 
 
 S3-A production cd91a1a -> masterd8ad4ec5651225a512d5f533f48ce7d8fc8f90cc is reviewed,
