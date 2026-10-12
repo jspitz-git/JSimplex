@@ -39,3 +39,18 @@ local arithmetic alone. Do not change original successful direct-path tests mere
 for uniformity. CI remains manually disabled. Preserve all raw/user/env/worktrees.
 Host refs/processes require escalation, identity boot/startticks/command. One numerical
 Julia policy still applies if a later independently specified plan authorizes a run.
+
+## Execution evidence
+
+Source-only analysis completed at51ac324/master3c0af5c; no Julia or adapter.
+New exact-contract.json has27passing checks, source-verification.json7gates.
+Report S6-DUAL-CAUSAL-CONTRACT.md maps original216assertions,48historical failures,
+public/transactional branches, shared factor ownership and nonrefunded work.
+Identity/below-cutoff/one-shot shortcuts rejected as causal fixtures. A balanced
+4x4dyadic conditional boundary is exactly derived, not numerically qualified.
+Successor S6-AE is eight new component cases/24basis solves plus8native residual
+quality calls, no workspace/public solve/adapter; separate plan before any launch.
+Fresh independent gpt-6-astra review accepted after one evidence-scope wording
+correction, offline textual RED/GREEN with preserved before-report. One terminology
+minor deferred: zero copy means factor copy, not vector copying. No numerical rerun.
+S6-J stays rejected, fullsuite/x64 open.

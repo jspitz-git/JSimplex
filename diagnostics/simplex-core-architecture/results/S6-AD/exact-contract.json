@@ -1,0 +1,149 @@
+{
+  "checks": {
+    "old_represented_basis_nonsingular": true,
+    "old_rhs_exact_minus_column2": true,
+    "current_test_matches_saved_H_hash": true,
+    "saved_H_20_pairs_equal": true,
+    "saved_H_row2_enter5": true,
+    "saved_H_direction_ok_agreement_false": true,
+    "two_historical_maps_48_each": true,
+    "historical_state_predicates_16_each": true,
+    "candidate_det_2pow_minus22": true,
+    "exact_unit_btran": true,
+    "exact_duplicate_ftran": true,
+    "exact_primal_minus_e2": true,
+    "declared_row_residual_minus_h_twice": true,
+    "exact_correction_btran": true,
+    "corrected_row_exact": true,
+    "declared_row_passes_legacy_residual": true,
+    "h_exceeds_unchanged_harris_cutoff": true,
+    "only_row2_primal_violation": true,
+    "duplicate_price_minus_h": true,
+    "corrected_duplicate_price_zero": true,
+    "row_column_pivots_disagree": true,
+    "all_declared_values_binary64_exact": true,
+    "binary64_csc_duplicate_price_exact": true,
+    "binary64_legacy_row_residual_matches": true,
+    "binary64_legacy_row_accepts": true,
+    "identity_duplicate_zero_price": true,
+    "actual_master_same_contract_files": true
+  },
+  "all_passed": true,
+  "source_hashes": {
+    "src/dual_simplex.jl": "dcbf4dd3260044f8f25138b4cad5d936f4b7b15cab0267404e77a0a3d3647c68",
+    "src/simplex_pivot.jl": "2cf399478648b82aa1502acdc33651c1afd914fa22ef833ca00a3765295e70a9",
+    "src/legacy_dual_correction.jl": "78e3453dc8c2beb389495963bd79f4f8752c9380f0e68444ace490a22989f7e4",
+    "src/simplex_numerics.jl": "7173dbdfcd020c61819008d5ff1ad7a647d00711fbd50eefcfacf15ff852a8cd",
+    "src/simplex.jl": "adcff4aee5f6b3bde5988e82fc2c7c9ad75749e06c33250a526dff0a7f0462b8",
+    "src/simplex_recovery.jl": "d68055947b8cedfd0eb6cb554f656ef80b942bf85a64e3b8ccd2881d9e37761c",
+    "src/hypersparse_pipeline.jl": "f1c9d010e3be89d7ac78d05f6339fe812c5496afbee647756409be4fd93bbe09",
+    "src/dual_ratio.jl": "91f448a6499843a3e587f96e9451263bc9702c8b5aa29f3518c6848d6bb388ac",
+    "src/simplex_diagnostics.jl": "0c27c8675e87fdaa6f97e834453c35121f0bdc080b845ef8c960dba55d8cfa12",
+    "src/options.jl": "421873c308043c29c46243c2831c8cc681c669eef2bfd08a52cde1090d6f8791",
+    "test/dual_pivot_consistency_tests.jl": "d1da060175cab07dee78c020c831f139a89b05acfe573ba53190375df1a5a1bc"
+  },
+  "evidence_hashes": {
+    "diagnostics/simplex-core-architecture/results/S6-H/census-1-reference.toml": "5f8780c00e392bcd7ab3b06449fe5b6243dd004f765582b6f6b4b9948568aa2b",
+    "diagnostics/simplex-core-architecture/results/S6-H/existing-failure-map.json": "b00f4e87c5e3dce5e06c92ff8bd71f9cfce1b6471cf139a3b12769667d0349e7",
+    "diagnostics/simplex-core-architecture/S6-DUAL-BOUNDARY-REVIEW.md": "865c62e1650883b30fec1cff6982a0d6506d1777634033b6bbfd3ac2432b5161",
+    "diagnostics/simplex-core-architecture/results/S6-J/green-1-rejected-test-source.jl": "47810816ffab91096d839defa52e64c357cf7f13c94beab09defb64b97c00959"
+  },
+  "candidate": {
+    "delta": "1/8388608",
+    "h": "1/4194304",
+    "B": [
+      [
+        "1",
+        "1",
+        "0",
+        "0"
+      ],
+      [
+        "8388607/8388608",
+        "8388609/8388608",
+        "0",
+        "0"
+      ],
+      [
+        "0",
+        "0",
+        "1",
+        "0"
+      ],
+      [
+        "0",
+        "0",
+        "0",
+        "1"
+      ]
+    ],
+    "primal_rhs": [
+      "-1",
+      "-8388609/8388608",
+      "0",
+      "0"
+    ],
+    "unit_rhs": [
+      "0",
+      "1",
+      "0",
+      "0"
+    ],
+    "exact_rho": [
+      "-8388607/2",
+      "4194304",
+      "0",
+      "0"
+    ],
+    "declared_rho": [
+      "-17592183947265/4194304",
+      "4194304",
+      "0",
+      "0"
+    ],
+    "duplicate_rhs": [
+      "1",
+      "8388607/8388608",
+      "0",
+      "0"
+    ],
+    "direction": [
+      "1",
+      "0",
+      "0",
+      "0"
+    ],
+    "correction_rhs": [
+      "1/4194304",
+      "1/4194304",
+      "0",
+      "0"
+    ],
+    "correction": [
+      "1/4194304",
+      "0",
+      "0",
+      "0"
+    ],
+    "row_residual": [
+      "-1/4194304",
+      "-1/4194304",
+      "0",
+      "0"
+    ],
+    "legacy_tolerances": [
+      "35184372088833/73786976294838206464",
+      "35184380477441/73786976294838206464",
+      "4951760157141521/4951760157141521099596496896",
+      "4951760157141521/4951760157141521099596496896"
+    ],
+    "rounded_legacy_tolerances": [
+      "35184372088833/73786976294838206464",
+      "35184380477441/73786976294838206464",
+      "4951760157141521/4951760157141521099596496896",
+      "4951760157141521/4951760157141521099596496896"
+    ]
+  },
+  "old_basis_determinant": "-92126054544129398198996176323084414368131141270383/822752278660603021077484591278675252491367932816789931674304512",
+  "scope": "New offline rational algebra plus explicitly labeled Python binary64 operation checks; no Julia, factor, workspace, callback, certificate or solver calls. Conditional endpoint contract, not runtime qualification or historical cause."
+}

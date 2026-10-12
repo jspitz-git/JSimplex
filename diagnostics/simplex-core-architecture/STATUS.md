@@ -138,13 +138,27 @@ No growing ledgers/snapshots/extra permanent exchanges. Original/export real;cop
 explicit unsupported. Source/GREEN/rawportable/driver/user hashes verified.
 See S6-PHASE-RECONSTRUCTION-FIXTURE.md/REVIEW. Production/options/tolerance/precision/
 CI unchanged. X/Y/Z/AA/AB/AC accepteddrivers/auditors NERERUN against changed tests.
-Next: docs/superpowers/plans/2026-10-12-dual-recovery-causal-contract.md,S6-AD.
-Source/exact-offline only; reconcile H/I/J, public dual entry, transactional copy/
-publication/cancel and all ordinary/retry refactor causes. Establish exact causal
-inequalities and complete work/ownership contract before any new numerical plan.
-No Julia or adapter implementation in AD. S6-J explicit retry stays REJECTED.
-Historical privateCIexport/rejection/backendcause,observerneutrality/hiddentrajectory,
-fullsuite/x64/broaderS6 remain unresolved.
+S6-AD complete as source/exact-offline diagnostic:27checks,7source/evidence/user/host
+verification gates,zeroJulia/factor/workspace/solver/certificate calls. Current dual
+test matches H;11source files match master. All216original assertions mapped, historical
+48failures/run remain accounted. Candidate workspace SHARES factor, no factor copy;
+ordinary refactors independent of retry budget, work survives discard. Identity,
+below-cutoff and single-injection shortcuts rejected. New conditional4x4dyadicB
+(delta2^-23,h2^-22) proof has accepted legacy row residual, eligible duplicate price-h,
+exact column pivot0, corrected price0. Requires TWO unit-output declarations in public
+and staged attempts; no adapter or runtime qualification yet. Freshgpt6astra accepts
+conditional proof/no unnecessary production work/memory. Important H equality scope
+fixed offline textual RED/GREEN: non-event compared fields only, events excluded.
+Minor DEFERRED: work paragraph 'copy' means factor copy; existing vector copies are
+explicitly mapped. See S6-DUAL-CAUSAL-CONTRACT.md/REVIEW,immutable results/S6-AD.
+Next: docs/superpowers/plans/2026-10-12-dual-dyadic-component-qualification.md,S6-AE.
+First new component-only qualification,Float64 fourmanagers x freshB/-I-refactorB,
+8setups4refactors24basis solves +8native compensated-quality entries. No workspace,
+publicsolve/dualiteration/adapter,metadata guessing or old accepted reruns. Read
+source/interface/options/runtime/pins first, preserve all failures. Exact component
+endpoints do not establish public retry/callback/ownership; separate later plan.
+Production/test/master/CI unchanged. S6-J/S2-A rejected,actualCIcause/hidden states/
+x64/fullsuite/broaderS6 open.
 
 
 S6-S accepted evidence90811de/closure6c5ef37: fourtype13/13 + factor6/6; initial
