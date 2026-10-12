@@ -220,12 +220,26 @@ run's3nativeboundjournalcleanupfailures remainunrepaired as a historicalfamily.
 S5-C1463focusedpass reused, notCIcause; currenttest matchesbothhistoricalsources.
 No unnecessaryproductionworkmemory, no production/test/master/CI change.
 See S6-REMAINING-FAILURE-COVERAGE.md/REVIEW and results/S6-AJ.
-Next: docs/superpowers/plans/2026-10-12-native-cleanup-termination-contract.md,S6-AK.
-SOURCE/EVIDENCEONLY, noJulia/adapter/testchange. Trace retainedboundjournal cleanup
-returnpaths/ownership/deadline after policy switch, exactrepresented1x1inputs and
-original6+helperassertions. Missinghistoricalrunstatus/message/point/elapsedtime;
-deadlinecandidate is NOTproven cause. Decide a discriminatingnewobservation before
-any separateboundednumericalplan; no clockreset/tollimits/precisionfix or oldrerun.
+S6-AK complete: SOURCE/EVIDENCEONLY,21evaluatedchecks+1modeldeclaration,518hashes,
+8independentchecks,13/14contractsourcefiles historicalmatch; knownS5-Ccopychange.
+Completehistorical8eventvector endscheckpoint/no certification or restore; supports
+TIME_LIMIT inference but NOTcapturedstatus/elapsed/privatecheck/CIcause. Actualbits
+margin9t,beae32f0ee144531,working[x-s]=0,originalviolation>tol; conditionalrestored[0,0].
+Return/ownership/deadline/worktable complete; noJulia/oldparser/auditorrerun or
+production/test/master/CIchange. Freshgpt6astra noCriticalImportant/no unnecessary
+productionworkmemory. MinorDEFERRED: table "two quality checks" means UPTO TWO,
+primalqualityshortcircuits; successfulpathboth. No countoracle depends onshorthand.
+See S6-NATIVE-CLEANUP-CONTRACT.md/REVIEW,results/S6-AK. OfflineexclusivewriterNERERUN.
+Next: docs/superpowers/plans/2026-10-12-native-cleanup-provenance.md,S6-AL.
+ONEnewFloat64PFIlifecycle:exacthelperonce+initial_primal_optimize!once+run_from_basis!once.
+Originalsixassertions+helperassert unchanged, nativepolicy/defaultoptions/time30;
+no clockreset/warmup/toleranceprecisionfix/observer/adapter/extraqualitycertificate.
+Enableexistingkerneltiming ONLYafterrealsetup; ownedtinybeforeaftercaptures/status/
+message/payload/clockbrackets/bounds/journal/pointbasisstates/optionspolicies/events/
+work; setupzero kernels notzerowork. Instrumentation consumes sharedbudget/notneutral.
+Mandatoryhost/runtime/source/inputcomparability/preflight/resourceguard/pins/rawaudit,
+originalfailuresexitpreserved/norerun; freshreviewbeforeanyfuturepermanentrepair.
+No historicalCIcausefromnewlocalpass/timeout; CI remainsdisabled.
 BroaderS2/S3/S4/S5/S6/native symbolicreuse/originalcertificatelimits remainopen.
 CI disabled, S6-J/S2-A rejected; historicalCIcause/hidden states/fullsuite/x64 open.
 

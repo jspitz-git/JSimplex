@@ -1,0 +1,71 @@
+{
+  "checks": {
+    "three_old_only_failures": true,
+    "raw_hash": true,
+    "event_vector8_next9": true,
+    "historical_point_basis_states": true,
+    "zero_progress_offsets": true,
+    "native_policy_printed": true,
+    "current_test_equal_historical": true,
+    "represented_margin_matches_printed": true,
+    "margin_greater_than_tolerance": true,
+    "margin_within_cap": true,
+    "working_equation_exact": true,
+    "working_structural_lower_exact": true,
+    "original_lower_violation_gt_tolerance": true,
+    "basic_free_row_no_bound_violation": true,
+    "driver_nonbasic_price_nonnegative": true,
+    "basis_FTRAN_exact": true,
+    "basis_BTRAN_exact": true,
+    "restored_point_exact_zero": true,
+    "iteration_count_below_limit": true,
+    "all_contract_sources_except_known_S5C_restore_equal_historical": true,
+    "all_tracked_source_test_CI_equal_master": true,
+    "users_unchanged": true
+  },
+  "values": {
+    "tolerance": {
+      "binary64_hex": "0x1.ad7f29abcaf48p-24",
+      "uint64": "3e7ad7f29abcaf48",
+      "rational": "944473296573929/9444732965739290427392"
+    },
+    "cap": {
+      "binary64_hex": "0x1.ad7f29abcaf48p-15",
+      "uint64": "3f0ad7f29abcaf48",
+      "rational": "944473296573929/18446744073709551616"
+    },
+    "margin": {
+      "binary64_hex": "0x1.e32f0ee144531p-21",
+      "uint64": "3eae32f0ee144531",
+      "rational": "8500259669165361/9444732965739290427392"
+    },
+    "shifted_lower": {
+      "binary64_hex": "-0x1.e32f0ee144531p-21",
+      "uint64": "beae32f0ee144531",
+      "rational": "-8500259669165361/9444732965739290427392"
+    }
+  },
+  "historical_source_matches": {
+    "src/simplex_driver.jl": true,
+    "src/simplex.jl": true,
+    "src/primal_simplex.jl": true,
+    "src/dual_simplex.jl": true,
+    "src/native_cleanup_recovery.jl": true,
+    "src/simplex_recovery.jl": true,
+    "src/simplex_numerics.jl": true,
+    "src/simplex_diagnostics.jl": true,
+    "src/simplex_pricing.jl": true,
+    "src/legacy_primal_point.jl": true,
+    "src/solver.jl": true,
+    "src/simplex_perturbation.jl": false,
+    "test/primal_perturbation_integration_tests.jl": true,
+    "test/primal_perturbation_tests.jl": true
+  },
+  "historical_events": "[:refactor_initial, :refactor_other, :perturbation, :pricing, :pivot_proposed, :pivot_completed, :pricing, :checkpoint]",
+  "captured_start_ns_hex": "0x000004a67c5816f9",
+  "start_ns_alone_is_not_elapsed": true,
+  "source_declarations": [
+    "basic_free_row_no_bound_violation is a model/state declaration, not production predicate execution"
+  ],
+  "scope": "Python exact arithmetic on printed binary64 values, plus source/hash checks; no Julia or historical parser/auditor rerun. No captured run.status/message or monotonic return timestamp."
+}
