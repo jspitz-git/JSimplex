@@ -653,3 +653,18 @@ unnecessary production work/memory. Reviewer11sample hashes; author full572 sepa
 Next ONE source-only S4-O plan: 2026-10-12-hh-allocation-counter-attribution.md,
 which binds existing timed fields to allocator implementation; no numerical launch,
 hooks or performance rerun. Native symbolic reuse remains disabled.
+
+
+### S4-O allocation-counter attribution, 2026-10-12
+
+SOURCE/EVIDENCE ONLY: current counted jl_* paths can contribute native usable bytes
+and allocation events to the same aggregate counters as Julia object allocation.
+Positive realloc growth only; frees not subtracted. M historical category split and
+callback/TLS/loader values UNKNOWN, newly read timing/runtime files not M launchpins.
+No accepted artifact/value rewritten or numerical rerun. 26checks/592hashes, author
+independent full592/5checks, all554M pins unchanged. Freshgpt6astra nofindings/no
+unnecessary production work/memory; reviewer15sample hashes/4disassemblies, authorfull592
+separate.
+Next ONE source-only S4-P:2026-10-12-hh-history-lifecycle-cost-contract.md, to freeze
+NEW nonsymmetric fixed histories and inclusive lifecycle work before any future run.
+Native retention OPEN; no hook experiment or production promotion.

@@ -1,0 +1,101 @@
+
+/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libjulia-internal.so.1.13.0:     file format elf64-littleaarch64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .text:
+
+0000000000100598 <ijl_gc_counted_realloc_with_old_size>:
+  100598:	a9bc7bfd 	stp	x29, x30, [sp, #-64]!
+  10059c:	910003fd 	mov	x29, sp
+  1005a0:	a9025bf5 	stp	x21, x22, [sp, #32]
+  1005a4:	aa0103f5 	mov	x21, x1
+  1005a8:	aa0203e1 	mov	x1, x2
+  1005ac:	a90153f3 	stp	x19, x20, [sp, #16]
+  1005b0:	97fccc48 	bl	336d0 <realloc@plt>
+  1005b4:	aa0003f3 	mov	x19, x0
+  1005b8:	97fdd704 	bl	761c8 <ijl_get_current_task>
+  1005bc:	f100027f 	cmp	x19, #0x0
+  1005c0:	fa401804 	ccmp	x0, #0x0, #0x4, ne	// ne = any
+  1005c4:	540000c1 	b.ne	1005dc <ijl_gc_counted_realloc_with_old_size+0x44>  // b.any
+  1005c8:	aa1303e0 	mov	x0, x19
+  1005cc:	a94153f3 	ldp	x19, x20, [sp, #16]
+  1005d0:	a9425bf5 	ldp	x21, x22, [sp, #32]
+  1005d4:	a8c47bfd 	ldp	x29, x30, [sp], #64
+  1005d8:	d65f03c0 	ret
+  1005dc:	aa0003f4 	mov	x20, x0
+  1005e0:	52800001 	mov	w1, #0x0                   	// #0
+  1005e4:	aa1303e0 	mov	x0, x19
+  1005e8:	f9001bf7 	str	x23, [sp, #48]
+  1005ec:	97ffa8db 	bl	ea958 <memory_block_usable_size>
+  1005f0:	f0002517 	adrp	x23, 5a3000 <alloc_map+0x1ff700>
+  1005f4:	9124e2e1 	add	x1, x23, #0x938
+  1005f8:	aa0003f6 	mov	x22, x0
+  1005fc:	91004020 	add	x0, x1, #0x10
+  100600:	f9405694 	ldr	x20, [x20, #168]
+  100604:	f9400002 	ldr	x2, [x0]
+  100608:	91006021 	add	x1, x1, #0x18
+  10060c:	f9400020 	ldr	x0, [x1]
+  100610:	eb00005f 	cmp	x2, x0
+  100614:	54000282 	b.cs	100664 <ijl_gc_counted_realloc_with_old_size+0xcc>  // b.hs, b.nlast
+  100618:	91004280 	add	x0, x20, #0x10
+  10061c:	f9400000 	ldr	x0, [x0]
+  100620:	f9400000 	ldr	x0, [x0]
+  100624:	eb1502c0 	subs	x0, x22, x21
+  100628:	54000262 	b.cs	100674 <ijl_gc_counted_realloc_with_old_size+0xdc>  // b.hs, b.nlast
+  10062c:	913b6282 	add	x2, x20, #0xed8
+  100630:	f9400041 	ldr	x1, [x2]
+  100634:	91000421 	add	x1, x1, #0x1
+  100638:	f9000041 	str	x1, [x2]
+  10063c:	b7f802e0 	tbnz	x0, #63, 100698 <ijl_gc_counted_realloc_with_old_size+0x100>
+  100640:	913be294 	add	x20, x20, #0xef8
+  100644:	f9400281 	ldr	x1, [x20]
+  100648:	8b010000 	add	x0, x0, x1
+  10064c:	d287ffe1 	mov	x1, #0x3fff                	// #16383
+  100650:	eb01001f 	cmp	x0, x1
+  100654:	54000388 	b.hi	1006c4 <ijl_gc_counted_realloc_with_old_size+0x12c>  // b.pmore
+  100658:	f9000280 	str	x0, [x20]
+  10065c:	f9401bf7 	ldr	x23, [sp, #48]
+  100660:	17ffffda 	b	1005c8 <ijl_gc_counted_realloc_with_old_size+0x30>
+  100664:	52800000 	mov	w0, #0x0                   	// #0
+  100668:	97ffff18 	bl	1002c8 <ijl_gc_collect>
+  10066c:	eb1502c0 	subs	x0, x22, x21
+  100670:	54fffde3 	b.cc	10062c <ijl_gc_counted_realloc_with_old_size+0x94>  // b.lo, b.ul, b.last
+  100674:	913b0282 	add	x2, x20, #0xec0
+  100678:	f9400041 	ldr	x1, [x2]
+  10067c:	8b000021 	add	x1, x1, x0
+  100680:	f9000041 	str	x1, [x2]
+  100684:	913b6282 	add	x2, x20, #0xed8
+  100688:	f9400041 	ldr	x1, [x2]
+  10068c:	91000421 	add	x1, x1, #0x1
+  100690:	f9000041 	str	x1, [x2]
+  100694:	b6fffd60 	tbz	x0, #63, 100640 <ijl_gc_counted_realloc_with_old_size+0xa8>
+  100698:	913bc294 	add	x20, x20, #0xef0
+  10069c:	f9400281 	ldr	x1, [x20]
+  1006a0:	cb1602a0 	sub	x0, x21, x22
+  1006a4:	8b010000 	add	x0, x0, x1
+  1006a8:	f9000280 	str	x0, [x20]
+  1006ac:	aa1303e0 	mov	x0, x19
+  1006b0:	a94153f3 	ldp	x19, x20, [sp, #16]
+  1006b4:	a9425bf5 	ldp	x21, x22, [sp, #32]
+  1006b8:	f9401bf7 	ldr	x23, [sp, #48]
+  1006bc:	a8c47bfd 	ldp	x29, x30, [sp], #64
+  1006c0:	d65f03c0 	ret
+  1006c4:	9124e2f7 	add	x23, x23, #0x938
+  1006c8:	910042f7 	add	x23, x23, #0x10
+  1006cc:	c85f7ee1 	ldxr	x1, [x23]
+  1006d0:	8b000021 	add	x1, x1, x0
+  1006d4:	c8027ee1 	stxr	w2, x1, [x23]
+  1006d8:	35ffffa2 	cbnz	w2, 1006cc <ijl_gc_counted_realloc_with_old_size+0x134>
+  1006dc:	f900029f 	str	xzr, [x20]
+  1006e0:	aa1303e0 	mov	x0, x19
+  1006e4:	a94153f3 	ldp	x19, x20, [sp, #16]
+  1006e8:	a9425bf5 	ldp	x21, x22, [sp, #32]
+  1006ec:	f9401bf7 	ldr	x23, [sp, #48]
+  1006f0:	a8c47bfd 	ldp	x29, x30, [sp], #64
+  1006f4:	d65f03c0 	ret
+
+Disassembly of section .fini:

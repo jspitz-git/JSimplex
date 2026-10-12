@@ -1,0 +1,48 @@
+
+/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libjulia-internal.so.1.13.0:     file format elf64-littleaarch64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .text:
+
+00000000000fdb30 <ijl_gc_num>:
+   fdb30:	a9ae7bfd 	stp	x29, x30, [sp, #-288]!
+   fdb34:	90000ec1 	adrp	x1, 2d5000 <jl_first_image_replacement_world@@JL_LIBJULIA_1.13-0x1c38>
+   fdb38:	910003fd 	mov	x29, sp
+   fdb3c:	f9429021 	ldr	x1, [x1, #1312]
+   fdb40:	a90153f3 	stp	x19, x20, [sp, #16]
+   fdb44:	9100e3f3 	add	x19, sp, #0x38
+   fdb48:	aa1303e0 	mov	x0, x19
+   fdb4c:	a9025bf5 	stp	x21, x22, [sp, #32]
+   fdb50:	aa0803f5 	mov	x21, x8
+   fdb54:	d2801d16 	mov	x22, #0xe8                  	// #232
+   fdb58:	aa1603e2 	mov	x2, x22
+   fdb5c:	97fcd6b5 	bl	33630 <memcpy@plt>
+   fdb60:	b0000fb4 	adrp	x20, 2f2000 <deferred_supers+0xf0>
+   fdb64:	aa1303e0 	mov	x0, x19
+   fdb68:	52800001 	mov	w1, #0x0                   	// #0
+   fdb6c:	97ffd5c1 	bl	f3270 <combine_thread_gc_counts>
+   fdb70:	91192294 	add	x20, x20, #0x648
+   fdb74:	97fea40f 	bl	a6bb0 <ijl_get_pgcstack>
+   fdb78:	d1026000 	sub	x0, x0, #0x98
+   fdb7c:	aa1403e1 	mov	x1, x20
+   fdb80:	52800002 	mov	w2, #0x0                   	// #0
+   fdb84:	97fea79d 	bl	a79f8 <_jl_mutex_wait>
+   fdb88:	b0000fa1 	adrp	x1, 2f2000 <deferred_supers+0xf0>
+   fdb8c:	aa1403e0 	mov	x0, x20
+   fdb90:	f942a421 	ldr	x1, [x1, #1352]
+   fdb94:	f9008fe1 	str	x1, [sp, #280]
+   fdb98:	97fea866 	bl	a7d30 <_jl_mutex_unlock_nogc>
+   fdb9c:	aa1603e2 	mov	x2, x22
+   fdba0:	aa1303e1 	mov	x1, x19
+   fdba4:	aa1503e0 	mov	x0, x21
+   fdba8:	97fcd6a2 	bl	33630 <memcpy@plt>
+   fdbac:	a94153f3 	ldp	x19, x20, [sp, #16]
+   fdbb0:	a9425bf5 	ldp	x21, x22, [sp, #32]
+   fdbb4:	a8d27bfd 	ldp	x29, x30, [sp], #288
+   fdbb8:	d65f03c0 	ret
+
+Disassembly of section .fini:

@@ -1,0 +1,85 @@
+
+/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libjulia-internal.so.1.13.0:     file format elf64-littleaarch64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .text:
+
+00000000000f3270 <combine_thread_gc_counts>:
+   f3270:	d0000f02 	adrp	x2, 2d5000 <jl_first_image_replacement_world@@JL_LIBJULIA_1.13-0x1c38>
+   f3274:	f9455842 	ldr	x2, [x2, #2736]
+   f3278:	88dffc46 	ldar	w6, [x2]
+   f327c:	b0000f02 	adrp	x2, 2d4000 <_ZTVSt21__ctype_abstract_baseIwE+0x20>
+   f3280:	f9468442 	ldr	x2, [x2, #3336]
+   f3284:	f9400042 	ldr	x2, [x2]
+   f3288:	710000df 	cmp	w6, #0x0
+   f328c:	5400080d 	b.le	f338c <combine_thread_gc_counts+0x11c>
+   f3290:	510004c6 	sub	w6, w6, #0x1
+   f3294:	d0000f08 	adrp	x8, 2d5000 <jl_first_image_replacement_world@@JL_LIBJULIA_1.13-0x1c38>
+   f3298:	91002043 	add	x3, x2, #0x8
+   f329c:	90002587 	adrp	x7, 5a3000 <alloc_map+0x1ff700>
+   f32a0:	9124e0e7 	add	x7, x7, #0x938
+   f32a4:	8b264c66 	add	x6, x3, w6, uxtw #3
+   f32a8:	f9429108 	ldr	x8, [x8, #1312]
+   f32ac:	910040e7 	add	x7, x7, #0x10
+   f32b0:	90002589 	adrp	x9, 5a3000 <alloc_map+0x1ff700>
+   f32b4:	14000005 	b	f32c8 <combine_thread_gc_counts+0x58>
+   f32b8:	eb06007f 	cmp	x3, x6
+   f32bc:	aa0303e2 	mov	x2, x3
+   f32c0:	54000660 	b.eq	f338c <combine_thread_gc_counts+0x11c>  // b.none
+   f32c4:	91002063 	add	x3, x3, #0x8
+   f32c8:	f9400042 	ldr	x2, [x2]
+   f32cc:	913b0044 	add	x4, x2, #0xec0
+   f32d0:	b4ffff42 	cbz	x2, f32b8 <combine_thread_gc_counts+0x48>
+   f32d4:	f940008a 	ldr	x10, [x4]
+   f32d8:	f940000b 	ldr	x11, [x0]
+   f32dc:	913b4045 	add	x5, x2, #0xed0
+   f32e0:	f9402904 	ldr	x4, [x8, #80]
+   f32e4:	8b0b0084 	add	x4, x4, x11
+   f32e8:	8b0a0084 	add	x4, x4, x10
+   f32ec:	f9000004 	str	x4, [x0]
+   f32f0:	f94000aa 	ldr	x10, [x5]
+   f32f4:	f9400c05 	ldr	x5, [x0, #24]
+   f32f8:	913b6044 	add	x4, x2, #0xed8
+   f32fc:	8b0a00a5 	add	x5, x5, x10
+   f3300:	f9000c05 	str	x5, [x0, #24]
+   f3304:	f940008a 	ldr	x10, [x4]
+   f3308:	f9401005 	ldr	x5, [x0, #32]
+   f330c:	913b8044 	add	x4, x2, #0xee0
+   f3310:	8b0a00a5 	add	x5, x5, x10
+   f3314:	f9001005 	str	x5, [x0, #32]
+   f3318:	f940008a 	ldr	x10, [x4]
+   f331c:	f9401405 	ldr	x5, [x0, #40]
+   f3320:	913ba044 	add	x4, x2, #0xee8
+   f3324:	8b0a00a5 	add	x5, x5, x10
+   f3328:	f9001405 	str	x5, [x0, #40]
+   f332c:	f940008a 	ldr	x10, [x4]
+   f3330:	f9401804 	ldr	x4, [x0, #48]
+   f3334:	913bc045 	add	x5, x2, #0xef0
+   f3338:	8b0a0084 	add	x4, x4, x10
+   f333c:	f9001804 	str	x4, [x0, #48]
+   f3340:	f94000aa 	ldr	x10, [x5]
+   f3344:	f9400804 	ldr	x4, [x0, #16]
+   f3348:	8b0a0084 	add	x4, x4, x10
+   f334c:	f9000804 	str	x4, [x0, #16]
+   f3350:	34fffb41 	cbz	w1, f32b8 <combine_thread_gc_counts+0x48>
+   f3354:	913be042 	add	x2, x2, #0xef8
+   f3358:	f9400044 	ldr	x4, [x2]
+   f335c:	f94000ab 	ldr	x11, [x5]
+   f3360:	f944852a 	ldr	x10, [x9, #2312]
+   f3364:	8b0b014a 	add	x10, x10, x11
+   f3368:	f904852a 	str	x10, [x9, #2312]
+   f336c:	f94000ea 	ldr	x10, [x7]
+   f3370:	8b0a0084 	add	x4, x4, x10
+   f3374:	f90000e4 	str	x4, [x7]
+   f3378:	f900005f 	str	xzr, [x2]
+   f337c:	f90000bf 	str	xzr, [x5]
+   f3380:	eb06007f 	cmp	x3, x6
+   f3384:	aa0303e2 	mov	x2, x3
+   f3388:	54fff9e1 	b.ne	f32c4 <combine_thread_gc_counts+0x54>  // b.any
+   f338c:	d65f03c0 	ret
+
+Disassembly of section .fini:

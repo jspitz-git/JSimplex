@@ -1,0 +1,25 @@
+
+/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libjulia-internal.so.1.13.0:     file format elf64-littleaarch64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .text:
+
+00000000000eb658 <jl_free>:
+   eb658:	b5000040 	cbnz	x0, eb660 <jl_free+0x8>
+   eb65c:	d65f03c0 	ret
+   eb660:	a9be7bfd 	stp	x29, x30, [sp, #-32]!
+   eb664:	910003fd 	mov	x29, sp
+   eb668:	f9000bf3 	str	x19, [sp, #16]
+   eb66c:	aa0003f3 	mov	x19, x0
+   eb670:	97fd20ac 	bl	33920 <malloc_usable_size@plt>
+   eb674:	aa0003e1 	mov	x1, x0
+   eb678:	aa1303e0 	mov	x0, x19
+   eb67c:	f9400bf3 	ldr	x19, [sp, #16]
+   eb680:	a8c27bfd 	ldp	x29, x30, [sp], #32
+   eb684:	14004af5 	b	fe258 <ijl_gc_counted_free_with_size>
+
+Disassembly of section .fini:

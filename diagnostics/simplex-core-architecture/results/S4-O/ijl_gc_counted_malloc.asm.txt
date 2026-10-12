@@ -1,0 +1,79 @@
+
+/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libjulia-internal.so.1.13.0:     file format elf64-littleaarch64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .text:
+
+0000000000100c68 <ijl_gc_counted_malloc>:
+  100c68:	a9bd7bfd 	stp	x29, x30, [sp, #-48]!
+  100c6c:	910003fd 	mov	x29, sp
+  100c70:	a90153f3 	stp	x19, x20, [sp, #16]
+  100c74:	97fccc7f 	bl	33e70 <malloc@plt>
+  100c78:	aa0003f3 	mov	x19, x0
+  100c7c:	97fdd553 	bl	761c8 <ijl_get_current_task>
+  100c80:	f100027f 	cmp	x19, #0x0
+  100c84:	fa401804 	ccmp	x0, #0x0, #0x4, ne	// ne = any
+  100c88:	540000a1 	b.ne	100c9c <ijl_gc_counted_malloc+0x34>  // b.any
+  100c8c:	aa1303e0 	mov	x0, x19
+  100c90:	a94153f3 	ldp	x19, x20, [sp, #16]
+  100c94:	a8c37bfd 	ldp	x29, x30, [sp], #48
+  100c98:	d65f03c0 	ret
+  100c9c:	aa0003f4 	mov	x20, x0
+  100ca0:	52800001 	mov	w1, #0x0                   	// #0
+  100ca4:	aa1303e0 	mov	x0, x19
+  100ca8:	a9025bf5 	stp	x21, x22, [sp, #32]
+  100cac:	97ffa72b 	bl	ea958 <memory_block_usable_size>
+  100cb0:	f0002516 	adrp	x22, 5a3000 <alloc_map+0x1ff700>
+  100cb4:	9124e2c1 	add	x1, x22, #0x938
+  100cb8:	aa0003f5 	mov	x21, x0
+  100cbc:	91004020 	add	x0, x1, #0x10
+  100cc0:	f9405694 	ldr	x20, [x20, #168]
+  100cc4:	f9400002 	ldr	x2, [x0]
+  100cc8:	91006021 	add	x1, x1, #0x18
+  100ccc:	f9400020 	ldr	x0, [x1]
+  100cd0:	eb00005f 	cmp	x2, x0
+  100cd4:	54000302 	b.cs	100d34 <ijl_gc_counted_malloc+0xcc>  // b.hs, b.nlast
+  100cd8:	91004280 	add	x0, x20, #0x10
+  100cdc:	f9400000 	ldr	x0, [x0]
+  100ce0:	f9400000 	ldr	x0, [x0]
+  100ce4:	913b0281 	add	x1, x20, #0xec0
+  100ce8:	f9400020 	ldr	x0, [x1]
+  100cec:	8b150000 	add	x0, x0, x21
+  100cf0:	f9000020 	str	x0, [x1]
+  100cf4:	913b4281 	add	x1, x20, #0xed0
+  100cf8:	f9400020 	ldr	x0, [x1]
+  100cfc:	91000400 	add	x0, x0, #0x1
+  100d00:	f9000020 	str	x0, [x1]
+  100d04:	913be294 	add	x20, x20, #0xef8
+  100d08:	f9400280 	ldr	x0, [x20]
+  100d0c:	8b0002b5 	add	x21, x21, x0
+  100d10:	d287ffe0 	mov	x0, #0x3fff                	// #16383
+  100d14:	eb0002bf 	cmp	x21, x0
+  100d18:	54000148 	b.hi	100d40 <ijl_gc_counted_malloc+0xd8>  // b.pmore
+  100d1c:	f9000295 	str	x21, [x20]
+  100d20:	aa1303e0 	mov	x0, x19
+  100d24:	a94153f3 	ldp	x19, x20, [sp, #16]
+  100d28:	a9425bf5 	ldp	x21, x22, [sp, #32]
+  100d2c:	a8c37bfd 	ldp	x29, x30, [sp], #48
+  100d30:	d65f03c0 	ret
+  100d34:	52800000 	mov	w0, #0x0                   	// #0
+  100d38:	97fffd64 	bl	1002c8 <ijl_gc_collect>
+  100d3c:	17ffffea 	b	100ce4 <ijl_gc_counted_malloc+0x7c>
+  100d40:	9124e2d6 	add	x22, x22, #0x938
+  100d44:	910042d6 	add	x22, x22, #0x10
+  100d48:	c85f7ec0 	ldxr	x0, [x22]
+  100d4c:	8b150000 	add	x0, x0, x21
+  100d50:	c8017ec0 	stxr	w1, x0, [x22]
+  100d54:	35ffffa1 	cbnz	w1, 100d48 <ijl_gc_counted_malloc+0xe0>
+  100d58:	f900029f 	str	xzr, [x20]
+  100d5c:	aa1303e0 	mov	x0, x19
+  100d60:	a94153f3 	ldp	x19, x20, [sp, #16]
+  100d64:	a9425bf5 	ldp	x21, x22, [sp, #32]
+  100d68:	a8c37bfd 	ldp	x29, x30, [sp], #48
+  100d6c:	d65f03c0 	ret
+
+Disassembly of section .fini:

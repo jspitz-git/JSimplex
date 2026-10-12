@@ -1,0 +1,27 @@
+
+/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libjulia-internal.so.1.13.0:     file format elf64-littleaarch64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .text:
+
+00000000000eb688 <ijl_realloc>:
+   eb688:	a9be7bfd 	stp	x29, x30, [sp, #-32]!
+   eb68c:	910003fd 	mov	x29, sp
+   eb690:	a90153f3 	stp	x19, x20, [sp, #16]
+   eb694:	aa0103f4 	mov	x20, x1
+   eb698:	aa0003f3 	mov	x19, x0
+   eb69c:	d2800001 	mov	x1, #0x0                   	// #0
+   eb6a0:	b4000060 	cbz	x0, eb6ac <ijl_realloc+0x24>
+   eb6a4:	97fd209f 	bl	33920 <malloc_usable_size@plt>
+   eb6a8:	aa0003e1 	mov	x1, x0
+   eb6ac:	aa1403e2 	mov	x2, x20
+   eb6b0:	aa1303e0 	mov	x0, x19
+   eb6b4:	a94153f3 	ldp	x19, x20, [sp, #16]
+   eb6b8:	a8c27bfd 	ldp	x29, x30, [sp], #32
+   eb6bc:	140053b7 	b	100598 <ijl_gc_counted_realloc_with_old_size>
+
+Disassembly of section .fini:

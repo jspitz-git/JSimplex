@@ -1,0 +1,22 @@
+
+/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libjulia-internal.so.1.13.0:     file format elf64-littleaarch64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .text:
+
+00000000000eb630 <ijl_calloc>:
+   eb630:	92f00002 	mov	x2, #0x7fffffffffffffff    	// #9223372036854775807
+   eb634:	9ac10842 	udiv	x2, x2, x1
+   eb638:	eb00005f 	cmp	x2, x0
+   eb63c:	54000083 	b.cc	eb64c <ijl_calloc+0x1c>  // b.lo, b.ul, b.last
+   eb640:	9b007c20 	mul	x0, x1, x0
+   eb644:	d2800021 	mov	x1, #0x1                   	// #1
+   eb648:	140055ca 	b	100d70 <ijl_gc_counted_calloc>
+   eb64c:	d2800000 	mov	x0, #0x0                   	// #0
+   eb650:	d65f03c0 	ret
+
+Disassembly of section .fini:

@@ -1,0 +1,28 @@
+
+/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libjulia-internal.so.1.13.0:     file format elf64-littleaarch64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .text:
+
+00000000000fe258 <ijl_gc_counted_free_with_size>:
+   fe258:	a9be7bfd 	stp	x29, x30, [sp, #-32]!
+   fe25c:	910003fd 	mov	x29, sp
+   fe260:	f9000bf3 	str	x19, [sp, #16]
+   fe264:	aa0103f3 	mov	x19, x1
+   fe268:	97fcd87a 	bl	34450 <free@plt>
+   fe26c:	97fddfd7 	bl	761c8 <ijl_get_current_task>
+   fe270:	b40000c0 	cbz	x0, fe288 <ijl_gc_counted_free_with_size+0x30>
+   fe274:	f9405400 	ldr	x0, [x0, #168]
+   fe278:	913bc000 	add	x0, x0, #0xef0
+   fe27c:	f9400001 	ldr	x1, [x0]
+   fe280:	8b010261 	add	x1, x19, x1
+   fe284:	f9000001 	str	x1, [x0]
+   fe288:	f9400bf3 	ldr	x19, [sp, #16]
+   fe28c:	a8c27bfd 	ldp	x29, x30, [sp], #32
+   fe290:	d65f03c0 	ret
+
+Disassembly of section .fini:
