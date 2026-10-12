@@ -1,7 +1,7 @@
 # S6-R: original-bound factor-component replay
 
-Status: bounded component replay and exact post-exit audit complete; final review
-pending. No production/test/CI or backend-control change. No full solver, workspace,
+Status: bounded component replay and exact post-exit audit complete; independent final review
+accepted without findings; see S6-FACTOR-REPLAY-REVIEW.md. No production/test/CI or backend-control change. No full solver, workspace,
 accepted census, old trace, long reference or cost benchmark rerun.
 
 ## Result and integrity

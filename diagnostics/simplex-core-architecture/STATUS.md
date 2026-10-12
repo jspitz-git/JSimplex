@@ -46,30 +46,35 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-S6-Q complete and independently accepted: evidence4444119,report
-S6-POINT-PROVENANCE.md and S6-POINT-PROVENANCE-REVIEW.md. One original Float64
-observed solve;5/5diagnostic assertions,11events,24gates,611pins,exit0. Saved S6-N
-endpoint matches exactly.517source/test/environment/runtime/launcher pins and
-model/options/policy/threads compared; no new unobserved control or census rerun.
-First exact working-equation residual is auxiliary pivot1(event6),125/2^66 per row.
-First original-bound violation is event11certification after private original-bound
-refactor/recompute:2^-47 original,2^-27 scaled,gap-1/16. Event10refactor is before
-FTRAN/BTRAN; no proof of particular arithmetic cause. No eta at handoff. Captured
-final scratch RHS[0,-1] is BTRAN costs; primal RHS[-2^20,2^20] derives from states/
-bounds. Raw scratch is not a certified runtime dual witness.
+S6-R complete and independently accepted without findings:evidence08b7485,
+S6-FACTOR-REPLAY.md and S6-FACTOR-REPLAY-REVIEW.md. Two Float64 component lifecycles
+freshB and -I/copy/refactor;threefactorizations,onecopy,fourbasis solves total.
+12/12assertions,exit0,21auditgates,613pins,517source/env/runtime/launcher comparisons.
+Both reproduce saved S6-Q primal and raw rho; newly extracted metadata equal.
+Exact LU-(Rs.*B)[p,q] residual(2,2)=-2^-72. Exact factor-representation objective
+contribution-1048576/16777215 plus application1/268435440 equals-1/16.
+This is new component factor evidence,not captured original solver/CI factor identity
+or proof of one originating machine operation. No control/precision/tolerance/solver/
+test change,no speedup/full-suite/x64 claim. All old evidence remains preserved.
 
-Next: docs/superpowers/plans/2026-10-12-nearly-singular-factor-replay.md,S6-R.
-Inspect production/backend contracts,then minimal fresh-versus-copy/refactor
-component replay with captured B and derived RHS; no solver/census/trace rerun.
-No opaque factor serialization/control changes/tolerance or precision changes.
-Deferred minor: S6-Q audit reverses GENERAL column-scaling convention. All captured
-column factors1, independent reviewer recomputation using production convention
-confirms every result. Do NOT reuse for nonunit scaling without correction or
-explicit restriction; preserve accepted artifacts, no rerun for this minor.
-S6-R results are not yet available. No production/test/CI change or speed claim.
-Last separate executor/reviewer host checks: runner386534,child386535,driver386526
-absent,noJulia,boot20de7dde-704e-41c8-bee7-b8511c0a86b0. Always recheck identities.
-Master remains7fea422; original equality/full-suite/x64 remain unresolved.
+Next: docs/superpowers/plans/2026-10-12-nearly-singular-row-balanced-fixture.md,S6-S.
+Qualify proposed A=[s s;s-d s+d],s2^-21,d2^-44,delta2^-23,rowbounds±[1,1+delta],
+freecolumns,c[0,-1],same defaults/public solve/original assertions. Exact determinant
+2^-64,conditioninf2^24+1,unique optimum-2^44 at[-2^44-2^21,2^44],stationary dual
+and Float32 representability independently verified. Equal binary row norms motivate
+conditional exact factor arithmetic; candidate has NOT been numerically qualified.
+Different feasible set,not equivalent transformation. Require preserved2/2/4topology,
+original oracle/options/policy/global/source/pin checks before separate permanent
+RED/GREEN plan. No weakening equality,no old census/trace/replay/corpus reruns.
+
+S6-Q remains accepted:11events,5/5,24gates611pins,exact S6-N endpoint. Refactor event
+precedes FTRAN/BTRAN,certification precedes checks. Final scratch RHS[0,-1] is BTRAN;
+primal RHS derives from slack states/bounds. Deferred Q auditor general columnscale
+convention is reversed; all captured factors1 and independent correct convention
+reproduces results. Preserve artifacts,do not reuse for nonunit scaling uncorrected.
+No S6-R minors. Last separate executor host check388033/388034/388025 absent,noJulia,
+boot20de7dde-704e-41c8-bee7-b8511c0a86b0. Reviewer did not repeat this host check.
+Verify fresh identity before any new launch. Master remains7fea422.
 
 S6-N/O/P remain accepted diagnostics, not repairs. S6-O changes main presolve route;
 S6-P candidate REJECTED with12pass/1equality failure,exit1,two false acceptance

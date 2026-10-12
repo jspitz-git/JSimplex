@@ -48,5 +48,5 @@ inputs/aliases, old accepted experiments or CI re-enablement.
 replay-1:12/12,exit0,21gates/613pins; both fresh and -I/copy/refactor reproduce
 saved S6-Q primal and raw rho. Exact factor identity residual(2,2)=-2^-72; exact
 factor/application objective contributions sum to-1/16. No original runtime/CI
-metadata capture or repair. Final independent review pending. Next separate
+metadata capture or repair. Final independent review accepted without findings; see S6-FACTOR-REPLAY-REVIEW.md. Next separate
 row-balanced qualification plan; report S6-FACTOR-REPLAY.md.
