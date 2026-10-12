@@ -208,13 +208,24 @@ Fixedtuples/scalars/oneobserverRef, no growingledgers/persolvesnapshots/extraper
 iterations.9driveronlysentinel/failfastcalls proveattemptaccounting,notbackend recovery.
 No production/tolerance/precision/CIchange. AFwholequalification NOTaccepted unchanged.
 See S6-DUAL-BUDGET-FIXTURE.md/REVIEW. AI/old drivers/auditors NERERUN.
-Next: docs/superpowers/plans/2026-10-12-remaining-failure-coverage.md,S6-AJ.
-SOURCE/EVIDENCEONLY, noJulia/adapter/testchange. Reconcile EVERY197+1/200+1historical
-failure/error withcurrentmaster/acceptedtestrepairs/nativecoverage/remaininggap;
-keepseparateruntotals/scalarunknowncases, no overlappingassertiondoublecount and no
-historicalCIcause/fullsuite/x64claim fromlocalfixtures. Reuseacceptedinventorywithout
-oldparser/driver/census/corpus/reference/costrerun. Selectonenextconcreteunresolved
-obligation and writeboundedseparatenumericalplan onlyifjustified; freshreviewfirst.
+S6-AJ complete: source/evidence-only,399historicalrecords/24locations, separate
+197+1/200+1,18offlinechecks534hashes plus9independentchecks/70S5-Csource comparisons.
+Every record maps once to currentmaster; sevenrepairfiles and AAunchangedblock bound.
+23assertionstarts identical; Cguardedstatus explicitly distinguished. First exact-line
+mapper refusal/source/exit1 preserved. NoJulia/oldparser/auditorreruns. Freshgpt6astra
+noCritical/Important; Minorstructuredscalarlabel authorregradedImportant, oneoffline
+RED8->GREEN16fix. Originalmap/mapper preserved;8line211Float32 versus8line164unknown.
+No newdeferredMinor. First7families197fail+1error/run have scopedlocalrepairs; older
+run's3nativeboundjournalcleanupfailures remainunrepaired as a historicalfamily.
+S5-C1463focusedpass reused, notCIcause; currenttest matchesbothhistoricalsources.
+No unnecessaryproductionworkmemory, no production/test/master/CI change.
+See S6-REMAINING-FAILURE-COVERAGE.md/REVIEW and results/S6-AJ.
+Next: docs/superpowers/plans/2026-10-12-native-cleanup-termination-contract.md,S6-AK.
+SOURCE/EVIDENCEONLY, noJulia/adapter/testchange. Trace retainedboundjournal cleanup
+returnpaths/ownership/deadline after policy switch, exactrepresented1x1inputs and
+original6+helperassertions. Missinghistoricalrunstatus/message/point/elapsedtime;
+deadlinecandidate is NOTproven cause. Decide a discriminatingnewobservation before
+any separateboundednumericalplan; no clockreset/tollimits/precisionfix or oldrerun.
 BroaderS2/S3/S4/S5/S6/native symbolicreuse/originalcertificatelimits remainopen.
 CI disabled, S6-J/S2-A rejected; historicalCIcause/hidden states/fullsuite/x64 open.
 
