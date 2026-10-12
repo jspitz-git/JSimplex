@@ -771,3 +771,19 @@ phrase crossed a line break; shell continued into ae874717 publication despite t
 audit. Separate closure-supplement7/7 verifies normalized text and unchanged original
 review/full627 evidence. No numerical/script rerun; prior STATUS/roadmap copies preserved.
 Further publication is fail-fast. This does not qualify bootstrap or alter its OPEN gates.
+
+
+### S4-V read-only bootstrap feasibility decision, 2026-10-12
+
+SOURCE/HOST-READ-ONLY:17 checks656 file hashes, author8/full656, all627 U pins unchanged.
+Kernel/tool primitives exist, but inspected installed examples and incomplete root/remount
+recipe do not supply the required complete JSimplex path/alias/FD/environment policy.
+This rejects those launch routes, not the possibility of a custom bubblewrap policy or
+runtime namespace admission. No launcher frozen, no trial sandbox/Julia/cache operation.
+Stop this bounded bootstrap investigation rather than schedule equivalent audits/imports.
+Next independent source-only controller attempt accounting uses the already frozen T LP:
+2026-10-12-hh-public-controller-attempt-contract.md. The independent work is reordered to
+make progress while bootstrap/cache validity/initializer closure remain OPEN; it authorizes
+no numerical plan. Native HH reuse disabled, production/test/env/master/CI unchanged;
+Q evidence/retention/broaderS4S6/fullsuite/allrejections unchanged. U original failed closure
+and separate supplement preserved; new publication must pass separate closure first.

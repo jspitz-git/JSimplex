@@ -1,0 +1,42 @@
+79 84 0:33 / /usr/lib/modules/6.18.33.2-microsoft-standard-WSL2 rw,nosuid,nodev,noatime - overlay none rw,lowerdir=/modules,upperdir=/lib/modules/6.18.33.2-microsoft-standard-WSL2/rw/upper,workdir=/lib/modules/6.18.33.2-microsoft-standard-WSL2/rw/work,uuid=on
+80 84 0:36 / /mnt/wsl rw,relatime shared:1 - tmpfs none rw
+81 84 0:38 / /usr/lib/wsl/drivers ro,nosuid,nodev,noatime - 9p drivers ro,aname=drivers;fmask=222;dmask=222,cache=0x5,access=client,msize=65536,trans=fd,rfd=8,wfd=8
+84 69 8:48 / / rw,relatime - ext4 /dev/sdd rw,discard,errors=remount-ro,data=ordered
+85 84 0:42 / /mnt/wslg rw,relatime shared:2 - tmpfs none rw
+86 85 8:48 / /mnt/wslg/distro ro,relatime shared:3 - ext4 /dev/sdd rw,discard,errors=remount-ro,data=ordered
+111 84 0:59 / /usr/lib/wsl/lib rw,nosuid,nodev,noatime - overlay none rw,lowerdir=/gpu_lib_packaged:/gpu_lib_inbox,upperdir=/gpu_lib/rw/upper,workdir=/gpu_lib/rw/work,uuid=on
+112 84 0:2 /init /init ro - rootfs rootfs rw,size=12260992k,nr_inodes=3065248
+113 84 0:6 / /dev rw,nosuid,relatime shared:13 - devtmpfs none rw,size=12260992k,nr_inodes=3065248,mode=755
+114 84 0:26 / /sys rw,nosuid,nodev,noexec,noatime shared:14 - sysfs sysfs rw
+115 84 0:63 / /proc rw,nosuid,nodev,noexec,noatime shared:15 - proc proc rw
+116 113 0:64 / /dev/pts rw,nosuid,noexec,noatime shared:16 - devpts devpts rw,gid=5,mode=620,ptmxmode=000
+117 84 0:65 / /run rw,nosuid,nodev shared:17 - tmpfs none rw,mode=755
+118 117 0:66 / /run/lock rw,nosuid,nodev,noexec,noatime shared:18 - tmpfs none rw
+119 117 0:67 / /run/shm rw,nosuid,nodev,noatime shared:19 - tmpfs none rw
+120 113 0:67 / /dev/shm rw,nosuid,nodev,noatime shared:19 - tmpfs none rw
+121 117 0:68 / /run/user rw,nosuid,nodev,noexec,noatime shared:20 - tmpfs none rw,mode=755
+123 115 0:37 / /proc/sys/fs/binfmt_misc rw,relatime shared:22 - binfmt_misc binfmt_misc rw
+124 114 0:27 / /sys/fs/cgroup rw,nosuid,nodev,noexec,relatime shared:23 - cgroup2 cgroup2 rw,nsdelegate
+128 85 0:44 /etc/versions.txt /mnt/wslg/versions.txt rw,relatime shared:24 - overlay none rw,lowerdir=/systemvhd,upperdir=/system/rw/upper,workdir=/system/rw/work,uuid=on
+130 85 0:44 /usr/share/doc /mnt/wslg/doc rw,relatime shared:25 - overlay none rw,lowerdir=/systemvhd,upperdir=/system/rw/upper,workdir=/system/rw/work,uuid=on
+132 84 0:42 /.X11-unix /tmp/.X11-unix ro,relatime shared:2 - tmpfs none rw
+133 84 0:71 / /mnt/c rw,noatime - 9p C:\134 rw,aname=drvfs;path=C:\;uid=1000;gid=1000;symlinkroot=/mnt/,cache=0x5,access=client,msize=65536,trans=fd,rfd=6,wfd=6
+134 121 0:42 /run/user /run/user rw,relatime shared:2 - tmpfs none rw
+135 117 0:72 / /run/credentials/systemd-journald.service rw,nosuid,nodev,noexec,relatime,nosymfollow shared:26 - tmpfs none ro,size=1024k,nr_inodes=1024,mode=700,noswap
+137 114 0:24 / /sys/kernel/config rw,nosuid,nodev,noexec,relatime shared:28 - configfs configfs rw
+138 114 0:8 / /sys/kernel/debug rw,nosuid,nodev,noexec,relatime shared:29 - debugfs debugfs rw
+139 114 0:13 / /sys/kernel/tracing rw,nosuid,nodev,noexec,relatime shared:30 - tracefs tracefs rw
+140 114 0:75 / /sys/fs/fuse/connections rw,nosuid,nodev,noexec,relatime shared:32 - fusectl fusectl rw
+141 84 0:74 / /tmp rw,nosuid,nodev - tmpfs tmpfs rw,nr_inodes=1048576
+142 113 0:76 / /dev/hugepages rw,nosuid,nodev,relatime shared:31 - hugetlbfs hugetlbfs rw,pagesize=2M
+143 113 0:41 / /dev/mqueue rw,nosuid,nodev,noexec,relatime shared:33 - mqueue mqueue rw
+144 117 0:77 / /run/credentials/systemd-resolved.service rw,nosuid,nodev,noexec,relatime,nosymfollow shared:27 - tmpfs none ro,size=1024k,nr_inodes=1024,mode=700,noswap
+159 84 8:48 /snap /snap rw,relatime shared:117 - ext4 /dev/sdd rw,discard,errors=remount-ro,data=ordered
+160 159 0:81 / /snap/core24/1644 ro,nodev,relatime shared:118 - fuse.snapfuse snapfuse ro,user_id=0,group_id=0,allow_other
+161 159 0:82 / /snap/core24/2125 ro,nodev,relatime shared:120 - fuse.snapfuse snapfuse ro,user_id=0,group_id=0,allow_other
+162 159 0:83 / /snap/snapd/27740 ro,nodev,relatime shared:119 - fuse.snapfuse snapfuse ro,user_id=0,group_id=0,allow_other
+163 159 0:84 / /snap/snapd/28255 ro,nodev,relatime shared:121 - fuse.snapfuse snapfuse ro,user_id=0,group_id=0,allow_other
+164 141 0:42 /.X11-unix /tmp/.X11-unix ro,relatime shared:2 - tmpfs none rw
+273 117 0:90 / /run/credentials/getty@tty1.service rw,nosuid,nodev,noexec,relatime,nosymfollow shared:337 - tmpfs none ro,size=1024k,nr_inodes=1024,mode=700,noswap
+353 134 0:91 / /run/user/1000 rw,nosuid,nodev,relatime shared:344 - tmpfs tmpfs rw,size=2455208k,nr_inodes=613802,mode=700,uid=1000,gid=1000
+355 85 0:91 / /mnt/wslg/run/user/1000 rw,nosuid,nodev,relatime shared:344 - tmpfs tmpfs rw,size=2455208k,nr_inodes=613802,mode=700,uid=1000,gid=1000

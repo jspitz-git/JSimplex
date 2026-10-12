@@ -46,7 +46,22 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-**Current continuation: S4-U source-only bootstrap diagnosis; CLI-only writable-cache route NOT qualified. Next S4-V read-only confinement feasibility decision, `docs/superpowers/plans/2026-10-12-hh-readonly-bootstrap-feasibility.md`. No numerical plan/launch; bootstrap/controller caps remain OPEN.**
+**Current continuation: S4-V source/host-read-only decision completed; inspected installed sandbox examples are NOT qualified for strict read-only bootstrap. Kernel/tool primitives exist; no OS-impossibility claim, custom launcher or launch authorization. Bootstrap investigation stops here. Next independent S4-W controller attempt accounting: `docs/superpowers/plans/2026-10-12-hh-public-controller-attempt-contract.md`, SOURCE ONLY.**
+
+S4-V:17 read-only checks/656 hashes, author8 independent checks/full656; all627 U pins
+unchanged. Installed bubblewrap0.11.1-1ubuntu0.3 and WSL2 namespace kernel options present,
+not runtime namespace-admission proof. Installed shell example keeps network/ephemeral
+writes; Flatpak example binds host writable paths/socket. Generic root/remount shorthand
+has no complete path/alias/descriptor/env policy; --remount-ro explicitly not recursive,
+NOT a claim about --ro-bind recursion. Tool availability is not a complete policy.
+No Julia/bwrap/mount/namespace/cache/production/test/env/CI changes or old script/numeric
+reruns. No custom launcher frozen, no intrinsic OS-impossibility finding. No equivalent
+bootstrap audit/probe next; W maps independent controller attempts with all bootstrap/cache/
+initializer gates OPEN. S manifest/T LP/Q evidence unchanged, HH reuse disabled, retention/
+broaderS4S6/fullsuite/allrejections unchanged. See S4-READONLY-BOOTSTRAP-FEASIBILITY.md
+and results/S4-V. U failed closure and separate supplement remain unchanged. Publication
+requires separate successful closure before fail-fast commit/push.
+
 
 S4-U: SOURCE/EVIDENCEONLY,noJulia/loading/nativecalls. Installed loading: existing can
 sourcefallback; strict(mode3)errors before compilecache/sourceinclude but cache search
