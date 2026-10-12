@@ -1,5 +1,29 @@
 using Test, JSimplex, SparseArrays, LinearAlgebra
 
+# Exact reconstruction isolates the reliable zero-budget exchange contract.
+# Native roundoff recovery and cancellation retain their separate fixture below.
+function reliable_artificial_exchange_fixture(T,manager;max_refinements=3,diagnostics=nothing)
+    A=sparse(Matrix{T}(I,6,6))
+    rhs=Vector(A[:,1]+A[:,2])
+    policy=JSimplex.NumericalPolicy(T;max_refinements)
+    options=SolverOptions(T;algorithm=:primal,basis_update=manager,
+        basis_refactorization=:native,verbose=false)
+    p=LinearProblem(A,zeros(T,6);row_lower=rhs,row_upper=rhs)
+    auxiliary=LinearProblem(hcat(A,A[:,6:6]),vcat(zeros(T,6),one(T));row_lower=rhs,row_upper=rhs)
+    original=JSimplex.initialize_workspace(p,options;
+        progress=JSimplex.SimplexProgressContext(p;numerical_policy=policy,diagnostics))
+    phase=JSimplex.initialize_workspace(auxiliary,options;
+        progress=JSimplex.SimplexProgressContext(auxiliary;numerical_policy=policy,diagnostics))
+    phase.basis=JSimplex.Basis([1,2,3,4,5,7],vcat(fill(JSimplex.BASIC,5),
+        JSimplex.AT_LOWER,JSimplex.BASIC,fill(JSimplex.AT_LOWER,6)))
+    JSimplex.recompute!(phase;refactorize=true)
+    # The exact known feasible point has a zero basic artificial. It models the
+    # maintained Phase-I point, independently of the refactorized reconstruction.
+    phase.primal.=vcat(T[1,1,0,0,0,0,0],rhs)
+    mapping=JSimplex.PhaseOneMap(vcat(1:6,8:13),vcat(1:6,0,7:12),[7])
+    return phase,mapping,original,policy
+end
+
 @testset "Phase export retains certified nonbasic values" begin
     for T in (Float32,Float64), manager in (:pfi,:forrest_tomlin,:suhl_suhl,:bartels_golub)
         options=SolverOptions(T;algorithm=:primal,basis_update=manager,verbose=false)
@@ -206,7 +230,7 @@ end
 @testset "Reliable artificial exchanges need no reconstruction recovery" begin
     for manager in (:pfi,:forrest_tomlin,:suhl_suhl,:bartels_golub)
         diagnostics=JSimplex.SimplexDiagnostics()
-        phase,mapping,original,policy=artificial_exchange_roundoff_fixture(Float32,manager;
+        phase,mapping,original,policy=reliable_artificial_exchange_fixture(Float32,manager;
             max_refinements=0,diagnostics)
         @test JSimplex.remove_artificials!(phase,mapping,original,policy,()->false)
         @test original.iterations==1
