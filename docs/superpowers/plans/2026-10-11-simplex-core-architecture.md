@@ -589,3 +589,16 @@ transient diagnostic copies deferred without rerun. Production remains unchanged
 and native reuse disabled. Next S4-J source/evidence-only eligibility boundary in
 2026-10-12-hh-reuse-eligibility-contract.md. No old lifecycle repetition, fullsuite,
 CI enablement, speedup or native-retention claim. See qualification report/review.
+
+### S4-J closure, 2026-10-12
+
+Source-only eligibility contract accepted:27checks/530hashes/9independent checks,
+first parser ValueError/exit1/source preserved; new scoped-anchor parser passes.
+Fresh gpt-6-astra noCritical/Important/no unnecessaryproductionworkmemory. Minor
+exact scaled residual formula deferred to K prelaunch freeze, before observing
+outputs. Closedpath default controls do not imply general q/control/value safety.
+C source-matched existing coverage reused; no Julia/production/test/CI changes.
+Next S4-K four nonfinite same-pattern refactor cases in
+2026-10-12-hh-nonfinite-reuse-boundary.md. Strict failure preservation/no retry;
+source-derived and bounded hidden native work remain explicit. No enablement,
+fullsuite/speed/native-retention proof. Keep all old raw and accepted scripts.

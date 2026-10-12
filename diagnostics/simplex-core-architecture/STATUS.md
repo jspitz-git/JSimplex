@@ -46,7 +46,24 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-**Current continuation: S4-I accepted two-workspace diagnostic qualification after one offline provenance correction; next S4-J source-only eligibility contract, `docs/superpowers/plans/2026-10-12-hh-reuse-eligibility-contract.md`. Historical entries below remain preserved.**
+**Current continuation: S4-J accepted source-only eligibility contract; next S4-K bounded nonfinite same-pattern HH refactor diagnostic, `docs/superpowers/plans/2026-10-12-hh-nonfinite-reuse-boundary.md`. Before K launch, freeze the exact scaled residual formula with the B0/RHS oracle (review Minor deferred). Historical entries below remain preserved.**
+
+S4-J:27source/evidence checks530hashes,9authorindependentchecks; no Julia.
+First parser ValueError/exit1/source preserved; new exclusive parser scopes its
+ending anchor after method start. Closed HH path owns defaults/q=nothing; no source
+control mutation, no arbitrary-control/value-independent-symbolic guarantee.
+Nine C-focused sources match,3stored rows8+336+10passes reused; no old reruns.
+Freshgpt6astra noCritical/Important/no unnecessaryproductionworkmemory. One Minor
+DEFERRED: future K preflight must freeze exact64epsscaled formula BEFORE launch,
+not after observing outputs. Reviewer source/raw samples, authorfull530separate.
+K four cases(+Inf/quietNaN × reference/candidate),4constructors4refactorattempts/
+8retainedHHsolves if qualified, strict reject/preservation/failure-stop. Native
+entries source-derived8, targetnumericUPTO4, orientationUPTO8; not observedcounts.
+No production/test/master0eb75c3/CI change; nativeHHreuse stilldisabled. No accepted
+Jparser/I/H/G/F/E or other driver/auditor rerun. Reports S4-REUSE-ELIGIBILITY-
+CONTRACT.md/REVIEW,results/S4-J. Otherconsumers/control/generalnonfinite/scalars/
+platform/fullsuite/performance/native-retention remain open.
+
 
 S4-I assembly-1:55/55runtime/exit0,29auditgates655pins,10authorindependentchecks.
 Two actual workspace lifecycles, exact source clones without method overwrite.
