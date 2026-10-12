@@ -46,23 +46,30 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-S6-L/M completed and independently reviewed without blocking findings. The test-only
-change2c3e0eb is integrated as master7fea422249442003b53f6f245bb569a5e0cf9bcf, pushed
-and remote verified. Qualification30cases/300pass/18gates; exact-margin RED one
-expected failure; GREEN1477/1477/13gates; master1477/1477/14gates. Actual source,
-independent pins, globals and three user-file hashes verified. See
-S6-PRECISION-FIXTURE.md and S6-PRECISION-FIXTURE-REVIEW.md. Supplied tolerances,
-all original INFEASIBLE assertions and production code remain unchanged. No actual
-x64/full-suite success or end-to-end last-bit sensitivity claim. Minor duplicated
-diagnostic rationalization is deferred without rerun; historical plan note clarified.
+S6-N is complete and independently accepted: evidence5b2b444, report
+S6-NEARLY-SINGULAR.md and review S6-NEARLY-SINGULAR-REVIEW.md. Four unchanged
+public-solve cases,13pass/1original equality failure,exit1 preserved; all22diagnostic
+gates/607pins pass. Float64 returned rows[-1,1+2^-47], objective gap-1/16, exact
+residual identity and original/analytic witness certificates verified. This point
+is tolerance-feasible, not strictly feasible. Float32 NUM_ERROR has no point;
+BigFloat/rational attain strict optimum. Runtime witness/historical x64 path and
+full-suite success remain unknown. No production/test change. Incomplete census-1
+internal-name error retained. P3 duplicate model snapshot deferred without rerun.
 
-Next: docs/superpowers/plans/2026-10-12-nearly-singular-objective-census.md, S6-N.
-Reconcile existing original-space/recession evidence before a bounded four-type
-census of solver_tests.jl:552. Two historical CI objective failures are copied in
-results/S6-N/existing-failure-map.json; no new S6-N numerical run yet. Do not relax
-equality or raise precision without diagnosis and a separate implementation plan.
-Last separate host check: runner381786, child381787, driver381778 absent, no Julia,
+Next: docs/superpowers/plans/2026-10-12-nearly-singular-binary-fixture.md, S6-O.
+First reconcile no-recession intent, then qualify proposed triangular binary
+matrix[s s;0 d],s=2^-20,d=2^-43 and row bounds[-1,-2]..[1,2], preserving ALL
+original status/publication/exact equality assertions. Exact determinant2^-63,
+condition infinity2^24+2 and optimal edge are proven; no numerical qualification
+yet. Changed feasible set must not be described as equivalent. No tolerance or
+precision changes. Permanent repair requires a separate RED/GREEN plan/review.
+Do not rerun accepted S6-N or broad corpora/reference/cost experiments.
+Last separate host check: runner383054,child383055,driver383046 absent,no Julia,
 boot20de7dde-704e-41c8-bee7-b8511c0a86b0. Verify fresh identities before new work.
+
+S6-L/M remains complete: test2c3e0eb -> master7fea422 pushed, qualification300pass,
+GREEN1477/1477/master1477/1477 and14master gates, independent review accepted.
+No actual x64/full-suite success or end-to-end last-bit sensitivity claim.
 
 S6-H census and S6-K exact tolerance-witness diagnostics remain accepted; do not
 repeat them. S6-J permanent explicit-retry substitution remains REJECTED after

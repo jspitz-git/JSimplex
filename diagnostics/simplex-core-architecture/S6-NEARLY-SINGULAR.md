@@ -1,6 +1,6 @@
 # S6-N: nearly singular objective census
 
-Status: diagnostic census complete; final independent review pending. No production
+Status: diagnostic census complete and independently accepted (gpt-6-astra/high). No production
 or permanent test change. CI stays disabled; this is not full-suite/x64 validation.
 
 ## Existing evidence and unchanged experiment
@@ -88,3 +88,8 @@ acceptance contract. Do not silently replace it with `isapprox` or a loose statu
 list. A subsequent fixture proposal must retain the equality and recession intent
 while eliminating this cancellation-sensitive construction, and must be qualified
 separately. The original case/failure remains valuable preserved diagnostic evidence.
+
+Independent review: S6-NEARLY-SINGULAR-REVIEW.md accepts the proof and evidence.
+One P3 duplicate postsolve model snapshot is deferred without editing the pinned
+driver or rerunning evidence. Production/test/workflow and all three preserved
+main user-file hashes remain unchanged. No fresh production integration is needed.
