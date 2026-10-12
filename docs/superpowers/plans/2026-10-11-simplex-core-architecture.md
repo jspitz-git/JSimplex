@@ -940,3 +940,24 @@ and supported compiled-modules mode from source/docs, no Julia inspection probe.
 Then at most one guarded120-second attempt containing the two frozen cases, no
 warmup/trial/retry, unchanged policy/tolerances/128-bit request. Failed attempts/raw
 are preserved. All old rejections, CI-off/HH-disabled and broader gates persist.
+
+
+## S5-G qualification and S5-H permanent coverage preparation (2026-10-13)
+
+S5-G independently accepted for two active-journal detached-buffer final observer
+stop/throw transfers. One guarded run,48 result predicates true/exit0,752 pins.
+Original auditor62/63/all_passedfalse/exit1 preserved; separate7/7 exact qualified
+exception-type supplement, no numerical/auditor rerun. Fresh reviewer full752+176
+manifest entries and raw ownership/precision/outcome/work/schema checks. Source
+state preserved while shared refactor work advances; fresh observer-retained owner,
+active aliases/history reset/empty cache/checkpoint verified. Per-case counted1F/1B/
+1refactor plus source-derived untimed weight BTRAN; no complete backend budget,
+observer neutrality/certificate/speedup claim. Production/test/master/CI unchanged.
+
+Next ONE S5-H offline minimal test candidate, separate artifact, whole existing test
+prefix preserved, exactly two existing fixture stop/throw cases, direct type/identity
+assertions and bounded snapshots without diagnostic serialization. Read
+2026-10-13-precision-journal-interruption-test-preparation.md. No Julia/test-file edit
+or launch in H. Full-suite/historical CI/x64 and broader stages remain open; all
+rejections, HH-disabled, CI-off, bootstrap/cache/init/controller/native-retention
+limits unchanged. All accepted old/frozen drivers and exclusive audits remain immutable.

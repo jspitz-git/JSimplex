@@ -1,0 +1,1810 @@
+exception = "Diagnostic observer failed: SingularException: matrix is singular; factorization failed. Zero pivot found at index 7"
+wrapped_cause = true
+true_stop_calls = 0
+hits = 1
+all_passed = true
+mode = "throw"
+
+[fresh.metadata]
+diagnostics = "9824269304407829481"
+refactorization_offset = 0
+level = 2
+owner = "17514963945158458702"
+perturbed = true
+observation = 0
+checkpoint_count = 0
+objective_sense = "MIN_SENSE"
+checkpoint = "nothing"
+original_perturbed = false
+monitor = "nothing"
+cache_model = "nothing"
+scalar_type = "BigFloat"
+iteration_offset = 0
+cache = "nothing"
+journal = "5826622350267987075"
+bound_observation = 0
+bound_cooldown = 13
+updates = 0
+model = "17839761937300877427"
+bounds = "7671948895165548769"
+stagnation = "nothing"
+start = "19265961486458"
+factor = "9799655452413869275"
+active = true
+cooldown = 11
+bound_level = 1
+workspace = "17514963945158458702"
+bound_active = true
+bound_monitor = "nothing"
+
+    [fresh.metadata.options]
+    basis_update = "pfi"
+    simplex_strategy = "legacy"
+    basis_refactorization = "native"
+    partial_pricing = "false"
+    scaling = "auto"
+    iteration_limit = "100000"
+    pricing = "steepest_edge"
+    log_level = "Debug"
+    verbose = "false"
+    algorithm = "dual"
+    presolve = "true"
+    refactorization_interval = "20"
+
+        [fresh.metadata.options.time_limit]
+        negative = false
+        kind = "Float64"
+        precision = 53
+        bits = "0111111111110000000000000000000000000000000000000000000000000000"
+        value = "Inf"
+
+        [fresh.metadata.options.zero_tolerance]
+        negative = false
+        kind = "BigFloat"
+        precision = 128
+        bits = ""
+        value = "4951760157141521//4951760157141521099596496896"
+
+        [fresh.metadata.options.primal_tolerance]
+        negative = false
+        kind = "BigFloat"
+        precision = 128
+        bits = ""
+        value = "944473296573929//9444732965739290427392"
+
+        [fresh.metadata.options.dual_tolerance]
+        negative = false
+        kind = "BigFloat"
+        precision = 128
+        bits = ""
+        value = "944473296573929//9444732965739290427392"
+
+    [fresh.metadata.progress_constant]
+    negative = false
+    kind = "BigFloat"
+    precision = 128
+    bits = ""
+    value = "0//1"
+
+    [fresh.metadata.policy]
+    refactor_timing = "true"
+    stable_ratio = "false"
+    precision_boosting = "false"
+    max_precision_memory_bytes = "1073741824"
+    recovery = "false"
+    max_refinements = "3"
+    incremental_primal = "false"
+    partial_pricing = "false"
+    adaptive_primal_perturbation = "true"
+    lp_refinement = "false"
+    adaptive_refactor = "true"
+    sparse_pricing = "true"
+    max_lp_refinements = "8"
+    adaptive_stalling = "true"
+    max_pivot_candidates = "8"
+    pivot_validation = "false"
+    adaptive_pricing = "true"
+    feasibility_recovery = "false"
+    max_recovery_rounds = "2"
+    adaptive_dual_perturbation = "true"
+    solve_refinement = "false"
+    hypersparse = "false"
+    incremental_primal_pivots = "false"
+    phase_one = "false"
+    crash = "false"
+    max_precision_bits = "512"
+    stagnation_window = "64"
+
+        [fresh.metadata.policy.pivot_error_tolerance]
+        negative = false
+        kind = "BigFloat"
+        precision = 128
+        bits = ""
+        value = "1//67108864"
+
+        [fresh.metadata.policy.solve_tolerance]
+        negative = false
+        kind = "BigFloat"
+        precision = 128
+        bits = ""
+        value = "1//17592186044416"
+
+    [fresh.metadata.objective_constant]
+    negative = false
+    kind = "BigFloat"
+    precision = 128
+    bits = ""
+    value = "0//1"
+
+[fresh.arrays.reduced_costs]
+identity = "3082885643865852917"
+
+    [[fresh.arrays.reduced_costs.values]]
+    negative = false
+    kind = "BigFloat"
+    precision = 128
+    bits = ""
+    value = "0//1"
+    [[fresh.arrays.reduced_costs.values]]
+    negative = false
+    kind = "BigFloat"
+    precision = 128
+    bits = ""
+    value = "9//8"
+    [[fresh.arrays.reduced_costs.values]]
+    negative = false
+    kind = "BigFloat"
+    precision = 128
+    bits = ""
+    value = "9//8"
+
+[fresh.arrays.nzval]
+identity = "7388631894592102350"
+
+    [[fresh.arrays.nzval.values]]
+    negative = false
+    kind = "BigFloat"
+    precision = 128
+    bits = ""
+    value = "1//1"
+    [[fresh.arrays.nzval.values]]
+    negative = false
+    kind = "BigFloat"
+    precision = 128
+    bits = ""
+    value = "1//1"
+
+[fresh.arrays.devex]
+values = ["true", "false", "false"]
+identity = "9344182949070020127"
+
+[fresh.arrays.basis]
+values = ["1"]
+identity = "11410421716760469507"
+
+[fresh.arrays.lower]
+identity = "987820842377601709"
+
+    [[fresh.arrays.lower.values]]
+    bound = "finite"
+
+        [fresh.arrays.lower.values.payload]
+        negative = false
+        kind = "BigFloat"
+        precision = 128
+        bits = ""
+        value = "0//1"
+    [[fresh.arrays.lower.values]]
+    bound = "finite"
+
+        [fresh.arrays.lower.values.payload]
+        negative = true
+        kind = "BigFloat"
+        precision = 128
+        bits = ""
+        value = "-1//8"
+    [[fresh.arrays.lower.values]]
+    bound = "finite"
+
+        [fresh.arrays.lower.values.payload]
+        negative = false
+        kind = "BigFloat"
+        precision = 128
+        bits = ""
+        value = "3//4"
+
+[fresh.arrays.column_scaling]
+identity = "6645422403929750274"
+
+    [[fresh.arrays.column_scaling.values]]
+    negative = false
+    kind = "BigFloat"
+    precision = 128
+    bits = ""
+    value = "1//1"
+    [[fresh.arrays.column_scaling.values]]
+    negative = false
+    kind = "BigFloat"
+    precision = 128
+    bits = ""
+    value = "1//1"
+
+[fresh.arrays.original_lower]
+identity = "16434066414850866775"
+
+    [[fresh.arrays.original_lower.values]]
+    bound = "finite"
+
+        [fresh.arrays.original_lower.values.payload]
+        negative = false
+        kind = "BigFloat"
+        precision = 128
+        bits = ""
+        value = "0//1"
+    [[fresh.arrays.original_lower.values]]
+    bound = "finite"
+
+        [fresh.arrays.original_lower.values.payload]
+        negative = false
+        kind = "BigFloat"
+        precision = 128
+        bits = ""
+        value = "0//1"
+    [[fresh.arrays.original_lower.values]]
+    bound = "finite"
+
+        [fresh.arrays.original_lower.values.payload]
+        negative = false
+        kind = "BigFloat"
+        precision = 128
+        bits = ""
+        value = "1//1"
+
+[fresh.arrays.original_upper]
+identity = "11164848251303953483"
+
+    [[fresh.arrays.original_upper.values]]
+    bound = "absent"
+    [[fresh.arrays.original_upper.values]]
+    bound = "absent"
+    [[fresh.arrays.original_upper.values]]
+    bound = "absent"
+
+[fresh.arrays.objective]
+identity = "2599347805866342577"
+
+    [[fresh.arrays.objective.values]]
+    negative = false
+    kind = "BigFloat"
+    precision = 128
+    bits = ""
+    value = "1//1"
+    [[fresh.arrays.objective.values]]
+    negative = false
+    kind = "BigFloat"
+    precision = 128
+    bits = ""
+    value = "2//1"
+
+[fresh.arrays.active_lower]
+identity = "987820842377601709"
+
+    [[fresh.arrays.active_lower.values]]
+    bound = "finite"
+
+        [fresh.arrays.active_lower.values.payload]
+        negative = false
+        kind = "BigFloat"
+        precision = 128
+        bits = ""
+        value = "0//1"
+    [[fresh.arrays.active_lower.values]]
+    bound = "finite"
+
+        [fresh.arrays.active_lower.values.payload]
+        negative = true
+        kind = "BigFloat"
+        precision = 128
+        bits = ""
+        value = "-1//8"
+    [[fresh.arrays.active_lower.values]]
+    bound = "finite"
+
+        [fresh.arrays.active_lower.values.payload]
+        negative = false
+        kind = "BigFloat"
+        precision = 128
+        bits = ""
+        value = "3//4"
+
+[fresh.arrays.row_lower]
+identity = "12924130465030125115"
+
+    [[fresh.arrays.row_lower.values]]
+    bound = "finite"
+
+        [fresh.arrays.row_lower.values.payload]
+        negative = false
+        kind = "BigFloat"
+        precision = 128
+        bits = ""
+        value = "1//1"
+
+[fresh.arrays.column_lower]
+identity = "8937046323681739398"
+
+    [[fresh.arrays.column_lower.values]]
+    bound = "finite"
+
+        [fresh.arrays.column_lower.values.payload]
+        negative = false
+        kind = "BigFloat"
+        precision = 128
+        bits = ""
+        value = "0//1"
+    [[fresh.arrays.column_lower.values]]
+    bound = "finite"
+
+        [fresh.arrays.column_lower.values.payload]
+        negative = false
+        kind = "BigFloat"
+        precision = 128
+        bits = ""
+        value = "0//1"
+
+[fresh.arrays.rowval]
+values = ["1", "1"]
+identity = "6293096302215454904"
+
+[fresh.arrays.column_upper]
+identity = "4817276189933176303"
+
+    [[fresh.arrays.column_upper.values]]
+    bound = "absent"
+    [[fresh.arrays.column_upper.values]]
+    bound = "absent"
+
+[fresh.arrays.primal]
+identity = "1724739206675452231"
+
+    [[fresh.arrays.primal.values]]
+    negative = false
+    kind = "BigFloat"
+    precision = 128
+    bits = ""
+    value = "7//8"
+    [[fresh.arrays.primal.values]]
+    negative = true
+    kind = "BigFloat"
+    precision = 128
+    bits = ""
+    value = "-1//8"
+    [[fresh.arrays.primal.values]]
+    negative = false
+    kind = "BigFloat"
+    precision = 128
+    bits = ""
+    value = "3//4"
+
+[fresh.arrays.colptr]
+values = ["1", "2", "3"]
+identity = "4519735138441485678"
+
+[fresh.arrays.states]
+values = ["BASIC", "AT_LOWER", "AT_LOWER"]
+identity = "16572815891758194751"
+
+[fresh.arrays.active_costs]
+identity = "8301301662902008413"
+
+    [[fresh.arrays.active_costs.values]]
+    negative = false
+    kind = "BigFloat"
+    precision = 128
+    bits = ""
+    value = "9//8"
+    [[fresh.arrays.active_costs.values]]
+    negative = false
+    kind = "BigFloat"
+    precision = 128
+    bits = ""
+    value = "9//4"
+    [[fresh.arrays.active_costs.values]]
+    negative = false
+    kind = "BigFloat"
+    precision = 128
+    bits = ""
+    value = "0//1"
+
+[fresh.arrays.row_scaling]
+identity = "1137987295845748105"
+
+    [[fresh.arrays.row_scaling.values]]
+    negative = false
+    kind = "BigFloat"
+    precision = 128
+    bits = ""
+    value = "1//1"
+
+[fresh.arrays.weights]
+identity = "16635393088548693001"
+
+    [[fresh.arrays.weights.values]]
+    negative = false
+    kind = "BigFloat"
+    precision = 128
+    bits = ""
+    value = "1//1"
+    [[fresh.arrays.weights.values]]
+    negative = false
+    kind = "BigFloat"
+    precision = 128
+    bits = ""
+    value = "1//1"
+    [[fresh.arrays.weights.values]]
+    negative = false
+    kind = "BigFloat"
+    precision = 128
+    bits = ""
+    value = "1//1"
+
+[fresh.arrays.original_costs]
+identity = "12886684601516774178"
+
+    [[fresh.arrays.original_costs.values]]
+    negative = false
+    kind = "BigFloat"
+    precision = 128
+    bits = ""
+    value = "1//1"
+    [[fresh.arrays.original_costs.values]]
+    negative = false
+    kind = "BigFloat"
+    precision = 128
+    bits = ""
+    value = "2//1"
+    [[fresh.arrays.original_costs.values]]
+    negative = false
+    kind = "BigFloat"
+    precision = 128
+    bits = ""
+    value = "0//1"
+
+[fresh.arrays.active_upper]
+identity = "8649860103338387797"
+
+    [[fresh.arrays.active_upper.values]]
+    bound = "absent"
+    [[fresh.arrays.active_upper.values]]
+    bound = "absent"
+    [[fresh.arrays.active_upper.values]]
+    bound = "absent"
+
+[fresh.arrays.upper]
+identity = "8649860103338387797"
+
+    [[fresh.arrays.upper.values]]
+    bound = "absent"
+    [[fresh.arrays.upper.values]]
+    bound = "absent"
+    [[fresh.arrays.upper.values]]
+    bound = "absent"
+
+[fresh.arrays.row_upper]
+identity = "8013216151567765187"
+
+    [[fresh.arrays.row_upper.values]]
+    bound = "absent"
+
+[fresh.arrays.costs]
+identity = "8301301662902008413"
+
+    [[fresh.arrays.costs.values]]
+    negative = false
+    kind = "BigFloat"
+    precision = 128
+    bits = ""
+    value = "9//8"
+    [[fresh.arrays.costs.values]]
+    negative = false
+    kind = "BigFloat"
+    precision = 128
+    bits = ""
+    value = "9//4"
+    [[fresh.arrays.costs.values]]
+    negative = false
+    kind = "BigFloat"
+    precision = 128
+    bits = ""
+    value = "0//1"
+
+[fresh.arrays.progress_objective]
+identity = "1808148431527794466"
+
+    [[fresh.arrays.progress_objective.values]]
+    negative = false
+    kind = "BigFloat"
+    precision = 128
+    bits = ""
+    value = "1//1"
+    [[fresh.arrays.progress_objective.values]]
+    negative = false
+    kind = "BigFloat"
+    precision = 128
+    bits = ""
+    value = "2//1"
+
+[ambient_after]
+precision = 256
+rounding = "RoundingMode{:Nearest}()"
+
+[checks]
+no_iteration = true
+shared_budget = true
+outcome = true
+one_final_event = true
+active_aliases = true
+activity_preserved = true
+constants = true
+consumed_refactor = true
+source_arrays = true
+ambient_restored = true
+stored_precision = true
+source_metadata = true
+history_reset = true
+typed_configuration = true
+no_old_caches = true
+shared_progress = true
+model_basis_values = true
+one_final_hit = true
+journal_ownership = true
+fresh_owner = true
+model_basis_owned = true
+journal_values = true
+fresh_retained = true
+fresh_factor = true
+
+[final_work]
+budget_start = "19265961486458"
+iterations = 0
+budget_iterations = 0
+budget_refactorizations = 2
+event_counts = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+budget_limit = +inf
+kernel_calls = [4, 4, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+refactorizations = 2
+
+[observed_outcome]
+sentinel_type = "LinearAlgebra.SingularException"
+cause_identity = "9406415177728653592"
+returned_identity = "nothing"
+stop_flag = false
+caught_type = "JSimplex.DiagnosticObserverFailure{LinearAlgebra.SingularException}"
+returned_type = "Nothing"
+caught_identity = "9406415176654658626"
+sentinel_identity = "9406415177728653592"
+cause_type = "LinearAlgebra.SingularException"
+
+[ambient]
+precision = 256
+rounding = "RoundingMode{:Nearest}()"
+
+[after.metadata]
+diagnostics = "9824269304407829481"
+refactorization_offset = 0
+level = 2
+owner = "5551286528889765922"
+perturbed = true
+observation = 9
+checkpoint_count = 1
+objective_sense = "MIN_SENSE"
+original_perturbed = false
+monitor = "2105561679854848638"
+cache_model = "11092173828877285926"
+scalar_type = "Float64"
+iteration_offset = 0
+cache = "100544277566644453"
+journal = "17130772877542645831"
+bound_observation = 8
+bound_cooldown = 13
+updates = 0
+model = "11092173828877285926"
+bounds = "15339434672876383077"
+stagnation = "3869118122922098209"
+start = "19265961486458"
+factor = "15425943833343454000"
+active = true
+cooldown = 11
+bound_level = 1
+workspace = "5551286528889765922"
+bound_active = true
+bound_monitor = "2105561679854848638"
+
+    [after.metadata.options]
+    basis_update = "pfi"
+    simplex_strategy = "legacy"
+    basis_refactorization = "native"
+    partial_pricing = "false"
+    scaling = "auto"
+    iteration_limit = "100000"
+    pricing = "steepest_edge"
+    log_level = "Debug"
+    verbose = "false"
+    algorithm = "dual"
+    presolve = "true"
+    refactorization_interval = "20"
+
+        [after.metadata.options.time_limit]
+        negative = false
+        kind = "Float64"
+        precision = 53
+        bits = "0111111111110000000000000000000000000000000000000000000000000000"
+        value = "Inf"
+
+        [after.metadata.options.zero_tolerance]
+        negative = false
+        kind = "Float64"
+        precision = 53
+        bits = "0011110101110001100101111001100110000001001011011110101000010001"
+        value = "4951760157141521//4951760157141521099596496896"
+
+        [after.metadata.options.primal_tolerance]
+        negative = false
+        kind = "Float64"
+        precision = 53
+        bits = "0011111001111010110101111111001010011010101111001010111101001000"
+        value = "944473296573929//9444732965739290427392"
+
+        [after.metadata.options.dual_tolerance]
+        negative = false
+        kind = "Float64"
+        precision = 53
+        bits = "0011111001111010110101111111001010011010101111001010111101001000"
+        value = "944473296573929//9444732965739290427392"
+
+    [after.metadata.progress_constant]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0000000000000000000000000000000000000000000000000000000000000000"
+    value = "0//1"
+
+    [after.metadata.checkpoint]
+    model = ["11092173828877285926", 1, 2]
+    perturbed = true
+    identity = "10488601254607603031"
+    phase = ["10735160481383598091", "1"]
+
+    [after.metadata.policy]
+    refactor_timing = "true"
+    stable_ratio = "false"
+    precision_boosting = "false"
+    max_precision_memory_bytes = "1073741824"
+    recovery = "false"
+    max_refinements = "3"
+    incremental_primal = "false"
+    partial_pricing = "false"
+    adaptive_primal_perturbation = "true"
+    lp_refinement = "false"
+    adaptive_refactor = "true"
+    sparse_pricing = "true"
+    max_lp_refinements = "8"
+    adaptive_stalling = "true"
+    max_pivot_candidates = "8"
+    pivot_validation = "false"
+    adaptive_pricing = "true"
+    feasibility_recovery = "false"
+    max_recovery_rounds = "2"
+    adaptive_dual_perturbation = "true"
+    solve_refinement = "false"
+    hypersparse = "false"
+    incremental_primal_pivots = "false"
+    phase_one = "false"
+    crash = "false"
+    max_precision_bits = "512"
+    stagnation_window = "64"
+
+        [after.metadata.policy.pivot_error_tolerance]
+        negative = false
+        kind = "Float64"
+        precision = 53
+        bits = "0011111001010000000000000000000000000000000000000000000000000000"
+        value = "1//67108864"
+
+        [after.metadata.policy.solve_tolerance]
+        negative = false
+        kind = "Float64"
+        precision = 53
+        bits = "0011110100110000000000000000000000000000000000000000000000000000"
+        value = "1//17592186044416"
+
+    [after.metadata.objective_constant]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0000000000000000000000000000000000000000000000000000000000000000"
+    value = "0//1"
+
+[after.arrays.reduced_costs]
+identity = "8964804308659540537"
+
+    [[after.arrays.reduced_costs.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0000000000000000000000000000000000000000000000000000000000000000"
+    value = "0//1"
+    [[after.arrays.reduced_costs.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0011111111110010000000000000000000000000000000000000000000000000"
+    value = "9//8"
+    [[after.arrays.reduced_costs.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0011111111110010000000000000000000000000000000000000000000000000"
+    value = "9//8"
+
+[after.arrays.nzval]
+identity = "15160884947067742754"
+
+    [[after.arrays.nzval.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0011111111110000000000000000000000000000000000000000000000000000"
+    value = "1//1"
+    [[after.arrays.nzval.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0011111111110000000000000000000000000000000000000000000000000000"
+    value = "1//1"
+
+[after.arrays.devex]
+values = ["true", "false", "false"]
+identity = "12837379777120134026"
+
+[after.arrays.checkpoint_lower]
+identity = "12552091835685436524"
+
+    [[after.arrays.checkpoint_lower.values]]
+    bound = "finite"
+
+        [after.arrays.checkpoint_lower.values.payload]
+        negative = false
+        kind = "Float64"
+        precision = 53
+        bits = "0000000000000000000000000000000000000000000000000000000000000000"
+        value = "0//1"
+    [[after.arrays.checkpoint_lower.values]]
+    bound = "finite"
+
+        [after.arrays.checkpoint_lower.values.payload]
+        negative = true
+        kind = "Float64"
+        precision = 53
+        bits = "1011111111000000000000000000000000000000000000000000000000000000"
+        value = "-1//8"
+    [[after.arrays.checkpoint_lower.values]]
+    bound = "finite"
+
+        [after.arrays.checkpoint_lower.values.payload]
+        negative = false
+        kind = "Float64"
+        precision = 53
+        bits = "0011111111101000000000000000000000000000000000000000000000000000"
+        value = "3//4"
+
+[after.arrays.basis]
+values = ["1"]
+identity = "18215580648499693166"
+
+[after.arrays.lower]
+identity = "16475237279904832477"
+
+    [[after.arrays.lower.values]]
+    bound = "finite"
+
+        [after.arrays.lower.values.payload]
+        negative = false
+        kind = "Float64"
+        precision = 53
+        bits = "0000000000000000000000000000000000000000000000000000000000000000"
+        value = "0//1"
+    [[after.arrays.lower.values]]
+    bound = "finite"
+
+        [after.arrays.lower.values.payload]
+        negative = true
+        kind = "Float64"
+        precision = 53
+        bits = "1011111111000000000000000000000000000000000000000000000000000000"
+        value = "-1//8"
+    [[after.arrays.lower.values]]
+    bound = "finite"
+
+        [after.arrays.lower.values.payload]
+        negative = false
+        kind = "Float64"
+        precision = 53
+        bits = "0011111111101000000000000000000000000000000000000000000000000000"
+        value = "3//4"
+
+[after.arrays.checkpoint_upper]
+identity = "6115356833029076078"
+
+    [[after.arrays.checkpoint_upper.values]]
+    bound = "absent"
+    [[after.arrays.checkpoint_upper.values]]
+    bound = "absent"
+    [[after.arrays.checkpoint_upper.values]]
+    bound = "absent"
+
+[after.arrays.column_scaling]
+identity = "9772957235331109869"
+
+    [[after.arrays.column_scaling.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0011111111110000000000000000000000000000000000000000000000000000"
+    value = "1//1"
+    [[after.arrays.column_scaling.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0011111111110000000000000000000000000000000000000000000000000000"
+    value = "1//1"
+
+[after.arrays.original_lower]
+identity = "15297298440653783197"
+
+    [[after.arrays.original_lower.values]]
+    bound = "finite"
+
+        [after.arrays.original_lower.values.payload]
+        negative = false
+        kind = "Float64"
+        precision = 53
+        bits = "0000000000000000000000000000000000000000000000000000000000000000"
+        value = "0//1"
+    [[after.arrays.original_lower.values]]
+    bound = "finite"
+
+        [after.arrays.original_lower.values.payload]
+        negative = false
+        kind = "Float64"
+        precision = 53
+        bits = "0000000000000000000000000000000000000000000000000000000000000000"
+        value = "0//1"
+    [[after.arrays.original_lower.values]]
+    bound = "finite"
+
+        [after.arrays.original_lower.values.payload]
+        negative = false
+        kind = "Float64"
+        precision = 53
+        bits = "0011111111110000000000000000000000000000000000000000000000000000"
+        value = "1//1"
+
+[after.arrays.original_upper]
+identity = "11887448871840370414"
+
+    [[after.arrays.original_upper.values]]
+    bound = "absent"
+    [[after.arrays.original_upper.values]]
+    bound = "absent"
+    [[after.arrays.original_upper.values]]
+    bound = "absent"
+
+[after.arrays.objective]
+identity = "16657568129288027571"
+
+    [[after.arrays.objective.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0011111111110000000000000000000000000000000000000000000000000000"
+    value = "1//1"
+    [[after.arrays.objective.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0100000000000000000000000000000000000000000000000000000000000000"
+    value = "2//1"
+
+[after.arrays.active_lower]
+identity = "8932865956874039103"
+
+    [[after.arrays.active_lower.values]]
+    bound = "finite"
+
+        [after.arrays.active_lower.values.payload]
+        negative = false
+        kind = "Float64"
+        precision = 53
+        bits = "0000000000000000000000000000000000000000000000000000000000000000"
+        value = "0//1"
+    [[after.arrays.active_lower.values]]
+    bound = "finite"
+
+        [after.arrays.active_lower.values.payload]
+        negative = true
+        kind = "Float64"
+        precision = 53
+        bits = "1011111111000000000000000000000000000000000000000000000000000000"
+        value = "-1//8"
+    [[after.arrays.active_lower.values]]
+    bound = "finite"
+
+        [after.arrays.active_lower.values.payload]
+        negative = false
+        kind = "Float64"
+        precision = 53
+        bits = "0011111111101000000000000000000000000000000000000000000000000000"
+        value = "3//4"
+
+[after.arrays.row_lower]
+identity = "15728708241230448308"
+
+    [[after.arrays.row_lower.values]]
+    bound = "finite"
+
+        [after.arrays.row_lower.values.payload]
+        negative = false
+        kind = "Float64"
+        precision = 53
+        bits = "0011111111110000000000000000000000000000000000000000000000000000"
+        value = "1//1"
+
+[after.arrays.checkpoint_states]
+values = ["BASIC", "AT_LOWER", "AT_LOWER"]
+identity = "11244206420076224562"
+
+[after.arrays.checkpoint_costs]
+identity = "5578747969618828628"
+
+    [[after.arrays.checkpoint_costs.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0011111111110010000000000000000000000000000000000000000000000000"
+    value = "9//8"
+    [[after.arrays.checkpoint_costs.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0100000000000010000000000000000000000000000000000000000000000000"
+    value = "9//4"
+    [[after.arrays.checkpoint_costs.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0000000000000000000000000000000000000000000000000000000000000000"
+    value = "0//1"
+
+[after.arrays.rowval]
+values = ["1", "1"]
+identity = "291915397854753556"
+
+[after.arrays.primal]
+identity = "7425333453183285333"
+
+    [[after.arrays.primal.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0011111111101100000000000000000000000000000000000000000000000000"
+    value = "7//8"
+    [[after.arrays.primal.values]]
+    negative = true
+    kind = "Float64"
+    precision = 53
+    bits = "1011111111000000000000000000000000000000000000000000000000000000"
+    value = "-1//8"
+    [[after.arrays.primal.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0011111111101000000000000000000000000000000000000000000000000000"
+    value = "3//4"
+
+[after.arrays.colptr]
+values = ["1", "2", "3"]
+identity = "10003970158200735924"
+
+[after.arrays.states]
+values = ["BASIC", "AT_LOWER", "AT_LOWER"]
+identity = "11687814707315422932"
+
+[after.arrays.active_costs]
+identity = "10735160481383598091"
+
+    [[after.arrays.active_costs.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0011111111110010000000000000000000000000000000000000000000000000"
+    value = "9//8"
+    [[after.arrays.active_costs.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0100000000000010000000000000000000000000000000000000000000000000"
+    value = "9//4"
+    [[after.arrays.active_costs.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0000000000000000000000000000000000000000000000000000000000000000"
+    value = "0//1"
+
+[after.arrays.row_scaling]
+identity = "12889692493842502225"
+
+    [[after.arrays.row_scaling.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0011111111110000000000000000000000000000000000000000000000000000"
+    value = "1//1"
+
+[after.arrays.column_lower]
+identity = "912331414841595793"
+
+    [[after.arrays.column_lower.values]]
+    bound = "finite"
+
+        [after.arrays.column_lower.values.payload]
+        negative = false
+        kind = "Float64"
+        precision = 53
+        bits = "0000000000000000000000000000000000000000000000000000000000000000"
+        value = "0//1"
+    [[after.arrays.column_lower.values]]
+    bound = "finite"
+
+        [after.arrays.column_lower.values.payload]
+        negative = false
+        kind = "Float64"
+        precision = 53
+        bits = "0000000000000000000000000000000000000000000000000000000000000000"
+        value = "0//1"
+
+[after.arrays.column_upper]
+identity = "13434507192923290879"
+
+    [[after.arrays.column_upper.values]]
+    bound = "absent"
+    [[after.arrays.column_upper.values]]
+    bound = "absent"
+
+[after.arrays.weights]
+identity = "17052160712123822561"
+
+    [[after.arrays.weights.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0011111111110000000000000000000000000000000000000000000000000000"
+    value = "1//1"
+    [[after.arrays.weights.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0011111111110000000000000000000000000000000000000000000000000000"
+    value = "1//1"
+    [[after.arrays.weights.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0011111111110000000000000000000000000000000000000000000000000000"
+    value = "1//1"
+
+[after.arrays.original_costs]
+identity = "3325182395044544402"
+
+    [[after.arrays.original_costs.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0011111111110000000000000000000000000000000000000000000000000000"
+    value = "1//1"
+    [[after.arrays.original_costs.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0100000000000000000000000000000000000000000000000000000000000000"
+    value = "2//1"
+    [[after.arrays.original_costs.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0000000000000000000000000000000000000000000000000000000000000000"
+    value = "0//1"
+
+[after.arrays.active_upper]
+identity = "2636894457255469331"
+
+    [[after.arrays.active_upper.values]]
+    bound = "absent"
+    [[after.arrays.active_upper.values]]
+    bound = "absent"
+    [[after.arrays.active_upper.values]]
+    bound = "absent"
+
+[after.arrays.checkpoint_basis]
+values = ["1"]
+identity = "808491597488008030"
+
+[after.arrays.upper]
+identity = "3627585557823489016"
+
+    [[after.arrays.upper.values]]
+    bound = "absent"
+    [[after.arrays.upper.values]]
+    bound = "absent"
+    [[after.arrays.upper.values]]
+    bound = "absent"
+
+[after.arrays.row_upper]
+identity = "17366229424843788570"
+
+    [[after.arrays.row_upper.values]]
+    bound = "absent"
+
+[after.arrays.costs]
+identity = "10481508163111885838"
+
+    [[after.arrays.costs.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0011111111110010000000000000000000000000000000000000000000000000"
+    value = "9//8"
+    [[after.arrays.costs.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0100000000000010000000000000000000000000000000000000000000000000"
+    value = "9//4"
+    [[after.arrays.costs.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0000000000000000000000000000000000000000000000000000000000000000"
+    value = "0//1"
+
+[after.arrays.progress_objective]
+identity = "16193403593837155888"
+
+    [[after.arrays.progress_objective.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0011111111110000000000000000000000000000000000000000000000000000"
+    value = "1//1"
+    [[after.arrays.progress_objective.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0100000000000000000000000000000000000000000000000000000000000000"
+    value = "2//1"
+
+[before.metadata]
+diagnostics = "9824269304407829481"
+refactorization_offset = 0
+level = 2
+owner = "5551286528889765922"
+perturbed = true
+observation = 9
+checkpoint_count = 1
+objective_sense = "MIN_SENSE"
+original_perturbed = false
+monitor = "2105561679854848638"
+cache_model = "11092173828877285926"
+scalar_type = "Float64"
+iteration_offset = 0
+cache = "100544277566644453"
+journal = "17130772877542645831"
+bound_observation = 8
+bound_cooldown = 13
+updates = 0
+model = "11092173828877285926"
+bounds = "15339434672876383077"
+stagnation = "3869118122922098209"
+start = "19265961486458"
+factor = "15425943833343454000"
+active = true
+cooldown = 11
+bound_level = 1
+workspace = "5551286528889765922"
+bound_active = true
+bound_monitor = "2105561679854848638"
+
+    [before.metadata.options]
+    basis_update = "pfi"
+    simplex_strategy = "legacy"
+    basis_refactorization = "native"
+    partial_pricing = "false"
+    scaling = "auto"
+    iteration_limit = "100000"
+    pricing = "steepest_edge"
+    log_level = "Debug"
+    verbose = "false"
+    algorithm = "dual"
+    presolve = "true"
+    refactorization_interval = "20"
+
+        [before.metadata.options.time_limit]
+        negative = false
+        kind = "Float64"
+        precision = 53
+        bits = "0111111111110000000000000000000000000000000000000000000000000000"
+        value = "Inf"
+
+        [before.metadata.options.zero_tolerance]
+        negative = false
+        kind = "Float64"
+        precision = 53
+        bits = "0011110101110001100101111001100110000001001011011110101000010001"
+        value = "4951760157141521//4951760157141521099596496896"
+
+        [before.metadata.options.primal_tolerance]
+        negative = false
+        kind = "Float64"
+        precision = 53
+        bits = "0011111001111010110101111111001010011010101111001010111101001000"
+        value = "944473296573929//9444732965739290427392"
+
+        [before.metadata.options.dual_tolerance]
+        negative = false
+        kind = "Float64"
+        precision = 53
+        bits = "0011111001111010110101111111001010011010101111001010111101001000"
+        value = "944473296573929//9444732965739290427392"
+
+    [before.metadata.progress_constant]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0000000000000000000000000000000000000000000000000000000000000000"
+    value = "0//1"
+
+    [before.metadata.checkpoint]
+    model = ["11092173828877285926", 1, 2]
+    perturbed = true
+    identity = "10488601254607603031"
+    phase = ["10735160481383598091", "1"]
+
+    [before.metadata.policy]
+    refactor_timing = "true"
+    stable_ratio = "false"
+    precision_boosting = "false"
+    max_precision_memory_bytes = "1073741824"
+    recovery = "false"
+    max_refinements = "3"
+    incremental_primal = "false"
+    partial_pricing = "false"
+    adaptive_primal_perturbation = "true"
+    lp_refinement = "false"
+    adaptive_refactor = "true"
+    sparse_pricing = "true"
+    max_lp_refinements = "8"
+    adaptive_stalling = "true"
+    max_pivot_candidates = "8"
+    pivot_validation = "false"
+    adaptive_pricing = "true"
+    feasibility_recovery = "false"
+    max_recovery_rounds = "2"
+    adaptive_dual_perturbation = "true"
+    solve_refinement = "false"
+    hypersparse = "false"
+    incremental_primal_pivots = "false"
+    phase_one = "false"
+    crash = "false"
+    max_precision_bits = "512"
+    stagnation_window = "64"
+
+        [before.metadata.policy.pivot_error_tolerance]
+        negative = false
+        kind = "Float64"
+        precision = 53
+        bits = "0011111001010000000000000000000000000000000000000000000000000000"
+        value = "1//67108864"
+
+        [before.metadata.policy.solve_tolerance]
+        negative = false
+        kind = "Float64"
+        precision = 53
+        bits = "0011110100110000000000000000000000000000000000000000000000000000"
+        value = "1//17592186044416"
+
+    [before.metadata.objective_constant]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0000000000000000000000000000000000000000000000000000000000000000"
+    value = "0//1"
+
+[before.arrays.reduced_costs]
+identity = "8964804308659540537"
+
+    [[before.arrays.reduced_costs.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0000000000000000000000000000000000000000000000000000000000000000"
+    value = "0//1"
+    [[before.arrays.reduced_costs.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0011111111110010000000000000000000000000000000000000000000000000"
+    value = "9//8"
+    [[before.arrays.reduced_costs.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0011111111110010000000000000000000000000000000000000000000000000"
+    value = "9//8"
+
+[before.arrays.nzval]
+identity = "15160884947067742754"
+
+    [[before.arrays.nzval.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0011111111110000000000000000000000000000000000000000000000000000"
+    value = "1//1"
+    [[before.arrays.nzval.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0011111111110000000000000000000000000000000000000000000000000000"
+    value = "1//1"
+
+[before.arrays.devex]
+values = ["true", "false", "false"]
+identity = "12837379777120134026"
+
+[before.arrays.checkpoint_lower]
+identity = "12552091835685436524"
+
+    [[before.arrays.checkpoint_lower.values]]
+    bound = "finite"
+
+        [before.arrays.checkpoint_lower.values.payload]
+        negative = false
+        kind = "Float64"
+        precision = 53
+        bits = "0000000000000000000000000000000000000000000000000000000000000000"
+        value = "0//1"
+    [[before.arrays.checkpoint_lower.values]]
+    bound = "finite"
+
+        [before.arrays.checkpoint_lower.values.payload]
+        negative = true
+        kind = "Float64"
+        precision = 53
+        bits = "1011111111000000000000000000000000000000000000000000000000000000"
+        value = "-1//8"
+    [[before.arrays.checkpoint_lower.values]]
+    bound = "finite"
+
+        [before.arrays.checkpoint_lower.values.payload]
+        negative = false
+        kind = "Float64"
+        precision = 53
+        bits = "0011111111101000000000000000000000000000000000000000000000000000"
+        value = "3//4"
+
+[before.arrays.basis]
+values = ["1"]
+identity = "18215580648499693166"
+
+[before.arrays.lower]
+identity = "16475237279904832477"
+
+    [[before.arrays.lower.values]]
+    bound = "finite"
+
+        [before.arrays.lower.values.payload]
+        negative = false
+        kind = "Float64"
+        precision = 53
+        bits = "0000000000000000000000000000000000000000000000000000000000000000"
+        value = "0//1"
+    [[before.arrays.lower.values]]
+    bound = "finite"
+
+        [before.arrays.lower.values.payload]
+        negative = true
+        kind = "Float64"
+        precision = 53
+        bits = "1011111111000000000000000000000000000000000000000000000000000000"
+        value = "-1//8"
+    [[before.arrays.lower.values]]
+    bound = "finite"
+
+        [before.arrays.lower.values.payload]
+        negative = false
+        kind = "Float64"
+        precision = 53
+        bits = "0011111111101000000000000000000000000000000000000000000000000000"
+        value = "3//4"
+
+[before.arrays.checkpoint_upper]
+identity = "6115356833029076078"
+
+    [[before.arrays.checkpoint_upper.values]]
+    bound = "absent"
+    [[before.arrays.checkpoint_upper.values]]
+    bound = "absent"
+    [[before.arrays.checkpoint_upper.values]]
+    bound = "absent"
+
+[before.arrays.column_scaling]
+identity = "9772957235331109869"
+
+    [[before.arrays.column_scaling.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0011111111110000000000000000000000000000000000000000000000000000"
+    value = "1//1"
+    [[before.arrays.column_scaling.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0011111111110000000000000000000000000000000000000000000000000000"
+    value = "1//1"
+
+[before.arrays.original_lower]
+identity = "15297298440653783197"
+
+    [[before.arrays.original_lower.values]]
+    bound = "finite"
+
+        [before.arrays.original_lower.values.payload]
+        negative = false
+        kind = "Float64"
+        precision = 53
+        bits = "0000000000000000000000000000000000000000000000000000000000000000"
+        value = "0//1"
+    [[before.arrays.original_lower.values]]
+    bound = "finite"
+
+        [before.arrays.original_lower.values.payload]
+        negative = false
+        kind = "Float64"
+        precision = 53
+        bits = "0000000000000000000000000000000000000000000000000000000000000000"
+        value = "0//1"
+    [[before.arrays.original_lower.values]]
+    bound = "finite"
+
+        [before.arrays.original_lower.values.payload]
+        negative = false
+        kind = "Float64"
+        precision = 53
+        bits = "0011111111110000000000000000000000000000000000000000000000000000"
+        value = "1//1"
+
+[before.arrays.original_upper]
+identity = "11887448871840370414"
+
+    [[before.arrays.original_upper.values]]
+    bound = "absent"
+    [[before.arrays.original_upper.values]]
+    bound = "absent"
+    [[before.arrays.original_upper.values]]
+    bound = "absent"
+
+[before.arrays.objective]
+identity = "16657568129288027571"
+
+    [[before.arrays.objective.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0011111111110000000000000000000000000000000000000000000000000000"
+    value = "1//1"
+    [[before.arrays.objective.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0100000000000000000000000000000000000000000000000000000000000000"
+    value = "2//1"
+
+[before.arrays.active_lower]
+identity = "8932865956874039103"
+
+    [[before.arrays.active_lower.values]]
+    bound = "finite"
+
+        [before.arrays.active_lower.values.payload]
+        negative = false
+        kind = "Float64"
+        precision = 53
+        bits = "0000000000000000000000000000000000000000000000000000000000000000"
+        value = "0//1"
+    [[before.arrays.active_lower.values]]
+    bound = "finite"
+
+        [before.arrays.active_lower.values.payload]
+        negative = true
+        kind = "Float64"
+        precision = 53
+        bits = "1011111111000000000000000000000000000000000000000000000000000000"
+        value = "-1//8"
+    [[before.arrays.active_lower.values]]
+    bound = "finite"
+
+        [before.arrays.active_lower.values.payload]
+        negative = false
+        kind = "Float64"
+        precision = 53
+        bits = "0011111111101000000000000000000000000000000000000000000000000000"
+        value = "3//4"
+
+[before.arrays.row_lower]
+identity = "15728708241230448308"
+
+    [[before.arrays.row_lower.values]]
+    bound = "finite"
+
+        [before.arrays.row_lower.values.payload]
+        negative = false
+        kind = "Float64"
+        precision = 53
+        bits = "0011111111110000000000000000000000000000000000000000000000000000"
+        value = "1//1"
+
+[before.arrays.checkpoint_states]
+values = ["BASIC", "AT_LOWER", "AT_LOWER"]
+identity = "11244206420076224562"
+
+[before.arrays.checkpoint_costs]
+identity = "5578747969618828628"
+
+    [[before.arrays.checkpoint_costs.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0011111111110010000000000000000000000000000000000000000000000000"
+    value = "9//8"
+    [[before.arrays.checkpoint_costs.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0100000000000010000000000000000000000000000000000000000000000000"
+    value = "9//4"
+    [[before.arrays.checkpoint_costs.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0000000000000000000000000000000000000000000000000000000000000000"
+    value = "0//1"
+
+[before.arrays.rowval]
+values = ["1", "1"]
+identity = "291915397854753556"
+
+[before.arrays.primal]
+identity = "7425333453183285333"
+
+    [[before.arrays.primal.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0011111111101100000000000000000000000000000000000000000000000000"
+    value = "7//8"
+    [[before.arrays.primal.values]]
+    negative = true
+    kind = "Float64"
+    precision = 53
+    bits = "1011111111000000000000000000000000000000000000000000000000000000"
+    value = "-1//8"
+    [[before.arrays.primal.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0011111111101000000000000000000000000000000000000000000000000000"
+    value = "3//4"
+
+[before.arrays.colptr]
+values = ["1", "2", "3"]
+identity = "10003970158200735924"
+
+[before.arrays.states]
+values = ["BASIC", "AT_LOWER", "AT_LOWER"]
+identity = "11687814707315422932"
+
+[before.arrays.active_costs]
+identity = "10735160481383598091"
+
+    [[before.arrays.active_costs.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0011111111110010000000000000000000000000000000000000000000000000"
+    value = "9//8"
+    [[before.arrays.active_costs.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0100000000000010000000000000000000000000000000000000000000000000"
+    value = "9//4"
+    [[before.arrays.active_costs.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0000000000000000000000000000000000000000000000000000000000000000"
+    value = "0//1"
+
+[before.arrays.row_scaling]
+identity = "12889692493842502225"
+
+    [[before.arrays.row_scaling.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0011111111110000000000000000000000000000000000000000000000000000"
+    value = "1//1"
+
+[before.arrays.column_lower]
+identity = "912331414841595793"
+
+    [[before.arrays.column_lower.values]]
+    bound = "finite"
+
+        [before.arrays.column_lower.values.payload]
+        negative = false
+        kind = "Float64"
+        precision = 53
+        bits = "0000000000000000000000000000000000000000000000000000000000000000"
+        value = "0//1"
+    [[before.arrays.column_lower.values]]
+    bound = "finite"
+
+        [before.arrays.column_lower.values.payload]
+        negative = false
+        kind = "Float64"
+        precision = 53
+        bits = "0000000000000000000000000000000000000000000000000000000000000000"
+        value = "0//1"
+
+[before.arrays.column_upper]
+identity = "13434507192923290879"
+
+    [[before.arrays.column_upper.values]]
+    bound = "absent"
+    [[before.arrays.column_upper.values]]
+    bound = "absent"
+
+[before.arrays.weights]
+identity = "17052160712123822561"
+
+    [[before.arrays.weights.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0011111111110000000000000000000000000000000000000000000000000000"
+    value = "1//1"
+    [[before.arrays.weights.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0011111111110000000000000000000000000000000000000000000000000000"
+    value = "1//1"
+    [[before.arrays.weights.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0011111111110000000000000000000000000000000000000000000000000000"
+    value = "1//1"
+
+[before.arrays.original_costs]
+identity = "3325182395044544402"
+
+    [[before.arrays.original_costs.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0011111111110000000000000000000000000000000000000000000000000000"
+    value = "1//1"
+    [[before.arrays.original_costs.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0100000000000000000000000000000000000000000000000000000000000000"
+    value = "2//1"
+    [[before.arrays.original_costs.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0000000000000000000000000000000000000000000000000000000000000000"
+    value = "0//1"
+
+[before.arrays.active_upper]
+identity = "2636894457255469331"
+
+    [[before.arrays.active_upper.values]]
+    bound = "absent"
+    [[before.arrays.active_upper.values]]
+    bound = "absent"
+    [[before.arrays.active_upper.values]]
+    bound = "absent"
+
+[before.arrays.checkpoint_basis]
+values = ["1"]
+identity = "808491597488008030"
+
+[before.arrays.upper]
+identity = "3627585557823489016"
+
+    [[before.arrays.upper.values]]
+    bound = "absent"
+    [[before.arrays.upper.values]]
+    bound = "absent"
+    [[before.arrays.upper.values]]
+    bound = "absent"
+
+[before.arrays.row_upper]
+identity = "17366229424843788570"
+
+    [[before.arrays.row_upper.values]]
+    bound = "absent"
+
+[before.arrays.costs]
+identity = "10481508163111885838"
+
+    [[before.arrays.costs.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0011111111110010000000000000000000000000000000000000000000000000"
+    value = "9//8"
+    [[before.arrays.costs.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0100000000000010000000000000000000000000000000000000000000000000"
+    value = "9//4"
+    [[before.arrays.costs.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0000000000000000000000000000000000000000000000000000000000000000"
+    value = "0//1"
+
+[before.arrays.progress_objective]
+identity = "16193403593837155888"
+
+    [[before.arrays.progress_objective.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0011111111110000000000000000000000000000000000000000000000000000"
+    value = "1//1"
+    [[before.arrays.progress_objective.values]]
+    negative = false
+    kind = "Float64"
+    precision = 53
+    bits = "0100000000000000000000000000000000000000000000000000000000000000"
+    value = "2//1"
+
+[setup_work]
+budget_start = "19265961486458"
+iterations = 0
+budget_iterations = 0
+budget_refactorizations = 1
+event_counts = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+budget_limit = +inf
+kernel_calls = [3, 3, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+refactorizations = 1

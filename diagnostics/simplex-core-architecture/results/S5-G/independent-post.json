@@ -1,0 +1,64 @@
+{
+  "checks": {
+    "inventory_membership": true,
+    "all_launch_hashes": true,
+    "all_user_hashes": true,
+    "groups_absent": true,
+    "boot_same": true,
+    "master_unchanged": true,
+    "source_test_CI_equal_master": true,
+    "raw_copies_identical": true
+  },
+  "all_passed": true,
+  "pin_count": 752,
+  "matches": [],
+  "groups": [
+    23249,
+    23257,
+    49081,
+    49084
+  ],
+  "time_ns": 1791845886952299333,
+  "process": {
+    "command": [
+      "/bin/bash",
+      "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+      "--compiled-modules=existing",
+      "--threads=1",
+      "--gcthreads=1,0",
+      "--heap-size-hint=2G",
+      "--project=/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl",
+      "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-F/driver-reviewed.jl",
+      "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/simplex-core-architecture/S5-G/qualification-1/raw"
+    ],
+    "cwd": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl",
+    "started": 1791845841.8633718,
+    "runner": {
+      "pid": 49082,
+      "pgid": 49081,
+      "start_ticks": 1925251,
+      "boot_id": "dade7243-9103-4398-bb45-fa28fbc0be72",
+      "command": "/usr/bin/python3 /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/guarded_run.py run /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/simplex-core-architecture/S5-G/qualification-1-pins.json /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/simplex-core-architecture/S5-G/qualification-1 --seconds 120 -- /bin/bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --compiled-modules=existing --threads=1 --gcthreads=1,0 --heap-size-hint=2G --project=/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-F/driver-reviewed.jl /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/simplex-core-architecture/S5-G/qualification-1/raw "
+    },
+    "pins_sha256": "19ba6bbd98332f3d4ab8868e3268072ee496974353b681e11a068030e0d2bfb7",
+    "reason": "exit0",
+    "returncode": 0,
+    "child": {
+      "pid": 49084,
+      "pgid": 49084,
+      "start_ticks": 1925377,
+      "boot_id": "dade7243-9103-4398-bb45-fa28fbc0be72",
+      "command": "/bin/bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --compiled-modules=existing --threads=1 --gcthreads=1,0 --heap-size-hint=2G --project=/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-F/driver-reviewed.jl /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/simplex-core-architecture/S5-G/qualification-1/raw "
+    },
+    "ended": 1791845854.8739932,
+    "pins_unchanged": true
+  },
+  "user_hashes": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/Manifest.toml": "bfa0397481a520ef9e793c224c9cd856b151973c6a65060132e2e792c6e13ae3",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/LocalPreferences.toml": "172f3f5c30b44e8fbaf126aeb0b32bba900c83069215e9aaed3b4c3314119e54",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.vscode/settings.json": "16ecc4f117e03a0cd5d0ce7436475429fd93d93f9539eff8978f471e8b782247",
+    "/home/jspitz/JSimplex.jl/Manifest.toml": "bfa0397481a520ef9e793c224c9cd856b151973c6a65060132e2e792c6e13ae3",
+    "/home/jspitz/JSimplex.jl/LocalPreferences.toml": "172f3f5c30b44e8fbaf126aeb0b32bba900c83069215e9aaed3b4c3314119e54",
+    "/home/jspitz/JSimplex.jl/.vscode/settings.json": "8eb95bcbc154530931e15fc418c8b1fe991095671409552099ea1aa596999ede"
+  }
+}

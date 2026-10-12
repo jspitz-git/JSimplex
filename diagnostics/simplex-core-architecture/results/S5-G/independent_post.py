@@ -1,0 +1,33 @@
+"""Exclusive post-attempt integrity/host audit; never imports the result auditor."""
+from pathlib import Path
+import hashlib,json,subprocess,time
+ROOT=Path('/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl')
+H=Path(__file__).resolve().parent;RUN=ROOT/'.superpowers/simplex-core-architecture/S5-G/qualification-1'
+def sha(p):
+    h=hashlib.sha256()
+    with open(p,'rb') as f:
+        for b in iter(lambda:f.read(1048576),b''):h.update(b)
+    return h.hexdigest()
+p=json.loads((RUN/'process.json').read_text());pins=json.loads((RUN/'pins.json').read_text())
+groups={p[k]['pgid'] for k in ('runner','child') if k in p}|{23249,23257}
+boot=Path('/proc/sys/kernel/random/boot_id').read_text().strip();matches=[]
+for q in Path('/proc').glob('[0-9]*'):
+    try:
+        s=(q/'stat').read_text();f=s[s.rindex(')')+2:].split()
+        comm=(q/'comm').read_text().strip()
+        if int(f[2]) in groups or comm=='julia' or int(q.name) in (23256,23257):
+            matches.append({'pid':int(q.name),'pgid':int(f[2]),'start_ticks':int(f[19]),'command':(q/'cmdline').read_bytes().replace(b'\0',b' ').decode(errors='replace'),'boot_id':boot})
+    except FileNotFoundError:pass
+original=json.loads((H/'host-before.json').read_text())
+users=original['user_hashes']
+expected_paths=set(pins['files'])
+for tree in pins['trees']:
+    root=Path(tree)
+    assert root.is_dir() and not root.is_symlink()
+    for q in root.rglob('*'):
+        assert not (q.is_symlink() and (q.is_dir() or not q.exists()))
+        if q.is_file():expected_paths.add(str(q))
+checks={'inventory_membership':expected_paths==set(pins['inventory']),'all_launch_hashes':all(sha(k)==v['sha256'] and str(Path(k).resolve())==v['resolved'] for k,v in pins['inventory'].items()),'all_user_hashes':all(sha(k)==v for k,v in users.items()),'groups_absent':not matches,'boot_same':boot==p['runner']['boot_id'],'master_unchanged':subprocess.check_output(['git','rev-parse','master'],text=True).strip()=='0eb75c3190096946b0e91e5360230ccd7166f298','source_test_CI_equal_master':not subprocess.check_output(['git','diff','master','--','src','test','.github'],text=True),'raw_copies_identical':all(sha(q)==sha(H/'qualification-1'/q.relative_to(RUN)) for q in RUN.rglob('*') if q.is_file())}
+result={'checks':checks,'all_passed':all(checks.values()),'pin_count':len(pins['inventory']),'matches':matches,'groups':sorted(groups),'time_ns':time.time_ns(),'process':p,'user_hashes':users}
+with (H/'independent-post.json').open('x') as f:json.dump(result,f,indent=2);f.write('\n')
+print(json.dumps({'checks':len(checks),'all_passed':result['all_passed'],'pins':result['pin_count']}));assert result['all_passed']

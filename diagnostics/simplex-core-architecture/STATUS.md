@@ -46,7 +46,29 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-**Current continuation: S5-F diagnostic driver preparation completed and independently accepted WITHOUT Julia execution. Canonical driver is results/S5-F/driver-reviewed.jl with source-pins-reviewed.toml; original driver.jl is superseded, unexecuted and preserved. Next S5-G: read `docs/superpowers/plans/2026-10-13-precision-journal-interruption-qualification.md` AND `2026-10-13-precision-journal-launcher-admission.md`. FIRST prepare and review concrete launcher/pins/auditor, including compiled-modules admission for one Julia process; only then one guarded two-case attempt. No trial/warmup or fixture/policy change.**
+**Current continuation: S5-G limited two-case qualification completed and independently accepted. Original offline auditor62/63/all_passed=false/exit1 remains preserved; separate outcome-supplement7/7 resolves only qualified exception type spelling. Next S5-H: `docs/superpowers/plans/2026-10-13-precision-journal-interruption-test-preparation.md`, ONE minimal permanent test candidate as a separate artifact WITHOUT Julia execution or test-file edits.**
+
+S5-G: exactly one guarded attempt, two existing stop/throw transfers,48 explicit
+result predicates true/exit0,752 launch pins unchanged. Initial auditor62/63 FALSE
+because bare SingularException expected while raw type is LinearAlgebra.SingularException;
+separate7 checks bind exact wrapped/cause/sentinel types+identity/outcome. No rerun
+or rewrite of auditor/raw. Author inventory5/post8 checks; fresh final reviewer
+FULL752/F176/user6/all raw and schema/representability/source/fixture bindings.
+Final no unresolved Critical/Important/Minor or unnecessary new production work/
+memory. Source preserved, fresh owned active aliases/history reset/empty cache and
+checkpoints, detached-equal source buffers, pre-detachment checkpoint key preserved.
+Stored numerical128/ambient256 restored; time_limit remains Float64. Per transfer
+counted1F/1B/1refactor, other kernels/events0 except finalrefactor_other1; additional
+untimed weight unit BTRAN is source-derived, not complete native/PREforward counts.
+Three groups88arrays215entries/case; not allocation counts or observer neutrality.
+13resource samples minRAM22322860KiB/swap0; fullgroups49081/49084 and old23249/23257
+absent, no Julia. Compiled-modules=existing ordinary compilecache admission only,
+not cache confinement/import-work proof. Prelaunch three audit findings corrected
+once offline RED4/GREEN4; original texts preserved. Read S5-PRECISION-JOURNAL-
+INTERRUPTION-QUALIFICATION.md/REVIEW and results/S5-G. Frozen F/G launch artifacts,
+prepare/review_fix/audit/supplement/independent/closure NEVER rerun or rewrite.
+Production/test/env/master/CI unchanged; HHdisabled, all prior rejections and broader
+gates unchanged.
 
 S5-F: original18 source checks/170 pins, six author checks; Important raw-observation
 omission and Minor import wording fixed in a separate reviewed driver/manifest.
