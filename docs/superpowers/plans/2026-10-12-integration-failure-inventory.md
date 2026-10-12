@@ -27,23 +27,25 @@ oracle defect. Every inventory row must name its evidence and unresolved scope.
 
 ## Tasks
 
-- [ ] Read disabled workflow configuration and latest completed failed run plus
+- [x] Read disabled workflow configuration and latest completed failed run plus
   last failed master run metadata. Save immutable raw logs/metadata under
   .superpowers/simplex-core-architecture/S6-A/ci-inventory-1, with SHA256 manifest.
-- [ ] Extract every failure/error, exact assertion/source line, source revision,
+- [x] Extract every failure/error, exact assertion/source line, source revision,
   Julia/platform, elapsed/timeout reason and final summary. Compare the two runs;
   do not infer root cause from an assertion name. Write S6-FAILURES.md and compact
   results/S6-A/ci-inventory-1.json with raw digests and GitHub links.
-- [ ] Check relevant test/src changes since each failed revision and existing
+- [x] Check relevant test/src changes since each failed revision and existing
   current-source diagnostics. Mark covered, stale or unknown explicitly. Do not
   classify an unexecuted later test as passing after an earlier suite exception.
-- [ ] Select the first minimal still-unexplained failure with a concrete hypothesis
+- [x] Select the first minimal still-unexplained failure with a concrete hypothesis
   and write a separate reproduction subplan (exact files, environment, guard and
   expected oracle). No production fix without reproducible RED and cause.
-- [ ] Self-check all extracted counts/links/hashes and scope, update STATUS/roadmap,
+- [x] Self-check all extracted counts/links/hashes and scope, update STATUS/roadmap,
   commit diagnostic-only evidence, update continuation automation. No numerical
   benchmark for this documentation/read-only inventory.
 
 Self-review: this bounded read-only task does not claim S6 completion or resolve
 any original-model certificate failure. User standing authorization supplies inline
 execution and publication; no additional confirmation is needed.
+
+Closed: independent review accepted; mastera465da5 focused20/20,11audit gates, push verified. Other CI families remain open.

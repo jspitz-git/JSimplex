@@ -1,0 +1,37 @@
+source = "/home/jspitz/JSimplex.jl/src/JSimplex.jl"
+twin_equal = true
+test_source_sha256 = "471ba482c003fc9bfe7522986c7f0d22e646b68140963b92715bfc325628806e"
+arch = "aarch64"
+julia_threads = 1
+blas_threads = 1
+julia_version = "1.13.0"
+
+[control]
+terminal = "nothing"
+post_ftran_residual = 0.0
+basis = [3, 4, 5]
+original_feasible = true
+point_certified = true
+prices = [-2.0, 1.0, 0.0, 0.0, 0.0]
+refactorizations = 0
+primal = [1.0, 0.0, 1.0e-14, -0.0, 1.0]
+states = ["AT_UPPER", "AT_LOWER", "BASIC", "BASIC", "BASIC"]
+rejected = []
+events = []
+iterations = 1
+costs = [-2.0, 1.0, 0.0, 0.0, 0.0]
+
+[observed]
+terminal = "nothing"
+post_ftran_residual = 0.0
+basis = [3, 4, 5]
+original_feasible = true
+point_certified = true
+prices = [-2.0, 1.0, 0.0, 0.0, 0.0]
+refactorizations = 0
+primal = [1.0, 0.0, 1.0e-14, -0.0, 1.0]
+states = ["AT_UPPER", "AT_LOWER", "BASIC", "BASIC", "BASIC"]
+rejected = []
+events = ["refactor_initial", "pricing", "pivot_proposed", "flip_completed"]
+iterations = 1
+costs = [-2.0, 1.0, 0.0, 0.0, 0.0]

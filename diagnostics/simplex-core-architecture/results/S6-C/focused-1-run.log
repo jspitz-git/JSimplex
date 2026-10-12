@@ -1,0 +1,32 @@
+ERROR: LoadError: Some tests did not pass: 10 passed, 2 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/legacy_primal_preference_work_tests.jl:3
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/pricing_refresh_focused.jl:3
+
+Weak preference work is bounded for similarly scaled columns: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/legacy_primal_preference_work_tests.jl:13
+  Expression: problem.A[1, 1] * JSimplex.bound_value(problem.column_upper[1]) > options.primal_tolerance
+   Evaluated: 1.0e-10 > 1.0e-7
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/legacy_primal_preference_work_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/legacy_primal_preference_work_tests.jl:13 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Weak preference work is bounded for similarly scaled columns: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/legacy_primal_preference_work_tests.jl:13
+  Expression: problem.A[1, 1] * JSimplex.bound_value(problem.column_upper[1]) > options.primal_tolerance
+   Evaluated: 1.0e-10 > 1.0e-7
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/legacy_primal_preference_work_tests.jl:4
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/legacy_primal_preference_work_tests.jl:13 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+Test Summary:                                                | Pass  Fail  Total   Time
+Weak preference work is bounded for similarly scaled columns |   10     2     12  10.3s
+RNG of the outermost testset: Random.Xoshiro(0x5cc5df16578ae298, 0xa0e324f1131bc909, 0x719ba9a1be0b3823, 0x2d3948c09499e278, 0xb40a9b56574b87aa)

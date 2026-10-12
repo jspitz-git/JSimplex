@@ -1,0 +1,27 @@
+ERROR: LoadError: MethodError: Cannot `convert` an object of type 
+  JSimplex.SimplexProgressContext{Float64,JSimplex.SimplexDiagnostics{var"#16#17"{Vector{String}}}} to an object of type 
+  JSimplex.SimplexProgressContext{Float64,Nothing}
+The function `convert` exists, but no method is defined for this combination of argument types.
+
+Closest candidates are:
+  (::Type{JSimplex.SimplexProgressContext{T, D}} where {T<:Real, D})(::Any, !Matched::Any, !Matched::Any, !Matched::Any, !Matched::Any, !Matched::Any, !Matched::Any, !Matched::Any)
+   @ JSimplex ~/JSimplex.jl/src/simplex.jl:31
+  convert(::Type{T}, !Matched::T) where T
+   @ Base Base_compiler.jl:136
+
+Stacktrace:
+ [1] setproperty!(x::JSimplex.SimplexWorkspace{Float64, JSimplex.PFIFactorization{Float64, JSimplex.UMFPACKBackend}, :pfi, :native, Nothing}, f::Symbol, v::JSimplex.SimplexProgressContext{Float64, JSimplex.SimplexDiagnostics{var"#16#17"{Vector{String}}}})
+   @ Base ./Base_compiler.jl:60
+ [2] fixture(; observed::Bool)
+   @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/pricing_refresh_reproduction.jl:19
+ [3] kwcall(::@NamedTuple{observed::Bool}, ::typeof(fixture))
+   @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/pricing_refresh_reproduction.jl:15
+ [4] top-level scope
+   @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/pricing_refresh_reproduction.jl:39
+ [5] include(mod::Module, _path::String)
+   @ Base ./Base.jl:309
+ [6] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:344
+ [7] _start()
+   @ Base ./client.jl:577
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/pricing_refresh_reproduction.jl:39

@@ -1,0 +1,17 @@
+ERROR: LoadError: FieldError: type LinearProblem has no field `matrix`, available fields: `A`, `objective`, `objective_constant`, `objective_sense`, `row_lower`, `row_upper`, `column_lower`, `column_upper`, `variable_domains`, `name`, `row_names`, `column_names`
+Stacktrace:
+ [1] getproperty
+   @ ./Base_compiler.jl:57 [inlined]
+ [2] fixture(; observed::Bool)
+   @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/pricing_refresh_reproduction.jl:34
+ [3] fixture()
+   @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/pricing_refresh_reproduction.jl:15
+ [4] top-level scope
+   @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/pricing_refresh_reproduction.jl:39
+ [5] include(mod::Module, _path::String)
+   @ Base ./Base.jl:309
+ [6] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:344
+ [7] _start()
+   @ Base ./client.jl:577
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/pricing_refresh_reproduction.jl:39

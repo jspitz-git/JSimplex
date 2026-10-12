@@ -4,7 +4,7 @@ Updated: 2026-10-12. This is the entry point after interruption.
 
 ## Current state
 
-**S1-A, S3-A/S3-B, S4-A/S4-C and S5-C integrated; master `e7014fb` pushed. S2-A rejected; S0-L all four long references audited and complete.**
+**S1-A, S3-A/S3-B, S4-A/S4-C and S5-C integrated; master `a465da5` pushed (includes S6-C test repair). S2-A rejected; S0-L all four long references audited and complete.**
 The source baseline is `fe839aa72171d7496c9c931d9393278448c7317e`.
 Initial time-budget diagnostic evidence is commit `6ded1fc`.
 
@@ -38,7 +38,7 @@ main also has a user-modified .vscode/settings.json. Do not stage those files.
 | S3 | End-to-end exact sparsity support | Active | S3-A/S3-B integrated, latest masterb720674; exact-support consumer savings qualified; broader S3 partial |
 | S4 | Refactorization memory lifecycle | Active | S4-A/S4-C integrated; master3220118; Float64 component attribution/cost and exact triplet optimization accepted; bounded scalar component attribution360samples accepted; broader manager/history/medium coverage open |
 | S5 | Phase/cleanup handoff contract | Active | S5-A/S5-B accepted; S5-C production88a2411 -> mastere7014fb, reviewed, master668/668; broader handoffs partial |
-| S6 | Broad validation and final comparison | Pending | Requires accepted production chunks |
+| S6 | Broad validation and final comparison | Active | S6-A/B triage accepted; S6-C test repair integrated as mastera465da5, focused20/20. Other CI families and full validation remain open |
 
 Allowed execution states: Pending, Active, Blocked (reason required), Verified,
 Integrated, Rejected (evidence required). Mark an optimization Verified only after
@@ -46,9 +46,12 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-Execute2026-10-12-integration-failure-inventory.md.
-S6-A first reads existing CI failures and prior local coverage; no full suite or
-old baseline rerun, no CI enable. Earlier entries below are historical checkpoints.
+S6-A/B/C are reviewed and complete within their narrow scopes. Test-only repair
+3e91736 -> mastera465da5 is pushed, focused master20/20 and11audit gates.
+Next: docs/superpowers/plans/2026-10-12-artificial-row-recovery-reproduction.md.
+First reconcile existing artificial-row coverage; then diagnose current fixture
+reachability without weakening assertions or numerical guards. Do not repeat S6-B/C,
+old medium/HH/reference measurements or enable CI. Earlier entries are historical.
 
 
 S3-A production cd91a1a -> masterd8ad4ec5651225a512d5f533f48ce7d8fc8f90cc is reviewed,
@@ -863,3 +866,29 @@ measurements. Ruling: triage historical CI now before more optimization so broad
 validation blockers are explicit; this is not closure of broader S2/S3/S4/S5.
 CI confirmed disabled_manually; two old runs cancelled. Extended validation is a
 separate active workflow, not launched here. Master push verified by ls-remote:e7014fb92ae6dce633afc714793a2f89b39aea76.
+
+## S6-A/B inventory and first failure cause (2026-10-12)
+
+S5-C diagnosticsbb074ac and mastere7014fb are pushed/remote verified. Historical
+CI inventory:source4914cbb197failures+1error,sourceb720674200+1;tests/src identical
+between these refs, both Julia1.13.1x64. All failures accounted,5audit checks.
+S6-B original preference oracle reproduced2pass/2fail/1error on currentmain1.13.0
+AArch64,10audit gates. Observations show valid tolerated flip bypasses intended
+refresh path. Harness1/2failures and3oracleASTfailure are explicitly preserved;
+only3twins and separate cleanoracle-1 qualify. See S6-FAILURES.md.
+S6-C synthetic bound1e8 probe5/5,12gates/exact twins, one refactor/no flip proves
+intended path. Test-only correction being checked; no production solver change.
+Focused-1 precondition placement error preserved; focused-2 is current attempt.
+Final review/integration pending; never claim full CI/S6 complete.
+
+## S6-A/B/C accepted and integrated (2026-10-12)
+
+Fresh independent gpt-6-astra review accepts inventory/reproduction/test correction
+with no findings and no unnecessary production work/memory. Test3e91736 integrated
+as mastera465da5, pushed/remote verified. Focused master-1 20/20,exit0,11audit gates,
+independent pins/source and user hashes. Separate host runner371705/child371706/
+driver371697 absent,noJulia,boot20de7dde-704e-41c8-bee7-b8511c0a86b0.
+Reports S6-FAILURES.md,S6-FIXTURE.md,S6-FIXTURE-REVIEW.md retain every failed harness
+attempt and limited scope. Two trailing spaces in a raw failed log are preserved.
+Next bounded S6-D artificial-row recovery reachability subplan; historical96CI
+assertions are not yet diagnosed. Full CI/S6 and broader S2/S3/S4/S5 remain open.

@@ -1,0 +1,27 @@
+ERROR: LoadError: Some tests did not pass: 0 passed, 0 failed, 1 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/pricing_refresh_reproduction.jl:56
+
+Exhaustion after fresh pricing retains the refresh budget: Error During Test at none:23
+  Got exception outside of a @test
+  UndefVarError: `diagnostics` not defined in `Main`
+  Suggestion: check for spelling errors or missing imports.
+  Stacktrace:
+   [1] top-level scope
+     @ none:24
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:28 [inlined]
+   [4] eval(m::Module, e::Any)
+     @ Core ./boot.jl:489
+   [5] top-level scope
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/pricing_refresh_reproduction.jl:56
+   [6] include(mod::Module, _path::String)
+     @ Base ./Base.jl:309
+   [7] exec_options(opts::Base.JLOptions)
+     @ Base ./client.jl:344
+   [8] _start()
+     @ Base ./client.jl:577
+Test Summary:                                             | Error  Total  Time
+Exhaustion after fresh pricing retains the refresh budget |     1      1  0.7s
+RNG of the outermost testset: Random.Xoshiro(0x17eb9542546c108f, 0x1fabbecc2d2c9f12, 0x0684c7976eaf6b1b, 0xf8ae5285af6c17ed, 0x644af943d153acc7)

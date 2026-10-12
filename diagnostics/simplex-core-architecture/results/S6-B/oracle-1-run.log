@@ -1,0 +1,47 @@
+ERROR: LoadError: Some tests did not pass: 2 passed, 2 failed, 1 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/pricing_refresh_oracle.jl:13
+
+Exhaustion after fresh pricing retains the refresh budget: Error During Test at none:38
+  Test threw exception
+  Expression: terminal.status == NUMERICAL_ERROR
+  FieldError: type Nothing has no field `status`; Nothing has no fields at all.
+  Stacktrace:
+   [1] getproperty(x::Nothing, f::Symbol)
+     @ Base ./Base_compiler.jl:57
+   [2] top-level scope
+     @ none:24
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] macro expansion
+     @ none:38 [inlined]
+   [5] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:750 [inlined]
+
+Exhaustion after fresh pricing retains the refresh budget: Test Failed at none:39
+  Expression: ws.refactorizations == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ none:24
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:39 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Exhaustion after fresh pricing retains the refresh budget: Test Failed at none:40
+  Expression: ws.iterations == 0
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ none:24
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ none:40 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+Test Summary:                                             | Pass  Fail  Error  Total   Time
+Exhaustion after fresh pricing retains the refresh budget |    2     2      1      5  10.8s
+RNG of the outermost testset: Random.Xoshiro(0x5c7e16fd59385ff7, 0xc207e1a276a02c61, 0xa94de5a492931969, 0x26e7a7b6f97a1423, 0x0170ce1c6c4ef11c)
