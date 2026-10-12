@@ -46,7 +46,23 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-**Current continuation: S4-O allocation-counter attribution accepted; next S4-P source-only fixed-history inclusive lifecycle cost contract, `docs/superpowers/plans/2026-10-12-hh-history-lifecycle-cost-contract.md`. Native retention stays OPEN and HH reuse disabled.**
+**Current continuation: S4-P source-only fixed-history lifecycle cost contract accepted; next prospective S4-Q bounded measurement, `docs/superpowers/plans/2026-10-12-hh-history-lifecycle-cost-measurement.md`. No numerical launch in P. Native retention stays OPEN and HH reuse disabled.**
+
+S4-P: two NEW nonsymmetric48 inputs, sparse142/dense2304 nonzeros, seven exact stages,
+six nonunit column replacements [3,17,31,31,17,3], all row-dominance margins>5,
+exact incoming pivots>39/40. Offline10input checks/19,138binary64 entries; source26checks/
+567read-time hashes; independent author11checks/full567/independentallinput reconstruction.
+G HH/factorization source matches; all554M launchpins unchanged. Prospective40lifecycle
+budget:40constructors80refactors240updates960directsolves600F360B; source-derived120
+numeric/extraction entries, <=120orientation solves. Inclusive GC outer windows contain
+ordinary refactor windows: no addition/subtraction attribution, no held old owners.
+46,080 retained numeric outputs only; diagnostic scans explicitly counted, mixed GC
+counter meaning and native retention OPEN. No Julia/nativecalls/hooks/production/test/
+master/CI change or old reruns. Report S4-HISTORY-LIFECYCLE-COST-CONTRACT.md/REVIEW,
+results/S4-P and separate Q plan. Freshgpt6astra no Critical/Important/Minor, no
+unnecessary production work/memory. Reviewer all19,138input reconstruction,12selected
+hashes/Gsource/554M inventory comparison; authorfull567 separate. All rejections unchanged.
+
 
 S4-O: no Julia/nativecalls/hooks. 26 source checks/592 read-time hashes; independent
 full592/5 checks. All554 M pins unchanged. Current installed counted malloc/calloc

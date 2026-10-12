@@ -668,3 +668,18 @@ separate.
 Next ONE source-only S4-P:2026-10-12-hh-history-lifecycle-cost-contract.md, to freeze
 NEW nonsymmetric fixed histories and inclusive lifecycle work before any future run.
 Native retention OPEN; no hook experiment or production promotion.
+
+
+### S4-P fixed-history inclusive lifecycle contract, 2026-10-12
+
+SOURCE/EVIDENCE ONLY: new nonsymmetric48 sparse142/dense2304 six-replacement histories,
+strict dominance and exact pivot>39/40 proof,19,138 frozen input/RHS/direction/solution
+entries. 10offlineinputchecks,26sourcechecks/567read-timehashes, author independent11
+checks/full567/allinput reconstruction. G source-matched reuse; all554M pins unchanged.
+Prospective Q fixes40lifecycles,80refactors,240updates,960solves; native work is source-
+derived/bounded, not measured. Outer owned-factor lifetime includes explicit GC and
+nested ordinary refactor windows, no double count/native-free inference. Diagnostics
+and mixed GC counters explicitly qualified. Freshgpt6astra nofindings/no unnecessary
+production work/memory; reviewerall19,138inputs/12selectedhashes, authorfull567 separate.
+Next ONE bounded numerical S4-Q plan:2026-10-12-hh-history-lifecycle-cost-measurement.md.
+No launch in P. Native retention OPEN, HH reuse disabled, production/test/CI unchanged.
