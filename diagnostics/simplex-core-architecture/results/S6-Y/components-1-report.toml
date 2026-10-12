@@ -1,0 +1,140 @@
+source = "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/JSimplex.jl"
+julia_version = "1.13.0"
+globals_preserved = true
+arch = "aarch64"
+primal_tolerance = 1.0000000116860974e-7
+input_sha256 = "f7a90855b32f10f48aafea21d78c269c77788a30e880b0c3ca86e967d9ee86ce"
+julia_threads = 1
+solve_tolerance = 3.0517578125e-5
+blas_threads = 1
+model_preserved = true
+driver_sha256 = "d78ba51af2f82cd3fb1921e632f3a2523a611d37d2fe9ae6c4382e0deca1eabd"
+
+[options]
+basis_update = ":pfi"
+iteration_limit = "100000"
+pricing = ":steepest_edge"
+simplex_strategy = ":legacy"
+basis_refactorization = ":native"
+time_limit = "Inf"
+log_level = "Debug"
+verbose = "false"
+scaling = ":auto"
+partial_pricing = "false"
+algorithm = ":primal"
+zero_tolerance = "1.0f-12"
+presolve = "true"
+primal_tolerance = "1.0f-7"
+dual_tolerance = "1.0f-7"
+refactorization_interval = "20"
+
+[policy]
+refactor_timing = "true"
+stable_ratio = "false"
+precision_boosting = "false"
+max_precision_memory_bytes = "1073741824"
+recovery = "false"
+max_refinements = "3"
+incremental_primal = "false"
+partial_pricing = "false"
+adaptive_primal_perturbation = "false"
+pivot_error_tolerance = "0.00034526698f0"
+lp_refinement = "false"
+adaptive_refactor = "false"
+sparse_pricing = "false"
+solve_tolerance = "3.0517578f-5"
+max_lp_refinements = "8"
+adaptive_stalling = "false"
+max_pivot_candidates = "8"
+pivot_validation = "false"
+adaptive_pricing = "false"
+feasibility_recovery = "false"
+max_recovery_rounds = "2"
+adaptive_dual_perturbation = "false"
+solve_refinement = "false"
+hypersparse = "false"
+incremental_primal_pivots = "false"
+phase_one = "false"
+crash = "false"
+stagnation_window = "64"
+max_precision_bits = "512"
+
+[[records]]
+quality_reliable = true
+name = "printed_ci_phase"
+certificate_calls = 1
+quality_absolute = 1.139952487960727e-7
+output_bits = ["3f800000", "3f800000", "3312ebdb", "31c2502a", "321c9c50", "31eaa6f9"]
+original_primal_feasible = false
+quality_relative = 3.251362201694974e-8
+input_bits = ["3f800000", "3f800000", "3312ebdb", "31c2502a", "321c9c50", "31eaa6f9"]
+point = [1.0, 1.0, 3.420778327267726e-8, 5.6552567073708815e-9, 9.115936450143636e-9, 6.8292789201507276e-9]
+quality_finite = true
+quality_calls = 1
+quality_residual = [8.03399569093699e-9, -1.3627867723187137e-8, -1.139952487960727e-7, 3.614148091912739e-9, 1.7763568394002505e-15, 3.552713678800501e-15]
+
+    [records.quality]
+    reliable = "true"
+    relative_error = "3.2513622f-8"
+    finite = "true"
+    absolute_error = "1.1399525f-7"
+[[records]]
+quality_reliable = true
+name = "local_original_endpoint"
+certificate_calls = 1
+quality_absolute = 8.53219930263549e-8
+output_bits = ["3f800000", "3f800000", "32d7bb62", "31e2a4cb", "31f12835", "31c2abea"]
+original_primal_feasible = true
+quality_relative = 4.218216176354872e-8
+input_bits = ["3f800000", "3f800000", "32d7bb62", "31e2a4cb", "31f12835", "31c2abea"]
+point = [1.0, 1.0, 2.5114506030377015e-8, 6.596200474717762e-9, 7.018594150309809e-9, 5.66568747473184e-9]
+quality_finite = true
+quality_calls = 1
+quality_residual = [3.1282070267479867e-9, -1.293834550608608e-8, -8.53219930263549e-8, -7.61244045577314e-9, 3.552713678800501e-15, 3.552713678800501e-15]
+
+    [records.quality]
+    reliable = "true"
+    relative_error = "4.218216f-8"
+    finite = "true"
+    absolute_error = "8.532199f-8"
+[[records]]
+quality_reliable = true
+name = "exact_known_point"
+certificate_calls = 1
+quality_absolute = 0.0
+output_bits = ["3f800000", "3f800000", "00000000", "00000000", "00000000", "00000000"]
+original_primal_feasible = true
+quality_relative = 0.0
+input_bits = ["3f800000", "3f800000", "00000000", "00000000", "00000000", "00000000"]
+point = [1.0, 1.0, 0.0, 0.0, 0.0, 0.0]
+quality_finite = true
+quality_calls = 1
+quality_residual = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+
+    [records.quality]
+    reliable = "true"
+    relative_error = "0.0f0"
+    finite = "true"
+    absolute_error = "0.0f0"
+
+[model]
+rowval = [1, 2, 3, 4, 1, 2, 3, 4, 2, 3, 5, 6, 1, 2, 4, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6]
+colptr = [1, 5, 9, 13, 17, 23, 29]
+nzval = [8.0, 2.0, 1.0, 3.0, -2.0, 6.0, -2.0, -1.0, 1.0, 3.0, -1.0, -1.0, 1.0, 2.0, 5.0, -2.0, -3.0, -2.0, -1.0, -2.0, 6.0, -1.0, 2.0, -2.0, 3.0, -2.0, -3.0, 8.0]
+objective = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+
+    [model.column_lower]
+    values = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    finite = [true, true, true, true, true, true]
+
+    [model.column_upper]
+    values = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    finite = [false, false, false, false, false, false]
+
+    [model.row_upper]
+    values = [6.0, 8.0, -1.0, 2.0, 0.0, 0.0]
+    finite = [true, true, true, true, true, true]
+
+    [model.row_lower]
+    values = [6.0, 8.0, -1.0, 2.0, 0.0, 0.0]
+    finite = [true, true, true, true, true, true]

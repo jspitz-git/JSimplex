@@ -89,12 +89,23 @@ verify8CIvalues/bits/work; initialparserfailurepreserved. PrivateCIexportpoint a
 actualrejectbranch/backendcause/observerneutrality/fullsuite/x64 not proved.
 No production/test/CI change. Freshgpt6astra nofindings/no unnecessaryworkmemory.
 See S6-PHASE-TRANSFER-REACHABILITY.md/REVIEW; acceptedXdrivers/audits NERERUN.
-Next: docs/superpowers/plans/2026-10-12-phase-transfer-printed-point-certificates.md,
-S6-Y: three immutable Float32 points (printedCIphase,localendpoint,exactknownpoint),
-production primalbasisquality+originalcertificate onceeach, no workspace/solve/factor.
-results/S6-Y/point-inputs.json is offlineinputpreparation only; no componentcalls yet.
-Reconcile exact bits/options/source, distinguish relativebasisquality from absolute
-originalfeasibility. No inference of privateCIcandidate or repair before evidence.
+S6-Y completed and independently accepted: components-1,12/12 preservation checks,
+exit0,23audit gates,623pins,517sharedpins;8supplementchecks. Exactly3quality and
+3original-primal certificate calls, no workspace/factor/basis/public solve. Stored
+CI phase point is basis-reliable but original-infeasible; local and exact known
+points pass both. Exact row3 residuals256694483/2^51 versus192128033/2^51 straddle
+Float32(1e-7). Budget3 versus printed0 only differs in max_refinements, unused by
+these calls; no budget0 exchange replay. Actual privateCIcandidate/rejection branch
+and backend cause remain unknown. Freshgpt6astra no findings/no unnecessary work
+or memory; production/test/master/CI unchanged. See S6-PHASE-POINT-CERTIFICATES.md
+and REVIEW. Accepted X/Y drivers/audits must not be rerun.
+Next: docs/superpowers/plans/2026-10-12-reliable-phase-exchange-fixture.md, S6-Z.
+Qualify only reliable-zero-budget exchange on new exact identity6 Float32 fixture,
+max4manager exchanges; original4assertions plus exactbasis/point/certificate, same
+options/policy. Native roundoff helper/success/recovery/cancel tests untouched.
+Different feasible set, not solver repair; first4scalar-unknown accepted=false CI
+failures remain unresolved. No numerical qualification yet; permanent repair needs
+separate RED/GREEN/review/integration subplan.
 
 
 S6-S accepted evidence90811de/closure6c5ef37: fourtype13/13 + factor6/6; initial
@@ -102,7 +113,7 @@ comparability30/31false preserved with517pin/current-external supplement; no
 retroactive launch pin. Factor19gates615pins/exactLU/primal/dual residuals0.
 S6-R accepted08b7485/3baf29b:12/12/21gates613pins,componentdecomposition-1/16.
 Do not rerun old N/O/P/Q/R/S/T/corpus/reference/cost drivers against changed tests.
-Last fresh host398449/398450/398441 absent,noJulia,boot20de7dde-704e-41c8-bee7-b8511c0a86b0.
+Last fresh host400191/400192/400183 absent,noJulia,boot20de7dde-704e-41c8-bee7-b8511c0a86b0.
 Verify new host state before edits or any new Julia. User environment/dirt preserved.
 
 S6-Q remains accepted:11events,5/5,24gates611pins,exact S6-N endpoint. Refactor event
