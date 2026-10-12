@@ -548,3 +548,10 @@ User resumed continuous execution. Source-only native symbolic contract accepted
 with25checks/542hashes and fresh independent review. S4-F has a separate bounded
 six-pair native API qualification plan. No production/test change, HH symbolic
 reuse remains disabled; historical cleanup cause and broader S4/S6 remain open.
+
+### S4-F native API boundary accepted
+
+Six new native component pairs179checks/24auditgates649pins,12setup12refactor20solve
+plus10metadata10graphs. Fresh independent review accepts scoped result; no HH
+production change or speedup claim. Next S4-G separately qualifies HH publication/
+shared updates/prepared state with a fixed24HHsolve budget. Other S4/S6gates open.

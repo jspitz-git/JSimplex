@@ -292,6 +292,22 @@ NoHH/publicsolver; nooldreruns. Separateownedinputs/guardbeforemutation/default
 controls/expectedonesingularpair; stoponunexpectedfailure/referenceoraclemismatch.
 No symbolicreuseproductionapproval; laterHHpublication/copy/prepared/assembly gate
 stillrequired. Newboot dade7243-9103-4398-bb45-fa28fbc0be72, noJulia atsourceclosure.
+S4-F boundary-1 completed179/179,exit0,24auditgates649pins; ten independent
+checks including exact12inputrepresentations. Exactly12setup/12refactor/20solve/
+10metadata/10graph; five successfulpairs observed bits equal; two singularthrows
+preserved. True symbolicidentity cases1/2/3/6, numericrebuiltall12. Defaultcontrols,
+separateownedinputs/sentinelmutation safe; noHH/publicsolver. Raw exactfactor
+residuals generallynonzero; fixedbounds pass. Singlecoldmetrics notspeedup;
+otherlibrarypins notallloaderchoices proof. Fresh gpt-6-astra accepts; no unnecessaryproductionworkmemory. Importantnextplan
+prepared_valid false->false gap fixedofflineRED4/GREEN4 by moving one planned
+solve before success; total24HHsolvesunchanged. MinorleaderPID/grouplabel deferred,
+newseparatePGIDscan3788/3793empty. See S4-SYMBOLIC-BOUNDARY-REVIEW.md.
+Runner3792/child3793/group3788 absent,bootdade7243-9103-4398-bb45-fa28fbc0be72.
+No accepteddriver/auditor rerun. Next:docs/superpowers/plans/2026-10-12-hh-symbolic-publication.md,S4-G.
+Prepare source-bound diagnostic clone only, no productionmethodoverwrite. TwoHH
+lifecycles,2constructors2copies6updates4refactors24HHsolves plusatmost4implicit
+native scaling solves,6native numeric attempts; valid->invalid success and
+prepared/base/history/saved isolation on failure. No newGnumericalrun yet.
 BroaderS2/S3/S4/S5/S6/native symbolicreuse/originalcertificatelimits remainopen.
 CI disabled, S6-J/S2-A rejected; historicalCIcause/hidden states/fullsuite/x64 open.
 
