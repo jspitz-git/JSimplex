@@ -1,7 +1,7 @@
 # S6-O/P: binary fixture qualification
 
-Status: qualification complete; no permanent replacement accepted. Final review
-pending. Production, tests, tolerances, precision and CI configuration unchanged.
+Status: qualification complete; no permanent replacement accepted. Independent
+final review accepted diagnostic evidence without blockers; see S6-BINARY-QUALIFICATION-REVIEW.md. Production, tests, tolerances, precision and CI configuration unchanged.
 
 ## Decision and evidence
 

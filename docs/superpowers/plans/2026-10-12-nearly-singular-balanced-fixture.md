@@ -37,5 +37,5 @@ Scope is an input-fixture qualification, not a numerical algorithm repair.
 
 See S6-BINARY-QUALIFICATION.md. No permanent change accepted: S6-O passes but
 changes presolve/main numerical route; S6-P preserves topology but fails original
-Float64 equality. New point-provenance diagnostic plan is2026-10-12-nearly-singular-
-point-provenance.md. Final independent review pending. No RED/GREEN repair starts.
+Float64 equality. New point-provenance diagnostic plan is2026-10-12-nearly-singular-point-provenance.md. Final independent review accepted
+diagnostic evidence without blockers; see S6-BINARY-QUALIFICATION-REVIEW.md. No RED/GREEN repair starts.

@@ -46,26 +46,30 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-S6-N is complete and independently accepted: evidence5b2b444, report
-S6-NEARLY-SINGULAR.md and review S6-NEARLY-SINGULAR-REVIEW.md. Four unchanged
-public-solve cases,13pass/1original equality failure,exit1 preserved; all22diagnostic
-gates/607pins pass. Float64 returned rows[-1,1+2^-47], objective gap-1/16, exact
-residual identity and original/analytic witness certificates verified. This point
-is tolerance-feasible, not strictly feasible. Float32 NUM_ERROR has no point;
-BigFloat/rational attain strict optimum. Runtime witness/historical x64 path and
-full-suite success remain unknown. No production/test change. Incomplete census-1
-internal-name error retained. P3 duplicate model snapshot deferred without rerun.
+S6-O/P diagnostic evidence65e4555 is independently accepted without blockers;
+see S6-BINARY-QUALIFICATION.md and S6-BINARY-QUALIFICATION-REVIEW.md.
+S6-O triangular:13/13,exit0,24gates,608pins; presolve2/2/3->1/2/2 changes the main
+route, so no permanent replacement accepted. S6-P balanced:12pass/1original
+Float64 equality failure,exit1,23/25checks,609pins; two acceptance gates false and
+all_passed=false preserved. Float64 rows[1,-1-2^-47],gap-1/16; candidate REJECTED.
+No production/test/CI change, no new performance or full-suite/x64 claim.
+S6-N original census remains accepted:13pass/1equality failure,22gates,607pins;
+no repeat. Analytical witness certificates are not runtime witness capture.
 
-Next: docs/superpowers/plans/2026-10-12-nearly-singular-binary-fixture.md, S6-O.
-First reconcile no-recession intent, then qualify proposed triangular binary
-matrix[s s;0 d],s=2^-20,d=2^-43 and row bounds[-1,-2]..[1,2], preserving ALL
-original status/publication/exact equality assertions. Exact determinant2^-63,
-condition infinity2^24+2 and optimal edge are proven; no numerical qualification
-yet. Changed feasible set must not be described as equivalent. No tolerance or
-precision changes. Permanent repair requires a separate RED/GREEN plan/review.
-Do not rerun accepted S6-N or broad corpora/reference/cost experiments.
-Last separate host check: runner383054,child383055,driver383046 absent,no Julia,
-boot20de7dde-704e-41c8-bee7-b8511c0a86b0. Verify fresh identities before new work.
+Next: docs/superpowers/plans/2026-10-12-nearly-singular-point-provenance.md, S6-Q.
+Reconcile events and saved S6-N control, then one bounded original Float64 observed
+solve with owned snapshots and offline exact residuals. Do not launch another
+unobserved control or repeat censuses/corpora/reference/cost measurements.
+Deferred review minor to carry into preflight: compare runtime/environment,
+launchers/options/policy/thread configuration as well as source/model/test hashes.
+Current runtime/environment/launcher pins already match S6-N. No accepted driver
+rewrite/rerun for this clarification. First observed deviation is not proof of
+originating arithmetic operation; certification event precedes actual checks.
+No observer solves/refactors/certificates/mutation; no speculative fixture tuning.
+Permanent change needs concrete evidence and a separate RED/GREEN/review plan.
+Last separate executor and reviewer host checks: runner384575,child384576,
+driver384567 absent,no Julia,boot20de7dde-704e-41c8-bee7-b8511c0a86b0.
+Always recheck fresh identity before new work. Master remains7fea422.
 
 S6-L/M remains complete: test2c3e0eb -> master7fea422 pushed, qualification300pass,
 GREEN1477/1477/master1477/1477 and14master gates, independent review accepted.
