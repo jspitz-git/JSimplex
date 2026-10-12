@@ -46,7 +46,20 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-**Current continuation: S4-Q nonsymmetric fixed-history measurement accepted; next S4-R source-only public-controller reuse contract, `docs/superpowers/plans/2026-10-12-hh-public-controller-reuse-contract.md`. Native retention stays OPEN and HH reuse disabled.**
+**Current continuation: S4-R source-only public-controller seam assessment; no numerical qualification authorized. Next S4-S source-only isolated-module loading contract, `docs/superpowers/plans/2026-10-12-hh-isolated-module-loading-contract.md`. Native retention stays OPEN and HH reuse disabled.**
+
+S4-R: SOURCE/EVIDENCE ONLY,24literal-source checks/570read-time hashes, separate author
+8checks/full570/all558Q unchanged and8selectedG/I source matches. Narrow Q clone does
+not redirect public dispatch; overwriting methods rejected; post-initialization wrapper
+misses typed construction/factory/initial work. Complete nested module is plausible but
+its loading/external-method boundary is NOT qualified, not proved impossible. No new LP,
+numerical plan or launch; public trajectory and complete work cap remain OPEN. Next ONE
+source-only loading-manifest audit; no repeated H inventory/Q measurement. No production/
+test/env/master/CI change, all rejections unchanged. Report S4-PUBLIC-CONTROLLER-REUSE-
+CONTRACT.md and results/S4-R. Fresh gpt-6-astra review accepted/no Critical/Important/Minor and no unnecessary
+production work/memory. Reviewer28selected hashes/8G-I/inverseclone/currentgroups; author
+full570 separate. No correction/new deferred issue.
+
 
 S4-Q: ONEnewguardedcost-1,6176runtimechecks/exit0,28auditgates558launchpins,
 11authorindependentchecks/full558+P567. Actual40constructors80refactors240updates960

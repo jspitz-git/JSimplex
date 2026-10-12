@@ -698,3 +698,21 @@ no unresolved findings/no unnecessary production work/memory; reviewerallinputs/
 input-file wording finding fixed offline RED2/GREEN3, no numeric rerun/raw change.
 Next ONE source-only S4-R:2026-10-12-hh-public-controller-reuse-contract.md. Public
 controller/original certificate not qualified by component agreement; no enablement.
+
+
+### S4-R public-controller reuse seam, 2026-10-12
+
+Source/evidence-only assessment: the three renamed Q routes do not change the public
+controller's real refactor dispatch. Method overwrite is disallowed, post-init adapters
+miss typed construction/initial work and need factory/recovery integration. An isolated
+nested module is plausible but its complete loading/external-method closure is not yet
+qualified. No numerical LP/plan or fishing run is authorized. This is a current-evidence
+limit, not proof that safe public qualification is impossible.
+24source gates/570read-time hashes; author8independent checks/full570/all558Q unchanged,
+8selectedG/I source matches. Production/test/env/master/CI unchanged. No new work/memory
+cost in production; no benchmark for documentation. Fresh gpt-6-astra review accepted/no findings/no unnecessary production work/memory.
+Reviewer28selected rehashes/8G-I/inverseclone/currentgroups; authorfull570 separate.
+Next ONE source-only S4-S:2026-10-12-hh-isolated-module-loading-contract.md, exact module
+manifest/inverse/imported-method ownership/load-time work. No H caller census repeat or
+Q timing rerun. Public numerical/work qualification, native retention, broader S4/S6 and
+all prior rejections remain open/unchanged; HH reuse disabled and CI off.
