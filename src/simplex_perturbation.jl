@@ -59,12 +59,32 @@ function _perturbation_cooldown!(ws,journal)
     return nothing
 end
 
+# Base.mightalias can miss overlapping offset unsafe_wrap buffers. Prove byte
+# disjointness only for a concrete Vector layout, without scanning its values.
+function _restoration_costs_disjoint(a::Vector{T},b::Vector{T}) where T
+    isconcretetype(T) || return false # excludes union tag planes/unknown layouts
+    (isempty(a) || isempty(b)) && return true
+    stride = UInt(Base.elsize(a))
+    iszero(stride) && return false
+    limit = typemax(UInt) ÷ stride
+    (UInt(length(a)) <= limit && UInt(length(b)) <= limit) || return false
+    na,nb = UInt(length(a))*stride,UInt(length(b))*stride
+    GC.@preserve a b begin
+        pa,pb = UInt(pointer(a)),UInt(pointer(b))
+        # Subtract in the nonnegative direction; never form an overflowing end.
+        return pa <= pb ? pb-pa >= na : pa-pb >= nb
+    end
+end
+
 """Restore saved values directly; recompute before using primal values or prices."""
 function restore_perturbations!(ws,journal::PerturbationJournal)::Nothing
     _check_perturbation_owner(ws,journal)
     _has_active_perturbations(journal) || return nothing
     copyto!(ws.costs,journal.original_costs)
-    copyto!(journal.active_costs,journal.original_costs)
+    if journal.active_costs !== ws.costs ||
+       !_restoration_costs_disjoint(ws.costs,journal.original_costs)
+        copyto!(journal.active_costs,journal.original_costs)
+    end
     _restore_working_bounds!(ws,journal.bounds)
     ws.perturbed = journal.original_perturbed
     journal.active = false
