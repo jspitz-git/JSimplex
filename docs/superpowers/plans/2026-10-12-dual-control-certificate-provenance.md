@@ -43,3 +43,15 @@ One Julia/BLAS1,heap2GiB,VM8GiB,minRAM6GiB,maxswap1GiB. Separate host absence be
 pinned changes/launch, no edits in flight. No big/largo/AnyMOD or aliases. Preserve
 all raw/user/environment/worktrees; no accepted old H/I/J/AE/AF/corpus/reference/cost
 reruns. CI disabled,S6-J rejected,fullsuite/x64/broaderS6 unresolved.
+
+## Execution evidence (2026-10-12)
+
+One new PFI call completed,10/10,exit0,29audit gates628pins517sharedpins,
+6raw/portable/source supplements. Source preflight binds post-return scratch.rho
+to the final certificate input; captured rho matches AE. Exact coefficient0 versus
+outward-rounded firstcolumn interval spanning0 and actual infiniteupper explains
+conservative refusal from source and observed inputs, not instrumented intermediates.
+No additional helper/observer/adapter call, no AF replay or changed failed oracle.
+Completed: fresh independent gpt-6-astra review accepts with no findings and no
+unnecessary production work/memory. Next AH is source/evidence-only
+acceptance-contract decision, not a permanent repair or retroactive AF qualification.

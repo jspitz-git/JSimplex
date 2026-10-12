@@ -173,13 +173,26 @@ Freshgpt6astra accepts diagnostic/rejectedqualification, no Critical/newImportan
 no unnecessaryproductionworkmemory. Minor DEFERRED: auditor no_errors field never
 updated/vacuous; raw/status/assertiongates establish outcome. Do not claim all28true
 booleans independent. See S6-DUAL-PUBLIC-BOUNDARY.md/REVIEW. AFdriver/auditor NERERUN.
-Next: docs/superpowers/plans/2026-10-12-dual-control-certificate-provenance.md,S6-AG.
-ONE new Float64PFI unwrappedpubliccontrol, after mandatorysourceproof finalscratchrho
-is certificate input and unchanged onreturn. Postcallownedrho/model/scaling/bounds/
-state/options/policy/kernelcapture only, noobserver/adapter/extra quality/certificate/
-basis calls. Separate setup, expectedwork1FTRAN3BTRAN1refactor and savedNUMERRORmessage
-are provenance targets, NOT a replacement of AFcontroloracle or retroactiveacceptance.
-Offline exact/sourceinterval analysis then freshreview; no permanentrepair authorized.
+S6-AG complete:ONEnewFloat64PFI public call,10/10,exit0,29auditgates628pins,
+517sharedpins,6raw/portable/driver/AF-rejection supplements. Source binds finalscratchrho
+to this new call's certificate input without post-return writes. Actualrho==AE,
+exactB'rho=e2,tableau/selectedrow/pointbasis match. Offline sourcebinary64 interval
+firstcolumnstraddles0 despite exactcoefficient0; actualinfiniteupper satisfies early
+conservative refusal before penalties. Not instrumentedintermediate/AFprivateinputs/
+othermanager/historicalCIproof. Setup2FTRAN2BTRAN1refactor separate, public1/3/1,
+no correction/rejection/pivot/boundflip, noobserver/adapter/extrahelpercalls.
+Freshgpt6astra accepts/noCriticalImportantMinor/no unnecessaryproductionworkmemory.
+See S6-DUAL-CONTROL-PROVENANCE.md/REVIEW. AGdriver/auditor NERERUN. AFwholequalification
+stillNOTaccepted; its4failures/threefalsegates and deferredno_errorsminor retained.
+Next: docs/superpowers/plans/2026-10-12-dual-budget-acceptance-contract.md,S6-AH.
+SOURCE/EVIDENCEONLY, noJulia/adapter/permanenttestchanges. Explicitly distinguish
+recoverynegativecontrol purpose (events/work/publication) from INFEASIBLEcertificate
+hypothesis. Reconcile identifiedAFsubject248 checks/original108predicates and real
+controlrecordeddata plusAGnewPFIprovenance, withoutretroacceptingAF or changingoracles.
+If evidence supports narrowbudgetfixture, write NEW structuralRED/GREEN/actualmaster
+plan preservingpublicentry/all108recoveryassertions/nativehelper/other108byteidentical,
+completepreforwardcounts/wholework/2declarations/zero-one refs. Freshreviewfirst,
+no implementation thissubplan. Otherwise identifyprecisemissingcausalobservation.
 Production/test/master/CI unchanged. S6-J/S2-A rejected; historicalCIcause/hidden states/
 x64/fullsuite/broaderS6 open. No accepted old driver/corpus/reference/cost reruns.
 
@@ -189,7 +202,7 @@ comparability30/31false preserved with517pin/current-external supplement; no
 retroactive launch pin. Factor19gates615pins/exactLU/primal/dual residuals0.
 S6-R accepted08b7485/3baf29b:12/12/21gates613pins,componentdecomposition-1/16.
 Do not rerun old N/O/P/Q/R/S/T/corpus/reference/cost drivers against changed tests.
-Last fresh host runner411521/child411522/launchgroup411513 absent,noJulia,boot20de7dde-704e-41c8-bee7-b8511c0a86b0.
+Last fresh host runner413092/child413093/launchgroup413083 absent,noJulia,boot20de7dde-704e-41c8-bee7-b8511c0a86b0.
 Verify new host state before edits or any new Julia. User environment/dirt preserved.
 
 S6-Q remains accepted:11events,5/5,24gates611pins,exact S6-N endpoint. Refactor event

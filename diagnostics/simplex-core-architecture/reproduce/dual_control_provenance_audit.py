@@ -1,0 +1,26 @@
+from pathlib import Path
+from fractions import Fraction as Q
+import json,tomllib,hashlib,math,struct,shutil,sys,importlib.util
+sys.dont_write_bytecode=True
+root=Path('/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl');d=root/'diagnostics/simplex-core-architecture';o=d/'results/S6-AG';b=root/'.superpowers/simplex-core-architecture/S6-AG/provenance-1'
+h=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+r=tomllib.loads((b/'report.toml').read_text());p=json.loads((b/'process.json').read_text());pins=json.loads((b/'pins.json').read_text());pre=json.loads((o/'preflight.json').read_text());log=(b/'run.log').read_text();data=tomllib.loads((d/'results/S6-AE/inputs.toml').read_text());af=tomllib.loads((d/'results/S6-AF/qualification-1-report.toml').read_text());old=next(x for x in af['records'] if x['mode']=='control' and x['manager']=='pfi')
+rat=lambda s:Q(s.replace('//','/'));vec=lambda v:list(map(rat,v));rho=vec(r['rho']);B=[vec(row) for row in data['B']];A=[row+[row[0]] for row in B];actual=[[Q(0) for j in range(5)] for i in range(4)]
+for j in range(5):
+ for k in range(r['matrix_colptr'][j]-1,r['matrix_colptr'][j+1]-1):actual[r['matrix_rowval'][k]-1][j]=rat(r['matrix_values'][k])
+prices=[sum((rho[i]*actual[i][j] for i in range(4)),Q(0)) for j in range(5)]
+lo=hi=0.;steps=[]
+for k in range(r['matrix_colptr'][0]-1,r['matrix_colptr'][1]-1):
+ left=float(rho[r['matrix_rowval'][k]-1]);right=float(rat(r['matrix_values'][k]))
+ if left==0 or right==0:continue
+ product=left*right
+ lo=math.nextafter(lo+math.nextafter(product,-math.inf),-math.inf)
+ hi=math.nextafter(hi+math.nextafter(product,math.inf),math.inf)
+ steps.append({'left':str(Q(left)),'right':str(Q(right)),'product':str(Q(product)),'lower':str(Q(lo)),'upper':str(Q(hi))})
+spec=importlib.util.spec_from_file_location('g',d/'reproduce/guarded_run.py');g=importlib.util.module_from_spec(spec);spec.loader.exec_module(g)
+c={'process_exit0':p['returncode']==0 and p['reason']=='exit0','guard_pins':p['pins_unchanged'] and g.pins_match(pins),'independent_pins':all(h(Path(k))==v['sha256'] and str(Path(k).resolve())==v['resolved'] for k,v in pins['inventory'].items()),'shared517':len(pre['shared_pins'])==517 and all(h(Path(k))==v['sha256'] for k,v in pre['shared_pins'].items()),'source_provenance_hashes':all(h(root/k)==v for k,v in pre['source_hashes'].items()),'source':r['source']==str(root/'src/JSimplex.jl'),'test_preserved':pre['test_sha256']==h(root/'test/dual_pivot_consistency_tests.jl'),'input_link':r['input_sha256']==pre['input_sha256']==h(d/'results/S6-AE/inputs.toml') and r['input']==data,'AF_link':pre['AF_report_sha256']==h(d/'results/S6-AF/qualification-1-report.toml'),'assertions10':'|   10     10' in log and 'Test Failed' not in log and 'Error During Test' not in log,'one_public_call':r['public_calls']==1,'no_error':r['error']=='none','threads':r['julia_threads']==r['blas_threads']==1,'globals':r['globals_preserved'] and r['global_precision']==256 and r['global_rounding']=='RoundingMode{:Nearest}()','native_PFI':r['observer_absent'] and r['factor_preserved'] and 'PFIFactorization' in r['factor_type'],'AF_status_work':r['status']==old['status'] and r['message']==old['message'] and r['kernels']==old['kernels']==dict(ftran=1,btran=3,refactorization=1),'options_policy_AF':r['options']==old['options'] and r['policy']==old['policy'],'model_preserved':r['model_preserved'] and actual==A,'options_preserved':r['options_preserved'],'selected_state':r['selected_state_preserved'] and r['primal']==old['after']['primal'] and r['basis']==[1,2,3,4] and r['iterations']==0 and r['refactor_delta']==1,'no_recovery_events':all(r['event_delta'][k]==0 for k in ['correction_attempt','pivot_rejected','pivot_completed','bound_flipped']),'captured_rho_AE':rho==vec(data['exact_rho']),'exact_basis_equation':prices==[0,1,0,0,0],'tableau_exact':vec(r['tableau'])==prices+[-x for x in rho],'represented_bits':all(struct.pack('>d',float(rat(s))).hex()==v for key in ['rho','matrix_values'] for s,v in zip(r[key],r['rho_bits' if key=='rho' else 'matrix_bits'])),'unit_scaling':all(x==1 for x in vec(r['column_scaling'])+vec(r['row_scaling'])),'selected_below':r['selected_row']==2 and r['selected_entering']==-1 and r['lower'][1]['finite'] and rat(r['primal'][1])<rat(r['lower'][1]['value']),'first_column_rejection':math.isfinite(lo) and math.isfinite(hi) and lo<0<hi and not r['upper'][0]['finite'] and r['lower'][0]['finite'] and rat(r['lower'][0]['value'])==0,'user_hashes':all(h(Path('/home/jspitz/JSimplex.jl')/k)==v for k,v in json.loads(Path('/tmp/jsimplex-main-preserved.json').read_text()).items())}
+result={'checks':c,'all_passed':all(c.values()),'pin_count':len(pins['inventory']),'first_column_interval_steps':steps,'exact_first_column_coefficient':str(prices[0]),'scope':'Source-bound post-return certificate input for ONE new PFI call; outward interval reconstructed offline, not instrumented intermediate. AF remains NOT accepted; no transfer to other managers/historical CI.'}
+with (o/'provenance-1-audit.json').open('x') as f:json.dump(result,f,indent=2);f.write('\n')
+for n in ('report.toml','process.json','pins.json','run.log'):shutil.copyfile(b/n,o/('provenance-1-'+n))
+shutil.copyfile(d/'reproduce/dual_control_provenance.jl',o/'provenance-1-driver.jl')
+print(json.dumps(result,indent=2));assert result['all_passed']
