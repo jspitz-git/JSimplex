@@ -203,18 +203,98 @@ end
     end
 end
 
+# Scoped Float64 fixture for the one-attempt price-recovery budget. An identity
+# basis makes the underlying solves exact; only the first fresh cost BTRAN output
+# is replaced, after the real solve, to require one residual correction.
+mutable struct RepeatedPriceBudgetFactor{F}
+    inner::F
+    armed::Bool
+    cost_rhs::Vector{Float64}
+    declared_prices::Vector{Float64}
+    correction_rhs::Vector{Float64}
+    cost_btrans::Int
+    correction_btrans::Int
+    total_btrans::Int
+    hits::Int
+end
+Base.getproperty(f::RepeatedPriceBudgetFactor,n::Symbol)=
+    n in fieldnames(typeof(f)) ? getfield(f,n) : getproperty(getfield(f,:inner),n)
+function JSimplex.transpose_solve!(dest::Vector{Float64},f::RepeatedPriceBudgetFactor,rhs::AbstractVector)
+    cost=rhs==f.cost_rhs
+    @assert cost || rhs==f.correction_rhs "Unexpected repeated-price fixture BTRAN RHS"
+    f.total_btrans+=1
+    if cost
+        f.cost_btrans+=1
+    else
+        f.correction_btrans+=1
+    end
+    JSimplex.transpose_solve!(dest,f.inner,rhs)
+    if cost && f.armed
+        f.armed=false
+        f.hits+=1
+        copyto!(dest,f.declared_prices)
+    end
+    return dest
+end
+JSimplex.forward_solve!(dest::Vector{Float64},f::RepeatedPriceBudgetFactor,rhs::AbstractVector)=
+    JSimplex.forward_solve!(dest,f.inner,rhs)
+JSimplex._ordinary_forward_solve!(dest::Vector{Float64},f::RepeatedPriceBudgetFactor,rhs::AbstractVector)=
+    JSimplex._ordinary_forward_solve!(dest,f.inner,rhs)
+JSimplex._invalidate_prepared_destination!(f::RepeatedPriceBudgetFactor,dest)=
+    JSimplex._invalidate_prepared_destination!(f.inner,dest)
+JSimplex._finite_updated_factor(f::RepeatedPriceBudgetFactor)=JSimplex._finite_updated_factor(f.inner)
+JSimplex.refactorize!(f::RepeatedPriceBudgetFactor,B::AbstractMatrix)=JSimplex.refactorize!(f.inner,B)
+JSimplex.replace_column!(f::RepeatedPriceBudgetFactor,direction::AbstractVector,row::Integer;kwargs...)=
+    JSimplex.replace_column!(f.inner,direction,row;kwargs...)
+JSimplex.copy_basis_factorization(f::RepeatedPriceBudgetFactor)=
+    RepeatedPriceBudgetFactor(JSimplex.copy_basis_factorization(f.inner),f.armed,
+        copy(f.cost_rhs),copy(f.declared_prices),copy(f.correction_rhs),
+        f.cost_btrans,f.correction_btrans,f.total_btrans,f.hits)
+
+function repeated_price_budget_fixture(manager;diagnostics)
+    B=Matrix{Float64}(I,6,6)
+    unit=B[:,3:6]
+    A=sparse(hcat(B,unit,-unit,zeros(6)))
+    cost_rhs=Float64[1,1,0,0,0,0]
+    declared=Float64[1,1,2.0^-40,0,0,0]
+    rhs=ones(6)
+    p=LinearProblem(A,vcat(cost_rhs,zeros(9));row_lower=rhs,row_upper=rhs,
+        column_upper=vcat(fill(Bound{Float64}(nothing),14),Bound(1.0)))
+    options=SolverOptions(Float64;algorithm=:primal,basis_update=manager,verbose=false)
+    policy=JSimplex.NumericalPolicy(Float64;max_refinements=3)
+    ws=JSimplex.initialize_workspace(p,options;
+        progress=JSimplex.SimplexProgressContext(p;numerical_policy=policy,diagnostics))
+    ws.basis=JSimplex.Basis(collect(1:6),vcat(fill(JSimplex.BASIC,6),fill(JSimplex.AT_LOWER,15)))
+    JSimplex.recompute!(ws;refactorize=true)
+    ws.primal.=vcat(ones(6),zeros(9),rhs)
+    copyto!(ws.scratch.rho,declared)
+    JSimplex._recompute_reduced_costs!(ws.reduced_costs,ws,declared)
+    JSimplex._pipeline_changed!(ws,ws.scratch.rho)
+    JSimplex._invalidate_pricing_pool!(ws;basis=false)
+    @assert !policy.hypersparse
+    # Count the iteration only, including all calls after the one-shot injection.
+    factor=RepeatedPriceBudgetFactor(ws.factorization,true,cost_rhs,declared,
+        cost_rhs-declared,0,0,0,0)
+    return JSimplex.SimplexWorkspace((name==:factorization ? factor : getfield(ws,name)
+        for name in fieldnames(typeof(ws)))...)
+end
+
 @testset "A repeated price disagreement cannot renew the recovery budget" begin
     for manager in (:pfi,:forrest_tomlin,:suhl_suhl,:bartels_golub)
         diagnostics=JSimplex.SimplexDiagnostics(;observer=(event,ws)->begin
             # Fault injection after publication forces a second disagreement.
             event==:primal_prices_corrected && (ws.reduced_costs[7]=-1.0)
         end)
-        ws=native_price_roundoff_fixture(Float64,manager;diagnostics)
+        ws=repeated_price_budget_fixture(manager;diagnostics)
         result=JSimplex._primal_iteration!(ws,()->false,0.0)
         @test !isnothing(result) && result.status==NUMERICAL_ERROR
         @test JSimplex.event_count(diagnostics,:primal_prices_corrected)==1
         @test JSimplex.event_count(diagnostics,:correction_attempt)==1
         @test ws.iterations==0
         @test isempty(ws.scratch.rejected_entering)
+        @test ws.factorization.cost_btrans==1
+        @test ws.factorization.correction_btrans==1
+        @test ws.factorization.total_btrans==2
+        @test ws.factorization.hits==1
     end
 end
