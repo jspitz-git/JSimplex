@@ -579,3 +579,13 @@ introduces no production cost. S4-I is the separate two-workspace/28HHsolve gate
 in 2026-10-12-hh-borrowed-assembly-qualification.md; other native consumers excluded
 by explicit call sequence, not policy assumptions. Native reuse remains disabled,
 full-suite/platform/performance/native-retention obligations open. No old reruns.
+
+### S4-I closure, 2026-10-12
+
+Actual borrowed HH assembly qualification accepted:55runtime/29audit/655pins,
+10independent checks; two workspaces/28HHsolves. One Important report provenance
+correction RED1/GREEN3; offline auditor postexit hash is not launch pin. Minor six
+transient diagnostic copies deferred without rerun. Production remains unchanged
+and native reuse disabled. Next S4-J source/evidence-only eligibility boundary in
+2026-10-12-hh-reuse-eligibility-contract.md. No old lifecycle repetition, fullsuite,
+CI enablement, speedup or native-retention claim. See qualification report/review.

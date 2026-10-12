@@ -1,0 +1,23 @@
+from pathlib import Path
+import hashlib,json,subprocess,time,re
+root=Path('/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl');d=root/'diagnostics/simplex-core-architecture';out=d/'results/S4-I';runtime=Path('/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu')
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+libs={str((runtime/'lib/julia/libumfpack.so.6.3.5').resolve())}
+ldd=subprocess.check_output(['ldd',str(runtime/'lib/julia/libumfpack.so.6.3.5')],text=True)
+for line in ldd.splitlines():
+ for x in re.findall(r'(/[^\s()]+)',line):
+  if Path(x).is_file():libs.add(str(Path(x).resolve()))
+for p in (runtime/'lib/julia').glob('*openblas*.so*'):
+ if p.is_file():libs.add(str(p.resolve()))
+newfiles=[runtime/'share/julia/stdlib/v1.13/SparseArrays/src/solvers/umfpack.jl',runtime/'share/julia/stdlib/v1.13/SparseArrays/src/solvers/LibSuiteSparse.jl',runtime/'share/julia/stdlib/v1.13/SuiteSparse_jll/src/SuiteSparse_jll.jl',*map(Path,sorted(libs)),root/'docs/superpowers/plans/2026-10-12-hh-borrowed-assembly-qualification.md']
+prior=json.loads((d/'results/S4-E/source-contract.json').read_text());user={p:h for p,h in prior['hashes'].items() if p.endswith(('/Manifest.toml','/LocalPreferences.toml','/.vscode/settings.json'))};assert all(sha(p)==h for p,h in user.items())
+pre={'time_ns':time.time_ns(),'boot_id':Path('/proc/sys/kernel/random/boot_id').read_text().strip(),'head':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),'master':subprocess.check_output(['git','rev-parse','master'],text=True).strip(),'user_hashes':user,'native_libraries':{p:sha(p) for p in sorted(libs)},'files':{str(p):sha(p) for p in newfiles},'driver_sha256':sha(d/'reproduce/hh_borrowed_assembly.jl'),'ldd':ldd,'calls':{'workspace':2,'recompute':8,'public_assembly':2,'borrowed_explicit':2,'copy':2,'direct_F':6,'direct_B':6},'controls':'defaults with IRSTEP0,q=nothing','inputs':'two actual workspaces; fixed A/basis sequence in exact-inputs.json'}
+with (out/'preflight.json').open('x') as f:json.dump(pre,f,indent=2)
+with (out/'native-libraries.toml').open('x') as f:
+ f.write('[native_libraries]\n')
+ for p,h in pre['native_libraries'].items():f.write(json.dumps(p)+' = '+json.dumps(h)+'\n')
+newfiles.extend([out/'native-libraries.toml',out/'exact-inputs.json',out/'clone-source.json'])
+cmd=['python3','/tmp/jsimplex-hh-assembly-attempt.py','assembly-1',str(d/'reproduce/hh_borrowed_assembly.jl'),'{out}/report.toml',str(out/'native-libraries.toml'),str(d/'reproduce/hh_borrowed_assembly_clone.jl')]
+for p in newfiles:cmd+=['--file',str(p)]
+with (out/'launch-command.json').open('x') as f:json.dump(cmd,f,indent=2)
+print(json.dumps({'native_libraries':len(libs),'files':len(newfiles),'user':len(user),'driver_sha256':pre['driver_sha256']}))

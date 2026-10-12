@@ -1,0 +1,433 @@
+{
+  "checks": {
+    "exit0": true,
+    "guard_pins": true,
+    "all_pins_rehashed": true,
+    "55_runtime_checks": true,
+    "entry_budget": true,
+    "two_sides": true,
+    "twelve_direct_recipes": true,
+    "direct_exact_bounds": true,
+    "actual_model_bits": true,
+    "eight_reconstruction_recipes": true,
+    "sixteen_reconstruction_solves": true,
+    "eight_price_bounds": true,
+    "exact_source_clones": true,
+    "frozen_source_identity": true,
+    "controls_default": true,
+    "symbolic_decisions": true,
+    "singular_factor_state": true,
+    "workspace_partial_mutation": true,
+    "no_failure_reconstruction": true,
+    "kernel_totals": true,
+    "exact_events": true,
+    "no_cache_fabrication": true,
+    "actual_source": true,
+    "native_library_pin": true,
+    "globals": true,
+    "host_groups_absent": true,
+    "user6": true,
+    "production_test_CI_unchanged": true,
+    "resources": true
+  },
+  "all_passed": true,
+  "pins": 655,
+  "direct_exact": [
+    {
+      "label": "reference_live_B1_after_overwrite",
+      "residual": [
+        "-1/18014398509481984",
+        "-3/72057594037927936"
+      ],
+      "bound": "28659270355994065/633825300114114700748351602688",
+      "pass": true
+    },
+    {
+      "label": "reference_saved_B1_after_overwrite",
+      "residual": [
+        "1/18014398509481984",
+        "-1/72057594037927936"
+      ],
+      "bound": "28659270355994065/633825300114114700748351602688",
+      "pass": true
+    },
+    {
+      "label": "reference_live_slack_after_failure",
+      "residual": [
+        "0",
+        "0"
+      ],
+      "bound": "1/35184372088832",
+      "pass": true
+    },
+    {
+      "label": "reference_live_slack_transpose_after_failure",
+      "residual": [
+        "0",
+        "0"
+      ],
+      "bound": "1/35184372088832",
+      "pass": true
+    },
+    {
+      "label": "reference_saved_B1_after_failure",
+      "residual": [
+        "-1/18014398509481984",
+        "-3/72057594037927936"
+      ],
+      "bound": "28659270355994065/633825300114114700748351602688",
+      "pass": true
+    },
+    {
+      "label": "reference_saved_B1_transpose_after_failure",
+      "residual": [
+        "1/18014398509481984",
+        "-1/72057594037927936"
+      ],
+      "bound": "28659270355994065/633825300114114700748351602688",
+      "pass": true
+    },
+    {
+      "label": "candidate_live_B1_after_overwrite",
+      "residual": [
+        "-1/18014398509481984",
+        "-3/72057594037927936"
+      ],
+      "bound": "28659270355994065/633825300114114700748351602688",
+      "pass": true
+    },
+    {
+      "label": "candidate_saved_B1_after_overwrite",
+      "residual": [
+        "1/18014398509481984",
+        "-1/72057594037927936"
+      ],
+      "bound": "28659270355994065/633825300114114700748351602688",
+      "pass": true
+    },
+    {
+      "label": "candidate_live_slack_after_failure",
+      "residual": [
+        "0",
+        "0"
+      ],
+      "bound": "1/35184372088832",
+      "pass": true
+    },
+    {
+      "label": "candidate_live_slack_transpose_after_failure",
+      "residual": [
+        "0",
+        "0"
+      ],
+      "bound": "1/35184372088832",
+      "pass": true
+    },
+    {
+      "label": "candidate_saved_B1_after_failure",
+      "residual": [
+        "-1/18014398509481984",
+        "-3/72057594037927936"
+      ],
+      "bound": "28659270355994065/633825300114114700748351602688",
+      "pass": true
+    },
+    {
+      "label": "candidate_saved_B1_transpose_after_failure",
+      "residual": [
+        "1/18014398509481984",
+        "-1/72057594037927936"
+      ],
+      "bound": "28659270355994065/633825300114114700748351602688",
+      "pass": true
+    }
+  ],
+  "reconstruction": [
+    {
+      "side": "reference",
+      "state": "initial",
+      "rhs": [
+        "0",
+        "0"
+      ],
+      "primal": {
+        "residual": [
+          "0",
+          "0"
+        ],
+        "bound": "1/70368744177664",
+        "pass": true
+      },
+      "dual": {
+        "residual": [
+          "0",
+          "0"
+        ],
+        "bound": "1/70368744177664",
+        "pass": true
+      },
+      "prices_residual": [
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "prices_bound": "5/70368744177664",
+      "prices_pass": true
+    },
+    {
+      "side": "reference",
+      "state": "B1",
+      "rhs": [
+        "1",
+        "2"
+      ],
+      "primal": {
+        "residual": [
+          "-1/18014398509481984",
+          "-3/72057594037927936"
+        ],
+        "bound": "28659270355994065/633825300114114700748351602688",
+        "pass": true
+      },
+      "dual": {
+        "residual": [
+          "1/18014398509481984",
+          "-1/72057594037927936"
+        ],
+        "bound": "28659270355994065/633825300114114700748351602688",
+        "pass": true
+      },
+      "prices_residual": [
+        "0",
+        "0",
+        "-7/72057594037927936",
+        "23/72057594037927936",
+        "7/36028797018963968",
+        "0",
+        "0"
+      ],
+      "prices_bound": "5/70368744177664",
+      "prices_pass": true
+    },
+    {
+      "side": "reference",
+      "state": "B2",
+      "rhs": [
+        "1",
+        "2"
+      ],
+      "primal": {
+        "residual": [
+          "-1/144115188075855872",
+          "9/144115188075855872"
+        ],
+        "bound": "5854679515581645/79228162514264337593543950336",
+        "pass": true
+      },
+      "dual": {
+        "residual": [
+          "-1/4503599627370496",
+          "-1/4503599627370496"
+        ],
+        "bound": "4953959590107545/79228162514264337593543950336",
+        "pass": true
+      },
+      "prices_residual": [
+        "0",
+        "0",
+        "0",
+        "-3/9007199254740992",
+        "-1/4503599627370496",
+        "0",
+        "0"
+      ],
+      "prices_bound": "5/70368744177664",
+      "prices_pass": true
+    },
+    {
+      "side": "reference",
+      "state": "slack",
+      "rhs": [
+        "0",
+        "0"
+      ],
+      "primal": {
+        "residual": [
+          "0",
+          "0"
+        ],
+        "bound": "1/70368744177664",
+        "pass": true
+      },
+      "dual": {
+        "residual": [
+          "0",
+          "0"
+        ],
+        "bound": "1/70368744177664",
+        "pass": true
+      },
+      "prices_residual": [
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "prices_bound": "5/70368744177664",
+      "prices_pass": true
+    },
+    {
+      "side": "candidate",
+      "state": "initial",
+      "rhs": [
+        "0",
+        "0"
+      ],
+      "primal": {
+        "residual": [
+          "0",
+          "0"
+        ],
+        "bound": "1/70368744177664",
+        "pass": true
+      },
+      "dual": {
+        "residual": [
+          "0",
+          "0"
+        ],
+        "bound": "1/70368744177664",
+        "pass": true
+      },
+      "prices_residual": [
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "prices_bound": "5/70368744177664",
+      "prices_pass": true
+    },
+    {
+      "side": "candidate",
+      "state": "B1",
+      "rhs": [
+        "1",
+        "2"
+      ],
+      "primal": {
+        "residual": [
+          "-1/18014398509481984",
+          "-3/72057594037927936"
+        ],
+        "bound": "28659270355994065/633825300114114700748351602688",
+        "pass": true
+      },
+      "dual": {
+        "residual": [
+          "1/18014398509481984",
+          "-1/72057594037927936"
+        ],
+        "bound": "28659270355994065/633825300114114700748351602688",
+        "pass": true
+      },
+      "prices_residual": [
+        "0",
+        "0",
+        "-7/72057594037927936",
+        "23/72057594037927936",
+        "7/36028797018963968",
+        "0",
+        "0"
+      ],
+      "prices_bound": "5/70368744177664",
+      "prices_pass": true
+    },
+    {
+      "side": "candidate",
+      "state": "B2",
+      "rhs": [
+        "1",
+        "2"
+      ],
+      "primal": {
+        "residual": [
+          "-1/144115188075855872",
+          "9/144115188075855872"
+        ],
+        "bound": "5854679515581645/79228162514264337593543950336",
+        "pass": true
+      },
+      "dual": {
+        "residual": [
+          "-1/4503599627370496",
+          "-1/4503599627370496"
+        ],
+        "bound": "4953959590107545/79228162514264337593543950336",
+        "pass": true
+      },
+      "prices_residual": [
+        "0",
+        "0",
+        "0",
+        "-3/9007199254740992",
+        "-1/4503599627370496",
+        "0",
+        "0"
+      ],
+      "prices_bound": "5/70368744177664",
+      "prices_pass": true
+    },
+    {
+      "side": "candidate",
+      "state": "slack",
+      "rhs": [
+        "0",
+        "0"
+      ],
+      "primal": {
+        "residual": [
+          "0",
+          "0"
+        ],
+        "bound": "1/70368744177664",
+        "pass": true
+      },
+      "dual": {
+        "residual": [
+          "0",
+          "0"
+        ],
+        "bound": "1/70368744177664",
+        "pass": true
+      },
+      "prices_residual": [
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "prices_bound": "5/70368744177664",
+      "prices_pass": true
+    }
+  ],
+  "raw_sha": "be5ba926ede9ac7a87fcf13132a2684171542a0df3cd7eb3b74d26b20270e8d9",
+  "resources": {
+    "samples": 7,
+    "min_available_kib": 22794948,
+    "max_swap_kib": 0
+  }
+}

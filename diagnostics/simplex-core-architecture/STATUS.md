@@ -46,7 +46,29 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-**Current continuation: S4-H accepted source/evidence contract after one offline review correction; next S4-I, `docs/superpowers/plans/2026-10-12-hh-borrowed-assembly-qualification.md`. No numerical S4-I execution yet. Historical entries below remain preserved.**
+**Current continuation: S4-I accepted two-workspace diagnostic qualification after one offline provenance correction; next S4-J source-only eligibility contract, `docs/superpowers/plans/2026-10-12-hh-reuse-eligibility-contract.md`. Historical entries below remain preserved.**
+
+S4-I assembly-1:55/55runtime/exit0,29auditgates655pins,10authorindependentchecks.
+Two actual workspace lifecycles, exact source clones without method overwrite.
+Totals2workspaces/2copies/8refactorattempts/10borrowedassemblies/2publicassemblies/
+28HHsolves(14F14B);10native numeric entries source-derived and UPTO8orientation
+solves bound. Actual borrowed grow2->4/overwrite/shrink4->2, owned old/public/saved
+factors safe. Candidate samepattern symbolic retained; reference rebuilt. Singular
+both discardnativeworkspace, retainextracted/saved factors, leaveworkspacebasis/
+mask/CSC mutated; no complete-workspace rollback. Kernel per side4F4B4ref, successful
+refactors3/eventsinitial+3other/iterations0. Exact28solve+8price bounds pass;
+16solve residuals nonzero. No feasibility/optimality/otherconsumer claim.
+Freshgpt6astra noCritical; Important incorrectauditorlaunchpin claim fixed once
+RED1/GREEN3, before report preserved; postexit auditorhash separate NOTretroactive.
+MinorDEFERRED6transientdiagnostic captures(16factorstate total,10retained), no driver
+edit/rerun. No new productionworkmemory; reviewer samples, authorfull655separate.
+7resource samples within guard; runner8770/start355367/group8766 andchild8771/
+start355448/group8771/fullgroups absent, bootdade7243-9103-4398-bb45-fa28fbc0be72.
+Production/test/master0eb75c3/CI unchanged, nativeHHreuse remains disabled. No
+accepted I/H/G/F or older driver/auditor rerun. Reports S4-BORROWED-ASSEMBLY-
+QUALIFICATION.md/REVIEW, results/S4-I. Next source-only actual eligibility boundary;
+controls/shape/nonfinite/otherprecision/otherconsumers/cost/native-retention open.
+
 
 S4-H preserves original24/25 offline checks/exit1/falseall_passed (literal caret
 ANSI parser mismatch); new9check supplement, full526hashes/8independent checks.
