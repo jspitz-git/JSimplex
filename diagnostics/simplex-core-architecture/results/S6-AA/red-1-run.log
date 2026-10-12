@@ -1,0 +1,31 @@
+ERROR: LoadError: Some tests did not pass: 0 passed, 2 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/reliable_exchange_repair.jl:23
+
+Reliable exchange structural contract: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/reliable_exchange_repair.jl:25
+  Expression: occursin("policy=reliable_artificial_exchange_fixture(Float32,manager;", TARGET)
+   Evaluated: occursin("policy=reliable_artificial_exchange_fixture(Float32,manager;", "@testset \"Reliable artificial exchanges need no reconstruction recovery\" begin\n    for manager in (:pfi,:forrest_tomlin,:suhl_suhl,:bartels_golub)\n        diagnostics=JSimplex.SimplexDiagnostics()\n        phase,mapping,original,policy=artificial_exchange_roundoff_fixture(Float32,manager;\n            max_refinements=0,diagnostics)\n        @test JSimplex.remove_artificials!(phase,mapping,original,policy,()->false)\n        @test original.iterations==1\n        @test JSimplex._recomputed_basis_reliable(original)\n        @test JSimplex.event_count(diagnostics,:correction_attempt)==0\n    end\nend\n")
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/reliable_exchange_repair.jl:25
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/reliable_exchange_repair.jl:25 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+
+Reliable exchange structural contract: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/reliable_exchange_repair.jl:26
+  Expression: occursin("A=sparse(Matrix{T}(I,6,6))", NEWHELPER)
+   Evaluated: occursin("A=sparse(Matrix{T}(I,6,6))", "")
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/reliable_exchange_repair.jl:25
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/reliable_exchange_repair.jl:26 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+Test Summary:                         | Fail  Total  Time
+Reliable exchange structural contract |    2      2  0.6s
+RNG of the outermost testset: Random.Xoshiro(0x551cb7bc1fe7836c, 0x5b3e69fa77811e4c, 0x356ef1887745ecbe, 0x933ae14cedc9e699, 0x789ed6705b4dcc35)

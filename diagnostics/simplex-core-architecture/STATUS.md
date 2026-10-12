@@ -4,7 +4,7 @@ Updated: 2026-10-12. This is the entry point after interruption.
 
 ## Current state
 
-**S1-A, S3-A/S3-B, S4-A/S4-C and S5-C integrated; master `b9e7cb1` (includes S6-C/S6-G/S6-M/S6-T/S6-W test repairs). S2-A rejected; S0-L all four long references audited and complete.**
+**S1-A, S3-A/S3-B, S4-A/S4-C and S5-C integrated; master `74f7835` (includes S6-C/S6-G/S6-M/S6-T/S6-W/S6-AA test repairs). S2-A rejected; S0-L all four long references audited and complete.**
 The source baseline is `fe839aa72171d7496c9c931d9393278448c7317e`.
 Initial time-budget diagnostic evidence is commit `6ded1fc`.
 
@@ -38,7 +38,7 @@ main also has a user-modified .vscode/settings.json. Do not stage those files.
 | S3 | End-to-end exact sparsity support | Active | S3-A/S3-B integrated, latest masterb720674; exact-support consumer savings qualified; broader S3 partial |
 | S4 | Refactorization memory lifecycle | Active | S4-A/S4-C integrated; master3220118; Float64 component attribution/cost and exact triplet optimization accepted; bounded scalar component attribution360samples accepted; broader manager/history/medium coverage open |
 | S5 | Phase/cleanup handoff contract | Active | S5-A/S5-B accepted; S5-C production88a2411 -> mastere7014fb, reviewed, master668/668; broader handoffs partial |
-| S6 | Broad validation and final comparison | Active | S6-A/B triage accepted; S6-C test repair integrated as mastera465da5, focused20/20. S6-G artificial-row test repair master8516e0d; S6-M BigFloat fixture repair master7fea422, focused1477/1477; S6-T no-recession fixture masterafb37d9,focused192/master19; S6-W repeated-price fixture masterb9e7cb1,focused109/master41; other CI families and full validation remain open |
+| S6 | Broad validation and final comparison | Active | S6-A/B triage accepted; S6-C test repair integrated as mastera465da5, focused20/20. S6-G artificial-row test repair master8516e0d; S6-M BigFloat fixture repair master7fea422, focused1477/1477; S6-T no-recession fixture masterafb37d9,focused192/master19; S6-W repeated-price fixture masterb9e7cb1,focused109/master41; S6-AA reliable exchange fixture master74f7835,focused127/master19; other CI families and full validation remain open |
 
 Allowed execution states: Pending, Active, Blocked (reason required), Verified,
 Integrated, Rejected (evidence required). Mark an optimization Verified only after
@@ -108,12 +108,21 @@ old det31071 means same structural singleton, not different feasible set;equatio
 activity coordinates/sparsity/cancellation differ. Original raw/preflight retained,
 plan erratum appended; no numerical rerun. No unnecessary production work/memory.
 See S6-RELIABLE-EXCHANGE.md/REVIEW; accepted X/Y/Z drivers/audits NERERUN.
-Next: docs/superpowers/plans/2026-10-12-reliable-phase-exchange-repair.md,S6-AA.
-Permanent test-only helper+zero-budget target call;original4assertions, nativehelper
-and adjacenttestsets unchanged. Structural pre-solve RED; actual GREEN target plus
-selected native cancellation/policy neighbor,review,actualmastergate beforepush.
-No solver/options/tolerance/precision/CI change. First4scalar-unknownacceptedfalse
-CI failures remain unresolved; broaderS6/fullsuite/x64 remain open.
+S6-AA accepted and integrated: testf2e7647 -> master74f7835,pushed. Structural
+RED2expectedfailures/zero exchanges,15gates621pins; GREEN127/127 (16target+108native
+neighbor+3structural/global),17gates621pins; actual-master19/19,18gates621pins.
+Source/GREEN identity, raw/portable/driver/user hashes verified. Freshgpt6astra no
+findings/no unnecessary production work or memory. Only new identity6 helper and
+zero-budget target call; original4assertions/nativehelper/allneighbors unchanged.
+Same structural singleton; different equations/activities/cancellation. No production,
+options,tolerance,precision or CI change. See S6-RELIABLE-EXCHANGE-FIXTURE.md/REVIEW.
+Next: docs/superpowers/plans/2026-10-12-phase-reconstruction-boundary-qualification.md,
+S6-AB. Mandatory phase-factor ownership/dispatch/copy/update/refactor/invalidation
+and full solve-attempt counting preflight before wrapper or numerics. Unqualified
+identity6 phase-only real-forward declared FTRAN output injection, at most16new
+exchanges across two scalars/four managers/control+subject. Original/export factors
+remain real. No old X/Y/Z/AA/corpus/reference/cost reruns. First4scalar-unknown CI
+failures, private CI export/cause, broader S6/fullsuite/x64 remain unresolved.
 
 
 S6-S accepted evidence90811de/closure6c5ef37: fourtype13/13 + factor6/6; initial
@@ -121,7 +130,7 @@ comparability30/31false preserved with517pin/current-external supplement; no
 retroactive launch pin. Factor19gates615pins/exactLU/primal/dual residuals0.
 S6-R accepted08b7485/3baf29b:12/12/21gates613pins,componentdecomposition-1/16.
 Do not rerun old N/O/P/Q/R/S/T/corpus/reference/cost drivers against changed tests.
-Last fresh host401309/401310/401301 absent,noJulia,boot20de7dde-704e-41c8-bee7-b8511c0a86b0.
+Last fresh host403571/403572/403563 absent,noJulia,boot20de7dde-704e-41c8-bee7-b8511c0a86b0.
 Verify new host state before edits or any new Julia. User environment/dirt preserved.
 
 S6-Q remains accepted:11events,5/5,24gates611pins,exact S6-N endpoint. Refactor event

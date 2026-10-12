@@ -48,3 +48,11 @@ runs. No big/largo/AnyMOD/aliases. Preserve user files, raw attempts, old worktr
 and environments. Accepted S6-X/Y/Z and older corpus/reference/cost must not rerun;
 do not execute old qualification driver after changing the test. Broader S6 and
 actual x64/fullsuite success remain open.
+
+## Completion
+
+S6-AA completed: structural RED2expectedfailures/zero exchanges; GREEN127/127;
+master19/19 and18audit gates621pins. Fresh independent review no findings.
+Testf2e7647 -> master74f7835; push completed. Source/raw/pins/user hashes verified.
+See S6-RELIABLE-EXCHANGE-FIXTURE.md and REVIEW. Broader validation remains open;
+next separate S6-AB phase-reconstruction-boundary-qualification preflight.
