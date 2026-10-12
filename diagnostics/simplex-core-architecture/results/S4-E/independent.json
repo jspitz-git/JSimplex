@@ -1,0 +1,45 @@
+{
+  "checks": {
+    "full542_rehash": true,
+    "native_blocks_B_to_current_equal": true,
+    "five_targets_nonsingular": true,
+    "sixth_singular": true,
+    "six_pairs_budget": true,
+    "master_source_test_ci_equal": true
+  },
+  "all_passed": true,
+  "hash_count": 542,
+  "changed": [],
+  "blocks": [
+    {
+      "start": "function _hh_extract_parts(F::SparseArrays.UMFPACK",
+      "end": "mutable struct HuangfuHallFactorization",
+      "equal": true,
+      "old_sha": "b78a1936fd03ef27d55022a6f870fc9d6e41c014039db120af90ff77bcc2a5e6",
+      "new_sha": "b78a1936fd03ef27d55022a6f870fc9d6e41c014039db120af90ff77bcc2a5e6"
+    },
+    {
+      "start": "_hh_refactor_lu!",
+      "end": "function copy_basis_factorization",
+      "equal": true,
+      "old_sha": "80e72aadfe3b8c9b32a5016686339d442fdfcca4720e27abe1530699bd00597c",
+      "new_sha": "80e72aadfe3b8c9b32a5016686339d442fdfcca4720e27abe1530699bd00597c"
+    },
+    {
+      "start": "function copy_basis_factorization",
+      "end": "# Keep unsupported combinations",
+      "equal": true,
+      "old_sha": "0300616c4e99c93e051417a75368dd2f7077a9606f3389fbd5b2e5e9d142f243",
+      "new_sha": "0300616c4e99c93e051417a75368dd2f7077a9606f3389fbd5b2e5e9d142f243"
+    }
+  ],
+  "exact_target_determinants": [
+    "19",
+    "-1572863/262144",
+    "10",
+    "12",
+    "24",
+    "0"
+  ],
+  "scope": "independent author offline supplemental check; no Julia; not a rerun of source_contract.py"
+}
