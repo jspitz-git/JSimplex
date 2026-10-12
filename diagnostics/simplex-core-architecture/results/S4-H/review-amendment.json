@@ -1,0 +1,49 @@
+{
+  "red": {
+    "report_false_claim_removed": false,
+    "complete_consumer_inventory": false,
+    "explicit_route_exclusion": false
+  },
+  "green": {
+    "inventory_exact13": true,
+    "report_false_claim_removed": true,
+    "all_consumer_files_documented": true,
+    "future_plan_excludes_other_routes": true,
+    "budget_unchanged": true
+  },
+  "all_passed": true,
+  "actual_calls": {
+    "native_cleanup_recovery.jl": [
+      89
+    ],
+    "legacy_primal_pivot.jl": [
+      52,
+      123
+    ],
+    "simplex_pivot.jl": [
+      473
+    ],
+    "legacy_dual_correction.jl": [
+      30,
+      113
+    ],
+    "simplex_phase_one.jl": [
+      166
+    ],
+    "native_phase_transfer.jl": [
+      175
+    ],
+    "native_certificate_recovery.jl": [
+      10
+    ],
+    "simplex_recovery.jl": [
+      27,
+      104,
+      172
+    ],
+    "simplex.jl": [
+      425
+    ]
+  },
+  "scope": "one offline documentation RED/GREEN; no Julia or accepted script rerun"
+}

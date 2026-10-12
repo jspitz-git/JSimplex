@@ -46,7 +46,27 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-**Current continuation: S4-G accepted diagnostic qualification; next S4-H source/evidence-only actual borrowed assembly contract, `docs/superpowers/plans/2026-10-12-hh-borrowed-assembly-contract.md`. Historical entries below remain preserved.**
+**Current continuation: S4-H accepted source/evidence contract after one offline review correction; next S4-I, `docs/superpowers/plans/2026-10-12-hh-borrowed-assembly-qualification.md`. No numerical S4-I execution yet. Historical entries below remain preserved.**
+
+S4-H preserves original24/25 offline checks/exit1/falseall_passed (literal caret
+ANSI parser mismatch); new9check supplement, full526hashes/8independent checks.
+20historical comparisons18equal, four non-HH assembly testsets2311pass separately
+per failed CI run; S4-C ten source matches/actual HH integration execution, pinned
+assembly file NOT executed. Fresh gpt-6-astra review found one Important missing
+consumer inventory: corrected once offline RED3/GREEN5, before documents preserved.
+Thirteen actual borrowed-assembly callers, twelve outside recompute; several native
+routes. S4-I limited to actual initialization/explicit recompute, excludes pivots,
+recovery, phase transfer, cleanup, certification. No complete-workspace rollback:
+caller basis/mask/borrowed CSC mutate before failure, kernel finally counts failure.
+Reviewer9samplehashes, authorfull526separate; no Critical/Minor or unnecessary
+production work/memory. Source/test/master/CI unchanged, no Julia or old reruns.
+Next two workspaces/2copies/8refactorattempts/10borrowedassemblies/2publicassemblies/
+28HHsolves(14F14B), source-derived10numeric/UPTO8orientation solves. No qualification
+of other assembly consumers, populated caches, nonempty history, arbitrary controls,
+empty/nonfinite/shape/precision/cost/native-retention. Native reuse still disabled.
+Reports S4-BORROWED-ASSEMBLY-CONTRACT.md/REVIEW, results/S4-H. Exclusive scripts
+and old accepted drivers/auditors must not be rerun. Existing rejections unchanged.
+
 
 S4-G publication-1 has79/79 runtime checks, exit0,26audit gates653pins and10
 independent author supplements. Two new HH lifecycles:2constructors/2copies/

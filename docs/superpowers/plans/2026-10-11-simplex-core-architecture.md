@@ -567,3 +567,15 @@ boundary2constructors/2copies/6updates/4refactors/24HHsolves, with internal work
 explicitly outside that count. No speedup/public-workspace/fullsuite/x64 claim.
 Next S4-H actual borrowed basis assembly/recompute source/evidence contract:
 2026-10-12-hh-borrowed-assembly-contract.md. Do not rerun accepted G/F/E evidence.
+
+### S4-H closure, 2026-10-12
+
+Borrowed HH assembly source contract accepted after one independent Important
+inventory correction (13callers,12outside recompute). No Julia/production/test/CI
+change. Original parser failure24/25/exit1 preserved, nine supplement checks and
+full526hashes/eight independent checks pass. Review correction RED3/GREEN5; before
+report/plan retained. See S4-BORROWED-ASSEMBLY-CONTRACT.md/REVIEW. Source-only work
+introduces no production cost. S4-I is the separate two-workspace/28HHsolve gate
+in 2026-10-12-hh-borrowed-assembly-qualification.md; other native consumers excluded
+by explicit call sequence, not policy assumptions. Native reuse remains disabled,
+full-suite/platform/performance/native-retention obligations open. No old reruns.
