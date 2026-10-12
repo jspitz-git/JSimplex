@@ -46,7 +46,27 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-**Current continuation: S4-L source/evidence cost contract accepted; next S4-M bounded NEW sparse/dense whole-HH cost observations, `docs/superpowers/plans/2026-10-12-hh-symbolic-cost-measurement.md`. Native retention remains OPEN and symbolic reuse stays disabled.**
+**Current continuation: S4-M bounded cost evidence accepted; next S4-N SOURCE/EVIDENCE ONLY native allocation accounting feasibility, `docs/superpowers/plans/2026-10-12-hh-native-accounting-feasibility.md`. Native retention remains OPEN and HH symbolic reuse stays disabled.**
+
+S4-M:oneNEWguardedcost-1,231runtimechecks/exit0,24auditgates554launchpins,10author
+independentchecks/full554/20,148rebuiltinputRHSentries. FourHHfactors sparse/dense96
+nnz474/9216;actual4constructors128warmup512measuredrefactors88solves44F44B. All32
+measuredcompile/recompile0;16pairs equal recorded outputs+HHbasefingerprints;88
+exactresidualsNONZEROallpass. Pairedmedianratios0.66579/0.75772,ranges0.62688–0.93650/
+0.52678–0.80944. Local shortwhole-refactorwindows only,notendtoend/fullallocationfree
+lifecycle/universalspeedup. GC/diagnostics outside; no old cost rerun. SOURCE-DERIVED
+644numeric/extractions322refsymbolic+2candidateinitial320guards,UPTO644orientation
+solves NOTobservedcount. Graph920424Bstable;InfoUnit16/sizes+RSSnotnativefreeledger;
+native-retentionOPEN. Freshgpt6astra nofindings/no unnecessaryproductionworkmemory;
+reviewer33samplepins/allinputs/exact88/pairs/stats,authorfull554separate. Sixresource
+samplesRAMmin22796936KiBswap0. Runner15915/start670009/group15914,child15916/start
+670093/group15916/fullgroupsabsent,bootdade7243-9103-4398-bb45-fa28fbc0be72,noJulia.
+ReportsS4-SYMBOLIC-COST-MEASUREMENT.md/REVIEW,results/S4-M. FrozenMdriver/clone/
+prepare/auditor/independent/closureNERERUN; postexitauditorseparateSHA NOTlaunchpin.
+No production/test/master0eb75c3/CI changes; allrejections/fullsuiteobligationsopen.
+NextNsourceonly: assess supported nativeallocator accounting ABI/scope/lifetime/
+realloc/finalizers/restoration/overhead, no numericalcalls/hook install/repetition.
+
 
 S4-L: no Julia,36offlinechecks527read-timehashes,15authorindependentchecks/full527
 rehash. Installed wrapper/convert/info/finalizer sources bound; versioned upstream

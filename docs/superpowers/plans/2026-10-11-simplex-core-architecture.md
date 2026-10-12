@@ -627,3 +627,15 @@ change. Next bounded NEW sparse/dense S4-M plan:
 refactors,88directsolves,balanced8rounds per fixture,compilezero+exact residual
 gates; native Info/graph/RSS observations do not prove native retention. No old
 accepted driver/auditor/corpus reruns, CI enablement, fullsuite or promotion claim.
+
+### S4-M closure, 2026-10-12
+
+One new bounded sparse/dense96 HH run:231checks/24gates554pins/10independentchecks,
+4constructors640refactors88solves,32measuredcompile0samples,16equalendpointpairs.
+All88exactresidualsNONZEROwithinbound. Pairedmedianratios0.66579/0.75772 are local
+whole-refactor-window observations; GC/diagnostics outside, no full-lifecycle or
+solver speedup claim. Freshgpt6astra nofindings/no unnecessaryproductionworkmemory;
+reviewer33samplepins and all exact inputs/residuals/statistics,authorfull554separate.
+StableJulia graph/nativeInfo/RSS do not close native retention. Next source-only
+S4-N in2026-10-12-hh-native-accounting-feasibility.md; no Julia or hooks in N.
+No symbolic enablement, production/test/CI changes or broaderS4/S6 acceptance.
