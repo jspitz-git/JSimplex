@@ -1,0 +1,11 @@
+[[insertions]]
+anchor = "    ws = JSimplex.initialize_workspace"
+insert = "    O_COUNTS[1] += 1\n"
+
+[[insertions]]
+anchor = "        JSimplex.make_dual_feasible!(ws,()->false)"
+insert = "        O_COUNTS[2] += 1\n"
+
+[[insertions]]
+anchor = "    return checks\n"
+insert = "    observations = (outcome_type=string(typeof(outcome)),\n        cause_type=outcome isa JSimplex.DiagnosticObserverFailure ? string(typeof(outcome.cause)) : \"none\",\n        latch_count=probe.latches,hit_count=probe.hits,callback_count=probe.callbacks,\n        entry_iterations=entry.iterations,final_iterations=ws.iterations,\n        entry_refactors=entry.refactors,final_refactors=ws.refactorizations,\n        throw_iterations=probe.throw_iterations,throw_refactors=probe.throw_refactors,\n        throw_phase_events=probe.throw_phase_events,throw_callbacks=probe.throw_callbacks,\n        final_phase_events=JSimplex.event_count(d,:pricing_phase_reset),last_event=string(last_event))\n    O_COUNTS[3] += 1\n    O_RECORD[] = (checks=checks,observations=observations)\n"

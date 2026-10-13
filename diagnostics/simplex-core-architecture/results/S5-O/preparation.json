@@ -1,0 +1,73 @@
+{
+  "all_passed": true,
+  "N789_M756_raw6_user6_verified": true,
+  "prefix_bytes": 19080,
+  "inverse_exact": true,
+  "helpers": [
+    {
+      "text": "function isolated_pricing_policy(::Type{T}=Float64; enabled=true, window=2) where T\n    # All unrelated adaptive mechanisms remain disabled.\n    return JSimplex.NumericalPolicy(T; adaptive_stalling=true, adaptive_pricing=enabled,\n        stagnation_window=window, refactor_timing=false)\nend\n",
+      "sha256": "7d1f294ec3023161d23fefbd4f1e5c953fb2c5c076ef87f5fc904fd4182e52e6"
+    },
+    {
+      "text": "function pricing_window!(state, monitor, policy; objective=1)\n    for _ in 1:monitor.window\n        JSimplex.observe_progress!(monitor; objective, primal_violation=1,\n            dual_violation=0, primal_step=0, dual_step=0)\n        JSimplex.next_pricing!(state, monitor, policy)\n    end\n    return state.active\nend\n",
+      "sha256": "4db6de55e1d9c306ba7372d25badb4cc8168f5219e9b8136662c589e45852b12"
+    },
+    {
+      "text": "function force_pricing_trial!(ws,algorithm)\n    JSimplex._prepare_auto_pricing!(ws,algorithm)\n    state = ws.scratch.pricing\n    state.return_mode = state.active\n    state.active = :dantzig\n    state.temporary = true\n    state.trial_until = 8\n    return state\nend\n",
+      "sha256": "e0fb8dd6625ff2b8598ce66af481103ce885ca6c11b5ab3ec0596fbaaf08224d"
+    }
+  ],
+  "checks": [
+    "entry_model_matches",
+    "entry_scope_matches",
+    "one_trial",
+    "one_throw",
+    "wrapper",
+    "same_cause",
+    "published_at_throw",
+    "factor_published",
+    "factor_replaced",
+    "problem_owner",
+    "options_owner",
+    "progress_owner",
+    "array_owners_preserved",
+    "trial_array_owners_distinct",
+    "published_vectors_equal",
+    "entry_costs_preserved",
+    "entry_lower_preserved",
+    "entry_upper_preserved",
+    "policy_published",
+    "policy_private",
+    "pricing_owner",
+    "pricing_private",
+    "pricing_equal",
+    "pricing_not_temporary",
+    "pricing_phase",
+    "live_history_cleared",
+    "old_history_preserved",
+    "checkpoints_cleared",
+    "phase_advanced",
+    "journal_absent",
+    "iterations_monotone",
+    "refactors_monotone",
+    "trial_iterations_published",
+    "trial_refactors_published",
+    "no_later_iterations",
+    "no_later_refactors",
+    "no_later_callbacks",
+    "event_recorded",
+    "no_later_phase_event",
+    "last_event_selected"
+  ],
+  "candidate_sha256": "10e77c9bc35956c8078f38df1be42511eea76642753a1a98ef2ed225c19783aa",
+  "sha256": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/prepare.py": "5073391068eeae1962693596dc6e1f19dcc5c38ad4f6d58c5f32707f3ce525ac",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-N/source-inverse.json": "ce267cdb55c77f50586bd64b7cb050cc5606324f35293a92d59b1d092416003d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-N/candidate.jl": "10e77c9bc35956c8078f38df1be42511eea76642753a1a98ef2ed225c19783aa",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-N/append.jl": "9f221497d60c8b503706fb6191383e3669255aaa4d6c609c0dda593ded8d7502",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/original-test.jl": "1680b0f132c87c5b24422da56f3b848b22dc2b3547c3985b80fd2d0312c8989f",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/expected.toml": "25acd1b318aaf54876b6b6eca7047b6d3299063ec13ef174040c20dc02dc490c",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/insertions.toml": "336751138e166ec057dabf21c6aed4fb0701b213312d46af5744bf4065537071",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/expected-executed.jl": "99373e8cb4186ae6c71092834b0f05518f3b76121ab37cc2c5ada70306820a71"
+  }
+}

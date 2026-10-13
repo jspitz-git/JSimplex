@@ -4,7 +4,7 @@ Updated: 2026-10-13. This is the entry point after interruption.
 
 ## Current state
 
-**S1-A, S3-A/S3-B, S4-A/S4-C and S5-C integrated; master `513c053` (includes S5-I coverage and S6-C/S6-G/S6-M/S6-T/S6-W/S6-AA/S6-AC/S6-AI repairs and S6-AO coverage). S2-A rejected; S0-L all four long references audited and complete.**
+**S1-A, S3-A/S3-B, S4-A/S4-C and S5-C integrated; master `35a6a9f` (includes S5-O/S5-I coverage and S6-C/S6-G/S6-M/S6-T/S6-W/S6-AA/S6-AC/S6-AI repairs and S6-AO coverage). S2-A rejected; S0-L all four long references audited and complete.**
 The source baseline is `fe839aa72171d7496c9c931d9393278448c7317e`.
 Initial time-budget diagnostic evidence is commit `6ded1fc`.
 
@@ -46,7 +46,34 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-**Current continuation: S5-N OFFLINE permanent test candidate prepared, with independent review and closure recorded separately. Next S5-O: `docs/superpowers/plans/2026-10-13-dual-auxiliary-pending-observer-test-integration.md`; FIRST new concrete driver/launcher/pins/auditor and independent admission review, no automatic execution or promotion from N.**
+**Current continuation: S5-O focused test integrated and independently reviewed on actual master. Complete separate PASS closure/publication records before advancing. Next S5-P SOURCE/EVIDENCE ONLY: `docs/superpowers/plans/2026-10-13-basis-initialization-handoff-contract.md`; supplied-basis initialization ownership, no Julia or numerical admission.**
+
+S5-O exact N candidate integrated: testb8615b9 -> master35a6a9f, only181lineappend
+with19080byte original adaptive-pricing prefix preserved. GREEN/master each42/42
+(40permanent+2driver),24auditgates827/1347pins9/10authorpostchecks. Exactly TWO new
+Float64setup/publichandoffs total, one per actual source-root, entries1/1/1; all40
+literal predicates and15 fixed observations pass. One rootStageObserverlatch and
+LIVEadoptedfactorhit, directDiagnosticObserverFailure/same sentinel, selected
+postpublication state/work persists: iterations/refactors0->1,7callbacks,2shared
+phaseevents(not2hits), no later selectedwork. Entrycost equality is observed only,
+not a general guarantee; trial remains mutable until unwind, no rollback/certtransfer.
+Freshgpt6astra prelaunch/GREEN/master reviews accepted/no unresolvedfindings/no
+unnecessaryNEWproductionworkmemory. InitialImportant mandatorybindinggap preserved
+as rejectedreview/original813; separate requiredpathcorrection RED2/GREEN4 and822
+admission accepted. Missing/malformedinput3syntheticcases failclosed. All originals
+and amended files frozen, no numericalretry. Coldthreecopies/sixentries percase,
+17pubpairs/19fields/fixedmetadata+driverrecords/Teststorage;20rolesNOTgraphcap.
+No completePREforward/backend/import/cacheconfinement/speedup/nativefree claim.
+Master511src/testidentities anduser6 match. Samples16/17,minRAM21961172/21929716KiB,
+swap0,inclusive16.018377/17.024098s NOTbenchmark. Groups63808/63815 and64420/64422
+plusolder absent/noJulia; masterrunner64421/start2749445,child64422/start2749569,
+bootdade7243-9103-4398-bb45-fa28fbc0be72. Separate publicationclosure required and
+recorded independently beforefailfastpush. SeeS5-DUAL-AUXILIARY-PENDING-OBSERVER-
+TEST-INTEGRATION.md/REVIEW,results/S5-O. AllO/N/M/L/K/J/I/F/G/HfrozenNEVERRERUN;
+Noldtestpin mapsONLYsavedbyteexactoriginal. Mrejectedreview/twofixes,Kfailedclosure+
+PASS,Gfalse62/63+7PASSpreserved. Production/env/CIunchanged,HHdisabled/fullsuite/
+x64/allpriorbroadergates/rejectionsunchanged.
+
 
 S5-N preserves19080byte original adaptive-pricing test prefix+181lineappend,
 40explicit assertions, one prospective original Float64setup/publichandoff.

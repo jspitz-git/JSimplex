@@ -1115,3 +1115,35 @@ Next O is a separately reviewed admission/integration stage with one GREEN and o
 actual-master case only, no rerun of historical tests. See the O integration plan.
 All earlier rejected routes, CI-off/HH-disabled/full-suite and memory/work limits
 remain; N/M/L/K/J/I/F/G/H frozen evidence must not be rerun or rewritten.
+
+## S5-O focused integration and distinct S5-P continuation (2026-10-13)
+
+S5-O exact N candidate integrated: testb8615b9 -> master35a6a9f, only181lineappend
+with19080byte original adaptive-pricing prefix preserved. GREEN/master each42/42
+(40permanent+2driver),24auditgates827/1347pins9/10authorpostchecks. Exactly TWO new
+Float64setup/publichandoffs total, one per actual source-root, entries1/1/1; all40
+literal predicates and15 fixed observations pass. One rootStageObserverlatch and
+LIVEadoptedfactorhit, directDiagnosticObserverFailure/same sentinel, selected
+postpublication state/work persists: iterations/refactors0->1,7callbacks,2shared
+phaseevents(not2hits), no later selectedwork. Entrycost equality is observed only,
+not a general guarantee; trial remains mutable until unwind, no rollback/certtransfer.
+Freshgpt6astra prelaunch/GREEN/master reviews accepted/no unresolvedfindings/no
+unnecessaryNEWproductionworkmemory. InitialImportant mandatorybindinggap preserved
+as rejectedreview/original813; separate requiredpathcorrection RED2/GREEN4 and822
+admission accepted. Missing/malformedinput3syntheticcases failclosed. All originals
+and amended files frozen, no numericalretry. Coldthreecopies/sixentries percase,
+17pubpairs/19fields/fixedmetadata+driverrecords/Teststorage;20rolesNOTgraphcap.
+No completePREforward/backend/import/cacheconfinement/speedup/nativefree claim.
+Master511src/testidentities anduser6 match. Samples16/17,minRAM21961172/21929716KiB,
+swap0,inclusive16.018377/17.024098s NOTbenchmark. Groups63808/63815 and64420/64422
+plusolder absent/noJulia; masterrunner64421/start2749445,child64422/start2749569,
+bootdade7243-9103-4398-bb45-fa28fbc0be72. Separate publicationclosure required and
+recorded independently beforefailfastpush. SeeS5-DUAL-AUXILIARY-PENDING-OBSERVER-
+TEST-INTEGRATION.md/REVIEW,results/S5-O. AllO/N/M/L/K/J/I/F/G/HfrozenNEVERRERUN;
+Noldtestpin mapsONLYsavedbyteexactoriginal. Mrejectedreview/twofixes,Kfailedclosure+
+PASS,Gfalse62/63+7PASSpreserved. Production/env/CIunchanged,HHdisabled/fullsuite/
+x64/allpriorbroadergates/rejectionsunchanged.
+
+Next S5-P source/evidence-only supplied-basis initialization contract per separate
+plan. This was already a distinct S5 inventory boundary; no old reruns, new Julia,
+fixture/runtime plan or automatic optimization. Do not reopen HH/DSE/controller audits.

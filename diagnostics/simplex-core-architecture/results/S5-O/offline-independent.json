@@ -1,0 +1,64 @@
+{
+  "checks": {
+    "complete_admission_hashes": true,
+    "membership": true,
+    "actual_test_original": true,
+    "groups_absent": true,
+    "inverse": true,
+    "forty_assertions": true,
+    "three_helpers": true,
+    "missing_malformed_fail_closed": true
+  },
+  "all_passed": true,
+  "pin_count": 813,
+  "failure_cases": [
+    {
+      "case": "missing_process",
+      "result": {
+        "all_passed": false,
+        "checks": {
+          "complete_valid_evidence": false
+        },
+        "error": "FileNotFoundError(2, 'No such file or directory')",
+        "scope": "Preserve every original artifact and STOP; no retry or inferred solver defect."
+      }
+    },
+    {
+      "case": "malformed_process",
+      "result": {
+        "all_passed": false,
+        "checks": {
+          "complete_valid_evidence": false
+        },
+        "error": "JSONDecodeError('Expecting property name enclosed in double quotes: line 1 column 2 (char 1)')",
+        "scope": "Preserve every original artifact and STOP; no retry or inferred solver defect."
+      }
+    },
+    {
+      "case": "missing_pins",
+      "result": {
+        "all_passed": false,
+        "checks": {
+          "complete_valid_evidence": false
+        },
+        "error": "FileNotFoundError(2, 'No such file or directory')",
+        "scope": "Preserve every original artifact and STOP; no retry or inferred solver defect."
+      }
+    }
+  ],
+  "sha256": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/prepare.py": "5073391068eeae1962693596dc6e1f19dcc5c38ad4f6d58c5f32707f3ce525ac",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/original-test.jl": "1680b0f132c87c5b24422da56f3b848b22dc2b3547c3985b80fd2d0312c8989f",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/expected.toml": "25acd1b318aaf54876b6b6eca7047b6d3299063ec13ef174040c20dc02dc490c",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/host-before.json": "e9acc6bd78fd5306572e101104c78a6418d777601272c95ae07cc3e02c6c0625",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/ADMISSION.md": "9862e43768009c64d74d088c294cdb48836ba72fafd29e6fdc41232ce95edaf5",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/expected-executed.jl": "99373e8cb4186ae6c71092834b0f05518f3b76121ab37cc2c5ada70306820a71",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/common.py": "be29b99d167945cd3d13b14ddba3c2abb6266562e3e59dc849bba53e2cd4d89c",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/preparation.json": "009e932fd1d070834e89672e970048b05b7ac9292b3db1dbdc6e0eca3e9d3929",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/driver.jl": "948127a3225dc6a5d1f9ef385452729015d25f239a4ca2b698012563d65f977e",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/launcher.py": "7ab76a450acfd3acfa16041f4799e08c63a0c3ce722fc1721fb0d547e33a9de6",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/insertions.toml": "336751138e166ec057dabf21c6aed4fb0701b213312d46af5744bf4065537071",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/schema.json": "f046ed630f573c9a5ab8de0861bfba65461847b8764d2c840f2ac411e6415249",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/audit.py": "9afb2ee34d3d89255d0f46e3dbf3736a5e1a9f2742fc0bbde8b4a9b86ad906d3"
+  }
+}
