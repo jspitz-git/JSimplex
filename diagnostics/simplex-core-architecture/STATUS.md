@@ -46,7 +46,30 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-**Current continuation: S6-AP provenance reconciled, historical failure unresolved. S6-AQ accepts only genuinely new original source/witness evidence under `docs/superpowers/plans/2026-10-13-test-mps-original-run-linkage.md`; no numerical allowance or repeated search.**
+**Current continuation: S2-B source/design accepted; proceed with S2-C offline price-audit values preparation. S6-AQ remains conditional on new original-run evidence and does not block independent roadmap work. No Julia allowance.**
+
+S2-B SOURCE/DESIGN ONLY is accepted after one offline review fix pass. It selects
+one existing audit-cost prerequisite independently of S6-AQ: an invocation-local
+read-only price-audit input wrapper for exact Float32/Float64 nonempty vectors,
+with generic/empty vcat fallback. Prediction copies, reconstruction, quality scratch,
+residual term order, tolerance and all safeguards remain. No implementation or
+Julia/parser/import/numerics occurred. No speedup/default-path saving is claimed.
+Initial13 source checks/531 read-time pins and513 src/test/CI master comparisons;
+author6 plus4 amendment checks; fresh gpt6astra FULL531/513 then bounded7final/
+4intermediate/2original bindings. Important empty-parent resize/alias gap rejected
+the initial design; preserved originals/review and one offline4+5-check correction
+now enforce nonempty construction, exact scalar dispatch and bit-aware comparisons.
+Final review accepts source/design and offline preparation only, no unresolved C/I/M
+or unnecessary NEW production work/memory. Candidate costs include at most4empty+
+2type constant checks and per-access routing; runtime/cost acceptance remains open.
+AP closure40 STATUS/roadmap hashes now map ONLY results/S2-B/*before-S2-B; B initial
+report/plan pins map ONLY *.before-review, intermediate fix4 pins to *.after-empty-fix.
+All old raw/failed audits/rejections remain untouched; masterd02416c/CIoff/HHdisabled.
+Next S2-C: docs/superpowers/plans/2026-10-13-price-audit-values-preparation.md,
+OFFLINE candidate/test-source preparation and independent review, no Julia allowance.
+S6-AQ still requires new original-run evidence; that wait does not block this step.
+Reports S2-PRICE-AUDIT-STORAGE.md / S2-PRICE-AUDIT-STORAGE-REVIEW.md, results/S2-B.
+
 
 S6-AP SOURCE/EVIDENCE ONLY provenance completed with an unresolved historical
 failure. User log88807bytes/817lines SHA22da06e3955a94ffa25fc1f0a0630e933c124aa4a137a25e159b57877030e115

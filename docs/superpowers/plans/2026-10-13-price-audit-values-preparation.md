@@ -1,0 +1,104 @@
+# S2-C: borrowed price-audit values preparation plan
+
+> **For agentic workers:** Use superpowers:executing-plans. Continue inline under
+> the standing authorization; obtain the required independent numerical/cost review.
+
+**Goal:** Prepare a reviewable private candidate that removes only the hardware
+price-audit input concatenation while preserving every numerical check.
+**Architecture:** One invocation-local read-only vector adapter plus a narrow
+factory helper; arbitrary precision and other storage use the existing vcat path.
+**Tech Stack:** Julia source and offline Python text/hash checks; NO Julia execution.
+**Spec:** 2026-10-11-simplex-core-architecture-design.md and S2-PRICE-AUDIT-STORAGE.md.
+
+## Global constraints
+
+Use the existing architecture checkout; do not modify production/test/env/CI files
+in this preparation. Preserve frozen evidence, user files and prior rejections.
+Do not reopen HH/DSE/controller-budget/import/isolation or cleanup-omission work.
+No error estimator, skipped audit, changed tolerance, coefficient pruning, changed
+reconstruction cadence or certificate transfer. No Julia query/parser/import/
+compile/numerics here; no old scripts or accepted measurements rerun. A separate
+reviewed, guarded numerical admission is mandatory later. One Julia/BLAS thread,
+heap2GiB/VM8GiB/RAMfloor6GiB/swapmax1GiB and forbidden model/alias exclusions apply
+if a later numerical plan is separately admitted. CI stays off.
+
+## Review focus
+
+- Input/scratch aliasing: dataids for both parents and existing scratch rejection.
+- Empty or shared parents: correct concatenated indexing and bounds behavior.
+- Float signed-zero/nonfinite/subnormal/cancellation: unchanged ordered terms and
+  acceptance, including native compensated and existing wider fallback routes.
+- BigFloat/Rational/other storage: unchanged vcat fallback; ambient settings intact.
+- Per-access branching: actual whole-audit cost may regress; no claimed speedup or
+  adaptive threshold, no persistent owner/cache retention.
+
+## Task 1: prepare one offline candidate and test source
+
+Files to create only under diagnostics/simplex-core-architecture/results/S2-C:
+original-primal-updates.jl, candidate-primal-updates.jl, candidate-tests.jl,
+source-check.py/json, pins.json, review.md. Add a compact S2-C report on completion.
+Do not run any of the prepared Julia files.
+
+- [ ] Verify fresh refs/process identities and user files; check B evidence and
+  preserve current STATUS/roadmap before editing them. Read the actual current
+  source and fail closed if its hashes differ from B without explained review.
+- [ ] Save exact current primal_updates.jl. Prepare candidate with private
+  `_PriceAuditValues{T<:Union{Float32,Float64}} <: AbstractVector{T}` containing
+  `dual::Vector{T}` and `predicted::Vector{T}`. The private inner constructor rejects empty parents
+  with ArgumentError before constructing the adapter; also reject T unless
+  T === Float32 or T === Float64. Define Base.size, Base.IndexStyle,
+  bounds-checked Base.getindex and Base.dataids forwarding both parents. Do not
+  implement writes or pointer/strided-array interfaces.
+- [ ] Define generic `_price_audit_values(dual,predicted)=vcat(dual,predicted)` and
+  two explicit methods for Vector{Float32}/Vector{Float32} and
+  Vector{Float64}/Vector{Float64}. All union-element and mixed-type vectors retain
+  generic vcat. If either parent is empty,
+  return the original vcat result; otherwise construct the adapter. Count up to four
+  O(1) emptiness checks and up to two exact-T constructor comparisons, without
+  element scans. Add factory fallback tests for Vector{Union{Float32,Float64}} and
+  mixed Float32/Float64 vectors; direct union-element adapter construction rejects. Replace exactly one `values = vcat(ws.scratch.rho,predicted)` assignment
+  with the helper. An inverse edit must recover the whole original file byte-for-byte.
+- [ ] Prepare tests with concrete assertions comparing adapter/control indexing,
+  axes, length, eltype, bounds errors and read-only behavior. Include both empty,
+  one empty, two nonempty and repeated-owner parents. Assert empty-input factory
+  results are ordinary materialized vectors; direct empty-adapter construction throws
+  ArgumentError. For nonempty adapter parents overlapping dimension-compatible
+  scratch arrays identified by their shared Base.dataids, require ArgumentError from
+  existing alias validation. Do not claim general foreign/unsafe_wrap overlap safety;
+  normal production scratch remains freshly and independently allocated. In particular,
+  never pass an empty compensation/error_sum owner through the borrowed factory:
+  existing Base.mightalias intentionally ignores empty arrays before their resize.
+  Disjoint input must not falsely alias. No concurrent-mutation safety claim.
+- [ ] Prepare direct _PriceAuditMatrix/solve_quality! pairs comparing all four
+  SolveQuality fields and residual/scratch arrays after successful evaluation. Use
+  reinterpret(UInt32/UInt64, value) equality for hardware floating values, including
+  NaN payloads and signed zero; compare nothing explicitly and exact values exactly.
+  Compare initialized scratch outputs only, with expected early-return state explicit,
+  with identical initial scratch and unchanged policy. Include finite, perturbed,
+  signed-zero, nonfinite, cancellation, overflow/underflow and zero-dimensional
+  cases; separate nominal/transposed dimensions. Freeze actual matrices/RHS and
+  expectations before any launch rather than selecting cases from runtime output.
+- [ ] Preserve native/compensated/wide fallback arithmetic and term order; compare
+  generic/exact/BigFloat factory fallback and stored BigFloat precision under lower
+  ambient precision. Prepare focused integration using the existing cancellation
+  and corrected-audit test bodies with exact source extraction/inverse binding.
+  A future selected execution is NEW candidate regression work, not a rerun of
+  old frozen S2-A drivers or a claim that their entire suite was repeated.
+- [ ] Static check candidate inverse, helper dispatch text, no new persistent state,
+  unchanged original test source and source-only status. Record that this proves
+  text structure only, not Julia parsing/runtime dispatch/aliasing correctness.
+- [ ] Request fresh gpt-6-astra numerical/work/memory review of the complete offline
+  candidate/test package. Preserve rejected drafts and findings. Publish only with
+  separate PASS closure and exact complete staged names/blob hashes.
+
+## Next numerical gate, not an allowance
+
+After S2-C acceptance, prepare ONE separate bounded admission plan with exact
+fixtures, entry/work counts, compile-cache-worker prevention, single-attempt
+reservation, pins and fail-closed launcher/auditor. It must compare the complete
+price audit (including fresh quality scratch) across sparse/dense sizes with at
+least three interleaved warm pairs, compilation-free measured windows, all samples,
+allocation events/bytes and unchanged outputs. Kernel solves are not added by the
+adapter, but setup/import work must be stated separately, not silently zero.
+Freeze the number of cases/calls before launch. Do not use existing allowances,
+change production or launch Julia based on this preparation plan alone.
