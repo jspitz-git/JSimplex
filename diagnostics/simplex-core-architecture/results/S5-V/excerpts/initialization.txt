@@ -1,0 +1,58 @@
+function _initialize_workspace_state(
+    problem::LinearProblem{T},
+    options::SolverOptions;
+    progress::SimplexProgressContext{T}=SimplexProgressContext(problem;
+        numerical_policy=NumericalPolicy(T,options)),
+) where {T}
+    typed_options = SolverOptions(T, options)
+    row_count, column_count = size(problem.A)
+    variable_count = row_count + column_count
+    costs = Vector{T}(undef, variable_count)
+    copyto!(costs, 1, problem.objective, 1, column_count)
+    fill!(@view(costs[column_count + 1:variable_count]), zero(T))
+    # Concatenation already creates the workspace's independent bound arrays.
+    lower = vcat(problem.column_lower, problem.row_lower)
+    upper = vcat(problem.column_upper, problem.row_upper)
+    states = Vector{VariableState}(undef, variable_count)
+
+    for index in 1:column_count
+        if isfinite(lower[index])
+            states[index] = AT_LOWER
+        elseif isfinite(upper[index])
+            states[index] = AT_UPPER
+        else
+            states[index] = FREE_NONBASIC
+        end
+    end
+    states[column_count + 1:end] .= BASIC
+
+    basis = Basis(collect(column_count + 1:variable_count), states, Val(:owned))
+    initial_basis = spdiagm(0 => fill(-one(T), row_count))
+    factorization = _basis_factorization(initial_basis, typed_options)
+    scratch = SimplexScratch(T, row_count, variable_count)
+    scratch.basis_matrix = initial_basis
+    devex_reference = falses(variable_count)
+    devex_reference[basis.basic_indices] .= true
+    workspace = SimplexWorkspace(
+        problem, typed_options, progress, costs, lower, upper, basis, zeros(T, variable_count),
+        zeros(T, variable_count), ones(T, variable_count), devex_reference,
+        factorization, scratch, 0, 0, false, 0, false, false,
+        typed_options.refactorization_interval, 0,
+        typemax(Int), 0, 0,
+    )
+    _configure_refactorization!(workspace)
+    return workspace
+end
+
+function _finish_workspace_initialization!(workspace)
+    recompute!(workspace)
+    _simplex_event!(workspace, :refactor_initial)
+    return workspace
+end
+
+function initialize_workspace(problem::LinearProblem{T}, options::SolverOptions;
+    progress::SimplexProgressContext{T}=SimplexProgressContext(problem;
+        numerical_policy=NumericalPolicy(T,options))) where T
+    return _finish_workspace_initialization!(_initialize_workspace_state(problem,options;progress))
+end
+

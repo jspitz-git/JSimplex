@@ -1,0 +1,39 @@
+function record_event!(d::SimplexDiagnostics, reason::Symbol)::Nothing
+    haskey(d.counts, reason) || throw(ArgumentError("Unknown simplex diagnostic event: $reason"))
+    d.counts[reason] += 1
+    if length(d.events) < 64
+        push!(d.events, reason)
+    else
+        d.events[d.next_event] = reason
+    end
+    d.next_event = mod1(d.next_event + 1, 64)
+    return nothing
+end
+
+event_count(d::SimplexDiagnostics, reason::Symbol)::Int = get(d.counts, reason, 0)
+
+"""Return an owned, chronological copy of the bounded event history."""
+function recent_events(d::SimplexDiagnostics)
+    length(d.events) < 64 && return copy(d.events)
+    return vcat(d.events[d.next_event:end], d.events[1:d.next_event-1])
+end
+
+_diagnostic_event!(::Nothing, reason::Symbol, state=nothing) = nothing
+struct DiagnosticObserverFailure{E} <: Exception
+    cause::E
+end
+Base.showerror(io::IO, failure::DiagnosticObserverFailure) =
+    (print(io, "Diagnostic observer failed: "); showerror(io, failure.cause))
+
+function _diagnostic_event!(d::SimplexDiagnostics, reason::Symbol, state=nothing)
+    record_event!(d, reason)
+    if !isnothing(d.observer)
+        try
+            d.observer(reason, state)
+        catch exception
+            # A recorder failure must not be caught as a singular numerical solve.
+            throw(DiagnosticObserverFailure(exception))
+        end
+    end
+    return nothing
+end

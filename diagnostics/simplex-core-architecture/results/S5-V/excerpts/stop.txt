@@ -1,0 +1,34 @@
+_is_numerical_exception(exception) =
+    exception isa SingularException || exception isa ZeroPivotException ||
+    exception isa _UnreliableBasisSolve
+
+# Internal deadline owns only clock scalars; unlike an arbitrary stop closure,
+# it cannot mutate a workspace or invoke caller code between two local checks.
+struct _SolveDeadline <: Function
+    start_ns::UInt64
+    time_limit_seconds::Float64
+end
+(deadline::_SolveDeadline)() = deadline.time_limit_seconds != Inf &&
+    (time_ns() - deadline.start_ns) / 1.0e9 >= deadline.time_limit_seconds
+
+mutable struct _StopCallback{F}
+    callback::F
+    exception::Any
+end
+
+function (stop::_StopCallback)()
+    stop.exception = nothing
+    try
+        return stop.callback()
+    catch exception
+        stop.exception = exception
+        rethrow()
+    end
+end
+
+# Share provenance across nested numerical catches while rethrowing the
+# caller's original callback or logger exception, including
+# SingularException/ZeroPivotException. Refactorization logging shares this guard.
+_guard_stop_callback(stop::_StopCallback) = stop
+_guard_stop_callback(stop) = _StopCallback(stop, nothing)
+
