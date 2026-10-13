@@ -1,0 +1,68 @@
+{
+  "state": "OFFLINE PROSPECTIVE ONLY; no fixture or driver created",
+  "existing_source": "test/simplex_precision_tests.jl::Transfer rebuilds the actual typed basis and retains cumulative work",
+  "selection": {
+    "T": "Float64",
+    "update": "pfi",
+    "backend": "native",
+    "scope": "existing setup only; no transfer_precision, crash_basis, solve, success control, resume or loop"
+  },
+  "adaptation": "Retain model/basis/options/policy values exactly. Replace progress diagnostics Nothing with an ordinary observer, retain original time_ns start/objective/scaling/offsets7/11; opt in to existing kernel timing. Add explicit throwing stop and original sentinel. No numerical-policy flag is changed.",
+  "discriminator": [
+    "Default :checkpoint before :refactor_initial is counted but cannot arm.",
+    "Exactly one :refactor_initial latches workspace and default Basis vector owners.",
+    "Exactly one :refactor_other on that workspace with local refactorizations1 marks imported stage and latches imported Basis owners.",
+    "Only subsequent :checkpoint on the same workspace after both latches arms the stop.",
+    "The immediate following stop call throws the same sentinel; unexpected order/duplicate/missing target fails qualification."
+  ],
+  "selected_assertions": [
+    "No workspace return; caught exception === sentinel and guard.exception === sentinel if guard is explicitly retained.",
+    "One initial latch, one imported latch, one selected checkpoint observer, one throw; no extra calls after throw.",
+    "Two explicit stop calls total under unchanged recovery-true/refinement-false policy: first before imported checkpoint quality, second after its observer.",
+    "Caller basis owners and two saved vector values unchanged; imported owners distinct from both caller and default owners.",
+    "Retained workspace.problem === original problem; progress diagnostics/objective/scaling references retained; start_ns and offsets7/11 unchanged.",
+    "Local iterations0/refactorizations1 at throw and unwind; no mutation of external immutable progress fields inferred from diagnostic changes.",
+    "Imported checkpoint history empty after invalidation and throwing second stop; phase_generation1; earlier default checkpoint was recorded once but is no longer in local history.",
+    "Recorded checkpoint count remains1; refactor_initial1/refactor_other1; selected observer count is not a second recorded checkpoint.",
+    "Four observer callbacks expected on admitted successful-prefix path: defaultcheckpoint,initial,other,importedcheckpoint; three recorded events, final refactor_other.",
+    "Counted FTRAN2/BTRAN2/refactorization1 at throw and unwind; correction/correction_attempt0. Hypersparse counters are not asserted zero and base factory work is additional.",
+    "Prospective setup/policy/options/scalar/source selection must bind actual later source; any mismatch preserves failure and stops."
+  ],
+  "observation_cost": {
+    "input_basis_copies": 2,
+    "copied_entries": "m+v = 6 for existing m2,n2",
+    "reference_roles": 9,
+    "roles": [
+      "workspace",
+      "default_indices",
+      "default_states",
+      "imported_indices",
+      "imported_states",
+      "caller_indices",
+      "caller_states",
+      "sentinel",
+      "guard"
+    ],
+    "scalar_bookkeeping": "fixed observer/stop/latch/throw counters, armed/order flags, selected work/event-count scalars at throw; no vector callback scans/copies or growing ledgers",
+    "retention": "roles do not count caller model/progress/diagnostics/closure/container aliases or cap retained factor/scratch/cache graph"
+  },
+  "conditional_work": {
+    "default_factory_entries": 1,
+    "imported_refactor_entries": 1,
+    "counted_FTRAN_entries": 2,
+    "counted_BTRAN_entries": 2,
+    "optional_refinement_correction_entries": 0,
+    "checkpoint_constructions": 2,
+    "checkpoint_copied_containers": 10,
+    "checkpoint_copied_entries": "2*(m+4v)=36",
+    "checkpoint_quality_entries": "up to4 across default/imported checkpoint checks; no final outer reliability because stop throws first",
+    "final_outer_devex_reset": "unreached; imported refactor devex reset already occurred",
+    "limitations": "source-level conditional path, not observed PREforward/native/import accounting; hypersparse support/metadata/factor orientation/backend work additional"
+  },
+  "failure_policy": "Any future missing/duplicate/unreached discriminator, syntax/import/resource/numerical/assertion/cost mismatch must be preserved and stopped, without retry, fixture tuning or defect inference. No future attempt admitted here.",
+  "limits": [
+    "Retained workspace mutable until unwind; no full-state/event trajectory or rollback.",
+    "No original certificate transfer, reliability/feasibility implication, observer neutrality or actual clock expiry.",
+    "Default/native stop semantics unchanged; original setup default time limit Inf retained."
+  ]
+}

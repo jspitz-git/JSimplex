@@ -1175,3 +1175,32 @@ CI unchanged,fullgroups absent/noJulia;allHH/CI-off/rejections/broadergates reta
 
 The prior S5-P next-action paragraph is fulfilled by this stage. Next read the
 separate S5-Q offline oracle-feasibility plan; no runtime admission is implied.
+
+## S5-Q offline stop oracle and S5-R preparation (2026-10-13)
+
+S5-Q OFFLINE oracle feasibility: 18 literal checks,178 fresh read-time hashes,
+8 author checks; fresh independent numerical/work review. Existing Float64/PFI/
+native setup only, recovery=true/refinement=false and sparse/hypersparse retained.
+Two historical rows1504/1504 separately in EACH failed CI run cover the entire
+source-matched transfer testset, not this prospective stop case. Source-supported
+initial/other/checkpoint discriminator arms the original explicit stop immediately
+before checkpoint storage; default initialization already consumed work. Expected
+original sentinel/guard identity, no return, caller basis ownership/value preservation,
+shared problem/progress/clock/offsets7/11, localiter0/ref1 and consumed diagnostics.
+Conditional two explicit stops/four observer callbacks/three recorded events,
+checkpointcount1/historyempty/phasegeneration1; counted2F/2B/1ref, corrections0.
+One factory and backend/hypersparse work additional. Two checkpoint constructions,
+10vector containers/36copied entries are source accounting, not allocations.
+Prospective instrumentation two basis copies/six entries/nine reference roles plus
+aliases/fixed fields; no callback array scans/copies, growing ledgers or extra solves.
+Retained workspace mutable until unwind; no rollback/fullstate/certificate/real
+expiry/nativefree/PREforward/backend/import budget or speedup claim. No unnecessary
+NEW production work/memory. No Julia, candidate, fixture, driver, launcher or actual
+test change. Runtime reachability remains UNQUALIFIED; failure must preserve/stop.
+Read S5-BASIS-INITIALIZATION-STOP-ORACLE.md/REVIEW,results/S5-Q. Separate PASS closure
+precedes fail-fast publication; P-bound continuation texts preserved before-Q.
+All Q/P/O/N/M/L/K/J/I/F/G/H frozen records, failed audits/reviews and broader gates
+remain unchanged; master35a6a9f, production/test/environment/CI unchanged.
+
+The previous S5-Q next action is fulfilled. S5-R is separately limited to one
+unexecuted candidate with exact inverse and review; no launch admission follows.
