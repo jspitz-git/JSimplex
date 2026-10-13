@@ -46,7 +46,21 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-**Current continuation: S4-Y OFFLINE preparation of Markowitz construction-workspace retention diagnostics after the human renewed the original-plan request. Two unexecuted direct-backend lifecycles; no optimization or numerical allowance. Automation remains paused. S3-G remains stopped; S2-E consumed; S6-AQ still needs genuinely new original evidence.**
+**Current continuation: S4-Z OFFLINE admission preparation for the accepted S4-Y Markowitz retention diagnostic. No numerical allowance; launcher and driver UNEXECUTED. After accepted preparation, request one explicit human allowance before sealing/launch. Automation remains paused. S3-G stopped; S2-E consumed; S6-AQ conditional on new original evidence.**
+
+## S4-Z Markowitz retention admission preparation — 2026-10-13
+
+S4-Y published as23ac555,26 exact committed blobs verified; master unchanged.
+New offline launcher/auditor/guard proposal freezes two cases/66predicates,
+2constructors2copies6refactors20solves/eight snapshots. No Julia or launcher run.
+Resource120s/VM8GiB/heap2GiB/RAMfloor6GiB/swap1GiB/threads1 and full28groups
+ANDsessions. Separate exact-manifest numerical review AND new human permission
+are mandatory. No allowance/reservation/output exists; automation stays paused.
+See S4-MARKOWITZ-RETENTION-ADMISSION.md and the conditional
+2026-10-13-markowitz-retention-qualification.md plan. All Y final continuation
+bindings map ONLY Z/STATUS.md.before-S4-Z and roadmap.md.before-S4-Z; Y initial
+before-review mappings and all older mappings remain. No runtime/retention
+optimization acceptance. Broader plan remains open.
 
 ## S4-Y Markowitz construction retention preparation — 2026-10-13
 

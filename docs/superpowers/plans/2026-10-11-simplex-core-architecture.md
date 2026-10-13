@@ -1848,3 +1848,13 @@ new original evidence; do not repeat searches/questions. All stopped directions,
 HH-disabled, CI-off and broader/fullsuite/x64 gates remain unchanged.
 
 Reports: S3-RATIONAL-PRIMAL-SUPPORT-ADMISSION.md and REVIEW; results/S3-G.
+
+## S4-Z offline Markowitz retention admission — 2026-10-13
+
+S4-Y23ac555 accepted an unexecuted diagnostic, not an optimization. S4-Z prepares
+one exact guarded attempt with separate launcher/auditor/pins and independent
+review. No Julia or numerical permission in this preparation. The next conditional
+plan is [Markowitz retention qualification](2026-10-13-markowitz-retention-qualification.md).
+Require new explicit human permission, fresh host/manifest and numerical admission
+before any one-attempt reservation. Automation remains paused. Y final current
+continuation hashes map only Z before-S4-Z copies, older mappings unchanged.
