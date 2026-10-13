@@ -4,7 +4,7 @@ Updated: 2026-10-13. This is the entry point after interruption.
 
 ## Current state
 
-**S1-A, S3-A/S3-B, S4-A/S4-C and S5-C integrated; master `2b546e9` (includes S5-U/S5-O/S5-I coverage and S6-C/S6-G/S6-M/S6-T/S6-W/S6-AA/S6-AC/S6-AI repairs and S6-AO coverage). S2-A rejected; S0-L all four long references audited and complete.**
+**S1-A, S3-A/S3-B, S4-A/S4-C and S5-C integrated; master `d02416c` (includes S5-AA/S5-U/S5-O/S5-I coverage and S6-C/S6-G/S6-M/S6-T/S6-W/S6-AA/S6-AC/S6-AI repairs and S6-AO coverage). S2-A rejected; S0-L all four long references audited and complete.**
 The source baseline is `fe839aa72171d7496c9c931d9393278448c7317e`.
 Initial time-budget diagnostic evidence is commit `6ded1fc`.
 
@@ -46,7 +46,45 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-**Current continuation: S5-Z offline permanent candidate independently accepted and UNEXECUTED; after separate closure/publication follow `docs/superpowers/plans/2026-10-13-crash-fallback-observer-test-integration.md` (S5-AA, concrete integration admission first).**
+**Current continuation: S5-AA test integrated and independently accepted; after separate closure/publication follow `docs/superpowers/plans/2026-10-13-handoff-coverage-reconciliation.md` (S5-AB, source/evidence only).**
+
+S5-AA integrated exact corrected Z candidate: test c5c3147 -> actual masterd02416c,
+whole4774-byte prefix unchanged plus193 lines/50 permanent assertions/explicit
+top-level SingularException import. Exactly TWO new Float64PFInativeINITIALsetup+
+crash lifecycles TOTAL, one GREEN and one actual-master; each52/52(50+2driver),
+33audit gates1468/1493pins10authorpostchecks9bindings/raw8originalportable/inv3.
+Fresh independent admission/GREEN/master admission/result reviews accepted, no
+unresolved Critical/Important/Minor or unnecessary NEW production work/memory.
+Initial1464/required1463/full511sourcepairs and exact five-insertion inverse checked;
+master36stagebindings include all23GREENevidence paths. First entry three false
+historical continuation gates preserved; separate entry-2 exactmaps38PASS. Preliminary
+session/identity/terminal-memory findings fixed with preserved drafts and27 offline
+checks;92+15 initial tests and77 reviewer gates PASS, no numerical retry.
+All50 predicates/nativepolicy/options/tols/Inf/interval20/originaldone-stop unchanged.
+Each entry0/0,TRIALrefactor2/2,INITIALfallbackafter2/2,pivot2/refother1/fallback1/
+accepted0/callbacks6/no laterselectedwork; sameSingularException42wrappedcause/no return.
+TRIALrefactor before ordinary reconstruction, fallback after maxmerge/eventrecord.
+Selected17INITIALroles/sevenvalues/11distinctTRIALroles/sharedproblemprogresspolicy/
+scaling/optionsvalue/clock preserved; retainedTRIALmutableuntilunwind, notcallbacksnapshot.
+Coldprobe11+done/threeowner17tuples/sevenvectorcopies26entries/fixedrecords/50Bool+
+Teststorage; driverfourcounts/fixed90entryrawdicts/serialization. No callback scans/
+copies/numerics/ledger. No PREforward/backend/import/kernel budget/native-free/GC/
+fullstate/rollback/certtransfer/observer-neutrality/speedup/CIcause proof.
+Each6samples,minRAM22137132/22070736KiBswap0,terminal22583232/22516760KiB,
+inclusive6.012333269/6.011550007s NOTbenchmarks. Full26groups/sessions absent/noJulia.
+All AA/Z/Y/X/W/V/U and older raw/scripts/launchers/auditors/reviews FROZEN after
+closure, both AA numerical allowances CONSUMED. Before-AA continuation preserved;
+all older historicalmaps/falseaudits/rejections unchanged. No production/env/CIchange.
+Reports S5-CRASH-FALLBACK-OBSERVER-TEST-INTEGRATION.md/REVIEW,results/S5-AA.
+After separate PASS closure and exact publication next S5-AB2026-10-13-handoff-
+coverage-reconciliation.md is SOURCE/EVIDENCE ONLY: reconcile original S5 obligations
+against accepted coverage, no new numerical plan/fixture/candidate/driver/launcher,
+no old rerun or HH/DSE/controller/isolation reopening. CIoffHHdisabled/all broader
+S3S4S5S6/fullsuite/bootstrapcacheinit/wholecaps/native-retention/QGCoutlier/rejections
+remain open.
+
+Historical S5-Z follows; its canonical candidate was integrated by AA.
+
 
 S5-Z OFFLINE separate permanent candidate accepted and UNEXECUTED, SHA
 ce256932a4bbda14bb9c55678525d6506a8e63732683442def57b22873b0415f.

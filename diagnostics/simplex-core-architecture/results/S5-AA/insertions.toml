@@ -1,0 +1,24 @@
+[[insertions]]
+anchor = "function crash_fallback_observer_checks()\n"
+before = ""
+after = "    AA_COUNTS[1]+=1\n"
+
+[[insertions]]
+anchor = "    initial = JSimplex.initialize_workspace(p,SolverOptions(verbose=false);progress)\n"
+before = "    AA_COUNTS[2]+=1\n"
+after = ""
+
+[[insertions]]
+anchor = "        ws,expired = JSimplex._crash_workspace(initial,()->done[])\n"
+before = "        AA_COUNTS[3]+=1\n"
+after = ""
+
+[[insertions]]
+anchor = "@testset \"Crash fallback observer preserves initial ownership after work merge\" begin\n"
+before = ""
+after = "    AA_COUNTS[4]+=1\n"
+
+[[insertions]]
+anchor = "    return checks\n"
+before = "    observations = Dict(\n        \"refactor_hits\"=>probe.refactor_hits,\"fallback_hits\"=>probe.fallback_hits,\n        \"pivot_hits\"=>probe.pivot_hits,\"callbacks\"=>probe.callback_count,\n        \"callbacks_after_fallback\"=>probe.callbacks_after_fallback,\"done\"=>done[],\n        \"returned\"=>returned,\"trial_present\"=>trial_present,\n        \"caught_type\"=>string(typeof(caught)),\"sentinel_type\"=>string(typeof(failure)),\n        \"cause_type\"=>caught isa JSimplex.DiagnosticObserverFailure ? string(typeof(caught.cause)) : \"none\",\n        \"cause_identity\"=>caught isa JSimplex.DiagnosticObserverFailure && caught.cause === failure)\n    output = Dict(\"checks\"=>Dict(string(k)=>v for (k,v) in pairs(checks)),\n        \"observations\"=>observations,\n        \"refactor_work\"=>Dict(\"iterations\"=>probe.refactor_work[1],\"refactorizations\"=>probe.refactor_work[2]),\n        \"fallback_record\"=>aa_record_dict(probe.fallback_record),\n        \"after_record\"=>aa_record_dict(after_record),\n        \"entry_clock\"=>Dict(\"start_ns\"=>string(entry_clock[1]),\"iteration_offset\"=>entry_clock[2],\n            \"refactorization_offset\"=>entry_clock[3]),\n        \"entry_work\"=>Dict(\"iterations\"=>entry_work[1],\"refactorizations\"=>entry_work[2]))\n    AA_RECORD[]=output\n    aa_save_case(output)\n"
+after = ""
