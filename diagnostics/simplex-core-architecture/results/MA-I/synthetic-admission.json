@@ -1,0 +1,30 @@
+{
+  "all_passed": true,
+  "checks": {
+    "manifest_positive": true,
+    "manifest_reject_missing_required": true,
+    "manifest_reject_wrong_hash": true,
+    "manifest_reject_tree_escape": true,
+    "manifest_reject_input": true,
+    "manifest_reject_resolved": true,
+    "manifest_reject_membership": true,
+    "seal_positive": true,
+    "seal_reject_approval": true,
+    "seal_reject_attempt": true,
+    "seal_reject_stage": true,
+    "seal_reject_refs": true,
+    "seal_reject_pin": true,
+    "seal_reject_command": true,
+    "seal_reject_output": true,
+    "seal_reject_membership": true,
+    "seal_reject_inputhash": true,
+    "resource_ok": true,
+    "resource_RAM": true,
+    "resource_swap": true,
+    "session_cleanup_source": true,
+    "prelaunch_deadline_source": true,
+    "guard_VM_source": true,
+    "fixed_thread_flags": true
+  },
+  "scope": "new pure admission helper tests; resource/session/deadline code checks are not runtime kill/namespace proof"
+}

@@ -1,0 +1,25 @@
+from pathlib import Path
+import hashlib,json,subprocess
+D=Path(__file__).resolve().parent;R=D.parents[3]
+def git(*a):return subprocess.check_output(['git',*a],cwd=R,text=True).strip()
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+def require(v,m):
+ if not v:raise ValueError(m)
+names=json.loads((D/'publication-names-corrected.json').read_text());selfpath=str((D/'publication.json').relative_to(R));others=[n for n in names if n!=selfpath];c=json.loads((D/'closure.json').read_text())
+require(c['all_passed'] is True and all(c['checks'].values()),'separate PASS closure')
+require(all(sha(R/k)==v for k,v in c['sha256'].items()),'closure hashes')
+require(not git('diff','--cached','--name-only'),'empty index')
+actual=set(git('diff','HEAD','--name-only').splitlines())|(set(git('ls-files','--others','--exclude-standard').splitlines())-{'Manifest.toml','LocalPreferences.toml'})
+require(actual==set(others),'exact complete names')
+subprocess.run(['git','add','--',*others],cwd=R,check=True)
+require(set(git('diff','--cached','--name-only').splitlines())==set(others),'staged names')
+w=json.loads((D/'whitespace.json').read_text());p=subprocess.run(['git','diff','--cached','--check'],cwd=R,text=True,capture_output=True)
+require(sorted(p.stdout.splitlines())==w['warnings'] and not p.stderr and p.returncode in (0,1,2,3),'exact verbatim whitespace only')
+require(all(sha(R/k)==v for k,v in w['sha256'].items()),'whitespace bytes')
+blobs={n:git('rev-parse',':'+n) for n in others};require(all(git('hash-object',n)==v for n,v in blobs.items()),'exact staged bytes')
+o=dict(all_passed=True,checks=dict(closure_pass=True,closure_hashes=True,exact_complete_names=True,staged_names=True,verbatim_whitespace_only=True,staged_blobs=True),exact_names=names,sha256={n:sha(R/n) for n in others},staged_blobs=blobs,scope='Publication self included in exact_names and verified staged before failfast commit/push.')
+with (D/'publication.json').open('x') as f:json.dump(o,f,indent=2);f.write('\n')
+subprocess.run(['git','add','--',selfpath],cwd=R,check=True)
+require(set(git('diff','--cached','--name-only').splitlines())==set(names),'final names')
+require(all(git('rev-parse',':'+n)==git('hash-object',n) for n in names),'final blobs')
+print(json.dumps(dict(all_passed=True,exact_names=len(names),listed_hashes=len(others))))

@@ -1,0 +1,33 @@
+{
+  "all_passed": false,
+  "checks": {
+    "reject_context": true,
+    "reject_missing_context": true,
+    "reject_missing_entries": true,
+    "reject_throw_as_success": true,
+    "reject_extra_throw": true,
+    "reject_missing_preentry": true,
+    "reject_unexpected_error": true,
+    "RED_route_rejected": true,
+    "grid_positive": true,
+    "missing_pair": true,
+    "missing_side": true,
+    "missing_raw": true,
+    "malformed_raw": true,
+    "worker_timeout": true,
+    "memory": true,
+    "swap": true,
+    "session_leak": true,
+    "cleanup_failed": true,
+    "review_missing": true,
+    "review_rejected": true,
+    "review_findings": true,
+    "review_pin": true,
+    "review_changed": true,
+    "group_ANDsession_source": true,
+    "absolute_terminal_deadline": true,
+    "missing_raw_failclosed_source": true,
+    "context_finally": false
+  },
+  "scope": "new pure-helper/admission AST synthetic tests plus explicitly source-only cleanup/context gates; no Julia/guard invocation/runtime kill proof"
+}

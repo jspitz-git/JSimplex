@@ -1,0 +1,36 @@
+{
+  "replacements": [
+    [
+      "const Old = Main.MarkowitzMAUpperTests\n",
+      "const Old = Main.MarkowitzMAUpperTests\nconst ENTRY = Dict(\"constructors\"=>0,\"copies\"=>0,\"reference\"=>0,\"candidate\"=>0,\"throws\"=>0,\"successes\"=>0)\n"
+    ],
+    [
+      "    b = J.MarkowitzBackend(A)",
+      "    ENTRY[\"constructors\"] += 1\n    b = J.MarkowitzBackend(A)"
+    ],
+    [
+      "    c = J._copy_backend(b)",
+      "    ENTRY[\"copies\"] += 1\n    c = J._copy_backend(b)"
+    ],
+    [
+      "    er = outcome(reference_forward!,expected,b,rhs)",
+      "    ENTRY[\"reference\"] += 1\n    er = outcome(reference_forward!,expected,b,rhs)"
+    ],
+    [
+      "    ec = outcome(J._backend_forward_solve!,actual,c,rhs)",
+      "    ENTRY[\"candidate\"] += 1\n    ec = outcome(J._backend_forward_solve!,actual,c,rhs)\n    ENTRY[\"throws\"] += Int(er !== nothing) + Int(ec !== nothing)\n    ENTRY[\"successes\"] += Int(er === nothing) + Int(ec === nothing)"
+    ]
+  ],
+  "inverse": true,
+  "original_sha256": "62c42d998216cd65084f2300a4074c6a9ac32282c481ac2068053362be44883d",
+  "instrumented_sha256": "de75334c0734b8f72f839389fb20e23e7ab93d894ba79bd71cbd64c9e1ef99d7",
+  "expected": {
+    "constructors": 28,
+    "copies": 28,
+    "reference": 28,
+    "candidate": 28,
+    "throws": 6,
+    "successes": 50
+  },
+  "scope": "Cold driver entries before calls, outcomes after catches; no instrumentation of candidate or kernel timings."
+}

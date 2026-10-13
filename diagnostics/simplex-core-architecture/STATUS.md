@@ -38,7 +38,7 @@ main also has a user-modified .vscode/settings.json. Do not stage those files.
 | S3 | End-to-end exact sparsity support | Active | S3-A/S3-B integrated, latest masterb720674; exact-support consumer savings qualified; broader S3 partial |
 | S4 | Refactorization memory lifecycle | Active | S4-A/S4-C integrated; master3220118; Float64 component attribution/cost and exact triplet optimization accepted; bounded scalar component attribution360samples accepted; broader manager/history/medium coverage open |
 | S5 | Phase/cleanup handoff contract | Active | S5-A/S5-B accepted; S5-C production88a2411 -> mastere7014fb, reviewed, master668/668; broader handoffs partial |
-| MA | Selective MutableArithmetics integration | Active | MA-F replacement correctness qualified: RED2expected,381assertions+48fixtures; targets6/6 benefit pass, controls6/32 fail; production promotion NOT accepted |
+| MA | Selective MutableArithmetics integration | Active | MA-I routing correctness647/647+48fixtures; targets6/6pass, controls8/32FAIL; promotion NOT accepted; single allowance consumed |
 | S6 | Broad validation and final comparison | Active | S6-A/B triage accepted; S6-C test repair integrated as mastera465da5, focused20/20. S6-G artificial-row test repair master8516e0d; S6-M BigFloat fixture repair master7fea422, focused1477/1477; S6-T no-recession fixture masterafb37d9,focused192/master19; S6-W repeated-price fixture masterb9e7cb1,focused109/master41; S6-AA reliable exchange fixture master74f7835,focused127/master19; S6-AC reconstruction fixture master3c0af5c,focused339/master215; S6-AI dual recovery fixture master354bb1f,focused339/master252; other CI families and full validation remain open |
 
 Allowed execution states: Pending, Active, Blocked (reason required), Verified,
@@ -47,22 +47,27 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-MA-H OFFLINE preparation completed: isolated routing-only candidate SHA256
- dca3d1c7cabfc6ecf8e09832cadd097bcfe4a6e5982e42d914b72333bf853dea.
-Structural RED4expected false/GREEN5PASS; exact inverse to MA-E and original source;
-helpers unchanged. Old381assertions copied exactly; new266prospective assertions
-in28paired full-forward cases (647total). All Julia text UNEXECUTED.29offline
-checks PASS/27bindings; no actualsrc/test/Project/env/master/CI change.
-See MA-MARKOWITZ-ROUTING-PREPARATION.md and results/MA-H review/closure/publication.
-Next MA-I: docs/superpowers/plans/2026-10-14-ma-routing-qualification-admission.md.
-FIRST new concrete immutable controls/manifest and fresh independent numerical
-admission, THEN one short bounded22process schedule. No launch from MA-H alone.
-Standing short-run permission persists; no duplicate question. MA-F performance
-remains NOT ACCEPTED, all48cases/target/control gates retained; no integration.
-MA-G current STATUS/roadmap hashes in closure/publication/review map ONLY to
-MA-H/STATUS.md.before-MA-H and roadmap.md.before-MA-H; older maps unchanged.
-All old evidence/scripts/candidates and MA-H input plan frozen. BroaderMA/S2/S3/
-S4/S5/S6open, automationpaused/CIoff/HHdisabled; master6f68e24 unchanged.
+MA-I completed one admitted short22process attempt with the exact MA-H routing
+candidate. RED2expected failures; qualification647/647,48finite fixtures/432rows,
+route entries28constructors/28copies/56fullcalls including6expected throws.
+All22stage audits and12postchecks PASS;1210pins unchanged;177portable files exact.
+All1920steadywindows compile/recompile0;3GCwindows retained. Targets6/6pass,
+controls8/32FAIL: complete-forward promotion is NOT ACCEPTED. No integration,
+automatic tuning or repeated attempt. Correctness is component scoped, not a
+solver/fullsuite/end-to-end speedup or causal explanation of each failed control.
+Fresh independent gpt-6-astra admission and result reviews accepted diagnostic
+scope with no unresolved findings or unnecessary new production work/memory.
+Fresh134old/new PGIDs ANDsessions absent/noJulia; protectedfiles/master6f68e24
+unchanged. See MA-MARKOWITZ-ROUTING-QUALIFICATION.md and results/MA-I.
+
+MA-I allowance consumed; exact candidate/controls/manifest/raw/reviews frozen.
+No next numerical attempt follows automatically. BroaderMA/S2/S3/S4/S5/S6 remain
+OPEN. Proceed only with a genuinely different concrete admitted step; stopped
+routes remain stopped. Standing human permission for short attempts persists,
+no duplicate approval question, but new technical admission remains mandatory.
+Automationpaused/CIoff/HHdisabled. MA-H current STATUS/roadmap bindings in closure,
+publication and review map ONLY MA-I/STATUS.md.before-MA-I and roadmap.md.before-MA-I.
+All older mapping chains and failures remain unchanged; original MA-I plan frozen.
 
 ## S4-AD production integration — 2026-10-13
 

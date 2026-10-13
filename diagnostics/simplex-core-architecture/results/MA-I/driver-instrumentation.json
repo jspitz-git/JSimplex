@@ -1,0 +1,13 @@
+{
+  "replacements": [
+    [
+      "                Base.include(Main,joinpath(@__DIR__,\"tests-instrumented.jl\"))",
+      "                Base.include(Main,joinpath(@__DIR__,\"tests-instrumented.jl\"))\n                if cfg[\"stage\"] == \"qualification\"\n                    Base.include(Main,joinpath(@__DIR__,\"route-tests-instrumented.jl\"))\n                end"
+    ],
+    [
+      "            raw[\"tests\"]=snapshot(ts);raw[\"counts\"]=total(ts)",
+      "            raw[\"context_restored\"]=Test.get_testset()===parent_testset && Test.get_testset_depth()==parent_depth\n            raw[\"tests\"]=snapshot(ts);raw[\"counts\"]=total(ts)\n            if isdefined(Main,:MarkowitzMARoutingTests)\n                raw[\"route_entries\"]=copy(Main.MarkowitzMARoutingTests.ENTRY)\n            end"
+    ]
+  ],
+  "original_sha256": "2dfe40bba92092e7f05b845395814b09cc034fb2e97a343739700079a181c426"
+}

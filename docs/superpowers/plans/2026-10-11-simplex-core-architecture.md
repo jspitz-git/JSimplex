@@ -45,22 +45,27 @@ accepted deliverables, not partial or failed attempts. Update both at milestones
 
 ## Current continuation — 2026-10-14
 
-MA-H OFFLINE preparation completed: isolated routing-only candidate SHA256
- dca3d1c7cabfc6ecf8e09832cadd097bcfe4a6e5982e42d914b72333bf853dea.
-Structural RED4expected false/GREEN5PASS; exact inverse to MA-E and original source;
-helpers unchanged. Old381assertions copied exactly; new266prospective assertions
-in28paired full-forward cases (647total). All Julia text UNEXECUTED.29offline
-checks PASS/27bindings; no actualsrc/test/Project/env/master/CI change.
-See MA-MARKOWITZ-ROUTING-PREPARATION.md and results/MA-H review/closure/publication.
-Next MA-I: docs/superpowers/plans/2026-10-14-ma-routing-qualification-admission.md.
-FIRST new concrete immutable controls/manifest and fresh independent numerical
-admission, THEN one short bounded22process schedule. No launch from MA-H alone.
-Standing short-run permission persists; no duplicate question. MA-F performance
-remains NOT ACCEPTED, all48cases/target/control gates retained; no integration.
-MA-G current STATUS/roadmap hashes in closure/publication/review map ONLY to
-MA-H/STATUS.md.before-MA-H and roadmap.md.before-MA-H; older maps unchanged.
-All old evidence/scripts/candidates and MA-H input plan frozen. BroaderMA/S2/S3/
-S4/S5/S6open, automationpaused/CIoff/HHdisabled; master6f68e24 unchanged.
+MA-I completed one admitted short22process attempt with the exact MA-H routing
+candidate. RED2expected failures; qualification647/647,48finite fixtures/432rows,
+route entries28constructors/28copies/56fullcalls including6expected throws.
+All22stage audits and12postchecks PASS;1210pins unchanged;177portable files exact.
+All1920steadywindows compile/recompile0;3GCwindows retained. Targets6/6pass,
+controls8/32FAIL: complete-forward promotion is NOT ACCEPTED. No integration,
+automatic tuning or repeated attempt. Correctness is component scoped, not a
+solver/fullsuite/end-to-end speedup or causal explanation of each failed control.
+Fresh independent gpt-6-astra admission and result reviews accepted diagnostic
+scope with no unresolved findings or unnecessary new production work/memory.
+Fresh134old/new PGIDs ANDsessions absent/noJulia; protectedfiles/master6f68e24
+unchanged. See MA-MARKOWITZ-ROUTING-QUALIFICATION.md and results/MA-I.
+
+MA-I allowance consumed; exact candidate/controls/manifest/raw/reviews frozen.
+No next numerical attempt follows automatically. BroaderMA/S2/S3/S4/S5/S6 remain
+OPEN. Proceed only with a genuinely different concrete admitted step; stopped
+routes remain stopped. Standing human permission for short attempts persists,
+no duplicate approval question, but new technical admission remains mandatory.
+Automationpaused/CIoff/HHdisabled. MA-H current STATUS/roadmap bindings in closure,
+publication and review map ONLY MA-I/STATUS.md.before-MA-I and roadmap.md.before-MA-I.
+All older mapping chains and failures remain unchanged; original MA-I plan frozen.
 
 ### Previous S4-AD integration (completed)
 
