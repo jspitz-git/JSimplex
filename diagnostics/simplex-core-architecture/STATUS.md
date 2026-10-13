@@ -46,7 +46,33 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-**Current continuation: S5-J source/evidence ownership reconciliation completed; independent review and publication closure recorded separately. Next S5-K: `docs/superpowers/plans/2026-10-13-dual-auxiliary-pending-observer-oracle.md`, OFFLINE reachability/oracle specification only; no Julia or runtime plan.**
+**Current continuation: S5-K offline observer/oracle specification accepted; independent review and publication closure recorded separately. Next S5-L: `docs/superpowers/plans/2026-10-13-dual-auxiliary-pending-observer-preparation.md`, ONE unexecuted candidate preparation only; no Julia or runtime admission.**
+
+S5-K offline observer/oracle specification completed:20 literal source checks,
+118 fresh read-time hashes and8 author-independent checks. Fresh gpt-6-astra review
+independently rehashed all118 (771572094 bytes), accepted with no Critical/Important/
+Minor and no unnecessary NEW production work/memory. No correction was required.
+The forwarded refactor_other candidate is identified by StageObserver.live === LIVE;
+pending pricing_phase_reset additionally requires LIVE state and the adopted trial
+factor. Source-supported conditional reachability, NOT runtime qualification.
+Selected publication/cause/history/checkpoint/work/event-prefix oracle;20 reference
+slots plus3 vector copies/six entries,17 publication element comparisons for the
+existing tiny fixture. Counts are schema bounds, not allocations/native retention.
+Entry-cost equality remains prospective: auxiliary numerical repairs can change
+costs despite perturb_degenerate=false; preserve any failure and stop qualification,
+no tuning/solver-defect inference. Existing237 historical PASS per failed run and
+78/19 interruption/publication coverage reused, not rerun. No Julia, new LP arithmetic,
+fixture/driver/launcher, production/test/env/master/CI change. Next S5-L ONE offline
+candidate preparation only, no syntax/import/compile/runtime admission or extra solves.
+Read S5-DUAL-AUXILIARY-PENDING-OBSERVER-ORACLE.md and REVIEW, results/S5-K.
+First closure.py stopped before output/commit/push on external absolute runtime-path
+mapping (ValueError, exit1); original source and tool stderr transcription preserved.
+Separate closure-2 corrects ONLY that mapping, with offline RED1/GREEN3 and separate
+review. No original closure/collector/auditor rerun or numerical attempt.
+Frozen K source_contract/independent/evidence/closure/closure-2 NEVER rerun or rewrite.
+J continuation texts preserved before-K; all J/I/F/G/H evidence and G false62/63 plus
+separate7 PASS unchanged. CI off, HH disabled and every prior broader gate unchanged.
+
 
 S5-J source/evidence reconciliation:21 literal checks,97 fresh read-time hashes,
 eight author-independent checks. Reviewer Minor original-bound terminology was

@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-K/closure.py", line 29, in <module>
+    'full118_original_inventory':len(e['sha256'])==118 and all(sha(original(p))==v for p,v in e['sha256'].items()),
+                                                           ^^^
+  File "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-K/closure.py", line 29, in <genexpr>
+    'full118_original_inventory':len(e['sha256'])==118 and all(sha(original(p))==v for p,v in e['sha256'].items()),
+                                                                   ~~~~~~~~^^^
+  File "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-K/closure.py", line 14, in original
+    rel=str(Path(p).relative_to(R)) if Path(p).is_absolute() else p
+            ~~~~~~~~~~~~~~~~~~~^^^
+  File "/usr/lib/python3.14/pathlib/__init__.py", line 489, in relative_to
+    raise ValueError(f"{str(self)!r} is not in the subpath of {str(other)!r}")
+ValueError: '/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/julia' is not in the subpath of '/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl'
