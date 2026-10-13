@@ -1,0 +1,13 @@
+# MA-C independent final correction review
+
+ACCEPTED: MA-C SOURCE/DESIGN ONLY; MA-D OFFLINE PREPARATION ONLY; NO NUMERICAL OR PERFORMANCE ACCEPTANCE.
+
+The bounded offline correction resolves MA-C-I1. The revised eligibility interface receives `diagonal_vector,pivot`, checks `checkbounds(Bool,...)` and `isassigned(...)` before reading, and returns false for missing/unassigned diagonal. The original row loop then retains responsibility for its arithmetic and final diagonal lookup. The added prospective combined-fault regressions distinguish the original rational DivideError from a premature BoundsError/UndefRefError and check publication state. No exception catching/retry or scratch publication was introduced. Defensive assignedness checks on other speculative reads are consistent with the nonthrowing eligibility contract.
+
+Critical: 0. Important: 0 unresolved. Minor: 0. No new issues found in the corrected contract or plan. MA-C-I1 remains preserved in the initial rejected review and is resolved by this separate final review.
+
+Independently verified all six review-fix file bindings, initial review.md/json immutable hashes, and both before-version hashes against the original independent review bindings. The corrected report, plan, correction evidence, initial reviews, preserved before versions, source evidence, host evidence and continuation map are bound in review-final.json. This is a bounded correction review relying on the original independently verified 20 source hashes/source inspection; no old audit or source qualification was rerun.
+
+No unnecessary NEW production work, allocations or retained memory were found: this remains documentation-only with production untouched. The prospective guard adds a constant amount of diagonal bounds/assignedness work per considered row and defensive assignedness checks within the already planned O(K) eligibility traversal. They preserve required exception ordering and do not add solves, full-vector copies, conversions or persistent storage. Per-solve scratch, arbitrary rational limb growth, ordinary division outputs, internal rational GMP work differences and whole-solve cost measurement remain subject to the original prospective ledger and future acceptance gates. No current benchmark is required and no benefit is inferred.
+
+No Julia, import, parser, compilation, numerical run or old script was executed. Next MA-D prepares an unexecuted candidate/regression/fixture/cost package only. A later concrete bounded MA-E admission and numerical/work review are still required; this acceptance does not authorize a launch or performance/production integration.

@@ -302,7 +302,7 @@ new `test/simplex_handoff_tests.jl` for the shared contract.
 **Gate:** Valid final original-model certificates, correct fallback and a measured
 reduction in initialization work; no silent transfer of incompatible state.
 
-### MA — Selective MutableArithmetics integration (Pending)
+### MA — Selective MutableArithmetics integration (Active)
 
 **Goal:** Reduce temporary scalar allocations in one measured production kernel
 using privately owned scratch for `BigFloat` and `Rational{BigInt}`.
@@ -311,13 +311,18 @@ and its independent result review. MA-A establishes a local warmed dot-product
 benefit, not production ownership safety or end-to-end speedup. Its consumed
 attempt, driver and evidence remain frozen.
 
-- [ ] **MA-1 — Select one kernel and freeze its contract.** Inspect existing
+- [x] **MA-1 — Select one kernel and freeze its contract.** Inspect existing
   scalar reductions and select exactly one recurring allocation source with
   private intermediate values. Record its actual source/caller/test paths,
   execution frequency, scalar types, operation/rounding order, exception behavior
   and input/output aliases. Produce a concrete implementation subplan with exact
   interfaces and named tests before changing production. Reject the site if
   ownership cannot be established without changing observable behavior.
+  MA-C selects Markowitz forward upper reduction only; source/design review accepted.
+  [Contract](../../../diagnostics/simplex-core-architecture/MA-MARKOWITZ-UPPER-CONTRACT.md)
+  and [MA-D offline preparation](2026-10-13-ma-markowitz-upper-preparation.md) bind
+  private call-local scratch, first-term precision, original division publication,
+  scoped-rounding fallback and exception order. No performance acceptance yet.
 - [ ] **MA-2 — Implement the smallest qualified candidate.** Give accumulator and
   MA buffers an explicit owner and lifetime; prohibit mutation of borrowed input
   scalars. Define reset/reuse, reentrancy and precision-change rules. Construct

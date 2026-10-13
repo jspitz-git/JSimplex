@@ -1,0 +1,51 @@
+{
+  "decision": "rejected_pending_offline_correction",
+  "scope": "MA-C source/design only; next MA-D offline preparation only",
+  "timestamp_utc": "2026-10-13T19:28:01.742065+00:00",
+  "critical": [],
+  "important": [
+    {
+      "severity": "Important",
+      "id": "MA-C-I1",
+      "location": "docs/superpowers/plans/2026-10-13-ma-markowitz-upper-preparation.md:39-43; MA-MARKOWITZ-UPPER-CONTRACT.md Arithmetic and eligibility",
+      "title": "Guard speculative diagonal lookup before checking row eligibility",
+      "detail": "The scalar diagonal argument and finite-diagonal precheck imply an eager diagonal[pivot] read, although the original source reads it only after all row arithmetic. For a malformed shortened diagonal and a two-term rational row whose first product is zero times infinity, original gmp.jl mul! throws DivideError before the diagonal lookup; eager eligibility lookup instead throws BoundsError. An in-bounds unassigned diagonal can similarly throw UndefRefError too early. This contradicts the broad malformed-input exception/publication parity requirement.",
+      "fix": "Pass diagonal vector and pivot to eligibility. Check checkbounds(Bool,diagonal,pivot) and isassigned(diagonal,pivot) before reading it; false must run the exact original loop and its later diagonal lookup. Add combined-error regressions for absent and unassigned diagonal with earlier zero-times-infinity rational arithmetic. Keep generic loop and publication order unchanged."
+    }
+  ],
+  "minor": [],
+  "readtime_hashes_verified": 20,
+  "continuation_beforecopies_verified": 2,
+  "unnecessary_new_production_work_allocation_or_retention_found": false,
+  "performance_accepted": false,
+  "julia_executed": false,
+  "sha256": {
+    "src/markowitz_factorization.jl": "e07eb67430a99a050c7a78c2419a3a97aee1c0f2e99224f4fdf15389922d1047",
+    "src/factorization.jl": "59f0dfb40ab13cdf76b1148323ea0b335154b98cb4da83e87711ba22b8be2986",
+    "src/triangular_factorization.jl": "2d8d488ffb7d1cf79ff71662e0cd83400adaf4097dac3e48254c47106f3a7204",
+    "src/hypersparse_updates.jl": "4b28aa53f95de0f5cd076adb1e74b0146f80185cbd24583964c24077bc97ac99",
+    "src/simplex_recovery.jl": "d68055947b8cedfd0eb6cb554f656ef80b942bf85a64e3b8ccd2881d9e37761c",
+    "src/precompile.jl": "d156b5dd32c10b78e4d927acd041551ce5912d81d429eae6575a0da516cdf257",
+    "src/JSimplex.jl": "f1e819d506bcaa13797150a924effcea5baa310413bc0f81ebaa051c0994e208",
+    "Project.toml": "8a9881836acdf490c9d2fe593372b1a067510eecdcdb21dfb8f713b53bed7d1c",
+    "test/markowitz_tests.jl": "3d550ed336151f15d1c49fabe04dbac485e72e512814454c6463af972c202c7b",
+    "test/runtests.jl": "435acaf163799fcbfc168d8033f3584a9da2989c860017a7916c6f359ce5787e",
+    "diagnostics/simplex-core-architecture/MA-PRIVATE-SCALAR-KERNEL.md": "e43887e16b43a4ee026a91b0e00d169b1da06c1b0c4c78f909195fb177c40eba",
+    "diagnostics/simplex-core-architecture/results/MA-A/launch-pins.json": "268678e9460bc71051bac2a2ae746c00049286c3240a56b5eacfbf4b628bbd9d",
+    "/home/jspitz/.julia/packages/MutableArithmetics/SaQfc/Project.toml": "2f59f09d9a6d61791e3c34d6bed8b100a4e86cec1a62a02970170b05ce81db7e",
+    "/home/jspitz/.julia/packages/MutableArithmetics/SaQfc/src/implementations/BigFloat.jl": "77a152292ff7b415a2a67a10a191f3aba1a5bd284277e9155307cb28698c2588",
+    "/home/jspitz/.julia/packages/MutableArithmetics/SaQfc/src/implementations/BigInt.jl": "3bdfc71556eabdc7e7c0fe3e67b1d3d74f94da5f8171212aea61d77112c8defe",
+    "/home/jspitz/.julia/packages/MutableArithmetics/SaQfc/src/implementations/Rational.jl": "d5057968fcf522cc6602089553eb3c806f46f38bfafb4db00181077f7ef81057",
+    "/home/jspitz/.julia/packages/MutableArithmetics/SaQfc/src/interface.jl": "4aa392e1150bbfdf270dccadb508c781b4917f1bb4011f21a697c86690eb2934",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/base/mpfr.jl": "bb4057b471d897dfaa279a522aca33b88e8791300a955ef0c628708a5835fcfd",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/base/gmp.jl": "84f99707815485bba5105c23a136535530963282fc14124d0623858f68976f91",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/base/rational.jl": "0a0345a11cab9d2ba3c7bb1554c896813e3b1611771803616d2f3f7376f0141e",
+    "diagnostics/simplex-core-architecture/MA-MARKOWITZ-UPPER-CONTRACT.md": "09958eb9b9c8586fcddf69be5d5b48f4ea7566a448735e7574f1cf30a1e8d6d6",
+    "docs/superpowers/plans/2026-10-13-ma-markowitz-upper-preparation.md": "6c7a576c678abafc4452b36b3756118f1111189dfec11b6a31b1588c3154ce58",
+    "diagnostics/simplex-core-architecture/results/MA-C/source-evidence.json": "d2214671087b7d2362fe9a362aba9164ae1b7c09d61b2fdc573fd4b2aedd04ab",
+    "diagnostics/simplex-core-architecture/results/MA-C/host.json": "0f0075a5e4be00cafc985cc114cc7c605e111ee9092fe958239aad4ebe05c664",
+    "diagnostics/simplex-core-architecture/results/MA-C/continuation-map.json": "71b1f9cbe90aed04ad72eb865cf3d5f32315db01e6823a843a212fdcd9b0d6c6",
+    "diagnostics/simplex-core-architecture/results/MA-C/author-check.json": "599fd993df54766eb97e556d286473ee35b47e8fbdadc801c0d3055bf1e71033"
+  },
+  "review_md_sha256": "31961b439955a22605152be504356ca6effa9722c46a596cbb6469646f8af5f0"
+}

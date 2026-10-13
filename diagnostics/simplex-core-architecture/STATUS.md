@@ -38,7 +38,7 @@ main also has a user-modified .vscode/settings.json. Do not stage those files.
 | S3 | End-to-end exact sparsity support | Active | S3-A/S3-B integrated, latest masterb720674; exact-support consumer savings qualified; broader S3 partial |
 | S4 | Refactorization memory lifecycle | Active | S4-A/S4-C integrated; master3220118; Float64 component attribution/cost and exact triplet optimization accepted; bounded scalar component attribution360samples accepted; broader manager/history/medium coverage open |
 | S5 | Phase/cleanup handoff contract | Active | S5-A/S5-B accepted; S5-C production88a2411 -> mastere7014fb, reviewed, master668/668; broader handoffs partial |
-| MA | Selective MutableArithmetics integration | Pending | User-requested roadmap addition; MA-A evidence accepted, production site/ownership subplan and qualification still required |
+| MA | Selective MutableArithmetics integration | Active | MA-C completes MA-1 selection/contract; next MA-D offline candidate preparation; numerical/performance acceptance and integration pending |
 | S6 | Broad validation and final comparison | Active | S6-A/B triage accepted; S6-C test repair integrated as mastera465da5, focused20/20. S6-G artificial-row test repair master8516e0d; S6-M BigFloat fixture repair master7fea422, focused1477/1477; S6-T no-recession fixture masterafb37d9,focused192/master19; S6-W repeated-price fixture masterb9e7cb1,focused109/master41; S6-AA reliable exchange fixture master74f7835,focused127/master19; S6-AC reconstruction fixture master3c0af5c,focused339/master215; S6-AI dual recovery fixture master354bb1f,focused339/master252; other CI families and full validation remain open |
 
 Allowed execution states: Pending, Active, Blocked (reason required), Verified,
@@ -47,22 +47,32 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-S4-AD row-count fusion integrated: production`99da53e` -> master`6f68e24`.
-Exactly two files: unchanged qualified constructor candidate plus46-line regression
-append/4188-byte original test prefix. Corrected RED20pass/fourexpectedworkfailures;
-GREEN722/722 and actualmaster324/324, all8audit gates each, no error/broken assertions.
-Initial RED infrastructure failure and120sGREEN timeout are preserved, not passing.
-Separate accepted amendments supplied repaired collector and ONE300sGREEN; actual
-GREEN278.161s, master13.013s. All44groupsANDsessions absent/noJulia. AB performance
-evidence reused without rerun: H redundant length reads removed, narrow retained
-Float32/64 benefit, no universal/end-to-end speedup or memory-saving claim.
-AC current continuation bindings map ONLY original S4-AD before copies; historical
-RED actual source/test pins map ONLY exact S4-AD before-source/test. Older maps intact.
-Next already planned point: MA-1 select one production kernel and freeze its scalar
-ownership/operation-order contract in a concrete subplan before implementation.
-MA remains Pending; no automatic numerical launch or reopening of stopped routes.
-Automation paused, CI off, HH reuse disabled; broaderS2/S3/S4/S5/S6 remain open.
-See S4-MARKOWITZ-ROW-COUNT-INTEGRATION.md and results/S4-AD-green-bounded reviews.
+MA-C completed MA-1 SOURCE/DESIGN ONLY: select exactly the ordered upper-row
+reduction in Markowitz forward solve for BigFloat and Rational{BigInt}. No Julia,
+production/test/Project/environment change or performance acceptance. Twenty fresh
+source hashes;8 source gates and7 author checks. Fresh independent review verified
+all20; one Important speculative diagonal-read exception-order finding corrected
+with preserved before report/plan, original rejected review and5 offline checks;
+final review accepted with no unresolved findings and no unnecessary NEW production
+work/memory. Private call-local scratch (two BigFloats or12BigInt leaves), original
+first seed and ordinary division publication; no persistent cache. Installed MA
+1.8.1/global rounding versus Julia1.13/scoped rounding requires original-loop
+fallback. Added eligibility traversal/per-solve creation remain prospective costs.
+
+Next: MA-D OFFLINE preparation only, per
+`docs/superpowers/plans/2026-10-13-ma-markowitz-upper-preparation.md`.
+Prepare one unexecuted candidate, named ownership/rounding/exception regressions,
+exact bounded fixtures and cost schedule; no Julia/import/parser/compile/numerical
+launch or actual production/test/env change in that step. Subsequent MA-E needs a
+concrete admission/process budget under standing short-run human authorization;
+do not ask for the same permission again. No hours-long runs. MA overall Active,
+MA-2/3/4 not complete. Broader S2/S3/S4/S5/S6 stay open.
+
+S4-AD current STATUS/roadmap closure/publication/final-review bindings map ONLY to
+MA-C/STATUS.md.before-MA-C and roadmap.md.before-MA-C; older mappings unchanged.
+All MA-C/MA-A and previous evidence frozen, never rerun/rewrite. Master6f68e24
+unchanged. Automation paused, CI off, HH reuse disabled; stopped routes stay closed.
+See MA-MARKOWITZ-UPPER-CONTRACT.md and results/MA-C/review-final.md.
 
 ## S4-AD production integration — 2026-10-13
 
