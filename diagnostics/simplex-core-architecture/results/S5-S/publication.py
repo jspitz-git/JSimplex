@@ -1,0 +1,7 @@
+"""Exclusive fail-fast publication check after separate PASS closure and staging."""
+from common_final import *
+import subprocess
+c=read(H/'closure.json');allowed={str(p.relative_to(R)) for p in H.rglob('*') if p.is_file()}|{'diagnostics/simplex-core-architecture/STATUS.md','diagnostics/simplex-core-architecture/S5-BASIS-INITIALIZATION-STOP-QUALIFICATION.md','diagnostics/simplex-core-architecture/S5-BASIS-INITIALIZATION-STOP-QUALIFICATION-REVIEW.md','docs/superpowers/plans/2026-10-11-simplex-core-architecture.md','docs/superpowers/plans/2026-10-13-basis-initialization-stop-test-preparation.md'}
+staged=set(subprocess.check_output(['git','diff','--cached','--name-only'],text=True).splitlines());diff=subprocess.run(['git','diff','--cached','--check'],capture_output=True,text=True)
+checks={'closure14':len(c['checks'])==14 and c['all_passed'] is True and all(x is True for x in c['checks'].values()),'closure_bindings':all(sha(p)==v for p,v in c['sha256'].items()),'staged_scope':bool(staged) and staged.issubset(allowed),'user6':all(sha(p)==v for p,v in read(H/'host-before.json')['user_hashes'].items()),'branch':subprocess.check_output(['git','branch','--show-current'],text=True).strip()=='codex/simplex-core-architecture','diff_clean':diff.returncode==0}
+dump(H/'publication-check.json',dict(checks=checks,all_passed=all(checks.values()),closure_sha256=sha(H/'closure.json'),diff_check=dict(returncode=diff.returncode,stdout=diff.stdout,stderr=diff.stderr),time_ns=time.time_ns()));print(json.dumps(checks));assert all(checks.values())

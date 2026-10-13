@@ -1,0 +1,49 @@
+{
+  "rows": [
+    {
+      "case": "valid",
+      "accepted": true,
+      "error": null,
+      "passed": true
+    },
+    {
+      "case": "missing-log",
+      "accepted": false,
+      "error": "FileNotFoundError(2, 'No such file or directory')",
+      "passed": true
+    },
+    {
+      "case": "missing-reservation",
+      "accepted": false,
+      "error": "FileNotFoundError(2, 'No such file or directory')",
+      "passed": true
+    },
+    {
+      "case": "wrong-command",
+      "accepted": false,
+      "error": null,
+      "passed": true
+    },
+    {
+      "case": "wrong-pin",
+      "accepted": false,
+      "error": null,
+      "passed": true
+    },
+    {
+      "case": "false-returncode",
+      "accepted": false,
+      "error": null,
+      "passed": true
+    },
+    {
+      "case": "log-mismatch",
+      "accepted": false,
+      "error": null,
+      "passed": true
+    }
+  ],
+  "all_passed": true,
+  "source_fragment": "def invocation_valid(process,pin_hash):\n invocation=read(H/'guard-invocation.json');reservation=read(H/'attempt-reserved.json')\n log=read(H/'guard-output.log')\n expected=[sys.executable,str(G),'run',str(H/'launch-pins.json'),str(O),'--seconds','120','--',*command()]\n return (type(invocation.get('returncode')) is int and invocation['returncode']==0 and 'error' not in invocation\n  and invocation.get('command')==expected and reservation.get('command')==command()\n  and reservation.get('pins_sha256')==pin_hash and log==process\n  and type(reservation.get('time_ns')) is int and type(invocation.get('started_ns')) is int and type(invocation.get('ended_ns')) is int\n  and reservation['time_ns']<=invocation['started_ns']<=invocation['ended_ns']\n  and invocation['host']['boot_id']==process['runner']['boot_id'] and invocation['host']['matches']==[])\n",
+  "scope": "Exact final validator with synthetic metadata; not runtime evidence."
+}

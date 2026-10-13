@@ -1,0 +1,25 @@
+{
+  "source_fragment": "record['elapsed_including_launch'] = time.monotonic() - started\nif record['reason'] == 'running' and record['elapsed_including_launch'] > args.seconds:\n    record['reason'] = 'wall_time'\n",
+  "rows": [
+    {
+      "elapsed": 119.999,
+      "expected": "running",
+      "actual": "running",
+      "passed": true
+    },
+    {
+      "elapsed": 120.0,
+      "expected": "running",
+      "actual": "running",
+      "passed": true
+    },
+    {
+      "elapsed": 120.001,
+      "expected": "wall_time",
+      "actual": "wall_time",
+      "passed": true
+    }
+  ],
+  "all_passed": true,
+  "scope": "Pure Python execution of exact terminal guard fragment; no clock wait or child or Julia."
+}

@@ -1,0 +1,48 @@
+# S5-S independent review of first admission correction
+
+Verdict: REJECTED FOR LAUNCH. Critical: none. Important: one remaining binding defect (I3 below). Minor: none. The first review's I1 and original I2 are corrected in the separately preserved versions, but the revised auditor does not yet enforce the promised durable invocation evidence. No numerical attempt is admitted. Preserve this second review, the first rejected review, all original files, both frozen manifests and the first correction evidence unchanged.
+
+## Important I3: require and bind the durable invocation evidence
+
+`audit-reviewed.py:18` defines guard_invocation as only `read(H/'guard-invocation.json')['returncode']==0` plus absence of an error key. It never reads guard-output.log or attempt-reserved.json, never compares the invocation's command to the actual guard/candidate/pin/output command, and never binds the reservation's pin hash to process.json and the actual launch manifest. It also permits JSON false as a zero return code because Python `False == 0`.
+
+Consequently, even with the other numerical/process gates passing, an unrelated `{"returncode":0}` invocation record (or `{"returncode":false}`) and missing guard log/reservation satisfy this gate. The actual corrected launcher does create the records, but a fail-closed auditor must detect incomplete or mismatched durable evidence rather than accept their absence. The synthetic refusal establishes that the write path works; it does not test or repair this acceptance gap.
+
+Require the real reservation and nonempty invocation log, exact integer zero exit, the exact invocation including guard/candidate/output/pin paths and limits, and linkage of the reservation's command/hash to process.json and the current launch manifest. Validate the log's successful process record against process.json, and retain hashes of the durable invocation/log/reservation records in audit output. Check consistent time/boot identity where recorded. Use separately preserved corrected files and offline malformed/missing/mismatched-record cases; no Julia or numerical retry is needed. Until that correction is reviewed, the revised proposal remains rejected.
+
+## Findings closed in this correction
+
+The diff of guard-reviewed.py against the unchanged shared guard is limited to moving the monotonic start immediately before Popen and adding a final elapsed_including_launch record/check before the success branch. A running completion exceeding args.seconds becomes wall_time before exit0 can be assigned. Exactly120 remains permitted. The revised auditor independently requires a numeric, nonnegative terminal elapsed <=120 and therefore closes the original between-sample acceptance hole. The field excludes subsequent cleanup/pin-verification overhead and conservatively includes observer polling delay; it is not a runtime or performance measurement. The heap/VM/thread/lock/memory/group cleanup controls remain unchanged.
+
+The post-freeze terminal-boundary.json contains the exact source fragment and the three synthetic rows119.999/120/120.001 producing running/running/wall_time, all literal true. I inspected its content and separately hashed it as `c8b49f26f42f99d68ed493355c2b32dcd04ce48a88691222ec67a1588c842183`. It is additional offline evidence, not retroactively one of the811 manifest entries or evidence of a real timed child. Its identity must be bound by subsequent accepted admission/closure if reused.
+
+launcher-reviewed.py now opens an exclusive guard-output.log and redirects both guard streams there. It records guard returncode or a caught spawn/invocation exception and writes guard-invocation.json in finally, outside the numerical output directory. The exclusive attempt reservation remains before invocation. This closes I2's original loss of pre-output guard refusal evidence and does not permit retry.
+
+I read correction_checks.py and its preserved synthetic-refusal artifacts. They run the exact corrected invocation block with a deliberately missing manifest. The saved command points to the new guard, has no numerical command, and the saved error identifies the missing-pins.json file; the saved return code is integer1 and the output directory was not created. The guard's source reads the manifest before spawning any child, so this case cannot reach Julia. The five correction checks and six source RED/GREEN checks are literal true, with all their bindings independently verified. I did not rerun these scripts or the guard.
+
+## Fresh independent manifest and host verification
+
+All811 revised admission entries match fresh file bytes and resolved targets, counting3,578,894,287 listed file bytes including repeated symlink targets. All810 required hashes match, with no membership gaps. Current source70 and test441 files have exact complete membership. Every original797 inventory entry is present with its original hash and resolved path; independently hashing the original797 again also produced no mismatches. The original common/launcher/auditor/shared guard, admission proposal and first rejected review remain unchanged.
+
+Reviewed identities:
+
+- admission-reviewed-pins.json: `2e51076eedc09807d7805d041186cfd8b361845c105838f065da2d3179b14e26`.
+- required-reviewed-paths.json: `a961d8a4ea49957ab4961f6b7bf87f0c5a71a770b73d266a97ae92b8f589aaf6`.
+- original admission-pins.json: `bb6e1ec9ca22e5cc865ac40f6e1fc41a18b17d1bec30c74772a502379ade247c`.
+- first rejected prelaunch-review.md: `d202816c9bf9643ff64a3fd7f8537ce542b4152ebad9a4c0723a32ed93e43fc5`.
+
+All seven review-fix.json and all three correction-checks.json bindings match current bytes. All six protected user-file hashes match. The revised required map preserves the prior selected R/Q/source/test/environment/runtime/library/wrapper/plan lineage and adds the actual correction files/evidence; it is complete selected admission, not a transitive loader/cache-content proof.
+
+common_reviewed.py correctly requires the revised essential paths, prelaunch-final-review.md and admission-reviewed-pins.json in acceptance reviewed_sha256. Its required inventory verifies both expected and current content and exact tree membership. launcher-reviewed.py correctly includes revised admission, final review and acceptance in the launch freeze, and requires a separate binding of the actual launch manifest, acceptance, final review and reviewed launcher. These mandatory paths address the new versions rather than inadvertently accepting the old launcher. They do not cure I3 because that concerns fresh run records created after freezing.
+
+At time_ns1791858323115844927 on boot `dade7243-9103-4398-bb45-fa28fbc0be72`, fresh independent host inspection found no Julia or member of any of the fourteen prior process groups. Fresh local and remote refs still agree: HEAD `5339da900d945c23f420ac0e2c60876f8622aa7b`, master `35a6a9f4bb61e204b0c61ec9effe96cd9d2de3ab`. src/test/.github diff against master is empty. No actual attempt reservation, guard log/invocation, accepted-review record, launch manifest/binding or qualification output directory exists. These are inspection-time observations, not future launch guarantees.
+
+## Numerical, work and scope review
+
+The candidate is still the unchanged179-line canonical R file, SHA `d03fcc9c0d2f70a16437ea2412e56c807babccb99f6df25aec82894b67d51950`, and the frozen full inventory preserves the exact setup inverse and forty-predicate/twelve-observation/two-fourteen-field schema checked in the first review. The superseded original must never launch. The first review's detailed numerical/source-order/exception/ownership reasoning remains applicable; this correction changes no numerical source or candidate expression.
+
+The selected one Float64/PFI/native supplied-basis initialization retains recovery=true/refinement=false, sparse/hypersparse policy, Inf internal time limit and offsets7/11. Conditional wrapper work remains2FTRAN/2BTRAN/1refactor with the four-callback/two-stop/three-recorded-event distinction. No success control, resume/transfer/crash, extra solve, precision or manager loop is introduced. The actual wrappers and existing-only loading path remain byte-identical to those independently inspected in the first review; the same source-fallback/cache-metadata/import-work limitations apply.
+
+No unnecessary NEW production work, allocations or retained memory were found. Production remains unchanged, with no new setup/refactorization/iteration/candidate/recovery/certification work. The candidate's two explicit copies/six entries, fixed probe/entry/work/check/output records and purposeful retained workspace graph are unchanged. The correction adds constant host timer operations and cold filesystem evidence retention outside solver work; full streaming hash scans are diagnostic admission costs. No callback scan/copy, growing numerical ledger or extra numerical solve appears. No benchmark is warranted, and none was run. No allocation-neutrality, speedup, native-free, observer-neutrality, complete PREforward/backend/import budget, full rollback or certificate-transfer claim is justified.
+
+Only this prelaunch-final-review.md was written in this review turn. No existing source/test/environment/cache/CI, prior review or frozen artifact was modified. No Julia/parser/import/compile/native/numerical call, saved script or launcher was executed by this reviewer; no commit or push was made. Resolve I3 in separately preserved artifacts and obtain fresh acceptance before the one possible numerical attempt. Final result review and separate PASS closure/publication remain future requirements, with all broader gates unchanged.

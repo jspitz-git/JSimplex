@@ -46,7 +46,36 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-**Current continuation: S5-R unexecuted candidate independently reviewed; complete separate PASS closure/publication. Next S5-S must FIRST prepare a new launcher, full selected pins and fail-closed auditor, then obtain independent admission review before at most one guarded attempt: `docs/superpowers/plans/2026-10-13-basis-initialization-stop-qualification.md`.**
+**Current continuation: S5-S single qualification independently reviewed; separate PASS closure/publication precedes S5-T offline test-candidate preparation: `docs/superpowers/plans/2026-10-13-basis-initialization-stop-test-preparation.md`.**
+
+S5-S ONE guarded qualification-1: exact R canonical candidate SHA
+ d03fcc9c0d2f70a16437ea2412e56c807babccb99f6df25aec82894b67d51950,
+40literalTRUE/exit0,19auditgates856pins9authorpostchecks; fresh independent result
+review. ONE existing Float64/PFI/native supplied-basis initialization; no control,
+resume/transfer/crash/extra solves. Original sentinel/caught/guardidentity, no return,
+caller/imported/default basis ownership/values, shared progress/clock/offsets7and11,
+native recoverytrue/refinementfalse/sparsehypersparse/Inf preserved. Fourcallbacks,
+twoexplicitstops/onethrow,threerecordedevents; both14fieldworkrecords2F2B1ref,
+localiter0ref1/checkpoint1/history0/phase1/corrections0; no later selected work.
+Initial797 admission rejected for timing/undurableguardfailure; separate correction
+6source+5refusal+3terminalchecks. Revised811 rejected for auditlog/reservationlinkage;
+second separate6source+7syntheticcases. Accepted853 -> actual856, both rejected
+reviews/manifests/source preserved. New localguard includes terminal wall120 check;
+rawguardinvocation/log/reservation strictly bound; no numerical retry.
+Six raw/portable files exact,5resourcesamples minRAM22302144KiB swap0,
+5.006940819s including launch/import/compile/polling NOTbenchmark. Runner71825
+start3208391/group71824,child71826/start3208508/group71826 and allpriorgroups absent.
+Two basis copies6entries/fixed15fieldprobe/9fieldentry/40predicates/12observations/
+84outputentries plus formatting/Testfuturecost; no callback scans/copies/extra
+numerics/growingledger. Defaultfactory/hypersparse/backend/import additional;
+checkpoint10containers36entries SOURCEcounts, no completePREforward/native/import
+budget/GC/nativefree/observerneutrality/fullstate/rollback/certtransfer/speedup.
+Master35a6a9f, production/actualtest/env/CI unchanged, HHdisabled/allbroadergatesopen.
+Read S5-BASIS-INITIALIZATION-STOP-QUALIFICATION.md/REVIEW and results/S5-S.
+S5-T ONLY separate UNEXECUTED test-candidate preparation offline; future actual
+edit/launch/integration requires separate reviewed admission. All S/R/Q/P/O and
+older frozen evidence/scripts NEVER RERUN/rewrite. R continuation preserved before-S.
+
 
 S5-R OFFLINE candidate preparation: canonical candidate-reviewed.jl179lines/SHA
  d03fcc9c0d2f70a16437ea2412e56c807babccb99f6df25aec82894b67d51950,
