@@ -1,0 +1,106 @@
+{
+  "scope": "New integration attempts only; source counts, not complete backend/import budgets. No benchmark repetition.",
+  "red": {
+    "files": [
+      "S4-AC/test-append.jl"
+    ],
+    "expected_counts": [
+      20,
+      4,
+      0,
+      0
+    ],
+    "constructor_attempts": 4,
+    "workspace_creations_and_pre_resets": 4,
+    "direct_solves": 0,
+    "public_solves": 0
+  },
+  "workspace_file": {
+    "expected_GREEN_counts": [
+      324,
+      0,
+      0,
+      0
+    ],
+    "explicit_constructor_attempts": 26,
+    "explicit_refactor_attempts": 148,
+    "explicit_factor_copies": 40,
+    "explicit_direct_solves": 204,
+    "public_solves": 0
+  },
+  "markowitz_file": {
+    "expected_GREEN_counts": [
+      308,
+      0,
+      0,
+      0
+    ],
+    "explicit_constructor_attempts_excluding_public_internals": 30,
+    "explicit_refactors": 16,
+    "explicit_factor_copies": 17,
+    "explicit_direct_solves": 173,
+    "explicit_replacements": 40,
+    "explicit_workspace_initializations": 16,
+    "public_solves": 16,
+    "public_schedule": "Four existing update modes pfi/forrest_tomlin/bartels_golub/suhl_suhl times Float32/Float64/BigFloat/RationalBigInt; one existing 3row2column bounded problem per pair, one standalone initialize_workspace and one solve. Markowitz refactorization interval1; all existing options/tolerances/defaults unchanged. No new fixture or hidden-work claim."
+  },
+  "runtime_cache_file": {
+    "expected_GREEN_counts": [
+      90,
+      0,
+      0,
+      0
+    ],
+    "explicit_workspace_creations": 1,
+    "explicit_resets": 2,
+    "explicit_pivot_searches": 64,
+    "explicit_standalone_maximum_calls": 12,
+    "public_solves": 0
+  },
+  "green": {
+    "expected_counts": [
+      722,
+      0,
+      0,
+      0
+    ],
+    "ordered_files": [
+      "markowitz_workspace_reuse_allocation_tests.jl",
+      "markowitz_tests.jl",
+      "runtime_markowitz_cache_tests.jl"
+    ],
+    "public_solves": 16,
+    "explicit_constructor_attempts_excluding_public_internals": 56,
+    "explicit_refactor_attempts": 164,
+    "explicit_factor_copies": 57,
+    "explicit_direct_solves": 377
+  },
+  "master": {
+    "expected_counts": [
+      324,
+      0,
+      0,
+      0
+    ],
+    "ordered_files": [
+      "markowitz_workspace_reuse_allocation_tests.jl"
+    ],
+    "public_solves": 0
+  },
+  "limits": {
+    "attempts_per_stage": 1,
+    "Julia_threads": 1,
+    "BLAS_threads": 1,
+    "heap_GiB": 2,
+    "VM_GiB": 8,
+    "min_available_RAM_GiB": 6,
+    "max_swap_GiB": 1,
+    "seconds_per_stage": {
+      "green": 300,
+      "master": 120
+    },
+    "scope": "Replacement GREEN and separately admitted master only; old RED and failed GREEN budgets are preserved separately."
+  },
+  "driver_cost": "Custom Test set records pass counts without retaining Pass objects, nonpass diagnostics and a small testset tree. No production method replacement/counters or extra solver calls. Formatting after each file; not a timing experiment. Expected failures yield child/guard exit1 and all_passed=false, preserved as such; acceptance is a separate RED audit.",
+  "gate": "Each stage must obtain fresh independent admission tied to its exact manifest after actual source/test state exists. GREEN admission includes RED results. MASTER admission requires GREEN result review and actual master source/test identity. Failure is preserved and stops progression; no consumed-stage retry. Standing user authorization explicitly covers this execution and short future attempts."
+}

@@ -1,0 +1,240 @@
+{
+  "seconds": 300,
+  "stage": "green",
+  "root": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl",
+  "output": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/simplex-core-architecture/S4-AD-green-bounded/green",
+  "command": [
+    "/bin/bash",
+    "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+    "--compiled-modules=existing",
+    "--threads=1",
+    "--gcthreads=1,0",
+    "--heap-size-hint=2G",
+    "--project=/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S4-AD-green-bounded/driver.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S4-AD-green-bounded/green/driver-config.toml"
+  ],
+  "files": [
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/markowitz_workspace_reuse_allocation_tests.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/markowitz_tests.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/runtime_markowitz_cache_tests.jl"
+  ],
+  "expected": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/markowitz_workspace_reuse_allocation_tests.jl": [
+      {
+        "name": "Repeated Markowitz construction reuses private workspace",
+        "counts": [
+          12,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "Markowitz pivot ties do not depend on retained dictionary capacity",
+        "counts": [
+          56,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "Markowitz workspace resets clear dimension and failure history",
+        "counts": [
+          224,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "Retained Markowitz capacity after smaller bases",
+        "counts": [
+          8,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "Markowitz initial counts reuse active row length queries",
+        "counts": [
+          24,
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/markowitz_tests.jl": [
+      {
+        "name": "Markowitz sparse elimination and dense core",
+        "counts": [
+          62,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "Markowitz fill pivots and permutations",
+        "counts": [
+          8,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "Rejected singleton rows are reconsidered",
+        "counts": [
+          2,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "Equal-fill pivots preserve magnitude preference",
+        "counts": [
+          1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "Markowitz pivoting avoids extreme fill overflow",
+        "counts": [
+          1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "Markowitz threshold respects stored BigFloat precision",
+        "counts": [
+          2,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "Triangular updates accumulate over a Markowitz base",
+        "counts": [
+          144,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "Markowitz backend retains sparse storage and solve buffers",
+        "counts": [
+          7,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "Dense Markowitz input avoids a sparse staging copy",
+        "counts": [
+          1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "Markowitz refactorization is selectable for every basis update",
+        "counts": [
+          80,
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/runtime_markowitz_cache_tests.jl": [
+      {
+        "name": "Markowitz caches raw maxima once per pivot search",
+        "counts": [
+          50,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "Markowitz maximum cache retains stored BigFloat precision",
+        "counts": [
+          36,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "Markowitz maximum storage survives workspace shrink",
+        "counts": [
+          4,
+          0,
+          0,
+          0
+        ]
+      }
+    ]
+  },
+  "groups": [
+    23249,
+    23257,
+    49081,
+    49084,
+    52772,
+    52774,
+    53479,
+    53481,
+    60706,
+    60708,
+    63808,
+    63815,
+    64420,
+    64422,
+    71824,
+    71826,
+    75902,
+    75907,
+    76742,
+    76746,
+    84681,
+    84689,
+    89395,
+    89399,
+    90313,
+    90323,
+    128482,
+    128483,
+    156956,
+    156957,
+    160834,
+    160835,
+    165751,
+    165754,
+    174370,
+    174371,
+    175023,
+    175024,
+    175550,
+    175551
+  ],
+  "refs": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl": "8f1a9e4522990ab5553f2925baa58978162ebe1a",
+    "/home/jspitz/JSimplex.jl": "d02416c108f06fcd41d58e0a1980b70a51fef9ef"
+  },
+  "expected_child_exit": 0,
+  "expected_guard_exit": 0
+}

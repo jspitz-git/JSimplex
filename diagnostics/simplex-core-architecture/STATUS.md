@@ -4,7 +4,7 @@ Updated: 2026-10-13. This is the entry point after interruption.
 
 ## Current state
 
-**S1-A, S3-A/S3-B, S4-A/S4-C and S5-C integrated; master `d02416c` (includes S5-AA/S5-U/S5-O/S5-I coverage and S6-C/S6-G/S6-M/S6-T/S6-W/S6-AA/S6-AC/S6-AI repairs and S6-AO coverage). S2-A rejected; S0-L all four long references audited and complete.**
+**S1-A, S3-A/S3-B, S4-A/S4-C and S5-C integrated; master `6f68e24` (adds S4-AD row-count fusion; includes S5-AA/S5-U/S5-O/S5-I coverage and S6-C/S6-G/S6-M/S6-T/S6-W/S6-AA/S6-AC/S6-AI repairs and S6-AO coverage). S2-A rejected; S0-L all four long references audited and complete.**
 The source baseline is `fe839aa72171d7496c9c931d9393278448c7317e`.
 Initial time-budget diagnostic evidence is commit `6ded1fc`.
 
@@ -47,20 +47,41 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-S4-AC offline integration preparation completed: exact S4-AB source candidate,
-4188-byte test prefix preserved plus46-line isolated module/24prospective tests.
-Four real-constructor work cases expect20pass/fourworkfailures on current source,
-324prospective full-file assertions after change; NO Julia/parser/numerical run.
-12source/text checks28fresh hashes; source/test/env/CI/master unchanged.
-Next S4-AD: prepare exact RED/GREEN/master drivers, public-call schedules, immutable
-pins and independent admissions, then execute the concrete integration plan
-2026-10-13-markowitz-row-count-integration.md. At most three sequential120s-capped
-processes; standing short-run permission applies, no repeated permission question.
-No automatic launch from this preparation, no AB rerun/tuning or benchmark repeat.
-AB current continuation bindings map ONLY results/S4-AC/STATUS.md.before-S4-AC and
-roadmap.md.before-S4-AC; all older maps preserved. Full34groupsANDsessions absent.
-Automation paused, CI off, HH reuse disabled, MA pending; broader plan open.
-See S4-MARKOWITZ-ROW-COUNT-TEST-PREPARATION.md and results/S4-AC/review.md.
+S4-AD row-count fusion integrated: production`99da53e` -> master`6f68e24`.
+Exactly two files: unchanged qualified constructor candidate plus46-line regression
+append/4188-byte original test prefix. Corrected RED20pass/fourexpectedworkfailures;
+GREEN722/722 and actualmaster324/324, all8audit gates each, no error/broken assertions.
+Initial RED infrastructure failure and120sGREEN timeout are preserved, not passing.
+Separate accepted amendments supplied repaired collector and ONE300sGREEN; actual
+GREEN278.161s, master13.013s. All44groupsANDsessions absent/noJulia. AB performance
+evidence reused without rerun: H redundant length reads removed, narrow retained
+Float32/64 benefit, no universal/end-to-end speedup or memory-saving claim.
+AC current continuation bindings map ONLY original S4-AD before copies; historical
+RED actual source/test pins map ONLY exact S4-AD before-source/test. Older maps intact.
+Next already planned point: MA-1 select one production kernel and freeze its scalar
+ownership/operation-order contract in a concrete subplan before implementation.
+MA remains Pending; no automatic numerical launch or reopening of stopped routes.
+Automation paused, CI off, HH reuse disabled; broaderS2/S3/S4/S5/S6 remain open.
+See S4-MARKOWITZ-ROW-COUNT-INTEGRATION.md and results/S4-AD-green-bounded reviews.
+
+## S4-AD production integration — 2026-10-13
+
+S4-AD row-count fusion integrated: production`99da53e` -> master`6f68e24`.
+Exactly two files: unchanged qualified constructor candidate plus46-line regression
+append/4188-byte original test prefix. Corrected RED20pass/fourexpectedworkfailures;
+GREEN722/722 and actualmaster324/324, all8audit gates each, no error/broken assertions.
+Initial RED infrastructure failure and120sGREEN timeout are preserved, not passing.
+Separate accepted amendments supplied repaired collector and ONE300sGREEN; actual
+GREEN278.161s, master13.013s. All44groupsANDsessions absent/noJulia. AB performance
+evidence reused without rerun: H redundant length reads removed, narrow retained
+Float32/64 benefit, no universal/end-to-end speedup or memory-saving claim.
+AC current continuation bindings map ONLY original S4-AD before copies; historical
+RED actual source/test pins map ONLY exact S4-AD before-source/test. Older maps intact.
+Next already planned point: MA-1 select one production kernel and freeze its scalar
+ownership/operation-order contract in a concrete subplan before implementation.
+MA remains Pending; no automatic numerical launch or reopening of stopped routes.
+Automation paused, CI off, HH reuse disabled; broaderS2/S3/S4/S5/S6 remain open.
+See S4-MARKOWITZ-ROW-COUNT-INTEGRATION.md and results/S4-AD-green-bounded reviews.
 
 ## S4-AC permanent regression preparation — 2026-10-13
 

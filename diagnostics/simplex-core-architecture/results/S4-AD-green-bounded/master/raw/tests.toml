@@ -1,0 +1,45 @@
+source = "/home/jspitz/JSimplex.jl/src/JSimplex.jl"
+stage = "master"
+Julia_version = "1.13.0"
+before_rounding = "RoundingMode{:Nearest}()"
+all_passed = true
+before_precision = 256
+after_precision = 256
+after_rounding = "RoundingMode{:Nearest}()"
+errors = []
+ambient_ok = true
+
+[[files]]
+file = "/home/jspitz/JSimplex.jl/test/markowitz_workspace_reuse_allocation_tests.jl"
+counts = [324, 0, 0, 0]
+
+    [files.tree]
+    name = "/home/jspitz/JSimplex.jl/test/markowitz_workspace_reuse_allocation_tests.jl"
+    nonpasses = []
+    counts = [0, 0, 0, 0]
+
+        [[files.tree.children]]
+        name = "Repeated Markowitz construction reuses private workspace"
+        nonpasses = []
+        children = []
+        counts = [12, 0, 0, 0]
+        [[files.tree.children]]
+        name = "Markowitz pivot ties do not depend on retained dictionary capacity"
+        nonpasses = []
+        children = []
+        counts = [56, 0, 0, 0]
+        [[files.tree.children]]
+        name = "Markowitz workspace resets clear dimension and failure history"
+        nonpasses = []
+        children = []
+        counts = [224, 0, 0, 0]
+        [[files.tree.children]]
+        name = "Retained Markowitz capacity after smaller bases"
+        nonpasses = []
+        children = []
+        counts = [8, 0, 0, 0]
+        [[files.tree.children]]
+        name = "Markowitz initial counts reuse active row length queries"
+        nonpasses = []
+        children = []
+        counts = [24, 0, 0, 0]

@@ -1,0 +1,37 @@
+# S4-AD actual-master independent result review
+
+ACCEPTED S4-AD actual-master result.
+
+Actual master 6f68e24e8ddac42b948da8fcc2d636c010751194 completed the full workspace test file: 324 passes, zero Fail/Error/Broken, no include errors, restored BigFloat precision/rounding and child/guard exit0 in 13.012677887993 seconds within its separate 120-second bound. All eight author audit checks were independently reconciled with raw evidence. This accepts actual-master verification and the two-file integration record; final documentation, closure and publication remain separately reviewable. No Julia process, author script, launcher, auditor, integration or publication script was executed/imported by this reviewer.
+
+## Actual integrated source and test
+
+Branch production commit 99da53ebfa0e40a37880a5d764a92ebce43a7e44 and the actual master cherry-pick each contain exactly src/markowitz_factorization.jl and test/markowitz_workspace_reuse_allocation_tests.jl. Their parents are the recorded branch/master baselines. I independently checked diff-tree names, committed blobs and both checkout files against AC/GREEN bytes. The actual workspace file equals the unchanged 4,188-byte original plus the exact 46-line module suffix. Both indexes are empty. Master remains on master with only the pre-existing .vscode/settings.json tracked modification; that file and both checkouts' Manifest/LocalPreferences bytes match the integration preflight preservation hashes. No environment, CI or unrelated production edit entered either commit.
+
+The master config/TOML binds /home/jspitz/JSimplex.jl as root, the primary workspace file as the sole include, the primary project flag and primary cwd. The diagnostic driver independently checks pathof(JSimplex) against primary/src/JSimplex.jl and hashes the actual production source/test before inclusion. Raw source equals that primary module path. Thus this is validation of actual master bytes, not merely another diagnostic-worktree run.
+
+## Complete result and bounded coverage
+
+Independent TOML parsing checks the exact top-level/file/testset schema, one ordered file and five leaves: 12 manager reuse, 56 pivot-history, 224 dimension/failure-history, 8 retained-capacity and 24 permanent row-count assertions. Outer counts are zero; leaf children/nonpasses are empty; counts are literal integers. They sum to 324, including all 300 original assertions. Error list is empty, all_passed/ambient flags are literal true, and before/after BigFloat precision 256 and rounding RoundingMode{:Nearest}() match. The two progress/final log lines exactly match the structured record.
+
+The explicit source schedule remains 26 constructor attempts, 148 refactor attempts, 40 factor copies and 204 direct solves, including the four new singular constructor cases and unchanged warmups/allocation checks. It contains zero public solves or standalone public workspace initializations. These are source entry counts, excluding backend/helper/import internals. Public-solver and other-file coverage is supplied by the separately accepted complete GREEN's 722 assertions and 16 existing public solves/initializations; master does not claim to repeat that scope. These fixed tests are not exhaustive numerical conditioning, alias, failure or certificate validation.
+
+The original infrastructure failure, repaired expected RED and rejected 120-second GREEN remain preserved with their original outcomes. Accepted bounded GREEN and its transparent scope-correction before copies remain intact; every current GREEN result hash still matches. No incomplete-run counts are promoted to success and no consumed stage was rerun. The 300-second GREEN budget does not transfer to this 120-second master attempt.
+
+## Work, allocation and retained memory
+
+I found no unnecessary added production work, allocation or retained-memory cost in actual master. Its source equals the previously measured fusion: each sparse construction/refactorization removes H redundant dictionary-length queries over retained row capacity, reusing n active singleton queries with integer accumulation. Both full H-row/H-column reset passes remain and clear tails before scatter; only active rows contain entries, so the count and singleton order are unchanged under qualified Dict/OrderedDict semantics. Dense/empty bypasses, coefficient arithmetic/precision/retention, thresholds, pivot/failure behavior, ownership and numerical safeguards are unchanged.
+
+There is no new full-vector/matrix scan, basis solve, copy, conversion, invariant check, cache, scratch field or retained ledger, and no added per-candidate, certification or update-chain-length work. High-water retention and reset scaling remain. The four new test cases add only bounded test setup/owner-copy/read-count/clear checks and no completed factors or solves. The progress recount has minor avoidable cold diagnostic work already disclosed: six four-Int vector copies (24 entries) and five reductions, plus formatting/flush, because stored counts could be reused. This occurs outside production and the tested allocation expressions, does not scale with the LP dimensions/nonzeros/update-chain length, and does not justify altering frozen evidence or another benchmark. These are source counts, not measured allocations.
+
+Frozen AB's 12-case/240-window evidence remains the focused comparison for these exact production bytes. It separated setup/warmup/compilation, found equal allocation-event side medians and reachable retained graphs, and showed local retained-capacity Float32/64 benefits with mixed other timings and preserved outliers. It supports no universal/end-to-end speedup, retained-memory release or peak RSS claim. This master run's inclusive runtime is not a kernel timing comparison and no benchmark was repeated.
+
+## Lifecycle, resources and cleanup
+
+All 749 manifest entries were independently hashed and resolved; files/inventory are duplicate-free and equal, trees/inputs empty. Manifest SHA-256 is f938f13d67f61e4234f1df2b444aacde17bb98b169774c2957f00c6c01856c19. All 49 admission bindings and allowance/audit hashes match. Exact budget/commands, exclusive reservation/allowance/invocation linkage, current/terminal identity, boot/start metadata and actual refs reconcile. Terminal reason is exit0 and both return codes zero. All six regular raw files match their portable copies byte for byte, with raw pins equal admission pins.
+
+All 13 resource samples are finite, monotonic and within 120 seconds; minimum available RAM 21938580 KiB and maximum swap 0 KiB satisfy the gates. Terminal memory does too. One Julia/BLAS thread, 2GiB heap hint, enforced 8GiB VM, 6GiB RAM floor and 1GiB swap ceiling remain. Sampling and heap hints do not establish continuous peak RSS/native allocation behavior. Fresh independent /proc inspection checks all 42 prior IDs plus runner 177868 and child 177869 against both process groups and sessions and separately Julia names: no matches across all 44 IDs. Boot identities agree.
+
+This review binds actual source/test, integration records, admitted/runtime evidence and accepted GREEN. It records commit values as immutable metadata rather than hashing mutable Git ref files. Final publication script/documents/name inventory and separate PASS closure are not accepted here. CI and HH reuse remain disabled, automation paused, and broader architectural stages remain open.
+
+Unresolved findings: none within actual-master verification and the integration record.

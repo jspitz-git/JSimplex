@@ -1,0 +1,49 @@
+source = "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/JSimplex.jl"
+stage = "red"
+Julia_version = "1.13.0"
+before_rounding = "RoundingMode{:Nearest}()"
+all_passed = false
+before_precision = 256
+after_precision = 256
+after_rounding = "RoundingMode{:Nearest}()"
+errors = []
+ambient_ok = true
+
+[[files]]
+file = "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S4-AC/test-append.jl"
+counts = [20, 4, 0, 0]
+
+    [files.tree]
+    name = "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S4-AC/test-append.jl"
+    nonpasses = []
+    counts = [0, 0, 0, 0]
+
+        [[files.tree.children]]
+        name = "Markowitz initial counts reuse active row length queries"
+        children = []
+        counts = [20, 4, 0, 0]
+
+            [[files.tree.children.nonpasses]]
+            line = 39
+            kind = 2
+            display = """Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S4-AC/test-append.jl:39\n  Expression: [row.reads for row = workspace.rows] == vcat(ones(Int, n), zeros(Int, capacity - n))\n   Evaluated: [2, 2, 2] == [1, 1, 1]"""
+            expression = "[row.reads for row = workspace.rows] == vcat(ones(Int, n), zeros(Int, capacity - n))"
+            file = "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S4-AC/test-append.jl"
+            [[files.tree.children.nonpasses]]
+            line = 39
+            kind = 2
+            display = """Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S4-AC/test-append.jl:39\n  Expression: [row.reads for row = workspace.rows] == vcat(ones(Int, n), zeros(Int, capacity - n))\n   Evaluated: [2, 2, 2, 1, 1, 1, 1, 1, 1, 1  …  1, 1, 1, 1, 1, 1, 1, 1, 1, 1] == [1, 1, 1, 0, 0, 0, 0, 0, 0, 0  …  0, 0, 0, 0, 0, 0, 0, 0, 0, 0]"""
+            expression = "[row.reads for row = workspace.rows] == vcat(ones(Int, n), zeros(Int, capacity - n))"
+            file = "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S4-AC/test-append.jl"
+            [[files.tree.children.nonpasses]]
+            line = 39
+            kind = 2
+            display = """Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S4-AC/test-append.jl:39\n  Expression: [row.reads for row = workspace.rows] == vcat(ones(Int, n), zeros(Int, capacity - n))\n   Evaluated: [2, 2, 2, 2, 2, 2, 2, 2] == [1, 1, 1, 1, 1, 1, 1, 1]"""
+            expression = "[row.reads for row = workspace.rows] == vcat(ones(Int, n), zeros(Int, capacity - n))"
+            file = "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S4-AC/test-append.jl"
+            [[files.tree.children.nonpasses]]
+            line = 39
+            kind = 2
+            display = """Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S4-AC/test-append.jl:39\n  Expression: [row.reads for row = workspace.rows] == vcat(ones(Int, n), zeros(Int, capacity - n))\n   Evaluated: [2, 2, 2, 2, 2, 2, 2, 2, 1, 1  …  1, 1, 1, 1, 1, 1, 1, 1, 1, 1] == [1, 1, 1, 1, 1, 1, 1, 1, 0, 0  …  0, 0, 0, 0, 0, 0, 0, 0, 0, 0]"""
+            expression = "[row.reads for row = workspace.rows] == vcat(ones(Int, n), zeros(Int, capacity - n))"
+            file = "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S4-AC/test-append.jl"

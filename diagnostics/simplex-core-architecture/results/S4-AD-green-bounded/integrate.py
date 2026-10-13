@@ -1,0 +1,31 @@
+"""Exact two-file integration after accepted GREEN; preserve user changes."""
+from common import *
+PROD=['src/markowitz_factorization.jl','test/markowitz_workspace_reuse_allocation_tests.jl']
+def git(*a,root=R):return subprocess.check_output(['git','-C',str(root),*a],text=True).strip()
+r=read(D/'green/result-review.json');require(r['accepted'] is True and r['unresolved_findings']==[] and all(v is True for v in r['checks'].values()),'GREEN result review')
+require(all(sha(p)==h for p,h in r['sha256'].items()),'result bindings')
+a=read(D/'green/audit.json');require(a['all_passed'] is True and all(a['checks'].values()),'GREEN audit')
+require(all(sha(p)==h for k in ('sha256','portable_sha256') for p,h in a[k].items()),'GREEN raw')
+h=host(a['host']['groups']);require(len(h['groups'])==42 and not h['matches'],'fresh groups')
+require(git('rev-parse','HEAD')=='8f1a9e4522990ab5553f2925baa58978162ebe1a','branch ref')
+require(git('rev-parse','HEAD',root=P)=='d02416c108f06fcd41d58e0a1980b70a51fef9ef' and git('branch','--show-current',root=P)=='master','primary ref')
+require(set(git('diff','--name-only').splitlines())==set(PROD),'tracked diff')
+require(set(git('diff','--name-only',root=P).splitlines())=={'.vscode/settings.json'},'primary user scope')
+for root in (R,P):require(not git('diff','--cached','--name-only',root=root),'index')
+for rel,c,b in zip(PROD,['candidate-source.jl','candidate-test.jl'],['source.before-S4-AD.jl','test.before-S4-AD.jl']):
+ require((R/rel).read_bytes()==(AC/c).read_bytes(),'candidate bytes');require((P/rel).read_bytes()==(D/b).read_bytes(),'primary baseline')
+user={str(p):sha(p) for p in [P/'.vscode/settings.json',R/'Manifest.toml',R/'LocalPreferences.toml',P/'Manifest.toml',P/'LocalPreferences.toml']}
+pre=dict(host=h,before_refs=refs(),preserved_user_files=user,sha256={str(R/p):sha(R/p) for p in PROD})
+dump(D/'integration-preflight.json',pre)
+subprocess.run(['git','-C',str(R),'add','--',*PROD],check=True)
+require(git('diff','--cached','--name-only').splitlines()==PROD,'staged names')
+for p in PROD:require(subprocess.check_output(['git','-C',str(R),'show',':'+p])==(R/p).read_bytes(),'staged blob')
+subprocess.run(['git','-C',str(R),'diff','--cached','--check'],check=True)
+subprocess.run(['git','-C',str(R),'commit','-m','perf: reuse Markowitz row counts during singleton discovery'],check=True)
+commit=git('rev-parse','HEAD');require(git('diff-tree','--no-commit-id','--name-only','-r',commit).splitlines()==PROD,'committed names')
+for p in PROD:require(subprocess.check_output(['git','-C',str(R),'show',commit+':'+p])==(R/p).read_bytes(),'committed blob')
+subprocess.run(['git','-C',str(P),'cherry-pick',commit],check=True)
+for p in PROD:require((P/p).read_bytes()==(R/p).read_bytes(),'master bytes')
+require(all(sha(p)==v for p,v in user.items()),'preserved user bytes')
+dump(D/'integration.json',dict(all_passed=True,production_commit=commit,before_refs=pre['before_refs'],after_refs=refs(),preserved_user_files=user,sha256={str(root/p):sha(root/p) for root in (R,P) for p in PROD}))
+print(json.dumps(dict(production_commit=commit,after_refs=refs(),all_passed=True)))

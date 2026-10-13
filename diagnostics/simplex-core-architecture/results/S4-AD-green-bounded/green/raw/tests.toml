@@ -1,0 +1,128 @@
+source = "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/JSimplex.jl"
+stage = "green"
+Julia_version = "1.13.0"
+before_rounding = "RoundingMode{:Nearest}()"
+all_passed = true
+before_precision = 256
+after_precision = 256
+after_rounding = "RoundingMode{:Nearest}()"
+errors = []
+ambient_ok = true
+
+[[files]]
+file = "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/markowitz_workspace_reuse_allocation_tests.jl"
+counts = [324, 0, 0, 0]
+
+    [files.tree]
+    name = "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/markowitz_workspace_reuse_allocation_tests.jl"
+    nonpasses = []
+    counts = [0, 0, 0, 0]
+
+        [[files.tree.children]]
+        name = "Repeated Markowitz construction reuses private workspace"
+        nonpasses = []
+        children = []
+        counts = [12, 0, 0, 0]
+        [[files.tree.children]]
+        name = "Markowitz pivot ties do not depend on retained dictionary capacity"
+        nonpasses = []
+        children = []
+        counts = [56, 0, 0, 0]
+        [[files.tree.children]]
+        name = "Markowitz workspace resets clear dimension and failure history"
+        nonpasses = []
+        children = []
+        counts = [224, 0, 0, 0]
+        [[files.tree.children]]
+        name = "Retained Markowitz capacity after smaller bases"
+        nonpasses = []
+        children = []
+        counts = [8, 0, 0, 0]
+        [[files.tree.children]]
+        name = "Markowitz initial counts reuse active row length queries"
+        nonpasses = []
+        children = []
+        counts = [24, 0, 0, 0]
+[[files]]
+file = "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/markowitz_tests.jl"
+counts = [308, 0, 0, 0]
+
+    [files.tree]
+    name = "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/markowitz_tests.jl"
+    nonpasses = []
+    counts = [0, 0, 0, 0]
+
+        [[files.tree.children]]
+        name = "Markowitz sparse elimination and dense core"
+        nonpasses = []
+        children = []
+        counts = [62, 0, 0, 0]
+        [[files.tree.children]]
+        name = "Markowitz fill pivots and permutations"
+        nonpasses = []
+        children = []
+        counts = [8, 0, 0, 0]
+        [[files.tree.children]]
+        name = "Rejected singleton rows are reconsidered"
+        nonpasses = []
+        children = []
+        counts = [2, 0, 0, 0]
+        [[files.tree.children]]
+        name = "Equal-fill pivots preserve magnitude preference"
+        nonpasses = []
+        children = []
+        counts = [1, 0, 0, 0]
+        [[files.tree.children]]
+        name = "Markowitz pivoting avoids extreme fill overflow"
+        nonpasses = []
+        children = []
+        counts = [1, 0, 0, 0]
+        [[files.tree.children]]
+        name = "Markowitz threshold respects stored BigFloat precision"
+        nonpasses = []
+        children = []
+        counts = [2, 0, 0, 0]
+        [[files.tree.children]]
+        name = "Triangular updates accumulate over a Markowitz base"
+        nonpasses = []
+        children = []
+        counts = [144, 0, 0, 0]
+        [[files.tree.children]]
+        name = "Markowitz backend retains sparse storage and solve buffers"
+        nonpasses = []
+        children = []
+        counts = [7, 0, 0, 0]
+        [[files.tree.children]]
+        name = "Dense Markowitz input avoids a sparse staging copy"
+        nonpasses = []
+        children = []
+        counts = [1, 0, 0, 0]
+        [[files.tree.children]]
+        name = "Markowitz refactorization is selectable for every basis update"
+        nonpasses = []
+        children = []
+        counts = [80, 0, 0, 0]
+[[files]]
+file = "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/runtime_markowitz_cache_tests.jl"
+counts = [90, 0, 0, 0]
+
+    [files.tree]
+    name = "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/runtime_markowitz_cache_tests.jl"
+    nonpasses = []
+    counts = [0, 0, 0, 0]
+
+        [[files.tree.children]]
+        name = "Markowitz caches raw maxima once per pivot search"
+        nonpasses = []
+        children = []
+        counts = [50, 0, 0, 0]
+        [[files.tree.children]]
+        name = "Markowitz maximum cache retains stored BigFloat precision"
+        nonpasses = []
+        children = []
+        counts = [36, 0, 0, 0]
+        [[files.tree.children]]
+        name = "Markowitz maximum storage survives workspace shrink"
+        nonpasses = []
+        children = []
+        counts = [4, 0, 0, 0]

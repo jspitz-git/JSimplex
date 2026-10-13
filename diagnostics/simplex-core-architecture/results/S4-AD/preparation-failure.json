@@ -1,0 +1,12 @@
+{
+  "stage": "OFFLINE preparation only",
+  "initial_arithmetic_gate": false,
+  "expected_markowitz": 408,
+  "actual_source_sum": 308,
+  "expected_green": 822,
+  "actual_green": 722,
+  "synthetic_error": "ValueError: synthetic schema failed",
+  "follow_on_error": "FileNotFoundError: synthetic.json",
+  "cause": "Incorrect arithmetic total. The shell continued into freeze after failed inline synthetic check, without fail-fast. Freeze refused while hashing missing synthetic.json after creating only config/host/driver-config. No manifest, admission, allowance, reservation, guard or Julia was created/executed.",
+  "preservation": "Original run_stage.py and freeze_stage.py retained unexecuted/failed respectively; original schedule in schedule.before-count-fix.json; partial stage bytes renamed red-preparation-failed. Inline checks not retrospectively self-pinned. Follow-up valid-object checks returned true and sums324/308/90 identified the arithmetic cause."
+}

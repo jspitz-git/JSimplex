@@ -45,6 +45,25 @@ accepted deliverables, not partial or failed attempts. Update both at milestones
 
 ## Current continuation — 2026-10-13
 
+S4-AD row-count fusion integrated: production`99da53e` -> master`6f68e24`.
+Exactly two files: unchanged qualified constructor candidate plus46-line regression
+append/4188-byte original test prefix. Corrected RED20pass/fourexpectedworkfailures;
+GREEN722/722 and actualmaster324/324, all8audit gates each, no error/broken assertions.
+Initial RED infrastructure failure and120sGREEN timeout are preserved, not passing.
+Separate accepted amendments supplied repaired collector and ONE300sGREEN; actual
+GREEN278.161s, master13.013s. All44groupsANDsessions absent/noJulia. AB performance
+evidence reused without rerun: H redundant length reads removed, narrow retained
+Float32/64 benefit, no universal/end-to-end speedup or memory-saving claim.
+AC current continuation bindings map ONLY original S4-AD before copies; historical
+RED actual source/test pins map ONLY exact S4-AD before-source/test. Older maps intact.
+Next already planned point: MA-1 select one production kernel and freeze its scalar
+ownership/operation-order contract in a concrete subplan before implementation.
+MA remains Pending; no automatic numerical launch or reopening of stopped routes.
+Automation paused, CI off, HH reuse disabled; broaderS2/S3/S4/S5/S6 remain open.
+See S4-MARKOWITZ-ROW-COUNT-INTEGRATION.md and results/S4-AD-green-bounded reviews.
+
+### Previous S4-AC preparation (completed)
+
 S4-AC offline integration preparation completed: exact S4-AB source candidate,
 4188-byte test prefix preserved plus46-line isolated module/24prospective tests.
 Four real-constructor work cases expect20pass/fourworkfailures on current source,

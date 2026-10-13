@@ -1,0 +1,39 @@
+{
+  "command": [
+    "/bin/bash",
+    "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+    "--compiled-modules=existing",
+    "--threads=1",
+    "--gcthreads=1,0",
+    "--heap-size-hint=2G",
+    "--project=/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S4-AD-repair/driver.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S4-AD-repair/red/driver-config.toml"
+  ],
+  "cwd": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl",
+  "started": 1791915779.7753117,
+  "runner": {
+    "pid": 175023,
+    "pgid": 175023,
+    "start_ticks": 8919141,
+    "boot_id": "dade7243-9103-4398-bb45-fa28fbc0be72",
+    "command": "/usr/bin/python3 /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S4-AD-repair/guard.py run /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S4-AD-repair/red/pins.json /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/simplex-core-architecture/S4-AD-repair/red --seconds 120 -- /bin/bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --compiled-modules=existing --threads=1 --gcthreads=1,0 --heap-size-hint=2G --project=/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S4-AD-repair/driver.jl /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S4-AD-repair/red/driver-config.toml "
+  },
+  "pins_sha256": "39ebc1a983cbf0328960e8ab876468aa402f3614c4d50cbc6285091db8737678",
+  "reason": "exit1",
+  "returncode": 1,
+  "child": {
+    "pid": 175024,
+    "pgid": 175024,
+    "start_ticks": 8919169,
+    "boot_id": "dade7243-9103-4398-bb45-fa28fbc0be72",
+    "command": "/bin/bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --compiled-modules=existing --threads=1 --gcthreads=1,0 --heap-size-hint=2G --project=/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S4-AD-repair/driver.jl /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S4-AD-repair/red/driver-config.toml "
+  },
+  "elapsed_including_launch": 3.0065839890012285,
+  "terminal_memory": {
+    "available_kib": 22325000,
+    "swap_used_kib": 0
+  },
+  "ended": 1791915782.7850506,
+  "pins_unchanged": true
+}
