@@ -46,7 +46,33 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-**Current continuation: S3-G source/design decision complete; this support-only Rational{BigInt} consumer route is not admitted under the existing ownership contract and is stopped. No equivalent next inventory or numerical attempt is authorized. Broader stages remain open; S6-AQ requires genuinely new original evidence.**
+**Current continuation: S4-Y OFFLINE preparation of Markowitz construction-workspace retention diagnostics after the human renewed the original-plan request. Two unexecuted direct-backend lifecycles; no optimization or numerical allowance. Automation remains paused. S3-G remains stopped; S2-E consumed; S6-AQ still needs genuinely new original evidence.**
+
+## S4-Y Markowitz construction retention preparation — 2026-10-13
+
+Original S4 non-HH construction-retention prerequisite selected independently.
+Existing tests require allocation-free64→3→64 regrowth and maximum-cache
+owner retention. Do not impose a universal current-dimension memory cap or
+choose a threshold merely to avoid those fixtures. Current sparse reset clears
+all retained dictionaries, while dense/empty fast paths bypass that reset.
+Active/spare slots can share construction workspace; saved copies get none.
+Failure protects numerical factors, not the already-mutated scratch state.
+
+Separate canonical UNEXECUTED driver-reviewed.jl (initial driver preserved): two Float64 Markowitz direct-backend cases,
+128→8→8→128, sparse versus dense small input; prospective2constructors2copies
+6refactors20solves,66predicates8snapshots. Base.summarysize graph estimates
+are overlapping, not additive/native bytes/freeing/peak memory. No timing,
+allocation benefit, runtime qualification or production policy change claimed.
+No Julia/query/parser/import/compile/numerics, src/test/env/CI/master change.
+
+Next: docs/superpowers/plans/2026-10-13-markowitz-retention-admission.md,
+OFFLINE launcher/pins/auditor preparation and independent review only.
+New numerical launch requires its own accepted immutable admission and fresh
+explicit human numerical allowance. Automation remains PAUSED; no schedule edit.
+G closure/publication/review six current STATUS/roadmap bindings map ONLY to
+Y/STATUS.md.before-S4-Y and Y/roadmap.md.before-S4-Y. Older maps unchanged.
+All old scripts/raw/reviews remain frozen; no old measurement or audit rerun.
+Report S4-MARKOWITZ-RETENTION-PREPARATION.md and REVIEW; results/S4-Y.
 
 ## S3-G rational primal support admission — 2026-10-13
 

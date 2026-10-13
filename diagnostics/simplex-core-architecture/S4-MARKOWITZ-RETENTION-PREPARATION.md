@@ -1,0 +1,156 @@
+# S4-Y: Markowitz construction retention — offline preparation
+
+## Decision and authority
+
+The human requested continuation of the original plan after disabling the
+heartbeat. This selects the original S4 construction-workspace retention item
+identified in S4-INVENTORY-NOTES.md, outside the stopped HH symbolic/controller/
+import/isolation routes. Automation remains paused. This is an OFFLINE preparation
+of two diagnostic lifecycles on unchanged production, not an optimization or a
+numerical admission. No Julia query, parser, import, compilation or numerical
+execution occurred. No actual src/test/environment/CI/master change is included.
+
+The concrete deliverable is UNEXECUTED `results/S4-Y/driver-reviewed.jl` plus its bounded
+schedule and prospective oracles. Do not truncate construction storage yet:
+existing tests require allocation-free regrowth at dimension 64 and retained
+maximum-cache identity. A universal current-dimension memory bound conflicts
+with that contract. A threshold that merely avoids those test dimensions would
+not establish a better policy. This is not evidence of a leak or solver defect.
+
+## Source contract and existing coverage
+
+`src/markowitz_factorization.jl` owns the twelve-field MarkowitzWorkspace.
+`_reset_markowitz_workspace!` grows rows/columns to n but never shrinks their
+owner vectors. It calls empty! on every retained dictionary, including the tail.
+Active flags and position vectors resize to n. Maximum/value-valid arrays only
+grow, and the entire valid array is cleared. Maximum scalar values remain
+stored; for non-isbits values this can retain scalar objects, not just slots.
+Backing capacities and nested dictionary allocations are not given by lengths.
+
+Sparse construction binds local rows/columns after reset, fills them from CSC,
+then computes `sum(length,rows)` across the retained row vector. Pivot operations
+change these dictionaries. A final dense Schur complement can leave entries in
+active trailing dictionaries. Two earlier density branches return before reset;
+a dense small refactor can therefore carry the previous construction workspace,
+including its dictionary entries and old active-flag dimensions. Empty input
+also takes a dense branch; repeated empty refactors may return the same backend.
+No claim of a universal reset on refactorization is valid.
+
+Backend solves read permutations, packed factors, diagonal, core and solve
+scratch, not the construction dictionaries. `_refactorize_backend` passes the
+active backend's workspace and its private spare into construction; success
+alternates output slots when unshared. The two slot objects can refer to the
+same workspace. A failure drops the spare and rethrows, while construction
+scratch may already have changed. The active numerical factor is protected;
+whole-workspace rollback is not promised. `_copy_backend` marks the old active
+factor shared, shares its numerical arrays, and gives the saved backend private
+solve scratch with workspace/spare = nothing. Saved factors remain GC roots.
+
+Existing tests are read, not rerun. The September2026 Markowitz allocation-reuse
+plan explicitly approves capacity retention. `test/markowitz_tests.jl:181–187`
+already bounds the initial512 saved graph below250000B and backend graph below
+one dense512-square Float64 matrix; both guards remain unchanged. The new gap is
+sparse/dense shrink-history graph observations, not absence of memory guards.
+Readtime bindings are separately saved in historical-retention.json.
+
+Existing coverage:
+
+- `markowitz_workspace_reuse_allocation_tests.jl`: four non-HH managers,
+  same-size allocation reuse, pivot-order independence from dictionary capacity,
+  saved copies, multi-precision shrink/empty/regrow/failure, and Float32/64
+  64→3→64 allocation-free regrowth after warmup.
+- `runtime_markowitz_cache_tests.jl`: 64→3 retains maximum and validity array
+  identities/length, clears validity, and preserves stored BigFloat precision.
+- S4-A bounds four HH vectors, not this backend workspace. S4-D uses HH scalar
+  component/lifecycle qualification, not the graph split proposed here. No old
+  census, measurement or frozen auditor is repeated.
+
+## Frozen prospective diagnostic
+
+Two independent Float64 OrderedDict Markowitz backends. Each starts on the same
+128×128 sparse tridiagonal with diagonal 4 and adjacent entries -1. One saved
+backend copy is made immediately. Stages are initial128, small8, repeated small8,
+regrown128. Sparse case uses the same tridiagonal formula at n=8; dense case uses
+an 8×8 Matrix with diagonal4/off-diagonal1. These are factor inputs, no new LP.
+
+Successful complete schedule: 2 constructors, 2 saved copies, 6 refactor attempts,
+8 stage captures, 16 live backend solves (8 forward/8 transpose), 4 saved backend
+solves (2 forward/2 transpose). These are direct entry counts from the text,
+not a complete native/internal work budget. No public solver, workspace,
+controller, update, HH operation, observer or certificate call. No warmup,
+repeat, timing or allocation counter. An exception stops the schedule; prior
+completed case records and an error string are written where control returns.
+An error partway through a case loses that incomplete case's local records;
+future admission must preserve process logs and treat missing records as failure.
+
+Each solve uses known solution ones and RHS B*ones or transpose(B)*ones.
+Prospective component acceptance is absolute infinity-element tolerance
+64*eps(Float64), rtol=0, against ones. This is not an exact residual certificate.
+The symmetric positive definite matrices do not qualify general
+pivoting/conditioning/asymmetric transpose behavior; existing tests are retained.
+Raw matrices follow the literal integer formula; Julia parsing/dispatch/TOML
+schema/runtime behavior remain untested.
+
+Each case has 33 named Boolean predicates: seven at each of four stages, four
+saved-factor predicates, one density-route predicate. Total 66, conditional on
+completion. They check both solves, input preservation, workspace/dictionary/
+maximum owner identities, retained lengths and sparse-versus-dense reset route.
+Eight snapshots record dimensions, dictionary entry counts, pool counts, core/
+spare dimensions and two separately computed Base.summarysize graph byte counts.
+There is no expected byte number or required memory decrease: this measures the
+current policy. Changing an oracle after output is forbidden.
+
+## Work and memory ledger
+
+All work is diagnostic, outside production. Snapshots each make two complete
+dictionary-length sums and two Base.summarysize graph traversals. The backend
+graph includes the workspace/spare and overlapping numerical owners; the two
+numbers MUST NOT be added. They represent Julia reachable graph estimates, not
+native bytes, freed memory, allocator release, peak RSS or unique cross-root
+retention. Saved factors and explicit owner references intentionally stay live;
+no GC or reachability-after-release claim follows.
+
+There are four input matrix copies total, and ten solve-helper calls each allocate
+one expected vector, two product RHS vectors and two destinations (50 explicit
+vector results total), plus library
+internal work. Two input-equality comparisons per stage scan both inputs.
+Records retain bounded scalar metadata and Boolean dictionaries, not factor or
+workspace snapshots. Graph walks still cost time proportional to reachable
+storage. No cost neutral instrumentation, end-to-end speedup or allocation
+benefit is claimed. Current reset source work is two H-dictionary clear passes,
+one H-row length sum during sparse construction, and an H_max validity clear;
+per-dictionary empty! cost is deliberately not assumed constant.
+
+No new production computational work, allocation or retained-memory cost is
+introduced. Any future trimming policy needs separate correctness/cost evidence,
+including lost regrowth reuse, dense bypass, active/spare sharing, exceptions,
+custom dictionaries, arbitrary precision and capacity versus logical length.
+
+## Continuation and preservation
+
+Next only the concrete offline admission preparation in
+`docs/superpowers/plans/2026-10-13-markowitz-retention-admission.md`: loader/source
+binding, a bounded guarded launcher and fail-closed auditor, then independent
+review. No numerical launch follows until fresh explicit human numerical
+permission. No optimization candidate or production edit is admitted by S4-Y.
+S2-E remains consumed/unpromoted; S3-G stopped; S6-AQ needs new original evidence.
+All HH/DSE/controller/import/isolation/cleanup-omission stops remain; CI off.
+
+G closure/publication/review current STATUS/roadmap bindings map ONLY to
+Y/STATUS.md.before-S4-Y and Y/roadmap.md.before-S4-Y (six exact hash matches).
+Older G/F/E and all earlier mappings remain. All old raw/scripts/reviews are
+unchanged and frozen. Y artifacts freeze on publication; never execute its
+UNEXECUTED driver without the separate admission/permission. No automation edit.
+
+## Independent review correction
+
+Initial review REJECTED the norm mismatch (Important) and doubled helper-vector
+ledger (reviewer Minor, author Important because this is admission cost evidence).
+One offline structural RED→GREEN fix replaces array isapprox by componentwise
+absolute comparisons at the unchanged64*eps(Float64), and corrects10 helper
+calls/50 explicit vector results versus20 backend solves/comparison predicates.
+Initial driver.jl/report/plan/continuation/source.json and rejected review remain
+preserved. driver-reviewed.jl is canonical and UNEXECUTED. This is textual
+verification, not a Julia test or numerical counterexample. Initial source.json
+live report/plan/STATUS/roadmap bindings map only to their Y before-review copies;
+all its other hashes stay valid. No unresolved Minor is deliberately deferred.

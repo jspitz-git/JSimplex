@@ -1,0 +1,41 @@
+{
+  "reviewer": "/root/s4y_retention_review",
+  "model": "gpt-6-astra",
+  "scope": "Independent bounded final fix and publisher review; author recorded verbatim reviewer-provided bindings. Initial full review preserved separately. No Julia or supplied scripts executed by reviewer.",
+  "checks": {
+    "13_correction_bindings": true,
+    "3_historical_bindings": true,
+    "21_initial_source_bindings_with_four_preserved_mappings": true,
+    "exact_oracle_only_inverse_unchanged_tolerance": true,
+    "11_entry_source_bindings": true,
+    "3_user_bindings": true,
+    "6_original_G_continuation_bindings": true,
+    "original_source_json_unchanged": true,
+    "index_empty_production_test_CI_unchanged_refs_match": true,
+    "publication_script_inspected_not_executed": true,
+    "work_ledger_and_66_predicates": true,
+    "no_unnecessary_new_production_work_or_memory": true
+  },
+  "all_passed": true,
+  "unresolved_findings": [],
+  "sha256": {
+    "diagnostics/simplex-core-architecture/results/S4-Y/driver-reviewed.jl": "476c5ea1556b4f8b8c35291f07527cf55579e9c920fe4c9537593dab87f46f6a",
+    "diagnostics/simplex-core-architecture/results/S4-Y/driver.jl": "930525a3172ff6bc877b99c2e2be4790c77cd95abe8d8a611ae7d51a8e4c69b9",
+    "diagnostics/simplex-core-architecture/results/S4-Y/source.json": "b7bb220efc8994ec74487274afbec5f6caca5c717b7285897fe5a1a034e2c010",
+    "diagnostics/simplex-core-architecture/results/S4-Y/fix.json": "d8451a23a5fb89d3e68f9d1ac62562cfd6489371f4117a89d3c5b752c53115be",
+    "diagnostics/simplex-core-architecture/results/S4-Y/fix.py": "c66a3330ec9250f5a6a010cc2fc3d7801e4b0a9e89b9d72d81184dd8c7695e54",
+    "diagnostics/simplex-core-architecture/results/S4-Y/publish.py": "2cd382912fab53bd78ca37ede83d63fdce7e802be3bc69abecd8c70ec8f92086",
+    "diagnostics/simplex-core-architecture/results/S4-Y/historical-retention.json": "a551372c989925a28c9b67ff6e5a4fe289fab24096106138f999d45280cfc56f",
+    "diagnostics/simplex-core-architecture/results/S4-Y/review-initial.md": "d0efaffce94f781e28c91512710291094f70bdbbd28a211d89d2bbd7b6657b49",
+    "diagnostics/simplex-core-architecture/S4-MARKOWITZ-RETENTION-PREPARATION.md": "1dca62f5afd6d4f50e007fc3eb1f38fcc055f6f6f884acb1fef48d892f396ce5",
+    "docs/superpowers/plans/2026-10-13-markowitz-retention-admission.md": "aba1ae701ae726f6d60b5cfc729bc03ceefe8787195c8b8c8e6b9f1e0f2ead5b",
+    "diagnostics/simplex-core-architecture/STATUS.md": "b72d007d944cbca81d0b0adb873b43763bf9eb1214a0ad730e305a4b385110ea",
+    "docs/superpowers/plans/2026-10-11-simplex-core-architecture.md": "03f88d147d50422f77ade4b11fd40e33921743eacbce9995a4eb04b62d69700a"
+  },
+  "initial_source_mapping": {
+    "diagnostics/simplex-core-architecture/S4-MARKOWITZ-RETENTION-PREPARATION.md": "report.before-review",
+    "docs/superpowers/plans/2026-10-13-markowitz-retention-admission.md": "plan.before-review",
+    "diagnostics/simplex-core-architecture/STATUS.md": "STATUS.md.before-review",
+    "docs/superpowers/plans/2026-10-11-simplex-core-architecture.md": "roadmap.md.before-review"
+  }
+}

@@ -45,13 +45,15 @@ accepted deliverables, not partial or failed attempts. Update both at milestones
 
 ## Current continuation — 2026-10-13
 
-S3-G completed the bounded rational primal-support admission decision. The
-support-only consumer route is not admitted under the existing ownership
-contract; stop it without a candidate or equivalent next inventory. Read
-`diagnostics/simplex-core-architecture/S3-RATIONAL-PRIMAL-SUPPORT-ADMISSION.md`
-and its review. Broader stages remain open. S2-E is completed, unpromoted and
-its allowance consumed; S6-AQ independently requires new original evidence.
-Historical next-step paragraphs below do not restart completed stages.
+The human renewed original-plan work after disabling automation. S4-Y selects
+the distinct Markowitz construction-retention prerequisite: two UNEXECUTED
+baseline lifecycles, preserving existing allocation-free regrowth/cache identity.
+Read S4-MARKOWITZ-RETENTION-PREPARATION.md and its review. Next is the OFFLINE
+2026-10-13-markowitz-retention-admission.md plan; no Julia or numerical allowance.
+Automation stays paused. S3-G's rational support-only route remains stopped;
+S2-E consumed/unpromoted; S6-AQ still requires genuinely new original evidence.
+No HH/DSE/controller/import/isolation/cleanup-omission reopening. Broader stages
+remain open, and historical next-step paragraphs do not restart completed work.
 
 ## Order and decision gates
 
