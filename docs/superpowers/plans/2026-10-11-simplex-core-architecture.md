@@ -1541,3 +1541,37 @@ against accepted coverage, no new numerical plan/fixture/candidate/driver/launch
 no old rerun or HH/DSE/controller/isolation reopening. CIoffHHdisabled/all broader
 S3S4S5S6/fullsuite/bootstrapcacheinit/wholecaps/native-retention/QGCoutlier/rejections
 remain open.
+
+## S5-AB coverage reconciliation and remaining initialization gate (2026-10-13)
+
+S5-AB SOURCE/EVIDENCE ONLY reconciliation accepted: seven original handoff rows
+covered at their stated unchanged-contract scope; no equivalent new census selected.
+Entry23/full1829 hashes rebinds AA1464/1463/1468/1493/raw8/inv3/closure95/exact99;
+41groups/82 original CI rows pass SEPARATELY in each FAILED historical run.
+Ten historical test files match;14 selected production files per run have13matches
+and known S5-C perturbation difference. C actual9file/1463 execution reused,
+8wholefiles+AO unchangedprefix; I/O/U/AA/AC/AO actual-master selected source/test
+bindings, AA reliable target distinct from later AC wholefile. Initial10checks/81pins,
+source23/111pins,author8/full1883/6bindings preserved. First selector nonexistent
+scaling.jl failure preserved; separate transformations.jl version. Important review
+wrong S5-O test binding preserved/rejected: unrelated adaptive_pricing_tests.jl was
+pinned, actual execution is adaptive_pricing_lifecycle_tests.jl. One separate offline
+RED/GREEN supplement8PASS/7bindings plus author5/5bindings binds actual driver,
+master pins/raw wholefile/suffix42pass; five other integration records unchanged.
+Before-review report and original gates remain historical, not retroactive proof.
+Fresh independent gpt-6-astra full named manifests/rows/Git comparisons and bounded
+fix review accepted, no unresolved findings or unnecessary NEW production work/memory.
+No Julia/query/parser/import/compile/native/numerical/fixture/candidate/driver/launcher/
+benchmark/test/production/env/cache/CI change. Masterd02416c unchanged. All old
+numerical allowances consumed; all old raw/scripts/audits/rejections preserved.
+AA closure/publication and AB initial read-time STATUS/roadmap map ONLY AB.before-AB;
+AA launch/admission remain AA.before-AA; older Z/Y/X/W/V/U/T maps unchanged.
+Original inventory identity-transform branches may share problem identity; no universal
+fresh model copy. Covered rows do not prove cross-products/currentfullsuite/x64cause.
+S5 initialization reuse/end-to-end gate remains OPEN; C saves one restoration cost
+copy, not initialization. After separate PASS closure/exact publication, next S5-AC
+2026-10-13-cleanup-entry-reuse-design-decision.md is ONE bounded source/design-only
+eligibility/failure decision on A's existing native/no-observer/infinite-budget
+hypothesis. No unconditional omission, numerical/implementation allowance or repeat
+of A184/oldmedium/qualified handoffs. HH/DSE/controller/isolation audits stay closed;
+CIoff/HHdisabled/broadergates/bootstrapcacheinit/wholecaps/native-retention/Qoutlier unchanged.

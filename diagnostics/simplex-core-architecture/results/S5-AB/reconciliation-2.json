@@ -1,0 +1,1833 @@
+{
+  "checks": {
+    "AA_reliable_target_unchanged": true,
+    "two_failed_historical_runs": true,
+    "all_selected_rows_pass": true,
+    "all_selected_historical_tests_identical": true,
+    "C_executed_nine_files": true,
+    "C_historical_pin_identity": true,
+    "C_current_prefix_or_whole": true,
+    "integration_current_test_identity": true,
+    "integration_source_identity": true,
+    "integration_audits_pass": true
+  },
+  "all_passed": true,
+  "runs": [
+    {
+      "run": "38142752357",
+      "ref": "b720674097f662e2f8c3ea81590ea551d66a7e9a",
+      "conclusion": "failure"
+    },
+    {
+      "run": "38149970679",
+      "ref": "4914cbb1b22f2c6bf4a18eef6816382682a65902",
+      "conclusion": "failure"
+    }
+  ],
+  "rows": [
+    {
+      "run": "38142752357",
+      "file": "test/unscaled_cleanup_tests.jl",
+      "name": "Unscaling without presolve reductions repairs original feasibility",
+      "line": 12173,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2577446Z   Unscaling without presolve reductions repairs original feasibility                  | ^[[32m    28  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m    28  ^[[39m^[[0m     0.0s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2577446Z   Unscaling without presolve reductions repairs original feasibility                  |     28                   28       0.0s",
+      "passed": 28,
+      "total": 28,
+      "test_source_equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "test/unscaled_cleanup_tests.jl",
+      "name": "Unscaled cleanup keeps budgets and does not accept original infeasibility",
+      "line": 12174,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2578596Z   Unscaled cleanup keeps budgets and does not accept original infeasibility           | ^[[32m    14  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m    14  ^[[39m^[[0m     0.0s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2578596Z   Unscaled cleanup keeps budgets and does not accept original infeasibility           |     14                   14       0.0s",
+      "passed": 14,
+      "total": 14,
+      "test_source_equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "test/unscaled_cleanup_tests.jl",
+      "name": "Feasible unscaled points avoid unnecessary cleanup",
+      "line": 12175,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2579598Z   Feasible unscaled points avoid unnecessary cleanup                                  | ^[[32m    12  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m    12  ^[[39m^[[0m     0.1s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2579598Z   Feasible unscaled points avoid unnecessary cleanup                                  |     12                   12       0.1s",
+      "passed": 12,
+      "total": 12,
+      "test_source_equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "test/postsolve_cleanup_performance_tests.jl",
+      "name": "Postsolve keeps a feasible basis on the target face",
+      "line": 11205,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.1548682Z   Postsolve keeps a feasible basis on the target face                                 | ^[[32m     7  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     7  ^[[39m^[[0m     1.7s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.1548682Z   Postsolve keeps a feasible basis on the target face                                 |      7                    7       1.7s",
+      "passed": 7,
+      "total": 7,
+      "test_source_equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "test/postsolve_cleanup_performance_tests.jl",
+      "name": "Feasible postsolve cleanup uses original-cost primal optimization",
+      "line": 11206,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.1549671Z   Feasible postsolve cleanup uses original-cost primal optimization                   | ^[[32m    56  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m    56  ^[[39m^[[0m  2m08.9s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.1549671Z   Feasible postsolve cleanup uses original-cost primal optimization                   |     56                   56    2m08.9s",
+      "passed": 56,
+      "total": 56,
+      "test_source_equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "test/postsolve_cleanup_performance_tests.jl",
+      "name": "Primal cleanup restores options on cancellation and observer errors",
+      "line": 11207,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.1550690Z   Primal cleanup restores options on cancellation and observer errors                 | ^[[32m     5  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     5  ^[[39m^[[0m     3.0s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.1550690Z   Primal cleanup restores options on cancellation and observer errors                 |      5                    5       3.0s",
+      "passed": 5,
+      "total": 5,
+      "test_source_equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "test/postsolve_cleanup_performance_tests.jl",
+      "name": "Projection depends on numerical implementation, not strategy",
+      "line": 11208,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.1551697Z   Projection depends on numerical implementation, not strategy                        | ^[[32m     4  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     4  ^[[39m^[[0m     1.6s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.1551697Z   Projection depends on numerical implementation, not strategy                        |      4                    4       1.6s",
+      "passed": 4,
+      "total": 4,
+      "test_source_equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "test/postsolve_cleanup_performance_tests.jl",
+      "name": "Postsolve propagates numerical exceptions from caller logging",
+      "line": 11209,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.1552681Z   Postsolve propagates numerical exceptions from caller logging                       | ^[[32m     2  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     2  ^[[39m^[[0m     0.1s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.1552681Z   Postsolve propagates numerical exceptions from caller logging                       |      2                    2       0.1s",
+      "passed": 2,
+      "total": 2,
+      "test_source_equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "test/postsolve_hint_tests.jl",
+      "name": "Postsolve can use an infeasible point as a basis hint",
+      "line": 11210,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.1553636Z   Postsolve can use an infeasible point as a basis hint                               | ^[[32m   128  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m   128  ^[[39m^[[0m  1m29.7s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.1553636Z   Postsolve can use an infeasible point as a basis hint                               |    128                  128    1m29.7s",
+      "passed": 128,
+      "total": 128,
+      "test_source_equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "test/postsolve_hint_tests.jl",
+      "name": "Postsolve hints retain cancellation and input guards",
+      "line": 11211,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.1554567Z   Postsolve hints retain cancellation and input guards                                | ^[[32m    10  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m    10  ^[[39m^[[0m     3.9s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.1554567Z   Postsolve hints retain cancellation and input guards                                |     10                   10       3.9s",
+      "passed": 10,
+      "total": 10,
+      "test_source_equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "test/postsolve_hint_tests.jl",
+      "name": "An infeasible reconstructed basis is still rejected",
+      "line": 11212,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.1555697Z   An infeasible reconstructed basis is still rejected                                 | ^[[32m     2  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     2  ^[[39m^[[0m     1.5s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.1555697Z   An infeasible reconstructed basis is still rejected                                 |      2                    2       1.5s",
+      "passed": 2,
+      "total": 2,
+      "test_source_equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "test/postsolve_hint_tests.jl",
+      "name": "Cleanup discards a hint exchange rejected by final certification",
+      "line": 11213,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.1556957Z   Cleanup discards a hint exchange rejected by final certification                    | ^[[32m     8  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     8  ^[[39m^[[0m    44.9s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.1556957Z   Cleanup discards a hint exchange rejected by final certification                    |      8                    8      44.9s",
+      "passed": 8,
+      "total": 8,
+      "test_source_equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "test/postsolve_box_hint_tests.jl",
+      "name": "Postsolve projects an infeasible structural hint into original bounds",
+      "line": 11216,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.1562460Z   Postsolve projects an infeasible structural hint into original bounds               | ^[[32m   120  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m   120  ^[[39m^[[0m     8.0s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.1562460Z   Postsolve projects an infeasible structural hint into original bounds               |    120                  120       8.0s",
+      "passed": 120,
+      "total": 120,
+      "test_source_equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "test/postsolve_box_hint_tests.jl",
+      "name": "Box hints without exchanges retain the original feasibility decision",
+      "line": 11217,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.1564404Z   Box hints without exchanges retain the original feasibility decision                | ^[[32m    24  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m    24  ^[[39m^[[0m     8.1s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.1564404Z   Box hints without exchanges retain the original feasibility decision                |     24                   24       8.1s",
+      "passed": 24,
+      "total": 24,
+      "test_source_equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "test/postsolve_native_projection_tests.jl",
+      "name": "Postsolve projection repairs native reconstruction before rejection",
+      "line": 11214,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.1558672Z   Postsolve projection repairs native reconstruction before rejection                 | ^[[32m    36  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m    36  ^[[39m^[[0m     5.1s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.1558672Z   Postsolve projection repairs native reconstruction before rejection                 |     36                   36       5.1s",
+      "passed": 36,
+      "total": 36,
+      "test_source_equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "test/postsolve_native_projection_tests.jl",
+      "name": "Postsolve native repair respects its budget and deadline",
+      "line": 11215,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.1560575Z   Postsolve native repair respects its budget and deadline                            | ^[[32m     8  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     8  ^[[39m^[[0m     2.2s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.1560575Z   Postsolve native repair respects its budget and deadline                            |      8                    8       2.2s",
+      "passed": 8,
+      "total": 8,
+      "test_source_equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "test/legacy_phase_artificial_bound_tests.jl",
+      "name": "Legacy phase II normalizes a cancelling artificial point",
+      "line": 12268,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2673085Z   Legacy phase II normalizes a cancelling artificial point                            | ^[[32m   140  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m   140  ^[[39m^[[0m    11.4s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2673085Z   Legacy phase II normalizes a cancelling artificial point                            |    140                  140      11.4s",
+      "passed": 140,
+      "total": 140,
+      "test_source_equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "test/legacy_phase_artificial_bound_tests.jl",
+      "name": "Legacy phase transfer rejects invalid normalization and honors cancellation",
+      "line": 12269,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2674097Z   Legacy phase transfer rejects invalid normalization and honors cancellation         | ^[[32m    29  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m    29  ^[[39m^[[0m     2.7s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2674097Z   Legacy phase transfer rejects invalid normalization and honors cancellation         |     29                   29       2.7s",
+      "passed": 29,
+      "total": 29,
+      "test_source_equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "test/legacy_phase_artificial_bound_tests.jl",
+      "name": "Already removable artificials need no normalization refactorization",
+      "line": 12270,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2675135Z   Already removable artificials need no normalization refactorization                 | ^[[32m     6  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     6  ^[[39m^[[0m     4.7s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2675135Z   Already removable artificials need no normalization refactorization                 |      6                    6       4.7s",
+      "passed": 6,
+      "total": 6,
+      "test_source_equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "test/legacy_phase_artificial_bound_tests.jl",
+      "name": "Checked legacy transfer keeps its existing recomputation path",
+      "line": 12271,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2676142Z   Checked legacy transfer keeps its existing recomputation path                       | ^[[32m    12  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m    12  ^[[39m^[[0m     4.9s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2676142Z   Checked legacy transfer keeps its existing recomputation path                       |     12                   12       4.9s",
+      "passed": 12,
+      "total": 12,
+      "test_source_equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "test/simplex_phase_one_tests.jl",
+      "name": "Modern phase-one interfaces",
+      "line": 12272,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2677238Z   Modern phase-one interfaces                                                         | ^[[32m     3  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     3  ^[[39m^[[0m     0.0s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2677238Z   Modern phase-one interfaces                                                         |      3                    3       0.0s",
+      "passed": 3,
+      "total": 3,
+      "test_source_equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "test/simplex_phase_one_tests.jl",
+      "name": "General-basis phase one appends signed basic columns",
+      "line": 12273,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2677737Z   General-basis phase one appends signed basic columns                                | ^[[32m   110  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m   110  ^[[39m^[[0m     4.5s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2677737Z   General-basis phase one appends signed basic columns                                |    110                  110       4.5s",
+      "passed": 110,
+      "total": 110,
+      "test_source_equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "test/simplex_phase_one_tests.jl",
+      "name": "Phase one restores an original-dimension owned workspace",
+      "line": 12274,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2678234Z   Phase one restores an original-dimension owned workspace                            | ^[[32m   520  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m   520  ^[[39m^[[0m 15m12.7s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2678234Z   Phase one restores an original-dimension owned workspace                            |    520                  520   15m12.7s",
+      "passed": 520,
+      "total": 520,
+      "test_source_equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "test/simplex_phase_one_tests.jl",
+      "name": "Zero basic artificials leave through verified exchanges",
+      "line": 12275,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2678724Z   Zero basic artificials leave through verified exchanges                             | ^[[32m    12  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m    12  ^[[39m^[[0m    19.9s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2678724Z   Zero basic artificials leave through verified exchanges                             |     12                   12      19.9s",
+      "passed": 12,
+      "total": 12,
+      "test_source_equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "test/simplex_phase_one_state_tests.jl",
+      "name": "Phase-one feasibility never accepts unrelated working bounds",
+      "line": 12282,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2682313Z   Phase-one feasibility never accepts unrelated working bounds                        | ^[[32m     2  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     2  ^[[39m^[[0m    13.6s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2682313Z   Phase-one feasibility never accepts unrelated working bounds                        |      2                    2      13.6s",
+      "passed": 2,
+      "total": 2,
+      "test_source_equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "test/simplex_phase_one_state_tests.jl",
+      "name": "Phase one retires owned working bounds before extending a basis",
+      "line": 12283,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2682816Z   Phase one retires owned working bounds before extending a basis                     | ^[[32m     5  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     5  ^[[39m^[[0m    13.0s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2682816Z   Phase one retires owned working bounds before extending a basis                     |      5                    5      13.0s",
+      "passed": 5,
+      "total": 5,
+      "test_source_equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "test/simplex_phase_one_state_tests.jl",
+      "name": "Artificial removal retires sparse row indices and pricing storage",
+      "line": 12284,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2683314Z   Artificial removal retires sparse row indices and pricing storage                   | ^[[32m    11  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m    11  ^[[39m^[[0m    25.5s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2683314Z   Artificial removal retires sparse row indices and pricing storage                   |     11                   11      25.5s",
+      "passed": 11,
+      "total": 11,
+      "test_source_equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "test/simplex_phase_one_guard_tests.jl",
+      "name": "Phase one keeps removal work within the shared budget",
+      "line": 12278,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2680316Z   Phase one keeps removal work within the shared budget                               | ^[[32m    48  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m    48  ^[[39m^[[0m    13.6s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2680316Z   Phase one keeps removal work within the shared budget                               |     48                   48      13.6s",
+      "passed": 48,
+      "total": 48,
+      "test_source_equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "test/simplex_phase_one_guard_tests.jl",
+      "name": "Cancellation during artificial removal preserves original workspace",
+      "line": 12279,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2680842Z   Cancellation during artificial removal preserves original workspace                 | ^[[32m    14  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m    14  ^[[39m^[[0m    23.8s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2680842Z   Cancellation during artificial removal preserves original workspace                 |     14                   14      23.8s",
+      "passed": 14,
+      "total": 14,
+      "test_source_equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "test/simplex_phase_one_guard_tests.jl",
+      "name": "Phase one handles nearly dependent rows and meaningful tiny prices",
+      "line": 12280,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2681350Z   Phase one handles nearly dependent rows and meaningful tiny prices                  | ^[[32m    48  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m    48  ^[[39m^[[0m     0.2s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2681350Z   Phase one handles nearly dependent rows and meaningful tiny prices                  |     48                   48       0.2s",
+      "passed": 48,
+      "total": 48,
+      "test_source_equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "test/simplex_phase_one_guard_tests.jl",
+      "name": "Phase one preserves stored BigFloat precision",
+      "line": 12281,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2681810Z   Phase one preserves stored BigFloat precision                                       | ^[[32m     4  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     4  ^[[39m^[[0m     5.4s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2681810Z   Phase one preserves stored BigFloat precision                                       |      4                    4       5.4s",
+      "passed": 4,
+      "total": 4,
+      "test_source_equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "test/presolve_tests.jl",
+      "name": "Singleton equality aggregation preserves LP and basis",
+      "line": 11160,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.1483456Z   Singleton equality aggregation preserves LP and basis                               | ^[[32m    21  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m    21  ^[[39m^[[0m     0.2s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.1483456Z   Singleton equality aggregation preserves LP and basis                               |     21                   21       0.2s",
+      "passed": 21,
+      "total": 21,
+      "test_source_equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "test/presolve_tests.jl",
+      "name": "Original LP resolves an inconclusive reduced numerical run",
+      "line": 11167,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.1490494Z   Original LP resolves an inconclusive reduced numerical run                          | ^[[32m     2  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     2  ^[[39m^[[0m     0.3s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.1490494Z   Original LP resolves an inconclusive reduced numerical run                          |      2                    2       0.3s",
+      "passed": 2,
+      "total": 2,
+      "test_source_equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "test/presolve_tests.jl",
+      "name": "Advanced presolve reduces rows and restores solutions",
+      "line": 11168,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.1491437Z   Advanced presolve reduces rows and restores solutions                               | ^[[32m     8  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     8  ^[[39m^[[0m     0.4s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.1491437Z   Advanced presolve reduces rows and restores solutions                               |      8                    8       0.4s",
+      "passed": 8,
+      "total": 8,
+      "test_source_equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "test/presolve_tests.jl",
+      "name": "Presolve removes reversible structure",
+      "line": 11177,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.1499963Z   Presolve removes reversible structure                                               | ^[[32m    13  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m    13  ^[[39m^[[0m     0.1s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.1499963Z   Presolve removes reversible structure                                               |     13                   13       0.1s",
+      "passed": 13,
+      "total": 13,
+      "test_source_equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "test/presolve_tests.jl",
+      "name": "Cleanup resolves the original model from a restored basis",
+      "line": 11178,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.1500878Z   Cleanup resolves the original model from a restored basis                           | ^[[32m    14  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m    14  ^[[39m^[[0m    32.7s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.1500878Z   Cleanup resolves the original model from a restored basis                           |     14                   14      32.7s",
+      "passed": 14,
+      "total": 14,
+      "test_source_equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "test/presolve_tests.jl",
+      "name": "Postsolve basis projection retains implied-bound values",
+      "line": 11179,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.1501837Z   Postsolve basis projection retains implied-bound values                             | ^[[32m    30  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m    30  ^[[39m^[[0m     8.0s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.1501837Z   Postsolve basis projection retains implied-bound values                             |     30                   30       8.0s",
+      "passed": 30,
+      "total": 30,
+      "test_source_equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "test/presolve_tests.jl",
+      "name": "Numerical cleanup failure retries the original LP",
+      "line": 11181,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.1503617Z   Numerical cleanup failure retries the original LP                                   | ^[[32m     3  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     3  ^[[39m^[[0m     0.2s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.1503617Z   Numerical cleanup failure retries the original LP                                   |      3                    3       0.2s",
+      "passed": 3,
+      "total": 3,
+      "test_source_equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "test/presolve_tests.jl",
+      "name": "Original LP retry explains the restart and keeps cumulative iterations",
+      "line": 11182,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.1504789Z   Original LP retry explains the restart and keeps cumulative iterations              | ^[[32m     6  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     6  ^[[39m^[[0m     0.2s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.1504789Z   Original LP retry explains the restart and keeps cumulative iterations              |      6                    6       0.2s",
+      "passed": 6,
+      "total": 6,
+      "test_source_equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "test/presolve_tests.jl",
+      "name": "Presolve handles a completely reduced LP",
+      "line": 11183,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.1505729Z   Presolve handles a completely reduced LP                                            | ^[[32m     9  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     9  ^[[39m^[[0m     0.0s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.1505729Z   Presolve handles a completely reduced LP                                            |      9                    9       0.0s",
+      "passed": 9,
+      "total": 9,
+      "test_source_equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "test/presolve_tests.jl",
+      "name": "Optimal simplex runs retain an original-column basis",
+      "line": 11184,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.1507256Z   Optimal simplex runs retain an original-column basis                                | ^[[32m    10  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m    10  ^[[39m^[[0m    45.6s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.1507256Z   Optimal simplex runs retain an original-column basis                                |     10                   10      45.6s",
+      "passed": 10,
+      "total": 10,
+      "test_source_equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/unscaled_cleanup_tests.jl",
+      "name": "Unscaling without presolve reductions repairs original feasibility",
+      "line": 12146,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4783197Z   Unscaling without presolve reductions repairs original feasibility                  | ^[[32m    28  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m    28  ^[[39m^[[0m     0.0s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4783197Z   Unscaling without presolve reductions repairs original feasibility                  |     28                   28       0.0s",
+      "passed": 28,
+      "total": 28,
+      "test_source_equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/unscaled_cleanup_tests.jl",
+      "name": "Unscaled cleanup keeps budgets and does not accept original infeasibility",
+      "line": 12147,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4784225Z   Unscaled cleanup keeps budgets and does not accept original infeasibility           | ^[[32m    14  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m    14  ^[[39m^[[0m     0.0s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4784225Z   Unscaled cleanup keeps budgets and does not accept original infeasibility           |     14                   14       0.0s",
+      "passed": 14,
+      "total": 14,
+      "test_source_equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/unscaled_cleanup_tests.jl",
+      "name": "Feasible unscaled points avoid unnecessary cleanup",
+      "line": 12148,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4785319Z   Feasible unscaled points avoid unnecessary cleanup                                  | ^[[32m    12  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m    12  ^[[39m^[[0m     0.1s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4785319Z   Feasible unscaled points avoid unnecessary cleanup                                  |     12                   12       0.1s",
+      "passed": 12,
+      "total": 12,
+      "test_source_equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/postsolve_cleanup_performance_tests.jl",
+      "name": "Postsolve keeps a feasible basis on the target face",
+      "line": 11178,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.3780279Z   Postsolve keeps a feasible basis on the target face                                 | ^[[32m     7  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     7  ^[[39m^[[0m     1.6s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.3780279Z   Postsolve keeps a feasible basis on the target face                                 |      7                    7       1.6s",
+      "passed": 7,
+      "total": 7,
+      "test_source_equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/postsolve_cleanup_performance_tests.jl",
+      "name": "Feasible postsolve cleanup uses original-cost primal optimization",
+      "line": 11179,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.3782124Z   Feasible postsolve cleanup uses original-cost primal optimization                   | ^[[32m    56  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m    56  ^[[39m^[[0m  2m02.0s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.3782124Z   Feasible postsolve cleanup uses original-cost primal optimization                   |     56                   56    2m02.0s",
+      "passed": 56,
+      "total": 56,
+      "test_source_equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/postsolve_cleanup_performance_tests.jl",
+      "name": "Primal cleanup restores options on cancellation and observer errors",
+      "line": 11180,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.3783892Z   Primal cleanup restores options on cancellation and observer errors                 | ^[[32m     5  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     5  ^[[39m^[[0m     2.8s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.3783892Z   Primal cleanup restores options on cancellation and observer errors                 |      5                    5       2.8s",
+      "passed": 5,
+      "total": 5,
+      "test_source_equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/postsolve_cleanup_performance_tests.jl",
+      "name": "Projection depends on numerical implementation, not strategy",
+      "line": 11181,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.3785597Z   Projection depends on numerical implementation, not strategy                        | ^[[32m     4  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     4  ^[[39m^[[0m     1.5s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.3785597Z   Projection depends on numerical implementation, not strategy                        |      4                    4       1.5s",
+      "passed": 4,
+      "total": 4,
+      "test_source_equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/postsolve_cleanup_performance_tests.jl",
+      "name": "Postsolve propagates numerical exceptions from caller logging",
+      "line": 11182,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.3787504Z   Postsolve propagates numerical exceptions from caller logging                       | ^[[32m     2  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     2  ^[[39m^[[0m     0.1s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.3787504Z   Postsolve propagates numerical exceptions from caller logging                       |      2                    2       0.1s",
+      "passed": 2,
+      "total": 2,
+      "test_source_equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/postsolve_hint_tests.jl",
+      "name": "Postsolve can use an infeasible point as a basis hint",
+      "line": 11183,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.3789177Z   Postsolve can use an infeasible point as a basis hint                               | ^[[32m   128  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m   128  ^[[39m^[[0m  1m21.9s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.3789177Z   Postsolve can use an infeasible point as a basis hint                               |    128                  128    1m21.9s",
+      "passed": 128,
+      "total": 128,
+      "test_source_equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/postsolve_hint_tests.jl",
+      "name": "Postsolve hints retain cancellation and input guards",
+      "line": 11184,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.3790819Z   Postsolve hints retain cancellation and input guards                                | ^[[32m    10  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m    10  ^[[39m^[[0m     3.8s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.3790819Z   Postsolve hints retain cancellation and input guards                                |     10                   10       3.8s",
+      "passed": 10,
+      "total": 10,
+      "test_source_equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/postsolve_hint_tests.jl",
+      "name": "An infeasible reconstructed basis is still rejected",
+      "line": 11185,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.3792449Z   An infeasible reconstructed basis is still rejected                                 | ^[[32m     2  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     2  ^[[39m^[[0m     1.3s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.3792449Z   An infeasible reconstructed basis is still rejected                                 |      2                    2       1.3s",
+      "passed": 2,
+      "total": 2,
+      "test_source_equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/postsolve_hint_tests.jl",
+      "name": "Cleanup discards a hint exchange rejected by final certification",
+      "line": 11186,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.3794306Z   Cleanup discards a hint exchange rejected by final certification                    | ^[[32m     8  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     8  ^[[39m^[[0m    42.7s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.3794306Z   Cleanup discards a hint exchange rejected by final certification                    |      8                    8      42.7s",
+      "passed": 8,
+      "total": 8,
+      "test_source_equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/postsolve_box_hint_tests.jl",
+      "name": "Postsolve projects an infeasible structural hint into original bounds",
+      "line": 11189,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.3799669Z   Postsolve projects an infeasible structural hint into original bounds               | ^[[32m   120  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m   120  ^[[39m^[[0m     7.6s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.3799669Z   Postsolve projects an infeasible structural hint into original bounds               |    120                  120       7.6s",
+      "passed": 120,
+      "total": 120,
+      "test_source_equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/postsolve_box_hint_tests.jl",
+      "name": "Box hints without exchanges retain the original feasibility decision",
+      "line": 11190,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.3801433Z   Box hints without exchanges retain the original feasibility decision                | ^[[32m    24  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m    24  ^[[39m^[[0m     7.7s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.3801433Z   Box hints without exchanges retain the original feasibility decision                |     24                   24       7.7s",
+      "passed": 24,
+      "total": 24,
+      "test_source_equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/postsolve_native_projection_tests.jl",
+      "name": "Postsolve projection repairs native reconstruction before rejection",
+      "line": 11187,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.3796228Z   Postsolve projection repairs native reconstruction before rejection                 | ^[[32m    36  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m    36  ^[[39m^[[0m     4.9s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.3796228Z   Postsolve projection repairs native reconstruction before rejection                 |     36                   36       4.9s",
+      "passed": 36,
+      "total": 36,
+      "test_source_equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/postsolve_native_projection_tests.jl",
+      "name": "Postsolve native repair respects its budget and deadline",
+      "line": 11188,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.3797955Z   Postsolve native repair respects its budget and deadline                            | ^[[32m     8  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     8  ^[[39m^[[0m     2.2s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.3797955Z   Postsolve native repair respects its budget and deadline                            |      8                    8       2.2s",
+      "passed": 8,
+      "total": 8,
+      "test_source_equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/legacy_phase_artificial_bound_tests.jl",
+      "name": "Legacy phase II normalizes a cancelling artificial point",
+      "line": 12241,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4877325Z   Legacy phase II normalizes a cancelling artificial point                            | ^[[32m   140  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m   140  ^[[39m^[[0m    12.5s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4877325Z   Legacy phase II normalizes a cancelling artificial point                            |    140                  140      12.5s",
+      "passed": 140,
+      "total": 140,
+      "test_source_equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/legacy_phase_artificial_bound_tests.jl",
+      "name": "Legacy phase transfer rejects invalid normalization and honors cancellation",
+      "line": 12242,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4878328Z   Legacy phase transfer rejects invalid normalization and honors cancellation         | ^[[32m    29  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m    29  ^[[39m^[[0m     3.3s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4878328Z   Legacy phase transfer rejects invalid normalization and honors cancellation         |     29                   29       3.3s",
+      "passed": 29,
+      "total": 29,
+      "test_source_equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/legacy_phase_artificial_bound_tests.jl",
+      "name": "Already removable artificials need no normalization refactorization",
+      "line": 12243,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4879360Z   Already removable artificials need no normalization refactorization                 | ^[[32m     6  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     6  ^[[39m^[[0m     5.3s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4879360Z   Already removable artificials need no normalization refactorization                 |      6                    6       5.3s",
+      "passed": 6,
+      "total": 6,
+      "test_source_equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/legacy_phase_artificial_bound_tests.jl",
+      "name": "Checked legacy transfer keeps its existing recomputation path",
+      "line": 12244,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4880473Z   Checked legacy transfer keeps its existing recomputation path                       | ^[[32m    12  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m    12  ^[[39m^[[0m     5.5s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4880473Z   Checked legacy transfer keeps its existing recomputation path                       |     12                   12       5.5s",
+      "passed": 12,
+      "total": 12,
+      "test_source_equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/simplex_phase_one_tests.jl",
+      "name": "Modern phase-one interfaces",
+      "line": 12245,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4881393Z   Modern phase-one interfaces                                                         | ^[[32m     3  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     3  ^[[39m^[[0m     0.0s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4881393Z   Modern phase-one interfaces                                                         |      3                    3       0.0s",
+      "passed": 3,
+      "total": 3,
+      "test_source_equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/simplex_phase_one_tests.jl",
+      "name": "General-basis phase one appends signed basic columns",
+      "line": 12246,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4881874Z   General-basis phase one appends signed basic columns                                | ^[[32m   110  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m   110  ^[[39m^[[0m     5.1s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4881874Z   General-basis phase one appends signed basic columns                                |    110                  110       5.1s",
+      "passed": 110,
+      "total": 110,
+      "test_source_equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/simplex_phase_one_tests.jl",
+      "name": "Phase one restores an original-dimension owned workspace",
+      "line": 12247,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4882365Z   Phase one restores an original-dimension owned workspace                            | ^[[32m   520  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m   520  ^[[39m^[[0m 16m11.8s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4882365Z   Phase one restores an original-dimension owned workspace                            |    520                  520   16m11.8s",
+      "passed": 520,
+      "total": 520,
+      "test_source_equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/simplex_phase_one_tests.jl",
+      "name": "Zero basic artificials leave through verified exchanges",
+      "line": 12248,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4882855Z   Zero basic artificials leave through verified exchanges                             | ^[[32m    12  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m    12  ^[[39m^[[0m    20.4s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4882855Z   Zero basic artificials leave through verified exchanges                             |     12                   12      20.4s",
+      "passed": 12,
+      "total": 12,
+      "test_source_equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/simplex_phase_one_state_tests.jl",
+      "name": "Phase-one feasibility never accepts unrelated working bounds",
+      "line": 12255,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4886524Z   Phase-one feasibility never accepts unrelated working bounds                        | ^[[32m     2  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     2  ^[[39m^[[0m    13.6s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4886524Z   Phase-one feasibility never accepts unrelated working bounds                        |      2                    2      13.6s",
+      "passed": 2,
+      "total": 2,
+      "test_source_equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/simplex_phase_one_state_tests.jl",
+      "name": "Phase one retires owned working bounds before extending a basis",
+      "line": 12256,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4887020Z   Phase one retires owned working bounds before extending a basis                     | ^[[32m     5  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     5  ^[[39m^[[0m    13.0s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4887020Z   Phase one retires owned working bounds before extending a basis                     |      5                    5      13.0s",
+      "passed": 5,
+      "total": 5,
+      "test_source_equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/simplex_phase_one_state_tests.jl",
+      "name": "Artificial removal retires sparse row indices and pricing storage",
+      "line": 12257,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4887524Z   Artificial removal retires sparse row indices and pricing storage                   | ^[[32m    11  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m    11  ^[[39m^[[0m    24.0s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4887524Z   Artificial removal retires sparse row indices and pricing storage                   |     11                   11      24.0s",
+      "passed": 11,
+      "total": 11,
+      "test_source_equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/simplex_phase_one_guard_tests.jl",
+      "name": "Phase one keeps removal work within the shared budget",
+      "line": 12251,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4884412Z   Phase one keeps removal work within the shared budget                               | ^[[32m    48  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m    48  ^[[39m^[[0m    13.7s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4884412Z   Phase one keeps removal work within the shared budget                               |     48                   48      13.7s",
+      "passed": 48,
+      "total": 48,
+      "test_source_equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/simplex_phase_one_guard_tests.jl",
+      "name": "Cancellation during artificial removal preserves original workspace",
+      "line": 12252,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4884936Z   Cancellation during artificial removal preserves original workspace                 | ^[[32m    14  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m    14  ^[[39m^[[0m    24.1s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4884936Z   Cancellation during artificial removal preserves original workspace                 |     14                   14      24.1s",
+      "passed": 14,
+      "total": 14,
+      "test_source_equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/simplex_phase_one_guard_tests.jl",
+      "name": "Phase one handles nearly dependent rows and meaningful tiny prices",
+      "line": 12253,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4885435Z   Phase one handles nearly dependent rows and meaningful tiny prices                  | ^[[32m    48  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m    48  ^[[39m^[[0m     0.3s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4885435Z   Phase one handles nearly dependent rows and meaningful tiny prices                  |     48                   48       0.3s",
+      "passed": 48,
+      "total": 48,
+      "test_source_equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/simplex_phase_one_guard_tests.jl",
+      "name": "Phase one preserves stored BigFloat precision",
+      "line": 12254,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4886017Z   Phase one preserves stored BigFloat precision                                       | ^[[32m     4  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     4  ^[[39m^[[0m     5.1s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4886017Z   Phase one preserves stored BigFloat precision                                       |      4                    4       5.1s",
+      "passed": 4,
+      "total": 4,
+      "test_source_equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/presolve_tests.jl",
+      "name": "Singleton equality aggregation preserves LP and basis",
+      "line": 11133,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.3704599Z   Singleton equality aggregation preserves LP and basis                               | ^[[32m    21  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m    21  ^[[39m^[[0m     0.2s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.3704599Z   Singleton equality aggregation preserves LP and basis                               |     21                   21       0.2s",
+      "passed": 21,
+      "total": 21,
+      "test_source_equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/presolve_tests.jl",
+      "name": "Original LP resolves an inconclusive reduced numerical run",
+      "line": 11140,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.3716519Z   Original LP resolves an inconclusive reduced numerical run                          | ^[[32m     2  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     2  ^[[39m^[[0m     0.3s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.3716519Z   Original LP resolves an inconclusive reduced numerical run                          |      2                    2       0.3s",
+      "passed": 2,
+      "total": 2,
+      "test_source_equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/presolve_tests.jl",
+      "name": "Advanced presolve reduces rows and restores solutions",
+      "line": 11141,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.3718183Z   Advanced presolve reduces rows and restores solutions                               | ^[[32m     8  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     8  ^[[39m^[[0m     0.4s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.3718183Z   Advanced presolve reduces rows and restores solutions                               |      8                    8       0.4s",
+      "passed": 8,
+      "total": 8,
+      "test_source_equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/presolve_tests.jl",
+      "name": "Presolve removes reversible structure",
+      "line": 11150,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.3732691Z   Presolve removes reversible structure                                               | ^[[32m    13  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m    13  ^[[39m^[[0m     0.2s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.3732691Z   Presolve removes reversible structure                                               |     13                   13       0.2s",
+      "passed": 13,
+      "total": 13,
+      "test_source_equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/presolve_tests.jl",
+      "name": "Cleanup resolves the original model from a restored basis",
+      "line": 11151,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.3734279Z   Cleanup resolves the original model from a restored basis                           | ^[[32m    14  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m    14  ^[[39m^[[0m    32.2s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.3734279Z   Cleanup resolves the original model from a restored basis                           |     14                   14      32.2s",
+      "passed": 14,
+      "total": 14,
+      "test_source_equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/presolve_tests.jl",
+      "name": "Postsolve basis projection retains implied-bound values",
+      "line": 11152,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.3736106Z   Postsolve basis projection retains implied-bound values                             | ^[[32m    30  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m    30  ^[[39m^[[0m     8.2s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.3736106Z   Postsolve basis projection retains implied-bound values                             |     30                   30       8.2s",
+      "passed": 30,
+      "total": 30,
+      "test_source_equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/presolve_tests.jl",
+      "name": "Numerical cleanup failure retries the original LP",
+      "line": 11154,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.3739241Z   Numerical cleanup failure retries the original LP                                   | ^[[32m     3  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     3  ^[[39m^[[0m     0.1s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.3739241Z   Numerical cleanup failure retries the original LP                                   |      3                    3       0.1s",
+      "passed": 3,
+      "total": 3,
+      "test_source_equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/presolve_tests.jl",
+      "name": "Original LP retry explains the restart and keeps cumulative iterations",
+      "line": 11155,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.3740922Z   Original LP retry explains the restart and keeps cumulative iterations              | ^[[32m     6  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     6  ^[[39m^[[0m     0.2s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.3740922Z   Original LP retry explains the restart and keeps cumulative iterations              |      6                    6       0.2s",
+      "passed": 6,
+      "total": 6,
+      "test_source_equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/presolve_tests.jl",
+      "name": "Presolve handles a completely reduced LP",
+      "line": 11156,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.3742566Z   Presolve handles a completely reduced LP                                            | ^[[32m     9  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     9  ^[[39m^[[0m     0.0s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.3742566Z   Presolve handles a completely reduced LP                                            |      9                    9       0.0s",
+      "passed": 9,
+      "total": 9,
+      "test_source_equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/presolve_tests.jl",
+      "name": "Optimal simplex runs retain an original-column basis",
+      "line": 11157,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.3744154Z   Optimal simplex runs retain an original-column basis                                | ^[[32m    10  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m    10  ^[[39m^[[0m    45.2s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.3744154Z   Optimal simplex runs retain an original-column basis                                |     10                   10      45.2s",
+      "passed": 10,
+      "total": 10,
+      "test_source_equal": true
+    }
+  ],
+  "comparisons": [
+    {
+      "run": "38142752357",
+      "file": "test/unscaled_cleanup_tests.jl",
+      "historical": "f20eeb3c16e823f4fde9ff4326241cae5ff97bbbdeed3ad34b3f7c5774edf5f9",
+      "current": "f20eeb3c16e823f4fde9ff4326241cae5ff97bbbdeed3ad34b3f7c5774edf5f9",
+      "equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "test/postsolve_cleanup_performance_tests.jl",
+      "historical": "3dc3e30de7afbf691f3e1356d8735726406af302e963888eae275c20a2382f94",
+      "current": "3dc3e30de7afbf691f3e1356d8735726406af302e963888eae275c20a2382f94",
+      "equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "test/postsolve_hint_tests.jl",
+      "historical": "53b180fceb53e7f1a77c8f657d9a75733940747dc1ed13621b08d2b565ebff82",
+      "current": "53b180fceb53e7f1a77c8f657d9a75733940747dc1ed13621b08d2b565ebff82",
+      "equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "test/postsolve_box_hint_tests.jl",
+      "historical": "37f973acbdd87b04cbac51aedc26fd304c5591e2e86dbb4703065379c00735e7",
+      "current": "37f973acbdd87b04cbac51aedc26fd304c5591e2e86dbb4703065379c00735e7",
+      "equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "test/postsolve_native_projection_tests.jl",
+      "historical": "0c74b51398bf86158b75f5a889ea6843a63cf607c835578d262d1255fd341b06",
+      "current": "0c74b51398bf86158b75f5a889ea6843a63cf607c835578d262d1255fd341b06",
+      "equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "test/legacy_phase_artificial_bound_tests.jl",
+      "historical": "07eb9be2b632d70564ba3c6014e9e0f943a32eb4917bd06b47f1a48a8ca7cd93",
+      "current": "07eb9be2b632d70564ba3c6014e9e0f943a32eb4917bd06b47f1a48a8ca7cd93",
+      "equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "test/simplex_phase_one_tests.jl",
+      "historical": "b3c662c903b633ec2b664b5bb75fc342c043b77833ef88f07f700b930146c074",
+      "current": "b3c662c903b633ec2b664b5bb75fc342c043b77833ef88f07f700b930146c074",
+      "equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "test/simplex_phase_one_state_tests.jl",
+      "historical": "658cb8f96b3907e9de6a3f02d1405ce0bc62f65e45b8da023b9f9c7ae8d7605a",
+      "current": "658cb8f96b3907e9de6a3f02d1405ce0bc62f65e45b8da023b9f9c7ae8d7605a",
+      "equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "test/simplex_phase_one_guard_tests.jl",
+      "historical": "4ab14bb2665edc7a306c4c619615003614063289145d502f0d597b40113491f5",
+      "current": "4ab14bb2665edc7a306c4c619615003614063289145d502f0d597b40113491f5",
+      "equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "test/presolve_tests.jl",
+      "historical": "18a743cbc12f83559586a9423859172f5c6bd5f7e231d53552c2149c7284257b",
+      "current": "18a743cbc12f83559586a9423859172f5c6bd5f7e231d53552c2149c7284257b",
+      "equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "src/solver.jl",
+      "historical": "2f25081814ad5a1a198559f72b77384b68320babc44d41dbc44a67c5ddce312e",
+      "current": "2f25081814ad5a1a198559f72b77384b68320babc44d41dbc44a67c5ddce312e",
+      "equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "src/transformations.jl",
+      "historical": "74f6e45a7bc0f8605dc1759a2a41615c6241267e2782eef5dbdd176ff3c32382",
+      "current": "74f6e45a7bc0f8605dc1759a2a41615c6241267e2782eef5dbdd176ff3c32382",
+      "equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "src/presolve.jl",
+      "historical": "9cb780986b55adf4f5133b185b7e712e5760b435ca663444dfcfc54285ec17db",
+      "current": "9cb780986b55adf4f5133b185b7e712e5760b435ca663444dfcfc54285ec17db",
+      "equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "src/simplex_phase_one.jl",
+      "historical": "65c2323a984a1d28c2237fef8054f23f5d2760c2f153bf18c692e54f61007a9d",
+      "current": "65c2323a984a1d28c2237fef8054f23f5d2760c2f153bf18c692e54f61007a9d",
+      "equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "src/primal_simplex.jl",
+      "historical": "6246c3f92e1535561cc8a1fd2cf6b5a128ca39bfcc5d52eedd2fbb3a91417d41",
+      "current": "6246c3f92e1535561cc8a1fd2cf6b5a128ca39bfcc5d52eedd2fbb3a91417d41",
+      "equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "src/simplex_driver.jl",
+      "historical": "dcbc52f104a96c5914f638f48f3de606faec0d7d117feb742ade39e19b4b55a9",
+      "current": "dcbc52f104a96c5914f638f48f3de606faec0d7d117feb742ade39e19b4b55a9",
+      "equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "src/simplex_precision.jl",
+      "historical": "4b854c4b4ee046784eee49d557cde959853d2f9399d3eac33d7fd73d9bcf64f6",
+      "current": "4b854c4b4ee046784eee49d557cde959853d2f9399d3eac33d7fd73d9bcf64f6",
+      "equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "src/simplex_precision_recovery.jl",
+      "historical": "701d69e8f1039fcfd6bdefe96a9fbbdaa6c9f473cf704c76f7dce8012a15c1b3",
+      "current": "701d69e8f1039fcfd6bdefe96a9fbbdaa6c9f473cf704c76f7dce8012a15c1b3",
+      "equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "src/simplex_recovery.jl",
+      "historical": "d68055947b8cedfd0eb6cb554f656ef80b942bf85a64e3b8ccd2881d9e37761c",
+      "current": "d68055947b8cedfd0eb6cb554f656ef80b942bf85a64e3b8ccd2881d9e37761c",
+      "equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "src/simplex_perturbation.jl",
+      "historical": "5de8c95b2ed663bb964a03b54d974493c883e0eb302ff32d4aef28fabfdc4e5c",
+      "current": "8eb35a82a124e841517859e907f13928ad433edcd9598d75f02184c29e1c38e7",
+      "equal": false
+    },
+    {
+      "run": "38142752357",
+      "file": "src/simplex_pricing.jl",
+      "historical": "0cfdf2f757e9d4521f5d895fe31a0df0b62a63257e199d841ad6115923486b10",
+      "current": "0cfdf2f757e9d4521f5d895fe31a0df0b62a63257e199d841ad6115923486b10",
+      "equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "src/dual_simplex.jl",
+      "historical": "dcbf4dd3260044f8f25138b4cad5d936f4b7b15cab0267404e77a0a3d3647c68",
+      "current": "dcbf4dd3260044f8f25138b4cad5d936f4b7b15cab0267404e77a0a3d3647c68",
+      "equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "src/simplex_start.jl",
+      "historical": "8ef26328942d942cb1af04e5915f86e9026bde3318ee871e6ccdf90d88086ed4",
+      "current": "8ef26328942d942cb1af04e5915f86e9026bde3318ee871e6ccdf90d88086ed4",
+      "equal": true
+    },
+    {
+      "run": "38142752357",
+      "file": "src/simplex.jl",
+      "historical": "adcff4aee5f6b3bde5988e82fc2c7c9ad75749e06c33250a526dff0a7f0462b8",
+      "current": "adcff4aee5f6b3bde5988e82fc2c7c9ad75749e06c33250a526dff0a7f0462b8",
+      "equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/unscaled_cleanup_tests.jl",
+      "historical": "f20eeb3c16e823f4fde9ff4326241cae5ff97bbbdeed3ad34b3f7c5774edf5f9",
+      "current": "f20eeb3c16e823f4fde9ff4326241cae5ff97bbbdeed3ad34b3f7c5774edf5f9",
+      "equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/postsolve_cleanup_performance_tests.jl",
+      "historical": "3dc3e30de7afbf691f3e1356d8735726406af302e963888eae275c20a2382f94",
+      "current": "3dc3e30de7afbf691f3e1356d8735726406af302e963888eae275c20a2382f94",
+      "equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/postsolve_hint_tests.jl",
+      "historical": "53b180fceb53e7f1a77c8f657d9a75733940747dc1ed13621b08d2b565ebff82",
+      "current": "53b180fceb53e7f1a77c8f657d9a75733940747dc1ed13621b08d2b565ebff82",
+      "equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/postsolve_box_hint_tests.jl",
+      "historical": "37f973acbdd87b04cbac51aedc26fd304c5591e2e86dbb4703065379c00735e7",
+      "current": "37f973acbdd87b04cbac51aedc26fd304c5591e2e86dbb4703065379c00735e7",
+      "equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/postsolve_native_projection_tests.jl",
+      "historical": "0c74b51398bf86158b75f5a889ea6843a63cf607c835578d262d1255fd341b06",
+      "current": "0c74b51398bf86158b75f5a889ea6843a63cf607c835578d262d1255fd341b06",
+      "equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/legacy_phase_artificial_bound_tests.jl",
+      "historical": "07eb9be2b632d70564ba3c6014e9e0f943a32eb4917bd06b47f1a48a8ca7cd93",
+      "current": "07eb9be2b632d70564ba3c6014e9e0f943a32eb4917bd06b47f1a48a8ca7cd93",
+      "equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/simplex_phase_one_tests.jl",
+      "historical": "b3c662c903b633ec2b664b5bb75fc342c043b77833ef88f07f700b930146c074",
+      "current": "b3c662c903b633ec2b664b5bb75fc342c043b77833ef88f07f700b930146c074",
+      "equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/simplex_phase_one_state_tests.jl",
+      "historical": "658cb8f96b3907e9de6a3f02d1405ce0bc62f65e45b8da023b9f9c7ae8d7605a",
+      "current": "658cb8f96b3907e9de6a3f02d1405ce0bc62f65e45b8da023b9f9c7ae8d7605a",
+      "equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/simplex_phase_one_guard_tests.jl",
+      "historical": "4ab14bb2665edc7a306c4c619615003614063289145d502f0d597b40113491f5",
+      "current": "4ab14bb2665edc7a306c4c619615003614063289145d502f0d597b40113491f5",
+      "equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "test/presolve_tests.jl",
+      "historical": "18a743cbc12f83559586a9423859172f5c6bd5f7e231d53552c2149c7284257b",
+      "current": "18a743cbc12f83559586a9423859172f5c6bd5f7e231d53552c2149c7284257b",
+      "equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "src/solver.jl",
+      "historical": "2f25081814ad5a1a198559f72b77384b68320babc44d41dbc44a67c5ddce312e",
+      "current": "2f25081814ad5a1a198559f72b77384b68320babc44d41dbc44a67c5ddce312e",
+      "equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "src/transformations.jl",
+      "historical": "74f6e45a7bc0f8605dc1759a2a41615c6241267e2782eef5dbdd176ff3c32382",
+      "current": "74f6e45a7bc0f8605dc1759a2a41615c6241267e2782eef5dbdd176ff3c32382",
+      "equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "src/presolve.jl",
+      "historical": "9cb780986b55adf4f5133b185b7e712e5760b435ca663444dfcfc54285ec17db",
+      "current": "9cb780986b55adf4f5133b185b7e712e5760b435ca663444dfcfc54285ec17db",
+      "equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "src/simplex_phase_one.jl",
+      "historical": "65c2323a984a1d28c2237fef8054f23f5d2760c2f153bf18c692e54f61007a9d",
+      "current": "65c2323a984a1d28c2237fef8054f23f5d2760c2f153bf18c692e54f61007a9d",
+      "equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "src/primal_simplex.jl",
+      "historical": "6246c3f92e1535561cc8a1fd2cf6b5a128ca39bfcc5d52eedd2fbb3a91417d41",
+      "current": "6246c3f92e1535561cc8a1fd2cf6b5a128ca39bfcc5d52eedd2fbb3a91417d41",
+      "equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "src/simplex_driver.jl",
+      "historical": "dcbc52f104a96c5914f638f48f3de606faec0d7d117feb742ade39e19b4b55a9",
+      "current": "dcbc52f104a96c5914f638f48f3de606faec0d7d117feb742ade39e19b4b55a9",
+      "equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "src/simplex_precision.jl",
+      "historical": "4b854c4b4ee046784eee49d557cde959853d2f9399d3eac33d7fd73d9bcf64f6",
+      "current": "4b854c4b4ee046784eee49d557cde959853d2f9399d3eac33d7fd73d9bcf64f6",
+      "equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "src/simplex_precision_recovery.jl",
+      "historical": "701d69e8f1039fcfd6bdefe96a9fbbdaa6c9f473cf704c76f7dce8012a15c1b3",
+      "current": "701d69e8f1039fcfd6bdefe96a9fbbdaa6c9f473cf704c76f7dce8012a15c1b3",
+      "equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "src/simplex_recovery.jl",
+      "historical": "d68055947b8cedfd0eb6cb554f656ef80b942bf85a64e3b8ccd2881d9e37761c",
+      "current": "d68055947b8cedfd0eb6cb554f656ef80b942bf85a64e3b8ccd2881d9e37761c",
+      "equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "src/simplex_perturbation.jl",
+      "historical": "5de8c95b2ed663bb964a03b54d974493c883e0eb302ff32d4aef28fabfdc4e5c",
+      "current": "8eb35a82a124e841517859e907f13928ad433edcd9598d75f02184c29e1c38e7",
+      "equal": false
+    },
+    {
+      "run": "38149970679",
+      "file": "src/simplex_pricing.jl",
+      "historical": "0cfdf2f757e9d4521f5d895fe31a0df0b62a63257e199d841ad6115923486b10",
+      "current": "0cfdf2f757e9d4521f5d895fe31a0df0b62a63257e199d841ad6115923486b10",
+      "equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "src/dual_simplex.jl",
+      "historical": "dcbf4dd3260044f8f25138b4cad5d936f4b7b15cab0267404e77a0a3d3647c68",
+      "current": "dcbf4dd3260044f8f25138b4cad5d936f4b7b15cab0267404e77a0a3d3647c68",
+      "equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "src/simplex_start.jl",
+      "historical": "8ef26328942d942cb1af04e5915f86e9026bde3318ee871e6ccdf90d88086ed4",
+      "current": "8ef26328942d942cb1af04e5915f86e9026bde3318ee871e6ccdf90d88086ed4",
+      "equal": true
+    },
+    {
+      "run": "38149970679",
+      "file": "src/simplex.jl",
+      "historical": "adcff4aee5f6b3bde5988e82fc2c7c9ad75749e06c33250a526dff0a7f0462b8",
+      "current": "adcff4aee5f6b3bde5988e82fc2c7c9ad75749e06c33250a526dff0a7f0462b8",
+      "equal": true
+    }
+  ],
+  "C_files": [
+    {
+      "file": "test/restoration_alias_copy_tests.jl",
+      "launch_sha256": "750836ae6ae1681ad0000811055f64c94b332ecb629abe977ac097009423a3c5",
+      "current_sha256": "750836ae6ae1681ad0000811055f64c94b332ecb629abe977ac097009423a3c5",
+      "whole_equal": true,
+      "historical_commit": "e7014fb",
+      "historical_matches_pin": true,
+      "current_preserves_historical_prefix": true
+    },
+    {
+      "file": "test/cost_restore_allocation_tests.jl",
+      "launch_sha256": "b8f07cbfcc3f6d9b0691dcfccee7d1014e57b4b66fc6ade173ffab9871e61d78",
+      "current_sha256": "b8f07cbfcc3f6d9b0691dcfccee7d1014e57b4b66fc6ade173ffab9871e61d78",
+      "whole_equal": true,
+      "historical_commit": "e7014fb",
+      "historical_matches_pin": true,
+      "current_preserves_historical_prefix": true
+    },
+    {
+      "file": "test/simplex_perturbation_tests.jl",
+      "launch_sha256": "4d3091f1c09cedf306973f120083c561a5a66fbad83c4a71e3f122cd399a7f1a",
+      "current_sha256": "4d3091f1c09cedf306973f120083c561a5a66fbad83c4a71e3f122cd399a7f1a",
+      "whole_equal": true,
+      "historical_commit": "e7014fb",
+      "historical_matches_pin": true,
+      "current_preserves_historical_prefix": true
+    },
+    {
+      "file": "test/simplex_perturbation_integration_tests.jl",
+      "launch_sha256": "5faa090e83d35a33bd47b367f55da47f9eafb5ae1dbaa1b875960b5ebdd97bad",
+      "current_sha256": "5faa090e83d35a33bd47b367f55da47f9eafb5ae1dbaa1b875960b5ebdd97bad",
+      "whole_equal": true,
+      "historical_commit": "e7014fb",
+      "historical_matches_pin": true,
+      "current_preserves_historical_prefix": true
+    },
+    {
+      "file": "test/primal_perturbation_tests.jl",
+      "launch_sha256": "be84592396ace5206519661ae08d5e712c55cbf57a2de1b69a0af127de5109a7",
+      "current_sha256": "be84592396ace5206519661ae08d5e712c55cbf57a2de1b69a0af127de5109a7",
+      "whole_equal": true,
+      "historical_commit": "e7014fb",
+      "historical_matches_pin": true,
+      "current_preserves_historical_prefix": true
+    },
+    {
+      "file": "test/primal_perturbation_integration_tests.jl",
+      "launch_sha256": "6cee91e4e362525024f0833502b797de14789f50fa73fd31267f980d4527c463",
+      "current_sha256": "94f94c54d21a72ba0d8705213691c7c8d9ec1ffdc528ff22335984102b1f7249",
+      "whole_equal": false,
+      "historical_commit": "e7014fb",
+      "historical_matches_pin": true,
+      "current_preserves_historical_prefix": true
+    },
+    {
+      "file": "test/partial_pricing_tests.jl",
+      "launch_sha256": "abe7a9883e13a2fcb4032432f7ed24be8402b12f7e0c255fdc9a3b606c18e9e9",
+      "current_sha256": "abe7a9883e13a2fcb4032432f7ed24be8402b12f7e0c255fdc9a3b606c18e9e9",
+      "whole_equal": true,
+      "historical_commit": "e7014fb",
+      "historical_matches_pin": true,
+      "current_preserves_historical_prefix": true
+    },
+    {
+      "file": "test/partial_pricing_integration_tests.jl",
+      "launch_sha256": "45fc401bb5bc396e0a50aa8d97a0796469808bbf13743acd96ba91ce39683fe6",
+      "current_sha256": "45fc401bb5bc396e0a50aa8d97a0796469808bbf13743acd96ba91ce39683fe6",
+      "whole_equal": true,
+      "historical_commit": "e7014fb",
+      "historical_matches_pin": true,
+      "current_preserves_historical_prefix": true
+    },
+    {
+      "file": "test/basis_recovery_tests.jl",
+      "launch_sha256": "1ccfd114462013f40877010b5fc2a9f0547275c6c914ce297c2723270ac37c49",
+      "current_sha256": "1ccfd114462013f40877010b5fc2a9f0547275c6c914ce297c2723270ac37c49",
+      "whole_equal": true,
+      "historical_commit": "e7014fb",
+      "historical_matches_pin": true,
+      "current_preserves_historical_prefix": true
+    }
+  ],
+  "integrations": [
+    {
+      "stage": "S5-I",
+      "test": "simplex_precision_state_tests.jl",
+      "current_sha256": "6b65d9194917ddde0e883fdb75c649a1d7eef229e57a210c11cc980fbc6d8616",
+      "test_matches_all_launch_entries": true,
+      "source": [
+        {
+          "file": "solver.jl",
+          "matched": true
+        },
+        {
+          "file": "transformations.jl",
+          "matched": true
+        },
+        {
+          "file": "presolve.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex_phase_one.jl",
+          "matched": true
+        },
+        {
+          "file": "primal_simplex.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex_driver.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex_precision.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex_precision_recovery.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex_recovery.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex_perturbation.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex_pricing.jl",
+          "matched": true
+        },
+        {
+          "file": "dual_simplex.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex_start.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex.jl",
+          "matched": true
+        }
+      ],
+      "audit_all_passed": true,
+      "log": "Test Summary:                   | Pass  Total  Time\nS5-I focused actual test suffix |  300    300  6.6s\n"
+    },
+    {
+      "stage": "S5-O",
+      "test": "adaptive_pricing_tests.jl",
+      "current_sha256": "85aefa61753efda394f399ffe28a5e13faa333724dfb88c332186907ab142c4b",
+      "test_matches_all_launch_entries": true,
+      "source": [
+        {
+          "file": "solver.jl",
+          "matched": true
+        },
+        {
+          "file": "transformations.jl",
+          "matched": true
+        },
+        {
+          "file": "presolve.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex_phase_one.jl",
+          "matched": true
+        },
+        {
+          "file": "primal_simplex.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex_driver.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex_precision.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex_precision_recovery.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex_recovery.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex_perturbation.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex_pricing.jl",
+          "matched": true
+        },
+        {
+          "file": "dual_simplex.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex_start.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex.jl",
+          "matched": true
+        }
+      ],
+      "audit_all_passed": true,
+      "log": "Test Summary:                             | Pass  Total   Time\nS5-O focused actual pending observer test |   42     42  14.7s\n"
+    },
+    {
+      "stage": "S5-U",
+      "test": "simplex_precision_tests.jl",
+      "current_sha256": "357a976f5fc984025452ee4b259f2fc1f140885212f5b40ff71e072ebfab3684",
+      "test_matches_all_launch_entries": true,
+      "source": [
+        {
+          "file": "solver.jl",
+          "matched": true
+        },
+        {
+          "file": "transformations.jl",
+          "matched": true
+        },
+        {
+          "file": "presolve.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex_phase_one.jl",
+          "matched": true
+        },
+        {
+          "file": "primal_simplex.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex_driver.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex_precision.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex_precision_recovery.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex_recovery.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex_perturbation.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex_pricing.jl",
+          "matched": true
+        },
+        {
+          "file": "dual_simplex.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex_start.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex.jl",
+          "matched": true
+        }
+      ],
+      "audit_all_passed": true,
+      "log": "Test Summary:                                | Pass  Total  Time\nS5-U focused actual supplied-basis stop test |   42     42  3.1s\n"
+    },
+    {
+      "stage": "S5-AA",
+      "test": "simplex_start_state_tests.jl",
+      "current_sha256": "ce256932a4bbda14bb9c55678525d6506a8e63732683442def57b22873b0415f",
+      "test_matches_all_launch_entries": true,
+      "source": [
+        {
+          "file": "solver.jl",
+          "matched": true
+        },
+        {
+          "file": "transformations.jl",
+          "matched": true
+        },
+        {
+          "file": "presolve.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex_phase_one.jl",
+          "matched": true
+        },
+        {
+          "file": "primal_simplex.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex_driver.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex_precision.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex_precision_recovery.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex_recovery.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex_perturbation.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex_pricing.jl",
+          "matched": true
+        },
+        {
+          "file": "dual_simplex.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex_start.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex.jl",
+          "matched": true
+        }
+      ],
+      "audit_all_passed": true,
+      "log": "Test Summary:                                     | Pass  Total  Time\nS5-AA focused actual crash fallback observer test |   52     52  3.8s\n"
+    },
+    {
+      "stage": "S6-AC",
+      "test": "native_phase_transfer_tests.jl",
+      "current_sha256": "d01d65e2be0f5227f7c3a3f711234c0fc79590a314532c324925a144bc05e120",
+      "test_matches_all_launch_entries": true,
+      "source": [
+        {
+          "file": "solver.jl",
+          "matched": true
+        },
+        {
+          "file": "transformations.jl",
+          "matched": true
+        },
+        {
+          "file": "presolve.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex_phase_one.jl",
+          "matched": true
+        },
+        {
+          "file": "primal_simplex.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex_driver.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex_precision.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex_precision_recovery.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex_recovery.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex_perturbation.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex_pricing.jl",
+          "matched": true
+        },
+        {
+          "file": "dual_simplex.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex_start.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex.jl",
+          "matched": true
+        }
+      ],
+      "audit_all_passed": true,
+      "log": "Test Summary:                            | Pass  Total  Time\nPhase reconstruction structural contract |    2      2  0.1s\nTest Summary:                                                    | Pass  Total   Time\nArtificial exchanges certify native reconstruction before export |  192    192  25.3s\nTest Summary:                  | Pass  Total  Time\nPre-forward attempt accounting |   20     20  0.0s\nTest Summary:           | Pass  Total  Time\nAmbient state preserved |    1      1  0.0s\n"
+    },
+    {
+      "stage": "S6-AO",
+      "test": "primal_perturbation_integration_tests.jl",
+      "current_sha256": "94f94c54d21a72ba0d8705213691c7c8d9ec1ffdc528ff22335984102b1f7249",
+      "test_matches_all_launch_entries": true,
+      "source": [
+        {
+          "file": "solver.jl",
+          "matched": true
+        },
+        {
+          "file": "transformations.jl",
+          "matched": true
+        },
+        {
+          "file": "presolve.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex_phase_one.jl",
+          "matched": true
+        },
+        {
+          "file": "primal_simplex.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex_driver.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex_precision.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex_precision_recovery.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex_recovery.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex_perturbation.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex_pricing.jl",
+          "matched": true
+        },
+        {
+          "file": "dual_simplex.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex_start.jl",
+          "matched": true
+        },
+        {
+          "file": "simplex.jl",
+          "matched": true
+        }
+      ],
+      "audit_all_passed": true,
+      "log": "Test Summary:                       | Pass  Total   Time\nNative entry coverage actual source |   72     72  23.9s\n"
+    }
+  ],
+  "sha256": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/unscaled_cleanup_tests.jl": "f20eeb3c16e823f4fde9ff4326241cae5ff97bbbdeed3ad34b3f7c5774edf5f9",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/postsolve_cleanup_performance_tests.jl": "3dc3e30de7afbf691f3e1356d8735726406af302e963888eae275c20a2382f94",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/postsolve_hint_tests.jl": "53b180fceb53e7f1a77c8f657d9a75733940747dc1ed13621b08d2b565ebff82",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/postsolve_box_hint_tests.jl": "37f973acbdd87b04cbac51aedc26fd304c5591e2e86dbb4703065379c00735e7",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/postsolve_native_projection_tests.jl": "0c74b51398bf86158b75f5a889ea6843a63cf607c835578d262d1255fd341b06",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/legacy_phase_artificial_bound_tests.jl": "07eb9be2b632d70564ba3c6014e9e0f943a32eb4917bd06b47f1a48a8ca7cd93",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/simplex_phase_one_tests.jl": "b3c662c903b633ec2b664b5bb75fc342c043b77833ef88f07f700b930146c074",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/simplex_phase_one_state_tests.jl": "658cb8f96b3907e9de6a3f02d1405ce0bc62f65e45b8da023b9f9c7ae8d7605a",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/simplex_phase_one_guard_tests.jl": "4ab14bb2665edc7a306c4c619615003614063289145d502f0d597b40113491f5",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/simplex-core-architecture/S6-A/ci-inventory-1/38142752357-metadata.json": "3b08bb44f097fa63715d5210d83214b7ad7706a347f221a096f5b8374f635b97",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/simplex-core-architecture/S6-A/ci-inventory-1/38142752357-failed.log": "419dcf4520b9d77a40b7030ccf9fe41980733a34e06d5fcd880000d6dbfc5d01",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/presolve_tests.jl": "18a743cbc12f83559586a9423859172f5c6bd5f7e231d53552c2149c7284257b",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/solver.jl": "2f25081814ad5a1a198559f72b77384b68320babc44d41dbc44a67c5ddce312e",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/transformations.jl": "74f6e45a7bc0f8605dc1759a2a41615c6241267e2782eef5dbdd176ff3c32382",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/presolve.jl": "9cb780986b55adf4f5133b185b7e712e5760b435ca663444dfcfc54285ec17db",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/simplex_phase_one.jl": "65c2323a984a1d28c2237fef8054f23f5d2760c2f153bf18c692e54f61007a9d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/primal_simplex.jl": "6246c3f92e1535561cc8a1fd2cf6b5a128ca39bfcc5d52eedd2fbb3a91417d41",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/simplex_driver.jl": "dcbc52f104a96c5914f638f48f3de606faec0d7d117feb742ade39e19b4b55a9",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/simplex_precision.jl": "4b854c4b4ee046784eee49d557cde959853d2f9399d3eac33d7fd73d9bcf64f6",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/simplex_precision_recovery.jl": "701d69e8f1039fcfd6bdefe96a9fbbdaa6c9f473cf704c76f7dce8012a15c1b3",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/simplex_recovery.jl": "d68055947b8cedfd0eb6cb554f656ef80b942bf85a64e3b8ccd2881d9e37761c",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/simplex_perturbation.jl": "8eb35a82a124e841517859e907f13928ad433edcd9598d75f02184c29e1c38e7",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/simplex_pricing.jl": "0cfdf2f757e9d4521f5d895fe31a0df0b62a63257e199d841ad6115923486b10",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/dual_simplex.jl": "dcbf4dd3260044f8f25138b4cad5d936f4b7b15cab0267404e77a0a3d3647c68",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/simplex_start.jl": "8ef26328942d942cb1af04e5915f86e9026bde3318ee871e6ccdf90d88086ed4",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/simplex.jl": "adcff4aee5f6b3bde5988e82fc2c7c9ad75749e06c33250a526dff0a7f0462b8",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/simplex-core-architecture/S6-A/ci-inventory-1/38149970679-metadata.json": "99c8d5557d9ff08b6912c18b66ce6504f4fce794ab573a93a24370bb4c12b687",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/simplex-core-architecture/S6-A/ci-inventory-1/38149970679-failed.log": "f57f68637b08b25f15035a186e128a3132a2e59a97478f10168e2d68da7ee9de",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/simplex-core-architecture/S5-C/focused-1/pins.json": "a00c1ab5c1ac5936a18362d5f9c832b8dedb3446a117608847023c193f5e0cca",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/reproduce/restoration_copy_focused.jl": "3b86bb86e524f8b1f157987cba9ad9381ac42b42f125d3b0bd46a2ef2e1be653",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-C/focused-1-run.log": "1e26eceed3cc55f730a4d4512ca1247c626aaa32091d1c0f5db8f2454fb1dcad",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-C/focused-1-audit.json": "e015ce3b30e4119afe954c62dacf4a3879af24631745d94413f20770db4a787c",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/restoration_alias_copy_tests.jl": "750836ae6ae1681ad0000811055f64c94b332ecb629abe977ac097009423a3c5",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/cost_restore_allocation_tests.jl": "b8f07cbfcc3f6d9b0691dcfccee7d1014e57b4b66fc6ade173ffab9871e61d78",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/simplex_perturbation_tests.jl": "4d3091f1c09cedf306973f120083c561a5a66fbad83c4a71e3f122cd399a7f1a",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/simplex_perturbation_integration_tests.jl": "5faa090e83d35a33bd47b367f55da47f9eafb5ae1dbaa1b875960b5ebdd97bad",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/primal_perturbation_tests.jl": "be84592396ace5206519661ae08d5e712c55cbf57a2de1b69a0af127de5109a7",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/primal_perturbation_integration_tests.jl": "94f94c54d21a72ba0d8705213691c7c8d9ec1ffdc528ff22335984102b1f7249",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/partial_pricing_tests.jl": "abe7a9883e13a2fcb4032432f7ed24be8402b12f7e0c255fdc9a3b606c18e9e9",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/partial_pricing_integration_tests.jl": "45fc401bb5bc396e0a50aa8d97a0796469808bbf13743acd96ba91ce39683fe6",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/basis_recovery_tests.jl": "1ccfd114462013f40877010b5fc2a9f0547275c6c914ce297c2723270ac37c49",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-I/master-1/pins.json": "51b3328731ee9bb77b8721b3c411600ad132ec659395392a93e836352ffdbbc3",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-I/master-1-audit.json": "b35fc2db044094b5cd6e1c04361dac0e10236d60128e7802436917f1aef854ab",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-I/master-1/run.log": "78986f4434b7bc1d925e5972cc97db437a5af520611092bf82d3bbcd2543b9c6",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/simplex_precision_state_tests.jl": "6b65d9194917ddde0e883fdb75c649a1d7eef229e57a210c11cc980fbc6d8616",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/master-1/pins.json": "4a93f5e75048361cf9c95d9962c87c258c275c62733b2157bb6c224cc811aec6",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/master-1-audit.json": "05490797d799edddb973042570b74c6ba828aeaf5c0c794919c04b7b82ef6859",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/master-1/run.log": "18c11149d601263ecbe9e16489d7b01e3d3f1978c0f9f7550242987fa46c1566",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/adaptive_pricing_tests.jl": "85aefa61753efda394f399ffe28a5e13faa333724dfb88c332186907ab142c4b",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-U/master/pins.json": "8ee440f12a4738788d5c8ca9dc905ebbd415774368ffdec599867366b3555bfe",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-U/master/audit.json": "d2e215ec74155260683a2614a172197c866893ac23c49a2c209d72948062b507",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-U/master/portable/run.log": "aba6a1304702d20507518cb8acf57a61f9129eefe44f3862ed89c2d974b711af",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/simplex_precision_tests.jl": "357a976f5fc984025452ee4b259f2fc1f140885212f5b40ff71e072ebfab3684",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-AA/master/pins.json": "6f20bda5714b2b80b345b3f01edc0fcb51cd0261bf79350e52c022ce7f553770",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-AA/master/audit.json": "f02661a950af7a51b6e73e1fea4cc89a7a8667ee886f6c68e5bb9215b9b8e060",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-AA/master/portable/run.log": "1f7ed2833c8da9e18e0eb99ebb53195d2da70f1d80e0ac02ba1f08d1ceec640b",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/simplex_start_state_tests.jl": "ce256932a4bbda14bb9c55678525d6506a8e63732683442def57b22873b0415f",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S6-AC/master-1-pins.json": "1fc3807e26671996811133047ae9ed36e64a50646a480ad72b3f47ecb583439f",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S6-AC/master-1-audit.json": "b1dd4899dfb97ab15f85840c08ddec3045435ffe03377fcfe5a40a98a920abb0",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S6-AC/master-1-run.log": "348bbc28dd660593facac72b4c2bb2f15d2d5bb16d4fa6d7bf9cd2a2f92339e6",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/native_phase_transfer_tests.jl": "d01d65e2be0f5227f7c3a3f711234c0fc79590a314532c324925a144bc05e120",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S6-AO/master-1-pins.json": "1be82f92c21a9073e420d21ce56b18f67419b95ac83c4eb40a1aa251b31d2be5",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S6-AO/master-1-audit.json": "7417d3e1c1732d44cbfe4d9edfbf2e444a8af88815b3cf908a2c8d7205fc1294",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S6-AO/master-1-run.log": "3da2f8337987b0f7f559556ac5ede259efb5ca85b6bbd1144dfb77765ab48698",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S6-AA/master-1-test.jl": "45f3c3bced2b4e7d5c02697d957773722a21088cf4f731f6c4e727cb3ba5554c",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S6-AA/master-1-audit.json": "61a051dabe6fdf7fd8c6a7f23f327ec9a48d86294a05d0b2bf4f57ecc5349ddd",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S6-AA/master-1-run.log": "b43cce3dad11bcb98020c79092df226d52366f7b49e4359d3ade004c51eab4ce",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/S5-INVENTORY-NOTES.md": "ddb409274f89cbe31338daeeaed19f70147d7a60a853e01f1d184fcd96bbc715",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/S5-ENTRY.md": "4ddf4f8cd4bfbb53baa1ef32090b4d99adc96c0c643cc2bc3bff5cbff3b7d3a2",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/S5-RESTORATION.md": "0b377ad75d39b9b547a92528ad055df2d26cc88ae06d84a3fbc7a41b184fde51",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/S5-COPIES.md": "cf27365e24bc9701cf0743e28e7344bb38a790fe05b70c997bf89a2dd9a5f733",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/S5-ENTRY-REVIEW.md": "2374bc35e29cae2f85c0c2f969c3812bb829b455b090fabdb331abfbde857b82",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/S5-RESTORATION-REVIEW.md": "f08c877ec9435b68263bcbd19d34fb38015d5629c86fbf7f2d5eda726e5f0ada",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/S5-COPIES-REVIEW.md": "d3c3ec5edae162025057a30d900c1a7a0ea374cd93d4f750f9c5e8fff4ceed8b",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/S5-PRECISION-JOURNAL-INTERRUPTION-TEST-INTEGRATION.md": "427f454fea59ad1c7e67b3d3a802c38cf1205c4b3bb5f5e82c96bfe7b544a488",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/S5-DUAL-AUXILIARY-PENDING-OBSERVER-TEST-INTEGRATION.md": "d4a33832264d9c485913830277e5a5bdb09a78e66a5607d39c2a605799a87fab",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/S5-BASIS-INITIALIZATION-STOP-TEST-INTEGRATION.md": "164213223c843afb43ef78c50ceb33558aa8cf959a5c5836c3f92ef077097f6a",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/S5-CRASH-FALLBACK-OBSERVER-TEST-INTEGRATION.md": "031869b8785da733ab810b1873b6e8ae144afab598fb044182510f4d4116747f",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/S6-PHASE-RECONSTRUCTION-FIXTURE.md": "751d949ba3282eec0b565d5695ac95ff775f92cece9993eb0305a29d38f80fa8",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/S6-RELIABLE-EXCHANGE-FIXTURE.md": "9505755e183968a2e0054cdadf14bf5ec9d1d7cef1175c66626fdc5d9091cde8",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/S6-NATIVE-CLEANUP-ENTRY-COVERAGE.md": "64b17bcad81107b700ae3d9f82c63d59c00f82858a0a4841279139c57638c2d5"
+  }
+}
