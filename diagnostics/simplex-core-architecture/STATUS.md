@@ -46,7 +46,34 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-**Current continuation: S5-K offline observer/oracle specification accepted; independent review and publication closure recorded separately. Next S5-L: `docs/superpowers/plans/2026-10-13-dual-auxiliary-pending-observer-preparation.md`, ONE unexecuted candidate preparation only; no Julia or runtime admission.**
+**Current continuation: S5-L offline candidate accepted; independent review and publication closure recorded separately. Next S5-M: `docs/superpowers/plans/2026-10-13-dual-auxiliary-pending-observer-qualification.md`. FIRST prepare launcher/pins/auditor and fresh independent admission review before at most ONE guarded attempt.**
+
+S5-L OFFLINE candidate preparation complete:181-line UNEXECUTED candidate,
+three byte-exact helpers and two fixture setup blocks with exact indentation inverse.
+One prospective original Float64 setup/handoff,40 predicates/15 observations,
+19 pricing fields.20 text checks,141 fresh read-time hashes,9 author-independent
+checks; fresh gpt-6-astra FULL141 (771852990 bytes)/8 artifact bindings and semantic
+review accepted without Critical/Important/Minor or unnecessary NEW production work/
+memory. No corrections required. Candidate SHA256
+b553d449a0db620bfae1970861806a778bbf45d36465026e8b4a540e4b4f4288.
+Root StageObserver identity/refactor latch followed by LIVE adopted-factor pending
+reset throw; direct wrapper/cause identity and publication/work/event-prefix checks.
+Three explicit copies/six entries,20 selected identity roles plus containers/local
+aliases; up to18 cold temporary owner tuples,17 publication element pairs,19 pricing
+fields,40/15 fixed-key serialization maps. Not measured allocations or native graph
+bound. No callback vector scans/copies/extra numerical calls/growing ledgers.
+Prospective entry-cost equality may fail due to auxiliary numerical repair; preserve
+failure/stop without tuning, retry or solver-defect inference. Raw write precedes
+aggregate acceptance; early failures may have no output and require guarded logs.
+No Julia/parser/import/compile/native/new LP arithmetic/test/prod/env/CI changes.
+Next S5-M FIRST concrete launcher/pins/offline auditor and fresh admission review;
+only then at most ONE guarded attempt. No warmup/probes/old testsets or extra solves.
+Read S5-DUAL-AUXILIARY-PENDING-OBSERVER-PREPARATION.md and REVIEW, results/S5-L.
+Frozen L prepare/source_check/independent/closure NEVER rerun or rewrite; candidate
+not executable until separately admitted. K continuation texts preserved before-L;
+all K/J/I/F/G/H evidence, K first closure failure/replacement and G false62/63 plus7
+PASS unchanged. Master513c053, CI off, HH disabled and all broader gates unchanged.
+
 
 S5-K offline observer/oracle specification completed:20 literal source checks,
 118 fresh read-time hashes and8 author-independent checks. Fresh gpt-6-astra review
