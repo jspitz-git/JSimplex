@@ -1402,3 +1402,32 @@ user6 unchanged. After separate PASS closure and exact publication, S5-X
 diagnostic candidate and offline inverse/cost checks, no launcher or numerical
 admission. All rejections/CIoff/HHdisabled/Q GC-outlier/bootstrap-cache-init/wholecaps/
 native-retention/broaderS3S4S5S6/fullsuite remain open.
+
+
+## S5-X offline candidate and S5-Y admission (2026-10-13)
+
+S5-X OFFLINE candidate independently accepted, UNEXECUTED. Exact candidate SHA
+5c941e86131ed503149de5a47ac46fc7665507861a25ec16654b6711968fdf18; one prospective
+Float64 PFI/native INITIAL setup and one crash call, exact existing construction
+inverse/original done latch/stop/defaults. Fifty named predicates; first TRIAL
+refactor_other before reconstruction, then INITIAL fallback after max-counter merge
+and event record, original SingularException42 wrapper/cause/no-return. All runtime
+expectations UNQUALIFIED. New22 literal checks213 fresh hashes/entry17/author9 with
+10 bindings, full W189/V/U1512/GREEN1489/T891 lineage and historical maps preserved.
+Fresh independent numerical/work/memory review accepted, no unresolved findings or
+unnecessary NEW production work/memory. Probe11 fields plus original done Ref;
+three owner17-tuples, seven copies26 entries, clock3/work2/refactor2/fallback7/after7,
+50-Bool tuple/twelve observations/eight dictionaries90 total entries plus formatting.
+Callback no array scans/copies/numerics/growing ledger; endpoint checks <=26 pairs,
+retained mutable graphs not graph cap/native-free/fullstate/rollback/cert/observer
+neutrality/PREforward/backend/import proof. Raw precedes aggregate assertion when
+reachable, early errors need future failclosed logs; output reservation not atomic
+in candidate alone. No Julia/query/parser/import/compile/native/numerical call,
+launcher/actualtest/production/env/cache/CI changes. Master2b546e9 unchanged. See
+S5-CRASH-FALLBACK-OBSERVER-PREPARATION.md/REVIEW and results/S5-X. All X/W/V/U and
+older frozen scripts/raw/false audits/rejected reviews preserved. After separate
+PASS closure/exact publication S5-Y2026-10-13-crash-fallback-observer-qualification.md
+FIRST requires concrete launcher/complete pins/failclosed auditor/offline failure
+cases and fresh independent admission BEFORE any numerical attempt. All broader
+S3S4S5S6/fullsuite/Q GC-outlier/bootstrap-cache-init/wholecaps/native-retention,
+CIoff/HHdisabled and rejections unchanged.

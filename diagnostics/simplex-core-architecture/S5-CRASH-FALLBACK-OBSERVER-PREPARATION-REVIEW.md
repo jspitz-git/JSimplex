@@ -1,0 +1,64 @@
+# S5-X independent offline numerical, work and memory review
+
+Verdict: ACCEPTED
+
+Critical: none.
+Important: none.
+Minor: none.
+Unresolved findings: []
+
+Acceptance covers the UNEXECUTED diagnostic candidate, preparation report, offline evidence, continuation/publication scripts and the separately gated S5-Y admission plan. Every prospective runtime outcome remains UNQUALIFIED. Acceptance is not permission to execute Julia, the candidate or a launcher, and is not evidence of a solver defect, a numerical pass, or historical nonexecution. Separate PASS closure and exact publication remain required.
+
+## Scope and independent verification
+
+Read the S5-X preparation report, candidate, construction inverse, entry/evidence/author results and all three corresponding scripts as text; both preparation and qualification plans; STATUS and the implementation roadmap; W oracle, both identical accepted-review copies, original six-assertion testset, evidence and publication artifacts; and the relevant V/U lineage. Also read the newly prepared continuation.py, closure.py and publication.py without running them. Checked actual initialization, ownership, numerical policy/options, reconstruction, diagnostic event/wrapper, crash/guard/catch and progress-report source.
+
+All executed checks were newly written inline read-only Python and host Git/process reads. No old script was run, imported, parsed as executable code, or rewritten. No Julia query, parser, import, compilation, numerical/native operation, LP arithmetic, launcher, benchmark, test, source, environment, cache or CI change occurred. This review is the only file written by the reviewer. Two read-only lookups named absent publication.txt/progress.jl files; actual publication artifacts and simplex.jl progress source were then inspected.
+
+Independent evidence, not merely existing PASS flags:
+
+- Streamed all **213 X read-time bindings** and **10 author bindings**: no mismatch. Read and checked the meaning of 22 literal checks, 17 entry checks and nine author checks against candidate/source. These are static predicates, not runtime tests.
+- Streamed **W189**, **author8 bindings**, and **closure21 bindings**; checked W19, entry14, author8, closure13 and publication7 result schemas. Matched all 23 manifest content hashes and exact complete **24-path** commit membership at `9ac5e09`, including a byte-identical manifest blob. Every committed path matches its current file. The original-only whitespace exception matches its frozen diffcheck hash; the remaining authored commit diff is clean.
+- Independently matched **V166**, its seven author bindings, and **V closure24** with only its two continuation paths mapped to explicit W/before-W files. Rechecked 24 recorded testset texts/hashes against actual files, 48 literal historical log rows, and 32 whole-file historical Git blobs. Each historical run separately has 511 selected PASS; both full runs FAILED. This does not qualify the new combined throwing boundary.
+- Freshly matched **U master1512**, **GREEN1489**, **T891**, and **U closure123**. The exact old precision-test hash maps only to U/original-test.jl; older continuation hashes map to U/before-U, and later U-closure continuation hashes to V/before-V. No old pin or admission was changed retroactively.
+- Reconstructed the nine original construction/call lines from the candidate, restoring indentation only, then reattached the unchanged historical assertion tail. The result exactly equals both construction-inverse.txt and W/original-testset.txt and remains a substring of actual simplex_start_state_tests.jl. Original six assertions remain intact. SHA256: `dd0e7254b08e93063eeb467956761b45ab8fec1b1f086fd03ddef82a18f25d71`.
+- Fresh host inspection found none of all 20 prior process groups and no Julia process; boot `dade7243-9103-4398-bb45-fa28fbc0be72`. All six user-file hashes match. HEAD is `9ac5e0976630fee420cd47c870f2240b9de8176b`, master `2b546e946ddb7fdb6c0092df9cc19f566e301aa2`. Production/test/CI/Project differences against master and the staged diff are empty. Saved X host evidence records matching remote refs; this review performed no new network publication.
+
+## Candidate and source semantics
+
+There is exactly one prospective INITIAL initialization and one private crash call. The exact original matrix/objective/bounds, done Ref/latch, policy/progress/options expressions and stop callback are preserved. The candidate uses Float64, PFI/native, legacy/native, dual, the original tolerances, interval20, iteration_limit100000, time_limitInf and fill_limit8. Recovery, solve refinement, phase one, hypersparse and sparse pricing remain false; diagnostic kernel timing remains false. Policy has no stored numerical_profile field: native_profile checks two actual switches, while exact constructors/source bindings preserve the complete defaults. Refactor timing remains true.
+
+Probe construction precedes diagnostics and setup; unarmed callbacks return before touching probe counts or done. Entry observations precede the sole arm. The first armed refactor_other stores TRIAL and its two work counters and preserves the original done=true latch. The first fallback stores INITIAL and seven scalar observations, then throws the original SingularException(42).
+
+Source confirms the ordering: trial setup shares problem/progress and has fresh selected workspace/container storage (`src/simplex.jl:486`); the INITIAL refactor-attempt charge precedes trial construction (`src/simplex_start.jl:161`). The final refactor call (`:241`) publishes refactor_other after incrementing work but before forward/transpose reconstruction (`src/simplex.jl:433-473`). Native refinement returns before consulting stop (`src/simplex_recovery.jl:484`), recovery is false and verbose=false skips progress work. The callback is not a stop-before-reconstruction boundary. The following guard latches done, fallback takes scalar maxima before publishing its event (`src/simplex_start.jl:84`), and diagnostics records the event before calling the observer (`src/simplex_diagnostics.jl:87`). The observer failure wrapper retains its cause and is outside the numerical exception classes (`src/dual_simplex.jl:1`); the crash catch rethrows it without another fallback. Disabled kernel timing also makes the outer timed finally inactive.
+
+All **50 distinct named predicates** were inspected. Missing or duplicate refactor/fallback/pivot observations fail explicit counts; missing/wrong retained states fail presence/identity gates. Eleven TRIAL-owned roles differ, six remaining shared/value roles match, all 17 INITIAL roles persist, seven selected copied vectors remain equal, and slack indices remain [3,4]. Original wrapper/cause and no-return gates are explicit. Work maxima correctly include the INITIAL pre-constructor +1 refactor charge; iterations2/refactorizations>=2 are inherited narrow expectations, not backend operation counts. Four selected event counts establish record-before-observer and no acceptance; after/fallback tuple equality plus callbacks_after_fallback=0 excludes later selected work/events/callbacks. No missing required W state gate or contradictory duplicate gate was found. Retained TRIAL is inspected after unwind and is not an owned callback-time value snapshot.
+
+Raw TOML precedes the aggregate assertion when reached, and includes all 50 Boolean results and the stated observations. Syntax/import/setup/early evaluation failures may omit raw and must fail the future audit through independently preserved process/guard/stderr records. Candidate ispath followed by open(w) does not reserve output atomically; both report and qualification plan explicitly require external exclusive reservation and invocation binding. No execution admission rests on these static checks.
+
+## Computational work, allocations and retained memory
+
+**No unnecessary NEW production work, allocations or retained memory were found.** The production source is unchanged, as verified by Git and bound source hashes. No production hot-path cost delta exists here, so a before/after benchmark is neither required nor allowed by this offline scope. No speedup or measured byte-count claim is made.
+
+The cold diagnostic inventory matches actual source: an **11-field probe** (armed Bool, five Int counters, two Any state references, NTuple2, NTuple7, sentinel), plus the original done Ref, outcome/wrapper aliases; three fixed 17-role owner tuples, with the TRIAL tuple conditional on capture; seven owned vector copies containing **26 entries** (one length2 plus six length4). There is no matrix or factor copy. Endpoint equalities inspect at most26 element pairs, plus two slack comparisons; identity checks traverse 11 TRIAL and 17 INITIAL roles plus six shared/value roles. Clock3/work2, refactor2 and fallback7/after7 records match the report. Two record captures each perform four event-count dictionary lookups. Callbacks add counters/fixed records only, with no array scans/copies, numerical calls or growing ledger.
+
+The fixed 50-Bool tuple, twelve observations and output dictionary structure are accurately counted: seven child dictionaries with83 entries, plus seven outer entries, **90 entries across eight dictionaries**. Construction/serialization strings, iteration, assertion machinery and possible aliases cost additional work; these are source-level inventory counts rather than exact Julia allocation counts or retained-byte bounds.
+
+Copy/equality cost scales with selected m and n+m vectors. Existing setup, trial factories, solves, updates, scans, final refactor and scratch scale with dimensions, nonzeros and backend/update history and remain additional to instrumentation. Only this Float64 fixture is proposed; sparse/dense generality, other precisions and deep/native ownership are unqualified. Options is immutable, so === is value identity rather than mutable storage ownership. Owner tuples, probe, closure, states, exception and possible unexpected result aliases retain mutable/transitive graphs; 21 selected reference roles do not bound graph size. No native-free/GC, full rollback, certificate transfer, observer-neutrality, complete PREforward/backend/import work or hidden-trajectory claim is supported.
+
+## Publication and future admission
+
+The new continuation script requires accepted review, writes an exact review copy, preserves exclusive before-X STATUS/roadmap bytes before changing continuation, and does not rewrite historical artifacts. Closure rechecks X evidence/author/candidate, source/user/process gates and W's closure using only those explicit before-X mappings. Publication requires PASS closure, empty initial index, complete staged membership and exact blobs, preserves the unchanged inverse's whitespace exception only, and separately verifies the manifest's own staged blob. These scripts have been read, not executed; their future results must still be checked before a fail-fast commit/push and remote verification.
+
+S5-Y first requires a separate concrete launcher, complete required-path pins, failclosed auditor, durable guard logs, exclusive attempt/output lock and strict command/path/pin/log linkage; synthetic refusal/missing/malformed/overrun/reservation tests and fresh independent admission precede any Julia. Terminal elapsed checks must include import/compilation/setup/serialization. Only separate accepted admission may allow at most one guarded exact-candidate attempt with the stated resource limits. Failures preserve evidence and stop, with no retry/tuning or extra numerical work. All broader gates, historical rejected artifacts, full-suite limitations, HHdisabled/CIoff and Q/bootstrap/cache/init/wholecaps/native-retention restrictions remain open.
+
+## Reviewed input identities
+
+- `diagnostics/simplex-core-architecture/results/S5-X/candidate.jl`: `5c941e86131ed503149de5a47ac46fc7665507861a25ec16654b6711968fdf18`.
+- `diagnostics/simplex-core-architecture/results/S5-X/evidence.json`: `6dd9a25a8245374912a7f5b992aa1ecec4e72c1aeec5ad32f7c9c44725392b12`.
+- `diagnostics/simplex-core-architecture/results/S5-X/independent.json`: `c1c90c3a8e12b01603b9294309b5d5a15014ab9f4722e4978dc7ac4255eca937`.
+- `diagnostics/simplex-core-architecture/S5-CRASH-FALLBACK-OBSERVER-PREPARATION.md`: `6c52a401ebae1aebeb04af953324b36022c6b8b79a0198f2c36e43e5cf581624`.
+- `docs/superpowers/plans/2026-10-13-crash-fallback-observer-qualification.md`: `facf06d0c95fae8af3111b81e68dab99f16033834788b875ad94b225a8b64210`.
+- `diagnostics/simplex-core-architecture/results/S5-X/continuation.py`: `a3d747751a982a068fa97b799cfcf16e2a85d11a207870a1e0d6460358bce0f8`.
+- `diagnostics/simplex-core-architecture/results/S5-X/closure.py`: `d76376993087e76e7ea447894f42a3d333378c8abea5c29e71c71c0defee72ad`.
+- `diagnostics/simplex-core-architecture/results/S5-X/publication.py`: `71854582d26a3a8113fc9c1043f67e6cb47a93a18992b2b888d53cb46b862ed3`.
