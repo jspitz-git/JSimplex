@@ -45,24 +45,22 @@ accepted deliverables, not partial or failed attempts. Update both at milestones
 
 ## Current continuation — 2026-10-14
 
-MA-G SOURCE/EVIDENCE analysis completed; no Julia or new measurements. All48
-stored full-forward summaries reconciled. Six control failures remain authoritative;
-MA-F overall performance NOT ACCEPTED, no promotion. Initial58/61 source/data checks
-preserved with three literal-selector FALSE gates; separate8/8 source supplement.
-Concrete next action: MA-H OFFLINE routing-only candidate preparation under
-`docs/superpowers/plans/2026-10-14-ma-markowitz-routing-preparation.md`.
-Original inline loop for non-target types and zero sparse pivots; unchanged MA
-helper for exact targets with positive sparse pivots. No claim that these source
-changes explain all regressions; no new numerical allowance consumed. Future
-measurement needs exact independent admission, with existing short-run permission.
-See MA-MARKOWITZ-CONTROL-REGRESSIONS.md and results/MA-G. Old MA-E/F scripts,
-candidates/raw/reviews remain frozen; no automatic rerun/tuning/threshold change.
-MA-F-repair current STATUS/roadmap bindings (original/final closure and
-publication) map ONLY to MA-G/STATUS.md.before-MA-G and roadmap.md.before-MA-G.
-MA-F-repair result-review binds only its existing before-MA-F-repair copies,
-without a new remap. Original MA-F bindings still map there; earlier mappings
-remain intact. Master6f68e24 unchanged; broaderMA/S2/S3/S4/S5/S6open,
-automationpaused/CIoff/HHdisabled.
+MA-H OFFLINE preparation completed: isolated routing-only candidate SHA256
+ dca3d1c7cabfc6ecf8e09832cadd097bcfe4a6e5982e42d914b72333bf853dea.
+Structural RED4expected false/GREEN5PASS; exact inverse to MA-E and original source;
+helpers unchanged. Old381assertions copied exactly; new266prospective assertions
+in28paired full-forward cases (647total). All Julia text UNEXECUTED.29offline
+checks PASS/27bindings; no actualsrc/test/Project/env/master/CI change.
+See MA-MARKOWITZ-ROUTING-PREPARATION.md and results/MA-H review/closure/publication.
+Next MA-I: docs/superpowers/plans/2026-10-14-ma-routing-qualification-admission.md.
+FIRST new concrete immutable controls/manifest and fresh independent numerical
+admission, THEN one short bounded22process schedule. No launch from MA-H alone.
+Standing short-run permission persists; no duplicate question. MA-F performance
+remains NOT ACCEPTED, all48cases/target/control gates retained; no integration.
+MA-G current STATUS/roadmap hashes in closure/publication/review map ONLY to
+MA-H/STATUS.md.before-MA-H and roadmap.md.before-MA-H; older maps unchanged.
+All old evidence/scripts/candidates and MA-H input plan frozen. BroaderMA/S2/S3/
+S4/S5/S6open, automationpaused/CIoff/HHdisabled; master6f68e24 unchanged.
 
 ### Previous S4-AD integration (completed)
 
