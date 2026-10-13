@@ -331,6 +331,10 @@ attempt, driver and evidence remain frozen.
   existing-arithmetic fallback for unsupported types/contracts and preserve the
   hardware-float path. If accepted for integration, declare MA as a direct
   dependency with reviewed compatibility; do not depend on a transitive import.
+  MA-D offline candidate/test/fixture package accepted; complete source inverse,
+  six prospective testsets and fixed process-paired schedule. Runtime unqualified.
+  See [preparation report](../../../diagnostics/simplex-core-architecture/MA-MARKOWITZ-UPPER-PREPARATION.md)
+  and [MA-E offline admission](2026-10-13-ma-markowitz-upper-admission.md).
 - [ ] **MA-3 — Qualify correctness and total cost.** Use the concrete subplan's
   regression and ownership tests, including cancellation, zero/signed zero,
   nonfinite/exception cases where supported, alias attempts, precision changes

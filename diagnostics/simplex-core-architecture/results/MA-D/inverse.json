@@ -1,0 +1,20 @@
+{
+  "markowitz": {
+    "source": "src/markowitz_factorization.jl",
+    "remove_exact": "helpers.jl",
+    "replace_call": "    _markowitz_upper_solve!(work, backend.upper, backend.diagonal, sparse_pivots)\n",
+    "with": "original-upper-loop.jl"
+  },
+  "module": {
+    "source": "src/JSimplex.jl",
+    "remove_exact": "import MutableArithmetics\n"
+  },
+  "project": {
+    "source": "Project.toml",
+    "remove_deps_and_compat_key": "MutableArithmetics"
+  },
+  "runtests": {
+    "source": "test/runtests.jl",
+    "remove_exact": "    include(\"markowitz_ma_upper_tests.jl\")\n"
+  }
+}

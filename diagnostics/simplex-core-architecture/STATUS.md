@@ -38,7 +38,7 @@ main also has a user-modified .vscode/settings.json. Do not stage those files.
 | S3 | End-to-end exact sparsity support | Active | S3-A/S3-B integrated, latest masterb720674; exact-support consumer savings qualified; broader S3 partial |
 | S4 | Refactorization memory lifecycle | Active | S4-A/S4-C integrated; master3220118; Float64 component attribution/cost and exact triplet optimization accepted; bounded scalar component attribution360samples accepted; broader manager/history/medium coverage open |
 | S5 | Phase/cleanup handoff contract | Active | S5-A/S5-B accepted; S5-C production88a2411 -> mastere7014fb, reviewed, master668/668; broader handoffs partial |
-| MA | Selective MutableArithmetics integration | Active | MA-C completes MA-1 selection/contract; next MA-D offline candidate preparation; numerical/performance acceptance and integration pending |
+| MA | Selective MutableArithmetics integration | Active | MA-D offline candidate/tests/fixtures accepted; next MA-E bounded admission preparation; runtime/performance acceptance and integration pending |
 | S6 | Broad validation and final comparison | Active | S6-A/B triage accepted; S6-C test repair integrated as mastera465da5, focused20/20. S6-G artificial-row test repair master8516e0d; S6-M BigFloat fixture repair master7fea422, focused1477/1477; S6-T no-recession fixture masterafb37d9,focused192/master19; S6-W repeated-price fixture masterb9e7cb1,focused109/master41; S6-AA reliable exchange fixture master74f7835,focused127/master19; S6-AC reconstruction fixture master3c0af5c,focused339/master215; S6-AI dual recovery fixture master354bb1f,focused339/master252; other CI families and full validation remain open |
 
 Allowed execution states: Pending, Active, Blocked (reason required), Verified,
@@ -47,32 +47,40 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-MA-C completed MA-1 SOURCE/DESIGN ONLY: select exactly the ordered upper-row
-reduction in Markowitz forward solve for BigFloat and Rational{BigInt}. No Julia,
-production/test/Project/environment change or performance acceptance. Twenty fresh
-source hashes;8 source gates and7 author checks. Fresh independent review verified
-all20; one Important speculative diagonal-read exception-order finding corrected
-with preserved before report/plan, original rejected review and5 offline checks;
-final review accepted with no unresolved findings and no unnecessary NEW production
-work/memory. Private call-local scratch (two BigFloats or12BigInt leaves), original
-first seed and ordinary division publication; no persistent cache. Installed MA
-1.8.1/global rounding versus Julia1.13/scoped rounding requires original-loop
-fallback. Added eligibility traversal/per-solve creation remain prospective costs.
+MA-D OFFLINE candidate preparation accepted by fresh independent review.
+Canonical candidate-markowitz.jl/JSimplex/Project/runtests and
+candidate-tests-reviewed.jl under results/MA-D remain UNEXECUTED; actualsrc/test/
+Project/env/master unchanged, no Julia/query/parser/import/compile/numerical launch.
+Complete source inverse verified; exactly two target entries BigFloat/RationalBigInt,
+call-local scratch, original first seed/division publication and safe fallbacks.
+Six prospective testsets,48frozen small cases,8exact Python oracle checks,
+11sourcechecks/36bindings. Initial review's two Important test/cost issues fixed
+separately with8offline checks; originals/rejected review preserved; final accepted
+no unresolved findings or unnecessary NEW production work/memory.
 
-Next: MA-D OFFLINE preparation only, per
-`docs/superpowers/plans/2026-10-13-ma-markowitz-upper-preparation.md`.
-Prepare one unexecuted candidate, named ownership/rounding/exception regressions,
-exact bounded fixtures and cost schedule; no Julia/import/parser/compile/numerical
-launch or actual production/test/env change in that step. Subsequent MA-E needs a
-concrete admission/process budget under standing short-run human authorization;
-do not ask for the same permission again. No hours-long runs. MA overall Active,
-MA-2/3/4 not complete. Broader S2/S3/S4/S5/S6 stay open.
+Dense floating control uses frozen exact64eps scaled residual plus separate
+reference/candidate bit parity, not exact allones. Cost schedule explicitly counts
+cold upper wrapper:960constructors/4800whole solves/4800upper calls/4800resetcopies
+(96000entries)/91200selected multiply-subtract pairs/640cold scratch diagnostics.
+These are prospective source counts, not measured allocation/backend budget.
+20costprocesses serial<=60s each AND600s globalcostcap, qualification<=120s;
+next admission adds RED<=30s, total<=750s. No retry or hours-long run.
 
-S4-AD current STATUS/roadmap closure/publication/final-review bindings map ONLY to
-MA-C/STATUS.md.before-MA-C and roadmap.md.before-MA-C; older mappings unchanged.
-All MA-C/MA-A and previous evidence frozen, never rerun/rewrite. Master6f68e24
-unchanged. Automation paused, CI off, HH reuse disabled; stopped routes stay closed.
-See MA-MARKOWITZ-UPPER-CONTRACT.md and results/MA-C/review-final.md.
+Next MA-E OFFLINE admission preparation:
+`docs/superpowers/plans/2026-10-13-ma-markowitz-upper-admission.md`.
+Bind canonical reviewed texts, exact assertion/call counts, ordinary overlays,
+immutable manifests, guarded serial launcher and fail-closed auditor; independent
+admission review before any subsequent MA-F short execution. Standing human
+numerical permission persists; no duplicate permission question. MA-D itself
+created no launcher/reservation/allowance or process. Runtime/benefit/integration
+still pending; broader S2/S3/S4/S5/S6 remain open.
+
+MA-C current continuation closure/publication bindings map ONLY to MA-D before
+STATUS/roadmap copies; all older mappings unchanged. Initial MA-D report bindings
+map ONLY report.before-review.md; all original test/schedule paths unchanged.
+All accepted MA-D/C/A scripts/raw/reviews frozen, never rerun/rewrite. Master6f68e24
+unchanged, CIoff, automationpaused, HHdisabled and stopped routes remain closed.
+See MA-MARKOWITZ-UPPER-PREPARATION.md and results/MA-D/review-final.md.
 
 ## S4-AD production integration — 2026-10-13
 

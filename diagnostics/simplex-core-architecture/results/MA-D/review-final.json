@@ -1,0 +1,58 @@
+{
+  "accepted": true,
+  "acceptance_scope": "MA-D offline candidate preparation only; not numerical launch, production integration or performance acceptance",
+  "unresolved_findings": [],
+  "resolved_findings": [
+    "R1",
+    "R2"
+  ],
+  "original_bindings_verified_with_report_map": 36,
+  "fix_bindings_verified": 8,
+  "original_review_bindings_verified": 40,
+  "review_classes": [
+    {
+      "class": 1,
+      "result": "accepted for offline preparation",
+      "evidence": "Implementation and its private call-local scalar/leaf scratch, direct first-seed read and ordinary division publication are unchanged from the initial review. No new output alias or retained backend field is introduced; runtime owner tests remain required."
+    },
+    {
+      "class": 2,
+      "result": "accepted for offline preparation; R1 resolved",
+      "evidence": "Reviewed dense-core test converts actual A/x/rhs values to exact Rational{BigInt}, requires exact zero residual for rational input and frozen64eps scaled residual for floating input. Arithmetic/precision/rounding/exception regressions remain unchanged. Cost outputs additionally require exact reference/candidate value/sign/precision parity. The tolerance does not weaken the upper sequential equality contract or alter solver precision."
+    },
+    {
+      "class": 3,
+      "result": "accepted for offline preparation",
+      "evidence": "All36 original source-check bindings match with exactly the declared report-to-report.before-review.md mapping; all initial review bindings also match with that map. All8 fix bindings match. Candidate source/module/Project/runtests remain unchanged and retain verified complete inverses. Canonical reviewed tests and contract are explicitly named in corrected report."
+    },
+    {
+      "class": 4,
+      "result": "accepted for offline preparation; R2 resolved",
+      "evidence": "One explicit first-use upper/reset per case now precedes4steady upper/reset repetitions, with same wrapper signature/repeat-count type. Totals:960constructors,4800complete solves,4800upper calls/resets,96000reset assignments,91200upper multiply/subtract pairs,640scratch constructions. Scratch windows explicitly permit first-use compilation and claim no warmed cost. No further hidden warmup is allowed. Counts describe high-level work only; actual GMP work/native retention and complete-solve benefit remain unmeasured."
+    },
+    {
+      "class": 5,
+      "result": "accepted for offline preparation only",
+      "evidence": "Original rejected review, tests, schedules and initial report preserved. Corrections separately bound; no Julia/runtime/script reruns. Caps remain20serial cost processes each<=60s within600s global cost, qualification120s plus RED30s gives750s hard total. MA-E still owes exact qualification/observer call counts, canonical loading, all source/runtime/env pins and fail-closed launch/audit before any admitted execution."
+    }
+  ],
+  "unnecessary_work_memory_statement": "No unnecessary production computational work, allocation or retained memory was introduced: actual production is unchanged. Candidate costs remain explicit O(K) eligibility plus at most one private scratch set per eligible solve, without extra basis solves, matrix conversions, vector/output copies or persistent cache. Corrected diagnostic warmup adds the necessary960upper reductions/resets openly and accounts for their9120additional term pairs and19200assignments. Exact rational residual verification is diagnostic correctness work outside measured windows. No benchmark, speedup, runtime correctness or native-memory-release claim is made.",
+  "bound_sha256": {
+    "diagnostics/simplex-core-architecture/MA-MARKOWITZ-UPPER-PREPARATION.md": "c70008deaa9d3cd29014a6286e9e00322368837e5c94151882568f912430d5a7",
+    "diagnostics/simplex-core-architecture/results/MA-D/candidate-tests-reviewed.jl": "1b6b62af70883fcdee2135f30a869367b167538adf90ffbc86172e8ff3cd79e1",
+    "diagnostics/simplex-core-architecture/results/MA-D/cost-schedule-reviewed.md": "3c9c23c3abb23563c5bc10edb28eab79a2ca55a0cc450cddb747ce874b88dcb0",
+    "diagnostics/simplex-core-architecture/results/MA-D/test-contract-reviewed.md": "2ccb7357cfbde21b62114051133386eea47bbf11d28c3394a5c9c2e94b781deb",
+    "diagnostics/simplex-core-architecture/results/MA-D/report.before-review.md": "9bc5e17f54cb5645da152b2b3639803368288bddd32dce257b91f4863f625c5e",
+    "diagnostics/simplex-core-architecture/results/MA-D/review.md": "329f02e804dc5ee7c7fa1e23ecc5f6768688c5be3a383f853edf0bd43c8b6c9d",
+    "diagnostics/simplex-core-architecture/results/MA-D/review.json": "cc32f9ea9041f5c52e3795807c8e1f94301669562851a460fc545283f9970f09",
+    "diagnostics/simplex-core-architecture/results/MA-D/review-fix.py": "5e53b13bd30d326779dc5454ed9865e71e826e0284ef64b638bf3a17d2ab35ad",
+    "diagnostics/simplex-core-architecture/results/MA-D/review-fix.json": "7f23fbafcbe4fda38d765923b0e740af01f313031ed620681a8b238745b5d84e",
+    "diagnostics/simplex-core-architecture/results/MA-D/source-check.json": "0ba5d2c8885a85d507195359b5ad9629b11533b1755ff5942799c15f3606e4ef",
+    "diagnostics/simplex-core-architecture/results/MA-D/candidate-markowitz.jl": "491d7e0880cbc2fad1b4d7f465ab48229a0c1b8891e3886d7e1607f30b9433d3",
+    "diagnostics/simplex-core-architecture/results/MA-D/helpers.jl": "1fb018def99a12e3919fa47d0d3521528e1ace4f0a7863dbc861548a06fc3b9b",
+    "diagnostics/simplex-core-architecture/results/MA-D/candidate-JSimplex.jl": "e2c16e4d4578b4c768defe7bd910b589d16bfceae4b4886656eae5b2284c8885",
+    "diagnostics/simplex-core-architecture/results/MA-D/candidate-Project.toml": "2137cff0db46e0ca3820f6b714d78f2b60805ef676d4fe0ae9078ebd29da84c9",
+    "diagnostics/simplex-core-architecture/results/MA-D/candidate-runtests.jl": "b4c6c476032739de56752132e80754dec68b776f9884cb25921544ed5bf83ef7",
+    "docs/superpowers/plans/2026-10-13-ma-markowitz-upper-admission.md": "7babceb68b29721564cc2952d0342ded7a1b052d3d18f504c12fbcc1133dc4fc"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "exit_code": 1,
+  "exception": "KeyError: 'sha256'",
+  "location": "closure.py:19 bindings, called by final_review_bindings at line 22",
+  "cause": "Reviewer records use bound_sha256; original closure assumed sha256.",
+  "original_script_sha256": "d1c1c99c1519570b23e22f51d14b7acc96b284a7a1ce79e313122dfb5294ff3b",
+  "outputs_created": false,
+  "repair": "closure-final.py selects bound_sha256 explicitly for both reviewer records; all other binding schemas and acceptance checks unchanged. No old check or numerical rerun."
+}
