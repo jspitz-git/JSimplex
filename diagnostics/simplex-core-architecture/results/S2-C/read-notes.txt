@@ -1,0 +1,4 @@
+A bounded read command ending with `rg --files docs | rg 'architecture.*plan|roadmap'`
+returned exit1 because the filename selector matched nothing. The preceding source,
+test and closure reads succeeded. The roadmap path was then read directly from
+known closure metadata. No Julia/parser or numerical execution occurred.

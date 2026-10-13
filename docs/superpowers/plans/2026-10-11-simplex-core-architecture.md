@@ -1666,3 +1666,26 @@ Next S2-C: docs/superpowers/plans/2026-10-13-price-audit-values-preparation.md,
 OFFLINE candidate/test-source preparation and independent review, no Julia allowance.
 S6-AQ still requires new original-run evidence; that wait does not block this step.
 Reports S2-PRICE-AUDIT-STORAGE.md / S2-PRICE-AUDIT-STORAGE-REVIEW.md, results/S2-B.
+
+## S2-C offline price-audit candidate — 2026-10-13
+
+S2-C OFFLINE preparation accepted: separate source candidate and test text only,
+NO Julia query/parser/import/compile/numerics. Exact whole-source inverse changes
+only the two-owner read-only adapter/factory and one vcat assignment. Empty/mixed/
+union/other storage materializes; exact Float32/Float64 nonempty parents borrow,
+with inner domain checks and both dataids. All arithmetic/safeguards unchanged.
+Thirty direct quality pairs (60 entries),20 alias rejection entries and three
+byte-identical integration testsets are UNEXECUTED; integration has16 additional
+explicit quality entries plus setup/audit/pivot work, not a complete backend cap.
+Initial21 checks/535 fresh hashes/513 actual src-test-CI comparisons; author6/five
+bindings; fresh gpt-6-astra FULL535/513/B24 and24 review checks/bindings, no unresolved
+Critical/Important/Minor and no unnecessary NEW production work/memory. No speedup,
+allocation/dispatch/alias/runtime acceptance. No production/test/env/CI/master edit.
+B closure24 STATUS/roadmap map ONLY results/S2-C/*before-S2-C; all older mappings
+and frozen evidence remain unchanged. Actual masterd02416c, HHdisabled, CIoff and
+all prior rejections/broader gates open. No numerical allowance consumed or granted.
+Next S2-D: docs/superpowers/plans/2026-10-13-price-audit-values-admission.md,
+OFFLINE concrete admission preparation/review only, then separate PASS closure/
+exact complete staged blobs/failfast publication. S6-AQ remains separately conditional.
+Reports S2-PRICE-AUDIT-VALUES-PREPARATION.md / -REVIEW.md, results/S2-C.
+All accepted C scripts/candidates/checks/review/pins FROZEN; NEVER RERUN/rewrite.

@@ -1,0 +1,32 @@
+# Borrow only nonempty, concrete hardware vectors for this synchronous audit.
+# Empty parents must be materialized: scratch alias checks ignore empty arrays.
+struct _PriceAuditValues{T<:Union{Float32,Float64}} <: AbstractVector{T}
+    dual::Vector{T}
+    predicted::Vector{T}
+    function _PriceAuditValues(dual::Vector{T}, predicted::Vector{T}) where {T<:Union{Float32,Float64}}
+        (T === Float32 || T === Float64) ||
+            throw(ArgumentError("price audit borrowing requires a concrete hardware type"))
+        (isempty(dual) || isempty(predicted)) &&
+            throw(ArgumentError("price audit borrowing requires nonempty parents"))
+        return new{T}(dual, predicted)
+    end
+end
+Base.size(v::_PriceAuditValues) = (length(v.dual) + length(v.predicted),)
+Base.IndexStyle(::Type{<:_PriceAuditValues}) = IndexLinear()
+@inline function Base.getindex(v::_PriceAuditValues, i::Int)
+    @boundscheck checkbounds(v, i)
+    split = length(v.dual)
+    return i <= split ? v.dual[i] : v.predicted[i-split]
+end
+Base.dataids(v::_PriceAuditValues) = (Base.dataids(v.dual)..., Base.dataids(v.predicted)...)
+
+_price_audit_values(dual, predicted) = vcat(dual, predicted)
+function _price_audit_values(dual::Vector{Float32}, predicted::Vector{Float32})
+    (isempty(dual) || isempty(predicted)) && return vcat(dual, predicted)
+    return _PriceAuditValues(dual, predicted)
+end
+function _price_audit_values(dual::Vector{Float64}, predicted::Vector{Float64})
+    (isempty(dual) || isempty(predicted)) && return vcat(dual, predicted)
+    return _PriceAuditValues(dual, predicted)
+end
+
