@@ -1204,3 +1204,32 @@ remain unchanged; master35a6a9f, production/test/environment/CI unchanged.
 
 The previous S5-Q next action is fulfilled. S5-R is separately limited to one
 unexecuted candidate with exact inverse and review; no launch admission follows.
+
+## S5-R unexecuted candidate and separate S5-S admission (2026-10-13)
+
+S5-R OFFLINE candidate preparation: canonical candidate-reviewed.jl179lines/SHA
+ d03fcc9c0d2f70a16437ea2412e56c807babccb99f6df25aec82894b67d51950,
+40named predicates,19literalchecks199freshreadtimehashes8authorchecks. Initial
+candidate/194pins preserved SUPERSEDED/UNEXECUTED: author found Important missing
+NumericalPolicy.numerical_profile field (constructor keyword only); separate one
+expression offline RED/GREEN fix4checks preserves setup/policy/assertion names.
+Exact original setup inverse, one prospective Float64/PFI/native initialization,
+recoverytrue/refinementfalse/sparsehypersparse/Inf/offsets7and11 unchanged. Ordinary
+observer stages defaultcheckpoint/initial/importedother/importedcheckpoint; immediate
+second explicit stop throws original sentinel before checkpoint store/event.
+All Q identity/no-return/ownership/sharedprogress/work/event families concrete;
+limited2F2B1ref/localiter0ref1/checkpointcount1/historyempty/phasegen1,4callbacks2stops.
+Two explicit basis copies6entries;15fieldprobe/9fieldentry/two14fieldworkcaptures,
+40Booltuple/12observations/fivefixedoutputdicts84entries on reached prefix.
+No callback arrayscans/copies/growingledgers/extranumerics; aliases/diagnostics/
+closure/guard/retainedmutableworkspace graphs NOTmemorycap/nativefreeproof.
+Source checkpoint10containers36entries/factory/backend/hypersparse additional;
+not completePREforward/native/import/allocations/rollback/certtransfer/speedup.
+Fresh independent numerical/work review required before separate PASS closure and
+fail-fast publication. No Julia/parser/import/compile/native/launcher/actualtest/
+production/env/cache/CIchange. Read S5-BASIS-INITIALIZATION-STOP-PREPARATION.md/REVIEW,
+results/S5-R. Q-bound continuation preserved before-R; all older frozen failures/
+reviews/raw unchanged,master35a6a9f/allbroadergates/HHdisabled/CIoff unchanged.
+
+The previous S5-R next action is fulfilled. S5-S must meet its separate concrete
+launcher/pin/auditor/review gate; R is not runtime qualification.

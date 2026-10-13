@@ -46,7 +46,31 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-**Current continuation: S5-Q offline oracle independently reviewed; complete its separate PASS closure/publication. Next S5-R unexecuted candidate preparation only: `docs/superpowers/plans/2026-10-13-basis-initialization-stop-preparation.md`. No Julia, launcher, actual test edit or numerical admission.**
+**Current continuation: S5-R unexecuted candidate independently reviewed; complete separate PASS closure/publication. Next S5-S must FIRST prepare a new launcher, full selected pins and fail-closed auditor, then obtain independent admission review before at most one guarded attempt: `docs/superpowers/plans/2026-10-13-basis-initialization-stop-qualification.md`.**
+
+S5-R OFFLINE candidate preparation: canonical candidate-reviewed.jl179lines/SHA
+ d03fcc9c0d2f70a16437ea2412e56c807babccb99f6df25aec82894b67d51950,
+40named predicates,19literalchecks199freshreadtimehashes8authorchecks. Initial
+candidate/194pins preserved SUPERSEDED/UNEXECUTED: author found Important missing
+NumericalPolicy.numerical_profile field (constructor keyword only); separate one
+expression offline RED/GREEN fix4checks preserves setup/policy/assertion names.
+Exact original setup inverse, one prospective Float64/PFI/native initialization,
+recoverytrue/refinementfalse/sparsehypersparse/Inf/offsets7and11 unchanged. Ordinary
+observer stages defaultcheckpoint/initial/importedother/importedcheckpoint; immediate
+second explicit stop throws original sentinel before checkpoint store/event.
+All Q identity/no-return/ownership/sharedprogress/work/event families concrete;
+limited2F2B1ref/localiter0ref1/checkpointcount1/historyempty/phasegen1,4callbacks2stops.
+Two explicit basis copies6entries;15fieldprobe/9fieldentry/two14fieldworkcaptures,
+40Booltuple/12observations/fivefixedoutputdicts84entries on reached prefix.
+No callback arrayscans/copies/growingledgers/extranumerics; aliases/diagnostics/
+closure/guard/retainedmutableworkspace graphs NOTmemorycap/nativefreeproof.
+Source checkpoint10containers36entries/factory/backend/hypersparse additional;
+not completePREforward/native/import/allocations/rollback/certtransfer/speedup.
+Fresh independent numerical/work review required before separate PASS closure and
+fail-fast publication. No Julia/parser/import/compile/native/launcher/actualtest/
+production/env/cache/CIchange. Read S5-BASIS-INITIALIZATION-STOP-PREPARATION.md/REVIEW,
+results/S5-R. Q-bound continuation preserved before-R; all older frozen failures/
+reviews/raw unchanged,master35a6a9f/allbroadergates/HHdisabled/CIoff unchanged.
 
 S5-Q OFFLINE oracle feasibility: 18 literal checks,178 fresh read-time hashes,
 8 author checks; fresh independent numerical/work review. Existing Float64/PFI/
