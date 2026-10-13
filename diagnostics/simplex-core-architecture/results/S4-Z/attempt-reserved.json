@@ -1,0 +1,23 @@
+{
+  "time_ns": 1791902832713885148,
+  "command": [
+    "/bin/bash",
+    "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+    "--compiled-modules=existing",
+    "--threads=1",
+    "--gcthreads=1,0",
+    "--heap-size-hint=2G",
+    "--project=/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl",
+    "-e",
+    "using JSimplex; realpath(pathof(JSimplex)) == realpath(\"/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/JSimplex.jl\") || error(\"wrong JSimplex source\"); include(\"/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S4-Y/driver-reviewed.jl\")",
+    "--",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/simplex-core-architecture/S4-Z/qualification-1"
+  ],
+  "output": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/simplex-core-architecture/S4-Z/qualification-1",
+  "pins_sha256": "a76a46350a87ededd788c8615b7570f78716e970e5900d037b89c57661f05efd",
+  "allowance_sha256": "af035cf81ba29ab9c4216a15e9cb650f4658987a0ec4f43979c37a9a498f0f0c",
+  "refs": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl": "52cd959a07ce4240a8d18d71f3da742d1708d662",
+    "/home/jspitz/JSimplex.jl": "d02416c108f06fcd41d58e0a1980b70a51fef9ef"
+  }
+}

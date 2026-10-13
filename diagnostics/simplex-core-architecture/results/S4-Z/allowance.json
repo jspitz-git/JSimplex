@@ -1,0 +1,46 @@
+{
+  "accepted": true,
+  "numerical_allowance": true,
+  "unresolved_findings": [],
+  "attempts": 1,
+  "stage": "S4-Z-qualification-1",
+  "human_authorization": "Schvaluji numerick\u00fd pokus. Na dal\u0161\u00ed pokusy u\u017e se neptej, jenom nespou\u0161t\u011bj dlouh\u00e9 b\u011bhy na n\u011bkolik hodin.",
+  "refs": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl": "52cd959a07ce4240a8d18d71f3da742d1708d662",
+    "/home/jspitz/JSimplex.jl": "d02416c108f06fcd41d58e0a1980b70a51fef9ef"
+  },
+  "command": [
+    "/bin/bash",
+    "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+    "--compiled-modules=existing",
+    "--threads=1",
+    "--gcthreads=1,0",
+    "--heap-size-hint=2G",
+    "--project=/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl",
+    "-e",
+    "using JSimplex; realpath(pathof(JSimplex)) == realpath(\"/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/JSimplex.jl\") || error(\"wrong JSimplex source\"); include(\"/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S4-Y/driver-reviewed.jl\")",
+    "--",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/simplex-core-architecture/S4-Z/qualification-1"
+  ],
+  "output": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/simplex-core-architecture/S4-Z/qualification-1",
+  "pins_sha256": "a76a46350a87ededd788c8615b7570f78716e970e5900d037b89c57661f05efd",
+  "sha256": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S4-AA/authorization.json": "0ae73eb053ce94391fd656c0bc49ad701b1ade4872ac6281adcaf60b388b720d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S4-AA/numerical-review.json": "3a08eecfefe47eed2b1d7e62b9fd619d4846934fa9c8039acef6c15db639ff8a",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S4-AA/prelaunch-host.json": "4ee6ab17ae660bb628ac228801d41d877d6cc349a502f574342e310326e24066",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S4-Y/driver-reviewed.jl": "476c5ea1556b4f8b8c35291f07527cf55579e9c920fe4c9537593dab87f46f6a",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S4-Z/admission-pins.json": "315edc63d745fc5628b12539442c52fcc16e6339981b98af374df03291b49862",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S4-Z/admission.md": "fb187490271c95d23996f82f84dd52b5bd9fc8bacc255f289325d02d3b16db9a",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S4-Z/audit.py": "c6fbc0fa5004a7626112eeaa8507b30ce6acbba126727c8a9dbae0f6052aa4c0",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S4-Z/closure.json": "e340c7f5e6a73f401a24802719a982474e1b523193d50d5fa857bd44548c1dd8",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S4-Z/common.py": "fa212299a129aa199bf0a4060f6ecf0d953aadabce5c3cde7d985f83110ee1ac",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S4-Z/final-review.md": "0ddbeac6b59d9e1eafe390511d4874613c78e0f95d53d0c64891b57623eb79d4",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S4-Z/guard.py": "b1cbecc1c645cbf39e00661cbfac5989dc986d930943a7073f4e5e390520e6cc",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S4-Z/launch-pins.json": "a76a46350a87ededd788c8615b7570f78716e970e5900d037b89c57661f05efd",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S4-Z/launcher.py": "11c0da36c6ff7f1fcbbee914fd43ab43bb6f60ab6496c2c63a8ad3e98d72eae3",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S4-Z/numerical-review.md": "344b1968d8e47b74c4c3c92b43f3b687283ba80f0725d98728f56a9ae3f6a492",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S4-Z/publication.json": "8f61207186dd77ed929e31bcf40940cac68eedb706c0a9a5f946b6632494ec9d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S4-Z/required-paths.json": "1421d8025a0dde40a2a681ba76d28e953606e2ca77feac90974527b32afa3163",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S4-Z/review.json": "92ce6f7fc9c46bf9617aef2b5d53ee18eff77151f89e8f006133ee1c9138fbb0"
+  }
+}

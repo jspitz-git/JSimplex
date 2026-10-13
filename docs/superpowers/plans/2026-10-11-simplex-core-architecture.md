@@ -1858,3 +1858,18 @@ plan is [Markowitz retention qualification](2026-10-13-markowitz-retention-quali
 Require new explicit human permission, fresh host/manifest and numerical admission
 before any one-attempt reservation. Automation remains paused. Y final current
 continuation hashes map only Z before-S4-Z copies, older mappings unchanged.
+
+## S4-AA scoped retention result and updated human authorization — 2026-10-13
+
+The single admitted S4-Z attempt completed66/66 predicates,6auditgates8postchecks.
+Workspace graph94888B and128 dictionary/maxima owners persisted through both
+128→8→8→128cases; sparse active lengths shrink8, dense bypass128. This is a scoped
+current-retention observation, not a leak or accepted optimization. No benchmark,
+complete backend/import budget or native memory release proof. See
+[S4-AA report](../../../diagnostics/simplex-core-architecture/S4-MARKOWITZ-RETENTION-QUALIFICATION.md).
+
+The human explicitly approved this attempt and future short numerical attempts
+without asking again, while prohibiting multi-hour runs. New concrete technical
+admission/resource caps remain mandatory; frozen consumed attempts and stopped
+routes stay closed. Automation remains paused. Z final continuation bindings map
+only AA before-S4-AA copies; older mappings unchanged. Broader plan remains open.

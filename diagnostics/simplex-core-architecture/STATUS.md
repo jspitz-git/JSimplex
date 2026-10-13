@@ -46,7 +46,27 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-**Current continuation: S4-Z OFFLINE admission preparation for the accepted S4-Y Markowitz retention diagnostic. No numerical allowance; launcher and driver UNEXECUTED. After accepted preparation, request one explicit human allowance before sealing/launch. Automation remains paused. S3-G stopped; S2-E consumed; S6-AQ conditional on new original evidence.**
+**Current continuation: S4-AA completed the single S4-Z Markowitz retention qualification:66/66 predicates,6 audit gates,8 postchecks, no optimization accepted. Automation remains paused. Human now permits future short numerical attempts without repeated permission; each still needs concrete admission/resource caps, no multi-hour runs and no consumed-attempt reruns. S3-G stopped; S2-E consumed; S6-AQ conditional.**
+
+## S4-AA Markowitz retention qualification — 2026-10-13
+
+One guarded qualification-1, canonicalYdriver unchanged,66/66(33+33),exit0,
+6auditgates8postchecks;711launchpins unchanged. Two128→8→8→128cases preserve
+128 dictionaries/maxima owners and workspace graph94888B at every stage.
+Sparse small active lengths8; dense bypass128. Backend graphs differ by current
+factor/spare; graph estimates overlap, no native-free/leak/speedup proof and no
+trimming policy admitted. Source schedule2constructors2copies6refactors20solves;
+8snapshots/50helpervectors/fourmatrixcopies, not fullPREforward/import budget.
+Four resource samples,minRAM22089432KiB,swap0,inclusive4.005497609s not benchmark.
+Runner156956/child156957, bootdade7243-9103-4398-bb45-fa28fbc0be72,
+start_ticks7624463/7624512; all30groupsANDsessions absent/noJulia after exit.
+New human permission supersedes repeated permission requests for future short
+attempts; technical admission gates and no multi-hour runs remain. Automation
+stays paused. Exact one-attempt reservation consumed; frozen Y/Z/AA evidence
+never rerun/rewrite. OriginalZoutput and six portableAAfiles byteidentical;
+postcheck supplemental notlaunchpin. Z current continuation hashes map ONLY
+AA/STATUS.md.before-S4-AA and roadmap.md.before-S4-AA; all older maps unchanged.
+Report S4-MARKOWITZ-RETENTION-QUALIFICATION.md. Broader plan remains open.
 
 ## S4-Z Markowitz retention admission preparation — 2026-10-13
 
