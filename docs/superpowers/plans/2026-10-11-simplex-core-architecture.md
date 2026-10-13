@@ -1724,3 +1724,45 @@ this offline acceptance or automation tick as authorization; no repeated audits 
 notifications while this condition is unchanged. S6-AQ remains independently
 conditional, all old rejections/HHdisabled/CIoff/fullsuite/broader gates unchanged.
 Reports S2-PRICE-AUDIT-ADMISSION-PREPARATION.md / -REVIEW.md, results/S2-D.
+
+## S2-E price-audit qualification — 2026-10-13
+
+Human explicitly authorized ONE guarded180second attempt after S2-D. New entry16
+checks/full801+780/final22bindings48/closure24bindings127/publication6/exact129;
+independent gpt6astra numerical admission35checks830bindings, exact826launchpins,
+seal review8checks and separate freshhost7 accepted before launch. Same frozenD
+command/stage/output paths identify this new logicalE attempt, not an old rerun.
+
+ONEcandidateprocess completed655/655(90/40/416/34/16/31/28),exit0/admittedaudit21PASS.
+Eightfixtures192windows64warm128measured/3072wholeaudits1536perside; alloutputsTRUE,
+all128measuredcompile/recompile0 and inwindowGC0. Lowerbytes/events in every measured
+pair but mixed time: pairedmedians Float32 sparse32/dense32/sparse128/dense128
+1.012887/1.116662/0.898099/1.073180; Float64 0.990180/1.035240/0.932851/1.120635.
+All fourdensemediansslower; smallsparseneutral, sparse128locallyfaster. No universal
+or endtoendspeedup, no productionpromotion/tuning/retry. Outliers preserved/causes
+unknown; zero-dualfixtures/singleprocess/shortwindows limit generality.
+
+Original supplementalpostcheck12/14/exit1/TWOfalsecountgates preserved:15rawportable
+files, not16(10Julia+5process/pins/resources/log). Separate6PASSsupplement verifies
+all15exactbytes/hashes; admittedaudit and numerics NOT rerun. Admission prose entry
+11bindings corrected ONLY separate sealreview to10; boundreview unchanged. Sixty
+resourcesamplesminRAM21608940KiB/swap0; terminal22471500KiB/swap0, inclusive60.034391631s
+NOTbenchmark. Runner128482/start6285461 and child128483/start6285508, same boot;
+fullold26+bothnewgroups ANDsessions absent/noJulia. Ordinaryexistingloader NOT
+cache/importclosureproof; sourceentrybudget NOTcompletePREforward/backendwork.
+
+Exact frozenCcandidate removesoneconcat/addsconstantownerchecks+peraccessrouting;
+no newscan/solve/cache/precision/safeguardchange, freshscratchinside. Actualproduction
+work/memory unchanged; candidate extraaccesscost is NOTacceptedgeneralpromotion.
+Fresh independent numerical/work/memory review accepted, no unresolved findings.
+Dclosure127 and826launch/admissionreview currentSTATUSroadmap now map ONLY E/*before-S2-E;
+Dinitialauthor ANDinitialreviewerreport map ONLY D/report.before-review; C35mapsD
+before-S2-D, older mappings unchanged. AlloldD/B/Cscripts/pins/reviews/failedrecords
+and newEraw/admission/launcher/auditor/results FROZEN NEVER RERUN or rewrite.
+
+Allowance CONSUMED. Exactcandidate notpromoted; another numerical attempt or source
+variant needs its own concrete accepted plan and new allowance. No nextlaunch or
+productionintegration authorized here. Broaderplan remainsOPEN; S6-AQ independently
+requires genuinely neworiginalevidence, no repeatedsearch/question. HHdisabled/CIoff,
+masterd02416c/allolderrejections/fullsuite/x64 remainunchanged. Reports
+S2-PRICE-AUDIT-VALUES-QUALIFICATION.md / -REVIEW.md, results/S2-E.

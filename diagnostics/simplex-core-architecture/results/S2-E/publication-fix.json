@@ -1,0 +1,36 @@
+{
+  "checks": {
+    "original5of6_false_preserved": true,
+    "original_all_rows_status1_empty_diagnostics": true,
+    "RED_clean_file_rejected_by_old_status_rule": true,
+    "GREEN_clean_file_accepted": true,
+    "actual_trailing_whitespace_still_rejected": true,
+    "change_only_status_interpretation_and_new_output": true,
+    "no_staging_occurred": true
+  },
+  "all_passed": true,
+  "synthetic": {
+    "clean.txt": {
+      "returncode": 1,
+      "stdout": "",
+      "stderr": "",
+      "old_reject": true,
+      "new_reject": false
+    },
+    "bad.txt": {
+      "returncode": 3,
+      "stdout": "/tmp/s2e-whitespace-jbezb3pg/bad.txt:1: trailing whitespace.\n+bad \n",
+      "stderr": "",
+      "old_reject": true,
+      "new_reject": true
+    }
+  },
+  "sha256": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S2-E/publication.json": "81a1f2cdef2426301625203920381635b417e60a77229f6bd428dc52dfc9cd20",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S2-E/publication-reviewed.py": "d5a08a795dcb3454e96c208fe6f7dcd0c21bd0a7089c9493fe6935c020bc6855",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S2-E/publication-final.py": "9643af395dc58a59521fa9cebe8ce2fed5365b49d4e3d6dd083a7a3b59f972cb",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S2-E/publication-fix.py": "9f8aed2fa53816db3f0ff41cbfc670758670d262c7d504a4b98fb1677bcb41ad",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S2-E/closure-final.json": "3533a9f8160193a5829796da1c58ea55c9ef24d804d69906781954e8d30267d4"
+  },
+  "explanation": "git diff --no-index returns1 for a clean nonempty file differing from /dev/null. No whitespace diagnostics were emitted. Accept0/1 only when stdout/stderr empty; actual whitespace still rejects. Original false publication preserved before staging/commit/push. No old script or numerical rerun."
+}
