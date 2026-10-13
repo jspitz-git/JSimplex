@@ -1,0 +1,18 @@
+@testset "Crash interruption after final factorization uses no fresh budget" begin
+    p = LinearProblem(spdiagm(0=>[2.0,3.0]),ones(2);row_lower=[2.0,3.0])
+    done = Ref(false)
+    d = JSimplex.SimplexDiagnostics(;observer=(reason,ws)->begin
+        reason == :refactor_other && (done[]=true)
+    end)
+    policy = JSimplex.NumericalPolicy(Float64;crash=true)
+    progress = JSimplex.SimplexProgressContext(p;diagnostics=d,numerical_policy=policy)
+    initial = JSimplex.initialize_workspace(p,SolverOptions(verbose=false);progress)
+    ws,expired = JSimplex._crash_workspace(initial,()->done[])
+    @test expired
+    @test ws === initial
+    @test ws.iterations == 2
+    @test ws.refactorizations >= 2
+    @test ws.basis.basic_indices == [3,4]
+    @test JSimplex.event_count(d,:crash_accepted) == 0
+end
+
