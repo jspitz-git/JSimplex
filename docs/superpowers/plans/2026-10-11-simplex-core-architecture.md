@@ -45,6 +45,13 @@ accepted deliverables, not partial or failed attempts. Update both at milestones
 
 ## Current continuation — 2026-10-13
 
+The user added the optional MA implementation workstream to this roadmap.
+Its four pending gates below cover site selection, private scratch design,
+short correctness/cost qualification and conditional integration. This update
+only schedules work. MA-A remains completed diagnostic evidence. MA-A current
+continuation bindings map ONLY to results/MA-B/STATUS.md.before-MA-B and
+roadmap.md.before-MA-B; all older mappings remain unchanged.
+
 User-requested isolated MutableArithmetics1.8.1 dot benchmark completed:12cases,
 BigFloat128/256/512 and Rational{BigInt},n32/n256dense/n256zero-heavy dense storage.
 240windows(3warm+7measuredpairs/case,32dots/window),all outputs/ownership/precision
@@ -240,6 +247,54 @@ new `test/simplex_handoff_tests.jl` for the shared contract.
 
 **Gate:** Valid final original-model certificates, correct fallback and a measured
 reduction in initialization work; no silent transfer of incompatible state.
+
+### MA — Selective MutableArithmetics integration (Pending)
+
+**Goal:** Reduce temporary scalar allocations in one measured production kernel
+using privately owned scratch for `BigFloat` and `Rational{BigInt}`.
+**Evidence:** [MA-A private scalar experiment](../../../diagnostics/simplex-core-architecture/MA-PRIVATE-SCALAR-KERNEL.md)
+and its independent result review. MA-A establishes a local warmed dot-product
+benefit, not production ownership safety or end-to-end speedup. Its consumed
+attempt, driver and evidence remain frozen.
+
+- [ ] **MA-1 — Select one kernel and freeze its contract.** Inspect existing
+  scalar reductions and select exactly one recurring allocation source with
+  private intermediate values. Record its actual source/caller/test paths,
+  execution frequency, scalar types, operation/rounding order, exception behavior
+  and input/output aliases. Produce a concrete implementation subplan with exact
+  interfaces and named tests before changing production. Reject the site if
+  ownership cannot be established without changing observable behavior.
+- [ ] **MA-2 — Implement the smallest qualified candidate.** Give accumulator and
+  MA buffers an explicit owner and lifetime; prohibit mutation of borrowed input
+  scalars. Define reset/reuse, reentrancy and precision-change rules. Construct
+  BigFloat scratch at the required precision/rounding; handle Rational limb
+  growth. Charge copies needed for independently retained outputs. Keep a safe
+  existing-arithmetic fallback for unsupported types/contracts and preserve the
+  hardware-float path. If accepted for integration, declare MA as a direct
+  dependency with reviewed compatibility; do not depend on a transitive import.
+- [ ] **MA-3 — Qualify correctness and total cost.** Use the concrete subplan's
+  regression and ownership tests, including cancellation, zero/signed zero,
+  nonfinite/exception cases where supported, alias attempts, precision changes
+  and Rational numerator/denominator growth. Compare exact Rational and sequential
+  rounded results with independent oracles. Run short guarded paired measurements
+  on representative small/large and sparse/dense calling cases; separate startup,
+  scratch creation, steady-state reuse, result copying and recovery. Count added
+  scans, conversions, copies and solves alongside time, allocation bytes/events
+  and retained scratch. Include Float32/Float64 fallback regression coverage.
+  Preserve GC/outliers; do not infer solver speedup from MA-A or zero allocations.
+- [ ] **MA-4 — Review and integrate conditionally.** Require independent numerical
+  and work/memory review, focused integration tests and repeatable benefit after
+  accounting for buffer lifecycle/output ownership costs. Integrate only the
+  selected accepted change; otherwise retain the existing path and record why.
+  Broader solver claims remain subject to S6 validation.
+
+MA is an independent optional optimization before final S6 assessment; it does
+not block other admitted stages. This addition schedules the work; it does not
+start an implementation or numerical run. Existing short-run human permission
+applies once concrete admission and resource caps are satisfied; no repeated
+permission request or multi-hour run. Automation remains paused. No reopening
+of S3-G support omission or stopped HH/DSE/controller/import/isolation/cleanup
+routes, no changed tolerances/safeguards, and no replay of consumed experiments.
 
 ### S6 — Integration and final assessment
 

@@ -38,6 +38,7 @@ main also has a user-modified .vscode/settings.json. Do not stage those files.
 | S3 | End-to-end exact sparsity support | Active | S3-A/S3-B integrated, latest masterb720674; exact-support consumer savings qualified; broader S3 partial |
 | S4 | Refactorization memory lifecycle | Active | S4-A/S4-C integrated; master3220118; Float64 component attribution/cost and exact triplet optimization accepted; bounded scalar component attribution360samples accepted; broader manager/history/medium coverage open |
 | S5 | Phase/cleanup handoff contract | Active | S5-A/S5-B accepted; S5-C production88a2411 -> mastere7014fb, reviewed, master668/668; broader handoffs partial |
+| MA | Selective MutableArithmetics integration | Pending | User-requested roadmap addition; MA-A evidence accepted, production site/ownership subplan and qualification still required |
 | S6 | Broad validation and final comparison | Active | S6-A/B triage accepted; S6-C test repair integrated as mastera465da5, focused20/20. S6-G artificial-row test repair master8516e0d; S6-M BigFloat fixture repair master7fea422, focused1477/1477; S6-T no-recession fixture masterafb37d9,focused192/master19; S6-W repeated-price fixture masterb9e7cb1,focused109/master41; S6-AA reliable exchange fixture master74f7835,focused127/master19; S6-AC reconstruction fixture master3c0af5c,focused339/master215; S6-AI dual recovery fixture master354bb1f,focused339/master252; other CI families and full validation remain open |
 
 Allowed execution states: Pending, Active, Blocked (reason required), Verified,
@@ -46,7 +47,17 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-**Current continuation: MA-A completed the explicitly requested private-scratch scalar experiment; local correctness/allocation/time benefit observed, no production integration admitted. Automation remains paused. Short numerical attempts have standing human permission, subject to concrete admission and resource caps; no multi-hour runs. Broader plan remains open.**
+**Current continuation: MA-A completed; the user has added optional MA implementation to the roadmap. MA remains Pending: first select one concrete kernel and freeze its ownership/precision/cost subplan, then qualify and integrate conditionally. This turn adds documentation only. Short numerical attempts retain standing human permission subject to concrete admission/resource caps, no multi-hour runs. Automation remains paused and the broader plan remains open.**
+
+## MA-B roadmap addition — 2026-10-13
+
+Added the user-requested optional MA workstream to the implementation roadmap:
+one concrete kernel, private scalar scratch, precision/alias/output-lifetime
+contract, short independent correctness/allocation/time qualification, and
+conditional reviewed integration. No implementation or numerical run performed.
+MA-A current result-review/closure/publication STATUS/roadmap hashes map ONLY
+results/MA-B/STATUS.md.before-MA-B and roadmap.md.before-MA-B. All older mappings
+and all frozen MA-A evidence remain unchanged. No production/test/env/CI changes.
 
 ## MA-A private scalar arithmetic — 2026-10-13
 
