@@ -1,0 +1,387 @@
+function test_factorization_type(::Type{T}) where {T}
+    B = JSimplex.SparseArrays.sparse(T[2 1; 1 3])
+    rhs = T[5, 7]
+    factor = @inferred JSimplex.PFIFactorization(B)
+    x = @inferred JSimplex.forward_solve(factor, rhs)
+    xt = @inferred JSimplex.transpose_solve(factor, rhs)
+    @test eltype(x) === T
+    @test eltype(xt) === T
+    if T <: Rational
+        @test B * x == rhs
+        @test transpose(B) * xt == rhs
+    else
+        @test B * x ≈ rhs
+        @test transpose(B) * xt ≈ rhs
+    end
+    @test fieldtype(typeof(factor), :base) !== Any
+    if T === Float64
+        @test factor.base isa JSimplex.UMFPACKBackend
+    elseif T === Float32
+        @test factor.base isa JSimplex.Float32LUBackend
+    else
+        @test factor.base isa JSimplex.DenseLUBackend
+    end
+end
+
+@testset "Scalar-aware default pivot tolerance" begin
+    T = Rational{BigInt}
+    factor = JSimplex.PFIFactorization(reshape(T[1], 1, 1))
+    tiny_pivot = 1 // big(10)^13
+    replacement = try
+        JSimplex.replace_column!(factor, [tiny_pivot], 1)
+    catch error
+        error
+    end
+    @test replacement === factor
+    @test JSimplex.forward_solve(factor, T[1]) == T[big(10)^13]
+    @test JSimplex.transpose_solve(factor, T[1]) == T[big(10)^13]
+    @test_throws JSimplex.LinearAlgebra.ZeroPivotException JSimplex.replace_column!(
+        factor, [tiny_pivot], 1; zero_tolerance=1 // big(10)^12,
+    )
+    @test_throws JSimplex.LinearAlgebra.ZeroPivotException JSimplex.replace_column!(
+        factor, T[0], 1,
+    )
+
+    for T in (Float16, Float32, Float64, BigFloat)
+        factor = JSimplex.PFIFactorization(reshape(T[1], 1, 1))
+        cutoff = SolverOptions(T).zero_tolerance
+        @test_throws JSimplex.LinearAlgebra.ZeroPivotException JSimplex.replace_column!(
+            factor, [cutoff], 1,
+        )
+        @test JSimplex.replace_column!(factor, T[1 // 1000], 1) === factor
+        @test JSimplex.forward_solve(factor, T[1]) ≈ T[1000]
+        @test JSimplex.replace_column!(factor, [cutoff], 1; zero_tolerance=zero(T)) === factor
+    end
+end
+
+@testset "Parametric factorization backends" begin
+    foreach(test_factorization_type, (Float32, Float64, BigFloat, Rational{BigInt}))
+
+    empty_factor = @inferred JSimplex.PFIFactorization(
+        JSimplex.SparseArrays.spzeros(Float64, 0, 0),
+    )
+    @test isempty(@inferred JSimplex.forward_solve(empty_factor, Float64[]))
+end
+
+@testset "Float64 factorization backend stability" begin
+    dense_basis = Float64[2 1; 1 3]
+    factor = @inferred JSimplex.PFIFactorization(dense_basis)
+    backend_type = typeof(factor.base)
+
+    @test factor.base isa JSimplex.UMFPACKBackend
+    JSimplex.refactorize!(factor, JSimplex.SparseArrays.sparse(Float64[4 1; -1 3]))
+    @test typeof(factor.base) === backend_type
+    @test factor.base isa JSimplex.UMFPACKBackend
+
+    empty_factor = @inferred JSimplex.PFIFactorization(zeros(Float64, 0, 0))
+    @test empty_factor.base isa JSimplex.UMFPACKBackend
+end
+
+@testset "Dimension-changing refactorization resizes solve scratch" begin
+    for T in (Float32, Float64)
+        factor = JSimplex.PFIFactorization(reshape(T[2], 1, 1))
+        basis = JSimplex.SparseArrays.sparse(T[2 0; 0 4])
+        rhs = T[4, 8]
+
+        JSimplex.refactorize!(factor, basis)
+
+        @test JSimplex.forward_solve(factor, rhs) ≈ T[2, 2]
+        @test JSimplex.transpose_solve(factor, rhs) ≈ T[2, 2]
+    end
+end
+
+@testset "Factorization solves reject internal scratch as destination" begin
+    factor = JSimplex.PFIFactorization(JSimplex.SparseArrays.sparse([2.0 0.0; 0.0 4.0]))
+    calls = (
+        () -> JSimplex.forward_solve!(factor.work, factor, factor.work),
+        () -> JSimplex.transpose_solve!(factor.work, factor, [4.0, 8.0]),
+    )
+    for call in calls
+        error = try
+            call()
+            nothing
+        catch caught
+            caught
+        end
+
+        @test error isa ArgumentError
+        @test sprint(showerror, error) ==
+              "ArgumentError: destination must not alias the factorization work storage"
+    end
+end
+
+@testset "Product-form basis factorization" begin
+    B = JSimplex.SparseArrays.sparse([2.0 1.0; 1.0 3.0])
+    factor = JSimplex.PFIFactorization(B)
+    rhs = [5.0, 7.0]
+    @test JSimplex.forward_solve(factor, rhs) ≈ Matrix(B) \ rhs
+    @test JSimplex.transpose_solve(factor, rhs) ≈ Matrix(B)' \ rhs
+
+    replacement = [4.0, -1.0]
+    tableau_column = JSimplex.forward_solve(factor, replacement)
+    JSimplex.replace_column!(factor, tableau_column, 1)
+    B2 = JSimplex.SparseArrays.sparse([4.0 1.0; -1.0 3.0])
+    @test JSimplex.forward_solve(factor, rhs) ≈ Matrix(B2) \ rhs
+    @test JSimplex.transpose_solve(factor, rhs) ≈ Matrix(B2)' \ rhs
+
+    JSimplex.refactorize!(factor, B2)
+    @test isempty(factor.updates)
+    @test JSimplex.forward_solve(factor, rhs) ≈ Matrix(B2) \ rhs
+end
+
+@testset "Product-form factorization validation" begin
+    B = JSimplex.SparseArrays.sparse([2.0 1.0; 1.0 3.0])
+    factor = JSimplex.PFIFactorization(B)
+    rhs = [5.0, 7.0]
+    original_rhs = copy(rhs)
+
+    JSimplex.forward_solve(factor, rhs)
+    JSimplex.transpose_solve(factor, rhs)
+    @test rhs == original_rhs
+
+    tableau_column = [1.0, 2.0]
+    @test_throws JSimplex.LinearAlgebra.ZeroPivotException JSimplex.replace_column!(factor, [0.0, 2.0], 1)
+    @test_throws BoundsError JSimplex.replace_column!(factor, tableau_column, 0)
+    @test_throws ArgumentError JSimplex.replace_column!(factor, tableau_column, 1; zero_tolerance=-1.0)
+    @test_throws DimensionMismatch JSimplex.replace_column!(factor, [1.0], 1)
+end
+
+@testset "Factorization solves allocate only their result" begin
+    dimension = 512
+    factor = JSimplex.PFIFactorization(
+        JSimplex.SparseArrays.spdiagm(0 => fill(2.0, dimension)),
+    )
+    rhs = ones(dimension)
+
+    JSimplex.forward_solve(factor, rhs)
+    JSimplex.transpose_solve(factor, rhs)
+
+    @test (@allocated JSimplex.forward_solve(factor, rhs)) <= 5_000
+    @test (@allocated JSimplex.transpose_solve(factor, rhs)) <= 5_000
+    @test rhs == ones(dimension)
+end
+
+@testset "Mutating factorization solves do not allocate" begin
+    dimension = 64
+    for T in (Float32, Float64)
+        factor = JSimplex.PFIFactorization(
+            JSimplex.SparseArrays.spdiagm(0 => ones(T, dimension)),
+        )
+        JSimplex.replace_column!(factor, ones(T, dimension), 1)
+        rhs = ones(T, dimension)
+        destination = similar(rhs)
+
+        JSimplex.forward_solve!(destination, factor, rhs)
+        JSimplex.transpose_solve!(destination, factor, rhs)
+
+        @test (@allocated JSimplex.forward_solve!(destination, factor, rhs)) == 0
+        @test (@allocated JSimplex.transpose_solve!(destination, factor, rhs)) == 0
+    end
+end
+
+@testset "Product-form transpose solve RHS precision" begin
+    B = JSimplex.SparseArrays.sparse([2.0 1.0; 1.0 3.0])
+    factor = JSimplex.PFIFactorization(B)
+    replacement = [4.0, -1.0]
+    JSimplex.replace_column!(factor, JSimplex.forward_solve(factor, replacement), 1)
+    B2 = JSimplex.SparseArrays.sparse([4.0 1.0; -1.0 3.0])
+
+    integer_rhs = [5, 7]
+    float32_rhs = Float32[5, 7]
+    expected_integer = Matrix(B2)' \ Float64.(integer_rhs)
+    expected_float32 = Matrix(B2)' \ Float64.(float32_rhs)
+
+    @test JSimplex.transpose_solve(factor, integer_rhs) ≈ expected_integer rtol=1.0e-12
+    @test JSimplex.transpose_solve(factor, float32_rhs) ≈ expected_float32 rtol=1.0e-12
+    @test integer_rhs == [5, 7]
+    @test float32_rhs == Float32[5, 7]
+end
+
+@testset "Triangular basis updates match refactorization" begin
+    for Factorization in (JSimplex.ForrestTomlinFactorization,
+                          JSimplex.BartelsGolubFactorization,
+                          JSimplex.SuhlSuhlFactorization)
+        for T in (Float32, Float64, BigFloat, Rational{BigInt})
+            B = T[2 0 1 0; 1 3 0 0; 0 1 2 1; 0 0 1 2]
+            factor = Factorization(JSimplex.SparseArrays.sparse(B))
+            rhs = T[3, 5, 7, 11]
+            for (column, replacement) in ((2, T[1, 2, 0, 1]),
+                                          (1, T[3, 0, 1, 0]),
+                                          (3, T[0, 1, 3, 1]))
+                tableau = JSimplex.forward_solve(factor, replacement)
+                JSimplex.replace_column!(factor, tableau, column)
+                B[:, column] = replacement
+                if T <: Rational
+                    @test B * JSimplex.forward_solve(factor, rhs) == rhs
+                    @test transpose(B) * JSimplex.transpose_solve(factor, rhs) == rhs
+                else
+                    @test B * JSimplex.forward_solve(factor, rhs) ≈ rhs
+                    @test transpose(B) * JSimplex.transpose_solve(factor, rhs) ≈ rhs
+                end
+                forward_rhs = copy(rhs)
+                transpose_rhs = copy(rhs)
+                @test JSimplex.forward_solve!(forward_rhs, factor, forward_rhs) ≈
+                      JSimplex.forward_solve(factor, rhs)
+                @test JSimplex.transpose_solve!(transpose_rhs, factor, transpose_rhs) ≈
+                      JSimplex.transpose_solve(factor, rhs)
+            end
+            @test length(factor.updates) == 3
+            JSimplex.refactorize!(factor, JSimplex.SparseArrays.sparse(B))
+            @test isempty(factor.updates)
+            @test B * JSimplex.forward_solve(factor, rhs) ≈ rhs
+        end
+    end
+end
+
+@testset "Triangular basis updates validate pivots and dimensions" begin
+    for Factorization in (JSimplex.ForrestTomlinFactorization,
+                          JSimplex.BartelsGolubFactorization,
+                          JSimplex.SuhlSuhlFactorization)
+        factor = Factorization([2.0 0.0; 0.0 3.0])
+        @test_throws JSimplex.LinearAlgebra.ZeroPivotException JSimplex.replace_column!(
+            factor, [1.0, 0.0], 2,
+        )
+        @test_throws DimensionMismatch JSimplex.replace_column!(factor, [1.0], 1)
+        @test_throws ArgumentError JSimplex.replace_column!(factor, [1.0, 2.0], 1;
+                                                             zero_tolerance=-1.0)
+        @test isempty(factor.updates)
+    end
+end
+
+@testset "Triangular basis solves reuse scratch" begin
+    for Factorization in (JSimplex.ForrestTomlinFactorization,
+                          JSimplex.BartelsGolubFactorization,
+                          JSimplex.SuhlSuhlFactorization)
+        factor = Factorization(JSimplex.SparseArrays.spdiagm(0 => ones(64)))
+        JSimplex.replace_column!(factor, [1.0; ones(63)], 1)
+        rhs = ones(64)
+        destination = similar(rhs)
+        JSimplex.forward_solve!(destination, factor, rhs)
+        JSimplex.transpose_solve!(destination, factor, rhs)
+        @test (@allocated JSimplex.forward_solve!(destination, factor, rhs)) == 0
+        @test (@allocated JSimplex.transpose_solve!(destination, factor, rhs)) == 0
+    end
+end
+
+@testset "Triangular factors keep an identity basis sparse" begin
+    basis = JSimplex.SparseArrays.spdiagm(0 => ones(512))
+    for Factorization in (JSimplex.ForrestTomlinFactorization,
+                          JSimplex.BartelsGolubFactorization,
+                          JSimplex.SuhlSuhlFactorization)
+        factor = Factorization(basis)
+        @test Base.summarysize(factor.upper) < 150_000
+        tableau = zeros(512)
+        tableau[1] = 1.0
+        tableau[200] = 2.0
+        JSimplex.replace_column!(factor, tableau, 1)
+        @test Base.summarysize(factor.upper) < 200_000
+    end
+end
+
+@testset "Triangular updates reuse row scratch" begin
+    basis = JSimplex.SparseArrays.spdiagm(0 => ones(512))
+    tableau = zeros(512)
+    tableau[1] = 1.0
+    for Factorization in (JSimplex.ForrestTomlinFactorization,
+                          JSimplex.BartelsGolubFactorization,
+                          JSimplex.SuhlSuhlFactorization)
+        factor = Factorization(basis)
+        JSimplex.replace_column!(factor, tableau, 1)
+        @test (@allocated JSimplex.replace_column!(factor, tableau, 1)) <= 1_024
+    end
+end
+
+@testset "Repeated exact triangular updates preserve both solves" begin
+    T = Rational{BigInt}
+    updates = ((2, T[1, 2, 0, -1, 0]),
+               (5, T[0, 1, 0, 2, 3]),
+               (1, T[2, 0, -1, 0, 1]),
+               (4, T[0, 1, 1, 2, -1]),
+               (3, T[-1, 0, 3, 1, 0]),
+               (2, T[1, 2, 0, 0, -1]),
+               (5, T[0, -1, 1, 0, 2]),
+               (1, T[3, 0, 0, 1, -1]))
+    rhs = T[2, -1, 4, 0, 3]
+    for Factorization in (JSimplex.ForrestTomlinFactorization,
+                          JSimplex.BartelsGolubFactorization,
+                          JSimplex.SuhlSuhlFactorization)
+        B = Matrix{T}(JSimplex.LinearAlgebra.I, 5, 5)
+        factor = Factorization(JSimplex.SparseArrays.sparse(B))
+        for (leaving, tableau) in updates
+            entering = B * tableau
+            JSimplex.replace_column!(factor, tableau, leaving)
+            B[:, leaving] = entering
+            @test B * JSimplex.forward_solve(factor, rhs) == rhs
+            @test transpose(B) * JSimplex.transpose_solve(factor, rhs) == rhs
+            if Factorization === JSimplex.BartelsGolubFactorization
+                expected_row_columns = [Int[] for _ in 1:5]
+                JSimplex._rebuild_row_columns!(expected_row_columns, factor.upper)
+                for columns in expected_row_columns
+                    map!(column -> factor.column_order[column], columns, columns)
+                    sort!(columns)
+                end
+                @test factor.row_columns == expected_row_columns
+            end
+        end
+    end
+end
+
+@testset "Triangular transpose solve accepts internal scratch as RHS" begin
+    for Factorization in (JSimplex.ForrestTomlinFactorization,
+                          JSimplex.BartelsGolubFactorization,
+                          JSimplex.SuhlSuhlFactorization)
+        factor = Factorization([1.0 0.0; 0.0 1.0])
+        JSimplex.replace_column!(factor, [2.0, 3.0], 1)
+        factor.work .= [1.0, 2.0]
+        destination = zeros(2)
+        JSimplex.transpose_solve!(destination, factor, factor.work)
+        @test destination ≈ [-2.5, 2.0]
+    end
+end
+
+@testset "Suhl-Suhl stops rotation at the spike's last nonzero" begin
+    factor = JSimplex.SuhlSuhlFactorization(JSimplex.SparseArrays.spdiagm(0 => ones(5)))
+    JSimplex.replace_column!(factor, [2.0, 0.0, 3.0, 0.0, 0.0], 1)
+    @test factor.column_order == [2, 3, 1, 4, 5]
+    @test factor.updates[1].last == 3
+    @test JSimplex.forward_solve(factor, ones(5)) ≈ [0.5, 1.0, -0.5, 1.0, 1.0]
+    @test JSimplex.transpose_solve(factor, ones(5)) ≈ [-1.0, 1.0, 1.0, 1.0, 1.0]
+end
+
+@testset "Bartels-Golub compacts consecutive pure row swaps" begin
+    n = 512
+    factor = JSimplex.BartelsGolubFactorization(
+        JSimplex.SparseArrays.spdiagm(0 => ones(n)),
+    )
+    tableau = zeros(n)
+    tableau[1] = 1.0
+    JSimplex.replace_column!(factor, tableau, 1)
+
+    @test length(only(factor.updates).steps) == 1
+    @test only(only(factor.updates).steps).row == 1
+    @test only(only(factor.updates).steps).last == n - 1
+    @test Base.summarysize(factor.updates) < 1_000
+    @test JSimplex.forward_solve(factor, ones(n)) == ones(n)
+    @test JSimplex.transpose_solve(factor, ones(n)) == ones(n)
+end
+
+@testset "Bartels-Golub swaps sparse adjacent rows in place" begin
+    upper = [
+        JSimplex.PackedUpperColumn([1, 2], [2.0, 3.0]),
+        JSimplex.PackedUpperColumn([1], [5.0]),
+        JSimplex.PackedUpperColumn([2], [7.0]),
+    ]
+    row_columns = [Int[] for _ in 1:3]
+    JSimplex._rebuild_row_columns!(row_columns, upper)
+    affected = Int[]
+
+    JSimplex._swap_upper_rows!(upper, row_columns, affected, 1)
+
+    @test affected == [1, 2, 3]
+    @test upper[1].indices == [1, 2]
+    @test upper[1].values == [3.0, 2.0]
+    @test upper[2].indices == [2]
+    @test upper[3].indices == [1]
+    @test row_columns[1] == [1, 3]
+    @test row_columns[2] == [1, 2]
+end

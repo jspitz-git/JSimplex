@@ -1,0 +1,30 @@
+{
+  "inverse_equal": true,
+  "original_sha256": "1b6b62af70883fcdee2135f30a869367b167538adf90ffbc86172e8ff3cd79e1",
+  "instrumented_sha256": "1edd80dfda4e74ee610c1394fd28da6b74a0e3da760e38d5f65899880956ccc0",
+  "replacements": [
+    [
+      "const PV = J.PackedFactorVector\n",
+      "const PV = J.PackedFactorVector\nconst MAE_COMPARE_METRICS = Any[]\nconst MAE_FULL_METRICS = Any[]\nfunction mae_metric(t)\n    Dict(\"seconds\"=>t.time,\"bytes\"=>t.bytes,\"allocations\"=>Base.gc_alloc_count(t.gcstats),\"gc_seconds\"=>t.gctime,\"compile_seconds\"=>t.compile_time,\"recompile_seconds\"=>t.recompile_time)\nend\nfunction mae_full(f,args...)\n    t=@timed f(args...)\n    push!(MAE_FULL_METRICS,mae_metric(t))\n    return t.value\nend\n"
+    ],
+    [
+      "    ea = outcome(reference!, a, upper, diagonal, count)\n    eb = outcome(J._markowitz_upper_solve!, b, upper, diagonal, count)\n",
+      "    ta = @timed outcome(reference!, a, upper, diagonal, count)\n    tb = @timed outcome(J._markowitz_upper_solve!, b, upper, diagonal, count)\n    ea,eb = ta.value,tb.value\n    push!(MAE_COMPARE_METRICS,Dict(\"reference\"=>mae_metric(ta),\"candidate\"=>mae_metric(tb)))\n"
+    ],
+    [
+      "out=J.forward_solve(factor,rhs)",
+      "out=mae_full(J.forward_solve,factor,rhs)"
+    ],
+    [
+      "J.forward_solve!(out,f,rhs)",
+      "mae_full(J.forward_solve!,out,f,rhs)"
+    ],
+    [
+      "J.forward_solve!(inplace,f,inplace)",
+      "mae_full(J.forward_solve!,inplace,f,inplace)"
+    ]
+  ],
+  "compare_pairs": 77,
+  "full_calls": 30,
+  "scope": "same calls, first-use diagnostic timings with compilation allowed; not warmed benchmark. Rational last3 compare pairs are8/2048/8limbs;30full metrics include128/512/128precision sequence. Two fixed-size log vectors bounded77/30, pushes outside windows."
+}

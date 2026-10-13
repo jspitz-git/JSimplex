@@ -38,7 +38,7 @@ main also has a user-modified .vscode/settings.json. Do not stage those files.
 | S3 | End-to-end exact sparsity support | Active | S3-A/S3-B integrated, latest masterb720674; exact-support consumer savings qualified; broader S3 partial |
 | S4 | Refactorization memory lifecycle | Active | S4-A/S4-C integrated; master3220118; Float64 component attribution/cost and exact triplet optimization accepted; bounded scalar component attribution360samples accepted; broader manager/history/medium coverage open |
 | S5 | Phase/cleanup handoff contract | Active | S5-A/S5-B accepted; S5-C production88a2411 -> mastere7014fb, reviewed, master668/668; broader handoffs partial |
-| MA | Selective MutableArithmetics integration | Active | MA-D offline candidate/tests/fixtures accepted; next MA-E bounded admission preparation; runtime/performance acceptance and integration pending |
+| MA | Selective MutableArithmetics integration | Active | MA-E offline admission accepted; next ONE bounded MA-F qualification/cost attempt; runtime/benefit/integration pending |
 | S6 | Broad validation and final comparison | Active | S6-A/B triage accepted; S6-C test repair integrated as mastera465da5, focused20/20. S6-G artificial-row test repair master8516e0d; S6-M BigFloat fixture repair master7fea422, focused1477/1477; S6-T no-recession fixture masterafb37d9,focused192/master19; S6-W repeated-price fixture masterb9e7cb1,focused109/master41; S6-AA reliable exchange fixture master74f7835,focused127/master19; S6-AC reconstruction fixture master3c0af5c,focused339/master215; S6-AI dual recovery fixture master354bb1f,focused339/master252; other CI families and full validation remain open |
 
 Allowed execution states: Pending, Active, Blocked (reason required), Verified,
@@ -47,40 +47,38 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-MA-D OFFLINE candidate preparation accepted by fresh independent review.
-Canonical candidate-markowitz.jl/JSimplex/Project/runtests and
-candidate-tests-reviewed.jl under results/MA-D remain UNEXECUTED; actualsrc/test/
-Project/env/master unchanged, no Julia/query/parser/import/compile/numerical launch.
-Complete source inverse verified; exactly two target entries BigFloat/RationalBigInt,
-call-local scratch, original first seed/division publication and safe fallbacks.
-Six prospective testsets,48frozen small cases,8exact Python oracle checks,
-11sourcechecks/36bindings. Initial review's two Important test/cost issues fixed
-separately with8offline checks; originals/rejected review preserved; final accepted
-no unresolved findings or unnecessary NEW production work/memory.
+MA-E OFFLINE admission preparation completed; independent final review ACCEPTED
+ONE bounded MA-F attempt. Final1761pins/all660035594listedbytes verified; original
+1740pins/rejected review preserved. No Julia/query/parser/import/compile/Pkg/
+launcher/seal/guard or numerical execution; actualsrc/test/Project/env/master unchanged.
 
-Dense floating control uses frozen exact64eps scaled residual plus separate
-reference/candidate bit parity, not exact allones. Cost schedule explicitly counts
-cold upper wrapper:960constructors/4800whole solves/4800upper calls/4800resetcopies
-(96000entries)/91200selected multiply-subtract pairs/640cold scratch diagnostics.
-These are prospective source counts, not measured allocation/backend budget.
-20costprocesses serial<=60s each AND600s globalcostcap, qualification<=120s;
-next admission adds RED<=30s, total<=750s. No retry or hours-long run.
+Use ONLY results/MA-E reviewed canonical controls: control_reviewed.py,
+guard-reviewed.py,launcher-reviewed.py,seal-reviewed.py,admission-reviewed.md,
+admission-pins-reviewed.json,required-paths-reviewed.json and review-final.md/json.
+Original launcher/seal/guard/control and initial admission are rejected/superseded.
+Five findings resolved with separate RED5expectedfailures/GREEN7PASS and full
+46+24offline checks: fullsessionpidfdcleanup, frozenmaster/primarybranch, clockfrom
+entry,432rowvs456term ledger, reservation boundary. Initial synthetic45/46wrong
+clock expectation and all original sources remain unchanged.
 
-Next MA-E OFFLINE admission preparation:
-`docs/superpowers/plans/2026-10-13-ma-markowitz-upper-admission.md`.
-Bind canonical reviewed texts, exact assertion/call counts, ordinary overlays,
-immutable manifests, guarded serial launcher and fail-closed auditor; independent
-admission review before any subsequent MA-F short execution. Standing human
-numerical permission persists; no duplicate permission question. MA-D itself
-created no launcher/reservation/allowance or process. Runtime/benefit/integration
-still pending; broader S2/S3/S4/S5/S6 remain open.
+Next MA-F: docs/superpowers/plans/2026-10-13-ma-markowitz-upper-qualification-reviewed.md.
+Fresh host/full44groupsANDsessions/noJulia, refs/pins and separate immutable seal
+first; then at most ONE reserved22serialprocess sequence. RED2expectedmissinghelper
+failures<=30s, qualification381assertions/48fixturecases/432rowpublications<=120s,
+20costprocesses<=60s each AND600s globalcost; wholelauncherentry<=750s. No retry,
+longer limit/tuning/hiddenwarmup. Existing human short-run authorization persists;
+no duplicate permission question. No execution-seal/reservation/output exists yet.
 
-MA-C current continuation closure/publication bindings map ONLY to MA-D before
-STATUS/roadmap copies; all older mappings unchanged. Initial MA-D report bindings
-map ONLY report.before-review.md; all original test/schedule paths unchanged.
-All accepted MA-D/C/A scripts/raw/reviews frozen, never rerun/rewrite. Master6f68e24
-unchanged, CIoff, automationpaused, HHdisabled and stopped routes remain closed.
-See MA-MARKOWITZ-UPPER-PREPARATION.md and results/MA-D/review-final.md.
+Predeclared correctness and benefit thresholds are frozen; exit0 alone insufficient.
+Fresh independent result/work/memory review before any separate integration plan.
+No runtime/performance/nativefree/fullbackendbudget or general speedup acceptance.
+CIoff, automationpaused, HHdisabled; old stopped routes and all broader gates remain.
+
+MA-D current STATUS/roadmap closure/publication bindings map ONLY to MA-E before
+copies; all older mappings unchanged. Initial MA-E admission/report remain frozen
+historical drafts; final decision is MA-MARKOWITZ-UPPER-ADMISSION-ACCEPTED.md and
+results/MA-E/review-final.md. Master6f68e24 unchanged. All accepted evidence/scripts
+frozen, never rerun/rewrite; MA-2/3/4 and broader S2/S3/S4/S5/S6 remain open.
 
 ## S4-AD production integration — 2026-10-13
 
