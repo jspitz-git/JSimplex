@@ -46,7 +46,24 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-**Current continuation: S5-M one guarded pending-observer qualification passed 40/40 predicates and 18 audit gates; final independent review and publication closure are separate artifacts. Next S5-N OFFLINE test preparation only: `docs/superpowers/plans/2026-10-13-dual-auxiliary-pending-observer-test-preparation.md`. No new Julia or automatic test promotion.**
+**Current continuation: S5-N OFFLINE permanent test candidate prepared, with independent review and closure recorded separately. Next S5-O: `docs/superpowers/plans/2026-10-13-dual-auxiliary-pending-observer-test-integration.md`; FIRST new concrete driver/launcher/pins/auditor and independent admission review, no automatic execution or promotion from N.**
+
+S5-N preserves19080byte original adaptive-pricing test prefix+181lineappend,
+40explicit assertions, one prospective original Float64setup/publichandoff.
+CandidateSHA10e77c9bc35956c8078f38df1be42511eea76642753a1a98ef2ed225c19783aa.
+ExactLcore/probe/callback/setup/40predicates inverse; reuses3originalhelpers,
+removes15observations/CLI/TOML/maps, addsreturnchecks+one testset/call.
+19textchecks789freshhashes8authorindependent; structuralRED3missingcoverage,
+NOTfailingJulia/CIreproduction. Threecopies6entries/17publicationpairs/19pricing
+fields, fixed callback metadata, no extra numericalcalls/callbackarrayscans.
+20identityrolesNOTretainedgraphcap; coldTestframework addsresultstorage,
+no completePREforward/backend/import/GC/nativefree/speedupclaim.
+Actualtest/production/env/CI/master513c053UNCHANGED; NOJulia/parser/import/compile.
+See S5-DUAL-AUXILIARY-PENDING-OBSERVER-TEST-PREPARATION.md/REVIEW,results/S5-N.
+Nprepare/source_check/independent/closure/candidate frozen once accepted;
+allM/L/K/J/I/F/G/H raw/scripts, Mrejectedreview+twofixes+finalPASS,
+Kfailedclosure+separatePASS/Gfalse62of63+7PASS preserved. Prior groups including
+60706/60708 absent/noJulia. Allpriorrejections/HHdisabled/CIoff/fullsuite unchanged.
 
 S5-M exactly one unchanged L Float64 setup/public handoff, one latch/hit,
 DiagnosticObserverFailure{ErrorException}/same sentinel, selected postpublication

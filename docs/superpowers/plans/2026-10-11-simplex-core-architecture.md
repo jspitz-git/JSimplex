@@ -1101,3 +1101,17 @@ Next S5-N is separate OFFLINE permanent-candidate preparation only; no execution
 or test promotion. See 2026-10-13-dual-auxiliary-pending-observer-test-preparation.md.
 All prior qualification limits, rejected routes, CIoff/HHdisabled and full-suite
 obligations remain. M/L/K/J/I/F/G/H evidence and exclusive scripts stay frozen.
+
+
+## S5-N offline pending-observer permanent candidate (2026-10-13)
+
+Separate candidate preserves19080byte test prefix+181lineappend, all40 M predicates
+as explicit assertions and exact original fixture/helper/policy source inverse.
+No actual test edit or Julia/parser/import/compile/native execution.19textchecks,
+789 fresh hashes,8 independent checks; structuralRED3 is source-only missing
+coverage. Three copies/six entries retained; observation/serialization maps removed,
+no extra numerical calls. Independent review and closure remain separate evidence.
+Next O is a separately reviewed admission/integration stage with one GREEN and one
+actual-master case only, no rerun of historical tests. See the O integration plan.
+All earlier rejected routes, CI-off/HH-disabled/full-suite and memory/work limits
+remain; N/M/L/K/J/I/F/G/H frozen evidence must not be rerun or rewritten.
