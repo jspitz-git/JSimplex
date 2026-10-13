@@ -1,0 +1,9 @@
+# MA-A admission seal supplement
+
+The original numerical admission remains accepted and unchanged for manifest SHA-256 `268678e9460bc71051bac2a2ae746c00049286c3240a56b5eacfbf4b628bbd9d`.
+
+Inspected preserved invocation.json.before-seal, the empty launcher.log.before-seal and preseal-failure.md. The launcher record has returncode null and FileNotFoundError before its host and reservation records. In the reviewed launcher, allowance loading precedes host scanning, reservation publication and subprocess.run of the guard. There is currently no allowance, reservation, qualification output, active launcher log or invocation. Fresh /proc inspection again finds none of the 30 prior groups/sessions and no Julia process. These observations support the reported fail-closed prelaunch failure: no numerical attempt was reserved or launched.
+
+Independently rechecked all 622 launch hashes/resolved paths, the required-paths subset, both Git refs and every original review hash binding. All remain identical. The original review files were not rewritten. The incorrect all_passed lookup was in the outer seal, not in the reviewed numerical implementation; accepted:true is the actual review schema field.
+
+Proceeding with a corrected inline seal that requires accepted is true, every review check is true, no unresolved findings and all exact review bindings, followed only after seal success by a separate call to the unchanged reviewed launcher, remains within the original admission for ONE numerical attempt. This does not authorize a second numerical attempt, source or fixture changes, weaker checks, or rerunning a completed experiment. Keep the preserved preseal failure evidence and bind this supplement in the allowance. No new production work or memory cost is introduced. No Julia, launcher, preparation or audit script was run by this reviewer.

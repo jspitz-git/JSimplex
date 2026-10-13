@@ -1,0 +1,43 @@
+# MA-A independent result and work/memory review
+
+MA-A RESULTS ACCEPTED
+
+The completed evidence supports a local private-scratch scalar-kernel benefit for the twelve tested cases. It does not admit production integration, shared-scalar mutation, omitted coefficients, a sparse-storage optimization, or a solver/end-to-end speedup. No blocking finding remains. This is a fresh independent result review, separate from the admission review.
+
+## Evidence independently verified
+
+Read the report, plan, driver, oracle, common helpers, guard, launcher, admission and seal supplement, raw measurements, process/resources/logs, audit/postcheck, continuation changes and unexecuted publication source. A separately written bounded Python analysis imported none of the experiment scripts. It reconstructed all actual rounded inputs using a normalize-and-nearest-even rational algorithm, recomputed each sequential multiply then add, exact dot and gamma(2n)*sumabs bound, and checked all 240 recorded window-end outputs. The Rational outputs are exact. All input/owner/precision predicates and ambient restoration pass. The independent analysis agrees with every audit summary field and every displayed report-table time, ratio, range, byte and allocation-event value.
+
+There are exactly 12 cases, 240 windows, 168 measured windows, 84 measured buffered windows, 7,692 dots including the twelve references, and 1,394,816 multiply/add visits. Every measured window has zero compilation/recompilation time. All 84 buffered measured windows report zero bytes, allocation events and in-window GC. Seven measured plain windows report GC, totaling 0.0306161 seconds; all are included in the seven-pair medians and complete ranges. Dense n=256 paired buffered/plain median time ratios are 0.13642918950100952, 0.199244622037331 and 0.25872640370781635 for BigFloat 128/256/512 bits, and 0.5442228266344313 for Rational{BigInt}. These are paired-ratio medians, not ratios of the side medians.
+
+Independently rehashed all 622 launch inventory files and checked their resolved paths, all 621 required bindings, and every SHA-256 binding in admission, seal supplement, allowance, audit and postcheck. The six original raw files and six portable copies are byte-identical. The accepted launch manifest remains `268678e9460bc71051bac2a2ae746c00049286c3240a56b5eacfbf4b628bbd9d`. Raw measurement SHA-256 is `6955c806e53d0054dfe349ec8d51959dc36abc1ef73448d631edd0ed5c5e11ca`.
+
+The terminal record is exit0, pins unchanged, elapsed including launch 3.00522799299506 seconds; this process duration is not the kernel timing. Three resource samples satisfy the declared limits: minimum available memory 22,136,620 KiB, swap zero; terminal available memory 22,366,504 KiB. Commands, reservation hashes, current/terminal process identities and launcher terminal log agree. The initial current.json is a launch snapshot whose default launch_error/null fields are superseded by the terminal process.json; its identity fields match. A fresh independent /proc inspection checked every one of the full 32 prior/current identifiers against both process groups and sessions, and separately checked Julia names. There are no matches, with the same recorded boot identity.
+
+The preseal invocation has null returncode, FileNotFoundError and no host/reservation record; its launcher log is empty and its timestamps precede the successful launch. The reviewed launcher loads allowance before reservation or guard execution. Preserved evidence and the independently bound seal supplement support one numerical attempt, with no numerical retry. No Julia, numerical launcher, preparation script, experiment auditor or postcheck script was executed during this result review.
+
+## Numerical semantics and ownership
+
+The installed specialized BigFloat MA source uses a private product buffer followed by separate multiply and add, preserving sequential rounding at the tested precision. No FMA/reassociation, tolerance change or raised precision is introduced. Numerator fixtures fit exactly in the tested input precisions before rational division. The independent model reproduces the actual input conversion and every window-end output. The finite fixtures remain far from exponent limits.
+
+BigFloat scratch has two private backing owners. Rational scratch has twelve BigInt leaves: accumulator two, multiplication scratch five, product two, addition scratch three. Source inspection and recorded predicates support pairwise disjoint scratch ownership and disjointness from inputs; input values, owner identities and precisions are checked after every window. The output Ref borrows the accumulator, so an independent retained result needs an extra copy. The qualification checks final output after each 32-dot window, not a separately serialized result for every internal repetition. Exceptional paths, NaN/Inf, signed-zero corner cases, mixed precisions, arbitrary rational growth and solver aliases remain unqualified.
+
+## Computational work, allocations and retained memory
+
+No unnecessary production work or memory cost was found. The src/test/project/CI diff against master is empty, both recorded checkout refs match, and the unchanged actual environment files are covered by the launch hashes. This diagnostic adds no production setup, refactorization, iteration, candidate, recovery or final-certification scans, solves, copies or invariant checks.
+
+Within the experiment both sides perform exactly n scalar multiply/add visits per dot, including zeros, plus reset and Ref assignment. At fixed precision that traversal is linear in n; BigFloat arithmetic scales with precision and Rational arithmetic with numerator/denominator limb size. No sparse indexing or update chain is exercised. The equal sequential outputs and equal work counts support attributing this local difference to the scalar arithmetic/storage implementation rather than fewer iterations or a changed numerical trajectory. The experiment does not isolate every lower-level arithmetic instruction as identical.
+
+Setup and diagnostic costs are correctly separated from timed windows. Fixture creation/conversion/copies and exact-oracle scans are O(n); initial owner-disjointness checks are O(n*k+k^2), with k=2 or 12; input/precision checks are O(n) after each window. There are no basis solves or matrix copies. Those bounded checks and retained input/oracle/window records are justified validation overhead. They can influence subsequent GC scheduling and are not claimed free at process level.
+
+Scratch construction reports BigFloat 128/256/512 bytes 224/256/352 and events 6/6/8; Rational bytes 672 and events 24. Observed setup time spans 0.3–2.7 microseconds, not cold import/JIT startup. Warmup can enlarge native limb capacity. Post-run object-graph estimates 144/176/240 bytes and Rational 456 bytes do not establish native ownership, frees, peak use or long-term retention. Julia aggregate counters, even when zero, are not a complete native allocation ledger. Private scratch retains capacity for this case; arbitrary future Rational values or retained output copies can allocate.
+
+This is one short process with small deterministic dense arrays, only seven measured pairs, and GC outliers. The dense-storage 7/8-zero fixtures do not cover sparse data structures. No confidence interval, universal speedup, other precision qualification, solver trajectory, recovery cost or end-to-end improvement follows. The report and continuation documentation state these limits adequately.
+
+## Continuation and prospective publication
+
+Checked the exact two-entry continuation map against MA-A's before-copies. All SHA bindings in the immediately preceding S4-AA review/closure/publication resolve correctly through only those two substitutions; all 31 actual S4-AA committed blobs match. Existing older records are unchanged. Broader gates remain open, stopped routes stay stopped, and automation remains recorded as paused.
+
+Read and compiled publish.py without executing it. Its literal whitelist contains 44 MA-A files; report, STATUS, roadmap and the two generated closure/publication records give 49 intended staged paths. It checks the admitted evidence, review bindings, exact scope, fresh full group/session closure, all staged/committed blobs and remote refs; subprocess failures stop the sequence. It does not execute numerical work. This source review does not claim that closure, commit or push has occurred; those remain the parent's separate final publication step. The bound publication source must remain unchanged for this review to apply.
+
+No unresolved result findings. The consumed numerical attempt must not be rerun.

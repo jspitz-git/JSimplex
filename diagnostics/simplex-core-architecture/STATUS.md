@@ -46,7 +46,27 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-**Current continuation: S4-AA completed the single S4-Z Markowitz retention qualification:66/66 predicates,6 audit gates,8 postchecks, no optimization accepted. Automation remains paused. Human now permits future short numerical attempts without repeated permission; each still needs concrete admission/resource caps, no multi-hour runs and no consumed-attempt reruns. S3-G stopped; S2-E consumed; S6-AQ conditional.**
+**Current continuation: MA-A completed the explicitly requested private-scratch scalar experiment; local correctness/allocation/time benefit observed, no production integration admitted. Automation remains paused. Short numerical attempts have standing human permission, subject to concrete admission and resource caps; no multi-hour runs. Broader plan remains open.**
+
+## MA-A private scalar arithmetic — 2026-10-13
+
+User-requested isolated MutableArithmetics1.8.1 dot benchmark completed:12cases,
+BigFloat128/256/512 and Rational{BigInt},n32/n256dense/n256zero-heavy dense storage.
+240windows(3warm+7measuredpairs/case,32dots/window),all outputs/ownership/precision
+pass; independent exact binary-rounding oracle agrees. All84measured buffered
+windows zero counted bytes/events,168compile/recompilezero. Dense256paired
+candidate/reference median ratios0.1364/0.1992/0.2587 BigFloat and0.5442 Rational.
+GC outliers preserved; oneprocess/synthetic/borrowedprivateoutput,NOTsolver speedup
+or permission to mutate shared scalars. Setup separate; no native-free proof.
+One120s-capped run exit0,inclusive3.005227993s,6audit/7postcheckPASS,622pins.
+Pre-seal field-name failure and fail-closed no-Julia invocation preserved with
+separate accepted supplement; no numerical retry. Full32groupsANDsessions absent.
+See MA-PRIVATE-SCALAR-KERNEL.md and results/MA-A/result-review.md. No production,
+test,actualenv,CI or master change. AA current continuation bindings map ONLY
+MA-A/STATUS.md.before-MA-A and roadmap.md.before-MA-A; older mappings unchanged.
+MA-A allowance consumed and all evidence frozen. No automatic follow-on variant.
+Future short numerical work has human permission but still needs concrete admission.
+Automation paused; S3-G/stopped routes stay stopped; broader plan remains open.
 
 ## S4-AA Markowitz retention qualification — 2026-10-13
 
