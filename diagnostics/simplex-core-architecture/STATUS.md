@@ -38,7 +38,7 @@ main also has a user-modified .vscode/settings.json. Do not stage those files.
 | S3 | End-to-end exact sparsity support | Active | S3-A/S3-B integrated, latest masterb720674; exact-support consumer savings qualified; broader S3 partial |
 | S4 | Refactorization memory lifecycle | Active | S4-A/S4-C integrated; master3220118; Float64 component attribution/cost and exact triplet optimization accepted; bounded scalar component attribution360samples accepted; broader manager/history/medium coverage open |
 | S5 | Phase/cleanup handoff contract | Active | S5-A/S5-B accepted; S5-C production88a2411 -> mastere7014fb, reviewed, master668/668; broader handoffs partial |
-| MA | Selective MutableArithmetics integration | Active | MA-E offline admission accepted; next ONE bounded MA-F qualification/cost attempt; runtime/benefit/integration pending |
+| MA | Selective MutableArithmetics integration | Active | MA-F single attempt stopped before RED test inclusion: obsolete Test context API; qualification/cost NOT run; separate offline harness amendment next |
 | S6 | Broad validation and final comparison | Active | S6-A/B triage accepted; S6-C test repair integrated as mastera465da5, focused20/20. S6-G artificial-row test repair master8516e0d; S6-M BigFloat fixture repair master7fea422, focused1477/1477; S6-T no-recession fixture masterafb37d9,focused192/master19; S6-W repeated-price fixture masterb9e7cb1,focused109/master41; S6-AA reliable exchange fixture master74f7835,focused127/master19; S6-AC reconstruction fixture master3c0af5c,focused339/master215; S6-AI dual recovery fixture master354bb1f,focused339/master252; other CI families and full validation remain open |
 
 Allowed execution states: Pending, Active, Blocked (reason required), Verified,
@@ -47,38 +47,29 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-MA-E OFFLINE admission preparation completed; independent final review ACCEPTED
-ONE bounded MA-F attempt. Final1761pins/all660035594listedbytes verified; original
-1740pins/rejected review preserved. No Julia/query/parser/import/compile/Pkg/
-launcher/seal/guard or numerical execution; actualsrc/test/Project/env/master unchanged.
+MA-F single reserved attempt is consumed: reference RED exited1 before test
+inclusion because Test.push_testset is absent from installed Julia1.13.0. This
+is NOT the expected two missing-helper failures. Qualification381, fixture48 and
+all20costprocesses were NOT run. No candidate correctness/allocation/speedup claim.
+See MA-MARKOWITZ-UPPER-QUALIFICATION.md and results/MA-F/attempt-1.
 
-Use ONLY results/MA-E reviewed canonical controls: control_reviewed.py,
-guard-reviewed.py,launcher-reviewed.py,seal-reviewed.py,admission-reviewed.md,
-admission-pins-reviewed.json,required-paths-reviewed.json and review-final.md/json.
-Original launcher/seal/guard/control and initial admission are rejected/superseded.
-Five findings resolved with separate RED5expectedfailures/GREEN7PASS and full
-46+24offline checks: fullsessionpidfdcleanup, frozenmaster/primarybranch, clockfrom
-entry,432rowvs456term ledger, reservation boundary. Initial synthetic45/46wrong
-clock expectation and all original sources remain unchanged.
+Preflight11/seal9/postcheck15 provenance gates passed; all1761launchpins unchanged,
+eightportable files identical, all46groupsANDsessions absent/noJulia. The old
+MA-E admission overlooked the obsolete Test API despite the earlier S4-AD repair;
+all old accepted/rejected reviews and frozen scripts remain unchanged.
 
-Next MA-F: docs/superpowers/plans/2026-10-13-ma-markowitz-upper-qualification-reviewed.md.
-Fresh host/full44groupsANDsessions/noJulia, refs/pins and separate immutable seal
-first; then at most ONE reserved22serialprocess sequence. RED2expectedmissinghelper
-failures<=30s, qualification381assertions/48fixturecases/432rowpublications<=120s,
-20costprocesses<=60s each AND600s globalcost; wholelauncherentry<=750s. No retry,
-longer limit/tuning/hiddenwarmup. Existing human short-run authorization persists;
-no duplicate permission question. No execution-seal/reservation/output exists yet.
+Next: a separate OFFLINE harness amendment using installed scoped Test context
+and the existing S4-AD repaired collector as source reference. Check every Test
+symbol/result field and parent/depth/child-recording semantics, preserve all381
+assertions and the exact candidate/fixtures/schedule/benefit gates. New independent
+admission, seal and reservation are required before a later bounded attempt.
+Standing human short-run permission persists; do not ask again. Never rerun or
+rewrite consumed MA-F/MA-E artifacts or silently extend/tune the attempt.
 
-Predeclared correctness and benefit thresholds are frozen; exit0 alone insufficient.
-Fresh independent result/work/memory review before any separate integration plan.
-No runtime/performance/nativefree/fullbackendbudget or general speedup acceptance.
-CIoff, automationpaused, HHdisabled; old stopped routes and all broader gates remain.
-
-MA-D current STATUS/roadmap closure/publication bindings map ONLY to MA-E before
-copies; all older mappings unchanged. Initial MA-E admission/report remain frozen
-historical drafts; final decision is MA-MARKOWITZ-UPPER-ADMISSION-ACCEPTED.md and
-results/MA-E/review-final.md. Master6f68e24 unchanged. All accepted evidence/scripts
-frozen, never rerun/rewrite; MA-2/3/4 and broader S2/S3/S4/S5/S6 remain open.
+MA-E current STATUS/roadmap closure/closure-final/publication bindings map ONLY
+MA-F/STATUS.md.before-MA-F and roadmap.md.before-MA-F. Older mappings unchanged.
+Master6f68e24, actualsrc/test/Project/environment unchanged. Automation paused,
+CIoff, HHdisabled; no integration, old stopped routes and all broader gates open.
 
 ## S4-AD production integration — 2026-10-13
 

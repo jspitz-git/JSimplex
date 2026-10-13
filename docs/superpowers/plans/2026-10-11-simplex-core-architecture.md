@@ -45,6 +45,24 @@ accepted deliverables, not partial or failed attempts. Update both at milestones
 
 ## Current continuation — 2026-10-13
 
+MA-F's single reserved reference RED process failed before test inclusion:
+Test.push_testset is undefined in installed Julia1.13.0. Expected RED failures,
+qualification and cost remain unverified/unexecuted. All1761pins unchanged; eight
+portable files match; full46groupsANDsessions absent/noJulia; postcheck15PASS is
+failure provenance only. No production change or performance acceptance.
+
+Next is a separate offline scoped-Test-context harness amendment with complete
+Test API/result-field and exceptional parent/depth/child-recording verification,
+using the existing S4-AD repair as source reference. Preserve exact candidate,
+381assertions, fixtures, schedule and thresholds; fresh independent admission/seal/
+reservation before a later short attempt. Existing human permission persists,
+but the consumed MA-F reservation and all old artifacts are frozen, never rerun.
+MA-E current continuation bindings map ONLY MA-F before copies; older maps intact.
+See MA-MARKOWITZ-UPPER-QUALIFICATION.md. Master6f68e24 unchanged; broader MA and
+S2/S3/S4/S5/S6 open, automationpaused/CIoff/HHdisabled.
+
+### Previous S4-AD integration (completed)
+
 S4-AD row-count fusion integrated: production`99da53e` -> master`6f68e24`.
 Exactly two files: unchanged qualified constructor candidate plus46-line regression
 append/4188-byte original test prefix. Corrected RED20pass/fourexpectedworkfailures;
@@ -335,8 +353,10 @@ attempt, driver and evidence remain frozen.
   six prospective testsets and fixed process-paired schedule. Runtime unqualified.
   See [preparation report](../../../diagnostics/simplex-core-architecture/MA-MARKOWITZ-UPPER-PREPARATION.md)
   and [MA-E offline admission](2026-10-13-ma-markowitz-upper-admission.md).
-  MA-E independently accepted reviewed admission, no runtime execution. Next
-  [bounded MA-F](2026-10-13-ma-markowitz-upper-qualification-reviewed.md);
+  MA-E independently accepted reviewed admission; the single
+  [MA-F attempt](2026-10-13-ma-markowitz-upper-qualification-reviewed.md)
+  subsequently failed before RED test inclusion (obsolete Test context API).
+  Qualification and cost remain unexecuted; separate offline harness amendment next;
   [final admission decision](../../../diagnostics/simplex-core-architecture/MA-MARKOWITZ-UPPER-ADMISSION-ACCEPTED.md).
 - [ ] **MA-3 — Qualify correctness and total cost.** Use the concrete subplan's
   regression and ownership tests, including cancellation, zero/signed zero,

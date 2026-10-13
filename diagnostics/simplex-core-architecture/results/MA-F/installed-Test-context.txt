@@ -1,0 +1,39 @@
+const CURRENT_TESTSET = ScopedValue{AbstractTestSet}(FallbackTestSet())
+const TESTSET_DEPTH = ScopedValue{Int}(0)
+const TESTSET_PRINT_ENABLE = ScopedValue{Bool}(true)
+const TEST_RECORD_PASSES = LazyScopedValue{Bool}(OncePerProcess{Bool}() do
+    return Base.get_bool_env("JULIA_TEST_RECORD_PASSES", false)
+end)
+const VERBOSE_TESTSETS = LazyScopedValue{Bool}(OncePerProcess{Bool}() do
+    return Base.get_bool_env("JULIA_TEST_VERBOSE", false)
+end)
+
+macro with_testset(ts, expr)
+    quote
+        print_testset_verbose(:enter, $(esc(ts)))
+        try
+            @with(CURRENT_TESTSET => $(esc(ts)), TESTSET_DEPTH => get_testset_depth() + 1, $(esc(expr)))
+        finally
+            print_testset_verbose(:exit, $(esc(ts)))
+        end
+    end
+end
+
+"""
+    get_testset()
+
+Retrieve the active test set from the task's local storage. If no
+test set is active, use the fallback default test set.
+"""
+function get_testset()
+    something(Base.ScopedValues.get(CURRENT_TESTSET))
+end
+
+"""
+    get_testset_depth()
+
+Return the number of active test sets, not including the default test set
+"""
+function get_testset_depth()
+    something(Base.ScopedValues.get(TESTSET_DEPTH))
+end
