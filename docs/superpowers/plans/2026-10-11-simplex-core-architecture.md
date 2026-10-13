@@ -1298,3 +1298,40 @@ HHdisabled/CIoff/bootstrap/cache/init/wholecaps/native-retention/fullsuite/all p
 rejections and broader S3/S4/S5/S6 gates remain open.
 
 The previous S5-T next action is fulfilled; its candidate remains UNEXECUTED.
+
+
+## S5-U exact test integration and S5-V source contract (2026-10-13)
+
+S5-U integrated exact T candidate: test a39aed1 -> actual master2b546e9, only202-line
+append with7647-byte prefix unchanged. Exactly TWO new Float64/PFI/native supplied-
+basis initializations total, one GREEN and one actual-master. Each42/42 (40 permanent
+plus2 driver),25 audit gates,1489/1512 actual pins,9 author postchecks/14 bindings,
+raw8 original/portable and invocation3 identities. Fresh independent gpt-6-astra
+admission/GREEN/master reviews accepted with no unresolved Critical/Important/Minor
+or unnecessary NEW production work/memory; full actual1489/1512 rehash, source511,
+user6, exact candidate/suffix/four-insertion inverse and complete GREEN chain checked.
+Initial1446 admission rejected for stage binding; revised1466 rejected for GREEN
+raw linkage; separate18/16-check corrections and final1485 admission accepted.
+Both rejections/sources/manifests and all synthetic failures preserved. postcheck
+source was supplemental admitted/bound, not part of original1485 admission pins.
+Original sentinel/caught/guard identity/no return/owned bases/shared progressclock/
+policy/options/tolerances/Inf/offsets7and11 preserved. Two stops/four callbacks/three
+recorded events; both14-field work records2F2B1ref/localiter0ref1/checkpoint1/history0/
+phase1/corrections0 and no later selected work. This is PARTIAL existing wrapper
+accounting; defaultfactory/hypersparse/backend/import work additional. Cold two basis
+copies6entries,15fieldprobe9fieldentry/two14captures+expected14/40Booltuple/four
+vector equalities<=12pairs plus Test storage. Driver bounded counters/scalar records/
+serialization only, no callback scans/copies/growing ledgers/extra numerics. Retained
+mutable graph not native-free/rollback/fullstate/certtransfer/real-expiry/observer-
+neutrality/PREforward/backend/import proof. Each6resource samples, minRAM22278708/
+22242836KiB swap0, inclusive6.006539625/6.006393195s NOTbenchmarks. Full20groups absent.
+Report S5-BASIS-INITIALIZATION-STOP-TEST-INTEGRATION.md and companion REVIEW; results/S5-U.
+All U and older frozen drivers/launchers/auditors/raw/rejected reviews preserved;
+T-bound continuation texts saved before-U. No production/environment/CI change.
+Next S5-V2026-10-13-crash-fallback-ownership-contract.md is SOURCE/EVIDENCE ONLY:
+existing crash fallback/trial ownership/publication and test/log coverage FIRST,
+no assumed gap/defect and no new fixture/driver/Julia/numerical admission. Do not
+reopen HH/DSE/controller-budget audits. CIoff/HHdisabled/Q GC/outlier/bootstrap/
+cache/init/wholecaps/native-retention/fullsuite/broader S3/S4/S5/S6/rejections open.
+
+Separate PASS closure and exact staged-file/blob publication gates remain mandatory before push.

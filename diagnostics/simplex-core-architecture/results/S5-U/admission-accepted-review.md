@@ -1,0 +1,45 @@
+# S5-U independent review of first admission correction
+
+Verdict: REJECTED FOR TEST EDIT OR LAUNCH. Critical: none. Important: one remaining part of I1 (GREEN evidence linkage). Minor: none. Unresolved findings: [I1-GREEN-linkage]. Despite this file's proposed name, it is a rejected review. Preserve it and all original/reviewed sources and manifests. Neither an actual test edit nor any Julia operation is admitted.
+
+## Remaining Important finding
+
+The correction fixes empty stage bindings and missing stage/run/audit validation, but does not yet bind the underlying accepted GREEN attempt into master admission.
+
+`common_reviewed.stage_accepted('master')` reads GREEN audit/postcheck/review and requires literal successful flags, nonempty all-true check dictionaries, review acceptance text and a postcheck hash map containing audit.json and pins.json. It never verifies `audit['raw_sha256']` or `audit['invocation_sha256']` against the actual GREEN artifacts. The mandatory postcheck membership includes only audit.json and pins.json; a postcheck may provide exactly those two hashes and still satisfy the source. Consequently, a once-passing GREEN audit/postcheck/review/pins set can remain unchanged while a GREEN raw report, process record, guard output, invocation or reservation is deleted or changed. All master-stage conditions shown here still accept because none reads that changed file. This is a concrete source/control-flow counterexample; no saved validator or numerical process was executed to demonstrate it.
+
+`launcher-reviewed.py` master freeze adds GREEN audit.json, review.md and postcheck.json, but not even GREEN pins.json, nor the raw/invocation files referenced by the audit. `required(stage)` has no dynamic GREEN evidence union, and `launch_accepted`'s extra inventory membership covers admission and stage approval only. Thus run/audit cannot establish that the entire accepted GREEN evidence chain was present and immutable in the master launch manifest. Hashing stage acceptance that mentions GREEN pins does not freeze the file or establish the missing raw evidence chain.
+
+Close this remaining portion of I1 in separately preserved source. Validate the exact expected GREEN raw inventory and original/portable byte identities against the recorded audit hashes; require and validate all three durable invocation/reservation/log hashes and the actual launch-pin linkage. Require successful postcheck/review/audit bound to those same artifacts and the correct GREEN source/attempt. Add all required GREEN raw, original/portable, invocation, audit/postcheck/review/pin artifacts to master-stage required hashes and actual frozen manifest membership, and enforce that chain at freeze, run and audit. Use new offline missing/stale raw, invocation and manifest-membership cases. Do not rerun GREEN merely to repair diagnostic admission.
+
+## What the correction resolves
+
+stage_record_valid now rejects empty/partial hash maps, wrong stage/root, wrong current ref map, wrong candidate and nonempty unresolved findings. It requires the actual candidate test hash, reviewed scripts, accepted admission review/record and corrected manifest identities, and verifies all supplied hashes. Master requires GREEN audit/postcheck/review/pins hash membership. The current_refs helper reads both actual checkout HEADs rather than accepting stale constants.
+
+Freeze invokes stage_accepted. Run and the offline auditor independently invoke launch_accepted, which also invokes stage_accepted. Launch admission requires the correct stage and exact command, no unresolved findings, mandatory pin/admission/stage/launcher/auditor hash membership, and admission/stage files in the frozen inventory. These are meaningful fixes to the original source gap; the rejection is limited to the remaining underlying GREEN evidence chain.
+
+The18 recorded tests have literal-true results and five matching source bindings. I inspected both metadata fixtures, nine negative metadata/hash cases, the three new missing/malformed/incomplete subprocess records, and the four source-enforcement predicates. The three subprocesses preserve integer exit1 and durable failed audit JSON. The two positive metadata fixtures use an injected synthetic hash reader, and the master fixture exercises stage_record_valid only; it does not exercise stage_accepted's complete master path or prove raw linkage. Source substring checks are corroborative presence checks, not semantic tests of that chain. No saved failure script or auditor was rerun by this reviewer.
+
+## Fresh identity and host verification
+
+A new read-only streamed rehash verifies all1,466 corrected admission entries, every recorded resolved target and all1,465 required hashes. Listed file bytes total3,586,188,339, including repeated target aliases; this is not unique storage or retained solver memory. Each checkout's src70/test441 tree has exact complete membership. Every one of the original1,446 admission entries is preserved with identical hash and resolution.
+
+Corrected admission SHA256: `df00678e68d1e3ec497d55df4a0188054c29c7d673c749d1522cee4b6ce37e5c`.
+Corrected required map SHA256: `ba4bbea0ff2210508a8d05923588e857bac84dba981eb00ca4c66496413c8042`.
+Original rejected review SHA256: `2704eefd01de7b2e877f2f40485c962ce8630aa3585e0c3d2fa02154c0999901`.
+
+The driver, copied guard, executed suffix, insertion map, expected hashes and schema are byte-identical to their original reviewed versions. Candidate SHA remains `357a976f5fc984025452ee4b259f2fc1f140885212f5b40ff71e072ebfab3684`. Both actual target tests still have prefix SHA `b864b39bde32ee9a1c2b85ef57fdc6efd6d69a59c3a56571cdf62d8659bf4ba5`. The revised required function changes only ROOT target-test hash for GREEN and both target-test hashes for master; other required hashes remain immutable. This planned substitution is narrow, but it does not excuse missing stage-specific evidence.
+
+Fresh host inspection at time_ns1791861285594703874 found no Julia or member of any of the same16 full prior groups on boot `dade7243-9103-4398-bb45-fa28fbc0be72`; matching processes would include command/start_ticks. All six user hashes match. Local HEAD remains `a650c0e16f2423fcfc26abcad13f1ecb3f8e408f`, master `35a6a9f4bb61e204b0c61ec9effe96cd9d2de3ab`, and src/test/.github/Project.toml diff against master is empty. The original review's full T/S lineage verification remains supported by their unchanged entries in this freshly rehashed corrected inventory. No original artifact was rewritten.
+
+## Numerical and work assessment
+
+No unnecessary NEW production computational work, allocations or retained memory were found. Production and all numerical/driver/guard material are unchanged from the original review. There is no added setup, refactorization, per-iteration, per-candidate, recovery or final-certification solver work. The amendment adds cold Git ref reads and fixed metadata/hash validation; full inventory hashing and filesystem/process scans remain purposeful diagnostic costs. No benchmark is warranted or was run.
+
+The prospective case remains one Float64/PFI/native supplied-basis initialization per stage, with exact forty assertions and two driver tests. Recovery=true/refinement=false, sparse/hypersparse, Inf internal limit, original tolerances and offsets7/11 remain untouched. The four insertions still add only three scalar increments and a fixed post-unwind record; no callback scans/copies, growing ledger, numerical method overrides or extra solves appear. The original two basis copies/six entries, four comparisons/up-to12 pairs,15-field probe, nine-field entry, two14-field work captures and forty predicates remain; driver/Test/string/dictionary/TOML allocations are additional cold unmeasured costs.
+
+Partial counted2FTRAN2BTRAN1refactor does not close default factory, checkpoint/reliability, sparse/hypersparse, native-factor or import accounting. Ten checkpoint vector containers/36 copied entries are source counts for the two reached constructions, not an allocation or native-memory bound. Retained live workspace/observer/closure/exception graphs and other precisions/dimensions/nonzeros/update-chain behavior remain unqualified. No observer neutrality, real-expiry, whole-state rollback, certificate transfer, native-free/GC, PREforward/import closure or speedup claim follows.
+
+The byte-identical guard preserves the accepted timer-before-Popen/terminal<=120 check, one Julia, thread1, heap2GiB hint/VM8GiB, RAM6GiB/swap1GiB, exclusive lock/reservation and owned-group cleanup. Durable guard invocation linkage and fail-closed raw auditing remain intact. Existing-only compiled-module loading still permits source fallback/initializers and is not cache confinement.
+
+Only this new admission-accepted-review.md was written. No Julia/query/parser/import/compile/native/numerical operation, saved script, launcher, actual test edit, commit or push occurred. Fresh corrected admission is required after the remaining fix; accepted GREEN result review, master validation, separate PASS closure/publication and all broader/CI-off/HH-disabled limits remain mandatory.

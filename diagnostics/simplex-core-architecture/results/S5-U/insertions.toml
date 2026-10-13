@@ -1,0 +1,19 @@
+[[insertions]]
+anchor = "function _basis_initialization_stop_checks()\n"
+before = ""
+after = "    U_COUNTS[1]+=1\n"
+
+[[insertions]]
+anchor = "        ws=JSimplex.initialize_from_basis(p,basis,options;policy,progress,stop=guard)\n"
+before = "        U_COUNTS[2]+=1\n"
+after = ""
+
+[[insertions]]
+anchor = "@testset \"Supplied-basis checkpoint stop preserves ownership and consumed work\" begin\n"
+before = ""
+after = "    U_COUNTS[3]+=1\n"
+
+[[insertions]]
+anchor = "    return checks\n"
+before = "    U_RECORD[]=(checks=checks,at_throw=probe.at_throw,after_unwind=after,\n        observations=(stage=probe.stage,start_ns=string(progress.start_ns),\n            caught_type=string(typeof(caught)),backend=string(backend),\n            sentinel_type=string(typeof(sentinel)),stop_calls=probe.stop_calls,\n            update=string(update),scalar=string(T),throws=probe.throws,\n            guard_exception_type=string(typeof(guard.exception)),returned=returned,\n            callbacks=probe.callbacks))\n"
+after = ""

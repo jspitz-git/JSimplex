@@ -1,0 +1,108 @@
+{
+  "checks": {
+    "valid_synthetic_schema": true,
+    "literal_integer": true,
+    "missing_predicate": true,
+    "extra_init": true,
+    "bool_count": true,
+    "extra_work": true,
+    "failed_test": true,
+    "durable_missing": true,
+    "durable_malformed": true,
+    "durable_incomplete": true
+  },
+  "all_passed": true,
+  "synthetic_cases": [
+    {
+      "name": "literal_integer",
+      "checks": {
+        "raw_tables": true,
+        "literal40": false,
+        "observation_schema": true,
+        "observations_exact": true,
+        "two_work_records": true,
+        "test42": true,
+        "entries_one": true,
+        "source_hashes": true,
+        "threads": true
+      }
+    },
+    {
+      "name": "missing_predicate",
+      "checks": {
+        "raw_tables": true,
+        "literal40": false,
+        "observation_schema": true,
+        "observations_exact": true,
+        "two_work_records": true,
+        "test42": true,
+        "entries_one": true,
+        "source_hashes": true,
+        "threads": true
+      }
+    },
+    {
+      "name": "extra_init",
+      "checks": {
+        "raw_tables": true,
+        "literal40": true,
+        "observation_schema": true,
+        "observations_exact": true,
+        "two_work_records": true,
+        "test42": true,
+        "entries_one": false,
+        "source_hashes": true,
+        "threads": true
+      }
+    },
+    {
+      "name": "bool_count",
+      "checks": {
+        "raw_tables": true,
+        "literal40": true,
+        "observation_schema": true,
+        "observations_exact": true,
+        "two_work_records": true,
+        "test42": true,
+        "entries_one": false,
+        "source_hashes": true,
+        "threads": true
+      }
+    },
+    {
+      "name": "extra_work",
+      "checks": {
+        "raw_tables": true,
+        "literal40": true,
+        "observation_schema": true,
+        "observations_exact": true,
+        "two_work_records": false,
+        "test42": true,
+        "entries_one": true,
+        "source_hashes": true,
+        "threads": true
+      }
+    },
+    {
+      "name": "failed_test",
+      "checks": {
+        "raw_tables": true,
+        "literal40": true,
+        "observation_schema": true,
+        "observations_exact": true,
+        "two_work_records": true,
+        "test42": false,
+        "entries_one": true,
+        "source_hashes": true,
+        "threads": true
+      }
+    }
+  ],
+  "sha256": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-U/failure_tests.py": "e006a6741a65f8dffd32c796f044f212cd9a8dfb81176c10a4e0cca69557cb7a",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-U/audit.py": "898fdb9649da101219e4b671e1fc1b598a546a6ed369b94e5cb3d2f1e9affbbd",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-U/common.py": "9e275728e733295d53681051a165869b991659b807bbd2877a18c788d229edcf",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-U/schema.json": "81d80814a92497b8201f1fa6e08ba307ea05c3bedd7740a7b86ff86040382220",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-U/expected.toml": "21fb1d5bd20dac19996bd0005ade100456f3e6384ef3c38e097e3e93166c53a6"
+  }
+}

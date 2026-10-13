@@ -1,0 +1,87 @@
+[observations]
+stage = 4
+start_ns = "35101741393679"
+caught_type = "ErrorException"
+backend = "native"
+sentinel_type = "ErrorException"
+stop_calls = 2
+update = "pfi"
+scalar = "Float64"
+throws = 1
+guard_exception_type = "ErrorException"
+returned = false
+callbacks = 4
+
+[at_throw]
+initial = 1
+refactors = 1
+other = 1
+checkpoint = 1
+btran = 2
+last = "refactor_other"
+events = 3
+correction = 0
+iterations = 0
+factor = 1
+ftran = 2
+history = 0
+attempt = 0
+phase = 0x01
+
+[checks]
+indices_not_caller = true
+one_throw = true
+imported_indices_owner = true
+sparse_policy = true
+caller_states_owner = true
+no_return = true
+target_once = true
+policy_shared = true
+original_exception = true
+workspace_observed = true
+selected_at_throw = true
+caller_indices_values = true
+no_later_selected_work = true
+imported_once = true
+caller_states_values = true
+indices_not_default = true
+four_callbacks = true
+options_preserved = true
+initial_once = true
+problem_shared = true
+iteration_offset = true
+selected_after_unwind = true
+original_clock = true
+imported_indices_values = true
+two_stops = true
+states_not_caller = true
+guarded_exception = true
+states_not_default = true
+objective_shared = true
+objective_constant = true
+infinite_limit = true
+imported_states_owner = true
+diagnostics_shared = true
+native_recovery = true
+imported_states_values = true
+exact_order = true
+caller_indices_owner = true
+scaling_shared = true
+armed = true
+refactor_offset = true
+
+[after_unwind]
+initial = 1
+refactors = 1
+other = 1
+checkpoint = 1
+btran = 2
+last = "refactor_other"
+events = 3
+correction = 0
+iterations = 0
+factor = 1
+ftran = 2
+history = 0
+attempt = 0
+phase = 0x01
