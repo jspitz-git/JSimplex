@@ -1,0 +1,35 @@
+# S4-AB independent numerical admission review
+
+ACCEPTED S4-AB numerical admission.
+
+Manifest SHA-256: `a0acb394a93db4f636c6a60486b74788035340f5eb060d39d7069760e538d697`.
+
+This accepts one new guarded qualification attempt described by the exact pinned plan and driver. It does not accept production integration, claim runtime success, or authorize an old rerun. No Julia, driver, launcher, auditor, preparation script or historical numerical script was executed during this review. Independent Python hashing, AST parsing, schema/statistics tests and host inspection were performed.
+
+## Source and numerical reasoning
+
+An independent whole-file diff finds exactly two related edits: replace `sum(length, rows)` with integer zero and reuse each existing singleton-row length query to accumulate `nonzeros`. Independently reconstructing the diagnostic methods from that whole-file candidate and original refactor method matches `candidate-methods.jl` byte for byte; `original-construct.jl` matches the original constructor. The only additional changes are the two private method names and the refactor's call to the private constructor. There is no module clone or replacement of an existing method.
+
+The unchanged reset clears every retained row and column dictionary. Scatter subsequently populates only current rows 1:n, so rows n+1:H contribute zero to the original sum. Summing the current row lengths therefore preserves the integer nonzero count before the first pivot. Standard Dict/OrderedDict row lengths have no numerical side effects. Singleton insertion order, scalar arithmetic, thresholds, dense branches, zero skipping, pivot code, caches and failure handling are unchanged. Arbitrary custom dictionary length side effects or exceptions are explicitly outside this equivalence claim. Supported precision behavior is unchanged because the altered arithmetic is integer counting, not scalar arithmetic.
+
+The driver checks 24 paired shrink/repeat/regrow lifecycles over four scalar types, two dictionary types and three representations. Component signatures include permutations, sparse factors, diagonal and dense LU values/pivots. Forward and transpose known-one solves supplement exact paired signatures; Rational uses equality and floating cases use the declared 64eps absolute bound. Input baselines use deepcopy. Saved copies are exercised after refactors; unchanged shared/private output rules and exact source inversion support the ownership reasoning. Singular-zero work cases verify the existing failure and clearing path. Coverage is component-level: saved-copy solves are not exhaustive alias tests, BigFloat is tested only at ambient precision, and no full solver/certificate claim follows.
+
+## Computational work and memory
+
+I found no unnecessary added production work, allocation or retained-memory cost. The candidate removes H dictionary length queries per sparse construction/refactor and folds integer accumulation into the existing n-row singleton loop. No new full-vector or matrix scan, solve, conversion, copy, invariant check, cache or buffer is introduced. The two H-dictionary reset passes and retained high-water capacity remain intentional and unchanged; this does not change the overall reset-dependent O(H) scaling or bound retention. Dense bypass construction remains unchanged. No iteration/update-chain work is added.
+
+The four instrumented cases independently distinguish reference counts 2 on current rows and 1 on retained tails from candidate counts 1 and 0. These are operation-count checks, not timing proxies. The cost design measures complete refactors on ordinary sparse32, retained256-to32 sparse and dense32 bypass for all four types, using independent side setup, two shape-establishing refactors, three warm pairs and seven measured alternating pairs of four refactors. Pair signatures and terminal solves remain outside timing; compilation/recompilation must be zero in measured windows. All samples and GC metrics are retained. One process and small cases cannot establish a universal speedup; allocation equality or fewer operations alone cannot establish timing improvement. Paired signatures reduce numerical-trajectory ambiguity. Summarysize is reachable-graph accounting, not RSS, peak memory or native-free evidence. Diagnostic copies/signatures/graph walks incur bounded out-of-timing work and can affect GC scheduling, as the plan acknowledges.
+
+The driver's explicit schedule independently reconciles to 80 constructor entries/attempts, 1152 refactors, 48 copies and 528 direct solves. These totals exclude helper/import/native work and the eight work-workspace resets; they are not total machine-operation budgets.
+
+## Admission, bindings and failure closure
+
+All 624 inventory files were independently hashed and resolved: no mismatches. The manifest file list equals its inventory; every required-path digest is present and equal. The manifest contains no trees or external inputs. The source/runtime, wrapper, plans, driver, oracle and admission dependencies are bound. `postcheck.py` is intentionally unpinned supplemental post-exit work and is not relied upon for admission or raw acceptance.
+
+The ordinary existing loader uses the pinned checkout, existing compiled modules, offline/precompile controls, startup disabled and single Julia/BLAS threading. The guard applies 8 GiB address-space and 2 GiB heap-hint settings, a 120-second numerical budget, 6 GiB available-RAM floor and 1 GiB swap ceiling. Sampling is periodic; cleanup can extend beyond the child budget. Acceptance independently requires terminal elapsed time at most 120 seconds and valid resource samples, so a timeout or incomplete cleanup cannot count as success.
+
+Launcher exclusivity, a new output directory, immutable reservation, allowance hashes/refs/command/output, manifest checks, accepted review text/hash, and pre/post process-group and session checks gate the attempt. The auditor fails closed on missing output/raw data, malformed predicates, missing cases, measured compilation, bad metrics, process failure, changed pins/refs, or absent linkage. The future allowance must still be sealed before launch; this review does not fabricate it. Independent inspection found all 32 prior groups/sessions absent and no live Julia. Checkout refs match e80249a1687be8bde2a9fa4123230e7b8662d99b and master d02416c108f06fcd41d58e0a1980b70a51fef9ef. Neither launcher.log nor the reserved qualification output existed during review.
+
+Independent Python checks validated the oracle's nominal schema and paired median arithmetic, then rejected altered row counts, measured compilation, saved-copy failure, missing cost case, NaN timing, truthy nonboolean success and empty raw data. All supplied Python files parse. The recorded preparation's 19 checks and source report's 10 checks were inspected but not rerun as scripts.
+
+Unresolved findings: none for this bounded admission. Production integration requires the later concrete test/source subplan and independent result/work review stated in the plan.

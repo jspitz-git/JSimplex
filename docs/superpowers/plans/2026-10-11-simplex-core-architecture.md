@@ -45,6 +45,24 @@ accepted deliverables, not partial or failed attempts. Update both at milestones
 
 ## Current continuation — 2026-10-13
 
+S4-AB row-count fusion qualification completed:648/648 predicates, six audit
+and seven postcheck gates; one27.021s guarded run,624 unchanged launch pins.
+Four work cases confirm removal of H redundant row-length queries.24 paired
+lifecycles/four types/two dictionary implementations preserve selected factors,
+owners, inputs and saved solves.12cost cases/240windows/168measuredcompilezero;
+retained-capacity Float32/64 paired ratios0.932735/0.950450, other timings mixed,
+GC outliers retained, allocation events unchanged by side medians. No universal
+speedup/memory saving or full solver claim. Production/test/env/CI/master unchanged.
+Next: prepare a concrete permanent work-regression/source integration subplan for
+this exact change, after independent result acceptance; do not repeat qualification.
+MA remains Pending. Automation paused; broader plan open; old stopped routes remain
+stopped. Standing short-attempt permission applies with concrete admission/caps.
+MA-B current continuation hashes map ONLY results/S4-AB/STATUS.md.before-S4-AB and
+roadmap.md.before-S4-AB; all older maps preserved. Full34groupsANDsessions absent.
+See S4-MARKOWITZ-ROW-COUNT-QUALIFICATION.md and results/S4-AB/result-review.md.
+
+### Previous MA continuation (completed documentation milestone)
+
 The user added the optional MA implementation workstream to this roadmap.
 Its four pending gates below cover site selection, private scratch design,
 short correctness/cost qualification and conditional integration. This update

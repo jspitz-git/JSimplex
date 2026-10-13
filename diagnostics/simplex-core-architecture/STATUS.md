@@ -47,7 +47,39 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-**Current continuation: MA-A completed; the user has added optional MA implementation to the roadmap. MA remains Pending: first select one concrete kernel and freeze its ownership/precision/cost subplan, then qualify and integrate conditionally. This turn adds documentation only. Short numerical attempts retain standing human permission subject to concrete admission/resource caps, no multi-hour runs. Automation remains paused and the broader plan remains open.**
+S4-AB row-count fusion qualification completed:648/648 predicates, six audit
+and seven postcheck gates; one27.021s guarded run,624 unchanged launch pins.
+Four work cases confirm removal of H redundant row-length queries.24 paired
+lifecycles/four types/two dictionary implementations preserve selected factors,
+owners, inputs and saved solves.12cost cases/240windows/168measuredcompilezero;
+retained-capacity Float32/64 paired ratios0.932735/0.950450, other timings mixed,
+GC outliers retained, allocation events unchanged by side medians. No universal
+speedup/memory saving or full solver claim. Production/test/env/CI/master unchanged.
+Next: prepare a concrete permanent work-regression/source integration subplan for
+this exact change, after independent result acceptance; do not repeat qualification.
+MA remains Pending. Automation paused; broader plan open; old stopped routes remain
+stopped. Standing short-attempt permission applies with concrete admission/caps.
+MA-B current continuation hashes map ONLY results/S4-AB/STATUS.md.before-S4-AB and
+roadmap.md.before-S4-AB; all older maps preserved. Full34groupsANDsessions absent.
+See S4-MARKOWITZ-ROW-COUNT-QUALIFICATION.md and results/S4-AB/result-review.md.
+
+## S4-AB Markowitz row-count fusion — 2026-10-13
+
+S4-AB row-count fusion qualification completed:648/648 predicates, six audit
+and seven postcheck gates; one27.021s guarded run,624 unchanged launch pins.
+Four work cases confirm removal of H redundant row-length queries.24 paired
+lifecycles/four types/two dictionary implementations preserve selected factors,
+owners, inputs and saved solves.12cost cases/240windows/168measuredcompilezero;
+retained-capacity Float32/64 paired ratios0.932735/0.950450, other timings mixed,
+GC outliers retained, allocation events unchanged by side medians. No universal
+speedup/memory saving or full solver claim. Production/test/env/CI/master unchanged.
+Next: prepare a concrete permanent work-regression/source integration subplan for
+this exact change, after independent result acceptance; do not repeat qualification.
+MA remains Pending. Automation paused; broader plan open; old stopped routes remain
+stopped. Standing short-attempt permission applies with concrete admission/caps.
+MA-B current continuation hashes map ONLY results/S4-AB/STATUS.md.before-S4-AB and
+roadmap.md.before-S4-AB; all older maps preserved. Full34groupsANDsessions absent.
+See S4-MARKOWITZ-ROW-COUNT-QUALIFICATION.md and results/S4-AB/result-review.md.
 
 ## MA-B roadmap addition — 2026-10-13
 

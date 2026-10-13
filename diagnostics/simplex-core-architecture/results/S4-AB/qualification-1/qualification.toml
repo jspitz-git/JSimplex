@@ -1,0 +1,4112 @@
+source = "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/JSimplex.jl"
+Julia_version = "1.13.0"
+ambient_restored = true
+errors = []
+all_passed = true
+
+[[cost]]
+candidate_graph = 43448
+type = "Float32"
+kind = "sparse"
+n = 32
+H = 32
+reference_graph = 43448
+
+    [cost.checks]
+    compile_zero = true
+    pair6_same_factor = true
+    pair1_same_factor = true
+    pair2_same_factor = true
+    input_preserved = true
+    pair9_same_factor = true
+    pair10_same_factor = true
+    pair5_same_factor = true
+    reference_solves = true
+    pair4_same_factor = true
+    pair7_same_factor = true
+    pair3_same_factor = true
+    pair8_same_factor = true
+    candidate_solves = true
+
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 3.45e-5
+    bytes = 1712
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 1
+    repetitions = 4
+    phase = "warm"
+    events = 7
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.04e-5
+    bytes = 1712
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 1
+    repetitions = 4
+    phase = "warm"
+    events = 7
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.34e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 2
+    repetitions = 4
+    phase = "warm"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.39e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 2
+    repetitions = 4
+    phase = "warm"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 3.52e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 3
+    repetitions = 4
+    phase = "warm"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.76e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 3
+    repetitions = 4
+    phase = "warm"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.36e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 4
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.38e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 4
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.36e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 5
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.36e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 5
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.36e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 6
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.36e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 6
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.33e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 7
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.31e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 7
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.31e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 8
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.31e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 8
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.31e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 9
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.31e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 9
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.31e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 10
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.32e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 10
+    repetitions = 4
+    phase = "measured"
+    events = 1
+[[cost]]
+candidate_graph = 300992
+type = "Float32"
+kind = "retained"
+n = 32
+H = 256
+reference_graph = 300992
+
+    [cost.checks]
+    compile_zero = true
+    pair6_same_factor = true
+    pair1_same_factor = true
+    pair2_same_factor = true
+    input_preserved = true
+    pair9_same_factor = true
+    pair10_same_factor = true
+    pair5_same_factor = true
+    reference_solves = true
+    pair4_same_factor = true
+    pair7_same_factor = true
+    pair3_same_factor = true
+    pair8_same_factor = true
+    candidate_solves = true
+
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.38e-5
+    bytes = 1712
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 1
+    repetitions = 4
+    phase = "warm"
+    events = 7
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.19e-5
+    bytes = 1712
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 1
+    repetitions = 4
+    phase = "warm"
+    events = 7
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.1e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 2
+    repetitions = 4
+    phase = "warm"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.24e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 2
+    repetitions = 4
+    phase = "warm"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.23e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 3
+    repetitions = 4
+    phase = "warm"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.09e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 3
+    repetitions = 4
+    phase = "warm"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.08e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 4
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.23e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 4
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.22e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 5
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.08e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 5
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.09e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 6
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.23e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 6
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.23e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 7
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.08e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 7
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.08e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 8
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 3.26e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 8
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.23e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 9
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.09e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 9
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.07e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 10
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.23e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 10
+    repetitions = 4
+    phase = "measured"
+    events = 1
+[[cost]]
+candidate_graph = 43432
+type = "Float32"
+kind = "dense"
+n = 32
+H = 32
+reference_graph = 43432
+
+    [cost.checks]
+    compile_zero = true
+    pair6_same_factor = true
+    pair1_same_factor = true
+    pair2_same_factor = true
+    input_preserved = true
+    pair9_same_factor = true
+    pair10_same_factor = true
+    pair5_same_factor = true
+    reference_solves = true
+    pair4_same_factor = true
+    pair7_same_factor = true
+    pair3_same_factor = true
+    pair8_same_factor = true
+    candidate_solves = true
+
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.82e-5
+    bytes = 0
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 1
+    repetitions = 4
+    phase = "warm"
+    events = 0
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.14e-5
+    bytes = 0
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 1
+    repetitions = 4
+    phase = "warm"
+    events = 0
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.85e-5
+    bytes = 0
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 2
+    repetitions = 4
+    phase = "warm"
+    events = 0
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.94e-5
+    bytes = 0
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 2
+    repetitions = 4
+    phase = "warm"
+    events = 0
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.94e-5
+    bytes = 0
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 3
+    repetitions = 4
+    phase = "warm"
+    events = 0
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.93e-5
+    bytes = 0
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 3
+    repetitions = 4
+    phase = "warm"
+    events = 0
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.93e-5
+    bytes = 0
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 4
+    repetitions = 4
+    phase = "measured"
+    events = 0
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.93e-5
+    bytes = 0
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 4
+    repetitions = 4
+    phase = "measured"
+    events = 0
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.96e-5
+    bytes = 0
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 5
+    repetitions = 4
+    phase = "measured"
+    events = 0
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.92e-5
+    bytes = 0
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 5
+    repetitions = 4
+    phase = "measured"
+    events = 0
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.92e-5
+    bytes = 0
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 6
+    repetitions = 4
+    phase = "measured"
+    events = 0
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.94e-5
+    bytes = 0
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 6
+    repetitions = 4
+    phase = "measured"
+    events = 0
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.94e-5
+    bytes = 0
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 7
+    repetitions = 4
+    phase = "measured"
+    events = 0
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.93e-5
+    bytes = 0
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 7
+    repetitions = 4
+    phase = "measured"
+    events = 0
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.93e-5
+    bytes = 0
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 8
+    repetitions = 4
+    phase = "measured"
+    events = 0
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.93e-5
+    bytes = 0
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 8
+    repetitions = 4
+    phase = "measured"
+    events = 0
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.93e-5
+    bytes = 0
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 9
+    repetitions = 4
+    phase = "measured"
+    events = 0
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.93e-5
+    bytes = 0
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 9
+    repetitions = 4
+    phase = "measured"
+    events = 0
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.92e-5
+    bytes = 0
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 10
+    repetitions = 4
+    phase = "measured"
+    events = 0
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.93e-5
+    bytes = 0
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 10
+    repetitions = 4
+    phase = "measured"
+    events = 0
+[[cost]]
+candidate_graph = 46408
+type = "Float64"
+kind = "sparse"
+n = 32
+H = 32
+reference_graph = 46408
+
+    [cost.checks]
+    compile_zero = true
+    pair6_same_factor = true
+    pair1_same_factor = true
+    pair2_same_factor = true
+    input_preserved = true
+    pair9_same_factor = true
+    pair10_same_factor = true
+    pair5_same_factor = true
+    reference_solves = true
+    pair4_same_factor = true
+    pair7_same_factor = true
+    pair3_same_factor = true
+    pair8_same_factor = true
+    candidate_solves = true
+
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 3.63e-5
+    bytes = 1712
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 1
+    repetitions = 4
+    phase = "warm"
+    events = 7
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.21e-5
+    bytes = 1712
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 1
+    repetitions = 4
+    phase = "warm"
+    events = 7
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.34e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 2
+    repetitions = 4
+    phase = "warm"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.33e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 2
+    repetitions = 4
+    phase = "warm"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.3e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 3
+    repetitions = 4
+    phase = "warm"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.33e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 3
+    repetitions = 4
+    phase = "warm"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.31e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 4
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.31e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 4
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.3e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 5
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.31e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 5
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.31e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 6
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.31e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 6
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.31e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 7
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.32e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 7
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.32e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 8
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.31e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 8
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.3e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 9
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.31e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 9
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.32e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 10
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.3e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 10
+    repetitions = 4
+    phase = "measured"
+    events = 1
+[[cost]]
+candidate_graph = 318496
+type = "Float64"
+kind = "retained"
+n = 32
+H = 256
+reference_graph = 318496
+
+    [cost.checks]
+    compile_zero = true
+    pair6_same_factor = true
+    pair1_same_factor = true
+    pair2_same_factor = true
+    input_preserved = true
+    pair9_same_factor = true
+    pair10_same_factor = true
+    pair5_same_factor = true
+    reference_solves = true
+    pair4_same_factor = true
+    pair7_same_factor = true
+    pair3_same_factor = true
+    pair8_same_factor = true
+    candidate_solves = true
+
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.35e-5
+    bytes = 1712
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 1
+    repetitions = 4
+    phase = "warm"
+    events = 7
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 3.21e-5
+    bytes = 1712
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 1
+    repetitions = 4
+    phase = "warm"
+    events = 7
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.11e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 2
+    repetitions = 4
+    phase = "warm"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.25e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 2
+    repetitions = 4
+    phase = "warm"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.21e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 3
+    repetitions = 4
+    phase = "warm"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.11e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 3
+    repetitions = 4
+    phase = "warm"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.11e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 4
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.22e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 4
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.23e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 5
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.12e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 5
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.1e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 6
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.22e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 6
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 5.91e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 7
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.14e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 7
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.12e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 8
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.21e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 8
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.21e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 9
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.1e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 9
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.11e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 10
+    repetitions = 4
+    phase = "measured"
+    events = 1
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.2e-5
+    bytes = 48
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 10
+    repetitions = 4
+    phase = "measured"
+    events = 1
+[[cost]]
+candidate_graph = 53816
+type = "Float64"
+kind = "dense"
+n = 32
+H = 32
+reference_graph = 53816
+
+    [cost.checks]
+    compile_zero = true
+    pair6_same_factor = true
+    pair1_same_factor = true
+    pair2_same_factor = true
+    input_preserved = true
+    pair9_same_factor = true
+    pair10_same_factor = true
+    pair5_same_factor = true
+    reference_solves = true
+    pair4_same_factor = true
+    pair7_same_factor = true
+    pair3_same_factor = true
+    pair8_same_factor = true
+    candidate_solves = true
+
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.9e-5
+    bytes = 0
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 1
+    repetitions = 4
+    phase = "warm"
+    events = 0
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 2.23e-5
+    bytes = 0
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 1
+    repetitions = 4
+    phase = "warm"
+    events = 0
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.96e-5
+    bytes = 0
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 2
+    repetitions = 4
+    phase = "warm"
+    events = 0
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.96e-5
+    bytes = 0
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 2
+    repetitions = 4
+    phase = "warm"
+    events = 0
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.95e-5
+    bytes = 0
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 3
+    repetitions = 4
+    phase = "warm"
+    events = 0
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.96e-5
+    bytes = 0
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 3
+    repetitions = 4
+    phase = "warm"
+    events = 0
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.95e-5
+    bytes = 0
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 4
+    repetitions = 4
+    phase = "measured"
+    events = 0
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.95e-5
+    bytes = 0
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 4
+    repetitions = 4
+    phase = "measured"
+    events = 0
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.95e-5
+    bytes = 0
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 5
+    repetitions = 4
+    phase = "measured"
+    events = 0
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.95e-5
+    bytes = 0
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 5
+    repetitions = 4
+    phase = "measured"
+    events = 0
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.96e-5
+    bytes = 0
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 6
+    repetitions = 4
+    phase = "measured"
+    events = 0
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.95e-5
+    bytes = 0
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 6
+    repetitions = 4
+    phase = "measured"
+    events = 0
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.95e-5
+    bytes = 0
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 7
+    repetitions = 4
+    phase = "measured"
+    events = 0
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.95e-5
+    bytes = 0
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 7
+    repetitions = 4
+    phase = "measured"
+    events = 0
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.96e-5
+    bytes = 0
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 8
+    repetitions = 4
+    phase = "measured"
+    events = 0
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.95e-5
+    bytes = 0
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 8
+    repetitions = 4
+    phase = "measured"
+    events = 0
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.95e-5
+    bytes = 0
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 9
+    repetitions = 4
+    phase = "measured"
+    events = 0
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.94e-5
+    bytes = 0
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 9
+    repetitions = 4
+    phase = "measured"
+    events = 0
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.95e-5
+    bytes = 0
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 10
+    repetitions = 4
+    phase = "measured"
+    events = 0
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 1.95e-5
+    bytes = 0
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 10
+    repetitions = 4
+    phase = "measured"
+    events = 0
+[[cost]]
+candidate_graph = 61368
+type = "BigFloat"
+kind = "sparse"
+n = 32
+H = 32
+reference_graph = 61368
+
+    [cost.checks]
+    compile_zero = true
+    pair6_same_factor = true
+    pair1_same_factor = true
+    pair2_same_factor = true
+    input_preserved = true
+    pair9_same_factor = true
+    pair10_same_factor = true
+    pair5_same_factor = true
+    reference_solves = true
+    pair4_same_factor = true
+    pair7_same_factor = true
+    pair3_same_factor = true
+    pair8_same_factor = true
+    candidate_solves = true
+
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 7.4e-5
+    bytes = 119984
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 1
+    repetitions = 4
+    phase = "warm"
+    events = 1239
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 5.65e-5
+    bytes = 119984
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 1
+    repetitions = 4
+    phase = "warm"
+    events = 1239
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 4.92e-5
+    bytes = 118320
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 2
+    repetitions = 4
+    phase = "warm"
+    events = 1233
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 4.89e-5
+    bytes = 118320
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 2
+    repetitions = 4
+    phase = "warm"
+    events = 1233
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 6.38e-5
+    bytes = 118320
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 3
+    repetitions = 4
+    phase = "warm"
+    events = 1233
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 4.89e-5
+    bytes = 118320
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 3
+    repetitions = 4
+    phase = "warm"
+    events = 1233
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 4.92e-5
+    bytes = 118320
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 4
+    repetitions = 4
+    phase = "measured"
+    events = 1233
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 4.85e-5
+    bytes = 118320
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 4
+    repetitions = 4
+    phase = "measured"
+    events = 1233
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 5.3e-5
+    bytes = 118320
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 5
+    repetitions = 4
+    phase = "measured"
+    events = 1233
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 4.96e-5
+    bytes = 118320
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 5
+    repetitions = 4
+    phase = "measured"
+    events = 1233
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 5.41e-5
+    bytes = 118320
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 6
+    repetitions = 4
+    phase = "measured"
+    events = 1233
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 4.95e-5
+    bytes = 118320
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 6
+    repetitions = 4
+    phase = "measured"
+    events = 1233
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 4.87e-5
+    bytes = 118320
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 7
+    repetitions = 4
+    phase = "measured"
+    events = 1233
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 4.88e-5
+    bytes = 118320
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 7
+    repetitions = 4
+    phase = "measured"
+    events = 1233
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 4.89e-5
+    bytes = 118320
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 8
+    repetitions = 4
+    phase = "measured"
+    events = 1233
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 4.81e-5
+    bytes = 118320
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 8
+    repetitions = 4
+    phase = "measured"
+    events = 1233
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 4.83e-5
+    bytes = 118320
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 9
+    repetitions = 4
+    phase = "measured"
+    events = 1233
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 4.94e-5
+    bytes = 118320
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 9
+    repetitions = 4
+    phase = "measured"
+    events = 1233
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 4.91e-5
+    bytes = 118320
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 10
+    repetitions = 4
+    phase = "measured"
+    events = 1233
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 4.86e-5
+    bytes = 118320
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 10
+    repetitions = 4
+    phase = "measured"
+    events = 1233
+[[cost]]
+candidate_graph = 351376
+type = "BigFloat"
+kind = "retained"
+n = 32
+H = 256
+reference_graph = 351376
+
+    [cost.checks]
+    compile_zero = true
+    pair6_same_factor = true
+    pair1_same_factor = true
+    pair2_same_factor = true
+    input_preserved = true
+    pair9_same_factor = true
+    pair10_same_factor = true
+    pair5_same_factor = true
+    reference_solves = true
+    pair4_same_factor = true
+    pair7_same_factor = true
+    pair3_same_factor = true
+    pair8_same_factor = true
+    candidate_solves = true
+
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 6.06e-5
+    bytes = 119984
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 1
+    repetitions = 4
+    phase = "warm"
+    events = 1239
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 5.9e-5
+    bytes = 119984
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 1
+    repetitions = 4
+    phase = "warm"
+    events = 1239
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 5.88e-5
+    bytes = 118320
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 2
+    repetitions = 4
+    phase = "warm"
+    events = 1233
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 6.1e-5
+    bytes = 118320
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 2
+    repetitions = 4
+    phase = "warm"
+    events = 1233
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 5.84e-5
+    bytes = 118320
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 3
+    repetitions = 4
+    phase = "warm"
+    events = 1233
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 5.92e-5
+    bytes = 118320
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 3
+    repetitions = 4
+    phase = "warm"
+    events = 1233
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 6.0e-5
+    bytes = 118320
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 4
+    repetitions = 4
+    phase = "measured"
+    events = 1233
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 6.72e-5
+    bytes = 118320
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 4
+    repetitions = 4
+    phase = "measured"
+    events = 1233
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 5.85e-5
+    bytes = 118320
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 5
+    repetitions = 4
+    phase = "measured"
+    events = 1233
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 5.9e-5
+    bytes = 118320
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 5
+    repetitions = 4
+    phase = "measured"
+    events = 1233
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 5.96e-5
+    bytes = 118320
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 6
+    repetitions = 4
+    phase = "measured"
+    events = 1233
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 5.95e-5
+    bytes = 118320
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 6
+    repetitions = 4
+    phase = "measured"
+    events = 1233
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 5.82e-5
+    bytes = 118320
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 7
+    repetitions = 4
+    phase = "measured"
+    events = 1233
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 5.55e-5
+    bytes = 118320
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 7
+    repetitions = 4
+    phase = "measured"
+    events = 1233
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 5.87e-5
+    bytes = 118320
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 8
+    repetitions = 4
+    phase = "measured"
+    events = 1233
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 5.79e-5
+    bytes = 118320
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 8
+    repetitions = 4
+    phase = "measured"
+    events = 1233
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 5.82e-5
+    bytes = 118320
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 9
+    repetitions = 4
+    phase = "measured"
+    events = 1233
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 5.86e-5
+    bytes = 118320
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 9
+    repetitions = 4
+    phase = "measured"
+    events = 1233
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 5.56e-5
+    bytes = 118320
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 10
+    repetitions = 4
+    phase = "measured"
+    events = 1233
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 5.92e-5
+    bytes = 118320
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 10
+    repetitions = 4
+    phase = "measured"
+    events = 1233
+[[cost]]
+candidate_graph = 217816
+type = "BigFloat"
+kind = "dense"
+n = 32
+H = 32
+reference_graph = 217816
+
+    [cost.checks]
+    compile_zero = true
+    pair6_same_factor = true
+    pair1_same_factor = true
+    pair2_same_factor = true
+    input_preserved = true
+    pair9_same_factor = true
+    pair10_same_factor = true
+    pair5_same_factor = true
+    reference_solves = true
+    pair4_same_factor = true
+    pair7_same_factor = true
+    pair3_same_factor = true
+    pair8_same_factor = true
+    candidate_solves = true
+
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0024938
+    bytes = 8404608
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 1
+    repetitions = 4
+    phase = "warm"
+    events = 87548
+    [[cost.windows]]
+    gc_seconds = 0.014517103
+    recompile_seconds = 0.0
+    seconds = 0.017979104
+    bytes = 8404608
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 1
+    repetitions = 4
+    phase = "warm"
+    events = 87548
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0023516
+    bytes = 8404608
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 2
+    repetitions = 4
+    phase = "warm"
+    events = 87548
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.002507501
+    bytes = 8404608
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 2
+    repetitions = 4
+    phase = "warm"
+    events = 87548
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0025083
+    bytes = 8404608
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 3
+    repetitions = 4
+    phase = "warm"
+    events = 87548
+    [[cost.windows]]
+    gc_seconds = 0.038081607
+    recompile_seconds = 0.0
+    seconds = 0.040675808
+    bytes = 8404608
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 3
+    repetitions = 4
+    phase = "warm"
+    events = 87548
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.002156701
+    bytes = 8404608
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 4
+    repetitions = 4
+    phase = "measured"
+    events = 87548
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0023302
+    bytes = 8404608
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 4
+    repetitions = 4
+    phase = "measured"
+    events = 87548
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0023895
+    bytes = 8404608
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 5
+    repetitions = 4
+    phase = "measured"
+    events = 87548
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.002561101
+    bytes = 8404608
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 5
+    repetitions = 4
+    phase = "measured"
+    events = 87548
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0027001
+    bytes = 8404608
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 6
+    repetitions = 4
+    phase = "measured"
+    events = 87548
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.005924402
+    bytes = 8404608
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 6
+    repetitions = 4
+    phase = "measured"
+    events = 87548
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.004834001
+    bytes = 8404608
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 7
+    repetitions = 4
+    phase = "measured"
+    events = 87548
+    [[cost.windows]]
+    gc_seconds = 0.0017014
+    recompile_seconds = 0.0
+    seconds = 0.0046216
+    bytes = 8404608
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 7
+    repetitions = 4
+    phase = "measured"
+    events = 87548
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.002640301
+    bytes = 8404608
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 8
+    repetitions = 4
+    phase = "measured"
+    events = 87548
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0024293
+    bytes = 8404608
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 8
+    repetitions = 4
+    phase = "measured"
+    events = 87548
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.002457701
+    bytes = 8404608
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 9
+    repetitions = 4
+    phase = "measured"
+    events = 87548
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0025491
+    bytes = 8404608
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 9
+    repetitions = 4
+    phase = "measured"
+    events = 87548
+    [[cost.windows]]
+    gc_seconds = 0.0012641
+    recompile_seconds = 0.0
+    seconds = 0.003664401
+    bytes = 8404608
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 10
+    repetitions = 4
+    phase = "measured"
+    events = 87548
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.002202101
+    bytes = 8404608
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 10
+    repetitions = 4
+    phase = "measured"
+    events = 87548
+[[cost]]
+candidate_graph = 67064
+type = "Rational{BigInt}"
+kind = "sparse"
+n = 32
+H = 32
+reference_graph = 67064
+
+    [cost.checks]
+    compile_zero = true
+    pair6_same_factor = true
+    pair1_same_factor = true
+    pair2_same_factor = true
+    input_preserved = true
+    pair9_same_factor = true
+    pair10_same_factor = true
+    pair5_same_factor = true
+    reference_solves = true
+    pair4_same_factor = true
+    pair7_same_factor = true
+    pair3_same_factor = true
+    pair8_same_factor = true
+    candidate_solves = true
+
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001947
+    bytes = 395136
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 1
+    repetitions = 4
+    phase = "warm"
+    events = 12495
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001863
+    bytes = 392384
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 1
+    repetitions = 4
+    phase = "warm"
+    events = 12495
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001973
+    bytes = 389536
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 2
+    repetitions = 4
+    phase = "warm"
+    events = 12489
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001836
+    bytes = 389504
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 2
+    repetitions = 4
+    phase = "warm"
+    events = 12489
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001848
+    bytes = 389168
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 3
+    repetitions = 4
+    phase = "warm"
+    events = 12489
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001839
+    bytes = 389120
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 3
+    repetitions = 4
+    phase = "warm"
+    events = 12489
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001781
+    bytes = 388944
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 4
+    repetitions = 4
+    phase = "measured"
+    events = 12489
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0002036
+    bytes = 388464
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 4
+    repetitions = 4
+    phase = "measured"
+    events = 12489
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001905
+    bytes = 388944
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 5
+    repetitions = 4
+    phase = "measured"
+    events = 12489
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001836
+    bytes = 388624
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 5
+    repetitions = 4
+    phase = "measured"
+    events = 12489
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001798
+    bytes = 388560
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 6
+    repetitions = 4
+    phase = "measured"
+    events = 12489
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001768
+    bytes = 388704
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 6
+    repetitions = 4
+    phase = "measured"
+    events = 12489
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001759
+    bytes = 388624
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 7
+    repetitions = 4
+    phase = "measured"
+    events = 12489
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.000495901
+    bytes = 388592
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 7
+    repetitions = 4
+    phase = "measured"
+    events = 12489
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.000279
+    bytes = 388464
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 8
+    repetitions = 4
+    phase = "measured"
+    events = 12489
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001967
+    bytes = 388528
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 8
+    repetitions = 4
+    phase = "measured"
+    events = 12489
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001914
+    bytes = 388512
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 9
+    repetitions = 4
+    phase = "measured"
+    events = 12489
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001852
+    bytes = 388464
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 9
+    repetitions = 4
+    phase = "measured"
+    events = 12489
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001844
+    bytes = 388304
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 10
+    repetitions = 4
+    phase = "measured"
+    events = 12489
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001832
+    bytes = 388464
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 10
+    repetitions = 4
+    phase = "measured"
+    events = 12489
+[[cost]]
+candidate_graph = 399672
+type = "Rational{BigInt}"
+kind = "retained"
+n = 32
+H = 256
+reference_graph = 399672
+
+    [cost.checks]
+    compile_zero = true
+    pair6_same_factor = true
+    pair1_same_factor = true
+    pair2_same_factor = true
+    input_preserved = true
+    pair9_same_factor = true
+    pair10_same_factor = true
+    pair5_same_factor = true
+    reference_solves = true
+    pair4_same_factor = true
+    pair7_same_factor = true
+    pair3_same_factor = true
+    pair8_same_factor = true
+    candidate_solves = true
+
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0002023
+    bytes = 389824
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 1
+    repetitions = 4
+    phase = "warm"
+    events = 12495
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0002213
+    bytes = 390032
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 1
+    repetitions = 4
+    phase = "warm"
+    events = 12495
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.00019
+    bytes = 388192
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 2
+    repetitions = 4
+    phase = "warm"
+    events = 12489
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0002021
+    bytes = 388336
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 2
+    repetitions = 4
+    phase = "warm"
+    events = 12489
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0002417
+    bytes = 388096
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 3
+    repetitions = 4
+    phase = "warm"
+    events = 12489
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0002157
+    bytes = 388208
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 3
+    repetitions = 4
+    phase = "warm"
+    events = 12489
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0002117
+    bytes = 388160
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 4
+    repetitions = 4
+    phase = "measured"
+    events = 12489
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0002144
+    bytes = 388288
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 4
+    repetitions = 4
+    phase = "measured"
+    events = 12489
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.000196301
+    bytes = 388176
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 5
+    repetitions = 4
+    phase = "measured"
+    events = 12489
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001978
+    bytes = 388112
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 5
+    repetitions = 4
+    phase = "measured"
+    events = 12489
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0002048
+    bytes = 388128
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 6
+    repetitions = 4
+    phase = "measured"
+    events = 12489
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0002061
+    bytes = 388208
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 6
+    repetitions = 4
+    phase = "measured"
+    events = 12489
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0002345
+    bytes = 388160
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 7
+    repetitions = 4
+    phase = "measured"
+    events = 12489
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001995
+    bytes = 388176
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 7
+    repetitions = 4
+    phase = "measured"
+    events = 12489
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001852
+    bytes = 388144
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 8
+    repetitions = 4
+    phase = "measured"
+    events = 12489
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.000185
+    bytes = 388144
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 8
+    repetitions = 4
+    phase = "measured"
+    events = 12489
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001877
+    bytes = 388176
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 9
+    repetitions = 4
+    phase = "measured"
+    events = 12489
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001837
+    bytes = 388096
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 9
+    repetitions = 4
+    phase = "measured"
+    events = 12489
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001822
+    bytes = 388016
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 10
+    repetitions = 4
+    phase = "measured"
+    events = 12489
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.0001856
+    bytes = 388096
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 10
+    repetitions = 4
+    phase = "measured"
+    events = 12489
+[[cost]]
+candidate_graph = 201680
+type = "Rational{BigInt}"
+kind = "dense"
+n = 32
+H = 32
+reference_graph = 201680
+
+    [cost.checks]
+    compile_zero = true
+    pair6_same_factor = true
+    pair1_same_factor = true
+    pair2_same_factor = true
+    input_preserved = true
+    pair9_same_factor = true
+    pair10_same_factor = true
+    pair5_same_factor = true
+    reference_solves = true
+    pair4_same_factor = true
+    pair7_same_factor = true
+    pair3_same_factor = true
+    pair8_same_factor = true
+    candidate_solves = true
+
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.010607102
+    bytes = 28083856
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 1
+    repetitions = 4
+    phase = "warm"
+    events = 729988
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.010150602
+    bytes = 28073408
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 1
+    repetitions = 4
+    phase = "warm"
+    events = 729988
+    [[cost.windows]]
+    gc_seconds = 0.012345002
+    recompile_seconds = 0.0
+    seconds = 0.030204706
+    bytes = 28116944
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 2
+    repetitions = 4
+    phase = "warm"
+    events = 729988
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.010355502
+    bytes = 28072944
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 2
+    repetitions = 4
+    phase = "warm"
+    events = 729988
+    [[cost.windows]]
+    gc_seconds = 0.009436202
+    recompile_seconds = 0.0
+    seconds = 0.026938005
+    bytes = 28113728
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 3
+    repetitions = 4
+    phase = "warm"
+    events = 729988
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.010400402
+    bytes = 28072960
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 3
+    repetitions = 4
+    phase = "warm"
+    events = 729988
+    [[cost.windows]]
+    gc_seconds = 0.014807003
+    recompile_seconds = 0.0
+    seconds = 0.033427806
+    bytes = 28114256
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 4
+    repetitions = 4
+    phase = "measured"
+    events = 729988
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.009791202
+    bytes = 28076608
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 4
+    repetitions = 4
+    phase = "measured"
+    events = 729988
+    [[cost.windows]]
+    gc_seconds = 0.044830508
+    recompile_seconds = 0.0
+    seconds = 0.062918112
+    bytes = 28104016
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 5
+    repetitions = 4
+    phase = "measured"
+    events = 729988
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.009801902
+    bytes = 28080384
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 5
+    repetitions = 4
+    phase = "measured"
+    events = 729988
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.009553502
+    bytes = 28070608
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 6
+    repetitions = 4
+    phase = "measured"
+    events = 729988
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.010349002
+    bytes = 28062320
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 6
+    repetitions = 4
+    phase = "measured"
+    events = 729988
+    [[cost.windows]]
+    gc_seconds = 0.013108902
+    recompile_seconds = 0.0
+    seconds = 0.034011206
+    bytes = 28109856
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 7
+    repetitions = 4
+    phase = "measured"
+    events = 729988
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.011309303
+    bytes = 28069792
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 7
+    repetitions = 4
+    phase = "measured"
+    events = 729988
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.009693402
+    bytes = 28072192
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 8
+    repetitions = 4
+    phase = "measured"
+    events = 729988
+    [[cost.windows]]
+    gc_seconds = 0.009364702
+    recompile_seconds = 0.0
+    seconds = 0.030037805
+    bytes = 28112608
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 8
+    repetitions = 4
+    phase = "measured"
+    events = 729988
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.010197502
+    bytes = 28068832
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 9
+    repetitions = 4
+    phase = "measured"
+    events = 729988
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.009694902
+    bytes = 28071568
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 9
+    repetitions = 4
+    phase = "measured"
+    events = 729988
+    [[cost.windows]]
+    gc_seconds = 0.015282103
+    recompile_seconds = 0.0
+    seconds = 0.034376607
+    bytes = 28116496
+    compile_seconds = 0.0
+    side = "candidate"
+    pair = 10
+    repetitions = 4
+    phase = "measured"
+    events = 729988
+    [[cost.windows]]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 0.010621202
+    bytes = 28071664
+    compile_seconds = 0.0
+    side = "reference"
+    pair = 10
+    repetitions = 4
+    phase = "measured"
+    events = 729988
+
+[[lifecycles]]
+type = "Float32"
+kind = "sparse"
+dictionary = "Dict"
+
+    [[lifecycles.stages]]
+    dimension = 24
+    reference_workspace_graph = 17224
+    row_capacity = 24
+    candidate_workspace_graph = 17224
+    [[lifecycles.stages]]
+    dimension = 6
+    reference_workspace_graph = 17224
+    row_capacity = 24
+    candidate_workspace_graph = 17224
+    [[lifecycles.stages]]
+    dimension = 6
+    reference_workspace_graph = 17224
+    row_capacity = 24
+    candidate_workspace_graph = 17224
+    [[lifecycles.stages]]
+    dimension = 24
+    reference_workspace_graph = 17224
+    row_capacity = 24
+    candidate_workspace_graph = 17224
+
+    [lifecycles.checks]
+    stage2_reference_solves = true
+    stage3_reference_solves = true
+    inputs_preserved = true
+    stage4_candidate_solves = true
+    stage1_candidate_solves = true
+    stage4_same_factor = true
+    stage3_candidate_solves = true
+    saved_candidate = true
+    stage4_private_owners = true
+    stage1_private_owners = true
+    saved_reference = true
+    stage2_private_owners = true
+    stage1_same_factor = true
+    stage2_candidate_solves = true
+    stage2_same_factor = true
+    stage4_reference_solves = true
+    stage3_private_owners = true
+    stage3_same_factor = true
+    stage1_reference_solves = true
+[[lifecycles]]
+type = "Float32"
+kind = "dense"
+dictionary = "Dict"
+
+    [[lifecycles.stages]]
+    dimension = 24
+    reference_workspace_graph = 17224
+    row_capacity = 24
+    candidate_workspace_graph = 17224
+    [[lifecycles.stages]]
+    dimension = 6
+    reference_workspace_graph = 17224
+    row_capacity = 24
+    candidate_workspace_graph = 17224
+    [[lifecycles.stages]]
+    dimension = 6
+    reference_workspace_graph = 17224
+    row_capacity = 24
+    candidate_workspace_graph = 17224
+    [[lifecycles.stages]]
+    dimension = 24
+    reference_workspace_graph = 17224
+    row_capacity = 24
+    candidate_workspace_graph = 17224
+
+    [lifecycles.checks]
+    stage2_reference_solves = true
+    stage3_reference_solves = true
+    inputs_preserved = true
+    stage4_candidate_solves = true
+    stage1_candidate_solves = true
+    stage4_same_factor = true
+    stage3_candidate_solves = true
+    saved_candidate = true
+    stage4_private_owners = true
+    stage1_private_owners = true
+    saved_reference = true
+    stage2_private_owners = true
+    stage1_same_factor = true
+    stage2_candidate_solves = true
+    stage2_same_factor = true
+    stage4_reference_solves = true
+    stage3_private_owners = true
+    stage3_same_factor = true
+    stage1_reference_solves = true
+[[lifecycles]]
+type = "Float32"
+kind = "storedzeros"
+dictionary = "Dict"
+
+    [[lifecycles.stages]]
+    dimension = 24
+    reference_workspace_graph = 17224
+    row_capacity = 24
+    candidate_workspace_graph = 17224
+    [[lifecycles.stages]]
+    dimension = 6
+    reference_workspace_graph = 17224
+    row_capacity = 24
+    candidate_workspace_graph = 17224
+    [[lifecycles.stages]]
+    dimension = 6
+    reference_workspace_graph = 17224
+    row_capacity = 24
+    candidate_workspace_graph = 17224
+    [[lifecycles.stages]]
+    dimension = 24
+    reference_workspace_graph = 17224
+    row_capacity = 24
+    candidate_workspace_graph = 17224
+
+    [lifecycles.checks]
+    stage2_reference_solves = true
+    stage3_reference_solves = true
+    inputs_preserved = true
+    stage4_candidate_solves = true
+    stage1_candidate_solves = true
+    stage4_same_factor = true
+    stage3_candidate_solves = true
+    saved_candidate = true
+    stage4_private_owners = true
+    stage1_private_owners = true
+    saved_reference = true
+    stage2_private_owners = true
+    stage1_same_factor = true
+    stage2_candidate_solves = true
+    stage2_same_factor = true
+    stage4_reference_solves = true
+    stage3_private_owners = true
+    stage3_same_factor = true
+    stage1_reference_solves = true
+[[lifecycles]]
+type = "Float32"
+kind = "sparse"
+dictionary = "OrderedDict"
+
+    [[lifecycles.stages]]
+    dimension = 24
+    reference_workspace_graph = 17944
+    row_capacity = 24
+    candidate_workspace_graph = 17944
+    [[lifecycles.stages]]
+    dimension = 6
+    reference_workspace_graph = 17944
+    row_capacity = 24
+    candidate_workspace_graph = 17944
+    [[lifecycles.stages]]
+    dimension = 6
+    reference_workspace_graph = 17944
+    row_capacity = 24
+    candidate_workspace_graph = 17944
+    [[lifecycles.stages]]
+    dimension = 24
+    reference_workspace_graph = 17944
+    row_capacity = 24
+    candidate_workspace_graph = 17944
+
+    [lifecycles.checks]
+    stage2_reference_solves = true
+    stage3_reference_solves = true
+    inputs_preserved = true
+    stage4_candidate_solves = true
+    stage1_candidate_solves = true
+    stage4_same_factor = true
+    stage3_candidate_solves = true
+    saved_candidate = true
+    stage4_private_owners = true
+    stage1_private_owners = true
+    saved_reference = true
+    stage2_private_owners = true
+    stage1_same_factor = true
+    stage2_candidate_solves = true
+    stage2_same_factor = true
+    stage4_reference_solves = true
+    stage3_private_owners = true
+    stage3_same_factor = true
+    stage1_reference_solves = true
+[[lifecycles]]
+type = "Float32"
+kind = "dense"
+dictionary = "OrderedDict"
+
+    [[lifecycles.stages]]
+    dimension = 24
+    reference_workspace_graph = 17944
+    row_capacity = 24
+    candidate_workspace_graph = 17944
+    [[lifecycles.stages]]
+    dimension = 6
+    reference_workspace_graph = 17944
+    row_capacity = 24
+    candidate_workspace_graph = 17944
+    [[lifecycles.stages]]
+    dimension = 6
+    reference_workspace_graph = 17944
+    row_capacity = 24
+    candidate_workspace_graph = 17944
+    [[lifecycles.stages]]
+    dimension = 24
+    reference_workspace_graph = 17944
+    row_capacity = 24
+    candidate_workspace_graph = 17944
+
+    [lifecycles.checks]
+    stage2_reference_solves = true
+    stage3_reference_solves = true
+    inputs_preserved = true
+    stage4_candidate_solves = true
+    stage1_candidate_solves = true
+    stage4_same_factor = true
+    stage3_candidate_solves = true
+    saved_candidate = true
+    stage4_private_owners = true
+    stage1_private_owners = true
+    saved_reference = true
+    stage2_private_owners = true
+    stage1_same_factor = true
+    stage2_candidate_solves = true
+    stage2_same_factor = true
+    stage4_reference_solves = true
+    stage3_private_owners = true
+    stage3_same_factor = true
+    stage1_reference_solves = true
+[[lifecycles]]
+type = "Float32"
+kind = "storedzeros"
+dictionary = "OrderedDict"
+
+    [[lifecycles.stages]]
+    dimension = 24
+    reference_workspace_graph = 17944
+    row_capacity = 24
+    candidate_workspace_graph = 17944
+    [[lifecycles.stages]]
+    dimension = 6
+    reference_workspace_graph = 17944
+    row_capacity = 24
+    candidate_workspace_graph = 17944
+    [[lifecycles.stages]]
+    dimension = 6
+    reference_workspace_graph = 17944
+    row_capacity = 24
+    candidate_workspace_graph = 17944
+    [[lifecycles.stages]]
+    dimension = 24
+    reference_workspace_graph = 17944
+    row_capacity = 24
+    candidate_workspace_graph = 17944
+
+    [lifecycles.checks]
+    stage2_reference_solves = true
+    stage3_reference_solves = true
+    inputs_preserved = true
+    stage4_candidate_solves = true
+    stage1_candidate_solves = true
+    stage4_same_factor = true
+    stage3_candidate_solves = true
+    saved_candidate = true
+    stage4_private_owners = true
+    stage1_private_owners = true
+    saved_reference = true
+    stage2_private_owners = true
+    stage1_same_factor = true
+    stage2_candidate_solves = true
+    stage2_same_factor = true
+    stage4_reference_solves = true
+    stage3_private_owners = true
+    stage3_same_factor = true
+    stage1_reference_solves = true
+[[lifecycles]]
+type = "Float64"
+kind = "sparse"
+dictionary = "Dict"
+
+    [[lifecycles.stages]]
+    dimension = 24
+    reference_workspace_graph = 20392
+    row_capacity = 24
+    candidate_workspace_graph = 20392
+    [[lifecycles.stages]]
+    dimension = 6
+    reference_workspace_graph = 20392
+    row_capacity = 24
+    candidate_workspace_graph = 20392
+    [[lifecycles.stages]]
+    dimension = 6
+    reference_workspace_graph = 20392
+    row_capacity = 24
+    candidate_workspace_graph = 20392
+    [[lifecycles.stages]]
+    dimension = 24
+    reference_workspace_graph = 20392
+    row_capacity = 24
+    candidate_workspace_graph = 20392
+
+    [lifecycles.checks]
+    stage2_reference_solves = true
+    stage3_reference_solves = true
+    inputs_preserved = true
+    stage4_candidate_solves = true
+    stage1_candidate_solves = true
+    stage4_same_factor = true
+    stage3_candidate_solves = true
+    saved_candidate = true
+    stage4_private_owners = true
+    stage1_private_owners = true
+    saved_reference = true
+    stage2_private_owners = true
+    stage1_same_factor = true
+    stage2_candidate_solves = true
+    stage2_same_factor = true
+    stage4_reference_solves = true
+    stage3_private_owners = true
+    stage3_same_factor = true
+    stage1_reference_solves = true
+[[lifecycles]]
+type = "Float64"
+kind = "dense"
+dictionary = "Dict"
+
+    [[lifecycles.stages]]
+    dimension = 24
+    reference_workspace_graph = 20392
+    row_capacity = 24
+    candidate_workspace_graph = 20392
+    [[lifecycles.stages]]
+    dimension = 6
+    reference_workspace_graph = 20392
+    row_capacity = 24
+    candidate_workspace_graph = 20392
+    [[lifecycles.stages]]
+    dimension = 6
+    reference_workspace_graph = 20392
+    row_capacity = 24
+    candidate_workspace_graph = 20392
+    [[lifecycles.stages]]
+    dimension = 24
+    reference_workspace_graph = 20392
+    row_capacity = 24
+    candidate_workspace_graph = 20392
+
+    [lifecycles.checks]
+    stage2_reference_solves = true
+    stage3_reference_solves = true
+    inputs_preserved = true
+    stage4_candidate_solves = true
+    stage1_candidate_solves = true
+    stage4_same_factor = true
+    stage3_candidate_solves = true
+    saved_candidate = true
+    stage4_private_owners = true
+    stage1_private_owners = true
+    saved_reference = true
+    stage2_private_owners = true
+    stage1_same_factor = true
+    stage2_candidate_solves = true
+    stage2_same_factor = true
+    stage4_reference_solves = true
+    stage3_private_owners = true
+    stage3_same_factor = true
+    stage1_reference_solves = true
+[[lifecycles]]
+type = "Float64"
+kind = "storedzeros"
+dictionary = "Dict"
+
+    [[lifecycles.stages]]
+    dimension = 24
+    reference_workspace_graph = 20392
+    row_capacity = 24
+    candidate_workspace_graph = 20392
+    [[lifecycles.stages]]
+    dimension = 6
+    reference_workspace_graph = 20392
+    row_capacity = 24
+    candidate_workspace_graph = 20392
+    [[lifecycles.stages]]
+    dimension = 6
+    reference_workspace_graph = 20392
+    row_capacity = 24
+    candidate_workspace_graph = 20392
+    [[lifecycles.stages]]
+    dimension = 24
+    reference_workspace_graph = 20392
+    row_capacity = 24
+    candidate_workspace_graph = 20392
+
+    [lifecycles.checks]
+    stage2_reference_solves = true
+    stage3_reference_solves = true
+    inputs_preserved = true
+    stage4_candidate_solves = true
+    stage1_candidate_solves = true
+    stage4_same_factor = true
+    stage3_candidate_solves = true
+    saved_candidate = true
+    stage4_private_owners = true
+    stage1_private_owners = true
+    saved_reference = true
+    stage2_private_owners = true
+    stage1_same_factor = true
+    stage2_candidate_solves = true
+    stage2_same_factor = true
+    stage4_reference_solves = true
+    stage3_private_owners = true
+    stage3_same_factor = true
+    stage1_reference_solves = true
+[[lifecycles]]
+type = "Float64"
+kind = "sparse"
+dictionary = "OrderedDict"
+
+    [[lifecycles.stages]]
+    dimension = 24
+    reference_workspace_graph = 18616
+    row_capacity = 24
+    candidate_workspace_graph = 18616
+    [[lifecycles.stages]]
+    dimension = 6
+    reference_workspace_graph = 18616
+    row_capacity = 24
+    candidate_workspace_graph = 18616
+    [[lifecycles.stages]]
+    dimension = 6
+    reference_workspace_graph = 18616
+    row_capacity = 24
+    candidate_workspace_graph = 18616
+    [[lifecycles.stages]]
+    dimension = 24
+    reference_workspace_graph = 18616
+    row_capacity = 24
+    candidate_workspace_graph = 18616
+
+    [lifecycles.checks]
+    stage2_reference_solves = true
+    stage3_reference_solves = true
+    inputs_preserved = true
+    stage4_candidate_solves = true
+    stage1_candidate_solves = true
+    stage4_same_factor = true
+    stage3_candidate_solves = true
+    saved_candidate = true
+    stage4_private_owners = true
+    stage1_private_owners = true
+    saved_reference = true
+    stage2_private_owners = true
+    stage1_same_factor = true
+    stage2_candidate_solves = true
+    stage2_same_factor = true
+    stage4_reference_solves = true
+    stage3_private_owners = true
+    stage3_same_factor = true
+    stage1_reference_solves = true
+[[lifecycles]]
+type = "Float64"
+kind = "dense"
+dictionary = "OrderedDict"
+
+    [[lifecycles.stages]]
+    dimension = 24
+    reference_workspace_graph = 18616
+    row_capacity = 24
+    candidate_workspace_graph = 18616
+    [[lifecycles.stages]]
+    dimension = 6
+    reference_workspace_graph = 18616
+    row_capacity = 24
+    candidate_workspace_graph = 18616
+    [[lifecycles.stages]]
+    dimension = 6
+    reference_workspace_graph = 18616
+    row_capacity = 24
+    candidate_workspace_graph = 18616
+    [[lifecycles.stages]]
+    dimension = 24
+    reference_workspace_graph = 18616
+    row_capacity = 24
+    candidate_workspace_graph = 18616
+
+    [lifecycles.checks]
+    stage2_reference_solves = true
+    stage3_reference_solves = true
+    inputs_preserved = true
+    stage4_candidate_solves = true
+    stage1_candidate_solves = true
+    stage4_same_factor = true
+    stage3_candidate_solves = true
+    saved_candidate = true
+    stage4_private_owners = true
+    stage1_private_owners = true
+    saved_reference = true
+    stage2_private_owners = true
+    stage1_same_factor = true
+    stage2_candidate_solves = true
+    stage2_same_factor = true
+    stage4_reference_solves = true
+    stage3_private_owners = true
+    stage3_same_factor = true
+    stage1_reference_solves = true
+[[lifecycles]]
+type = "Float64"
+kind = "storedzeros"
+dictionary = "OrderedDict"
+
+    [[lifecycles.stages]]
+    dimension = 24
+    reference_workspace_graph = 18616
+    row_capacity = 24
+    candidate_workspace_graph = 18616
+    [[lifecycles.stages]]
+    dimension = 6
+    reference_workspace_graph = 18616
+    row_capacity = 24
+    candidate_workspace_graph = 18616
+    [[lifecycles.stages]]
+    dimension = 6
+    reference_workspace_graph = 18616
+    row_capacity = 24
+    candidate_workspace_graph = 18616
+    [[lifecycles.stages]]
+    dimension = 24
+    reference_workspace_graph = 18616
+    row_capacity = 24
+    candidate_workspace_graph = 18616
+
+    [lifecycles.checks]
+    stage2_reference_solves = true
+    stage3_reference_solves = true
+    inputs_preserved = true
+    stage4_candidate_solves = true
+    stage1_candidate_solves = true
+    stage4_same_factor = true
+    stage3_candidate_solves = true
+    saved_candidate = true
+    stage4_private_owners = true
+    stage1_private_owners = true
+    saved_reference = true
+    stage2_private_owners = true
+    stage1_same_factor = true
+    stage2_candidate_solves = true
+    stage2_same_factor = true
+    stage4_reference_solves = true
+    stage3_private_owners = true
+    stage3_same_factor = true
+    stage1_reference_solves = true
+[[lifecycles]]
+type = "BigFloat"
+kind = "sparse"
+dictionary = "Dict"
+
+    [[lifecycles.stages]]
+    dimension = 24
+    reference_workspace_graph = 22152
+    row_capacity = 24
+    candidate_workspace_graph = 22152
+    [[lifecycles.stages]]
+    dimension = 6
+    reference_workspace_graph = 22152
+    row_capacity = 24
+    candidate_workspace_graph = 22152
+    [[lifecycles.stages]]
+    dimension = 6
+    reference_workspace_graph = 22152
+    row_capacity = 24
+    candidate_workspace_graph = 22152
+    [[lifecycles.stages]]
+    dimension = 24
+    reference_workspace_graph = 22152
+    row_capacity = 24
+    candidate_workspace_graph = 22152
+
+    [lifecycles.checks]
+    stage2_reference_solves = true
+    stage3_reference_solves = true
+    inputs_preserved = true
+    stage4_candidate_solves = true
+    stage1_candidate_solves = true
+    stage4_same_factor = true
+    stage3_candidate_solves = true
+    saved_candidate = true
+    stage4_private_owners = true
+    stage1_private_owners = true
+    saved_reference = true
+    stage2_private_owners = true
+    stage1_same_factor = true
+    stage2_candidate_solves = true
+    stage2_same_factor = true
+    stage4_reference_solves = true
+    stage3_private_owners = true
+    stage3_same_factor = true
+    stage1_reference_solves = true
+[[lifecycles]]
+type = "BigFloat"
+kind = "dense"
+dictionary = "Dict"
+
+    [[lifecycles.stages]]
+    dimension = 24
+    reference_workspace_graph = 22152
+    row_capacity = 24
+    candidate_workspace_graph = 22152
+    [[lifecycles.stages]]
+    dimension = 6
+    reference_workspace_graph = 22152
+    row_capacity = 24
+    candidate_workspace_graph = 22152
+    [[lifecycles.stages]]
+    dimension = 6
+    reference_workspace_graph = 22152
+    row_capacity = 24
+    candidate_workspace_graph = 22152
+    [[lifecycles.stages]]
+    dimension = 24
+    reference_workspace_graph = 22152
+    row_capacity = 24
+    candidate_workspace_graph = 22152
+
+    [lifecycles.checks]
+    stage2_reference_solves = true
+    stage3_reference_solves = true
+    inputs_preserved = true
+    stage4_candidate_solves = true
+    stage1_candidate_solves = true
+    stage4_same_factor = true
+    stage3_candidate_solves = true
+    saved_candidate = true
+    stage4_private_owners = true
+    stage1_private_owners = true
+    saved_reference = true
+    stage2_private_owners = true
+    stage1_same_factor = true
+    stage2_candidate_solves = true
+    stage2_same_factor = true
+    stage4_reference_solves = true
+    stage3_private_owners = true
+    stage3_same_factor = true
+    stage1_reference_solves = true
+[[lifecycles]]
+type = "BigFloat"
+kind = "storedzeros"
+dictionary = "Dict"
+
+    [[lifecycles.stages]]
+    dimension = 24
+    reference_workspace_graph = 22152
+    row_capacity = 24
+    candidate_workspace_graph = 22152
+    [[lifecycles.stages]]
+    dimension = 6
+    reference_workspace_graph = 22152
+    row_capacity = 24
+    candidate_workspace_graph = 22152
+    [[lifecycles.stages]]
+    dimension = 6
+    reference_workspace_graph = 22152
+    row_capacity = 24
+    candidate_workspace_graph = 22152
+    [[lifecycles.stages]]
+    dimension = 24
+    reference_workspace_graph = 22152
+    row_capacity = 24
+    candidate_workspace_graph = 22152
+
+    [lifecycles.checks]
+    stage2_reference_solves = true
+    stage3_reference_solves = true
+    inputs_preserved = true
+    stage4_candidate_solves = true
+    stage1_candidate_solves = true
+    stage4_same_factor = true
+    stage3_candidate_solves = true
+    saved_candidate = true
+    stage4_private_owners = true
+    stage1_private_owners = true
+    saved_reference = true
+    stage2_private_owners = true
+    stage1_same_factor = true
+    stage2_candidate_solves = true
+    stage2_same_factor = true
+    stage4_reference_solves = true
+    stage3_private_owners = true
+    stage3_same_factor = true
+    stage1_reference_solves = true
+[[lifecycles]]
+type = "BigFloat"
+kind = "sparse"
+dictionary = "OrderedDict"
+
+    [[lifecycles.stages]]
+    dimension = 24
+    reference_workspace_graph = 20376
+    row_capacity = 24
+    candidate_workspace_graph = 20376
+    [[lifecycles.stages]]
+    dimension = 6
+    reference_workspace_graph = 20376
+    row_capacity = 24
+    candidate_workspace_graph = 20376
+    [[lifecycles.stages]]
+    dimension = 6
+    reference_workspace_graph = 20376
+    row_capacity = 24
+    candidate_workspace_graph = 20376
+    [[lifecycles.stages]]
+    dimension = 24
+    reference_workspace_graph = 20376
+    row_capacity = 24
+    candidate_workspace_graph = 20376
+
+    [lifecycles.checks]
+    stage2_reference_solves = true
+    stage3_reference_solves = true
+    inputs_preserved = true
+    stage4_candidate_solves = true
+    stage1_candidate_solves = true
+    stage4_same_factor = true
+    stage3_candidate_solves = true
+    saved_candidate = true
+    stage4_private_owners = true
+    stage1_private_owners = true
+    saved_reference = true
+    stage2_private_owners = true
+    stage1_same_factor = true
+    stage2_candidate_solves = true
+    stage2_same_factor = true
+    stage4_reference_solves = true
+    stage3_private_owners = true
+    stage3_same_factor = true
+    stage1_reference_solves = true
+[[lifecycles]]
+type = "BigFloat"
+kind = "dense"
+dictionary = "OrderedDict"
+
+    [[lifecycles.stages]]
+    dimension = 24
+    reference_workspace_graph = 20376
+    row_capacity = 24
+    candidate_workspace_graph = 20376
+    [[lifecycles.stages]]
+    dimension = 6
+    reference_workspace_graph = 20376
+    row_capacity = 24
+    candidate_workspace_graph = 20376
+    [[lifecycles.stages]]
+    dimension = 6
+    reference_workspace_graph = 20376
+    row_capacity = 24
+    candidate_workspace_graph = 20376
+    [[lifecycles.stages]]
+    dimension = 24
+    reference_workspace_graph = 20376
+    row_capacity = 24
+    candidate_workspace_graph = 20376
+
+    [lifecycles.checks]
+    stage2_reference_solves = true
+    stage3_reference_solves = true
+    inputs_preserved = true
+    stage4_candidate_solves = true
+    stage1_candidate_solves = true
+    stage4_same_factor = true
+    stage3_candidate_solves = true
+    saved_candidate = true
+    stage4_private_owners = true
+    stage1_private_owners = true
+    saved_reference = true
+    stage2_private_owners = true
+    stage1_same_factor = true
+    stage2_candidate_solves = true
+    stage2_same_factor = true
+    stage4_reference_solves = true
+    stage3_private_owners = true
+    stage3_same_factor = true
+    stage1_reference_solves = true
+[[lifecycles]]
+type = "BigFloat"
+kind = "storedzeros"
+dictionary = "OrderedDict"
+
+    [[lifecycles.stages]]
+    dimension = 24
+    reference_workspace_graph = 20376
+    row_capacity = 24
+    candidate_workspace_graph = 20376
+    [[lifecycles.stages]]
+    dimension = 6
+    reference_workspace_graph = 20376
+    row_capacity = 24
+    candidate_workspace_graph = 20376
+    [[lifecycles.stages]]
+    dimension = 6
+    reference_workspace_graph = 20376
+    row_capacity = 24
+    candidate_workspace_graph = 20376
+    [[lifecycles.stages]]
+    dimension = 24
+    reference_workspace_graph = 20376
+    row_capacity = 24
+    candidate_workspace_graph = 20376
+
+    [lifecycles.checks]
+    stage2_reference_solves = true
+    stage3_reference_solves = true
+    inputs_preserved = true
+    stage4_candidate_solves = true
+    stage1_candidate_solves = true
+    stage4_same_factor = true
+    stage3_candidate_solves = true
+    saved_candidate = true
+    stage4_private_owners = true
+    stage1_private_owners = true
+    saved_reference = true
+    stage2_private_owners = true
+    stage1_same_factor = true
+    stage2_candidate_solves = true
+    stage2_same_factor = true
+    stage4_reference_solves = true
+    stage3_private_owners = true
+    stage3_same_factor = true
+    stage1_reference_solves = true
+[[lifecycles]]
+type = "Rational{BigInt}"
+kind = "sparse"
+dictionary = "Dict"
+
+    [[lifecycles.stages]]
+    dimension = 24
+    reference_workspace_graph = 28488
+    row_capacity = 24
+    candidate_workspace_graph = 28488
+    [[lifecycles.stages]]
+    dimension = 6
+    reference_workspace_graph = 28472
+    row_capacity = 24
+    candidate_workspace_graph = 28472
+    [[lifecycles.stages]]
+    dimension = 6
+    reference_workspace_graph = 28472
+    row_capacity = 24
+    candidate_workspace_graph = 28472
+    [[lifecycles.stages]]
+    dimension = 24
+    reference_workspace_graph = 28488
+    row_capacity = 24
+    candidate_workspace_graph = 28488
+
+    [lifecycles.checks]
+    stage2_reference_solves = true
+    stage3_reference_solves = true
+    inputs_preserved = true
+    stage4_candidate_solves = true
+    stage1_candidate_solves = true
+    stage4_same_factor = true
+    stage3_candidate_solves = true
+    saved_candidate = true
+    stage4_private_owners = true
+    stage1_private_owners = true
+    saved_reference = true
+    stage2_private_owners = true
+    stage1_same_factor = true
+    stage2_candidate_solves = true
+    stage2_same_factor = true
+    stage4_reference_solves = true
+    stage3_private_owners = true
+    stage3_same_factor = true
+    stage1_reference_solves = true
+[[lifecycles]]
+type = "Rational{BigInt}"
+kind = "dense"
+dictionary = "Dict"
+
+    [[lifecycles.stages]]
+    dimension = 24
+    reference_workspace_graph = 28488
+    row_capacity = 24
+    candidate_workspace_graph = 28488
+    [[lifecycles.stages]]
+    dimension = 6
+    reference_workspace_graph = 28488
+    row_capacity = 24
+    candidate_workspace_graph = 28488
+    [[lifecycles.stages]]
+    dimension = 6
+    reference_workspace_graph = 28488
+    row_capacity = 24
+    candidate_workspace_graph = 28488
+    [[lifecycles.stages]]
+    dimension = 24
+    reference_workspace_graph = 28488
+    row_capacity = 24
+    candidate_workspace_graph = 28488
+
+    [lifecycles.checks]
+    stage2_reference_solves = true
+    stage3_reference_solves = true
+    inputs_preserved = true
+    stage4_candidate_solves = true
+    stage1_candidate_solves = true
+    stage4_same_factor = true
+    stage3_candidate_solves = true
+    saved_candidate = true
+    stage4_private_owners = true
+    stage1_private_owners = true
+    saved_reference = true
+    stage2_private_owners = true
+    stage1_same_factor = true
+    stage2_candidate_solves = true
+    stage2_same_factor = true
+    stage4_reference_solves = true
+    stage3_private_owners = true
+    stage3_same_factor = true
+    stage1_reference_solves = true
+[[lifecycles]]
+type = "Rational{BigInt}"
+kind = "storedzeros"
+dictionary = "Dict"
+
+    [[lifecycles.stages]]
+    dimension = 24
+    reference_workspace_graph = 28488
+    row_capacity = 24
+    candidate_workspace_graph = 28488
+    [[lifecycles.stages]]
+    dimension = 6
+    reference_workspace_graph = 28472
+    row_capacity = 24
+    candidate_workspace_graph = 28472
+    [[lifecycles.stages]]
+    dimension = 6
+    reference_workspace_graph = 28472
+    row_capacity = 24
+    candidate_workspace_graph = 28472
+    [[lifecycles.stages]]
+    dimension = 24
+    reference_workspace_graph = 28488
+    row_capacity = 24
+    candidate_workspace_graph = 28488
+
+    [lifecycles.checks]
+    stage2_reference_solves = true
+    stage3_reference_solves = true
+    inputs_preserved = true
+    stage4_candidate_solves = true
+    stage1_candidate_solves = true
+    stage4_same_factor = true
+    stage3_candidate_solves = true
+    saved_candidate = true
+    stage4_private_owners = true
+    stage1_private_owners = true
+    saved_reference = true
+    stage2_private_owners = true
+    stage1_same_factor = true
+    stage2_candidate_solves = true
+    stage2_same_factor = true
+    stage4_reference_solves = true
+    stage3_private_owners = true
+    stage3_same_factor = true
+    stage1_reference_solves = true
+[[lifecycles]]
+type = "Rational{BigInt}"
+kind = "sparse"
+dictionary = "OrderedDict"
+
+    [[lifecycles.stages]]
+    dimension = 24
+    reference_workspace_graph = 21720
+    row_capacity = 24
+    candidate_workspace_graph = 21720
+    [[lifecycles.stages]]
+    dimension = 6
+    reference_workspace_graph = 21704
+    row_capacity = 24
+    candidate_workspace_graph = 21704
+    [[lifecycles.stages]]
+    dimension = 6
+    reference_workspace_graph = 21704
+    row_capacity = 24
+    candidate_workspace_graph = 21704
+    [[lifecycles.stages]]
+    dimension = 24
+    reference_workspace_graph = 21720
+    row_capacity = 24
+    candidate_workspace_graph = 21720
+
+    [lifecycles.checks]
+    stage2_reference_solves = true
+    stage3_reference_solves = true
+    inputs_preserved = true
+    stage4_candidate_solves = true
+    stage1_candidate_solves = true
+    stage4_same_factor = true
+    stage3_candidate_solves = true
+    saved_candidate = true
+    stage4_private_owners = true
+    stage1_private_owners = true
+    saved_reference = true
+    stage2_private_owners = true
+    stage1_same_factor = true
+    stage2_candidate_solves = true
+    stage2_same_factor = true
+    stage4_reference_solves = true
+    stage3_private_owners = true
+    stage3_same_factor = true
+    stage1_reference_solves = true
+[[lifecycles]]
+type = "Rational{BigInt}"
+kind = "dense"
+dictionary = "OrderedDict"
+
+    [[lifecycles.stages]]
+    dimension = 24
+    reference_workspace_graph = 21720
+    row_capacity = 24
+    candidate_workspace_graph = 21720
+    [[lifecycles.stages]]
+    dimension = 6
+    reference_workspace_graph = 21720
+    row_capacity = 24
+    candidate_workspace_graph = 21720
+    [[lifecycles.stages]]
+    dimension = 6
+    reference_workspace_graph = 21720
+    row_capacity = 24
+    candidate_workspace_graph = 21720
+    [[lifecycles.stages]]
+    dimension = 24
+    reference_workspace_graph = 21720
+    row_capacity = 24
+    candidate_workspace_graph = 21720
+
+    [lifecycles.checks]
+    stage2_reference_solves = true
+    stage3_reference_solves = true
+    inputs_preserved = true
+    stage4_candidate_solves = true
+    stage1_candidate_solves = true
+    stage4_same_factor = true
+    stage3_candidate_solves = true
+    saved_candidate = true
+    stage4_private_owners = true
+    stage1_private_owners = true
+    saved_reference = true
+    stage2_private_owners = true
+    stage1_same_factor = true
+    stage2_candidate_solves = true
+    stage2_same_factor = true
+    stage4_reference_solves = true
+    stage3_private_owners = true
+    stage3_same_factor = true
+    stage1_reference_solves = true
+[[lifecycles]]
+type = "Rational{BigInt}"
+kind = "storedzeros"
+dictionary = "OrderedDict"
+
+    [[lifecycles.stages]]
+    dimension = 24
+    reference_workspace_graph = 21720
+    row_capacity = 24
+    candidate_workspace_graph = 21720
+    [[lifecycles.stages]]
+    dimension = 6
+    reference_workspace_graph = 21704
+    row_capacity = 24
+    candidate_workspace_graph = 21704
+    [[lifecycles.stages]]
+    dimension = 6
+    reference_workspace_graph = 21704
+    row_capacity = 24
+    candidate_workspace_graph = 21704
+    [[lifecycles.stages]]
+    dimension = 24
+    reference_workspace_graph = 21720
+    row_capacity = 24
+    candidate_workspace_graph = 21720
+
+    [lifecycles.checks]
+    stage2_reference_solves = true
+    stage3_reference_solves = true
+    inputs_preserved = true
+    stage4_candidate_solves = true
+    stage1_candidate_solves = true
+    stage4_same_factor = true
+    stage3_candidate_solves = true
+    saved_candidate = true
+    stage4_private_owners = true
+    stage1_private_owners = true
+    saved_reference = true
+    stage2_private_owners = true
+    stage1_same_factor = true
+    stage2_candidate_solves = true
+    stage2_same_factor = true
+    stage4_reference_solves = true
+    stage3_private_owners = true
+    stage3_same_factor = true
+    stage1_reference_solves = true
+
+[[work]]
+n = 3
+H = 3
+
+    [work.checks]
+    reference_failure = true
+    reference_clear_and_retain = true
+    candidate_counts = true
+    candidate_failure = true
+    reference_counts = true
+    candidate_clear_and_retain = true
+
+    [[work.counts]]
+    side = "reference"
+    row_reads = [2, 2, 2]
+    [[work.counts]]
+    side = "candidate"
+    row_reads = [1, 1, 1]
+[[work]]
+n = 3
+H = 64
+
+    [work.checks]
+    reference_failure = true
+    reference_clear_and_retain = true
+    candidate_counts = true
+    candidate_failure = true
+    reference_counts = true
+    candidate_clear_and_retain = true
+
+    [[work.counts]]
+    side = "reference"
+    row_reads = [2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+    [[work.counts]]
+    side = "candidate"
+    row_reads = [1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+[[work]]
+n = 8
+H = 8
+
+    [work.checks]
+    reference_failure = true
+    reference_clear_and_retain = true
+    candidate_counts = true
+    candidate_failure = true
+    reference_counts = true
+    candidate_clear_and_retain = true
+
+    [[work.counts]]
+    side = "reference"
+    row_reads = [2, 2, 2, 2, 2, 2, 2, 2]
+    [[work.counts]]
+    side = "candidate"
+    row_reads = [1, 1, 1, 1, 1, 1, 1, 1]
+[[work]]
+n = 8
+H = 64
+
+    [work.checks]
+    reference_failure = true
+    reference_clear_and_retain = true
+    candidate_counts = true
+    candidate_failure = true
+    reference_counts = true
+    candidate_clear_and_retain = true
+
+    [[work.counts]]
+    side = "reference"
+    row_reads = [2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+    [[work.counts]]
+    side = "candidate"
+    row_reads = [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
