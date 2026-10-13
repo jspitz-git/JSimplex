@@ -1,0 +1,66 @@
+# S5-Y independent pre-Julia admission review
+
+Verdict: ACCEPTED
+
+Critical: none.
+Important: none.
+Minor: none.
+Unresolved findings: []
+
+Acceptance is limited to the frozen admission implementation and at most ONE future guarded execution of exact S5-X candidate `5c941e86131ed503149de5a47ac46fc7665507861a25ec16654b6711968fdf18`. Every numerical/runtime expectation remains UNQUALIFIED. This review does not replace the separate acceptance binding, final launch pins/binding, or immediate separate host process check required before launch. Any attempt failure consumes the reservation: preserve evidence and STOP, without retry, tuning, extra query, control, warmup or numerical case. A successful process alone will not qualify the result; complete audit, original/portable raw identity and a fresh independent result review remain required.
+
+## Independently checked evidence
+
+Read current STATUS/roadmap continuation, the S5-Y qualification plan, X candidate/report/review/construction inverse, actual source ownership/event/catch/reconstruction paths, and all Y admission/common/launcher/guard/audit/schema/preparation/entry/test sources and results. Prior scripts were read as text only, never executed or imported. No Julia query, parsing, import, compilation, native/numerical operation, candidate, launcher-run, guard-run, production test or benchmark was performed. No production/test/environment/cache/CI change was made. This review is the only file written by this reviewer; the new Python modules were imported for pure synthetic checks with bytecode writes disabled.
+
+Fresh independent streaming SHA256 checks found no mismatch in:
+
+- All **338 required paths** and **1344 admission inventory entries**, including their resolved targets. Checked required membership/hash agreement, exact inventory composition and all four complete trees: ROOT/src70, ROOT/test441, MAIN/src70, MAIN/test441. Candidate, actual two-script wrapper chain, Julia executable/shared libraries/sysimage, project/manifest/preferences, original inverse/oracle, source/tests, admission machinery and evidence are included. These are concrete required paths, not merely an arbitrary self-consistent hash map.
+- **X213**, author10, closure23 and their literal 22/17/9/14/7 check schemas. All 25 staged-manifest content hashes match both current files and their Git blobs; the manifest itself also matches its committed blob, and commit `f45899f` has exactly all **26** expected paths.
+- Wclosure21 with only its two continuation files mapped to X/before-X; U master1512, GREEN1489 and T891 with the explicit old precision-test and before-U continuation mappings. No historical pin was changed. All six user-file hashes match.
+- Exact candidate SHA above; construction inverse is byte-identical to W/original-testset.txt and remains in the actual test source. Independently extracted all50 distinct candidate check names and matched their complete ordered schema.
+
+Fresh host reads confirm ROOT HEAD `f45899f3b06c819943498f9906c8ffefca31c15a`, MAIN HEAD/master `2b546e946ddb7fdb6c0092df9cc19f566e301aa2`, empty staged diff and no src/test/.github/Project difference against master. None of all20 prior groups and no Julia process was present; boot `dade7243-9103-4398-bb45-fa28fbc0be72`. These observations do not replace the later immediate host check. One independent check initially omitted the multiline flag in its own candidate-name regex; that read-only reviewer assertion was corrected and all50 names then matched. It did not modify inputs or execute Julia.
+
+## Admission and failure safety
+
+The source-resolved command uses the actual basis-memory/reproduce/julia.sh wrapper. Its legacy depot value is read from the separately pinned basis-chain-cost/julia.sh; the first wrapper executes the pinned Julia1.13.0 aarch64 binary with startup-file=no. Existing compiled modules are explicitly selected. Installed command-line documentation states that `existing` permits existing caches but prohibits new precompile files; actual loading.jl places automatic new precompilation inside use_compiled_modules==1. This does not establish cache confinement, loaded-cache validity, exhaustive loader/native-work capture or observer neutrality.
+
+Command flags configure threads1, gcthreads1,0, heap2GiB and the exact active project/candidate/output. Guard environment configures Julia/BLAS/OMP/MKL1, offline package behavior and automatic package precompile off. VM8GiB is enforced by RLIMIT_AS and wrapper ulimit. Available RAM>=6GiB and swap<=1GiB are checked before launch and in periodic resource samples. They are sampled host-pressure checks, not a proof of unobserved instantaneous memory maxima. The heap hint is a hint; VM is the hard address-space cap.
+
+The new guard is independently verified as the byte-exact old U source after removing its new exclusive atomic JSON helper and restoring exactly the three replaced metadata writes. The prior guard was not executed. The shared advisory lock is not unlinked and uses O_NOFOLLOW; contention, live Julia, changed pins or resource pressure refuses launch. Under the lock a new output directory is reserved before the candidate's nonexclusive open(w). A fresh session owns the child group. WNOWAIT retains the leader identity until descendant cleanup, then TERM/KILL and reaping occur. This is coordination among authorized invocations, not protection against arbitrary external filesystem mutation or an unrelated process deliberately escaping its session.
+
+Launcher validates exact candidate, ROOT/MAIN refs, complete required inventory and admission/launch bindings before creating the exclusive attempt-reserved.json. Its fsynced temporary-file/hard-link publication cannot overwrite an earlier reservation. Reservation precedes the guard; a concurrent/repeated launcher cannot perform a second attempt. guard-output.log is opened exclusively in the diagnostic directory before invoking the guard and is closed on return; guard-invocation.json is written in finally. A refusal before output-directory creation therefore retains its diagnostic log/invocation. Failures creating either exclusive metadata path fail closed. Atomic publication is not a promise of recovery from every filesystem/power-loss failure.
+
+Acceptance binds the review, admission pins, required-path list, concrete command, refs, exact candidate and essential code/evidence hashes. Final launch pins must additionally include acceptance/review/admission pins; launch-binding must bind final pins/acceptance/launcher/audit and exact command/refs. The launcher checks these links before consuming the reservation. Pin immutability and complete tree membership are rechecked by the guard and postexit auditor. This frozen admission is not itself an already-created final launch binding.
+
+The terminal elapsed check covers Popen launch, wrapper/import/compilation, candidate/setup and serialization. It rejects an otherwise normal exit beyond120 seconds even between periodic samples. Failure cleanup can take additional time and is not numerical acceptance. Audit additionally requires literal exit0, integer zero process/guard returns, unchanged pins, resource samples, exact command/cwd, current/process identity equality, reservation/output/pin/launch-binding/time/log linkage, expected boot and full group absence. Missing or malformed inputs fail closed. Complete seven-table TOML schema, all50 literal Booleans, twelve typed observations, cause/wrapper, work/record/max-merge/clock constraints are enforced; duplicate TOML fields are parser errors. Extra output files and a nonempty run.log also reject. The deliberately strict empty log gate may reject harmless loader output; it does not authorize rerunning after such a rejection.
+
+Read the saved **19** failure tests and **9** linkage tests, including preserved prefolder refusal log/invocation; their hashes are bound. Separately executed **37 new in-memory Python assertions** against only new Y common/audit code, with no launcher or guard execution and no files written. These covered valid synthetic controls; false/integer/extra predicates; wrong observation/cause/record/work/clock values; terminal overrun/nonfinite/Boolean/negative time and wrong exit/pins; command/output/pin/launch-binding/reservation/time/log mismatches; missing audit input; valid actual inventory and rejected missing-candidate/tree membership. All passed. These synthetic data are not numerical evidence and cannot substitute for the actual bound attempt.
+
+## Numerical semantics and work/memory
+
+The candidate is unchanged. It preserves the original Float64 sparse diagonal fixture, done Ref/latch, policy/progress/options, Inf time/default tolerances and one INITIAL initialization plus one private crash call. Original defaults retain PFI/native, dual/legacy, interval20, iteration_limit100000 and fill_limit8. The unarmed setup observer returns immediately; the first armed final refactor event retains TRIAL and two work scalars while latching done. Source shows this event occurs after refactor work/event recording but BEFORE primal/dual reconstruction. Disabled native refinement does not consult stop there; the following guard reaches fallback.
+
+Fallback first merges INITIAL/TRIAL work with maxima, then records crash_fallback before invoking the observer on INITIAL. The callback stores seven scalar observations and throws its original SingularException(42); DiagnosticObserverFailure retains that cause and is outside the numerical catch classes, so it escapes without a second numerical fallback. Source supports the candidate's expected ordering but does not qualify its runtime result. The INITIAL constructor charge explains the entry_refactorizations+1 merge check. Fifty selected predicates check event multiplicity, no return/original cause, preserved INITIAL selected owners/values, distinct TRIAL owned roles and shared metadata, work/event reconciliation and no later selected callbacks/work. Retained TRIAL is inspected after unwind, not a callback-time owned snapshot. Immutable option identity is value identity.
+
+**No unnecessary NEW production computational work, allocations or retained memory were found.** Production is unchanged, proven by fresh source hashes and Git diff. There is no production hot-path cost delta to benchmark; running sparse/dense or additional-precision benchmarks would be outside this admission. No speedup or allocation-byte claim is made.
+
+The cold diagnostic adds an11-field probe, three fixed17-role owner tuples, seven vector copies containing26 entries, fixed clock/work/event records,50 Boolean predicates and eight output dictionaries totaling90 entries. Endpoint equality visits at most26 element pairs plus two slack comparisons; owner checks traverse11 distinct TRIAL and17 preserved INITIAL roles plus six shared/value roles. Each of two record captures performs four event-count dictionary lookups. Callbacks update counters/fixed records and retain references without array scans/copies, numerical calls or a growing ledger. Copy/equality cost scales with selected m and n+m vectors; existing factories, reconstruction solves, candidate scans, update chains and backend storage remain additional and can scale with dimensions, nonzeros and history.
+
+Probe, owner tuples, closure, caught exception and possible unexpected return aliases keep reachable mutable graphs alive until unwind; reference counts and scalar records are not retained-byte or native-graph bounds. This prospective fixture covers only Float64. No native-free/GC, full-state rollback, certificate transfer, hidden-trajectory or complete PREforward/backend/import-work claim follows from kernel_timing=false.
+
+Admission/guard/audit hashing repeatedly scans the fixed inventory and uses streamed1MiB buffers plus O(file-count) metadata. That cold verification work is justified by required before/after immutable-input checks; it is separate from solver work and the numerical launch timer. Resource monitoring is periodic host-process work. No avoidable production scan, solve, conversion, cache or retained workspace was introduced.
+
+## Frozen identities and remaining gates
+
+- admission-pins.json: `1260f357addb6f291506d8221bcf3f93fca88531bae3ebc05670f88e7de28365`
+- required-paths.json: `a14eca330a190f441afaeae53fcd99f6c25bf98667d29de2856076d08927d788`
+- common.py: `0713c8ad093f1792d0155b12d57b55452ca18fc271400e731a58a3b5b2b011ec`
+- launcher.py: `8899a2ed7138a2b3b29007b3c0b74c4c98dac1781aeb9992bc4a412b2446e3eb`
+- guard.py: `5031d08c4c11d5af0fd7cca03091bdcf766b97608ba00d231ce96938b551fe59`
+- audit.py: `8d5913401fcd12f7740fdb9b68af12e1e992a76377432c4c217715071d6c87ae`
+- schema.json: `49e22d710f867150443e4cbf7ef53a27fa863792d836cd2d51f8727b511006c0`
+- admission.md: `1b88e734b707e8eaddeb1a93eddf9bd7fc34bdc02b835e9850b336c0877ac261`
+
+Proceed only through the separately bound acceptance/final launch pins and fresh host check. Original/portable raw identity, postexit audit and independent result review remain future obligations. All prior frozen/rejected artifacts, HHdisabled/CIoff, broader S3/S4/S5/S6/full-suite, Q outlier/GC, bootstrap/cache/init, wholecaps and native-retention restrictions remain unchanged.
