@@ -1,0 +1,80 @@
+{
+  "scope": "Independent source/design review only; no Julia, package import, compilation, tests, numerical execution, or historical-script rerun.",
+  "utc": "2026-10-13T12:13:19.641823+00:00",
+  "status": "CHANGES_REQUESTED",
+  "initial_review": {
+    "report_sha256": "ab6c9c29ea29dea5c622f2c107803a2d6898e819525d1129b94cbf34a94c08b0",
+    "plan_sha256": "eae834402c024eef7a63d23239f40057d6ff2a36da13dd65f9b90b234c94abff",
+    "finding": {
+      "id": "F1",
+      "priority": "P2",
+      "status": "resolved",
+      "location": "S3-VALUE-UPDATE-SUPPORT-CONTRACT.md, Existing support access table row",
+      "original_claim_present": true,
+      "description": "The existing _pipeline_vector! accessor checks six scratch-buffer owners in _hypersparse_workspace!, then up to six more in _pipeline_buffer_index, plus matrix identity. Matching row_solution uses eight buffer comparisons plus matrix identity. Correct the work ledger."
+    },
+    "record_creation_report_sha256": "966b7fbb8b73a912f6de5e2e0f8799d9c2ad7d84b130b603cdf9bd0375975be9",
+    "original_report_path": "diagnostics/simplex-core-architecture/results/S3-F/report.before-review",
+    "recording_note": "Author corrected the report before the first review file was written. Original rejected bytes are preserved in report.before-review; record_creation_report_sha256 records the corrected version observed when that record was created."
+  },
+  "source_bindings_observed": {
+    "diagnostics/simplex-core-architecture/S3-DSE-COUNTER-SEAM-LIMIT.md": "c2ca75329804bfaf862fdde3241cd34ebaa57f2ca7f58d1632e13f3068d355cc",
+    "diagnostics/simplex-core-architecture/S3-INVENTORY-NOTES.md": "c18e62a18c3d51c5c30f68991429607e0af2776e05d6a4da244f44111d383c03",
+    "diagnostics/simplex-core-architecture/S3-SUPPORT.md": "e278bd1f0a9d9149ad96ab82e662fd9f157b0b64f92376c6657c1b8c7227f41b",
+    "diagnostics/simplex-core-architecture/results/S3-F/STATUS.md.before-S3-F": "1fde03324cd2f5d3cb93ca5f429dcf96c676db03947a2cf982c010b33387baa4",
+    "diagnostics/simplex-core-architecture/results/S3-F/host.json": "07809accd0ef0de0c43aea31de4de2057064149cd27e041fb4b77fec0bf48af8",
+    "diagnostics/simplex-core-architecture/results/S3-F/roadmap.md.before-S3-F": "5b4b8d2391f28254e475a28a9716063c6dd8f56253f764b229137922104b7e1d",
+    "diagnostics/simplex-core-architecture/results/S3-F/source_contract.py": "16033866c0642a50538b2e77e88ab3022ce5ca5e3d4db2ba80015a880dac3a65",
+    "docs/superpowers/specs/2026-10-11-simplex-core-architecture-design.md": "c93ed284bf8edfe6879f0c32dbc5d6834e17d30cdd12e1ad1a7d89fb2bf7f0fc",
+    "src/dual_simplex.jl": "dcbf4dd3260044f8f25138b4cad5d936f4b7b15cab0267404e77a0a3d3647c68",
+    "src/hypersparse_pipeline.jl": "f1c9d010e3be89d7ac78d05f6339fe812c5496afbee647756409be4fd93bbe09",
+    "src/hypersparse_pipeline_types.jl": "d0e88536918d46bbb9f2db3a1516f4e0a90c9c2310d10672d451b8330a00ee72",
+    "src/indexed_vector.jl": "0cc096522dc4b9e471161238652216875c44f018ed74db9d1c4d341664f78822",
+    "src/numeric.jl": "c5212838ee6183f4eb7867ffb0ba308b1e51780aede045a1e1692cb53a2314d0",
+    "src/simplex_numerics.jl": "7173dbdfcd020c61819008d5ff1ad7a647d00711fbd50eefcfacf15ff852a8cd",
+    "test/dual_stagnation_cost_tests.jl": "30ab192e094d746b04f0c0b275ca09af3c5757cb17da213c92479eb865b44fa2",
+    "test/hypersparse_pipeline_tests.jl": "37cc0b1d7e08ca662a1c274275213327059de6298596909694fe60a5cfa0ea7e",
+    "test/partial_pricing_integration_tests.jl": "45fc401bb5bc396e0a50aa8d97a0796469808bbf13743acd96ba91ce39683fe6"
+  },
+  "source_binding_count": 17,
+  "all_17_source_bindings_match": true,
+  "source_contract_sha256": "af67bb15f3fb90bcbe1e4e4d2fa8160849849e885ed6a1c74139957f88cdb218",
+  "checks": {
+    "dual_repair_outside_support_required": true,
+    "analytic_signed_zero_example_valid_not_runtime_evidence": true,
+    "direct_helper_contract_caveats_preserved": true,
+    "support_lifetime_is_local_only": true,
+    "valid_support_may_contain_cancelled_entries": true,
+    "existing_tests_read_not_executed": true,
+    "next_G_requires_bounded_accept_or_stop": true,
+    "no_new_production_work_or_memory": true,
+    "production_test_ci_diff_empty": true
+  },
+  "limitations": [
+    "No benchmark required for documentation-only change.",
+    "Continuation mappings and publication closure are not yet reviewed.",
+    "No production candidate or generic Rational admission accepted."
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "priority": "P2",
+      "status": "resolved",
+      "location": "S3-VALUE-UPDATE-SUPPORT-CONTRACT.md, Existing support access table row",
+      "original_claim_present": true,
+      "description": "The existing _pipeline_vector! accessor checks six scratch-buffer owners in _hypersparse_workspace!, then up to six more in _pipeline_buffer_index, plus matrix identity. Matching row_solution uses eight buffer comparisons plus matrix identity. Correct the work ledger."
+    },
+    {
+      "id": "F2",
+      "priority": "P2",
+      "status": "open",
+      "location": "results/S3-F/publish.py dynamic D.iterdir file list",
+      "description": "Publication automatically includes all current S3-F files instead of checking a predeclared whitelist. A new unreviewed artifact could therefore be staged and published after review. Require exact explicit directory filename equality before closure/staging.",
+      "rejected_script_sha256": "fea93cb193fc9f3d430c1619aaf4c1ec1f5af2281c6adb928ea9c65650ea92ac"
+    }
+  ],
+  "resolved_fix_bindings": {
+    "diagnostics/simplex-core-architecture/results/S3-F/review-fix.json": "e38b5043600c72093e31c9457463af1c883c5ac2c90aad3f082db0cbdc0c95c2",
+    "diagnostics/simplex-core-architecture/results/S3-F/report.before-review": "ab6c9c29ea29dea5c622f2c107803a2d6898e819525d1129b94cbf34a94c08b0"
+  }
+}

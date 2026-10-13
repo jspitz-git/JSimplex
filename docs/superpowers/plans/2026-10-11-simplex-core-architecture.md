@@ -43,6 +43,14 @@ accepted deliverables, not partial or failed attempts. Update both at milestones
 - Phase changes and postsolve mapping can invalidate an apparently good point,
   weights or certificate. Covered by S5 handoff/fallback tests.
 
+## Current continuation — 2026-10-13
+
+S3-F covers the ordinary value-update source boundary. Next execute the bounded
+[source-only S3-G admission decision](2026-10-13-rational-primal-support-admission.md).
+S2-E is finished and not promoted; its allowance is consumed. Historical next-step
+paragraphs below do not restart completed stages. S6-AQ remains independently
+conditional on genuinely new original evidence. The broader roadmap is open.
+
 ## Order and decision gates
 
 Execute S0, S1, S2, S3, S4, S5 in that order, then S6. S2 and S3 depend on the
@@ -1766,3 +1774,39 @@ productionintegration authorized here. Broaderplan remainsOPEN; S6-AQ independen
 requires genuinely neworiginalevidence, no repeatedsearch/question. HHdisabled/CIoff,
 masterd02416c/allolderrejections/fullsuite/x64 remainunchanged. Reports
 S2-PRICE-AUDIT-VALUES-QUALIFICATION.md / -REVIEW.md, results/S2-E.
+
+## S3-F ordinary value-update support contract — 2026-10-13
+
+Source/design only, after the human explicitly requested continuation of the
+original plan. This is the original S3 value-update item, independent of the
+stopped DSE mixed-route qualification. Twelve source gates and 17 fresh hashes;
+source/test/CI identical to master d02416c. No Julia, parser/import/compile,
+numerics, new LP, production candidate or actual test change.
+
+General support-only omission is not admitted: update_duals! repairs existing
+cost violations even on a zero tableau row (existing tests read, not rerun).
+Floating update_primals! can change signed zero through a zero product; this is
+an analytic scalar example, not a new runtime/trajectory observation. Existing
+support access can rebuild O(m) or compact O(s), and matching-cache admission
+checks matrix identity plus six buffer owners before up to six lookup checks.
+The initial undercounted description is preserved in report.before-review;
+a separate five-check amendment corrects it. No new production work/memory.
+
+Next concrete authorized work: S3-G source/design decision in
+`docs/superpowers/plans/2026-10-13-rational-primal-support-admission.md`.
+Exactly Rational{BigInt} primal updates are only a prospective scope: establish
+scalar ownership/exception semantics, alias/order restrictions and inexpensive
+read-only support admission, or reject this consumer route. No numerical
+allowance or candidate implementation follows from F. Do not wait for S6-AQ to
+perform this independent source-only step, and do not repeat F's analysis.
+
+S2-E final closure/publication current STATUS/roadmap hashes map ONLY to
+results/S3-F/STATUS.md.before-S3-F and roadmap.md.before-S3-F. Older E-before-D,
+D/B/C and all prior mappings remain unchanged. F scripts/checks/raw/review are
+single-use frozen evidence after publication; preserve the initial review
+finding and correction. Separate independent review and closure/publication
+records accompany this milestone. S2-E allowance remains consumed, no tuning or
+promotion; S6-AQ still requires new original evidence; all stopped routes,
+HH-disabled, CI-off, fullsuite/x64 and broader open gates remain unchanged.
+
+Reports: S3-VALUE-UPDATE-SUPPORT-CONTRACT.md and its REVIEW; results/S3-F.

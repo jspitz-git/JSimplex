@@ -1,0 +1,112 @@
+# S3-F: exact support at ordinary dual value updates
+
+## Decision and scope
+
+The original S3 roadmap includes value-update consumers independently of the
+stopped DSE mixed-route investigation. This source/design step examines only
+`update_duals!` and `update_primals!` in `src/dual_simplex.jl`, their ordinary
+call site, and existing scratch support. It introduces no production candidate,
+Julia execution, test execution, new LP, or numerical allowance.
+
+**A general support-only replacement is not admitted.** The dual loop repairs
+costs outside support. Floating primal updates can change signed zero even when
+the direction coefficient is zero. The next bounded source-only question is
+whether the exact `Rational{BigInt}` primal consumer has a usable, inexpensive
+admission contract; it is not yet accepted for implementation. This does not
+reopen DSE, HH, controller accounting, loading isolation, or S2-E tuning.
+
+## Consumer semantics
+
+`update_duals!` (lines 566–591) visits all N reduced costs, skipping basic entries
+and the entering index. Each remaining entry subtracts the dual-step product.
+For a nonfixed variable it also checks the current bound state and tolerance,
+shifts a violating working cost to restore a zero reduced cost, marks
+perturbation, and invalidates the pricing pool when costs changed. Leaving and
+entering reduced costs are assigned separately after the loop.
+
+A zero tableau coefficient does not remove that repair obligation. The existing
+`Dual working-cost shifts invalidate cached candidates` test in
+`test/partial_pricing_integration_tests.jl` supplies an all-zero tableau row and
+zero step, yet expects a working-cost change and pricing-pool invalidation.
+`repair_cost_and_observe!` in `test/dual_stagnation_cost_tests.jl` exercises the
+same zero-row repair for multiple scalar types. These are source-read test
+contracts, not new execution evidence. No omission of the N-entry loop is
+proposed here.
+
+`update_primals!` (lines 593–600) visits m basic indices in basis-row order,
+performs `primal[index] -= primal_step * tableau_column[row]`, then adds the step
+to the entering variable. The basis replacement happens later. There is no
+support argument, alias rejection, finite-value guard, or duplicate-basis check
+inside this helper. These are relevant differences between a direct helper call
+and its normal caller; do not silently strengthen its public-in-module contract.
+
+For IEEE round-to-nearest arithmetic, old value -0, step -1 and coefficient +0
+produce +0 through the original subtraction; omission preserves -0. This is an
+analytic scalar example, not a Julia observation or a demonstrated reachable
+solver trajectory. BigFloat also requires stored-precision and ambient-rounding
+analysis, so `_is_exact` false is not an admissible omission category.
+`_is_exact` true covers all Rational parameterizations; it does not by itself
+establish overflow behavior, finite operands, element ownership, or helper
+alias safety. No generic Rational optimization follows from this report.
+
+## Support lifetime at the consumer
+
+The normal entering FTRAN returns `scratch.row_solution` (lines 1259–1262).
+The direction residual check reads that direction while rewriting and
+invalidating `scratch.tau` and `scratch.row_rhs` (lines 827–868). Nonempty bound
+flips solve into tau specifically to preserve the entering direction (lines
+486–528). The final scalar updates precede pricing-weight work and factor-column
+replacement (lines 1429–1438). Thus those ordinary writes alone do not destroy
+row_solution support. This is a local source statement, not whole-call ownership
+or observer neutrality: bound flips can publish observer events, accepted
+refinement and recovery can replace direction values, and aliases require
+separate analysis.
+
+Existing support validity is owned by `scratch.hypersparse` and its six borrowed
+buffers. `_pipeline_vector!` is not a read-only admission query: it can construct
+or replace the workspace, rebuild invalid support by scanning all values, or
+compact valid support in O(s). A valid cache may contain cancelled zero entries;
+only the immediately completed canonical producer has the stronger guarantee.
+Any future value consumer must tolerate those entries or qualify compaction
+cost. A new full support scan solely to save an m-entry update cannot be
+reported as removing that scan.
+
+## Work and memory assessment
+
+| Existing work | Frequency and scale | Implication |
+| --- | --- | --- |
+| Dual update | Once per completed update attempt; O(N) state/value/bound visits and conditional cost repair | Support omission loses required behavior |
+| Primal update | Same boundary; m multiply/subtract/store operations plus one entering addition | Potential exact-arithmetic target only; no measured saving |
+| Existing support access | Up to six owner comparisons; O(m) rebuild or O(s) compaction; optional cache construction | Must not be hidden in a proposed sparse consumer |
+| Direction validation and BFRT | Existing residual, finite and predicted-value scans; optional solves/refinement | All remain; this is not a complete backend work budget |
+
+No production computational work, allocations, retained memory, cache,
+precision, or safeguard changes were introduced. There is no new production
+work or memory cost to justify and no benchmark requirement for this document.
+Potential future support selection, scalar-object retention and fallback costs
+are unresolved. No elapsed-time, allocation, native-free, or end-to-end claim
+is made. Existing S3-A/B evidence is reused only for its original scope.
+
+## Evidence and continuation
+
+`results/S3-F/source_contract.py` was saved before its single execution:
+12 literal/source gates passed, with 17 SHA-256 bindings. The fresh host record
+checks all 28 recorded groups AND sessions, boot identity and Julia presence;
+none were present. Actual diagnostic/master refs and remote refs were recorded.
+Source/test/CI are byte-identical to master via Git comparison. Python performed
+no LP or Julia numerical experiment. Earlier exploratory reads included absent
+filename guesses; they supplied no evidence and did not mutate files.
+
+The previous live STATUS and roadmap are preserved byte-for-byte under
+`results/S3-F/{STATUS.md,roadmap.md}.before-S3-F`. Only the current-continuation
+hashes in S2-E final closure/publication now resolve to those copies. Older
+before-S2-E and earlier mappings remain unchanged; no historical script was
+rerun or rewritten. New report and plan receive separate independent review and
+publication bindings.
+
+Next: `docs/superpowers/plans/2026-10-13-rational-primal-support-admission.md`,
+S3-G source/design only. Do not manufacture an endless chain of equivalent
+inventories: G must accept a concrete bounded admission design or stop this
+consumer route with a specific reason. All broader gates remain open, S2-E
+allowance is consumed, S6-AQ still needs genuinely new original evidence, HH
+reuse remains disabled, and CI remains off.
