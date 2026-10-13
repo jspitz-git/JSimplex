@@ -45,6 +45,23 @@ accepted deliverables, not partial or failed attempts. Update both at milestones
 
 ## Current continuation — 2026-10-13
 
+S4-AC offline integration preparation completed: exact S4-AB source candidate,
+4188-byte test prefix preserved plus46-line isolated module/24prospective tests.
+Four real-constructor work cases expect20pass/fourworkfailures on current source,
+324prospective full-file assertions after change; NO Julia/parser/numerical run.
+12source/text checks28fresh hashes; source/test/env/CI/master unchanged.
+Next S4-AD: prepare exact RED/GREEN/master drivers, public-call schedules, immutable
+pins and independent admissions, then execute the concrete integration plan
+2026-10-13-markowitz-row-count-integration.md. At most three sequential120s-capped
+processes; standing short-run permission applies, no repeated permission question.
+No automatic launch from this preparation, no AB rerun/tuning or benchmark repeat.
+AB current continuation bindings map ONLY results/S4-AC/STATUS.md.before-S4-AC and
+roadmap.md.before-S4-AC; all older maps preserved. Full34groupsANDsessions absent.
+Automation paused, CI off, HH reuse disabled, MA pending; broader plan open.
+See S4-MARKOWITZ-ROW-COUNT-TEST-PREPARATION.md and results/S4-AC/review.md.
+
+### Previous S4-AB qualification (completed)
+
 S4-AB row-count fusion qualification completed:648/648 predicates, six audit
 and seven postcheck gates; one27.021s guarded run,624 unchanged launch pins.
 Four work cases confirm removal of H redundant row-length queries.24 paired

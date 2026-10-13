@@ -47,21 +47,37 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-S4-AB row-count fusion qualification completed:648/648 predicates, six audit
-and seven postcheck gates; one27.021s guarded run,624 unchanged launch pins.
-Four work cases confirm removal of H redundant row-length queries.24 paired
-lifecycles/four types/two dictionary implementations preserve selected factors,
-owners, inputs and saved solves.12cost cases/240windows/168measuredcompilezero;
-retained-capacity Float32/64 paired ratios0.932735/0.950450, other timings mixed,
-GC outliers retained, allocation events unchanged by side medians. No universal
-speedup/memory saving or full solver claim. Production/test/env/CI/master unchanged.
-Next: prepare a concrete permanent work-regression/source integration subplan for
-this exact change, after independent result acceptance; do not repeat qualification.
-MA remains Pending. Automation paused; broader plan open; old stopped routes remain
-stopped. Standing short-attempt permission applies with concrete admission/caps.
-MA-B current continuation hashes map ONLY results/S4-AB/STATUS.md.before-S4-AB and
-roadmap.md.before-S4-AB; all older maps preserved. Full34groupsANDsessions absent.
-See S4-MARKOWITZ-ROW-COUNT-QUALIFICATION.md and results/S4-AB/result-review.md.
+S4-AC offline integration preparation completed: exact S4-AB source candidate,
+4188-byte test prefix preserved plus46-line isolated module/24prospective tests.
+Four real-constructor work cases expect20pass/fourworkfailures on current source,
+324prospective full-file assertions after change; NO Julia/parser/numerical run.
+12source/text checks28fresh hashes; source/test/env/CI/master unchanged.
+Next S4-AD: prepare exact RED/GREEN/master drivers, public-call schedules, immutable
+pins and independent admissions, then execute the concrete integration plan
+2026-10-13-markowitz-row-count-integration.md. At most three sequential120s-capped
+processes; standing short-run permission applies, no repeated permission question.
+No automatic launch from this preparation, no AB rerun/tuning or benchmark repeat.
+AB current continuation bindings map ONLY results/S4-AC/STATUS.md.before-S4-AC and
+roadmap.md.before-S4-AC; all older maps preserved. Full34groupsANDsessions absent.
+Automation paused, CI off, HH reuse disabled, MA pending; broader plan open.
+See S4-MARKOWITZ-ROW-COUNT-TEST-PREPARATION.md and results/S4-AC/review.md.
+
+## S4-AC permanent regression preparation — 2026-10-13
+
+S4-AC offline integration preparation completed: exact S4-AB source candidate,
+4188-byte test prefix preserved plus46-line isolated module/24prospective tests.
+Four real-constructor work cases expect20pass/fourworkfailures on current source,
+324prospective full-file assertions after change; NO Julia/parser/numerical run.
+12source/text checks28fresh hashes; source/test/env/CI/master unchanged.
+Next S4-AD: prepare exact RED/GREEN/master drivers, public-call schedules, immutable
+pins and independent admissions, then execute the concrete integration plan
+2026-10-13-markowitz-row-count-integration.md. At most three sequential120s-capped
+processes; standing short-run permission applies, no repeated permission question.
+No automatic launch from this preparation, no AB rerun/tuning or benchmark repeat.
+AB current continuation bindings map ONLY results/S4-AC/STATUS.md.before-S4-AC and
+roadmap.md.before-S4-AC; all older maps preserved. Full34groupsANDsessions absent.
+Automation paused, CI off, HH reuse disabled, MA pending; broader plan open.
+See S4-MARKOWITZ-ROW-COUNT-TEST-PREPARATION.md and results/S4-AC/review.md.
 
 ## S4-AB Markowitz row-count fusion — 2026-10-13
 
