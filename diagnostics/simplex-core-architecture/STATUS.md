@@ -46,7 +46,45 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-**Current continuation: S5-Y single qualification independently accepted; after separate closure/publication follow `docs/superpowers/plans/2026-10-13-crash-fallback-observer-test-preparation.md` (S5-Z, OFFLINE separate permanent candidate only).**
+**Current continuation: S5-Z offline permanent candidate independently accepted and UNEXECUTED; after separate closure/publication follow `docs/superpowers/plans/2026-10-13-crash-fallback-observer-test-integration.md` (S5-AA, concrete integration admission first).**
+
+S5-Z OFFLINE separate permanent candidate accepted and UNEXECUTED, SHA
+ce256932a4bbda14bb9c55678525d6506a8e63732683442def57b22873b0415f.
+Whole4774-byte actualtest prefix preserved plus193-line append; three scoped renames,
+explicit top-level LinearAlgebra:SingularException import plus byte-exact inverse
+of Y-qualified X probe/helpers/core/all50 predicates,50explicit
+Test assertions/one prospective Float64PFInativeINITIALsetup+crash. Originaldone/stop/
+options/tols/Inf/interval20/refinementrecoveryfalse/kerneltimingfalse unchanged.
+CLI/TOML12observations/eight90entryoutputdicts removed. Cold11fieldprobe+doneRef,
+three17roleowner tuples/seven vectorcopies26entries/fixedscalarrecords/50Booltuple/
+50Testresults additional; callback no array scans/copies/numerics/growingledger.
+Retainedtrialmutableuntilunwind/endpointsNOTcallbacksnapshots/nativegraphcap/nativefree/
+GC/fullstate/rollback/certtransfer/observerneutrality/PREforwardbackendimport proof.
+Initialentry24/source19/readtime1398/author10with8bindings preserved; separate
+review-fix8 and pins-reviewed bind canonical candidate-reviewed.jl/append-reviewed.jl.
+InitialImportantmissingtop-levelimport and Minorcoveragefileclaim(authorregraded
+Important) fixed ONEofflineRED2/GREEN2; original rejectedreview/candidate untouched.
+Six final-stop assertions in prefix; ten pivot-stop/six observer-cause assertions
+remain in unchanged start-guard file.
+ fullY1347/1344/required338/
+raw6inv3/closure51/exact53 and XWUhistoricalmaps unchanged. Freshgpt6astra independent
+numerical/work/memory review accepted; no unresolved findings/no unnecessaryNEW
+production work/memory. First two Python selectors failed before candidate creation
+(missingMULTILINE,then52names); sources/failures preserved; separate prepare-3 scoped50
+passed. Misnamed original53 key is explained; recorded count52 authoritative.
+StructuralREDfourmissingcoverage markers is NOT failingJulia/CIreproduction.
+NoJulia/query/parser/import/compile/native/numerical/launcher/actualtest/production/
+envconfiguration/cache/CI/masterchange;master2b546e9 unchanged. YallowanceCONSUMED.
+AllZ/Y/X/W/V/U and older scripts/raw/audits/reviews FROZEN,NEVER RERUN/rewrite.
+See S5-CRASH-FALLBACK-OBSERVER-TEST-PREPARATION.md/REVIEW/resultsS5-Z.
+After separatePASSclosure/exactpublication next S5-AA2026-10-13-crash-fallback-observer-
+test-integration.md FIRST concrete stage-bound launcher/pins/failclosedauditor/
+offlinefailuretests/fresh admission BEFOREJulia or actualtestedit. At most one GREEN
+and one actualmaster newcase only after acceptedadmission; no oldtest rerun.
+CIoffHHdisabled/allbroadergates/fullsuite/retention/bootstrapcacheinit/wholecaps/Qoutlier/
+GC and allrejections unchanged.
+
+Historical S5-Y follows; its single allowance remains consumed.
 
 S5-Y ONE guarded qualification independently accepted: exact X candidate SHA
 5c941e86131ed503149de5a47ac46fc7665507861a25ec16654b6711968fdf18,50 literalTRUE/exit0,
