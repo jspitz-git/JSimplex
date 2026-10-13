@@ -1689,3 +1689,38 @@ OFFLINE concrete admission preparation/review only, then separate PASS closure/
 exact complete staged blobs/failfast publication. S6-AQ remains separately conditional.
 Reports S2-PRICE-AUDIT-VALUES-PREPARATION.md / -REVIEW.md, results/S2-C.
 All accepted C scripts/candidates/checks/review/pins FROZEN; NEVER RERUN/rewrite.
+
+## S2-D offline price-audit admission — 2026-10-13
+
+S2-D OFFLINE admission preparation accepted; no Julia query/parser/import/compile,
+launcher/guard/numerical execution or actualsrc/test/env/CI change. Ordinary73-file
+source overlay changes only exactCcandidate primal_updates; one original reference
+function has a byte-exact inverse with four qualifications. Eight fixedFloat32/64
+sparse/dense fixtures,655 prospective assertions(90/40/416/34/16/31/28),30directpairs/
+60qualitycalls+20aliasrejections. Integration11setups7explicitrecomputes10audits
+4iterations16qualitycalls+fourconditionalprivateaudits, NOTcompletebackendbudget.
+Cost8setups192windows(64warm128measured)3072wholeaudits1536perside,4warm8measured
+alternatingpairs/fixture; freshscratchinside, alltimes/events/bytes/output/compile0
+required. No runtime/loading/dispatch/cost/speedup/retention acceptance.
+
+Initial780pins/source16/author6/synthetic25 preserved. IndependentreviewREJECTED
+TWOImportant:755aggregate versus655 childsum, and Pythonassert admission gates
+removedbyoptimization. Separatevariants fix5PASS +32newsynthchecks, author5/full801;
+freshgpt6astra FULL801+original780/final22checks48bindings accepted, no unresolved
+Critical/Important/Minor, no unnecessary NEWproductionworkmemory. Originalreport
+binding in initialauthor/reviewer maps ONLY D/report.before-review. Both initial
+errors and all original PASS records/rejectedreview preserved, no retroactivepass.
+Canonical driver-reviewed.jl/common_reviewed.py/launcher-reviewed.py/audit-reviewed.py,
+admission-reviewed.md/required-paths-reviewed.json/admission-pins-reviewed.json.
+Originalclosure.py is an UNEXECUTED schema draft; closure-final.py uses the actual
+review unresolved_findings field. All frozen B/C artifacts remain unchanged.
+
+Cfinalclosure35 STATUS/roadmap map ONLY D/*before-S2-D; Cinitialclosure oldroadmap
+still maps ONLY C/roadmap.md.before-whitespace, other older mappings unchanged.
+Next S2-E docs/superpowers/plans/2026-10-13-price-audit-values-qualification.md is
+CONDITIONAL on explicit human allowance for ONE180second guarded process and fresh
+immutable numerical-admission review. No allowance/launchpins exists. Do not treat
+this offline acceptance or automation tick as authorization; no repeated audits or
+notifications while this condition is unchanged. S6-AQ remains independently
+conditional, all old rejections/HHdisabled/CIoff/fullsuite/broader gates unchanged.
+Reports S2-PRICE-AUDIT-ADMISSION-PREPARATION.md / -REVIEW.md, results/S2-D.

@@ -1,0 +1,206 @@
+{
+  "reviewer": "fresh independent gpt-6-astra reviewer",
+  "scope": "S2-D OFFLINE concrete admission preparation only; no numerical allowance",
+  "accepted": false,
+  "all_passed": false,
+  "checks": {
+    "full780_hashes_and_resolved_paths": true,
+    "required_exact_membership": true,
+    "required_hash_bindings": true,
+    "overlay73_origins": true,
+    "author6_bindings": true,
+    "source16_recorded": true,
+    "synthetic25_recorded": true,
+    "C35_closure": true,
+    "no_numerical_allowance": true,
+    "no_numerical_output": true,
+    "fresh_groups_and_sessions_closed": true,
+    "same_boot": true,
+    "user6_hashes": true,
+    "regression_total_consistent": false,
+    "nonremovable_admission_gates": false
+  },
+  "findings": [
+    {
+      "id": "R1",
+      "priority": 1,
+      "file": "driver.jl",
+      "line": 30,
+      "title": "Aggregate 755 contradicts seven child counts summing to 655",
+      "source_confirmed": true
+    },
+    {
+      "id": "R2",
+      "priority": 1,
+      "file": "launcher.py",
+      "line": 8,
+      "title": "Python optimization removes all assert-based admission gates",
+      "source_confirmed": true,
+      "exploit_executed": false
+    }
+  ],
+  "expected_group_counts": [
+    90,
+    40,
+    416,
+    34,
+    16,
+    31,
+    28
+  ],
+  "expected_total": 655,
+  "declared_total": 755,
+  "fixture_reconstruction": "All eight CSC index arrays, IEEE bits, objectives and little-endian nzval hashes independently reconstructed and matched using integer/dyadic formulas before this artifact was written.",
+  "fixtures": [
+    {
+      "id": "Float32-sparse-32",
+      "m": 32,
+      "n": 64,
+      "nnz": 228,
+      "nzval_sha256": "6d165f324132bbcef10b078d11440fb8912ce2fbf5c356e85ae4163e2c3c451d"
+    },
+    {
+      "id": "Float32-dense-32",
+      "m": 32,
+      "n": 64,
+      "nnz": 1928,
+      "nzval_sha256": "2264e7440ca6b4cb0f2c9d0c78d6115e4eb3d3463c84515bb5fc96555ed1b385"
+    },
+    {
+      "id": "Float32-sparse-128",
+      "m": 128,
+      "n": 256,
+      "nnz": 2265,
+      "nzval_sha256": "b5dcccb480617568a5875e679c66ab5ca775224b2d2ec1329c8094feb298ef2b"
+    },
+    {
+      "id": "Float32-dense-128",
+      "m": 128,
+      "n": 256,
+      "nnz": 30840,
+      "nzval_sha256": "5d80ede7d5531f455986c3450c0e85b613644bc4f0d718865cd5f76e9a2511db"
+    },
+    {
+      "id": "Float64-sparse-32",
+      "m": 32,
+      "n": 64,
+      "nnz": 228,
+      "nzval_sha256": "0cd3700c13400d6a2c66bfbb56acb64201f8fa1aae8254242758f297a113dffe"
+    },
+    {
+      "id": "Float64-dense-32",
+      "m": 32,
+      "n": 64,
+      "nnz": 1928,
+      "nzval_sha256": "3c77a5355b9fd843827837f551162d94912c0f07eb0f3923d07b7234e588a6fe"
+    },
+    {
+      "id": "Float64-sparse-128",
+      "m": 128,
+      "n": 256,
+      "nnz": 2265,
+      "nzval_sha256": "e08ffb60fb34354cb9666e67c1c8d7207daed8c7e3c98d6c6efc0f0d457419b9"
+    },
+    {
+      "id": "Float64-dense-128",
+      "m": 128,
+      "n": 256,
+      "nnz": 30840,
+      "nzval_sha256": "ef2cd33027f8614f0901e291b65a3e8b6c8fb786cc227badd434f1fc5a25856b"
+    }
+  ],
+  "source_entry_counts": {
+    "direct_pairs": 30,
+    "direct_quality_calls": 60,
+    "alias_rejections": 20,
+    "integration_workspaces": 11,
+    "integration_explicit_recomputes": 7,
+    "integration_public_audits": 10,
+    "integration_quality_calls": 16,
+    "integration_iterations": 4,
+    "conditional_private_iteration20_audits": 4,
+    "cost_workspaces": 8,
+    "warm_windows": 64,
+    "measured_windows": 128,
+    "windows": 192,
+    "cost_audits": 3072,
+    "audits_per_side": 1536
+  },
+  "host": {
+    "boot_id": "dade7243-9103-4398-bb45-fa28fbc0be72",
+    "groups": [
+      23249,
+      23257,
+      49081,
+      49084,
+      52772,
+      52774,
+      53479,
+      53481,
+      60706,
+      60708,
+      63808,
+      63815,
+      64420,
+      64422,
+      71824,
+      71826,
+      75902,
+      75907,
+      76742,
+      76746,
+      84681,
+      84689,
+      89395,
+      89399,
+      90313,
+      90323
+    ],
+    "matches": []
+  },
+  "refs": {
+    "HEAD": "fdd4f5c67fdf1b0cdba3de85f5dcaaa887fa2f15",
+    "master": "d02416c108f06fcd41d58e0a1980b70a51fef9ef"
+  },
+  "verification_limits": {
+    "julia_executed": false,
+    "julia_parsed_or_compiled": false,
+    "prepared_scripts_executed_or_imported": false,
+    "old_accepted_scripts_executed": false,
+    "synthetic_outputs_rewritten": false,
+    "runtime_loading_observed": false,
+    "numerical_results_observed": false,
+    "cost_measurements_observed": false
+  },
+  "sha256": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/S2-PRICE-AUDIT-ADMISSION-PREPARATION.md": "a59c6f4fb2b54a29d4d5b95ade63606670b2d2d17c6ffa329c392126cfff6f7b",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S2-D/STATUS.md.before-S2-D": "0ebdf06773984f040d03809dfb5886037074a8cb0b28343e18a823bea9f5c43d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S2-D/admission-pins.json": "2c91d31a71a946d9ffa7143d15862d7808f5259dbc95087b591d334ecf47fa11",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S2-D/admission.md": "45a327de00ddcedeee20f13e68de9fa027fc736dc9e57de87c13ddc25222d8d4",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S2-D/audit.py": "841fcbb4eabc21992ec1a891ff2622adaceb413c9c4b90af396e91ccfe44b502",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S2-D/author-check.json": "8373eadc43dbe3eadd3a97b6811f9f0251304f927352d594dee571b7706f0b9e",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S2-D/author-check.py": "d6174378c12a62f1f2033d283c227594fb6b91653f52a5f7dfdabb40f53560d2",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S2-D/budget.json": "b471786e43cdef08fcf498d9ce3233dee973c73d0c2cda96f5c0b62a6b599539",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S2-D/common.py": "4c0db6b92fa0c1b671ee526d12fe1b2bfd517fbd3790e85b8803f69714fe7c5a",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S2-D/driver.jl": "c3798f53bc404d430a20e5bdaf831a88556f117eac2ab5d07047f08ec0c07ae4",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S2-D/failure-tests.json": "cbd7e39e0b0d8375ab660f28ce12b59ca4d9d308f8421133f520429a505a0962",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S2-D/failure-tests.py": "59b42fb52473b1e844ffe07d63039be796c9707561abfe3212dc40b22f7e3084",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S2-D/fixtures.toml": "1d99bc9c5be901b14bd6350f410bc0ef607f087fd220df417aa85bc82b7155c4",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S2-D/freeze.py": "fedb7a7ad5b8a03889b9dc383693483b7bfad6d4829fd35059202b399fca9294",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S2-D/guard.py": "b1cbecc1c645cbf39e00661cbfac5989dc986d930943a7073f4e5e390520e6cc",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S2-D/host-before.json": "30a74e51e0f958324aafee27fd120b36512553706f7d8f0e1577cd307e2a24c9",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S2-D/launcher.py": "499181482c63978f737bf44329a07f2e088b62fb267b9630f8970a9685d797b0",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S2-D/overlay-map.json": "bae5c1184d507647fb13514a7d71352c2a9b03d3f4d09750255f3b04aa8af3aa",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S2-D/prepare.py": "bf8268ceafb224e6b0b4b2bac4df2d147331d683140e6f4ab33e3e625dcfbc6e",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S2-D/read-notes.txt": "8563b4e419cbbc13e07ddc75bebdf987077af34c647a6bafd6bc37482186f722",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S2-D/reference-audit.jl": "884c57956a857abcd7fd0e2447b0057b7511de3e63291d85e5a7366f54333317",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S2-D/required-paths.json": "4dacad2b8e93da63f7d2d7942700984b93542412f71a95237d84f2be5de74954",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S2-D/review-fix-tests.py": "caddbec3d24e9d8e14f38bf8241e6a39efbf9a434da475278025c399bc483b0a",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S2-D/review-fix.py": "3c88ca90182dae14a7ddebbb6fc78053d9e343f82a72243268d1d2f7f00f4ad3",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S2-D/review.md": "3e53d5db70d8cf0674dc84eb5fa225d5b659f2e99ba3f0fa0f9c80cd9960e3b8",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S2-D/roadmap.md.before-S2-D": "cae59b5af91603083836e0aa559811237be34672081d1a8a02feba7fda9c67f0",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S2-D/source-check.json": "e6713a12ac16d9968571f1bb84eced4d89e5879d896077a3f466831be73adac5",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S2-D/source-check.py": "7d4e820d241b843559873dcb621436f14d15435c50c395ea042d3be3f8a2a61e",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/docs/superpowers/plans/2026-10-13-price-audit-values-admission.md": "a21cefdfbfc0b30bc9a25354b455e5307281963f8d891a3c27a48160e491e860"
+  }
+}
