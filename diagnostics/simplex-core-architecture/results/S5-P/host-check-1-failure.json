@@ -1,0 +1,8 @@
+{
+  "exit_code": 1,
+  "error": "FileNotFoundError: process.json",
+  "operation": "new read-only prior-evidence check",
+  "cause": "O audit raw_sha256 keys are relative to run directory; first inline checker applied Path(p) directly",
+  "failed_expression": "all(h(Path(p))==v for p,v in audit[\"raw_sha256\"].items())",
+  "correction": "resolve raw key against O/run; no old auditor or numerical execution; no host-before output was written"
+}

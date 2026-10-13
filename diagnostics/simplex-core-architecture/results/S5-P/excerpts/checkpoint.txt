@@ -1,0 +1,18 @@
+function _remember_verified_basis!(ws,stop)::Bool
+    stop() && return false
+    _recomputed_basis_reliable(ws) || return false
+    checkpoint = checkpoint_basis(ws)
+    _recovery_observer!(ws.progress.diagnostics,:checkpoint,ws)
+    stop() && return false
+    _store_basis_checkpoint!(ws,checkpoint)
+    _record_recovery!(ws.progress.diagnostics,:checkpoint)
+    return true
+end
+
+function _store_basis_checkpoint!(ws,checkpoint)
+    history = ws.scratch.checkpoints
+    length(history) == 2 && popfirst!(history)
+    push!(history,checkpoint)
+    return nothing
+end
+

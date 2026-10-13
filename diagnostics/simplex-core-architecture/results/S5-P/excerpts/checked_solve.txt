@@ -1,0 +1,25 @@
+struct _BasisSolveClock
+    start_ns::UInt64
+    limit_seconds::Float64
+end
+(stop::_BasisSolveClock)() = stop.limit_seconds != Inf &&
+    (time_ns()-stop.start_ns)/1e9 >= stop.limit_seconds
+_basis_solve_stop(ws,::Nothing) = _BasisSolveClock(ws.progress.start_ns,ws.options.time_limit)
+_basis_solve_stop(ws,stop) = stop
+
+function _maybe_refine_basis_solve!(destination,ws,rhs,stop=nothing;transposed=false)
+    policy = ws.progress.numerical_policy
+    policy.solve_refinement || return true
+    return refine_basis_solve!(destination,ws,rhs,policy,_basis_solve_stop(ws,stop);transposed).reliable
+end
+
+function _checked_basis_solve!(destination,ws,rhs,stop=nothing;transposed=false,
+                               operation=transposed ? :btran : :ftran,prepare_update::Bool=false,
+                               unit_row::Int=0)
+    _timed_simplex(ws, transposed ? :btran : :ftran) do
+        _pipeline_basis_solve!(destination,ws,rhs;transposed,operation,prepare_update,unit_row)
+    end
+    _maybe_refine_basis_solve!(destination,ws,rhs,stop;transposed) || throw(_UnreliableBasisSolve())
+    return destination
+end
+

@@ -46,7 +46,30 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-**Current continuation: S5-O focused test integrated and independently reviewed on actual master. Complete separate PASS closure/publication records before advancing. Next S5-P SOURCE/EVIDENCE ONLY: `docs/superpowers/plans/2026-10-13-basis-initialization-handoff-contract.md`; supplied-basis initialization ownership, no Julia or numerical admission.**
+**Current continuation: S5-P source/evidence contract independently reviewed; complete its separate PASS closure/publication. Next S5-Q OFFLINE oracle feasibility only: `docs/superpowers/plans/2026-10-13-basis-initialization-stop-oracle.md`. No Julia, fixture, driver or numerical admission.**
+
+S5-P SOURCE/EVIDENCE ONLY reconciliation: 22 literal checks,157 fresh read-time
+hashes,six exact excerpts,9 author checks; fresh independent numerical/work review.
+Forty references: one production definition,34 test calls,3 dev calls,2 isdefined;
+no other literal production caller. Sixteen historical CI rows/eight groups sum to
+400 PASS separately in EACH failed run; seven direct-call groups388 include crash
+assertions,12 adjacent clock/driver assertions are not initializer-stop coverage.
+All16 whole test files match,22/24 selected source comparisons match; two known
+simplex_perturbation differences explicit. Default workspace/recompute precedes
+policy install and owned supplied-basis copy/validation; problem and diagnostics
+remain shared, clock/offsets retained. Native refinement/recovery off need not call
+stop; checked stop sites are conditional and occur after base solves. Reliability
+is not feasibility/certificate. ONE unqualified explicit throwing-stop + supplied
+basis + shared progress/checkpoint composition, not defect/never-executed proof.
+Cold source counts include default+imported reconstruction4base solve entry sites,
+factory+refactor,conditional refinement/checkpoints/scans/copies; not observed
+PREforward/backend/import/allocations. No new production work/memory, no benchmark.
+Two new offline collector path failures preserved; corrected read/collector separate,
+no old rerun or Julia. O827/1347/fullraw9+9/closure20/publication4 reverified; original
+O rejected admission+correction and allN/M/L/K/J/I/F/G/H evidence frozen unchanged.
+See S5-BASIS-INITIALIZATION-CONTRACT.md/REVIEW,results/S5-P. Separate PASS closure
+required before fail-fast diagnostic publication. Master35a6a9f/production/test/env/
+CI unchanged,fullgroups absent/noJulia;allHH/CI-off/rejections/broadergates retained.
 
 S5-O exact N candidate integrated: testb8615b9 -> master35a6a9f, only181lineappend
 with19080byte original adaptive-pricing prefix preserved. GREEN/master each42/42

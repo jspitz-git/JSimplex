@@ -1147,3 +1147,31 @@ x64/allpriorbroadergates/rejectionsunchanged.
 Next S5-P source/evidence-only supplied-basis initialization contract per separate
 plan. This was already a distinct S5 inventory boundary; no old reruns, new Julia,
 fixture/runtime plan or automatic optimization. Do not reopen HH/DSE/controller audits.
+
+## S5-P supplied-basis contract and S5-Q offline continuation (2026-10-13)
+
+S5-P SOURCE/EVIDENCE ONLY reconciliation: 22 literal checks,157 fresh read-time
+hashes,six exact excerpts,9 author checks; fresh independent numerical/work review.
+Forty references: one production definition,34 test calls,3 dev calls,2 isdefined;
+no other literal production caller. Sixteen historical CI rows/eight groups sum to
+400 PASS separately in EACH failed run; seven direct-call groups388 include crash
+assertions,12 adjacent clock/driver assertions are not initializer-stop coverage.
+All16 whole test files match,22/24 selected source comparisons match; two known
+simplex_perturbation differences explicit. Default workspace/recompute precedes
+policy install and owned supplied-basis copy/validation; problem and diagnostics
+remain shared, clock/offsets retained. Native refinement/recovery off need not call
+stop; checked stop sites are conditional and occur after base solves. Reliability
+is not feasibility/certificate. ONE unqualified explicit throwing-stop + supplied
+basis + shared progress/checkpoint composition, not defect/never-executed proof.
+Cold source counts include default+imported reconstruction4base solve entry sites,
+factory+refactor,conditional refinement/checkpoints/scans/copies; not observed
+PREforward/backend/import/allocations. No new production work/memory, no benchmark.
+Two new offline collector path failures preserved; corrected read/collector separate,
+no old rerun or Julia. O827/1347/fullraw9+9/closure20/publication4 reverified; original
+O rejected admission+correction and allN/M/L/K/J/I/F/G/H evidence frozen unchanged.
+See S5-BASIS-INITIALIZATION-CONTRACT.md/REVIEW,results/S5-P. Separate PASS closure
+required before fail-fast diagnostic publication. Master35a6a9f/production/test/env/
+CI unchanged,fullgroups absent/noJulia;allHH/CI-off/rejections/broadergates retained.
+
+The prior S5-P next-action paragraph is fulfilled by this stage. Next read the
+separate S5-Q offline oracle-feasibility plan; no runtime admission is implied.

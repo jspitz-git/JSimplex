@@ -1,0 +1,1018 @@
+{
+  "checks": {
+    "only_production_definition": true,
+    "all_16_CI_rows": true,
+    "400_each_failed_run": true,
+    "all_16_whole_test_files_equal": true,
+    "default_before_policy_before_basis": true,
+    "copied_basis_validated_before_bounds": true,
+    "bound_validation_before_invalidate_recompute": true,
+    "finite_shortcircuit_quality_before_reset": true,
+    "no_explicit_top_stop_or_deadline": true,
+    "basis_two_copy_expressions": true,
+    "problem_shared_default": true,
+    "bounds_owned_vcat": true,
+    "default_reconstruction_before_initial_event": true,
+    "policy_preserves_clock_offsets_shared_diagnostics": true,
+    "native_profile_default": true,
+    "solve_before_optional_refinement": true,
+    "native_refinement_bypasses_stop": true,
+    "checkpoint_two_stops": true,
+    "final_quality_two_shortcircuited_entries": true,
+    "BigFloat_stored_precision_scan": true,
+    "callback_cause_rethrown": true,
+    "checkpoint_owns_five_vectors": true
+  },
+  "all_passed": true,
+  "caller_hits": [
+    {
+      "file": "src/simplex_start.jl",
+      "line": 55,
+      "text": "function initialize_from_basis(problem::LinearProblem{T},basis::Basis,options::SolverOptions;",
+      "context": "progress context retains its original clock and outer retry offsets.\n\"\"\"\nfunction initialize_from_basis(problem::LinearProblem{T},basis::Basis,options::SolverOptions;\n    policy::NumericalPolicy{T}=NumericalPolicy(T,options),\n    progress::SimplexProgressContext{T}=SimplexProgressContext(problem;numerical_policy=policy),\n    stop=()->false) where T\n    guard = _guard_stop_callback(stop)",
+      "kind": "definition"
+    },
+    {
+      "file": "test/huangfu_hall_integration_tests.jl",
+      "line": 65,
+      "text": "    ws = JSimplex.initialize_from_basis(p, basis, options; policy)",
+      "context": "    policy = JSimplex.NumericalPolicy(Float64; hypersparse=true)\n    basis = JSimplex.Basis([1, 2], [JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_LOWER])\n    ws = JSimplex.initialize_from_basis(p, basis, options; policy)\n    @test !JSimplex._pipeline_sparse_available!(ws)\n    for algorithm in (:primal, :dual)\n        o = SolverOptions(basis_update=:huangfu_hall, verbose=false, algorithm=algorithm, presolve=false)\n        result = JSimplex._solve_diagnosed(p, nothing; options=o, numerical_policy=policy)",
+      "kind": "call"
+    },
+    {
+      "file": "test/huangfu_hall_scalar_integration_tests.jl",
+      "line": 50,
+      "text": "        ws=JSimplex.initialize_from_basis(p,basis,options;policy)",
+      "context": "        policy=JSimplex.NumericalPolicy(T;precision_boosting=true,hypersparse=true)\n        basis=JSimplex.Basis([1,2],[JSimplex.BASIC,JSimplex.BASIC,JSimplex.AT_LOWER,JSimplex.AT_LOWER])\n        ws=JSimplex.initialize_from_basis(p,basis,options;policy)\n        budget=JSimplex.SimplexRunBudget(ws)\n        fresh=JSimplex.transfer_precision(ws,S,bits,budget,policy)\n        @test fresh isa JSimplex.SimplexWorkspace{S}\n        @test fresh.factorization isa JSimplex.HuangfuHallFactorization{S}",
+      "kind": "call"
+    },
+    {
+      "file": "test/huangfu_hall_scalar_integration_tests.jl",
+      "line": 76,
+      "text": "                JSimplex.initialize_from_basis(p,basis,o;policy)",
+      "context": "            basis=JSimplex.Basis([1,2],[JSimplex.BASIC,JSimplex.BASIC,JSimplex.AT_LOWER,JSimplex.AT_LOWER])\n            ws=try\n                JSimplex.initialize_from_basis(p,basis,o;policy)\n            catch err\n                err\n            end\n            ws,B",
+      "kind": "call"
+    },
+    {
+      "file": "test/hypersparse_boundary_invalidation_tests.jl",
+      "line": 62,
+      "text": "    ws = JS.initialize_from_basis(p, basis, options; policy, progress)",
+      "context": "    progress = JS.SimplexProgressContext(p; numerical_policy=policy, diagnostics)\n    basis = JS.Basis([1], [JS.BASIC, JS.AT_LOWER])\n    ws = JS.initialize_from_basis(p, basis, options; policy, progress)\n    residual = JS._lp_residuals(ws, [1.25,1.5], [1.0])\n    correction, map = JS.build_correction_problem(ws, residual, 4, 8)\n    auxiliary_basis = JS.Basis([3], [JS.AT_LOWER,JS.AT_LOWER,JS.BASIC])\n    auxiliary = JS.initialize_from_basis(correction, auxiliary_basis, options)",
+      "kind": "call"
+    },
+    {
+      "file": "test/hypersparse_boundary_invalidation_tests.jl",
+      "line": 66,
+      "text": "    auxiliary = JS.initialize_from_basis(correction, auxiliary_basis, options)",
+      "context": "    correction, map = JS.build_correction_problem(ws, residual, 4, 8)\n    auxiliary_basis = JS.Basis([3], [JS.AT_LOWER,JS.AT_LOWER,JS.BASIC])\n    auxiliary = JS.initialize_from_basis(correction, auxiliary_basis, options)\n    saved_primal, saved_basis = copy(ws.primal), copy(ws.basis.basic_indices)\n    source_support = JS._pipeline_vector!(ws, ws.scratch.rho)\n    saved_rho, saved_support = copy(ws.scratch.rho), copy(source_support.indices)\n    armed[] = true",
+      "kind": "call"
+    },
+    {
+      "file": "test/lp_refinement_diagnostic_tests.jl",
+      "line": 18,
+      "text": "    ws=JSimplex.initialize_from_basis(p,basis,options;policy,progress)",
+      "context": "    progress=JSimplex.SimplexProgressContext(p;diagnostics,numerical_policy=policy)\n    basis=JSimplex.Basis([1],[JSimplex.BASIC,JSimplex.AT_LOWER])\n    ws=JSimplex.initialize_from_basis(p,basis,options;policy,progress)\n    ws.factorization=JSimplex._basis_factorization(sparse(reshape([2.0],1,1)),options)\n    stop=()->begin\n        if !isnothing(captured[]) && !injected[]\n            auxiliary=captured[]",
+      "kind": "call"
+    },
+    {
+      "file": "test/lp_refinement_factor_tests.jl",
+      "line": 18,
+      "text": "        ws=JSimplex.initialize_from_basis(p,basis,options;policy,progress)",
+      "context": "        progress=JSimplex.SimplexProgressContext(p;diagnostics,numerical_policy=policy)\n        basis=JSimplex.Basis([1,2],[JSimplex.BASIC,JSimplex.BASIC,JSimplex.AT_LOWER,JSimplex.AT_LOWER])\n        ws=JSimplex.initialize_from_basis(p,basis,options;policy,progress)\n        ws.factorization=JSimplex._basis_factorization(sparse(BigFloat[4 2;2 6]),options)\n        ws,policy\n    end\n    setprecision(BigFloat,64) do",
+      "kind": "call"
+    },
+    {
+      "file": "test/lp_refinement_limit_tests.jl",
+      "line": 30,
+      "text": "        ws=JSimplex.initialize_from_basis(p,basis,options;policy,",
+      "context": "        policy=JSimplex.NumericalPolicy(T;lp_refinement=true,solve_refinement=false,refactor_timing=false)\n        basis=JSimplex.Basis([1],[JSimplex.BASIC,JSimplex.AT_LOWER])\n        ws=JSimplex.initialize_from_basis(p,basis,options;policy,\n            progress=JSimplex.SimplexProgressContext(p;diagnostics,numerical_policy=policy))\n        @test abs(3Rational{BigInt}(ws.primal[1])-1)>Rational{BigInt}(tolerance)\n        original=copy(ws.primal)\n        run=JSimplex.refine_lp!(ws,JSimplex.SimplexRunBudget(ws),policy,()->false)",
+      "kind": "call"
+    },
+    {
+      "file": "test/lp_refinement_projection_tests.jl",
+      "line": 9,
+      "text": "    ws=JSimplex.initialize_from_basis(p,basis,options;policy)",
+      "context": "    policy=JSimplex.NumericalPolicy(Float64;lp_refinement=true,refactor_timing=false)\n    basis=JSimplex.Basis([1],[JSimplex.BASIC,JSimplex.AT_LOWER])\n    ws=JSimplex.initialize_from_basis(p,basis,options;policy)\n    r=JSimplex._lp_residuals(ws,[1.25,1.5],[1.0])\n    correction,map=JSimplex.build_correction_problem(ws,r,4,8)\n    auxiliary_basis=JSimplex.Basis([3],[JSimplex.AT_LOWER,JSimplex.AT_LOWER,JSimplex.BASIC])\n    auxiliary=JSimplex.initialize_from_basis(correction,auxiliary_basis,options)",
+      "kind": "call"
+    },
+    {
+      "file": "test/lp_refinement_projection_tests.jl",
+      "line": 13,
+      "text": "    auxiliary=JSimplex.initialize_from_basis(correction,auxiliary_basis,options)",
+      "context": "    correction,map=JSimplex.build_correction_problem(ws,r,4,8)\n    auxiliary_basis=JSimplex.Basis([3],[JSimplex.AT_LOWER,JSimplex.AT_LOWER,JSimplex.BASIC])\n    auxiliary=JSimplex.initialize_from_basis(correction,auxiliary_basis,options)\n    @test auxiliary.primal==[-1.0,-2.0,1.0]\n    @test bound_value(correction.row_lower[1])==1.0\n    invalid_basis=JSimplex.Basis([2],[JSimplex.AT_LOWER,JSimplex.BASIC])\n    @test !JSimplex._original_witness_certified(p,options,invalid_basis,[1.0],[1.0])",
+      "kind": "call"
+    },
+    {
+      "file": "test/lp_refinement_recovery_tests.jl",
+      "line": 17,
+      "text": "    ws = JSimplex.initialize_from_basis(p,basis,options;policy,progress)",
+      "context": "    basis = JSimplex.Basis([1],[JSimplex.BASIC,JSimplex.AT_LOWER])\n    progress = JSimplex.SimplexProgressContext(p;diagnostics,numerical_policy=policy)\n    ws = JSimplex.initialize_from_basis(p,basis,options;policy,progress)\n    # Fault injection: a finite inaccurate solve, with the original model and\n    # primal unchanged. A correction must repair y=1/2 to the exact witness y=1.\n    ws.factorization = JSimplex._basis_factorization(sparse(reshape([2.0],1,1)),options)\n    return ws, policy",
+      "kind": "call"
+    },
+    {
+      "file": "test/lp_refinement_tests.jl",
+      "line": 38,
+      "text": "            fresh = JSimplex.initialize_from_basis(correction, run.basis, options)",
+      "context": "            reconstructed = v + run.primal / 4\n            @test reconstructed == T[1, 1]\n            fresh = JSimplex.initialize_from_basis(correction, run.basis, options)\n            multiplier = JSimplex._original_dual_witness(fresh)\n            @test y + multiplier / 8 == T[1]\n            @test p.A == sparse(reshape(T[1], 1, 1))\n            @test p.objective == T[1] && p.objective_constant == 7",
+      "kind": "call"
+    },
+    {
+      "file": "test/simplex_phase_one_completion_tests.jl",
+      "line": 21,
+      "text": "        ws=JSimplex.initialize_from_basis(p,basis,options;policy)",
+      "context": "        options=SolverOptions(T;algorithm=:primal,verbose=false)\n        basis=JSimplex.Basis([1,4],[JSimplex.BASIC,JSimplex.AT_LOWER,JSimplex.AT_LOWER,JSimplex.BASIC])\n        ws=JSimplex.initialize_from_basis(p,basis,options;policy)\n        budget=JSimplex.SimplexRunBudget(ws)\n        phase=JSimplex.run_phase_one!(ws,budget,policy,()->false)\n        @test phase.status==(infeasible ? INFEASIBLE : OPTIMAL)\n        @test length(ws.basis.states)==4",
+      "kind": "call"
+    },
+    {
+      "file": "test/simplex_phase_one_tests.jl",
+      "line": 20,
+      "text": "            ws = JSimplex.initialize_from_basis(p,basis,options;policy)",
+      "context": "            policy = JSimplex.NumericalPolicy(T;phase_one=true)\n            basis = JSimplex.Basis([1,4],[JSimplex.BASIC,JSimplex.AT_LOWER,JSimplex.AT_LOWER,JSimplex.BASIC])\n            ws = JSimplex.initialize_from_basis(p,basis,options;policy)\n            phase,map = JSimplex._phase_one_workspace(ws,policy,()->false)\n            @test length(map.artificial_columns) == 1\n            @test map.original_to_phase == [1,2,4,5]\n            @test map.phase_to_original == [1,2,0,3,4]",
+      "kind": "call"
+    },
+    {
+      "file": "test/simplex_precision_decision_tests.jl",
+      "line": 23,
+      "text": "        ws = JSimplex.initialize_from_basis(p, basis, options; policy, progress)",
+      "context": "        basis = JSimplex.Basis([1, 2],\n            [JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_LOWER, JSimplex.AT_LOWER])\n        ws = JSimplex.initialize_from_basis(p, basis, options; policy, progress)\n        run = JSimplex.solve_with_precision_recovery(ws, JSimplex.SimplexRunBudget(ws), policy, ()->false)\n        expected = [1.0, -5e15, 1.0]\n        exact_A = Matrix(Rational{BigInt}.(p.A))\n        exact_x = Rational{BigInt}.(expected)",
+      "kind": "call"
+    },
+    {
+      "file": "test/simplex_precision_decision_tests.jl",
+      "line": 52,
+      "text": "    ws = JSimplex.initialize_from_basis(p, basis, options; policy, progress)",
+      "context": "    basis = JSimplex.Basis([1, 2],\n        [JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_LOWER])\n    ws = JSimplex.initialize_from_basis(p, basis, options; policy, progress)\n    run = JSimplex.solve_with_precision_recovery(ws, JSimplex.SimplexRunBudget(ws), policy, ()->false)\n    @test run isa JSimplex.DualRunResult{Float32}\n    @test run.status == JSimplex.OPTIMAL\n    @test levels == [53]",
+      "kind": "call"
+    },
+    {
+      "file": "test/simplex_precision_decision_tests.jl",
+      "line": 68,
+      "text": "        JSimplex.initialize_from_basis(p, basis, SolverOptions(BigFloat; verbose=false); policy)",
+      "context": "        basis = JSimplex.Basis([1, 2],\n            [JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_LOWER])\n        JSimplex.initialize_from_basis(p, basis, SolverOptions(BigFloat; verbose=false); policy)\n    end\n    run = setprecision(BigFloat, 64) do\n        result = JSimplex.solve_with_precision_recovery(ws, JSimplex.SimplexRunBudget(ws),\n            ws.progress.numerical_policy, ()->false)",
+      "kind": "call"
+    },
+    {
+      "file": "test/simplex_precision_recovery_helpers.jl",
+      "line": 15,
+      "text": "    return JSimplex.initialize_from_basis(problem, basis, options; policy, progress)",
+      "context": "    basis = JSimplex.Basis([1, 2],\n        [JSimplex.BASIC, JSimplex.BASIC, JSimplex.AT_LOWER, JSimplex.AT_LOWER])\n    return JSimplex.initialize_from_basis(problem, basis, options; policy, progress)\nend",
+      "kind": "call"
+    },
+    {
+      "file": "test/simplex_precision_state_tests.jl",
+      "line": 7,
+      "text": "        ws=JSimplex.initialize_from_basis(p,",
+      "context": "        p=LinearProblem(sparse([1.0 1.0]),[1.0,2.0];row_lower=[1.0])\n        policy=JSimplex.NumericalPolicy(Float64;simplex_strategy=:adaptive,sparse_pricing=true)\n        ws=JSimplex.initialize_from_basis(p,\n            JSimplex.Basis([1],[JSimplex.BASIC,JSimplex.AT_LOWER,JSimplex.AT_LOWER]),\n            SolverOptions(;verbose=false);policy)\n        journal=JSimplex.PerturbationJournal(ws)\n        journal.bounds=JSimplex.BoundPerturbationState(ws)",
+      "kind": "call"
+    },
+    {
+      "file": "test/simplex_precision_state_tests.jl",
+      "line": 61,
+      "text": "                JSimplex.initialize_from_basis(p,",
+      "context": "            ws=setprecision(BigFloat,512) do\n                p=LinearProblem(sparse(BigFloat[1 1]),BigFloat[1,2];row_lower=BigFloat[1])\n                JSimplex.initialize_from_basis(p,\n                    JSimplex.Basis([1],[JSimplex.BASIC,JSimplex.AT_LOWER,JSimplex.AT_LOWER]),\n                    SolverOptions(BigFloat;verbose=false))\n            end\n            high=setprecision(BigFloat,1024) do",
+      "kind": "call"
+    },
+    {
+      "file": "test/simplex_precision_state_tests.jl",
+      "line": 160,
+      "text": "            ws=JSimplex.initialize_from_basis(p,",
+      "context": "            p=LinearProblem(sparse(T[2 1;1 3]),T[1,2];row_lower=T[2,0],row_upper=T[2,0])\n            policy=JSimplex.NumericalPolicy(T)\n            ws=JSimplex.initialize_from_basis(p,\n                JSimplex.Basis([1,2],[JSimplex.BASIC,JSimplex.BASIC,JSimplex.AT_LOWER,JSimplex.AT_LOWER]),\n                SolverOptions(T;verbose=false,pricing=:steepest_edge);policy)\n            fill!(ws.pricing_weights,T(999))\n            S,bits=T===Float64 ? (BigFloat,128) : (T,0)",
+      "kind": "call"
+    },
+    {
+      "file": "test/simplex_precision_state_tests.jl",
+      "line": 264,
+      "text": "            ws=JSimplex.initialize_from_basis(p,",
+      "context": "            p=LinearProblem(sparse([1.0 1.0]),[1.0,2.0];row_lower=[1.0])\n            policy=JSimplex.NumericalPolicy(Float64;simplex_strategy=:adaptive,sparse_pricing=true)\n            ws=JSimplex.initialize_from_basis(p,\n                JSimplex.Basis([1],[JSimplex.BASIC,JSimplex.AT_LOWER,JSimplex.AT_LOWER]),\n                SolverOptions(;verbose=false);policy,\n                progress=JSimplex.SimplexProgressContext(p;diagnostics=d,numerical_policy=policy))\n            journal=JSimplex.PerturbationJournal(ws)",
+      "kind": "call"
+    },
+    {
+      "file": "test/simplex_precision_tests.jl",
+      "line": 72,
+      "text": "            ws=JSimplex.initialize_from_basis(p,basis,options;policy,progress)",
+      "context": "                JSimplex.Scaling(T[2,4],T[0.5,2]),7,11,nothing,policy)\n            basis=JSimplex.Basis([1,2],[JSimplex.BASIC,JSimplex.BASIC,JSimplex.AT_LOWER,JSimplex.AT_LOWER])\n            ws=JSimplex.initialize_from_basis(p,basis,options;policy,progress)\n            ws.iterations=3;ws.refactorizations=5\n            budget=JSimplex.SimplexRunBudget(ws)\n            budget.iterations=12;budget.refactorizations=20\n            old_key=precision_model_key(p)",
+      "kind": "call"
+    },
+    {
+      "file": "test/simplex_precision_working_bits_tests.jl",
+      "line": 13,
+      "text": "        JSimplex.initialize_from_basis(p,basis,options;progress,policy=progress.numerical_policy)",
+      "context": "    end\n    ws=setprecision(BigFloat,1024) do\n        JSimplex.initialize_from_basis(p,basis,options;progress,policy=progress.numerical_policy)\n    end\n    @test minimum(precision,ws.primal[1:2])>=1024\n    fresh=setprecision(BigFloat,64) do\n        JSimplex.transfer_precision(ws,BigFloat,128,JSimplex.SimplexRunBudget(ws),progress.numerical_policy)",
+      "kind": "call"
+    },
+    {
+      "file": "test/simplex_start_guard_tests.jl",
+      "line": 83,
+      "text": "    @test_throws Union{SingularException,ZeroPivotException,JSimplex._UnreliableBasisSolve} JSimplex.initialize_from_basis(p,b,options)",
+      "context": "    options = SolverOptions(verbose=false)\n    b = JSimplex.Basis([1,2],[JSimplex.BASIC,JSimplex.BASIC,JSimplex.AT_LOWER,JSimplex.AT_LOWER])\n    @test_throws Union{SingularException,ZeroPivotException,JSimplex._UnreliableBasisSolve} JSimplex.initialize_from_basis(p,b,options)\n    b = JSimplex.Basis([3,4],[JSimplex.FREE_NONBASIC,JSimplex.AT_LOWER,JSimplex.BASIC,JSimplex.BASIC])\n    @test_throws ArgumentError JSimplex.initialize_from_basis(p,b,options)\n    b = JSimplex.Basis([3,4],[JSimplex.AT_UPPER,JSimplex.AT_LOWER,JSimplex.BASIC,JSimplex.BASIC])\n    @test_throws ArgumentError JSimplex.initialize_from_basis(p,b,options)",
+      "kind": "call"
+    },
+    {
+      "file": "test/simplex_start_guard_tests.jl",
+      "line": 85,
+      "text": "    @test_throws ArgumentError JSimplex.initialize_from_basis(p,b,options)",
+      "context": "    @test_throws Union{SingularException,ZeroPivotException,JSimplex._UnreliableBasisSolve} JSimplex.initialize_from_basis(p,b,options)\n    b = JSimplex.Basis([3,4],[JSimplex.FREE_NONBASIC,JSimplex.AT_LOWER,JSimplex.BASIC,JSimplex.BASIC])\n    @test_throws ArgumentError JSimplex.initialize_from_basis(p,b,options)\n    b = JSimplex.Basis([3,4],[JSimplex.AT_UPPER,JSimplex.AT_LOWER,JSimplex.BASIC,JSimplex.BASIC])\n    @test_throws ArgumentError JSimplex.initialize_from_basis(p,b,options)\nend\n",
+      "kind": "call"
+    },
+    {
+      "file": "test/simplex_start_guard_tests.jl",
+      "line": 87,
+      "text": "    @test_throws ArgumentError JSimplex.initialize_from_basis(p,b,options)",
+      "context": "    @test_throws ArgumentError JSimplex.initialize_from_basis(p,b,options)\n    b = JSimplex.Basis([3,4],[JSimplex.AT_UPPER,JSimplex.AT_LOWER,JSimplex.BASIC,JSimplex.BASIC])\n    @test_throws ArgumentError JSimplex.initialize_from_basis(p,b,options)\nend\n\n@testset \"Crash preserves stored BigFloat precision below ambient precision\" begin\n    setprecision(BigFloat,256) do",
+      "kind": "call"
+    },
+    {
+      "file": "test/simplex_start_guard_tests.jl",
+      "line": 98,
+      "text": "            ws = JSimplex.initialize_from_basis(p,b,options;policy)",
+      "context": "        setprecision(BigFloat,64) do\n            b = JSimplex.crash_basis(p,options,policy,()->false)\n            ws = JSimplex.initialize_from_basis(p,b,options;policy)\n            @test ws.primal[1] == 1\n            @test precision(ws.primal[1]) >= 256\n            @test precision(BigFloat) == 64\n            @test p.A[1,1] == coefficient",
+      "kind": "call"
+    },
+    {
+      "file": "test/simplex_start_state_tests.jl",
+      "line": 11,
+      "text": "        ws = JSimplex.initialize_from_basis(p,basis,options;policy)",
+      "context": "        policy = JSimplex.NumericalPolicy(Float64;crash=true)\n        basis = JSimplex.crash_basis(p,options,policy,()->false)\n        ws = JSimplex.initialize_from_basis(p,basis,options;policy)\n        @test ws.primal[1:3] == [2.0,3.0,1.0]\n        @test basis.states[1:3] == [JSimplex.AT_LOWER,JSimplex.AT_UPPER,JSimplex.BASIC]\n        @test iszero(JSimplex.primal_infeasibility(ws))\n    end",
+      "kind": "call"
+    },
+    {
+      "file": "test/simplex_start_state_tests.jl",
+      "line": 56,
+      "text": "    ws = JSimplex.initialize_from_basis(p,b,options;policy)",
+      "context": "    b = JSimplex.crash_basis(p,options,policy,()->false)\n    @test isempty(b.basic_indices) && isempty(b.states)\n    ws = JSimplex.initialize_from_basis(p,b,options;policy)\n    @test isempty(ws.primal)\n    @test JSimplex._recomputed_basis_reliable(ws)\nend\n",
+      "kind": "call"
+    },
+    {
+      "file": "test/simplex_start_tests.jl",
+      "line": 5,
+      "text": "    @test isdefined(JSimplex, :initialize_from_basis)",
+      "context": "@testset \"Guarded crash interfaces\" begin\n    @test isdefined(JSimplex, :crash_basis)\n    @test isdefined(JSimplex, :initialize_from_basis)\nend\n\nif isdefined(JSimplex, :crash_basis) && isdefined(JSimplex, :initialize_from_basis)\n    @testset \"Crash produces an owned feasible structural diagonal basis\" begin",
+      "kind": "isdefined"
+    },
+    {
+      "file": "test/simplex_start_tests.jl",
+      "line": 8,
+      "text": "if isdefined(JSimplex, :crash_basis) && isdefined(JSimplex, :initialize_from_basis)",
+      "context": "end\n\nif isdefined(JSimplex, :crash_basis) && isdefined(JSimplex, :initialize_from_basis)\n    @testset \"Crash produces an owned feasible structural diagonal basis\" begin\n        for T in (Float32, Float64, BigFloat, Rational{Int64}, Rational{BigInt}),\n            method in (:pfi, :forrest_tomlin, :suhl_suhl, :bartels_golub),\n            backend in (:native, :markowitz)",
+      "kind": "isdefined"
+    },
+    {
+      "file": "test/simplex_start_tests.jl",
+      "line": 20,
+      "text": "            ws = JSimplex.initialize_from_basis(p,b,options; policy)",
+      "context": "            b = JSimplex.crash_basis(p,options,policy,()->false)\n            @test Set(b.basic_indices) == Set([1,2])\n            ws = JSimplex.initialize_from_basis(p,b,options; policy)\n            @test ws.primal[1:2] \u2248 ones(T,2)\n            @test iszero(JSimplex.primal_infeasibility(ws))\n            @test JSimplex._recomputed_basis_reliable(ws)\n            @test ws.basis.basic_indices !== b.basic_indices",
+      "kind": "call"
+    },
+    {
+      "file": "test/simplex_start_tests.jl",
+      "line": 43,
+      "text": "            ws = JSimplex.initialize_from_basis(p,b,options;policy)",
+      "context": "            @test b.states == [sense == MIN_SENSE ? JSimplex.AT_UPPER : JSimplex.AT_LOWER,\n                JSimplex.AT_UPPER,JSimplex.AT_LOWER,JSimplex.FREE_NONBASIC]\n            ws = JSimplex.initialize_from_basis(p,b,options;policy)\n            @test ws.primal == [sense == MIN_SENSE ? 4.0 : 0.0,5.0,2.0,0.0]\n        end\n        p = LinearProblem(spzeros(2,0),Float64[];row_lower=[0.0,1.0])\n        b = JSimplex.crash_basis(p,SolverOptions(verbose=false),",
+      "kind": "call"
+    },
+    {
+      "file": "test/simplex_start_tests.jl",
+      "line": 60,
+      "text": "        ws = JSimplex.initialize_from_basis(p,b,options;policy)",
+      "context": "        @test !(1 in b.basic_indices && 2 in b.basic_indices)\n        @test !(3 in b.basic_indices)\n        ws = JSimplex.initialize_from_basis(p,b,options;policy)\n        @test JSimplex._recomputed_basis_reliable(ws)\n        slack = JSimplex.initialize_workspace(p,options)\n        @test JSimplex.primal_infeasibility(ws) <= JSimplex.primal_infeasibility(slack)\n        invalid = JSimplex.Basis([1,1],fill(JSimplex.BASIC,5))",
+      "kind": "call"
+    },
+    {
+      "file": "test/simplex_start_tests.jl",
+      "line": 65,
+      "text": "        @test_throws ArgumentError JSimplex.initialize_from_basis(p,invalid,options;policy)",
+      "context": "        @test JSimplex.primal_infeasibility(ws) <= JSimplex.primal_infeasibility(slack)\n        invalid = JSimplex.Basis([1,1],fill(JSimplex.BASIC,5))\n        @test_throws ArgumentError JSimplex.initialize_from_basis(p,invalid,options;policy)\n    end\n\n    @testset \"Crash consumes the existing clock and completed-step budget\" begin\n        p = LinearProblem(spdiagm(0=>[2.0,3.0]),ones(2);row_lower=[2.0,3.0])",
+      "kind": "call"
+    },
+    {
+      "file": "dev/tests/lp_refinement_benchmark_tests.jl",
+      "line": 9,
+      "text": "    ws=JSimplex.initialize_from_basis(p,basis,options)",
+      "context": "    options=SolverOptions(;verbose=false,presolve=false,scaling=:off)\n    basis=JSimplex.Basis([1],[JSimplex.BASIC,JSimplex.AT_LOWER])\n    ws=JSimplex.initialize_from_basis(p,basis,options)\n    ws.factorization=JSimplex._basis_factorization(sparse([2.0;;]),options)\n    ws.scratch.lp_dual_witness=[1.0]\n    @test JSimplexBenchmarks.benchmark_dual_witness(JSimplex,ws)==[1.0]\n    ws.scratch.lp_dual_witness=nothing",
+      "kind": "call"
+    },
+    {
+      "file": "dev/tests/lp_refinement_benchmark_tests.jl",
+      "line": 17,
+      "text": "        JSimplex.initialize_from_basis(p,basis,SolverOptions(BigFloat;verbose=false,presolve=false,scaling=:off))",
+      "context": "    bigws=setprecision(BigFloat,512) do\n        p=LinearProblem(sparse(BigFloat[1;;]),BigFloat[1];column_lower=BigFloat[0],row_lower=BigFloat[1])\n        JSimplex.initialize_from_basis(p,basis,SolverOptions(BigFloat;verbose=false,presolve=false,scaling=:off))\n    end\n    bigws.scratch.lp_dual_witness=setprecision(BigFloat,600) do\n        [BigFloat(1)+BigFloat(2)^(-500)]\n    end",
+      "kind": "call"
+    },
+    {
+      "file": "dev/tests/simplex_start_jet_tests.jl",
+      "line": 17,
+      "text": "        JET.@test_opt target_modules=(JSimplex,) JSimplex.initialize_from_basis(p,ws.basis,options;policy)",
+      "context": "        JET.@test_opt target_modules=(JSimplex,) JSimplex._start_nonbasic_state(ws.lower[1],ws.upper[1],one(T))\n        JET.@test_opt target_modules=(JSimplex,) JSimplex.crash_basis(p,options,policy,()->false)\n        JET.@test_opt target_modules=(JSimplex,) JSimplex.initialize_from_basis(p,ws.basis,options;policy)\n    end\nend",
+      "kind": "call"
+    }
+  ],
+  "rows": [
+    {
+      "run": "38142752357",
+      "head": "b720674097f662e2f8c3ea81590ea551d66a7e9a",
+      "conclusion": "failure",
+      "name": "Crash produces an owned feasible structural diagonal basis",
+      "file": "test/simplex_start_tests.jl",
+      "passed": 360,
+      "total": 360,
+      "line": 12248,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2652581Z   Crash produces an owned feasible structural diagonal basis                          | ^[[32m   360  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m   360  ^[[39m^[[0m    51.2s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2652581Z   Crash produces an owned feasible structural diagonal basis                          |    360                  360      51.2s",
+      "scope": "direct"
+    },
+    {
+      "run": "38142752357",
+      "head": "b720674097f662e2f8c3ea81590ea551d66a7e9a",
+      "conclusion": "failure",
+      "name": "Crash chooses legal objective-aware nonbasic states",
+      "file": "test/simplex_start_tests.jl",
+      "passed": 7,
+      "total": 7,
+      "line": 12249,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2653535Z   Crash chooses legal objective-aware nonbasic states                                 | ^[[32m     7  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     7  ^[[39m^[[0m     1.2s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2653535Z   Crash chooses legal objective-aware nonbasic states                                 |      7                    7       1.2s",
+      "scope": "direct"
+    },
+    {
+      "run": "38142752357",
+      "head": "b720674097f662e2f8c3ea81590ea551d66a7e9a",
+      "conclusion": "failure",
+      "name": "Crash guards dependent columns and zero columns",
+      "file": "test/simplex_start_tests.jl",
+      "passed": 5,
+      "total": 5,
+      "line": 12250,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2654465Z   Crash guards dependent columns and zero columns                                     | ^[[32m     5  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     5  ^[[39m^[[0m     0.7s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2654465Z   Crash guards dependent columns and zero columns                                     |      5                    5       0.7s",
+      "scope": "direct"
+    },
+    {
+      "run": "38142752357",
+      "head": "b720674097f662e2f8c3ea81590ea551d66a7e9a",
+      "conclusion": "failure",
+      "name": "Crash consumes the existing clock and completed-step budget",
+      "file": "test/simplex_start_tests.jl",
+      "passed": 12,
+      "total": 12,
+      "line": 12251,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2655410Z   Crash consumes the existing clock and completed-step budget                         | ^[[32m    12  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m    12  ^[[39m^[[0m  1m17.7s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2655410Z   Crash consumes the existing clock and completed-step budget                         |     12                   12    1m17.7s",
+      "scope": "adjacent crash/solver; not initializer stop"
+    },
+    {
+      "run": "38142752357",
+      "head": "b720674097f662e2f8c3ea81590ea551d66a7e9a",
+      "conclusion": "failure",
+      "name": "Imported start rejects singular bases and illegal nonbasic bounds",
+      "file": "test/simplex_start_guard_tests.jl",
+      "passed": 3,
+      "total": 3,
+      "line": 12342,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2713366Z   Imported start rejects singular bases and illegal nonbasic bounds                   | ^[[32m     3  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     3  ^[[39m^[[0m     0.2s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2713366Z   Imported start rejects singular bases and illegal nonbasic bounds                   |      3                    3       0.2s",
+      "scope": "direct"
+    },
+    {
+      "run": "38142752357",
+      "head": "b720674097f662e2f8c3ea81590ea551d66a7e9a",
+      "conclusion": "failure",
+      "name": "Crash preserves stored BigFloat precision below ambient precision",
+      "file": "test/simplex_start_guard_tests.jl",
+      "passed": 4,
+      "total": 4,
+      "line": 12343,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2713885Z   Crash preserves stored BigFloat precision below ambient precision                   | ^[[32m     4  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     4  ^[[39m^[[0m     1.2s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2713885Z   Crash preserves stored BigFloat precision below ambient precision                   |      4                    4       1.2s",
+      "scope": "direct"
+    },
+    {
+      "run": "38142752357",
+      "head": "b720674097f662e2f8c3ea81590ea551d66a7e9a",
+      "conclusion": "failure",
+      "name": "Crash respects fixed, upper-only and free variables with rows",
+      "file": "test/simplex_start_state_tests.jl",
+      "passed": 6,
+      "total": 6,
+      "line": 12346,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2715378Z   Crash respects fixed, upper-only and free variables with rows                       | ^[[32m     6  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     6  ^[[39m^[[0m     0.7s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2715378Z   Crash respects fixed, upper-only and free variables with rows                       |      6                    6       0.7s",
+      "scope": "direct"
+    },
+    {
+      "run": "38142752357",
+      "head": "b720674097f662e2f8c3ea81590ea551d66a7e9a",
+      "conclusion": "failure",
+      "name": "Crash handles the empty model",
+      "file": "test/simplex_start_state_tests.jl",
+      "passed": 3,
+      "total": 3,
+      "line": 12349,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2716933Z   Crash handles the empty model                                                       | ^[[32m     3  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     3  ^[[39m^[[0m     0.7s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T17:43:03.2716933Z   Crash handles the empty model                                                       |      3                    3       0.7s",
+      "scope": "direct"
+    },
+    {
+      "run": "38149970679",
+      "head": "4914cbb1b22f2c6bf4a18eef6816382682a65902",
+      "conclusion": "failure",
+      "name": "Crash produces an owned feasible structural diagonal basis",
+      "file": "test/simplex_start_tests.jl",
+      "passed": 360,
+      "total": 360,
+      "line": 12221,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4857046Z   Crash produces an owned feasible structural diagonal basis                          | ^[[32m   360  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m   360  ^[[39m^[[0m    56.7s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4857046Z   Crash produces an owned feasible structural diagonal basis                          |    360                  360      56.7s",
+      "scope": "direct"
+    },
+    {
+      "run": "38149970679",
+      "head": "4914cbb1b22f2c6bf4a18eef6816382682a65902",
+      "conclusion": "failure",
+      "name": "Crash chooses legal objective-aware nonbasic states",
+      "file": "test/simplex_start_tests.jl",
+      "passed": 7,
+      "total": 7,
+      "line": 12222,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4857992Z   Crash chooses legal objective-aware nonbasic states                                 | ^[[32m     7  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     7  ^[[39m^[[0m     1.4s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4857992Z   Crash chooses legal objective-aware nonbasic states                                 |      7                    7       1.4s",
+      "scope": "direct"
+    },
+    {
+      "run": "38149970679",
+      "head": "4914cbb1b22f2c6bf4a18eef6816382682a65902",
+      "conclusion": "failure",
+      "name": "Crash guards dependent columns and zero columns",
+      "file": "test/simplex_start_tests.jl",
+      "passed": 5,
+      "total": 5,
+      "line": 12223,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4858913Z   Crash guards dependent columns and zero columns                                     | ^[[32m     5  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     5  ^[[39m^[[0m     0.8s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4858913Z   Crash guards dependent columns and zero columns                                     |      5                    5       0.8s",
+      "scope": "direct"
+    },
+    {
+      "run": "38149970679",
+      "head": "4914cbb1b22f2c6bf4a18eef6816382682a65902",
+      "conclusion": "failure",
+      "name": "Crash consumes the existing clock and completed-step budget",
+      "file": "test/simplex_start_tests.jl",
+      "passed": 12,
+      "total": 12,
+      "line": 12224,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4859973Z   Crash consumes the existing clock and completed-step budget                         | ^[[32m    12  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m    12  ^[[39m^[[0m  1m22.5s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4859973Z   Crash consumes the existing clock and completed-step budget                         |     12                   12    1m22.5s",
+      "scope": "adjacent crash/solver; not initializer stop"
+    },
+    {
+      "run": "38149970679",
+      "head": "4914cbb1b22f2c6bf4a18eef6816382682a65902",
+      "conclusion": "failure",
+      "name": "Imported start rejects singular bases and illegal nonbasic bounds",
+      "file": "test/simplex_start_guard_tests.jl",
+      "passed": 3,
+      "total": 3,
+      "line": 12315,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4917142Z   Imported start rejects singular bases and illegal nonbasic bounds                   | ^[[32m     3  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     3  ^[[39m^[[0m     0.1s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4917142Z   Imported start rejects singular bases and illegal nonbasic bounds                   |      3                    3       0.1s",
+      "scope": "direct"
+    },
+    {
+      "run": "38149970679",
+      "head": "4914cbb1b22f2c6bf4a18eef6816382682a65902",
+      "conclusion": "failure",
+      "name": "Crash preserves stored BigFloat precision below ambient precision",
+      "file": "test/simplex_start_guard_tests.jl",
+      "passed": 4,
+      "total": 4,
+      "line": 12316,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4917645Z   Crash preserves stored BigFloat precision below ambient precision                   | ^[[32m     4  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     4  ^[[39m^[[0m     1.1s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4917645Z   Crash preserves stored BigFloat precision below ambient precision                   |      4                    4       1.1s",
+      "scope": "direct"
+    },
+    {
+      "run": "38149970679",
+      "head": "4914cbb1b22f2c6bf4a18eef6816382682a65902",
+      "conclusion": "failure",
+      "name": "Crash respects fixed, upper-only and free variables with rows",
+      "file": "test/simplex_start_state_tests.jl",
+      "passed": 6,
+      "total": 6,
+      "line": 12319,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4919134Z   Crash respects fixed, upper-only and free variables with rows                       | ^[[32m     6  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     6  ^[[39m^[[0m     0.6s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4919134Z   Crash respects fixed, upper-only and free variables with rows                       |      6                    6       0.6s",
+      "scope": "direct"
+    },
+    {
+      "run": "38149970679",
+      "head": "4914cbb1b22f2c6bf4a18eef6816382682a65902",
+      "conclusion": "failure",
+      "name": "Crash handles the empty model",
+      "file": "test/simplex_start_state_tests.jl",
+      "passed": 3,
+      "total": 3,
+      "line": 12322,
+      "raw": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4920565Z   Crash handles the empty model                                                       | ^[[32m     3  ^[[39m^[[91m      ^[[39m^[[91m       ^[[39m^[[36m     3  ^[[39m^[[0m     0.7s",
+      "normalized": "test\tUNKNOWN STEP\t2026-10-11T19:36:07.4920565Z   Crash handles the empty model                                                       |      3                    3       0.7s",
+      "scope": "direct"
+    }
+  ],
+  "test_comparisons": [
+    {
+      "run": "38142752357",
+      "file": "test/simplex_start_tests.jl",
+      "name": "Crash produces an owned feasible structural diagonal basis",
+      "whole_file_equal": true,
+      "historical_sha256": "6811ab6b36a0606612bba2821040e0a6bce24032cac0c26330ad991a2992ea53",
+      "current_sha256": "6811ab6b36a0606612bba2821040e0a6bce24032cac0c26330ad991a2992ea53"
+    },
+    {
+      "run": "38142752357",
+      "file": "test/simplex_start_tests.jl",
+      "name": "Crash chooses legal objective-aware nonbasic states",
+      "whole_file_equal": true,
+      "historical_sha256": "6811ab6b36a0606612bba2821040e0a6bce24032cac0c26330ad991a2992ea53",
+      "current_sha256": "6811ab6b36a0606612bba2821040e0a6bce24032cac0c26330ad991a2992ea53"
+    },
+    {
+      "run": "38142752357",
+      "file": "test/simplex_start_tests.jl",
+      "name": "Crash guards dependent columns and zero columns",
+      "whole_file_equal": true,
+      "historical_sha256": "6811ab6b36a0606612bba2821040e0a6bce24032cac0c26330ad991a2992ea53",
+      "current_sha256": "6811ab6b36a0606612bba2821040e0a6bce24032cac0c26330ad991a2992ea53"
+    },
+    {
+      "run": "38142752357",
+      "file": "test/simplex_start_tests.jl",
+      "name": "Crash consumes the existing clock and completed-step budget",
+      "whole_file_equal": true,
+      "historical_sha256": "6811ab6b36a0606612bba2821040e0a6bce24032cac0c26330ad991a2992ea53",
+      "current_sha256": "6811ab6b36a0606612bba2821040e0a6bce24032cac0c26330ad991a2992ea53"
+    },
+    {
+      "run": "38142752357",
+      "file": "test/simplex_start_guard_tests.jl",
+      "name": "Imported start rejects singular bases and illegal nonbasic bounds",
+      "whole_file_equal": true,
+      "historical_sha256": "961dde7f8a354565bdcb206e2bc41e71f8f9d319fca77dfeee20c35caf500acc",
+      "current_sha256": "961dde7f8a354565bdcb206e2bc41e71f8f9d319fca77dfeee20c35caf500acc"
+    },
+    {
+      "run": "38142752357",
+      "file": "test/simplex_start_guard_tests.jl",
+      "name": "Crash preserves stored BigFloat precision below ambient precision",
+      "whole_file_equal": true,
+      "historical_sha256": "961dde7f8a354565bdcb206e2bc41e71f8f9d319fca77dfeee20c35caf500acc",
+      "current_sha256": "961dde7f8a354565bdcb206e2bc41e71f8f9d319fca77dfeee20c35caf500acc"
+    },
+    {
+      "run": "38142752357",
+      "file": "test/simplex_start_state_tests.jl",
+      "name": "Crash respects fixed, upper-only and free variables with rows",
+      "whole_file_equal": true,
+      "historical_sha256": "47b2cc12ea40055262bc3912beb17cfd00a0ffe3b92e7ca54970dc85eae511ad",
+      "current_sha256": "47b2cc12ea40055262bc3912beb17cfd00a0ffe3b92e7ca54970dc85eae511ad"
+    },
+    {
+      "run": "38142752357",
+      "file": "test/simplex_start_state_tests.jl",
+      "name": "Crash handles the empty model",
+      "whole_file_equal": true,
+      "historical_sha256": "47b2cc12ea40055262bc3912beb17cfd00a0ffe3b92e7ca54970dc85eae511ad",
+      "current_sha256": "47b2cc12ea40055262bc3912beb17cfd00a0ffe3b92e7ca54970dc85eae511ad"
+    },
+    {
+      "run": "38149970679",
+      "file": "test/simplex_start_tests.jl",
+      "name": "Crash produces an owned feasible structural diagonal basis",
+      "whole_file_equal": true,
+      "historical_sha256": "6811ab6b36a0606612bba2821040e0a6bce24032cac0c26330ad991a2992ea53",
+      "current_sha256": "6811ab6b36a0606612bba2821040e0a6bce24032cac0c26330ad991a2992ea53"
+    },
+    {
+      "run": "38149970679",
+      "file": "test/simplex_start_tests.jl",
+      "name": "Crash chooses legal objective-aware nonbasic states",
+      "whole_file_equal": true,
+      "historical_sha256": "6811ab6b36a0606612bba2821040e0a6bce24032cac0c26330ad991a2992ea53",
+      "current_sha256": "6811ab6b36a0606612bba2821040e0a6bce24032cac0c26330ad991a2992ea53"
+    },
+    {
+      "run": "38149970679",
+      "file": "test/simplex_start_tests.jl",
+      "name": "Crash guards dependent columns and zero columns",
+      "whole_file_equal": true,
+      "historical_sha256": "6811ab6b36a0606612bba2821040e0a6bce24032cac0c26330ad991a2992ea53",
+      "current_sha256": "6811ab6b36a0606612bba2821040e0a6bce24032cac0c26330ad991a2992ea53"
+    },
+    {
+      "run": "38149970679",
+      "file": "test/simplex_start_tests.jl",
+      "name": "Crash consumes the existing clock and completed-step budget",
+      "whole_file_equal": true,
+      "historical_sha256": "6811ab6b36a0606612bba2821040e0a6bce24032cac0c26330ad991a2992ea53",
+      "current_sha256": "6811ab6b36a0606612bba2821040e0a6bce24032cac0c26330ad991a2992ea53"
+    },
+    {
+      "run": "38149970679",
+      "file": "test/simplex_start_guard_tests.jl",
+      "name": "Imported start rejects singular bases and illegal nonbasic bounds",
+      "whole_file_equal": true,
+      "historical_sha256": "961dde7f8a354565bdcb206e2bc41e71f8f9d319fca77dfeee20c35caf500acc",
+      "current_sha256": "961dde7f8a354565bdcb206e2bc41e71f8f9d319fca77dfeee20c35caf500acc"
+    },
+    {
+      "run": "38149970679",
+      "file": "test/simplex_start_guard_tests.jl",
+      "name": "Crash preserves stored BigFloat precision below ambient precision",
+      "whole_file_equal": true,
+      "historical_sha256": "961dde7f8a354565bdcb206e2bc41e71f8f9d319fca77dfeee20c35caf500acc",
+      "current_sha256": "961dde7f8a354565bdcb206e2bc41e71f8f9d319fca77dfeee20c35caf500acc"
+    },
+    {
+      "run": "38149970679",
+      "file": "test/simplex_start_state_tests.jl",
+      "name": "Crash respects fixed, upper-only and free variables with rows",
+      "whole_file_equal": true,
+      "historical_sha256": "47b2cc12ea40055262bc3912beb17cfd00a0ffe3b92e7ca54970dc85eae511ad",
+      "current_sha256": "47b2cc12ea40055262bc3912beb17cfd00a0ffe3b92e7ca54970dc85eae511ad"
+    },
+    {
+      "run": "38149970679",
+      "file": "test/simplex_start_state_tests.jl",
+      "name": "Crash handles the empty model",
+      "whole_file_equal": true,
+      "historical_sha256": "47b2cc12ea40055262bc3912beb17cfd00a0ffe3b92e7ca54970dc85eae511ad",
+      "current_sha256": "47b2cc12ea40055262bc3912beb17cfd00a0ffe3b92e7ca54970dc85eae511ad"
+    }
+  ],
+  "source_comparisons": [
+    {
+      "run": "38142752357",
+      "file": "src/simplex_start.jl",
+      "equal": true,
+      "historical_sha256": "8ef26328942d942cb1af04e5915f86e9026bde3318ee871e6ccdf90d88086ed4",
+      "current_sha256": "8ef26328942d942cb1af04e5915f86e9026bde3318ee871e6ccdf90d88086ed4"
+    },
+    {
+      "run": "38142752357",
+      "file": "src/simplex.jl",
+      "equal": true,
+      "historical_sha256": "adcff4aee5f6b3bde5988e82fc2c7c9ad75749e06c33250a526dff0a7f0462b8",
+      "current_sha256": "adcff4aee5f6b3bde5988e82fc2c7c9ad75749e06c33250a526dff0a7f0462b8"
+    },
+    {
+      "run": "38142752357",
+      "file": "src/simplex_recovery.jl",
+      "equal": true,
+      "historical_sha256": "d68055947b8cedfd0eb6cb554f656ef80b942bf85a64e3b8ccd2881d9e37761c",
+      "current_sha256": "d68055947b8cedfd0eb6cb554f656ef80b942bf85a64e3b8ccd2881d9e37761c"
+    },
+    {
+      "run": "38142752357",
+      "file": "src/simplex_driver.jl",
+      "equal": true,
+      "historical_sha256": "dcbc52f104a96c5914f638f48f3de606faec0d7d117feb742ade39e19b4b55a9",
+      "current_sha256": "dcbc52f104a96c5914f638f48f3de606faec0d7d117feb742ade39e19b4b55a9"
+    },
+    {
+      "run": "38142752357",
+      "file": "src/dual_simplex.jl",
+      "equal": true,
+      "historical_sha256": "dcbf4dd3260044f8f25138b4cad5d936f4b7b15cab0267404e77a0a3d3647c68",
+      "current_sha256": "dcbf4dd3260044f8f25138b4cad5d936f4b7b15cab0267404e77a0a3d3647c68"
+    },
+    {
+      "run": "38142752357",
+      "file": "src/simplex_numerics.jl",
+      "equal": true,
+      "historical_sha256": "7173dbdfcd020c61819008d5ff1ad7a647d00711fbd50eefcfacf15ff852a8cd",
+      "current_sha256": "7173dbdfcd020c61819008d5ff1ad7a647d00711fbd50eefcfacf15ff852a8cd"
+    },
+    {
+      "run": "38142752357",
+      "file": "src/options.jl",
+      "equal": true,
+      "historical_sha256": "421873c308043c29c46243c2831c8cc681c669eef2bfd08a52cde1090d6f8791",
+      "current_sha256": "421873c308043c29c46243c2831c8cc681c669eef2bfd08a52cde1090d6f8791"
+    },
+    {
+      "run": "38142752357",
+      "file": "src/simplex_pricing.jl",
+      "equal": true,
+      "historical_sha256": "0cfdf2f757e9d4521f5d895fe31a0df0b62a63257e199d841ad6115923486b10",
+      "current_sha256": "0cfdf2f757e9d4521f5d895fe31a0df0b62a63257e199d841ad6115923486b10"
+    },
+    {
+      "run": "38142752357",
+      "file": "src/simplex_diagnostics.jl",
+      "equal": true,
+      "historical_sha256": "0c27c8675e87fdaa6f97e834453c35121f0bdc080b845ef8c960dba55d8cfa12",
+      "current_sha256": "0c27c8675e87fdaa6f97e834453c35121f0bdc080b845ef8c960dba55d8cfa12"
+    },
+    {
+      "run": "38142752357",
+      "file": "src/refactorization_policy.jl",
+      "equal": true,
+      "historical_sha256": "13761274267091498832c31c1336595a68ba0bc54cda76518267f676fd7c0f17",
+      "current_sha256": "13761274267091498832c31c1336595a68ba0bc54cda76518267f676fd7c0f17"
+    },
+    {
+      "run": "38142752357",
+      "file": "src/hypersparse_pipeline.jl",
+      "equal": true,
+      "historical_sha256": "f1c9d010e3be89d7ac78d05f6339fe812c5496afbee647756409be4fd93bbe09",
+      "current_sha256": "f1c9d010e3be89d7ac78d05f6339fe812c5496afbee647756409be4fd93bbe09"
+    },
+    {
+      "run": "38142752357",
+      "file": "src/simplex_perturbation.jl",
+      "equal": false,
+      "historical_sha256": "5de8c95b2ed663bb964a03b54d974493c883e0eb302ff32d4aef28fabfdc4e5c",
+      "current_sha256": "8eb35a82a124e841517859e907f13928ad433edcd9598d75f02184c29e1c38e7"
+    },
+    {
+      "run": "38149970679",
+      "file": "src/simplex_start.jl",
+      "equal": true,
+      "historical_sha256": "8ef26328942d942cb1af04e5915f86e9026bde3318ee871e6ccdf90d88086ed4",
+      "current_sha256": "8ef26328942d942cb1af04e5915f86e9026bde3318ee871e6ccdf90d88086ed4"
+    },
+    {
+      "run": "38149970679",
+      "file": "src/simplex.jl",
+      "equal": true,
+      "historical_sha256": "adcff4aee5f6b3bde5988e82fc2c7c9ad75749e06c33250a526dff0a7f0462b8",
+      "current_sha256": "adcff4aee5f6b3bde5988e82fc2c7c9ad75749e06c33250a526dff0a7f0462b8"
+    },
+    {
+      "run": "38149970679",
+      "file": "src/simplex_recovery.jl",
+      "equal": true,
+      "historical_sha256": "d68055947b8cedfd0eb6cb554f656ef80b942bf85a64e3b8ccd2881d9e37761c",
+      "current_sha256": "d68055947b8cedfd0eb6cb554f656ef80b942bf85a64e3b8ccd2881d9e37761c"
+    },
+    {
+      "run": "38149970679",
+      "file": "src/simplex_driver.jl",
+      "equal": true,
+      "historical_sha256": "dcbc52f104a96c5914f638f48f3de606faec0d7d117feb742ade39e19b4b55a9",
+      "current_sha256": "dcbc52f104a96c5914f638f48f3de606faec0d7d117feb742ade39e19b4b55a9"
+    },
+    {
+      "run": "38149970679",
+      "file": "src/dual_simplex.jl",
+      "equal": true,
+      "historical_sha256": "dcbf4dd3260044f8f25138b4cad5d936f4b7b15cab0267404e77a0a3d3647c68",
+      "current_sha256": "dcbf4dd3260044f8f25138b4cad5d936f4b7b15cab0267404e77a0a3d3647c68"
+    },
+    {
+      "run": "38149970679",
+      "file": "src/simplex_numerics.jl",
+      "equal": true,
+      "historical_sha256": "7173dbdfcd020c61819008d5ff1ad7a647d00711fbd50eefcfacf15ff852a8cd",
+      "current_sha256": "7173dbdfcd020c61819008d5ff1ad7a647d00711fbd50eefcfacf15ff852a8cd"
+    },
+    {
+      "run": "38149970679",
+      "file": "src/options.jl",
+      "equal": true,
+      "historical_sha256": "421873c308043c29c46243c2831c8cc681c669eef2bfd08a52cde1090d6f8791",
+      "current_sha256": "421873c308043c29c46243c2831c8cc681c669eef2bfd08a52cde1090d6f8791"
+    },
+    {
+      "run": "38149970679",
+      "file": "src/simplex_pricing.jl",
+      "equal": true,
+      "historical_sha256": "0cfdf2f757e9d4521f5d895fe31a0df0b62a63257e199d841ad6115923486b10",
+      "current_sha256": "0cfdf2f757e9d4521f5d895fe31a0df0b62a63257e199d841ad6115923486b10"
+    },
+    {
+      "run": "38149970679",
+      "file": "src/simplex_diagnostics.jl",
+      "equal": true,
+      "historical_sha256": "0c27c8675e87fdaa6f97e834453c35121f0bdc080b845ef8c960dba55d8cfa12",
+      "current_sha256": "0c27c8675e87fdaa6f97e834453c35121f0bdc080b845ef8c960dba55d8cfa12"
+    },
+    {
+      "run": "38149970679",
+      "file": "src/refactorization_policy.jl",
+      "equal": true,
+      "historical_sha256": "13761274267091498832c31c1336595a68ba0bc54cda76518267f676fd7c0f17",
+      "current_sha256": "13761274267091498832c31c1336595a68ba0bc54cda76518267f676fd7c0f17"
+    },
+    {
+      "run": "38149970679",
+      "file": "src/hypersparse_pipeline.jl",
+      "equal": true,
+      "historical_sha256": "f1c9d010e3be89d7ac78d05f6339fe812c5496afbee647756409be4fd93bbe09",
+      "current_sha256": "f1c9d010e3be89d7ac78d05f6339fe812c5496afbee647756409be4fd93bbe09"
+    },
+    {
+      "run": "38149970679",
+      "file": "src/simplex_perturbation.jl",
+      "equal": false,
+      "historical_sha256": "5de8c95b2ed663bb964a03b54d974493c883e0eb302ff32d4aef28fabfdc4e5c",
+      "current_sha256": "8eb35a82a124e841517859e907f13928ad433edcd9598d75f02184c29e1c38e7"
+    }
+  ],
+  "excerpts": [
+    {
+      "file": "src/simplex_start.jl",
+      "start_line": 1,
+      "path": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-P/excerpts/initializer.txt",
+      "sha256": "fd99c56fa3f44521e574a8e3252ac84ff768d7ce03406bc9ab64015d740fb18d"
+    },
+    {
+      "file": "src/simplex.jl",
+      "start_line": 486,
+      "path": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-P/excerpts/initialization.txt",
+      "sha256": "6bbca631005fa8fa650a57c49e83a82859519411e9546c017e1de371a0e0ec11"
+    },
+    {
+      "file": "src/simplex.jl",
+      "start_line": 412,
+      "path": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-P/excerpts/recompute.txt",
+      "sha256": "96ff495394fb9cb2d04f9d2dab5dfef1de6ff4e051f9ea319abb080c49501ed4"
+    },
+    {
+      "file": "src/simplex_recovery.jl",
+      "start_line": 153,
+      "path": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-P/excerpts/quality.txt",
+      "sha256": "b5ceb98c64929d0b7e97736b7de2db83d540ea7bc74dbd8db7a4d9b0335177dc"
+    },
+    {
+      "file": "src/simplex_recovery.jl",
+      "start_line": 222,
+      "path": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-P/excerpts/checkpoint.txt",
+      "sha256": "35dd8ce741728dacff7adfe88ce79e0cd80b405390bc5005e01405ace4f434d1"
+    },
+    {
+      "file": "src/simplex_recovery.jl",
+      "start_line": 475,
+      "path": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-P/excerpts/checked_solve.txt",
+      "sha256": "f46b1b1ec09dfda5ca5cd098fbd4af5c6970d13f374c4888c02f75eea3517e0c"
+    }
+  ],
+  "sha256": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/simplex-core-architecture/S6-A/ci-inventory-1/38142752357-failed.log": "419dcf4520b9d77a40b7030ccf9fe41980733a34e06d5fcd880000d6dbfc5d01",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/simplex-core-architecture/S6-A/ci-inventory-1/38149970679-failed.log": "f57f68637b08b25f15035a186e128a3132a2e59a97478f10168e2d68da7ee9de",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.vscode/settings.json": "16ecc4f117e03a0cd5d0ce7436475429fd93d93f9539eff8978f471e8b782247",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/AGENTS.md": "648146ccd145178d776319aab53c5f09bf5578806dd53a8d1b440b96511b4232",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/LocalPreferences.toml": "172f3f5c30b44e8fbaf126aeb0b32bba900c83069215e9aaed3b4c3314119e54",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/Manifest.toml": "bfa0397481a520ef9e793c224c9cd856b151973c6a65060132e2e792c6e13ae3",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/dev/tests/lp_refinement_benchmark_tests.jl": "e302ce95665b3d1254709e89fd0c3d274ce01d1b401272ba094bc93459fd246d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/dev/tests/simplex_start_jet_tests.jl": "46d6b08fd29c2f58dcbeccf75eab8d94a13492bc8dae10fc01e762899fc96d9f",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/S5-DUAL-AUXILIARY-PENDING-OBSERVER-TEST-INTEGRATION-REVIEW.md": "4f1a9ba1d9ac4eaae619c9d18241ae1072a4f020a5ba5562180cd7eb3ff51a08",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/S5-DUAL-AUXILIARY-PENDING-OBSERVER-TEST-INTEGRATION.md": "d4a33832264d9c485913830277e5a5bdb09a78e66a5607d39c2a605799a87fab",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/S5-INVENTORY-NOTES.md": "ddb409274f89cbe31338daeeaed19f70147d7a60a853e01f1d184fcd96bbc715",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/S5-RESTORATION.md": "0b377ad75d39b9b547a92528ad055df2d26cc88ae06d84a3fbc7a41b184fde51",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/ADMISSION.md": "9862e43768009c64d74d088c294cdb48836ba72fafd29e6fdc41232ce95edaf5",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/admission-pins.json": "62734c4bbda7f19cf1e68b73d4c443bd038a259617fcb063ca17ae1f447ceab7",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/admission-reviewed-pins.json": "650edcba4a10ca6939656a166d309a683b2e4323556cbe42c71d6d796f975e21",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/amendment-independent.json": "fb5fdf2e9212feadf2d266db0e8f3daee9058a95a91a057f1a7a62da3b27493f",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/closure.json": "74d6bc66156e8d05ba477bc623d08f0d3e6269553950ceb25921963ca332f215",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/green-1/current.json": "c982ad898a6854ec275bc0992711e344bca9246c29f4e4de91bef457458061c9",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/green-1/pins.json": "5ad48365b59fc833c2fce3c03301a02cbcc88d5223ebbf877b0c220f7323a330",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/green-1/process.json": "78440be993bb4f0c82cb876bd69b8d296843a9fe5da6974bc116043786224619",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/green-1/raw/actual-helpers.jl": "0ae7df037f1803ed17df6c9618d635dd516abaf4f4c7d1e420d9003d98227dfd",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/green-1/raw/case.toml": "0641daa8a1d59d70b667f78c29f6d9323fecbf4ce1bac8ab8ba54a0b5c7abbfe",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/green-1/raw/executed-suffix.jl": "99373e8cb4186ae6c71092834b0f05518f3b76121ab37cc2c5ada70306820a71",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/green-1/raw/report.toml": "812391daa3c909a6e15c6148904ee9ef7f821e6b3a61b33eecbaf02e4c0dbd31",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/green-1/resources.jsonl": "7f81f1a942b26f457f52529700925af076e818c42acbb279f2c0458a88d1e863",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/green-1/run.log": "45e938adc4ec418c0d7de12b319d5756dc5b96fe8539582b06f25cdf8eca7f99",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/green-1-audit.json": "7f0746ed77229ff606abef3c1f816ca1a8db438e6a7d96d8cab0320de732316f",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/green-1-launch-binding.json": "7dc79b7c26b3326dd5a9b5cc673d4f07507fdb21a6651ce727ed9f992d6eca8c",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/green-1-postcheck.json": "275b03a407b43643efbf10534fad75b71145ffc33c041e0d31568f384c0f4525",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/green-acceptance.json": "9d69530cb92c20c5e2e96b768457ad5a4859f34321b2b6855e9af18a420b18c5",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/green-review.md": "3c88cea55dc2397ddb6f54b54ff2b4875d1a85248e8e54cc41823c2d7205043e",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/host-after-both.json": "f52b3e1ab56c12a8b42db70d2ad02a874bcddadac0fdffc4c5319af7c89f9a57",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/host-before-green-launch.json": "f52b3e1ab56c12a8b42db70d2ad02a874bcddadac0fdffc4c5319af7c89f9a57",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/host-before-master-edit.json": "f52b3e1ab56c12a8b42db70d2ad02a874bcddadac0fdffc4c5319af7c89f9a57",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/host-before-master-launch.json": "f52b3e1ab56c12a8b42db70d2ad02a874bcddadac0fdffc4c5319af7c89f9a57",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/host-before-test-edit.json": "f52b3e1ab56c12a8b42db70d2ad02a874bcddadac0fdffc4c5319af7c89f9a57",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/host-before.json": "e9acc6bd78fd5306572e101104c78a6418d777601272c95ae07cc3e02c6c0625",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/integration.json": "d1f652255b63890120dcc6589f2ce9318fa7cc7c8b1183952691c4db82a30d22",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/master-1/current.json": "ec4dcc8f046441a762a99812a5c153d1bfb92ca391294c64ecf5515284850296",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/master-1/pins.json": "4a93f5e75048361cf9c95d9962c87c258c275c62733b2157bb6c224cc811aec6",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/master-1/process.json": "e40dcae1b2e242d133ab9e9d4133fe3e2745a98d56083d064b370ce5a36064a6",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/master-1/raw/actual-helpers.jl": "0ae7df037f1803ed17df6c9618d635dd516abaf4f4c7d1e420d9003d98227dfd",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/master-1/raw/case.toml": "0641daa8a1d59d70b667f78c29f6d9323fecbf4ce1bac8ab8ba54a0b5c7abbfe",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/master-1/raw/executed-suffix.jl": "99373e8cb4186ae6c71092834b0f05518f3b76121ab37cc2c5ada70306820a71",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/master-1/raw/report.toml": "78719f89f267e4f36034bc602a70549b671b2c52465f6f50648a459c8be26eba",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/master-1/resources.jsonl": "6891d8039c2f066b617f9e4f43ba4f14e22265e560375b9cd684174c2dbe933c",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/master-1/run.log": "18c11149d601263ecbe9e16489d7b01e3d3f1978c0f9f7550242987fa46c1566",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/master-1-audit.json": "05490797d799edddb973042570b74c6ba828aeaf5c0c794919c04b7b82ef6859",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/master-1-launch-binding.json": "4ccd2f726ae99c387e2765751cef9672729f26c3cdc410233937571b4dd4dceb",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/master-1-postcheck.json": "aa50391067645d49f8281c0e22867472bcc45ca2c108675b90a93985a0f25224",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/master-acceptance.json": "da602386c7f7dd69ce8556351d56d4ac5a2addba914681c75d23cd307b462300",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/master-review.md": "4f1a9ba1d9ac4eaae619c9d18241ae1072a4f020a5ba5562180cd7eb3ff51a08",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/master-source-comparison.json": "f3cb882ec0f28fc9d8da74bd55bb1fc47e5e2e93b3b2c69bb2ac2989bbc95051",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/offline-independent.json": "cb687aa6015d0fb9df0aecb05638391884296da0d9f5f3a3e9329e9e0681a131",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/prelaunch-acceptance.json": "4c46c5fa328b2ab5191b15f75ab80f56e4aff0eba09dd24f39f69364a3bd6308",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/prelaunch-final-review.md": "a5a2d5f48487fe10c759dd2f2c015bd9ff9e720406485e63ef49f6f57eb005a1",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/prelaunch-review.md": "2dd240b821c515bbdbd271efe31cb5bf199c875e733d6643bdc436531bb7ee44",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/preparation.json": "009e932fd1d070834e89672e970048b05b7ac9292b3db1dbdc6e0eca3e9d3929",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/publication-check.json": "a05dd114c34717c3a202ce71c19a517ad25e75c7518308dc706a6b8585eab9de",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/review-fix.json": "16aaefbe47b40aff46a8c6183e42dd4c12cc95bd97ef8bf06cf14e38f44f8c03",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-O/schema.json": "f046ed630f573c9a5ab8de0861bfba65461847b8764d2c840f2ac411e6415249",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-P/excerpts/checked_solve.txt": "f46b1b1ec09dfda5ca5cd098fbd4af5c6970d13f374c4888c02f75eea3517e0c",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-P/excerpts/checkpoint.txt": "35dd8ce741728dacff7adfe88ce79e0cd80b405390bc5005e01405ace4f434d1",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-P/excerpts/initialization.txt": "6bbca631005fa8fa650a57c49e83a82859519411e9546c017e1de371a0e0ec11",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-P/excerpts/initializer.txt": "fd99c56fa3f44521e574a8e3252ac84ff768d7ce03406bc9ab64015d740fb18d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-P/excerpts/quality.txt": "b5ceb98c64929d0b7e97736b7de2db83d540ea7bc74dbd8db7a4d9b0335177dc",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-P/excerpts/recompute.txt": "96ff495394fb9cb2d04f9d2dab5dfef1de6ff4e051f9ea319abb080c49501ed4",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-P/host-before.json": "d8bd1d35f681ccf7894fdf3bba730530a420fdf3be0bfdca3ea7145d58cd34d2",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-P/host-check-1-failure.json": "c7d542d7bdab85620b1f8cb6c85d87e433c96dc9048cb168020fcdbff3d6e399",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-P/source-contract-1-failure.json": "283fad060d948679643d36d7e75574228862d707195ee62c18c4a047f614a5ed",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-P/source_contract.py": "2036ff8f29fdd252c789bcc72d5b4a7702c30a6e6ce35f0f095febf7c794c43b",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-P/source_contract_2.py": "aef55527cce9e052e2bfd1a9069868fd5bb5a533e322f4b595997b243786ee23",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S6-A/ci-inventory-1-38142752357-metadata.json": "3b08bb44f097fa63715d5210d83214b7ad7706a347f221a096f5b8374f635b97",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S6-A/ci-inventory-1-38149970679-metadata.json": "99c8d5557d9ff08b6912c18b66ce6504f4fce794ab573a93a24370bb4c12b687",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/docs/superpowers/plans/2026-10-13-basis-initialization-handoff-contract.md": "13fb9d94a5fe7510838b46d925fe48b74b730703625871d7ebb5b07f83944649",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/dual_simplex.jl": "dcbf4dd3260044f8f25138b4cad5d936f4b7b15cab0267404e77a0a3d3647c68",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/hypersparse_pipeline.jl": "f1c9d010e3be89d7ac78d05f6339fe812c5496afbee647756409be4fd93bbe09",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/options.jl": "421873c308043c29c46243c2831c8cc681c669eef2bfd08a52cde1090d6f8791",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/refactorization_policy.jl": "13761274267091498832c31c1336595a68ba0bc54cda76518267f676fd7c0f17",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/simplex.jl": "adcff4aee5f6b3bde5988e82fc2c7c9ad75749e06c33250a526dff0a7f0462b8",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/simplex_diagnostics.jl": "0c27c8675e87fdaa6f97e834453c35121f0bdc080b845ef8c960dba55d8cfa12",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/simplex_driver.jl": "dcbc52f104a96c5914f638f48f3de606faec0d7d117feb742ade39e19b4b55a9",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/simplex_numerics.jl": "7173dbdfcd020c61819008d5ff1ad7a647d00711fbd50eefcfacf15ff852a8cd",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/simplex_perturbation.jl": "8eb35a82a124e841517859e907f13928ad433edcd9598d75f02184c29e1c38e7",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/simplex_pricing.jl": "0cfdf2f757e9d4521f5d895fe31a0df0b62a63257e199d841ad6115923486b10",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/simplex_recovery.jl": "d68055947b8cedfd0eb6cb554f656ef80b942bf85a64e3b8ccd2881d9e37761c",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/simplex_start.jl": "8ef26328942d942cb1af04e5915f86e9026bde3318ee871e6ccdf90d88086ed4",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/huangfu_hall_integration_tests.jl": "60c430a0a9b58175915c8b60955951f8d923efc32df6098d8a7807106fab1c1b",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/huangfu_hall_scalar_integration_tests.jl": "6ae7142ae6bcff11edecda8478e916131526e25a1604910c7a7efb9c30d306d5",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/hypersparse_boundary_invalidation_tests.jl": "4e3a4b315cdf7b9863b0bdd2517ec260ec7ef2ebb5ad063cd4a182f0240babda",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/lp_refinement_diagnostic_tests.jl": "ad8a881bc7f1dde09cb0425c9f7e75a0ffc45f0fc7f37558675361149cd2a0cb",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/lp_refinement_factor_tests.jl": "0cb5957e9274279a66b26ff5256dcb5bc5505de4f3b39641b97f2a7ef9b00bce",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/lp_refinement_limit_tests.jl": "fda15ffa92574d2f0050a9c7a02d3082ae81aa43a10b24b39d0d3c640ba952b6",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/lp_refinement_projection_tests.jl": "9aa92d2a06c78d50eaeee74f4bd750764b1a2ab338a4bbbd938163702e8f476c",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/lp_refinement_recovery_tests.jl": "6a0bcfd0e17ffba7599575ce1afa7cba484abc4104fb0328aee96b90f89fbf4f",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/lp_refinement_tests.jl": "7693b927832753ed3f4ab66173a9579fb81d488e16bc0191e0c94355897df83d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/simplex_phase_one_completion_tests.jl": "2738a1a423642d9018a4e1cd80c651053253ac287fb56ed41a49f922842a1abe",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/simplex_phase_one_tests.jl": "b3c662c903b633ec2b664b5bb75fc342c043b77833ef88f07f700b930146c074",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/simplex_precision_decision_tests.jl": "3b8fc52cc65331c2b8de341eeb81c46749cb8a971ec6e4059fb32e7ba60940dc",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/simplex_precision_recovery_helpers.jl": "1921dc70b257f40afbe1b2576298f501040c6ef0b54527731e0eaa61555ba373",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/simplex_precision_state_tests.jl": "6b65d9194917ddde0e883fdb75c649a1d7eef229e57a210c11cc980fbc6d8616",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/simplex_precision_tests.jl": "b864b39bde32ee9a1c2b85ef57fdc6efd6d69a59c3a56571cdf62d8659bf4ba5",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/simplex_precision_working_bits_tests.jl": "b3dd28e00fb821760bb7ca9c57707bbeea125c4a06830ae0e33f36363db64149",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/simplex_start_guard_tests.jl": "961dde7f8a354565bdcb206e2bc41e71f8f9d319fca77dfeee20c35caf500acc",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/simplex_start_state_tests.jl": "47b2cc12ea40055262bc3912beb17cfd00a0ffe3b92e7ca54970dc85eae511ad",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/simplex_start_tests.jl": "6811ab6b36a0606612bba2821040e0a6bce24032cac0c26330ad991a2992ea53",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/julia": "ca0ca02a2fbae8ecf7291a76b2231d02df953b3f1bc6f2a2ec41801f5a21cf2a",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libLLVM-20jl.so": "d9a3cd50d464a933f6c74f25a41b768d13edafed7e154cf8480c1765026cf0cd",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libLLVM.so": "d9a3cd50d464a933f6c74f25a41b768d13edafed7e154cf8480c1765026cf0cd",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libamd.so": "25a9b19bb63f9dfc72ae0264d26eb08731aeda57aa60b381b17b3ab0e65fc2b1",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libatomic.so": "090ae096cd1dd366d3d031438b106f74ad992b066c0f2b3590213866ea88933b",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libblastrampoline.so": "d787d0d9cea73be77ce202b0c15b3833bb1fa6180bde1319f1bea3728e4d9c4b",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libbtf.so": "c1097bc81dd7495ca2fa81033878e60fe59a73ebbb6aa89f9c171b51ee3197ba",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libcamd.so": "6b7cf7ef19357bdb60d3da856e43f9da6cd92a3ad5b74a1ca7f3b568ab240ef4",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libccalllazybar.so": "337120d311b7749ee924ee1ea9aeee1b481c9c08884142f5bda7a6e0cb4d6b1c",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libccalllazyfoo.so": "acf4b5c1733164d23e92b66c748a1395d9fc3776f8ade1a151f11032857ed8f3",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libccalltest.so": "3e265c66e33b98b1019a9852ee17405b58a7204dcac5c2da7e423fe6528e69e0",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libccolamd.so": "18447e56bfefb5ae19ee21cfdf3565d2ec158002c7d9a4ea3f7648a5208f41d2",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libcholmod.so": "95746e0e07fd77314397f00c755f13f2ca2ef9f1b6718609b591eddaac2b05fd",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libcolamd.so": "dae6956a8349a85a3c1f8517b6edead1ade57411bc7d57d22199102b6960682d",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libcrypto.so": "1d3d609580303e8938e0de61b9344dc18bdb0ab75c90362e9f51a284ad0faf4a",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libcurl.so": "e21a2687e8eec3ea1188111cd5eced33da8db11a97312a3af33ad846b1db351d",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libdSFMT.so": "ad955fd65a08d97b28a9e1d86cb1cb9d7d48c6b646bd94083c8da6bf0892d92e",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libgcc_s.so": "0878796c5a36528b5e505efe73d0c546e814aa15737f85212428a025e3807b79",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libgfortran.so": "04845b31c73b986d5e4f814ce39524ce01a13f039ce5f76a67085b4f77c0cc9c",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libgit2.so": "5fc427ceea00e98f0b6519586405586d5e7d04ddc64a78b129280aeea0529265",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libgmp.so": "04236c039b46e97f1b7873a121dee4ae5271473f235712214e796fd19eb266e7",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libgmpxx.so": "3a8e6a922d9e2a0bead461d5ce9768ee12ea7b2df2677ddd97a3fa0957e48632",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libgomp.so": "c8cac5a40516cfa91dd3da0a4ed260f3eeeaa525be013a0a8e137c4f185d1e3b",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libjulia-codegen.so": "524ca0b756b363748161fc6d7a03fa9675d52ea239c135a699bf1a7b6100598c",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libjulia-internal.so": "1e01d92bd7431b31fd31b9c95bc3df796c7fbacbcc84bdbb3e9067aa0c0ec780",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libklu.so": "4bee1c4607475cc1a618d47b372f86e6dfb2ed2c994e024f551aaaf16719f430",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libldl.so": "5a21baab7eeccd3e9bf7866f3d0e8b1a35247cbd01bf8260143d1dd2c3066a76",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libllvmcalltest.so": "441b6c12f5d72674df581a6952247ddb12a7addd42dcb149b39e79d9ce2f2fe6",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libmpfr.so": "c98976bbe46a32f9518374f3f07e66d882ca86a2574f3d7b7ae7b9ab1509f6df",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libnghttp2.so": "7d89e7215153b56e6e9142c7e8f8f4623a3c3eeb732748322db5456350f5352d",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libopenblas64_.0.3.30.so": "4b3e2fc3277824ff3aa808e5a771d1ec6e0b7b297622065cf60123f8a1484c36",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libopenblas64_.so": "4b3e2fc3277824ff3aa808e5a771d1ec6e0b7b297622065cf60123f8a1484c36",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libopenlibm.so": "aae6e637275b12152883dc3215925f943075fad7284fd6349a3081d725c0b871",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libpcre2-8.so": "71848e488f0d4029e5dda21ed34d1e12f97305913bac540172d74d49ded2f5a4",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/librbio.so": "89f314548518189d8de60b85a097f7229e5d8213e0711b7ac3cbf8494b6998ca",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libspqr.so": "9aa206e04f78ec08ed75f6a8e35b7d813a6368df53480adec6fb3787550b2f85",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libssh2.so": "930a35915c5a82bc6a30f28355d59878842bd56d845cb361d383358d22b357d5",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libssl.so": "64762128a6bb5858bee9d51f9688dd4efa961593da0f84ab36601e7dd491813a",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libssp.so": "57e11f83929fe192cc16cffc26728a48a58d89bbfc0a3b0e90e1c0f33a8052a4",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libstdc++.so": "7a65a6748a08ae61498729249313a92ea528f8492ef670bb9bbbb045f16773a0",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libsuitesparseconfig.so": "ec7f4fb7af921ede7a836e9314bb530c34bd1119216ad8d029ca9d0be0c496bc",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libumfpack.so": "ab4db5e6b6930084f804ce6712858a41779b992af6619bed0ad7f55dcecfc949",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libunwind.so": "b175636dae8a359fc80fa10353dcec486124d6bd0463602ad3fa274ca55f857b",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libuv.so": "85d2025b5959f8f884a9c4f73b58605bfbe073011dbbe29c5b16bc66e0b3fcb1",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libz.so": "6f2159f3ddd23f65fb1bb0df8a6c81a95385cc30e2f5b67005895eb8c82fe086",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libzstd.so": "e889e932aa607122580842be45127323a8d72bdeb0960e5af5f68c6895e6ff77",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/sys.so": "84f975d243930d424ff384c568c2c7844412a528299c126085358aa8ac39f246",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/libjulia.so": "66bb2b41b09db16fd79d6c80aab47a7f2e33ce6bd9e04d62dcac5482b778a73d",
+    "/home/jspitz/JSimplex.jl/.vscode/settings.json": "8eb95bcbc154530931e15fc418c8b1fe991095671409552099ea1aa596999ede",
+    "/home/jspitz/JSimplex.jl/LocalPreferences.toml": "172f3f5c30b44e8fbaf126aeb0b32bba900c83069215e9aaed3b4c3314119e54",
+    "/home/jspitz/JSimplex.jl/Manifest.toml": "bfa0397481a520ef9e793c224c9cd856b151973c6a65060132e2e792c6e13ae3"
+  },
+  "time_ns": 1791854992617318640,
+  "scope": "Text/source evidence only, no Julia parsing or execution. At most one unqualified explicit-stop/checked-checkpoint composition; no defect or runtime admission."
+}

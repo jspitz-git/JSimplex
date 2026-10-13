@@ -1,0 +1,28 @@
+function _basis_primal_rhs(ws::SimplexWorkspace{T}) where T
+    m,n = size(ws.problem.A)
+    rhs = zeros(T,m)
+    for j in eachindex(ws.basis.states)
+        ws.basis.states[j] == BASIC && continue
+        value = _nonbasic_value(ws,j)
+        if j <= n
+            for p in nzrange(ws.problem.A,j)
+                rhs[ws.problem.A.rowval[p]] -= ws.problem.A.nzval[p]*value
+            end
+        else
+            rhs[j-n] += value
+        end
+    end
+    return rhs
+end
+
+# Only call immediately after recompute!, while rho still holds dual prices.
+function _recomputed_basis_reliable(ws::SimplexWorkspace{T}) where T
+    B = _basis_matrix!(ws)
+    rhs = _basis_primal_rhs(ws)
+    policy = ws.progress.numerical_policy
+    scratch = SolveQualityScratch(T,length(rhs))
+    solve_quality!(scratch,B,ws.primal[ws.basis.basic_indices],rhs,policy).reliable || return false
+    return solve_quality!(scratch,B,ws.scratch.rho,ws.costs[ws.basis.basic_indices],
+        policy;transposed=true).reliable
+end
+

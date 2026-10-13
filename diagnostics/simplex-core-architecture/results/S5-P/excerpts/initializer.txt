@@ -1,0 +1,79 @@
+_start_time_expired(progress, options) = options.time_limit != Inf &&
+    (time_ns()-progress.start_ns)/1e9 >= options.time_limit
+
+_with_start_precision(f, problem, policy) = f()
+function _with_start_precision(f, problem::LinearProblem{BigFloat}, policy)
+    bits = max(precision(BigFloat),precision(policy.solve_tolerance),
+        maximum(precision,problem.A.nzval;init=2),
+        maximum(precision,problem.objective;init=2))
+    for bounds in (problem.column_lower,problem.column_upper,problem.row_lower,problem.row_upper), b in bounds
+        isfinite(b) && (bits=max(bits,precision(bound_value(b))))
+    end
+    return setprecision(f,BigFloat,bits)
+end
+
+function _initialize_crash_workspace(problem,options,progress)
+    return _with_start_precision(problem,progress.numerical_policy) do
+        initialize_workspace(problem,options;progress)
+    end
+end
+
+function _start_primal_feasible(ws)
+    tolerance = ws.options.primal_tolerance
+    for j in ws.basis.basic_indices
+        value = ws.primal[j]
+        isfinite(value) && _lower_violation(ws.lower[j],value) <= tolerance &&
+            _upper_violation(ws.upper[j],value) <= tolerance || return false
+    end
+    return true
+end
+
+function _start_nonbasic_state(lower,upper,cost)
+    _is_fixed(lower,upper) && return AT_LOWER
+    cost < zero(cost) && isfinite(upper) && return AT_UPPER
+    isfinite(lower) && return AT_LOWER
+    isfinite(upper) && return AT_UPPER
+    return FREE_NONBASIC
+end
+
+function _slack_start_basis(problem)
+    m,n = size(problem.A)
+    states = Vector{VariableState}(undef,m+n)
+    for j in 1:n
+        states[j] = isfinite(problem.column_lower[j]) ? AT_LOWER :
+            isfinite(problem.column_upper[j]) ? AT_UPPER : FREE_NONBASIC
+    end
+    states[n+1:end] .= BASIC
+    return Basis(collect(n+1:n+m),states,Val(:owned))
+end
+
+"""Construct an owned workspace and verify a fresh factor for the supplied basis.
+
+This checks numerical solve quality, not primal or dual feasibility. The caller's
+progress context retains its original clock and outer retry offsets.
+"""
+function initialize_from_basis(problem::LinearProblem{T},basis::Basis,options::SolverOptions;
+    policy::NumericalPolicy{T}=NumericalPolicy(T,options),
+    progress::SimplexProgressContext{T}=SimplexProgressContext(problem;numerical_policy=policy),
+    stop=()->false) where T
+    guard = _guard_stop_callback(stop)
+    return _with_start_precision(problem,policy) do
+        ws = initialize_workspace(problem,options;progress)
+        _install_driver_policy!(ws,policy)
+        ws.basis = Basis(basis.basic_indices,basis.states)
+        _validate_basis(ws)
+        for j in eachindex(ws.basis.states)
+            state = ws.basis.states[j]
+            state == BASIC && continue
+            state == FREE_NONBASIC && (isfinite(ws.lower[j]) || isfinite(ws.upper[j])) &&
+                throw(ArgumentError("A free nonbasic variable must have no finite bounds"))
+            _nonbasic_value(ws,j) # Reject states referring to absent bounds.
+        end
+        _invalidate_basis_checkpoints!(ws)
+        recompute!(ws;refactorize=true,caller_guard=guard)
+        _finite_workspace(ws) && _recomputed_basis_reliable(ws) ||
+            throw(_UnreliableBasisSolve())
+        reset_devex!(ws)
+        return ws
+    end
+end
