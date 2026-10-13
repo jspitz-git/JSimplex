@@ -1,0 +1,6586 @@
+{
+  "cases": [
+    {
+      "name": "star8_sparse",
+      "scalar": "BigFloat128",
+      "median_ratio": 0.8505338078291816,
+      "minimum_ratio": 0.5965909090909091,
+      "maximum_ratio": 0.975,
+      "MAD": 0.05571619217081847,
+      "faster_pairs": 7,
+      "target_gate": null,
+      "control_gate": null,
+      "reference": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5.14e-05,
+          "bytes": 13024.0,
+          "compile_seconds": 0.0,
+          "allocations": 277.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0167265,
+          "recompile_seconds": 0.0,
+          "seconds": 0.197592401,
+          "bytes": 41067080.0,
+          "compile_seconds": 0.197547401,
+          "allocations": 740826.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 6.625e-06,
+          "bytes": 5104.0,
+          "compile_seconds": 0.0,
+          "allocations": 167.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.016379198,
+          "bytes": 2715912.0,
+          "compile_seconds": 0.016351798,
+          "allocations": 47626.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.7e-06,
+          "bytes": 2560.0,
+          "compile_seconds": 0.0,
+          "allocations": 80.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.0023643,
+          "bytes": 2336.0,
+          "compile_seconds": 0.0023533,
+          "allocations": 45.0
+        },
+        "backend_graph_bytes": [
+          10534,
+          10534,
+          10534,
+          10534,
+          10534,
+          10534,
+          10534
+        ],
+        "scratch_graph_bytes": [
+          144,
+          144,
+          144,
+          144,
+          144,
+          144,
+          144
+        ]
+      },
+      "candidate": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5.16e-05,
+          "bytes": 13024.0,
+          "compile_seconds": 0.0,
+          "allocations": 277.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.2122496,
+          "bytes": 43457976.0,
+          "compile_seconds": 0.2121952,
+          "allocations": 780573.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5.625e-06,
+          "bytes": 3568.0,
+          "compile_seconds": 0.0,
+          "allocations": 119.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.0095421,
+          "bytes": 2178576.0,
+          "compile_seconds": 0.0094923,
+          "allocations": 38188.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.45e-06,
+          "bytes": 1024.0,
+          "compile_seconds": 0.0,
+          "allocations": 32.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.0022778,
+          "bytes": 2336.0,
+          "compile_seconds": 0.0022648,
+          "allocations": 45.0
+        },
+        "backend_graph_bytes": [
+          10534,
+          10534,
+          10534,
+          10534,
+          10534,
+          10534,
+          10534
+        ],
+        "scratch_graph_bytes": [
+          144,
+          144,
+          144,
+          144,
+          144,
+          144,
+          144
+        ]
+      }
+    },
+    {
+      "name": "star8_sparse",
+      "scalar": "BigFloat256",
+      "median_ratio": 0.7635467980295567,
+      "minimum_ratio": 0.7523364485981309,
+      "maximum_ratio": 0.8181818181818182,
+      "MAD": 0.0064039408866994885,
+      "faster_pairs": 7,
+      "target_gate": null,
+      "control_gate": null,
+      "reference": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.68e-05,
+          "bytes": 13200.0,
+          "compile_seconds": 0.0,
+          "allocations": 277.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.63e-05,
+          "bytes": 5712.0,
+          "compile_seconds": 0.0,
+          "allocations": 167.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5.1e-06,
+          "bytes": 5712.0,
+          "compile_seconds": 0.0,
+          "allocations": 167.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 4.4e-06,
+          "bytes": 2880.0,
+          "compile_seconds": 0.0,
+          "allocations": 80.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.575e-06,
+          "bytes": 2880.0,
+          "compile_seconds": 0.0,
+          "allocations": 80.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1e-06,
+          "bytes": 288.0,
+          "compile_seconds": 0.0,
+          "allocations": 7.0
+        },
+        "backend_graph_bytes": [
+          10950,
+          10950,
+          10950,
+          10950,
+          10950,
+          10950,
+          10950
+        ],
+        "scratch_graph_bytes": [
+          176,
+          176,
+          176,
+          176,
+          176,
+          176,
+          176
+        ]
+      },
+      "candidate": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.57e-05,
+          "bytes": 13200.0,
+          "compile_seconds": 0.0,
+          "allocations": 277.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.54e-05,
+          "bytes": 3984.0,
+          "compile_seconds": 0.0,
+          "allocations": 119.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 3.975e-06,
+          "bytes": 3984.0,
+          "compile_seconds": 0.0,
+          "allocations": 119.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 3.2e-06,
+          "bytes": 1152.0,
+          "compile_seconds": 0.0,
+          "allocations": 32.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.4e-06,
+          "bytes": 1152.0,
+          "compile_seconds": 0.0,
+          "allocations": 32.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 9e-07,
+          "bytes": 288.0,
+          "compile_seconds": 0.0,
+          "allocations": 7.0
+        },
+        "backend_graph_bytes": [
+          10950,
+          10950,
+          10950,
+          10950,
+          10950,
+          10950,
+          10950
+        ],
+        "scratch_graph_bytes": [
+          176,
+          176,
+          176,
+          176,
+          176,
+          176,
+          176
+        ]
+      }
+    },
+    {
+      "name": "star8_sparse",
+      "scalar": "BigFloat512",
+      "median_ratio": 0.8043478260869564,
+      "minimum_ratio": 0.7265306122448979,
+      "maximum_ratio": 0.8399999999999999,
+      "MAD": 0.026105148262688616,
+      "faster_pairs": 7,
+      "target_gate": null,
+      "control_gate": null,
+      "reference": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 6.3e-06,
+          "bytes": 13728.0,
+          "compile_seconds": 0.0,
+          "allocations": 288.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 7e-06,
+          "bytes": 7616.0,
+          "compile_seconds": 0.0,
+          "allocations": 210.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5.8e-06,
+          "bytes": 7616.0,
+          "compile_seconds": 0.0,
+          "allocations": 210.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 3.4e-06,
+          "bytes": 3840.0,
+          "compile_seconds": 0.0,
+          "allocations": 100.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.975e-06,
+          "bytes": 3840.0,
+          "compile_seconds": 0.0,
+          "allocations": 100.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 6e-07,
+          "bytes": 384.0,
+          "compile_seconds": 0.0,
+          "allocations": 9.0
+        },
+        "backend_graph_bytes": [
+          11782,
+          11782,
+          11782,
+          11782,
+          11782,
+          11782,
+          11782
+        ],
+        "scratch_graph_bytes": [
+          240,
+          240,
+          240,
+          240,
+          240,
+          240,
+          240
+        ]
+      },
+      "candidate": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 6.3e-06,
+          "bytes": 13728.0,
+          "compile_seconds": 0.0,
+          "allocations": 288.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5.6e-06,
+          "bytes": 5312.0,
+          "compile_seconds": 0.0,
+          "allocations": 150.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 4.7e-06,
+          "bytes": 5312.0,
+          "compile_seconds": 0.0,
+          "allocations": 150.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.1e-06,
+          "bytes": 1536.0,
+          "compile_seconds": 0.0,
+          "allocations": 40.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.8e-06,
+          "bytes": 1536.0,
+          "compile_seconds": 0.0,
+          "allocations": 40.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 6e-07,
+          "bytes": 384.0,
+          "compile_seconds": 0.0,
+          "allocations": 9.0
+        },
+        "backend_graph_bytes": [
+          11782,
+          11782,
+          11782,
+          11782,
+          11782,
+          11782,
+          11782
+        ],
+        "scratch_graph_bytes": [
+          240,
+          240,
+          240,
+          240,
+          240,
+          240,
+          240
+        ]
+      }
+    },
+    {
+      "name": "star8_sparse",
+      "scalar": "RationalBigInt",
+      "median_ratio": 0.9495798319327732,
+      "minimum_ratio": 0.842741935483871,
+      "maximum_ratio": 1.7847533632286994,
+      "MAD": 0.10683789644890218,
+      "faster_pairs": 4,
+      "target_gate": null,
+      "control_gate": null,
+      "reference": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 3.6e-05,
+          "bytes": 14000.0,
+          "compile_seconds": 0.0,
+          "allocations": 272.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.204618501,
+          "bytes": 41586904.0,
+          "compile_seconds": 0.204580101,
+          "allocations": 750867.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5.575e-06,
+          "bytes": 10984.0,
+          "compile_seconds": 0.0,
+          "allocations": 294.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.0177277,
+          "bytes": 2731456.0,
+          "compile_seconds": 0.0177047,
+          "allocations": 48380.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.55e-06,
+          "bytes": 7872.0,
+          "compile_seconds": 0.0,
+          "allocations": 176.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.0057015,
+          "bytes": 89216.0,
+          "compile_seconds": 0.0056938,
+          "allocations": 1799.0
+        },
+        "backend_graph_bytes": [
+          11126,
+          11126,
+          11126,
+          11126,
+          11126,
+          11126,
+          11126
+        ],
+        "scratch_graph_bytes": [
+          384,
+          384,
+          384,
+          384,
+          384,
+          384,
+          384
+        ]
+      },
+      "candidate": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 3.55e-05,
+          "bytes": 14000.0,
+          "compile_seconds": 0.0,
+          "allocations": 272.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.237336995,
+          "bytes": 44017912.0,
+          "compile_seconds": 0.237292295,
+          "allocations": 793153.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5.475e-06,
+          "bytes": 6960.0,
+          "compile_seconds": 0.0,
+          "allocations": 201.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.007818399,
+          "bytes": 2141080.0,
+          "compile_seconds": 0.007795399,
+          "allocations": 38187.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.475e-06,
+          "bytes": 3292.0,
+          "compile_seconds": 0.0,
+          "allocations": 83.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.0027265,
+          "bytes": 3152.0,
+          "compile_seconds": 0.0027201,
+          "allocations": 69.0
+        },
+        "backend_graph_bytes": [
+          11126,
+          11126,
+          11126,
+          11126,
+          11126,
+          11126,
+          11126
+        ],
+        "scratch_graph_bytes": [
+          384,
+          384,
+          384,
+          384,
+          384,
+          384,
+          384
+        ]
+      }
+    },
+    {
+      "name": "star8_sparse",
+      "scalar": "Float32",
+      "median_ratio": 1.0975609756097562,
+      "minimum_ratio": 0.8666666666666666,
+      "maximum_ratio": 1.888888888888889,
+      "MAD": 0.19756097560975627,
+      "faster_pairs": 3,
+      "target_gate": null,
+      "control_gate": false,
+      "reference": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5e-05,
+          "bytes": 11424.0,
+          "compile_seconds": 0.0,
+          "allocations": 233.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.046903801,
+          "bytes": 10437248.0,
+          "compile_seconds": 0.046868001,
+          "allocations": 185073.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.075e-06,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.0158294,
+          "bytes": 2820480.0,
+          "compile_seconds": 0.0158201,
+          "allocations": 48732.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 3.5e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "backend_graph_bytes": [
+          8494,
+          8494,
+          8494,
+          8494,
+          8494,
+          8494,
+          8494
+        ]
+      },
+      "candidate": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5.14e-05,
+          "bytes": 11424.0,
+          "compile_seconds": 0.0,
+          "allocations": 233.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.048363699,
+          "bytes": 10492056.0,
+          "compile_seconds": 0.048331299,
+          "allocations": 185682.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.125e-06,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.0077029,
+          "bytes": 2223832.0,
+          "compile_seconds": 0.0076906,
+          "allocations": 38379.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 3.5e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "backend_graph_bytes": [
+          8494,
+          8494,
+          8494,
+          8494,
+          8494,
+          8494,
+          8494
+        ]
+      }
+    },
+    {
+      "name": "star8_sparse",
+      "scalar": "Float64",
+      "median_ratio": 1.0465116279069766,
+      "minimum_ratio": 0.9375000000000001,
+      "maximum_ratio": 1.1818181818181819,
+      "MAD": 0.07282741738066079,
+      "faster_pairs": 2,
+      "target_gate": null,
+      "control_gate": true,
+      "reference": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 3.73e-05,
+          "bytes": 11616.0,
+          "compile_seconds": 0.0,
+          "allocations": 233.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.0322584,
+          "bytes": 2356792.0,
+          "compile_seconds": 0.0322185,
+          "allocations": 41650.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.075e-06,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.0126146,
+          "bytes": 970352.0,
+          "compile_seconds": 0.012605,
+          "allocations": 17152.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 3e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "backend_graph_bytes": [
+          8870,
+          8870,
+          8870,
+          8870,
+          8870,
+          8870,
+          8870
+        ]
+      },
+      "candidate": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 3.58e-05,
+          "bytes": 11616.0,
+          "compile_seconds": 0.0,
+          "allocations": 233.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.034523399,
+          "bytes": 2414448.0,
+          "compile_seconds": 0.034488399,
+          "allocations": 42458.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.125e-06,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.004779,
+          "bytes": 370648.0,
+          "compile_seconds": 0.0047688,
+          "allocations": 6598.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.5e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "backend_graph_bytes": [
+          8870,
+          8870,
+          8870,
+          8870,
+          8870,
+          8870,
+          8870
+        ]
+      }
+    },
+    {
+      "name": "star8_dense",
+      "scalar": "BigFloat128",
+      "median_ratio": 0.7621621621621623,
+      "minimum_ratio": 0.46938775510204084,
+      "maximum_ratio": 0.8749999999999999,
+      "MAD": 0.04277440706012137,
+      "faster_pairs": 7,
+      "target_gate": null,
+      "control_gate": null,
+      "reference": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 4.28e-05,
+          "bytes": 13504.0,
+          "compile_seconds": 0.0,
+          "allocations": 283.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.3e-05,
+          "bytes": 5104.0,
+          "compile_seconds": 0.0,
+          "allocations": 167.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 4.725e-06,
+          "bytes": 5104.0,
+          "compile_seconds": 0.0,
+          "allocations": 167.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5.2e-06,
+          "bytes": 2560.0,
+          "compile_seconds": 0.0,
+          "allocations": 80.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.325e-06,
+          "bytes": 2560.0,
+          "compile_seconds": 0.0,
+          "allocations": 80.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 3.2e-06,
+          "bytes": 256.0,
+          "compile_seconds": 0.0,
+          "allocations": 7.0
+        },
+        "backend_graph_bytes": [
+          10534,
+          10534,
+          10534,
+          10534,
+          10534,
+          10534,
+          10534
+        ],
+        "scratch_graph_bytes": [
+          144,
+          144,
+          144,
+          144,
+          144,
+          144,
+          144
+        ]
+      },
+      "candidate": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 4.37e-05,
+          "bytes": 13504.0,
+          "compile_seconds": 0.0,
+          "allocations": 283.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.32e-05,
+          "bytes": 3568.0,
+          "compile_seconds": 0.0,
+          "allocations": 119.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 3.525e-06,
+          "bytes": 3568.0,
+          "compile_seconds": 0.0,
+          "allocations": 119.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 4e-06,
+          "bytes": 1024.0,
+          "compile_seconds": 0.0,
+          "allocations": 32.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.175e-06,
+          "bytes": 1024.0,
+          "compile_seconds": 0.0,
+          "allocations": 32.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 3.3e-06,
+          "bytes": 256.0,
+          "compile_seconds": 0.0,
+          "allocations": 7.0
+        },
+        "backend_graph_bytes": [
+          10534,
+          10534,
+          10534,
+          10534,
+          10534,
+          10534,
+          10534
+        ],
+        "scratch_graph_bytes": [
+          144,
+          144,
+          144,
+          144,
+          144,
+          144,
+          144
+        ]
+      }
+    },
+    {
+      "name": "star8_dense",
+      "scalar": "BigFloat256",
+      "median_ratio": 0.7929292929292928,
+      "minimum_ratio": 0.7772511848341231,
+      "maximum_ratio": 0.8926829268292683,
+      "MAD": 0.00606568194507906,
+      "faster_pairs": 7,
+      "target_gate": null,
+      "control_gate": null,
+      "reference": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 7.3e-06,
+          "bytes": 13680.0,
+          "compile_seconds": 0.0,
+          "allocations": 283.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 6.8e-06,
+          "bytes": 5712.0,
+          "compile_seconds": 0.0,
+          "allocations": 167.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5e-06,
+          "bytes": 5712.0,
+          "compile_seconds": 0.0,
+          "allocations": 167.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.9e-06,
+          "bytes": 2880.0,
+          "compile_seconds": 0.0,
+          "allocations": 80.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.55e-06,
+          "bytes": 2880.0,
+          "compile_seconds": 0.0,
+          "allocations": 80.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 6e-07,
+          "bytes": 288.0,
+          "compile_seconds": 0.0,
+          "allocations": 7.0
+        },
+        "backend_graph_bytes": [
+          10950,
+          10950,
+          10950,
+          10950,
+          10950,
+          10950,
+          10950
+        ],
+        "scratch_graph_bytes": [
+          176,
+          176,
+          176,
+          176,
+          176,
+          176,
+          176
+        ]
+      },
+      "candidate": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 8.1e-06,
+          "bytes": 13680.0,
+          "compile_seconds": 0.0,
+          "allocations": 283.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 6.6e-06,
+          "bytes": 3984.0,
+          "compile_seconds": 0.0,
+          "allocations": 119.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 4.05e-06,
+          "bytes": 3984.0,
+          "compile_seconds": 0.0,
+          "allocations": 119.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.8e-06,
+          "bytes": 1152.0,
+          "compile_seconds": 0.0,
+          "allocations": 32.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.4e-06,
+          "bytes": 1152.0,
+          "compile_seconds": 0.0,
+          "allocations": 32.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 8e-07,
+          "bytes": 288.0,
+          "compile_seconds": 0.0,
+          "allocations": 7.0
+        },
+        "backend_graph_bytes": [
+          10950,
+          10950,
+          10950,
+          10950,
+          10950,
+          10950,
+          10950
+        ],
+        "scratch_graph_bytes": [
+          176,
+          176,
+          176,
+          176,
+          176,
+          176,
+          176
+        ]
+      }
+    },
+    {
+      "name": "star8_dense",
+      "scalar": "BigFloat512",
+      "median_ratio": 0.8162393162393162,
+      "minimum_ratio": 0.7878787878787878,
+      "maximum_ratio": 0.9224137931034482,
+      "MAD": 0.011983997090380116,
+      "faster_pairs": 7,
+      "target_gate": null,
+      "control_gate": null,
+      "reference": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5e-06,
+          "bytes": 14208.0,
+          "compile_seconds": 0.0,
+          "allocations": 294.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 6.4e-06,
+          "bytes": 7616.0,
+          "compile_seconds": 0.0,
+          "allocations": 210.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5.825e-06,
+          "bytes": 7616.0,
+          "compile_seconds": 0.0,
+          "allocations": 210.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 3.2e-06,
+          "bytes": 3840.0,
+          "compile_seconds": 0.0,
+          "allocations": 100.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.925e-06,
+          "bytes": 3840.0,
+          "compile_seconds": 0.0,
+          "allocations": 100.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5e-07,
+          "bytes": 384.0,
+          "compile_seconds": 0.0,
+          "allocations": 9.0
+        },
+        "backend_graph_bytes": [
+          11782,
+          11782,
+          11782,
+          11782,
+          11782,
+          11782,
+          11782
+        ],
+        "scratch_graph_bytes": [
+          240,
+          240,
+          240,
+          240,
+          240,
+          240,
+          240
+        ]
+      },
+      "candidate": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5.5e-06,
+          "bytes": 14208.0,
+          "compile_seconds": 0.0,
+          "allocations": 294.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5.9e-06,
+          "bytes": 5312.0,
+          "compile_seconds": 0.0,
+          "allocations": 150.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 4.775e-06,
+          "bytes": 5312.0,
+          "compile_seconds": 0.0,
+          "allocations": 150.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.1e-06,
+          "bytes": 1536.0,
+          "compile_seconds": 0.0,
+          "allocations": 40.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.825e-06,
+          "bytes": 1536.0,
+          "compile_seconds": 0.0,
+          "allocations": 40.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 6e-07,
+          "bytes": 384.0,
+          "compile_seconds": 0.0,
+          "allocations": 9.0
+        },
+        "backend_graph_bytes": [
+          11782,
+          11782,
+          11782,
+          11782,
+          11782,
+          11782,
+          11782
+        ],
+        "scratch_graph_bytes": [
+          240,
+          240,
+          240,
+          240,
+          240,
+          240,
+          240
+        ]
+      }
+    },
+    {
+      "name": "star8_dense",
+      "scalar": "RationalBigInt",
+      "median_ratio": 0.8983050847457628,
+      "minimum_ratio": 0.6944444444444444,
+      "maximum_ratio": 1.1088082901554401,
+      "MAD": 0.06002824858757061,
+      "faster_pairs": 6,
+      "target_gate": null,
+      "control_gate": null,
+      "reference": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 3.16e-05,
+          "bytes": 14608.0,
+          "compile_seconds": 0.0,
+          "allocations": 278.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.44e-05,
+          "bytes": 12880.0,
+          "compile_seconds": 0.0,
+          "allocations": 294.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 4.6e-06,
+          "bytes": 11652.0,
+          "compile_seconds": 0.0,
+          "allocations": 294.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 6e-06,
+          "bytes": 6752.0,
+          "compile_seconds": 0.0,
+          "allocations": 176.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.45e-06,
+          "bytes": 6808.0,
+          "compile_seconds": 0.0,
+          "allocations": 176.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 4.1e-06,
+          "bytes": 816.0,
+          "compile_seconds": 0.0,
+          "allocations": 25.0
+        },
+        "backend_graph_bytes": [
+          11126,
+          11126,
+          11126,
+          11126,
+          11126,
+          11126,
+          11126
+        ],
+        "scratch_graph_bytes": [
+          384,
+          384,
+          384,
+          384,
+          384,
+          384,
+          384
+        ]
+      },
+      "candidate": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 3.1e-05,
+          "bytes": 14608.0,
+          "compile_seconds": 0.0,
+          "allocations": 278.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.57e-05,
+          "bytes": 8352.0,
+          "compile_seconds": 0.0,
+          "allocations": 201.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 3.975e-06,
+          "bytes": 7520.0,
+          "compile_seconds": 0.0,
+          "allocations": 201.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5.3e-06,
+          "bytes": 2976.0,
+          "compile_seconds": 0.0,
+          "allocations": 83.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.05e-06,
+          "bytes": 2964.0,
+          "compile_seconds": 0.0,
+          "allocations": 83.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 4.2e-06,
+          "bytes": 848.0,
+          "compile_seconds": 0.0,
+          "allocations": 25.0
+        },
+        "backend_graph_bytes": [
+          11126,
+          11126,
+          11126,
+          11126,
+          11126,
+          11126,
+          11126
+        ],
+        "scratch_graph_bytes": [
+          384,
+          384,
+          384,
+          384,
+          384,
+          384,
+          384
+        ]
+      }
+    },
+    {
+      "name": "star8_dense",
+      "scalar": "Float32",
+      "median_ratio": 1.1666666666666667,
+      "minimum_ratio": 0.75,
+      "maximum_ratio": 3.2,
+      "MAD": 0.16666666666666674,
+      "faster_pairs": 1,
+      "target_gate": null,
+      "control_gate": false,
+      "reference": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.41e-05,
+          "bytes": 11856.0,
+          "compile_seconds": 0.0,
+          "allocations": 239.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 6.5e-06,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.5e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.1e-06,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 7.5e-08,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "backend_graph_bytes": [
+          8494,
+          8494,
+          8494,
+          8494,
+          8494,
+          8494,
+          8494
+        ]
+      },
+      "candidate": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.39e-05,
+          "bytes": 11856.0,
+          "compile_seconds": 0.0,
+          "allocations": 239.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 6.4e-06,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.75e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.3e-06,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5e-08,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "backend_graph_bytes": [
+          8494,
+          8494,
+          8494,
+          8494,
+          8494,
+          8494,
+          8494
+        ]
+      }
+    },
+    {
+      "name": "star8_dense",
+      "scalar": "Float64",
+      "median_ratio": 1.0,
+      "minimum_ratio": 1.0,
+      "maximum_ratio": 1.4,
+      "MAD": 0.0,
+      "faster_pairs": 0,
+      "target_gate": null,
+      "control_gate": true,
+      "reference": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.47e-05,
+          "bytes": 12096.0,
+          "compile_seconds": 0.0,
+          "allocations": 239.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 6.3e-06,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.5e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.1e-06,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 7.5e-08,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "backend_graph_bytes": [
+          8870,
+          8870,
+          8870,
+          8870,
+          8870,
+          8870,
+          8870
+        ]
+      },
+      "candidate": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.51e-05,
+          "bytes": 12096.0,
+          "compile_seconds": 0.0,
+          "allocations": 239.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 6.2e-06,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.5e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.6e-06,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 7.5e-08,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "backend_graph_bytes": [
+          8870,
+          8870,
+          8870,
+          8870,
+          8870,
+          8870,
+          8870
+        ]
+      }
+    },
+    {
+      "name": "core8_sparse",
+      "scalar": "BigFloat128",
+      "median_ratio": 0.9934640522875817,
+      "minimum_ratio": 0.7490729295426453,
+      "maximum_ratio": 1.2978723404255321,
+      "MAD": 0.1313359477124183,
+      "faster_pairs": 4,
+      "target_gate": null,
+      "control_gate": true,
+      "reference": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5.25e-05,
+          "bytes": 54912.0,
+          "compile_seconds": 0.0,
+          "allocations": 1686.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 3.23e-05,
+          "bytes": 17632.0,
+          "compile_seconds": 0.0,
+          "allocations": 554.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.5425e-05,
+          "bytes": 17632.0,
+          "compile_seconds": 0.0,
+          "allocations": 554.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.2e-06,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 7.5e-08,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 3e-06,
+          "bytes": 256.0,
+          "compile_seconds": 0.0,
+          "allocations": 7.0
+        },
+        "backend_graph_bytes": [
+          5976,
+          5976,
+          5976,
+          5976,
+          5976,
+          5976,
+          5976
+        ],
+        "scratch_graph_bytes": [
+          144,
+          144,
+          144,
+          144,
+          144,
+          144,
+          144
+        ]
+      },
+      "candidate": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5.35e-05,
+          "bytes": 54912.0,
+          "compile_seconds": 0.0,
+          "allocations": 1686.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 3.29e-05,
+          "bytes": 17664.0,
+          "compile_seconds": 0.0,
+          "allocations": 556.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.5875e-05,
+          "bytes": 17664.0,
+          "compile_seconds": 0.0,
+          "allocations": 556.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.6e-06,
+          "bytes": 32.0,
+          "compile_seconds": 0.0,
+          "allocations": 2.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.25e-07,
+          "bytes": 32.0,
+          "compile_seconds": 0.0,
+          "allocations": 2.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 3.3e-06,
+          "bytes": 256.0,
+          "compile_seconds": 0.0,
+          "allocations": 7.0
+        },
+        "backend_graph_bytes": [
+          5976,
+          5976,
+          5976,
+          5976,
+          5976,
+          5976,
+          5976
+        ],
+        "scratch_graph_bytes": [
+          144,
+          144,
+          144,
+          144,
+          144,
+          144,
+          144
+        ]
+      }
+    },
+    {
+      "name": "core8_sparse",
+      "scalar": "BigFloat256",
+      "median_ratio": 0.9896602658788773,
+      "minimum_ratio": 0.9051833122629583,
+      "maximum_ratio": 1.0183206106870226,
+      "MAD": 0.014864620998950917,
+      "faster_pairs": 5,
+      "target_gate": null,
+      "control_gate": true,
+      "reference": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 6.12e-05,
+          "bytes": 61584.0,
+          "compile_seconds": 0.0,
+          "allocations": 1686.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.83e-05,
+          "bytes": 19824.0,
+          "compile_seconds": 0.0,
+          "allocations": 554.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.6925e-05,
+          "bytes": 19824.0,
+          "compile_seconds": 0.0,
+          "allocations": 554.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5e-08,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 6e-07,
+          "bytes": 288.0,
+          "compile_seconds": 0.0,
+          "allocations": 7.0
+        },
+        "backend_graph_bytes": [
+          7128,
+          7128,
+          7128,
+          7128,
+          7128,
+          7128,
+          7128
+        ],
+        "scratch_graph_bytes": [
+          176,
+          176,
+          176,
+          176,
+          176,
+          176,
+          176
+        ]
+      },
+      "candidate": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 6.13e-05,
+          "bytes": 61584.0,
+          "compile_seconds": 0.0,
+          "allocations": 1686.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.76e-05,
+          "bytes": 19856.0,
+          "compile_seconds": 0.0,
+          "allocations": 556.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.6725e-05,
+          "bytes": 19856.0,
+          "compile_seconds": 0.0,
+          "allocations": 556.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 4e-07,
+          "bytes": 32.0,
+          "compile_seconds": 0.0,
+          "allocations": 2.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1e-07,
+          "bytes": 32.0,
+          "compile_seconds": 0.0,
+          "allocations": 2.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 7e-07,
+          "bytes": 288.0,
+          "compile_seconds": 0.0,
+          "allocations": 7.0
+        },
+        "backend_graph_bytes": [
+          7128,
+          7128,
+          7128,
+          7128,
+          7128,
+          7128,
+          7128
+        ],
+        "scratch_graph_bytes": [
+          176,
+          176,
+          176,
+          176,
+          176,
+          176,
+          176
+        ]
+      }
+    },
+    {
+      "name": "core8_sparse",
+      "scalar": "BigFloat512",
+      "median_ratio": 0.9681122448979592,
+      "minimum_ratio": 0.9488139825218478,
+      "maximum_ratio": 1.0413625304136251,
+      "MAD": 0.01929826237611143,
+      "faster_pairs": 5,
+      "target_gate": null,
+      "control_gate": true,
+      "reference": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5.32e-05,
+          "bytes": 81600.0,
+          "compile_seconds": 0.0,
+          "allocations": 2103.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2e-05,
+          "bytes": 26432.0,
+          "compile_seconds": 0.0,
+          "allocations": 693.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.96e-05,
+          "bytes": 26432.0,
+          "compile_seconds": 0.0,
+          "allocations": 693.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5e-08,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 6e-07,
+          "bytes": 384.0,
+          "compile_seconds": 0.0,
+          "allocations": 9.0
+        },
+        "backend_graph_bytes": [
+          9432,
+          9432,
+          9432,
+          9432,
+          9432,
+          9432,
+          9432
+        ],
+        "scratch_graph_bytes": [
+          240,
+          240,
+          240,
+          240,
+          240,
+          240,
+          240
+        ]
+      },
+      "candidate": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5.12e-05,
+          "bytes": 81600.0,
+          "compile_seconds": 0.0,
+          "allocations": 2103.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.01e-05,
+          "bytes": 26464.0,
+          "compile_seconds": 0.0,
+          "allocations": 695.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.9e-05,
+          "bytes": 26464.0,
+          "compile_seconds": 0.0,
+          "allocations": 695.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 3e-07,
+          "bytes": 32.0,
+          "compile_seconds": 0.0,
+          "allocations": 2.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1e-07,
+          "bytes": 32.0,
+          "compile_seconds": 0.0,
+          "allocations": 2.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5e-07,
+          "bytes": 384.0,
+          "compile_seconds": 0.0,
+          "allocations": 9.0
+        },
+        "backend_graph_bytes": [
+          9432,
+          9432,
+          9432,
+          9432,
+          9432,
+          9432,
+          9432
+        ],
+        "scratch_graph_bytes": [
+          240,
+          240,
+          240,
+          240,
+          240,
+          240,
+          240
+        ]
+      }
+    },
+    {
+      "name": "core8_sparse",
+      "scalar": "RationalBigInt",
+      "median_ratio": 0.918639053254438,
+      "minimum_ratio": 0.8056628056628057,
+      "maximum_ratio": 1.1411149825783973,
+      "MAD": 0.07772996234534701,
+      "faster_pairs": 5,
+      "target_gate": null,
+      "control_gate": true,
+      "reference": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5.27e-05,
+          "bytes": 114128.0,
+          "compile_seconds": 0.0,
+          "allocations": 3017.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.24e-05,
+          "bytes": 44848.0,
+          "compile_seconds": 0.0,
+          "allocations": 1167.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.69e-05,
+          "bytes": 44896.0,
+          "compile_seconds": 0.0,
+          "allocations": 1167.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.9e-06,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 7.5e-08,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 3.3e-06,
+          "bytes": 800.0,
+          "compile_seconds": 0.0,
+          "allocations": 25.0
+        },
+        "backend_graph_bytes": [
+          6528,
+          6528,
+          6528,
+          6528,
+          6528,
+          6528,
+          6528
+        ],
+        "scratch_graph_bytes": [
+          384,
+          384,
+          384,
+          384,
+          384,
+          384,
+          384
+        ]
+      },
+      "candidate": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 4.73e-05,
+          "bytes": 113872.0,
+          "compile_seconds": 0.0,
+          "allocations": 3017.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.3e-05,
+          "bytes": 44928.0,
+          "compile_seconds": 0.0,
+          "allocations": 1167.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.555e-05,
+          "bytes": 44924.0,
+          "compile_seconds": 0.0,
+          "allocations": 1167.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.7e-06,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 7.5e-08,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 3.4e-06,
+          "bytes": 800.0,
+          "compile_seconds": 0.0,
+          "allocations": 25.0
+        },
+        "backend_graph_bytes": [
+          6528,
+          6528,
+          6528,
+          6528,
+          6528,
+          6528,
+          6528
+        ],
+        "scratch_graph_bytes": [
+          384,
+          384,
+          384,
+          384,
+          384,
+          384,
+          384
+        ]
+      }
+    },
+    {
+      "name": "core8_sparse",
+      "scalar": "Float32",
+      "median_ratio": 1.0,
+      "minimum_ratio": 1.0,
+      "maximum_ratio": 1.125,
+      "MAD": 0.0,
+      "faster_pairs": 0,
+      "target_gate": null,
+      "control_gate": true,
+      "reference": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 9.7e-06,
+          "bytes": 1216.0,
+          "compile_seconds": 0.0,
+          "allocations": 18.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5e-06,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.4e-06,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5e-08,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "backend_graph_bytes": [
+          1048,
+          1048,
+          1048,
+          1048,
+          1048,
+          1048,
+          1048
+        ]
+      },
+      "candidate": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 8.9e-06,
+          "bytes": 1216.0,
+          "compile_seconds": 0.0,
+          "allocations": 18.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 4.8e-06,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.7e-06,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5e-08,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "backend_graph_bytes": [
+          1048,
+          1048,
+          1048,
+          1048,
+          1048,
+          1048,
+          1048
+        ]
+      }
+    },
+    {
+      "name": "core8_sparse",
+      "scalar": "Float64",
+      "median_ratio": 1.0,
+      "minimum_ratio": 0.8888888888888888,
+      "maximum_ratio": 1.1428571428571428,
+      "MAD": 0.0,
+      "faster_pairs": 1,
+      "target_gate": null,
+      "control_gate": true,
+      "reference": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5.8e-06,
+          "bytes": 1536.0,
+          "compile_seconds": 0.0,
+          "allocations": 18.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 4.2e-06,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.6e-06,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5e-08,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "backend_graph_bytes": [
+          1368,
+          1368,
+          1368,
+          1368,
+          1368,
+          1368,
+          1368
+        ]
+      },
+      "candidate": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5.4e-06,
+          "bytes": 1536.0,
+          "compile_seconds": 0.0,
+          "allocations": 18.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 4.2e-06,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 8e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5e-08,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "backend_graph_bytes": [
+          1368,
+          1368,
+          1368,
+          1368,
+          1368,
+          1368,
+          1368
+        ]
+      }
+    },
+    {
+      "name": "core8_dense",
+      "scalar": "BigFloat128",
+      "median_ratio": 1.0100334448160535,
+      "minimum_ratio": 0.9572784810126581,
+      "maximum_ratio": 1.5050167224080269,
+      "MAD": 0.023141910634183693,
+      "faster_pairs": 2,
+      "target_gate": null,
+      "control_gate": true,
+      "reference": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 4.08e-05,
+          "bytes": 46720.0,
+          "compile_seconds": 0.0,
+          "allocations": 1430.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.65e-05,
+          "bytes": 17632.0,
+          "compile_seconds": 0.0,
+          "allocations": 554.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.51e-05,
+          "bytes": 17632.0,
+          "compile_seconds": 0.0,
+          "allocations": 554.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 3e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5e-08,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1e-06,
+          "bytes": 256.0,
+          "compile_seconds": 0.0,
+          "allocations": 7.0
+        },
+        "backend_graph_bytes": [
+          5976,
+          5976,
+          5976,
+          5976,
+          5976,
+          5976,
+          5976
+        ],
+        "scratch_graph_bytes": [
+          144,
+          144,
+          144,
+          144,
+          144,
+          144,
+          144
+        ]
+      },
+      "candidate": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 3.95e-05,
+          "bytes": 46720.0,
+          "compile_seconds": 0.0,
+          "allocations": 1430.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.61e-05,
+          "bytes": 17664.0,
+          "compile_seconds": 0.0,
+          "allocations": 556.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.5275e-05,
+          "bytes": 17664.0,
+          "compile_seconds": 0.0,
+          "allocations": 556.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 4e-07,
+          "bytes": 32.0,
+          "compile_seconds": 0.0,
+          "allocations": 2.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1e-07,
+          "bytes": 32.0,
+          "compile_seconds": 0.0,
+          "allocations": 2.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 6e-07,
+          "bytes": 256.0,
+          "compile_seconds": 0.0,
+          "allocations": 7.0
+        },
+        "backend_graph_bytes": [
+          5976,
+          5976,
+          5976,
+          5976,
+          5976,
+          5976,
+          5976
+        ],
+        "scratch_graph_bytes": [
+          144,
+          144,
+          144,
+          144,
+          144,
+          144,
+          144
+        ]
+      }
+    },
+    {
+      "name": "core8_dense",
+      "scalar": "BigFloat256",
+      "median_ratio": 0.9852724594992637,
+      "minimum_ratio": 0.924552429667519,
+      "maximum_ratio": 1.059001512859304,
+      "MAD": 0.02972004424886232,
+      "faster_pairs": 5,
+      "target_gate": null,
+      "control_gate": true,
+      "reference": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 4.19e-05,
+          "bytes": 52368.0,
+          "compile_seconds": 0.0,
+          "allocations": 1430.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.76e-05,
+          "bytes": 19824.0,
+          "compile_seconds": 0.0,
+          "allocations": 554.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.6975e-05,
+          "bytes": 19824.0,
+          "compile_seconds": 0.0,
+          "allocations": 554.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5e-08,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5e-07,
+          "bytes": 288.0,
+          "compile_seconds": 0.0,
+          "allocations": 7.0
+        },
+        "backend_graph_bytes": [
+          7128,
+          7128,
+          7128,
+          7128,
+          7128,
+          7128,
+          7128
+        ],
+        "scratch_graph_bytes": [
+          176,
+          176,
+          176,
+          176,
+          176,
+          176,
+          176
+        ]
+      },
+      "candidate": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 4.03e-05,
+          "bytes": 52368.0,
+          "compile_seconds": 0.0,
+          "allocations": 1430.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.71e-05,
+          "bytes": 19856.0,
+          "compile_seconds": 0.0,
+          "allocations": 556.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.6825e-05,
+          "bytes": 19856.0,
+          "compile_seconds": 0.0,
+          "allocations": 556.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 3e-07,
+          "bytes": 32.0,
+          "compile_seconds": 0.0,
+          "allocations": 2.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1e-07,
+          "bytes": 32.0,
+          "compile_seconds": 0.0,
+          "allocations": 2.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5e-07,
+          "bytes": 288.0,
+          "compile_seconds": 0.0,
+          "allocations": 7.0
+        },
+        "backend_graph_bytes": [
+          7128,
+          7128,
+          7128,
+          7128,
+          7128,
+          7128,
+          7128
+        ],
+        "scratch_graph_bytes": [
+          176,
+          176,
+          176,
+          176,
+          176,
+          176,
+          176
+        ]
+      }
+    },
+    {
+      "name": "core8_dense",
+      "scalar": "BigFloat512",
+      "median_ratio": 1.0038412291933418,
+      "minimum_ratio": 0.7463106113843992,
+      "maximum_ratio": 2.1262886597938144,
+      "MAD": 0.03823613365194056,
+      "faster_pairs": 3,
+      "target_gate": null,
+      "control_gate": true,
+      "reference": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 4.65e-05,
+          "bytes": 69312.0,
+          "compile_seconds": 0.0,
+          "allocations": 1783.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.03e-05,
+          "bytes": 26432.0,
+          "compile_seconds": 0.0,
+          "allocations": 693.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.9525e-05,
+          "bytes": 26432.0,
+          "compile_seconds": 0.0,
+          "allocations": 693.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5e-08,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5e-07,
+          "bytes": 384.0,
+          "compile_seconds": 0.0,
+          "allocations": 9.0
+        },
+        "backend_graph_bytes": [
+          9432,
+          9432,
+          9432,
+          9432,
+          9432,
+          9432,
+          9432
+        ],
+        "scratch_graph_bytes": [
+          240,
+          240,
+          240,
+          240,
+          240,
+          240,
+          240
+        ]
+      },
+      "candidate": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 4.6e-05,
+          "bytes": 69312.0,
+          "compile_seconds": 0.0,
+          "allocations": 1783.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.96e-05,
+          "bytes": 26464.0,
+          "compile_seconds": 0.0,
+          "allocations": 695.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.995e-05,
+          "bytes": 26464.0,
+          "compile_seconds": 0.0,
+          "allocations": 695.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 3e-07,
+          "bytes": 32.0,
+          "compile_seconds": 0.0,
+          "allocations": 2.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1e-07,
+          "bytes": 32.0,
+          "compile_seconds": 0.0,
+          "allocations": 2.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 6e-07,
+          "bytes": 384.0,
+          "compile_seconds": 0.0,
+          "allocations": 9.0
+        },
+        "backend_graph_bytes": [
+          9432,
+          9432,
+          9432,
+          9432,
+          9432,
+          9432,
+          9432
+        ],
+        "scratch_graph_bytes": [
+          240,
+          240,
+          240,
+          240,
+          240,
+          240,
+          240
+        ]
+      }
+    },
+    {
+      "name": "core8_dense",
+      "scalar": "RationalBigInt",
+      "median_ratio": 0.9828660436137072,
+      "minimum_ratio": 0.8333333333333333,
+      "maximum_ratio": 1.2949152542372881,
+      "MAD": 0.04959145252230501,
+      "faster_pairs": 4,
+      "target_gate": null,
+      "control_gate": true,
+      "reference": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 4e-05,
+          "bytes": 106384.0,
+          "compile_seconds": 0.0,
+          "allocations": 2761.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.03e-05,
+          "bytes": 44848.0,
+          "compile_seconds": 0.0,
+          "allocations": 1167.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.7125e-05,
+          "bytes": 44844.0,
+          "compile_seconds": 0.0,
+          "allocations": 1167.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 3e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5e-08,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1e-06,
+          "bytes": 800.0,
+          "compile_seconds": 0.0,
+          "allocations": 25.0
+        },
+        "backend_graph_bytes": [
+          6528,
+          6528,
+          6528,
+          6528,
+          6528,
+          6528,
+          6528
+        ],
+        "scratch_graph_bytes": [
+          384,
+          384,
+          384,
+          384,
+          384,
+          384,
+          384
+        ]
+      },
+      "candidate": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 4.38e-05,
+          "bytes": 106416.0,
+          "compile_seconds": 0.0,
+          "allocations": 2761.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.9e-05,
+          "bytes": 44784.0,
+          "compile_seconds": 0.0,
+          "allocations": 1167.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.6525e-05,
+          "bytes": 44808.0,
+          "compile_seconds": 0.0,
+          "allocations": 1167.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 4e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 7.5e-08,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.2e-06,
+          "bytes": 784.0,
+          "compile_seconds": 0.0,
+          "allocations": 25.0
+        },
+        "backend_graph_bytes": [
+          6528,
+          6528,
+          6528,
+          6528,
+          6528,
+          6528,
+          6528
+        ],
+        "scratch_graph_bytes": [
+          384,
+          384,
+          384,
+          384,
+          384,
+          384,
+          384
+        ]
+      }
+    },
+    {
+      "name": "core8_dense",
+      "scalar": "Float32",
+      "median_ratio": 1.0,
+      "minimum_ratio": 0.8571428571428571,
+      "maximum_ratio": 1.1666666666666667,
+      "MAD": 0.125,
+      "faster_pairs": 3,
+      "target_gate": null,
+      "control_gate": true,
+      "reference": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 3.6e-06,
+          "bytes": 1216.0,
+          "compile_seconds": 0.0,
+          "allocations": 18.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.5e-06,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.5e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 4e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5e-08,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "backend_graph_bytes": [
+          1048,
+          1048,
+          1048,
+          1048,
+          1048,
+          1048,
+          1048
+        ]
+      },
+      "candidate": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 3e-06,
+          "bytes": 1216.0,
+          "compile_seconds": 0.0,
+          "allocations": 18.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.6e-06,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.5e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 4e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5e-08,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "backend_graph_bytes": [
+          1048,
+          1048,
+          1048,
+          1048,
+          1048,
+          1048,
+          1048
+        ]
+      }
+    },
+    {
+      "name": "core8_dense",
+      "scalar": "Float64",
+      "median_ratio": 1.0,
+      "minimum_ratio": 0.75,
+      "maximum_ratio": 1.1666666666666667,
+      "MAD": 0.16666666666666674,
+      "faster_pairs": 2,
+      "target_gate": null,
+      "control_gate": true,
+      "reference": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.4e-06,
+          "bytes": 1536.0,
+          "compile_seconds": 0.0,
+          "allocations": 18.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.2e-06,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.5e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 4e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5e-08,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "backend_graph_bytes": [
+          1368,
+          1368,
+          1368,
+          1368,
+          1368,
+          1368,
+          1368
+        ]
+      },
+      "candidate": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.5e-06,
+          "bytes": 1536.0,
+          "compile_seconds": 0.0,
+          "allocations": 18.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.2e-06,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.5e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 4e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5e-08,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "backend_graph_bytes": [
+          1368,
+          1368,
+          1368,
+          1368,
+          1368,
+          1368,
+          1368
+        ]
+      }
+    },
+    {
+      "name": "star32_sparse",
+      "scalar": "BigFloat128",
+      "median_ratio": 0.5769980506822612,
+      "minimum_ratio": 0.5196261682242991,
+      "maximum_ratio": 0.6633064516129032,
+      "MAD": 0.02098174729753688,
+      "faster_pairs": 7,
+      "target_gate": null,
+      "control_gate": null,
+      "reference": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.91e-05,
+          "bytes": 42480.0,
+          "compile_seconds": 0.0,
+          "allocations": 821.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.47e-05,
+          "bytes": 14320.0,
+          "compile_seconds": 0.0,
+          "allocations": 455.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.255e-05,
+          "bytes": 14320.0,
+          "compile_seconds": 0.0,
+          "allocations": 455.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.08e-05,
+          "bytes": 11776.0,
+          "compile_seconds": 0.0,
+          "allocations": 368.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.0125e-05,
+          "bytes": 11776.0,
+          "compile_seconds": 0.0,
+          "allocations": 368.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5e-07,
+          "bytes": 256.0,
+          "compile_seconds": 0.0,
+          "allocations": 7.0
+        },
+        "backend_graph_bytes": [
+          38087,
+          38087,
+          38087,
+          38087,
+          38087,
+          38087,
+          38087
+        ],
+        "scratch_graph_bytes": [
+          144,
+          144,
+          144,
+          144,
+          144,
+          144,
+          144
+        ]
+      },
+      "candidate": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.96e-05,
+          "bytes": 42480.0,
+          "compile_seconds": 0.0,
+          "allocations": 821.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 9.9e-06,
+          "bytes": 6640.0,
+          "compile_seconds": 0.0,
+          "allocations": 215.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 7.35e-06,
+          "bytes": 6640.0,
+          "compile_seconds": 0.0,
+          "allocations": 215.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5.3e-06,
+          "bytes": 4096.0,
+          "compile_seconds": 0.0,
+          "allocations": 128.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 4.65e-06,
+          "bytes": 4096.0,
+          "compile_seconds": 0.0,
+          "allocations": 128.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 7e-07,
+          "bytes": 256.0,
+          "compile_seconds": 0.0,
+          "allocations": 7.0
+        },
+        "backend_graph_bytes": [
+          38087,
+          38087,
+          38087,
+          38087,
+          38087,
+          38087,
+          38087
+        ],
+        "scratch_graph_bytes": [
+          144,
+          144,
+          144,
+          144,
+          144,
+          144,
+          144
+        ]
+      }
+    },
+    {
+      "name": "star32_sparse",
+      "scalar": "BigFloat256",
+      "median_ratio": 0.5726495726495727,
+      "minimum_ratio": 0.3250230840258541,
+      "maximum_ratio": 0.6990990990990991,
+      "MAD": 0.010961260961261043,
+      "faster_pairs": 7,
+      "target_gate": true,
+      "control_gate": null,
+      "reference": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.23e-05,
+          "bytes": 42656.0,
+          "compile_seconds": 0.0,
+          "allocations": 821.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.53e-05,
+          "bytes": 16080.0,
+          "compile_seconds": 0.0,
+          "allocations": 455.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.445e-05,
+          "bytes": 16080.0,
+          "compile_seconds": 0.0,
+          "allocations": 455.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.17e-05,
+          "bytes": 13248.0,
+          "compile_seconds": 0.0,
+          "allocations": 368.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.125e-05,
+          "bytes": 13248.0,
+          "compile_seconds": 0.0,
+          "allocations": 368.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5e-07,
+          "bytes": 288.0,
+          "compile_seconds": 0.0,
+          "allocations": 7.0
+        },
+        "backend_graph_bytes": [
+          39655,
+          39655,
+          39655,
+          39655,
+          39655,
+          39655,
+          39655
+        ],
+        "scratch_graph_bytes": [
+          176,
+          176,
+          176,
+          176,
+          176,
+          176,
+          176
+        ]
+      },
+      "candidate": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.39e-05,
+          "bytes": 42656.0,
+          "compile_seconds": 0.0,
+          "allocations": 821.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.04e-05,
+          "bytes": 7440.0,
+          "compile_seconds": 0.0,
+          "allocations": 215.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 8.375e-06,
+          "bytes": 7440.0,
+          "compile_seconds": 0.0,
+          "allocations": 215.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 6.4e-06,
+          "bytes": 4608.0,
+          "compile_seconds": 0.0,
+          "allocations": 128.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5.825e-06,
+          "bytes": 4608.0,
+          "compile_seconds": 0.0,
+          "allocations": 128.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5e-07,
+          "bytes": 288.0,
+          "compile_seconds": 0.0,
+          "allocations": 7.0
+        },
+        "backend_graph_bytes": [
+          39655,
+          39655,
+          39655,
+          39655,
+          39655,
+          39655,
+          39655
+        ],
+        "scratch_graph_bytes": [
+          176,
+          176,
+          176,
+          176,
+          176,
+          176,
+          176
+        ]
+      }
+    },
+    {
+      "name": "star32_sparse",
+      "scalar": "BigFloat512",
+      "median_ratio": 0.6156968876860623,
+      "minimum_ratio": 0.5552631578947368,
+      "maximum_ratio": 0.6608557844690967,
+      "MAD": 0.03790812798791876,
+      "faster_pairs": 7,
+      "target_gate": true,
+      "control_gate": null,
+      "reference": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.35e-05,
+          "bytes": 43184.0,
+          "compile_seconds": 0.0,
+          "allocations": 832.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.78e-05,
+          "bytes": 21440.0,
+          "compile_seconds": 0.0,
+          "allocations": 570.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.81e-05,
+          "bytes": 21440.0,
+          "compile_seconds": 0.0,
+          "allocations": 570.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.35e-05,
+          "bytes": 17664.0,
+          "compile_seconds": 0.0,
+          "allocations": 460.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.315e-05,
+          "bytes": 17664.0,
+          "compile_seconds": 0.0,
+          "allocations": 460.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 6e-07,
+          "bytes": 384.0,
+          "compile_seconds": 0.0,
+          "allocations": 9.0
+        },
+        "backend_graph_bytes": [
+          42791,
+          42791,
+          42791,
+          42791,
+          42791,
+          42791,
+          42791
+        ],
+        "scratch_graph_bytes": [
+          240,
+          240,
+          240,
+          240,
+          240,
+          240,
+          240
+        ]
+      },
+      "candidate": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.24e-05,
+          "bytes": 43184.0,
+          "compile_seconds": 0.0,
+          "allocations": 832.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.17e-05,
+          "bytes": 9920.0,
+          "compile_seconds": 0.0,
+          "allocations": 270.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.055e-05,
+          "bytes": 9920.0,
+          "compile_seconds": 0.0,
+          "allocations": 270.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 8.1e-06,
+          "bytes": 6144.0,
+          "compile_seconds": 0.0,
+          "allocations": 160.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 7.675e-06,
+          "bytes": 6144.0,
+          "compile_seconds": 0.0,
+          "allocations": 160.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 6e-07,
+          "bytes": 384.0,
+          "compile_seconds": 0.0,
+          "allocations": 9.0
+        },
+        "backend_graph_bytes": [
+          42791,
+          42791,
+          42791,
+          42791,
+          42791,
+          42791,
+          42791
+        ],
+        "scratch_graph_bytes": [
+          240,
+          240,
+          240,
+          240,
+          240,
+          240,
+          240
+        ]
+      }
+    },
+    {
+      "name": "star32_sparse",
+      "scalar": "RationalBigInt",
+      "median_ratio": 0.8022388059701493,
+      "minimum_ratio": 0.7473002159827213,
+      "maximum_ratio": 0.8604118993135011,
+      "MAD": 0.027129635664472462,
+      "faster_pairs": 7,
+      "target_gate": true,
+      "control_gate": null,
+      "reference": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.97e-05,
+          "bytes": 46192.0,
+          "compile_seconds": 0.0,
+          "allocations": 816.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.45e-05,
+          "bytes": 34912.0,
+          "compile_seconds": 0.0,
+          "allocations": 930.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.145e-05,
+          "bytes": 34908.0,
+          "compile_seconds": 0.0,
+          "allocations": 930.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.07e-05,
+          "bytes": 30688.0,
+          "compile_seconds": 0.0,
+          "allocations": 812.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 9.775e-06,
+          "bytes": 30696.0,
+          "compile_seconds": 0.0,
+          "allocations": 812.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.4e-06,
+          "bytes": 816.0,
+          "compile_seconds": 0.0,
+          "allocations": 25.0
+        },
+        "backend_graph_bytes": [
+          40047,
+          40047,
+          40047,
+          40047,
+          40047,
+          40047,
+          40047
+        ],
+        "scratch_graph_bytes": [
+          384,
+          384,
+          384,
+          384,
+          384,
+          384,
+          384
+        ]
+      },
+      "candidate": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.95e-05,
+          "bytes": 46192.0,
+          "compile_seconds": 0.0,
+          "allocations": 816.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.51e-05,
+          "bytes": 15024.0,
+          "compile_seconds": 0.0,
+          "allocations": 417.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 9.225e-06,
+          "bytes": 15052.0,
+          "compile_seconds": 0.0,
+          "allocations": 417.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 8.1e-06,
+          "bytes": 10864.0,
+          "compile_seconds": 0.0,
+          "allocations": 299.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 7.4e-06,
+          "bytes": 10848.0,
+          "compile_seconds": 0.0,
+          "allocations": 299.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.1e-06,
+          "bytes": 832.0,
+          "compile_seconds": 0.0,
+          "allocations": 25.0
+        },
+        "backend_graph_bytes": [
+          40047,
+          40047,
+          40047,
+          40047,
+          40047,
+          40047,
+          40047
+        ],
+        "scratch_graph_bytes": [
+          384,
+          384,
+          384,
+          384,
+          384,
+          384,
+          384
+        ]
+      }
+    },
+    {
+      "name": "star32_sparse",
+      "scalar": "Float32",
+      "median_ratio": 0.9166666666666667,
+      "minimum_ratio": 0.7272727272727272,
+      "maximum_ratio": 1.3,
+      "MAD": 0.14743589743589758,
+      "faster_pairs": 4,
+      "target_gate": null,
+      "control_gate": true,
+      "reference": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.78e-05,
+          "bytes": 40256.0,
+          "compile_seconds": 0.0,
+          "allocations": 777.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.9e-06,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.75e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 7e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "backend_graph_bytes": [
+          30371,
+          30371,
+          30371,
+          30371,
+          30371,
+          30371,
+          30371
+        ]
+      },
+      "candidate": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.69e-05,
+          "bytes": 40256.0,
+          "compile_seconds": 0.0,
+          "allocations": 777.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.1e-06,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.75e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 6e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "backend_graph_bytes": [
+          30371,
+          30371,
+          30371,
+          30371,
+          30371,
+          30371,
+          30371
+        ]
+      }
+    },
+    {
+      "name": "star32_sparse",
+      "scalar": "Float64",
+      "median_ratio": 1.0,
+      "minimum_ratio": 1.0,
+      "maximum_ratio": 1.4285714285714286,
+      "MAD": 0.0,
+      "faster_pairs": 0,
+      "target_gate": null,
+      "control_gate": true,
+      "reference": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.73e-05,
+          "bytes": 41072.0,
+          "compile_seconds": 0.0,
+          "allocations": 777.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.9e-06,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.75e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 7e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "backend_graph_bytes": [
+          31815,
+          31815,
+          31815,
+          31815,
+          31815,
+          31815,
+          31815
+        ]
+      },
+      "candidate": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.6e-05,
+          "bytes": 41072.0,
+          "compile_seconds": 0.0,
+          "allocations": 777.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.7e-06,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "backend_graph_bytes": [
+          31815,
+          31815,
+          31815,
+          31815,
+          31815,
+          31815,
+          31815
+        ]
+      }
+    },
+    {
+      "name": "star32_dense",
+      "scalar": "BigFloat128",
+      "median_ratio": 0.5776031434184676,
+      "minimum_ratio": 0.46579804560260585,
+      "maximum_ratio": 0.6741803278688524,
+      "MAD": 0.025127895893715113,
+      "faster_pairs": 7,
+      "target_gate": null,
+      "control_gate": null,
+      "reference": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.92e-05,
+          "bytes": 43952.0,
+          "compile_seconds": 0.0,
+          "allocations": 827.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.45e-05,
+          "bytes": 14320.0,
+          "compile_seconds": 0.0,
+          "allocations": 455.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.2625e-05,
+          "bytes": 14320.0,
+          "compile_seconds": 0.0,
+          "allocations": 455.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.06e-05,
+          "bytes": 11776.0,
+          "compile_seconds": 0.0,
+          "allocations": 368.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.01e-05,
+          "bytes": 11776.0,
+          "compile_seconds": 0.0,
+          "allocations": 368.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 7e-07,
+          "bytes": 256.0,
+          "compile_seconds": 0.0,
+          "allocations": 7.0
+        },
+        "backend_graph_bytes": [
+          38087,
+          38087,
+          38087,
+          38087,
+          38087,
+          38087,
+          38087
+        ],
+        "scratch_graph_bytes": [
+          144,
+          144,
+          144,
+          144,
+          144,
+          144,
+          144
+        ]
+      },
+      "candidate": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.98e-05,
+          "bytes": 43952.0,
+          "compile_seconds": 0.0,
+          "allocations": 827.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 9e-06,
+          "bytes": 6640.0,
+          "compile_seconds": 0.0,
+          "allocations": 215.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 7.35e-06,
+          "bytes": 6640.0,
+          "compile_seconds": 0.0,
+          "allocations": 215.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5.4e-06,
+          "bytes": 4096.0,
+          "compile_seconds": 0.0,
+          "allocations": 128.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 4.8e-06,
+          "bytes": 4096.0,
+          "compile_seconds": 0.0,
+          "allocations": 128.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 6e-07,
+          "bytes": 256.0,
+          "compile_seconds": 0.0,
+          "allocations": 7.0
+        },
+        "backend_graph_bytes": [
+          38087,
+          38087,
+          38087,
+          38087,
+          38087,
+          38087,
+          38087
+        ],
+        "scratch_graph_bytes": [
+          144,
+          144,
+          144,
+          144,
+          144,
+          144,
+          144
+        ]
+      }
+    },
+    {
+      "name": "star32_dense",
+      "scalar": "BigFloat256",
+      "median_ratio": 0.6051188299817184,
+      "minimum_ratio": 0.592128801431127,
+      "maximum_ratio": 0.654320987654321,
+      "MAD": 0.012990028550591393,
+      "faster_pairs": 7,
+      "target_gate": true,
+      "control_gate": null,
+      "reference": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.48e-05,
+          "bytes": 44128.0,
+          "compile_seconds": 0.0,
+          "allocations": 827.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.48e-05,
+          "bytes": 16080.0,
+          "compile_seconds": 0.0,
+          "allocations": 455.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.3875e-05,
+          "bytes": 16080.0,
+          "compile_seconds": 0.0,
+          "allocations": 455.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.17e-05,
+          "bytes": 13248.0,
+          "compile_seconds": 0.0,
+          "allocations": 368.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.1175e-05,
+          "bytes": 13248.0,
+          "compile_seconds": 0.0,
+          "allocations": 368.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5e-07,
+          "bytes": 288.0,
+          "compile_seconds": 0.0,
+          "allocations": 7.0
+        },
+        "backend_graph_bytes": [
+          39655,
+          39655,
+          39655,
+          39655,
+          39655,
+          39655,
+          39655
+        ],
+        "scratch_graph_bytes": [
+          176,
+          176,
+          176,
+          176,
+          176,
+          176,
+          176
+        ]
+      },
+      "candidate": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.7e-05,
+          "bytes": 44128.0,
+          "compile_seconds": 0.0,
+          "allocations": 827.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 9.4e-06,
+          "bytes": 7440.0,
+          "compile_seconds": 0.0,
+          "allocations": 215.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 8.575e-06,
+          "bytes": 7440.0,
+          "compile_seconds": 0.0,
+          "allocations": 215.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 6.2e-06,
+          "bytes": 4608.0,
+          "compile_seconds": 0.0,
+          "allocations": 128.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5.9e-06,
+          "bytes": 4608.0,
+          "compile_seconds": 0.0,
+          "allocations": 128.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5e-07,
+          "bytes": 288.0,
+          "compile_seconds": 0.0,
+          "allocations": 7.0
+        },
+        "backend_graph_bytes": [
+          39655,
+          39655,
+          39655,
+          39655,
+          39655,
+          39655,
+          39655
+        ],
+        "scratch_graph_bytes": [
+          176,
+          176,
+          176,
+          176,
+          176,
+          176,
+          176
+        ]
+      }
+    },
+    {
+      "name": "star32_dense",
+      "scalar": "BigFloat512",
+      "median_ratio": 0.6506024096385542,
+      "minimum_ratio": 0.606060606060606,
+      "maximum_ratio": 0.8267090620031796,
+      "MAD": 0.03818116066160393,
+      "faster_pairs": 7,
+      "target_gate": true,
+      "control_gate": null,
+      "reference": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.56e-05,
+          "bytes": 44656.0,
+          "compile_seconds": 0.0,
+          "allocations": 838.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.69e-05,
+          "bytes": 21440.0,
+          "compile_seconds": 0.0,
+          "allocations": 570.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.6525e-05,
+          "bytes": 21440.0,
+          "compile_seconds": 0.0,
+          "allocations": 570.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.36e-05,
+          "bytes": 17664.0,
+          "compile_seconds": 0.0,
+          "allocations": 460.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.3325e-05,
+          "bytes": 17664.0,
+          "compile_seconds": 0.0,
+          "allocations": 460.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 6e-07,
+          "bytes": 384.0,
+          "compile_seconds": 0.0,
+          "allocations": 9.0
+        },
+        "backend_graph_bytes": [
+          42791,
+          42791,
+          42791,
+          42791,
+          42791,
+          42791,
+          42791
+        ],
+        "scratch_graph_bytes": [
+          240,
+          240,
+          240,
+          240,
+          240,
+          240,
+          240
+        ]
+      },
+      "candidate": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.69e-05,
+          "bytes": 44656.0,
+          "compile_seconds": 0.0,
+          "allocations": 838.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.2e-05,
+          "bytes": 9920.0,
+          "compile_seconds": 0.0,
+          "allocations": 270.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.09e-05,
+          "bytes": 9920.0,
+          "compile_seconds": 0.0,
+          "allocations": 270.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 8.5e-06,
+          "bytes": 6144.0,
+          "compile_seconds": 0.0,
+          "allocations": 160.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 7.85e-06,
+          "bytes": 6144.0,
+          "compile_seconds": 0.0,
+          "allocations": 160.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 6e-07,
+          "bytes": 384.0,
+          "compile_seconds": 0.0,
+          "allocations": 9.0
+        },
+        "backend_graph_bytes": [
+          42791,
+          42791,
+          42791,
+          42791,
+          42791,
+          42791,
+          42791
+        ],
+        "scratch_graph_bytes": [
+          240,
+          240,
+          240,
+          240,
+          240,
+          240,
+          240
+        ]
+      }
+    },
+    {
+      "name": "star32_dense",
+      "scalar": "RationalBigInt",
+      "median_ratio": 0.7687074829931972,
+      "minimum_ratio": 0.20845231296402056,
+      "maximum_ratio": 0.9153674832962139,
+      "MAD": 0.11088435374149663,
+      "faster_pairs": 7,
+      "target_gate": true,
+      "control_gate": null,
+      "reference": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.03e-05,
+          "bytes": 48208.0,
+          "compile_seconds": 0.0,
+          "allocations": 822.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.42e-05,
+          "bytes": 34880.0,
+          "compile_seconds": 0.0,
+          "allocations": 930.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.225e-05,
+          "bytes": 34876.0,
+          "compile_seconds": 0.0,
+          "allocations": 930.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.1e-05,
+          "bytes": 30656.0,
+          "compile_seconds": 0.0,
+          "allocations": 812.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.01e-05,
+          "bytes": 30680.0,
+          "compile_seconds": 0.0,
+          "allocations": 812.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.8e-06,
+          "bytes": 816.0,
+          "compile_seconds": 0.0,
+          "allocations": 25.0
+        },
+        "backend_graph_bytes": [
+          40047,
+          40047,
+          40047,
+          40047,
+          40047,
+          40047,
+          40047
+        ],
+        "scratch_graph_bytes": [
+          384,
+          384,
+          384,
+          384,
+          384,
+          384,
+          384
+        ]
+      },
+      "candidate": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.08e-05,
+          "bytes": 48208.0,
+          "compile_seconds": 0.0,
+          "allocations": 822.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.33e-05,
+          "bytes": 15024.0,
+          "compile_seconds": 0.0,
+          "allocations": 417.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 9.125e-06,
+          "bytes": 15032.0,
+          "compile_seconds": 0.0,
+          "allocations": 417.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 8.1e-06,
+          "bytes": 10832.0,
+          "compile_seconds": 0.0,
+          "allocations": 299.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 7.7e-06,
+          "bytes": 10836.0,
+          "compile_seconds": 0.0,
+          "allocations": 299.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1e-06,
+          "bytes": 800.0,
+          "compile_seconds": 0.0,
+          "allocations": 25.0
+        },
+        "backend_graph_bytes": [
+          40047,
+          40047,
+          40047,
+          40047,
+          40047,
+          40047,
+          40047
+        ],
+        "scratch_graph_bytes": [
+          384,
+          384,
+          384,
+          384,
+          384,
+          384,
+          384
+        ]
+      }
+    },
+    {
+      "name": "star32_dense",
+      "scalar": "Float32",
+      "median_ratio": 1.125,
+      "minimum_ratio": 0.8888888888888888,
+      "maximum_ratio": 2.5714285714285716,
+      "MAD": 0.23611111111111116,
+      "faster_pairs": 2,
+      "target_gate": null,
+      "control_gate": false,
+      "reference": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.81e-05,
+          "bytes": 41472.0,
+          "compile_seconds": 0.0,
+          "allocations": 783.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.7e-06,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 6e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "backend_graph_bytes": [
+          30371,
+          30371,
+          30371,
+          30371,
+          30371,
+          30371,
+          30371
+        ]
+      },
+      "candidate": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.76e-05,
+          "bytes": 41472.0,
+          "compile_seconds": 0.0,
+          "allocations": 783.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.1e-06,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.25e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "backend_graph_bytes": [
+          30371,
+          30371,
+          30371,
+          30371,
+          30371,
+          30371,
+          30371
+        ]
+      }
+    },
+    {
+      "name": "star32_dense",
+      "scalar": "Float64",
+      "median_ratio": 1.1666666666666667,
+      "minimum_ratio": 1.0,
+      "maximum_ratio": 3.571428571428572,
+      "MAD": 0.16666666666666674,
+      "faster_pairs": 0,
+      "target_gate": null,
+      "control_gate": false,
+      "reference": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.6e-05,
+          "bytes": 42544.0,
+          "compile_seconds": 0.0,
+          "allocations": 783.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.4e-06,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.75e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 8e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "backend_graph_bytes": [
+          31815,
+          31815,
+          31815,
+          31815,
+          31815,
+          31815,
+          31815
+        ]
+      },
+      "candidate": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.75e-05,
+          "bytes": 42544.0,
+          "compile_seconds": 0.0,
+          "allocations": 783.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.1e-06,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 8e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "backend_graph_bytes": [
+          31815,
+          31815,
+          31815,
+          31815,
+          31815,
+          31815,
+          31815
+        ]
+      }
+    },
+    {
+      "name": "core32_sparse",
+      "scalar": "BigFloat128",
+      "median_ratio": 1.0064147539340482,
+      "minimum_ratio": 0.8974543214945595,
+      "maximum_ratio": 1.1953168349794698,
+      "MAD": 0.09463190384151277,
+      "faster_pairs": 3,
+      "target_gate": null,
+      "control_gate": true,
+      "reference": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.0026087,
+          "bytes": 2943048.0,
+          "compile_seconds": 0.0,
+          "allocations": 91671.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.0002349,
+          "bytes": 266464.0,
+          "compile_seconds": 0.0,
+          "allocations": 8330.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.000229975,
+          "bytes": 266464.0,
+          "compile_seconds": 0.0,
+          "allocations": 8330.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 4e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 7.5e-08,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 7e-07,
+          "bytes": 256.0,
+          "compile_seconds": 0.0,
+          "allocations": 7.0
+        },
+        "backend_graph_bytes": [
+          77592,
+          77592,
+          77592,
+          77592,
+          77592,
+          77592,
+          77592
+        ],
+        "scratch_graph_bytes": [
+          144,
+          144,
+          144,
+          144,
+          144,
+          144,
+          144
+        ]
+      },
+      "candidate": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.0025506,
+          "bytes": 2943048.0,
+          "compile_seconds": 0.0,
+          "allocations": 91671.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.0002479,
+          "bytes": 266496.0,
+          "compile_seconds": 0.0,
+          "allocations": 8332.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.0002405,
+          "bytes": 266496.0,
+          "compile_seconds": 0.0,
+          "allocations": 8332.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 9e-07,
+          "bytes": 32.0,
+          "compile_seconds": 0.0,
+          "allocations": 2.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.25e-07,
+          "bytes": 32.0,
+          "compile_seconds": 0.0,
+          "allocations": 2.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1e-06,
+          "bytes": 256.0,
+          "compile_seconds": 0.0,
+          "allocations": 7.0
+        },
+        "backend_graph_bytes": [
+          77592,
+          77592,
+          77592,
+          77592,
+          77592,
+          77592,
+          77592
+        ],
+        "scratch_graph_bytes": [
+          144,
+          144,
+          144,
+          144,
+          144,
+          144,
+          144
+        ]
+      }
+    },
+    {
+      "name": "core32_sparse",
+      "scalar": "BigFloat256",
+      "median_ratio": 0.9690931272875152,
+      "minimum_ratio": 0.8791546242774566,
+      "maximum_ratio": 24.530984531569217,
+      "MAD": 0.06764328402732711,
+      "faster_pairs": 5,
+      "target_gate": null,
+      "control_gate": true,
+      "reference": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.0027346,
+          "bytes": 3309656.0,
+          "compile_seconds": 0.0,
+          "allocations": 91671.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.0002532,
+          "bytes": 299760.0,
+          "compile_seconds": 0.0,
+          "allocations": 8330.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.0002552,
+          "bytes": 299760.0,
+          "compile_seconds": 0.0,
+          "allocations": 8330.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 3e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5e-08,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 8e-07,
+          "bytes": 288.0,
+          "compile_seconds": 0.0,
+          "allocations": 7.0
+        },
+        "backend_graph_bytes": [
+          94488,
+          94488,
+          94488,
+          94488,
+          94488,
+          94488,
+          94488
+        ],
+        "scratch_graph_bytes": [
+          176,
+          176,
+          176,
+          176,
+          176,
+          176,
+          176
+        ]
+      },
+      "candidate": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.0027078,
+          "bytes": 3309656.0,
+          "compile_seconds": 0.0,
+          "allocations": 91671.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.0002721,
+          "bytes": 299792.0,
+          "compile_seconds": 0.0,
+          "allocations": 8332.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.00024335,
+          "bytes": 299792.0,
+          "compile_seconds": 0.0,
+          "allocations": 8332.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5e-07,
+          "bytes": 32.0,
+          "compile_seconds": 0.0,
+          "allocations": 2.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.25e-07,
+          "bytes": 32.0,
+          "compile_seconds": 0.0,
+          "allocations": 2.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 9e-07,
+          "bytes": 288.0,
+          "compile_seconds": 0.0,
+          "allocations": 7.0
+        },
+        "backend_graph_bytes": [
+          94488,
+          94488,
+          94488,
+          94488,
+          94488,
+          94488,
+          94488
+        ],
+        "scratch_graph_bytes": [
+          176,
+          176,
+          176,
+          176,
+          176,
+          176,
+          176
+        ]
+      }
+    },
+    {
+      "name": "core32_sparse",
+      "scalar": "BigFloat512",
+      "median_ratio": 0.9942927803671645,
+      "minimum_ratio": 0.8734724994012931,
+      "maximum_ratio": 1.8705893135367975,
+      "MAD": 0.08135212920779178,
+      "faster_pairs": 4,
+      "target_gate": null,
+      "control_gate": true,
+      "reference": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.0030007,
+          "bytes": 4409480.0,
+          "compile_seconds": 0.0,
+          "allocations": 114584.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.0003174,
+          "bytes": 399680.0,
+          "compile_seconds": 0.0,
+          "allocations": 10413.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.000272775,
+          "bytes": 399680.0,
+          "compile_seconds": 0.0,
+          "allocations": 10413.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 3e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5e-08,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 7e-07,
+          "bytes": 384.0,
+          "compile_seconds": 0.0,
+          "allocations": 9.0
+        },
+        "backend_graph_bytes": [
+          128280,
+          128280,
+          128280,
+          128280,
+          128280,
+          128280,
+          128280
+        ],
+        "scratch_graph_bytes": [
+          240,
+          240,
+          240,
+          240,
+          240,
+          240,
+          240
+        ]
+      },
+      "candidate": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.0030496,
+          "bytes": 4409480.0,
+          "compile_seconds": 0.0,
+          "allocations": 114584.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.0002975,
+          "bytes": 399712.0,
+          "compile_seconds": 0.0,
+          "allocations": 10415.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.000292925,
+          "bytes": 399712.0,
+          "compile_seconds": 0.0,
+          "allocations": 10415.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5e-07,
+          "bytes": 32.0,
+          "compile_seconds": 0.0,
+          "allocations": 2.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1e-07,
+          "bytes": 32.0,
+          "compile_seconds": 0.0,
+          "allocations": 2.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 9e-07,
+          "bytes": 384.0,
+          "compile_seconds": 0.0,
+          "allocations": 9.0
+        },
+        "backend_graph_bytes": [
+          128280,
+          128280,
+          128280,
+          128280,
+          128280,
+          128280,
+          128280
+        ],
+        "scratch_graph_bytes": [
+          240,
+          240,
+          240,
+          240,
+          240,
+          240,
+          240
+        ]
+      }
+    },
+    {
+      "name": "core32_sparse",
+      "scalar": "RationalBigInt",
+      "median_ratio": 1.1760052735662492,
+      "minimum_ratio": 0.7728207364944856,
+      "maximum_ratio": 1.8049428104575163,
+      "MAD": 0.35444523850928167,
+      "faster_pairs": 2,
+      "target_gate": null,
+      "control_gate": false,
+      "reference": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.003176,
+          "bytes": 7173400.0,
+          "compile_seconds": 0.0,
+          "allocations": 187226.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.0002963,
+          "bytes": 683264.0,
+          "compile_seconds": 0.0,
+          "allocations": 17733.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.000235425,
+          "bytes": 683192.0,
+          "compile_seconds": 0.0,
+          "allocations": 17733.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.1e-06,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 7.5e-08,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 3e-06,
+          "bytes": 816.0,
+          "compile_seconds": 0.0,
+          "allocations": 25.0
+        },
+        "backend_graph_bytes": [
+          82848,
+          82848,
+          82848,
+          82848,
+          82848,
+          82848,
+          82848
+        ],
+        "scratch_graph_bytes": [
+          384,
+          384,
+          384,
+          384,
+          384,
+          384,
+          384
+        ]
+      },
+      "candidate": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.002816601,
+          "bytes": 7178536.0,
+          "compile_seconds": 0.0,
+          "allocations": 187226.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.0002941,
+          "bytes": 683392.0,
+          "compile_seconds": 0.0,
+          "allocations": 17733.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.000291975,
+          "bytes": 683408.0,
+          "compile_seconds": 0.0,
+          "allocations": 17733.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.5e-06,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 7.5e-08,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.7e-06,
+          "bytes": 800.0,
+          "compile_seconds": 0.0,
+          "allocations": 25.0
+        },
+        "backend_graph_bytes": [
+          82848,
+          82848,
+          82848,
+          82848,
+          82848,
+          82848,
+          82848
+        ],
+        "scratch_graph_bytes": [
+          384,
+          384,
+          384,
+          384,
+          384,
+          384,
+          384
+        ]
+      }
+    },
+    {
+      "name": "core32_sparse",
+      "scalar": "Float32",
+      "median_ratio": 1.0,
+      "minimum_ratio": 0.9523809523809524,
+      "maximum_ratio": 1.1500000000000001,
+      "MAD": 0.04761904761904756,
+      "faster_pairs": 2,
+      "target_gate": null,
+      "control_gate": true,
+      "reference": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.19e-05,
+          "bytes": 5832.0,
+          "compile_seconds": 0.0,
+          "allocations": 19.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 3e-06,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5.25e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 8e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5e-08,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "backend_graph_bytes": [
+          5656,
+          5656,
+          5656,
+          5656,
+          5656,
+          5656,
+          5656
+        ]
+      },
+      "candidate": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.44e-05,
+          "bytes": 5832.0,
+          "compile_seconds": 0.0,
+          "allocations": 19.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 3.8e-06,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5.75e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 9e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5e-08,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "backend_graph_bytes": [
+          5656,
+          5656,
+          5656,
+          5656,
+          5656,
+          5656,
+          5656
+        ]
+      }
+    },
+    {
+      "name": "core32_sparse",
+      "scalar": "Float64",
+      "median_ratio": 1.0,
+      "minimum_ratio": 0.9615384615384616,
+      "maximum_ratio": 1.1111111111111112,
+      "MAD": 0.03703703703703698,
+      "faster_pairs": 3,
+      "target_gate": null,
+      "control_gate": true,
+      "reference": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.11e-05,
+          "bytes": 10184.0,
+          "compile_seconds": 0.0,
+          "allocations": 19.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.8e-06,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 6.75e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5e-08,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "backend_graph_bytes": [
+          10008,
+          10008,
+          10008,
+          10008,
+          10008,
+          10008,
+          10008
+        ]
+      },
+      "candidate": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.15e-05,
+          "bytes": 10184.0,
+          "compile_seconds": 0.0,
+          "allocations": 19.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 3.5e-06,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 6.75e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 7e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 7.5e-08,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "backend_graph_bytes": [
+          10008,
+          10008,
+          10008,
+          10008,
+          10008,
+          10008,
+          10008
+        ]
+      }
+    },
+    {
+      "name": "core32_dense",
+      "scalar": "BigFloat128",
+      "median_ratio": 1.088815789473684,
+      "minimum_ratio": 0.050252967244598844,
+      "maximum_ratio": 16.664909894593677,
+      "MAD": 0.1054751494035393,
+      "faster_pairs": 2,
+      "target_gate": null,
+      "control_gate": false,
+      "reference": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.0023602,
+          "bytes": 2811976.0,
+          "compile_seconds": 0.0,
+          "allocations": 87575.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.0002618,
+          "bytes": 266464.0,
+          "compile_seconds": 0.0,
+          "allocations": 8330.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.0002281,
+          "bytes": 266464.0,
+          "compile_seconds": 0.0,
+          "allocations": 8330.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.1e-06,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 7.5e-08,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.6e-06,
+          "bytes": 256.0,
+          "compile_seconds": 0.0,
+          "allocations": 7.0
+        },
+        "backend_graph_bytes": [
+          77592,
+          77592,
+          77592,
+          77592,
+          77592,
+          77592,
+          77592
+        ],
+        "scratch_graph_bytes": [
+          144,
+          144,
+          144,
+          144,
+          144,
+          144,
+          144
+        ]
+      },
+      "candidate": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.002526699,
+          "bytes": 2811976.0,
+          "compile_seconds": 0.0,
+          "allocations": 87575.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.0002504,
+          "bytes": 266496.0,
+          "compile_seconds": 0.0,
+          "allocations": 8332.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.00024775,
+          "bytes": 266496.0,
+          "compile_seconds": 0.0,
+          "allocations": 8332.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1e-06,
+          "bytes": 32.0,
+          "compile_seconds": 0.0,
+          "allocations": 2.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.25e-07,
+          "bytes": 32.0,
+          "compile_seconds": 0.0,
+          "allocations": 2.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.4e-06,
+          "bytes": 256.0,
+          "compile_seconds": 0.0,
+          "allocations": 7.0
+        },
+        "backend_graph_bytes": [
+          77592,
+          77592,
+          77592,
+          77592,
+          77592,
+          77592,
+          77592
+        ],
+        "scratch_graph_bytes": [
+          144,
+          144,
+          144,
+          144,
+          144,
+          144,
+          144
+        ]
+      }
+    },
+    {
+      "name": "core32_dense",
+      "scalar": "BigFloat256",
+      "median_ratio": 1.0174767321613236,
+      "minimum_ratio": 0.809265802905379,
+      "maximum_ratio": 1.0362934362934364,
+      "MAD": 0.018816704132112783,
+      "faster_pairs": 3,
+      "target_gate": null,
+      "control_gate": true,
+      "reference": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.0026628,
+          "bytes": 3162200.0,
+          "compile_seconds": 0.0,
+          "allocations": 87575.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.0002722,
+          "bytes": 299760.0,
+          "compile_seconds": 0.0,
+          "allocations": 8330.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.0002469,
+          "bytes": 299760.0,
+          "compile_seconds": 0.0,
+          "allocations": 8330.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 7.5e-08,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1e-06,
+          "bytes": 288.0,
+          "compile_seconds": 0.0,
+          "allocations": 7.0
+        },
+        "backend_graph_bytes": [
+          94488,
+          94488,
+          94488,
+          94488,
+          94488,
+          94488,
+          94488
+        ],
+        "scratch_graph_bytes": [
+          176,
+          176,
+          176,
+          176,
+          176,
+          176,
+          176
+        ]
+      },
+      "candidate": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.0026532,
+          "bytes": 3162200.0,
+          "compile_seconds": 0.0,
+          "allocations": 87575.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.0002819,
+          "bytes": 299792.0,
+          "compile_seconds": 0.0,
+          "allocations": 8332.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.000245975,
+          "bytes": 299792.0,
+          "compile_seconds": 0.0,
+          "allocations": 8332.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 4e-07,
+          "bytes": 32.0,
+          "compile_seconds": 0.0,
+          "allocations": 2.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.25e-07,
+          "bytes": 32.0,
+          "compile_seconds": 0.0,
+          "allocations": 2.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 8e-07,
+          "bytes": 288.0,
+          "compile_seconds": 0.0,
+          "allocations": 7.0
+        },
+        "backend_graph_bytes": [
+          94488,
+          94488,
+          94488,
+          94488,
+          94488,
+          94488,
+          94488
+        ],
+        "scratch_graph_bytes": [
+          176,
+          176,
+          176,
+          176,
+          176,
+          176,
+          176
+        ]
+      }
+    },
+    {
+      "name": "core32_dense",
+      "scalar": "BigFloat512",
+      "median_ratio": 1.0443804034582131,
+      "minimum_ratio": 0.8637038258575198,
+      "maximum_ratio": 1.1174968071519795,
+      "MAD": 0.059434942356617504,
+      "faster_pairs": 2,
+      "target_gate": null,
+      "control_gate": true,
+      "reference": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.0028647,
+          "bytes": 4212872.0,
+          "compile_seconds": 0.0,
+          "allocations": 109464.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.0002976,
+          "bytes": 399680.0,
+          "compile_seconds": 0.0,
+          "allocations": 10413.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.000277325,
+          "bytes": 399680.0,
+          "compile_seconds": 0.0,
+          "allocations": 10413.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 7.5e-08,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 7e-07,
+          "bytes": 384.0,
+          "compile_seconds": 0.0,
+          "allocations": 9.0
+        },
+        "backend_graph_bytes": [
+          128280,
+          128280,
+          128280,
+          128280,
+          128280,
+          128280,
+          128280
+        ],
+        "scratch_graph_bytes": [
+          240,
+          240,
+          240,
+          240,
+          240,
+          240,
+          240
+        ]
+      },
+      "candidate": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.0031357,
+          "bytes": 4212872.0,
+          "compile_seconds": 0.0,
+          "allocations": 109464.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.0003173,
+          "bytes": 399712.0,
+          "compile_seconds": 0.0,
+          "allocations": 10415.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.000286475,
+          "bytes": 399712.0,
+          "compile_seconds": 0.0,
+          "allocations": 10415.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5e-07,
+          "bytes": 32.0,
+          "compile_seconds": 0.0,
+          "allocations": 2.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.25e-07,
+          "bytes": 32.0,
+          "compile_seconds": 0.0,
+          "allocations": 2.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 7e-07,
+          "bytes": 384.0,
+          "compile_seconds": 0.0,
+          "allocations": 9.0
+        },
+        "backend_graph_bytes": [
+          128280,
+          128280,
+          128280,
+          128280,
+          128280,
+          128280,
+          128280
+        ],
+        "scratch_graph_bytes": [
+          240,
+          240,
+          240,
+          240,
+          240,
+          240,
+          240
+        ]
+      }
+    },
+    {
+      "name": "core32_dense",
+      "scalar": "RationalBigInt",
+      "median_ratio": 1.0021240817771482,
+      "minimum_ratio": 0.8468329476300678,
+      "maximum_ratio": 20.300305470459516,
+      "MAD": 0.09207816541386293,
+      "faster_pairs": 3,
+      "target_gate": null,
+      "control_gate": true,
+      "reference": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.0024561,
+          "bytes": 7065224.0,
+          "compile_seconds": 0.0,
+          "allocations": 183130.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.0002817,
+          "bytes": 683568.0,
+          "compile_seconds": 0.0,
+          "allocations": 17733.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.000282475,
+          "bytes": 683464.0,
+          "compile_seconds": 0.0,
+          "allocations": 17733.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.6e-06,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 7.5e-08,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.2e-06,
+          "bytes": 816.0,
+          "compile_seconds": 0.0,
+          "allocations": 25.0
+        },
+        "backend_graph_bytes": [
+          82848,
+          82848,
+          82848,
+          82848,
+          82848,
+          82848,
+          82848
+        ],
+        "scratch_graph_bytes": [
+          384,
+          384,
+          384,
+          384,
+          384,
+          384,
+          384
+        ]
+      },
+      "candidate": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.0026175,
+          "bytes": 7059512.0,
+          "compile_seconds": 0.0,
+          "allocations": 183130.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.0002914,
+          "bytes": 683296.0,
+          "compile_seconds": 0.0,
+          "allocations": 17733.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.000283075,
+          "bytes": 683504.0,
+          "compile_seconds": 0.0,
+          "allocations": 17733.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.6e-06,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 7.5e-08,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "scratch": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 2.5e-06,
+          "bytes": 800.0,
+          "compile_seconds": 0.0,
+          "allocations": 25.0
+        },
+        "backend_graph_bytes": [
+          82848,
+          82848,
+          82848,
+          82848,
+          82848,
+          82848,
+          82848
+        ],
+        "scratch_graph_bytes": [
+          384,
+          384,
+          384,
+          384,
+          384,
+          384,
+          384
+        ]
+      }
+    },
+    {
+      "name": "core32_dense",
+      "scalar": "Float32",
+      "median_ratio": 0.909090909090909,
+      "minimum_ratio": 0.6956521739130435,
+      "maximum_ratio": 1.1363636363636365,
+      "MAD": 0.1409090909090911,
+      "faster_pairs": 4,
+      "target_gate": null,
+      "control_gate": true,
+      "reference": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.3e-05,
+          "bytes": 5832.0,
+          "compile_seconds": 0.0,
+          "allocations": 19.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 3.8e-06,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5.5e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 9e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5e-08,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "backend_graph_bytes": [
+          5656,
+          5656,
+          5656,
+          5656,
+          5656,
+          5656,
+          5656
+        ]
+      },
+      "candidate": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.09e-05,
+          "bytes": 5832.0,
+          "compile_seconds": 0.0,
+          "allocations": 19.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 3.3e-06,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5.25e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 6e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5e-08,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "backend_graph_bytes": [
+          5656,
+          5656,
+          5656,
+          5656,
+          5656,
+          5656,
+          5656
+        ]
+      }
+    },
+    {
+      "name": "core32_dense",
+      "scalar": "Float64",
+      "median_ratio": 1.0,
+      "minimum_ratio": 0.8461538461538461,
+      "maximum_ratio": 1.0454545454545454,
+      "MAD": 0.040000000000000036,
+      "faster_pairs": 2,
+      "target_gate": null,
+      "control_gate": true,
+      "reference": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.12e-05,
+          "bytes": 10184.0,
+          "compile_seconds": 0.0,
+          "allocations": 19.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 3.6e-06,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 6.25e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 7e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5e-08,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "backend_graph_bytes": [
+          10008,
+          10008,
+          10008,
+          10008,
+          10008,
+          10008,
+          10008
+        ]
+      },
+      "candidate": {
+        "construction": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 1.12e-05,
+          "bytes": 10184.0,
+          "compile_seconds": 0.0,
+          "allocations": 19.0
+        },
+        "first_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 3.3e-06,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_full": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 6.5e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "first_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 6e-07,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "steady_upper": {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 5e-08,
+          "bytes": 0.0,
+          "compile_seconds": 0.0,
+          "allocations": 0.0
+        },
+        "backend_graph_bytes": [
+          10008,
+          10008,
+          10008,
+          10008,
+          10008,
+          10008,
+          10008
+        ]
+      }
+    }
+  ],
+  "steady_windows": 1920,
+  "nonzero_steady_compile": 0,
+  "nonzero_steady_GC": 5,
+  "qualification_assertions": [
+    381,
+    0,
+    0,
+    0
+  ],
+  "qualification_rows": 432,
+  "red_counts": [
+    0,
+    2,
+    0,
+    0
+  ],
+  "target_cases": 6,
+  "target_pass": 6,
+  "control_cases": 32,
+  "control_fail": [
+    {
+      "name": "star8_sparse",
+      "scalar": "Float32"
+    },
+    {
+      "name": "star8_dense",
+      "scalar": "Float32"
+    },
+    {
+      "name": "star32_dense",
+      "scalar": "Float32"
+    },
+    {
+      "name": "star32_dense",
+      "scalar": "Float64"
+    },
+    {
+      "name": "core32_sparse",
+      "scalar": "RationalBigInt"
+    },
+    {
+      "name": "core32_dense",
+      "scalar": "BigFloat128"
+    }
+  ],
+  "normalization": "Steady windows contain four calls; side seconds/bytes/events divided by4. Paired ratios calculated before medians, not ratio of side medians. First/cold windows unnormalized; seven measured pairs only. Warm raw retained.",
+  "raw_sha256": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-F-repair/attempt-2/pair05-reference/raw.toml": "f5916e96bd21aa9d3c15d8c3b47ecf10ce4cb4ace380d10862483554b7dd5c33",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-F-repair/attempt-2/pair09-reference/raw.toml": "9b25d80979bcc215fb62b2505a0f3f1e39a94901f7342d6c0c7a9dbe84260f56",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-F-repair/attempt-2/pair09-candidate/raw.toml": "f83e0cb91a5377a58e0980a9f364188c6682beffaba4d84ba7a5c7214d5a9eb4",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-F-repair/attempt-2/pair04-reference/raw.toml": "32b9ac37aba497a581edeba2c9949d70b2b22ca489bdd86ef574719b79dff894",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-F-repair/attempt-2/pair10-reference/raw.toml": "d518a204924fe08496e9e28f6c9f461d2509b93d5147f3cd892b7820ac797a4a",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-F-repair/attempt-2/pair05-candidate/raw.toml": "7109976cb1e34b8e8bfb21c7d574480172f3794d7ad0b3269c375e3ac1ff87cd",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-F-repair/attempt-2/pair04-candidate/raw.toml": "507c78d51baf99a81aade5be181e6d756497fb04579fdb729388b878004f1f8e",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-F-repair/attempt-2/pair06-reference/raw.toml": "048e86bb177277609981d5c544cb8e5004d40b1840a371986b43731edd8595aa",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-F-repair/attempt-2/pair08-candidate/raw.toml": "137c8a9c94c6fa6579ce800341cfda9e81e13f5ab34f2063a0220ef74b15a0ce",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-F-repair/attempt-2/pair01-candidate/raw.toml": "de3dd52ab248eeeb4279a16b7a8337dc05a00dc1592a5874161062b7330e4b8f",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-F-repair/attempt-2/pair01-reference/raw.toml": "40355948a1c631dfd31b4debce10ada5aaae2543fbb39e7cfb55ab1ced97e334",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-F-repair/attempt-2/qualification/raw.toml": "e0b2f1de5441a390e2bea78bd11e970cfb9c6e2dc0ec53c2a48da0fb6e19323a",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-F-repair/attempt-2/pair06-candidate/raw.toml": "27d1c7c65fbc55f079195116cabeb376a2913460d62c77f4a1b9c50a23fa3b15",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-F-repair/attempt-2/pair08-reference/raw.toml": "a28df03dd647c306b5f986344da0a38cb4fe4f5ef96a26528bbf8fc4f3757096",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-F-repair/attempt-2/pair03-reference/raw.toml": "e775c2ac6a01b364ccc2fbc7312e50ee6b53509d504dac713dbe34b9469e4adb",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-F-repair/attempt-2/pair02-candidate/raw.toml": "791091ffc00eb9281f3a0874ff59e17390dd69dcf4c08af6e58eb9e572aa3c07",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-F-repair/attempt-2/red/raw.toml": "82287f374d05757a3075c739cea8402f6fa6e6db824da9b02542683652954403",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-F-repair/attempt-2/pair07-candidate/raw.toml": "5b09c7c29f06dbf89f4e4eda4a9170971bedf35ae5a1111f77fc030de7848a68",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-F-repair/attempt-2/pair02-reference/raw.toml": "bc1d9c5e490a3e57c90b2ffe0e4b25d74a3189cb7613d7e079866494110ff36b",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-F-repair/attempt-2/pair07-reference/raw.toml": "19403d3a69e092e1264766884af058c4430decfe759405bbcb581fa5a3eb245d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-F-repair/attempt-2/pair10-candidate/raw.toml": "9c76bbaa83da4b388aa9d2cbe99ccfe16092a885bf5d289886a7e725a2b15a34",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-F-repair/attempt-2/pair03-candidate/raw.toml": "f4cff2ae61178e92b61f20a20b9c3bb77d582f28c6f785e5778263559287a822"
+  }
+}

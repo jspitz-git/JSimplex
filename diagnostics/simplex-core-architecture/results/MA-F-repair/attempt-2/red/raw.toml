@@ -1,0 +1,34 @@
+source = "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-E/overlays/reference/src/JSimplex.jl"
+stage = "red"
+body_seconds = 0.770260728
+counts = [0, 2, 0, 0]
+version = "1.13.0"
+records = []
+side = "reference"
+errors = []
+compare_metrics = []
+ambient_ok = true
+full_metrics = []
+
+[tests]
+name = "MA-E"
+nonpasses = []
+counts = [0, 0, 0, 0]
+
+    [[tests.children]]
+    name = "MA upper dispatch and fallback"
+    children = []
+    counts = [0, 2, 0, 0]
+
+        [[tests.children.nonpasses]]
+        line = 95
+        kind = 2
+        display = """Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-F-repair/tests-instrumented.jl:95\n  Expression: isdefined(J, :_markowitz_upper_solve!)\n   Evaluated: isdefined(JSimplex, _markowitz_upper_solve!)"""
+        expression = "isdefined(J, :_markowitz_upper_solve!)"
+        file = "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-F-repair/tests-instrumented.jl"
+        [[tests.children.nonpasses]]
+        line = 96
+        kind = 2
+        display = """Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-F-repair/tests-instrumented.jl:96\n  Expression: isdefined(J, :_markowitz_ma_scratch)\n   Evaluated: isdefined(JSimplex, _markowitz_ma_scratch)"""
+        expression = "isdefined(J, :_markowitz_ma_scratch)"
+        file = "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-F-repair/tests-instrumented.jl"

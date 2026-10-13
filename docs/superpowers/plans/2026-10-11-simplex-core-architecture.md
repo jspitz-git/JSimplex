@@ -45,21 +45,19 @@ accepted deliverables, not partial or failed attempts. Update both at milestones
 
 ## Current continuation — 2026-10-13
 
-MA-F's single reserved reference RED process failed before test inclusion:
-Test.push_testset is undefined in installed Julia1.13.0. Expected RED failures,
-qualification and cost remain unverified/unexecuted. All1761pins unchanged; eight
-portable files match; full46groupsANDsessions absent/noJulia; postcheck15PASS is
-failure provenance only. No production change or performance acceptance.
-
-Next is a separate offline scoped-Test-context harness amendment with complete
-Test API/result-field and exceptional parent/depth/child-recording verification,
-using the existing S4-AD repair as source reference. Preserve exact candidate,
-381assertions, fixtures, schedule and thresholds; fresh independent admission/seal/
-reservation before a later short attempt. Existing human permission persists,
-but the consumed MA-F reservation and all old artifacts are frozen, never rerun.
-MA-E current continuation bindings map ONLY MA-F before copies; older maps intact.
-See MA-MARKOWITZ-UPPER-QUALIFICATION.md. Master6f68e24 unchanged; broader MA and
-S2/S3/S4/S5/S6 open, automationpaused/CIoff/HHdisabled.
+MA-F replacement completes requested RED/qualification/short cost: exactly2expected
+RED failures,381candidate assertions,48fixturecases/432rows; all22processes accepted.
+All1920steadywindows compile/recompile0, five GC windows retained. Target benefits
+6/6pass, control gates6/32fail: production promotion NOT ACCEPTED, no integration.
+See MA-MARKOWITZ-UPPER-QUALIFICATION-REPAIRED.md and results/MA-F-repair.
+Original pre-test API failure unchanged; scoped-context correction separately
+admitted. Full1817pins unchanged;90groupsANDsessions absent/noJulia. Bothattempts
+consumed/frozen; no automatic tuning/rerun/outlier deletion/longer cap.
+Further source analysis can use stored control regressions, but any new candidate
+or measurement needs a separate concrete independent admission. Human short-run
+permission remains. MA-F current continuation hashes map ONLY MA-F-repair before
+copies; older maps intact. Master6f68e24 unchanged; broaderMA/S2/S3/S4/S5/S6open,
+automationpaused/CIoff/HHdisabled.
 
 ### Previous S4-AD integration (completed)
 
@@ -356,7 +354,8 @@ attempt, driver and evidence remain frozen.
   MA-E independently accepted reviewed admission; the single
   [MA-F attempt](2026-10-13-ma-markowitz-upper-qualification-reviewed.md)
   subsequently failed before RED test inclusion (obsolete Test context API).
-  Qualification and cost remain unexecuted; separate offline harness amendment next;
+  A separately admitted replacement now passes RED/correctness and completes cost;
+  six target benefit gates pass but six control gates fail, so no production promotion;
   [final admission decision](../../../diagnostics/simplex-core-architecture/MA-MARKOWITZ-UPPER-ADMISSION-ACCEPTED.md).
 - [ ] **MA-3 — Qualify correctness and total cost.** Use the concrete subplan's
   regression and ownership tests, including cancellation, zero/signed zero,
