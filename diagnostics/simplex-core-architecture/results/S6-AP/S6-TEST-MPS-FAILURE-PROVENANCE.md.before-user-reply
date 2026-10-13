@@ -1,0 +1,81 @@
+# S6-AP: reported test.mps failure provenance
+
+SOURCE/EVIDENCE ONLY. The newly supplied Windows log preserves the outstanding
+failure; it does not identify the failing certificate input or establish a repair.
+Master remains d02416c. No Julia, model parsing, numerical execution or production
+change was performed. The bounded provenance task is complete with the limits below.
+
+| Item | Preserved evidence | Limit |
+| --- | --- | --- |
+| User output | `results/S6-AP/user-failure.log`, 88,807 original bytes / 817 lines, SHA256 `22da06e3955a94ffa25fc1f0a0630e933c124aa4a137a25e159b57877030e115` | No original command, input name/hash, source/runtime identity or point/witness capture |
+| Input dimensions | Log line2: 614038 rows, 526231 columns, 1714776 nonzeros; line4 after presolve: 570020 / 394798 / 1801979 | Dimensions are not a unique model identity |
+| Historical test model | S0 preflight test record and F11 stored metadata; current `/home/jspitz/mps/test.mps` hashes to `f60dd96b23d14433b75c43eabda983e34d264a7b769db15adfb7c6bec8a5c4cb`, 130751749 bytes | F11 dimensions match the log, but the Windows input hash is not captured; no MPS parsing was done |
+| First failure | Log line806: original-objective certificate inconclusive, completed iterations255115, followed by original-LP restart | Does not identify the rejecting subpredicate, witness or original arithmetic operation |
+| Retry failure | Line814: NUMERICAL_ERROR, eligible pivots below Harris safety cutoff; aggregate iterations256164, elapsed14814.7718616s | Difference1049 is reported iteration arithmetic, not a complete work count |
+| Current Windows project | Byte snapshots of `test_new.jl`, Project/Manifest and `failure_test.jl`; native reader, HH/native320, dual, legacy, steepest_edge, Inf, iteration limit1000000 and relax_integrality=true are written in the current native-reader branch | Current script names **runtime.mps**; these are current settings, not original-run options. Manifest tree11a7400235decec77ee1be2d02698d4b989c6cd8 is current, not historical source proof |
+| Capture reference | Current failure_test.jl includes `C:\tmp\capture-failure.jl`; that path is absent through the mounted C: drive | No capture is available at that referenced path; no claim that none exists anywhere |
+
+The parent identifies the outstanding case as test.mps HH/native320. The supplied
+log is consistent with the historical test dimensions and prints dual progress,
+but the 320 reporting cadence alone proves neither manager nor refactor interval.
+The current Windows script must not be substituted for the missing historical
+invocation. Its source files were read only and were not modified or executed.
+
+## What the current source supports
+
+`src/dual_simplex.jl:_internal_solution` emits the first exact message when its
+OPTIMAL path has passed the preceding finite/objective and original-primal guards,
+but `_original_optimality_certified` returns false. That helper can reject a missing
+or unacceptable dual witness, the independent original witness check, or the
+conditional native certificate recovery. The log does not select among them.
+`dinf=0` in progress is not an original-objective certificate.
+
+The independent witness check reconstructs reduced-cost intervals from the original
+objective/matrix, including basic entries, and checks stationarity/complementarity
+against actual structural values and row activities. A working-model certificate
+cannot replace it. No witness, basis or point is stored in the supplied text.
+
+The Harris message occurs after entering_index==-1 and the preceding stable-ratio
+uncertainty branch has not returned. Its exact current guard finds a nonfixed,
+state/sign-eligible nonzero coefficient and `(!exhausted || !eligible_at_cutoff)`.
+Thus the message alone does **not** establish that every eligible coefficient is
+below the cutoff. It is not a mathematical infeasibility proof. The floating cutoff
+is source-defined by `_positive_tolerance(T, 1//10^7)`; the run's scalar/options
+remain unbound. Do not lower it or reinterpret failure as INFEASIBLE/OPTIMAL.
+
+`src/solver.jl:_retry_original` composes the two messages and aggregates iteration
+counts. These are current-source interpretations of exact text matches, conditional
+on source correspondence. The attachment does not bind the original Windows source
+to current master and cannot prove which private current-source branch ran.
+
+## Scope, cost and next requirement
+
+The two historical failed CI inventories, F11's earlier bounded test runs and the
+successful medium profiling prefixes remain separate evidence. None reproduces or
+resolves this long Windows failure. Incidental `255115` substring hits in greenbea
+and F25 were decimal digits in unrelated values, not the reported iteration event.
+No new census or old audit was run. Accepted S6 and S5 coverage remains reusable
+only at its existing scope.
+
+The log reports 607.91M allocations and 293.240GiB cumulative allocation traffic,
+0.47% GC, over about4h6m55s. This is not peak/live memory or an HH kernel benchmark.
+No allocation, time or backend cause is inferable from these aggregate figures.
+Current certification includes a basis transpose solve, vector allocations and
+original matrix/vector checks, with conditional recovery work; their occurrence
+and cost in this historical run are not captured. This documentation adds no
+production scans, solves, copies, conversions, allocations or retained state.
+Offline hashes use a 1MiB buffer; the supplied log and four small text snapshots
+are bounded evidence. No benchmark is warranted for this documentation change.
+
+The concrete remaining requirement is original-run linkage: input hash/name,
+spawning command/script as it existed then, complete options and source/runtime
+identity, plus any already preserved primal/basis/dual certificate input. Ask for
+these without requesting a rerun. If unavailable, retain the explicit historical
+limit; any new reproduction would need a separate frozen plan, admission and
+numerical allowance. No such allowance is granted here. Do not repeat this search
+without new evidence. All broader gates, rejections, CI-off, HH reuse disabled,
+full-suite/x64 limitations and deferred cleanup omission remain unchanged.
+
+Evidence: entry15/full1947 read-time hashes; provenance17/21 hashes. Original bytes,
+source pins and the failed initial sandbox read (before process creation) are
+preserved under results/S6-AP. Review and closure are recorded separately.

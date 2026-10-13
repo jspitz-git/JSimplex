@@ -1,0 +1,50 @@
+User reply received during S6-AP, 2026-10-13. Transcription of semantic content;
+indentation/line endings normalized here (not an original script-file byte capture).
+
+using Pkg
+Pkg.activate("./")
+using JSimplex, JuMP
+filename = "test.mps"
+# filepath = joinpath("C:\\Users\\jiris\\OneDrive\\MIPLib", filename)
+filepath = joinpath("C:\\tmp", filename)
+reader_native = true
+if reader_native
+    problem = read_mps(filepath)
+    @time solution = solve(problem;
+        options=SolverOptions(iteration_limit=1_000_000,
+                              time_limit=Inf,
+                              pricing=:steepest_edge,
+                              basis_update=:huangfu_hall,
+                              basis_refactorization=:native,
+                              refactorization_interval=320,
+                              algorithm=:dual,
+                              simplex_strategy=:legacy),
+        relax_integrality=true)
+    if solution.status == JSimplex.OPTIMAL
+        println(solution.objective_value) # 1.0
+        # println(solution.primal) # [1.0, 0.0]
+    else
+        println(solution.status, " ", solution.message)
+    end
+    println(solution.statistics.iterations, " ", solution.statistics.elapsed_seconds)
+else
+    m = read_from_file(filepath, format=MOI.FileFormats.FORMAT_MPS)
+    set_optimizer(m, JSimplex.Optimizer)
+    JuMP.set_optimizer_attribute(m, "iteration_limit", 1000000)
+    # JuMP.set_optimizer_attribute(m, "time_limit", Inf)
+    JuMP.set_optimizer_attribute(m, "pricing", :steepest_edge)
+    JuMP.set_optimizer_attribute(m, "basis_update", :pfi)
+    JuMP.set_optimizer_attribute(m, "basis_refactorization", :native)
+    JuMP.set_optimizer_attribute(m, "refactorization_interval", 80)
+    JuMP.set_optimizer_attribute(m, "algorithm", :dual)
+    JuMP.set_optimizer_attribute(m, "simplex_strategy", :legacy)
+    relax_integrality(m)
+    @time optimize!(m)
+    println("UF = $(objective_value(m))")
+end
+
+Original user statement: Přesné číslo commitu nevím, bylo to kolem 1::00 dnes.
+Počítač AMD, 8 BLAS threadů.
+
+No source commit or stored certificate input was supplied. The script selects the
+native-reader branch; the else-branch PFI/80 configuration is not the reported path.

@@ -1612,3 +1612,33 @@ numerical allowance, replacement model or inferred backend cause. All old numeri
 allowances consumed; all frozen evidence/scripts/rejections remain untouched.
 CIoff/HHdisabled/fullsuite/x64cause/bootstrapcacheinit/wholecaps/native-retention/
 QGCoutlier and all broader gates unchanged.
+
+## S6-AP provenance and conditional S6-AQ linkage (2026-10-13)
+
+S6-AP SOURCE/EVIDENCE ONLY provenance completed with an unresolved historical
+failure. User log88807bytes/817lines SHA22da06e3955a94ffa25fc1f0a0630e933c124aa4a137a25e159b57877030e115
+records inconclusive original-objective certificate at255115 and original-LP retry
+Harris cutoff failure at aggregate256164/14814.7718616s. User subsequently supplied
+test.mps C:\tmp native-reader HH/native320 dual legacy steepest_edge Inf/1000000/
+relax_integrality invocation, approximately01:00today2026-10-13/AMD/8BLASthreads.
+These are user-reported, not a runtime configuration capture. Commit unknown;
+no exact source/default-options/inputhash/witness linkage. Current Windows script
+names runtime.mps; current Ctmp/test.mps and referenced capture script absent.
+Linux test model hashf60dd96b matches S0/F11 dimensions, not a historical Windows
+byte identity. Current-source messages interpreted conditionally; Harris guard
+(!exhausted || !eligible_at_cutoff) does not prove all coefficients below cutoff.
+No rejecting certificate subpredicate/backend cause/CI reproduction/repair claim.
+293.240GiB is cumulative allocation traffic, not peak/live memory or speedup.
+Entry15/1947pins, provenance17/21; author original3of4/false literal text gate
+PRESERVED plus separate4PASS supplement, full1970 hashes matched. Fresh independent
+gpt6astra initial13 checks/FULLnamedpins1977 physical files; user clarification
+separate9checks8bindings, preserved initial report/plan/review, final bounded review
+accepted/no unresolved C/I/M/no unnecessary NEW production work/memory.
+No Julia/model parse/numerics/actualtest/production/env/cache/CI change; masterd02416c.
+AC current closure33/exact36 and AP original current continuation hashes map ONLY
+AP.before-AP; AP initial report/plan hashes map ONLY AP.before-user-reply when exact
+hash matches. All earlier mappings/frozen failures remain unchanged. Next S6-AQ
+2026-10-13-test-mps-original-run-linkage.md is conditional on genuinely NEW original
+source/runtime/inputhash or saved certificate input; do not repeat answered script
+question/search or infer commit from time. No new numerical allowance. All broader
+gates/rejections/fullsuite/x64/CIoff/HHdisabled/deferred cleanup omission unchanged.

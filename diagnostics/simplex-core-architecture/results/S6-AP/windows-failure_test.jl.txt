@@ -1,0 +1,17 @@
+using Pkg
+Pkg.activate("./")
+include(raw"C:\tmp\capture-failure.jl")
+ENV["JSIMPLEX_TRACE_PIVOTS"] = "1"
+ENV["JSIMPLEX_TRACE_RELATIVE"] = "1e-7"
+ENV["JSIMPLEX_TRACE_LIMIT"] = "12"
+open(raw"C:\tmp\ft-session-01.log", "w") do io
+    redirect_stdout(io) do
+        redirect_stderr(io) do
+            with_logger(ConsoleLogger(io)) do
+                Base.invokelatest(main, [raw"C:\tmp\runtime.mps", "dual", "forrest_tomlin", "900",
+                      raw"C:\tmp\ft-session-01.toml"];
+                     warmup=false, iteration_limit=46000)
+            end
+        end
+    end
+end
