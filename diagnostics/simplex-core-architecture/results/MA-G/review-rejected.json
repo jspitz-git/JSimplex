@@ -1,0 +1,22 @@
+{
+  "accepted": false,
+  "unresolved_findings": [
+    {
+      "severity": "Important",
+      "file": "diagnostics/simplex-core-architecture/results/MA-G/closure.py",
+      "description": "previous_result-review.json unconditionally requires two current continuation remappings, but its manifest binds only the MA-F-repair before copies. The mandatory used==set(mapping) check will fail. STATUS and roadmap also incorrectly list result review among remapped current bindings. Require no remapping for that document while verifying its exact original hashes; retain the two remappings for closure, closure-final, publication."
+    }
+  ],
+  "sha256": {
+    "diagnostics/simplex-core-architecture/STATUS.md": "4d2dfb4c6bb0b3ab17abe250ee907cf71555ff6978b2424eea40db262145eded",
+    "docs/superpowers/plans/2026-10-11-simplex-core-architecture.md": "d5eda999ba214050fb166717d1c3e7cf5005030887e6e4129fc21bb7ccfed889",
+    "diagnostics/simplex-core-architecture/results/MA-G/closure.py": "a16f4e9dc35c8373aeb1d16b40214405f66ae578c7e903e1445cea191d929d09",
+    "diagnostics/simplex-core-architecture/results/MA-F-repair/result-review.json": "f152d468d4b17984cac94a5ca9449e8d5214798d81baf8d610edffbde56a09bb"
+  },
+  "preserved_verification_error": "AssertionError: ('result-review.json', 0)",
+  "read_errors": [
+    "rg attempted nonexistent MA-F-repair/qualify.py",
+    "rg attempted nonexistent MA-F-repair/summary.py; actual summarize.py subsequently inspected"
+  ],
+  "scope": "No old script or Julia executed. Independent raw statistics and31 input bindings passed; rejection concerns newly prepared closure and mapping prose."
+}

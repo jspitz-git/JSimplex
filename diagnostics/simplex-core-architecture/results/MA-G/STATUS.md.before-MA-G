@@ -1,0 +1,2608 @@
+# Simplex core architecture: progress and continuation
+
+Updated: 2026-10-13. This is the entry point after interruption.
+
+## Current state
+
+**S1-A, S3-A/S3-B, S4-A/S4-C and S5-C integrated; master `6f68e24` (adds S4-AD row-count fusion; includes S5-AA/S5-U/S5-O/S5-I coverage and S6-C/S6-G/S6-M/S6-T/S6-W/S6-AA/S6-AC/S6-AI repairs and S6-AO coverage). S2-A rejected; S0-L all four long references audited and complete.**
+The source baseline is `fe839aa72171d7496c9c931d9393278448c7317e`.
+Initial time-budget diagnostic evidence is commit `6ded1fc`.
+
+Active checkout:
+`/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl`
+Branch: `codex/simplex-core-architecture`, based on `7d6a8e1`.
+
+Preserved planning checkout:
+`/home/jspitz/.codex/worktrees/simplex-time-budget/JSimplex.jl`
+Branch: `codex/simplex-time-budget` (unchanged).
+
+- [Implementation roadmap](../../docs/superpowers/plans/2026-10-11-simplex-core-architecture.md)
+- [Design and constraints](../../docs/superpowers/specs/2026-10-11-simplex-core-architecture-design.md)
+- [Baseline measurements](../simplex-time-budget/README.md)
+- [Detailed results](../simplex-time-budget/RESULTS.md)
+- [Diagnostic review](../simplex-time-budget/REVIEW.md)
+
+Do not assume master remains at the recorded baseline. Check actual refs and
+preserve user changes before creating an implementation branch. At planning,
+this checkout contains untracked Manifest.toml and LocalPreferences.toml;
+main also has a user-modified .vscode/settings.json. Do not stage those files.
+
+## Stage ledger
+
+| ID | Deliverable | State | Evidence / next action |
+| --- | --- | --- | --- |
+| P0 | Design, roadmap, continuation record | Done | This documentation; production unchanged |
+| S0 | Frozen baseline and coverage plan | Verified | Both counted and plain origins audited; old-baseline only, no current-master comparison |
+| S1 | State ownership and validation reuse | Integrated | Inventory and local S1-A contract; master beb161b, report S1-ENTRY.md |
+| S2 | Audited incremental primal maintenance | Active | S2-A REJECTED after numerical/cost qualification and independent review; broader pivot controller unresolved |
+| S3 | End-to-end exact sparsity support | Active | S3-A/S3-B integrated, latest masterb720674; exact-support consumer savings qualified; broader S3 partial |
+| S4 | Refactorization memory lifecycle | Active | S4-A/S4-C integrated; master3220118; Float64 component attribution/cost and exact triplet optimization accepted; bounded scalar component attribution360samples accepted; broader manager/history/medium coverage open |
+| S5 | Phase/cleanup handoff contract | Active | S5-A/S5-B accepted; S5-C production88a2411 -> mastere7014fb, reviewed, master668/668; broader handoffs partial |
+| MA | Selective MutableArithmetics integration | Active | MA-F replacement correctness qualified: RED2expected,381assertions+48fixtures; targets6/6 benefit pass, controls6/32 fail; production promotion NOT accepted |
+| S6 | Broad validation and final comparison | Active | S6-A/B triage accepted; S6-C test repair integrated as mastera465da5, focused20/20. S6-G artificial-row test repair master8516e0d; S6-M BigFloat fixture repair master7fea422, focused1477/1477; S6-T no-recession fixture masterafb37d9,focused192/master19; S6-W repeated-price fixture masterb9e7cb1,focused109/master41; S6-AA reliable exchange fixture master74f7835,focused127/master19; S6-AC reconstruction fixture master3c0af5c,focused339/master215; S6-AI dual recovery fixture master354bb1f,focused339/master252; other CI families and full validation remain open |
+
+Allowed execution states: Pending, Active, Blocked (reason required), Verified,
+Integrated, Rejected (evidence required). Mark an optimization Verified only after
+its acceptance gate. Record individual chunks separately when a stage is partial.
+
+## Exact next action
+
+MA-F replacement attempt is completed and consumed. RED exactly2expectedfailures;
+candidate381/381,48fixturecases/432rows,all22processes/20costprocesses accepted
+for correctness. All1920steadywindows compile/recompile0; five GC windows retained.
+Six target benefit gates pass (fullforward C/R medians0.5726–0.8022), but six of
+32controls exceed1.05. Overall production benefit NOT ACCEPTED; no integration.
+See MA-MARKOWITZ-UPPER-QUALIFICATION-REPAIRED.md and results/MA-F-repair.
+
+Original attempt-1 pre-test API error is frozen. Replacement exact scoped-Test
+repair separately reviewed; all1817pins unchanged, full90groupsANDsessions absent,
+noJulia. Runtime213.634s inclusive is not a benchmark. No extra attempt/tuning,
+longer cap, outlier deletion or safeguard change. Requested MA-F work is complete;
+broader MA/S2/S3/S4/S5/S6 remain open. Further source analysis may use the preserved
+control regressions; any changed candidate/new measurement requires a separate
+concrete independent admission. Standing short-run permission persists; no repeated
+permission question. Do not automatically promote or rerun this candidate.
+
+MA-F current STATUS/roadmap closure/publication/review bindings map ONLY to
+MA-F-repair/STATUS.md.before-MA-F-repair and roadmap.md.before-MA-F-repair.
+All older mappings unchanged. Master6f68e24,actualsrc/test/Project/env/CI unchanged;
+automationpaused/HHdisabled. Both attempts and all pinned scripts/raw frozen.
+
+## S4-AD production integration — 2026-10-13
+
+S4-AD row-count fusion integrated: production`99da53e` -> master`6f68e24`.
+Exactly two files: unchanged qualified constructor candidate plus46-line regression
+append/4188-byte original test prefix. Corrected RED20pass/fourexpectedworkfailures;
+GREEN722/722 and actualmaster324/324, all8audit gates each, no error/broken assertions.
+Initial RED infrastructure failure and120sGREEN timeout are preserved, not passing.
+Separate accepted amendments supplied repaired collector and ONE300sGREEN; actual
+GREEN278.161s, master13.013s. All44groupsANDsessions absent/noJulia. AB performance
+evidence reused without rerun: H redundant length reads removed, narrow retained
+Float32/64 benefit, no universal/end-to-end speedup or memory-saving claim.
+AC current continuation bindings map ONLY original S4-AD before copies; historical
+RED actual source/test pins map ONLY exact S4-AD before-source/test. Older maps intact.
+Next already planned point: MA-1 select one production kernel and freeze its scalar
+ownership/operation-order contract in a concrete subplan before implementation.
+MA remains Pending; no automatic numerical launch or reopening of stopped routes.
+Automation paused, CI off, HH reuse disabled; broaderS2/S3/S4/S5/S6 remain open.
+See S4-MARKOWITZ-ROW-COUNT-INTEGRATION.md and results/S4-AD-green-bounded reviews.
+
+## S4-AC permanent regression preparation — 2026-10-13
+
+S4-AC offline integration preparation completed: exact S4-AB source candidate,
+4188-byte test prefix preserved plus46-line isolated module/24prospective tests.
+Four real-constructor work cases expect20pass/fourworkfailures on current source,
+324prospective full-file assertions after change; NO Julia/parser/numerical run.
+12source/text checks28fresh hashes; source/test/env/CI/master unchanged.
+Next S4-AD: prepare exact RED/GREEN/master drivers, public-call schedules, immutable
+pins and independent admissions, then execute the concrete integration plan
+2026-10-13-markowitz-row-count-integration.md. At most three sequential120s-capped
+processes; standing short-run permission applies, no repeated permission question.
+No automatic launch from this preparation, no AB rerun/tuning or benchmark repeat.
+AB current continuation bindings map ONLY results/S4-AC/STATUS.md.before-S4-AC and
+roadmap.md.before-S4-AC; all older maps preserved. Full34groupsANDsessions absent.
+Automation paused, CI off, HH reuse disabled, MA pending; broader plan open.
+See S4-MARKOWITZ-ROW-COUNT-TEST-PREPARATION.md and results/S4-AC/review.md.
+
+## S4-AB Markowitz row-count fusion — 2026-10-13
+
+S4-AB row-count fusion qualification completed:648/648 predicates, six audit
+and seven postcheck gates; one27.021s guarded run,624 unchanged launch pins.
+Four work cases confirm removal of H redundant row-length queries.24 paired
+lifecycles/four types/two dictionary implementations preserve selected factors,
+owners, inputs and saved solves.12cost cases/240windows/168measuredcompilezero;
+retained-capacity Float32/64 paired ratios0.932735/0.950450, other timings mixed,
+GC outliers retained, allocation events unchanged by side medians. No universal
+speedup/memory saving or full solver claim. Production/test/env/CI/master unchanged.
+Next: prepare a concrete permanent work-regression/source integration subplan for
+this exact change, after independent result acceptance; do not repeat qualification.
+MA remains Pending. Automation paused; broader plan open; old stopped routes remain
+stopped. Standing short-attempt permission applies with concrete admission/caps.
+MA-B current continuation hashes map ONLY results/S4-AB/STATUS.md.before-S4-AB and
+roadmap.md.before-S4-AB; all older maps preserved. Full34groupsANDsessions absent.
+See S4-MARKOWITZ-ROW-COUNT-QUALIFICATION.md and results/S4-AB/result-review.md.
+
+## MA-B roadmap addition — 2026-10-13
+
+Added the user-requested optional MA workstream to the implementation roadmap:
+one concrete kernel, private scalar scratch, precision/alias/output-lifetime
+contract, short independent correctness/allocation/time qualification, and
+conditional reviewed integration. No implementation or numerical run performed.
+MA-A current result-review/closure/publication STATUS/roadmap hashes map ONLY
+results/MA-B/STATUS.md.before-MA-B and roadmap.md.before-MA-B. All older mappings
+and all frozen MA-A evidence remain unchanged. No production/test/env/CI changes.
+
+## MA-A private scalar arithmetic — 2026-10-13
+
+User-requested isolated MutableArithmetics1.8.1 dot benchmark completed:12cases,
+BigFloat128/256/512 and Rational{BigInt},n32/n256dense/n256zero-heavy dense storage.
+240windows(3warm+7measuredpairs/case,32dots/window),all outputs/ownership/precision
+pass; independent exact binary-rounding oracle agrees. All84measured buffered
+windows zero counted bytes/events,168compile/recompilezero. Dense256paired
+candidate/reference median ratios0.1364/0.1992/0.2587 BigFloat and0.5442 Rational.
+GC outliers preserved; oneprocess/synthetic/borrowedprivateoutput,NOTsolver speedup
+or permission to mutate shared scalars. Setup separate; no native-free proof.
+One120s-capped run exit0,inclusive3.005227993s,6audit/7postcheckPASS,622pins.
+Pre-seal field-name failure and fail-closed no-Julia invocation preserved with
+separate accepted supplement; no numerical retry. Full32groupsANDsessions absent.
+See MA-PRIVATE-SCALAR-KERNEL.md and results/MA-A/result-review.md. No production,
+test,actualenv,CI or master change. AA current continuation bindings map ONLY
+MA-A/STATUS.md.before-MA-A and roadmap.md.before-MA-A; older mappings unchanged.
+MA-A allowance consumed and all evidence frozen. No automatic follow-on variant.
+Future short numerical work has human permission but still needs concrete admission.
+Automation paused; S3-G/stopped routes stay stopped; broader plan remains open.
+
+## S4-AA Markowitz retention qualification — 2026-10-13
+
+One guarded qualification-1, canonicalYdriver unchanged,66/66(33+33),exit0,
+6auditgates8postchecks;711launchpins unchanged. Two128→8→8→128cases preserve
+128 dictionaries/maxima owners and workspace graph94888B at every stage.
+Sparse small active lengths8; dense bypass128. Backend graphs differ by current
+factor/spare; graph estimates overlap, no native-free/leak/speedup proof and no
+trimming policy admitted. Source schedule2constructors2copies6refactors20solves;
+8snapshots/50helpervectors/fourmatrixcopies, not fullPREforward/import budget.
+Four resource samples,minRAM22089432KiB,swap0,inclusive4.005497609s not benchmark.
+Runner156956/child156957, bootdade7243-9103-4398-bb45-fa28fbc0be72,
+start_ticks7624463/7624512; all30groupsANDsessions absent/noJulia after exit.
+New human permission supersedes repeated permission requests for future short
+attempts; technical admission gates and no multi-hour runs remain. Automation
+stays paused. Exact one-attempt reservation consumed; frozen Y/Z/AA evidence
+never rerun/rewrite. OriginalZoutput and six portableAAfiles byteidentical;
+postcheck supplemental notlaunchpin. Z current continuation hashes map ONLY
+AA/STATUS.md.before-S4-AA and roadmap.md.before-S4-AA; all older maps unchanged.
+Report S4-MARKOWITZ-RETENTION-QUALIFICATION.md. Broader plan remains open.
+
+## S4-Z Markowitz retention admission preparation — 2026-10-13
+
+S4-Y published as23ac555,26 exact committed blobs verified; master unchanged.
+New offline launcher/auditor/guard proposal freezes two cases/66predicates,
+2constructors2copies6refactors20solves/eight snapshots. No Julia or launcher run.
+Resource120s/VM8GiB/heap2GiB/RAMfloor6GiB/swap1GiB/threads1 and full28groups
+ANDsessions. Separate exact-manifest numerical review AND new human permission
+are mandatory. No allowance/reservation/output exists; automation stays paused.
+See S4-MARKOWITZ-RETENTION-ADMISSION.md and the conditional
+2026-10-13-markowitz-retention-qualification.md plan. All Y final continuation
+bindings map ONLY Z/STATUS.md.before-S4-Z and roadmap.md.before-S4-Z; Y initial
+before-review mappings and all older mappings remain. No runtime/retention
+optimization acceptance. Broader plan remains open.
+
+## S4-Y Markowitz construction retention preparation — 2026-10-13
+
+Original S4 non-HH construction-retention prerequisite selected independently.
+Existing tests require allocation-free64→3→64 regrowth and maximum-cache
+owner retention. Do not impose a universal current-dimension memory cap or
+choose a threshold merely to avoid those fixtures. Current sparse reset clears
+all retained dictionaries, while dense/empty fast paths bypass that reset.
+Active/spare slots can share construction workspace; saved copies get none.
+Failure protects numerical factors, not the already-mutated scratch state.
+
+Separate canonical UNEXECUTED driver-reviewed.jl (initial driver preserved): two Float64 Markowitz direct-backend cases,
+128→8→8→128, sparse versus dense small input; prospective2constructors2copies
+6refactors20solves,66predicates8snapshots. Base.summarysize graph estimates
+are overlapping, not additive/native bytes/freeing/peak memory. No timing,
+allocation benefit, runtime qualification or production policy change claimed.
+No Julia/query/parser/import/compile/numerics, src/test/env/CI/master change.
+
+Next: docs/superpowers/plans/2026-10-13-markowitz-retention-admission.md,
+OFFLINE launcher/pins/auditor preparation and independent review only.
+New numerical launch requires its own accepted immutable admission and fresh
+explicit human numerical allowance. Automation remains PAUSED; no schedule edit.
+G closure/publication/review six current STATUS/roadmap bindings map ONLY to
+Y/STATUS.md.before-S4-Y and Y/roadmap.md.before-S4-Y. Older maps unchanged.
+All old scripts/raw/reviews remain frozen; no old measurement or audit rerun.
+Report S4-MARKOWITZ-RETENTION-PREPARATION.md and REVIEW; results/S4-Y.
+
+## S3-G rational primal support admission — 2026-10-13
+
+SOURCE/DESIGN ONLY decision: support-only omission for Rational{BigInt} is NOT
+ADMITTED under the existing ownership contract. Stop this consumer route, with
+no candidate or next equivalent inventory. Installed Base generated arithmetic
+creates fresh numerator/denominator BigInts even when subtracting zero; an
+omitted write retains the old owners. Existing support metadata cannot certify
+that retaining them is unobservable. Source-derived identity discriminator is
+UNEXECUTED; no runtime failure, general impossibility or solver defect claimed.
+
+Fourteen source gates/eighteen read-time hashes include installed gmp.jl and
+rational.jl; no retroactive runtime binding. Recompute assigns rational scalar
+references and staged copyto! copies elements, not recursive BigInt ownership.
+Five review classes have explicit dense-fallback/rejection and prospective
+oracles. All original dense ordering, entering addition and exceptions remain.
+Source constructor counts are not allocation measurements or native budgets.
+No new production work/memory; no Julia/import/compile/numerical experiment,
+new LP, candidate/driver/launcher, actual src/test/env/CI or master change.
+
+F current STATUS/roadmap bindings in closure/publication/final review map ONLY
+G/STATUS.md.before-S3-G and G/roadmap.md.before-S3-G. Earlier F snapshots still
+resolve S2-E current bindings, all older maps and failures unchanged. G's
+original plan stays frozen; this decision and independent review complete it.
+G artifacts freeze after publication; never rerun collectors/publisher/reviews.
+
+No further equivalent sparse-value ownership inventory is authorized. A genuinely
+different concrete permitted step or explicit change of this boundary is needed
+before continuing this route. This is not completion of broader S3/S2/S4/S5/S6.
+S2-E allowance remains consumed; no tuning/promotion. S6-AQ independently needs
+new original evidence; do not repeat searches/questions. All stopped directions,
+HH-disabled, CI-off and broader/fullsuite/x64 gates remain unchanged.
+
+Reports: S3-RATIONAL-PRIMAL-SUPPORT-ADMISSION.md and REVIEW; results/S3-G.
+
+## S3-F ordinary value-update support contract — 2026-10-13
+
+Source/design only, after the human explicitly requested continuation of the
+original plan. This is the original S3 value-update item, independent of the
+stopped DSE mixed-route qualification. Twelve source gates and 17 fresh hashes;
+source/test/CI identical to master d02416c. No Julia, parser/import/compile,
+numerics, new LP, production candidate or actual test change.
+
+General support-only omission is not admitted: update_duals! repairs existing
+cost violations even on a zero tableau row (existing tests read, not rerun).
+Floating update_primals! can change signed zero through a zero product; this is
+an analytic scalar example, not a new runtime/trajectory observation. Existing
+support access can rebuild O(m) or compact O(s), and matching-cache admission
+checks matrix identity plus six buffer owners before up to six lookup checks.
+The initial undercounted description is preserved in report.before-review;
+a separate five-check amendment corrects it. No new production work/memory.
+
+Next concrete authorized work: S3-G source/design decision in
+`docs/superpowers/plans/2026-10-13-rational-primal-support-admission.md`.
+Exactly Rational{BigInt} primal updates are only a prospective scope: establish
+scalar ownership/exception semantics, alias/order restrictions and inexpensive
+read-only support admission, or reject this consumer route. No numerical
+allowance or candidate implementation follows from F. Do not wait for S6-AQ to
+perform this independent source-only step, and do not repeat F's analysis.
+
+S2-E final closure/publication current STATUS/roadmap hashes map ONLY to
+results/S3-F/STATUS.md.before-S3-F and roadmap.md.before-S3-F. Older E-before-D,
+D/B/C and all prior mappings remain unchanged. F scripts/checks/raw/review are
+single-use frozen evidence after publication; preserve the initial review
+finding and correction. Separate independent review and closure/publication
+records accompany this milestone. S2-E allowance remains consumed, no tuning or
+promotion; S6-AQ still requires new original evidence; all stopped routes,
+HH-disabled, CI-off, fullsuite/x64 and broader open gates remain unchanged.
+
+Reports: S3-VALUE-UPDATE-SUPPORT-CONTRACT.md and its REVIEW; results/S3-F.
+
+## S2-E price-audit qualification — 2026-10-13
+
+Human explicitly authorized ONE guarded180second attempt after S2-D. New entry16
+checks/full801+780/final22bindings48/closure24bindings127/publication6/exact129;
+independent gpt6astra numerical admission35checks830bindings, exact826launchpins,
+seal review8checks and separate freshhost7 accepted before launch. Same frozenD
+command/stage/output paths identify this new logicalE attempt, not an old rerun.
+
+ONEcandidateprocess completed655/655(90/40/416/34/16/31/28),exit0/admittedaudit21PASS.
+Eightfixtures192windows64warm128measured/3072wholeaudits1536perside; alloutputsTRUE,
+all128measuredcompile/recompile0 and inwindowGC0. Lowerbytes/events in every measured
+pair but mixed time: pairedmedians Float32 sparse32/dense32/sparse128/dense128
+1.012887/1.116662/0.898099/1.073180; Float64 0.990180/1.035240/0.932851/1.120635.
+All fourdensemediansslower; smallsparseneutral, sparse128locallyfaster. No universal
+or endtoendspeedup, no productionpromotion/tuning/retry. Outliers preserved/causes
+unknown; zero-dualfixtures/singleprocess/shortwindows limit generality.
+
+Original supplementalpostcheck12/14/exit1/TWOfalsecountgates preserved:15rawportable
+files, not16(10Julia+5process/pins/resources/log). Separate6PASSsupplement verifies
+all15exactbytes/hashes; admittedaudit and numerics NOT rerun. Admission prose entry
+11bindings corrected ONLY separate sealreview to10; boundreview unchanged. Sixty
+resourcesamplesminRAM21608940KiB/swap0; terminal22471500KiB/swap0, inclusive60.034391631s
+NOTbenchmark. Runner128482/start6285461 and child128483/start6285508, same boot;
+fullold26+bothnewgroups ANDsessions absent/noJulia. Ordinaryexistingloader NOT
+cache/importclosureproof; sourceentrybudget NOTcompletePREforward/backendwork.
+
+Exact frozenCcandidate removesoneconcat/addsconstantownerchecks+peraccessrouting;
+no newscan/solve/cache/precision/safeguardchange, freshscratchinside. Actualproduction
+work/memory unchanged; candidate extraaccesscost is NOTacceptedgeneralpromotion.
+Fresh independent numerical/work/memory review accepted, no unresolved findings.
+Dclosure127 and826launch/admissionreview currentSTATUSroadmap now map ONLY E/*before-S2-E;
+Dinitialauthor ANDinitialreviewerreport map ONLY D/report.before-review; C35mapsD
+before-S2-D, older mappings unchanged. AlloldD/B/Cscripts/pins/reviews/failedrecords
+and newEraw/admission/launcher/auditor/results FROZEN NEVER RERUN or rewrite.
+
+Allowance CONSUMED. Exactcandidate notpromoted; another numerical attempt or source
+variant needs its own concrete accepted plan and new allowance. No nextlaunch or
+productionintegration authorized here. Broaderplan remainsOPEN; S6-AQ independently
+requires genuinely neworiginalevidence, no repeatedsearch/question. HHdisabled/CIoff,
+masterd02416c/allolderrejections/fullsuite/x64 remainunchanged. Reports
+S2-PRICE-AUDIT-VALUES-QUALIFICATION.md / -REVIEW.md, results/S2-E.
+
+## S2-D offline price-audit admission — 2026-10-13
+
+S2-D OFFLINE admission preparation accepted; no Julia query/parser/import/compile,
+launcher/guard/numerical execution or actualsrc/test/env/CI change. Ordinary73-file
+source overlay changes only exactCcandidate primal_updates; one original reference
+function has a byte-exact inverse with four qualifications. Eight fixedFloat32/64
+sparse/dense fixtures,655 prospective assertions(90/40/416/34/16/31/28),30directpairs/
+60qualitycalls+20aliasrejections. Integration11setups7explicitrecomputes10audits
+4iterations16qualitycalls+fourconditionalprivateaudits, NOTcompletebackendbudget.
+Cost8setups192windows(64warm128measured)3072wholeaudits1536perside,4warm8measured
+alternatingpairs/fixture; freshscratchinside, alltimes/events/bytes/output/compile0
+required. No runtime/loading/dispatch/cost/speedup/retention acceptance.
+
+Initial780pins/source16/author6/synthetic25 preserved. IndependentreviewREJECTED
+TWOImportant:755aggregate versus655 childsum, and Pythonassert admission gates
+removedbyoptimization. Separatevariants fix5PASS +32newsynthchecks, author5/full801;
+freshgpt6astra FULL801+original780/final22checks48bindings accepted, no unresolved
+Critical/Important/Minor, no unnecessary NEWproductionworkmemory. Originalreport
+binding in initialauthor/reviewer maps ONLY D/report.before-review. Both initial
+errors and all original PASS records/rejectedreview preserved, no retroactivepass.
+Canonical driver-reviewed.jl/common_reviewed.py/launcher-reviewed.py/audit-reviewed.py,
+admission-reviewed.md/required-paths-reviewed.json/admission-pins-reviewed.json.
+Originalclosure.py is an UNEXECUTED schema draft; closure-final.py uses the actual
+review unresolved_findings field. All frozen B/C artifacts remain unchanged.
+
+Cfinalclosure35 STATUS/roadmap map ONLY D/*before-S2-D; Cinitialclosure oldroadmap
+still maps ONLY C/roadmap.md.before-whitespace, other older mappings unchanged.
+Next S2-E docs/superpowers/plans/2026-10-13-price-audit-values-qualification.md is
+CONDITIONAL on explicit human allowance for ONE180second guarded process and fresh
+immutable numerical-admission review. No allowance/launchpins exists. Do not treat
+this offline acceptance or automation tick as authorization; no repeated audits or
+notifications while this condition is unchanged. S6-AQ remains independently
+conditional, all old rejections/HHdisabled/CIoff/fullsuite/broader gates unchanged.
+Reports S2-PRICE-AUDIT-ADMISSION-PREPARATION.md / -REVIEW.md, results/S2-D.
+
+## S2-C offline price-audit candidate — 2026-10-13
+
+S2-C OFFLINE preparation accepted: separate source candidate and test text only,
+NO Julia query/parser/import/compile/numerics. Exact whole-source inverse changes
+only the two-owner read-only adapter/factory and one vcat assignment. Empty/mixed/
+union/other storage materializes; exact Float32/Float64 nonempty parents borrow,
+with inner domain checks and both dataids. All arithmetic/safeguards unchanged.
+Thirty direct quality pairs (60 entries),20 alias rejection entries and three
+byte-identical integration testsets are UNEXECUTED; integration has16 additional
+explicit quality entries plus setup/audit/pivot work, not a complete backend cap.
+Initial21 checks/535 fresh hashes/513 actual src-test-CI comparisons; author6/five
+bindings; fresh gpt-6-astra FULL535/513/B24 and24 review checks/bindings, no unresolved
+Critical/Important/Minor and no unnecessary NEW production work/memory. No speedup,
+allocation/dispatch/alias/runtime acceptance. No production/test/env/CI/master edit.
+B closure24 STATUS/roadmap map ONLY results/S2-C/*before-S2-C; all older mappings
+and frozen evidence remain unchanged. Actual masterd02416c, HHdisabled, CIoff and
+all prior rejections/broader gates open. No numerical allowance consumed or granted.
+Next S2-D: docs/superpowers/plans/2026-10-13-price-audit-values-admission.md,
+OFFLINE concrete admission preparation/review only, then separate PASS closure/
+exact complete staged blobs/failfast publication. S6-AQ remains separately conditional.
+Reports S2-PRICE-AUDIT-VALUES-PREPARATION.md / -REVIEW.md, results/S2-C.
+All accepted C scripts/candidates/checks/review/pins FROZEN; NEVER RERUN/rewrite.
+
+
+
+S2-B SOURCE/DESIGN ONLY is accepted after one offline review fix pass. It selects
+one existing audit-cost prerequisite independently of S6-AQ: an invocation-local
+read-only price-audit input wrapper for exact Float32/Float64 nonempty vectors,
+with generic/empty vcat fallback. Prediction copies, reconstruction, quality scratch,
+residual term order, tolerance and all safeguards remain. No implementation or
+Julia/parser/import/numerics occurred. No speedup/default-path saving is claimed.
+Initial13 source checks/531 read-time pins and513 src/test/CI master comparisons;
+author6 plus4 amendment checks; fresh gpt6astra FULL531/513 then bounded7final/
+4intermediate/2original bindings. Important empty-parent resize/alias gap rejected
+the initial design; preserved originals/review and one offline4+5-check correction
+now enforce nonempty construction, exact scalar dispatch and bit-aware comparisons.
+Final review accepts source/design and offline preparation only, no unresolved C/I/M
+or unnecessary NEW production work/memory. Candidate costs include at most4empty+
+2type constant checks and per-access routing; runtime/cost acceptance remains open.
+AP closure40 STATUS/roadmap hashes now map ONLY results/S2-B/*before-S2-B; B initial
+report/plan pins map ONLY *.before-review, intermediate fix4 pins to *.after-empty-fix.
+All old raw/failed audits/rejections remain untouched; masterd02416c/CIoff/HHdisabled.
+Next S2-C: docs/superpowers/plans/2026-10-13-price-audit-values-preparation.md,
+OFFLINE candidate/test-source preparation and independent review, no Julia allowance.
+S6-AQ still requires new original-run evidence; that wait does not block this step.
+Reports S2-PRICE-AUDIT-STORAGE.md / S2-PRICE-AUDIT-STORAGE-REVIEW.md, results/S2-B.
+
+
+S6-AP SOURCE/EVIDENCE ONLY provenance completed with an unresolved historical
+failure. User log88807bytes/817lines SHA22da06e3955a94ffa25fc1f0a0630e933c124aa4a137a25e159b57877030e115
+records inconclusive original-objective certificate at255115 and original-LP retry
+Harris cutoff failure at aggregate256164/14814.7718616s. User subsequently supplied
+test.mps C:\tmp native-reader HH/native320 dual legacy steepest_edge Inf/1000000/
+relax_integrality invocation, approximately01:00today2026-10-13/AMD/8BLASthreads.
+These are user-reported, not a runtime configuration capture. Commit unknown;
+no exact source/default-options/inputhash/witness linkage. Current Windows script
+names runtime.mps; current Ctmp/test.mps and referenced capture script absent.
+Linux test model hashf60dd96b matches S0/F11 dimensions, not a historical Windows
+byte identity. Current-source messages interpreted conditionally; Harris guard
+(!exhausted || !eligible_at_cutoff) does not prove all coefficients below cutoff.
+No rejecting certificate subpredicate/backend cause/CI reproduction/repair claim.
+293.240GiB is cumulative allocation traffic, not peak/live memory or speedup.
+Entry15/1947pins, provenance17/21; author original3of4/false literal text gate
+PRESERVED plus separate4PASS supplement, full1970 hashes matched. Fresh independent
+gpt6astra initial13 checks/FULLnamedpins1977 physical files; user clarification
+separate9checks8bindings, preserved initial report/plan/review, final bounded review
+accepted/no unresolved C/I/M/no unnecessary NEW production work/memory.
+No Julia/model parse/numerics/actualtest/production/env/cache/CI change; masterd02416c.
+AC current closure33/exact36 and AP original current continuation hashes map ONLY
+AP.before-AP; AP initial report/plan hashes map ONLY AP.before-user-reply when exact
+hash matches. All earlier mappings/frozen failures remain unchanged. Next S6-AQ
+2026-10-13-test-mps-original-run-linkage.md is conditional on genuinely NEW original
+source/runtime/inputhash or saved certificate input; do not repeat answered script
+question/search or infer commit from time. No new numerical allowance. All broader
+gates/rejections/fullsuite/x64/CIoff/HHdisabled/deferred cleanup omission unchanged.
+
+
+S5-AC SOURCE/DESIGN ONLY decision accepted: omission DEFERRED; the existing
+native/no-observer/infinite-context flag gate is insufficient. Native constructor
+profile permits explicit policy overrides; no observer still permits diagnostic
+events/kernel counts; options and context clocks differ. Zero scratch/default
+weights are not reconstructed state. Ordinary initialization failure reaches the
+outer handler with workspace=nothing; strict ordinary recovery also returns its
+numerical result, so this ownership distinction alone is NOT a demonstrated
+changed recovery outcome. Default arithmetic failure equivalence and scratch/cache
+initialization remain unproved even for a stricter diagnostics=nothing/infinite-
+both-clocks/fixed-hardware subset. No impossibility or new failing fixture claim.
+No hidden retry, duplicate work, swallowed logger/observer exception, changed
+safeguard or working-to-original certificate transfer is permitted.
+Entry20/full1910 hashes, source19/25pins and author8/full1917/6bindings PASS.
+AB initial rejection and corrected O provenance, closure35/exact38, AA inventories,
+source511/user6/full26groups AND sessions/local+remote refs preserved and verified.
+Initial independent review rejected one Important production-pricing-timer claim;
+before-report/review/source pins preserved. One offline RED/GREEN amendment6checks/
+6bindings corrects only FTRAN/BTRAN timing versus the untimed direct pricing pass.
+Three read-only rg guessed-path failures preserved; no Julia/parser/import/compile/
+native/numerics/executable candidate/driver/launcher/benchmark/test/production/env/
+cache/CI change. Fresh independent gpt-6-astra numerical/work/memory review accepted;
+no unresolved findings or unnecessary NEW production work/memory. No new saving:
+source-derived target only one cold default FTRAN/BTRAN/pricing reconstruction;
+constructor/factor/restored/projection/ordinary/certification remain. A184/B/C and
+both old medium attributions reused; no equivalent census/current-master speedup.
+AB-bound current STATUS/roadmap preserved ONLY in AC.before-AC; AB initial/read-time
+mappings remain AB.before-AB and before-review; all older AA/Z/Y/X/W/V/U/T maps intact.
+S5 initialization-reuse/end-to-end gate stays OPEN. Next S6-AP is ONE distinct
+SOURCE/EVIDENCE ONLY provenance step for the parent's outstanding user test.mps
+certificate/recovery failure, under 2026-10-13-test-mps-failure-provenance.md. No new
+numerical allowance, replacement model or inferred backend cause. All old numerical
+allowances consumed; all frozen evidence/scripts/rejections remain untouched.
+CIoff/HHdisabled/fullsuite/x64cause/bootstrapcacheinit/wholecaps/native-retention/
+QGCoutlier and all broader gates unchanged.
+
+
+S5-AB SOURCE/EVIDENCE ONLY reconciliation accepted: seven original handoff rows
+covered at their stated unchanged-contract scope; no equivalent new census selected.
+Entry23/full1829 hashes rebinds AA1464/1463/1468/1493/raw8/inv3/closure95/exact99;
+41groups/82 original CI rows pass SEPARATELY in each FAILED historical run.
+Ten historical test files match;14 selected production files per run have13matches
+and known S5-C perturbation difference. C actual9file/1463 execution reused,
+8wholefiles+AO unchangedprefix; I/O/U/AA/AC/AO actual-master selected source/test
+bindings, AA reliable target distinct from later AC wholefile. Initial10checks/81pins,
+source23/111pins,author8/full1883/6bindings preserved. First selector nonexistent
+scaling.jl failure preserved; separate transformations.jl version. Important review
+wrong S5-O test binding preserved/rejected: unrelated adaptive_pricing_tests.jl was
+pinned, actual execution is adaptive_pricing_lifecycle_tests.jl. One separate offline
+RED/GREEN supplement8PASS/7bindings plus author5/5bindings binds actual driver,
+master pins/raw wholefile/suffix42pass; five other integration records unchanged.
+Before-review report and original gates remain historical, not retroactive proof.
+Fresh independent gpt-6-astra full named manifests/rows/Git comparisons and bounded
+fix review accepted, no unresolved findings or unnecessary NEW production work/memory.
+No Julia/query/parser/import/compile/native/numerical/fixture/candidate/driver/launcher/
+benchmark/test/production/env/cache/CI change. Masterd02416c unchanged. All old
+numerical allowances consumed; all old raw/scripts/audits/rejections preserved.
+AA closure/publication and AB initial read-time STATUS/roadmap map ONLY AB.before-AB;
+AA launch/admission remain AA.before-AA; older Z/Y/X/W/V/U/T maps unchanged.
+Original inventory identity-transform branches may share problem identity; no universal
+fresh model copy. Covered rows do not prove cross-products/currentfullsuite/x64cause.
+S5 initialization reuse/end-to-end gate remains OPEN; C saves one restoration cost
+copy, not initialization. After separate PASS closure/exact publication, next S5-AC
+2026-10-13-cleanup-entry-reuse-design-decision.md is ONE bounded source/design-only
+eligibility/failure decision on A's existing native/no-observer/infinite-budget
+hypothesis. No unconditional omission, numerical/implementation allowance or repeat
+of A184/oldmedium/qualified handoffs. HH/DSE/controller/isolation audits stay closed;
+CIoff/HHdisabled/broadergates/bootstrapcacheinit/wholecaps/native-retention/Qoutlier unchanged.
+
+
+S5-AA integrated exact corrected Z candidate: test c5c3147 -> actual masterd02416c,
+whole4774-byte prefix unchanged plus193 lines/50 permanent assertions/explicit
+top-level SingularException import. Exactly TWO new Float64PFInativeINITIALsetup+
+crash lifecycles TOTAL, one GREEN and one actual-master; each52/52(50+2driver),
+33audit gates1468/1493pins10authorpostchecks9bindings/raw8originalportable/inv3.
+Fresh independent admission/GREEN/master admission/result reviews accepted, no
+unresolved Critical/Important/Minor or unnecessary NEW production work/memory.
+Initial1464/required1463/full511sourcepairs and exact five-insertion inverse checked;
+master36stagebindings include all23GREENevidence paths. First entry three false
+historical continuation gates preserved; separate entry-2 exactmaps38PASS. Preliminary
+session/identity/terminal-memory findings fixed with preserved drafts and27 offline
+checks;92+15 initial tests and77 reviewer gates PASS, no numerical retry.
+All50 predicates/nativepolicy/options/tols/Inf/interval20/originaldone-stop unchanged.
+Each entry0/0,TRIALrefactor2/2,INITIALfallbackafter2/2,pivot2/refother1/fallback1/
+accepted0/callbacks6/no laterselectedwork; sameSingularException42wrappedcause/no return.
+TRIALrefactor before ordinary reconstruction, fallback after maxmerge/eventrecord.
+Selected17INITIALroles/sevenvalues/11distinctTRIALroles/sharedproblemprogresspolicy/
+scaling/optionsvalue/clock preserved; retainedTRIALmutableuntilunwind, notcallbacksnapshot.
+Coldprobe11+done/threeowner17tuples/sevenvectorcopies26entries/fixedrecords/50Bool+
+Teststorage; driverfourcounts/fixed90entryrawdicts/serialization. No callback scans/
+copies/numerics/ledger. No PREforward/backend/import/kernel budget/native-free/GC/
+fullstate/rollback/certtransfer/observer-neutrality/speedup/CIcause proof.
+Each6samples,minRAM22137132/22070736KiBswap0,terminal22583232/22516760KiB,
+inclusive6.012333269/6.011550007s NOTbenchmarks. Full26groups/sessions absent/noJulia.
+All AA/Z/Y/X/W/V/U and older raw/scripts/launchers/auditors/reviews FROZEN after
+closure, both AA numerical allowances CONSUMED. Before-AA continuation preserved;
+all older historicalmaps/falseaudits/rejections unchanged. No production/env/CIchange.
+Reports S5-CRASH-FALLBACK-OBSERVER-TEST-INTEGRATION.md/REVIEW,results/S5-AA.
+After separate PASS closure and exact publication next S5-AB2026-10-13-handoff-
+coverage-reconciliation.md is SOURCE/EVIDENCE ONLY: reconcile original S5 obligations
+against accepted coverage, no new numerical plan/fixture/candidate/driver/launcher,
+no old rerun or HH/DSE/controller/isolation reopening. CIoffHHdisabled/all broader
+S3S4S5S6/fullsuite/bootstrapcacheinit/wholecaps/native-retention/QGCoutlier/rejections
+remain open.
+
+Historical S5-Z follows; its canonical candidate was integrated by AA.
+
+
+S5-Z OFFLINE separate permanent candidate accepted and UNEXECUTED, SHA
+ce256932a4bbda14bb9c55678525d6506a8e63732683442def57b22873b0415f.
+Whole4774-byte actualtest prefix preserved plus193-line append; three scoped renames,
+explicit top-level LinearAlgebra:SingularException import plus byte-exact inverse
+of Y-qualified X probe/helpers/core/all50 predicates,50explicit
+Test assertions/one prospective Float64PFInativeINITIALsetup+crash. Originaldone/stop/
+options/tols/Inf/interval20/refinementrecoveryfalse/kerneltimingfalse unchanged.
+CLI/TOML12observations/eight90entryoutputdicts removed. Cold11fieldprobe+doneRef,
+three17roleowner tuples/seven vectorcopies26entries/fixedscalarrecords/50Booltuple/
+50Testresults additional; callback no array scans/copies/numerics/growingledger.
+Retainedtrialmutableuntilunwind/endpointsNOTcallbacksnapshots/nativegraphcap/nativefree/
+GC/fullstate/rollback/certtransfer/observerneutrality/PREforwardbackendimport proof.
+Initialentry24/source19/readtime1398/author10with8bindings preserved; separate
+review-fix8 and pins-reviewed bind canonical candidate-reviewed.jl/append-reviewed.jl.
+InitialImportantmissingtop-levelimport and Minorcoveragefileclaim(authorregraded
+Important) fixed ONEofflineRED2/GREEN2; original rejectedreview/candidate untouched.
+Six final-stop assertions in prefix; ten pivot-stop/six observer-cause assertions
+remain in unchanged start-guard file.
+ fullY1347/1344/required338/
+raw6inv3/closure51/exact53 and XWUhistoricalmaps unchanged. Freshgpt6astra independent
+numerical/work/memory review accepted; no unresolved findings/no unnecessaryNEW
+production work/memory. First two Python selectors failed before candidate creation
+(missingMULTILINE,then52names); sources/failures preserved; separate prepare-3 scoped50
+passed. Misnamed original53 key is explained; recorded count52 authoritative.
+StructuralREDfourmissingcoverage markers is NOT failingJulia/CIreproduction.
+NoJulia/query/parser/import/compile/native/numerical/launcher/actualtest/production/
+envconfiguration/cache/CI/masterchange;master2b546e9 unchanged. YallowanceCONSUMED.
+AllZ/Y/X/W/V/U and older scripts/raw/audits/reviews FROZEN,NEVER RERUN/rewrite.
+See S5-CRASH-FALLBACK-OBSERVER-TEST-PREPARATION.md/REVIEW/resultsS5-Z.
+After separatePASSclosure/exactpublication next S5-AA2026-10-13-crash-fallback-observer-
+test-integration.md FIRST concrete stage-bound launcher/pins/failclosedauditor/
+offlinefailuretests/fresh admission BEFOREJulia or actualtestedit. At most one GREEN
+and one actualmaster newcase only after acceptedadmission; no oldtest rerun.
+CIoffHHdisabled/allbroadergates/fullsuite/retention/bootstrapcacheinit/wholecaps/Qoutlier/
+GC and allrejections unchanged.
+
+Historical S5-Y follows; its single allowance remains consumed.
+
+S5-Y ONE guarded qualification independently accepted: exact X candidate SHA
+5c941e86131ed503149de5a47ac46fc7665507861a25ec16654b6711968fdf18,50 literalTRUE/exit0,
+23 audit gates1347 launch pins/1344 admission pins/338required paths/post11 with8
+bindings/raw6 originalportable/invocation3. Entry18 and full X/W/U/T preservedmaps.
+Fresh admission and result numerical/work/memory review accepted, no unresolved
+findings/no unnecessary NEW production work/memory. One source-bound INITIALsetup
+and one crash invocation; one TRIAL refactor_other BEFORE native reconstruction,
+one INITIAL fallback AFTER maxmerge/eventrecord. Entrywork0/0,refactor2/2,fallback
+and after2/2,pivot2/refother1/fallback1/accepted0/callbacks6,nolaterselectedwork/events.
+Original SingularException42 -> DiagnosticObserverFailure samecause/noreturn.
+All17 entry roles/seven selected values/11 distinct TRIAL roles/sharedproblemprogress
+policy/scaling/options-value/clockoffsets preserved. Kernel timingfalse/native
+recoveryrefinementfalse/defaults/Inf/interval20 unchanged. Coldprobe11+doneRef/three
+owner17tuples/seven copies26entries/fixedrecords/50Bool/12obs/eightdicts90entries;
+no callback array scans/copies/numerics/ledger. Endpointnotcallbacksnapshot/retained
+trialmutable/notnativegraphcap/nativefree/GC/fullstate/rollback/certtransfer/observer
+neutrality/PREforwardbackendimportproof. Five samples,minRAM22199108KiBswap0,
+5.0120892799968715s inclusive NOTbenchmark. Runner84688(start3994258,PGID84681),
+child84689(start3994307,PGID84689),all22groupsabsent/noJulia/user6unchanged.
+Source/project/command pins not hiddenruntime method/loader capture; threadflags
+configured notextra runtimequery. Postcheck.py supplementalpostexit NOTlaunchpin.
+No production/actualtest/envconfiguration/CI/masterchange;master2b546e9 unchanged.
+Sole allowance CONSUMED; allY/X/W/V/U/older scripts/raw/auditors/reviews FROZEN,
+NEVER RERUN/rewrite. See S5-CRASH-FALLBACK-OBSERVER-QUALIFICATION.md/REVIEW/resultsS5-Y.
+After separate PASSclosure/exactpublication next S5-Z2026-10-13-crash-fallback-observer-
+test-preparation.md is ONE separate UNEXECUTED permanent candidate OFFLINE ONLY,
+whole actualtestprefix/exact qualifiedconstruction/all50predicates preserved;
+no Julia/actualtestedit/launcher or numericaladmission. CIoffHHdisabled/allbroader
+S3S4S5S6/fullsuite/rejections/QGCoutlier/bootstrapcacheinit/wholecaps/retention unchanged.
+
+Historical S5-X follows; its exact candidate was subsequently executed once by Y.
+
+S5-X OFFLINE candidate independently accepted, UNEXECUTED. Exact candidate SHA
+5c941e86131ed503149de5a47ac46fc7665507861a25ec16654b6711968fdf18; one prospective
+Float64 PFI/native INITIAL setup and one crash call, exact existing construction
+inverse/original done latch/stop/defaults. Fifty named predicates; first TRIAL
+refactor_other before reconstruction, then INITIAL fallback after max-counter merge
+and event record, original SingularException42 wrapper/cause/no-return. All runtime
+expectations UNQUALIFIED. New22 literal checks213 fresh hashes/entry17/author9 with
+10 bindings, full W189/V/U1512/GREEN1489/T891 lineage and historical maps preserved.
+Fresh independent numerical/work/memory review accepted, no unresolved findings or
+unnecessary NEW production work/memory. Probe11 fields plus original done Ref;
+three owner17-tuples, seven copies26 entries, clock3/work2/refactor2/fallback7/after7,
+50-Bool tuple/twelve observations/eight dictionaries90 total entries plus formatting.
+Callback no array scans/copies/numerics/growing ledger; endpoint checks <=26 pairs,
+retained mutable graphs not graph cap/native-free/fullstate/rollback/cert/observer
+neutrality/PREforward/backend/import proof. Raw precedes aggregate assertion when
+reachable, early errors need future failclosed logs; output reservation not atomic
+in candidate alone. No Julia/query/parser/import/compile/native/numerical call,
+launcher/actualtest/production/env/cache/CI changes. Master2b546e9 unchanged. See
+S5-CRASH-FALLBACK-OBSERVER-PREPARATION.md/REVIEW and results/S5-X. All X/W/V/U and
+older frozen scripts/raw/false audits/rejected reviews preserved. After separate
+PASS closure/exact publication S5-Y2026-10-13-crash-fallback-observer-qualification.md
+FIRST requires concrete launcher/complete pins/failclosed auditor/offline failure
+cases and fresh independent admission BEFORE any numerical attempt. All broader
+S3S4S5S6/fullsuite/Q GC-outlier/bootstrap-cache-init/wholecaps/native-retention,
+CIoff/HHdisabled and rejections unchanged.
+
+Historical S5-W follows; its closure/publication completed before X.
+
+S5-W OFFLINE oracle accepted: one prospective fallback-observer throw after trial
+final refactor, INITIAL work merge and event recording. All runtime outcomes remain
+UNQUALIFIED. Existing exact six-assertion final-factorization block preserved; native
+Float64/PFI construction/options/Inf/limits/policy unchanged, refinement/recovery and
+kernel_timing false. Final refactor_other is BEFORE native reconstruction, not a
+stop-before-solves boundary. Existing6/10/6 historical assertions reused, no old run.
+New19 literal source checks/189 fresh hashes/entry14/author8 with8 bindings. V166,
+Vclosure12/24/pub7/exact27 and U1512/GREEN1489/T891 lineage reconciled with preserved
+before-text/OLD-test mappings, never retroactive launch changes. Fresh independent
+numerical/work/memory review accepted; no unresolved findings/no unnecessary NEW
+production work/memory. Prospective7 vector copies26 entries,17 entry-owner roles,
+21 reference roles plus containers/aliases, six probe scalars/two state refs, fixed
+2/7/7 metadata records; no callback vector scans/copies/numerics/growing ledger.
+Post-unwind selected values not callback snapshot; retained graphs mutable, not
+native graph cap/native-free/fullstate/rollback/certificate/observer-neutrality proof.
+Source factory/checkpoint/backend work additional, not complete PREforward/import
+budget; disabled kernel counters not observed work. No Julia/parser/import/compile/
+native/numerics/candidate/launcher/new LP/test/production/env/cache/CI changes.
+Master2b546e9 unchanged; V48771ac previously pushed/verified. See
+S5-CRASH-FALLBACK-OBSERVER-ORACLE.md/REVIEW and results/S5-W. Frozen W/V/U and older
+exclusive scripts/raw/rejected reviews/false audits preserved. Full20 groups absent,
+user6 unchanged. After separate PASS closure and exact publication, S5-X
+2026-10-13-crash-fallback-observer-preparation.md permits ONLY an UNEXECUTED separate
+diagnostic candidate and offline inverse/cost checks, no launcher or numerical
+admission. All rejections/CIoff/HHdisabled/Q GC-outlier/bootstrap-cache-init/wholecaps/
+native-retention/broaderS3S4S5S6/fullsuite remain open.
+
+Historical S5-V follows; its closure/publication completed before W.
+
+S5-V SOURCE/EVIDENCE ONLY: existing crash boundaries reused; one narrower fallback
+observer-throw composition remains unqualified, not a solver defect/never-executed
+claim. New collector21 literal checks/166 fresh read-time hashes/four exact excerpts;
+author9 checks/seven bindings. Twenty-four exact lexical testset slices,48 original
+CI rows:511 PASS SEPARATELY EACH failed historical run, including adjacent imported-
+start/phase-one groups, not511 fallback assertions. All32 historical whole-file
+comparisons equal (five tests and eleven production files per run). Four literal
+fallback test references are event-count assertions; existing observer-throw loop
+covers phase_crash/crash_pivot/crash_accepted. Existing final-refactor stop/pivot-stop/
+precision/partial-phase success remain reused, no equivalent numerical census.
+Source: fresh private trial owns containers/factor/scratch and shares problem/progress;
+initial work charged before trial constructor, recovery_active only after it. Fallback
+merges max counters into INITIAL, records crash_fallback BEFORE observer, then returns.
+Observer throw escapes as DiagnosticObserverFailure with cause; initial numerical
+vectors not copied from trial. Arbitrary observer mutation/retained mutable graphs
+exclude full-state/rollback/native-free/observer-neutrality claims. Partial crash
+acceptance not original feasibility/certificate. Existing candidate scans/solves/
+refinement/factory/checkpoint work SOURCE counts only, not complete PREforward/native/
+import budget. No unnecessary NEW production work/memory; no benchmark or Julia.
+Fresh independent numerical/work review accepted, no unresolved findings. U1512/
+GREEN1489/T891 and Uclosure24/123/pub6/exact126 committed blobs reread with explicit
+historical OLD-test and before-U continuation mappings; no frozen auditor rerun.
+U test/master and diagnostics previously pushed/remote verified. Master2b546e9 stays;
+production/test/env/cache/CI unchanged. See S5-CRASH-FALLBACK-OWNERSHIP.md/REVIEW,
+results/S5-V. V/U and older exclusive scripts/raw/audits frozen; preserve all rejected
+reviews/false audits. Full20 prior groups absent, user6 unchanged.
+Next S5-W2026-10-13-crash-fallback-observer-oracle.md: ONE OFFLINE oracle specification,
+existing final-factorization-interruption fixture/source only, no new LP/driver/
+launcher/permanent candidate/Julia or numerical admission. Discriminate INITIAL
+fallback after work merge/event recording; specify minimal selected ownership/value/
+cause/work observations and costs first. No repeated covered cancellation/success,
+no HH/DSE/controller-budget reopening. All prior gates/rejections/CIoff/HHdisabled/
+Q GC-outlier/bootstrap-cache-init/wholecaps/native-retention/fullsuite remain open.
+
+Historical S5-U integration follows; its closure/publication completed before S5-V.
+
+S5-U integrated exact T candidate: test a39aed1 -> actual master2b546e9, only202-line
+append with7647-byte prefix unchanged. Exactly TWO new Float64/PFI/native supplied-
+basis initializations total, one GREEN and one actual-master. Each42/42 (40 permanent
+plus2 driver),25 audit gates,1489/1512 actual pins,9 author postchecks/14 bindings,
+raw8 original/portable and invocation3 identities. Fresh independent gpt-6-astra
+admission/GREEN/master reviews accepted with no unresolved Critical/Important/Minor
+or unnecessary NEW production work/memory; full actual1489/1512 rehash, source511,
+user6, exact candidate/suffix/four-insertion inverse and complete GREEN chain checked.
+Initial1446 admission rejected for stage binding; revised1466 rejected for GREEN
+raw linkage; separate18/16-check corrections and final1485 admission accepted.
+Both rejections/sources/manifests and all synthetic failures preserved. postcheck
+source was supplemental admitted/bound, not part of original1485 admission pins.
+Original sentinel/caught/guard identity/no return/owned bases/shared progressclock/
+policy/options/tolerances/Inf/offsets7and11 preserved. Two stops/four callbacks/three
+recorded events; both14-field work records2F2B1ref/localiter0ref1/checkpoint1/history0/
+phase1/corrections0 and no later selected work. This is PARTIAL existing wrapper
+accounting; defaultfactory/hypersparse/backend/import work additional. Cold two basis
+copies6entries,15fieldprobe9fieldentry/two14captures+expected14/40Booltuple/four
+vector equalities<=12pairs plus Test storage. Driver bounded counters/scalar records/
+serialization only, no callback scans/copies/growing ledgers/extra numerics. Retained
+mutable graph not native-free/rollback/fullstate/certtransfer/real-expiry/observer-
+neutrality/PREforward/backend/import proof. Each6resource samples, minRAM22278708/
+22242836KiB swap0, inclusive6.006539625/6.006393195s NOTbenchmarks. Full20groups absent.
+Report S5-BASIS-INITIALIZATION-STOP-TEST-INTEGRATION.md and companion REVIEW; results/S5-U.
+All U and older frozen drivers/launchers/auditors/raw/rejected reviews preserved;
+T-bound continuation texts saved before-U. No production/environment/CI change.
+Next S5-V2026-10-13-crash-fallback-ownership-contract.md is SOURCE/EVIDENCE ONLY:
+existing crash fallback/trial ownership/publication and test/log coverage FIRST,
+no assumed gap/defect and no new fixture/driver/Julia/numerical admission. Do not
+reopen HH/DSE/controller-budget audits. CIoff/HHdisabled/Q GC/outlier/bootstrap/
+cache/init/wholecaps/native-retention/fullsuite/broader S3/S4/S5/S6/rejections open.
+
+Historical S5-T preparation follows; its unexecuted label describes that stage.
+
+S5-T OFFLINE permanent-test preparation: separate UNEXECUTED candidate SHA
+357a976f5fc984025452ee4b259f2fc1f140885212f5b40ff71e072ebfab3684,
+7647-byte actual-test prefix unchanged plus202-line suffix. Exact S-qualified R core
+inverse after three explicit test-local renames; forty unchanged predicates returned
+and forty explicit @test assertions, one prospective Float64/PFI/native initializer.
+Standalone CLI/TOML/twelve observations/five84-entry output dictionaries removed.
+Policy/options/tolerances/Inf/offsets7and11, original sentinel/guard identity,
+no-return/basis owners/values/shared progress and selected work/events unchanged.
+21 literal checks,891 fresh read-time hashes,eight author checks/seven bindings;
+structural RED3 missing coverage markers is not failing Julia/CI reproduction.
+Fresh independent numerical/work review accepted, no unresolved findings or
+unnecessary NEW production work/memory. Two copies6entries,15fieldprobe,9fieldentry,
+two14fieldcaptures/expected14/40Booltuple; four post-unwind vector equalities up to
+12elementpairs; cold Test storage additional. No callback array scans/copies/extra
+numerics/growing ledger. Existing diagnostics/factory/hypersparse/backend/imports
+additional; checkpoint10containers36entries SOURCE counts, not complete PREforward
+or native/import budget. Retained graph mutable until unwind, metadata not graphcap/
+rollback/fullstate/certtransfer/real-expiry/native-free/GC/observer-neutrality proof.
+No Julia/parser/import/compile/native/numerical/launcher/actualtest/prod/env/cache/CI
+change. Master35a6a9f unchanged. S bound continuation texts preserved before-T;
+all S/R/Q/P/O and older frozen scripts/raw/false audits/rejected reviews unchanged.
+Read S5-BASIS-INITIALIZATION-STOP-TEST-PREPARATION.md/REVIEW and results/S5-T.
+Next S5-U FIRST concrete NEW focused driver/guarded launcher/required pins/fail-closed
+failure auditor and fresh independent admission BEFORE actual test edit or Julia.
+At most one focused GREEN and one actual-master attempt, one initialization each;
+no old testset rerun. Separate plan2026-10-13-basis-initialization-stop-test-integration.md.
+HHdisabled/CIoff/bootstrap/cache/init/wholecaps/native-retention/fullsuite/all prior
+rejections and broader S3/S4/S5/S6 gates remain open.
+
+
+S5-S ONE guarded qualification-1: exact R canonical candidate SHA
+ d03fcc9c0d2f70a16437ea2412e56c807babccb99f6df25aec82894b67d51950,
+40literalTRUE/exit0,19auditgates856pins9authorpostchecks; fresh independent result
+review. ONE existing Float64/PFI/native supplied-basis initialization; no control,
+resume/transfer/crash/extra solves. Original sentinel/caught/guardidentity, no return,
+caller/imported/default basis ownership/values, shared progress/clock/offsets7and11,
+native recoverytrue/refinementfalse/sparsehypersparse/Inf preserved. Fourcallbacks,
+twoexplicitstops/onethrow,threerecordedevents; both14fieldworkrecords2F2B1ref,
+localiter0ref1/checkpoint1/history0/phase1/corrections0; no later selected work.
+Initial797 admission rejected for timing/undurableguardfailure; separate correction
+6source+5refusal+3terminalchecks. Revised811 rejected for auditlog/reservationlinkage;
+second separate6source+7syntheticcases. Accepted853 -> actual856, both rejected
+reviews/manifests/source preserved. New localguard includes terminal wall120 check;
+rawguardinvocation/log/reservation strictly bound; no numerical retry.
+Six raw/portable files exact,5resourcesamples minRAM22302144KiB swap0,
+5.006940819s including launch/import/compile/polling NOTbenchmark. Runner71825
+start3208391/group71824,child71826/start3208508/group71826 and allpriorgroups absent.
+Two basis copies6entries/fixed15fieldprobe/9fieldentry/40predicates/12observations/
+84outputentries plus formatting/Testfuturecost; no callback scans/copies/extra
+numerics/growingledger. Defaultfactory/hypersparse/backend/import additional;
+checkpoint10containers36entries SOURCEcounts, no completePREforward/native/import
+budget/GC/nativefree/observerneutrality/fullstate/rollback/certtransfer/speedup.
+Master35a6a9f, production/actualtest/env/CI unchanged, HHdisabled/allbroadergatesopen.
+Read S5-BASIS-INITIALIZATION-STOP-QUALIFICATION.md/REVIEW and results/S5-S.
+S5-T ONLY separate UNEXECUTED test-candidate preparation offline; future actual
+edit/launch/integration requires separate reviewed admission. All S/R/Q/P/O and
+older frozen evidence/scripts NEVER RERUN/rewrite. R continuation preserved before-S.
+
+
+S5-R OFFLINE candidate preparation: canonical candidate-reviewed.jl179lines/SHA
+ d03fcc9c0d2f70a16437ea2412e56c807babccb99f6df25aec82894b67d51950,
+40named predicates,19literalchecks199freshreadtimehashes8authorchecks. Initial
+candidate/194pins preserved SUPERSEDED/UNEXECUTED: author found Important missing
+NumericalPolicy.numerical_profile field (constructor keyword only); separate one
+expression offline RED/GREEN fix4checks preserves setup/policy/assertion names.
+Exact original setup inverse, one prospective Float64/PFI/native initialization,
+recoverytrue/refinementfalse/sparsehypersparse/Inf/offsets7and11 unchanged. Ordinary
+observer stages defaultcheckpoint/initial/importedother/importedcheckpoint; immediate
+second explicit stop throws original sentinel before checkpoint store/event.
+All Q identity/no-return/ownership/sharedprogress/work/event families concrete;
+limited2F2B1ref/localiter0ref1/checkpointcount1/historyempty/phasegen1,4callbacks2stops.
+Two explicit basis copies6entries;15fieldprobe/9fieldentry/two14fieldworkcaptures,
+40Booltuple/12observations/fivefixedoutputdicts84entries on reached prefix.
+No callback arrayscans/copies/growingledgers/extranumerics; aliases/diagnostics/
+closure/guard/retainedmutableworkspace graphs NOTmemorycap/nativefreeproof.
+Source checkpoint10containers36entries/factory/backend/hypersparse additional;
+not completePREforward/native/import/allocations/rollback/certtransfer/speedup.
+Fresh independent numerical/work review required before separate PASS closure and
+fail-fast publication. No Julia/parser/import/compile/native/launcher/actualtest/
+production/env/cache/CIchange. Read S5-BASIS-INITIALIZATION-STOP-PREPARATION.md/REVIEW,
+results/S5-R. Q-bound continuation preserved before-R; all older frozen failures/
+reviews/raw unchanged,master35a6a9f/allbroadergates/HHdisabled/CIoff unchanged.
+
+S5-Q OFFLINE oracle feasibility: 18 literal checks,178 fresh read-time hashes,
+8 author checks; fresh independent numerical/work review. Existing Float64/PFI/
+native setup only, recovery=true/refinement=false and sparse/hypersparse retained.
+Two historical rows1504/1504 separately in EACH failed CI run cover the entire
+source-matched transfer testset, not this prospective stop case. Source-supported
+initial/other/checkpoint discriminator arms the original explicit stop immediately
+before checkpoint storage; default initialization already consumed work. Expected
+original sentinel/guard identity, no return, caller basis ownership/value preservation,
+shared problem/progress/clock/offsets7/11, localiter0/ref1 and consumed diagnostics.
+Conditional two explicit stops/four observer callbacks/three recorded events,
+checkpointcount1/historyempty/phasegeneration1; counted2F/2B/1ref, corrections0.
+One factory and backend/hypersparse work additional. Two checkpoint constructions,
+10vector containers/36copied entries are source accounting, not allocations.
+Prospective instrumentation two basis copies/six entries/nine reference roles plus
+aliases/fixed fields; no callback array scans/copies, growing ledgers or extra solves.
+Retained workspace mutable until unwind; no rollback/fullstate/certificate/real
+expiry/nativefree/PREforward/backend/import budget or speedup claim. No unnecessary
+NEW production work/memory. No Julia, candidate, fixture, driver, launcher or actual
+test change. Runtime reachability remains UNQUALIFIED; failure must preserve/stop.
+Read S5-BASIS-INITIALIZATION-STOP-ORACLE.md/REVIEW,results/S5-Q. Separate PASS closure
+precedes fail-fast publication; P-bound continuation texts preserved before-Q.
+All Q/P/O/N/M/L/K/J/I/F/G/H frozen records, failed audits/reviews and broader gates
+remain unchanged; master35a6a9f, production/test/environment/CI unchanged.
+
+S5-P SOURCE/EVIDENCE ONLY reconciliation: 22 literal checks,157 fresh read-time
+hashes,six exact excerpts,9 author checks; fresh independent numerical/work review.
+Forty references: one production definition,34 test calls,3 dev calls,2 isdefined;
+no other literal production caller. Sixteen historical CI rows/eight groups sum to
+400 PASS separately in EACH failed run; seven direct-call groups388 include crash
+assertions,12 adjacent clock/driver assertions are not initializer-stop coverage.
+All16 whole test files match,22/24 selected source comparisons match; two known
+simplex_perturbation differences explicit. Default workspace/recompute precedes
+policy install and owned supplied-basis copy/validation; problem and diagnostics
+remain shared, clock/offsets retained. Native refinement/recovery off need not call
+stop; checked stop sites are conditional and occur after base solves. Reliability
+is not feasibility/certificate. ONE unqualified explicit throwing-stop + supplied
+basis + shared progress/checkpoint composition, not defect/never-executed proof.
+Cold source counts include default+imported reconstruction4base solve entry sites,
+factory+refactor,conditional refinement/checkpoints/scans/copies; not observed
+PREforward/backend/import/allocations. No new production work/memory, no benchmark.
+Two new offline collector path failures preserved; corrected read/collector separate,
+no old rerun or Julia. O827/1347/fullraw9+9/closure20/publication4 reverified; original
+O rejected admission+correction and allN/M/L/K/J/I/F/G/H evidence frozen unchanged.
+See S5-BASIS-INITIALIZATION-CONTRACT.md/REVIEW,results/S5-P. Separate PASS closure
+required before fail-fast diagnostic publication. Master35a6a9f/production/test/env/
+CI unchanged,fullgroups absent/noJulia;allHH/CI-off/rejections/broadergates retained.
+
+S5-O exact N candidate integrated: testb8615b9 -> master35a6a9f, only181lineappend
+with19080byte original adaptive-pricing prefix preserved. GREEN/master each42/42
+(40permanent+2driver),24auditgates827/1347pins9/10authorpostchecks. Exactly TWO new
+Float64setup/publichandoffs total, one per actual source-root, entries1/1/1; all40
+literal predicates and15 fixed observations pass. One rootStageObserverlatch and
+LIVEadoptedfactorhit, directDiagnosticObserverFailure/same sentinel, selected
+postpublication state/work persists: iterations/refactors0->1,7callbacks,2shared
+phaseevents(not2hits), no later selectedwork. Entrycost equality is observed only,
+not a general guarantee; trial remains mutable until unwind, no rollback/certtransfer.
+Freshgpt6astra prelaunch/GREEN/master reviews accepted/no unresolvedfindings/no
+unnecessaryNEWproductionworkmemory. InitialImportant mandatorybindinggap preserved
+as rejectedreview/original813; separate requiredpathcorrection RED2/GREEN4 and822
+admission accepted. Missing/malformedinput3syntheticcases failclosed. All originals
+and amended files frozen, no numericalretry. Coldthreecopies/sixentries percase,
+17pubpairs/19fields/fixedmetadata+driverrecords/Teststorage;20rolesNOTgraphcap.
+No completePREforward/backend/import/cacheconfinement/speedup/nativefree claim.
+Master511src/testidentities anduser6 match. Samples16/17,minRAM21961172/21929716KiB,
+swap0,inclusive16.018377/17.024098s NOTbenchmark. Groups63808/63815 and64420/64422
+plusolder absent/noJulia; masterrunner64421/start2749445,child64422/start2749569,
+bootdade7243-9103-4398-bb45-fa28fbc0be72. Separate publicationclosure required and
+recorded independently beforefailfastpush. SeeS5-DUAL-AUXILIARY-PENDING-OBSERVER-
+TEST-INTEGRATION.md/REVIEW,results/S5-O. AllO/N/M/L/K/J/I/F/G/HfrozenNEVERRERUN;
+Noldtestpin mapsONLYsavedbyteexactoriginal. Mrejectedreview/twofixes,Kfailedclosure+
+PASS,Gfalse62/63+7PASSpreserved. Production/env/CIunchanged,HHdisabled/fullsuite/
+x64/allpriorbroadergates/rejectionsunchanged.
+
+
+S5-N preserves19080byte original adaptive-pricing test prefix+181lineappend,
+40explicit assertions, one prospective original Float64setup/publichandoff.
+CandidateSHA10e77c9bc35956c8078f38df1be42511eea76642753a1a98ef2ed225c19783aa.
+ExactLcore/probe/callback/setup/40predicates inverse; reuses3originalhelpers,
+removes15observations/CLI/TOML/maps, addsreturnchecks+one testset/call.
+19textchecks789freshhashes8authorindependent; structuralRED3missingcoverage,
+NOTfailingJulia/CIreproduction. Threecopies6entries/17publicationpairs/19pricing
+fields, fixed callback metadata, no extra numericalcalls/callbackarrayscans.
+20identityrolesNOTretainedgraphcap; coldTestframework addsresultstorage,
+no completePREforward/backend/import/GC/nativefree/speedupclaim.
+Actualtest/production/env/CI/master513c053UNCHANGED; NOJulia/parser/import/compile.
+See S5-DUAL-AUXILIARY-PENDING-OBSERVER-TEST-PREPARATION.md/REVIEW,results/S5-N.
+Nprepare/source_check/independent/closure/candidate frozen once accepted;
+allM/L/K/J/I/F/G/H raw/scripts, Mrejectedreview+twofixes+finalPASS,
+Kfailedclosure+separatePASS/Gfalse62of63+7PASS preserved. Prior groups including
+60706/60708 absent/noJulia. Allpriorrejections/HHdisabled/CIoff/fullsuite unchanged.
+
+S5-M exactly one unchanged L Float64 setup/public handoff, one latch/hit,
+DiagnosticObserverFailure{ErrorException}/same sentinel, selected postpublication
+state preserved. Iterations/refactors0->1/0->1,7callbacks,2shared phase events,
+no later selected work/callback; entry cost/bounds pass on this run only.
+40 literal predicates/15 observations,18 audit gates,756 pins,8 independent checks.
+Prelaunch Important failure-handling finding fixed in TWO preserved offline
+amendments,3+5 synthetic failure records; original rejected review and744/750
+manifests retained, final756 admission accepted. Raw report SHA
+0641daa8a1d59d70b667f78c29f6d9323fecbf4ce1bac8ab8ba54a0b5c7abbfe.
+16resource samples,minRAM22006660KiB,swap0,inclusive16.02908s NOTbenchmark.
+No source/test/env/CI/master change; complete import/backend work, native-retention,
+observer neutrality/fullsuite/x64 unproved. See S5-DUAL-AUXILIARY-PENDING-OBSERVER-QUALIFICATION.md
+and separate REVIEW. All M/L/K/J/I/F/G/H scripts/raw frozen; no reruns.
+Runner60707/start2525108/PGID60706 andchild60708/start2525229/PGID60708,
+boot dade7243-9103-4398-bb45-fa28fbc0be72, complete groups absent/noJulia.
+All prior rejections and HHdisabled/CIoff gates unchanged.
+
+S5-L OFFLINE candidate preparation complete:181-line UNEXECUTED candidate,
+three byte-exact helpers and two fixture setup blocks with exact indentation inverse.
+One prospective original Float64 setup/handoff,40 predicates/15 observations,
+19 pricing fields.20 text checks,141 fresh read-time hashes,9 author-independent
+checks; fresh gpt-6-astra FULL141 (771852990 bytes)/8 artifact bindings and semantic
+review accepted without Critical/Important/Minor or unnecessary NEW production work/
+memory. No corrections required. Candidate SHA256
+b553d449a0db620bfae1970861806a778bbf45d36465026e8b4a540e4b4f4288.
+Root StageObserver identity/refactor latch followed by LIVE adopted-factor pending
+reset throw; direct wrapper/cause identity and publication/work/event-prefix checks.
+Three explicit copies/six entries,20 selected identity roles plus containers/local
+aliases; up to18 cold temporary owner tuples,17 publication element pairs,19 pricing
+fields,40/15 fixed-key serialization maps. Not measured allocations or native graph
+bound. No callback vector scans/copies/extra numerical calls/growing ledgers.
+Prospective entry-cost equality may fail due to auxiliary numerical repair; preserve
+failure/stop without tuning, retry or solver-defect inference. Raw write precedes
+aggregate acceptance; early failures may have no output and require guarded logs.
+No Julia/parser/import/compile/native/new LP arithmetic/test/prod/env/CI changes.
+Next S5-M FIRST concrete launcher/pins/offline auditor and fresh admission review;
+only then at most ONE guarded attempt. No warmup/probes/old testsets or extra solves.
+Read S5-DUAL-AUXILIARY-PENDING-OBSERVER-PREPARATION.md and REVIEW, results/S5-L.
+Frozen L prepare/source_check/independent/closure NEVER rerun or rewrite; candidate
+not executable until separately admitted. K continuation texts preserved before-L;
+all K/J/I/F/G/H evidence, K first closure failure/replacement and G false62/63 plus7
+PASS unchanged. Master513c053, CI off, HH disabled and all broader gates unchanged.
+
+
+S5-K offline observer/oracle specification completed:20 literal source checks,
+118 fresh read-time hashes and8 author-independent checks. Fresh gpt-6-astra review
+independently rehashed all118 (771572094 bytes), accepted with no Critical/Important/
+Minor and no unnecessary NEW production work/memory. No correction was required.
+The forwarded refactor_other candidate is identified by StageObserver.live === LIVE;
+pending pricing_phase_reset additionally requires LIVE state and the adopted trial
+factor. Source-supported conditional reachability, NOT runtime qualification.
+Selected publication/cause/history/checkpoint/work/event-prefix oracle;20 reference
+slots plus3 vector copies/six entries,17 publication element comparisons for the
+existing tiny fixture. Counts are schema bounds, not allocations/native retention.
+Entry-cost equality remains prospective: auxiliary numerical repairs can change
+costs despite perturb_degenerate=false; preserve any failure and stop qualification,
+no tuning/solver-defect inference. Existing237 historical PASS per failed run and
+78/19 interruption/publication coverage reused, not rerun. No Julia, new LP arithmetic,
+fixture/driver/launcher, production/test/env/master/CI change. Next S5-L ONE offline
+candidate preparation only, no syntax/import/compile/runtime admission or extra solves.
+Read S5-DUAL-AUXILIARY-PENDING-OBSERVER-ORACLE.md and REVIEW, results/S5-K.
+First closure.py stopped before output/commit/push on external absolute runtime-path
+mapping (ValueError, exit1); original source and tool stderr transcription preserved.
+Separate closure-2 corrects ONLY that mapping, with offline RED1/GREEN3 and separate
+review. No original closure/collector/auditor rerun or numerical attempt.
+Frozen K source_contract/independent/evidence/closure/closure-2 NEVER rerun or rewrite.
+J continuation texts preserved before-K; all J/I/F/G/H evidence and G false62/63 plus
+separate7 PASS unchanged. CI off, HH disabled and every prior broader gate unchanged.
+
+
+S5-J source/evidence reconciliation:21 literal checks,97 fresh read-time hashes,
+eight author-independent checks. Reviewer Minor original-bound terminology was
+author-regraded Important for contract scope and fixed once offline RED2/GREEN5;
+original report/plan preserved, original independent evidence unchanged. Live
+working bounds after restoration are not automatically authoritative model bounds. Sixteen original CI rows/eight named testsets give
+237 passing assertions SEPARATELY in each failed run;16 exact blocks/whole test
+files match.18 production comparisons16 equal, known simplex_perturbation S5-C
+change twice. Existing78 private interruption/resume and19 phase publication tests
+reused;19 observer throws at prepublication refactor_other, not pending replay.
+Source publishes basis/values/factor before queued observer events; diagnostic work
+and earlier live restoration mutations survive. No wholefunction rollback or
+auxiliary certificate transfer. ONE remaining composition: throwing observer on
+pending pricing_phase_reset AFTER publication, not a defect/neverexecuted claim.
+Next S5-K OFFLINE observer-identity/reachability and selected-oracle specification,
+no fixture/driver/runtime plan. No Julia/production/test/env/master/CI change,
+no new production work/memory or performance claim; all prior gates unchanged.
+Read S5-DUAL-AUXILIARY-HANDOFF-OWNERSHIP.md and REVIEW, results/S5-J. Frozen J
+source_contract/independent/evidence/excerpts NEVER rerun or rewrite; I/F/G/H and
+G false62/63 plus separate7 PASS preserved. I continuation texts saved before-J.
+
+S5-I integrated as test fddfa737 -> master513c053: exact H candidate,203-line
+append with10583-byte prefix preserved. GREEN and actual master each300/300
+(298 permanent+2 driver-only),24/25 audit gates,801/1322 pins,9 independent checks
+each. Exactly FOUR new setup/transfer lifecycles total. Prelaunch three Important
+findings resolved once offline RED3/GREEN4; preserved before evidence. Fresh GREEN
+numerical/work review accepted before promotion; master review is separate. Source/
+test511 files match GREEN, all user hashes/raw portable bindings checked. Observed
+per transfer1 counted F/1B/1ref and refactor_other1, other deltas0; partial counters,
+additional untimed weight unit B and up to3 corrections remain source-possible.
+No new production work/memory; cold test68 explicit copies170 entries per pair,
+plus fixture/solver allocations. No callback snapshots/extra solves. Direct cause
+identity/source ownership/fresh aliases/history/cache/checkpoints/precision covered.
+No full-suite, native-work, certificate-transfer or observer-neutrality claim.
+Read S5-PRECISION-JOURNAL-INTERRUPTION-TEST-INTEGRATION.md and REVIEW, results/S5-I.
+Frozen I/F/G/H scripts/driver/launcher/audits/raw NEVER rerun or rewrite; G original
+62/63 FALSE plus separate7 PASS remain. CI off, HH disabled and all prior gates
+and rejections unchanged.
+
+S5-H: separate candidate preserves the entire10583-byte test prefix and appends
+exactly two prospective active-journal detached-buffer stop/throw cases.18 offline
+source/evidence checks, four missing-coverage structural RED predicates,780 fresh
+hashes and10 author-independent checks. Fresh gpt-6-astra streamed all780 hashes,
+G752/F176 coverage, fixture/prefix/raw/source/work review; no Critical/Important/
+Minor findings or unnecessary new production work/memory. Direct Julia exception
+wrapper/cause identity avoids string-name matching. Per case31 source snapshots76
+entries plus three detachment copies9 entries:34 explicit copies85 entries; no
+callback snapshots or encoding, no extra numerical calls. Source old checkpoint
+phase key preserved without revalidation; fresh cache/checkpoints empty. Existing
+counters partial/finally, direct weight unit BTRAN untimed and up to3 correction
+BTRANs possible; no complete native/import-work/certificate/observer-neutrality claim.
+Runtime/syntax untested. Read S5-PRECISION-JOURNAL-INTERRUPTION-TEST-PREPARATION.md
+and REVIEW, results/S5-H. Frozen H preparation/evidence/independent/candidate and
+all F/G artifacts NEVER rerun/rewrite; G audit62/63 FALSE plus separate7 PASS remain.
+No source/test/env/master/CI change; all prior rejection, HH-disabled, full-suite,
+historical/x64, bootstrap/cache/init/controller/native-retention gates unchanged.
+
+S5-G: exactly one guarded attempt, two existing stop/throw transfers,48 explicit
+result predicates true/exit0,752 launch pins unchanged. Initial auditor62/63 FALSE
+because bare SingularException expected while raw type is LinearAlgebra.SingularException;
+separate7 checks bind exact wrapped/cause/sentinel types+identity/outcome. No rerun
+or rewrite of auditor/raw. Author inventory5/post8 checks; fresh final reviewer
+FULL752/F176/user6/all raw and schema/representability/source/fixture bindings.
+Final no unresolved Critical/Important/Minor or unnecessary new production work/
+memory. Source preserved, fresh owned active aliases/history reset/empty cache and
+checkpoints, detached-equal source buffers, pre-detachment checkpoint key preserved.
+Stored numerical128/ambient256 restored; time_limit remains Float64. Per transfer
+counted1F/1B/1refactor, other kernels/events0 except finalrefactor_other1; additional
+untimed weight unit BTRAN is source-derived, not complete native/PREforward counts.
+Three groups88arrays215entries/case; not allocation counts or observer neutrality.
+13resource samples minRAM22322860KiB/swap0; fullgroups49081/49084 and old23249/23257
+absent, no Julia. Compiled-modules=existing ordinary compilecache admission only,
+not cache confinement/import-work proof. Prelaunch three audit findings corrected
+once offline RED4/GREEN4; original texts preserved. Read S5-PRECISION-JOURNAL-
+INTERRUPTION-QUALIFICATION.md/REVIEW and results/S5-G. Frozen F/G launch artifacts,
+prepare/review_fix/audit/supplement/independent/closure NEVER rerun or rewrite.
+Production/test/env/master/CI unchanged; HHdisabled, all prior rejections and broader
+gates unchanged.
+
+S5-F: original18 source checks/170 pins, six author checks; Important raw-observation
+omission and Minor import wording fixed in a separate reviewed driver/manifest.
+One offline RED7/GREEN7, nine amendment checks/176 final pins; reviewer full176,
+original170 and five original artifact bindings reconciled through preserved texts.
+No unresolved final findings or unnecessary new production work/memory. Exact
+fixture/callback preserved, three groups88arrays215entries per case unchanged;
+fixed raw outcome/cause/ambient/type tokens added. No Julia syntax/runtime test,
+import/compile/numerical execution or source/test/env/CI change. Existing finally
+kernel counters are partial, direct weight BTRAN is untimed. Source checkpoint key
+predates detached buffers; preserve it without _checkpoint_matches. Fresh cache/
+checkpoint empty. Frozen prepare/review_fix/evidence/manifests/closure never rerun.
+Read S5-PRECISION-JOURNAL-INTERRUPTION-DRIVER.md/REVIEW. S5-G must independently
+resolve actual wrappers and prevent automatic compilecache subprocesses; Pkg flag
+alone insufficient. No cache confinement or complete import-work claim. All prior
+rejections and broader gates unchanged.
+
+S5-E: sixteen source/evidence checks, 115 fresh hashes, four scoped transfer test
+files and four reused historical success/failure rows. Six author checks/full115;
+three snapshot groups per case, 88 arrays/215 scalar entries, two cases only.
+Native despite adaptive strategy; reconstruction refinement is gated off but the
+one steepest-edge unit solve directly permits up to three correction BTRANs.
+Fresh checkpoint and sparse-pricing cache are empty before lazy helper calls;
+source's pre-detachment checkpoint key is preserved, not revalidated against new
+working-buffer identities. Observer retains fresh before final stop/wrapped throw;
+source arrays preserved while work/shared diagnostics advance. No rollback/free/
+certificate claim. Read S5-PRECISION-JOURNAL-INTERRUPTION-PREPARATION.md/REVIEW and
+results/S5-E. Frozen prepare/evidence/independent/closure never rerun. Separate
+passing closure precedes fail-fast publication; all prior rejections/gates unchanged.
+
+S5-D: thirteen source/evidence checks, 103 fresh hashes, fourteen original CI rows
+(seven groups/1617 pass in EACH failed run), sixteen source comparisons (12 equal,
+4 explicit differences). Author five checks/full103; reviewer full103/allfour bound
+artifacts/allrawrows/16comparisons, no findings or unnecessary new production work/
+memory. Active-journal21 and no-journal-failure19 are separate coverage; checkpoint
+all() may be vacuous. Fresh journal attachment precedes recompute and final observer;
+observer can retain fresh state before final stop/throw, no transactional invisibility.
+Source work counters/shared diagnostics can change; no unconditional source immutability
+against arbitrary callbacks. Three working plus six journal vector conversions are
+existing costs, not optimized. No Julia/old rerun/production/test/env/master/CI change.
+Read S5-PRECISION-JOURNAL-CONTRACT.md/REVIEW and results/S5-D. Frozen collector/evidence/
+independent/closure never rerun. Separate passing closure precedes fail-fast publication.
+
+S3-E: eleven source/integrity checks, 84 fresh read-time hashes; author seven checks,
+reviewer full84/all69 D pins/17 frozen D closure files and source edges. base_builds
+counts successful post-return publication; native orientation calls and HH constructor/
+update internals remain outside three wrappers. Typed native ownership precludes silent
+forwarding substitution without dispatch change. Source-derived conditional counts remain
+unobserved. No executable driver/snapshots, no unnecessary production work/memory. Fresh
+review no Critical/Important/Minor; all prior source/test/env/master/CI and evidence remain
+unchanged. Read S3-DSE-COUNTER-SEAM-LIMIT.md/REVIEW and results/S3-E. New prepare/source
+checks/closure are exclusive, never rerun. Separate passing closure before fail-fast push.
+
+S3-D: 11 exact offline checks, ten source checks, 69 read-time hashes; author eight
+independent checks/full69, reviewer independently full69 and all1,168 rational/
+binary64 entries, six equations, 32 ordered weight bits and three exact inverse
+clones. Existing m16 fixture, one prior update, ten planned Float64/native sequences.
+Source-derived ten constructors/twenty updates/sixty outer solves (40F/20B), separately
+four HH internal unit operations and at most ten nested orientation solves; not
+observed counts or 74 equivalent backend entries. HH dense fallback and inner sparse
+fallback explicit; zero-coefficient row still receives weight floor. No demonstrated
+defect/public reachability/certificate/speedup claim. Internal pre-forward observation
+remains unqualified; S3-E must resolve it or stop this route. Fresh review no findings
+and no unnecessary production work/memory. No Julia/import/native/compile/old rerun or
+production/test/env/master/CI change. Read S3-DSE-MIXED-ROUTE-PREPARATION.md/REVIEW and
+results/S3-D. Frozen preparation/source checks/closure must not rerun. Separate passing
+closure precedes fail-fast publication.
+
+S3-C: 16 literal source checks, 53 relevant read-time hashes, 36 historical comparisons,
+nine exact excerpts; author nine independent checks, reviewer full53/36/9 and all80
+saved trajectory pairs plus historical launch-pin bindings. DSE remains dense ordered
+arithmetic with its floor/finite checks; support is not permission to skip zero rows.
+Fixed-mode old/new trajectories bind weights, but adaptive mixed entering/weight modes
+and their prepared-state transition are not explicitly captured. Current full HH source
+mismatch remains explicit. One Minor refinement-cost omission corrected offline RED4/
+GREEN5, original report preserved; final review no unresolved findings and no unnecessary
+new production work/memory. No Julia, old rerun, production/test/env/master/CI changes.
+Read S3-DSE-CONSUMER-CONTRACT.md/REVIEW and results/S3-C. Frozen S3-C collector/audits/
+closure must not rerun. Separate passing closure precedes fail-fast publication.
+
+
+S4-X: 18 literal checks, 558 fresh read-time hashes, 13 exact source excerpts; author six
+checks/full 558, reviewer full 558/excerpts and three correction hashes. Local retry ceiling
+192 staged attempts, legacy helper ceilings 33/66/198 backend entries; global precision
+recovery=false does not disable older local 256/512-bit refinements. Two auxiliary factor
+copies distinguished from ordinary staged shared factor; discard may restore after deadline.
+Source-local conditional limits, not observed or complete public budgets. Unsummed original
+restoration -> primal and altered-model forced-driver composition remain explicit UNKNOWN.
+One Minor BFRT wording corrected offline RED1/GREEN3, before report preserved; no unresolved
+findings or unnecessary new production work/memory. No Julia/old rerun/new LP/source/test/
+env/master/CI change; S/T/Q and rejected candidates unchanged. Read S4-POSTSOLVE-DUAL-WORK-
+CONTRACT.md/REVIEW and results/S4-X. Separate passing closure precedes fail-fast publication.
+
+
+S4-W: 26 ledger rows, 22 literal source checks, 556 read-time hashes, 16 exact excerpts;
+author eight independent checks/full 556, reviewer full 556/excerpts and seven correction
+hashes. Direct terminal witness adds untimed BTRAN; original projection can perform up to
+three FTRAN/update pairs and scheduled refactors without simplex iteration increments.
+These are conditional local source bounds, not runtime counts or a complete budget.
+Two Important review findings resolved in one offline RED3/GREEN5 correction: cap+1
+nonprogress bodies due to post-body counter check, and other UNKNOWN multiplicities kept
+alongside selected dual composition. Before report/plan preserved; original ledger/audit
+unchanged, separate ledger amendment. Final review has no unresolved findings or unnecessary
+production work/memory. No Julia/new LP arithmetic/old scripts; source/test/env/master/CI
+unchanged. S manifest/T LP/Q preserved; native HH reuse disabled, retention/broaderS4S6/
+fullsuite/rejections unchanged. Read S4-PUBLIC-CONTROLLER-ATTEMPT-CONTRACT.md/REVIEW and
+results/S4-W. Separate passing closure is required before fail-fast publication.
+
+S4-V:17 read-only checks/656 hashes, author8 independent checks/full656; all627 U pins
+unchanged. Installed bubblewrap0.11.1-1ubuntu0.3 and WSL2 namespace kernel options present,
+not runtime namespace-admission proof. Installed shell example keeps network/ephemeral
+writes; Flatpak example binds host writable paths/socket. Generic root/remount shorthand
+has no complete path/alias/descriptor/env policy; --remount-ro explicitly not recursive,
+NOT a claim about --ro-bind recursion. Tool availability is not a complete policy.
+No Julia/bwrap/mount/namespace/cache/production/test/env/CI changes or old script/numeric
+reruns. No custom launcher frozen, no intrinsic OS-impossibility finding. No equivalent
+bootstrap audit/probe next; W maps independent controller attempts with all bootstrap/cache/
+initializer gates OPEN. S manifest/T LP/Q evidence unchanged, HH reuse disabled, retention/
+broaderS4S6/fullsuite/allrejections unchanged. See S4-READONLY-BOOTSTRAP-FEASIBILITY.md
+and results/S4-V. U failed closure and separate supplement remain unchanged. Publication
+requires separate successful closure before fail-fast commit/push.
+
+
+S4-U: SOURCE/EVIDENCEONLY,noJulia/loading/nativecalls. Installed loading: existing can
+sourcefallback; strict(mode3)errors before compilecache/sourceinclude but cache search
+can touch timestamp and initialize dependencies. Read-only touch failure is caught;
+no filesystem confinement is established.67cachemetadataentries(10ji10so46temporary1pidfile),
+NOcachecontents/validity/selectedgraph.20checks627read-timehashes,author6/full627/excerpts.
+SelectedLA/LBT/BLAScheck anddeferredSuiteSparseinit bound,NOTcompleteinitclosure.
+T604603current+1preserved/Tcorrectedhash unchanged. No production/test/env/master/CIchange,
+old reruns or newLP. Report S4-ISOLATED-BOOTSTRAP-CONTRACT.md/results/S4-U.
+Fresh gpt-6-astra review no unresolved Critical/Important/Minor and no unnecessary
+production work/memory; reviewer independently full627/sevenexcerpts/Tprovenance/user6.
+Original closure8/9/all_passedfalse/exit1 preserved: acceptance literal crossed newline.
+Shell continued and published ae874717 despite failure. Separate offline supplement7/7
+normalizes only whitespace, proves unchanged review/full627/originalboundhashes; no rerun.
+Before STATUS/roadmap preserved, subsequent publication uses fail-fast shell. No new
+deferred review issue. NextV one bounded readonlyhost/source decision, no trialmount/
+namespace/import and rejectrouteifunsupported. HHreuse disabled/retention/broaderS4S6open.
+
+
+S4-T: ONE frozen finite two-row/three-column LP; exact original optimum [0,4/3,10/3],
+objective -47/3, dual[-16/3,-5/3].11exact checks; conditional unique Dantzig basis path
+[4,5]->[1,5]->[1,2]->[3,2], last two bases same CSC pattern/different values.
+Not a native trajectory/certificate acceptance proof.17source checks604read-time hashes,
+separate author8checks/full604/allinputbits/120exactvertexcombinations(6vertices).
+S586before-fix inventory reconciled584current+2preserved; all558Qpins unchanged.
+Bootstrap and complete controller attempt caps NOT qualified; no numeric plan/driver.
+Conditional full import workload82publicsolves+4Markowitzfactors4refactors16solves,
+NOT observed counts or complete internal budget. No production/test/env/master/CI change.
+Report S4-ISOLATED-PUBLIC-LP-WORK-CONTRACT.md/results/S4-T. Fresh gpt-6-astra review accepted/no unresolved findings/no unnecessary production work
+or memory. One Minor macro-guard wording fixed offline RED1/GREEN4, before report
+preserved;604inventory binds603unchanged+1preserved, final corrected hash separate.
+Reviewer allinputs/tableaux/ratios/witness +16samplehashes, author full604 separate.
+No launch authorization. Preserve QGCdominance/outlier/allrejections.
+
+
+S4-S: SOURCE/EVIDENCE ONLY,70original/64selectedfiles per side,128orderedmanifestentries.
+Seven root substitutions +ONEcandidateHHkeyword, exactinverse/ZEROroutingrenames.
+Main.S4HHReference.JSimplex/Main.S4HHCandidate.JSimplex fresh namespaces; fourdependency
+aliases require ALREADYresident pinned production bindings. Explicit62externalmethods,
+29selected with9localnominaltypes,33MOIexcluded;4enums add20ownedtype signatures.
+PrecompileTools1.3.4 BOTHmacros verbose override; import/workload/MOI explicitlyexcluded.
+No hidden solver/factor calls in selected top-level source; regex/metadata/JIT/sharedBase
+methodadditions NOTzero work. Bootstrap separatelyUNQUALIFIED, runtimeUNEXECUTED.
+28sourcegates586hashes,authorindependent10/full586; all570R/Qevidenceunchanged.
+No production/test/env/master/CIchange, allrejectionsunchanged. Report
+S4-ISOLATED-MODULE-LOADING-CONTRACT.md/results/S4-S. Fresh gpt-6-astra review:
+no Critical/Important; one Minor keyword-lowering count clarification fixed offline,
+before report/next-plan preserved. Core.kwcall implicit entries explicitly accounted;
+29+20 is NOT a full runtime method count. Reviewer independently full586 +128manifest
+entries/inverses, author10checks separate;586inventory binds BEFORE the textual fix.
+NextT MUST pin reached refactor CSC representation and count guard/conversion work;
+same-type identity does not prove generic conversion is allocation-free.
+
+
+
+S4-R: SOURCE/EVIDENCE ONLY,24literal-source checks/570read-time hashes, separate author
+8checks/full570/all558Q unchanged and8selectedG/I source matches. Narrow Q clone does
+not redirect public dispatch; overwriting methods rejected; post-initialization wrapper
+misses typed construction/factory/initial work. Complete nested module is plausible but
+its loading/external-method boundary is NOT qualified, not proved impossible. No new LP,
+numerical plan or launch; public trajectory and complete work cap remain OPEN. Next ONE
+source-only loading-manifest audit; no repeated H inventory/Q measurement. No production/
+test/env/master/CI change, all rejections unchanged. Report S4-PUBLIC-CONTROLLER-REUSE-
+CONTRACT.md and results/S4-R. Fresh gpt-6-astra review accepted/no Critical/Important/Minor and no unnecessary
+production work/memory. Reviewer28selected hashes/8G-I/inverseclone/currentgroups; author
+full570 separate. No correction/new deferred issue.
+
+
+S4-Q: ONEnewguardedcost-1,6176runtimechecks/exit0,28auditgates558launchpins,
+11authorindependentchecks/full558+P567. Actual40constructors80refactors240updates960
+solves600F360B,40preGC40postGC; source-derived120native/extraction/240unittransposes/
+1200historyapplications,<=120orientationbound. All960exactresidualsNONZERO/pass,
+maxratio0.0619643049; all96measuredwindowscompile/recompile0;16sidepairsoutputbitsequal.
+Outerpairedmedian0.981266sparse/1.015527dense, bothrangescross1/GCdominates; NOTconsistent
+inclusive speedup. Dense second-refactor outlier5.757909 retained, causeUNKNOWN.
+19,138 values in P JSON; Q TOML19,042 plus96knownsolutions in P. Reviewer Minor input
+file wording corrected once offline RED2/GREEN3; before report preserved, no raw change.
+No nativeidentity/free capture; native retentionOPEN, diagnostics/retainednumericoutputs
+consumeGC and counted costs. No production/test/master/CIchange or old reruns.
+Reports S4-HISTORY-LIFECYCLE-COST-MEASUREMENT.md/REVIEW,results/S4-Q. Freshgpt6astra
+accepted/no unresolved findings/no unnecessary production work/memory. Reviewerallinputs/
+all960residuals/16samplehashes/raw5; authorfull558 separate. No newdeferredMinor.
+
+S4-P: two NEW nonsymmetric48 inputs, sparse142/dense2304 nonzeros, seven exact stages,
+six nonunit column replacements [3,17,31,31,17,3], all row-dominance margins>5,
+exact incoming pivots>39/40. Offline10input checks/19,138binary64 entries; source26checks/
+567read-time hashes; independent author11checks/full567/independentallinput reconstruction.
+G HH/factorization source matches; all554M launchpins unchanged. Prospective40lifecycle
+budget:40constructors80refactors240updates960directsolves600F360B; source-derived120
+numeric/extraction entries, <=120orientation solves. Inclusive GC outer windows contain
+ordinary refactor windows: no addition/subtraction attribution, no held old owners.
+46,080 retained numeric outputs only; diagnostic scans explicitly counted, mixed GC
+counter meaning and native retention OPEN. No Julia/nativecalls/hooks/production/test/
+master/CI change or old reruns. Report S4-HISTORY-LIFECYCLE-COST-CONTRACT.md/REVIEW,
+results/S4-P and separate Q plan. Freshgpt6astra no Critical/Important/Minor, no
+unnecessary production work/memory. Reviewer all19,138input reconstruction,12selected
+hashes/Gsource/554M inventory comparison; authorfull567 separate. All rejections unchanged.
+
+
+S4-O: no Julia/nativecalls/hooks. 26 source checks/592 read-time hashes; independent
+full592/5 checks. All554 M pins unchanged. Current installed counted malloc/calloc
+with task add usable bytes+event; realloc adds event and positive usable growth;
+free adds separate pressure, not subtraction/freecall. gc_num registered-thread
+aggregation; M fields aggregate only. New timing.jl/libjulia files NOT M launchpins,
+actual historical callback/TLS/loader/category splits UNKNOWN. Separate clarification
+of M labels as GC-counter traffic potentially including native allocations, no old
+artifact/value/performance-table rewrite. Exact-commit upstream NOT installed build
+proof; gc.c404/empty guessedfree selectors preserved. Next ONE source-only P contract
+for NEW nonsymmetric fixed-history inclusive lifecycle measurement; no hooks/launch.
+Freshgpt6astra no Critical/Important/Minor, no unnecessary production work/memory.
+Reviewer15 sampled hashes/4 regenerated disassemblies; authorfull592 separate.
+Report S4-ALLOCATION-COUNTER-ATTRIBUTION.md/REVIEW and results/S4-O. All rejections,
+production/test/master/CI and broader S4/S6 obligations unchanged.
+
+
+S4-N: zero Julia/native calls/hooks. Installed ELF branches establish actual long-index
+UMFPACK helper -> SuiteSparseConfig callback paths. SparseArrays source configures
+jl_malloc/calloc/realloc/free, so libc restoration is not equivalent. Complete native
+accounting unsupported by current evidence: transitive allocation domain, quiescence,
+unknown preexisting pointers, reentrancy/finalizer drain unqualified. Native retention
+OPEN. 20 source checks/61 explicit read-time hashes; separate 5-check full inventory
+matches all 554 M pins, union 572. Initial guessed symbol selectors empty and optional
+header 404 preserved. Versioned upstream sources not installed/build proof. Next ONE
+source-only S4-O traces existing allocation counters; no new numerical plan or hook
+launch. Reports S4-NATIVE-ACCOUNTING-FEASIBILITY.md/REVIEW and results/S4-N.
+Fresh gpt-6-astra review: no Critical/Important/Minor; no unnecessary production work
+or retained memory. Reviewer independently sampled11 hashes; author full572 separate.
+All old accepted drivers/evidence unchanged; production/test/master/CI unchanged.
+
+
+S4-M:oneNEWguardedcost-1,231runtimechecks/exit0,24auditgates554launchpins,10author
+independentchecks/full554/20,148rebuiltinputRHSentries. FourHHfactors sparse/dense96
+nnz474/9216;actual4constructors128warmup512measuredrefactors88solves44F44B. All32
+measuredcompile/recompile0;16pairs equal recorded outputs+HHbasefingerprints;88
+exactresidualsNONZEROallpass. Pairedmedianratios0.66579/0.75772,ranges0.62688–0.93650/
+0.52678–0.80944. Local shortwhole-refactorwindows only,notendtoend/fullallocationfree
+lifecycle/universalspeedup. GC/diagnostics outside; no old cost rerun. SOURCE-DERIVED
+644numeric/extractions322refsymbolic+2candidateinitial320guards,UPTO644orientation
+solves NOTobservedcount. Graph920424Bstable;InfoUnit16/sizes+RSSnotnativefreeledger;
+native-retentionOPEN. Freshgpt6astra nofindings/no unnecessaryproductionworkmemory;
+reviewer33samplepins/allinputs/exact88/pairs/stats,authorfull554separate. Sixresource
+samplesRAMmin22796936KiBswap0. Runner15915/start670009/group15914,child15916/start
+670093/group15916/fullgroupsabsent,bootdade7243-9103-4398-bb45-fa28fbc0be72,noJulia.
+ReportsS4-SYMBOLIC-COST-MEASUREMENT.md/REVIEW,results/S4-M. FrozenMdriver/clone/
+prepare/auditor/independent/closureNERERUN; postexitauditorseparateSHA NOTlaunchpin.
+No production/test/master0eb75c3/CI changes; allrejections/fullsuiteobligationsopen.
+NextNsourceonly: assess supported nativeallocator accounting ABI/scope/lifetime/
+realloc/finalizers/restoration/overhead, no numericalcalls/hook install/repetition.
+
+
+S4-L: no Julia,36offlinechecks527read-timehashes,15authorindependentchecks/full527
+rehash. Installed wrapper/convert/info/finalizer sources bound; versioned upstream
+6.3.5 header NOTinstalled/buildproof. Native Info/Julia graph/RSS cannot close native
+retention. Freshgpt6astra confirmed exact4fixturecontracts/workcounts,30samplehashes
+(notfull527), no unnecessaryproductionworkmemory. Two reviewerMinor authorregraded
+Important: phase/orderconfounding and wrapperJuliaCSC/nativeallocation wording;
+oneofflineRED3/GREEN3 correction, before plan/report preserved, no oldscript rerun.
+No newdeferredMinor. NextM: NEWsparse/dense96 (nnz474/9216),twoexactdyadicphases;
+4constructors128warmup512measuredrefactors,32samples/16pairs,88directsolves;644
+extractions/numericentries and UPTO644orientation sourcebounds. Phase00110011 with
+oddRC/evenCR balancesphase/order. Exact64epsscaledresidual andcompilezero/stop
+freeze; boundedgraph/nativeInfo/RSS only, no native-retention/productionacceptance.
+ReportS4-SYMBOLIC-COST-CONTRACT.md/REVIEW,results/S4-L. All accepted old evidence
+unchanged; production/test/master0eb75c3/CI unchanged, originalrejections/fullsuite
+obligations open. L exclusive source/independent/fix/closure scripts NERERUN.
+
+
+S4-K nonfinite-1:fourNEWFloat64/Int64nativeHHcases(+Infref/candidate,NaNref/candidate),
+49runtimechecks/exit0,26auditgates551pins,9authorindependentchecks. Actual4constructors/
+4refactorattempts/8retainedHHsolves4F4B. AllSingularException/status1; candidatekeeps
+symbolic/reference rebuilds, allnumericownersnew. Discardnativeworkspace,preserve
+oldextracted/emptyhistory/prepared/pools before later oldB0solves. NOnative rollback,
+generalnonfinite/publicmodel/control/platformclaim. Native8entries source-derived,
+UPTO4targetnumeric/UPTO4targetextract/UPTO8totalorientation bounds, not capturedcalls.
+JMinor exact64epsscaledformula frozenPRELAUNCH; all8exactresidualsNONZERO withinbound.
+Onepre/postsnapshot percase; boundedheldnativeownersNOTretention/speedbenchmark.
+Freshgpt6astra noCriticalImportantMinor/no unnecessaryproductionworkmemory; reviewer
+16selectedpins/raw4/all8exact residuals, authorfull551 separate. Postexitauditorhash
+separate NOTlaunchpin. Fourresourcesampleswithinguard. Runner12359/start500785/
+group12358,child12360/start500867/group12360/fullgroups absent,noJulia,bootdade7243-
+9103-4398-bb45-fa28fbc0be72. Source/test/master0eb75c3/CI unchanged, nativeHHreuse
+stilldisabled. AcceptedKdriver/clone/auditor/independentcheck andallold J/I/H/G/F/E
+scripts NERERUN. ReportsS4-NONFINITE-REUSE-BOUNDARY.md/REVIEW,results/S4-K.
+No newdeferredMinor. NextL defines ONE separate representative cost/retention plan,
+noJulia inL, no genericlifecycle reruns; broaderS4/S6/fullsuite remainopen.
+
+
+S4-J:27source/evidence checks530hashes,9authorindependentchecks; no Julia.
+First parser ValueError/exit1/source preserved; new exclusive parser scopes its
+ending anchor after method start. Closed HH path owns defaults/q=nothing; no source
+control mutation, no arbitrary-control/value-independent-symbolic guarantee.
+Nine C-focused sources match,3stored rows8+336+10passes reused; no old reruns.
+Freshgpt6astra noCritical/Important/no unnecessaryproductionworkmemory. One Minor
+DEFERRED: future K preflight must freeze exact64epsscaled formula BEFORE launch,
+not after observing outputs. Reviewer source/raw samples, authorfull530separate.
+K four cases(+Inf/quietNaN × reference/candidate),4constructors4refactorattempts/
+8retainedHHsolves if qualified, strict reject/preservation/failure-stop. Native
+entries source-derived8, targetnumericUPTO4, orientationUPTO8; not observedcounts.
+No production/test/master0eb75c3/CI change; nativeHHreuse stilldisabled. No accepted
+Jparser/I/H/G/F/E or other driver/auditor rerun. Reports S4-REUSE-ELIGIBILITY-
+CONTRACT.md/REVIEW,results/S4-J. Otherconsumers/control/generalnonfinite/scalars/
+platform/fullsuite/performance/native-retention remain open.
+
+
+S4-I assembly-1:55/55runtime/exit0,29auditgates655pins,10authorindependentchecks.
+Two actual workspace lifecycles, exact source clones without method overwrite.
+Totals2workspaces/2copies/8refactorattempts/10borrowedassemblies/2publicassemblies/
+28HHsolves(14F14B);10native numeric entries source-derived and UPTO8orientation
+solves bound. Actual borrowed grow2->4/overwrite/shrink4->2, owned old/public/saved
+factors safe. Candidate samepattern symbolic retained; reference rebuilt. Singular
+both discardnativeworkspace, retainextracted/saved factors, leaveworkspacebasis/
+mask/CSC mutated; no complete-workspace rollback. Kernel per side4F4B4ref, successful
+refactors3/eventsinitial+3other/iterations0. Exact28solve+8price bounds pass;
+16solve residuals nonzero. No feasibility/optimality/otherconsumer claim.
+Freshgpt6astra noCritical; Important incorrectauditorlaunchpin claim fixed once
+RED1/GREEN3, before report preserved; postexit auditorhash separate NOTretroactive.
+MinorDEFERRED6transientdiagnostic captures(16factorstate total,10retained), no driver
+edit/rerun. No new productionworkmemory; reviewer samples, authorfull655separate.
+7resource samples within guard; runner8770/start355367/group8766 andchild8771/
+start355448/group8771/fullgroups absent, bootdade7243-9103-4398-bb45-fa28fbc0be72.
+Production/test/master0eb75c3/CI unchanged, nativeHHreuse remains disabled. No
+accepted I/H/G/F or older driver/auditor rerun. Reports S4-BORROWED-ASSEMBLY-
+QUALIFICATION.md/REVIEW, results/S4-I. Next source-only actual eligibility boundary;
+controls/shape/nonfinite/otherprecision/otherconsumers/cost/native-retention open.
+
+
+S4-H preserves original24/25 offline checks/exit1/falseall_passed (literal caret
+ANSI parser mismatch); new9check supplement, full526hashes/8independent checks.
+20historical comparisons18equal, four non-HH assembly testsets2311pass separately
+per failed CI run; S4-C ten source matches/actual HH integration execution, pinned
+assembly file NOT executed. Fresh gpt-6-astra review found one Important missing
+consumer inventory: corrected once offline RED3/GREEN5, before documents preserved.
+Thirteen actual borrowed-assembly callers, twelve outside recompute; several native
+routes. S4-I limited to actual initialization/explicit recompute, excludes pivots,
+recovery, phase transfer, cleanup, certification. No complete-workspace rollback:
+caller basis/mask/borrowed CSC mutate before failure, kernel finally counts failure.
+Reviewer9samplehashes, authorfull526separate; no Critical/Minor or unnecessary
+production work/memory. Source/test/master/CI unchanged, no Julia or old reruns.
+Next two workspaces/2copies/8refactorattempts/10borrowedassemblies/2publicassemblies/
+28HHsolves(14F14B), source-derived10numeric/UPTO8orientation solves. No qualification
+of other assembly consumers, populated caches, nonempty history, arbitrary controls,
+empty/nonfinite/shape/precision/cost/native-retention. Native reuse still disabled.
+Reports S4-BORROWED-ASSEMBLY-CONTRACT.md/REVIEW, results/S4-H. Exclusive scripts
+and old accepted drivers/auditors must not be rerun. Existing rejections unchanged.
+
+
+S4-G publication-1 has79/79 runtime checks, exit0,26audit gates653pins and10
+independent author supplements. Two new HH lifecycles:2constructors/2copies/
+6updates/4refactors/24HHsolves(16F8B); six native numeric entries and at most4
+scale-orientation native solves are source-derived, not observed native counts.
+Exact clone only routing names and guarded Float64 reuse keyword differ. True
+prepared state invalidates on success; both singular failures discard private
+native workspace but preserve extracted base/history/prepared values/saved copy.
+Private suffix retired, shared prefix untouched; caller CSC overwrite safe in
+this direct-factor scope. All24exact residual audits pass;22residuals nonzero.
+Fresh gpt-6-astra review no Critical/Important/Minor or unnecessary production
+work/memory. Reviewer eight targeted pin hashes, author full653 separately.
+Production/test/CI unchanged, master0eb75c3; no speedup/native-memory bound/public
+workspace/fullsuite/x64 proof. No accepted driver/auditor/independent rerun.
+Runner5238/start202699/group5234,child5239/start202780/group5239 absent including
+full group scans on bootdade7243-9103-4398-bb45-fa28fbc0be72. See S4-SYMBOLIC-
+PUBLICATION.md/REVIEW and results/S4-G.
+
+
+S6-T accepted and integrated: evidence6574f9a,testfa8144d -> masterafb37d9.
+Fresh independent gpt-6-astra review no findings. Structural RED2pass/4expected
+failures with zero solves; GREEN192/192 (19affected+17+68+88neighbors),14gates614pins;
+actual-master19/19,15gates614pins. Source/pins/user hashes verified. All original
+postsolve assertions byte-identical; only no-recession testset constructor/bounds/
+comment and six structural checks changed. No production/tolerance/precision/CI edit.
+New feasible set preserves no-recession regression intent,not equivalent matrix or
+solver repair. Old cancellation stress remains preserved. See S6-NEARLY-SINGULAR-
+FIXTURE.md and S6-NEARLY-SINGULAR-FIXTURE-REVIEW.md. No fullsuite/x64/speedup claim.
+
+S6-U accepted, evidence f9cb13b, fresh independent gpt-6-astra review: four original manager cases,
+20/20 assertions, exit0,47gates615pins. One correction/publication then injected
+price7=-1 is rejected without renewed budget; zero iterations/refactors. Selected
+point/basis state unchanged. Initial cached-rho exact residual nonzero, published
+rho exact. Not private fresh BTRAN capture or x64 cause. See S6-PRIMAL-PRICE-
+REACHABILITY.md. No production/test changes, no accepted full-file rerun. One Important next-plan
+gap fixed: mandatory count of fresh cost-RHS BTRAN detects a silently renewed
+attempt even when exact residual suppresses correction events. See review report.
+
+S6-V accepted, evidence d6630d5, fresh gpt-6-astra review no findings: qualification-1,124/124,12newidentity
+iterations+4negativeboundarycalls,exit0,21gates616pins. Exact/seed/subject controls
+show0/1/1freshcostBTRAN and0/0/1correctionBTRAN. Subject keeps all5oldassertions;
+negative extra freshBTRAN leaves oldoracletrue but newbudgetoraclefalse, preserved.
+No production/test changes; general wrapper lifecycle and x64 remain unqualified.
+See S6-PRIMAL-PRICE-BOUNDARY.md. Do not rerun accepted S6-U/V.
+S6-W accepted and integrated: test4c42fe3 -> masterb9e7cb1. Structural RED2expected
+failures/zero solves,13gates617pins; GREEN109/109 (36target+68neighbor+5state),18gates;
+actual-master41/41,19gates617pins. Fresh independent gpt-6-astra review no findings
+or unnecessary production work/memory. Every cost BTRAN is counted after one-shot
+consumption; all5originalassertions/callback/nativehelper/adjacenttestsets preserved.
+No solver/tolerance/precision/CI change, no fullsuite/x64 or general lifecycle proof.
+See S6-PRIMAL-PRICE-FIXTURE.md and REVIEW. U/V/W drivers/audits must not be rerun.
+S6-X completed and independently accepted:12original exchanges,72/72originaloracle,
+exit0,23gates618pins,77sharedsource/runtime/environment. Float32including0budget
+accepts without correction,5FTRAN/4BTRAN/2countedrefactors;Float64corrects phase and
+temporaryexport separately,7FTRAN/4BTRAN/2countedrefactors. Freshinitfactor is additional
+setup.56events+48endpoints,owned snapshots only; no new solver/reference/corpus rerun.
+Five relevanttest/sourcefiles byte-identical to failedCI. Historical printedFloat32
+phase point row3residual256694483/2^51>tol;local192128033/2^51<tol.52offlinechecks
+verify8CIvalues/bits/work; initialparserfailurepreserved. PrivateCIexportpoint absent;
+actualrejectbranch/backendcause/observerneutrality/fullsuite/x64 not proved.
+No production/test/CI change. Freshgpt6astra nofindings/no unnecessaryworkmemory.
+See S6-PHASE-TRANSFER-REACHABILITY.md/REVIEW; acceptedXdrivers/audits NERERUN.
+S6-Y completed and independently accepted: components-1,12/12 preservation checks,
+exit0,23audit gates,623pins,517sharedpins;8supplementchecks. Exactly3quality and
+3original-primal certificate calls, no workspace/factor/basis/public solve. Stored
+CI phase point is basis-reliable but original-infeasible; local and exact known
+points pass both. Exact row3 residuals256694483/2^51 versus192128033/2^51 straddle
+Float32(1e-7). Budget3 versus printed0 only differs in max_refinements, unused by
+these calls; no budget0 exchange replay. Actual privateCIcandidate/rejection branch
+and backend cause remain unknown. Freshgpt6astra no findings/no unnecessary work
+or memory; production/test/master/CI unchanged. See S6-PHASE-POINT-CERTIFICATES.md
+and REVIEW. Accepted X/Y drivers/audits must not be rerun.
+S6-Z qualified and independently accepted:qualification-1,4new Float32 manager
+exchanges,29/29,exit0,23audit gates621pins517sharedpins,9supplementchecks. Identity6
+basis and point exact; original4assertions preserved.5FTRAN/4BTRAN/2refactor kernels
+per remove,additional fresh export factor setup;no correction events. Production/
+test/CI unchanged. Review one scope wording issue corrected offline RED/GREEN:
+old det31071 means same structural singleton, not different feasible set;equations,
+activity coordinates/sparsity/cancellation differ. Original raw/preflight retained,
+plan erratum appended; no numerical rerun. No unnecessary production work/memory.
+See S6-RELIABLE-EXCHANGE.md/REVIEW; accepted X/Y/Z drivers/audits NERERUN.
+S6-AA accepted and integrated: testf2e7647 -> master74f7835,pushed. Structural
+RED2expectedfailures/zero exchanges,15gates621pins; GREEN127/127 (16target+108native
+neighbor+3structural/global),17gates621pins; actual-master19/19,18gates621pins.
+Source/GREEN identity, raw/portable/driver/user hashes verified. Freshgpt6astra no
+findings/no unnecessary production work or memory. Only new identity6 helper and
+zero-budget target call; original4assertions/nativehelper/allneighbors unchanged.
+Same structural singleton; different equations/activities/cancellation. No production,
+options,tolerance,precision or CI change. See S6-RELIABLE-EXCHANGE-FIXTURE.md/REVIEW.
+S6-AB independently accepted:16newidentity exchanges,305/305,exit0,27audit gates
+622pins517sharedsource/runtime/env,5raw/portable checks,32offline exact checks.
+Phase-only declared2^-10coordinate3 after real primalFTRAN causes exactly1correction;
+phase4FTRAN/2BTRAN/1update/1refactor/5invalidations/1primalRHS/1correctionRHS/1hit.
+Whole remove6FTRAN/4BTRAN/2refactor kernels vs realcontrol5/4/2; freshsetup additional.
+All seven original assertions and exact endpoint/certificates; realoriginal/export.
+Successful calls only logged; no throwing-attempt proof,copyfailfast unsupported.
+Freshgpt6astra accepts; reviewerMinor next-plan missing workoracle regradedImportant
+and fixed offline RED3missing/GREEN3checks without numerical rerun. No deferredminor,
+production/test/master/CI unchanged. See S6-PHASE-RECONSTRUCTION-BOUNDARY.md/REVIEW.
+S6-AC accepted and integrated: test610c4bd -> master3c0af5c,pushed/remote verified.
+Structural RED2expected failures/zero exchanges,15gates623pins; GREEN339/339,
+20gates623pins; actualmaster215/215,20gates623pins,7supplement checks. Freshgpt6astra
+no findings/no unnecessary work or memory. Seven original assertions/native helper/
+all neighbors unchanged. Phase-only real-forward identity fixture and one-shot
+2^-10 perturbation, pre-forward attempts including throw/afterconsumption; fullphase
+4FTRAN2BTRAN/primal1/correction1/update1/refactor1/hit1/invalidation5 and whole6/4/2.
+20driver-only accounting checks,zero backend numerical calls,not backendfailureproof.
+No growing ledgers/snapshots/extra permanent exchanges. Original/export real;copy
+explicit unsupported. Source/GREEN/rawportable/driver/user hashes verified.
+See S6-PHASE-RECONSTRUCTION-FIXTURE.md/REVIEW. Production/options/tolerance/precision/
+CI unchanged. X/Y/Z/AA/AB/AC accepteddrivers/auditors NERERUN against changed tests.
+S6-AD complete as source/exact-offline diagnostic:27checks,7source/evidence/user/host
+verification gates,zeroJulia/factor/workspace/solver/certificate calls. Current dual
+test matches H;11source files match master. All216original assertions mapped, historical
+48failures/run remain accounted. Candidate workspace SHARES factor, no factor copy;
+ordinary refactors independent of retry budget, work survives discard. Identity,
+below-cutoff and single-injection shortcuts rejected. New conditional4x4dyadicB
+(delta2^-23,h2^-22) proof has accepted legacy row residual, eligible duplicate price-h,
+exact column pivot0, corrected price0. Requires TWO unit-output declarations in public
+and staged attempts; no adapter or runtime qualification yet. Freshgpt6astra accepts
+conditional proof/no unnecessary production work/memory. Important H equality scope
+fixed offline textual RED/GREEN: non-event compared fields only, events excluded.
+Minor DEFERRED: work paragraph 'copy' means factor copy; existing vector copies are
+explicitly mapped. See S6-DUAL-CAUSAL-CONTRACT.md/REVIEW,immutable results/S6-AD.
+S6-AE accepted: 8 new Float64 component cases,73/73,exit0,25audit gates626pins,
+517sharedpins/11ADsource hashes and7raw/portable/bit supplements verified. Exactly
+8initial factors4refactors24basis solves8quality entries8explicit invalidations;
+real unit/prepared/correction outputs and native quality RHS match exact AD values.
+All quality finite/reliable; no workspace/publiciteration/adapter/certificate calls.
+Fresh gpt-6-astra review no Critical/Important/Minor, no unnecessary production
+work/memory. Source, input bits, globals, user hashes and process closure checked.
+See S6-DUAL-DYADIC-COMPONENTS.md/REVIEW; accepted AE driver/auditor must not rerun.
+S6-AF diagnostic complete, qualification NOT accepted:24newpubliccalls,
+265pass4controlstatusfailures,exit1. Subjects108original+140added checks pass,
+controlsNUMERICAL_ERROR "row combination does not certify infeasibility at primal
+tolerance" instead of INFEASIBLE. Raw/oracle untouched, no rerun. Audit28/31/627pins,
+exit0/assertions269/control_oracle FALSE,all_passed=false. Supplement9checks raw/pins/
+conditional exactAE-rho interval: column1 zero exact but outward interval crosses0,
+infinite upper triggers conservative refusal IF rho==AE. Actual controlrho NOT captured.
+Two real-forward declared unitoutputs, sharedcandidatefactor, all20subject budgets
+2FTRAN3BTRAN0refactor orrefresh3/4/1, outerinvalidations4/6, metadata2,hits2 match.
+Original108recovery predicates and unchanged other108native tests protected.
+Freshgpt6astra accepts diagnostic/rejectedqualification, no Critical/newImportant,
+no unnecessaryproductionworkmemory. Minor DEFERRED: auditor no_errors field never
+updated/vacuous; raw/status/assertiongates establish outcome. Do not claim all28true
+booleans independent. See S6-DUAL-PUBLIC-BOUNDARY.md/REVIEW. AFdriver/auditor NERERUN.
+S6-AG complete:ONEnewFloat64PFI public call,10/10,exit0,29auditgates628pins,
+517sharedpins,6raw/portable/driver/AF-rejection supplements. Source binds finalscratchrho
+to this new call's certificate input without post-return writes. Actualrho==AE,
+exactB'rho=e2,tableau/selectedrow/pointbasis match. Offline sourcebinary64 interval
+firstcolumnstraddles0 despite exactcoefficient0; actualinfiniteupper satisfies early
+conservative refusal before penalties. Not instrumentedintermediate/AFprivateinputs/
+othermanager/historicalCIproof. Setup2FTRAN2BTRAN1refactor separate, public1/3/1,
+no correction/rejection/pivot/boundflip, noobserver/adapter/extrahelpercalls.
+Freshgpt6astra accepts/noCriticalImportantMinor/no unnecessaryproductionworkmemory.
+See S6-DUAL-CONTROL-PROVENANCE.md/REVIEW. AGdriver/auditor NERERUN. AFwholequalification
+stillNOTaccepted; its4failures/threefalsegates and deferredno_errorsminor retained.
+S6-AH complete, source/evidence only:22 checks plus1 explicit scope declaration,
+534 hashes; original108subject predicates reconciled from saved records, no Julia.
+New narrow recovery-budget contract supported; AFwholequalification remains NOT
+accepted with4failures/exit1/threefalsegates. Control events/work distinguish paths,
+not genericNUMERRORstatus; controls are not matched-policy pairs. AGprovenance only
+newPFI. Native108/helper/src/test/CI/master unchanged. Initialparserwrongexit_code
+KeyError/source preserved, reconciliation-2 uses actualreturncode without oldreruns.
+Freshgpt6astra supports decision/no unnecessaryproductionworkmemory. ReviewerMinor
+collective "accepted" driver wording authorregradedImportant for acceptanceinstructions;
+one offlineRED/GREEN -> "historical", beforeplan preserved. No newdeferredMinor;
+ADcopywording and AFvacuousno_errors remain deferred. See S6-DUAL-BUDGET-CONTRACT.md/REVIEW.
+S6-AI complete and integrated: test62e6535 -> master354bb1f. StructuralRED3missing
+predicates viaPythonanalysisexit0/zero oldnumerics (not failingJulia/reproduction).
+GREEN339/339 (targets192+56,neighbor60,structural3,micro27,global1),22gates627pins,
+4supplements. Freshgpt6astra review noCriticalImportantMinor/no unnecessaryproduction
+workmemory. Actualmaster252/252,21gates627pins,4supplements,actualsource/GREENidentity/
+userhashes verified. ScopedFloat64dyadichelper/two real-forwarddeclaredunitoutputs;
+all108originalpredicates/directpublic@test_throws/callbackbodies/options/policies,
+nativehelper/other108byteidentical. Completepreforwardcounts afterhits/throws,
+2F3B0ref or3F4B1ref, outerinvalid4/6,metadata2,hits2,copy/updatefailfast;sharedfactor.
+Fixedtuples/scalars/oneobserverRef, no growingledgers/persolvesnapshots/extrapermanent
+iterations.9driveronlysentinel/failfastcalls proveattemptaccounting,notbackend recovery.
+No production/tolerance/precision/CIchange. AFwholequalification NOTaccepted unchanged.
+See S6-DUAL-BUDGET-FIXTURE.md/REVIEW. AI/old drivers/auditors NERERUN.
+S6-AJ complete: source/evidence-only,399historicalrecords/24locations, separate
+197+1/200+1,18offlinechecks534hashes plus9independentchecks/70S5-Csource comparisons.
+Every record maps once to currentmaster; sevenrepairfiles and AAunchangedblock bound.
+23assertionstarts identical; Cguardedstatus explicitly distinguished. First exact-line
+mapper refusal/source/exit1 preserved. NoJulia/oldparser/auditorreruns. Freshgpt6astra
+noCritical/Important; Minorstructuredscalarlabel authorregradedImportant, oneoffline
+RED8->GREEN16fix. Originalmap/mapper preserved;8line211Float32 versus8line164unknown.
+No newdeferredMinor. First7families197fail+1error/run have scopedlocalrepairs; older
+run's3nativeboundjournalcleanupfailures remainunrepaired as a historicalfamily.
+S5-C1463focusedpass reused, notCIcause; currenttest matchesbothhistoricalsources.
+No unnecessaryproductionworkmemory, no production/test/master/CI change.
+See S6-REMAINING-FAILURE-COVERAGE.md/REVIEW and results/S6-AJ.
+S6-AK complete: SOURCE/EVIDENCEONLY,21evaluatedchecks+1modeldeclaration,518hashes,
+8independentchecks,13/14contractsourcefiles historicalmatch; knownS5-Ccopychange.
+Completehistorical8eventvector endscheckpoint/no certification or restore; supports
+TIME_LIMIT inference but NOTcapturedstatus/elapsed/privatecheck/CIcause. Actualbits
+margin9t,beae32f0ee144531,working[x-s]=0,originalviolation>tol; conditionalrestored[0,0].
+Return/ownership/deadline/worktable complete; noJulia/oldparser/auditorrerun or
+production/test/master/CIchange. Freshgpt6astra noCriticalImportant/no unnecessary
+productionworkmemory. MinorDEFERRED: table "two quality checks" means UPTO TWO,
+primalqualityshortcircuits; successfulpathboth. No countoracle depends onshorthand.
+See S6-NATIVE-CLEANUP-CONTRACT.md/REVIEW,results/S6-AK. OfflineexclusivewriterNERERUN.
+S6-AL complete:ONEnewFloat64PFIlifecycle,original7/7,exit0,31auditgates628pins,
+627AGshared,102binary64checks,corrected6/6independent supplements. Actualhelper once,
+initialoptimizer once,budget once,driver once; source/policy/options/globals bound.
+Initial2FTRAN3BTRAN2pricing,cleanup2FTRAN2BTRAN/no newiteration/refactorkernel.
+OPTIMAL/primal[0]/objective0,exactpoint[0,0],originalboundsrestored/journalretired;
+events restore,pricingreset,phasecleanup,certification. Sharedclock unchanged;
+driverbracket7.501187517->16.137016355s within30s, excludesexpiry innewbracket only.
+Instrumentation/snapshotsconsume budget/notneutral; disabledsetupcountersNOTzerowork.
+Freshgpt6astra noCriticalImportantMinor/no unnecessaryproductionworkmemory. First
+supplement expected32instead31/falsegate/exit1/source preserved, correctedoffline;
+no numerical/auditorrerun. Production/test/master/CIunchanged. See
+S6-NATIVE-CLEANUP-PROVENANCE.md/REVIEW,results/S6-AL. Driver/exclusiveauditorNERERUN.
+Historicalthreefailures/status/elapsed/cause/fullsuite/x64stillunresolved.
+S6-AM complete:SOURCE/EVIDENCEONLY,10mappedtestsets,21sourcechecks528hashes,
+8independentchecks. Five exactsource/executedrows reuseS5-C1463aggregate; fourdriver
+rows andprivatecleanup source-only, pinpresenceNOTexecution. Checked/adaptivehelper,
+postrestoreboundcallback,private:deadlinecallbackthirdcall distinguished. Native
+successAL separate, no historicalCIcause. Scopedmissingnativeactiveboundjournal
+first-publicentry cancellation/identitythrow coverage justifies boundedAN, not
+oldtimeoutfix. Freshgpt6astra noCriticalImportantMinor/no unnecessaryproductionwork
+memory; no newdeferredMinor. NoJulia/production/test/master/CIchange. See
+S6-NATIVE-CLEANUP-CLOCK-COVERAGE.md/REVIEW,results/S6-AM;exclusive map NERERUN.
+S6-AN complete:two NEW Float64PFI lifecycles,72/72,exit0,49auditgates629pins,
+628ALsharedpins/212binary64checks/10independentchecks. Each helper+initialoptimizer+
+budget+publicdriver once, originalhelper/sixsuccesspredicates unchanged. Initial
+2F3B2pricing0ref each; driverzero existingkernels/iteration/refactordeltas.
+Callback pre-count1 each; stopTIME_LIMIT/exactrecoverymessage/nopayload/checkpoint1;
+throwidenticalSingularException29/noresult/noevents. Owned selectedstate/journal
+identity/owner/aliases/options/sharedclock/budget preserved. Newbracketsbelow30,
+notprivateclock/realexpiry/historicalcause. Existing preguard cost/bound scans
+remain:zero kernelsNOTzero work. Eighttinyownedcaptures/notneutral;no speedup.
+Freshgpt6astra noCriticalImportantMinor/no unnecessaryproductionworkmemory.
+22resource samples within guard;runner430176/child430177/group430144 absent,
+boot20de7dde-704e-41c8-bee7-b8511c0a86b0. No production/test/master/CIchange.
+See S6-NATIVE-CLEANUP-ENTRY-INTERRUPTION.md/REVIEW,results/S6-AN. AcceptedANdriver/
+exclusiveauditor NERERUN. No newdeferredMinor;historicalthreefailuresstillopen.
+S6-AO complete and integrated:test7706c1a -> master0eb75c3. Appendonlytwo native
+entryinterruptioncases; entireoldtestfilebyteprefix/helper/sixsuccesspredicates
+unchanged. StructuralPythonRED4missing/zeroJulia; GREEN72/72 (68permanent+4driver),
+actualmaster72/72,20auditgates630pins6independentchecks each. Allnewsource/runtime/
+user/rawportable/pins verified. EachcallbackPREcount1,initial2F3B2pricing0ref,
+driverallkernels0/selectedstatejournalidentityowneraliases/optionsclockbudget
+preserved. StopTIME_LIMIT/nopayload/checkpoint1;throwidentity/noresult/noevents.
+Freshgpt6astra noCriticalImportantMinor/no unnecessaryproductionworkmemory.
+Per mode20tinyvectorcopies+1sparsematrix+2dictcopies once, no persolvesnapshots/
+ledgers/extracalls. Existingpreguardscans remain outsidekernelcounts. No production/
+tol/precision/CIchanges;no historicaltimeoutfix/fullsuite/x64claim. Fournew
+lifecycles totalGREEN/master,oldANandotheracceptedrunsNERERUN. See
+S6-NATIVE-CLEANUP-ENTRY-COVERAGE.md/REVIEW,results/S6-AO.
+**User explicitly resumed on 2026-10-12: automatic continuation is ACTIVE.**
+S4-E source contract complete:25checks/542hashes/24comparisons, six independent
+checks and fresh gpt-6-astra review noCriticalImportant. Three plan ambiguities
+regradedImportant and fixed offlineRED3->GREEN3; originalplanpreserved. One Minor
+deferred: retirementwork scalesprivateupdaterecords; payloadscalespackedentries.
+NoJulia/production/test/CIchange. See S4-SYMBOLIC-CONTRACT.md/REVIEW,results/S4-E.
+CurrentwrappermatchesRpin, B/Cdidnotpinwrapper; currentnativehashnotretroactive.
+Next separate S4-F plan:docs/superpowers/plans/2026-10-12-native-hh-symbolic-boundary.md.
+SixnativeFloat64pairs/12freshLU/12lu!attempts/20solves +10combinedextractions/10graphs.
+NoHH/publicsolver; nooldreruns. Separateownedinputs/guardbeforemutation/default
+controls/expectedonesingularpair; stoponunexpectedfailure/referenceoraclemismatch.
+No symbolicreuseproductionapproval; laterHHpublication/copy/prepared/assembly gate
+stillrequired. Newboot dade7243-9103-4398-bb45-fa28fbc0be72, noJulia atsourceclosure.
+S4-F boundary-1 completed179/179,exit0,24auditgates649pins; ten independent
+checks including exact12inputrepresentations. Exactly12setup/12refactor/20solve/
+10metadata/10graph; five successfulpairs observed bits equal; two singularthrows
+preserved. True symbolicidentity cases1/2/3/6, numericrebuiltall12. Defaultcontrols,
+separateownedinputs/sentinelmutation safe; noHH/publicsolver. Raw exactfactor
+residuals generallynonzero; fixedbounds pass. Singlecoldmetrics notspeedup;
+otherlibrarypins notallloaderchoices proof. Fresh gpt-6-astra accepts; no unnecessaryproductionworkmemory. Importantnextplan
+prepared_valid false->false gap fixedofflineRED4/GREEN4 by moving one planned
+solve before success; total24HHsolvesunchanged. MinorleaderPID/grouplabel deferred,
+newseparatePGIDscan3788/3793empty. See S4-SYMBOLIC-BOUNDARY-REVIEW.md.
+Runner3792/child3793/group3788 absent,bootdade7243-9103-4398-bb45-fa28fbc0be72.
+No accepteddriver/auditor rerun. Next:docs/superpowers/plans/2026-10-12-hh-symbolic-publication.md,S4-G.
+Prepare source-bound diagnostic clone only, no productionmethodoverwrite. TwoHH
+lifecycles,2constructors2copies6updates4refactors24HHsolves plusatmost4implicit
+native scaling solves,6native numeric attempts; valid->invalid success and
+prepared/base/history/saved isolation on failure. No newGnumericalrun yet.
+BroaderS2/S3/S4/S5/S6/native symbolicreuse/originalcertificatelimits remainopen.
+CI disabled, S6-J/S2-A rejected; historicalCIcause/hidden states/fullsuite/x64 open.
+
+
+S6-S accepted evidence90811de/closure6c5ef37: fourtype13/13 + factor6/6; initial
+comparability30/31false preserved with517pin/current-external supplement; no
+retroactive launch pin. Factor19gates615pins/exactLU/primal/dual residuals0.
+S6-R accepted08b7485/3baf29b:12/12/21gates613pins,componentdecomposition-1/16.
+Do not rerun old N/O/P/Q/R/S/T/corpus/reference/cost drivers against changed tests.
+Last fresh host runner433429/child433431/launchgroup433420 absent,noJulia,boot20de7dde-704e-41c8-bee7-b8511c0a86b0.
+Verify new host state before edits or any new Julia. User environment/dirt preserved.
+
+S6-Q remains accepted:11events,5/5,24gates611pins,exact S6-N endpoint. Refactor event
+precedes FTRAN/BTRAN,certification precedes checks. Final scratch RHS[0,-1] is BTRAN;
+primal RHS derives from slack states/bounds. Deferred Q auditor general columnscale
+convention is reversed; all captured factors1 and independent correct convention
+reproduces results. Preserve artifacts,do not reuse for nonunit scaling uncorrected.
+No S6-R/S6-S minors. Current process checkpoint is recorded above; always verify
+fresh identities before a new launch.
+
+S6-N/O/P remain accepted diagnostics, not repairs. S6-O changes main presolve route;
+S6-P candidate REJECTED with12pass/1equality failure,exit1,two false acceptance
+gates/all_passed=false preserved. Do not repeat accepted census/corpus/cost runs.
+
+S6-L/M remains complete: test2c3e0eb -> master7fea422 pushed, qualification300pass,
+GREEN1477/1477/master1477/1477 and14master gates, independent review accepted.
+No actual x64/full-suite success or end-to-end last-bit sensitivity claim.
+
+S6-H census and S6-K exact tolerance-witness diagnostics remain accepted; do not
+repeat them. S6-J permanent explicit-retry substitution remains REJECTED after
+review: it still permits native numerical refactors and loses public recovery
+coverage. Exact candidate and all local GREEN evidence are preserved; test restored.
+Never promote it or weaken its original assertions/safeguards. Broader S2/S3/S4/S5/S6
+remain open. CI stays disabled; no accepted reference/cost/corpus reruns.
+
+
+S3-A production cd91a1a -> masterd8ad4ec5651225a512d5f533f48ce7d8fc8f90cc is reviewed,
+integration-tested1645/1645 and pushed. Diagnostics milestone1c6ee5d is pushed.
+Main user-file preservation checks passed. S0 counted dual long reference audit
+passed; separate plain elapsed and primal-origin coverage remain pending.
+
+S2-A private audited-flip subplan is closed as REJECTED; see S2-FLIPS.md.
+Control1000, work RED/GREEN12, candidate960, safety139, dirty-entry26, focused10381
+and cost128/64warmups are preserved. Independent review reproduced the cost data
+and found no closure blocker. Dense accepted cases regress22–30%; no production
+promotion or guessed density heuristic. Diagnostic5321ea1 records the result;
+closure documentation is published. Master wasd8ad4ec at S2 closure; old environments preserved.
+
+S3-B subplan docs/superpowers/plans/2026-10-11-pipeline-canonical-support.md is
+complete. Productionb6a4064 -> masterb720674, master1611/1611, reviewed and pushed.
+ReportS3-SUPPORT.md records1900paired work cases,936cost samples,80exact paired
+trajectories,focused10645+9,all5precision contracts and two preserved Float32 cost
+fixture failures. No unnecessary work/retention finding; no general speed claim.
+Main user/environment hashes preserved; prior runner289833/child289858/driver
+separately absent before the new S0 reference. Diagnostic evidence79df8f2 pushed.
+
+S0-L medium-dual-plain-1 completed exit0 with unchanged pins, independently
+recomputed inventory and matched513 shared source/environment/driver pins.
+OPTIMAL, original primal feasible, exact objective/primal hash,255798iterations,
+1612refactorizations match accepted counted dual reference. Plain elapsed
+6006.247837068s includes0.020784797s compilation and531.464386642sGC;
+408471253952allocated bytes/172692055events. This is one old-baseline sample,
+not current-master speedup or a fresh phase-window trace. Full plain audit:
+results/S0-L/medium-dual-plain-1-audit.json; all15checks true.
+Runner290175/child290176/driver290166 absent in separate host calls before next
+launch. Plain acceptance milestone914b59f is pushed.
+
+S0-L medium-primal-counted-1 completed normally (exit0), with independently
+reverified immutable pins and source/input hashes. All17 supplemental checks and
+all counted-audit gates pass, read_errors empty.350 complete windows sum exactly
+to all counters and353468 accepted iterations. Actual phase_two/primal263984steps,
+9599.932126833s; phase_one/primal71062steps, cleanup/primal18422steps.
+OPTIMAL, original primal feasible, internal certificate observed;
+objective2.2389455645278454e7,2240refactorizations,
+primalSHAeabfbba9bf2ce9d3f63f5b8cdf21e5831a332ef5f2d4faca7bda12e49ab21197.
+Counted elapsed12916.673064291s includes0.0176922s compilation/719.815014698sGC;
+548211597024allocatedB/175769276events; bounded recorder2874B.
+VM peak4745708KiB, max sampled RSS4000368KiB, minimum available19030460KiB,
+swap0. Audit and original report/windows are in results/S0-L/medium-primal-counted-1-*.
+This is old-baseline chronology, not current-master performance. Primal and dual
+origins have different trajectories/final primal hashes; compare the forthcoming
+plain primal only with this counted primal for exact final-result acceptance.
+Runner300579/child300580/driver300570 separately confirmed absent after exit.
+Primal counted acceptance milestone6e793ec is pushed.
+
+## S0-L complete: primal plain accepted (2026-10-12)
+
+medium-primal-plain-1 completed with exit0 and independently verified unchanged
+pins/source/input. All18 checks pass, including568 shared counted-primal pins.
+Returned OPTIMAL and original primal feasible; objective2.2389455645278454e7,
+primalSHAeabfbba9bf2ce9d3f63f5b8cdf21e5831a332ef5f2d4faca7bda12e49ab21197,
+353468iterations and2240refactorizations exactly match counted primal, as do
+source/input/options/policy. Plain elapsed13200.181889727s includes compile
+0.023769598s andGC732.537595438s;548208082416allocatedB/175674777events.
+Peak VM4601128KiB, max sampled RSS3856372KiB, minimum available19042772KiB,
+swap0. Plain has no windows/counters and retains no recorder. Portable evidence:
+results/S0-L/medium-primal-plain-1-{audit.json,process.json,reference.toml,run.log}.
+The final process.json supersedes the launch-time placeholder in current.json.
+Runner321988,child321989,driver321979 separately confirmed absent on the same boot.
+
+All four planned old-baseline long references are now accepted. Counted origins
+supply actual phase-II chronology; plain origins supply elapsed references. These
+are single samples per mode/origin, not an instrumentation-overhead estimate or
+current-master speedup. No full trajectory hash follows from final-state equality.
+Existing failed/incomplete calibrations and raw attempts remain preserved.
+Broader S2/S3/S4/S5/S6 and the historical test.mps failure remain unresolved.
+
+S0-L completion milestoneb6d32ca is pushed. S4-B native component attribution is
+accepted:72 warm samples,all13 audit gates,source/pins verified,exit0; residuals,
+saved bases, changed pattern/dimension and failed-refactor preservation pass.
+Independent review found no blocker/unnecessary production cost. See
+S4-COMPONENTS.md and docs/superpowers/plans/2026-10-12-hh-component-attribution.md.
+Failed native-components-1 (report dictionary type) remains preserved; corrected
+native-components-2 passed. Runner354351/child354352/driver354342 separately absent.
+Markowitz component attribution also passed:72 compile0 samples,all17 post-exit
+checks, independent pins and fresh review without blocker. See S4-COMPONENTS.md
+and docs/superpowers/plans/2026-10-12-hh-markowitz-attribution.md. Active-only pool
+count scope is documented. Runner355464/child355465/driver355453 separately absent.
+S4-C exact triplet allocation is integrated and pushed: production0f2c468 ->
+master322011855af909d0d93b6f9bbecbe4200512fc67. RED/GREEN442,cost84compile0samples
+with14audit checks,focused4366/4366,8exact paired trajectories/121assertions.
+Fresh independent numerical/cost review approved without blockers/deferred minors.
+Master integration1294/1294,all7audit gates,actual source/pins/user hashes verified.
+See S4-TRIPLETS.md and2026-10-12-hh-markowitz-triplets.md. Extra O(k+c²) counting
+is explicit; all7cost fixtures reduce bytes, mostly-zero256 side-median1.0258
+is a timing limitation, not a speedup. No whole-solver speedup inferred.
+Runner358060/child358061/driver358052 separately absent on boot
+20de7dde-704e-41c8-bee7-b8511c0a86b0; no Julia at this milestone. Always recheck host.
+S4-D scalar attribution completed360compile0samples/40cases/10lifecycles on
+Float16/Float32/BigFloat256/RationalBigInt/RationalInt64, native and Markowitz.
+All22qualified audit checks pass with independently verified pins/source. Initial
+BigFloat Serialization hash gate rejected; raw initial audit preserved. Separate
+8case canonical/mutation probe proves equal unchanged inputs, not retroactive
+canonical hashes for original cost records. See S4-SCALARS.md and scalar subplan.
+Fresh independent final review accepted without blockers; no production edits.
+One deferred P3: initial audit write_text is not rerun-safe; do not rerun it on
+accepted evidence. Committed raw/audit artifacts preserve the original result. Latest hash-probe
+runner359346/child359347/driver359331 separately absent on the same boot; no Julia.
+Next exact S5-A census plan: docs/superpowers/plans/2026-10-12-cleanup-entry-contract.md.
+It selects ordinary original cleanup's discarded default reconstruction, preserving
+observer/deadline/checkpoint/recovery contracts before any reuse implementation.
+No medium/reference repeats. Native symbolic reuse remains unqualified.
+Keep CI disabled as requested; previous failing full CI is not a passing S6 gate.
+All original user/environment files and raw attempts are preserved.
+
+## Evidence gaps and traps to retain
+
+- The prefix/cleanup study alone does not cover long reduced-model phase II.
+  S0-L now adds both counted origins; event snapshots still are not complete
+  pricing-state checkpoints, and current-master full-medium comparison is pending.
+- Fresh prefixes are HH/native320; historical cleanup is HH/native160. Both
+  cleanup origins execute primal steps. Their origin labels are not algorithms.
+- Existing measurements are mostly single paired timings and HH-only. They are
+  not complete cross-manager or cross-solver performance comparisons.
+- Sampling perturbed prefix timings substantially and cleanup sampling stalled.
+  Preserve the failed attempt; use calibrated counters/plain runs for cleanup.
+- Refactorization elapsed time includes substantial GC. Allocation event counts
+  include presolve. Neither proves expensive ordinary update arithmetic.
+- The user's test.mps HH/native320 dual certificate/recovery failure remains a
+  separately reported case; these profiling slices do not establish its resolution.
+- Existing paired-FTRAN experiments were inconclusive; do not repeat or promote
+  them without a new hypothesis. Do not reintroduce removed adaptive heuristics
+  into the numerical core while changing architecture.
+
+## Resume checklist
+
+1. Read this file, the plan, spec and latest stage report.
+2. Inspect actual branch/ref/status and local instructions; preserve user dirt.
+3. Inspect all numerical processes, runner state and logs. If one is active,
+   do not start another or edit its pinned source/environment. A stale PID file
+   is not proof of a live owned process; verify start identity and command.
+4. Audit finished reports and process exit reasons. Missing reports, timeouts,
+   resource kills and iteration limits are not successful solves.
+5. Preserve interrupted attempts. Restore execution only after confirming process
+   ownership, source/input digests and whether the runner safely supports resume.
+6. Continue the first unchecked task. Record a changed hypothesis or order before
+   spending another long run. Never repeat a completed experiment without reason.
+
+## Per-chunk record (fill when execution starts)
+
+- Stage/chunk ID and hypothesis:
+- Status; current owner and checkout/branch:
+- Last verified commit; current source/script/environment/input digests:
+- Uncommitted files and purpose:
+- Baseline/candidate commands and guarded output directories:
+- Active runner identity or confirmed stopped state:
+- Completed attempts; incomplete/failed attempts and reasons:
+- Numerical evidence, work/allocation evidence and timing uncertainty:
+- Review findings; commit, integration and push IDs if performed:
+- Next exact action; blocker or rejected approach if any:
+
+Keep portable summaries committed; retain large local logs and snapshots in
+`.superpowers/simplex-core-architecture/`. Update this ledger before handoff and
+after every verified/integrated chunk. Never store secrets in continuation notes.
+
+## Initial execution milestone (2026-10-11)
+
+- Owner: current architecture chat; active checkout above. Last source verified:
+  `fe839aa`; documentation base `7d6a8e1`. Source and environment/input digests:
+  `results/S0/preflight.json`.
+- Host process audit: no Python/Julia numerical runner; all six old attempts
+  have process reports. Four measurement attempts exit 0 with matching paired
+  hashes; they end at ITERATION_LIMIT. The preserved sampling attempt exits 137.
+- Milestone files: baseline, long-run method, ownership inventory, S1-A
+  subplan, guard/tests/fixture definitions and compact preflight. Roadmap/STATUS
+  record the accepted local deliverables. Local environment copies are untracked and excluded.
+- Guard tests: initial 12 absent-runner failures then 12 passes; lifecycle and
+  symlink regressions failed before their fixes; final suite 18/18 passed. Two
+  independent review findings fixed, no deferred findings; see REVIEW.md. Raw logs live under
+  `.superpowers/simplex-core-architecture/S0/`.
+- No numerical command has been launched; no production merge performed.
+  Milestone commit: `150aea5fea0a441160fd6338efa0de80c201d4a8`, pushed to
+  `origin/codex/simplex-core-architecture` and verified with `git ls-remote`.
+  Automatic approval initially distinguished diagnostic pushes from the standing
+  production-fix authorization; the user then explicitly approved this branch
+  push. The refusal is resolved. Master remains at `fe839aa`.
+- Local baseline pins: `.superpowers/simplex-core-architecture/S0/expected-pins-v1.json`.
+  Before S1-A launch, create new pins including its not-yet-written Julia scripts
+  and every transitive dependency; this baseline set is not a complete future
+  experiment manifest.
+- Ruling: retain the plan's committed STATUS as authoritative and preserve all
+  raw attempts instead of deleting execution scratch at finish — explicit user
+  preservation requirements override generic skill cleanup. Cost: local disk use.
+- Ruling: perform local S0 and S1 inventory before the long phase-II run, as the
+  roadmap explicitly permits. S0 remains partial. Cost: no whole-medium evidence
+  yet; prevents premature S2 performance claims.
+
+### Local acceptance gate
+
+S0-local and S1-inventory: Verified. Independent review found two diagnostic
+runner defects; both have failing-before/passing-after regressions. Author ran
+all 18 Python tests after fixes. Source hashes and absence of production diff
+verified. S0-long and S1-production remain Pending within their Active stages.
+No completed numerical experiment was repeated.
+
+### Published continuation checkpoint
+
+The initial local milestone is committed and pushed as `150aea5`. This small
+follow-up records the confirmed remote identity and is pushed on the same branch.
+The next task is the first unchecked S1-A characterization gate. No numerical
+runner is active; do a fresh host process check before any Julia launch. Long
+phase-II measurement remains pending; no prior measurements need repetition
+until a new instrumentation or production-change hypothesis requires comparison.
+
+## S1-A execution started
+
+Preflight on 2026-10-11: HEAD 94442cf, master/origin at fe839aa; no numerical
+process on host. Characterization completed. New contract tests and dedicated
+work-count probe written before production changes. First guarded RED attempt
+is about to run under `.superpowers/simplex-core-architecture/S1-A/red-1`.
+No other Julia launch is allowed while this attempt owns the guard.
+
+S1-A RED completed: process exit1, unchanged pins, 25 passes / 3 intended
+work-count failures (9 vs 7 checks for two pivots). Candidate changes are limited
+to dual_simplex.jl and three context-only deadline call sites in solver.jl; new
+contract tests are included in runtests.jl. Candidate source patch/new files are
+retained with green-1. The first normal-compilation focused attempt is still
+running under its 600-second guard; inspect its process.json before any next
+launch or pinned-source edit. No production commit/merge has occurred.
+
+S1-A green-1 ended at the 600-second wall limit, exit -15, pins unchanged.
+The termination stack identifies Julia type inference/backedge storage in
+`simplex_precision_recovery_state_tests.jl:58`; no test-failure output. This is
+incomplete evidence, not a passing suite or numerical failure. Host confirmed no
+remaining Julia. Next: normal focused tests with per-file output, a separate
+compile=min precision-recovery semantic run, then work counts and paired timing.
+Static independent review found no production correctness or unnecessary-work
+defect; four validation gaps are being closed. Raw attempts remain preserved.
+
+S1-A validation checkpoint: green-2 was deliberately interrupted after about
+280 seconds via its verified runner identity. Four completed normal-compilation
+files passed 469 assertions (242 new contract, 71 weights, 125 residual, 31
+certificate reuse). The remaining dual-entry file was compiling in LLVM at
+line 85; guard cleanup ended with -9, pins unchanged. semantic-1 separately
+passed precision-recovery-state (30) and dual-entry-phase (182) under compile=min,
+exit0/pins unchanged. No timing claim is drawn from semantic mode.
+
+count-1 passed all 41 assertions, exit0/pins unchanged. Two ordinary pivots use
+7 instead of 9 finite checks: steepest-edge/Devex visit 112 instead of 144 vector
+elements; Dantzig 84 instead of 108. Successful price repair retains its first
+entry check; auto/existing-state/adaptive-policy exclusions retain check counts.
+The counter sums lengths at each actually executed hardware-float scan, whose
+loop visits every element; skipped arrays contribute zero.
+
+paired-1 is now running baseline and candidate in independent modules in one
+guarded Julia process, with identical sparse/dense fixtures and all five managers.
+It compares full event/state fingerprints separately from three interleaved warm
+plain timing/allocation pairs. Both source trees and all shared scripts are pinned.
+Inspect its process.json before editing any pinned file or starting another job.
+
+paired-1 deliberately stopped: author found a diagnostic comparator defect.
+Baseline used ()->false rather than its real context clock closure. Earlier
+state/hash matches are useful, but timings are rejected as production before/after
+evidence. Process exited via owned guard cleanup (-9), pins unchanged; old scripts
+are saved inside the attempt. The corrected helper uses each revision's actual
+context-only stop factory and tests expiry equivalence before measurement.
+Next runs: broad semantic boundaries, then corrected paired-2.
+
+Boundaries-1 passed 780 assertions, exit0/pins unchanged. External-1 is active
+under a 900-second guard, using the frozen five-case external manifest, both
+algorithms, all five managers and native/Markowitz factorization. Its source and
+measurement scripts are also copied into source-snapshot/ before later edits.
+Measurement review accepted the corrected real-clock comparator but requests
+trace/plain cross-checks and complete event-name/count/refactorization metadata
+before paired-2. Production source has not changed since the focused tests.
+
+External-1 completed normally: all 100 combinations OPTIMAL, original-primal
+certified and reference-objective matched (305 assertions), pins unchanged.
+Process group and runner confirmed absent on host before diagnostic edits.
+The benchmark review fixes now compare trace/plain entry and final states,
+steps/refactorizations and complete event names/counts scoped to the measured
+kernel. Unused prototype scripts are retained under unused-prototypes/.
+
+Baseline-precision-1 is active: original project/source at preserved 7d6a8e1,
+normal compilation, only the unchanged precision-recovery-state file, 300-second
+guard. This control determines whether the earlier compilation problem also
+occurs without the candidate; no numerical benchmark is concurrent. Actual test
+file and helper outside the baseline test tree are explicitly pinned. The local
+launch helper is preserved as attempt-launcher.py for reproducibility.
+
+Baseline-precision-1 ended at its 300-second wall limit, exit -15, pins unchanged.
+The old production source also stalls in type inference (precision-recovery-state
+line 31; candidate combined run had reached line 58). This reproduces an inability
+to finish bounded normal compilation without the candidate; it does not establish
+equal compile costs or a full-suite pass. No original checkout file was changed.
+Paired-2 is active with the corrected deadline comparator and reviewed metadata
+checks, 600-second guard. Both baseline/candidate source trees are pinned.
+
+Paired-2 passed all 10 sparse/dense manager cases, 30 interleaved timing pairs
+plus separate traces, exit0/pins unchanged. All entry/final/completion states,
+event sequences/counts and step/refactorization counts match; trace/plain checks
+also pass. Allocation bytes/counts equal, measured compilation zero. Tiny-case
+timing scatter is reported without a universal speedup claim in S1-ENTRY.md.
+Medium-dual-1 candidate prefix is active, 600-second guard, 4000 HH/native320
+steps plus a separately warmed census with actual vector-element counting.
+A new baseline run is justified by this new element metric and production change;
+the old report only counted helper calls. No sampling/profiler run is repeated.
+
+Medium-dual-1 completed, exit0/pins unchanged. The 4000-step HH/native320
+candidate plain and census runs have identical hashes/events and zero measured
+compilation. Candidate also exactly matches the historical baseline status,
+iterations, event/state hashes, event counts and input hash. Finite-workspace
+calls are 12004 versus historical 16004; actual candidate vector visits are
+26287751664. This remains ITERATION_LIMIT, not a solved LP.
+Medium-dual-baseline-1 is active on the preserved old source with the same new
+element counter; this closes the missing baseline element metric. Runtime dual
+paired validation and final acceptance/integration remain pending.
+
+Medium-dual-baseline-1 completed exit0/pins unchanged; its long warm-up did not
+hit the guard. Fresh baseline/candidate plaintext and census trajectories match.
+Actual element visits: 35047415664 -> 26287751664, saved 8759664000 (24.994%).
+Runtime-dual-baseline-1 is active (512-step prefix, old source, 600-second guard);
+then run the candidate with identical input/scripts/options and compare hashes.
+No production source edits since focused validation; no master integration yet.
+
+Runtime-dual-baseline-1 completed exit0/pins unchanged. On resume the candidate
+attempt had not started; runtime-dual-1 is now the sole guarded Julia process,
+600-second limit. See its current.json and resources.jsonl. All 507 source/test
+files still match seven accepted candidate-validation pin sets. Remote master
+is fe839aa and diagnostic branch 94442cf. Final independent review accepts local
+integration conditional on the runtime gate; no new blocking finding.
+
+Runtime-dual-1 completed exit0/pins unchanged. Its four-way trajectory comparison
+passed, with 62230448 fewer actual element visits; only finite-workspace calls
+change (2055 -> 1796). Independent review and all S1-A local gates are complete.
+All 507 source/test files match eight candidate validation pin sets. No Julia
+process remains; source files can now be committed. Full normal-mode project
+suite remains incomplete (old-source compilation timeout also reproduced).
+Do not repeat numerical measurements without a new reason.
+
+## S1-A integrated milestone
+
+Architecture production commit 8e0a7c7; master cherry-pick beb161b, pushed. Only
+two production files and three test files were integrated; diagnostics remain
+on the architecture branch. Final staged whitespace check removed one trailing
+blank line from the test helper after the main validation; production code did
+not change. integration-1 passed all 242 new contract assertions directly from
+master under compile=min, exit0/pins unchanged. No numerical process remains.
+
+Portable results include 15 attempt records and source digests; full raw evidence
+is preserved locally. 1807 accepted validation assertions plus 242 integration
+assertions passed; no complete normal-mode suite or whole-medium solution claim.
+Next: S0 long-run diagnostic subplan, implementation and calibrated short runs.
+
+S0-L started after integrated S1-A: concrete subplan
+docs/superpowers/plans/2026-10-11-simplex-long-instrumentation.md. First launcher
+call failed before Julia because the new stage directory did not exist; corrected.
+counts-red-1 then failed as intended on missing counter implementation, exit1,
+pins unchanged. Count-only implementation/tests are uncommitted; normal guarded
+counts-green-1 is next. No long solve or calibration acceptance yet.
+
+S0-L counts-green-1 passed 39 assertions with normal compilation, exit0/pins
+unchanged. Count-only pilot calibration is next: a new instrumentation test,
+not another S1 baseline/candidate benchmark. Sparse/dense HH, five interleaved
+pairs of 32 prepared kernels, separate trace verification. L2 chronology and
+medium/both-algorithm calibration still pending. Production remains unchanged.
+
+Active S0-L attempt: count-pilot-1, guarded 300 seconds on preserved baseline
+7d6a8e1. Inspect process.json/current.json before edits or any Julia launch.
+The count-only pilot does not qualify long-run instrumentation; L2 windows and
+full calibration remain mandatory. Published diagnostic milestone is 1fcaa16;
+master remote verified at beb161b. Current S0-L files are diagnostic-only.
+
+## S0-L2 stopped checkpoint
+
+window-pilot-1 completed exit0/pins unchanged. Sparse chronology overhead 11.90%
+exceeds the 5% gate; dense 2.02%. Final state/step comparisons and zero measured
+compilation checks passed, but these do not override the performance rejection.
+All source/script pins verified again; runner and child absent, no Julia process.
+Tests/results/failed attempts and the exact next hypothesis are recorded in
+S0-LONG.md. No S0 production changes; no long reference. Stop follows the user's
+explicit instruction to continue only until encountering a problem.
+
+Resumed after explicit user request. Preflight: master/origin beb161b, architecture
+4070155, user environments/dirt preserved, no Julia or guard process. New
+event-ablation-1 isolates none/counts/noop/recorder in one baseline module, with
+rotated order and identical operation counts/state. It asserts no cold regions
+or periodic writes occur in the measured sparse batch. This tests event overhead
+instead of repeating the failed whole-recorder pilot unchanged.
+
+## Static work during the sole L3 process
+
+S3-INVENTORY-NOTES.md maps current exact-support propagation, dense rebuilds,
+manager fallback/invalidation and dense consumers. Partial map independently
+reviewed; numerical counts and S3 subplan remain pending. S5-INVENTORY-NOTES.md
+records phase/cleanup ownership and potential redundant initial reconstruction;
+review accepted the partial map; full inventory still pending. Neither document changes pinned code.
+
+S2 bounded proposal docs/superpowers/plans/2026-10-11-primal-flip-audit-prototype.md
+has passed independent design review: unchanged-basis flips only, every candidate independently
+point-certified, original reconstruction/fallback and mandatory endpoint refresh.
+No incremental flags, default change or unsupported forward-error estimate. A1
+context/hook/alias ownership and endpoint state table are resolved; freeze, branch
+characterization and RED remain pending before implementation. S2 broader
+pivot controller remains open. All numerical work waits behind the active L3 job.
+
+S2-A design is independently accepted. New unexecuted control fixtures and
+characterization driver cover80 planned cases (Float32/64,5managers,2backends,
+4branch recipes). Static review confirms API/reset and scheduled-refactor setup;
+its requested reason-specific assertion records exactly one limit refactor and
+no other refactor reason, separated from final certification. The census is NOT
+run or accepted, and no prototype implementation exists. Execute only after the
+current S0 process exits and its host identity is confirmed absent.
+
+
+S3 static writer review found two pending safety cases: accepted refinement into
+an AbstractVector view does not invalidate the owned parent support by identity;
+LP witness projection writes rho after refactor_other allows an observer to build
+metadata for the fresh zero scratch. New diagnostic pipeline_boundary_regressions.jl
+prepares whole-vector/no-metadata controls and view/observer cases. NO Julia run,
+RED evidence or production fix yet. Prioritize this narrow reproduction at the
+next free serial slot; do not interrupt or modify the active S0 reference.
+
+
+Diagnostic e519fbe is pushed. Static review accepts the S3-A reproduction and
+small subplan 2026-10-11-pipeline-boundary-invalidation.md; its first numerical
+step remains RED on unchanged production after S0 releases the guard. The S3
+writer map now explicitly qualifies view aliases and observer-created metadata.
+S0 partial-attribution snapshot: iteration125952,90247 phase-II steps, no final
+certificate. Pins matched at snapshot; raw prefix and compact report preserved.
+Refactorization178.2594s includes157.4598s GC, so it is not an arithmetic timing.
+
+
+Next-slot command is prepared but MUST NOT run before S0 release:
+`python3 /tmp/jsimplex-s3-attempt.py boundary-red-1 <active>/diagnostics/simplex-core-architecture/reproduce/pipeline_boundary_regressions.jl smoke --seconds 600`.
+The new helper targets S3-A, freezes src/test/environment/scripts and uses the
+same existing guard/launcher. It was Python syntax-checked only. Check process.json,
+then host runner/child/driver absence in a separate call before launching.
+S5 inventory now records callback-visible initial reconstructed state, prior-work
+assignment timing and constructor failure ownership; no S5 source change.
+
+
+## Automatic continuation and live cleanup checkpoint
+
+Diagnostic checkpointbb1bdd5 is pushed. The attached-thread heartbeat
+`pokra-ov-n-v-voje-jsimplex` is ACTIVE, checking every5minutes to continue after the
+sole numerical job releases its guard. It is instructed to remain quiet while
+unchanged, audit final evidence first, then execute the reviewed S3-A RED and
+subsequent plan autonomously. This scheduling is not another numerical process.
+Respect any newer human stop/scope instruction; disable the heartbeat on completion
+or when actual user intervention is necessary. Check app automation state rather
+than assuming this local scheduling follows the repository to another host.
+
+The live reference reached original-model cleanup at iteration234380. Completed
+phase-II windows and their counters/sections are preserved in
+results/S0-L/medium-dual-counted-1-phase-two-end.json with the raw prefix digest.
+This remains running partial evidence, NOT an accepted final medium certificate.
+Pins matched at capture. The same runner268789/Julia268790 remain active; do not
+launch S3 or change pinned files until final report and separate host absence checks.
+
+
+## Completed S0-L medium dual counted reference
+
+medium-dual-counted-1 exited0, pins unchanged and independently reverified.
+Post-exit long_audit JSON passes every gate: OPTIMAL, explicit original primal
+feasibility, observed internal optimality certification,256 complete windows with
+exact counter sums,198675 actual dual phase-II steps (3634.343694575s).
+Total255798 steps includes21418 original-model primal cleanup steps.
+Counted elapsed5926.881033309s includes0.022926199s compilation and503.750702521s
+GC; this is not a compilation-free or authoritative plain timing comparison.
+Objective2.2389455645278454e7; final primal digest and exact baseline source,
+allowed medium hash, final reports and phase totals are preserved in
+results/S0-L/medium-dual-counted-1-audit.json and companion raw report copies.
+Separate plain elapsed and primal-origin references remain pending; no speedup
+or whole-S0 completion is claimed. Guard/Julia/driver268789/268790/268787 were
+confirmed absent in a separate host call after the final process report.
+Next: execute the prepared S3-A boundary-red-1 before any production edit.
+
+S3-A B1 confirmed both hypotheses: boundary-red-1 has27pass/5intended failures,
+no errors; controls pass and corrected dense values/certification pass. Exit1,
+pins unchanged; host runner/child/driver absent. Minimal invalidation changes
+applied after RED; identical smoke GREEN next, no production commit yet.
+
+S3-A identical smoke GREEN passed32/32,exit0/pins unchanged; runner280264/
+Julia280265 and driver absent. Extended production regression covers250
+precision/manager/backend/destination combinations, all six scratch aliases,
+no-cache/rejected-write/model-alias contracts and witness callback provenance.
+Extended matrix is prepared, not yet accepted.
+
+S3-A boundary-matrix-1 passed1645/1645 with normal compilation; pins unchanged.
+All5precisions/5managers/2backends supported in this fixture. Existing focused
+pipeline/refinement/projection/guard regressions are now the sole numerical job
+(boundary-focused-1). Production/test changes remain uncommitted pending gates.
+
+S3-A focused-1 completed3214pass/0fail/3errors,exit1/pins unchanged. All three
+errors are UndefVarError(lp_recovery_fixture) in lp_refinement_state_tests: the
+diagnostic driver omitted its lp_refinement_recovery_tests dependency. Source
+unchanged. Ruling: add the missing include and rerun only the LP recovery/state
+group, retaining the3214 passed assertions; no repeat of the completed broad
+solver matrix. Runner280590/child280591/driver absent before driver repair.
+Cost driver additionally asserts actual cache/no-cache setup before timing.
+
+LP recovery/state follow-up passed70/70,exit0/pins unchanged. Cost-1 failed
+before producing a report: its measurement row inferred Dict{String,Real} and
+could not accept later String labels. No accepted timing evidence from that
+attempt. Fix only report container type to Dict{String,Any}; new cost-2 attempt
+keeps the measurement workload unchanged. Exit1/pins unchanged, host process
+absence confirmed before editing.
+
+
+## Historical S0/S4 handoff snapshot (superseded)
+
+S0-L2 current calibration gates pass for the actual L3 environment. Kernel10
+passes sparse4.64385%/dense2.96326%; full suite3's five other gates pass, while
+its medium-primal5.90404% remains explicitly FAIL. The reviewed process-isolated
+follow-up completed all12 serial samples, ratio-of-medians0.24214%, compile0,
+matching results/options/policy and exact counted window sums, retained2880B.
+All process reports are exit0/pins unchanged. Host verified final runner266320,
+child266321 and orchestrator264004 absent. Subsequent smoke passed and L3 is
+now active as recorded below.
+Read results/S0-L/isolated-primal-calibration-1.json and provenance/attempt records.
+Independent L2 review accepts this deployment-matching calibration. The isolated
+prefix driver returned empty primal_hash/objective=nothing, so matching result
+metadata is not a new exact final-state hash check; full suite3's earlier separate
+trace gates remain the state evidence. Smoke subsequently passed; long medium certification remains open.
+
+S4-A is integrated and pushed: architecture8701a58 -> master4143dad27581cf1230fa74203306f956b89109a6.
+RED6pass/2intended failures, GREEN344pass, normal focused4366pass, paired cost60
+records, master integration344pass; all completed pins unchanged. Independent
+review accepts the local memory fix, with no unnecessary work/retention finding.
+See S4-SCRATCH.md. Same-size allocation cost unchanged; obsolete four-vector
+capacity released after dimension changes. No timing speedup or whole-S4 claim.
+Master remote identity verified; old worktrees, local environments and main user
+files preserved. No S4 runner remains.
+
+driver-smoke-1 passed: exit0/pins unchanged, OPTIMAL/original-primal feasible,
+certificate observed,7 phase-II steps,5 complete windows and exact counter sums.
+Its JSON chronology_reference_success=true. Host verified runner268482/child268483
+absent. Calibration and smoke permit long launch, not a medium-success claim.
+
+Current sole numerical job: S0-L/medium-dual-counted-1,43200-second guard,
+counted dual medium, step cap1000000, old planning baseline. Runner268789
+(start_ticks16921100), child268790 (start_ticks16921182), boot ID
+20de7dde-704e-41c8-bee7-b8511c0a86b0; verify current host identity, not PID alone.
+Pins digest a24597f2ddb774e72ade444c01c3f25f255b2c55b40ba4a1a47556f257f5fa7e.
+Raw reference.toml/windows/current/resources/process are under the attempt path.
+current.json reason=launch_error is the runner's pre-launch placeholder, not a
+final outcome; inspect host identity/resources and final process.json.
+Do not edit any pinned old src/test/env or active diagnostic Julia file, and do
+not launch another numerical process while it runs. Read only completed windows;
+no final status/certification is inferred before process exit and JSON audit.
+
+Diagnostic checkpoint8f87306 is pushed. The current diagnostic checkpoint includes S4 inventory/subplan/results,
+suite3 attribution and isolated-calibration evidence. Main user dirt and all
+worktrees/environments remain intact. S2 static prerequisite mapping is reviewed;
+the bounded flip design is accepted for private qualification; pivot controller and numerical work
+remain pending. S4 broader attribution
+is also pending; the integrated fix concerns four private solve/preparation vectors.
+
+Long reference is now active. Its guarded baseline is the preserved
+7d6a8e1 checkout (productionfe839aa), allowed medium hash, live1024-step windows,
+1000000-step cap and external12h guard. Preserve every limit/failure as incomplete.
+A separate plain elapsed run and primal-origin reference remain later serial work.
+User explicitly requested continuous execution through diagnostic failures.
+
+S1-A production commit `8e0a7c7def505604ccfe50cdbc2cf9cee453092d` was integrated
+as master `beb161b310afd9dc7126eca98e3c15898a69efbf` and pushed. Its accepted behavior remains in the subsequent S4-A production
+tree. Diagnostics/experiments are separate on the architecture
+branch (published S1 evidence: 1fcaa16). All worktrees and local environments,
+including main's modified .vscode/settings.json, remain preserved.
+Read [S1-ENTRY.md](S1-ENTRY.md) for accepted local savings and coverage limitations.
+
+
+
+## S3-A integrated milestone
+
+Productioncd91a1a -> masterd8ad4ec; reviewed and pushed. Smoke32,extended1645,
+focused3214 successful assertions plus missing-fixture errors closed by targeted
+LP70, cost120, allocation-attribution28, master integration1645. All attempts and
+failures preserved; no source change after first smoke GREEN. WholeVector body
+unchanged, measured0B/0events; timing mixed, no speedup. Alias invalidation adds
+bounded6metadata checks and necessary later support rebuilds. Generic view
+benchmark boxing and nonspecialized single-call overhead explicitly documented.
+No broader S3 completion or whole-medium improvement claim. Next S2-A census.
+
+
+S2-A control-census-1 is active under the guard; runner282455 (start_ticks17692061), Julia282456 (start_ticks17692145), boot20de7dde-704e-41c8-bee7-b8511c0a86b0. Verify current identity. No S2 candidate exists.
+A new unexecuted primal_flip_work_contracts.jl specifies the first intended RED:
+four actual flips, certified final optimum, target5FTRAN/1BTRAN including mandatory
+endpoint refresh versus the unchanged control expected8/4. Run only after census
+acceptance and separate host absence; no private candidate before that RED.
+
+S2-A control-census-1 completed1000/1000 assertions and80/80rows,exit0/pins
+unchanged; source hashes verified. Host runner282455/child282456/driver absent.
+Next work-red-1 on unchanged control; no candidate implementation yet.
+
+S2-A work-red-1 produced the intended RED:6state/certificate checks pass,
+2work assertions fail (actual8FTRAN/4BTRAN versus target5/1),0errors,exit1/pins
+unchanged. Host runner282737/child282738/driver absent. Private AST-clone
+implementation may now begin; production remains unchanged.
+
+S2 work-green-1 failed at module loading (unspaced bang-symbol Pair syntax in
+RENAMES evaluated an undefined target name), before numerical tests. Exit1/pins
+unchanged, host absence verified. Replaced only the rename dictionary entries
+with explicit Symbol constructors; work-green-2 next. Production unchanged.
+
+S2 candidate-matrix-1 passed960/960 across80cases,exit0/pins unchanged.
+Host runner283268/child283270/driver absent. Flip->pivot reduces4/3solves to3/2;
+flip-chain8/4 to5/1; scheduled flip unchanged2/1; flip->unbounded increases3/1 to4/1
+due required endpoint refresh and repeated direction. No timing saving claimed.
+Two private context-dispatch hooks now allow tests to inject apply/certificate
+failures without replacing any production helper. Default hook bodies call the
+unchanged helpers. Next safety/unsupported/exception qualification.
+
+S2 safety-contracts-2 passed139/139 (118 fault/publication +21 scope/precision),
+exit0/pins unchanged; host runner283985/child283986/driver absent. Successful
+rejection reconstruction, before-write overflow, time/iteration limits and owned
+callback/numerical exception provenance passed. BigFloat and Rational Int64/BigInt
+use the original8/4 path. Injected reconstruction exception is not coverage of
+all ill-conditioned recovery failures. Next focused existing regressions.
+
+S2 focused-1 passed10381/10381 across9existing primal-update/point/direction-price
+files in normal compilation (783.6s test time), exit0/pins unchanged. Host
+runner284158/child284159/driver absent. No repeat needed. Next dirty-entry-1
+then cost-1; both prepared at diagnostic3b164ea.
+
+Dirty-entry-1 passed21/failed1: the alleged infeasible slack=-1 was actually
+within its one-sided (-Inf,5] row bounds, so a later certificate fallback repaired
+it without the expected early-bound refresh. Correct the fixture to6 and assert
+the actual guard fails before invocation. Both final optima and expired limits
+passed; no prototype defect inferred. Exit1/pins unchanged, host285025/285026/
+driver absent. Next dirty-entry-2; production unchanged.
+
+Dirty-entry-2 passed26/26 with explicit failed guard preconditions, exit0/pins
+unchanged. Both nonfinite and out-of-bound dirty points refresh successfully;
+expired attempts return TIME_LIMIT without reconstruction or published primal.
+Host285110/285111/driver absent. Sole next numerical job: cost-1.
+
+S2 cost-1 completed128samples/64warmups, exit0/pins unchanged, all outcome hashes
+match and plain compilation=0. Host285175/285176/driver absent. Sparse median
+ratios0.472–0.753, dense1.219–1.302; reject-all1.105–2.202. Extra allocations
+1040–4976B, retained point buffers968–4872B. Proposed broad eligible path is
+rejected pending independent review; do not merge or add an unreviewed density
+heuristic. See S2-FLIPS.md. No numerical process remains.
+
+S2-A final independent review accepts REJECTED closure, with no critical/important
+blocker and no hidden unnecessary copies or retained global workspace. Extra
+certificate/fallback work and point-buffer memory are necessary for this design,
+so the design is rejected instead of removing protections. Both minor report
+wording/current-status corrections applied. Continue broad S3 inventory/census.
+
+S3-B subplan prepared: docs/superpowers/plans/2026-10-11-pipeline-canonical-support.md.
+New pipeline_support_census.jl instruments unchanged parsed method bodies in an
+isolated process, counting output-consumer compaction separately from producer/
+input work and dense rebuilds. Full census covers5types/5managers/2backends,
+zero/one genuine pivot history,3input shapes,forcedsparse/dense,3operations and
+external fallback. No production edit. Host has no numerical process before
+launch; sole next job S3-B/support-census-1 via /tmp/jsimplex-s3b-attempt.py.
+After census acceptance run its small red mode before proposed production edits.
+
+S3-B support-census-1 passed20000/20000 assertions across1900cases, exit0/pins
+unchanged, current source hashes verified. Output consumers executed992 extra
+compactions visiting5156support entries;600empty cases contribute calls but no
+entries. All source-type/backend/history modes and exact values/support passed.
+Host runner286446/child286450/driver absent. Next support-red-1, unchanged source.
+
+S3-B support-red-1:74pass/6intended failures,0errors. Sparse FTRAN/BTRAN/pricing
+output consumers each compact once (1/1/3entries); dense/external controls pass.
+Exit1/pins unchanged; host286814/286815/driver absent. Minimal production change
+adds a local canonical flag after successful indexed/empty production only;
+generic calls/dense rebuild/external checks unchanged. Permanent boundary tests
+prepared/registered. Next identical small support-green-1 (driver red mode).
+
+S3-B identical small GREEN passed80/80, exit0/pins unchanged, no output-consumer
+compaction. Host286907/286908/driver absent. Next support-qualification-1 runs
+new permanent tests then the extended1900case work matrix on the candidate.
+Source/test remain uncommitted until acceptance.
+
+S3-B qualification-1 passed1611permanent assertions plus20000work-matrix checks,
+exit0/pins unchanged. All1900paired cases match modes/support/rebuilds; total
+compaction reduction exactly992calls/5156entries. Source hashes match. Host
+287028/287029/driver absent. Only runtests include indentation changed afterward.
+Focused driver now includes sparse-pricing signed-zero/order tests, existing
+full-solver pipeline matrix and explicit HH supplement. Next support-focused-1
+under1800s guard, then prepared whole-pipeline cost comparison.
+
+Static dependency check while support-focused-1 runs found that the added
+sparse_pricing_edge_tests requires sparse_pricing_workspace from the omitted
+sparse_pricing_integration_tests. Do not mutate the pinned driver. After final
+report/absence, include that dependency for future driver use and run only the
+affected alias/storage testset using prepared pipeline_support_pricing_followup.jl.
+Do not repeat completed full-solver or broad factorization groups for this harness
+issue. Confirm actual final error output before classifying the attempt.
+
+S3-B focused-1 completed10645pass/0fail/1missing-fixture error. Targeted pricing
+follow-up passed9/9,exit0/pins unchanged; runner288131/child288135/driver separately
+absent. No broad repetition. Sole next run support-cost-1: three interleaved warm
+pairs, fixed actual kernel modes, unchanged numerical arithmetic/control clone.
+
+S3-B cost-1 failed before measurement: AST clone renamed the return-annotation
+wrapper rather than the pricing function call signature. Exit1/pins unchanged;
+host288220/288221/driver absent. Unwrap ::/where before renaming; source unchanged.
+Preserve failed attempt; cost-2 executes the same planned workload.
+
+Cost-2 ended exit1/pins unchanged after828samples/276warmups/23setups; the next
+Float32/Markowitz PFI dense/history8 fixture returned a status before8pivots.
+No claim of complete cost acceptance. Host288358/288359/driver separately absent.
+Next targeted old/new fixture probe; preserve successful pairs and do not repeat
+them. No tolerance or arithmetic change will be used to rescue this fixture.
+
+Fixture probe confirms both old/new PFI/HH Float32 dense/history8 stop at the
+third pivot with identical NUMERICAL_ERROR: primal point could not be certified.
+Exit0/pins unchanged; host288739/288740/driver absent. Ruling: preserve this known
+fixture limitation without weakening guards/tolerances; all5Float64 managers cover
+dense/history8. Run remaining3 HH/Float32 fixtures only; timing coverage26/28.
+
+S3-B cost completed936samples/312warmups/26fixtures (2known Float32 dense/history8
+fixture failures excluded with old/new evidence). All156groups have exact paired
+output hashes,compile0 and identical allocation bytes/events. Sparse group median
+ratio0.9367, dense1.0020; broad pair noise prohibits universal elapsed claims.
+Remaining attempt exit0/pins unchanged; host288828/288829/driver absent.
+Next support-trajectory-1:80paired full solver state/event comparisons.
+
+S3-B support-trajectory-1 passed1041assertions/80exact paired traces,exit0/pins
+unchanged; host288952/288953/driver absent. Cost data/source/frozen baseline helper
+hashes independently verified. Final review requested before production commit.
+
+S3-B final independent review approves with explicit no-unnecessary-work/memory
+finding. Cost/work/trajectory/source hashes independently reproduced; scope limits
+accepted and no deferred minors. Productionb6a4064 -> masterb720674; preservation
+hashes match. Sole guarded job support-master-1; do not push until acceptance.
+
+S3-B integrated milestone: productionb6a4064 -> masterb720674, master1611/1611,
+exit0/pins unchanged, separate host absence, authorized push and remote verification.
+Independent reviewer accepts source/work/cost/trajectory proof with no findings.
+All old worktrees/env/user dirt preserved. S0 final window allocation attribution
+was aggregated without another Julia run; S4/S5 maps now cite completed evidence.
+
+S0 plain reference launched after reviewed/pushed S3-B integration. Sole Julia
+identity290176 verified with start_ticks/boot ID; guard290175 healthy, memory within
+limits and no swap. This is only an active attempt, not accepted final evidence.
+
+
+S0-L plain dual acceptance: exit0/pins independently reverified, all15audit gates
+true; exact final result/configuration matches counted baseline. Separate host
+absence verified before further Julia. Committed compact report copies preserve
+elapsed/compile/GC/allocation/resource evidence; no repeated numerical measurement.
+
+S0-L medium-primal-counted-1 launched with calibrated existing instrumentation,
+unchanged old baseline and guard settings. Runner300579/Julia300580 identities
+verified; session38999; no concurrent Julia. Await actual final audit before claims.
+
+## S5-A cleanup entry census (2026-10-12)
+
+Census-1 completed184 exact control/instrumented pairs, exit0, all20audit gates,
+independent source/pins verified. See S5-ENTRY.md and cleanup-entry subplan.
+Native initial1FTRAN/1BTRAN/1pricing/1basis-validation; checked same kernels plus
+5validations/1checkpoint. Observer/deadline/caller exception contracts pass.
+Unconditional omission rejected; no production change or speedup claim.
+Two diagnostic world-age warnings retained; future Julia/Revise portability open.
+Runner361287/child361288/driver361278 separately absent, same boot20de7dde-704e-41c8-bee7-b8511c0a86b0.
+Fresh gpt-6-astra review accepted, no blockers. Deferred minor: exact means recorded
+representation/fields, not bitwise full workspace; BigFloat signed zero is canonicalized.
+See S5-ENTRY-REVIEW.md. Evidence43dfa89; closure push follows.
+Next concrete plan:2026-10-12-objective-restoration-contract.md.
+Broader S4/S5/S6 remain open; CI stays disabled.
+
+## S5-B objective/bound restoration census (2026-10-12)
+
+Census-2 completed144selected-representation pairs/all21audit gates, exit0, source
+and whole pins independently verified. Report S5-RESTORATION.md; independent review accepted with alias-proof plan correction.
+Census-1 overconstrained alien-bound oracle failed; probe-1 showed valid original
+optima. Both attempts preserved. Corrected existing working-infeasibility fixture
+rejects alien proof. Current result80OPTIMAL/32TIME_LIMIT/16NUMERICAL_ERROR/16throws.
+Identity-aliased cost copies are a candidate only with a nonoverlapping-source
+guard; bound deduplication excluded due intervening writes/source aliases.
+Next exact RED/GREEN plan:2026-10-12-restore-alias-copies.md, after final census review.
+Production unchanged/master3220118; no speedup claim. Runner363940/child363945/
+driver363931 separately absent on boot20de7dde-704e-41c8-bee7-b8511c0a86b0.
+CI disabled, historical failures and broader S4/S5/S6 remain open.
+
+S5-B final review closed: evidenceef9749d, no production changes. One important
+next-plan correction: Base.mightalias alone misses offset unsafe_wrap overlaps.
+Alias-probe-1 proves4counterexamples; diagnostic range predicate passes10Float64
+cases,12audit checks/586independent pins. It is not all-scalar production proof.
+S5-RESTORATION-REVIEW.md records accepted scope and all declined-review rulings.
+Next exact action:2026-10-12-restore-alias-copies.md; establish storage-layout/range
+contract then focused work RED, preserving every overlap/failure/event safeguard.
+Keep both copies when disjointness cannot be established. Bound copies excluded.
+Last runner364759/child364760/driver364750 separately absent; no Julia, same boot.
+S5-C implementation/cost/regression/review gates and broader S4/S5/S6 remain open.
+
+## S5-C qualification in progress (2026-10-12)
+
+Minimal cost-copy guard implemented on architecture branch, not integrated.
+Layout184, RED462semantic/12expectedworkfailures, GREEN504, focused1463,
+cost312compile0samples/52fixtures,152exact trajectory pairs/153assertions.
+All process/source/pin gates verified. Report S5-COPIES.md; final review pending.
+Cost events equal; bytes differ144/156pairs, initial analysis assumption rejected
+and preserved. Large eligible timing ratios0.4496–0.9354; small and detached
+spread explicitly documented, no universal speedup/no-byte-growth claim.
+Last runner367367/child367368/driver367359 separately absent, no Julia, same boot.
+Master remains3220118. Next final independent numerical/work/memory review.
+
+## S5-C accepted and integrated (2026-10-12)
+
+Fresh independent gpt-6-astra review accepts with no findings; no unnecessary
+scan/solve/allocation/cache/retention found. Production88a2411 -> mastere7014fb.
+Master-1 passes668/668,all12audit gates/592pins, actual source and user hashes.
+Separate host check: runner368680/child368681/driver368668 absent, no Julia,
+boot20de7dde-704e-41c8-bee7-b8511c0a86b0. Source benefit is one O(N) copy removed
+at eligible cold restoration; cost-byte differences and detached/small timing
+uncertainty remain explicit. See S5-COPIES.md and S5-COPIES-REVIEW.md.
+Next S6-A failure/coverage inventory uses existing logs, without rerunning accepted
+measurements. Ruling: triage historical CI now before more optimization so broader
+validation blockers are explicit; this is not closure of broader S2/S3/S4/S5.
+CI confirmed disabled_manually; two old runs cancelled. Extended validation is a
+separate active workflow, not launched here. Master push verified by ls-remote:e7014fb92ae6dce633afc714793a2f89b39aea76.
+
+## S6-A/B inventory and first failure cause (2026-10-12)
+
+S5-C diagnosticsbb074ac and mastere7014fb are pushed/remote verified. Historical
+CI inventory:source4914cbb197failures+1error,sourceb720674200+1;tests/src identical
+between these refs, both Julia1.13.1x64. All failures accounted,5audit checks.
+S6-B original preference oracle reproduced2pass/2fail/1error on currentmain1.13.0
+AArch64,10audit gates. Observations show valid tolerated flip bypasses intended
+refresh path. Harness1/2failures and3oracleASTfailure are explicitly preserved;
+only3twins and separate cleanoracle-1 qualify. See S6-FAILURES.md.
+S6-C synthetic bound1e8 probe5/5,12gates/exact twins, one refactor/no flip proves
+intended path. Test-only correction being checked; no production solver change.
+Focused-1 precondition placement error preserved; focused-2 is current attempt.
+Final review/integration pending; never claim full CI/S6 complete.
+
+## S6-A/B/C accepted and integrated (2026-10-12)
+
+Fresh independent gpt-6-astra review accepts inventory/reproduction/test correction
+with no findings and no unnecessary production work/memory. Test3e91736 integrated
+as mastera465da5, pushed/remote verified. Focused master-1 20/20,exit0,11audit gates,
+independent pins/source and user hashes. Separate host runner371705/child371706/
+driver371697 absent,noJulia,boot20de7dde-704e-41c8-bee7-b8511c0a86b0.
+Reports S6-FAILURES.md,S6-FIXTURE.md,S6-FIXTURE-REVIEW.md retain every failed harness
+attempt and limited scope. Two trailing spaces in a raw failed log are preserved.
+Next bounded S6-D artificial-row recovery reachability subplan; historical96CI
+assertions are not yet diagnosed. Full CI/S6 and broader S2/S3/S4/S5 remain open.
+
+## S6-D/E diagnostic closure (2026-10-12)
+
+Current census28pairs/168pass/13gates; private exact-row counterfactual28pairs/
+72pass96expectedfail/17gates. Same failed CI predicates and76nonstate evaluated
+values; full-state comparison rejected/preserved (original column1 vs CI7).
+Both failed parser attempts preserved. Fresh independent review accepts, two minor
+publication clarifications applied without code/rerun. No production/test changes.
+Last runner373223/child373224/driver373214 separately absent,noJulia,sameboot.
+Next S6-F controlled test adapter qualification; all current results localAArch64,
+actualCIbackend/row cause unresolved. Never relax safeguards to force a test outcome.
+
+## S6-F/G controlled fixture accepted (2026-10-12)
+
+Qualified one-shot declared unreliable row through a test-only forwarding phase
+factor. All original assertions preserved, neighboring testsets unchanged. No
+production/tolerance/workflow edit. Fresh independent review finds no numerical,
+dispatch, ownership or unnecessary production work/memory issue. Qualification
+564pass/14gates, RED196pass56intendedfail/7gates, GREEN348pass/12gates600pins,
+master348pass/13gates. Testa9be911 -> master8516e0d. Source/pins/user hashes checked;
+separate process absence recorded above. Accepted local denseFloat64native scope
+and actualx64/downstream arithmetic limitations remain explicit in report.
+Next S6-H census uses unchanged duplicate-column dual fixture before any fix.

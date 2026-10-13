@@ -43,20 +43,25 @@ accepted deliverables, not partial or failed attempts. Update both at milestones
 - Phase changes and postsolve mapping can invalidate an apparently good point,
   weights or certificate. Covered by S5 handoff/fallback tests.
 
-## Current continuation — 2026-10-13
+## Current continuation — 2026-10-14
 
-MA-F replacement completes requested RED/qualification/short cost: exactly2expected
-RED failures,381candidate assertions,48fixturecases/432rows; all22processes accepted.
-All1920steadywindows compile/recompile0, five GC windows retained. Target benefits
-6/6pass, control gates6/32fail: production promotion NOT ACCEPTED, no integration.
-See MA-MARKOWITZ-UPPER-QUALIFICATION-REPAIRED.md and results/MA-F-repair.
-Original pre-test API failure unchanged; scoped-context correction separately
-admitted. Full1817pins unchanged;90groupsANDsessions absent/noJulia. Bothattempts
-consumed/frozen; no automatic tuning/rerun/outlier deletion/longer cap.
-Further source analysis can use stored control regressions, but any new candidate
-or measurement needs a separate concrete independent admission. Human short-run
-permission remains. MA-F current continuation hashes map ONLY MA-F-repair before
-copies; older maps intact. Master6f68e24 unchanged; broaderMA/S2/S3/S4/S5/S6open,
+MA-G SOURCE/EVIDENCE analysis completed; no Julia or new measurements. All48
+stored full-forward summaries reconciled. Six control failures remain authoritative;
+MA-F overall performance NOT ACCEPTED, no promotion. Initial58/61 source/data checks
+preserved with three literal-selector FALSE gates; separate8/8 source supplement.
+Concrete next action: MA-H OFFLINE routing-only candidate preparation under
+`docs/superpowers/plans/2026-10-14-ma-markowitz-routing-preparation.md`.
+Original inline loop for non-target types and zero sparse pivots; unchanged MA
+helper for exact targets with positive sparse pivots. No claim that these source
+changes explain all regressions; no new numerical allowance consumed. Future
+measurement needs exact independent admission, with existing short-run permission.
+See MA-MARKOWITZ-CONTROL-REGRESSIONS.md and results/MA-G. Old MA-E/F scripts,
+candidates/raw/reviews remain frozen; no automatic rerun/tuning/threshold change.
+MA-F-repair current STATUS/roadmap bindings (original/final closure and
+publication) map ONLY to MA-G/STATUS.md.before-MA-G and roadmap.md.before-MA-G.
+MA-F-repair result-review binds only its existing before-MA-F-repair copies,
+without a new remap. Original MA-F bindings still map there; earlier mappings
+remain intact. Master6f68e24 unchanged; broaderMA/S2/S3/S4/S5/S6open,
 automationpaused/CIoff/HHdisabled.
 
 ### Previous S4-AD integration (completed)
