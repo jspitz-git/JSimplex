@@ -45,11 +45,13 @@ accepted deliverables, not partial or failed attempts. Update both at milestones
 
 ## Current continuation — 2026-10-13
 
-S3-F covers the ordinary value-update source boundary. Next execute the bounded
-[source-only S3-G admission decision](2026-10-13-rational-primal-support-admission.md).
-S2-E is finished and not promoted; its allowance is consumed. Historical next-step
-paragraphs below do not restart completed stages. S6-AQ remains independently
-conditional on genuinely new original evidence. The broader roadmap is open.
+S3-G completed the bounded rational primal-support admission decision. The
+support-only consumer route is not admitted under the existing ownership
+contract; stop it without a candidate or equivalent next inventory. Read
+`diagnostics/simplex-core-architecture/S3-RATIONAL-PRIMAL-SUPPORT-ADMISSION.md`
+and its review. Broader stages remain open. S2-E is completed, unpromoted and
+its allowance consumed; S6-AQ independently requires new original evidence.
+Historical next-step paragraphs below do not restart completed stages.
 
 ## Order and decision gates
 
@@ -1810,3 +1812,37 @@ promotion; S6-AQ still requires new original evidence; all stopped routes,
 HH-disabled, CI-off, fullsuite/x64 and broader open gates remain unchanged.
 
 Reports: S3-VALUE-UPDATE-SUPPORT-CONTRACT.md and its REVIEW; results/S3-F.
+
+## S3-G rational primal support admission — 2026-10-13
+
+SOURCE/DESIGN ONLY decision: support-only omission for Rational{BigInt} is NOT
+ADMITTED under the existing ownership contract. Stop this consumer route, with
+no candidate or next equivalent inventory. Installed Base generated arithmetic
+creates fresh numerator/denominator BigInts even when subtracting zero; an
+omitted write retains the old owners. Existing support metadata cannot certify
+that retaining them is unobservable. Source-derived identity discriminator is
+UNEXECUTED; no runtime failure, general impossibility or solver defect claimed.
+
+Fourteen source gates/eighteen read-time hashes include installed gmp.jl and
+rational.jl; no retroactive runtime binding. Recompute assigns rational scalar
+references and staged copyto! copies elements, not recursive BigInt ownership.
+Five review classes have explicit dense-fallback/rejection and prospective
+oracles. All original dense ordering, entering addition and exceptions remain.
+Source constructor counts are not allocation measurements or native budgets.
+No new production work/memory; no Julia/import/compile/numerical experiment,
+new LP, candidate/driver/launcher, actual src/test/env/CI or master change.
+
+F current STATUS/roadmap bindings in closure/publication/final review map ONLY
+G/STATUS.md.before-S3-G and G/roadmap.md.before-S3-G. Earlier F snapshots still
+resolve S2-E current bindings, all older maps and failures unchanged. G's
+original plan stays frozen; this decision and independent review complete it.
+G artifacts freeze after publication; never rerun collectors/publisher/reviews.
+
+No further equivalent sparse-value ownership inventory is authorized. A genuinely
+different concrete permitted step or explicit change of this boundary is needed
+before continuing this route. This is not completion of broader S3/S2/S4/S5/S6.
+S2-E allowance remains consumed; no tuning/promotion. S6-AQ independently needs
+new original evidence; do not repeat searches/questions. All stopped directions,
+HH-disabled, CI-off and broader/fullsuite/x64 gates remain unchanged.
+
+Reports: S3-RATIONAL-PRIMAL-SUPPORT-ADMISSION.md and REVIEW; results/S3-G.

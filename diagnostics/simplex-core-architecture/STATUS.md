@@ -46,7 +46,41 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-**Current continuation: execute S3-G source/design only, per 2026-10-13-rational-primal-support-admission.md. S3-F defines the ordinary value-update boundary. S2-E is complete, not promoted, and its allowance consumed. S6-AQ remains independently conditional; the broader plan is open.**
+**Current continuation: S3-G source/design decision complete; this support-only Rational{BigInt} consumer route is not admitted under the existing ownership contract and is stopped. No equivalent next inventory or numerical attempt is authorized. Broader stages remain open; S6-AQ requires genuinely new original evidence.**
+
+## S3-G rational primal support admission — 2026-10-13
+
+SOURCE/DESIGN ONLY decision: support-only omission for Rational{BigInt} is NOT
+ADMITTED under the existing ownership contract. Stop this consumer route, with
+no candidate or next equivalent inventory. Installed Base generated arithmetic
+creates fresh numerator/denominator BigInts even when subtracting zero; an
+omitted write retains the old owners. Existing support metadata cannot certify
+that retaining them is unobservable. Source-derived identity discriminator is
+UNEXECUTED; no runtime failure, general impossibility or solver defect claimed.
+
+Fourteen source gates/eighteen read-time hashes include installed gmp.jl and
+rational.jl; no retroactive runtime binding. Recompute assigns rational scalar
+references and staged copyto! copies elements, not recursive BigInt ownership.
+Five review classes have explicit dense-fallback/rejection and prospective
+oracles. All original dense ordering, entering addition and exceptions remain.
+Source constructor counts are not allocation measurements or native budgets.
+No new production work/memory; no Julia/import/compile/numerical experiment,
+new LP, candidate/driver/launcher, actual src/test/env/CI or master change.
+
+F current STATUS/roadmap bindings in closure/publication/final review map ONLY
+G/STATUS.md.before-S3-G and G/roadmap.md.before-S3-G. Earlier F snapshots still
+resolve S2-E current bindings, all older maps and failures unchanged. G's
+original plan stays frozen; this decision and independent review complete it.
+G artifacts freeze after publication; never rerun collectors/publisher/reviews.
+
+No further equivalent sparse-value ownership inventory is authorized. A genuinely
+different concrete permitted step or explicit change of this boundary is needed
+before continuing this route. This is not completion of broader S3/S2/S4/S5/S6.
+S2-E allowance remains consumed; no tuning/promotion. S6-AQ independently needs
+new original evidence; do not repeat searches/questions. All stopped directions,
+HH-disabled, CI-off and broader/fullsuite/x64 gates remain unchanged.
+
+Reports: S3-RATIONAL-PRIMAL-SUPPORT-ADMISSION.md and REVIEW; results/S3-G.
 
 ## S3-F ordinary value-update support contract — 2026-10-13
 
