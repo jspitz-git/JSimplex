@@ -357,14 +357,16 @@ function _construct_markowitz(B::AbstractMatrix{T}, workspace,
             columns[column][row] = value
         end
     end
-    nonzeros = sum(length, rows)
+    nonzeros = 0
     active_rows = workspace.active_rows
     active_columns = workspace.active_columns
     singleton_rows = workspace.singleton_rows
     singleton_columns = workspace.singleton_columns
     doubleton_columns = workspace.doubleton_columns
     for row in 1:n
-        length(rows[row]) == 1 && push!(singleton_rows,row)
+        row_count = length(rows[row])
+        nonzeros += row_count
+        row_count == 1 && push!(singleton_rows,row)
     end
     for column in 1:n
         length(columns[column]) == 1 && push!(singleton_columns,column)
