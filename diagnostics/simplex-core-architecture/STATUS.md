@@ -46,7 +46,43 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-**Current continuation: S5-AB reconciliation independently accepted; after separate closure/publication follow `docs/superpowers/plans/2026-10-13-cleanup-entry-reuse-design-decision.md` (S5-AC, source/design only).**
+**Current continuation: S5-AC cleanup omission deferred after independent design review; after separate closure/publication follow `docs/superpowers/plans/2026-10-13-test-mps-failure-provenance.md` (S6-AP, source/evidence only).**
+
+S5-AC SOURCE/DESIGN ONLY decision accepted: omission DEFERRED; the existing
+native/no-observer/infinite-context flag gate is insufficient. Native constructor
+profile permits explicit policy overrides; no observer still permits diagnostic
+events/kernel counts; options and context clocks differ. Zero scratch/default
+weights are not reconstructed state. Ordinary initialization failure reaches the
+outer handler with workspace=nothing; strict ordinary recovery also returns its
+numerical result, so this ownership distinction alone is NOT a demonstrated
+changed recovery outcome. Default arithmetic failure equivalence and scratch/cache
+initialization remain unproved even for a stricter diagnostics=nothing/infinite-
+both-clocks/fixed-hardware subset. No impossibility or new failing fixture claim.
+No hidden retry, duplicate work, swallowed logger/observer exception, changed
+safeguard or working-to-original certificate transfer is permitted.
+Entry20/full1910 hashes, source19/25pins and author8/full1917/6bindings PASS.
+AB initial rejection and corrected O provenance, closure35/exact38, AA inventories,
+source511/user6/full26groups AND sessions/local+remote refs preserved and verified.
+Initial independent review rejected one Important production-pricing-timer claim;
+before-report/review/source pins preserved. One offline RED/GREEN amendment6checks/
+6bindings corrects only FTRAN/BTRAN timing versus the untimed direct pricing pass.
+Three read-only rg guessed-path failures preserved; no Julia/parser/import/compile/
+native/numerics/executable candidate/driver/launcher/benchmark/test/production/env/
+cache/CI change. Fresh independent gpt-6-astra numerical/work/memory review accepted;
+no unresolved findings or unnecessary NEW production work/memory. No new saving:
+source-derived target only one cold default FTRAN/BTRAN/pricing reconstruction;
+constructor/factor/restored/projection/ordinary/certification remain. A184/B/C and
+both old medium attributions reused; no equivalent census/current-master speedup.
+AB-bound current STATUS/roadmap preserved ONLY in AC.before-AC; AB initial/read-time
+mappings remain AB.before-AB and before-review; all older AA/Z/Y/X/W/V/U/T maps intact.
+S5 initialization-reuse/end-to-end gate stays OPEN. Next S6-AP is ONE distinct
+SOURCE/EVIDENCE ONLY provenance step for the parent's outstanding user test.mps
+certificate/recovery failure, under 2026-10-13-test-mps-failure-provenance.md. No new
+numerical allowance, replacement model or inferred backend cause. All old numerical
+allowances consumed; all frozen evidence/scripts/rejections remain untouched.
+CIoff/HHdisabled/fullsuite/x64cause/bootstrapcacheinit/wholecaps/native-retention/
+QGCoutlier and all broader gates unchanged.
+
 
 S5-AB SOURCE/EVIDENCE ONLY reconciliation accepted: seven original handoff rows
 covered at their stated unchanged-contract scope; no equivalent new census selected.

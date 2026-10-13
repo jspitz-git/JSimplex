@@ -1,0 +1,74 @@
+# S5-AC: ordinary cleanup entry reuse decision
+
+**DEFER omission; reject the native/no-observer/infinite-context flag gate as
+insufficient.** No executable candidate or implementation is proposed. This ends
+this cleanup-entry hypothesis at its present evidence boundary, not a proof that
+all narrower designs are impossible. Master d02416c, production, tests, environment
+and CI are unchanged; no Julia or numerical work was executed.
+
+S5-A already supplies184 paired cases and rejects unconditional omission. B/C
+supply restoration ownership and the qualified one-copy saving. AB covers the
+seven unchanged handoff contracts, with its separately corrected S5-O selector.
+Those results are reused, not rerun or upgraded to initialization equivalence.
+The fresh entry has20 passing checks and1910 read-time hashes, including AB's
+initial rejection/final acceptance/amendment, closure35 bindings/exact38 committed
+names, AA's four inventories, current511 source/test pairs, user6 and both remote
+refs. All26 old process groups AND sessions are absent; no Julia remains.
+
+## Why the proposed eligibility description is insufficient
+
+| Boundary | Actual source contract and decision |
+| --- | --- |
+| Meaning of native | NumericalPolicy's constructor takes a profile argument but stores individual switches. Explicit solve_refinement/recovery/hypersparse overrides remain possible. Even _native_primal_kernel tests only four switches, not solve_refinement, precision_boosting or lp_refinement. A profile label or that predicate is not an omission eligibility proof. cleanup uses the context policy when present. |
+| Observer versus diagnostics | SimplexDiagnostics(observer=nothing) still records refactor_initial and, if kernel_timing=true, FTRAN/BTRAN/pricing calls. record_event! runs before the observer check. Omitting the finish also omits the event; preserving the event alone still does not preserve the kernel work records. A future optimization could deliberately report less actual work, but that would need an explicit changed-work contract. This step grants none. |
+| Two clocks | Cleanup's outer guard uses context.time_limit_seconds; refinement without a caller guard uses workspace.options.time_limit with the shared start. Native defaults disable solve refinement, so this internal clock is not unconditionally polled by every native solve. Infinite context time alone does not cover explicit policy overrides or the later paths. Requiring both limits infinite would remove this particular deadline obstruction, not the remaining obligations. |
+| Default state and precision | The retained constructor still allocates owned costs/bounds, slack basis/factor, scratch, zero primal/prices, unit weights and devex reference. Finish validates/mutates the mask, performs actual basis solves/pricing and may update cache/quality/checkpoint state. Zero storage is not an initialized point. BigFloat stored/ambient behavior and the separate precision initialization branch cannot be qualified by Float64 success. Unit weights are already cheap defaults; this proposal saves no weight construction. |
+| Failure, ownership and work | Ordinary cleanup keeps workspace=nothing until initialize_workspace returns. A numerical exception during finish reaches the outer catch with that value; the result uses inherited counters and _recover_original_failure(::Nothing) returns it. Early assignment of a raw workspace changes this ownership boundary. For a strictly ordinary policy with precision boosting/refinement disabled, the workspace recovery overload also returns the numerical result; early assignment alone is therefore NOT proof of a changed recovery outcome in that narrower subset. What remains unproved is that omitted arithmetic cannot fail, or that a new path preserves the first failure/message and all already consumed work. No new failing fixture is claimed. |
+| Restored basis and logging | The basis is copied, validated and refactored; refactor_other is emitted BEFORE the two reconstruction solves. @logmsg runs even when verbose=false if the logger enables that level; caller exceptions are recorded in the shared guard and rethrown. Progress logging and projection/fallback occur later. A shortcut must preserve these positions and provenance; disabling an observer does not disable a caller logger. Retrying old initialization only after a changed restored path fails can duplicate work and select a different first exception. It is not an accepted fallback. |
+
+Source anchors are simplex.jl::_initialize_workspace_state/
+_finish_workspace_initialization!/recompute!, solver.jl::cleanup_original/
+_context_numerical_policy, simplex_recovery.jl::_checked_basis_solve!/
+_basis_solve_stop, simplex_precision_recovery.jl::_recover_original_failure,
+simplex_diagnostics.jl::_diagnostic_event!, and hypersparse_pipeline.jl.
+The new offline evidence pins these bodies and checks literal branch/order facts;
+it does not execute them or prove floating arithmetic equivalence.
+
+## Bounded disposition and work assessment
+
+Even strengthening the gate to diagnostics=nothing, both limits infinite, explicit
+ordinary switch values and a fixed hardware scalar/backend would leave a separate
+proof obligation for default arithmetic failures and scratch/cache initialization.
+This is an unresolved requirement, not a demonstrated counterexample to that
+stronger subset. No pre-existing immutable certificate establishes those facts.
+A data-dependent eligibility scan/direct slack arithmetic would be a different
+proposal. Finite input checks alone would not prove finite intermediate arithmetic.
+Recreating the ordered operations to predict their outcome could spend the work
+being removed; it must not be hidden inside a nominally constant-time predicate.
+This step neither constructs such a predicate nor proves none could exist.
+
+At most the proposed deletion targets ONE cold default reconstruction per cleanup
+invocation: one checked FTRAN, one checked BTRAN, one pricing pass, plus validation,
+mask/RHS initialization and state/coefficient traversals, O(m+n+nnz(A)) outside
+backend solves. Constructor/factor ownership, restored refactor/reconstruction,
+projection, ordinary steps and original certification remain. Active checked
+checkpoint copies are additional and ineligible under the proposed ordinary scope.
+No new initialization saving has been measured. S5-C only removes one eligible
+O(m+n) restoration cost copy; bound copies remain required.
+
+Reuse the two old attributions without rerun: dual entry initialization0.883s
+versus ordinary cleanup1737.949s/21418steps; primal initialization0.928856291s
+versus ordinary1545.349544564s/18422steps. They identify a small old cold region,
+not current-master savings or a universal speedup. No additional production scans,
+solves, copies, allocations, cache roots or update-chain retention are introduced.
+No unnecessary NEW production work or memory cost was found; documentation and
+bounded offline hashing do not warrant a numerical benchmark.
+
+Keep broader S5 initialization-reuse/end-to-end acceptance OPEN. Do not create
+another equivalent cleanup census or silently add a density/precision policy.
+The next genuinely different parent obligation is S6's explicitly outstanding
+user test.mps certificate/recovery failure. One source/evidence provenance step
+will locate its preserved exact case and separate facts from old profiling labels;
+it grants no reproduction, solver run or cause claim. S2-A/S6-J/whole-AF rejections,
+CIoff/HHdisabled, fullsuite/x64/historical causes, native retention, Q GC/outlier,
+bootstrap/cache/init and whole-controller limitations remain unchanged.
