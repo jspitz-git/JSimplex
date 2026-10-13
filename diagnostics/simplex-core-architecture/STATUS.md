@@ -46,7 +46,24 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-**Current continuation: S5-L offline candidate accepted; independent review and publication closure recorded separately. Next S5-M: `docs/superpowers/plans/2026-10-13-dual-auxiliary-pending-observer-qualification.md`. FIRST prepare launcher/pins/auditor and fresh independent admission review before at most ONE guarded attempt.**
+**Current continuation: S5-M one guarded pending-observer qualification passed 40/40 predicates and 18 audit gates; final independent review and publication closure are separate artifacts. Next S5-N OFFLINE test preparation only: `docs/superpowers/plans/2026-10-13-dual-auxiliary-pending-observer-test-preparation.md`. No new Julia or automatic test promotion.**
+
+S5-M exactly one unchanged L Float64 setup/public handoff, one latch/hit,
+DiagnosticObserverFailure{ErrorException}/same sentinel, selected postpublication
+state preserved. Iterations/refactors0->1/0->1,7callbacks,2shared phase events,
+no later selected work/callback; entry cost/bounds pass on this run only.
+40 literal predicates/15 observations,18 audit gates,756 pins,8 independent checks.
+Prelaunch Important failure-handling finding fixed in TWO preserved offline
+amendments,3+5 synthetic failure records; original rejected review and744/750
+manifests retained, final756 admission accepted. Raw report SHA
+0641daa8a1d59d70b667f78c29f6d9323fecbf4ce1bac8ab8ba54a0b5c7abbfe.
+16resource samples,minRAM22006660KiB,swap0,inclusive16.02908s NOTbenchmark.
+No source/test/env/CI/master change; complete import/backend work, native-retention,
+observer neutrality/fullsuite/x64 unproved. See S5-DUAL-AUXILIARY-PENDING-OBSERVER-QUALIFICATION.md
+and separate REVIEW. All M/L/K/J/I/F/G/H scripts/raw frozen; no reruns.
+Runner60707/start2525108/PGID60706 andchild60708/start2525229/PGID60708,
+boot dade7243-9103-4398-bb45-fa28fbc0be72, complete groups absent/noJulia.
+All prior rejections and HHdisabled/CIoff gates unchanged.
 
 S5-L OFFLINE candidate preparation complete:181-line UNEXECUTED candidate,
 three byte-exact helpers and two fixture setup blocks with exact indentation inverse.

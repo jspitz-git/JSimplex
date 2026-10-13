@@ -1,0 +1,38 @@
+{
+  "checks": {
+    "original_child_assumption_RED": true,
+    "original_tables_unchecked_RED": true,
+    "three_new_failure_records_GREEN": true,
+    "candidate_unchanged": true,
+    "launcher_only_new_manifest": true
+  },
+  "all_passed": true,
+  "synthetic_failure_cases": [
+    {
+      "case": "missing_raw",
+      "returncode": 1,
+      "failed_audit_written": true,
+      "stderr": ""
+    },
+    {
+      "case": "wrong_tables",
+      "returncode": 1,
+      "failed_audit_written": true,
+      "stderr": ""
+    },
+    {
+      "case": "wrong_value_types",
+      "returncode": 1,
+      "failed_audit_written": true,
+      "stderr": ""
+    }
+  ],
+  "sha256": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-M/audit.py": "8291ac24d3a347c3817d0149b4ded8ccc025c1f41588f47b9515922384257080",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-M/audit-reviewed.py": "62ed4cc6fa0b9f51f41de97b467dce0a5dd90d842f2a052f398e815e0b9f4908",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-M/launcher.py": "40b623ca94e296589353ed814a08c9824d00ef31c48a96c7ccb5c9a87a95c6c0",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-M/launcher-reviewed.py": "bf7e5e2563723d6412ad6e3de571bf1302f285fda89b49e13e6ade66171ea90d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/S5-M/review_fix.py": "8a431c43a1616c2ac3ea033997837955d305f549ba2fb09ef39eaf0f1d2b13e5"
+  },
+  "scope": "Python offline synthetic failure records only; no Julia, native or numerical attempt; original744 manifest preserved."
+}

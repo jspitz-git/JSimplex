@@ -1085,3 +1085,19 @@ Frozen L prepare/source_check/independent/closure NEVER rerun or rewrite; candid
 not executable until separately admitted. K continuation texts preserved before-L;
 all K/J/I/F/G/H evidence, K first closure failure/replacement and G false62/63 plus7
 PASS unchanged. Master513c053, CI off, HH disabled and all broader gates unchanged.
+
+
+## S5-M pending observer qualification (2026-10-13)
+
+One guarded exact-L candidate attempt:40/40 predicates,15 observations,18 audit
+gates,756 launch pins and8 independent postchecks pass. One original Float64
+setup/handoff, one latch/hit; postpublication DiagnosticObserverFailure has the
+same sentinel cause. Work0->1iteration/0->1refactor,7callbacks,2shared phase events,
+selected state persists with no later selected work. Entry costs/bounds pass once.
+Two offline prelaunch failure-handling amendments and initial rejected review are
+preserved; final admission accepted, final result review/closure recorded separately.
+No production/test/env/CI/master edit or complete import/backend/performance proof.
+Next S5-N is separate OFFLINE permanent-candidate preparation only; no execution
+or test promotion. See 2026-10-13-dual-auxiliary-pending-observer-test-preparation.md.
+All prior qualification limits, rejected routes, CIoff/HHdisabled and full-suite
+obligations remain. M/L/K/J/I/F/G/H evidence and exclusive scripts stay frozen.
