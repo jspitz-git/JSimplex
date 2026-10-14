@@ -47,33 +47,37 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-Direct LU / Markowitz Tasks1–2 short-run admission preparation is complete and
-independently accepted OFFLINE. See [admission report](DIRECT-LU-ADMISSION.md),
-results/DIRECT-LU-ADMISSION/admission-reviewed.md and preparation-review-final.md.
-The canonical package has4,404 read-time bindings,56 exact review-required files,
-35 initial plus56 separate amendment synthetic checks. Initial syntax failure,
-rejected review and all initial files/pins remain preserved. Corrected work ledger
-has1,147 explicit updates; the fixed GREEN schedule remains19,527 assertions.
-No Julia/query/parser/import/compile/numerics or stage process was executed.
+Direct LU / Markowitz short RED/correctness attempts are complete; correctness
+is NOT ACCEPTED. See [result report](DIRECT-LU-CORRECTNESS.md) and preserved
+results/DIRECT-LU-ADMISSION/{red,green}-run. Independently admitted RED produced
+exactly3expectedFAIL/0ERROR,exit1,15/15auditPASS in5.838962662s. GREEN produced
+89PASS/0FAIL/1ERROR,exit2 in8.769139723s, then stopped in first exports group;
+the remaining11groups never ran. CanonicalGREENauditFALSE(incomplete records)
+and separate postcheck17true/3false are preserved, not replaced by PASS.
+Both attempt reservations are CONSUMED. No current retry/cost/public integration.
 
-Next: run seal-reviewed.py red to bind fresh refs/boot/full prior196 groups AND
-sessions/noJulia and exact immutable inputs, obtain fresh independent concrete
-RED admission, then one expected-failure RED <=30s inclusive. Inspect complete
-raw/counts/process/logs before separately sealing/reviewing GREEN <=90s inclusive.
-launch-reviewed.py and audit_reviewed.py are canonical; old unreviewed controls
-are frozen/rejected. GREEN prerequisites verify the exact RED artifact set and
-unchanged audit hashes at both sealing and launch. Each stage has one attempt;
-no automatic retry, cost run or production promotion. Standing short-run permission
-is sufficient; no repeated human approval question. Task3 cost and Task4 public
-integration remain later separate stages. No correctness or speedup claim yet.
+The captured failure is test_exports line74 calling native lu! with sparse(2.0*B).
+Fixed order/counts identify the stored-zero fixture; installed source explains
+16stored entries->4 after scalar sparse broadcast, while lu! defaults to reuse
+symbolic=true. IntermediateCSC was notcaptured; this is source-derived cause,
+not a new numerical probe or solver defect. The89passed assertions do not qualify
+the full candidate. World-age warnings remain preserved and version-scoped.
 
-Candidate and accepted plan/spec remain frozen; production/test/env/master stay
-unchanged at6f68e24. Previous preparation closure/publication current STATUS/roadmap
-keys map ONLY to results/DIRECT-LU-ADMISSION/STATUS.md.before-admission and
-roadmap.md.before-admission (four explicit continuation.json mappings). Older
-DIRECT-LU-PREPARATION before-preparation maps and all earlier mappings remain.
-The old micro-optimization programme remains open but is not the active next
-step. No rejected route is reopened. CIoff/HHdisabled/automationpaused.
+Next concrete work: a separate offline test-only repair preserving the original
+fixtures/checks: copy the CSC and scale private nzval while retaining its stored
+pattern for backend refactor. Bind/check that pattern contract explicitly and
+independently review any driver binding-access warning cleanup. Never rewrite the
+frozen candidate/tests/driver, outputs or admissions in place. A subsequent short
+attempt needs a separate exact reviewed admission/output reservation; standing
+user permission is sufficient. Tasks3–4 remain gated on accepted correctness.
+
+Full4409RED/4427GREENlaunchpins and514production/test/CI paths unchanged; separate
+fresh full200groups ANDsessions/noJulia closure. master6f68e24 unchanged. Prior
+admission closure/publication current STATUS/roadmap hashes map ONLY to
+results/DIRECT-LU-CORRECTNESS/STATUS.md.before-correctness and
+roadmap.md.before-correctness (four exact continuation mappings). All older maps,
+raw failures and rejected reviews remain frozen. Broader plan OPEN;
+CIoff/HHdisabled/automationpaused. No numerical or performance acceptance.
 
 ## Previous missing-zero experiment
 

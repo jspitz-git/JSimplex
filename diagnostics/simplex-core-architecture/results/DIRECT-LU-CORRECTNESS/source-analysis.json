@@ -1,0 +1,27 @@
+{
+  "all_passed": true,
+  "checks": {
+    "test_uses_default_lu": true,
+    "default_symbolic_reuse": true,
+    "wrapper_replaces_CSC_before_numeric": true,
+    "stored_zero_fixture": true,
+    "native_initial_copies_all_stored": true,
+    "scalar_broadcast": true,
+    "sparse_scalar_capture": true,
+    "sparse_map_discards_zero": true,
+    "sparse_copy": true,
+    "successful_prefix_count": true
+  },
+  "explanation": "Source-derived stored_zeros/native location from fixed order and 89 passes: 16 stored entries including 12 explicit zeros become 4 nonzero entries under scalar sparse broadcast. lu! defaults reuse_symbolic=true and rejects changed pattern. Runtime captured stack/error/counts, not intermediate CSC arrays.",
+  "next": "Separate test-only repair: copy B and scale its nzval privately while retaining colptr/rowval, explicitly qualify unchanged pattern and successful source refactor. No fixture deletion, tolerance change, production fix, current retry or automatic cost continuation.",
+  "sha256": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-lu-markowitz/reproduce/correctness.jl": "403f5e2e096312cd56c1fa43b4d69d6660ee72a56f42f563bbaa4676ea6bfdf0",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-lu-markowitz/reproduce/fixtures.jl": "835b6e4241705b4c7a6a2625c904999ffe30e90ec99c937d257cbe2a2c289517",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/factorization.jl": "59f0dfb40ab13cdf76b1148323ea0b335154b98cb4da83e87711ba22b8be2986",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/base/arraymath.jl": "5c1917b3ea3018011f2775d4480d28a3c2036b820d722e0aff5e29de853705ec",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/SparseArrays/src/higherorderfns.jl": "a937e62bbd35e05cadd1ab1f7b170fa5c1de2306c39d158bbb23ff408f1f68af",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/SparseArrays/src/sparsematrix.jl": "abeff8871dc3938b690507a54520a773a3505d7f0d9b5c857f2f70e5999da85c",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/SparseArrays/src/solvers/umfpack.jl": "6d40eb41958765d47b9ef60fb08fd6b61c0ee850979e3601343ce67fbe6ac84d"
+  },
+  "scope": "Fresh source-read bindings, not retroactive launch pins or a new runtime experiment"
+}

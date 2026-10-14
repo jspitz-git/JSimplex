@@ -1,0 +1,15 @@
+WARNING: Detected access to binding `Main.run_direct_lu_red` in a world prior to its definition world.
+  Julia 1.12 has introduced more strict world age semantics for global bindings.
+  !!! This code may malfunction under Revise.
+  !!! This code will error in future versions of Julia.
+Hint: Add an appropriate `invokelatest` around the access to this binding.
+To make this warning an error, and hence obtain a stack trace, use `julia --depwarn=error`.
+Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/direct-lu-markowitz-admission/reference/red.jl:5
+  Expression: isdefined(JSimplex, :BasisLUExport)
+   Evaluated: isdefined(JSimplex, BasisLUExport)
+Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/direct-lu-markowitz-admission/reference/red.jl:6
+  Expression: isdefined(JSimplex, :_export_basis_lu)
+   Evaluated: isdefined(JSimplex, _export_basis_lu)
+Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/direct-lu-markowitz-admission/reference/red.jl:7
+  Expression: isdefined(JSimplex, :_direct_lu_factor)
+   Evaluated: isdefined(JSimplex, _direct_lu_factor)

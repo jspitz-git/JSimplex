@@ -1,0 +1,18 @@
+fatal = """Unexpected group result; stop without retry: exports\nStacktrace:\n [1] error(s::String)\n   @ Base ./error.jl:44\n [2] require\n   @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/driver.jl:24 [inlined]\n [3] group(f::var\"#main##2#main##3\"{Symbol}, name::String, expected::NTuple{4, Int64})\n   @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/driver.jl:36\n [4] main()\n   @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/driver.jl:55\n [5] top-level scope\n   @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/driver.jl:75\n [6] include(mod::Module, _path::String)\n   @ Base ./Base.jl:309\n [7] exec_options(opts::Base.JLOptions)\n   @ Base ./client.jl:344\n [8] _start()\n   @ Base ./client.jl:577"""
+total_broken = 0
+total_fail = 0
+completed = false
+loaded_path = "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/direct-lu-markowitz-admission/candidate/src/JSimplex.jl"
+all_expected = false
+total_pass = 89
+phase = "green"
+total_error = 1
+
+[[groups]]
+pass = 89
+name = "exports"
+expected = [100, 0, 0, 0]
+counts_match = false
+fail = 0
+broken = 0
+error = 1

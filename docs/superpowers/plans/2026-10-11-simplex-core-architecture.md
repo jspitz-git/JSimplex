@@ -2823,3 +2823,24 @@ closure/publication current continuation keys map only to this admission's
 STATUS.md.before-admission and roadmap.md.before-admission; four explicit keys in
 continuation.json, all older mappings unchanged. CIoff/HHdisabled/automationpaused;
 broader plan stays open.
+
+## 2026-10-15: direct-LU correctness attempt stopped
+
+The two independently admitted short attempts ran once: RED3expectedFAIL/0ERROR,
+exit1,15/15auditPASS,5.838962662s; GREEN89PASS/1ERROR,exit2,8.769139723s. GREEN
+stopped in firstexports group;11remaininggroups unexecuted. CanonicalauditFALSE
+and newpostcheck17true/3false preserved. No cost/integration/promotion/retry.
+Both slots consumed. See DIRECT-LU-CORRECTNESS.md and its source/result records.
+
+The test's source-backend lu!(...,sparse(2.0*B)) raises captured pattern-change
+error; source/order/counts locate stored-zero fixture and explain16->4stored
+entries while defaultsymbolicreuse assumes unchangedpattern. This is testharness
+cause, not candidate/publicsolver defect proof. World-agewarnings version-scoped.
+Next separateoffline testrepair must preserveCSCstructure while scaling privately,
+keepfixtures/oracles, receiveindependentreview and newexactadmission before any
+shortattempt. Originalcandidate/driver/tests/evidence remainfrozen; no automatic
+retry or blanket19,527assertion claim. All4409/4427launchpins/514baselinepaths
+unchanged;full200groupsANDsessionsabsent/noJulia. Currentadmission continuation
+keys mapONLY to DIRECT-LU-CORRECTNESS before-correctness copies (fourmappings),
+oldermapsunchanged. Master6f68e24/CIoff/HHdisabled/automationpaused unchanged;
+broaderarchitectureplan remainsopen.

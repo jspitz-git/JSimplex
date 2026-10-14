@@ -1,0 +1,70 @@
+WARNING: Detected access to binding `Main.test_exports` in a world prior to its definition world.
+  Julia 1.12 has introduced more strict world age semantics for global bindings.
+  !!! This code may malfunction under Revise.
+  !!! This code will error in future versions of Julia.
+Hint: Add an appropriate `invokelatest` around the access to this binding.
+To make this warning an error, and hence obtain a stack trace, use `julia --depwarn=error`.
+Unexpected group result; stop without retry: exports
+Stacktrace:
+ [1] error(s::String)
+   @ Base ./error.jl:44
+ [2] require
+   @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/driver.jl:24 [inlined]
+ [3] group(f::var"#main##2#main##3"{Symbol}, name::String, expected::NTuple{4, Int64})
+   @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/driver.jl:36
+ [4] main()
+   @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/driver.jl:55
+ [5] top-level scope
+   @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/driver.jl:75
+ [6] include(mod::Module, _path::String)
+   @ Base ./Base.jl:309
+ [7] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:344
+ [8] _start()
+   @ Base ./client.jl:577
+Error During Test at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/direct-lu-markowitz-admission/candidate/correctness.jl:39
+  Got exception outside of a @test
+  ArgumentError: pattern of the matrix changed
+  Stacktrace:
+    [1] umferror(status::Int32)
+      @ SparseArrays.UMFPACK ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/SparseArrays/src/solvers/umfpack.jl:125
+    [2] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/SparseArrays/src/solvers/umfpack.jl:625 [inlined]
+    [3] macro expansion
+      @ ./lock.jl:376 [inlined]
+    [4] umfpack_numeric!(U::SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}; reuse_numeric::Bool, q::Nothing)
+      @ SparseArrays.UMFPACK ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/SparseArrays/src/solvers/umfpack.jl:616
+    [5] umfpack_numeric!
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/SparseArrays/src/solvers/umfpack.jl:615 [inlined]
+    [6] #lu!#18
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/SparseArrays/src/solvers/umfpack.jl:479 [inlined]
+    [7] lu!
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/SparseArrays/src/solvers/umfpack.jl:474 [inlined]
+    [8] lu!(F::SparseArrays.UMFPACK.UmfpackLU{Float64, Int64}, S::SparseMatrixCSC{Float64, Int64}; check::Bool, reuse_symbolic::Bool, q::Nothing)
+      @ SparseArrays.UMFPACK ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/SparseArrays/src/solvers/umfpack.jl:471
+    [9] lu!
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/SparseArrays/src/solvers/umfpack.jl:445 [inlined]
+   [10] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/direct-lu-markowitz-admission/candidate/correctness.jl:74 [inlined]
+   [11] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [12] test_exports()
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/direct-lu-markowitz-admission/candidate/correctness.jl:40
+   [13] #main##2
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/driver.jl:55 [inlined]
+   [14] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/driver.jl:32 [inlined]
+   [15] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [16] group(f::var"#main##2#main##3"{Symbol}, name::String, expected::NTuple{4, Int64})
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/driver.jl:32
+   [17] main()
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/driver.jl:55
+   [18] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/driver.jl:75
+   [19] include(mod::Module, _path::String)
+      @ Base ./Base.jl:309
+   [20] exec_options(opts::Base.JLOptions)
+      @ Base ./client.jl:344
+   [21] _start()
+      @ Base ./client.jl:577

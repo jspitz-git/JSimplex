@@ -1,0 +1,144 @@
+{
+  "all_passed": false,
+  "checks": {
+    "red_audit_accepted": true,
+    "red_audit_hashes": true,
+    "red_all_launch_pins": true,
+    "red_all_sealed_pins": true,
+    "red_process_closed": true,
+    "red_exit": true,
+    "red_bounded": true,
+    "red_counts": true,
+    "red_resources": true,
+    "green_audit_accepted": false,
+    "green_audit_hashes": true,
+    "green_all_launch_pins": true,
+    "green_all_sealed_pins": true,
+    "green_process_closed": true,
+    "green_exit": false,
+    "green_bounded": true,
+    "green_counts": false,
+    "green_resources": true,
+    "source_test_CI_514_unchanged": true,
+    "master_unchanged": true
+  },
+  "results": {
+    "red": {
+      "elapsed_including_launch": 5.838962662004633,
+      "exit": 1,
+      "groups": 198,
+      "audit_checks": 15,
+      "raw": {
+        "fatal": "",
+        "total_broken": 0,
+        "total_fail": 3,
+        "completed": true,
+        "loaded_path": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/direct-lu-markowitz-admission/reference/src/JSimplex.jl",
+        "all_expected": true,
+        "total_pass": 0,
+        "phase": "red",
+        "total_error": 0,
+        "groups": [
+          {
+            "pass": 0,
+            "name": "reference-contract",
+            "expected": [
+              0,
+              3,
+              0,
+              0
+            ],
+            "counts_match": true,
+            "fail": 3,
+            "broken": 0,
+            "error": 0
+          }
+        ]
+      },
+      "memory_samples": 5,
+      "min_available_kib": 22431504,
+      "max_swap_kib": 0,
+      "launch_pins": 4409,
+      "warning_present": true
+    },
+    "green": {
+      "elapsed_including_launch": 8.76913972300099,
+      "exit": 2,
+      "groups": 200,
+      "audit_checks": 1,
+      "raw": {
+        "fatal": "Unexpected group result; stop without retry: exports\nStacktrace:\n [1] error(s::String)\n   @ Base ./error.jl:44\n [2] require\n   @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/driver.jl:24 [inlined]\n [3] group(f::var\"#main##2#main##3\"{Symbol}, name::String, expected::NTuple{4, Int64})\n   @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/driver.jl:36\n [4] main()\n   @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/driver.jl:55\n [5] top-level scope\n   @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/driver.jl:75\n [6] include(mod::Module, _path::String)\n   @ Base ./Base.jl:309\n [7] exec_options(opts::Base.JLOptions)\n   @ Base ./client.jl:344\n [8] _start()\n   @ Base ./client.jl:577",
+        "total_broken": 0,
+        "total_fail": 0,
+        "completed": false,
+        "loaded_path": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/direct-lu-markowitz-admission/candidate/src/JSimplex.jl",
+        "all_expected": false,
+        "total_pass": 89,
+        "phase": "green",
+        "total_error": 1,
+        "groups": [
+          {
+            "pass": 89,
+            "name": "exports",
+            "expected": [
+              100,
+              0,
+              0,
+              0
+            ],
+            "counts_match": false,
+            "fail": 0,
+            "broken": 0,
+            "error": 1
+          }
+        ]
+      },
+      "memory_samples": 8,
+      "min_available_kib": 22228584,
+      "max_swap_kib": 0,
+      "launch_pins": 4427,
+      "warning_present": true
+    }
+  },
+  "sha256": {
+    "diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/red-run/process.json": "2dfa59c01eaa46eede4cfbab7308db27b79650c8a12449f3d8926c4f9ec866f2",
+    "diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/red-run/raw.toml": "c8639c151ef563777c53e5ca8603cb560a78d0dd62d2df06f1bf6bc0be468cda",
+    "diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/red-run/started-1.toml": "3b743ee36b29ccdf9b8023c4bedf19c06d128d9f7f56a31c1e109a7d16171a79",
+    "diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/red-run/pins.json": "ecb05b2be99abd341acf847e4b476465e47bf53b13cb16f92013a0cb89c09710",
+    "diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/red-run/run.log": "b028b0b5ea38fbcf030f266d42447190eb1403cf664932eec0dd0104e5c4c02e",
+    "diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/red-run/resources.jsonl": "7d8f0b2404abd3076605e95fafdef7f98e7483c5368e4febae1645600a53fd85",
+    "diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/red-run/current.json": "e2b2ae6727f6180753ab27f8811bc4f430d57b556bebcdb86176ef2d5cc648e6",
+    "diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/red-run/group-1.toml": "300698c187fdbd306ceb5d2b378d07a2dea50558b63f86ba27b211df70dfef8d",
+    "diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/red-sealed-pins.json": "a6629693ceb8f0050db688de3da37ccb74ece59a5a41bf994a2af2b8f28b204e",
+    "diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/red-audit.json": "e0d5f28edb9bec680fcc4cc696cc1f23d1b3bca55116b62ede59bddc7f966eaa",
+    "diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/red-launch-pins.json": "ecb05b2be99abd341acf847e4b476465e47bf53b13cb16f92013a0cb89c09710",
+    "diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/red-invocation.json": "b31a4a49c61c868bf1431174f3e05da1fd8f8bc6e1bab22d91ed76390d6c8df4",
+    "diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/red-reservation.json": "de00345a4079a1560dfbdc85b58ef58583a79752962643860686a0d7d185738d",
+    "diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/red-prehost.json": "80f0957226876d1e706fd3858c9517df82c01fdb841072b998341360d7c2bb0a",
+    "diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/red-seal-host.json": "68beb247187117a688c727a7e7fa3c3ae90fff500c41f8aca998425844daa58c",
+    "diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/red-launcher.log": "65ac68871d61a7e039c52eed30e8b6165e96f5d4aee7afd8687cf2bc9b0464c1",
+    "diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/red-posthost.json": "7b9cd8cbfdfdb5fe45f9c1ce7eb23846859783746d56c28c48d4fc46bc945d6c",
+    "diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/red-admission.json": "bdaffb4d5e041cc04f0bc7ef835087d90add0f05a872f9afb49180e40b18f795",
+    "diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/stage-red-review.md": "a75ba17c73e4b8a19450cc962ae32fbc8ba602089a9b9bf4a49c01082c355e19",
+    "diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/green-run/process.json": "5df471bb9f86b0bd9ef71e2c9b3c6d640d6f0f27720a6207bb830a82200b822a",
+    "diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/green-run/raw.toml": "3876c594dc0adf425f31d81178cfb6c54b5f7930c178b61f3ee361c1cd51e564",
+    "diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/green-run/started-1.toml": "13ba4d3446efe03ace93632591edf38de490e6dd47c1acef7f143c97e7e7f56a",
+    "diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/green-run/pins.json": "eb2bf76a60dbd0e19a2f953be18720101c16a4bda9aa5e0d5998e23dd43bfa44",
+    "diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/green-run/run.log": "62ea63f1a4e47aef7d4b21b52717f17714dc40765dc4027b9bd6d3d03ea78006",
+    "diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/green-run/resources.jsonl": "f38c638428effd8ec105bb5d2038e0f6a69994297111c09365e27003627b5919",
+    "diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/green-run/current.json": "ed252ae3e5508d3a8318e17d8a8f4856c2316aaca557d75e9393a5dabf73c219",
+    "diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/green-run/group-1.toml": "a89cd6bb65db8bbca73f947de5de2b680f50d448d2b7f6a260f63400669694ff",
+    "diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/green-reservation.json": "fe367b9fedad8eb46f0d7b169a7ddee7a00b65455af6a5ce6074cd3e0ca20673",
+    "diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/green-invocation.json": "6127a6902b871ae2afa9e64c4f1db7fe7f9ce319a5b6dd740e8ba3b3195a2d1f",
+    "diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/green-audit.json": "6ecde13d6842931151a1574b97e05c0c669ee405830dce30440ada15eb9d0f25",
+    "diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/green-seal-host.json": "ebaf5f5238976f1ee1371f155a4b679a42eaa0fde0461c365eb6c7ddd55c1415",
+    "diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/green-posthost.json": "b3282b380e5a6f5cb55ccba4249a020718bed481eb50db14c420b3400616b4d6",
+    "diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/green-prehost.json": "d7ee0d2ad11cb6e8fb3d5b63b7d544733db49325a6c720be7a4b68b5761b88bc",
+    "diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/green-admission.json": "3dab64bd964cc4879d73fe41b7f5eda72e2224ee6c43c44ec270dc3ad3647732",
+    "diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/green-launcher.log": "ee0078fb3c3de26be8a239d7b05cf15e78f4fdc5e9bf19c90a3b9939a0c98bd3",
+    "diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/green-sealed-pins.json": "69661823375623b008333201d7ba264848c2b6d67a7c7b942a7f3968d43a9a96",
+    "diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/green-launch-pins.json": "eb2bf76a60dbd0e19a2f953be18720101c16a4bda9aa5e0d5998e23dd43bfa44",
+    "diagnostics/simplex-core-architecture/results/DIRECT-LU-ADMISSION/stage-green-review.md": "7e6f6e1c643f4ac2e4034af9fa56681d7a7d2fcbc78c016e5a9036b6963bd272"
+  },
+  "scope": "New post-execution source/hash/raw reconciliation; no Julia/old auditor replay; this script is not a launch pin"
+}
