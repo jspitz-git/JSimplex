@@ -1,0 +1,959 @@
+{
+  "processes": [
+    {
+      "index": 1,
+      "resource_samples": 26,
+      "guard_seconds": 26.392619936996198,
+      "supervised_seconds": 26.838440327999706,
+      "seconds": {
+        "cost_inclusive_seconds": 0.506582214,
+        "micro_inclusive_seconds": 0.372606858,
+        "correctness_seconds": 16.115928476,
+        "load_seconds": 6.578899773,
+        "code_inspection_seconds": 0.351233826
+      },
+      "journal_records": 1825,
+      "runner": {
+        "pid": 86967,
+        "pgid": 86967,
+        "sid": 86967,
+        "start_ticks": 3654838,
+        "boot_id": "284d2228-1d9a-4c5f-913c-b9f1098b5838",
+        "command": "/usr/bin/python3 -B /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-V/guard.py run /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-V/pins.json /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-V/run-1 --seconds 84 --deadline 36632.38711479 -- /bin/bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --compiled-modules=existing --threads=1 --gcthreads=1,0 --heap-size-hint=2G --project=/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-R/environment /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-V/driver.jl 1 /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-V/run-1 "
+      },
+      "child": {
+        "pid": 86968,
+        "pgid": 86968,
+        "sid": 86968,
+        "start_ticks": 3654879,
+        "boot_id": "284d2228-1d9a-4c5f-913c-b9f1098b5838",
+        "command": "/bin/bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --compiled-modules=existing --threads=1 --gcthreads=1,0 --heap-size-hint=2G --project=/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-R/environment /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-V/driver.jl 1 /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-V/run-1 "
+      }
+    },
+    {
+      "index": 2,
+      "resource_samples": 9,
+      "guard_seconds": 9.378792285002419,
+      "supervised_seconds": 9.809628625996993,
+      "seconds": {
+        "cost_inclusive_seconds": 1.480191874,
+        "micro_inclusive_seconds": 0.414363933,
+        "load_seconds": 6.128344393,
+        "code_inspection_seconds": 0.334736307
+      },
+      "journal_records": 610,
+      "runner": {
+        "pid": 87044,
+        "pgid": 87044,
+        "sid": 87044,
+        "start_ticks": 3657887,
+        "boot_id": "284d2228-1d9a-4c5f-913c-b9f1098b5838",
+        "command": "/usr/bin/python3 -B /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-V/guard.py run /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-V/pins.json /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-V/run-2 --seconds 84 --deadline 36662.873943097 -- /bin/bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --compiled-modules=existing --threads=1 --gcthreads=1,0 --heap-size-hint=2G --project=/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-R/environment /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-V/driver.jl 2 /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-V/run-2 "
+      },
+      "child": {
+        "pid": 87045,
+        "pgid": 87045,
+        "sid": 87045,
+        "start_ticks": 3657927,
+        "boot_id": "284d2228-1d9a-4c5f-913c-b9f1098b5838",
+        "command": "/bin/bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --compiled-modules=existing --threads=1 --gcthreads=1,0 --heap-size-hint=2G --project=/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-R/environment /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-V/driver.jl 2 /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-V/run-2 "
+      }
+    }
+  ],
+  "total_supervised_seconds": 36.6480689539967,
+  "resource_min_available_kib": 22213432,
+  "resource_max_swap_kib": 0,
+  "measured_windows": 532,
+  "measured_gc_windows": 3,
+  "correctness_counts": {
+    "pass": 25861,
+    "fail": 0,
+    "broken": 0,
+    "error": 0
+  },
+  "no_scope_available": false,
+  "predicates": 270,
+  "transitions": 25,
+  "whole_cases": 840,
+  "calls_per_arm": 844,
+  "old_RED": [
+    {
+      "id": "old/forward",
+      "bytes": 128,
+      "events": 8
+    },
+    {
+      "id": "old/transpose",
+      "bytes": 128,
+      "events": 8
+    }
+  ],
+  "costs": [
+    {
+      "id": "32/dense/absent/forward",
+      "target": true,
+      "reference_seconds_per_call": 0.000142587625,
+      "candidate_seconds_per_call": 9.7775125e-05,
+      "pooled_ratio": 0.6857195706850436,
+      "paired_ratios": [
+        0.6602175606096542,
+        0.6719454705364996,
+        0.6867521314966067,
+        0.6807462419470293,
+        0.6890599671662926,
+        0.6904905593788601,
+        0.5528851796669709,
+        0.011912703148207643,
+        0.703418650438518,
+        0.6850411198600175,
+        0.6690056477836728,
+        0.4342891095485774,
+        0.6646685472496474,
+        0.6759786476868328
+      ],
+      "paired_deltas_seconds_per_call": [
+        -5.050025e-05,
+        -4.6624750000000005e-05,
+        -4.457524999999999e-05,
+        -4.459975000000001e-05,
+        -4.512524999999999e-05,
+        -4.384974999999999e-05,
+        -8.095024999999999e-05,
+        -0.0118755285,
+        -4.142499999999999e-05,
+        -4.499974999999999e-05,
+        -4.835000000000001e-05,
+        -0.00012472525,
+        -4.7550000000000004e-05,
+        -4.5524999999999995e-05
+      ],
+      "processes": [
+        {
+          "reference_seconds_per_call": 0.00014230025,
+          "candidate_seconds_per_call": 9.782525e-05,
+          "ratio": 0.6874566277993187,
+          "reference_bytes": 932464,
+          "reference_events": 16657,
+          "candidate_bytes": 488496,
+          "candidate_events": 8729,
+          "accepted": true
+        },
+        {
+          "reference_seconds_per_call": 0.000142875,
+          "candidate_seconds_per_call": 9.7725e-05,
+          "ratio": 0.683989501312336,
+          "reference_bytes": 932464,
+          "reference_events": 16657,
+          "candidate_bytes": 488496,
+          "candidate_events": 8729,
+          "accepted": true
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "id": "32/dense/absent/transpose",
+      "target": true,
+      "reference_seconds_per_call": 0.000143225,
+      "candidate_seconds_per_call": 9.74125e-05,
+      "pooled_ratio": 0.6801361494152558,
+      "paired_ratios": [
+        0.701739571018409,
+        0.6627118644067796,
+        0.6918880872778462,
+        0.6450426350108678,
+        0.6696103896103897,
+        0.6847167794798718,
+        0.6922670424519993,
+        0.5714070275976474,
+        0.668851878100638,
+        0.7017879960455521,
+        0.7379733490536183,
+        0.5208361985971669,
+        0.6604527296937417,
+        1.56033262561925
+      ],
+      "paired_deltas_seconds_per_call": [
+        -4.415e-05,
+        -4.975e-05,
+        -4.377499999999999e-05,
+        -5.307499999999999e-05,
+        -4.7699999999999994e-05,
+        -4.424999999999999e-05,
+        -4.367499999999999e-05,
+        -7.105e-05,
+        -4.6724999999999984e-05,
+        -4.125024999999999e-05,
+        -3.6225250000000004e-05,
+        -8.709999999999999e-05,
+        -5.099999999999999e-05,
+        7.917500000000001e-05
+      ],
+      "processes": [
+        {
+          "reference_seconds_per_call": 0.000144375,
+          "candidate_seconds_per_call": 9.775e-05,
+          "ratio": 0.6770562770562771,
+          "reference_bytes": 918576,
+          "reference_events": 16409,
+          "candidate_bytes": 474608,
+          "candidate_events": 8481,
+          "accepted": true
+        },
+        {
+          "reference_seconds_per_call": 0.0001413,
+          "candidate_seconds_per_call": 9.7075e-05,
+          "ratio": 0.6870134465675868,
+          "reference_bytes": 918576,
+          "reference_events": 16409,
+          "candidate_bytes": 474608,
+          "candidate_events": 8481,
+          "accepted": true
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "id": "32/dense/equal/forward",
+      "target": true,
+      "reference_seconds_per_call": 0.000240450125,
+      "candidate_seconds_per_call": 0.00014836249999999998,
+      "pooled_ratio": 0.6170198497505459,
+      "paired_ratios": [
+        0.017127425962144633,
+        0.6433347453139892,
+        0.6279618312426289,
+        0.6185419644680415,
+        0.62724639185962,
+        0.6191564512777893,
+        0.6249733350953849,
+        1.0435396308360476,
+        0.6015774838742937,
+        0.6043429936636542,
+        0.48895324782788585,
+        0.5883363654740246,
+        0.6119319139966274,
+        0.6131395747905386
+      ],
+      "paired_deltas_seconds_per_call": [
+        -0.008830253750000001,
+        -8.419975000000001e-05,
+        -8.675e-05,
+        -9.340000000000002e-05,
+        -8.974975000000001e-05,
+        -9.165e-05,
+        -9.010025e-05,
+        1.0024999999999986e-05,
+        -9.467524999999999e-05,
+        -9.522475000000002e-05,
+        -0.00015439999999999999,
+        -0.00010182500000000002,
+        -9.204974999999998e-05,
+        -9.215025e-05
+      ],
+      "processes": [
+        {
+          "reference_seconds_per_call": 0.00024065,
+          "candidate_seconds_per_call": 0.00015102525,
+          "ratio": 0.6275722002908789,
+          "reference_bytes": 1199088,
+          "reference_events": 33321,
+          "candidate_bytes": 628144,
+          "candidate_events": 17457,
+          "accepted": true
+        },
+        {
+          "reference_seconds_per_call": 0.00023820025,
+          "candidate_seconds_per_call": 0.000145525,
+          "ratio": 0.6109355468770499,
+          "reference_bytes": 1199088,
+          "reference_events": 33321,
+          "candidate_bytes": 628144,
+          "candidate_events": 17457,
+          "accepted": true
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "id": "32/dense/equal/transpose",
+      "target": true,
+      "reference_seconds_per_call": 0.000232162625,
+      "candidate_seconds_per_call": 0.00014398762499999998,
+      "pooled_ratio": 0.6202015720661325,
+      "paired_ratios": [
+        0.6242928182864261,
+        0.47137678166766306,
+        0.613819825637714,
+        0.6190085344010116,
+        0.6395210872613526,
+        0.6024090018928324,
+        0.6138244216279288,
+        0.6226799577821898,
+        0.6089473684210527,
+        1.0662803158396208,
+        0.8806610619979726,
+        0.5295281255840029,
+        0.627342569120266,
+        0.6282762008733623
+      ],
+      "paired_deltas_seconds_per_call": [
+        -8.807524999999999e-05,
+        -0.00016160024999999997,
+        -8.969999999999998e-05,
+        -9.039975e-05,
+        -8.355e-05,
+        -9.405025000000001e-05,
+        -8.952525e-05,
+        -8.642524999999998e-05,
+        -9.157474999999999e-05,
+        1.5199749999999986e-05,
+        -2.7400249999999992e-05,
+        -0.00012587475000000003,
+        -8.647525e-05,
+        -8.512475000000002e-05
+      ],
+      "processes": [
+        {
+          "reference_seconds_per_call": 0.00023442525,
+          "candidate_seconds_per_call": 0.0001441,
+          "ratio": 0.614694876085234,
+          "reference_bytes": 1181232,
+          "reference_events": 32825,
+          "candidate_bytes": 610288,
+          "candidate_events": 16961,
+          "accepted": true
+        },
+        {
+          "reference_seconds_per_call": 0.00022960025,
+          "candidate_seconds_per_call": 0.00014387525,
+          "ratio": 0.6266336818013046,
+          "reference_bytes": 1181232,
+          "reference_events": 32825,
+          "candidate_bytes": 610288,
+          "candidate_events": 16961,
+          "accepted": true
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "id": "32/dense/up/forward",
+      "target": false,
+      "reference_seconds_per_call": 0.000240837625,
+      "candidate_seconds_per_call": 0.000241150125,
+      "pooled_ratio": 1.001297554732156,
+      "paired_ratios": [
+        1.0014793259180228,
+        0.9960848449329897,
+        1.015373275771296,
+        0.8847902657130307,
+        0.9636607283619739,
+        1.039463435742103,
+        0.97675224548246,
+        0.9929239779049863,
+        0.5078334585255928,
+        1.7321977037599088,
+        1.013503164556962,
+        0.9787057234860289,
+        0.9496542993475507,
+        1.0016619952247483
+      ],
+      "paired_deltas_seconds_per_call": [
+        3.4975000000000457e-07,
+        -9.252499999999858e-07,
+        3.6499999999999803e-06,
+        -3.2324999999999986e-05,
+        -1.1524999999999968e-05,
+        1.1400000000000006e-05,
+        -6.725000000000014e-06,
+        -1.675250000000004e-06,
+        -0.00022932500000000003,
+        0.00017634999999999998,
+        3.2002500000000004e-06,
+        -5.125000000000003e-06,
+        -1.292500000000003e-05,
+        4.0024999999998655e-07
+      ],
+      "processes": [
+        {
+          "reference_seconds_per_call": 0.00028057525,
+          "candidate_seconds_per_call": 0.00024825025,
+          "ratio": 0.8847902657130307,
+          "reference_bytes": 1199088,
+          "reference_events": 33321,
+          "candidate_bytes": 1199088,
+          "candidate_events": 33321,
+          "accepted": true
+        },
+        {
+          "reference_seconds_per_call": 0.000240825,
+          "candidate_seconds_per_call": 0.00024020025,
+          "ratio": 0.9974057925879787,
+          "reference_bytes": 1199088,
+          "reference_events": 33321,
+          "candidate_bytes": 1199088,
+          "candidate_events": 33321,
+          "accepted": true
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "id": "32/dense/up/transpose",
+      "target": false,
+      "reference_seconds_per_call": 0.000279275125,
+      "candidate_seconds_per_call": 0.000275987625,
+      "pooled_ratio": 0.9882284539305103,
+      "paired_ratios": [
+        0.9411866817629486,
+        0.9176470588235294,
+        1.0053942942232763,
+        1.0163853694485019,
+        1.0082868256384236,
+        0.9307911312039504,
+        1.004278584796364,
+        1.002417277764892,
+        0.6529233957410319,
+        0.9970744392675263,
+        0.9980342741385352,
+        0.9883657130657558,
+        1.0055033991583036,
+        1.2080937167199148
+      ],
+      "paired_deltas_seconds_per_call": [
+        -1.7024999999999994e-05,
+        -2.5200000000000016e-05,
+        1.4997499999999512e-06,
+        4.674749999999961e-06,
+        2.4499999999999782e-06,
+        -2.132499999999999e-05,
+        1.200250000000006e-06,
+        5.497500000000094e-07,
+        -0.00012142475,
+        -6.750000000000029e-07,
+        -4.5024999999998777e-07,
+        -2.7247499999999945e-06,
+        1.2749999999999903e-06,
+        4.885000000000002e-05
+      ],
+      "processes": [
+        {
+          "reference_seconds_per_call": 0.00028947525,
+          "candidate_seconds_per_call": 0.00028172525,
+          "ratio": 0.9732274175426051,
+          "reference_bytes": 1181232,
+          "reference_events": 32825,
+          "candidate_bytes": 1181232,
+          "candidate_events": 32825,
+          "accepted": true
+        },
+        {
+          "reference_seconds_per_call": 0.000231675,
+          "candidate_seconds_per_call": 0.00023005,
+          "ratio": 0.9929858638178483,
+          "reference_bytes": 1181232,
+          "reference_events": 32825,
+          "candidate_bytes": 1181232,
+          "candidate_events": 32825,
+          "accepted": true
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "id": "32/dense/nested/forward",
+      "target": false,
+      "reference_seconds_per_call": 0.000242575,
+      "candidate_seconds_per_call": 0.000241362625,
+      "pooled_ratio": 0.99500206121818,
+      "paired_ratios": [
+        0.9486449332285939,
+        1.0056941653440674,
+        1.0053464939337857,
+        1.006557017566331,
+        0.9910984210595517,
+        0.9047122720638301,
+        0.9981776806863495,
+        0.9957644628099173,
+        1.0143418958638517,
+        0.9992760227861213,
+        1.0121914629013329,
+        0.9886061904893867,
+        0.9909394854702636,
+        1.0019016893216814
+      ],
+      "paired_deltas_seconds_per_call": [
+        -1.3075000000000006e-05,
+        1.3749999999999928e-06,
+        1.3000000000000045e-06,
+        1.5997499999999807e-06,
+        -2.2002500000000303e-06,
+        -2.557524999999999e-05,
+        -4.502500000000149e-07,
+        -1.0250000000000114e-06,
+        3.3997499999999974e-06,
+        -1.7474999999998676e-07,
+        2.874749999999998e-06,
+        -2.7752500000000036e-06,
+        -2.174749999999981e-06,
+        4.49750000000007e-07
+      ],
+      "processes": [
+        {
+          "reference_seconds_per_call": 0.00024707525,
+          "candidate_seconds_per_call": 0.00024445,
+          "ratio": 0.9893746945515587,
+          "reference_bytes": 1199088,
+          "reference_events": 33321,
+          "candidate_bytes": 1199088,
+          "candidate_events": 33321,
+          "accepted": true
+        },
+        {
+          "reference_seconds_per_call": 0.000240025,
+          "candidate_seconds_per_call": 0.00024045,
+          "ratio": 1.0017706488907405,
+          "reference_bytes": 1199088,
+          "reference_events": 33321,
+          "candidate_bytes": 1199088,
+          "candidate_events": 33321,
+          "accepted": true
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "id": "32/dense/nested/transpose",
+      "target": false,
+      "reference_seconds_per_call": 0.0002346125,
+      "candidate_seconds_per_call": 0.000236275125,
+      "pooled_ratio": 1.0070866854920348,
+      "paired_ratios": [
+        0.9796340299140766,
+        1.1225796383986224,
+        0.9926190221461432,
+        1.0303073160357294,
+        1.0185667303203905,
+        0.9709138731304796,
+        1.0208868894601542,
+        1.0090543193717278,
+        1.0010833954198075,
+        1.0277266327304235,
+        0.994981313400961,
+        0.5713066650330801,
+        1.006623547188699,
+        1.008411313216276
+      ],
+      "paired_deltas_seconds_per_call": [
+        -4.799750000000004e-06,
+        2.8475250000000005e-05,
+        -1.7247499999999973e-06,
+        7.125250000000001e-06,
+        4.375249999999988e-06,
+        -7.049750000000005e-06,
+        4.8749999999999965e-06,
+        2.0752500000000137e-06,
+        2.4975000000000214e-07,
+        6.399999999999993e-06,
+        -1.175000000000015e-06,
+        -0.00017494975,
+        1.5747499999999937e-06,
+        1.9999999999999944e-06
+      ],
+      "processes": [
+        {
+          "reference_seconds_per_call": 0.0002351,
+          "candidate_seconds_per_call": 0.000238275,
+          "ratio": 1.013504891535517,
+          "reference_bytes": 1181232,
+          "reference_events": 32825,
+          "candidate_bytes": 1181232,
+          "candidate_events": 32825,
+          "accepted": true
+        },
+        {
+          "reference_seconds_per_call": 0.000234125,
+          "candidate_seconds_per_call": 0.00023315025,
+          "ratio": 0.9958366257341164,
+          "reference_bytes": 1181232,
+          "reference_events": 32825,
+          "candidate_bytes": 1181232,
+          "candidate_events": 32825,
+          "accepted": true
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "id": "32/zeroheavy/up/forward",
+      "target": false,
+      "reference_seconds_per_call": 0.000249875125,
+      "candidate_seconds_per_call": 0.000249637625,
+      "pooled_ratio": 0.9990495252378563,
+      "paired_ratios": [
+        0.9990999909100081,
+        1.0126991060544492,
+        0.9828832361097829,
+        0.9752875201976998,
+        0.9972132591611343,
+        0.9402533369654047,
+        0.9825643852089389,
+        1.2734623047079794,
+        1.2974905258171483,
+        0.06297394433206148,
+        1.0037493952588292,
+        0.5905108913640765,
+        1.0552849488553337,
+        1.0336201950659782
+      ],
+      "paired_deltas_seconds_per_call": [
+        -2.2524999999999585e-07,
+        3.125249999999958e-06,
+        -4.47475000000001e-06,
+        -6.499999999999995e-06,
+        -7.25250000000008e-07,
+        -1.6449749999999962e-05,
+        -4.349749999999993e-06,
+        6.520024999999999e-05,
+        6.280025000000001e-05,
+        -0.0030983012500000002,
+        7.749999999999782e-07,
+        -0.00014155025000000003,
+        1.1350000000000005e-05,
+        7.325000000000002e-06
+      ],
+      "processes": [
+        {
+          "reference_seconds_per_call": 0.00026025025,
+          "candidate_seconds_per_call": 0.000256525,
+          "ratio": 0.9856858927128793,
+          "reference_bytes": 1199088,
+          "reference_events": 33321,
+          "candidate_bytes": 1199088,
+          "candidate_events": 33321,
+          "accepted": true
+        },
+        {
+          "reference_seconds_per_call": 0.000217875,
+          "candidate_seconds_per_call": 0.00021665,
+          "ratio": 0.9943775100401607,
+          "reference_bytes": 1199088,
+          "reference_events": 33321,
+          "candidate_bytes": 1199088,
+          "candidate_events": 33321,
+          "accepted": true
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "id": "32/zeroheavy/up/transpose",
+      "target": false,
+      "reference_seconds_per_call": 0.00022948750000000001,
+      "candidate_seconds_per_call": 0.00022951275,
+      "pooled_ratio": 1.0001100277792907,
+      "paired_ratios": [
+        1.0136783752978966,
+        1.0440572509491663,
+        0.9029902964247765,
+        1.0367315842583251,
+        0.9773830324208892,
+        0.9983945062229178,
+        1.0253264849471113,
+        0.9669491326769808,
+        0.9852474598531289,
+        0.9914469830111307,
+        0.9979824353192499,
+        0.9869315284896413,
+        0.9683050068902159,
+        1.0379973378509197
+      ],
+      "paired_deltas_seconds_per_call": [
+        3.300250000000003e-06,
+        1.0649749999999984e-05,
+        -2.7000249999999983e-05,
+        9.100250000000035e-06,
+        -5.8249999999999925e-06,
+        -4.0025000000004076e-07,
+        6.225249999999979e-06,
+        -7.049750000000005e-06,
+        -3.100249999999998e-06,
+        -1.8250000000000037e-06,
+        -4.249999999999968e-07,
+        -2.8002499999999907e-06,
+        -6.900000000000005e-06,
+        7.850250000000005e-06
+      ],
+      "processes": [
+        {
+          "reference_seconds_per_call": 0.00024775,
+          "candidate_seconds_per_call": 0.000251725,
+          "ratio": 1.0160443995963675,
+          "reference_bytes": 1181232,
+          "reference_events": 32825,
+          "candidate_bytes": 1181232,
+          "candidate_events": 32825,
+          "accepted": true
+        },
+        {
+          "reference_seconds_per_call": 0.0002133,
+          "candidate_seconds_per_call": 0.0002108,
+          "ratio": 0.9882794186591655,
+          "reference_bytes": 1181232,
+          "reference_events": 32825,
+          "candidate_bytes": 1181232,
+          "candidate_events": 32825,
+          "accepted": true
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "id": "15/dense/up/forward",
+      "target": false,
+      "reference_seconds_per_call": 5.4725e-05,
+      "candidate_seconds_per_call": 5.4775e-05,
+      "pooled_ratio": 1.0009136592051164,
+      "paired_ratios": [
+        1.0004570383912248,
+        1.041307308216069,
+        1.0341841385597084,
+        1.473901098901099,
+        1.0415714938328005,
+        1.005045871559633,
+        1.0009136592051164,
+        1.1946617579383343,
+        0.9827036868456986,
+        0.9162790697674419,
+        1.0102516309412861,
+        0.7337704918032787,
+        0.9464524765729585,
+        0.9962859795728877
+      ],
+      "paired_deltas_seconds_per_call": [
+        2.5000000000000608e-08,
+        2.275000000000001e-06,
+        1.875000000000005e-06,
+        2.5875000000000006e-05,
+        2.275000000000001e-06,
+        2.749999999999999e-07,
+        5.0000000000001215e-08,
+        1.0575000000000006e-05,
+        -9.500000000000028e-07,
+        -4.949999999999998e-06,
+        5.499999999999998e-07,
+        -2.03e-05,
+        -2.9999999999999984e-06,
+        -1.9999999999999809e-07
+      ],
+      "processes": [
+        {
+          "reference_seconds_per_call": 5.4725e-05,
+          "candidate_seconds_per_call": 5.6725e-05,
+          "ratio": 1.0365463682046596,
+          "reference_bytes": 268848,
+          "reference_events": 7481,
+          "candidate_bytes": 268848,
+          "candidate_events": 7481,
+          "accepted": true
+        },
+        {
+          "reference_seconds_per_call": 5.4925e-05,
+          "candidate_seconds_per_call": 5.4175e-05,
+          "ratio": 0.9863450159308148,
+          "reference_bytes": 268848,
+          "reference_events": 7481,
+          "candidate_bytes": 268848,
+          "candidate_events": 7481,
+          "accepted": true
+        }
+      ],
+      "accepted": true
+    },
+    {
+      "id": "15/dense/up/transpose",
+      "target": false,
+      "reference_seconds_per_call": 5.2625000000000005e-05,
+      "candidate_seconds_per_call": 5.32375e-05,
+      "pooled_ratio": 1.0116389548693585,
+      "paired_ratios": [
+        0.99906191369606,
+        1.0023499061913697,
+        0.9336713138994508,
+        0.9856614246068456,
+        1.0559024159166273,
+        1.010401891252955,
+        1.0061389123869924,
+        1.0039525691699607,
+        0.9712918660287081,
+        1.004451581027668,
+        1.003446578040374,
+        1.034992607195663,
+        1.0266793711291091,
+        1.00293770015841
+      ],
+      "paired_deltas_seconds_per_call": [
+        -5.0000000000001215e-08,
+        1.252500000000002e-07,
+        -3.9250000000000005e-06,
+        -7.749999999999985e-07,
+        2.950250000000001e-06,
+        5.499999999999998e-07,
+        3.247499999999972e-07,
+        2.0000000000000486e-07,
+        -1.5000000000000026e-06,
+        2.2525000000000263e-07,
+        1.7499999999999748e-07,
+        1.7750000000000025e-06,
+        1.4000000000000001e-06,
+        1.497499999999997e-07
+      ],
+      "processes": [
+        {
+          "reference_seconds_per_call": 5.33e-05,
+          "candidate_seconds_per_call": 5.3425e-05,
+          "ratio": 1.0023452157598498,
+          "reference_bytes": 260784,
+          "reference_events": 7257,
+          "candidate_bytes": 260784,
+          "candidate_events": 7257,
+          "accepted": true
+        },
+        {
+          "reference_seconds_per_call": 5.0775e-05,
+          "candidate_seconds_per_call": 5.095e-05,
+          "ratio": 1.003446578040374,
+          "reference_bytes": 260784,
+          "reference_events": 7257,
+          "candidate_bytes": 260784,
+          "candidate_events": 7257,
+          "accepted": true
+        }
+      ],
+      "accepted": true
+    }
+  ],
+  "micro": [
+    {
+      "id": "absent",
+      "reference": {
+        "seconds_per_call": 7.421875e-09,
+        "bytes_per_window": 0.0,
+        "events_per_window": 0.0
+      },
+      "candidate": {
+        "seconds_per_call": 3.125e-09,
+        "bytes_per_window": 0.0,
+        "events_per_window": 0.0
+      }
+    },
+    {
+      "id": "keys8",
+      "reference": {
+        "seconds_per_call": 7.421875e-09,
+        "bytes_per_window": 0.0,
+        "events_per_window": 0.0
+      },
+      "candidate": {
+        "seconds_per_call": 3.125e-09,
+        "bytes_per_window": 0.0,
+        "events_per_window": 0.0
+      }
+    },
+    {
+      "id": "equal",
+      "reference": {
+        "seconds_per_call": 4.453125e-08,
+        "bytes_per_window": 8192.0,
+        "events_per_window": 512.0
+      },
+      "candidate": {
+        "seconds_per_call": 6.4453124999999995e-09,
+        "bytes_per_window": 0.0,
+        "events_per_window": 0.0
+      }
+    },
+    {
+      "id": "up",
+      "reference": {
+        "seconds_per_call": 4.47265625e-08,
+        "bytes_per_window": 8192.0,
+        "events_per_window": 512.0
+      },
+      "candidate": {
+        "seconds_per_call": 6.25e-09,
+        "bytes_per_window": 0.0,
+        "events_per_window": 0.0
+      }
+    },
+    {
+      "id": "nested",
+      "reference": {
+        "seconds_per_call": 4.453125e-08,
+        "bytes_per_window": 8192.0,
+        "events_per_window": 512.0
+      },
+      "candidate": {
+        "seconds_per_call": 6.640625e-09,
+        "bytes_per_window": 0.0,
+        "events_per_window": 0.0
+      }
+    },
+    {
+      "id": "upkeys64",
+      "reference": {
+        "seconds_per_call": 4.4335937500000006e-08,
+        "bytes_per_window": 8192.0,
+        "events_per_window": 512.0
+      },
+      "candidate": {
+        "seconds_per_call": 6.25e-09,
+        "bytes_per_window": 0.0,
+        "events_per_window": 0.0
+      }
+    }
+  ],
+  "code": [
+    [
+      {
+        "path": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-V/run-1/micro-old.ll",
+        "probe_calls": 256,
+        "arm": "old",
+        "accepted": true,
+        "ir_bytes": 57530,
+        "probe_path": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-V/run-1/probe-old.ll",
+        "probe_ir_bytes": 4506
+      },
+      {
+        "path": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-V/run-1/micro-new.ll",
+        "probe_calls": 256,
+        "arm": "new",
+        "accepted": true,
+        "ir_bytes": 57530,
+        "probe_path": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-V/run-1/probe-new.ll",
+        "probe_ir_bytes": 749
+      }
+    ],
+    [
+      {
+        "path": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-V/run-2/micro-old.ll",
+        "probe_calls": 256,
+        "arm": "old",
+        "accepted": true,
+        "ir_bytes": 57530,
+        "probe_path": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-V/run-2/probe-old.ll",
+        "probe_ir_bytes": 4506
+      },
+      {
+        "path": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-V/run-2/micro-new.ll",
+        "probe_calls": 256,
+        "arm": "new",
+        "accepted": true,
+        "ir_bytes": 57530,
+        "probe_path": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-V/run-2/probe-new.ll",
+        "probe_ir_bytes": 749
+      }
+    ]
+  ]
+}

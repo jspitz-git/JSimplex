@@ -2485,3 +2485,42 @@ to MA-V beforecopies; all older maps preserved. Current MA-V pins/review/closure
 publication must be reconciled explicitly before later continuation changes.
 Master6f68e24/source/test/userenv unchanged; CIoff/HHdisabled/automationpaused;
 broader plan OPEN. Accepted preparation artifacts freeze after publication.
+
+## MA-V rounding guard short qualification (2026-10-14)
+
+This completed result supersedes the preceding MA-V unexecuted next-action text.
+
+MA-V short qualification completed: the isolated MA-U guard passes MA-T Task2
+local numerical/cost gates. Exactly one sequence, two processes26.838440328s and
+9.809628626s supervised (36.648068954s total), both exit0; no retry. Correctness
+25,861/25,861 assertions,270predicate records/25transitions/840whole cases,
+844direct calls per arm. Actual dedicated no-scope case unavailable; source proof
+only for that branch. Both old-guard RED cases +128bytes/+8events per4-call window.
+All12 per-process and pooled whole-cost gates pass; new micro helper zero allocation
+in all six contexts. All eight fallback/n15 controls have identical allocation
+medians to reference; four eligible n32 cases show local whole-call C/R0.617–0.686,
+including existing MA arithmetic, not isolated guard savings or fullsolver speedup.
+All measured compile/recompile0; three measured GC windows retained. Exact2,080cost
+entries/61,440micro/2,532directcorrectness entries; nested work separately counted.
+Stage audits23each; aggregate12/12; freshpostcheck20/full4,342pins/source514/protected6.
+Independent result review and report: MA-ROUNDING-GUARD-QUALIFICATION.md and
+MA-V-EXEC/result-review.md/json. Probe LLVM delegates to helper;749byte probe text
+is not transitive helper/native code size. Original report wording preserved.
+
+MA-V sequence allowance CONSUMED; all V/EXEC scripts/raw/pins/audits/reviews freeze
+at publication. Do not rerun launcher, auditor, numerical tests or old collectors.
+MA-S-2 remains rejected48/52; Rational no-increase controls and complete-candidate
+obligations remain OPEN. Next is a separately reviewed complete-candidate admission
+addressing all remaining controls using preserved evidence. No automatic old52case
+rerun, tuning, production promotion or master integration. Standing human short-run
+permission persists; new concrete immutable admission remains mandatory.
+
+Eight V current STATUS/roadmap bindings (pins/preparation review/closure/publication)
+map ONLY to MA-V-EXEC before-MA-V-execution copies via continuation-map.json.
+Two inherited reviewer-check continuation bindings use reviewer-continuation-map.json;
+all older mappings remain. Numerical seal binds preserved copies. Fresh full170groups
+ANDsessions/noJulia checked before continuation edits; actual process identities in
+V/run-1 and run-2/process.json and EXEC/posthost.json. Next real work needs fresh
+host refs/boot/start_ticks/command/full170groups ANDsessions, not stale host reuse.
+Master6f68e24/source/test/userenv unchanged; CIoff/HHdisabled/automationpaused.
+Broader S2/S3/S4/S5/S6 and MA performance plan remain OPEN.

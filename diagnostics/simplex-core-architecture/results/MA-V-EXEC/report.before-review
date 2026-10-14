@@ -1,0 +1,170 @@
+# MA-V rounding guard qualification
+
+The isolated MA-U rounding guard passes the accepted MA-T Task2 local correctness
+and cost gates: 25,861/25,861 assertions, both required old-guard allocation REDs,
+two accepted short processes and all12 whole-call cost cases. This qualifies the
+local guard strategy on the pinned Julia1.13.0 runtime. It does not qualify the
+complete DenseLU candidate for production. MA-S-2 remains rejected48/52; its Rational
+no-increase controls and remaining complete-candidate obligations remain open.
+
+No production/src/test/environment/CI/master change was made. Starting diagnostic
+HEAD ec439d9c6c5cb80c64352e46fa91002deb583abb and master
+6f68e24e8ddac42b948da8fcc2d636c010751194 were freshly checked locally and remotely.
+
+## Admission and execution
+
+Direct human authorization requested fresh launch conditions, independent concrete
+approval, and the short tests/measurement. The accepted preparation is MA-V's
+50-check/45-binding admission review, 4,342-file manifest, source26, canonical
+Python106 and supervisor10 checks. Those frozen tests were not rerun. A fresh
+independent numerical seal has31 computed checks/39 bindings; it distinguishes
+mechanical checks from manual numerical/work/memory conclusions. Its initial
+report-writing command was rejected by automatic approval review for mixing those
+categories; corrected artifacts were approved before launch. No numerical retry
+or source correction occurred.
+
+Exactly one sequence reservation and two serial processes ran. Supervised inclusive
+times were26.838440328s and9.809628626s, total36.648068954s, below90s each/180s total.
+Guard-inclusive times were26.392619937s and9.378792285s. Both exits were0 with no
+timeout/kill. These inclusive times are not benchmark results. Julia/BLAS1,
+heap2GiB, VM8GiB, compiled-modules=existing and original resource guards remained.
+There were26 and9 resource samples, plus terminal samples; minimum available RAM
+22,213,432KiB, maximum used swap0. Fresh postflight checked all170 historical+new
+process groups OR sessions, boot/start_ticks/command identities and noJulia.
+All4,342 launch hashes,514 source identities and six protected user/environment
+files remained identical. Postcheck has20 computed checks and15 bindings.
+
+Runner/child identities: process1 86967/86968, start_ticks3654838/3654879;
+process2 87044/87045, start_ticks3657887/3657927; each PID=PGID=SID, boot
+284d2228-1d9a-4c5f-913c-b9f1098b5838. Commands and cleanup evidence remain in process,
+invocation and posthost JSON. Both stage audits have23 passing gates. The accepted
+aggregate auditor was invoked once after both passed; all12 pooled case gates pass.
+
+## Correctness and expected RED
+
+First process executed270 predicate grid records,25 transition records and840
+whole-call cases,844 direct entries per arm across reference/new/instrumented
+(2,532 total). Tests cover global/scoped five-mode combinations,128/256/512 bits,
+dense and zero-heavy n16/32, small sizes, Float64/Rational fallbacks, view/alias/
+retained leaves, mixed precision, singular/invalid pivots, wrong lengths and partial
+writes on exceptions. Exact finite/sign/precision and NaN/Inf classes, inputs,
+ownership, exception type/message and observed routing passed. Three tasks were
+created and joined, with no global or ambient precision/rounding leak.
+The dedicated actual no-scope task was unavailable (false), with zero no-scope
+records; that branch retains source proof only. Missing rounding keys in real
+active scopes were covered. Process2 deliberately repeats neither correctness
+nor RED. Test assertions are not equivalent to backend call counts.
+
+Before new correctness/cost, both old-guard RED cases passed numerical preservation
+and showed candidate-minus-reference side-median +128bytes/+8events per4-call
+window, i.e. +32bytes/+2events per call, in FTRAN and BTRAN. This is the expected
+performance regression, not an original numerical failure. It does not identify
+the two heap objects. Old MA-S-2 evidence was not rerun or rewritten.
+
+## Measurements
+
+Each case/process has3 warm and7 measured alternating pairs. Whole-call windows
+contain4 calls, micro windows256 predicate calls. Guard and private product scratch
+are inside whole-call timers. Setup, scopes, resets, snapshots, token comparisons,
+code inspection and journal/serialization remain outside. No baseline subtraction.
+Every measured compile/recompile value is0. Three measured windows contain GC;
+all samples, including those and other outliers, remain in the fixed reducers.
+
+The new helper allocates0bytes/0events in every measured window in all six micro
+contexts and both processes. The old expression's explicit-rounding contexts have
+side-median8,192bytes/512events per256 checks; missing-key contexts are also zero.
+Pooled descriptive micro times are about3.1ns(new) versus7.4ns(old) for missing keys,
+and6.25–6.64ns versus44.3–44.7ns for explicit contexts. Tiny batched timings are not
+standalone speedup claims. Each captured batch LLVM contains256 direct probe calls,
+57,530bytes per arm; old/new probe IR sizes are4,506/749bytes. These are LLVM text
+sizes, not native code size. No indirect/generic call or invariant collapse was
+accepted by the generated-code gate.
+
+Whole-call table: times are pooled side medians of14 measured per-call values,
+not medians of paired ratios. Bytes/events are raw4-call-window side medians;
+both individual processes have the same allocation medians shown. Every case also
+passes its separate per-process budget. Ratios and deltas for all14 pairs and each
+process remain in aggregate.json; cases are never pooled together.
+
+| Case | Reference us/call | Candidate us/call | C/R | Window bytes R / C | Window events R / C |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 32/dense/absent/forward | 142.588 | 97.775 | 0.685720 | 932464 / 488496 | 16657 / 8729 |
+| 32/dense/absent/transpose | 143.225 | 97.413 | 0.680136 | 918576 / 474608 | 16409 / 8481 |
+| 32/dense/equal/forward | 240.450 | 148.362 | 0.617020 | 1.19909e+06 / 628144 | 33321 / 17457 |
+| 32/dense/equal/transpose | 232.163 | 143.988 | 0.620202 | 1.18123e+06 / 610288 | 32825 / 16961 |
+| 32/dense/up/forward | 240.838 | 241.150 | 1.001298 | 1.19909e+06 / 1.19909e+06 | 33321 / 33321 |
+| 32/dense/up/transpose | 279.275 | 275.988 | 0.988228 | 1.18123e+06 / 1.18123e+06 | 32825 / 32825 |
+| 32/dense/nested/forward | 242.575 | 241.363 | 0.995002 | 1.19909e+06 / 1.19909e+06 | 33321 / 33321 |
+| 32/dense/nested/transpose | 234.612 | 236.275 | 1.007087 | 1.18123e+06 / 1.18123e+06 | 32825 / 32825 |
+| 32/zeroheavy/up/forward | 249.875 | 249.638 | 0.999050 | 1.19909e+06 / 1.19909e+06 | 33321 / 33321 |
+| 32/zeroheavy/up/transpose | 229.488 | 229.513 | 1.000110 | 1.18123e+06 / 1.18123e+06 | 32825 / 32825 |
+| 15/dense/up/forward | 54.725 | 54.775 | 1.000914 | 268848 / 268848 | 7481 / 7481 |
+| 15/dense/up/transpose | 52.625 | 53.237 | 1.011639 | 260784 / 260784 | 7257 / 7257 |
+
+For the four eligible dense n32 cases, the complete MA candidate with the new guard
+has about31–38% lower local median call time than the original reference, with
+strictly lower bytes/events. This includes the existing MA product arithmetic;
+it is not the isolated contribution of changing the guard. All eight mismatch/n15
+controls have identical byte/event medians to reference and satisfy both fixed
+10%/0.4us per-process and5%/0.2us pooled time budgets. Their small mixed time changes
+do not demonstrate a speedup. No sparse CSC, public solver or end-to-end timing
+was measured here; zero-heavy is a dense matrix layout, not a sparse backend.
+
+Retained measured GC windows:
+- Process1, 32/dense/equal/forward, reference, pair4: window 0.035936515s, GC 0.024780110s.
+- Process2, 32/dense/absent/forward, reference, pair4: window 0.048074815s, GC 0.045492015s.
+- Process2, 32/zeroheavy/up/forward, reference, pair6: window 0.013226105s, GC 0.007722103s.
+
+Module-load intervals were6.578899773s/6.128344393s; code inspection
+0.351233826s/0.334736307s; correctness16.115928476s in process1. Whole cost inclusive
+intervals were0.506582214s/1.480191874s and micro inclusive intervals
+0.372606858s/0.414363933s. Recorded bundle/snapshot setup totals were
+0.235448992s/0.241730478s, outside measured windows. These intervals contain
+cold compilation and diagnostic work and overlap/nest as defined in driver.jl;
+they are not an additive complete import/compile budget or pure kernel measures.
+Warm windows preserve their compilation records separately.
+
+## Work, memory and limits
+
+No unnecessary new production work or retained memory was found in the source
+review: production is unchanged. The helper is one fresh task-scope lookup per
+otherwise eligible-size FTRAN/BTRAN entry, including recovery/certification callers;
+it adds no vector/matrix scan, basis solve, copy, conversion or cache. Work depends
+on scoped dictionary lookup, not n, nnz or history length. Existing12 MA product
+sites, private scratch, subtraction/division, safeguard order and fallback remain.
+Measured zero helper allocations establish only this runtime and these contexts.
+
+Executed driver records match2,080 cost backend entries (160 oldRED+1,920 newcost),
+61,440 micro calls,2,532 direct correctness entries and20 timer baselines. Source-
+derived nested reference delegations are additional:1,120 correctness+720 cost;
+these are not complete observed PREforward/native/import work. Preparation ledger
+counts866 bundles,4PFI constructors/4PFI copies, diagnostic snapshots/resets and
+retained token/record storage separately. No production cache or task retention
+was introduced. Diagnostic retention and flushed I/O can affect later GC; no
+observer neutrality, native-free or full memory-graph bound is claimed.
+
+Append-only journals retain1,825/610 records (2,435 total), with completed metrics
+saved before comparisons; final raw TOML, all8 LLVM files, logs/resources and all
+original preparation/rejection evidence are preserved. Flushing is not a power-loss
+durability guarantee. No case was tuned, dropped or retried, and no accepted old
+script was rerun. The one MA-V sequence allowance is consumed.
+
+## Review, continuation and next boundary
+
+Independent result review is recorded in MA-V-EXEC/result-review.md/json; its
+acceptance is required before publication. Separate PASS closure and exact staged
+names/blobs precede failfast commit/push. This report is a result decision, not a
+production promotion or a fresh numerical allowance.
+
+Eight current STATUS/roadmap bindings from MA-V pins, preparation review, closure
+and publication map ONLY to MA-V-EXEC/STATUS.md.before-MA-V-execution and
+roadmap.md.before-MA-V-execution through continuation-map.json. Numerical seal binds
+those preserved copies, not the mutable continuation paths. All older maps remain.
+
+Next meaningful boundary: a separate complete-candidate admission must account for
+every remaining original control, especially Rational no-increase, using the frozen
+MA-S-2 failures and this accepted local guard result. No automatic rerun of the old
+52-case schedule, tuning, production integration or widening of this acceptance.
+Standing human short-run permission persists; a concrete independently accepted
+new admission is still required. CIoff, HH reuse disabled, automation paused;
+broader S2/S3/S4/S5/S6 and performance plan remain OPEN.
