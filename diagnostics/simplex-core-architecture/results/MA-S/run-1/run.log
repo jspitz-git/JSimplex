@@ -1,0 +1,132 @@
+WARNING: Detected access to binding `MADenseProbe.candidate_forward!` in a world prior to its definition world.
+  Julia 1.12 has introduced more strict world age semantics for global bindings.
+  !!! This code may malfunction under Revise.
+  !!! This code will error in future versions of Julia.
+Hint: Add an appropriate `invokelatest` around the access to this binding.
+To make this warning an error, and hence obtain a stack trace, use `julia --depwarn=error`.
+WARNING: Detected access to binding `MADenseProbe.instrumented_forward!` in a world prior to its definition world.
+  Julia 1.12 has introduced more strict world age semantics for global bindings.
+  !!! This code may malfunction under Revise.
+  !!! This code will error in future versions of Julia.
+Hint: Add an appropriate `invokelatest` around the access to this binding.
+To make this warning an error, and hence obtain a stack trace, use `julia --depwarn=error`.
+WARNING: Detected access to binding `MADenseProbe._dense_ma_eligible` in a world prior to its definition world.
+  Julia 1.12 has introduced more strict world age semantics for global bindings.
+  !!! This code may malfunction under Revise.
+  !!! This code will error in future versions of Julia.
+Hint: Add an appropriate `invokelatest` around the access to this binding.
+To make this warning an error, and hence obtain a stack trace, use `julia --depwarn=error`.
+WARNING: Detected access to binding `MADenseProbe.reset_route_counts!` in a world prior to its definition world.
+  Julia 1.12 has introduced more strict world age semantics for global bindings.
+  !!! This code may malfunction under Revise.
+  !!! This code will error in future versions of Julia.
+Hint: Add an appropriate `invokelatest` around the access to this binding.
+To make this warning an error, and hence obtain a stack trace, use `julia --depwarn=error`.
+ERROR: LoadError: incomplete qualification
+Stacktrace:
+ [1] error(s::String)
+   @ Base ./error.jl:44
+ [2] main()
+   @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S/driver.jl:112
+ [3] top-level scope
+   @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S/driver.jl:115
+ [4] include(mod::Module, _path::String)
+   @ Base ./Base.jl:309
+ [5] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:344
+ [6] _start()
+   @ Base ./client.jl:577
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S/driver.jl:115
+Test Summary:   | Pass  Total  Time
+reference smoke |   16     16  0.1s
+
+original lacks optimization route (expected RED only): Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-R/tests.jl:186
+  Expression: isdefined(P, :_dense_ma_eligible)
+   Evaluated: isdefined(Main.MADenseProbe, _dense_ma_eligible)
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-R/tests.jl:186 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] route_red()
+     @ Main.MADenseProbeTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-R/tests.jl:186
+
+original lacks optimization route (expected RED only): Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-R/tests.jl:187
+  Expression: isdefined(P, :candidate_forward!) && isdefined(P, :candidate_transpose!)
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-R/tests.jl:187 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] route_red()
+     @ Main.MADenseProbeTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-R/tests.jl:186
+Test Summary:                                         | Fail  Total  Time
+original lacks optimization route (expected RED only) |    2      2  0.5s
+RNG of the outermost testset: Random.Xoshiro(0x5d0c2135033b4698, 0x91749e1a26a85c0c, 0x077a8d979c6931be, 0x14eb797f798915dc, 0xc93f11f5d801ec76)
+
+MA-R prospective exact DenseLU comparisons: Error During Test at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-R/tests.jl:136
+  Test threw exception
+  Expression: P._dense_ma_eligible(b.dest, b.backend, b.rhs) === eligible
+  MethodError: no method matching _dense_ma_eligible(::Vector{BigFloat}, ::JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}, ::Vector{BigFloat})
+  The applicable method may be too new: running in world age 42871, while current world is 42908.
+  Closest candidates are:
+    _dense_ma_eligible(::Any, ::Any, ::Any) (method too new to be called from this world context.)
+     @ Main.MADenseProbe ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-R/candidate.jl:4
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:750 [inlined]
+   [2] compare_case(x::@NamedTuple{backend::JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}, rhs::Vector{BigFloat}, dest::Vector{BigFloat}, shared_factor::Nothing}, direction::String, eligible::Bool; repeat_call::Bool, expected_exception::Nothing)
+     @ Main.MADenseProbeTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-R/tests.jl:136
+
+MA-R prospective exact DenseLU comparisons: Error During Test at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-R/tests.jl:192
+  Got exception outside of a @test
+  MethodError: no method matching reset_route_counts!()
+  The applicable method may be too new: running in world age 42871, while current world is 42908.
+  Closest candidates are:
+    reset_route_counts!() (method too new to be called from this world context.)
+     @ Main.MADenseProbe ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-R/instrumented.jl:5
+  Stacktrace:
+    [1] compare_case(x::@NamedTuple{backend::JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}, rhs::Vector{BigFloat}, dest::Vector{BigFloat}, shared_factor::Nothing}, direction::String, eligible::Bool; repeat_call::Bool, expected_exception::Nothing)
+      @ Main.MADenseProbeTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-R/tests.jl:138
+    [2] compare_case(x::@NamedTuple{backend::JSimplex.DenseLUBackend{BigFloat, LU{BigFloat, Matrix{BigFloat}, Vector{Int64}}}, rhs::Vector{BigFloat}, dest::Vector{BigFloat}, shared_factor::Nothing}, direction::String, eligible::Bool)
+      @ Main.MADenseProbeTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-R/tests.jl:131
+    [3] (::Main.MADenseProbeTests.var"#qualification##0#qualification##1"{Vector{NamedTuple}, Int64, Int64, String, String})()
+      @ Main.MADenseProbeTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-R/tests.jl:195
+    [4] #context##0
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-R/tests.jl:160 [inlined]
+    [5] setprecision(f::Main.MADenseProbeTests.var"#context##0#context##1"{Main.MADenseProbeTests.var"#qualification##0#qualification##1"{Vector{NamedTuple}, Int64, Int64, String, String}, Nothing}, ::Type{BigFloat}, prec::Int64; base::Int64)
+      @ Base.MPFR ./mpfr.jl:1214
+    [6] setprecision
+      @ ./mpfr.jl:1213 [inlined]
+    [7] context(f::Main.MADenseProbeTests.var"#qualification##0#qualification##1"{Vector{NamedTuple}, Int64, Int64, String, String}, bits::Int64, globalmode::RoundingMode{:Nearest}, scopedmode::Nothing)
+      @ Main.MADenseProbeTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-R/tests.jl:158
+    [8] context(f::Function, bits::Int64, globalmode::RoundingMode{:Nearest})
+      @ Main.MADenseProbeTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-R/tests.jl:154
+    [9] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-R/tests.jl:194 [inlined]
+   [10] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [11] qualification()
+      @ Main.MADenseProbeTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-R/tests.jl:193
+   [12] macro expansion
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S/driver.jl:97 [inlined]
+   [13] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [14] main()
+      @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S/driver.jl:97
+   [15] top-level scope
+      @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S/driver.jl:115
+   [16] include(mod::Module, _path::String)
+      @ Base ./Base.jl:309
+   [17] exec_options(opts::Base.JLOptions)
+      @ Base ./client.jl:344
+   [18] _start()
+      @ Base ./client.jl:577
+Test Summary:                                | Pass  Error  Total  Time
+complete MA-R correctness                    |   15      2     17  0.9s
+  MA-R prospective exact DenseLU comparisons |   15      2     17  0.9s
+RNG of the outermost testset: Random.Xoshiro(0x5d0c2135033b4698, 0x91749e1a26a85c0c, 0x077a8d979c6931be, 0x14eb797f798915dc, 0xc93f11f5d801ec76)

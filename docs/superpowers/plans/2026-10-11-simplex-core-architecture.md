@@ -2319,3 +2319,21 @@ already exists. No Julia/launcher execution or reservation in this preparation.
 Current MA-R continuation bindings map only to MA-S beforecopies; older maps intact.
 See MA-DENSELU-BIGFLOAT-ADMISSION-PREPARATION.md and results/MA-S/admission.md.
 Production/test/userenv/master unchanged; broader plan OPEN, CIoff/HHdisabled.
+
+## MA-S execution: stopped on driver world age (2026-10-14)
+
+One admitted guarded process exited1 after8.77849s. Smoke16/16 and exact two
+expected RED failures confirmed; correctness15pass/2error, no completed case or
+cost window. Base.include inside main introduced methods newer than its calling
+world; eligibility/reset calls failed before complete comparison. This is a driver
+loading failure, not an established candidate numerical defect or speedup result.
+Original audit17true/6false/all_passedfalse preserved, stages2/3 never started.
+No tuning/rerun or aggregate. New postcheck22PASS verifies4262pins,39seal bindings,
+514master/6protected identities and all160groups ANDsessions absent/noJulia.
+No production/test/env/master/CI changes. Qualification NOT ACCEPTED; Task3 blocked.
+Next: separately reviewed offline loader-boundary correction plan with unchanged
+candidate/fixtures/cost thresholds; fresh admission required before another short
+sequence. Standing human permission remains; consumed sequence cannot be reused.
+Preparation continuation hashes map ONLY to MA-S before-MA-S-execution copies;
+earlier MA-R/older mappings unchanged. See MA-DENSELU-BIGFLOAT-QUALIFICATION.md.
+Broader plan stays OPEN; HHdisabled/CIoff/automationpaused.

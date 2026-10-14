@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S/launcher-reviewed.py", line 61, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S/launcher-reviewed.py", line 59, in main
+    require(record.get('returncode')==0 and record['elapsed_seconds']<=120 and total<=360 and result['all_passed'],'failed qualification; stop, no retry')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S/audit_reviewed.py", line 12, in require
+    if not ok:raise ValueError(msg)
+              ^^^^^^^^^^^^^^^^^^^^^
+ValueError: failed qualification; stop, no retry
