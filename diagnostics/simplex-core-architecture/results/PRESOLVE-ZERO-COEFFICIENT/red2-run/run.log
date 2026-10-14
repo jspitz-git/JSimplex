@@ -1,0 +1,18 @@
+ERROR: LoadError: Some tests did not pass: 2 passed, 1 failed, 0 errored, 0 broken.
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/PRESOLVE-ZERO-COEFFICIENT/red.jl:14
+
+Missing zero matrix entries avoid exact-zero conversion: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/PRESOLVE-ZERO-COEFFICIENT/red.jl:17
+  Expression: count == 0
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/PRESOLVE-ZERO-COEFFICIENT/red.jl:15
+   [2] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [3] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/PRESOLVE-ZERO-COEFFICIENT/red.jl:17 [inlined]
+   [4] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+Test Summary:                                           | Pass  Fail  Total  Time
+Missing zero matrix entries avoid exact-zero conversion |    2     1      3  0.6s
+RNG of the outermost testset: Random.Xoshiro(0x76f0e5973e6761d2, 0x528c1fbe54c64f6b, 0x32c45386a36ee6f6, 0x7ff301643c33f92c, 0xec0ff0311350a315)

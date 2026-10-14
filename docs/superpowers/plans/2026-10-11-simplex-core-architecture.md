@@ -1,5 +1,33 @@
 # Simplex Core Architecture Implementation Plan
 
+## 2026-10-14 missing-zero candidate decision
+
+Missing-zero sparse-equality candidate tested; **REJECTED for allocation increase**.
+See PRESOLVE-ZERO-COEFFICIENT.md and results/PRESOLVE-ZERO-COEFFICIENT. Actual
+production/test/env/master remain unchanged at master6f68e24. Float64-only sentinel
+candidate has exact two-fragment inverse; generic precisions retain original path.
+RED expected count1 versus0:2PASS/1expectedFAIL; GREEN5,155focused assertions PASS.
+Nine synthetic cases3warm+8measured pairs each,99pairs/198scheduled aggregate calls;
+all measured144windows compile/recompile0, all saved results/inputowners equal.
+Four signed targets remove768events/128updates and~1.5%bytes, but nonzero control
+adds512events/18,432median bytes, zero multiplier384/14,352,dense36/1,296. No
+allocation-noise waiver; no universal time/full-presolve speedup. Compiler cause
+UNPROVED. Exact implementation is not promotable; no second variant or rerun.
+
+GREEN then failed before ANY Netlib measurement: new driver erroneously supplied
+unsupported native_reader keyword to read_mps. Exit1/no finalraw/launcher missingraw
+failure preserved. partial-analysis reconciles saved subset ONLY, not full PASS.
+No whole-presolve/large-model candidate measurement; fixing reader cannot rescue
+known cost rejection. Two short processes only, no old numerical/auditor reruns.
+Initial RED/GREEN admission rejections and separate corrections all preserved.
+
+Prior profile current STATUS/roadmap bindings map ONLY to zero experiment before-
+zero copies, explicitly recorded in continuation.json. All older mappings stay.
+Candidate/drivers/pins/raw/reviews FROZEN. Further work needs a genuinely different
+concrete implementation/admission; never repeat propagation or this frozen attempt
+as an equivalent next step. Broader plan OPEN, CIoff/HHdisabled/automationpaused.
+
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use `superpowers:executing-plans`
 > to execute sequentially, task by task. Steps use checkboxes for tracking.
 > This is a staged roadmap: each architectural stage starts with a small,

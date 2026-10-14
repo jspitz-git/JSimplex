@@ -1,0 +1,25 @@
+ERROR: LoadError: MethodError: no method matching read_mps(::String; native_reader::Bool)
+This method does not support all of the given keyword arguments (and may not support any).
+
+Closest candidates are:
+  read_mps(::AbstractString; format, rhs_name, ranges_name, bounds_name, objective_name, value_type) got unsupported keyword argument "native_reader"
+   @ JSimplex ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/presolve-zero-coefficient/candidate/src/mps.jl:62
+
+Stacktrace:
+ [1] kwerr(::@NamedTuple{native_reader::Bool}, ::Function, ::String)
+   @ Base ./error.jl:175
+ [2] kwcall(::@NamedTuple{native_reader::Bool}, ::typeof(read_mps), path::String)
+   @ JSimplex ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/presolve-zero-coefficient/candidate/src/mps.jl:62
+ [3] main()
+   @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/PRESOLVE-ZERO-COEFFICIENT/green-reviewed.jl:33
+ [4] top-level scope
+   @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/PRESOLVE-ZERO-COEFFICIENT/green-reviewed.jl:43
+ [5] include(mod::Module, _path::String)
+   @ Base ./Base.jl:309
+ [6] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:344
+ [7] _start()
+   @ Base ./client.jl:577
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/PRESOLVE-ZERO-COEFFICIENT/green-reviewed.jl:43
+Test Summary:                         | Pass  Total   Time
+Zero coefficient candidate regression | 5155   5155  11.0s
