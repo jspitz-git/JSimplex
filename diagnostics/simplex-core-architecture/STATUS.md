@@ -47,23 +47,23 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-MA-S-LOAD prepares a separate UNEXECUTED driver with exactly two phase-level
-Base.invokelatest calls after include: full correctness and full costs. No timed
-backend/candidate/fixture/threshold changes. Whole-driver inverse exact; source
-RED2missing markers/GREEN11checks/13bindings, fresh entry12checks/full4262pins,
-514source/6protected/full160groups ANDsessions/noJulia. No Julia in preparation.
-See MA-DENSELU-BIGFLOAT-LOADER-FIX.md and results/MA-S-LOAD/plan.md.
-Independent review decision: results/MA-S-LOAD/review.md/json. Only acceptance
-allows the next NEW MA-S-2 immutable admission preparation; no launcher/run is
-created or executed here. Standing short-run permission persists; no redundant
-permission question. Future sequence keeps all fixed fixtures/gates/3x120s caps.
-MA-S original failed sequence remains consumed: smoke16PASS/RED2expected failures,
-correctness15PASS2ERROR world age; no complete case/cost window, no speedup claim.
-Do not resume/rerun old stages or edit frozen evidence. Task3 stays conditional.
-Six current MA-S result-review/execution-closure/execution-publication bindings
-map ONLY to MA-S-LOAD before-MA-S-LOAD copies; all earlier mappings remain.
-Production/test/userenv/master6f68e24 unchanged; broader plan OPEN,
-CIoff/HHdisabled/automationpaused.
+MA-S-2 separate admission is prepared for the exact accepted MA-S-LOAD driver.
+New launcher.py/audit.py/guard.py/commands.json/admission.md/pins.json with4304fresh
+bindings; entry12PASS/source8PASS/new80synthetic checks/freeze5PASS. No Julia or
+launcher/guard main, reservation or numerical output. Independent preparation
+decision: MA-S-2/admission-review.md/json. See MA-DENSELU-BIGFLOAT-SECOND-ADMISSION.md.
+Only after acceptance, next step is fresh current refs/boot/start_ticks/command/
+full160groups ANDsessions plus newer groups/noJulia/source/user checks, NEW
+launch-context and independently accepted numerical-review, then ONE fixed sequence.
+The context must use the published preparation HEAD; old parent refs/seals are not
+launch permission. Standing short-run permission persists; do not ask again.
+Fixed3serial120s/360s caps,160correctness/52cost cases, all old gates unchanged.
+Stop on first unexpected failure, no retry/tuning. No run is performed in preparation.
+Old MA-S sequence consumed/failed and frozen; no stages2/3 resume. LOAD driver
+runtime repair still unqualified; Task3 remains conditional, broader plan OPEN.
+Six current LOAD review/closure/publication continuation hashes map ONLY to
+MA-S-2 before-MA-S-2 copies. All older S/LOAD mappings unchanged.
+Production/test/userenv/master6f68e24 unchanged; CIoff/HHdisabled/automationpaused.
 
 ## Previous MA-S admission preparation (completed before execution)
 

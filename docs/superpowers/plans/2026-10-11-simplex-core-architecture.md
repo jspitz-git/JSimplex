@@ -2352,3 +2352,20 @@ See MA-DENSELU-BIGFLOAT-LOADER-FIX.md and results/MA-S-LOAD/plan.md.
 Six MA-S execution current continuation bindings map only to MA-S-LOAD beforecopies;
 all older maps unchanged. Production/test/env/master unchanged, Task3 conditional,
 CIoff/HHdisabled/automationpaused and broader plan OPEN.
+
+## MA-S-2 separate admission preparation (2026-10-14)
+
+New copied launcher/auditor/guard and commands bind the unchanged accepted LOAD
+driver and unused S-2 outputs. Source8PASS,80new synthetic Python checks,entry12PASS,
+4304freshpins/freeze5PASS. Old4262unchanged,source514/protected6/full160groups ANDsessions.
+Initial inverse-helper failure preserved; separate positional inverse preparation
+passes without changing forward logic. Raw validator/aggregate AST unchanged, guard
+byte-identical, posthost minimum160 with full actual group/session checks.
+No Julia/parser/import/compile/numerics/launcher/guard main/reservation. Independent
+preparation decision in MA-S-2/admission-review.md/json. After acceptance, fresh
+published refs/host/pins and a NEW independent numerical seal precede ONE fixed
+3x120s sequence. No retry/tuning/oldsequence resume; all fixtures/counts/gates unchanged.
+See MA-DENSELU-BIGFLOAT-SECOND-ADMISSION.md and MA-S-2/admission.md. Current LOAD
+continuation hashes map only to S-2 beforecopies; earlier maps intact.
+Production/test/env/master unchanged; Task3 conditional, broader plan OPEN,
+CIoff/HHdisabled/automationpaused. No runtime correctness or speedup claim.

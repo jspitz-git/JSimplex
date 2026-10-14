@@ -1,0 +1,163 @@
+{
+  "all_passed": true,
+  "checks": {
+    "audit_inverse": true,
+    "launcher_inverse": true,
+    "guard_byte_identical": true,
+    "aggregate_AST_identical": true,
+    "raw_validator_AST_identical": true,
+    "commands_only_driver_output_changed": true,
+    "driver_is_accepted_exact": true,
+    "no_launch": true
+  },
+  "transformations": [
+    {
+      "original": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S/audit_reviewed.py",
+      "candidate": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S-2/audit.py",
+      "replacements": [
+        [
+          "MA-S fail-closed",
+          "MA-S-2 fail-closed"
+        ],
+        [
+          "'pins-reviewed.json'",
+          "'pins.json'"
+        ],
+        [
+          "len(groups)>=158",
+          "len(groups)>=160"
+        ]
+      ],
+      "inverse": true,
+      "edit_spans": [
+        [
+          3,
+          "MA-S fail-closed",
+          "MA-S-2 fail-closed"
+        ],
+        [
+          7999,
+          "'pins-reviewed.json'",
+          "'pins.json'"
+        ],
+        [
+          7572,
+          "'pins-reviewed.json'",
+          "'pins.json'"
+        ],
+        [
+          6816,
+          "len(groups)>=158",
+          "len(groups)>=160"
+        ]
+      ]
+    },
+    {
+      "original": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S/launcher-reviewed.py",
+      "candidate": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S-2/launcher.py",
+      "replacements": [
+        [
+          "MA-S one reserved",
+          "MA-S-2 one reserved"
+        ],
+        [
+          "import audit_reviewed as audit",
+          "import audit"
+        ],
+        [
+          "pins-reviewed.json",
+          "pins.json"
+        ],
+        [
+          "required-paths-reviewed.json",
+          "required-paths.json"
+        ],
+        [
+          "admission-review-final.json",
+          "admission-review.json"
+        ],
+        [
+          "launcher-reviewed.py",
+          "launcher.py"
+        ]
+      ],
+      "inverse": true,
+      "edit_spans": [
+        [
+          3,
+          "MA-S one reserved",
+          "MA-S-2 one reserved"
+        ],
+        [
+          265,
+          "import audit_reviewed as audit",
+          "import audit"
+        ],
+        [
+          4140,
+          "pins-reviewed.json",
+          "pins.json"
+        ],
+        [
+          3842,
+          "pins-reviewed.json",
+          "pins.json"
+        ],
+        [
+          3484,
+          "pins-reviewed.json",
+          "pins.json"
+        ],
+        [
+          2883,
+          "pins-reviewed.json",
+          "pins.json"
+        ],
+        [
+          985,
+          "pins-reviewed.json",
+          "pins.json"
+        ],
+        [
+          529,
+          "pins-reviewed.json",
+          "pins.json"
+        ],
+        [
+          3012,
+          "required-paths-reviewed.json",
+          "required-paths.json"
+        ],
+        [
+          2890,
+          "admission-review-final.json",
+          "admission-review.json"
+        ],
+        [
+          1024,
+          "admission-review-final.json",
+          "admission-review.json"
+        ],
+        [
+          880,
+          "admission-review-final.json",
+          "admission-review.json"
+        ],
+        [
+          2789,
+          "launcher-reviewed.py",
+          "launcher.py"
+        ]
+      ]
+    }
+  ],
+  "sha256": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S-2/prepare-2.py": "4b71eb4de5b81182e958a0f85c0db0af3dd36842113e9c5e8c4f72697b622264",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S-2/audit.py": "bd805fc00760e5a4009cfe14473534da7d1ebdfbb0dc42c99c27c0d38b1738c9",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S-2/launcher.py": "a6c46850c1de3f917230aeedbf01d69c8ecb42f79433136b589c2ba04aff3cf2",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S-2/guard.py": "9ce491459f959b45f65d757e20da483f3efab3808a5f691e207bd0e9fefcd7c8",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S-2/commands.json": "1fc5ac6dd9a4d9e7ac83e5fae87dd3afd656cfe5861235d0009c6d3e22c10ec0",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S-2/offline-tests.py": "22a46432451bf5e04b3aadba427a074078bc0e480866a3bd4e3590070a250d4d"
+  },
+  "scope": "Python source/AST only. No Julia parse/import/compile/numerics. No launcher/guard main."
+}

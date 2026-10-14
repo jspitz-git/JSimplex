@@ -1,0 +1,10 @@
+Original prepare.py stopped before creating copied artifacts:
+Inverse failure audit.py
+A subsequently listed shell command, without failfast, attempted only the missing
+Python test file (no script executed):
+/usr/bin/python3: can't open file '.../MA-S-2/offline-tests.py': [Errno 2] No such file or directory
+Combined shell exit2. The inverse used global replacement of pins.json, also
+changing preexisting output pins.json references that had not been edited.
+Separate prepare-2.py uses exact reverse positional spans for the same forward
+substitutions; no launcher/audit/guard/numerical behavior was changed by this fix.
+Original source preserved and never rerun. No Julia or guard/launcher execution.
