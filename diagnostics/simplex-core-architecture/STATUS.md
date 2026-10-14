@@ -47,6 +47,25 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
+MA-S corrected admission preparation is independently accepted with no unresolved
+findings. Original two P2 schema findings and rejected review are preserved. See
+MA-DENSELU-BIGFLOAT-ADMISSION-PREPARATION.md and results/MA-S/admission.md.
+Immutable MA-R sources; new unexecuted driver/guard/launcher/auditor/commands,
+Canonical launcher-reviewed.py/audit_reviewed.py/admission-reviewed.md and
+pins-reviewed.json have4262fresh source/runtime bindings;65new Python checks pass
+(including original coverage). Original4247pins/36checks/review remain unchanged.
+No Julia/parser/import/compile/driver/launcher executed; no numerical output or
+reservation. Future launch requires fresh full158groups ANDsessions/noJulia/current
+refs and a launch-context + independent numerical-review seal. Standing human
+short-run permission exists; do not ask again. At most3serial120s processes,
+488correctness/smoke +12480cost backend entries; no retry/tuning on failure.
+All52per-case original cost gates remain; production/public integration conditional.
+Current MA-R completion/closure/publication STATUS/roadmap hashes map ONLY to
+MA-S/STATUS.md.before-MA-S and roadmap.md.before-MA-S. All older maps unchanged.
+Production/test/userenv/master unchanged, CIoff/HHdisabled/automationpaused.
+
+## Previous MA-R preparation (completed)
+
 MA-R isolated DenseLU BigFloat candidate/reference/tests are independently accepted
 for MA-S admission preparation. One cancellation-fixture coverage finding was fixed
 offline; final gpt-6-astra review has no unresolved findings. See MA-DENSELU-BIGFLOAT-PREPARATION.md and

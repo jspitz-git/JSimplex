@@ -2304,3 +2304,18 @@ production/test/user environment/master/CI change. Next after acceptance: MA-S
 concrete guarded numerical admission preparation, preserving MA-Q criteria.
 Six current MA-Q continuation bindings map only to MA-R beforecopies; Q's earlier
 review-before-completion and all older mappings remain. Broader plan OPEN.
+
+## MA-S bounded admission preparation (2026-10-14)
+
+Immutable MA-R candidate retained; new unexecuted driver/launcher/auditor,
+Initial4247pins/36synthetic checks and rejected review preserved. One separate
+S1/S2 schema fix accepted by final independent gpt-6-astra review; canonical
+reviewed variants have4262pins/65Python checks, no unresolved findings and no
+unnecessary candidate work/memory. Numerical schedule remains unconsumed.
+Fixed160correctness/52cost cases;488+12480backend entries,318explicit setup
+factorizations,2PFI copies. Three serial120s processes only after fresh host/ref
+launch-context and independent numerical-review seal. Standing short-run permission
+already exists. No Julia/launcher execution or reservation in this preparation.
+Current MA-R continuation bindings map only to MA-S beforecopies; older maps intact.
+See MA-DENSELU-BIGFLOAT-ADMISSION-PREPARATION.md and results/MA-S/admission.md.
+Production/test/userenv/master unchanged; broader plan OPEN, CIoff/HHdisabled.

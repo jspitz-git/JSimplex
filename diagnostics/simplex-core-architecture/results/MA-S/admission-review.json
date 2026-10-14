@@ -1,0 +1,70 @@
+{
+  "accepted": false,
+  "findings": [
+    {
+      "id": "S1",
+      "priority": 2,
+      "file": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S/audit.py",
+      "start": 61,
+      "end": 61,
+      "title": "Reject non-integer window indices",
+      "body": "The pair/order schema compares only values. Python treats True == 1 and 1.0 == 1 as true, so malformed TOML records pass the exact-order gate. A fresh independent synthetic 52-case process-2 record was accepted after separately replacing the first window pair or order with True or 1.0 (four accepted malformed variants). Require type(value) is int for both fields before equality, and preserve regression evidence for Boolean and floating-point variants."
+    },
+    {
+      "id": "S2",
+      "priority": 2,
+      "file": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S/audit.py",
+      "start": 73,
+      "end": 79,
+      "title": "Validate stage exit and resource scalar schemas",
+      "body": "The stage gate similarly accepts false as a successful returncode (False == 0), and the memory predicate accepts infinite available_kib or negative swap_used_kib because it only applies one-sided bounds. These are malformed/impossible process evidence, which the stated fail-closed audit must reject. Require integer exit codes and finite nonnegative integer KiB values (including terminal_memory); apply equivalent strict checks to stage numeric identity/limit fields used as admission evidence, and add synthetic stage-level malformed/missing tests. Existing offline tests cover raw records and pressure boundaries, but never exercise stage() evidence schema."
+    }
+  ],
+  "pins_sha256": "193eb69caac6e29c46b66279de49e566b9bde3ab4b08a71daec4914438ca6e4c",
+  "checks": {
+    "full_manifest_count": 4247,
+    "full_manifest_hashes_and_resolved_paths": true,
+    "full_tree_and_required_membership": true,
+    "all_seven_source_map_inverses": true,
+    "production_514_unchanged": true,
+    "host_historical_groups": 158,
+    "author_evidence_bindings_match": true,
+    "python_AST_only": true,
+    "no_Julia_execution": true,
+    "no_launcher_or_guard_main_execution": true,
+    "no_historical_script_rerun": true,
+    "no_launch_seal_or_output": true,
+    "correctness_backend_calls": 488,
+    "cost_backend_calls": 12480,
+    "total_explicit_backend_calls": 12968,
+    "setup_factorizations": 318,
+    "PFI_copies": 2,
+    "total_windows": 3120,
+    "warm_windows": 936,
+    "measured_windows": 2184,
+    "private_Test_timing_MA_APIs_source_checked": true,
+    "independent_valid_synthetic_raw_passed": true,
+    "malformed_boolean_pair_accepted": true,
+    "malformed_boolean_order_accepted": true,
+    "malformed_float_pair_accepted": true,
+    "malformed_float_order_accepted": true
+  },
+  "sha256": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S/pins.json": "193eb69caac6e29c46b66279de49e566b9bde3ab4b08a71daec4914438ca6e4c",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S/required-paths.json": "2bb2f1d985a1a3f78367af45d2663dd54b1276c3bddbdb617450a281f6ec0be7",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S/admission.md": "4751a0f27645e730c30472b593d6b27b645f577eda1edb82ce5adc863f73911d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S/driver.jl": "79c2bbc9d81abb0d54ed8b63b989c4a40101b28ebb710f3ee9592f737a15838a",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S/audit.py": "b794eff3cda76b29678a87d00e12528645f3598ff05c51833825f97932af0080",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S/launcher.py": "642b293f473bb9e519b1cdce58c64ab76384379b1aac8309de02864de199780f",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S/guard.py": "9ce491459f959b45f65d757e20da483f3efab3808a5f691e207bd0e9fefcd7c8",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S/commands.json": "4be9296fa8ee8e561ed4eb64bf608a25dd37b46dbfc148de040fa9d2906afc77",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S/host.json": "86660191182b0ec5f5ec573ee7e9c960c5d67f1cc0e98aa630d632b984d2ff8e",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S/offline-tests.py": "ed3b2799188379bc409a737bb6032afb1f8e479e2391832c3f35d2a520e3966e",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S/offline-tests.json": "6d450d7bdceadff628e46149a77152cd9c80f5246e888f2c58fec963d1430b7b",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S/prepare-pins.py": "26b84cdfd020bcfc689661ffa6f7e7cee0b6e9c02f9f755a31ad83aeee18e830",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S/preparation-check.json": "4e969ca6c7154feec40c3f1132e3a21d9d3774182db5119f5f3b9ababa6b05c0",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S/source-check.py": "7184f9985a8eb10c8b8a5075e67cbe1284ac923ea5a157c7aaa26046af29d6ba",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S/source-check.json": "3bf854dc9f0cd3f5b61e2d85b5a737474cc5cf095cebf8c0fe8e06ca751c4f40",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S/admission-review.md": "8c2d03f773be3fd3468e6ec76c116564fb86f0bc10d94d8b95cfc8100f7c8a2f"
+  }
+}
