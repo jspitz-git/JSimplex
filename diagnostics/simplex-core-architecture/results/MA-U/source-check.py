@@ -1,0 +1,19 @@
+from pathlib import Path
+import hashlib,json,tomllib
+R=Path.cwd();D=R/'diagnostics/simplex-core-architecture/results/MA-U';P=D.with_name('MA-R');T=D.with_name('MA-T')
+def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def rd(p):return json.loads(Path(p).read_text())
+m=rd(D/'source-map.json');new=(D/'candidate.jl').read_text();old=(P/'candidate.jl').read_text();tests=(D/'guard-tests.jl').read_text()
+if not new.startswith(m['helper']):raise SystemExit('Helper prefix drift')
+inverse=new[len(m['helper']):].replace(m['new_expression'],m['old_expression'])
+spec=tomllib.loads((D/'fixtures.toml').read_text());t=rd(T/'source.json');fix=rd(T/'review-fix.json');maps={x['path']:x['preserved'] for x in fix['old_bindings'] if x['source']==str(T/'source.json')}
+oldfunc=old[old.index('function _dense_ma_eligible'):old.index('\n@inline _dense_ma_mul!')]
+testfunc=tests[tests.index('function old_eligible'):tests.index('\n\nfunction unrelated')].replace('function old_eligible','function _dense_ma_eligible').replace('P.DenseLUBackend','DenseLUBackend')
+cases=3*2*2*2*5*6 +2*len(spec['specials'])*2 +2*5*2 +2*2 +len(spec['mixed_stored_ambient'])*2*2
+checks=dict(inverse_byte_exact=inverse.encode()==(P/'candidate.jl').read_bytes(),single_replacement=new.count(m['new_expression'])==1,helper_exact=new[:len(m['helper'])]==m['helper'],products12=new.count('_dense_ma_mul!(product,')==12 and old.count('_dense_ma_mul!(product,')==12,arithmetic_tail_unchanged=new[new.index('@inline _dense_ma_mul!'):]==old[old.index('@inline _dense_ma_mul!'):],copies5=all(sha(x['original'])==sha(x['copy'])==x['sha256'] for x in m['copy_pairs']) and len(m['copy_pairs'])==5,old_eligibility_inverse=testfunc==oldfunc,pinned_sources16=all(sha(maps.get(p,p))==v for p,v in t['sha256'].items()),predicate_grid270=3*5*6*3==270 and '@test length(records) == 270' in tests,whole_cases840=cases==840 and '@test length(records) == 840' in tests,per_side844=cases+2*2==844 and '@test sum(r.calls_per_side for r in records) == 844' in tests,five_modes='(RoundNearest, RoundDown, RoundUp, RoundToZero, RoundFromZero)' in tests,task_transitions='@test all(istaskdone, tasks)' in tests and 'yield()' in tests and 'tasks_created=3' in tests,unwind_identity='@test caught === sentinel' in tests,no_scope_explicit='available = Core.current_scope() === nothing' in tests and 'record = available ? guard_record' in tests,restore_globals='Base.MPFR.ROUNDING_MODE[] = oldraw' in tests and '@test precision(BigFloat) == oldprecision' in tests,old_false=rd(D.with_name('MA-S-2')/'aggregate.json')['accepted'] is False,one_local_inline=m['helper'].count('Base.@inline')==1 and '@assume_effects' not in new,author_fix4=rd(D/'author-fix.json')['all_passed'] is True and len(rd(D/'author-fix.json')['checks'])==4)
+paths=[D/n for n in ['candidate.jl','guard-tests.jl','reference.jl','tests.jl','fixtures.toml','instrumented.jl','JULIA-LICENSE.md','source-map.json','prepare.py','source-red.json','guard-tests.jl.before-author','author-fix.py','author-fix.json','work-ledger.md','source-check.py']]+[Path(maps.get(p,p)) for p in t['sha256']]+[T/'source.json',T/'review-final.json',R/'docs/superpowers/plans/2026-10-14-ma-rounding-guard.md']
+paths=list(dict.fromkeys(paths))
+o=dict(all_passed=all(checks.values()),checks=checks,sha256={str(p):sha(p) for p in paths},prospective=dict(predicate_grid=270,transitions=25,optional_no_scope=1,whole_cases=840,calls_per_side=844,backend_entries=2532,bundle_setups=840,pfi_constructors=4,pfi_copies=4,new_eligibility_calls=2528,new_guard_calls=[2715,2716],old_rounding_expression_calls=[1099,1100]),scope='Offline textual source and fixture checks ONLY. No Julia parse, execution, compiler or allocation acceptance.')
+with (D/'source-green.json').open('x') as f:json.dump(o,f,indent=2);f.write('\n')
+print(json.dumps(dict(all_passed=o['all_passed'],checks=checks,bindings=len(paths))))
+if not o['all_passed']:raise SystemExit(1)

@@ -1,0 +1,16 @@
+from pathlib import Path
+import hashlib,json
+D=Path.cwd()/'diagnostics/simplex-core-architecture/results/MA-U';p=D/'guard-tests.jl';before=p.read_text()
+def sha(q):return hashlib.sha256(Path(q).read_bytes()).hexdigest()
+red=dict(inaccurate_inverse_comment='with only its function name changed.' in before,return_inside_testset='        return (predicates=predicates, transitions=transitions, whole=whole)\n    end' in before)
+if not all(red.values()):raise SystemExit('Unexpected original text')
+with (D/'guard-tests.jl.before-author').open('xb') as f:f.write(p.read_bytes())
+s=before.replace('with only its function name changed.','with function name and DenseLUBackend qualification changed.')
+s=s.replace('function qualification()\n    @testset', 'function qualification()\n    predicates = nothing; transitions = nothing; whole = nothing\n    @testset')
+s=s.replace('        return (predicates=predicates, transitions=transitions, whole=whole)\n    end\nend', '    end\n    return (predicates=predicates, transitions=transitions, whole=whole)\nend')
+p.write_text(s)
+checks=dict(comment_precise='function name and DenseLUBackend qualification changed.' in s,finish_before_return='    end\n    return (predicates=predicates, transitions=transitions, whole=whole)' in s,tests_calls_unchanged=before.count('@test')==s.count('@test'),old_pin_matches=sha(D/'guard-tests.jl.before-author')==json.loads((D/'source-red.json').read_text())['sha256'][str(p)])
+o=dict(all_passed=all(checks.values()),red=red,checks=checks,scope='Offline author textual correction: exact qualifier description and return after testset completion. No Julia parse or demonstrated runtime failure.',old_bindings=[dict(source=str(D/'source-red.json'),path=str(p),preserved=str(D/'guard-tests.jl.before-author'),sha256=sha(D/'guard-tests.jl.before-author'))],sha256={str(q):sha(q) for q in [D/'author-fix.py',D/'guard-tests.jl.before-author',p,D/'source-red.json']})
+with (D/'author-fix.json').open('x') as f:json.dump(o,f,indent=2);f.write('\n')
+print(json.dumps(checks))
+if not o['all_passed']:raise SystemExit(1)

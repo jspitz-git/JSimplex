@@ -1,0 +1,242 @@
+# UNEXECUTED MA-R tests. Include after reference.jl; load candidate/instrumented
+# before qualification(). No top-level numerical calls, no test auto-run.
+module MADenseProbeTests
+using Test, LinearAlgebra, TOML
+using ..MADenseProbe
+const P = MADenseProbe
+const FIXTURES = joinpath(@__DIR__, "fixtures.toml")
+
+# A changed route predicate, a mutated factor/RHS leaf, reordered arithmetic or
+# a swallowed/early exception must fail these comparisons against original ldiv!.
+token(x) = (isnan(x) ? :nan : isinf(x) ? :inf : Rational{BigInt}(x),
+            signbit(x), x isa BigFloat ? precision(x) : 0)
+tokens(A) = map(token, A)
+function matrix_rhs(T, n, layout)
+    A = Matrix{T}(undef, n, n)
+    for j in 1:n, i in 1:n
+        q = i == j ? (n+2)//1 + i//16 :
+            (layout == "dense" || abs(i-j)==1 || (i==n && j==1)) ?
+            (-1)^(i+j)*(1+mod(3i+5j,7))//64 : 0//1
+        A[i,j] = T(q)
+    end
+    b = T[(-1)^i*(1+i//16) for i in 1:n]
+    return A,b
+end
+function bundle(n, layout, kind="ordinary"; T=BigFloat)
+    A,b = matrix_rhs(T,n,layout)
+    if kind == "identity"
+        A = Matrix{T}(I,n,n)
+    elseif kind == "row_swap"
+        A[[1,n],:] = A[[n,1],:]
+    end
+    copied = kind == "copied_pfi"
+    shared_factor = nothing
+    if copied
+        factor = P.JSimplex.PFIFactorization(A)
+        saved = P.JSimplex.copy_basis_factorization(factor)
+        @test saved.base === factor.base
+        backend = saved.base
+        shared_factor = factor
+    else
+        F = lu!(A)
+        backend = P.DenseLUBackend{T,typeof(F)}(F)
+    end
+    F = backend.factorization
+    d = T[0 for _ in 1:n]
+    if startswith(kind,"pivot_zero_")
+        k = parse(Int,split(kind,'_')[end]); F.factors[k,k] = T(0)
+    elseif kind == "invalid_ipiv"
+        F.ipiv[8] = 17
+    elseif kind == "rhs_short"
+        resize!(b,15)
+    elseif kind == "dest_long"
+        push!(d,T(0))
+    elseif kind == "rhs_view"
+        b = view(b,:)
+    elseif kind == "same_container"
+        d = b
+    elseif kind == "shared_leaves"
+        d = copy(b) # distinct containers; identical mutable leaves before solve
+    elseif kind == "factor_rhs_leaf"
+        b[1] = F.factors[1,1]; d[2] = b[1]
+    elseif kind == "cancellation"
+        # Packed L/U: unit diagonals and L21=U12=2^128. Both orientations
+        # subtract exactly 2^128 * 2^128 from b2=2^256 at their first update.
+        for j in 1:n, i in 1:n
+            F.factors[i,j] = T(i==j)
+        end
+        F.ipiv .= 1:n
+        for i in 1:n
+            b[i] = T(0)
+        end
+        F.factors[2,1] = T(2)^128; F.factors[1,2] = T(2)^128
+        b[1] = T(2)^128; b[2] = T(2)^256
+    elseif kind == "signed_zero"
+        for i in 1:n
+            b[i] = isodd(i) ? -T(0) : T(0)
+        end
+        F.factors[1,n] = -T(0); F.factors[n,1] = T(0)
+    elseif kind == "rhs_inf"
+        b[n] = T(Inf)
+    elseif kind == "rhs_nan"
+        b[1] = T(NaN)
+    elseif kind == "factor_inf"
+        F.factors[1,n] = T(Inf)
+    elseif kind == "factor_nan"
+        F.factors[n,1] = T(NaN)
+    end
+    return (backend=backend,rhs=b,dest=d,shared_factor=shared_factor)
+end
+
+function observe(f, x, repeat_call)
+    F=x.backend.factorization
+    before_factor=tokens(F.factors); before_ipiv=copy(F.ipiv)
+    before_rhs=tokens(x.rhs)
+    factor_owners=copy(vec(F.factors)); rhs_owners=collect(x.rhs)
+    old_leaves=vcat(vec(F.factors),collect(x.rhs),x.dest)
+    old_tokens=tokens(old_leaves)
+    old_ids=IdDict{Any,Int}()
+    for (i,v) in enumerate(old_leaves)
+        haskey(old_ids,v) || (old_ids[v]=i)
+    end
+    calls=0; failure=nothing; previous=nothing
+    for k in 1:(repeat_call ? 2 : 1)
+        calls+=1
+        result = nothing
+        try
+            result = f(x.dest,x.backend,x.rhs)
+        catch err
+            failure=(string(typeof(err)),sprint(showerror,err))
+        end
+        failure===nothing || break
+        @test result === x.dest
+        if k==1 && repeat_call
+            previous=(owners=copy(x.dest),values=tokens(x.dest))
+        end
+    end
+    @test tokens(F.factors)==before_factor
+    @test F.ipiv==before_ipiv
+    @test all(a===b for (a,b) in zip(F.factors,factor_owners))
+    x.shared_factor===nothing || (@test x.shared_factor.base===x.backend)
+    @test tokens(old_leaves)==old_tokens
+    if x.dest !== x.rhs
+        @test tokens(x.rhs)==before_rhs
+        @test all(a===b for (a,b) in zip(x.rhs,rhs_owners))
+    end
+    previous===nothing || (@test tokens(previous.owners)==previous.values)
+    new_ids=IdDict{Any,Int}()
+    output_owner_map=[get!(new_ids,v,i) for (i,v) in enumerate(x.dest)]
+    return (output_owner_map=output_owner_map,output=tokens(x.dest),rhs=tokens(x.rhs),failure=failure,calls=calls,old_owner_map=[get(old_ids,v,0) for v in x.dest])
+end
+function compare_case(x,direction,eligible; repeat_call=false, expected_exception=nothing)
+    ref = direction=="forward" ? P.reference_forward! : P.reference_transpose!
+    cand = direction=="forward" ? P.candidate_forward! : P.candidate_transpose!
+    inst = direction=="forward" ? P.instrumented_forward! : P.instrumented_transpose!
+    a,b,c=deepcopy(x),deepcopy(x),deepcopy(x)
+    @test P._dense_ma_eligible(b.dest,b.backend,b.rhs) === eligible
+    ra=observe(ref,a,repeat_call); rb=observe(cand,b,repeat_call)
+    P.reset_route_counts!()
+    rc=observe(inst,c,repeat_call)
+    @test ra==rb==rc
+    if expected_exception===nothing
+        @test ra.failure===nothing
+    else
+        @test ra.failure!==nothing
+        @test ra.failure[1]==string(expected_exception)
+    end
+    @test P.route_counts() == (entries=rc.calls,
+        scratches=eligible ? rc.calls : 0, fallbacks=eligible ? 0 : rc.calls)
+    return (direction=direction,eligible=eligible,calls_per_side=ra.calls,
+            exception=ra.failure,output=ra.output)
+end
+
+function context(f, bits, globalmode, scopedmode=nothing)
+    oldraw=Base.MPFR.ROUNDING_MODE[]; oldprecision=precision(BigFloat)
+    oldround=rounding(BigFloat)
+    try
+        setrounding(BigFloat,globalmode)
+        return setprecision(BigFloat,bits) do
+            if scopedmode === nothing
+                f()
+            else
+                # Nested mismatch: inner mode returns to outer scoped RoundUp.
+                setrounding(BigFloat,RoundUp) do
+                    ans=setrounding(f,BigFloat,scopedmode)
+                    @test rounding(BigFloat)==RoundUp
+                    ans
+                end
+            end
+        end
+    finally
+        Base.MPFR.ROUNDING_MODE[]=oldraw
+        @test precision(BigFloat)==oldprecision
+        @test rounding(BigFloat)==oldround
+    end
+end
+function reference_smoke()
+    for direction in ("forward","transpose")
+        x=bundle(2,"dense")
+        f=direction=="forward" ? P.reference_forward! : P.reference_transpose!
+        r=observe(f,x,false)
+        @test r.failure===nothing
+    end
+end
+function route_red()
+    @testset "original lacks optimization route (expected RED only)" begin
+        @test isdefined(P,:_dense_ma_eligible)
+        @test isdefined(P,:candidate_forward!) && isdefined(P,:candidate_transpose!)
+    end
+end
+function qualification()
+    spec=TOML.parsefile(FIXTURES); records=NamedTuple[]
+    @testset "MA-R prospective exact DenseLU comparisons" begin
+        for bits in spec["bits"], n in spec["sizes"], layout in spec["layouts"], dir in spec["directions"]
+            context(bits,RoundNearest) do
+                push!(records,merge((id="grid/$bits/$n/$layout/$dir",),compare_case(bundle(n,layout),dir,n>=16)))
+            end
+        end
+        for kind in spec["specials"], dir in spec["directions"]
+            context(256,RoundNearest) do
+                eligible=!(kind in ("rhs_short","dest_long","rhs_view"))
+                expected = startswith(kind,"pivot_zero_") ? SingularException :
+                    kind=="invalid_ipiv" ? BoundsError : kind=="dest_long" ? DimensionMismatch : nothing
+                push!(records,merge((id="special/$kind/$dir",),compare_case(bundle(16,"dense",kind),dir,eligible;
+                    repeat_call=kind=="retained_outputs", expected_exception=expected)))
+                if kind=="cancellation"
+                    @test records[end].output[1][1] == BigInt(2)^128//1
+                    @test records[end].output[2][1] == 0//1
+                    @test all(v[1] == 0//1 for v in records[end].output[3:end])
+                end
+            end
+        end
+        for pair in spec["mixed_stored_ambient"], dir in spec["directions"]
+            stored,ambient=pair
+            x=context(stored,RoundNearest) do
+                bundle(16,"dense")
+            end
+            context(ambient,RoundNearest) do
+                push!(records,merge((id="mixed/$stored/$ambient/$dir",),compare_case(x,dir,true)))
+            end
+        end
+        modes=Dict("RoundNearest"=>RoundNearest,"RoundDown"=>RoundDown,
+                   "RoundUp"=>RoundUp,"RoundToZero"=>RoundToZero)
+        for mode in spec["matching_rounding"], dir in spec["directions"]
+            context(256,modes[mode]) do
+                push!(records,merge((id="rounding/$mode/$dir",),compare_case(bundle(16,"dense"),dir,true)))
+            end
+        end
+        for mode in spec["scoped_mismatch"], dir in spec["directions"]
+            context(256,RoundNearest,modes[mode]) do
+                push!(records,merge((id="scoped/$mode/$dir",),compare_case(bundle(16,"dense"),dir,false)))
+            end
+        end
+        for T in (Float64,Rational{BigInt}), dir in spec["directions"]
+            push!(records,merge((id="scalar/$T/$dir",),compare_case(bundle(32,"dense";T=T),dir,false)))
+        end
+        @test length(unique(r.id for r in records))==160
+        @test length(records)==160
+        @test sum(r.calls_per_side for r in records)==162
+    end
+    return records
+end
+end # MADenseProbeTests

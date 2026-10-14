@@ -1,0 +1,35 @@
+{
+  "original": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-R/candidate.jl",
+  "candidate": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-U/candidate.jl",
+  "helper": "function _dense_ma_rounding_matches()::Bool\n    scope = Core.current_scope()::Union{Base.ScopedValues.Scope,Nothing}\n    scope === nothing && return true\n    key = Base.MPFR.CURRENT_ROUNDING_MODE\n    v = Base.@inline Base.KeyValue.get(scope.values, key)\n    v === nothing && return true\n    return (only(v)::Base.MPFR.MPFRRoundingMode) == Base.MPFR.ROUNDING_MODE[]\nend\n\n",
+  "old_expression": "    return Base.MPFR.rounding_raw(BigFloat) == Base.MPFR.ROUNDING_MODE[]\n",
+  "new_expression": "    return _dense_ma_rounding_matches()\n",
+  "copy_pairs": [
+    {
+      "original": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-R/reference.jl",
+      "copy": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-U/reference.jl",
+      "sha256": "b00330dc3c74dce220004fd19ece21db8dc07c30eb4583889bc0bf7ae4bcf1ba"
+    },
+    {
+      "original": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-R/tests.jl",
+      "copy": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-U/tests.jl",
+      "sha256": "04d831b32da5ece80d02f9e1ae60371fffeb6b03be1f5307e07b9ee59ae8f79e"
+    },
+    {
+      "original": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-R/fixtures.toml",
+      "copy": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-U/fixtures.toml",
+      "sha256": "e000c897c46d51011b1db1433a77dadb6e3d4ee46f48043261d451c59d3628ce"
+    },
+    {
+      "original": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-R/instrumented.jl",
+      "copy": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-U/instrumented.jl",
+      "sha256": "e9961574aac8e3060fe566282a94210203fb589482e543e25508c9ee4af7323f"
+    },
+    {
+      "original": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-R/JULIA-LICENSE.md",
+      "copy": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-U/JULIA-LICENSE.md",
+      "sha256": "590d71f5c9696d9a93bdace9183cde676a617e841e0862f3b59f8c9f428cfe82"
+    }
+  ],
+  "scope": "Strip exact helper prefix and replace one call to recover original bytes; copied test helpers not automatic execution."
+}
