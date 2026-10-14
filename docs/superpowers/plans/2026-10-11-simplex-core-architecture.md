@@ -2776,3 +2776,26 @@ All prior evidence stays frozen; the broader old plan is not declared complete.
 Current continuation hashes from the previous missing-zero closure/publication map
 only to results/DIRECT-LU-MARKOWITZ-PLAN/{STATUS.md,roadmap.md}.before-direct-lu-plan.
 Older mappings remain unchanged; see this step's continuation.json for exact keys.
+
+## 2026-10-15: isolated direct-LU preparation
+
+Tasks1–2 of the frozen direct-LU/Markowitz plan now have separate UNEXECUTED
+export/direct-manager candidates and six correctness test groups. Independent
+source review accepted the preparation after adding direct orientation-helper
+coverage; initial review, files and exact amendment remain preserved. See
+`diagnostics/simplex-core-architecture/DIRECT-LU-PREPARATION.md` and its evidence.
+All three managers, native/Markowitz, normalized/unnormalized modes, mutable
+ownership, copies, prepared spikes and fallback/refactor transitions are covered
+prospectively. No Julia/query/parser/import/compile/test/measurement was executed.
+Actual production/test/environment/master remain unchanged; no speedup claim.
+
+Next is separately sealed short RED/correctness admission, including complete
+extra test-work counts and focused unchanged test selection, fresh host preflight
+and independent review. Cost/integration stages remain later. Source review found
+no unnecessary work/memory defect; export/validation/packing and loss of ordinary
+refactor buffer reuse are charged to future whole-lifecycle measurements.
+Previous plan closure/publication current continuation keys map only to
+DIRECT-LU-PREPARATION/STATUS.md.before-preparation and roadmap.md.before-preparation
+under the diagnostic results directory (four explicit continuation.json mappings).
+All older maps and artifacts remain frozen. Broader programme stays open;
+CIoff/HHdisabled/automationpaused.

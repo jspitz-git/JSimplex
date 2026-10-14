@@ -1,0 +1,84 @@
+{
+  "decision": "accepted_offline_preparation_only",
+  "numerical_execution_authorized": false,
+  "julia_executed": false,
+  "unresolved_findings": [],
+  "resolved_findings": [
+    "R1"
+  ],
+  "head": "675f5a5293384d53990985e4482511d04cf5bdf3",
+  "master": "6f68e24e8ddac42b948da8fcc2d636c010751194",
+  "candidate_initial_comparison": {
+    "factor-export.jl": {
+      "initial_sha256": "a54bcb4d51641dcec769108cd9cea76681c08bf5e6b98e881bff3f6c7da7ee85",
+      "current_sha256": "a54bcb4d51641dcec769108cd9cea76681c08bf5e6b98e881bff3f6c7da7ee85",
+      "identical": true
+    },
+    "direct-factor.jl": {
+      "initial_sha256": "4a9051caa37a2b826490b9b5f69aa9bd273ab7bb8998ae2313d8a0cc40e50ebb",
+      "current_sha256": "4a9051caa37a2b826490b9b5f69aa9bd273ab7bb8998ae2313d8a0cc40e50ebb",
+      "identical": true
+    },
+    "fixtures.jl": {
+      "initial_sha256": "835b6e4241705b4c7a6a2625c904999ffe30e90ec99c937d257cbe2a2c289517",
+      "current_sha256": "835b6e4241705b4c7a6a2625c904999ffe30e90ec99c937d257cbe2a2c289517",
+      "identical": true
+    },
+    "correctness.jl": {
+      "initial_sha256": "8d4d129eb751d290ab67e684be49bb62666922ae3d4c793cdb38e2f037c1276c",
+      "current_sha256": "403f5e2e096312cd56c1fa43b4d69d6660ee72a56f42f563bbaa4676ea6bfdf0",
+      "identical": false
+    },
+    "red.jl": {
+      "initial_sha256": "bf2954a11133719fd9dada088455f13c95ea0401a6c915f6beaf61a6565af4ee",
+      "current_sha256": "bf2954a11133719fd9dada088455f13c95ea0401a6c915f6beaf61a6565af4ee",
+      "identical": true
+    },
+    "prepare-overlay.py": {
+      "initial_sha256": "b5d0ed50df3744500d99df00d9172f44318307bb3a847e4074c2a6635efd3efe",
+      "current_sha256": "b5d0ed50df3744500d99df00d9172f44318307bb3a847e4074c2a6635efd3efe",
+      "identical": true
+    }
+  },
+  "baseline_verification": {
+    "files": 514,
+    "changed": []
+  },
+  "added_prospective_work": {
+    "dense_lu_constructions": 3,
+    "orientation_helper_calls": 4,
+    "intended_helper_ldiv_calls": 4,
+    "executed": 0
+  },
+  "sha256": {
+    "diagnostics/direct-lu-markowitz/reproduce/factor-export.jl": "a54bcb4d51641dcec769108cd9cea76681c08bf5e6b98e881bff3f6c7da7ee85",
+    "diagnostics/direct-lu-markowitz/reproduce/direct-factor.jl": "4a9051caa37a2b826490b9b5f69aa9bd273ab7bb8998ae2313d8a0cc40e50ebb",
+    "diagnostics/direct-lu-markowitz/reproduce/fixtures.jl": "835b6e4241705b4c7a6a2625c904999ffe30e90ec99c937d257cbe2a2c289517",
+    "diagnostics/direct-lu-markowitz/reproduce/correctness.jl": "403f5e2e096312cd56c1fa43b4d69d6660ee72a56f42f563bbaa4676ea6bfdf0",
+    "diagnostics/direct-lu-markowitz/reproduce/red.jl": "bf2954a11133719fd9dada088455f13c95ea0401a6c915f6beaf61a6565af4ee",
+    "diagnostics/direct-lu-markowitz/reproduce/prepare-overlay.py": "b5d0ed50df3744500d99df00d9172f44318307bb3a847e4074c2a6635efd3efe",
+    "docs/superpowers/plans/2026-10-14-direct-lu-markowitz.md": "fb0b3609260394b0719423301284a0713475af793db53e1a828c0dce12efb5d7",
+    "docs/superpowers/specs/2026-10-14-direct-lu-markowitz.md": "1f53fca7568e94a0302eb646b405715ac81e00121172f4e29e17b2f085f381fc",
+    "diagnostics/simplex-core-architecture/DIRECT-LU-PREPARATION.md": "6ab51d24813c97d38da1ee5a990a1767259a491b0fb40167db5330a9fb5f928e",
+    "diagnostics/simplex-core-architecture/results/DIRECT-LU-PREPARATION/source-check-initial.json": "ace166afd7e2234806a501ce5bee52b2e102af5e139844722cb3a4d4b1ca97fd",
+    "diagnostics/simplex-core-architecture/results/DIRECT-LU-PREPARATION/baseline.json": "8734ace1dab2f131c92b4c4abd08dc24f60b1a3da486ef13fdb7887d89dad5c7",
+    "diagnostics/simplex-core-architecture/results/DIRECT-LU-PREPARATION/host.json": "d3e5bd22de4966a75c8f36c4622a66f83c116395f66fa828aa3526dcb531bad4",
+    "src/JSimplex.jl": "f1e819d506bcaa13797150a924effcea5baa310413bc0f81ebaa051c0994e208",
+    "src/factorization.jl": "59f0dfb40ab13cdf76b1148323ea0b335154b98cb4da83e87711ba22b8be2986",
+    "src/huangfu_hall_factorization.jl": "855e8d612c33c4ad2425c1c379d476be416431098de8dde3c8f4f8687d1615cf",
+    "src/markowitz_factorization.jl": "e07eb67430a99a050c7a78c2419a3a97aee1c0f2e99224f4fdf15389922d1047",
+    "src/triangular_factorization.jl": "2d8d488ffb7d1cf79ff71662e0cd83400adaf4097dac3e48254c47106f3a7204",
+    "src/triangular_indices.jl": "96659cddfae345701aed6c320a86fbeef4c6c4c95819864e363fcca04de3e61d",
+    "src/triangular_spikes.jl": "4529bc5aacb604b932128463a26dc8e091933a720abb963c863de13666531873",
+    "src/hypersparse_factorization.jl": "780d43f638097f0aef0b20112ba01324daa6e6163fcefbd72781e777f4a9d88e",
+    "src/hypersparse_updates.jl": "4b28aa53f95de0f5cd076adb1e74b0146f80185cbd24583964c24077bc97ac99",
+    "diagnostics/basis-direct-lu/reproduce/direct.jl": "ebe018cc933321470fc24aab03a69ef8fa620967a52acecf18168b8347beb7e4",
+    "test/markowitz_tests.jl": "3d550ed336151f15d1c49fabe04dbac485e72e512814454c6463af972c202c7b",
+    "test/triangular_prepared_spike_tests.jl": "56271232b7a0becc9cb0e037531f7ce22cad6c81ee1f4d7904807c50b56bc816",
+    "test/triangular_preparation_lifecycle_tests.jl": "2f468ec879a4d6e3b0a33bd8dfe70d28ffe6f162765798c5fe182d08dcacadf2",
+    "test/triangular_stability_tests.jl": "9b7334503834f323c8b5a3dda905395805b8f8cc873673cf741a785019da8bac",
+    "diagnostics/simplex-core-architecture/results/DIRECT-LU-PREPARATION/review-initial.md": "56bff70114f2e83b4dcb2c44d2d7bd8d5dd102340a908a84a3f81132c3e2e977",
+    "diagnostics/simplex-core-architecture/results/DIRECT-LU-PREPARATION/review-initial-bindings.json": "566f528ca4e3e58b8052a907e3efd172069aa3cdc0897d851fed2694051fcb5e",
+    "diagnostics/simplex-core-architecture/results/DIRECT-LU-PREPARATION/review-fix.json": "c932094d65884fbbc7d67b3006233530b94d4edd0f9a433d3e576849e9cbd3c4"
+  }
+}
