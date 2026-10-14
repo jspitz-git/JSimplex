@@ -1,0 +1,33 @@
+# MA-J independent admission review — rejected
+
+No Julia was launched. Review used file reads, offline Python hashing/AST checks, exact source comparison, and static Julia/MA API inspection. Existing artifacts were not executed, imported, or rewritten. All 178 inventory entries match SHA-256 and resolved paths. The JSON binds the full inventory and pins file.
+
+## Unresolved admission findings
+
+- **MAJ-1 (driver.jl:147-154):** Stored256 low-bit test is insensitive to lost bits: (3+2^-200)+(5-2^-200)=8, and rounding both coefficients to ambient64 also sums to 8. Both give x=1. The grid uses broad containing/excluding bounds, so it does not compensate with sensitive endpoint decisions. Required: Add noncancelling low-bit boundary cases and exact/tightly excluding lower and upper bounds with both pivot signs; include general rows long enough for both endpoint sums to occupy and rotate scratch. Demonstrate the lossy-conversion negative control fails the same qualification predicate.
+
+- **MAJ-2 (driver.jl:134-142):** Measured windows record compile_seconds/recompile_seconds but qualification accepts nonzero values; the stated compilation-free steady comparison is not enforced. Required: Retain every window and fail or explicitly disqualify the entire affected steady comparison when any measured compile/recompile time is nonzero; do not retry or filter windows.
+
+- **MAJ-3 (pins.json; launcher.py):** All 178 present pins match, but explicitly executed /bin/bash and the launcher/guard Python runtime are missing from inventory. Required: Pin /bin/bash and the actual Python executable path and resolved bytes, and ensure launcher uses that pinned Python runtime.
+
+- **MAJ-4 (guard.py:stop_owned and run):** The 180-second deadline triggers only at polling intervals up to one second, followed by up to three seconds of SIGTERM grace before SIGKILL. Numerical execution can therefore continue beyond the promised 180-second maximum. Required: Reserve polling and TERM grace within the 180-second execution budget and send KILL by the hard deadline; report cleanup separately and retain incomplete-cleanup refusal.
+
+## Numerical and alias review
+
+`reference.jl` maps byte-for-byte to the actual `_equality_implies_column_bounds` body in `src/presolve_aggregation.jl`, with only the function name replaced. The candidate changes only lazy scratch initialization and the two nonzero activity additions; conversions, products, zero/unit shortcuts, shared fixed activity and final predicates remain unchanged.
+
+Three freshly owned Rational{BigInt} destinations exclude both live endpoint sums. Since products are derived only from inputs rather than the scratch pool, excluding live sums also excludes all mutable output aliases relevant to addition. Fixed-row sharing is preserved by the saved `shared_activity` branch. Zero cancellation and later overwrite of a dead slot are consistent with this ownership scheme. MA source confirms the buffer is three BigInts and supports the called copy/add/gcd/div APIs. Positive rational denominators remain positive; gcd normalization handles a zero numerator. No static numerical defect or Julia API/syntax trap was found in the candidate.
+
+The independent finite-corner oracle is separate from the candidate implementation; one-sided unbounded cases use signed exact endpoint sums. Snapshot records capture rational values and numerator/denominator identities, BigFloat exact values, precision and backing Memory identity, relevant array owners and CSC structure. The direct isolation check validates fresh scratch leaves, but does not call `private_add` repeatedly; sensitive rollover fixtures are needed as specified above. The inverted-result control is tautological rather than a shared qualification-path test, so it provides little additional evidence. Snapshots are taken around all three implementations jointly rather than after each call. These are limitations, not identified candidate mutations.
+
+## Computational work and memory
+
+This is a throwaway component experiment, with no production-code changes. The affected operation would occur once per tested equality/pivot and up to twice per nonpivot row term. There are no added vector/matrix scans, solves, conversions of input coefficients, copies of matrices, caches or persistent scratch. At the first changed addition each whole call creates nine BigInt objects (six rational leaves plus three buffers); n=2 rows never reach an addition and provide a no-scratch control. Destination selection adds up to four identity comparisons. Same-denominator additions additionally copy a denominator and retain necessary gcd normalization; general additions use MA's buffered exact arithmetic. Limb capacity scales with exact intermediate operand sizes and is not a constant byte bound. Scratch becomes unreachable at return.
+
+The added scratch and selection work are purposeful for this experiment; no unrelated unnecessary scan or retained-memory cost was found. Setup may outweigh savings for short rows, so no speedup is inferred. All four scalar types are represented but rows are tiny synthetic 2/4/8-term sparse-model fixtures; this does not cover large sparse presolver workloads, dense-matrix behavior or solver trajectories. Timing includes per-call scratch creation, normalization and Bool consumption, while fixtures/oracles/snapshots/serialization stay outside. GC time, allocation bytes and events are recorded. First timed batches are correctly described as post-correctness batches rather than cold import measurements. Seven alternating measured pairs and three warm pairs are planned; numerical execution is still needed after admission repair to establish any local cost change.
+
+## Process and pin review
+
+The launcher is single-reservation/no-retry, checks reviewer bindings and pins before execution, and checks all 134 prior group/session identifiers plus Julia processes. The guard uses an ownership lock, 8 GiB address-space limit, 2 GiB Julia heap hint, one Julia/BLAS thread, RAM/swap gates, existing compiled modules and no startup file. Cleanup signals only verified PID identities in the owned group/session and fails closed on incomplete cleanup. The shell wrapper and its referenced depot script are pinned; runtime Julia binary/libraries and MA source are covered. Missing shell/Python executable pins and hard-deadline overrun are identified above. The manifest has an explicit file set rather than full transitive environment closure; no claim of hermetic package-cache provenance is made.
+
+Admission is rejected until the four findings are resolved in a freshly pinned revision and independently reviewed. Do not launch the current artifacts.

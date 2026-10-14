@@ -38,7 +38,7 @@ main also has a user-modified .vscode/settings.json. Do not stage those files.
 | S3 | End-to-end exact sparsity support | Active | S3-A/S3-B integrated, latest masterb720674; exact-support consumer savings qualified; broader S3 partial |
 | S4 | Refactorization memory lifecycle | Active | S4-A/S4-C integrated; master3220118; Float64 component attribution/cost and exact triplet optimization accepted; bounded scalar component attribution360samples accepted; broader manager/history/medium coverage open |
 | S5 | Phase/cleanup handoff contract | Active | S5-A/S5-B accepted; S5-C production88a2411 -> mastere7014fb, reviewed, master668/668; broader handoffs partial |
-| MA | Selective MutableArithmetics integration | Active | MA-I routing correctness647/647+48fixtures; targets6/6pass, controls8/32FAIL; promotion NOT accepted; single allowance consumed |
+| MA | Selective MutableArithmetics integration | Active | MA-J presolver component1126/1126;48costcases, narrow Q8 benefit, short/simple regressions; unconditional promotion NOT accepted. MA-I rejection unchanged |
 | S6 | Broad validation and final comparison | Active | S6-A/B triage accepted; S6-C test repair integrated as mastera465da5, focused20/20. S6-G artificial-row test repair master8516e0d; S6-M BigFloat fixture repair master7fea422, focused1477/1477; S6-T no-recession fixture masterafb37d9,focused192/master19; S6-W repeated-price fixture masterb9e7cb1,focused109/master41; S6-AA reliable exchange fixture master74f7835,focused127/master19; S6-AC reconstruction fixture master3c0af5c,focused339/master215; S6-AI dual recovery fixture master354bb1f,focused339/master252; other CI families and full validation remain open |
 
 Allowed execution states: Pending, Active, Blocked (reason required), Verified,
@@ -46,6 +46,33 @@ Integrated, Rejected (evidence required). Mark an optimization Verified only aft
 its acceptance gate. Record individual chunks separately when a stage is partial.
 
 ## Exact next action
+
+MA-J user-requested presolver equality-bound MA spike completed. A separate
+instrumentation-only repair after a preserved9.238s Dict metadata failure gives
+1126/1126 correctness/input-preservation cases,48costcases,672measuredcompilezero
+windows,oneGCwindow retained,11/11postchecks and217unchanged launchpins.
+Fresh138groups ANDsessions absent/noJulia; successful guardedrun10.242s inclusive,
+not a benchmark. Exact candidate only changes two rational activity additions,
+private lazy scratch setup included inside every timed call. No production edit.
+
+Eight-term general Rational local pairedratio0.8849,bytesabout22.3%lower; only3/48
+cases meet the full local benefit gate. BigFloat256/512 general ratios0.9874/0.9892
+with lower allocation traffic but no accepted time benefit. Four-term rational
+unit/cancellation controls regress1.2319/1.5070 with368extra bytes/call.
+Unconditional promotion NOT ACCEPTED; no automatic tuning/rerun/integration.
+See MA-PRESOLVE-EQUALITY-QUALIFICATION.md and results/MA-J. BroaderMA/S2/S3/S4/S5/S6
+remainOPEN; stopped routes unchanged. Standing short-run authorization persists,
+but a future selective route needs its own concrete admission. Automationpaused,
+CIoff,HHdisabled,master6f68e24 unchanged.
+
+MA-J initial and repaired attempts are consumed; all candidate/driver/launcher/
+pins/raw/auditors/reviews frozen. MA-I currentSTATUS/roadmap finalclosure/publication/
+closure-review/continuation-fix bindings map ONLY to MA-J/STATUS.md.before-MA-J and
+roadmap.md.before-MA-J. MA-I wrong-roadmap before-continuation-fix mapping and all
+MA-H/older maps remain. MA-J initial changed-path bindings map ONLY *.before-review;
+second rejectedrevision changed-path bindings map ONLY *.before-oracle-fix.
+
+## Previous MA-I decision (completed)
 
 MA-I completed one admitted short22process attempt with the exact MA-H routing
 candidate. RED2expected failures; qualification647/647,48finite fixtures/432rows,

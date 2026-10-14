@@ -45,6 +45,33 @@ accepted deliverables, not partial or failed attempts. Update both at milestones
 
 ## Current continuation — 2026-10-14
 
+MA-J user-requested presolver equality-bound MA spike completed. A separate
+instrumentation-only repair after a preserved9.238s Dict metadata failure gives
+1126/1126 correctness/input-preservation cases,48costcases,672measuredcompilezero
+windows,oneGCwindow retained,11/11postchecks and217unchanged launchpins.
+Fresh138groups ANDsessions absent/noJulia; successful guardedrun10.242s inclusive,
+not a benchmark. Exact candidate only changes two rational activity additions,
+private lazy scratch setup included inside every timed call. No production edit.
+
+Eight-term general Rational local pairedratio0.8849,bytesabout22.3%lower; only3/48
+cases meet the full local benefit gate. BigFloat256/512 general ratios0.9874/0.9892
+with lower allocation traffic but no accepted time benefit. Four-term rational
+unit/cancellation controls regress1.2319/1.5070 with368extra bytes/call.
+Unconditional promotion NOT ACCEPTED; no automatic tuning/rerun/integration.
+See MA-PRESOLVE-EQUALITY-QUALIFICATION.md and results/MA-J. BroaderMA/S2/S3/S4/S5/S6
+remainOPEN; stopped routes unchanged. Standing short-run authorization persists,
+but a future selective route needs its own concrete admission. Automationpaused,
+CIoff,HHdisabled,master6f68e24 unchanged.
+
+MA-J initial and repaired attempts are consumed; all candidate/driver/launcher/
+pins/raw/auditors/reviews frozen. MA-I currentSTATUS/roadmap finalclosure/publication/
+closure-review/continuation-fix bindings map ONLY to MA-J/STATUS.md.before-MA-J and
+roadmap.md.before-MA-J. MA-I wrong-roadmap before-continuation-fix mapping and all
+MA-H/older maps remain. MA-J initial changed-path bindings map ONLY *.before-review;
+second rejectedrevision changed-path bindings map ONLY *.before-oracle-fix.
+
+### Previous MA-I decision (completed)
+
 MA-I completed one admitted short22process attempt with the exact MA-H routing
 candidate. RED2expected failures; qualification647/647,48finite fixtures/432rows,
 route entries28constructors/28copies/56fullcalls including6expected throws.

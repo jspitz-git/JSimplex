@@ -1,0 +1,15 @@
+ERROR: LoadError: qualification incomplete: 280, 0, ["MethodError: Cannot `convert` an object of type String to an object of type Real\nThe function `convert` exists, but no method is defined for this combination of argument types.\n\nClosest candidates are:\n  convert(::Type{T}, !Matched::T) where T<:Number\n   @ Base number.jl:6\n  convert(::Type{T}, !Matched::Number) where T<:Number\n   @ Base number.jl:7\n  convert(::Type{T}, !Matched::T) where T\n   @ Base Base_compiler.jl:136\n  ...\n\nStacktrace:\n [1] setindex!(h::Dict{String, Real}, v0::String, key::String)\n   @ Base ./dict.jl:357\n [2] (::var\"#main##8#main##9\"{Vector{Any}, Vector{Any}, Type{Float64}, String})()\n   @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-J/driver.jl:168\n [3] setprecision(f::var\"#main##8#main##9\"{Vector{Any}, Vector{Any}, Type{Float64}, String}, ::Type{BigFloat}, prec::Int64; base::Int64)\n   @ Base.MPFR ./mpfr.jl:1214\n [4] setprecision(f::Function, ::Type{BigFloat}, prec::Int64)\n   @ Base.MPFR ./mpfr.jl:1213\n [5] main()\n   @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-J/driver.jl:125\n [6] top-level scope\n   @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-J/driver.jl:207\n [7] include(mod::Module, _path::String)\n   @ Base ./Base.jl:309\n [8] exec_options(opts::Base.JLOptions)\n   @ Base ./client.jl:344\n [9] _start()\n   @ Base ./client.jl:577"]
+Stacktrace:
+ [1] error(s::String)
+   @ Base ./error.jl:44
+ [2] main()
+   @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-J/driver.jl:203
+ [3] top-level scope
+   @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-J/driver.jl:207
+ [4] include(mod::Module, _path::String)
+   @ Base ./Base.jl:309
+ [5] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:344
+ [6] _start()
+   @ Base ./client.jl:577
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-J/driver.jl:207

@@ -1,0 +1,37 @@
+"""New single-attempt launcher. No Julia on import. Fail closed before reservation."""
+from pathlib import Path
+import json,hashlib,subprocess,sys,time,os
+D=Path(__file__).resolve().parent;R=D.parents[3]
+def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def read(p):return json.loads(Path(p).read_text())
+def require(x,msg):
+ if not x:raise ValueError(msg)
+def save(p,v):
+ with Path(p).open('x') as f:json.dump(v,f,indent=2);f.write('\n')
+def host():
+ old=read(D/'host-2.json');groups=old['groups'];matches=[];boot=Path('/proc/sys/kernel/random/boot_id').read_text().strip()
+ for p in Path('/proc').glob('[0-9]*'):
+  try:
+   s=(p/'stat').read_text();a=s[s.rfind(')')+2:].split()
+   if int(a[2]) in groups or int(a[3]) in groups or (p/'comm').read_text().strip().lower().startswith('julia'):matches.append(dict(pid=int(p.name),pgid=int(a[2]),sid=int(a[3]),start_ticks=int(a[19]),boot_id=boot,command=(p/'cmdline').read_bytes().replace(b'\0',b' ').decode(errors='replace')))
+  except FileNotFoundError:pass
+ refs={k:subprocess.check_output(['git',*args],cwd=R,text=True).strip() for k,args in {'head':['rev-parse','HEAD'],'master':['rev-parse','master'],'branch':['branch','--show-current'],'remote':['ls-remote','origin','refs/heads/master','refs/heads/codex/simplex-core-architecture']}.items()}
+ require(not matches and refs==old['refs'],'fresh host/ref check failed')
+ return dict(time=time.time(),boot_id=boot,groups=groups,matches=matches,refs=refs)
+def main():
+ require(sys.argv==[str(D/'launcher-2.py'),'run'],'exact invocation required')
+ review=read(D/'admission-review-2.json');pins=read(D/'pins-2.json');ph=sha(D/'pins-2.json')
+ require(review['accepted'] is True and review['unresolved_findings']==[] and review['pins_sha256']==ph,'admission missing')
+ require(all(sha(p)==h for p,h in review['sha256'].items()),'review bindings differ')
+ require(all(sha(p)==v['sha256'] and str(Path(p).resolve())==v['resolved'] for p,v in pins['inventory'].items()),'pins differ')
+ h=host();save(D/'prelaunch-2.json',h)
+ out=D/'run-2';require(not out.exists(),'output already exists')
+ cmd=['/bin/bash','/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh','--compiled-modules=existing','--threads=1','--gcthreads=1,0','--heap-size-hint=2G','--project='+str(R),str(D/'driver-2.jl'),str(out/'raw.toml')]
+ save(D/'reservation-2.json',dict(command=cmd,pins_sha256=ph,review_sha256=sha(D/'admission-review-2.json'),attempts=1,seconds=180,output=str(out),host_sha256=sha(D/'prelaunch-2.json')))
+ gc=[sys.executable,str(D/'guard.py'),'run',str(D/'pins-2.json'),str(out),'--seconds','174','--deadline',str(time.monotonic()+174),'--',*cmd]
+ record=dict(command=gc,reservation_sha256=sha(D/'reservation-2.json'))
+ try:
+  with (D/'launcher-2.log').open('x') as log:record['returncode']=subprocess.run(gc,cwd=R,stdout=log,stderr=subprocess.STDOUT,start_new_session=True).returncode
+ finally:save(D/'invocation-2.json',record)
+ require(record.get('returncode')==0,'guarded attempt failed; no retry')
+if __name__=='__main__':main()
