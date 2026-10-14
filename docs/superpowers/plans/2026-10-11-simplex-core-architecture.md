@@ -2760,3 +2760,19 @@ recommendation-correction binds corrected report and historical/source reads, no
 retroactive launch pins. Frozen raw/scripts/pins/reviews NEVER RERUN/rewrite.
 Broader plan OPEN, CIoff,HHdisabled,automationpaused. Any subsequent production
 candidate requires its own concrete design/review; no safeguards relaxed.
+
+## 2026-10-14: new architectural direction — direct LU / Markowitz
+
+The user requests common factor export and all three direct LU prototypes with
+Markowitz in short comparative tests. See [new plan](2026-10-14-direct-lu-markowitz.md)
+and [specification](../specs/2026-10-14-direct-lu-markowitz.md). This is a distinct
+architectural experiment, not another micro-optimization retry. New planning work
+only; no Julia, production changes or acceptance of a speedup. Independent plan review accepted the amended design with no unresolved actionable
+findings; candidate and run admissions remain separate. Initial scope is Float64, isolated explicit factories,
+then short functional integration; native/Markowitz and all three managers are
+compared separately including construction/export/refactorization costs.
+Dynamic sparse storage and expanded precision support remain separate next designs.
+All prior evidence stays frozen; the broader old plan is not declared complete.
+Current continuation hashes from the previous missing-zero closure/publication map
+only to results/DIRECT-LU-MARKOWITZ-PLAN/{STATUS.md,roadmap.md}.before-direct-lu-plan.
+Older mappings remain unchanged; see this step's continuation.json for exact keys.

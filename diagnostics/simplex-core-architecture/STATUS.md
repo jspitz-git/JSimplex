@@ -47,6 +47,20 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
+New architectural direction requested by the user: common factor export and all
+three direct LU prototypes with Markowitz, followed by short comparative tests.
+Plan: docs/superpowers/plans/2026-10-14-direct-lu-markowitz.md; specification:
+docs/superpowers/specs/2026-10-14-direct-lu-markowitz.md. Current deliverable is
+PLAN ONLY, independently accepted after review amendments; see
+results/DIRECT-LU-MARKOWITZ-PLAN/review-final.md. Next implementation
+step is isolated offline export/direct-factor/test preparation (Tasks1–2), followed
+by its own concrete numerical admission. No new numerical run in this step.
+The original micro-optimization programme remains open but is not the active
+next action. No rejected route is silently promoted or repeated. Production/master
+remain unchanged, CIoff/HHdisabled/automationpaused.
+
+## Previous missing-zero experiment
+
 Missing-zero sparse-equality candidate tested; **REJECTED for allocation increase**.
 See PRESOLVE-ZERO-COEFFICIENT.md and results/PRESOLVE-ZERO-COEFFICIENT. Actual
 production/test/env/master remain unchanged at master6f68e24. Float64-only sentinel
