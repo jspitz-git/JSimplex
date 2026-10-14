@@ -1,0 +1,72 @@
+# MA-R: isolated native DenseLU BigFloat candidate
+
+Status: offline preparation complete and independently accepted for MA-S admission preparation.
+No Julia parsing, import, compilation, numerical test or measurement has run.
+
+The candidate implements the accepted MA-Q private-product design in a separate
+MADenseProbe module. Production source, tests, user environments, master and CI
+remain unchanged. The direct MA dependency exists only in the new diagnostic
+Project; existing package selection and loading still require MA-S admission.
+
+- [Accepted parent plan](../../docs/superpowers/plans/2026-10-14-ma-denselu-bigfloat.md)
+- [MA-R handoff and budgets](results/MA-R/plan.md)
+- [Candidate](results/MA-R/candidate.jl), [reference](results/MA-R/reference.jl)
+- [Unexecuted tests](results/MA-R/tests.jl), [fixed fixtures](results/MA-R/fixtures.toml)
+- [Source inverse map](results/MA-R/source-map.json), [checks](results/MA-R/source-check.json)
+
+## Preserved numerical and ownership contract
+
+Only twelve multiplication-expression sites in the eight original generic
+triangular branches use MA.operate_to! with a single ambient-precision product.
+Subtraction, division, scalar publication, pivots, dimension checks and singular
+checks preserve their exact source order. Seven source blocks invert exactly to
+installed/repository source. Six reachable normalized wrapper classes are mapped,
+including nested wrappers for diagonal/upper/lower factor storage. All coefficient
+visits remain, including zeros; no fused arithmetic, global method replacement,
+extra solve, matrix scan or published-leaf mutation is introduced.
+
+The exact Vector/BigFloat/native LU, square/matching-length, n>=16 predicate falls
+back before mutation otherwise. A scoped/global MPFR rounding mismatch also falls
+back before mutation. The candidate has no counters; a separate instrumented entry
+copy, checked by exact inverse, counts calls/scratch/fallback during correctness
+only. One call-local BigFloat is prospective O(precision) temporary storage; no
+persistent workspace or retained history is added. Product constructor savings
+are source opportunities, not measured allocations or timing gains.
+
+## Prepared tests and bounded next step
+
+160 fixed correctness cases exercise values/precision/sign, old leaf owners and
+new output alias patterns, unchanged factor/RHS leaves, partial exception state,
+actual copied PFI sharing and retained output owners. Two repeated-output cases
+bring the total to162calls per side; reference/candidate/instrumented give486calls.
+Two reference smoke entries yield488explicit backend calls and162factorization
+setups (including2PFI constructors), plus2PFI copies. These are unexecuted source
+counts, not a full native internal-work budget. IdDict owner maps, deepcopies and
+exact-token snapshots are diagnostic O(n²) costs outside future timing windows.
+
+The fixed52cost cases are preserved from MA-Q:36BigFloat target cases and16controls,
+12480whole backend calls over three serial processes capped at120s each. MA-S must
+prepare a frozen command/loader manifest, exact raw schema, resource guards,
+exclusive attempt reservation, fail-closed auditor and independent admission.
+No numerical launch follows automatically from this preparation acceptance.
+Existing per-case allocation/time criteria and later public PFI/afiro/sc50a gates
+remain unchanged; component results alone do not authorize production promotion.
+
+## Evidence boundaries
+
+Fresh preflight verified current diagnostic ec0bc10, master6f68e24,514master file
+identities, six protected user files and all158historical groups ANDsessions absent
+with no Julia. New source checks passed15/15 with38read-time bindings. No old
+script was run. Runtime syntax/dispatch, exception behavior and cost remain
+unqualified despite exact textual inverses. CIoff, HHdisabled, automationpaused;
+all earlier stopped routes and evidence are preserved. Six current MA-Q
+continuation bindings map only to MA-R beforecopies; older mappings remain intact.
+
+The initial review was superseded by a source-only cancellation-coverage finding.
+A separate fixture amendment forces exact cancellation in both solve orientations
+and asserts its endpoint; candidate code and call counts are unchanged. Original
+review and input bytes are preserved. The final independent gpt-6-astra review
+accepted the amendment with no unresolved findings and no unnecessary candidate
+work or retained memory. See [final review](results/MA-R/review-final.md).
+The six offline amendment checks passed; the final review binds58artifacts.
+Completion wording preserves all prior bound bytes in completion-map.json.

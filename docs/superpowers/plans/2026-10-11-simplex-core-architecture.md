@@ -2289,3 +2289,18 @@ No Julia/candidate/production/test/environment/CI change in this planning step.
 MA-O/P and all stopped routes remain unchanged; broader plan OPEN. Six current
 MASTER-PROFILE continuation bindings map only to MA-Q beforecopies; older mappings
 remain. The precise closure/publication will bind final continuation text.
+
+## MA-R isolated DenseLU BigFloat candidate (2026-10-14)
+
+See diagnostics/simplex-core-architecture/MA-DENSELU-BIGFLOAT-PREPARATION.md and
+results/MA-R/plan.md. Offline candidate/reference/tests and private diagnostic
+MA environment prepared and independently accepted. One cancellation-fixture P2
+was resolved by a single offline amendment; final gpt-6-astra review has no
+unresolved findings or unnecessary candidate work/memory. Seven exact source inverses,
+12product sites in eight generic branches and six normalization classes preserve
+arithmetic order and ownership.160unexecuted correctness cases/488backend calls;
+fixed52cost cases/12480calls retained. No Julia/query/parser/import/compile/run,
+production/test/user environment/master/CI change. Next after acceptance: MA-S
+concrete guarded numerical admission preparation, preserving MA-Q criteria.
+Six current MA-Q continuation bindings map only to MA-R beforecopies; Q's earlier
+review-before-completion and all older mappings remain. Broader plan OPEN.

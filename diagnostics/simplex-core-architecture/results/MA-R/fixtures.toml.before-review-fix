@@ -1,0 +1,542 @@
+# MA-R fixed prospective fixtures. UNEXECUTED. No post-output selection.
+version = 1
+bits = [128, 256, 512]
+sizes = [0, 1, 2, 8, 15, 16, 32, 64]
+layouts = ["dense", "zeroheavy"]
+directions = ["forward", "transpose"]
+# Index i,j are one-based; all coefficients constructed via exact rational values.
+diagonal = "n+2+i/16"
+offdiagonal = "(-1)^(i+j)*(1+mod(3*i+5*j,7))/64"
+zeroheavy_support = "abs(i-j)==1 || (i==n && j==1)"
+rhs = "(-1)^i*(1+i/16)"
+empty = "0x0 LU and length0 vectors"
+singleton = "diagonal formula and RHS formula"
+special_size = 16
+special_bits = 256
+specials = ["identity", "row_swap", "cancellation", "signed_zero", "rhs_inf", "rhs_nan", "factor_inf", "factor_nan", "pivot_zero_1", "pivot_zero_8", "pivot_zero_16", "invalid_ipiv", "rhs_short", "dest_long", "rhs_view", "same_container", "shared_leaves", "factor_rhs_leaf", "copied_pfi", "retained_outputs"]
+# Each special runs forward and transpose, with fixed literal alterations in tests.jl.
+mixed_stored_ambient = [[128,256], [512,256], [256,128], [256,512]]
+matching_rounding = ["RoundNearest", "RoundDown", "RoundUp", "RoundToZero"]
+scoped_mismatch = ["RoundUp", "RoundDown"]
+# Three sides per correctness case: original, uninstrumented candidate, instrumented.
+# All retain identical owner graphs by deep-copying one constructed bundle.
+
+[[cost_cases]]
+id = "target/128/16/dense/forward"
+scalar = "BigFloat"
+bits = 128
+n = 16
+layout = "dense"
+direction = "forward"
+eligible = true
+scoped = "none"
+
+[[cost_cases]]
+id = "target/128/16/dense/transpose"
+scalar = "BigFloat"
+bits = 128
+n = 16
+layout = "dense"
+direction = "transpose"
+eligible = true
+scoped = "none"
+
+[[cost_cases]]
+id = "target/128/16/zeroheavy/forward"
+scalar = "BigFloat"
+bits = 128
+n = 16
+layout = "zeroheavy"
+direction = "forward"
+eligible = true
+scoped = "none"
+
+[[cost_cases]]
+id = "target/128/16/zeroheavy/transpose"
+scalar = "BigFloat"
+bits = 128
+n = 16
+layout = "zeroheavy"
+direction = "transpose"
+eligible = true
+scoped = "none"
+
+[[cost_cases]]
+id = "target/128/32/dense/forward"
+scalar = "BigFloat"
+bits = 128
+n = 32
+layout = "dense"
+direction = "forward"
+eligible = true
+scoped = "none"
+
+[[cost_cases]]
+id = "target/128/32/dense/transpose"
+scalar = "BigFloat"
+bits = 128
+n = 32
+layout = "dense"
+direction = "transpose"
+eligible = true
+scoped = "none"
+
+[[cost_cases]]
+id = "target/128/32/zeroheavy/forward"
+scalar = "BigFloat"
+bits = 128
+n = 32
+layout = "zeroheavy"
+direction = "forward"
+eligible = true
+scoped = "none"
+
+[[cost_cases]]
+id = "target/128/32/zeroheavy/transpose"
+scalar = "BigFloat"
+bits = 128
+n = 32
+layout = "zeroheavy"
+direction = "transpose"
+eligible = true
+scoped = "none"
+
+[[cost_cases]]
+id = "target/128/64/dense/forward"
+scalar = "BigFloat"
+bits = 128
+n = 64
+layout = "dense"
+direction = "forward"
+eligible = true
+scoped = "none"
+
+[[cost_cases]]
+id = "target/128/64/dense/transpose"
+scalar = "BigFloat"
+bits = 128
+n = 64
+layout = "dense"
+direction = "transpose"
+eligible = true
+scoped = "none"
+
+[[cost_cases]]
+id = "target/128/64/zeroheavy/forward"
+scalar = "BigFloat"
+bits = 128
+n = 64
+layout = "zeroheavy"
+direction = "forward"
+eligible = true
+scoped = "none"
+
+[[cost_cases]]
+id = "target/128/64/zeroheavy/transpose"
+scalar = "BigFloat"
+bits = 128
+n = 64
+layout = "zeroheavy"
+direction = "transpose"
+eligible = true
+scoped = "none"
+
+[[cost_cases]]
+id = "target/256/16/dense/forward"
+scalar = "BigFloat"
+bits = 256
+n = 16
+layout = "dense"
+direction = "forward"
+eligible = true
+scoped = "none"
+
+[[cost_cases]]
+id = "target/256/16/dense/transpose"
+scalar = "BigFloat"
+bits = 256
+n = 16
+layout = "dense"
+direction = "transpose"
+eligible = true
+scoped = "none"
+
+[[cost_cases]]
+id = "target/256/16/zeroheavy/forward"
+scalar = "BigFloat"
+bits = 256
+n = 16
+layout = "zeroheavy"
+direction = "forward"
+eligible = true
+scoped = "none"
+
+[[cost_cases]]
+id = "target/256/16/zeroheavy/transpose"
+scalar = "BigFloat"
+bits = 256
+n = 16
+layout = "zeroheavy"
+direction = "transpose"
+eligible = true
+scoped = "none"
+
+[[cost_cases]]
+id = "target/256/32/dense/forward"
+scalar = "BigFloat"
+bits = 256
+n = 32
+layout = "dense"
+direction = "forward"
+eligible = true
+scoped = "none"
+
+[[cost_cases]]
+id = "target/256/32/dense/transpose"
+scalar = "BigFloat"
+bits = 256
+n = 32
+layout = "dense"
+direction = "transpose"
+eligible = true
+scoped = "none"
+
+[[cost_cases]]
+id = "target/256/32/zeroheavy/forward"
+scalar = "BigFloat"
+bits = 256
+n = 32
+layout = "zeroheavy"
+direction = "forward"
+eligible = true
+scoped = "none"
+
+[[cost_cases]]
+id = "target/256/32/zeroheavy/transpose"
+scalar = "BigFloat"
+bits = 256
+n = 32
+layout = "zeroheavy"
+direction = "transpose"
+eligible = true
+scoped = "none"
+
+[[cost_cases]]
+id = "target/256/64/dense/forward"
+scalar = "BigFloat"
+bits = 256
+n = 64
+layout = "dense"
+direction = "forward"
+eligible = true
+scoped = "none"
+
+[[cost_cases]]
+id = "target/256/64/dense/transpose"
+scalar = "BigFloat"
+bits = 256
+n = 64
+layout = "dense"
+direction = "transpose"
+eligible = true
+scoped = "none"
+
+[[cost_cases]]
+id = "target/256/64/zeroheavy/forward"
+scalar = "BigFloat"
+bits = 256
+n = 64
+layout = "zeroheavy"
+direction = "forward"
+eligible = true
+scoped = "none"
+
+[[cost_cases]]
+id = "target/256/64/zeroheavy/transpose"
+scalar = "BigFloat"
+bits = 256
+n = 64
+layout = "zeroheavy"
+direction = "transpose"
+eligible = true
+scoped = "none"
+
+[[cost_cases]]
+id = "target/512/16/dense/forward"
+scalar = "BigFloat"
+bits = 512
+n = 16
+layout = "dense"
+direction = "forward"
+eligible = true
+scoped = "none"
+
+[[cost_cases]]
+id = "target/512/16/dense/transpose"
+scalar = "BigFloat"
+bits = 512
+n = 16
+layout = "dense"
+direction = "transpose"
+eligible = true
+scoped = "none"
+
+[[cost_cases]]
+id = "target/512/16/zeroheavy/forward"
+scalar = "BigFloat"
+bits = 512
+n = 16
+layout = "zeroheavy"
+direction = "forward"
+eligible = true
+scoped = "none"
+
+[[cost_cases]]
+id = "target/512/16/zeroheavy/transpose"
+scalar = "BigFloat"
+bits = 512
+n = 16
+layout = "zeroheavy"
+direction = "transpose"
+eligible = true
+scoped = "none"
+
+[[cost_cases]]
+id = "target/512/32/dense/forward"
+scalar = "BigFloat"
+bits = 512
+n = 32
+layout = "dense"
+direction = "forward"
+eligible = true
+scoped = "none"
+
+[[cost_cases]]
+id = "target/512/32/dense/transpose"
+scalar = "BigFloat"
+bits = 512
+n = 32
+layout = "dense"
+direction = "transpose"
+eligible = true
+scoped = "none"
+
+[[cost_cases]]
+id = "target/512/32/zeroheavy/forward"
+scalar = "BigFloat"
+bits = 512
+n = 32
+layout = "zeroheavy"
+direction = "forward"
+eligible = true
+scoped = "none"
+
+[[cost_cases]]
+id = "target/512/32/zeroheavy/transpose"
+scalar = "BigFloat"
+bits = 512
+n = 32
+layout = "zeroheavy"
+direction = "transpose"
+eligible = true
+scoped = "none"
+
+[[cost_cases]]
+id = "target/512/64/dense/forward"
+scalar = "BigFloat"
+bits = 512
+n = 64
+layout = "dense"
+direction = "forward"
+eligible = true
+scoped = "none"
+
+[[cost_cases]]
+id = "target/512/64/dense/transpose"
+scalar = "BigFloat"
+bits = 512
+n = 64
+layout = "dense"
+direction = "transpose"
+eligible = true
+scoped = "none"
+
+[[cost_cases]]
+id = "target/512/64/zeroheavy/forward"
+scalar = "BigFloat"
+bits = 512
+n = 64
+layout = "zeroheavy"
+direction = "forward"
+eligible = true
+scoped = "none"
+
+[[cost_cases]]
+id = "target/512/64/zeroheavy/transpose"
+scalar = "BigFloat"
+bits = 512
+n = 64
+layout = "zeroheavy"
+direction = "transpose"
+eligible = true
+scoped = "none"
+
+[[cost_cases]]
+id = "small/0/forward"
+scalar = "BigFloat"
+bits = 256
+n = 0
+layout = "dense"
+direction = "forward"
+eligible = false
+scoped = "none"
+
+[[cost_cases]]
+id = "small/0/transpose"
+scalar = "BigFloat"
+bits = 256
+n = 0
+layout = "dense"
+direction = "transpose"
+eligible = false
+scoped = "none"
+
+[[cost_cases]]
+id = "small/1/forward"
+scalar = "BigFloat"
+bits = 256
+n = 1
+layout = "dense"
+direction = "forward"
+eligible = false
+scoped = "none"
+
+[[cost_cases]]
+id = "small/1/transpose"
+scalar = "BigFloat"
+bits = 256
+n = 1
+layout = "dense"
+direction = "transpose"
+eligible = false
+scoped = "none"
+
+[[cost_cases]]
+id = "small/2/forward"
+scalar = "BigFloat"
+bits = 256
+n = 2
+layout = "dense"
+direction = "forward"
+eligible = false
+scoped = "none"
+
+[[cost_cases]]
+id = "small/2/transpose"
+scalar = "BigFloat"
+bits = 256
+n = 2
+layout = "dense"
+direction = "transpose"
+eligible = false
+scoped = "none"
+
+[[cost_cases]]
+id = "small/8/forward"
+scalar = "BigFloat"
+bits = 256
+n = 8
+layout = "dense"
+direction = "forward"
+eligible = false
+scoped = "none"
+
+[[cost_cases]]
+id = "small/8/transpose"
+scalar = "BigFloat"
+bits = 256
+n = 8
+layout = "dense"
+direction = "transpose"
+eligible = false
+scoped = "none"
+
+[[cost_cases]]
+id = "small/15/forward"
+scalar = "BigFloat"
+bits = 256
+n = 15
+layout = "dense"
+direction = "forward"
+eligible = false
+scoped = "none"
+
+[[cost_cases]]
+id = "small/15/transpose"
+scalar = "BigFloat"
+bits = 256
+n = 15
+layout = "dense"
+direction = "transpose"
+eligible = false
+scoped = "none"
+
+[[cost_cases]]
+id = "fallback/BigFloat/forward"
+scalar = "BigFloat"
+bits = 256
+n = 32
+layout = "dense"
+direction = "forward"
+eligible = false
+scoped = "RoundUp"
+
+[[cost_cases]]
+id = "fallback/BigFloat/transpose"
+scalar = "BigFloat"
+bits = 256
+n = 32
+layout = "dense"
+direction = "transpose"
+eligible = false
+scoped = "RoundUp"
+
+[[cost_cases]]
+id = "fallback/Float64/forward"
+scalar = "Float64"
+bits = 256
+n = 32
+layout = "dense"
+direction = "forward"
+eligible = false
+scoped = "none"
+
+[[cost_cases]]
+id = "fallback/Float64/transpose"
+scalar = "Float64"
+bits = 256
+n = 32
+layout = "dense"
+direction = "transpose"
+eligible = false
+scoped = "none"
+
+[[cost_cases]]
+id = "fallback/Rational{BigInt}/forward"
+scalar = "Rational{BigInt}"
+bits = 256
+n = 32
+layout = "dense"
+direction = "forward"
+eligible = false
+scoped = "none"
+
+[[cost_cases]]
+id = "fallback/Rational{BigInt}/transpose"
+scalar = "Rational{BigInt}"
+bits = 256
+n = 32
+layout = "dense"
+direction = "transpose"
+eligible = false
+scoped = "none"

@@ -1,0 +1,20 @@
+{
+  "accepted": false,
+  "supersedes": "review.json source-only acceptance",
+  "findings": [
+    {
+      "priority": 2,
+      "file": "tests.jl",
+      "symbol": "bundle cancellation branch",
+      "summary": "Large literals on ordinary dense LU do not force the explicitly planned cancellation case; freeze exact packed identity cancellation operands before admission."
+    }
+  ],
+  "scope": "Source-only test-coverage correction; no demonstrated candidate defect or numerical execution.",
+  "sha256": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-R/review.md": "6297343c1c57fb422773852ef77b57ae51445792ca0c371dca29b00ae247e5e2",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-R/review.json": "7b9904c0080ee7c572737a0d364efb39f1a882d85fd290ffcb6e96c6cf265643",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-R/tests.jl": "147bbc151c175baee6129c993f6435970341a14493138cdd9d946ea8647419f8",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-R/fixtures.toml": "39ab5e409633530eaaf351c6307fdb76c8ddf9b113f19f558ff0bd6646562c22",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-R/plan.md": "f0a1d9663648321b1d5727f6ae9553826d23fd9010cb04a3b20381811f4511a1"
+  }
+}

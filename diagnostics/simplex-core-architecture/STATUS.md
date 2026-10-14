@@ -47,6 +47,24 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
+MA-R isolated DenseLU BigFloat candidate/reference/tests are independently accepted
+for MA-S admission preparation. One cancellation-fixture coverage finding was fixed
+offline; final gpt-6-astra review has no unresolved findings. See MA-DENSELU-BIGFLOAT-PREPARATION.md and
+results/MA-R/plan.md. No Julia parser/import/compile/numerical call has run.
+Seven exact source inverses,12private product sites/eight generic branches,
+six normalized wrapper classes; ordinary subtraction/division/publication retained.
+Exact storage/shape/n16/rounding gate, original pre-write fallback otherwise.
+Tests:160fixed cases,488prospective backend calls including reference smoke,
+162factorization setups including2PFI constructors,2PFI copies; all UNEXECUTED.
+The52case/12480call cost schedule stays fixed, with scratch preparation inside.
+Next MA-S prepares its own concrete short-run
+admission/launcher/pins/auditor; no automatic numerical launch or promotion here.
+Production/test/userenv/master unchanged; broader plan OPEN, CIoff, HHdisabled,
+automationpaused. Six MA-Q current continuation bindings map only to MA-R
+beforecopies; Q review-before-completion and all older mappings stay unchanged.
+
+## Previous MA-Q plan (completed)
+
 MA-Q prepares a concrete source-only design and plan for private BigFloat product
 scratch in native DenseLU FTRAN/BTRAN. Fresh independent gpt-6-astra review
 accepted the design and plan with no findings; next step is MA-R offline preparation. See `MA-DENSELU-BIGFLOAT-PLAN.md`, results/MA-Q, and

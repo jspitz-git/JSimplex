@@ -1,0 +1,213 @@
+{
+  "blocks": [
+    {
+      "name": "reference_forward",
+      "source": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/factorization.jl",
+      "start_line": 127,
+      "original": "function _backend_forward_solve!(destination::Vector, backend::Union{DenseLUBackend,Float32LUBackend},\n                                 rhs::AbstractVector)\n    ldiv!(destination, backend.factorization, rhs)\n    return destination\nend\n",
+      "candidate": "function reference_forward!(destination::Vector, backend::Union{DenseLUBackend,Float32LUBackend},\n                                 rhs::AbstractVector)\n    ldiv!(destination, backend.factorization, rhs)\n    return destination\nend\n",
+      "replacements": [
+        [
+          "_backend_forward_solve!",
+          "reference_forward!"
+        ]
+      ],
+      "original_sha256": "95732464a936357a21ffe1e98427faa2d51261642434a5d7356849d543dac7d2",
+      "candidate_sha256": "a538e6213c14444eace6b9f93187394ba8bbff6cbb2a3215f19ca52dd2afaa9c",
+      "inverse_exact": true
+    },
+    {
+      "name": "reference_transpose",
+      "source": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/factorization.jl",
+      "start_line": 140,
+      "original": "function _backend_transpose_solve!(destination::Vector, backend::Union{DenseLUBackend,Float32LUBackend},\n                                   rhs::AbstractVector)\n    ldiv!(destination, transpose(backend.factorization), rhs)\n    return destination\nend\n",
+      "candidate": "function reference_transpose!(destination::Vector, backend::Union{DenseLUBackend,Float32LUBackend},\n                                   rhs::AbstractVector)\n    ldiv!(destination, transpose(backend.factorization), rhs)\n    return destination\nend\n",
+      "replacements": [
+        [
+          "_backend_transpose_solve!",
+          "reference_transpose!"
+        ]
+      ],
+      "original_sha256": "39889f36d4d09b0204f58be15a3d225a65a961d266b781817718f64c97aec5e7",
+      "candidate_sha256": "17b6efa2e7f2a0c135536e9088b3cf5e275d0b0b9283cf8f8f8238d3d7806fcf",
+      "inverse_exact": true
+    },
+    {
+      "name": "pivot_rows",
+      "source": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/LinearAlgebra/src/lu.jl",
+      "start_line": 504,
+      "original": "_apply_ipiv_rows!(A::LU, B::AbstractVecOrMat) = _ipiv_rows!(A, 1 : length(A.ipiv), B)\n_apply_inverse_ipiv_rows!(A::LU, B::AbstractVecOrMat) = _ipiv_rows!(A, length(A.ipiv) : -1 : 1, B)\n\nfunction _ipiv_rows!(A::LU, order::OrdinalRange, B::AbstractVecOrMat)\n    for i = order\n        if i != A.ipiv[i]\n            _swap_rows!(B, i, A.ipiv[i])\n        end\n    end\n    B\nend\n\nfunction _swap_rows!(B::AbstractVector, i::Integer, j::Integer)\n    B[i], B[j] = B[j], B[i]\n    B\nend\n",
+      "candidate": "_ma_apply_ma_ipiv_rows!(A::LU, B::AbstractVecOrMat) = _ma_ipiv_rows!(A, 1 : length(A.ipiv), B)\n_ma_inverse_ma_ipiv_rows!(A::LU, B::AbstractVecOrMat) = _ma_ipiv_rows!(A, length(A.ipiv) : -1 : 1, B)\n\nfunction _ma_ipiv_rows!(A::LU, order::OrdinalRange, B::AbstractVecOrMat)\n    for i = order\n        if i != A.ipiv[i]\n            _ma_swap_rows!(B, i, A.ipiv[i])\n        end\n    end\n    B\nend\n\nfunction _ma_swap_rows!(B::AbstractVector, i::Integer, j::Integer)\n    B[i], B[j] = B[j], B[i]\n    B\nend\n",
+      "replacements": [
+        [
+          "_apply_inverse_ipiv_rows!",
+          "_ma_inverse_ipiv_rows!"
+        ],
+        [
+          "_apply_ipiv_rows!",
+          "_ma_apply_ipiv_rows!"
+        ],
+        [
+          "_ipiv_rows!",
+          "_ma_ipiv_rows!"
+        ],
+        [
+          "_swap_rows!",
+          "_ma_swap_rows!"
+        ]
+      ],
+      "original_sha256": "c8daa4f723c04fa2279a4beef37051c526eba602680ed5b87e85a4815f646ce7",
+      "candidate_sha256": "8f333135197fd1f2fcc90865a93fc99400b3a016cce7bf114cd34fccd9ca9a9a",
+      "inverse_exact": true
+    },
+    {
+      "name": "lu_forward",
+      "source": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/LinearAlgebra/src/lu.jl",
+      "start_line": 559,
+      "original": "function ldiv!(A::LU, B::AbstractVecOrMat)\n    _apply_ipiv_rows!(A, B)\n    ldiv!(UpperTriangular(A.factors), ldiv!(UnitLowerTriangular(A.factors), B))\nend\n",
+      "candidate": "function _ma_lu_forward!(A::LU, B::AbstractVecOrMat, product::BigFloat)\n    _ma_apply_ma_ipiv_rows!(A, B)\n    _ma_triangular!(UpperTriangular(A.factors), _ma_triangular!(UnitLowerTriangular(A.factors), B, product), product)\nend\n",
+      "replacements": [
+        [
+          "function ldiv!(A::LU, B::AbstractVecOrMat)",
+          "function _ma_lu_forward!(A::LU, B::AbstractVecOrMat, product::BigFloat)"
+        ],
+        [
+          "_apply_ipiv_rows!(A, B)",
+          "_ma_apply_ma_ipiv_rows!(A, B)"
+        ],
+        [
+          "ldiv!(UpperTriangular(A.factors), ldiv!(UnitLowerTriangular(A.factors), B))",
+          "_ma_triangular!(UpperTriangular(A.factors), _ma_triangular!(UnitLowerTriangular(A.factors), B, product), product)"
+        ]
+      ],
+      "original_sha256": "32c46e3eadb82ab9af87b92609e4780fad754a5b88631311979d60569915465e",
+      "candidate_sha256": "c0b199d98df2fc10732dc0c9664b2b5aac3e7ea8052cdc13346e1d65f95347b4",
+      "inverse_exact": true
+    },
+    {
+      "name": "lu_transpose",
+      "source": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/LinearAlgebra/src/lu.jl",
+      "start_line": 567,
+      "original": "function ldiv!(transA::TransposeFactorization{<:Any,<:LU}, B::AbstractVecOrMat)\n    A = transA.parent\n    ldiv!(transpose(UnitLowerTriangular(A.factors)), ldiv!(transpose(UpperTriangular(A.factors)), B))\n    _apply_inverse_ipiv_rows!(A, B)\nend\n",
+      "candidate": "function _ma_lu_transpose!(transA::LA.TransposeFactorization{<:Any,<:LU}, B::AbstractVecOrMat, product::BigFloat)\n    A = transA.parent\n    _ma_triangular!(transpose(UnitLowerTriangular(A.factors)), _ma_triangular!(transpose(UpperTriangular(A.factors)), B, product), product)\n    _ma_inverse_ma_ipiv_rows!(A, B)\nend\n",
+      "replacements": [
+        [
+          "function ldiv!(transA::TransposeFactorization{<:Any,<:LU}, B::AbstractVecOrMat)",
+          "function _ma_lu_transpose!(transA::LA.TransposeFactorization{<:Any,<:LU}, B::AbstractVecOrMat, product::BigFloat)"
+        ],
+        [
+          "ldiv!(transpose(UnitLowerTriangular(A.factors)), ldiv!(transpose(UpperTriangular(A.factors)), B))",
+          "_ma_triangular!(transpose(UnitLowerTriangular(A.factors)), _ma_triangular!(transpose(UpperTriangular(A.factors)), B, product), product)"
+        ],
+        [
+          "_apply_inverse_ipiv_rows!(A, B)",
+          "_ma_inverse_ma_ipiv_rows!(A, B)"
+        ]
+      ],
+      "original_sha256": "2fc5492789fe0270c25a6a5a9694cf9a661afcd1f1ed13c45c9ce63e694990b7",
+      "candidate_sha256": "6ae9d333b0d67252d949cf5bd56cf828837d7b4d9cc702b3355b056ec268a611",
+      "inverse_exact": true
+    },
+    {
+      "name": "triangular_normalization",
+      "source": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/LinearAlgebra/src/triangular.jl",
+      "start_line": 1261,
+      "original": "function ldiv!(A::AbstractTriangular, B::AbstractVecOrMat)\n    if istriu(A)\n        _ldiv!(B, uppertriangular(A), B)\n    else\n        _ldiv!(B, lowertriangular(A), B)\n    end\nend\n",
+      "candidate": "function _ma_triangular!(A::LA.AbstractTriangular, B::AbstractVecOrMat, product::BigFloat)\n    if istriu(A)\n        _ma_ldiv!(B, LA.uppertriangular(A), B, product)\n    else\n        _ma_ldiv!(B, LA.lowertriangular(A), B, product)\n    end\nend\n",
+      "replacements": [
+        [
+          "function ldiv!(A::AbstractTriangular, B::AbstractVecOrMat)",
+          "function _ma_triangular!(A::LA.AbstractTriangular, B::AbstractVecOrMat, product::BigFloat)"
+        ],
+        [
+          "_ldiv!(B, uppertriangular(A), B)",
+          "_ma_ldiv!(B, LA.uppertriangular(A), B, product)"
+        ],
+        [
+          "_ldiv!(B, lowertriangular(A), B)",
+          "_ma_ldiv!(B, LA.lowertriangular(A), B, product)"
+        ]
+      ],
+      "original_sha256": "19787973896b7a743b6162bf115be2dda437171d57c62d56e2b4289ae3b47cdb",
+      "candidate_sha256": "62e80b4e26eeb47e00ffeb049d1342094524fe28558a8f42574139236ab8fd70",
+      "inverse_exact": true
+    },
+    {
+      "name": "generic_eight_branches",
+      "source": "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/LinearAlgebra/src/triangular.jl",
+      "start_line": 1635,
+      "original": "function generic_trimatdiv!(C::AbstractVecOrMat, uploc, isunitc, tfun::Function, A::AbstractMatrix, B::AbstractVecOrMat)\n    require_one_based_indexing(C, A, B)\n    mA, nA = size(A)\n    m = size(B, 1)\n    if nA != m\n        throw(DimensionMismatch(lazy\"second dimension of left hand side A, $nA, and first dimension of right hand side B, $m, must be equal\"))\n    end\n    if size(C) != size(B)\n        throw(DimensionMismatch(lazy\"size of output, $(size(C)), does not match size of right hand side, $(size(B))\"))\n    end\n    iszero(mA) && return C\n    oA = oneunit(eltype(A))\n    @inbounds if uploc == 'U'\n        if isunitc == 'N'\n            if tfun === identity\n                for k in axes(B,2)\n                    amm = A[m,m]\n                    iszero(amm) && throw(SingularException(m))\n                    Cm = C[m,k] = amm \\ B[m,k]\n                    # fill C-column\n                    for i in reverse(axes(B,1))[2:end]\n                        C[i,k] = oA \\ B[i,k] - _ustrip(A[i,m]) * Cm\n                    end\n                    for j in reverse(axes(B,1))[2:end]\n                        ajj = A[j,j]\n                        iszero(ajj) && throw(SingularException(j))\n                        Cj = C[j,k] = _ustrip(ajj) \\ C[j,k]\n                        for i in j-1:-1:firstindex(B,1)\n                            C[i,k] -= _ustrip(A[i,j]) * Cj\n                        end\n                    end\n                end\n            else # tfun in (adjoint, transpose)\n                for k in axes(B,2)\n                    for j in axes(B,1)\n                        ajj = A[j,j]\n                        iszero(ajj) && throw(SingularException(j))\n                        Bj = B[j,k]\n                        for i in firstindex(A,1):j-1\n                            Bj -= tfun(A[i,j]) * C[i,k]\n                        end\n                        C[j,k] = tfun(ajj) \\ Bj\n                    end\n                end\n            end\n        else # isunitc == 'U'\n            if tfun === identity\n                for k in axes(B,2)\n                    Cm = C[m,k] = oA \\ B[m,k]\n                    # fill C-column\n                    for i in reverse(axes(B,1))[2:end]\n                        C[i,k] = oA \\ B[i,k] - _ustrip(A[i,m]) * Cm\n                    end\n                    for j in reverse(axes(B,1))[2:end]\n                        Cj = C[j,k]\n                        for i in firstindex(A,1):j-1\n                            C[i,k] -= _ustrip(A[i,j]) * Cj\n                        end\n                    end\n                end\n            else # tfun in (adjoint, transpose)\n                for k in axes(B,2)\n                    for j in axes(B,1)\n                        Bj = B[j,k]\n                        for i in firstindex(A,1):j-1\n                            Bj -= tfun(A[i,j]) * C[i,k]\n                        end\n                        C[j,k] = oA \\ Bj\n                    end\n                end\n            end\n        end\n    else # uploc == 'L'\n        if isunitc == 'N'\n            if tfun === identity\n                for k in axes(B,2)\n                    a11 = A[1,1]\n                    iszero(a11) && throw(SingularException(1))\n                    C1 = C[1,k] = a11 \\ B[1,k]\n                    # fill C-column\n                    for i in axes(B,1)[2:end]\n                        C[i,k] = oA \\ B[i,k] - _ustrip(A[i,1]) * C1\n                    end\n                    for j in axes(B,1)[2:end]\n                        ajj = A[j,j]\n                        iszero(ajj) && throw(SingularException(j))\n                        Cj = C[j,k] = _ustrip(ajj) \\ C[j,k]\n                        for i in j+1:lastindex(A,1)\n                            C[i,k] -= _ustrip(A[i,j]) * Cj\n                        end\n                    end\n                end\n            else # tfun in (adjoint, transpose)\n                for k in axes(B,2)\n                    for j in reverse(axes(B,1))\n                        ajj = A[j,j]\n                        iszero(ajj) && throw(SingularException(j))\n                        Bj = B[j,k]\n                        for i in j+1:lastindex(A,1)\n                            Bj -= tfun(A[i,j]) * C[i,k]\n                        end\n                        C[j,k] = tfun(ajj) \\ Bj\n                    end\n                end\n            end\n        else # isunitc == 'U'\n            if tfun === identity\n                for k in axes(B,2)\n                    C1 = C[1,k] = oA \\ B[1,k]\n                    # fill C-column\n                    for i in axes(B,1)[2:end]\n                        C[i,k] = oA \\ B[i,k] - _ustrip(A[i,1]) * C1\n                    end\n                    for j in axes(B,1)[2:end]\n                        Cj = C[j,k]\n                        for i in j+1:lastindex(A,1)\n                            C[i,k] -= _ustrip(A[i,j]) * Cj\n                        end\n                    end\n                end\n            else # tfun in (adjoint, transpose)\n                for k in axes(B,2)\n                    for j in reverse(axes(B,1))\n                        Bj = B[j,k]\n                        for i in j+1:lastindex(A,1)\n                            Bj -= tfun(A[i,j]) * C[i,k]\n                        end\n                        C[j,k] = oA \\ Bj\n                    end\n                end\n            end\n        end\n    end\n    return C\nend\n",
+      "candidate": "function _ma_generic_trimatdiv!(C::AbstractVecOrMat, uploc, isunitc, tfun::Function, A::AbstractMatrix, B::AbstractVecOrMat, product::BigFloat)\n    require_one_based_indexing(C, A, B)\n    mA, nA = size(A)\n    m = size(B, 1)\n    if nA != m\n        throw(DimensionMismatch(lazy\"second dimension of left hand side A, $nA, and first dimension of right hand side B, $m, must be equal\"))\n    end\n    if size(C) != size(B)\n        throw(DimensionMismatch(lazy\"size of output, $(size(C)), does not match size of right hand side, $(size(B))\"))\n    end\n    iszero(mA) && return C\n    oA = oneunit(eltype(A))\n    @inbounds if uploc == 'U'\n        if isunitc == 'N'\n            if tfun === identity\n                for k in axes(B,2)\n                    amm = A[m,m]\n                    iszero(amm) && throw(SingularException(m))\n                    Cm = C[m,k] = amm \\ B[m,k]\n                    # fill C-column\n                    for i in reverse(axes(B,1))[2:end]\n                        C[i,k] = oA \\ B[i,k] - _dense_ma_mul!(product, _ustrip(A[i,m]), Cm)\n                    end\n                    for j in reverse(axes(B,1))[2:end]\n                        ajj = A[j,j]\n                        iszero(ajj) && throw(SingularException(j))\n                        Cj = C[j,k] = _ustrip(ajj) \\ C[j,k]\n                        for i in j-1:-1:firstindex(B,1)\n                            C[i,k] -= _dense_ma_mul!(product, _ustrip(A[i,j]), Cj)\n                        end\n                    end\n                end\n            else # tfun in (adjoint, transpose)\n                for k in axes(B,2)\n                    for j in axes(B,1)\n                        ajj = A[j,j]\n                        iszero(ajj) && throw(SingularException(j))\n                        Bj = B[j,k]\n                        for i in firstindex(A,1):j-1\n                            Bj -= _dense_ma_mul!(product, tfun(A[i,j]), C[i,k])\n                        end\n                        C[j,k] = tfun(ajj) \\ Bj\n                    end\n                end\n            end\n        else # isunitc == 'U'\n            if tfun === identity\n                for k in axes(B,2)\n                    Cm = C[m,k] = oA \\ B[m,k]\n                    # fill C-column\n                    for i in reverse(axes(B,1))[2:end]\n                        C[i,k] = oA \\ B[i,k] - _dense_ma_mul!(product, _ustrip(A[i,m]), Cm)\n                    end\n                    for j in reverse(axes(B,1))[2:end]\n                        Cj = C[j,k]\n                        for i in firstindex(A,1):j-1\n                            C[i,k] -= _dense_ma_mul!(product, _ustrip(A[i,j]), Cj)\n                        end\n                    end\n                end\n            else # tfun in (adjoint, transpose)\n                for k in axes(B,2)\n                    for j in axes(B,1)\n                        Bj = B[j,k]\n                        for i in firstindex(A,1):j-1\n                            Bj -= _dense_ma_mul!(product, tfun(A[i,j]), C[i,k])\n                        end\n                        C[j,k] = oA \\ Bj\n                    end\n                end\n            end\n        end\n    else # uploc == 'L'\n        if isunitc == 'N'\n            if tfun === identity\n                for k in axes(B,2)\n                    a11 = A[1,1]\n                    iszero(a11) && throw(SingularException(1))\n                    C1 = C[1,k] = a11 \\ B[1,k]\n                    # fill C-column\n                    for i in axes(B,1)[2:end]\n                        C[i,k] = oA \\ B[i,k] - _dense_ma_mul!(product, _ustrip(A[i,1]), C1)\n                    end\n                    for j in axes(B,1)[2:end]\n                        ajj = A[j,j]\n                        iszero(ajj) && throw(SingularException(j))\n                        Cj = C[j,k] = _ustrip(ajj) \\ C[j,k]\n                        for i in j+1:lastindex(A,1)\n                            C[i,k] -= _dense_ma_mul!(product, _ustrip(A[i,j]), Cj)\n                        end\n                    end\n                end\n            else # tfun in (adjoint, transpose)\n                for k in axes(B,2)\n                    for j in reverse(axes(B,1))\n                        ajj = A[j,j]\n                        iszero(ajj) && throw(SingularException(j))\n                        Bj = B[j,k]\n                        for i in j+1:lastindex(A,1)\n                            Bj -= _dense_ma_mul!(product, tfun(A[i,j]), C[i,k])\n                        end\n                        C[j,k] = tfun(ajj) \\ Bj\n                    end\n                end\n            end\n        else # isunitc == 'U'\n            if tfun === identity\n                for k in axes(B,2)\n                    C1 = C[1,k] = oA \\ B[1,k]\n                    # fill C-column\n                    for i in axes(B,1)[2:end]\n                        C[i,k] = oA \\ B[i,k] - _dense_ma_mul!(product, _ustrip(A[i,1]), C1)\n                    end\n                    for j in axes(B,1)[2:end]\n                        Cj = C[j,k]\n                        for i in j+1:lastindex(A,1)\n                            C[i,k] -= _dense_ma_mul!(product, _ustrip(A[i,j]), Cj)\n                        end\n                    end\n                end\n            else # tfun in (adjoint, transpose)\n                for k in axes(B,2)\n                    for j in reverse(axes(B,1))\n                        Bj = B[j,k]\n                        for i in j+1:lastindex(A,1)\n                            Bj -= _dense_ma_mul!(product, tfun(A[i,j]), C[i,k])\n                        end\n                        C[j,k] = oA \\ Bj\n                    end\n                end\n            end\n        end\n    end\n    return C\nend\n",
+      "replacements": [
+        [
+          "function generic_trimatdiv!(C::AbstractVecOrMat, uploc, isunitc, tfun::Function, A::AbstractMatrix, B::AbstractVecOrMat)",
+          "function _ma_generic_trimatdiv!(C::AbstractVecOrMat, uploc, isunitc, tfun::Function, A::AbstractMatrix, B::AbstractVecOrMat, product::BigFloat)"
+        ],
+        [
+          "_ustrip(A[i,m]) * Cm",
+          "_dense_ma_mul!(product, _ustrip(A[i,m]), Cm)"
+        ],
+        [
+          "_ustrip(A[i,j]) * Cj",
+          "_dense_ma_mul!(product, _ustrip(A[i,j]), Cj)"
+        ],
+        [
+          "tfun(A[i,j]) * C[i,k]",
+          "_dense_ma_mul!(product, tfun(A[i,j]), C[i,k])"
+        ],
+        [
+          "_ustrip(A[i,1]) * C1",
+          "_dense_ma_mul!(product, _ustrip(A[i,1]), C1)"
+        ]
+      ],
+      "original_sha256": "757f893476d021796f2cffed0dd081dc162c7fd1b7c3e6eebfb7fa06518f7715",
+      "candidate_sha256": "cbb7eb44a007d813ee70099a619baa55ddb95e89d1fc204b91e2dcf658c0e946",
+      "inverse_exact": true
+    }
+  ],
+  "reachable_normalizations": [
+    {
+      "stage": "F L, lower present",
+      "normalized": "UnitLowerTriangular(Matrix)",
+      "flags": "L/U/identity",
+      "A": "Matrix"
+    },
+    {
+      "stage": "F L, upper/diagonal",
+      "normalized": "UpperTriangular(UnitLowerTriangular(Matrix))",
+      "flags": "U/N/identity",
+      "A": "UnitLowerTriangular(Matrix)"
+    },
+    {
+      "stage": "F U",
+      "normalized": "UpperTriangular(Matrix)",
+      "flags": "U/N/identity",
+      "A": "Matrix"
+    },
+    {
+      "stage": "B U transpose, upper present",
+      "normalized": "LowerTriangular(Transpose(Matrix))",
+      "flags": "U/N/transpose",
+      "A": "Matrix"
+    },
+    {
+      "stage": "B U transpose, lower/diagonal",
+      "normalized": "UpperTriangular(LowerTriangular(Transpose(Matrix)))",
+      "flags": "U/N/identity",
+      "A": "LowerTriangular(Transpose(Matrix))"
+    },
+    {
+      "stage": "B L transpose",
+      "normalized": "UnitUpperTriangular(Transpose(Matrix))",
+      "flags": "L/U/transpose",
+      "A": "Matrix"
+    }
+  ],
+  "scope": "Exact native LU Matrix{BigFloat} only. All eight generic branches copied; only listed normalized classes are claimed reachable. No parse/dispatch/runtime claim. Square top-level ldiv! branch justified by eligibility. Two wrapper paths retain nested virtual zeros and ones.",
+  "product_sites": 12,
+  "environment_edits": [
+    "Direct diagnostic MA dep",
+    "JSimplex path . -> absolute current checkout",
+    "remove stale project_hash only; no resolve or selected-loader proof"
+  ]
+}
