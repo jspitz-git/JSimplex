@@ -47,22 +47,24 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-MA-S-2 separate admission is prepared for the exact accepted MA-S-LOAD driver.
-New launcher.py/audit.py/guard.py/commands.json/admission.md/pins.json with4304fresh
-bindings; entry12PASS/source8PASS/new80synthetic checks/freeze5PASS. No Julia or
-launcher/guard main, reservation or numerical output. Independent preparation
-decision: MA-S-2/admission-review.md/json. See MA-DENSELU-BIGFLOAT-SECOND-ADMISSION.md.
-Only after acceptance, next step is fresh current refs/boot/start_ticks/command/
-full160groups ANDsessions plus newer groups/noJulia/source/user checks, NEW
-launch-context and independently accepted numerical-review, then ONE fixed sequence.
-The context must use the published preparation HEAD; old parent refs/seals are not
-launch permission. Standing short-run permission persists; do not ask again.
-Fixed3serial120s/360s caps,160correctness/52cost cases, all old gates unchanged.
-Stop on first unexpected failure, no retry/tuning. No run is performed in preparation.
-Old MA-S sequence consumed/failed and frozen; no stages2/3 resume. LOAD driver
-runtime repair still unqualified; Task3 remains conditional, broader plan OPEN.
-Six current LOAD review/closure/publication continuation hashes map ONLY to
-MA-S-2 before-MA-S-2 copies. All older S/LOAD mappings unchanged.
+MA-S-2 executed once and closed: three exit0 processes, stage audits23/21/21PASS,
+160correctness cases/4329assertions plus16smoke; exact expected missing-route RED2.
+Corrected LOAD driver works in this sequence. All36BigFloat targets pass, but four
+fallback controls fail allocation gates: aggregate48/52,accepted=false. Targets
+paired medians0.535572–0.743382; no end-to-end speedup claim or production promotion.
+BigFloat scoped fallback+128bytes/+8events per4calls, rational fallback+0–32bytes
+with unchanged event counts. All control time gates pass; causes remain unproved.
+3120windows/2184measured,compile/recompile0,52GCwindows(39measured)retained.
+New result-analysis16PASS/postcheck18PASS/full4304pins/source514/protected6,
+full166groups ANDsessions absent/noJulia. Three durations total39.348553s NOTbenchmark.
+See MA-DENSELU-BIGFLOAT-SECOND-QUALIFICATION.md and results/MA-S-2/result-review.
+No rerun/tuning/threshold change or Task3 integration; sequence consumed/frozen.
+Next useful work: separate bounded offline fallback-allocation analysis using stored
+results and pinned sources, then independent review before any changed candidate
+or new admitted short experiment. No numerical retry is authorized by this record.
+Standing short-run permission persists; broader plan OPEN. Eight current MA-S-2
+review/seal/closure/publication continuation bindings map ONLY to before-MA-S-2-
+execution copies via execution-continuation-map.json; all older mappings unchanged.
 Production/test/userenv/master6f68e24 unchanged; CIoff/HHdisabled/automationpaused.
 
 ## Previous MA-S admission preparation (completed before execution)

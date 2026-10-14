@@ -2369,3 +2369,25 @@ See MA-DENSELU-BIGFLOAT-SECOND-ADMISSION.md and MA-S-2/admission.md. Current LOA
 continuation hashes map only to S-2 beforecopies; earlier maps intact.
 Production/test/env/master unchanged; Task3 conditional, broader plan OPEN,
 CIoff/HHdisabled/automationpaused. No runtime correctness or speedup claim.
+
+## MA-S-2 executed: target savings, fallback allocation rejection (2026-10-14)
+
+MA-S-2 executed once and closed: three exit0 processes, stage audits23/21/21PASS,
+160correctness cases/4329assertions plus16smoke; exact expected missing-route RED2.
+Corrected LOAD driver works in this sequence. All36BigFloat targets pass, but four
+fallback controls fail allocation gates: aggregate48/52,accepted=false. Targets
+paired medians0.535572–0.743382; no end-to-end speedup claim or production promotion.
+BigFloat scoped fallback+128bytes/+8events per4calls, rational fallback+0–32bytes
+with unchanged event counts. All control time gates pass; causes remain unproved.
+3120windows/2184measured,compile/recompile0,52GCwindows(39measured)retained.
+New result-analysis16PASS/postcheck18PASS/full4304pins/source514/protected6,
+full166groups ANDsessions absent/noJulia. Three durations total39.348553s NOTbenchmark.
+See MA-DENSELU-BIGFLOAT-SECOND-QUALIFICATION.md and results/MA-S-2/result-review.
+No rerun/tuning/threshold change or Task3 integration; sequence consumed/frozen.
+Next useful work: separate bounded offline fallback-allocation analysis using stored
+results and pinned sources, then independent review before any changed candidate
+or new admitted short experiment. No numerical retry is authorized by this record.
+Standing short-run permission persists; broader plan OPEN. Eight current MA-S-2
+review/seal/closure/publication continuation bindings map ONLY to before-MA-S-2-
+execution copies via execution-continuation-map.json; all older mappings unchanged.
+Production/test/userenv/master6f68e24 unchanged; CIoff/HHdisabled/automationpaused.

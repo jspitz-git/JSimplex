@@ -1,0 +1,2854 @@
+{
+  "all_passed": true,
+  "qualification_accepted": false,
+  "checks": {
+    "52cases": true,
+    "36targets": true,
+    "all_aggregate_decisions": true,
+    "48accepted": true,
+    "all36targets_pass": true,
+    "12controls_pass": true,
+    "all_control_times_pass": true,
+    "correctness4329": true,
+    "smoke16": true,
+    "160cases162calls": true,
+    "no_extra_correctness": true,
+    "raw_no_errors": true,
+    "windows3120": true,
+    "measured2184": true,
+    "costcalls12480": true,
+    "compilezero": true
+  },
+  "cases": [
+    {
+      "id": "target/128/16/dense/forward",
+      "target": true,
+      "median_ratio": 0.6724008975317877,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 3.505e-05,
+      "pooled_candidate_seconds_per_call": 2.4075e-05,
+      "faster_pairs": 20,
+      "accepted": true,
+      "processes": [
+        {
+          "reference_seconds_per_call": 3.505e-05,
+          "candidate_seconds_per_call": 2.3925e-05,
+          "paired_median": 0.6821760916249104,
+          "reference_bytes_per_window": 203312,
+          "candidate_bytes_per_window": 111536,
+          "reference_events_per_window": 4241,
+          "candidate_events_per_window": 2329,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 5.3425e-05,
+          "candidate_seconds_per_call": 3.5125e-05,
+          "paired_median": 0.6607393542349087,
+          "reference_bytes_per_window": 203312,
+          "candidate_bytes_per_window": 111536,
+          "reference_events_per_window": 4241,
+          "candidate_events_per_window": 2329,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 3.3175e-05,
+          "candidate_seconds_per_call": 2.2375e-05,
+          "paired_median": 0.6724008975317877,
+          "reference_bytes_per_window": 203312,
+          "candidate_bytes_per_window": 111536,
+          "reference_events_per_window": 4241,
+          "candidate_events_per_window": 2329,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "target/128/16/dense/transpose",
+      "target": true,
+      "median_ratio": 0.6581517655897821,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 3.4225e-05,
+      "pooled_candidate_seconds_per_call": 2.23e-05,
+      "faster_pairs": 21,
+      "accepted": true,
+      "processes": [
+        {
+          "reference_seconds_per_call": 3.3275e-05,
+          "candidate_seconds_per_call": 2.2175e-05,
+          "paired_median": 0.6624346527259148,
+          "reference_bytes_per_window": 197552,
+          "candidate_bytes_per_window": 105776,
+          "reference_events_per_window": 4121,
+          "candidate_events_per_window": 2209,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 3.4475e-05,
+          "candidate_seconds_per_call": 2.2575e-05,
+          "paired_median": 0.6515704894083273,
+          "reference_bytes_per_window": 197552,
+          "candidate_bytes_per_window": 105776,
+          "reference_events_per_window": 4121,
+          "candidate_events_per_window": 2209,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 3.3575e-05,
+          "candidate_seconds_per_call": 2.1725e-05,
+          "paired_median": 0.6568405139833712,
+          "reference_bytes_per_window": 197552,
+          "candidate_bytes_per_window": 105776,
+          "reference_events_per_window": 4121,
+          "candidate_events_per_window": 2209,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "target/128/16/zeroheavy/forward",
+      "target": true,
+      "median_ratio": 0.6287215411558669,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 2.95e-05,
+      "pooled_candidate_seconds_per_call": 1.8675e-05,
+      "faster_pairs": 21,
+      "accepted": true,
+      "processes": [
+        {
+          "reference_seconds_per_call": 2.9375e-05,
+          "candidate_seconds_per_call": 1.855e-05,
+          "paired_median": 0.6287878787878788,
+          "reference_bytes_per_window": 203312,
+          "candidate_bytes_per_window": 111536,
+          "reference_events_per_window": 4241,
+          "candidate_events_per_window": 2329,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 3.06e-05,
+          "candidate_seconds_per_call": 1.9125e-05,
+          "paired_median": 0.6208569118835893,
+          "reference_bytes_per_window": 203312,
+          "candidate_bytes_per_window": 111536,
+          "reference_events_per_window": 4241,
+          "candidate_events_per_window": 2329,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 2.8725e-05,
+          "candidate_seconds_per_call": 1.8325e-05,
+          "paired_median": 0.6291448516579408,
+          "reference_bytes_per_window": 203312,
+          "candidate_bytes_per_window": 111536,
+          "reference_events_per_window": 4241,
+          "candidate_events_per_window": 2329,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "target/128/16/zeroheavy/transpose",
+      "target": true,
+      "median_ratio": 0.6358885017421603,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 2.87e-05,
+      "pooled_candidate_seconds_per_call": 1.8275e-05,
+      "faster_pairs": 21,
+      "accepted": true,
+      "processes": [
+        {
+          "reference_seconds_per_call": 2.82e-05,
+          "candidate_seconds_per_call": 1.79e-05,
+          "paired_median": 0.636036036036036,
+          "reference_bytes_per_window": 197552,
+          "candidate_bytes_per_window": 105776,
+          "reference_events_per_window": 4121,
+          "candidate_events_per_window": 2209,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 2.8975e-05,
+          "candidate_seconds_per_call": 1.8375e-05,
+          "paired_median": 0.6358885017421603,
+          "reference_bytes_per_window": 197552,
+          "candidate_bytes_per_window": 105776,
+          "reference_events_per_window": 4121,
+          "candidate_events_per_window": 2209,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 2.86e-05,
+          "candidate_seconds_per_call": 1.8275e-05,
+          "paired_median": 0.6350174216027874,
+          "reference_bytes_per_window": 197552,
+          "candidate_bytes_per_window": 105776,
+          "reference_events_per_window": 4121,
+          "candidate_events_per_window": 2209,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "target/128/32/dense/forward",
+      "target": true,
+      "median_ratio": 0.6396143733567046,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 0.0001342,
+      "pooled_candidate_seconds_per_call": 8.7575e-05,
+      "faster_pairs": 21,
+      "accepted": true,
+      "processes": [
+        {
+          "reference_seconds_per_call": 0.0001378,
+          "candidate_seconds_per_call": 8.82e-05,
+          "paired_median": 0.635522496371553,
+          "reference_bytes_per_window": 799280,
+          "candidate_bytes_per_window": 418736,
+          "reference_events_per_window": 16657,
+          "candidate_events_per_window": 8729,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.00013425,
+          "candidate_seconds_per_call": 8.52e-05,
+          "paired_median": 0.6342644320297951,
+          "reference_bytes_per_window": 799280,
+          "candidate_bytes_per_window": 418736,
+          "reference_events_per_window": 16657,
+          "candidate_events_per_window": 8729,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.00013080025,
+          "candidate_seconds_per_call": 8.8625e-05,
+          "paired_median": 0.6669869331283628,
+          "reference_bytes_per_window": 799280,
+          "candidate_bytes_per_window": 418736,
+          "reference_events_per_window": 16657,
+          "candidate_events_per_window": 8729,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "target/128/32/dense/transpose",
+      "target": true,
+      "median_ratio": 0.6425120772946861,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 0.000133375,
+      "pooled_candidate_seconds_per_call": 8.5125e-05,
+      "faster_pairs": 20,
+      "accepted": true,
+      "processes": [
+        {
+          "reference_seconds_per_call": 0.000130875,
+          "candidate_seconds_per_call": 8.4775e-05,
+          "paired_median": 0.6448901623686725,
+          "reference_bytes_per_window": 787376,
+          "candidate_bytes_per_window": 406832,
+          "reference_events_per_window": 16409,
+          "candidate_events_per_window": 8481,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.00013715,
+          "candidate_seconds_per_call": 8.6325e-05,
+          "paired_median": 0.6308786000729129,
+          "reference_bytes_per_window": 787376,
+          "candidate_bytes_per_window": 406832,
+          "reference_events_per_window": 16409,
+          "candidate_events_per_window": 8481,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.00012735,
+          "candidate_seconds_per_call": 8.3125e-05,
+          "paired_median": 0.6499803690616411,
+          "reference_bytes_per_window": 787376,
+          "candidate_bytes_per_window": 406832,
+          "reference_events_per_window": 16409,
+          "candidate_events_per_window": 8481,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "target/128/32/zeroheavy/forward",
+      "target": true,
+      "median_ratio": 0.5877502944640753,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 0.000111625,
+      "pooled_candidate_seconds_per_call": 6.675e-05,
+      "faster_pairs": 20,
+      "accepted": true,
+      "processes": [
+        {
+          "reference_seconds_per_call": 0.00011005,
+          "candidate_seconds_per_call": 6.4625e-05,
+          "paired_median": 0.5913705583756345,
+          "reference_bytes_per_window": 799280,
+          "candidate_bytes_per_window": 418736,
+          "reference_events_per_window": 16657,
+          "candidate_events_per_window": 8729,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.000114825,
+          "candidate_seconds_per_call": 6.81e-05,
+          "paired_median": 0.5910284463894967,
+          "reference_bytes_per_window": 799280,
+          "candidate_bytes_per_window": 418736,
+          "reference_events_per_window": 16657,
+          "candidate_events_per_window": 8729,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.00010965,
+          "candidate_seconds_per_call": 6.38e-05,
+          "paired_median": 0.5853883383268035,
+          "reference_bytes_per_window": 799280,
+          "candidate_bytes_per_window": 418736,
+          "reference_events_per_window": 16657,
+          "candidate_events_per_window": 8729,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "target/128/32/zeroheavy/transpose",
+      "target": true,
+      "median_ratio": 0.589874494788343,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 0.00011205,
+      "pooled_candidate_seconds_per_call": 6.6e-05,
+      "faster_pairs": 21,
+      "accepted": true,
+      "processes": [
+        {
+          "reference_seconds_per_call": 0.000111125,
+          "candidate_seconds_per_call": 6.6e-05,
+          "paired_median": 0.5706240144176615,
+          "reference_bytes_per_window": 787376,
+          "candidate_bytes_per_window": 406832,
+          "reference_events_per_window": 16409,
+          "candidate_events_per_window": 8481,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.0001157,
+          "candidate_seconds_per_call": 6.75e-05,
+          "paired_median": 0.589874494788343,
+          "reference_bytes_per_window": 787376,
+          "candidate_bytes_per_window": 406832,
+          "reference_events_per_window": 16409,
+          "candidate_events_per_window": 8481,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.0001054,
+          "candidate_seconds_per_call": 6.295e-05,
+          "paired_median": 0.5931116389548694,
+          "reference_bytes_per_window": 787376,
+          "candidate_bytes_per_window": 406832,
+          "reference_events_per_window": 16409,
+          "candidate_events_per_window": 8481,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "target/128/64/dense/forward",
+      "target": true,
+      "median_ratio": 0.6301681269239876,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 0.00053005,
+      "pooled_candidate_seconds_per_call": 0.000331525,
+      "faster_pairs": 21,
+      "accepted": true,
+      "processes": [
+        {
+          "reference_seconds_per_call": 0.00053035,
+          "candidate_seconds_per_call": 0.000355225,
+          "paired_median": 0.6525042711986332,
+          "reference_bytes_per_window": 3170864,
+          "candidate_bytes_per_window": 1622960,
+          "reference_events_per_window": 66065,
+          "candidate_events_per_window": 33817,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.00053005,
+          "candidate_seconds_per_call": 0.00033265,
+          "paired_median": 0.6295193738896625,
+          "reference_bytes_per_window": 3170864,
+          "candidate_bytes_per_window": 1622960,
+          "reference_events_per_window": 66065,
+          "candidate_events_per_window": 33817,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.00053005,
+          "candidate_seconds_per_call": 0.0003217,
+          "paired_median": 0.6100524614736053,
+          "reference_bytes_per_window": 3170864,
+          "candidate_bytes_per_window": 1622960,
+          "reference_events_per_window": 66065,
+          "candidate_events_per_window": 33817,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "target/128/64/dense/transpose",
+      "target": true,
+      "median_ratio": 0.6299736044579138,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 0.00054525,
+      "pooled_candidate_seconds_per_call": 0.000336,
+      "faster_pairs": 21,
+      "accepted": true,
+      "processes": [
+        {
+          "reference_seconds_per_call": 0.00066485,
+          "candidate_seconds_per_call": 0.00039135,
+          "paired_median": 0.6236095990912104,
+          "reference_bytes_per_window": 3146672,
+          "candidate_bytes_per_window": 1598768,
+          "reference_events_per_window": 65561,
+          "candidate_events_per_window": 33313,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.0005343,
+          "candidate_seconds_per_call": 0.0003388,
+          "paired_median": 0.6379040296169728,
+          "reference_bytes_per_window": 3146672,
+          "candidate_bytes_per_window": 1598768,
+          "reference_events_per_window": 65561,
+          "candidate_events_per_window": 33313,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.0005119,
+          "candidate_seconds_per_call": 0.00032125025,
+          "paired_median": 0.6260792778649921,
+          "reference_bytes_per_window": 3146672,
+          "candidate_bytes_per_window": 1598768,
+          "reference_events_per_window": 65561,
+          "candidate_events_per_window": 33313,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "target/128/64/zeroheavy/forward",
+      "target": true,
+      "median_ratio": 0.5659537572254335,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 0.00044125,
+      "pooled_candidate_seconds_per_call": 0.00024805,
+      "faster_pairs": 20,
+      "accepted": true,
+      "processes": [
+        {
+          "reference_seconds_per_call": 0.00044185,
+          "candidate_seconds_per_call": 0.00024935,
+          "paired_median": 0.5613896118592282,
+          "reference_bytes_per_window": 3170864,
+          "candidate_bytes_per_window": 1622960,
+          "reference_events_per_window": 66065,
+          "candidate_events_per_window": 33817,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.00043485,
+          "candidate_seconds_per_call": 0.000247625,
+          "paired_median": 0.5694492353685179,
+          "reference_bytes_per_window": 3170864,
+          "candidate_bytes_per_window": 1622960,
+          "reference_events_per_window": 66065,
+          "candidate_events_per_window": 33817,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.0004348,
+          "candidate_seconds_per_call": 0.00024500025,
+          "paired_median": 0.5651020643524391,
+          "reference_bytes_per_window": 3170864,
+          "candidate_bytes_per_window": 1622960,
+          "reference_events_per_window": 66065,
+          "candidate_events_per_window": 33817,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "target/128/64/zeroheavy/transpose",
+      "target": true,
+      "median_ratio": 0.5850790384943407,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 0.0004345,
+      "pooled_candidate_seconds_per_call": 0.000252825,
+      "faster_pairs": 18,
+      "accepted": true,
+      "processes": [
+        {
+          "reference_seconds_per_call": 0.000427575,
+          "candidate_seconds_per_call": 0.00025275,
+          "paired_median": 0.5864553314121038,
+          "reference_bytes_per_window": 3146672,
+          "candidate_bytes_per_window": 1598768,
+          "reference_events_per_window": 65561,
+          "candidate_events_per_window": 33313,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.000435875,
+          "candidate_seconds_per_call": 0.000253175,
+          "paired_median": 0.5841601292108907,
+          "reference_bytes_per_window": 3146672,
+          "candidate_bytes_per_window": 1598768,
+          "reference_events_per_window": 65561,
+          "candidate_events_per_window": 33313,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.0004252,
+          "candidate_seconds_per_call": 0.000247825,
+          "paired_median": 0.5850790384943407,
+          "reference_bytes_per_window": 3146672,
+          "candidate_bytes_per_window": 1598768,
+          "reference_events_per_window": 65561,
+          "candidate_events_per_window": 33313,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "target/256/16/dense/forward",
+      "target": true,
+      "median_ratio": 0.7045454545454545,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 3.85e-05,
+      "pooled_candidate_seconds_per_call": 2.705e-05,
+      "faster_pairs": 21,
+      "accepted": true,
+      "processes": [
+        {
+          "reference_seconds_per_call": 3.8575e-05,
+          "candidate_seconds_per_call": 2.7125e-05,
+          "paired_median": 0.7001278772378516,
+          "reference_bytes_per_window": 237168,
+          "candidate_bytes_per_window": 130096,
+          "reference_events_per_window": 4241,
+          "candidate_events_per_window": 2329,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 3.82e-05,
+          "candidate_seconds_per_call": 2.7075e-05,
+          "paired_median": 0.7070773263433814,
+          "reference_bytes_per_window": 237168,
+          "candidate_bytes_per_window": 130096,
+          "reference_events_per_window": 4241,
+          "candidate_events_per_window": 2329,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 3.7125e-05,
+          "candidate_seconds_per_call": 2.63e-05,
+          "paired_median": 0.7089804186360568,
+          "reference_bytes_per_window": 237168,
+          "candidate_bytes_per_window": 130096,
+          "reference_events_per_window": 4241,
+          "candidate_events_per_window": 2329,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "target/256/16/dense/transpose",
+      "target": true,
+      "median_ratio": 0.6957746478873239,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 3.7225e-05,
+      "pooled_candidate_seconds_per_call": 2.595e-05,
+      "faster_pairs": 21,
+      "accepted": true,
+      "processes": [
+        {
+          "reference_seconds_per_call": 3.7575e-05,
+          "candidate_seconds_per_call": 2.6075e-05,
+          "paired_median": 0.6985934360348293,
+          "reference_bytes_per_window": 230448,
+          "candidate_bytes_per_window": 123376,
+          "reference_events_per_window": 4121,
+          "candidate_events_per_window": 2209,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 3.7225e-05,
+          "candidate_seconds_per_call": 2.5975e-05,
+          "paired_median": 0.6937669376693766,
+          "reference_bytes_per_window": 230448,
+          "candidate_bytes_per_window": 123376,
+          "reference_events_per_window": 4121,
+          "candidate_events_per_window": 2209,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 3.55e-05,
+          "candidate_seconds_per_call": 2.4775e-05,
+          "paired_median": 0.6957746478873239,
+          "reference_bytes_per_window": 230448,
+          "candidate_bytes_per_window": 123376,
+          "reference_events_per_window": 4121,
+          "candidate_events_per_window": 2209,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "target/256/16/zeroheavy/forward",
+      "target": true,
+      "median_ratio": 0.6524148851939825,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 3.1475e-05,
+      "pooled_candidate_seconds_per_call": 2.0375e-05,
+      "faster_pairs": 21,
+      "accepted": true,
+      "processes": [
+        {
+          "reference_seconds_per_call": 3.1575e-05,
+          "candidate_seconds_per_call": 2.02e-05,
+          "paired_median": 0.6499999999999999,
+          "reference_bytes_per_window": 237168,
+          "candidate_bytes_per_window": 130096,
+          "reference_events_per_window": 4241,
+          "candidate_events_per_window": 2329,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 3.1575e-05,
+          "candidate_seconds_per_call": 2.07e-05,
+          "paired_median": 0.6555819477434679,
+          "reference_bytes_per_window": 237168,
+          "candidate_bytes_per_window": 130096,
+          "reference_events_per_window": 4241,
+          "candidate_events_per_window": 2329,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 3.085e-05,
+          "candidate_seconds_per_call": 2.0075e-05,
+          "paired_median": 0.6547811993517019,
+          "reference_bytes_per_window": 237168,
+          "candidate_bytes_per_window": 130096,
+          "reference_events_per_window": 4241,
+          "candidate_events_per_window": 2329,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "target/256/16/zeroheavy/transpose",
+      "target": true,
+      "median_ratio": 0.6374468085106384,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 3.0075e-05,
+      "pooled_candidate_seconds_per_call": 1.9175e-05,
+      "faster_pairs": 20,
+      "accepted": true,
+      "processes": [
+        {
+          "reference_seconds_per_call": 3.0075e-05,
+          "candidate_seconds_per_call": 1.9175e-05,
+          "paired_median": 0.6325852036575229,
+          "reference_bytes_per_window": 230448,
+          "candidate_bytes_per_window": 123376,
+          "reference_events_per_window": 4121,
+          "candidate_events_per_window": 2209,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 3.01e-05,
+          "candidate_seconds_per_call": 1.9175e-05,
+          "paired_median": 0.6378737541528239,
+          "reference_bytes_per_window": 230448,
+          "candidate_bytes_per_window": 123376,
+          "reference_events_per_window": 4121,
+          "candidate_events_per_window": 2209,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 2.9625e-05,
+          "candidate_seconds_per_call": 2.6e-05,
+          "paired_median": 0.6374468085106384,
+          "reference_bytes_per_window": 230448,
+          "candidate_bytes_per_window": 123376,
+          "reference_events_per_window": 4121,
+          "candidate_events_per_window": 2209,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "target/256/32/dense/forward",
+      "target": true,
+      "median_ratio": 0.6772888214466363,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 0.000146675,
+      "pooled_candidate_seconds_per_call": 0.000100525,
+      "faster_pairs": 21,
+      "accepted": true,
+      "processes": [
+        {
+          "reference_seconds_per_call": 0.00014595,
+          "candidate_seconds_per_call": 0.000101,
+          "paired_median": 0.6904231625835189,
+          "reference_bytes_per_window": 932464,
+          "candidate_bytes_per_window": 488496,
+          "reference_events_per_window": 16657,
+          "candidate_events_per_window": 8729,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.00014785,
+          "candidate_seconds_per_call": 9.985e-05,
+          "paired_median": 0.671486213853396,
+          "reference_bytes_per_window": 932464,
+          "candidate_bytes_per_window": 488496,
+          "reference_events_per_window": 16657,
+          "candidate_events_per_window": 8729,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.0001437,
+          "candidate_seconds_per_call": 9.81e-05,
+          "paired_median": 0.6769420468557337,
+          "reference_bytes_per_window": 932464,
+          "candidate_bytes_per_window": 488496,
+          "reference_events_per_window": 16657,
+          "candidate_events_per_window": 8729,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "target/256/32/dense/transpose",
+      "target": true,
+      "median_ratio": 0.6754599097535577,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 0.00014515,
+      "pooled_candidate_seconds_per_call": 9.8475e-05,
+      "faster_pairs": 20,
+      "accepted": true,
+      "processes": [
+        {
+          "reference_seconds_per_call": 0.00014705,
+          "candidate_seconds_per_call": 0.000103,
+          "paired_median": 0.7219204485719292,
+          "reference_bytes_per_window": 918576,
+          "candidate_bytes_per_window": 474608,
+          "reference_events_per_window": 16409,
+          "candidate_events_per_window": 8481,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.000145575,
+          "candidate_seconds_per_call": 9.8325e-05,
+          "paired_median": 0.6747699253342595,
+          "reference_bytes_per_window": 918576,
+          "candidate_bytes_per_window": 474608,
+          "reference_events_per_window": 16409,
+          "candidate_events_per_window": 8481,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.00014155,
+          "candidate_seconds_per_call": 9.42e-05,
+          "paired_median": 0.671721677074041,
+          "reference_bytes_per_window": 918576,
+          "candidate_bytes_per_window": 474608,
+          "reference_events_per_window": 16409,
+          "candidate_events_per_window": 8481,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "target/256/32/zeroheavy/forward",
+      "target": true,
+      "median_ratio": 0.601075936271467,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 0.0001185,
+      "pooled_candidate_seconds_per_call": 7.1725e-05,
+      "faster_pairs": 19,
+      "accepted": true,
+      "processes": [
+        {
+          "reference_seconds_per_call": 0.000120825,
+          "candidate_seconds_per_call": 7.2725e-05,
+          "paired_median": 0.601075936271467,
+          "reference_bytes_per_window": 932464,
+          "candidate_bytes_per_window": 488496,
+          "reference_events_per_window": 16657,
+          "candidate_events_per_window": 8729,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.00011945,
+          "candidate_seconds_per_call": 7.0675e-05,
+          "paired_median": 0.5876935956467141,
+          "reference_bytes_per_window": 932464,
+          "candidate_bytes_per_window": 488496,
+          "reference_events_per_window": 16657,
+          "candidate_events_per_window": 8729,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.00011705,
+          "candidate_seconds_per_call": 7.1725e-05,
+          "paired_median": 0.6124253813840372,
+          "reference_bytes_per_window": 932464,
+          "candidate_bytes_per_window": 488496,
+          "reference_events_per_window": 16657,
+          "candidate_events_per_window": 8729,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "target/256/32/zeroheavy/transpose",
+      "target": true,
+      "median_ratio": 0.590758346230378,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 0.000113225,
+      "pooled_candidate_seconds_per_call": 6.7525e-05,
+      "faster_pairs": 20,
+      "accepted": true,
+      "processes": [
+        {
+          "reference_seconds_per_call": 0.00011205,
+          "candidate_seconds_per_call": 6.63e-05,
+          "paired_median": 0.5902746510580819,
+          "reference_bytes_per_window": 918576,
+          "candidate_bytes_per_window": 474608,
+          "reference_events_per_window": 16409,
+          "candidate_events_per_window": 8481,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.000113075,
+          "candidate_seconds_per_call": 6.7375e-05,
+          "paired_median": 0.5923949299533022,
+          "reference_bytes_per_window": 918576,
+          "candidate_bytes_per_window": 474608,
+          "reference_events_per_window": 16409,
+          "candidate_events_per_window": 8481,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.000118425,
+          "candidate_seconds_per_call": 6.915e-05,
+          "paired_median": 0.5839138695376821,
+          "reference_bytes_per_window": 918576,
+          "candidate_bytes_per_window": 474608,
+          "reference_events_per_window": 16409,
+          "candidate_events_per_window": 8481,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "target/256/64/dense/forward",
+      "target": true,
+      "median_ratio": 0.665362035225049,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 0.0005713,
+      "pooled_candidate_seconds_per_call": 0.0003872,
+      "faster_pairs": 20,
+      "accepted": true,
+      "processes": [
+        {
+          "reference_seconds_per_call": 0.000594725,
+          "candidate_seconds_per_call": 0.000417325,
+          "paired_median": 0.6774139308083568,
+          "reference_bytes_per_window": 3699312,
+          "candidate_bytes_per_window": 1893424,
+          "reference_events_per_window": 66065,
+          "candidate_events_per_window": 33817,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.0005713,
+          "candidate_seconds_per_call": 0.00037945,
+          "paired_median": 0.6560476107124104,
+          "reference_bytes_per_window": 3699312,
+          "candidate_bytes_per_window": 1893424,
+          "reference_events_per_window": 66065,
+          "candidate_events_per_window": 33817,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.00055925,
+          "candidate_seconds_per_call": 0.00037885,
+          "paired_median": 0.678227360308285,
+          "reference_bytes_per_window": 3699312,
+          "candidate_bytes_per_window": 1893424,
+          "reference_events_per_window": 66065,
+          "candidate_events_per_window": 33817,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "target/256/64/dense/transpose",
+      "target": true,
+      "median_ratio": 0.6614388343620358,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 0.000607475,
+      "pooled_candidate_seconds_per_call": 0.000396575,
+      "faster_pairs": 20,
+      "accepted": true,
+      "processes": [
+        {
+          "reference_seconds_per_call": 0.000741225,
+          "candidate_seconds_per_call": 0.000433925,
+          "paired_median": 0.6380311718864873,
+          "reference_bytes_per_window": 3671088,
+          "candidate_bytes_per_window": 1865200,
+          "reference_events_per_window": 65561,
+          "candidate_events_per_window": 33313,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.000588125,
+          "candidate_seconds_per_call": 0.0003954,
+          "paired_median": 0.6687071917808219,
+          "reference_bytes_per_window": 3671088,
+          "candidate_bytes_per_window": 1865200,
+          "reference_events_per_window": 65561,
+          "candidate_events_per_window": 33313,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.000579075,
+          "candidate_seconds_per_call": 0.0003857,
+          "paired_median": 0.6609917932599966,
+          "reference_bytes_per_window": 3671088,
+          "candidate_bytes_per_window": 1865200,
+          "reference_events_per_window": 65561,
+          "candidate_events_per_window": 33313,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "target/256/64/zeroheavy/forward",
+      "target": true,
+      "median_ratio": 0.5696794300979519,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 0.000463375,
+      "pooled_candidate_seconds_per_call": 0.000261275,
+      "faster_pairs": 19,
+      "accepted": true,
+      "processes": [
+        {
+          "reference_seconds_per_call": 0.00044655,
+          "candidate_seconds_per_call": 0.0002572,
+          "paired_median": 0.57933236574746,
+          "reference_bytes_per_window": 3699312,
+          "candidate_bytes_per_window": 1893424,
+          "reference_events_per_window": 66065,
+          "candidate_events_per_window": 33817,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.000465725,
+          "candidate_seconds_per_call": 0.00026175,
+          "paired_median": 0.5638521715673052,
+          "reference_bytes_per_window": 3699312,
+          "candidate_bytes_per_window": 1893424,
+          "reference_events_per_window": 66065,
+          "candidate_events_per_window": 33817,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.000448725,
+          "candidate_seconds_per_call": 0.00025502525,
+          "paired_median": 0.5758254974852395,
+          "reference_bytes_per_window": 3699312,
+          "candidate_bytes_per_window": 1893424,
+          "reference_events_per_window": 66065,
+          "candidate_events_per_window": 33817,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "target/256/64/zeroheavy/transpose",
+      "target": true,
+      "median_ratio": 0.5625714123781456,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 0.000451375,
+      "pooled_candidate_seconds_per_call": 0.00025105,
+      "faster_pairs": 21,
+      "accepted": true,
+      "processes": [
+        {
+          "reference_seconds_per_call": 0.00044577525,
+          "candidate_seconds_per_call": 0.00024765,
+          "paired_median": 0.5642097926468026,
+          "reference_bytes_per_window": 3671088,
+          "candidate_bytes_per_window": 1865200,
+          "reference_events_per_window": 65561,
+          "candidate_events_per_window": 33313,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.0004907,
+          "candidate_seconds_per_call": 0.000264725,
+          "paired_median": 0.5475464088112105,
+          "reference_bytes_per_window": 3671088,
+          "candidate_bytes_per_window": 1865200,
+          "reference_events_per_window": 65561,
+          "candidate_events_per_window": 33313,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.00044575,
+          "candidate_seconds_per_call": 0.00024775,
+          "paired_median": 0.562366797532249,
+          "reference_bytes_per_window": 3671088,
+          "candidate_bytes_per_window": 1865200,
+          "reference_events_per_window": 65561,
+          "candidate_events_per_window": 33313,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "target/512/16/dense/forward",
+      "target": true,
+      "median_ratio": 0.7433819556996218,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 4.625e-05,
+      "pooled_candidate_seconds_per_call": 3.51e-05,
+      "faster_pairs": 20,
+      "accepted": true,
+      "processes": [
+        {
+          "reference_seconds_per_call": 4.615e-05,
+          "candidate_seconds_per_call": 3.46e-05,
+          "paired_median": 0.767605633802817,
+          "reference_bytes_per_window": 338864,
+          "candidate_bytes_per_window": 185904,
+          "reference_events_per_window": 6365,
+          "candidate_events_per_window": 3497,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 8.1675e-05,
+          "candidate_seconds_per_call": 5.535e-05,
+          "paired_median": 0.6769277659250229,
+          "reference_bytes_per_window": 338864,
+          "candidate_bytes_per_window": 185904,
+          "reference_events_per_window": 6365,
+          "candidate_events_per_window": 3497,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 4.4775e-05,
+          "candidate_seconds_per_call": 3.4825e-05,
+          "paired_median": 0.7721729490022173,
+          "reference_bytes_per_window": 338864,
+          "candidate_bytes_per_window": 185904,
+          "reference_events_per_window": 6365,
+          "candidate_events_per_window": 3497,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "target/512/16/dense/transpose",
+      "target": true,
+      "median_ratio": 0.7289017341040462,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 4.4425e-05,
+      "pooled_candidate_seconds_per_call": 3.1875e-05,
+      "faster_pairs": 21,
+      "accepted": true,
+      "processes": [
+        {
+          "reference_seconds_per_call": 4.34e-05,
+          "candidate_seconds_per_call": 3.1825e-05,
+          "paired_median": 0.7327935222672064,
+          "reference_bytes_per_window": 329264,
+          "candidate_bytes_per_window": 176304,
+          "reference_events_per_window": 6185,
+          "candidate_events_per_window": 3317,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 4.4575e-05,
+          "candidate_seconds_per_call": 3.28e-05,
+          "paired_median": 0.7383230163196397,
+          "reference_bytes_per_window": 329264,
+          "candidate_bytes_per_window": 176304,
+          "reference_events_per_window": 6185,
+          "candidate_events_per_window": 3317,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 4.5975e-05,
+          "candidate_seconds_per_call": 3.175e-05,
+          "paired_median": 0.7084745762711865,
+          "reference_bytes_per_window": 329264,
+          "candidate_bytes_per_window": 176304,
+          "reference_events_per_window": 6185,
+          "candidate_events_per_window": 3317,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "target/512/16/zeroheavy/forward",
+      "target": true,
+      "median_ratio": 0.6775106082036775,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 3.565e-05,
+      "pooled_candidate_seconds_per_call": 2.41e-05,
+      "faster_pairs": 21,
+      "accepted": true,
+      "processes": [
+        {
+          "reference_seconds_per_call": 3.57e-05,
+          "candidate_seconds_per_call": 2.41e-05,
+          "paired_median": 0.6775106082036775,
+          "reference_bytes_per_window": 338864,
+          "candidate_bytes_per_window": 185904,
+          "reference_events_per_window": 6365,
+          "candidate_events_per_window": 3497,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 3.6025e-05,
+          "candidate_seconds_per_call": 2.4325e-05,
+          "paired_median": 0.6775106082036775,
+          "reference_bytes_per_window": 338864,
+          "candidate_bytes_per_window": 185904,
+          "reference_events_per_window": 6365,
+          "candidate_events_per_window": 3497,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 3.56e-05,
+          "candidate_seconds_per_call": 2.4e-05,
+          "paired_median": 0.6782670454545454,
+          "reference_bytes_per_window": 338864,
+          "candidate_bytes_per_window": 185904,
+          "reference_events_per_window": 6365,
+          "candidate_events_per_window": 3497,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "target/512/16/zeroheavy/transpose",
+      "target": true,
+      "median_ratio": 0.6508524833209786,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 3.3525e-05,
+      "pooled_candidate_seconds_per_call": 2.18e-05,
+      "faster_pairs": 21,
+      "accepted": true,
+      "processes": [
+        {
+          "reference_seconds_per_call": 3.2225e-05,
+          "candidate_seconds_per_call": 2.115e-05,
+          "paired_median": 0.6516679596586501,
+          "reference_bytes_per_window": 329264,
+          "candidate_bytes_per_window": 176304,
+          "reference_events_per_window": 6185,
+          "candidate_events_per_window": 3317,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 3.415e-05,
+          "candidate_seconds_per_call": 2.215e-05,
+          "paired_median": 0.6450184501845019,
+          "reference_bytes_per_window": 329264,
+          "candidate_bytes_per_window": 176304,
+          "reference_events_per_window": 6185,
+          "candidate_events_per_window": 3317,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 3.3525e-05,
+          "candidate_seconds_per_call": 2.1775e-05,
+          "paired_median": 0.6573584905660378,
+          "reference_bytes_per_window": 329264,
+          "candidate_bytes_per_window": 176304,
+          "reference_events_per_window": 6185,
+          "candidate_events_per_window": 3317,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "target/512/32/dense/forward",
+      "target": true,
+      "median_ratio": 0.7199322416713722,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 0.0001775,
+      "pooled_candidate_seconds_per_call": 0.0001281,
+      "faster_pairs": 20,
+      "accepted": true,
+      "processes": [
+        {
+          "reference_seconds_per_call": 0.0001724,
+          "candidate_seconds_per_call": 0.000124225,
+          "paired_median": 0.7277663633695333,
+          "reference_bytes_per_window": 1332144,
+          "candidate_bytes_per_window": 697904,
+          "reference_events_per_window": 24989,
+          "candidate_events_per_window": 13097,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.000181825,
+          "candidate_seconds_per_call": 0.00012685,
+          "paired_median": 0.7090140845070422,
+          "reference_bytes_per_window": 1332144,
+          "candidate_bytes_per_window": 697904,
+          "reference_events_per_window": 24989,
+          "candidate_events_per_window": 13097,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.000220175,
+          "candidate_seconds_per_call": 0.000191625,
+          "paired_median": 0.7382259462583068,
+          "reference_bytes_per_window": 1332144,
+          "candidate_bytes_per_window": 697904,
+          "reference_events_per_window": 24989,
+          "candidate_events_per_window": 13097,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "target/512/32/dense/transpose",
+      "target": true,
+      "median_ratio": 0.7057547715442453,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 0.000176525,
+      "pooled_candidate_seconds_per_call": 0.000127375,
+      "faster_pairs": 21,
+      "accepted": true,
+      "processes": [
+        {
+          "reference_seconds_per_call": 0.000223875,
+          "candidate_seconds_per_call": 0.000151525,
+          "paired_median": 0.6743729759910664,
+          "reference_bytes_per_window": 1312304,
+          "candidate_bytes_per_window": 678064,
+          "reference_events_per_window": 24617,
+          "candidate_events_per_window": 12725,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.0001744,
+          "candidate_seconds_per_call": 0.000124875,
+          "paired_median": 0.7105376344086022,
+          "reference_bytes_per_window": 1312304,
+          "candidate_bytes_per_window": 678064,
+          "reference_events_per_window": 24617,
+          "candidate_events_per_window": 12725,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.00017465,
+          "candidate_seconds_per_call": 0.00012355,
+          "paired_median": 0.707980823463057,
+          "reference_bytes_per_window": 1312304,
+          "candidate_bytes_per_window": 678064,
+          "reference_events_per_window": 24617,
+          "candidate_events_per_window": 12725,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "target/512/32/zeroheavy/forward",
+      "target": true,
+      "median_ratio": 0.6179911254538121,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 0.00012865,
+      "pooled_candidate_seconds_per_call": 7.98e-05,
+      "faster_pairs": 21,
+      "accepted": true,
+      "processes": [
+        {
+          "reference_seconds_per_call": 0.0001293,
+          "candidate_seconds_per_call": 8.0425e-05,
+          "paired_median": 0.6266434648105182,
+          "reference_bytes_per_window": 1332144,
+          "candidate_bytes_per_window": 697904,
+          "reference_events_per_window": 24989,
+          "candidate_events_per_window": 13097,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.000128875,
+          "candidate_seconds_per_call": 7.98e-05,
+          "paired_median": 0.6174587778855479,
+          "reference_bytes_per_window": 1332144,
+          "candidate_bytes_per_window": 697904,
+          "reference_events_per_window": 24989,
+          "candidate_events_per_window": 13097,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.000126675,
+          "candidate_seconds_per_call": 7.8075e-05,
+          "paired_median": 0.6163410301953819,
+          "reference_bytes_per_window": 1332144,
+          "candidate_bytes_per_window": 697904,
+          "reference_events_per_window": 24989,
+          "candidate_events_per_window": 13097,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "target/512/32/zeroheavy/transpose",
+      "target": true,
+      "median_ratio": 0.6088620342396778,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 0.000124075,
+      "pooled_candidate_seconds_per_call": 7.545e-05,
+      "faster_pairs": 20,
+      "accepted": true,
+      "processes": [
+        {
+          "reference_seconds_per_call": 0.00012305,
+          "candidate_seconds_per_call": 7.31e-05,
+          "paired_median": 0.602112676056338,
+          "reference_bytes_per_window": 1312304,
+          "candidate_bytes_per_window": 678064,
+          "reference_events_per_window": 24617,
+          "candidate_events_per_window": 12725,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.0001254,
+          "candidate_seconds_per_call": 7.63e-05,
+          "paired_median": 0.6088620342396778,
+          "reference_bytes_per_window": 1312304,
+          "candidate_bytes_per_window": 678064,
+          "reference_events_per_window": 24617,
+          "candidate_events_per_window": 12725,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.000122675,
+          "candidate_seconds_per_call": 7.5225e-05,
+          "paired_median": 0.6204769736842105,
+          "reference_bytes_per_window": 1312304,
+          "candidate_bytes_per_window": 678064,
+          "reference_events_per_window": 24617,
+          "candidate_events_per_window": 12725,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "target/512/64/dense/forward",
+      "target": true,
+      "median_ratio": 0.7074601844090528,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 0.0006901,
+      "pooled_candidate_seconds_per_call": 0.000496975,
+      "faster_pairs": 21,
+      "accepted": true,
+      "processes": [
+        {
+          "reference_seconds_per_call": 0.000704525,
+          "candidate_seconds_per_call": 0.000490075,
+          "paired_median": 0.7011839610830919,
+          "reference_bytes_per_window": 5284784,
+          "candidate_bytes_per_window": 2704944,
+          "reference_events_per_window": 99101,
+          "candidate_events_per_window": 50729,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.000695375,
+          "candidate_seconds_per_call": 0.00048475,
+          "paired_median": 0.6912816825453891,
+          "reference_bytes_per_window": 5284784,
+          "candidate_bytes_per_window": 2704944,
+          "reference_events_per_window": 99101,
+          "candidate_events_per_window": 50729,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.0006788,
+          "candidate_seconds_per_call": 0.000502725,
+          "paired_median": 0.7324348934620287,
+          "reference_bytes_per_window": 5284784,
+          "candidate_bytes_per_window": 2704944,
+          "reference_events_per_window": 99101,
+          "candidate_events_per_window": 50729,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "target/512/64/dense/transpose",
+      "target": true,
+      "median_ratio": 0.7032852362275557,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 0.000694775,
+      "pooled_candidate_seconds_per_call": 0.000490325,
+      "faster_pairs": 21,
+      "accepted": true,
+      "processes": [
+        {
+          "reference_seconds_per_call": 0.00069825,
+          "candidate_seconds_per_call": 0.000490325,
+          "paired_median": 0.7002642102256498,
+          "reference_bytes_per_window": 5244464,
+          "candidate_bytes_per_window": 2664624,
+          "reference_events_per_window": 98345,
+          "candidate_events_per_window": 49973,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.000688425,
+          "candidate_seconds_per_call": 0.00048865,
+          "paired_median": 0.7136815920398011,
+          "reference_bytes_per_window": 5244464,
+          "candidate_bytes_per_window": 2664624,
+          "reference_events_per_window": 98345,
+          "candidate_events_per_window": 49973,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.00070675,
+          "candidate_seconds_per_call": 0.00049065,
+          "paired_median": 0.6806589518685044,
+          "reference_bytes_per_window": 5244464,
+          "candidate_bytes_per_window": 2664624,
+          "reference_events_per_window": 98345,
+          "candidate_events_per_window": 49973,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "target/512/64/zeroheavy/forward",
+      "target": true,
+      "median_ratio": 0.5784238714613619,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 0.000490125,
+      "pooled_candidate_seconds_per_call": 0.000283875,
+      "faster_pairs": 20,
+      "accepted": true,
+      "processes": [
+        {
+          "reference_seconds_per_call": 0.00047752525,
+          "candidate_seconds_per_call": 0.000303525,
+          "paired_median": 0.5892412770688833,
+          "reference_bytes_per_window": 5284784,
+          "candidate_bytes_per_window": 2704944,
+          "reference_events_per_window": 99101,
+          "candidate_events_per_window": 50729,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.000492275,
+          "candidate_seconds_per_call": 0.000283875,
+          "paired_median": 0.5847667112987949,
+          "reference_bytes_per_window": 5284784,
+          "candidate_bytes_per_window": 2704944,
+          "reference_events_per_window": 99101,
+          "candidate_events_per_window": 50729,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.000490125,
+          "candidate_seconds_per_call": 0.0002835,
+          "paired_median": 0.5686003683241253,
+          "reference_bytes_per_window": 5284784,
+          "candidate_bytes_per_window": 2704944,
+          "reference_events_per_window": 99101,
+          "candidate_events_per_window": 50729,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "target/512/64/zeroheavy/transpose",
+      "target": true,
+      "median_ratio": 0.5355719977233921,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 0.000555225,
+      "pooled_candidate_seconds_per_call": 0.0002821,
+      "faster_pairs": 21,
+      "accepted": true,
+      "processes": [
+        {
+          "reference_seconds_per_call": 0.000981075,
+          "candidate_seconds_per_call": 0.000533575,
+          "paired_median": 0.5342262594429253,
+          "reference_bytes_per_window": 5244464,
+          "candidate_bytes_per_window": 2664624,
+          "reference_events_per_window": 98345,
+          "candidate_events_per_window": 49973,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.0005026,
+          "candidate_seconds_per_call": 0.00027925,
+          "paired_median": 0.5351676283326702,
+          "reference_bytes_per_window": 5244464,
+          "candidate_bytes_per_window": 2664624,
+          "reference_events_per_window": 98345,
+          "candidate_events_per_window": 49973,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.000483225,
+          "candidate_seconds_per_call": 0.0002751,
+          "paired_median": 0.5727165009530678,
+          "reference_bytes_per_window": 5244464,
+          "candidate_bytes_per_window": 2664624,
+          "reference_events_per_window": 98345,
+          "candidate_events_per_window": 49973,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "small/0/forward",
+      "target": false,
+      "median_ratio": 1.0,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 7.5e-08,
+      "pooled_candidate_seconds_per_call": 7.5e-08,
+      "faster_pairs": 1,
+      "accepted": true,
+      "processes": [
+        {
+          "reference_seconds_per_call": 7.5e-08,
+          "candidate_seconds_per_call": 7.5e-08,
+          "paired_median": 1.0,
+          "reference_bytes_per_window": 48,
+          "candidate_bytes_per_window": 48,
+          "reference_events_per_window": 1,
+          "candidate_events_per_window": 1,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 7.5e-08,
+          "candidate_seconds_per_call": 7.5e-08,
+          "paired_median": 1.0,
+          "reference_bytes_per_window": 48,
+          "candidate_bytes_per_window": 48,
+          "reference_events_per_window": 1,
+          "candidate_events_per_window": 1,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 7.5e-08,
+          "candidate_seconds_per_call": 7.5e-08,
+          "paired_median": 1.0,
+          "reference_bytes_per_window": 48,
+          "candidate_bytes_per_window": 48,
+          "reference_events_per_window": 1,
+          "candidate_events_per_window": 1,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "small/0/transpose",
+      "target": false,
+      "median_ratio": 1.0,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 7.5e-08,
+      "pooled_candidate_seconds_per_call": 7.5e-08,
+      "faster_pairs": 5,
+      "accepted": true,
+      "processes": [
+        {
+          "reference_seconds_per_call": 7.5e-08,
+          "candidate_seconds_per_call": 7.5e-08,
+          "paired_median": 1.0,
+          "reference_bytes_per_window": 48,
+          "candidate_bytes_per_window": 48,
+          "reference_events_per_window": 1,
+          "candidate_events_per_window": 1,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 7.5e-08,
+          "candidate_seconds_per_call": 7.5e-08,
+          "paired_median": 1.0,
+          "reference_bytes_per_window": 48,
+          "candidate_bytes_per_window": 48,
+          "reference_events_per_window": 1,
+          "candidate_events_per_window": 1,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 5e-08,
+          "candidate_seconds_per_call": 7.5e-08,
+          "paired_median": 1.0,
+          "reference_bytes_per_window": 48,
+          "candidate_bytes_per_window": 48,
+          "reference_events_per_window": 1,
+          "candidate_events_per_window": 1,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "small/1/forward",
+      "target": false,
+      "median_ratio": 1.0416666666666667,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 6.25e-07,
+      "pooled_candidate_seconds_per_call": 6.5e-07,
+      "faster_pairs": 5,
+      "accepted": true,
+      "processes": [
+        {
+          "reference_seconds_per_call": 6.25e-07,
+          "candidate_seconds_per_call": 6.25e-07,
+          "paired_median": 1.0416666666666667,
+          "reference_bytes_per_window": 2928,
+          "candidate_bytes_per_window": 2928,
+          "reference_events_per_window": 61,
+          "candidate_events_per_window": 61,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 6.25e-07,
+          "candidate_seconds_per_call": 6.5e-07,
+          "paired_median": 1.0833333333333335,
+          "reference_bytes_per_window": 2928,
+          "candidate_bytes_per_window": 2928,
+          "reference_events_per_window": 61,
+          "candidate_events_per_window": 61,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 6.25e-07,
+          "candidate_seconds_per_call": 6.25e-07,
+          "paired_median": 1.0,
+          "reference_bytes_per_window": 2928,
+          "candidate_bytes_per_window": 2928,
+          "reference_events_per_window": 61,
+          "candidate_events_per_window": 61,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "small/1/transpose",
+      "target": false,
+      "median_ratio": 1.0476190476190477,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 4.75e-07,
+      "pooled_candidate_seconds_per_call": 5e-07,
+      "faster_pairs": 2,
+      "accepted": true,
+      "processes": [
+        {
+          "reference_seconds_per_call": 4.75e-07,
+          "candidate_seconds_per_call": 4.75e-07,
+          "paired_median": 1.0,
+          "reference_bytes_per_window": 1968,
+          "candidate_bytes_per_window": 1968,
+          "reference_events_per_window": 41,
+          "candidate_events_per_window": 41,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 4.75e-07,
+          "candidate_seconds_per_call": 5e-07,
+          "paired_median": 1.0526315789473684,
+          "reference_bytes_per_window": 1968,
+          "candidate_bytes_per_window": 1968,
+          "reference_events_per_window": 41,
+          "candidate_events_per_window": 41,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 4.75e-07,
+          "candidate_seconds_per_call": 4.75e-07,
+          "paired_median": 1.0,
+          "reference_bytes_per_window": 1968,
+          "candidate_bytes_per_window": 1968,
+          "reference_events_per_window": 41,
+          "candidate_events_per_window": 41,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "small/2/forward",
+      "target": false,
+      "median_ratio": 1.0,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 1.1e-06,
+      "pooled_candidate_seconds_per_call": 1.1e-06,
+      "faster_pairs": 9,
+      "accepted": true,
+      "processes": [
+        {
+          "reference_seconds_per_call": 1.125e-06,
+          "candidate_seconds_per_call": 1.1e-06,
+          "paired_median": 0.9555555555555556,
+          "reference_bytes_per_window": 5104,
+          "candidate_bytes_per_window": 5104,
+          "reference_events_per_window": 97,
+          "candidate_events_per_window": 97,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 1.1e-06,
+          "candidate_seconds_per_call": 1.1e-06,
+          "paired_median": 1.0,
+          "reference_bytes_per_window": 5104,
+          "candidate_bytes_per_window": 5104,
+          "reference_events_per_window": 97,
+          "candidate_events_per_window": 97,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 1.075e-06,
+          "candidate_seconds_per_call": 1.05e-06,
+          "paired_median": 1.0,
+          "reference_bytes_per_window": 5104,
+          "candidate_bytes_per_window": 5104,
+          "reference_events_per_window": 97,
+          "candidate_events_per_window": 97,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "small/2/transpose",
+      "target": false,
+      "median_ratio": 1.0,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 9.75e-07,
+      "pooled_candidate_seconds_per_call": 1e-06,
+      "faster_pairs": 7,
+      "accepted": true,
+      "processes": [
+        {
+          "reference_seconds_per_call": 1e-06,
+          "candidate_seconds_per_call": 1e-06,
+          "paired_median": 1.0,
+          "reference_bytes_per_window": 4656,
+          "candidate_bytes_per_window": 4656,
+          "reference_events_per_window": 89,
+          "candidate_events_per_window": 89,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 1e-06,
+          "candidate_seconds_per_call": 1.025e-06,
+          "paired_median": 1.0256410256410255,
+          "reference_bytes_per_window": 4656,
+          "candidate_bytes_per_window": 4656,
+          "reference_events_per_window": 89,
+          "candidate_events_per_window": 89,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 9.5e-07,
+          "candidate_seconds_per_call": 9.5e-07,
+          "paired_median": 1.0,
+          "reference_bytes_per_window": 4656,
+          "candidate_bytes_per_window": 4656,
+          "reference_events_per_window": 89,
+          "candidate_events_per_window": 89,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "small/8/forward",
+      "target": false,
+      "median_ratio": 1.0072115384615385,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 1.0625e-05,
+      "pooled_candidate_seconds_per_call": 1.0675e-05,
+      "faster_pairs": 9,
+      "accepted": true,
+      "processes": [
+        {
+          "reference_seconds_per_call": 1.07e-05,
+          "candidate_seconds_per_call": 1.0825e-05,
+          "paired_median": 1.014018691588785,
+          "reference_bytes_per_window": 61552,
+          "candidate_bytes_per_window": 61552,
+          "reference_events_per_window": 1105,
+          "candidate_events_per_window": 1105,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 1.0675e-05,
+          "candidate_seconds_per_call": 1.0725e-05,
+          "paired_median": 0.9886877828054299,
+          "reference_bytes_per_window": 61552,
+          "candidate_bytes_per_window": 61552,
+          "reference_events_per_window": 1105,
+          "candidate_events_per_window": 1105,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 1.0375e-05,
+          "candidate_seconds_per_call": 1.0475e-05,
+          "paired_median": 1.0072463768115942,
+          "reference_bytes_per_window": 61552,
+          "candidate_bytes_per_window": 61552,
+          "reference_events_per_window": 1105,
+          "candidate_events_per_window": 1105,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "small/8/transpose",
+      "target": false,
+      "median_ratio": 1.0025706940874037,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 9.875e-06,
+      "pooled_candidate_seconds_per_call": 9.8e-06,
+      "faster_pairs": 10,
+      "accepted": true,
+      "processes": [
+        {
+          "reference_seconds_per_call": 1.01e-05,
+          "candidate_seconds_per_call": 1.005e-05,
+          "paired_median": 0.9874055415617127,
+          "reference_bytes_per_window": 58416,
+          "candidate_bytes_per_window": 58416,
+          "reference_events_per_window": 1049,
+          "candidate_events_per_window": 1049,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 9.75e-06,
+          "candidate_seconds_per_call": 9.8e-06,
+          "paired_median": 1.0025706940874037,
+          "reference_bytes_per_window": 58416,
+          "candidate_bytes_per_window": 58416,
+          "reference_events_per_window": 1049,
+          "candidate_events_per_window": 1049,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 9.6e-06,
+          "candidate_seconds_per_call": 9.625e-06,
+          "paired_median": 1.0208333333333333,
+          "reference_bytes_per_window": 58416,
+          "candidate_bytes_per_window": 58416,
+          "reference_events_per_window": 1049,
+          "candidate_events_per_window": 1049,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "small/15/forward",
+      "target": false,
+      "median_ratio": 0.995578481945468,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 3.3925e-05,
+      "pooled_candidate_seconds_per_call": 3.3725e-05,
+      "faster_pairs": 11,
+      "accepted": true,
+      "processes": [
+        {
+          "reference_seconds_per_call": 3.3375e-05,
+          "candidate_seconds_per_call": 3.3625e-05,
+          "paired_median": 1.0052473763118441,
+          "reference_bytes_per_window": 208944,
+          "candidate_bytes_per_window": 208944,
+          "reference_events_per_window": 3737,
+          "candidate_events_per_window": 3737,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 3.44e-05,
+          "candidate_seconds_per_call": 3.4375e-05,
+          "paired_median": 1.0,
+          "reference_bytes_per_window": 208944,
+          "candidate_bytes_per_window": 208944,
+          "reference_events_per_window": 3737,
+          "candidate_events_per_window": 3737,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 3.315e-05,
+          "candidate_seconds_per_call": 3.2725e-05,
+          "paired_median": 0.9871794871794872,
+          "reference_bytes_per_window": 208944,
+          "candidate_bytes_per_window": 208944,
+          "reference_events_per_window": 3737,
+          "candidate_events_per_window": 3737,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "small/15/transpose",
+      "target": false,
+      "median_ratio": 0.9961119751166406,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 3.285e-05,
+      "pooled_candidate_seconds_per_call": 3.255e-05,
+      "faster_pairs": 12,
+      "accepted": true,
+      "processes": [
+        {
+          "reference_seconds_per_call": 3.23e-05,
+          "candidate_seconds_per_call": 3.215e-05,
+          "paired_median": 0.998422712933754,
+          "reference_bytes_per_window": 202672,
+          "candidate_bytes_per_window": 202672,
+          "reference_events_per_window": 3625,
+          "candidate_events_per_window": 3625,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 3.3425e-05,
+          "candidate_seconds_per_call": 3.315e-05,
+          "paired_median": 0.9916222391469917,
+          "reference_bytes_per_window": 202672,
+          "candidate_bytes_per_window": 202672,
+          "reference_events_per_window": 3625,
+          "candidate_events_per_window": 3625,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 3.1575e-05,
+          "candidate_seconds_per_call": 3.21e-05,
+          "paired_median": 1.0080192461908581,
+          "reference_bytes_per_window": 202672,
+          "candidate_bytes_per_window": 202672,
+          "reference_events_per_window": 3625,
+          "candidate_events_per_window": 3625,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "fallback/BigFloat/forward",
+      "target": false,
+      "median_ratio": 1.0066604225205538,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 0.000244375,
+      "pooled_candidate_seconds_per_call": 0.000245625,
+      "faster_pairs": 6,
+      "accepted": false,
+      "processes": [
+        {
+          "reference_seconds_per_call": 0.000250625,
+          "candidate_seconds_per_call": 0.000245,
+          "paired_median": 0.9977658170001016,
+          "reference_bytes_per_window": 1199088,
+          "candidate_bytes_per_window": 1199216,
+          "reference_events_per_window": 33321,
+          "candidate_events_per_window": 33329,
+          "gates": {
+            "time": true,
+            "bytes": false,
+            "events": false
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.0002429,
+          "candidate_seconds_per_call": 0.000247225,
+          "paired_median": 1.0157758173326417,
+          "reference_bytes_per_window": 1199088,
+          "candidate_bytes_per_window": 1199216,
+          "reference_events_per_window": 33321,
+          "candidate_events_per_window": 33329,
+          "gates": {
+            "time": true,
+            "bytes": false,
+            "events": false
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.000240375,
+          "candidate_seconds_per_call": 0.000246925,
+          "paired_median": 1.0163203243791181,
+          "reference_bytes_per_window": 1199088,
+          "candidate_bytes_per_window": 1199216,
+          "reference_events_per_window": 33321,
+          "candidate_events_per_window": 33329,
+          "gates": {
+            "time": true,
+            "bytes": false,
+            "events": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "fallback/BigFloat/transpose",
+      "target": false,
+      "median_ratio": 0.9991273996509598,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 0.000244875,
+      "pooled_candidate_seconds_per_call": 0.000251025,
+      "faster_pairs": 11,
+      "accepted": false,
+      "processes": [
+        {
+          "reference_seconds_per_call": 0.000284925,
+          "candidate_seconds_per_call": 0.00028535,
+          "paired_median": 1.0053377668883443,
+          "reference_bytes_per_window": 1181232,
+          "candidate_bytes_per_window": 1181360,
+          "reference_events_per_window": 32825,
+          "candidate_events_per_window": 32833,
+          "gates": {
+            "time": true,
+            "bytes": false,
+            "events": false
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.000272425,
+          "candidate_seconds_per_call": 0.000251025,
+          "paired_median": 0.9880551301684534,
+          "reference_bytes_per_window": 1181232,
+          "candidate_bytes_per_window": 1181360,
+          "reference_events_per_window": 32825,
+          "candidate_events_per_window": 32833,
+          "gates": {
+            "time": true,
+            "bytes": false,
+            "events": false
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.00023405,
+          "candidate_seconds_per_call": 0.000232275,
+          "paired_median": 0.9943903754855417,
+          "reference_bytes_per_window": 1181232,
+          "candidate_bytes_per_window": 1181360,
+          "reference_events_per_window": 32825,
+          "candidate_events_per_window": 32833,
+          "gates": {
+            "time": true,
+            "bytes": false,
+            "events": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "fallback/Float64/forward",
+      "target": false,
+      "median_ratio": 1.0,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 5e-07,
+      "pooled_candidate_seconds_per_call": 5e-07,
+      "faster_pairs": 7,
+      "accepted": true,
+      "processes": [
+        {
+          "reference_seconds_per_call": 4.75e-07,
+          "candidate_seconds_per_call": 4.75e-07,
+          "paired_median": 1.0,
+          "reference_bytes_per_window": 48,
+          "candidate_bytes_per_window": 48,
+          "reference_events_per_window": 1,
+          "candidate_events_per_window": 1,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 5e-07,
+          "candidate_seconds_per_call": 5e-07,
+          "paired_median": 0.9523809523809524,
+          "reference_bytes_per_window": 48,
+          "candidate_bytes_per_window": 48,
+          "reference_events_per_window": 1,
+          "candidate_events_per_window": 1,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 4.75e-07,
+          "candidate_seconds_per_call": 5e-07,
+          "paired_median": 1.0526315789473684,
+          "reference_bytes_per_window": 48,
+          "candidate_bytes_per_window": 48,
+          "reference_events_per_window": 1,
+          "candidate_events_per_window": 1,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "fallback/Float64/transpose",
+      "target": false,
+      "median_ratio": 1.0,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 5.25e-07,
+      "pooled_candidate_seconds_per_call": 5.25e-07,
+      "faster_pairs": 7,
+      "accepted": true,
+      "processes": [
+        {
+          "reference_seconds_per_call": 5e-07,
+          "candidate_seconds_per_call": 5.25e-07,
+          "paired_median": 1.0,
+          "reference_bytes_per_window": 48,
+          "candidate_bytes_per_window": 48,
+          "reference_events_per_window": 1,
+          "candidate_events_per_window": 1,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 5.5e-07,
+          "candidate_seconds_per_call": 5.5e-07,
+          "paired_median": 0.9583333333333334,
+          "reference_bytes_per_window": 48,
+          "candidate_bytes_per_window": 48,
+          "reference_events_per_window": 1,
+          "candidate_events_per_window": 1,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 5e-07,
+          "candidate_seconds_per_call": 5e-07,
+          "paired_median": 1.0,
+          "reference_bytes_per_window": 48,
+          "candidate_bytes_per_window": 48,
+          "reference_events_per_window": 1,
+          "candidate_events_per_window": 1,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "fallback/Rational{BigInt}/forward",
+      "target": false,
+      "median_ratio": 0.994217017307493,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 0.001259125,
+      "pooled_candidate_seconds_per_call": 0.00124855,
+      "faster_pairs": 11,
+      "accepted": false,
+      "processes": [
+        {
+          "reference_seconds_per_call": 0.00124380025,
+          "candidate_seconds_per_call": 0.001254725,
+          "paired_median": 0.9916013104338329,
+          "reference_bytes_per_window": 3247776,
+          "candidate_bytes_per_window": 3247792,
+          "reference_events_per_window": 74525,
+          "candidate_events_per_window": 74525,
+          "gates": {
+            "time": true,
+            "bytes": false,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.001246825,
+          "candidate_seconds_per_call": 0.00121085,
+          "paired_median": 1.003730260703776,
+          "reference_bytes_per_window": 3247408,
+          "candidate_bytes_per_window": 3247408,
+          "reference_events_per_window": 74525,
+          "candidate_events_per_window": 74525,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.001270425,
+          "candidate_seconds_per_call": 0.001234775,
+          "paired_median": 0.9846114489245725,
+          "reference_bytes_per_window": 3247344,
+          "candidate_bytes_per_window": 3247344,
+          "reference_events_per_window": 74525,
+          "candidate_events_per_window": 74525,
+          "gates": {
+            "time": true,
+            "bytes": true,
+            "events": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "fallback/Rational{BigInt}/transpose",
+      "target": false,
+      "median_ratio": 1.0035666179734781,
+      "pooled_time_pass": true,
+      "pooled_reference_seconds_per_call": 0.001268575,
+      "pooled_candidate_seconds_per_call": 0.001248475,
+      "faster_pairs": 9,
+      "accepted": false,
+      "processes": [
+        {
+          "reference_seconds_per_call": 0.001288075,
+          "candidate_seconds_per_call": 0.00127115,
+          "paired_median": 1.0035666179734781,
+          "reference_bytes_per_window": 3204496,
+          "candidate_bytes_per_window": 3204512,
+          "reference_events_per_window": 73409,
+          "candidate_events_per_window": 73409,
+          "gates": {
+            "time": true,
+            "bytes": false,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.001268575,
+          "candidate_seconds_per_call": 0.00124245,
+          "paired_median": 0.9898508168614389,
+          "reference_bytes_per_window": 3204560,
+          "candidate_bytes_per_window": 3204576,
+          "reference_events_per_window": 73409,
+          "candidate_events_per_window": 73409,
+          "gates": {
+            "time": true,
+            "bytes": false,
+            "events": true
+          }
+        },
+        {
+          "reference_seconds_per_call": 0.001212975,
+          "candidate_seconds_per_call": 0.0012244,
+          "paired_median": 1.0151713804083162,
+          "reference_bytes_per_window": 3205008,
+          "candidate_bytes_per_window": 3205040,
+          "reference_events_per_window": 73409,
+          "candidate_events_per_window": 73409,
+          "gates": {
+            "time": true,
+            "bytes": false,
+            "events": true
+          }
+        }
+      ]
+    }
+  ],
+  "target_paired_median_range": [
+    0.5355719977233921,
+    0.7433819556996218
+  ],
+  "target_bytes_ratio_range": [
+    0.5080782590883138,
+    0.5486094716464422
+  ],
+  "target_events_ratio_range": [
+    0.5081222067997743,
+    0.5494108405341712
+  ],
+  "gc_windows": 52,
+  "measured_gc_windows": 39,
+  "sha256": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S-2/result-analysis.py": "5c49462ee1ab2d673bc069d41f5cc5c0fa5128bc64077a4ca15875ee4561ff76",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S-2/aggregate.json": "809765d19d9d7f4154b3ff2573146b3094bd808ef99a3a66d86116453187b38f",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-R/fixtures.toml": "e000c897c46d51011b1db1433a77dadb6e3d4ee46f48043261d451c59d3628ce",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S-2/run-1/raw.toml": "b7ac535f057ab86453426593abdf6e8601df4d5c64db7063826152476d1f481d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S-2/run-2/raw.toml": "55f48fa070aaedabf858450eff949a048e01a9a29ca9e6788f31c08d726d5998",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S-2/run-3/raw.toml": "e841051c2980e2ac13f38cfb267bbc93f4dcdf65771e0a63515e051c91cdd36d"
+  }
+}
