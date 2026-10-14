@@ -2337,3 +2337,18 @@ sequence. Standing human permission remains; consumed sequence cannot be reused.
 Preparation continuation hashes map ONLY to MA-S before-MA-S-execution copies;
 earlier MA-R/older mappings unchanged. See MA-DENSELU-BIGFLOAT-QUALIFICATION.md.
 Broader plan stays OPEN; HHdisabled/CIoff/automationpaused.
+
+## MA-S-LOAD separate offline driver correction (2026-10-14)
+
+Two phase-level Base.invokelatest calls after candidate include; complete timed
+helpers/loops and MA-R arithmetic/tests/fixtures unchanged, whole-driver inverse
+exact. Source RED2missing markers/GREEN11checks/13bindings; entry12checks verifies
+4262pins,source514,protected6,full160groups ANDsessions/noJulia. No Julia/parser/
+import/compile/numerics. Runtime fix/performance unverified; original MA-S failure
+and consumed sequence preserved. Independent decision in MA-S-LOAD/review.md/json.
+Only after acceptance: NEW MA-S-2 immutable admission with fresh paths/pins/refs/
+host and unchanged full schedule/thresholds/caps, no extra world-age probes.
+See MA-DENSELU-BIGFLOAT-LOADER-FIX.md and results/MA-S-LOAD/plan.md.
+Six MA-S execution current continuation bindings map only to MA-S-LOAD beforecopies;
+all older maps unchanged. Production/test/env/master unchanged, Task3 conditional,
+CIoff/HHdisabled/automationpaused and broader plan OPEN.

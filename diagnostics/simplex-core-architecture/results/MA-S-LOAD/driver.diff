@@ -1,0 +1,17 @@
+--- MA-S/driver.jl (frozen failed)
++++ MA-S-LOAD/driver.jl (unexecuted)
+@@ -94,12 +94,12 @@
+         if index==1
+             records=Ref{Any}()
+             ts=@testset "complete MA-R correctness" begin
+-                records[]=TST.qualification()
++                records[]=Base.invokelatest(TST.qualification)
+             end
+             raw["counts"]["qualification"]=counts(ts)
+             raw["correctness"]=[Dict("id"=>r.id,"direction"=>r.direction,"eligible"=>r.eligible,"calls_per_side"=>r.calls_per_side,"exception"=>r.exception===nothing ? String[] : collect(r.exception),"output"=>[repr(v) for v in r.output]) for r in records[]]
+         end
+-        raw["costs"]=costs(index)
++        raw["costs"]=Base.invokelatest(costs,index)
+         all(w["compile_seconds"]==0 && w["recompile_seconds"]==0 for c in raw["costs"] for w in c["windows"] if w["phase"]=="measured") || error("measured compilation")
+     catch e
+         push!(raw["errors"],sprint(showerror,e,catch_backtrace()))

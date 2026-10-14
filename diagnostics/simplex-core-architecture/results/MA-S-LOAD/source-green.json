@@ -1,0 +1,42 @@
+{
+  "all_passed": true,
+  "checks": {
+    "qualification_latest": true,
+    "cost_phase_latest": true,
+    "whole_driver_inverse": true,
+    "exactly_two_boundaries": true,
+    "all_helpers_and_timed_windows_identical": true,
+    "load_before_boundaries": true,
+    "raw_finally_and_acceptance_identical": true,
+    "smoke_and_RED_before_include_identical": true,
+    "Base_alias_Core_latest": true,
+    "driver_path_depth_same": true,
+    "no_new_method_definitions": true
+  },
+  "sha256": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S-LOAD/prepare.py": "097c6e1153c5c839aab18e058336638f062dd057a333a5a0dfc995b492be7363",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S-LOAD/driver.jl": "4fad7d0627bdcc2a766e525c0159f7efd7db4b5b42416c4bd8586e7bf030fccb",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S-LOAD/driver.diff": "6226c0f14cc1b5f24bc1bc26800bb199a56a6671c87783ad36496ef406821f28",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S-LOAD/source-red.json": "766d1664f17a18885dcce40afa5589d5645b549aabe8da679fcfd0b8cb3c64da",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/base/Base_compiler.jl": "d0bbce1000ca98ea49643faa9e0076db9cef28ded5305635b4be5fc16fe5d883",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S/driver.jl": "79c2bbc9d81abb0d54ed8b63b989c4a40101b28ebb710f3ee9592f737a15838a",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S/audit_reviewed.py": "b787c766221837d05cbc2baa07de154a68a2d7119df4094e8e4d232f63692a91",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S/admission-reviewed.md": "6cd5a4297efb22ca614954771be187f2ff5e2f0e37a83fa570ec4ab2a60f8b2f",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-R/candidate.jl": "d162c53e434aa5f2e62ceddf8b402b8720d1dfa07b2bc5eb9fb5e4ae4092a7c5",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-R/instrumented.jl": "e9961574aac8e3060fe566282a94210203fb589482e543e25508c9ee4af7323f",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-R/reference.jl": "b00330dc3c74dce220004fd19ece21db8dc07c30eb4583889bc0bf7ae4bcf1ba",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-R/tests.jl": "04d831b32da5ece80d02f9e1ae60371fffeb6b03be1f5307e07b9ee59ae8f79e",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-R/fixtures.toml": "e000c897c46d51011b1db1433a77dadb6e3d4ee46f48043261d451c59d3628ce"
+  },
+  "scope": "Offline source/inverse checks only. No parser/import/compile/numerical verification or runtime qualification.",
+  "edits": [
+    [
+      "records[]=TST.qualification()",
+      "records[]=Base.invokelatest(TST.qualification)"
+    ],
+    [
+      "raw[\"costs\"]=costs(index)",
+      "raw[\"costs\"]=Base.invokelatest(costs,index)"
+    ]
+  ]
+}

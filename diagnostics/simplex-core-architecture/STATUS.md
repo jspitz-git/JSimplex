@@ -47,25 +47,23 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-MA-S executed once and STOPPED at process1: reference smoke16/16 and expected
-RED0pass/2fail/0error passed; correctness15pass/2error due to driver world age42871
-versus42908. No completed correctness record or cost window; no allocation/time
-benefit established, qualification NOT ACCEPTED, no production promotion.
-See MA-DENSELU-BIGFLOAT-QUALIFICATION.md and results/MA-S/run-1.
-Invocation8.77849s; full160groups ANDsessions absent/noJulia; master6f68e24 unchanged.
-Fresh numerical admission had4262pins/39seal bindings; postcheck22PASS verifies
-provenance/failure preservation, not numerical success. Original audit17/23 has
-six false gates and remains false; empty-window truths are vacuous.
-Sequence consumed: do not rerun/repair frozen sources or resume stages2/3.
-Next useful step: separate OFFLINE driver loader-boundary correction plan and
-independent review, retaining candidate arithmetic, fixtures and acceptance gates.
-Any fresh short sequence requires its own immutable numerical admission; standing
-human short-run permission exists, no repeated permission question is needed.
-Task3 integration stays blocked on successful Task2. Broader plan remains OPEN.
-Six MA-S preparation current continuation bindings map ONLY to
-MA-S/STATUS.md.before-MA-S-execution and roadmap.md.before-MA-S-execution.
-Earlier MA-R maps still use MA-S before-MA-S copies; all older maps unchanged.
-Production/test/userenv/master unchanged, CIoff/HHdisabled/automationpaused.
+MA-S-LOAD prepares a separate UNEXECUTED driver with exactly two phase-level
+Base.invokelatest calls after include: full correctness and full costs. No timed
+backend/candidate/fixture/threshold changes. Whole-driver inverse exact; source
+RED2missing markers/GREEN11checks/13bindings, fresh entry12checks/full4262pins,
+514source/6protected/full160groups ANDsessions/noJulia. No Julia in preparation.
+See MA-DENSELU-BIGFLOAT-LOADER-FIX.md and results/MA-S-LOAD/plan.md.
+Independent review decision: results/MA-S-LOAD/review.md/json. Only acceptance
+allows the next NEW MA-S-2 immutable admission preparation; no launcher/run is
+created or executed here. Standing short-run permission persists; no redundant
+permission question. Future sequence keeps all fixed fixtures/gates/3x120s caps.
+MA-S original failed sequence remains consumed: smoke16PASS/RED2expected failures,
+correctness15PASS2ERROR world age; no complete case/cost window, no speedup claim.
+Do not resume/rerun old stages or edit frozen evidence. Task3 stays conditional.
+Six current MA-S result-review/execution-closure/execution-publication bindings
+map ONLY to MA-S-LOAD before-MA-S-LOAD copies; all earlier mappings remain.
+Production/test/userenv/master6f68e24 unchanged; broader plan OPEN,
+CIoff/HHdisabled/automationpaused.
 
 ## Previous MA-S admission preparation (completed before execution)
 
