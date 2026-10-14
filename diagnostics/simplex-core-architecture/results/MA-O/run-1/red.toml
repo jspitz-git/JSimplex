@@ -1,0 +1,32 @@
+seconds = 1.137517424
+
+[[records]]
+type = "Pass"
+expression = "reference_bounds(args...) == endpoint_oracle(args) == f.expected"
+[[records]]
+type = "Pass"
+expression = "preserved(s, snapshot(args))"
+[[records]]
+type = "Pass"
+expression = "reference_bounds(args...) == f.expected"
+[[records]]
+type = "Pass"
+expression = "preserved(s, snapshot(args))"
+[[records]]
+type = "Fail"
+expression = "(MAL_TRACE[]).scratch == 1"
+[[records]]
+type = "Pass"
+expression = "reference_bounds(args...) == endpoint_oracle(args) == f.expected"
+[[records]]
+type = "Pass"
+expression = "preserved(s, snapshot(args))"
+[[records]]
+type = "Pass"
+expression = "reference_bounds(args...) == f.expected"
+[[records]]
+type = "Pass"
+expression = "preserved(s, snapshot(args))"
+[[records]]
+type = "Fail"
+expression = "(MAL_TRACE[]).scratch == 1"

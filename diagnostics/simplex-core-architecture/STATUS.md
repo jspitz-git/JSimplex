@@ -38,7 +38,7 @@ main also has a user-modified .vscode/settings.json. Do not stage those files.
 | S3 | End-to-end exact sparsity support | Active | S3-A/S3-B integrated, latest masterb720674; exact-support consumer savings qualified; broader S3 partial |
 | S4 | Refactorization memory lifecycle | Active | S4-A/S4-C integrated; master3220118; Float64 component attribution/cost and exact triplet optimization accepted; bounded scalar component attribution360samples accepted; broader manager/history/medium coverage open |
 | S5 | Phase/cleanup handoff contract | Active | S5-A/S5-B accepted; S5-C production88a2411 -> mastere7014fb, reviewed, master668/668; broader handoffs partial |
-| MA | Selective MutableArithmetics integration | Active | MA-N offline harness repair accepted; next MA-O fresh admission and repaired qualification. GREEN/cost unexecuted; no promotion |
+| MA | Selective MutableArithmetics integration | Active | MA-O correctness passed; selective proposal rejected by cost gates (26/76). No promotion or automatic retry |
 | S6 | Broad validation and final comparison | Active | S6-A/B triage accepted; S6-C test repair integrated as mastera465da5, focused20/20. S6-G artificial-row test repair master8516e0d; S6-M BigFloat fixture repair master7fea422, focused1477/1477; S6-T no-recession fixture masterafb37d9,focused192/master19; S6-W repeated-price fixture masterb9e7cb1,focused109/master41; S6-AA reliable exchange fixture master74f7835,focused127/master19; S6-AC reconstruction fixture master3c0af5c,focused339/master215; S6-AI dual recovery fixture master354bb1f,focused339/master252; other CI families and full validation remain open |
 
 Allowed execution states: Pending, Active, Blocked (reason required), Verified,
@@ -46,6 +46,48 @@ Integrated, Rejected (evidence required). Mark an optimization Verified only aft
 its acceptance gate. Record individual chunks separately when a stage is partial.
 
 ## Exact next action
+
+MA-O completed the repaired bounded qualification. Correctness passed;
+the exact performance proposal is NOT ACCEPTED and is not promoted.
+Original RED8Pass/2expectedFail and candidateGREEN3787/3787 passed across222
+fixtures. Three exit0 processes, stage audits16/14/14PASS,3924 launchpins/73trees.
+Fresh independent admission27checks25bindings and separate result review accepted
+the diagnostic/rejection decision; no performance promotion. See
+MA-PRESOLVE-REPAIRED-QUALIFICATION.md and results/MA-O/result-review.md.
+
+All76cases/4560windows/583680timedcalls completed; measuredcompile/recompile0.
+All35GCwindows (27measured) retained. Aggregate accepted=false:20/24targets and
+6/52controls pass every gate. Targets pooledratios0.840413–0.953667; alltarget
+bytes/events lower, but fourfail faster-pair gates. Control failures overlap:
+33bytes,31pooledtime,28processtime,1events. Some tiny fallback differences have
+unproved cause; original strict gates remain unchanged. Material tail-zero
+regression:ratio1.103281,+39920bytes/+1664events per128calls in everyprocess.
+No general or whole-presolver speedup and no claim all MA approaches fail.
+
+Three invocation durations17.752369/11.774218/11.750124s,total41.276710s are cap
+evidence, not benchmark speedups. All3slots CONSUMED. No retry/tuning/threshold
+change/case removal/automaticnewvariant. Postcheck28PASS independently recomputes
+all76rows and checks all3924hashes; it is postexit, NOTretroactivelaunchpin.
+Fresh full146groups ANDsessions absent/noJulia; process identities are recorded
+in postcheck.json with boot/start_ticks/initialcommands.39resource samples,
+minavailable22682096KiB,swap0. Candidate/input/oracle/sourcebytes unchanged.
+
+This exact selective eight-term Rational{BigInt} candidate is stopped for
+production admission. MA-O creates no integration plan because all76gates were
+required. A different future approach needs its own concrete plan; do not create
+an equivalent inventory or silently retune this measured candidate. Other already
+authorized independent roadmap work may continue within its existing gates.
+The broader performance plan remains OPEN; no automatic numerical continuation.
+
+MA-N current STATUS/roadmap bindings in continuation-map, original+finalclosure
+and original+finalpublication map ONLY to MA-O/STATUS.md.before-MA-O and
+roadmap.md.before-MA-O (tenbindings). MA-N beforecopies still resolve sixMA-M
+bindings; all older maps remain. Every MA-O/N/M and older script/pin/raw/review
+is frozen, NEVER RERUN/rewrite. MA-N initialfalsepublication/twoexactwhitespace
+supplement+finalPASS preserved. Master6f68e24/production/tests/env/CI unchanged;
+CIoff,HHdisabled,automationpaused. Other rejections and broader gates unchanged.
+
+## Previous MA-N preparation (completed)
 
 MA-N offline harness repair is completed and independently accepted without
 findings. The exact observed RED expression `(MAL_TRACE[]).scratch == 1` is now
