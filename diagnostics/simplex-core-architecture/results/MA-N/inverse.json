@@ -1,0 +1,93 @@
+{
+  "driver.jl": {
+    "source": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-M/driver-reviewed.jl",
+    "source_sha256": "8ddfb4c1e8d1485a1a04b79ef1ed6ab4f278e55b9f4be2694b0a482b2969cd28",
+    "sha256": "d93db1bc9a49b6c1be844f6fab43ea6a41c16356bbef4f617cdef2e09a9b2e80",
+    "edits": [
+      {
+        "old": "# MA-M single frozen qualification",
+        "new": "# MA-N offline-prepared qualification",
+        "count": 1
+      },
+      {
+        "old": "\"MAL_TRACE[].scratch == 1\"",
+        "new": "\"(MAL_TRACE[]).scratch == 1\"",
+        "count": 1
+      }
+    ]
+  },
+  "audit.py": {
+    "source": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-M/audit_reviewed.py",
+    "source_sha256": "516437ef0ca4e89c579ce0e6592d6d2df0a01b424f22c6716276c44aa7514b27",
+    "sha256": "d2eff91916cb2b6abf7e1165bbe58fd3d6cf6fb60d9ba46fb84e1c5a5a661be1",
+    "edits": [
+      {
+        "old": "MA-M auditor",
+        "new": "MA-N auditor",
+        "count": 1
+      },
+      {
+        "old": "D/'pins-reviewed.json'",
+        "new": "D/'pins.json'",
+        "count": 2
+      },
+      {
+        "old": "'commands-reviewed.json'",
+        "new": "'commands.json'",
+        "count": 1
+      },
+      {
+        "old": "'admission-review-final.json'",
+        "new": "'admission-review.json'",
+        "count": 1
+      },
+      {
+        "old": "'MAL_TRACE[].scratch == 1'",
+        "new": "'(MAL_TRACE[]).scratch == 1'",
+        "count": 1
+      }
+    ]
+  },
+  "launcher.py": {
+    "source": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-M/launcher-reviewed.py",
+    "source_sha256": "ac12abc2dc6288bf3ce1af0466e293d6940be2a87240d3a2b0a3ee9634c83d8d",
+    "sha256": "55967c31cdc0ade77f47b40e3a31944d6a79a8aa064f39ca55ca9b2ac6d500db",
+    "edits": [
+      {
+        "old": "MA-M sequence",
+        "new": "MA-N prepared sequence",
+        "count": 1
+      },
+      {
+        "old": "import audit_reviewed as audit",
+        "new": "import audit",
+        "count": 1
+      },
+      {
+        "old": "'launcher-reviewed.py'",
+        "new": "'launcher.py'",
+        "count": 1
+      },
+      {
+        "old": "D/'pins-reviewed.json'",
+        "new": "D/'pins.json'",
+        "count": 3
+      },
+      {
+        "old": "'admission-review-final.json'",
+        "new": "'admission-review.json'",
+        "count": 3
+      },
+      {
+        "old": "'required-paths-reviewed.json'",
+        "new": "'required-paths.json'",
+        "count": 1
+      },
+      {
+        "old": "'commands-reviewed.json'",
+        "new": "'commands.json'",
+        "count": 1
+      }
+    ]
+  }
+}

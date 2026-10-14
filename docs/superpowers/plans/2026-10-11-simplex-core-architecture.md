@@ -45,6 +45,44 @@ accepted deliverables, not partial or failed attempts. Update both at milestones
 
 ## Current continuation — 2026-10-14
 
+MA-N offline harness repair is completed and independently accepted without
+findings. The exact observed RED expression `(MAL_TRACE[]).scratch == 1` is now
+required by separate driver/auditor copies; broad normalization is not allowed.
+All candidate code, fixtures, assertions, cost cases and gates are unchanged.
+See MA-PRESOLVE-HARNESS-REPAIR.md and results/MA-N/review.md.
+
+Offline checks:42 repair checks plus4 inventory checks PASS. All3884 read-time
+pins and73 source trees were independently verified, including all3814 former
+inputs/71 trees unchanged and the two added FileWatching/Sockets roots. These
+are prospective source bindings, not retroactive MA-M launch pins. Both new
+Python generator refusals and original MA-M false audits remain preserved.
+No Julia/query/parser/import/compile/numerics/launcher/guard execution in MA-N;
+no numerical correctness, allocation/time improvement or promotion accepted.
+Review found no unnecessary added production work or memory; exact inversion
+shows no added timed instructions. Evidence hashing is outside timed windows.
+
+Next step MA-O is the actual repaired qualification under standing short-run
+permission: docs/superpowers/plans/2026-10-14-ma-presolve-repaired-qualification.md.
+First copy accepted code byte-identically into new MA-O paths, seal fresh actual
+postpublication host/refs/full140groups ANDsessions/noJulia and immutable inputs,
+then obtain independent concrete launch admission. MA-N review.json is only
+preparation acceptance and cannot substitute for admission-review.json.
+After admission, perform original-code RED8Pass/2expectedFail, candidateGREEN3787
+and the unchanged76-case cost schedule, maximum3 serial120s inclusive processes
+(114s guard+6s cleanup),360s total. No automatic retry, tuning, case removal or
+threshold adjustment. A failure stops later runs. Old MA-M slots remain unused.
+Do not insert another equivalent offline inventory as a substitute for MA-O.
+
+MA-M current STATUS/roadmap bindings in continuation-map, closure and publication
+map ONLY to MA-N/STATUS.md.before-MA-N and roadmap.md.before-MA-N (six bindings).
+MA-M before copies still resolve the eight MA-L bindings; all older mappings
+remain unchanged. All MA-N and earlier scripts/pins/checks/reviews/raw are frozen,
+never rerun or rewrite. Master6f68e24 unchanged; production/ordinary tests/env/CI
+unchanged. Automation paused, CI off, HHdisabled; earlier rejections and broader
+MA/S2/S3/S4/S5/S6 gates remain OPEN.
+
+### Previous MA-M qualification (stopped)
+
 MA-M attempted the admitted bounded qualification and is NOT ACCEPTED.
 One guarded process consumed, exit1 after7.792625337s inclusive. Actual original
 RED8Pass/2expectedFail is recorded, but the driver rejected Julia's parenthesized

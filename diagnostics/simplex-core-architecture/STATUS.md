@@ -38,7 +38,7 @@ main also has a user-modified .vscode/settings.json. Do not stage those files.
 | S3 | End-to-end exact sparsity support | Active | S3-A/S3-B integrated, latest masterb720674; exact-support consumer savings qualified; broader S3 partial |
 | S4 | Refactorization memory lifecycle | Active | S4-A/S4-C integrated; master3220118; Float64 component attribution/cost and exact triplet optimization accepted; bounded scalar component attribution360samples accepted; broader manager/history/medium coverage open |
 | S5 | Phase/cleanup handoff contract | Active | S5-A/S5-B accepted; S5-C production88a2411 -> mastere7014fb, reviewed, master668/668; broader handoffs partial |
-| MA | Selective MutableArithmetics integration | Active | MA-M qualification incomplete after RED formatting rejection; next MA-N offline harness repair. GREEN/cost unexecuted; no promotion |
+| MA | Selective MutableArithmetics integration | Active | MA-N offline harness repair accepted; next MA-O fresh admission and repaired qualification. GREEN/cost unexecuted; no promotion |
 | S6 | Broad validation and final comparison | Active | S6-A/B triage accepted; S6-C test repair integrated as mastera465da5, focused20/20. S6-G artificial-row test repair master8516e0d; S6-M BigFloat fixture repair master7fea422, focused1477/1477; S6-T no-recession fixture masterafb37d9,focused192/master19; S6-W repeated-price fixture masterb9e7cb1,focused109/master41; S6-AA reliable exchange fixture master74f7835,focused127/master19; S6-AC reconstruction fixture master3c0af5c,focused339/master215; S6-AI dual recovery fixture master354bb1f,focused339/master252; other CI families and full validation remain open |
 
 Allowed execution states: Pending, Active, Blocked (reason required), Verified,
@@ -46,6 +46,44 @@ Integrated, Rejected (evidence required). Mark an optimization Verified only aft
 its acceptance gate. Record individual chunks separately when a stage is partial.
 
 ## Exact next action
+
+MA-N offline harness repair is completed and independently accepted without
+findings. The exact observed RED expression `(MAL_TRACE[]).scratch == 1` is now
+required by separate driver/auditor copies; broad normalization is not allowed.
+All candidate code, fixtures, assertions, cost cases and gates are unchanged.
+See MA-PRESOLVE-HARNESS-REPAIR.md and results/MA-N/review.md.
+
+Offline checks:42 repair checks plus4 inventory checks PASS. All3884 read-time
+pins and73 source trees were independently verified, including all3814 former
+inputs/71 trees unchanged and the two added FileWatching/Sockets roots. These
+are prospective source bindings, not retroactive MA-M launch pins. Both new
+Python generator refusals and original MA-M false audits remain preserved.
+No Julia/query/parser/import/compile/numerics/launcher/guard execution in MA-N;
+no numerical correctness, allocation/time improvement or promotion accepted.
+Review found no unnecessary added production work or memory; exact inversion
+shows no added timed instructions. Evidence hashing is outside timed windows.
+
+Next step MA-O is the actual repaired qualification under standing short-run
+permission: docs/superpowers/plans/2026-10-14-ma-presolve-repaired-qualification.md.
+First copy accepted code byte-identically into new MA-O paths, seal fresh actual
+postpublication host/refs/full140groups ANDsessions/noJulia and immutable inputs,
+then obtain independent concrete launch admission. MA-N review.json is only
+preparation acceptance and cannot substitute for admission-review.json.
+After admission, perform original-code RED8Pass/2expectedFail, candidateGREEN3787
+and the unchanged76-case cost schedule, maximum3 serial120s inclusive processes
+(114s guard+6s cleanup),360s total. No automatic retry, tuning, case removal or
+threshold adjustment. A failure stops later runs. Old MA-M slots remain unused.
+Do not insert another equivalent offline inventory as a substitute for MA-O.
+
+MA-M current STATUS/roadmap bindings in continuation-map, closure and publication
+map ONLY to MA-N/STATUS.md.before-MA-N and roadmap.md.before-MA-N (six bindings).
+MA-M before copies still resolve the eight MA-L bindings; all older mappings
+remain unchanged. All MA-N and earlier scripts/pins/checks/reviews/raw are frozen,
+never rerun or rewrite. Master6f68e24 unchanged; production/ordinary tests/env/CI
+unchanged. Automation paused, CI off, HHdisabled; earlier rejections and broader
+MA/S2/S3/S4/S5/S6 gates remain OPEN.
+
+## Previous MA-M qualification (stopped)
 
 MA-M attempted the admitted bounded qualification and is NOT ACCEPTED.
 One guarded process consumed, exit1 after7.792625337s inclusive. Actual original

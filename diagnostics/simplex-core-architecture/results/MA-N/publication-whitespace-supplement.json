@@ -1,0 +1,26 @@
+{
+  "all_passed": true,
+  "checks": {
+    "initial_failure_only_staged_whitespace": true,
+    "exact_two_whitespace_diagnostics": true,
+    "two_lines_exact_single_space": true,
+    "both_sources_frozen_and_unchanged": true,
+    "original_closure_pass_and_bindings_current": true,
+    "all_initial_publication_bytes_and_blobs_unchanged": true
+  },
+  "expected_diagnostics": "diagnostics/simplex-core-architecture/results/MA-N/prepare-2.py:15: trailing whitespace.\n+ \ndiagnostics/simplex-core-architecture/results/MA-N/prepare-3.py:15: trailing whitespace.\n+ \n",
+  "git_check": {
+    "returncode": 2,
+    "stdout": "diagnostics/simplex-core-architecture/results/MA-N/prepare-2.py:15: trailing whitespace.\n+ \ndiagnostics/simplex-core-architecture/results/MA-N/prepare-3.py:15: trailing whitespace.\n+ \n",
+    "stderr": ""
+  },
+  "sha256": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-N/prepare-2.py": "7e2f047bb332cecb035f93b63861f698de95c333bec4714962b31e676a2f5f85",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-N/prepare-3.py": "95af46c6cfe820b39123595b027835121f3b012afe33c0b4d9188b3f27e0ca93",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-N/pins.json": "6af435c1a1ee1caafc4ef1fd28fcb7dbba3b6f5bde813eebe70ac88641535708",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-N/closure.json": "520a392a01b881d0fb405618589d5ea21555da81210c6d1baea471a8c0f115c0",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-N/publication.json": "1982346100e76cdc674c071e5974ead08c3d65d19927ffe8085aa85e685b0366",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-N/publication-whitespace-supplement.py": "bf2d10bf0033f206363649638997eb1e5433cd7650d28947458db4f897ded866"
+  },
+  "scope": "Only the exact two frozen single-space lines are preserved. No general whitespace exemption; initial FALSE publication remains unchanged."
+}
