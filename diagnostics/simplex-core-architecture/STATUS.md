@@ -47,6 +47,26 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
+MA-Q prepares a concrete source-only design and plan for private BigFloat product
+scratch in native DenseLU FTRAN/BTRAN. Fresh independent gpt-6-astra review
+accepted the design and plan with no findings; next step is MA-R offline preparation. See `MA-DENSELU-BIGFLOAT-PLAN.md`, results/MA-Q, and
+`docs/superpowers/plans/2026-10-14-ma-denselu-bigfloat.md`.
+One unpublished call-local product preserves ordinary subtraction/division and
+scalar publication. Exact native storage, n>=16 and matching scoped/global rounding
+are required; all other calls use the original route before mutation. Preserve
+actual triangular normalization, all products, exceptions and partial writes.
+No Julia, candidate, production/test/environment/CI changes in MA-Q. Next bounded
+step after acceptance is MA-R offline source/test preparation and independent review.
+MA-Q completed source/design only:14source checks/20bindings and independent review.
+MA-S numerical work requires its own immutable admission: three serial processes,
+maximum120s each,52 component cost cases including scratch preparation and controls.
+Standing short-run permission remains; this plan-only task does not execute it.
+The broader plan remains OPEN; HHdisabled, CIoff and automationpaused.
+Six current MASTER-PROFILE continuation bindings map ONLY to MA-Q beforecopies
+through results/MA-Q/continuation-map.json. All older maps and evidence stay frozen.
+
+## Previous current-master profiling (completed)
+
 Current-master short profiling completed (master6f68e24), see
 CURRENT-MASTER-TIME-BREAKDOWN.md and results/MASTER-PROFILE.
 Three exit0 guarded processes,total135.351692s,376solver entries/8cases,

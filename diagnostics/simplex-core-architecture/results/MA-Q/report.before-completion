@@ -1,0 +1,62 @@
+# MA-Q: private BigFloat product scratch in native DenseLU
+
+Status: plan prepared; independent review pending. No runtime qualification.
+
+The user requested a plan and independent review for native DenseLU BigFloat
+FTRAN/BTRAN, following current-master profiling. The proposed route is limited to
+one private product scratch. It does not mutate factor/RHS numeric leaves or old
+published destination leaves. Array assignments, ordinary subtraction/division,
+permutations and the actual installed triangular normalization remain unchanged.
+
+- [Design](../../docs/superpowers/specs/2026-10-14-ma-denselu-bigfloat-design.md)
+- [Implementation plan](../../docs/superpowers/plans/2026-10-14-ma-denselu-bigfloat.md)
+- [New source checks](results/MA-Q/source-check.json)
+- [Continuation mapping](results/MA-Q/continuation-map.json)
+
+## Source findings and limits
+
+`_copy_backend(::DenseLUBackend)` returns the same backend, so PFI copies share LU
+numeric leaves. Container ownership is insufficient permission to mutate them.
+Base BigFloat multiplication creates an ambient-precision result. Installed MA
+1.8.1 uses the global MPFR rounding mode whereas Julia1.13 Base multiplication
+consults scoped rounding first. The proposed constant-time equality predicate must
+fallback before mutation when these differ. No rounding adjustment is allowed.
+
+The installed two-argument triangular solve selects `istriu` and normalizes its
+wrappers. Even a UnitLowerTriangular can take an upper branch on diagonal inputs.
+The plan requires exact branch/order mapping including unit division and zero
+products. There is no post-write fallback/retry, global method replacement or
+fused operation. Unsupported shape/type/version uses the original route.
+
+The prospective n16 boundary is fixed before measurement, not inferred as optimal.
+One call-local product gives a source opportunity of n(n-1)-1 fewer temporary
+product constructions for ordinary two-triangle paths. This does not count all
+allocations or prove a speedup/native memory release. Subtraction and division
+allocations remain. No full scan, persistent cache or additional solve is proposed.
+
+## Bounded delivery and acceptance
+
+MA-R will prepare isolated unexecuted source/reference/tests and undergo review.
+MA-S may then run only under its own frozen admission and fail-closed guards.
+The plan fixes52cost cases:36BigFloat targets and16small/unsupported/rounding
+controls;3processes,3warm+7measured pairs,4calls/window,12480cost calls in total.
+Correctness/RED calls are additional and must be enumerated in the MA-R fixture
+manifest and MA-S admission. Each process is capped at120s; no automatic retry.
+Costs include scratch creation and routing. Correctness covers exact scalar values,
+precision, signed zeros/nonfinite values, input owners, retained outputs and partial
+exception effects. No safeguard or tolerance changes are permitted.
+
+All component gates must pass, followed by a separately admitted actual PFI and
+public afiro/sc50a comparison, before production integration can be proposed.
+Direct dependency/version/load costs are explicit integration obligations.
+The current documentation step runs no Julia and changes no production/test/env/CI.
+
+## Evidence
+
+Fresh host preflight recorded master6f68e24, diagnostic78aeff2,514master file
+identities, six protected user-file hashes and full158groups ANDsessions absent
+with no Julia. New source-check.py ran once:14literal gates passed,20read-time
+bindings. These are source observations and plan consistency checks, not launch
+pins or runtime proof. Independent semantic review is required in addition.
+Beforecopies preserve exactly six MASTER-PROFILE current STATUS/roadmap bindings;
+all older mapping and frozen scripts/raw/results remain unchanged. Broad plan OPEN.

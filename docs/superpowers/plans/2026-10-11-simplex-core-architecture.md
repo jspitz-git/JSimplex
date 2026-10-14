@@ -2270,3 +2270,22 @@ permutations, arithmetic order, ownership, precision and exceptions. No candidat
 or launch automatically admitted; old Markowitz/HH/DSE/cleanup rejections remain.
 Six current MA-P continuation bindings map only to MASTER-PROFILE beforecopies;
 all older mappings/evidence unchanged. Broader S2/S3/S4/S5/S6/MA remain open.
+
+## MA-Q native BigFloat DenseLU plan (2026-10-14)
+
+The human requested a concrete plan and independent review after master profiling.
+See [design](../specs/2026-10-14-ma-denselu-bigfloat-design.md) and
+[implementation plan](2026-10-14-ma-denselu-bigfloat.md). One private multiplication
+scratch preserves ordinary subtraction/division/publication and the actual native
+LU/triangular order. n>=16 plus exact storage and matching scoped/global rounding;
+otherwise original whole-call fallback before mutation. No factor/eta algorithm
+change, persistent scratch, coefficient skipping or new full-vector scans.
+Fresh independent MA-Q review accepted the design and plan with no findings.
+Next MA-R is offline candidate/reference/tests and a separate review. MA-S then requires its own
+immutable short numerical admission, correctness/alias/rounding/exception tests,
+and52whole-call cost cases across3processes capped120s each. Component gains alone
+do not promote: separate actual PFI and afiro/sc50a public validation is required.
+No Julia/candidate/production/test/environment/CI change in this planning step.
+MA-O/P and all stopped routes remain unchanged; broader plan OPEN. Six current
+MASTER-PROFILE continuation bindings map only to MA-Q beforecopies; older mappings
+remain. The precise closure/publication will bind final continuation text.
