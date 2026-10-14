@@ -1,0 +1,19 @@
+{
+  "exit_code": 1,
+  "exception": "KeyError: 'all_passed'",
+  "location": "closure.py route-fix.json check",
+  "scope": "New closure stopped before producing closure.json, staging, commit or push; candidate/tests/review unchanged.",
+  "fix": "Only route-fix.json uses its four explicit checks; other records still require all_passed plus every check. New canonical closure-final.py and publication-final.py use final exact names.",
+  "checks": {
+    "original_requires_missing_key": true,
+    "four_checks": true,
+    "corrected_condition_present": true
+  },
+  "sha256": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-L/closure.py": "e53f29248e065c30e015aab46acc65289dfb1edc90ea661a5905c7ca19597271",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-L/closure-final.py": "8d8a46d8e408f5fa8e91497a92c405f6e46d26c37dcf6dd132431d96694b681a",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-L/publication.py": "0144ce2e37414d6052716f2f9cfd0e0164c37f3d2c9788bcbac9f8a3fb4ab077",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-L/publication-final.py": "73026bd7a023005dcc00dd58ba2e4c2ce32ffec7b843da5b0fe545a775b2dad4",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-L/route-fix.json": "a1a162b8b11d261a2bc03cc79e2779ce322848df24fb0504f28b2102db40c829"
+  }
+}

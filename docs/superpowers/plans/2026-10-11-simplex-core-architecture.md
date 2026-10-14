@@ -45,6 +45,42 @@ accepted deliverables, not partial or failed attempts. Update both at milestones
 
 ## Current continuation — 2026-10-14
 
+MA-L offline preparation completed and independently accepted with no findings.
+The separate candidate preserves the original generic and final-bound bodies;
+only exact Rational{BigInt} typed eight-term rows can select private MA scratch.
+See MA-PRESOLVE-SELECTIVE-PREPARATION.md and results/MA-L/review.md.
+
+Frozen preparation:222 correctness fixtures,3787 prospective GREEN assertions,
+RED8 passes plus2 expected failures,76 cost cases (24 targets/52 controls).
+No Julia/parser/import/compile/numerical execution occurred. Source checks29/29,
+37 read-time hashes; independent review22 checks/57 bindings. Initial28/29 false
+route-count gate is preserved; a separate metadata-only correction changes the
+zero-coefficient fixture count1 to0, without changing inputs, Bool or candidate.
+Canonical tests-reviewed.jl/test-helpers-reviewed.jl additionally bind constructed
+inputs and stored BigFloat precision; superseded versions remain frozen.
+
+Next MA-M: prepare concrete loading/commands/pins/expected-failure handling,
+resource guards and fail-closed output auditor, obtain independent admission,
+then execute the frozen qualification under standing short-run authorization.
+The MA-L qualification-inputs.json is a handoff, NOT a launch manifest/admission.
+At most3 serial120s inclusive processes/360s total; no automatic retry/tuning.
+Measure complete fresh-scratch calls including selector/setup cost. Enforce all
+24 target and52 control gates from the unchanged MA-K plan; adversarial tails
+may reject the proposal. No runtime correctness, allocation/time improvement,
+whole-presolver benefit or production integration has yet been accepted.
+
+MA-K current STATUS/roadmap bindings in continuation-map, closure and publication
+map ONLY to MA-L/STATUS.md.before-MA-L and roadmap.md.before-MA-L (six bindings).
+MA-K before copies still resolve eight MA-J bindings; all older mappings remain.
+All MA-L candidate/fixtures/tests/scripts/checks/review artifacts are frozen;
+never rerun old generators/auditors or overwrite failed evidence. Future MA-M
+may load only the explicitly admitted frozen Julia texts in a new process.
+MA-J/MA-I rejected promotions stay rejected. Master6f68e24 unchanged; production,
+ordinary tests, environment and CI unchanged. Automation paused, CI off, HH
+reuse disabled; broader MA/S2/S3/S4/S5/S6 remains OPEN.
+
+### Previous MA-K plan (completed)
+
 MA-K selective rational presolver plan and design independently accepted, no
 unresolved findings. Planning only: no candidate, Julia, numerical experiment,
 production/test/environment/CI change. See
