@@ -1,0 +1,33 @@
+Test Summary:   | Pass  Total  Time
+reference smoke |   16     16  0.1s
+
+original lacks optimization route (expected RED only): Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-R/tests.jl:186
+  Expression: isdefined(P, :_dense_ma_eligible)
+   Evaluated: isdefined(Main.MADenseProbe, _dense_ma_eligible)
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-R/tests.jl:186 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] route_red()
+     @ Main.MADenseProbeTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-R/tests.jl:186
+
+original lacks optimization route (expected RED only): Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-R/tests.jl:187
+  Expression: isdefined(P, :candidate_forward!) && isdefined(P, :candidate_transpose!)
+  Stacktrace:
+   [1] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:753 [inlined]
+   [2] macro expansion
+     @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-R/tests.jl:187 [inlined]
+   [3] macro expansion
+     @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:1962 [inlined]
+   [4] route_red()
+     @ Main.MADenseProbeTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-R/tests.jl:186
+Test Summary:                                         | Fail  Total  Time
+original lacks optimization route (expected RED only) |    2      2  0.6s
+RNG of the outermost testset: Random.Xoshiro(0xcb3202b1fad3fac1, 0xd645d93998409245, 0xe7765c7502270b31, 0x7ca968b5e63a4dcd, 0x3bf539a119f10a20)
+Test Summary:             | Pass  Total  Time
+complete MA-R correctness | 4329   4329  7.1s
+MA-X process 1 complete

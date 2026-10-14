@@ -47,6 +47,44 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
+MA-Y completed: complete MA-U DenseLU candidate qualification NOT ACCEPTED.
+See MA-DENSELU-COMPLETE-QUALIFICATION.md and MA-Y/result-review.md/json.
+Fresh numerical seal accepted46checks/40bindings before exactly ONE sequence.
+Three serial exit0 Julia processes17.831977054/11.766976578/11.808823572seconds,
+total41.407777204seconds. Smoke16/16, originalqualification4329/4329 and exact
+0pass/2expectedmissing-routeTest.Fail/0error RED. All160correctness and52cost cases
+perprocess complete;12480costcalls/3120windows/2184measured/936warm. Every measured
+compile/recompile0; all28GCwindows retained; every output/owner check passes.
+
+Processes1/2 passed all52cost gates. Process3 fails scopedBigFloatBTRAN side-time
+351.15us versus299.575us (delta51.575us exceeds29.9575us) and RationalFTRAN median
+bytes3247408 versus3247376 (+32bytes per4callwindow; equal74525events). All36target
+cases pass perprocess pairedratio/bytes/events gates; local ratios.536057–.816072
+are not complete pooled acceptance or publicsolver speedup. Pairedratio cannot
+replace control side-time rule. No allocator/timing cause established.
+Launcherexit1/audit-3 false preserved. NOaggregate run after failedstage; no retry,
+tuning, filtering, bytewaiver, baselinecorrection or productionpromotion.
+
+This allowance is CONSUMED. MA-X driver/launcher/auditors, allnewraw/journals/pins/
+reviews and MA-Y checks are FROZEN NEVER RERUN/rewrite. Do not execute the older
+MA-X next-MA-Y instruction below again. MA-S-2 rejected48/52 and narrowerMA-V
+acceptance remain unchanged. Both controls failed, not Rationalalone. No immediate
+allocator investigation or automatic unchanged-candidate retry is authorized.
+OriginalTask3 compatibility/dependency/clean-loading/PFI/publicafiro/sc50a work
+is NOT opened by this rejection. A genuinely different proposal needs its own
+concrete evidence-based plan/admission. Broader performance plan stays OPEN;
+other independently authorized work must still respect its own gates.
+
+Postcheck16integrity/cleanup/stop gates pass separately from failedcostacceptance.
+All4375pins/source514/protected6 unchanged. Full176historical+newgroups ORsessions
+absent, noJulia. Before future numerical work or continuation edits require NEW
+refs/boot/start_ticks/command/fullgroups/sessions, not reuse MA-Y/posthost.json.
+Six MA-X current closure/publication/continuation STATUS/roadmap bindings map ONLY
+to MA-Y beforecopies; alloldermaps preserved. No production/test/env/CI/master
+change; master6f68e24, CIoff, HHdisabled, automationpaused unchanged.
+
+## Previous MA-X preparation (completed; allowance now consumed)
+
 MA-X complete DenseLU offline admission prepared and independently accepted.
 See results/MA-X/admission.md, admission-review.md/json and the unchanged MA-W plan
 Task1. Concrete driver uses original MA-R reference/tests/fixtures and exact MA-U
