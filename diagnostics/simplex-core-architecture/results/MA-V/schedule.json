@@ -1,0 +1,150 @@
+{
+  "costs": [
+    {
+      "id": "32/dense/absent/forward",
+      "n": 32,
+      "layout": "dense",
+      "scope": "absent",
+      "direction": "forward",
+      "eligible": true
+    },
+    {
+      "id": "32/dense/absent/transpose",
+      "n": 32,
+      "layout": "dense",
+      "scope": "absent",
+      "direction": "transpose",
+      "eligible": true
+    },
+    {
+      "id": "32/dense/equal/forward",
+      "n": 32,
+      "layout": "dense",
+      "scope": "equal",
+      "direction": "forward",
+      "eligible": true
+    },
+    {
+      "id": "32/dense/equal/transpose",
+      "n": 32,
+      "layout": "dense",
+      "scope": "equal",
+      "direction": "transpose",
+      "eligible": true
+    },
+    {
+      "id": "32/dense/up/forward",
+      "n": 32,
+      "layout": "dense",
+      "scope": "up",
+      "direction": "forward",
+      "eligible": false
+    },
+    {
+      "id": "32/dense/up/transpose",
+      "n": 32,
+      "layout": "dense",
+      "scope": "up",
+      "direction": "transpose",
+      "eligible": false
+    },
+    {
+      "id": "32/dense/nested/forward",
+      "n": 32,
+      "layout": "dense",
+      "scope": "nested",
+      "direction": "forward",
+      "eligible": false
+    },
+    {
+      "id": "32/dense/nested/transpose",
+      "n": 32,
+      "layout": "dense",
+      "scope": "nested",
+      "direction": "transpose",
+      "eligible": false
+    },
+    {
+      "id": "32/zeroheavy/up/forward",
+      "n": 32,
+      "layout": "zeroheavy",
+      "scope": "up",
+      "direction": "forward",
+      "eligible": false
+    },
+    {
+      "id": "32/zeroheavy/up/transpose",
+      "n": 32,
+      "layout": "zeroheavy",
+      "scope": "up",
+      "direction": "transpose",
+      "eligible": false
+    },
+    {
+      "id": "15/dense/up/forward",
+      "n": 15,
+      "layout": "dense",
+      "scope": "up",
+      "direction": "forward",
+      "eligible": false
+    },
+    {
+      "id": "15/dense/up/transpose",
+      "n": 15,
+      "layout": "dense",
+      "scope": "up",
+      "direction": "transpose",
+      "eligible": false
+    }
+  ],
+  "red": [
+    {
+      "id": "old/forward",
+      "n": 32,
+      "layout": "dense",
+      "scope": "up",
+      "direction": "forward",
+      "eligible": false
+    },
+    {
+      "id": "old/transpose",
+      "n": 32,
+      "layout": "dense",
+      "scope": "up",
+      "direction": "transpose",
+      "eligible": false
+    }
+  ],
+  "micro": [
+    {
+      "id": "absent",
+      "expected": true
+    },
+    {
+      "id": "keys8",
+      "expected": true
+    },
+    {
+      "id": "equal",
+      "expected": true
+    },
+    {
+      "id": "up",
+      "expected": false
+    },
+    {
+      "id": "nested",
+      "expected": false
+    },
+    {
+      "id": "upkeys64",
+      "expected": false
+    }
+  ],
+  "processes": 2,
+  "warm_pairs": 3,
+  "measured_pairs": 7,
+  "backend_calls_per_window": 4,
+  "predicate_calls_per_window": 256,
+  "timer_baselines_per_process": 10
+}

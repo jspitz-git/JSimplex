@@ -1,0 +1,232 @@
+"""MA-V fail-closed auditor; import performs no process or numerical work."""
+from pathlib import Path
+import hashlib,json,tomllib,math,statistics,sys,re
+D=Path(__file__).resolve().parent;R=D.parents[3]
+def read(p):return json.loads(Path(p).read_text())
+def sha(p):
+ h=hashlib.sha256()
+ with Path(p).open('rb') as f:
+  for b in iter(lambda:f.read(1048576),b''):h.update(b)
+ return h.hexdigest()
+def require(ok,msg):
+ if not ok:raise ValueError(msg)
+def finite(x):return type(x) in (int,float) and math.isfinite(x) and x>=0
+
+# New exact MA-V validators and reducers below.
+def passed(checks):return bool(checks) and all(v is True for v in checks.values())
+def spec():return read(D/'schedule.json')
+def fixtures():return tomllib.loads((D.parent/'MA-U/fixtures.toml').read_text())
+MODES=['RoundNearest','RoundDown','RoundUp','RoundToZero','RoundFromZero']
+SCOPES=['nothing',*MODES]
+def expected_predicates():
+ return [(f'grid/{bits}/{g}/{s}/{k}',s=='nothing' or s==g,g if s=='nothing' else s) for bits in (128,256,512) for g in MODES for s in SCOPES for k in (0,8,64)]
+def expected_transitions():
+ rows=[('entry',True,'RoundNearest'),('outer-up',False,'RoundUp'),('inner-down',False,'RoundDown'),('inner-equal',True,'RoundNearest'),('restored-down',False,'RoundDown'),('restored-up',False,'RoundUp'),('restored-absent',True,'RoundNearest'),('throw-down',False,'RoundDown'),('after-throw-up',False,'RoundUp'),('after-throw-absent',True,'RoundNearest')]
+ for g in ('RoundUp','RoundDown'):
+  rows += [(f'task/{g}/{suffix}',equal,'RoundNearest' if equal else g) for suffix,equal in [('before',False),('after-yield',False),('equal-before',True),('equal-after',True),('restored',False)]]
+ rows += [(f'global-change/{g}',g=='RoundUp','RoundUp') for g in MODES]
+ return rows
+
+def expected_whole():
+ rows=[]
+ for bits in (128,256,512):
+  for n in (16,32):
+   for layout in ('dense','zeroheavy'):
+    for dr in ('forward','transpose'):
+     for g in MODES:
+      for s in SCOPES:rows.append((f'grid/{bits}/{n}/{layout}/{dr}/{g}/{s}',dr,s=='nothing' or s==g,1,n,None))
+ f=fixtures()
+ for s in ('nothing','RoundUp'):
+  for kind in f['specials']:
+   for dr in f['directions']:
+    exc='SingularException' if kind.startswith('pivot_zero_') else 'BoundsError' if kind=='invalid_ipiv' else 'DimensionMismatch' if kind=='dest_long' else None
+    rows.append((f'special/{s}/{kind}/{dr}',dr,s=='nothing' and kind not in ('rhs_short','dest_long','rhs_view'),2 if kind=='retained_outputs' else 1,17 if kind=='dest_long' else 16,exc))
+ for s in ('nothing','RoundUp'):
+  for n in (0,1,2,8,15):
+   for dr in ('forward','transpose'):rows.append((f'small/{s}/{n}/{dr}',dr,False,1,n,None))
+ for scalar in ('Float64','Rational{BigInt}'):
+  for dr in ('forward','transpose'):rows.append((f'scalar/{scalar}/{dr}',dr,False,1,32,None))
+ for stored,ambient in f['mixed_stored_ambient']:
+  for s in ('nothing','RoundUp'):
+   for dr in ('forward','transpose'):rows.append((f'mixed/{stored}/{ambient}/{s}/{dr}',dr,s=='nothing',1,16,None))
+ return rows
+
+def predicates(rows,expected):
+ require(len(rows)==len(expected),'predicate count')
+ for r,(id,ok,mode) in zip(rows,expected):
+  require(r['id']==id and r['reference'] is ok and r['candidate'] is ok and r['expected'] is ok and r['effective']==mode,'predicate oracle')
+
+def metrics(w):
+ require(all(finite(w[k]) for k in ('seconds','bytes','events','gc_seconds','compile_seconds','recompile_seconds')) and w['seconds']>0 and type(w['bytes']) is int and type(w['events']) is int,'metrics')
+
+def windows(rows,cases,index,micro=False):
+ require(len(rows)==len(cases),'case count')
+ for ci,(c,f) in enumerate(zip(rows,cases),1):
+  require(c['id']==f['id'],'case order')
+  if micro:require(type(c['expected']) is int and c['expected']==(256 if f['expected'] else 0),'micro expected')
+  else:
+   require(c['eligible'] is f['eligible'],'route')
+   require(isinstance(c['expected'],list) and len(c['expected'])==f['n'] and all(isinstance(x,str) and x for x in c['expected']),'tokens')
+  require(len(c['windows'])==20,'window count')
+  for pos,w in enumerate(c['windows']):
+   pair=pos//2+1;order=pos%2+1;firstref=(index+ci+pair)%2==0
+   side=('reference' if firstref else 'candidate') if order==1 else ('candidate' if firstref else 'reference')
+   require(type(w['pair']) is int and type(w['order']) is int and w['pair']==pair and w['order']==order and w['side']==side and w['phase']==('warm' if pair<=3 else 'measured') and type(w['calls']) is int and w['calls']==(256 if micro else 4),'order/calls')
+   metrics(w)
+   if pair>3:require(w['compile_seconds']==w['recompile_seconds']==0,'measured compile')
+   if micro:
+    require(type(w['checksum']) is int and w['checksum']==c['expected'],'checksum')
+    if pair>3 and side=='candidate':require(w['bytes']==w['events']==0,'micro new allocations')
+   else:require(w['preserved'] is True and w['output']==c['expected'],'values/owners')
+
+def red_deltas(rows):
+ return [dict(id=c['id'],**{k:statistics.median(w[k] for w in c['windows'] if w['phase']=='measured' and w['side']=='candidate')-statistics.median(w[k] for w in c['windows'] if w['phase']=='measured' and w['side']=='reference') for k in ('bytes','events')}) for c in rows]
+
+def validate_raw(raw,index,require_process_cost=True):
+ checks={}
+ try:
+  require(type(index) is int and index in (1,2),'index')
+  require(type(raw['index']) is int and raw['index']==index and raw['errors']==[] and raw['ambient_restored'] is True,'header')
+  for k in ('load_seconds','code_inspection_seconds','micro_inclusive_seconds','cost_inclusive_seconds'):require(finite(raw[k]),k)
+  require(isinstance(raw['loaded_paths'],dict) and bool(raw['loaded_paths']) and all(isinstance(p,str) and Path(p).is_absolute() for p in raw['loaded_paths'].values()),'loaded paths')
+  checks['header']=True
+  code=raw['code'];require(len(code)==2,'code count')
+  for c,arm in zip(code,('old','new')):require(c['arm']==arm and c['path']==str(D/f'run-{index}/micro-{arm}.ll') and type(c['probe_calls']) is int and c['probe_calls']==256 and c['probe_path']==str(D/f'run-{index}/probe-{arm}.ll') and type(c['probe_ir_bytes']) is int and 0<c['probe_ir_bytes']<=1048576 and c['accepted'] is True and type(c['ir_bytes']) is int and 0<c['ir_bytes']<=1048576,'code schema')
+  checks['code_schema']=True
+  base=raw['timer_baseline'];require(len(base)==10,'baseline count')
+  for i,w in enumerate(base,1):
+   metrics(w);require(w['phase']==('warm' if i<=3 else 'measured'),'baseline phase')
+   if i>3:require(w['bytes']==w['events']==w['compile_seconds']==w['recompile_seconds']==0,'baseline measured allocations/compile')
+  checks['timer_baseline']=True
+  if index==1:
+   c=raw['correctness'];cnt=c['counts'];require(set(cnt)=={'pass','fail','error','broken'} and type(cnt['pass']) is int and cnt['pass']>0 and all(type(cnt[k]) is int and cnt[k]==0 for k in ('fail','error','broken')),'test counts')
+   require(finite(raw['correctness_seconds']),'correctness seconds')
+   predicates(c['predicates'],expected_predicates());predicates(c['transitions'],expected_transitions())
+   require(type(c['tasks_created']) is int and c['tasks_created']==3 and type(c['no_scope_available']) is bool,'task schema')
+   predicates(c['no_scope_records'],[('no-scope',True,'RoundNearest')] if c['no_scope_available'] else [])
+   expected=expected_whole();require(len(c['whole'])==len(expected)==840,'whole count')
+   for row,(id,dr,eligible,calls,n,exc) in zip(c['whole'],expected):
+    require(row['id']==id and row['direction']==dr and row['eligible'] is eligible and type(row['calls_per_side']) is int and row['calls_per_side']==calls,'whole descriptor')
+    require(isinstance(row['output'],list) and len(row['output'])==n and all(isinstance(x,str) and x for x in row['output']),'whole tokens')
+    require(row['exception']==[] if exc is None else len(row['exception'])==2 and row['exception'][0] in (exc,'LinearAlgebra.'+exc) and isinstance(row['exception'][1],str),'exception')
+    rc=row['route_counts'];target=dict(entries=calls,scratches=calls if eligible else 0,fallbacks=0 if eligible else calls)
+    require(rc==target and all(type(x) is int for x in rc.values()),'observed route counts')
+   require(sum(r['calls_per_side'] for r in c['whole'])==844,'844 calls')
+   windows(raw['red'],spec()['red'],index)
+   require(all(r['bytes']>0 or r['events']>0 for r in red_deltas(raw['red'])),'old allocation RED absent')
+  else:require(raw['correctness']=={} and raw['red']==[] and 'correctness_seconds' not in raw,'no extra correctness/RED')
+  checks['correctness_and_RED']=True
+  windows(raw['micro'],spec()['micro'],index,True);windows(raw['costs'],spec()['costs'],index)
+  if require_process_cost:require(all(p['accepted'] for p in process_costs(raw)),'per-process cost gate')
+  checks['exact_windows']=True
+ except Exception as e:checks['complete_schema']=False;checks['schema_error']=repr(e)
+ return checks
+
+def code_valid(text):
+ calls=re.findall(r'(?m)^.*\b(?:call|invoke)\b[^\n]*@j_probe_[^\n]*$',text)
+ return len(calls)==256 and len(text.encode())<=1048576 and not re.search(r'\b(?:call|invoke)\b[^\n]*\b(?:jl_apply|ijl_apply|jl_invoke|ijl_invoke)\b',text) and not re.search(r'\b(?:call|invoke)\b[^@\n]*%[A-Za-z0-9_.]+\(',text)
+def journal_valid(records,raw):
+ expected=[]
+ for i,w in enumerate(raw['timer_baseline'],1):expected.append(dict(kind='baseline',index=i,window=w))
+ def whole(rows):
+  for c in rows:
+   for w in c['windows']:
+    side=1 if w['side']=='reference' else 2;location=f"cost/{c['id']}/{w['pair']}/{side}"
+    expected.append(dict(kind='whole-metrics',location=location,window={k:v for k,v in w.items() if k not in ('output','preserved')}))
+    expected.append(dict(kind='whole-complete',location=location,window=w))
+ whole(raw['red'])
+ if raw['index']==1:
+  c=raw['correctness']
+  for r in [*c['predicates'],*c['transitions'][:20],*c['no_scope_records'],*c['transitions'][20:],*c['whole']]:expected.append(dict(kind='correctness',record=r))
+ for c in raw['micro']:
+  for w in c['windows']:
+   side=1 if w['side']=='reference' else 2
+   expected.append(dict(kind='micro',location=f"micro/{c['id']}/{w['pair']}/{side}",window=w))
+ whole(raw['costs'])
+ require(len(records)==len(expected),'journal count')
+ for got,want in zip(records,expected):
+  if want['kind']=='correctness':
+   require(got['kind']=='correctness','journal correctness kind')
+   r=want['record'];g=got['record']
+   keys=('id','direction','eligible','calls_per_side','output','route_counts') if 'direction' in r else tuple(r)
+   require(all(g[k]==r[k] for k in keys),'journal correctness content')
+  else:require(got==want,'journal metrics/content/order')
+ return True
+
+def stage_scalars(proc,inv,res,samples,post,context,sequence):
+ checks={}
+ try:
+  integer=lambda x:type(x)==int and x>=0
+  positive=lambda x:type(x)==int and x>0
+  checks['exit_codes']=all(type(x)==int and x==0 for x in (proc['returncode'],inv['returncode']))
+  checks['elapsed_schema']=all(finite(x) for x in (proc['started'],proc['ended'],proc['elapsed_including_launch'],inv['elapsed_seconds'],inv['cumulative_seconds'],post['time'])) and proc['ended']>=proc['started'] and proc['elapsed_including_launch']<=84 and proc['elapsed_including_launch']<=inv['elapsed_seconds']<=90 and inv['elapsed_seconds']<=inv['cumulative_seconds']<=180
+  checks['limit_schema']=type(res['seconds'])==int and res['seconds']==90 and type(context['maximum_processes'])==int and context['maximum_processes']==2 and type(context['maximum_seconds_per_process'])==int and context['maximum_seconds_per_process']==90 and type(sequence['maximum_processes'])==int and sequence['maximum_processes']==2 and type(sequence['total_cap_seconds'])==int and sequence['total_cap_seconds']==180 and sequence['no_retry'] is True
+  boot=context['boot_id'];require(isinstance(boot,str) and bool(boot),'context boot')
+  checks['identity_schema']=True
+  for who in ('runner','child'):
+   v=proc[who]
+   checks['identity_schema'] &= all(positive(v[k]) for k in ('pid','pgid','sid')) and integer(v['start_ticks']) and v['boot_id']==boot and isinstance(v['command'],str) and bool(v['command']) and v['pid']==v['pgid']==v['sid']
+  groups=post['groups']
+  checks['post_identity_schema']=isinstance(groups,list) and len(groups)>=166 and all(positive(v) for v in groups) and len(set(groups))==len(groups) and post['boot_id']==boot and post['matches']==[] and post['refs']==context['refs'] and all(proc[who][k] in groups for who in ('runner','child') for k in ('pgid','sid'))
+  checks['memory_schema']=len(samples)>=2 and all(integer(s['available_kib']) and integer(s['swap_used_kib']) and s['available_kib']>=6*1024**2 and s['swap_used_kib']<=1024**2 for s in samples)
+ except Exception as e:checks['stage_scalar_complete']=False;checks['stage_scalar_error']=repr(e)
+ return checks
+
+def stage(index):
+ out=D/f'run-{index}';checks={};error=None
+ try:
+  inv=read(D/f'invocation-{index}.json');res=read(D/f'reservation-{index}.json');proc=read(out/'process.json');pins=read(D/'pins.json');cmd=read(D/'commands.json')[str(index)]
+  checks['external_supervisor']=inv['supervisor']['accepted'] is True and inv['supervisor']['returncode']==0 and inv['supervisor']['soft_timeout'] is False and inv['supervisor']['hard_timeout'] is False and finite(inv['supervisor']['elapsed_seconds']) and inv['supervisor']['elapsed_seconds']<=90 and 'cleanup_error' not in inv['supervisor']
+  checks['process']=proc['reason']=='exit0' and proc['returncode']==0 and proc['pins_unchanged'] is True and inv['returncode']==0
+  checks['command']=proc['command']==cmd and proc['cwd']==str(R) and res['command']==cmd and inv['command'][-len(cmd):]==cmd
+  checks['links']=inv['reservation_sha256']==sha(D/f'reservation-{index}.json') and res['pins_sha256']==sha(D/'pins.json')==proc['pins_sha256'] and res['review_sha256']==sha(D/'numerical-review.json') and res['context_sha256']==sha(D/'launch-context.json') and res['host_sha256']==sha(D/f'prelaunch-{index}.json') and res['sequence_sha256']==sha(D/'sequence-reservation.json')
+  checks['hard_cap']=finite(inv['elapsed_seconds']) and inv['elapsed_seconds']<=90 and finite(inv['cumulative_seconds']) and inv['cumulative_seconds']<=180 and finite(proc['elapsed_including_launch']) and proc['elapsed_including_launch']<=84
+  checks['pins']=read(out/'pins.json')==pins and all(sha(p)==v['sha256'] and str(Path(p).resolve())==v['resolved'] for p,v in pins['inventory'].items())
+  samples=[json.loads(s) for s in (out/'resources.jsonl').read_text().splitlines()]+[proc['terminal_memory']]
+  checks['memory']=len(samples)>=2 and all(type(s['available_kib'])==int and type(s['swap_used_kib'])==int and s['available_kib']>=6*1024**2 and 0<=s['swap_used_kib']<=1024**2 for s in samples)
+  post=read(D/f'posthost-{index}.json'); checks['posthost']=post['matches']==[] and all(proc[who][key] in post['groups'] for who in ('runner','child') for key in ('pgid','sid'))
+  checks.update(stage_scalars(proc,inv,res,samples,post,read(D/'launch-context.json'),read(D/'sequence-reservation.json')))
+  raw=tomllib.loads((out/'raw.toml').read_text());checks.update(validate_raw(raw,index))
+  checks['durable_journal']=journal_valid(tomllib.loads((out/'partial-windows.toml').read_text())['records'],raw)
+  checks['generated_code_actual']=all(code_valid((out/f'micro-{arm}.ll').read_text()) and (out/f'micro-{arm}.ll').stat().st_size==raw['code'][i]['ir_bytes'] and (out/f'probe-{arm}.ll').stat().st_size==raw['code'][i]['probe_ir_bytes'] for i,arm in enumerate(('old','new')))
+  checks['loaded_paths_pinned']=all(str(Path(p).resolve()) in {v['resolved'] for v in pins['inventory'].values()} for p in raw['loaded_paths'].values())
+ except Exception as e:error=repr(e);checks['complete_schema']=False
+ return dict(all_passed=passed(checks),checks=checks,error=error,sha256={str(p):sha(p) for p in out.rglob('*') if p.is_file()})
+
+def process_costs(raw):
+ rows=[]
+ for c,f in zip(raw['costs'],spec()['costs']):
+  arms={side:[w for w in c['windows'] if w['phase']=='measured' and w['side']==side] for side in ('reference','candidate')}
+  v={side+'_'+k:statistics.median(w[k]/4 if k=='seconds' else w[k] for w in ws) for side,ws in arms.items() for k in ('seconds','bytes','events')}
+  rt=v['reference_seconds'];ct=v['candidate_seconds']
+  ok=(ct/rt<1 and v['candidate_bytes']<v['reference_bytes'] and v['candidate_events']<v['reference_events']) if f['eligible'] else (ct-rt<=max(.10*rt,.4e-6) and v['candidate_bytes']<=v['reference_bytes'] and v['candidate_events']<=v['reference_events'])
+  rows.append(dict(id=c['id'],accepted=ok,**v))
+ return rows
+
+def aggregate(raws):
+ require(len(raws)==2 and all(passed(validate_raw(r,i,False)) for i,r in enumerate(raws,1)),'invalid raw sequence')
+ rows=[]
+ for ci,f in enumerate(spec()['costs']):
+  processes=[];refs=[];cands=[];ratios=[];deltas=[]
+  for raw in raws:
+   ws=[w for w in raw['costs'][ci]['windows'] if w['phase']=='measured'];ref=[w for w in ws if w['side']=='reference'];cand=[w for w in ws if w['side']=='candidate']
+   refs+=ref;cands+=cand
+   rt=statistics.median(w['seconds']/4 for w in ref);ct=statistics.median(w['seconds']/4 for w in cand)
+   pr=dict(reference_seconds_per_call=rt,candidate_seconds_per_call=ct,ratio=ct/rt,**{side+'_'+k:statistics.median(w[k] for w in arm) for side,arm in [('reference',ref),('candidate',cand)] for k in ('bytes','events')})
+   pr['accepted']=(ct/rt<1 and pr['candidate_bytes']<pr['reference_bytes'] and pr['candidate_events']<pr['reference_events']) if f['eligible'] else (ct-rt<=max(.10*rt,.4e-6) and pr['candidate_bytes']<=pr['reference_bytes'] and pr['candidate_events']<=pr['reference_events'])
+   processes.append(pr);ratios.extend(b['seconds']/a['seconds'] for a,b in zip(ref,cand));deltas.extend((b['seconds']-a['seconds'])/4 for a,b in zip(ref,cand))
+  rt=statistics.median(w['seconds']/4 for w in refs);ct=statistics.median(w['seconds']/4 for w in cands)
+  pooled=ct/rt<1 if f['eligible'] else ct-rt<=max(.05*rt,.2e-6)
+  rows.append(dict(id=f['id'],target=f['eligible'],reference_seconds_per_call=rt,candidate_seconds_per_call=ct,pooled_ratio=ct/rt,paired_ratios=ratios,paired_deltas_seconds_per_call=deltas,processes=processes,accepted=pooled and all(p['accepted'] for p in processes)))
+ return rows
+
+def main():
+ require(sys.argv[1:]==['aggregate'],'aggregate only')
+ stages=[read(D/f'audit-{i}.json') for i in (1,2)]
+ require(all(s['all_passed'] is True and all(sha(p)==h for p,h in s['sha256'].items()) for s in stages),'stage evidence drift')
+ require(all(stage(i)['all_passed'] for i in (1,2)),'fresh stage validation failed')
+ raws=[tomllib.loads((D/f'run-{i}/raw.toml').read_text()) for i in (1,2)];rows=aggregate(raws)
+ obj=dict(qualification_pass=True,accepted=all(r['accepted'] for r in rows),cases=rows,old_RED=red_deltas(raws[0]['red']),cost_backend_calls=2080,correctness_backend_calls=2532,micro_predicate_calls=61440,timer_baseline_calls=20,sha256={str(p):sha(p) for i in (1,2) for p in (D/f'run-{i}/raw.toml',D/f'audit-{i}.json')})
+ with (D/'aggregate.json').open('x') as f:json.dump(obj,f,indent=2);f.write('\n')
+ print('accepted',obj['accepted'],'passing',sum(r['accepted'] for r in rows),'of12')
+if __name__=='__main__':main()

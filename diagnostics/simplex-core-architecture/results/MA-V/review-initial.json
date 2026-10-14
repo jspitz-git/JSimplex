@@ -1,0 +1,53 @@
+{
+  "accepted": false,
+  "status": "initial-draft-rejected-final-review-pending",
+  "scope": "Offline preparation review only; no numerical authorization",
+  "findings": [
+    {
+      "id": "I1",
+      "severity": "Important",
+      "file": "driver.jl.before-review",
+      "title": "Preserve completed samples when later work fails",
+      "detail": "costs, micros and generated_code returned local arrays only on success. Later checksum/owner/exception failures discarded prior samples; qualification discarded partial records. In-memory retention alone also loses evidence on watchdog termination."
+    },
+    {
+      "id": "I2",
+      "severity": "Important",
+      "file": "launcher.py.before-review",
+      "title": "Bound guard housekeeping by the inclusive deadline",
+      "detail": "Unbounded subprocess.run waited for guard cleanup and full pin hashing beyond the inner 84-second child timer. The observed 90-second rejection was not an external execution bound."
+    },
+    {
+      "id": "I3",
+      "severity": "Important",
+      "file": "audit.py.before-review",
+      "title": "Apply per-process cost gates before the second launch",
+      "detail": "Stage validation checked raw schema but deferred required per-process allocation and timing budgets until aggregate after process2, allowing an already-disqualified first process to continue the sequence."
+    },
+    {
+      "id": "I4",
+      "severity": "Important",
+      "file": "driver.jl.before-review",
+      "title": "Capture predicate code growth separately",
+      "detail": "Only the 256-call batch IR was captured. No probe-body IR/size evidence supported the planned bounded predicate-local code-growth review."
+    }
+  ],
+  "followup_notes": [
+    "The first supervisor correction relied on a concurrently reaped child leader while signaling numeric groups. The revised implementation snapshots each member, uses pidfd plus repeated identity reads and checks current owner identity.",
+    "A follow-up required fresh PGID OR session membership after the second member read; same_identity deliberately excludes membership. Final mock coverage includes member_left_session.",
+    "The optional no-scope predicate bypassed normal record! journaling. The diagnostic copy now journals its already-computed record; reconciliation orders it between the first20 and last5 transitions.",
+    "Raw sample retention now includes an append-only flushed journal outside timers. It is not an fsync/power-loss guarantee, and incomplete tails remain rejected evidence."
+  ],
+  "sha256": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-V/driver.jl.before-review": "42d5262117bf84fb273348fdacfdb51a8ace98f09cada2621928bb810bf5d6fb",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-V/audit.py.before-review": "12a95417e40952314b6f2a829a9b6ca5eeae389c05c7176fa24096287e6782e7",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-V/launcher.py.before-review": "698e3a7b87406438aa6d8778dd0ffc36f9344d1bca61738986a647f644d93565",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-V/tests-recorded.jl.before-review": "bfc0365168463da6c98c49b4c9b614b835255f82c96830f980345626eb4c9023",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-V/offline-tests.py.before-review": "904faa5b3f06632f7a13fce2142056ec141bc574a2956ec1aa9714171f48bb2c",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-V/offline-tests.json.before-review": "bf5111c4071d022aca3e9dbe130ed2a801fc72db03ec90c8ab4eae9f58d3a4ff",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-V/supervisor.py.before-membership": "d87b52e5f357333f06bb761560ffc9e998de1bab390447a2c19eb0131c3a4f9b",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-V/supervisor-tests.py.before-membership": "8e9492859ad2cb2cea9d5b2bc1beb95455338b5f4a15a44f26ad7bb658dced41",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-V/review-initial.md": "45f949adfcef2e8caed42cda279edc3237a9ab9dfd63d7f711edc1347053da97"
+  },
+  "bindings_scope": "Preserved initial draft and intermediate supervisor evidence only; corrected current sources await final admission review"
+}

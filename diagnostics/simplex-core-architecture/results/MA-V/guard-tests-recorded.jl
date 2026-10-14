@@ -1,0 +1,219 @@
+# UNEXECUTED MA-U tests. Include after local reference/tests/candidate/instrumented.
+# Definitions only: no top-level solves, tasks, measurements or automatic test run.
+module MARoundingGuardTests
+using Test, LinearAlgebra, TOML
+using ..MADenseProbe
+using ..MADenseProbeTests
+const P = MADenseProbe
+const TST = MADenseProbeTests
+const SV = Base.ScopedValues
+const JOURNAL_HOOK = Ref{Any}(nothing)
+function record!(records,record)
+    push!(records,record)
+    JOURNAL_HOOK[] === nothing || JOURNAL_HOOK[](record)
+    return records
+end
+const PROGRESS = Dict{String,Any}()
+const MODES = (RoundNearest, RoundDown, RoundUp, RoundToZero, RoundFromZero)
+const SCOPES = (nothing, MODES...)
+old_guard() = Base.MPFR.rounding_raw(BigFloat) == Base.MPFR.ROUNDING_MODE[]
+
+# Exact original eligibility body, with function name and DenseLUBackend qualification changed.
+function old_eligible(dest, backend, rhs)::Bool
+    dest isa Vector{BigFloat} && rhs isa Vector{BigFloat} || return false
+    backend isa P.DenseLUBackend{BigFloat,LU{BigFloat,Matrix{BigFloat},Vector{Int}}} || return false
+    n = size(backend.factorization, 1)
+    n >= 16 && size(backend.factorization, 2) == n && length(dest) == n && length(rhs) == n || return false
+    return Base.MPFR.rounding_raw(BigFloat) == Base.MPFR.ROUNDING_MODE[]
+end
+
+function unrelated(f, n)
+    keys = [SV.ScopedValue{Int}() for _ in 1:n]
+    pairs = [keys[i] => i for i in 1:n]
+    n == 0 && return f()
+    return SV.with(f, pairs...)
+end
+function guard_record(id, expected, effective)
+    @test rounding(BigFloat) == effective
+    reference = old_guard()
+    candidate = P._dense_ma_rounding_matches()
+    @test reference === expected
+    @test candidate === reference
+    return (id=id, reference=reference, candidate=candidate,
+            expected=expected, effective=string(effective))
+end
+
+function predicate_tests()
+    records = NamedTuple[]; PROGRESS["predicates"]=records
+    for bits in (128,256,512), globalmode in MODES, scoped in SCOPES, nkeys in (0,8,64)
+        TST.context(bits, globalmode, scoped) do
+            unrelated(nkeys) do
+                expected = scoped === nothing || scoped == globalmode
+                effective = scoped === nothing ? globalmode : scoped
+                record!(records, guard_record("grid/$bits/$globalmode/$scoped/$nkeys", expected, effective))
+            end
+        end
+    end
+    @test length(records) == 270
+    @test length(unique(r.id for r in records)) == 270
+    return records
+end
+
+function transition_tests()
+    records = NamedTuple[]; PROGRESS["transitions"]=records; PROGRESS["task_fragments"]=Any[]
+    oldraw = Base.MPFR.ROUNDING_MODE[]
+    oldround = rounding(BigFloat)
+    oldprecision = precision(BigFloat)
+    no_scope = (available=false, record=nothing)
+    # Called outside a rounding scope by the future admitted driver. This check
+    # refuses a contaminated caller rather than silently changing the contract.
+    @test !isassigned(Base.MPFR.CURRENT_ROUNDING_MODE)
+    try
+        setrounding(BigFloat, RoundNearest)
+        record!(records, guard_record("entry", true, RoundNearest))
+        setrounding(BigFloat, RoundUp) do
+            record!(records, guard_record("outer-up", false, RoundUp))
+            setrounding(BigFloat, RoundDown) do
+                record!(records, guard_record("inner-down", false, RoundDown))
+                setrounding(BigFloat, RoundNearest) do
+                    record!(records, guard_record("inner-equal", true, RoundNearest))
+                end
+                record!(records, guard_record("restored-down", false, RoundDown))
+            end
+            record!(records, guard_record("restored-up", false, RoundUp))
+        end
+        record!(records, guard_record("restored-absent", true, RoundNearest))
+        sentinel = ErrorException("MA-U scoped unwind sentinel")
+        setrounding(BigFloat, RoundUp) do
+            caught = nothing
+            try
+                setrounding(BigFloat, RoundDown) do
+                    record!(records, guard_record("throw-down", false, RoundDown))
+                    throw(sentinel)
+                end
+            catch err
+                caught = err
+            end
+            @test caught === sentinel
+            record!(records, guard_record("after-throw-up", false, RoundUp))
+        end
+        record!(records, guard_record("after-throw-absent", true, RoundNearest))
+        tasks = map((RoundUp, RoundDown)) do inherited
+            setrounding(BigFloat, inherited) do
+                Task() do
+                    local_records = NamedTuple[]; push!(PROGRESS["task_fragments"],local_records)
+                    record!(local_records, guard_record("task/$inherited/before", false, inherited))
+                    yield()
+                    record!(local_records, guard_record("task/$inherited/after-yield", false, inherited))
+                    setrounding(BigFloat, RoundNearest) do
+                        record!(local_records, guard_record("task/$inherited/equal-before", true, RoundNearest))
+                        yield()
+                        record!(local_records, guard_record("task/$inherited/equal-after", true, RoundNearest))
+                    end
+                    record!(local_records, guard_record("task/$inherited/restored", false, inherited))
+                    local_records
+                end
+            end
+        end
+        # Serial/cooperative scheduling; no global writes until every task joined.
+        for task in tasks
+            schedule(task)
+            append!(records, fetch(task))
+        end
+        @test all(istaskdone, tasks)
+        probe = Task() do
+            available = Core.current_scope() === nothing
+            record = available ? guard_record("no-scope", true, RoundNearest) : nothing
+            record===nothing || (JOURNAL_HOOK[]===nothing || JOURNAL_HOOK[](record))
+            (available=available, record=record)
+        end
+        schedule(probe)
+        no_scope = fetch(probe)
+        @test istaskdone(probe)
+        setrounding(BigFloat, RoundUp) do
+            for globalmode in MODES
+                setrounding(BigFloat, globalmode)
+                record!(records, guard_record("global-change/$globalmode", globalmode == RoundUp, RoundUp))
+            end
+        end
+        @test length(records) == 25
+        @test length(unique(r.id for r in records)) == 25
+    finally
+        Base.MPFR.ROUNDING_MODE[] = oldraw
+        @test precision(BigFloat) == oldprecision
+        @test rounding(BigFloat) == oldround
+    end
+    return (records=records, no_scope=no_scope, tasks_created=3)
+end
+
+function checked_case(id, x, direction, eligible; repeat_call=false, expected_exception=nothing)
+    PROGRESS["current_case"]=id
+    @test old_eligible(x.dest,x.backend,x.rhs) === eligible
+    result = TST.compare_case(x,direction,eligible;
+        repeat_call=repeat_call,expected_exception=expected_exception)
+    return merge((id=id,),result)
+end
+function whole_call_tests()
+    records = NamedTuple[]; PROGRESS["whole"]=records
+    for bits in (128,256,512), n in (16,32), layout in ("dense","zeroheavy"),
+        direction in ("forward","transpose"), globalmode in MODES, scoped in SCOPES
+        TST.context(bits,globalmode,scoped) do
+            expected = scoped === nothing || scoped == globalmode
+            record!(records, checked_case("grid/$bits/$n/$layout/$direction/$globalmode/$scoped",
+                TST.bundle(n,layout),direction,expected))
+        end
+    end
+    spec = TOML.parsefile(TST.FIXTURES)
+    for scoped in (nothing,RoundUp), kind in spec["specials"], direction in spec["directions"]
+        TST.context(256,RoundNearest,scoped) do
+            eligible = scoped === nothing && !(kind in ("rhs_short","dest_long","rhs_view"))
+            expected = startswith(kind,"pivot_zero_") ? SingularException :
+                kind=="invalid_ipiv" ? BoundsError : kind=="dest_long" ? DimensionMismatch : nothing
+            record!(records, checked_case("special/$scoped/$kind/$direction",
+                TST.bundle(16,"dense",kind),direction,eligible;
+                repeat_call=kind=="retained_outputs",expected_exception=expected))
+            if kind=="cancellation"
+                @test records[end].output[1][1] == BigInt(2)^128//1
+                @test records[end].output[2][1] == 0//1
+                @test all(v[1] == 0//1 for v in records[end].output[3:end])
+            end
+        end
+    end
+    for scoped in (nothing,RoundUp), n in (0,1,2,8,15), direction in ("forward","transpose")
+        TST.context(256,RoundNearest,scoped) do
+            record!(records, checked_case("small/$scoped/$n/$direction",
+                TST.bundle(n,"dense"),direction,false))
+        end
+    end
+    for T in (Float64,Rational{BigInt}), direction in ("forward","transpose")
+        TST.context(256,RoundNearest) do
+            record!(records, checked_case("scalar/$T/$direction",
+                TST.bundle(32,"dense";T=T),direction,false))
+        end
+    end
+    for pair in spec["mixed_stored_ambient"], scoped in (nothing,RoundUp), direction in ("forward","transpose")
+        stored,ambient = pair
+        x = TST.context(stored,RoundNearest) do
+            TST.bundle(16,"dense")
+        end
+        TST.context(ambient,RoundNearest,scoped) do
+            record!(records, checked_case("mixed/$stored/$ambient/$scoped/$direction",
+                x,direction,scoped === nothing))
+        end
+    end
+    @test length(records) == 840
+    @test length(unique(r.id for r in records)) == 840
+    @test sum(r.calls_per_side for r in records) == 844
+    return records
+end
+
+function qualification()
+    predicates = nothing; transitions = nothing; whole = nothing
+    @testset "MA-U prospective rounding guard comparisons" begin
+        predicates = predicate_tests()
+        transitions = transition_tests()
+        whole = whole_call_tests()
+    end
+    return (predicates=predicates, transitions=transitions, whole=whole)
+end
+end # MARoundingGuardTests

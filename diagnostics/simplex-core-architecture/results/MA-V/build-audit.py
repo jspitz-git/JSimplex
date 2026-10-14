@@ -1,0 +1,13 @@
+from pathlib import Path
+R=Path.cwd();D=R/'diagnostics/simplex-core-architecture/results/MA-V';S=D.with_name('MA-S-2')
+s=(S/'audit.py').read_text();head=s[:s.index('def spec():')];start=s.index('def stage_scalars(');end=s.index('\ndef aggregate(',start)
+base=s[start:end].replace('<=114','<=84').replace('<=120','<=90').replace('<=360','<=180').replace('==120','==90').replace("context['maximum_processes']==3","context['maximum_processes']==2").replace("sequence['maximum_processes']==3","sequence['maximum_processes']==2").replace('==360','==180').replace('len(groups)>=160','len(groups)>=166')
+head=head.replace('MA-S-2','MA-V').replace('statistics,sys','statistics,sys,re')
+(D/'audit.py').write_text(head+'\n# New exact MA-V validators and reducers below.\n')
+(D/'audit-stage.py.fragment').write_text(base)
+s=(S/'launcher.py').read_text().replace('MA-S-2','MA-V').replace('three serial','two serial').replace('(1,2,3)','(1,2)').replace('==3','==2').replace('==120','==90').replace('processes=3','processes=2').replace('cap_seconds=360','cap_seconds=180').replace('seconds=120','seconds=90').replace("'114'","'84'").replace('started+114','started+84').replace('<=120','<=90').replace('<=360','<=180').replace("print('3 processes","print('2 processes")
+s=s.replace(" require(context.get('standing_short_run_permission')", " require(set(prep['sha256']) >= {str(D/n) for n in ('pins.json','required-paths.json','driver.jl','micro-batch.jl','tests-recorded.jl','launcher.py','guard.py','audit.py','schedule.json','commands.json','admission.md')},'preparation mandatory membership')\n require(type(context.get('maximum_processes')) is int and type(context.get('maximum_seconds_per_process')) is int,'context integer limits')\n require(context.get('standing_short_run_permission')")
+s=s.replace(" require(set(required)==set(pins['inventory'])==set(pins['files']),'manifest membership')", " require(isinstance(required,list) and len(set(required))==len(required) and set(required)==set(pins['inventory'])==set(pins['files']),'manifest membership')\n require(set(str(D/n) for n in ('driver.jl','micro-batch.jl','tests-recorded.jl','launcher.py','guard.py','audit.py','schedule.json','commands.json','admission.md')) <= set(required),'runtime mandatory membership')")
+s=s.replace(" context['groups']", " context['groups']")
+s=s.replace(" host(groups,context)\n save(D/'sequence-reservation.json'", " require(len(groups)>=166 and all(type(g) is int and g>0 for g in groups),'historical groups')\n host(groups,context)\n save(D/'sequence-reservation.json'")
+(D/'launcher.py').write_text(s)

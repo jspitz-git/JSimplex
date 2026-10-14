@@ -1,0 +1,36 @@
+def stage_scalars(proc,inv,res,samples,post,context,sequence):
+ checks={}
+ try:
+  integer=lambda x:type(x)==int and x>=0
+  positive=lambda x:type(x)==int and x>0
+  checks['exit_codes']=all(type(x)==int and x==0 for x in (proc['returncode'],inv['returncode']))
+  checks['elapsed_schema']=all(finite(x) for x in (proc['started'],proc['ended'],proc['elapsed_including_launch'],inv['elapsed_seconds'],inv['cumulative_seconds'],post['time'])) and proc['ended']>=proc['started'] and proc['elapsed_including_launch']<=84 and proc['elapsed_including_launch']<=inv['elapsed_seconds']<=90 and inv['elapsed_seconds']<=inv['cumulative_seconds']<=180
+  checks['limit_schema']=type(res['seconds'])==int and res['seconds']==90 and type(context['maximum_processes'])==int and context['maximum_processes']==2 and type(context['maximum_seconds_per_process'])==int and context['maximum_seconds_per_process']==90 and type(sequence['maximum_processes'])==int and sequence['maximum_processes']==2 and type(sequence['total_cap_seconds'])==int and sequence['total_cap_seconds']==180 and sequence['no_retry'] is True
+  boot=context['boot_id'];require(isinstance(boot,str) and bool(boot),'context boot')
+  checks['identity_schema']=True
+  for who in ('runner','child'):
+   v=proc[who]
+   checks['identity_schema'] &= all(positive(v[k]) for k in ('pid','pgid','sid')) and integer(v['start_ticks']) and v['boot_id']==boot and isinstance(v['command'],str) and bool(v['command']) and v['pid']==v['pgid']==v['sid']
+  groups=post['groups']
+  checks['post_identity_schema']=isinstance(groups,list) and len(groups)>=166 and all(positive(v) for v in groups) and len(set(groups))==len(groups) and post['boot_id']==boot and post['matches']==[] and post['refs']==context['refs'] and all(proc[who][k] in groups for who in ('runner','child') for k in ('pgid','sid'))
+  checks['memory_schema']=len(samples)>=2 and all(integer(s['available_kib']) and integer(s['swap_used_kib']) and s['available_kib']>=6*1024**2 and s['swap_used_kib']<=1024**2 for s in samples)
+ except Exception as e:checks['stage_scalar_complete']=False;checks['stage_scalar_error']=repr(e)
+ return checks
+
+def stage(index):
+ out=D/f'run-{index}';checks={};error=None
+ try:
+  inv=read(D/f'invocation-{index}.json');res=read(D/f'reservation-{index}.json');proc=read(out/'process.json');pins=read(D/'pins.json');cmd=read(D/'commands.json')[str(index)]
+  checks['process']=proc['reason']=='exit0' and proc['returncode']==0 and proc['pins_unchanged'] is True and inv['returncode']==0
+  checks['command']=proc['command']==cmd and proc['cwd']==str(R) and res['command']==cmd and inv['command'][-len(cmd):]==cmd
+  checks['links']=inv['reservation_sha256']==sha(D/f'reservation-{index}.json') and res['pins_sha256']==sha(D/'pins.json')==proc['pins_sha256'] and res['review_sha256']==sha(D/'numerical-review.json') and res['context_sha256']==sha(D/'launch-context.json') and res['host_sha256']==sha(D/f'prelaunch-{index}.json') and res['sequence_sha256']==sha(D/'sequence-reservation.json')
+  checks['hard_cap']=finite(inv['elapsed_seconds']) and inv['elapsed_seconds']<=90 and finite(inv['cumulative_seconds']) and inv['cumulative_seconds']<=180 and finite(proc['elapsed_including_launch']) and proc['elapsed_including_launch']<=84
+  checks['pins']=read(out/'pins.json')==pins and all(sha(p)==v['sha256'] and str(Path(p).resolve())==v['resolved'] for p,v in pins['inventory'].items())
+  samples=[json.loads(s) for s in (out/'resources.jsonl').read_text().splitlines()]+[proc['terminal_memory']]
+  checks['memory']=len(samples)>=2 and all(type(s['available_kib'])==int and type(s['swap_used_kib'])==int and s['available_kib']>=6*1024**2 and 0<=s['swap_used_kib']<=1024**2 for s in samples)
+  post=read(D/f'posthost-{index}.json'); checks['posthost']=post['matches']==[] and all(proc[who][key] in post['groups'] for who in ('runner','child') for key in ('pgid','sid'))
+  checks.update(stage_scalars(proc,inv,res,samples,post,read(D/'launch-context.json'),read(D/'sequence-reservation.json')))
+  raw=tomllib.loads((out/'raw.toml').read_text());checks.update(validate_raw(raw,index))
+  checks['loaded_paths_pinned']=all(str(Path(p).resolve()) in {v['resolved'] for v in pins['inventory'].values()} for p in raw['loaded_paths'].values())
+ except Exception as e:error=repr(e);checks['complete_schema']=False
+ return dict(all_passed=passed(checks),checks=checks,error=error,sha256={str(p):sha(p) for p in out.rglob('*') if p.is_file()})

@@ -1,0 +1,183 @@
+# UNEXECUTED MA-V. Top-level definitions precede the single main dispatch.
+const LOAD_START = time_ns()
+using Test, TOML, LinearAlgebra, InteractiveUtils, Statistics
+VERSION == v"1.13.0" || error("unsupported private-API runtime")
+module NewArm
+const U = abspath(joinpath(@__DIR__, "../MA-U"))
+include(joinpath(U,"reference.jl"))
+Base.include(MADenseProbe,joinpath(U,"candidate.jl"))
+Base.include(MADenseProbe,joinpath(U,"instrumented.jl"))
+include(joinpath(@__DIR__,"tests-recorded.jl"))
+include(joinpath(U,"guard-tests.jl"))
+end
+module OldArm
+const RD = abspath(joinpath(@__DIR__,"../MA-R"))
+include(joinpath(RD,"reference.jl"))
+Base.include(MADenseProbe,joinpath(RD,"candidate.jl"))
+end
+const P=NewArm.MADenseProbe
+const TST=NewArm.MADenseProbeTests
+const G=NewArm.MARoundingGuardTests
+const OLD=OldArm.MADenseProbe
+realpath(pathof(P.JSimplex)) == realpath(joinpath(@__DIR__,"../../../../src/JSimplex.jl")) || error("wrong JSimplex")
+realpath(pathof(P.MA)) == realpath("/home/jspitz/.julia/packages/MutableArithmetics/SaQfc/src/MutableArithmetics.jl") || error("wrong MA")
+# Schedule is mirrored in schedule.json and checked by the offline auditor.
+const COSTS=[(n=n,layout=layout,scope=scope,direction=dr,id="$n/$layout/$scope/$dr",eligible=n==32 && scope in ("absent","equal"))
+    for (n,layout,scopes) in ((32,"dense",("absent","equal","up","nested")),(32,"zeroheavy",("up",)),(15,"dense",("up",))) for scope in scopes for dr in ("forward","transpose")]
+const RED=[(n=32,layout="dense",scope="up",direction=dr,id="old/$dr",eligible=false) for dr in ("forward","transpose")]
+const MICRO=("absent","keys8","equal","up","nested","upkeys64")
+serialtokens(x)=[repr(v) for v in TST.tokens(x)]
+function counts(ts)
+    c=Test.get_test_counts(ts)
+    Dict("pass"=>c.passes+c.cumulative_passes,"fail"=>c.fails+c.cumulative_fails,"error"=>c.errors+c.cumulative_errors,"broken"=>c.broken+c.cumulative_broken)
+end
+function context(f,scope)
+    TST.context(256,RoundNearest) do
+        if scope in ("absent","keys8")
+            G.unrelated(f,scope=="keys8" ? 8 : 0)
+        elseif scope=="equal"
+            setrounding(f,BigFloat,RoundNearest)
+        elseif scope in ("up","upkeys64")
+            setrounding(BigFloat,RoundUp) do
+                G.unrelated(f,scope=="upkeys64" ? 64 : 0)
+            end
+        elseif scope=="nested"
+            setrounding(BigFloat,RoundUp) do
+                setrounding(f,BigFloat,RoundDown)
+            end
+        else
+            error("unknown scope")
+        end
+    end
+end
+@noinline function batch(f::F,x) where F
+    for _ in 1:4; f(x.dest,x.backend,x.rhs); end
+    nothing
+end
+metrics(t)=Dict{String,Any}("seconds"=>t.time,"bytes"=>t.bytes,"events"=>Base.gc_alloc_count(t.gcstats),"gc_seconds"=>t.gctime,"compile_seconds"=>t.compile_time,"recompile_seconds"=>t.recompile_time)
+window(f,x)=metrics(@timed batch(f,x))
+function costs(index,cases,old=false)
+    records=Any[]
+    for (ci,c) in enumerate(cases)
+        context(c.scope) do
+            x=TST.bundle(c.n,c.layout); a,b=deepcopy(x),deepcopy(x)
+            xs=(a,b); zeroes=(copy(a.dest),copy(b.dest))
+            snapshots=[(factor=TST.tokens(y.backend.factorization.factors),ipiv=copy(y.backend.factorization.ipiv),rhs=TST.tokens(y.rhs),owners=copy(vec(y.backend.factorization.factors)),rhsowners=collect(y.rhs),destowners=copy(y.dest),desttokens=TST.tokens(y.dest)) for y in xs]
+            arm=old ? OLD : P
+            fs=c.direction=="forward" ? (P.reference_forward!,arm.candidate_forward!) : (P.reference_transpose!,arm.candidate_transpose!)
+            ws=Any[]; expected=nothing
+            for pair in 1:10
+                order=iseven(index+ci+pair) ? (1,2) : (2,1)
+                for (oi,side) in enumerate(order)
+                    y=xs[side];s=snapshots[side];copyto!(y.dest,zeroes[side])
+                    w=window(fs[side],y);output=serialtokens(y.dest)
+                    expected===nothing && (expected=output)
+                    output==expected || error("window output mismatch")
+                    F=y.backend.factorization
+                    preserved=TST.tokens(F.factors)==s.factor && F.ipiv==s.ipiv && TST.tokens(y.rhs)==s.rhs && all(v===u for (v,u) in zip(F.factors,s.owners)) && all(v===u for (v,u) in zip(y.rhs,s.rhsowners)) && TST.tokens(s.destowners)==s.desttokens
+                    preserved || error("window input changed")
+                    merge!(w,Dict("side"=>side==1 ? "reference" : "candidate","pair"=>pair,"order"=>oi,"phase"=>pair<=3 ? "warm" : "measured","output"=>output,"preserved"=>preserved,"calls"=>4))
+                    push!(ws,w)
+                end
+            end
+            push!(records,Dict("id"=>c.id,"eligible"=>c.eligible,"windows"=>ws,"expected"=>expected))
+        end
+    end
+    records
+end
+function old_red_pass(rows)
+    length(rows)==2 || return false
+    all(rows) do c
+        ws=filter(w->w["phase"]=="measured",c["windows"])
+        all(w->w["compile_seconds"]==0 && w["recompile_seconds"]==0,ws) || return false
+        any(("bytes","events")) do key
+            median(w[key] for w in ws if w["side"]=="candidate") > median(w[key] for w in ws if w["side"]=="reference")
+        end
+    end
+end
+include(joinpath(@__DIR__,"micro-batch.jl"))
+@noinline timer_empty()=nothing
+function generated_code(out)
+    records=Any[]
+    for (name,tag) in (("old",Val(:old)),("new",Val(:new)))
+        io=IOBuffer();code_llvm(io,microbatch,Tuple{typeof(tag)};raw=true,dump_module=false,optimize=true,debuginfo=:none)
+        s=String(take!(io));path=joinpath(out,"micro-$name.ll")
+        ispath(path) && error("LLVM output exists");write(path,s)
+        calls=[m.match for m in eachmatch(r"(?m)^.*\b(?:call|invoke)\b[^\n]*@j_probe_[^\n]*$",s)]
+        # Fail closed on hoisting, inlining, generic apply/indirect call, or rerolling.
+        good=sizeof(s)<=1048576 && length(calls)==256 && !occursin(r"\b(?:call|invoke)\b[^\n]*\b(?:jl_apply|ijl_apply|jl_invoke|ijl_invoke)\b",s) && !occursin(r"\b(?:call|invoke)\b[^@\n]*%[A-Za-z0-9_.]+\(",s)
+        push!(records,Dict("arm"=>name,"path"=>path,"probe_calls"=>length(calls),"accepted"=>good,"ir_bytes"=>sizeof(s)))
+        good || error("micro code boundary not proven; stop without tuning")
+    end
+    records
+end
+function microwindow(tag::T) where T
+    t=@timed microbatch(tag)
+    return metrics(t),t.value
+end
+function micros(index)
+    rows=Any[]
+    for (ci,scope) in enumerate(MICRO)
+        context(scope) do
+            expected=scope in ("absent","keys8","equal") ? 256 : 0
+            ws=Any[]
+            for pair in 1:10
+                order=iseven(index+ci+pair) ? (1,2) : (2,1)
+                for (oi,side) in enumerate(order)
+                    tag=side==1 ? Val(:old) : Val(:new)
+                    w,value=microwindow(tag)
+                    value==expected || error("micro checksum")
+                    merge!(w,Dict("side"=>side==1 ? "reference" : "candidate","pair"=>pair,"order"=>oi,"phase"=>pair<=3 ? "warm" : "measured","calls"=>256,"checksum"=>value))
+                    push!(ws,w)
+                end
+            end
+            push!(rows,Dict("id"=>scope,"expected"=>expected,"windows"=>ws))
+        end
+    end
+    rows
+end
+function canonical(s)
+    for (mode,label) in zip(G.MODES,("RoundNearest","RoundDown","RoundUp","RoundToZero","RoundFromZero"))
+        s=replace(s,string(mode)=>label)
+    end
+    return s
+end
+function qualify()
+    r=Ref{Any}();ts=@testset "MA-V exact MA-U qualification" begin
+        r[]=G.qualification()
+    end
+    x=r[]
+    pred(r)=Dict("id"=>canonical(r.id),"reference"=>r.reference,"candidate"=>r.candidate,"expected"=>r.expected,"effective"=>canonical(r.effective))
+    Dict("counts"=>counts(ts),"predicates"=>[pred(r) for r in x.predicates],"transitions"=>[pred(r) for r in x.transitions.records],"tasks_created"=>x.transitions.tasks_created,
+        "no_scope_available"=>x.transitions.no_scope.available,"no_scope_records"=>x.transitions.no_scope.available ? [pred(x.transitions.no_scope.record)] : Any[],
+        "whole"=>[Dict("id"=>canonical(r.id),"direction"=>r.direction,"eligible"=>r.eligible,"calls_per_side"=>r.calls_per_side,"exception"=>r.exception===nothing ? String[] : collect(r.exception),"output"=>[repr(v) for v in r.output],"route_counts"=>Dict(string(k)=>v for (k,v) in pairs(r.route_counts))) for r in x.whole])
+end
+function main()
+    length(ARGS)==2 || error("arguments"); index=parse(Int,ARGS[1]);index in (1,2) || error("index");out=ARGS[2]
+    abspath(out)==joinpath(@__DIR__,"run-$index") || error("output path")
+    ambient=precision(BigFloat);rnd=rounding(BigFloat);globalrnd=Base.MPFR.ROUNDING_MODE[]
+    raw=Dict{String,Any}("index"=>index,"load_seconds"=>(time_ns()-LOAD_START)/1e9,"errors"=>String[],"red"=>Any[],"correctness"=>Dict{String,Any}(),"costs"=>Any[],"micro"=>Any[],"code"=>Any[],"timer_baseline"=>Any[])
+    try
+        started=time_ns();raw["code"]=generated_code(out);raw["code_inspection_seconds"]=(time_ns()-started)/1e9
+        # Baseline characterizes the same timer, not a subtracted call-boundary cost.
+        raw["timer_baseline"]=[merge(metrics(@timed timer_empty()),Dict("phase"=>i<=3 ? "warm" : "measured")) for i in 1:10]
+        if index==1
+            raw["red"]=costs(index,RED,true)
+            old_red_pass(raw["red"]) || error("expected old allocation RED absent; stop")
+            started=time_ns();raw["correctness"]=qualify();raw["correctness_seconds"]=(time_ns()-started)/1e9
+        end
+        started=time_ns();raw["micro"]=micros(index);raw["micro_inclusive_seconds"]=(time_ns()-started)/1e9
+        started=time_ns();raw["costs"]=costs(index,COSTS);raw["cost_inclusive_seconds"]=(time_ns()-started)/1e9
+        all(w["compile_seconds"]==0 && w["recompile_seconds"]==0 for key in ("costs","micro","red") for c in raw[key] for w in c["windows"] if w["phase"]=="measured") || error("measured compilation")
+    catch e
+        push!(raw["errors"],sprint(showerror,e,catch_backtrace()))
+    finally
+        raw["ambient_restored"]=precision(BigFloat)==ambient && rounding(BigFloat)==rnd && Base.MPFR.ROUNDING_MODE[]==globalrnd
+        raw["loaded_paths"]=Dict(string(id)=>realpath(pathof(m)) for (id,m) in Base.loaded_modules if !isnothing(pathof(m)))
+        path=joinpath(out,"raw.toml");ispath(path) && error("raw exists")
+        open(path,"w") do io;TOML.print(io,raw);end
+    end
+    isempty(raw["errors"]) && raw["ambient_restored"] && length(raw["costs"])==12 && length(raw["micro"])==6 || error("incomplete qualification")
+    println("MA-V process $index complete")
+end
+main()
