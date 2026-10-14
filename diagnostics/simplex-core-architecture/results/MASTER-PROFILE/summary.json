@@ -1,0 +1,4227 @@
+{
+  "cases": [
+    {
+      "stage": 1,
+      "id": "adlittle",
+      "scalar": "Float64",
+      "rows": 56,
+      "columns": 97,
+      "nnz": 383,
+      "iterations": 89,
+      "refactorizations": 6,
+      "seconds": 0.002888901,
+      "seconds_range": [
+        0.002864901,
+        0.002939701
+      ],
+      "bytes": 4067384,
+      "events": 84040,
+      "gc_seconds": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "diagnosed_seconds": 0.002975201,
+      "profile_seconds_per_call": 0.023531391109375,
+      "profile_samples": 162,
+      "categories": {
+        "presolve": 81,
+        "other": 48,
+        "basis solves": 21,
+        "cleanup/certification": 11,
+        "factorization": 1
+      },
+      "shares": {
+        "presolve": 0.5,
+        "other": 0.2962962962962963,
+        "basis solves": 0.12962962962962962,
+        "cleanup/certification": 0.06790123456790123,
+        "factorization": 0.006172839506172839
+      },
+      "inclusive": [
+        [
+          "#solve#483 | solver.jl",
+          127
+        ],
+        [
+          "#_solve_diagnosed#485 | solver.jl",
+          127
+        ],
+        [
+          "_solve_diagnosed | solver.jl",
+          127
+        ],
+        [
+          "solve | solver.jl",
+          127
+        ],
+        [
+          "presolve_problem | presolve.jl",
+          81
+        ],
+        [
+          "#_presolve_for_solve#471 | presolve_tolerance.jl",
+          81
+        ],
+        [
+          "_presolve_for_solve | presolve_tolerance.jl",
+          81
+        ],
+        [
+          "_dispatch_presolve_pass! | presolve_dispatch.jl",
+          81
+        ],
+        [
+          "_apply_presolve_pass! | presolve_dispatch.jl",
+          50
+        ],
+        [
+          "reduce_dependent_rows | presolve_dependencies.jl",
+          34
+        ],
+        [
+          "_apply_propagation_pass! | presolve_dispatch.jl",
+          31
+        ],
+        [
+          "_propagate_row_bounds | presolve_propagation.jl",
+          31
+        ],
+        [
+          "_solve_continuous_dual | dual_simplex.jl",
+          31
+        ],
+        [
+          "#_solve_continuous_dual#273 | dual_simplex.jl",
+          31
+        ],
+        [
+          "_dual_optimize! | dual_simplex.jl",
+          30
+        ],
+        [
+          "_solve_continuous_dual_once! | dual_simplex.jl",
+          30
+        ],
+        [
+          "#_dual_optimize!#272 | dual_simplex.jl",
+          30
+        ],
+        [
+          "_solve_continuous_dual! | dual_simplex.jl",
+          30
+        ],
+        [
+          "_measure_basis_iteration! | refactorization_policy.jl",
+          27
+        ],
+        [
+          "_dual_iteration_entry! | dual_simplex.jl",
+          27
+        ],
+        [
+          "#_measure_basis_iteration!#20 | refactorization_policy.jl",
+          27
+        ],
+        [
+          "_exact_rational | presolve.jl",
+          27
+        ],
+        [
+          "_dual_iteration! | simplex_pivot.jl",
+          25
+        ],
+        [
+          "_dual_iteration_core! | simplex_pivot.jl",
+          25
+        ],
+        [
+          "#_dual_iteration_unchecked!#253 | dual_simplex.jl",
+          25
+        ],
+        [
+          "_dual_iteration_unchecked! | dual_simplex.jl",
+          25
+        ],
+        [
+          "#_dual_iteration!##0 | simplex_pivot.jl",
+          25
+        ],
+        [
+          "_timed_simplex | simplex.jl",
+          23
+        ],
+        [
+          "_diagnostic_kernel | simplex_diagnostics.jl",
+          23
+        ],
+        [
+          "_pipeline_basis_solve! | hypersparse_pipeline.jl",
+          22
+        ]
+      ],
+      "nearest_julia_source": [
+        [
+          "_exact_rational | presolve.jl:17",
+          27
+        ],
+        [
+          "_backend_forward_solve! | factorization.jl:122",
+          14
+        ],
+        [
+          "_backend_transpose_solve! | factorization.jl:135",
+          8
+        ],
+        [
+          "_subtract_scaled! | presolve_dependencies.jl:168",
+          8
+        ],
+        [
+          "_SolveDeadline | dual_simplex.jl:11",
+          7
+        ],
+        [
+          "reduce_dependent_rows | presolve_dependencies.jl:242",
+          4
+        ],
+        [
+          "_propagate_row_bounds | presolve_propagation.jl:84",
+          4
+        ],
+        [
+          "_represent_exact | presolve.jl:28",
+          3
+        ],
+        [
+          "_refactorize_backend | factorization.jl:329",
+          3
+        ],
+        [
+          "_subtract_scaled! | presolve_dependencies.jl:174",
+          3
+        ],
+        [
+          "_report_simplex_progress | simplex.jl:669",
+          3
+        ],
+        [
+          "_propagate_row_bounds | presolve_propagation.jl:153",
+          2
+        ],
+        [
+          "reduce_dependent_rows | presolve_dependencies.jl:234",
+          2
+        ],
+        [
+          "#_solve_diagnosed#485 | solver.jl:496",
+          2
+        ],
+        [
+          "_subtract_scaled! | presolve_dependencies.jl:178",
+          2
+        ],
+        [
+          "_propagate_row_bounds | presolve_propagation.jl:76",
+          2
+        ],
+        [
+          "_propagate_row_bounds | presolve_propagation.jl:103",
+          2
+        ],
+        [
+          "_propagate_row_bounds | presolve_propagation.jl:222",
+          2
+        ],
+        [
+          "LinearProblem | model.jl:105",
+          2
+        ],
+        [
+          "_propagate_row_bounds | presolve_propagation.jl:119",
+          2
+        ],
+        [
+          "aggregate_singleton_equalities | presolve_aggregation.jl:167",
+          1
+        ],
+        [
+          "_apply_presolve_pass! | presolve_dispatch.jl:16",
+          1
+        ],
+        [
+          "_propagate_row_bounds | presolve_propagation.jl:178",
+          1
+        ],
+        [
+          "#_row_result#453 | presolve_rows.jl:46",
+          1
+        ],
+        [
+          "_subtract_scaled! | presolve_dependencies.jl:165",
+          1
+        ],
+        [
+          "#cleanup_original#478 | solver.jl:261",
+          1
+        ],
+        [
+          "#cleanup_original#478 | solver.jl:220",
+          1
+        ],
+        [
+          "aggregate_singleton_equalities | presolve_aggregation.jl:0",
+          1
+        ],
+        [
+          "_doubleton_row_positions | presolve_substitution.jl:23",
+          1
+        ],
+        [
+          "reduce_dependent_rows | presolve_dependencies.jl:248",
+          1
+        ]
+      ],
+      "kernel_seconds": {
+        "hypersparse_ftran_sparse": 0.0,
+        "hypersparse_bfrt_empty": 0.0,
+        "refactorization": 0.0002226,
+        "hypersparse_support": 0.0,
+        "hypersparse_btran_sparse": 0.0,
+        "hypersparse_weight_ftran_dense": 0.0,
+        "hypersparse_pricing_dense": 0.0,
+        "hypersparse_base_graph": 0.0,
+        "hypersparse_btran_empty": 0.0,
+        "hypersparse_weight_btran_sparse": 0.0,
+        "ftran": 0.0001297,
+        "hypersparse_weight_ftran_sparse": 0.0,
+        "hypersparse_pricing_empty": 0.0,
+        "hypersparse_bfrt_dense": 0.0,
+        "hypersparse_ftran_dense": 0.0,
+        "pricing": 5.49e-05,
+        "hypersparse_btran_dense": 0.0,
+        "row_index": 0.0,
+        "btran": 7.69e-05,
+        "hypersparse_ftran_empty": 0.0,
+        "hypersparse_upper_graph": 0.0,
+        "hypersparse_pricing_sparse": 0.0,
+        "hypersparse_weight_btran_dense": 0.0,
+        "hypersparse_weight_ftran_empty": 0.0,
+        "crash": 0.0,
+        "hypersparse_bfrt_sparse": 0.0,
+        "hypersparse_weight_btran_empty": 0.0,
+        "hypersparse_setup": 0.0
+      },
+      "kernel_calls": {
+        "hypersparse_ftran_sparse": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_bfrt_empty": [
+          0,
+          0,
+          0
+        ],
+        "refactorization": [
+          6,
+          6,
+          6
+        ],
+        "hypersparse_support": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_btran_sparse": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_weight_ftran_dense": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_pricing_dense": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_base_graph": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_btran_empty": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_weight_btran_sparse": [
+          0,
+          0,
+          0
+        ],
+        "ftran": [
+          190,
+          190,
+          190
+        ],
+        "hypersparse_weight_ftran_sparse": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_pricing_empty": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_bfrt_dense": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_ftran_dense": [
+          0,
+          0,
+          0
+        ],
+        "pricing": [
+          178,
+          178,
+          178
+        ],
+        "hypersparse_btran_dense": [
+          0,
+          0,
+          0
+        ],
+        "row_index": [
+          0,
+          0,
+          0
+        ],
+        "btran": [
+          102,
+          102,
+          102
+        ],
+        "hypersparse_ftran_empty": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_upper_graph": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_pricing_sparse": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_weight_btran_dense": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_weight_ftran_empty": [
+          0,
+          0,
+          0
+        ],
+        "crash": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_bfrt_sparse": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_weight_btran_empty": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_setup": [
+          0,
+          0,
+          0
+        ]
+      },
+      "event_counts": {
+        "flip_completed": 0,
+        "precision_boost": 0,
+        "phase_dual": 1,
+        "correction_attempt": 0,
+        "crash_pivot": 0,
+        "lp_refinement": 0,
+        "pricing_devex": 0,
+        "checkpoint": 0,
+        "restore_checkpoint": 0,
+        "correction": 0,
+        "artificial_removed": 0,
+        "phase_auxiliary": 0,
+        "pricing_pool_hit": 0,
+        "stagnation_fallback": 0,
+        "pricing_weight_rejected": 0,
+        "bound_flipped": 112,
+        "lp_correction_certification": 0,
+        "refactor_other": 2,
+        "pivot_completed": 89,
+        "feasibility_recovery": 0,
+        "pricing_full_scan": 90,
+        "pricing": 90,
+        "repair": 0,
+        "pricing_phase_reset": 0,
+        "primal_point_balanced": 0,
+        "refactor_pivot": 0,
+        "phase_crash": 0,
+        "stagnation_watch": 0,
+        "pricing_scored_entries": 1888,
+        "phase_lp_refinement": 0,
+        "primal_projection_attempt": 0,
+        "crash_rejected_quality": 0,
+        "primal_point_corrected": 0,
+        "phase_one": 0,
+        "phase_cleanup": 1,
+        "refactor_growth": 0,
+        "crash_fallback": 0,
+        "certification": 2,
+        "refactor_residual": 0,
+        "certification_failed": 0,
+        "refactor_fill": 0,
+        "phase_primal": 1,
+        "primal_point_preserved": 0,
+        "pricing_block_scan": 0,
+        "pricing_trial_expired": 0,
+        "perturbation": 0,
+        "crash_rejected_fill": 0,
+        "primal_point_projected": 0,
+        "pricing_steepest_edge": 0,
+        "refactor_cost": 0,
+        "crash_accepted": 0,
+        "pricing_scanned_entries": 4970,
+        "certificate_corrected": 0,
+        "primal_prices_corrected": 0,
+        "pivot_rejected": 0,
+        "pricing_progress_return": 0,
+        "refactor_initial": 2,
+        "restore_perturbations": 1,
+        "pricing_reset": 0,
+        "stagnation_cost_rebase": 0,
+        "refactor_limit": 4,
+        "pivot_proposed": 89,
+        "stagnation_stalled": 0,
+        "pricing_dantzig": 0
+      },
+      "cold": [
+        {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.003162302,
+          "bytes": 4121272,
+          "compile_seconds": 0.0,
+          "mode": "plain",
+          "events": 84040
+        },
+        {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.002801401,
+          "bytes": 4067704,
+          "compile_seconds": 0.0,
+          "mode": "diagnosed",
+          "events": 84040
+        }
+      ],
+      "parse_seconds": 0.0006032,
+      "profile_compile_seconds": 0.0
+    },
+    {
+      "stage": 1,
+      "id": "afiro",
+      "scalar": "Float64",
+      "rows": 27,
+      "columns": 32,
+      "nnz": 83,
+      "iterations": 9,
+      "refactorizations": 2,
+      "seconds": 0.0005836,
+      "seconds_range": [
+        0.0004864,
+        0.0008442
+      ],
+      "bytes": 920312,
+      "events": 17961,
+      "gc_seconds": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "diagnosed_seconds": 0.0006138,
+      "profile_seconds_per_call": 0.004013349828125,
+      "profile_samples": 31,
+      "categories": {
+        "basis solves": 6,
+        "presolve": 19,
+        "other": 5,
+        "cleanup/certification": 1
+      },
+      "shares": {
+        "basis solves": 0.1935483870967742,
+        "presolve": 0.6129032258064516,
+        "other": 0.16129032258064516,
+        "cleanup/certification": 0.03225806451612903
+      },
+      "inclusive": [
+        [
+          "solve | solver.jl",
+          31
+        ],
+        [
+          "_solve_diagnosed | solver.jl",
+          31
+        ],
+        [
+          "#_solve_diagnosed#485 | solver.jl",
+          31
+        ],
+        [
+          "#solve#483 | solver.jl",
+          31
+        ],
+        [
+          "presolve_problem | presolve.jl",
+          19
+        ],
+        [
+          "#_presolve_for_solve#471 | presolve_tolerance.jl",
+          19
+        ],
+        [
+          "_presolve_for_solve | presolve_tolerance.jl",
+          19
+        ],
+        [
+          "_dispatch_presolve_pass! | presolve_dispatch.jl",
+          19
+        ],
+        [
+          "_apply_presolve_pass! | presolve_dispatch.jl",
+          10
+        ],
+        [
+          "_solve_continuous_dual | dual_simplex.jl",
+          9
+        ],
+        [
+          "#_solve_continuous_dual#273 | dual_simplex.jl",
+          9
+        ],
+        [
+          "_apply_propagation_pass! | presolve_dispatch.jl",
+          9
+        ],
+        [
+          "_propagate_row_bounds | presolve_propagation.jl",
+          9
+        ],
+        [
+          "_solve_continuous_dual_once! | dual_simplex.jl",
+          7
+        ],
+        [
+          "_solve_continuous_dual! | dual_simplex.jl",
+          7
+        ],
+        [
+          "_pipeline_basis_solve! | hypersparse_pipeline.jl",
+          6
+        ],
+        [
+          "_timed_simplex | simplex.jl",
+          6
+        ],
+        [
+          "_diagnostic_kernel | simplex_diagnostics.jl",
+          6
+        ],
+        [
+          "#_pipeline_basis_solve!#222 | hypersparse_pipeline.jl",
+          6
+        ],
+        [
+          "_exact_rational | presolve.jl",
+          5
+        ],
+        [
+          "_dual_iteration! | simplex_pivot.jl",
+          4
+        ],
+        [
+          "_dual_optimize! | dual_simplex.jl",
+          4
+        ],
+        [
+          "_dual_iteration_core! | simplex_pivot.jl",
+          4
+        ],
+        [
+          "_make_dual_feasible! | dual_simplex.jl",
+          4
+        ],
+        [
+          "_backend_forward_solve! | factorization.jl",
+          4
+        ],
+        [
+          "make_dual_feasible! | dual_simplex.jl",
+          4
+        ],
+        [
+          "_measure_basis_iteration! | refactorization_policy.jl",
+          4
+        ],
+        [
+          "_dual_iteration_entry! | dual_simplex.jl",
+          4
+        ],
+        [
+          "#_dual_optimize!#272 | dual_simplex.jl",
+          4
+        ],
+        [
+          "#_dual_iteration_unchecked!#253 | dual_simplex.jl",
+          4
+        ]
+      ],
+      "nearest_julia_source": [
+        [
+          "_exact_rational | presolve.jl:17",
+          5
+        ],
+        [
+          "_backend_forward_solve! | factorization.jl:122",
+          4
+        ],
+        [
+          "elapsed_seconds | solver.jl:18",
+          2
+        ],
+        [
+          "#_row_result#453 | presolve_rows.jl:53",
+          2
+        ],
+        [
+          "_backend_transpose_solve! | factorization.jl:135",
+          2
+        ],
+        [
+          "reduce_parallel_rows | presolve_dependencies.jl:91",
+          2
+        ],
+        [
+          "_represent_exact | presolve.jl:28",
+          2
+        ],
+        [
+          "reduce_dependent_rows | presolve_dependencies.jl:236",
+          1
+        ],
+        [
+          "_other_activity | presolve_propagation.jl:0",
+          1
+        ],
+        [
+          "_implied_interval | presolve_dependencies.jl:212",
+          1
+        ],
+        [
+          "_equality_implies_column_bounds | presolve_aggregation.jl:240",
+          1
+        ],
+        [
+          "_propagate_row_bounds | presolve_propagation.jl:84",
+          1
+        ],
+        [
+          "_SolveDeadline | dual_simplex.jl:11",
+          1
+        ],
+        [
+          "_report_simplex_phase | simplex.jl:642",
+          1
+        ],
+        [
+          "_report_simplex_progress | simplex.jl:669",
+          1
+        ],
+        [
+          "_propagate_row_bounds | presolve_propagation.jl:0",
+          1
+        ],
+        [
+          "_propagate_row_bounds | presolve_propagation.jl:70",
+          1
+        ],
+        [
+          "#cleanup_original#478 | solver.jl:220",
+          1
+        ],
+        [
+          "_propagate_row_bounds | presolve_propagation.jl:222",
+          1
+        ]
+      ],
+      "kernel_seconds": {
+        "hypersparse_ftran_sparse": 0.0,
+        "hypersparse_bfrt_empty": 0.0,
+        "refactorization": 1.27e-05,
+        "hypersparse_support": 0.0,
+        "hypersparse_btran_sparse": 0.0,
+        "hypersparse_weight_ftran_dense": 0.0,
+        "hypersparse_pricing_dense": 0.0,
+        "hypersparse_base_graph": 0.0,
+        "hypersparse_btran_empty": 0.0,
+        "hypersparse_weight_btran_sparse": 0.0,
+        "ftran": 1.67e-05,
+        "hypersparse_weight_ftran_sparse": 0.0,
+        "hypersparse_pricing_empty": 0.0,
+        "hypersparse_bfrt_dense": 0.0,
+        "hypersparse_ftran_dense": 0.0,
+        "pricing": 5.3e-06,
+        "hypersparse_btran_dense": 0.0,
+        "row_index": 0.0,
+        "btran": 8.6e-06,
+        "hypersparse_ftran_empty": 0.0,
+        "hypersparse_upper_graph": 0.0,
+        "hypersparse_pricing_sparse": 0.0,
+        "hypersparse_weight_btran_dense": 0.0,
+        "hypersparse_weight_ftran_empty": 0.0,
+        "crash": 0.0,
+        "hypersparse_bfrt_sparse": 0.0,
+        "hypersparse_weight_btran_empty": 0.0,
+        "hypersparse_setup": 0.0
+      },
+      "kernel_calls": {
+        "hypersparse_ftran_sparse": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_bfrt_empty": [
+          0,
+          0,
+          0
+        ],
+        "refactorization": [
+          2,
+          2,
+          2
+        ],
+        "hypersparse_support": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_btran_sparse": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_weight_ftran_dense": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_pricing_dense": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_base_graph": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_btran_empty": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_weight_btran_sparse": [
+          0,
+          0,
+          0
+        ],
+        "ftran": [
+          26,
+          26,
+          26
+        ],
+        "hypersparse_weight_ftran_sparse": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_pricing_empty": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_bfrt_dense": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_ftran_dense": [
+          0,
+          0,
+          0
+        ],
+        "pricing": [
+          19,
+          19,
+          19
+        ],
+        "hypersparse_btran_dense": [
+          0,
+          0,
+          0
+        ],
+        "row_index": [
+          0,
+          0,
+          0
+        ],
+        "btran": [
+          17,
+          17,
+          17
+        ],
+        "hypersparse_ftran_empty": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_upper_graph": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_pricing_sparse": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_weight_btran_dense": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_weight_ftran_empty": [
+          0,
+          0,
+          0
+        ],
+        "crash": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_bfrt_sparse": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_weight_btran_empty": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_setup": [
+          0,
+          0,
+          0
+        ]
+      },
+      "event_counts": {
+        "flip_completed": 0,
+        "precision_boost": 0,
+        "phase_dual": 1,
+        "correction_attempt": 0,
+        "crash_pivot": 0,
+        "lp_refinement": 0,
+        "pricing_devex": 0,
+        "checkpoint": 0,
+        "restore_checkpoint": 0,
+        "correction": 0,
+        "artificial_removed": 0,
+        "phase_auxiliary": 1,
+        "pricing_pool_hit": 0,
+        "stagnation_fallback": 0,
+        "pricing_weight_rejected": 0,
+        "bound_flipped": 7,
+        "lp_correction_certification": 0,
+        "refactor_other": 2,
+        "pivot_completed": 9,
+        "feasibility_recovery": 0,
+        "pricing_full_scan": 10,
+        "pricing": 10,
+        "repair": 0,
+        "pricing_phase_reset": 0,
+        "primal_point_balanced": 0,
+        "refactor_pivot": 0,
+        "phase_crash": 0,
+        "stagnation_watch": 0,
+        "pricing_scored_entries": 34,
+        "phase_lp_refinement": 0,
+        "primal_projection_attempt": 0,
+        "crash_rejected_quality": 0,
+        "primal_point_corrected": 0,
+        "phase_one": 0,
+        "phase_cleanup": 1,
+        "refactor_growth": 0,
+        "crash_fallback": 0,
+        "certification": 2,
+        "refactor_residual": 0,
+        "certification_failed": 0,
+        "refactor_fill": 0,
+        "phase_primal": 1,
+        "primal_point_preserved": 0,
+        "pricing_block_scan": 0,
+        "pricing_trial_expired": 0,
+        "perturbation": 0,
+        "crash_rejected_fill": 0,
+        "primal_point_projected": 0,
+        "pricing_steepest_edge": 0,
+        "refactor_cost": 0,
+        "crash_accepted": 0,
+        "pricing_scanned_entries": 239,
+        "certificate_corrected": 0,
+        "primal_prices_corrected": 0,
+        "pivot_rejected": 0,
+        "pricing_progress_return": 0,
+        "refactor_initial": 2,
+        "restore_perturbations": 0,
+        "pricing_reset": 0,
+        "stagnation_cost_rebase": 0,
+        "refactor_limit": 0,
+        "pivot_proposed": 9,
+        "stagnation_stalled": 0,
+        "pricing_dantzig": 0
+      },
+      "cold": [
+        {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.109194838,
+          "seconds": 0.166023058,
+          "bytes": 24926440,
+          "compile_seconds": 0.154774454,
+          "mode": "plain",
+          "events": 437770
+        },
+        {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.0009686,
+          "bytes": 978600,
+          "compile_seconds": 0.0,
+          "mode": "diagnosed",
+          "events": 17961
+        }
+      ],
+      "parse_seconds": 0.0018859,
+      "profile_compile_seconds": 0.0
+    },
+    {
+      "stage": 1,
+      "id": "primal-chain130",
+      "scalar": "Float64",
+      "rows": 130,
+      "columns": 130,
+      "nnz": 259,
+      "iterations": 118,
+      "refactorizations": 7,
+      "seconds": 0.004791201,
+      "seconds_range": [
+        0.004745,
+        0.0048473
+      ],
+      "bytes": 6990160,
+      "events": 83543,
+      "gc_seconds": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "diagnosed_seconds": 0.005013901,
+      "profile_seconds_per_call": 0.030599985921875,
+      "profile_samples": 240,
+      "categories": {
+        "other": 47,
+        "presolve": 147,
+        "basis solves": 37,
+        "cleanup/certification": 7,
+        "factorization": 1,
+        "model/setup": 1
+      },
+      "shares": {
+        "other": 0.19583333333333333,
+        "presolve": 0.6125,
+        "basis solves": 0.15416666666666667,
+        "cleanup/certification": 0.029166666666666667,
+        "factorization": 0.004166666666666667,
+        "model/setup": 0.004166666666666667
+      },
+      "inclusive": [
+        [
+          "#solve#483 | solver.jl",
+          231
+        ],
+        [
+          "_solve_diagnosed | solver.jl",
+          231
+        ],
+        [
+          "solve | solver.jl",
+          231
+        ],
+        [
+          "#_solve_diagnosed#485 | solver.jl",
+          231
+        ],
+        [
+          "_dispatch_presolve_pass! | presolve_dispatch.jl",
+          144
+        ],
+        [
+          "presolve_problem | presolve.jl",
+          144
+        ],
+        [
+          "#_presolve_for_solve#471 | presolve_tolerance.jl",
+          144
+        ],
+        [
+          "_presolve_for_solve | presolve_tolerance.jl",
+          144
+        ],
+        [
+          "_apply_presolve_pass! | presolve_dispatch.jl",
+          127
+        ],
+        [
+          "reduce_dependent_rows | presolve_dependencies.jl",
+          87
+        ],
+        [
+          "#_solve_continuous_primal#297 | primal_simplex.jl",
+          70
+        ],
+        [
+          "_solve_continuous_primal | primal_simplex.jl",
+          70
+        ],
+        [
+          "#_primal_optimize!#295 | primal_simplex.jl",
+          67
+        ],
+        [
+          "_primal_optimize! | primal_simplex.jl",
+          67
+        ],
+        [
+          "#_measure_basis_iteration!#20 | refactorization_policy.jl",
+          66
+        ],
+        [
+          "#_primal_iteration!##0 | simplex_pivot.jl",
+          66
+        ],
+        [
+          "_legacy_primal_iteration! | primal_simplex.jl",
+          66
+        ],
+        [
+          "_measure_basis_iteration! | refactorization_policy.jl",
+          66
+        ],
+        [
+          "_primal_iteration! | simplex_pivot.jl",
+          66
+        ],
+        [
+          "_primal_iteration_core! | simplex_pivot.jl",
+          66
+        ],
+        [
+          "_primal_iteration_unchecked! | primal_simplex.jl",
+          64
+        ],
+        [
+          "_timed_simplex | simplex.jl",
+          40
+        ],
+        [
+          "_diagnostic_kernel | simplex_diagnostics.jl",
+          40
+        ],
+        [
+          "_pipeline_basis_solve! | hypersparse_pipeline.jl",
+          39
+        ],
+        [
+          "#_pipeline_basis_solve!#222 | hypersparse_pipeline.jl",
+          39
+        ],
+        [
+          "_exact_rational | presolve.jl",
+          30
+        ],
+        [
+          "#recompute!#208 | simplex.jl",
+          28
+        ],
+        [
+          "recompute! | simplex.jl",
+          28
+        ],
+        [
+          "_backend_forward_solve! | factorization.jl",
+          27
+        ],
+        [
+          "forward_solve! | factorization.jl",
+          27
+        ]
+      ],
+      "nearest_julia_source": [
+        [
+          "_exact_rational | presolve.jl:17",
+          30
+        ],
+        [
+          "_backend_forward_solve! | factorization.jl:122",
+          27
+        ],
+        [
+          "reduce_dependent_rows | presolve_dependencies.jl:229",
+          25
+        ],
+        [
+          "_SolveDeadline | dual_simplex.jl:11",
+          24
+        ],
+        [
+          "reduce_dependent_rows | presolve_dependencies.jl:232",
+          24
+        ],
+        [
+          "_row_entries | presolve_rows.jl:27",
+          15
+        ],
+        [
+          "_backend_transpose_solve! | factorization.jl:135",
+          12
+        ],
+        [
+          "#_row_result#453 | presolve_rows.jl:53",
+          11
+        ],
+        [
+          "_report_simplex_progress | simplex.jl:669",
+          6
+        ],
+        [
+          "LinearProblem | model.jl:105",
+          6
+        ],
+        [
+          "#_presolve_basic#450 | presolve.jl:189",
+          5
+        ],
+        [
+          "reduce_dependent_rows | presolve_dependencies.jl:250",
+          5
+        ],
+        [
+          "_propagate_row_bounds | presolve_propagation.jl:153",
+          3
+        ],
+        [
+          "#_solve_diagnosed#485 | solver.jl:496",
+          2
+        ],
+        [
+          "_report_problem_statistics | solver.jl:33",
+          2
+        ],
+        [
+          "_cleanup_primal_feasible! | solver.jl:204",
+          2
+        ],
+        [
+          "_doubleton_row_positions | presolve_substitution.jl:13",
+          2
+        ],
+        [
+          "_propagate_row_bounds | presolve_propagation.jl:84",
+          2
+        ],
+        [
+          "restore_basis | presolve.jl:263",
+          2
+        ],
+        [
+          "_row_entries | presolve_rows.jl:23",
+          2
+        ],
+        [
+          "#_initialize_workspace_state#215 | simplex.jl:515",
+          2
+        ],
+        [
+          "_report_simplex_phase | simplex.jl:642",
+          2
+        ],
+        [
+          "_apply_propagation_pass! | presolve_dispatch.jl:19",
+          1
+        ],
+        [
+          "_propagate_row_bounds | presolve_propagation.jl:56",
+          1
+        ],
+        [
+          "_changed_propagation_rows | presolve_incremental.jl:44",
+          1
+        ],
+        [
+          "reduce_singleton_rows | presolve_rows.jl:112",
+          1
+        ],
+        [
+          "_refactorize_backend | factorization.jl:329",
+          1
+        ],
+        [
+          "#_solve_diagnosed#485 | solver.jl:474",
+          1
+        ],
+        [
+          "_refactorize_backend | factorization.jl:325",
+          1
+        ],
+        [
+          "reduce_dependent_rows | presolve_dependencies.jl:219",
+          1
+        ]
+      ],
+      "kernel_seconds": {
+        "hypersparse_ftran_sparse": 0.0,
+        "hypersparse_bfrt_empty": 0.0,
+        "refactorization": 9.71e-05,
+        "hypersparse_support": 0.0,
+        "hypersparse_btran_sparse": 0.0,
+        "hypersparse_weight_ftran_dense": 0.0,
+        "hypersparse_pricing_dense": 0.0,
+        "hypersparse_base_graph": 0.0,
+        "hypersparse_btran_empty": 0.0,
+        "hypersparse_weight_btran_sparse": 0.0,
+        "ftran": 0.000247,
+        "hypersparse_weight_ftran_sparse": 0.0,
+        "hypersparse_pricing_empty": 0.0,
+        "hypersparse_bfrt_dense": 0.0,
+        "hypersparse_ftran_dense": 0.0,
+        "pricing": 4.96e-05,
+        "hypersparse_btran_dense": 0.0,
+        "row_index": 0.0,
+        "btran": 0.0003518,
+        "hypersparse_ftran_empty": 0.0,
+        "hypersparse_upper_graph": 0.0,
+        "hypersparse_pricing_sparse": 0.0,
+        "hypersparse_weight_btran_dense": 0.0,
+        "hypersparse_weight_ftran_empty": 0.0,
+        "crash": 0.0,
+        "hypersparse_bfrt_sparse": 0.0,
+        "hypersparse_weight_btran_empty": 0.0,
+        "hypersparse_setup": 0.0
+      },
+      "kernel_calls": {
+        "hypersparse_ftran_sparse": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_bfrt_empty": [
+          0,
+          0,
+          0
+        ],
+        "refactorization": [
+          7,
+          7,
+          7
+        ],
+        "hypersparse_support": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_btran_sparse": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_weight_ftran_dense": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_pricing_dense": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_base_graph": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_btran_empty": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_weight_btran_sparse": [
+          0,
+          0,
+          0
+        ],
+        "ftran": [
+          240,
+          240,
+          240
+        ],
+        "hypersparse_weight_ftran_sparse": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_pricing_empty": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_bfrt_dense": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_ftran_dense": [
+          0,
+          0,
+          0
+        ],
+        "pricing": [
+          120,
+          120,
+          120
+        ],
+        "hypersparse_btran_dense": [
+          0,
+          0,
+          0
+        ],
+        "row_index": [
+          0,
+          0,
+          0
+        ],
+        "btran": [
+          358,
+          358,
+          358
+        ],
+        "hypersparse_ftran_empty": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_upper_graph": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_pricing_sparse": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_weight_btran_dense": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_weight_ftran_empty": [
+          0,
+          0,
+          0
+        ],
+        "crash": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_bfrt_sparse": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_weight_btran_empty": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_setup": [
+          0,
+          0,
+          0
+        ]
+      },
+      "event_counts": {
+        "flip_completed": 0,
+        "precision_boost": 0,
+        "phase_dual": 0,
+        "correction_attempt": 0,
+        "crash_pivot": 0,
+        "lp_refinement": 0,
+        "pricing_devex": 0,
+        "checkpoint": 0,
+        "restore_checkpoint": 0,
+        "correction": 0,
+        "artificial_removed": 0,
+        "phase_auxiliary": 0,
+        "pricing_pool_hit": 0,
+        "stagnation_fallback": 0,
+        "pricing_weight_rejected": 0,
+        "bound_flipped": 0,
+        "lp_correction_certification": 0,
+        "refactor_other": 2,
+        "pivot_completed": 118,
+        "feasibility_recovery": 0,
+        "pricing_full_scan": 120,
+        "pricing": 120,
+        "repair": 0,
+        "pricing_phase_reset": 0,
+        "primal_point_balanced": 0,
+        "refactor_pivot": 0,
+        "phase_crash": 0,
+        "stagnation_watch": 0,
+        "pricing_scored_entries": 118,
+        "phase_lp_refinement": 0,
+        "primal_projection_attempt": 0,
+        "crash_rejected_quality": 0,
+        "primal_point_corrected": 0,
+        "phase_one": 0,
+        "phase_cleanup": 1,
+        "refactor_growth": 0,
+        "crash_fallback": 0,
+        "certification": 2,
+        "refactor_residual": 0,
+        "certification_failed": 0,
+        "refactor_fill": 0,
+        "phase_primal": 2,
+        "primal_point_preserved": 0,
+        "pricing_block_scan": 0,
+        "pricing_trial_expired": 0,
+        "perturbation": 0,
+        "crash_rejected_fill": 0,
+        "primal_point_projected": 0,
+        "pricing_steepest_edge": 0,
+        "refactor_cost": 0,
+        "crash_accepted": 0,
+        "pricing_scanned_entries": 28344,
+        "certificate_corrected": 0,
+        "primal_prices_corrected": 0,
+        "pivot_rejected": 0,
+        "pricing_progress_return": 0,
+        "refactor_initial": 2,
+        "restore_perturbations": 0,
+        "pricing_reset": 0,
+        "stagnation_cost_rebase": 0,
+        "refactor_limit": 5,
+        "pivot_proposed": 118,
+        "stagnation_stalled": 0,
+        "pricing_dantzig": 0
+      },
+      "cold": [
+        {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.0030082,
+          "bytes": 6990736,
+          "compile_seconds": 0.0,
+          "mode": "plain",
+          "events": 83543
+        },
+        {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.003153401,
+          "bytes": 6990272,
+          "compile_seconds": 0.0,
+          "mode": "diagnosed",
+          "events": 83543
+        }
+      ],
+      "parse_seconds": 0.0003164,
+      "profile_compile_seconds": 0.0
+    },
+    {
+      "stage": 1,
+      "id": "sc50a",
+      "scalar": "Float64",
+      "rows": 50,
+      "columns": 48,
+      "nnz": 130,
+      "iterations": 34,
+      "refactorizations": 3,
+      "seconds": 0.001594101,
+      "seconds_range": [
+        0.001579,
+        0.004084
+      ],
+      "bytes": 3143104,
+      "events": 66652,
+      "gc_seconds": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "diagnosed_seconds": 0.0016967,
+      "profile_seconds_per_call": 0.014237369359375,
+      "profile_samples": 103,
+      "categories": {
+        "presolve": 60,
+        "basis solves": 11,
+        "other": 27,
+        "cleanup/certification": 3,
+        "factorization": 2
+      },
+      "shares": {
+        "presolve": 0.5825242718446602,
+        "basis solves": 0.10679611650485436,
+        "other": 0.2621359223300971,
+        "cleanup/certification": 0.02912621359223301,
+        "factorization": 0.019417475728155338
+      },
+      "inclusive": [
+        [
+          "#solve#483 | solver.jl",
+          90
+        ],
+        [
+          "#_solve_diagnosed#485 | solver.jl",
+          90
+        ],
+        [
+          "_solve_diagnosed | solver.jl",
+          90
+        ],
+        [
+          "solve | solver.jl",
+          90
+        ],
+        [
+          "presolve_problem | presolve.jl",
+          60
+        ],
+        [
+          "#_presolve_for_solve#471 | presolve_tolerance.jl",
+          60
+        ],
+        [
+          "_presolve_for_solve | presolve_tolerance.jl",
+          60
+        ],
+        [
+          "_dispatch_presolve_pass! | presolve_dispatch.jl",
+          60
+        ],
+        [
+          "_apply_presolve_pass! | presolve_dispatch.jl",
+          55
+        ],
+        [
+          "reduce_dependent_rows | presolve_dependencies.jl",
+          41
+        ],
+        [
+          "_subtract_scaled! | presolve_dependencies.jl",
+          24
+        ],
+        [
+          "_solve_continuous_dual | dual_simplex.jl",
+          22
+        ],
+        [
+          "#_solve_continuous_dual#273 | dual_simplex.jl",
+          22
+        ],
+        [
+          "_solve_continuous_dual_once! | dual_simplex.jl",
+          21
+        ],
+        [
+          "_solve_continuous_dual! | dual_simplex.jl",
+          21
+        ],
+        [
+          "_dual_optimize! | dual_simplex.jl",
+          16
+        ],
+        [
+          "#_dual_optimize!#272 | dual_simplex.jl",
+          16
+        ],
+        [
+          "_exact_rational | presolve.jl",
+          14
+        ],
+        [
+          "_dual_iteration_entry! | dual_simplex.jl",
+          14
+        ],
+        [
+          "_dual_iteration! | simplex_pivot.jl",
+          13
+        ],
+        [
+          "_dual_iteration_core! | simplex_pivot.jl",
+          13
+        ],
+        [
+          "_measure_basis_iteration! | refactorization_policy.jl",
+          13
+        ],
+        [
+          "#_dual_iteration_unchecked!#253 | dual_simplex.jl",
+          13
+        ],
+        [
+          "_timed_simplex | simplex.jl",
+          13
+        ],
+        [
+          "_dual_iteration_unchecked! | dual_simplex.jl",
+          13
+        ],
+        [
+          "_diagnostic_kernel | simplex_diagnostics.jl",
+          13
+        ],
+        [
+          "#_measure_basis_iteration!#20 | refactorization_policy.jl",
+          13
+        ],
+        [
+          "#_dual_iteration!##0 | simplex_pivot.jl",
+          13
+        ],
+        [
+          "aggregate_sparse_equalities | presolve_aggregation.jl",
+          12
+        ],
+        [
+          "_pipeline_basis_solve! | hypersparse_pipeline.jl",
+          11
+        ]
+      ],
+      "nearest_julia_source": [
+        [
+          "_exact_rational | presolve.jl:17",
+          14
+        ],
+        [
+          "_backend_forward_solve! | factorization.jl:122",
+          9
+        ],
+        [
+          "_subtract_scaled! | presolve_dependencies.jl:174",
+          9
+        ],
+        [
+          "_subtract_scaled! | presolve_dependencies.jl:168",
+          8
+        ],
+        [
+          "_SolveDeadline | dual_simplex.jl:11",
+          5
+        ],
+        [
+          "_represent_exact | presolve.jl:28",
+          5
+        ],
+        [
+          "_implied_interval | presolve_dependencies.jl:190",
+          4
+        ],
+        [
+          "_report_simplex_progress | simplex.jl:669",
+          3
+        ],
+        [
+          "_report_problem_statistics | solver.jl:33",
+          3
+        ],
+        [
+          "_subtract_scaled! | presolve_dependencies.jl:178",
+          2
+        ],
+        [
+          "_subtract_scaled! | presolve_dependencies.jl:157",
+          2
+        ],
+        [
+          "reduce_dependent_rows | presolve_dependencies.jl:234",
+          2
+        ],
+        [
+          "_subtract_scaled! | presolve_dependencies.jl:170",
+          2
+        ],
+        [
+          "_refactorize_backend | factorization.jl:325",
+          2
+        ],
+        [
+          "_backend_transpose_solve! | factorization.jl:135",
+          2
+        ],
+        [
+          "aggregate_sparse_equalities | presolve_aggregation.jl:535",
+          1
+        ],
+        [
+          "reduce_dependent_rows | presolve_dependencies.jl:229",
+          1
+        ],
+        [
+          "#cleanup_original#478 | solver.jl:220",
+          1
+        ],
+        [
+          "#_solve_diagnosed#485 | solver.jl:496",
+          1
+        ],
+        [
+          "_report_simplex_phase | simplex.jl:642",
+          1
+        ],
+        [
+          "elapsed_seconds | solver.jl:18",
+          1
+        ],
+        [
+          "_primal_product_bounds | dual_simplex.jl:1529",
+          1
+        ],
+        [
+          "reduce_dependent_rows | presolve_dependencies.jl:247",
+          1
+        ],
+        [
+          "reduce_dependent_rows | presolve_dependencies.jl:242",
+          1
+        ],
+        [
+          "_propagate_row_bounds | presolve_propagation.jl:153",
+          1
+        ],
+        [
+          "_primal_sum_bounds | dual_simplex.jl:1507",
+          1
+        ],
+        [
+          "aggregate_sparse_equalities | presolve_aggregation.jl:539",
+          1
+        ],
+        [
+          "_subtract_scaled! | presolve_dependencies.jl:160",
+          1
+        ],
+        [
+          "_propagate_row_bounds | presolve_propagation.jl:57",
+          1
+        ],
+        [
+          "_implied_interval | presolve_dependencies.jl:191",
+          1
+        ]
+      ],
+      "kernel_seconds": {
+        "hypersparse_ftran_sparse": 0.0,
+        "hypersparse_bfrt_empty": 0.0,
+        "refactorization": 7.5e-05,
+        "hypersparse_support": 0.0,
+        "hypersparse_btran_sparse": 0.0,
+        "hypersparse_weight_ftran_dense": 0.0,
+        "hypersparse_pricing_dense": 0.0,
+        "hypersparse_base_graph": 0.0,
+        "hypersparse_btran_empty": 0.0,
+        "hypersparse_weight_btran_sparse": 0.0,
+        "ftran": 4.67e-05,
+        "hypersparse_weight_ftran_sparse": 0.0,
+        "hypersparse_pricing_empty": 0.0,
+        "hypersparse_bfrt_dense": 0.0,
+        "hypersparse_ftran_dense": 0.0,
+        "pricing": 1.57e-05,
+        "hypersparse_btran_dense": 0.0,
+        "row_index": 0.0,
+        "btran": 2.62e-05,
+        "hypersparse_ftran_empty": 0.0,
+        "hypersparse_upper_graph": 0.0,
+        "hypersparse_pricing_sparse": 0.0,
+        "hypersparse_weight_btran_dense": 0.0,
+        "hypersparse_weight_ftran_empty": 0.0,
+        "crash": 0.0,
+        "hypersparse_bfrt_sparse": 0.0,
+        "hypersparse_weight_btran_empty": 0.0,
+        "hypersparse_setup": 0.0
+      },
+      "kernel_calls": {
+        "hypersparse_ftran_sparse": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_bfrt_empty": [
+          0,
+          0,
+          0
+        ],
+        "refactorization": [
+          3,
+          3,
+          3
+        ],
+        "hypersparse_support": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_btran_sparse": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_weight_ftran_dense": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_pricing_dense": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_base_graph": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_btran_empty": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_weight_btran_sparse": [
+          0,
+          0,
+          0
+        ],
+        "ftran": [
+          77,
+          77,
+          77
+        ],
+        "hypersparse_weight_ftran_sparse": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_pricing_empty": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_bfrt_dense": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_ftran_dense": [
+          0,
+          0,
+          0
+        ],
+        "pricing": [
+          69,
+          69,
+          69
+        ],
+        "hypersparse_btran_dense": [
+          0,
+          0,
+          0
+        ],
+        "row_index": [
+          0,
+          0,
+          0
+        ],
+        "btran": [
+          43,
+          43,
+          43
+        ],
+        "hypersparse_ftran_empty": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_upper_graph": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_pricing_sparse": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_weight_btran_dense": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_weight_ftran_empty": [
+          0,
+          0,
+          0
+        ],
+        "crash": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_bfrt_sparse": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_weight_btran_empty": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_setup": [
+          0,
+          0,
+          0
+        ]
+      },
+      "event_counts": {
+        "flip_completed": 0,
+        "precision_boost": 0,
+        "phase_dual": 1,
+        "correction_attempt": 0,
+        "crash_pivot": 0,
+        "lp_refinement": 0,
+        "pricing_devex": 0,
+        "checkpoint": 0,
+        "restore_checkpoint": 0,
+        "correction": 0,
+        "artificial_removed": 0,
+        "phase_auxiliary": 1,
+        "pricing_pool_hit": 0,
+        "stagnation_fallback": 0,
+        "pricing_weight_rejected": 0,
+        "bound_flipped": 5,
+        "lp_correction_certification": 0,
+        "refactor_other": 2,
+        "pivot_completed": 34,
+        "feasibility_recovery": 0,
+        "pricing_full_scan": 35,
+        "pricing": 35,
+        "repair": 0,
+        "pricing_phase_reset": 0,
+        "primal_point_balanced": 0,
+        "refactor_pivot": 0,
+        "phase_crash": 0,
+        "stagnation_watch": 0,
+        "pricing_scored_entries": 233,
+        "phase_lp_refinement": 0,
+        "primal_projection_attempt": 0,
+        "crash_rejected_quality": 0,
+        "primal_point_corrected": 0,
+        "phase_one": 0,
+        "phase_cleanup": 1,
+        "refactor_growth": 0,
+        "crash_fallback": 0,
+        "certification": 2,
+        "refactor_residual": 0,
+        "certification_failed": 0,
+        "refactor_fill": 0,
+        "phase_primal": 1,
+        "primal_point_preserved": 0,
+        "pricing_block_scan": 0,
+        "pricing_trial_expired": 0,
+        "perturbation": 0,
+        "crash_rejected_fill": 0,
+        "primal_point_projected": 0,
+        "pricing_steepest_edge": 0,
+        "refactor_cost": 0,
+        "crash_accepted": 0,
+        "pricing_scanned_entries": 1526,
+        "certificate_corrected": 0,
+        "primal_prices_corrected": 0,
+        "pivot_rejected": 0,
+        "pricing_progress_return": 0,
+        "refactor_initial": 2,
+        "restore_perturbations": 0,
+        "pricing_reset": 0,
+        "stagnation_cost_rebase": 0,
+        "refactor_limit": 1,
+        "pivot_proposed": 34,
+        "stagnation_stalled": 0,
+        "pricing_dantzig": 0
+      },
+      "cold": [
+        {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.0017725,
+          "bytes": 3143920,
+          "compile_seconds": 0.0,
+          "mode": "plain",
+          "events": 66652
+        },
+        {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.001691801,
+          "bytes": 3143312,
+          "compile_seconds": 0.0,
+          "mode": "diagnosed",
+          "events": 66652
+        }
+      ],
+      "parse_seconds": 0.0002312,
+      "profile_compile_seconds": 0.0
+    },
+    {
+      "stage": 2,
+      "id": "afiro",
+      "scalar": "BigFloat",
+      "rows": 27,
+      "columns": 32,
+      "nnz": 83,
+      "iterations": 7,
+      "refactorizations": 2,
+      "seconds": 0.005182615,
+      "seconds_range": [
+        0.005105214,
+        0.005354115
+      ],
+      "bytes": 9973656,
+      "events": 189222,
+      "gc_seconds": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "diagnosed_seconds": 0.005124314,
+      "profile_seconds_per_call": 0.024066004375,
+      "profile_samples": 45,
+      "categories": {
+        "factorization": 1,
+        "other": 8,
+        "cleanup/certification": 20,
+        "presolve": 6,
+        "basis solves": 9,
+        "pricing": 1
+      },
+      "shares": {
+        "factorization": 0.022222222222222223,
+        "other": 0.17777777777777778,
+        "cleanup/certification": 0.4444444444444444,
+        "presolve": 0.13333333333333333,
+        "basis solves": 0.2,
+        "pricing": 0.022222222222222223
+      },
+      "inclusive": [
+        [
+          "_solve_diagnosed | solver.jl",
+          43
+        ],
+        [
+          "#solve#483 | solver.jl",
+          43
+        ],
+        [
+          "#_solve_diagnosed#485 | solver.jl",
+          43
+        ],
+        [
+          "solve | solver.jl",
+          43
+        ],
+        [
+          "cleanup_original | solver.jl",
+          20
+        ],
+        [
+          "#cleanup_original#478 | solver.jl",
+          20
+        ],
+        [
+          "_cleanup_or_retry_original | solver.jl",
+          20
+        ],
+        [
+          "#_cleanup_or_retry_original#480 | solver.jl",
+          20
+        ],
+        [
+          "_timed_simplex | simplex.jl",
+          18
+        ],
+        [
+          "_diagnostic_kernel | simplex_diagnostics.jl",
+          18
+        ],
+        [
+          "_solve_continuous_dual | dual_simplex.jl",
+          16
+        ],
+        [
+          "#_solve_continuous_dual#273 | dual_simplex.jl",
+          16
+        ],
+        [
+          "_solve_continuous_dual_once! | dual_simplex.jl",
+          15
+        ],
+        [
+          "_solve_continuous_dual! | dual_simplex.jl",
+          15
+        ],
+        [
+          "_factorize_dense_basis | factorization.jl",
+          14
+        ],
+        [
+          "recompute! | simplex.jl",
+          13
+        ],
+        [
+          "#recompute!#208 | simplex.jl",
+          13
+        ],
+        [
+          "_pipeline_basis_solve! | hypersparse_pipeline.jl",
+          11
+        ],
+        [
+          "#_pipeline_basis_solve!#222 | hypersparse_pipeline.jl",
+          11
+        ],
+        [
+          "_dual_optimize! | dual_simplex.jl",
+          10
+        ],
+        [
+          "#_dual_optimize!#272 | dual_simplex.jl",
+          10
+        ],
+        [
+          "initialize_workspace | simplex.jl",
+          9
+        ],
+        [
+          "#initialize_workspace#216 | simplex.jl",
+          9
+        ],
+        [
+          "_checked_basis_solve! | simplex_recovery.jl",
+          9
+        ],
+        [
+          "#333 | simplex_recovery.jl",
+          9
+        ],
+        [
+          "#_checked_basis_solve!#331 | simplex_recovery.jl",
+          9
+        ],
+        [
+          "_dual_iteration! | simplex_pivot.jl",
+          8
+        ],
+        [
+          "_dual_iteration_core! | simplex_pivot.jl",
+          8
+        ],
+        [
+          "_backend_forward_solve! | factorization.jl",
+          8
+        ],
+        [
+          "_measure_basis_iteration! | refactorization_policy.jl",
+          8
+        ]
+      ],
+      "nearest_julia_source": [
+        [
+          "_factorize_dense_basis | factorization.jl:90",
+          14
+        ],
+        [
+          "_backend_forward_solve! | factorization.jl:129",
+          8
+        ],
+        [
+          "_backend_transpose_solve! | factorization.jl:142",
+          3
+        ],
+        [
+          "_exact_rational | presolve.jl:18",
+          3
+        ],
+        [
+          "_SolveDeadline | dual_simplex.jl:11",
+          2
+        ],
+        [
+          "_recompute_reduced_costs! | simplex.jl:398",
+          2
+        ],
+        [
+          "_report_simplex_phase | simplex.jl:642",
+          1
+        ],
+        [
+          "_primal_product_bounds | dual_simplex.jl:1528",
+          1
+        ],
+        [
+          "_implied_interval | presolve_dependencies.jl:191",
+          1
+        ],
+        [
+          "_primal_product_bounds | dual_simplex.jl:1535",
+          1
+        ],
+        [
+          "_primal_sum_bounds | dual_simplex.jl:1499",
+          1
+        ],
+        [
+          "_propagate_row_bounds | presolve_propagation.jl:153",
+          1
+        ],
+        [
+          "#_exact_rational##0 | presolve.jl:20",
+          1
+        ],
+        [
+          "#cleanup_original#478 | solver.jl:220",
+          1
+        ],
+        [
+          "_working_value_bits | simplex_precision.jl:2",
+          1
+        ],
+        [
+          "update_dse! | dual_simplex.jl:608",
+          1
+        ],
+        [
+          "_primal_product_bounds | dual_simplex.jl:1531",
+          1
+        ]
+      ],
+      "kernel_seconds": {
+        "hypersparse_ftran_sparse": 0.0,
+        "hypersparse_bfrt_empty": 0.0,
+        "refactorization": 0.000806002,
+        "hypersparse_support": 0.0,
+        "hypersparse_btran_sparse": 0.0,
+        "hypersparse_weight_ftran_dense": 0.0,
+        "hypersparse_pricing_dense": 0.0,
+        "hypersparse_base_graph": 0.0,
+        "hypersparse_btran_empty": 0.0,
+        "hypersparse_weight_btran_sparse": 0.0,
+        "ftran": 0.000783303,
+        "hypersparse_weight_ftran_sparse": 0.0,
+        "hypersparse_pricing_empty": 0.0,
+        "hypersparse_bfrt_dense": 0.0,
+        "hypersparse_ftran_dense": 0.0,
+        "pricing": 7.05e-05,
+        "hypersparse_btran_dense": 0.0,
+        "row_index": 0.0,
+        "btran": 0.000517301,
+        "hypersparse_ftran_empty": 0.0,
+        "hypersparse_upper_graph": 0.0,
+        "hypersparse_pricing_sparse": 0.0,
+        "hypersparse_weight_btran_dense": 0.0,
+        "hypersparse_weight_ftran_empty": 0.0,
+        "crash": 0.0,
+        "hypersparse_bfrt_sparse": 0.0,
+        "hypersparse_weight_btran_empty": 0.0,
+        "hypersparse_setup": 0.0
+      },
+      "kernel_calls": {
+        "hypersparse_ftran_sparse": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_bfrt_empty": [
+          0,
+          0,
+          0
+        ],
+        "refactorization": [
+          2,
+          2,
+          2
+        ],
+        "hypersparse_support": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_btran_sparse": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_weight_ftran_dense": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_pricing_dense": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_base_graph": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_btran_empty": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_weight_btran_sparse": [
+          0,
+          0,
+          0
+        ],
+        "ftran": [
+          22,
+          22,
+          22
+        ],
+        "hypersparse_weight_ftran_sparse": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_pricing_empty": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_bfrt_dense": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_ftran_dense": [
+          0,
+          0,
+          0
+        ],
+        "pricing": [
+          15,
+          15,
+          15
+        ],
+        "hypersparse_btran_dense": [
+          0,
+          0,
+          0
+        ],
+        "row_index": [
+          0,
+          0,
+          0
+        ],
+        "btran": [
+          15,
+          15,
+          15
+        ],
+        "hypersparse_ftran_empty": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_upper_graph": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_pricing_sparse": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_weight_btran_dense": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_weight_ftran_empty": [
+          0,
+          0,
+          0
+        ],
+        "crash": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_bfrt_sparse": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_weight_btran_empty": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_setup": [
+          0,
+          0,
+          0
+        ]
+      },
+      "event_counts": {
+        "flip_completed": 0,
+        "precision_boost": 0,
+        "phase_dual": 1,
+        "correction_attempt": 0,
+        "crash_pivot": 0,
+        "lp_refinement": 0,
+        "pricing_devex": 0,
+        "checkpoint": 0,
+        "restore_checkpoint": 0,
+        "correction": 0,
+        "artificial_removed": 0,
+        "phase_auxiliary": 1,
+        "pricing_pool_hit": 0,
+        "stagnation_fallback": 0,
+        "pricing_weight_rejected": 0,
+        "bound_flipped": 3,
+        "lp_correction_certification": 0,
+        "refactor_other": 2,
+        "pivot_completed": 7,
+        "feasibility_recovery": 0,
+        "pricing_full_scan": 8,
+        "pricing": 8,
+        "repair": 0,
+        "pricing_phase_reset": 0,
+        "primal_point_balanced": 0,
+        "refactor_pivot": 0,
+        "phase_crash": 0,
+        "stagnation_watch": 0,
+        "pricing_scored_entries": 21,
+        "phase_lp_refinement": 0,
+        "primal_projection_attempt": 0,
+        "crash_rejected_quality": 0,
+        "primal_point_corrected": 0,
+        "phase_one": 0,
+        "phase_cleanup": 1,
+        "refactor_growth": 0,
+        "crash_fallback": 0,
+        "certification": 2,
+        "refactor_residual": 0,
+        "certification_failed": 0,
+        "refactor_fill": 0,
+        "phase_primal": 1,
+        "primal_point_preserved": 0,
+        "pricing_block_scan": 0,
+        "pricing_trial_expired": 0,
+        "perturbation": 0,
+        "crash_rejected_fill": 0,
+        "primal_point_projected": 0,
+        "pricing_steepest_edge": 0,
+        "refactor_cost": 0,
+        "crash_accepted": 0,
+        "pricing_scanned_entries": 157,
+        "certificate_corrected": 0,
+        "primal_prices_corrected": 0,
+        "pivot_rejected": 0,
+        "pricing_progress_return": 0,
+        "refactor_initial": 2,
+        "restore_perturbations": 0,
+        "pricing_reset": 0,
+        "stagnation_cost_rebase": 0,
+        "refactor_limit": 0,
+        "pivot_proposed": 7,
+        "stagnation_stalled": 0,
+        "pricing_dantzig": 0
+      },
+      "cold": [
+        {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.108531302,
+          "seconds": 0.252460601,
+          "bytes": 98631064,
+          "compile_seconds": 0.245166182,
+          "mode": "plain",
+          "events": 1736571
+        },
+        {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.005727516,
+          "bytes": 10001160,
+          "compile_seconds": 0.0,
+          "mode": "diagnosed",
+          "events": 189222
+        }
+      ],
+      "parse_seconds": 0.001168403,
+      "profile_compile_seconds": 0.0
+    },
+    {
+      "stage": 2,
+      "id": "sc50a",
+      "scalar": "BigFloat",
+      "rows": 50,
+      "columns": 48,
+      "nnz": 130,
+      "iterations": 35,
+      "refactorizations": 3,
+      "seconds": 0.068149605,
+      "seconds_range": [
+        0.068094304,
+        0.070423905
+      ],
+      "bytes": 120205920,
+      "events": 2196300,
+      "gc_seconds": [
+        0.0069553,
+        0.006966801,
+        0.0071754
+      ],
+      "diagnosed_seconds": 0.069404905,
+      "profile_seconds_per_call": 0.272206442625,
+      "profile_samples": 577,
+      "categories": {
+        "presolve": 13,
+        "factorization": 86,
+        "basis solves": 281,
+        "other": 47,
+        "pricing": 23,
+        "cleanup/certification": 124,
+        "model/setup": 3
+      },
+      "shares": {
+        "presolve": 0.022530329289428077,
+        "factorization": 0.14904679376083188,
+        "basis solves": 0.48700173310225303,
+        "other": 0.08145580589254767,
+        "pricing": 0.03986135181975736,
+        "cleanup/certification": 0.21490467937608318,
+        "model/setup": 0.005199306759098787
+      },
+      "inclusive": [
+        [
+          "#solve#483 | solver.jl",
+          569
+        ],
+        [
+          "#_solve_diagnosed#485 | solver.jl",
+          569
+        ],
+        [
+          "_solve_diagnosed | solver.jl",
+          569
+        ],
+        [
+          "solve | solver.jl",
+          569
+        ],
+        [
+          "_solve_continuous_dual | dual_simplex.jl",
+          430
+        ],
+        [
+          "#_solve_continuous_dual#273 | dual_simplex.jl",
+          430
+        ],
+        [
+          "_timed_simplex | simplex.jl",
+          412
+        ],
+        [
+          "_diagnostic_kernel | simplex_diagnostics.jl",
+          412
+        ],
+        [
+          "_solve_continuous_dual_once! | dual_simplex.jl",
+          397
+        ],
+        [
+          "_solve_continuous_dual! | dual_simplex.jl",
+          397
+        ],
+        [
+          "_dual_optimize! | dual_simplex.jl",
+          329
+        ],
+        [
+          "#_dual_optimize!#272 | dual_simplex.jl",
+          329
+        ],
+        [
+          "_dual_iteration! | simplex_pivot.jl",
+          327
+        ],
+        [
+          "_dual_iteration_core! | simplex_pivot.jl",
+          327
+        ],
+        [
+          "_measure_basis_iteration! | refactorization_policy.jl",
+          327
+        ],
+        [
+          "_dual_iteration_entry! | dual_simplex.jl",
+          327
+        ],
+        [
+          "#_dual_iteration_unchecked!#253 | dual_simplex.jl",
+          327
+        ],
+        [
+          "_dual_iteration_unchecked! | dual_simplex.jl",
+          327
+        ],
+        [
+          "#_measure_basis_iteration!#20 | refactorization_policy.jl",
+          327
+        ],
+        [
+          "#dual_iteration!#251 | dual_simplex.jl",
+          327
+        ],
+        [
+          "#_dual_iteration!##0 | simplex_pivot.jl",
+          327
+        ],
+        [
+          "dual_iteration! | dual_simplex.jl",
+          327
+        ],
+        [
+          "_pipeline_basis_solve! | hypersparse_pipeline.jl",
+          295
+        ],
+        [
+          "#_pipeline_basis_solve!#222 | hypersparse_pipeline.jl",
+          295
+        ],
+        [
+          "forward_solve! | factorization.jl",
+          192
+        ],
+        [
+          "_backend_forward_solve! | factorization.jl",
+          190
+        ],
+        [
+          "_factorize_dense_basis | factorization.jl",
+          182
+        ],
+        [
+          "recompute! | simplex.jl",
+          168
+        ],
+        [
+          "#recompute!#208 | simplex.jl",
+          168
+        ],
+        [
+          "_make_dual_feasible! | dual_simplex.jl",
+          165
+        ]
+      ],
+      "nearest_julia_source": [
+        [
+          "_backend_forward_solve! | factorization.jl:129",
+          190
+        ],
+        [
+          "_factorize_dense_basis | factorization.jl:90",
+          182
+        ],
+        [
+          "_backend_transpose_solve! | factorization.jl:142",
+          109
+        ],
+        [
+          "_typed_ratio | numeric.jl:7",
+          9
+        ],
+        [
+          "update_dse! | dual_simplex.jl:608",
+          7
+        ],
+        [
+          "#_exact_rational##0 | presolve.jl:20",
+          6
+        ],
+        [
+          "_csc_price! | dual_simplex.jl:556",
+          6
+        ],
+        [
+          "_dual_pricing_score | dual_simplex.jl:289",
+          5
+        ],
+        [
+          "_dual_direction_residual_ok! | dual_simplex.jl:856",
+          3
+        ],
+        [
+          "_primal_sum_bounds | dual_simplex.jl:1499",
+          3
+        ],
+        [
+          "_upper_violation | simplex.jl:681",
+          2
+        ],
+        [
+          "forward_solve! | factorization.jl:169",
+          2
+        ],
+        [
+          "update_duals! | dual_simplex.jl:572",
+          2
+        ],
+        [
+          "_dual_row_residual_ratio | dual_simplex.jl:898",
+          2
+        ],
+        [
+          "#_finite_values##0 | dual_simplex.jl:38",
+          2
+        ],
+        [
+          "_dual_row_residual_ratio | dual_simplex.jl:890",
+          2
+        ],
+        [
+          "_subtract_scaled! | presolve_dependencies.jl:174",
+          2
+        ],
+        [
+          "_csc_price! | dual_simplex.jl:554",
+          2
+        ],
+        [
+          "dual_ratio_test | dual_simplex.jl:334",
+          2
+        ],
+        [
+          "_exact_rational | presolve.jl:18",
+          2
+        ],
+        [
+          "#_dual_iteration_unchecked!#253 | dual_simplex.jl:1201",
+          2
+        ],
+        [
+          "_dual_direction_residual_ok! | dual_simplex.jl:863",
+          2
+        ],
+        [
+          "_dual_direction_residual_ok! | dual_simplex.jl:851",
+          1
+        ],
+        [
+          "_dual_row_residual_ratio | dual_simplex.jl:889",
+          1
+        ],
+        [
+          "#_scale_shift##0 | transformations.jl:24",
+          1
+        ],
+        [
+          "_dual_direction_residual_ok! | dual_simplex.jl:849",
+          1
+        ],
+        [
+          "_internal_solution | dual_simplex.jl:1769",
+          1
+        ],
+        [
+          "_dual_direction_residual_ok! | dual_simplex.jl:841",
+          1
+        ],
+        [
+          "_dual_row_residual_ratio | dual_simplex.jl:894",
+          1
+        ],
+        [
+          "_bound_flipping_ratio_test | dual_simplex.jl:431",
+          1
+        ]
+      ],
+      "kernel_seconds": {
+        "hypersparse_ftran_sparse": 0.0,
+        "hypersparse_bfrt_empty": 0.0,
+        "refactorization": 0.010450201,
+        "hypersparse_support": 0.0,
+        "hypersparse_btran_sparse": 0.0,
+        "hypersparse_weight_ftran_dense": 0.0,
+        "hypersparse_pricing_dense": 0.0,
+        "hypersparse_base_graph": 0.0,
+        "hypersparse_btran_empty": 0.0,
+        "hypersparse_weight_btran_sparse": 0.0,
+        "ftran": 0.025813503,
+        "hypersparse_weight_ftran_sparse": 0.0,
+        "hypersparse_pricing_empty": 0.0,
+        "hypersparse_bfrt_dense": 0.0,
+        "hypersparse_ftran_dense": 0.0,
+        "pricing": 0.0009158,
+        "hypersparse_btran_dense": 0.0,
+        "row_index": 0.0,
+        "btran": 0.012129202,
+        "hypersparse_ftran_empty": 0.0,
+        "hypersparse_upper_graph": 0.0,
+        "hypersparse_pricing_sparse": 0.0,
+        "hypersparse_weight_btran_dense": 0.0,
+        "hypersparse_weight_ftran_empty": 0.0,
+        "crash": 0.0,
+        "hypersparse_bfrt_sparse": 0.0,
+        "hypersparse_weight_btran_empty": 0.0,
+        "hypersparse_setup": 0.0
+      },
+      "kernel_calls": {
+        "hypersparse_ftran_sparse": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_bfrt_empty": [
+          0,
+          0,
+          0
+        ],
+        "refactorization": [
+          3,
+          3,
+          3
+        ],
+        "hypersparse_support": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_btran_sparse": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_weight_ftran_dense": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_pricing_dense": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_base_graph": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_btran_empty": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_weight_btran_sparse": [
+          0,
+          0,
+          0
+        ],
+        "ftran": [
+          79,
+          79,
+          79
+        ],
+        "hypersparse_weight_ftran_sparse": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_pricing_empty": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_bfrt_dense": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_ftran_dense": [
+          0,
+          0,
+          0
+        ],
+        "pricing": [
+          71,
+          71,
+          71
+        ],
+        "hypersparse_btran_dense": [
+          0,
+          0,
+          0
+        ],
+        "row_index": [
+          0,
+          0,
+          0
+        ],
+        "btran": [
+          44,
+          44,
+          44
+        ],
+        "hypersparse_ftran_empty": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_upper_graph": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_pricing_sparse": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_weight_btran_dense": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_weight_ftran_empty": [
+          0,
+          0,
+          0
+        ],
+        "crash": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_bfrt_sparse": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_weight_btran_empty": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_setup": [
+          0,
+          0,
+          0
+        ]
+      },
+      "event_counts": {
+        "flip_completed": 0,
+        "precision_boost": 0,
+        "phase_dual": 1,
+        "correction_attempt": 0,
+        "crash_pivot": 0,
+        "lp_refinement": 0,
+        "pricing_devex": 0,
+        "checkpoint": 0,
+        "restore_checkpoint": 0,
+        "correction": 0,
+        "artificial_removed": 0,
+        "phase_auxiliary": 1,
+        "pricing_pool_hit": 0,
+        "stagnation_fallback": 0,
+        "pricing_weight_rejected": 0,
+        "bound_flipped": 4,
+        "lp_correction_certification": 0,
+        "refactor_other": 2,
+        "pivot_completed": 35,
+        "feasibility_recovery": 0,
+        "pricing_full_scan": 36,
+        "pricing": 36,
+        "repair": 0,
+        "pricing_phase_reset": 0,
+        "primal_point_balanced": 0,
+        "refactor_pivot": 0,
+        "phase_crash": 0,
+        "stagnation_watch": 0,
+        "pricing_scored_entries": 216,
+        "phase_lp_refinement": 0,
+        "primal_projection_attempt": 0,
+        "crash_rejected_quality": 0,
+        "primal_point_corrected": 0,
+        "phase_one": 0,
+        "phase_cleanup": 1,
+        "refactor_growth": 0,
+        "crash_fallback": 0,
+        "certification": 2,
+        "refactor_residual": 0,
+        "certification_failed": 0,
+        "refactor_fill": 0,
+        "phase_primal": 1,
+        "primal_point_preserved": 0,
+        "pricing_block_scan": 0,
+        "pricing_trial_expired": 0,
+        "perturbation": 0,
+        "crash_rejected_fill": 0,
+        "primal_point_projected": 0,
+        "pricing_steepest_edge": 0,
+        "refactor_cost": 0,
+        "crash_accepted": 0,
+        "pricing_scanned_entries": 1603,
+        "certificate_corrected": 0,
+        "primal_prices_corrected": 0,
+        "pivot_rejected": 0,
+        "pricing_progress_return": 0,
+        "refactor_initial": 2,
+        "restore_perturbations": 0,
+        "pricing_reset": 0,
+        "stagnation_cost_rebase": 0,
+        "refactor_limit": 1,
+        "pivot_proposed": 35,
+        "stagnation_stalled": 0,
+        "pricing_dantzig": 0
+      },
+      "cold": [
+        {
+          "gc_seconds": 0.02130736,
+          "recompile_seconds": 0.0,
+          "seconds": 0.088396046,
+          "bytes": 120197664,
+          "compile_seconds": 0.0,
+          "mode": "plain",
+          "events": 2196300
+        },
+        {
+          "gc_seconds": 0.007726421,
+          "recompile_seconds": 0.0,
+          "seconds": 0.069749494,
+          "bytes": 120206528,
+          "compile_seconds": 0.0,
+          "mode": "diagnosed",
+          "events": 2196300
+        }
+      ],
+      "parse_seconds": 0.000394501,
+      "profile_compile_seconds": 0.0
+    },
+    {
+      "stage": 3,
+      "id": "afiro",
+      "scalar": "Rational{BigInt}",
+      "rows": 27,
+      "columns": 32,
+      "nnz": 83,
+      "iterations": 9,
+      "refactorizations": 1,
+      "seconds": 0.008283502,
+      "seconds_range": [
+        0.007180901,
+        0.014934904
+      ],
+      "bytes": 27124608,
+      "events": 678485,
+      "gc_seconds": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "diagnosed_seconds": 0.008212502,
+      "profile_seconds_per_call": 0.067278553125,
+      "profile_samples": 101,
+      "categories": {
+        "presolve": 4,
+        "basis solves": 20,
+        "other": 12,
+        "cleanup/certification": 62,
+        "factorization": 3
+      },
+      "shares": {
+        "presolve": 0.039603960396039604,
+        "basis solves": 0.19801980198019803,
+        "other": 0.1188118811881188,
+        "cleanup/certification": 0.6138613861386139,
+        "factorization": 0.0297029702970297
+      },
+      "inclusive": [
+        [
+          "#solve#483 | solver.jl",
+          93
+        ],
+        [
+          "#_solve_diagnosed#485 | solver.jl",
+          93
+        ],
+        [
+          "_solve_diagnosed | solver.jl",
+          93
+        ],
+        [
+          "solve | solver.jl",
+          93
+        ],
+        [
+          "_timed_simplex | simplex.jl",
+          69
+        ],
+        [
+          "_diagnostic_kernel | simplex_diagnostics.jl",
+          69
+        ],
+        [
+          "cleanup_original | solver.jl",
+          62
+        ],
+        [
+          "_cleanup_or_retry_original | solver.jl",
+          62
+        ],
+        [
+          "#_cleanup_or_retry_original#480 | solver.jl",
+          62
+        ],
+        [
+          "#cleanup_original#478 | solver.jl",
+          62
+        ],
+        [
+          "_factorize_dense_basis | factorization.jl",
+          59
+        ],
+        [
+          "#recompute!#208 | simplex.jl",
+          57
+        ],
+        [
+          "recompute! | simplex.jl",
+          56
+        ],
+        [
+          "#213 | simplex.jl",
+          50
+        ],
+        [
+          "#211 | simplex.jl",
+          50
+        ],
+        [
+          "_measure_basis_factorization! | refactorization_policy.jl",
+          50
+        ],
+        [
+          "_refactorize_backend | factorization.jl",
+          50
+        ],
+        [
+          "#_measure_basis_factorization_cost!#22 | refactorization_policy.jl",
+          50
+        ],
+        [
+          "_measure_basis_factorization_cost! | refactorization_policy.jl",
+          50
+        ],
+        [
+          "#_measure_basis_factorization!#21 | refactorization_policy.jl",
+          50
+        ],
+        [
+          "refactorize! | factorization.jl",
+          50
+        ],
+        [
+          "_solve_continuous_dual | dual_simplex.jl",
+          26
+        ],
+        [
+          "#_solve_continuous_dual#273 | dual_simplex.jl",
+          26
+        ],
+        [
+          "_pipeline_basis_solve! | hypersparse_pipeline.jl",
+          22
+        ],
+        [
+          "#_pipeline_basis_solve!#222 | hypersparse_pipeline.jl",
+          22
+        ],
+        [
+          "_solve_continuous_dual_once! | dual_simplex.jl",
+          22
+        ],
+        [
+          "_solve_continuous_dual! | dual_simplex.jl",
+          22
+        ],
+        [
+          "_dual_optimize! | dual_simplex.jl",
+          18
+        ],
+        [
+          "#_dual_optimize!#272 | dual_simplex.jl",
+          18
+        ],
+        [
+          "_dual_iteration! | simplex_pivot.jl",
+          17
+        ]
+      ],
+      "nearest_julia_source": [
+        [
+          "_factorize_dense_basis | factorization.jl:90",
+          59
+        ],
+        [
+          "_backend_forward_solve! | factorization.jl:129",
+          12
+        ],
+        [
+          "_backend_transpose_solve! | factorization.jl:142",
+          9
+        ],
+        [
+          "_subtract_scaled! | presolve_dependencies.jl:157",
+          1
+        ],
+        [
+          "#_presolve_basic#450 | presolve.jl:189",
+          1
+        ],
+        [
+          "_bound_flipping_ratio_test | dual_simplex.jl:431",
+          1
+        ],
+        [
+          "_cleanup_primal_feasible! | solver.jl:204",
+          1
+        ],
+        [
+          "transpose_solve! | factorization.jl:202",
+          1
+        ],
+        [
+          "_report_problem_statistics | solver.jl:33",
+          1
+        ],
+        [
+          "_SolveDeadline | dual_simplex.jl:11",
+          1
+        ],
+        [
+          "#recompute!#208 | simplex.jl:458",
+          1
+        ],
+        [
+          "_validated_options | options.jl:0",
+          1
+        ],
+        [
+          "reduce_dependent_rows | presolve_dependencies.jl:229",
+          1
+        ],
+        [
+          "_propagate_row_bounds | presolve_propagation.jl:131",
+          1
+        ],
+        [
+          "_report_simplex_phase | simplex.jl:642",
+          1
+        ],
+        [
+          "forward_solve! | factorization.jl:169",
+          1
+        ]
+      ],
+      "kernel_seconds": {
+        "hypersparse_ftran_sparse": 0.0,
+        "hypersparse_bfrt_empty": 0.0,
+        "refactorization": 0.0010462,
+        "hypersparse_support": 0.0,
+        "hypersparse_btran_sparse": 0.0,
+        "hypersparse_weight_ftran_dense": 0.0,
+        "hypersparse_pricing_dense": 0.0,
+        "hypersparse_base_graph": 0.0,
+        "hypersparse_btran_empty": 0.0,
+        "hypersparse_weight_btran_sparse": 0.0,
+        "ftran": 0.0022447,
+        "hypersparse_weight_ftran_sparse": 0.0,
+        "hypersparse_pricing_empty": 0.0,
+        "hypersparse_bfrt_dense": 0.0,
+        "hypersparse_ftran_dense": 0.0,
+        "pricing": 0.0003504,
+        "hypersparse_btran_dense": 0.0,
+        "row_index": 0.0,
+        "btran": 0.0013817,
+        "hypersparse_ftran_empty": 0.0,
+        "hypersparse_upper_graph": 0.0,
+        "hypersparse_pricing_sparse": 0.0,
+        "hypersparse_weight_btran_dense": 0.0,
+        "hypersparse_weight_ftran_empty": 0.0,
+        "crash": 0.0,
+        "hypersparse_bfrt_sparse": 0.0,
+        "hypersparse_weight_btran_empty": 0.0,
+        "hypersparse_setup": 0.0
+      },
+      "kernel_calls": {
+        "hypersparse_ftran_sparse": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_bfrt_empty": [
+          0,
+          0,
+          0
+        ],
+        "refactorization": [
+          1,
+          1,
+          1
+        ],
+        "hypersparse_support": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_btran_sparse": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_weight_ftran_dense": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_pricing_dense": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_base_graph": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_btran_empty": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_weight_btran_sparse": [
+          0,
+          0,
+          0
+        ],
+        "ftran": [
+          24,
+          24,
+          24
+        ],
+        "hypersparse_weight_ftran_sparse": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_pricing_empty": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_bfrt_dense": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_ftran_dense": [
+          0,
+          0,
+          0
+        ],
+        "pricing": [
+          19,
+          19,
+          19
+        ],
+        "hypersparse_btran_dense": [
+          0,
+          0,
+          0
+        ],
+        "row_index": [
+          0,
+          0,
+          0
+        ],
+        "btran": [
+          15,
+          15,
+          15
+        ],
+        "hypersparse_ftran_empty": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_upper_graph": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_pricing_sparse": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_weight_btran_dense": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_weight_ftran_empty": [
+          0,
+          0,
+          0
+        ],
+        "crash": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_bfrt_sparse": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_weight_btran_empty": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_setup": [
+          0,
+          0,
+          0
+        ]
+      },
+      "event_counts": {
+        "flip_completed": 0,
+        "precision_boost": 0,
+        "phase_dual": 1,
+        "correction_attempt": 0,
+        "crash_pivot": 0,
+        "lp_refinement": 0,
+        "pricing_devex": 0,
+        "checkpoint": 0,
+        "restore_checkpoint": 0,
+        "correction": 0,
+        "artificial_removed": 0,
+        "phase_auxiliary": 0,
+        "pricing_pool_hit": 0,
+        "stagnation_fallback": 0,
+        "pricing_weight_rejected": 0,
+        "bound_flipped": 7,
+        "lp_correction_certification": 0,
+        "refactor_other": 1,
+        "pivot_completed": 9,
+        "feasibility_recovery": 0,
+        "pricing_full_scan": 10,
+        "pricing": 10,
+        "repair": 0,
+        "pricing_phase_reset": 0,
+        "primal_point_balanced": 0,
+        "refactor_pivot": 0,
+        "phase_crash": 0,
+        "stagnation_watch": 0,
+        "pricing_scored_entries": 34,
+        "phase_lp_refinement": 0,
+        "primal_projection_attempt": 0,
+        "crash_rejected_quality": 0,
+        "primal_point_corrected": 0,
+        "phase_one": 0,
+        "phase_cleanup": 1,
+        "refactor_growth": 0,
+        "crash_fallback": 0,
+        "certification": 2,
+        "refactor_residual": 0,
+        "certification_failed": 0,
+        "refactor_fill": 0,
+        "phase_primal": 1,
+        "primal_point_preserved": 0,
+        "pricing_block_scan": 0,
+        "pricing_trial_expired": 0,
+        "perturbation": 0,
+        "crash_rejected_fill": 0,
+        "primal_point_projected": 0,
+        "pricing_steepest_edge": 0,
+        "refactor_cost": 0,
+        "crash_accepted": 0,
+        "pricing_scanned_entries": 230,
+        "certificate_corrected": 0,
+        "primal_prices_corrected": 0,
+        "pivot_rejected": 0,
+        "pricing_progress_return": 0,
+        "refactor_initial": 2,
+        "restore_perturbations": 0,
+        "pricing_reset": 0,
+        "stagnation_cost_rebase": 0,
+        "refactor_limit": 0,
+        "pivot_proposed": 9,
+        "stagnation_stalled": 0,
+        "pricing_dantzig": 0
+      },
+      "cold": [
+        {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.106466424,
+          "seconds": 0.160530638,
+          "bytes": 51220088,
+          "compile_seconds": 0.148604735,
+          "mode": "plain",
+          "events": 1098374
+        },
+        {
+          "gc_seconds": 0.0,
+          "recompile_seconds": 0.0,
+          "seconds": 0.011508803,
+          "bytes": 27145504,
+          "compile_seconds": 0.0,
+          "mode": "diagnosed",
+          "events": 678485
+        }
+      ],
+      "parse_seconds": 0.001685801,
+      "profile_compile_seconds": 0.0
+    },
+    {
+      "stage": 3,
+      "id": "sc50a",
+      "scalar": "Rational{BigInt}",
+      "rows": 50,
+      "columns": 48,
+      "nnz": 130,
+      "iterations": 25,
+      "refactorizations": 2,
+      "seconds": 0.1306255,
+      "seconds_range": [
+        0.096548201,
+        0.1447922
+      ],
+      "bytes": 191287368,
+      "events": 4770133,
+      "gc_seconds": [
+        0.0336688,
+        0.0447794,
+        0.030007801
+      ],
+      "diagnosed_seconds": 0.142605901,
+      "profile_seconds_per_call": 0.68696930325,
+      "profile_samples": 950,
+      "categories": {
+        "presolve": 14,
+        "factorization": 55,
+        "basis solves": 303,
+        "other": 271,
+        "pricing": 10,
+        "model/setup": 3,
+        "cleanup/certification": 294
+      },
+      "shares": {
+        "presolve": 0.014736842105263158,
+        "factorization": 0.05789473684210526,
+        "basis solves": 0.31894736842105265,
+        "other": 0.28526315789473683,
+        "pricing": 0.010526315789473684,
+        "model/setup": 0.003157894736842105,
+        "cleanup/certification": 0.3094736842105263
+      },
+      "inclusive": [
+        [
+          "#solve#483 | solver.jl",
+          705
+        ],
+        [
+          "#_solve_diagnosed#485 | solver.jl",
+          705
+        ],
+        [
+          "_solve_diagnosed | solver.jl",
+          705
+        ],
+        [
+          "solve | solver.jl",
+          705
+        ],
+        [
+          "_timed_simplex | simplex.jl",
+          555
+        ],
+        [
+          "_diagnostic_kernel | simplex_diagnostics.jl",
+          555
+        ],
+        [
+          "_solve_continuous_dual | dual_simplex.jl",
+          396
+        ],
+        [
+          "#_solve_continuous_dual#273 | dual_simplex.jl",
+          396
+        ],
+        [
+          "_solve_continuous_dual_once! | dual_simplex.jl",
+          366
+        ],
+        [
+          "_solve_continuous_dual! | dual_simplex.jl",
+          366
+        ],
+        [
+          "_dual_optimize! | dual_simplex.jl",
+          347
+        ],
+        [
+          "#_dual_optimize!#272 | dual_simplex.jl",
+          347
+        ],
+        [
+          "_dual_iteration_entry! | dual_simplex.jl",
+          343
+        ],
+        [
+          "#dual_iteration!#251 | dual_simplex.jl",
+          343
+        ],
+        [
+          "dual_iteration! | dual_simplex.jl",
+          343
+        ],
+        [
+          "_dual_iteration! | simplex_pivot.jl",
+          342
+        ],
+        [
+          "_dual_iteration_core! | simplex_pivot.jl",
+          342
+        ],
+        [
+          "_measure_basis_iteration! | refactorization_policy.jl",
+          342
+        ],
+        [
+          "#_dual_iteration_unchecked!#253 | dual_simplex.jl",
+          342
+        ],
+        [
+          "_dual_iteration_unchecked! | dual_simplex.jl",
+          342
+        ],
+        [
+          "#_measure_basis_iteration!#20 | refactorization_policy.jl",
+          342
+        ],
+        [
+          "#_dual_iteration!##0 | simplex_pivot.jl",
+          342
+        ],
+        [
+          "_pipeline_basis_solve! | hypersparse_pipeline.jl",
+          325
+        ],
+        [
+          "#_pipeline_basis_solve!#222 | hypersparse_pipeline.jl",
+          325
+        ],
+        [
+          "_factorize_dense_basis | factorization.jl",
+          317
+        ],
+        [
+          "cleanup_original | solver.jl",
+          294
+        ],
+        [
+          "#cleanup_original#478 | solver.jl",
+          294
+        ],
+        [
+          "_cleanup_or_retry_original | solver.jl",
+          294
+        ],
+        [
+          "#_cleanup_or_retry_original#480 | solver.jl",
+          294
+        ],
+        [
+          "#recompute!#208 | simplex.jl",
+          279
+        ]
+      ],
+      "nearest_julia_source": [
+        [
+          "_factorize_dense_basis | factorization.jl:90",
+          317
+        ],
+        [
+          "_backend_forward_solve! | factorization.jl:129",
+          239
+        ],
+        [
+          "_backend_transpose_solve! | factorization.jl:142",
+          88
+        ],
+        [
+          "_csc_price! | dual_simplex.jl:556",
+          6
+        ],
+        [
+          "#_finite_values##0 | dual_simplex.jl:38",
+          5
+        ],
+        [
+          "_subtract_scaled! | presolve_dependencies.jl:174",
+          5
+        ],
+        [
+          "#_dual_iteration_unchecked!#253 | dual_simplex.jl:1433",
+          4
+        ],
+        [
+          "update_duals! | dual_simplex.jl:572",
+          3
+        ],
+        [
+          "update_dse! | dual_simplex.jl:608",
+          3
+        ],
+        [
+          "_project_postsolve_basis! | solver.jl:108",
+          3
+        ],
+        [
+          "_upper_violation | simplex.jl:681",
+          3
+        ],
+        [
+          "_subtract_scaled! | presolve_dependencies.jl:168",
+          2
+        ],
+        [
+          "transpose_solve! | factorization.jl:202",
+          2
+        ],
+        [
+          "_bound_flipping_ratio_test | dual_simplex.jl:418",
+          2
+        ],
+        [
+          "== | numeric.jl:29",
+          1
+        ],
+        [
+          "forward_solve! | factorization.jl:169",
+          1
+        ],
+        [
+          "_bound_flipping_ratio_test | dual_simplex.jl:431",
+          1
+        ],
+        [
+          "_report_simplex_progress | simplex.jl:661",
+          1
+        ],
+        [
+          "reduce_dependent_rows | presolve_dependencies.jl:229",
+          1
+        ],
+        [
+          "dual_infeasibility_summary | simplex.jl:591",
+          1
+        ],
+        [
+          "#replace_column!#100 | factorization.jl:287",
+          1
+        ],
+        [
+          "_recompute_reduced_costs! | simplex.jl:398",
+          1
+        ],
+        [
+          "_typed_ratio | numeric.jl:7",
+          1
+        ],
+        [
+          "#cleanup_original#478 | solver.jl:220",
+          1
+        ],
+        [
+          "reduce_dependent_rows | presolve_dependencies.jl:232",
+          1
+        ],
+        [
+          "_original_costs_active | simplex_driver.jl:241",
+          1
+        ],
+        [
+          "#recompute!#208 | simplex.jl:461",
+          1
+        ],
+        [
+          "restore_basis | presolve.jl:261",
+          1
+        ],
+        [
+          "_primal_row_bounds | dual_simplex.jl:1554",
+          1
+        ],
+        [
+          "postsolve_primal | presolve.jl:207",
+          1
+        ]
+      ],
+      "kernel_seconds": {
+        "hypersparse_ftran_sparse": 0.0,
+        "hypersparse_bfrt_empty": 0.0,
+        "refactorization": 0.0092614,
+        "hypersparse_support": 0.0,
+        "hypersparse_btran_sparse": 0.0,
+        "hypersparse_weight_ftran_dense": 0.0,
+        "hypersparse_pricing_dense": 0.0,
+        "hypersparse_base_graph": 0.0,
+        "hypersparse_btran_empty": 0.0,
+        "hypersparse_weight_btran_sparse": 0.0,
+        "ftran": 0.017788901,
+        "hypersparse_weight_ftran_sparse": 0.0,
+        "hypersparse_pricing_empty": 0.0,
+        "hypersparse_bfrt_dense": 0.0,
+        "hypersparse_ftran_dense": 0.0,
+        "pricing": 0.0008682,
+        "hypersparse_btran_dense": 0.0,
+        "row_index": 0.0,
+        "btran": 0.0573473,
+        "hypersparse_ftran_empty": 0.0,
+        "hypersparse_upper_graph": 0.0,
+        "hypersparse_pricing_sparse": 0.0,
+        "hypersparse_weight_btran_dense": 0.0,
+        "hypersparse_weight_ftran_empty": 0.0,
+        "crash": 0.0,
+        "hypersparse_bfrt_sparse": 0.0,
+        "hypersparse_weight_btran_empty": 0.0,
+        "hypersparse_setup": 0.0
+      },
+      "kernel_calls": {
+        "hypersparse_ftran_sparse": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_bfrt_empty": [
+          0,
+          0,
+          0
+        ],
+        "refactorization": [
+          2,
+          2,
+          2
+        ],
+        "hypersparse_support": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_btran_sparse": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_weight_ftran_dense": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_pricing_dense": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_base_graph": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_btran_empty": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_weight_btran_sparse": [
+          0,
+          0,
+          0
+        ],
+        "ftran": [
+          57,
+          57,
+          57
+        ],
+        "hypersparse_weight_ftran_sparse": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_pricing_empty": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_bfrt_dense": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_ftran_dense": [
+          0,
+          0,
+          0
+        ],
+        "pricing": [
+          51,
+          51,
+          51
+        ],
+        "hypersparse_btran_dense": [
+          0,
+          0,
+          0
+        ],
+        "row_index": [
+          0,
+          0,
+          0
+        ],
+        "btran": [
+          32,
+          32,
+          32
+        ],
+        "hypersparse_ftran_empty": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_upper_graph": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_pricing_sparse": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_weight_btran_dense": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_weight_ftran_empty": [
+          0,
+          0,
+          0
+        ],
+        "crash": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_bfrt_sparse": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_weight_btran_empty": [
+          0,
+          0,
+          0
+        ],
+        "hypersparse_setup": [
+          0,
+          0,
+          0
+        ]
+      },
+      "event_counts": {
+        "flip_completed": 0,
+        "precision_boost": 0,
+        "phase_dual": 1,
+        "correction_attempt": 0,
+        "crash_pivot": 0,
+        "lp_refinement": 0,
+        "pricing_devex": 0,
+        "checkpoint": 0,
+        "restore_checkpoint": 0,
+        "correction": 0,
+        "artificial_removed": 0,
+        "phase_auxiliary": 0,
+        "pricing_pool_hit": 0,
+        "stagnation_fallback": 0,
+        "pricing_weight_rejected": 0,
+        "bound_flipped": 2,
+        "lp_correction_certification": 0,
+        "refactor_other": 1,
+        "pivot_completed": 25,
+        "feasibility_recovery": 0,
+        "pricing_full_scan": 26,
+        "pricing": 26,
+        "repair": 0,
+        "pricing_phase_reset": 0,
+        "primal_point_balanced": 0,
+        "refactor_pivot": 0,
+        "phase_crash": 0,
+        "stagnation_watch": 0,
+        "pricing_scored_entries": 149,
+        "phase_lp_refinement": 0,
+        "primal_projection_attempt": 0,
+        "crash_rejected_quality": 0,
+        "primal_point_corrected": 0,
+        "phase_one": 0,
+        "phase_cleanup": 1,
+        "refactor_growth": 0,
+        "crash_fallback": 0,
+        "certification": 2,
+        "refactor_residual": 0,
+        "certification_failed": 0,
+        "refactor_fill": 0,
+        "phase_primal": 1,
+        "primal_point_preserved": 0,
+        "pricing_block_scan": 0,
+        "pricing_trial_expired": 0,
+        "perturbation": 0,
+        "crash_rejected_fill": 0,
+        "primal_point_projected": 0,
+        "pricing_steepest_edge": 0,
+        "refactor_cost": 0,
+        "crash_accepted": 0,
+        "pricing_scanned_entries": 1048,
+        "certificate_corrected": 0,
+        "primal_prices_corrected": 0,
+        "pivot_rejected": 0,
+        "pricing_progress_return": 0,
+        "refactor_initial": 2,
+        "restore_perturbations": 0,
+        "pricing_reset": 0,
+        "stagnation_cost_rebase": 0,
+        "refactor_limit": 1,
+        "pivot_proposed": 25,
+        "stagnation_stalled": 0,
+        "pricing_dantzig": 0
+      },
+      "cold": [
+        {
+          "gc_seconds": 0.059892813,
+          "recompile_seconds": 0.0,
+          "seconds": 0.151895035,
+          "bytes": 191277800,
+          "compile_seconds": 0.0,
+          "mode": "plain",
+          "events": 4770133
+        },
+        {
+          "gc_seconds": 0.066435415,
+          "recompile_seconds": 0.0,
+          "seconds": 0.142181833,
+          "bytes": 191226952,
+          "compile_seconds": 0.0,
+          "mode": "diagnosed",
+          "events": 4770133
+        }
+      ],
+      "parse_seconds": 0.000462201,
+      "profile_compile_seconds": 0.0
+    }
+  ],
+  "sha256": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MASTER-PROFILE/run-1/afiro-stacks.toml": "66b3a3622ac13e74c407baf71648055ab394f9b4c954cedce1697bde2051bef2",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MASTER-PROFILE/run-1/adlittle.toml": "641fd8b43aefb2c22eedb9c5ecd5b5c6969a94278c4a611702094c172f8ff5af",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MASTER-PROFILE/run-1/sc50a.toml": "639cf27ba33ed61a8c95a8730f6b54ffd6815a2b6bafd149b1255de930227542",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MASTER-PROFILE/run-1/primal-chain130-stacks.toml": "e7ee9a8b1c901638a20f78d110e8e1d48684e7eff8b67857b74efc4a54f56b27",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MASTER-PROFILE/run-1/afiro.toml": "6222e834df6bcf212d3f9e1c332bb570b8121dbb5c6a7f567404352b44d36e40",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MASTER-PROFILE/run-1/adlittle-stacks.toml": "de4754898742bd8e843226c5a40621fac6cb3e156c0b5e4a20473fb28191c802",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MASTER-PROFILE/run-1/raw.toml": "9ab26df36a24b037ddbea653e7f6afe20f08e2e78ae9c09be7a412905fea9d95",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MASTER-PROFILE/run-1/primal-chain130.toml": "0237108b848ef54041679b761aa48ced4e1b97517cd8a5bfad18059197067597",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MASTER-PROFILE/run-1/sc50a-stacks.toml": "309b29b67ce8090cafbccf5d3f487ba594cd13fe37c41aa64b91d27a7a27e5d0",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MASTER-PROFILE/run-2/afiro-stacks.toml": "57ea22da836e765a514c35ad9aa78112dd039708d7a6e8e669d8dc08c50a93f2",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MASTER-PROFILE/run-2/sc50a.toml": "f4ee6bcdb92b3717117f9987bd66ca3e1e483b40c81d9cd8b08c0ab94145aec1",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MASTER-PROFILE/run-2/afiro.toml": "513a74e40b1bd9683880c5f1bf168558fafbf69007b2cde068d21478c85b0a7b",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MASTER-PROFILE/run-2/raw.toml": "f0f67eafbe6e2e5e986b426cb3e13cc135bcdb3acd9070281e647fdc7a7a605f",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MASTER-PROFILE/run-2/sc50a-stacks.toml": "7d1590586835a31de952aba67aeb0cf9ab9ed84ac2f871ce2f74050fa1959437",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MASTER-PROFILE/run-3/afiro-stacks.toml": "bfe63229d4e36f3e92fc52660e4277f9ec4c58190200a79e57f8aab8c950938e",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MASTER-PROFILE/run-3/sc50a.toml": "a39e7347ce11246509f7636447ae70f1e8cba601e95366827d6f7ce9b06f8248",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MASTER-PROFILE/run-3/afiro.toml": "75044b19d3c954878949272b2256d7160b16b08e3e9cbf9e1619de78d40f36ce",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MASTER-PROFILE/run-3/raw.toml": "2e9fd2e191d3a15a8c5c4c01f816156063df10195572dc92a2a54835dd53550b",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MASTER-PROFILE/run-3/sc50a-stacks.toml": "8c3708b4bcb4d270805034d9990ad4024e00ebb56f2582b070e1b9856f077b2b"
+  }
+}

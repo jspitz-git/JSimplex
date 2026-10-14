@@ -2255,3 +2255,18 @@ without asking again, while prohibiting multi-hour runs. New concrete technical
 admission/resource caps remain mandatory; frozen consumed attempts and stopped
 routes stay closed. Automation remains paused. Z final continuation bindings map
 only AA before-S4-AA copies; older mappings unchanged. Broader plan remains open.
+
+## Current-master profiling decision (2026-10-14)
+
+See `diagnostics/simplex-core-architecture/CURRENT-MASTER-TIME-BREAKDOWN.md`.
+New bounded characterization of master6f68e24 completed: three exit0 processes,
+135.351692s inclusive,8small LP/scalar cases,376solver entries,all correctness and
+compile-zero gates passed. No production change or historical speedup comparison.
+Float64 points to exact presolve work; BigFloat256/rational native dense basis
+solves and factorizations dominate. Profiling overhead3.99–8.93x and small cases
+limit extrapolation. Recommend a separate NEW source/design contract for private
+scalar scratch in BigFloat native DenseLU forward/transpose solves, preserving
+permutations, arithmetic order, ownership, precision and exceptions. No candidate
+or launch automatically admitted; old Markowitz/HH/DSE/cleanup rejections remain.
+Six current MA-P continuation bindings map only to MASTER-PROFILE beforecopies;
+all older mappings/evidence unchanged. Broader S2/S3/S4/S5/S6/MA remain open.

@@ -47,22 +47,23 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-MA-P completed the independently admitted short RHS propagation experiment.
-All1133correctness flags/117records pass; three exit0 processes, each14auditgates,
-4000launchpins/73trees and17postchecks pass. 64cases/3840windows/61440timedcalls,
-measuredcompile/recompile0; all28GCwindows retained. Total guard duration24.279844s.
-Only5/64cases meet the frozen descriptive consistent-benefit rule: zeroQ,
-twoBigFloat dense equal-bound32 cases, threeFloat64 cases. No general production
-admission; scratch initialization penalizes short/zero/simple paths. Long Q
-allocation savings alone do not establish speedup. See MA-RHS-PROPAGATION.md
-and results/MA-P for all ratios/bytes/events and independent review.
-Allthree slots consumed; no retry/tuning/promotion/automaticnewvariant.
-Production/test/env/master6f68e24 unchanged; CIoff,HHdisabled,automationpaused.
-Full152groups ANDsessions absent/noJulia. SixMA-O current continuation-map,
-closure/publication STATUS/roadmap bindings map ONLY to MA-P beforecopies.
-Older mappings and MA-O rejection remain unchanged. AllMA-P/O and older evidence
-frozen NEVER RERUN/rewrite. Broaderplan OPEN; other authorized independent work
-may proceed within its gates. A narrower RHS design needs its own concrete plan.
+Current-master short profiling completed (master6f68e24), see
+CURRENT-MASTER-TIME-BREAKDOWN.md and results/MASTER-PROFILE.
+Three exit0 guarded processes,total135.351692s,376solver entries/8cases,
+48measured windows compile/recompile0; all12auditgates each and10postchecks pass.
+Float64 small-LP samples mostly presolve; high-precision native dense factor/solve
+work dominates. BigFloat256 sc50a median68.150ms/120.21MB, with diagnosed FTRAN
+25.81ms/79calls and BTRAN12.13ms/44calls. Sampling has3.99–8.93x overhead:
+category shares are approximate stack shares, not exact ordinary wall fractions.
+Recommended next NEW bounded source/design step: private-scratch BigFloat native
+DenseLU forward/transpose solve eligibility/ownership/order contract. No candidate
+or numerical launch accepted by profiling; rejected Markowitz/HH/DSE/cleanup
+routes remain stopped. Float64 presolve conversion reuse is secondary and unproved.
+MA-P remains completed/unpromoted; no old reruns. Broader plan OPEN.
+AllMASTER-PROFILE raw/scripts/pins/reviews frozen after closure; six exact MA-P
+current closure/publication/result-review continuation bindings map only to
+MASTER-PROFILE beforecopies. Complete158groups ANDsessions absent/noJulia.
+Production/test/environment/master unchanged; CIoff,HHdisabled,automationpaused.
 
 ## Previous MA-O qualification (completed)
 
