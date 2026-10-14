@@ -2637,3 +2637,33 @@ refs/boot/start_ticks/command/fullgroups/sessions, not reuse MA-Y/posthost.json.
 Six MA-X current closure/publication/continuation STATUS/roadmap bindings map ONLY
 to MA-Y beforecopies; alloldermaps preserved. No production/test/env/CI/master
 change; master6f68e24, CIoff, HHdisabled, automationpaused unchanged.
+
+## MA-Y-FALLBACK: completed offline failure analysis
+
+MA-Y-FALLBACK completed: direct human-requested SOURCE/STORED-EVIDENCE analysis
+of both MA-Y failed controls; no Julia or measurement/old-auditor rerun.
+See MA-DENSELU-COMPLETE-FALLBACK-ANALYSIS.md and results/MA-Y-FALLBACK/review.
+New20checks/36readtime hashes (13original launch-bound) cover480control pairs,
+336measured/144warm and960windows with exact two-record journal linkage.
+Scoped BigFloat: all42measured pairs equal bytes/events; old MA-S-2 added
+128bytes/8events absent. Process3 BTRAN reference median=pair7,299.575us,
+candidate=pair5,351.150us; two excess windows4/7 have no recorded GC/compile
+and opposite order. Rank arithmetic explained; runtime timing cause unresolved.
+Rational:20positive/18negative/4zero byte deltas across42pairs, all events equal;
+process3 FTRAN side median+32bytes versus paired delta median+48, not fixed
+per-call overhead. Source rejects Rational before rounding/scratch/MA; saved
+native usable-size accounting is compatible, not captured causal attribution.
+No numerical defect, guaranteed zero guard time, allocator-cause or speedup proof.
+
+MA-Y remains NOT ACCEPTED, allowance consumed, both failed gates unchanged.
+This bounded requested investigation is complete; do not repeat equivalent
+inventories or the unchanged52-case run. No candidate/driver/admission/retry or
+Task3 production integration is opened. Any future causal observation needs a
+separate concrete reviewed design; broader plan remains OPEN. CIoff/HHdisabled/
+automationpaused unchanged, master6f68e24 unchanged.
+
+Fresh176groups ORsessions/noJulia/refs verified before continuation changes.
+MA-Y current closure/publication/continuation STATUS/roadmap hashes map ONLY to
+MA-Y-FALLBACK beforecopies (six exact bindings). Older X/Y and earlier maps stay.
+All prior and new analysis scripts/raw/reviews remain FROZEN NEVER RERUN/rewrite.
+Before future continuation/numerical work require fresh host identities and refs.
