@@ -2524,3 +2524,38 @@ V/run-1 and run-2/process.json and EXEC/posthost.json. Next real work needs fres
 host refs/boot/start_ticks/command/full170groups ANDsessions, not stale host reuse.
 Master6f68e24/source/test/userenv unchanged; CIoff/HHdisabled/automationpaused.
 Broader S2/S3/S4/S5/S6 and MA performance plan remain OPEN.
+
+## MA-W complete-candidate qualification design (2026-10-14)
+
+MA-W complete-candidate qualification design accepted, SOURCE/DESIGN ONLY.
+See docs/superpowers/plans/2026-10-14-ma-denselu-complete-qualification.md and
+MA-W/review.md/json. Exact unchanged MA-U candidate; original52cost cases and
+strict MA-S-2 paired-ratio target/side-median control reducers, no Rational waiver.
+No new candidate/driver/launcher/Julia/parser/import/compile/numerics in MA-W.
+
+Next concrete step MA-X: prepare NEW complete immutable offline admission/driver,
+using MA-S-LOAD corrected cold dispatch boundaries, MA-U candidate/instrumented,
+MA-R reference/tests/fixtures. Add partial-record preservation and strict per-process
+cost refusal before any next process. Freeze exact commands, schema, source/runtime/
+environment hashes and independent admission review BEFORE a future numerical seal.
+Future MA-Y at most3serial processes90s each/270total, one attempt, no retry/tuning;
+standing human short-run permission persists, no repeated permission question.
+
+Prospective complete budget:160correctness cases/488direct smoke+correctness entries,
+12,480cost entries/3,120windows/2,184measured/936warm,318setup factorizations including
+2PFI constructors and2PFI copies; nested/backend/import work additional. Reuse MA-V
+mode/owner coverage only by exact source identity; no duplicate840case/micro run.
+All52 must pass. Rational bytes/events strict no-increase per process; time budgets
+unchanged. Any failed process gate stops later processes. No causal allocation claim
+from equal events or even a future PASS. If Rational alone fails, stop the unchanged
+full-candidate route; no automatic repeat or allocator investigation.
+
+MA-S-2 stays rejected48/52. MA-V local guard acceptance remains separate; its sequence
+is consumed and all evidence frozen. Component PASS would still require separate
+production compatibility/dependency/PFI/public afiro-sc50a admission before integration.
+All old frozen scripts/raw/reviews remain untouched; no automatic old52case rerun.
+Six V-EXEC current closure/publication/continuation STATUS/roadmap bindings map ONLY
+to MA-W beforecopies through continuation-map.json; all older mappings preserved.
+Before real new work refresh refs/boot/start_ticks/command/full170groups ANDsessions/
+noJulia; stale MA-W host is not a fresh preflight. Master6f68e24/source514/protected6
+unchanged; CIoff/HHdisabled/automationpaused; broader performance plan OPEN.
