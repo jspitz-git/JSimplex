@@ -2799,3 +2799,27 @@ DIRECT-LU-PREPARATION/STATUS.md.before-preparation and roadmap.md.before-prepara
 under the diagnostic results directory (four explicit continuation.json mappings).
 All older maps and artifacts remain frozen. Broader programme stays open;
 CIoff/HHdisabled/automationpaused.
+
+## 2026-10-15: direct-LU short-run admission prepared
+
+The concrete OFFLINE RED/correctness driver and launch controls are independently
+accepted; no Julia or admission process ran. See DIRECT-LU-ADMISSION.md and
+results/DIRECT-LU-ADMISSION/admission-reviewed.md. Fixed reference contract RED
+expects3failures <=30s; GREEN expects19,527 assertions <=90s. Both limits include
+hashing/import/compilation/termination. Work is accounted prospectively, including
+1,147 explicit updates; no complete native/import bound or speedup claim.
+Initial syntax failure and rejected review remain frozen. Separate corrections
+fix the work ledger and enforce exact unchanged RED predecessor evidence before
+GREEN sealing and launch.35initial+56amendment synthetic checks pass; independent
+review verified4,404 inventory entries and56 exact required-file bindings with no
+unresolved findings or unnecessary production work/memory change.
+
+Next is fresh seal-reviewed.py red, exact independent RED stage admission and one
+short RED attempt; only accepted complete RED permits separate GREEN admission.
+No further human permission question is needed. No cost or public integration
+stage, numerical retry or production promotion follows automatically. Actual
+src/test/env/CI/master and candidate files remain unchanged. Previous preparation
+closure/publication current continuation keys map only to this admission's
+STATUS.md.before-admission and roadmap.md.before-admission; four explicit keys in
+continuation.json, all older mappings unchanged. CIoff/HHdisabled/automationpaused;
+broader plan stays open.

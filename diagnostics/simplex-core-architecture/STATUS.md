@@ -47,27 +47,31 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-Direct LU / Markowitz Tasks1–2 isolated candidate/test preparation is complete
-and independently accepted OFFLINE after one test-coverage amendment. See
-[preparation report](DIRECT-LU-PREPARATION.md) and
-results/DIRECT-LU-PREPARATION/review-final.md. Candidate files are under
-`diagnostics/direct-lu-markowitz/reproduce/`; actual src/test/env/CI/master
-remain unchanged. No Julia query/parser/import/compile/test/measurement was run.
-Six prospective test groups cover common export, FT/SS/BG with native/Markowitz,
-scaling selection, ownership, copies, aliases, updates and fallback transitions.
+Direct LU / Markowitz Tasks1–2 short-run admission preparation is complete and
+independently accepted OFFLINE. See [admission report](DIRECT-LU-ADMISSION.md),
+results/DIRECT-LU-ADMISSION/admission-reviewed.md and preparation-review-final.md.
+The canonical package has4,404 read-time bindings,56 exact review-required files,
+35 initial plus56 separate amendment synthetic checks. Initial syntax failure,
+rejected review and all initial files/pins remain preserved. Corrected work ledger
+has1,147 explicit updates; the fixed GREEN schedule remains19,527 assertions.
+No Julia/query/parser/import/compile/numerics or stage process was executed.
 
-Next: prepare concrete RED<=30s and correctness<=90s admission under
-`docs/superpowers/plans/2026-10-14-direct-lu-markowitz.md`: explicit driver calls,
-complete test-only work/counts, focused unchanged tests, runtime/environment
-bindings, raw/log preservation and output reservation; fresh host preflight and
-independent admission review before execution. Standing short-run permission is
-sufficient. Task3 cost and Task4 public integration remain later separate stages.
-No claim of parse/dispatch success, numerical correctness or speedup yet.
+Next: run seal-reviewed.py red to bind fresh refs/boot/full prior196 groups AND
+sessions/noJulia and exact immutable inputs, obtain fresh independent concrete
+RED admission, then one expected-failure RED <=30s inclusive. Inspect complete
+raw/counts/process/logs before separately sealing/reviewing GREEN <=90s inclusive.
+launch-reviewed.py and audit_reviewed.py are canonical; old unreviewed controls
+are frozen/rejected. GREEN prerequisites verify the exact RED artifact set and
+unchanged audit hashes at both sealing and launch. Each stage has one attempt;
+no automatic retry, cost run or production promotion. Standing short-run permission
+is sufficient; no repeated human approval question. Task3 cost and Task4 public
+integration remain later separate stages. No correctness or speedup claim yet.
 
-The plan/spec and all previous evidence stay frozen. Previous plan closure and
-publication current STATUS/roadmap keys map ONLY to
-results/DIRECT-LU-PREPARATION/{STATUS.md,roadmap.md}.before-preparation;
-continuation.json identifies all four exact keys. Older mappings remain intact.
+Candidate and accepted plan/spec remain frozen; production/test/env/master stay
+unchanged at6f68e24. Previous preparation closure/publication current STATUS/roadmap
+keys map ONLY to results/DIRECT-LU-ADMISSION/STATUS.md.before-admission and
+roadmap.md.before-admission (four explicit continuation.json mappings). Older
+DIRECT-LU-PREPARATION before-preparation maps and all earlier mappings remain.
 The old micro-optimization programme remains open but is not the active next
 step. No rejected route is reopened. CIoff/HHdisabled/automationpaused.
 
