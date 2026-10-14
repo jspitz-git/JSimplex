@@ -47,25 +47,26 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-MA-S-2 executed once and closed: three exit0 processes, stage audits23/21/21PASS,
-160correctness cases/4329assertions plus16smoke; exact expected missing-route RED2.
-Corrected LOAD driver works in this sequence. All36BigFloat targets pass, but four
-fallback controls fail allocation gates: aggregate48/52,accepted=false. Targets
-paired medians0.535572–0.743382; no end-to-end speedup claim or production promotion.
-BigFloat scoped fallback+128bytes/+8events per4calls, rational fallback+0–32bytes
-with unchanged event counts. All control time gates pass; causes remain unproved.
-3120windows/2184measured,compile/recompile0,52GCwindows(39measured)retained.
-New result-analysis16PASS/postcheck18PASS/full4304pins/source514/protected6,
-full166groups ANDsessions absent/noJulia. Three durations total39.348553s NOTbenchmark.
-See MA-DENSELU-BIGFLOAT-SECOND-QUALIFICATION.md and results/MA-S-2/result-review.
-No rerun/tuning/threshold change or Task3 integration; sequence consumed/frozen.
-Next useful work: separate bounded offline fallback-allocation analysis using stored
-results and pinned sources, then independent review before any changed candidate
-or new admitted short experiment. No numerical retry is authorized by this record.
-Standing short-run permission persists; broader plan OPEN. Eight current MA-S-2
-review/seal/closure/publication continuation bindings map ONLY to before-MA-S-2-
-execution copies via execution-continuation-map.json; all older mappings unchanged.
-Production/test/userenv/master6f68e24 unchanged; CIoff/HHdisabled/automationpaused.
+MA-S-FALLBACK bounded SOURCE/STORED-EVIDENCE analysis completed without Julia or
+new measurements. All336measured control pairs analyzed: BigFloat scoped42pairs
+have invariant+128bytes/+8events per4calls, bothorders/directions/processes; extra
+present scoped rounding lookup is leading source-supported suspect, exact emitted
+objects/cause UNPROVEN. Rational42pairs:21positive/19negative/2zero byte deltas,
+all event deltas0; immediate type fallback bypasses rounding/MA/scratch. Native
+usable-size accounting compatible, not captured causal proof. Same-binary S4-O
+instruction evidence reused, no new objdump/loading. Side-median difference is not
+median pair difference; frozen gates unchanged, no filtering or harmless-noise claim.
+Entry13PASS/analysis21checks24readtimehashes(12launch-pinned),source514/protected6,
+full166groups ANDsessions/noJulia. See MA-DENSELU-FALLBACK-ALLOCATION-ANALYSIS.md
+and results/MA-S-FALLBACK/review.md/json. No candidate/driver/production changes.
+MA-S-2 remains consumed/rejected48/52; all36targets pass but fourfallback controls
+block Task3. No rerun/tuning/threshold change. Next useful direction is a separate
+bounded design for scoped-lookup attribution/avoidance preserving rounding; exact
+runtime attribution needs its own accepted admission. No new numerical plan here.
+Six S-2 current result-review/closure/publication continuation hashes map ONLY to
+MA-S-FALLBACK beforecopies via continuation-map.json; all older maps unchanged.
+Standing short-run permission persists, broader plan OPEN; no automatic retry.
+Master6f68e24/source/test/userenv unchanged; CIoff/HHdisabled/automationpaused.
 
 ## Previous MA-S admission preparation (completed before execution)
 
