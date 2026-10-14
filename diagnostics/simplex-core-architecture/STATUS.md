@@ -47,6 +47,38 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
+The Float64 exact-conversion cache experiment is complete as a diagnostic.
+See PRESOLVE-EXACT-CONVERSION-CACHE.md and results/PRESOLVE-EXACT-CACHE-PIPELINE.
+The user changed the success criterion to faster whole presolve without increased
+allocations; whole-solver acceleration is not required. Original component/public
+sequence stopped at process1 (46.803587974s,exit1,58/59checks): candidate sc50a rep8
+recorded6.682501mscompile and89.252609msGC; output/input checks true. Original
+false gate/raw unchanged, stages2–4 absent, no retry of that sequence.
+
+New separately admitted whole-presolve study used the SAME candidate and overlays:
+four R/C/C/R processes,47.204951727s total;352presolve calls,48driver checks,
+four17-gate audits,224measuredwindows compile/recompile/GC0, exact full-result
+signatures/inputowners preserved.32separately timed warmupGCs, not continuous-GC
+throughput. Afiro10.8–16.8%,adlittle7.4–11.6%,chain13028.0–30.3% lower median time
+in bothblocks with lowerbytes/events; sc50atime inconclusive. Unconditional cache
+NOT ACCEPTED: unique sparse/densecontrols add~2.1%/~1.6%bytes and13/18events;
+sparse-repeated block2 anddense-unique block1 also failtimeguard. No excuse as
+allocatornoise. Candidate addsonehash/reachedcoefficient andO(u<=10000)temporary
+cache; no production/test/env/CI/master changes, no automatic integration/tuning.
+Combined numerical process elapsed94.008539701s, not a benchmark metric.
+
+This exact candidate is stopped here. A selective variant needs its own concrete
+eligibility/work design and review; none is prepared or admitted by this result.
+Do not rerun frozen experiments or reopen MA-Y/HH/DSE/controller/isolation/cleanup
+routes. Broader plan OPEN, CIoff,HHdisabled,automationpaused,master6f68e24unchanged.
+Fresh186groups ORsessions/noJulia/refs before continuation; source514/protected6
+and all launch pins unchanged. MA-Y-FALLBACK current closure/publication/continuation
+STATUS/roadmap hashes map ONLY to PRESOLVE-EXACT-CACHE beforecopies (sixbindings);
+all older mappings stay. All new and old raw/scripts/pins/reviews FROZEN NEVER
+RERUN/rewrite. Fresh host and preserve exact continuation bytes before future work.
+
+## Previous MA-Y-FALLBACK analysis (completed)
+
 MA-Y-FALLBACK completed: direct human-requested SOURCE/STORED-EVIDENCE analysis
 of both MA-Y failed controls; no Julia or measurement/old-auditor rerun.
 See MA-DENSELU-COMPLETE-FALLBACK-ANALYSIS.md and results/MA-Y-FALLBACK/review.

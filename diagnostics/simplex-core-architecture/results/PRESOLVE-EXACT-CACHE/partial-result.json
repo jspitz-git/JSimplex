@@ -1,0 +1,101 @@
+{
+  "checks": {
+    "exit1_preserved": true,
+    "pins_unchanged": true,
+    "fresh_no_julia": true,
+    "remaining_stages_absent": true,
+    "false_gate_preserved": true,
+    "all_observed_outputs_inputs": true,
+    "exact_compile_failure": true
+  },
+  "diagnostic_valid": true,
+  "qualification_accepted": false,
+  "driver_checks": 59,
+  "driver_true": 58,
+  "component_rows": [
+    {
+      "id": "adlittle",
+      "all_outputs": true,
+      "all_inputs": true,
+      "contaminated": [],
+      "stats": {
+        "reference": {
+          "seconds": 0.0018694,
+          "bytes": 2785472,
+          "events": 67049
+        },
+        "candidate": {
+          "seconds": 0.0016941,
+          "bytes": 2502464,
+          "events": 56489
+        }
+      }
+    },
+    {
+      "id": "afiro",
+      "all_outputs": true,
+      "all_inputs": true,
+      "contaminated": [],
+      "stats": {
+        "reference": {
+          "seconds": 0.0003041,
+          "bytes": 746464,
+          "events": 17097
+        },
+        "candidate": {
+          "seconds": 0.0002742,
+          "bytes": 668928,
+          "events": 14245
+        }
+      }
+    },
+    {
+      "id": "sc50a",
+      "all_outputs": true,
+      "all_inputs": true,
+      "contaminated": [
+        {
+          "seconds": 0.125550813,
+          "compile_seconds": 0.006682501,
+          "side": "candidate",
+          "measured": true,
+          "calls": 4,
+          "rep": 8,
+          "events": 119077,
+          "gc_seconds": 0.089252609,
+          "recompile_seconds": 0.0,
+          "bytes": 5095936,
+          "outputs_equal": true,
+          "input_preserved": true
+        }
+      ],
+      "stats": {
+        "reference": {
+          "seconds": 0.003501501,
+          "bytes": 5192912,
+          "events": 124265
+        },
+        "candidate": {
+          "seconds": 0.0032841,
+          "bytes": 5020064,
+          "events": 118425
+        }
+      }
+    }
+  ],
+  "elapsed_seconds": 46.803587974005495,
+  "scope": "Incomplete original experiment, one measured candidate sc50a window compiled; no causal attribution to a particular method; no rerun or performance acceptance.",
+  "sha256": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/PRESOLVE-EXACT-CACHE/run-1/process.json": "e8ad315c5845396b880817f7f54eeab5fd9f2d380f8c68b95bc9f89f5a2f74f8",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/PRESOLVE-EXACT-CACHE/run-1/core-sc50a.toml": "e287ecc7859be02eb6261a694f0b0955643d57b44cae9e87deb4ee033629c8e5",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/PRESOLVE-EXACT-CACHE/run-1/solve-adlittle.toml": "91c209de4e9ec71143dc52bf8cc95e12922704034881a15242d94c950ff88db3",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/PRESOLVE-EXACT-CACHE/run-1/raw.toml": "cf7da462c7200fe2b3395abb3f96a9a4d062689e529c4b1f5e4ebc90dc0b02bd",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/PRESOLVE-EXACT-CACHE/run-1/core-afiro.toml": "5670ece49e83f94c4c24ff4afc02822edf9ac17fc4dd5408275a6b4e69176dd1",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/PRESOLVE-EXACT-CACHE/run-1/pins.json": "cc93c0f04a08d1a5e393eb064e67aae89c493831f7e0505aee16384c83201a53",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/PRESOLVE-EXACT-CACHE/run-1/run.log": "0b919bef676b925bc9b84b5c72a3109ba4c173e4e1e4e9abb7c2f2e5aa368eeb",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/PRESOLVE-EXACT-CACHE/run-1/solve-afiro.toml": "6e3d1139677634c813a1dad3bb4f8002d6dbba1a4783de64a6486ffd0105b192",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/PRESOLVE-EXACT-CACHE/run-1/resources.jsonl": "322181ebcd0f62488864357eff11543536cd1b494ed75bc647fcc8b3810c2037",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/PRESOLVE-EXACT-CACHE/run-1/core-adlittle.toml": "0ce8aa079183275ee39e464d2e0a643c15b807b92b78e097d6e6641559f455e7",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/PRESOLVE-EXACT-CACHE/run-1/current.json": "84f4941fa8c4809d604e731c22a9c7eaf0b34a6ded24c5ff2c5e5472fa2d8167"
+  }
+}
