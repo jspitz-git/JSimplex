@@ -1,0 +1,62 @@
+{
+  "command": [
+    "/bin/bash",
+    "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+    "--compiled-modules=existing",
+    "--threads=1",
+    "--gcthreads=1,0",
+    "--heap-size-hint=2G",
+    "--project=/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/presolve-exact-cache/reference",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/PRESOLVE-LARGE-PROFILE/driver.jl",
+    "runtime",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/PRESOLVE-LARGE-PROFILE/run-1"
+  ],
+  "guard_command": [
+    "/usr/bin/python3",
+    "-B",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/PRESOLVE-LARGE-PROFILE/guard.py",
+    "run",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/PRESOLVE-LARGE-PROFILE/launch-pins.json",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/PRESOLVE-LARGE-PROFILE/run-1",
+    "--seconds",
+    "114",
+    "--deadline",
+    "50754.456650362",
+    "--",
+    "/bin/bash",
+    "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+    "--compiled-modules=existing",
+    "--threads=1",
+    "--gcthreads=1,0",
+    "--heap-size-hint=2G",
+    "--project=/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/presolve-exact-cache/reference",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/PRESOLVE-LARGE-PROFILE/driver.jl",
+    "runtime",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/PRESOLVE-LARGE-PROFILE/run-1"
+  ],
+  "pins_sha256": "78b0332ae8a5331d5f0811d117b14ab9f7e440c9307b862fc954e78e6f6c8275",
+  "review_sha256": "340090332c371192490779968a42446ebb58939e7b9fdf7031553606eee121d5",
+  "prehost_sha256": "c5d64b1adbb5296a2170d817149e6ccbe0afc4c14b6a3b9d6f9174369692d48d",
+  "reservation_sha256": "5278ac1dfb727fbfe6d39eba876d95f867cd9279898b5a8e4bf22dc00bd356c2",
+  "started": 1792008920.300004,
+  "supervisor": {
+    "soft_timeout": false,
+    "hard_timeout": false,
+    "child_kill": false,
+    "guard_term": false,
+    "guard_kill": false,
+    "guard_identity": {
+      "pid": 111848,
+      "pgid": 111848,
+      "sid": 111848,
+      "start_ticks": 5064045,
+      "boot_id": "284d2228-1d9a-4c5f-913c-b9f1098b5838",
+      "command": "/usr/bin/python3 -B /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/PRESOLVE-LARGE-PROFILE/guard.py run /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/PRESOLVE-LARGE-PROFILE/launch-pins.json /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/PRESOLVE-LARGE-PROFILE/run-1 --seconds 114 --deadline 50754.456650362 -- /bin/bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --compiled-modules=existing --threads=1 --gcthreads=1,0 --heap-size-hint=2G --project=/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/presolve-exact-cache/reference /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/PRESOLVE-LARGE-PROFILE/driver.jl runtime /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/PRESOLVE-LARGE-PROFILE/run-1 "
+    },
+    "returncode": 0,
+    "elapsed_seconds": 23.91205816999718,
+    "accepted": true
+  },
+  "elapsed_seconds": 23.912097970001923,
+  "cumulative_seconds": 23.912097970001923
+}

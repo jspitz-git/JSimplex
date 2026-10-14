@@ -1,0 +1,12 @@
+from control import *
+import guard,tomllib
+pins=rd(D/'launch-pins.json');old=rd(D.with_name('PRESOLVE-EXACT-CACHE')/'host.json');post=rd(D/'posthost.json');h=host(post['groups']);save(D/'postcheck-host.json',h)
+checks={'all_pins':guard.pins_match(pins),'no_processes':not h['matches'],'refs':all(h[k]==rd(D/'host.json')[k] for k in ('head','master','boot_id')),'source514':len(old['master_identity'])==514 and all(sha(R/p)==v for p,v in old['master_identity'].items()),'protected6':len(old['protected'])==6 and all(sha(p)==v for p,v in old['protected'].items()),'guarded_total':sum(rd(D/f'invocation-{i}.json')['elapsed_seconds'] for i in (1,2,3))<=360,'runtime_audit':rd(D/'audit-1.json')['all_passed'],'test_audit':rd(D/'audit-3.json')['all_passed'],'medium_partial':rd(D/'partial-2.json')['accepted_complete'] is False}
+for i in (1,2,3):
+ out=D/f'run-{i}';proc=rd(out/'process.json');inv=rd(D/f'invocation-{i}.json');rs=[json.loads(l) for l in (out/'resources.jsonl').read_text().splitlines()]+[proc['terminal_memory']]
+ checks[f'process{i}_pins_command']=proc['pins_unchanged'] is True and proc['pins_sha256']==sha(D/'launch-pins.json') and proc['command']==rd(D/'commands.json')[str(i)]==inv['command'] and rd(out/'pins.json')==pins
+ checks[f'process{i}_resources']=all(s['available_kib']>=6*1024**2 and s['swap_used_kib']<=1024**2 for s in rs) and inv['elapsed_seconds']<=120
+ starts={p.name.removeprefix('start-'):tomllib.loads(p.read_text()) for p in out.glob('start-*.toml')};ends={p.name.removeprefix('finish-'):tomllib.loads(p.read_text()) for p in out.glob('finish-*.toml')}
+ checks[f'process{i}_dispatch_pairs']=starts.keys()==ends.keys() and all(all(e[k]==starts[n][k] for k in ('rep','serial','round','index','input_dimensions')) and metric_ok(e) and e['compile_seconds']==e['recompile_seconds']==0 for n,e in ends.items())
+checks['medium_hash_stop']='hashvalue!' in (D/'run-2/run.log').read_text() and 'driver.jl:107' in (D/'run-2/run.log').read_text()
+save(D/'postcheck.json',dict(all_passed=all(checks.values()),checks=checks,scope='Diagnostic preservation and partial-record checks; medium timeout stays failed/incomplete.',sha256={str(p):sha(p) for p in [D/'analysis.json',D/'analyze-final.py',D/'postcheck.py',D/'postcheck-host.json',R/'diagnostics/simplex-core-architecture/PRESOLVE-LARGE-PASS-PROFILE.md']}));req(all(checks.values()),'postchecks');print(len(checks),'postchecks PASS; groups',len(h['groups']))
