@@ -45,6 +45,38 @@ accepted deliverables, not partial or failed attempts. Update both at milestones
 
 ## Current continuation — 2026-10-14
 
+MA-M attempted the admitted bounded qualification and is NOT ACCEPTED.
+One guarded process consumed, exit1 after7.792625337s inclusive. Actual original
+RED8Pass/2expectedFail is recorded, but the driver rejected Julia's parenthesized
+printed expression `(MAL_TRACE[]).scratch == 1`. GREEN and all cost windows were
+UNEXECUTED; processes2/3 never reserved. No candidate correctness/performance claim.
+See MA-PRESOLVE-SELECTIVE-QUALIFICATION.md and results/MA-M raw evidence.
+
+A separate offline analysis preserves15/16checks/all_passed=false: FileWatching
+and Sockets appeared in loaded module paths without individual launch source
+pins. Supplement4checks identifies them; new read-time hashes are NOTretroactive
+pins or a pass for the failed gate. All3814actual launchpins unchanged; original
+admission246rejection and revised3814/71tree acceptance preserved. Full140groups
+ANDsessions absent/noJulia, boot284d2228-1d9a-4c5f-913c-b9f1098b5838.
+
+Next bounded step MA-N is OFFLINE harness repair and new admission preparation:
+docs/superpowers/plans/2026-10-14-ma-presolve-qualification-harness-repair.md.
+Change only the exact RED serialization expectation and add both observed source
+roots; retain candidate/fixtures/counts/grid/thresholds. Independent technical
+admission required before subsequent separate qualification. No automatic retry,
+old-script rerun, case removal or threshold tuning. Standing human short-run
+permission persists; do not ask again. Old unstarted slots are not retry allowance.
+
+MA-L current STATUS/roadmap bindings in closure-fix-review, continuation-map,
+closure and publication map ONLY to MA-M/STATUS.md.before-MA-M and
+roadmap.md.before-MA-M (eight bindings). MA-L before copies still resolve six
+MA-K bindings; all older mappings unchanged. All MA-M admitted sources/pins/raw/
+reviews/checks are frozen, including both false audits. Master6f68e24 unchanged;
+production/ordinary tests/environment/CI unchanged. Automation paused, CI off,
+HHdisabled; MA-J/MA-I rejections unchanged; broader MA/S2/S3/S4/S5/S6 remainsOPEN.
+
+### Previous MA-L preparation (completed)
+
 MA-L offline preparation completed and independently accepted with no findings.
 The separate candidate preserves the original generic and final-bound bodies;
 only exact Rational{BigInt} typed eight-term rows can select private MA scratch.
