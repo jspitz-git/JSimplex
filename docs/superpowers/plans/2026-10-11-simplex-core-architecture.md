@@ -45,6 +45,38 @@ accepted deliverables, not partial or failed attempts. Update both at milestones
 
 ## Current continuation — 2026-10-14
 
+MA-K selective rational presolver plan and design independently accepted, no
+unresolved findings. Planning only: no candidate, Julia, numerical experiment,
+production/test/environment/CI change. See
+[selective routing plan](2026-10-14-ma-presolve-selective-routing.md)
+and diagnostics/simplex-core-architecture/results/MA-K/review.md. Next bounded step MA-L is offline candidate/test
+preparation with independent review; do not launch MA-M from plan acceptance.
+
+Proposed route: exact Rational{BigInt} model, ordinary typed row Vector and
+exactly8 terms (existing aggregation2–8/fill10/update200000 caps unchanged).
+Two eligible general endpoint additions by original position3, then one-shot
+same-sign numerator>=129-bit gate; private scratch allocated only on selection.
+All subsequent nonzero additions remain private to prevent shared denominator
+corruption. No pre-scan/cache; short/simple fallback overhead still UNQUALIFIED.
+
+Future fixed qualification:76 cases (24 targets,52 controls),3 serial processes
+at most120s inclusive each/360s total, no automatic retry/tuning. Every control
+must pass pooled time ratio<=1, each process<=1.02, no added median bytes/events;
+all targets need time/allocation benefit. This is a proposed acceptance protocol,
+not a measured selector speedup or universal nonregression proof. Production
+integration needs its own actual presolver reachability/whole-pass/dependency
+review. MA-J unconditional and MA-I routing promotions remain rejected.
+
+MA-J current STATUS/roadmap bindings in result-review, continuation-map, closure
+and publication map ONLY to MA-K/STATUS.md.before-MA-K and roadmap.md.before-MA-K.
+All eight bindings preserved; MA-J before-MA-J still maps MA-I, all older maps
+unchanged. MA-K scripts/checks/read-time pins/review frozen after publication;
+never rerun old controls. Standing short-run permission persists but future
+technical admission remains required. Automation paused, CI off, HH disabled,
+master6f68e24 unchanged; broader plan remains OPEN.
+
+### Previous MA-J qualification (completed)
+
 MA-J user-requested presolver equality-bound MA spike completed. A separate
 instrumentation-only repair after a preserved9.238s Dict metadata failure gives
 1126/1126 correctness/input-preservation cases,48costcases,672measuredcompilezero

@@ -1,0 +1,92 @@
+{
+  "accepted": true,
+  "scope": "independent plan acceptance only; next offline preparation, not runtime/launch/production qualification",
+  "findings": [],
+  "checks": {
+    "all_21_read_time_hashes_match": true,
+    "typed_dispatch_and_invoke_feasible": true,
+    "caller_caps_unchanged": true,
+    "fixed_selector_implementable": true,
+    "all_postactivation_additions_private": true,
+    "ownership_invariant_plan_sufficient": true,
+    "correctness_coverage_requires_frozen_MA_L_inventory": true,
+    "76_case_grid_count": true,
+    "window_and_call_counts": true,
+    "three_120_second_caps_total_360": true,
+    "measured_compilation_rejected": true,
+    "all_case_cost_gates_fail_closed": true,
+    "work_and_memory_ledger_explicit": true,
+    "separate_production_integration_required": true,
+    "no_Julia_or_old_scripts_executed": true
+  },
+  "work_memory_verdict": "No present production cost. Proposed classifier/setup cost remains unqualified and may be unnecessary on false positives; all controls must reject regressions. Private same-denominator work is required for ownership safety. No blocking omission found.",
+  "counts": {
+    "targets": 24,
+    "controls": 52,
+    "cases": 76,
+    "warm_windows_per_process": 456,
+    "measured_windows_per_process": 1064,
+    "windows_per_process": 1520,
+    "calls_per_process": 194560,
+    "total_windows": 4560,
+    "total_calls": 583680,
+    "inclusive_wall_seconds_cap": 360
+  },
+  "MA_J_motivating_statistics_recomputed": [
+    {
+      "terms": 4,
+      "style": "units",
+      "median_ratio": 1.2318840579710144,
+      "faster_pairs": 0,
+      "reference_bytes_per_call": 1166.0,
+      "reference_events_per_call": 36.03125,
+      "candidate_bytes_per_call": 1534.0,
+      "candidate_events_per_call": 49.03125
+    },
+    {
+      "terms": 4,
+      "style": "cancel",
+      "median_ratio": 1.5070422535211268,
+      "faster_pairs": 0,
+      "reference_bytes_per_call": 670.0,
+      "reference_events_per_call": 21.03125,
+      "candidate_bytes_per_call": 1038.0,
+      "candidate_events_per_call": 34.03125
+    },
+    {
+      "terms": 8,
+      "style": "general",
+      "median_ratio": 0.8848600508905852,
+      "faster_pairs": 6,
+      "reference_bytes_per_call": 11131.0,
+      "reference_events_per_call": 293.03125,
+      "candidate_bytes_per_call": 8645.5,
+      "candidate_events_per_call": 225.03125
+    }
+  ],
+  "sha256": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-K/source-check.py": "53f843e2efac706ff0bef090ac81cab408d5a399365abdf44b28e9d46a6904e7",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/docs/superpowers/plans/2026-10-14-ma-presolve-selective-routing.md": "8597410e06e2086ddb7b8025218d282ad6cfccbf02c7c6681550fa9c6c637a4f",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/docs/superpowers/specs/2026-10-14-ma-presolve-selective-routing-design.md": "95693c48b96547f877cc9aaa9a2a29f0b36c278619721a7170efd6f57bd8a10d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-K/host.json": "a3c82f7f9b70e49e3ceb058e8f4c5aee82c39b76373413da120c68f85ef70df6",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-K/STATUS.md.before-MA-K": "3717948f0113ede007f58d794e5488435b7f6027d6ef2409de20e90a6b545a0d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-K/roadmap.md.before-MA-K": "d0529c029caf73ea92fbf1162564d0db07747e22754b51ccdc4639ff8c41df39",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/presolve_aggregation.jl": "4ae2d8909b30daf9658040c4a8f0ccb1b818e6a2b76255994e6713c4532c5957",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/presolve_rows.jl": "ba28292822d4a7b2f66eaf0a23f7dd0ed1f79ada603a9f5a0dc90bb64f31f693",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/model.jl": "b179141daeef4d193f524c6389aa72f310bc4ca92e7c4e375019e072e6698e1d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/Project.toml": "8a9881836acdf490c9d2fe593372b1a067510eecdcdb21dfb8f713b53bed7d1c",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-J/candidate.jl": "b61113cf350307a7647c5a4da691e2dbe19579649e8f98541be047fe13c7bcf6",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-J/reference.jl": "bcb4d0f8b0004332fc43e65809df27a2342630487b3f3dc15f066e8126d69cbc",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-J/result-review.md": "006b2d73e5c27967a790a5c0367dfedef70cdddf916e39c8067d91b6d54be35d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-J/result-review.json": "5efa1b0f19168e47c65e521b2cb4c445936cc3b41c77b8786edba57d8745e05b",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-J/run-2/raw.toml": "d4dbad9301c70f23a64e9fc48e2fc85747d744382397c8a9b6c8394ffd23cef9",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/MA-PRESOLVE-EQUALITY-QUALIFICATION.md": "63fbbdd0c6ad411cc6ec12652c61095d805b48f555583769103b329f302a2631",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/base/gmp.jl": "84f99707815485bba5105c23a136535530963282fc14124d0623858f68976f91",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/base/intfuncs.jl": "6b8609675d189818cc1d8db72f3dea18b73fd0f33fa10e19e787406ea87b4da2",
+    "/home/jspitz/.julia/packages/MutableArithmetics/SaQfc/Project.toml": "2f59f09d9a6d61791e3c34d6bed8b100a4e86cec1a62a02970170b05ce81db7e",
+    "/home/jspitz/.julia/packages/MutableArithmetics/SaQfc/src/implementations/Rational.jl": "d5057968fcf522cc6602089553eb3c806f46f38bfafb4db00181077f7ef81057",
+    "/home/jspitz/.julia/packages/MutableArithmetics/SaQfc/src/implementations/BigInt.jl": "3bdfc71556eabdc7e7c0fe3e67b1d3d74f94da5f8171212aea61d77112c8defe",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-K/source-check.json": "c24cfc8bb62c2265524a17a069bea75ce5b2398ff460c33631787e47c3bf1d01",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-K/review.md": "7fe23a91aed86a2acf2120247bf432f10a6670135260a950ada68db6c6caafb4"
+  }
+}

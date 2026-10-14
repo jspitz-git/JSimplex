@@ -38,7 +38,7 @@ main also has a user-modified .vscode/settings.json. Do not stage those files.
 | S3 | End-to-end exact sparsity support | Active | S3-A/S3-B integrated, latest masterb720674; exact-support consumer savings qualified; broader S3 partial |
 | S4 | Refactorization memory lifecycle | Active | S4-A/S4-C integrated; master3220118; Float64 component attribution/cost and exact triplet optimization accepted; bounded scalar component attribution360samples accepted; broader manager/history/medium coverage open |
 | S5 | Phase/cleanup handoff contract | Active | S5-A/S5-B accepted; S5-C production88a2411 -> mastere7014fb, reviewed, master668/668; broader handoffs partial |
-| MA | Selective MutableArithmetics integration | Active | MA-J presolver component1126/1126;48costcases, narrow Q8 benefit, short/simple regressions; unconditional promotion NOT accepted. MA-I rejection unchanged |
+| MA | Selective MutableArithmetics integration | Active | MA-K selective Q8 plan independently accepted; next MA-L offline preparation. No runtime acceptance; MA-J/MA-I promotions remain rejected |
 | S6 | Broad validation and final comparison | Active | S6-A/B triage accepted; S6-C test repair integrated as mastera465da5, focused20/20. S6-G artificial-row test repair master8516e0d; S6-M BigFloat fixture repair master7fea422, focused1477/1477; S6-T no-recession fixture masterafb37d9,focused192/master19; S6-W repeated-price fixture masterb9e7cb1,focused109/master41; S6-AA reliable exchange fixture master74f7835,focused127/master19; S6-AC reconstruction fixture master3c0af5c,focused339/master215; S6-AI dual recovery fixture master354bb1f,focused339/master252; other CI families and full validation remain open |
 
 Allowed execution states: Pending, Active, Blocked (reason required), Verified,
@@ -46,6 +46,38 @@ Integrated, Rejected (evidence required). Mark an optimization Verified only aft
 its acceptance gate. Record individual chunks separately when a stage is partial.
 
 ## Exact next action
+
+MA-K selective rational presolver plan and design independently accepted, no
+unresolved findings. Planning only: no candidate, Julia, numerical experiment,
+production/test/environment/CI change. See
+[selective routing plan](../../docs/superpowers/plans/2026-10-14-ma-presolve-selective-routing.md)
+and results/MA-K/review.md. Next bounded step MA-L is offline candidate/test
+preparation with independent review; do not launch MA-M from plan acceptance.
+
+Proposed route: exact Rational{BigInt} model, ordinary typed row Vector and
+exactly8 terms (existing aggregation2–8/fill10/update200000 caps unchanged).
+Two eligible general endpoint additions by original position3, then one-shot
+same-sign numerator>=129-bit gate; private scratch allocated only on selection.
+All subsequent nonzero additions remain private to prevent shared denominator
+corruption. No pre-scan/cache; short/simple fallback overhead still UNQUALIFIED.
+
+Future fixed qualification:76 cases (24 targets,52 controls),3 serial processes
+at most120s inclusive each/360s total, no automatic retry/tuning. Every control
+must pass pooled time ratio<=1, each process<=1.02, no added median bytes/events;
+all targets need time/allocation benefit. This is a proposed acceptance protocol,
+not a measured selector speedup or universal nonregression proof. Production
+integration needs its own actual presolver reachability/whole-pass/dependency
+review. MA-J unconditional and MA-I routing promotions remain rejected.
+
+MA-J current STATUS/roadmap bindings in result-review, continuation-map, closure
+and publication map ONLY to MA-K/STATUS.md.before-MA-K and roadmap.md.before-MA-K.
+All eight bindings preserved; MA-J before-MA-J still maps MA-I, all older maps
+unchanged. MA-K scripts/checks/read-time pins/review frozen after publication;
+never rerun old controls. Standing short-run permission persists but future
+technical admission remains required. Automation paused, CI off, HH disabled,
+master6f68e24 unchanged; broader plan remains OPEN.
+
+## Previous MA-J qualification (completed)
 
 MA-J user-requested presolver equality-bound MA spike completed. A separate
 instrumentation-only repair after a preserved9.238s Dict metadata failure gives
