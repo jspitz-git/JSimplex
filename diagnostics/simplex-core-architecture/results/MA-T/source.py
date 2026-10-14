@@ -1,0 +1,11 @@
+from pathlib import Path
+import json,hashlib
+R=Path.cwd();D=R/'diagnostics/simplex-core-architecture/results/MA-T';B=Path('/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/base')
+def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+s={n:(B/n).read_text() for n in ['mpfr.jl','scopedvalues.jl','dict.jl','hamt.jl','expr.jl']}
+checks=dict(no_default='const CURRENT_ROUNDING_MODE = Base.ScopedValues.ScopedValue{MPFRRoundingMode}()' in s['mpfr.jl'],raw_fallback='rounding_raw(::Type{BigFloat}) = @something(Base.ScopedValues.get(CURRENT_ROUNDING_MODE), ROUNDING_MODE[])' in s['mpfr.jl'],current_scope='scope = Core.current_scope()::Union{Scope, Nothing}' in s['scopedvalues.jl'],get_boundary='v = Base.KeyValue.get(scope.values, val)' in s['scopedvalues.jl'],typed_some='return Some{T}(only(v)::T)' in s['scopedvalues.jl'],haskey_boundary='return KeyValue.get(dict, key) !== nothing' in s['dict.jl'],noinline_get='@noinline function KeyValue.get(dict::PersistentDict{K, V}, key)' in s['dict.jl'],tuple_return='return (leaf.val,)' in s['dict.jl'],read_path='function path(trie::HAMT{K,V}, key, h::HashState, copy=false)' in s['hamt.jl'],identity_key='found = next.key === h.key' in s['hamt.jl'],callsite_precedence='A callsite annotation always has the precedence' in s['expr.jl'],inline_limit="there are still chances it can't succeed" in s['expr.jl'])
+paths=[B/n for n in s]+[R/'docs/superpowers/specs/2026-10-14-ma-rounding-guard-design.md',R/'docs/superpowers/plans/2026-10-14-ma-rounding-guard.md',R/'diagnostics/simplex-core-architecture/MA-DENSELU-FALLBACK-ALLOCATION-ANALYSIS.md',D.with_name('MA-R')/'candidate.jl',D.with_name('MA-R')/'reference.jl',D.with_name('MA-R')/'tests.jl',D.with_name('MA-R')/'fixtures.toml',D.with_name('MA-S-FALLBACK')/'analysis.json',D.with_name('MA-S-FALLBACK')/'review.json',D/'source.py',R/'AGENTS.md']
+o=dict(all_passed=all(checks.values()),checks=checks,sha256={str(p):sha(p) for p in paths},scope='Fresh readtime/source-design bindings only; not runtime proof or retroactive launch pins')
+with (D/'source.json').open('x') as f:json.dump(o,f,indent=2);f.write('\n')
+print(json.dumps(dict(all_passed=o['all_passed'],checks=len(checks),bindings=len(paths))))
+if not o['all_passed']:raise SystemExit(1)

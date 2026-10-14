@@ -1,0 +1,34 @@
+from pathlib import Path
+import json,hashlib
+R=Path.cwd();D=R/'diagnostics/simplex-core-architecture/results/MA-T';p=R/'docs/superpowers/plans/2026-10-14-ma-rounding-guard.md'
+def sha(q):return hashlib.sha256(Path(q).read_bytes()).hexdigest()
+rev=json.loads((D/'review.json').read_text());src=json.loads((D/'source.json').read_text())
+if rev['accepted'] is not False or len(rev['findings'])!=2:raise SystemExit('Expected original two findings')
+if not all(sha(k)==v for k,v in rev['sha256'].items()):raise SystemExit('Review drift')
+paths=[(p,'plan.before-review'),(R/'diagnostics/simplex-core-architecture/STATUS.md','STATUS.before-review'),(R/'docs/superpowers/plans/2026-10-11-simplex-core-architecture.md','roadmap.before-review')]
+maps=[]
+for q,n in paths:
+ with (D/n).open('xb') as f:f.write(q.read_bytes())
+ for source,o in [(D/'source.json',src),(D/'review.json',rev)]:
+  if str(q) in o['sha256']:maps.append(dict(source=str(source),path=str(q),preserved=str(D/n),sha256=o['sha256'][str(q)]))
+s=p.read_text();old=s
+red={'old_arm_absent':'Exactly160additional old-arm backend calls' not in s,'reducers_absent':'R_pc and C_pc' not in s}
+s=s.replace('**Interfaces:** original equality, new helper, original reference F/B and new uninstrumented candidate F/B;', '**Interfaces:** original equality, new helper, original reference F/B, new uninstrumented candidate F/B, and the frozen old MA-R candidate F/B in a separate diagnostic module for RED only;')
+oldstep='- [ ] Freeze a genuine prospective RED oracle for the **old guard\'s performance**'
+a=s.index(oldstep);b=s.index('\n- [ ] Micro-cost:',a)
+s=s[:a]+'''- [ ] Freeze a genuine prospective RED oracle for the **old guard's performance**, not numerical correctness. First process ONLY: two dense n32 F/B cases, ambient256/globalNearest/scopedUp; direct original reference vs frozen old MA-R candidate,3warm+7measured alternating pairs,4calls/window. Exactly160additional old-arm backend calls, with the same reset/scope/timer discipline as the new whole-call cases. Both old and new modules load before measurement; bind their exact reference/candidate files and outer loading boundaries. Numerical preservation and measured compile/recompile0 must pass. RED is expected only when, in EACH direction, old-candidate side-median bytes OR events exceed the direct-reference side median across the seven measured windows. Save exact deltas, retain all GC/outliers, and never treat load/import errors as RED. This predicts an optimization-coverage failure, not an original numerical defect. If either direction unexpectedly lacks an allocation regression, stop this qualification sequence and preserve that result; no new-candidate success or causal claim, threshold change or extra repetition. Original recorded MA-S-FALLBACK results remain untouched.''' +s[b:]
+s=s.replace('Exactly1920cost backend calls and61440micro predicate calls over two processes;', 'Exactly1920reference/new cost backend calls PLUS160reference/old RED calls =2080cost backend calls, and61440micro predicate calls over two processes;')
+a=s.index('- [ ] Acceptance:');b=s.index('\n- [ ] Independent result review',a)
+s=s[:a]+'''- [ ] Freeze reducers before launch, separately for EACH whole-call case (never pool directions, sizes, layouts or rounding contexts). Divide each window time by4 to obtain per-call seconds. R_pc and C_pc are side medians of the seven measured reference and candidate per-call times for case c/process p; R_c and C_c are side medians of all14 per-call samples of that side across both processes. Define per-process ratio C_pc/R_pc and pooled ratio C_c/R_c (positive reference times required). Bytes/events are side medians of the seven raw window totals in EACH case/process; never substitute median paired differences. Raw paired deltas/ratios remain reported separately. These new reducers do not rewrite MA-S-2's frozen reducers or gates.
+- [ ] Acceptance: all semantics/owner/exception/route checks and the expected old-arm RED pass. Every micro context/process new-helper measured window has zero allocation bytes/events (timer scaffolding independently characterized; never subtract an unexplained baseline). For EVERY mismatch or n15 whole-call case, candidate-minus-reference side-median bytes/events must each be<=0 in EACH process, C_c-R_c<=max(0.05*R_c,0.2e-6seconds), and C_pc-R_pc<=max(0.10*R_pc,0.4e-6seconds) in EACH process. For EVERY absent/equal-mode n32 case, candidate side-median bytes AND events must each be strictly lower in EACH process, C_c/R_c<1, and C_pc/R_pc<1 in EACH process. Retain every sample, including GC/outliers; no numerical gate may be traded for cost. These are prospective engineering budgets, not statistical significance claims. New absolute times are not compared with old process times as a speedup proof.''' +s[b:]
+s+='''\n## Independent review amendment\n\nInitial review found two Important specification gaps: the omitted old-candidate\nRED arm and ambiguous time reducers. Its report/JSON and before-review plan are\npreserved in MA-T. The corrected plan adds160explicit RED backend calls (2080total\ncost calls) and pins per-case/per-process side-median formulas. No numerical result,\nold gate, original candidate or source was changed. source.json's original plan\nhash maps only to plan.before-review; review-fix.json records exact mappings.\n'''
+p.write_text(s)
+for q,n in paths[1:]:
+ s=q.read_text();s=s.replace('review. Current step has no Julia/candidate/driver/measurement or production edit.', 'review. Initial two P2 plan gaps (missing160-call RED arm and ambiguous reducers)\nare corrected separately; see MA-T/review-final.md/json and review-fix.json.\nCurrent step has no Julia/candidate/driver/measurement or production edit.')
+ q.write_text(s)
+checks=dict(red_two=all(red.values()),old_arm='Exactly160additional old-arm backend calls' in p.read_text(),cost2080='=2080cost backend calls' in p.read_text(),micro61440='61440micro predicate calls' in p.read_text(),per_case='never pool directions, sizes, layouts or rounding contexts' in p.read_text(),time_formula='C_c-R_c<=max(0.05*R_c,0.2e-6seconds)' in p.read_text(),ratios='C_pc/R_pc<1 in EACH process' in p.read_text(),mapped=all(sha(x['preserved'])==x['sha256'] for x in maps),no_other_source_drift=all(sha(next((x['preserved'] for x in maps if x['source']==str(D/'source.json') and x['path']==q),q))==v for q,v in src['sha256'].items()))
+paths2=[D/'review-fix.py',D/'review.md',D/'review.json',D/'source.json']+[q for q,n in paths]+[D/n for q,n in paths]
+o=dict(all_passed=all(checks.values()),checks=checks,red=red,old_bindings=maps,sha256={str(q):sha(q) for q in paths2},scope='One offline amendment only; no Julia or changed old acceptance')
+with (D/'review-fix.json').open('x') as f:json.dump(o,f,indent=2);f.write('\n')
+print(json.dumps(dict(all_passed=o['all_passed'],checks=checks,bindings=len(paths2),maps=len(maps))))
+if not o['all_passed']:raise SystemExit(1)

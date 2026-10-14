@@ -47,26 +47,25 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-MA-S-FALLBACK bounded SOURCE/STORED-EVIDENCE analysis completed without Julia or
-new measurements. All336measured control pairs analyzed: BigFloat scoped42pairs
-have invariant+128bytes/+8events per4calls, bothorders/directions/processes; extra
-present scoped rounding lookup is leading source-supported suspect, exact emitted
-objects/cause UNPROVEN. Rational42pairs:21positive/19negative/2zero byte deltas,
-all event deltas0; immediate type fallback bypasses rounding/MA/scratch. Native
-usable-size accounting compatible, not captured causal proof. Same-binary S4-O
-instruction evidence reused, no new objdump/loading. Side-median difference is not
-median pair difference; frozen gates unchanged, no filtering or harmless-noise claim.
-Entry13PASS/analysis21checks24readtimehashes(12launch-pinned),source514/protected6,
-full166groups ANDsessions/noJulia. See MA-DENSELU-FALLBACK-ALLOCATION-ANALYSIS.md
-and results/MA-S-FALLBACK/review.md/json. No candidate/driver/production changes.
-MA-S-2 remains consumed/rejected48/52; all36targets pass but fourfallback controls
-block Task3. No rerun/tuning/threshold change. Next useful direction is a separate
-bounded design for scoped-lookup attribution/avoidance preserving rounding; exact
-runtime attribution needs its own accepted admission. No new numerical plan here.
-Six S-2 current result-review/closure/publication continuation hashes map ONLY to
-MA-S-FALLBACK beforecopies via continuation-map.json; all older maps unchanged.
-Standing short-run permission persists, broader plan OPEN; no automatic retry.
-Master6f68e24/source/test/userenv unchanged; CIoff/HHdisabled/automationpaused.
+MA-T SOURCE/DESIGN plan prepares a local Bool rounding guard with call-site inline
+of the existing KeyValue.get lookup, preserving exact scoped/global equality and
+all earlier type/backend/shape/n16 gates. No direct HAMT clone/cache/global method
+changes. Zero allocations remain a future measured gate, not an established fact.
+See docs/superpowers/specs/2026-10-14-ma-rounding-guard-design.md and
+2026-10-14-ma-rounding-guard.md plan; results/MA-T/review.md/json records independent
+review. Initial two P2 plan gaps (missing160-call RED arm and ambiguous reducers)
+are corrected separately; see MA-T/review-final.md/json and review-fix.json.
+Current step has no Julia/candidate/driver/measurement or production edit.
+Next is MA-U offline candidate/test preparation and independent review. Only then
+MA-V may prepare its separate short immutable admission: two90second processes,
+180seconds total maximum, one attempt, no automatic retry. Standing human short-run
+permission remains; a numerical admission is still required. MA-S-2 stays rejected
+48/52, Rational controls unresolved, full DenseLU promotion blocked. No old reruns,
+threshold changes or substitution of this local guard result for complete gates.
+Six MA-S-FALLBACK current continuation review/closure/publication bindings map ONLY
+to MA-T beforecopies via continuation-map.json; all earlier mappings unchanged.
+Master6f68e24/source/test/userenv unchanged; CIoff/HHdisabled/automationpaused;
+broader plan OPEN. MA-T documents and accepted records freeze after publication.
 
 ## Previous MA-S admission preparation (completed before execution)
 
