@@ -45,6 +45,25 @@ accepted deliverables, not partial or failed attempts. Update both at milestones
 
 ## Current continuation — 2026-10-14
 
+MA-P completed the independently admitted short RHS propagation experiment.
+All1133correctness flags/117records pass; three exit0 processes, each14auditgates,
+4000launchpins/73trees and17postchecks pass. 64cases/3840windows/61440timedcalls,
+measuredcompile/recompile0; all28GCwindows retained. Total guard duration24.279844s.
+Only5/64cases meet the frozen descriptive consistent-benefit rule: zeroQ,
+twoBigFloat dense equal-bound32 cases, threeFloat64 cases. No general production
+admission; scratch initialization penalizes short/zero/simple paths. Long Q
+allocation savings alone do not establish speedup. See MA-RHS-PROPAGATION.md
+and results/MA-P for all ratios/bytes/events and independent review.
+Allthree slots consumed; no retry/tuning/promotion/automaticnewvariant.
+Production/test/env/master6f68e24 unchanged; CIoff,HHdisabled,automationpaused.
+Full152groups ANDsessions absent/noJulia. SixMA-O current continuation-map,
+closure/publication STATUS/roadmap bindings map ONLY to MA-P beforecopies.
+Older mappings and MA-O rejection remain unchanged. AllMA-P/O and older evidence
+frozen NEVER RERUN/rewrite. Broaderplan OPEN; other authorized independent work
+may proceed within its gates. A narrower RHS design needs its own concrete plan.
+
+### Previous MA-O qualification (completed)
+
 MA-O completed the repaired bounded qualification. Correctness passed;
 the exact performance proposal is NOT ACCEPTED and is not promoted.
 Original RED8Pass/2expectedFail and candidateGREEN3787/3787 passed across222

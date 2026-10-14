@@ -38,7 +38,7 @@ main also has a user-modified .vscode/settings.json. Do not stage those files.
 | S3 | End-to-end exact sparsity support | Active | S3-A/S3-B integrated, latest masterb720674; exact-support consumer savings qualified; broader S3 partial |
 | S4 | Refactorization memory lifecycle | Active | S4-A/S4-C integrated; master3220118; Float64 component attribution/cost and exact triplet optimization accepted; bounded scalar component attribution360samples accepted; broader manager/history/medium coverage open |
 | S5 | Phase/cleanup handoff contract | Active | S5-A/S5-B accepted; S5-C production88a2411 -> mastere7014fb, reviewed, master668/668; broader handoffs partial |
-| MA | Selective MutableArithmetics integration | Active | MA-O correctness passed; selective proposal rejected by cost gates (26/76). No promotion or automatic retry |
+| MA | Selective MutableArithmetics integration | Active | MA-P RHS correctness passed; only5/64 descriptive cost cases qualify. No general integration or automatic retry |
 | S6 | Broad validation and final comparison | Active | S6-A/B triage accepted; S6-C test repair integrated as mastera465da5, focused20/20. S6-G artificial-row test repair master8516e0d; S6-M BigFloat fixture repair master7fea422, focused1477/1477; S6-T no-recession fixture masterafb37d9,focused192/master19; S6-W repeated-price fixture masterb9e7cb1,focused109/master41; S6-AA reliable exchange fixture master74f7835,focused127/master19; S6-AC reconstruction fixture master3c0af5c,focused339/master215; S6-AI dual recovery fixture master354bb1f,focused339/master252; other CI families and full validation remain open |
 
 Allowed execution states: Pending, Active, Blocked (reason required), Verified,
@@ -46,6 +46,25 @@ Integrated, Rejected (evidence required). Mark an optimization Verified only aft
 its acceptance gate. Record individual chunks separately when a stage is partial.
 
 ## Exact next action
+
+MA-P completed the independently admitted short RHS propagation experiment.
+All1133correctness flags/117records pass; three exit0 processes, each14auditgates,
+4000launchpins/73trees and17postchecks pass. 64cases/3840windows/61440timedcalls,
+measuredcompile/recompile0; all28GCwindows retained. Total guard duration24.279844s.
+Only5/64cases meet the frozen descriptive consistent-benefit rule: zeroQ,
+twoBigFloat dense equal-bound32 cases, threeFloat64 cases. No general production
+admission; scratch initialization penalizes short/zero/simple paths. Long Q
+allocation savings alone do not establish speedup. See MA-RHS-PROPAGATION.md
+and results/MA-P for all ratios/bytes/events and independent review.
+Allthree slots consumed; no retry/tuning/promotion/automaticnewvariant.
+Production/test/env/master6f68e24 unchanged; CIoff,HHdisabled,automationpaused.
+Full152groups ANDsessions absent/noJulia. SixMA-O current continuation-map,
+closure/publication STATUS/roadmap bindings map ONLY to MA-P beforecopies.
+Older mappings and MA-O rejection remain unchanged. AllMA-P/O and older evidence
+frozen NEVER RERUN/rewrite. Broaderplan OPEN; other authorized independent work
+may proceed within its gates. A narrower RHS design needs its own concrete plan.
+
+## Previous MA-O qualification (completed)
 
 MA-O completed the repaired bounded qualification. Correctness passed;
 the exact performance proposal is NOT ACCEPTED and is not promoted.
