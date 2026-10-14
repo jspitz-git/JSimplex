@@ -47,6 +47,46 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
+MA-X complete DenseLU offline admission prepared and independently accepted.
+See results/MA-X/admission.md, admission-review.md/json and the unchanged MA-W plan
+Task1. Concrete driver uses original MA-R reference/tests/fixtures and exact MA-U
+candidate/instrumented. Original52-case validators/reducers retained; new strict
+per-process cost gate stops the sequence before another process. Partial metrics
+are flushed before token/preservation checks; enriched records before assertions.
+Byte-exact MA-V supervisor/guard retain TERM84/KILL88/wait90 and full identity checks.
+
+No Julia/query/parser/import/compile/numerics/real launcher execution in MA-X.
+All prepared scripts, manifests, checks and reviews are FROZEN; do not rerun their
+exclusive writers. Failed initial test-builder selector and its corrected separate
+builder are preserved; this was not a numerical attempt. No production/test/env/
+CI/master changes. Old MA-S-2 rejected48/52 and MA-V local acceptance unchanged.
+
+Next concrete step MA-Y: FIRST fresh refs/boot/start_ticks/command/full170 historical
+groups OR sessions plus any later identities/noJulia, protected6/source514 and full
+MA-X manifest membership/hash check. Create NEW launch-context and fresh independent
+numerical-review binding then-current refs/context, MA-X pins and accepted preparation
+review BEFORE reservation. Standing human permission covers this short sequence;
+do not ask again solely for permission. Preparation acceptance is not the seal.
+
+Then at most ONE sequence of3serial processes,90seconds inclusive each/270total,
+original160correctness cases/488direct entries in process1 and52cost cases in each.
+Total12,480cost entries/3,120windows (936warm/2,184measured),318setup factorizations
+including2PFI constructors and2PFI copies; nested/native/import work additional.
+Every process must pass original strict paired-ratio target and side-median control
+gates before the next. Rational bytes/events have ZERO tolerance; no filtering,
+baseline correction, tuning, retry or pooling rescue. Rational failure stops this
+unchanged complete route without immediate allocator investigation. If all three
+pass, new aggregate and independent result review; no automatic production merge.
+Compatibility/direct dependency/clean loading/PFI/public afiro-sc50a remain separate.
+
+Six MA-W current closure/publication/continuation STATUS/roadmap bindings map ONLY
+to MA-X beforecopies through continuation-map.json. All older mappings remain.
+Before later edits preserve exact current texts and map exact new bindings; old
+host.json is not a fresh preflight. CIoff, HHdisabled, automationpaused. Master
+6f68e24 unchanged; broader performance plan OPEN.
+
+## Previous MA-W design (completed)
+
 MA-W complete-candidate qualification design accepted, SOURCE/DESIGN ONLY.
 See docs/superpowers/plans/2026-10-14-ma-denselu-complete-qualification.md and
 MA-W/review.md/json. Exact unchanged MA-U candidate; original52cost cases and

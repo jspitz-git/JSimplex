@@ -1,0 +1,89 @@
+{
+  "driver_source": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S-LOAD/driver.jl",
+  "driver_source_sha256": "4fad7d0627bdcc2a766e525c0159f7efd7db4b5b42416c4bd8586e7bf030fccb",
+  "driver_edits": [
+    {
+      "old": "# MA-S UNEXECUTED guarded driver. All R sources remain unchanged.",
+      "new": "# MA-X UNEXECUTED complete qualification. Frozen R tests and U candidate."
+    },
+    {
+      "old": "using Test, TOML, LinearAlgebra",
+      "new": "using Test, TOML, LinearAlgebra\nVERSION == v\"1.13.0\" || error(\"unsupported private-API runtime\")"
+    },
+    {
+      "old": "const P = MADenseProbe",
+      "new": "const UD = abspath(joinpath(@__DIR__, \"../MA-U\"))\nconst P = MADenseProbe"
+    },
+    {
+      "old": "function costs(index)\n    records=Any[]",
+      "new": "const JOURNAL = Ref{Union{Nothing,IOStream}}(nothing)\nfunction journal_record(record)\n    io=JOURNAL[];io===nothing && error(\"journal not open\")\n    TOML.print(io,Dict(\"records\"=>[record]));flush(io)\nend\nfunction costs(index,records)"
+    },
+    {
+      "old": "            x=TST.bundle",
+      "new": "            setup_started=time_ns()\n            x=TST.bundle"
+    },
+    {
+      "old": "            ws=Any[]; expected=nothing",
+      "new": "            ws=Any[]; expected=nothing\n            row=Dict{String,Any}(\"id\"=>c[\"id\"],\"eligible\"=>c[\"eligible\"],\"windows\"=>ws,\"expected\"=>String[],\"bundle_snapshot_setup_seconds\"=>(time_ns()-setup_started)/1e9)\n            push!(records,row)"
+    },
+    {
+      "old": "                    output=serialtokens(y.dest)\n                    expected===nothing && (expected=output)\n                    output==expected || error(\"window output mismatch\")",
+      "new": "                    merge!(w,Dict(\"side\"=>side==1 ? \"reference\" : \"candidate\",\"pair\"=>pair,\"order\"=>oi,\n                        \"phase\"=>pair<=3 ? \"warm\" : \"measured\",\"calls\"=>4))\n                    push!(ws,w)\n                    location=\"cost/$(c[\"id\"])/$pair/$side\"\n                    journal_record(Dict(\"kind\"=>\"whole-metrics\",\"location\"=>location,\"window\"=>copy(w)))\n                    output=serialtokens(y.dest)\n                    expected===nothing && (expected=output;row[\"expected\"]=output)"
+    },
+    {
+      "old": "                    preserved || error(\"window input changed\")\n                    merge!(w,Dict(\"side\"=>side==1 ? \"reference\" : \"candidate\",\"pair\"=>pair,\"order\"=>oi,\n                        \"phase\"=>pair<=3 ? \"warm\" : \"measured\",\"output\"=>output,\"preserved\"=>preserved,\"calls\"=>4))\n                    push!(ws,w)",
+      "new": "                    merge!(w,Dict(\"output\"=>output,\"preserved\"=>preserved))\n                    journal_record(Dict(\"kind\"=>\"whole-complete\",\"location\"=>location,\"window\"=>copy(w)))\n                    output==expected || error(\"window output mismatch\")\n                    preserved || error(\"window input changed\")"
+    },
+    {
+      "old": "            push!(records,Dict(\"id\"=>c[\"id\"],\"eligible\"=>c[\"eligible\"],\"windows\"=>ws,\"expected\"=>expected))",
+      "new": "            # row already retained before the first window"
+    },
+    {
+      "old": "    try\n        if index==1",
+      "new": "    journalpath=joinpath(out,\"partial-windows.toml\")\n    ispath(journalpath) && error(\"journal exists\")\n    JOURNAL[]=open(journalpath,\"w\")\n    try\n        if index==1"
+    },
+    {
+      "old": "Base.include(P,joinpath(RD,\"candidate.jl\"))",
+      "new": "Base.include(P,joinpath(UD,\"candidate.jl\"))"
+    },
+    {
+      "old": "Base.include(P,joinpath(RD,\"instrumented.jl\"))",
+      "new": "Base.include(P,joinpath(UD,\"instrumented.jl\"))"
+    },
+    {
+      "old": "        raw[\"costs\"]=Base.invokelatest(costs,index)",
+      "new": "        cost_started=time_ns()\n        try\n            Base.invokelatest(costs,index,raw[\"costs\"])\n        finally\n            raw[\"cost_inclusive_seconds\"]=(time_ns()-cost_started)/1e9\n        end"
+    },
+    {
+      "old": "    finally\n        raw[\"ambient_restored\"]",
+      "new": "    finally\n        close(JOURNAL[]);JOURNAL[]=nothing\n        raw[\"ambient_restored\"]"
+    },
+    {
+      "old": "println(\"MA-S process $index complete\")",
+      "new": "println(\"MA-X process $index complete\")"
+    }
+  ],
+  "original_validator": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-S-2/audit.py",
+  "unchanged_functions": [
+    "validate_raw",
+    "aggregate",
+    "expected_correctness"
+  ],
+  "byte_exact_copies": {
+    "supervisor.py": {
+      "source": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-V/supervisor.py",
+      "sha256": "e2a302c760fedd07b2ed0682e38d375136e587c7bd4105c1f44ae8dd850b7ebb"
+    },
+    "guard.py": {
+      "source": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-V/guard.py",
+      "sha256": "9ce491459f959b45f65d757e20da483f3efab3808a5f691e207bd0e9fefcd7c8"
+    }
+  },
+  "candidate": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-U/candidate.jl",
+  "candidate_sha256": "50b1421e06eabed34cbc0b9fd50bb1a0977aada3fe9159a4e005513cbefca98b",
+  "instrumented": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-U/instrumented.jl",
+  "instrumented_sha256": "e9961574aac8e3060fe566282a94210203fb589482e543e25508c9ee4af7323f",
+  "reference": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-R/reference.jl",
+  "tests": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-R/tests.jl",
+  "fixtures": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/MA-R/fixtures.toml"
+}
