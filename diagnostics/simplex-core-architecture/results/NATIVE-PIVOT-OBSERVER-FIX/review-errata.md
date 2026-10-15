@@ -1,0 +1,1 @@
+Line-reference correction only: R2 ownership assertions in regression.jl are at lines 40 and 46, not lines 38 and 44. The R2 definition remains lines 10–11. Both initial blocking findings and the rejected outcome are unchanged. Initial review files are preserved.

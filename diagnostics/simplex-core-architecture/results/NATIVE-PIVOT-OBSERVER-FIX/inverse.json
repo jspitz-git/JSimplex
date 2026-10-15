@@ -1,0 +1,55 @@
+{
+  "helper": "# Always return dense text storage; never broadcast strings into sparse storage.\nfunction dense_tokens(format, values::AbstractVector)\n    result = Vector{String}(undef,length(values))\n    for (i,value) in enumerate(values)\n        result[i] = format(value)\n    end\n    return result\nend\n",
+  "support_changes": [
+    [
+      "scalar.(value)",
+      "dense_tokens(scalar,value)"
+    ],
+    [
+      "scalar.(args[2])",
+      "dense_tokens(scalar,args[2])"
+    ],
+    [
+      "token.(rhs)",
+      "dense_tokens(token,rhs)"
+    ],
+    [
+      "token.(x)",
+      "dense_tokens(token,x)"
+    ]
+  ],
+  "driver_routes": [
+    [
+      "\"test-support.jl\"",
+      "\"test-support-fixed.jl\""
+    ],
+    [
+      "joinpath(@__DIR__,\"red-contract.jl\")",
+      "joinpath(@__DIR__,\"..\",\"NATIVE-PIVOT-QUALIFICATION\",\"red-contract.jl\")"
+    ],
+    [
+      "joinpath(@__DIR__,\"tests-observed.jl\")",
+      "joinpath(@__DIR__,\"..\",\"NATIVE-PIVOT-QUALIFICATION\",\"tests-observed.jl\")"
+    ],
+    [
+      "joinpath(@__DIR__,\"neighbors-observed.jl\")",
+      "joinpath(@__DIR__,\"..\",\"NATIVE-PIVOT-QUALIFICATION\",\"neighbors-observed.jl\")"
+    ]
+  ],
+  "source_red": {
+    "missing_dense_helper": true,
+    "unsafe_sites": [
+      "scalar.(value)",
+      "scalar.(args[2])",
+      "token.(rhs)",
+      "token.(x)"
+    ],
+    "scope": "Source RED only, not Julia execution; captured old failure reused"
+  },
+  "regression_written_before_helper": true,
+  "regression_assertions": 119,
+  "prospective_helper_calls": 16,
+  "prospective_original_broadcast_negative": 1,
+  "production_calls": 0,
+  "scope": "All Julia UNEXECUTED. 12cases*9 +4*2 +1negative +2ambient=119; separate regression not inserted in frozen6858test driver"
+}

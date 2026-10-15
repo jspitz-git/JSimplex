@@ -47,38 +47,48 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-Native pivot policy GREEN attempted once and NOT ACCEPTED. Raw5352passes,
-0fails/1error/0broken versus6858required; private_spare_copy_and_failure62of1568,
-other8groupspassed;1506assertions unfulfilled. Selected289of792calls/34of324equations
-are incomplete. Childexit1, guardreturn1, originalauditFALSE preserved. Sole GREEN
-attempt CONSUMED; no retry, cost or production promotion. See
-results/NATIVE-PIVOT-GREEN/REPORT.md and Q/runs/green/result-review.md, where
-Q=results/NATIVE-PIVOT-QUALIFICATION. Diagnostic acceptance is NOT a GREEN PASS.
+Native pivot observer correction prepared OFFLINE and independently reviewed;
+see results/NATIVE-PIVOT-OBSERVER-FIX/REPORT-final.md, inverse.json, check.json, review-fix.json and review-final.
+Separate test-support-fixed.jl adds one denseString helper and replaces only four
+potentially sparse output/RHS token broadcasts; whole inverse restores original.
+Separate test-driver-fixed.jl changes only four includes and reuses frozen tests.
+Remaining controls/nzval/cost-driver broadcasts have concrete dense storage.
+No candidate production/test oracle edits;6858/792/324 expectations unchanged.
 
-Captured error: NP.observe test-support.jl35 scalar.(args[2]) on sparse RHS throws
-zero(::String) AFTER the real forward_solve returned denseVector and outputtokens
-were recorded. Event exception/after_failure covers observer work too, not proof
-of backendthrow. Originalaudit 'Inclusive limit/cleanup' rejects supacceptedfalse
-becauseexit1; NOtimeout/kill/cleanuperror,28.980952s<60 NOTbenchmark. No solverdefect
-or fullcandidatecorrectness conclusion. Allraw/source/driver/pins/reviews frozen.
+regression-reviewed.jl has119prospective assertions,12dense/sparse/empty/specialvalue cases,
+16helpercalls/1expectedoldbroadcastMethodError/0factor-solves. Inputvalues/scalar
+storedowners/precision/rounding/TOMLroundtrip checked prospectively. Not wired into the
+full frozen test driver and NOTexecuted. Source/inverse checks are NOTJuliaRED/GREEN.
+All Julia in this correction remains UNEXECUTED. Dense token output needsO(n)
+storage/conversions; generic sparse reads maycostO(nlog(1+nnz)) and mutablezero
+allocations. No speedup/nativework/zeroallocation proof; no new production cost.
 
-NEXT: separate OFFLINE observer/serialization correction with focused sparse/dense
-regression coverage, exact inverse and independent review. Check all tokenization
-sites, preserve numerical inputs/oracles/budgets and disclose O(n) diagnostic
-storage. No fix implemented/qualified here. A later newly labelled exact-stage
-admission is mandatory before another GREEN; do not reuse currentstage/reservation
-or rerun frozen scripts. Existing short-run human permission remains, no repeated
-permission ask. Cost<=45s andTask3 stay blocked by failedGREEN. Do not weaken
-6858/792/324 expectations to match partial execution.
+NEXT: prepare NEW concrete GREEN-2 driver/admission routing and exact stage/output
+manifest, wire119regressions with their own budget while preserving original6858
+assertions/792entries/324equations, independently review BEFORE any new Julia.
+No replacement launcher/admission exists yet. Frozen old control/launch target
+the consumedgreen path and MUSTNOT rerun/overwrite. AcceptedRED and failedGREEN
+must remain distinct prerequisites. Existing short-run human permission remains;
+no repeated permission ask, but fresh concrete review/host/refs/groups required.
+No cost orTask3 advancement before new acceptedGREEN. Do not tune away failures.
 
-Fresh212groups ANDsessions/noJulia: runner238457/start14328901,
-child238458/start14328949, boot284d2228-1d9a-4c5f-913c-b9f1098b5838. Storedhost is
-NOT a fresh preflight. GREEN seal/admission/launch/output and current REDclosure/
-publication STATUS/roadmap hashes map ONLY to NATIVE-PIVOT-GREEN before-GREEN
-copies via continuation-mappings.json. Older Q/RED and all prior mappings remain.
-Master6f68e24 unchanged; actualsrc/test/env/CI/direct prototypes unchanged.
-Automation paused, CIoff, HHreuse disabled; olddirectcost1FAILED/CONSUMED,
-cost2BLOCKED. Broaderplan OPEN. No old numerical or evidence reruns.
+OriginalGREEN remainsFALSE:5352passes1observererror1506unfulfilled,289/792calls,
+34/324equations, consumedattempt. Captured solve succeeded before sparse RHS
+textconversion failed; no fullcandidatecorrectness or solverdefect conclusion.
+Alloldraw/scripts/reviews/pins unchanged. Current GREENclosure/publication
+STATUS/roadmap hashes map ONLY to OBSERVER-FIX before-fix copies via mappings;
+every older mapping remains. Before future pinned edits get fresh212groups AND
+sessions/noJulia/boot+start_ticks+command; storedhost is not freshpreflight.
+Master6f68e24 unchanged, actualsrc/test/env/CI/directprototypes unchanged.
+CIoff/HHreuse disabled/automationpaused, olddirectcost1FAILED/CONSUMED/cost2BLOCKED.
+Broaderplan OPEN. No equivalent old inventory or numerical reruns.
+
+Initial regression/review are preserved REJECTED: nonexported nonzeroinds and
+unstable implicit-zero owner checks. Separate corrected regression qualifies the
+API and compares only stored sparse owners; implicit zero values remain checked.
+Initial13sourcePASS alone was insufficient; review-fix and final review required.
+Original finalize.py is UNEXECUTED; canonical finalize-reviewed.py binds final
+pins-reviewed.json/review-final.json. All initial33pins stay byte-identical.
 
 ## Previous missing-zero experiment
 
