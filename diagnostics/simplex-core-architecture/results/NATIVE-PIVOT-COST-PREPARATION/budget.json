@@ -1,0 +1,55 @@
+{
+  "test_groups": {
+    "options_and_copy_intent": 4946,
+    "backend_owned_policy": 35,
+    "private_spare_copy_and_failure": 1568,
+    "precision_and_factory_dispatch": 245,
+    "Parametric factorization backends": 25,
+    "Float64 factorization backend stability": 4,
+    "Dimension-changing refactorization resizes solve scratch": 4,
+    "Owned snapshots survive backend reuse and solve aliases": 19,
+    "Triangular identity reset uses current BigFloat precision without changing copies": 12
+  },
+  "main": {
+    "_factorize_basis": 7,
+    "_basis_factorization": 114,
+    "UMFPACKBackend": 2,
+    "refactorize": 120,
+    "copy_basis_factorization": 24,
+    "replace_column": 24,
+    "forward_solve": 226,
+    "transpose_solve": 202,
+    "sparse_solve_view": 2,
+    "raw_lu": 1
+  },
+  "neighbors": {
+    "PFIFactorization": 9,
+    "ForrestTomlinFactorization": 1,
+    "SuhlSuhlFactorization": 1,
+    "BartelsGolubFactorization": 1,
+    "_factorize_basis": 6,
+    "refactorize": 6,
+    "_refactorize_backend": 6,
+    "copy_basis_factorization": 3,
+    "replace_column": 3,
+    "forward_solve": 7,
+    "transpose_solve": 6,
+    "hypersparse_forward_solve": 8,
+    "hypersparse_transpose_solve": 2,
+    "sparse_solve_view": 9,
+    "UMFPACKBackend": 1,
+    "raw_lu": 1
+  },
+  "green_assertions": 6858,
+  "red_assertions": 4,
+  "cost": {
+    "construction": 88,
+    "refactor": 176,
+    "forward": 2816,
+    "transpose": 1408,
+    "windows": 88,
+    "fresh_native_source": 176,
+    "private_lu_source": 88
+  },
+  "public_solves": 0
+}

@@ -47,36 +47,33 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-GREEN-2 completed and independently reviewed as focused ordinary-policy plumbing:
-see results/NATIVE-PIVOT-GREEN2/REPORT.md and GREEN2-PREPARATION/runs/green2.
-ONE<=60s attempt consumed; childexit0/auditTRUE. All6977assertions passed:
-original6858ninegroups +119separateregression;16actualhelpercalls/zero selected
-production entries inregression. Original792selectedentries/324equations retained;
-32empty structural,292nonempty residuals withinunchangedbound,260nonzero.
-OldfailedGREEN5352pass1error/auditFALSE remains consumed/frozen, not retroactivePASS.
+Native pivot policy Task2 component-cost preparation is complete OFFLINE:
+see results/NATIVE-PIVOT-COST-PREPARATION/REPORT.md and review-final.md/json.
+New cost-only route binds accepted GREEN-2 (6977assertions/792selectedentries/
+324equations); original failed GREEN and old cost paths remain frozen/consumed.
+Copied costdriver/inputs/oracle/guard/supervisor are byte-identical; candidate75/
+reference73 unchanged. Python27synthetic +18source checks only; no Julia.
 
-Fresh admission99checks/962sealedfiles963bindings; launch965pins; postcheck18PASS.
-Inclusive31.036838111001998s NOTbenchmark.30samples minRAM21855112KiB swap0,
-RSS683124KiB; no allocation/speedup/nativefree/completebackendbudget claim.
-Full214groups ANDsessions/noJulia closed: runner249639/start14817324 and
-child249640/start14817374,boot284d2228-1d9a-4c5f-913c-b9f1098b5838.
-Before future launch/pinnedcontinuation edits require NEWfreshhostrefs/identities,
-all214groupsANDsessions plus any new groups; savedposthost is not freshpreflight.
+NEXT: fresh host/refs/boot+start_ticks+command/full214groups ANDsessions/noJulia,
+then seal.py cost and fresh independent gpt-6-astra exact-stage admission.
+Only accepted exact seal authorizes ONE cost<=45s (inner37), Julia/BLAS1,
+heap2GiB/VM8GiB/RAM>=6GiB/swap<=1GiB. Existing human short-run permission stands.
+No extra warmup/retry/tuning/longrun. No stage/seal/admission/reservation/output
+was created by preparation. Freeze all preparation/review/check scripts after use.
 
-NEXT: prepare separate OFFLINE cost-stage driver/routing/admission based on frozen
-Task2costdriver/inputs, binding this acceptedGREEN-2 as predecessor. Keep<=45s,
-88windows/88constructions176refactors4224solves, original residual/control/work
-oracles andallocation/timing capture. Independent concrete preparation andfresh
-exact-stage review BEFORE launch; no cost is run by this closure. Originalcontrol
-andlaunch paths use failedGREEN and MUSTNOT rerun/overwrite. No public/Task3
-integration or direct-prototype promotion. Standinghuman short-runpermission
-retained; no repeated permission ask, no automatic rerun/tuning/longrun.
+Four original fixtures,3warm+8measured alternating pairs:88windows,
+88constructions176refactors4224solves; five timing regions with total a superset.
+All measured compile/recompile0; preserve GC/outliers and every false result.
+Threshold-one unchanged residual/control/work gates; default known sparse96
+false remains diagnostic, any mismatch with savedC requires explanation.
+No whole-solver speedup, prior-binary overhead, native-free or completebackend claim.
 
-Current GREEN2-preparation closure/supplement/publication andnewseal/launch/admission
-STATUS/roadmap bindings mapONLY to GREEN2 before-GREEN2 copies via explicitmapping;
-everyoldermapping remains. ALLold/newraw/scripts/audits/pins/reviews frozen.
-Actualsrc/test/env/CI/directprototypes/master6f68e24 unchanged; HHdisabled/CIoff/
-automationpaused, originaldirectcost1failed/consumed/cost2blocked, broaderplanOPEN.
+GREEN-2 current closure/publication STATUS/roadmap bindings map ONLY to this
+preparation's STATUS.md.before-cost and roadmap.md.before-cost, via explicit
+continuation-mappings.json. Every older map remains unchanged. Current master
+6f68e24/actualsrc/test/env/directprototypes unchanged; CIoff/HHdisabled/
+automationpaused. Public Task3/integration and originaldirectcost2 remain blocked
+pending their own accepted steps; broader plan OPEN.
 
 ## Previous missing-zero experiment
 

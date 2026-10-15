@@ -1,0 +1,49 @@
+{
+  "byte_identical": {
+    "cost-driver.jl": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-QUALIFICATION/cost-driver.jl",
+    "inputs.json": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-QUALIFICATION/inputs.json",
+    "inputs.toml": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-QUALIFICATION/inputs.toml",
+    "saved-C.json": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-QUALIFICATION/saved-C.json",
+    "guard.py": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-QUALIFICATION/guard.py",
+    "supervisor.py": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-QUALIFICATION/supervisor.py",
+    "exact.py": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-QUALIFICATION/exact.py",
+    "oracle.py": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-QUALIFICATION/oracle.py",
+    "budget.json": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-QUALIFICATION/budget.json",
+    "loaded-paths.json": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-QUALIFICATION/loaded-paths.json",
+    "seal.py": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-GREEN2-PREPARATION/seal.py",
+    "launch.py": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-GREEN2-PREPARATION/launch.py"
+  },
+  "changed": {
+    "common.py": {
+      "source": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-GREEN2-PREPARATION/common.py",
+      "edits": [
+        {
+          "before": "HEAD='30b0b3402ef5d319c8faa0a78aca32ca3c354d22'",
+          "after": "HEAD='294d4435e888577d90533b50c3c44da6702976e6'"
+        }
+      ]
+    },
+    "control.py": {
+      "source": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-GREEN2-PREPARATION/control.py",
+      "edits": [
+        {
+          "before": "OLD=D.parent/'NATIVE-PIVOT-QUALIFICATION'\nFIX=D.parent/'NATIVE-PIVOT-OBSERVER-FIX'\ndef config(phase):\n require(phase=='green2','Only new GREEN-2 is prepared')\n stage=R/'.superpowers/native-pivot-green2/green2'\n run=D/'runs/green2';out=run/'output'\n command=['/bin/bash',WRAPPER,'--compiled-modules=existing','--threads=1','--gcthreads=1,0','--heap-size-hint=2G','--project='+str(stage),str(D/'test-driver.jl'),str(out),phase,str(stage)]\n return dict(phase=phase,seconds=60,expected_exit=0,arm='candidate',stage=str(stage),run=str(run),output=str(out),command=command)\n",
+          "after": "OLD=D.parent/'NATIVE-PIVOT-QUALIFICATION'\nGREEN=D.parent/'NATIVE-PIVOT-GREEN2-PREPARATION'/'runs/green2'\nRESULT=D.parent/'NATIVE-PIVOT-GREEN2'\ndef config(phase):\n require(phase=='cost','Only new cost route is prepared')\n stage=R/'.superpowers/native-pivot-cost/cost';run=D/'runs/cost';out=run/'output'\n command=['/bin/bash',WRAPPER,'--compiled-modules=existing','--threads=1','--gcthreads=1,0','--heap-size-hint=2G','--project='+str(stage),str(D/'cost-driver.jl'),str(out),str(stage),str(D/'inputs.toml')]\n return dict(phase=phase,seconds=45,expected_exit=0,arm='candidate',stage=str(stage),run=str(run),output=str(out),command=command)\n"
+        },
+        {
+          "before": "def validate_prerequisites(red,green):\n require(red.get('all_passed') is True and red.get('phase')=='red','Original RED not accepted')\n require(green.get('all_passed') is False and green.get('phase')=='green','Original failed GREEN must remain failed')\ndef predecessor(phase):\n config(phase)\n red=OLD/'runs/red';green=OLD/'runs/green'\n a=rd(red/'audit.json');g=rd(green/'audit.json');validate_prerequisites(a,g)\n verify_review(rd(red/'result-review.json'),red/'audit.json',list(a['sha256'])+[str(red/'audit.json')],'stage result','red')\n gr=rd(green/'result-review.json')\n require(gr['accepted'] is False and gr['diagnostic_accepted'] is True and gr['qualification_accepted'] is False,'Failed GREEN diagnostic review')\n require(set(gr['sha256'])==set(g['sha256'])|{str(green/'audit.json')} and gr['pins_sha256']==sha(green/'audit.json'),'Failed GREEN exact bindings')\n require(bindings(a) and bindings(g) and bindings(gr),'Original evidence changed')\n fp=FIX/'pins-reviewed.json';f=rd(fp)\n verify_review(rd(FIX/'review-final.json'),fp,list(f['sha256'])+[str(fp)],'offline observer correction')\n require(bindings(f),'Observer preparation changed')\n groups=rd(green/'posthost.json')['groups']\n require(not rd(green/'posthost.json')['matches'],'Original closure')\n files={red/'audit.json',red/'result-review.json',green/'audit.json',green/'result-review.json',green/'posthost.json',fp,FIX/'review-final.json'}\n files|={path(n) for z in [a,g,gr,f] for n in z['sha256']}\n return sorted(files),groups\n",
+          "after": "def validate_prerequisites(green2,failed):\n require(green2.get('all_passed') is True and green2.get('phase')=='green2','Accepted GREEN-2 required')\n require(failed.get('all_passed') is False and failed.get('phase')=='green','Original failed GREEN must remain failed')\ndef predecessor(phase):\n config(phase)\n ap=GREEN/'audit.json';a=rd(ap);oldp=OLD/'runs/green/audit.json';old=rd(oldp)\n validate_prerequisites(a,old)\n rp=GREEN/'result-review.json';review=rd(rp)\n verify_review(review,ap,list(a['sha256'])+[str(ap)],'stage result','green2')\n require(bindings(a) and bindings(old),'Predecessor audit bindings')\n require(all(sha(path(n))==v for n,v in review['evidence_sha256'].items()),'GREEN-2 supplemental review bindings')\n post=rd(RESULT/'closure-host.json');require(not post['matches'] and len(post['groups'])==214,'GREEN-2 process closure')\n files={ap,rp,oldp,RESULT/'closure-host.json',RESULT/'continuation-mappings.json'}\n files|={path(n) for z in [a,old] for n in z['sha256']}\n files|={path(n) for n in review['evidence_sha256']}\n # Only the two current continuation digests move to exact before-cost copies.\n preserved={str(STATUS):D/'STATUS.md.before-cost',str(ROAD):D/'roadmap.md.before-cost'}\n for rec in [RESULT/'closure.json',RESULT/'publication.json']:\n  z=rd(rec);require(z['all_passed'] is True,'GREEN-2 result publication')\n  files.add(rec)\n  for n,v in z['sha256'].items():\n   p=path(n);p=preserved.get(str(p),p)\n   require(sha(p)==v,'GREEN-2 closure/publication changed: '+n);files.add(p)\n return sorted(files),post['groups']\n"
+        }
+      ]
+    },
+    "audit.py": {
+      "source": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-QUALIFICATION/audit_reviewed.py",
+      "edits": [
+        {
+          "before": "from control_reviewed import *",
+          "after": "from control import *"
+        }
+      ]
+    }
+  }
+}
