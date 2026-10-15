@@ -2905,3 +2905,10 @@ fullsuite/x64 or nativecombined-refinementequivalence. Eight prioradmission
 closure/closure-final/publication-final/publication-review continuationkeys map
 ONLY to newbefore-green-correctnesscopies; alloldermapsfrozen. Master6f68e24/
 CIoff/HHdisabled/automationpaused unchanged; broaderplanopen.
+
+### Direct LU Task3 offline cost preparation
+
+Exact four-fixture/two-process cost driver and admission independently reviewed.
+No cost executed; next fresh cost1 seal and exact independent stage admission.
+See diagnostics/simplex-core-architecture/DIRECT-LU-COST-PREPARATION.md.
+All prior rejections, evidence and production defaults remain unchanged.

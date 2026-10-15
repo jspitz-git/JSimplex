@@ -47,38 +47,26 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-Corrected Direct LU / Markowitz GREEN is independently accepted for scoped
-Tasks1–2 component/lifecycle correctness. See DIRECT-LU-GREEN-CORRECTNESS.md and
-results/DIRECT-LU-GREEN-CORRECTNESS/review.md/json. One new process:19,557PASS,
-0FAIL/ERROR/BROKEN,exit0,all12groups,15auditgatesPASS,11postchecksPASS.
-Inclusive40.831812370s is NOTbenchmark time. All4616launch/4614sealedpins and
-514baselinepaths unchanged. Stage admission bound4383paths.40resource samples
-plus terminal:minRAM21,909,480KiB,swap0; full202groupsANDsessionsabsent/noJulia.
-No WARNING marker in this run. ReservationCONSUMED; no repeat/tuning.
+Direct LU / Markowitz Task3 OFFLINE cost preparation is independently accepted.
+See DIRECT-LU-COST-PREPARATION.md and results/DIRECT-LU-COST-PREPARATION reviews.
+No Julia/parser/import/compile/cost execution, stage seal or reservation in this
+step. Tasks1–2 correctedGREEN remains accepted19557PASS; oldfailedGREEN andRED,
+all inputs/scripts/raw/reviews remain frozen. Production/master6f68e24 unchanged.
 
-PrivateCSC/nzval repair passed export130 assertions; three directmanagers,
-native/Markowitz, normalization/orientation, ownership/copy/update/refactor and
-fallback fixtures passed. Otherprecisions qualify testedfallback only. Source
-work ledger remains source-derived, not instrumentedbackend/allocations. No
-speedup/native-refinement-equivalence/fullsuite/x64/publicsolver claim or
-productionpromotion. OriginalRED3expectedFAIL remainsaccepted; oldGREEN89PASS/
-1ERROR/falseaudit unchanged. All old and new executed artifacts remain frozen.
+Next: fresh host refs/boot/start_ticks/command/full202groups ANDsessions/noJulia,
+then exact cost1 seal and independent numerical/work/memory stage admission,
+then ONE guarded <=90s inclusive cost1 process. Use canonical controls identified
+in the preparation review; do not execute superseded drafts. Cost2 needs accepted
+immutable cost1 audit/raw and closure including its new groups, fresh seal and
+independent stage admission; ONE further <=90s process only. No automatic retry.
 
-Next concrete work: original Task3 OFFLINE cost-driver/input/admission preparation
-in docs/superpowers/plans/2026-10-14-direct-lu-markowitz.md. Freeze n32/96 x
-sparse/dense inputs and entering/DSE/B4/B8 bits;24manager/backendcells,
-3warm+7measured alternating pairs, two serial <=90sprocesses in later separate
-exactadmissions. Include wholeconstruct/eightupdates/tworefactor costs, bytes/
-events/compile/GC and finalreachablememory. Preserve original per-cellselection
-rules and second-refactor bufferreuse costs. No cost driver/run prepared by this
-result step. Standing short permission sufficient; exact independent admission
-still required. Task4publicintegration/promotion remains later, neverautomatic.
-
-Admission closure/closure-final/publication-final/publication-review CURRENT
-STATUS/roadmap hashes map ONLY to DIRECT-LU-GREEN-CORRECTNESS before-green-
-correctness copies (eight exact continuation.json mappings). Earlier maps and
-raw/rejections stay unchanged. Master6f68e24 unchanged; CIoff/HHdisabled/
-automationpaused. Broader architecture plan OPEN.
+24cells:4 n32/96 sparse/dense fixtures xFT/SS/BG xnative/Markowitz. Per process
+3warm+7measured alternating pairs, reversed firstside in process2; whole fresh
+construction/8updates/2refactors measured, all allocations/GC/compile and final
+reachablefactor memory retained. Exact residuals outside windows; no extra solves.
+Time/bytes/events/memory selection percell; all4cells required permanager/backend.
+No performance acceptance yet, no automatic publicintegration/defaultpromotion.
+CIoff/automationpaused/HHreuse disabled; broader programme remains open.
 
 ## Previous missing-zero experiment
 
