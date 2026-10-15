@@ -1,0 +1,47 @@
+"""Read-only offline supplement checks; never execute publication or old checkers."""
+from pathlib import Path
+import ast,difflib,hashlib,json,subprocess
+D=Path(__file__).resolve().parent;R=D.parents[3];checks={}
+def rd(p):return json.loads(Path(p).read_text())
+def sha(p):
+ h=hashlib.sha256()
+ with Path(p).open('rb') as f:
+  for b in iter(lambda:f.read(1048576),b''):h.update(b)
+ return h.hexdigest()
+def check(n,v):checks[n]=bool(v)
+def git(*a):return subprocess.check_output(['git',*a],cwd=R,text=True).strip()
+def path(n):return Path(n) if Path(n).is_absolute() else R/n
+m=rd(D/'source-map.json');diff=''.join(''.join(difflib.unified_diff(Path(p).read_text().splitlines(True),(D/n).read_text().splitlines(True),fromfile=p,tofile=str(D/n))) for n,p in m['originals'].items())
+check('complete_generated_diff_identity',diff.encode()==(D/'changes.diff').read_bytes())
+nums=[96,114,133,149,174];lines=diff.splitlines();check('exact_five_blank_context_lines',[i+1 for i,l in enumerate(lines) if l==' ']==nums)
+# A literal space is unified-diff context; authored additions begin '+' instead.
+check('markers_are_context',all(lines[n-1]==' ' and not lines[n-1].startswith('+') for n in nums))
+p=str((D/'changes.diff').relative_to(R));expected=''.join(f'{p}:{n}: trailing whitespace.\n+ \n' for n in nums)
+z=subprocess.run(['git','diff','--cached','--check'],cwd=R,text=True,capture_output=True)
+check('exact_recorded_git_diagnostics',z.returncode==2 and z.stdout==expected and z.stderr=='')
+z2=subprocess.run(['git','diff','--cached','--check','--','.',':(exclude)'+p],cwd=R,text=True,capture_output=True)
+check('all_other_staged_content_strictly_clean',z2.returncode==0 and z2.stdout==z2.stderr=='')
+failure=rd(D/'publication-failure.json');check('recorded_failure_matches',failure['returncode']==1 and failure['failed_subcommand_returncode']==2 and failure['original_publication_record_exists'] is False and failure['diagnostics']==[dict(path=p,line=n,text=' ',diagnostic='trailing whitespace') for n in nums])
+closure=rd(D/'closure.json');check('old_closure45_hashes',closure['all_passed'] is True and len(closure['sha256'])==45 and all(sha(path(n))==v for n,v in closure['sha256'].items()))
+check('old_closure12_passes',len(closure['checks'])==12 and all(closure['checks'].values()))
+review=rd(D/'review-final.json');check('main_review882_hashes',review['accepted'] is True and review['findings']==[] and review['scope']=='offline preparation' and len(review['sha256'])==882 and all(sha(path(n))==v for n,v in review['sha256'].items()))
+check('review_manifest_digest',review['pins_sha256']==sha(D/'preparation-pins.json'))
+pins=rd(D/'preparation-pins.json');check('exact881_membership',len(pins['sha256'])==881 and set(pins['sha256'])==set(rd(D/'required-paths.json')['paths']) and set(review['sha256'])==set(pins['sha256'])|{str(D/'preparation-pins.json')})
+old=rd(D/'publication-names.json')['names'];absent=str((D/'publication.json').relative_to(R));staged=git('diff','--cached','--name-only').splitlines()
+check('old47_exact_partial46',len(old)==len(set(old))==47 and len(staged)==46 and set(staged)==set(old)-{absent})
+blobs={n:git('rev-parse',':'+n) for n in staged};check('all46_index_blobs_match_files',all(git('hash-object','--',n)==v for n,v in blobs.items()))
+check('no_unstaged_tracked_change',git('diff','--name-only')=='')
+check('no_publication_or_numerical_stage',not (D/'publication.json').exists() and not (D/'publication-final.json').exists() and not (D/'runs').exists() and not (R/'.superpowers/native-pivot-green2/green2').exists())
+check('refs_unchanged',git('rev-parse','HEAD')=='30b0b3402ef5d319c8faa0a78aca32ca3c354d22' and git('rev-parse','master')=='6f68e24e8ddac42b948da8fcc2d636c010751194')
+check('no_production_index_changes',git('diff','--cached','--name-only','--','src','test','Project.toml','.github','diagnostics/direct-lu-markowitz/reproduce')=='')
+s=(D/'publication-final.py').read_text();ast.parse(s);check('new_script_python_syntax',True)
+check('script_fixed_line_allowlist',"nums=[96,114,133,149,174]" in s and "z.returncode==2 and z.stdout==expected and z.stderr==''" in s)
+check('script_strict_other_content_twice',s.count("['git','diff','--cached','--check','--','.',':(exclude)'+p]")==2)
+check('script_preserves_old_failure',"require(not (D/'publication.json').exists()" in s and "with (D/'publication-final.json').open('x')" in s)
+check('script_closure_and_review_before_gitadd',s.index("c=rd(D/'closure-supplement.json')")<s.index("review=rd(D/'publication-review.json')")<s.index("subprocess.run(['git','add'"))
+check('script_index_names_and_blob_checks',"set(old)-{absent}" in s and "set(other),'Exact final stage'" in s and "set(names),'Complete stage'" in s and "git('hash-object','--',n)==v" in s)
+check('supplement_not_prematurely_created',not (D/'publication-names-final.json').exists() and not (D/'closure-supplement.json').exists())
+result=dict(all_passed=all(checks.values()),checks=checks,staged_blobs=blobs,git_check=dict(returncode=z.returncode,stdout=z.stdout,stderr=z.stderr),pins_sha256=sha(D/'preparation-pins.json'),scope='Independent read-only offline publication supplement checks; no scripts executed beyond this new checker')
+with (D/'reviewer-publication-checks.json').open('x') as f:json.dump(result,f,indent=2);f.write('\n')
+print(json.dumps(dict(all_passed=result['all_passed'],checks=len(checks),failed=[n for n,v in checks.items() if not v])))
+if not result['all_passed']:raise SystemExit(1)

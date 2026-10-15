@@ -1,0 +1,275 @@
+--- /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-QUALIFICATION/common.py
++++ /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-GREEN2-PREPARATION/common.py
+@@ -3,7 +3,7 @@
+ import json,hashlib,subprocess,time
+ Q=Path(__file__).resolve().parent;R=Q.parents[3];PREV=Q.parent/'NATIVE-PIVOT-PREPARATION'
+ STATUS=R/'diagnostics/simplex-core-architecture/STATUS.md';ROAD=R/'docs/superpowers/plans/2026-10-11-simplex-core-architecture.md'
+-HEAD='8dc06f2b95ef74266cb4c7a7b05676a438c3be46';MASTER='6f68e24e8ddac42b948da8fcc2d636c010751194'
++HEAD='30b0b3402ef5d319c8faa0a78aca32ca3c354d22';MASTER='6f68e24e8ddac42b948da8fcc2d636c010751194'
+ def require(v,m):
+  if not v:raise RuntimeError(m)
+ def rd(p):return json.loads(Path(p).read_text())
+@@ -18,7 +18,7 @@
+ def git(*args):return subprocess.check_output(['git',*args],cwd=R,text=True).strip()
+ def bindings(z):return all(sha(path(n))==h for n,h in z['sha256'].items())
+ def host():
+- old=rd(PREV/'closure-final-host.json');groups=old['groups'];boot=Path('/proc/sys/kernel/random/boot_id').read_text().strip();matches=[];unreadable=[]
++ old=rd(Q/'host.json');groups=old['groups'];boot=Path('/proc/sys/kernel/random/boot_id').read_text().strip();matches=[];unreadable=[]
+  for p in Path('/proc').glob('[0-9]*'):
+   try:
+    z=(p/'stat').read_text().rsplit(')',1)[1].split();comm=(p/'comm').read_text().strip();exe=''
+@@ -32,4 +32,4 @@
+ def verify_host(h):
+  require(not h['matches'],'Prior groups/sessions or Julia present')
+  require(h['head']==HEAD and h['master']==MASTER,'Unexpected refs')
+- require(h['boot_id']==rd(PREV/'closure-final-host.json')['boot_id'],'Boot changed')
++ require(h['boot_id']==rd(Q/'host.json')['boot_id'],'Boot changed')
+--- /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-QUALIFICATION/control_reviewed.py
++++ /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-GREEN2-PREPARATION/control.py
+@@ -3,15 +3,14 @@
+ import os,sys
+ D=Q
+ WRAPPER='/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh'
+-PHASES={'red':(30,1,'reference'),'green':(60,0,'candidate'),'cost':(45,0,'candidate')}
++OLD=D.parent/'NATIVE-PIVOT-QUALIFICATION'
++FIX=D.parent/'NATIVE-PIVOT-OBSERVER-FIX'
+ def config(phase):
+- require(phase in PHASES,'Unknown phase')
+- seconds,expected,arm=PHASES[phase]
+- stage=R/'.superpowers/native-pivot-qualification'/phase
+- run=D/'runs'/phase;out=run/'output'
+- args=[str(D/'cost-driver.jl'),str(out),str(stage),str(D/'inputs.toml')] if phase=='cost' else [str(D/'test-driver-reviewed.jl'),str(out),phase,str(stage)]
+- command=['/bin/bash',WRAPPER,'--compiled-modules=existing','--threads=1','--gcthreads=1,0','--heap-size-hint=2G','--project='+str(stage),*args]
+- return dict(phase=phase,seconds=seconds,expected_exit=expected,arm=arm,stage=str(stage),run=str(run),output=str(out),command=command)
++ require(phase=='green2','Only new GREEN-2 is prepared')
++ stage=R/'.superpowers/native-pivot-green2/green2'
++ run=D/'runs/green2';out=run/'output'
++ command=['/bin/bash',WRAPPER,'--compiled-modules=existing','--threads=1','--gcthreads=1,0','--heap-size-hint=2G','--project='+str(stage),str(D/'test-driver.jl'),str(out),phase,str(stage)]
++ return dict(phase=phase,seconds=60,expected_exit=0,arm='candidate',stage=str(stage),run=str(run),output=str(out),command=command)
+ def validate_environment():
+  expected=rd(D/'environment.json');require({k:os.environ.get(k) for k in expected}==expected,'Loading environment changed')
+ def verify_review(review,pins,required,scope,phase=None):
+@@ -20,15 +19,26 @@
+  require(review.get('pins_sha256')==sha(pins),'Review manifest binding')
+  require(set(review.get('sha256',{}))==set(required),'Exact review membership')
+  require(bindings(review),'Review hashes changed')
++def validate_prerequisites(red,green):
++ require(red.get('all_passed') is True and red.get('phase')=='red','Original RED not accepted')
++ require(green.get('all_passed') is False and green.get('phase')=='green','Original failed GREEN must remain failed')
+ def predecessor(phase):
+- if phase=='red':return [],[]
+- previous='red' if phase=='green' else 'green';p=D/'runs'/previous
+- a=p/'audit.json';review=p/'result-review.json'
+- z=rd(a);require(z.get('all_passed') is True and z.get('phase')==previous,'Predecessor rejected')
+- verify_review(rd(review),a,list(z['sha256'])+[str(a)],'stage result',previous)
+- require(bindings(z),'Predecessor evidence changed')
+- post=rd(p/'posthost.json');require(not post['matches'],'Predecessor process closure')
+- return [a,review]+[Path(n) for n in z['sha256']],post['groups']
++ config(phase)
++ red=OLD/'runs/red';green=OLD/'runs/green'
++ a=rd(red/'audit.json');g=rd(green/'audit.json');validate_prerequisites(a,g)
++ verify_review(rd(red/'result-review.json'),red/'audit.json',list(a['sha256'])+[str(red/'audit.json')],'stage result','red')
++ gr=rd(green/'result-review.json')
++ require(gr['accepted'] is False and gr['diagnostic_accepted'] is True and gr['qualification_accepted'] is False,'Failed GREEN diagnostic review')
++ require(set(gr['sha256'])==set(g['sha256'])|{str(green/'audit.json')} and gr['pins_sha256']==sha(green/'audit.json'),'Failed GREEN exact bindings')
++ require(bindings(a) and bindings(g) and bindings(gr),'Original evidence changed')
++ fp=FIX/'pins-reviewed.json';f=rd(fp)
++ verify_review(rd(FIX/'review-final.json'),fp,list(f['sha256'])+[str(fp)],'offline observer correction')
++ require(bindings(f),'Observer preparation changed')
++ groups=rd(green/'posthost.json')['groups']
++ require(not rd(green/'posthost.json')['matches'],'Original closure')
++ files={red/'audit.json',red/'result-review.json',green/'audit.json',green/'result-review.json',green/'posthost.json',fp,FIX/'review-final.json'}
++ files|={path(n) for z in [a,g,gr,f] for n in z['sha256']}
++ return sorted(files),groups
+ def full_host(extra=()):
+  h=host();missing=set(extra)-set(h['groups'])
+  for p in Path('/proc').glob('[0-9]*'):
+--- /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-QUALIFICATION/seal-reviewed.py
++++ /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-GREEN2-PREPARATION/seal.py
+@@ -1,14 +1,15 @@
+ """UNEXECUTED: build one fresh stage and seal for independent exact-stage review.
+ No Julia, output reservation or admission is created by this program.
+ """
+-from control_reviewed import *
++from control import *
+ import guard
+ 
+ def main(phase):
+  cfg=config(phase);validate_environment()
+- pins=D/'preparation-pins-reviewed.json';z=rd(pins)
++ pins=D/'preparation-pins.json';z=rd(pins)
+  verify_review(rd(D/'review-final.json'),pins,list(z['sha256'])+[str(pins)],'offline preparation')
+  require(bindings(z),'Preparation changed')
++ require(set(z['sha256'])==set(rd(D/'required-paths.json')['paths']),'Required preparation membership')
+  extra,groups=predecessor(phase);h=full_host(groups)
+  require(not h['matches'] and h['master']==MASTER and h['boot_id']==rd(D/'host.json')['boot_id'],'Fresh refs/processes')
+  require(subprocess.run(['git','merge-base','--is-ancestor',HEAD,'HEAD'],cwd=R).returncode==0,'Unrelated HEAD')
+--- /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-QUALIFICATION/launch-reviewed.py
++++ /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-GREEN2-PREPARATION/launch.py
+@@ -1,5 +1,5 @@
+ """UNEXECUTED single exact-stage launch. Does not auto-seal, review or continue."""
+-from control_reviewed import *
++from control import *
+ import guard,supervisor
+ 
+ def main(phase):
+@@ -30,6 +30,6 @@
+     for role in ['runner','child']:
+      if role in obj:groups += [obj[role][k] for k in ('pgid','sid')]
+   save(run/'posthost.json',full_host(groups+sealed['groups']))
+- from audit_reviewed import audit
++ from audit import audit
+  require(audit(phase)['all_passed'],'Stage failed: preserve all records and stop; no retry')
+ if __name__=='__main__':main(sys.argv[1])
+--- /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-QUALIFICATION/audit_reviewed.py
++++ /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-GREEN2-PREPARATION/audit.py
+@@ -1,12 +1,11 @@
+ """UNEXECUTED stage auditor, fail closed on absent or malformed evidence."""
+-from control_reviewed import *
+-from oracle import test_results,cost_results
++from control import *
++from oracle import test_results
+ import guard,tomllib,math
+ 
+ def checks_for(phase):
+  cfg=config(phase);run=Path(cfg['run']);out=Path(cfg['output']);validate_environment();predecessor(phase);validate_stage(cfg)
+  names={'pins.json','current.json','process.json','resources.jsonl','run.log','raw.toml'}
+- if phase=='cost':names|={f'window-{i:03d}.toml' for i in range(1,89)}
+  require({p.name for p in out.iterdir()}==names and all(p.is_file() for p in out.iterdir()),'Exact output membership')
+  sp=run/'sealed.json';sealed=rd(sp);rp=run/'admission.json';pp=run/'launch-pins.json';pins=rd(pp)
+  require(sealed['phase']==phase and sealed['config']==cfg and rd(run/'config.json')==cfg,'Config')
+@@ -33,7 +32,7 @@
+  require(type(p['child_maxrss_kib']) in (int,float) and math.isfinite(p['child_maxrss_kib']) and p['child_maxrss_kib']>0,'Terminal resident memory')
+  raw=tomllib.loads((out/'raw.toml').read_text());expected=rd(D/'loaded-paths.json');expected=dict(expected,JSimplex=str(Path(cfg['stage'])/'src/JSimplex.jl'))
+  require(raw['loaded']==expected,'Loaded paths')
+- result=cost_results(raw,[tomllib.loads((out/f'window-{i:03d}.toml').read_text()) for i in range(1,89)]) if phase=='cost' else test_results(raw,phase)
++ result=test_results(raw,phase)
+  result['resident_highwater_kib']=p['child_maxrss_kib'];result['resources']=resources
+  return result
+ 
+--- /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-QUALIFICATION/oracle.py
++++ /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-GREEN2-PREPARATION/oracle.py
+@@ -7,13 +7,8 @@
+  require(raw['complete'] is True and raw['fatal']=='','Incomplete test execution')
+  root=raw['tests'];groups=root['children'];require(root['pass']==root['fail']==root['error']==root['broken']==0,'Root tests')
+  require(raw['threads']==raw['blas_threads']==1,'Threads')
+- if phase=='red':
+-  require(len(groups)==1,'RED group');g=groups[0]
+-  require(g['name']=='Missing native pivot policy contract' and g['pass']==g['error']==g['broken']==0 and g['fail']==4 and g['children']==[],'Expected RED failures only')
+-  names=['native_pivot_policy','_NativePivotPolicy','pivot_policy','_native_lu']
+-  require(len(g['failures'])==4 and all(n in msg for n,msg in zip(names,g['failures'])),'Exact named missing markers')
+-  require(raw['counts']=={} and raw['events']==[] and raw['equations']==[],'RED selected body work')
+-  return dict(expected_failure=True,selected_body_native_entries=0,scope='Import is additional work; no native hook trace')
++ require(phase=='green2' and raw['phase']==phase,'GREEN-2 phase')
++ regression=regression_results(raw)
+  budget=rd(D/'budget.json');expected=budget['test_groups']
+  require([g['name'] for g in groups]==list(expected),'Exact selected test groups/order')
+  for g in groups:
+@@ -42,43 +37,14 @@
+   if e['matrix']['n']==0:
+    require(e['matrix']==dict(n=0,colptr=[1],rowval=[],nzval=[]) and e['rhs']==e['output']==[],'Empty equation');continue
+   r=residual(e['matrix'],e['output'],e['rhs'],e['transposed']);require(r['passed'],'Exact helper residual');result.append(r)
+- return dict(assertions=budget['green_assertions'],entry_counts=total,equations=result,scope='Selected PRE-forward call entries include rejections/throws; internal factorization/reconstruction/Markowitz/HH work is additional, not a native-operation ledger.')
++ return dict(regression=regression,assertions=budget['green_assertions'],entry_counts=total,equations=result,scope='Selected PRE-forward call entries include rejections/throws; internal factorization/reconstruction/Markowitz/HH work is additional, not a native-operation ledger.')
+ 
+-def cost_results(raw,windows):
+- require(raw['complete'] is True and raw['fatal']=='' and raw['inputs_unchanged'] is True,'Completion/inputs')
+- require(raw['threads']==raw['blas_threads']==1,'Threads')
+- require(raw['windows']==len(windows)==88 and raw['counts']==dict(construction=88,refactor=176,forward=2816,transpose=1408),'Cost budget')
+- require(raw['output_payload_bytes']==2162688 and raw['info_payload_bytes']==135168 and raw['diagnostic_graph_bytes']>=2297856,'Diagnostic storage')
+- inputs=rd(D/'inputs.json');fs={f['name']:f for f in inputs['fixtures']};base=raw['default_control'];saved=rd(D/'saved-C.json')
+- cost={};accuracy={'C':True,'P':True};res=[];matches=[];snapshots={};strategies={};cache={}
+- for spec,w in zip(inputs['schedule'],windows):
+-  require(w['schedule']==spec,'Schedule');arm=spec['arm'];name=spec['fixture'];f=fs[name];n=f['matrix']['n']
+-  require(w['no_spare'] is True and w['fresh'] is True and w['reused'] is True,'Lifecycle')
+-  ids=w['owners'];require(len(ids)==6 and ids[0]==ids[3] and ids[1]==ids[4] and ids[2]==ids[5] and ids[0]!=ids[1],'Owner sequence')
+-  require(w['policy']==('_NATIVE_PIVOT_DEFAULT' if arm=='C' else '_NATIVE_PIVOT_ONE'),'Policy')
+-  validate_controls(arm,w['control'],base);validate_controls(arm,w['spare_control'],base)
+-  require(w['Wi']==w['W']==n and len(w['info'])==90,'Workspace/info')
+-  strategy=number(w['info'][18]);require(strategy in (1,3),'Actual strategy');strategies.setdefault(name+':'+arm,set()).add(strategy)
+-  require(len(w['outputs'])==len(w['solve_info'])==48,'Outputs')
+-  for k,(x,info) in enumerate(zip(w['outputs'],w['solve_info'])):
+-   rhs=('a','dse','unit')[k%3];key=(name,rhs,tuple(x))
+-   if key not in cache:cache[key]=residual(f['matrix'],x,f['rhs'][rhs],rhs=='unit')
+-   r=cache[key];accuracy[arm]&=r['passed'];res.append(dict(window=spec['id'],solve=k+1,**r));validate_info(arm,info)
+-  if arm=='C':matches.append(dict(window=spec['id'],fixture=name,matches_all_saved=all(w['outputs']==r['outputs'] for r in saved[name]),saved_hashes=[r['sha256'] for r in saved[name]]))
+-  for region in ['construction','refactor_fresh','refactor_spare','solve','total']:
+-   v=w[region];validate_timing(v)
+-   if not spec['warm']:
+-    require(v['compile_time']==v['recompile_time']==0,'Measured compilation')
+-    cost.setdefault((name,region,arm),{})[spec['round']]=v
+-  if spec['round']==11:
+-   m=w['factor'];require(m['m']==m['n']==m['nzd']==n and n<=m['lnz']<=n*(n+1)//2 and n<=m['unz']<=n*(n+1)//2 and m['graph_bytes']>0 and m['spare_W']==m['spare_Wi']==n,'Fill/memory')
+-   snapshots[name+':'+arm]=dict(**m,info=w['info'],control=w['control'],strategy=strategy)
+-  else:require('factor' not in w,'Unexpected snapshot')
+- require(len(res)==4224 and len(snapshots)==8 and accuracy['P'],'Threshold-one residuals')
+- comparisons={}
+- for name in fs:
+-  for region in ['construction','refactor_fresh','refactor_spare','solve','total']:
+-   C=cost[name,region,'C'];P=cost[name,region,'P'];require(set(C)==set(P)==set(range(4,12)),'Eight matched samples')
+-   ratios=[P[r]['seconds']/C[r]['seconds'] for r in range(4,12)] if all(C[r]['seconds']>0 for r in range(4,12)) else None
+-   comparisons[name+':'+region]=dict(C=C,P=P,ratios=ratios,summary=stats(ratios) if ratios else None)
+- return dict(accuracy=accuracy,residuals=res,paired_cost=comparisons,factors=snapshots,strategies={k:sorted(v) for k,v in strategies.items()},saved_C_comparison=matches,unexplained_C_mismatch=any(not m['matches_all_saved'] for m in matches),limits='Total includes nested timers; never sum twice. Same-candidate policy tradeoff, not prior-binary overhead. GC aggregates may include native traffic; graph and Info are not live native allocation/free balance. A default mismatch requires explanation in result review; no retry.')
++def regression_results(raw):
++ require(raw['phase']=='green2','Regression phase')
++ root=raw['regression_tests'];groups=root['children']
++ require(root['name']=='regression' and root['pass']==root['fail']==root['error']==root['broken']==0 and root['failures']==[],'Regression root')
++ require(len(groups)==1,'Regression group count');g=groups[0]
++ require(g['name']=='Dense diagnostic tokens preserve sparse inputs' and g['pass']==119 and g['fail']==g['error']==g['broken']==0 and g['failures']==[] and g['children']==[],'All 119 regression assertions')
++ require(raw['regression_helper_calls']==16,'Regression helper budget')
++ require(raw['regression_counts_before']==raw['regression_counts_after']=={},'Regression selected production calls')
++ return dict(assertions=119,helper_calls=16,selected_production_calls=0,scope='Separate cold regression work; no runtime/native-internal zero-work claim')
+--- /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-OBSERVER-FIX/test-driver-fixed.jl
++++ /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-GREEN2-PREPARATION/test-driver.jl
+@@ -3,6 +3,7 @@
+ PrecompileTools.verbose[] && error("Unexpected precompile verbosity")
+ using JSimplex
+ include(joinpath(@__DIR__,"test-support-fixed.jl"))
++include(joinpath(@__DIR__,"regression-reviewed.jl"))
+ module RecordedTests
+ using Test
+ mutable struct Capture <: Test.AbstractTestSet
+@@ -32,15 +33,23 @@
+     output,phase,project=ARGS
+     raw=Dict{String,Any}("phase"=>phase,"complete"=>false,"fatal"=>"","counts"=>NP.counts)
+     root=RecordedTests.Capture("root")
++    regression=RecordedTests.Capture("regression")
++    helper_calls=Ref(0)
+     try
+         NP.need(realpath(pathof(JSimplex))==realpath(joinpath(project,"src/JSimplex.jl")),"Wrong package source")
+         NP.need(Threads.nthreads()==BLAS.get_num_threads()==1,"Thread count")
+         raw["loaded"]=Dict("JSimplex"=>realpath(pathof(JSimplex)),"SparseArrays"=>realpath(pathof(SparseArrays)),"LinearAlgebra"=>realpath(pathof(LinearAlgebra)),"TOML"=>realpath(pathof(TOML)))
+         raw["threads"]=Threads.nthreads();raw["blas_threads"]=BLAS.get_num_threads()
++        raw["regression_counts_before"]=copy(NP.counts)
++        Test.@with_testset regression begin
++            DenseTokenRegression.run((format,v)->begin
++                helper_calls[]+=1
++                NP.dense_tokens(format,v)
++            end,NP.scalar,NP.token)
++        end
++        raw["regression_counts_after"]=copy(NP.counts)
+         Test.@with_testset root begin
+-        if phase=="red"
+-            include(joinpath(@__DIR__,"..","NATIVE-PIVOT-QUALIFICATION","red-contract.jl"))
+-        elseif phase=="green"
++        if phase=="green2"
+             include(joinpath(@__DIR__,"..","NATIVE-PIVOT-QUALIFICATION","tests-observed.jl"))
+             raw["main_counts"]=copy(NP.counts)
+             include(joinpath(@__DIR__,"..","NATIVE-PIVOT-QUALIFICATION","neighbors-observed.jl"))
+@@ -53,6 +62,8 @@
+         raw["fatal"]=sprint(showerror,e,catch_backtrace());println(stderr,raw["fatal"])
+     finally
+         raw["tests"]=RecordedTests.dictionary(root)
++        raw["regression_tests"]=RecordedTests.dictionary(regression)
++        raw["regression_helper_calls"]=helper_calls[]
+         raw["events"]=NP.events[1:NP.used[]]
+         raw["equations"]=NP.equations[1:NP.equation_count[]]
+         raw["observation_limit"]=length(NP.events)
+@@ -63,6 +74,6 @@
+     function failed(t)
+         t.failed+t.errored+t.broken+sum(failed(c) for c in t.children;init=0)
+     end
+-    exit(raw["complete"] && isempty(raw["fatal"]) && failed(root)==0 ? 0 : 1)
++    exit(raw["complete"] && isempty(raw["fatal"]) && failed(root)==0 && failed(regression)==0 ? 0 : 1)
+ end
+ main()
