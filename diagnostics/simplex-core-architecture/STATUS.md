@@ -47,33 +47,36 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-GREEN-2 driver/admission preparation completed OFFLINE and independently reviewed;
-see results/NATIVE-PIVOT-GREEN2-PREPARATION/ADMISSION.md, source-check.json,
-offline-GREEN.json, preparation-pins.json and review-final. New phase green2 only;
-new .superpowers/native-pivot-green2/green2 and own runs/green2/output are NOTcreated.
-seal.py/launch.py/audit.py UNEXECUTED. Support/regression byte-identical to accepted
-OBSERVER-FIX; originalcandidate75/testoracles unchanged. Regression is top-level
-included and recorded separately:119assertions/16actualhelpercalls/zero selected
-production entries. Original6858assertions/792entries/324equations unchanged;
-combined6977assertions, no benchmark/publicsolve/cost/Task3 advancement.
+GREEN-2 completed and independently reviewed as focused ordinary-policy plumbing:
+see results/NATIVE-PIVOT-GREEN2/REPORT.md and GREEN2-PREPARATION/runs/green2.
+ONE<=60s attempt consumed; childexit0/auditTRUE. All6977assertions passed:
+original6858ninegroups +119separateregression;16actualhelpercalls/zero selected
+production entries inregression. Original792selectedentries/324equations retained;
+32empty structural,292nonempty residuals withinunchangedbound,260nonzero.
+OldfailedGREEN5352pass1error/auditFALSE remains consumed/frozen, not retroactivePASS.
 
-NEXT: fresh hostrefs/all212groups ANDsessions/noJulia, environment/pins, build
-ONEnew green2stage via seal.py, independent gpt-6-astra exact-stage admission,
-then at mostONE<=60s GREEN-2 if everygate passes. Standing human short-run permission
-remains; do not ask again. One reservation, strict60s inclusive/52sinnerguard,
-JuliaBLAS1/heap2GiB/VM8GiB/RAM6GiB/swap1GiB. Failurepreserve+stop/no retry.
-No admission/reservation/output exists at preparation closure. OriginalREDaccepted
-and originalGREENFAILED diagnostic are distinct required predecessors, not a
-successfulGREEN waiver. New result still needs independent review and closure.
+Fresh admission99checks/962sealedfiles963bindings; launch965pins; postcheck18PASS.
+Inclusive31.036838111001998s NOTbenchmark.30samples minRAM21855112KiB swap0,
+RSS683124KiB; no allocation/speedup/nativefree/completebackendbudget claim.
+Full214groups ANDsessions/noJulia closed: runner249639/start14817324 and
+child249640/start14817374,boot284d2228-1d9a-4c5f-913c-b9f1098b5838.
+Before future launch/pinnedcontinuation edits require NEWfreshhostrefs/identities,
+all214groupsANDsessions plus any new groups; savedposthost is not freshpreflight.
 
-OriginalGREENFALSE5352passes1observererror1506unfulfilled/289entries34equations
-remains consumed/frozen; no candidate correctness or solverdefect conclusion.
-AllOBSERVER-FIXfiles and initial rejected regression preserved. Its current
-STATUS/roadmap closure/publication hashes mapONLY to GREEN2-PREPARATION before
-copies; every older mapping remains. Before any pinned continuation edits fresh
-host required; savedhost is not substitute. Actualsrc/test/env/CI/direct/master
-unchanged at6f68e24; HHdisabled/CIoff/automationpaused, oldcost1failed/cost2blocked.
-BroaderplanOPEN. No frozen scripts/raw/audits/reviews/pins are rerun or rewritten.
+NEXT: prepare separate OFFLINE cost-stage driver/routing/admission based on frozen
+Task2costdriver/inputs, binding this acceptedGREEN-2 as predecessor. Keep<=45s,
+88windows/88constructions176refactors4224solves, original residual/control/work
+oracles andallocation/timing capture. Independent concrete preparation andfresh
+exact-stage review BEFORE launch; no cost is run by this closure. Originalcontrol
+andlaunch paths use failedGREEN and MUSTNOT rerun/overwrite. No public/Task3
+integration or direct-prototype promotion. Standinghuman short-runpermission
+retained; no repeated permission ask, no automatic rerun/tuning/longrun.
+
+Current GREEN2-preparation closure/supplement/publication andnewseal/launch/admission
+STATUS/roadmap bindings mapONLY to GREEN2 before-GREEN2 copies via explicitmapping;
+everyoldermapping remains. ALLold/newraw/scripts/audits/pins/reviews frozen.
+Actualsrc/test/env/CI/directprototypes/master6f68e24 unchanged; HHdisabled/CIoff/
+automationpaused, originaldirectcost1failed/consumed/cost2blocked, broaderplanOPEN.
 
 ## Previous missing-zero experiment
 
