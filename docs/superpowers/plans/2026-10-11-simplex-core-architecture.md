@@ -2960,3 +2960,14 @@ measurement. See DIRECT-LU-PIVOT-GROWTH-DIAGNOSIS.md. Next: separate source/desi
 accuracy-policy plan with pivot/refinement work, fill, scratch and ownership
 obligations. No admitted remedy or automatic numerical permission; cost1 failed,
 cost2 blocked, default controls and all frozen evidence unchanged.
+
+### Native Float64 accuracy-policy comparison plan
+
+SOURCE/DESIGN plan accepted; no new numerical execution. See
+2026-10-15-native-float64-accuracy-policy.md. Next Task1 OFFLINE concrete driver,
+inputs, auditor and launcher preparation with independent review. Three fixed
+native arms compare current0.1/0, pivot1/0 and refinement0.1/2; same frozen
+sparse/dense32/96 inputs and original residual bound. Constructor/solve costs,
+R extra32n workspace bytes and native refinement attempts are explicit. Future
+one<=45s experiment needs exact independent admission. No default change,
+production propagation, oldcost1 rerun or cost2/promotion permission follows.

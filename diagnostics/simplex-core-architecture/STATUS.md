@@ -47,36 +47,39 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-Direct LU saved-factor growth diagnosis completed OFFLINE and independently
-reviewed. See DIRECT-LU-PIVOT-GROWTH-DIAGNOSIS.md and its results directory.
-The saved native sparse96 B4 factors exhibit max U231235.789 versus max B4=4,
-final-factor growth245688.026 relative to scaled input. Despite exact input
-cond_inf<=153/103, factor position(31,31), original(87,1), cancels terms of total
-absolute magnitude462471.58 to -53/2^42 rather than zero. Actual unsymmetric
-strategy/pivot tolerance0.1/IRSTEP0; RCOND4.5522e-7 is a U-diagonal ratio, not
-an exact input condition estimate. Growth/cancellation is the concrete numerical
-mechanism; native rounding sequence/pivot candidate decisions remain uncaptured.
-Representation AND combined application contributions remain nonzero.
+Native Float64 accuracy-policy comparison plan independently accepted SOURCE/DESIGN
+ONLY. Plan: docs/superpowers/plans/2026-10-15-native-float64-accuracy-policy.md;
+evidence results/NATIVE-ACCURACY-POLICY-PLAN. No new Julia/numerics/candidate/driver
+or production/test/env/CI/master changes in this planning step.
 
-No new Julia/native/solve/measurement or production/test/env/CI changes. New exact
-saved-data analysis20checks and author10checks PASS. Its initial provenance-path
-failure is preserved separately; no old script/auditor rerun. Prior backend
-allowance CONSUMED,15/18residualsPASS and3FALSE; originalcost1FAILED/CONSUMED,
-cost2BLOCKED. No threshold/tolerance/precision tuning or candidate promotion.
+NEXT permitted work is Task1 OFFLINE preparation of the private component driver,
+fixed inputs/schema, fail-closed auditor and launcher, with independent review.
+This does not launch Julia. Only then seal and independently accept the exact
+Task2 stage before ONE <=45s process using existing standing short-run permission.
+No new human permission question is needed solely to repeat the granted allowance;
+concrete admission, resources, fresh host/refs and one-attempt gates still apply.
 
-NEXT proposed concrete work is a separate SOURCE/DESIGN plan for an explicit
-native Float64 accuracy policy at factor construction: compare the rationale and
-cost obligations of stronger pivot acceptance versus iterative refinement, with
-ownership/copy/refactor propagation, fill/solve scratch and memory accounted.
-Preserve defaults initially; freeze correctness/cost scope and independent review
-before any numerical execution. This is not an admitted repair, a promised fix,
-a cost1 rerun or automatic cost2 permission. Do not create another equivalent
-saved-factor inventory. The original direct-LU comparison remains incomplete.
+Three frozen arms: C pivot0.1/IRSTEP0, P pivot1/IRSTEP0, R pivot0.1/IRSTEP2.
+Four saved sparse/dense32/96 B4 cases;3warm8measured rounds,132cost windows.
+Whole proposed call budget141freshLU/9lu!attempts/3shallowcopies/4245F+2133B,
+12finalfactor snapshots; these are entries, not a complete native/import budget.
+R retains4n additionalFloat64 workspace elements (32n payload bytes). Per-call
+attempted/taken refinement metadata, constructor and solve costs, all output bits,
+fill and memory are recorded separately. Same original128*n*eps residual bound.
+No arm is presumed to repair the error; no combined arm or post-result tuning.
 
-Backend diagnostic closure/publication currentSTATUS/roadmap bindings map ONLY to
-PIVOT-GROWTH-DIAGNOSIS before-growth copies; all older mappings unchanged. All old
-raw/scripts/reviews/pins remain FROZEN. Master6f68e24 unchanged, CIoff/HHdisabled,
-automationpaused, broader optimization/fullsuite OPEN.
+Saved growth diagnosis remains accepted: scaled finalU growth245688.026 despite
+cond_inf<=153/103, cancellation -53/2^42 at factor31,31/original87,1; both old
+representation/application contributions retained. No exact native rounding trace.
+Originalcost1FAILED/CONSUMED, cost2BLOCKED, old diagnostic allowanceCONSUMED.
+This is a separate policy experiment, not an automatic benchmark retry or remedy.
+Production defaults and manager propagation stay unchanged; subsequent integration
+would require its own ownership/copy/spare/failure design and qualification.
+
+Pivot-growth closure/publication currentSTATUS/roadmap bindings map ONLY to
+NATIVE-ACCURACY-POLICY-PLAN before-policy copies; all earlier mappings unchanged.
+All older raw/scripts/pins/reviews/plans FROZEN. Master6f68e24 unchanged,
+CIoff/HHdisabled/automationpaused; originaldirectLUcomparison/fullsuite remainOPEN.
 
 ## Previous missing-zero experiment
 
