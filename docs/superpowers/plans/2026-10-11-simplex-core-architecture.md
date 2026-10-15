@@ -2939,3 +2939,13 @@ see DIRECT-LU-BACKEND-PREPARATION.md. Next fresh seal and exact stage review,
 then at most ONE45second diagnostic, not cost2 or a benchmark retry. Three live
 native factors/two snapshots; do_recip selects fixed scaling interpretation in
 one export call. No production change or numerical execution in preparation.
+
+### Direct LU backend diagnostic result
+
+ONE admitted6.7954s diagnostic reproduced the original DSE error in fresh native
+B4, ordinary FT and direct-base solves.15/18residuals PASS,3FALSE preserved;
+12/12integrity audit accepted, independent result review complete. Stored factors
+and combined application both have nonzero contributions; exact native cause
+unresolved. See DIRECT-LU-BACKEND-DIAGNOSTIC.md. Allowance consumed; no rerun,
+cost2, automatic repair or promotion. Next bounded offline saved-evidence/source
+analysis only, before any concrete repair proposal. Production/master unchanged.

@@ -1,0 +1,226 @@
+{
+  "all_passed": true,
+  "checks": {
+    "portable_identical": true,
+    "full_launch_pins": true,
+    "audit_bindings": true,
+    "baseline514": true,
+    "group_session_closure": true,
+    "refs_boot": true,
+    "original_cost_false": true,
+    "no_cost2": true,
+    "process_complete": true,
+    "diagnostic_audit": true
+  },
+  "summary": {
+    "audit_accepted": true,
+    "audit_checks": {
+      "host": true,
+      "no_processes": true,
+      "identities": true,
+      "bounded": true,
+      "exit": true,
+      "pins": true,
+      "command": true,
+      "guard_command": true,
+      "reservation": true,
+      "invocation": true,
+      "resources": true,
+      "diagnostic_integrity": true
+    },
+    "exit": 0,
+    "inclusive_seconds": 6.795441914000548,
+    "resource_samples": 6,
+    "min_available_kib": 22211864,
+    "max_swap_kib": 0,
+    "groups": 206,
+    "failed_residuals": [
+      "fresh_dse",
+      "tail_dse",
+      "base_dse"
+    ],
+    "comparisons": {
+      "prefix_dse_matches_original_failure": true,
+      "ordinary_equals_base": true,
+      "fresh_equals_ordinary": true
+    },
+    "residuals": [
+      {
+        "name": "fresh_enter",
+        "passed": true,
+        "max_abs": "256782301203940123/20769187434139310514121985316880384",
+        "bound": "459/35184372088832",
+        "ratio": 9.477257925556204e-07
+      },
+      {
+        "name": "fresh_dse",
+        "passed": false,
+        "max_abs": "9928545/144115188075855872",
+        "bound": "144694209253234815/39614081257132168796771975168",
+        "ratio": 18.861415966018026
+      },
+      {
+        "name": "fresh_btran",
+        "passed": true,
+        "max_abs": "21/288230376151711744",
+        "bound": "2035590799554509967/633825300114114700748351602688",
+        "ratio": 2.2686037084024158e-05
+      },
+      {
+        "name": "prefix1_enter",
+        "passed": true,
+        "max_abs": "286013088203848651/20769187434139310514121985316880384",
+        "bound": "57/4398046511104",
+        "ratio": 1.0625548642746057e-06
+      },
+      {
+        "name": "prefix1_dse",
+        "passed": true,
+        "max_abs": "29/144115188075855872",
+        "bound": "287505314440063401/79228162514264337593543950336",
+        "ratio": 5.5452604880720006e-05
+      },
+      {
+        "name": "prefix1_btran",
+        "passed": true,
+        "max_abs": "30354201441027016733116592294117482916287606860189680019559568902169826174525442157/2187250724783011924372502227117621365353169430893212436425770606409952999199375923223513177023053824",
+        "bound": "254730406681552695/79228162514264337593543950336",
+        "ratio": 4.316373699157704e-06
+      },
+      {
+        "name": "prefix2_enter",
+        "passed": true,
+        "max_abs": "256782301203940089/20769187434139310514121985316880384",
+        "bound": "459/35184372088832",
+        "ratio": 9.477257925556203e-07
+      },
+      {
+        "name": "prefix2_dse",
+        "passed": true,
+        "max_abs": "29/144115188075855872",
+        "bound": "2315107348051550949/633825300114114700748351602688",
+        "ratio": 5.5091764504725664e-05
+      },
+      {
+        "name": "prefix2_btran",
+        "passed": true,
+        "max_abs": "119055124482137225333249538624278689054781629769939168074106553853630901/1989292945639146568621528992587283360401824603189390869761855907572637988050133502132224",
+        "bound": "2035590799554509967/633825300114114700748351602688",
+        "ratio": 1.8634959033305557e-05
+      },
+      {
+        "name": "prefix3_enter",
+        "passed": true,
+        "max_abs": "256782301203940089/20769187434139310514121985316880384",
+        "bound": "459/35184372088832",
+        "ratio": 9.477257925556203e-07
+      },
+      {
+        "name": "prefix3_dse",
+        "passed": true,
+        "max_abs": "29/144115188075855872",
+        "bound": "2315107348051756581/633825300114114700748351602688",
+        "ratio": 5.509176450472077e-05
+      },
+      {
+        "name": "prefix3_btran",
+        "passed": true,
+        "max_abs": "32954784110780074010137894471840248684537363357059894989851/452312848583266388373324160190187140051835877600158453279131187530910662656",
+        "bound": "2035590799554509967/633825300114114700748351602688",
+        "ratio": 2.2686037084024158e-05
+      },
+      {
+        "name": "prefix4_enter",
+        "passed": true,
+        "max_abs": "256782301203940089/20769187434139310514121985316880384",
+        "bound": "459/35184372088832",
+        "ratio": 9.477257925556203e-07
+      },
+      {
+        "name": "prefix4_dse",
+        "passed": true,
+        "max_abs": "29/144115188075855872",
+        "bound": "2315107348051756581/633825300114114700748351602688",
+        "ratio": 5.509176450472077e-05
+      },
+      {
+        "name": "prefix4_btran",
+        "passed": true,
+        "max_abs": "3746525193353144687778000669803405901568812903/51422017416287688817342786954917203280710495801049370729644032",
+        "bound": "2035590799554509967/633825300114114700748351602688",
+        "ratio": 2.2686037084024158e-05
+      },
+      {
+        "name": "tail_enter",
+        "passed": true,
+        "max_abs": "256782301203940123/20769187434139310514121985316880384",
+        "bound": "459/35184372088832",
+        "ratio": 9.477257925556204e-07
+      },
+      {
+        "name": "tail_dse",
+        "passed": false,
+        "max_abs": "9928545/144115188075855872",
+        "bound": "144694209253234815/39614081257132168796771975168",
+        "ratio": 18.861415966018026
+      },
+      {
+        "name": "base_dse",
+        "passed": false,
+        "max_abs": "9928545/144115188075855872",
+        "bound": "144694209253234815/39614081257132168796771975168",
+        "ratio": 18.861415966018026
+      }
+    ],
+    "decomposition": {
+      "fresh": {
+        "factor_identity_exact": false,
+        "factor_identity_max": "53/4398046511104",
+        "representation_action": "261545160370332915/79228162514264337593543950336",
+        "combined_application": "7270936059368590386885/649037107316853453566312041152512",
+        "scaled_original": "9413514013122357626565/649037107316853453566312041152512"
+      },
+      "ordinary": {
+        "factor_identity_exact": false,
+        "factor_identity_max": "53/4398046511104",
+        "representation_action": "261545160370332915/79228162514264337593543950336",
+        "combined_application": "7270936059368590386885/649037107316853453566312041152512",
+        "scaled_original": "9413514013122357626565/649037107316853453566312041152512"
+      },
+      "base": {
+        "factor_identity_exact": false,
+        "factor_identity_max": "53/4398046511104",
+        "representation_action": "261545160370332915/79228162514264337593543950336",
+        "combined_application": "7270936059368590386885/649037107316853453566312041152512",
+        "scaled_original": "9413514013122357626565/649037107316853453566312041152512"
+      }
+    }
+  },
+  "scope": "Post-exit supplement, not a launch pin or rerun of canonical auditor",
+  "sha256": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-BACKEND-PREPARATION/probe-run/current.json": "789353d9a09ec61fe5f687faf7f4bdf8023540006e6e0518ecf6fc1a41177900",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-BACKEND-PREPARATION/probe-run/fresh.toml": "0583834003de3c8f0391cbec589bc2d2b0617c4bb68e32e20f739a3118f7a067",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-BACKEND-PREPARATION/probe-run/pins.json": "49810b58605591d91b6e8b1fe7f30bbe7e849efcdf7b0874859b3799aa453dd4",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-BACKEND-PREPARATION/probe-run/prefix.toml": "ab441265fa24e8783a735ccc364c35cc30414196f079ed8f3ee736ab93767874",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-BACKEND-PREPARATION/probe-run/process.json": "e51b08f6f6550eade042f0d235d0acce141f4a7bfb247d1850db480124756cf8",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-BACKEND-PREPARATION/probe-run/raw.toml": "d2311801d2259d8e90a641c5de5cc43586b5d40cdc91064f0f169f00a32ecb5b",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-BACKEND-PREPARATION/probe-run/resources.jsonl": "820f58226982e19b4aa1c1b28de0188833c684db976fe28c186302ba6e5e71c9",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-BACKEND-PREPARATION/probe-run/run.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-BACKEND-PREPARATION/probe-audit.json": "71bb8f163b55f131b47255812df10dd43a84aff0174ef8b1ed1ad8aeb0d0525d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-BACKEND-PREPARATION/probe-invocation.json": "2f49e432e3871b86a6080013404473082c99db9539a420475fd568eb8539a1b9",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-BACKEND-PREPARATION/probe-reservation.json": "79ac1bc3f98512b664235ba91d5e3fbba313fa58211d4a871cb3d27c3bca84b3",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-BACKEND-PREPARATION/probe-launch-pins.json": "49810b58605591d91b6e8b1fe7f30bbe7e849efcdf7b0874859b3799aa453dd4",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-BACKEND-PREPARATION/probe-admission.json": "01c99829148af91216eec84a37a3fe52328da8c359780c13982599cc996ce78b",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-BACKEND-PREPARATION/probe-sealed-pins.json": "d0787152332d89ab11016dfab3026652cc1a7ed8254a6c0e264ee754b092691a",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-BACKEND-DIAGNOSTIC/post-host.json": "6abb14aa232d2f771b381a49669a8005c14d0ed9bc6b4330b19be537f92bee0d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-BACKEND-DIAGNOSTIC/postcheck.py": "e56e1f8534fbe406c1b468c6990009256852204be9f5a496c2146ddcda220a1a",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-BACKEND-DIAGNOSTIC/probe-run/process.json": "e51b08f6f6550eade042f0d235d0acce141f4a7bfb247d1850db480124756cf8",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-BACKEND-DIAGNOSTIC/probe-run/raw.toml": "d2311801d2259d8e90a641c5de5cc43586b5d40cdc91064f0f169f00a32ecb5b",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-BACKEND-DIAGNOSTIC/probe-run/pins.json": "49810b58605591d91b6e8b1fe7f30bbe7e849efcdf7b0874859b3799aa453dd4",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-BACKEND-DIAGNOSTIC/probe-run/run.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-BACKEND-DIAGNOSTIC/probe-run/prefix.toml": "ab441265fa24e8783a735ccc364c35cc30414196f079ed8f3ee736ab93767874",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-BACKEND-DIAGNOSTIC/probe-run/resources.jsonl": "820f58226982e19b4aa1c1b28de0188833c684db976fe28c186302ba6e5e71c9",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-BACKEND-DIAGNOSTIC/probe-run/current.json": "789353d9a09ec61fe5f687faf7f4bdf8023540006e6e0518ecf6fc1a41177900",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-BACKEND-DIAGNOSTIC/probe-run/fresh.toml": "0583834003de3c8f0391cbec589bc2d2b0617c4bb68e32e20f739a3118f7a067"
+  }
+}

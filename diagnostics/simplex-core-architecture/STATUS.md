@@ -47,31 +47,33 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-Direct LU backend diagnostic OFFLINE preparation completed and independently
-reviewed. See DIRECT-LU-BACKEND-PREPARATION.md and its results directory.
-No Julia query/parser/import/compile/native call, stage seal, reservation or
-numerical execution. Task3 cost1 remains FAILED and CONSUMED; cost2 BLOCKED.
-Original raw/false audit and partial n32 cost rejections are unchanged.
+Direct LU backend diagnostic completed ONCE and independently reviewed.
+See DIRECT-LU-BACKEND-DIAGNOSTIC.md and results/DIRECT-LU-BACKEND-DIAGNOSTIC.
+The <=45s allowance is CONSUMED: actual6.795441914s inclusive/exit0, canonical
+12/12integrity audit PASS, but15/18exact residuals PASS and3FALSE preserved.
+Fresh DSE, ordinary post-refactor DSE and direct-base DSE are bit-identical to
+one another AND originalcost1step5. Originalcost1FAILED/CONSUMED, cost2BLOCKED.
 
-Concrete driver: exact sparse96 B0..B4/steps1..5, fresh native B4 versus original
-FT/native four-update prefix plus refactor. Explicit total3factorizations/13FTRAN/
-5BTRAN/4replacements/1refactor, two metadata snapshots, three live native factors.
-Scaling orientation comes from do_recip captured in the SAME combined export;
-fixed flag1=multiply/0=divide exact offline rule, no trial orientation or extra
-solve. Original accepted plan frozen; separate reviewed scaling-contract ruling.
-All18 residual booleans retained; nonreproduction is valid evidence, no retry.
-Exact factor/application decomposition is not an intermediate native solve trace.
+Fresh B4 exhibits the same error without FT update/refactor history. Both captured
+factors agree exceptInfo, do_recip=1,234L/248Uentries. Row87 originalresidual
+~6.889312e-11 exceeds originalbound18.8614times. Recorded factorrepresentation
+and combinedapplication are both nonzero contributors; this is NOT a captured
+native intermediate solve or an identified native operation/rootcause/repair.
+No tolerance/control/precision change, no production/candidate modification.
+3factorizations/13FTRAN/5BTRAN/4replacements/1refactor/2snapshots,3live nativefactors;
+all16resetpredicates/inputs/controls/nativeownership PASS. All206groupsANDsessions
+closed/noJulia. Full4749launchpins,514baselinefiles andportable8rawfiles verified.
 
-NEXT: fresh full204groups ANDsessions/noJulia/refs/boot preflight, seal the ONE
-probe stage, then independent review of its exact immutable manifest BEFORE
-launch. At most ONE <=45second diagnostic, same resource guards. Preparation
-acceptance alone does not admit execution. Preserve every raw/exit/false result,
-then independent result review/closure. No cost2, automatic repair, tuning,
-promotion or master merge. Production/master6f68e24 unchanged; CIoff/HHdisabled,
-automation paused, broader plan open. Original source-check selector failure
-preserved; separate filename-only correction and52synthetic/17sourcechecks PASS.
-Previous diagnosis closure/publication current STATUS/roadmap bindings map ONLY
-to BACKEND-PREPARATION before-backend copies. All older mappings remain.
+The bounded diagnostic plan is complete. NEXT permitted direction is a bounded
+OFFLINE analysis of the newly saved factor/solution/source evidence to identify
+a concrete cause before proposing a repair. Do not rerun this process/auditor,
+reopen cost2, tune the benchmark, change tolerance or promote production from
+these diagnostic results. Any repair/newnumerics requires its own concrete plan
+and independent admission; standing short-run authorization does not waive gates.
+Preparation scripts/manifests/reviews, originalfailedcost1 andallolder artifacts
+remain FROZEN. Preparation closure/publication currentSTATUS/roadmap bindings map
+ONLY to DIAGNOSTIC before-probe copies; allolder mappings unchanged. Master6f68e24
+unchanged, CIoff/HHdisabled/automationpaused, broader optimization/fullsuite OPEN.
 
 ## Previous missing-zero experiment
 
