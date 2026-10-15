@@ -1,0 +1,33 @@
+equations = []
+fatal = ""
+threads = 1
+blas_threads = 1
+events = []
+complete = true
+observation_limit = 2048
+phase = "red"
+
+[counts]
+
+[tests]
+pass = 0
+name = "root"
+fail = 0
+broken = 0
+failures = []
+error = 0
+
+    [[tests.children]]
+    pass = 0
+    name = "Missing native pivot policy contract"
+    fail = 4
+    children = []
+    broken = 0
+    failures = ["""Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-QUALIFICATION/red-contract.jl:4\n  Expression: hasfield(SolverOptions{Float64, :pfi, :native}, :native_pivot_policy)\n   Evaluated: hasfield(SolverOptions{Float64, :pfi, :native}, native_pivot_policy)""", """Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-QUALIFICATION/red-contract.jl:5\n  Expression: isdefined(JSimplex, :_NativePivotPolicy)\n   Evaluated: isdefined(JSimplex, _NativePivotPolicy)""", """Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-QUALIFICATION/red-contract.jl:6\n  Expression: hasfield(JSimplex.UMFPACKBackend, :pivot_policy)\n   Evaluated: hasfield(JSimplex.UMFPACKBackend, pivot_policy)""", """Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-QUALIFICATION/red-contract.jl:7\n  Expression: isdefined(JSimplex, :_native_lu)\n   Evaluated: isdefined(JSimplex, _native_lu)"""]
+    error = 0
+
+[loaded]
+LinearAlgebra = "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/LinearAlgebra/src/LinearAlgebra.jl"
+SparseArrays = "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/SparseArrays/src/SparseArrays.jl"
+JSimplex = "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/native-pivot-qualification/red/src/JSimplex.jl"
+TOML = "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/TOML/src/TOML.jl"

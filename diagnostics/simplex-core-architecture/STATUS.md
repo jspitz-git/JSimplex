@@ -47,40 +47,33 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-Native pivot policy Task2 OFFLINE drivers and stage controls prepared and
-independently reviewed; see results/NATIVE-PIVOT-QUALIFICATION/REPORT-final.md,
-ADMISSION-reviewed.md, WORK-LEDGER.md and review-final.json. Original plan/spec and Task1
-candidate/tests remain frozen. No Julia/query/parser/import/compile/numerics,
-source overlay stage, reservation or numerical result was created here.
+Native pivot policy expected RED completed: exactly4 named missing-interface
+failures, zero errors, childexit1 expected, admitted audit PASS. One attempt
+CONSUMED; original reference73file stage, raw/driver/pins/reviews FROZEN, NEVER
+rerun or rewrite. See results/NATIVE-PIVOT-RED/REPORT.md and
+results/NATIVE-PIVOT-QUALIFICATION/runs/red/result-review.md.
+Inclusive5.989787794s<=30 is NOT a benchmark. Empty selected-body factor/native
+entry observations do not prove zero import work. Fresh210groups ANDsessions
+closure/noJulia; runner229464/start13681290, child229465/start13681339,
+boot284d2228-1d9a-4c5f-913c-b9f1098b5838. Always obtain new host evidence before
+next work; this stored record is not fresh preflight.
 
-NEXT: fresh exact RED stage seal, independent gpt-6-astra admission, then one
-<=30s RED only. `seal-reviewed.py red` builds a fresh ordinary reference overlay and
-creates exact manifest for review; it does not authorize/launch Julia.
-`launch-reviewed.py red` requires that exact accepted admission and fresh host closure.
-GREEN<=60s and cost<=45s each require their own accepted predecessor result and
-fresh separate admission. Do not auto-run them, rerun an attempt, add warmups,
-extend limits or reinterpret a preparation review as numerical admission.
-Standing human short-run permission remains; do not ask for it again.
+NEXT: one separate GREEN<=60s only after fresh exact candidate75file seal and
+independent exact-stage admission, using frozen seal-reviewed.py green and
+launch-reviewed.py green. Accepted RED audit/result-review is a prerequisite;
+no automatic next stage. Require all6858assertions, fixed792selected call entries
+and324helper equations with original unchanged oracles. A failure is preserved
+and stops; no tuning/rerun. Standing human short-run permission remains valid.
+Cost<=45s/88windows and Task3 public/recovery/direct integration remain separate.
+No candidate correctness or performance acceptance follows from expected RED.
 
-Four complete candidate groups plus five unchanged neighboring testsets have
-fixed source-derived assertion/entry budgets in budget.json, including throws,
-copy isolation and post-failure solves. Cost has88windows/88constructions/
-176refactors/4224solves, five separately reported regions and preallocated
-outputs. Source-derived176fresh LU+88lu! is not complete native-internal work.
-Default residual failure remains diagnostic; all threshold-one residuals must
-satisfy the original bound. Every time/byte/event/compile/GC sample survives.
-No runtime syntax/inference/correctness/speedup acceptance yet. Initial removed
-Test push/pop API driver was rejected; separate reviewed driver uses installed
-scoped Test context. Original842pins/driver/rejected review remain frozen;
-canonical preparation-pins-reviewed.json and review-final.json bind the correction.
-
-Prior preparation current STATUS/roadmap hashes map only to this step's
-before-qualification copies through continuation.json; all older mappings,
-failed reviews and raw records remain. This offline package and review are
-frozen after publication. Actual src/test/env/master/direct prototypes unchanged;
-master6f68e24, olddirectcost1FAILED/CONSUMED/cost2BLOCKED, CIoff, HHreuse disabled,
-automation paused. Task3 public/recovery and later direct adapter remain separate;
-broader plan OPEN.
+Original872preparation pins and initial Test API rejection remain unchanged.
+Current Q closure/publication/continuation and RED seal/admission/launch/output
+STATUS/roadmap bindings map ONLY to NATIVE-PIVOT-RED before-RED copies through
+continuation-mappings.json; older preserved mappings remain. No actual
+src/test/env/CI/master/direct prototype changes; master6f68e24 unchanged.
+CIoff, HHreuse disabled, automation paused; olddirectcost1FAILED/CONSUMED,
+cost2BLOCKED. Broader plan OPEN. Do not repeat old audits or numerical attempts.
 
 ## Previous missing-zero experiment
 
