@@ -47,30 +47,31 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-Direct LU reference source/saved-evidence diagnosis completed and independently
-reviewed. See DIRECT-LU-REFERENCE-DIAGNOSIS.md and its results directory.
-No Julia or new factor/solve calls. Task 3 cost1 remains FAILED and CONSUMED;
-cost2 BLOCKED. Old raw, false audit and partial n32 cost rejections are unchanged.
+Direct LU backend diagnostic OFFLINE preparation completed and independently
+reviewed. See DIRECT-LU-BACKEND-PREPARATION.md and its results directory.
+No Julia query/parser/import/compile/native call, stage seal, reservation or
+numerical execution. Task3 cost1 remains FAILED and CONSUMED; cost2 BLOCKED.
+Original raw/false audit and partial n32 cost rejections are unchanged.
 
-Source reconstruction localizes the first failed step-5 ordinary FT/native DSE
-output to the fresh UMFPACK backend boundary: after refactor 1 the outer history,
-upper and maps reset, so post-backend work is identity/prepared copies only.
-This is not captured native-factor causality. Exact saved-input dominance proves
-kappa_inf <= 153/103; ill-conditioning is not a sufficient explanation. Row 87
-and its three solution tokens are unchanged at steps 5–8. Native representation
-versus solve-application error remains unresolved; no production fix accepted.
+Concrete driver: exact sparse96 B0..B4/steps1..5, fresh native B4 versus original
+FT/native four-update prefix plus refactor. Explicit total3factorizations/13FTRAN/
+5BTRAN/4replacements/1refactor, two metadata snapshots, three live native factors.
+Scaling orientation comes from do_recip captured in the SAME combined export;
+fixed flag1=multiply/0=divide exact offline rule, no trial orientation or extra
+solve. Original accepted plan frozen; separate reviewed scaling-contract ruling.
+All18 residual booleans retained; nonreproduction is valid evidence, no retry.
+Exact factor/application decomposition is not an intermediate native solve trace.
 
-Next: prepare the separate driver and admission under
-2026-10-15-direct-lu-reference-backend-diagnostic.md, then independent review.
-Prospective ONE <=45 s process compares fresh B4 backend with original prefix
-plus refactor, total 3 factorizations, 13 FTRAN, 5 BTRAN, 4 replacements and
-1 refactor, two final factor snapshots. No launch until concrete immutable
-preparation and exact stage admission pass. No benchmark retry, new tolerance,
-control change, candidate tuning or automatic promotion. Production/master
-6f68e24 unchanged; CI off, HH reuse disabled, automation paused, broader plan open.
-Prior cost1 closure/publication current STATUS/roadmap bind ONLY new before-
-diagnosis copies. All older mappings/failures remain. New original analysis17/18
-pin-schema failure and separate four-gate pin supplement are preserved.
+NEXT: fresh full204groups ANDsessions/noJulia/refs/boot preflight, seal the ONE
+probe stage, then independent review of its exact immutable manifest BEFORE
+launch. At most ONE <=45second diagnostic, same resource guards. Preparation
+acceptance alone does not admit execution. Preserve every raw/exit/false result,
+then independent result review/closure. No cost2, automatic repair, tuning,
+promotion or master merge. Production/master6f68e24 unchanged; CIoff/HHdisabled,
+automation paused, broader plan open. Original source-check selector failure
+preserved; separate filename-only correction and52synthetic/17sourcechecks PASS.
+Previous diagnosis closure/publication current STATUS/roadmap bindings map ONLY
+to BACKEND-PREPARATION before-backend copies. All older mappings remain.
 
 ## Previous missing-zero experiment
 

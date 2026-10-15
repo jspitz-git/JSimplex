@@ -2931,3 +2931,11 @@ ordinary native backend boundary; exact kappa_inf bound is 153/103. No Julia/new
 solve, no production fix. Representation versus application remains unobserved.
 See DIRECT-LU-REFERENCE-DIAGNOSIS.md. Next prepare the separately reviewed <=45 s
 backend diagnostic plan, not cost2 or a benchmark retry. All old evidence stays.
+
+### Direct LU backend diagnostic concrete preparation
+
+The separate OFFLINE driver/admission/oracle preparation is independently reviewed;
+see DIRECT-LU-BACKEND-PREPARATION.md. Next fresh seal and exact stage review,
+then at most ONE45second diagnostic, not cost2 or a benchmark retry. Three live
+native factors/two snapshots; do_recip selects fixed scaling interpretation in
+one export call. No production change or numerical execution in preparation.
