@@ -47,34 +47,35 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-Native Float64 accuracy-policy Tasks2 and bounded Task3 decision completed.
-See NATIVE-ACCURACY-QUALIFICATION.md and the qualification result-review.md.
-ONE admitted attempt:4.133879728s inclusive/exit0,13integrity gates and9postchecks;
-141freshLU/9lu!/3copy/4245F+2133B/12snapshots,132windows. Allowance CONSUMED.
-P(pivot1/IRSTEP0) and R(.1/2) each pass2126/2126 residuals plus lifecycle/ownership;
-C passes1950/2126,176saved-matching sparse96 DSE failures preserved. All192measured
-regions compile/recompile/GC0. No numerical retry or original benchmark replay.
+Optional native Float64 pivot-policy SOURCE/DESIGN plan independently reviewed.
+See docs/superpowers/specs/2026-10-15-native-pivot-policy-design.md and
+2026-10-15-native-pivot-policy.md, with results/NATIVE-PIVOT-POLICY-PLAN/review-final.md.
+No candidate, Julia/query/parser/import/compile/measurement or actual source/test/
+environment/master change in this stage. Prior accuracy run remains consumed.
 
-P removes sparse96 growth245688->1 with15extra U entries and48reported native
-bytes; other captured factor bits match C. Solve timings remain near C, not a
-speedup proof; zero solve allocations, constructor medians include+24bytes on
-sparse32. R keeps factors/growth, takes1232refinements and costs1.39–6.98x C solve
-time with extra32n workspace bytes. All outliers and constructor uncertainty stay.
-Both are fixed-component remedies only. Prefer P for the next separate design.
+Design: SolverOptions native_pivot_policy=:default or :threshold_one, immutable
+symbolic intent across phase/remaining/auxiliary/precision/recovery construction;
+constant enum per managed native basis backend, private controls on its fresh
+Float64 LU. Four raw auxiliary dual-refinement/stabilization lu(B) paths retain
+original default controls; this is not a global native-LU override.
+Default call path unchanged; private spares/copies/empty/failure retain selection.
+Other precisions retain the setting but use their old arithmetic; returning to
+Float64 reactivates it. Nondefault Markowitz/HH rejected. No solve/update-loop
+policy checks or global/shared control mutation. No new MOI raw attribute.
 
-NEXT: SOURCE/DESIGN plan for immutable optional native Float64 pivot policy,
-initially P/IRSTEP0, preserving current defaults. Specify fresh construction,
-independent candidates, spare reuse, copies/shared active factor, empty transition,
-failed refactor/recovery and all supported precisions; never mutate shared active
-controls. Independently review correctness, hot-path work, allocations and retention.
-No implementation, manager qualification or next numerical launch is admitted by
-this component result. Original cost1 remains FAILED/CONSUMED, cost2 BLOCKED.
+NEXT: Task1 OFFLINE isolated candidate and tests from the accepted plan, exact
+source inverse and work/memory ledger, then fresh independent gpt-6-astra review.
+No actual production edit or Julia in that task. Later RED/GREEN/cost/public
+integration each need concrete immutable admission and their own bounded attempt;
+standing short-run permission is not a substitute. No hours-long/full-suite run.
+Direct prototypes remain frozen; a later new adapter must carry the same policy
+on reference and candidate before any newly labelled comparison. Oldcost1FAILED/
+CONSUMED, cost2BLOCKED; no automatic rerun, default change or production promotion.
 
-Preparation closure/publication and this qualification's seal/admission/launch/raw
-STATUS/roadmap keys map ONLY to qualification before-qualification copies via
-continuation.json; all older mappings stay. Accepted experiment plan and all
-scripts/raw/pins/reviews are FROZEN, NEVER RERUN/rewrite. Actualsrc/test/env/master
-unchanged at6f68e24; CIoff/HHdisabled/automationpaused. Broader plan remains OPEN.
+Qualification closure/publication/continuation current STATUS/roadmap keys map
+ONLY to new before-policy-plan copies via continuation.json. All older mappings
+and false results remain intact. Accepted evidence/scripts/reviews remain FROZEN,
+NEVER RERUN/rewrite. Master6f68e24, CIoff/HHdisabled/automationpaused; broader plan OPEN.
 
 ## Previous missing-zero experiment
 

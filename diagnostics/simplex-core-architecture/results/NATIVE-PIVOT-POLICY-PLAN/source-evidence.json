@@ -1,0 +1,91 @@
+{
+  "all_passed": true,
+  "checks": {
+    "exact_source_anchors": true,
+    "default_fresh_lu": true,
+    "copy_shares_active": true,
+    "installed_controls_copied": true,
+    "installed_spare_controls_persist": true,
+    "old_cost_false": true,
+    "baseline514": true,
+    "no_new_stage": true
+  },
+  "locations": {
+    "src/options.jl": {
+      "struct SolverOptions{": 123,
+      "function _validated_options(": 193,
+      "SolverOptions(::Type{T}, options::": 238
+    },
+    "src/factorization.jl": {
+      "mutable struct UMFPACKBackend": 17,
+      "candidate = lu(sparse_basis)": 325,
+      "function _copy_backend(backend::UMFPACKBackend)": 414,
+      "_basis_factorization(B, ::SolverOptions": 431
+    },
+    "src/triangular_factorization.jl": {
+      "function ForrestTomlinFactorization(": 462,
+      "function SuhlSuhlFactorization(": 476,
+      "function BartelsGolubFactorization(": 490,
+      "new_base = _refactorize_backend(factor.base, B)": 1229
+    },
+    "src/simplex_recovery.jl": {
+      "_basis_factorization(B,ws.options)": 116
+    },
+    "src/simplex_phase_one.jl": {
+      "function _phase_options(": 11
+    },
+    "src/simplex_precision.jl": {
+      "function _copy_precision_options(": 90,
+      "_basis_factorization(B,options)": 198
+    },
+    "src/solver.jl": {
+      "function _remaining_options(": 299
+    },
+    "src/lp_refinement_driver.jl": {
+      "function _lp_auxiliary_options(": 54
+    },
+    "diagnostics/direct-lu-markowitz/reproduce/direct-factor.jl": {
+      "struct DirectLowerBackend": 3,
+      "ordinary=_factorize_basis(B,backend)": 127,
+      "normalize=f.base.normalize_requested": 157
+    }
+  },
+  "sha256": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/options.jl": "421873c308043c29c46243c2831c8cc681c669eef2bfd08a52cde1090d6f8791",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/factorization.jl": "59f0dfb40ab13cdf76b1148323ea0b335154b98cb4da83e87711ba22b8be2986",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/triangular_factorization.jl": "2d8d488ffb7d1cf79ff71662e0cd83400adaf4097dac3e48254c47106f3a7204",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/simplex_recovery.jl": "d68055947b8cedfd0eb6cb554f656ef80b942bf85a64e3b8ccd2881d9e37761c",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/simplex_phase_one.jl": "65c2323a984a1d28c2237fef8054f23f5d2760c2f153bf18c692e54f61007a9d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/simplex_precision.jl": "4b854c4b4ee046784eee49d557cde959853d2f9399d3eac33d7fd73d9bcf64f6",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/solver.jl": "2f25081814ad5a1a198559f72b77384b68320babc44d41dbc44a67c5ddce312e",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/lp_refinement_driver.jl": "1e529e75da9166c8e7415d49020ac5bcb73501e4c1377aa014018559ccd70d0d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/numeric.jl": "c5212838ee6183f4eb7867ffb0ba308b1e51780aede045a1e1692cb53a2314d0",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/JSimplex.jl": "f1e819d506bcaa13797150a924effcea5baa310413bc0f81ebaa051c0994e208",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/moi/attributes.jl": "5fec4f0825499b4614f4f4a1e36b2c1a4ffd3e5eb9e091ee0c1584239c62b40a",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/markowitz_factorization.jl": "e07eb67430a99a050c7a78c2419a3a97aee1c0f2e99224f4fdf15389922d1047",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/hypersparse_factorization.jl": "780d43f638097f0aef0b20112ba01324daa6e6163fcefbd72781e777f4a9d88e",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/huangfu_hall_factorization.jl": "855e8d612c33c4ad2425c1c379d476be416431098de8dde3c8f4f8687d1615cf",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/options_tests.jl": "68d8df5c49e8dce5fd450b0cfa9298a0c4bdbda39ccdc3675b9f8fa123009614",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/dual_simplex_tests.jl": "eb7dfe8d4f388e78873eb6c9ffa3dfc7fa081a621c69290e490541b8b72d6288",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/test/hypersparse_factorization_edge_tests.jl": "8307228f53ba3b492c83baf3a59a4e2683709beb4b328ebd12d0530442af9dda",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-lu-markowitz/reproduce/direct-factor.jl": "4a9051caa37a2b826490b9b5f69aa9bd273ab7bb8998ae2313d8a0cc40e50ebb",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-lu-markowitz/reproduce/factor-export.jl": "a54bcb4d51641dcec769108cd9cea76681c08bf5e6b98e881bff3f6c7da7ee85",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/SparseArrays/src/solvers/umfpack.jl": "6d40eb41958765d47b9ef60fb08fd6b61c0ee850979e3601343ce67fbe6ac84d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/AGENTS.md": "648146ccd145178d776319aab53c5f09bf5578806dd53a8d1b440b96511b4232",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/docs/superpowers/specs/2026-10-15-native-pivot-policy-design.md": "f2cb16f8a453d91ecb2ae38e0d7f80c477d9b61efeb54d82fa2714c1798d0ac7",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/docs/superpowers/plans/2026-10-15-native-pivot-policy.md": "9f0978a9a604306d214e4329ae86b889905a5cd538575a618b91eea6de079475",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/NATIVE-ACCURACY-QUALIFICATION.md": "70d2625fb6e169998837c2e8a185149353e75c9caa3e3e1a826a02edbca75a46",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-ACCURACY-QUALIFICATION/result-review.md": "a6d6ffc43e4e3632909b820deaf500ff42e4fc458a1db42dce3c3e558316c19c",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-ACCURACY-QUALIFICATION/result-review.json": "dc475088f080fa6a77b56d902a89f4b29a849d1d0af517c9fd8bcff1c978c8dc",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-ACCURACY-QUALIFICATION/accuracy-audit.json": "546d0ef5816e34abb1d539ffd342d39031198ed6a6d4f9e9fbc8377be15b0dee",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-ACCURACY-QUALIFICATION/summary.json": "8daf998d976b9770f29e94c8f498ec6d3ccdad1090f508d86fdd64f58693fa81",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-ACCURACY-QUALIFICATION/closure.json": "31ea3827c6432f67e470e6aea6e231b14840867ef05caad33c577bd1a3c45d2d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-ACCURACY-QUALIFICATION/publication.json": "b693aa2d06328e10a82d8571bdc3fb8e7036ec9d3111c71800fca192060cf6c4",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-POLICY-PLAN/entry.py": "2e434c0c5a694fc898370762d4875ec926ff075516df752aedfbe0f9f3618fe7",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-POLICY-PLAN/entry.json": "707969468e77edcfae667649989615ec13c775cd3bca451992d7d9dba4144708",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-POLICY-PLAN/host.json": "23b8f7f2e194e79831e0ff538362c83e4b3d3c0f245027d15bd9850f2ab89704",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-POLICY-PLAN/common.py": "9d98c5c752cf6ad861c1e41462cd68fb2646134fc951773a2f5820bc237d0768",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-POLICY-PLAN/source-evidence.py": "2db367f7de451a371a180c2ac64d1081679d79a0076fff8e40a9f31e1cc5e17e"
+  },
+  "scope": "New source-read hashes and design bindings only, not launch pins or runtime qualification; old numerical results read only"
+}
