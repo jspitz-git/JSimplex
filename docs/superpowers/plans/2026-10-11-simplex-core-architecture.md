@@ -2844,3 +2844,25 @@ unchanged;full200groupsANDsessionsabsent/noJulia. Currentadmission continuation
 keys mapONLY to DIRECT-LU-CORRECTNESS before-correctness copies (fourmappings),
 oldermapsunchanged. Master6f68e24/CIoff/HHdisabled/automationpaused unchanged;
 broaderarchitectureplan remainsopen.
+
+## 2026-10-15: separate direct-LU test repair accepted offline
+
+See DIRECT-LU-TEST-REPAIR.md and results/DIRECT-LU-TEST-REPAIR/review.md/json.
+The native export-ownership test now privately copies CSC and scales nzval,
+preserving explicit stored zeros for the existing source-backend refactor.
+Five checks times six cases add30 prospective assertions: exports130, total19,557.
+All original oracles/fixtures/candidate source remain byte-identical by exact
+inverse; separate driver changes count and latest-world binding access only.
+17offline checks passed; fresh independent review accepts this preparation.
+No Julia or new numerical attempt; original RED accepted, failed GREEN unchanged.
+Production work/memory unchanged; O(n+stored-nnz) cold copy/check work charged.
+
+Next prepare NEW GREEN-only admission/overlay/controls/output reservation paths,
+copying corrected files and unchanged focused slices. Accepted RED is immutable
+predecessor evidence, never rerun. Fresh host/seal and exact independent admission
+are required before one <=90s process under existing guards/standing permission.
+Tasks3–4 remain gated; no runtime acceptance, performance claim or promotion.
+The six correctness review/closure/publication current continuation bindings map
+ONLY to this repair's STATUS.md.before-repair and roadmap.md.before-repair;
+all older artifacts/mappings unchanged. Master6f68e24/CIoff/HHdisabled/
+automationpaused; broader plan remains open.

@@ -1,0 +1,20 @@
+{
+  "test": {
+    "old": "                    lu!(backend.factorization,sparse(2.0*B))",
+    "new": "                    # Preserve explicit stored zeros for symbolic reuse. The fixture\n                    # and both exported factors must remain independently owned.\n                    refactor_input = copy(B)\n                    refactor_input.nzval .*= 2.0\n                    @test refactor_input.colptr == B.colptr\n                    @test refactor_input.rowval == B.rowval\n                    @test all(a !== b for (a,b) in zip(\n                        (refactor_input.colptr,refactor_input.rowval,refactor_input.nzval),owners))\n                    @test all(isequal(refactor_input.nzval[k],2.0*B.nzval[k]) for k in eachindex(B.nzval))\n                    lu!(backend.factorization,refactor_input)\n                    @test issuccess(backend.factorization)"
+  },
+  "driver": [
+    {
+      "old": "Base.invokelatest(run_direct_lu_red)",
+      "new": "Base.invokelatest(() -> getfield(Main,:run_direct_lu_red)())"
+    },
+    {
+      "old": "(\"exports\",:test_exports,100)",
+      "new": "(\"exports\",:test_exports,130)"
+    },
+    {
+      "old": "Base.invokelatest(getfield(Main,fn))",
+      "new": "Base.invokelatest(() -> getfield(Main,fn)())"
+    }
+  ]
+}

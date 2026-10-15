@@ -63,13 +63,25 @@ symbolic=true. IntermediateCSC was notcaptured; this is source-derived cause,
 not a new numerical probe or solver defect. The89passed assertions do not qualify
 the full candidate. World-age warnings remain preserved and version-scoped.
 
-Next concrete work: a separate offline test-only repair preserving the original
-fixtures/checks: copy the CSC and scale private nzval while retaining its stored
-pattern for backend refactor. Bind/check that pattern contract explicitly and
-independently review any driver binding-access warning cleanup. Never rewrite the
-frozen candidate/tests/driver, outputs or admissions in place. A subsequent short
-attempt needs a separate exact reviewed admission/output reservation; standing
-user permission is sufficient. Tasks3–4 remain gated on accepted correctness.
+Separate OFFLINE test repair is independently accepted; see
+DIRECT-LU-TEST-REPAIR.md and results/DIRECT-LU-TEST-REPAIR/review.md/json.
+Owned CSC copy + nzval scaling preserves stored zeros; five checks on each of
+six native nonempty fixtures add30 assertions (exports130, total19,557).
+Driver latest-world closures move binding lookup inside invokelatest. Exact
+whole-file inverses preserve every other test/driver byte.17text checks passed,
+136frozen artifacts and514baseline files unchanged. No Julia was executed;
+original failed GREEN remains failed, and runtime correctness is unqualified.
+No production work/memory change; cold test copy/scans explicitly accounted.
+
+Next concrete work: NEW GREEN-only offline admission/control/overlay preparation
+with corrected files/counts, unchanged focused slices and fresh output paths.
+Reuse immutable accepted RED evidence; do not rerun RED or old failed GREEN.
+Then fresh host/seal and independent exact-run admission before one <=90s GREEN.
+Standing permission covers short runs; no new permission question is needed.
+Tasks3–4 remain gated on accepted full correctness. Original artifacts frozen.
+Previous correctness review/closure/publication current STATUS/roadmap bindings
+map ONLY to DIRECT-LU-TEST-REPAIR/STATUS.md.before-repair and roadmap.md.before-repair
+(six exact mappings); all older mappings remain unchanged.
 
 Full4409RED/4427GREENlaunchpins and514production/test/CI paths unchanged; separate
 fresh full200groups ANDsessions/noJulia closure. master6f68e24 unchanged. Prior
