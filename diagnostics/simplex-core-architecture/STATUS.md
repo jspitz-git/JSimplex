@@ -47,26 +47,30 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-Direct LU / Markowitz Task3 OFFLINE cost preparation is independently accepted.
-See DIRECT-LU-COST-PREPARATION.md and results/DIRECT-LU-COST-PREPARATION reviews.
-No Julia/parser/import/compile/cost execution, stage seal or reservation in this
-step. Tasks1–2 correctedGREEN remains accepted19557PASS; oldfailedGREEN andRED,
-all inputs/scripts/raw/reviews remain frozen. Production/master6f68e24 unchanged.
+Direct LU / Markowitz Task 3 cost1 executed once and STOPPED on correctness.
+Numerical/cost qualification NOT ACCEPTED; reservation CONSUMED; cost2 BLOCKED.
+See DIRECT-LU-COST1.md and results/DIRECT-LU-COST1/review.md. Independent result
+review accepts the diagnostic rejection only. Canonical false audit, exit 2 and
+all partial raw records are frozen. No retry, tuning or automatic promotion.
 
-Next: fresh host refs/boot/start_ticks/command/full202groups ANDsessions/noJulia,
-then exact cost1 seal and independent numerical/work/memory stage admission,
-then ONE guarded <=90s inclusive cost1 process. Use canonical controls identified
-in the preparation review; do not execute superseded drafts. Cost2 needs accepted
-immutable cost1 audit/raw and closure including its new groups, fresh seal and
-independent stage admission; ONE further <=90s process only. No automatic retry.
+The 12.8165 s inclusive process returned 241 lifecycle windows / 12 complete cells.
+The first warm ordinary REFERENCE sparse96 / FT / native window fails four DSE
+residual checks after refactor 1 (steps 5–8): exact residual/bound = 18.861415966.
+Input tokens and ordinary modes match. All 5,760 outputs in completed n32 cells
+pass; the partial exact census totals 5,780/5,784. Candidate sparse96 never ran.
+All 12 completed cells have slower medians and higher allocation bytes/events;
+smaller final reachable graphs do not rescue the fixed cost gates. These partial
+first-process n32 measurements do not establish a universal performance claim.
 
-24cells:4 n32/96 sparse/dense fixtures xFT/SS/BG xnative/Markowitz. Per process
-3warm+7measured alternating pairs, reversed firstside in process2; whole fresh
-construction/8updates/2refactors measured, all allocations/GC/compile and final
-reachablefactor memory retained. Exact residuals outside windows; no extra solves.
-Time/bytes/events/memory selection percell; all4cells required permanager/backend.
-No performance acceptance yet, no automatic publicintegration/defaultpromotion.
-CIoff/automationpaused/HHreuse disabled; broader programme remains open.
+Next concrete step: bounded SOURCE/saved-evidence diagnosis of ordinary sparse96
+FT/native DSE residuals after the first refactor, without numerical replay or
+changing tolerances. Specific internal cause remains unproved. Any subsequent
+numerical attempt requires its own frozen admission; existing cost2 cannot run.
+Task 1–2 corrected GREEN remains scoped to earlier accepted fixtures (19,557 PASS).
+Production/master 6f68e24 unchanged; CI off, automation paused, HH reuse disabled.
+Broader programme remains open. All earlier evidence and before mappings remain.
+Preparation closure/publication current STATUS/roadmap bindings resolve ONLY to
+DIRECT-LU-COST1 before-cost1 copies; stage review's textual STATUS hash does too.
 
 ## Previous missing-zero experiment
 

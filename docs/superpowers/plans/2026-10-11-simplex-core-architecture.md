@@ -2912,3 +2912,14 @@ Exact four-fixture/two-process cost driver and admission independently reviewed.
 No cost executed; next fresh cost1 seal and exact independent stage admission.
 See diagnostics/simplex-core-architecture/DIRECT-LU-COST-PREPARATION.md.
 All prior rejections, evidence and production defaults remain unchanged.
+
+### Direct LU Task 3 first cost process: diagnostic rejection
+
+One independently admitted cost1 process stopped after 12.8165 s inclusive:
+241 windows, 12 complete n32 cells; first warm ordinary sparse96 FT/native DSE
+residual fails the frozen bound at steps 5–8. No retry or cost2. All completed
+n32 cells have slower medians and more allocation bytes/events, with smaller
+reachable factor graphs. Partial data are descriptive, not a cost qualification.
+See diagnostics/simplex-core-architecture/DIRECT-LU-COST1.md and its review.
+Next bounded work is source/saved-evidence diagnosis; no numerical replay,
+threshold changes or promotion. Production defaults and all older gates remain.
