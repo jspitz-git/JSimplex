@@ -2866,3 +2866,21 @@ The six correctness review/closure/publication current continuation bindings map
 ONLY to this repair's STATUS.md.before-repair and roadmap.md.before-repair;
 all older artifacts/mappings unchanged. Master6f68e24/CIoff/HHdisabled/
 automationpaused; broader plan remains open.
+
+## 2026-10-15: corrected GREEN-only admission prepared
+
+DIRECT-LU-GREEN-ADMISSION.md and its new result directory record independently
+accepted OFFLINE controls/overlay.72helper tests PASS,4,611freshpins/185required
+bindings; candidate overlay differs only in reviewed correctness.jl, driver is
+exact repaired text and six focused slices unchanged. Expected12groups/19,557
+assertions,90secondsinclusive. RED command is forbidden by config/phase gates;
+full immutable RED evidence and repair acceptance are checked beforeseal/launch.
+No Julia/sealer/reservation/numerical process ran. Original89PASS/1ERROR and false
+audit remain frozen. Work schedule unchanged; coldrepaircopy/checkcostexplicit.
+
+Next fresh seal.py green, independent exact green-admission review, then one
+short launch.py green under retained limits. Standing permission sufficient;
+any unexpected failure stops without retry/tuning. Tasks3–4/cost/publicsolver/
+production remain gated. Four prior repair closure/publication continuation keys
+map ONLY to this package's before-green-admission copies; all old mappings stay.
+Master6f68e24 unchanged, CIoff/HHdisabled/automationpaused; broader plan open.

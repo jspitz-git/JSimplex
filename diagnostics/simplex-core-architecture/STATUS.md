@@ -73,12 +73,23 @@ whole-file inverses preserve every other test/driver byte.17text checks passed,
 original failed GREEN remains failed, and runtime correctness is unqualified.
 No production work/memory change; cold test copy/scans explicitly accounted.
 
-Next concrete work: NEW GREEN-only offline admission/control/overlay preparation
-with corrected files/counts, unchanged focused slices and fresh output paths.
-Reuse immutable accepted RED evidence; do not rerun RED or old failed GREEN.
-Then fresh host/seal and independent exact-run admission before one <=90s GREEN.
-Standing permission covers short runs; no new permission question is needed.
-Tasks3–4 remain gated on accepted full correctness. Original artifacts frozen.
+NEW GREEN-only offline admission is independently accepted; see
+DIRECT-LU-GREEN-ADMISSION.md and results/DIRECT-LU-GREEN-ADMISSION.
+72new helper checks PASS; fresh inventory4,611/required185 binds corrected exact
+candidate overlay, repaired driver/test and unchanged six focused slices.
+Only GREEN/90s/exit0/exact12groups/19,557assertions is accepted by config.
+Both sealing and launch revalidate complete immutable RED and accepted repair.
+No Julia, sealing, reservation or process was executed by this preparation.
+
+Next concrete step: seal.py green in DIRECT-LU-GREEN-ADMISSION after fresh
+host/pins/preparation review validation, then independent exact green-admission
+review and one <=90s GREEN using launch.py green. Reuse accepted RED records;
+never rerun RED or old failed GREEN. No extra human permission is needed.
+Stop/preserve any unexpected failure; no retry/tuning/increased limit.
+Tasks3–4 remain gated on full accepted correctness; no production promotion.
+The repair closure/publication current continuation keys map ONLY to
+DIRECT-LU-GREEN-ADMISSION/STATUS.md.before-green-admission and
+roadmap.md.before-green-admission (four mappings); all older maps unchanged.
 Previous correctness review/closure/publication current STATUS/roadmap bindings
 map ONLY to DIRECT-LU-TEST-REPAIR/STATUS.md.before-repair and roadmap.md.before-repair
 (six exact mappings); all older mappings remain unchanged.
