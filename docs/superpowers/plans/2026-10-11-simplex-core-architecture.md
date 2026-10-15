@@ -2971,3 +2971,12 @@ sparse/dense32/96 inputs and original residual bound. Constructor/solve costs,
 R extra32n workspace bytes and native refinement attempts are explicit. Future
 one<=45s experiment needs exact independent admission. No default change,
 production propagation, oldcost1 rerun or cost2/promotion permission follows.
+
+### Native Float64 accuracy-policy concrete preparation
+
+Task1 OFFLINE preparation independently accepted; driver remains UNEXECUTED.
+See diagnostics/simplex-core-architecture/NATIVE-ACCURACY-PREPARATION.md. Next
+Task2 fresh seal and exact independent admission, then at most ONE45second
+component experiment. All three fixed arms, 132windows and6378solve entries are
+prospective, not results. Original failed cost1/cost2 block, production defaults,
+master, CIoff/HHdisabled/automationpaused and all historical evidence unchanged.

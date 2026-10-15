@@ -1,0 +1,38 @@
+"""Future guarded execution only after exact independent stage admission."""
+from control import *
+from evidence import validate_predecessor
+import guard,supervisor,sys
+
+def main(phase):
+    validate_environment();phase_config(phase);validate_predecessor(phase)
+    cfg=phase_config(phase);sealed_path=Q/(phase+'-sealed-pins.json');sealed=rd(sealed_path)
+    req(sealed.get('phase')==phase,'Wrong sealed phase')
+    review_path=Q/(phase+'-admission.json');required=sealed['files']+[str(sealed_path)]
+    validate_review(rd(review_path),sealed_path,required)
+    req(guard.pins_match(sealed),'Sealed bindings changed')
+    groups=rd(Q/(phase+'-seal-host.json'))['groups'];fresh=host(groups)
+    req(not fresh['matches'] and all(fresh[k]==sealed[k] for k in ('head','master','boot_id')),'Fresh host mismatch')
+    req(not git('diff','--name-only') and not git('diff','--cached','--name-only'),'Tracked working changes')
+    save(Q/(phase+'-prehost.json'),fresh)
+    out=Path(cfg['output']);req(not out.exists(),'Prior output exists')
+    files=sorted(set(sealed['files'])|{str(sealed_path),str(review_path)})
+    pins=dict(files=files,trees=sealed['trees'],inventory=guard.inventory(files,sealed['trees']),inputs=[],created=time.time())
+    pins_path=Q/(phase+'-launch-pins.json');save(pins_path,pins)
+    save(Q/(phase+'-reservation.json'),dict(one_attempt=True,phase=phase,command=cfg['command'],pins_sha256=sha(pins_path),review_sha256=sha(review_path),max_seconds=cfg['seconds']))
+    started=time.monotonic();limit=cfg['seconds']
+    command=guard_command(cfg,pins_path,started)
+    inv=dict(monotonic_start=started,python=sys.executable,command=cfg['command'],guard_command=command,pins_sha256=sha(pins_path),review_sha256=sha(review_path),reservation_sha256=sha(Q/(phase+'-reservation.json')),started=time.time())
+    try:
+        with (Q/(phase+'-launcher.log')).open('x') as log:inv['supervisor']=supervisor.run(command,log,out,started,limit)
+    finally:
+        inv['elapsed_seconds']=time.monotonic()-started;save(Q/(phase+'-invocation.json'),inv)
+        if 'supervisor' in inv:groups += [inv['supervisor']['guard_identity'][k] for k in ('pgid','sid')]
+        for name in ('current.json','process.json'):
+            if (out/name).exists():
+                p=rd(out/name)
+                for k in ('runner','child'):
+                    if k in p:groups += [p[k]['pgid'],p[k]['sid']]
+        save(Q/(phase+'-posthost.json'),host(groups))
+    from audit import audit
+    result=audit(phase);req(result['all_passed'],'Audit failed; preserve and stop')
+if __name__=='__main__':main(sys.argv[1])

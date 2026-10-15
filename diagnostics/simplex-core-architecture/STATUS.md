@@ -47,39 +47,36 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-Native Float64 accuracy-policy comparison plan independently accepted SOURCE/DESIGN
-ONLY. Plan: docs/superpowers/plans/2026-10-15-native-float64-accuracy-policy.md;
-evidence results/NATIVE-ACCURACY-POLICY-PLAN. No new Julia/numerics/candidate/driver
-or production/test/env/CI/master changes in this planning step.
+Native Float64 accuracy-policy Task1 OFFLINE preparation independently accepted.
+See NATIVE-ACCURACY-PREPARATION.md and results/NATIVE-ACCURACY-PREPARATION/review-final.md.
+Driver remains UNEXECUTED: no Julia query/parser/import/compile/native measurement,
+no actual src/test/env/CI/master changes. Accepted design plan remains frozen.
 
-NEXT permitted work is Task1 OFFLINE preparation of the private component driver,
-fixed inputs/schema, fail-closed auditor and launcher, with independent review.
-This does not launch Julia. Only then seal and independently accept the exact
-Task2 stage before ONE <=45s process using existing standing short-run permission.
-No new human permission question is needed solely to repeat the granted allowance;
-concrete admission, resources, fresh host/refs and one-attempt gates still apply.
+NEXT: Task2 fresh seal in results/NATIVE-ACCURACY-QUALIFICATION using prepared
+seal.py accuracy, then fresh independent gpt-6-astra exact-stage admission binding
+that manifest, then ONE <=45s accuracy process using launch.py accuracy. Standing
+human permission for short runs already exists; no repeat permission question.
+Never launch merely because preparation review passed. Fresh refs/boot/start_ticks/
+command/full206groups ANDsessions/noJulia/RAM/swap and immutable exact command,
+source/runtime/input/control/environment/pins must pass first. No retry or tuning.
 
-Three frozen arms: C pivot0.1/IRSTEP0, P pivot1/IRSTEP0, R pivot0.1/IRSTEP2.
-Four saved sparse/dense32/96 B4 cases;3warm8measured rounds,132cost windows.
-Whole proposed call budget141freshLU/9lu!attempts/3shallowcopies/4245F+2133B,
-12finalfactor snapshots; these are entries, not a complete native/import budget.
-R retains4n additionalFloat64 workspace elements (32n payload bytes). Per-call
-attempted/taken refinement metadata, constructor and solve costs, all output bits,
-fill and memory are recorded separately. Same original128*n*eps residual bound.
-No arm is presumed to repair the error; no combined arm or post-result tuning.
+Fixed C(.1/0),P(1/0),R(.1/2), four sparse/dense32/96 saved inputs,132windows,
+141freshLU/9lu!/3copy/4245F+2133B/12snapshots. Every output uses the original
+128*n*eps bound. Residual FALSE rejects arm accuracy but remains diagnostic data;
+structural/exception/count/measured-compile failure stops. Constructor and solve
+costs, all samples/GC, attempted refinement, strategy, fill and R extra32n bytes
+per workspace are separate. No presumed remedy or production propagation.
 
-Saved growth diagnosis remains accepted: scaled finalU growth245688.026 despite
-cond_inf<=153/103, cancellation -53/2^42 at factor31,31/original87,1; both old
-representation/application contributions retained. No exact native rounding trace.
-Originalcost1FAILED/CONSUMED, cost2BLOCKED, old diagnostic allowanceCONSUMED.
-This is a separate policy experiment, not an automatic benchmark retry or remedy.
-Production defaults and manager propagation stay unchanged; subsequent integration
-would require its own ownership/copy/spare/failure design and qualification.
-
-Pivot-growth closure/publication currentSTATUS/roadmap bindings map ONLY to
-NATIVE-ACCURACY-POLICY-PLAN before-policy copies; all earlier mappings unchanged.
-All older raw/scripts/pins/reviews/plans FROZEN. Master6f68e24 unchanged,
-CIoff/HHdisabled/automationpaused; originaldirectLUcomparison/fullsuite remainOPEN.
+Current plan closure/publication STATUS/roadmap bindings map ONLY to the new
+NATIVE-ACCURACY-PREPARATION before-preparation copies (continuation.json maps four
+keys). Earlier mappings remain unchanged. Initial preparation offline-test seal/
+launch source bindings map ONLY to before-preparation-fix copies. Initial rejected namespace/HWM review and manifest remain preserved; current
+seal reads preparation-pins-reviewed.json/required-paths-reviewed.json/review-final.json.
+Five initial source/report keys map ONLY to before-review copies (review-fix.json).
+All prior raw,
+scripts/audits/false results/reviews/plans remain FROZEN, NEVER RERUN or rewrite.
+Original cost1 FAILED/CONSUMED, cost2 BLOCKED; no benchmark retry or promotion.
+Master6f68e24 unchanged, CIoff/HHdisabled/automationpaused. Broader plan stays OPEN.
 
 ## Previous missing-zero experiment
 

@@ -1,0 +1,87 @@
+# Native Float64 accuracy policy: offline preparation
+
+Task 1 prepares a separate UNEXECUTED component experiment under the accepted
+2026-10-15 native accuracy-policy plan. There is no numerical result, runtime
+acceptance, production change, or benchmark retry in this record.
+
+The driver imports only SparseArrays, LinearAlgebra and TOML under the ordinary
+project. Fresh private constructor controls select C (pivot .1 / IRSTEP0),
+P (1 / 0), R (.1 / 2). Strategy and symmetric-pivot tolerance remain unchanged;
+P is full partial-pivot acceptance only when captured strategy is UNSYMMETRIC.
+The fixed subset contains four saved B4 matrices and step5 entering/DSE/unit
+RHSs. Sparse32 B0/step1 supplies three separate copy/refactor/failure lifecycles.
+No JSimplex import, overlay, orientation solve, solver call or old driver replay.
+
+## Prospective work and cost
+
+The exact 132-window schedule has 3 warm and 8 measured rounds for each fixture
+and arm, rotating order. Each window constructs one factor and executes 16
+FTRAN/FTRAN/BTRAN triplets. Including lifecycles: 141 fresh LU, 9 lu! attempts
+(3 expected singular), 3 shallow copies, 4245 FTRAN, 2133 BTRAN and 12 snapshots.
+These are entry counts, not complete native operation counts.
+
+Constructor timing includes fresh control creation, its factor-owned copy,
+native setup and scratch. Solve timing includes dimension/alias checks, counters,
+and four scalar Info stores per call. This equal diagnostic overhead is disclosed,
+not subtracted. All 6336 window destinations are allocated before measurement:
+405504 Float64 entries, 3244032 bytes of payload, plus headers. The 132 preallocated
+4-by-48 Info arrays add 25344 Float64 entries, 202752 bytes. Lifecycle destinations
+add 42 length32 vectors (1344 elements); three 4-by-14 Info arrays add 168 elements.
+Their roots are scoped before cost windows; scope exit is not native-free proof.
+
+Outside timing, ownership and control checks scan CSC arrays and control vectors;
+hex serialization copies outputs and metadata to strings. Twelve final snapshots
+retain up to 2*n*(n+1)/2 factor entries each, plus indices, permutations and scales.
+They allocate bounded arrays and compute a reachable Julia graph. Native Info
+NUMERIC_SIZE/PEAK_MEMORY use SIZE_OF_UNIT and are not a native allocation/free
+ledger. R additionally owns 4n Float64 scratch elements (32n bytes) per workspace,
+including the copied workspace. No unnecessary NEW production work or retained
+memory is introduced: production is unchanged. Diagnostic overhead affects the
+45-second budget, cache/GC and timing context; this is not an end-to-end benchmark.
+
+## Correctness and admission
+
+Every one of 6378 saved outputs is checked against its exact B or transpose(B)
+and RHS, with the unchanged 128*n*2^-52 scaled infinity-norm bound. Repeated
+identical bit inputs/results reuse an exact calculation, while every occurrence
+is still represented. False residuals remain evidence and reject arm accuracy;
+they do not abort later cells. Structural, alias, count, unexpected exception or
+measured-compilation failure stops. No extra warmup, tuning or retry. All measured
+samples, GC, bytes/events and compilation values remain recorded. Same-arm bit
+variation prevents automatic remedy eligibility pending investigation.
+
+The offline auditor validates CSR L, CSC U, permutations and actual do_recip
+scaling; computes exact factor identity and max-U/scaled-B growth; and reports
+paired construction/solve statistics separately. Native correction attempts,
+retained corrections and solve FLOPS are separate from wrapper entry counts.
+C's sparse96 DSE output is compared to the saved probe, with nonreproduction
+reported rather than used to authorize another run.
+
+New Python tests include expected missing-implementation RED, 30 helper GREEN
+checks, 24 admission/process rejection checks, and 31 full-schema/oracle checks.
+They are Python synthetic tests, NOT Julia RED/GREEN, parsing or qualification.
+The full-schema test intentionally fabricates failing residuals for all arms.
+Its orientation fixture is symmetric with nonuniform scaling/permutations; a
+separate nonsymmetric transpose test checks RHS pairing (the source comment above
+that orientation fixture is imprecise). No old test or audit was rerun.
+
+A separate four-check preparation amendment preserves the initially tested seal
+and launcher: the final seal additionally binds live STATUS/roadmap, and the
+launcher fixes cwd before preflight. Old test hashes map only to their explicit
+before-preparation-fix copies. The guard and supervisor are byte copies of prior
+accepted definitions; they have not been executed here.
+
+The future output directory is results/NATIVE-ACCURACY-QUALIFICATION/accuracy-run.
+It does not exist in preparation. Task 2 must freshly seal refs, boot/process
+identity, all 206 historical groups AND sessions, source/runtime/input hashes,
+ordinary loading environment and command. A fresh independent exact-stage review
+must bind that seal before one reservation. Inclusive limit 45s, single Julia/BLAS
+thread, heap2GiB, VM8GiB, RAM6GiB and swap1GiB guards remain. Wrapper and pinned
+stdlib/native files are loading evidence, not a complete observed loader/cache
+or import-work proof. No package installation or environment mutation is needed.
+
+The original cost1 remains FAILED/CONSUMED, cost2 BLOCKED. Production master,
+actual src/test/env/CI, frozen historical evidence, paused automation and disabled
+HH reuse remain unchanged. No production policy propagation or direct-LU manager
+qualification is inferred. Preparation review and final closure are separate
+records; Task 2 is not authorized merely by this report.
