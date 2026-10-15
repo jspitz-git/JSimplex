@@ -47,30 +47,30 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-Direct LU / Markowitz Task 3 cost1 executed once and STOPPED on correctness.
-Numerical/cost qualification NOT ACCEPTED; reservation CONSUMED; cost2 BLOCKED.
-See DIRECT-LU-COST1.md and results/DIRECT-LU-COST1/review.md. Independent result
-review accepts the diagnostic rejection only. Canonical false audit, exit 2 and
-all partial raw records are frozen. No retry, tuning or automatic promotion.
+Direct LU reference source/saved-evidence diagnosis completed and independently
+reviewed. See DIRECT-LU-REFERENCE-DIAGNOSIS.md and its results directory.
+No Julia or new factor/solve calls. Task 3 cost1 remains FAILED and CONSUMED;
+cost2 BLOCKED. Old raw, false audit and partial n32 cost rejections are unchanged.
 
-The 12.8165 s inclusive process returned 241 lifecycle windows / 12 complete cells.
-The first warm ordinary REFERENCE sparse96 / FT / native window fails four DSE
-residual checks after refactor 1 (steps 5–8): exact residual/bound = 18.861415966.
-Input tokens and ordinary modes match. All 5,760 outputs in completed n32 cells
-pass; the partial exact census totals 5,780/5,784. Candidate sparse96 never ran.
-All 12 completed cells have slower medians and higher allocation bytes/events;
-smaller final reachable graphs do not rescue the fixed cost gates. These partial
-first-process n32 measurements do not establish a universal performance claim.
+Source reconstruction localizes the first failed step-5 ordinary FT/native DSE
+output to the fresh UMFPACK backend boundary: after refactor 1 the outer history,
+upper and maps reset, so post-backend work is identity/prepared copies only.
+This is not captured native-factor causality. Exact saved-input dominance proves
+kappa_inf <= 153/103; ill-conditioning is not a sufficient explanation. Row 87
+and its three solution tokens are unchanged at steps 5–8. Native representation
+versus solve-application error remains unresolved; no production fix accepted.
 
-Next concrete step: bounded SOURCE/saved-evidence diagnosis of ordinary sparse96
-FT/native DSE residuals after the first refactor, without numerical replay or
-changing tolerances. Specific internal cause remains unproved. Any subsequent
-numerical attempt requires its own frozen admission; existing cost2 cannot run.
-Task 1–2 corrected GREEN remains scoped to earlier accepted fixtures (19,557 PASS).
-Production/master 6f68e24 unchanged; CI off, automation paused, HH reuse disabled.
-Broader programme remains open. All earlier evidence and before mappings remain.
-Preparation closure/publication current STATUS/roadmap bindings resolve ONLY to
-DIRECT-LU-COST1 before-cost1 copies; stage review's textual STATUS hash does too.
+Next: prepare the separate driver and admission under
+2026-10-15-direct-lu-reference-backend-diagnostic.md, then independent review.
+Prospective ONE <=45 s process compares fresh B4 backend with original prefix
+plus refactor, total 3 factorizations, 13 FTRAN, 5 BTRAN, 4 replacements and
+1 refactor, two final factor snapshots. No launch until concrete immutable
+preparation and exact stage admission pass. No benchmark retry, new tolerance,
+control change, candidate tuning or automatic promotion. Production/master
+6f68e24 unchanged; CI off, HH reuse disabled, automation paused, broader plan open.
+Prior cost1 closure/publication current STATUS/roadmap bind ONLY new before-
+diagnosis copies. All older mappings/failures remain. New original analysis17/18
+pin-schema failure and separate four-gate pin supplement are preserved.
 
 ## Previous missing-zero experiment
 

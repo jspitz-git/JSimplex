@@ -2923,3 +2923,11 @@ reachable factor graphs. Partial data are descriptive, not a cost qualification.
 See diagnostics/simplex-core-architecture/DIRECT-LU-COST1.md and its review.
 Next bounded work is source/saved-evidence diagnosis; no numerical replay,
 threshold changes or promotion. Production defaults and all older gates remain.
+
+### Direct LU reference residual source diagnosis
+
+Source/saved-evidence analysis localizes the first post-refactor DSE error to the
+ordinary native backend boundary; exact kappa_inf bound is 153/103. No Julia/new
+solve, no production fix. Representation versus application remains unobserved.
+See DIRECT-LU-REFERENCE-DIAGNOSIS.md. Next prepare the separately reviewed <=45 s
+backend diagnostic plan, not cost2 or a benchmark retry. All old evidence stays.
