@@ -1,0 +1,62 @@
+{
+  "monotonic_start": 118003.407741244,
+  "python": "/usr/bin/python3",
+  "command": [
+    "/bin/bash",
+    "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+    "--compiled-modules=existing",
+    "--threads=1",
+    "--gcthreads=1,0",
+    "--heap-size-hint=2G",
+    "--project=/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-ACCURACY-PREPARATION/driver.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-ACCURACY-QUALIFICATION/accuracy-run",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-ACCURACY-PREPARATION/inputs.toml"
+  ],
+  "guard_command": [
+    "/usr/bin/python3",
+    "-B",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-ACCURACY-PREPARATION/guard.py",
+    "run",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-ACCURACY-QUALIFICATION/accuracy-launch-pins.json",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-ACCURACY-QUALIFICATION/accuracy-run",
+    "--seconds",
+    "39",
+    "--deadline",
+    "118042.407741244",
+    "--",
+    "/bin/bash",
+    "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+    "--compiled-modules=existing",
+    "--threads=1",
+    "--gcthreads=1,0",
+    "--heap-size-hint=2G",
+    "--project=/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-ACCURACY-PREPARATION/driver.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-ACCURACY-QUALIFICATION/accuracy-run",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-ACCURACY-PREPARATION/inputs.toml"
+  ],
+  "pins_sha256": "3fce26142d79e4b2ce9da9a3620882d2f1ee03dc0c2767cfbe8b4c85d7f19666",
+  "review_sha256": "bf30693a29af0085984329913fd8050cca7bd242fd8a0341fe789c22a0678457",
+  "reservation_sha256": "265aede92ffcefd4202410bdf348e4471361ebec382dba3b35eccd7c84dbb68a",
+  "started": 1792076283.2506807,
+  "supervisor": {
+    "soft_timeout": false,
+    "hard_timeout": false,
+    "child_kill": false,
+    "guard_term": false,
+    "guard_kill": false,
+    "guard_identity": {
+      "pid": 204836,
+      "pgid": 204836,
+      "sid": 204836,
+      "start_ticks": 11800340,
+      "boot_id": "284d2228-1d9a-4c5f-913c-b9f1098b5838",
+      "command": "/usr/bin/python3 -B /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-ACCURACY-PREPARATION/guard.py run /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-ACCURACY-QUALIFICATION/accuracy-launch-pins.json /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-ACCURACY-QUALIFICATION/accuracy-run --seconds 39 --deadline 118042.407741244 -- /bin/bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --compiled-modules=existing --threads=1 --gcthreads=1,0 --heap-size-hint=2G --project=/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-ACCURACY-PREPARATION/driver.jl /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-ACCURACY-QUALIFICATION/accuracy-run /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-ACCURACY-PREPARATION/inputs.toml "
+    },
+    "returncode": 0,
+    "elapsed_seconds": 4.133814027998596,
+    "accepted": true
+  },
+  "elapsed_seconds": 4.1338797280041035
+}

@@ -47,36 +47,34 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-Native Float64 accuracy-policy Task1 OFFLINE preparation independently accepted.
-See NATIVE-ACCURACY-PREPARATION.md and results/NATIVE-ACCURACY-PREPARATION/review-final.md.
-Driver remains UNEXECUTED: no Julia query/parser/import/compile/native measurement,
-no actual src/test/env/CI/master changes. Accepted design plan remains frozen.
+Native Float64 accuracy-policy Tasks2 and bounded Task3 decision completed.
+See NATIVE-ACCURACY-QUALIFICATION.md and the qualification result-review.md.
+ONE admitted attempt:4.133879728s inclusive/exit0,13integrity gates and9postchecks;
+141freshLU/9lu!/3copy/4245F+2133B/12snapshots,132windows. Allowance CONSUMED.
+P(pivot1/IRSTEP0) and R(.1/2) each pass2126/2126 residuals plus lifecycle/ownership;
+C passes1950/2126,176saved-matching sparse96 DSE failures preserved. All192measured
+regions compile/recompile/GC0. No numerical retry or original benchmark replay.
 
-NEXT: Task2 fresh seal in results/NATIVE-ACCURACY-QUALIFICATION using prepared
-seal.py accuracy, then fresh independent gpt-6-astra exact-stage admission binding
-that manifest, then ONE <=45s accuracy process using launch.py accuracy. Standing
-human permission for short runs already exists; no repeat permission question.
-Never launch merely because preparation review passed. Fresh refs/boot/start_ticks/
-command/full206groups ANDsessions/noJulia/RAM/swap and immutable exact command,
-source/runtime/input/control/environment/pins must pass first. No retry or tuning.
+P removes sparse96 growth245688->1 with15extra U entries and48reported native
+bytes; other captured factor bits match C. Solve timings remain near C, not a
+speedup proof; zero solve allocations, constructor medians include+24bytes on
+sparse32. R keeps factors/growth, takes1232refinements and costs1.39–6.98x C solve
+time with extra32n workspace bytes. All outliers and constructor uncertainty stay.
+Both are fixed-component remedies only. Prefer P for the next separate design.
 
-Fixed C(.1/0),P(1/0),R(.1/2), four sparse/dense32/96 saved inputs,132windows,
-141freshLU/9lu!/3copy/4245F+2133B/12snapshots. Every output uses the original
-128*n*eps bound. Residual FALSE rejects arm accuracy but remains diagnostic data;
-structural/exception/count/measured-compile failure stops. Constructor and solve
-costs, all samples/GC, attempted refinement, strategy, fill and R extra32n bytes
-per workspace are separate. No presumed remedy or production propagation.
+NEXT: SOURCE/DESIGN plan for immutable optional native Float64 pivot policy,
+initially P/IRSTEP0, preserving current defaults. Specify fresh construction,
+independent candidates, spare reuse, copies/shared active factor, empty transition,
+failed refactor/recovery and all supported precisions; never mutate shared active
+controls. Independently review correctness, hot-path work, allocations and retention.
+No implementation, manager qualification or next numerical launch is admitted by
+this component result. Original cost1 remains FAILED/CONSUMED, cost2 BLOCKED.
 
-Current plan closure/publication STATUS/roadmap bindings map ONLY to the new
-NATIVE-ACCURACY-PREPARATION before-preparation copies (continuation.json maps four
-keys). Earlier mappings remain unchanged. Initial preparation offline-test seal/
-launch source bindings map ONLY to before-preparation-fix copies. Initial rejected namespace/HWM review and manifest remain preserved; current
-seal reads preparation-pins-reviewed.json/required-paths-reviewed.json/review-final.json.
-Five initial source/report keys map ONLY to before-review copies (review-fix.json).
-All prior raw,
-scripts/audits/false results/reviews/plans remain FROZEN, NEVER RERUN or rewrite.
-Original cost1 FAILED/CONSUMED, cost2 BLOCKED; no benchmark retry or promotion.
-Master6f68e24 unchanged, CIoff/HHdisabled/automationpaused. Broader plan stays OPEN.
+Preparation closure/publication and this qualification's seal/admission/launch/raw
+STATUS/roadmap keys map ONLY to qualification before-qualification copies via
+continuation.json; all older mappings stay. Accepted experiment plan and all
+scripts/raw/pins/reviews are FROZEN, NEVER RERUN/rewrite. Actualsrc/test/env/master
+unchanged at6f68e24; CIoff/HHdisabled/automationpaused. Broader plan remains OPEN.
 
 ## Previous missing-zero experiment
 
