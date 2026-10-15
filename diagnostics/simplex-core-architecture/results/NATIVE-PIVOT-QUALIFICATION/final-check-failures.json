@@ -1,0 +1,18 @@
+{
+  "scope": "Two offline author tooling failures; no Julia or launch",
+  "failures": [
+    {
+      "script": "final-check.py",
+      "exit_code": 1,
+      "error": "KeyError: 'all_passed' at reviewer-check.json access; record uses checks mapping",
+      "source_sha256": "0d67f1e9085ba2db23d875ef82d64bc5f9e1ccbdd85d081ee2336b8d187151c6"
+    },
+    {
+      "script": "freeze-reviewed.py",
+      "exit_code": 1,
+      "error": "FileNotFoundError: final-check.json; prior author check produced no output",
+      "source_sha256": "6163e2d7d079bc12004678ee88c1334e0357ecdc8f179f58fed6569f6a488b10"
+    }
+  ],
+  "outputs_absent": true
+}

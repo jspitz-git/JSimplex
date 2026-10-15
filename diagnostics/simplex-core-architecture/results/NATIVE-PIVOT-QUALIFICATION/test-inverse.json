@@ -1,0 +1,151 @@
+{
+  "tests-observed.jl": {
+    "source": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-PREPARATION/candidate/test/native_pivot_policy_tests.jl",
+    "source_sha256": "3b11af2f357fb972aaf13dd507c7930704b4d4d58a1d598bbbf1e19af838d343",
+    "sha256": "1b7a91eac035638d31592d05028816248d0b994597a3f0c225c8865299708481",
+    "edits": [
+      [
+        "J._factorize_basis",
+        "Main.NP._factorize_basis",
+        4
+      ],
+      [
+        "J._basis_factorization",
+        "Main.NP._basis_factorization",
+        9
+      ],
+      [
+        "J.UMFPACKBackend",
+        "Main.NP.UMFPACKBackend",
+        2
+      ],
+      [
+        "J.refactorize!",
+        "Main.NP.refactorize!",
+        9
+      ],
+      [
+        "J.copy_basis_factorization",
+        "Main.NP.copy_basis_factorization",
+        2
+      ],
+      [
+        "J.replace_column!",
+        "Main.NP.replace_column!",
+        1
+      ],
+      [
+        "J.forward_solve",
+        "Main.NP.forward_solve",
+        3
+      ],
+      [
+        "J.transpose_solve",
+        "Main.NP.transpose_solve",
+        2
+      ],
+      [
+        "J.sparse_solve_view",
+        "Main.NP.sparse_solve_view",
+        1
+      ],
+      [
+        "lu(",
+        "Main.NP.raw_lu(",
+        1
+      ],
+      [
+        "        x = solve(f, rhs)\n",
+        "        x = solve(f, rhs)\n        Main.NP.equation!(matrix,rhs,x,op===transpose)\n",
+        1
+      ]
+    ]
+  },
+  "neighbors-observed.jl": {
+    "source": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-QUALIFICATION/neighbors-original.jl",
+    "source_sha256": "d3587eeb2302e96e78abe52bcc5ca2bedd9479b101ca64f9342fb75d37981b5b",
+    "sha256": "2696232ddd687aa4bbea3af5569fe6e2d6f825b34ef0cb960e136abd6baee200",
+    "edits": [
+      [
+        "JSimplex._factorize_basis",
+        "Main.NP._factorize_basis",
+        2
+      ],
+      [
+        "JSimplex.PFIFactorization",
+        "Main.NP.PFIFactorization",
+        5
+      ],
+      [
+        "JSimplex.ForrestTomlinFactorization",
+        "Main.NP.ForrestTomlinFactorization",
+        1
+      ],
+      [
+        "JSimplex.SuhlSuhlFactorization",
+        "Main.NP.SuhlSuhlFactorization",
+        1
+      ],
+      [
+        "JSimplex.BartelsGolubFactorization",
+        "Main.NP.BartelsGolubFactorization",
+        1
+      ],
+      [
+        "JSimplex.UMFPACKBackend",
+        "Main.NP.UMFPACKBackend",
+        1
+      ],
+      [
+        "JSimplex.refactorize!",
+        "Main.NP.refactorize!",
+        3
+      ],
+      [
+        "JSimplex._refactorize_backend",
+        "Main.NP._refactorize_backend",
+        1
+      ],
+      [
+        "JSimplex.copy_basis_factorization",
+        "Main.NP.copy_basis_factorization",
+        1
+      ],
+      [
+        "JSimplex.replace_column!",
+        "Main.NP.replace_column!",
+        1
+      ],
+      [
+        "JSimplex.forward_solve",
+        "Main.NP.forward_solve",
+        3
+      ],
+      [
+        "JSimplex.transpose_solve",
+        "Main.NP.transpose_solve",
+        2
+      ],
+      [
+        "JSimplex.hypersparse_forward_solve!",
+        "Main.NP.hypersparse_forward_solve!",
+        4
+      ],
+      [
+        "JSimplex.hypersparse_transpose_solve!",
+        "Main.NP.hypersparse_transpose_solve!",
+        1
+      ],
+      [
+        "JSimplex.sparse_solve_view",
+        "Main.NP.sparse_solve_view",
+        4
+      ],
+      [
+        "lu(",
+        "Main.NP.raw_lu(",
+        1
+      ]
+    ]
+  }
+}
