@@ -47,35 +47,35 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-Optional native Float64 pivot-policy SOURCE/DESIGN plan independently reviewed.
-See docs/superpowers/specs/2026-10-15-native-pivot-policy-design.md and
-2026-10-15-native-pivot-policy.md, with results/NATIVE-PIVOT-POLICY-PLAN/review-final.md.
-No candidate, Julia/query/parser/import/compile/measurement or actual source/test/
-environment/master change in this stage. Prior accuracy run remains consumed.
+Native pivot policy Task1 OFFLINE candidate/tests prepared and independently
+reviewed; see results/NATIVE-PIVOT-PREPARATION/REPORT.md and review-final.md/json.
+Accepted original plan/spec remain frozen. Seven isolated source candidates,
+four focused test groups (including populated-spare copy and saved-copy failure isolation) and four missing-contract RED predicates are UNEXECUTED.
+No Julia query/parser/import/compile/numerics, actual src/test/env/master change,
+production integration or direct-prototype edit occurred.
 
-Design: SolverOptions native_pivot_policy=:default or :threshold_one, immutable
-symbolic intent across phase/remaining/auxiliary/precision/recovery construction;
-constant enum per managed native basis backend, private controls on its fresh
-Float64 LU. Four raw auxiliary dual-refinement/stabilization lu(B) paths retain
-original default controls; this is not a global native-LU override.
-Default call path unchanged; private spares/copies/empty/failure retain selection.
-Other precisions retain the setting but use their old arithmetic; returning to
-Float64 reactivates it. Nondefault Markowitz/HH rejected. No solve/update-loop
-policy checks or global/shared control mutation. No new MOI raw attribute.
+Persistent SolverOptions symbol and constant backend enum carry the managed
+Float64 policy across construction/copies/refactors/empty/precision transitions.
+Default lu(B), non-Float64 arithmetic and all hot solve/update ranges stay intact.
+Four auxiliary raw dual LU safeguards remain outside the policy and byte-identical.
+Private spares retain controls; nondefault Markowitz/HH rejects before factoring.
+No runtime syntax/dispatch/correctness/allocation/speedup claim.
 
-NEXT: Task1 OFFLINE isolated candidate and tests from the accepted plan, exact
-source inverse and work/memory ledger, then fresh independent gpt-6-astra review.
-No actual production edit or Julia in that task. Later RED/GREEN/cost/public
-integration each need concrete immutable admission and their own bounded attempt;
-standing short-run permission is not a substitute. No hours-long/full-suite run.
-Direct prototypes remain frozen; a later new adapter must carry the same policy
-on reference and candidate before any newly labelled comparison. Oldcost1FAILED/
-CONSUMED, cost2BLOCKED; no automatic rerun, default change or production promotion.
+NEXT: Task2 concrete driver/loading/guard/auditor and immutable admission
+preparation from the accepted candidate/tests. Bind exact assertions, all
+setup/refactor/copy/update/F/B work including negative/post-failure paths and
+selected unchanged neighbor testsets. Ordinary73reference/75candidate file
+manifest and unexecuted overlay.py are inputs, not an admission or launch.
+No old driver or auditor rerun. RED<=30s, GREEN<=60s, cost<=45s separately admitted;
+standing short-run permission applies, but exact-stage fresh review still needed.
+No launch until admitted; no full suite/large LP/long run or automatic retry.
+Task3 public/recovery integration and later direct adapter remain separate.
 
-Qualification closure/publication/continuation current STATUS/roadmap keys map
-ONLY to new before-policy-plan copies via continuation.json. All older mappings
-and false results remain intact. Accepted evidence/scripts/reviews remain FROZEN,
-NEVER RERUN/rewrite. Master6f68e24, CIoff/HHdisabled/automationpaused; broader plan OPEN.
+All plan-stage current STATUS/roadmap hashes in closure/publication/continuation
+map to this stage's before-preparation copies through continuation.json; older
+maps and original failures remain unchanged. All completed evidence is FROZEN.
+Master6f68e24 unchanged, oldcost1FAILED/CONSUMED/cost2BLOCKED, CIoff/HHdisabled/
+automationpaused; broader plan OPEN.
 
 ## Previous missing-zero experiment
 

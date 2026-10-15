@@ -1,0 +1,304 @@
+--- a/src/options.jl
++++ b/src/options.jl
+@@ -35,7 +35,8 @@
+                   verbose=true, log_level=Logging.Debug, algorithm=:dual,
+                   pricing=:steepest_edge, basis_update=:pfi,
+                   basis_refactorization=:native, scaling=:auto,
+-                  presolve=true, simplex_strategy=:legacy, partial_pricing=false)
++                  presolve=true, simplex_strategy=:legacy, partial_pricing=false,
++                  native_pivot_policy=:default)
+     SolverOptions(; kwargs...)  # Float64 defaults
+     SolverOptions(T, options::SolverOptions)
+ 
+@@ -110,6 +111,13 @@
+ pivot-validation, refinement, or incremental-update implementation.
+ `partial_pricing=true` independently enables candidate pools for large pricing
+ domains. It defaults to `false` in both strategies.
++`native_pivot_policy=:threshold_one` selects pivot tolerance 1 and no iterative
++refinement for managed native Float64 basis factors (PFI/FT/SS/BG). Default
++`:default` retains existing controls. Intent survives precision conversion;
++other precisions keep their existing arithmetic. Markowitz and Huangfu–Hall
++reject the nondefault policy. Auxiliary raw LU safeguards retain their controls.
++AUTO strategy and symmetric pivot tolerance remain unchanged; threshold one is
++not a universal full-partial-pivot guarantee when AUTO selects SYMMETRIC.
+ 
+ ```julia
+ using JSimplex
+@@ -137,7 +145,12 @@
+     presolve::Bool
+     simplex_strategy::Symbol
+     partial_pricing::Bool
+-end
++    native_pivot_policy::Symbol
++end
++
++# Preserve the original positional constructor's default policy.
++SolverOptions{T,M,R}(primal_tolerance, dual_tolerance, zero_tolerance, iteration_limit, time_limit, refactorization_interval, verbose, log_level, algorithm, pricing, basis_update, basis_refactorization, scaling, presolve, simplex_strategy, partial_pricing) where {T,M,R} =
++    SolverOptions{T,M,R}(primal_tolerance, dual_tolerance, zero_tolerance, iteration_limit, time_limit, refactorization_interval, verbose, log_level, algorithm, pricing, basis_update, basis_refactorization, scaling, presolve, simplex_strategy, partial_pricing, :default)
+ 
+ SolverOptions(; kwargs...) = SolverOptions(Float64; kwargs...)
+ 
+@@ -154,10 +167,11 @@
+     pricing::Symbol=:steepest_edge, basis_update::Symbol=:pfi,
+     basis_refactorization::Symbol=:native, scaling::Symbol=:auto,
+     presolve::Bool=true, simplex_strategy::Symbol=:legacy, partial_pricing::Bool=false,
++    native_pivot_policy::Symbol=:default,
+ ) where {T}
+     arguments = (primal_tolerance, dual_tolerance, zero_tolerance, iteration_limit,
+                  time_limit, refactorization_interval, verbose, log_level,
+-                 algorithm, pricing, scaling, presolve, simplex_strategy, partial_pricing)
++                 algorithm, pricing, scaling, presolve, simplex_strategy, partial_pricing, native_pivot_policy)
+     if basis_update === :pfi
+         return _validated_refactorization(T, Val(:pfi), basis_refactorization, arguments...)
+     elseif basis_update === :forrest_tomlin
+@@ -193,8 +207,14 @@
+ function _validated_options(::Type{T}, ::Val{M}, ::Val{R}, primal_tolerance, dual_tolerance,
+                             zero_tolerance, iteration_limit, time_limit,
+                             refactorization_interval, verbose, log_level, algorithm,
+-                            pricing, scaling, presolve, simplex_strategy, partial_pricing) where {T,M,R}
++                            pricing, scaling, presolve, simplex_strategy, partial_pricing,
++                            native_pivot_policy::Symbol=:default) where {T,M,R}
+     _supported_value_type(T) || throw(ArgumentError("unsupported solver value type $T"))
++    native_pivot_policy in (:default, :threshold_one) ||
++        throw(ArgumentError("native_pivot_policy must be :default or :threshold_one"))
++    native_pivot_policy === :threshold_one &&
++        !(R === :native && M in (:pfi, :forrest_tomlin, :suhl_suhl, :bartels_golub)) &&
++        throw(ArgumentError("threshold_one requires native PFI/FT/SS/BG basis factors"))
+     M === :huangfu_hall && _validate_huangfu_hall(T, Val(R))
+     defaults = _is_exact(T) === Val(true) ? (zero(T), zero(T), zero(T)) :
+         (_positive_tolerance(T, 1 // 10^7), _positive_tolerance(T, 1 // 10^7),
+@@ -232,7 +252,7 @@
+         throw(ArgumentError("simplex_strategy must be :legacy or :adaptive"))
+     return SolverOptions{T,M,R}(tolerances..., Int(iteration_limit), converted_time_limit,
+                               Int(refactorization_interval), verbose, log_level,
+-                              algorithm, pricing, M, R, scaling, presolve, simplex_strategy, partial_pricing)
++                              algorithm, pricing, M, R, scaling, presolve, simplex_strategy, partial_pricing, native_pivot_policy)
+ end
+ 
+ SolverOptions(::Type{T}, options::SolverOptions{S,M,R}) where {T,S,M,R} =
+@@ -240,7 +260,7 @@
+                        options.zero_tolerance, options.iteration_limit,
+                        options.time_limit, options.refactorization_interval,
+                        options.verbose, options.log_level, options.algorithm,
+-                       options.pricing, options.scaling, options.presolve, options.simplex_strategy, options.partial_pricing)
++                       options.pricing, options.scaling, options.presolve, options.simplex_strategy, options.partial_pricing, options.native_pivot_policy)
+ 
+ """
+     SolveStatistics(; iterations=0, elapsed_seconds=0.0, refactorizations=0)
+--- a/src/factorization.jl
++++ b/src/factorization.jl
+@@ -14,16 +14,38 @@
+ 
+ const Float64UMFPACK = SparseArrays.UMFPACK.UmfpackLU{Float64,Int}
+ 
++@enum _NativePivotPolicy::UInt8 _NATIVE_PIVOT_DEFAULT _NATIVE_PIVOT_ONE
++
++function _native_pivot_policy(value::Symbol)::_NativePivotPolicy
++    value === :default && return _NATIVE_PIVOT_DEFAULT
++    value === :threshold_one && return _NATIVE_PIVOT_ONE
++    throw(ArgumentError("native_pivot_policy must be :default or :threshold_one"))
++end
++
++function _native_lu(B::SparseMatrixCSC{Float64,Int}, policy::_NativePivotPolicy)::Float64UMFPACK
++    policy === _NATIVE_PIVOT_DEFAULT && return lu(B)
++    control = SparseArrays.UMFPACK.get_umfpack_control(Float64, Int)
++    control[SparseArrays.LibSuiteSparse.UMFPACK_PIVOT_TOLERANCE + 1] = 1.0
++    control[SparseArrays.LibSuiteSparse.UMFPACK_IRSTEP + 1] = 0.0
++    return lu(B; control)
++end
++
+ mutable struct UMFPACKBackend
+     factorization::Union{Nothing,Float64UMFPACK}
+     dimension::Int
+     # A candidate is always private. Only a successful LU becomes active.
+     spare::Union{Nothing,Float64UMFPACK}
+     shared::Bool
++    const pivot_policy::_NativePivotPolicy
+ end
+ 
+ UMFPACKBackend(factorization::Union{Nothing,Float64UMFPACK}, dimension::Int) =
+-    UMFPACKBackend(factorization, dimension, nothing, false)
++    UMFPACKBackend(factorization, dimension, nothing, false, _NATIVE_PIVOT_DEFAULT)
++
++# Legacy raw-factor wrappers do not certify caller-supplied control values.
++UMFPACKBackend(factorization::Union{Nothing,Float64UMFPACK}, dimension::Int,
++               spare::Union{Nothing,Float64UMFPACK}, shared::Bool) =
++    UMFPACKBackend(factorization, dimension, spare, shared, _NATIVE_PIVOT_DEFAULT)
+ 
+ struct DenseLUBackend{T,F}
+     factorization::F
+@@ -75,12 +97,16 @@
+ _backend_dimension(backend::Union{DenseLUBackend,Float32LUBackend}) =
+     size(backend.factorization, 1)
+ 
+-function _factorize_basis(B::AbstractMatrix{Float64})
++_factorize_basis(B::AbstractMatrix{Float64}) =
++    _factorize_basis(B, Val(:native), _NATIVE_PIVOT_DEFAULT)
++
++function _factorize_basis(B::AbstractMatrix{Float64}, ::Val{:native}, policy::_NativePivotPolicy)
+     # UMFPACK copies its input arrays; reuse an already matching CSC matrix.
+     sparse_basis = convert(SparseMatrixCSC{Float64,Int}, B)
+     rows, columns = size(sparse_basis)
+     rows == columns || throw(DimensionMismatch("basis matrix must be square"))
+-    return iszero(rows) ? UMFPACKBackend(nothing, 0) : UMFPACKBackend(lu(sparse_basis), rows)
++    factor = iszero(rows) ? nothing : _native_lu(sparse_basis, policy)
++    return UMFPACKBackend(factor, rows, nothing, false, policy)
+ end
+ 
+ function _factorize_dense_basis(B::AbstractMatrix{T}) where {T<:Real}
+@@ -99,13 +125,23 @@
+ 
+ _factorize_basis(B::AbstractMatrix{T}) where {T<:Real} = _factorize_dense_basis(B)
+ _factorize_basis(B::AbstractMatrix, ::Val{:native}) = _factorize_basis(B)
++_factorize_basis(B::AbstractMatrix, ::Val{:native}, ::_NativePivotPolicy) =
++    _factorize_basis(B)
++function _factorize_basis(B::AbstractMatrix, ::Val{:markowitz}, policy::_NativePivotPolicy)
++    policy === _NATIVE_PIVOT_DEFAULT ||
++        throw(ArgumentError("Markowitz does not support a native pivot policy"))
++    return _factorize_basis(B, Val(:markowitz))
++end
+ 
+ PFIFactorization(B::AbstractMatrix{T}) where {T<:Real} =
+     PFIFactorization(B, Val(:native))
+ 
+-function PFIFactorization(B::AbstractMatrix{T}, ::Val{R}) where {T<:Real,R}
++PFIFactorization(B::AbstractMatrix{T}, backend::Val) where {T<:Real} =
++    PFIFactorization(B, backend, _NATIVE_PIVOT_DEFAULT)
++
++function PFIFactorization(B::AbstractMatrix{T}, ::Val{R}, policy::_NativePivotPolicy) where {T<:Real,R}
+     _supported_value_type(T) || throw(ArgumentError("unsupported basis value type: $T"))
+-    base = _factorize_basis(B, Val(R))
++    base = _factorize_basis(B, Val(R), policy)
+     return PFIFactorization{T,typeof(base)}(
+         base, PackedEta{T}[], zeros(T, size(B, 1)), PackedEta{T}[], 0, nothing,
+     )
+@@ -322,7 +358,7 @@
+ 
+     candidate = backend.spare
+     if isnothing(candidate)
+-        candidate = lu(sparse_basis)
++        candidate = _native_lu(sparse_basis, backend.pivot_policy)
+     else
+         reuse_symbolic = _same_umfpack_pattern(candidate, sparse_basis)
+         try
+@@ -414,7 +450,7 @@
+ function _copy_backend(backend::UMFPACKBackend)
+     backend.shared = true
+     # Share only the active LU, never the mutable slot container or its spare.
+-    return UMFPACKBackend(backend.factorization, backend.dimension, nothing, true)
++    return UMFPACKBackend(backend.factorization, backend.dimension, nothing, true, backend.pivot_policy)
+ end
+ 
+ function copy_basis_factorization(factor::PFIFactorization{T,F}) where {T,F}
+@@ -428,5 +464,12 @@
+ _basis_factorization(B, ::Val{:pfi}) = PFIFactorization(B)
+ _basis_factorization(B, ::Val{:pfi}, refactorization::Val) =
+     PFIFactorization(B, refactorization)
+-_basis_factorization(B, ::SolverOptions{T,M,R}) where {T,M,R} =
+-    _basis_factorization(B, Val(M), Val(R))
++_basis_factorization(B, ::Val{:pfi}, backend::Val, policy::_NativePivotPolicy) =
++    PFIFactorization(B, backend, policy)
++function _basis_factorization(B, mode::Val, backend::Val, policy::_NativePivotPolicy)
++    policy === _NATIVE_PIVOT_DEFAULT ||
++        throw(ArgumentError("native pivot policy requires PFI/FT/SS/BG"))
++    return _basis_factorization(B, mode, backend)
++end
++_basis_factorization(B, options::SolverOptions{T,M,R}) where {T,M,R} =
++    _basis_factorization(B, Val(M), Val(R), _native_pivot_policy(options.native_pivot_policy))
+--- a/src/triangular_factorization.jl
++++ b/src/triangular_factorization.jl
+@@ -459,9 +459,14 @@
+ ForrestTomlinFactorization(B::AbstractMatrix{T}) where {T<:Real} =
+     ForrestTomlinFactorization(B, Val(:native))
+ 
+-function ForrestTomlinFactorization(B::AbstractMatrix{T}, ::Val{R}) where {T<:Real,R}
++ForrestTomlinFactorization(B::AbstractMatrix{T}, backend::Val) where {T<:Real} =
++    ForrestTomlinFactorization(B, backend, _NATIVE_PIVOT_DEFAULT)
++_basis_factorization(B, ::Val{:forrest_tomlin}, backend::Val, policy::_NativePivotPolicy) =
++    ForrestTomlinFactorization(B, backend, policy)
++
++function ForrestTomlinFactorization(B::AbstractMatrix{T}, ::Val{R}, policy::_NativePivotPolicy) where {T<:Real,R}
+     _supported_value_type(T) || throw(ArgumentError("unsupported basis value type: $T"))
+-    base = _factorize_basis(B, Val(R))
++    base = _factorize_basis(B, Val(R), policy)
+     n = _backend_dimension(base)
+     return ForrestTomlinFactorization{T,typeof(base)}(
+         base, _identity_upper(T, n), collect(1:n), collect(1:n),
+@@ -473,9 +478,14 @@
+ SuhlSuhlFactorization(B::AbstractMatrix{T}) where {T<:Real} =
+     SuhlSuhlFactorization(B, Val(:native))
+ 
+-function SuhlSuhlFactorization(B::AbstractMatrix{T}, ::Val{R}) where {T<:Real,R}
++SuhlSuhlFactorization(B::AbstractMatrix{T}, backend::Val) where {T<:Real} =
++    SuhlSuhlFactorization(B, backend, _NATIVE_PIVOT_DEFAULT)
++_basis_factorization(B, ::Val{:suhl_suhl}, backend::Val, policy::_NativePivotPolicy) =
++    SuhlSuhlFactorization(B, backend, policy)
++
++function SuhlSuhlFactorization(B::AbstractMatrix{T}, ::Val{R}, policy::_NativePivotPolicy) where {T<:Real,R}
+     _supported_value_type(T) || throw(ArgumentError("unsupported basis value type: $T"))
+-    base = _factorize_basis(B, Val(R))
++    base = _factorize_basis(B, Val(R), policy)
+     n = _backend_dimension(base)
+     return SuhlSuhlFactorization{T,typeof(base)}(
+         base, _identity_upper(T, n), collect(1:n), collect(1:n),
+@@ -487,9 +497,14 @@
+ BartelsGolubFactorization(B::AbstractMatrix{T}) where {T<:Real} =
+     BartelsGolubFactorization(B, Val(:native))
+ 
+-function BartelsGolubFactorization(B::AbstractMatrix{T}, ::Val{R}) where {T<:Real,R}
++BartelsGolubFactorization(B::AbstractMatrix{T}, backend::Val) where {T<:Real} =
++    BartelsGolubFactorization(B, backend, _NATIVE_PIVOT_DEFAULT)
++_basis_factorization(B, ::Val{:bartels_golub}, backend::Val, policy::_NativePivotPolicy) =
++    BartelsGolubFactorization(B, backend, policy)
++
++function BartelsGolubFactorization(B::AbstractMatrix{T}, ::Val{R}, policy::_NativePivotPolicy) where {T<:Real,R}
+     _supported_value_type(T) || throw(ArgumentError("unsupported basis value type: $T"))
+-    base = _factorize_basis(B, Val(R))
++    base = _factorize_basis(B, Val(R), policy)
+     n = _backend_dimension(base)
+     return BartelsGolubFactorization{T,typeof(base)}(
+         base, _identity_upper(T, n, Val(:stable)), collect(1:n), collect(1:n),
+--- a/src/simplex_phase_one.jl
++++ b/src/simplex_phase_one.jl
+@@ -12,7 +12,7 @@
+     return SolverOptions{T,M,R}(o.primal_tolerance,o.dual_tolerance,o.zero_tolerance,
+         o.iteration_limit,o.time_limit,o.refactorization_interval,o.verbose,o.log_level,
+         algorithm,o.pricing,o.basis_update,o.basis_refactorization,o.scaling,o.presolve,
+-        o.simplex_strategy,o.partial_pricing)
++        o.simplex_strategy,o.partial_pricing,o.native_pivot_policy)
+ end
+ 
+ function _phase_inherit_work!(destination,source)
+--- a/src/simplex_precision.jl
++++ b/src/simplex_precision.jl
+@@ -92,7 +92,7 @@
+     return SolverOptions{S,M,R}(_copy_precision_scalar(S,o.primal_tolerance),
+         _copy_precision_scalar(S,o.dual_tolerance),_copy_precision_scalar(S,o.zero_tolerance),
+         o.iteration_limit,o.time_limit,o.refactorization_interval,o.verbose,o.log_level,
+-        o.algorithm,o.pricing,o.basis_update,o.basis_refactorization,o.scaling,o.presolve,o.simplex_strategy,o.partial_pricing)
++        o.algorithm,o.pricing,o.basis_update,o.basis_refactorization,o.scaling,o.presolve,o.simplex_strategy,o.partial_pricing,o.native_pivot_policy)
+ end
+ 
+ function _copy_precision_problem(::Type{S},p) where S
+--- a/src/solver.jl
++++ b/src/solver.jl
+@@ -303,7 +303,7 @@
+         options.primal_tolerance, options.dual_tolerance, options.zero_tolerance,
+         max(0, options.iteration_limit - iterations), time_limit,
+         options.refactorization_interval, options.verbose, options.log_level,
+-        algorithm, options.pricing, options.scaling, options.presolve, options.simplex_strategy, options.partial_pricing)
++        algorithm, options.pricing, options.scaling, options.presolve, options.simplex_strategy, options.partial_pricing, options.native_pivot_policy)
+ end
+ 
+ function _retry_original(problem::LinearProblem{T}, options::SolverOptions{T},
+--- a/src/lp_refinement_driver.jl
++++ b/src/lp_refinement_driver.jl
+@@ -55,7 +55,7 @@
+     return SolverOptions{T,M,R}(o.primal_tolerance,o.dual_tolerance,o.zero_tolerance,
+         max(0,budget.iteration_limit-budget.iterations),budget.time_limit_seconds,
+         o.refactorization_interval,o.verbose,o.log_level,o.algorithm,o.pricing,
+-        o.basis_update,o.basis_refactorization,:off,false,o.simplex_strategy,o.partial_pricing)
++        o.basis_update,o.basis_refactorization,:off,false,o.simplex_strategy,o.partial_pricing,o.native_pivot_policy)
+ end
+ 
+ function _lp_memory_estimate(ws::SimplexWorkspace{T},bits) where T

@@ -1,0 +1,163 @@
+{
+  "edits": [
+    {
+      "file": "src/options.jl",
+      "before": "presolve=true, simplex_strategy=:legacy, partial_pricing=false)",
+      "after": "presolve=true, simplex_strategy=:legacy, partial_pricing=false,\n                  native_pivot_policy=:default)"
+    },
+    {
+      "file": "src/options.jl",
+      "before": "domains. It defaults to `false` in both strategies.",
+      "after": "domains. It defaults to `false` in both strategies.\n`native_pivot_policy=:threshold_one` selects pivot tolerance 1 and no iterative\nrefinement for managed native Float64 basis factors (PFI/FT/SS/BG). Default\n`:default` retains existing controls. Intent survives precision conversion;\nother precisions keep their existing arithmetic. Markowitz and Huangfu\u2013Hall\nreject the nondefault policy. Auxiliary raw LU safeguards retain their controls.\nAUTO strategy and symmetric pivot tolerance remain unchanged; threshold one is\nnot a universal full-partial-pivot guarantee when AUTO selects SYMMETRIC."
+    },
+    {
+      "file": "src/options.jl",
+      "before": "    partial_pricing::Bool\nend",
+      "after": "    partial_pricing::Bool\n    native_pivot_policy::Symbol\nend"
+    },
+    {
+      "file": "src/options.jl",
+      "before": "SolverOptions(; kwargs...) = SolverOptions(Float64; kwargs...)",
+      "after": "# Preserve the original positional constructor's default policy.\nSolverOptions{T,M,R}(primal_tolerance, dual_tolerance, zero_tolerance, iteration_limit, time_limit, refactorization_interval, verbose, log_level, algorithm, pricing, basis_update, basis_refactorization, scaling, presolve, simplex_strategy, partial_pricing) where {T,M,R} =\n    SolverOptions{T,M,R}(primal_tolerance, dual_tolerance, zero_tolerance, iteration_limit, time_limit, refactorization_interval, verbose, log_level, algorithm, pricing, basis_update, basis_refactorization, scaling, presolve, simplex_strategy, partial_pricing, :default)\n\nSolverOptions(; kwargs...) = SolverOptions(Float64; kwargs...)"
+    },
+    {
+      "file": "src/options.jl",
+      "before": "    presolve::Bool=true, simplex_strategy::Symbol=:legacy, partial_pricing::Bool=false,",
+      "after": "    presolve::Bool=true, simplex_strategy::Symbol=:legacy, partial_pricing::Bool=false,\n    native_pivot_policy::Symbol=:default,"
+    },
+    {
+      "file": "src/options.jl",
+      "before": "                 algorithm, pricing, scaling, presolve, simplex_strategy, partial_pricing)",
+      "after": "                 algorithm, pricing, scaling, presolve, simplex_strategy, partial_pricing, native_pivot_policy)"
+    },
+    {
+      "file": "src/options.jl",
+      "before": "                            pricing, scaling, presolve, simplex_strategy, partial_pricing) where {T,M,R}",
+      "after": "                            pricing, scaling, presolve, simplex_strategy, partial_pricing,\n                            native_pivot_policy::Symbol=:default) where {T,M,R}"
+    },
+    {
+      "file": "src/options.jl",
+      "before": "    M === :huangfu_hall && _validate_huangfu_hall(T, Val(R))",
+      "after": "    native_pivot_policy in (:default, :threshold_one) ||\n        throw(ArgumentError(\"native_pivot_policy must be :default or :threshold_one\"))\n    native_pivot_policy === :threshold_one &&\n        !(R === :native && M in (:pfi, :forrest_tomlin, :suhl_suhl, :bartels_golub)) &&\n        throw(ArgumentError(\"threshold_one requires native PFI/FT/SS/BG basis factors\"))\n    M === :huangfu_hall && _validate_huangfu_hall(T, Val(R))"
+    },
+    {
+      "file": "src/options.jl",
+      "before": "                              algorithm, pricing, M, R, scaling, presolve, simplex_strategy, partial_pricing)",
+      "after": "                              algorithm, pricing, M, R, scaling, presolve, simplex_strategy, partial_pricing, native_pivot_policy)"
+    },
+    {
+      "file": "src/options.jl",
+      "before": "                       options.pricing, options.scaling, options.presolve, options.simplex_strategy, options.partial_pricing)",
+      "after": "                       options.pricing, options.scaling, options.presolve, options.simplex_strategy, options.partial_pricing, options.native_pivot_policy)"
+    },
+    {
+      "file": "src/factorization.jl",
+      "before": "mutable struct UMFPACKBackend",
+      "after": "@enum _NativePivotPolicy::UInt8 _NATIVE_PIVOT_DEFAULT _NATIVE_PIVOT_ONE\n\nfunction _native_pivot_policy(value::Symbol)::_NativePivotPolicy\n    value === :default && return _NATIVE_PIVOT_DEFAULT\n    value === :threshold_one && return _NATIVE_PIVOT_ONE\n    throw(ArgumentError(\"native_pivot_policy must be :default or :threshold_one\"))\nend\n\nfunction _native_lu(B::SparseMatrixCSC{Float64,Int}, policy::_NativePivotPolicy)::Float64UMFPACK\n    policy === _NATIVE_PIVOT_DEFAULT && return lu(B)\n    control = SparseArrays.UMFPACK.get_umfpack_control(Float64, Int)\n    control[SparseArrays.LibSuiteSparse.UMFPACK_PIVOT_TOLERANCE + 1] = 1.0\n    control[SparseArrays.LibSuiteSparse.UMFPACK_IRSTEP + 1] = 0.0\n    return lu(B; control)\nend\n\nmutable struct UMFPACKBackend"
+    },
+    {
+      "file": "src/factorization.jl",
+      "before": "    spare::Union{Nothing,Float64UMFPACK}\n    shared::Bool\nend",
+      "after": "    spare::Union{Nothing,Float64UMFPACK}\n    shared::Bool\n    const pivot_policy::_NativePivotPolicy\nend"
+    },
+    {
+      "file": "src/factorization.jl",
+      "before": "    UMFPACKBackend(factorization, dimension, nothing, false)",
+      "after": "    UMFPACKBackend(factorization, dimension, nothing, false, _NATIVE_PIVOT_DEFAULT)\n\n# Legacy raw-factor wrappers do not certify caller-supplied control values.\nUMFPACKBackend(factorization::Union{Nothing,Float64UMFPACK}, dimension::Int,\n               spare::Union{Nothing,Float64UMFPACK}, shared::Bool) =\n    UMFPACKBackend(factorization, dimension, spare, shared, _NATIVE_PIVOT_DEFAULT)"
+    },
+    {
+      "file": "src/factorization.jl",
+      "before": "function _factorize_basis(B::AbstractMatrix{Float64})",
+      "after": "_factorize_basis(B::AbstractMatrix{Float64}) =\n    _factorize_basis(B, Val(:native), _NATIVE_PIVOT_DEFAULT)\n\nfunction _factorize_basis(B::AbstractMatrix{Float64}, ::Val{:native}, policy::_NativePivotPolicy)"
+    },
+    {
+      "file": "src/factorization.jl",
+      "before": "    return iszero(rows) ? UMFPACKBackend(nothing, 0) : UMFPACKBackend(lu(sparse_basis), rows)",
+      "after": "    factor = iszero(rows) ? nothing : _native_lu(sparse_basis, policy)\n    return UMFPACKBackend(factor, rows, nothing, false, policy)"
+    },
+    {
+      "file": "src/factorization.jl",
+      "before": "_factorize_basis(B::AbstractMatrix, ::Val{:native}) = _factorize_basis(B)",
+      "after": "_factorize_basis(B::AbstractMatrix, ::Val{:native}) = _factorize_basis(B)\n_factorize_basis(B::AbstractMatrix, ::Val{:native}, ::_NativePivotPolicy) =\n    _factorize_basis(B)\nfunction _factorize_basis(B::AbstractMatrix, ::Val{:markowitz}, policy::_NativePivotPolicy)\n    policy === _NATIVE_PIVOT_DEFAULT ||\n        throw(ArgumentError(\"Markowitz does not support a native pivot policy\"))\n    return _factorize_basis(B, Val(:markowitz))\nend"
+    },
+    {
+      "file": "src/factorization.jl",
+      "before": "function PFIFactorization(B::AbstractMatrix{T}, ::Val{R}) where {T<:Real,R}",
+      "after": "PFIFactorization(B::AbstractMatrix{T}, backend::Val) where {T<:Real} =\n    PFIFactorization(B, backend, _NATIVE_PIVOT_DEFAULT)\n\nfunction PFIFactorization(B::AbstractMatrix{T}, ::Val{R}, policy::_NativePivotPolicy) where {T<:Real,R}"
+    },
+    {
+      "file": "src/factorization.jl",
+      "before": "    base = _factorize_basis(B, Val(R))",
+      "after": "    base = _factorize_basis(B, Val(R), policy)"
+    },
+    {
+      "file": "src/factorization.jl",
+      "before": "        candidate = lu(sparse_basis)",
+      "after": "        candidate = _native_lu(sparse_basis, backend.pivot_policy)"
+    },
+    {
+      "file": "src/factorization.jl",
+      "before": "    return UMFPACKBackend(backend.factorization, backend.dimension, nothing, true)",
+      "after": "    return UMFPACKBackend(backend.factorization, backend.dimension, nothing, true, backend.pivot_policy)"
+    },
+    {
+      "file": "src/factorization.jl",
+      "before": "_basis_factorization(B, ::SolverOptions{T,M,R}) where {T,M,R} =\n    _basis_factorization(B, Val(M), Val(R))",
+      "after": "_basis_factorization(B, ::Val{:pfi}, backend::Val, policy::_NativePivotPolicy) =\n    PFIFactorization(B, backend, policy)\nfunction _basis_factorization(B, mode::Val, backend::Val, policy::_NativePivotPolicy)\n    policy === _NATIVE_PIVOT_DEFAULT ||\n        throw(ArgumentError(\"native pivot policy requires PFI/FT/SS/BG\"))\n    return _basis_factorization(B, mode, backend)\nend\n_basis_factorization(B, options::SolverOptions{T,M,R}) where {T,M,R} =\n    _basis_factorization(B, Val(M), Val(R), _native_pivot_policy(options.native_pivot_policy))"
+    },
+    {
+      "file": "src/triangular_factorization.jl",
+      "before": "function ForrestTomlinFactorization(B::AbstractMatrix{T}, ::Val{R}) where {T<:Real,R}\n    _supported_value_type(T) || throw(ArgumentError(\"unsupported basis value type: $T\"))\n    base = _factorize_basis(B, Val(R))",
+      "after": "ForrestTomlinFactorization(B::AbstractMatrix{T}, backend::Val) where {T<:Real} =\n    ForrestTomlinFactorization(B, backend, _NATIVE_PIVOT_DEFAULT)\n_basis_factorization(B, ::Val{:forrest_tomlin}, backend::Val, policy::_NativePivotPolicy) =\n    ForrestTomlinFactorization(B, backend, policy)\n\nfunction ForrestTomlinFactorization(B::AbstractMatrix{T}, ::Val{R}, policy::_NativePivotPolicy) where {T<:Real,R}\n    _supported_value_type(T) || throw(ArgumentError(\"unsupported basis value type: $T\"))\n    base = _factorize_basis(B, Val(R), policy)"
+    },
+    {
+      "file": "src/triangular_factorization.jl",
+      "before": "function SuhlSuhlFactorization(B::AbstractMatrix{T}, ::Val{R}) where {T<:Real,R}\n    _supported_value_type(T) || throw(ArgumentError(\"unsupported basis value type: $T\"))\n    base = _factorize_basis(B, Val(R))",
+      "after": "SuhlSuhlFactorization(B::AbstractMatrix{T}, backend::Val) where {T<:Real} =\n    SuhlSuhlFactorization(B, backend, _NATIVE_PIVOT_DEFAULT)\n_basis_factorization(B, ::Val{:suhl_suhl}, backend::Val, policy::_NativePivotPolicy) =\n    SuhlSuhlFactorization(B, backend, policy)\n\nfunction SuhlSuhlFactorization(B::AbstractMatrix{T}, ::Val{R}, policy::_NativePivotPolicy) where {T<:Real,R}\n    _supported_value_type(T) || throw(ArgumentError(\"unsupported basis value type: $T\"))\n    base = _factorize_basis(B, Val(R), policy)"
+    },
+    {
+      "file": "src/triangular_factorization.jl",
+      "before": "function BartelsGolubFactorization(B::AbstractMatrix{T}, ::Val{R}) where {T<:Real,R}\n    _supported_value_type(T) || throw(ArgumentError(\"unsupported basis value type: $T\"))\n    base = _factorize_basis(B, Val(R))",
+      "after": "BartelsGolubFactorization(B::AbstractMatrix{T}, backend::Val) where {T<:Real} =\n    BartelsGolubFactorization(B, backend, _NATIVE_PIVOT_DEFAULT)\n_basis_factorization(B, ::Val{:bartels_golub}, backend::Val, policy::_NativePivotPolicy) =\n    BartelsGolubFactorization(B, backend, policy)\n\nfunction BartelsGolubFactorization(B::AbstractMatrix{T}, ::Val{R}, policy::_NativePivotPolicy) where {T<:Real,R}\n    _supported_value_type(T) || throw(ArgumentError(\"unsupported basis value type: $T\"))\n    base = _factorize_basis(B, Val(R), policy)"
+    },
+    {
+      "file": "src/simplex_phase_one.jl",
+      "before": "o.simplex_strategy,o.partial_pricing)",
+      "after": "o.simplex_strategy,o.partial_pricing,o.native_pivot_policy)"
+    },
+    {
+      "file": "src/simplex_precision.jl",
+      "before": "o.simplex_strategy,o.partial_pricing)",
+      "after": "o.simplex_strategy,o.partial_pricing,o.native_pivot_policy)"
+    },
+    {
+      "file": "src/lp_refinement_driver.jl",
+      "before": "o.simplex_strategy,o.partial_pricing)",
+      "after": "o.simplex_strategy,o.partial_pricing,o.native_pivot_policy)"
+    },
+    {
+      "file": "src/solver.jl",
+      "before": "algorithm, options.pricing, options.scaling, options.presolve, options.simplex_strategy, options.partial_pricing)",
+      "after": "algorithm, options.pricing, options.scaling, options.presolve, options.simplex_strategy, options.partial_pricing, options.native_pivot_policy)"
+    }
+  ],
+  "original": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/options.jl": "421873c308043c29c46243c2831c8cc681c669eef2bfd08a52cde1090d6f8791",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/factorization.jl": "59f0dfb40ab13cdf76b1148323ea0b335154b98cb4da83e87711ba22b8be2986",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/triangular_factorization.jl": "2d8d488ffb7d1cf79ff71662e0cd83400adaf4097dac3e48254c47106f3a7204",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/simplex_phase_one.jl": "65c2323a984a1d28c2237fef8054f23f5d2760c2f153bf18c692e54f61007a9d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/simplex_precision.jl": "4b854c4b4ee046784eee49d557cde959853d2f9399d3eac33d7fd73d9bcf64f6",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/solver.jl": "2f25081814ad5a1a198559f72b77384b68320babc44d41dbc44a67c5ddce312e",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/src/lp_refinement_driver.jl": "1e529e75da9166c8e7415d49020ac5bcb73501e4c1377aa014018559ccd70d0d"
+  },
+  "candidate": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-PREPARATION/candidate/src/options.jl": "1b72bd9ca597a887acbcc750b277a485f10981826b81efe9a5c4c25748226e08",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-PREPARATION/candidate/src/factorization.jl": "bf8f7381caa143d1825d0e39d8f35ec93cf36e4ddc150c0c7c1da6d979b494ce",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-PREPARATION/candidate/src/triangular_factorization.jl": "685d4356d83a4f62f2cf17f08a70f5987ba78d18499dc8ee6975405ae4a939f2",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-PREPARATION/candidate/src/simplex_phase_one.jl": "b01ff56fb1b3815d2dfa4554aa105bc2447064ca503018f3b00e3e6b973c3950",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-PREPARATION/candidate/src/simplex_precision.jl": "9351fa8a6128b59a59d1d5ba98207afa0b70278692a9e5297b00e0a829798609",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-PREPARATION/candidate/src/solver.jl": "40f6d58e0eee5da28c0bd9322d759bd2fa422108bad9d0495e52a3b21a1d105c",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-PREPARATION/candidate/src/lp_refinement_driver.jl": "7b6a74c574b7791f46fcca685807d5f92c11970c804add2ed486e01640a01e90"
+  },
+  "scope": "Exact string edits reversed to entire original files; not Julia syntax/dispatch/runtime proof"
+}

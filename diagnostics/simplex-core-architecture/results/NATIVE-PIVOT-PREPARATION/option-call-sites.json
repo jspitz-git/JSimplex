@@ -1,0 +1,152 @@
+{
+  "source_sites": {
+    "src/dual_simplex.jl": [
+      [
+        177,
+        "_small_dual_refinement_factor(B, ::SolverOptions{Float64,U,:markowitz}) where U ="
+      ],
+      [
+        1702,
+        "function _original_witness_certified(problem::LinearProblem{T}, options::SolverOptions{T},"
+      ],
+      [
+        2158,
+        "function _solve_continuous_dual(problem::LinearProblem{T}, options::SolverOptions{T};"
+      ]
+    ],
+    "src/factorization.jl": [
+      [
+        431,
+        "_basis_factorization(B, ::SolverOptions{T,M,R}) where {T,M,R} ="
+      ]
+    ],
+    "src/lp_refinement_driver.jl": [
+      [
+        54,
+        "function _lp_auxiliary_options(o::SolverOptions{T,M,R},budget) where {T,M,R}"
+      ],
+      [
+        55,
+        "    return SolverOptions{T,M,R}(o.primal_tolerance,o.dual_tolerance,o.zero_tolerance,"
+      ]
+    ],
+    "src/moi/attributes.jl": [
+      [
+        20,
+        "function _solver_options(optimizer::Optimizer{T})::SolverOptions{T} where {T}"
+      ]
+    ],
+    "src/options.jl": [
+      [
+        123,
+        "struct SolverOptions{T<:Real,M,R}"
+      ],
+      [
+        179,
+        "        return _validated_options(T, mode, Val(:native), arguments...)"
+      ],
+      [
+        181,
+        "        return _validated_options(T, mode, Val(:markowitz), arguments...)"
+      ],
+      [
+        193,
+        "function _validated_options(::Type{T}, ::Val{M}, ::Val{R}, primal_tolerance, dual_tolerance,"
+      ],
+      [
+        233,
+        "    return SolverOptions{T,M,R}(tolerances..., Int(iteration_limit), converted_time_limit,"
+      ],
+      [
+        238,
+        "SolverOptions(::Type{T}, options::SolverOptions{S,M,R}) where {T,S,M,R} ="
+      ],
+      [
+        239,
+        "    _validated_options(T, Val(M), Val(R), options.primal_tolerance, options.dual_tolerance,"
+      ]
+    ],
+    "src/primal_simplex.jl": [
+      [
+        807,
+        "function _primal_phase_one(problem::LinearProblem{T}, options::SolverOptions{T},"
+      ],
+      [
+        918,
+        "function _solve_continuous_primal(problem::LinearProblem{T}, options::SolverOptions{T};"
+      ]
+    ],
+    "src/simplex.jl": [
+      [
+        184,
+        "    options::SolverOptions{T,M,R}"
+      ]
+    ],
+    "src/simplex_phase_one.jl": [
+      [
+        11,
+        "function _phase_options(o::SolverOptions{T,M,R},algorithm::Symbol) where {T,M,R}"
+      ],
+      [
+        12,
+        "    return SolverOptions{T,M,R}(o.primal_tolerance,o.dual_tolerance,o.zero_tolerance,"
+      ]
+    ],
+    "src/simplex_precision.jl": [
+      [
+        90,
+        "function _copy_precision_options(::Type{S},o::SolverOptions{T,M,R}) where {S,T,M,R}"
+      ],
+      [
+        92,
+        "    return SolverOptions{S,M,R}(_copy_precision_scalar(S,o.primal_tolerance),"
+      ]
+    ],
+    "src/solver.jl": [
+      [
+        12,
+        "_context_numerical_policy(context::SolveContext, options::SolverOptions{T}) where {T} ="
+      ],
+      [
+        37,
+        "function _finish_solve(::Type{T}, context::SolveContext, options::SolverOptions{T},"
+      ],
+      [
+        217,
+        "                          options::SolverOptions{T}, context::SolveContext,"
+      ],
+      [
+        299,
+        "function _remaining_options(options::SolverOptions{T,M,R}; iterations::Int,"
+      ],
+      [
+        302,
+        "    return _validated_options(T, Val(M), Val(R),"
+      ],
+      [
+        309,
+        "function _retry_original(problem::LinearProblem{T}, options::SolverOptions{T},"
+      ],
+      [
+        341,
+        "                                    options::SolverOptions{T}, context::SolveContext,"
+      ],
+      [
+        452,
+        "_automatic_numerical_policy(problem::LinearProblem{T}, options::SolverOptions{T}) where T ="
+      ],
+      [
+        455,
+        "function _automatic_numerical_policy(problem::LinearProblem{BigFloat}, options::SolverOptions{BigFloat})"
+      ]
+    ]
+  },
+  "changed_copy_sites": [
+    "src/options.jl",
+    "src/simplex_phase_one.jl",
+    "src/simplex_precision.jl",
+    "src/solver.jl",
+    "src/lp_refinement_driver.jl"
+  ],
+  "scope": "All lexical parametric option sites enumerated; author/reviewer semantic inspection still required"
+}
