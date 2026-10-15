@@ -47,60 +47,38 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-Direct LU / Markowitz short RED/correctness attempts are complete; correctness
-is NOT ACCEPTED. See [result report](DIRECT-LU-CORRECTNESS.md) and preserved
-results/DIRECT-LU-ADMISSION/{red,green}-run. Independently admitted RED produced
-exactly3expectedFAIL/0ERROR,exit1,15/15auditPASS in5.838962662s. GREEN produced
-89PASS/0FAIL/1ERROR,exit2 in8.769139723s, then stopped in first exports group;
-the remaining11groups never ran. CanonicalGREENauditFALSE(incomplete records)
-and separate postcheck17true/3false are preserved, not replaced by PASS.
-Both attempt reservations are CONSUMED. No current retry/cost/public integration.
+Corrected Direct LU / Markowitz GREEN is independently accepted for scoped
+Tasks1–2 component/lifecycle correctness. See DIRECT-LU-GREEN-CORRECTNESS.md and
+results/DIRECT-LU-GREEN-CORRECTNESS/review.md/json. One new process:19,557PASS,
+0FAIL/ERROR/BROKEN,exit0,all12groups,15auditgatesPASS,11postchecksPASS.
+Inclusive40.831812370s is NOTbenchmark time. All4616launch/4614sealedpins and
+514baselinepaths unchanged. Stage admission bound4383paths.40resource samples
+plus terminal:minRAM21,909,480KiB,swap0; full202groupsANDsessionsabsent/noJulia.
+No WARNING marker in this run. ReservationCONSUMED; no repeat/tuning.
 
-The captured failure is test_exports line74 calling native lu! with sparse(2.0*B).
-Fixed order/counts identify the stored-zero fixture; installed source explains
-16stored entries->4 after scalar sparse broadcast, while lu! defaults to reuse
-symbolic=true. IntermediateCSC was notcaptured; this is source-derived cause,
-not a new numerical probe or solver defect. The89passed assertions do not qualify
-the full candidate. World-age warnings remain preserved and version-scoped.
+PrivateCSC/nzval repair passed export130 assertions; three directmanagers,
+native/Markowitz, normalization/orientation, ownership/copy/update/refactor and
+fallback fixtures passed. Otherprecisions qualify testedfallback only. Source
+work ledger remains source-derived, not instrumentedbackend/allocations. No
+speedup/native-refinement-equivalence/fullsuite/x64/publicsolver claim or
+productionpromotion. OriginalRED3expectedFAIL remainsaccepted; oldGREEN89PASS/
+1ERROR/falseaudit unchanged. All old and new executed artifacts remain frozen.
 
-Separate OFFLINE test repair is independently accepted; see
-DIRECT-LU-TEST-REPAIR.md and results/DIRECT-LU-TEST-REPAIR/review.md/json.
-Owned CSC copy + nzval scaling preserves stored zeros; five checks on each of
-six native nonempty fixtures add30 assertions (exports130, total19,557).
-Driver latest-world closures move binding lookup inside invokelatest. Exact
-whole-file inverses preserve every other test/driver byte.17text checks passed,
-136frozen artifacts and514baseline files unchanged. No Julia was executed;
-original failed GREEN remains failed, and runtime correctness is unqualified.
-No production work/memory change; cold test copy/scans explicitly accounted.
+Next concrete work: original Task3 OFFLINE cost-driver/input/admission preparation
+in docs/superpowers/plans/2026-10-14-direct-lu-markowitz.md. Freeze n32/96 x
+sparse/dense inputs and entering/DSE/B4/B8 bits;24manager/backendcells,
+3warm+7measured alternating pairs, two serial <=90sprocesses in later separate
+exactadmissions. Include wholeconstruct/eightupdates/tworefactor costs, bytes/
+events/compile/GC and finalreachablememory. Preserve original per-cellselection
+rules and second-refactor bufferreuse costs. No cost driver/run prepared by this
+result step. Standing short permission sufficient; exact independent admission
+still required. Task4publicintegration/promotion remains later, neverautomatic.
 
-NEW GREEN-only offline admission is independently accepted; see
-DIRECT-LU-GREEN-ADMISSION.md and results/DIRECT-LU-GREEN-ADMISSION.
-72new helper checks PASS; fresh inventory4,611/required185 binds corrected exact
-candidate overlay, repaired driver/test and unchanged six focused slices.
-Only GREEN/90s/exit0/exact12groups/19,557assertions is accepted by config.
-Both sealing and launch revalidate complete immutable RED and accepted repair.
-No Julia, sealing, reservation or process was executed by this preparation.
-
-Next concrete step: seal.py green in DIRECT-LU-GREEN-ADMISSION after fresh
-host/pins/preparation review validation, then independent exact green-admission
-review and one <=90s GREEN using launch.py green. Reuse accepted RED records;
-never rerun RED or old failed GREEN. No extra human permission is needed.
-Stop/preserve any unexpected failure; no retry/tuning/increased limit.
-Tasks3–4 remain gated on full accepted correctness; no production promotion.
-The repair closure/publication current continuation keys map ONLY to
-DIRECT-LU-GREEN-ADMISSION/STATUS.md.before-green-admission and
-roadmap.md.before-green-admission (four mappings); all older maps unchanged.
-Previous correctness review/closure/publication current STATUS/roadmap bindings
-map ONLY to DIRECT-LU-TEST-REPAIR/STATUS.md.before-repair and roadmap.md.before-repair
-(six exact mappings); all older mappings remain unchanged.
-
-Full4409RED/4427GREENlaunchpins and514production/test/CI paths unchanged; separate
-fresh full200groups ANDsessions/noJulia closure. master6f68e24 unchanged. Prior
-admission closure/publication current STATUS/roadmap hashes map ONLY to
-results/DIRECT-LU-CORRECTNESS/STATUS.md.before-correctness and
-roadmap.md.before-correctness (four exact continuation mappings). All older maps,
-raw failures and rejected reviews remain frozen. Broader plan OPEN;
-CIoff/HHdisabled/automationpaused. No numerical or performance acceptance.
+Admission closure/closure-final/publication-final/publication-review CURRENT
+STATUS/roadmap hashes map ONLY to DIRECT-LU-GREEN-CORRECTNESS before-green-
+correctness copies (eight exact continuation.json mappings). Earlier maps and
+raw/rejections stay unchanged. Master6f68e24 unchanged; CIoff/HHdisabled/
+automationpaused. Broader architecture plan OPEN.
 
 ## Previous missing-zero experiment
 

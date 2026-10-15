@@ -2884,3 +2884,24 @@ any unexpected failure stops without retry/tuning. Tasks3–4/cost/publicsolver/
 production remain gated. Four prior repair closure/publication continuation keys
 map ONLY to this package's before-green-admission copies; all old mappings stay.
 Master6f68e24 unchanged, CIoff/HHdisabled/automationpaused; broader plan open.
+
+## 2026-10-15: corrected direct-LU GREEN accepted
+
+One independently admitted correctedGREEN completed19,557PASS/0FAIL/0ERROR/
+0BROKEN,exit0,12groups,15auditgates and11postchecksPASS. Full4616launch/4614sealed
+pins/514baselinepaths unchanged;40.831812370sinclusive NOTbenchmark.40samples+
+terminalminRAM21,909,480KiB/swap0,full202groupsANDsessionsabsent/noJulia.
+Independentresultreview accepts scopedTasks1–2 correctness, no unnecessarynew
+productionwork/memory. Report DIRECT-LU-GREEN-CORRECTNESS.md. OriginalREDaccepted,
+oldfailedGREEN89PASS1ERROR/falseaudit preserved. Allslotsconsumed/no repeat.
+
+Next originalTask3 OFFLINE costinputs/driver/admission preparation:four n32/96
+sparse/densefixtures,24cells,3warm+7measuredpairs perprocess,twoserial<=90sprocesses
+onlyafterseparateexactadmissions. Include construction/export, eightupdates and
+tworefactor lifecycle, bytes/events/GC/compile and finalreachablememory. Keep
+originalselectionrules; no tuning from output, no automaticpromotion. No current
+costrun/driver/publicsolverintegration. Task4 later. Correctness is notspeedup,
+fullsuite/x64 or nativecombined-refinementequivalence. Eight prioradmission
+closure/closure-final/publication-final/publication-review continuationkeys map
+ONLY to newbefore-green-correctnesscopies; alloldermapsfrozen. Master6f68e24/
+CIoff/HHdisabled/automationpaused unchanged; broaderplanopen.
