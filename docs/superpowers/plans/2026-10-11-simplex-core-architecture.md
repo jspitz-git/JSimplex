@@ -2949,3 +2949,14 @@ and combined application both have nonzero contributions; exact native cause
 unresolved. See DIRECT-LU-BACKEND-DIAGNOSTIC.md. Allowance consumed; no rerun,
 cost2, automatic repair or promotion. Next bounded offline saved-evidence/source
 analysis only, before any concrete repair proposal. Production/master unchanged.
+
+### Direct LU saved-factor growth diagnosis
+
+Bounded offline analysis identifies final U growth245688 versus scaled B4 despite
+cond_inf<=153/103. Factor(31,31) cancels three large products to -53/2^42 instead
+of zero; original row87 residual and both representation/application terms match
+the preserved diagnostic. Actual unsymmetric/pivot0.1/IRSTEP0; no new solve or
+measurement. See DIRECT-LU-PIVOT-GROWTH-DIAGNOSIS.md. Next: separate source/design
+accuracy-policy plan with pivot/refinement work, fill, scratch and ownership
+obligations. No admitted remedy or automatic numerical permission; cost1 failed,
+cost2 blocked, default controls and all frozen evidence unchanged.

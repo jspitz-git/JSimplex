@@ -47,33 +47,36 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-Direct LU backend diagnostic completed ONCE and independently reviewed.
-See DIRECT-LU-BACKEND-DIAGNOSTIC.md and results/DIRECT-LU-BACKEND-DIAGNOSTIC.
-The <=45s allowance is CONSUMED: actual6.795441914s inclusive/exit0, canonical
-12/12integrity audit PASS, but15/18exact residuals PASS and3FALSE preserved.
-Fresh DSE, ordinary post-refactor DSE and direct-base DSE are bit-identical to
-one another AND originalcost1step5. Originalcost1FAILED/CONSUMED, cost2BLOCKED.
+Direct LU saved-factor growth diagnosis completed OFFLINE and independently
+reviewed. See DIRECT-LU-PIVOT-GROWTH-DIAGNOSIS.md and its results directory.
+The saved native sparse96 B4 factors exhibit max U231235.789 versus max B4=4,
+final-factor growth245688.026 relative to scaled input. Despite exact input
+cond_inf<=153/103, factor position(31,31), original(87,1), cancels terms of total
+absolute magnitude462471.58 to -53/2^42 rather than zero. Actual unsymmetric
+strategy/pivot tolerance0.1/IRSTEP0; RCOND4.5522e-7 is a U-diagonal ratio, not
+an exact input condition estimate. Growth/cancellation is the concrete numerical
+mechanism; native rounding sequence/pivot candidate decisions remain uncaptured.
+Representation AND combined application contributions remain nonzero.
 
-Fresh B4 exhibits the same error without FT update/refactor history. Both captured
-factors agree exceptInfo, do_recip=1,234L/248Uentries. Row87 originalresidual
-~6.889312e-11 exceeds originalbound18.8614times. Recorded factorrepresentation
-and combinedapplication are both nonzero contributors; this is NOT a captured
-native intermediate solve or an identified native operation/rootcause/repair.
-No tolerance/control/precision change, no production/candidate modification.
-3factorizations/13FTRAN/5BTRAN/4replacements/1refactor/2snapshots,3live nativefactors;
-all16resetpredicates/inputs/controls/nativeownership PASS. All206groupsANDsessions
-closed/noJulia. Full4749launchpins,514baselinefiles andportable8rawfiles verified.
+No new Julia/native/solve/measurement or production/test/env/CI changes. New exact
+saved-data analysis20checks and author10checks PASS. Its initial provenance-path
+failure is preserved separately; no old script/auditor rerun. Prior backend
+allowance CONSUMED,15/18residualsPASS and3FALSE; originalcost1FAILED/CONSUMED,
+cost2BLOCKED. No threshold/tolerance/precision tuning or candidate promotion.
 
-The bounded diagnostic plan is complete. NEXT permitted direction is a bounded
-OFFLINE analysis of the newly saved factor/solution/source evidence to identify
-a concrete cause before proposing a repair. Do not rerun this process/auditor,
-reopen cost2, tune the benchmark, change tolerance or promote production from
-these diagnostic results. Any repair/newnumerics requires its own concrete plan
-and independent admission; standing short-run authorization does not waive gates.
-Preparation scripts/manifests/reviews, originalfailedcost1 andallolder artifacts
-remain FROZEN. Preparation closure/publication currentSTATUS/roadmap bindings map
-ONLY to DIAGNOSTIC before-probe copies; allolder mappings unchanged. Master6f68e24
-unchanged, CIoff/HHdisabled/automationpaused, broader optimization/fullsuite OPEN.
+NEXT proposed concrete work is a separate SOURCE/DESIGN plan for an explicit
+native Float64 accuracy policy at factor construction: compare the rationale and
+cost obligations of stronger pivot acceptance versus iterative refinement, with
+ownership/copy/refactor propagation, fill/solve scratch and memory accounted.
+Preserve defaults initially; freeze correctness/cost scope and independent review
+before any numerical execution. This is not an admitted repair, a promised fix,
+a cost1 rerun or automatic cost2 permission. Do not create another equivalent
+saved-factor inventory. The original direct-LU comparison remains incomplete.
+
+Backend diagnostic closure/publication currentSTATUS/roadmap bindings map ONLY to
+PIVOT-GROWTH-DIAGNOSIS before-growth copies; all older mappings unchanged. All old
+raw/scripts/reviews/pins remain FROZEN. Master6f68e24 unchanged, CIoff/HHdisabled,
+automationpaused, broader optimization/fullsuite OPEN.
 
 ## Previous missing-zero experiment
 
