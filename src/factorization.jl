@@ -14,16 +14,38 @@ _unit_transpose_rhs(factor, rhs, row::Int) = rhs
 
 const Float64UMFPACK = SparseArrays.UMFPACK.UmfpackLU{Float64,Int}
 
+@enum _NativePivotPolicy::UInt8 _NATIVE_PIVOT_DEFAULT _NATIVE_PIVOT_ONE
+
+function _native_pivot_policy(value::Symbol)::_NativePivotPolicy
+    value === :default && return _NATIVE_PIVOT_DEFAULT
+    value === :threshold_one && return _NATIVE_PIVOT_ONE
+    throw(ArgumentError("native_pivot_policy must be :default or :threshold_one"))
+end
+
+function _native_lu(B::SparseMatrixCSC{Float64,Int}, policy::_NativePivotPolicy)::Float64UMFPACK
+    policy === _NATIVE_PIVOT_DEFAULT && return lu(B)
+    control = SparseArrays.UMFPACK.get_umfpack_control(Float64, Int)
+    control[SparseArrays.LibSuiteSparse.UMFPACK_PIVOT_TOLERANCE + 1] = 1.0
+    control[SparseArrays.LibSuiteSparse.UMFPACK_IRSTEP + 1] = 0.0
+    return lu(B; control)
+end
+
 mutable struct UMFPACKBackend
     factorization::Union{Nothing,Float64UMFPACK}
     dimension::Int
     # A candidate is always private. Only a successful LU becomes active.
     spare::Union{Nothing,Float64UMFPACK}
     shared::Bool
+    const pivot_policy::_NativePivotPolicy
 end
 
 UMFPACKBackend(factorization::Union{Nothing,Float64UMFPACK}, dimension::Int) =
-    UMFPACKBackend(factorization, dimension, nothing, false)
+    UMFPACKBackend(factorization, dimension, nothing, false, _NATIVE_PIVOT_DEFAULT)
+
+# Legacy raw-factor wrappers do not certify caller-supplied control values.
+UMFPACKBackend(factorization::Union{Nothing,Float64UMFPACK}, dimension::Int,
+               spare::Union{Nothing,Float64UMFPACK}, shared::Bool) =
+    UMFPACKBackend(factorization, dimension, spare, shared, _NATIVE_PIVOT_DEFAULT)
 
 struct DenseLUBackend{T,F}
     factorization::F
@@ -75,12 +97,16 @@ _backend_dimension(backend::UMFPACKBackend) = backend.dimension
 _backend_dimension(backend::Union{DenseLUBackend,Float32LUBackend}) =
     size(backend.factorization, 1)
 
-function _factorize_basis(B::AbstractMatrix{Float64})
+_factorize_basis(B::AbstractMatrix{Float64}) =
+    _factorize_basis(B, Val(:native), _NATIVE_PIVOT_DEFAULT)
+
+function _factorize_basis(B::AbstractMatrix{Float64}, ::Val{:native}, policy::_NativePivotPolicy)
     # UMFPACK copies its input arrays; reuse an already matching CSC matrix.
     sparse_basis = convert(SparseMatrixCSC{Float64,Int}, B)
     rows, columns = size(sparse_basis)
     rows == columns || throw(DimensionMismatch("basis matrix must be square"))
-    return iszero(rows) ? UMFPACKBackend(nothing, 0) : UMFPACKBackend(lu(sparse_basis), rows)
+    factor = iszero(rows) ? nothing : _native_lu(sparse_basis, policy)
+    return UMFPACKBackend(factor, rows, nothing, false, policy)
 end
 
 function _factorize_dense_basis(B::AbstractMatrix{T}) where {T<:Real}
@@ -99,13 +125,23 @@ end
 
 _factorize_basis(B::AbstractMatrix{T}) where {T<:Real} = _factorize_dense_basis(B)
 _factorize_basis(B::AbstractMatrix, ::Val{:native}) = _factorize_basis(B)
+_factorize_basis(B::AbstractMatrix, ::Val{:native}, ::_NativePivotPolicy) =
+    _factorize_basis(B)
+function _factorize_basis(B::AbstractMatrix, ::Val{:markowitz}, policy::_NativePivotPolicy)
+    policy === _NATIVE_PIVOT_DEFAULT ||
+        throw(ArgumentError("Markowitz does not support a native pivot policy"))
+    return _factorize_basis(B, Val(:markowitz))
+end
 
 PFIFactorization(B::AbstractMatrix{T}) where {T<:Real} =
     PFIFactorization(B, Val(:native))
 
-function PFIFactorization(B::AbstractMatrix{T}, ::Val{R}) where {T<:Real,R}
+PFIFactorization(B::AbstractMatrix{T}, backend::Val) where {T<:Real} =
+    PFIFactorization(B, backend, _NATIVE_PIVOT_DEFAULT)
+
+function PFIFactorization(B::AbstractMatrix{T}, ::Val{R}, policy::_NativePivotPolicy) where {T<:Real,R}
     _supported_value_type(T) || throw(ArgumentError("unsupported basis value type: $T"))
-    base = _factorize_basis(B, Val(R))
+    base = _factorize_basis(B, Val(R), policy)
     return PFIFactorization{T,typeof(base)}(
         base, PackedEta{T}[], zeros(T, size(B, 1)), PackedEta{T}[], 0, nothing,
     )
@@ -322,7 +358,7 @@ function _refactorize_backend(backend::UMFPACKBackend, B::AbstractMatrix{Float64
 
     candidate = backend.spare
     if isnothing(candidate)
-        candidate = lu(sparse_basis)
+        candidate = _native_lu(sparse_basis, backend.pivot_policy)
     else
         reuse_symbolic = _same_umfpack_pattern(candidate, sparse_basis)
         try
@@ -414,7 +450,7 @@ end
 function _copy_backend(backend::UMFPACKBackend)
     backend.shared = true
     # Share only the active LU, never the mutable slot container or its spare.
-    return UMFPACKBackend(backend.factorization, backend.dimension, nothing, true)
+    return UMFPACKBackend(backend.factorization, backend.dimension, nothing, true, backend.pivot_policy)
 end
 
 function copy_basis_factorization(factor::PFIFactorization{T,F}) where {T,F}
@@ -428,5 +464,12 @@ end
 _basis_factorization(B, ::Val{:pfi}) = PFIFactorization(B)
 _basis_factorization(B, ::Val{:pfi}, refactorization::Val) =
     PFIFactorization(B, refactorization)
-_basis_factorization(B, ::SolverOptions{T,M,R}) where {T,M,R} =
-    _basis_factorization(B, Val(M), Val(R))
+_basis_factorization(B, ::Val{:pfi}, backend::Val, policy::_NativePivotPolicy) =
+    PFIFactorization(B, backend, policy)
+function _basis_factorization(B, mode::Val, backend::Val, policy::_NativePivotPolicy)
+    policy === _NATIVE_PIVOT_DEFAULT ||
+        throw(ArgumentError("native pivot policy requires PFI/FT/SS/BG"))
+    return _basis_factorization(B, mode, backend)
+end
+_basis_factorization(B, options::SolverOptions{T,M,R}) where {T,M,R} =
+    _basis_factorization(B, Val(M), Val(R), _native_pivot_policy(options.native_pivot_policy))

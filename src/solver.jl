@@ -303,7 +303,7 @@ function _remaining_options(options::SolverOptions{T,M,R}; iterations::Int,
         options.primal_tolerance, options.dual_tolerance, options.zero_tolerance,
         max(0, options.iteration_limit - iterations), time_limit,
         options.refactorization_interval, options.verbose, options.log_level,
-        algorithm, options.pricing, options.scaling, options.presolve, options.simplex_strategy, options.partial_pricing)
+        algorithm, options.pricing, options.scaling, options.presolve, options.simplex_strategy, options.partial_pricing, options.native_pivot_policy)
 end
 
 function _retry_original(problem::LinearProblem{T}, options::SolverOptions{T},
