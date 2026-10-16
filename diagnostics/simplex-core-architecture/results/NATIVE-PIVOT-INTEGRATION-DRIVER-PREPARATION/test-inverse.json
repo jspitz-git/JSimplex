@@ -1,0 +1,17 @@
+{
+  "original": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-INTEGRATION-PREPARATION/native_pivot_integration_tests.jl",
+  "edits": [
+    {
+      "before": "    result = solve(problem; options)\n",
+      "after": "    result = solve(problem; options)\n    Main.NativePivotIntegrationProbe.result!(result)\n"
+    },
+    {
+      "before": "            public_case(mode,symbol)\n",
+      "after": "            Main.NativePivotIntegrationProbe.begin_case!(string(mode,\"/\",symbol),symbol)\n            try\n                public_case(mode,symbol)\n            finally\n                Main.NativePivotIntegrationProbe.end_case!()\n            end\n"
+    },
+    {
+      "before": "    recovery_case()\n",
+      "after": "    Main.NativePivotIntegrationProbe.begin_case!(\"recovery\",:threshold_one)\n    try\n        recovery_case()\n    finally\n        Main.NativePivotIntegrationProbe.end_case!()\n    end\n"
+    }
+  ]
+}
