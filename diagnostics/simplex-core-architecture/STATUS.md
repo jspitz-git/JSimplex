@@ -47,33 +47,34 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-Native pivot policy Task2 component-cost preparation is complete OFFLINE:
-see results/NATIVE-PIVOT-COST-PREPARATION/REPORT.md and review-final.md/json.
-New cost-only route binds accepted GREEN-2 (6977assertions/792selectedentries/
-324equations); original failed GREEN and old cost paths remain frozen/consumed.
-Copied costdriver/inputs/oracle/guard/supervisor are byte-identical; candidate75/
-reference73 unchanged. Python27synthetic +18source checks only; no Julia.
+Native pivot policy Task2 cost completed: results/NATIVE-PIVOT-COST/REPORT.md,
+COST-PREPARATION/runs/cost. Sole45s allowanceCONSUMED, actual7.040155750s inclusive
+NOTbenchmark, exit0/originalauditTRUE.88windows/88constructions176refactors4224solves;
+24warm64measured/320regionrecords compile/recompile0. Threshold-one2112/2112PASS;
+default1936/2112 with176knownsparse96DSE-FTRANfalse, allsavedCtokensmatch.
 
-NEXT: fresh host/refs/boot+start_ticks+command/full214groups ANDsessions/noJulia,
-then seal.py cost and fresh independent gpt-6-astra exact-stage admission.
-Only accepted exact seal authorizes ONE cost<=45s (inner37), Julia/BLAS1,
-heap2GiB/VM8GiB/RAM>=6GiB/swap<=1GiB. Existing human short-run permission stands.
-No extra warmup/retry/tuning/longrun. No stage/seal/admission/reservation/output
-was created by preparation. Freeze all preparation/review/check scripts after use.
+TotalpairedmediansP/C: sparse32 .963886,dense32 1.000939,sparse96 .971995,
+dense96 1.013807. NOTconsistent/universal speedup. All measuredsolvebytes/events0.
+Median totalbytes differ+24/-32/+32/0; medianevents match but GCwindows extraevents
+P845vsC205 andP312vsC205 retained. TwoP dense96GCwindows yield totalratios15.607/6.313;
+GC-freeoutliers retained/causesunknown, no noise waiver or automaticretry/tuning.
+Sparse96U248->263/nativeInfo+48bytes; no native-free/observer-neutrality proof.
 
-Four original fixtures,3warm+8measured alternating pairs:88windows,
-88constructions176refactors4224solves; five timing regions with total a superset.
-All measured compile/recompile0; preserve GC/outliers and every false result.
-Threshold-one unchanged residual/control/work gates; default known sparse96
-false remains diagnostic, any mismatch with savedC requires explanation.
-No whole-solver speedup, prior-binary overhead, native-free or completebackend claim.
+NEXT after acceptedresult: Task3 OFFLINE candidate/tests+exactworkbudget preparation
+and independentreview for8tinypublicsolves+onePFIrecoverytrial under originalplan.
+No Julia/public/integration/merge in thatpreparation. Later fresh exact-stage
+admission mandatory before any<=60srun; standinghuman short-runpermission remains.
+Directprototypes andoldcost2 unchanged/blocked; no oldrerun or newvariant.
 
-GREEN-2 current closure/publication STATUS/roadmap bindings map ONLY to this
-preparation's STATUS.md.before-cost and roadmap.md.before-cost, via explicit
-continuation-mappings.json. Every older map remains unchanged. Current master
-6f68e24/actualsrc/test/env/directprototypes unchanged; CIoff/HHdisabled/
-automationpaused. Public Task3/integration and originaldirectcost2 remain blocked
-pending their own accepted steps; broader plan OPEN.
+Seal1001/admission1002/launch1004/audit156; postcheck17supplementalPOSTEXIT.
+Fresh216groupsANDsessions/noJulia: runner254592/start14997081,
+child254593/start14997132,boot284d2228-1d9a-4c5f-913c-b9f1098b5838.
+Futurepinnedcontinuation/launch needs NEWhostrefs/boot+start_ticks+command/full216
+ANDsessions/noJulia. NewcurrentCOST-PREPARATIONclosure/publication/seal/launch/
+admissioncontinuationbindings mapONLY COST/STATUS.md.before-cost-result and
+roadmap.md.before-cost-result via explicitmapping; alloldermaps remain.
+Allscripts/raw/pins/reviews frozen. Actualsrc/test/env/directprototypes/master
+6f68e24 unchanged,CIoffHHdisabledautomationpaused,broaderplanOPEN.
 
 ## Previous missing-zero experiment
 

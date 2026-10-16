@@ -1,0 +1,28 @@
+Native pivot policy Task2 cost completed: results/NATIVE-PIVOT-COST/REPORT.md,
+COST-PREPARATION/runs/cost. Sole45s allowanceCONSUMED, actual7.040155750s inclusive
+NOTbenchmark, exit0/originalauditTRUE.88windows/88constructions176refactors4224solves;
+24warm64measured/320regionrecords compile/recompile0. Threshold-one2112/2112PASS;
+default1936/2112 with176knownsparse96DSE-FTRANfalse, allsavedCtokensmatch.
+
+TotalpairedmediansP/C: sparse32 .963886,dense32 1.000939,sparse96 .971995,
+dense96 1.013807. NOTconsistent/universal speedup. All measuredsolvebytes/events0.
+Median totalbytes differ+24/-32/+32/0; medianevents match but GCwindows extraevents
+P845vsC205 andP312vsC205 retained. TwoP dense96GCwindows yield totalratios15.607/6.313;
+GC-freeoutliers retained/causesunknown, no noise waiver or automaticretry/tuning.
+Sparse96U248->263/nativeInfo+48bytes; no native-free/observer-neutrality proof.
+
+NEXT after acceptedresult: Task3 OFFLINE candidate/tests+exactworkbudget preparation
+and independentreview for8tinypublicsolves+onePFIrecoverytrial under originalplan.
+No Julia/public/integration/merge in thatpreparation. Later fresh exact-stage
+admission mandatory before any<=60srun; standinghuman short-runpermission remains.
+Directprototypes andoldcost2 unchanged/blocked; no oldrerun or newvariant.
+
+Seal1001/admission1002/launch1004/audit156; postcheck17supplementalPOSTEXIT.
+Fresh216groupsANDsessions/noJulia: runner254592/start14997081,
+child254593/start14997132,boot284d2228-1d9a-4c5f-913c-b9f1098b5838.
+Futurepinnedcontinuation/launch needs NEWhostrefs/boot+start_ticks+command/full216
+ANDsessions/noJulia. NewcurrentCOST-PREPARATIONclosure/publication/seal/launch/
+admissioncontinuationbindings mapONLY COST/STATUS.md.before-cost-result and
+roadmap.md.before-cost-result via explicitmapping; alloldermaps remain.
+Allscripts/raw/pins/reviews frozen. Actualsrc/test/env/directprototypes/master
+6f68e24 unchanged,CIoffHHdisabledautomationpaused,broaderplanOPEN.

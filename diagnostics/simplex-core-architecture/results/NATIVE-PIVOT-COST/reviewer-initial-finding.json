@@ -1,0 +1,30 @@
+{
+  "accepted": false,
+  "findings": [
+    {
+      "priority": 1,
+      "title": "Correct sparse96 failure equation classification",
+      "body": "All 176 default sparse96 failures occur at solve indices 2 mod 3: DSE-FTRAN. REPORT.md currently calls them unit-RHS/BTRAN and continuation-text.md calls them BTRAN. The saved exact residual matches the audit, whose rows identify window and solve; the frozen driver maps j=2 to dse forward and j=3 to unit transpose. Correct only interpretation; preserve raw/audit/summary and false outcomes.",
+      "example": {
+        "window": 45,
+        "solve": 2,
+        "rhs": "dse",
+        "operation": "forward",
+        "max_residual": "9928545/144115188075855872",
+        "bound": "144694209253234815/39614081257132168796771975168",
+        "ratio": 18.861415966018026
+      }
+    }
+  ],
+  "scope": "stage result",
+  "phase": "cost",
+  "sha256": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-COST/REPORT.md": "f9b366895f23fe0dca6c6832d86a662a6a2dd99ab39a6f8b8d96b46b55d24a59",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-COST/continuation-text.md": "a91e28336194b5db116a36b543d02a9f636963fc543f3e94daed6af5fb416c7b",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-COST/summary.json": "7e4a2a22d16c47f8bd7174fc3deb1367f6a8f805a04213bb6b4cc1062fa7fb97",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-COST/finalize-final.py": "51e700b22343998f609a5cb82d9baa085dbbf14d0e1afa3e6d4be85e2e529452",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-COST/publication.py": "c80b7c15b22b33d6d1b44325e5b91dd79c905c4901121ebf6babd0717620e112",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-COST-PREPARATION/cost-driver.jl": "454948388ce9c5e6087af75765a7d3be4f6e50337d91960bbdda6870689069ab",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-COST-PREPARATION/runs/cost/audit.json": "092eb2fe78512ae3320153cf3b205515ed73b050070c18d610feede00a89633b"
+  }
+}

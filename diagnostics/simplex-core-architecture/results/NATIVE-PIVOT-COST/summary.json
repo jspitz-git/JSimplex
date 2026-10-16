@@ -1,0 +1,1520 @@
+{
+  "accuracy": {
+    "sparse32:C": {
+      "total": 528,
+      "passed": 528,
+      "nonzero": 528,
+      "max_ratio": 0.00017163442715008588
+    },
+    "sparse32:P": {
+      "total": 528,
+      "passed": 528,
+      "nonzero": 528,
+      "max_ratio": 0.00017163442715008588
+    },
+    "dense32:C": {
+      "total": 528,
+      "passed": 528,
+      "nonzero": 528,
+      "max_ratio": 0.000663609945472181
+    },
+    "dense32:P": {
+      "total": 528,
+      "passed": 528,
+      "nonzero": 528,
+      "max_ratio": 0.000663609945472181
+    },
+    "sparse96:C": {
+      "total": 528,
+      "passed": 352,
+      "nonzero": 528,
+      "max_ratio": 18.861415966018026
+    },
+    "sparse96:P": {
+      "total": 528,
+      "passed": 528,
+      "nonzero": 528,
+      "max_ratio": 6.079091255693325e-05
+    },
+    "dense96:C": {
+      "total": 528,
+      "passed": 528,
+      "nonzero": 528,
+      "max_ratio": 0.001425219790415795
+    },
+    "dense96:P": {
+      "total": 528,
+      "passed": 528,
+      "nonzero": 528,
+      "max_ratio": 0.001425219790415795
+    }
+  },
+  "comparisons": {
+    "sparse32:construction": {
+      "summary": {
+        "median": 0.9511932144910868,
+        "minimum": 0.5072046109510087,
+        "maximum": 4.282442748091603,
+        "mad": 0.18833185448092282
+      },
+      "ratios": [
+        0.5072046109510087,
+        0.9662162162162162,
+        0.9117647058823529,
+        2.5899280575539567,
+        1.2244897959183674,
+        0.9361702127659575,
+        0.8478260869565217,
+        4.282442748091603
+      ],
+      "Cmedian_us": 14.000000000000002,
+      "Pmedian_us": 15.950000000000001,
+      "bytes": {
+        "Cmedian": 63184.0,
+        "Pmedian": 63216.0,
+        "paired_differences": [
+          160,
+          80,
+          16,
+          -32,
+          16,
+          -48,
+          32,
+          128
+        ],
+        "minimum_delta": -48,
+        "maximum_delta": 160
+      },
+      "events": {
+        "Cmedian": 80.0,
+        "Pmedian": 80.0,
+        "paired_differences": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "minimum_delta": 0,
+        "maximum_delta": 0
+      }
+    },
+    "sparse32:refactor_fresh": {
+      "summary": {
+        "median": 0.9514677589523985,
+        "minimum": 0.6735751295336787,
+        "maximum": 1.7419354838709677,
+        "mad": 0.157925407925408
+      },
+      "ratios": [
+        0.6735751295336787,
+        0.9090909090909091,
+        0.8636363636363635,
+        1.7419354838709677,
+        1.1794871794871795,
+        0.9923664122137404,
+        0.9105691056910568,
+        1.5327868852459017
+      ],
+      "Cmedian_us": 12.75,
+      "Pmedian_us": 13.0,
+      "bytes": {
+        "Cmedian": 63144.0,
+        "Pmedian": 63160.0,
+        "paired_differences": [
+          32,
+          32,
+          16,
+          16,
+          -48,
+          16,
+          48,
+          16
+        ],
+        "minimum_delta": -48,
+        "maximum_delta": 48
+      },
+      "events": {
+        "Cmedian": 79.0,
+        "Pmedian": 79.0,
+        "paired_differences": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "minimum_delta": 0,
+        "maximum_delta": 0
+      }
+    },
+    "sparse32:refactor_spare": {
+      "summary": {
+        "median": 0.9808333333333333,
+        "minimum": 0.892857142857143,
+        "maximum": 1.32,
+        "mad": 0.05779639175257745
+      },
+      "ratios": [
+        0.8969072164948453,
+        0.961038961038961,
+        0.892857142857143,
+        1.32,
+        1.0125000000000002,
+        0.9866666666666667,
+        0.975,
+        1.32
+      ],
+      "Cmedian_us": 7.850000000000001,
+      "Pmedian_us": 7.95,
+      "bytes": {
+        "Cmedian": 47216.0,
+        "Pmedian": 47232.0,
+        "paired_differences": [
+          64,
+          16,
+          16,
+          16,
+          -16,
+          16,
+          16,
+          16
+        ],
+        "minimum_delta": -16,
+        "maximum_delta": 64
+      },
+      "events": {
+        "Cmedian": 31.0,
+        "Pmedian": 31.0,
+        "paired_differences": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "minimum_delta": 0,
+        "maximum_delta": 0
+      }
+    },
+    "sparse32:solve": {
+      "summary": {
+        "median": 1.002009152009152,
+        "minimum": 0.9271523178807948,
+        "maximum": 3.0072992700729926,
+        "mad": 0.05695151158727324
+      },
+      "ratios": [
+        0.9271523178807948,
+        0.9962962962962963,
+        1.0077220077220077,
+        3.0072992700729926,
+        1.3790613718411553,
+        0.9629629629629629,
+        0.9703703703703704,
+        1.2115384615384617
+      ],
+      "Cmedian_us": 27.0,
+      "Pmedian_us": 27.45,
+      "bytes": {
+        "Cmedian": 0.0,
+        "Pmedian": 0.0,
+        "paired_differences": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "minimum_delta": 0,
+        "maximum_delta": 0
+      },
+      "events": {
+        "Cmedian": 0.0,
+        "Pmedian": 0.0,
+        "paired_differences": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "minimum_delta": 0,
+        "maximum_delta": 0
+      }
+    },
+    "sparse32:total": {
+      "summary": {
+        "median": 0.963885826500379,
+        "minimum": 0.7254305977710234,
+        "maximum": 2.576243980738363,
+        "mad": 0.13637052761486734
+      },
+      "ratios": [
+        0.7254305977710234,
+        0.9673913043478262,
+        0.9345047923322684,
+        2.576243980738363,
+        1.2697160883280758,
+        0.9603803486529319,
+        0.9296,
+        2.0819397993311037
+      ],
+      "Cmedian_us": 62.85000000000001,
+      "Pmedian_us": 66.95,
+      "bytes": {
+        "Cmedian": 174216.0,
+        "Pmedian": 174240.0,
+        "paired_differences": [
+          256,
+          128,
+          48,
+          0,
+          -48,
+          -16,
+          96,
+          160
+        ],
+        "minimum_delta": -48,
+        "maximum_delta": 256
+      },
+      "events": {
+        "Cmedian": 194.0,
+        "Pmedian": 194.0,
+        "paired_differences": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "minimum_delta": 0,
+        "maximum_delta": 0
+      }
+    },
+    "dense32:construction": {
+      "summary": {
+        "median": 1.001936026936027,
+        "minimum": 0.9395973154362416,
+        "maximum": 1.0617760617760619,
+        "mad": 0.03340909090909089
+      },
+      "ratios": [
+        0.9395973154362416,
+        1.0617760617760619,
+        1.034090909090909,
+        1.0188679245283019,
+        0.951048951048951,
+        1.0075757575757576,
+        0.9962962962962963,
+        0.9672727272727272
+      ],
+      "Cmedian_us": 26.75,
+      "Pmedian_us": 27.1,
+      "bytes": {
+        "Cmedian": 179288.0,
+        "Pmedian": 179288.0,
+        "paired_differences": [
+          -16,
+          16,
+          0,
+          -48,
+          0,
+          80,
+          16,
+          16
+        ],
+        "minimum_delta": -48,
+        "maximum_delta": 80
+      },
+      "events": {
+        "Cmedian": 86.0,
+        "Pmedian": 86.0,
+        "paired_differences": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "minimum_delta": 0,
+        "maximum_delta": 0
+      }
+    },
+    "dense32:refactor_fresh": {
+      "summary": {
+        "median": 1.0096450846450846,
+        "minimum": 0.9615384615384617,
+        "maximum": 1.3629343629343629,
+        "mad": 0.029240576496673998
+      },
+      "ratios": [
+        1.018450184501845,
+        1.0243902439024388,
+        0.9615384615384617,
+        0.9629629629629629,
+        1.3629343629343629,
+        1.0154440154440154,
+        0.9659090909090908,
+        1.0038461538461538
+      ],
+      "Cmedian_us": 26.0,
+      "Pmedian_us": 26.05,
+      "bytes": {
+        "Cmedian": 179248.0,
+        "Pmedian": 179240.0,
+        "paired_differences": [
+          0,
+          48,
+          -16,
+          0,
+          0,
+          96,
+          16,
+          0
+        ],
+        "minimum_delta": -16,
+        "maximum_delta": 96
+      },
+      "events": {
+        "Cmedian": 85.0,
+        "Pmedian": 85.0,
+        "paired_differences": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "minimum_delta": 0,
+        "maximum_delta": 0
+      }
+    },
+    "dense32:refactor_spare": {
+      "summary": {
+        "median": 1.0110810976732765,
+        "minimum": 0.9526315789473684,
+        "maximum": 1.0540540540540542,
+        "mad": 0.011494252873563204
+      },
+      "ratios": [
+        1.0540540540540542,
+        1.0229885057471264,
+        1.0,
+        1.0055555555555555,
+        1.0499999999999998,
+        1.0111731843575418,
+        0.9526315789473684,
+        1.0109890109890112
+      ],
+      "Cmedian_us": 18.0,
+      "Pmedian_us": 18.099999999999998,
+      "bytes": {
+        "Cmedian": 125024.0,
+        "Pmedian": 125024.0,
+        "paired_differences": [
+          0,
+          32,
+          -32,
+          0,
+          0,
+          32,
+          0,
+          0
+        ],
+        "minimum_delta": -32,
+        "maximum_delta": 32
+      },
+      "events": {
+        "Cmedian": 33.0,
+        "Pmedian": 33.0,
+        "paired_differences": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "minimum_delta": 0,
+        "maximum_delta": 0
+      }
+    },
+    "dense32:solve": {
+      "summary": {
+        "median": 0.9786878112114596,
+        "minimum": 0.6519434628975266,
+        "maximum": 1.0254237288135595,
+        "mad": 0.036741444499667875
+      },
+      "ratios": [
+        0.8029978586723768,
+        0.9808743169398906,
+        1.0254237288135595,
+        1.0054347826086956,
+        0.9765013054830287,
+        0.9838274932614555,
+        0.6519434628975266,
+        0.8822170900692841
+      ],
+      "Cmedian_us": 37.7,
+      "Pmedian_us": 36.95,
+      "bytes": {
+        "Cmedian": 0.0,
+        "Pmedian": 0.0,
+        "paired_differences": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "minimum_delta": 0,
+        "maximum_delta": 0
+      },
+      "events": {
+        "Cmedian": 0.0,
+        "Pmedian": 0.0,
+        "paired_differences": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "minimum_delta": 0,
+        "maximum_delta": 0
+      }
+    },
+    "dense32:total": {
+      "summary": {
+        "median": 1.0009385395717123,
+        "minimum": 0.8315467075038284,
+        "maximum": 1.0724508050089445,
+        "mad": 0.033463586997192096
+      },
+      "ratios": [
+        0.9255060728744939,
+        1.0170132325141776,
+        1.0093720712277412,
+        0.9972602739726026,
+        1.0724508050089445,
+        1.0046168051708217,
+        0.8315467075038284,
+        0.9500860585197934
+      ],
+      "Cmedian_us": 110.65,
+      "Pmedian_us": 109.0,
+      "bytes": {
+        "Cmedian": 484256.0,
+        "Pmedian": 484224.0,
+        "paired_differences": [
+          -16,
+          96,
+          -48,
+          -48,
+          0,
+          208,
+          32,
+          16
+        ],
+        "minimum_delta": -48,
+        "maximum_delta": 208
+      },
+      "events": {
+        "Cmedian": 208.0,
+        "Pmedian": 208.0,
+        "paired_differences": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "minimum_delta": 0,
+        "maximum_delta": 0
+      }
+    },
+    "sparse96:construction": {
+      "summary": {
+        "median": 0.9621794871794871,
+        "minimum": 0.5480132450331126,
+        "maximum": 1.0257879656160458,
+        "mad": 0.02592420752194985
+      },
+      "ratios": [
+        0.7000000000000001,
+        0.9943342776203966,
+        0.95,
+        0.9818731117824773,
+        0.5480132450331126,
+        0.9460154241645244,
+        0.9743589743589743,
+        1.0257879656160458
+      ],
+      "Cmedian_us": 35.2,
+      "Pmedian_us": 34.65,
+      "bytes": {
+        "Cmedian": 134728.0,
+        "Pmedian": 134744.0,
+        "paired_differences": [
+          -16,
+          32,
+          0,
+          16,
+          16,
+          0,
+          0,
+          0
+        ],
+        "minimum_delta": -16,
+        "maximum_delta": 32
+      },
+      "events": {
+        "Cmedian": 82.0,
+        "Pmedian": 82.0,
+        "paired_differences": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "minimum_delta": 0,
+        "maximum_delta": 0
+      }
+    },
+    "sparse96:refactor_fresh": {
+      "summary": {
+        "median": 0.9566479400749064,
+        "minimum": 0.7454545454545454,
+        "maximum": 1.033434650455927,
+        "mad": 0.04990142453897434
+      },
+      "ratios": [
+        0.8324607329842932,
+        0.937869822485207,
+        1.0161290322580645,
+        1.033434650455927,
+        0.7454545454545454,
+        0.9466292134831461,
+        0.9666666666666667,
+        0.996969696969697
+      ],
+      "Cmedian_us": 33.4,
+      "Pmedian_us": 32.35,
+      "bytes": {
+        "Cmedian": 134680.0,
+        "Pmedian": 134696.0,
+        "paired_differences": [
+          -32,
+          0,
+          16,
+          16,
+          16,
+          -16,
+          0,
+          -16
+        ],
+        "minimum_delta": -32,
+        "maximum_delta": 16
+      },
+      "events": {
+        "Cmedian": 81.0,
+        "Pmedian": 81.0,
+        "paired_differences": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "minimum_delta": 0,
+        "maximum_delta": 0
+      }
+    },
+    "sparse96:refactor_spare": {
+      "summary": {
+        "median": 0.9680365296803652,
+        "minimum": 0.852,
+        "maximum": 1.1435185185185186,
+        "mad": 0.02013164889029012
+      },
+      "ratios": [
+        0.897872340425532,
+        1.1435185185185186,
+        0.9622641509433962,
+        0.9808612440191388,
+        0.852,
+        0.995475113122172,
+        0.9634703196347032,
+        0.9726027397260274
+      ],
+      "Cmedian_us": 21.900000000000002,
+      "Pmedian_us": 21.2,
+      "bytes": {
+        "Cmedian": 92208.0,
+        "Pmedian": 92208.0,
+        "paired_differences": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          16,
+          0,
+          0
+        ],
+        "minimum_delta": 0,
+        "maximum_delta": 16
+      },
+      "events": {
+        "Cmedian": 31.0,
+        "Pmedian": 31.0,
+        "paired_differences": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "minimum_delta": 0,
+        "maximum_delta": 0
+      }
+    },
+    "sparse96:solve": {
+      "summary": {
+        "median": 0.97043327341474,
+        "minimum": 0.8203703703703704,
+        "maximum": 2.146017699115044,
+        "mad": 0.03678926619057021
+      },
+      "ratios": [
+        2.146017699115044,
+        0.9751131221719457,
+        0.9657534246575342,
+        0.857707509881423,
+        0.9377593360995851,
+        0.8203703703703704,
+        0.9757174392935981,
+        1.0113378684807255
+      ],
+      "Cmedian_us": 45.25,
+      "Pmedian_us": 44.25,
+      "bytes": {
+        "Cmedian": 0.0,
+        "Pmedian": 0.0,
+        "paired_differences": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "minimum_delta": 0,
+        "maximum_delta": 0
+      },
+      "events": {
+        "Cmedian": 0.0,
+        "Pmedian": 0.0,
+        "paired_differences": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "minimum_delta": 0,
+        "maximum_delta": 0
+      }
+    },
+    "sparse96:total": {
+      "summary": {
+        "median": 0.9719947735191639,
+        "minimum": 0.7406996113270405,
+        "maximum": 1.136444181925576,
+        "mad": 0.029125555096081723
+      },
+      "ratios": [
+        1.136444181925576,
+        0.9970631424375918,
+        0.9725609756097563,
+        0.9494949494949494,
+        0.7406996113270405,
+        0.9092105263157894,
+        0.9714285714285713,
+        1.0051775147928994
+      ],
+      "Cmedian_us": 137.55,
+      "Pmedian_us": 134.6,
+      "bytes": {
+        "Cmedian": 362288.0,
+        "Pmedian": 362320.0,
+        "paired_differences": [
+          -48,
+          32,
+          16,
+          32,
+          32,
+          0,
+          0,
+          -16
+        ],
+        "minimum_delta": -48,
+        "maximum_delta": 32
+      },
+      "events": {
+        "Cmedian": 198.0,
+        "Pmedian": 198.0,
+        "paired_differences": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "minimum_delta": 0,
+        "maximum_delta": 0
+      }
+    },
+    "dense96:construction": {
+      "summary": {
+        "median": 0.9801045996526354,
+        "minimum": 0.8767123287671234,
+        "maximum": 54.631469787697334,
+        "mad": 0.04707625376099561
+      },
+      "ratios": [
+        54.631469787697334,
+        1.2281213535589266,
+        0.9333333333333333,
+        0.8767123287671234,
+        1.0097421203438395,
+        0.9885057471264368,
+        0.9327233584499462,
+        0.9717034521788341
+      ],
+      "Cmedian_us": 180.2,
+      "Pmedian_us": 174.75,
+      "bytes": {
+        "Cmedian": 1069560.0,
+        "Pmedian": 1069560.0,
+        "paired_differences": [
+          10368,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "minimum_delta": 0,
+        "maximum_delta": 10368
+      },
+      "events": {
+        "Cmedian": 85.0,
+        "Pmedian": 85.0,
+        "paired_differences": [
+          640,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "minimum_delta": 0,
+        "maximum_delta": 640
+      }
+    },
+    "dense96:refactor_fresh": {
+      "summary": {
+        "median": 0.998857901507405,
+        "minimum": 0.5894267078613113,
+        "maximum": 1.343452380952381,
+        "mad": 0.05758931549943891
+      },
+      "ratios": [
+        1.343452380952381,
+        1.0794016110471807,
+        0.8606597735105859,
+        0.5894267078613113,
+        1.0246478873239435,
+        1.0334928229665072,
+        0.9723023658395845,
+        0.9730679156908665
+      ],
+      "Cmedian_us": 172.05,
+      "Pmedian_us": 173.7,
+      "bytes": {
+        "Cmedian": 1069512.0,
+        "Pmedian": 1069512.0,
+        "paired_differences": [
+          32,
+          0,
+          0,
+          0,
+          -32,
+          0,
+          -80,
+          0
+        ],
+        "minimum_delta": -80,
+        "maximum_delta": 32
+      },
+      "events": {
+        "Cmedian": 84.0,
+        "Pmedian": 84.0,
+        "paired_differences": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "minimum_delta": 0,
+        "maximum_delta": 0
+      }
+    },
+    "dense96:refactor_spare": {
+      "summary": {
+        "median": 1.0160047309872562,
+        "minimum": 0.9217391304347826,
+        "maximum": 31.377833753148618,
+        "mad": 0.05859536711097052
+      },
+      "ratios": [
+        0.9717557251908396,
+        1.0889464594127807,
+        4.634920634920634,
+        0.9217391304347826,
+        1.0176026823134954,
+        1.014406779661017,
+        31.377833753148618,
+        0.9931682322801024
+      ],
+      "Cmedian_us": 119.2,
+      "Pmedian_us": 126.65000000000002,
+      "bytes": {
+        "Cmedian": 647904.0,
+        "Pmedian": 647904.0,
+        "paired_differences": [
+          32,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1648,
+          0
+        ],
+        "minimum_delta": 0,
+        "maximum_delta": 1648
+      },
+      "events": {
+        "Cmedian": 32.0,
+        "Pmedian": 32.0,
+        "paired_differences": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          107,
+          0
+        ],
+        "minimum_delta": 0,
+        "maximum_delta": 107
+      }
+    },
+    "dense96:solve": {
+      "summary": {
+        "median": 1.0120130552292546,
+        "minimum": 0.7467857142857143,
+        "maximum": 1.0385385385385386,
+        "mad": 0.01454866921669562
+      },
+      "ratios": [
+        1.0242768595041323,
+        0.7467857142857143,
+        1.0385385385385386,
+        0.9940209267563528,
+        1.0215311004784688,
+        1.00249500998004,
+        1.0275965880582036,
+        0.9984992496248124
+      ],
+      "Cmedian_us": 200.15,
+      "Pmedian_us": 202.85,
+      "bytes": {
+        "Cmedian": 0.0,
+        "Pmedian": 0.0,
+        "paired_differences": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "minimum_delta": 0,
+        "maximum_delta": 0
+      },
+      "events": {
+        "Cmedian": 0.0,
+        "Pmedian": 0.0,
+        "paired_differences": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "minimum_delta": 0,
+        "maximum_delta": 0
+      }
+    },
+    "dense96:total": {
+      "summary": {
+        "median": 1.0138071556347497,
+        "minimum": 0.8114892589910693,
+        "maximum": 15.607370670596907,
+        "mad": 0.11669097751976726
+      },
+      "ratios": [
+        15.607370670596907,
+        0.9900363538440825,
+        1.6574666666666666,
+        0.8114892589910693,
+        1.018230324588706,
+        1.0093839866807932,
+        6.312757807896287,
+        0.9827430972388955
+      ],
+      "Cmedian_us": 678.6500000000001,
+      "Pmedian_us": 711.15,
+      "bytes": {
+        "Cmedian": 2787648.0,
+        "Pmedian": 2787648.0,
+        "paired_differences": [
+          10432,
+          0,
+          0,
+          0,
+          -32,
+          0,
+          1568,
+          0
+        ],
+        "minimum_delta": -32,
+        "maximum_delta": 10432
+      },
+      "events": {
+        "Cmedian": 205.0,
+        "Pmedian": 205.0,
+        "paired_differences": [
+          640,
+          0,
+          0,
+          0,
+          0,
+          0,
+          107,
+          0
+        ],
+        "minimum_delta": 0,
+        "maximum_delta": 640
+      }
+    }
+  },
+  "ratio_flags": [
+    {
+      "series": "sparse32:construction",
+      "round": 7,
+      "ratio": 2.5899280575539567,
+      "C": {
+        "seconds": 1.39e-05,
+        "bytes": 63208,
+        "gctime": 0.0,
+        "compile_time": 0.0,
+        "recompile_time": 0.0,
+        "events": 80
+      },
+      "P": {
+        "seconds": 3.6e-05,
+        "bytes": 63176,
+        "gctime": 0.0,
+        "compile_time": 0.0,
+        "recompile_time": 0.0,
+        "events": 80
+      },
+      "scope": "Descriptive ratio flag only, never exclusion"
+    },
+    {
+      "series": "sparse32:construction",
+      "round": 11,
+      "ratio": 4.282442748091603,
+      "C": {
+        "seconds": 1.31e-05,
+        "bytes": 63112,
+        "gctime": 0.0,
+        "compile_time": 0.0,
+        "recompile_time": 0.0,
+        "events": 80
+      },
+      "P": {
+        "seconds": 5.61e-05,
+        "bytes": 63240,
+        "gctime": 0.0,
+        "compile_time": 0.0,
+        "recompile_time": 0.0,
+        "events": 80
+      },
+      "scope": "Descriptive ratio flag only, never exclusion"
+    },
+    {
+      "series": "sparse32:solve",
+      "round": 7,
+      "ratio": 3.0072992700729926,
+      "C": {
+        "seconds": 2.74e-05,
+        "bytes": 0,
+        "gctime": 0.0,
+        "compile_time": 0.0,
+        "recompile_time": 0.0,
+        "events": 0
+      },
+      "P": {
+        "seconds": 8.24e-05,
+        "bytes": 0,
+        "gctime": 0.0,
+        "compile_time": 0.0,
+        "recompile_time": 0.0,
+        "events": 0
+      },
+      "scope": "Descriptive ratio flag only, never exclusion"
+    },
+    {
+      "series": "sparse32:total",
+      "round": 7,
+      "ratio": 2.576243980738363,
+      "C": {
+        "seconds": 6.23e-05,
+        "bytes": 174240,
+        "gctime": 0.0,
+        "compile_time": 0.0,
+        "recompile_time": 0.0,
+        "events": 194
+      },
+      "P": {
+        "seconds": 0.0001605,
+        "bytes": 174240,
+        "gctime": 0.0,
+        "compile_time": 0.0,
+        "recompile_time": 0.0,
+        "events": 194
+      },
+      "scope": "Descriptive ratio flag only, never exclusion"
+    },
+    {
+      "series": "sparse32:total",
+      "round": 11,
+      "ratio": 2.0819397993311037,
+      "C": {
+        "seconds": 5.98e-05,
+        "bytes": 174048,
+        "gctime": 0.0,
+        "compile_time": 0.0,
+        "recompile_time": 0.0,
+        "events": 194
+      },
+      "P": {
+        "seconds": 0.0001245,
+        "bytes": 174208,
+        "gctime": 0.0,
+        "compile_time": 0.0,
+        "recompile_time": 0.0,
+        "events": 194
+      },
+      "scope": "Descriptive ratio flag only, never exclusion"
+    },
+    {
+      "series": "sparse96:solve",
+      "round": 4,
+      "ratio": 2.146017699115044,
+      "C": {
+        "seconds": 4.52e-05,
+        "bytes": 0,
+        "gctime": 0.0,
+        "compile_time": 0.0,
+        "recompile_time": 0.0,
+        "events": 0
+      },
+      "P": {
+        "seconds": 9.7e-05,
+        "bytes": 0,
+        "gctime": 0.0,
+        "compile_time": 0.0,
+        "recompile_time": 0.0,
+        "events": 0
+      },
+      "scope": "Descriptive ratio flag only, never exclusion"
+    },
+    {
+      "series": "dense96:construction",
+      "round": 4,
+      "ratio": 54.631469787697334,
+      "C": {
+        "seconds": 0.0001837,
+        "bytes": 1069560,
+        "gctime": 0.0,
+        "compile_time": 0.0,
+        "recompile_time": 0.0,
+        "events": 85
+      },
+      "P": {
+        "seconds": 0.010035801,
+        "bytes": 1079928,
+        "gctime": 0.009274901,
+        "compile_time": 0.0,
+        "recompile_time": 0.0,
+        "events": 725
+      },
+      "scope": "Descriptive ratio flag only, never exclusion"
+    },
+    {
+      "series": "dense96:refactor_spare",
+      "round": 6,
+      "ratio": 4.634920634920634,
+      "C": {
+        "seconds": 0.0001449,
+        "bytes": 647904,
+        "gctime": 0.0,
+        "compile_time": 0.0,
+        "recompile_time": 0.0,
+        "events": 32
+      },
+      "P": {
+        "seconds": 0.0006716,
+        "bytes": 647904,
+        "gctime": 0.0,
+        "compile_time": 0.0,
+        "recompile_time": 0.0,
+        "events": 32
+      },
+      "scope": "Descriptive ratio flag only, never exclusion"
+    },
+    {
+      "series": "dense96:refactor_spare",
+      "round": 10,
+      "ratio": 31.377833753148618,
+      "C": {
+        "seconds": 0.0001191,
+        "bytes": 647984,
+        "gctime": 0.0,
+        "compile_time": 0.0,
+        "recompile_time": 0.0,
+        "events": 32
+      },
+      "P": {
+        "seconds": 0.0037371,
+        "bytes": 649632,
+        "gctime": 0.0035218,
+        "compile_time": 0.0,
+        "recompile_time": 0.0,
+        "events": 139
+      },
+      "scope": "Descriptive ratio flag only, never exclusion"
+    },
+    {
+      "series": "dense96:total",
+      "round": 4,
+      "ratio": 15.607370670596907,
+      "C": {
+        "seconds": 0.0006785,
+        "bytes": 2787648,
+        "gctime": 0.0,
+        "compile_time": 0.0,
+        "recompile_time": 0.0,
+        "events": 205
+      },
+      "P": {
+        "seconds": 0.010589601,
+        "bytes": 2798080,
+        "gctime": 0.009274901,
+        "compile_time": 0.0,
+        "recompile_time": 0.0,
+        "events": 845
+      },
+      "scope": "Descriptive ratio flag only, never exclusion"
+    },
+    {
+      "series": "dense96:total",
+      "round": 10,
+      "ratio": 6.312757807896287,
+      "C": {
+        "seconds": 0.0006788,
+        "bytes": 2787808,
+        "gctime": 0.0,
+        "compile_time": 0.0,
+        "recompile_time": 0.0,
+        "events": 205
+      },
+      "P": {
+        "seconds": 0.0042851,
+        "bytes": 2789376,
+        "gctime": 0.0035218,
+        "compile_time": 0.0,
+        "recompile_time": 0.0,
+        "events": 312
+      },
+      "scope": "Descriptive ratio flag only, never exclusion"
+    }
+  ],
+  "factors": {
+    "sparse32:C": {
+      "lnz": 83,
+      "unz": 83,
+      "graph_bytes": 7408,
+      "strategy": 1.0,
+      "spare_W": 32,
+      "spare_Wi": 32,
+      "unit_bytes": 16.0,
+      "numeric_units": 317.0,
+      "peak_units": 1984.0
+    },
+    "sparse32:P": {
+      "lnz": 83,
+      "unz": 83,
+      "graph_bytes": 7408,
+      "strategy": 1.0,
+      "spare_W": 32,
+      "spare_Wi": 32,
+      "unit_bytes": 16.0,
+      "numeric_units": 317.0,
+      "peak_units": 1984.0
+    },
+    "dense32:C": {
+      "lnz": 528,
+      "unz": 528,
+      "graph_bytes": 37072,
+      "strategy": 3.0,
+      "spare_W": 32,
+      "spare_Wi": 32,
+      "unit_bytes": 16.0,
+      "numeric_units": 726.0,
+      "peak_units": 6230.0
+    },
+    "dense32:P": {
+      "lnz": 528,
+      "unz": 528,
+      "graph_bytes": 37072,
+      "strategy": 3.0,
+      "spare_W": 32,
+      "spare_Wi": 32,
+      "unit_bytes": 16.0,
+      "numeric_units": 726.0,
+      "peak_units": 6230.0
+    },
+    "sparse96:C": {
+      "lnz": 234,
+      "unz": 248,
+      "graph_bytes": 16656,
+      "strategy": 1.0,
+      "spare_W": 96,
+      "spare_Wi": 96,
+      "unit_bytes": 16.0,
+      "numeric_units": 893.0,
+      "peak_units": 4160.0
+    },
+    "sparse96:P": {
+      "lnz": 234,
+      "unz": 263,
+      "graph_bytes": 16656,
+      "strategy": 1.0,
+      "spare_W": 96,
+      "spare_Wi": 96,
+      "unit_bytes": 16.0,
+      "numeric_units": 896.0,
+      "peak_units": 4160.0
+    },
+    "dense96:C": {
+      "lnz": 4656,
+      "unz": 4656,
+      "graph_bytes": 302288,
+      "strategy": 3.0,
+      "spare_W": 96,
+      "spare_Wi": 96,
+      "unit_bytes": 16.0,
+      "numeric_units": 5174.0,
+      "peak_units": 33802.0
+    },
+    "dense96:P": {
+      "lnz": 4656,
+      "unz": 4656,
+      "graph_bytes": 302288,
+      "strategy": 3.0,
+      "spare_W": 96,
+      "spare_Wi": 96,
+      "unit_bytes": 16.0,
+      "numeric_units": 5174.0,
+      "peak_units": 33802.0
+    }
+  },
+  "measured_regions": 320,
+  "measured_gc_nonzero": [
+    {
+      "schedule": {
+        "fixture": "dense96",
+        "round": 4,
+        "id": 73,
+        "arm": "P",
+        "warm": false
+      },
+      "region": "construction",
+      "metrics": {
+        "seconds": 0.010035801,
+        "bytes": 1079928,
+        "gctime": 0.009274901,
+        "compile_time": 0.0,
+        "recompile_time": 0.0,
+        "events": 725
+      }
+    },
+    {
+      "schedule": {
+        "fixture": "dense96",
+        "round": 4,
+        "id": 73,
+        "arm": "P",
+        "warm": false
+      },
+      "region": "total",
+      "metrics": {
+        "seconds": 0.010589601,
+        "bytes": 2798080,
+        "gctime": 0.009274901,
+        "compile_time": 0.0,
+        "recompile_time": 0.0,
+        "events": 845
+      }
+    },
+    {
+      "schedule": {
+        "fixture": "dense96",
+        "round": 10,
+        "id": 85,
+        "arm": "P",
+        "warm": false
+      },
+      "region": "refactor_spare",
+      "metrics": {
+        "seconds": 0.0037371,
+        "bytes": 649632,
+        "gctime": 0.0035218,
+        "compile_time": 0.0,
+        "recompile_time": 0.0,
+        "events": 139
+      }
+    },
+    {
+      "schedule": {
+        "fixture": "dense96",
+        "round": 10,
+        "id": 85,
+        "arm": "P",
+        "warm": false
+      },
+      "region": "total",
+      "metrics": {
+        "seconds": 0.0042851,
+        "bytes": 2789376,
+        "gctime": 0.0035218,
+        "compile_time": 0.0,
+        "recompile_time": 0.0,
+        "events": 312
+      }
+    }
+  ],
+  "inclusive_seconds": 7.040155750000849,
+  "resources": {
+    "samples": 6,
+    "min_available_kib": 21975460,
+    "max_swap_kib": 0,
+    "terminal": {
+      "available_kib": 22346308,
+      "swap_used_kib": 0
+    },
+    "child_maxrss_kib": 533368
+  },
+  "pins": {
+    "seal": 1001,
+    "launch": 1004,
+    "audit": 156
+  },
+  "diagnostic_graph_bytes": 2510224
+}
