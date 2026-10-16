@@ -1,0 +1,66 @@
+{
+  "accepted": false,
+  "scope": "direct BG dynamic U planning",
+  "findings": [
+    {
+      "id": "I1",
+      "severity": "Important",
+      "title": "Bind stable column identities to exported q before ordered construction",
+      "locations": [
+        "spec:17",
+        "spec:25",
+        "plan:33",
+        "plan:35",
+        "plan:50"
+      ],
+      "evidence": "bartels_golub_rows.jl:67-80 iterates basis IDs and resolves columns through positions; direct-factor.jl:118-120 and 147-150 install q/invperm(q); triangular_factorization.jl:1156-1165 visits trailing columns in that basis-ID order.",
+      "impact": "CSC-column-order append is not ascending stable basis ID for nonidentity q. Choosing cid=j instead also fails the required map/order equivalence and would require another mapping. The merge algorithms depend on sorted row lists.",
+      "requested_change": "Specify cid=q[j], column_order=q and inverse column_position. Build by ascending stable cid with j=inverseq[cid], preserving CSC row order within each column; identity-q overload may remain for primitive tests. Add explicit nonidentity-q construction, rotation/replacement and differential order tests; do not fix by timed per-row sorting."
+    },
+    {
+      "id": "I2",
+      "severity": "Important",
+      "title": "Keep closure verification within the explicitly narrowed planning scope",
+      "locations": [
+        "close.py:12",
+        "close.py:18"
+      ],
+      "evidence": "close.py calls control.validate_sources(); its lines30-42 enumerate/hash both source baselines, every historical stage and the complete old runtime inventory.",
+      "impact": "Closure would perform the redundant historical inventory audit explicitly excluded by the review/task instructions, and reports a stronger runtime/source claim than this narrowed check needs.",
+      "requested_change": "Use new bounded closure verification of the 15 relevant pins and fresh plan/spec/review/scripts plus explicit refs/host checks. Do not execute an old validation workflow or label unchecked full runtime inventory as newly verified."
+    }
+  ],
+  "checked_source_pins": 15,
+  "production_work_memory": "No unnecessary new production work/memory mandated; intentional link/traversal/growth costs and unresolved runtime locality risks recorded in review-initial.md.",
+  "sha256": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-DYNAMIC-U-PLAN/STATUS.md.before-dynamic-U": "1e2b4186ae9b6ee3a271fe72095ac6984734235c25f2ec57e34e82872a181d83",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-DYNAMIC-U-PLAN/authorization.json": "12d71deeebd4d2e8e4e11e79d84dba11c926e8d27de46c8d77e9b5d24f84afb0",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-DYNAMIC-U-PLAN/close.py": "cde27b6d77b289f4318d91ce40085f45cd5e683c30a0d94a08e2a5f224db1115",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-DYNAMIC-U-PLAN/continuation-text.md": "67eea6339cc9164b7aea22b7fb98ee96cfd50758199fa268c3fe5c1c97ea894b",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-DYNAMIC-U-PLAN/host.json": "1c8bd4247b5647c748c9d537f00da461c1ae925ce45b5a4953c80e1ef1f5b9f3",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-DYNAMIC-U-PLAN/publication.py": "d94b3448683e01acfe4023078968977b3984aefb53d12cddfb70ee8c7f0057a7",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-DYNAMIC-U-PLAN/review-initial.md": "7a07247e10c6c2baac8d1f2993a56473c2317ea5818644ff835d5aac2df18774",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-DYNAMIC-U-PLAN/roadmap.md.before-dynamic-U": "8e2f7241b34fa175431b813d2cecb7077df49b1a357262b9f62a885fa488cae8",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-DYNAMIC-U-PLAN/self-review.json": "9f63b484b5f4ec0a63bd44e3ac90e78fd73fe1251069f6b8612174db3af86aec",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-DYNAMIC-U-PLAN/source-pins.json": "2fecd9e67ca04019acd05aa26bdfc2ded59fa089d3a3db96e3e05eedcdb371ee",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/docs/superpowers/plans/2026-10-16-direct-bg-dynamic-upper.md": "5902cc9197067eb5c38ce7a91cf3a43c31320cad78b95bef539537a77575cd63",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/docs/superpowers/specs/2026-10-16-direct-bg-dynamic-upper.md": "4edc66eb6da6ed2054c7719d12620d97f0baee3c9392a7693b054c45256f4970"
+  },
+  "source_sha256": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-POLICY-ADAPTER-COST-PREPARATION/runs/cost1-300/audit.json": "cde602e2e3e4286c4712c420cc3d759d2f0a718b0be846c85fc2c9b895c4ef88",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-POLICY-ADAPTER-COST-PREPARATION/runs/cost1-300/result-review.json": "9043a9fcdfd7216fec83c4ad51916242136ae54c35572a256ab654ebe8184a37",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-POLICY-ADAPTER-COST1/REPORT.md": "a631bf6b3afe56091a3027f6f3da695f9d48f83d48751b0f8d364624ab4b8212",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-POLICY-ADAPTER-COST1/closure.json": "28b01e5e8a4782b0bcf853391072bb8c363671ba7daacd6862c35a0102266866",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-POLICY-ADAPTER-COST1/publication.json": "8abfc845f26dd96659b2f4e5a34b45ffb1265863bbde2e45214168ceeb84c9db",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-16-direct-lu-policy-adapters/driver-stages/green/src/triangular_factorization.jl": "685d4356d83a4f62f2cf17f08a70f5987ba78d18499dc8ee6975405ae4a939f2",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-16-direct-lu-policy-adapters/driver-stages/green/src/triangular_rows.jl": "9401e4f43102279344384a8023d1ebdfc409fcf47237414f763a04911ac23f5c",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-16-direct-lu-policy-adapters/driver-stages/green/src/triangular_spikes.jl": "4529bc5aacb604b932128463a26dc8e091933a720abb963c863de13666531873",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-16-direct-lu-policy-adapters/driver-stages/green/src/triangular_indices.jl": "96659cddfae345701aed6c320a86fbeef4c6c4c95819864e363fcca04de3e61d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-16-direct-lu-policy-adapters/driver-stages/green/src/bartels_golub_rows.jl": "0dab8b63590128682605a1cc87104116cbe6ee9e45bf2c206484fc116f0166c0",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-16-direct-lu-policy-adapters/driver-stages/green/src/factorization.jl": "bf8f7381caa143d1825d0e39d8f35ec93cf36e4ddc150c0c7c1da6d979b494ce",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-16-direct-lu-policy-adapters/driver-stages/green/src/markowitz_factorization.jl": "e07eb67430a99a050c7a78c2419a3a97aee1c0f2e99224f4fdf15389922d1047",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-16-direct-lu-policy-adapters/driver-stages/green/src/huangfu_hall_factorization.jl": "855e8d612c33c4ad2425c1c379d476be416431098de8dde3c8f4f8687d1615cf",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-16-direct-lu-policy-adapters/driver-stages/green/src/direct-factor.jl": "3c09b563623f7552fd0094c037de7205024d0a7eaade6baa34aff14a395b9bbc",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-16-direct-lu-policy-adapters/driver-stages/green/src/factor-export.jl": "a54bcb4d51641dcec769108cd9cea76681c08bf5e6b98e881bff3f6c7da7ee85"
+  }
+}

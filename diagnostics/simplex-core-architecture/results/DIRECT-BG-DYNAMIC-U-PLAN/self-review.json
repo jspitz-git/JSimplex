@@ -1,0 +1,30 @@
+{
+  "all_passed": true,
+  "checks": {
+    "source15_unchanged": true,
+    "spec_referenced": true,
+    "no_placeholder": true,
+    "four_tasks": true,
+    "ordered_indexes": true,
+    "one_value_six_links": true,
+    "hot_merge_neighbors": true,
+    "no_whole_rollback_claim": true,
+    "no_generic_packed_dispatch": true,
+    "explicit_scope": true,
+    "cost_budget": true,
+    "preserved_current_continuations": true
+  },
+  "scope": "Author source/hash/literal/budget checks plus manual design self-review; not runtime or implementation acceptance",
+  "sha256": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/docs/superpowers/specs/2026-10-16-direct-bg-dynamic-upper.md": "4edc66eb6da6ed2054c7719d12620d97f0baee3c9392a7693b054c45256f4970",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/docs/superpowers/plans/2026-10-16-direct-bg-dynamic-upper.md": "5902cc9197067eb5c38ce7a91cf3a43c31320cad78b95bef539537a77575cd63",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-DYNAMIC-U-PLAN/source-pins.json": "2fecd9e67ca04019acd05aa26bdfc2ded59fa089d3a3db96e3e05eedcdb371ee"
+  },
+  "manual_review": [
+    "Representation has one value owner and two ordered memberships; no mutable slot handle escapes",
+    "Row swap and rotation ordering are distinct algorithms; no O(1) whole rotation claim",
+    "Strong refactor publication distinguished from existing partial update failure",
+    "56C arena links can fail memory gate; no guaranteed speedup",
+    "All five review focus rows have owning tests; execution remains separate"
+  ]
+}
