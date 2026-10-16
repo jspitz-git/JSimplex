@@ -1,0 +1,131 @@
+fatal = ""
+complete = true
+threads = 1
+blas_threads = 1
+
+[tests]
+pass = 0
+name = "root"
+fail = 0
+broken = 0
+failures = []
+error = 0
+
+    [[tests.children]]
+    pass = 4946
+    name = "options_and_copy_intent"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+    [[tests.children]]
+    pass = 35
+    name = "backend_owned_policy"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+    [[tests.children]]
+    pass = 1568
+    name = "private_spare_copy_and_failure"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+    [[tests.children]]
+    pass = 245
+    name = "precision_and_factory_dispatch"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+    [[tests.children]]
+    pass = 0
+    name = "Native pivot policy public integration"
+    fail = 0
+    broken = 0
+    failures = []
+    error = 0
+
+        [[tests.children.children]]
+        pass = 6
+        name = "pfi / default"
+        fail = 0
+        children = []
+        broken = 0
+        failures = []
+        error = 0
+        [[tests.children.children]]
+        pass = 6
+        name = "pfi / threshold_one"
+        fail = 0
+        children = []
+        broken = 0
+        failures = []
+        error = 0
+        [[tests.children.children]]
+        pass = 6
+        name = "forrest_tomlin / default"
+        fail = 0
+        children = []
+        broken = 0
+        failures = []
+        error = 0
+        [[tests.children.children]]
+        pass = 6
+        name = "forrest_tomlin / threshold_one"
+        fail = 0
+        children = []
+        broken = 0
+        failures = []
+        error = 0
+        [[tests.children.children]]
+        pass = 6
+        name = "suhl_suhl / default"
+        fail = 0
+        children = []
+        broken = 0
+        failures = []
+        error = 0
+        [[tests.children.children]]
+        pass = 6
+        name = "suhl_suhl / threshold_one"
+        fail = 0
+        children = []
+        broken = 0
+        failures = []
+        error = 0
+        [[tests.children.children]]
+        pass = 6
+        name = "bartels_golub / default"
+        fail = 0
+        children = []
+        broken = 0
+        failures = []
+        error = 0
+        [[tests.children.children]]
+        pass = 6
+        name = "bartels_golub / threshold_one"
+        fail = 0
+        children = []
+        broken = 0
+        failures = []
+        error = 0
+    [[tests.children]]
+    pass = 114
+    name = "Native pivot policy private recovery"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+
+[loaded]
+LinearAlgebra = "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/LinearAlgebra/src/LinearAlgebra.jl"
+SparseArrays = "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/SparseArrays/src/SparseArrays.jl"
+JSimplex = "/home/jspitz/.codex/worktrees/native-pivot-production-integration/JSimplex.jl/src/JSimplex.jl"
+TOML = "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/TOML/src/TOML.jl"
