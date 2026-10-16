@@ -1,0 +1,121 @@
+{
+  "scope": "Exact textual inverse, not a numerical or Julia parse proof",
+  "reference": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-bg-dynamic-upper/reproduce/dynamic-bg-reviewed.jl",
+  "reference_sha256": "a63e9caf42940afb4439feab1973cc9f732dae04826ac05d7d73417d110b41b4",
+  "candidate_sha256": "e8770ec8ef7e965a9d9c171703bffde37d388ec628354b8e5c408d07478f1190",
+  "renames": [
+    [
+      "DynamicBGFactor",
+      "BlockBGFactor"
+    ],
+    [
+      "BGSlotUpper",
+      "BGBlockUpper"
+    ],
+    [
+      "_dynamic_bg",
+      "_block_bg"
+    ],
+    [
+      "_dbg_",
+      "_bbg_"
+    ],
+    [
+      "dynamic BG",
+      "block BG"
+    ]
+  ],
+  "edits": [
+    {
+      "before": "# Diagnostic Task2 candidate, UNEXECUTED. Dense Float64 direct BG only.\n# Slot primitives are the accepted Task1 candidate. No old method is overwritten.",
+      "after": "# Diagnostic Task2 block candidate, UNEXECUTED. Dense Float64 direct BG only.\n# Frozen Task1 block primitives; explicit private methods, no production overwrite."
+    },
+    {
+      "before": "factorize=_factorize_basis) where {R}",
+      "after": "factorize=_factorize_basis,build=_bgu_build,limit::Integer=typemax(Int32)) where {R}"
+    },
+    {
+      "before": "    ordinary=factorize(B,backend,policy)",
+      "after": "    _bgu_limit(Base.Checked.checked_add(size(B,1),1),limit)\n    B isa SparseMatrixCSC && !(B isa SparseMatrixCSC{Float64,Int}) &&\n        throw(ArgumentError(\"block BG requires Int CSC indices\"))\n    ordinary=factorize(B,backend,policy)"
+    },
+    {
+      "before": "upper=_bg_slots(spdiagm(0=>ones(n)),collect(1:n))",
+      "after": "upper=build(spdiagm(0=>ones(n)),collect(1:n))"
+    },
+    {
+      "before": "upper=_bg_slots(parts.upper,parts.columns)",
+      "after": "upper=build(parts.upper,parts.columns)"
+    },
+    {
+      "before": "f.upper.live_count",
+      "after": "f.upper.live"
+    },
+    {
+      "before": "# Cold diagnostic metadata only; scan live column links, never unused capacity.\nfunction _block_bg_growth(f::BlockBGFactor)\n    v=0.0;U=f.upper\n    for cid in U.column_order\n        s=U.column_head[cid]\n        while s!=0;v=max(v,abs(U.value[s]));s=U.column_next[s];end\n    end\n    return v\nend\nfunction _block_bg_finite(f::BlockBGFactor)\n    U=f.upper\n    for cid in U.column_order\n        s=U.column_head[cid]\n        while s!=0;isfinite(U.value[s]) || return false;s=U.column_next[s];end\n    end\n    return true\nend\n",
+      "after": "# Cold diagnostic metadata only. No full scan is called by a solve.\nfunction _block_bg_growth(f::BlockBGFactor)\n    value=0.0;U=f.upper\n    for cid in U.column_order\n        b=Int(U.column_head[cid])\n        while b!=0\n            s=Int(U.slab[b]);a=Int(U.start[b]);v=U.values[s]\n            for p in a:a+Int(U.count[b])-1;value=max(value,abs(v[p]));end\n            b=Int(U.next[b])\n        end\n    end\n    return value\nend\nfunction _block_bg_finite(f::BlockBGFactor)\n    U=f.upper\n    for cid in U.column_order\n        b=Int(U.column_head[cid])\n        while b!=0\n            s=Int(U.slab[b]);a=Int(U.start[b]);v=U.values[s]\n            for p in a:a+Int(U.count[b])-1;isfinite(v[p]) || return false;end\n            b=Int(U.next[b])\n        end\n    end\n    return true\nend\n# Reject private new scratch before dimensions/backend. No slab-owner scan.\nfunction _bbg_destination(f,destination)\n    (Base.mightalias(destination,f.work) || Base.mightalias(destination,f.upper.scratch_value)) &&\n        throw(ArgumentError(\"destination must not alias factorization work storage\"))\n    return nothing\nend\n"
+    },
+    {
+      "before": "function _bbg_columns(f)\n    c=f.row_cache;U=f.upper\n    if c.upper_dirty\n        first=c.upper_dirty_from\n        resize!(c.active_upper,searchsortedfirst(c.active_upper,first)-1)\n        for j in first:U.n\n            cid=U.column_order[j];s=U.column_head[cid];t=U.column_tail[cid]\n            identity=s!=0 && s==t && U.row_position[U.row_id[s]]==j && U.value[s]==1.0\n            identity || push!(c.active_upper,j)\n            if !identity && c.upper_prefix_safe &&\n                    (t==0 || U.row_position[U.row_id[t]]!=j || iszero(U.value[t]))\n                c.upper_prefix_safe=false\n            end\n        end\n        c.upper_dirty=false;c.upper_dirty_from=U.n+1\n    end\n    return c.active_upper\nend\n# Hessenberg pivots are at the column tail or its predecessor. Other\n# internal storage queries descend in logical-row order, never rescan a row.\n@inline function _bbg_entry(U,row,col)\n    s=U.column_tail[U.column_order[col]]\n    while s!=0 && U.row_position[U.row_id[s]]>row;s=U.column_prev[s];end\n    return s!=0 && U.row_position[U.row_id[s]]==row ? s : 0\nend\n@inline function _bbg_value(U,row,col)\n    s=_bbg_entry(U,row,col)\n    return s==0 ? 0.0 : U.value[s]\nend\n@inline function _bbg_diagonal(U,j)\n    cid=U.column_order[j];s=U.column_tail[cid]\n    return s!=0 && U.row_id[s]==U.row_order[j] ? U.value[s] : _bbg_value(U,j,j)\nend\nfunction _bbg_backsolve!(f,columns)\n    U=f.upper;w=f.work\n    for j in Iterators.reverse(columns)\n        rid=U.row_order[j];value=w[rid]/_bbg_diagonal(U,j);w[rid]=value\n        s=U.column_head[U.column_order[j]]\n        while s!=0\n            row=U.row_id[s]\n            if row!=rid;w[row]-=U.value[s]*value;end\n            s=U.column_next[s]\n        end\n    end\n    return w\nend\nfunction _bbg_transpose_upper!(f,columns,first::Int=1)\n    U=f.upper;w=f.work\n    for k in first:length(columns)\n        j=columns[k];rid=U.row_order[j];value=w[rid]\n        s=U.column_head[U.column_order[j]]\n        while s!=0\n            row=U.row_id[s]\n            if row!=rid;value-=U.value[s]*w[row];end\n            s=U.column_next[s]\n        end\n        w[rid]=value/_bbg_diagonal(U,j)\n    end\n    return w\nend\n",
+      "after": "function _bbg_columns(f)\n    c=f.row_cache;U=f.upper\n    if c.upper_dirty\n        first=c.upper_dirty_from\n        resize!(c.active_upper,searchsortedfirst(c.active_upper,first)-1)\n        for j in first:U.n\n            cid=Int(U.column_order[j]);b=Int(U.column_head[cid]);t=Int(U.column_tail[cid])\n            count=t==0 ? 0 : Int(U.count[t])\n            tail=count==0 ? nothing : _bgu_tuple(U,Int32((t-1)*32+count))\n            identity=b!=0 && b==t && count==1 && U.row_position[Int(tail[2])]==j && tail[1]==1.0\n            identity || push!(c.active_upper,j)\n            if !identity && c.upper_prefix_safe &&\n                    (t==0 || U.row_position[Int(tail[2])]!=j || iszero(tail[1]))\n                c.upper_prefix_safe=false\n            end\n        end\n        c.upper_dirty=false;c.upper_dirty_from=U.n+1\n    end\n    return c.active_upper\nend\n# Descend block prefixes in logical-row order for Hessenberg/missing-diagonal lookup.\n@inline function _bbg_entry(U,row,col)\n    b=Int(U.column_tail[Int(U.column_order[col])])\n    while b!=0\n        s=Int(U.slab[b]);a=Int(U.start[b]);rows=U.row_ids[s]\n        for k in Int(U.count[b]):-1:1\n            logical=Int(U.row_position[Int(rows[a+k-1])])\n            logical>row && continue\n            return logical==row ? Int32((b-1)*32+k) : Int32(0)\n        end\n        b=Int(U.prev[b])\n    end\n    return Int32(0)\nend\n@inline function _bbg_value(U,row,col)\n    h=_bbg_entry(U,row,col);return h==0 ? 0.0 : _bgu_tuple(U,h)[1]\nend\n@inline function _bbg_tail_diagonal(U,j)\n    b=Int(U.column_tail[Int(U.column_order[j])])\n    return b!=0 && U.row_ids[Int(U.slab[b])][Int(U.start[b])+Int(U.count[b])-1]==U.row_order[j]\nend\n@inline function _bbg_diagonal(U,j)\n    b=Int(U.column_tail[Int(U.column_order[j])])\n    if b!=0\n        s=Int(U.slab[b]);p=Int(U.start[b])+Int(U.count[b])-1\n        U.row_ids[s][p]==U.row_order[j] && return U.values[s][p]\n    end\n    return _bbg_value(U,j,j)\nend\nfunction _bbg_backsolve!(f,columns)\n    U=f.upper;w=f.work\n    for j in Iterators.reverse(columns)\n        rid=Int(U.row_order[j]);value=w[rid]/_bbg_diagonal(U,j);w[rid]=value\n        cid=Int(U.column_order[j]);tail=Int(U.column_tail[cid]);fast=_bbg_tail_diagonal(U,j)\n        b=Int(U.column_head[cid])\n        while b!=0\n            s=Int(U.slab[b]);a=Int(U.start[b]);values=U.values[s];rows=U.row_ids[s]\n            count=Int(U.count[b])-(fast && b==tail ? 1 : 0)\n            if fast\n                for p in a:a+count-1;w[Int(rows[p])]-=values[p]*value;end\n            else\n                for p in a:a+count-1\n                    row=Int(rows[p]);row==rid && continue;w[row]-=values[p]*value\n                end\n            end\n            b=Int(U.next[b])\n        end\n    end\n    return w\nend\nfunction _bbg_transpose_upper!(f,columns,first::Int=1)\n    U=f.upper;w=f.work\n    for k in first:length(columns)\n        j=columns[k];rid=Int(U.row_order[j]);value=w[rid]\n        cid=Int(U.column_order[j]);tail=Int(U.column_tail[cid]);fast=_bbg_tail_diagonal(U,j)\n        b=Int(U.column_head[cid])\n        while b!=0\n            s=Int(U.slab[b]);a=Int(U.start[b]);values=U.values[s];rows=U.row_ids[s]\n            count=Int(U.count[b])-(fast && b==tail ? 1 : 0)\n            if fast\n                for p in a:a+count-1;value-=values[p]*w[Int(rows[p])];end\n            else\n                for p in a:a+count-1\n                    row=Int(rows[p]);row==rid && continue;value-=values[p]*w[row]\n                end\n            end\n            b=Int(U.next[b])\n        end\n        w[rid]=value/_bbg_diagonal(U,j)\n    end\n    return w\nend\n"
+    },
+    {
+      "before": "    destination===f.work && throw(ArgumentError(\"destination must not alias factorization work storage\"))",
+      "after": "    _bbg_destination(f,destination)",
+      "count": 2
+    },
+    {
+      "before": "U=f.upper;position=U.column_position[pivot]",
+      "after": "U=f.upper;position=Int(U.column_position[pivot])"
+    },
+    {
+      "before": "    for j in 1:n\n        value=direction[U.column_order[j]];s=U.column_head[U.column_order[j]]\n        while s!=0\n            f.spike[U.row_position[U.row_id[s]]]+=U.value[s]*value\n            s=U.column_next[s]\n        end\n    end\n",
+      "after": "    for j in 1:n\n        value=direction[U.column_order[j]];b=Int(U.column_head[Int(U.column_order[j])])\n        while b!=0\n            s=Int(U.slab[b]);a=Int(U.start[b]);values=U.values[s];rows=U.row_ids[s]\n            for p in a:a+Int(U.count[b])-1\n                f.spike[Int(U.row_position[Int(rows[p])])]+=values[p]*value\n            end\n            b=Int(U.next[b])\n        end\n    end\n"
+    },
+    {
+      "before": "function _bbg_replace_column!(f,position)\n    U=f.upper;cid=U.column_order[position];s=U.column_head[cid]\n    while s!=0\n        next=U.column_next[s];_bg_unlink!(U,s);s=next\n    end\n    for row in 1:U.n\n        value=f.spike[row];iszero(value) && continue\n        _track_upper_value!(f,value);rid=U.row_order[row]\n        p=0;t=U.row_head[rid]\n        while t!=0 && U.column_id[t]<cid;p=t;t=U.row_next[t];end\n        _bg_link!(U,rid,cid,value,p,t,U.column_tail[cid],0)\n    end\n    for j in position:U.n-1\n        moved=U.column_order[j+1];U.column_order[j]=moved;U.column_position[moved]=j\n    end\n    U.column_order[U.n]=cid;U.column_position[cid]=U.n\n    return nothing\nend\nfunction _bbg_last_pure(U,first)\n    # Preserve the cheap immediate rejection before scanning the carried row.\n    iszero(_bbg_value(U,first,first)) || return first-1\n    lower=_bbg_value(U,first+1,first)\n    _pivot_magnitude(lower)>zero(lower) || return first-1\n    first==U.n-1 && return first\n    # Only Float64 reads: find the first future nonzero in logical-column\n    # order once. NaN/Inf are nonzero exactly as in the original predicate.\n    blocker=U.n;s=U.row_head[U.row_order[first]]\n    while s!=0\n        col=U.column_position[U.column_id[s]]\n        if first<col<blocker && !iszero(U.value[s]);blocker=col;end\n        s=U.row_next[s]\n    end\n    for j in first+1:U.n-1\n        j==blocker && return j-1\n        lower=_bbg_value(U,j+1,j)\n        _pivot_magnitude(lower)>zero(lower) || return j-1\n    end\n    return U.n-1\nend\n# Adjacent physical rows, stable-column merge. Source row never mutates.\n# `visit` is a call-local test seam; normal calls specialize it to Nothing.\nfunction _bbg_eliminate_row!(f,j,m,visit=nothing)\n    U=f.upper;source=U.row_order[j];target=U.row_order[j+1]\n    s=U.row_head[source];p=0;t=U.row_head[target]\n    while s!=0\n        next=U.row_next[s];cid=U.column_id[s]\n        if U.column_position[cid]>j\n            isnothing(visit) || visit(cid)\n            while t!=0 && U.column_id[t]<cid;p=t;t=U.row_next[t];end\n            present=t!=0 && U.column_id[t]==cid\n            old=present ? U.value[t] : 0.0\n            value=_track_upper_value!(f,old-m*U.value[s])\n            if present\n                after=U.row_next[t]\n                if iszero(value);_bg_unlink!(U,t);else;U.value[t]=value;p=t;end\n                t=after\n            elseif !iszero(value)\n                # Adjacent logical rows: source node is the column predecessor.\n                p=_bg_link!(U,target,cid,value,p,t,s,U.column_next[s])\n            end\n        end\n        s=next\n    end\n    return nothing\nend\n",
+      "after": "# Remove whole column blocks without merging/repacking the old column.\nfunction _bbg_clear_column!(U,cid::Int)\n    b=Int(U.column_head[cid])\n    while b!=0\n        following=Int(U.next[b]);count=Int(U.count[b])\n        for k in 1:count\n            h=Int32((b-1)*32+k);v,r,p=_bgu_tuple(U,h);rid=Int(r)\n            rank=Int(p)<U.gap_first[rid] ? Int(p) : Int(p)-Int(U.gap_length[rid])\n            _bgu_gap!(U,rid,rank)\n            g=Int(U.gap_first[rid]);l=Int(U.gap_length[rid]);U.rows[rid][g+l]=0\n            U.gap_length[rid]=Int32(l+1);U.live-=1;_bgu_clear!(U,b,k)\n        end\n        _bgu_unlink_block!(U,b);b=following\n    end\n    return nothing\nend\nfunction _bbg_replace_column!(f,position,allocate,limit)\n    U=f.upper;cid=Int(U.column_order[position]);_bbg_clear_column!(U,cid)\n    for row in 1:U.n\n        value=f.spike[row];iszero(value) && continue\n        _track_upper_value!(f,value);rid=Int(U.row_order[row]);rank,_=_bgu_row_search(U,rid,cid)\n        tail=Int(U.column_tail[cid]);pred=tail==0 ? Int32(0) : Int32((tail-1)*32+Int(U.count[tail]))\n        _bgu_insert_at!(U,rid,cid,value,rank,pred,allocate,limit)\n    end\n    for j in position:U.n-1\n        moved=U.column_order[j+1];U.column_order[j]=moved;U.column_position[Int(moved)]=Int32(j)\n    end\n    U.column_order[U.n]=Int32(cid);U.column_position[cid]=Int32(U.n)\n    return nothing\nend\nfunction _bbg_last_pure(U,first)\n    iszero(_bbg_value(U,first,first)) || return first-1\n    lower=_bbg_value(U,first+1,first)\n    _pivot_magnitude(lower)>zero(lower) || return first-1\n    first==U.n-1 && return first\n    blocker=U.n;rid=Int(U.row_order[first])\n    for rank in 1:_bgu_degree(U,rid)\n        h=_bgu_row_handle(U,rid,rank);col=Int(U.column_position[_bgu_cid(U,h)])\n        if first<col<blocker && !iszero(_bgu_tuple(U,h)[1]);blocker=col;end\n    end\n    for j in first+1:U.n-1\n        j==blocker && return j-1\n        lower=_bbg_value(U,j+1,j)\n        _pivot_magnitude(lower)>zero(lower) || return j-1\n    end\n    return U.n-1\nend\n# Monotone stable-column merge. Source membership does not change, but handles\n# can move on every edit: reload the next source and target from row buffers.\nfunction _bbg_eliminate_row!(f,j,m,visit=nothing;allocate=_bgu_allocate,limit::Integer=typemax(Int32))\n    U=f.upper;source=Int(U.row_order[j]);target=Int(U.row_order[j+1]);i=1;k=1\n    while i<=_bgu_degree(U,source)\n        h=_bgu_row_handle(U,source,i);cid=_bgu_cid(U,h)\n        if U.column_position[cid]>j\n            isnothing(visit) || visit(cid)\n            while k<=_bgu_degree(U,target) && _bgu_cid(U,_bgu_row_handle(U,target,k))<cid;k+=1;end\n            t=k<=_bgu_degree(U,target) ? _bgu_row_handle(U,target,k) : Int32(0)\n            present=t!=0 && _bgu_cid(U,t)==cid\n            old=present ? _bgu_tuple(U,t)[1] : 0.0\n            value=_track_upper_value!(f,old-m*_bgu_tuple(U,h)[1])\n            if present\n                if iszero(value)\n                    _bgu_delete!(U,target,k,t)\n                else\n                    b,offset=_bgu_decode(t);U.values[Int(U.slab[b])][Int(U.start[b])+offset-1]=value;k+=1\n                end\n            elseif !iszero(value)\n                _bgu_insert_at!(U,target,cid,value,k,h,allocate,limit);k+=1\n            end\n        end\n        i+=1\n    end\n    return nothing\nend\nfunction _bbg_delete_handle!(U,h::Int32)\n    v,r,p=_bgu_tuple(U,h);rid=Int(r)\n    rank=Int(p)<U.gap_first[rid] ? Int(p) : Int(p)-Int(U.gap_length[rid])\n    _bgu_delete!(U,rid,rank,h);return nothing\nend\n"
+    },
+    {
+      "before": "function _block_bg_replace!(f,direction,pivot_row,zero_tolerance)",
+      "after": "function _block_bg_replace!(f,direction,pivot_row,zero_tolerance;allocate=_bgu_allocate,limit::Integer=typemax(Int32))"
+    },
+    {
+      "before": "_bbg_begin_update!(f,position);_bbg_replace_column!(f,position)",
+      "after": "_bbg_begin_update!(f,position);_bbg_replace_column!(f,position,allocate,limit)"
+    },
+    {
+      "before": "_bg_rotate_rows!(U,j,last_pure+1)",
+      "after": "_bgu_rotate_rows!(U,j,last_pure+1)"
+    },
+    {
+      "before": "_bg_swap_rows!(U,j)",
+      "after": "_bgu_swap_rows!(U,j)"
+    },
+    {
+      "before": "old=slot==0 ? 0.0 : U.value[slot];multiplier=old/pivot",
+      "after": "old=slot==0 ? 0.0 : _bgu_tuple(U,slot)[1];multiplier=old/pivot"
+    },
+    {
+      "before": "slot==0 || _bg_unlink!(U,slot)",
+      "after": "slot==0 || _bbg_delete_handle!(U,slot)"
+    },
+    {
+      "before": "iszero(multiplier) || _bbg_eliminate_row!(f,j,multiplier)",
+      "after": "iszero(multiplier) || _bbg_eliminate_row!(f,j,multiplier;allocate,limit)"
+    },
+    {
+      "before": "function copy_basis_factorization(f::BlockBGFactor)\n    f.shared_update_count=length(f.updates);U=f.upper\n    upper=BGBlockUpper(copy(U.value),copy(U.row_id),copy(U.column_id),copy(U.row_prev),\n        copy(U.row_next),copy(U.column_prev),copy(U.column_next),copy(U.row_order),\n        copy(U.row_position),copy(U.column_order),copy(U.column_position),copy(U.row_head),\n        copy(U.row_tail),copy(U.column_head),copy(U.column_tail),U.n,U.capacity,U.live_count,U.free_head)\n    return BlockBGFactor(_copy_backend(f.base),upper,copy(f.updates),similar(f.work),similar(f.spike),\n        BartelsGolubUpdate{Float64}[],f.shared_update_count,_copy_triangular_row_cache(f))\nend\n",
+      "after": "function _block_bg_copy_with(f::BlockBGFactor,copier)\n    # All allocations first; shared-prefix bookkeeping changes only on success.\n    upper=copier(f.upper);shared=length(f.updates)\n    candidate=BlockBGFactor(_copy_backend(f.base),upper,copy(f.updates),similar(f.work),similar(f.spike),\n        BartelsGolubUpdate{Float64}[],shared,_copy_triangular_row_cache(f))\n    f.shared_update_count=shared;return candidate\nend\ncopy_basis_factorization(f::BlockBGFactor)=_block_bg_copy_with(f,_bgu_copy)\n"
+    },
+    {
+      "before": "function _block_bg_refactor_with_exporter!(f::BlockBGFactor,B::AbstractMatrix{Float64},exporter)",
+      "after": "function _block_bg_refactor_with_exporter!(f::BlockBGFactor,B::AbstractMatrix{Float64},exporter;build=_bgu_build)"
+    },
+    {
+      "before": "exporter;normalize=f.base.normalize_requested)",
+      "after": "exporter;normalize=f.base.normalize_requested,build)"
+    }
+  ],
+  "whole_inverse": true,
+  "self_sha256": "200ef5af68380a78b31448435f4ad5493906b9957a2a70d7563bd59ad037f30b"
+}
