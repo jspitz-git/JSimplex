@@ -1,0 +1,9 @@
+# Separate180s native pivot integration admission preparation
+
+The direct user request explicitly authorizes a longer attempt. ONE new process,180s inclusive, inner172s and the original8s termination reserve. This is a separately labelled attempt, with the previous60s attempt preserved FAILED/CONSUMED. No expectation or proof that180s will suffice.
+
+The original driver/probe/recorder/observed-tests and76-file overlay remain unchanged. All162 assertions,8public solves and1initialization/checkpoint/recovery case remain fixed; solver time_limit5, iteration_limit100 and all options/tolerances/policies unchanged. No compiler flags, precompile workload, cache settings, warmup, fixtures or production source change. Eight infrastructure/data files are byte-identical copies of the accepted environment amendment. common.py only advances baselineHEAD; control.py changes stage route,60->180 seconds and explicitly binds the preserved failed predecessor and218groups. The original driver is referenced, never rewritten. The phase token stays integration; the new directory/stage/reservation uniquely identifies the attempt.
+
+Environment is freshly snapshotted and checked for exact equality at seal/launch/audit. Previous environment snapshots remain frozen. No automatic environment repair. Memory guards remain VM8GiB, heap hint2GiB, availableRAM6GiB, swap1GiB, Julia/BLAS1. The first accepted exact-stage launch consumes this allowance; no retry. False audit or incomplete output is retained and stops the sequence.
+
+Preparation review must verify exact code deltas, predecessor mappings, unchanged numerical oracle and selected work budget, exact source manifests and freshhost. Separate seal plus fresh independent exact-stage admission is required before launch. No automatic master merge. See the companion saved-source analysis for the limited compiler finding; longer time is not a compiler fix or speedup evidence.

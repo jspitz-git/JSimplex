@@ -1,0 +1,231 @@
+selected_scope = "managed Float64 UMFPACK backend attempts; extracted-factor and raw auxiliary LU work excluded"
+started = 9
+probe_failed = false
+fatal = ""
+threads = 1
+blas_threads = 1
+complete = true
+active = 0
+phase = "integration"
+
+[tests]
+pass = 0
+name = "root"
+fail = 0
+broken = 0
+failures = []
+error = 0
+
+    [[tests.children]]
+    pass = 0
+    name = "Native pivot policy public integration"
+    fail = 0
+    broken = 0
+    failures = []
+    error = 0
+
+        [[tests.children.children]]
+        pass = 6
+        name = "pfi / default"
+        fail = 0
+        children = []
+        broken = 0
+        failures = []
+        error = 0
+        [[tests.children.children]]
+        pass = 6
+        name = "pfi / threshold_one"
+        fail = 0
+        children = []
+        broken = 0
+        failures = []
+        error = 0
+        [[tests.children.children]]
+        pass = 6
+        name = "forrest_tomlin / default"
+        fail = 0
+        children = []
+        broken = 0
+        failures = []
+        error = 0
+        [[tests.children.children]]
+        pass = 6
+        name = "forrest_tomlin / threshold_one"
+        fail = 0
+        children = []
+        broken = 0
+        failures = []
+        error = 0
+        [[tests.children.children]]
+        pass = 6
+        name = "suhl_suhl / default"
+        fail = 0
+        children = []
+        broken = 0
+        failures = []
+        error = 0
+        [[tests.children.children]]
+        pass = 6
+        name = "suhl_suhl / threshold_one"
+        fail = 0
+        children = []
+        broken = 0
+        failures = []
+        error = 0
+        [[tests.children.children]]
+        pass = 6
+        name = "bartels_golub / default"
+        fail = 0
+        children = []
+        broken = 0
+        failures = []
+        error = 0
+        [[tests.children.children]]
+        pass = 6
+        name = "bartels_golub / threshold_one"
+        fail = 0
+        children = []
+        broken = 0
+        failures = []
+        error = 0
+    [[tests.children]]
+    pass = 114
+    name = "Native pivot policy private recovery"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+
+[loaded]
+LinearAlgebra = "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/LinearAlgebra/src/LinearAlgebra.jl"
+SparseArrays = "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/SparseArrays/src/SparseArrays.jl"
+JSimplex = "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/native-pivot-integration-180/integration/src/JSimplex.jl"
+TOML = "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/TOML/src/TOML.jl"
+
+[[cases]]
+last_controls = ["3ff0000000000000", "3fc999999999999a", "3fc999999999999a", "3fb999999999999a", "4040000000000000", "0000000000000000", "3fe6666666666666", "0000000000000000", "3ff0000000000000", "3fd3333333333333", "3ff0000000000000", "3ff0000000000000", "3feccccccccccccd", "0000000000000000", "4024000000000000", "3f50624dd2f1a9fc", "3ff0000000000000", "3fe0000000000000", "0000000000000000", "3ff0000000000000"]
+policy = "default"
+has_objective = true
+attempts = [1, 1, 10, 8]
+successes = [1, 1]
+id = "pfi/default"
+empty = [0, 0]
+point = ["4000000000000000", "4000000000000000"]
+status = "OPTIMAL"
+finished = true
+has_point = true
+objective = "c024000000000000"
+expected_controls = ["3ff0000000000000", "3fc999999999999a", "3fc999999999999a", "3fb999999999999a", "4040000000000000", "0000000000000000", "3fe6666666666666", "0000000000000000", "3ff0000000000000", "3fd3333333333333", "3ff0000000000000", "3ff0000000000000", "3feccccccccccccd", "0000000000000000", "4024000000000000", "3f50624dd2f1a9fc", "3ff0000000000000", "3fe0000000000000", "0000000000000000", "3ff0000000000000"]
+[[cases]]
+last_controls = ["3ff0000000000000", "3fc999999999999a", "3fc999999999999a", "3ff0000000000000", "4040000000000000", "0000000000000000", "3fe6666666666666", "0000000000000000", "3ff0000000000000", "3fd3333333333333", "3ff0000000000000", "3ff0000000000000", "3feccccccccccccd", "0000000000000000", "4024000000000000", "3f50624dd2f1a9fc", "3ff0000000000000", "3fe0000000000000", "0000000000000000", "3ff0000000000000"]
+policy = "threshold_one"
+has_objective = true
+attempts = [1, 1, 10, 8]
+successes = [1, 1]
+id = "pfi/threshold_one"
+empty = [0, 0]
+point = ["4000000000000000", "4000000000000000"]
+status = "OPTIMAL"
+finished = true
+has_point = true
+objective = "c024000000000000"
+expected_controls = ["3ff0000000000000", "3fc999999999999a", "3fc999999999999a", "3ff0000000000000", "4040000000000000", "0000000000000000", "3fe6666666666666", "0000000000000000", "3ff0000000000000", "3fd3333333333333", "3ff0000000000000", "3ff0000000000000", "3feccccccccccccd", "0000000000000000", "4024000000000000", "3f50624dd2f1a9fc", "3ff0000000000000", "3fe0000000000000", "0000000000000000", "3ff0000000000000"]
+[[cases]]
+last_controls = ["3ff0000000000000", "3fc999999999999a", "3fc999999999999a", "3fb999999999999a", "4040000000000000", "0000000000000000", "3fe6666666666666", "0000000000000000", "3ff0000000000000", "3fd3333333333333", "3ff0000000000000", "3ff0000000000000", "3feccccccccccccd", "0000000000000000", "4024000000000000", "3f50624dd2f1a9fc", "3ff0000000000000", "3fe0000000000000", "0000000000000000", "3ff0000000000000"]
+policy = "default"
+has_objective = true
+attempts = [1, 1, 10, 8]
+successes = [1, 1]
+id = "forrest_tomlin/default"
+empty = [0, 0]
+point = ["4000000000000000", "4000000000000000"]
+status = "OPTIMAL"
+finished = true
+has_point = true
+objective = "c024000000000000"
+expected_controls = ["3ff0000000000000", "3fc999999999999a", "3fc999999999999a", "3fb999999999999a", "4040000000000000", "0000000000000000", "3fe6666666666666", "0000000000000000", "3ff0000000000000", "3fd3333333333333", "3ff0000000000000", "3ff0000000000000", "3feccccccccccccd", "0000000000000000", "4024000000000000", "3f50624dd2f1a9fc", "3ff0000000000000", "3fe0000000000000", "0000000000000000", "3ff0000000000000"]
+[[cases]]
+last_controls = ["3ff0000000000000", "3fc999999999999a", "3fc999999999999a", "3ff0000000000000", "4040000000000000", "0000000000000000", "3fe6666666666666", "0000000000000000", "3ff0000000000000", "3fd3333333333333", "3ff0000000000000", "3ff0000000000000", "3feccccccccccccd", "0000000000000000", "4024000000000000", "3f50624dd2f1a9fc", "3ff0000000000000", "3fe0000000000000", "0000000000000000", "3ff0000000000000"]
+policy = "threshold_one"
+has_objective = true
+attempts = [1, 1, 10, 8]
+successes = [1, 1]
+id = "forrest_tomlin/threshold_one"
+empty = [0, 0]
+point = ["4000000000000000", "4000000000000000"]
+status = "OPTIMAL"
+finished = true
+has_point = true
+objective = "c024000000000000"
+expected_controls = ["3ff0000000000000", "3fc999999999999a", "3fc999999999999a", "3ff0000000000000", "4040000000000000", "0000000000000000", "3fe6666666666666", "0000000000000000", "3ff0000000000000", "3fd3333333333333", "3ff0000000000000", "3ff0000000000000", "3feccccccccccccd", "0000000000000000", "4024000000000000", "3f50624dd2f1a9fc", "3ff0000000000000", "3fe0000000000000", "0000000000000000", "3ff0000000000000"]
+[[cases]]
+last_controls = ["3ff0000000000000", "3fc999999999999a", "3fc999999999999a", "3fb999999999999a", "4040000000000000", "0000000000000000", "3fe6666666666666", "0000000000000000", "3ff0000000000000", "3fd3333333333333", "3ff0000000000000", "3ff0000000000000", "3feccccccccccccd", "0000000000000000", "4024000000000000", "3f50624dd2f1a9fc", "3ff0000000000000", "3fe0000000000000", "0000000000000000", "3ff0000000000000"]
+policy = "default"
+has_objective = true
+attempts = [1, 1, 10, 8]
+successes = [1, 1]
+id = "suhl_suhl/default"
+empty = [0, 0]
+point = ["4000000000000000", "4000000000000000"]
+status = "OPTIMAL"
+finished = true
+has_point = true
+objective = "c024000000000000"
+expected_controls = ["3ff0000000000000", "3fc999999999999a", "3fc999999999999a", "3fb999999999999a", "4040000000000000", "0000000000000000", "3fe6666666666666", "0000000000000000", "3ff0000000000000", "3fd3333333333333", "3ff0000000000000", "3ff0000000000000", "3feccccccccccccd", "0000000000000000", "4024000000000000", "3f50624dd2f1a9fc", "3ff0000000000000", "3fe0000000000000", "0000000000000000", "3ff0000000000000"]
+[[cases]]
+last_controls = ["3ff0000000000000", "3fc999999999999a", "3fc999999999999a", "3ff0000000000000", "4040000000000000", "0000000000000000", "3fe6666666666666", "0000000000000000", "3ff0000000000000", "3fd3333333333333", "3ff0000000000000", "3ff0000000000000", "3feccccccccccccd", "0000000000000000", "4024000000000000", "3f50624dd2f1a9fc", "3ff0000000000000", "3fe0000000000000", "0000000000000000", "3ff0000000000000"]
+policy = "threshold_one"
+has_objective = true
+attempts = [1, 1, 10, 8]
+successes = [1, 1]
+id = "suhl_suhl/threshold_one"
+empty = [0, 0]
+point = ["4000000000000000", "4000000000000000"]
+status = "OPTIMAL"
+finished = true
+has_point = true
+objective = "c024000000000000"
+expected_controls = ["3ff0000000000000", "3fc999999999999a", "3fc999999999999a", "3ff0000000000000", "4040000000000000", "0000000000000000", "3fe6666666666666", "0000000000000000", "3ff0000000000000", "3fd3333333333333", "3ff0000000000000", "3ff0000000000000", "3feccccccccccccd", "0000000000000000", "4024000000000000", "3f50624dd2f1a9fc", "3ff0000000000000", "3fe0000000000000", "0000000000000000", "3ff0000000000000"]
+[[cases]]
+last_controls = ["3ff0000000000000", "3fc999999999999a", "3fc999999999999a", "3fb999999999999a", "4040000000000000", "0000000000000000", "3fe6666666666666", "0000000000000000", "3ff0000000000000", "3fd3333333333333", "3ff0000000000000", "3ff0000000000000", "3feccccccccccccd", "0000000000000000", "4024000000000000", "3f50624dd2f1a9fc", "3ff0000000000000", "3fe0000000000000", "0000000000000000", "3ff0000000000000"]
+policy = "default"
+has_objective = true
+attempts = [1, 1, 10, 8]
+successes = [1, 1]
+id = "bartels_golub/default"
+empty = [0, 0]
+point = ["4000000000000000", "4000000000000000"]
+status = "OPTIMAL"
+finished = true
+has_point = true
+objective = "c024000000000000"
+expected_controls = ["3ff0000000000000", "3fc999999999999a", "3fc999999999999a", "3fb999999999999a", "4040000000000000", "0000000000000000", "3fe6666666666666", "0000000000000000", "3ff0000000000000", "3fd3333333333333", "3ff0000000000000", "3ff0000000000000", "3feccccccccccccd", "0000000000000000", "4024000000000000", "3f50624dd2f1a9fc", "3ff0000000000000", "3fe0000000000000", "0000000000000000", "3ff0000000000000"]
+[[cases]]
+last_controls = ["3ff0000000000000", "3fc999999999999a", "3fc999999999999a", "3ff0000000000000", "4040000000000000", "0000000000000000", "3fe6666666666666", "0000000000000000", "3ff0000000000000", "3fd3333333333333", "3ff0000000000000", "3ff0000000000000", "3feccccccccccccd", "0000000000000000", "4024000000000000", "3f50624dd2f1a9fc", "3ff0000000000000", "3fe0000000000000", "0000000000000000", "3ff0000000000000"]
+policy = "threshold_one"
+has_objective = true
+attempts = [1, 1, 10, 8]
+successes = [1, 1]
+id = "bartels_golub/threshold_one"
+empty = [0, 0]
+point = ["4000000000000000", "4000000000000000"]
+status = "OPTIMAL"
+finished = true
+has_point = true
+objective = "c024000000000000"
+expected_controls = ["3ff0000000000000", "3fc999999999999a", "3fc999999999999a", "3ff0000000000000", "4040000000000000", "0000000000000000", "3fe6666666666666", "0000000000000000", "3ff0000000000000", "3fd3333333333333", "3ff0000000000000", "3ff0000000000000", "3feccccccccccccd", "0000000000000000", "4024000000000000", "3f50624dd2f1a9fc", "3ff0000000000000", "3fe0000000000000", "0000000000000000", "3ff0000000000000"]
+[[cases]]
+last_controls = ["3ff0000000000000", "3fc999999999999a", "3fc999999999999a", "3ff0000000000000", "4040000000000000", "0000000000000000", "3fe6666666666666", "0000000000000000", "3ff0000000000000", "3fd3333333333333", "3ff0000000000000", "3ff0000000000000", "3feccccccccccccd", "0000000000000000", "4024000000000000", "3f50624dd2f1a9fc", "3ff0000000000000", "3fe0000000000000", "0000000000000000", "3ff0000000000000"]
+policy = "threshold_one"
+has_objective = false
+attempts = [2, 0, 2, 3]
+successes = [2, 0]
+id = "recovery"
+empty = [0, 0]
+point = []
+status = "recovery"
+finished = true
+has_point = false
+objective = ""
+expected_controls = ["3ff0000000000000", "3fc999999999999a", "3fc999999999999a", "3ff0000000000000", "4040000000000000", "0000000000000000", "3fe6666666666666", "0000000000000000", "3ff0000000000000", "3fd3333333333333", "3ff0000000000000", "3ff0000000000000", "3feccccccccccccd", "0000000000000000", "4024000000000000", "3f50624dd2f1a9fc", "3ff0000000000000", "3fe0000000000000", "0000000000000000", "3ff0000000000000"]

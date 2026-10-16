@@ -47,38 +47,36 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
-Native pivot policy Task3 first integration attempt is FAILED/CONSUMED and cannot
-be used for numerical qualification or production promotion. See
-results/NATIVE-PIVOT-INTEGRATION-QUALIFICATION/REPORT.md and result-review.json.
-The independently admitted single<=60s run hit its inner wall-time guard;
-childreturncode-9, guardedelapsed52.504130901s, inclusive56.128167785s<=60.
-Original auditFALSE/Exactoutputmembership and missingraw.toml are preserved.
-Five raw process/log files exist;162assertion results and9case/work/control outcomes
-are UNKNOWN. No partialPASS/zero-work/solverdefect inference. LLVM/JIT/public_case
-stack identifies interruption location only, not complete compile-time attribution.
-53samples satisfy RAM/swapguards, maxRSS1887136KiB; fresh218groupsANDsessions/noJulia.
-Integrity checks and independent diagnostic acceptance do NOT override failed run.
+Native pivot policy Task3 separate180s public integration is complete, subject to
+its saved independent final result acceptance. Original auditPASS/162assertions,
+8public OPTIMAL exactpoint[2,2]/objective-10 plus1private recovery case. Same driver,
+76-file candidate, alloptions/safeguards/5s solverdeadlines; no warmup/compilerflag
+or numericalfixture change. Actual selected managed UMFPACK attempts10construct,
+8refactor,82FTRAN,67BTRAN;360controlentries. Each publiccase exercised1refactor.
+This is selected-boundary coverage, not complete manager/native/PREforward budget,
+fullsuite or direct-prototype qualification. Whole-process108.123673416s<=180 is
+NOT a benchmark or compilation attribution.107resourcesamples satisfy guards;
+maxRSS1869652KiB, all220groupsANDsessions absent/noJulia.
 
-Next permitted work is a bounded SOURCE/STORED-EVIDENCE analysis of the compilation
-boundary and a concrete proposal for a separately reviewed short integration
-arrangement preserving all tests, options and safeguards. No Julia/query/parser,
-compile/import experiment, rerun, off-budget warmup, deadline increase, compiler-flag
-change or test weakening under this consumed admission. Do not guess currentcase
-or cause from absentraw. Any subsequent numerical attempt requires its OWN accepted
-concrete plan/driver/seal/exact-stage admission and fresh host/environment checks;
-standing short-run permission does not make this frozen attempt reusable.
-No automatic production integration or direct-prototype promotion.
+The old60s attempt remains FAILED/CONSUMED/falseaudit/missingraw. This new180s
+allowance is consumed too; no rerun. The source-only compilation analysis identifies
+LLVM optimization at public solve when interrupted but no exactmethod/cachecause/
+compilefraction. Longerprocess success is not a compilerfix or speedup proof.
 
-Current environment-amendment closure/publication and runseal/admission/launchpins/
-outputpins STATUS/roadmap bindings map ONLY to
-NATIVE-PIVOT-INTEGRATION-QUALIFICATION/STATUS.md.before-integration-run and
-roadmap.md.before-integration-run (12explicit mappings); all older mappings retained.
-All original preparation, stage, sources, failedraw, scripts and reviews remain
-frozen, NEVER RERUN/rewrite. postcheck.py is an UNEXECUTED completeness draft;
-timeout-postcheck.py is the separate completed failure-integrity check.
-Actualsrc/test/envsettings/master unchanged; CIoff,HHreuse disabled,automationpaused.
-Old failedGREEN/directcost1 consumed, oldcost2 blocked, false/GCoutliers preserved.
-Broader Task3 and performance plan remain open.
+Next step: prepare and independently review concrete production integration of the
+already qualified optional native policy, including full candidate diff/default-
+compatibility/numerical-work-memory review, exact source/test staging and a bounded
+focused master-validation admission. Follow original Task3 promotion gates; no
+automatic merge or master run from this result. Preserve every old failed raw and
+review. Direct-prototype adapter/comparison remains a later separate accepted plan;
+oldcost2 remains blocked. No fullsuite/old measurement replay.
+
+Current previous-result closure/publication and newseal/admission/launchpins/output
+pins STATUS/roadmap bindings map ONLY to NATIVE-PIVOT-INTEGRATION-180-PREPARATION/
+STATUS.md.before-180 and roadmap.md.before-180 (12explicit mappings in new result
+closure). All older mappings remain unchanged. Preparation/driver/stage/reviews/
+raw/scripts frozen NEVER RERUN or rewrite. Actualsrc/test/envsettings/master unchanged;
+CIoff,HHreuse disabled,automationpaused; broader performance plan remains open.
 
 ## Previous missing-zero experiment
 

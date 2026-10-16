@@ -1,0 +1,13 @@
+# Fresh independent exact-stage admission
+
+Accepted, no findings, for phase integration of the separately labelled 180-second attempt only. The new allowance is unconsumed; the prior 60-second allowance remains FAILED/CONSUMED. No Julia has been run by this review.
+
+Fresh independent checks passed 21/21. The seal has exactly 1,738 files and matching resolved-path/hash records. All hashes were recomputed. Its membership is exactly the accepted preparation set, preparation manifest/review, sealed host/config, current STATUS/roadmap, and the 76 staged files. The staged tree has exact original candidate membership, no symlinks, and every staged byte matches its original pinned source. The accepted preparation's supplemental evidence also remains unchanged. The admission binds exactly those 1,738 sealed files plus sealed.json, giving 1,739 canonical SHA-256 bindings.
+
+The command, original driver/test/probe, selected-work caps, strict numerical oracle and resource guards remain unchanged. Only the separately reviewed route and 180-second inclusive limit apply; the inner limit is 172 seconds with the original eight-second termination reserve. Each public solver still has its original five-second deadline and 100-iteration cap. Compilation can still cause a solver TIME_LIMIT; this admission does not promise completion or numerical success.
+
+At review, the run directory contained only config.json, host.json and sealed.json: no reservation, output or prior new launch. The environment matches the pinned values. HEAD/master/branch/boot exactly match the sealed host, tracked files are clean, and the fresh process scan finds neither Julia nor any of the 218 historical groups/sessions. System executable links inaccessible to this user remain a visibility limit. Available memory was 23,207,956 KiB with zero used swap; launch rechecks resource pressure and host state independently.
+
+No new production work or retained-memory change is introduced by this admission. Rehashing and scanning are bounded diagnostic admission work. The longer budget can increase existing compilation, solver work and resource-log size; no performance improvement is inferred. New numerical results require the untouched result oracle and independent post-run review; failure consumes this attempt and does not authorize retry.
+
+Evidence is supplemental in this qualification directory: admission-check.py, admission-checks.json, admission-host.json, and this report. These files are not retroactively described as preparation or stage launch pins; their hashes are linked separately from canonical admission.json.
