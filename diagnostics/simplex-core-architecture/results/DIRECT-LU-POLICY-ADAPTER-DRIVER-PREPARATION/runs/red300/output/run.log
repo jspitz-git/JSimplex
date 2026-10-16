@@ -1,0 +1,28 @@
+BEGIN adapter driver red300
+WARNING: Detected access to binding `Main.run_direct_lu_policy_red` in a world prior to its definition world.
+  Julia 1.12 has introduced more strict world age semantics for global bindings.
+  !!! This code may malfunction under Revise.
+  !!! This code will error in future versions of Julia.
+Hint: Add an appropriate `invokelatest` around the access to this binding.
+To make this warning an error, and hence obtain a stack trace, use `julia --depwarn=error`.
+TEST FAILURE: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-lu-policy-adapters/reproduce/red.jl:8
+  Expression: applicable(JSimplex._direct_lu_factor, Factor, B, Val(R), JSimplex._NATIVE_PIVOT_DEFAULT)
+   Evaluated: applicable(JSimplex._direct_lu_factor, JSimplex.ForrestTomlinFactorization, sparse(Int64[], Int64[], Float64[], 0, 0), Val{:native}(), JSimplex._NATIVE_PIVOT_DEFAULT)
+TEST FAILURE: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-lu-policy-adapters/reproduce/red.jl:8
+  Expression: applicable(JSimplex._direct_lu_factor, Factor, B, Val(R), JSimplex._NATIVE_PIVOT_DEFAULT)
+   Evaluated: applicable(JSimplex._direct_lu_factor, JSimplex.ForrestTomlinFactorization, sparse(Int64[], Int64[], Float64[], 0, 0), Val{:markowitz}(), JSimplex._NATIVE_PIVOT_DEFAULT)
+TEST FAILURE: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-lu-policy-adapters/reproduce/red.jl:8
+  Expression: applicable(JSimplex._direct_lu_factor, Factor, B, Val(R), JSimplex._NATIVE_PIVOT_DEFAULT)
+   Evaluated: applicable(JSimplex._direct_lu_factor, JSimplex.SuhlSuhlFactorization, sparse(Int64[], Int64[], Float64[], 0, 0), Val{:native}(), JSimplex._NATIVE_PIVOT_DEFAULT)
+TEST FAILURE: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-lu-policy-adapters/reproduce/red.jl:8
+  Expression: applicable(JSimplex._direct_lu_factor, Factor, B, Val(R), JSimplex._NATIVE_PIVOT_DEFAULT)
+   Evaluated: applicable(JSimplex._direct_lu_factor, JSimplex.SuhlSuhlFactorization, sparse(Int64[], Int64[], Float64[], 0, 0), Val{:markowitz}(), JSimplex._NATIVE_PIVOT_DEFAULT)
+TEST FAILURE: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-lu-policy-adapters/reproduce/red.jl:8
+  Expression: applicable(JSimplex._direct_lu_factor, Factor, B, Val(R), JSimplex._NATIVE_PIVOT_DEFAULT)
+   Evaluated: applicable(JSimplex._direct_lu_factor, JSimplex.BartelsGolubFactorization, sparse(Int64[], Int64[], Float64[], 0, 0), Val{:native}(), JSimplex._NATIVE_PIVOT_DEFAULT)
+TEST FAILURE: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-lu-policy-adapters/reproduce/red.jl:8
+  Expression: applicable(JSimplex._direct_lu_factor, Factor, B, Val(R), JSimplex._NATIVE_PIVOT_DEFAULT)
+   Evaluated: applicable(JSimplex._direct_lu_factor, JSimplex.BartelsGolubFactorization, sparse(Int64[], Int64[], Float64[], 0, 0), Val{:markowitz}(), JSimplex._NATIVE_PIVOT_DEFAULT)
+TEST FAILURE: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-lu-policy-adapters/reproduce/red.jl:10
+  Expression: :pivot_policy in fieldnames(JSimplex.DirectLowerBackend)
+   Evaluated: pivot_policy in (:lower, :row_order, :scaling, :divide_scaling, :diagonal, :normalize_requested, :fallback, :work)

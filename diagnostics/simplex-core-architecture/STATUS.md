@@ -47,6 +47,14 @@ its acceptance gate. Record individual chunks separately when a stage is partial
 
 ## Exact next action
 
+Direct LU policy adapter RED completed and independently accepted; see results/DIRECT-LU-POLICY-ADAPTER-RED/REPORT.md and DIRECT-LU-POLICY-ADAPTER-DRIVER-PREPARATION/runs/red300/result-review.json. Exactly7expected failures,0pass/0error/0broken,childexit1; guard/audit accepted. One red300 attempt, no retry, no test factor/solver calls; import/compile work additional. Master26e2291 and candidate unchanged. The raw log preserves one old-world global-binding access warning before invokelatest; this pinned RED completed, but future Julia/Revise compatibility is unqualified. Frozen driver unchanged; assess warning independently before GREEN.
+
+Next: fresh green300 source/runtime/stage/host checks, seal and independent exact-stage admission, then candidate tests only when authorized. Expected30455pass across9groups. GREEN/cost/public routing remain unexecuted; no automatic launch. Initial300s/inner292, separately accepted pure-timeout600s/592 only. All earlier frozen evidence/rejections preserved, CIoff/HHdisabled/automationpaused.
+
+Driver-preparation closure/publication current STATUS/roadmap bindings map only to this RED step's STATUS.md.before-RED and roadmap.md.before-RED. Prior mappings unchanged. Fresh full224groups ANDsessions/boot/start/command/noJulia required before future work; latest groups in RED/closure-host.json are inventory, not a substitute for new preflight.
+
+### Historical prior continuation (superseded)
+
 Direct LU policy adapter Task2 OFFLINE driver/admission preparation is accepted;
 see results/DIRECT-LU-POLICY-ADAPTER-DRIVER-PREPARATION/REPORT.md and review.json.
 No Julia/query/parser/import/compile/launcher/guard/seal/reservation/output ran or

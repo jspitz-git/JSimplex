@@ -1,0 +1,19 @@
+{
+  "all_passed": true,
+  "checks": {
+    "red_original71_source_matches_master": true,
+    "red_overlay73_matches_stage": true,
+    "red_stage75_exact_source_environment": true,
+    "red_exact_allowed_difference": true,
+    "green_original71_source_matches_master": true,
+    "green_overlay73_matches_stage": true,
+    "green_stage75_exact_source_environment": true,
+    "green_exact_allowed_difference": true
+  },
+  "initial_sha256": "3c71a84bbe841d444df2e535bc364037eaa3fcbd82c57c864a682fe48248293d",
+  "explanation": "Initial reviewer mistakenly used source_sha256 (original master, pre-includes) for overlay module comparison. Only JSimplex.jl differed, exactly the two required includes; original independent master inverse already passed. Correct comparison uses overlay_sha256. No candidate/stage/author file changed; initial reviewer evidence remains untouched.",
+  "resolved_check_names": [
+    "red_accepted_source_manifest",
+    "green_accepted_source_manifest"
+  ]
+}

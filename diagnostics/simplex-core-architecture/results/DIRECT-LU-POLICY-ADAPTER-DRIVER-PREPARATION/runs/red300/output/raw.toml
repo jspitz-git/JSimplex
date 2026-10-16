@@ -1,0 +1,30 @@
+fatal = ""
+complete = true
+threads = 1
+blas_threads = 1
+phase = "red300"
+
+[tests]
+pass = 0
+name = "root"
+fail = 0
+broken = 0
+failures = []
+error = 0
+
+    [[tests.children]]
+    pass = 0
+    name = "Missing direct policy contract (seven expected failures)"
+    fail = 7
+    children = []
+    broken = 0
+    failures = ["""Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-lu-policy-adapters/reproduce/red.jl:8\n  Expression: applicable(JSimplex._direct_lu_factor, Factor, B, Val(R), JSimplex._NATIVE_PIVOT_DEFAULT)\n   Evaluated: applicable(JSimplex._direct_lu_factor, JSimplex.ForrestTomlinFactorization, sparse(Int64[], Int64[], Float64[], 0, 0), Val{:native}(), JSimplex._NATIVE_PIVOT_DEFAULT)""", """Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-lu-policy-adapters/reproduce/red.jl:8\n  Expression: applicable(JSimplex._direct_lu_factor, Factor, B, Val(R), JSimplex._NATIVE_PIVOT_DEFAULT)\n   Evaluated: applicable(JSimplex._direct_lu_factor, JSimplex.ForrestTomlinFactorization, sparse(Int64[], Int64[], Float64[], 0, 0), Val{:markowitz}(), JSimplex._NATIVE_PIVOT_DEFAULT)""", """Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-lu-policy-adapters/reproduce/red.jl:8\n  Expression: applicable(JSimplex._direct_lu_factor, Factor, B, Val(R), JSimplex._NATIVE_PIVOT_DEFAULT)\n   Evaluated: applicable(JSimplex._direct_lu_factor, JSimplex.SuhlSuhlFactorization, sparse(Int64[], Int64[], Float64[], 0, 0), Val{:native}(), JSimplex._NATIVE_PIVOT_DEFAULT)""", """Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-lu-policy-adapters/reproduce/red.jl:8\n  Expression: applicable(JSimplex._direct_lu_factor, Factor, B, Val(R), JSimplex._NATIVE_PIVOT_DEFAULT)\n   Evaluated: applicable(JSimplex._direct_lu_factor, JSimplex.SuhlSuhlFactorization, sparse(Int64[], Int64[], Float64[], 0, 0), Val{:markowitz}(), JSimplex._NATIVE_PIVOT_DEFAULT)""", """Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-lu-policy-adapters/reproduce/red.jl:8\n  Expression: applicable(JSimplex._direct_lu_factor, Factor, B, Val(R), JSimplex._NATIVE_PIVOT_DEFAULT)\n   Evaluated: applicable(JSimplex._direct_lu_factor, JSimplex.BartelsGolubFactorization, sparse(Int64[], Int64[], Float64[], 0, 0), Val{:native}(), JSimplex._NATIVE_PIVOT_DEFAULT)""", """Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-lu-policy-adapters/reproduce/red.jl:8\n  Expression: applicable(JSimplex._direct_lu_factor, Factor, B, Val(R), JSimplex._NATIVE_PIVOT_DEFAULT)\n   Evaluated: applicable(JSimplex._direct_lu_factor, JSimplex.BartelsGolubFactorization, sparse(Int64[], Int64[], Float64[], 0, 0), Val{:markowitz}(), JSimplex._NATIVE_PIVOT_DEFAULT)""", """Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-lu-policy-adapters/reproduce/red.jl:10\n  Expression: :pivot_policy in fieldnames(JSimplex.DirectLowerBackend)\n   Evaluated: pivot_policy in (:lower, :row_order, :scaling, :divide_scaling, :diagonal, :normalize_requested, :fallback, :work)"""]
+    error = 0
+
+[loaded]
+LinearAlgebra = "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/LinearAlgebra/src/LinearAlgebra.jl"
+SparseArrays = "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/SparseArrays/src/SparseArrays.jl"
+Test = "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl"
+JSimplex = "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-16-direct-lu-policy-adapters/driver-stages/red/src/JSimplex.jl"
+TOML = "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/TOML/src/TOML.jl"
+PrecompileTools = "/home/jspitz/.julia/packages/PrecompileTools/QUxvR/src/PrecompileTools.jl"
