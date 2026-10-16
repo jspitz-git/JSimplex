@@ -1,0 +1,94 @@
+fatal = ""
+complete = true
+threads = 1
+blas_threads = 1
+phase = "green300"
+
+[tests]
+pass = 0
+name = "root"
+fail = 0
+broken = 0
+failures = []
+error = 0
+
+    [[tests.children]]
+    pass = 51
+    name = "BG slots: import and stable q"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+    [[tests.children]]
+    pass = 154
+    name = "BG slots: unlink, exact zero, free reuse and local guards"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+    [[tests.children]]
+    pass = 56
+    name = "BG slots: capacity and allocation failure"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+    [[tests.children]]
+    pass = 53
+    name = "BG slots: swaps and rotations"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+    [[tests.children]]
+    pass = 13
+    name = "BG slots: checker detects corrupt structures"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+    [[tests.children]]
+    pass = 7634
+    name = "Seven fixed fixtures, two policies, direct reference"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+    [[tests.children]]
+    pass = 115
+    name = "Private scratch and supported routes"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+    [[tests.children]]
+    pass = 461
+    name = "Fallback, normalization fallback, q, transactional refactor"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+    [[tests.children]]
+    pass = 239
+    name = "Exact storage branches, failures, ordering"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+
+[loaded]
+LinearAlgebra = "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/LinearAlgebra/src/LinearAlgebra.jl"
+SparseArrays = "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/SparseArrays/src/SparseArrays.jl"
+Test = "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl"
+JSimplex = "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-16-direct-bg-dynamic-upper/task3-driver-stages/green/src/JSimplex.jl"
+TOML = "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/TOML/src/TOML.jl"
+PrecompileTools = "/home/jspitz/.julia/packages/PrecompileTools/QUxvR/src/PrecompileTools.jl"

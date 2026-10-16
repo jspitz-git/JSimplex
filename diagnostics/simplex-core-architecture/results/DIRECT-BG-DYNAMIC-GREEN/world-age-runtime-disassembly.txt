@@ -1,0 +1,513 @@
+
+/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libjulia-internal.so:     file format elf64-littleaarch64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .text:
+
+000000000006bf60 <jl_get_binding_value_in_world>:
+   6bf60:	a9bd7bfd 	stp	x29, x30, [sp, #-48]!
+   6bf64:	910003fd 	mov	x29, sp
+   6bf68:	a90153f3 	stp	x19, x20, [sp, #16]
+   6bf6c:	aa0003f4 	mov	x20, x0
+   6bf70:	f90013f5 	str	x21, [sp, #32]
+   6bf74:	aa0103f5 	mov	x21, x1
+   6bf78:	97fffec8 	bl	6ba98 <jl_get_binding_partition>
+   6bf7c:	aa0003f3 	mov	x19, x0
+   6bf80:	f9401002 	ldr	x2, [x0, #32]
+   6bf84:	14000007 	b	6bfa0 <jl_get_binding_value_in_world+0x40>
+   6bf88:	f9400274 	ldr	x20, [x19]
+   6bf8c:	aa1503e1 	mov	x1, x21
+   6bf90:	aa1403e0 	mov	x0, x20
+   6bf94:	97fffec1 	bl	6ba98 <jl_get_binding_partition>
+   6bf98:	f9401002 	ldr	x2, [x0, #32]
+   6bf9c:	aa0003f3 	mov	x19, x0
+   6bfa0:	12000c42 	and	w2, w2, #0xf
+   6bfa4:	51001440 	sub	w0, w2, #0x5
+   6bfa8:	7100041f 	cmp	w0, #0x1
+   6bfac:	7a438844 	ccmp	w2, #0x3, #0x4, hi	// hi = pmore
+   6bfb0:	54fffec0 	b.eq	6bf88 <jl_get_binding_value_in_world+0x28>  // b.none
+   6bfb4:	51001c40 	sub	w0, w2, #0x7
+   6bfb8:	721e781f 	tst	w0, #0xfffffffd
+   6bfbc:	540004c0 	b.eq	6c054 <jl_get_binding_value_in_world+0xf4>  // b.none
+   6bfc0:	7100105f 	cmp	w2, #0x4
+   6bfc4:	7a411840 	ccmp	w2, #0x1, #0x0, ne	// ne = any
+   6bfc8:	54000108 	b.hi	6bfe8 <jl_get_binding_value_in_world+0x88>  // b.pmore
+   6bfcc:	71002c5f 	cmp	w2, #0xb
+   6bfd0:	540001e0 	b.eq	6c00c <jl_get_binding_value_in_world+0xac>  // b.none
+   6bfd4:	f9400260 	ldr	x0, [x19]
+   6bfd8:	a94153f3 	ldp	x19, x20, [sp, #16]
+   6bfdc:	f94013f5 	ldr	x21, [sp, #32]
+   6bfe0:	a8c37bfd 	ldp	x29, x30, [sp], #48
+   6bfe4:	d65f03c0 	ret
+   6bfe8:	51002840 	sub	w0, w2, #0xa
+   6bfec:	7100041f 	cmp	w0, #0x1
+   6bff0:	54fffee9 	b.ls	6bfcc <jl_get_binding_value_in_world+0x6c>  // b.plast
+   6bff4:	91002294 	add	x20, x20, #0x8
+   6bff8:	f9400280 	ldr	x0, [x20]
+   6bffc:	a94153f3 	ldp	x19, x20, [sp, #16]
+   6c000:	f94013f5 	ldr	x21, [sp, #32]
+   6c004:	a8c37bfd 	ldp	x29, x30, [sp], #48
+   6c008:	d65f03c0 	ret
+   6c00c:	9400eae9 	bl	a6bb0 <ijl_get_pgcstack>
+   6c010:	f9400800 	ldr	x0, [x0, #16]
+   6c014:	79c03400 	ldrsh	w0, [x0, #26]
+   6c018:	35000280 	cbnz	w0, 6c068 <jl_get_binding_value_in_world+0x108>
+   6c01c:	b0001340 	adrp	x0, 2d5000 <jl_first_image_replacement_world@@JL_LIBJULIA_1.13-0x1c38>
+   6c020:	f9443000 	ldr	x0, [x0, #2144]
+   6c024:	39c1d000 	ldrsb	w0, [x0, #116]
+   6c028:	7100081f 	cmp	w0, #0x2
+   6c02c:	540001e0 	b.eq	6c068 <jl_get_binding_value_in_world+0x108>  // b.none
+   6c030:	91008280 	add	x0, x20, #0x20
+   6c034:	085f7c01 	ldxrb	w1, [x0]
+   6c038:	32000022 	orr	w2, w1, #0x1
+   6c03c:	08037c02 	stxrb	w3, w2, [x0]
+   6c040:	35ffffa3 	cbnz	w3, 6c034 <jl_get_binding_value_in_world+0xd4>
+   6c044:	3707fc81 	tbnz	w1, #0, 6bfd4 <jl_get_binding_value_in_world+0x74>
+   6c048:	f9400280 	ldr	x0, [x20]
+   6c04c:	97fff8bb 	bl	6a338 <print_backdate_admonition.isra.0>
+   6c050:	17ffffe1 	b	6bfd4 <jl_get_binding_value_in_world+0x74>
+   6c054:	d2800000 	mov	x0, #0x0                   	// #0
+   6c058:	a94153f3 	ldp	x19, x20, [sp, #16]
+   6c05c:	f94013f5 	ldr	x21, [sp, #32]
+   6c060:	a8c37bfd 	ldp	x29, x30, [sp], #48
+   6c064:	d65f03c0 	ret
+   6c068:	f9400280 	ldr	x0, [x20]
+   6c06c:	a9400001 	ldp	x1, x0, [x0]
+   6c070:	94017880 	bl	ca270 <ijl_undefined_var_error>
+
+Disassembly of section .fini:
+
+
+/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libjulia-internal.so:     file format elf64-littleaarch64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .text:
+
+000000000006fe58 <jl_eval_globalref>:
+   6fe58:	a9be7bfd 	stp	x29, x30, [sp, #-32]!
+   6fe5c:	910003fd 	mov	x29, sp
+   6fe60:	f9000bf3 	str	x19, [sp, #16]
+   6fe64:	aa0003f3 	mov	x19, x0
+   6fe68:	97fff79e 	bl	6dce0 <jl_get_globalref_value>
+   6fe6c:	b4000080 	cbz	x0, 6fe7c <jl_eval_globalref+0x24>
+   6fe70:	f9400bf3 	ldr	x19, [sp, #16]
+   6fe74:	a8c27bfd 	ldp	x29, x30, [sp], #32
+   6fe78:	d65f03c0 	ret
+   6fe7c:	a9400261 	ldp	x1, x0, [x19]
+   6fe80:	940168fc 	bl	ca270 <ijl_undefined_var_error>
+
+Disassembly of section .fini:
+
+
+/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libjulia-internal.so:     file format elf64-littleaarch64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .text:
+
+00000000000659d8 <jl_f_getglobal>:
+   659d8:	a9bd7bfd 	stp	x29, x30, [sp, #-48]!
+   659dc:	7100045f 	cmp	w2, #0x1
+   659e0:	910003fd 	mov	x29, sp
+   659e4:	a90153f3 	stp	x19, x20, [sp, #16]
+   659e8:	f90013f5 	str	x21, [sp, #32]
+   659ec:	54000709 	b.ls	65acc <jl_f_getglobal+0xf4>  // b.plast
+   659f0:	71000c5f 	cmp	w2, #0x3
+   659f4:	54000648 	b.hi	65abc <jl_f_getglobal+0xe4>  // b.pmore
+   659f8:	aa0103f3 	mov	x19, x1
+   659fc:	52800054 	mov	w20, #0x2                   	// #2
+   65a00:	54000300 	b.eq	65a60 <jl_f_getglobal+0x88>  // b.none
+   65a04:	a9404e75 	ldp	x21, x19, [x19]
+   65a08:	f85f82a0 	ldur	x0, [x21, #-8]
+   65a0c:	927cec00 	and	x0, x0, #0xfffffffffffffff0
+   65a10:	f102001f 	cmp	x0, #0x80
+   65a14:	54000701 	b.ne	65af4 <jl_f_getglobal+0x11c>  // b.any
+   65a18:	f85f8260 	ldur	x0, [x19, #-8]
+   65a1c:	927cec00 	and	x0, x0, #0xfffffffffffffff0
+   65a20:	f101c01f 	cmp	x0, #0x70
+   65a24:	540005c1 	b.ne	65adc <jl_f_getglobal+0x104>  // b.any
+   65a28:	34000454 	cbz	w20, 65ab0 <jl_f_getglobal+0xd8>
+   65a2c:	94010461 	bl	a6bb0 <ijl_get_pgcstack>
+   65a30:	71001a9f 	cmp	w20, #0x6
+   65a34:	540002ac 	b.gt	65a88 <jl_f_getglobal+0xb0>
+   65a38:	f9400402 	ldr	x2, [x0, #8]
+   65a3c:	aa1303e1 	mov	x1, x19
+   65a40:	aa1503e0 	mov	x0, x21
+   65a44:	940028f7 	bl	6fe20 <jl_eval_global_var>
+   65a48:	71000e9f 	cmp	w20, #0x3
+   65a4c:	5400028c 	b.gt	65a9c <jl_f_getglobal+0xc4>
+   65a50:	a94153f3 	ldp	x19, x20, [sp, #16]
+   65a54:	f94013f5 	ldr	x21, [sp, #32]
+   65a58:	a8c37bfd 	ldp	x29, x30, [sp], #48
+   65a5c:	d65f03c0 	ret
+   65a60:	f9400820 	ldr	x0, [x1, #16]
+   65a64:	f85f8001 	ldur	x1, [x0, #-8]
+   65a68:	927cec21 	and	x1, x1, #0xfffffffffffffff0
+   65a6c:	f101c03f 	cmp	x1, #0x70
+   65a70:	540004e1 	b.ne	65b0c <jl_f_getglobal+0x134>  // b.any
+   65a74:	52800002 	mov	w2, #0x0                   	// #0
+   65a78:	52800021 	mov	w1, #0x1                   	// #1
+   65a7c:	97fffb9b 	bl	648e8 <jl_get_atomic_order_checked>
+   65a80:	2a0003f4 	mov	w20, w0
+   65a84:	17ffffe0 	b	65a04 <jl_f_getglobal+0x2c>
+   65a88:	d5033bbf 	dmb	ish
+   65a8c:	f9400402 	ldr	x2, [x0, #8]
+   65a90:	aa1303e1 	mov	x1, x19
+   65a94:	aa1503e0 	mov	x0, x21
+   65a98:	940028e2 	bl	6fe20 <jl_eval_global_var>
+   65a9c:	d5033bbf 	dmb	ish
+   65aa0:	a94153f3 	ldp	x19, x20, [sp, #16]
+   65aa4:	f94013f5 	ldr	x21, [sp, #32]
+   65aa8:	a8c37bfd 	ldp	x29, x30, [sp], #48
+   65aac:	d65f03c0 	ret
+   65ab0:	90000d80 	adrp	x0, 215000 <flisp_system_image+0x59460>
+   65ab4:	91216000 	add	x0, x0, #0x858
+   65ab8:	94019246 	bl	ca3d0 <ijl_atomic_error>
+   65abc:	90000d80 	adrp	x0, 215000 <flisp_system_image+0x59460>
+   65ac0:	52800061 	mov	w1, #0x3                   	// #3
+   65ac4:	91212000 	add	x0, x0, #0x848
+   65ac8:	9401918e 	bl	ca100 <ijl_too_many_args>
+   65acc:	90000d80 	adrp	x0, 215000 <flisp_system_image+0x59460>
+   65ad0:	52800041 	mov	w1, #0x2                   	// #2
+   65ad4:	91212000 	add	x0, x0, #0x848
+   65ad8:	94019180 	bl	ca0d8 <ijl_too_few_args>
+   65adc:	d0001381 	adrp	x1, 2d7000 <ijl_small_typeof+0x180>
+   65ae0:	90000d80 	adrp	x0, 215000 <flisp_system_image+0x59460>
+   65ae4:	aa1303e2 	mov	x2, x19
+   65ae8:	91212000 	add	x0, x0, #0x848
+   65aec:	f9431421 	ldr	x1, [x1, #1576]
+   65af0:	940191d8 	bl	ca250 <ijl_type_error>
+   65af4:	d0001381 	adrp	x1, 2d7000 <ijl_small_typeof+0x180>
+   65af8:	90000d80 	adrp	x0, 215000 <flisp_system_image+0x59460>
+   65afc:	aa1503e2 	mov	x2, x21
+   65b00:	91212000 	add	x0, x0, #0x848
+   65b04:	f942a421 	ldr	x1, [x1, #1352]
+   65b08:	940191d2 	bl	ca250 <ijl_type_error>
+   65b0c:	d0001381 	adrp	x1, 2d7000 <ijl_small_typeof+0x180>
+   65b10:	aa0003e2 	mov	x2, x0
+   65b14:	90000d80 	adrp	x0, 215000 <flisp_system_image+0x59460>
+   65b18:	91212000 	add	x0, x0, #0x848
+   65b1c:	f9431421 	ldr	x1, [x1, #1576]
+   65b20:	940191cc 	bl	ca250 <ijl_type_error>
+
+Disassembly of section .fini:
+
+
+/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libjulia-internal.so:     file format elf64-littleaarch64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .text:
+
+000000000006a338 <print_backdate_admonition.isra.0>:
+   6a338:	aa0003e1 	mov	x1, x0
+   6a33c:	90000d62 	adrp	x2, 216000 <flisp_system_image+0x5a460>
+   6a340:	91326040 	add	x0, x2, #0xc98
+   6a344:	a9400823 	ldp	x3, x2, [x1]
+   6a348:	f9400061 	ldr	x1, [x3]
+   6a34c:	91006042 	add	x2, x2, #0x18
+   6a350:	91006021 	add	x1, x1, #0x18
+   6a354:	140096ff 	b	8ff50 <ijl_safe_printf>
+
+Disassembly of section .fini:
+
+
+/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/libjulia-internal.so:     file format elf64-littleaarch64
+
+
+Disassembly of section .init:
+
+Disassembly of section .plt:
+
+Disassembly of section .text:
+
+000000000006e1c8 <jl_declare_constant_val3>:
+   6e1c8:	a9b57bfd 	stp	x29, x30, [sp, #-176]!
+   6e1cc:	910003fd 	mov	x29, sp
+   6e1d0:	a90363f7 	stp	x23, x24, [sp, #48]
+   6e1d4:	aa0003f7 	mov	x23, x0
+   6e1d8:	d2800120 	mov	x0, #0x9                   	// #9
+   6e1dc:	a90153f3 	stp	x19, x20, [sp, #16]
+   6e1e0:	2a0403f4 	mov	w20, w4
+   6e1e4:	910243f3 	add	x19, sp, #0x90
+   6e1e8:	a9025bf5 	stp	x21, x22, [sp, #32]
+   6e1ec:	a9046bf9 	stp	x25, x26, [sp, #64]
+   6e1f0:	aa0503fa 	mov	x26, x5
+   6e1f4:	a90573fb 	stp	x27, x28, [sp, #80]
+   6e1f8:	a9068be1 	stp	x1, x2, [sp, #104]
+   6e1fc:	f9003fe3 	str	x3, [sp, #120]
+   6e200:	a90883ff 	stp	xzr, x0, [sp, #136]
+   6e204:	9400e26b 	bl	a6bb0 <ijl_get_pgcstack>
+   6e208:	aa0003f6 	mov	x22, x0
+   6e20c:	910223e0 	add	x0, sp, #0x88
+   6e210:	9101e3e1 	add	x1, sp, #0x78
+   6e214:	a90a03e1 	stp	x1, x0, [sp, #160]
+   6e218:	f85686c0 	ldr	x0, [x22], #-152
+   6e21c:	f9004ed3 	str	x19, [x22, #152]
+   6e220:	f9004fe0 	str	x0, [sp, #152]
+   6e224:	b4001c57 	cbz	x23, 6e5ac <jl_declare_constant_val3+0x3e4>
+   6e228:	aa1a03e1 	mov	x1, x26
+   6e22c:	aa1703e0 	mov	x0, x23
+   6e230:	97fff61a 	bl	6ba98 <jl_get_binding_partition>
+   6e234:	aa0003f3 	mov	x19, x0
+   6e238:	91002019 	add	x25, x0, #0x8
+   6e23c:	d2800e1b 	mov	x27, #0x70                  	// #112
+   6e240:	52800178 	mov	w24, #0xb                   	// #11
+   6e244:	d503201f 	nop
+   6e248:	f9401263 	ldr	x3, [x19, #32]
+   6e24c:	f27f087f 	tst	x3, #0xe
+   6e250:	12000c63 	and	w3, w3, #0xf
+   6e254:	7a441864 	ccmp	w3, #0x4, #0x4, ne	// ne = any
+   6e258:	54000080 	b.eq	6e268 <jl_declare_constant_val3+0xa0>  // b.none
+   6e25c:	51002860 	sub	w0, w3, #0xa
+   6e260:	7100041f 	cmp	w0, #0x1
+   6e264:	54000928 	b.hi	6e388 <jl_declare_constant_val3+0x1c0>  // b.pmore
+   6e268:	51000c60 	sub	w0, w3, #0x3
+   6e26c:	7100041f 	cmp	w0, #0x1
+   6e270:	540008c9 	b.ls	6e388 <jl_declare_constant_val3+0x1c0>  // b.plast
+   6e274:	51001c60 	sub	w0, w3, #0x7
+   6e278:	721e781f 	tst	w0, #0xfffffffd
+   6e27c:	54000860 	b.eq	6e388 <jl_declare_constant_val3+0x1c0>  // b.none
+   6e280:	f9403fe0 	ldr	x0, [sp, #120]
+   6e284:	b4000380 	cbz	x0, 6e2f4 <jl_declare_constant_val3+0x12c>
+   6e288:	f9400261 	ldr	x1, [x19]
+   6e28c:	eb01001f 	cmp	x0, x1
+   6e290:	54000320 	b.eq	6e2f4 <jl_declare_constant_val3+0x12c>  // b.none
+   6e294:	b40000e1 	cbz	x1, 6e2b0 <jl_declare_constant_val3+0xe8>
+   6e298:	f85f8005 	ldur	x5, [x0, #-8]
+   6e29c:	f85f8023 	ldur	x3, [x1, #-8]
+   6e2a0:	927ceca2 	and	x2, x5, #0xfffffffffffffff0
+   6e2a4:	927cec63 	and	x3, x3, #0xfffffffffffffff0
+   6e2a8:	eb03005f 	cmp	x2, x3
+   6e2ac:	54001640 	b.eq	6e574 <jl_declare_constant_val3+0x3ac>  // b.none
+   6e2b0:	aa1903fc 	mov	x28, x25
+   6e2b4:	f9400321 	ldr	x1, [x25]
+   6e2b8:	eb1a003f 	cmp	x1, x26
+   6e2bc:	540007a1 	b.ne	6e3b0 <jl_declare_constant_val3+0x1e8>  // b.any
+   6e2c0:	f9000260 	str	x0, [x19]
+   6e2c4:	2a1403e1 	mov	w1, w20
+   6e2c8:	f9401262 	ldr	x2, [x19, #32]
+   6e2cc:	f9403fe0 	ldr	x0, [sp, #120]
+   6e2d0:	927c0c42 	and	x2, x2, #0xf0
+   6e2d4:	aa010041 	orr	x1, x2, x1
+   6e2d8:	f9001261 	str	x1, [x19, #32]
+   6e2dc:	b40000c0 	cbz	x0, 6e2f4 <jl_declare_constant_val3+0x12c>
+   6e2e0:	385f8262 	ldurb	w2, [x19, #-8]
+   6e2e4:	12000443 	and	w3, w2, #0x3
+   6e2e8:	71000c7f 	cmp	w3, #0x3
+   6e2ec:	540001a0 	b.eq	6e320 <jl_declare_constant_val3+0x158>  // b.none
+   6e2f0:	b50007fa 	cbnz	x26, 6e3ec <jl_declare_constant_val3+0x224>
+   6e2f4:	f9404ec0 	ldr	x0, [x22, #152]
+   6e2f8:	f9400400 	ldr	x0, [x0, #8]
+   6e2fc:	f9004ec0 	str	x0, [x22, #152]
+   6e300:	aa1303e0 	mov	x0, x19
+   6e304:	a94153f3 	ldp	x19, x20, [sp, #16]
+   6e308:	a9425bf5 	ldp	x21, x22, [sp, #32]
+   6e30c:	a94363f7 	ldp	x23, x24, [sp, #48]
+   6e310:	a9446bf9 	ldp	x25, x26, [sp, #64]
+   6e314:	a94573fb 	ldp	x27, x28, [sp, #80]
+   6e318:	a8cb7bfd 	ldp	x29, x30, [sp], #176
+   6e31c:	d65f03c0 	ret
+   6e320:	121e0442 	and	w2, w2, #0xc
+   6e324:	7100105f 	cmp	w2, #0x4
+   6e328:	54000060 	b.eq	6e334 <jl_declare_constant_val3+0x16c>  // b.none
+   6e32c:	385f8000 	ldurb	w0, [x0, #-8]
+   6e330:	3707fe00 	tbnz	w0, #0, 6e2f0 <jl_declare_constant_val3+0x128>
+   6e334:	aa1303e0 	mov	x0, x19
+   6e338:	94022bf8 	bl	f9318 <ijl_gc_queue_root>
+   6e33c:	b4fffdda 	cbz	x26, 6e2f4 <jl_declare_constant_val3+0x12c>
+   6e340:	f9403fe0 	ldr	x0, [sp, #120]
+   6e344:	b4fffd80 	cbz	x0, 6e2f4 <jl_declare_constant_val3+0x12c>
+   6e348:	f9401261 	ldr	x1, [x19, #32]
+   6e34c:	6a01031f 	tst	w24, w1
+   6e350:	54001580 	b.eq	6e600 <jl_declare_constant_val3+0x438>  // b.none
+   6e354:	d503201f 	nop
+   6e358:	aa1303f5 	mov	x21, x19
+   6e35c:	12000c21 	and	w1, w1, #0xf
+   6e360:	aa1303e0 	mov	x0, x19
+   6e364:	51002822 	sub	w2, w1, #0xa
+   6e368:	51000421 	sub	w1, w1, #0x1
+   6e36c:	7100045f 	cmp	w2, #0x1
+   6e370:	7a458820 	ccmp	w1, #0x5, #0x0, hi	// hi = pmore
+   6e374:	54000428 	b.hi	6e3f8 <jl_declare_constant_val3+0x230>  // b.pmore
+   6e378:	b4fff695 	cbz	x21, 6e248 <jl_declare_constant_val3+0x80>
+   6e37c:	d503201f 	nop
+   6e380:	aa1503f3 	mov	x19, x21
+   6e384:	17ffffdc 	b	6e2f4 <jl_declare_constant_val3+0x12c>
+   6e388:	51001460 	sub	w0, w3, #0x5
+   6e38c:	7100041f 	cmp	w0, #0x1
+   6e390:	54001289 	b.ls	6e5e0 <jl_declare_constant_val3+0x418>  // b.plast
+   6e394:	7100087f 	cmp	w3, #0x2
+   6e398:	54001140 	b.eq	6e5c0 <jl_declare_constant_val3+0x3f8>  // b.none
+   6e39c:	f9403fe0 	ldr	x0, [sp, #120]
+   6e3a0:	aa1903fc 	mov	x28, x25
+   6e3a4:	f9400321 	ldr	x1, [x25]
+   6e3a8:	eb1a003f 	cmp	x1, x26
+   6e3ac:	54fff8a0 	b.eq	6e2c0 <jl_declare_constant_val3+0xf8>  // b.none
+   6e3b0:	aa0003e2 	mov	x2, x0
+   6e3b4:	aa1a03e4 	mov	x4, x26
+   6e3b8:	2a1403e3 	mov	w3, w20
+   6e3bc:	aa1303e1 	mov	x1, x19
+   6e3c0:	aa1703e0 	mov	x0, x23
+   6e3c4:	97ffff7b 	bl	6e1b0 <jl_replace_binding_locked>
+   6e3c8:	aa0003f5 	mov	x21, x0
+   6e3cc:	b4fffd7a 	cbz	x26, 6e378 <jl_declare_constant_val3+0x1b0>
+   6e3d0:	f9403fe0 	ldr	x0, [sp, #120]
+   6e3d4:	b4fffd20 	cbz	x0, 6e378 <jl_declare_constant_val3+0x1b0>
+   6e3d8:	f9401261 	ldr	x1, [x19, #32]
+   6e3dc:	6a01031f 	tst	w24, w1
+   6e3e0:	54fffbe1 	b.ne	6e35c <jl_declare_constant_val3+0x194>  // b.any
+   6e3e4:	b4fff335 	cbz	x21, 6e248 <jl_declare_constant_val3+0x80>
+   6e3e8:	17ffffe6 	b	6e380 <jl_declare_constant_val3+0x1b8>
+   6e3ec:	6a01031f 	tst	w24, w1
+   6e3f0:	54fffb41 	b.ne	6e358 <jl_declare_constant_val3+0x190>  // b.any
+   6e3f4:	17ffffc0 	b	6e2f4 <jl_declare_constant_val3+0x12c>
+   6e3f8:	91002000 	add	x0, x0, #0x8
+   6e3fc:	f9400001 	ldr	x1, [x0]
+   6e400:	b4000141 	cbz	x1, 6e428 <jl_declare_constant_val3+0x260>
+   6e404:	d1000421 	sub	x1, x1, #0x1
+   6e408:	aa1703e0 	mov	x0, x23
+   6e40c:	97fff5a3 	bl	6ba98 <jl_get_binding_partition>
+   6e410:	f9401001 	ldr	x1, [x0, #32]
+   6e414:	6a01031f 	tst	w24, w1
+   6e418:	12000c21 	and	w1, w1, #0xf
+   6e41c:	54fffa41 	b.ne	6e364 <jl_declare_constant_val3+0x19c>  // b.any
+   6e420:	b4fff155 	cbz	x21, 6e248 <jl_declare_constant_val3+0x80>
+   6e424:	17ffffd7 	b	6e380 <jl_declare_constant_val3+0x1b8>
+   6e428:	b0001357 	adrp	x23, 2d7000 <ijl_small_typeof+0x180>
+   6e42c:	910a22f7 	add	x23, x23, #0x288
+   6e430:	f94056c0 	ldr	x0, [x22, #168]
+   6e434:	d2800501 	mov	x1, #0x28                  	// #40
+   6e438:	f940c6e2 	ldr	x2, [x23, #392]
+   6e43c:	d2800138 	mov	x24, #0x9                   	// #9
+   6e440:	9402496e 	bl	1009f8 <jl_gc_alloc_>
+   6e444:	f900001f 	str	xzr, [x0]
+   6e448:	f9001018 	str	x24, [x0, #32]
+   6e44c:	aa0003fa 	mov	x26, x0
+   6e450:	91002002 	add	x2, x0, #0x8
+   6e454:	f900005f 	str	xzr, [x2]
+   6e458:	9100401b 	add	x27, x0, #0x10
+   6e45c:	92800000 	mov	x0, #0xffffffffffffffff    	// #-1
+   6e460:	f9000360 	str	x0, [x27]
+   6e464:	91006359 	add	x25, x26, #0x18
+   6e468:	f900033f 	str	xzr, [x25]
+   6e46c:	f90047fa 	str	x26, [sp, #136]
+   6e470:	14000017 	b	6e4cc <jl_declare_constant_val3+0x304>
+   6e474:	f94056c0 	ldr	x0, [x22, #168]
+   6e478:	d2800501 	mov	x1, #0x28                  	// #40
+   6e47c:	f940c6e2 	ldr	x2, [x23, #392]
+   6e480:	9402495e 	bl	1009f8 <jl_gc_alloc_>
+   6e484:	f900001f 	str	xzr, [x0]
+   6e488:	f9001018 	str	x24, [x0, #32]
+   6e48c:	aa0003f4 	mov	x20, x0
+   6e490:	91002002 	add	x2, x0, #0x8
+   6e494:	f900005f 	str	xzr, [x2]
+   6e498:	9100401b 	add	x27, x0, #0x10
+   6e49c:	92800000 	mov	x0, #0xffffffffffffffff    	// #-1
+   6e4a0:	f9000360 	str	x0, [x27]
+   6e4a4:	9100629c 	add	x28, x20, #0x18
+   6e4a8:	f900039f 	str	xzr, [x28]
+   6e4ac:	f9000334 	str	x20, [x25]
+   6e4b0:	385f8340 	ldurb	w0, [x26, #-8]
+   6e4b4:	12000401 	and	w1, w0, #0x3
+   6e4b8:	71000c3f 	cmp	w1, #0x3
+   6e4bc:	54000480 	b.eq	6e54c <jl_declare_constant_val3+0x384>  // b.none
+   6e4c0:	aa1c03f9 	mov	x25, x28
+   6e4c4:	aa1403fa 	mov	x26, x20
+   6e4c8:	9100227c 	add	x28, x19, #0x8
+   6e4cc:	f9401261 	ldr	x1, [x19, #32]
+   6e4d0:	d2800163 	mov	x3, #0xb                   	// #11
+   6e4d4:	f9403fe0 	ldr	x0, [sp, #120]
+   6e4d8:	927c0c21 	and	x1, x1, #0xf0
+   6e4dc:	aa030021 	orr	x1, x1, x3
+   6e4e0:	f9000340 	str	x0, [x26]
+   6e4e4:	f9001341 	str	x1, [x26, #32]
+   6e4e8:	f9400380 	ldr	x0, [x28]
+   6e4ec:	f9000040 	str	x0, [x2]
+   6e4f0:	91004260 	add	x0, x19, #0x10
+   6e4f4:	f9400000 	ldr	x0, [x0]
+   6e4f8:	f9000360 	str	x0, [x27]
+   6e4fc:	91006273 	add	x19, x19, #0x18
+   6e500:	f9400273 	ldr	x19, [x19]
+   6e504:	b5fffb93 	cbnz	x19, 6e474 <jl_declare_constant_val3+0x2ac>
+   6e508:	910062a0 	add	x0, x21, #0x18
+   6e50c:	f94047e1 	ldr	x1, [sp, #136]
+   6e510:	c89ffc01 	stlr	x1, [x0]
+   6e514:	385f82a0 	ldurb	w0, [x21, #-8]
+   6e518:	12000401 	and	w1, w0, #0x3
+   6e51c:	71000c3f 	cmp	w1, #0x3
+   6e520:	54fff301 	b.ne	6e380 <jl_declare_constant_val3+0x1b8>  // b.any
+   6e524:	121e0400 	and	w0, w0, #0xc
+   6e528:	7100101f 	cmp	w0, #0x4
+   6e52c:	54000080 	b.eq	6e53c <jl_declare_constant_val3+0x374>  // b.none
+   6e530:	f94047e0 	ldr	x0, [sp, #136]
+   6e534:	385f8000 	ldurb	w0, [x0, #-8]
+   6e538:	3707f240 	tbnz	w0, #0, 6e380 <jl_declare_constant_val3+0x1b8>
+   6e53c:	aa1503e0 	mov	x0, x21
+   6e540:	aa1503f3 	mov	x19, x21
+   6e544:	94022b75 	bl	f9318 <ijl_gc_queue_root>
+   6e548:	17ffff6b 	b	6e2f4 <jl_declare_constant_val3+0x12c>
+   6e54c:	121e0400 	and	w0, w0, #0xc
+   6e550:	7100101f 	cmp	w0, #0x4
+   6e554:	54000060 	b.eq	6e560 <jl_declare_constant_val3+0x398>  // b.none
+   6e558:	385f8280 	ldurb	w0, [x20, #-8]
+   6e55c:	3707fb20 	tbnz	w0, #0, 6e4c0 <jl_declare_constant_val3+0x2f8>
+   6e560:	aa1a03e0 	mov	x0, x26
+   6e564:	f90037e2 	str	x2, [sp, #104]
+   6e568:	94022b6c 	bl	f9318 <ijl_gc_queue_root>
+   6e56c:	f94037e2 	ldr	x2, [sp, #104]
+   6e570:	17ffffd4 	b	6e4c0 <jl_declare_constant_val3+0x2f8>
+   6e574:	f10ffc5f 	cmp	x2, #0x3ff
+   6e578:	54000109 	b.ls	6e598 <jl_declare_constant_val3+0x3d0>  // b.plast
+   6e57c:	f9400043 	ldr	x3, [x2]
+   6e580:	3941a063 	ldrb	w3, [x3, #104]
+   6e584:	370fe963 	tbnz	w3, #1, 6e2b0 <jl_declare_constant_val3+0xe8>
+   6e588:	97ffcc30 	bl	61648 <ijl_egal__bitstag>
+   6e58c:	35ffeb40 	cbnz	w0, 6e2f4 <jl_declare_constant_val3+0x12c>
+   6e590:	f9403fe0 	ldr	x0, [sp, #120]
+   6e594:	17ffff83 	b	6e3a0 <jl_declare_constant_val3+0x1d8>
+   6e598:	927be8a5 	and	x5, x5, #0xffffffffffffffe0
+   6e59c:	f10300bf 	cmp	x5, #0xc0
+   6e5a0:	fa5b1044 	ccmp	x2, x27, #0x4, ne	// ne = any
+   6e5a4:	54ffff21 	b.ne	6e588 <jl_declare_constant_val3+0x3c0>  // b.any
+   6e5a8:	17ffff42 	b	6e2b0 <jl_declare_constant_val3+0xe8>
+   6e5ac:	a94687e0 	ldp	x0, x1, [sp, #104]
+   6e5b0:	52800022 	mov	w2, #0x1                   	// #1
+   6e5b4:	97fff22b 	bl	6ae60 <jl_get_module_binding>
+   6e5b8:	aa0003f7 	mov	x23, x0
+   6e5bc:	17ffff1b 	b	6e228 <jl_declare_constant_val3+0x60>
+   6e5c0:	f94037e0 	ldr	x0, [sp, #104]
+   6e5c4:	f9400001 	ldr	x1, [x0]
+   6e5c8:	f9403be0 	ldr	x0, [sp, #112]
+   6e5cc:	91006021 	add	x1, x1, #0x18
+   6e5d0:	91006002 	add	x2, x0, #0x18
+   6e5d4:	b0000d40 	adrp	x0, 217000 <CSWTCH.232+0x378>
+   6e5d8:	91198000 	add	x0, x0, #0x660
+   6e5dc:	94016e67 	bl	c9f78 <ijl_errorf>
+   6e5e0:	f94037e0 	ldr	x0, [sp, #104]
+   6e5e4:	f9400001 	ldr	x1, [x0]
+   6e5e8:	f9403be0 	ldr	x0, [sp, #112]
+   6e5ec:	91006021 	add	x1, x1, #0x18
+   6e5f0:	91006002 	add	x2, x0, #0x18
+   6e5f4:	b0000d40 	adrp	x0, 217000 <CSWTCH.232+0x378>
+   6e5f8:	91186000 	add	x0, x0, #0x618
+   6e5fc:	94016e5f 	bl	c9f78 <ijl_errorf>
+   6e600:	aa1303f5 	mov	x21, x19
+   6e604:	aa1503f3 	mov	x19, x21
+   6e608:	17ffff3b 	b	6e2f4 <jl_declare_constant_val3+0x12c>
+
+Disassembly of section .fini:
