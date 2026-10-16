@@ -1,0 +1,23 @@
+"""One-shot diagnostic closure after accepted readiness; no numerical/master action."""
+from control import *
+S=R/'diagnostics/simplex-core-architecture/STATUS.md';ROAD=R/'docs/superpowers/plans/2026-10-11-simplex-core-architecture.md'
+preparation();validate_environment();validate_production(False)
+review=rd(D/'review-final.json')
+for n,h in review.get('evidence_sha256',{}).items():require(sha(n)==h,'Review supplemental drift')
+require(git('rev-parse','HEAD')==ENTRY,'Diagnostic HEAD changed')
+h=full_host();save(D/'closure-host.json',h);require(not h['matches'],'Processes present')
+require(not (D/'runs').exists(),'Unexpected numerical artifact')
+oldbaseline=rd(P/'actual-baseline.json');require(all(sha(R/n)==v for n,v in oldbaseline.items()),'Diagnostic actual source/test/CI changed')
+maps=[]
+for rec in [P/'closure.json',P/'publication.json']:
+ for live,before in [(S,D/'STATUS.md.before-readiness'),(ROAD,D/'roadmap.md.before-readiness')]:
+  n=str(live.relative_to(R));v=rd(rec)['sha256'][n];require(sha(live)==sha(before)==v,'Continuation binding')
+  maps.append(dict(record=str(rec.relative_to(R)),key=n,sha256=v,preserved=str(before.relative_to(R))))
+save(D/'continuation-mappings.json',maps)
+s=S.read_text();marker='## Exact next action\n';require(s.count(marker)==1,'STATUS marker');i=s.index(marker)+len(marker);text=(D/'continuation-text.md').read_text()
+S.write_text(s[:i]+'\n'+text+'\n### Historical prior continuation (superseded)\n'+s[i:])
+ROAD.write_text(ROAD.read_text().rstrip()+'\n\n## Native pivot production commit readiness (2026-10-16)\n\n'+text.rstrip()+'\n')
+checks=dict(review_accepted=True,exact_readiness_bindings=True,exact_production10=True,master_base_unchanged=True,production_unpushed=rd(D/'production-commit.json')['pushed'] is False,no_numerical_attempt=True,host_groups_sessions_closed=True,actual_diagnostic513_unchanged=True,prior_maps4=len(maps)==4,offline42=rd(D/'offline-tests.json')['all_passed'],required_selfbinding3=rd(D/'required-binding-check.json')['all_passed'],review_amendment=rd(D/'review-amendment-tests.json')['all_passed'])
+require(all(checks.values()),'Closure checks')
+files=[p for p in D.iterdir() if p.is_file()]+[S,ROAD];save(D/'closure.json',dict(all_passed=True,checks=checks,sha256={str(p.relative_to(R)):sha(p) for p in files}))
+print('Readiness closure',len(checks),'PASS',len(files),'bindings')

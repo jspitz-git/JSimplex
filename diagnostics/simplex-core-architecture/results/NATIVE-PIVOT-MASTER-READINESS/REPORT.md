@@ -1,0 +1,142 @@
+# Native pivot production commit and master validation readiness
+
+Task2 of the accepted 2026-10-16 production integration plan. This step creates
+one local production commit and prepares executable validation infrastructure;
+no master ref movement, Julia/query/parser/import/compile/numerics, numerical
+reservation or remote production publication occurs here.
+
+## Exact local commit
+
+`26e2291745999f485a74f643298ca997d65c7205`, parent
+`6f68e24e8ddac42b948da8fcc2d636c010751194`, branch
+`codex/native-pivot-production-integration`, checkout
+`/home/jspitz/.codex/worktrees/native-pivot-production-integration/JSimplex.jl`.
+Created through the native worktree API, then given the accepted branch name.
+Exactly10destinations/blobs equal the accepted payload:7src,2new permanent test
+files and2includes in runtests. No diagnostic files, environment or CI edits in
+this commit. production-commit.json records all ten hashes/blobs; production-tree
+binds all3533tracked files. The complete diff changes no other tracked file.
+
+The existing main and diagnostic checkouts are preserved. Two new untracked test
+harness files, Manifest.toml and LocalPreferences.toml, were copied into the new
+isolated checkout from the unchanged diagnostic environment and checked against
+the last qualified integration stage. They are external to the production commit,
+not new package configuration and not modifications to the user's originals.
+No dependency resolution or setup code was executed.
+
+## Concrete prepared runtime contract
+
+New guard.py and supervisor.py are byte-identical copies of the previously used
+180s infrastructure; master-driver.jl and recorder.jl are exact accepted Task1
+copies. copied-sources.json states provenance. New control.py/seal.py/launch.py/
+audit.py/oracle.py are separately prepared and unexecuted except pure offline
+predicates/read-only controls. No old scripts or auditors were rerun.
+
+- `master300`: inclusive300s, inner292s; `master600`: inclusive600s, inner592s.
+- Command is `/bin/bash <pinned julia.sh> --compiled-modules=existing --threads=1
+  --gcthreads=1,0 --heap-size-hint=2G --history-file=no --project=<production checkout>
+  <new master-driver.jl> <attempt/output> <production checkout>`.
+- Pinned wrapper supplies no startup file, offline Pkg, auto-precompile off,
+  Julia/BLAS1 and VM8GiB; guard additionally enforces8GiB address-space limit,
+  availableRAM>=6GiB, swap<=1GiB, advisory ownership and one numerical process.
+-606external runtime/library/wrapper paths
+  are freshly hashed against the preceding accepted launch inventory. This reuses
+  its exact ordinary loader assumptions, not a proof of cache validity, loader
+  closure, native-free memory or source-only import work. Full selected production
+  source/test trees and every tracked production file are pinned as well.
+- The nine relevant environment variables are captured exactly; any later drift
+  refuses. No PATH normalization or restoration is performed.
+- Startup/import, execution, raw output, cleanup and terminal resources fit inside
+  the inclusive run cap. Preparation/hash/review work occurs before the attempt.
+  RSS is whole-process high water, not native memory or allocation traffic.
+
+`config-preview.json` freezes both commands. Current master still equals the old
+base. validate_production(actual_master=True), seal and launch require actual
+master==the exact production commit, with identical checkout bytes. Thus the
+current readiness acceptance CANNOT launch. This checkout may stay on its isolated
+branch; equality of its HEAD/tree with the actual master ref is mandatory before
+sealing and loading, so a same-source candidate with a different commit refuses.
+
+## Execution sequence after readiness acceptance
+
+1. Verify new readiness pins/review/closure, fresh host/processes/refs, and old
+   local/remote master. Preserve all user changes. Follow Task3 to fast-forward
+   local master only to the exact production commit; do not publish it remotely.
+2. Run NEW `python3 -B <this directory>/seal.py master300` only after that FF.
+   It verifies readiness, source/env/remote-master state, all220prior groups AND
+   sessions/noJulia/resources, then writes a fresh host/config/sealed inventory.
+   It does not reserve output or launch. Any changed source/runtime/environment
+   or unrelated diagnostic HEAD refuses. New actual boot/refs are captured.
+3. A fresh independent gpt-6-astra reviewer must inspect that concrete actual-
+   master seal and write runs/master300/admission.json with accepted=true,
+   findings=[], scope="actual-master exact-stage admission", phase="master300",
+   pins_sha256=SHA(sealed.json), and EXACT SHA entries for every sealed file plus
+   sealed.json. Readiness review is a different scope and cannot substitute.
+4. Only then run NEW `python3 -B <this directory>/launch.py master300`. Fresh host
+   must match final seal refs/boot; pins/command/environment cannot drift. Exclusive
+   prehost/launch-pins/reservation/output prevent reuse. Supervisor and guard bind
+   runner/child boot+start_ticks+command and cover whole groups AND sessions.
+5. Launcher records invocation/posthost and calls the new one-shot auditor. Any
+   failed/absent/malformed evidence remains failed. On success, independent actual-
+   master result review and separate closure precede any remote master push.
+   Never execute an auditor again to change its conclusion; use separate supplements.
+
+Success requires exact6956passes, six groups4946/35/1568/245/48/114, eight named
+public children of6, no other nested groups, fail/error/broken0, no failure strings,
+complete=true/fatalempty/exit0, exact loaded source paths/threads, complete raw
+membership, seal/admission/reservation/invocation linkage, finite inclusive timing,
+all resource samples plus terminal memory, and closure of old/new PGIDs AND SIDs.
+No tests, numerical tolerances or fixed5s public solver deadlines were changed.
+No fresh neighbor64/diagnostic119, cost window or full-suite run is prepared.
+
+## Timeout-only repeat
+
+The latest user instruction authorizes a longer repeat without a new question.
+The launcher itself never recursively launches another process. A first failed
+master300 audit may classify pure_timeout=true only after full source/pin/process/
+resource/identity validation, reasonwall_time, deadline-terminated child, complete
+cleanup within cap, no prior fatal/test/broken/error output, and a flushed BEGIN
+marker proving this driver was reached. An empty/import-only log is UNKNOWN and
+requires inspection rather than automatic classification. This is a conservative
+implementation of the plan's mixed/unknown-outcome rule; missing final raw alone
+is allowed. A semantic solver TIME_LIMIT assertion is a test failure, not eligibility.
+
+An independent saved-result review must bind EVERY first-attempt file (including
+its failed audit and evidence) in runs/master300/timeout-review.json,
+accepted=true/findings=[]/scope="pure timeout result". Then NEW seal.py master600
+requires those exact immutable files and source/runtime sameness, adds all first
+process groups/sessions, and creates a NEW actual-master seal. Fresh independent
+admission with phase master600 remains mandatory; launch.py master600 is separate.
+Any600s failure stops for reassessment; there is no third phase or hours-long run.
+Original failed attempts and reviews are never relabelled as successful.
+
+## Offline validation and work/memory review
+
+offline-tests.py has42pure Python acceptance/refusal checks: exact good test tree,
+missing/duplicate/collapsed/wrong-named groups, fail/error/broken, false complete,
+wrong paths/threads/counts, positive and15negative timeout classifications, exact
+review scope/phase/hash/membership, both caps, exact production bytes, and refusal
+while actual master is still old. No supervisor, signals or Julia was invoked.
+These are infrastructure tests, not a new numerical qualification.
+
+Production bytes are identical to the whole-candidate accepted review. Its exact
+saved GREEN2/cost/public180s evidence is reused; no new speedup claim. The optional
+policy's private fresh control setup and constant Symbol/enum metadata remain;
+no new F/B/update/candidate-loop scan, solve, conversion, copy, cache or retained
+native owner. The prior cost tradeoff includes sparse96fill+15U/+48reportednumeric
+bytes and no consistent total speedup. New validation infrastructure is external
+cold work: file hashing, fixed Test tree/metadata, finite failure strings,1Hz
+resource records and bounded process checks. It adds no production instrumentation
+and does not pretend to measure kernel performance or complete native work.
+
+## Publication and continuation
+
+Local production commit remains unpushed; master remains6f68e24. Independent
+readiness review must accept the exact commit and preparation before any local FF.
+New final actual-master admission is a later distinct gate. This step publishes
+only diagnostic readiness records. Four previous preparation closure/publication
+STATUS/roadmap bindings map ONLY to this directory's before-readiness copies;
+all older maps remain. CIoff, HHreuse disabled, automationpaused; direct prototypes,
+Markowitz adaptation, oldcost2, broad/full-suite work remain outside this step.
+
+Independent review correction: present malformed timeout records are rejected; only a valid partial test tree with exact loaded paths and integer thread counts can support a pure-timeout classification. Missing final raw remains permitted after all other integrity/resource/process/log gates. Readiness inventory keys retain their historical spelling relative to the diagnostic checkout; runtime seal file paths are normalized to absolute paths independently of the caller working directory. Initial source, manifests, rejected review and reproductions are preserved in separate before-review records. No Julia or production-code change.

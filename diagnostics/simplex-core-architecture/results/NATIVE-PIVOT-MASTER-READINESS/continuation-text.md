@@ -1,0 +1,44 @@
+Production commit and master-validation readiness are prepared and independently
+accepted; see results/NATIVE-PIVOT-MASTER-READINESS/REPORT.md and review-final.json.
+This instruction supersedes historical next-action paragraphs below.
+
+LOCAL ONLY production commit26e2291745999f485a74f643298ca997d65c7205, parentmaster
+6f68e24e8ddac42b948da8fcc2d636c010751194, on codex/native-pivot-production-integration
+in /home/jspitz/.codex/worktrees/native-pivot-production-integration/JSimplex.jl.
+Exactly10qualified files, no diagnostic/env/CI addition to production commit.
+Two untracked test-environment copies are bound separately; user originals unchanged.
+Master and remote master remain6f68e24; production commit has NOT been pushed.
+
+Next Task3: verify accepted readiness pins/review/closure and fresh host/refs/full
+220groups ANDsessions/noJulia; preserve unrelated main-checkout user changes.
+Fast-forward local master to exact26e2291 only. Then NEW readiness/seal.py master300
+binds ACTUAL master refs/source/runtime/environment/command/output path. Obtain
+fresh independent gpt-6-astra actual-master exact-stage admission of that finalseal
+BEFORE NEW readiness/launch.py master300. Readiness acceptance alone cannot launch.
+The isolated checkout's HEAD/tree must equal actual master exactly; package-loaded
+source must be that checkout. Remote master publication waits for actual-master
+PASS, independent result review, separate closure and remote-base verification.
+
+Master300 inclusive300s/inner292; fixed6956assertions in sixgroups,8public solves
+and1recovery, no factor observers/measurement/fullsuite. Existing5s solverdeadlines
+and all numericalguards unchanged. A pure process timeout remainsFAILED but gets
+one freshlysealed/admitted600s/inner592 repeat without another permission question.
+New auditor verifies all integrity/resources/processclosure first; prior failure/
+fatal/broken/mixed/unknown output precludes automaticrepeat. Empty/import-onlylogs
+remainUNKNOWN. Independent pure-timeout result review must bind entirefirstattempt
+before NEW seal.py master600; freshactualmasteradmission still mandatory. No third
+phase/hourrun, oldattemptreuse, optionchange or weakenedassertion.
+
+New guard/supervisor/masterdriver/recorder are exact copies with explicit provenance;
+newcontrol/seal/launch/audit/oracle are independently reviewed. NoJulia or numerical
+reservation/output was created in readiness. Allpreparedinputs freezeafterpublication;
+only newseal/launch/audit prospective mechanisms may be consumed once per admitted
+phase. Do not rerun preparation/checker scripts or rewrite any raw/review.
+
+Four previous PRODUCTION-INTEGRATION-PREPARATION closure/publication current
+STATUS/roadmap bindings map ONLY to this readiness's before-readiness copies;
+alloldmaps remain. CIoff,HHreuse disabled,automationpaused. Optionalpolicy remains
+numerical protection with measuredcosttradeoffs, not universalspeedup. Direct
+prototype adapter/Markowitz work/oldcost2/fullsuite/broaderplan remain separate/open.
+
+Independent review correction: present malformed timeout records are rejected; only a valid partial test tree with exact loaded paths and integer thread counts can support a pure-timeout classification. Missing final raw remains permitted after all other integrity/resource/process/log gates. Readiness inventory keys retain their historical spelling relative to the diagnostic checkout; runtime seal file paths are normalized to absolute paths independently of the caller working directory. Initial source, manifests, rejected review and reproductions are preserved in separate before-review records. No Julia or production-code change.
