@@ -1,0 +1,42 @@
+{
+  "all_passed": true,
+  "replacements": [
+    [
+      "    normalize_requested::Bool\n",
+      "    normalize_requested::Bool\n    pivot_policy::_NativePivotPolicy\n"
+    ],
+    [
+      "b.diagonal,b.normalize_requested,fallback,similar(b.work))",
+      "b.diagonal,b.normalize_requested,b.pivot_policy,fallback,similar(b.work))"
+    ],
+    [
+      "                                         exporter;normalize::Bool=true) where {R}",
+      "                                         policy::_NativePivotPolicy,exporter;normalize::Bool=true,\n                                         factorize=_factorize_basis) where {R}"
+    ],
+    [
+      "    ordinary=_factorize_basis(B,backend) # Exactly one factorization.",
+      "    R === :markowitz && policy !== _NATIVE_PIVOT_DEFAULT &&\n        throw(ArgumentError(\"Markowitz does not support a native pivot policy\"))\n    ordinary=factorize(B,backend,policy) # Exactly one factorization; test seam is not retained."
+    ],
+    [
+      "normalize,ordinary,Float64[])",
+      "normalize,policy,ordinary,Float64[])"
+    ],
+    [
+      "D,normalize,nothing,zeros(length(parts.rows)))",
+      "D,normalize,policy,nothing,zeros(length(parts.rows)))"
+    ],
+    [
+      "_direct_lu_factor(Factor,B::AbstractMatrix{Float64},backend::Val;normalize::Bool=true)=\n    _direct_lu_factor_with_exporter(Factor,B,backend,_export_basis_lu;normalize)\n_direct_lu_factor(Factor,B::AbstractMatrix{T},backend::Val;normalize::Bool=true) where {T<:Real}=\n    Factor(B,backend)",
+      "# Compatibility entry points preserve the previous default-policy meaning.\n_direct_lu_factor_with_exporter(Factor,B::AbstractMatrix{Float64},backend::Val,\n                               exporter;normalize::Bool=true)=\n    _direct_lu_factor_with_exporter(Factor,B,backend,_NATIVE_PIVOT_DEFAULT,exporter;normalize)\n_direct_lu_factor(Factor,B::AbstractMatrix{Float64},backend::Val,\n                  policy::_NativePivotPolicy;normalize::Bool=true)=\n    _direct_lu_factor_with_exporter(Factor,B,backend,policy,_export_basis_lu;normalize)\n_direct_lu_factor(Factor,B::AbstractMatrix{T},backend::Val,\n                  policy::_NativePivotPolicy;normalize::Bool=true) where {T<:Real}=\n    Factor(B,backend,policy)\n_direct_lu_factor(Factor,B::AbstractMatrix{T},backend::Val;normalize::Bool=true) where {T<:Real}=\n    _direct_lu_factor(Factor,B,backend,_NATIVE_PIVOT_DEFAULT;normalize)"
+    ],
+    [
+      "                                            exporter;normalize=f.base.normalize_requested)",
+      "                                            f.base.pivot_policy,exporter;normalize=f.base.normalize_requested)"
+    ]
+  ],
+  "original_sha256": "4a9051caa37a2b826490b9b5f69aa9bd273ab7bb8998ae2313d8a0cc40e50ebb",
+  "candidate_sha256": "3c09b563623f7552fd0094c037de7205024d0a7eaade6baa34aff14a395b9bbc",
+  "export_byte_identical": true,
+  "fixtures_byte_identical": true,
+  "script_sha256": "d77b4bd87578b9e9c74c1d32903f18dba80f76c401d56d0a5d592b4416e9d0f8"
+}
