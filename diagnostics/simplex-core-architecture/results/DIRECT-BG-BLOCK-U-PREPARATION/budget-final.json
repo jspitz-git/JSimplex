@@ -1,0 +1,1253 @@
+{
+  "all_passed": true,
+  "checks": {
+    "field_count27": true,
+    "vector_fields23": true,
+    "four_int_fields": true,
+    "old_arena_graph_case1": true,
+    "old_arena_graph_case2": true,
+    "old_arena_graph_case3": true,
+    "old_arena_graph_case4": true,
+    "old_arena_graph_case5": true,
+    "old_arena_graph_case6": true,
+    "old_arena_graph_case7": true,
+    "old_arena_graph_case8": true,
+    "initial8_not_proven_failed": true,
+    "checkpoint88_not_proven_failed": true,
+    "no_zero_fill_import": true,
+    "copy_no_redundant_init": true
+  },
+  "fields": [
+    [
+      "values",
+      "Vector{Vector{Float64}}"
+    ],
+    [
+      "row_ids",
+      "Vector{Vector{Int32}}"
+    ],
+    [
+      "row_backs",
+      "Vector{Vector{Int32}}"
+    ],
+    [
+      "slab",
+      "Vector{Int32}"
+    ],
+    [
+      "start",
+      "Vector{Int32}"
+    ],
+    [
+      "capacity",
+      "Vector{Int32}"
+    ],
+    [
+      "count",
+      "Vector{Int32}"
+    ],
+    [
+      "column",
+      "Vector{Int32}"
+    ],
+    [
+      "prev",
+      "Vector{Int32}"
+    ],
+    [
+      "next",
+      "Vector{Int32}"
+    ],
+    [
+      "row_order",
+      "Vector{Int32}"
+    ],
+    [
+      "row_position",
+      "Vector{Int32}"
+    ],
+    [
+      "column_order",
+      "Vector{Int32}"
+    ],
+    [
+      "column_position",
+      "Vector{Int32}"
+    ],
+    [
+      "column_head",
+      "Vector{Int32}"
+    ],
+    [
+      "column_tail",
+      "Vector{Int32}"
+    ],
+    [
+      "rows",
+      "Vector{Vector{Int32}}"
+    ],
+    [
+      "gap_first",
+      "Vector{Int32}"
+    ],
+    [
+      "gap_length",
+      "Vector{Int32}"
+    ],
+    [
+      "bins",
+      "Vector{Int32}"
+    ],
+    [
+      "scratch_value",
+      "Vector{Float64}"
+    ],
+    [
+      "scratch_row",
+      "Vector{Int32}"
+    ],
+    [
+      "scratch_back",
+      "Vector{Int32}"
+    ],
+    [
+      "n",
+      "Int"
+    ],
+    [
+      "live",
+      "Int"
+    ],
+    [
+      "used",
+      "Int"
+    ],
+    [
+      "slabs",
+      "Int"
+    ]
+  ],
+  "initial": [
+    {
+      "case": 1,
+      "n": 32,
+      "dense": false,
+      "m": 63,
+      "K0_min": 32,
+      "K0_max": 32,
+      "core_min": 3836,
+      "modeled_U_graph_min": 6652,
+      "modeled_U_graph_max": 6652,
+      "old_reference_factor": 10816,
+      "modeled_factor_min": 10516,
+      "modeled_factor_max": 10516,
+      "threshold_tenths": 118976,
+      "lower_exceeds": false
+    },
+    {
+      "case": 2,
+      "n": 32,
+      "dense": false,
+      "m": 63,
+      "K0_min": 32,
+      "K0_max": 32,
+      "core_min": 3836,
+      "modeled_U_graph_min": 6652,
+      "modeled_U_graph_max": 6652,
+      "old_reference_factor": 10816,
+      "modeled_factor_min": 10516,
+      "modeled_factor_max": 10516,
+      "threshold_tenths": 118976,
+      "lower_exceeds": false
+    },
+    {
+      "case": 3,
+      "n": 32,
+      "dense": true,
+      "m": 528,
+      "K0_min": 32,
+      "K0_max": 32,
+      "core_min": 13136,
+      "modeled_U_graph_min": 15952,
+      "modeled_U_graph_max": 15952,
+      "old_reference_factor": 25696,
+      "modeled_factor_min": 27256,
+      "modeled_factor_max": 27256,
+      "threshold_tenths": 282656,
+      "lower_exceeds": false
+    },
+    {
+      "case": 4,
+      "n": 32,
+      "dense": true,
+      "m": 528,
+      "K0_min": 32,
+      "K0_max": 32,
+      "core_min": 13136,
+      "modeled_U_graph_min": 15952,
+      "modeled_U_graph_max": 15952,
+      "old_reference_factor": 25696,
+      "modeled_factor_min": 27256,
+      "modeled_factor_max": 27256,
+      "threshold_tenths": 282656,
+      "lower_exceeds": false
+    },
+    {
+      "case": 5,
+      "n": 96,
+      "dense": false,
+      "m": 191,
+      "K0_min": 96,
+      "K0_max": 98,
+      "core_min": 10236,
+      "modeled_U_graph_min": 16124,
+      "modeled_U_graph_max": 16180,
+      "old_reference_factor": 30272,
+      "modeled_factor_min": 26132,
+      "modeled_factor_max": 26188,
+      "threshold_tenths": 332992,
+      "lower_exceeds": false
+    },
+    {
+      "case": 6,
+      "n": 96,
+      "dense": false,
+      "m": 191,
+      "K0_min": 96,
+      "K0_max": 98,
+      "core_min": 10236,
+      "modeled_U_graph_min": 16124,
+      "modeled_U_graph_max": 16180,
+      "old_reference_factor": 30272,
+      "modeled_factor_min": 26132,
+      "modeled_factor_max": 26188,
+      "threshold_tenths": 332992,
+      "lower_exceeds": false
+    },
+    {
+      "case": 7,
+      "n": 96,
+      "dense": true,
+      "m": 4656,
+      "K0_min": 192,
+      "K0_max": 192,
+      "core_min": 102224,
+      "modeled_U_graph_min": 108112,
+      "modeled_U_graph_max": 108112,
+      "old_reference_factor": 173152,
+      "modeled_factor_min": 189560,
+      "modeled_factor_max": 189560,
+      "threshold_tenths": 1904672,
+      "lower_exceeds": false
+    },
+    {
+      "case": 8,
+      "n": 96,
+      "dense": true,
+      "m": 4656,
+      "K0_min": 192,
+      "K0_max": 192,
+      "core_min": 102224,
+      "modeled_U_graph_min": 108112,
+      "modeled_U_graph_max": 108112,
+      "old_reference_factor": 173152,
+      "modeled_factor_min": 189560,
+      "modeled_factor_max": 189560,
+      "threshold_tenths": 1904672,
+      "lower_exceeds": false
+    }
+  ],
+  "checkpoint_lower_bounds": [
+    {
+      "case": 1,
+      "checkpoint": 0,
+      "live": 63,
+      "optimistic_C": 63,
+      "optimistic_R": 63,
+      "optimistic_K": 32,
+      "modeled_factor_lower": 10516,
+      "old_reference": 10816,
+      "lower_exceeds": false
+    },
+    {
+      "case": 1,
+      "checkpoint": 1,
+      "live": 66,
+      "optimistic_C": 319,
+      "optimistic_R": 66,
+      "optimistic_K": 32,
+      "modeled_factor_lower": 18152,
+      "old_reference": 18528,
+      "lower_exceeds": false
+    },
+    {
+      "case": 1,
+      "checkpoint": 2,
+      "live": 77,
+      "optimistic_C": 319,
+      "optimistic_R": 77,
+      "optimistic_K": 32,
+      "modeled_factor_lower": 21724,
+      "old_reference": 22840,
+      "lower_exceeds": false
+    },
+    {
+      "case": 1,
+      "checkpoint": 3,
+      "live": 94,
+      "optimistic_C": 319,
+      "optimistic_R": 94,
+      "optimistic_K": 32,
+      "modeled_factor_lower": 22920,
+      "old_reference": 24800,
+      "lower_exceeds": false
+    },
+    {
+      "case": 1,
+      "checkpoint": 4,
+      "live": 106,
+      "optimistic_C": 319,
+      "optimistic_R": 106,
+      "optimistic_K": 32,
+      "modeled_factor_lower": 24144,
+      "old_reference": 26664,
+      "lower_exceeds": false
+    },
+    {
+      "case": 1,
+      "checkpoint": 5,
+      "live": 83,
+      "optimistic_C": 83,
+      "optimistic_R": 83,
+      "optimistic_K": 32,
+      "modeled_factor_lower": 11236,
+      "old_reference": 11456,
+      "lower_exceeds": false
+    },
+    {
+      "case": 1,
+      "checkpoint": 6,
+      "live": 105,
+      "optimistic_C": 339,
+      "optimistic_R": 105,
+      "optimistic_K": 32,
+      "modeled_factor_lower": 18948,
+      "old_reference": 20432,
+      "lower_exceeds": false
+    },
+    {
+      "case": 1,
+      "checkpoint": 7,
+      "live": 123,
+      "optimistic_C": 339,
+      "optimistic_R": 123,
+      "optimistic_K": 32,
+      "modeled_factor_lower": 22548,
+      "old_reference": 25272,
+      "lower_exceeds": false
+    },
+    {
+      "case": 1,
+      "checkpoint": 8,
+      "live": 126,
+      "optimistic_C": 339,
+      "optimistic_R": 126,
+      "optimistic_K": 32,
+      "modeled_factor_lower": 22888,
+      "old_reference": 26048,
+      "lower_exceeds": false
+    },
+    {
+      "case": 1,
+      "checkpoint": 9,
+      "live": 130,
+      "optimistic_C": 339,
+      "optimistic_R": 130,
+      "optimistic_K": 32,
+      "modeled_factor_lower": 23280,
+      "old_reference": 26872,
+      "lower_exceeds": false
+    },
+    {
+      "case": 1,
+      "checkpoint": 10,
+      "live": 90,
+      "optimistic_C": 90,
+      "optimistic_R": 90,
+      "optimistic_K": 32,
+      "modeled_factor_lower": 11376,
+      "old_reference": 11568,
+      "lower_exceeds": false
+    },
+    {
+      "case": 2,
+      "checkpoint": 0,
+      "live": 63,
+      "optimistic_C": 63,
+      "optimistic_R": 63,
+      "optimistic_K": 32,
+      "modeled_factor_lower": 10516,
+      "old_reference": 10816,
+      "lower_exceeds": false
+    },
+    {
+      "case": 2,
+      "checkpoint": 1,
+      "live": 67,
+      "optimistic_C": 319,
+      "optimistic_R": 67,
+      "optimistic_K": 32,
+      "modeled_factor_lower": 18156,
+      "old_reference": 18640,
+      "lower_exceeds": false
+    },
+    {
+      "case": 2,
+      "checkpoint": 2,
+      "live": 79,
+      "optimistic_C": 319,
+      "optimistic_R": 79,
+      "optimistic_K": 32,
+      "modeled_factor_lower": 21732,
+      "old_reference": 23000,
+      "lower_exceeds": false
+    },
+    {
+      "case": 2,
+      "checkpoint": 3,
+      "live": 97,
+      "optimistic_C": 319,
+      "optimistic_R": 97,
+      "optimistic_K": 32,
+      "modeled_factor_lower": 22932,
+      "old_reference": 24960,
+      "lower_exceeds": false
+    },
+    {
+      "case": 2,
+      "checkpoint": 4,
+      "live": 109,
+      "optimistic_C": 319,
+      "optimistic_R": 109,
+      "optimistic_K": 32,
+      "modeled_factor_lower": 24156,
+      "old_reference": 26824,
+      "lower_exceeds": false
+    },
+    {
+      "case": 2,
+      "checkpoint": 5,
+      "live": 83,
+      "optimistic_C": 83,
+      "optimistic_R": 83,
+      "optimistic_K": 32,
+      "modeled_factor_lower": 11236,
+      "old_reference": 11456,
+      "lower_exceeds": false
+    },
+    {
+      "case": 2,
+      "checkpoint": 6,
+      "live": 106,
+      "optimistic_C": 339,
+      "optimistic_R": 106,
+      "optimistic_K": 32,
+      "modeled_factor_lower": 18952,
+      "old_reference": 20800,
+      "lower_exceeds": false
+    },
+    {
+      "case": 2,
+      "checkpoint": 7,
+      "live": 125,
+      "optimistic_C": 339,
+      "optimistic_R": 125,
+      "optimistic_K": 32,
+      "modeled_factor_lower": 22556,
+      "old_reference": 25640,
+      "lower_exceeds": false
+    },
+    {
+      "case": 2,
+      "checkpoint": 8,
+      "live": 126,
+      "optimistic_C": 339,
+      "optimistic_R": 126,
+      "optimistic_K": 32,
+      "modeled_factor_lower": 23688,
+      "old_reference": 27216,
+      "lower_exceeds": false
+    },
+    {
+      "case": 2,
+      "checkpoint": 9,
+      "live": 132,
+      "optimistic_C": 339,
+      "optimistic_R": 132,
+      "optimistic_K": 32,
+      "modeled_factor_lower": 24088,
+      "old_reference": 28040,
+      "lower_exceeds": false
+    },
+    {
+      "case": 2,
+      "checkpoint": 10,
+      "live": 85,
+      "optimistic_C": 85,
+      "optimistic_R": 85,
+      "optimistic_K": 32,
+      "modeled_factor_lower": 11276,
+      "old_reference": 11488,
+      "lower_exceeds": false
+    },
+    {
+      "case": 3,
+      "checkpoint": 0,
+      "live": 528,
+      "optimistic_C": 528,
+      "optimistic_R": 528,
+      "optimistic_K": 32,
+      "modeled_factor_lower": 27256,
+      "old_reference": 25696,
+      "lower_exceeds": false
+    },
+    {
+      "case": 3,
+      "checkpoint": 1,
+      "live": 502,
+      "optimistic_C": 528,
+      "optimistic_R": 528,
+      "optimistic_K": 32,
+      "modeled_factor_lower": 30784,
+      "old_reference": 36928,
+      "lower_exceeds": false
+    },
+    {
+      "case": 3,
+      "checkpoint": 2,
+      "live": 491,
+      "optimistic_C": 528,
+      "optimistic_R": 528,
+      "optimistic_K": 32,
+      "modeled_factor_lower": 34312,
+      "old_reference": 41296,
+      "lower_exceeds": false
+    },
+    {
+      "case": 3,
+      "checkpoint": 3,
+      "live": 493,
+      "optimistic_C": 528,
+      "optimistic_R": 528,
+      "optimistic_K": 32,
+      "modeled_factor_lower": 35440,
+      "old_reference": 44672,
+      "lower_exceeds": false
+    },
+    {
+      "case": 3,
+      "checkpoint": 4,
+      "live": 494,
+      "optimistic_C": 528,
+      "optimistic_R": 528,
+      "optimistic_K": 32,
+      "modeled_factor_lower": 36616,
+      "old_reference": 46848,
+      "lower_exceeds": false
+    },
+    {
+      "case": 3,
+      "checkpoint": 5,
+      "live": 528,
+      "optimistic_C": 528,
+      "optimistic_R": 528,
+      "optimistic_K": 32,
+      "modeled_factor_lower": 27256,
+      "old_reference": 25696,
+      "lower_exceeds": false
+    },
+    {
+      "case": 3,
+      "checkpoint": 6,
+      "live": 526,
+      "optimistic_C": 528,
+      "optimistic_R": 528,
+      "optimistic_K": 32,
+      "modeled_factor_lower": 29048,
+      "old_reference": 35664,
+      "lower_exceeds": false
+    },
+    {
+      "case": 3,
+      "checkpoint": 7,
+      "live": 506,
+      "optimistic_C": 528,
+      "optimistic_R": 528,
+      "optimistic_K": 32,
+      "modeled_factor_lower": 30920,
+      "old_reference": 37976,
+      "lower_exceeds": false
+    },
+    {
+      "case": 3,
+      "checkpoint": 8,
+      "live": 501,
+      "optimistic_C": 528,
+      "optimistic_R": 528,
+      "optimistic_K": 32,
+      "modeled_factor_lower": 34448,
+      "old_reference": 43200,
+      "lower_exceeds": false
+    },
+    {
+      "case": 3,
+      "checkpoint": 9,
+      "live": 502,
+      "optimistic_C": 528,
+      "optimistic_R": 528,
+      "optimistic_K": 32,
+      "modeled_factor_lower": 35624,
+      "old_reference": 45376,
+      "lower_exceeds": false
+    },
+    {
+      "case": 3,
+      "checkpoint": 10,
+      "live": 528,
+      "optimistic_C": 528,
+      "optimistic_R": 528,
+      "optimistic_K": 32,
+      "modeled_factor_lower": 27256,
+      "old_reference": 25696,
+      "lower_exceeds": false
+    },
+    {
+      "case": 4,
+      "checkpoint": 0,
+      "live": 528,
+      "optimistic_C": 528,
+      "optimistic_R": 528,
+      "optimistic_K": 32,
+      "modeled_factor_lower": 27256,
+      "old_reference": 25696,
+      "lower_exceeds": false
+    },
+    {
+      "case": 4,
+      "checkpoint": 1,
+      "live": 502,
+      "optimistic_C": 528,
+      "optimistic_R": 528,
+      "optimistic_K": 32,
+      "modeled_factor_lower": 30784,
+      "old_reference": 36928,
+      "lower_exceeds": false
+    },
+    {
+      "case": 4,
+      "checkpoint": 2,
+      "live": 491,
+      "optimistic_C": 528,
+      "optimistic_R": 528,
+      "optimistic_K": 32,
+      "modeled_factor_lower": 34312,
+      "old_reference": 41296,
+      "lower_exceeds": false
+    },
+    {
+      "case": 4,
+      "checkpoint": 3,
+      "live": 493,
+      "optimistic_C": 528,
+      "optimistic_R": 528,
+      "optimistic_K": 32,
+      "modeled_factor_lower": 35440,
+      "old_reference": 44672,
+      "lower_exceeds": false
+    },
+    {
+      "case": 4,
+      "checkpoint": 4,
+      "live": 494,
+      "optimistic_C": 528,
+      "optimistic_R": 528,
+      "optimistic_K": 32,
+      "modeled_factor_lower": 36616,
+      "old_reference": 46848,
+      "lower_exceeds": false
+    },
+    {
+      "case": 4,
+      "checkpoint": 5,
+      "live": 528,
+      "optimistic_C": 528,
+      "optimistic_R": 528,
+      "optimistic_K": 32,
+      "modeled_factor_lower": 27256,
+      "old_reference": 25696,
+      "lower_exceeds": false
+    },
+    {
+      "case": 4,
+      "checkpoint": 6,
+      "live": 526,
+      "optimistic_C": 528,
+      "optimistic_R": 528,
+      "optimistic_K": 32,
+      "modeled_factor_lower": 29048,
+      "old_reference": 35664,
+      "lower_exceeds": false
+    },
+    {
+      "case": 4,
+      "checkpoint": 7,
+      "live": 506,
+      "optimistic_C": 528,
+      "optimistic_R": 528,
+      "optimistic_K": 32,
+      "modeled_factor_lower": 30920,
+      "old_reference": 37976,
+      "lower_exceeds": false
+    },
+    {
+      "case": 4,
+      "checkpoint": 8,
+      "live": 507,
+      "optimistic_C": 528,
+      "optimistic_R": 528,
+      "optimistic_K": 32,
+      "modeled_factor_lower": 34448,
+      "old_reference": 43200,
+      "lower_exceeds": false
+    },
+    {
+      "case": 4,
+      "checkpoint": 9,
+      "live": 508,
+      "optimistic_C": 528,
+      "optimistic_R": 528,
+      "optimistic_K": 32,
+      "modeled_factor_lower": 35624,
+      "old_reference": 45376,
+      "lower_exceeds": false
+    },
+    {
+      "case": 4,
+      "checkpoint": 10,
+      "live": 528,
+      "optimistic_C": 528,
+      "optimistic_R": 528,
+      "optimistic_K": 32,
+      "modeled_factor_lower": 27256,
+      "old_reference": 25696,
+      "lower_exceeds": false
+    },
+    {
+      "case": 5,
+      "checkpoint": 0,
+      "live": 191,
+      "optimistic_C": 191,
+      "optimistic_R": 191,
+      "optimistic_K": 96,
+      "modeled_factor_lower": 26132,
+      "old_reference": 30272,
+      "lower_exceeds": false
+    },
+    {
+      "case": 5,
+      "checkpoint": 1,
+      "live": 194,
+      "optimistic_C": 447,
+      "optimistic_R": 194,
+      "optimistic_K": 96,
+      "modeled_factor_lower": 42216,
+      "old_reference": 55136,
+      "lower_exceeds": false
+    },
+    {
+      "case": 5,
+      "checkpoint": 2,
+      "live": 205,
+      "optimistic_C": 447,
+      "optimistic_R": 205,
+      "optimistic_K": 96,
+      "modeled_factor_lower": 56188,
+      "old_reference": 69848,
+      "lower_exceeds": false
+    },
+    {
+      "case": 5,
+      "checkpoint": 3,
+      "live": 224,
+      "optimistic_C": 447,
+      "optimistic_R": 224,
+      "optimistic_K": 96,
+      "modeled_factor_lower": 60592,
+      "old_reference": 75008,
+      "lower_exceeds": false
+    },
+    {
+      "case": 5,
+      "checkpoint": 4,
+      "live": 251,
+      "optimistic_C": 447,
+      "optimistic_R": 251,
+      "optimistic_K": 96,
+      "modeled_factor_lower": 65076,
+      "old_reference": 80216,
+      "lower_exceeds": false
+    },
+    {
+      "case": 5,
+      "checkpoint": 5,
+      "live": 263,
+      "optimistic_C": 263,
+      "optimistic_R": 263,
+      "optimistic_K": 96,
+      "modeled_factor_lower": 28260,
+      "old_reference": 32112,
+      "lower_exceeds": false
+    },
+    {
+      "case": 5,
+      "checkpoint": 6,
+      "live": 282,
+      "optimistic_C": 519,
+      "optimistic_R": 282,
+      "optimistic_K": 96,
+      "modeled_factor_lower": 38808,
+      "old_reference": 45680,
+      "lower_exceeds": false
+    },
+    {
+      "case": 5,
+      "checkpoint": 7,
+      "live": 295,
+      "optimistic_C": 519,
+      "optimistic_R": 295,
+      "optimistic_K": 96,
+      "modeled_factor_lower": 39988,
+      "old_reference": 47256,
+      "lower_exceeds": false
+    },
+    {
+      "case": 5,
+      "checkpoint": 8,
+      "live": 302,
+      "optimistic_C": 519,
+      "optimistic_R": 302,
+      "optimistic_K": 96,
+      "modeled_factor_lower": 40344,
+      "old_reference": 48032,
+      "lower_exceeds": false
+    },
+    {
+      "case": 5,
+      "checkpoint": 9,
+      "live": 307,
+      "optimistic_C": 519,
+      "optimistic_R": 307,
+      "optimistic_K": 96,
+      "modeled_factor_lower": 43140,
+      "old_reference": 51400,
+      "lower_exceeds": false
+    },
+    {
+      "case": 5,
+      "checkpoint": 10,
+      "live": 264,
+      "optimistic_C": 264,
+      "optimistic_R": 264,
+      "optimistic_K": 96,
+      "modeled_factor_lower": 28360,
+      "old_reference": 32208,
+      "lower_exceeds": false
+    },
+    {
+      "case": 6,
+      "checkpoint": 0,
+      "live": 191,
+      "optimistic_C": 191,
+      "optimistic_R": 191,
+      "optimistic_K": 96,
+      "modeled_factor_lower": 26132,
+      "old_reference": 30272,
+      "lower_exceeds": false
+    },
+    {
+      "case": 6,
+      "checkpoint": 1,
+      "live": 195,
+      "optimistic_C": 447,
+      "optimistic_R": 195,
+      "optimistic_K": 96,
+      "modeled_factor_lower": 42220,
+      "old_reference": 55248,
+      "lower_exceeds": false
+    },
+    {
+      "case": 6,
+      "checkpoint": 2,
+      "live": 207,
+      "optimistic_C": 447,
+      "optimistic_R": 207,
+      "optimistic_K": 96,
+      "modeled_factor_lower": 56196,
+      "old_reference": 70008,
+      "lower_exceeds": false
+    },
+    {
+      "case": 6,
+      "checkpoint": 3,
+      "live": 227,
+      "optimistic_C": 447,
+      "optimistic_R": 227,
+      "optimistic_K": 96,
+      "modeled_factor_lower": 60604,
+      "old_reference": 75168,
+      "lower_exceeds": false
+    },
+    {
+      "case": 6,
+      "checkpoint": 4,
+      "live": 255,
+      "optimistic_C": 447,
+      "optimistic_R": 255,
+      "optimistic_K": 96,
+      "modeled_factor_lower": 65092,
+      "old_reference": 80392,
+      "lower_exceeds": false
+    },
+    {
+      "case": 6,
+      "checkpoint": 5,
+      "live": 212,
+      "optimistic_C": 212,
+      "optimistic_R": 212,
+      "optimistic_K": 96,
+      "modeled_factor_lower": 27656,
+      "old_reference": 31712,
+      "lower_exceeds": false
+    },
+    {
+      "case": 6,
+      "checkpoint": 6,
+      "live": 219,
+      "optimistic_C": 468,
+      "optimistic_R": 219,
+      "optimistic_K": 96,
+      "modeled_factor_lower": 43756,
+      "old_reference": 51648,
+      "lower_exceeds": false
+    },
+    {
+      "case": 6,
+      "checkpoint": 7,
+      "live": 234,
+      "optimistic_C": 468,
+      "optimistic_R": 234,
+      "optimistic_K": 96,
+      "modeled_factor_lower": 48144,
+      "old_reference": 57160,
+      "lower_exceeds": false
+    },
+    {
+      "case": 6,
+      "checkpoint": 8,
+      "live": 257,
+      "optimistic_C": 468,
+      "optimistic_R": 257,
+      "optimistic_K": 96,
+      "modeled_factor_lower": 49364,
+      "old_reference": 59120,
+      "lower_exceeds": false
+    },
+    {
+      "case": 6,
+      "checkpoint": 9,
+      "live": 284,
+      "optimistic_C": 468,
+      "optimistic_R": 284,
+      "optimistic_K": 96,
+      "modeled_factor_lower": 50648,
+      "old_reference": 61096,
+      "lower_exceeds": false
+    },
+    {
+      "case": 6,
+      "checkpoint": 10,
+      "live": 239,
+      "optimistic_C": 239,
+      "optimistic_R": 239,
+      "optimistic_K": 96,
+      "modeled_factor_lower": 27860,
+      "old_reference": 31808,
+      "lower_exceeds": false
+    },
+    {
+      "case": 7,
+      "checkpoint": 0,
+      "live": 4656,
+      "optimistic_C": 4656,
+      "optimistic_R": 4656,
+      "optimistic_K": 192,
+      "modeled_factor_lower": 189560,
+      "old_reference": 173152,
+      "lower_exceeds": false
+    },
+    {
+      "case": 7,
+      "checkpoint": 1,
+      "live": 4566,
+      "optimistic_C": 4656,
+      "optimistic_R": 4656,
+      "optimistic_K": 192,
+      "modeled_factor_lower": 201536,
+      "old_reference": 261664,
+      "lower_exceeds": false
+    },
+    {
+      "case": 7,
+      "checkpoint": 2,
+      "live": 4491,
+      "optimistic_C": 4656,
+      "optimistic_R": 4656,
+      "optimistic_K": 192,
+      "modeled_factor_lower": 215464,
+      "old_reference": 276432,
+      "lower_exceeds": false
+    },
+    {
+      "case": 7,
+      "checkpoint": 3,
+      "live": 4431,
+      "optimistic_C": 4656,
+      "optimistic_R": 4656,
+      "optimistic_K": 192,
+      "modeled_factor_lower": 219792,
+      "old_reference": 283008,
+      "lower_exceeds": false
+    },
+    {
+      "case": 7,
+      "checkpoint": 4,
+      "live": 4386,
+      "optimistic_C": 4656,
+      "optimistic_R": 4656,
+      "optimistic_K": 192,
+      "modeled_factor_lower": 224168,
+      "old_reference": 290000,
+      "lower_exceeds": false
+    },
+    {
+      "case": 7,
+      "checkpoint": 5,
+      "live": 4656,
+      "optimistic_C": 4656,
+      "optimistic_R": 4656,
+      "optimistic_K": 192,
+      "modeled_factor_lower": 189560,
+      "old_reference": 173152,
+      "lower_exceeds": false
+    },
+    {
+      "case": 7,
+      "checkpoint": 6,
+      "live": 4622,
+      "optimistic_C": 4656,
+      "optimistic_R": 4656,
+      "optimistic_K": 192,
+      "modeled_factor_lower": 201536,
+      "old_reference": 262584,
+      "lower_exceeds": false
+    },
+    {
+      "case": 7,
+      "checkpoint": 7,
+      "live": 4623,
+      "optimistic_C": 4656,
+      "optimistic_R": 4656,
+      "optimistic_K": 192,
+      "modeled_factor_lower": 205864,
+      "old_reference": 273592,
+      "lower_exceeds": false
+    },
+    {
+      "case": 7,
+      "checkpoint": 8,
+      "live": 4618,
+      "optimistic_C": 4656,
+      "optimistic_R": 4656,
+      "optimistic_K": 192,
+      "modeled_factor_lower": 219792,
+      "old_reference": 290184,
+      "lower_exceeds": false
+    },
+    {
+      "case": 7,
+      "checkpoint": 9,
+      "live": 4619,
+      "optimistic_C": 4656,
+      "optimistic_R": 4656,
+      "optimistic_K": 192,
+      "modeled_factor_lower": 224168,
+      "old_reference": 297192,
+      "lower_exceeds": false
+    },
+    {
+      "case": 7,
+      "checkpoint": 10,
+      "live": 4656,
+      "optimistic_C": 4656,
+      "optimistic_R": 4656,
+      "optimistic_K": 192,
+      "modeled_factor_lower": 189560,
+      "old_reference": 173152,
+      "lower_exceeds": false
+    },
+    {
+      "case": 8,
+      "checkpoint": 0,
+      "live": 4656,
+      "optimistic_C": 4656,
+      "optimistic_R": 4656,
+      "optimistic_K": 192,
+      "modeled_factor_lower": 189560,
+      "old_reference": 173152,
+      "lower_exceeds": false
+    },
+    {
+      "case": 8,
+      "checkpoint": 1,
+      "live": 4566,
+      "optimistic_C": 4656,
+      "optimistic_R": 4656,
+      "optimistic_K": 192,
+      "modeled_factor_lower": 201536,
+      "old_reference": 261664,
+      "lower_exceeds": false
+    },
+    {
+      "case": 8,
+      "checkpoint": 2,
+      "live": 4491,
+      "optimistic_C": 4656,
+      "optimistic_R": 4656,
+      "optimistic_K": 192,
+      "modeled_factor_lower": 215464,
+      "old_reference": 276432,
+      "lower_exceeds": false
+    },
+    {
+      "case": 8,
+      "checkpoint": 3,
+      "live": 4431,
+      "optimistic_C": 4656,
+      "optimistic_R": 4656,
+      "optimistic_K": 192,
+      "modeled_factor_lower": 219792,
+      "old_reference": 283008,
+      "lower_exceeds": false
+    },
+    {
+      "case": 8,
+      "checkpoint": 4,
+      "live": 4434,
+      "optimistic_C": 4656,
+      "optimistic_R": 4656,
+      "optimistic_K": 192,
+      "modeled_factor_lower": 224168,
+      "old_reference": 291200,
+      "lower_exceeds": false
+    },
+    {
+      "case": 8,
+      "checkpoint": 5,
+      "live": 4656,
+      "optimistic_C": 4656,
+      "optimistic_R": 4656,
+      "optimistic_K": 192,
+      "modeled_factor_lower": 189560,
+      "old_reference": 173152,
+      "lower_exceeds": false
+    },
+    {
+      "case": 8,
+      "checkpoint": 6,
+      "live": 4656,
+      "optimistic_C": 4656,
+      "optimistic_R": 4656,
+      "optimistic_K": 192,
+      "modeled_factor_lower": 201536,
+      "old_reference": 263656,
+      "lower_exceeds": false
+    },
+    {
+      "case": 8,
+      "checkpoint": 7,
+      "live": 4656,
+      "optimistic_C": 4656,
+      "optimistic_R": 4656,
+      "optimistic_K": 192,
+      "modeled_factor_lower": 205864,
+      "old_reference": 270632,
+      "lower_exceeds": false
+    },
+    {
+      "case": 8,
+      "checkpoint": 8,
+      "live": 4656,
+      "optimistic_C": 4656,
+      "optimistic_R": 4656,
+      "optimistic_K": 192,
+      "modeled_factor_lower": 219792,
+      "old_reference": 287224,
+      "lower_exceeds": false
+    },
+    {
+      "case": 8,
+      "checkpoint": 9,
+      "live": 4656,
+      "optimistic_C": 4656,
+      "optimistic_R": 4656,
+      "optimistic_K": 192,
+      "modeled_factor_lower": 224168,
+      "old_reference": 294232,
+      "lower_exceeds": false
+    },
+    {
+      "case": 8,
+      "checkpoint": 10,
+      "live": 4656,
+      "optimistic_C": 4656,
+      "optimistic_R": 4656,
+      "optimistic_K": 192,
+      "modeled_factor_lower": 189560,
+      "old_reference": 173152,
+      "lower_exceeds": false
+    }
+  ],
+  "sha256": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-bg-block-upper/reproduce/block-upper.jl": "98c950cc6966b08d9e701985508938b08f97455e694f0030b8d1234f9786b84a",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-bg-block-upper/reproduce/block-oracles.jl": "87911ed1b6ef01f47c65fed56711f750697ab03599c6fcea6c2564e739dfce3f",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-bg-block-upper/reproduce/block-upper-tests.jl": "2b43e90adf10dc3ef1ece84a49c25af5676ccb07a52c3247ed9f0ef420d351b1",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCK-U-PREPARATION/budget-final.py": "fe59eda2d4ad0104d5aae3682390587718e027cef96a9f63058ef62e9add1401",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCK-U-PREPARATION/host.json": "c7be30bc4b82e1ac52b9a0539fe79bda50c0b3e000b64f530b47815603e161f2",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCK-U-PREPARATION/authorization.json": "9f53548795f31a53a402bc6a6e4df351eec3f7932e382ecfc924ec6a8142fb1c",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/docs/superpowers/specs/2026-10-16-direct-bg-block-upper.md": "2dbd5c01efa9b9b2853decad11bddf9211df8bd16d4fc272c43509dd0378356f",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/docs/superpowers/plans/2026-10-16-direct-bg-block-upper.md": "839dcf646e28b27c8d1894f536169fd898796713543f4825e7b7a7f9294bfd39",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/STATUS.md": "ae1a498b46e1a0f3a60f4c7c84c8f7cbcbba24d2bef1f3864468c06b81304d74",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/docs/superpowers/plans/2026-10-11-simplex-core-architecture.md": "c9a1f8f8d9733ede37829b83695d3c2b79ef17646e9e563194fc8e597172e901",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-DYNAMIC-COST-PREPARATION/runs/cost1-300/output/probe-1.toml": "611cd73438a144428b2cf37616096a25e18004a51d5e959d17e11bbbd4744306",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-DYNAMIC-COST-PREPARATION/runs/cost1-300/output/probe-2.toml": "b39fd71a523fa690f19a32bd5606f63b7336bbbb8ffc2938dc4c9f2333c57221",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-DYNAMIC-COST-PREPARATION/runs/cost1-300/output/probe-3.toml": "f7c5a759894061b6ebff82922947c8d6381ba276df539ddf3fe247662de2256e",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-DYNAMIC-COST-PREPARATION/runs/cost1-300/output/probe-4.toml": "7028213f5f39d6c5a88025403cf76638bd4f496ab753f52c51597101757cf81e",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-DYNAMIC-COST-PREPARATION/runs/cost1-300/output/probe-5.toml": "1cc7d11270995ae85a82b3f01bbfddc2cd691f5e239fd30e83a8692d054c732d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-DYNAMIC-COST-PREPARATION/runs/cost1-300/output/probe-6.toml": "e97a5c1d889d3ed6a79027f1edab26104262dc9268b93823ce86c53ea90d1fe3",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-DYNAMIC-COST-PREPARATION/runs/cost1-300/output/probe-7.toml": "95d87112f7722ee03679a5e52f2664def934f4947fddb2fdbbf232f14ffeb4e4",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-DYNAMIC-COST-PREPARATION/runs/cost1-300/output/probe-8.toml": "e3d8448668f802a272916ed28a37164b2fe19231e3dcd8f7594ca49a6e39dc6a",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/base/summarysize.jl": "3902a536a48f79133c0e455e1876a1f15be0c8706bc6e05ddbe6ca53634da7d8",
+    "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/base/array.jl": "7452476e6bd6152f0df52417fb469c29a319682b739bee8b22e85e3224ca28cb"
+  },
+  "limits": "All new graph figures are source+old-graph models, not runtime acceptance. Sparse exported column degrees unknown: K interval, not exact reconstruction. At checkpoints C/R/K minima omit unavoidable actual fragmentation/gap slack; no lower-bound rejection is NOT a pass or upper bound.40B vector model matches saved graph; physical allocator rounding/native peak unknown. New runtime source reads are readtime pins only."
+}

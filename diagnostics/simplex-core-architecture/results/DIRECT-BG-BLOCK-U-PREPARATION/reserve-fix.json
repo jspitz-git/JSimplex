@@ -1,0 +1,14 @@
+{
+  "scope": "Source-only local work reduction; no Julia or numerical rerun",
+  "changes": [
+    "Initialize row reserve gap only; repair only moved suffix because prior gap length0",
+    "After append take known bin32 head without repeated free-bin search"
+  ],
+  "preservation": "Original overlay.json/source-bindings.json/task1-stage unchanged. budget-final source hash maps to block-upper.jl.before-reserve-fix; its test hash maps to exact inverse reconstructed before-cursor-addition, not claimed captured before mutation.",
+  "sha256": {
+    "diagnostics/direct-bg-block-upper/reproduce/block-upper.jl": "94529e9b8ed5fb647b210e609708bf8d73db5b260c2a873f6610e0227ac7314c",
+    "diagnostics/direct-bg-block-upper/reproduce/block-upper-tests.jl": "2f88495aaf8be75ce92665925b2da155dad5336fad61a0ef60ae0da0b2012a43",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCK-U-PREPARATION/block-upper.jl.before-reserve-fix": "98c950cc6966b08d9e701985508938b08f97455e694f0030b8d1234f9786b84a",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCK-U-PREPARATION/block-upper-tests.jl.before-cursor-addition": "2b43e90adf10dc3ef1ece84a49c25af5676ccb07a52c3247ed9f0ef420d351b1"
+  }
+}

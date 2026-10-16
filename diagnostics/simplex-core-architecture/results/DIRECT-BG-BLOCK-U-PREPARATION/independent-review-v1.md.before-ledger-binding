@@ -1,0 +1,50 @@
+# Independent Task1 offline review — PASS within the offline boundary
+
+Reviewed the accepted spec/plan, final three candidate texts, MEMORY-WORK.md, final budget arithmetic, preserved rejected arithmetic, source-check output, and final ordinary overlay. No Julia process, query, parser, import, compilation, structural/numerical test or benchmark was invoked. No old evidence/checker was executed or edited. This is acceptance of the Task1 source preparation only: it is not runtime correctness, numerical equivalence, allocation-event qualification, retained-memory gate acceptance, or permission for Task2/Task3 execution.
+
+Final candidate SHA-256:
+
+- block-upper.jl: `94529e9b8ed5fb647b210e609708bf8d73db5b260c2a873f6610e0227ac7314c`
+- block-oracles.jl: `87911ed1b6ef01f47c65fed56711f750697ab03599c6fcea6c2564e739dfce3f`
+- block-upper-tests.jl: `2f88495aaf8be75ce92665925b2da155dad5336fad61a0ef60ae0da0b2012a43`
+
+Exact additional evidence/spec/reference bindings and 21 passing independent textual/hash/integer-arithmetic checks are in independent-check-v1.json; its new helper is independent-check-v1.py. These checks were executed once, without rerunning author scripts. They verify the 78-file final overlay, all 75 accepted baseline hashes, 74 byte-identical unmodified copies, exact root-include inverse, all three final candidate copies, and all 88 conditional checkpoint arithmetic records. The source-bound old probes remain read-only. The original FALSE budget remains FALSE and preserved.
+
+## Findings and corrections
+
+No unresolved blocking source-level correctness finding was identified in the final Task1 scope. Review found the following issues during preparation; the author corrected them before this binding:
+
+1. **P2 test coverage:** the original retained-right merge test grew its left block to capacity32 and subsequently split into equal-capacity blocks. It did not exercise the claimed branch. The final test-only fixture creates valid disjoint row memberships with capacity16 then32, nonidentity q, deletes the right suffix, and forces the next deletion to retain the right descriptor. It asserts both column endpoints, recycled left descriptor and complete materialization.
+2. **P2 test coverage:** original split assertions omitted interior insertion and did not compare all values. Final tests cover before/interior/after insertion into32, full values, real maximum handle block and synthetic capacities. Mutation loops for fills, fragmentation and copy divergence gained value oracles. A newly added expected descriptor-growth value was also corrected: old8 grows to16, requiring limit512, not capacity12/limit384.
+3. **P2 evidence arithmetic:** the first budget carried pre-refactor slab capacity through refactor checkpoints and falsely rejected sparse32. Final arithmetic resets the fresh export's segment m/K. This is required by fresh construction, not a relaxed memory gate. The first budget.py/budget.json are retained; budget-final.py/json are the corrected conditional arithmetic.
+4. **P3 avoidable work:** import initially initialized20m payload bytes before overwriting every cell. Final import allocates those private slabs/rows undef and fills every cell before returning. Final row reserve initializes only its gap and repairs only its moved suffix; its zero-gap precondition proves the prefix positions unchanged. Slab allocation now uses the known new bin32 head rather than repeating a free-bin search. Copy already uses non-clearing allocation followed by full copies. These are source-level work reductions, with no runtime speed claim.
+
+## Storage, failure and order review
+
+Bulk import validates dimensions, CSC pointers and strictly increasing row IDs; builds inverse q and row degrees; and visits stable column IDs to populate sorted row incidences. Original logical column j maps to stable cid=q[j]. No packed intermediate, generic insertion loop, input retention, or coefficient conversion is introduced. Float64 payloads, including imported signed/explicit zeros and nonfinite values, are copied without arithmetic.
+
+The row/column reciprocal relation is explicit: handles encode descriptor/offset while row_back stores physical gap-buffer position. Gap movement repairs each crossed handle's row_back. Block shifts repair each moved entry's row incidence. Relocation swaps extents while retaining the live descriptor ID and returns the old extent through the free donor descriptor. Split stages all33 tuples before clearing/writing either extent. Merge stages both prefixes before retaining either descriptor, repairs endpoints and handles, and performs no cascading sweep. Empty blocks unlink immediately.
+
+Adjacent swaps merge stable-column incidence streams, save both tuples before writing, and update physical-row maps afterward. Rotation carries the moving row tuple through each affected column interval before changing maps; other rows' repaired handles remain consistent. These preserve the stopped read-only reference's stable-column meaning and first-to-last rotation direction. Copy creates independent child slabs, row buffers, maps, free lists, descriptors and scratch, including retained capacity.
+
+Checked dimension/descriptor/handle/row growth occurs before numeric edits. New descriptor arrays, slab buffers and directories remain private until the applicable allocation sequence succeeds. Earlier successful reserves may remain published if a later reserve fails; live coefficients, logical order and reciprocal references are preserved. This is capacity-versus-live-state failure semantics, not whole-update rollback. The allocator seam is call-local and is not retained. Commit paths contain no explicit allocation requests, but arbitrary Julia OOM, boxing, specialization and tuple-splat behavior have not been tested and are not certified nonallocating.
+
+## Computational work and retained memory conclusion
+
+**The review found avoidable work and it was reduced as listed above.** Remaining deterministic clearing of free/split suffix cells is potentially avoidable bounded work: numeric bits do not require clearing for GC. It is explicitly retained for deterministic free-capacity contents and accounted in MEMORY-WORK.md. It does not block offline acceptance. **No hidden full-U mirror, full-arena copy per fill, retained input, full-invariant hot-path call, or unexplained retained-memory owner was found.** Deliberate high-water slabs/descriptors/row gaps and per-row headers remain material memory risks, not savings certified by this review.
+
+Independently counted23 vector fields plus4 Int fields. With C/R/K/D/S as defined in the ledger, element payload is16C+4R+28K+32n+656; directory payload8n+24D; container count n+3S+23; recorded64-bit object-field contribution216. The40-byte vector graph model matches old evidence but is not physical heap size. Allocator overreservation, shared-empty-owner accounting, native state, manager/history/cache state, GC roots and process peak remain separately qualified or unknown. Row/descriptor/directory/slab growth coexistence and full copy/refactor overlap are explicitly included.
+
+Setup is a fixed O(n+m) count/validation/fill sequence. Generic set scans a selected row and, for absent entries, a selected column; Task2 must use the direct predecessor/cursor path for elimination. Split performs33 staged tuples,33 final tuple writes/handle repairs, plus31 cleared tuple slots. Delete plus one merge can move63 old tuples, plus clearing. Relocation and insertion costs compose. Gap shifts are proportional to crossed handles; capped additive row growth can accumulate Theta(f*d+f^2) copying. Rotation is proportional to affected interval entries. Metadata growth is O(K) or O(S), not free; copy scales with all retained C/R/K/n/D capacities. No basis solves or update-chain work exist in Task1.
+
+All eight initial cells and88 conditional checkpoint lower-bound calculations are accounted for. Sparse exported column-degree distributions remain unknown where evidence does not determine them; no input-nnz substitution was made. Initial dense96 modeled factor189560 bytes leaves only907.2 bytes below190467.2. Neither this narrow estimate nor the absence of a proven lower-bound rejection establishes a memory pass. Fragmentation, gaps, slab append and future manager state can erase that margin. No before/after timing or event measurement was authorized; compilation, ordinary iterations, recovery, numerical trajectory and hardware effects remain unmeasured. No speedup is inferred.
+
+## Review Focus mapping and limits
+
+1. **Nonidentity q and block boundaries:** covered by import, full matrix swap/rotation oracles, before/interior/after split, and retained-right identity assertions.
+2. **Aliases and entering/DSE caches:** mutable storage-copy independence is reviewed. Destination alias rules, two-RHS prepared provenance, invalidation and solver caches are Task2 and NOT IMPLEMENTED or accepted here.
+3. **Overflow and multi-reserve failure:** real/synthetic pure limits, per-explicit-allocation refusal loops, private reserve publication, gap/backref integrity and permissibly retained unused capacity reviewed. Tests remain UNEXECUTED.
+4. **Zeros, cancellation, diagonal/Hessenberg/nonfinite arithmetic:** storage preserves signed/explicit zeros and permits nonfinite payloads, with explicit storage tests. Cancellation arithmetic, missing-diagonal solve fallback, Hessenberg solver order, pivot/history/finite-check branches are Task2 and NOT IMPLEMENTED or assessed.
+5. **Sparse headers and fragmented high-water storage:** complete requested-container ledger, copy/growth coexistence and preserved old evidence reviewed. Runtime retained graphs/physical peaks, numerical acceptance and later fixed comparative gates remain outstanding.
+
+The14 named testsets and83 static assertion sites are source inventory only, not a runtime assertion count or a passing test report. Structural tests are deterministic examples, not an exhaustive proof. Final acceptance is limited to these exact source/evidence hashes and the explicitly unexecuted Task1 boundary.

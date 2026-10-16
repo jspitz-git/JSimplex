@@ -1,0 +1,155 @@
+# Task1 structural tests. UNEXECUTED: no Julia parser/import/run qualification.
+# Include block-upper.jl and block-oracles.jl in a fresh module with Test/SparseArrays.
+function _bgu_structural_tests()
+    @testset "empty_and_import" begin
+        for n in (0,1,31,32,33,64)
+            A=spzeros(Float64,n,n); U=_bgu_build(A,collect(1:n))
+            @test _bgu_check(U)
+            @test isequal(_bgu_materialize(U),Matrix(A))
+            @test U.live==0 && U.used==0 && U.slabs==0
+        end
+        A=_bgu_test_column(64,collect(1:64)); U=_bgu_build(A,collect(1:64))
+        @test _bgu_check(U)
+        @test U.used==2 && U.live==64
+        @test isequal(_bgu_materialize(U),Matrix(A))
+    end
+    @testset "nonidentity_q" begin
+        A=sparse([1,3,2,4],[1,1,3,4],[2.0,-0.0,4.0,7.0],4,4)
+        q=[3,1,4,2]; U=_bgu_build(A,q)
+        @test _bgu_check(U)
+        @test U.column_order==Int32.(q)
+        @test isequal(_bgu_materialize(U),Matrix(A))
+        for j in 1:4, r in 1:4
+            h=_bgu_find(U,r,q[j])
+            @test (h==0 ? 0.0 : _bgu_tuple(U,h)[1])==A[r,j]
+        end
+        @test_throws ArgumentError _bgu_build(A,[1,1,3,4])
+        @test_throws ArgumentError _bgu_build(sparse(Float32.(A)),q)
+    end
+    @testset "handle_backrefs" begin
+        U=_bgu_build(spzeros(12,12),collect(1:12)); expected=zeros(12,12)
+        for (r,c,v) in ((7,3,2.0),(2,3,-5.0),(12,3,8.0),(7,9,4.0),(7,3,9.0),(2,3,0.0))
+            _bgu_set!(U,r,c,v); expected[r,c]=v
+            @test _bgu_check(U)
+            @test isequal(_bgu_materialize(U),expected)
+        end
+    end
+    @testset "gap_move_grow" begin
+        U=_bgu_build(spzeros(64,64),collect(1:64)); expected=zeros(64,64)
+        for c in (32,1,64,16,48,2,63,15,49,31,33)
+            _bgu_set!(U,7,c,Float64(c)); expected[7,c]=c
+            @test _bgu_check(U)
+            @test isequal(_bgu_materialize(U),expected)
+        end
+        for c in (16,64,1,33)
+            _bgu_set!(U,7,c,0.0);expected[7,c]=0.0
+            @test _bgu_check(U)
+            @test isequal(_bgu_materialize(U),expected)
+        end
+    end
+    @testset "split32_insert33" begin
+        for rows in (collect(1:32),collect(2:33)), newrow in (34,35)
+            U=_bgu_build(_bgu_test_column(40,rows),collect(1:40))
+            _bgu_set!(U,newrow,1,17.0)
+            @test _bgu_check(U)
+            b=Int(U.column_head[1]); c=Int(U.next[b])
+            @test U.count[b]==16 && U.count[c]==17
+            @test _bgu_materialize(U)[newrow,1]==17.0
+        end
+        U=_bgu_build(_bgu_test_column(40,collect(2:33)),collect(1:40))
+        _bgu_set!(U,1,1,19.0)
+        @test _bgu_check(U)
+        @test _bgu_materialize(U)[1,1]==19.0
+    end
+    @testset "boundary_swap_rotate" begin
+        A=sparse([r for c in 1:64 for r in 1:64],[c for c in 1:64 for r in 1:64],
+                 [Float64(100*c+r) for c in 1:64 for r in 1:64],64,64)
+        U=_bgu_build(A,reverse(collect(1:64))); expected=Matrix(A)
+        for j in (31,32,33,1,63)
+            _bgu_swap_rows!(U,j);expected[[j,j+1],:]=expected[[j+1,j],:]
+            @test _bgu_check(U)
+            @test isequal(_bgu_materialize(U),expected)
+        end
+        for (a,b) in ((1,64),(16,48),(31,33),(2,2))
+            _bgu_rotate_rows!(U,a,b);expected[a:b,:]=expected[vcat(collect(a+1:b),a),:]
+            @test _bgu_check(U)
+            @test isequal(_bgu_materialize(U),expected)
+        end
+    end
+    @testset "deletion_merge_right" begin
+        U=_bgu_build(_bgu_test_column(64,collect(1:64)),collect(1:64))
+        expected=_bgu_materialize(U)
+        for r in 1:33
+            _bgu_set!(U,r,1,0.0);expected[r,1]=0.0
+            @test _bgu_check(U)
+            @test isequal(_bgu_materialize(U),expected)
+        end
+        # Exact-capacity left tail16 followed by full32 right forces right retention.
+        V=_bgu_build(_bgu_test_column(64,collect(1:16)),collect(1:64))
+        for r in 17:40;_bgu_set!(V,r,1,Float64(r));end
+        for r in 1:25;_bgu_set!(V,r,1,0.0);@test _bgu_check(V);end
+        @test count(!iszero,_bgu_materialize(V)[:,1])==15
+    end
+    @testset "reserve_failure" begin
+        for rows in (Int[],[1],collect(1:32))
+            A=_bgu_test_column(64,rows)
+            _bgu_test_allocation_failures(() -> _bgu_build(A,collect(1:64)),
+                (U,a)->_bgu_set_with!(U,64,1,9.0,a,typemax(Int32)))
+        end
+        _bgu_test_build_failures(_bgu_test_column(64,collect(1:64)),collect(1:64))
+    end
+    @testset "checked_limits" begin
+        @test _bgu_handle(2,32,64)==Int32(64)
+        @test_throws OverflowError _bgu_handle(3,1,64)
+        @test_throws OverflowError _bgu_handle(2,33,64)
+        @test _bgu_row_capacity(64,65,100)==73
+        @test_throws OverflowError _bgu_row_capacity(64,65,73)
+        @test_throws OverflowError _bgu_build_with(_bgu_test_column(65,collect(1:65)),collect(1:65),_bgu_allocate,64)
+        U=_bgu_build(spzeros(4,4),collect(1:4)); old=_bgu_materialize(U)
+        @test_throws OverflowError _bgu_set_with!(U,1,1,1.0,_bgu_allocate,64)
+        @test _bgu_check(U) && isequal(old,_bgu_materialize(U))
+        @test_throws ArgumentError _bgu_set!(U,0,1,1.0)
+        @test_throws ArgumentError _bgu_swap_rows!(U,4)
+        @test_throws ArgumentError _bgu_rotate_rows!(U,3,2)
+    end
+    @testset "explicit_zero_order" begin
+        A=SparseMatrixCSC(3,3,[1,4,4,4],[1,2,3],[0.0,-0.0,Inf]); U=_bgu_build(A,[2,3,1])
+        @test U.live==3 && _bgu_check(U)
+        @test reinterpret(UInt64,_bgu_tuple(U,_bgu_find(U,2,2))[1])==reinterpret(UInt64,-0.0)
+        _bgu_set!(U,2,2,0.0)
+        @test U.live==2 && _bgu_check(U)
+        _bgu_set!(U,1,2,NaN)
+        @test isnan(_bgu_tuple(U,_bgu_find(U,1,2))[1]) && _bgu_check(U)
+    end
+    @testset "repeated_row_fills" begin
+        U=_bgu_build(spzeros(160,160),collect(1:160)); capacities=Int[]
+        for c in 1:160
+            before=length(U.rows[1]);_bgu_set!(U,1,c,Float64(c));after=length(U.rows[1])
+            if before!=after
+                @test after==c+min(8,max(1,before÷8))
+                push!(capacities,after)
+            end
+            @test _bgu_check(U)
+        end
+        @test length(capacities)>10
+        @test _bgu_materialize(U)[1,:]==Float64.(1:160)
+    end
+    @testset "fragmented_high_water" begin
+        U=_bgu_build(spzeros(64,64),collect(1:64))
+        for c in 1:40, r in 1:40;_bgu_set!(U,r,c,Float64(c+r));end
+        before=_bgu_test_capacity(U)
+        for c in 1:40, r in 1:40;_bgu_set!(U,r,c,0.0);@test _bgu_check(U);end
+        @test U.live==0 && _bgu_test_capacity(U)==before
+        for c in 1:40;_bgu_set!(U,1,c,2.0);end
+        @test _bgu_check(U) && U.live==40
+    end
+    @testset "copy_independence" begin
+        U=_bgu_build(_bgu_test_column(40,collect(1:33)),collect(1:40));_bgu_set!(U,40,2,5.0)
+        V=_bgu_copy(U);snapshot=_bgu_materialize(U)
+        @test _bgu_check(V) && isequal(_bgu_materialize(V),snapshot)
+        @test _bgu_test_disjoint(U,V)
+        _bgu_set!(V,3,1,0.0);_bgu_swap_rows!(V,32);_bgu_rotate_rows!(V,1,40)
+        @test isequal(_bgu_materialize(U),snapshot) && _bgu_check(U) && _bgu_check(V)
+        _bgu_test_allocation_failures(() -> _bgu_copy(U),(X,a)->_bgu_copy_with(X,a))
+    end
+end
