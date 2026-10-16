@@ -1,0 +1,89 @@
+# Direct LU Policy Adapters Implementation Plan
+
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans task-by-task, with the fresh independent reviews below. Steps use checkbox syntax. Do not repeat accepted historical executables.
+
+**Goal:** Connect all three direct LU prototypes to current native policy and Markowitz factories, then qualify a new explicitly matched comparison.
+
+**Architecture:** A new ordinary source overlay based on master26e2291 contains the unchanged common export and one narrowly adapted direct lower wrapper. FT, SS and BG keep their existing packed-U algorithms. Explicit factories precede separately reviewed public routing.
+
+**Tech Stack:** Julia/Test/SparseArrays/LinearAlgebra, existing Markowitz and UMFPACK backends, Python admission/audit; no new dependencies.
+
+**Spec:** `../specs/2026-10-16-direct-lu-policy-adapters.md`, extending the frozen `2026-10-14-direct-lu-markowitz.md` contract without changing its old evidence.
+
+## Global constraints
+
+- Current step is SOURCE/DESIGN ONLY. No Julia/query/parser/import/compile, new candidate/driver/launcher or actual src/test/env/CI/master change.
+- Future candidates belong under `diagnostics/direct-lu-policy-adapters/reproduce/`; each phase uses new `results/DIRECT-LU-POLICY-ADAPTER-*` records. Existing `diagnostics/direct-lu-markowitz/` and all old results are frozen.
+- Baseline actual master26e2291745999f485a74f643298ca997d65c7205; diagnosticcb757325ff6fe34e94479f7e622d6620fa7c1c8a. The diagnostic checkout's src is older: build overlays from the actual master tree, NEVER assume its source equals diagnostic HEAD.
+- No new arithmetic, precision, tolerance, coefficient dropping, dynamic storage, CSR, MA, HH reuse, Markowitz pivot algorithm or public option. No production promotion.
+- One Julia process; Julia/BLAS1, heap2GiB, VM8GiB, availableRAM>=6GiB, swap<=1GiB. New phase inclusive300s/inner292s; only proven pure process timeout allows a fresh600s/592s repeat. Fresh actual-stage admission each time, fixed inputs/options/runtime, no hours-long runs.
+- Public solver time_limit=5s remains semantic and unchanged. Test failure or solver TIME_LIMIT is not process-timeout eligibility. Full-suite and oldcost2 remain excluded.
+- Preserve all old failures, user files and checkouts. CIoff/HHdisabled/automationpaused. Exact staged/committed names/blobs and independent review precede diagnostic publication.
+
+## Review focus
+
+1. Empty construction, fallback and copied/divergent refactors silently reset policy: Task1 policy/transition tests inspect intent AND real native controls before extraction.
+2. Markowitz rejection deferred until after work, or other precision incorrectly routed into direct export: Task1 rejection sentinel and generic fallback tests.
+3. Native strategy/scaling ambiguity, normalization failure and sparse/dense-core permutations: Task2 frozen export identity/discriminator and actual controls; no invented stability guarantee.
+4. Prepared entering direction overwritten by intervening DSE FTRAN, mutable copy ownership or failed publication: Task2 full lifecycle and injected exporter failures.
+5. Attractive solve-only timing hides complete replacement/export costs or retained native owners: Task3 full windows and separately labelled retained-memory measurements; Task4 original-model certificates.
+
+## Task1: Offline adapter and tests, then independent candidate review
+
+**Files:** create `diagnostics/direct-lu-policy-adapters/reproduce/{factor-export.jl,direct-factor.jl,policy-tests.jl,lifecycle-tests.jl,fixtures.jl,red.jl,prepare-overlay.py}` later; none is created by this plan step.
+
+**Consumes:** current-master `_NativePivotPolicy`, `_NATIVE_PIVOT_DEFAULT`, `_NATIVE_PIVOT_ONE`, `_factorize_basis(B,backend::Val,policy)` and `Factor(B,backend::Val,policy)`; frozen common export and direct initializers.
+
+**Produces:**
+- `DirectLowerBackend{R,F}` with all old fields plus `pivot_policy::_NativePivotPolicy`.
+- `_direct_lu_factor(Factor,B::AbstractMatrix{Float64},backend::Val,policy::_NativePivotPolicy;normalize::Bool=true)`.
+- `_direct_lu_factor_with_exporter(Factor,B::AbstractMatrix{Float64},backend::Val,policy::_NativePivotPolicy,exporter;normalize::Bool=true,factorize=_factorize_basis)`; old exporter signature forwards default. The internal function-valued keyword is a test seam only; normal calls use the existing backend factory exactly once.
+- Generic `B::AbstractMatrix{T} where T<:Real` four-argument direct factory returns `Factor(B,backend,policy)` without invoking exporter; old three-argument signature forwards default for all types.
+- Existing `_copy_backend` and `_direct_refactorize_with_exporter!` preserve stored intent; no change to solve/update methods or export schema.
+
+- [ ] Prepare tests first. RED against a new master-based overlay containing byte-identical OLD export/direct files: three managers × two backend values give six `applicable` checks for the new four-argument factory, plus one `pivot_policy` field-presence check. Expected seven missing-contract failures, zero factor/solver calls. Do not rerun the old missing-export RED.
+- [ ] Copy export/fixtures unchanged with explicit source SHA and byte inverse. Amend only new direct-factor.jl: field, copy constructor, policy-aware one-backend construction, two compatibility forwarders, generic policy forwarding and refactor reconstruction. Validate manager/backend/nondefault Markowitz before exporter/factor work. No change to old files or production factory.
+- [ ] New `policy-tests.jl`: all three managers and native default/threshold_one; test empty→nonempty→empty, copied branch, successful/singular/resized refactor and forced direct→fallback→direct with both normalize values. Assert enum never resets; wrapper concrete type stable; old snapshots/aliases preserved on throws. For native test exporter captures real backend policy and a copied20-element control vector BEFORE delegating to unchanged exporter; check pivot tolerance1/IRSTEP0 for selected policy and exact unchanged other controls against a private default-control vector. Inspect actual strategy separately. Release captures after each correctness case, never inside measured windows.
+- [ ] Markowitz/default uses real `_export_basis_lu(::MarkowitzBackend{Float64})`, including coupled sparse/core fixture. Nondefault Markowitz must throw ArgumentError BEFORE exporter calls for empty and nonempty inputs and every supported fallback precision. Use the explicit internal `factorize` keyword with a test-local throwing counter closure; assert zero calls on rejected requests. Freeze this narrow seam and the default `_factorize_basis` call inverse in candidate review, with no global method overwrite. The seam is used only at construction, never stored in factors or called on solves. No fabricated factor or declared native control substitutes for real extraction.
+- [ ] Other precision tests: Float32, BigFloat256 and Rational{BigInt} ordinary native outputs/ownership under both intents; default Markowitz ordinary fallback; no DirectLowerBackend and no new export. Old API forwards default. HH/PFI are not direct candidates and remain ordinary.
+- [ ] Overlay from tracked master src/Project, append exactly two includes after HH for export/direct implementation; preserve current master factory unchanged. Test files remain external. Bind environment separately, never resolve packages or load Julia during preparation. Exact full-source inverse and allowed-difference list, source-derived call ledger and fresh gpt-6-astra numerical/work/memory review are required before Task2.
+
+## Task2: Concrete RED/GREEN admission and bounded correctness
+
+**Consumes:** Task1 exact files and master source manifest. **Produces:** independently accepted modified-adapter correctness evidence; no cost or public-routing acceptance.
+
+- [ ] Freeze new driver/recorder/guard/auditor, runtime/source hashes, output paths, expected seven RED failures and exact GREEN assertion tree/call ledger. Count helper factorization/orientation solves, injected exporters, snapshots and exact oracles; do not confuse test assertions with backend work. Prove the auditor rejects malformed/partial results and failures flushed before timeout. RED and GREEN are separate exclusive processes; fresh admission before each.
+- [ ] GREEN new lifecycle matrix: seven frozen nonsingular fixtures × three managers × three valid arms (native/default, native/threshold_one, Markowitz/default) × two normalization requests =126 paired direct/ordinary setups. Both sides use identical policy. This repeats test logic on MODIFIED/current-master source, not an old executable or old evidence rerun. Old19,557 PASS remains historical, not a new expected count.
+- [ ] Preserve original eight replacement steps for n>=2: entering FTRAN, distinct DSE FTRAN, update with unchanged entering direction, unit BTRAN; copy/diverge after update2, refactor after update4, failed singular/resized refactors and fallback transitions. Include aliased RHS and indexed sparse/dense/auto contracts, private scratch rejection and BG copied row-order rebasing. Policy-specific tests from Task1 are additional and must enter the exact ledger.
+- [ ] Export identity oracle remains entrywise `abs(L*U-P*S*B*Q) <= 128*n*eps64*(abs(L)*abs(U)+abs(P*S*B*Q))`, evaluated exactly on stored Float64 values, with zero bound requiring exact zero. Solve oracle remains `||M*x-b||inf <=128*n*eps64*max(1,||M||inf*||x||inf,||b||inf)` for current explicit B or transpose. No ordinary-reference bit-equality requirement. Keep nonfinite/underflow/malformed/ambiguous export cases, unequal L21 core-permutation discriminator and unchanged-input checks.
+- [ ] Run seven-failure RED, then admitted GREEN only after RED result review. Preserve raw before assertions where possible and logs for absent raw. Unexpected errors stop; pure timeout follows global fresh600s policy. Fresh result review of exact outputs, source and resources is required before any cost admission.
+
+## Task3: NEW matched-policy comparison, never oldcost2
+
+**Files:** later new `cost.jl` and fixed input/schedule metadata under the new reproduce/results paths. **Consumes:** accepted Task2 exact candidate; **produces:** per-manager/backend performance disposition, not production admission.
+
+- [ ] Reuse exact immutable n32/96 sparse/dense input tokens and eight-update/B4/B8 schedule from `results/DIRECT-LU-COST-PREPARATION/inputs.json` and `inputs.toml` (under diagnostics/simplex-core-architecture). Pin both token file hashes; no post-output fixture changes. Native arm uses threshold_one on BOTH ordinary and direct sides; Markowitz uses default on BOTH. Native/default correctness does not authorize resuming failed old cost1/cost2 or pooling old timing data.
+- [ ] Four fixtures × three managers × two matched backend/policy arms =24 cells. Two separately admitted serial processes, each three warm + seven measured alternating pairs/cell, reversed starting side in process2. At most960 lifecycles total,960 constructions,1920 explicit refactors,7680 updates,15360 FTRAN and7680 BTRAN. Orientation and backend-internal work are additional source-derived bounds, not silently zero; correctness probes must have a separately frozen budget.
+- [ ] Each fresh lifecycle includes factor construction, export, validation, normalization, packed-U/scratch and eight updates with2FTRAN+1BTRAN each, refactor after4 and8. Include complete replacement-manager costs versus ordinary spare/buffer reuse. Record whole-window time/bytes/events/GC/compile/recompile; construction, solves, updates and each refactor nested timing are subsets, never add them again. No control snapshots or retained old backend inside timed windows. Verify policy/actual strategy in untimed bounded preflight, bind immutable factory source, and record genuine observed mode/fallback without executing additional timed scans.
+- [ ] Final reachable memory includes pools/capacity/spares; release prior windows' factors after detached checks. Avoid the old unused per-cell record retention and duplicate input scans in NEW harness code only; fixed raw result records/oracles/serialization overhead is explicit. This is Julia reachable memory, not native live/peak/free accounting. Runtime GC stays in totals and outliers remain.
+- [ ] Freeze all assertions, token bits, policy metadata, raw schema, call counts and both per-process commands before first run. First-process numerical PASS and independent result review are required before second; an ordinary performance miss is retained, not silently made into numerical failure or tuning permission. Measured compile/recompile must be zero; nonzero compilation invalidates cost acceptance without automatic rerun.
+- [ ] Retain original engineering selection rules per cell: each process median total ratio<=0.95; at least10/14 measured pairs faster; median total bytes AND events nonincreasing in each process; retained-memory increase>10% disqualifies promotion recommendation. Zero reference memory must be handled explicitly (both zero=equal, positive candidate=increase). All four fixtures must qualify before labelling a manager/backend promising for this bounded workload. Report median/MAD/range, raw pairs and each process; do not pool across managers or infer universal speedup. Cost misses may remain functional comparators, never automatic promotion.
+
+## Task4: Separately admitted tiny public routing and decision
+
+**Files:** later `solver-check.jl` and a newly frozen candidate-only `_basis_factorization(B,options)` fragment. **Consumes:** Task2 correctness and Task3 honest disposition; **produces:** limited public integration evidence.
+
+- [ ] Candidate options routing applies ONLY legacy Float64 FT/SS/BG and forwards backend AND `_native_pivot_policy(options.native_pivot_policy)` into the new direct factory. PFI/HH/adaptive/other types call the unchanged ordinary path. Preserve existing factory policy rejection. Prove exact inverse of routing/includes before independent review; no process-global replacement or new public option.
+- [ ] Tiny LP remains min -3x1-2x2, x1+x2<=4,x1<=2,x2<=3,x>=0; optimum[2,2],objective-10. Three managers × native/threshold_one and Markowitz/default × ordinary/direct =12 public solves, split six/reference and six/candidate in separate ordinary projects. legacy/dual/steepest_edge, presolvefalse, scalingoff, partialpricingfalse, verbosefalse, refactorinterval2,time_limit5s,iteration_limit100, default tolerances. Bind native policy as the sole new intended option relative to old comparison.
+- [ ] Assert correct route/intent/actual direct mode, input ownership, OPTIMAL and independent original-row/bound feasibility/objective while retaining production certification. Report missing exercised refactor coverage, never tune fixture to force it after output. Add dispatch-only exclusions without extra public solves. Fresh exact-stage admission and independent result review; initial300s/conditional600s per process.
+- [ ] Publish separate correctness/cost/public conclusions. Optional direct implementation stays experimental; native refinement absence remains a limitation even with threshold_one. Any production API/default, storage redesign or subsequent optimization requires its own plan. Preserve all earlier failed attempts and full-suite limitations.
+
+## Completion of this planning step
+
+Save source/readtime pins, fresh host refs/process state, explicit old-to-preserved
+continuation mappings, self-review and fresh independent gpt-6-astra review of
+this spec/plan. Resolve findings without rewriting rejected evidence. Separate
+PASS closure and exact diagnostic publication. No numerical acceptance is claimed.
+Next concrete step: Task1 offline candidate/test preparation and independent review;
+Task2 executable admission is later. User already selected inline execution, so
+there is no need to repeat an execution-method or short-run permission question.
