@@ -1,0 +1,51 @@
+"""One-shot source and preparation audit. No Julia or launcher invocation."""
+from pathlib import Path
+import json,re,ast,tomllib
+import control as c
+D=Path(__file__).resolve().parent;R=D.parents[3];C=c.C;checks={}
+def ok(v,n):
+ checks[n]=bool(v)
+ if not v:raise RuntimeError(n)
+c.validate_sources();ok(True,'actual_source_runtime_and_stage_membership')
+c.validate_environment();ok(True,'exact_environment')
+ok(c.bindings(c.rd(D/'entry.json')),'accepted_plan_task1_task2_and_continuation_pins')
+stages=c.rd(D/'stages.json');ok([len(stages[m]['sha256']) for m in ('red','green')]==[75,81],'stage_counts')
+green=Path(stages['green']['path']);red=Path(stages['red']['path'])
+for n in ('block-upper.jl','block-bg.jl'):
+ ok((green/'src'/n).read_bytes()==(C/n).read_bytes(),'candidate_'+n)
+for n in ('block-oracles.jl','block-upper-tests.jl','block-bg-tests.jl','fixtures.jl'):
+ ok((green/'test'/n).read_bytes()==(C/n).read_bytes(),'test_'+n)
+rtext=(D/'red.jl').read_text();symbols=re.findall(r'isdefined\(JSimplex,:(\w+!?)\)',rtext)
+ok(len(symbols)==8 and len(set(symbols))==8,'eight_unique_RED_contracts')
+base='\n'.join(p.read_text() for p in (red/'src').rglob('*.jl'))
+ok(all(not re.search(r'\b'+re.escape(n)+r'(?![A-Za-z0-9_])',base) for n in symbols),'RED_contracts_missing_in_reference')
+source=(C/'block-upper.jl').read_text()+'\n'+(C/'block-bg.jl').read_text()
+ok(all(n in source for n in symbols),'RED_contracts_in_candidate')
+s=(D/'driver.jl').read_text();main=s[s.index('function main()'):]
+ok('include(' not in main,'no_include_after_main')
+ok(s.index('test/block-bg-tests.jl')<s.index('function main()'),'adapter_top_level')
+ok(s.index('block-suite.jl')<s.index('function main()'),'storage_top_level')
+ok('invokelatest' not in s,'no_late_lookup_workaround')
+ok(s.index('TOML.print(io,raw)')<s.index('expected=TOML.parsefile'),'raw_before_aggregate')
+ok('(JSimplex,SparseArrays,LinearAlgebra,TOML,Test,PrecompileTools)' in s,'loaded_keys_match_Test_present')
+ok(set(c.rd(D/'loaded-paths.json'))=={'SparseArrays','LinearAlgebra','TOML','Test','PrecompileTools'},'loaded_manifest_keys')
+e=c.rd(D/'expected-tests.json');ok(e['red']['assertions']==8 and e['green']['assertions']==15093,'exact_totals')
+names=re.findall(r'@testset "([^"]+)"',(C/'block-upper-tests.jl').read_text())+re.findall(r'@testset "([^"]+)"',(C/'block-bg-tests.jl').read_text())
+ok(names==[r[0] for r in e['green']['groups']] and len(names)==21,'actual_test_group_tree')
+ok(sum(t[1] for t in e['green']['groups'])==15093,'group_sum')
+for n in ('offline-tests.json','negative-supplement.json'):ok(c.rd(D/n)['all_passed'],'passed_'+n)
+for n,m in c.rd(D/'reused-helpers.json').items():ok(c.sha(D/n)==c.sha(Path(m['source']))==m['sha256'],'helper_'+n)
+for p in D.glob('*.py'):ast.parse(p.read_text(),filename=str(p))
+ok(True,'python_syntax_only')
+control=(D/'control.py').read_text();launch=(D/'launch.py').read_text();guard=(D/'guard.py').read_text()
+ok('int(a[2]) in groups or int(a[3]) in groups' in control,'groups_AND_sessions')
+ok("not h['matches']" in (D/'seal.py').read_text() and "not h['matches']" in launch,'foreign_Julia_refusal')
+ok("open('x')" in control and 'reservation.json' in launch,'exclusive_reservation')
+ok('pidfd_open' in (D/'supervisor.py').read_text(),'owned_pidfd_cleanup')
+ok('8 * 1024**3' in guard and '6 * 1024**2' in guard and '1024**2' in guard,'resource_guards')
+ok('--compiled-modules=existing' in control and '--gcthreads=1,0' in control,'existing_loader_threads')
+ok(not (D/'runs').exists(),'no_phase_seal_or_launch')
+c.save(D/'commands.json',{p:c.config(p) for p in ('red300','green300','red600','green600')})
+files=sorted(p for p in D.iterdir() if p.is_file())+sorted(p for p in C.iterdir() if p.is_file())
+c.save(D/'source-check.json',dict(all_passed=True,checks=checks,sha256={str(p):c.sha(p) for p in files},julia_executed=False))
+print('Source checks PASS',len(checks),'bindings',len(files))

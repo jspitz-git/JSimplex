@@ -1,0 +1,148 @@
+{
+  "scope": "Prospective source API attempts, not observed native instructions or allocation events",
+  "group_order": [
+    "lifecycles",
+    "rejection_and_aliases",
+    "export_modes",
+    "focused_updates",
+    "block_boundaries",
+    "storage_failure_boundaries",
+    "new_scratch_aliases"
+  ],
+  "per_group_reference_candidate": {
+    "constructors": [
+      [
+        14,
+        2,
+        3,
+        12,
+        19,
+        3,
+        0
+      ],
+      [
+        14,
+        6,
+        3,
+        12,
+        19,
+        69,
+        0
+      ]
+    ],
+    "refactors": [
+      [
+        48,
+        0,
+        4,
+        0,
+        10,
+        0,
+        0
+      ],
+      [
+        76,
+        0,
+        4,
+        0,
+        10,
+        63,
+        0
+      ]
+    ],
+    "copies": [
+      [
+        10,
+        0,
+        2,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        10,
+        0,
+        2,
+        1,
+        0,
+        64,
+        0
+      ]
+    ],
+    "replacements": [
+      [
+        90,
+        0,
+        6,
+        10,
+        12,
+        0,
+        0
+      ],
+      [
+        90,
+        14,
+        6,
+        10,
+        12,
+        3,
+        0
+      ]
+    ]
+  },
+  "totals": {
+    "constructors": [
+      53,
+      123
+    ],
+    "refactors": [
+      62,
+      153
+    ],
+    "copies": [
+      13,
+      77
+    ],
+    "replacements": [
+      118,
+      135
+    ]
+  },
+  "factorization_attempts": [
+    115,
+    270
+  ],
+  "forward_attempts": [
+    384,
+    400
+  ],
+  "transpose_attempts": [
+    144,
+    160
+  ],
+  "candidate_rejected_solves_per_direction": 16,
+  "manual_sentinel_factors": 3,
+  "helpers": {
+    "pair_state": 673,
+    "solve_pair": 512,
+    "replace_pair": 108,
+    "exact_residual_checks": 1024
+  },
+  "allocation_probe_operations": {
+    "structural": 206,
+    "adapter": 182,
+    "total": 388
+  },
+  "expected_injected_storage_failures": 377,
+  "explicit_storage_allocation_requests": 9813,
+  "completed_before_injected_throw": 9436,
+  "source_model": {
+    "payload_bytes": "16*C+4*R+28*K+32*n+656",
+    "outer_reference_slots_bytes": "8*n+24*D",
+    "vector_containers": "n+3*S+23",
+    "scope": "U only; headers/backing reserve, whole factor, oracle temporaries and backend allocations additional"
+  },
+  "performance_windows": 0,
+  "numerical_allowance": false
+}
