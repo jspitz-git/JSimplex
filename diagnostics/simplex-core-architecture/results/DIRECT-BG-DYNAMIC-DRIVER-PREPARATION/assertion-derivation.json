@@ -1,0 +1,54 @@
+{
+  "formulas": [
+    {
+      "name": "BG slots: import and stable q",
+      "assertions": 51,
+      "derivation": "four imports8 +three nonempty2 +four q/order +four badq +square +three CSC +nonfinite"
+    },
+    {
+      "name": "BG slots: unlink, exact zero, free reuse and local guards",
+      "assertions": 154,
+      "derivation": "3baseline+two zero2+50reuse2+16insert+16delete+empty+four value2+five throws/snapshot"
+    },
+    {
+      "name": "BG slots: capacity and allocation failure",
+      "assertions": 56,
+      "derivation": "5capacity+three growth5+dirty success4+seven OOM4+invalid3+fill1"
+    },
+    {
+      "name": "BG slots: swaps and rotations",
+      "assertions": 53,
+      "derivation": "two q arms22 each +three shapes3"
+    },
+    {
+      "name": "BG slots: checker detects corrupt structures",
+      "assertions": 13,
+      "derivation": "12 independent corruptions +original"
+    },
+    {
+      "name": "Seven fixed fixtures, two policies, direct reference",
+      "assertions": 7634,
+      "derivation": "pair_state10;solve_pair14;replace_pair55;all cases91;ten n>=2 add8replacements/copy5+savedreplacement/refactor24/sevensaved98/finalsaved14"
+    },
+    {
+      "name": "Private scratch and supported routes",
+      "assertions": 115,
+      "derivation": "two arms46;stub16solve+2update+3factory+calls+Float32factory"
+    },
+    {
+      "name": "Fallback, normalization fallback, q, transactional refactor",
+      "assertions": 461,
+      "derivation": "two q arms225 +unsafe normalization1+pair10"
+    },
+    {
+      "name": "Exact storage branches, failures, ordering",
+      "assertions": 239,
+      "derivation": "five explicit successes13;zero fail6;imported nonfinite5;finiteoverflow14;map140;growth3;twotraces3"
+    }
+  ],
+  "sha256": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-DYNAMIC-DRIVER-PREPARATION/derive-ledger.py": "c80af3d77d88f744224f023af6074054df090ffe15e1e2396908eb24b7571073",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-bg-dynamic-upper/reproduce/slot-upper-tests-reviewed.jl": "ca7b6c9f8d9fc054e51f090b3d2f3fc336e21fc5cb653ce0e4c4da9b2cf300fd",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-bg-dynamic-upper/reproduce/dynamic-bg-tests-reviewed.jl": "2863a84f15e3d115bcf837db2b9dcdf6db8e7a0018062c605f0c46f8c3ee7bd0"
+  }
+}
