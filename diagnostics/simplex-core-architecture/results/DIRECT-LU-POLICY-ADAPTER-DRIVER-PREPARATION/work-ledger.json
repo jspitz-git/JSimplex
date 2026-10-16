@@ -1,0 +1,139 @@
+{
+  "scope": "Prospective source-derived test-entry ledger; no observed calls or complete native instruction/allocation count",
+  "assertion_formulas": [
+    {
+      "name": "Owned export identity and core row relocation",
+      "assertions": 207,
+      "derivation": "native: empty5 +six12 twice; Mark: empty5+six7+coupled5+core1"
+    },
+    {
+      "name": "Malformed export versus unsupported backend",
+      "assertions": 66,
+      "derivation": "9 malformed+unsupported+six generic cases+two singular"
+    },
+    {
+      "name": "Actual orientation helper selects multiply, divide or neither",
+      "assertions": 12,
+      "derivation": "two valid orientations and two unavailable, three checks each"
+    },
+    {
+      "name": "Normalization rejection and both original-row scaling conventions",
+      "assertions": 200,
+      "derivation": "four rejection pairs;24 cases each mode/identity+check_solutions+two aliases"
+    },
+    {
+      "name": "Three managers preserve solves, copies and prepared direction provenance",
+      "assertions": 27624,
+      "derivation": "36 n<2 base59;90 n>=2 add8*19+copy5+refactor3+7*4+indexed32+saved4;BG30"
+    },
+    {
+      "name": "Typed direct to fallback to direct refactors are transactional",
+      "assertions": 450,
+      "derivation": "18cases: old24 +saved_fallback intent1"
+    },
+    {
+      "name": "Policy survives empty/copy/refactor/fallback and real controls",
+      "assertions": 1446,
+      "derivation": "base55;native fallback2+two empty2+six controls4;Mark eight2"
+    },
+    {
+      "name": "Markowitz policy rejected before Float64 factory/export; compatibility",
+      "assertions": 207,
+      "derivation": "six manager/normalize:two rejection triples+native15+Mark13;invalid3"
+    },
+    {
+      "name": "Other precisions retain ordinary arithmetic and input ownership",
+      "assertions": 243,
+      "derivation": "nine type/manager:three validarms6+two legacy2+two rejects+three ownership"
+    }
+  ],
+  "groups": {
+    "exports": {
+      "backend_constructions": 21,
+      "real_export_calls": 42,
+      "native_lu_refactors": 12,
+      "export_identity_oracles": 40,
+      "orientation_solve_upper_bound": 24
+    },
+    "rejections": {
+      "backend_construction_attempts": 26,
+      "of_which_singular": 2,
+      "generic_forward_solves": 18,
+      "independent_backslash_factor_solves": 18,
+      "unsupported_exports": 6,
+      "malformed_checked_exports": 9
+    },
+    "orientation": {
+      "dense_lu_constructions": 3,
+      "scale_helper_calls": 4,
+      "orientation_solve_upper_bound": 4
+    },
+    "normalization": {
+      "backend_constructions": 24,
+      "synthetic_exporters": 24,
+      "checked_synthetic_exports": 24,
+      "normalization_rejections": 4,
+      "explicit_solve_entries": 96,
+      "export_identity_oracles": 24
+    },
+    "lifecycles": {
+      "paired_setups": 126,
+      "manager_constructions": 252,
+      "refactor_attempts": 432,
+      "of_which_singular": 126,
+      "manager_copies": 90,
+      "column_updates": 1530,
+      "explicit_valid_solve_entries": 11754,
+      "expected_rejected_solve_entries": 864,
+      "exact_residual_oracles": 11664,
+      "real_direct_exports": 342,
+      "orientation_solve_upper_bound": 216
+    },
+    "fallback": {
+      "backend_constructions_and_refactors": 72,
+      "manager_copies": 36,
+      "explicit_solve_entries": 144,
+      "real_exports": 36,
+      "unavailable_exporters": 18,
+      "throwing_exporters": 18,
+      "orientation_solve_upper_bound": 24
+    },
+    "policy_transitions": {
+      "sequences": 18,
+      "backend_construction_attempts": 162,
+      "of_which_singular": 18,
+      "exporter_entries": 144,
+      "real_exports": 126,
+      "unavailable_exporters": 18,
+      "throw_after_real_export": 18,
+      "manager_copies": 36,
+      "explicit_solve_entries": 252,
+      "orientation_solve_upper_bound": 60,
+      "native_nonempty_control_observations": 72,
+      "markowitz_observations": 48
+    },
+    "forwarders": {
+      "real_backend_constructions": 24,
+      "real_exports": 24,
+      "explicit_solve_entries": 48,
+      "float64_nondefault_rejections": 12,
+      "invalid_manager_backend_rejections": 2,
+      "orientation_solve_upper_bound": 12,
+      "native_control_observations": 6
+    },
+    "generic_policy": {
+      "ordinary_constructions": 45,
+      "ordinary_refactors": 27,
+      "manager_copies": 27,
+      "explicit_solve_entries": 126,
+      "prework_nondefault_rejections": 18
+    }
+  },
+  "notes": [
+    "All construction/refactor entries include native/Markowitz work, plus18 independent B\\rhs factorizations and3 direct dense LU setups. Singular and injected errors are separate branches, never silently zero work.",
+    "Orientation is conditional: native export may return immediately for empty/unit scaling or attempt _hh_scale_mode. Listed upper bounds count one direct solve per eligible real export; _hh_scale_mode also has four sparse matvecs and vector scans. Markowitz extraction has no orientation solve.",
+    "Explicit manager solves are API entries; indexed/alias forwarding and prepared-spike recomputation are internal work, not added as if independent API entries. Full primitive counts depend on sparse routing and update chains<=8 (saved copied branch<=3). No instrumentation or production method overwrite.",
+    "Test snapshots/owner tuples/control copies/oracles are outside any performance claim. _dl_factor_snapshot and export snapshots detach values; exact residual oracles allocate Rational arrays/matvecs, bounded fixture maxn16. BigFloat256/Rational fallback matrices n2. Controls20 copied per observed nonempty native entry plus private20default vector.",
+    "No public solve/problem, LP import or large model; no timing/alloc benchmark. Native constructor/internal Markowitz dense LU and wrapper allocation totals are not observed. Full phase assertion tree is exact; native operation estimates remain explicitly bounded/source-derived."
+  ]
+}
