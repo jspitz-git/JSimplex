@@ -1,0 +1,31 @@
+BEGIN dynamic BG driver red300
+WARNING: Detected access to binding `Main.run_dynamic_bg_red` in a world prior to its definition world.
+  Julia 1.12 has introduced more strict world age semantics for global bindings.
+  !!! This code may malfunction under Revise.
+  !!! This code will error in future versions of Julia.
+Hint: Add an appropriate `invokelatest` around the access to this binding.
+To make this warning an error, and hence obtain a stack trace, use `julia --depwarn=error`.
+TEST FAILURE: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-DYNAMIC-DRIVER-PREPARATION/red.jl:4
+  Expression: isdefined(JSimplex, :BGSlotUpper)
+   Evaluated: isdefined(JSimplex, BGSlotUpper)
+TEST FAILURE: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-DYNAMIC-DRIVER-PREPARATION/red.jl:5
+  Expression: isdefined(JSimplex, :_bg_slots)
+   Evaluated: isdefined(JSimplex, _bg_slots)
+TEST FAILURE: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-DYNAMIC-DRIVER-PREPARATION/red.jl:6
+  Expression: isdefined(JSimplex, :_bg_reserve!)
+   Evaluated: isdefined(JSimplex, _bg_reserve!)
+TEST FAILURE: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-DYNAMIC-DRIVER-PREPARATION/red.jl:7
+  Expression: isdefined(JSimplex, :_bg_swap_rows!)
+   Evaluated: isdefined(JSimplex, _bg_swap_rows!)
+TEST FAILURE: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-DYNAMIC-DRIVER-PREPARATION/red.jl:8
+  Expression: isdefined(JSimplex, :_bg_rotate_rows!)
+   Evaluated: isdefined(JSimplex, _bg_rotate_rows!)
+TEST FAILURE: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-DYNAMIC-DRIVER-PREPARATION/red.jl:9
+  Expression: isdefined(JSimplex, :DynamicBGFactor)
+   Evaluated: isdefined(JSimplex, DynamicBGFactor)
+TEST FAILURE: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-DYNAMIC-DRIVER-PREPARATION/red.jl:10
+  Expression: isdefined(JSimplex, :_dynamic_bg_factor)
+   Evaluated: isdefined(JSimplex, _dynamic_bg_factor)
+TEST FAILURE: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-DYNAMIC-DRIVER-PREPARATION/red.jl:11
+  Expression: isdefined(JSimplex, :_dynamic_bg_replace!)
+   Evaluated: isdefined(JSimplex, _dynamic_bg_replace!)
