@@ -1,0 +1,45 @@
+"""Exclusive followup evidence checker; no historical checker imports or execution."""
+from pathlib import Path
+import hashlib,json,subprocess
+R=Path('/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl');D=R/'diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-INTEGRATION-PREPARATION'
+def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def rd(p):return json.loads(Path(p).read_text())
+def rel(p):return str(p.relative_to(R))
+def path(n):return Path(n) if Path(n).is_absolute() else R/n
+checks={}
+def c(n,b):checks[n]=bool(b)
+def git(*a):return subprocess.check_output(['git',*a],cwd=R,text=True).strip()
+old=rd(D/'preparation-pins.json');new=rd(D/'preparation-pins-reviewed.json');mapping=rd(D/'review-mapping.json');work=D/'WORK-AND-ADMISSION.md';saved=D/'WORK-AND-ADMISSION.md.before-review'
+c('revised manifest has 847 entries',len(new['sha256'])==847)
+c('all847 freshly match',all(sha(path(n))==h for n,h in new['sha256'].items()))
+c('old manifest remains833',len(old['sha256'])==833)
+c('single mapping exact identity',mapping==dict(record=rel(D/'preparation-pins.json'),pointer=['sha256',rel(work)],sha256=old['sha256'][rel(work)],preserved_path=rel(saved)))
+c('all833 old entries resolve preserved',all(sha(saved if n==rel(work) else path(n))==h for n,h in old['sha256'].items()))
+c('only original ledger current bytes changed',[n for n,h in old['sha256'].items() if sha(path(n))!=h]==[rel(work)])
+a=saved.read_text();b=work.read_text();expected=a.replace('Per public case seven input snapshots:','Per public case six input snapshots:').replace('nine buffers; seven copied objects.','eight buffers; six copied objects.')
+c('work exact authorized count-only correction',a.count('Per public case seven input snapshots:')==1 and a.count('nine buffers; seven copied objects.')==1 and b==expected)
+c('correct ledger6 objects8 buffers23 entries',all(s in b for s in ['Per public case six input snapshots:','eight buffers; six copied objects.','23 entries','184 copied entries']))
+initial=rd(D/'review.json');c('initial rejection preserved',initial['accepted'] is False and len(initial['findings'])==1 and initial['pins_sha256']==sha(D/'preparation-pins.json'))
+c('initial review exact manifest set',set(initial['sha256'])==set(old['sha256'])|{rel(D/'preparation-pins.json')})
+c('initial review binding bytes preserved',all(sha(saved if n==rel(work) else path(n))==h for n,h in initial['sha256'].items()))
+c('initial supplemental bytes preserved including continuation preimage',all(sha(D/'continuation-text.md.before-review' if n==rel(D/'continuation-text.md') else path(n))==h for n,h in initial['evidence_sha256'].items()))
+first=rd(D/'reviewer-checks.json');c('original372 checks sole finding preserved',first['check_count']==372 and first['failures']==['public snapshot object/buffer ledger accurate'] and first['all_passed'] is False)
+fix=rd(D/'review-fix.json');c('fix7 checks pass',fix['all_passed'] and len(fix['checks'])==7 and all(fix['checks'].values()))
+for field in ('sha256','protected_sha256'):c('fix '+field+' fresh',all(sha(path(n))==h for n,h in fix[field].items()))
+a=(D/'continuation-text.md.before-review').read_text();b=(D/'continuation-text.md').read_text();c('continuation only final review names changed',a.count('review.json/review.md')==1 and b==a.replace('review.json/review.md','review-final.json/review-final.md'))
+a=(D/'finalize.py').read_text();b=(D/'finalize-final.py').read_text();c('finalizer exact two pathname substitutions only',a.count("D/'review.json'")==1 and a.count("D/'preparation-pins.json'")==3 and b==a.replace("D/'review.json'","D/'review-final.json'").replace("D/'preparation-pins.json'","D/'preparation-pins-reviewed.json'"))
+c('original finalizer and publisher preserved',all(sha(D/n)==initial['evidence_sha256'][rel(D/n)] for n in ('finalize.py','publication.py')))
+c('revised manifest contains all old entries and correction evidence',set(old['sha256']).issubset(new['sha256']) and all(rel(D/n) in new['sha256'] for n in ('review.json','review.md','reviewer-checks.json','reviewer-offline-check.py','review-fix.py','review-fix.json','review-mapping.json','WORK-AND-ADMISSION.md.before-review','continuation-text.md.before-review','finalize-final.py')))
+over=rd(D/'overlay-manifest.json')['candidate'];c('76 overlay files still match',len(over)==76 and all(sha(e['source'])==e['sha256'] for e in over))
+prior=rd(D.parent/'NATIVE-PIVOT-PREPARATION/overlay-manifest.json')['candidate'];c('old75 overlay unchanged',len(prior)==75 and all(e in over for e in prior))
+base=rd(D/'actual-baseline.json')['sha256'];c('520 actual files unchanged',len(base)==520 and all(sha(R/n)==h for n,h in base.items()))
+c('baseline520 equal HEAD',all(hashlib.sha256(subprocess.check_output(['git','show','HEAD:'+n],cwd=R)).hexdigest()==h for n,h in base.items()))
+c('source12and91 preserved',rd(D/'source-check.json')['all_passed'] and len(rd(D/'source-check.json')['checks'])==12 and len(rd(D/'source-check.json')['sha256'])==91)
+c('author12 preserved',rd(D/'author-check.json')['all_passed'] and len(rd(D/'author-check.json')['checks'])==12)
+c('HEAD master branch unchanged',git('rev-parse','HEAD')=='fac3ffc1065f9c34852ce82a6d33b496aa641936' and git('rev-parse','master')=='6f68e24e8ddac42b948da8fcc2d636c010751194' and git('branch','--show-current')=='codex/simplex-core-architecture')
+c('no tracked or index changes',not git('diff','--name-only') and not git('diff','--cached','--name-only'))
+c('no integration stage run or closure',not (R/'.superpowers/native-pivot-integration').exists() and all(not(D/n).exists() for n in ('runs','closure.json','publication.json','closure-host.json')))
+c('explicit future driver boundary unchanged',all(s in (D/'WORK-AND-ADMISSION.md').read_text() for s in ['UNIMPLEMENTED','not expected exact observations','Triangular managers','separate OFFLINE concrete driver/probe/guard/auditor','not exact admission']))
+z={'all_passed':all(checks.values()),'checks':checks,'check_count':len(checks),'failures':[n for n,v in checks.items() if not v],'scope':'Independent OFFLINE correction verification; no Julia, historical script execution, staging or numerical admission.','pins_sha256':sha(D/'preparation-pins-reviewed.json'),'original_pins_sha256':sha(D/'preparation-pins.json'),'counts':{'revised_manifest':847,'original_manifest':833,'original_unchanged_current_entries':832,'revised_review_bindings_required':848,'previous_checks':372,'correction_author_checks':7,'prospective_assertions_unchanged':162,'actual_baseline':520},'reviewer_script_sha256':sha(Path(__file__))}
+with (D/'reviewer-correction-checks.json').open('x') as f:json.dump(z,f,indent=2);f.write('\n')
+print(json.dumps({k:z[k] for k in ('all_passed','check_count','failures','counts')}))

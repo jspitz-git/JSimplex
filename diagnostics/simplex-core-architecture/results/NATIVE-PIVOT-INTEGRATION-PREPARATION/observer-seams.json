@@ -1,0 +1,50 @@
+{
+  "edits": [
+    {
+      "file": "src/factorization.jl",
+      "before": "function _factorize_basis(B::AbstractMatrix{Float64}, ::Val{:native}, policy::_NativePivotPolicy)\n",
+      "after": "function _factorize_basis(B::AbstractMatrix{Float64}, ::Val{:native}, policy::_NativePivotPolicy)\n    Main.NativePivotIntegrationProbe.enter!(:construct)\n",
+      "count": 1
+    },
+    {
+      "file": "src/factorization.jl",
+      "before": "    return UMFPACKBackend(factor, rows, nothing, false, policy)\n",
+      "after": "    return Main.NativePivotIntegrationProbe.completed(:construct, UMFPACKBackend(factor, rows, nothing, false, policy))\n",
+      "count": 1
+    },
+    {
+      "file": "src/factorization.jl",
+      "before": "function _refactorize_backend(backend::UMFPACKBackend, B::AbstractMatrix{Float64})\n",
+      "after": "function _refactorize_backend(backend::UMFPACKBackend, B::AbstractMatrix{Float64})\n    Main.NativePivotIntegrationProbe.enter!(:refactor)\n",
+      "count": 1
+    },
+    {
+      "file": "src/factorization.jl",
+      "before": "function _refactorize_backend(backend::UMFPACKBackend, B::AbstractMatrix{Float64})\n    sparse_basis = convert(SparseMatrixCSC{Float64,Int}, B)\n    rows, columns = size(sparse_basis)\n    rows == columns || throw(DimensionMismatch(\"basis matrix must be square\"))\n    if iszero(rows)\n        if !backend.shared && !isnothing(backend.factorization)\n            backend.spare = backend.factorization\n        end\n        backend.factorization = nothing\n        backend.dimension = 0\n        backend.shared = false\n        return backend\n    end\n\n    candidate = backend.spare\n    if isnothing(candidate)\n        candidate = _native_lu(sparse_basis, backend.pivot_policy)\n    else\n        reuse_symbolic = _same_umfpack_pattern(candidate, sparse_basis)\n        try\n            lu!(candidate, sparse_basis; reuse_symbolic)\n        catch\n            # lu! can change indices and symbolic/numeric state before failing.\n            # Drop that candidate; the active LU and all copies are untouched.\n            backend.spare = nothing\n            rethrow()\n        end\n    end\n    backend.spare = backend.shared ? nothing : backend.factorization\n    backend.factorization = candidate\n    backend.dimension = rows\n    backend.shared = false\n    return backend\nend\n",
+      "after": "function _refactorize_backend(backend::UMFPACKBackend, B::AbstractMatrix{Float64})\n    sparse_basis = convert(SparseMatrixCSC{Float64,Int}, B)\n    rows, columns = size(sparse_basis)\n    rows == columns || throw(DimensionMismatch(\"basis matrix must be square\"))\n    if iszero(rows)\n        if !backend.shared && !isnothing(backend.factorization)\n            backend.spare = backend.factorization\n        end\n        backend.factorization = nothing\n        backend.dimension = 0\n        backend.shared = false\n        return Main.NativePivotIntegrationProbe.completed(:refactor, backend)\n    end\n\n    candidate = backend.spare\n    if isnothing(candidate)\n        candidate = _native_lu(sparse_basis, backend.pivot_policy)\n    else\n        reuse_symbolic = _same_umfpack_pattern(candidate, sparse_basis)\n        try\n            lu!(candidate, sparse_basis; reuse_symbolic)\n        catch\n            # lu! can change indices and symbolic/numeric state before failing.\n            # Drop that candidate; the active LU and all copies are untouched.\n            backend.spare = nothing\n            rethrow()\n        end\n    end\n    backend.spare = backend.shared ? nothing : backend.factorization\n    backend.factorization = candidate\n    backend.dimension = rows\n    backend.shared = false\n    return Main.NativePivotIntegrationProbe.completed(:refactor, backend)\nend\n",
+      "count": 1,
+      "apply_before_other_edits": true
+    },
+    {
+      "file": "src/factorization.jl",
+      "before": "function _backend_forward_solve!(destination::Vector, backend::UMFPACKBackend,\n                                 rhs::StridedVector)\n",
+      "after": "function _backend_forward_solve!(destination::Vector, backend::UMFPACKBackend,\n                                 rhs::StridedVector)\n    Main.NativePivotIntegrationProbe.enter!(:forward)\n",
+      "count": 1
+    },
+    {
+      "file": "src/factorization.jl",
+      "before": "function _backend_transpose_solve!(destination::Vector, backend::UMFPACKBackend,\n                                   rhs::StridedVector)\n",
+      "after": "function _backend_transpose_solve!(destination::Vector, backend::UMFPACKBackend,\n                                   rhs::StridedVector)\n    Main.NativePivotIntegrationProbe.enter!(:transpose)\n",
+      "count": 1
+    }
+  ],
+  "application_order": [
+    3,
+    0,
+    1,
+    2,
+    4,
+    5
+  ],
+  "scope": "UNIMPLEMENTED future driver hooks: managed native backend attempts and completed control checks only. No global method overwrite; reverse exact edits before admission."
+}

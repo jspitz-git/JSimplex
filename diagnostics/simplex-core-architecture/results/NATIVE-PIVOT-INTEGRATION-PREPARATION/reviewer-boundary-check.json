@@ -1,0 +1,19 @@
+{
+  "all_passed": true,
+  "checks": {
+    "prior_only_failure_is_reviewer_literal_location": true,
+    "unimplemented_in_actual_seam_scope": true,
+    "work_explicit_not_implemented": true,
+    "future_driver_prerequisite": true,
+    "dynamic_counts_not_exact": true,
+    "triangular_scope_explicit": true,
+    "no_exact_admission": true
+  },
+  "check_count": 7,
+  "explanation": "Initial correction checker searched for uppercase UNIMPLEMENTED and the exact substring not exact admission in WORK-AND-ADMISSION.md. Uppercase UNIMPLEMENTED belongs to observer-seams.json; work uses not yet an implemented observer and is not exact admission. This is a reviewer literal-check location/wording error, not an artifact defect. Original failed checker output is preserved; no old checker was rerun.",
+  "sha256": {
+    "diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-INTEGRATION-PREPARATION/WORK-AND-ADMISSION.md": "eace578673f6e93b59cc8fbee9470d7feef728d47caa386b37f0a9db07037fd2",
+    "diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-INTEGRATION-PREPARATION/observer-seams.json": "85c170ba5ec7de079c43d7477ecf97be9390cadcb359c8562d1ca8e00bef06a2",
+    "diagnostics/simplex-core-architecture/results/NATIVE-PIVOT-INTEGRATION-PREPARATION/reviewer-correction-checks.json": "256ea2dc1325c54c49b0c99735334eb8736a457bf77d786dcda619cebfa68a11"
+  }
+}
