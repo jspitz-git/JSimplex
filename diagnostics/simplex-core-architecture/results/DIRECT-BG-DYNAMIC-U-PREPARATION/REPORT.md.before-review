@@ -1,0 +1,76 @@
+# Direct BG dynamic U — Task1 offline preparation
+
+Scope: separate arena candidate and structural tests ONLY, following the accepted
+2026-10-16 plan/spec. No Julia/query/parser/import/compile/solver/measurement,
+Task2 factor/adapter, production src/test/environment/CI/master change. Actual
+master26e2291745999f485a74f643298ca997d65c7205; diagnostic entry2ad323617d16a26289ed05a9afac3fbe27b0133e.
+
+## Candidate and invariants
+
+`diagnostics/direct-bg-dynamic-upper/reproduce/slot-upper.jl` implements exactly
+one Float64 value per live slot, six Int slot arrays, four inverse-order maps and
+four head/tail vectors. Free slots use row_id=0 and column_next as the free link;
+other metadata/value is cleared. No persistent dictionary, per-row vector or
+second coefficient representation. Handles remain internal.
+
+Construction validates square CSC structure and q before publication. It visits
+stable original-basis IDs in order, through inverse q, preserving signed explicit
+zeros/NaN bits and ordered row/column lists. Link checks the supplied neighboring
+gaps in constant work; no duplicate full lookup or full checker in mutations.
+Known-slot stores delete exact zeros only. Swap merges the two sorted row lists;
+rotation relinks the moving physical row through affected column intervals before
+changing logical maps. Coefficient values/physical IDs do not move.
+
+Growth uses checked max(required,C+max(C div2,16)), not a generic 1.5x claim at
+small C:0→16,16→32,24→40. It creates all seven buffers before publication, copies
+all old slot IDs/links and attaches new free slots to the old free chain. A private
+call-local allocator seam is used only for planned failure injection; its contract
+requires fresh independent vectors, it is never retained. There is no global hook.
+No whole-update rollback promise or factor/solve behavior is introduced by Task1.
+
+## Tests and verification limits
+
+The Julia structural test file was written before the candidate; tests-first.json
+binds the preserved before-author-check copy. A pre-review source refinement makes
+malformed inputs by corrupting valid CSC objects so an upstream constructor cannot
+preempt the intended test, and adds nonzero finite/Inf/NaN/subnormal stores. All
+Julia tests remain UNEXECUTED, including the proposed allocation-failure tests.
+No Julia RED or GREEN, syntax acceptance, inference, allocation count or speedup
+is claimed by offline checks.
+
+Test-only full checker costs O(n+C), traversing both indexes and the free chain,
+checking inverse maps, reciprocal links, uniqueness, ownership, exhaustiveness
+and strict ordering. Selected-state materialization is also test-only and detached.
+Fixtures cover empty/identity/explicit CSC, q=[3,1,2], input nonmutation/ownership,
+zero deletion, head/tail/singletons, free reuse, growth/overflow and each of seven
+allocator failure points, row swaps/rotations/inverse, and intentional corruption.
+
+The new prepare-overlay.py copies exactly75 accepted GREEN source/environment
+files, changes only one root include and adds candidate/test text (77files total).
+The inverse restores the complete original root bytes; all other baseline files
+are identical. The source is the accepted master-based stage, not old diagnostic
+src. Existing backend/export/adapter files are copied unchanged. No Julia loading
+or cache validity is inferred. This one-shot new preparation is now evidence and
+must not be rerun over its exclusive paths.
+
+## Work, allocation and retained-memory review
+
+At setup: q validation/inverse O(n), CSC validation/import O(n+nnz),15 vector
+buffers plus the arena object. The retained payload is56*C+64*n bytes on64-bit,
+plus array/object headers/scalars. No coefficient-level object allocations.
+Local lookup costs row degree; link/unlink/set have constant metadata work except
+reserve. Swap costs sum of row degrees; rotation costs moved-row affected-column
+interval traversal plus map rotation length. No solver kernels are called.
+
+Growth allocates seven replacement vectors; old and new payloads coexist until
+publication and collection. It initializes buffers and copies seven old prefixes;
+free capacity remains retained after deletion, and no compaction occurs. The full
+checker/selected-state/permutation oracle allocate only in the diagnostic tests.
+No runtime allocation-free or speedup claim: pointer chasing and link capacity can
+outweigh avoided packed shifts. Exact hidden Julia allocation behavior is not
+qualified by textual absence of allocation calls.
+
+The remaining Task2 adapter must preserve the accepted BG arithmetic, caches,
+copy/refactor and failure semantics; Task3 separately binds actual tests/call
+budgets, admission and short measurement. This preparation grants no launch.
+CIoff,HHdisabled,automationpaused; previous negative cost evidence remains frozen.

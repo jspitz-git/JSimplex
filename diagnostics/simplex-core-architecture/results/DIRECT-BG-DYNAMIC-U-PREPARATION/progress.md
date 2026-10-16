@@ -1,0 +1,15 @@
+# SDD ledger — plan: docs/superpowers/plans/2026-10-16-direct-bg-dynamic-upper.md
+
+Task1: active, offline preparation only. Base2ad323617d16a26289ed05a9afac3fbe27b0133e.
+Ruling: Current explicit user request authorizes Task1 only and forbids Julia; write unexecuted tests first, then candidate, static review. Runtime RED/GREEN is deferred, not claimed passed.
+Ruling: Reuse the existing isolated diagnostic worktree; preserve all historical workspaces and evidence instead of deleting them. Use the specifically accepted GREEN overlay as authorized source input.
+Pre-flight Task1→Task2: arena operations and stable q/map semantics are consumed by future BG adapter; no factor/caches/solves/column replacement/elimination in Task1.
+Pre-flight Task1→Task3: unexecuted tests need a separate concrete driver/assertion tree/manifest/admission; this step creates no launcher or numerical allowance.
+Tests written first, tests-first.json binds their bytes before slot-upper.jl existed.
+Implementation: one contiguous seven-array arena, four maps/four heads; local gap checks; q-aware O(n+nnz) import; free reuse; private seven-buffer growth; pointer-only row swap/rotation.
+Ruling: Private call-local fresh-buffer allocator seam supports planned OOM tests; never stored in the arena. It does not change default allocation policy or install global hooks.
+
+Final review correction I1: separate reviewed growth implementation initializes suffix only; new dirty-allocator success oracle UNEXECUTED. Offline text RED→GREEN only, no runtime test claim.
+Final review annotation I2: preserve original18-label/19-check record and explain the exact19 scope in REPORT; no runtime significance.
+Final review correction I3: prepublication exact file membership, synthetic added/missing/duplicate cases tested offline before Git stage.
+Ruling: Keep superseded candidate/tests/overlay and exclusive scripts frozen; reviewed successors are canonical. No Task2 or Julia despite general continuous-execution skill.
