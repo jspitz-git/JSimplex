@@ -1,0 +1,44 @@
+{
+  "all_passed": true,
+  "scope": "Offline design arithmetic and read-only identity checks only; no Julia or new measurement",
+  "checks": {
+    "dense32_payload": true,
+    "dense96_payload": true,
+    "dense96_hybrid_lower_bound": true,
+    "headroom_excludes_headers": true,
+    "append_payload": true,
+    "scratch_payload": true,
+    "slot_payload_reference": true,
+    "handle_limit": true,
+    "entry_pins_unchanged": true,
+    "no_historical_group_or_session": true,
+    "foreign_julia_explicit": true
+  },
+  "tables": [
+    {
+      "n": 32,
+      "m": 528,
+      "K0": 32,
+      "C": 528,
+      "R": 528,
+      "core_payload": 13136,
+      "outer_pointer_payload": 280
+    },
+    {
+      "n": 96,
+      "m": 4656,
+      "K0": 192,
+      "C": 4656,
+      "R": 4656,
+      "core_payload": 102224,
+      "outer_pointer_payload": 792
+    }
+  ],
+  "sha256": {
+    "docs/superpowers/specs/2026-10-16-direct-bg-block-upper.md": "edca28d6a17ece0219b1ec417c931348809d5a0a957a73edefc1309644d845f2",
+    "docs/superpowers/plans/2026-10-16-direct-bg-block-upper.md": "0bff6ece2badafa68019adb4af6f3f48f3f4452df5086a7dec98e0c6814308d2",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCK-U-PLAN/entry.json": "d07a223a7b32db7a88db55304c28fb419dd8073fcd9556c005cfc7695664ea1a",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCK-U-PLAN/budget-check.py": "e547e9ff61e12f9baa08f60144a6bbfad64c1c756521808c79cd090f3ba54abd"
+  },
+  "limits": "Dense triangular design shapes only, not a newly observed export. Sparse K unknown. Payload excludes headers, spare backing, manager and native memory. Runtime acceptance absent."
+}
