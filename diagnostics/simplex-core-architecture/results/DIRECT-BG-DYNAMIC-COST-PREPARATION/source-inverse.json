@@ -1,0 +1,52 @@
+{
+  "originals": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-DYNAMIC-DRIVER-PREPARATION/guard.py": "48b41e93fe1dc976d0680d2b82ef4a8ea9f374c72fc729ea2ef2b984103843f0",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-DYNAMIC-DRIVER-PREPARATION/supervisor.py": "6e3b10276da83500ec5c42c1facd4127a18679c8ae443248f8154c14359e708a",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-DYNAMIC-DRIVER-PREPARATION/baseline.json": "7b77d0427e3a6420d70e96b8495d07d880b322886bec23270480e19afef03e62",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-DYNAMIC-DRIVER-PREPARATION/environment.json": "30498ce0ff7db9fcad0d981b8a69c37265ce69614a94b7d36d8843175651927d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-DYNAMIC-DRIVER-PREPARATION/loaded-paths.json": "7f616e8cffe07a9340559fa317086c51ce7c55eed5615bbc03af7a34618ed30a",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-DYNAMIC-DRIVER-PREPARATION/runtime-inputs-complete.json": "62bb8f283b7266d5935a9f604a13c2ef3b1166e2bf44c0bbcffaad774ee28ac7",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-POLICY-ADAPTER-COST-PREPARATION/inputs.json": "2b08bf1b37cbdde9647b58a5062d2d7c739d62f0054dba6449082c6e00ea2e77",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-POLICY-ADAPTER-COST-PREPARATION/inputs.toml": "0538c9b284c385543d1f1312351cc1d09e2598dd4e1a1248fcb9cdb69e9b0069",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-POLICY-ADAPTER-COST-PREPARATION/analysis.py": "1175345d488824d49e5a4d60664593d6aaa5ea7ab003802e800fc8a70245aa28",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-POLICY-ADAPTER-COST-PREPARATION/evidence.py": "5240c54f65a06d1f47cf6bd0522944906f0b7d599383db9f61fd5c612cb6048a",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-POLICY-ADAPTER-COST-PREPARATION/control.py": "0e52d1771d4a7a9a4136d008f0a7e29d99dffb4ad443b0e09c7bb0eb265f9061",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-POLICY-ADAPTER-COST-PREPARATION/audit.py": "8f47645e22bd727e492bc482d813f3d038dc0336c2e5d0901c55c870f8b711b9",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-POLICY-ADAPTER-COST-PREPARATION/launch.py": "bf4e90bd7ee401a3275f2b83cbd7d78d124db20332a535be475278785e41d61f",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-POLICY-ADAPTER-COST-PREPARATION/seal.py": "704eaff9bd0c645971009e86e6e8dc158e74cba8bdd073d163ec48c897c17993",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-LU-POLICY-ADAPTER-COST-PREPARATION/cost.jl": "c08ed5e19a03c51f0e1e189f08f47e4d8fe4289fe1ef145ffa9d0cf94a8a551e"
+  },
+  "probe": {
+    "probe-slots.jl": {
+      "original": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-bg-dynamic-upper/reproduce/slot-upper-reviewed.jl",
+      "renamed_inverse": true,
+      "insertions": [
+        [
+          "    C = _probe_bg_capacity(U.capacity,required)\n",
+          "    _bg_probe_counts[1]+=1 # reserve attempts\n"
+        ],
+        [
+          "    C == U.capacity && return nothing\n",
+          "    _bg_probe_counts[2]+=1 # growth attempts\n    _bg_probe_counts[3]+=7*U.capacity # copied scalar entries\n    _bg_probe_counts[4]=max(_bg_probe_counts[4],56*(U.capacity+C)) # old+new arena payload\n"
+        ],
+        [
+          "    _probe_bg_ids(U,rid,cid)\n    _probe_bg_row_gap",
+          "    _bg_probe_counts[5]+=1 # link attempts\n"
+        ],
+        [
+          "function _probe_bg_unlink!(U::ProbeBGSlotUpper,s::Int)::Nothing\n",
+          "    _bg_probe_counts[6]+=1 # unlink attempts\n"
+        ]
+      ],
+      "prefix": "const _bg_probe_counts=zeros(Int,6) # ONLY separate untimed probe dispatch\n"
+    },
+    "probe-bg.jl": {
+      "original": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-bg-dynamic-upper/reproduce/dynamic-bg-reviewed.jl",
+      "renamed_inverse": true
+    }
+  },
+  "stage_source": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-16-direct-bg-dynamic-upper/task3-driver-stages/green",
+  "stage_addition": "include(\"probe-slots.jl\")\ninclude(\"probe-bg.jl\")\n\n",
+  "oracles_original": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-bg-dynamic-upper/reproduce/slot-oracles.jl",
+  "scope": "Original candidate and all existing stage bytes unchanged except new stage root includes and two separate probe sources"
+}

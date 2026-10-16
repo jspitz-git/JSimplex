@@ -1,0 +1,5 @@
+# Narrow publication amendment
+
+Canonical publication is **publish_final.py**, superseding unexecuted publish.py and publish_reviewed.py. Runtime/driver/admission/closure controls and canonical1855manifest are unchanged. This amendment and its proof are final-review supplementary bindings.
+
+An offline prepublication whitespace scan found exactly one inherited blank line at EOF in probe-oracles.jl. Keep the original accepted oracle tail byte-identical through the documented inverse (remove using Test, widen only the two type annotations for the separate probe type). publish_final.py verifies that complete inverse before exempting only this source-derived file from authored whitespace checking. Its whitespace is still recorded in the complete raw diff proof; all other newly authored files retain the strict gate. No failed publication/commit, Julia or numerical retry occurred. Exact file membership, hashes and staged/committed blob checks are unchanged. The original1855inventory, rejection and controls remain preserved.

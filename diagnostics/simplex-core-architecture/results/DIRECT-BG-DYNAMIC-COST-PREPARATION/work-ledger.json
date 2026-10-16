@@ -1,0 +1,50 @@
+{
+  "scope": "Prospective per process, never observed execution",
+  "cells": 8,
+  "warm_pairs_per_cell": 3,
+  "measured_pairs_per_cell": 7,
+  "timed": {
+    "windows": 160,
+    "warm": 48,
+    "measured": 112,
+    "constructors": 160,
+    "refactors": 320,
+    "updates": 1280,
+    "ftran": 2560,
+    "btran": 1280,
+    "copies": 0
+  },
+  "controls": {
+    "constructors": 16,
+    "refactors": 32,
+    "exports": 48,
+    "explicit_solves": 0
+  },
+  "probe": {
+    "constructors": 24,
+    "refactors": 48,
+    "updates": 192,
+    "ftran": 384,
+    "btran": 192,
+    "copies": 0,
+    "checkpoints": 88,
+    "output_vectors": 576
+  },
+  "total": {
+    "constructors": 200,
+    "refactors": 400,
+    "backend_factorization_entries": 600,
+    "updates": 1472,
+    "ftran": 2944,
+    "btran": 1472,
+    "exports": 600,
+    "native_orientation_solve_upper_bound": 300
+  },
+  "exact_residuals": {
+    "timed": 3840,
+    "probe": 576
+  },
+  "second_process": "Same counts; alternating order reversed. First result independently accepted first.",
+  "ordinary": "Deferred; no ordinary phases/driver in this package",
+  "memory": "Final reachable graph each timed window;11untimed checkpoint graphs per cell. Payload56C+64n and copy2x formula, growth counter max56(oldC+newC) excludes maps/other factor/backend/native transient coexistence. Adjacent checkpoint graph sums describe old/new endpoints only; NOT an upper bound on intermediate export/normalization/backend/native peak."
+}

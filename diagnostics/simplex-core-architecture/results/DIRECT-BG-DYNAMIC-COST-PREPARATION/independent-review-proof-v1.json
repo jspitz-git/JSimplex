@@ -1,0 +1,73 @@
+{
+  "all_checks_passed": true,
+  "checks": {
+    "1826_exact_pins": true,
+    "all_1826_sha256": true,
+    "entry_head": true,
+    "master": true,
+    "no_tracked_diff": true,
+    "no_runs": true,
+    "prefix_probe-slots.jl": true,
+    "one_counter_7": true,
+    "one_counter_8": true,
+    "one_counter_9": true,
+    "one_counter_10": true,
+    "exact_renamed_inverse_probe-slots.jl": true,
+    "exact_renamed_inverse_probe-bg.jl": true,
+    "all_original_bindings": true,
+    "83_stage_files": true,
+    "stage_hashes": true,
+    "81_green_files": true,
+    "only_root_and_two_new_sources": true,
+    "root_exact_inverse": true,
+    "probe_stage_equal": true,
+    "oracle_exact_inverse": true,
+    "input_formats": true,
+    "old_input_tokens_exact": true,
+    "top_level_definitions": true,
+    "timed_no_probe_or_full_scan": true,
+    "original_factories": true,
+    "timed_counts": true,
+    "untimed_counts": true,
+    "600_entries": true,
+    "exact_residual_counts": true,
+    "saved_offline-tests.json": true,
+    "saved_prefix-tests.json": true,
+    "saved_source-check.json": true,
+    "saved_author-check.json": true,
+    "python_ast_parse": true,
+    "six_mappings": true,
+    "map_0": true,
+    "map_1": true,
+    "map_2": true,
+    "map_3": true,
+    "map_4": true,
+    "map_5": true,
+    "single_pair_check": true,
+    "pair_check_only_under_completed_cell": true,
+    "signed_zero_counterexample": true,
+    "second_process_no_cost_gate": true
+  },
+  "pins_sha256": "839c4a4fe2f790cc893010b1782d3295fd323a596e0b8e31c0dd68a935d3c4c2",
+  "pin_count": 1826,
+  "scope": "Independent read-only SHA/AST/text checks only; no existing program imported or executed; no Julia",
+  "findings_proof": {
+    "timeout_pair_guard": [
+      "end in names"
+    ],
+    "signed_zero_tokens": [
+      "0000000000000000",
+      "8000000000000000"
+    ],
+    "valid_prefix_files": [
+      "started-1.toml",
+      "preflight-1.toml",
+      "probe-1.toml",
+      "window-1-1.toml",
+      "window-1-2.toml"
+    ],
+    "missing_completion": "cell-1.toml",
+    "consequence": "Valid exact-residual signed-zero discrepancy in completed pair is not compared in partial=True timeout admission",
+    "second_process_gate": "Only all_passed and pure_timeout; no performance eligibility predicate"
+  }
+}
