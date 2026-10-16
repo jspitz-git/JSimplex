@@ -1,0 +1,10 @@
+{
+  "original": "prepare.py",
+  "error": "SyntaxError: unterminated string literal at line15",
+  "exit": 1,
+  "followup": "offline-tests-final.py absent; followup exited2 before test execution",
+  "cause": "Author nested string newline escaping",
+  "outputs_created_by_failed_script": false,
+  "fix": "prepare-2.py escapes exactly one newline; Python ast.parse accepted; original retained",
+  "scope": "Offline author preparation failure, no Julia or numerical attempt"
+}
