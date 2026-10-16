@@ -1,0 +1,29 @@
+"""Exact new offline matched cost/admission evidence only, after separate closure."""
+from pathlib import Path
+import json,hashlib,subprocess
+P=Path(__file__).resolve().parent;R=P.parents[3]
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+def rd(p):return json.loads(p.read_text())
+def need(v,m):
+ if not v:raise RuntimeError(m)
+def save(p,j):
+ with p.open('x') as f:json.dump(j,f,indent=2);f.write('\n')
+def g(*a):return subprocess.check_output(['git',*a],cwd=R,text=True).strip()
+c=rd(P/'closure.json');need(c['all_passed'],'Closure')
+for n,h in c['sha256'].items():need(sha(R/n)==h,'Closure drift '+n)
+need(not g('diff','--cached','--name-only'),'Index dirty')
+extras=['diagnostics/simplex-core-architecture/STATUS.md','docs/superpowers/plans/2026-10-11-simplex-core-architecture.md']
+names=sorted([str(q.relative_to(R)) for q in P.rglob('*') if q.is_file()]+extras+[str((P/n).relative_to(R)) for n in ['publication-names.json','publication.json']])
+need(len(names)==len(set(names)) and not any('__pycache__' in n for n in names),'Unexpected names')
+save(P/'publication-names.json',names);existing=[n for n in names if n!=str((P/'publication.json').relative_to(R))]
+subprocess.run(['git','add','--',*existing],cwd=R,check=True)
+need(g('diff','--cached','--name-only').splitlines()==existing,'Stage membership')
+raw=[n for n in existing if '.before-' in n];authored=[n for n in existing if n not in raw]
+a=subprocess.run(['git','diff','--cached','--check','--',*authored],cwd=R,capture_output=True,text=True);need(a.returncode==0,'Authored whitespace '+a.stdout+a.stderr)
+w=subprocess.run(['git','diff','--cached','--check','--',*raw],cwd=R,capture_output=True,text=True);need(w.returncode in (0,2) and not w.stderr,'Raw command')
+save(P/'publication.json',dict(all_passed=True,staged_names=names,git_blobs={n:g('rev-parse',':'+n) for n in existing},sha256={n:sha(R/n) for n in existing},raw_diff_check=dict(returncode=w.returncode,stdout=w.stdout),self_binding='Exact staged/working and later committed blob, no recursive selfhash'))
+subprocess.run(['git','add','--',str((P/'publication.json').relative_to(R))],cwd=R,check=True)
+need(g('diff','--cached','--name-only').splitlines()==names,'Final names')
+for n in names:need(g('rev-parse',':'+n)==g('hash-object','--',n),'Final blobs '+n)
+need(not g('diff','--name-only'),'Unstaged tracked changes')
+print('Matched cost preparation publication PASS',len(names),'exact names/blobs')

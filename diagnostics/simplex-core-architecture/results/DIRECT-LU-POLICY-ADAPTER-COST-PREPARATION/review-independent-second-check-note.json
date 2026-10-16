@@ -1,0 +1,7 @@
+{
+  "error": "TypeError: argument should be a str or an os.PathLike object, not dict",
+  "cause": "All check predicates completed; final serialization reused the manifest variable m after the fixture matrix loop rebound it. This is a reviewer-only reporting bug.",
+  "original_sha256": "b2b51351e31fc697a01deac9725914f3f5b886ae1b13ed1ffc003f43b50a95c0",
+  "correction": "New v3 checker explicitly names preparation-pins.json in the three final manifest hash/key expressions; no check predicate or author file changes.",
+  "runtime_executed": false
+}

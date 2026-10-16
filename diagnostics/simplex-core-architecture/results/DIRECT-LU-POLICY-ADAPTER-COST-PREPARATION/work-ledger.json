@@ -1,0 +1,67 @@
+{
+  "scope": "Prospective source-entry counts, not observed native work/allocations",
+  "per_process": {
+    "cells": 24,
+    "warm_pairs_per_cell": 3,
+    "measured_pairs_per_cell": 7,
+    "windows": 480,
+    "warm_windows": 144,
+    "measured_windows": 336,
+    "constructions": 480,
+    "explicit_refactors": 960,
+    "updates": 3840,
+    "FTRAN": 7680,
+    "BTRAN": 3840,
+    "recorded_solution_vectors": 11520,
+    "recorded_solution_entries": 737280,
+    "input_full_checks": 504,
+    "retained_factor_graph_reads": 480
+  },
+  "separate_preflight_per_process": {
+    "cases": 24,
+    "constructions": 48,
+    "refactors": 96,
+    "explicit_solves": 0,
+    "candidate_exports": 72,
+    "native_control_observations": 72,
+    "markowitz_observations": 72,
+    "detached_control_tokens": 2880,
+    "detached_strategy_tokens": 72
+  },
+  "combined_per_process": {
+    "backend_setup_refactor_entries": 1584,
+    "candidate_export_entries": 792,
+    "native_candidate_exports": 396,
+    "orientation_solve_upper_bound": 396
+  },
+  "both_processes": {
+    "windows": 960,
+    "constructions": 960,
+    "refactors": 1920,
+    "updates": 7680,
+    "FTRAN": 15360,
+    "BTRAN": 7680,
+    "separate_preflight_backend_entries": 288,
+    "exact_offline_residual_checks": 23040
+  },
+  "limits": {
+    "max_n": 96,
+    "ordinary_chain": 4,
+    "updates_per_lifecycle": 8,
+    "shared_output_containers_per_fixture": 24,
+    "shared_output_entries_across_four_fixtures": 6144,
+    "max_in_memory_window_rows": 1
+  },
+  "unobserved": [
+    "Native internal primitive work and refinement",
+    "Allocator/native memory retention/free",
+    "Observer neutrality and end-to-end solver trajectory"
+  ],
+  "notes": [
+    "Nested times are subsets of whole-window time; never sum with total",
+    "GC remains included; explicit GC not added",
+    "Each input invariant checked once/window plus once/cell preflight",
+    "Only detached token results survive window; no per-cell row vector",
+    "Preflight actual factors are released before windows; dropping roots is not a native-free proof"
+  ]
+}
