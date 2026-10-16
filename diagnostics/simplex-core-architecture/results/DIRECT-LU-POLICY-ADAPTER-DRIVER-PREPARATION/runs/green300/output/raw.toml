@@ -1,0 +1,94 @@
+fatal = ""
+complete = true
+threads = 1
+blas_threads = 1
+phase = "green300"
+
+[tests]
+pass = 0
+name = "root"
+fail = 0
+broken = 0
+failures = []
+error = 0
+
+    [[tests.children]]
+    pass = 207
+    name = "Owned export identity and core row relocation"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+    [[tests.children]]
+    pass = 66
+    name = "Malformed export versus unsupported backend"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+    [[tests.children]]
+    pass = 12
+    name = "Actual orientation helper selects multiply, divide or neither"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+    [[tests.children]]
+    pass = 200
+    name = "Normalization rejection and both original-row scaling conventions"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+    [[tests.children]]
+    pass = 27624
+    name = "Three managers preserve solves, copies and prepared direction provenance"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+    [[tests.children]]
+    pass = 450
+    name = "Typed direct to fallback to direct refactors are transactional"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+    [[tests.children]]
+    pass = 1446
+    name = "Policy survives empty/copy/refactor/fallback and real controls"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+    [[tests.children]]
+    pass = 207
+    name = "Markowitz policy rejected before Float64 factory/export; compatibility"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+    [[tests.children]]
+    pass = 243
+    name = "Other precisions retain ordinary arithmetic and input ownership"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+
+[loaded]
+LinearAlgebra = "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/LinearAlgebra/src/LinearAlgebra.jl"
+SparseArrays = "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/SparseArrays/src/SparseArrays.jl"
+Test = "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl"
+JSimplex = "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-16-direct-lu-policy-adapters/driver-stages/green/src/JSimplex.jl"
+TOML = "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/TOML/src/TOML.jl"
+PrecompileTools = "/home/jspitz/.julia/packages/PrecompileTools/QUxvR/src/PrecompileTools.jl"
