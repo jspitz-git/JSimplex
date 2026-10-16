@@ -1,0 +1,54 @@
+{
+  "scope": "Supplement to reviewed18groups; actual stable BG solve dispatch explicitly bound, not a runtime claim",
+  "records": [
+    {
+      "source": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-16-direct-lu-policy-adapters/driver-stages/green/src/triangular_indices.jl",
+      "first": 90,
+      "last": 143,
+      "candidate_helpers": [
+        "_dbg_backsolve!",
+        "_dbg_transpose_upper!"
+      ],
+      "excerpt_sha256": "fc501331ca5ef963d104b904ec268a16057f17eabe9d6f73347b2895ffee786d",
+      "note": "Actual stable physical BG dispatch; same operation sequence, linked slot reads replace paired packed ids/values."
+    },
+    {
+      "source": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-16-direct-lu-policy-adapters/driver-stages/green/src/triangular_factorization.jl",
+      "first": 172,
+      "last": 183,
+      "candidate_helpers": [
+        "_dbg_entry",
+        "_dbg_value"
+      ],
+      "excerpt_sha256": "cab3f315da67ad04afd5aa0346fb27197307c37eaf360f04725d6abf48da6be6",
+      "note": "Original packed binary row lookup replaced by column-tail ordered linked lookup."
+    },
+    {
+      "source": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-16-direct-lu-policy-adapters/driver-stages/green/src/triangular_factorization.jl",
+      "first": 387,
+      "last": 409,
+      "candidate_helpers": [
+        "_dbg_begin_update!",
+        "copy_basis_factorization"
+      ],
+      "excerpt_sha256": "45affced68991118b35c1f91d86c0bcfbf599df5efaf4c826747ce1b6ab08e30",
+      "note": "Track/finish/cache helpers reused; invalidate is separately adapted."
+    },
+    {
+      "source": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-16-direct-lu-policy-adapters/driver-stages/green/src/triangular_factorization.jl",
+      "first": 147,
+      "last": 170,
+      "candidate_helpers": [
+        "_dbg_replace_column!"
+      ],
+      "excerpt_sha256": "3779e3fe6bde8942ed6459891acd70d51e855c2270c03f6b51068f8d04ba48cd",
+      "note": "Original packed-column omission of exact zeros and finite eligibility stores."
+    }
+  ],
+  "sha256": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-16-direct-lu-policy-adapters/driver-stages/green/src/triangular_indices.jl": "96659cddfae345701aed6c320a86fbeef4c6c4c95819864e363fcca04de3e61d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-16-direct-lu-policy-adapters/driver-stages/green/src/triangular_factorization.jl": "685d4356d83a4f62f2cf17f08a70f5987ba78d18499dc8ee6975405ae4a939f2",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-bg-dynamic-upper/reproduce/dynamic-bg-reviewed.jl": "a63e9caf42940afb4439feab1973cc9f732dae04826ac05d7d73417d110b41b4",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-DYNAMIC-ADAPTER-PREPARATION/actual-dispatch-excerpts.jl": "1c6940f7ee278f81cc63049a63a89626f9a64cf6d41f2e90d9f9710762d27bdb"
+  }
+}

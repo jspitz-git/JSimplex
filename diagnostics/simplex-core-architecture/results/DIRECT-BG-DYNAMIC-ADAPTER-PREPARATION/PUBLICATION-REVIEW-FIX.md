@@ -1,0 +1,3 @@
+# Exact amendment review membership
+
+Bounded amendment review found that the unexecuted `closure-supplement.py` verified listed review hashes but did not require exact review membership before collecting all current files. It is preserved UNEXECUTED. Canonical `closure-supplement-reviewed.py` additionally requires the review keys to equal all current Task2 evidence files except the review JSON itself, canonical11candidate files, and current STATUS/roadmap. No unreviewed addition can be silently included. The original final review52 and closure57 remain unchanged, as do candidate/tests and the59 staged blobs. Use the reviewed closure supplement, then the separately reviewed publication-final.py, never the superseded draft.

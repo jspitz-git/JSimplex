@@ -1,0 +1,275 @@
+{
+  "scope": "Exact source excerpt bindings and reversible text delta; numerical equivalence UNQUALIFIED",
+  "groups": [
+    {
+      "group": "construction",
+      "source": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-16-direct-lu-policy-adapters/driver-stages/green/src/direct-factor.jl",
+      "first": 116,
+      "last": 148,
+      "excerpt_sha256": "d0f3bae9cd989f3b6f88f56354513278f1262e65a40979a314206fbbd3bc2e51",
+      "candidate_helpers": [
+        "_dynamic_bg_with_exporter",
+        "_dynamic_bg_factor"
+      ],
+      "intentional_difference": "Same real factorization/export/normalization; tighter two-arm rejection; direct arena import replaces packed construction."
+    },
+    {
+      "group": "metadata",
+      "source": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-16-direct-lu-policy-adapters/driver-stages/green/src/triangular_factorization.jl",
+      "first": 343,
+      "last": 350,
+      "excerpt_sha256": "e852b84c3766f552d0a1cea24bc1cdea26a71edfe74aa24822aa8711f4218c25",
+      "candidate_helpers": [
+        "_dynamic_bg_storage_count",
+        "_dynamic_bg_growth",
+        "_dynamic_bg_finite"
+      ],
+      "intentional_difference": "Count logical live coefficients, not reserved slots; finite helper is new cold metadata."
+    },
+    {
+      "group": "dimensions",
+      "source": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-16-direct-lu-policy-adapters/driver-stages/green/src/triangular_factorization.jl",
+      "first": 517,
+      "last": 524,
+      "excerpt_sha256": "068b5b5f0fc729e57d437416642d1c619373c3cf832652d06199b6f854276a77",
+      "candidate_helpers": [
+        "_dbg_dimensions",
+        "_dynamic_bg_dimension"
+      ],
+      "intentional_difference": "Same RHS then output length checks and backend dimension."
+    },
+    {
+      "group": "prepared",
+      "source": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-16-direct-lu-policy-adapters/driver-stages/green/src/triangular_spikes.jl",
+      "first": 1,
+      "last": 123,
+      "excerpt_sha256": "4529bc5aacb604b932128463a26dc8e091933a720abb963c863de13666531873",
+      "candidate_helpers": [
+        "_dbg_begin_prepared!",
+        "_dbg_invalidate_destination!",
+        "_dbg_copy_prepared!",
+        "_dbg_save_prepared!"
+      ],
+      "intentional_difference": "Two slots and eviction/provenance retained, no unsupported sparse buffers; reuse original finish helper."
+    },
+    {
+      "group": "rows",
+      "source": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-16-direct-lu-policy-adapters/driver-stages/green/src/triangular_rows.jl",
+      "first": 14,
+      "last": 68,
+      "excerpt_sha256": "ffbe061ce7cfeb0b792ece13b692d42e7ce43aaeed8c47cc0be443956000e9e4",
+      "candidate_helpers": [
+        "_dbg_sync_rows!"
+      ],
+      "intentional_difference": "Reuse exact BartelsGolubUpdate compiler and subtract helper."
+    },
+    {
+      "group": "eligibility",
+      "source": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-16-direct-lu-policy-adapters/driver-stages/green/src/triangular_rows.jl",
+      "first": 120,
+      "last": 155,
+      "excerpt_sha256": "e616c21a8da0cce25ef2e815f24cc73c6491a444ef0b12d8e296acdc0d87af03",
+      "candidate_helpers": [
+        "_dbg_begin_update!",
+        "_dbg_columns"
+      ],
+      "intentional_difference": "Dirty suffix/diagonal/identity eligibility unchanged, no finite scan."
+    },
+    {
+      "group": "ftran",
+      "source": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-16-direct-lu-policy-adapters/driver-stages/green/src/triangular_rows.jl",
+      "first": 159,
+      "last": 187,
+      "excerpt_sha256": "ef7af287e60594b0114edfadfb7e1d9225c02922c209fbb0a6dcd282277deb17",
+      "candidate_helpers": [
+        "_dbg_forward!"
+      ],
+      "intentional_difference": "Same history/arithmetic/map handoff; row_order comes from arena."
+    },
+    {
+      "group": "ftran-entry",
+      "source": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-16-direct-lu-policy-adapters/driver-stages/green/src/triangular_factorization.jl",
+      "first": 756,
+      "last": 773,
+      "excerpt_sha256": "f6b9596ce0a61e5dfa4d71f05ee04d2cb57f2d2fa96623723c4b37ff8851cc2f",
+      "candidate_helpers": [
+        "forward_solve!",
+        "forward_solve",
+        "_ordinary_forward_solve!"
+      ],
+      "intentional_difference": "Same aliases and prepare=false eviction. Only Vector Float64 accepted; keywords rejected."
+    },
+    {
+      "group": "upper-ftran",
+      "source": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-16-direct-lu-policy-adapters/driver-stages/green/src/triangular_factorization.jl",
+      "first": 655,
+      "last": 679,
+      "excerpt_sha256": "8520fc2c25f576dc55ab9cc75feaefa348e3f0a6a03d281e3a2c060e38c63e41",
+      "candidate_helpers": [
+        "_dbg_backsolve!",
+        "_dbg_diagonal",
+        "_dbg_value"
+      ],
+      "intentional_difference": "Traverse logical column rows in same order; one stored value per shared slot."
+    },
+    {
+      "group": "upper-btran",
+      "source": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-16-direct-lu-policy-adapters/driver-stages/green/src/triangular_factorization.jl",
+      "first": 681,
+      "last": 705,
+      "excerpt_sha256": "b291c48b1556d695659f8f3fd7e53f03e43624cda4c07976eb55896f50e35316",
+      "candidate_helpers": [
+        "_dbg_transpose_upper!"
+      ],
+      "intentional_difference": "Same scalar subtract then divide; ordered column links."
+    },
+    {
+      "group": "btran-entry",
+      "source": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-16-direct-lu-policy-adapters/driver-stages/green/src/triangular_factorization.jl",
+      "first": 801,
+      "last": 860,
+      "excerpt_sha256": "5f2ab844f4571c75b204c0ff72ebaf5dca055b09b05b2ebeeebf83808c000d3e",
+      "candidate_helpers": [
+        "_unit_transpose_rhs",
+        "_dbg_transpose_rhs!",
+        "transpose_solve!",
+        "transpose_solve"
+      ],
+      "intentional_difference": "Same unit metadata, scratch aliases, dimensions and invalidation; dense subset only."
+    },
+    {
+      "group": "btran-history",
+      "source": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-16-direct-lu-policy-adapters/driver-stages/green/src/triangular_rows.jl",
+      "first": 189,
+      "last": 206,
+      "excerpt_sha256": "6acca51dfad0698764c8b5f64eb1534efbf6beeef47bb7f8571ded13415241d7",
+      "candidate_helpers": [
+        "_dbg_transpose_rhs!"
+      ],
+      "intentional_difference": "Same separate upper/history map handoff and reverse history; implementation in transpose_solve!."
+    },
+    {
+      "group": "btran-prefix",
+      "source": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-16-direct-lu-policy-adapters/driver-stages/green/src/triangular_rows.jl",
+      "first": 226,
+      "last": 241,
+      "excerpt_sha256": "e5bdb894b81a3c06c7715c1af94d3712bac283780f38500de919715a71dc25e2",
+      "candidate_helpers": [
+        "_dbg_transpose_start!"
+      ],
+      "intentional_difference": "Same prefix division order and full suffix arithmetic; integer start instead of view."
+    },
+    {
+      "group": "spike",
+      "source": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-16-direct-lu-policy-adapters/driver-stages/green/src/triangular_factorization.jl",
+      "first": 862,
+      "last": 908,
+      "excerpt_sha256": "ee89283ace1a8ea75a54e34c6e9b976ce1aa5ab4a373ebb760a1efe84d00a5c9",
+      "candidate_helpers": [
+        "_dbg_prepare_spike!",
+        "_dbg_replace_column!"
+      ],
+      "intentional_difference": "Same tolerance, pivot, provenance and reconstruction order. New column mechanics preserve q IDs."
+    },
+    {
+      "group": "pure-swaps",
+      "source": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-16-direct-lu-policy-adapters/driver-stages/green/src/bartels_golub_rows.jl",
+      "first": 57,
+      "last": 68,
+      "excerpt_sha256": "de85191e459f035492ab9165e77f24962f93dffc531bebd22549f9a8d45fe27e",
+      "candidate_helpers": [
+        "_dbg_last_pure"
+      ],
+      "intentional_difference": "Same exact zero and pivot magnitude decisions."
+    },
+    {
+      "group": "update",
+      "source": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-16-direct-lu-policy-adapters/driver-stages/green/src/triangular_factorization.jl",
+      "first": 1112,
+      "last": 1187,
+      "excerpt_sha256": "b52526f15d814d4c6aab1bebd066a52b08147ed539f4a0b0a05555b6473d7bea",
+      "candidate_helpers": [
+        "_dynamic_bg_replace!",
+        "_dbg_eliminate_row!",
+        "replace_column!"
+      ],
+      "intentional_difference": "Same branching, stable-column arithmetic, history success publication. Linked row union replaces packed target lookup/insertion."
+    },
+    {
+      "group": "copy",
+      "source": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-16-direct-lu-policy-adapters/driver-stages/green/src/triangular_factorization.jl",
+      "first": 1285,
+      "last": 1295,
+      "excerpt_sha256": "8fb3cb70f900610921758a5677af7d0ea6c9ae4c6f556be7a3c65f810a27e8ee",
+      "candidate_helpers": [
+        "copy_basis_factorization"
+      ],
+      "intentional_difference": "Copy all arena arrays, preserve physical IDs; original packed copy rebases physical IDs. Logical state and independent history map preserved."
+    },
+    {
+      "group": "refactor",
+      "source": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-16-direct-lu-policy-adapters/driver-stages/green/src/direct-factor.jl",
+      "first": 164,
+      "last": 176,
+      "excerpt_sha256": "30646adc3c53e9628373c9ad1a19906765aabeba92ee5c689653634ee2fa8309",
+      "candidate_helpers": [
+        "_dynamic_bg_refactor_with_exporter!",
+        "refactorize!",
+        "_dynamic_bg_mode"
+      ],
+      "intentional_difference": "Complete candidate then same concrete type publication; no reuse."
+    }
+  ],
+  "candidate_declared_names": [
+    "_dbg_backsolve!",
+    "_dbg_begin_prepared!",
+    "_dbg_begin_update!",
+    "_dbg_columns",
+    "_dbg_copy_prepared!",
+    "_dbg_diagonal",
+    "_dbg_dimensions",
+    "_dbg_eliminate_row!",
+    "_dbg_forward!",
+    "_dbg_invalidate_destination!",
+    "_dbg_last_pure",
+    "_dbg_prepare_spike!",
+    "_dbg_replace_column!",
+    "_dbg_save_prepared!",
+    "_dbg_sync_rows!",
+    "_dbg_transpose_rhs!",
+    "_dbg_transpose_start!",
+    "_dbg_transpose_upper!",
+    "_dbg_value",
+    "_dynamic_bg_dimension",
+    "_dynamic_bg_factor",
+    "_dynamic_bg_finite",
+    "_dynamic_bg_growth",
+    "_dynamic_bg_mode",
+    "_dynamic_bg_refactor_with_exporter!",
+    "_dynamic_bg_replace!",
+    "_dynamic_bg_storage_count",
+    "_dynamic_bg_with_exporter",
+    "_ordinary_forward_solve!",
+    "_unit_transpose_rhs",
+    "copy_basis_factorization",
+    "forward_solve",
+    "forward_solve!",
+    "refactorize!",
+    "replace_column!",
+    "transpose_solve",
+    "transpose_solve!"
+  ],
+  "text_inverse_forward": true,
+  "text_inverse_reverse": true,
+  "sha256": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-16-direct-lu-policy-adapters/driver-stages/green/src/bartels_golub_rows.jl": "0dab8b63590128682605a1cc87104116cbe6ee9e45bf2c206484fc116f0166c0",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-16-direct-lu-policy-adapters/driver-stages/green/src/direct-factor.jl": "3c09b563623f7552fd0094c037de7205024d0a7eaade6baa34aff14a395b9bbc",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-16-direct-lu-policy-adapters/driver-stages/green/src/triangular_factorization.jl": "685d4356d83a4f62f2cf17f08a70f5987ba78d18499dc8ee6975405ae4a939f2",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-16-direct-lu-policy-adapters/driver-stages/green/src/triangular_rows.jl": "9401e4f43102279344384a8023d1ebdfc409fcf47237414f763a04911ac23f5c",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-16-direct-lu-policy-adapters/driver-stages/green/src/triangular_spikes.jl": "4529bc5aacb604b932128463a26dc8e091933a720abb963c863de13666531873",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-bg-dynamic-upper/reproduce/dynamic-bg.jl": "44afb2a838a4f048d6f1698d600aa42eeb1e0a141d9fbfb98b79f522789cb31f",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-bg-dynamic-upper/reproduce/slot-upper-reviewed.jl": "ca7f11b9950b293b2a86999de7523dc7990e291567f9864c34c640eeeed2cd8a",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-DYNAMIC-ADAPTER-PREPARATION/reference-excerpts.jl": "ec7b16873066b19b2b01a694563bd5b1dbc73c7cadfa4984435dd9a85d733762",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-DYNAMIC-ADAPTER-PREPARATION/reference-to-candidate.patch": "3a63b36d463b348c3bc2df91f42750744018d4cd92459da7095f6b24936aa5ac"
+  }
+}

@@ -1,0 +1,7 @@
+# Publication-only correction
+
+The original `publication.py` stopped with exit1 after staging the59 files that existed in its60-name intended list. It did not create `publication.json`, commit or push. Its authored-whitespace gate reported only `diagnostics/direct-bg-dynamic-upper/reproduce/slot-oracles.jl:78: new blank line at EOF.` The file is an exact accepted Task1 oracle prefix with only `::BGSlotUpper` → `::J.BGSlotUpper` qualification; this fidelity is already independently checked. No candidate/test/source bytes are changed.
+
+Preserve the failed script, original planned names and current staged blobs. `publication-final.py` is a separate successor, not a rerun. It requires the original closure57 bindings and final review52 bindings unchanged, an accepted bounded publication review, exactly the original59 staged files/blobs, and no unbound additions. It classifies only the exact slot-oracle prefix as one additional verbatim-source file for whitespace reporting, verifies its inverse against the accepted Task1 test text, and checks all other authored files normally. Original raw excerpts, their blank lines and text patches remain unchanged.
+
+A separate closure supplement binds the correction before publication. New final names and publication result are distinct files. The old60-name proposal remains a failed historical plan, not a claim about committed membership. No Julia, numerical rerun, candidate/test amendment, production/master change or rewrite of prior evidence.

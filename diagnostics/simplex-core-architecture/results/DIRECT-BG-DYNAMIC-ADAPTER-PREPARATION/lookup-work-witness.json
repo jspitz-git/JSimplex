@@ -1,0 +1,40 @@
+{
+  "scope": "SOURCE-DERIVED integer access witness only; not runtime/instrumentation/benchmark or a general all-state bound",
+  "rows": [
+    {
+      "n": 8,
+      "carried_row_degree": 5,
+      "successful_chain": 3,
+      "old_row_next_visits": 15,
+      "new_node_inspection_bound": 10
+    },
+    {
+      "n": 16,
+      "carried_row_degree": 9,
+      "successful_chain": 7,
+      "old_row_next_visits": 63,
+      "new_node_inspection_bound": 18
+    },
+    {
+      "n": 32,
+      "carried_row_degree": 17,
+      "successful_chain": 15,
+      "old_row_next_visits": 255,
+      "new_node_inspection_bound": 34
+    },
+    {
+      "n": 64,
+      "carried_row_degree": 33,
+      "successful_chain": 31,
+      "old_row_next_visits": 1023,
+      "new_node_inspection_bound": 66
+    }
+  ],
+  "immediate_rejection": "First top/lower predicates before carried-row scan; tail queries O(1)/O(2) on valid Hessenberg pivots.",
+  "remaining_cost": "If first pivot is pure but next fails, a full carried-row scan can be additional work; arbitrary non-Hessenberg diagnostic states may need longer column walks. Task3 cost gates unchanged.",
+  "sha256": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-bg-dynamic-upper/reproduce/dynamic-bg.jl": "44afb2a838a4f048d6f1698d600aa42eeb1e0a141d9fbfb98b79f522789cb31f",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-bg-dynamic-upper/reproduce/dynamic-bg-reviewed.jl": "a63e9caf42940afb4439feab1973cc9f732dae04826ac05d7d73417d110b41b4",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-DYNAMIC-ADAPTER-PREPARATION/supplement.py": "f4b82a2da92c1a1df245fb9008c68732457f3a2aea51852cec60dbcb03d22786"
+  }
+}

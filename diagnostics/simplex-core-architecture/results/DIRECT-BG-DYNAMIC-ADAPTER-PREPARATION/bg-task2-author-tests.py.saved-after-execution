@@ -1,0 +1,27 @@
+from pathlib import Path
+import hashlib,json
+R=Path('/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl');C=R/'diagnostics/direct-bg-dynamic-upper/reproduce';E=R/'diagnostics/simplex-core-architecture/results/DIRECT-BG-DYNAMIC-ADAPTER-PREPARATION'
+p=C/'dynamic-bg-tests.jl';old=p.read_text();(E/'dynamic-bg-tests.jl.tests-first').write_text(old)
+s=old.replace('U=sparse([2. 1. 0.;0. 3. 1.;0. 0. 4.]);q=[3,1,2];B=U[:,invperm(q)]','U=sparse([2. 1. 0.;0. 3. 1.;0. 0. 4.]);q=[3,1,2]')
+s=s.replace('for (backend,policy) in ARMS\n            r=J._direct_lu_factor_with_exporter','for (backend,policy) in ARMS\n            B=U[:,invperm(q)]\n            r=J._direct_lu_factor_with_exporter')
+s=s.replace('J._direct_lu_factor(J.BartelsGolubFactorization,B,Val(backend),policy)','J._direct_lu_factor(J.BartelsGolubFactorization,B,Val(backend),policy)')
+# Fill exceeding the 16-slot minimum uses a separate controlled five-row case.
+anchor='        # Direct row-merge oracle, including insertion/deletion while traversing.\n'
+addition='''        # Seventeen imported slots, then four new row2 entries: a real fill growth.
+        # Deliberately nontriangular storage oracle; no solve/pivot claim.
+        M=sparse([1. 1. 1. 1. 1.;1. 0. 0. 0. 0.;1. 1. 1. 1. 1.;
+                  1. 1. 1. 1. 1.;1. 0. 0. 0. 0.])
+        r,d=controlled_pair(M,collect(1:5));J._ensure_bartels_golub_incidence!(r)
+        oldcapacity=d.upper.capacity;@test oldcapacity==17
+        for cid in r.row_columns[1]
+            trailing=r.positions[cid];trailing<=1 && continue
+            col=r.upper[trailing];slot,old=J._upper_entry(col,2)
+            J._set_upper_value_at!(r.upper,r.row_columns,trailing,2,
+                old-J._upper_value(col,1),slot,cid)
+        end
+        J._dbg_eliminate_row!(d,1,1.0)
+        @test d.upper.capacity==33 && d.upper.live_count==21
+        @test isequal(packed_tokens(r),_bg_selected_state(d.upper)) && _check_bg_slots(d.upper)
+'''
+assert s.count(anchor)==1;s=s.replace(anchor,addition+anchor);p.write_text(s)
+with (E/'author-test-amendment.json').open('x') as f:json.dump(dict(scope='Offline author correction before review; no Julia',changes=['Reset nonidentity-q B for each backend arm','Explicit n5 controlled fill exceeds 17 slots, growth to33; no solve of nontriangular storage'],sha256={str(x):hashlib.sha256(x.read_bytes()).hexdigest() for x in [p,E/'dynamic-bg-tests.jl.tests-first']}),f,indent=2)

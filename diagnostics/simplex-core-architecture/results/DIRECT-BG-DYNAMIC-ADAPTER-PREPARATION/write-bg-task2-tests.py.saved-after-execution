@@ -1,0 +1,7 @@
+from pathlib import Path
+import json,hashlib
+R=Path.cwd();C=R/'diagnostics/direct-bg-dynamic-upper/reproduce';E=R/'diagnostics/simplex-core-architecture/results/DIRECT-BG-DYNAMIC-ADAPTER-PREPARATION'
+t=(C/'slot-upper-tests-reviewed.jl').read_text();prefix=t[:t.index('_bg_test_matrix()')].replace('::BGSlotUpper','::J.BGSlotUpper')
+with (C/'slot-oracles.jl').open('x') as f:f.write(prefix)
+old=R/'diagnostics/direct-lu-policy-adapters/reproduce/fixtures.jl'
+with (C/'fixtures.jl').open('xb') as f:f.write(old.read_bytes())
