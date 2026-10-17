@@ -1,0 +1,30 @@
+fatal = ""
+complete = true
+threads = 1
+blas_threads = 1
+phase = "red300"
+
+[tests]
+pass = 0
+name = "root"
+fail = 0
+broken = 0
+failures = []
+error = 0
+
+    [[tests.children]]
+    pass = 0
+    name = "Missing block BG U contracts (eight expected failures)"
+    fail = 8
+    children = []
+    broken = 0
+    failures = ["""Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCK-DRIVER-PREPARATION/red.jl:4\n  Expression: isdefined(JSimplex, :BGBlockUpper)\n   Evaluated: isdefined(JSimplex, BGBlockUpper)""", """Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCK-DRIVER-PREPARATION/red.jl:5\n  Expression: isdefined(JSimplex, :_bgu_build)\n   Evaluated: isdefined(JSimplex, _bgu_build)""", """Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCK-DRIVER-PREPARATION/red.jl:6\n  Expression: isdefined(JSimplex, :_bgu_insert_at!)\n   Evaluated: isdefined(JSimplex, _bgu_insert_at!)""", """Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCK-DRIVER-PREPARATION/red.jl:7\n  Expression: isdefined(JSimplex, :_bgu_swap_rows!)\n   Evaluated: isdefined(JSimplex, _bgu_swap_rows!)""", """Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCK-DRIVER-PREPARATION/red.jl:8\n  Expression: isdefined(JSimplex, :_bgu_rotate_rows!)\n   Evaluated: isdefined(JSimplex, _bgu_rotate_rows!)""", """Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCK-DRIVER-PREPARATION/red.jl:9\n  Expression: isdefined(JSimplex, :BlockBGFactor)\n   Evaluated: isdefined(JSimplex, BlockBGFactor)""", """Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCK-DRIVER-PREPARATION/red.jl:10\n  Expression: isdefined(JSimplex, :_block_bg_factor)\n   Evaluated: isdefined(JSimplex, _block_bg_factor)""", """Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCK-DRIVER-PREPARATION/red.jl:11\n  Expression: isdefined(JSimplex, :_block_bg_replace!)\n   Evaluated: isdefined(JSimplex, _block_bg_replace!)"""]
+    error = 0
+
+[loaded]
+LinearAlgebra = "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/LinearAlgebra/src/LinearAlgebra.jl"
+SparseArrays = "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/SparseArrays/src/SparseArrays.jl"
+Test = "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl"
+JSimplex = "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-16-direct-bg-block-upper/task3-driver-stages/red/src/JSimplex.jl"
+TOML = "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/TOML/src/TOML.jl"
+PrecompileTools = "/home/jspitz/.julia/packages/PrecompileTools/QUxvR/src/PrecompileTools.jl"
