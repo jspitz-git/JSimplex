@@ -1,0 +1,33 @@
+{
+  "scope": "Reconstructed checker debugging history from exact tool input/output; not a candidate defect or numerical attempt",
+  "chronology": [
+    {
+      "attempt": 1,
+      "source": "independent-admission-check-initial-reconstructed.py",
+      "exit_code": 1,
+      "error": "stage root inverse",
+      "cause": "Expected a single newline before end, but frozen root has a blank line."
+    },
+    {
+      "attempt": 2,
+      "source": "independent-admission-check-second-reconstructed.py",
+      "exit_code": 1,
+      "error": "stage root inverse",
+      "cause": "Removed include lines but retained one insertion blank line."
+    },
+    {
+      "attempt": 3,
+      "source": "independent-admission-check.py",
+      "exit_code": 0,
+      "checks": 49
+    },
+    {
+      "attempt": 4,
+      "source": "independent-admission-check.py",
+      "exit_code": 0,
+      "checks": 49,
+      "purpose": "Save fresh passing result JSON"
+    }
+  ],
+  "disclosure": "Initial checker file was edited before failed sources were archived. These source copies reconstruct exact initial versions from tool-write history. Failure text reconstructed from observed traceback. Canonical checker is separately identifiable from both preserved failed versions. No frozen source or numerical evidence was edited."
+}
