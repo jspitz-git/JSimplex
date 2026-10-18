@@ -1,0 +1,177 @@
+{
+  "all_passed": true,
+  "checks": {
+    "preparation_sources_environment": true,
+    "predecessor": true,
+    "admitted_audit_hashes": true,
+    "seal_inputs": true,
+    "launch_inputs": true,
+    "allowance": true,
+    "one_attempt": true,
+    "host_clear": true,
+    "refs": true,
+    "elapsed_bounded": true,
+    "process_groups_covered": true,
+    "cell1_paired_statistics": true,
+    "cell1_all_bits": true,
+    "cell2_paired_statistics": true,
+    "cell2_all_bits": true,
+    "cell3_paired_statistics": true,
+    "cell3_all_bits": true,
+    "cell4_paired_statistics": true,
+    "cell4_all_bits": true,
+    "cell5_paired_statistics": true,
+    "cell5_all_bits": true,
+    "cell6_paired_statistics": true,
+    "cell6_all_bits": true,
+    "cell7_paired_statistics": true,
+    "cell7_all_bits": true,
+    "cell8_paired_statistics": true,
+    "cell8_all_bits": true,
+    "complete_cells_windows": true
+  },
+  "admitted_audit_passed": true,
+  "pure_timeout": false,
+  "first_process_viable": false,
+  "cells": [
+    {
+      "fixture": "sparse32",
+      "backend": "native",
+      "paired_medians": {
+        "seconds": 1.096579476861167,
+        "bytes": 1.0047767675396932,
+        "events": 1.0384615384615385,
+        "retained_bytes": 0.983402489626556
+      },
+      "faster_pairs": 2,
+      "time_gate": false,
+      "allocation_gate": false,
+      "memory_gate": true,
+      "probe_memory_gate": true,
+      "max_probe_graph_ratio": 1.049006908462867
+    },
+    {
+      "fixture": "sparse32",
+      "backend": "markowitz",
+      "paired_medians": {
+        "seconds": 1.0861344537815127,
+        "bytes": 1.0030434273674353,
+        "events": 1.0171517671517671,
+        "retained_bytes": 0.9815459610027855
+      },
+      "faster_pairs": 0,
+      "time_gate": false,
+      "allocation_gate": false,
+      "memory_gate": true,
+      "probe_memory_gate": true,
+      "max_probe_graph_ratio": 1.0431330472103004
+    },
+    {
+      "fixture": "dense32",
+      "backend": "native",
+      "paired_medians": {
+        "seconds": 1.0043625787687833,
+        "bytes": 0.985716705842492,
+        "events": 0.983619344773791,
+        "retained_bytes": 1.0607098381070983
+      },
+      "faster_pairs": 2,
+      "time_gate": false,
+      "allocation_gate": true,
+      "memory_gate": true,
+      "probe_memory_gate": true,
+      "max_probe_graph_ratio": 1.0607098381070983
+    },
+    {
+      "fixture": "dense32",
+      "backend": "markowitz",
+      "paired_medians": {
+        "seconds": 0.9796776454099511,
+        "bytes": 0.9719769410257584,
+        "events": 0.9973498233215548,
+        "retained_bytes": 1.0607098381070983
+      },
+      "faster_pairs": 5,
+      "time_gate": false,
+      "allocation_gate": true,
+      "memory_gate": true,
+      "probe_memory_gate": true,
+      "max_probe_graph_ratio": 1.0607098381070983
+    },
+    {
+      "fixture": "sparse96",
+      "backend": "native",
+      "paired_medians": {
+        "seconds": 1.153673835125448,
+        "bytes": 0.9796511277470374,
+        "events": 0.7954635893354556,
+        "retained_bytes": 0.8805265772478887
+      },
+      "faster_pairs": 1,
+      "time_gate": false,
+      "allocation_gate": true,
+      "memory_gate": true,
+      "probe_memory_gate": true,
+      "max_probe_graph_ratio": 0.9158744702783186
+    },
+    {
+      "fixture": "sparse96",
+      "backend": "markowitz",
+      "paired_medians": {
+        "seconds": 1.1217391304347826,
+        "bytes": 0.9941730631407294,
+        "events": 0.9655661716015514,
+        "retained_bytes": 0.8758802816901409
+      },
+      "faster_pairs": 0,
+      "time_gate": false,
+      "allocation_gate": true,
+      "memory_gate": true,
+      "probe_memory_gate": true,
+      "max_probe_graph_ratio": 0.9673883626522327
+    },
+    {
+      "fixture": "dense96",
+      "backend": "native",
+      "paired_medians": {
+        "seconds": 0.7639482595902958,
+        "bytes": 0.9663629358406362,
+        "events": 0.7508078994614004,
+        "retained_bytes": 1.0947606727037515
+      },
+      "faster_pairs": 7,
+      "time_gate": true,
+      "allocation_gate": true,
+      "memory_gate": true,
+      "probe_memory_gate": true,
+      "max_probe_graph_ratio": 1.0947606727037515
+    },
+    {
+      "fixture": "dense96",
+      "backend": "markowitz",
+      "paired_medians": {
+        "seconds": 0.7720887706757543,
+        "bytes": 0.9510842624152126,
+        "events": 0.8223908918406072,
+        "retained_bytes": 1.0947606727037515
+      },
+      "faster_pairs": 7,
+      "time_gate": true,
+      "allocation_gate": true,
+      "memory_gate": true,
+      "probe_memory_gate": true,
+      "max_probe_graph_ratio": 1.0947606727037515
+    }
+  ],
+  "sha256": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-SPLIT-COST1/postcheck.py": "683c2ede6692d0aae438b4d87abed64a62676259f59910c4ce58765abf666a24",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-SPLIT-COST1/allowance.json": "f95957d77083917fabcafcb32b44bff70084ad0555905b3f0f93b2db638506b4",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-SPLIT-COST1/posthost.json": "3b721839d67ea225891c993ddd19a80db56c720720116086d7efa32a717344eb",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-SPLIT-COST-PREPARATION/runs/cost1-300/audit.json": "055c6e97c8e57d5faf217bee8dc48253c092b9ce099e3a82739366a56133bc08",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-SPLIT-COST-PREPARATION/runs/cost1-300/invocation.json": "2d37445be2fabc8368f518c27ea392ac63d8edfa971c458ed0ed775626e10eef",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-SPLIT-COST-PREPARATION/runs/cost1-300/sealed.json": "cfbfd9345facce93cd17b9c51f78effac8f55a251c2e7183ba3c639f5acd3303",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-SPLIT-COST-PREPARATION/runs/cost1-300/launch-pins.json": "c185aa429df9e1a6efc3540335dd5d80477f1cd53b5f7a9a0753f41d6d02f7bc",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-SPLIT-COST-PREPARATION/runs/cost1-300/output/process.json": "2cda3de25c6528d820680222ac1491bc082f0ee088ba82f156d0bb81abccc5e3"
+  },
+  "scope": "Supplemental integrity/statistics only; admitted numerical auditor and immutable measurements not rerun"
+}
