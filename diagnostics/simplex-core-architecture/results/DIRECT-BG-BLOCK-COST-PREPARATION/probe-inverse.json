@@ -1,0 +1,201 @@
+{
+  "renames": {
+    "_bbg_backsolve!": "_probe_bbg_backsolve!",
+    "_bbg_begin_prepared!": "_probe_bbg_begin_prepared!",
+    "_bbg_begin_update!": "_probe_bbg_begin_update!",
+    "_bbg_clear_column!": "_probe_bbg_clear_column!",
+    "_bbg_columns": "_probe_bbg_columns",
+    "_bbg_copy_prepared!": "_probe_bbg_copy_prepared!",
+    "_bbg_delete_handle!": "_probe_bbg_delete_handle!",
+    "_bbg_destination": "_probe_bbg_destination",
+    "_bbg_diagonal": "_probe_bbg_diagonal",
+    "_bbg_dimensions": "_probe_bbg_dimensions",
+    "_bbg_eliminate_row!": "_probe_bbg_eliminate_row!",
+    "_bbg_entry": "_probe_bbg_entry",
+    "_bbg_forward!": "_probe_bbg_forward!",
+    "_bbg_invalidate_destination!": "_probe_bbg_invalidate_destination!",
+    "_bbg_last_pure": "_probe_bbg_last_pure",
+    "_bbg_prepare_spike!": "_probe_bbg_prepare_spike!",
+    "_bbg_replace_column!": "_probe_bbg_replace_column!",
+    "_bbg_save_prepared!": "_probe_bbg_save_prepared!",
+    "_bbg_sync_rows!": "_probe_bbg_sync_rows!",
+    "_bbg_tail_diagonal": "_probe_bbg_tail_diagonal",
+    "_bbg_transpose_rhs!": "_probe_bbg_transpose_rhs!",
+    "_bbg_transpose_start!": "_probe_bbg_transpose_start!",
+    "_bbg_transpose_upper!": "_probe_bbg_transpose_upper!",
+    "_bbg_value": "_probe_bbg_value",
+    "_bgu_allocate": "_probe_bgu_allocate",
+    "_bgu_append_slab!": "_probe_bgu_append_slab!",
+    "_bgu_back!": "_probe_bgu_back!",
+    "_bgu_buffer": "_probe_bgu_buffer",
+    "_bgu_build": "_probe_bgu_build",
+    "_bgu_build_with": "_probe_bgu_build_with",
+    "_bgu_cid": "_probe_bgu_cid",
+    "_bgu_clear!": "_probe_bgu_clear!",
+    "_bgu_coordinates": "_probe_bgu_coordinates",
+    "_bgu_copy": "_probe_bgu_copy",
+    "_bgu_copy_with": "_probe_bgu_copy_with",
+    "_bgu_decode": "_probe_bgu_decode",
+    "_bgu_degree": "_probe_bgu_degree",
+    "_bgu_delete!": "_probe_bgu_delete!",
+    "_bgu_descriptor_capacity": "_probe_bgu_descriptor_capacity",
+    "_bgu_find": "_probe_bgu_find",
+    "_bgu_free!": "_probe_bgu_free!",
+    "_bgu_free_block": "_probe_bgu_free_block",
+    "_bgu_from_stage!": "_probe_bgu_from_stage!",
+    "_bgu_gap!": "_probe_bgu_gap!",
+    "_bgu_grown": "_probe_bgu_grown",
+    "_bgu_handle": "_probe_bgu_handle",
+    "_bgu_insert_at!": "_probe_bgu_insert_at!",
+    "_bgu_limit": "_probe_bgu_limit",
+    "_bgu_link_block!": "_probe_bgu_link_block!",
+    "_bgu_merge_next!": "_probe_bgu_merge_next!",
+    "_bgu_new": "_probe_bgu_new",
+    "_bgu_predecessor": "_probe_bgu_predecessor",
+    "_bgu_reserve_block!": "_probe_bgu_reserve_block!",
+    "_bgu_reserve_descriptors!": "_probe_bgu_reserve_descriptors!",
+    "_bgu_reserve_row!": "_probe_bgu_reserve_row!",
+    "_bgu_rotate_rows!": "_probe_bgu_rotate_rows!",
+    "_bgu_row_capacity": "_probe_bgu_row_capacity",
+    "_bgu_row_handle": "_probe_bgu_row_handle",
+    "_bgu_row_offset": "_probe_bgu_row_offset",
+    "_bgu_row_search": "_probe_bgu_row_search",
+    "_bgu_set!": "_probe_bgu_set!",
+    "_bgu_set_with!": "_probe_bgu_set_with!",
+    "_bgu_stage!": "_probe_bgu_stage!",
+    "_bgu_swap_rows!": "_probe_bgu_swap_rows!",
+    "_bgu_take!": "_probe_bgu_take!",
+    "_bgu_tuple": "_probe_bgu_tuple",
+    "_bgu_unlink_block!": "_probe_bgu_unlink_block!",
+    "_bgu_write!": "_probe_bgu_write!",
+    "_bgu_zeros": "_probe_bgu_zeros",
+    "_block_bg_copy_with": "_probe_block_bg_copy_with",
+    "_block_bg_dimension": "_probe_block_bg_dimension",
+    "_block_bg_factor": "_probe_block_bg_factor",
+    "_block_bg_finite": "_probe_block_bg_finite",
+    "_block_bg_growth": "_probe_block_bg_growth",
+    "_block_bg_mode": "_probe_block_bg_mode",
+    "_block_bg_refactor_with_exporter!": "_probe_block_bg_refactor_with_exporter!",
+    "_block_bg_replace!": "_probe_block_bg_replace!",
+    "_block_bg_storage_count": "_probe_block_bg_storage_count",
+    "_block_bg_with_exporter": "_probe_block_bg_with_exporter",
+    "BGBlockUpper": "ProbeBGBlockUpper",
+    "BlockBGFactor": "ProbeBlockBGFactor",
+    "_bgu_check": "_probe_bgu_check"
+  },
+  "injections": [
+    {
+      "anchor": "    s=Int(U.slab[b]);i=Int(U.start[b])+k-1",
+      "code": "    _block_count!(:tuple_writes,1);_block_count!(:row_handle_repairs,1)"
+    },
+    {
+      "anchor": "    b,k=_bgu_decode(h);U.row_backs[Int(U.slab[b])][Int(U.start[b])+k-1]=Int32(p)",
+      "code": "    _block_count!(:back_repairs,1)"
+    },
+    {
+      "anchor": "        h=a[g-1];a[g+l-1]=h;a[g-1]=0;_bgu_back!(U,h,g+l-1);g-=1",
+      "code": "        _block_count!(:gap_moves,1)"
+    },
+    {
+      "anchor": "        h=a[g+l];a[g]=h;a[g+l]=0;_bgu_back!(U,h,g);g+=1",
+      "code": "        _block_count!(:gap_moves,1)"
+    },
+    {
+      "anchor": "    a=allocate(Int32,C)::Vector{Int32};length(a)==C || throw(ArgumentError(\"allocator length\"));gap=C-d",
+      "code": "    _block_count!(:row_growths,1);_block_count!(:row_copied_bytes,4*d)\n    _block_max!(:row_coexist_payload,4*(length(U.rows[r])+C))"
+    },
+    {
+      "anchor": "    copyto!(a,1,old,1,length(old))",
+      "code": "    _block_count!(:grown_copied_bytes,sizeof(T)*length(old))"
+    },
+    {
+      "anchor": "    C==length(U.slab) && return nothing",
+      "code": "    _block_count!(:descriptor_growths,1);_block_max!(:descriptor_coexist_payload,28*(length(U.slab)+C))"
+    },
+    {
+      "anchor": "    used=Base.Checked.checked_add(U.used,8);ns=Base.Checked.checked_add(U.slabs,1)",
+      "code": "    _block_count!(:slab_appends,1)"
+    },
+    {
+      "anchor": "        av=allocate(Vector{Float64},D);ar=allocate(Vector{Int32},D);ap=allocate(Vector{Int32},D)",
+      "code": "    _block_count!(:directory_growths,1);_block_count!(:directory_copied_bytes,24*U.slabs)\n    _block_max!(:directory_coexist_payload,24*(length(U.values)+D))"
+    },
+    {
+      "anchor": "function _bgu_stage!(U,b::Int,offset::Int=0)",
+      "code": "    _block_count!(:merge_stage_reads,Int(U.count[b]));_block_count!(:merge_stage_writes,Int(U.count[b]))"
+    },
+    {
+      "anchor": "    left=Int(U.count[b]);_bgu_stage!(U,b);_bgu_stage!(U,n,left)",
+      "code": "    _block_count!(:merges,1);_block_count!(:merge_tuple_moves,total)"
+    },
+    {
+      "anchor": "    for i in k:cnt-1",
+      "code": "        _block_count!(:delete_tuple_moves,1)"
+    },
+    {
+      "anchor": "            U.values[s][idx]=v;U.row_ids[s][idx]=rid;U.row_backs[s][idx]=p",
+      "code": "            _block_count!(:extent_tuple_moves,1)"
+    },
+    {
+      "anchor": "    if count==32",
+      "code": "    _block_count!(:splits,1);_block_count!(:split_stage_reads,32);_block_count!(:split_stage_writes,33);_block_count!(:split_final_writes,33)"
+    },
+    {
+      "anchor": "        for k in count:-1:pos",
+      "code": "            _block_count!(:insert_tuple_moves,1)"
+    },
+    {
+      "anchor": "            _bgu_write!(U,bh,kh,y...);_bgu_write!(U,bt,kt,x...);i+=1;k+=1",
+      "code": "            _block_count!(:swap_tuple_moves,2)"
+    },
+    {
+      "anchor": "            _bgu_write!(U,b,k,y...);b=nb;k=nk",
+      "code": "            _block_count!(:rotation_tuple_moves,1)"
+    },
+    {
+      "anchor": "        _bgu_write!(U,b,k,x...)",
+      "code": "        _block_count!(:rotation_tuple_moves,1)"
+    }
+  ],
+  "allocator": {
+    "old": "_bgu_allocate(::Type{T},n::Int) where {T}=Vector{T}(undef,n)",
+    "new": "_bgu_allocate(::Type{T},n::Int) where {T}=(_block_count!(:allocation_requests,1);_block_count!(:requested_payload_bytes,n*Base.elsize(Vector{T}));Vector{T}(undef,n))"
+  },
+  "header": "const _block_probe_counts=Dict{Symbol,Int}(:allocation_requests=>0,:requested_payload_bytes=>0,:tuple_writes=>0,:row_handle_repairs=>0,:back_repairs=>0,:gap_moves=>0,:row_growths=>0,:row_copied_bytes=>0,:row_coexist_payload=>0,:grown_copied_bytes=>0,:descriptor_growths=>0,:descriptor_coexist_payload=>0,:slab_appends=>0,:directory_growths=>0,:directory_copied_bytes=>0,:directory_coexist_payload=>0,:merge_stage_reads=>0,:merge_stage_writes=>0,:merges=>0,:merge_tuple_moves=>0,:delete_tuple_moves=>0,:extent_tuple_moves=>0,:splits=>0,:split_stage_reads=>0,:split_stage_writes=>0,:split_final_writes=>0,:insert_tuple_moves=>0,:swap_tuple_moves=>0,:rotation_tuple_moves=>0)\n_block_count!(k,n)=(_block_probe_counts[k]+=n;nothing)\n_block_max!(k,n)=(_block_probe_counts[k]=max(_block_probe_counts[k],n);nothing)\n",
+  "sources": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-bg-block-upper/reproduce/block-upper.jl": "94529e9b8ed5fb647b210e609708bf8d73db5b260c2a873f6610e0227ac7314c",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-bg-block-upper/reproduce/block-bg.jl": "5b6c7bd442c79459e7607e4301e087921196bbd285ccaaa3774fd5b9c918aa4d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-bg-block-upper/reproduce/block-oracles.jl": "87911ed1b6ef01f47c65fed56711f750697ab03599c6fcea6c2564e739dfce3f"
+  },
+  "counts": [
+    "allocation_requests",
+    "requested_payload_bytes",
+    "tuple_writes",
+    "row_handle_repairs",
+    "back_repairs",
+    "gap_moves",
+    "row_growths",
+    "row_copied_bytes",
+    "row_coexist_payload",
+    "grown_copied_bytes",
+    "descriptor_growths",
+    "descriptor_coexist_payload",
+    "slab_appends",
+    "directory_growths",
+    "directory_copied_bytes",
+    "directory_coexist_payload",
+    "merge_stage_reads",
+    "merge_stage_writes",
+    "merges",
+    "merge_tuple_moves",
+    "delete_tuple_moves",
+    "extent_tuple_moves",
+    "splits",
+    "split_stage_reads",
+    "split_stage_writes",
+    "split_final_writes",
+    "insert_tuple_moves",
+    "swap_tuple_moves",
+    "rotation_tuple_moves"
+  ]
+}

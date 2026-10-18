@@ -1,0 +1,7 @@
+# Supplemental inspection of final closure/publication
+
+Accepted bounded source inspection of close-final.py and publish-final.py. Neither script was executed by the reviewer. close-final.py verifies the original passed closure and its66bound files, verifies accepted timing-erratum scope/source bindings, refuses a run directory, requires fresh238group/session and HEAD/master checks, rejects tracked/staged changes and symlinks, then records exact final names/hashes in a new exclusive closure-final.json. It preserves the original closure. This is an offline supplemental closure, not fresh numerical admission; future execution still requires full source/runtime admission checks.
+
+publish-final.py was independently compared byte-for-byte with the previously reviewed publish.py: its sole change is replacing every closure.json reference with closure-final.json. Exact staged names/blobs, cached diff checks, refs and exclusive publication manifest creation remain unchanged. It does not commit or push.
+
+The first timing-erratum-acceptance.json was preserved verbatim as timing-erratum-acceptance-initial.json before the final acceptance manifest was extended with these two scripts and this inspection. The original review, checker evidence and initial closure remain unchanged. The correction remains70executed explicit time_ns reads versus14literal source sites; no numerical changes or run.

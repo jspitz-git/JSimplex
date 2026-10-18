@@ -1,0 +1,12 @@
+{"all_passed": false, "checks": 45, "notes": {"growth_terminal": {"row_capacity": 64, "row_growths": 18, "row_copied_bytes": 1544, "row_coexist_payload": 480}}}
+Traceback (most recent call last):
+  File "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCK-COST-PREPARATION/reviewer-predicates-v1.py", line 197, in <module>
+    main();result.update(all_passed=True)
+    ~~~~^^
+  File "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCK-COST-PREPARATION/reviewer-predicates-v1.py", line 109, in main
+    bad=copy.deepcopy(rows);bad[-1]['retained_bytes']=11001;need(a.summarize(bad)['memory_gate'] is False,'every_final_memory_pair_gate')
+                                                            ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCK-COST-PREPARATION/reviewer-predicates-v1.py", line 17, in need
+    if not v:raise AssertionError(n)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: every_final_memory_pair_gate
