@@ -1,0 +1,70 @@
+{
+  "accepted": true,
+  "scope": "subprocess-only restoration of original pinned PATH before cost1-300 seal",
+  "findings": [],
+  "checks": {
+    "refusal_only_path": true,
+    "expected_exact": true,
+    "non_path_environment_unchanged": true,
+    "no_runs_directory": true,
+    "same_tool_python3": true,
+    "same_tool_git": true,
+    "same_tool_sed": true,
+    "same_tool_dirname": true,
+    "same_tool_bash": true,
+    "pinned_control.py": true,
+    "pinned_seal.py": true,
+    "pinned_launch.py": true,
+    "pinned_julia.sh": true,
+    "pinned_environment.json": true,
+    "scoped_entry_exact": true
+  },
+  "executables": {
+    "python3": {
+      "actual": "/usr/bin/python3",
+      "pinned": "/usr/bin/python3",
+      "resolved": "/usr/bin/python3.14",
+      "sha256": "d1b87c365d0cf5a985cfedfc227ff613a5bc6ff56e841202eb9330d263bbeee9"
+    },
+    "git": {
+      "actual": "/usr/bin/git",
+      "pinned": "/usr/bin/git",
+      "resolved": "/usr/bin/git",
+      "sha256": "89fbabe92d1e190036a9b15e8e30efc16643beb7562329592855e622c59c3e00"
+    },
+    "sed": {
+      "actual": "/usr/bin/sed",
+      "pinned": "/usr/bin/sed",
+      "resolved": "/usr/bin/sed",
+      "sha256": "d41d7185e9a37fb8c6853e7004078e026cc77d74c7eef86f6000dfd12e44532a"
+    },
+    "dirname": {
+      "actual": "/usr/bin/dirname",
+      "pinned": "/usr/bin/dirname",
+      "resolved": "/usr/lib/cargo/bin/coreutils/dirname",
+      "sha256": "ebaaf26ce64d3409229f771954aff321f7d5ef004da77019173132c1f1a9fd91"
+    },
+    "bash": {
+      "actual": "/usr/bin/bash",
+      "pinned": "/usr/bin/bash",
+      "resolved": "/usr/bin/bash",
+      "sha256": "01c006568543d6b6ab9f0a57dd44b9d779d1edc437a5f5d2db0215887c19dbeb"
+    }
+  },
+  "sha256": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCK-COST-PREPARATION/control.py": "62eebe914852c92fbb8e7092736752a337b29ea45721b183d4d09d2d7cbc6f79",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCK-COST-PREPARATION/seal.py": "704eaff9bd0c645971009e86e6e8dc158e74cba8bdd073d163ec48c897c17993",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCK-COST-PREPARATION/launch.py": "3d6149e4d423ddf5957cbb0c051805226d6fddb5001e6625f7bda8a918d58767",
+    "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh": "4335574f0823def6bd2e7968a5d7f2775c2b6874329ee3e1d4b2a8e119021702",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCK-COST-PREPARATION/environment.json": "30498ce0ff7db9fcad0d981b8a69c37265ce69614a94b7d36d8843175651927d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCK-COST-QUALIFICATION/preseal-refusal.json": "e9a5f6d463be5306ead831fa83e3f31490f5886ac727d26719a72d360623db0f",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCK-COST-QUALIFICATION/scoped-entry.py": "f18ff106903ba5335fdfbb3c10fee5d6f04c53fa2391c2704d42998f90a0377b"
+  },
+  "conditions": [
+    "Use a copied current subprocess environment and replace only PATH with the exact environment.json value.",
+    "Do not edit environment.json, source, preparation artifacts, or persistent environment.",
+    "Run the unchanged seal once, then obtain independent exact-stage admission before any launcher or Julia."
+  ],
+  "execution": "Read-only offline Python inspection only; no seal, launcher, Julia, numerical auditor, or imported package scripts.",
+  "scoped_entry_review": "Inspected source: explicit seal/launch only; literal cost1-300; copied env; strict non-PATH match; sole PATH replacement; absolute /usr/bin/python3 -B; exclusive per-action log; returns child code. No automatic chaining or retry."
+}

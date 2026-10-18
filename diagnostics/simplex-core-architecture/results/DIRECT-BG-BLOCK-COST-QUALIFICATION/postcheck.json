@@ -1,0 +1,345 @@
+{
+  "all_passed": true,
+  "checks": {
+    "integrity_audit_accepted": true,
+    "exact_completed_budget": true,
+    "normal_exit": true,
+    "all_actual_inputs_unchanged": true,
+    "original_audit_evidence_unchanged": true,
+    "first_cost_gates_reject_second_process": true,
+    "one_attempt_only": true,
+    "resource_guards": true,
+    "fresh_all_groups_AND_sessions_no_Julia": true,
+    "unchanged_refs": true,
+    "no_tracked_changes": true
+  },
+  "rows": [
+    {
+      "fixture": "sparse32",
+      "backend": "native",
+      "time_ratio": 1.1037260825780462,
+      "time_ratio_range": [
+        1.0375114364135407,
+        1.2647352647352648
+      ],
+      "time_ratio_mad": 0.04974621066587792,
+      "bytes": [
+        295032,
+        319648
+      ],
+      "events": [
+        1274,
+        1393
+      ],
+      "final_graph": [
+        11568,
+        11376
+      ],
+      "worst_checkpoint": {
+        "index": 1,
+        "step": 1,
+        "refactored": false,
+        "graphs": [
+          18528,
+          32180
+        ],
+        "ratio": 1.7368307426597582
+      },
+      "faster_pairs": 0,
+      "gates": {
+        "time_median_gate": false,
+        "allocation_gate": false,
+        "memory_gate": false,
+        "probe_memory_gate": false
+      }
+    },
+    {
+      "fixture": "sparse32",
+      "backend": "markowitz",
+      "time_ratio": 1.1328934967012252,
+      "time_ratio_range": [
+        1.05,
+        1.4017660044150109
+      ],
+      "time_ratio_mad": 0.03686394914813196,
+      "bytes": [
+        273376,
+        297480
+      ],
+      "events": [
+        3848,
+        3984
+      ],
+      "final_graph": [
+        11488,
+        11276
+      ],
+      "worst_checkpoint": {
+        "index": 1,
+        "step": 1,
+        "refactored": false,
+        "graphs": [
+          18640,
+          32188
+        ],
+        "ratio": 1.726824034334764
+      },
+      "faster_pairs": 0,
+      "gates": {
+        "time_median_gate": false,
+        "allocation_gate": false,
+        "memory_gate": false,
+        "probe_memory_gate": false
+      }
+    },
+    {
+      "fixture": "dense32",
+      "backend": "native",
+      "time_ratio": 0.9851603638104355,
+      "time_ratio_range": [
+        0.9707685054219707,
+        1.0963914977755806
+      ],
+      "time_ratio_mad": 0.014391858388464795,
+      "bytes": [
+        755632,
+        744840
+      ],
+      "events": [
+        1282,
+        1261
+      ],
+      "final_graph": [
+        25696,
+        27256
+      ],
+      "worst_checkpoint": {
+        "index": 0,
+        "step": 0,
+        "refactored": false,
+        "graphs": [
+          25696,
+          27256
+        ],
+        "ratio": 1.0607098381070983
+      },
+      "faster_pairs": 4,
+      "gates": {
+        "time_median_gate": false,
+        "allocation_gate": true,
+        "memory_gate": true,
+        "probe_memory_gate": true
+      }
+    },
+    {
+      "fixture": "dense32",
+      "backend": "markowitz",
+      "time_ratio": 1.0006930006930006,
+      "time_ratio_range": [
+        0.5174147217235189,
+        1.1332398316970547
+      ],
+      "time_ratio_mad": 0.10692405032027685,
+      "bytes": [
+        349712,
+        339912
+      ],
+      "events": [
+        1132,
+        1129
+      ],
+      "final_graph": [
+        25696,
+        27256
+      ],
+      "worst_checkpoint": {
+        "index": 0,
+        "step": 0,
+        "refactored": false,
+        "graphs": [
+          25696,
+          27256
+        ],
+        "ratio": 1.0607098381070983
+      },
+      "faster_pairs": 3,
+      "gates": {
+        "time_median_gate": false,
+        "allocation_gate": true,
+        "memory_gate": true,
+        "probe_memory_gate": true
+      }
+    },
+    {
+      "fixture": "sparse96",
+      "backend": "native",
+      "time_ratio": 1.1612749762131305,
+      "time_ratio_range": [
+        1.000809061488673,
+        1.3066853669939225
+      ],
+      "time_ratio_mad": 0.05440333410368514,
+      "bytes": [
+        663576,
+        699952
+      ],
+      "events": [
+        2513,
+        2117
+      ],
+      "final_graph": [
+        32208,
+        28360
+      ],
+      "worst_checkpoint": {
+        "index": 1,
+        "step": 1,
+        "refactored": false,
+        "graphs": [
+          55136,
+          92380
+        ],
+        "ratio": 1.6754933255948927
+      },
+      "faster_pairs": 0,
+      "gates": {
+        "time_median_gate": false,
+        "allocation_gate": false,
+        "memory_gate": false,
+        "probe_memory_gate": false
+      }
+    },
+    {
+      "fixture": "sparse96",
+      "backend": "markowitz",
+      "time_ratio": 1.1115702479338843,
+      "time_ratio_range": [
+        1.0623042116254786,
+        1.201772049939589
+      ],
+      "time_ratio_mad": 0.037908315217911825,
+      "bytes": [
+        770216,
+        822992
+      ],
+      "events": [
+        10571,
+        10347
+      ],
+      "final_graph": [
+        31808,
+        27860
+      ],
+      "worst_checkpoint": {
+        "index": 1,
+        "step": 1,
+        "refactored": false,
+        "graphs": [
+          55248,
+          92388
+        ],
+        "ratio": 1.672241529105126
+      },
+      "faster_pairs": 0,
+      "gates": {
+        "time_median_gate": false,
+        "allocation_gate": false,
+        "memory_gate": false,
+        "probe_memory_gate": false
+      }
+    },
+    {
+      "fixture": "dense96",
+      "backend": "native",
+      "time_ratio": 0.8438306357025568,
+      "time_ratio_range": [
+        0.8135582784311312,
+        3.028597957288765
+      ],
+      "time_ratio_mad": 0.01688753622344974,
+      "bytes": [
+        4682104,
+        4524912
+      ],
+      "events": [
+        2785,
+        2091
+      ],
+      "final_graph": [
+        173152,
+        189560
+      ],
+      "worst_checkpoint": {
+        "index": 0,
+        "step": 0,
+        "refactored": false,
+        "graphs": [
+          173152,
+          189560
+        ],
+        "ratio": 1.0947606727037515
+      },
+      "faster_pairs": 6,
+      "gates": {
+        "time_median_gate": true,
+        "allocation_gate": true,
+        "memory_gate": true,
+        "probe_memory_gate": true
+      }
+    },
+    {
+      "fixture": "dense96",
+      "backend": "markowitz",
+      "time_ratio": 0.8113176509294291,
+      "time_ratio_range": [
+        0.7356365573396242,
+        0.8914555389965227
+      ],
+      "time_ratio_mad": 0.039207098165609966,
+      "bytes": [
+        2598264,
+        2471168
+      ],
+      "events": [
+        2635,
+        2167
+      ],
+      "final_graph": [
+        173152,
+        189560
+      ],
+      "worst_checkpoint": {
+        "index": 0,
+        "step": 0,
+        "refactored": false,
+        "graphs": [
+          173152,
+          189560
+        ],
+        "ratio": 1.0947606727037515
+      },
+      "faster_pairs": 7,
+      "gates": {
+        "time_median_gate": true,
+        "allocation_gate": true,
+        "memory_gate": true,
+        "probe_memory_gate": true
+      }
+    }
+  ],
+  "resource_samples": 15,
+  "min_available_kib": 22588872,
+  "max_swap_kib": 0,
+  "maxrss_kib": 829184,
+  "inclusive_seconds": 16.125131936000002,
+  "sha256": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCK-COST-PREPARATION/runs/cost1-300/audit.json": "fac55aa554272fd20f3f0f76e8b6f985103c69f2115ce2a1eccf5937a3f2ffbd",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCK-COST-PREPARATION/runs/cost1-300/output/process.json": "8ad134ac403470ee73e3207be4492055da56dbaa0a5732d3c7eabeb7b4e7527a",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCK-COST-PREPARATION/runs/cost1-300/invocation.json": "226ee86754005a5e84f1f26b37ad56fa104a4273dd191832c3d0a18dd6f66921",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCK-COST-PREPARATION/runs/cost1-300/posthost.json": "ad0cf8b194f5ee0c5ce6620970aeafc94fa84dc8ea60175d59a959153fccf005",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCK-COST-PREPARATION/runs/cost1-300/output/resources.jsonl": "fff66ca9e939f3331b18eaab79b2f74d64f60276214195e698c7f7c6474b5eb0",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCK-COST-QUALIFICATION/posthost.json": "4a57c5eb6541b3ce3880bcb0156e7b5e100813d9b230e05076d15deb9e9913bb",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCK-COST-QUALIFICATION/postcheck.py": "997f4ec1e1992ee7a31698cb38c13d32f9ea1550e147e590e132ba84a72935d9"
+  },
+  "scope": "Integrity accepted; fixed design cost rejected; no second process or production acceptance"
+}

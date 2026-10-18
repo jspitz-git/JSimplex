@@ -1,0 +1,62 @@
+{
+  "failure": "RuntimeError: Loading environment drift",
+  "failed_stage": "seal.py cost1-300 / validate_environment before any run directory or numerical reservation",
+  "actual": {
+    "HOME": "/home/jspitz",
+    "PATH": "/mnt/c/Users/jiris/.codex/tmp/arg0-linux/codex-arg0lVPeol:/mnt/c/Users/jiris/.codex/bin/wsl/c023a21fb43b9a84:/mnt/c/Users/jiris/.codex/bin/wsl/08e48f55ad106f17:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0/:/mnt/c/Windows/System32/OpenSSH/:/mnt/c/Program Files/nodejs/:/mnt/c/bin:/mnt/c/Program Files/Git/cmd:/mnt/c/Users/jiris/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/jiris/AppData/Roaming/npm:/mnt/c/Users/jiris/AppData/Local/Microsoft/WinGet/Packages/DuckDB.cli_Microsoft.Winget.Source_8wekyb3d8bbwe:/mnt/c/Users/jiris/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/jiris/AppData/Local/Programs/Zed/bin",
+    "JULIA_LOAD_PATH": null,
+    "JULIA_PROJECT": null,
+    "JULIA_DEPOT_PATH": null,
+    "JULIA_CPU_TARGET": null,
+    "JULIA_BINDIR": null,
+    "LD_LIBRARY_PATH": null,
+    "LD_PRELOAD": null
+  },
+  "expected": {
+    "HOME": "/home/jspitz",
+    "PATH": "/mnt/c/Users/jiris/.codex/tmp/arg0/codex-arg0wZuJPQ:/mnt/c/Users/jiris/.codex/bin/wsl/bc11b45abc6e4239:/mnt/c/Users/jiris/.codex/bin/wsl/08e48f55ad106f17:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0/:/mnt/c/Windows/System32/OpenSSH/:/mnt/c/Program Files/nodejs/:/mnt/c/bin:/mnt/c/Program Files/Git/cmd:/mnt/c/Users/jiris/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/jiris/AppData/Roaming/npm:/mnt/c/Users/jiris/AppData/Local/Microsoft/WinGet/Packages/DuckDB.cli_Microsoft.Winget.Source_8wekyb3d8bbwe:/mnt/c/Users/jiris/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/jiris/AppData/Local/Programs/Zed/bin",
+    "JULIA_LOAD_PATH": null,
+    "JULIA_PROJECT": null,
+    "JULIA_DEPOT_PATH": null,
+    "JULIA_CPU_TARGET": null,
+    "JULIA_BINDIR": null,
+    "LD_LIBRARY_PATH": null,
+    "LD_PRELOAD": null
+  },
+  "different_keys": [
+    "PATH"
+  ],
+  "executables": {
+    "python3": {
+      "actual": "/usr/bin/python3",
+      "pinned": "/usr/bin/python3",
+      "resolved": "/usr/bin/python3.14",
+      "sha256": "d1b87c365d0cf5a985cfedfc227ff613a5bc6ff56e841202eb9330d263bbeee9"
+    },
+    "git": {
+      "actual": "/usr/bin/git",
+      "pinned": "/usr/bin/git",
+      "resolved": "/usr/bin/git",
+      "sha256": "89fbabe92d1e190036a9b15e8e30efc16643beb7562329592855e622c59c3e00"
+    },
+    "dirname": {
+      "actual": "/usr/bin/dirname",
+      "pinned": "/usr/bin/dirname",
+      "resolved": "/usr/lib/cargo/bin/coreutils/dirname",
+      "sha256": "ebaaf26ce64d3409229f771954aff321f7d5ef004da77019173132c1f1a9fd91"
+    },
+    "sed": {
+      "actual": "/usr/bin/sed",
+      "pinned": "/usr/bin/sed",
+      "resolved": "/usr/bin/sed",
+      "sha256": "d41d7185e9a37fb8c6853e7004078e026cc77d74c7eef86f6000dfd12e44532a"
+    },
+    "bash": {
+      "actual": "/usr/bin/bash",
+      "pinned": "/usr/bin/bash",
+      "resolved": "/usr/bin/bash",
+      "sha256": "01c006568543d6b6ab9f0a57dd44b9d779d1edc437a5f5d2db0215887c19dbeb"
+    }
+  },
+  "proposal": "Use subprocess env copied from current environment with only PATH restored exactly to original pinned value. No persistent environment or source changes. Reinvoke previously refused seal only after independent source review; no numerical attempt has occurred."
+}

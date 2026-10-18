@@ -1,0 +1,3007 @@
+complete = true
+n = 64
+solves = 0
+factorizations = 0
+insertions = 64
+
+[storage]
+live_blocks = 64
+core_payload = 37996
+free_capacity = 0
+D = 9
+R = 64
+C = 2048
+S = 8
+outer_pointer_payload = 728
+gap_reserve = 0
+graph_bytes = 42388
+K = 81
+struct_bytes = 216
+live = 64
+used = 64
+
+    [[storage.arrays]]
+    backing_length = 9
+    graph_bytes = 16816
+    name = "values"
+    length = 9
+    element_bytes = 8
+    backing_bytes = 72
+    [[storage.arrays]]
+    backing_length = 9
+    graph_bytes = 8624
+    name = "row_ids"
+    length = 9
+    element_bytes = 8
+    backing_bytes = 72
+    [[storage.arrays]]
+    backing_length = 9
+    graph_bytes = 8624
+    name = "row_backs"
+    length = 9
+    element_bytes = 8
+    backing_bytes = 72
+    [[storage.arrays]]
+    backing_length = 81
+    graph_bytes = 364
+    name = "slab"
+    length = 81
+    element_bytes = 4
+    backing_bytes = 324
+    [[storage.arrays]]
+    backing_length = 81
+    graph_bytes = 364
+    name = "start"
+    length = 81
+    element_bytes = 4
+    backing_bytes = 324
+    [[storage.arrays]]
+    backing_length = 81
+    graph_bytes = 364
+    name = "capacity"
+    length = 81
+    element_bytes = 4
+    backing_bytes = 324
+    [[storage.arrays]]
+    backing_length = 81
+    graph_bytes = 364
+    name = "count"
+    length = 81
+    element_bytes = 4
+    backing_bytes = 324
+    [[storage.arrays]]
+    backing_length = 81
+    graph_bytes = 364
+    name = "column"
+    length = 81
+    element_bytes = 4
+    backing_bytes = 324
+    [[storage.arrays]]
+    backing_length = 81
+    graph_bytes = 364
+    name = "prev"
+    length = 81
+    element_bytes = 4
+    backing_bytes = 324
+    [[storage.arrays]]
+    backing_length = 81
+    graph_bytes = 364
+    name = "next"
+    length = 81
+    element_bytes = 4
+    backing_bytes = 324
+    [[storage.arrays]]
+    backing_length = 64
+    graph_bytes = 296
+    name = "row_order"
+    length = 64
+    element_bytes = 4
+    backing_bytes = 256
+    [[storage.arrays]]
+    backing_length = 64
+    graph_bytes = 296
+    name = "row_position"
+    length = 64
+    element_bytes = 4
+    backing_bytes = 256
+    [[storage.arrays]]
+    backing_length = 64
+    graph_bytes = 296
+    name = "column_order"
+    length = 64
+    element_bytes = 4
+    backing_bytes = 256
+    [[storage.arrays]]
+    backing_length = 64
+    graph_bytes = 296
+    name = "column_position"
+    length = 64
+    element_bytes = 4
+    backing_bytes = 256
+    [[storage.arrays]]
+    backing_length = 64
+    graph_bytes = 296
+    name = "column_head"
+    length = 64
+    element_bytes = 4
+    backing_bytes = 256
+    [[storage.arrays]]
+    backing_length = 64
+    graph_bytes = 296
+    name = "column_tail"
+    length = 64
+    element_bytes = 4
+    backing_bytes = 256
+    [[storage.arrays]]
+    backing_length = 64
+    graph_bytes = 2376
+    name = "rows"
+    length = 64
+    element_bytes = 8
+    backing_bytes = 512
+    [[storage.arrays]]
+    backing_length = 64
+    graph_bytes = 296
+    name = "gap_first"
+    length = 64
+    element_bytes = 4
+    backing_bytes = 256
+    [[storage.arrays]]
+    backing_length = 64
+    graph_bytes = 296
+    name = "gap_length"
+    length = 64
+    element_bytes = 4
+    backing_bytes = 256
+    [[storage.arrays]]
+    backing_length = 32
+    graph_bytes = 168
+    name = "bins"
+    length = 32
+    element_bytes = 4
+    backing_bytes = 128
+    [[storage.arrays]]
+    backing_length = 33
+    graph_bytes = 304
+    name = "scratch_value"
+    length = 33
+    element_bytes = 8
+    backing_bytes = 264
+    [[storage.arrays]]
+    backing_length = 33
+    graph_bytes = 172
+    name = "scratch_row"
+    length = 33
+    element_bytes = 4
+    backing_bytes = 132
+    [[storage.arrays]]
+    backing_length = 33
+    graph_bytes = 172
+    name = "scratch_back"
+    length = 33
+    element_bytes = 4
+    backing_bytes = 132
+    [[storage.arrays]]
+    backing_length = 256
+    graph_bytes = 2088
+    name = "values[1]"
+    length = 256
+    element_bytes = 8
+    backing_bytes = 2048
+    [[storage.arrays]]
+    backing_length = 256
+    graph_bytes = 1064
+    name = "row_ids[1]"
+    length = 256
+    element_bytes = 4
+    backing_bytes = 1024
+    [[storage.arrays]]
+    backing_length = 256
+    graph_bytes = 1064
+    name = "row_backs[1]"
+    length = 256
+    element_bytes = 4
+    backing_bytes = 1024
+    [[storage.arrays]]
+    backing_length = 256
+    graph_bytes = 2088
+    name = "values[2]"
+    length = 256
+    element_bytes = 8
+    backing_bytes = 2048
+    [[storage.arrays]]
+    backing_length = 256
+    graph_bytes = 1064
+    name = "row_ids[2]"
+    length = 256
+    element_bytes = 4
+    backing_bytes = 1024
+    [[storage.arrays]]
+    backing_length = 256
+    graph_bytes = 1064
+    name = "row_backs[2]"
+    length = 256
+    element_bytes = 4
+    backing_bytes = 1024
+    [[storage.arrays]]
+    backing_length = 256
+    graph_bytes = 2088
+    name = "values[3]"
+    length = 256
+    element_bytes = 8
+    backing_bytes = 2048
+    [[storage.arrays]]
+    backing_length = 256
+    graph_bytes = 1064
+    name = "row_ids[3]"
+    length = 256
+    element_bytes = 4
+    backing_bytes = 1024
+    [[storage.arrays]]
+    backing_length = 256
+    graph_bytes = 1064
+    name = "row_backs[3]"
+    length = 256
+    element_bytes = 4
+    backing_bytes = 1024
+    [[storage.arrays]]
+    backing_length = 256
+    graph_bytes = 2088
+    name = "values[4]"
+    length = 256
+    element_bytes = 8
+    backing_bytes = 2048
+    [[storage.arrays]]
+    backing_length = 256
+    graph_bytes = 1064
+    name = "row_ids[4]"
+    length = 256
+    element_bytes = 4
+    backing_bytes = 1024
+    [[storage.arrays]]
+    backing_length = 256
+    graph_bytes = 1064
+    name = "row_backs[4]"
+    length = 256
+    element_bytes = 4
+    backing_bytes = 1024
+    [[storage.arrays]]
+    backing_length = 256
+    graph_bytes = 2088
+    name = "values[5]"
+    length = 256
+    element_bytes = 8
+    backing_bytes = 2048
+    [[storage.arrays]]
+    backing_length = 256
+    graph_bytes = 1064
+    name = "row_ids[5]"
+    length = 256
+    element_bytes = 4
+    backing_bytes = 1024
+    [[storage.arrays]]
+    backing_length = 256
+    graph_bytes = 1064
+    name = "row_backs[5]"
+    length = 256
+    element_bytes = 4
+    backing_bytes = 1024
+    [[storage.arrays]]
+    backing_length = 256
+    graph_bytes = 2088
+    name = "values[6]"
+    length = 256
+    element_bytes = 8
+    backing_bytes = 2048
+    [[storage.arrays]]
+    backing_length = 256
+    graph_bytes = 1064
+    name = "row_ids[6]"
+    length = 256
+    element_bytes = 4
+    backing_bytes = 1024
+    [[storage.arrays]]
+    backing_length = 256
+    graph_bytes = 1064
+    name = "row_backs[6]"
+    length = 256
+    element_bytes = 4
+    backing_bytes = 1024
+    [[storage.arrays]]
+    backing_length = 256
+    graph_bytes = 2088
+    name = "values[7]"
+    length = 256
+    element_bytes = 8
+    backing_bytes = 2048
+    [[storage.arrays]]
+    backing_length = 256
+    graph_bytes = 1064
+    name = "row_ids[7]"
+    length = 256
+    element_bytes = 4
+    backing_bytes = 1024
+    [[storage.arrays]]
+    backing_length = 256
+    graph_bytes = 1064
+    name = "row_backs[7]"
+    length = 256
+    element_bytes = 4
+    backing_bytes = 1024
+    [[storage.arrays]]
+    backing_length = 256
+    graph_bytes = 2088
+    name = "values[8]"
+    length = 256
+    element_bytes = 8
+    backing_bytes = 2048
+    [[storage.arrays]]
+    backing_length = 256
+    graph_bytes = 1064
+    name = "row_ids[8]"
+    length = 256
+    element_bytes = 4
+    backing_bytes = 1024
+    [[storage.arrays]]
+    backing_length = 256
+    graph_bytes = 1064
+    name = "row_backs[8]"
+    length = 256
+    element_bytes = 4
+    backing_bytes = 1024
+    [[storage.arrays]]
+    backing_length = 64
+    graph_bytes = 296
+    name = "rows[1]"
+    length = 64
+    element_bytes = 4
+    backing_bytes = 256
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[2]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[3]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[4]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[5]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[6]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[7]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[8]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[9]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[10]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[11]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[12]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[13]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[14]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[15]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[16]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[17]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[18]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[19]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[20]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[21]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[22]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[23]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[24]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[25]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[26]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[27]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[28]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[29]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[30]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[31]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[32]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[33]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[34]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[35]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[36]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[37]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[38]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[39]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[40]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[41]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[42]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[43]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[44]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[45]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[46]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[47]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[48]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[49]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[50]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[51]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[52]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[53]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[54]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[55]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[56]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[57]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[58]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[59]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[60]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[61]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[62]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[63]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+    [[storage.arrays]]
+    backing_length = 0
+    graph_bytes = 40
+    name = "rows[64]"
+    length = 0
+    element_bytes = 4
+    backing_bytes = 0
+
+[[states]]
+insertions = 1
+row_capacity = 2
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 1
+    directory_growths = 1
+    delete_tuple_moves = 0
+    row_coexist_payload = 8
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 1
+    gap_moves = 0
+    grown_copied_bytes = 0
+    extent_tuple_moves = 0
+    directory_copied_bytes = 0
+    merge_stage_reads = 0
+    allocation_requests = 101
+    splits = 0
+    descriptor_coexist_payload = 224
+    requested_payload_bytes = 7568
+    split_stage_writes = 0
+    directory_coexist_payload = 24
+    split_final_writes = 0
+    row_growths = 1
+    row_handle_repairs = 1
+    row_copied_bytes = 0
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 1
+[[states]]
+insertions = 2
+row_capacity = 2
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 1
+    directory_growths = 1
+    delete_tuple_moves = 0
+    row_coexist_payload = 8
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 2
+    gap_moves = 0
+    grown_copied_bytes = 0
+    extent_tuple_moves = 0
+    directory_copied_bytes = 0
+    merge_stage_reads = 0
+    allocation_requests = 101
+    splits = 0
+    descriptor_coexist_payload = 224
+    requested_payload_bytes = 7568
+    split_stage_writes = 0
+    directory_coexist_payload = 24
+    split_final_writes = 0
+    row_growths = 1
+    row_handle_repairs = 2
+    row_copied_bytes = 0
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 1
+[[states]]
+insertions = 3
+row_capacity = 4
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 1
+    directory_growths = 1
+    delete_tuple_moves = 0
+    row_coexist_payload = 24
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 3
+    gap_moves = 0
+    grown_copied_bytes = 0
+    extent_tuple_moves = 0
+    directory_copied_bytes = 0
+    merge_stage_reads = 0
+    allocation_requests = 102
+    splits = 0
+    descriptor_coexist_payload = 224
+    requested_payload_bytes = 7584
+    split_stage_writes = 0
+    directory_coexist_payload = 24
+    split_final_writes = 0
+    row_growths = 2
+    row_handle_repairs = 3
+    row_copied_bytes = 8
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 1
+[[states]]
+insertions = 4
+row_capacity = 4
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 1
+    directory_growths = 1
+    delete_tuple_moves = 0
+    row_coexist_payload = 24
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 4
+    gap_moves = 0
+    grown_copied_bytes = 0
+    extent_tuple_moves = 0
+    directory_copied_bytes = 0
+    merge_stage_reads = 0
+    allocation_requests = 102
+    splits = 0
+    descriptor_coexist_payload = 224
+    requested_payload_bytes = 7584
+    split_stage_writes = 0
+    directory_coexist_payload = 24
+    split_final_writes = 0
+    row_growths = 2
+    row_handle_repairs = 4
+    row_copied_bytes = 8
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 1
+[[states]]
+insertions = 5
+row_capacity = 6
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 1
+    directory_growths = 1
+    delete_tuple_moves = 0
+    row_coexist_payload = 40
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 5
+    gap_moves = 0
+    grown_copied_bytes = 0
+    extent_tuple_moves = 0
+    directory_copied_bytes = 0
+    merge_stage_reads = 0
+    allocation_requests = 103
+    splits = 0
+    descriptor_coexist_payload = 224
+    requested_payload_bytes = 7608
+    split_stage_writes = 0
+    directory_coexist_payload = 24
+    split_final_writes = 0
+    row_growths = 3
+    row_handle_repairs = 5
+    row_copied_bytes = 24
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 1
+[[states]]
+insertions = 6
+row_capacity = 6
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 1
+    directory_growths = 1
+    delete_tuple_moves = 0
+    row_coexist_payload = 40
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 6
+    gap_moves = 0
+    grown_copied_bytes = 0
+    extent_tuple_moves = 0
+    directory_copied_bytes = 0
+    merge_stage_reads = 0
+    allocation_requests = 103
+    splits = 0
+    descriptor_coexist_payload = 224
+    requested_payload_bytes = 7608
+    split_stage_writes = 0
+    directory_coexist_payload = 24
+    split_final_writes = 0
+    row_growths = 3
+    row_handle_repairs = 6
+    row_copied_bytes = 24
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 1
+[[states]]
+insertions = 7
+row_capacity = 8
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 1
+    directory_growths = 1
+    delete_tuple_moves = 0
+    row_coexist_payload = 56
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 7
+    gap_moves = 0
+    grown_copied_bytes = 0
+    extent_tuple_moves = 0
+    directory_copied_bytes = 0
+    merge_stage_reads = 0
+    allocation_requests = 104
+    splits = 0
+    descriptor_coexist_payload = 224
+    requested_payload_bytes = 7640
+    split_stage_writes = 0
+    directory_coexist_payload = 24
+    split_final_writes = 0
+    row_growths = 4
+    row_handle_repairs = 7
+    row_copied_bytes = 48
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 1
+[[states]]
+insertions = 8
+row_capacity = 8
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 1
+    directory_growths = 1
+    delete_tuple_moves = 0
+    row_coexist_payload = 56
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 8
+    gap_moves = 0
+    grown_copied_bytes = 0
+    extent_tuple_moves = 0
+    directory_copied_bytes = 0
+    merge_stage_reads = 0
+    allocation_requests = 104
+    splits = 0
+    descriptor_coexist_payload = 224
+    requested_payload_bytes = 7640
+    split_stage_writes = 0
+    directory_coexist_payload = 24
+    split_final_writes = 0
+    row_growths = 4
+    row_handle_repairs = 8
+    row_copied_bytes = 48
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 1
+[[states]]
+insertions = 9
+row_capacity = 10
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 2
+    directory_growths = 2
+    delete_tuple_moves = 0
+    row_coexist_payload = 72
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 9
+    gap_moves = 0
+    grown_copied_bytes = 224
+    extent_tuple_moves = 0
+    directory_copied_bytes = 24
+    merge_stage_reads = 0
+    allocation_requests = 118
+    splits = 0
+    descriptor_coexist_payload = 672
+    requested_payload_bytes = 12272
+    split_stage_writes = 0
+    directory_coexist_payload = 72
+    split_final_writes = 0
+    row_growths = 5
+    row_handle_repairs = 9
+    row_copied_bytes = 80
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 2
+[[states]]
+insertions = 10
+row_capacity = 10
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 2
+    directory_growths = 2
+    delete_tuple_moves = 0
+    row_coexist_payload = 72
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 10
+    gap_moves = 0
+    grown_copied_bytes = 224
+    extent_tuple_moves = 0
+    directory_copied_bytes = 24
+    merge_stage_reads = 0
+    allocation_requests = 118
+    splits = 0
+    descriptor_coexist_payload = 672
+    requested_payload_bytes = 12272
+    split_stage_writes = 0
+    directory_coexist_payload = 72
+    split_final_writes = 0
+    row_growths = 5
+    row_handle_repairs = 10
+    row_copied_bytes = 80
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 2
+[[states]]
+insertions = 11
+row_capacity = 12
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 2
+    directory_growths = 2
+    delete_tuple_moves = 0
+    row_coexist_payload = 88
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 11
+    gap_moves = 0
+    grown_copied_bytes = 224
+    extent_tuple_moves = 0
+    directory_copied_bytes = 24
+    merge_stage_reads = 0
+    allocation_requests = 119
+    splits = 0
+    descriptor_coexist_payload = 672
+    requested_payload_bytes = 12320
+    split_stage_writes = 0
+    directory_coexist_payload = 72
+    split_final_writes = 0
+    row_growths = 6
+    row_handle_repairs = 11
+    row_copied_bytes = 120
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 2
+[[states]]
+insertions = 12
+row_capacity = 12
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 2
+    directory_growths = 2
+    delete_tuple_moves = 0
+    row_coexist_payload = 88
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 12
+    gap_moves = 0
+    grown_copied_bytes = 224
+    extent_tuple_moves = 0
+    directory_copied_bytes = 24
+    merge_stage_reads = 0
+    allocation_requests = 119
+    splits = 0
+    descriptor_coexist_payload = 672
+    requested_payload_bytes = 12320
+    split_stage_writes = 0
+    directory_coexist_payload = 72
+    split_final_writes = 0
+    row_growths = 6
+    row_handle_repairs = 12
+    row_copied_bytes = 120
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 2
+[[states]]
+insertions = 13
+row_capacity = 14
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 2
+    directory_growths = 2
+    delete_tuple_moves = 0
+    row_coexist_payload = 104
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 13
+    gap_moves = 0
+    grown_copied_bytes = 224
+    extent_tuple_moves = 0
+    directory_copied_bytes = 24
+    merge_stage_reads = 0
+    allocation_requests = 120
+    splits = 0
+    descriptor_coexist_payload = 672
+    requested_payload_bytes = 12376
+    split_stage_writes = 0
+    directory_coexist_payload = 72
+    split_final_writes = 0
+    row_growths = 7
+    row_handle_repairs = 13
+    row_copied_bytes = 168
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 2
+[[states]]
+insertions = 14
+row_capacity = 14
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 2
+    directory_growths = 2
+    delete_tuple_moves = 0
+    row_coexist_payload = 104
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 14
+    gap_moves = 0
+    grown_copied_bytes = 224
+    extent_tuple_moves = 0
+    directory_copied_bytes = 24
+    merge_stage_reads = 0
+    allocation_requests = 120
+    splits = 0
+    descriptor_coexist_payload = 672
+    requested_payload_bytes = 12376
+    split_stage_writes = 0
+    directory_coexist_payload = 72
+    split_final_writes = 0
+    row_growths = 7
+    row_handle_repairs = 14
+    row_copied_bytes = 168
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 2
+[[states]]
+insertions = 15
+row_capacity = 16
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 2
+    directory_growths = 2
+    delete_tuple_moves = 0
+    row_coexist_payload = 120
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 15
+    gap_moves = 0
+    grown_copied_bytes = 224
+    extent_tuple_moves = 0
+    directory_copied_bytes = 24
+    merge_stage_reads = 0
+    allocation_requests = 121
+    splits = 0
+    descriptor_coexist_payload = 672
+    requested_payload_bytes = 12440
+    split_stage_writes = 0
+    directory_coexist_payload = 72
+    split_final_writes = 0
+    row_growths = 8
+    row_handle_repairs = 15
+    row_copied_bytes = 224
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 2
+[[states]]
+insertions = 16
+row_capacity = 16
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 2
+    directory_growths = 2
+    delete_tuple_moves = 0
+    row_coexist_payload = 120
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 16
+    gap_moves = 0
+    grown_copied_bytes = 224
+    extent_tuple_moves = 0
+    directory_copied_bytes = 24
+    merge_stage_reads = 0
+    allocation_requests = 121
+    splits = 0
+    descriptor_coexist_payload = 672
+    requested_payload_bytes = 12440
+    split_stage_writes = 0
+    directory_coexist_payload = 72
+    split_final_writes = 0
+    row_growths = 8
+    row_handle_repairs = 16
+    row_copied_bytes = 224
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 2
+[[states]]
+insertions = 17
+row_capacity = 19
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 3
+    directory_growths = 3
+    delete_tuple_moves = 0
+    row_coexist_payload = 140
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 17
+    gap_moves = 0
+    grown_copied_bytes = 672
+    extent_tuple_moves = 0
+    directory_copied_bytes = 72
+    merge_stage_reads = 0
+    allocation_requests = 135
+    splits = 0
+    descriptor_coexist_payload = 1120
+    requested_payload_bytes = 17356
+    split_stage_writes = 0
+    directory_coexist_payload = 120
+    split_final_writes = 0
+    row_growths = 9
+    row_handle_repairs = 17
+    row_copied_bytes = 288
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 3
+[[states]]
+insertions = 18
+row_capacity = 19
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 3
+    directory_growths = 3
+    delete_tuple_moves = 0
+    row_coexist_payload = 140
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 18
+    gap_moves = 0
+    grown_copied_bytes = 672
+    extent_tuple_moves = 0
+    directory_copied_bytes = 72
+    merge_stage_reads = 0
+    allocation_requests = 135
+    splits = 0
+    descriptor_coexist_payload = 1120
+    requested_payload_bytes = 17356
+    split_stage_writes = 0
+    directory_coexist_payload = 120
+    split_final_writes = 0
+    row_growths = 9
+    row_handle_repairs = 18
+    row_copied_bytes = 288
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 3
+[[states]]
+insertions = 19
+row_capacity = 19
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 3
+    directory_growths = 3
+    delete_tuple_moves = 0
+    row_coexist_payload = 140
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 19
+    gap_moves = 0
+    grown_copied_bytes = 672
+    extent_tuple_moves = 0
+    directory_copied_bytes = 72
+    merge_stage_reads = 0
+    allocation_requests = 135
+    splits = 0
+    descriptor_coexist_payload = 1120
+    requested_payload_bytes = 17356
+    split_stage_writes = 0
+    directory_coexist_payload = 120
+    split_final_writes = 0
+    row_growths = 9
+    row_handle_repairs = 19
+    row_copied_bytes = 288
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 3
+[[states]]
+insertions = 20
+row_capacity = 22
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 3
+    directory_growths = 3
+    delete_tuple_moves = 0
+    row_coexist_payload = 164
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 20
+    gap_moves = 0
+    grown_copied_bytes = 672
+    extent_tuple_moves = 0
+    directory_copied_bytes = 72
+    merge_stage_reads = 0
+    allocation_requests = 136
+    splits = 0
+    descriptor_coexist_payload = 1120
+    requested_payload_bytes = 17444
+    split_stage_writes = 0
+    directory_coexist_payload = 120
+    split_final_writes = 0
+    row_growths = 10
+    row_handle_repairs = 20
+    row_copied_bytes = 364
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 3
+[[states]]
+insertions = 21
+row_capacity = 22
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 3
+    directory_growths = 3
+    delete_tuple_moves = 0
+    row_coexist_payload = 164
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 21
+    gap_moves = 0
+    grown_copied_bytes = 672
+    extent_tuple_moves = 0
+    directory_copied_bytes = 72
+    merge_stage_reads = 0
+    allocation_requests = 136
+    splits = 0
+    descriptor_coexist_payload = 1120
+    requested_payload_bytes = 17444
+    split_stage_writes = 0
+    directory_coexist_payload = 120
+    split_final_writes = 0
+    row_growths = 10
+    row_handle_repairs = 21
+    row_copied_bytes = 364
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 3
+[[states]]
+insertions = 22
+row_capacity = 22
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 3
+    directory_growths = 3
+    delete_tuple_moves = 0
+    row_coexist_payload = 164
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 22
+    gap_moves = 0
+    grown_copied_bytes = 672
+    extent_tuple_moves = 0
+    directory_copied_bytes = 72
+    merge_stage_reads = 0
+    allocation_requests = 136
+    splits = 0
+    descriptor_coexist_payload = 1120
+    requested_payload_bytes = 17444
+    split_stage_writes = 0
+    directory_coexist_payload = 120
+    split_final_writes = 0
+    row_growths = 10
+    row_handle_repairs = 22
+    row_copied_bytes = 364
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 3
+[[states]]
+insertions = 23
+row_capacity = 25
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 3
+    directory_growths = 3
+    delete_tuple_moves = 0
+    row_coexist_payload = 188
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 23
+    gap_moves = 0
+    grown_copied_bytes = 672
+    extent_tuple_moves = 0
+    directory_copied_bytes = 72
+    merge_stage_reads = 0
+    allocation_requests = 137
+    splits = 0
+    descriptor_coexist_payload = 1120
+    requested_payload_bytes = 17544
+    split_stage_writes = 0
+    directory_coexist_payload = 120
+    split_final_writes = 0
+    row_growths = 11
+    row_handle_repairs = 23
+    row_copied_bytes = 452
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 3
+[[states]]
+insertions = 24
+row_capacity = 25
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 3
+    directory_growths = 3
+    delete_tuple_moves = 0
+    row_coexist_payload = 188
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 24
+    gap_moves = 0
+    grown_copied_bytes = 672
+    extent_tuple_moves = 0
+    directory_copied_bytes = 72
+    merge_stage_reads = 0
+    allocation_requests = 137
+    splits = 0
+    descriptor_coexist_payload = 1120
+    requested_payload_bytes = 17544
+    split_stage_writes = 0
+    directory_coexist_payload = 120
+    split_final_writes = 0
+    row_growths = 11
+    row_handle_repairs = 24
+    row_copied_bytes = 452
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 3
+[[states]]
+insertions = 25
+row_capacity = 25
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 4
+    directory_growths = 4
+    delete_tuple_moves = 0
+    row_coexist_payload = 188
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 25
+    gap_moves = 0
+    grown_copied_bytes = 1344
+    extent_tuple_moves = 0
+    directory_copied_bytes = 144
+    merge_stage_reads = 0
+    allocation_requests = 150
+    splits = 0
+    descriptor_coexist_payload = 1680
+    requested_payload_bytes = 22744
+    split_stage_writes = 0
+    directory_coexist_payload = 168
+    split_final_writes = 0
+    row_growths = 11
+    row_handle_repairs = 25
+    row_copied_bytes = 452
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 4
+[[states]]
+insertions = 26
+row_capacity = 29
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 4
+    directory_growths = 4
+    delete_tuple_moves = 0
+    row_coexist_payload = 216
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 26
+    gap_moves = 0
+    grown_copied_bytes = 1344
+    extent_tuple_moves = 0
+    directory_copied_bytes = 144
+    merge_stage_reads = 0
+    allocation_requests = 151
+    splits = 0
+    descriptor_coexist_payload = 1680
+    requested_payload_bytes = 22860
+    split_stage_writes = 0
+    directory_coexist_payload = 168
+    split_final_writes = 0
+    row_growths = 12
+    row_handle_repairs = 26
+    row_copied_bytes = 552
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 4
+[[states]]
+insertions = 27
+row_capacity = 29
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 4
+    directory_growths = 4
+    delete_tuple_moves = 0
+    row_coexist_payload = 216
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 27
+    gap_moves = 0
+    grown_copied_bytes = 1344
+    extent_tuple_moves = 0
+    directory_copied_bytes = 144
+    merge_stage_reads = 0
+    allocation_requests = 151
+    splits = 0
+    descriptor_coexist_payload = 1680
+    requested_payload_bytes = 22860
+    split_stage_writes = 0
+    directory_coexist_payload = 168
+    split_final_writes = 0
+    row_growths = 12
+    row_handle_repairs = 27
+    row_copied_bytes = 552
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 4
+[[states]]
+insertions = 28
+row_capacity = 29
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 4
+    directory_growths = 4
+    delete_tuple_moves = 0
+    row_coexist_payload = 216
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 28
+    gap_moves = 0
+    grown_copied_bytes = 1344
+    extent_tuple_moves = 0
+    directory_copied_bytes = 144
+    merge_stage_reads = 0
+    allocation_requests = 151
+    splits = 0
+    descriptor_coexist_payload = 1680
+    requested_payload_bytes = 22860
+    split_stage_writes = 0
+    directory_coexist_payload = 168
+    split_final_writes = 0
+    row_growths = 12
+    row_handle_repairs = 28
+    row_copied_bytes = 552
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 4
+[[states]]
+insertions = 29
+row_capacity = 29
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 4
+    directory_growths = 4
+    delete_tuple_moves = 0
+    row_coexist_payload = 216
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 29
+    gap_moves = 0
+    grown_copied_bytes = 1344
+    extent_tuple_moves = 0
+    directory_copied_bytes = 144
+    merge_stage_reads = 0
+    allocation_requests = 151
+    splits = 0
+    descriptor_coexist_payload = 1680
+    requested_payload_bytes = 22860
+    split_stage_writes = 0
+    directory_coexist_payload = 168
+    split_final_writes = 0
+    row_growths = 12
+    row_handle_repairs = 29
+    row_copied_bytes = 552
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 4
+[[states]]
+insertions = 30
+row_capacity = 33
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 4
+    directory_growths = 4
+    delete_tuple_moves = 0
+    row_coexist_payload = 248
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 30
+    gap_moves = 0
+    grown_copied_bytes = 1344
+    extent_tuple_moves = 0
+    directory_copied_bytes = 144
+    merge_stage_reads = 0
+    allocation_requests = 152
+    splits = 0
+    descriptor_coexist_payload = 1680
+    requested_payload_bytes = 22992
+    split_stage_writes = 0
+    directory_coexist_payload = 168
+    split_final_writes = 0
+    row_growths = 13
+    row_handle_repairs = 30
+    row_copied_bytes = 668
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 4
+[[states]]
+insertions = 31
+row_capacity = 33
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 4
+    directory_growths = 4
+    delete_tuple_moves = 0
+    row_coexist_payload = 248
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 31
+    gap_moves = 0
+    grown_copied_bytes = 1344
+    extent_tuple_moves = 0
+    directory_copied_bytes = 144
+    merge_stage_reads = 0
+    allocation_requests = 152
+    splits = 0
+    descriptor_coexist_payload = 1680
+    requested_payload_bytes = 22992
+    split_stage_writes = 0
+    directory_coexist_payload = 168
+    split_final_writes = 0
+    row_growths = 13
+    row_handle_repairs = 31
+    row_copied_bytes = 668
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 4
+[[states]]
+insertions = 32
+row_capacity = 33
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 4
+    directory_growths = 4
+    delete_tuple_moves = 0
+    row_coexist_payload = 248
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 32
+    gap_moves = 0
+    grown_copied_bytes = 1344
+    extent_tuple_moves = 0
+    directory_copied_bytes = 144
+    merge_stage_reads = 0
+    allocation_requests = 152
+    splits = 0
+    descriptor_coexist_payload = 1680
+    requested_payload_bytes = 22992
+    split_stage_writes = 0
+    directory_coexist_payload = 168
+    split_final_writes = 0
+    row_growths = 13
+    row_handle_repairs = 32
+    row_copied_bytes = 668
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 4
+[[states]]
+insertions = 33
+row_capacity = 33
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 5
+    directory_growths = 5
+    delete_tuple_moves = 0
+    row_coexist_payload = 248
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 33
+    gap_moves = 0
+    grown_copied_bytes = 2352
+    extent_tuple_moves = 0
+    directory_copied_bytes = 240
+    merge_stage_reads = 0
+    allocation_requests = 165
+    splits = 0
+    descriptor_coexist_payload = 2520
+    requested_payload_bytes = 28744
+    split_stage_writes = 0
+    directory_coexist_payload = 240
+    split_final_writes = 0
+    row_growths = 13
+    row_handle_repairs = 33
+    row_copied_bytes = 668
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 5
+[[states]]
+insertions = 34
+row_capacity = 38
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 5
+    directory_growths = 5
+    delete_tuple_moves = 0
+    row_coexist_payload = 284
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 34
+    gap_moves = 0
+    grown_copied_bytes = 2352
+    extent_tuple_moves = 0
+    directory_copied_bytes = 240
+    merge_stage_reads = 0
+    allocation_requests = 166
+    splits = 0
+    descriptor_coexist_payload = 2520
+    requested_payload_bytes = 28896
+    split_stage_writes = 0
+    directory_coexist_payload = 240
+    split_final_writes = 0
+    row_growths = 14
+    row_handle_repairs = 34
+    row_copied_bytes = 800
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 5
+[[states]]
+insertions = 35
+row_capacity = 38
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 5
+    directory_growths = 5
+    delete_tuple_moves = 0
+    row_coexist_payload = 284
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 35
+    gap_moves = 0
+    grown_copied_bytes = 2352
+    extent_tuple_moves = 0
+    directory_copied_bytes = 240
+    merge_stage_reads = 0
+    allocation_requests = 166
+    splits = 0
+    descriptor_coexist_payload = 2520
+    requested_payload_bytes = 28896
+    split_stage_writes = 0
+    directory_coexist_payload = 240
+    split_final_writes = 0
+    row_growths = 14
+    row_handle_repairs = 35
+    row_copied_bytes = 800
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 5
+[[states]]
+insertions = 36
+row_capacity = 38
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 5
+    directory_growths = 5
+    delete_tuple_moves = 0
+    row_coexist_payload = 284
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 36
+    gap_moves = 0
+    grown_copied_bytes = 2352
+    extent_tuple_moves = 0
+    directory_copied_bytes = 240
+    merge_stage_reads = 0
+    allocation_requests = 166
+    splits = 0
+    descriptor_coexist_payload = 2520
+    requested_payload_bytes = 28896
+    split_stage_writes = 0
+    directory_coexist_payload = 240
+    split_final_writes = 0
+    row_growths = 14
+    row_handle_repairs = 36
+    row_copied_bytes = 800
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 5
+[[states]]
+insertions = 37
+row_capacity = 38
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 5
+    directory_growths = 5
+    delete_tuple_moves = 0
+    row_coexist_payload = 284
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 37
+    gap_moves = 0
+    grown_copied_bytes = 2352
+    extent_tuple_moves = 0
+    directory_copied_bytes = 240
+    merge_stage_reads = 0
+    allocation_requests = 166
+    splits = 0
+    descriptor_coexist_payload = 2520
+    requested_payload_bytes = 28896
+    split_stage_writes = 0
+    directory_coexist_payload = 240
+    split_final_writes = 0
+    row_growths = 14
+    row_handle_repairs = 37
+    row_copied_bytes = 800
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 5
+[[states]]
+insertions = 38
+row_capacity = 38
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 5
+    directory_growths = 5
+    delete_tuple_moves = 0
+    row_coexist_payload = 284
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 38
+    gap_moves = 0
+    grown_copied_bytes = 2352
+    extent_tuple_moves = 0
+    directory_copied_bytes = 240
+    merge_stage_reads = 0
+    allocation_requests = 166
+    splits = 0
+    descriptor_coexist_payload = 2520
+    requested_payload_bytes = 28896
+    split_stage_writes = 0
+    directory_coexist_payload = 240
+    split_final_writes = 0
+    row_growths = 14
+    row_handle_repairs = 38
+    row_copied_bytes = 800
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 5
+[[states]]
+insertions = 39
+row_capacity = 43
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 5
+    directory_growths = 5
+    delete_tuple_moves = 0
+    row_coexist_payload = 324
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 39
+    gap_moves = 0
+    grown_copied_bytes = 2352
+    extent_tuple_moves = 0
+    directory_copied_bytes = 240
+    merge_stage_reads = 0
+    allocation_requests = 167
+    splits = 0
+    descriptor_coexist_payload = 2520
+    requested_payload_bytes = 29068
+    split_stage_writes = 0
+    directory_coexist_payload = 240
+    split_final_writes = 0
+    row_growths = 15
+    row_handle_repairs = 39
+    row_copied_bytes = 952
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 5
+[[states]]
+insertions = 40
+row_capacity = 43
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 5
+    directory_growths = 5
+    delete_tuple_moves = 0
+    row_coexist_payload = 324
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 40
+    gap_moves = 0
+    grown_copied_bytes = 2352
+    extent_tuple_moves = 0
+    directory_copied_bytes = 240
+    merge_stage_reads = 0
+    allocation_requests = 167
+    splits = 0
+    descriptor_coexist_payload = 2520
+    requested_payload_bytes = 29068
+    split_stage_writes = 0
+    directory_coexist_payload = 240
+    split_final_writes = 0
+    row_growths = 15
+    row_handle_repairs = 40
+    row_copied_bytes = 952
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 5
+[[states]]
+insertions = 41
+row_capacity = 43
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 5
+    directory_growths = 5
+    delete_tuple_moves = 0
+    row_coexist_payload = 324
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 41
+    gap_moves = 0
+    grown_copied_bytes = 2352
+    extent_tuple_moves = 0
+    directory_copied_bytes = 240
+    merge_stage_reads = 0
+    allocation_requests = 170
+    splits = 0
+    descriptor_coexist_payload = 2520
+    requested_payload_bytes = 33164
+    split_stage_writes = 0
+    directory_coexist_payload = 240
+    split_final_writes = 0
+    row_growths = 15
+    row_handle_repairs = 41
+    row_copied_bytes = 952
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 6
+[[states]]
+insertions = 42
+row_capacity = 43
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 5
+    directory_growths = 5
+    delete_tuple_moves = 0
+    row_coexist_payload = 324
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 42
+    gap_moves = 0
+    grown_copied_bytes = 2352
+    extent_tuple_moves = 0
+    directory_copied_bytes = 240
+    merge_stage_reads = 0
+    allocation_requests = 170
+    splits = 0
+    descriptor_coexist_payload = 2520
+    requested_payload_bytes = 33164
+    split_stage_writes = 0
+    directory_coexist_payload = 240
+    split_final_writes = 0
+    row_growths = 15
+    row_handle_repairs = 42
+    row_copied_bytes = 952
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 6
+[[states]]
+insertions = 43
+row_capacity = 43
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 5
+    directory_growths = 5
+    delete_tuple_moves = 0
+    row_coexist_payload = 324
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 43
+    gap_moves = 0
+    grown_copied_bytes = 2352
+    extent_tuple_moves = 0
+    directory_copied_bytes = 240
+    merge_stage_reads = 0
+    allocation_requests = 170
+    splits = 0
+    descriptor_coexist_payload = 2520
+    requested_payload_bytes = 33164
+    split_stage_writes = 0
+    directory_coexist_payload = 240
+    split_final_writes = 0
+    row_growths = 15
+    row_handle_repairs = 43
+    row_copied_bytes = 952
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 6
+[[states]]
+insertions = 44
+row_capacity = 49
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 5
+    directory_growths = 5
+    delete_tuple_moves = 0
+    row_coexist_payload = 368
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 44
+    gap_moves = 0
+    grown_copied_bytes = 2352
+    extent_tuple_moves = 0
+    directory_copied_bytes = 240
+    merge_stage_reads = 0
+    allocation_requests = 171
+    splits = 0
+    descriptor_coexist_payload = 2520
+    requested_payload_bytes = 33360
+    split_stage_writes = 0
+    directory_coexist_payload = 240
+    split_final_writes = 0
+    row_growths = 16
+    row_handle_repairs = 44
+    row_copied_bytes = 1124
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 6
+[[states]]
+insertions = 45
+row_capacity = 49
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 5
+    directory_growths = 5
+    delete_tuple_moves = 0
+    row_coexist_payload = 368
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 45
+    gap_moves = 0
+    grown_copied_bytes = 2352
+    extent_tuple_moves = 0
+    directory_copied_bytes = 240
+    merge_stage_reads = 0
+    allocation_requests = 171
+    splits = 0
+    descriptor_coexist_payload = 2520
+    requested_payload_bytes = 33360
+    split_stage_writes = 0
+    directory_coexist_payload = 240
+    split_final_writes = 0
+    row_growths = 16
+    row_handle_repairs = 45
+    row_copied_bytes = 1124
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 6
+[[states]]
+insertions = 46
+row_capacity = 49
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 5
+    directory_growths = 5
+    delete_tuple_moves = 0
+    row_coexist_payload = 368
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 46
+    gap_moves = 0
+    grown_copied_bytes = 2352
+    extent_tuple_moves = 0
+    directory_copied_bytes = 240
+    merge_stage_reads = 0
+    allocation_requests = 171
+    splits = 0
+    descriptor_coexist_payload = 2520
+    requested_payload_bytes = 33360
+    split_stage_writes = 0
+    directory_coexist_payload = 240
+    split_final_writes = 0
+    row_growths = 16
+    row_handle_repairs = 46
+    row_copied_bytes = 1124
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 6
+[[states]]
+insertions = 47
+row_capacity = 49
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 5
+    directory_growths = 5
+    delete_tuple_moves = 0
+    row_coexist_payload = 368
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 47
+    gap_moves = 0
+    grown_copied_bytes = 2352
+    extent_tuple_moves = 0
+    directory_copied_bytes = 240
+    merge_stage_reads = 0
+    allocation_requests = 171
+    splits = 0
+    descriptor_coexist_payload = 2520
+    requested_payload_bytes = 33360
+    split_stage_writes = 0
+    directory_coexist_payload = 240
+    split_final_writes = 0
+    row_growths = 16
+    row_handle_repairs = 47
+    row_copied_bytes = 1124
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 6
+[[states]]
+insertions = 48
+row_capacity = 49
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 5
+    directory_growths = 5
+    delete_tuple_moves = 0
+    row_coexist_payload = 368
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 48
+    gap_moves = 0
+    grown_copied_bytes = 2352
+    extent_tuple_moves = 0
+    directory_copied_bytes = 240
+    merge_stage_reads = 0
+    allocation_requests = 171
+    splits = 0
+    descriptor_coexist_payload = 2520
+    requested_payload_bytes = 33360
+    split_stage_writes = 0
+    directory_coexist_payload = 240
+    split_final_writes = 0
+    row_growths = 16
+    row_handle_repairs = 48
+    row_copied_bytes = 1124
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 6
+[[states]]
+insertions = 49
+row_capacity = 49
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 6
+    directory_growths = 6
+    delete_tuple_moves = 0
+    row_coexist_payload = 368
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 49
+    gap_moves = 0
+    grown_copied_bytes = 3864
+    extent_tuple_moves = 0
+    directory_copied_bytes = 384
+    merge_stage_reads = 0
+    allocation_requests = 184
+    splits = 0
+    descriptor_coexist_payload = 3780
+    requested_payload_bytes = 39940
+    split_stage_writes = 0
+    directory_coexist_payload = 360
+    split_final_writes = 0
+    row_growths = 16
+    row_handle_repairs = 49
+    row_copied_bytes = 1124
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 7
+[[states]]
+insertions = 50
+row_capacity = 56
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 6
+    directory_growths = 6
+    delete_tuple_moves = 0
+    row_coexist_payload = 420
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 50
+    gap_moves = 0
+    grown_copied_bytes = 3864
+    extent_tuple_moves = 0
+    directory_copied_bytes = 384
+    merge_stage_reads = 0
+    allocation_requests = 185
+    splits = 0
+    descriptor_coexist_payload = 3780
+    requested_payload_bytes = 40164
+    split_stage_writes = 0
+    directory_coexist_payload = 360
+    split_final_writes = 0
+    row_growths = 17
+    row_handle_repairs = 50
+    row_copied_bytes = 1320
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 7
+[[states]]
+insertions = 51
+row_capacity = 56
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 6
+    directory_growths = 6
+    delete_tuple_moves = 0
+    row_coexist_payload = 420
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 51
+    gap_moves = 0
+    grown_copied_bytes = 3864
+    extent_tuple_moves = 0
+    directory_copied_bytes = 384
+    merge_stage_reads = 0
+    allocation_requests = 185
+    splits = 0
+    descriptor_coexist_payload = 3780
+    requested_payload_bytes = 40164
+    split_stage_writes = 0
+    directory_coexist_payload = 360
+    split_final_writes = 0
+    row_growths = 17
+    row_handle_repairs = 51
+    row_copied_bytes = 1320
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 7
+[[states]]
+insertions = 52
+row_capacity = 56
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 6
+    directory_growths = 6
+    delete_tuple_moves = 0
+    row_coexist_payload = 420
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 52
+    gap_moves = 0
+    grown_copied_bytes = 3864
+    extent_tuple_moves = 0
+    directory_copied_bytes = 384
+    merge_stage_reads = 0
+    allocation_requests = 185
+    splits = 0
+    descriptor_coexist_payload = 3780
+    requested_payload_bytes = 40164
+    split_stage_writes = 0
+    directory_coexist_payload = 360
+    split_final_writes = 0
+    row_growths = 17
+    row_handle_repairs = 52
+    row_copied_bytes = 1320
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 7
+[[states]]
+insertions = 53
+row_capacity = 56
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 6
+    directory_growths = 6
+    delete_tuple_moves = 0
+    row_coexist_payload = 420
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 53
+    gap_moves = 0
+    grown_copied_bytes = 3864
+    extent_tuple_moves = 0
+    directory_copied_bytes = 384
+    merge_stage_reads = 0
+    allocation_requests = 185
+    splits = 0
+    descriptor_coexist_payload = 3780
+    requested_payload_bytes = 40164
+    split_stage_writes = 0
+    directory_coexist_payload = 360
+    split_final_writes = 0
+    row_growths = 17
+    row_handle_repairs = 53
+    row_copied_bytes = 1320
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 7
+[[states]]
+insertions = 54
+row_capacity = 56
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 6
+    directory_growths = 6
+    delete_tuple_moves = 0
+    row_coexist_payload = 420
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 54
+    gap_moves = 0
+    grown_copied_bytes = 3864
+    extent_tuple_moves = 0
+    directory_copied_bytes = 384
+    merge_stage_reads = 0
+    allocation_requests = 185
+    splits = 0
+    descriptor_coexist_payload = 3780
+    requested_payload_bytes = 40164
+    split_stage_writes = 0
+    directory_coexist_payload = 360
+    split_final_writes = 0
+    row_growths = 17
+    row_handle_repairs = 54
+    row_copied_bytes = 1320
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 7
+[[states]]
+insertions = 55
+row_capacity = 56
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 6
+    directory_growths = 6
+    delete_tuple_moves = 0
+    row_coexist_payload = 420
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 55
+    gap_moves = 0
+    grown_copied_bytes = 3864
+    extent_tuple_moves = 0
+    directory_copied_bytes = 384
+    merge_stage_reads = 0
+    allocation_requests = 185
+    splits = 0
+    descriptor_coexist_payload = 3780
+    requested_payload_bytes = 40164
+    split_stage_writes = 0
+    directory_coexist_payload = 360
+    split_final_writes = 0
+    row_growths = 17
+    row_handle_repairs = 55
+    row_copied_bytes = 1320
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 7
+[[states]]
+insertions = 56
+row_capacity = 56
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 6
+    directory_growths = 6
+    delete_tuple_moves = 0
+    row_coexist_payload = 420
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 56
+    gap_moves = 0
+    grown_copied_bytes = 3864
+    extent_tuple_moves = 0
+    directory_copied_bytes = 384
+    merge_stage_reads = 0
+    allocation_requests = 185
+    splits = 0
+    descriptor_coexist_payload = 3780
+    requested_payload_bytes = 40164
+    split_stage_writes = 0
+    directory_coexist_payload = 360
+    split_final_writes = 0
+    row_growths = 17
+    row_handle_repairs = 56
+    row_copied_bytes = 1320
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 7
+[[states]]
+insertions = 57
+row_capacity = 64
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 6
+    directory_growths = 6
+    delete_tuple_moves = 0
+    row_coexist_payload = 480
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 57
+    gap_moves = 0
+    grown_copied_bytes = 3864
+    extent_tuple_moves = 0
+    directory_copied_bytes = 384
+    merge_stage_reads = 0
+    allocation_requests = 189
+    splits = 0
+    descriptor_coexist_payload = 3780
+    requested_payload_bytes = 44516
+    split_stage_writes = 0
+    directory_coexist_payload = 360
+    split_final_writes = 0
+    row_growths = 18
+    row_handle_repairs = 57
+    row_copied_bytes = 1544
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 8
+[[states]]
+insertions = 58
+row_capacity = 64
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 6
+    directory_growths = 6
+    delete_tuple_moves = 0
+    row_coexist_payload = 480
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 58
+    gap_moves = 0
+    grown_copied_bytes = 3864
+    extent_tuple_moves = 0
+    directory_copied_bytes = 384
+    merge_stage_reads = 0
+    allocation_requests = 189
+    splits = 0
+    descriptor_coexist_payload = 3780
+    requested_payload_bytes = 44516
+    split_stage_writes = 0
+    directory_coexist_payload = 360
+    split_final_writes = 0
+    row_growths = 18
+    row_handle_repairs = 58
+    row_copied_bytes = 1544
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 8
+[[states]]
+insertions = 59
+row_capacity = 64
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 6
+    directory_growths = 6
+    delete_tuple_moves = 0
+    row_coexist_payload = 480
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 59
+    gap_moves = 0
+    grown_copied_bytes = 3864
+    extent_tuple_moves = 0
+    directory_copied_bytes = 384
+    merge_stage_reads = 0
+    allocation_requests = 189
+    splits = 0
+    descriptor_coexist_payload = 3780
+    requested_payload_bytes = 44516
+    split_stage_writes = 0
+    directory_coexist_payload = 360
+    split_final_writes = 0
+    row_growths = 18
+    row_handle_repairs = 59
+    row_copied_bytes = 1544
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 8
+[[states]]
+insertions = 60
+row_capacity = 64
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 6
+    directory_growths = 6
+    delete_tuple_moves = 0
+    row_coexist_payload = 480
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 60
+    gap_moves = 0
+    grown_copied_bytes = 3864
+    extent_tuple_moves = 0
+    directory_copied_bytes = 384
+    merge_stage_reads = 0
+    allocation_requests = 189
+    splits = 0
+    descriptor_coexist_payload = 3780
+    requested_payload_bytes = 44516
+    split_stage_writes = 0
+    directory_coexist_payload = 360
+    split_final_writes = 0
+    row_growths = 18
+    row_handle_repairs = 60
+    row_copied_bytes = 1544
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 8
+[[states]]
+insertions = 61
+row_capacity = 64
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 6
+    directory_growths = 6
+    delete_tuple_moves = 0
+    row_coexist_payload = 480
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 61
+    gap_moves = 0
+    grown_copied_bytes = 3864
+    extent_tuple_moves = 0
+    directory_copied_bytes = 384
+    merge_stage_reads = 0
+    allocation_requests = 189
+    splits = 0
+    descriptor_coexist_payload = 3780
+    requested_payload_bytes = 44516
+    split_stage_writes = 0
+    directory_coexist_payload = 360
+    split_final_writes = 0
+    row_growths = 18
+    row_handle_repairs = 61
+    row_copied_bytes = 1544
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 8
+[[states]]
+insertions = 62
+row_capacity = 64
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 6
+    directory_growths = 6
+    delete_tuple_moves = 0
+    row_coexist_payload = 480
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 62
+    gap_moves = 0
+    grown_copied_bytes = 3864
+    extent_tuple_moves = 0
+    directory_copied_bytes = 384
+    merge_stage_reads = 0
+    allocation_requests = 189
+    splits = 0
+    descriptor_coexist_payload = 3780
+    requested_payload_bytes = 44516
+    split_stage_writes = 0
+    directory_coexist_payload = 360
+    split_final_writes = 0
+    row_growths = 18
+    row_handle_repairs = 62
+    row_copied_bytes = 1544
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 8
+[[states]]
+insertions = 63
+row_capacity = 64
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 6
+    directory_growths = 6
+    delete_tuple_moves = 0
+    row_coexist_payload = 480
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 63
+    gap_moves = 0
+    grown_copied_bytes = 3864
+    extent_tuple_moves = 0
+    directory_copied_bytes = 384
+    merge_stage_reads = 0
+    allocation_requests = 189
+    splits = 0
+    descriptor_coexist_payload = 3780
+    requested_payload_bytes = 44516
+    split_stage_writes = 0
+    directory_coexist_payload = 360
+    split_final_writes = 0
+    row_growths = 18
+    row_handle_repairs = 63
+    row_copied_bytes = 1544
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 8
+[[states]]
+insertions = 64
+row_capacity = 64
+
+    [states.counts]
+    split_stage_reads = 0
+    rotation_tuple_moves = 0
+    descriptor_growths = 6
+    directory_growths = 6
+    delete_tuple_moves = 0
+    row_coexist_payload = 480
+    merges = 0
+    merge_tuple_moves = 0
+    insert_tuple_moves = 0
+    back_repairs = 0
+    tuple_writes = 64
+    gap_moves = 0
+    grown_copied_bytes = 3864
+    extent_tuple_moves = 0
+    directory_copied_bytes = 384
+    merge_stage_reads = 0
+    allocation_requests = 189
+    splits = 0
+    descriptor_coexist_payload = 3780
+    requested_payload_bytes = 44516
+    split_stage_writes = 0
+    directory_coexist_payload = 360
+    split_final_writes = 0
+    row_growths = 18
+    row_handle_repairs = 64
+    row_copied_bytes = 1544
+    swap_tuple_moves = 0
+    merge_stage_writes = 0
+    slab_appends = 8
+
+[counts]
+split_stage_reads = 0
+rotation_tuple_moves = 0
+descriptor_growths = 6
+directory_growths = 6
+delete_tuple_moves = 0
+row_coexist_payload = 480
+merges = 0
+merge_tuple_moves = 0
+insert_tuple_moves = 0
+back_repairs = 0
+tuple_writes = 64
+gap_moves = 0
+grown_copied_bytes = 3864
+extent_tuple_moves = 0
+directory_copied_bytes = 384
+merge_stage_reads = 0
+allocation_requests = 189
+splits = 0
+descriptor_coexist_payload = 3780
+requested_payload_bytes = 44516
+split_stage_writes = 0
+directory_coexist_payload = 360
+split_final_writes = 0
+row_growths = 18
+row_handle_repairs = 64
+row_copied_bytes = 1544
+swap_tuple_moves = 0
+merge_stage_writes = 0
+slab_appends = 8
