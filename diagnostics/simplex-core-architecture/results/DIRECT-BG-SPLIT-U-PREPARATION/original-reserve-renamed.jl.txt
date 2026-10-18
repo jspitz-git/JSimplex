@@ -1,0 +1,5 @@
+function _sbu_reserve_block!(U,required::Int,allocate,limit::Integer)
+    b=_sbu_free_block(U,required)
+    if b==0;_sbu_append_slab!(U,allocate,limit);b=Int(U.bins[32]);end
+    return b # Still on free list: no reservation is consumed before commit.
+end

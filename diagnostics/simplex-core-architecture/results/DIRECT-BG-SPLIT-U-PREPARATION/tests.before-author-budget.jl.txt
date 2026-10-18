@@ -1,0 +1,326 @@
+# Task1 structural tests. UNEXECUTED: no Julia parser/import/run qualification.
+# Include split-upper.jl and split-oracles.jl in a fresh module with Test/SparseArrays.
+function _sbu_inherited_structural_tests()
+    @testset "empty_and_import" begin
+        for n in (0,1,31,32,33,64)
+            A=spzeros(Float64,n,n); U=_sbu_build(A,collect(1:n))
+            @test _sbu_check(U)
+            @test isequal(_sbu_materialize(U),Matrix(A))
+            @test U.live==0 && U.used==0 && U.slabs==0
+        end
+        A=_sbu_test_column(64,collect(1:64)); U=_sbu_build(A,collect(1:64))
+        @test _sbu_check(U)
+        @test U.used==2 && U.live==64
+        @test isequal(_sbu_materialize(U),Matrix(A))
+    end
+    @testset "nonidentity_q" begin
+        A=sparse([1,3,2,4],[1,1,3,4],[2.0,-0.0,4.0,7.0],4,4)
+        q=[3,1,4,2]; U=_sbu_build(A,q)
+        @test _sbu_check(U)
+        @test U.column_order==Int32.(q)
+        @test isequal(_sbu_materialize(U),Matrix(A))
+        for j in 1:4, r in 1:4
+            h=_sbu_find(U,r,q[j])
+            @test (h==0 ? 0.0 : _sbu_tuple(U,h)[1])==A[r,j]
+        end
+        @test_throws ArgumentError _sbu_build(A,[1,1,3,4])
+        @test_throws ArgumentError _sbu_build(sparse(Float32.(A)),q)
+    end
+    @testset "handle_backrefs" begin
+        U=_sbu_build(spzeros(12,12),collect(1:12)); expected=zeros(12,12)
+        for (r,c,v) in ((7,3,2.0),(2,3,-5.0),(12,3,8.0),(7,9,4.0),(7,3,9.0),(2,3,0.0))
+            _sbu_set!(U,r,c,v); expected[r,c]=v
+            @test _sbu_check(U)
+            @test isequal(_sbu_materialize(U),expected)
+        end
+    end
+    @testset "direct_cursor_and_malformed" begin
+        U=_sbu_build(spzeros(12,12),collect(1:12));expected=zeros(12,12)
+        _sbu_insert_at!(U,7,3,2.0,1,Int32(0),_sbu_allocate,typemax(Int32));expected[7,3]=2.0
+        @test _sbu_check(U) && isequal(_sbu_materialize(U),expected)
+        pred=_sbu_find(U,7,3)
+        _sbu_insert_at!(U,10,3,9.0,1,pred,_sbu_allocate,typemax(Int32));expected[10,3]=9.0
+        @test _sbu_check(U) && isequal(_sbu_materialize(U),expected)
+        @test_throws ArgumentError _sbu_insert_at!(U,5,3,9.0,1,pred,_sbu_allocate,typemax(Int32))
+        @test _sbu_check(U) && isequal(_sbu_materialize(U),expected)
+        @test_throws ArgumentError _sbu_build(SparseMatrixCSC(2,2,[1,3,3],[2,1],[1.0,2.0]),[1,2])
+        @test_throws ArgumentError _sbu_build(SparseMatrixCSC(2,2,[1,3,3],[1,1],[1.0,2.0]),[1,2])
+    end
+    @testset "gap_move_grow" begin
+        U=_sbu_build(spzeros(64,64),collect(1:64)); expected=zeros(64,64)
+        for c in (32,1,64,16,48,2,63,15,49,31,33)
+            _sbu_set!(U,7,c,Float64(c)); expected[7,c]=c
+            @test _sbu_check(U)
+            @test isequal(_sbu_materialize(U),expected)
+        end
+        for c in (16,64,1,33)
+            _sbu_set!(U,7,c,0.0);expected[7,c]=0.0
+            @test _sbu_check(U)
+            @test isequal(_sbu_materialize(U),expected)
+        end
+    end
+    @testset "split32_insert33" begin
+        for (rows,newrow) in ((collect(1:32),34),(collect(2:33),1),(vcat(collect(1:16),collect(18:33)),17))
+            A=_sbu_test_column(40,rows);U=_sbu_build(A,collect(1:40));expected=Matrix(A)
+            _sbu_set!(U,newrow,1,17.0);expected[newrow,1]=17.0
+            @test _sbu_check(U)
+            b=Int(U.column_head[1]);c=Int(U.next[b])
+            @test U.count[b]==16 && U.count[c]==17
+            @test isequal(_sbu_materialize(U),expected)
+        end
+    end
+    @testset "boundary_swap_rotate" begin
+        A=sparse([r for c in 1:64 for r in 1:64],[c for c in 1:64 for r in 1:64],
+                 [Float64(100*c+r) for c in 1:64 for r in 1:64],64,64)
+        U=_sbu_build(A,reverse(collect(1:64))); expected=Matrix(A)
+        for j in (31,32,33,1,63)
+            _sbu_swap_rows!(U,j);expected[[j,j+1],:]=expected[[j+1,j],:]
+            @test _sbu_check(U)
+            @test isequal(_sbu_materialize(U),expected)
+        end
+        for (a,b) in ((1,64),(16,48),(31,33),(2,2))
+            _sbu_rotate_rows!(U,a,b);expected[a:b,:]=expected[vcat(collect(a+1:b),a),:]
+            @test _sbu_check(U)
+            @test isequal(_sbu_materialize(U),expected)
+        end
+    end
+    @testset "deletion_merge_right" begin
+        U=_sbu_build(_sbu_test_column(64,collect(1:64)),collect(1:64))
+        expected=_sbu_materialize(U)
+        for r in 1:33
+            _sbu_set!(U,r,1,0.0);expected[r,1]=0.0
+            @test _sbu_check(U)
+            @test isequal(_sbu_materialize(U),expected)
+        end
+        # Test-only construction of two owned extents in one column:16 then32.
+        V,left,right=_sbu_test_right_merge_fixture()
+        @test _sbu_check(V)
+        expected=_sbu_materialize(V)
+        for r in 34:48
+            _sbu_set!(V,r,3,0.0);expected[r,1]=0.0
+            @test _sbu_check(V) && isequal(_sbu_materialize(V),expected)
+        end
+        _sbu_set!(V,1,3,0.0);expected[1,1]=0.0
+        @test _sbu_check(V) && isequal(_sbu_materialize(V),expected)
+        @test V.column_head[3]==right==V.column_tail[3]
+        @test V.column[left]==0 && V.count[right]==32 && V.capacity[right]==32
+    end
+    @testset "reserve_failure" begin
+        for rows in (Int[],[1],collect(1:32))
+            A=_sbu_test_column(64,rows)
+            _sbu_test_allocation_failures(() -> _sbu_build(A,collect(1:64)),
+                (U,a)->_sbu_set_with!(U,64,1,9.0,a,typemax(Int32)))
+        end
+        _sbu_test_build_failures(_sbu_test_column(64,collect(1:64)),collect(1:64))
+    end
+    @testset "checked_limits" begin
+        @test _sbu_handle(2,32,64)==Int32(64)
+        @test_throws OverflowError _sbu_handle(3,1,64)
+        @test_throws OverflowError _sbu_handle(2,33,64)
+        maxblock=Int(typemax(Int32))÷32
+        @test _sbu_handle(maxblock,32)==Int32(maxblock*32)
+        @test_throws OverflowError _sbu_handle(maxblock+1,1)
+        @test _sbu_descriptor_capacity(8,9,512)==16
+        @test_throws OverflowError _sbu_descriptor_capacity(8,9,511)
+        @test _sbu_row_capacity(0,0,2)==1
+        @test_throws OverflowError _sbu_row_capacity(0,0,1)
+        @test _sbu_row_capacity(64,65,100)==73
+        @test_throws OverflowError _sbu_row_capacity(64,65,73)
+        @test_throws OverflowError _sbu_build_with(_sbu_test_column(65,collect(1:65)),collect(1:65),_sbu_allocate,64)
+        U=_sbu_build(spzeros(4,4),collect(1:4)); old=_sbu_materialize(U)
+        @test_throws OverflowError _sbu_set_with!(U,1,1,1.0,_sbu_allocate,64)
+        @test _sbu_check(U) && isequal(old,_sbu_materialize(U))
+        @test_throws ArgumentError _sbu_set!(U,0,1,1.0)
+        @test_throws ArgumentError _sbu_swap_rows!(U,4)
+        @test_throws ArgumentError _sbu_rotate_rows!(U,3,2)
+    end
+    @testset "explicit_zero_order" begin
+        A=SparseMatrixCSC(3,3,[1,4,4,4],[1,2,3],[0.0,-0.0,Inf]); U=_sbu_build(A,[2,3,1])
+        @test U.live==3 && _sbu_check(U)
+        @test reinterpret(UInt64,_sbu_tuple(U,_sbu_find(U,2,2))[1])==reinterpret(UInt64,-0.0)
+        _sbu_set!(U,2,2,0.0)
+        @test U.live==2 && _sbu_check(U)
+        _sbu_set!(U,1,2,NaN)
+        @test isnan(_sbu_tuple(U,_sbu_find(U,1,2))[1]) && _sbu_check(U)
+    end
+    @testset "repeated_row_fills" begin
+        U=_sbu_build(spzeros(160,160),collect(1:160)); capacities=Int[];expected=zeros(160,160)
+        for c in 1:160
+            before=length(U.rows[1]);_sbu_set!(U,1,c,Float64(c));expected[1,c]=Float64(c);after=length(U.rows[1])
+            @test isequal(_sbu_materialize(U),expected)
+            if before!=after
+                @test after==c+min(8,max(1,before÷8))
+                push!(capacities,after)
+            end
+            @test _sbu_check(U)
+        end
+        @test length(capacities)>10
+        @test _sbu_materialize(U)[1,:]==Float64.(1:160)
+    end
+    @testset "fragmented_high_water" begin
+        U=_sbu_build(spzeros(64,64),collect(1:64));expected=zeros(64,64)
+        for c in 1:40, r in 1:40
+            _sbu_set!(U,r,c,Float64(c+r));expected[r,c]=Float64(c+r)
+            @test _sbu_check(U) && isequal(_sbu_materialize(U),expected)
+        end
+        before=_sbu_test_capacity(U)
+        for c in 1:40, r in 1:40
+            _sbu_set!(U,r,c,0.0);expected[r,c]=0.0
+            @test _sbu_check(U) && isequal(_sbu_materialize(U),expected)
+        end
+        @test U.live==0 && _sbu_test_capacity(U)==before
+        for c in 1:40
+            _sbu_set!(U,1,c,2.0);expected[1,c]=2.0
+            @test _sbu_check(U) && isequal(_sbu_materialize(U),expected)
+        end
+        @test _sbu_check(U) && U.live==40
+    end
+    @testset "copy_independence" begin
+        U=_sbu_build(_sbu_test_column(40,collect(1:33)),collect(1:40));_sbu_set!(U,40,2,5.0)
+        V=_sbu_copy(U);snapshot=_sbu_materialize(U)
+        @test _sbu_check(V) && isequal(_sbu_materialize(V),snapshot)
+        @test _sbu_test_disjoint(U,V)
+        expected=copy(snapshot)
+        _sbu_set!(V,3,1,0.0);expected[3,1]=0.0
+        @test _sbu_check(V) && isequal(_sbu_materialize(V),expected)
+        _sbu_swap_rows!(V,32);expected[[32,33],:]=expected[[33,32],:]
+        @test _sbu_check(V) && isequal(_sbu_materialize(V),expected)
+        _sbu_rotate_rows!(V,1,40);expected=expected[vcat(collect(2:40),1),:]
+        @test _sbu_check(V) && isequal(_sbu_materialize(V),expected)
+        @test isequal(_sbu_materialize(U),snapshot) && _sbu_check(U) && _sbu_check(V)
+        _sbu_test_allocation_failures(() -> _sbu_copy(U),(X,a)->_sbu_copy_with(X,a))
+    end
+end
+
+# Additional tests for the approved demand-sizing contract. All UNEXECUTED.
+function _sbu_split_tests()
+    @testset "target_classes" begin
+        expected=[1,2,4,4,8,8,8,8,16,16,16,16,16,16,16,16,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32]
+        @test [_sbu_target(i) for i in 1:32]==expected
+        for i in (typemin(Int),-1,0,33,typemax(Int));@test_throws ArgumentError _sbu_target(i);end
+    end
+    @testset "donor32_split4_and_exact_fit" begin
+        U=_sbu_test_free([32]);before=_sbu_test_capacity(U);h=_sbu_test_handles(U)
+        noalloc(T,n)=error("unexpected allocation")
+        b=_sbu_reserve_block!(U,3,noalloc,typemax(Int32))
+        @test b==1 && U.used==2 && U.capacity[1]==4 && U.capacity[2]==28
+        @test U.start[1]==1 && U.start[2]==5 && U.slab[1]==U.slab[2]==1
+        @test U.bins[4]==1 && U.bins[28]==2 && U.bins[32]==0
+        @test _sbu_test_capacity(U)==before && _sbu_test_handles(U)==h && _sbu_check(U)
+        _sbu_test_claim!(U,b,1);@test _sbu_check(U)
+        V=_sbu_test_free([4]);b=_sbu_reserve_block!(V,4,noalloc,typemax(Int32))
+        @test b==1 && V.used==1 && _sbu_check(V)
+        _sbu_test_claim!(V,b,1);@test _sbu_check(V)
+    end
+    @testset "repeated_four_requests" begin
+        U=_sbu_test_free([32]);noalloc(T,n)=error("coefficient or descriptor allocation")
+        for c in 1:8
+            b=_sbu_reserve_block!(U,4,noalloc,typemax(Int32))
+            @test U.capacity[b]==4 && _sbu_check(U)
+            _sbu_test_claim!(U,b,c);@test _sbu_check(U)
+        end
+        @test U.used==8 && U.slabs==1 && sum(length,U.values[1:U.slabs])==32
+        @test all(iszero,U.bins) && sum(U.capacity[1:U.used])==32
+    end
+    @testset "nonpower_bins_and_partition_holes" begin
+        U=_sbu_test_free([3,5,31]);b=_sbu_reserve_block!(U,3,_sbu_allocate,typemax(Int32))
+        @test b==2 && U.capacity[1]==3 && U.capacity[2]==4 && U.capacity[4]==1 && U.start[4]==8
+        _sbu_test_claim!(U,b,1);@test _sbu_check(U)
+        b=_sbu_reserve_block!(U,16,_sbu_allocate,typemax(Int32))
+        @test b==3 && U.capacity[3]==16 && U.capacity[5]==15 && U.start[5]==25
+        _sbu_test_claim!(U,b,2);@test _sbu_check(U)
+        V=_sbu_copy(U);V.start[5]-=1;@test_throws AssertionError _sbu_check(V)
+        V=_sbu_copy(U);V.capacity[5]-=1;@test_throws AssertionError _sbu_check(V)
+        V=_sbu_copy(U);V.values[1][1]=7.0;@test_throws AssertionError _sbu_check(V)
+        A=sparse([1,2,3,1,2,3,4,5],[1,1,1,3,3,3,3,3],Float64.(1:8),8,8)
+        V=_sbu_build(A,[3,2,1,4,5,6,7,8]);expected=Matrix(A)
+        for r in 1:3
+            _sbu_set!(V,r,3,0.0);expected[r,1]=0.0
+            @test _sbu_check(V) && isequal(_sbu_materialize(V),expected)
+        end
+        @test any(V.capacity[b]==3 && V.column[b]==0 for b in 1:V.used)
+    end
+    @testset "descriptor_failure_each_array" begin
+        factory=()->_sbu_test_free([32];K=1)
+        count=Ref(0);alloc(T,n)=(count[]+=1;Vector{T}(undef,n))
+        U=factory();_sbu_reserve_block!(U,4,alloc,typemax(Int32))
+        @test count[]==7 && length(U.slab)==9 && _sbu_check(U)
+        _sbu_test_allocation_failures(factory,(U,a)->_sbu_reserve_block!(U,4,a,typemax(Int32)))
+    end
+    @testset "append_then_split_failure" begin
+        factory=()->_sbu_test_free(Int[];K=8)
+        count=Ref(0);alloc(T,n)=(count[]+=1;Vector{T}(undef,n))
+        U=factory();_sbu_reserve_block!(U,1,alloc,typemax(Int32))
+        @test count[]==13 && U.slabs==1 && U.used==9 && length(U.slab)==16 && _sbu_check(U)
+        _sbu_test_allocation_failures(factory,(U,a)->_sbu_reserve_block!(U,1,a,typemax(Int32)))
+        U=factory();calls=Ref(0)
+        fail(T,n)=(calls[]+=1;calls[]==7 && throw(SBUInjectedAllocationFailure());Vector{T}(undef,n))
+        @test_throws SBUInjectedAllocationFailure _sbu_reserve_block!(U,1,fail,typemax(Int32))
+        @test U.slabs==1 && U.used==8 && length(U.slab)==8 && U.live==0 && _sbu_check(U)
+    end
+    @testset "row_reserve_then_split_failure" begin
+        for stop in 2:8
+            U=_sbu_build(sparse([1],[2],[5.0],2,2),[1,2]);_sbu_append_slab!(U,_sbu_allocate,typemax(Int32))
+            oldrow=U.rows[1];h=_sbu_find(U,1,2);before=_sbu_tuple(U,h);handles=_sbu_test_handles(U);expected=_sbu_materialize(U)
+            calls=Ref(0);fail(T,n)=(calls[]+=1;calls[]==stop && throw(SBUInjectedAllocationFailure());Vector{T}(undef,n))
+            @test_throws SBUInjectedAllocationFailure _sbu_set_with!(U,1,1,9.0,fail,typemax(Int32))
+            @test U.rows[1]!==oldrow && _sbu_find(U,1,2)==h && _sbu_tuple(U,h)[3]!=before[3]
+            @test _sbu_test_handles(U)==handles && isequal(_sbu_materialize(U),expected) && _sbu_check(U)
+        end
+    end
+    @testset "handle_offset_limits" begin
+        for (caps,required,limit) in (([32],4,63),([4],4,31))
+            U=_sbu_test_free(caps);saved=deepcopy(U);calls=Ref(0)
+            alloc(T,n)=(calls[]+=1;Vector{T}(undef,n))
+            @test_throws OverflowError _sbu_reserve_block!(U,required,alloc,limit)
+            @test calls[]==0 && U.used==saved.used && U.bins==saved.bins && U.start==saved.start && _sbu_check(U)
+        end
+        U=_sbu_test_free([32]);U.start[1]=typemax(Int32);before=copy(U.bins)
+        @test_throws OverflowError _sbu_reserve_block!(U,4,_sbu_allocate,typemax(Int32))
+        @test U.bins==before && U.used==1
+        U=_sbu_test_free([32]);before=copy(U.bins)
+        for r in (0,33);@test_throws ArgumentError _sbu_reserve_block!(U,r,_sbu_allocate,typemax(Int32));end
+        @test U.bins==before && U.used==1 && _sbu_check(U)
+    end
+    @testset "relocation_keep_handle_and_monotone_fill_to32" begin
+        U=_sbu_build(_sbu_test_column(40,[1]),collect(1:40));h=_sbu_find(U,1,1);v=_sbu_tuple(U,h)[1]
+        _sbu_set!(U,2,1,2.0)
+        @test _sbu_find(U,1,1)==h && _sbu_tuple(U,h)[1]==v && U.capacity[Int(U.column_head[1])]==2 && _sbu_check(U)
+        U=_sbu_build(spzeros(40,40),collect(1:40));totals=_sbu_test_totals();expected=zeros(40,40)
+        for r in 1:32
+            _sbu_test_set_counted!(U,r,1,Float64(r),totals);expected[r,1]=r
+            @test _sbu_check(U) && isequal(_sbu_materialize(U),expected)
+            @test U.capacity[Int(U.column_head[1])]==_sbu_target(r)
+        end
+        @test totals[:relocated]==31 && totals[:cleared]==31 && totals[:slabs]==1
+        @test totals[:payload]>4096 && totals[:requests]>3 && totals[:descriptor_copied]>0
+    end
+    @testset "fragmented_exhaustion" begin
+        U=_sbu_test_free(fill(3,16));C=sum(length,U.values[1:U.slabs]);used=U.used
+        b=_sbu_reserve_block!(U,3,_sbu_allocate,typemax(Int32))
+        @test C==48 && sum(length,U.values[1:U.slabs])==C+256 && U.used==used+9 && U.capacity[b]==4
+        @test all(U.capacity[1:16].==3) && _sbu_check(U)
+        _sbu_test_claim!(U,b,1);@test _sbu_check(U)
+    end
+    @testset "delete_merge_refill_work" begin
+        U=_sbu_build(spzeros(40,40),collect(1:40));expected=zeros(40,40);totals=_sbu_test_totals()
+        for cycle in 1:3
+            for r in 1:40
+                _sbu_test_set_counted!(U,r,1,Float64(r),totals);expected[r,1]=r
+                @test _sbu_check(U) && isequal(_sbu_materialize(U),expected)
+            end
+            b=Int(U.column_head[1]);@test U.next[b]!=0
+            for r in 1:40
+                _sbu_test_set_counted!(U,r,1,0.0,totals);expected[r,1]=0.0
+                @test _sbu_check(U) && isequal(_sbu_materialize(U),expected)
+            end
+            @test U.live==0 && all(iszero,U.column_head)
+        end
+        @test totals[:relocated]>=31 && totals[:cleared]>=31 && totals[:descriptor_copied]>0 && totals[:row_copied]>=0
+        V=_sbu_copy(U);@test _sbu_check(V) && _sbu_test_disjoint(U,V) && _sbu_test_capacity(V)==_sbu_test_capacity(U)
+    end
+end
+function _sbu_structural_tests()
+    _sbu_inherited_structural_tests()
+    _sbu_split_tests()
+end

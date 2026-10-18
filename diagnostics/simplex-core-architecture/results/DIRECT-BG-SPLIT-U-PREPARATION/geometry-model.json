@@ -1,0 +1,38 @@
+{
+  "scope": "offline integer model of ONE monotone schedule, not runtime/work proof",
+  "all_passed": true,
+  "checks": {
+    "monotone_allocations": true,
+    "monotone_geometry": true,
+    "monotone_movements": true,
+    "partition_capacity": true,
+    "repeat_four_descriptor_delta": true
+  },
+  "monotone": {
+    "K": 16,
+    "D": 1,
+    "S": 1,
+    "C": 256,
+    "payload": 5048,
+    "requests": 52,
+    "descriptor_copy": 224,
+    "directory_copy": 0,
+    "splits": 5,
+    "relocated": 31,
+    "cleared": 31
+  },
+  "monotone_used": 13,
+  "monotone_live": 32,
+  "monotone_core_plus_pointers": 7080,
+  "largest_inherited_schedule_conservative_bound": {
+    "insertions": 1640,
+    "n": 64,
+    "C": 419840,
+    "R": 4672,
+    "K": 22148,
+    "D": 2461,
+    "core_plus_pointers_bytes": 7418552,
+    "excludes": "headers, physical backing, test oracles/snapshots, allocator/GC/native"
+  },
+  "executed_source_sha256": "eb4cf44946bb9153db1cef01837bc9aa3c733e6261af4e2db38aa24799760333"
+}

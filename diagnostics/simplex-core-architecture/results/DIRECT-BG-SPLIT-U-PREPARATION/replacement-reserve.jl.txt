@@ -1,0 +1,33 @@
+function _sbu_target(required::Int)::Int
+    1<=required<=32 || throw(ArgumentError("split U required capacity"))
+    target=1
+    while target<required;target*=2;end
+    return target
+end
+function _sbu_reserve_block!(U::BGSplitUpper,required::Int,allocate,limit::Integer)::Int
+    target=_sbu_target(required)
+    b=_sbu_free_block(U,target)
+    if b==0;_sbu_append_slab!(U,allocate,limit);b=Int(U.bins[32]);end
+    # Local validation only; all fallible work precedes unlinking the free donor.
+    1<=b<=U.used || throw(ArgumentError("split U free descriptor"))
+    _sbu_handle(b,32,limit)
+    cap=Int(U.capacity[b]);s=Int(U.slab[b]);start=Int(U.start[b])
+    U.count[b]==0 && U.column[b]==0 && target<=cap<=32 || throw(ArgumentError("split U free extent"))
+    1<=s<=U.slabs || throw(ArgumentError("split U slab"))
+    last=Base.Checked.checked_add(start,cap-1);_sbu_limit(last,limit)
+    1<=start<=last<=length(U.values[s]) && length(U.values[s])==length(U.row_ids[s])==length(U.row_backs[s]) || throw(ArgumentError("split U extent bounds"))
+    cap==target && return b
+    suffix=Base.Checked.checked_add(U.used,1);_sbu_handle(suffix,32,limit)
+    nextstart=Base.Checked.checked_add(start,target);_sbu_limit(nextstart,limit)
+    remainder=cap-target
+    Base.Checked.checked_add(nextstart,remainder-1)==last || throw(ArgumentError("split U partition"))
+    _sbu_reserve_descriptors!(U,suffix,allocate,limit)
+    # Completed descriptor growth is allowed on later failure, but no active extent changes.
+    _sbu_take!(U,b)
+    U.capacity[b]=Int32(target)
+    U.slab[suffix]=Int32(s);U.start[suffix]=Int32(nextstart);U.capacity[suffix]=Int32(remainder)
+    U.count[suffix]=0;U.column[suffix]=0;U.prev[suffix]=0;U.next[suffix]=0
+    U.used=suffix
+    _sbu_free!(U,b);_sbu_free!(U,suffix)
+    return b # Still free; caller consumes exactly one reservation at its commit point.
+end
