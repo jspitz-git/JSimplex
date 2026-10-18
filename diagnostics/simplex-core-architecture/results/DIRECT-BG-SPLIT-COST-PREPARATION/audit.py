@@ -1,0 +1,61 @@
+import re
+"""UNEXECUTED one-shot auditor; failed and timeout results stay failed."""
+from control import *
+from evidence import output_checks,expected_names,timeout_ok
+from analysis import qualify
+import tomllib,math
+
+def checks_for(phase):
+ cfg=config(phase);run=Path(cfg['run']);out=Path(cfg['output']);validate_environment();preparation();validate_sources();predecessor(phase)
+ names={p.name for p in out.iterdir()};base={'pins.json','current.json','process.json','resources.jsonl','run.log'}
+ require(base<=names<=expected_names() and all(p.is_file() and not p.is_symlink() for p in out.iterdir()),'Output membership')
+ sp=run/'sealed.json';s=rd(sp);rp=run/'admission.json';pp=run/'launch-pins.json';pins=rd(pp)
+ require(s['phase']==phase and s['config']==cfg and rd(run/'config.json')==cfg,'Config')
+ verify_review(rd(rp),sp,s['files']+[str(sp)],'split BG matched cost admission',phase)
+ require(set(pins['files'])==set(s['files'])|{str(sp),str(rp),str(run/'prehost.json')} and pins['trees']==s['trees'],'Launch membership')
+ require(guard.pins_match(s) and guard.pins_match(pins) and rd(out/'pins.json')==pins,'Pins changed')
+ require(all(pins['inventory'].get(n)==v for n,v in s['inventory'].items()),'Seal/launch drift')
+ inv=rd(run/'invocation.json');sup=inv['supervisor'];p=rd(out/'process.json');cur=rd(out/'current.json');pre=rd(run/'prehost.json');hs=rd(run/'host.json');post=rd(run/'posthost.json')
+ require(all(not h['matches'] for h in [pre,hs,post]),'Processes remain')
+ require(all(pre[k]==hs[k]==post[k]==s[k] for k in ['head','master','boot_id']),'Host drift')
+ require(set(s['groups'])<=set(pre['groups'])<=set(post['groups']),'Group coverage')
+ require(cur['runner']==p['runner']==sup['guard_identity'] and cur['child']==p['child'],'Identity linkage')
+ require(all(p[role][key] in post['groups'] for role in ['runner','child'] for key in ['pgid','sid']),'Group/session closure')
+ require(all(p[role]['boot_id']==s['boot_id'] and p[role]['start_ticks']>0 and p[role]['command'] for role in ['runner','child']),'Boot/start/command')
+ require(all(type(v) in (int,float) and math.isfinite(v) and 0<=v<=cfg['seconds'] for v in [inv['elapsed_seconds'],sup['elapsed_seconds']]) and 'cleanup_error' not in sup,'Inclusive limit/cleanup')
+ require(p['pins_unchanged'] is True and p['command']==cur['command']==inv['command']==cfg['command'],'Command/integrity')
+ require(p['pins_sha256']==cur['pins_sha256']==inv['pins_sha256']==sha(pp),'Pin identity')
+ require(inv['guard_command']==guard_command(cfg,pp,inv['monotonic_start']) and Path(inv['python']).resolve()==Path(sys.executable).resolve(),'Guard command')
+ res=run/'reservation.json';require(rd(res)==dict(one_attempt=True,phase=phase,command=cfg['command'],pins_sha256=sha(pp),review_sha256=sha(rp),max_seconds=cfg['seconds']),'Reservation')
+ require(inv['reservation_sha256']==sha(res) and inv['review_sha256']==sha(rp),'Invocation linkage')
+ resources=[json.loads(v) for v in (out/'resources.jsonl').read_text().splitlines()];require(resources,'Missing samples')
+ require(all(z['available_kib']>=6*1024**2 and z['swap_used_kib']<=1024**2 for z in resources+[p['terminal_memory']]),'Resource limit')
+ require(type(p['child_maxrss_kib']) in (int,float) and math.isfinite(p['child_maxrss_kib']) and p['child_maxrss_kib']>0,'RSS')
+ log=(out/'run.log').read_text(errors='replace')+'\n'+(run/'launcher.log').read_text(errors='replace')
+ if timeout_ok(p,sup,log,inv['elapsed_seconds'],cfg['seconds']):
+  _,prefix=output_checks(out,cfg,partial=True)
+  return dict(all_passed=False,pure_timeout=True,cells=[],prefix=prefix,error='Pure process timeout; new separately reviewed attempt only')
+ require(p['returncode']==0 and p['reason']=='exit0' and sup['returncode']==0 and sup['accepted'] is True,'Exact exit')
+ require(not re.search(r'warning|world[ -]age',log,re.I) and not any(x in log for x in ['FATAL COST:','ERROR:','Traceback','WARNING:','Warning:','world age']),'Fatal log')
+ results,counts=output_checks(out,cfg);selection=[];groups=[]
+ if cfg['process']==2:
+  choices=[n for n in ['cost1-300','cost1-600'] if (D/'runs'/n/'result-review.json').is_file()]
+  require(len(choices)==1,'First result selection');first=rd(D/'runs'/choices[0]/'audit.json')
+  require(first['all_passed'] is True and len(first['cells'])==len(results)==8,'First result')
+  for a,b in zip(first['cells'],results):
+   identity={k:b[k] for k in ['fixture','manager','backend','policy']}
+   require(all(a[k]==v for k,v in identity.items()),'Matched cells')
+   selection.append(dict(identity,promising=qualify(a['statistics'],b['statistics'])))
+  for manager in ['BG']:
+   for backend in ['native','markowitz']:
+    cells=[x for x in selection if x['manager']==manager and x['backend']==backend]
+    require(len(cells)==4,'All four fixtures');groups.append(dict(manager=manager,backend=backend,promising=all(x['promising'] for x in cells)))
+ return dict(all_passed=True,pure_timeout=False,cells=results,counts=counts,selection=selection,manager_backend=groups,error='',scope='Two matched-policy component processes only; timing subsets, aggregate GC counters and reachable Julia memory, not native memory or public solver speedup')
+def audit(phase):
+ run=Path(config(phase)['run'])
+ try:record=checks_for(phase)
+ except Exception as e:record=dict(all_passed=False,pure_timeout=False,error=repr(e),cells=[])
+ files=sorted(p for p in run.rglob('*') if p.is_file())
+ record.update(phase=phase,sha256={str(p):sha(p) for p in files},scope='Matched-policy component correctness/integrity/compile gates; performance selection separate; aggregate GC counters and reachable Julia memory, not public solver/native memory proof')
+ save(run/'audit.json',record);return record
+if __name__=='__main__':require(audit(sys.argv[1])['all_passed'],'Failed; preserve evidence')
