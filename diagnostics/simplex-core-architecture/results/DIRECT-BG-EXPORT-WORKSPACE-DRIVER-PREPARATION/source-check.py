@@ -1,0 +1,46 @@
+"""One-shot fresh offline source/stage verification. No Julia or old checker."""
+from control import *
+import re,ast,tomllib,tempfile
+checks={}
+def check(v,n):checks[n]=bool(v)
+entry=rd(D/'entry.json');check(bindings(entry),'accepted_inputs_unchanged')
+validate_sources();check(True,'full_baselines_stages_runtime_current')
+stages=rd(D/'stages.json');red=Path(stages['red']['path']);green=Path(stages['green']['path'])
+check(len(stages['red']['sha256'])==75 and len(stages['green']['sha256'])==79,'exact_stage_counts')
+overlay=rd(C/'overlay-manifest.json');adds=overlay['root_additions']
+check(len(adds)==4,'four_includes')
+root=(green/'src/JSimplex.jl').read_bytes();original=(red/'src/JSimplex.jl').read_bytes()
+added=b''.join((a['include_literal']+'\n').encode() for a in adds)
+check(root==original[:-5]+added+b'\nend\n' if False else root.replace(added,b'',1)==original,'root_inverse')
+check(all((green/n).read_bytes()==(red/n).read_bytes() for n in stages['red']['sha256'] if n!='src/JSimplex.jl'),'all_other_original_stage_bytes')
+check(all(sha(green/a['staged_relative'])==sha(a['source'])==a['source_sha256'] for a in adds),'four_candidate_bytes')
+text=(D/'driver.jl').read_text();redtext=(D/'red.jl').read_text();names=re.findall(r'isdefined\(JSimplex, :([^\)]+)\)',redtext)
+check(len(names)==len(set(names))==6,'six_distinct_RED_symbols')
+check(all(not any(n in p.read_text() for p in red.rglob('*.jl')) for n in names),'RED_symbols_absent_original')
+check(all(any(n in (C/p).read_text() for p in ['workspace.jl','export.jl','import.jl','factor.jl']) for n in names),'RED_contracts_candidate_source_present')
+check(not any(t in redtext for t in ['factorize(', 'solve(', 'include(', 'BGExportFactor(']),'RED_no_numeric_calls')
+check(text.index('include(')<text.index('function main()') and 'include(' not in text[text.index('function main()'):],'top_level_includes_only')
+check('invokelatest' not in text and 'eval(' not in text and 'getfield(' not in text,'no_dynamic_world_age_workaround')
+check(all(text.count(m+'.'+f+'()')==1 for m,f in [('BGExportWorkspaceTests','run_workspace_tests'),('BGExportImportTests','run_import_tests'),('BGExportLifecycleTests','run_lifecycle_tests')]),'three_exact_entry_calls_once')
+check(text.index('TOML.print(io,raw)')<text.index('expected=TOML.parsefile'),'raw_before_aggregate')
+check('pathof(JSimplex)' in text and 'BLAS.get_num_threads()==1' in text and 'PrecompileTools.verbose[]' in text,'runtime_source_threads_precompile_gates')
+for f in D.glob('*.py'):ast.parse(f.read_text(),filename=str(f))
+check(True,'Python_syntax_only')
+check(rd(D/'offline-tests.json')['all_passed'] and len(rd(D/'offline-tests.json')['checks'])==123,'new_offline_checks123')
+check(not (D/'runs').exists(),'no_phase_seal_reservation_output')
+lineage=rd(D/'control-lineage.json')
+check(all(sha(v['source'])==v['source_sha256'] for v in lineage.values()),'old_controls_unchanged')
+check(all(sha(D/n)==lineage[n]['source_sha256'] for n in ['guard.py','supervisor.py','recorder.jl']),'three_reused_helpers_byteexact')
+check(not git('diff','--name-only','HEAD') and not git('diff','--cached','--name-only'),'no_tracked_changes')
+check(git('rev-parse','HEAD')==ENTRY and git('rev-parse','master')==MASTER,'entry_refs')
+with tempfile.TemporaryDirectory(prefix='bgx-source-negative-') as td:
+ p=Path(td)/'source';p.write_bytes(b'original');j={'sha256':{str(p):sha(p)}}
+ check(bindings(j),'synthetic_hash_valid');p.write_bytes(b'drift');check(not bindings(j),'synthetic_hash_drift_refused')
+ j['sha256']={str(Path(td)/'missing'):j['sha256'][str(p)]}
+ try:bindings(j)
+ except FileNotFoundError:check(True,'synthetic_missing_path_refused')
+ else:check(False,'synthetic_missing_path_refused')
+paths=sorted(set(entry['sha256'])|{str(p) for p in D.iterdir() if p.is_file()})
+out=dict(all_passed=all(checks.values()),checks=checks,sha256={p:sha(p) for p in paths},scope='Offline literal source/inverse/binding checks; no Julia syntax/runtime acceptance')
+save(D/'source-check.json',out);print(json.dumps(dict(all_passed=out['all_passed'],checks=len(checks),failed=[k for k,v in checks.items() if not v])))
+require(out['all_passed'],'Source checks failed; preserve')
