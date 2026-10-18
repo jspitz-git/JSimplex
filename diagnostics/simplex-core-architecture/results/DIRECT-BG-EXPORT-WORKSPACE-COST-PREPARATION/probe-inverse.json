@@ -1,0 +1,125 @@
+{
+  "rename": [
+    [
+      "_BGXBuildOwner",
+      "_BGXPBuildOwner"
+    ],
+    [
+      "BGExport",
+      "BGProbeExport"
+    ],
+    [
+      "_bgx_",
+      "_bgxp_"
+    ]
+  ],
+  "edits": {
+    "workspace": [
+      [
+        "_bgxp_allocate(::Type{T},n::Int) where T = Vector{T}(undef,n)",
+        "_bgxp_allocate(::Type{T},n::Int) where T = (_bgxp_count!(:allocation_requests);_bgxp_count!(:requested_payload,n*sizeof(T));Vector{T}(undef,n))",
+        1
+      ],
+      [
+        "_bgxp_allocate(::Type{Bool},n::Int) = falses(n)",
+        "_bgxp_allocate(::Type{Bool},n::Int) = (_bgxp_count!(:allocation_requests);_bgxp_count!(:requested_payload,8*cld(n,64));falses(n))",
+        1
+      ]
+    ],
+    "export": [
+      [
+        "        _check_export_triangle(L,n,true)",
+        "        _bgxp_count!(:triangle_checks);_check_export_triangle(L,n,true)",
+        1
+      ],
+      [
+        "        _check_export_triangle(U,n,false)",
+        "        _bgxp_count!(:triangle_checks);_check_export_triangle(U,n,false)",
+        1
+      ],
+      [
+        "        _check_export_permutation(p,n,seen)",
+        "        _bgxp_count!(:permutation_checks);_check_export_permutation(p,n,seen)",
+        1
+      ],
+      [
+        "        _check_export_permutation(q,n,seen)",
+        "        _bgxp_count!(:permutation_checks);_check_export_permutation(q,n,seen)",
+        1
+      ],
+      [
+        "        ldiv!(auxiliary,F,work)",
+        "        _bgxp_count!(:orientation_solves);ldiv!(auxiliary,F,work)",
+        1
+      ],
+      [
+        "        mul!(work,U,permuted);mul!(transformed,L,work)",
+        "        _bgxp_count!(:orientation_products);mul!(work,U,permuted);_bgxp_count!(:orientation_products);mul!(transformed,L,work)",
+        1
+      ],
+      [
+        "        _hh_abs_mul!(work,U,permuted);_hh_abs_mul!(auxiliary,L,work)",
+        "        _bgxp_count!(:orientation_products);_hh_abs_mul!(work,U,permuted);_bgxp_count!(:orientation_products);_hh_abs_mul!(auxiliary,L,work)",
+        1
+      ],
+      [
+        "        L,U,p,q,s=_hh_extract_parts(F,HHExtractWorkspace())",
+        "        _bgxp_count!(:extractions);L,U,p,q,s=_hh_extract_parts(F,HHExtractWorkspace())",
+        1
+      ],
+      [
+        "        L,U,p,q,s=_hh_extract_parts(backend,HHExtractWorkspace())",
+        "        _bgxp_count!(:extractions);L,U,p,q,s=_hh_extract_parts(backend,HHExtractWorkspace())",
+        1
+      ]
+    ],
+    "import": [
+      [
+        "row=U.rowval[slot];ids[k]=row",
+        "row=U.rowval[slot];_bgxp_count!(:index_stores);ids[k]=row",
+        1
+      ],
+      [
+        "                    values[k]=value",
+        "                    _bgxp_count!(:normalized_stores);values[k]=value",
+        1
+      ],
+      [
+        "                values[k]=old",
+        "                _bgxp_count!(:raw_stores);values[k]=old",
+        1
+      ],
+      [
+        "for k in eachindex(values);values[k]=U.nzval[first+k-1];end",
+        "for k in eachindex(values);_bgxp_count!(:fallback_stores);values[k]=U.nzval[first+k-1];end",
+        1
+      ]
+    ],
+    "factor": [
+      [
+        "    ordinary=factorize(B,backend,policy)",
+        "    _bgxp_count!(:factorizations);ordinary=factorize(B,backend,policy)",
+        1
+      ],
+      [
+        "return make_inner(BartelsGolubFactorization,base,upper,collect(1:n))",
+        "return _bgxp_capture_build(make_inner(BartelsGolubFactorization,base,upper,collect(1:n)),ordinary,parts,owner)",
+        1
+      ],
+      [
+        "return make_inner(BartelsGolubFactorization,base,upper,parts.columns)",
+        "return _bgxp_capture_build(make_inner(BartelsGolubFactorization,base,upper,parts.columns),ordinary,parts,owner)",
+        1
+      ],
+      [
+        "    f.busy && throw(ArgumentError(\"BG export workspace is busy\"))\n    f.busy=true",
+        "    _bgxp_count!(:refactor_entries)\n    f.busy && throw(ArgumentError(\"BG export workspace is busy\"))\n    f.busy=true",
+        1
+      ]
+    ]
+  },
+  "header": "# Untimed source-inverse instrumentation; no timed factory uses these methods.\nconst _bgxp_counts=Dict{String,Int}(k=>0 for k in (\"allocation_requests\",\"requested_payload\",\"factorizations\",\"extractions\",\"orientation_solves\",\"orientation_products\",\"triangle_checks\",\"permutation_checks\",\"normalized_stores\",\"raw_stores\",\"fallback_stores\",\"index_stores\",\"refactor_entries\"))\nconst _bgxp_coexist_peak=Ref(0)\n_bgxp_count!(k,n=1)=(_bgxp_counts[string(k)]+=n;nothing)\nfunction _bgxp_reset!()\n    for k in keys(_bgxp_counts);_bgxp_counts[k]=0;end\n    _bgxp_coexist_peak[]=0;nothing\nend\nfunction _bgxp_capture_build(inner,backend,parts,owner)\n    _bgxp_coexist_peak[]=max(_bgxp_coexist_peak[],Base.summarysize((inner,backend,parts,owner)))\n    inner\nend\n",
+  "stage_addition": "include(\"_bgxp_workspace.jl\")\ninclude(\"_bgxp_export.jl\")\ninclude(\"_bgxp_import.jl\")\ninclude(\"_bgxp_factor.jl\")\n",
+  "seed": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-18-direct-bg-export-workspace/task3-driver-stages/green",
+  "scope": "Untimed clones only; explicit seam counts, not complete native backend work"
+}
