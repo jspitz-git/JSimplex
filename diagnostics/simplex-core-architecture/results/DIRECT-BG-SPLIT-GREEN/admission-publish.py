@@ -1,0 +1,44 @@
+"""Independent reviewer publication only; no project imports or numerical execution."""
+from pathlib import Path
+import json,hashlib
+R=Path('/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl');D=R/'diagnostics/simplex-core-architecture/results/DIRECT-BG-SPLIT-DRIVER-PREPARATION';E=D.parent/'DIRECT-BG-SPLIT-GREEN';run=D/'runs/green300'
+def sha(p):
+ h=hashlib.sha256()
+ with Path(p).open('rb') as f:
+  for b in iter(lambda:f.read(1048576),b''):h.update(b)
+ return h.hexdigest()
+def rd(p):return json.loads(Path(p).read_text())
+c=rd(E/'admission-check.json');s=rd(run/'sealed.json')
+assert c['all_passed'] is True and all(c['checks'].values()) and c['source_sha256']==sha(E/'admission-check.py')
+assert c['details']['sealed_sha256']==sha(run/'sealed.json')
+assert {p.name for p in run.iterdir()}=={'host.json','config.json','sealed.json'}
+assert all(str(Path(n).resolve(strict=True))==v['resolved'] and sha(n)==v['sha256'] for n,v in s['inventory'].items())
+assert set(s['inventory'])==set(s['files'])
+for t in map(Path,s['trees']):
+ assert not t.is_symlink()
+ assert all(not p.is_symlink() and str(p) in s['inventory'] for p in t.rglob('*') if p.is_file())
+review='''# Independent exact GREEN300 admission
+
+Accepted for one GREEN300 correctness attempt under the current human allowance. No unresolved findings. This is exact-stage admission only, not a test-result, performance, memory-peak, public-solver or production-integration acceptance. Launch remains the coordinator's action.
+
+The saved reviewer-owned admission-check.py imports only Python standard-library modules and executes no project/control/check code. Its 32 independent checks all passed. It freshly verified all 1,893 sealed file hashes and resolved paths, exact sealed file/tree membership, the runtime inventory, current preparation membership/review hashes, Task1/Task2 entry bindings, diagnostic/production source membership, and exact 75-file RED and 81-file GREEN stage membership. Both stages match their frozen source bytes. No candidate, driver, oracle, fixture, policy, test, precision, source or environment was edited. The exact seal digest is bound in admission-check.json and admission.json.
+
+Accepted RED dependency was independently rechecked by exact result-review file membership and hashes, supplementary evidence hashes, unchanged RED seal inventory and audit bindings. Its complete raw result has exactly ten expected failures, no errors/broken tests, and process exit1. No RED artifact/check was modified or rerun. Preparation's original R1 finding about test-only invariant costs and its accepted correction remain preserved in review-initial.md/json and REVIEW-AMENDMENT.md; this admission introduces no new finding or correction.
+
+GREEN's unchanged exact JSON/TOML tree contains 25 structural and nine adapter leaves with 15,929 prospective assertions and zero expected failures/errors/broken tests. This review rechecked schema, totals and ledger integer arithmetic; detailed source expansion remains the bound accepted preparation evidence. All includes precede main. The actual loaded-path schema contains JSimplex, SparseArrays, LinearAlgebra, TOML, Test and PrecompileTools. Source inspection confirms warning/world-age rejection before either success or pure-timeout classification, raw evidence before acceptance, exact output tree and failure checks, and separately reviewed timeout escalation only. Actual GREEN loading, dispatch, warnings and outcomes are still unexecuted.
+
+The exact command is the pinned ordinary package wrapper, --compiled-modules=existing, Julia threads1, GCthreads1,0, heap hint2G, history disabled, startup disabled by the wrapper, fixed GREEN project/driver/output and phase green300. The loading environment matches its pinned map. BLAS/OMP/MKL and Julia thread restrictions, disabled automatic precompile, VM hard8GiB, available RAM>=6GiB and swapused<=1GiB are retained. Source inspection confirms the 300-second inclusive supervisor and 292-second inner absolute deadline, exclusive reservation/output, fresh launch preflight, terminal resource sampling, boot/start_ticks/command identity, both PGID and SID coverage, unreaped leader ownership and pidfd-checked cleanup. No launcher, seal, guard, auditor or Julia query/parser/import/compile/native/numerical operation was executed by this reviewer.
+
+Fresh independent host/ref inspection confirmed branch codex/simplex-core-architecture and HEAD1062b4cbd87dc042d7182a7fc3bd1a7b25ce15bd, local/production/remote master26e2291745999f485a74f643298ca997d65c7205 and matching remote diagnostic branch. Tracked files were clean and required diagnostic ancestry held. All242 historical/RED groups were checked as both process groups and sessions. No matches or visible Julia were found; boot matched the seal. MemAvailable was23,172,548KiB, swapused0KiB. Inaccessible executable links are recorded as a visibility limit, not proof that those links contain no Julia. The launcher must perform its already-required fresh checks again.
+
+No unnecessary new production computational work or retained-memory mechanism was found in this admission: all previously reviewed candidate/source bytes remain frozen, and the admission/supplement operate only on diagnostic evidence. Existing test work is explicit: 706 probe operations, 419 injected throws, 10,392 allocator callback attempts and 9,973 completed requests; 389 outer factorization attempts exclude additional native/export/normalization work. Repeated O(n+C+R+K) traversals, two n-entry Int conversions/sorts, invariant allocations, full snapshots, materializations and exact Rational checks are intentional correctness costs. The memory ledger includes headers/backing, lower/backend/cache/history, high-water reserve/fragmentation and copy/refactor old/new coexistence. No new per-RHS production scan, solve or cache is introduced by this step. No timings/allocations were measured, no speedup or memory reduction is inferred, and separately requested cost qualification remains outstanding.
+
+The supplementary postcheck.py was inspected as text and is separately evidence-bound. It performs post-run integrity, exact leaf/count/loaded-path/warning/resource/ref/process checks without rerunning the original auditor; it grants no additional attempt or performance acceptance. Current allowance, preflight, reviewer sources/results and this review are separately bound in admission.json.evidence_sha256, preserving the control.verify_review exact sha256 membership contract.
+'''
+with (E/'admission-review.md').open('x') as f:f.write(review)
+evidence=[E/n for n in ['allowance.json','preflight.json','postcheck.py','admission-check.py','admission-check.json','admission-review.md','admission-publish.py']]
+v=dict(accepted=True,findings=[],scope='split BG exact-stage admission',phase='green300',pins_sha256=sha(run/'sealed.json'),sha256={n:sha(n) for n in sorted(set(s['files'])|{str(run/'sealed.json')})},evidence_sha256={str(p):sha(p) for p in evidence})
+assert set(v['sha256'])==set(s['files'])|{str(run/'sealed.json')}
+with (run/'admission.json').open('x') as f:json.dump(v,f,indent=2);f.write('\n')
+assert all(sha(n)==h for n,h in v['sha256'].items()) and all(sha(n)==h for n,h in v['evidence_sha256'].items())
+print(json.dumps(dict(accepted=v['accepted'],scope=v['scope'],phase=v['phase'],files=len(v['sha256']),evidence=len(v['evidence_sha256']),pins_sha256=v['pins_sha256'],admission_sha256=sha(run/'admission.json'))))
