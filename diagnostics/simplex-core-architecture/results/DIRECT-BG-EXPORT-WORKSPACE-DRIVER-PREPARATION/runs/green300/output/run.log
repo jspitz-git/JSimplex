@@ -1,0 +1,43 @@
+BEGIN BG export workspace driver green300
+BEGIN workspace tests
+BEGIN import tests
+TEST FAILURE: Error During Test at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-bg-export-workspace/reproduce/import-tests.jl:28
+  Test threw exception
+  Expression: sum((n for (T, n) = a.requests if T === Float64)) == nnz(U) + if normalize
+            size(U, 1)
+        else
+            0
+        end
+  ArgumentError: reducing over an empty collection is not allowed; consider supplying `init` to the reducer
+  Stacktrace:
+    [1] _empty_reduce_error()
+      @ Base ./reduce.jl:318
+    [2] mapreduce_empty(f::Function, op::Base.BottomRF{typeof(Base.add_sum)}, T::Type)
+      @ Base ./reduce.jl:320
+    [3] reduce_empty(op::Base.MappingRF{Main.BGExportImportTests.var"#check_import##6#check_import##7", Base.BottomRF{typeof(Base.add_sum)}}, ::Type{Tuple{Any, Int64}})
+      @ Base ./reduce.jl:359
+    [4] reduce_empty(op::Base.FilteringRF{Main.BGExportImportTests.var"#check_import##8#check_import##9", Base.MappingRF{Main.BGExportImportTests.var"#check_import##6#check_import##7", Base.BottomRF{typeof(Base.add_sum)}}}, ::Type{Tuple{Any, Int64}})
+      @ Base ./reduce.jl:360
+    [5] reduce_empty_iter
+      @ ./reduce.jl:382 [inlined]
+    [6] reduce_empty_iter
+      @ ./reduce.jl:381 [inlined]
+    [7] foldl_impl
+      @ ./reduce.jl:47 [inlined]
+    [8] mapfoldl_impl
+      @ ./reduce.jl:42 [inlined]
+    [9] mapfoldl
+      @ ./reduce.jl:173 [inlined]
+   [10] mapreduce
+      @ ./reduce.jl:306 [inlined]
+   [11] sum
+      @ ./reduce.jl:535 [inlined]
+   [12] sum
+      @ ./reduce.jl:564 [inlined]
+   [13] macro expansion
+      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:750 [inlined]
+   [14] check_import(U::SparseMatrixCSC{Float64, Int64}, normalize::Bool)
+      @ Main.BGExportImportTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-bg-export-workspace/reproduce/import-tests.jl:28
+BEGIN lifecycle tests
+END all BG export workspace tests
+GROUP/COUNT MISMATCH OR FATAL

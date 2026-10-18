@@ -1,0 +1,110 @@
+fatal = ""
+complete = true
+threads = 1
+blas_threads = 1
+phase = "green300"
+
+[tests]
+pass = 0
+name = "root"
+fail = 0
+broken = 0
+failures = []
+error = 0
+
+    [[tests.children]]
+    pass = 42
+    name = "scratch_budget_boundaries"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+    [[tests.children]]
+    pass = 6
+    name = "scratch_reuse_and_shrink"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+    [[tests.children]]
+    pass = 35
+    name = "orientation_staged_early_exit and atomic retention"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+    [[tests.children]]
+    pass = 55
+    name = "fused_import_bits_and_counts"
+    fail = 0
+    children = []
+    broken = 0
+    failures = ["""Error During Test at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-bg-export-workspace/reproduce/import-tests.jl:28\n  Test threw exception\n  Expression: sum((n for (T, n) = a.requests if T === Float64)) == nnz(U) + if normalize\n            size(U, 1)\n        else\n            0\n        end\n  ArgumentError: reducing over an empty collection is not allowed; consider supplying `init` to the reducer\n  Stacktrace:\n    [1] _empty_reduce_error()\n      @ Base ./reduce.jl:318\n    [2] mapreduce_empty(f::Function, op::Base.BottomRF{typeof(Base.add_sum)}, T::Type)\n      @ Base ./reduce.jl:320\n    [3] reduce_empty(op::Base.MappingRF{Main.BGExportImportTests.var\"#check_import##6#check_import##7\", Base.BottomRF{typeof(Base.add_sum)}}, ::Type{Tuple{Any, Int64}})\n      @ Base ./reduce.jl:359\n    [4] reduce_empty(op::Base.FilteringRF{Main.BGExportImportTests.var\"#check_import##8#check_import##9\", Base.MappingRF{Main.BGExportImportTests.var\"#check_import##6#check_import##7\", Base.BottomRF{typeof(Base.add_sum)}}}, ::Type{Tuple{Any, Int64}})\n      @ Base ./reduce.jl:360\n    [5] reduce_empty_iter\n      @ ./reduce.jl:382 [inlined]\n    [6] reduce_empty_iter\n      @ ./reduce.jl:381 [inlined]\n    [7] foldl_impl\n      @ ./reduce.jl:47 [inlined]\n    [8] mapfoldl_impl\n      @ ./reduce.jl:42 [inlined]\n    [9] mapfoldl\n      @ ./reduce.jl:173 [inlined]\n   [10] mapreduce\n      @ ./reduce.jl:306 [inlined]\n   [11] sum\n      @ ./reduce.jl:535 [inlined]\n   [12] sum\n      @ ./reduce.jl:564 [inlined]\n   [13] macro expansion\n      @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:750 [inlined]\n   [14] check_import(U::SparseMatrixCSC{Float64, Int64}, normalize::Bool)\n      @ Main.BGExportImportTests ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-bg-export-workspace/reproduce/import-tests.jl:28"""]
+    error = 1
+    [[tests.children]]
+    pass = 108
+    name = "normalization_rejection_first_middle_last_offdiagonal"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+    [[tests.children]]
+    pass = 53
+    name = "validated_export_invariants"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+    [[tests.children]]
+    pass = 303
+    name = "seven original fixtures both policies; raw export ownership and core witness"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+    [[tests.children]]
+    pass = 6236
+    name = "repeated_shape_lifecycle"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+    [[tests.children]]
+    pass = 378
+    name = "private_publish_failure_matrix"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+    [[tests.children]]
+    pass = 108
+    name = "copy_refactor_diverge"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+    [[tests.children]]
+    pass = 610
+    name = "dimension_fallback_transition"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+
+[loaded]
+LinearAlgebra = "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/LinearAlgebra/src/LinearAlgebra.jl"
+SparseArrays = "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/SparseArrays/src/SparseArrays.jl"
+Test = "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl"
+JSimplex = "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-18-direct-bg-export-workspace/task3-driver-stages/green/src/JSimplex.jl"
+TOML = "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/TOML/src/TOML.jl"
+PrecompileTools = "/home/jspitz/.julia/packages/PrecompileTools/QUxvR/src/PrecompileTools.jl"
