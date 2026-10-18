@@ -1,0 +1,204 @@
+# Task2 composition, dispatch and resource ledger — UNEXECUTED
+
+Task2 offline preparation only, appended to frozen Task1. No Julia, parser, import,
+compile, native call, numerical test, measurement or launch occurred. Reference:
+packed DIRECT BG, frozen 2026-10-16 policy-adapter GREEN stage. Native threshold_one
+and Markowitz default; Float64, Int CSC or dense matrix. Not ordinary BG, SplitBG,
+BlockBG, DynamicBG, full solver integration or a production proposal.
+
+## Construction and publication
+
+`_bgx_build` calls factorize exactly once and exporter exactly once, then either
+fused import exactly once or the unchanged fallback identity-upper initializer.
+It creates one original DirectLowerBackend and one original packed BG inner via
+`_init_direct_manager`. It never constructs/discards a reference manager. Same
+ordinary backend concrete type parameter persists across direct/fallback/dimension
+changes. Fresh raw extraction and backend policy are unchanged. Only default
+exporter output is trusted as validated; diagnostic replacement callbacks are
+trusted local test seams, not public validation bypass APIs.
+
+Setup has a transient single-reference `_BGXBuildOwner` because no inner exists
+until construction completes. It cannot be reentered through the public factory:
+no user callbacks are accepted there. It releases cache on any exception, and
+publishes one wrapper after construction. Refactor rejects busy before mutation,
+sets busy, prepares a private replacement, validates exact inner type and performs
+one `f.inner=candidate` assignment. `finally` clears busy on success/error. Failure
+releases private workspace and rethrows the same exception; inner/copies/input are
+unchanged. Cache data has no rollback guarantee. No arithmetic follows publication.
+
+Two additional **cold only** seams, `make_inner` and `check_inner`, permit the
+required manager/type-boundary failures without replacing global methods. Defaults
+are original initializer and no type hook (nothing). One mandatory exact-type
+check after any optional hook prevents a permissive hook bypass. The default
+refactor has one O(1) hook-presence check and one exact-type check. No arrays,
+callbacks or old inners are retained by these seams. The seams are not exposed on
+ordinary public `refactorize!`. OOM at internal original initializer allocations is
+covered by the same outer catch, but the test injects at its call boundary; it does
+not claim OS-level allocation-failure reproduction at every original allocation.
+
+Copy checks busy and uses original `copy_basis_factorization(inner)`, then makes
+one wrapper with no workspace. Original copy changes source shared_update_count
+before internal allocations; that original failed-copy behavior is NOT strengthened
+or represented as an atomic-copy guarantee. New wrapper allocation can also fail
+after original bookkeeping; refactor's private-publication guarantee is distinct.
+
+## Required dispatch surface
+
+| Method | Work added by wrapper | Original work retained |
+|---|---|---|
+| forward_solve!, transpose_solve! | field access + call | original dimensions, alias guard, triangular/base solves, history/cache |
+| _ordinary_forward_solve! | field access + call | original no-payload-copy auxiliary route and slot eviction |
+| forward_solve, transpose_solve | field access + call | original single output allocation, ordinary solve |
+| _unit_transpose_rhs | field access + call | original checkbounds and immutable metadata |
+| _copy_prepared_spike! | field access + call | original destination identity/value checks and copy when eligible |
+| replace_column! | field access/call and wrapper return | original tolerance, prepared provenance, updates, row incidence, pools |
+| refactorize!, copy_basis_factorization | cold wrappers above | unchanged numerical/build or copy work |
+| _direct_mode, _backend_dimension | field access/call | original constant queries |
+| _factor_storage_count | field access/call | existing backend+column+history count, O(n+H) plus sparse count |
+| _factor_growth_measure/reference | field access/call | existing O(u) upper magnitude traversal |
+| _finite_updated_factor | field access/call | original upper and last-update finite checks |
+
+Only Vector{Float64} solve destinations/dense RHS and original unit-transpose
+metadata are accepted; no IndexedVector/kernel_mode or Float32/BigFloat/rational
+adapter. Matrix scope rejects Int32 CSC before factorization. Other scalar methods
+remain absent. Source checks enumerate every definition; future driver must use
+this surface or explicitly add reviewed admission, not infer arbitrary dispatch.
+No additional solve-time vector scan, cache, allocation, conversion or invariant
+check is introduced. Original allocating APIs and prepared-cache work still allocate.
+Public wrapper types are diagnostic; no production method is overwritten.
+
+## Full reachable factor and coexistence accounting
+
+Let n be dimension, l=nnz(L), u=sum packed column lengths, H the active update
+count and S the total active BG step count. Capacities may exceed lengths and are
+not inferred from these formulas. The wrapper has **two reference fields and one
+Bool** plus object header/alignment (not an asserted byte size). It points to one
+original inner plus at most one Task1 workspace. It has no second numerical factor,
+backend slot, input, exported-U or callback reference.
+
+The unchanged inner's 14 fields are all charged:
+- DirectLowerBackend: owned CSC L (Int colptr/rowval, Float64 nzval), row permutation,
+  scaling, optional D, lower work; scalar policy/normalization/divide metadata and
+  optional ordinary fallback. Nominal direct payload L is 8*(n+1+l)+8*l, row/scaling/
+  work add24*n and D adds0 or8*n. Backend type tags are not extra native ownership.
+- Packed upper: outer n column structures, n independent Float64 value and Int id
+  arrays (nominal16*u), per-column immutable wrappers, shared two n-Int row-order
+  maps (16*n). Column order and inverse positions add16*n.
+- Work/spike add16*n; active/recycled update containers and step arrays, including
+  shared prefixes; each step holds two Int indices, Bool and Float64 plus layout
+  padding. Do not call this a fixed25-byte physical structure.
+- row_columns n outer entries plus all incidence capacities, affected IDs and
+  row_columns_ready. Recycled histories and spare capacities remain chargeable.
+- sparse cache (normally nothing here) if present, and full TriangularRowCache:
+  row order, operation triples, active_upper, incidence_touched, scalar validity/
+  dirty bookkeeping, optional two prepared entries. Prepared entries retain
+  destination owners and two numeric arrays each (directions/spikes); original
+  external RHS/output reachability can therefore extend their lifetimes.
+- shared_update_count; no workspace substitute for these original fields.
+
+Task1's W retained charge is512+8*cld(n,64), optionally+32*n, always <=
+min(1MiB,P0÷16), P0=16*(l+u)+8*(n+1). This is a policy charge, not physical graph
+proof. Its complete four-vector group is all-or-none; cold nonretained helpers
+remain transient. Copy adds no W. The transient setup holder is one extra owner;
+refactor uses the existing wrapper. No new backend/native memory is retained in
+direct mode; fallback retains exactly the original ordinary backend, whose hidden
+native storage is not bounded by this Julia ledger.
+
+During refactor peak includes A_old+A_new+backend/extraction/CSC/triplet temporaries
++retained/transient W+returned tuples+uncollected failed/replaced objects. Copied
+factors coexist: lower CSC/row/scaling/D and immutable update prefixes share exactly
+as original; upper/work/spike/order/cache containers are independent. Count graph
+union to avoid double counting shared owners, but include all reachable retained
+capacities and prepared destinations. Full graph/GC/native peak remains a later
+Task3 measurement obligation. Failure may allocate garbage; dropping W is not an
+immediate free or finalizer claim. No complete native/PREforward allocation budget.
+
+Work savings remain Task1's source argument: successful fused import saves one
+8*u normalization temporary and2*u value stores, retains original divisions,
+validation, extraction and all final arrays; failed normalization may overwrite
+up to u raw values. Scratch reuse saves eligible requests, never scans/resets or
+orientation solves. Cost of O(1) budget/type/busy checks and wrapper dispatch is
+charged. No runtime allocation, syntax, numerical or speedup acceptance.
+
+## Differential tests and bounded diagnostic storage
+
+Four explicit entry functions; run_lifecycle_tests merely calls them, no autorun.
+Tests use exact Float64 bits, frozen rational residual bound128*n*eps*max(1,
+||B||inf*||x||inf,||rhs||inf), input CSC bits/owners and original packed reference.
+No weakening of the original tolerance. Reflection graph snapshots are **test-only**,
+retain all reachable Julia owners and detached scalar bits including cache/history;
+SparseMatrixCSC and UpperRowIndices are traversed through fields, not dense values.
+Array capacity/native memory are not proven. Snapshots can consume O(n+l+u+S+cache)
+work/storage, plus retained output destination owners; reflection/IdDict overhead is
+additional. They are not placed in implementation or future timed windows.
+
+- repeated_shape_lifecycle:7 fixtures*2 policies*2 normalization settings=28 paired
+  setups (56 managers).24 nonempty pairs*8updates=192 steps/384 manager updates;
+  refactors4/8=96 manager refactors. Empty performs no update.268 paired_solutions
+  calls,6 valid solves per call; entering+DSE4 and unit-BTRAN2 per step; alias tests
+  add8 valid solves per pair. Total2984 valid explicit solve entries for this test
+  function, plus rejected calls (dispatch/alias/dimension checks) and original
+  backend orientation/internal update work. No equivalence to2984 backend kernels.
+  Each step keeps bounded RHS/output vectors, two live factors and explicit B,
+  temporary sparse refactor input, exact-oracle matrices/vectors; no history log.
+- private_publish_failure_matrix:2 genuine active setups with1update and1copy each.
+  Six explicit exception seams, actual wrong-type result, each reached allocation
+  from one counted cold successful preparation, five synthetic scratch failures,
+  reentrancy and one successful single-publication checker per arm. Allocation
+  loop size M_R is determined by reached cold path: import2*n+4 requests(normalize),
+  seen1 and native orientation0/2/4; n=8 gives M_R<=25 (Markowitz21). Every failure
+  starts cold and stops at its requested site. Task3 must bind the measured M_R
+  and actual assertion counts before interpreting results, never guess a RED count.
+  Original factorization/extraction/native work still occurs on reached paths.
+  Synthetic orientation uses64x64 stored triangles,1seen+4orientation requests;
+  no claim these are the actual native factors of the active8x8 model.
+- copy_refactor_diverge:2 setups with1update/1copy each,4 independent refactors,
+  4 original reference constructors, bounded paired solves and synthetic scratch
+  poisoning. Original update prefixes share, mutable numerical outputs do not.
+- dimension_fallback_transition:4 mode/arm combinations, each initial empty setup,
+  six genuine shapes (0,1,64dense,64diagonal,2,0), matched reference constructors,
+  then direct/fallback/direct chain with counted factorization/export once on
+  fallback, one copied fallback and reference fallback. Genuine retained scratch
+  is poisoned before solve comparisons. One separate synthetic2x2 normalization
+  rejection/nonidentity q import; no numerical equation claim for that synthetic B.
+
+All helpers/fixtures/seams are local or methods on diagnostic types. No native
+allocator hook, global method overwrite or hidden solver call. Task1 tests are
+loaded for definitions/helpers; Task2 entry does not rerun Task1 entries or any old
+lifecycle script. Runtime assertion totals and complete driver resource limits
+belong to separately authorized Task3. Current source-site count is in source-check.
+
+## Review amendment R1–R4
+
+Initial review and four original artifacts are preserved in Task2 evidence. A new
+genuine warm-cache witness runs once per policy, inside the existing failure test
+entry: dense64 setup, compatible successful refactor of2*B, matched reference,
+one update each, saved candidate copy and prepared state, then compatible real
+export reusing the seen owners (and native complete orientation group), with zero
+helper requests, followed by an injected importer exception. It verifies cache
+owner identity on success, same exception, all active/copy graph identities/bits,
+input bits/owners, dropped workspace and cleared busy on failure. Scratch is also
+poisoned before throwing. Both policies assert actual reuse; native asserts a
+complete genuine orientation group, Markowitz none. This is UNEXECUTED, and may
+fail its prospective cache/shape premises; no tuning or success is presumed.
+
+Added per policy:1candidate constructor+1reference constructor,2candidate refactor
+entries (one succeeds, one fails after real export),2updates,1copy; four ordinary
+factorization/export entries total, three imports/inner constructions reached.
+Explicit solve entries:2paired_solutions*6+2enteringFTRAN+1preparedFTRAN+2saved-copy
+checks=17 per policy,34total. Original orientation/internal update calls remain
+additional. Added graphs: two active factors and one saved copy with shared lower/
+history metadata, one retained workspace owner group, one dense64 source/model and
+refactor inputs, bounded vectors, exact-oracle scratch, four full graph snapshots
+at the failure call (two pre-captured plus two inside preserve_failure) and their
+comparison temporaries. No growing trajectory ledger. The dedicated allocator
+record is empty if reuse succeeds; these diagnostics are outside implementation
+and any future measured window. Tests deliberately retain old scratch for identity
+inspection; that is test overhead, not a new factor reference or freeing proof.
+
+R2 eliminates duplicate default type comparison while retaining mandatory guard;
+R3 corrects the14-field source count; R4 maps canonical source paths to explicit
+future src/_bgx_*.jl staged destinations and include names. No stage is created.
+Frozen test files are loaded from their bound absolute original paths, preserving
+relative fixture includes. Task1 and source-check.py/json stay unchanged; the old
+checker fact15fields is superseded only by this amendment.

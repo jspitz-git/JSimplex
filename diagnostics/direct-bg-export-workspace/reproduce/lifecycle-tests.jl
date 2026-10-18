@@ -1,0 +1,327 @@
+# UNEXECUTED Task2. Load after Task1 test modules; no automatic execution.
+module BGExportLifecycleTests
+using Test, LinearAlgebra, SparseArrays, JSimplex
+using ..BGExportWorkspaceTests: Owner, Allocator, caught, OrientationSolve, orientation_parts
+using ..BGExportImportTests: snapshot, packed_snapshot, reference_import
+using ..BGExportImportTests.DirectLUFixtures: export_fixtures, replacement, solve_residual
+const X=JSimplex
+const ARMS=((:native,X._NATIVE_PIVOT_ONE),(:markowitz,X._NATIVE_PIVOT_DEFAULT))
+reference(B,R,p;normalize=true)=X._direct_lu_factor(X.BartelsGolubFactorization,B,Val(R),p;normalize)
+
+# Full reachable Julia graph of a DIRECT inner (no opaque native fallback).
+# Retain actual owners and detached bits, including prepared destinations/history.
+# IdDict terminates sharing/cycles. Undefined reference slots have explicit tokens.
+function graph(x)
+    owners=Any[];seen=IdDict{Any,Int}()
+    function visit(v)
+        v isa Float64 && return (:f64,reinterpret(UInt64,v))
+        isbitstype(typeof(v)) && return (typeof(v),v)
+        if ismutabletype(typeof(v))
+            haskey(seen,v) && return (:ref,seen[v])
+            push!(owners,v);seen[v]=length(owners)
+        end
+        if v isa Array || v isa BitArray
+            return (typeof(v),size(v),[isassigned(v,i) ? visit(v[i]) : :undefined for i in eachindex(v)])
+        end
+        (typeof(v),ntuple(i->isdefined(v,i) ? visit(getfield(v,i)) : :undefined,fieldcount(typeof(v))))
+    end
+    value=visit(x);(owners,value)
+end
+function samegraph(x,before)
+    now=graph(x)
+    isequal(now[2],before[2]) && length(now[1])==length(before[1]) && all(a===b for (a,b) in zip(now[1],before[1]))
+end
+function cache_valid(f)
+    w=f.workspace;isnothing(w) && return true
+    n=length(f.inner.work);b=X._bgx_budget(n,nnz(f.inner.base.lower),sum(length(c.values) for c in f.inner.upper;init=0))
+    b.keep_seen && w.dimension==n && !isnothing(w.seen) && length(w.seen)==n &&
+        (isnothing(w.orientation) || b.keep_orientation && all(length(v)==n for v in w.orientation)) &&
+        w.charged_bytes==512+b.seen_bytes+(isnothing(w.orientation) ? 0 : b.orientation_bytes) && w.charged_bytes<=b.limit
+end
+function paired_solutions(f,r,B,rhs)
+    before=copy(reinterpret(UInt64,rhs))
+    for op in (X.forward_solve!,X.transpose_solve!,X._ordinary_forward_solve!)
+        a=zeros(length(rhs));b=similar(a);op(a,f,rhs);op(b,r,rhs)
+        @test reinterpret(UInt64,a)==reinterpret(UInt64,b)
+        @test solve_residual(B,a,rhs;transposed=op===X.transpose_solve!)
+        @test reinterpret(UInt64,rhs)==before
+    end
+    @test X._direct_mode(f)==X._direct_mode(r)
+    @test X._backend_dimension(f)==length(r.work)
+    @test X._factor_storage_count(f)==X._factor_storage_count(r)
+    @test isequal(X._factor_growth_measure(f),X._factor_growth_measure(r))
+    @test isequal(X._factor_growth_reference(f),X._factor_growth_reference(r))
+    @test X._finite_updated_factor(f)==X._finite_updated_factor(r)
+end
+function aliases_and_rejections(f,r,B)
+    n=size(B,1);rhs=ones(n)
+    for op in (X.forward_solve!,X.transpose_solve!)
+        a=copy(rhs);b=copy(rhs);op(a,f,a);op(b,r,b)
+        @test reinterpret(UInt64,a)==reinterpret(UInt64,b)
+        @test solve_residual(B,a,rhs;transposed=op===X.transpose_solve!)
+        @test_throws ArgumentError op(f.inner.work,f,rhs)
+        @test_throws DimensionMismatch op(zeros(n+1),f,rhs)
+        copyto!(f.inner.work,rhs);copyto!(r.work,rhs)
+        op(f.inner.spike,f,f.inner.work);op(r.spike,r,r.work)
+        @test reinterpret(UInt64,f.inner.spike)==reinterpret(UInt64,r.spike)
+        @test_throws MethodError op(zeros(Float32,n),f,ones(Float32,n))
+        source=X.IndexedVector{Float64}(n);dest=X.IndexedVector{Float64}(n)
+        @test_throws MethodError op(dest,f,source;kernel_mode=:sparse)
+        @test_throws MethodError op(zeros(n),f,rhs;kernel_mode=:dense)
+    end
+    @test_throws MethodError X.replace_column!(f,ones(Float32,n),1)
+end
+function run_repeated_shape_lifecycle()
+    @testset "repeated_shape_lifecycle" begin
+        for fixture in export_fixtures(), (R,p) in ARMS, normalize in (false,true)
+            input=fixture.B;before=snapshot(input);inputowners=(input.colptr,input.rowval,input.nzval)
+            B=Matrix(input);f=X._bgx_factor(input,Val(R),p;normalize);r=reference(input,R,p;normalize)
+            @test cache_valid(f) && !f.busy
+            paired_solutions(f,r,B,ones(size(B,1)))
+            n=size(B,1)
+            if n>0
+                for t in 1:8
+                    j,a=replacement(B,t);abits=copy(reinterpret(UInt64,a))
+                    entering=zeros(n);control=zeros(n)
+                    X.forward_solve!(entering,f,a);X.forward_solve!(control,r,a)
+                    @test reinterpret(UInt64,entering)==reinterpret(UInt64,control)
+                    # Second FTRAN, distinct output and RHS, then original direction.
+                    dse=[Float64(i)/max(n,1) for i in 1:n]
+                    aux=zeros(n);auxref=zeros(n)
+                    X.forward_solve!(aux,f,dse);X.forward_solve!(auxref,r,dse)
+                    @test reinterpret(UInt64,aux)==reinterpret(UInt64,auxref)
+                    @test X._copy_prepared_spike!(f,entering)==X._copy_prepared_spike!(r,control)==true
+                    @test X.replace_column!(f,entering,j)===f
+                    X.replace_column!(r,control,j);B[:,j]=a
+                    @test !X._copy_prepared_spike!(f,entering) && !X._copy_prepared_spike!(r,control)
+                    @test reinterpret(UInt64,a)==abits
+                    rhs=zeros(n);rhs[j]=1.0;out=zeros(n);outref=zeros(n)
+                    u=X._unit_transpose_rhs(f,rhs,j);ur=X._unit_transpose_rhs(r,rhs,j)
+                    @test typeof(u)===typeof(ur)
+                    X.transpose_solve!(out,f,u);X.transpose_solve!(outref,r,ur)
+                    @test reinterpret(UInt64,out)==reinterpret(UInt64,outref) && solve_residual(B,out,rhs;transposed=true)
+                    paired_solutions(f,r,B,ones(n))
+                    if t in (4,8)
+                        source=sparse(B);frozen=snapshot(source);old=f.inner
+                        @test X.refactorize!(f,source)===f
+                        X.refactorize!(r,source)
+                        @test f.inner!==old && isempty(f.inner.updates) && isnothing(f.inner.row_cache.prepared)
+                        @test snapshot(source)==frozen && cache_valid(f) && !f.busy
+                        paired_solutions(f,r,B,ones(n))
+                    end
+                end
+            end
+            aliases_and_rejections(f,r,B)
+            @test snapshot(input)==before && all(a===b for (a,b) in zip(inputowners,(input.colptr,input.rowval,input.nzval)))
+        end
+        @test_throws MethodError X._bgx_factor(ones(Float32,2,2),Val(:native),X._NATIVE_PIVOT_ONE)
+        @test_throws ArgumentError X._bgx_factor(spdiagm(0=>ones(2)),Val(:native),X._NATIVE_PIVOT_DEFAULT)
+        @test_throws ArgumentError X._bgx_factor(spdiagm(0=>ones(2)),Val(:markowitz),X._NATIVE_PIVOT_ONE)
+        B32=SparseMatrixCSC{Float64,Int32}(spdiagm(0=>ones(2)))
+        @test_throws ArgumentError X._bgx_factor(B32,Val(:native),X._NATIVE_PIVOT_ONE)
+    end
+end
+function active_pair(R,p)
+    B=Matrix(export_fixtures()[4].B);f=X._bgx_factor(sparse(B),Val(R),p)
+    j,a=replacement(B,1);direction=X.forward_solve(f,a);X.replace_column!(f,direction,j);B[:,j]=a
+    saved=X._bgx_copy(f) # source shared-prefix bookkeeping happens before snapshot
+    X.forward_solve(f,ones(size(B,1)))
+    f,saved,sparse(B)
+end
+function preserve_failure(f,saved,B,action,expected)
+    old=f.inner;before=graph(old);copybefore=graph(saved.inner);input=snapshot(B)
+    result=caught(action)
+    @test result===(expected isa Base.RefValue ? expected[] : expected)
+    @test f.inner===old && samegraph(old,before) && samegraph(saved.inner,copybefore)
+    @test isnothing(f.workspace) && !f.busy && snapshot(B)==input
+end
+function run_private_publish_failure_matrix()
+    @testset "private_publish_failure_matrix" begin
+        for (R,p) in ARMS
+            f,saved,B=active_pair(R,p);sentinel=ErrorException("Task2 boundary")
+            # Distinct cold seams; no overwritten global production methods.
+            preserve_failure(f,saved,B,()->X._bgx_refactor_with!(f,B;factorize=(args...)->throw(sentinel)),sentinel)
+            preserve_failure(f,saved,B,()->X._bgx_refactor_with!(f,B;export_parts=(args...;kwargs...)->throw(sentinel)),sentinel)
+            validation_error=Ref{Any}(nothing)
+            malformed=(ordinary,owner;allocate=X._bgx_allocate)->begin
+                e=X._export_basis_lu(ordinary);e.rows[1]=0
+                try
+                    X._bgx_checked_basis_lu(e.lower,e.upper,e.rows,e.columns,e.scaling,e.divide_scaling,owner;allocate)
+                catch err
+                    @test err isa ArgumentError
+                    validation_error[]=err
+                    rethrow()
+                end
+            end
+            preserve_failure(f,saved,B,()->X._bgx_refactor_with!(f,B;export_parts=malformed),validation_error)
+            preserve_failure(f,saved,B,()->X._bgx_refactor_with!(f,B;import_upper=(args...;kwargs...)->throw(sentinel)),sentinel)
+            preserve_failure(f,saved,B,()->X._bgx_refactor_with!(f,B;make_inner=(args...)->throw(sentinel)),sentinel)
+            preserve_failure(f,saved,B,()->X._bgx_refactor_with!(f,B;check_inner=(args...)->throw(sentinel)),sentinel)
+            old=f.inner;before=graph(old)
+            err=caught(()->X._bgx_refactor_with!(f,B;make_inner=(args...)->nothing))
+            @test err isa ArgumentError && f.inner===old && samegraph(old,before) && !f.busy && isnothing(f.workspace)
+            # Count reached Task1 allocations once, then fail each on a cold cache.
+            a=Allocator();X._bgx_refactor_with!(f,B;allocate=a)
+            for k in 1:a.calls
+                X._bgx_drop!(f);alloc=Allocator(k)
+                preserve_failure(f,saved,B,()->X._bgx_refactor_with!(f,B;allocate=alloc),alloc.sentinel)
+                @test alloc.calls==k
+            end
+            # Synthetic orientation reaches all four scratch sites under outer transaction.
+            # No claim this is a genuine native factor export.
+            for k in 1:5
+                X._bgx_drop!(f);alloc=Allocator(k);parts=orientation_parts(64)
+                synthetic=(ordinary,owner;allocate=X._bgx_allocate)->begin
+                    L,U,rows,cols,scaling=parts
+                    X._bgx_checked_basis_lu(L,U,rows,cols,scaling,false,owner;allocate)
+                    fake=OrientationSolve(:ok,Ref(0),sentinel)
+                    X._bgx_scale_mode(fake,L,U,rows,cols,scaling,owner,64,nnz(L),nnz(U);allocate)
+                    error("all requested failure sites must throw")
+                end
+                preserve_failure(f,saved,B,()->X._bgx_refactor_with!(f,B;export_parts=synthetic,allocate=alloc),alloc.sentinel)
+                @test alloc.calls==k
+            end
+            # During export the busy guard rejects both operations before any mutation.
+            recursive=(ordinary,owner;allocate=X._bgx_allocate)->begin
+                cache=owner.workspace;active=owner.inner;g=graph(active)
+                @test_throws ArgumentError X._bgx_refactor_with!(owner,B)
+                @test_throws ArgumentError X._bgx_copy(owner)
+                @test owner.busy && owner.workspace===cache && owner.inner===active && samegraph(active,g)
+                throw(sentinel)
+            end
+            preserve_failure(f,saved,B,()->X._bgx_refactor_with!(f,B;export_parts=recursive),sentinel)
+            publications=Ref(0);old=f.inner
+            checker=(active,candidate)->begin
+                @test f.inner===old && f.busy
+                publications[]+=1;nothing
+            end
+            @test X._bgx_refactor_with!(f,B;check_inner=checker)===f
+            @test publications[]==1 && f.inner!==old && !f.busy
+            # Genuine warm-cache wrapper transaction (not synthetic extraction).
+            dense=sparse([i==j ? 128.0 : 1.0 for i in 1:64,j in 1:64])
+            warm=X._bgx_factor(dense,Val(R),p);w=warm.workspace
+            @test !isnothing(w) && cache_valid(warm)
+            seen=w.seen;orientation=w.orientation
+            @test R===:native ? !isnothing(orientation) : isnothing(orientation)
+            reuse_hits=Ref(0)
+            reused_export=(ordinary,owner;allocate=X._bgx_allocate)->begin
+                helpers=Allocator();e=X._bgx_export(ordinary,owner;allocate=helpers)
+                @test helpers.calls==0 && owner.workspace===w && owner.workspace.seen===seen
+                @test isnothing(orientation) ? isnothing(w.orientation) :
+                    !isnothing(w.orientation) && all(a===b for (a,b) in zip(w.orientation,orientation))
+                reuse_hits[]+=1
+                e
+            end
+            @test X._bgx_refactor_with!(warm,2.0*dense;export_parts=reused_export)===warm
+            @test reuse_hits[]==1 && warm.workspace===w && cache_valid(warm)
+            control=reference(2.0*dense,R,p);current=Matrix(2.0*dense)
+            paired_solutions(warm,control,current,ones(64))
+            j,a=replacement(current,1)
+            direction=X.forward_solve(warm,a);reference_direction=X.forward_solve(control,a)
+            X.replace_column!(warm,direction,j);X.replace_column!(control,reference_direction,j);current[:,j]=a
+            warmcopy=X._bgx_copy(warm)
+            @test isnothing(warmcopy.workspace) && length(warm.inner.updates)==1
+            X.forward_solve(warm,ones(64)) # retain prepared state before failing
+            input=sparse(current);inputowners=(input.colptr,input.rowval,input.nzval)
+            warmstate=graph(warm.inner);copystate=graph(warmcopy.inner)
+            after_reuse=(U,normalize;allocate=X._bgx_allocate)->begin
+                @test reuse_hits[]==2 && warm.workspace===w
+                # Scratch was written by real validation/orientation; poison it too.
+                fill!(seen,true)
+                if !isnothing(orientation);for v in orientation;fill!(v,NaN);end;end
+                @test samegraph(warm.inner,warmstate) && samegraph(warmcopy.inner,copystate)
+                throw(sentinel)
+            end
+            preserve_failure(warm,warmcopy,input,
+                ()->X._bgx_refactor_with!(warm,input;export_parts=reused_export,import_upper=after_reuse),sentinel)
+            @test reuse_hits[]==2 && all(a===b for (a,b) in zip(inputowners,(input.colptr,input.rowval,input.nzval)))
+            @test isnothing(warm.workspace) && samegraph(warm.inner,warmstate) && samegraph(warmcopy.inner,copystate)
+            paired_solutions(warm,control,current,ones(64))
+            for transposed in (false,true)
+                op=transposed ? X.transpose_solve : X.forward_solve
+                @test solve_residual(current,op(warmcopy,ones(64)),ones(64);transposed)
+            end
+        end
+    end
+end
+function run_copy_refactor_diverge()
+    @testset "copy_refactor_diverge" begin
+        for (R,p) in ARMS
+            f,saved,B=active_pair(R,p)
+            @test isnothing(saved.workspace) && !saved.busy
+            @test saved.inner.base.lower===f.inner.base.lower && saved.inner.base.row_order===f.inner.base.row_order
+            @test saved.inner.base.scaling===f.inner.base.scaling && saved.inner.base.diagonal===f.inner.base.diagonal
+            @test saved.inner.base.work!==f.inner.base.work && saved.inner.work!==f.inner.work && saved.inner.spike!==f.inner.spike
+            @test saved.inner.row_cache!==f.inner.row_cache && isnothing(saved.inner.row_cache.prepared)
+            @test saved.inner.upper!==f.inner.upper && X._upper_order(saved.inner.upper)!==X._upper_order(f.inner.upper)
+            @test all(a.values!==b.values && a.indices.ids!==b.indices.ids for (a,b) in zip(saved.inner.upper,f.inner.upper))
+            @test saved.inner.updates!==f.inner.updates && all(a.steps===b.steps for (a,b) in zip(saved.inner.updates,f.inner.updates))
+            # Original immutable update prefixes are shared; refactors diverge privately.
+            X.refactorize!(f,2.0*B);X.refactorize!(saved,3.0*B)
+            r=reference(2.0*B,R,p);s=reference(3.0*B,R,p)
+            paired_solutions(f,r,2.0*B,ones(size(B,1)));paired_solutions(saved,s,3.0*B,ones(size(B,1)))
+            before=graph(f.inner);sbefore=graph(saved.inner)
+            # Explicit synthetic cache injection: poison all buffers and verify graph.
+            X._bgx_scratch!(f,:seen,64,2080,2080)
+            f.workspace.orientation=ntuple(_->fill(NaN,64),4);fill!(f.workspace.seen,true)
+            @test samegraph(f.inner,before) && samegraph(saved.inner,sbefore) && isnothing(saved.workspace)
+            X._bgx_drop!(f)
+            paired_solutions(f,r,2.0*B,ones(size(B,1)))
+        end
+    end
+end
+function run_dimension_fallback_transition()
+    @testset "dimension_fallback_transition" begin
+        for (R,p) in ARMS, normalize in (false,true)
+            f=X._bgx_factor(spzeros(0,0),Val(R),p;normalize)
+            # Genuine shape/nnz transitions, cache eligibility evaluated on each export.
+            dense64=sparse([i==j ? 128.0 : 1.0 for i in 1:64,j in 1:64])
+            cases=(spzeros(0,0),sparse(reshape([2.0],1,1)),dense64,spdiagm(0=>fill(4.0,64)),
+                   sparse([4.0 1.0;0.5 3.0]),spzeros(0,0))
+            for B in cases
+                frozen=snapshot(B);X.refactorize!(f,B);r=reference(B,R,p;normalize)
+                @test cache_valid(f) && snapshot(B)==frozen
+                @test size(B,1)>0 || isnothing(f.workspace)
+                if !isnothing(f.workspace)
+                    active=graph(f.inner)
+                    fill!(f.workspace.seen,true)
+                    if !isnothing(f.workspace.orientation)
+                        for v in f.workspace.orientation;fill!(v,NaN);end
+                    end
+                    @test samegraph(f.inner,active)
+                end
+                paired_solutions(f,r,B,ones(size(B,1)))
+            end
+            B=spdiagm(0=>[2.0,3.0,4.0]);X.refactorize!(f,B);oldtype=typeof(f.inner)
+            calls=Ref(0);exports=Ref(0)
+            counted=(args...)->(calls[]+=1;X._factorize_basis(args...))
+            unavailable=(ordinary,owner;allocate=X._bgx_allocate)->(exports[]+=1;nothing)
+            X._bgx_refactor_with!(f,2.0*B;factorize=counted,export_parts=unavailable)
+            @test calls[]==1 && exports[]==1 && X._direct_mode(f)===:fallback && isnothing(f.workspace)
+            @test typeof(f.inner)===oldtype
+            copyfall=X._bgx_copy(f)
+            @test isnothing(copyfall.workspace) && copyfall.inner.base.fallback!==f.inner.base.fallback
+            expected=reference(B,R,p;normalize)
+            X._direct_refactorize_with_exporter!(expected,2.0*B,_ -> nothing)
+            paired_solutions(f,expected,2.0*B,ones(3))
+            X.refactorize!(f,3.0*B);r=reference(3.0*B,R,p;normalize)
+            paired_solutions(f,r,3.0*B,ones(3));paired_solutions(copyfall,expected,2.0*B,ones(3))
+            @test typeof(f.inner)===oldtype && X._direct_mode(f)==(normalize ? :normalized : :direct)
+        end
+        # Synthetic valid export with overflow division: no solve claim for B.
+        B=spdiagm(0=>ones(2));f=X._bgx_factor(B,Val(:native),X._NATIVE_PIVOT_ONE)
+        U=sparse([floatmin(Float64) floatmax(Float64);0.0 1.0]);L=spdiagm(0=>ones(2))
+        exporter=(ordinary,owner;allocate=X._bgx_allocate)->X._bgx_checked_basis_lu(copy(L),copy(U),[2,1],[2,1],ones(2),false,owner;allocate)
+        X._bgx_refactor_with!(f,B;export_parts=exporter)
+        upper,D=reference_import(U,true)
+        @test X._direct_mode(f)===:direct && isnothing(D) && packed_snapshot(f.inner.upper)==packed_snapshot(upper)
+        @test f.inner.column_order==[2,1] && f.inner.positions==[2,1]
+    end
+end
+function run_lifecycle_tests()
+    run_repeated_shape_lifecycle()
+    run_private_publish_failure_matrix()
+    run_copy_refactor_diverge()
+    run_dimension_fallback_transition()
+end
+end

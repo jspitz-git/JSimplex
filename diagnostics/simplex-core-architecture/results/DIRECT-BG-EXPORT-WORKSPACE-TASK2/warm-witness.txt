@@ -1,0 +1,44 @@
+            # Genuine warm-cache wrapper transaction (not synthetic extraction).
+            dense=sparse([i==j ? 128.0 : 1.0 for i in 1:64,j in 1:64])
+            warm=X._bgx_factor(dense,Val(R),p);w=warm.workspace
+            @test !isnothing(w) && cache_valid(warm)
+            seen=w.seen;orientation=w.orientation
+            @test R===:native ? !isnothing(orientation) : isnothing(orientation)
+            reuse_hits=Ref(0)
+            reused_export=(ordinary,owner;allocate=X._bgx_allocate)->begin
+                helpers=Allocator();e=X._bgx_export(ordinary,owner;allocate=helpers)
+                @test helpers.calls==0 && owner.workspace===w && owner.workspace.seen===seen
+                @test isnothing(orientation) ? isnothing(w.orientation) :
+                    !isnothing(w.orientation) && all(a===b for (a,b) in zip(w.orientation,orientation))
+                reuse_hits[]+=1
+                e
+            end
+            @test X._bgx_refactor_with!(warm,2.0*dense;export_parts=reused_export)===warm
+            @test reuse_hits[]==1 && warm.workspace===w && cache_valid(warm)
+            control=reference(2.0*dense,R,p);current=Matrix(2.0*dense)
+            paired_solutions(warm,control,current,ones(64))
+            j,a=replacement(current,1)
+            direction=X.forward_solve(warm,a);reference_direction=X.forward_solve(control,a)
+            X.replace_column!(warm,direction,j);X.replace_column!(control,reference_direction,j);current[:,j]=a
+            warmcopy=X._bgx_copy(warm)
+            @test isnothing(warmcopy.workspace) && length(warm.inner.updates)==1
+            X.forward_solve(warm,ones(64)) # retain prepared state before failing
+            input=sparse(current);inputowners=(input.colptr,input.rowval,input.nzval)
+            warmstate=graph(warm.inner);copystate=graph(warmcopy.inner)
+            after_reuse=(U,normalize;allocate=X._bgx_allocate)->begin
+                @test reuse_hits[]==2 && warm.workspace===w
+                # Scratch was written by real validation/orientation; poison it too.
+                fill!(seen,true)
+                if !isnothing(orientation);for v in orientation;fill!(v,NaN);end;end
+                @test samegraph(warm.inner,warmstate) && samegraph(warmcopy.inner,copystate)
+                throw(sentinel)
+            end
+            preserve_failure(warm,warmcopy,input,
+                ()->X._bgx_refactor_with!(warm,input;export_parts=reused_export,import_upper=after_reuse),sentinel)
+            @test reuse_hits[]==2 && all(a===b for (a,b) in zip(inputowners,(input.colptr,input.rowval,input.nzval)))
+            @test isnothing(warm.workspace) && samegraph(warm.inner,warmstate) && samegraph(warmcopy.inner,copystate)
+            paired_solutions(warm,control,current,ones(64))
+            for transposed in (false,true)
+                op=transposed ? X.transpose_solve : X.forward_solve
+                @test solve_residual(current,op(warmcopy,ones(64)),ones(64);transposed)
+            end
