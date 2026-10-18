@@ -1,0 +1,176 @@
+{
+  "scope": "NEW prospective source API attempts and explicit allocator callbacks, not native total/physical allocations",
+  "group_order": [
+    "lifecycles",
+    "rejection_and_aliases",
+    "export_modes",
+    "focused_updates",
+    "block_boundaries",
+    "storage_failure_boundaries",
+    "new_scratch_aliases",
+    "split_allocator_differentials"
+  ],
+  "per_group_reference_candidate": {
+    "constructors": [
+      [
+        14,
+        2,
+        3,
+        12,
+        19,
+        3,
+        0,
+        2
+      ],
+      [
+        14,
+        6,
+        3,
+        12,
+        19,
+        69,
+        0,
+        2
+      ]
+    ],
+    "refactors": [
+      [
+        48,
+        0,
+        4,
+        0,
+        10,
+        0,
+        0,
+        0
+      ],
+      [
+        76,
+        0,
+        4,
+        0,
+        10,
+        63,
+        0,
+        0
+      ]
+    ],
+    "copies": [
+      [
+        10,
+        0,
+        2,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        10,
+        0,
+        2,
+        1,
+        0,
+        64,
+        0,
+        0
+      ]
+    ],
+    "replacements": [
+      [
+        90,
+        0,
+        6,
+        10,
+        12,
+        0,
+        0,
+        0
+      ],
+      [
+        90,
+        14,
+        6,
+        10,
+        12,
+        3,
+        0,
+        0
+      ]
+    ]
+  },
+  "totals": {
+    "constructors": [
+      55,
+      125
+    ],
+    "refactors": [
+      62,
+      153
+    ],
+    "copies": [
+      13,
+      77
+    ],
+    "replacements": [
+      118,
+      135
+    ]
+  },
+  "factorization_attempts": [
+    117,
+    272
+  ],
+  "forward_attempts": [
+    384,
+    400
+  ],
+  "transpose_attempts": [
+    144,
+    160
+  ],
+  "candidate_rejected_solves_per_direction": 16,
+  "manual_sentinel_factors": 3,
+  "helpers": {
+    "pair_state": 673,
+    "solve_pair": 512,
+    "replace_pair": 108,
+    "exact_residual_checks": 1024
+  },
+  "allocation_probe_operations": {
+    "inherited_structural": 220,
+    "new_failure_structural": 32,
+    "new_counted_set_operations": 272,
+    "adapter": 182,
+    "total": 706
+  },
+  "expected_injected_storage_failures": 419,
+  "explicit_storage_allocation_requests": 10392,
+  "completed_before_injected_throw": 9973,
+  "source_model": {
+    "payload_bytes": "16*C+4*R+28*K+32*n+656",
+    "outer_reference_slots_bytes": "8*n+24*D",
+    "vector_containers": "n+3*S+23",
+    "scope": "U only; headers/backing reserve, whole factor, oracle temporaries and backend allocations additional"
+  },
+  "performance_windows": 0,
+  "numerical_allowance": false,
+  "new_storage_only_pair_work": {
+    "controlled_pairs": 2,
+    "paired_scalar_assignments": 129,
+    "paired_rotations": 3,
+    "paired_row_merge": 1,
+    "additional_basis_solves": 0,
+    "full_partition_token_scans": "After each of 129 assignments and 3 rotations, plus final merge and explicit checks: O(n+C+R+K) traversal, plus two n-entry Int vector conversions and sorts in _sbu_check and invariant bookkeeping allocations per check. Overall work is not asserted linear; sort implementation and allocations remain unmeasured. Test-only."
+  },
+  "new_injection_detail": {
+    "inherited_reserve_failures": 56,
+    "build_failures": 90,
+    "copy_failures": 69,
+    "new_descriptor_failures": 7,
+    "new_append_failures": 14,
+    "new_row_then_split_failures": 7,
+    "adapter_failures": 176
+  }
+}

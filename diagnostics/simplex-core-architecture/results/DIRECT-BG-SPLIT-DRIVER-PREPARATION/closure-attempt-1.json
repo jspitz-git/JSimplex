@@ -1,0 +1,13 @@
+{
+  "scope": "Preserved offline closure failure; no Julia or phase run",
+  "script": "closure-final.py",
+  "script_sha256": "4ba9cb3395fb91ebfe2678287cf248e0c0585e3a3df78df6441dc674adda94e4",
+  "exit_code": 1,
+  "output": "RuntimeError: Loading environment drift at control.validate_environment(), before host-closure.json or closure.json creation",
+  "command": "python3 -B diagnostics/simplex-core-architecture/results/DIRECT-BG-SPLIT-DRIVER-PREPARATION/closure-final.py",
+  "shell": "/bin/bash",
+  "login": true,
+  "diagnosis": "Subsequent read-only comparison: login shell differs only in PATH, prefix /home/jspitz/.local/bin: and suffix :/snap/bin; non-login shell has zero pinned environment differences.",
+  "outputs_absent": true,
+  "correction": "Separate closure-final-2.py uses final publication name list, unchanged checks, invoked with login=false. No environment pin or control change."
+}
