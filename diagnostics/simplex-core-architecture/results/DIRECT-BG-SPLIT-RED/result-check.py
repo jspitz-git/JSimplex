@@ -1,0 +1,109 @@
+"""Independent one-shot saved RED result verification. No author imports or subprocesses."""
+from pathlib import Path
+import copy,hashlib,json,math,re,time,tomllib
+E=Path(__file__).resolve().parent;R=E.parents[3];D=R/'diagnostics/simplex-core-architecture/results/DIRECT-BG-SPLIT-DRIVER-PREPARATION';run=D/'runs/red300';out=run/'output';checks={}
+def rd(p):return json.loads(Path(p).read_text())
+def sha(p):
+ h=hashlib.sha256()
+ with Path(p).open('rb') as f:
+  for b in iter(lambda:f.read(1048576),b''):h.update(b)
+ return h.hexdigest()
+def check(value,label):
+ checks[label]=bool(value)
+ if not value:raise AssertionError(label)
+def binding(j,label):
+ for key in ('sha256','evidence_sha256'):
+  for name,h in j.get(key,{}).items():
+   p=Path(name) if Path(name).is_absolute() else R/name
+   check(sha(p)==h,label+' '+key+' '+name)
+def inventory(j,label):
+ paths=set(j['files']);check(len(paths)==len(j['files']),label+' unique files')
+ for t in j['trees']:
+  root=Path(t);check(root.is_dir() and not root.is_symlink(),label+' tree root '+t)
+  for p in root.rglob('*'):
+   check(not p.is_symlink(),label+' tree symlink '+str(p))
+   if p.is_file():paths.add(str(p))
+ check(paths==set(j['inventory']),label+' exact membership')
+ for n,v in j['inventory'].items():check(sha(n)==v['sha256'] and str(Path(n).resolve(strict=True))==v['resolved'],label+' hash resolved '+n)
+ check(j['inputs']==[],label+' no numerical input')
+runfiles={str(p) for p in run.rglob('*') if p.is_file()}
+expected_run={'admission.json','audit.json','config.json','host.json','invocation.json','launch-pins.json','launcher.log','posthost.json','prehost.json','reservation.json','sealed.json','output/current.json','output/pins.json','output/process.json','output/raw.toml','output/resources.jsonl','output/run.log'}
+check({str(p.relative_to(run)) for p in run.rglob('*') if p.is_file()}==expected_run,'exact 17 run files')
+check(not any(p.is_symlink() for p in run.rglob('*')),'run without symlinks')
+check({p.name for p in out.iterdir()}=={'current.json','pins.json','process.json','raw.toml','resources.jsonl','run.log'} and all(p.is_file() for p in out.iterdir()),'exact six output files')
+s=rd(run/'sealed.json');lp=rd(run/'launch-pins.json');ad=rd(run/'admission.json');a=rd(run/'audit.json');cfg=rd(run/'config.json');inv=rd(run/'invocation.json');p=rd(out/'process.json');cur=rd(out/'current.json');sup=inv['supervisor'];reservation=rd(run/'reservation.json')
+inventory(s,'sealed');inventory(lp,'launch')
+check(lp==rd(out/'pins.json') and sha(run/'launch-pins.json')==sha(out/'pins.json'),'exact captured launch pins')
+check(set(lp['files'])==set(s['files'])|{str(run/'sealed.json'),str(run/'admission.json'),str(run/'prehost.json')} and lp['trees']==s['trees'],'launch extends seal exactly')
+check(all(lp['inventory'].get(n)==v for n,v in s['inventory'].items()),'seal launch inventory equality')
+check(ad['accepted'] is True and ad['findings']==[] and ad['scope']=='split BG exact-stage admission' and ad['phase']=='red300','independent exact admission accepted')
+check(ad['pins_sha256']==sha(run/'sealed.json') and set(ad['sha256'])==set(s['files'])|{str(run/'sealed.json')},'exact admission membership')
+binding(ad,'admission')
+check(a['all_passed'] is True and a['pure_timeout'] is False and a['phase']=='red300' and a['error']=='','saved audit accepted')
+check(set(a['sha256'])==runfiles-{str(run/'audit.json')},'audit exact saved-run membership');binding(a,'audit')
+post=rd(E/'postcheck.json');check(post['all_passed'] is True and len(post['checks'])==15 and all(v is True for v in post['checks'].values()),'saved supplement 15 pass');binding(post,'supplement')
+check(cfg==s['config'] and cfg['phase']==s['phase']=='red300' and cfg['seconds']==300 and cfg['expected_exit']==1,'exact phase config')
+check(p['command']==cur['command']==inv['command']==reservation['command']==cfg['command'],'exact actual command')
+check(reservation==dict(one_attempt=True,phase='red300',command=cfg['command'],pins_sha256=sha(run/'launch-pins.json'),review_sha256=sha(run/'admission.json'),max_seconds=300),'one attempt reservation')
+check(inv['pins_sha256']==p['pins_sha256']==cur['pins_sha256']==sha(run/'launch-pins.json') and inv['review_sha256']==sha(run/'admission.json') and inv['reservation_sha256']==sha(run/'reservation.json'),'invocation all digest links')
+expected_guard=[inv['python'],'-B',str(D/'guard.py'),'run',str(run/'launch-pins.json'),str(out),'--seconds','292','--deadline',str(inv['monotonic_start']+292),'--expected-exit','1','--',*cfg['command']]
+check(inv['guard_command']==expected_guard and inv['python']=='/usr/bin/python3','exact inner absolute command')
+check(cur['runner']==p['runner']==sup['guard_identity'] and cur['child']==p['child'],'runner child identity linkage')
+check(p['runner']==dict(pid=20480,pgid=20480,sid=20480,start_ticks=1098162,boot_id=s['boot_id'],command=' '.join(expected_guard)+' '),'exact runner boot start command')
+check(p['child']==dict(pid=20481,pgid=20481,sid=20481,start_ticks=1098213,boot_id=s['boot_id'],command=' '.join(cfg['command'])+' '),'exact child boot start command')
+check(p['cwd']==str(R) and p['pins_unchanged'] is True,'actual cwd unchanged pins')
+check(p['returncode']==1 and p['reason']=='exit1' and sup['returncode']==0 and sup['accepted'] is True and 'error' not in p and 'cleanup_error' not in sup,'expected exit accepted supervisor')
+check(all(sup[k] is False for k in ['soft_timeout','hard_timeout','child_kill','guard_term','guard_kill']),'no timeout or forced cleanup')
+check(all(type(v) in (int,float) and math.isfinite(v) and 0<=v<=300 for v in [inv['elapsed_seconds'],sup['elapsed_seconds']]) and 0<=p['elapsed_including_launch']<=292,'actual inclusive limits')
+check(0<=sup['elapsed_seconds']<=inv['elapsed_seconds'] and p['ended']>=p['started'],'duration order')
+raw=tomllib.loads((out/'raw.toml').read_text());expected=['BGSplitUpper','_sbu_target','_sbu_reserve_block!','_sbu_build','_sbu_insert_at!','_sbu_rotate_rows!','SplitBGFactor','_split_bg_factor','_split_bg_replace!','_split_bg_copy_with'];source=(D/'red.jl').read_text().splitlines()
+expected_failures=[f'Test Failed at {D}/red.jl:{i}\n  Expression: isdefined(JSimplex, :{name})\n   Evaluated: isdefined(JSimplex, {name})' for i,name in enumerate(expected,4)]
+check(all(source[i-1].strip()==f'@test isdefined(JSimplex,:{name})' for i,name in enumerate(expected,4)),'source exact assertions lines4 through13')
+loaded=dict(rd(D/'loaded-paths.json'),JSimplex=str(Path(cfg['stage'])/'src/JSimplex.jl'))
+leaf=dict(name='Missing split BG U contracts (ten expected failures)',children=[],failures=expected_failures,**{'pass':0,'fail':10,'error':0,'broken':0})
+root=dict(name='root',children=[leaf],failures=[],**{'pass':0,'fail':0,'error':0,'broken':0})
+expected_raw=dict(phase='red300',complete=True,fatal='',threads=1,blas_threads=1,loaded=loaded,tests=root)
+check(raw==expected_raw,'byte-derived ordered failure strings exact raw schema tree counts paths threads')
+check(all(type(raw[k]) is int for k in ['threads','blas_threads']) and all(type(node[k]) is int for node in [raw['tests'],raw['tests']['children'][0]] for k in ['pass','fail','error','broken']),'exact integer types')
+check(a['result']==dict(assertions=10,groups=[[leaf['name'],0,10,0,0]],scope='Expected missing-contract RED'),'saved audit aggregate independently agrees')
+runlog=(out/'run.log').read_text();launcher=(run/'launcher.log').read_text();log=runlog+'\n'+launcher
+check(runlog=='BEGIN split BG driver red300\n'+''.join('TEST FAILURE: '+f+'\n' for f in expected_failures),'exact complete run log')
+check(json.loads(launcher)==p,'launcher log exact process record')
+check(re.search(r'(?i)\bwarning\b|world[ -]age',log) is None and all(t not in log for t in ['BROKEN TEST:','FATAL DRIVER:','GROUP/COUNT MISMATCH','ERROR:','LoadError','OutOfMemoryError']),'no warning world-age fatal error')
+stages=rd(D/'stages.json');st=stages['red'];stage=Path(st['path']);reference=Path(st['source'])
+check(cfg['stage']==str(stage) and len(st['sha256'])==75,'actual RED75 baseline stage')
+check({str(q.relative_to(stage)) for q in stage.rglob('*') if q.is_file()}==set(st['sha256'])=={str(q.relative_to(reference)) for q in reference.rglob('*') if q.is_file()},'current baseline exact stage reference membership')
+check(all(sha(stage/n)==sha(reference/n)==h for n,h in st['sha256'].items()),'current baseline exact frozen bytes')
+check(set(loaded)=={'JSimplex','SparseArrays','LinearAlgebra','TOML','Test','PrecompileTools'} and all(str(Path(n).resolve(strict=True))==n and n in s['inventory'] for n in loaded.values()),'actual loaded modules all sealed exact paths')
+resources=[json.loads(l) for l in (out/'resources.jsonl').read_text().splitlines()]
+check(len(resources)==4 and all(z['available_kib']>=6*1024**2 and z['swap_used_kib']<=1024**2 for z in resources+[p['terminal_memory']]),'four and terminal samples satisfy RAM swap')
+check([z['elapsed'] for z in resources]==sorted(z['elapsed'] for z in resources) and all(0<=z['elapsed']<=p['elapsed_including_launch'] for z in resources),'sample time order within guard duration')
+check(min(z['available_kib'] for z in resources)==23004320 and all(z['swap_used_kib']==0 for z in resources+[p['terminal_memory']]),'reported resource minimum zero swap')
+check(p['terminal_memory']==dict(available_kib=23252748,swap_used_kib=0) and p['child_maxrss_kib']==429532,'reported terminal RAM child maxRSS')
+for z in resources:
+ m={x.split(':')[0]:int(x.split()[1]) for x in z['child_memory']}
+ check(m['VmPeak']<=8*1024**2 and m['VmHWM']<=p['child_maxrss_kib'] and m['VmSwap']==0,'sample child VM RSS swap '+str(z['elapsed']))
+pre=rd(run/'prehost.json');sealedhost=rd(run/'host.json');posthost=rd(run/'posthost.json');extra=rd(E/'posthost.json')
+for label,h in [('sealed',sealedhost),('pre',pre),('post',posthost),('supplement',extra)]:
+ check(not h['matches'] and all(h[k]==s[k] for k in ['boot_id','head','master']),label+' full host clear refs boot')
+check(set(s['groups'])==set(pre['groups'])==set(sealedhost['groups']) and len(s['groups'])==240,'all old groups sessions retained')
+check(set(posthost['groups'])==set(extra['groups'])==set(s['groups'])|{20480,20481} and len(posthost['groups'])==242,'both new PGIDs SIDs checked')
+check(extra['head']+'\trefs/heads/codex/simplex-core-architecture' in extra['remote_refs'] and extra['master']+'\trefs/heads/master' in extra['remote_refs'],'saved post-run remote refs')
+# Independent synthetic sensitivity checks on strict result identity, no author oracle execution.
+mutations=[]
+for key,value in [('complete',False),('fatal','failure'),('threads',2),('phase','green300')]:
+ q=copy.deepcopy(raw);q[key]=value;mutations.append((key,q))
+for kind in ['missing_Test','extra_module','wrong_Test','extra_leaf','wrong_count','substituted_failure','reordered_failures']:
+ q=copy.deepcopy(raw)
+ if kind=='missing_Test':del q['loaded']['Test']
+ elif kind=='extra_module':q['loaded']['Extra']='unexpected'
+ elif kind=='wrong_Test':q['loaded']['Test']='wrong'
+ elif kind=='extra_leaf':q['tests']['children'].append(copy.deepcopy(leaf))
+ elif kind=='wrong_count':q['tests']['children'][0]['error']=1
+ elif kind=='substituted_failure':q['tests']['children'][0]['failures'][0]='different failure'
+ elif kind=='reordered_failures':q['tests']['children'][0]['failures'].reverse()
+ mutations.append((kind,q))
+for label,q in mutations:check(q!=expected_raw,'synthetic malformed raw rejected '+label)
+result=dict(all_passed=True,checks=len(checks),check_labels=list(checks),sealed_files=len(s['inventory']),launch_files=len(lp['inventory']),run_files=len(runfiles),raw_failure_count=10,synthetic_rejections=len(mutations),elapsed_seconds=inv['elapsed_seconds'],supervisor_seconds=sup['elapsed_seconds'],guard_seconds=p['elapsed_including_launch'],resource_samples=len(resources),min_available_kib=min(z['available_kib'] for z in resources),max_swap_used_kib=max(z['swap_used_kib'] for z in resources+[p['terminal_memory']]),child_maxrss_kib=p['child_maxrss_kib'],groups=len(posthost['groups']),sha256={n:sha(n) for n in sorted(runfiles)},scope='Independent saved hash/text/raw arithmetic result verification only; no author scripts rerun, no Julia, no performance claim')
+with (E/'result-check.json').open('x') as f:json.dump(result,f,indent=2);f.write('\n')
+print(json.dumps({k:v for k,v in result.items() if k not in ['check_labels','sha256']}))
