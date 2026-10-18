@@ -1,0 +1,34 @@
+{
+  "original": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-bg-export-workspace/reproduce/import-tests.jl",
+  "amended": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-bg-export-workspace-harness-fix/reproduce/import-tests.jl",
+  "before": "sum(n for (T,n) in a.requests if T===Float64)",
+  "after": "sum((n for (T,n) in a.requests if T===Float64);init=0)",
+  "original_sha256": "e01f7bed81faaacbd481699cc9f6fac616d7c1f78b6b8a58c84c1829fc6eaddb",
+  "amended_sha256": "628a74265bc5ed75e0a9507b9a7f3f453ba76d413ccbcb8a90e177e9e2329260",
+  "copied_controls": [
+    "guard.py",
+    "supervisor.py",
+    "launch.py",
+    "seal.py",
+    "audit.py",
+    "oracle.py",
+    "recorder.jl",
+    "red.jl"
+  ],
+  "driver_replacements": [
+    [
+      "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-bg-export-workspace/reproduce/import-tests.jl",
+      "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-bg-export-workspace-harness-fix/reproduce/import-tests.jl"
+    ],
+    [
+      "\"green300\"",
+      "\"green2-300\""
+    ],
+    [
+      "\"green600\"",
+      "\"green2-600\""
+    ]
+  ],
+  "expected_assertions": 7935,
+  "original_failed_run": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-EXPORT-WORKSPACE-DRIVER-PREPARATION/runs/green300"
+}
