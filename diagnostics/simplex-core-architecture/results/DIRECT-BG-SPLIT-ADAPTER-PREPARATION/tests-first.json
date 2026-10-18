@@ -1,0 +1,52 @@
+{
+  "scope": "Tests authored before adapter. Julia UNEXECUTED.",
+  "renames": [
+    [
+      "BlockBGFactor",
+      "SplitBGFactor"
+    ],
+    [
+      "BGBlockUpper",
+      "BGSplitUpper"
+    ],
+    [
+      "_block_bg_",
+      "_split_bg_"
+    ],
+    [
+      "_bbg_",
+      "_sbg_"
+    ],
+    [
+      "_bgu_",
+      "_sbu_"
+    ],
+    [
+      "BlockBGTests",
+      "SplitBGTests"
+    ],
+    [
+      "run_block_bg_tests",
+      "run_split_bg_tests"
+    ],
+    [
+      "block_tokens",
+      "split_tokens"
+    ],
+    [
+      "_check_block_upper",
+      "_check_split_upper"
+    ],
+    [
+      "block-oracles.jl",
+      "split-oracles.jl"
+    ]
+  ],
+  "extra": "# NEW demand-sized allocator integration oracles. Deliberately storage-only\n# mutations of controlled exports: never solve an arbitrarily edited factor.\nfunction split_assign_pair!(r,d,row,col,value)\n    cid=r.column_order[col];slot,old=J._upper_entry(r.upper[col],row)\n    J._set_upper_value_at!(r.upper,r.row_columns,col,row,value,slot,cid)\n    J._sbu_set!(d.upper,Int(d.upper.row_order[row]),Int(d.upper.column_order[col]),value)\n    @test isequal(packed_tokens(r),split_tokens(d.upper))\n    @test _check_split_upper(d.upper)\nend\nfunction split_allocator_differentials()\n    @testset \"Demand-sized growth, split33, suffix reuse and refill\" begin\n        r,d=controlled_pair(spzeros(40,40),collect(40:-1:1))\n        J._ensure_bartels_golub_incidence!(r)\n        for row in 1:32\n            split_assign_pair!(r,d,row,1,Float64(row))\n            b=Int(d.upper.column_head[d.upper.column_order[1]])\n            @test Int(d.upper.capacity[b])==J._sbu_target(row)\n            @test d.upper.next[b]==0\n        end\n        # New empty-column demand must use existing free reserve, no new slab.\n        slabs=d.upper.slabs\n        split_assign_pair!(r,d,1,2,2.0)\n        @test d.upper.slabs==slabs\n        @test d.upper.capacity[d.upper.column_head[d.upper.column_order[2]]]==1\n        split_assign_pair!(r,d,33,1,33.0)\n        @test d.upper.next[d.upper.column_head[d.upper.column_order[1]]]!=0\n        # Deletion can merge blocks; re-growth is not covered by monotone31.\n        for row in 2:2:32;split_assign_pair!(r,d,row,1,0.0);end\n        for row in 2:2:32;split_assign_pair!(r,d,row,1,-Float64(row));end\n        for row in 1:33;split_assign_pair!(r,d,row,1,0.0);end\n        @test d.upper.column_head[d.upper.column_order[1]]==0\n        for row in 1:9;split_assign_pair!(r,d,row,1,Float64(row));end\n    end\n    @testset \"Imported short exact tails and rotations across split extents\" begin\n        # Lengths0/1/3/5/31/32/33 include non-power imported tails.\n        lens=(0,1,3,5,31,32,33);M=spzeros(40,40)\n        for (col,len) in enumerate(lens), row in 1:len;M[row,col]=Float64(row+col);end\n        r,d=controlled_pair(M,collect(40:-1:1));J._ensure_bartels_golub_incidence!(r)\n        @test isequal(packed_tokens(r),split_tokens(d.upper))\n        for col in 1:7\n            split_assign_pair!(r,d,lens[col]+1,col,-Float64(col))\n        end\n        # Use packed incidence rotation, not a dense reference that loses zeros.\n        for (first,last) in ((1,34),(3,18),(1,40))\n            J._rotate_upper_rows!(r.upper,r.row_columns,Int[],zeros(40),first,last,r.positions)\n            J._sbu_rotate_rows!(d.upper,first,last)\n            @test isequal(packed_tokens(r),split_tokens(d.upper))\n            @test _check_split_upper(d.upper)\n        end\n        for col in 1:7\n            split_assign_pair!(r,d,2,col,0.0)\n            split_assign_pair!(r,d,2,col,Float64(col))\n        end\n        # Source/target incidence merge after the physical extents diverge.\n        trace=Int[]\n        for cid in r.row_columns[1]\n            col=r.positions[cid];col<=1 && continue\n            push!(trace,cid);u=r.upper[col];slot,old=J._upper_entry(u,2)\n            J._set_upper_value_at!(r.upper,r.row_columns,col,2,old-J._upper_value(u,1),slot,cid)\n        end\n        observed=Int[];J._sbg_eliminate_row!(d,1,1.0,cid->push!(observed,cid))\n        @test trace==observed\n        @test isequal(packed_tokens(r),split_tokens(d.upper)) && _check_split_upper(d.upper)\n    end\nend\n\n",
+  "call": "    split_allocator_differentials()\n",
+  "sha256": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-bg-split-upper/reproduce/split-bg-tests.jl": "8648df7339227e395f325180162a01652ef0f7203cd3a932f52dc7adbedcde53",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-bg-split-upper/reproduce/fixtures.jl": "835b6e4241705b4c7a6a2625c904999ffe30e90ec99c937d257cbe2a2c289517"
+  },
+  "adapter_absent": true
+}
