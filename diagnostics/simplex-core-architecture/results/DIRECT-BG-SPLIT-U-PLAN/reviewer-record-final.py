@@ -1,0 +1,11 @@
+import hashlib,json,pathlib
+Q=pathlib.Path(__file__).parent
+initial=json.loads((Q/'review-initial.json').read_text())
+amendment=json.loads((Q/'reviewer-amendment-v2.json').read_text())
+assert amendment['all_passed']
+final_bindings=dict(initial['readtime_sha256'])
+for p,b in amendment['bindings'].items():final_bindings[p]=b['after_sha256']
+files=['reviewer-check-v1.py','reviewer-check-v1.json','review-initial.md','review-initial.json','reviewer-record-initial.py','reviewer-amendment-v2.py','reviewer-amendment-v2.json','review.md','reviewer-record-final.py']
+record={'scope':'split free block BG plan','accepted':True,'acceptance_kind':'plan design only','critical':0,'important':0,'minor':0,'findings':[],'resolved_findings':[{'id':'I1','severity':'Important','initial_status':'open','status':'resolved','resolution':'Exactly one spec paragraph and one Task1 paragraph distinguish logical live-state invariants from allowed completed row/descriptor reserve publication; explicit row-reserve-success then split-failure case added.'}],'initial_review':'review-initial.json','final_readtime_sha256':final_bindings,'before_mapping':amendment['bindings'],'evidence_sha256':{p:hashlib.sha256((Q/p).read_bytes()).hexdigest() for p in files+['spec.before-review.md','plan.before-review.md','review-fix.json']},'reviewer_artifacts':files+['review.json'],'independent_checks':[{'source':'reviewer-check-v1.py','output':'reviewer-check-v1.json','passed':10,'scope':'offline arithmetic and saved evidence'},{'source':'reviewer-amendment-v2.py','output':'reviewer-amendment-v2.json','passed':11,'scope':'bounded I1 correction and provenance only'}],'work_memory_verdict':'No unnecessary new production work/memory mechanism found. No production change. Future target/bin/metadata work is bounded locally; growth, relocation, fragmented high-water retention and old/new graph coexistence are explicitly budgeted and must pass fresh whole-lifecycle gates. No speedup or memory-saving acceptance.','no_original_checker_rerun':True,'no_julia_parser_import_compile_or_numerical_run':True,'no_candidate_or_new_fixture':True,'no_further_reviewer_writes':True}
+with (Q/'review.json').open('x') as f:json.dump(record,f,indent=2);f.write('\n')
+print(json.dumps({'accepted':True,'scope':record['scope'],'reviewer_artifacts':record['reviewer_artifacts'],'no_further_reviewer_writes':True}))

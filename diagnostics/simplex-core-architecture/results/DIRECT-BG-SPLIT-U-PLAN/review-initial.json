@@ -1,0 +1,52 @@
+{
+  "scope": "split free block BG plan",
+  "accepted": false,
+  "critical": 0,
+  "important": 1,
+  "minor": 0,
+  "findings": [
+    {
+      "id": "I1",
+      "severity": "Important",
+      "status": "open",
+      "title": "Clarify logical live-state versus backing-identity preservation after reservation failure",
+      "locations": [
+        "spec Correctness, ownership and failure",
+        "plan Task1 descriptor_failure_each_array/append_then_split_failure expectation"
+      ],
+      "required_change": "Allow completed row/descriptor reserve publication to replace backing identities and reciprocal physical row positions, while requiring logical values/order/encoded handles, unique ownership, reciprocal consistency and partition validity; no rollback implementation."
+    }
+  ],
+  "work_memory_verdict": "No unnecessary new production work/memory mechanism found. Explicit target/bin/metadata work and increased partition/relocation costs need future measurement; no new runtime scan/cache/solve or coefficient-copy-on-free-split. No candidate or performance acceptance.",
+  "readtime_sha256": {
+    "AGENTS.md": "648146ccd145178d776319aab53c5f09bf5578806dd53a8d1b440b96511b4232",
+    "docs/superpowers/specs/2026-10-18-direct-bg-split-free-blocks.md": "4a25bf8c68e08bd7bcea4246ddae415edabfc98cc7585f622af10a7f70c3f65e",
+    "docs/superpowers/plans/2026-10-18-direct-bg-split-free-blocks.md": "146e3ac607fc25425d70e8c9369552a869f3dc241986cefc301f7b7682ac976d",
+    "diagnostics/direct-bg-block-upper/reproduce/block-upper.jl": "94529e9b8ed5fb647b210e609708bf8d73db5b260c2a873f6610e0227ac7314c",
+    "diagnostics/direct-bg-block-upper/reproduce/block-bg.jl": "5b6c7bd442c79459e7607e4301e087921196bbd285ccaaa3774fd5b9c918aa4d",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCK-COST-PREPARATION/MEMORY-WORK.md": "4194f810b31be1a06a444e01ad0844d0048612266fd0a060c6e24ed04c733817",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCK-COST-PREPARATION/probe-upper.jl": "d824d8680d0ee4d3dfc065232c0fc5715b2000c0c12ea3db30d41e2cb305d35c",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCK-COST-PREPARATION/probe.jl": "20495f66ea63f34fca5d4801118aa8ee9daa919f9495c468fbbd1a6717d3b632",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCK-COST-PREPARATION/runs/cost1-300/audit.json": "fac55aa554272fd20f3f0f76e8b6f985103c69f2115ce2a1eccf5937a3f2ffbd",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-SPLIT-U-PLAN/author-check.json": "821a9d4464fab9f290181e8b3f1ce6e4912e465ddbf19c6ddf284d1b3c7bcfa7",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-SPLIT-U-PLAN/host.json": "4272f2cfb8e10a45e76d74971f5e128e87be1fca21028057dcd1b09d52db93a4",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCK-COST-QUALIFICATION/REPORT.md": "12d9d6036b6d58cf3f121b41df41f36c3a838e5ab702e5347f1f83d2fe4a4e15",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCK-COST-QUALIFICATION/result-review.md": "96fadd195752233879fb625c631ea0e35b577ef47c84545ed42a94ba60230044",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCK-COST-PREPARATION/runs/cost1-300/output/probe-1.toml": "395a619afb0d8486f1b971872f045e3641d6f9bfa19a39b8c228b43b4527caa5",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCK-COST-PREPARATION/runs/cost1-300/output/probe-5.toml": "e35ffef21ff0852ec0397a130b1d8efed37d5174f4c43b638bb1ba27ecb2bafe"
+  },
+  "evidence_sha256": {
+    "reviewer-check-v1.py": "4a3f1443e6fccd7340f4827b0e3c21cdfef5e366f49181964c2f207f8e3485d6",
+    "reviewer-check-v1.json": "ce80350b27aadfbb53ce48f92f6287177acf50a6718c69944a655fd7bf428ff4",
+    "review-initial.md": "36f01fd02012b5d00e17529aa4e23343a0033aab15952f685105fb28c11e6ca0",
+    "reviewer-record-initial.py": "26ccca011ba1dc9a615b3bc5f4d66c656cf3ae67e36cd6772b7e32289929c418"
+  },
+  "independent_checks": {
+    "passed": 10,
+    "source": "reviewer-check-v1.py",
+    "output": "reviewer-check-v1.json"
+  },
+  "no_julia": true,
+  "no_original_checker_execution": true,
+  "no_candidate": true
+}

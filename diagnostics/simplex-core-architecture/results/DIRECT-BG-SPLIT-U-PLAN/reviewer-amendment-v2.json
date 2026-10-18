@@ -1,0 +1,52 @@
+{
+  "scope": "split free block BG plan",
+  "amendment_scope": "bounded I1 clarification only",
+  "all_passed": true,
+  "checks": {
+    "docs/superpowers/specs/2026-10-18-direct-bg-split-free-blocks.md_before_binding": true,
+    "docs/superpowers/specs/2026-10-18-direct-bg-split-free-blocks.md_after_binding": true,
+    "docs/superpowers/specs/2026-10-18-direct-bg-split-free-blocks.md_single_paragraph_replacement": true,
+    "docs/superpowers/plans/2026-10-18-direct-bg-split-free-blocks.md_before_binding": true,
+    "docs/superpowers/plans/2026-10-18-direct-bg-split-free-blocks.md_after_binding": true,
+    "docs/superpowers/plans/2026-10-18-direct-bg-split-free-blocks.md_single_paragraph_replacement": true,
+    "unchanged_other_initial_read_bindings": true,
+    "unchanged_initial_review_evidence": true,
+    "spec_logical_state_and_reserve_identity": true,
+    "task1_specific_failure_composition": true,
+    "both_keep_free_split_handle_contract": true
+  },
+  "resolved": [
+    "I1"
+  ],
+  "bindings": {
+    "docs/superpowers/specs/2026-10-18-direct-bg-split-free-blocks.md": {
+      "before_path": "diagnostics/simplex-core-architecture/results/DIRECT-BG-SPLIT-U-PLAN/spec.before-review.md",
+      "before_sha256": "4a25bf8c68e08bd7bcea4246ddae415edabfc98cc7585f622af10a7f70c3f65e",
+      "after_sha256": "232bd35983b02ca6f6afe592612f907712cd14bd023de9e20f24fd5556fbe7df"
+    },
+    "docs/superpowers/plans/2026-10-18-direct-bg-split-free-blocks.md": {
+      "before_path": "diagnostics/simplex-core-architecture/results/DIRECT-BG-SPLIT-U-PLAN/plan.before-review.md",
+      "before_sha256": "146e3ac607fc25425d70e8c9369552a869f3dc241986cefc301f7b7682ac976d",
+      "after_sha256": "7c8c3715b674e96359a6ceb36e0ff89a853cbde49530f37d73829c33b36ab56d"
+    }
+  },
+  "exact_diff": {
+    "docs/superpowers/specs/2026-10-18-direct-bg-split-free-blocks.md": "--- diagnostics/simplex-core-architecture/results/DIRECT-BG-SPLIT-U-PLAN/spec.before-review.md\n+++ docs/superpowers/specs/2026-10-18-direct-bg-split-free-blocks.md\n@@ -36,7 +36,7 @@\n \n Preserve numerical multiplication/subtraction/division order, exact zero and signed-zero handling, finite checks, pivot/zero_tolerance, exception behavior, prepared entering+DSE spike provenance, policy/backend/export/normalization, row/column maps, history/cache invalidation and supported precision boundary. Float64/Int private direct BG only, native threshold_one and Markowitz default. No FT/SS/HH/public/indexed/general-precision extension.\n \n-All fallible work precedes free-bin publication. Descriptor growth can publish larger unused metadata; slab append can publish wholly free reserve before a later split-descriptor failure. Such reserve changes are permitted on allocation failure, but live values/order/handles/free partition invariants must remain valid. Failed individual reservation must not detach or lose donor/remainder or expose uninitialized descriptors. Test each seven-array allocation failure and append/directory boundary. Update remains nontransactional after earlier numerical edits; do not use a failed factor until refactor. Full refactor publication and copy isolation retain the old contract.\n+All fallible work precedes free-bin publication. Descriptor growth can publish larger unused metadata; slab append can publish wholly free reserve before a later split-descriptor failure. Such reserve changes are permitted on allocation failure. Logical live values, row/column order, encoded handles, unique ownership and complete partition must remain valid. In inherited insertion, row reserve occurs before block reserve: a completed row or descriptor reserve may replace backing arrays and repair reciprocal physical row positions before a later allocation fails. Their original backing identities and physical positions need not survive; their consistency must survive. The free-split helper itself changes no active extent or row handle. These reservation guarantees apply before numerical mutation, separately from earlier committed numerical edits in a failed update. Failed individual reservation must not detach or lose donor/remainder or expose uninitialized descriptors. Test each seven-array allocation failure and append/directory boundary. Update remains nontransactional after earlier numerical edits; do not use a failed factor until refactor. Full refactor publication and copy isolation retain the old contract.\n \n Structural checks must include sum capacities=C across descriptors1:used; active+free partition; capacity bins exact and acyclic; disjoint slab extents covering all positions; no spare descriptor referenced; active handles offset<=count<=capacity<=32; reciprocal row positions; free cells cleared. No such whole-structure check belongs in production solve/update loops. A future implementation must check local preconditions once and preserve index/overflow rejection before mutation; no blanket bounds-check removal.\n \n",
+    "docs/superpowers/plans/2026-10-18-direct-bg-split-free-blocks.md": "--- diagnostics/simplex-core-architecture/results/DIRECT-BG-SPLIT-U-PLAN/plan.before-review.md\n+++ docs/superpowers/plans/2026-10-18-direct-bg-split-free-blocks.md\n@@ -42,7 +42,7 @@\n \n - [ ] Enumerate UNEXECUTED tests before implementation: `target_classes` asserts1\u21921,2\u21922,3\u21924,4\u21924,5\u21928,16\u219216,17\u219232,32\u219232 and0/33rejection; `donor32_split4` asserts same donor ID,4prefix/28suffix,unchanged C/R/live/active handles and used+1; `exact_fit_no_split` asserts no extra descriptor. Expected offline tree is explicit; no Julia-pass claim.\n - [ ] Add `repeated_four_requests`: one free32extent yields eight4extents, seven remainder descriptors, no coefficient allocation when metadata reserve suffices. `nonpower_bins`: free3 is skipped for target4,free5 splits4+1,free31 splits16+15. `partition_holes` includes arbitrary initial tail offsets/nonidentity q, active/free neighbor extents and no orphan/overlap.\n-- [ ] Add `descriptor_failure_each_array`, `append_then_split_failure`, `handle_offset_limits`: inject each seven-array allocation failure, directory/append failure and synthetic just-over-limit without huge allocation. Assert original live owners/values/order/handles and complete post-failure partition; permit explicitly changed unused reserve. Test failure before split commit and every exact-fit/no-fit path.\n+- [ ] Add `descriptor_failure_each_array`, `append_then_split_failure`, `handle_offset_limits`: inject each seven-array allocation failure, directory/append failure and synthetic just-over-limit without huge allocation. Assert preserved logical live values, row/column order, encoded handles, unique ownership and complete post-failure partition. Permit completed row/descriptor reserve publication to replace backing identities and repair reciprocal physical row positions, provided their consistency remains valid; permit explicitly changed unused reserve. Include row reserve success followed by split allocation failure. The free-split helper itself changes no active extent or row handle; do not demand backing-identity rollback or confuse this with earlier committed numerical edits in a failed update. Test failure before split commit and every exact-fit/no-fit path.\n - [ ] Add `relocation_keep_handle`, `copy_independence`, `fragmented_exhaustion`, `delete_merge_refill`, `monotone_fill_to32`, `split33_boundary` and inherited structural cases. Check all invariants after every primitive; descriptor count<=C,spare K not referenced,free cells cleared,one outstanding reserve then take. Repeatedfill tests count actual metadata growth/copy/clearing, not just moved live tuples.\n - [ ] Prepare separate candidate text with exact helper/type renames. Change only target/free reservation logic and required test oracle additions; preserve all numeric/storage primitives otherwise byte-inverse. Split metadata only after all fallible reserve/checks, using one new positive descriptor and original bins. No persistent reservation object, free descriptor stack or extra struct fields.\n - [ ] Create explicit source inverse and memory/work ledger: P formula plus actual backing/header/outer pointer cost,used/C/K bounds,one-split versus geometric growth costs,fragmentation/coexistence,old+new copy/refactor graphs. Compute bounded sequence predictions without executing Julia. Expected: no unsupported live-memory or guaranteed speedup claim; no omitted headers/temporary metadata.\n"
+  },
+  "evidence_sha256": {
+    "review-initial.md": "36f01fd02012b5d00e17529aa4e23343a0033aab15952f685105fb28c11e6ca0",
+    "review-initial.json": "2a0a9193ca555fac73af85eb8f8f322527d2716e11cf9c78f3863eba9672cee2",
+    "reviewer-check-v1.py": "4a3f1443e6fccd7340f4827b0e3c21cdfef5e366f49181964c2f207f8e3485d6",
+    "reviewer-check-v1.json": "ce80350b27aadfbb53ce48f92f6287177acf50a6718c69944a655fd7bf428ff4",
+    "reviewer-record-initial.py": "26ccca011ba1dc9a615b3bc5f4d66c656cf3ae67e36cd6772b7e32289929c418",
+    "author-check.json": "821a9d4464fab9f290181e8b3f1ce6e4912e465ddbf19c6ddf284d1b3c7bcfa7",
+    "host.json": "4272f2cfb8e10a45e76d74971f5e128e87be1fca21028057dcd1b09d52db93a4",
+    "spec.before-review.md": "4a25bf8c68e08bd7bcea4246ddae415edabfc98cc7585f622af10a7f70c3f65e",
+    "plan.before-review.md": "146e3ac607fc25425d70e8c9369552a869f3dc241986cefc301f7b7682ac976d",
+    "review-fix.json": "231b3a9c8c9cff6c0e9488d85a671b8a4dff31b163a9e73355eb184f3e01fb8c",
+    "reviewer-amendment-v2.py": "f32df3bab1c4f3d1d485e90da3be52c29ed766b02595e914a9889a86bbedc587"
+  },
+  "no_original_check_rerun": true,
+  "no_julia_or_candidate": true
+}
