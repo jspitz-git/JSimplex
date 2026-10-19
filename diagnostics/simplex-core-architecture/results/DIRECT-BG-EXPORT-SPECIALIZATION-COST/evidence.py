@@ -1,0 +1,109 @@
+"""New saved-data verifier for BG export-workspace cost; no Julia."""
+from pathlib import Path
+import tomllib,json,re,math
+from analysis import *
+import record_schema as schema
+
+def read(p):return tomllib.loads(Path(p).read_text())
+def expected_names():
+ return {'pins.json','current.json','process.json','resources.jsonl','run.log','raw.toml','controls.toml'}|{f'{k}-{i}.toml' for i in range(1,9) for k in ('started','preflight','probe','cell')}|{f'window-{i}-{j}.toml' for i in range(1,9) for j in range(1,21)}
+def nonnegative_int(x):return type(x) is int and x>=0
+def cache(v):
+ require(set(v)==set('present dimension charge limit seen_bytes orientation_bytes graph_bytes'.split()),'Cache schema')
+ require(type(v['present']) is bool and all(nonnegative_int(v[k]) for k in v if k!='present'),'Cache types')
+ if not v['present']:require(all(v[k]==0 for k in v if k!='present'),'Absent cache')
+ else:
+  require(v['charge']==512+v['seen_bytes']+v['orientation_bytes']<=v['limit']<=1048576,'Charge bound')
+  require(v['seen_bytes'] in (0,8*((v['dimension']+63)//64)) and v['orientation_bytes'] in (0,32*v['dimension']) and v['graph_bytes']>0,'Cache size')
+def counters(v):
+ names=set('allocation_requests requested_payload factorizations extractions orientation_solves orientation_products triangle_checks permutation_checks normalized_stores raw_stores fallback_stores index_stores refactor_entries'.split())
+ require(set(v)==names and all(nonnegative_int(x) for x in v.values()),'Counter schema')
+ require(v['orientation_products']<=4*v['orientation_solves'],'Orientation work')
+ require(v['normalized_stores']+v['raw_stores']<=v['index_stores'] and v['fallback_stores']<=v['index_stores'],'Import stores')
+def probe_ok(v,f,matrices,backend):
+ schema.probe(v);counters(v['counts'])
+ require(v['inputs_unchanged'] is True,'Probe inputs')
+ for k,n in dict(constructions=3,refactors=6,updates=24,ftran=48,btran=24,copies=0).items():require(v[k]==n,'Probe work '+k)
+ expected=[(0,False)]+[(k,b) for k in range(1,9) for b in ([False,True] if k in (4,8) else [False])]
+ require(len(v['states'])==11,'Probe checkpoints');prev=None
+ for s,(k,b) in zip(v['states'],expected):
+  require(s['step']==k and s['refactored'] is b and s['equal'] is True,'Checkpoint identity')
+  require(len(s['graphs'])==3 and all(type(x) is int and x>0 for x in s['graphs']),'Graph sizes')
+  cache(s['cache']);cache(s['probe_cache']);counters(s['counts'])
+  require(s['cache']==s['probe_cache'],'Probe cache inverse')
+  if prev:require(all(s['counts'][key]>=prev['counts'][key] for key in s['counts']) and s['coexistence_graph_peak']>=prev['coexistence_graph_peak'],'Monotone probe')
+  require(s['coexistence_graph_peak']>0,'Coexistence graph');prev=s
+ require(v['counts']==prev['counts'] and v['coexistence_graph_peak']==prev['coexistence_graph_peak'],'Final counters')
+ require(v['counts']['factorizations']==v['counts']['extractions']==3 and v['counts']['refactor_entries']==2,'Probe entry budget')
+ require(v['counts']['orientation_solves']<=3 and (backend!='markowitz' or v['counts']['orientation_solves']==0),'Backend orientation entries')
+ require(v['cache_charge_sum']==sum(s['cache']['charge'] for s in v['states']) and v['cache_charge_peak']==max(s['cache']['charge'] for s in v['states']),'Cache aggregates')
+ require(len(v['outputs'])==3 and all(len(side)==24 for side in v['outputs']) and v['outputs'][0]==v['outputs'][1]==v['outputs'][2],'Probe exact paired bits')
+ for k,step in enumerate(f['steps']):
+  for side in v['outputs']:
+   require(residual(matrices[k][0],side[3*k],step['a']) and residual(matrices[k][0],side[3*k+1],step['dse']) and residual(matrices[k+1][1],side[3*k+2],step['unit']),'Probe exact residual')
+ return all(10*s['graphs'][i]<=11*s['graphs'][0] for s in v['states'] for i in (1,2))
+def control_ok(v):
+ schema.controls(v)
+ require(v['complete'] is True and v['inputs_unchanged'] is True,'Controls complete/inputs')
+ for k,n in dict(orientation_synthetic_calls=1,orientation_requests=2,orientation_payload=64,constructions=4,copies=4,refactors=12,explicit_solves=0).items():require(v[k]==n,'Control work '+k)
+ require([x['name'] for x in v['imports']]==['normalize_false','reject_first','reject_last'],'Import controls')
+ for z,normalized,raw,fallback in zip(v['imports'],(0,1,4),(6,0,0),(0,6,6)):
+  require(z['correct'] is True and z['u']==6,'Import result');counters(z['counts'])
+  for k,n in dict(normalized_stores=normalized,raw_stores=raw,fallback_stores=fallback,index_stores=6,factorizations=0,extractions=0,orientation_solves=0,refactor_entries=0).items():require(z['counts'][k]==n,'Import control '+k)
+ require([x['backend'] for x in v['transitions']]==['native','markowitz'],'Transition identities')
+ for x in v['transitions']:
+  for k,n in dict(constructions=2,copies=2,refactors=6,explicit_solves=0).items():require(x[k]==n,'Transition work')
+  require([s['name'] for s in x['states']]==['same_shape','large_to_small'],'Transition names')
+  for s in x['states']:
+   cache(s['cache']);require(len(s['graphs'])==2 and all(type(t) is int and t>0 for t in s['graphs']) and s['coexistence_graph']>0,'Transition graphs')
+  cache(x['copy_cache'])
+def preflight_ok(pre,backend,policy):
+ require(set(pre)==set('reference candidate modes inputs_unchanged constructions refactors explicit_solves'.split()),'Preflight schema')
+ require(pre['inputs_unchanged'] is True and all(type(pre[k]) is int and pre[k]==n for k,n in dict(constructions=2,refactors=4,explicit_solves=0).items()),'Preflight work')
+ require(len(pre['reference'])==len(pre['candidate'])==len(pre['modes'])==3 and all(m in ('normalized','direct','fallback') for m in pre['modes']),'Preflight schedule')
+ for a,b in zip(pre['reference'],pre['candidate']):
+  require(set(a)==set(b)==set('kind policy control expected_control strategy'.split()) and a==b and a['kind']==backend and a['policy']==policy,'Actual paired control')
+  if backend=='native':
+   require(len(a['control'])==20 and a['control']==a['expected_control'],'Native controls')
+   vals=[number(x) for x in a['control']];require(vals[3]==1 and vals[7]==0,'Actual native pivot/IR controls');number(a['strategy'])
+  else:require(a['control']==a['expected_control']==[] and a['strategy']=='','Markowitz control')
+def output_checks(out,cfg,partial=False):
+ out=Path(out);names={p.name for p in out.iterdir()};BASE={'pins.json','current.json','process.json','resources.jsonl','run.log'}
+ require(BASE<=names<=expected_names() and all(p.is_file() and not p.is_symlink() for p in out.iterdir()),'Output membership/type')
+ if not partial:require(names==expected_names(),'Exact complete output membership')
+ D=out.parents[2];fixtures=json.loads((D/'inputs.json').read_text())['fixtures'];loaded=json.loads((D/'loaded-paths.json').read_text());loaded['JSimplex']=str(Path(cfg['stage'])/'src/JSimplex.jl')
+ visited=set();results=[];idx=0;finished=0;windows=0;probes=0
+ if 'controls.toml' in names:control_ok(read(out/'controls.toml'));visited.add('controls.toml')
+ else:require(not any(n.startswith('started-') for n in names),'Cells before controls')
+ for f in fixtures:
+  matrices=[(matrix(m),matrix(m,True)) for m in f['matrices']]
+  for backend in ('native','markowitz'):
+   idx+=1;start=f'started-{idx}.toml';pre_name=f'preflight-{idx}.toml';probe_name=f'probe-{idx}.toml';end=f'cell-{idx}.toml'
+   if start not in names:continue
+   require(idx==finished+1,'Sequential cell prefix');visited.add(start)
+   identity=dict(fixture=f['name'],manager='BG',backend=backend,policy='threshold_one' if backend=='native' else 'default')
+   require(read(out/start)==identity,'Cell identity')
+   if pre_name not in names:continue
+   pre=read(out/pre_name);preflight_ok(pre,backend,identity['policy']);visited.add(pre_name)
+   if probe_name not in names:continue
+   p=read(out/probe_name);memory=probe_ok(p,f,matrices,backend);visited.add(probe_name);probes+=1;rows=[]
+   for w in range(1,21):
+    name=f'window-{idx}-{w}.toml'
+    if name not in names:break
+    row=read(out/name);require(row['policy']==identity['policy'],'Policy');window_ok(row,f,cfg['process'],(w+1)//2,1+(w-1)%2,matrices);rows.append(row);visited.add(name);windows+=1
+   for pair in range(1,len(rows)//2+1):
+    a,b=rows[2*(pair-1):2*pair];require(a['outputs']==b['outputs'] and a['modes']==b['modes']==pre['modes'],'Paired exact outputs/modes')
+   if end in names:
+    ended=read(out/end);schema.cell(ended)
+    require(len(rows)==20 and ended==dict(identity,windows=20),'Complete cell');visited.add(end);finished+=1
+    st=summarize(rows);st['probe_memory_gate']=memory
+    st['memory_gate']=st['memory_gate'] and memory and all(10*{r['side']:r for r in rows if r['pair']==pair}['candidate']['retained_bytes']<=11*{r['side']:r for r in rows if r['pair']==pair}['reference']['retained_bytes'] for pair in range(1,11))
+    results.append(dict(identity,statistics=st,probe_counts=p['counts'],cache_charge_sum=p['cache_charge_sum'],cache_charge_peak=p['cache_charge_peak'],coexistence_graph_peak=p['coexistence_graph_peak']))
+ require(visited==names-BASE-{'raw.toml'},'No unvalidated/nonprefix artifacts')
+ if partial:require('raw.toml' not in names and (finished<8 or windows<160),'Complete or malformed raw is not timeout')
+ else:
+  raw=read(out/'raw.toml');schema.raw(raw);require(raw==dict(phase=cfg['phase'],loaded=loaded,completed=True,fatal='',cells=8,windows=160,threads=1,blas_threads=1),'Complete raw')
+  require(all(type(raw[k]) is int for k in ('cells','windows','threads','blas_threads')) and finished==8 and windows==160,'Complete schedule types')
+ return results,dict(cells=finished,windows=windows,window_outputs=24*windows,probe_outputs=72*probes)
+def timeout_ok(p,sup,log,elapsed,limit):
+ return (type(p.get('returncode')) is int and type(sup.get('returncode')) is int and all(type(sup.get(k)) is bool for k in ['soft_timeout','hard_timeout','child_kill','guard_term','guard_kill','accepted']) and p.get('reason')=='wall_time' and p.get('returncode') in (-15,-9) and p.get('pins_unchanged') is True and sup.get('returncode')==1 and sup.get('soft_timeout') is False and sup.get('accepted') is False and not sup.get('hard_timeout') and not sup.get('child_kill') and not sup.get('guard_term') and not sup.get('guard_kill') and 'cleanup_error' not in sup and finite_nonnegative(elapsed) and elapsed<=limit and not re.search(r'warning|world[ -]age',log,re.I) and 'BEGIN BG export workspace cost ' in log and not any(x in log for x in ['FATAL COST:','ERROR:','TEST FAILURE:','Traceback','Measured compilation; stop','WARNING:','Warning:','world age']))
