@@ -1,0 +1,73 @@
+# Independent first Task3 cost result review
+
+Scope: **BG specialized export cost result**, phase **cost1-300**. **Diagnostic correctness/integrity accepted; findings=[]**. **first_process_viable=false; qualification_accepted=false.** The fixed ALL-EIGHT performance requirement failed. Stop this candidate/design: no reversed-order or longer process, retuning, omitted sample or production promotion. This receipt accepts the result as valid evidence, not the proposed performance qualification.
+
+The new `result-check.py`, saved before execution, passed **51,088 checks** on its first execution. It independently reconstructed complete membership, source inverses, schedule, paired statistics and **4,416 exact-rational residual checks** (3,840 window outputs and 576 probe outputs). Only pure schema/cache/counter/preflight/control definitions were reused; the operational auditor and all old checkers were never executed. No Julia, compiler query, new numerical experiment or 44 malformed-test rerun occurred. The separate final checker only reread hashes and host identities before publishing this report and receipt.
+
+## Exact binding and launch evidence
+
+Fresh hashes cover admission **2,618 primary + nine evidence**, sealed **2,617**, launch **2,622**, canonical preparation **2,609**, preparation review **2,610 + three evidence**, runtime **609**, the actual **87-file** stage, and diagnostic/production baseline **514/516** files. The stage preserves all **83 GREEN files**, with four source-inverse probes and four corresponding root includes. The accepted GREEN predecessor retains **81 RUN +24 evidence +eight external-closure bindings** and its matching successful outcome identity. The saved once-only auditor binds **209** files; the external closure binds exactly **eight**. The result receipt binds every **211 RUN files** except itself, plus this checker/report and cited evidence.
+
+The independent union of preparation/review/predecessor/host/config/outer-ready paths equals the sealed inventory exactly. The exact command uses the frozen wrapper, `--compiled-modules=existing --threads=1 --gcthreads=1,0 --heap-size-hint=2G`, this 87-file project, frozen cost driver and cost1-300 output destination. The guard command is exactly 292 seconds under the 300-second inclusive supervisor; inherited VM8GiB and resource limits remain intact. Admission environment evidence and all runtime/script pins are unchanged. One strict Boolean release and one exclusive reservation link the same seal/admission/ready/launcher hashes; there is only one run/outer phase.
+
+Outer PID=PGID=SID **140961**, start_ticks **11823805**; runner **141585/11858135** and child **141586/11858210** retain their exact linked boot/start/command records. Exit was **0**, reason **exit0**, all timeout/kill/intervention flags false. Guard elapsed **15.734074278007029 s**, supervisor **16.534495189989684 s**, outer including immutable checks/auditor **46.75977760500973 s**. These durations include different scopes and are not warmed lifecycle times.
+
+The new host scan and a second immediate pre-receipt scan found all **268 prior/new PGIDs AND sessions absent**, no visible Julia and no unreadable process identities. HEAD/remote diagnostic remain `e149671cd2c9560ae2a91b80614d36799b845240`; master/remote master and production HEAD remain `26e2291745999f485a74f643298ca997d65c7205`; boot remains `1ecae454-f1f5-4e2e-a95c-7b5474243126`. Tracked worktree/index are clean. Inaccessible executable links are explicitly recorded in both scans as a visibility limitation.
+
+## Numerical and source assessment
+
+All **199 output artifacts**, eight cells, **160 windows/112 measured**, three warm plus seven measured alternating pairs, exact loaded paths, actual native threshold_one/Markowitz default controls, input binary tokens, modes, paired output bits and residual bounds passed. Each solution was checked against the unchanged `128*n*eps(Float64)*max(1, ||M||inf*||x||inf, ||rhs||inf)` criterion using exact arithmetic on its stored Float64 bits. All warm/measured final-factor graphs and all 11 checkpoint graphs per probe satisfy the fixed 1.10 reference bound. Final probe counters use strict integer schemas, excluding Boolean/float values, before equality; preserved 13,235-check preparation evidence includes all 21+23 malformed rejections and was hash-verified without rerunning it.
+
+Full-file candidate inverses recover the old workspace sources byte-for-byte; the four probe inverses recover the specialized candidate. Arbitrary callable hooks follow one facade into the original core body in the original factorize/export/import/make_inner/check_inner order. Exceptions and failure prefixes are preserved. Native nonunit scaling retains its original solve, four products, finite/positive/permutation/triangle/tolerance checks; all-unit/empty and Markowitz paths retain their branches. Private refactor builds retain the active inner until mandatory type validation and one publication; failures can drop workspace while preserving active state, busy handling and independently saved copies. Checked budgets, exact-shape scratch reuse/eviction, and complete raw-bit refill after partial normalization rejection remain unchanged. The importer controls preserve six raw stores without normalization and six fallback stores after first/last rejection. Accepted GREEN tests remain relevant bound prior evidence, not a newly executed test suite. Scope is Float64/Int DIRECT BG; no conclusion extends to other precisions or production routing.
+
+## Measured costs
+
+Time ratios below are medians of seven paired C/R ratios, not ratios of side medians. Allocation and graph entries are side medians; every individual warm/measured/probe graph was also checked. All eight allocation and memory gates pass; only sparse32/native and sparse32/Markowitz meet time <=0.95. Dense32/Markowitz also misses the >=3/7 faster condition.
+
+| Fixture/backend | Paired time median (min–max) | Bytes R → C (delta) | Events R → C (delta) | Factor graph R → C (delta bytes) | Faster | Time gate |
+|---|---:|---:|---:|---:|---:|---|
+| sparse32/native | 0.9260869565 (0.740925–1.258123) | 294,552 → 291,960 (-2,592) | 1,274 → 1,263 (-11) | 11,568 → 11,592 (+24) | 5/7 | True |
+| sparse32/markowitz | 0.9493783304 (0.747853–1.159509) | 273,376 → 270,864 (-2,512) | 3,848 → 3,837 (-11) | 11,488 → 11,512 (+24) | 5/7 | True |
+| dense32/native | 1.0070627337 (0.678314–1.090433) | 755,584 → 742,152 (-13,432) | 1,282 → 1,263 (-19) | 25,696 → 25,824 (+128) | 3/7 | False |
+| dense32/markowitz | 1.0512000000 (0.973236–2.000000) | 349,712 → 336,280 (-13,432) | 1,132 → 1,113 (-19) | 25,696 → 25,824 (+128) | 2/7 | False |
+| sparse96/native | 0.9657123835 (0.883589–1.076386) | 663,592 → 657,080 (-6,512) | 2,513 → 2,498 (-15) | 32,208 → 32,344 (+136) | 4/7 | False |
+| sparse96/markowitz | 0.9788092836 (0.855471–1.846722) | 770,216 → 764,248 (-5,968) | 10,571 → 10,560 (-11) | 31,808 → 31,832 (+24) | 4/7 | False |
+| dense96/native | 0.9735784314 (0.057855–48.847753) | 4,682,296 → 4,563,024 (-119,272) | 2,785 → 2,751 (-34) | 173,152 → 176,552 (+3,400) | 5/7 | False |
+| dense96/markowitz | 1.0017126807 (0.149862–1.110788) | 2,598,264 → 2,485,728 (-112,536) | 2,635 → 2,616 (-19) | 173,152 → 173,288 (+136) | 3/7 | False |
+
+All seven ratios, side values, MAD/ranges, six nested timer series, GC and compilation values match the saved auditor exactly and remain in `result-check.json` and raw records. All **112 measured compile/recompile values are zero**; the 48 warm-window timer values are also zero. Compilation/setup outside these timers is not proven absent, and process/outer durations remain separate. Nested clocks are subsets of whole lifecycle time, never subtracted from it to invent pure-kernel savings.
+
+Exactly three measured windows have positive recorded GC time. Dense96/native reference pair7 (window7-13) is **0.037355701 s**, GC **0.028239001 s**, with constructor nested time **0.035545601 s**, **2,887 events/4,683,688 bytes**; candidate pair10 (window7-19) is **0.098242601 s**, GC **0.095317901 s**, with second-refactor time **0.096461601 s**, **2,833 events/4,564,304 bytes**. Their paired ratios are respectively **0.057854623046693726** and **48.84775308273667**. Dense96/Markowitz reference pair6 (window8-12) is **0.013756 s**, GC **0.0115519 s**, constructor **0.0123265 s**, **2,649 events/2,598,488 bytes**, paired ratio **0.14986187845303867**. These are correlations visible in the recorded clocks/counters; they do not identify a particular allocation site or a complete GC cause. Every sample remains included; no posthoc GC adjustment, removal or explicit-GC change was made. Task2 GC preparation is not generalized to Task3.
+
+This is one short process with seven measured pairs per cell, substantial dispersion and no reversed-order replication. Event/byte reductions do not establish elimination of specific boxes, observer neutrality, a universal speedup or public/end-to-end solver benefit. No new profile or compiler observation was performed.
+
+## Work and retained-memory assessment
+
+**No unnecessary NEW production computational work, allocation or retained-memory cost was found.** Production files are unchanged; the isolated specialization preserves the original algorithmic bodies and array request order, with no new full-vector/matrix scan, basis solve, copy, conversion, numerical invariant check or retained field. The changed facade/core specialization can affect code storage and compilation; those are not established as free by this run. Existing export validation scales with n+l+u, importer traversal with n+u, native nonunit orientation with scans/products plus its original basis solve, and update costs with retained update-chain length. Exact cache invalidation and saved-copy ownership remain required. The observed retained graph increases (24–3,400 bytes) belong to the existing candidate representation/cache; all remain below the fixed cap and are not hidden or called zero retention.
+
+Complete schedule: **204 constructors, 412 refactors, 1,472 updates, 2,944 FTRAN, 1,472 BTRAN, four copies**, plus one synthetic orientation and three importer controls. Timed windows contribute160/320/1280/2560/1280 entries; policy preflights16 constructions/32 refactors; probes24/48/192/384/192; transitions4 constructions/12 refactors/four copies. These source-derived API totals exclude backend internal factorization/update work and fallback copying. The native orientation bound is up to308 genuine solves; it is not a complete observed native counter.
+
+Observed instrumented-clone totals across eight probes: **3,223 allocation requests/631,520 requested payload bytes; 24 factorization and24 extraction entries;12 orientation solves/48 products;48 triangle and48 permutation checks;32,931 index and32,931 normalized stores;zero raw/fallback stores;16 refactor entries**. Counters count attempts only in the private probe clone, not all three probe factors, timed paths or hidden native internals. The synthetic orientation separately requests two vectors/64 payload bytes; importer controls add29 requests/768 payload bytes,18 index stores, five normalized stores, six raw and12 fallback stores. These are source-operation/request counters, not GC event counts.
+
+| Probe fixture/backend | Requests / payload bytes | Private coexistence graph peak | Sampled cache charge sum / peak |
+|---|---:|---:|---:|
+| sparse32/native | 219 / 12,248 | 44,176 | 0 / 0 |
+| sparse32/markowitz | 207 / 9,096 | 79,302 | 0 / 0 |
+| dense32/native | 217 / 33,800 | 100,160 | 5,720 / 520 |
+| dense32/markowitz | 205 / 30,728 | 91,616 | 5,720 / 520 |
+| sparse96/native | 602 / 36,864 | 126,016 | 3,168 / 528 |
+| sparse96/markowitz | 591 / 26,448 | 231,708 | 0 / 0 |
+| dense96/native | 593 / 242,704 | 700,400 | 39,600 / 3,600 |
+| dense96/markowitz | 589 / 239,632 | 621,120 | 5,808 / 528 |
+
+Policy charge remains `512+8*ceil(n/64)`, optionally `32*n`, bounded by `min(1MiB,floor((16*(l+u)+8*(n+1))/16))`. Sampled charge sums are not simultaneous memory. Checkpoints retain the last refactor/import budget during updates; dimension/budget changes drop incompatible scratch. Dense96→dense32 transitions reduce candidate graphs from176,552→25,824 native and173,288→25,824 Markowitz, with combined source/copy graphs695,920→397,736 and692,656→397,736 respectively. Saved copies remain independent and initially cache-empty. Private coexistence seam graphs include old/new/backend/export owners reachable at that sample; they are not universal peaks or hidden native heap accounting.
+
+The harness uses identical six-clock and whole-result capture on both sides, with 24*n output destinations outside timing (maximum18,432 bytes) and the same final-factor graph/residual/input checks outside timing. Probe state materialization, three-factor graphs,13-counter dictionaries and serialized output are untimed diagnostic overhead; maximum probe numeric destinations are55,296 bytes. Cold Python hashing scales with pinned bytes, residual checking with stored sparse rows/outputs, and report construction with saved records. None enters the measured Julia windows or retains data in a production factor.
+
+Resource evidence has **15 samples**, minimum available RAM **22,077,120 KiB**, maximum swap **0 KiB**, child maximum RSS **834,532 KiB** and terminal available RAM22,755,160 KiB. Reachable Julia graph sizes, aggregate GC allocation traffic, policy charges and whole-process RSS describe different things. They cannot establish total native allocations/frees, lifetime balance, constant native retention or a universal peak.
+
+## Evidence and disposition
+
+Primary supporting sources are `cost.jl`, `probe.jl`, candidate `source-inverse.json` and four source files, `probe-inverse.json`, actual `stages.json`, `MEMORY-WORK.md`, `ADMISSION.md`, `FINAL.md`, `FINAL-COUNTER-FIX.md`, accepted `review-final.md/json`, the exact sealed/launch/runtime/outer records, raw TOML windows/probes/controls, and `RESULT.md`/`postcheck.py/json`. The plan/spec at `docs/superpowers/{plans,specs}/2026-10-19-direct-bg-export-specialization.md` and repository `AGENTS.md` define the numerical and work/memory obligations. All cited local evidence, this report, the fresh checker/results and finalizer source/result are hash-bound in `RUN/result-review.json`. Frozen initial/intermediate rejection evidence and all raw anomalies remain unchanged.
+
+The numerical result is accepted as valid saved evidence. The fixed all-eight first-process cost gate is rejected and two-process qualification was not achieved. No second/longer run, candidate/source edit, commit or push was performed by this reviewer.

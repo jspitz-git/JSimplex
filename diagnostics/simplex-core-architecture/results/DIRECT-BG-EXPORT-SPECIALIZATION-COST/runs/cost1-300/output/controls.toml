@@ -1,0 +1,152 @@
+copies = 4
+orientation_payload = 64
+constructions = 4
+explicit_solves = 0
+refactors = 12
+inputs_unchanged = true
+orientation_requests = 2
+complete = true
+orientation_synthetic_calls = 1
+
+[[transitions]]
+copies = 2
+refactors = 6
+explicit_solves = 0
+backend = "native"
+constructions = 2
+
+    [transitions.copy_cache]
+    charge = 3600
+    seen_bytes = 16
+    present = true
+    dimension = 96
+    graph_bytes = 3376
+    orientation_bytes = 3072
+    limit = 9360
+
+    [[transitions.states]]
+    graphs = [173152, 176552]
+    coexistence_graph = 695920
+    name = "same_shape"
+
+        [transitions.states.cache]
+        charge = 3600
+        seen_bytes = 16
+        present = true
+        dimension = 96
+        graph_bytes = 3376
+        orientation_bytes = 3072
+        limit = 9360
+    [[transitions.states]]
+    graphs = [25696, 25824]
+    coexistence_graph = 397736
+    name = "large_to_small"
+
+        [transitions.states.cache]
+        charge = 520
+        seen_bytes = 8
+        present = true
+        dimension = 32
+        graph_bytes = 104
+        orientation_bytes = 0
+        limit = 1072
+[[transitions]]
+copies = 2
+refactors = 6
+explicit_solves = 0
+backend = "markowitz"
+constructions = 2
+
+    [transitions.copy_cache]
+    charge = 528
+    seen_bytes = 16
+    present = true
+    dimension = 96
+    graph_bytes = 112
+    orientation_bytes = 0
+    limit = 9360
+
+    [[transitions.states]]
+    graphs = [173152, 173288]
+    coexistence_graph = 692656
+    name = "same_shape"
+
+        [transitions.states.cache]
+        charge = 528
+        seen_bytes = 16
+        present = true
+        dimension = 96
+        graph_bytes = 112
+        orientation_bytes = 0
+        limit = 9360
+    [[transitions.states]]
+    graphs = [25696, 25824]
+    coexistence_graph = 397736
+    name = "large_to_small"
+
+        [transitions.states.cache]
+        charge = 520
+        seen_bytes = 8
+        present = true
+        dimension = 32
+        graph_bytes = 104
+        orientation_bytes = 0
+        limit = 1072
+
+[[imports]]
+name = "normalize_false"
+correct = true
+u = 6
+
+    [imports.counts]
+    orientation_products = 0
+    triangle_checks = 0
+    normalized_stores = 0
+    requested_payload = 240
+    extractions = 0
+    index_stores = 6
+    raw_stores = 6
+    permutation_checks = 0
+    factorizations = 0
+    fallback_stores = 0
+    refactor_entries = 0
+    allocation_requests = 9
+    orientation_solves = 0
+[[imports]]
+name = "reject_first"
+correct = true
+u = 6
+
+    [imports.counts]
+    orientation_products = 0
+    triangle_checks = 0
+    normalized_stores = 1
+    requested_payload = 264
+    extractions = 0
+    index_stores = 6
+    raw_stores = 0
+    permutation_checks = 0
+    factorizations = 0
+    fallback_stores = 6
+    refactor_entries = 0
+    allocation_requests = 10
+    orientation_solves = 0
+[[imports]]
+name = "reject_last"
+correct = true
+u = 6
+
+    [imports.counts]
+    orientation_products = 0
+    triangle_checks = 0
+    normalized_stores = 4
+    requested_payload = 264
+    extractions = 0
+    index_stores = 6
+    raw_stores = 0
+    permutation_checks = 0
+    factorizations = 0
+    fallback_stores = 6
+    refactor_entries = 0
+    allocation_requests = 10
+    orientation_solves = 0
