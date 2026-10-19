@@ -1,0 +1,15 @@
+{
+  "identity": {
+    "pid": 214974,
+    "pgid": 214974,
+    "sid": 214974,
+    "start_ticks": 14546623,
+    "boot_id": "1ecae454-f1f5-4e2e-a95c-7b5474243126",
+    "command": "/usr/bin/python3 -B /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/outer.py red1800 "
+  },
+  "launched": true,
+  "returncode": 2,
+  "error": "Traceback (most recent call last):\n  File \"/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/outer.py\", line 34, in main\n    runpy.run_path(str(D/'launch.py'),run_name='__main__')\n    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<frozen runpy>\", line 287, in run_path\n  File \"<frozen runpy>\", line 98, in _run_module_code\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/launch.py\", line 34, in <module>\n    if __name__=='__main__':main(sys.argv[1])\n                            ~~~~^^^^^^^^^^^^^\n  File \"/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/launch.py\", line 33, in main\n    require(audit(phase)['all_passed'],'Failed attempt preserved; no automatic retry; any longer phase needs separate driver/admission amendment')\n    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/control.py\", line 14, in require\n    if not v:raise RuntimeError(m)\n             ^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: Failed attempt preserved; no automatic retry; any longer phase needs separate driver/admission amendment\n",
+  "elapsed_with_checks_seconds": 786.0320456170011,
+  "scope": "Outer time includes immutable pre/post checks and auditor; not benchmark or numerical guard duration"
+}

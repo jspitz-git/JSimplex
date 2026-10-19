@@ -1,0 +1,394 @@
+{
+  "all_passed": true,
+  "qualification_accepted": false,
+  "pure_timeout_qualification_proven": false,
+  "checks": {
+    "failed_admitted_audit_preserved": true,
+    "admission_exact_bindings": true,
+    "sealed_inventory_unchanged": true,
+    "launch_inventory_unchanged": true,
+    "segfault_not_expected_RED_exit": true,
+    "no_timeout_or_termination": true,
+    "elapsed_below_limits": true,
+    "external_closure": true,
+    "full292groups_sessions_closed": true,
+    "exact27_payload_prefix": true,
+    "source_bound_saved_prefix": true,
+    "only_two_expectedN026": true,
+    "panel_P011_zero_and_preservation_PASS": true,
+    "15_saved_costs": true,
+    "interrupted_dense256_native": true,
+    "OOM_before_finalizer_SIGSEGV": true,
+    "no_full_raw_or_acceptedRED": true,
+    "availableRAM_swap_guards_held": true,
+    "sampled_VM_peak_reached8GiB": true,
+    "source_RLIMIT_AS8GiB": true,
+    "old_timeout_evidence_unchanged": true
+  },
+  "completed_units": [
+    {
+      "index": 1,
+      "name": "panel",
+      "totals": [
+        11768,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 2,
+      "name": "lifecycle",
+      "totals": [
+        1451,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 3,
+      "name": "sparse32/native",
+      "totals": [
+        1025,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 4,
+      "name": "sparse32/markowitz",
+      "totals": [
+        1025,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 5,
+      "name": "dense32/native",
+      "totals": [
+        1221,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 6,
+      "name": "dense32/markowitz",
+      "totals": [
+        1221,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 7,
+      "name": "sparse96/native",
+      "totals": [
+        3771,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 8,
+      "name": "sparse96/markowitz",
+      "totals": [
+        3771,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 9,
+      "name": "dense96/native",
+      "totals": [
+        3770,
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 10,
+      "name": "dense96/markowitz",
+      "totals": [
+        3770,
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 11,
+      "name": "sparse256/native",
+      "totals": [
+        11451,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "index": 12,
+      "name": "sparse256/markowitz",
+      "totals": [
+        11451,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "saved_prefix_totals": [
+    55695,
+    2,
+    0,
+    0
+  ],
+  "failures": [
+    {
+      "unit": "dense96/native",
+      "detail": "Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/numerical-tests.jl:163\n  Expression: $(Expr(:escape, :(sum((o.panels for o = observed)) >= f[\"minimum_panels\"])))",
+      "kind": "fail",
+      "site": "N026"
+    },
+    {
+      "unit": "dense96/markowitz",
+      "detail": "Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/numerical-tests.jl:163\n  Expression: $(Expr(:escape, :(sum((o.panels for o = observed)) >= f[\"minimum_panels\"])))",
+      "kind": "fail",
+      "site": "N026"
+    }
+  ],
+  "preparation": {
+    "cost-11.toml": {
+      "bytes": 182030397056,
+      "compile_seconds": 2.8e-06,
+      "events": 4404446035,
+      "gc_seconds": 56.14248031,
+      "recompile_seconds": 2.8e-06,
+      "seconds": 172.390993109
+    },
+    "cost-9.toml": {
+      "bytes": 12426632616,
+      "compile_seconds": 0.076879905,
+      "events": 330146247,
+      "gc_seconds": 4.126936447,
+      "recompile_seconds": 7e-07,
+      "seconds": 11.712430117
+    },
+    "cost-8.toml": {
+      "bytes": 10895327440,
+      "compile_seconds": 2.1e-06,
+      "events": 268879123,
+      "gc_seconds": 3.575007024,
+      "recompile_seconds": 2.1e-06,
+      "seconds": 9.396378359
+    },
+    "tests-load.toml": {
+      "bytes": 18641104,
+      "compile_seconds": 0.151737101,
+      "events": 408426,
+      "gc_seconds": 0.020592,
+      "recompile_seconds": 0.057461401,
+      "seconds": 0.608232906
+    },
+    "cost-6.toml": {
+      "bytes": 633881536,
+      "compile_seconds": 1.7e-06,
+      "events": 17321739,
+      "gc_seconds": 0.244080602,
+      "recompile_seconds": 1.7e-06,
+      "seconds": 0.591741402
+    },
+    "cost-1.toml": {
+      "bytes": 420172496,
+      "compile_seconds": 3.544193377,
+      "events": 6081873,
+      "gc_seconds": 0.095305701,
+      "recompile_seconds": 1.1e-06,
+      "seconds": 3.569654479
+    },
+    "cost-2.toml": {
+      "bytes": 101576494144,
+      "compile_seconds": 5.985205238,
+      "events": 666986908,
+      "gc_seconds": 71.708440007,
+      "recompile_seconds": 7e-07,
+      "seconds": 149.426662247
+    },
+    "cost-3.toml": {
+      "bytes": 655056536,
+      "compile_seconds": 0.491507493,
+      "events": 16622943,
+      "gc_seconds": 0.261030496,
+      "recompile_seconds": 1e-06,
+      "seconds": 1.066528983
+    },
+    "cost-10.toml": {
+      "bytes": 12434444640,
+      "compile_seconds": 1.2e-06,
+      "events": 330718540,
+      "gc_seconds": 3.962859051,
+      "recompile_seconds": 1.2e-06,
+      "seconds": 11.797875353
+    },
+    "panel-load.toml": {
+      "bytes": 5137944,
+      "compile_seconds": 0.014969,
+      "events": 77767,
+      "gc_seconds": 0.0,
+      "recompile_seconds": 0.0,
+      "seconds": 0.107644501
+    },
+    "cost-5.toml": {
+      "bytes": 631572688,
+      "compile_seconds": 1.4e-06,
+      "events": 17225099,
+      "gc_seconds": 0.248757,
+      "recompile_seconds": 1.4e-06,
+      "seconds": 0.584830201
+    },
+    "cost-7.toml": {
+      "bytes": 10891201312,
+      "compile_seconds": 1.2e-06,
+      "events": 268737843,
+      "gc_seconds": 3.946062715,
+      "recompile_seconds": 1.2e-06,
+      "seconds": 9.512200036
+    },
+    "cost-12.toml": {
+      "bytes": 182030742480,
+      "compile_seconds": 1.7e-06,
+      "events": 4404679783,
+      "gc_seconds": 54.661405587,
+      "recompile_seconds": 1.7e-06,
+      "seconds": 173.484848308
+    },
+    "cost-4.toml": {
+      "bytes": 615366200,
+      "compile_seconds": 0.199359401,
+      "events": 15920705,
+      "gc_seconds": 0.239693401,
+      "recompile_seconds": 1.6e-06,
+      "seconds": 0.732702203
+    },
+    "load.toml": {
+      "bytes": 223257256,
+      "compile_seconds": 0.804558598,
+      "events": 3900501,
+      "gc_seconds": 0.0873163,
+      "recompile_seconds": 0.075334301,
+      "seconds": 4.033522004
+    }
+  },
+  "group_count": 292,
+  "identities": {
+    "outer": {
+      "pid": 214974,
+      "pgid": 214974,
+      "sid": 214974,
+      "start_ticks": 14546623,
+      "boot_id": "1ecae454-f1f5-4e2e-a95c-7b5474243126",
+      "command": "/usr/bin/python3 -B /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/outer.py red1800 "
+    },
+    "runner": {
+      "pid": 215655,
+      "pgid": 215655,
+      "sid": 215655,
+      "start_ticks": 14580804,
+      "boot_id": "1ecae454-f1f5-4e2e-a95c-7b5474243126",
+      "command": "/usr/bin/python3 -B /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/guard.py run /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/runs/red1800/launch-pins.json /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/runs/red1800/output --seconds 1792 --deadline 147600.046383103 --expected-exit 1 -- /bin/bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --compiled-modules=existing --threads=1 --gcthreads=1,0 --heap-size-hint=2G --history-file=no --project=/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/driver.jl /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/runs/red1800/payload /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage red300 "
+    },
+    "child": {
+      "pid": 215656,
+      "pgid": 215656,
+      "sid": 215656,
+      "start_ticks": 14580862,
+      "boot_id": "1ecae454-f1f5-4e2e-a95c-7b5474243126",
+      "command": "/bin/bash /home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh --compiled-modules=existing --threads=1 --gcthreads=1,0 --heap-size-hint=2G --history-file=no --project=/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/driver.jl /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/runs/red1800/payload /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage red300 "
+    }
+  },
+  "process_seconds": 776.0879647269903,
+  "supervisor_seconds": 776.7241773369897,
+  "outer_seconds": 786.0320456170011,
+  "resource_summary": {
+    "samples": 775,
+    "min_available_kib": 14527116,
+    "max_swap_used_kib": 0,
+    "terminal": {
+      "available_kib": 22493520,
+      "swap_used_kib": 0
+    },
+    "child_maxrss_kib": 7709432,
+    "sampled_max_kib": {
+      "VmPeak": 8388608,
+      "VmHWM": 7710180,
+      "VmRSS": 7710180,
+      "VmSwap": 0
+    }
+  },
+  "sha256": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800/entry-check.json": "f07e7303bed932c6ed8faa1d27782ae245079d1d4419908b6cacb460a7a4f1d3",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800/host-entry.json": "7306cdb6f4af8a3bae70a171748a81b1336f2bced52f4e58566a818c6bef45d5",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800/outer.log": "42f70b133c9a6a56ee1ade2112ca0b242c22e378e71d8c7f83287752e005d65b",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800/postcheck.py": "6360be3aad3ac697f4ecdd2dd7278a610f2ac8a2e80381ab5af85586eb7983af",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800/request.txt": "b828a9e3f0a50be50876aa29722a97b48e7adc23ed1b11b1314ecfc4e2171e90",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/outers/red1800/outer-invocation.json": "7e30b39e6d4fa0d21e077d9ceba29c3df862ac441e7e806d985cc1dce47744eb",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/outers/red1800/outer-outcome.json": "df2d8ac249e99aaf6a4f4da76b8316e9a1d6d82d225b4072a69539e5ec93255d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/outers/red1800/outer-ready.json": "9eb18d6abc154f325a14404c35d7955374e58dc549a87530a992f8568aa549ea",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/outers/red1800/release.json": "efedd7f1429ba5e3d5bf75a7e61a06a0a6ac066deed335d53080be4ca4b8552c",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/runs/red1800/admission.json": "66f611f0fab0342980b6fe18468294deac6a68cd0c126648c150d916499bbb92",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/runs/red1800/audit.json": "6c5370abfd0fe6b1b7db6f580e9f1c8e43f9154fb5307b1b189524f22665251b",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/runs/red1800/config.json": "cf61b1a0e4617a8bfaba003d2636beda495cbe494fa1ce40ad832b8125f77fc3",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/runs/red1800/host.json": "189091293751e6a5b9d1bc79ac7b136c0a55e943de95338d8cc7ad8aaf532973",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/runs/red1800/invocation.json": "72e69b26f526605ce601259d48bd4f6ffb089c1ac8337897634fe0e2f6d5e0e9",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/runs/red1800/launch-pins.json": "5cbce7f7af8077ab079528f4b08df2e790ec0876210a68336192b96364c0a61a",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/runs/red1800/launcher.log": "50196562239e3830c10551c970b9c2180f775251bbb9bc54ac4c76c80754c4c3",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/runs/red1800/outer-closure.json": "633463fbcf4030c37ffe05ea2b8a2ddeb3537ab9b7324f33199d7826f1094632",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/runs/red1800/output/current.json": "0364b1927fb2b19cddfacc1ff1cbec87c210998b23b9b96aedcc029305a4fcb0",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/runs/red1800/output/pins.json": "5cbce7f7af8077ab079528f4b08df2e790ec0876210a68336192b96364c0a61a",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/runs/red1800/output/process.json": "3c571186e25e939ad499830c3da716df5dee94977e589f065f4497ad46fa49f2",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/runs/red1800/output/resources.jsonl": "1c05876390b8c706d4672f6efdaee16fc022fa0a8e5935ed5194dbe7dddc6fe6",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/runs/red1800/output/run.log": "fac0ac68ae8f4b09c1ac0e930e7091524fc0211c6486ea5cdb70485a03fd21bd",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/runs/red1800/payload/cost-1.toml": "a5396aedea33dd6d588b3ed5d6b33d0b9a7f8a908492b9b20621ed6c40db6cd3",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/runs/red1800/payload/cost-10.toml": "333ed22779dc12379db5c28fb1d8f3d61616f42f2f917118edf5d804531bf191",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/runs/red1800/payload/cost-11.toml": "0a66e1730ec0c0a589404c84e2fa057a463b7cf4254cf90481e1d123451dfb33",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/runs/red1800/payload/cost-12.toml": "e011e378c9996d9d719eb3e2e3b9ec428438cf2adc9fbe79476e1be6e4718405",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/runs/red1800/payload/cost-2.toml": "4669eed153bb89c37dfe779ceea718ec10e9c07f9ebd8c6eea5de91db9f390d2",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/runs/red1800/payload/cost-3.toml": "e42f772a36bc648d512f63a27b8900dc82d67e41995e8bd03c2a164ce0e417cc",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/runs/red1800/payload/cost-4.toml": "e255738d7db29c131235a65e47ee210ed81139c1179886e9a1e85230d53e6272",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/runs/red1800/payload/cost-5.toml": "48eabd8b83febbbb29379f6350988f76b3501789e3eefbcd5eb2e5772c9b1c8c",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/runs/red1800/payload/cost-6.toml": "befe7fea0252dbcd31692f541ecf7c27afd30695b40cd8c14453d64ca52c5b85",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/runs/red1800/payload/cost-7.toml": "49ea8edbf9386e2f13c2f80e807936011da7f63f53bfd7285ee2726c70df3dcc",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/runs/red1800/payload/cost-8.toml": "6e97ad81e831b596fd33a5e90623c5034f7fe76ea68b1cffea559943f9736843",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/runs/red1800/payload/cost-9.toml": "484bb8a10992ecdd2794fce549ef0a6ac607823917c020852cd22059b3e20141",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/runs/red1800/payload/load.toml": "757d6c12a34baa4a33b091fc090b19b4cef36c39dbd307a75f77cf86cdabbaa5",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/runs/red1800/payload/panel-load.toml": "ad97714bdf1f1000dec1318ba2eb425bdbef48e5ee46bcd511933c58405bbc16",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/runs/red1800/payload/tests-load.toml": "33027c1529d5fc605ac069a988b02e1d0861248a1ad25e80f3505f993aa2dfd2",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/runs/red1800/payload/unit-1.toml": "2e58c563dab905d341e15f602dfc69e69dabdfdf9304ee0a7a490adea5a0b2b4",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/runs/red1800/payload/unit-10.toml": "16d11371407ea856e96b1eacb50e1482a1f9e83e0670c74c465c75fc49d8672f",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/runs/red1800/payload/unit-11.toml": "9fc492cf6d8596b003159b6663322aee270cda2f35ca19c79f9ad31bdd80dfc5",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/runs/red1800/payload/unit-12.toml": "a8431724f2cb1ef9470cae17779120a850a5f8cd09159761d0759296d6603e6b",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/runs/red1800/payload/unit-2.toml": "f3457e35aca7fd36510734819babfe6d4f4edd836d9e71c438d30f49224e9db4",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/runs/red1800/payload/unit-3.toml": "1c8b8f7c5d1da0cef308446cd6a08310a033ae393c5f4ae0e5e3830f65f646a1",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/runs/red1800/payload/unit-4.toml": "ae6bebd9a2bda0ee1c8fe5820f768da917729c0d8b9b5e2315a94cae55249c66",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/runs/red1800/payload/unit-5.toml": "10cdbc18a194387c97bbece77bd8d20de4133f965657b34af4a57c564437f608",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/runs/red1800/payload/unit-6.toml": "0e995c89d114a604f9908ca468df702175c6ae7c13751c1fa64bb13ddd9f2ad9",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/runs/red1800/payload/unit-7.toml": "a445f6e5795ea9faa6104d93809709fae4cbd3d30bde78f9d81684eb2392576d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/runs/red1800/payload/unit-8.toml": "9186562038216a731718189c636bba30146d328555a9f43585656a487bdda147",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/runs/red1800/payload/unit-9.toml": "7d9e90e201898f5800d2946b59a629fd1942daa2d64ec9bddf8fd1bde353ec73",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/runs/red1800/posthost.json": "2a4ed805774adbd340e8f26efcc04a71d2f261c9bdf13883313f7c3484e3076c",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/runs/red1800/prehost.json": "fb10ab9711727b9e5422215287cbe9291390de3ed04093f5c0e687b16906d2c1",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/runs/red1800/reservation.json": "dbcbdf8bcd65b040075d9b8282ce6b423b6e675bd76d020542f646c69d3b8d2b",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/runs/red1800/sealed.json": "5474ee2990cd1fe42b6c4474a8eefa715c5cbf2f17c86e9fb30e68c7f89b6068"
+  },
+  "scope": "Faithful OOM/SIGSEGV diagnostic and completed prefix only. Exact first failing allocation is unknown; full RED rejected. No auditor or numerical rerun."
+}

@@ -1,0 +1,120 @@
+BEGIN BG blocked U driver red300
+UNIT BEGIN 1 panel
+UNIT END 1 panel
+UNIT BEGIN 2 lifecycle
+UNIT END 2 lifecycle
+UNIT BEGIN 3 sparse32/native
+UNIT END 3 sparse32/native
+UNIT BEGIN 4 sparse32/markowitz
+UNIT END 4 sparse32/markowitz
+UNIT BEGIN 5 dense32/native
+UNIT END 5 dense32/native
+UNIT BEGIN 6 dense32/markowitz
+UNIT END 6 dense32/markowitz
+UNIT BEGIN 7 sparse96/native
+UNIT END 7 sparse96/native
+UNIT BEGIN 8 sparse96/markowitz
+UNIT END 8 sparse96/markowitz
+UNIT BEGIN 9 dense96/native
+TEST FAILURE: N026 Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/numerical-tests.jl:163
+  Expression: $(Expr(:escape, :(sum((o.panels for o = observed)) >= f["minimum_panels"])))
+UNIT END 9 dense96/native
+UNIT BEGIN 10 dense96/markowitz
+TEST FAILURE: N026 Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-RED1800-HARNESS/numerical-tests.jl:163
+  Expression: $(Expr(:escape, :(sum((o.panels for o = observed)) >= f["minimum_panels"])))
+UNIT END 10 dense96/markowitz
+UNIT BEGIN 11 sparse256/native
+UNIT END 11 sparse256/native
+UNIT BEGIN 12 sparse256/markowitz
+UNIT END 12 sparse256/markowitz
+UNIT BEGIN 13 dense256/native
+fatal: error thrown and no exception handler available.
+OutOfMemoryError()
+jl_gc_try_alloc_pages at /cache/build/builder-armageddon-4/julialang/julia-ci/src/gc-pages.c:94 [inlined]
+jl_gc_try_alloc_pages at /cache/build/builder-armageddon-4/julialang/julia-ci/src/gc-pages.c:75
+jl_gc_alloc_page at /cache/build/builder-armageddon-4/julialang/julia-ci/src/gc-pages.c:143
+gc_add_page at /cache/build/builder-armageddon-4/julialang/julia-ci/src/gc-stock.c:708
+jl_gc_small_alloc_inner at /cache/build/builder-armageddon-4/julialang/julia-ci/src/gc-stock.c:769
+jl_gc_small_alloc_noinline at /cache/build/builder-armageddon-4/julialang/julia-ci/src/gc-stock.c:789 [inlined]
+jl_gc_alloc_ at /cache/build/builder-armageddon-4/julialang/julia-ci/src/gc-stock.c:803
+jl_alloc_genericmemory_unchecked at /cache/build/builder-armageddon-4/julialang/julia-ci/src/genericmemory.c:41
+_new_genericmemory_ at /cache/build/builder-armageddon-4/julialang/julia-ci/src/genericmemory.c:68 [inlined]
+jl_alloc_genericmemory at /cache/build/builder-armageddon-4/julialang/julia-ci/src/genericmemory.c:101
+ijl_array_grow_end at /cache/build/builder-armageddon-4/julialang/julia-ci/src/array.c:222
+ijl_array_ptr_1d_push at /cache/build/builder-armageddon-4/julialang/julia-ci/src/array.c:260
+ijl_get_excstack at /cache/build/builder-armageddon-4/julialang/julia-ci/src/stackwalk.c:392
+unknown function (ip: 0xf7b4c5ae5783) at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/sys.so
+unknown function (ip: 0xf7b4c410a057) at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/sys.so
+unknown function (ip: 0xf7b4c32d8dc3) at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/sys.so
+jl_apply at /cache/build/builder-armageddon-4/julialang/julia-ci/src/julia.h:2318 [inlined]
+true_main at /cache/build/builder-armageddon-4/julialang/julia-ci/src/jlapi.c:985
+jl_repl_entrypoint at /cache/build/builder-armageddon-4/julialang/julia-ci/src/jlapi.c:1152
+main at /cache/build/builder-armageddon-4/julialang/julia-ci/cli/loader_exe.c:58
+unknown function (ip: 0xf7b4d63f2f1b) at /usr/lib/aarch64-linux-gnu/libc.so.6
+__libc_start_main at /usr/lib/aarch64-linux-gnu/libc.so.6 (unknown line)
+$x at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/julia (unknown line)
+unknown function (ip: 0x2d000000400a1b) at (unknown file)
+
+atexit hook threw an error: OutOfMemoryError()
+jl_gc_try_alloc_pages at /cache/build/builder-armageddon-4/julialang/julia-ci/src/gc-pages.c:94 [inlined]
+jl_gc_try_alloc_pages at /cache/build/builder-armageddon-4/julialang/julia-ci/src/gc-pages.c:75
+jl_gc_alloc_page at /cache/build/builder-armageddon-4/julialang/julia-ci/src/gc-pages.c:143
+gc_add_page at /cache/build/builder-armageddon-4/julialang/julia-ci/src/gc-stock.c:708
+jl_gc_small_alloc_inner at /cache/build/builder-armageddon-4/julialang/julia-ci/src/gc-stock.c:769
+jl_gc_small_alloc_noinline at /cache/build/builder-armageddon-4/julialang/julia-ci/src/gc-stock.c:789 [inlined]
+jl_gc_alloc_ at /cache/build/builder-armageddon-4/julialang/julia-ci/src/gc-stock.c:803
+jl_new_uninitialized_datatype at /cache/build/builder-armageddon-4/julialang/julia-ci/src/datatype.c:110
+inst_datatype_inner at /cache/build/builder-armageddon-4/julialang/julia-ci/src/jltypes.c:2302
+jl_inst_arg_tuple_type at /cache/build/builder-armageddon-4/julialang/julia-ci/src/jltypes.c:2508
+arg_type_tuple at /cache/build/builder-armageddon-4/julialang/julia-ci/src/gf.c:3236 [inlined]
+jl_lookup_generic_ at /cache/build/builder-armageddon-4/julialang/julia-ci/src/gf.c:4316 [inlined]
+ijl_apply_generic at /cache/build/builder-armageddon-4/julialang/julia-ci/src/gf.c:4376
+unknown function (ip: 0xf7b4c4e0ca8f) at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/sys.so
+unknown function (ip: 0xf7b4c40452b3) at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/sys.so
+jl_apply at /cache/build/builder-armageddon-4/julialang/julia-ci/src/julia.h:2318 [inlined]
+ijl_atexit_hook at /cache/build/builder-armageddon-4/julialang/julia-ci/src/init.c:263
+ijl_exit at /cache/build/builder-armageddon-4/julialang/julia-ci/src/init.c:199
+ijl_no_exc_handler at /cache/build/builder-armageddon-4/julialang/julia-ci/src/task.c:772
+true_main at /cache/build/builder-armageddon-4/julialang/julia-ci/src/jlapi.c:992
+jl_repl_entrypoint at /cache/build/builder-armageddon-4/julialang/julia-ci/src/jlapi.c:1152
+main at /cache/build/builder-armageddon-4/julialang/julia-ci/cli/loader_exe.c:58
+unknown function (ip: 0xf7b4d63f2f1b) at /usr/lib/aarch64-linux-gnu/libc.so.6
+__libc_start_main at /usr/lib/aarch64-linux-gnu/libc.so.6 (unknown line)
+$x at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/julia (unknown line)
+unknown function (ip: 0x2d000000400a1b) at (unknown file)
+
+[215656] signal 11 (2): Segmentation fault
+in expression starting at none:0
+jl_system_image_data at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/sys.so (unknown line)
+run_finalizer at /cache/build/builder-armageddon-4/julialang/julia-ci/src/gc-common.c:174
+jl_gc_run_finalizers_in_list at /cache/build/builder-armageddon-4/julialang/julia-ci/src/gc-common.c:272
+run_finalizers at /cache/build/builder-armageddon-4/julialang/julia-ci/src/gc-common.c:316
+ijl_atexit_hook at /cache/build/builder-armageddon-4/julialang/julia-ci/src/init.c:295
+ijl_exit at /cache/build/builder-armageddon-4/julialang/julia-ci/src/init.c:199
+ijl_no_exc_handler at /cache/build/builder-armageddon-4/julialang/julia-ci/src/task.c:772
+true_main at /cache/build/builder-armageddon-4/julialang/julia-ci/src/jlapi.c:992
+jl_repl_entrypoint at /cache/build/builder-armageddon-4/julialang/julia-ci/src/jlapi.c:1152
+main at /cache/build/builder-armageddon-4/julialang/julia-ci/cli/loader_exe.c:58
+unknown function (ip: 0xf7b4d63f2f1b) at /usr/lib/aarch64-linux-gnu/libc.so.6
+__libc_start_main at /usr/lib/aarch64-linux-gnu/libc.so.6 (unknown line)
+$x at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/julia (unknown line)
+unknown function (ip: 0x2d000000400a1b) at (unknown file)
+Allocations: 8928330180 (Pool: 8928329288; Big: 892); GC: 1080
+
+[215656] signal 11 (2): Segmentation fault
+in expression starting at none:0
+jl_system_image_data at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/lib/julia/sys.so (unknown line)
+run_finalizer at /cache/build/builder-armageddon-4/julialang/julia-ci/src/gc-common.c:174
+jl_gc_run_finalizers_in_list at /cache/build/builder-armageddon-4/julialang/julia-ci/src/gc-common.c:272
+run_finalizers at /cache/build/builder-armageddon-4/julialang/julia-ci/src/gc-common.c:316
+ijl_atexit_hook at /cache/build/builder-armageddon-4/julialang/julia-ci/src/init.c:295
+ijl_exit at /cache/build/builder-armageddon-4/julialang/julia-ci/src/init.c:199
+ijl_no_exc_handler at /cache/build/builder-armageddon-4/julialang/julia-ci/src/task.c:772
+true_main at /cache/build/builder-armageddon-4/julialang/julia-ci/src/jlapi.c:992
+jl_repl_entrypoint at /cache/build/builder-armageddon-4/julialang/julia-ci/src/jlapi.c:1152
+main at /cache/build/builder-armageddon-4/julialang/julia-ci/cli/loader_exe.c:58
+unknown function (ip: 0xf7b4d63f2f1b) at /usr/lib/aarch64-linux-gnu/libc.so.6
+__libc_start_main at /usr/lib/aarch64-linux-gnu/libc.so.6 (unknown line)
+$x at /home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/bin/julia (unknown line)
+unknown function (ip: 0x2d000000400a1b) at (unknown file)
+Allocations: 8928330180 (Pool: 8928329288; Big: 892); GC: 1080

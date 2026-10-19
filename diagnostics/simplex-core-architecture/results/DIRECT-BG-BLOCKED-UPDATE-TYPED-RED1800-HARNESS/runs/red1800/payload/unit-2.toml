@@ -1,0 +1,101 @@
+complete = true
+fatal = ""
+index = 2
+name = "lifecycle"
+observations = []
+
+[records]
+active = ""
+failure_count = 0
+failures = []
+
+    [records.apis]
+    BTRAN = 2
+    FTRAN = 13
+    copy = 6
+    eliminate = 8
+    eliminate_fault = 4
+    factory_candidate = 2
+    factory_micro = 12
+    refactor = 8
+    replace = 8
+
+    [records.events]
+    declined_before_gather = 2
+    event_begin = 3
+    event_eligibility = 21
+    event_finish = 3
+    event_panel_begin = 19
+    event_panel_commit = 18
+    event_panel_pivot = 152
+    event_panel_reject = 3
+    event_scalar_pivot = 301
+    event_scalar_suffix = 3
+    finish = 3
+    pivot = 453
+
+    [records.sites]
+    L001 = 2
+    L002 = 2
+    L003 = 2
+    L004 = 2
+    L005 = 2
+    L006 = 2
+    L007 = 2
+    L008 = 2
+    L009 = 2
+    L010 = 2
+    L011 = 2
+    L012 = 2
+    L013 = 2
+    L014 = 2
+    L015 = 2
+    L016 = 2
+    L017 = 2
+    L018 = 2
+    L019 = 2
+    L020 = 2
+    L021 = 2
+    L022 = 2
+    L023 = 1
+    L024 = 1
+    L026 = 1
+    L027 = 1
+    L028 = 1
+    L029 = 1
+    L031 = 2
+    L032 = 2
+    L033 = 3
+    L034 = 3
+    L035 = 3
+    L036 = 1
+    L037 = 1
+    L038 = 1
+    L039 = 1
+    L040 = 1
+    N001 = 453
+    N002 = 453
+    N003 = 453
+    N005 = 3
+    N006 = 3
+    N007 = 3
+    N008 = 3
+    N009 = 3
+    N010 = 3
+    N011 = 3
+    N012 = 3
+
+[tests]
+broken = 0
+error = 0
+fail = 0
+name = "lifecycle"
+pass = 0
+
+    [[tests.children]]
+    broken = 0
+    children = []
+    error = 0
+    fail = 0
+    name = "blocked BG lifecycle and failure ownership"
+    pass = 1451
