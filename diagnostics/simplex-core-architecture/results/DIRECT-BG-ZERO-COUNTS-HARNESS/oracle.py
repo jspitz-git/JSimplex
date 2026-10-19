@@ -1,0 +1,73 @@
+"""Pure strict zero-count payload oracle; no process or Julia work."""
+import math,re,statistics
+METRICS={'seconds','bytes','events','gc_seconds','compile_seconds','recompile_seconds'}
+PREPARATION=('load.toml','reference-load.toml','candidate-load.toml','setup.toml','snapshot-before.toml','snapshot-after.toml','tests-cost.toml')
+CASES=('zeros','constructor','dimensions','eligibility','original')
+BASE=[('first',0,'reference'),('first',0,'candidate'),('warm',0,'candidate'),('warm',0,'reference')]
+for pair in range(1,5):
+ for arm in (('reference','candidate') if pair%2 else ('candidate','reference')):BASE.append(('sample',pair,arm))
+SCHEDULE=[(case,*v) for case in CASES for v in BASE]
+PAYLOAD=set(PREPARATION)|{'raw.toml','tests.toml'}|{f'record-{i}.toml' for i in range(1,61)}
+NAMES=('zero statistics retain their complete immutable contract','independent mutable counters and checked overflow at every slot','peak replaces only its owning counter tuple','dimension decisions preserve all fields and boundaries','cheap eligibility returns zero decision without touching counters')
+COUNTS=(7,300,10,26,7)
+def require(v,m):
+ if not v:raise ValueError(m)
+def integer(v):return type(v) is int and 0<=v<=2**63-1
+def number(v):return type(v) in (int,float) and math.isfinite(v) and 0<=v<=300
+def metrics(v):
+ require(type(v) is dict and set(v)==METRICS,'Metric fields')
+ require(all(integer(v[k]) for k in ('bytes','events')),'Integral counters')
+ require(all(number(v[k]) for k in METRICS-{'bytes','events'}),'Finite bounded times')
+ return dict(v)
+def suite(v):
+ require(type(v) is dict and set(v)=={'tree','failure_count','failures'},'Suite fields')
+ require(type(v['failure_count']) is int and v['failure_count']==0 and v['failures']==[],'Test failures')
+ def node(x,name,count):
+  require(type(x) is dict and set(x)=={'name','pass','fail','error','broken','children'},'Test node fields')
+  require(x['name']==name and type(x['children']) is list,'Test name/children')
+  require(all(type(x[k]) is int and x[k]==(count if k=='pass' else 0) for k in ('pass','fail','error','broken')),'Exact test counts')
+ t=v['tree'];node(t,'zero-count candidate',0);require(len(t['children'])==5,'Five suites')
+ for x,name,count in zip(t['children'],NAMES,COUNTS):node(x,name,count);require(x['children']==[],'Leaf suite')
+ return v
+def row(v,index):
+ keys={'index','case','phase','pair','arm','inner_bytes','inner_events','assignment_ok','decision_ok','observed','bytes_wrapper','events_wrapper','consumed_result'}
+ require(type(v) is dict and set(v)==keys,'Record fields')
+ case,phase,pair,arm=SCHEDULE[index-1]
+ require(type(v['index']) is int and v['index']==index and type(v['pair']) is int and v['pair']==pair and (v['case'],v['phase'],v['arm'])==(case,phase,arm),'Record schedule')
+ require(v['assignment_ok'] is True and v['decision_ok'] is True,'Decision/assignment')
+ require(integer(v['inner_bytes']) and integer(v['inner_events']),'Inner counters')
+ for k in ('bytes_wrapper','events_wrapper','consumed_result'):metrics(v[k])
+ obs=v['observed'];expected={'counters':[0]*20}
+ if case=='constructor':expected['fresh_owner']=True
+ if case not in ('zeros','constructor'):expected.update(start=1,count=0,accepted=False,reason='dimensions',finite=True)
+ require(type(obs) is dict and set(obs)==set(expected) and obs==expected,'Observed complete result')
+ if case=='constructor':require(obs['fresh_owner'] is True,'Distinct mutable constructor result')
+ require(type(obs['counters']) is list and all(type(x) is int for x in obs['counters']),'Counter integer type')
+ if case not in ('zeros','constructor'):require(type(obs['start']) is int and type(obs['count']) is int and obs['accepted'] is False and obs['finite'] is True,'Decision field types')
+ return v
+def warning_log(log):return bool(re.search(r'warning|world[ -]?age|method.*overwrit|LoadError|ERROR:|OutOfMemoryError|Test Failed|Test Error|TEST FAILURE',log,re.I))
+def validate(payload,loaded):
+ require(type(payload) is dict and set(payload)==PAYLOAD,'Exact69 payload')
+ prep={n:metrics(payload[n]) for n in PREPARATION};test=suite(payload['tests.toml'])
+ raw=payload['raw.toml'];keys={'schema','complete','fatal','qualification','records','loaded','input_unchanged','replacement_unchanged','tests'}
+ require(type(raw) is dict and set(raw)==keys,'Raw fields')
+ require(type(raw['schema']) is int and raw['schema']==1 and raw['complete'] is True and raw['fatal']=='','Incomplete/fatal')
+ require(raw['qualification']=='zero_counts_diagnostic' and type(raw['loaded']) is dict and raw['loaded']==loaded,'Qualification/path')
+ require(raw['input_unchanged'] is True and raw['replacement_unchanged'] is True,'Input/owner mutation')
+ require(suite(raw['tests'])==test,'Raw suite mismatch')
+ require(type(raw['records']) is list and len(raw['records'])==60,'60 records')
+ rows=[]
+ for i in range(1,61):
+  v=row(payload[f'record-{i}.toml'],i);row(raw['records'][i-1],i)
+  require(v==raw['records'][i-1],'Raw/file mismatch');rows.append(v)
+ summaries={}
+ for case in CASES:
+  sides={}
+  for arm in ('reference','candidate'):
+   selected=[v for v in rows if v['case']==case and v['arm']==arm and v['phase']=='sample']
+   clean=[v['index'] for v in selected if all(v[k][f]==0 for k in ('bytes_wrapper','events_wrapper','consumed_result') for f in ('compile_seconds','recompile_seconds','gc_seconds'))]
+   sides[arm]=dict(inner_bytes=[v['inner_bytes'] for v in selected],inner_events=[v['inner_events'] for v in selected],consumed_seconds=[v['consumed_result']['seconds'] for v in selected],clean_wrapper_indices=clean)
+  summaries[case]=sides
+ return dict(records=rows,preparation=prep,tests=test,descriptive_sample_counters=summaries,source_schedule_invocations=204,
+  qualification='zero_counts_diagnostic',structural_assertions=350,p011_accepted=False,red_accepted=False,
+  scope='Four samples per side/case, distinct byte/event/consumed executions. No automatic speedup or allocation threshold; nonzero compile and GC retained. Structural tests required. Loading records overlap total load.')

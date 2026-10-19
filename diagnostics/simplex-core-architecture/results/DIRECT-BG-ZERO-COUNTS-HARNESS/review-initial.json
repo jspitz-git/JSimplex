@@ -1,0 +1,21 @@
+{
+  "scope": "Independent source-only finding and exact repair check",
+  "initial_findings": [
+    {
+      "priority": 1,
+      "file": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-ZERO-COUNTS-HARNESS/operations.jl",
+      "line": 42,
+      "description": "Constructor observed dictionary inferred Dict{String,Vector{Int}}; storing fresh_owner Bool would fail conversion during first constructor sample.",
+      "status": "resolved",
+      "resolution": "Only constructor observed dictionary changed to Dict{String,Any}."
+    }
+  ],
+  "checks": {
+    "exact_single_replacement": true,
+    "no_julia_execution": true
+  },
+  "sha256": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-ZERO-COUNTS-HARNESS/operations.jl.before-dict-fix": "3235a156de67c815a27aec96c9edf19df876eac172d3aeb1fa97e1a9a037bfb5",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-ZERO-COUNTS-HARNESS/operations.jl": "18d8b3c4830ecfeafa378997c54b2e259b78f715418db9585ca52f9f6ab749e4"
+  }
+}

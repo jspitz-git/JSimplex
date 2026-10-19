@@ -1,0 +1,112 @@
+# Included once into each distinct side module. All Julia text UNEXECUTED.
+const K = BGBlockedPanel
+const T = BGBlockedPanelTests
+const Carrier = T.Carrier
+const Decision = K.BGPanelDecision
+const Z = (0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
+require(ok,text) = ok || error(text)
+constructor_value(f::Carrier) = K.BGPanelCounts()
+valuefun(::Val{:constructor}) = constructor_value
+zero_value(f::Carrier) = K.counts(K.BGNoCounts())
+dimension_value(f::Carrier)::Decision = K._bgb_dimensions(length(f.upper),1)
+eligibility_value(f::Carrier)::Decision = K._bgb_eligibility(f,1)
+valuefun(::Val{:zeros}) = zero_value
+valuefun(::Val{:dimensions}) = dimension_value
+valuefun(::Val{:eligibility}) = eligibility_value
+valuefun(::Val{:original}) = eligibility_value
+function inner_bytes(kind, input::Carrier, replacement::Carrier)
+    (Base.allocated(valuefun(kind),input), true)
+end
+function inner_events(kind, input::Carrier, replacement::Carrier)
+    (Base.allocations(valuefun(kind),input), true)
+end
+# Reduced original-shaped capture; NOT the frozen P011 compiled caller.
+function inner_bytes(::Val{:original},input::Carrier,replacement::Carrier)
+    f=input
+    K._bgb_eligibility(f,1)
+    b=@allocated K._bgb_eligibility(f,1)
+    f=replacement
+    (b,f===replacement)
+end
+function inner_events(::Val{:original},input::Carrier,replacement::Carrier)
+    f=input
+    K._bgb_eligibility(f,1)
+    e=@allocations K._bgb_eligibility(f,1)
+    f=replacement
+    (e,f===replacement)
+end
+function consume!(kind,sink,f::Carrier)
+    sink[]=valuefun(kind)(f)
+    nothing
+end
+function observed(::Val{:constructor},v)
+    Dict{String,Any}("counters"=>collect(K.counts(v)))
+end
+function observed(::Val{:zeros},v)
+    Dict("counters"=>collect(v))
+end
+function observed(kind,v::Decision)
+    Dict("start"=>v.start,"count"=>v.count,"accepted"=>v.accepted,
+         "reason"=>string(v.reason),"finite"=>v.finite,"counters"=>collect(v.counters))
+end
+correct(::Val{:constructor},v) = K.counts(v)==Z
+function correct(::Val{:zeros},v)
+    v===Z
+end
+function correct(kind,d::Decision)
+    d.start==1 && d.count==0 && !d.accepted && d.reason===:dimensions && d.finite && d.counters==Z
+end
+function state(f::Carrier)
+    order = f.upper[1].indices.order
+    cache = f.row_cache
+    # Every Carrier field and every row-cache field is covered. No prepared cache
+    # is expected in this fixture; encountering one refuses the diagnostic.
+    require(cache.prepared === nothing && f.sparse === nothing, "Unexpected cache")
+    values = (T.snapshot(f), copy(order.order), copy(order.positions),
+        copy(f.column_order), copy(f.positions), f.row_columns_ready,
+        Tuple(deepcopy(getfield(cache, k)) for k in fieldnames(typeof(cache))))
+    owners = Any[f, f.upper, f.column_order, f.positions, f.row_columns, cache,
+        order.order, order.positions]
+    append!(owners, f.row_columns)
+    for col in f.upper
+        push!(owners, col.values, col.indices.ids, col.indices.order.order,
+            col.indices.order.positions)
+    end
+    for k in fieldnames(typeof(cache))
+        x = getfield(cache,k)
+        x isa AbstractArray && push!(owners,x)
+    end
+    (values=values, owners=owners)
+end
+function unchanged(before, after)
+    isequal(before.values,after.values) && length(before.owners)==length(after.owners) &&
+        all(a === b for (a,b) in zip(before.owners,after.owners))
+end
+
+function setup()
+    input=T.carrier(zeros(32,32))
+    replacement=T.carrier(T.denseband(64))
+    (input=input,replacement=replacement,zero_sink=Ref(Z),counter_sink=Ref(K.BGPanelCounts()),decision_sink=Ref(Decision(0,0,false,:uninitialized,false,Z)))
+end
+sinkfor(::Val{:constructor},s)=s.counter_sink
+sinkfor(::Val{:zeros},s)=s.zero_sink
+sinkfor(kind,s)=s.decision_sink
+function metrics(t)
+    Dict("seconds"=>t.time,"bytes"=>t.bytes,"events"=>Base.gc_alloc_count(t.gcstats),
+      "gc_seconds"=>t.gctime,"compile_seconds"=>t.compile_time,"recompile_seconds"=>t.recompile_time)
+end
+function sample(kind,s)
+    sink=sinkfor(kind,s)
+    b=@timed inner_bytes(kind,s.input,s.replacement)
+    e=@timed inner_events(kind,s.input,s.replacement)
+    previous=sink[]
+    c=@timed consume!(kind,sink,s.input)
+    obs=observed(kind,sink[])
+    if kind isa Val{:constructor}
+        obs["fresh_owner"]=sink[] !== previous
+    end
+    Dict("inner_bytes"=>b.value[1],"inner_events"=>e.value[1],
+      "assignment_ok"=>(b.value[2] && e.value[2]),"decision_ok"=>(correct(kind,sink[]) && (!(kind isa Val{:constructor}) || sink[] !== previous)),
+      "observed"=>obs,"bytes_wrapper"=>metrics(b),
+      "events_wrapper"=>metrics(e),"consumed_result"=>metrics(c))
+end
