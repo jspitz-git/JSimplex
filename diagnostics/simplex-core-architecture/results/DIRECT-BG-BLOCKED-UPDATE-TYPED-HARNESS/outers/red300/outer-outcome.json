@@ -1,0 +1,15 @@
+{
+  "identity": {
+    "pid": 209350,
+    "pgid": 209350,
+    "sid": 209350,
+    "start_ticks": 14353314,
+    "boot_id": "1ecae454-f1f5-4e2e-a95c-7b5474243126",
+    "command": "python3 -B /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-HARNESS/outer.py red300 "
+  },
+  "launched": true,
+  "returncode": 2,
+  "error": "Traceback (most recent call last):\n  File \"/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-HARNESS/outer.py\", line 34, in main\n    runpy.run_path(str(D/'launch.py'),run_name='__main__')\n    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<frozen runpy>\", line 287, in run_path\n  File \"<frozen runpy>\", line 98, in _run_module_code\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-HARNESS/launch.py\", line 34, in <module>\n    if __name__=='__main__':main(sys.argv[1])\n                            ~~~~^^^^^^^^^^^^^\n  File \"/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-HARNESS/launch.py\", line 33, in main\n    require(audit(phase)['all_passed'],'Failed attempt preserved; no automatic retry; any longer phase needs separate driver/admission amendment')\n    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-HARNESS/control.py\", line 14, in require\n    if not v:raise RuntimeError(m)\n             ^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: Failed attempt preserved; no automatic retry; any longer phase needs separate driver/admission amendment\n",
+  "elapsed_with_checks_seconds": 305.6775706000044,
+  "scope": "Outer time includes immutable pre/post checks and auditor; not benchmark or numerical guard duration"
+}

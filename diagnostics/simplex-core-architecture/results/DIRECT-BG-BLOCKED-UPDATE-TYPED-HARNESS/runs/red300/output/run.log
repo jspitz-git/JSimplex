@@ -1,0 +1,29 @@
+BEGIN BG blocked U driver red300
+UNIT BEGIN 1 panel
+UNIT END 1 panel
+UNIT BEGIN 2 lifecycle
+UNIT END 2 lifecycle
+UNIT BEGIN 3 sparse32/native
+UNIT END 3 sparse32/native
+UNIT BEGIN 4 sparse32/markowitz
+UNIT END 4 sparse32/markowitz
+UNIT BEGIN 5 dense32/native
+UNIT END 5 dense32/native
+UNIT BEGIN 6 dense32/markowitz
+UNIT END 6 dense32/markowitz
+UNIT BEGIN 7 sparse96/native
+UNIT END 7 sparse96/native
+UNIT BEGIN 8 sparse96/markowitz
+UNIT END 8 sparse96/markowitz
+UNIT BEGIN 9 dense96/native
+TEST FAILURE: N026 Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-HARNESS/numerical-tests.jl:163
+  Expression: $(Expr(:escape, :(sum((o.panels for o = observed)) >= f["minimum_panels"])))
+UNIT END 9 dense96/native
+UNIT BEGIN 10 dense96/markowitz
+TEST FAILURE: N026 Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-HARNESS/numerical-tests.jl:163
+  Expression: $(Expr(:escape, :(sum((o.panels for o = observed)) >= f["minimum_panels"])))
+UNIT END 10 dense96/markowitz
+UNIT BEGIN 11 sparse256/native
+
+[210016] signal 15: Terminated
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-HARNESS/driver.jl:104
