@@ -1,0 +1,50 @@
+{
+  "scope": "BG blocked U experimental plan",
+  "accepted": true,
+  "findings": [],
+  "sha256": {
+    "AGENTS.md": "648146ccd145178d776319aab53c5f09bf5578806dd53a8d1b440b96511b4232",
+    "docs/superpowers/specs/2026-10-19-direct-bg-blocked-update.md": "bd74974f5ce2c5b6c1235e08a21a82032d92c1a8208e5e6c86b19b4c2ae01ffe",
+    "docs/superpowers/plans/2026-10-19-direct-bg-blocked-update.md": "f69ef05be5d9ee7466d82a44b93e193324fc90e814205e6b9b4751781c66c3cb",
+    "src/triangular_factorization.jl": "2d8d488ffb7d1cf79ff71662e0cd83400adaf4097dac3e48254c47106f3a7204",
+    "src/bartels_golub_rows.jl": "0dab8b63590128682605a1cc87104116cbe6ee9e45bf2c206484fc116f0166c0",
+    "src/triangular_indices.jl": "96659cddfae345701aed6c320a86fbeef4c6c4c95819864e363fcca04de3e61d",
+    "src/triangular_rows.jl": "9401e4f43102279344384a8023d1ebdfc409fcf47237414f763a04911ac23f5c",
+    "diagnostics/direct-lu-policy-adapters/reproduce/direct-factor.jl": "3c09b563623f7552fd0094c037de7205024d0a7eaade6baa34aff14a395b9bbc",
+    "diagnostics/direct-lu-policy-adapters/reproduce/factor-export.jl": "a54bcb4d51641dcec769108cd9cea76681c08bf5e6b98e881bff3f6c7da7ee85",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-EXPORT-SPECIALIZATION-COST-FIRST/result-review.md": "b509841512a024ca708f1da6387035d277af73e21d02033dd32dba39ee273bec",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-EXPORT-SPECIALIZATION-COST/runs/cost1-300/audit.json": "f25154cd87f43b08f82deb37a1547c8af1661c75af2204912b85548049927b31",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-PLAN/DECISIONS.md": "342443694651861d82346f3617005db9d1953194e3f9ad1faabbb5bd60bdd433",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-PLAN/entry.json": "ad0268f3538ae472b5564b63c408dcfa20490f5d4fa769fb657313cc8a52d773",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-PLAN/host-entry.json": "1e884b7b9aa4ccde8e020089fc576ab003d82c0ec0b66b1bb4e6a49e10e595a7",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-PLAN/AUTHOR-CLARIFICATION.md": "bb9ee1afdd55212ce9799a7ba34f11c5205b24c6ee59a36285384d154e285ed4",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-PLAN/spec.before-author-clarification.md": "01e4e23b1c76e140d7c98f169673fa677c7cb8276c64b301e718f9883558ad13",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-PLAN/plan.before-author-clarification.md": "b68a350b8ebdb8286f4c70b0c62eed515e217829195cf172945623765e15f33d",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-PLAN/review-initial.md": "f4a34e7b1499c404bf2985065e685ada25c5bf12ad2bb22d93071ab874ad892c",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-PLAN/review-initial.json": "0132e5e23a24a9961902b8079e6cca70d5d5f9418eac6b02e2c0f191c29d2180",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-PLAN/REVIEW-FIX.md": "41b93ad68278425c362cab3ae27930a37169cb7847411df66d19977960aff0fc",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-PLAN/review-fix.json": "8fcd1df5dbcff71f14b680b92c71531efe3b9d64f5ec17c8550d68cad814b169",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-PLAN/spec.before-R2.md": "b5cdf15b22889a1eb8175ec402c29a5acfdab063eb8bfa07bb08824bc0159957",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-PLAN/plan.before-R2.md": "ea5c5e70a3ac02c64325516a5b715f6cdf64c9ea9f2663a0c65f52e918845aec",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-PLAN/LOOKUP-CLARIFICATION.md": "9bf1f19486c9552a5a9a1d95d38ce0d3234f9b1f54d152a3666b29a78ae8a4e3",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-PLAN/author-final.json": "7ebafba92aae7c15d566d40b15f0dbed440fa8468e5c90b9982c2f4353a3c0f5",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-PLAN/spec.before-lookup-clarification.md": "b7936b282b281ca82892951ecef457aba89aa7cc5290a2fb065d82f3091f30a1",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-PLAN/review.md": "67d074e8841b83d61595eb35a1d48893c32f74df9881b58620bffda2298c986b"
+  },
+  "runtime_acceptance": false,
+  "performance_acceptance": false,
+  "production_acceptance": false,
+  "resolved_findings": [
+    "R2: concrete source-store cap, fresh changed-support arrays, old/new coexistence, lookup/incidence/preflight accounting"
+  ],
+  "declined_to_judge": [
+    "actual numerical outcomes",
+    "performance",
+    "allocation counts and native memory",
+    "runtime route coverage",
+    "production suitability"
+  ],
+  "new_production_cost_verdict": "No unnecessary NEW production work, allocation or retained memory: documentation only; future diagnostic costs explicitly bounded/accounted and unqualified.",
+  "reviewer": "independent bg_blocked_update_plan_review agent",
+  "writer_sha256": "2a0d8baee215c2752d9555077331d06683552d7d3f93114bc12eb3108a50458e"
+}

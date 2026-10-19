@@ -1,0 +1,46 @@
+{
+  "scope": "BG blocked U experimental plan",
+  "accepted": false,
+  "findings": [
+    {
+      "id": "R2",
+      "priority": 2,
+      "location": "docs/superpowers/specs/2026-10-19-direct-bg-blocked-update.md:40,52",
+      "title": "Make the movement guard concrete and correct the remaining work bounds",
+      "body": "The corrected plan still calls resize/reallocation movement exact without fixing a capacity-independent implementation. Array length alone cannot predict allocator copying or retained backing capacity. Specify a concrete changed-support strategy: for example fresh exact-length index/value arrays copied once per changed column, charging every copied/stored element plus old/new coexistence before replacement; or an explicitly conservative grow model with no assumed free resize. The cap must bound defined source-level element operations, not claim hidden allocator/native work is measured or zero. The claimed whole-update O(n^2) traversal bound still omits the O(w log n) binary lookups per panel, which sum to O(n^2 log n/b), and stable-ID incidence visits must scan all n IDs (O(n+h*w) for one outer pass), not merely the suffix w unless an additional ordering structure exists. Eligibility must finish before allocating a new workspace, so count its separate read traversal and gather. Require unchanged-support, support-change/copy, cap boundary, growth coexistence and adversarial support-change work-count fixtures. No gate or tolerance relaxation requested."
+    }
+  ],
+  "sha256": {
+    "AGENTS.md": "648146ccd145178d776319aab53c5f09bf5578806dd53a8d1b440b96511b4232",
+    "docs/superpowers/specs/2026-10-19-direct-bg-blocked-update.md": "b5cdf15b22889a1eb8175ec402c29a5acfdab063eb8bfa07bb08824bc0159957",
+    "docs/superpowers/plans/2026-10-19-direct-bg-blocked-update.md": "ea5c5e70a3ac02c64325516a5b715f6cdf64c9ea9f2663a0c65f52e918845aec",
+    "src/triangular_factorization.jl": "2d8d488ffb7d1cf79ff71662e0cd83400adaf4097dac3e48254c47106f3a7204",
+    "src/bartels_golub_rows.jl": "0dab8b63590128682605a1cc87104116cbe6ee9e45bf2c206484fc116f0166c0",
+    "src/triangular_indices.jl": "96659cddfae345701aed6c320a86fbeef4c6c4c95819864e363fcca04de3e61d",
+    "src/triangular_rows.jl": "9401e4f43102279344384a8023d1ebdfc409fcf47237414f763a04911ac23f5c",
+    "diagnostics/direct-lu-policy-adapters/reproduce/direct-factor.jl": "3c09b563623f7552fd0094c037de7205024d0a7eaade6baa34aff14a395b9bbc",
+    "diagnostics/direct-lu-policy-adapters/reproduce/factor-export.jl": "a54bcb4d51641dcec769108cd9cea76681c08bf5e6b98e881bff3f6c7da7ee85",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-EXPORT-SPECIALIZATION-COST-FIRST/result-review.md": "b509841512a024ca708f1da6387035d277af73e21d02033dd32dba39ee273bec",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-EXPORT-SPECIALIZATION-COST/runs/cost1-300/audit.json": "f25154cd87f43b08f82deb37a1547c8af1661c75af2204912b85548049927b31",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-PLAN/DECISIONS.md": "342443694651861d82346f3617005db9d1953194e3f9ad1faabbb5bd60bdd433",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-PLAN/entry.json": "ad0268f3538ae472b5564b63c408dcfa20490f5d4fa769fb657313cc8a52d773",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-PLAN/host-entry.json": "1e884b7b9aa4ccde8e020089fc576ab003d82c0ec0b66b1bb4e6a49e10e595a7",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-PLAN/AUTHOR-CLARIFICATION.md": "bb9ee1afdd55212ce9799a7ba34f11c5205b24c6ee59a36285384d154e285ed4",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-PLAN/spec.before-author-clarification.md": "01e4e23b1c76e140d7c98f169673fa677c7cb8276c64b301e718f9883558ad13",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-PLAN/plan.before-author-clarification.md": "b68a350b8ebdb8286f4c70b0c62eed515e217829195cf172945623765e15f33d"
+  },
+  "runtime_acceptance": false,
+  "resolved_before_receipt": [
+    "Replacement-aware H witness"
+  ],
+  "new_production_cost_verdict": "No new production changes; R2 concerns proposed experiment work accounting.",
+  "declined_to_judge": [
+    "numerical results",
+    "performance",
+    "actual allocations/native retention",
+    "runtime coverage",
+    "production adoption"
+  ],
+  "writer_sha256": "375c7ad01398dcc00dd3a82eb17b753099f3d093f5e430e933b84ad26365902d",
+  "report_sha256": "f4a34e7b1499c404bf2985065e685ada25c5bf12ad2bb22d93071ab874ad892c"
+}

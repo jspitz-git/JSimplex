@@ -1,0 +1,3 @@
+# Pre-review author clarification
+
+Preserved initial spec/plan in before-author-clarification files. Two issues identified during fresh self-review, before review acceptance: (1) update factor relation must use post-spike/post-column-rotation H, not pre-replacement U; independent original-B solves still mandatory, (2) packed splices can move O(n)-length suffixes in O(n/b) panels, giving O(n^3/b) worst case. Current design requires unchanged-support in-place writeback and a precommit2*h*w index-plus-value move cap; exceeding it invokes the same single bounded rejection/scalar suffix. No implementation or Julia. Review must assess corrected docs, preserving originals.
