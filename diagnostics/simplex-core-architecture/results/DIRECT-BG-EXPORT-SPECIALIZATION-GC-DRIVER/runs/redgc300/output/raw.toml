@@ -1,0 +1,48 @@
+fatal = ""
+preparation_calls = 3
+complete = true
+preparations_completed = 3
+threads = 1
+blas_threads = 1
+phase = "redgc300"
+
+[tests]
+pass = 0
+name = "root"
+fail = 0
+broken = 0
+failures = []
+error = 0
+
+    [[tests.children]]
+    pass = 0
+    name = "allocation_nonincrease_sparse32"
+    fail = 1
+    children = []
+    broken = 0
+    failures = ["""Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-EXPORT-SPECIALIZATION-GC-DRIVER/driver.jl:59\n  Expression: median7(cands_events) <= median7(refs_events) && median7(cands_bytes) <= median7(refs_bytes)"""]
+    error = 0
+    [[tests.children]]
+    pass = 0
+    name = "allocation_nonincrease_dense32"
+    fail = 1
+    children = []
+    broken = 0
+    failures = ["""Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-EXPORT-SPECIALIZATION-GC-DRIVER/driver.jl:59\n  Expression: median7(cands_events) <= median7(refs_events) && median7(cands_bytes) <= median7(refs_bytes)"""]
+    error = 0
+    [[tests.children]]
+    pass = 0
+    name = "allocation_nonincrease_sparse96"
+    fail = 1
+    children = []
+    broken = 0
+    failures = ["""Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-EXPORT-SPECIALIZATION-GC-DRIVER/driver.jl:59\n  Expression: median7(cands_events) <= median7(refs_events) && median7(cands_bytes) <= median7(refs_bytes)"""]
+    error = 0
+
+[loaded]
+LinearAlgebra = "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/LinearAlgebra/src/LinearAlgebra.jl"
+SparseArrays = "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/SparseArrays/src/SparseArrays.jl"
+Test = "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl"
+JSimplex = "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-export-specialization/task1-stage/src/JSimplex.jl"
+TOML = "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/TOML/src/TOML.jl"
+PrecompileTools = "/home/jspitz/.julia/packages/PrecompileTools/QUxvR/src/PrecompileTools.jl"
