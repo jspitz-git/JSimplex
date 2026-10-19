@@ -1,0 +1,53 @@
+--- diagnostic/src/triangular_factorization.jl
++++ 26e2291745999f485a74f643298ca997d65c7205/src/triangular_factorization.jl
+@@ -459,9 +459,14 @@
+ ForrestTomlinFactorization(B::AbstractMatrix{T}) where {T<:Real} =
+     ForrestTomlinFactorization(B, Val(:native))
+ 
+-function ForrestTomlinFactorization(B::AbstractMatrix{T}, ::Val{R}) where {T<:Real,R}
++ForrestTomlinFactorization(B::AbstractMatrix{T}, backend::Val) where {T<:Real} =
++    ForrestTomlinFactorization(B, backend, _NATIVE_PIVOT_DEFAULT)
++_basis_factorization(B, ::Val{:forrest_tomlin}, backend::Val, policy::_NativePivotPolicy) =
++    ForrestTomlinFactorization(B, backend, policy)
++
++function ForrestTomlinFactorization(B::AbstractMatrix{T}, ::Val{R}, policy::_NativePivotPolicy) where {T<:Real,R}
+     _supported_value_type(T) || throw(ArgumentError("unsupported basis value type: $T"))
+-    base = _factorize_basis(B, Val(R))
++    base = _factorize_basis(B, Val(R), policy)
+     n = _backend_dimension(base)
+     return ForrestTomlinFactorization{T,typeof(base)}(
+         base, _identity_upper(T, n), collect(1:n), collect(1:n),
+@@ -473,9 +478,14 @@
+ SuhlSuhlFactorization(B::AbstractMatrix{T}) where {T<:Real} =
+     SuhlSuhlFactorization(B, Val(:native))
+ 
+-function SuhlSuhlFactorization(B::AbstractMatrix{T}, ::Val{R}) where {T<:Real,R}
++SuhlSuhlFactorization(B::AbstractMatrix{T}, backend::Val) where {T<:Real} =
++    SuhlSuhlFactorization(B, backend, _NATIVE_PIVOT_DEFAULT)
++_basis_factorization(B, ::Val{:suhl_suhl}, backend::Val, policy::_NativePivotPolicy) =
++    SuhlSuhlFactorization(B, backend, policy)
++
++function SuhlSuhlFactorization(B::AbstractMatrix{T}, ::Val{R}, policy::_NativePivotPolicy) where {T<:Real,R}
+     _supported_value_type(T) || throw(ArgumentError("unsupported basis value type: $T"))
+-    base = _factorize_basis(B, Val(R))
++    base = _factorize_basis(B, Val(R), policy)
+     n = _backend_dimension(base)
+     return SuhlSuhlFactorization{T,typeof(base)}(
+         base, _identity_upper(T, n), collect(1:n), collect(1:n),
+@@ -487,9 +497,14 @@
+ BartelsGolubFactorization(B::AbstractMatrix{T}) where {T<:Real} =
+     BartelsGolubFactorization(B, Val(:native))
+ 
+-function BartelsGolubFactorization(B::AbstractMatrix{T}, ::Val{R}) where {T<:Real,R}
++BartelsGolubFactorization(B::AbstractMatrix{T}, backend::Val) where {T<:Real} =
++    BartelsGolubFactorization(B, backend, _NATIVE_PIVOT_DEFAULT)
++_basis_factorization(B, ::Val{:bartels_golub}, backend::Val, policy::_NativePivotPolicy) =
++    BartelsGolubFactorization(B, backend, policy)
++
++function BartelsGolubFactorization(B::AbstractMatrix{T}, ::Val{R}, policy::_NativePivotPolicy) where {T<:Real,R}
+     _supported_value_type(T) || throw(ArgumentError("unsupported basis value type: $T"))
+-    base = _factorize_basis(B, Val(R))
++    base = _factorize_basis(B, Val(R), policy)
+     n = _backend_dimension(base)
+     return BartelsGolubFactorization{T,typeof(base)}(
+         base, _identity_upper(T, n, Val(:stable)), collect(1:n), collect(1:n),

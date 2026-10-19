@@ -1,0 +1,1726 @@
+{
+  "scope": "Reviewed source declaration candidates and literal include order, not Julia parsing or full dispatch proof",
+  "include_order": [
+    "JSimplex.jl",
+    "numeric.jl",
+    "options.jl",
+    "simplex_numerics.jl",
+    "refactorization_policy.jl",
+    "simplex_stalling.jl",
+    "model.jl",
+    "indexed_vector.jl",
+    "sparse_pricing.jl",
+    "mps.jl",
+    "mps/records.jl",
+    "mps/parser.jl",
+    "mps/build.jl",
+    "transformations.jl",
+    "hypersparse_types.jl",
+    "factorization.jl",
+    "markowitz_factorization.jl",
+    "hypersparse_factorization.jl",
+    "triangular_factorization.jl",
+    "triangular_indices.jl",
+    "triangular_rows.jl",
+    "triangular_spikes.jl",
+    "bartels_golub_rows.jl",
+    "hypersparse_updates.jl",
+    "huangfu_hall_factorization.jl",
+    "hypersparse_pipeline_types.jl",
+    "simplex_diagnostics.jl",
+    "simplex_perturbation.jl",
+    "simplex_pricing.jl",
+    "simplex.jl",
+    "hypersparse_pipeline.jl",
+    "simplex_driver.jl",
+    "dual_simplex.jl",
+    "primal_row_certification.jl",
+    "dual_ratio.jl",
+    "primal_updates.jl",
+    "primal_simplex.jl",
+    "simplex_pivot.jl",
+    "simplex_recovery.jl",
+    "native_cleanup_recovery.jl",
+    "native_certificate_recovery.jl",
+    "legacy_dual_correction.jl",
+    "legacy_dual_prices.jl",
+    "legacy_primal_point.jl",
+    "legacy_primal_joint_point.jl",
+    "legacy_primal_pivot.jl",
+    "simplex_start.jl",
+    "native_phase_transfer.jl",
+    "simplex_phase_one.jl",
+    "simplex_precision.jl",
+    "simplex_precision_recovery.jl",
+    "lp_refinement.jl",
+    "lp_refinement_driver.jl",
+    "presolve.jl",
+    "presolve_rows.jl",
+    "presolve_dependencies.jl",
+    "presolve_propagation.jl",
+    "presolve_substitution.jl",
+    "presolve_aggregation.jl",
+    "presolve_dual.jl",
+    "presolve_incremental.jl",
+    "presolve_dispatch.jl",
+    "presolve_tolerance.jl",
+    "solver.jl",
+    "moi.jl",
+    "moi/optimizer.jl",
+    "moi/attributes.jl",
+    "moi/translation.jl",
+    "moi/results.jl",
+    "precompile.jl",
+    "factor-export.jl",
+    "direct-factor.jl"
+  ],
+  "symbols": {
+    "BartelsGolubFactorization": [
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 12,
+        "text": "    BartelsGolubFactorization(B, refactorization)"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 441,
+        "text": "mutable struct BartelsGolubFactorization{T<:Real,F} <: AbstractTriangularBasisFactorization{T}"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 497,
+        "text": "BartelsGolubFactorization(B::AbstractMatrix{T}) where {T<:Real} ="
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 498,
+        "text": "    BartelsGolubFactorization(B, Val(:native))"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 500,
+        "text": "BartelsGolubFactorization(B::AbstractMatrix{T}, backend::Val) where {T<:Real} ="
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 501,
+        "text": "    BartelsGolubFactorization(B, backend, _NATIVE_PIVOT_DEFAULT)"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 503,
+        "text": "    BartelsGolubFactorization(B, backend, policy)"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 505,
+        "text": "function BartelsGolubFactorization(B::AbstractMatrix{T}, ::Val{R}, policy::_NativePivotPolicy) where {T<:Real,R}"
+      }
+    ],
+    "BartelsGolubStep": [
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 332,
+        "text": "struct BartelsGolubStep{T<:Real}"
+      }
+    ],
+    "BartelsGolubUpdate": [
+      {
+        "path": "src/direct-factor.jl",
+        "line": 119,
+        "text": "        BartelsGolubUpdate{Float64}[],zeros(n),zeros(n),[Int[] for _ in 1:n],Int[],"
+      },
+      {
+        "path": "src/direct-factor.jl",
+        "line": 120,
+        "text": "        BartelsGolubUpdate{Float64}[],0,nothing,TriangularRowCache(Float64,n),false)"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 339,
+        "text": "struct BartelsGolubUpdate{T<:Real}"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 511,
+        "text": "        BartelsGolubUpdate{T}[], zeros(T, n), zeros(T, n),"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 513,
+        "text": "        BartelsGolubUpdate{T}[], 0, nothing, TriangularRowCache(T, n), false,"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 1292,
+        "text": "        BartelsGolubUpdate{T}[], factor.shared_update_count, _copy_sparse_basis_cache(factor.sparse),"
+      }
+    ],
+    "Float64UMFPACK": [
+      {
+        "path": "src/factorization.jl",
+        "line": 15,
+        "text": "const Float64UMFPACK = SparseArrays.UMFPACK.UmfpackLU{Float64,Int}"
+      }
+    ],
+    "ForrestTomlinFactorization": [
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 10,
+        "text": "    ForrestTomlinFactorization(B, refactorization)"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 409,
+        "text": "mutable struct ForrestTomlinFactorization{T<:Real,F} <: AbstractTriangularBasisFactorization{T}"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 459,
+        "text": "ForrestTomlinFactorization(B::AbstractMatrix{T}) where {T<:Real} ="
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 460,
+        "text": "    ForrestTomlinFactorization(B, Val(:native))"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 462,
+        "text": "ForrestTomlinFactorization(B::AbstractMatrix{T}, backend::Val) where {T<:Real} ="
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 463,
+        "text": "    ForrestTomlinFactorization(B, backend, _NATIVE_PIVOT_DEFAULT)"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 465,
+        "text": "    ForrestTomlinFactorization(B, backend, policy)"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 467,
+        "text": "function ForrestTomlinFactorization(B::AbstractMatrix{T}, ::Val{R}, policy::_NativePivotPolicy) where {T<:Real,R}"
+      }
+    ],
+    "ForrestTomlinUpdate": [
+      {
+        "path": "src/direct-factor.jl",
+        "line": 107,
+        "text": "        ForrestTomlinUpdate{Float64}[],zeros(n),zeros(n),Vector{Int}[],"
+      },
+      {
+        "path": "src/direct-factor.jl",
+        "line": 108,
+        "text": "        ForrestTomlinUpdate{Float64}[],0,nothing,TriangularRowCache(Float64,n))"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 304,
+        "text": "struct ForrestTomlinUpdate{T<:Real}"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 310,
+        "text": "ForrestTomlinUpdate{T}(pivot, indices, multipliers) where {T} ="
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 311,
+        "text": "    ForrestTomlinUpdate{T}(pivot, indices, multipliers, Int[])"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 313,
+        "text": "ForrestTomlinUpdate(pivot, indices, multipliers::Vector{T}) where {T} ="
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 314,
+        "text": "    ForrestTomlinUpdate{T}(pivot, indices, multipliers)"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 473,
+        "text": "        ForrestTomlinUpdate{T}[], zeros(T, n), zeros(T, n), Vector{Int}[],"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 474,
+        "text": "        ForrestTomlinUpdate{T}[], 0, nothing, TriangularRowCache(T, n),"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 1269,
+        "text": "        ForrestTomlinUpdate{T}[], factor.shared_update_count, _copy_sparse_basis_cache(factor.sparse),"
+      }
+    ],
+    "HHExtractWorkspace": [
+      {
+        "path": "src/huangfu_hall_factorization.jl",
+        "line": 68,
+        "text": "mutable struct HHExtractWorkspace"
+      },
+      {
+        "path": "src/huangfu_hall_factorization.jl",
+        "line": 73,
+        "text": "HHExtractWorkspace()=HHExtractWorkspace(Int[],Int[],Float64[])"
+      }
+    ],
+    "MarkowitzBackend": [
+      {
+        "path": "src/markowitz_factorization.jl",
+        "line": 52,
+        "text": "mutable struct MarkowitzBackend{T<:Real,F,D<:AbstractDict{Int,T}}"
+      },
+      {
+        "path": "src/markowitz_factorization.jl",
+        "line": 284,
+        "text": "MarkowitzBackend(B::AbstractMatrix{T}) where {T<:Real} ="
+      },
+      {
+        "path": "src/markowitz_factorization.jl",
+        "line": 285,
+        "text": "    MarkowitzBackend(B,OrderedCollections.OrderedDict{Int,T})"
+      },
+      {
+        "path": "src/markowitz_factorization.jl",
+        "line": 287,
+        "text": "MarkowitzBackend(B::AbstractMatrix{T},::Type{D}) where {T<:Real,D<:AbstractDict{Int,T}} ="
+      }
+    ],
+    "PackedUpperColumn": [
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 18,
+        "text": "struct PackedUpperColumn{T<:Real,I<:AbstractVector{Int}}"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 23,
+        "text": "PackedUpperColumn{T}(indices::I, values::Vector{T}) where {T<:Real,I<:AbstractVector{Int}} ="
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 24,
+        "text": "    PackedUpperColumn{T,I}(indices, values)"
+      }
+    ],
+    "SuhlSuhlFactorization": [
+      {
+        "path": "src/direct-factor.jl",
+        "line": 163,
+        "text": "    SuhlSuhlFactorization{Float64,<:DirectLowerBackend},BartelsGolubFactorization{Float64,<:DirectLowerBackend}}"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 14,
+        "text": "    SuhlSuhlFactorization(B, refactorization)"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 425,
+        "text": "mutable struct SuhlSuhlFactorization{T<:Real,F} <: AbstractTriangularBasisFactorization{T}"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 478,
+        "text": "SuhlSuhlFactorization(B::AbstractMatrix{T}) where {T<:Real} ="
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 479,
+        "text": "    SuhlSuhlFactorization(B, Val(:native))"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 481,
+        "text": "SuhlSuhlFactorization(B::AbstractMatrix{T}, backend::Val) where {T<:Real} ="
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 482,
+        "text": "    SuhlSuhlFactorization(B, backend, _NATIVE_PIVOT_DEFAULT)"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 484,
+        "text": "    SuhlSuhlFactorization(B, backend, policy)"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 486,
+        "text": "function SuhlSuhlFactorization(B::AbstractMatrix{T}, ::Val{R}, policy::_NativePivotPolicy) where {T<:Real,R}"
+      },
+      {
+        "path": "src/triangular_rows.jl",
+        "line": 132,
+        "text": "        SuhlSuhlFactorization{T},BartelsGolubFactorization{T}}) where {T<:Union{Float32,Float64}}"
+      },
+      {
+        "path": "src/triangular_rows.jl",
+        "line": 212,
+        "text": "        SuhlSuhlFactorization{T},BartelsGolubFactorization{T}},"
+      }
+    ],
+    "SuhlSuhlUpdate": [
+      {
+        "path": "src/direct-factor.jl",
+        "line": 113,
+        "text": "        SuhlSuhlUpdate{Float64}[],zeros(n),zeros(n),Vector{Int}[],"
+      },
+      {
+        "path": "src/direct-factor.jl",
+        "line": 114,
+        "text": "        SuhlSuhlUpdate{Float64}[],0,nothing,TriangularRowCache(Float64,n))"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 316,
+        "text": "struct SuhlSuhlUpdate{T<:Real}"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 323,
+        "text": "SuhlSuhlUpdate{T}(pivot, last, indices, multipliers) where {T} ="
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 324,
+        "text": "    SuhlSuhlUpdate{T}(pivot, last, indices, multipliers, Int[])"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 326,
+        "text": "SuhlSuhlUpdate(pivot, last, indices, multipliers::Vector{T}) where {T} ="
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 327,
+        "text": "    SuhlSuhlUpdate{T}(pivot, last, indices, multipliers)"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 492,
+        "text": "        SuhlSuhlUpdate{T}[], zeros(T, n), zeros(T, n), Vector{Int}[],"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 493,
+        "text": "        SuhlSuhlUpdate{T}[], 0, nothing, TriangularRowCache(T, n),"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 1280,
+        "text": "        SuhlSuhlUpdate{T}[], factor.shared_update_count, _copy_sparse_basis_cache(factor.sparse),"
+      }
+    ],
+    "TriangularRowCache": [
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 368,
+        "text": "mutable struct TriangularRowCache{T<:Real}"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 381,
+        "text": "TriangularRowCache(::Type{T}, n::Int) where {T<:Real} ="
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 382,
+        "text": "    TriangularRowCache{T}(collect(1:n), Tuple{Int,Int,T}[], 0, false, Int[], true, 1,"
+      }
+    ],
+    "UMFPACKBackend": [
+      {
+        "path": "src/factorization.jl",
+        "line": 33,
+        "text": "mutable struct UMFPACKBackend"
+      },
+      {
+        "path": "src/factorization.jl",
+        "line": 42,
+        "text": "UMFPACKBackend(factorization::Union{Nothing,Float64UMFPACK}, dimension::Int) ="
+      },
+      {
+        "path": "src/factorization.jl",
+        "line": 43,
+        "text": "    UMFPACKBackend(factorization, dimension, nothing, false, _NATIVE_PIVOT_DEFAULT)"
+      },
+      {
+        "path": "src/factorization.jl",
+        "line": 46,
+        "text": "UMFPACKBackend(factorization::Union{Nothing,Float64UMFPACK}, dimension::Int,"
+      },
+      {
+        "path": "src/factorization.jl",
+        "line": 48,
+        "text": "    UMFPACKBackend(factorization, dimension, spare, shared, _NATIVE_PIVOT_DEFAULT)"
+      }
+    ],
+    "UpperRowIndices": [
+      {
+        "path": "src/triangular_indices.jl",
+        "line": 9,
+        "text": "struct UpperRowIndices <: AbstractVector{Int}"
+      }
+    ],
+    "UpperRowOrder": [
+      {
+        "path": "src/triangular_indices.jl",
+        "line": 3,
+        "text": "struct UpperRowOrder"
+      },
+      {
+        "path": "src/triangular_indices.jl",
+        "line": 7,
+        "text": "UpperRowOrder(n::Int) = UpperRowOrder(collect(1:n), collect(1:n))"
+      }
+    ],
+    "_NATIVE_PIVOT_DEFAULT": [
+      {
+        "path": "src/factorization.jl",
+        "line": 17,
+        "text": "@enum _NativePivotPolicy::UInt8 _NATIVE_PIVOT_DEFAULT _NATIVE_PIVOT_ONE"
+      }
+    ],
+    "_NATIVE_PIVOT_ONE": [
+      {
+        "path": "src/factorization.jl",
+        "line": 17,
+        "text": "@enum _NativePivotPolicy::UInt8 _NATIVE_PIVOT_DEFAULT _NATIVE_PIVOT_ONE"
+      }
+    ],
+    "_NativePivotPolicy": [
+      {
+        "path": "src/factorization.jl",
+        "line": 17,
+        "text": "@enum _NativePivotPolicy::UInt8 _NATIVE_PIVOT_DEFAULT _NATIVE_PIVOT_ONE"
+      }
+    ],
+    "_UnitTransposeRHS": [
+      {
+        "path": "src/factorization.jl",
+        "line": 4,
+        "text": "struct _UnitTransposeRHS{T} <: AbstractVector{T}"
+      }
+    ],
+    "_apply_row_update!": [
+      {
+        "path": "src/hypersparse_updates.jl",
+        "line": 107,
+        "text": "function _apply_row_update!(vector::IndexedVector,"
+      },
+      {
+        "path": "src/hypersparse_updates.jl",
+        "line": 143,
+        "text": "function _apply_row_update!(vector::IndexedVector,update::BartelsGolubUpdate,scratch)"
+      },
+      {
+        "path": "src/hypersparse_updates.jl",
+        "line": 285,
+        "text": "            _apply_row_update!(cache.dense,update)"
+      },
+      {
+        "path": "src/hypersparse_updates.jl",
+        "line": 287,
+        "text": "            _apply_row_update!(work,update,cache.scratch)"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 525,
+        "text": "function _apply_row_update!(vector::Vector, update::ForrestTomlinUpdate)"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 569,
+        "text": "function _apply_row_update!(vector::Vector, update::SuhlSuhlUpdate)"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 613,
+        "text": "function _apply_row_update!(vector::Vector, update::BartelsGolubUpdate)"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 709,
+        "text": "        _apply_row_update!(vector, update)"
+      }
+    ],
+    "_apply_transposed_row_update!": [
+      {
+        "path": "src/hypersparse_updates.jl",
+        "line": 122,
+        "text": "function _apply_transposed_row_update!(vector::IndexedVector,"
+      },
+      {
+        "path": "src/hypersparse_updates.jl",
+        "line": 158,
+        "text": "function _apply_transposed_row_update!(vector::IndexedVector,update::BartelsGolubUpdate,scratch)"
+      },
+      {
+        "path": "src/hypersparse_updates.jl",
+        "line": 270,
+        "text": "                _apply_transposed_row_update!(cache.dense,update)"
+      },
+      {
+        "path": "src/hypersparse_updates.jl",
+        "line": 272,
+        "text": "                _apply_transposed_row_update!(work,update,cache.scratch)"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 543,
+        "text": "function _apply_transposed_row_update!(vector::Vector, update::ForrestTomlinUpdate)"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 587,
+        "text": "function _apply_transposed_row_update!(vector::Vector, update::SuhlSuhlUpdate)"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 632,
+        "text": "function _apply_transposed_row_update!(vector::Vector, update::BartelsGolubUpdate)"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 716,
+        "text": "        _apply_transposed_row_update!(vector, update)"
+      }
+    ],
+    "_backend_dimension": [
+      {
+        "path": "src/direct-factor.jl",
+        "line": 15,
+        "text": "_backend_dimension(b::DirectLowerBackend)=isnothing(b.fallback) ? length(b.work) : _backend_dimension(b.fallback)"
+      },
+      {
+        "path": "src/factorization.jl",
+        "line": 96,
+        "text": "_backend_dimension(backend::UMFPACKBackend) = backend.dimension"
+      },
+      {
+        "path": "src/factorization.jl",
+        "line": 97,
+        "text": "_backend_dimension(backend::Union{DenseLUBackend,Float32LUBackend}) ="
+      },
+      {
+        "path": "src/huangfu_hall_factorization.jl",
+        "line": 134,
+        "text": "_backend_dimension(b::HHBase)=length(b.rows)"
+      },
+      {
+        "path": "src/markowitz_factorization.jl",
+        "line": 70,
+        "text": "_backend_dimension(backend::MarkowitzBackend) = backend.dimension"
+      }
+    ],
+    "_backend_forward_solve!": [
+      {
+        "path": "src/direct-factor.jl",
+        "line": 26,
+        "text": "function _backend_forward_solve!(destination::Vector,b::DirectLowerBackend,rhs::AbstractVector)"
+      },
+      {
+        "path": "src/factorization.jl",
+        "line": 156,
+        "text": "function _backend_forward_solve!(destination::Vector, backend::UMFPACKBackend,"
+      },
+      {
+        "path": "src/factorization.jl",
+        "line": 163,
+        "text": "function _backend_forward_solve!(destination::Vector, backend::Union{DenseLUBackend,Float32LUBackend},"
+      },
+      {
+        "path": "src/factorization.jl",
+        "line": 196,
+        "text": "    _backend_forward_solve!(destination, factor.base, source)"
+      },
+      {
+        "path": "src/hypersparse_updates.jl",
+        "line": 223,
+        "text": "            _backend_forward_solve!(cache.dense_result,factor.base,rhs.values)"
+      },
+      {
+        "path": "src/markowitz_factorization.jl",
+        "line": 486,
+        "text": "function _backend_forward_solve!(destination::Vector{T},"
+      },
+      {
+        "path": "src/precompile.jl",
+        "line": 49,
+        "text": "                    _backend_forward_solve!(destination, backend, matrix * expected)"
+      },
+      {
+        "path": "src/precompile.jl",
+        "line": 55,
+        "text": "                    _backend_forward_solve!(destination, backend, replacement * expected)"
+      },
+      {
+        "path": "src/simplex_recovery.jl",
+        "line": 511,
+        "text": "                        _backend_forward_solve!(destination, factor, rhs)"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 769,
+        "text": "    _backend_forward_solve!(destination, factor.base, source)"
+      }
+    ],
+    "_backend_storage_count": [
+      {
+        "path": "src/direct-factor.jl",
+        "line": 16,
+        "text": "_backend_storage_count(b::DirectLowerBackend)=isnothing(b.fallback) ?"
+      },
+      {
+        "path": "src/factorization.jl",
+        "line": 85,
+        "text": "_backend_storage_count(backend::UMFPACKBackend) ="
+      },
+      {
+        "path": "src/factorization.jl",
+        "line": 87,
+        "text": "_backend_storage_count(backend::Union{DenseLUBackend,Float32LUBackend}) ="
+      },
+      {
+        "path": "src/factorization.jl",
+        "line": 90,
+        "text": "    _backend_storage_count(factor.base)+sum(eta -> length(eta.values),factor.updates;init=0)+"
+      },
+      {
+        "path": "src/huangfu_hall_factorization.jl",
+        "line": 135,
+        "text": "_backend_storage_count(b::HHBase)=nnz(b.lower)+nnz(b.upper)"
+      },
+      {
+        "path": "src/markowitz_factorization.jl",
+        "line": 71,
+        "text": "_backend_storage_count(backend::MarkowitzBackend) ="
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 346,
+        "text": "    _backend_storage_count(factor.base)+sum(c -> length(c.values),factor.upper;init=0)+"
+      }
+    ],
+    "_backend_transpose_solve!": [
+      {
+        "path": "src/direct-factor.jl",
+        "line": 52,
+        "text": "function _backend_transpose_solve!(destination::Vector,b::DirectLowerBackend,rhs::AbstractVector)"
+      },
+      {
+        "path": "src/factorization.jl",
+        "line": 169,
+        "text": "function _backend_transpose_solve!(destination::Vector, backend::UMFPACKBackend,"
+      },
+      {
+        "path": "src/factorization.jl",
+        "line": 176,
+        "text": "function _backend_transpose_solve!(destination::Vector, backend::Union{DenseLUBackend,Float32LUBackend},"
+      },
+      {
+        "path": "src/hypersparse_updates.jl",
+        "line": 221,
+        "text": "            _backend_transpose_solve!(cache.dense_result,factor.base,rhs.values)"
+      },
+      {
+        "path": "src/markowitz_factorization.jl",
+        "line": 523,
+        "text": "function _backend_transpose_solve!(destination::Vector{T},"
+      },
+      {
+        "path": "src/precompile.jl",
+        "line": 51,
+        "text": "                    _backend_transpose_solve!(destination, backend, transpose(matrix) * expected)"
+      },
+      {
+        "path": "src/precompile.jl",
+        "line": 57,
+        "text": "                    _backend_transpose_solve!(destination, backend, transpose(replacement) * expected)"
+      }
+    ],
+    "_begin_upper_update!": [
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 387,
+        "text": "function _begin_upper_update!(factor, position)"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 1014,
+        "text": "    _begin_upper_update!(factor, position)"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 1061,
+        "text": "    _begin_upper_update!(factor, position)"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 1117,
+        "text": "    _begin_upper_update!(factor, position)"
+      }
+    ],
+    "_copy_backend": [
+      {
+        "path": "src/direct-factor.jl",
+        "line": 19,
+        "text": "function _copy_backend(b::DirectLowerBackend{R,F}) where {R,F}"
+      },
+      {
+        "path": "src/factorization.jl",
+        "line": 443,
+        "text": "_copy_backend(backend::DenseLUBackend) = backend"
+      },
+      {
+        "path": "src/factorization.jl",
+        "line": 445,
+        "text": "function _copy_backend(backend::Float32LUBackend)"
+      },
+      {
+        "path": "src/factorization.jl",
+        "line": 450,
+        "text": "function _copy_backend(backend::UMFPACKBackend)"
+      },
+      {
+        "path": "src/factorization.jl",
+        "line": 459,
+        "text": "        _copy_backend(factor.base), copy(factor.updates), similar(factor.work),"
+      },
+      {
+        "path": "src/markowitz_factorization.jl",
+        "line": 586,
+        "text": "function _copy_backend(backend::MarkowitzBackend{T,F,D}) where {T,F,D}"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 1266,
+        "text": "        _copy_backend(factor.base), _copy_upper(factor.upper),"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 1277,
+        "text": "        _copy_backend(factor.base), _copy_upper(factor.upper),"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 1288,
+        "text": "        _copy_backend(factor.base), _copy_upper(factor.upper),"
+      }
+    ],
+    "_direct_lu_factor": [
+      {
+        "path": "src/direct-factor.jl",
+        "line": 153,
+        "text": "_direct_lu_factor(Factor,B::AbstractMatrix{Float64},backend::Val,"
+      },
+      {
+        "path": "src/direct-factor.jl",
+        "line": 156,
+        "text": "_direct_lu_factor(Factor,B::AbstractMatrix{T},backend::Val,"
+      },
+      {
+        "path": "src/direct-factor.jl",
+        "line": 159,
+        "text": "_direct_lu_factor(Factor,B::AbstractMatrix{T},backend::Val;normalize::Bool=true) where {T<:Real}="
+      },
+      {
+        "path": "src/direct-factor.jl",
+        "line": 160,
+        "text": "    _direct_lu_factor(Factor,B,backend,_NATIVE_PIVOT_DEFAULT;normalize)"
+      }
+    ],
+    "_direct_mode": [
+      {
+        "path": "src/direct-factor.jl",
+        "line": 164,
+        "text": "_direct_mode(f::DirectLUFactor)=!isnothing(f.base.fallback) ? :fallback :"
+      }
+    ],
+    "_direct_packed_upper": [
+      {
+        "path": "src/direct-factor.jl",
+        "line": 94,
+        "text": "function _direct_packed_upper(U,::Type{F}) where {F}"
+      }
+    ],
+    "_direct_requested_backend": [
+      {
+        "path": "src/direct-factor.jl",
+        "line": 14,
+        "text": "_direct_requested_backend(::DirectLowerBackend{R}) where {R}=R"
+      }
+    ],
+    "_ensure_bartels_golub_incidence!": [
+      {
+        "path": "src/bartels_golub_rows.jl",
+        "line": 73,
+        "text": "function _ensure_bartels_golub_incidence!(factor::BartelsGolubFactorization)"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 1118,
+        "text": "    _ensure_bartels_golub_incidence!(factor)"
+      }
+    ],
+    "_export_basis_lu": [
+      {
+        "path": "src/factor-export.jl",
+        "line": 62,
+        "text": "_export_basis_lu(backend)=nothing"
+      },
+      {
+        "path": "src/factor-export.jl",
+        "line": 63,
+        "text": "function _export_basis_lu(backend::UMFPACKBackend)"
+      },
+      {
+        "path": "src/factor-export.jl",
+        "line": 78,
+        "text": "function _export_basis_lu(backend::MarkowitzBackend{Float64})"
+      }
+    ],
+    "_factor_growth_measure": [
+      {
+        "path": "src/factorization.jl",
+        "line": 93,
+        "text": "_factor_growth_measure(factor::PFIFactorization{T}) where T ="
+      },
+      {
+        "path": "src/huangfu_hall_factorization.jl",
+        "line": 140,
+        "text": "_factor_growth_measure(f::HuangfuHallFactorization{T}) where {T}=maximum(t->"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 348,
+        "text": "_factor_growth_measure(factor::AbstractTriangularBasisFactorization{T}) where T ="
+      }
+    ],
+    "_factor_growth_reference": [
+      {
+        "path": "src/factorization.jl",
+        "line": 92,
+        "text": "_factor_growth_reference(factor::PFIFactorization{T}) where T = one(T)"
+      },
+      {
+        "path": "src/huangfu_hall_factorization.jl",
+        "line": 139,
+        "text": "_factor_growth_reference(::HuangfuHallFactorization{T}) where {T}=one(T)"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 350,
+        "text": "_factor_growth_reference(factor::AbstractTriangularBasisFactorization) = _factor_growth_measure(factor)"
+      }
+    ],
+    "_factor_storage_count": [
+      {
+        "path": "src/factorization.jl",
+        "line": 89,
+        "text": "_factor_storage_count(factor::PFIFactorization) ="
+      },
+      {
+        "path": "src/huangfu_hall_factorization.jl",
+        "line": 137,
+        "text": "_factor_storage_count(f::HuangfuHallFactorization)=_backend_storage_count(f.base)+"
+      },
+      {
+        "path": "src/simplex_start.jl",
+        "line": 229,
+        "text": "            _factor_storage_count(trial.factorization) <= storage_limit ||"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 345,
+        "text": "_factor_storage_count(factor::AbstractTriangularBasisFactorization) ="
+      }
+    ],
+    "_factorize_basis": [
+      {
+        "path": "src/dual_simplex.jl",
+        "line": 178,
+        "text": "    _factorize_basis(B, Val(:markowitz))"
+      },
+      {
+        "path": "src/factorization.jl",
+        "line": 100,
+        "text": "_factorize_basis(B::AbstractMatrix{Float64}) ="
+      },
+      {
+        "path": "src/factorization.jl",
+        "line": 101,
+        "text": "    _factorize_basis(B, Val(:native), _NATIVE_PIVOT_DEFAULT)"
+      },
+      {
+        "path": "src/factorization.jl",
+        "line": 103,
+        "text": "function _factorize_basis(B::AbstractMatrix{Float64}, ::Val{:native}, policy::_NativePivotPolicy)"
+      },
+      {
+        "path": "src/factorization.jl",
+        "line": 126,
+        "text": "_factorize_basis(B::AbstractMatrix{T}) where {T<:Real} = _factorize_dense_basis(B)"
+      },
+      {
+        "path": "src/factorization.jl",
+        "line": 127,
+        "text": "_factorize_basis(B::AbstractMatrix, ::Val{:native}) = _factorize_basis(B)"
+      },
+      {
+        "path": "src/factorization.jl",
+        "line": 128,
+        "text": "_factorize_basis(B::AbstractMatrix, ::Val{:native}, ::_NativePivotPolicy) ="
+      },
+      {
+        "path": "src/factorization.jl",
+        "line": 129,
+        "text": "    _factorize_basis(B)"
+      },
+      {
+        "path": "src/factorization.jl",
+        "line": 130,
+        "text": "function _factorize_basis(B::AbstractMatrix, ::Val{:markowitz}, policy::_NativePivotPolicy)"
+      },
+      {
+        "path": "src/markowitz_factorization.jl",
+        "line": 75,
+        "text": "_factorize_basis(B::AbstractMatrix, ::Val{:markowitz}) = MarkowitzBackend(B)"
+      }
+    ],
+    "_finish_upper_update!": [
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 393,
+        "text": "function _finish_upper_update!(factor)"
+      }
+    ],
+    "_finite_updated_factor": [
+      {
+        "path": "src/huangfu_hall_factorization.jl",
+        "line": 142,
+        "text": "_finite_updated_factor(f::HuangfuHallFactorization)=all(t->isfinite(t.pivot) &&"
+      },
+      {
+        "path": "src/simplex_phase_one.jl",
+        "line": 198,
+        "text": "        _finite_updated_factor(phase.factorization) || return false"
+      },
+      {
+        "path": "src/simplex_pivot.jl",
+        "line": 149,
+        "text": "_finite_updated_factor(factor::PFIFactorization) ="
+      },
+      {
+        "path": "src/simplex_pivot.jl",
+        "line": 151,
+        "text": "function _finite_updated_factor(factor::AbstractTriangularBasisFactorization)"
+      },
+      {
+        "path": "src/simplex_start.jl",
+        "line": 220,
+        "text": "            _finite_updated_factor(trial.factorization) || return _crash_fallback(initial,trial,false)"
+      }
+    ],
+    "_hh_extract_parts": [
+      {
+        "path": "src/huangfu_hall_factorization.jl",
+        "line": 89,
+        "text": "function _hh_extract_parts(F::SparseArrays.UMFPACK.UmfpackLU{Float64,Int64},w::HHExtractWorkspace)"
+      },
+      {
+        "path": "src/huangfu_hall_factorization.jl",
+        "line": 201,
+        "text": "function _hh_extract_parts(F::LinearAlgebra.LU{T},::HHExtractWorkspace) where {T}"
+      },
+      {
+        "path": "src/huangfu_hall_factorization.jl",
+        "line": 208,
+        "text": "function _hh_extract_parts(F::MarkowitzBackend{T},::HHExtractWorkspace) where {T}"
+      }
+    ],
+    "_hh_scale_mode": [
+      {
+        "path": "src/huangfu_hall_factorization.jl",
+        "line": 166,
+        "text": "function _hh_scale_mode(F,L,U,p,q,scaling,work,auxiliary)"
+      }
+    ],
+    "_identity_upper": [
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 32,
+        "text": "function _identity_upper(::Type{T}, n::Int, ::Val{:stable}) where {T<:Real}"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 48,
+        "text": "function _identity_upper(::Type{T}, n::Int) where {T<:Real}"
+      }
+    ],
+    "_invalidate_sparse_upper!": [
+      {
+        "path": "src/hypersparse_updates.jl",
+        "line": 25,
+        "text": "function _invalidate_sparse_upper!(factor, first_column::Int=1)"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 389,
+        "text": "    _invalidate_sparse_upper!(factor, position)"
+      }
+    ],
+    "_last_pure_bartels_golub_swap": [
+      {
+        "path": "src/bartels_golub_rows.jl",
+        "line": 57,
+        "text": "function _last_pure_bartels_golub_swap(upper, first::Int)"
+      }
+    ],
+    "_ordinary_forward_solve!": [
+      {
+        "path": "src/huangfu_hall_factorization.jl",
+        "line": 407,
+        "text": "_ordinary_forward_solve!(destination::Vector{T},f::HuangfuHallFactorization{T},rhs::AbstractVector) where {T}="
+      },
+      {
+        "path": "src/hypersparse_pipeline.jl",
+        "line": 465,
+        "text": "                                _ordinary_forward_solve!(destination,ws.factorization,rhs)"
+      },
+      {
+        "path": "src/legacy_dual_correction.jl",
+        "line": 43,
+        "text": "                             _ordinary_forward_solve!(buffers.correction, workspace.factorization, scratch.residual)"
+      },
+      {
+        "path": "src/legacy_dual_correction.jl",
+        "line": 158,
+        "text": "                _ordinary_forward_solve!(direction,ws.factorization,rhs)"
+      },
+      {
+        "path": "src/legacy_primal_pivot.jl",
+        "line": 133,
+        "text": "            _ordinary_forward_solve!(buffers.correction, workspace.factorization,"
+      },
+      {
+        "path": "src/legacy_primal_point.jl",
+        "line": 196,
+        "text": "            _ordinary_forward_solve!(buffers.correction, workspace.factorization,"
+      },
+      {
+        "path": "src/native_cleanup_recovery.jl",
+        "line": 24,
+        "text": "            _ordinary_forward_solve!(correction,ws.factorization,scratch.residual)"
+      },
+      {
+        "path": "src/native_cleanup_recovery.jl",
+        "line": 69,
+        "text": "                        _ordinary_forward_solve!(correction,ws.factorization,scratch.residual)"
+      },
+      {
+        "path": "src/native_phase_transfer.jl",
+        "line": 156,
+        "text": "        _ordinary_forward_solve!(correction,ws.factorization,scratch.residual)"
+      },
+      {
+        "path": "src/simplex_recovery.jl",
+        "line": 438,
+        "text": "                         _ordinary_forward_solve!(buffers.correction,ws.factorization,quality_scratch.residual)"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 731,
+        "text": "_ordinary_forward_solve!(destination, factor, rhs) = forward_solve!(destination, factor, rhs)"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 732,
+        "text": "_ordinary_forward_solve!(destination::Vector{T}, factor::AbstractTriangularBasisFactorization{T},"
+      }
+    ],
+    "_pivot_magnitude": [
+      {
+        "path": "src/bartels_golub_rows.jl",
+        "line": 65,
+        "text": "        _pivot_magnitude(lower) > zero(lower) || return column_index - 1"
+      },
+      {
+        "path": "src/factorization.jl",
+        "line": 249,
+        "text": "_pivot_magnitude(value::Real) = abs(value)"
+      },
+      {
+        "path": "src/factorization.jl",
+        "line": 250,
+        "text": "_pivot_magnitude(value::BigFloat) = setprecision(BigFloat, precision(value)) do"
+      },
+      {
+        "path": "src/factorization.jl",
+        "line": 271,
+        "text": "    _pivot_magnitude(pivot_value) > tolerance || throw(LinearAlgebra.ZeroPivotException(pivot))"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 873,
+        "text": "    _pivot_magnitude(convert(T, tableau_column[pivot])) > tolerance ||"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 1143,
+        "text": "                  _pivot_magnitude(_upper_value(column, column_index))"
+      }
+    ],
+    "_positive_tolerance": [
+      {
+        "path": "src/factorization.jl",
+        "line": 260,
+        "text": "                         _positive_tolerance(T, 1 // 10^12),"
+      },
+      {
+        "path": "src/huangfu_hall_factorization.jl",
+        "line": 513,
+        "text": "                             _positive_tolerance(T,1//10^12)) where {T}"
+      },
+      {
+        "path": "src/options.jl",
+        "line": 157,
+        "text": "function _positive_tolerance(::Type{T}, ratio) where {T<:AbstractFloat}"
+      },
+      {
+        "path": "src/options.jl",
+        "line": 221,
+        "text": "         _positive_tolerance(T, 1 // 10^12))"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 1012,
+        "text": "                                              _positive_tolerance(T, 1 // 10^12)) where {T}"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 1059,
+        "text": "                                              _positive_tolerance(T, 1 // 10^12)) where {T}"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 1115,
+        "text": "                                              _positive_tolerance(T, 1 // 10^12)) where {T}"
+      }
+    ],
+    "_prepare_spike!": [
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 862,
+        "text": "function _prepare_spike!(factor::AbstractTriangularBasisFactorization{T},"
+      }
+    ],
+    "_replace_bartels_golub_incidence_column!": [
+      {
+        "path": "src/bartels_golub_rows.jl",
+        "line": 87,
+        "text": "function _replace_bartels_golub_incidence_column!(factor::BartelsGolubFactorization,"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 1119,
+        "text": "    _replace_bartels_golub_incidence_column!(factor, position)"
+      }
+    ],
+    "_rotate_columns!": [
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 890,
+        "text": "function _rotate_columns!(factor::AbstractTriangularBasisFactorization,"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 1020,
+        "text": "    _rotate_columns!(factor, position, last)"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 1062,
+        "text": "    _rotate_columns!(factor, position)"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 1120,
+        "text": "    _rotate_columns!(factor, position)"
+      }
+    ],
+    "_rotate_upper_rows!": [
+      {
+        "path": "src/bartels_golub_rows.jl",
+        "line": 3,
+        "text": "function _rotate_upper_rows!(upper, columns_by_row, affected, marks::Vector{T},"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 1134,
+        "text": "            _rotate_upper_rows!(factor.upper, columns_by_row, factor.affected,"
+      }
+    ],
+    "_set_upper_value_at!": [
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 189,
+        "text": "function _set_upper_value_at!(column::PackedUpperColumn{T}, row::Int, value::T,"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 226,
+        "text": "function _set_upper_value_at!(upper::Vector{<:PackedUpperColumn{T}},"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 234,
+        "text": "    _set_upper_value_at!(column, row, value, position)"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 1152,
+        "text": "        _set_upper_value_at!(factor.upper, columns_by_row,"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 1162,
+        "text": "                _set_upper_value_at!(factor.upper, columns_by_row,"
+      }
+    ],
+    "_swap_upper_rows!": [
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 245,
+        "text": "function _swap_upper_rows!(upper::Vector{<:PackedUpperColumn{T}},"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 1145,
+        "text": "            _swap_upper_rows!(factor.upper, columns_by_row, factor.affected,"
+      }
+    ],
+    "_take_bartels_golub_steps!": [
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 917,
+        "text": "function _take_bartels_golub_steps!(factor::BartelsGolubFactorization{T}) where {T}"
+      }
+    ],
+    "_track_upper_value!": [
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 397,
+        "text": "@inline function _track_upper_value!(factor, value::T) where {T}"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 1164,
+        "text": "                                    _track_upper_value!(factor, old - multiplier * value), slot, column_id)"
+      }
+    ],
+    "_unit_transpose_rhs": [
+      {
+        "path": "src/factorization.jl",
+        "line": 13,
+        "text": "_unit_transpose_rhs(factor, rhs, row::Int) = rhs"
+      },
+      {
+        "path": "src/huangfu_hall_factorization.jl",
+        "line": 410,
+        "text": "function _unit_transpose_rhs(f::HuangfuHallFactorization{T}, rhs::Vector{T},"
+      },
+      {
+        "path": "src/hypersparse_pipeline.jl",
+        "line": 460,
+        "text": "                    _unit_transpose_rhs(ws.factorization,rhs,unit_row))"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 801,
+        "text": "function _unit_transpose_rhs(factor::AbstractTriangularBasisFactorization{T},"
+      }
+    ],
+    "_upper_entry": [
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 177,
+        "text": "function _upper_entry(column::PackedUpperColumn{T}, row::Int) where {T}"
+      }
+    ],
+    "_upper_value": [
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 172,
+        "text": "function _upper_value(column::PackedUpperColumn{T}, row::Int) where {T}"
+      }
+    ],
+    "copy_basis_factorization": [
+      {
+        "path": "src/factorization.jl",
+        "line": 456,
+        "text": "function copy_basis_factorization(factor::PFIFactorization{T,F}) where {T,F}"
+      },
+      {
+        "path": "src/huangfu_hall_factorization.jl",
+        "line": 591,
+        "text": "function copy_basis_factorization(f::HuangfuHallFactorization{T,F,R}) where {T,F,R}"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 1263,
+        "text": "function copy_basis_factorization(factor::ForrestTomlinFactorization{T,F}) where {T,F}"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 1274,
+        "text": "function copy_basis_factorization(factor::SuhlSuhlFactorization{T,F}) where {T,F}"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 1285,
+        "text": "function copy_basis_factorization(factor::BartelsGolubFactorization{T,F}) where {T,F}"
+      }
+    ],
+    "forward_solve": [
+      {
+        "path": "src/factorization.jl",
+        "line": 221,
+        "text": "function forward_solve(factor::PFIFactorization{T}, rhs::AbstractVector) where {T}"
+      },
+      {
+        "path": "src/huangfu_hall_factorization.jl",
+        "line": 409,
+        "text": "forward_solve(f::HuangfuHallFactorization{T},rhs::AbstractVector) where {T}=forward_solve!(zeros(T,length(rhs)),f,rhs)"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 786,
+        "text": "function forward_solve(factor::AbstractTriangularBasisFactorization{T}, rhs::AbstractVector) where {T}"
+      }
+    ],
+    "forward_solve!": [
+      {
+        "path": "src/factorization.jl",
+        "line": 188,
+        "text": "function forward_solve!(destination::Vector{T}, factor::PFIFactorization{T},"
+      },
+      {
+        "path": "src/factorization.jl",
+        "line": 211,
+        "text": "function forward_solve!(destination::Vector{T}, factor::PFIFactorization{T},"
+      },
+      {
+        "path": "src/huangfu_hall_factorization.jl",
+        "line": 405,
+        "text": "forward_solve!(destination::Vector{T},f::HuangfuHallFactorization{T},rhs::AbstractVector) where {T}="
+      },
+      {
+        "path": "src/hypersparse_pipeline.jl",
+        "line": 349,
+        "text": "                        forward_solve!(destination, factor, rhs)"
+      },
+      {
+        "path": "src/hypersparse_pipeline.jl",
+        "line": 357,
+        "text": "                     forward_solve!(cache.dense_result,factor,rhs)"
+      },
+      {
+        "path": "src/hypersparse_pipeline.jl",
+        "line": 361,
+        "text": "                        forward_solve!(destination,factor,rhs)"
+      },
+      {
+        "path": "src/hypersparse_pipeline.jl",
+        "line": 417,
+        "text": "                     forward_solve!(out,ws.factorization,indexed_rhs;kernel_mode=:auto)"
+      },
+      {
+        "path": "src/hypersparse_updates.jl",
+        "line": 351,
+        "text": "            forward_solve!(cache.dense,factor,rhs.values)"
+      },
+      {
+        "path": "src/hypersparse_updates.jl",
+        "line": 381,
+        "text": "forward_solve!(dest::IndexedVector{T},factor::Union{PFIFactorization{T},"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 727,
+        "text": "forward_solve!(destination::Vector{T}, factor::AbstractTriangularBasisFactorization{T},"
+      }
+    ],
+    "refactorize!": [
+      {
+        "path": "src/direct-factor.jl",
+        "line": 175,
+        "text": "refactorize!(f::DirectLUFactor,B::AbstractMatrix{Float64})="
+      },
+      {
+        "path": "src/factorization.jl",
+        "line": 425,
+        "text": "function refactorize!(factor::PFIFactorization{Float64,UMFPACKBackend}, B::AbstractMatrix{Float64})"
+      },
+      {
+        "path": "src/factorization.jl",
+        "line": 434,
+        "text": "function refactorize!(factor::PFIFactorization{T,F}, B::AbstractMatrix{T}) where {T<:Real,F<:Union{DenseLUBackend,Float32LUBackend}}"
+      },
+      {
+        "path": "src/huangfu_hall_factorization.jl",
+        "line": 549,
+        "text": "function refactorize!(f::HuangfuHallFactorization{T,FType,R},B::AbstractMatrix{T}) where {T,FType,R}"
+      },
+      {
+        "path": "src/markowitz_factorization.jl",
+        "line": 577,
+        "text": "function refactorize!(factor::PFIFactorization{T,F}, B::AbstractMatrix{T}) where {T<:Real,F<:MarkowitzBackend}"
+      },
+      {
+        "path": "src/simplex.jl",
+        "line": 429,
+        "text": "                refactorize!(workspace.factorization, B)"
+      },
+      {
+        "path": "src/simplex_pivot.jl",
+        "line": 192,
+        "text": "                refactorize!(ws.factorization,basis_matrix(ws))"
+      },
+      {
+        "path": "src/solver.jl",
+        "line": 163,
+        "text": "            refactorize!(workspace.factorization, basis_matrix(workspace))"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 1238,
+        "text": "refactorize!(factor::AbstractTriangularBasisFactorization{T}, B::AbstractMatrix{T}) where {T} ="
+      }
+    ],
+    "replace_column!": [
+      {
+        "path": "src/factorization.jl",
+        "line": 255,
+        "text": "function replace_column!("
+      },
+      {
+        "path": "src/huangfu_hall_factorization.jl",
+        "line": 511,
+        "text": "function replace_column!(f::HuangfuHallFactorization{T},direction::AbstractVector,pivot_row::Integer;"
+      },
+      {
+        "path": "src/simplex_phase_one.jl",
+        "line": 197,
+        "text": "        replace_column!(phase.factorization,column,row;zero_tolerance=zero(T))"
+      },
+      {
+        "path": "src/simplex_pivot.jl",
+        "line": 165,
+        "text": "        replace_column!(ws.factorization,column,row;zero_tolerance)"
+      },
+      {
+        "path": "src/simplex_start.jl",
+        "line": 219,
+        "text": "            replace_column!(trial.factorization,column,selected;zero_tolerance=zero(T))"
+      },
+      {
+        "path": "src/solver.jl",
+        "line": 157,
+        "text": "        replace_column!(workspace.factorization, direction, leaving_row;"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 1009,
+        "text": "function replace_column!(factor::SuhlSuhlFactorization{T},"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 1056,
+        "text": "function replace_column!(factor::ForrestTomlinFactorization{T},"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 1112,
+        "text": "function replace_column!(factor::BartelsGolubFactorization{T},"
+      }
+    ],
+    "sparse_solve_view": [
+      {
+        "path": "src/direct-factor.jl",
+        "line": 18,
+        "text": "sparse_solve_view(::DirectLowerBackend)=nothing"
+      },
+      {
+        "path": "src/huangfu_hall_factorization.jl",
+        "line": 136,
+        "text": "sparse_solve_view(::HHBase)=nothing"
+      },
+      {
+        "path": "src/hypersparse_factorization.jl",
+        "line": 15,
+        "text": "sparse_solve_view(::Union{DenseLUBackend,Float32LUBackend}) = nothing"
+      },
+      {
+        "path": "src/hypersparse_factorization.jl",
+        "line": 52,
+        "text": "function sparse_solve_view(backend::UMFPACKBackend)"
+      },
+      {
+        "path": "src/hypersparse_factorization.jl",
+        "line": 64,
+        "text": "function sparse_solve_view(backend::MarkowitzBackend{T}) where T"
+      }
+    ],
+    "transpose_solve": [
+      {
+        "path": "src/factorization.jl",
+        "line": 245,
+        "text": "function transpose_solve(factor::PFIFactorization{T}, rhs::AbstractVector) where {T}"
+      },
+      {
+        "path": "src/huangfu_hall_factorization.jl",
+        "line": 458,
+        "text": "transpose_solve(f::HuangfuHallFactorization{T},rhs::AbstractVector) where {T}=transpose_solve!(zeros(T,length(rhs)),f,rhs)"
+      },
+      {
+        "path": "src/lp_refinement_driver.jl",
+        "line": 249,
+        "text": "        transpose_solve(ws.factorization,basic_costs)"
+      },
+      {
+        "path": "src/native_certificate_recovery.jl",
+        "line": 19,
+        "text": "        transpose_solve(workspace.factorization, scratch.residual)"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 858,
+        "text": "function transpose_solve(factor::AbstractTriangularBasisFactorization{T}, rhs::AbstractVector) where {T}"
+      }
+    ],
+    "transpose_solve!": [
+      {
+        "path": "src/factorization.jl",
+        "line": 225,
+        "text": "function transpose_solve!(destination::Vector{T}, factor::PFIFactorization{T},"
+      },
+      {
+        "path": "src/huangfu_hall_factorization.jl",
+        "line": 445,
+        "text": "function transpose_solve!(destination::Vector{T},f::HuangfuHallFactorization{T},rhs::AbstractVector) where {T}"
+      },
+      {
+        "path": "src/hypersparse_updates.jl",
+        "line": 349,
+        "text": "            transpose_solve!(cache.dense,factor,rhs.values)"
+      },
+      {
+        "path": "src/hypersparse_updates.jl",
+        "line": 384,
+        "text": "transpose_solve!(dest::IndexedVector{T},factor::Union{PFIFactorization{T},"
+      },
+      {
+        "path": "src/legacy_dual_correction.jl",
+        "line": 125,
+        "text": "            transpose_solve!(correction,ws.factorization,scratch.residual)"
+      },
+      {
+        "path": "src/legacy_primal_pivot.jl",
+        "line": 56,
+        "text": "        transpose_solve!(dual,workspace.factorization,rhs)"
+      },
+      {
+        "path": "src/simplex_recovery.jl",
+        "line": 144,
+        "text": "        transpose_solve!(direction,trial.factorization,rhs)"
+      },
+      {
+        "path": "src/triangular_factorization.jl",
+        "line": 835,
+        "text": "function transpose_solve!(destination::Vector{T},"
+      }
+    ]
+  },
+  "qualified_symbol_count": 66,
+  "sha256": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/JSimplex.jl": "e7139ff2bb0bcd51d52a000b8da7ae7b17d483ba92787659dfa9506703c587e5",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/numeric.jl": "c5212838ee6183f4eb7867ffb0ba308b1e51780aede045a1e1692cb53a2314d0",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/options.jl": "1b72bd9ca597a887acbcc750b277a485f10981826b81efe9a5c4c25748226e08",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/simplex_numerics.jl": "7173dbdfcd020c61819008d5ff1ad7a647d00711fbd50eefcfacf15ff852a8cd",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/refactorization_policy.jl": "13761274267091498832c31c1336595a68ba0bc54cda76518267f676fd7c0f17",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/simplex_stalling.jl": "9aa182b713dbb3bdf74f632756800aba7841ea215098594a58baa291741a230d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/model.jl": "b179141daeef4d193f524c6389aa72f310bc4ca92e7c4e375019e072e6698e1d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/indexed_vector.jl": "0cc096522dc4b9e471161238652216875c44f018ed74db9d1c4d341664f78822",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/sparse_pricing.jl": "e860c1c7ba7f447bb5939747f97a4a5903196c73fe3f381eb5f7ac60dedc79a9",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/mps.jl": "ea8a1362f58f5bde1a9fadc88d50bb82932380befea1466e9d10b174deb7ae8a",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/mps/records.jl": "1290353aa8e1b21a2aa681e2cd575ad93eb8515f42b964d3010f51b9027ec01c",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/mps/parser.jl": "66d8f2588119553841a6ab2e6276d3df9818535a4e577bdf938cf0c69b0c599f",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/mps/build.jl": "055a7a22d76d7b35ab5564f2f2419044aea131550ec617b30d6172241a60db56",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/transformations.jl": "74f6e45a7bc0f8605dc1759a2a41615c6241267e2782eef5dbdd176ff3c32382",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/hypersparse_types.jl": "5251d789e7b32d5ce4babfaa76c12f0e37a414f6f49b3dac45bb6dc1071b4bd6",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/factorization.jl": "bf8f7381caa143d1825d0e39d8f35ec93cf36e4ddc150c0c7c1da6d979b494ce",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/markowitz_factorization.jl": "e07eb67430a99a050c7a78c2419a3a97aee1c0f2e99224f4fdf15389922d1047",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/hypersparse_factorization.jl": "780d43f638097f0aef0b20112ba01324daa6e6163fcefbd72781e777f4a9d88e",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/triangular_factorization.jl": "685d4356d83a4f62f2cf17f08a70f5987ba78d18499dc8ee6975405ae4a939f2",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/triangular_indices.jl": "96659cddfae345701aed6c320a86fbeef4c6c4c95819864e363fcca04de3e61d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/triangular_rows.jl": "9401e4f43102279344384a8023d1ebdfc409fcf47237414f763a04911ac23f5c",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/triangular_spikes.jl": "4529bc5aacb604b932128463a26dc8e091933a720abb963c863de13666531873",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/bartels_golub_rows.jl": "0dab8b63590128682605a1cc87104116cbe6ee9e45bf2c206484fc116f0166c0",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/hypersparse_updates.jl": "4b28aa53f95de0f5cd076adb1e74b0146f80185cbd24583964c24077bc97ac99",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/huangfu_hall_factorization.jl": "855e8d612c33c4ad2425c1c379d476be416431098de8dde3c8f4f8687d1615cf",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/hypersparse_pipeline_types.jl": "d0e88536918d46bbb9f2db3a1516f4e0a90c9c2310d10672d451b8330a00ee72",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/simplex_diagnostics.jl": "0c27c8675e87fdaa6f97e834453c35121f0bdc080b845ef8c960dba55d8cfa12",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/simplex_perturbation.jl": "8eb35a82a124e841517859e907f13928ad433edcd9598d75f02184c29e1c38e7",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/simplex_pricing.jl": "0cfdf2f757e9d4521f5d895fe31a0df0b62a63257e199d841ad6115923486b10",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/simplex.jl": "adcff4aee5f6b3bde5988e82fc2c7c9ad75749e06c33250a526dff0a7f0462b8",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/hypersparse_pipeline.jl": "f1c9d010e3be89d7ac78d05f6339fe812c5496afbee647756409be4fd93bbe09",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/simplex_driver.jl": "dcbc52f104a96c5914f638f48f3de606faec0d7d117feb742ade39e19b4b55a9",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/dual_simplex.jl": "dcbf4dd3260044f8f25138b4cad5d936f4b7b15cab0267404e77a0a3d3647c68",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/primal_row_certification.jl": "6afa3456c8e1181eb48e50f61eb3318df0e4e750078936b74fb8ee6edfb069ea",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/dual_ratio.jl": "91f448a6499843a3e587f96e9451263bc9702c8b5aa29f3518c6848d6bb388ac",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/primal_updates.jl": "19211d8593c78f504f82193ac35edc7533e23cc467e818ef0e2ac2526d06d07d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/primal_simplex.jl": "6246c3f92e1535561cc8a1fd2cf6b5a128ca39bfcc5d52eedd2fbb3a91417d41",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/simplex_pivot.jl": "2cf399478648b82aa1502acdc33651c1afd914fa22ef833ca00a3765295e70a9",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/simplex_recovery.jl": "d68055947b8cedfd0eb6cb554f656ef80b942bf85a64e3b8ccd2881d9e37761c",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/native_cleanup_recovery.jl": "6c35d38693ea226adbdb772bb9bd691d5919c36a857872f9d18b86e6b4e776a3",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/native_certificate_recovery.jl": "9ff6b7bb0a1b59506de14102ebdcfe6aa91af828cd4d5f60cc6acfa3c80e8d22",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/legacy_dual_correction.jl": "78e3453dc8c2beb389495963bd79f4f8752c9380f0e68444ace490a22989f7e4",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/legacy_dual_prices.jl": "211a0f04e1fc07db9040029438e26a86c1ac440f6128712d58c91408d6795abb",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/legacy_primal_point.jl": "557e06f4b96845a25d90243644ba3ba39693db7780d4b76182868f9004d9e6b7",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/legacy_primal_joint_point.jl": "a8604958f39a912d3b5fadd0f81faf5f0d4c0d9c4ca51f1b4318110704baafe7",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/legacy_primal_pivot.jl": "6bc2bde2d8a605219c7a1be7bead8680c6b6ff226291eb4c4c262d860fb47c5b",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/simplex_start.jl": "8ef26328942d942cb1af04e5915f86e9026bde3318ee871e6ccdf90d88086ed4",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/native_phase_transfer.jl": "0f4af578c13a2cef3201ed8ed4ca0d5990894d3c4ba42bf9f2dfee4e0ac465dd",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/simplex_phase_one.jl": "b01ff56fb1b3815d2dfa4554aa105bc2447064ca503018f3b00e3e6b973c3950",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/simplex_precision.jl": "9351fa8a6128b59a59d1d5ba98207afa0b70278692a9e5297b00e0a829798609",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/simplex_precision_recovery.jl": "701d69e8f1039fcfd6bdefe96a9fbbdaa6c9f473cf704c76f7dce8012a15c1b3",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/lp_refinement.jl": "a5d26df2bcad21864bc809f18b0e0ed9267715355820c27b10a93ef2b7d11195",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/lp_refinement_driver.jl": "7b6a74c574b7791f46fcca685807d5f92c11970c804add2ed486e01640a01e90",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/presolve.jl": "9cb780986b55adf4f5133b185b7e712e5760b435ca663444dfcfc54285ec17db",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/presolve_rows.jl": "ba28292822d4a7b2f66eaf0a23f7dd0ed1f79ada603a9f5a0dc90bb64f31f693",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/presolve_dependencies.jl": "1a7a1e4f3df904c5f1a480267dfa6a08c49c2d7dd257b65c41d9bb79a927b913",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/presolve_propagation.jl": "77498b5ba2fbe4f306d890a9da984aefc7e235aa814209be5e9655c8307dad68",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/presolve_substitution.jl": "42bbd6b525c6627c872e9fdc004dae9b4a7dc1356e03b84363d2c792ee0a7175",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/presolve_aggregation.jl": "4ae2d8909b30daf9658040c4a8f0ccb1b818e6a2b76255994e6713c4532c5957",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/presolve_dual.jl": "c465e5983da77c4f543ee07fc72ee03544be50df812949b5ab48ebee5da1359c",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/presolve_incremental.jl": "4bffec08cc915cacf49d2dd14402ed77b01fbcdca78ce1a24058617317026284",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/presolve_dispatch.jl": "9fc4b580ab9c953edeefc2ab0a59829f3757a8eb2869498da5e783a36a4448c0",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/presolve_tolerance.jl": "e996017a3edb82349becd1a3a0cb01cafe80dc0be2c725e1c6ee45244d7fdc13",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/solver.jl": "40f6d58e0eee5da28c0bd9322d759bd2fa422108bad9d0495e52a3b21a1d105c",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/moi.jl": "0e909c4a9c6e4088bed21d22bbcc39ec3509fc09641bac1ef9e3ea65d0447ab6",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/moi/optimizer.jl": "eeb840e3583409db5e18e1696aa73984ec4ba88e597d05fe4c8ffd27d995615d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/moi/attributes.jl": "5fec4f0825499b4614f4f4a1e36b2c1a4ffd3e5eb9e091ee0c1584239c62b40a",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/moi/translation.jl": "6ba2e53510f3b4707934c6e4ded0500f9e46d2f8cfa5324c58a0fde2c2010622",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/moi/results.jl": "48f369d7607dbf820e4f17a417ad11932d00599a16aab1f5f686c0b013d57280",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/precompile.jl": "d156b5dd32c10b78e4d927acd041551ce5912d81d429eae6575a0da516cdf257",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/factor-export.jl": "a54bcb4d51641dcec769108cd9cea76681c08bf5e6b98e881bff3f6c7da7ee85",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage/src/direct-factor.jl": "3c09b563623f7552fd0094c037de7205024d0a7eaade6baa34aff14a395b9bbc"
+  }
+}
