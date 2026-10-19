@@ -1,0 +1,9 @@
+# Fixed post-warm GC driver preparation completed offline
+
+Separate driver/helper/preparation schema accepted by fresh independent review without findings. Author source inverse/synthetic checks71/71; independent checks4676/4676, including2232canonicalread-timefilebindings. Review binds2233primarypathsplus4evidencepaths. No Julia/query/parser/import/compile/numerical/profile/launch occurred.
+
+One fixed GC.gc(true) after3warm pairs percell, before7observed pairs;3requests total. Existing60window arithmetic/gates/sourcekernels unchanged. Three17keypreparationrecords and2rawcounters;attemptbeforeGC/completionaftersuccessfulsave. InnerGCcostscope excludeshelperentry/recordconstruction/I/O;futurewholeprocesscostmustincludealloverhead. FullGCworkisprocesswide,notconstantornativefreeproof. OriginalfailedREDremainsrejectedandnon-timeout;noGREENauthorizedbyit.
+
+Initialauthorreport18keytypo correctedto17withoutcodechange;originalreportand2230pinmanifestpreserved. InitialmanifestreportbindingmapsONLYPREPARATION.md.before-count-fix;canonicalpreparation-pins-reviewed.jsoniscurrent. Allolderbindings/failuresunchanged. Do notrerunexclusiveprepare/document/checkers/closure/publicationorrewritereviewedfiles.
+
+Next concrete step: separate new redgc300/greengc300 launcher/admission/auditor preparation, integrating3prepfiles/2rawfields/exactfullorpartialoutputmembership/counterreconciliation/unchangedwindowsandtests. No numericaladmission preparedhere. Freshall259groupsANDsessions/noJulia/refs/boot/startticks/commandsbeforefuturework;usehost-closure.json. NewREDmustbeacceptedbeforeGREEN;oldREDfailureisnotapuretimeoutretrybase.300/292initiallimitsandresourceguardspreserved. Master26e2291745999f485a74f643298ca997d65c7205unchanged;CIoff;HHreuse disabled;broaderplanopen.
