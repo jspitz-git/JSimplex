@@ -1,0 +1,30 @@
+{
+  "all_passed": true,
+  "checks": {
+    "original_only_two_args_false": true,
+    "actual_command_length": true,
+    "exact_two_driver_arguments": true,
+    "old_failure_preserved": true,
+    "unchanged_subject": true
+  },
+  "command": [
+    "/bin/bash",
+    "/home/jspitz/.codex/worktrees/basis-update-chain-bench/JSimplex.jl/diagnostics/basis-memory/reproduce/julia.sh",
+    "--compiled-modules=existing",
+    "--threads=1",
+    "--gcthreads=1,0",
+    "--heap-size-hint=2G",
+    "--history-file=no",
+    "--project=/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-P011-DIAGNOSTIC/driver.jl",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-P011-HARNESS/runs/p011-300/payload",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-blocked-update/task2-master-stage"
+  ],
+  "sha256": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-P011-HARNESS/source_check.py": "0c1ea4071be8ae5109f64e2ab107ab4471ebb637eea0231b25b882bfcda53224",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-P011-HARNESS/source-check.json": "d9eacbe1941f823aa06a6d59ed86af72f2d784ff236fd914c0b5fa3df804b62c",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-P011-HARNESS/source_supplement.py": "34f93b5d53c2a77b6f6c957ae964f64b7a35c3ab203cd77a3555da3d4a7916af",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-P011-HARNESS/control.py": "16b3e57ea02a49e6f48b46f874751531602fb1beeb98c09b43fb5b75db39800e"
+  },
+  "explanation": "Original check expected total command length12; actual11 has exactly two driver arguments. No control/driver change or rerun."
+}

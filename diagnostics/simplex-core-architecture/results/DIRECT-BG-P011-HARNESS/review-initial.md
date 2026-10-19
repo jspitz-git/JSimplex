@@ -1,0 +1,27 @@
+# Independent initial P011 harness review
+
+Disposition: REJECTED — preparation has one blocking auditor finding. Launch remains unadmitted. The failed historical P011 and RED2 remain failed. No Julia parsing, imports, queries, compilation or numerical work occurred. No outer, seal, release, launcher, guard entrypoint, or frozen historical checker was executed.
+
+## Finding R1 — P2: Resource elapsed evidence is not validated
+
+`audit.py:35–36` validates only available RAM and used swap. It never requires or validates each guard resource sample's `elapsed`. The otherwise successful complete-auditor fixture accepts samples with missing elapsed, boolean true, -1, NaN, 301 seconds, and backwards timestamps [0.8, 0.2]. These are seven independently executed synthetic cases including the valid baseline. The actual frozen guard always emits elapsed against its monotonic start; malformed or inconsistent timing evidence cannot establish that the samples belong within the reported guarded interval. Require finite numeric non-boolean nonnegative elapsed values, monotonic ordering and a bound by the accepted process elapsed/292-second guard limit. Add explicit rejection cases and a valid timed fixture. Preserve this rejected review and original checks before revising.
+
+`review_initial_tests.py` extracts only the reviewed fixture/helper definitions from the new tests file, calls the current complete auditor on temporary JSON/TOML, and mocks the same external host/source/review boundaries as the author. It never calls an execution entrypoint. The results and exact source hashes are saved in `review-initial-evidence.json`. This proves the auditor gap, not a runtime guard timeout failure.
+
+## Reviewed preparation and positive findings
+
+Inspected ADMISSION, complete control/seal/outer/launch/guard/supervisor/post-return/audit/oracle sources, new synthetic and source checks, immutable prior driver/REPORT/source review, manifests and bounded metadata dependencies. Independently hashed all 74 preparation inputs with no mismatch. Their membership exactly matches required-paths. All six frozen copies match both recorded hashes and original bytes. Reviewed the baseline inventory shape (514 diagnostic and 516 production files), repaired stage (75 files), runtime inventory (609 entries including wrappers and Python), and 274 historical groups. The old multi-GB runtime inventory was not rehashed during this review. Local HEAD/master are the requested ab931f468070b0cb5f3324c65fc58547d79faffb / 26e2291745999f485a74f643298ca997d65c7205. No new runs or outers exist.
+
+The guarded route is limited to p011-300, Julia exit0, separate run/payload and guard run/output; the exact unchanged driver receives two arguments. Reservation precedes payload creation. Admission, seal, release and invocation use separate exact scoped receipts and linked hashes; prior RED or driver-only reviews cannot satisfy exact-run admission. The frozen guard/supervisor provide 292-second inner guarding and 300-second inclusive supervision, one ownership lock, process ownership checks and cleanup. The independent result review and external closure remain future boundaries. Unreadable executable symlink visibility limitations are accurately documented.
+
+The payload oracle enforces all 17 files, four preparation metric records, twelve ordered records and raw completion. Strict integer counters, finite bounded metric times, boolean correctness checks, expected loaded paths and raw/file consistency are covered. Nonzero compilation, GC and allocation values remain diagnostic data. Inner bytes/events are separate executions, with the consumed-result Ref store separately labeled. The source schedule is 60 n32 eligibility invocations; it is not an observed call count. Neither a zero result nor an arm difference establishes historical P011 success, a speedup or definitive boxing/return-materialization causality.
+
+Saved author evidence reports 382 Python synthetics. The original source result is honestly preserved at 25/26: it incorrectly expected command length12; the separate five-check supplement confirms actual length11 and exactly two driver arguments. These records were inspected, not rerun.
+
+## Nonblocking manifest observation
+
+required-paths.json itself is absent from the 74 preparation hashes. Its meaningful path set is compared to the independently reviewed/pinned manifest, so removing membership cannot silently weaken that exact set under this review chain. Nevertheless, include its bytes in the revised preparation manifest and make its path list include itself for complete dependency pinning. This is not asserted to be a demonstrated admission bypass.
+
+## Computational work and retained memory
+
+No production implementation changed, and I found no introduced unnecessary production work or retained memory. The unchanged driver performs bounded fixture construction and before/after ownership snapshots outside inner measurements. Harness hashing is cold preparation/prelaunch/postrun integrity work scaling with total pinned bytes, including runtime inventories; resource polling scales with guarded duration. The auditor retains O(samples + payload bytes) data. Correctness justifies these costs; no hot-path benchmark is warranted for this preparation. No timing, allocation or supported-precision runtime performance claim is made. Actual runtime validity, process execution and numerical behavior remain untested by explicit scope.
