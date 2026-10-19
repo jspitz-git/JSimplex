@@ -1,0 +1,58 @@
+"""Pure saved-data validation; no filesystem, process or Julia side effects."""
+import math,re
+def warning_log(log):return re.search(r"(?i)\bwarning\b|world[ -]age",log) is not None
+
+def need(v,m):
+ if not v:raise ValueError(m)
+def integer(v):return type(v) is int and v>=0
+def validate_node(t,allow_fail=False):
+ need(type(t) is dict and set(t)=={'name','pass','fail','error','broken','failures','children'},'Test schema')
+ need(type(t['name']) is str and bool(t['name']),'Name')
+ need(all(integer(t[k]) for k in ['pass','fail','error','broken']),'Counts')
+ need(type(t['failures']) is list and all(type(x) is str and bool(x) for x in t['failures']),'Failure schema')
+ need(len(t['failures'])==t['fail']+t['error'],'Failure count')
+ need(t['error']==t['broken']==0 and (allow_fail or t['fail']==0),'Test failure/error/broken')
+ need(type(t['children']) is list,'Children')
+ return sum(t[k] for k in ['pass','fail','error','broken'])+sum(validate_node(c,allow_fail) for c in t['children'])
+def original_test_results(raw,expected,loaded,phase):
+ need(type(raw) is dict and set(raw)=={'phase','complete','fatal','loaded','threads','blas_threads','tests'},'Raw schema')
+ need(raw['phase']==phase and raw['complete'] is True and raw['fatal']=='','Incomplete/fatal/phase')
+ need(type(raw['threads']) is int and type(raw['blas_threads']) is int and raw['threads']==raw['blas_threads']==1,'Threads')
+ need(raw['loaded']==loaded,'Loaded source')
+ red=phase.startswith('red');root=raw['tests'];total=validate_node(root,red)
+ need(root['name']=='root' and all(root[k]==0 for k in ['pass','fail','error','broken']) and root['failures']==[],'Root')
+ need(total==expected['assertions'],'Total assertions')
+ actual=[[t['name'],t['pass'],t['fail'],t['error'],t['broken']] for t in root['children']]
+ need(actual==expected['groups'] and all(t['children']==[] for t in root['children']),'Exact leaf tree')
+ return dict(assertions=total,groups=actual,scope='Expected allocation-regression RED' if red else 'BG specialization structural/allocation gates only; no full-cost/public-solver acceptance')
+def original_timeout_only(process,supervisor,raw,log,elapsed,seconds,loaded,phase):
+ if warning_log(log):return False
+ if not (process.get('reason')=='wall_time' and process.get('returncode') in (-15,-9) and 'error' not in process and process.get('pins_unchanged') is True):return False
+ if supervisor.get('returncode')!=1 or supervisor.get('hard_timeout') or 'cleanup_error' in supervisor:return False
+ if not (type(elapsed) in (int,float) and math.isfinite(elapsed) and 0<=elapsed<=seconds):return False
+ if raw is not None:
+  try:
+   need(type(raw) is dict and set(raw)=={'phase','complete','fatal','loaded','threads','blas_threads','tests'},'Partial schema')
+   need(raw['phase']==phase and raw['complete'] is False and raw['fatal']=='','Partial flags')
+   need(type(raw['threads']) is int and type(raw['blas_threads']) is int and raw['threads']==raw['blas_threads']==1 and raw['loaded']==loaded,'Partial source')
+   validate_node(raw['tests'],False)
+   need(raw['tests']['name']=='root' and all(raw['tests'][k]==0 for k in ['pass','fail','error','broken']),'Partial root')
+  except (KeyError,TypeError,ValueError):return False
+ if any(s in log for s in ['TEST FAILURE:','BROKEN TEST:','ERROR:','FATAL DRIVER:','LoadError','Test Failed','Test Error','OutOfMemoryError','Wrong package source','Thread count','GROUP/COUNT MISMATCH']):return False
+ return 'BEGIN BG specialization driver '+phase in log
+
+EXTRA={'preparation_calls','preparations_completed'}
+BASE={'phase','complete','fatal','loaded','threads','blas_threads','tests'}
+def strip_preparation(raw):
+ need(type(raw) is dict and set(raw)==BASE|EXTRA,'GC raw schema')
+ calls=raw['preparation_calls'];done=raw['preparations_completed']
+ need(type(calls) is int and type(done) is int and 0<=done<=calls<=3 and calls-done<=1,'GC raw counters')
+ return {k:raw[k] for k in BASE}
+def test_results(raw,expected,loaded,phase):
+ clean=strip_preparation(raw)
+ need(raw['preparation_calls']==raw['preparations_completed']==3,'Complete GC counters')
+ return original_test_results(clean,expected,loaded,phase)
+def timeout_only(process,supervisor,raw,log,elapsed,seconds,loaded,phase):
+ try:clean=None if raw is None else strip_preparation(raw)
+ except (KeyError,TypeError,ValueError):return False
+ return original_timeout_only(process,supervisor,clean,log,elapsed,seconds,loaded,phase)

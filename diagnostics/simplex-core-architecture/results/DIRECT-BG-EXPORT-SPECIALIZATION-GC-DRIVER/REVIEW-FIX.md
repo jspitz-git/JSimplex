@@ -1,0 +1,9 @@
+# Bounded offline review correction
+
+Initial independent review rejected three issues: duplicate cold window decoding/residual validation, insufficiently exact RED external closure prerequisites, and integer 1 accepted for one_attempt. Original review/checker/results, two reviewer harness failures, all author initial checks and four before-review files remain preserved. No Julia or numerical output exists in this package.
+
+review-fix.py was saved before execution and changed only audit.py, control.py, outer.py and ADMISSION.md. The canonical driver/helper/kernels remain byte-identical. New offline-tests-reviewed.py passed 438 checks. New full-audit-tests-reviewed.py passed 22 checks, including exactly 64 TOML decodes (raw +60windows+3preparations), one full allocation/residual pass and zero duplicate partial pass on a complete GREEN result. Synthetic external host/hash/review and TOML codec are mocks, not process admission proof. Missing/malformed records and timing contradictions reject.
+
+New closure-tests.py initially failed because its synthetic rd stub omitted stages.json. Its source and closure-tests-failure.json remain preserved; no operational entrypoint ran. Separate closure-tests-2.py delegates unmatched read-only inputs and passed 30 checks, including exact eight closure bindings, outer/prior/child groups, boot/refs, successful predecessor and strict Boolean release checks. The original historical failed RED and all old checkers are unchanged and not rerun.
+
+preparation-pins-reviewed.json is the sole canonical preparation manifest. Initial preparation-pins.json maps only audit.py/control.py/outer.py/ADMISSION.md to corresponding .before-review bytes. Other original 2286 bindings remain unchanged. Final independent review must accept this canonical manifest before closure. Runtime and numerical admission remain unqualified.
