@@ -1,0 +1,15 @@
+{
+  "identity": {
+    "pid": 163746,
+    "pgid": 163746,
+    "sid": 163746,
+    "start_ticks": 12981792,
+    "boot_id": "1ecae454-f1f5-4e2e-a95c-7b5474243126",
+    "command": "/usr/bin/python3 -B /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-HARNESS/outer.py red300 "
+  },
+  "launched": true,
+  "returncode": 2,
+  "error": "Traceback (most recent call last):\n  File \"/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-HARNESS/outer.py\", line 34, in main\n    runpy.run_path(str(D/'launch.py'),run_name='__main__')\n    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<frozen runpy>\", line 287, in run_path\n  File \"<frozen runpy>\", line 98, in _run_module_code\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-HARNESS/launch.py\", line 33, in <module>\n    if __name__=='__main__':main(sys.argv[1])\n                            ~~~~^^^^^^^^^^^^^\n  File \"/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-HARNESS/launch.py\", line 32, in main\n    require(audit(phase)['all_passed'],'Failed attempt preserved; no automatic retry; any longer phase needs separate driver/admission amendment')\n    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-HARNESS/control.py\", line 10, in require\n    if not v:raise RuntimeError(m)\n             ^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: Failed attempt preserved; no automatic retry; any longer phase needs separate driver/admission amendment\n",
+  "elapsed_with_checks_seconds": 17.369819136991282,
+  "scope": "Outer time includes immutable pre/post checks and auditor; not benchmark or numerical guard duration"
+}

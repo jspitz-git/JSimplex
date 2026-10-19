@@ -1,0 +1,19 @@
+OUTER READY: waiting for independently accepted exact admission and explicit release
+Traceback (most recent call last):
+  File "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-HARNESS/outer.py", line 34, in main
+    runpy.run_path(str(D/'launch.py'),run_name='__main__')
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen runpy>", line 287, in run_path
+  File "<frozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-HARNESS/launch.py", line 33, in <module>
+    if __name__=='__main__':main(sys.argv[1])
+                            ~~~~^^^^^^^^^^^^^
+  File "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-HARNESS/launch.py", line 32, in main
+    require(audit(phase)['all_passed'],'Failed attempt preserved; no automatic retry; any longer phase needs separate driver/admission amendment')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-HARNESS/control.py", line 10, in require
+    if not v:raise RuntimeError(m)
+             ^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Failed attempt preserved; no automatic retry; any longer phase needs separate driver/admission amendment
+
