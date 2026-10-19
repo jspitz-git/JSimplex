@@ -1,0 +1,842 @@
+{
+  "P001": {
+    "file": "panel-tests.jl",
+    "line": 150,
+    "source": "@check \"P001\" d.accepted == (64<=n<=4096)"
+  },
+  "P002": {
+    "file": "panel-tests.jl",
+    "line": 152,
+    "source": "@check \"P002\" !K._bgb_dimensions(96,34).accepted # width63"
+  },
+  "P003": {
+    "file": "panel-tests.jl",
+    "line": 153,
+    "source": "@check \"P003\" K._bgb_dimensions(96,33).accepted # width64"
+  },
+  "P004": {
+    "file": "panel-tests.jl",
+    "line": 154,
+    "source": "@check \"P004\" !K._bgb_dimensions(64,61).accepted # only3steps"
+  },
+  "P005": {
+    "file": "panel-tests.jl",
+    "line": 155,
+    "source": "@check \"P005\" !K._bgb_dimensions(64,60).accepted # 4steps, width gate"
+  },
+  "P006": {
+    "file": "panel-tests.jl",
+    "line": 156,
+    "source": "@check \"P006\" K._bgb_store_budget(1152,9,64)"
+  },
+  "P007": {
+    "file": "panel-tests.jl",
+    "line": 157,
+    "source": "@check \"P007\" !K._bgb_store_budget(1153,9,64)"
+  },
+  "P008": {
+    "file": "panel-tests.jl",
+    "line": 158,
+    "source": "@checkthrows \"P008\" OverflowError K._bgb_charge(typemax(Int))"
+  },
+  "P009": {
+    "file": "panel-tests.jl",
+    "line": 159,
+    "source": "@checkthrows \"P009\" ArgumentError K.BGPanelWorkspace(4097)"
+  },
+  "P010": {
+    "file": "panel-tests.jl",
+    "line": 160,
+    "source": "@check \"P010\" K._bgb_charge(4096) <= 2^20"
+  },
+  "P011": {
+    "file": "panel-tests.jl",
+    "line": 163,
+    "source": "@check \"P011\" p011.bytes == 0"
+  },
+  "P095": {
+    "file": "panel-tests.jl",
+    "line": 164,
+    "source": "@check \"P095\" p011.events == 0"
+  },
+  "P096": {
+    "file": "panel-tests.jl",
+    "line": 165,
+    "source": "@check \"P096\" p011.consumed_bytes == 0"
+  },
+  "P097": {
+    "file": "panel-tests.jl",
+    "line": 166,
+    "source": "@check \"P097\" p011.consumed_events == 0"
+  },
+  "P098": {
+    "file": "panel-tests.jl",
+    "line": 167,
+    "source": "@check \"P098\" p011_expected(p011.warm)"
+  },
+  "P099": {
+    "file": "panel-tests.jl",
+    "line": 168,
+    "source": "@check \"P099\" p011_expected(p011.bytes_decision)"
+  },
+  "P100": {
+    "file": "panel-tests.jl",
+    "line": 169,
+    "source": "@check \"P100\" p011_expected(p011.events_decision)"
+  },
+  "P101": {
+    "file": "panel-tests.jl",
+    "line": 170,
+    "source": "@check \"P101\" p011.values_unchanged"
+  },
+  "P102": {
+    "file": "panel-tests.jl",
+    "line": 171,
+    "source": "@check \"P102\" p011.owners_unchanged"
+  },
+  "P012": {
+    "file": "panel-tests.jl",
+    "line": 172,
+    "source": "@check \"P012\" K._bgb_eligibility(f,1).counters == ntuple(_->0,20)"
+  },
+  "P013": {
+    "file": "panel-tests.jl",
+    "line": 178,
+    "source": "@check \"P013\" K._bgb_eligibility(carrier(A),1).accepted == (count==288)"
+  },
+  "P014": {
+    "file": "panel-tests.jl",
+    "line": 180,
+    "source": "f=carrier(denseband(64)); @check \"P014\" K._bgb_eligibility(f,1).accepted"
+  },
+  "P015": {
+    "file": "panel-tests.jl",
+    "line": 183,
+    "source": "@check \"P015\" K._bgb_eligibility(g,1).reason == :invalid_input"
+  },
+  "P016": {
+    "file": "panel-tests.jl",
+    "line": 194,
+    "source": "@check \"P016\" d.accepted == (status==:ok)"
+  },
+  "P017": {
+    "file": "panel-tests.jl",
+    "line": 195,
+    "source": "@check \"P017\" snapshot(f)==saved"
+  },
+  "P018": {
+    "file": "panel-tests.jl",
+    "line": 196,
+    "source": "@check \"P018\" observed==pre"
+  },
+  "P019": {
+    "file": "panel-tests.jl",
+    "line": 199,
+    "source": "@check \"P019\" isequal(ws.values[j,i],get(D,(i,j),0.0))"
+  },
+  "P020": {
+    "file": "panel-tests.jl",
+    "line": 200,
+    "source": "@check \"P020\" ws.present[j,i] == haskey(D,(i,j))"
+  },
+  "P021": {
+    "file": "panel-tests.jl",
+    "line": 202,
+    "source": "@check \"P021\" [(ws.steps[t].row,ws.steps[t].swapped,ws.steps[t].multiplier) for t in 1:8] == steps"
+  },
+  "P022": {
+    "file": "panel-tests.jl",
+    "line": 203,
+    "source": "@check \"P022\" ws.steps[1].swapped == (abs(lower)>4.0)"
+  },
+  "P023": {
+    "file": "panel-tests.jl",
+    "line": 204,
+    "source": "@check \"P023\" all(ws.steps[k].last==ws.steps[k].row==k for k in 1:8)"
+  },
+  "P024": {
+    "file": "panel-tests.jl",
+    "line": 205,
+    "source": "@check \"P024\" ws.touched[1:64,1:9]==touched"
+  },
+  "P025": {
+    "file": "panel-tests.jl",
+    "line": 215,
+    "source": "@check \"P025\" J._apply_row_update!(copy(v),update)==T*v"
+  },
+  "P026": {
+    "file": "panel-tests.jl",
+    "line": 216,
+    "source": "@check \"P026\" J._apply_transposed_row_update!(copy(v),update)==transpose(T)*v"
+  },
+  "P027": {
+    "file": "panel-tests.jl",
+    "line": 223,
+    "source": "@check \"P027\" !d.accepted && d.reason==:zero_diagonal && d.finite"
+  },
+  "P028": {
+    "file": "panel-tests.jl",
+    "line": 228,
+    "source": "@check \"P028\" !d.accepted && d.reason==:zero_diagonal && snapshot(f)==saved"
+  },
+  "P029": {
+    "file": "panel-tests.jl",
+    "line": 232,
+    "source": "@check \"P029\" d.accepted"
+  },
+  "P030": {
+    "file": "panel-tests.jl",
+    "line": 233,
+    "source": "@check \"P030\" !ws.present[10,2] && isequal(ws.values[10,2],0.0)"
+  },
+  "P031": {
+    "file": "panel-tests.jl",
+    "line": 234,
+    "source": "@check \"P031\" ws.values[11,2] == -nextfloat(0.0)"
+  },
+  "P032": {
+    "file": "panel-tests.jl",
+    "line": 237,
+    "source": "@check \"P032\" !d.accepted && !d.finite && d.reason==:nonfinite"
+  },
+  "P033": {
+    "file": "panel-tests.jl",
+    "line": 238,
+    "source": "@checkthrows \"P033\" ArgumentError K._bgb_apply!(ws,1,8,64) # single-use private panel"
+  },
+  "P034": {
+    "file": "panel-tests.jl",
+    "line": 245,
+    "source": "@check \"P034\" d.accepted"
+  },
+  "P035": {
+    "file": "panel-tests.jl",
+    "line": 246,
+    "source": "status,D,_,_,_=oracle(A,r,b);@check \"P035\" status==:ok"
+  },
+  "P036": {
+    "file": "panel-tests.jl",
+    "line": 248,
+    "source": "@check \"P036\" out.accepted # rejection must not bypass writeback assertions"
+  },
+  "P037": {
+    "file": "panel-tests.jl",
+    "line": 251,
+    "source": "@check \"P037\" bits(unpack(f))==bits(expected)"
+  },
+  "P038": {
+    "file": "panel-tests.jl",
+    "line": 252,
+    "source": "@check \"P038\" f.upper[1].indices.order.order==order"
+  },
+  "P039": {
+    "file": "panel-tests.jl",
+    "line": 253,
+    "source": "@check \"P039\" all(f.row_columns[i]==[id for id in 1:96 if !iszero(expected[i,f.positions[id]])] for i in 1:96)"
+  },
+  "P040": {
+    "file": "panel-tests.jl",
+    "line": 254,
+    "source": "@check \"P040\" ws.counts.values[15]==96"
+  },
+  "P041": {
+    "file": "panel-tests.jl",
+    "line": 255,
+    "source": "@check \"P041\" ws.counts.values[12] <= 2*9*94"
+  },
+  "P042": {
+    "file": "panel-tests.jl",
+    "line": 256,
+    "source": "@check \"P042\" ws.counts.values[11]==ws.counts.values[12]"
+  },
+  "P043": {
+    "file": "panel-tests.jl",
+    "line": 257,
+    "source": "@check \"P043\" ws.counts.values[18]==94"
+  },
+  "P044": {
+    "file": "panel-tests.jl",
+    "line": 258,
+    "source": "@check \"P044\" ws.counts.values[19]==9"
+  },
+  "P045": {
+    "file": "panel-tests.jl",
+    "line": 259,
+    "source": "@checkthrows \"P045\" ArgumentError K._bgb_commit!(f,ws,d)"
+  },
+  "P046": {
+    "file": "panel-tests.jl",
+    "line": 264,
+    "source": "@check \"P046\" K._bgb_commit!(f,ws,d).accepted"
+  },
+  "P047": {
+    "file": "panel-tests.jl",
+    "line": 265,
+    "source": "@check \"P047\" all(f.upper[j].values===owners[j] && f.upper[j].indices.ids===ids[j] for j in 1:64)"
+  },
+  "P048": {
+    "file": "panel-tests.jl",
+    "line": 266,
+    "source": "@check \"P048\" ws.counts.values[13]==0 # fresh column arrays"
+  },
+  "P049": {
+    "file": "panel-tests.jl",
+    "line": 273,
+    "source": "@check \"P049\" K._bgb_commit!(f,ws,d).reason==:store_budget"
+  },
+  "P050": {
+    "file": "panel-tests.jl",
+    "line": 274,
+    "source": "@check \"P050\" snapshot(f)==saved && ws.counts.values[13]==0"
+  },
+  "P051": {
+    "file": "panel-tests.jl",
+    "line": 279,
+    "source": "@check \"P051\" d.accepted && ws.counts.values[13]==2"
+  },
+  "P052": {
+    "file": "panel-tests.jl",
+    "line": 280,
+    "source": "@check \"P052\" f.upper[96].values!==oldvalues && f.upper[96].indices.ids!==oldids"
+  },
+  "P053": {
+    "file": "panel-tests.jl",
+    "line": 281,
+    "source": "@check \"P053\" length(f.upper[96].values)==length(f.upper[96].indices.ids)==95"
+  },
+  "P054": {
+    "file": "panel-tests.jl",
+    "line": 282,
+    "source": "@check \"P054\" ws.counts.values[17]==2*(96-9) # copied prefix AND suffix elements"
+  },
+  "P055": {
+    "file": "panel-tests.jl",
+    "line": 284,
+    "source": "@check \"P055\" bits(unpack(f))==bits(expected)"
+  },
+  "P056": {
+    "file": "panel-tests.jl",
+    "line": 285,
+    "source": "@check \"P056\" ws.counts.values[14]==16*(length(f.upper[96].values)+1+length(f.upper[96].values))"
+  },
+  "P057": {
+    "file": "panel-tests.jl",
+    "line": 286,
+    "source": "@check \"P057\" ws.counts.values[1]==0 # separate eligibility, not hidden in gather"
+  },
+  "P058": {
+    "file": "panel-tests.jl",
+    "line": 287,
+    "source": "@check \"P058\" ws.counts.values[2]==2*94*3 # gather, budget, commit two searches each"
+  },
+  "P059": {
+    "file": "panel-tests.jl",
+    "line": 288,
+    "source": "@check \"P059\" ws.counts.values[20]==9*94 # row-capacity prepass"
+  },
+  "P060": {
+    "file": "panel-tests.jl",
+    "line": 289,
+    "source": "@check \"P060\" ws.owner===nothing && ws.phase==0x00"
+  },
+  "P061": {
+    "file": "panel-tests.jl",
+    "line": 290,
+    "source": "@check \"P061\" all(iszero(before[i,j]) for i in 3:11 for j in 1:2)"
+  },
+  "P062": {
+    "file": "panel-tests.jl",
+    "line": 300,
+    "source": "@check \"P062\" d.reason==:store_budget"
+  },
+  "P063": {
+    "file": "panel-tests.jl",
+    "line": 301,
+    "source": "@check \"P063\" ws.counts.values[12]==0 && ws.counts.values[13]==0"
+  },
+  "P064": {
+    "file": "panel-tests.jl",
+    "line": 302,
+    "source": "@check \"P064\" snapshot(f)==saved && ws.owner===nothing"
+  },
+  "P065": {
+    "file": "panel-tests.jl",
+    "line": 306,
+    "source": "@check \"P065\" K._bgb_apply!(ws,1,4,64).accepted"
+  },
+  "P066": {
+    "file": "panel-tests.jl",
+    "line": 318,
+    "source": "@check \"P066\" ws.counts.values[11]==1152+Int(extra)"
+  },
+  "P067": {
+    "file": "panel-tests.jl",
+    "line": 320,
+    "source": "@check \"P067\" !d.accepted && d.reason==:store_budget"
+  },
+  "P068": {
+    "file": "panel-tests.jl",
+    "line": 321,
+    "source": "@check \"P068\" snapshot(f)==saved && f.row_columns_ready"
+  },
+  "P069": {
+    "file": "panel-tests.jl",
+    "line": 322,
+    "source": "@check \"P069\" all(ws.counts.values[k]==0 for k in (12,13,14,15,16,18,19,20))"
+  },
+  "P070": {
+    "file": "panel-tests.jl",
+    "line": 324,
+    "source": "@check \"P070\" d.accepted && ws.counts.values[12]==1152"
+  },
+  "P071": {
+    "file": "panel-tests.jl",
+    "line": 325,
+    "source": "@check \"P071\" ws.counts.values[13]==22"
+  },
+  "P072": {
+    "file": "panel-tests.jl",
+    "line": 326,
+    "source": "@check \"P072\" ws.counts.values[18]==64"
+  },
+  "P073": {
+    "file": "panel-tests.jl",
+    "line": 327,
+    "source": "@check \"P073\" ws.counts.values[17]==2*(10*(53-9)+(57-9))"
+  },
+  "P074": {
+    "file": "panel-tests.jl",
+    "line": 328,
+    "source": "A[1,54:64].=0.0;@check \"P074\" bits(unpack(f))==bits(A)"
+  },
+  "P075": {
+    "file": "panel-tests.jl",
+    "line": 329,
+    "source": "@check \"P075\" all(f.row_columns[i]==[id for id in 1:64 if !iszero(A[i,f.positions[id]])] for i in 1:64)"
+  },
+  "P076": {
+    "file": "panel-tests.jl",
+    "line": 333,
+    "source": "d=K._bgb_eligibility(f,1,c);@check \"P076\" d.accepted"
+  },
+  "P077": {
+    "file": "panel-tests.jl",
+    "line": 334,
+    "source": "@check \"P077\" c.values[1]==sum(!iszero(A[i,j]) for i in 1:9,j in 1:64)"
+  },
+  "P078": {
+    "file": "panel-tests.jl",
+    "line": 335,
+    "source": "@check \"P078\" c.values[2]==128 && c.values[3]>0"
+  },
+  "P079": {
+    "file": "panel-tests.jl",
+    "line": 336,
+    "source": "ws=prepared(f);@check \"P079\" ws.counts.values[1]==0 && ws.counts.values[2]==128"
+  },
+  "P080": {
+    "file": "panel-tests.jl",
+    "line": 337,
+    "source": "@check \"P080\" ws.counts.values[4]==c.values[1]"
+  },
+  "P081": {
+    "file": "panel-tests.jl",
+    "line": 342,
+    "source": "@check \"P081\" d.accepted && f.upper[64].values!==old.values && f.upper[64].indices.ids!==old.indices.ids"
+  },
+  "P082": {
+    "file": "panel-tests.jl",
+    "line": 343,
+    "source": "@check \"P082\" length(f.upper[64].values)==2 && length(f.upper[64].indices.ids)==2"
+  },
+  "P083": {
+    "file": "panel-tests.jl",
+    "line": 344,
+    "source": "A[1,64]=2.0;@check \"P083\" bits(unpack(f))==bits(A)"
+  },
+  "P084": {
+    "file": "panel-tests.jl",
+    "line": 345,
+    "source": "@check \"P084\" f.row_columns[1]==sort([f.column_order[1],f.column_order[64]])"
+  },
+  "P085": {
+    "file": "panel-tests.jl",
+    "line": 350,
+    "source": "@check \"P085\" K._bgb_eligibility(f,r).accepted"
+  },
+  "P086": {
+    "file": "panel-tests.jl",
+    "line": 352,
+    "source": "@check \"P086\" d.accepted"
+  },
+  "P087": {
+    "file": "panel-tests.jl",
+    "line": 353,
+    "source": "status,D,_,_,_=oracle(A,r,8);@check \"P087\" status==:ok"
+  },
+  "P088": {
+    "file": "panel-tests.jl",
+    "line": 354,
+    "source": "out=K._bgb_commit!(f,ws,d);@check \"P088\" out.accepted"
+  },
+  "P089": {
+    "file": "panel-tests.jl",
+    "line": 356,
+    "source": "@check \"P089\" bits(unpack(f))==bits(A)"
+  },
+  "P090": {
+    "file": "panel-tests.jl",
+    "line": 357,
+    "source": "@check \"P090\" ws.owner===nothing && ws.phase==0x00"
+  },
+  "P091": {
+    "file": "panel-tests.jl",
+    "line": 358,
+    "source": "@check \"P091\" all(f.row_columns[i]==[id for id in 1:96 if !iszero(A[i,f.positions[id]])] for i in 1:96)"
+  },
+  "P092": {
+    "file": "panel-tests.jl",
+    "line": 365,
+    "source": "@check \"P092\" d.accepted && ws.values[12,2]==3.0 && ws.present[12,2]"
+  },
+  "P093": {
+    "file": "panel-tests.jl",
+    "line": 366,
+    "source": "@check \"P093\" !ws.touched[12,2]"
+  },
+  "P094": {
+    "file": "panel-tests.jl",
+    "line": 367,
+    "source": "@check \"P094\" !ws.present[13,2] && isequal(ws.values[13,2],0.0) && ws.touched[13,2]"
+  },
+  "L001": {
+    "file": "lifecycle-tests.jl",
+    "line": 38,
+    "source": "@check \"L001\" f.workspace===nothing && !f.busy && B==before"
+  },
+  "L002": {
+    "file": "lifecycle-tests.jl",
+    "line": 40,
+    "source": "j=f.inner.column_order[end];@check \"L002\" f.inner.positions[j]==96"
+  },
+  "L003": {
+    "file": "lifecycle-tests.jl",
+    "line": 43,
+    "source": "@check \"L003\" any(e.destination===x for e in f.inner.row_cache.prepared.entries)"
+  },
+  "L004": {
+    "file": "lifecycle-tests.jl",
+    "line": 45,
+    "source": "@check \"L004\" length(f.inner.updates)==old+1 && isempty(f.inner.updates[end].steps) && f.workspace===nothing"
+  },
+  "L005": {
+    "file": "lifecycle-tests.jl",
+    "line": 47,
+    "source": "@check \"L005\" saved.workspace===nothing && saved.inner.upper!==f.inner.upper"
+  },
+  "L006": {
+    "file": "lifecycle-tests.jl",
+    "line": 48,
+    "source": "@check \"L006\" all(a.values!==b.values && a.indices.ids!==b.indices.ids for (a,b) in zip(saved.inner.upper,f.inner.upper))"
+  },
+  "L007": {
+    "file": "lifecycle-tests.jl",
+    "line": 54,
+    "source": "@check \"L007\" N.residual(changed,x,ones(96)) && N.residual(B,v,ones(96))"
+  },
+  "L008": {
+    "file": "lifecycle-tests.jl",
+    "line": 57,
+    "source": "@check \"L008\" usedcopy.workspace===nothing && usedcopy.inner.updates!==f.inner.updates"
+  },
+  "L009": {
+    "file": "lifecycle-tests.jl",
+    "line": 60,
+    "source": "HarnessRecords.api(\"refactor\",J.refactorize!,f,copy(B));@check \"L009\" f.workspace===owner"
+  },
+  "L010": {
+    "file": "lifecycle-tests.jl",
+    "line": 61,
+    "source": "HarnessRecords.api(\"refactor\",J.refactorize!,f,upper_fixture(64));@check \"L010\" f.workspace===nothing"
+  },
+  "L011": {
+    "file": "lifecycle-tests.jl",
+    "line": 63,
+    "source": "HarnessRecords.api(\"refactor\",J.refactorize!,f,upper_fixture(32));@check \"L011\" f.workspace===nothing"
+  },
+  "L012": {
+    "file": "lifecycle-tests.jl",
+    "line": 64,
+    "source": "@check \"L012\" N.bits(N.unpack(saved.inner))==N.bits(oldsaved)"
+  },
+  "L013": {
+    "file": "lifecycle-tests.jl",
+    "line": 67,
+    "source": "@checkthrows \"L013\" ArgumentError HarnessRecords.api(\"replace\",J.replace_column!,f,ones(32),1)"
+  },
+  "L014": {
+    "file": "lifecycle-tests.jl",
+    "line": 68,
+    "source": "@checkthrows \"L014\" ArgumentError HarnessRecords.api(\"refactor\",J.refactorize!,f,upper_fixture(32))"
+  },
+  "L015": {
+    "file": "lifecycle-tests.jl",
+    "line": 69,
+    "source": "@checkthrows \"L015\" ArgumentError HarnessRecords.api(\"copy\",J.copy_basis_factorization,f)"
+  },
+  "L016": {
+    "file": "lifecycle-tests.jl",
+    "line": 70,
+    "source": "@checkthrows \"L016\" ArgumentError HarnessRecords.api(\"FTRAN\",J.forward_solve!,zeros(32),f,ones(32))"
+  },
+  "L017": {
+    "file": "lifecycle-tests.jl",
+    "line": 71,
+    "source": "@checkthrows \"L017\" ArgumentError HarnessRecords.api(\"BTRAN\",J.transpose_solve!,zeros(32),f,ones(32))"
+  },
+  "L018": {
+    "file": "lifecycle-tests.jl",
+    "line": 75,
+    "source": "@checkthrows \"L018\" ArgumentError HarnessRecords.api(\"replace\",J.replace_column!,f,ones(32),1;zero_tolerance=-1.0)"
+  },
+  "L019": {
+    "file": "lifecycle-tests.jl",
+    "line": 76,
+    "source": "@check \"L019\" failed_cache(f)"
+  },
+  "L020": {
+    "file": "lifecycle-tests.jl",
+    "line": 81,
+    "source": "@check \"L020\" t.panels>=2 && t.rejections<=1"
+  },
+  "L021": {
+    "file": "lifecycle-tests.jl",
+    "line": 82,
+    "source": "@check \"L021\" N.relation(N.unpack(f.inner),t.T,t.H)"
+  },
+  "L022": {
+    "file": "lifecycle-tests.jl",
+    "line": 83,
+    "source": "@check \"L022\" K._bgb_charge(n)<=2^20"
+  },
+  "L023": {
+    "file": "lifecycle-tests.jl",
+    "line": 92,
+    "source": "@check \"L023\" t.panels==1 && t.rejections==1"
+  },
+  "L024": {
+    "file": "lifecycle-tests.jl",
+    "line": 93,
+    "source": "@check \"L024\" count(==(:eligibility),t.events)==2"
+  },
+  "L025": {
+    "file": "lifecycle-tests.jl",
+    "line": 99,
+    "source": "HarnessRecords.tick(\"catch_overflow\");@check \"L025\" e isa LinearAlgebra.ZeroPivotException"
+  },
+  "L026": {
+    "file": "lifecycle-tests.jl",
+    "line": 101,
+    "source": "@check \"L026\" count(==(:panel_reject),events)==1 && count(==(:eligibility),events)==1"
+  },
+  "L027": {
+    "file": "lifecycle-tests.jl",
+    "line": 102,
+    "source": "@check \"L027\" !f.inner.row_cache.upper_prefix_safe && !f.inner.row_cache.upper_prefix_candidate"
+  },
+  "L028": {
+    "file": "lifecycle-tests.jl",
+    "line": 105,
+    "source": "@checkthrows \"L028\" LinearAlgebra.ZeroPivotException HarnessRecords.api(\"eliminate\",A._bgb_test_eliminate!,f,1)"
+  },
+  "L029": {
+    "file": "lifecycle-tests.jl",
+    "line": 106,
+    "source": "@check \"L029\" failed_cache(f)"
+  },
+  "L030": {
+    "file": "lifecycle-tests.jl",
+    "line": 111,
+    "source": "HarnessRecords.tick(\"catch_nonfinite\");@check \"L030\" e isa LinearAlgebra.ZeroPivotException"
+  },
+  "L031": {
+    "file": "lifecycle-tests.jl",
+    "line": 113,
+    "source": "@check \"L031\" count(==(:eligibility),events)==1 && count(==(:panel_reject),events)==1"
+  },
+  "L032": {
+    "file": "lifecycle-tests.jl",
+    "line": 114,
+    "source": "@check \"L032\" !f.inner.row_cache.upper_prefix_safe"
+  },
+  "L033": {
+    "file": "lifecycle-tests.jl",
+    "line": 122,
+    "source": "@check \"L033\" caught===FK.sentinel[] && FK.hits[]==1"
+  },
+  "L034": {
+    "file": "lifecycle-tests.jl",
+    "line": 123,
+    "source": "@check \"L034\" failed_cache(f)"
+  },
+  "L035": {
+    "file": "lifecycle-tests.jl",
+    "line": 124,
+    "source": "@check \"L035\" isempty(f.inner.updates)"
+  },
+  "L036": {
+    "file": "lifecycle-tests.jl",
+    "line": 140,
+    "source": "@check \"L036\" caught===sentinel && FK.hits[]==1 && begins[]==2"
+  },
+  "L037": {
+    "file": "lifecycle-tests.jl",
+    "line": 141,
+    "source": "@check \"L037\" count(==(:panel_commit),events)==1 && !(:finish in events)"
+  },
+  "L038": {
+    "file": "lifecycle-tests.jl",
+    "line": 142,
+    "source": "@check \"L038\" isempty(f.inner.updates) && failed_cache(f)"
+  },
+  "L039": {
+    "file": "lifecycle-tests.jl",
+    "line": 151,
+    "source": "@checkthrows \"L039\" ArgumentError HarnessRecords.api(\"eliminate\",A._bgb_test_eliminate!,f,1;probe=p)"
+  },
+  "L040": {
+    "file": "lifecycle-tests.jl",
+    "line": 152,
+    "source": "@check \"L040\" entered[]==1 && failed_cache(f)"
+  },
+  "N001": {
+    "file": "numerical-tests.jl",
+    "line": 58,
+    "source": "@check \"N001\" bits([a,z])==bits([t.shadow[k,k],t.shadow[k+1,k]])"
+  },
+  "N002": {
+    "file": "numerical-tests.jl",
+    "line": 59,
+    "source": "@check \"N002\" swapped==(abs(z)>abs(a))"
+  },
+  "N003": {
+    "file": "numerical-tests.jl",
+    "line": 61,
+    "source": "pivot=t.shadow[k,k];@check \"N003\" !iszero(pivot)"
+  },
+  "N004": {
+    "file": "numerical-tests.jl",
+    "line": 91,
+    "source": "@check \"N004\" iszero(t.shadow[k,k]) && abs(t.shadow[k+1,k])>0"
+  },
+  "N005": {
+    "file": "numerical-tests.jl",
+    "line": 107,
+    "source": "@check \"N005\" relation(unpack(f),t.T,t.H)"
+  },
+  "N006": {
+    "file": "numerical-tests.jl",
+    "line": 108,
+    "source": "@check \"N006\" history_matrix(steps,length(f.upper))==t.T"
+  },
+  "N007": {
+    "file": "numerical-tests.jl",
+    "line": 109,
+    "source": "@check \"N007\" bits(unpack(f))==bits(t.shadow)"
+  },
+  "N008": {
+    "file": "numerical-tests.jl",
+    "line": 110,
+    "source": "@check \"N008\" f.base===t.base[1]"
+  },
+  "N009": {
+    "file": "numerical-tests.jl",
+    "line": 111,
+    "source": "@check \"N009\" isequal(f.base.lower,t.base[2]) && f.base.row_order==t.base[3] && f.base.scaling==t.base[4] && isequal(f.base.diagonal,t.base[5])"
+  },
+  "N010": {
+    "file": "numerical-tests.jl",
+    "line": 112,
+    "source": "@check \"N010\" all(issorted(c.indices) && length(c.indices)==length(c.values) for c in f.upper)"
+  },
+  "N011": {
+    "file": "numerical-tests.jl",
+    "line": 113,
+    "source": "@check \"N011\" all(f.row_columns[i]==[id for id in eachindex(f.positions) if i in f.upper[f.positions[id]].indices] for i in eachindex(f.upper))"
+  },
+  "N012": {
+    "file": "numerical-tests.jl",
+    "line": 115,
+    "source": "@check \"N012\" t.rejections<=1"
+  },
+  "N013": {
+    "file": "numerical-tests.jl",
+    "line": 131,
+    "source": "@check \"N013\" left==original && right==original && left.nzval!==right.nzval"
+  },
+  "N014": {
+    "file": "numerical-tests.jl",
+    "line": 132,
+    "source": "@check \"N014\" J._direct_mode(r)!==:fallback && J._direct_mode(c)!==:fallback"
+  },
+  "N015": {
+    "file": "numerical-tests.jl",
+    "line": 138,
+    "source": "@check \"N015\" residual(B,x,s.a) && residual(B,y,s.a)"
+  },
+  "N016": {
+    "file": "numerical-tests.jl",
+    "line": 140,
+    "source": "@check \"N016\" residual(B,u,s.dse) && residual(B,v,s.dse)"
+  },
+  "N017": {
+    "file": "numerical-tests.jl",
+    "line": 141,
+    "source": "@check \"N017\" any(e.destination===y for e in c.inner.row_cache.prepared.entries)"
+  },
+  "N018": {
+    "file": "numerical-tests.jl",
+    "line": 142,
+    "source": "@check \"N018\" any(e.destination===v for e in c.inner.row_cache.prepared.entries)"
+  },
+  "N019": {
+    "file": "numerical-tests.jl",
+    "line": 148,
+    "source": "@check \"N019\" bits(y)==bits(direction)"
+  },
+  "N020": {
+    "file": "numerical-tests.jl",
+    "line": 149,
+    "source": "@check \"N020\" length(r.updates)==rcount+1 && length(c.inner.updates)==ccount+1"
+  },
+  "N021": {
+    "file": "numerical-tests.jl",
+    "line": 153,
+    "source": "@check \"N021\" residual(B,x,s.unit;transposed=trans) && residual(B,y,s.unit;transposed=trans)"
+  },
+  "N022": {
+    "file": "numerical-tests.jl",
+    "line": 155,
+    "source": "@check \"N022\" all(bits(a)==bits(b) for (a,b) in zip((s.a,s.dse,s.unit),snapshots))"
+  },
+  "N023": {
+    "file": "numerical-tests.jl",
+    "line": 156,
+    "source": "@check \"N023\" !c.busy && (c.workspace===nothing || c.workspace.owner===nothing && c.workspace.phase==0)"
+  },
+  "N024": {
+    "file": "numerical-tests.jl",
+    "line": 157,
+    "source": "f[\"pivot_agreement\"] && (@check \"N024\" tc.accepted_pivots==tr.accepted_pivots)"
+  },
+  "N025": {
+    "file": "numerical-tests.jl",
+    "line": 159,
+    "source": "@check \"N025\" all(isfinite,U) && minimum(abs(U[i,i]) for i in axes(U,1))>0"
+  },
+  "N026": {
+    "file": "numerical-tests.jl",
+    "line": 163,
+    "source": "@check \"N026\" sum(o.panels for o in observed)>=f[\"minimum_panels\"]"
+  }
+}

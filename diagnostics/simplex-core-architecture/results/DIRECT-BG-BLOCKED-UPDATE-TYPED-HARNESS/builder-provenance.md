@@ -1,0 +1,1 @@
+prepare.py was saved before execution. build-driver.py and build-tests.py are exact copies of the new /tmp scripts after execution; build-docs.py is saved during execution. These copies document generation, not retroactive launch/self-input pins. No old builder was executed.

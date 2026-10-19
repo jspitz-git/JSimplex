@@ -1,0 +1,23 @@
+{
+  "source": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-bg-blocked-update/reproduce/panel-fault.jl",
+  "source_sha256": "ee3d924a75bf3f88fbfbea8cedb618e1c3df174c46cd6e886376d9d779427b5c",
+  "prepared_sha256": "3816a18439fcf916af305ae0937051753a2db70fd8c89588a27fc36b0510be13",
+  "edits": [
+    [
+      "const Upper = Vector{J.PackedUpperColumn{Float64,J.UpperRowIndices}}",
+      "const Upper = Vector{J.PackedUpperColumn{Float64,J.UpperRowIndices}}\nconst _BGB_ZERO_COUNTS = ntuple(_ -> 0, Val(20))"
+    ],
+    [
+      "BGPanelCounts(ntuple(_ -> 0,20))",
+      "BGPanelCounts(_BGB_ZERO_COUNTS)"
+    ],
+    [
+      "counts(::BGNoCounts) = ntuple(_->0,20)",
+      "counts(::BGNoCounts) = _BGB_ZERO_COUNTS"
+    ],
+    [
+      "true,ntuple(_->0,20))",
+      "true,_BGB_ZERO_COUNTS)"
+    ]
+  ]
+}
