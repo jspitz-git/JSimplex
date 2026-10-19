@@ -1,0 +1,3 @@
+        # Two identical calls after warm compilation: future harness admits execution.
+        f=carrier(zeros(32,32)); K._bgb_eligibility(f,1)
+        @check "P011" (@allocated K._bgb_eligibility(f,1)) == 0

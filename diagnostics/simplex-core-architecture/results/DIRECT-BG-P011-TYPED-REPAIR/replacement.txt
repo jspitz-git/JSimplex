@@ -1,0 +1,11 @@
+        # Cold typed probe; no macro capture of the reassigned testset local f.
+        f=carrier(zeros(32,32)); p011=p011_probe(f)
+        @check "P011" p011.bytes == 0
+        @check "P095" p011.events == 0
+        @check "P096" p011.consumed_bytes == 0
+        @check "P097" p011.consumed_events == 0
+        @check "P098" p011_expected(p011.warm)
+        @check "P099" p011_expected(p011.bytes_decision)
+        @check "P100" p011_expected(p011.events_decision)
+        @check "P101" p011.values_unchanged
+        @check "P102" p011.owners_unchanged
