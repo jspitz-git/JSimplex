@@ -1,0 +1,105 @@
+{
+  "source": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-HARNESS/tests.py",
+  "edits": [
+    {
+      "old": "('red300','green300')",
+      "new": "('red1800',)",
+      "count": 2
+    },
+    {
+      "old": "phase=='red300'",
+      "new": "phase=='red1800'",
+      "count": 4
+    },
+    {
+      "old": "o.validate(p,S,LOADED,phase)",
+      "new": "o.validate(p,S,LOADED,'red300')",
+      "count": 1
+    },
+    {
+      "old": "fixture(phase)",
+      "new": "fixture('red300')",
+      "count": 2
+    },
+    {
+      "old": "logfile(phase,p)",
+      "new": "logfile('red300',p)",
+      "count": 1
+    },
+    {
+      "old": "logfile(phase,fixture_data)",
+      "new": "logfile('red300',fixture_data)",
+      "count": 1
+    },
+    {
+      "old": "o.warning_log(log,p,phase)",
+      "new": "o.warning_log(log,p,'red300')",
+      "count": 1
+    },
+    {
+      "old": "o.warning_log(log+bad,p,phase)",
+      "new": "o.warning_log(log+bad,p,'red300')",
+      "count": 1
+    },
+    {
+      "old": "'ABSENT 28'),p,phase)",
+      "new": "'ABSENT 28'),p,'red300')",
+      "count": 1
+    },
+    {
+      "old": "validate(q,phase))\n  check('red_missing_failure_log'",
+      "new": "validate(q,phase))\n  check('red_missing_failure_log'",
+      "count": 1
+    },
+    {
+      "old": "'REMOVED'),p,phase)",
+      "new": "'REMOVED'),p,'red300')",
+      "count": 1
+    },
+    {
+      "old": "cfg['payload'],cfg['stage'],phase]",
+      "new": "cfg['payload'],cfg['stage'],'red300']",
+      "count": 1
+    },
+    {
+      "old": "cfg['seconds']==300",
+      "new": "cfg['seconds']==1800",
+      "count": 1
+    },
+    {
+      "old": "('p011-red300','p011-green300','red600','',None)",
+      "new": "('red300','green300','green1800','p011-red300','p011-green300','red600','',None)",
+      "count": 1
+    },
+    {
+      "old": "seconds=300",
+      "new": "seconds=1800",
+      "count": 2
+    },
+    {
+      "old": "('elapsed_including_launch',293)",
+      "new": "('elapsed_including_launch',1793)",
+      "count": 1
+    },
+    {
+      "old": "('elapsed_seconds',301)",
+      "new": "('elapsed_seconds',1801)",
+      "count": 1
+    },
+    {
+      "old": "with patch.object(c,'rd',lambda _: {'all_passed':False}):refuse('green_missing_accepted_red',lambda:c.predecessor('green300'))\ncheck('red_no_predecessor',c.predecessor('red300')==([],[]))",
+      "new": "refuse('green_not_prepared',lambda:c.predecessor('green300'))\npf,pg=c.predecessor('red1800');check('timeout_lineage_81_full289',len(pf)==81 and len(pg)==289)\nwith patch.object(c,'rd',lambda _: {'sha256':{},'review':'prior'}):refuse('malformed_timeout_receipt',lambda:c.validate_timeout_record())",
+      "count": 1
+    },
+    {
+      "old": "scope='BG blocked typed exact-run admission',phase='red300'",
+      "new": "scope='BG blocked typed RED repeat exact-run admission',phase='red1800'",
+      "count": 1
+    },
+    {
+      "old": "result=dict(all_passed=True,count=len(checks),checks=checks,",
+      "new": "# New time-only boundary cases preserve numerical predicates and strict schemas.\nfor value in (300.5,1792.0,1800.0):\n p=fixture('red300')\n for n in o.PREPARATION:\n  for k in o.METRICS-{'bytes','events'}:p[n][k]=value\n check('extended_cost_valid_'+str(value),validate(p,'red1800')['expected_failures']==6)\nfor value in (1800.000001,True,float('inf'),float('nan')):\n p=fixture('red300');p['cost-2.toml']['seconds']=value\n refuse('extended_cost_invalid_'+repr(value),lambda p=p:validate(p,'red1800'))\nmem=dict(available_kib=8*1024**2,swap_used_kib=0)\ncheck('resource1792boundary',a.resource_records([dict(mem,elapsed=1792.)],mem,1792.))\nrefuse('resource1792exceeded',lambda:a.resource_records([dict(mem,elapsed=1792.1)],mem,1792.1))\n# Actual process success can extend beyond300, with all unchanged accounting gates.\ndef long_success(run,out,payload):\n edit(out/'process.json','elapsed_including_launch',1792.)\n edit(run/'invocation.json','elapsed_seconds',1800.)\n p=run/'invocation.json';v=json.loads(p.read_text());v['supervisor']['elapsed_seconds']=1800.;p.write_text(json.dumps(v))\n (out/'resources.jsonl').write_text(json.dumps(dict(mem,elapsed=1792.))+'\\n')\nfull_case('red1800','long_boundary_success',long_success,success=True)\nresult=dict(all_passed=True,count=len(checks),checks=checks,",
+      "count": 1
+    }
+  ]
+}

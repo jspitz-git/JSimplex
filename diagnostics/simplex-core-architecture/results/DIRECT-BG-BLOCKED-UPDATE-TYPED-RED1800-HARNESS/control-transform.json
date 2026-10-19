@@ -1,0 +1,125 @@
+{
+  "control.py": {
+    "source": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-HARNESS/control.py",
+    "source_sha256": "fc5d5549828ed533bfb5e0bd440f16449ca77d671a62416e4b14233f51f902a2",
+    "prepared_sha256": "810e2c1a699e2001a67e666e4df7429d4ffad9a53e415e8ee85ac823d2c9477d",
+    "edits": [
+      {
+        "old": "ENTRY='2821702085f6bdaceb48c71a8774c99200e242eb'",
+        "new": "ENTRY='67533adf18a5ba4929e77cafa73472c29d3dd5d0'",
+        "count": 1
+      },
+      {
+        "old": "require(phase in ('red300','green300'),'Only prepared blocked BG typed RED/GREEN phases are allowed')",
+        "new": "require(phase=='red1800','Only separately prepared red1800 is allowed')",
+        "count": 1
+      },
+      {
+        "old": "str(payload),stage,phase]",
+        "new": "str(payload),stage,'red300'] # unchanged driver semantic phase; new external attempt is red1800",
+        "count": 1
+      },
+      {
+        "old": "seconds=300,expected_exit=1 if phase=='red300' else 0",
+        "new": "seconds=1800,expected_exit=1",
+        "count": 1
+      },
+      {
+        "old": "BG blocked typed harness preparation",
+        "new": "BG blocked typed RED repeat preparation",
+        "count": 1
+      },
+      {
+        "old": "validate_stage_binding();validate_probe();validate_typed();validate_qualification()",
+        "new": "validate_stage_binding();validate_probe();validate_typed();validate_qualification();validate_timeout_record()",
+        "count": 1
+      },
+      {
+        "old": "def predecessor(phase):\n config(phase)\n if phase=='red300':return [],[]\n red='red300';run=D/'runs'/red\n require(rd(run/'audit.json').get('all_passed') is True,'Accepted RED audit required')\n validate_result_closure(red,rd(run/'outer-closure.json'))\n files,groups=result_review(red,'BG blocked typed RED result','result-review.json')\n return sorted(set(files+[str(p) for p in closure_paths(red)])),groups\n",
+        "new": "def predecessor(phase):\n config(phase)\n validate_timeout_record()\n return sorted(rd(D/'timeout-bindings.json')['sha256']),rd(D/'historical-groups.json')['groups']\n",
+        "count": 1
+      },
+      {
+        "old": " return sorted(set(j['sha256'])|{str(m),str(D/'review.json')}|set(rd(D/'review.json').get('evidence_sha256',{})))",
+        "new": " return sorted(set(j['sha256'])|{str(m),str(D/'review.json')}|set(rd(D/'review.json').get('evidence_sha256',{})))",
+        "count": 1
+      }
+    ],
+    "append": "\ndef validate_timeout_record():\n t=rd(D/'timeout-bindings.json');require(bindings(t),'Prior timeout evidence drift')\n v=rd(t['review']);require(v.get('accepted') is True and v.get('qualification_accepted') is False and v.get('findings')==[] and v.get('scope')=='BG blocked typed RED timeout diagnostic','Prior record must remain diagnostic only')\n require(bindings(v) and bindings(v,'evidence_sha256'),'Prior timeout review drift')\n a=rd(t['audit']);require(a.get('all_passed') is False and a.get('pure_timeout') is False,'Do not reinterpret failed RED as success')\n require(not Path(t['run']).joinpath('result-review.json').exists(),'No retrospective accepted RED receipt')\n require(set(rd(D/'historical-groups.json')['groups'])==set(rd(t['closure'])['host']['groups']) and len(rd(D/'historical-groups.json')['groups'])==289,'Full289 historical roster')\n"
+  },
+  "seal.py": {
+    "source": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-HARNESS/seal.py",
+    "source_sha256": "98348cb5aaae27a08000046f1e9bd0db8177b13d056d762bb807c2180cdf0091",
+    "prepared_sha256": "0f51db36d78dec931265987ed557165e802ae93f0ba7759a1a0cff943edf6a55",
+    "edits": [
+      {
+        "old": "SEALED exact BG blocked typed RED/GREEN phase",
+        "new": "SEALED exact BG blocked typed RED1800 repeat",
+        "count": 1
+      }
+    ]
+  },
+  "outer.py": {
+    "source": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-HARNESS/outer.py",
+    "source_sha256": "7df316ca1feb20ee0ae84f52339a6961061bfc7f0885e8c27e4dc45a2bb58c11",
+    "prepared_sha256": "574c2c5f2e78e3ea0f2ef38bc6c75f658d9ee0ab4606dc81dbbfa0f436fa07eb",
+    "edits": [
+      {
+        "old": "BG blocked typed exact-run admission",
+        "new": "BG blocked typed RED repeat exact-run admission",
+        "count": 1
+      }
+    ]
+  },
+  "launch.py": {
+    "source": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-HARNESS/launch.py",
+    "source_sha256": "08df440195c66ab1f2d8050c42078b87c3d3f91642a310c678541b602254cf17",
+    "prepared_sha256": "156c1bc300b89b73819865f0243f28f815815d81f65172ae06a47feecbe22571",
+    "edits": [
+      {
+        "old": "BG blocked typed exact-run admission",
+        "new": "BG blocked typed RED repeat exact-run admission",
+        "count": 1
+      }
+    ]
+  },
+  "oracle.py": {
+    "source": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-HARNESS/oracle.py",
+    "source_sha256": "c81a1ee25c128580de2a31d9b745c041cc7ef6d7c8152d2d322fe834d891f052",
+    "prepared_sha256": "d7c5be5bf9d55c5ddbee2807079f6c91de1fdd54b601e10bdf91bbc2f3bef1d6",
+    "edits": [
+      {
+        "old": "0<=v[k]<=300",
+        "new": "0<=v[k]<=1800",
+        "count": 1
+      }
+    ]
+  },
+  "audit.py": {
+    "source": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TYPED-HARNESS/audit.py",
+    "source_sha256": "cb7f47c765cd6626a2a575587a92154b404f6e4f0299cb762ac1c71e9bb2ac70",
+    "prepared_sha256": "c861fd2a7ac2f5cde4257e8da1fc2deba3c827ab688b34edc2f4b25fb7a59140",
+    "edits": [
+      {
+        "old": "0<=elapsed<=292",
+        "new": "0<=elapsed<=1792",
+        "count": 1
+      },
+      {
+        "old": "BG blocked typed exact-run admission",
+        "new": "BG blocked typed RED repeat exact-run admission",
+        "count": 1
+      },
+      {
+        "old": "result=validate(data,rd(D/'schedule.json'),loaded_for(cfg),phase)",
+        "new": "result=validate(data,rd(D/'schedule.json'),loaded_for(cfg),'red300') # unchanged Julia/raw RED semantic phase",
+        "count": 1
+      },
+      {
+        "old": "warning_log(log,data,phase)",
+        "new": "warning_log(log,data,'red300')",
+        "count": 1
+      }
+    ]
+  }
+}

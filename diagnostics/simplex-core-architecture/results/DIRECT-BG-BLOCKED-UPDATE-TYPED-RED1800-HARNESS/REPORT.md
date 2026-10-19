@@ -1,0 +1,9 @@
+# RED repeat: separate time extension, unchanged driver
+
+Prepared a distinct red1800 package with a1800-second numerical supervisor and1792-second guard. All Julia files, fixtures, stage, numerical/ownership/allocation predicates and normal/fault adapters remain byte-identical to the reviewed original harness. Python control changes are exhaustively listed with exact inverse in control-transform.json: separate run identifier/scope/paths and prior-timeout linkage, time maxima, and explicit external-red1800 to unchanged-driver-red300 phase mapping. No new Julia code or algorithm adjustment.
+
+Twenty-two exact copies and six separately transformed Python files are recorded. Original mathematical oracle code differs only at its cost-time upper bound300->1800; audit differs only in the resource elapsed bound, receipt scope and semantic phase mapping. Strict success requires the same60 files/28 units/168 sites, panel11768 passes, exactlysixN026 failures, unchanged P011 and preservation checks. Candidate/control preparation does not prove runtime success.
+
+The old timeout is not a pure-timeout mathematical qualification and remains rejected. Its23 files/32793pass+2N026 prefix, absentunit11/raw, failed audit and all publication/reviewer corrections remain untouched. New lineage pins preserve that result without treating it as accepted RED. Full289 historical groups and sessions remain required before execution. Only RED is prepared; GREEN is rejected by configuration.
+
+New offline synthetic tests cover exact output and process refusals and the1792/1800 boundaries; source checks enforce byte equality and inverse reconstruction. Independent preparation review is recorded separately and must not admit launch. No numerical entrypoint or Julia query/parser/import/compilation is executed now. No production/test/environment/CI/master/global STATUS/roadmap changes. Wider Task2/Task3 remain open.

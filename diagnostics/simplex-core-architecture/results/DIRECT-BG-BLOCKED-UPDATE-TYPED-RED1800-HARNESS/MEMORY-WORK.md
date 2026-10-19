@@ -1,0 +1,11 @@
+# Work and memory boundary for RED1800
+
+The numerical call, fixture, test, arithmetic and data-structure schedule is unchanged. Source event-dependent counts and complete numerical checks remain those in the original MEMORY-WORK ledger, separately pinned with the preparation manifest. This repeat restarts the whole28-unit driver; it does not resume saved unit11. No new production scans, basis solves, copies, conversions, invariant checks or persistent scratch are introduced.
+
+Time extension permits the existing expensive cold correctness tests to complete if they fit1800s. Exact rational matrices/products and snapshots can scale cubically and incur arbitrary-precision growth; the previous lifecycle unit allocated101559811032 cumulative bytes/666986881 events, not live memory. No complete native allocation accounting or guaranteed fit is claimed. Unchanged component scratch/VM/availableRAM/swap limits still apply.
+
+New control work is cold admission/integrity:timeout-bindings.json contains exactly81 saved prior/preparation file hashes, verified at preparation/predecessor boundaries. It adds no in-loop solver work. New run metadata is fixed except the bounded resource sampler: up to roughly1793 one-second samples plus terminal metadata under the1792s guard; scheduling/cleanup boundaries determine actual count. Supervisor limit increases sixfold but does not imply a sixfold expected workload or allocation budget. Hashing is outside guarded numerical timing at the documented boundaries.
+
+All31 existing cold load/unit cost records are unchanged in schema, serialization and placement. Load records overlap; unit records include existing test compilation/snapshots/exact arithmetic and unit serialization, exclude subsequent cost/raw serialization. Do not sum overlaps or interpret as warm production performance. P011's four inner zero-allocation predicates and value/owner checks remain exact; setup and snapshots remain outside those inner meters.
+
+No avoidable new production computation or retained memory is introduced. The longer bounded diagnostic process is an explicit tradeoff requested after a timeout; it neither removes correctness work nor establishes whether that work could later be optimized.
