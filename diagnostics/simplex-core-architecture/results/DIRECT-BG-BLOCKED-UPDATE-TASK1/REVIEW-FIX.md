@@ -1,0 +1,3 @@
+# R1–R3 offline coverage fix
+
+Preserved all four pre-review deliverables. Tests strengthened before optional probe implementation. R1 removes conditional acceptance bypass and adds fill/ownership/reuse. R2 adds independent predecision-bit/mask/history/transpose/absent-source/underflow checks. R3 tests computed commit budget at cap and cap+1 with independent operation counters. Generic structural carrier is not cache/provenance evidence. No Julia/old checker/numerics or plan/gate changes. Previous source-check.json candidate/test/ledger/map bindings map ONLY to matching *.before-review files; other bindings unchanged.

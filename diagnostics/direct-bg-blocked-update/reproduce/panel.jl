@@ -1,0 +1,258 @@
+# UNEXECUTED isolated Task1 candidate. Parent must already bind JSimplex.
+module BGBlockedPanel
+import ..JSimplex
+const J = JSimplex
+const Upper = Vector{J.PackedUpperColumn{Float64,J.UpperRowIndices}}
+struct BGNoCounts end
+mutable struct BGPanelCounts
+    values::NTuple{20,Int}
+end
+BGPanelCounts() = BGPanelCounts(ntuple(_ -> 0,20))
+@inline bump!(::BGNoCounts, ::Val, n::Int=1) = nothing
+@inline function bump!(c::BGPanelCounts, ::Val{I}, n::Int=1) where I
+    c.values = Base.setindex(c.values, Base.Checked.checked_add(c.values[I],n), I)
+    nothing
+end
+@inline peak!(::BGNoCounts, n::Int) = nothing
+@inline peak!(c::BGPanelCounts, n::Int) = (c.values=Base.setindex(c.values,max(c.values[14],n),14);nothing)
+counts(::BGNoCounts) = ntuple(_->0,20)
+counts(c::BGPanelCounts) = c.values
+struct BGPanelDecision
+    start::Int
+    count::Int
+    accepted::Bool
+    reason::Symbol
+    finite::Bool
+    counters::NTuple{20,Int}
+end
+mutable struct BGPanelWorkspace{C}
+    values::Matrix{Float64}
+    present::BitMatrix
+    touched::BitMatrix
+    steps::Vector{J.BartelsGolubStep{Float64}}
+    counts::C
+    owner::Union{Nothing,Upper}
+    start::Int
+    count::Int
+    width::Int
+    phase::UInt8
+end
+function _bgb_charge(n::Int)
+    n >= 0 || throw(ArgumentError("negative dimension"))
+    cells=Base.Checked.checked_mul(n,9)
+    Base.Checked.checked_add(Base.Checked.checked_add(Base.Checked.checked_mul(n,72),
+        Base.Checked.checked_mul(cld(cells,64),16)),4352)
+end
+function BGPanelWorkspace(n::Int; counted::Bool=false)
+    64<=n<=4096 || throw(ArgumentError("unsupported panel dimension"))
+    _bgb_charge(n)<=2^20 || throw(ArgumentError("scratch budget"))
+    c=counted ? BGPanelCounts() : BGNoCounts()
+    bump!(c,Val(5),9*n);bump!(c,Val(6),18*n)
+    BGPanelWorkspace(zeros(n,9),falses(n,9),falses(n,9),
+        Vector{J.BartelsGolubStep{Float64}}(undef,8),c,nothing,0,0,0,0x00)
+end
+function _bgb_dimensions(n::Int,r::Int)
+    ok=64<=n<=4096 && 1<=r<n
+    b=ok ? min(8,n-r) : 0
+    ok=ok && b>=4 && n-r+1>=64
+    BGPanelDecision(r,b,ok,ok ? :eligible : :dimensions,true,ntuple(_->0,20))
+end
+# Two binary interval searches, counted comparison by comparison; no offsets array.
+function interval(indices,r,last,c)
+    bump!(c,Val(2),2)
+    lo=1;hi=length(indices)+1
+    while lo<hi
+        mid=lo+(hi-lo)÷2;bump!(c,Val(3))
+        if indices[mid]<r;lo=mid+1;else;hi=mid;end
+    end
+    first=lo;lo=first;hi=length(indices)+1
+    while lo<hi
+        mid=lo+(hi-lo)÷2;bump!(c,Val(3))
+        if indices[mid]<=last;lo=mid+1;else;hi=mid;end
+    end
+    first,lo-1
+end
+function _bgb_eligibility(inner,r::Int,c=BGNoCounts())
+    n=length(inner.upper);d=_bgb_dimensions(n,r)
+    d.accepted || return d
+    inner.upper isa Upper || return BGPanelDecision(r,d.count,false,:type,true,counts(c))
+    total=0
+    for j in r:n
+        col=inner.upper[j];a,z=interval(col.indices,r,r+d.count,c)
+        for k in a:z
+            bump!(c,Val(1));v=col.values[k]
+            if !isfinite(v) || iszero(v)
+                return BGPanelDecision(r,d.count,false,:invalid_input,isfinite(v),counts(c))
+            end
+            total+=1
+        end
+    end
+    ok=total>=cld((d.count+1)*(n-r+1),2)
+    BGPanelDecision(r,d.count,ok,ok ? :eligible : :density,true,counts(c))
+end
+function _bgb_decision(ws,ok,reason,finite)
+    BGPanelDecision(ws.start,ws.count,ok,reason,finite,counts(ws.counts))
+end
+function reject!(ws,reason,finite=true)
+    d=_bgb_decision(ws,false,reason,finite)
+    ws.phase=0x00;ws.owner=nothing
+    d
+end
+# Caller performs eligibility BEFORE allocating workspace. Standalone structural
+# tests may gather sparse panels to exercise the arithmetic without admission.
+function _bgb_gather!(ws,inner,r::Int,b::Int)
+    n=length(inner.upper)
+    ws.phase==0x00 || throw(ArgumentError("unfinished panel"))
+    inner.upper isa Upper || throw(ArgumentError("Float64 stable packed U required"))
+    n==size(ws.values,1) && 1<=r<n && 1<=b<=8 && r+b<=n || throw(ArgumentError("panel bounds"))
+    w=n-r+1;h=b+1;c=ws.counts
+    ws.start=r;ws.count=b;ws.width=w;ws.owner=inner.upper
+    for i in 1:h,j in 1:w
+        ws.values[j,i]=0.0;ws.present[j,i]=false;ws.touched[j,i]=false
+    end
+    bump!(c,Val(5),h*w);bump!(c,Val(6),2*h*w)
+    for j in r:n
+        col=inner.upper[j];a,z=interval(col.indices,r,r+b,c)
+        for k in a:z
+            i=col.indices[k]-r+1
+            ws.values[j-r+1,i]=col.values[k];ws.present[j-r+1,i]=true
+            bump!(c,Val(4));bump!(c,Val(6))
+        end
+    end
+    ws.phase=0x01
+    ws
+end
+function _bgb_apply!(ws,r::Int,b::Int,w::Int,probe=nothing)
+    ws.phase==0x01 && (r,b,w)==(ws.start,ws.count,ws.width) || throw(ArgumentError("stale panel"))
+    X=ws.values;P=ws.present;M=ws.touched;c=ws.counts
+    for t in 1:b
+        bump!(c,Val(9))
+        a=X[t,t];z=X[t,t+1]
+        isfinite(a) && isfinite(z) || return reject!(ws,:nonfinite,false)
+        iszero(a) && return reject!(ws,:zero_diagonal)
+        swapped=J._pivot_magnitude(z)>J._pivot_magnitude(a)
+        # Optional cold observer; no trace stored by the unobserved kernel.
+        probe===nothing || probe(r+t-1,a,z,swapped)
+        if swapped
+            for j in 1:w
+                X[j,t],X[j,t+1]=X[j,t+1],X[j,t]
+                P[j,t],P[j,t+1]=P[j,t+1],P[j,t]
+                M[j,t]=true;M[j,t+1]=true
+            end
+            bump!(c,Val(7),2*w);bump!(c,Val(6),4*w)
+        end
+        pivot=X[t,t]
+        iszero(pivot) && return reject!(ws,:zero_pivot)
+        m=X[t,t+1]/pivot
+        isfinite(m) || return reject!(ws,:nonfinite,false)
+        X[t,t+1]=0.0;P[t,t+1]=false;M[t,t+1]=true
+        bump!(c,Val(6),2)
+        if !iszero(m)
+            for j in t+1:w
+                P[j,t] || continue
+                v=fma(-m,X[j,t],X[j,t+1]);bump!(c,Val(8))
+                isfinite(v) || return reject!(ws,:nonfinite,false)
+                # Deleted exact zero must subsequently read as absent +0.
+                stored=!iszero(v);X[j,t+1]=stored ? v : 0.0
+                P[j,t+1]=stored;M[j,t+1]=true;bump!(c,Val(6),2)
+            end
+        end
+        ws.steps[t]=J.BartelsGolubStep{Float64}(r+t-1,r+t-1,swapped,m)
+    end
+    ws.phase=0x02
+    _bgb_decision(ws,true,:ok,true)
+end
+@inline function _bgb_store_budget(stores::Int,h::Int,w::Int)
+    0<=stores<=Base.Checked.checked_mul(2,Base.Checked.checked_mul(h,w))
+end
+# Compare original logical support to final mask. No per-column metadata retained.
+function support(col,ws,j,c)
+    r=ws.start;h=ws.count+1;a,z=interval(col.indices,r,r+h-1,c)
+    k=a;nn=0;same=true
+    for i in 1:h
+        bump!(c,Val(10))
+        if ws.present[j,i]
+            nn+=1
+            same &= k<=z && col.indices[k]==r+i-1
+            k+=1
+        end
+    end
+    same &= k==z+1
+    a,z,nn,same
+end
+function _bgb_commit!(inner,ws,d::BGPanelDecision)
+    ws.phase==0x02 && d.accepted && (d.start,d.count)==(ws.start,ws.count) && ws.owner===inner.upper || throw(ArgumentError("stale commit"))
+    r=ws.start;b=ws.count;h=b+1;w=ws.width;c=ws.counts
+    planned=0
+    for j in 1:w
+        col=inner.upper[r+j-1];a,z,nn,same=support(col,ws,j,c)
+        # Unchanged support writes values only; stable IDs are untouched.
+        planned=Base.Checked.checked_add(planned,same ? nn : 2*(length(col.values)-(z-a+1)+nn))
+    end
+    bump!(c,Val(11),planned)
+    _bgb_store_budget(planned,h,w) || return reject!(ws,:store_budget)
+    # Begin/invalidation is owned by Task2; invalidate again before any reserve
+    # that can fail. Never publish safe caches or append history here.
+    J._invalidate_sparse_upper!(inner,r)
+    inner.row_columns_ready = false
+    try
+      for i in 1:h
+        need=0
+        for j in 1:w;need+=ws.present[j,i];bump!(c,Val(20));end
+        sizehint!(inner.row_columns[r+i-1],need)
+      end
+        for j in 1:w
+            pos=r+j-1;col=inner.upper[pos];a,z,nn,same=support(col,ws,j,c)
+            if same
+                k=a
+                for i in 1:h
+                    if ws.present[j,i]
+                        col.values[k]=ws.values[j,i];k+=1;bump!(c,Val(12))
+                    end
+                end
+            else
+                nnew=length(col.values)-(z-a+1)+nn
+                ids=Vector{Int}(undef,nnew);values=Vector{Float64}(undef,nnew)
+                bump!(c,Val(13),2);peak!(c,16*(length(col.values)+nnew))
+                k=1
+                for old in 1:a-1
+                    ids[k]=col.indices.ids[old];values[k]=col.values[old];k+=1
+                    bump!(c,Val(12),2);bump!(c,Val(17),2)
+                end
+                for i in 1:h
+                    if ws.present[j,i]
+                        ids[k]=col.indices.order.order[r+i-1];values[k]=ws.values[j,i];k+=1
+                        bump!(c,Val(12),2)
+                    end
+                end
+                for old in z+1:length(col.values)
+                    ids[k]=col.indices.ids[old];values[k]=col.values[old];k+=1
+                    bump!(c,Val(12),2);bump!(c,Val(17),2)
+                end
+                inner.upper[pos]=J.PackedUpperColumn{Float64}(J.UpperRowIndices(ids,col.indices.order),values)
+            end
+            bump!(c,Val(18))
+        end
+        for i in r:r+b;empty!(inner.row_columns[i]);bump!(c,Val(19));end
+        for id in eachindex(inner.positions)
+            bump!(c,Val(15));pos=inner.positions[id]
+            pos<r && continue
+            for i in 1:h
+                if ws.present[pos-r+1,i]
+                    push!(inner.row_columns[r+i-1],id);bump!(c,Val(16))
+                end
+            end
+        end
+        inner.row_columns_ready=true
+    catch
+        inner.row_cache.upper_prefix_candidate=false
+        inner.row_cache.upper_prefix_safe=false
+        rethrow()
+    finally
+        # Failure is propagated; owner release is not rollback. Task2 must drop
+        # failed workspace and invalidate prefix eligibility on every exception.
+        ws.phase=0x00;ws.owner=nothing
+    end
+    _bgb_decision(ws,true,:committed,true)
+end
+end

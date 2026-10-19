@@ -1,0 +1,51 @@
+# Task1 source work and memory ledger — UNEXECUTED
+
+Scope: isolated Float64/Int stable packed U, host Int64, n64..4096; b<=8, h=b+1, w=n-r+1. No production routing, adapter, factorization, solves, driver, Julia parsing/compilation or allocation/time measurements. Counters are explicit source operations, not allocator instrumentation. Existing source objects use ordinary imports; no method overwrite. Runtime/compiler/allocation acceptance remains open.
+
+## Preconditions and next-task boundary
+
+Task2 alone performs original validated spike preparation, begin/invalidation, incidence initialization/replacement and column rotation before the first panel; handles one-rejection-per-update latch, original scalar suffix, sticky `decision.finite == false`, busy/exclusive update, prepared two-RHS ownership, update/history append and finish. Before r, elimination is complete: columns j<r have no stored band entries in r:r+b. Packed indices are unique, sorted logical rows with common owned row order; positions/column_order are inverse permutations, incidence rows ready and sorted. Structural tests use these actual production types, not an alternative packed implementation. The minimal carrier deliberately has no backend/solve, so it cannot qualify API/lifecycle behavior.
+
+Helpers accept only Float64 stable packed columns for admission. Gather intentionally allows sparse micro-panels for structural tests; caller must perform `_bgb_eligibility` before workspace construction in the real route. No whole-matrix validation scan is added to a hot helper. Reentering an unfinished workspace and committing into another upper-vector owner are rejected. Concurrent or external mutation of the same owner between gather and commit is prohibited by the adapter contract. No hidden O(nnz) hash/validation. A failed gather must discard workspace in Task2. Commit releases owner in finally; catches only to invalidate/rethrow, never to retry.
+
+## Retained and transient storage
+
+- One `Matrix{Float64}(n,9)` payload72n bytes; two n-by9 BitMatrices payload16*cld(9n,64). No original-presence copy; comparison rereads packed columns. Touched marks track changed cells, current presence determines arithmetic and final support.
+- Eight isbits original BartelsGolubStep{Float64} slots, source charge256 bytes. Every chronological pivot gets a scratch slot; Task2 skips identity slots on history append. No dynamic per-pivot snapshot/record or duplicate history ownership.
+- Metadata, owner reference and optional fixed20-Int counters fall under4096-byte allowance. Total checked `72n+16*cld(9n,64)+4352 <= 1MiB`; maximum n4096 source charge308480 bytes. This is requested payload plus allowance, not native retained capacity or measured summarysize.
+- Workspace lazily constructed AFTER successful eligibility, initially zeroed. Constructor pays9n value initialization plus two logical9n mask initializations. First-use time/bytes count in lifecycle. Copy/shrink/refactor lifetime belongs to Task2; no implementation or pass claimed here.
+- Unchanged-support columns preserve both array owners and write values only. Changed-support columns allocate exactly two fresh arrays of new logical length. Fresh index payload8L and value payload8L, plus two array headers, one UpperRowIndices wrapper and one PackedUpperColumn value/possible boxing. Headers/boxing must be measured later, not claimed zero.
+- Sequential replacement holds old and new column arrays concurrently. Counter14 records maximum logical payload16*(old_length+new_length), separately from existing factor/workspace graph. UpperRowOrder is shared with the original live factor, not copied. No intentionally held retired owners. Allocator backing capacity may exceed length; unreachable old columns awaiting GC remain allocation/RSS cost. At n4096, individual old+new logical payload is at most131072 bytes; this is NOT whole-process/native peak.
+- Incidence rows may grow through sizehint! and push!, with old/new backing coexistence additional. At most h existing row vectors are reserved/cleared/refilled. Their retained capacity and unused capacity are measured later. Prepared vectors, source packed capacities, shared/recycled updates, backend, future history append and compiled code remain additional.
+- No preallocated full factor, dense n-by-n matrix, persistent offsets vector, per-pivot vector, copied input, global cache or new dependency. Test matrices/dictionaries/snapshots are cold diagnostics excluded from proposed measured kernel.
+
+## Source operations by execution frequency
+
+| Phase / frequency | Explicit work | Allocation / retention |
+|---|---|---|
+| Dimension rejection / attempted first panel | O(1), no packed scan | no workspace construction; zero allocation is a prospective test |
+| Eligibility / attempted panel | two binary interval searches per w columns, comparisons counted; read each stored band value until invalid or completion | fixed decision/counters; no vectors |
+| Gather / admitted panel | repeat two searches per column; initialize h*w values +2*h*w mask positions; read/write stored band values and presence | reuse workspace; cold constructor separately |
+| Apply / <=b steps | current pivot check, strict comparison, one division; swaps2*w value stores +4*w mask stores; at most sum(w-t) FMA and finite tests, each with one value store and2 mask stores; one explicit below-diagonal value store and2 mask stores per step | eight fixed history slots; no growing ledger |
+| Commit cost prepass | two searches/w column, h*w support mask inspections plus compared original row indices; calculate exact planned stores, no mutation/column allocation | scalar totals only |
+| Budget rejection | no writeback, reserve or fresh column allocation | clear private owner/phase; Task2 performs original scalar suffix once |
+| Incidence reserve / admitted commit | h*w mask probes to compute h final lengths; h sizehint! requests | ordinary row growth/coexistence additional |
+| Column commit | repeat support searches and h*w comparisons; unchanged nn value stores; changed2*new_length index/value stores (prefix/suffix source reads separately); <=w interval merges | changed columns2 arrays each, sequential publication |
+| Incidence rebuild | clear h rows; ONE ascending n stable-ID pass, mapping positions; h*w masks and exactly final-band-nnz pushes | existing row vector capacities, <=h grows |
+| History / cache publication | NOT Task1: Task2 skips identity steps, appends once, calls original finish on whole success | existing history/pools additional |
+
+Combined commit stores are checked against2*h*w BEFORE any reserve/column allocation. No resize!/insert!/delete! occurs on changed packed column branch. Support-read/gather/search work is outside this store cap and is not omitted. Counter17 counts prefix/suffix copied source elements; new band values/physical IDs are read from tile/order and charged by the store count, not counter17. With valid packed columns, all whole-column copied payload is bounded by accepted stores; allocator traffic is not.
+
+One ascending stable-ID loop costs O(n+h*w), not O(h*w) alone. Across p=O(n/b) panels, repeated searches cost O(n² log n/b), arithmetic/masks/accepted stores O(n²), ID passes O(n²/b), plus original incidence growth/history/backend work. A rejected panel adds its preflight/gather and at most8 attempted steps before scalar replay. A sparse rejection can still regress time; no speedup inferred. First rejection disabling blocking is a Task2 obligation, not enforced by stateless eligibility itself.
+
+## Counter schema (1-based tuple fields)
+
+1 preflight stored-value reads; 2 binary-search calls; 3 binary comparisons; 4 gathered stored entries (each value read/store plus row-index read); 5 value zero initialization stores; 6 logical mask writes; 7 swapped value stores; 8 FMA calls (each also finite check/value store); 9 attempted pivot steps (one division only after finite/nonzero checks); 10 support mask inspections; 11 planned commit stores; 12 completed commit stores; 13 completed pair-of-array allocation requests; 14 peak logical old/new column payload; 15 stable-ID visits; 16 incidence pushes; 17 copied prefix/suffix source elements; 18 committed column intervals; 19 cleared incidence rows; 20 reserve mask probes.
+
+Array request counter records after both allocations succeed, so it is NOT allocation-attempt/failure accounting; Task2 failure instrumentation must record preforward requests separately. Scalar field writes, branches, tuple-counter rebuilding and bounds checks are additional fixed/control costs. NoCounts removes diagnostic counter updates by dispatch; this is source intent, not an inference/zero-allocation proof. Counted probes and uncounted timing must be separately bound in future admission. Bit writes are logical operations, not native memory instructions. Commit phase/owner writes and exception metadata are cold/constant costs. No artificial counter is a full backend-work budget.
+
+## Structural coverage and unqualified behavior
+
+Tests cover density edge, dimensions, width, checked charge overflow, strict ties, both swap outcomes, pure lookahead rejection at first/middle/last step, absent-source masking, exact cancellation, subnormal output, nonfinite FMA rejection, canonical +0, nonidentity row/column mapping, independent dictionary FMA oracle, immutable external packed snapshots, same-support owner reuse, fresh changed-support arrays, store cap boundary helper, adversarial long-prefix changes, stable-ID incidence and counter counts. Source-first test file preserved before candidate creation.
+
+These are UNEXECUTED tests; no Julia syntax/dispatch correctness or actual allocation pass is claimed. Original-B solves, full history/lower composition, repeated actual updates, failure injection across full adapter, busy/copy/refactor/precision handling and exact RED/GREEN counts belong to Task2 concrete preparation/admission. Timing, GC, RSS, capacity graphs and whole-lifecycle gates belong to Task3. No production/new solver behavior is published by Task1.

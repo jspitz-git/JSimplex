@@ -1,0 +1,19 @@
+{
+  "scope": "Intentional new isolated algorithm; NOT a whole-source inverse",
+  "dependencies": {
+    "src/triangular_factorization.jl": "2d8d488ffb7d1cf79ff71662e0cd83400adaf4097dac3e48254c47106f3a7204",
+    "src/triangular_indices.jl": "96659cddfae345701aed6c320a86fbeef4c6c4c95819864e363fcca04de3e61d",
+    "src/bartels_golub_rows.jl": "0dab8b63590128682605a1cc87104116cbe6ee9e45bf2c206484fc116f0166c0",
+    "src/triangular_rows.jl": "9401e4f43102279344384a8023d1ebdfc409fcf47237414f763a04911ac23f5c",
+    "src/hypersparse_updates.jl": "4b28aa53f95de0f5cd076adb1e74b0146f80185cbd24583964c24077bc97ac99"
+  },
+  "mapping": {
+    "PackedUpperColumn/UpperRowIndices/UpperRowOrder": "Imported actual types; fresh indices map logical row via existing order.order; no global permutation mutation.",
+    "_pivot_magnitude and original BG loop": "Strict comparison/division/zero guard retained; new FMA and private sequential panel; zero diagonal rejected before original unrestricted pure-lookahead.",
+    "_set_upper_value_at!": "Replaced by bounded final support commit. Exact zero canonicalizes absent +0. Whole-column replacement uses two exact-length arrays.",
+    "_ensure_bartels_golub_incidence!": "Only h rows cleared/rebuilt, one ascending stable-ID pass; row capacity prepass counts separately.",
+    "_begin_upper_update!/_finish_upper_update!": "Task2 boundary responsibility; kernel commit calls original invalidation before mutation and never finish.",
+    "BartelsGolubStep": "Eight original-type scratch slots; Task2 appends only nonidentity steps after successful writeback.",
+    "copy/refactor/prepared/scalar suffix": "Not implemented Task1; explicit Task2 consumer contract, no qualification claim."
+  }
+}

@@ -1,0 +1,31 @@
+from pathlib import Path
+import json,hashlib
+R=Path('/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl');Q=R/'diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TASK1';C=R/'diagnostics/direct-bg-blocked-update/reproduce'
+v=json.loads((Q/'review.json').read_text())
+if v['accepted'] is not True or v['findings'] or 'UNEXECUTED' not in v['execution']:raise RuntimeError('Review acceptance')
+# Unexecuted draft preserves stricter proposed receipt-field check. Canonical
+# version checks actual accepted reviewer schema without editing the receipt.
+old=(Q/'closure.py').read_text()
+with (Q/'closure-final.py').open('x') as f:f.write(old.replace("'only_offline':v.get('runtime_acceptance') is False", "'only_offline':'UNEXECUTED' in v.get('execution','') and 'no numerical/performance acceptance' in v.get('execution','')"))
+with (Q/'FINAL.md').open('x') as f:f.write('''# Task1 offline blocked BG kernel preparation accepted
+
+Four isolated deliverables: panel.jl, panel-tests.jl, work-memory-ledger.md and source-map.json. No production routing/source/test/environment/CI/master changes. No Julia executable/query/parser/import/compiler/test or numerical measurement was run. This is accepted offline source preparation only.
+
+Tests were written first; literal/hash preparation checks17 PASS and separate review-fix checks11 PASS are not Julia RED/GREEN. Fresh independent review initially rejected three coverage groups, now resolved in one bounded offline correction pass. The only kernel review correction adds an optional cold predecision probe; main arithmetic/storage design is unchanged. Final independent review accepts exact current bytes with no outstanding findings and no unjustified computational work or retained memory beyond the declared design. No allocation reduction or speedup is established.
+
+R1 requires successful arithmetic-to-packed-commit and tests fill/new owners/reuse. R2 independently checks pivot input bits, masks, row/last and forward/transposed exact history action. R3 exercises the computed commit cap and cap+1 with source-work assertions. Original rejected review/test/source versions remain preserved. Only initial source-check.json and review-initial.json candidate/test/ledger/map hashes map to matching Q/<name>.before-review; all other bindings keep their paths. Final review and fix checks bind current deliverables.
+
+Standalone helpers operate after valid spike insertion/rotation and before whole-update finish. Task2 must implement original tolerance/prepare/begin/finish orchestration, rejection latch/scalar fallback, sticky nonfinite eligibility, active history append, busy/ownership/copy/refactor and exception cleanup. Carrier tests exercise real packed types but generic no-op cache invalidation, and are explicitly not cache/provenance evidence. Reviewer declined runtime syntax/dispatch/allocations, complete factor/original-B correctness and lifecycle/performance acceptance; these remain necessary Task2/3 gates, not waived obligations. No deferred minor finding.
+
+Source scratch charge is at most308480 bytes for n4096, within the1MiB cap; packed old/new arrays, row capacity, source factor, backend/history, allocator/GC and compilation are additional. Store cap prevents unbounded admitted full-column rewriting; binary lookups, eligibility/gather, incidence reservation and failed private-panel replay remain charged. Counted diagnostic operations are not native allocation counts.
+
+The new explicit request supersedes the original planning-only wording solely for Task1 offline text. No generic skill execution command overrides the no-Julia request, and no production integration occurs. Existing diagnostic linked worktree retained. CI remains off, HH reuse disabled, automation paused and broader plan open. Next requested step may prepare Task2 adapter/differential tests offline, followed by fresh independent review.
+
+closure.py is an UNEXECUTED draft checking a proposed runtime_acceptance field not present in the reviewer schema. closure-final.py checks the review's actual explicit UNEXECUTED/no-numerical-acceptance field; no review receipt was rewritten.
+''')
+with (Q/'request.txt').open('x') as f:f.write('Prosím připrav odděleného kandidáta blokového jádra aktualizací U v BG a strukturální testy podle Task1 přijatého plánu, včetně rozpočtu paměti a práce, a nech je nezávisle zkontrolovat, zatím bez spuštění Julie.\n')
+with (Q/'freeze-publication.py').open('xb') as f:f.write(Path(__file__).read_bytes())
+paths={str(p.relative_to(R)) for root in [Q,C] for p in root.rglob('*') if p.is_file()}
+paths.update(str((Q/n).relative_to(R)) for n in ['publication-names.json','host-closure.json','closure.json','publication.json'])
+with (Q/'publication-names.json').open('x') as f:json.dump({'paths':sorted(paths),'scope':'Exact fixed complete Task1 publication before closure/staging'},f,indent=2)
+print('Frozen names',len(paths))

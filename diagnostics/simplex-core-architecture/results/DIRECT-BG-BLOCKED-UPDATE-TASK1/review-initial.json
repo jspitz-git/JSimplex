@@ -1,0 +1,54 @@
+{
+  "scope": "BG blocked U Task1 offline candidate",
+  "accepted": false,
+  "findings": [
+    {
+      "id": "R1",
+      "priority": "P1",
+      "file": "diagnostics/direct-bg-blocked-update/reproduce/panel-tests.jl",
+      "lines": "150-177,186-210",
+      "title": "Successful arithmetic-to-commit coverage is conditional and support-fill/reuse coverage is absent",
+      "detail": "The only full arithmetic->commit->dense/incidence comparison accepts :store_budget instead at lines158-170. Thus a regression rejecting every ordinary applied panel bypasses the promised representation checks. Later positive commits force phase=0x02 without running arithmetic; the single changed-support accepted test deletes a slot. Require a deliberately bounded successful arithmetic commit unconditionally, positive fill-in with exact sorted stable-ID incidence, and a second successful panel using the workspace. Assert unchanged owners and exact changed-array lengths/owners, outside-band preservation, and one merge per affected column."
+    },
+    {
+      "id": "R2",
+      "priority": "P2",
+      "file": "diagnostics/direct-bg-blocked-update/reproduce/panel-tests.jl",
+      "lines": "46-74,113-148",
+      "title": "Predecision, history-action, touched-mask and signed-zero structural oracles are incomplete",
+      "detail": "The independent dictionary oracle records only row/swap/multiplier, not current predecision a/z bits. The test omits last field and never checks forward/transposed action of recorded history or touched masks. Both carrier and oracle discard all exact input zeros; the subnormal test checks a nonzero output, not signed/underflow-zero behavior. Add independent per-step predecision capture in cold/probe mode only, validate chronological original-format history action including last, compare both masks, and add focused absent-source target-preservation and signed/underflow-zero cases. Full original-B/lower/API tests stay Task2."
+    },
+    {
+      "id": "R3",
+      "priority": "P2",
+      "file": "diagnostics/direct-bg-blocked-update/reproduce/panel-tests.jl",
+      "lines": "91-92,178-210",
+      "title": "Exact movement-guard and complete source-work tests do not exercise computed commit counts",
+      "detail": "The exact-cap and cap+1 tests invoke _bgb_store_budget directly. They cannot detect a wrong planned-store formula in _bgb_commit!. Existing long-prefix tests are not exact boundary fixtures. Require constructed real commits at exactly 2*h*w and one store above, with no reserve/mutation/allocation on refusal; verify actual/planned stores, copied prefix/suffix reads, all-column merges, and eligibility/gather separate traversals with independently derived expected counters. Existing counters assert selected fields only; h*w incidence-mask and scratch checks require concrete coverage rather than source comments."
+    }
+  ],
+  "sha256": {
+    "AGENTS.md": "648146ccd145178d776319aab53c5f09bf5578806dd53a8d1b440b96511b4232",
+    "docs/superpowers/plans/2026-10-19-direct-bg-blocked-update.md": "f69ef05be5d9ee7466d82a44b93e193324fc90e814205e6b9b4751781c66c3cb",
+    "docs/superpowers/specs/2026-10-19-direct-bg-blocked-update.md": "bd74974f5ce2c5b6c1235e08a21a82032d92c1a8208e5e6c86b19b4c2ae01ffe",
+    "src/triangular_factorization.jl": "2d8d488ffb7d1cf79ff71662e0cd83400adaf4097dac3e48254c47106f3a7204",
+    "src/triangular_indices.jl": "96659cddfae345701aed6c320a86fbeef4c6c4c95819864e363fcca04de3e61d",
+    "src/bartels_golub_rows.jl": "0dab8b63590128682605a1cc87104116cbe6ee9e45bf2c206484fc116f0166c0",
+    "src/triangular_rows.jl": "9401e4f43102279344384a8023d1ebdfc409fcf47237414f763a04911ac23f5c",
+    "src/hypersparse_updates.jl": "4b28aa53f95de0f5cd076adb1e74b0146f80185cbd24583964c24077bc97ac99",
+    "src/triangular_spikes.jl": "4529bc5aacb604b932128463a26dc8e091933a720abb963c863de13666531873",
+    "src/factorization.jl": "59f0dfb40ab13cdf76b1148323ea0b335154b98cb4da83e87711ba22b8be2986",
+    "diagnostics/direct-bg-blocked-update/reproduce/panel.jl": "90bcbd2474fdc74f2e951219ed56247ad721e6febdfb3d6724439613a4c6e225",
+    "diagnostics/direct-bg-blocked-update/reproduce/panel-tests.jl": "e523b3cf55b9256700405b262c529a7138c02f5b8c238b94cd1eb569fc98f16f",
+    "diagnostics/direct-bg-blocked-update/reproduce/work-memory-ledger.md": "feecde34f4493916d78d352f0908de563563c371106415a82b616dcf66d21801",
+    "diagnostics/direct-bg-blocked-update/reproduce/source-map.json": "1c22c5e7bc0d5c1eea80ae2a797114c5b6e0dbf469b46f95cfa77793fe06aeb6",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TASK1/AUTHOR-NOTES.md": "8e8fbfd221c4790737458f15fbb29dd98fa240f5e1bd4d82eaa20fda8f8ce8de",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TASK1/entry.json": "d6ffd868a904e180b5177481090483def54cf2d0bc4eb812d328b72f6826ac13",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TASK1/tests-first.json": "f559b17f6a6cf4900fedebc60059c98426fb2f2238bc8c3b2a1ed8b5ff669ae2",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TASK1/review-initial-writer.py": "3914a0b12596d365059ff44a8f82b54edc3034dd74f443561fcb889b370448d1"
+  },
+  "report_sha256": "61984008897d20bc3e724320d3e526eafab3826089759f7949e8ef04a6a03f7a",
+  "execution": "OFFLINE source/text/hash only; Julia and numerical execution prohibited",
+  "base": "982b56980e38f4438f3c3c6746bd490a60c5eded",
+  "master": "26e2291745999f485a74f643298ca997d65c7205"
+}
