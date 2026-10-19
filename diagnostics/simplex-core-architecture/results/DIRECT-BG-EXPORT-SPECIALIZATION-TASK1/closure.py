@@ -1,0 +1,33 @@
+"""Fresh Task1 source-only closure, no Julia or old checker execution."""
+from pathlib import Path
+import importlib.util,json,sys
+D=Path(__file__).resolve().parent;R=D.parents[3];C=R/'diagnostics/direct-bg-export-specialized/reproduce';P=D.with_name('DIRECT-BG-EXPORT-WORKSPACE-ALLOCATION-PROVENANCE-REVIEWED');A=D.with_name('DIRECT-BG-EXPORT-SPECIALIZATION-PLAN')
+sys.path.insert(0,str(P));sp=importlib.util.spec_from_file_location('prior_definitions',P/'control.py');c=importlib.util.module_from_spec(sp);sp.loader.exec_module(c)
+checks={}
+def ck(n,v):checks[n]=bool(v)
+rv=c.rd(D/'review.json');s=c.rd(D/'source-check.json')
+ck('review_accepted',rv.get('accepted') is True and rv.get('findings')==[] and rv.get('scope')=='BG export specialization Task1')
+ck('review_bindings',bool(rv.get('sha256')) and c.bindings(rv))
+ind=c.rd(D/'independent-check.json')
+ck('independent_check',ind['all_passed'] and all(ind['checks'].values()) and c.bindings(ind))
+ck('author_check',s['all_passed'] and all(s['checks'].values()) and c.bindings(s))
+ck('candidate_reviewed',all(str(C/n) in rv['sha256'] for n in ['workspace.jl','export.jl','import.jl','factor.jl','workspace-tests.jl','import-tests.jl','lifecycle-tests.jl','boundary-tests.jl','source-inverse.json','work-memory-ledger.md','overlay-manifest.json']))
+ck('original_plan_frozen',c.bindings(c.rd(A/'publication.json')))
+m=c.rd(C/'overlay-manifest.json');stage=Path(m['stage']);base=Path(m['base'])
+ck('stage_membership',{str(p.relative_to(stage)) for p in stage.rglob('*') if p.is_file()}==set(m['stage_sha256']))
+ck('stage_hashes',all(c.sha(stage/n)==h for n,h in m['stage_sha256'].items()))
+ck('base_stage_hashes',all(c.sha(base/n)==h for n,h in m['base_sha256'].items()))
+ck('test_first',c.rd(D/'tests-prepared.json')['candidate_absent'] is True)
+h=c.full_host(c.rd(D/'host.json')['groups']);h.update(remote=c.git('ls-remote','origin','refs/heads/master','refs/heads/codex/simplex-core-architecture'),status=c.git('status','--porcelain'),branch=c.git('branch','--show-current'));c.save(D/'host-closure.json',h)
+e=c.rd(D/'host.json')
+ck('fresh_groups_sessions',c.host_safe(h) and set(e['groups'])<=set(h['groups']) and h['boot_id']==e['boot_id'])
+ck('refs',h['head']==e['head']=='1744ea4e61dea9d25a5848a9ccae7e1b0357072d' and h['master']==c.MASTER and h['branch']=='codex/simplex-core-architecture')
+ck('remotes',h['head']+'\trefs/heads/codex/simplex-core-architecture' in h['remote'] and c.MASTER+'\trefs/heads/master' in h['remote'])
+ck('tracked_unchanged',not c.git('diff','HEAD','--name-only') and not c.git('diff','--cached','--name-only'))
+ck('prior_untracked',all(x in h['status'].splitlines() for x in e['status'].splitlines()))
+names=c.rd(D/'publication-names.json')['names'];future={str((D/n).relative_to(R)) for n in ['closure.json','publication.json']};actual={str(p.relative_to(R)) for root in [D,C] for p in root.rglob('*') if p.is_file()}
+ck('exact_files',len(names)==len(set(names)) and actual==set(names)-future)
+ck('diagnostic_scope',all(any(n.startswith(str(root.relative_to(R))+'/') for root in [D,C]) for n in names))
+out=dict(all_passed=all(checks.values()),checks=checks,sha256={n:c.sha(R/n) for n in names if n not in future},scope='Task1 offline preparation only; runtime and cost unqualified')
+c.save(D/'closure.json',out);print(json.dumps(dict(all_passed=out['all_passed'],checks=len(checks),bindings=len(out['sha256']),failed=[k for k,v in checks.items() if not v])))
+c.require(out['all_passed'],'Closure failed; preserve')

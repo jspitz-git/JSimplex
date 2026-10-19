@@ -1,0 +1,78 @@
+{
+  "files": {
+    "workspace": {
+      "source": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-bg-export-workspace/reproduce/workspace.jl",
+      "source_sha256": "018703b2d59971fc9555247dfbfc85ab455883b482fe38135780c50841992fb6",
+      "candidate_sha256": "2fa98779ff8082c186c10afd4d48857c37deaaad3262582a6347235d732d5347",
+      "edits": [
+        {
+          "before": "function _bgxs_scratch!(owner,role::Symbol,n::Int,l::Int,u::Int;allocate=_bgxs_allocate)",
+          "after": "@inline function _bgxs_scratch!(owner,role::Symbol,n::Int,l::Int,u::Int;allocate=_bgxs_allocate)\n    _bgxs_scratch_core!(owner,role,n,l,u,allocate)\nend\n\nfunction _bgxs_scratch_core!(owner::O,role::Symbol,n::Int,l::Int,u::Int,allocate::A) where {O,A}"
+        }
+      ],
+      "exact_inverse": true
+    },
+    "export": {
+      "source": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-bg-export-workspace/reproduce/export.jl",
+      "source_sha256": "ba06b92585eecf16a5f2ac7f7a150a28f4542fefd89cfea57e6416aea75e34e1",
+      "candidate_sha256": "a1ffd2f22e9f4ec37bd5d110afaa09a1df696b1a8dd396250490053d070c6820",
+      "edits": [
+        {
+          "before": "function _bgxs_checked_basis_lu(L::SparseMatrixCSC{Float64,Int},U::SparseMatrixCSC{Float64,Int},\n                           p::Vector{Int},q::Vector{Int},scaling::Vector{Float64},divide::Bool,owner;allocate=_bgxs_allocate)",
+          "after": "@inline function _bgxs_checked_basis_lu(L::SparseMatrixCSC{Float64,Int},U::SparseMatrixCSC{Float64,Int},\n                           p::Vector{Int},q::Vector{Int},scaling::Vector{Float64},divide::Bool,owner;allocate=_bgxs_allocate)\n    _bgxs_checked_basis_lu_core(L,U,p,q,scaling,divide,owner,allocate)\nend\n\nfunction _bgxs_checked_basis_lu_core(L::SparseMatrixCSC{Float64,Int},U::SparseMatrixCSC{Float64,Int},p::Vector{Int},q::Vector{Int},scaling::Vector{Float64},divide::Bool,owner::O,allocate::A) where {O,A}"
+        },
+        {
+          "before": "function _bgxs_scale_mode(F,L,U,p,q,scaling,owner,n::Int,l::Int,u::Int;allocate=_bgxs_allocate)",
+          "after": "@inline function _bgxs_scale_mode(F,L,U,p,q,scaling,owner,n::Int,l::Int,u::Int;allocate=_bgxs_allocate)\n    _bgxs_scale_mode_core(F,L,U,p,q,scaling,owner,n,l,u,allocate)\nend\n\nfunction _bgxs_scale_mode_core(F::FT,L::LT,U::UT,p::PT,q::QT,scaling::ST,owner::O,n::Int,l::Int,u::Int,allocate::A) where {FT,LT,UT,PT,QT,ST,O,A}"
+        },
+        {
+          "before": "_bgxs_export(backend,owner;allocate=_bgxs_allocate)=_bgxs_drop!(owner)",
+          "after": "@inline _bgxs_export(backend,owner;allocate=_bgxs_allocate)=_bgxs_export_core(backend,owner,allocate)\n_bgxs_export_core(backend::B,owner::O,allocate::A) where {B,O,A}=_bgxs_drop!(owner)"
+        },
+        {
+          "before": "function _bgxs_export(backend::UMFPACKBackend,owner;allocate=_bgxs_allocate)",
+          "after": "@inline function _bgxs_export(backend::UMFPACKBackend,owner;allocate=_bgxs_allocate)\n    _bgxs_export_core(backend,owner,allocate)\nend\n\nfunction _bgxs_export_core(backend::B,owner::O,allocate::A) where {B<:UMFPACKBackend,O,A}"
+        },
+        {
+          "before": "function _bgxs_export(backend::MarkowitzBackend{Float64},owner;allocate=_bgxs_allocate)",
+          "after": "@inline function _bgxs_export(backend::MarkowitzBackend{Float64},owner;allocate=_bgxs_allocate)\n    _bgxs_export_core(backend,owner,allocate)\nend\n\nfunction _bgxs_export_core(backend::B,owner::O,allocate::A) where {B<:MarkowitzBackend{Float64},O,A}"
+        }
+      ],
+      "exact_inverse": true
+    },
+    "import": {
+      "source": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-bg-export-workspace/reproduce/import.jl",
+      "source_sha256": "757ab99adc99eed29f3ed1ba94f4d6b1029219c3f682e3deafac41198331ead1",
+      "candidate_sha256": "b7fa1cec1f142e95ddb87f297c1a8af092bf93d3ae937e417105dacf59576f9e",
+      "edits": [
+        {
+          "before": "function _bgxs_import_upper(U::SparseMatrixCSC{Float64,Int},normalize::Bool;allocate=_bgxs_allocate)",
+          "after": "@inline function _bgxs_import_upper(U::SparseMatrixCSC{Float64,Int},normalize::Bool;allocate=_bgxs_allocate)\n    _bgxs_import_upper_core(U,normalize,allocate)\nend\n\n@inline function _bgxs_import_upper_core(U::SparseMatrixCSC{Float64,Int},normalize::Bool,allocate::A) where A"
+        }
+      ],
+      "exact_inverse": true
+    },
+    "factor": {
+      "source": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-bg-export-workspace/reproduce/factor.jl",
+      "source_sha256": "ef0393825d1e84e63ef6777c66d072a86a1df12c9ab34e40b7ce9b9e942a5fd2",
+      "candidate_sha256": "fe4055aa4e20c4bcf63c018a348454db51f93d932a6b267262ad9af843ba687b",
+      "edits": [
+        {
+          "before": "function _bgxs_build(B::AbstractMatrix{Float64},backend::Val{R},policy::_NativePivotPolicy,\n                    normalize::Bool,owner;factorize=_factorize_basis,export_parts=_bgxs_export,\n                    import_upper=_bgxs_import_upper,allocate=_bgxs_allocate,\n                    make_inner=_init_direct_manager) where R",
+          "after": "@inline function _bgxs_build(B::AbstractMatrix{Float64},backend::Val{R},policy::_NativePivotPolicy,\n                    normalize::Bool,owner;factorize=_factorize_basis,export_parts=_bgxs_export,\n                    import_upper=_bgxs_import_upper,allocate=_bgxs_allocate,\n                    make_inner=_init_direct_manager) where R\n    _bgxs_build_core(B,backend,policy,normalize,owner,factorize,export_parts,import_upper,allocate,make_inner)\nend\n\nfunction _bgxs_build_core(B::M,backend::Val{R},policy::_NativePivotPolicy,normalize::Bool,owner::O,factorize::FZ,export_parts::EX,import_upper::IM,allocate::AL,make_inner::MK) where {M<:AbstractMatrix{Float64},R,O,FZ,EX,IM,AL,MK}"
+        },
+        {
+          "before": "function _bgxs_refactor_with!(f::BGSpecializedExportFactor,B::AbstractMatrix{Float64};\n        factorize=_factorize_basis,export_parts=_bgxs_export,import_upper=_bgxs_import_upper,\n        allocate=_bgxs_allocate,make_inner=_init_direct_manager,check_inner=nothing)",
+          "after": "@inline function _bgxs_refactor_with!(f::BGSpecializedExportFactor,B::AbstractMatrix{Float64};\n        factorize=_factorize_basis,export_parts=_bgxs_export,import_upper=_bgxs_import_upper,\n        allocate=_bgxs_allocate,make_inner=_init_direct_manager,check_inner=nothing)\n    _bgxs_refactor_core!(f,B,factorize,export_parts,import_upper,allocate,make_inner,check_inner)\nend\n\nfunction _bgxs_refactor_core!(f::BGSpecializedExportFactor{I},B::M,factorize::FZ,export_parts::EX,import_upper::IM,allocate::AL,make_inner::MK,check_inner::CK) where {I,M<:AbstractMatrix{Float64},FZ,EX,IM,AL,MK,CK}"
+        }
+      ],
+      "exact_inverse": true
+    }
+  },
+  "rename": {
+    "_bgx_": "_bgxs_",
+    "BGExport": "BGSpecializedExport",
+    "_BGXBuildOwner": "_BGXSBuildOwner"
+  },
+  "scope": "Complete byte inverse; no Julia parse/dispatch/runtime claim"
+}
