@@ -1,0 +1,12 @@
+"""One-shot offline candidate closure; no Julia or old checker reruns."""
+from pathlib import Path
+import sys,json
+E=Path(__file__).resolve().parent;D=E.with_name('DIRECT-BG-P011-HARNESS');sys.path.insert(0,str(D));import control as c
+v=c.rd(E/'review.json');s=c.rd(E/'source-check.json');a=c.rd(E/'author-check.json');r=c.rd(E/'structural-red.json')
+checks={'independent_acceptance':v['accepted'] is True and v['findings']==[],'independent_bindings':c.bindings(v) and c.sha(E/'review.md')==v['review_sha256'],'source_pass':s['all_passed'] is True and all(s['checks'].values()) and c.bindings(s),'author_pass':a['all_passed'] is True and all(a['checks'].values()) and c.bindings(a),'text_red_preserved':r['expected_red'] is True and not any(r['checks'].values()) and c.bindings(r),'candidate_hash':c.sha(E/'panel.jl')=='19dccf0d5259d730b19333b2b1c685a50ee76f93d2cc3b242cb54a762cae9295','refs':c.git('rev-parse','HEAD')=='370b5529b454acc2e93332245966c6a160bdc0d9' and c.git('rev-parse','master')==c.MASTER,'tracked_unchanged':not c.git('diff','--name-only') and not c.git('diff','--cached','--name-only')}
+c.require(all(checks.values()),'Closure failed')
+w=c.R/'.superpowers/sdd/2026-10-19-direct-bg-blocked-update/progress.md';c.require(w.read_bytes()==(E/'progress.md.before-zero-counts').read_bytes(),'Ledger drift')
+w.write_bytes(w.read_bytes()+b'\nShared-zero counter candidate OFFLINE accepted: separatepanelSHA19dccf0d5259d730b19333b2b1c685a50ee76f93d2cc3b242cb54a762cae9295,oneprivateimmutableVal20constant/threeuses/exactwholefileinverse. Prepared5testsets41literal/350prospectiveassertions,44mutablecounterobjects20overflow13dimensioncasesoneCarrier/twoeligibility,independentowners/savedtuples/peakandcheckedoverflow. TextRED4missing,source8/20hashes,author9,independent18/31bindings acceptednofindings. Ruling: explicitusernoJulia overridesruntimeTDD/fullsuite; noJulia parse/import/compile/query/run, noprovenallocationelimination; originalP011andallfrozenrawunchanged. Noactualsrc/test/env/masterCIchanges ornewmutablecache. Next prepareseparatedriver/admission; noautomaticlaunch. Existingworkspaces/evidencepreserved; broaderplanopen.\n')
+(E/'progress.md.after-zero-counts').write_bytes(w.read_bytes());checks['ledger_preserved']=True
+files=sorted(p for p in E.iterdir() if p.is_file());c.save(E/'closure.json',dict(all_passed=True,checks=checks,sha256={str(p):c.sha(p) for p in files},scope='Offline source/test preparation closure only'))
+print(json.dumps({'all_passed':True,'checks':len(checks),'bindings':len(files)}))
