@@ -1,0 +1,21 @@
+{
+  "scope": "Reviewer checker invocation history only; no Julia or auditor rerun",
+  "checker_sha256": "cc55dd7fe9ee53c31f769bd363ed5f0501809c75b38723d19e364cfca53e305a",
+  "invocations": [
+    {
+      "cwd": "/home/jspitz/JSimplex.jl",
+      "exit_code": 1,
+      "error": "AssertionError: seal resolved AGENTS.md",
+      "cause": "Reviewer invoked checker outside the diagnostic checkout required by relative inventory paths",
+      "evidence_written": false
+    },
+    {
+      "cwd": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl",
+      "exit_code": 0,
+      "check_count": 10952,
+      "evidence_written": true
+    }
+  ],
+  "checker_changed_between_invocations": false,
+  "frozen_files_changed": false
+}

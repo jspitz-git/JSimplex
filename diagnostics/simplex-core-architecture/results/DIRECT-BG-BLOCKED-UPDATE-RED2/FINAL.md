@@ -1,0 +1,7 @@
+# Failed RED2 diagnostic completion
+
+The parent accepts the independent saved-result review without findings; qualification remains false. One authorized attempt,11759passes/1P011failure, no errors/broken, no lifecycle/streams or expected sixN026 failures. No timeout, retry, GREEN, candidate/test/oracle change or production change. Exact allocation amount and cause are absent from this evidence. Future work must preserve the zero-allocation requirement and separately establish attribution; no warmup/threshold/candidate adjustment is made here.
+
+Parent rulings on declined scope: missing allocation quantities/stack cannot be inferred; unexecuted numerical/lifecycle/whole-solver coverage remains open; cold elapsed/RSS do not establish performance or retained/native allocation costs; saved closure is supplemented by fresh parent host checks at diagnostic closure; no new runtime compatibility or retry permission follows. No deferred minor finding. All prior frozen evidence and all new failed raw/audit evidence are preserved.
+
+The review receipt contains reviewer evidence in its primary sha256 mapping rather than an optional evidence_sha256 mapping. A parent read-only display attempted the optional key and raised KeyError after printing the review; no files were changed or check executed. The new closure recognizes either schema and verifies required reviewer evidence membership directly; it has not reused or rerun any earlier closure. The exact raw EOF blank-line publication exception was independently accepted.

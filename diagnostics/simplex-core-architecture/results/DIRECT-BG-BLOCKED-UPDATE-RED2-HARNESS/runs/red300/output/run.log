@@ -1,0 +1,24 @@
+BEGIN BG blocked U driver red300
+UNIT BEGIN 1 panel
+TEST FAILURE: P011 Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-RED2-HARNESS/panel-tests.jl:103
+  Expression: $(Expr(:escape, :(#= /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-RED2-HARNESS/panel-tests.jl:103 =# @allocated(K._bgb_eligibility(f, 1)) == 0)))
+UNIT END 1 panel
+FATAL DRIVER: Unexpected unit failure; saved prefix retained
+Stacktrace:
+ [1] error(s::String)
+   @ Base ./error.jl:44
+ [2] require
+   @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-RED2-HARNESS/driver.jl:17 [inlined]
+ [3] unit!(body::typeof(Main.BGBlockedPanelTests.run_task1_tests), index::Int64, name::String)
+   @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-RED2-HARNESS/driver.jl:47
+ [4] main()
+   @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-RED2-HARNESS/driver.jl:60
+ [5] top-level scope
+   @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-RED2-HARNESS/driver.jl:80
+ [6] include(mod::Module, _path::String)
+   @ Base ./Base.jl:309
+ [7] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:344
+ [8] _start()
+   @ Base ./client.jl:577
+GROUP/COUNT MISMATCH OR FATAL
