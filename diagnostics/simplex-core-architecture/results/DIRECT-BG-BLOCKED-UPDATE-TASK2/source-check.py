@@ -1,0 +1,41 @@
+from pathlib import Path
+import json,hashlib,re,tomllib
+R=Path('/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl');C=R/'diagnostics/direct-bg-blocked-update/reproduce';Q=R/'diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TASK2'
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+checks={}
+def check(k,v):
+ checks[k]=bool(v)
+ if not v:raise RuntimeError(k)
+entry=json.loads((Q/'entry.json').read_text())
+check('all_entry_sources_frozen',all(sha(R/p)==h for p,h in entry['sha256'].items()))
+check('tests_written_first',json.loads((Q/'tests-first.json').read_text())['candidate_absent'])
+s=(C/'factor.jl').read_text();m=json.loads((C/'adapter-source-map.json').read_text());orig=(R/'src/triangular_factorization.jl').read_text()
+check('original_suffix_present',m['original_suffix'] in orig)
+t=s[s.index('    run_start = 0'):s.index('    nothing\nend\nfunction _bgb_eliminate!')]
+check('qualified_suffix_bound',t==m['qualified_suffix'])
+t=t.replace('            _emit(probe,:pure,column_index,last_pure)\n','').replace('        _emit(probe,:scalar_pivot,column_index,J._upper_value(column,column_index),\n              J._upper_value(column,column_index+1),swapped)\n','')
+for x in m['substitutions']['namespace_symbols']:t=t.replace('J.'+x,x)
+t=re.sub(r'\br\b','position',t).replace('{Float64}','{T}').replace('zero(Float64)','zero(T)')
+check('scalar_inverse_byte_exact',t==m['original_suffix'])
+f=(C/'panel-fault.jl').read_text().replace('module BGBlockedPanelFault\n','module BGBlockedPanel\n',1).replace(m['fault_control'],'',1)
+for anchor,hook in m['fault_hooks']:f=f.replace(anchor+hook,anchor,1)
+check('fault_kernel_inverse_exact',f==(C/'panel.jl').read_text())
+check('fault_adapter_inverse_exact',(C/'factor-fault.jl').read_text().replace('BGBlockedAdapterFault','BGBlockedAdapter').replace('BGBlockedPanelFault','BGBlockedPanel')==s)
+manifest=json.loads((C/'overlay-manifest.json').read_text());stage=Path(manifest['stage'])
+check('overlay_all_files_bound',all(sha(stage/p)==h for p,h in manifest['stage_sha256'].items()))
+check('ordinary_root_inverse',(stage/'src/JSimplex.jl').read_text().replace(manifest['root_insertion'],'',1)==(R/'src/JSimplex.jl').read_text())
+check('other_sources_unchanged',all(sha(stage/n)==h for n,h in manifest['original_sha256'].items() if n!='src/JSimplex.jl'))
+check('ordinary_direct_no_specialization',not any('_bgx_' in p.read_text() for p in [stage/'src/direct-factor.jl',stage/'src/JSimplex.jl']))
+j=json.loads((C/'fixtures.json').read_text());tom=tomllib.loads((C/'fixtures.toml').read_text())
+check('fixture_formats_equal',tom['fixtures']==j['fixtures'])
+check('roster_counts',len(j['fixtures'])==13 and sum(len(f['steps']) for f in j['fixtures'])==128)
+check('fixed_original_basis_recipe',all(len(f['steps']) in (8,32) and len(f['initial']['colptr'])==f['n']+1 for f in j['fixtures']))
+check('typed_workspace', 'workspace::Union{Nothing,Workspace}' in s and 'Any' not in s)
+check('bounded_suffix_end',s.count('_bgb_scalar_suffix!(inner,r,steps,probe)')==3 and '_bgb_eliminate!(f,r,steps,probe,false)' not in s)
+check('main_panel_frozen',sha(C/'panel.jl')==entry['sha256'][str((C/'panel.jl').relative_to(R))])
+check('test_invariants_named',all(x in (C/'lifecycle-tests.jl').read_text() for x in ['failed_cache','usedcopy','OutOfMemoryError','panel_reject','ZeroPivotException','refactorize!','workspace===owner']))
+check('exact_oracles_named',all(x in (C/'numerical-tests.jl').read_text() for x in ['norminf(M*z-b)','history_matrix(steps','relation(unpack(f)','residual(B','minimum_panels','accepted_pivots','pivot_agreement']))
+paths=list(C.glob('*'))+[Q/'REPORT.md',Q/'entry.json',Q/'tests-first.json',Q/'fixture-preparation.json',Path(__file__)]
+result=dict(all_passed=all(checks.values()),checks=checks,sha256={str(p):sha(p) for p in paths},scope='Offline literal/inverse/input checks only; NOT Julia parsing, dispatch, correctness or cost acceptance')
+with (Q/'source-check.json').open('x') as out:json.dump(result,out,indent=2)
+print(f'{len(checks)} offline checks PASS')

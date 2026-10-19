@@ -1,0 +1,39 @@
+{
+  "original_suffix": "    run_start = 0\n    run_last = 0\n    completed_through = position - 1\n    for column_index in position:(n - 1)\n        column_index <= completed_through && continue\n        last_pure = _last_pure_bartels_golub_swap(factor.upper, column_index)\n        if last_pure > column_index\n            _rotate_upper_rows!(factor.upper, columns_by_row, factor.affected,\n                                factor.spike, column_index, last_pure + 1, factor.positions)\n            run_start == 0 && (run_start = column_index)\n            run_last = last_pure\n            completed_through = last_pure\n            continue\n        end\n        column = factor.upper[column_index]\n        swapped = _pivot_magnitude(_upper_value(column, column_index + 1)) >\n                  _pivot_magnitude(_upper_value(column, column_index))\n        if swapped\n            _swap_upper_rows!(factor.upper, columns_by_row, factor.affected,\n                              column_index, factor.positions)\n        end\n        pivot = _upper_value(column, column_index)\n        iszero(pivot) && throw(LinearAlgebra.ZeroPivotException(column_index))\n        slot, old = _upper_entry(column, column_index + 1)\n        multiplier = old / pivot\n        _set_upper_value_at!(factor.upper, columns_by_row,\n                            column_index, column_index + 1, zero(T), slot,\n                            factor.column_order[column_index])\n        if !iszero(multiplier)\n            for column_id in columns_by_row[column_index]\n                trailing = factor.positions[column_id]\n                trailing <= column_index && continue\n                trailing_column = factor.upper[trailing]\n                value = _upper_value(trailing_column, column_index)\n                slot, old = _upper_entry(trailing_column, column_index + 1)\n                _set_upper_value_at!(factor.upper, columns_by_row,\n                                    trailing, column_index + 1,\n                                    _track_upper_value!(factor, old - multiplier * value), slot, column_id)\n            end\n        end\n        if swapped && iszero(multiplier)\n            run_start == 0 && (run_start = column_index)\n            run_last = column_index\n            continue\n        end\n        if run_start != 0\n            push!(steps, BartelsGolubStep{T}(run_start, run_last, true, zero(T)))\n            run_start = 0\n        end\n        (swapped || !iszero(multiplier)) &&\n            push!(steps, BartelsGolubStep{T}(\n                column_index, column_index, swapped, multiplier,\n            ))\n    end\n    run_start == 0 ||\n        push!(steps, BartelsGolubStep{T}(run_start, run_last, true, zero(T)))\n",
+  "qualified_suffix": "    run_start = 0\n    run_last = 0\n    completed_through = r - 1\n    for column_index in r:(n - 1)\n        column_index <= completed_through && continue\n        last_pure = J._last_pure_bartels_golub_swap(factor.upper, column_index)\n        if last_pure > column_index\n            _emit(probe,:pure,column_index,last_pure)\n            J._rotate_upper_rows!(factor.upper, columns_by_row, factor.affected,\n                                factor.spike, column_index, last_pure + 1, factor.positions)\n            run_start == 0 && (run_start = column_index)\n            run_last = last_pure\n            completed_through = last_pure\n            continue\n        end\n        column = factor.upper[column_index]\n        swapped = J._pivot_magnitude(J._upper_value(column, column_index + 1)) >\n                  J._pivot_magnitude(J._upper_value(column, column_index))\n        _emit(probe,:scalar_pivot,column_index,J._upper_value(column,column_index),\n              J._upper_value(column,column_index+1),swapped)\n        if swapped\n            J._swap_upper_rows!(factor.upper, columns_by_row, factor.affected,\n                              column_index, factor.positions)\n        end\n        pivot = J._upper_value(column, column_index)\n        iszero(pivot) && throw(LinearAlgebra.ZeroPivotException(column_index))\n        slot, old = J._upper_entry(column, column_index + 1)\n        multiplier = old / pivot\n        J._set_upper_value_at!(factor.upper, columns_by_row,\n                            column_index, column_index + 1, zero(Float64), slot,\n                            factor.column_order[column_index])\n        if !iszero(multiplier)\n            for column_id in columns_by_row[column_index]\n                trailing = factor.positions[column_id]\n                trailing <= column_index && continue\n                trailing_column = factor.upper[trailing]\n                value = J._upper_value(trailing_column, column_index)\n                slot, old = J._upper_entry(trailing_column, column_index + 1)\n                J._set_upper_value_at!(factor.upper, columns_by_row,\n                                    trailing, column_index + 1,\n                                    J._track_upper_value!(factor, old - multiplier * value), slot, column_id)\n            end\n        end\n        if swapped && iszero(multiplier)\n            run_start == 0 && (run_start = column_index)\n            run_last = column_index\n            continue\n        end\n        if run_start != 0\n            push!(steps, J.BartelsGolubStep{Float64}(run_start, run_last, true, zero(Float64)))\n            run_start = 0\n        end\n        (swapped || !iszero(multiplier)) &&\n            push!(steps, J.BartelsGolubStep{Float64}(\n                column_index, column_index, swapped, multiplier,\n            ))\n    end\n    run_start == 0 ||\n        push!(steps, J.BartelsGolubStep{Float64}(run_start, run_last, true, zero(Float64)))\n",
+  "substitutions": {
+    "position": "whole identifier position -> r only",
+    "T": "Float64",
+    "namespace_symbols": [
+      "_last_pure_bartels_golub_swap",
+      "_set_upper_value_at!",
+      "_rotate_upper_rows!",
+      "_track_upper_value!",
+      "_swap_upper_rows!",
+      "_pivot_magnitude",
+      "BartelsGolubStep",
+      "_upper_entry",
+      "_upper_value"
+    ]
+  },
+  "cold_events": [
+    "pure",
+    "scalar_pivot"
+  ],
+  "fault_hooks": [
+    [
+      "    ws.start=r;ws.count=b;ws.width=w;ws.owner=inner.upper\n",
+      "    fault!(:gather)\n"
+    ],
+    [
+      "        sizehint!(inner.row_columns[r+i-1],need)\n",
+      "        fault!(:reserve)\n"
+    ],
+    [
+      "            bump!(c,Val(18))\n",
+      "            fault!(:writeback)\n"
+    ]
+  ],
+  "fault_control": "const armed=Ref(:none)\nconst hits=Ref(0)\nconst sentinel=Ref{Any}(nothing)\narm!(point,error)=(armed[]=point;hits[]=0;sentinel[]=error;nothing)\ndisarm!()=(armed[]=:none;nothing)\nfunction fault!(point)\n    if armed[]===point;hits[]+=1;throw(sentinel[]);end\n    nothing\nend\n",
+  "scope": "Source inverse only; no Julia parse or execution; copied suffix is ordinary original arithmetic"
+}

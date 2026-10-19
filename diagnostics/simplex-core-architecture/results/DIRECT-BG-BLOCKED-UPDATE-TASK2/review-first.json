@@ -1,0 +1,103 @@
+{
+  "accepted": false,
+  "scope": "OFFLINE Task2 source review only; no Julia or runtime acceptance",
+  "findings": [
+    {
+      "id": "R1",
+      "priority": 2,
+      "file": "factor.jl",
+      "lines": [
+        64,
+        65
+      ],
+      "title": "Guard scalar probe argument reads",
+      "detail": "The two _upper_value arguments are eagerly evaluated even for probe=nothing. Each performs searchsortedfirst; the source route adds two packed searches per ordinary scalar pivot. Compiler removal is unproven and must not be presumed. Put the observation, including its argument reads, under probe!==nothing. Preserve the original pivot comparison and suffix inverse; update fault clone/source map."
+    },
+    {
+      "id": "R2",
+      "priority": 2,
+      "file": "factor.jl",
+      "lines": [
+        110,
+        114
+      ],
+      "title": "Avoid duplicated full pure-run lookahead",
+      "detail": "The outer _last_pure_bartels_golub_swap scans the run then scalar_suffix scans it again. A length-L run adds O(sum(log(length(column.indices)+1))) packed-search work, worst O(n log n), solely to select the scalar route. Current zero diagonal already requires scalar fallback. Dispatch using the exact current-diagonal zero predicate and leave unrestricted pure-run search to the original suffix. No tolerance, numerical policy or frozen Task1 change is needed. Account for the remaining one packed diagonal lookup at each blocked boundary."
+    },
+    {
+      "id": "R3",
+      "priority": 2,
+      "file": "lifecycle-tests.jl",
+      "lines": [
+        37,
+        42
+      ],
+      "title": "Choose final packed column through column_order",
+      "detail": "The no-elimination test requests original basis column96. _prepare_spike! maps this through factor.positions, and DIRECT export retains a backend column permutation, so this does not establish that r==n. Select j=f.inner.column_order[end], use B[:,j], and replace at j; assert its current position is final. This makes the no-op lifecycle gate independent of backend ordering."
+    },
+    {
+      "id": "R4",
+      "priority": 2,
+      "file": "adapter-work-memory.md",
+      "lines": [
+        53,
+        90
+      ],
+      "title": "Correct source budget and lifecycle entry counts",
+      "detail": "72*96+16*cld(9*96,64)+4352 is11488, not11480. Lifecycle has five successful FTRAN entries per backend: two prepared RHS, one new entering column, and two original-B residual solves. The separately listed busy FTRAN is a sixth attempt, not two additional successful entries. Reconcile counts again after the extra failure case and boundary fix; lookahead O(n) omitted its packed binary searches."
+    },
+    {
+      "id": "R5",
+      "priority": 2,
+      "file": "lifecycle-tests.jl",
+      "lines": [
+        113,
+        123
+      ],
+      "title": "Exercise exception cleanup after a committed panel",
+      "detail": "All three fault injections occur in the first panel. The late explicit-zero case is successful scalar fallback. The accepted Task1 handoff specifically requires Task2 failure after earlier committed panels: add a cold case that arms a fault at the second panel boundary and proves one prior commit, exact exception identity, no finish/final update publication, dropped workspace, reset busy, invalid prepared/prefix/incidence state. Do not require rollback; update visible constructor/elimination/fault budgets."
+    }
+  ],
+  "unnecessary_new_work_found": true,
+  "unnecessary_retained_memory_found": false,
+  "source_checks_passed": true,
+  "sha256": {
+    "AGENTS.md": "648146ccd145178d776319aab53c5f09bf5578806dd53a8d1b440b96511b4232",
+    "diagnostics/direct-bg-blocked-update/reproduce/adapter-source-map.json": "004dd178dd30020311b8e839881de7135ee328f580918fa3e39cbc728817e1e1",
+    "diagnostics/direct-bg-blocked-update/reproduce/adapter-work-memory.md": "b3b02068967bfbf241bd83920140e952258efedbad14df6000997a8baba180b6",
+    "diagnostics/direct-bg-blocked-update/reproduce/factor-fault.jl": "5a232419db67d313d3270b1c4e7c16825cb55832d3e2ad4d8f39d36c7c0776b7",
+    "diagnostics/direct-bg-blocked-update/reproduce/factor.jl": "a0636335f1cb9d9fb8b62a0387aee250d6000621472d9e3c692566b3d2951645",
+    "diagnostics/direct-bg-blocked-update/reproduce/fixtures.json": "5c9e67d9b29058ed00ea55c1be9bbcf62c3ac39b421622b04ffd7aae6ef6c7f0",
+    "diagnostics/direct-bg-blocked-update/reproduce/fixtures.toml": "497d2de1acb842f4e426b64ca4471c55304ddf73a19691ecf79feefb0dc4cb3c",
+    "diagnostics/direct-bg-blocked-update/reproduce/lifecycle-tests.jl": "d5ead22abda4de84ab85fb4d554c2333ef0f03b6cf2b07f60052668f93059ccd",
+    "diagnostics/direct-bg-blocked-update/reproduce/numerical-tests.jl": "d55b369777a46057e94f7a08c14bf2b03c906fd504afb82c4dca5fadb45bd6d2",
+    "diagnostics/direct-bg-blocked-update/reproduce/overlay-manifest.json": "b3b3298cbe72b8a7efe85ea4ea343b0a22db950d4af8b00a228c944231c76644",
+    "diagnostics/direct-bg-blocked-update/reproduce/panel-fault.jl": "ee3d924a75bf3f88fbfbea8cedb618e1c3df174c46cd6e886376d9d779427b5c",
+    "diagnostics/direct-bg-blocked-update/reproduce/panel-tests.jl": "4e520a76ac0d6a3479536615f72254094df0b05a2acef04d30d6307140f175bb",
+    "diagnostics/direct-bg-blocked-update/reproduce/panel.jl": "63b6cd80536049cf53e93a00a8e946cebfff22b647f0f8c7de9783914e172273",
+    "diagnostics/direct-bg-blocked-update/reproduce/source-map.json": "1c22c5e7bc0d5c1eea80ae2a797114c5b6e0dbf469b46f95cfa77793fe06aeb6",
+    "diagnostics/direct-bg-blocked-update/reproduce/work-memory-ledger.md": "8a2dfe17304f7d0ebc68dc4db1350a89a1291e1b038027f13b1cca135e259d97",
+    "diagnostics/direct-lu-policy-adapters/reproduce/direct-factor.jl": "3c09b563623f7552fd0094c037de7205024d0a7eaade6baa34aff14a395b9bbc",
+    "diagnostics/direct-lu-policy-adapters/reproduce/factor-export.jl": "a54bcb4d51641dcec769108cd9cea76681c08bf5e6b98e881bff3f6c7da7ee85",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TASK1/review.md": "27f7a498a6254c9c9ab371485d931ae1809d1b8b88b95d3d6b66804d242b4f01",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TASK2/REPORT.md": "6b75e456946c61b038f3c84437af6dead687cca918c0f1d3b39e6574d14ca7ce",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TASK2/author-fix.json": "eb01745209b672541a6e247c413add34b62ac18c18276c1317b78a59cea486d4",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TASK2/entry.json": "4871207dc7bc7c94f9a87631285df60b842e9159a0942a38e297d46c65ac8386",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TASK2/fixture-preparation.json": "f073d26d330ef022e332f560990802f8e077ae2f4f011c9ad5f077615feecd2c",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TASK2/host-entry.json": "8610d40cada5f5ff6bfe48a8c657fbe2723d8777a9e5dc87f09977e31b90296f",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TASK2/review-first.md": "86b4f28c2d48c3d80fa5933b05c639117430558fe7d35ed6ad9ce91480a1b600",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TASK2/reviewer-source-check.json": "4dc5d6f066df9bbde1f0813ec3cb41541fb5a736cf2d17297c5bfa887719f092",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TASK2/reviewer-source-check.py": "ba72fe2e9776a253609496ce91ef0a7fe94829ab93ee6a11f5aaea10817f085b",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TASK2/reviewer-write-first.py": "085a08ac3ca6caa537bfe31a8f6b19997786198e1823b8de99e12c613222c514",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TASK2/source-check.json": "7c7d633310887c32ec3c47f1d956c4a57ff2e758bf7dc31437327b18d0ed16df",
+    "diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-TASK2/tests-first.json": "d9e33192f67b18f12da959d133fd1e3d023f72686dfca3036ecd95e99c79a17f",
+    "docs/superpowers/plans/2026-10-19-direct-bg-blocked-update.md": "f69ef05be5d9ee7466d82a44b93e193324fc90e814205e6b9b4751781c66c3cb",
+    "docs/superpowers/specs/2026-10-19-direct-bg-blocked-update.md": "bd74974f5ce2c5b6c1235e08a21a82032d92c1a8208e5e6c86b19b4c2ae01ffe",
+    "src/bartels_golub_rows.jl": "0dab8b63590128682605a1cc87104116cbe6ee9e45bf2c206484fc116f0166c0",
+    "src/hypersparse_updates.jl": "4b28aa53f95de0f5cd076adb1e74b0146f80185cbd24583964c24077bc97ac99",
+    "src/triangular_factorization.jl": "2d8d488ffb7d1cf79ff71662e0cd83400adaf4097dac3e48254c47106f3a7204",
+    "src/triangular_indices.jl": "96659cddfae345701aed6c320a86fbeef4c6c4c95819864e363fcca04de3e61d",
+    "src/triangular_rows.jl": "9401e4f43102279344384a8023d1ebdfc409fcf47237414f763a04911ac23f5c",
+    "src/triangular_spikes.jl": "4529bc5aacb604b932128463a26dc8e091933a720abb963c863de13666531873"
+  }
+}

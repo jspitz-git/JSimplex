@@ -1,0 +1,136 @@
+# UNEXECUTED Task2 source. Fault modules are isolated exact-inverse clones.
+module BGBlockedLifecycleTests
+using Test, LinearAlgebra, SparseArrays
+import ..JSimplex, ..BGBlockedAdapter, ..BGBlockedPanel, ..BGBlockedAdapterFault, ..BGBlockedPanelFault
+import ..BGBlockedNumericalTests
+const J=JSimplex
+const A=BGBlockedAdapter
+const K=BGBlockedPanel
+const N=BGBlockedNumericalTests
+const F=BGBlockedAdapterFault
+const FK=BGBlockedPanelFault
+function upper_fixture(n)
+    sparse([i==j ? 4.0 : i<j ? 0.125 : 0.0 for i in 1:n,j in 1:n])
+end
+function failed_cache(f)
+    c=f.inner.row_cache
+    !f.busy && f.workspace===nothing && c.upper_dirty && !c.upper_prefix_safe && !c.upper_prefix_candidate && !f.inner.row_columns_ready &&
+        (c.prepared===nothing || all(e.destination===nothing for e in c.prepared.entries))
+end
+# Construct an actual BG manager with a known lower/base; replace U only in a
+# cold microcase to supply exact post-rotation H. Not an original-B solve case.
+function micro(M;fault=false)
+    n=size(M,1);module_=fault ? F : A
+    f=module_._bgb_factor(sparse(Matrix{Float64}(I,n,n)),Val(:native),J._NATIVE_PIVOT_ONE)
+    f.inner.upper=J._direct_packed_upper(sparse(M),J.BartelsGolubFactorization)
+    J._ensure_bartels_golub_incidence!(f.inner)
+    f
+end
+function band(n)
+    [i==j ? 4.0 : i==j+1 ? 0.25 : i<j ? 0.125 : 0.0 for i in 1:n,j in 1:n]
+end
+function run_lifecycle()
+ @testset "blocked BG lifecycle and failure ownership" begin
+    for (backend,policy) in N.ARMS
+        B=upper_fixture(96);before=copy(B);f=A._bgb_factor(B,Val(backend),policy)
+        @test f.workspace===nothing && !f.busy && B==before
+        # Two prepared RHS, then identical last-column replacement (no elimination).
+        a=Vector(B[:,end]);x=zeros(96);v=similar(x)
+        J.forward_solve!(x,f,a);J.forward_solve!(v,f,ones(96))
+        @test any(e.destination===x for e in f.inner.row_cache.prepared.entries)
+        old=length(f.inner.updates);J.replace_column!(f,x,96)
+        @test length(f.inner.updates)==old+1 && isempty(f.inner.updates[end].steps) && f.workspace===nothing
+        saved=J.copy_basis_factorization(f)
+        @test saved.workspace===nothing && saved.inner.upper!==f.inner.upper
+        @test all(a.values!==b.values && a.indices.ids!==b.indices.ids for (a,b) in zip(saved.inner.upper,f.inner.upper))
+        oldsaved=N.unpack(saved.inner)
+        newer=Vector(B[:,1]);newer[2]+=1/32
+        J.forward_solve!(x,f,newer);J.replace_column!(f,x,1)
+        changed=copy(B);changed[:,1]=newer
+        J.forward_solve!(x,f,ones(96));J.forward_solve!(v,saved,ones(96))
+        @test N.residual(changed,x,ones(96)) && N.residual(B,v,ones(96))
+        # A copy of a used, possibly scratch-owning factor is also cache-empty.
+        usedcopy=J.copy_basis_factorization(f)
+        @test usedcopy.workspace===nothing && usedcopy.inner.updates!==f.inner.updates
+        # First-use/reuse workspace ownership is tested without assuming a given LU ordering.
+        f.workspace=K.BGPanelWorkspace(96);owner=f.workspace
+        J.refactorize!(f,copy(B));@test f.workspace===owner
+        J.refactorize!(f,upper_fixture(64));@test f.workspace===nothing
+        f.workspace=K.BGPanelWorkspace(64)
+        J.refactorize!(f,upper_fixture(32));@test f.workspace===nothing
+        @test N.bits(N.unpack(saved.inner))==N.bits(oldsaved)
+        f.busy=true
+        try
+            @test_throws ArgumentError J.replace_column!(f,ones(32),1)
+            @test_throws ArgumentError J.refactorize!(f,upper_fixture(32))
+            @test_throws ArgumentError J.copy_basis_factorization(f)
+            @test_throws ArgumentError J.forward_solve!(zeros(32),f,ones(32))
+            @test_throws ArgumentError J.transpose_solve!(zeros(32),f,ones(32))
+        finally
+            f.busy=false
+        end
+        @test_throws ArgumentError J.replace_column!(f,ones(32),1;zero_tolerance=-1.0)
+        @test failed_cache(f)
+    end
+    # Exact separated pivots, multiple panels, shadow/history oracle; no LU solves.
+    for n in (96,256)
+        f=micro(band(n));t=N.Trace();A._bgb_test_eliminate!(f,1;probe=t)
+        @test t.panels>=2 && t.rejections<=1
+        @test N.relation(N.unpack(f.inner),t.T,t.H)
+        @test K._bgb_charge(n)<=2^20
+    end
+    # An explicit stored zero in the second band rejects after a committed panel.
+    M=band(96);M[10,20]=0.0;f=micro(M)
+    col=f.inner.upper[20];slot=searchsortedfirst(col.indices,10)
+    insert!(col.indices,slot,10);insert!(col.values,slot,0.0)
+    f.inner.row_columns_ready=false
+    J._ensure_bartels_golub_incidence!(f.inner)
+    t=N.Trace();A._bgb_test_eliminate!(f,1;probe=t)
+    @test t.panels==1 && t.rejections==1
+    @test count(==(:eligibility),t.events)==2
+    # Private failure after arithmetic: overflow of first elimination, original
+    # suffix retained; prefix safety must stay false even if later values cancel.
+    M=band(96);M[1,1]=1.0;M[2,1]=1.0;M[1,2]=-floatmax(Float64);M[2,2]=floatmax(Float64)
+    f=micro(M);events=Symbol[]
+    try A._bgb_test_eliminate!(f,1;probe=(e,args...)->push!(events,e)) catch e
+        @test e isa LinearAlgebra.ZeroPivotException
+    end
+    @test count(==(:panel_reject),events)==1 && count(==(:eligibility),events)==1
+    @test !f.inner.row_cache.upper_prefix_safe && !f.inner.row_cache.upper_prefix_candidate
+    # Explicit zero diagonal with no swap: original scalar failure, no safe cache.
+    M=band(96);M[1,1]=0;M[2,1]=0;f=micro(M)
+    @test_throws LinearAlgebra.ZeroPivotException A._bgb_test_eliminate!(f,1)
+    @test failed_cache(f)
+    # Nonfinite admission declines, even when no panel scratch was allocated.
+    for value in (Inf,NaN)
+        M=band(96);M[1,20]=value;f=micro(M);events=Symbol[]
+        try A._bgb_test_eliminate!(f,1;probe=(e,args...)->push!(events,e)) catch e
+            @test e isa LinearAlgebra.ZeroPivotException
+        end
+        @test count(==(:eligibility),events)==1 && count(==(:panel_reject),events)==1
+        @test !f.inner.row_cache.upper_prefix_safe
+    end
+    # Exceptions inside gather, reserve and writeback are injected in a separate
+    # exact-inverse kernel clone. They propagate; partial mutation is allowed.
+    for point in (:gather,:reserve,:writeback)
+        f=micro(band(96);fault=true);FK.arm!(point,OutOfMemoryError())
+        caught=nothing
+        try F._bgb_test_eliminate!(f,1) catch e;caught=e;end
+        @test caught===FK.sentinel[] && FK.hits[]==1
+        @test failed_cache(f)
+        @test isempty(f.inner.updates)
+        FK.disarm!()
+    end
+    # Callback reentrancy fails before an inner solve; outer failure drops scratch.
+    f=micro(band(96));entered=Ref(0)
+    p=(e,args...)->begin
+        if e===:panel_begin
+            entered[]+=1;J.forward_solve!(zeros(96),f,ones(96))
+        end
+    end
+    @test_throws ArgumentError A._bgb_test_eliminate!(f,1;probe=p)
+    @test entered[]==1 && failed_cache(f)
+ end
+ nothing
+end
+end
