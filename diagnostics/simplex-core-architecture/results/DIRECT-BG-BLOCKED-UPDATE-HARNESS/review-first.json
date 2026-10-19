@@ -1,0 +1,67 @@
+{
+  "accepted": false,
+  "scope": "BG blocked U preliminary source-only harness review",
+  "findings": [
+    {
+      "id": "R1",
+      "priority": 2,
+      "file": "driver.jl",
+      "problem": "Unexpected unit failures do not stop the remaining expensive numerical schedule.",
+      "evidence": "unit! serializes and returns totals; main launches every subsequent unit and classifies only at final exit.",
+      "request": "After preserving each unit, stop on unexpected Fail/Error/Broken or wrong failure identity; allow only its scheduled RED N026 failure."
+    },
+    {
+      "id": "R2",
+      "priority": 2,
+      "file": "oracle.py",
+      "problem": "Unknown event keys are accepted and some recorded event relationships are unchecked.",
+      "evidence": "counts accepts any positive-count string key; trace_counts and unit inspect selected event names without a closed key universe.",
+      "request": "Close the per-unit event vocabulary and check pure/panel/eligibility relationships without inventing fixed pivot trajectories."
+    },
+    {
+      "id": "R3",
+      "priority": 2,
+      "file": "control.py",
+      "problem": "Diagnostic remote ref is not checked before seal or launch despite admission promise.",
+      "evidence": "validate_sources checks remote master only; full_host records local refs; remote diagnostic equality is checked only at external closure.",
+      "request": "Record and validate fresh remote diagnostic HEAD and master before seal/launch; preserve ancestry-based allowance for legitimate diagnostic commits."
+    }
+  ],
+  "launch_admitted": false,
+  "runtime_acceptance": false,
+  "numerical_acceptance": false,
+  "performance_acceptance": false,
+  "sha256": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-HARNESS/driver.jl": "72151e7677393ff5e56f8e0416a3fadc1d4aaa25e49f66567788a8c7540c39df",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-HARNESS/recorder.jl": "ce75f4389d81e77bed01f27994cd5959691879ce75c9034b24744306e079a3a3",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-HARNESS/oracle.py": "acc59e3cef562f8b551a9004360c4127c6f53c1c9b2624cc57ca8406aeb2bac2",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-HARNESS/control.py": "6382d901c77b959d313034df33f00c835780c89939869c5d6422e7ffafb7d636",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-HARNESS/audit.py": "30310c5dbe7aaf850288cc31a6aaf487bd82044b7a7b2c68f052e091c0d16d2d",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-HARNESS/seal.py": "8e8f42ae92a2c992496d8027d3efef4f744c67303078330d5f9789286da388a9",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-HARNESS/launch.py": "2d61beea4477b4c8981b94772645bd23895b4de9f172001452389a8da7fcbb2e",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-HARNESS/outer.py": "03646877630857742dceef4f5bcdd0190cbc26e6b01fbb73bc3fb4b19ed37552",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-HARNESS/post-return.py": "a1464526853260a3212dc80e83115119db753d28d3ae787d71095f8d5d45f0fb",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-HARNESS/ADMISSION.md": "3f51b6fb04c812ee7f69c6c6a160fccb8a35378a9d7d55b7c2b424eb5f987bb1",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-HARNESS/MEMORY-WORK.md": "addc19822963d1b0c02ed5c743d170ef017d4706ae3241867ce7387fd9ff9faa",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-HARNESS/panel-tests.jl": "694c34056e4a1fda5819d494022cb154694ef3412e7176571949c28e00af3f41",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-HARNESS/numerical-tests.jl": "75956c0305bdd77a767a469bd44e92ad723cd8360ed305924033a5bd9dd29cb9",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-HARNESS/lifecycle-tests.jl": "535f4c95e7cd3404ac5bb6a668b127616d77b375595135fab4a264a4a8b962fd",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-HARNESS/test-transform.json": "7c3fd3bb6738f9514513ed41b0f288442ecbf3524a62f9df656e5c4119e1c92c",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-HARNESS/assertion-sites.json": "079dd22a63787b31a4358859ce9467847c5d89e4d55ea07e97ddca5004479af1",
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-BLOCKED-UPDATE-HARNESS/schedule.json": "6b8fceac6736e7b642723b4ec86183166e375136978a968083bff3dd4dd41dcf"
+  },
+  "confirmed": [
+    "160 assertion sites: P94 N26 L40",
+    "Stream occurrence formulas and direct API budgets match frozen test source",
+    "Lifecycle API totals match call sites including busy/bad-tolerance/reentrancy attempts",
+    "Test source files are unchanged; separate clones retain mathematical expressions",
+    "No Julia executable, parser, import, compiler, or numerical execution used"
+  ],
+  "computational_work_memory": {
+    "production_cost_change": false,
+    "unnecessary_work_found": true,
+    "evidence": "Continuing later units after unexpected failure performs avoidable cold exact-rational work. audit.py also validates saved successful units twice through prefix() then test_results().",
+    "unnecessary_retained_memory_found": false,
+    "limits": "Bounded recorder dictionaries and capped failure records add cold allocation/IO; existing rational matrix products remain cubic with arbitrary-precision bit growth. No time/allocation or feasibility result."
+  }
+}

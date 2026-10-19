@@ -1,0 +1,133 @@
+{
+  "units": [
+    "panel",
+    "lifecycle",
+    "sparse32/native",
+    "sparse32/markowitz",
+    "dense32/native",
+    "dense32/markowitz",
+    "sparse96/native",
+    "sparse96/markowitz",
+    "dense96/native",
+    "dense96/markowitz",
+    "sparse256/native",
+    "sparse256/markowitz",
+    "dense256/native",
+    "dense256/markowitz",
+    "dense96-long32/native",
+    "dense96-long32/markowitz",
+    "near-tie/native",
+    "near-tie/markowitz",
+    "cancellation-fill/native",
+    "cancellation-fill/markowitz",
+    "large-scale/native",
+    "large-scale/markowitz",
+    "small-scale/native",
+    "small-scale/markowitz",
+    "near-singular/native",
+    "near-singular/markowitz",
+    "separated-exact/native",
+    "separated-exact/markowitz"
+  ],
+  "fixtures": [
+    {
+      "name": "sparse32",
+      "n": 32,
+      "updates": 8,
+      "pivot_agreement": false,
+      "minimum_panels": 0
+    },
+    {
+      "name": "dense32",
+      "n": 32,
+      "updates": 8,
+      "pivot_agreement": false,
+      "minimum_panels": 0
+    },
+    {
+      "name": "sparse96",
+      "n": 96,
+      "updates": 8,
+      "pivot_agreement": false,
+      "minimum_panels": 0
+    },
+    {
+      "name": "dense96",
+      "n": 96,
+      "updates": 8,
+      "pivot_agreement": false,
+      "minimum_panels": 2
+    },
+    {
+      "name": "sparse256",
+      "n": 256,
+      "updates": 8,
+      "pivot_agreement": false,
+      "minimum_panels": 0
+    },
+    {
+      "name": "dense256",
+      "n": 256,
+      "updates": 8,
+      "pivot_agreement": false,
+      "minimum_panels": 2
+    },
+    {
+      "name": "dense96-long32",
+      "n": 96,
+      "updates": 32,
+      "pivot_agreement": false,
+      "minimum_panels": 2
+    },
+    {
+      "name": "near-tie",
+      "n": 96,
+      "updates": 8,
+      "pivot_agreement": false,
+      "minimum_panels": 0
+    },
+    {
+      "name": "cancellation-fill",
+      "n": 96,
+      "updates": 8,
+      "pivot_agreement": false,
+      "minimum_panels": 0
+    },
+    {
+      "name": "large-scale",
+      "n": 96,
+      "updates": 8,
+      "pivot_agreement": false,
+      "minimum_panels": 0
+    },
+    {
+      "name": "small-scale",
+      "n": 96,
+      "updates": 8,
+      "pivot_agreement": false,
+      "minimum_panels": 0
+    },
+    {
+      "name": "near-singular",
+      "n": 96,
+      "updates": 8,
+      "pivot_agreement": false,
+      "minimum_panels": 0
+    },
+    {
+      "name": "separated-exact",
+      "n": 32,
+      "updates": 8,
+      "pivot_agreement": true,
+      "minimum_panels": 0
+    }
+  ],
+  "expected_red_units": [
+    "dense96/native",
+    "dense96/markowitz",
+    "dense256/native",
+    "dense256/markowitz",
+    "dense96-long32/native",
+    "dense96-long32/markowitz"
+  ]
+}

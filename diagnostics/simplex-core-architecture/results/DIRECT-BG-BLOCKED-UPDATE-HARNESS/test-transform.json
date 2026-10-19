@@ -1,0 +1,308 @@
+{
+  "panel-tests.jl": {
+    "original": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-bg-blocked-update/reproduce/panel-tests.jl",
+    "sha256": "4e520a76ac0d6a3479536615f72254094df0b05a2acef04d30d6307140f175bb",
+    "clone_sha256": "694c34056e4a1fda5819d494022cb154694ef3412e7176571949c28e00af3f41",
+    "changes": [
+      {
+        "kind": "macros",
+        "sites": [
+          "P001",
+          "P002",
+          "P003",
+          "P004",
+          "P005",
+          "P006",
+          "P007",
+          "P008",
+          "P009",
+          "P010",
+          "P011",
+          "P012",
+          "P013",
+          "P014",
+          "P015",
+          "P016",
+          "P017",
+          "P018",
+          "P019",
+          "P020",
+          "P021",
+          "P022",
+          "P023",
+          "P024",
+          "P025",
+          "P026",
+          "P027",
+          "P028",
+          "P029",
+          "P030",
+          "P031",
+          "P032",
+          "P033",
+          "P034",
+          "P035",
+          "P036",
+          "P037",
+          "P038",
+          "P039",
+          "P040",
+          "P041",
+          "P042",
+          "P043",
+          "P044",
+          "P045",
+          "P046",
+          "P047",
+          "P048",
+          "P049",
+          "P050",
+          "P051",
+          "P052",
+          "P053",
+          "P054",
+          "P055",
+          "P056",
+          "P057",
+          "P058",
+          "P059",
+          "P060",
+          "P061",
+          "P062",
+          "P063",
+          "P064",
+          "P065",
+          "P066",
+          "P067",
+          "P068",
+          "P069",
+          "P070",
+          "P071",
+          "P072",
+          "P073",
+          "P074",
+          "P075",
+          "P076",
+          "P077",
+          "P078",
+          "P079",
+          "P080",
+          "P081",
+          "P082",
+          "P083",
+          "P084",
+          "P085",
+          "P086",
+          "P087",
+          "P088",
+          "P089",
+          "P090",
+          "P091",
+          "P092",
+          "P093",
+          "P094"
+        ]
+      }
+    ]
+  },
+  "numerical-tests.jl": {
+    "original": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-bg-blocked-update/reproduce/numerical-tests.jl",
+    "sha256": "d55b369777a46057e94f7a08c14bf2b03c906fd504afb82c4dca5fadb45bd6d2",
+    "clone_sha256": "75956c0305bdd77a767a469bd44e92ad723cd8360ed305924033a5bd9dd29cb9",
+    "changes": [
+      {
+        "kind": "macros",
+        "sites": [
+          "N001",
+          "N002",
+          "N003",
+          "N004",
+          "N005",
+          "N006",
+          "N007",
+          "N008",
+          "N009",
+          "N010",
+          "N011",
+          "N012",
+          "N013",
+          "N014",
+          "N015",
+          "N016",
+          "N017",
+          "N018",
+          "N019",
+          "N020",
+          "N021",
+          "N022",
+          "N023",
+          "N024",
+          "N025",
+          "N026"
+        ]
+      },
+      {
+        "old": "J.forward_solve!(",
+        "new": "HarnessRecords.api(\"FTRAN\",J.forward_solve!,",
+        "count": 4
+      },
+      {
+        "old": "J._direct_lu_factor(",
+        "new": "HarnessRecords.api(\"factory_reference\",J._direct_lu_factor,",
+        "count": 1
+      },
+      {
+        "old": "A._bgb_factor(",
+        "new": "HarnessRecords.api(\"factory_candidate\",A._bgb_factor,",
+        "count": 1
+      },
+      {
+        "old": "A._bgb_reference_replace!(",
+        "new": "HarnessRecords.api(\"replace_reference\",A._bgb_reference_replace!,",
+        "count": 1
+      },
+      {
+        "old": "A._bgb_replace!(",
+        "new": "HarnessRecords.api(\"replace_candidate\",A._bgb_replace!,",
+        "count": 1
+      },
+      {
+        "old": "function pivot!(t,k,a,z,swapped,fused)\n",
+        "new": "function pivot!(t,k,a,z,swapped,fused)\n    HarnessRecords.tick(\"pivot\")\n",
+        "count": 1
+      },
+      {
+        "old": "for k in first:last\n",
+        "new": "for k in first:last\n            HarnessRecords.tick(\"pure_row\")\n",
+        "count": 1
+      },
+      {
+        "old": "elseif event===:finish\n",
+        "new": "elseif event===:finish\n        HarnessRecords.tick(\"finish\")\n",
+        "count": 1
+      },
+      {
+        "old": "    push!(t.events,event)\n",
+        "new": "    HarnessRecords.tick(\"event_\"*string(event))\n    push!(t.events,event)\n",
+        "count": 1
+      },
+      {
+        "old": "        op(x,r,s.unit);op(y,c,s.unit)",
+        "new": "        HarnessRecords.api(trans ? \"BTRAN\" : \"FTRAN\",op,x,r,s.unit);HarnessRecords.api(trans ? \"BTRAN\" : \"FTRAN\",op,y,c,s.unit)",
+        "count": 1
+      },
+      {
+        "old": "    elseif event===:panel_reject\n",
+        "new": "    elseif event===:panel_reject\n        t.checkpoint===nothing && HarnessRecords.tick(\"declined_before_gather\")\n",
+        "count": 1
+      }
+    ]
+  },
+  "lifecycle-tests.jl": {
+    "original": "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/direct-bg-blocked-update/reproduce/lifecycle-tests.jl",
+    "sha256": "10bf5a8877ef0896ed8c535f6d4b1b7f0f9025f915c08f787bf55bf5f600d57c",
+    "clone_sha256": "535f4c95e7cd3404ac5bb6a668b127616d77b375595135fab4a264a4a8b962fd",
+    "changes": [
+      {
+        "kind": "macros",
+        "sites": [
+          "L001",
+          "L002",
+          "L003",
+          "L004",
+          "L005",
+          "L006",
+          "L007",
+          "L008",
+          "L009",
+          "L010",
+          "L011",
+          "L012",
+          "L013",
+          "L014",
+          "L015",
+          "L016",
+          "L017",
+          "L018",
+          "L019",
+          "L020",
+          "L021",
+          "L022",
+          "L023",
+          "L024",
+          "L025",
+          "L026",
+          "L027",
+          "L028",
+          "L029",
+          "L030",
+          "L031",
+          "L032",
+          "L033",
+          "L034",
+          "L035",
+          "L036",
+          "L037",
+          "L038",
+          "L039",
+          "L040"
+        ]
+      },
+      {
+        "old": "J.forward_solve!(",
+        "new": "HarnessRecords.api(\"FTRAN\",J.forward_solve!,",
+        "count": 7
+      },
+      {
+        "old": "J.transpose_solve!(",
+        "new": "HarnessRecords.api(\"BTRAN\",J.transpose_solve!,",
+        "count": 1
+      },
+      {
+        "old": "J.refactorize!(",
+        "new": "HarnessRecords.api(\"refactor\",J.refactorize!,",
+        "count": 4
+      },
+      {
+        "old": "J.copy_basis_factorization(",
+        "new": "HarnessRecords.api(\"copy\",J.copy_basis_factorization,",
+        "count": 3
+      },
+      {
+        "old": "J.replace_column!(",
+        "new": "HarnessRecords.api(\"replace\",J.replace_column!,",
+        "count": 4
+      },
+      {
+        "old": "A._bgb_factor(",
+        "new": "HarnessRecords.api(\"factory_candidate\",A._bgb_factor,",
+        "count": 1
+      },
+      {
+        "old": "module_._bgb_factor(",
+        "new": "HarnessRecords.api(\"factory_micro\",module_._bgb_factor,",
+        "count": 1
+      },
+      {
+        "old": "A._bgb_test_eliminate!(",
+        "new": "HarnessRecords.api(\"eliminate\",A._bgb_test_eliminate!,",
+        "count": 6
+      },
+      {
+        "old": "F._bgb_test_eliminate!(",
+        "new": "HarnessRecords.api(\"eliminate_fault\",F._bgb_test_eliminate!,",
+        "count": 2
+      },
+      {
+        "old": "@check \"L025\"",
+        "new": "HarnessRecords.tick(\"catch_overflow\");@check \"L025\"",
+        "count": 1
+      },
+      {
+        "old": "@check \"L030\"",
+        "new": "HarnessRecords.tick(\"catch_nonfinite\");@check \"L030\"",
+        "count": 1
+      }
+    ]
+  }
+}
