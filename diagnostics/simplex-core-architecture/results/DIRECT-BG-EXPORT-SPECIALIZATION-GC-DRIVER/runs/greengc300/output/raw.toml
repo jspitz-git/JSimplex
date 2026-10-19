@@ -1,0 +1,160 @@
+fatal = ""
+preparation_calls = 3
+complete = true
+preparations_completed = 3
+threads = 1
+blas_threads = 1
+phase = "greengc300"
+
+[tests]
+pass = 0
+name = "root"
+fail = 0
+broken = 0
+failures = []
+error = 0
+
+    [[tests.children]]
+    pass = 42
+    name = "scratch_budget_boundaries"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+    [[tests.children]]
+    pass = 6
+    name = "scratch_reuse_and_shrink"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+    [[tests.children]]
+    pass = 35
+    name = "orientation_staged_early_exit and atomic retention"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+    [[tests.children]]
+    pass = 56
+    name = "fused_import_bits_and_counts"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+    [[tests.children]]
+    pass = 108
+    name = "normalization_rejection_first_middle_last_offdiagonal"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+    [[tests.children]]
+    pass = 53
+    name = "validated_export_invariants"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+    [[tests.children]]
+    pass = 303
+    name = "seven original fixtures both policies; raw export ownership and core witness"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+    [[tests.children]]
+    pass = 6236
+    name = "repeated_shape_lifecycle"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+    [[tests.children]]
+    pass = 378
+    name = "private_publish_failure_matrix"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+    [[tests.children]]
+    pass = 108
+    name = "copy_refactor_diverge"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+    [[tests.children]]
+    pass = 610
+    name = "dimension_fallback_transition"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+    [[tests.children]]
+    pass = 370
+    name = "boundary_request_equivalence"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+    [[tests.children]]
+    pass = 112
+    name = "boundary_hook_order"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+    [[tests.children]]
+    pass = 220
+    name = "boundary_hot_and_hook_agree"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+    [[tests.children]]
+    pass = 1
+    name = "allocation_nonincrease_sparse32"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+    [[tests.children]]
+    pass = 1
+    name = "allocation_nonincrease_dense32"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+    [[tests.children]]
+    pass = 1
+    name = "allocation_nonincrease_sparse96"
+    fail = 0
+    children = []
+    broken = 0
+    failures = []
+    error = 0
+
+[loaded]
+LinearAlgebra = "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/LinearAlgebra/src/LinearAlgebra.jl"
+SparseArrays = "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/SparseArrays/src/SparseArrays.jl"
+Test = "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl"
+JSimplex = "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/.superpowers/sdd/2026-10-19-direct-bg-export-specialization/task1-stage/src/JSimplex.jl"
+TOML = "/home/jspitz/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/TOML/src/TOML.jl"
+PrecompileTools = "/home/jspitz/.julia/packages/PrecompileTools/QUxvR/src/PrecompileTools.jl"
