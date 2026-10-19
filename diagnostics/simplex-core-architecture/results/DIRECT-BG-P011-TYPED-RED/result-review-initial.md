@@ -1,0 +1,5 @@
+# Initial independent result review: not accepted yet
+
+The initial new reviewer script stopped after 330 successful checks at its 331st check, because it incorrectly expected source line 103 to use `@testcase` and a different whitespace/macro spelling. The frozen actual source is `@check "P011" (@allocated K._bgb_eligibility(f,1)) == 0`. This is a reviewer-script defect, not a demonstrated runtime or product defect. The expected 439-character saved Test rendering was independently reconstructed correctly; the incorrect source-spelling conjunct caused the failure.
+
+Acceptance is withheld until the corrected reviewer source check and remaining result/closure checks complete. Initial script and failed results are preserved byte-for-byte as result-review-check.initial.py/json. No admitted source, runtime artifact, oracle or payload is changed. Only the new review script's literal source-line expectation will be corrected. No Julia execution or admitted auditor rerun is authorized or performed by this correction.
