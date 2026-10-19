@@ -1,0 +1,28 @@
+BEGIN BG specialization driver red300
+TEST FAILURE: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-EXPORT-SPECIALIZATION-DRIVER/driver.jl:57
+  Expression: median7(cands_events) <= median7(refs_events) && median7(cands_bytes) <= median7(refs_bytes)
+TEST FAILURE: Test Failed at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-EXPORT-SPECIALIZATION-DRIVER/driver.jl:57
+  Expression: median7(cands_events) <= median7(refs_events) && median7(cands_bytes) <= median7(refs_bytes)
+FATAL DRIVER: Measured compilation
+Stacktrace:
+  [1] error(s::String)
+    @ Base ./error.jl:44
+  [2] require
+    @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-EXPORT-SPECIALIZATION-DRIVER/driver.jl:9 [inlined]
+  [3] allocation_tests()
+    @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-EXPORT-SPECIALIZATION-DRIVER/driver.jl:47
+  [4] macro expansion
+    @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-EXPORT-SPECIALIZATION-DRIVER/driver.jl:78 [inlined]
+  [5] macro expansion
+    @ ~/.julia/juliaup/julia-1.13.0+0.aarch64.linux.gnu/share/julia/stdlib/v1.13/Test/src/Test.jl:2131 [inlined]
+  [6] main()
+    @ Main ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-EXPORT-SPECIALIZATION-DRIVER/driver.jl:71
+  [7] top-level scope
+    @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-EXPORT-SPECIALIZATION-DRIVER/driver.jl:92
+  [8] include(mod::Module, _path::String)
+    @ Base ./Base.jl:309
+  [9] exec_options(opts::Base.JLOptions)
+    @ Base ./client.jl:344
+ [10] _start()
+    @ Base ./client.jl:577
+GROUP/COUNT MISMATCH OR FATAL

@@ -1,0 +1,24 @@
+{
+  "outer_outcome": {
+    "identity": {
+      "pid": 116092,
+      "pgid": 116092,
+      "sid": 116092,
+      "start_ticks": 10380077,
+      "boot_id": "1ecae454-f1f5-4e2e-a95c-7b5474243126",
+      "command": "python3 -B diagnostics/simplex-core-architecture/results/DIRECT-BG-EXPORT-SPECIALIZATION-RED/outer.py "
+    },
+    "launched": true,
+    "returncode": 2,
+    "error": "Traceback (most recent call last):\n  File \"/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-EXPORT-SPECIALIZATION-RED/outer.py\", line 33, in main\n    runpy.run_path(str(D/'launch.py'),run_name='__main__')\n    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<frozen runpy>\", line 287, in run_path\n  File \"<frozen runpy>\", line 98, in _run_module_code\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-EXPORT-SPECIALIZATION-DRIVER/launch.py\", line 31, in <module>\n    if __name__=='__main__':main(sys.argv[1])\n                            ~~~~^^^^^^^^^^^^^\n  File \"/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-EXPORT-SPECIALIZATION-DRIVER/launch.py\", line 30, in main\n    require(audit(phase)['all_passed'],'Failed attempt preserved; pure timeout may receive separately admitted600s, never automatic in launcher')\n    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-EXPORT-SPECIALIZATION-DRIVER/control.py\", line 10, in require\n    if not v:raise RuntimeError(m)\n             ^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: Failed attempt preserved; pure timeout may receive separately admitted600s, never automatic in launcher\n",
+    "elapsed_with_checks_seconds": 23.016837471994222,
+    "scope": "Outer time includes immutable pre/post checks and auditor; not benchmark or numerical guard duration"
+  },
+  "audit_all_passed": false,
+  "pure_timeout": false,
+  "audit_error": "ValueError('Measured compilation')",
+  "sha256": {
+    "/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/simplex-core-architecture/results/DIRECT-BG-EXPORT-SPECIALIZATION-DRIVER/runs/red300/audit.json": "239731d2bde8c58fb2b6e7255f38f67ddc7e646c88a542ff3c4d28d7ea337b7c"
+  },
+  "scope": "Read saved audit; no auditor or numerical rerun"
+}
