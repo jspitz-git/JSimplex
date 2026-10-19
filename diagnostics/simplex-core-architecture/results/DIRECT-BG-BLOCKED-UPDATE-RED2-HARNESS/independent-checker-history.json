@@ -1,0 +1,15 @@
+{
+  "attempts": [
+    {
+      "script": "independent-review-1.py",
+      "execution_environment": "login shell",
+      "result": "Stopped at environment_exact because login shell prepends ~/.local/bin and appends /snap/bin to PATH; gate correctly refuses drift. No input edited."
+    },
+    {
+      "script": "independent-review-1.py",
+      "execution_environment": "non-login shell",
+      "result": "Stopped on reviewer expectation for artificial bare method foo overwritten string. Oracle regex matches overwrite; real Julia method replacement reports WARNING, which is independently rejected. Corrected reviewer fixture to actual diagnostic form in version 2; harness/oracle unchanged."
+    }
+  ],
+  "scope": "Reviewer-checker development history, not harness failure or numerical evidence"
+}

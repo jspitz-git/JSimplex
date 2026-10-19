@@ -1,0 +1,5 @@
+# RED2 master-stage harness preparation
+
+Prepared a separate RED-only control package for the accepted75-file master stage. The new absolute package roots isolate all future run, outer, seal, review, reservation and output files from the failed first RED. Exactly five control functions differ; launch/outer/audit only change exact-admission scope. All Julia driver/recorder/test clones, numerical oracle, resource guard and supervisor are unchanged. No production, permanent tests, environment, master, CI, candidate or historical evidence changes.
+
+Author checks bind the complete original preparation and repair publication, exact candidate14files and repaired stage. Python-only source/configuration and full synthetic auditor tests passed. No Julia was executed and no run artifacts exist. A later explicit run request still requires fresh exact-run admission; this preparation alone cannot launch. Independent review and publication are recorded separately. Broader qualification and performance gates remain open.
