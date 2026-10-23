@@ -1711,10 +1711,28 @@ function _original_witness_certified(problem::LinearProblem{T}, options::SolverO
     _, negative_tolerance = _primal_difference_bounds(zero(T), options.dual_tolerance)
     uncertain_rows = nothing
     active_bounds = nothing
+    native_basic_mode = UInt8(0) # Invocation-local: unknown/enabled/disabled.
     for index in eachindex(reduced_lower)
         stationary = reduced_lower[index] >= negative_tolerance &&
                      reduced_upper[index] <= options.dual_tolerance
-        basis.states[index] == BASIC && !stationary && return false
+        if basis.states[index] == BASIC && !stationary
+            T <: Union{Float32,Float64} && index <= column_count || return false
+            (reduced_upper[index] < negative_tolerance ||
+             reduced_lower[index] > options.dual_tolerance) && return false
+            if native_basic_mode == UInt8(0)
+                native_basic_mode = _native_basic_certificate_mode(T) ? UInt8(1) : UInt8(2)
+            end
+            native_basic_mode == UInt8(1) || return false
+            refined = _native_basic_column_interval(problem, dual, index)
+            isnothing(refined) && return false
+            intersection = _native_basic_intersection(
+                (reduced_lower[index], reduced_upper[index]), refined)
+            isnothing(intersection) && return false
+            reduced_lower[index], reduced_upper[index] = intersection
+            stationary = reduced_lower[index] >= negative_tolerance &&
+                         reduced_upper[index] <= options.dual_tolerance
+            stationary || return false
+        end
         stationary && continue
         lower = index <= column_count ? problem.column_lower[index] : problem.row_lower[index - column_count]
         upper = index <= column_count ? problem.column_upper[index] : problem.row_upper[index - column_count]
