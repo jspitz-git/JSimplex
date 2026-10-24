@@ -48,6 +48,11 @@ function _finite_values(values::Vector{T},::Val{P}) where {T<:Union{Float32,Floa
     return valid
 end
 
+# Read-only zero/sign queries avoid constructing a numerical zero per weight.
+function _finite_values(values::Union{Vector{BigFloat},Vector{Rational{BigInt}}},::Val{true})
+    return all(value -> isfinite(value) && !iszero(value) && !signbit(value),values)
+end
+
 function _finite_workspace(workspace::SimplexWorkspace{T}) where {T}
     return _finite_values(workspace.primal,Val(false)) && _finite_values(workspace.reduced_costs,Val(false)) &&
            _finite_values(workspace.costs,Val(false)) &&
