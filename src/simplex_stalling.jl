@@ -115,6 +115,44 @@ function _workspace_stagnation_values(ws,state::WorkspaceStagnation{T,S},algorit
     return algorithm == :dual ? -objective : objective, primal, dual
 end
 
+# Reuse private normalized BigFloat tolerances only within this observation.
+# Evaluate each at its first comparison to preserve empty paths and error order;
+# the generic method above deliberately retains the original arithmetic.
+function _workspace_stagnation_values(ws,state::WorkspaceStagnation{BigFloat,BigFloat},algorithm)
+    S = BigFloat
+    m = state.monitor
+    objective, primal, dual = zero(S),zero(S),zero(S)
+    dual_threshold = nothing
+    primal_threshold = nothing
+    for j in eachindex(ws.costs)
+        objective += ((S(ws.costs[j])/state.cost_scale)*
+            (S(ws.primal[j])/state.value_scale))*m.objective_scale
+        status = ws.basis.states[j]
+        (status == BASIC || _is_fixed(ws.lower[j],ws.upper[j])) && continue
+        price = S(ws.reduced_costs[j])/state.cost_scale
+        violation = status == AT_LOWER ? -price : status == AT_UPPER ? price : abs(price)
+        if isnothing(dual_threshold)
+            dual_threshold = S(ws.options.dual_tolerance)/state.cost_scale
+        end
+        violation > dual_threshold &&
+            (dual += violation*m.dual_scale)
+    end
+    for j in ws.basis.basic_indices
+        value = S(ws.primal[j])/state.value_scale
+        lower = isfinite(ws.lower[j]) ? S(bound_value(ws.lower[j]))/state.value_scale-value : zero(S)
+        upper = isfinite(ws.upper[j]) ? value-S(bound_value(ws.upper[j]))/state.value_scale : zero(S)
+        violation = max(zero(S),lower,upper)
+        if isnothing(primal_threshold)
+            primal_threshold = S(ws.options.primal_tolerance)/state.value_scale
+        end
+        violation > primal_threshold &&
+            (primal += violation*m.primal_scale)
+    end
+    # The primal minimizes its working objective; the dual improves its lower
+    # bound upward. Both orientations are decreases to the progress monitor.
+    return algorithm == :dual ? -objective : objective, primal, dual
+end
+
 function _reset_workspace_stagnation!(ws)
     state = ws.scratch.stagnation
     isnothing(state) || reset_stagnation!(state.monitor)
