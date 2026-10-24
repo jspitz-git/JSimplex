@@ -8,6 +8,15 @@ struct PhaseOneMap
     artificial_columns::Vector{Int}
 end
 
+# Keep the original selected snapshot when destination storage overlaps either
+# input. A disjoint fresh workspace can gather directly without a point buffer.
+function _copy_phase_point!(destination,source,original_to_phase)
+    if Base.mightalias(destination,source) || Base.mightalias(destination,original_to_phase)
+        return copyto!(destination,source[original_to_phase])
+    end
+    return copyto!(destination,view(source,original_to_phase))
+end
+
 function _phase_options(o::SolverOptions{T,M,R},algorithm::Symbol) where {T,M,R}
     return SolverOptions{T,M,R}(o.primal_tolerance,o.dual_tolerance,o.zero_tolerance,
         o.iteration_limit,o.time_limit,o.refactorization_interval,o.verbose,o.log_level,
@@ -224,7 +233,7 @@ function _remove_artificials!(phase::SimplexWorkspace{T},map,original,policy,sto
     _phase_inherit_work!(fresh,phase)
     fresh.basis=Basis(indices,states,Val(:owned))
     native_point = _native_phase_transfer_enabled(fresh)
-    native_point && copyto!(fresh.primal,phase.primal[map.original_to_phase])
+    native_point && _copy_phase_point!(fresh.primal,phase.primal,map.original_to_phase)
     _phase_refactor!(fresh,original,stop)
     native_point && !_complete_native_phase_transfer!(fresh,stop) && return false
     stop() && return false
