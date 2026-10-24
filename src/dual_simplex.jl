@@ -1789,13 +1789,26 @@ function _internal_solution(workspace::SimplexWorkspace{T}, status::TerminationS
     if status == OPTIMAL && (!_finite_workspace(workspace) || !isfinite(objective))
         return _internal_solution(workspace, _numerical_failure())
     end
+    corrected_primal = false
     if status == OPTIMAL && !_original_primal_feasible(workspace, primal)
-        return _internal_solution(workspace, NUMERICAL_ERROR,
-                                  "structural primal failed original-model feasibility checks")
+        trial = _native_terminal_primal_candidate(workspace, _basis_solve_stop(workspace, nothing))
+        if !isnothing(trial)
+            primal = trial[1:size(workspace.problem.A, 2)]
+        end
+        if isnothing(trial) || !_original_primal_feasible(workspace, primal)
+            return _internal_solution(workspace, NUMERICAL_ERROR,
+                                      "structural primal failed original-model feasibility checks")
+        end
+        objective = dot(workspace.problem.objective, primal) + workspace.problem.objective_constant
+        isfinite(objective) || return _internal_solution(workspace, _numerical_failure())
+        corrected_primal = true
     end
     if status == OPTIMAL && !_original_optimality_certified(workspace, primal)
         return _internal_solution(workspace, NUMERICAL_ERROR,
                                   "original-objective optimality certificate is inconclusive")
+    end
+    if corrected_primal && _basis_solve_stop(workspace, nothing)()
+        return _internal_solution(workspace, TIME_LIMIT, "time limit reached during terminal primal correction")
     end
     basis = status == OPTIMAL ? Basis(workspace.basis.basic_indices, workspace.basis.states) : nothing
     return DualRunResult{T}(status, objective, primal, workspace.iterations,
