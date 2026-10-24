@@ -237,6 +237,13 @@ function _reject_auto_weight!(ws)
     return false
 end
 
+# Keep generic comparison semantics; only the owned multiprecision vectors
+# use the existing read-only sign/zero check instead of allocating a zero.
+_auto_pricing_weights_valid(values) =
+    all(weight -> isfinite(weight) && weight > zero(weight),values)
+_auto_pricing_weights_valid(values::Union{Vector{BigFloat},Vector{Rational{BigInt}}}) =
+    _finite_values(values,Val(true))
+
 function _prepare_auto_pricing!(ws,algorithm::Symbol;stop=()->false)::Bool
     policy = ws.progress.numerical_policy
     controlled = ws.options.pricing == :auto ||
@@ -261,7 +268,7 @@ function _prepare_auto_pricing!(ws,algorithm::Symbol;stop=()->false)::Bool
         (changed_algorithm || ws.options.pricing == :auto) && reset_devex!(ws)
     end
     if ws.options.pricing == :auto
-        all(w -> isfinite(w) && w > zero(w),ws.pricing_weights) || _reject_auto_weight!(ws)
+        _auto_pricing_weights_valid(ws.pricing_weights) || _reject_auto_weight!(ws)
     end
     if state.temporary && !(policy.adaptive_pricing && policy.adaptive_stalling)
         if state.framework_valid && !state.needs_reset

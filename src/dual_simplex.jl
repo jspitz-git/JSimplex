@@ -639,11 +639,16 @@ function _switch_dual_pricing_to_devex!(workspace::SimplexWorkspace{T},
     return nothing
 end
 
+_invalid_dse_weights(values::AbstractVector{T}) where T =
+    any(weight -> !isfinite(weight) || weight <= zero(T),values)
+_invalid_dse_weights(values::Union{Vector{BigFloat},Vector{Rational{BigInt}}}) =
+    !_finite_values(values,Val(true))
+
 function _recover_invalid_dse_weights!(workspace::SimplexWorkspace{T},
                                        stop_requested) where {T}
     if (_is_exact(T) === Val(false) || workspace.options.pricing == :auto) &&
        _weight_pricing(workspace,:dual) == :steepest_edge &&
-       any(weight -> !isfinite(weight) || weight <= zero(T), workspace.pricing_weights)
+       _invalid_dse_weights(workspace.pricing_weights)
         _switch_dual_pricing_to_devex!(workspace, stop_requested,
                                        "invalid steepest-edge weight")
         return true

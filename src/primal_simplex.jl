@@ -45,6 +45,19 @@ _primal_dantzig_score(reduced_cost::T) where {T<:AbstractFloat} =
     _primal_weighted_score(reduced_cost, one(T))
 _primal_dantzig_score(reduced_cost::Rational) = abs(big(reduced_cost))
 
+# Unit weight needs no arithmetic; retain exceptional tuple conventions and
+# ambient rounding of abs, including rounded underflow/overflow.
+function _primal_dantzig_score(reduced_cost::BigFloat)
+    (!isfinite(reduced_cost) || iszero(reduced_cost)) &&
+        return _primal_weighted_score(reduced_cost,one(BigFloat))
+    value = abs(reduced_cost)
+    (!isfinite(value) || iszero(value)) &&
+        return _primal_weighted_score(reduced_cost,one(BigFloat))
+    mantissa, exponent = frexp(value)
+    return exponent, mantissa
+end
+
+
 _primal_devex_leaving_weight(weight::T, pivot::T) where {T<:AbstractFloat} =
     max(one(T), min(floatmax(T), weight / abs(pivot)))
 _primal_store_rational_weight(::Type{Rational{BigInt}}, weight::Rational{BigInt}) = weight
