@@ -238,7 +238,13 @@ function _original_costs_active(ws::SimplexWorkspace{T}) where T
     ws.perturbed && return false
     n = length(ws.problem.objective)
     for j in eachindex(ws.costs)
-        ws.costs[j] == (j <= n ? ws.problem.objective[j] : zero(T)) || return false
+        if j <= n
+            ws.costs[j] == ws.problem.objective[j] || return false
+        elseif T <: Union{BigFloat,Rational{BigInt}}
+            iszero(ws.costs[j]) || return false
+        else
+            ws.costs[j] == zero(T) || return false
+        end
     end
     return true
 end

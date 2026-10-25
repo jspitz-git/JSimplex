@@ -328,6 +328,13 @@ _dual_pivot_cutoff(::Type{T}) where {T} =
     _is_exact(T) === Val(true) ? zero(T) : _positive_tolerance(T, 1 // 10^7)
 
 # The row is oriented so that a positive dual step repairs the leaving bound.
+# The generic route preserves eager evaluation; BigFloat avoids only the
+# unused negative tolerance on eligible positive coefficients.
+_dual_ratio_tolerance(coefficient,tolerance::T) where T =
+    ifelse(coefficient < zero(T), -tolerance, tolerance)
+_dual_ratio_tolerance(coefficient::BigFloat,tolerance::BigFloat) =
+    coefficient < zero(BigFloat) ? -tolerance : tolerance
+
 function dual_ratio_test(workspace::SimplexWorkspace{T}, tableau_row::Vector{T},
                          orientation::T=one(T))::Int where {T}
     candidates = workspace.scratch.candidates
@@ -340,7 +347,7 @@ function dual_ratio_test(workspace::SimplexWorkspace{T}, tableau_row::Vector{T},
         _dual_pivot_eligible(workspace, index, coefficient, cutoff) || continue
         push!(candidates, index)
         relaxed_step = (workspace.reduced_costs[index] +
-                        ifelse(coefficient < zero(T), -tolerance, tolerance)) / coefficient
+                        _dual_ratio_tolerance(coefficient,tolerance)) / coefficient
         # An overflowed positive relaxation imposes no finite step limit.
         # The selected pivot's actual step is checked before any update.
         if isfinite(relaxed_step) &&
@@ -1534,12 +1541,18 @@ function _primal_difference_bounds(left::T, right::T) where {T<:AbstractFloat}
     return prevfloat(value), nextfloat(value)
 end
 
+# Integer comparison is exact and avoids temporary multiprecision constants.
+_primal_positive_unit(value::T) where T = value == one(T)
+_primal_positive_unit(value::BigFloat) = value == 1
+_primal_negative_unit(value::T) where T = value == -one(T)
+_primal_negative_unit(value::BigFloat) = value == -1
+
 function _primal_product_bounds(left::T, right::T) where {T<:AbstractFloat}
     (iszero(left) || iszero(right)) && return zero(T), zero(T)
-    left == one(T) && return right, right
-    right == one(T) && return left, left
-    left == -one(T) && precision(right) == precision(T) && return -right, -right
-    right == -one(T) && precision(left) == precision(T) && return -left, -left
+    _primal_positive_unit(left) && return right, right
+    _primal_positive_unit(right) && return left, left
+    _primal_negative_unit(left) && precision(right) == precision(T) && return -right, -right
+    _primal_negative_unit(right) && precision(left) == precision(T) && return -left, -left
     value = left * right
     if isfinite(value) && _primal_nearest_rounding(T)
         error = fma(left, right, -value)
