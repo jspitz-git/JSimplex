@@ -166,6 +166,17 @@ function _primal_updated_weight(weight::T, alpha::T, beta::T,
     return _primal_cacheable_weight(updated) ? updated : nothing
 end
 
+function _primal_updated_weight(weight::BigFloat, alpha::BigFloat, beta::BigFloat,
+                                h_norm_squared::BigFloat)
+    squared = muladd(alpha * alpha, h_norm_squared,
+                     muladd(-2 * alpha, beta, weight * weight))
+    isfinite(squared) && squared >= 1 || return nothing
+    updated = sqrt(squared)
+    return _primal_cacheable_weight(updated) ? updated : nothing
+end
+
+
+
 function _primal_updated_weight(weight::Rational{BigInt}, alpha::Rational{BigInt},
                                 beta::Rational{BigInt}, h_norm_squared::Rational{BigInt})
     updated = weight - 2 * alpha * beta + alpha^2 * h_norm_squared
@@ -264,6 +275,65 @@ function _primal_entering(workspace::SimplexWorkspace{T}, tolerance::T) where {T
     return entering, direction
 end
 
+function _primal_entering(workspace::SimplexWorkspace{T}, tolerance::T) where {T<:Union{BigFloat,Rational{BigInt}}}
+    _prepare_auto_pricing!(workspace,:primal)
+    state = workspace.scratch.pricing
+    isnothing(state) || (state.pricing_passes += 1)
+    if _partial_pricing_enabled(workspace,:primal)
+        entering = _select_workspace_pool!(workspace,:primal;tolerance)
+        direction = entering == 0 ? zero(T) :
+            (workspace.reduced_costs[entering] < zero(T) ? one(T) : -one(T))
+        return entering,direction
+    end
+    pricing = _effective_pricing(workspace,:primal)
+    pricing == :steepest_edge && _primal_initialize_steepest!(workspace)
+    entering = 0
+    scored = 0
+    direction = zero(T)
+    best_score = _primal_dantzig_score(one(T))
+    negative_tolerance = tolerance
+    negative_ready = false
+    reuse_negative = pricing === :dantzig || pricing === :devex
+    for index in eachindex(workspace.basis.states)
+        state = workspace.basis.states[index]
+        state == BASIC && continue
+        index in workspace.scratch.rejected_entering && continue
+        _is_fixed(workspace.lower[index], workspace.upper[index]) && continue
+        reduced_cost = workspace.reduced_costs[index]
+        improving = if state == AT_LOWER
+            if reuse_negative
+                if !negative_ready
+                    negative_tolerance = -tolerance
+                    negative_ready = true
+                end
+                reduced_cost < negative_tolerance
+            else
+                reduced_cost < -tolerance
+            end
+        else
+            (state == AT_UPPER && reduced_cost > tolerance) ||
+            (state == FREE_NONBASIC && abs(reduced_cost) > tolerance)
+        end
+        improving || continue
+        scored += 1
+        score = if pricing == :dantzig
+            _primal_dantzig_score(reduced_cost)
+        else
+            weight = pricing == :steepest_edge && !workspace.scratch.steepest_valid[index] ?
+                _primal_steepest_weight!(workspace, index) : workspace.pricing_weights[index]
+            _primal_weighted_score(reduced_cost, weight)
+        end
+        if entering == 0 || score > best_score
+            entering = index
+            direction = reduced_cost < zero(T) ? one(T) : -one(T)
+            best_score = score
+        end
+    end
+    _record_full_pricing!(workspace.progress.diagnostics,length(workspace.basis.states),scored)
+    return entering, direction
+end
+
+
 function _primal_update_devex!(workspace::SimplexWorkspace{T}, entering::Int,
                                leaving_row::Int, pivot::T; shared_row::Bool=false) where {T}
     tableau_row = workspace.scratch.tableau_row
@@ -324,6 +394,40 @@ function _primal_bound_snap_feasible(workspace::SimplexWorkspace{T}, entering::I
     end
     return true
 end
+
+function _primal_bound_snap_feasible(workspace::SimplexWorkspace{BigFloat}, entering::Int,
+                                    direction::BigFloat, column::Vector{BigFloat}, leaving_row::Int)
+    T = BigFloat
+    leaving = workspace.basis.basic_indices[leaving_row]
+    movement = -direction * column[leaving_row]
+    bound = movement > 0 ? workspace.upper[leaving] : workspace.lower[leaving]
+    step = (bound_value(bound) - workspace.primal[leaving]) / movement
+    step >= 0 && return true
+    state = movement > 0 ? AT_UPPER : AT_LOWER
+    _can_preserve_primal_bound_value(workspace, leaving, state, bound) && return true
+    # A tolerated bound violation has a negative ratio. Clipping it to zero
+    # does not eliminate the movement imposed by fixing the leaving variable
+    # exactly at its bound during the subsequent basis recomputation.
+    value = workspace.primal[entering] + direction * step
+    isfinite(value) || return false
+    tolerance = workspace.options.primal_tolerance
+    violation = max(zero(T), _lower_violation(workspace.lower[entering], value),
+                    _upper_violation(workspace.upper[entering], value))
+    violation <= tolerance || return false
+    for (row, index) in enumerate(workspace.basis.basic_indices)
+        row == leaving_row && continue
+        value = workspace.primal[index] - direction * column[row] * step
+        isfinite(value) || return false
+        bound_violation = max(zero(T), _lower_violation(workspace.lower[index], value),
+                              _upper_violation(workspace.upper[index], value))
+        # Use the same per-bound feasibility criterion as legacy Harris pricing
+        # and recomputation, including the movement imposed by this bound snap.
+        violation = max(violation, bound_violation)
+        violation <= tolerance || return false
+    end
+    return true
+end
+
 
 function _primal_step_bounds_feasible(workspace::SimplexWorkspace{T}, direction::T,
                                       column::Vector{T}, step::T) where {T}
@@ -425,6 +529,96 @@ function _primal_ratio(workspace::SimplexWorkspace{T}, entering::Int, direction:
         return fallback
     return leaving_step, leaving_row, leaving_state
 end
+
+function _primal_ratio(workspace::SimplexWorkspace{BigFloat}, entering::Int, direction::BigFloat,
+                       tableau_column::Vector{BigFloat})
+    T = BigFloat
+    opposite = direction > 0 ? workspace.upper[entering] : workspace.lower[entering]
+    # Keep optionality in flags so numeric loop accumulators stay concrete.
+    has_step = isfinite(opposite)
+    entering_step = has_step ?
+        (bound_value(opposite) - workspace.primal[entering]) / direction : zero(T)
+    strict_step = entering_step
+    strict_row = 0
+    strict_state = BASIC
+    relaxed_limit = entering_step
+    has_relaxed_limit = has_step
+    tolerance = workspace.options.primal_tolerance
+    for (row, index) in enumerate(workspace.basis.basic_indices)
+        movement = -direction * tableau_column[row]
+        iszero(movement) && continue
+        bound = movement > 0 ? workspace.upper[index] : workspace.lower[index]
+        isfinite(bound) || continue
+        raw_step = (bound_value(bound) - workspace.primal[index]) / movement
+        isfinite(raw_step) || return nothing, -1, BASIC
+        if raw_step < 0
+            violation = movement > 0 ?
+                _upper_violation(bound, workspace.primal[index]) :
+                _lower_violation(bound, workspace.primal[index])
+            violation > tolerance && return nothing, -1, BASIC
+        end
+        candidate = max(zero(T), raw_step)
+        if !has_step || candidate < strict_step ||
+           (candidate == strict_step && strict_row == 0)
+            strict_step = candidate
+            strict_row = row
+            strict_state = movement > 0 ? AT_UPPER : AT_LOWER
+            has_step = true
+        end
+        relaxed = _primal_relaxed_step(raw_step, tolerance, movement)
+        if isfinite(relaxed) && (!has_relaxed_limit || relaxed < relaxed_limit)
+            relaxed_limit = max(zero(T), relaxed)
+            has_relaxed_limit = true
+        end
+    end
+    has_step || return nothing, strict_row, strict_state
+    strict_row == 0 && return strict_step, strict_row, strict_state
+    has_relaxed_limit || return strict_step, strict_row, strict_state
+
+    strict_safe = !(strict_row in workspace.scratch.rejected_rows) &&
+        _primal_bound_snap_feasible(
+            workspace, entering, direction, tableau_column, strict_row)
+    fallback = strict_safe ? (strict_step, strict_row, strict_state) : (nothing, -1, BASIC)
+    leaving_row = 0
+    leaving_step = strict_step
+    leaving_state = strict_state
+    largest_pivot = zero(T)
+    for (row, index) in enumerate(workspace.basis.basic_indices)
+        row in workspace.scratch.rejected_rows && continue
+        movement = -direction * tableau_column[row]
+        iszero(movement) && continue
+        bound = movement > 0 ? workspace.upper[index] : workspace.lower[index]
+        isfinite(bound) || continue
+        candidate = max(zero(T),
+                        (bound_value(bound) - workspace.primal[index]) / movement)
+        candidate <= relaxed_limit || continue
+        pivot = abs(tableau_column[row])
+        if pivot > largest_pivot
+            !_primal_bound_snap_feasible(
+                workspace, entering, direction, tableau_column, row) && continue
+            leaving_row = row
+            leaving_step = candidate
+            leaving_state = movement > 0 ? AT_UPPER : AT_LOWER
+            largest_pivot = pivot
+        end
+    end
+    # Tolerated initial bound violations can create zero ratios on coefficients
+    # too small to pivot on. A finite entering bound remains a valid Harris move
+    # when the entire predicted step respects the same per-bound tolerance.
+    if _legacy_primal_row_validation_enabled(workspace) &&
+       largest_pivot <= workspace.options.zero_tolerance && isfinite(opposite) &&
+       isfinite(entering_step) && entering_step > 0 && entering_step <= relaxed_limit &&
+       _primal_step_bounds_feasible(workspace, direction, tableau_column, entering_step)
+        return entering_step, 0, BASIC
+    end
+    if leaving_row == 0
+        return fallback
+    end
+    _primal_step_bounds_feasible(workspace, direction, tableau_column, leaving_step) ||
+        return fallback
+    return leaving_step, leaving_row, leaving_state
+end
+
 
 function _legacy_primal_iteration!(workspace::SimplexWorkspace, stop_requested,
                                    reduced_cost_tolerance, basis_refreshed)

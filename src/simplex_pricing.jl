@@ -58,7 +58,7 @@ function validate_edge_weight(stored::BigFloat,actual::BigFloat,policy::Numerica
                                      precision(policy.solve_tolerance))) do
         isfinite(stored) && isfinite(actual) && stored > 0 && actual > 0 || return false
         ratio = min(stored,actual)/max(stored,actual)
-        (square_root ? ratio*ratio : ratio) >= BigFloat(1)/2
+        (square_root ? ratio*ratio : ratio) >= 0.5
     end
 end
 

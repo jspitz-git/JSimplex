@@ -432,3 +432,5 @@ include("legacy_phase_artificial_bound_tests.jl")
 end
 
 include("triangular_fused_solve_tests.jl")
+
+include("generic_primal_threshold_tests.jl")
