@@ -536,6 +536,109 @@ function _bound_flipping_ratio_test(workspace::SimplexWorkspace{T}, tableau_row:
     return -1, flips, true
 end
 
+@inline function _eligible_with_cutoff(workspace::SimplexWorkspace{T},index::Int,
+                                      coefficient::T,cutoff::T,
+                                      negative::T,ready::Bool) where {T<:Union{BigFloat,Rational{BigInt}}}
+    state = workspace.basis.states[index]
+    _is_fixed(workspace.lower[index],workspace.upper[index]) && return false,negative,ready
+    if state == AT_LOWER
+        return coefficient > cutoff,negative,ready
+    elseif state == AT_UPPER
+        if !ready
+            negative = -cutoff
+            ready = true
+        end
+        return coefficient < negative,negative,ready
+    elseif state == FREE_NONBASIC
+        return abs(coefficient) > cutoff,negative,ready
+    end
+    return false,negative,ready
+end
+function _bound_flipping_ratio_test(workspace::SimplexWorkspace{T}, tableau_row::Vector{T},
+                                    orientation::T, violation::T) where {T<:Union{BigFloat,Rational{BigInt}}}
+    flips = workspace.scratch.flips
+    empty!(flips)
+    cutoff = workspace.progress.numerical_policy.pivot_validation ? zero(T) : _dual_pivot_cutoff(T)
+    # A boxed variable matters only when it can move in this tableau row.
+    # Otherwise keep the linear Harris pass and its stronger pivot choice.
+    has_boxed = false
+    negative_cutoff = cutoff
+    negative_ready = false
+    for index in eachindex(workspace.basis.states)
+        if isfinite(workspace.lower[index]) && isfinite(workspace.upper[index])
+            eligible,negative_cutoff,negative_ready = _eligible_with_cutoff(
+                workspace,index,orientation * tableau_row[index],cutoff,
+                negative_cutoff,negative_ready)
+            if eligible
+                has_boxed = true
+                break
+            end
+        end
+    end
+    has_boxed || return dual_ratio_test(workspace, tableau_row, orientation), flips, false
+
+    candidates = workspace.scratch.candidates
+    empty!(candidates)
+    steps = workspace.scratch.ratio_steps
+    length(steps) < length(tableau_row) && resize!(steps, length(tableau_row))
+    for index in eachindex(tableau_row)
+        coefficient = orientation * tableau_row[index]
+        eligible,negative_cutoff,negative_ready = _eligible_with_cutoff(
+            workspace,index,coefficient,cutoff,negative_cutoff,negative_ready)
+        eligible || continue
+        step = workspace.reduced_costs[index] / coefficient
+        if !isfinite(step) || step < 0
+            return dual_ratio_test(workspace, tableau_row, orientation), flips, false
+        end
+        steps[index] = step
+        push!(candidates, index)
+    end
+    isempty(candidates) && return -1, flips, false
+    # Most pivots consume a small prefix. Building a heap costs linear work
+    # and reuses the candidate buffer instead of sorting every breakpoint.
+    _heapify_breakpoints!(candidates,steps,tableau_row)
+    sort_after = max(32,length(candidates)÷16)
+    sorted_tail = false
+    tail_position = 1
+
+    remaining = violation
+    while sorted_tail ? tail_position <= length(candidates) : !isempty(candidates)
+        index = if sorted_tail
+            value = candidates[tail_position]
+            tail_position += 1
+            value
+        else
+            _pop_breakpoint!(candidates,steps,tableau_row)
+        end
+        state = workspace.basis.states[index]
+        opposite = state == AT_LOWER ? workspace.upper[index] : workspace.lower[index]
+        if state == FREE_NONBASIC || !isfinite(opposite)
+            index in workspace.scratch.rejected_entering && return -1, flips, false
+            return index, flips, false
+        end
+        width = bound_value(workspace.upper[index]) - bound_value(workspace.lower[index])
+        gain = abs(tableau_row[index]) * width
+        if !isfinite(width) || !isfinite(gain)
+            empty!(flips)
+            return dual_ratio_test(workspace, tableau_row, orientation), flips, false
+        end
+        if remaining <= gain + workspace.options.primal_tolerance
+            index in workspace.scratch.rejected_entering && return -1, flips, false
+            return index, flips, false
+        end
+        push!(flips, index)
+        remaining -= gain
+        if !sorted_tail && length(flips) >= sort_after
+            # A long flip sequence no longer benefits from extracting a
+            # prefix. Finish in-place; the explicit index key restores the
+            # same stable ties after heap construction shuffled the tail.
+            sort!(candidates;lt=(a,b) -> _breakpoint_before(a,b,steps,tableau_row),alg=QuickSort)
+            sorted_tail = true
+        end
+    end
+    return -1, flips, true
+end
+
 function _apply_bound_flips!(workspace::SimplexWorkspace{T}, flips::Vector{Int}, stop=nothing) where {T}
     isempty(flips) && return true
     A = workspace.problem.A

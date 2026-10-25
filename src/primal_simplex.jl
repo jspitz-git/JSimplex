@@ -93,6 +93,8 @@ _primal_devex_candidate_weight(coefficient::T, leaving_weight::T) where {T<:Abst
 _primal_devex_candidate_weight(coefficient::T, leaving_weight::T) where {T<:Rational} =
     _primal_store_rational_weight(T, big(coefficient)^2 * big(leaving_weight))
 
+_primal_devex_candidate_weight(coefficient::BigFloat,leaving_weight::BigFloat) =
+    min(floatmax(BigFloat),_primal_direction_magnitude(coefficient) * leaving_weight)
 function _primal_steepest_weight!(workspace::SimplexWorkspace{T}, index::Int) where {T}
     column = _pipeline_column_rhs!(workspace,index)
     direction = _checked_basis_solve!(workspace.scratch.row_solution,workspace,column;
@@ -221,6 +223,74 @@ function _primal_update_steepest!(workspace::SimplexWorkspace{T}, entering::Int,
         updated = _primal_updated_weight(weight, scratch.tableau_row[index],
                                          scratch.pricing_row[index], h_norm_squared)
         if isnothing(updated)
+            scratch.steepest_valid[index] = false
+        else
+            workspace.pricing_weights[index] = updated
+            scratch.steepest_valid[index] = true
+        end
+    end
+    scratch.steepest_valid[entering] = false
+    return nothing
+end
+
+# Every tuple field has one concrete type; the limit is comparison-only.
+@inline function _updated_weight_with_limit(weight::BigFloat,alpha::BigFloat,
+                                          beta::BigFloat,h_norm_squared::BigFloat,
+                                          limit::BigFloat,ready::Bool)
+    squared = muladd(alpha * alpha, h_norm_squared,
+                     muladd(-2 * alpha, beta, weight * weight))
+    isfinite(squared) && squared >= 1 || return squared,false,limit,ready
+    updated = sqrt(squared)
+    isfinite(updated) || return updated,false,limit,ready
+    if !ready
+        limit = floatmax(BigFloat)
+        ready = true
+    end
+    valid = updated < limit && isfinite(abs2(updated))
+    return updated,valid,limit,ready
+end
+function _primal_update_steepest!(workspace::SimplexWorkspace{BigFloat}, entering::Int,
+                                  leaving_row::Int, pivot::BigFloat; shared_row::Bool=false)
+    T = BigFloat
+    scratch = workspace.scratch
+    # Fixed-width rational weights are priced exactly on demand in BigInt arithmetic.
+    T <: Rational && T !== Rational{BigInt} && return nothing
+    h = _pipeline_weight_rhs!(workspace,leaving_row,pivot)
+    if !all(isfinite, h)
+        fill!(scratch.steepest_valid, false)
+        return nothing
+    end
+    h_norm_squared = dot(h, h)
+    if !isfinite(h_norm_squared)
+        fill!(scratch.steepest_valid, false)
+        return nothing
+    end
+    tau = _checked_basis_solve!(scratch.tau,workspace,h;transposed=true,operation=:weight_btran)
+    if !shared_row
+        _pipeline_unit_rhs!(workspace,leaving_row)
+        _checked_basis_solve!(scratch.rho,workspace,h;transposed=true,operation=:weight_btran,
+                              unit_row=leaving_row)
+        price!(scratch.tableau_row, workspace, scratch.rho)
+    end
+    rho = scratch.rho
+    if !all(isfinite, tau) || !all(isfinite, rho)
+        fill!(scratch.steepest_valid, false)
+        return nothing
+    end
+    price!(scratch.pricing_row, workspace, tau)
+    leaving = workspace.basis.basic_indices[leaving_row]
+    comparison_limit = pivot
+    comparison_ready = false
+    for index in eachindex(workspace.basis.states)
+        (index == entering || workspace.basis.states[index] == BASIC && index != leaving) &&
+            continue
+        scratch.steepest_valid[index] || index == leaving || continue
+        weight = index == leaving ?
+            (T <: AbstractFloat ? sqrt(T(2)) : T(2)) : workspace.pricing_weights[index]
+        updated,valid,comparison_limit,comparison_ready = _updated_weight_with_limit(
+            weight,scratch.tableau_row[index],scratch.pricing_row[index],
+            h_norm_squared,comparison_limit,comparison_ready)
+        if !valid
             scratch.steepest_valid[index] = false
         else
             workspace.pricing_weights[index] = updated
