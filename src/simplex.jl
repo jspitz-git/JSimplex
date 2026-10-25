@@ -602,6 +602,43 @@ function dual_infeasibility_summary(workspace::SimplexWorkspace{T}) where {T}
     return infeasibility, count
 end
 
+# Private typed local avoids a repeated negation; no cache survives this query.
+function dual_infeasibility_summary(workspace::SimplexWorkspace{T}) where {T<:Union{BigFloat,Rational{BigInt}}}
+    infeasibility = zero(T)
+    count = 0
+    tolerance = workspace.options.dual_tolerance
+    negative_tolerance = tolerance
+    negative_ready = false
+    for index in eachindex(workspace.basis.states)
+        state = workspace.basis.states[index]
+        state == BASIC && continue
+        _is_fixed(workspace.lower[index], workspace.upper[index]) && continue
+
+        reduced_cost = workspace.reduced_costs[index]
+        if state == AT_LOWER
+            if !negative_ready
+                negative_tolerance = -tolerance
+                negative_ready = true
+            end
+            if reduced_cost < negative_tolerance
+                infeasibility -= reduced_cost
+                count += 1
+            end
+        elseif state == AT_UPPER && reduced_cost > tolerance
+            infeasibility += reduced_cost
+            count += 1
+        elseif state == FREE_NONBASIC
+            magnitude = abs(reduced_cost)
+            if magnitude > tolerance
+                infeasibility += magnitude
+                count += 1
+            end
+        end
+    end
+    return infeasibility, count
+end
+
+
 dual_infeasibility(workspace::SimplexWorkspace) = first(dual_infeasibility_summary(workspace))
 
 function _progress_objective_value(

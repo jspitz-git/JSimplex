@@ -371,6 +371,47 @@ function dual_ratio_test(workspace::SimplexWorkspace{T}, tableau_row::Vector{T},
     return entering_index
 end
 
+# Keep the tested magnitude when a BigFloat pivot becomes the current best.
+function dual_ratio_test(workspace::SimplexWorkspace{T}, tableau_row::Vector{T},
+                         orientation::T=one(T))::Int where {T<:BigFloat}
+    candidates = workspace.scratch.candidates
+    empty!(candidates)
+    maximum_step = _unbounded_bound(T)
+    tolerance = workspace.options.dual_tolerance
+    cutoff = workspace.progress.numerical_policy.pivot_validation ? zero(T) : _dual_pivot_cutoff(T)
+    for index in eachindex(tableau_row)
+        coefficient = orientation * tableau_row[index]
+        _dual_pivot_eligible(workspace, index, coefficient, cutoff) || continue
+        push!(candidates, index)
+        relaxed_step = (workspace.reduced_costs[index] +
+                        _dual_ratio_tolerance(coefficient,tolerance)) / coefficient
+        # An overflowed positive relaxation imposes no finite step limit.
+        # The selected pivot's actual step is checked before any update.
+        if isfinite(relaxed_step) &&
+           (!isfinite(maximum_step) || relaxed_step < bound_value(maximum_step))
+            maximum_step = Bound(relaxed_step)
+        end
+    end
+
+    entering_index = -1
+    largest_pivot = zero(T)
+    for index in candidates
+        index in workspace.scratch.rejected_entering && continue
+        coefficient = orientation * tableau_row[index]
+        step = workspace.reduced_costs[index] / coefficient
+        within_limit = !isfinite(maximum_step) || step <= bound_value(maximum_step)
+        if within_limit
+            magnitude = abs(coefficient)
+            if magnitude > largest_pivot
+                entering_index = index
+                largest_pivot = magnitude
+            end
+        end
+    end
+    return entering_index
+end
+
+
 # Equal breakpoints must not select an arbitrarily weak pivot by column index.
 # Compare finite steps numerically: signed zeros denote the same step. Then
 # prefer the larger coefficient and finally the original index. No tolerance
@@ -1530,6 +1571,32 @@ function _primal_sum_bounds(left::T, right::T) where {T<:AbstractFloat}
     end
     return prevfloat(value), nextfloat(value)
 end
+
+# Reuse invocation-local magnitudes only inside the original BigFloat guard.
+function _primal_sum_bounds(left::BigFloat, right::BigFloat)
+    T=BigFloat
+    iszero(left) && return right, right
+    iszero(right) && return left, left
+    isfinite(left) && precision(right) == precision(T) && left == -right &&
+        return zero(T), zero(T)
+    value = left + right
+    # FastTwoSum is exact when intermediate residuals cannot underflow.
+    # Other rounding modes and mixed BigFloat precisions use the enclosure.
+    if isfinite(value) && _primal_nearest_rounding(T) &&
+       precision(left) == precision(right) == precision(T)
+        left_magnitude, right_magnitude = abs(left), abs(right)
+        if min(left_magnitude, right_magnitude) >= ldexp(nextfloat(zero(T)), precision(T))
+            large, small = left_magnitude >= right_magnitude ? (left, right) : (right, left)
+            error = (large - value) + small
+            if isfinite(error)
+                return error < zero(T) ? (prevfloat(value), value) :
+                       error > zero(T) ? (value, nextfloat(value)) : (value, value)
+            end
+        end
+    end
+    return prevfloat(value), nextfloat(value)
+end
+
 
 _primal_difference_bounds(left::T, right::T) where {T<:Rational} =
     _primal_sum_bounds(left, -right)
