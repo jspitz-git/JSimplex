@@ -37,6 +37,16 @@ function _primal_weighted_score(reduced_cost::T,
     return (cost_exponent - weight_exponent + correction, score_mantissa)
 end
 
+# Positive scores keep the original owner without a discarded negation.
+function _primal_weighted_score(reduced_cost::BigFloat,
+                                weight::Tuple{I,BigFloat}) where {I<:Integer}
+    cost_mantissa, cost_exponent = frexp(_primal_direction_magnitude(reduced_cost))
+    weight_exponent, weight_mantissa = weight
+    score_mantissa, correction = frexp(cost_mantissa / weight_mantissa)
+    return (cost_exponent - weight_exponent + correction, score_mantissa)
+end
+
+
 function _primal_weighted_score(reduced_cost::T, weight::T) where {T<:AbstractFloat}
     mantissa, exponent = frexp(weight)
     return _primal_weighted_score(reduced_cost, (exponent, mantissa))

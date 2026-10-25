@@ -333,7 +333,7 @@ _dual_pivot_cutoff(::Type{T}) where {T} =
 _dual_ratio_tolerance(coefficient,tolerance::T) where T =
     ifelse(coefficient < zero(T), -tolerance, tolerance)
 _dual_ratio_tolerance(coefficient::BigFloat,tolerance::BigFloat) =
-    coefficient < zero(BigFloat) ? -tolerance : tolerance
+    coefficient < 0 ? -tolerance : tolerance
 
 function dual_ratio_test(workspace::SimplexWorkspace{T}, tableau_row::Vector{T},
                          orientation::T=one(T))::Int where {T}
@@ -1589,8 +1589,8 @@ function _primal_sum_bounds(left::BigFloat, right::BigFloat)
             large, small = left_magnitude >= right_magnitude ? (left, right) : (right, left)
             error = (large - value) + small
             if isfinite(error)
-                return error < zero(T) ? (prevfloat(value), value) :
-                       error > zero(T) ? (value, nextfloat(value)) : (value, value)
+                return error < 0 ? (prevfloat(value), value) :
+                       error > 0 ? (value, nextfloat(value)) : (value, value)
             end
         end
     end
@@ -1633,6 +1633,29 @@ function _primal_product_bounds(left::T, right::T) where {T<:AbstractFloat}
     end
     return prevfloat(value), nextfloat(value)
 end
+
+# Exact integer comparisons avoid temporary zeros; every enclosure guard remains.
+function _primal_product_bounds(left::BigFloat, right::BigFloat)
+    T=BigFloat
+    (iszero(left) || iszero(right)) && return zero(T), zero(T)
+    _primal_positive_unit(left) && return right, right
+    _primal_positive_unit(right) && return left, left
+    _primal_negative_unit(left) && precision(right) == precision(T) && return -right, -right
+    _primal_negative_unit(right) && precision(left) == precision(T) && return -left, -left
+    value = left * right
+    if isfinite(value) && _primal_nearest_rounding(T)
+        error = fma(left, right, -value)
+        # A nonzero fused residual has a conclusive sign. Zero only proves
+        # exactness when the product's finest possible bit cannot underflow.
+        if isfinite(error) && (!iszero(error) ||
+           abs(value) >= ldexp(nextfloat(zero(T)), precision(left) + precision(right)))
+            return error < 0 ? (prevfloat(value), value) :
+                   error > 0 ? (value, nextfloat(value)) : (value, value)
+        end
+    end
+    return prevfloat(value), nextfloat(value)
+end
+
 
 function _primal_product_bounds(left::T, right::T) where {T<:Rational}
     value = left * right

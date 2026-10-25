@@ -560,6 +560,29 @@ function primal_infeasibility_summary(workspace::SimplexWorkspace{T}) where {T}
     return infeasibility, count
 end
 
+# Preserve lower-bound priority and skip only an unused upper calculation.
+function primal_infeasibility_summary(workspace::SimplexWorkspace{T}) where {T<:Union{BigFloat,Rational{BigInt}}}
+    infeasibility = zero(T)
+    count = 0
+    tolerance = workspace.options.primal_tolerance
+    for index in workspace.basis.basic_indices
+        value = workspace.primal[index]
+        lower_violation = _lower_violation(workspace.lower[index], value)
+        if lower_violation > tolerance
+            infeasibility += lower_violation
+            count += 1
+        else
+            upper_violation = _upper_violation(workspace.upper[index], value)
+            if upper_violation > tolerance
+                infeasibility += upper_violation
+                count += 1
+            end
+        end
+    end
+    return infeasibility, count
+end
+
+
 primal_infeasibility(workspace::SimplexWorkspace) = first(primal_infeasibility_summary(workspace))
 
 _primal_feasible(workspace::SimplexWorkspace) =
