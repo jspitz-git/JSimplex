@@ -359,13 +359,28 @@ function CandidatePool(;algorithm::Symbol=:primal,block_size::Int=64)
     return CandidatePool(algorithm,Int[],block_size,1,UInt(0),UInt(0),true,false,0,0,0,0,0)
 end
 
-function _pool_best!(pool,eligible,score,initial,accept_first)
+# Carry a violation only from immediate eligibility to scoring; never cache it
+# across a pool call, pivot, callback or repair.
+struct _PoolDualViolation{T<:Real}
+    violation::T
+end
+@inline _pool_eligible_result(value) = value
+@inline _pool_eligible_result(::_PoolDualViolation) = true
+@inline _pool_score_result(score,index,value) = score(index)
+@inline _pool_score_result(score,index,value::_PoolDualViolation) = score(index,value.violation)
+function _pool_dual_candidate(ws,row)
+    row in ws.scratch.rejected_rows && return false
+    value = _pool_dual_violation(ws,row)
+    return value > ws.options.primal_tolerance ? _PoolDualViolation(value) : false
+end
+function _pool_best!(pool,eligible,score::F,initial,accept_first) where F
     best,best_score,kept = 0,initial,0
     for index in pool.indices
-        eligible(index) || continue
+        candidate = eligible(index)
+        _pool_eligible_result(candidate) || continue
         kept += 1
         pool.indices[kept] = index
-        value = score(index)
+        value = _pool_score_result(score,index,candidate)
         pool.scored_entries += 1
         if (accept_first && best == 0) || value > best_score ||
            (best != 0 && value == best_score && index < best)
@@ -396,7 +411,7 @@ function _select_pool!(pool,count,eligible,score,initial,accept_first;force_full
     while visited < count
         take = min(pool.block_size,count-visited)
         for _ in 1:take
-            eligible(cursor) && push!(pool.indices,cursor)
+            _pool_eligible_result(eligible(cursor)) && push!(pool.indices,cursor)
             cursor = cursor == count ? 1 : cursor+1
         end
         pool.block_scans += 1
@@ -448,6 +463,13 @@ function _select_dual_pool!(ws,pool,scoring::Val{S};force_full=false) where S
     T = eltype(ws.costs)
     weighted = _effective_pricing(ws,:dual) != :dantzig
     initial = S === :scaled ? _primal_dantzig_score(one(T)) : zero(S)
+    if T === BigFloat || T === Rational{BigInt}
+        eligible = row -> _pool_dual_candidate(ws,row)
+        score = (row,value) -> _dual_pricing_score(value,
+            ws.pricing_weights[ws.basis.basic_indices[row]],weighted,scoring)
+        return _select_pool!(pool,length(ws.basis.basic_indices),eligible,score,
+                             initial,S === :scaled;force_full)
+    end
     eligible = row -> !(row in ws.scratch.rejected_rows) &&
                       _pool_dual_violation(ws,row) > ws.options.primal_tolerance
     score = row -> _dual_pricing_score(_pool_dual_violation(ws,row),

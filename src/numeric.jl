@@ -16,6 +16,11 @@ struct Bound{T<:Real}
             throw(ArgumentError("a finite bound must contain a finite value"))
         return new{T}(bounded ? value : zero(T), bounded)
     end
+
+    # Each unbounded multiprecision result still owns its scalar zero.
+    function Bound{T}(::Nothing) where {T<:Union{BigFloat,Rational{BigInt}}}
+        return new{T}(zero(T), false)
+    end
 end
 
 Bound(value::T) where {T<:Real} = Bound{T}(value, true)
@@ -24,6 +29,7 @@ Bound{T}(::Nothing) where {T<:Real} = Bound{T}(zero(T), false)
 
 _finite_bound(::Type{T}, value) where {T<:Real} = Bound{T}(T(value), true)
 _unbounded_bound(::Type{T}) where {T<:Real} = Bound{T}(zero(T), false)
+_unbounded_bound(::Type{T}) where {T<:Union{BigFloat,Rational{BigInt}}} = Bound{T}(nothing)
 
 Base.isfinite(bound::Bound) = bound.bounded
 Base.:(==)(left::Bound, right::Bound) =

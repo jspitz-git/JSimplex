@@ -1,7 +1,10 @@
+_primal_direction_magnitude(value) = abs(value)
+_primal_direction_magnitude(value::BigFloat) = signbit(value) ? -value : value
+
 function _primal_direction_weight(direction::AbstractVector{T}) where {T<:AbstractFloat}
     scale = one(T)
     for coefficient in direction
-        scale = max(scale, abs(coefficient))
+        scale = max(scale, _primal_direction_magnitude(coefficient))
     end
     scaled_square = abs2(inv(scale))
     for coefficient in direction
