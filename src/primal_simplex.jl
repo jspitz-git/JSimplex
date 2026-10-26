@@ -352,7 +352,7 @@ function _primal_entering(workspace::SimplexWorkspace{T}, tolerance::T) where {T
     if _partial_pricing_enabled(workspace,:primal)
         entering = _select_workspace_pool!(workspace,:primal;tolerance)
         direction = entering == 0 ? zero(T) :
-            (workspace.reduced_costs[entering] < zero(T) ? one(T) : -one(T))
+            (workspace.reduced_costs[entering] < 0 ? one(T) : -one(T))
         return entering,direction
     end
     pricing = _effective_pricing(workspace,:primal)
@@ -395,7 +395,7 @@ function _primal_entering(workspace::SimplexWorkspace{T}, tolerance::T) where {T
         end
         if entering == 0 || score > best_score
             entering = index
-            direction = reduced_cost < zero(T) ? one(T) : -one(T)
+            direction = reduced_cost < 0 ? one(T) : -one(T)
             best_score = score
         end
     end

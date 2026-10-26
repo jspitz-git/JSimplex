@@ -635,7 +635,89 @@ function correctness(::Type{T}) where T
  end
 end
 
+# GMP byte counters include allocator-provided usable capacity. Amortize that
+# variability over eight independent whole calls, preserving the strict gate.
+@noinline function runwhole(::Val{:unchanged},scope::Val{:update},v)
+ runwhole(Val(:original),scope,v)
+end
+@noinline runwhole(::Val{:batch_control},::Val{:update},v)=Int(v.w.perturbed)
+@noinline function allocation_batch(method::M,scope::S,fixtures::F) where {M,S,F}
+ sink=0
+ for v in fixtures;sink+=runwhole(method,scope,v);end
+ sink
+end
+function batch_cost(t)
+ merge(cost(t),Dict("gc_raw"=>Dict(string(n)=>getfield(t.gcstats,n) for n in fieldnames(typeof(t.gcstats)))))
+end
+function batch_timed(method::M,scope::S,fixtures::F) where {M,S,F}
+ t=@timed allocation_batch(method,scope,fixtures);merge(batch_cost(t),Dict("sink"=>t.value,"calls"=>8))
+end
+function reset_batch!(fixtures)
+ for v in fixtures;reset_fixture!(v);end
+ nothing
+end
+batch_scalar_context(v)=(scalar_inputs(v),tuple((getfield(v.w.options,n) for n in fieldnames(typeof(v.w.options)))...),tuple((getfield(v.w.progress.numerical_policy,n) for n in fieldnames(typeof(v.w.progress.numerical_policy)))...),precision(BigFloat),rounding(BigFloat))
+function check_batch(a,b,sa,sb,ca,cb)
+ for i in 1:8
+  @test same(outputs(a[i].w),outputs(b[i].w))
+  @test intact(immutable_inputs(a[i]),sa[i])&&intact(immutable_inputs(b[i]),sb[i])
+  @test same(batch_scalar_context(a[i]),ca[i])&&same(batch_scalar_context(b[i]),cb[i])
+ end
+ nothing
+end
+function allocation_gate_batched(::Type{T},scope,pattern;other::Symbol=:candidate,expect_saving::Bool=true) where T
+ @assert T===Rational{BigInt}&&scope===:update
+ @assert (other===:candidate&&expect_saving)||(other===:unchanged&&!expect_saving)
+ sv=Val(scope);peer=Val(other)
+ prep=@timed (ntuple(_->fixture(T,128,scope,:dense,pattern),Val(8)),ntuple(_->fixture(T,128,scope,:dense,pattern),Val(8)))
+ a,b=prep.value
+ # Independent workspaces, mutable inputs and pool indices on both sides.
+ allfixtures=(a...,b...)
+ for i in 1:16,j in i+1:16
+  x,y=allfixtures[i],allfixtures[j]
+  @test x.w!==y.w&&x.w.problem.A.nzval!==y.w.problem.A.nzval&&x.row!==y.row
+  @test x.w.costs!==y.w.costs&&x.w.reduced_costs!==y.w.reduced_costs&&x.w.scratch.pricing_pool.indices!==y.w.scratch.pricing_pool.indices
+ end
+ shot=@timed (map(v->snap(immutable_inputs(v)),a),map(v->snap(immutable_inputs(v)),b),map(v->deepcopy(batch_scalar_context(v)),a),map(v->deepcopy(batch_scalar_context(v)),b));sa,sb,ca,cb=shot.value
+ warm=@timed begin
+  for _ in 1:3
+   reset_batch!(a);reset_batch!(b)
+   x=batch_timed(Val(:original),sv,a);y=batch_timed(peer,sv,b)
+   @test x["sink"]==y["sink"]
+   check_batch(a,b,sa,sb,ca,cb)
+  end
+ end
+ wrapper_warmup=@timed begin
+  for _ in 1:3;batch_timed(Val(:batch_control),sv,a);end
+ end
+ wrapper=batch_timed(Val(:batch_control),sv,a)
+ @test wrapper["bytes"]==wrapper["events"]==wrapper["compile_seconds"]==wrapper["recompile_seconds"]==0
+ before=Tuple{Int,Int}[];after=Tuple{Int,Int}[];records=Dict{String,Any}[]
+ for round in 1:3
+  sinks=Int[]
+  for method in (isodd(round) ? (:original,other) : (other,:original))
+   v=method===:original ? a : b
+   reset=@timed reset_batch!(v);r=batch_timed(Val(method),sv,v)
+   @test r["compile_seconds"]==r["recompile_seconds"]==0
+   push!(sinks,r["sink"]);push!(method===:original ? before : after,(Int(r["bytes"]),Int(r["events"])))
+   push!(records,merge(r,Dict("method"=>String(method),"round"=>round,"reset"=>batch_cost(reset))))
+  end
+  @test sinks[1]==sinks[2]
+  check_batch(a,b,sa,sb,ca,cb)
+ end
+ if expect_saving
+  @test all(100*after[i][1]<97*before[i][1]&&100*after[i][2]<97*before[i][2] for i in eachindex(before))
+ else
+  @test all(before[i][2]==after[i][2] for i in eachindex(before))
+  @test !all(100*after[i][1]<97*before[i][1]&&100*after[i][2]<97*before[i][2] for i in eachindex(before))
+ end
+ Dict("type"=>string(T),"scope"=>String(scope),"pattern"=>String(pattern),"other"=>String(other),"expect_saving"=>expect_saving,"batch_size"=>8,"fixture"=>batch_cost(prep),"snapshot"=>batch_cost(shot),"warmup"=>batch_cost(warm),"wrapper_warmup"=>batch_cost(wrapper_warmup),"wrapper"=>wrapper,"records"=>records)
+end
+
 function allocation_gate(::Type{T},scope,pattern) where T
+ if T===Rational{BigInt}&&scope===:update
+  return allocation_gate_batched(T,scope,pattern)
+ end
  a=fixture(T,128,scope,:dense,pattern);b=fixture(T,128,scope,:dense,pattern);sv=Val(scope)
  for _ in 1:3,method in METHODS
   v=method===:original ? a : b;reset_fixture!(v);timed(Val(method),sv,v)
