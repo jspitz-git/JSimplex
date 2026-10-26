@@ -63,7 +63,7 @@ _primal_dantzig_score(reduced_cost::Rational) = abs(big(reduced_cost))
 function _primal_dantzig_score(reduced_cost::BigFloat)
     (!isfinite(reduced_cost) || iszero(reduced_cost)) &&
         return _primal_weighted_score(reduced_cost,one(BigFloat))
-    value = abs(reduced_cost)
+    value = _primal_direction_magnitude(reduced_cost)
     (!isfinite(value) || iszero(value)) &&
         return _primal_weighted_score(reduced_cost,one(BigFloat))
     mantissa, exponent = frexp(value)

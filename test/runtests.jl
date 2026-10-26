@@ -436,3 +436,5 @@ include("triangular_fused_solve_tests.jl")
 include("generic_primal_threshold_tests.jl")
 
 include("generic_weight_constants_tests.jl")
+
+include("generic_dual_comparisons_tests.jl")

@@ -424,6 +424,14 @@ end
     return strength_a > strength_b || (strength_a == strength_b && a < b)
 end
 
+@inline function _breakpoint_before(a::Int,b::Int,steps,row::Vector{BigFloat})
+    left,right = steps[a],steps[b]
+    left < right && return true
+    right < left && return false
+    strength_a,strength_b = _primal_direction_magnitude(row[a]),_primal_direction_magnitude(row[b])
+    return strength_a > strength_b || (strength_a == strength_b && a < b)
+end
+
 function _sift_breakpoint!(candidates,steps,row,root::Int,count::Int)
     value = candidates[root]
     while root <= count÷2
@@ -729,6 +737,43 @@ function update_duals!(workspace::SimplexWorkspace{T}, tableau_row::Vector{T},
         if !_is_fixed(workspace.lower[index], workspace.upper[index])
             tolerance = workspace.options.dual_tolerance
             violated = ((state == AT_LOWER || state == FREE_NONBASIC) && reduced_cost < -tolerance) ||
+                       ((state == AT_UPPER || state == FREE_NONBASIC) && reduced_cost > tolerance)
+            if violated
+                # Shift to zero to leave room for recomputation roundoff.
+                workspace.costs[index] -= reduced_cost
+                changed_costs = true
+                workspace.perturbed = true
+                reduced_cost = zero(T)
+            end
+        end
+        workspace.reduced_costs[index] = reduced_cost
+    end
+    workspace.reduced_costs[leaving_index] = -dual_step
+    workspace.reduced_costs[entering_index] = zero(T)
+    changed_costs && _invalidate_pricing_pool!(workspace;basis=false)
+    return nothing
+end
+
+function update_duals!(workspace::SimplexWorkspace{T}, tableau_row::Vector{T},
+                      leaving_index::Int, entering_index::Int, dual_step::T)::Nothing where {T<:Union{BigFloat,Rational{BigInt}}}
+    changed_costs = false
+    negative_tolerance = workspace.options.dual_tolerance
+    negative_ready = false
+    for index in eachindex(workspace.reduced_costs)
+        state = workspace.basis.states[index]
+        (state == BASIC || index == entering_index) && continue
+        reduced_cost = workspace.reduced_costs[index] - dual_step * tableau_row[index]
+        if !_is_fixed(workspace.lower[index], workspace.upper[index])
+            tolerance = workspace.options.dual_tolerance
+            violated = false
+            if state == AT_LOWER || state == FREE_NONBASIC
+                if !negative_ready
+                    negative_tolerance = -tolerance
+                    negative_ready = true
+                end
+                violated = reduced_cost < negative_tolerance
+            end
+            violated = violated ||
                        ((state == AT_UPPER || state == FREE_NONBASIC) && reduced_cost > tolerance)
             if violated
                 # Shift to zero to leave room for recomputation roundoff.
