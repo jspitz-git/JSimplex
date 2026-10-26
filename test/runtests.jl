@@ -440,3 +440,5 @@ include("generic_weight_constants_tests.jl")
 include("generic_dual_comparisons_tests.jl")
 
 include("generic_pivot_scalars_tests.jl")
+
+include("generic_residual_magnitudes_tests.jl")

@@ -415,7 +415,7 @@ function dual_ratio_test(workspace::SimplexWorkspace{T}, tableau_row::Vector{T},
         step = workspace.reduced_costs[index] / coefficient
         within_limit = !isfinite(maximum_step) || step <= bound_value(maximum_step)
         if within_limit
-            magnitude = abs(coefficient)
+            magnitude = _primal_direction_magnitude(coefficient)
             if magnitude > largest_pivot
                 entering_index = index
                 largest_pivot = magnitude
@@ -1172,6 +1172,49 @@ function _dual_direction_residual_ok!(workspace::SimplexWorkspace{T},
     return true
 end
 
+function _dual_direction_residual_ok!(workspace::SimplexWorkspace{T},
+                                      direction::Vector{T}, pivot::T) where {T<:BigFloat}
+    A = workspace.problem.A
+    row_count, column_count = size(A)
+    length(direction) == length(workspace.basis.basic_indices) == row_count &&
+        length(workspace.scratch.tau) == length(workspace.scratch.row_rhs) == row_count ||
+        throw(DimensionMismatch("direction residual vectors must match the row count"))
+    residual = workspace.scratch.tau
+    scale = workspace.scratch.row_rhs
+    _pipeline_changed!(workspace,residual)
+    _pipeline_changed!(workspace,scale)
+    @inbounds for row in eachindex(residual)
+        rhs = scale[row]
+        residual[row] = -rhs
+        scale[row] = abs(rhs)
+    end
+    for (basis_row, index) in enumerate(workspace.basis.basic_indices)
+        1 <= index <= column_count + row_count || throw(BoundsError(workspace.primal, index))
+        value = @inbounds direction[basis_row]
+        if index <= column_count
+            @inbounds for position in A.colptr[index]:(A.colptr[index + 1] - 1)
+                row = A.rowval[position]
+                term = A.nzval[position] * value
+                residual[row] += term
+                scale[row] += abs(term)
+            end
+        else
+            row = index - column_count
+            @inbounds residual[row] -= value
+            @inbounds scale[row] += abs(value)
+        end
+    end
+    roundoff = T(256) * eps(one(T))
+    pivot_tolerance = sqrt(eps(one(T))) * abs(pivot)
+    @inbounds for row in eachindex(residual)
+        isfinite(residual[row]) && isfinite(scale[row]) || return false
+        tolerance = max(workspace.options.zero_tolerance, pivot_tolerance,
+                        roundoff * (scale[row] + Clong(1)))
+        abs(residual[row]) <= tolerance || return false
+    end
+    return true
+end
+
 # The entering direction can be accurate even when an updated factorization
 # gives an inaccurate tableau row and therefore the wrong ratio-test choice.
 # Check Bᵀ*rho = e_leaving against the current basis before the ratio test.
@@ -1202,6 +1245,39 @@ function _dual_row_residual_ratio(workspace::SimplexWorkspace{T},
         isfinite(residual) && isfinite(scale) || return T(Inf)
         tolerance = max(workspace.options.zero_tolerance,
                         roundoff * (scale + one(T)))
+        isfinite(tolerance) || return T(Inf)
+        worst_ratio = max(worst_ratio, abs(residual) / tolerance)
+    end
+    return worst_ratio
+end
+
+function _dual_row_residual_ratio(workspace::SimplexWorkspace{T},
+                                  rho::Vector{T}, leaving_row::Int) where {T<:BigFloat}
+    A = workspace.problem.A
+    row_count, column_count = size(A)
+    length(rho) == length(workspace.basis.basic_indices) == row_count ||
+        throw(DimensionMismatch("tableau residual vectors must match the row count"))
+    roundoff = T(256) * eps(one(T))
+    worst_ratio = zero(T)
+    for (basis_row, index) in enumerate(workspace.basis.basic_indices)
+        1 <= index <= column_count + row_count || throw(BoundsError(workspace.primal, index))
+        expected = basis_row == leaving_row ? one(T) : zero(T)
+        residual = -expected
+        scale = expected
+        if index <= column_count
+            @inbounds for position in A.colptr[index]:(A.colptr[index + 1] - 1)
+                term = A.nzval[position] * rho[A.rowval[position]]
+                residual += term
+                scale += abs(term)
+            end
+        else
+            term = @inbounds -rho[index - column_count]
+            residual += term
+            scale += abs(term)
+        end
+        isfinite(residual) && isfinite(scale) || return T(Inf)
+        tolerance = max(workspace.options.zero_tolerance,
+                        roundoff * (scale + Clong(1)))
         isfinite(tolerance) || return T(Inf)
         worst_ratio = max(worst_ratio, abs(residual) / tolerance)
     end

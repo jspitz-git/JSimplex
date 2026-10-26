@@ -433,6 +433,9 @@ _primal_relaxed_step(raw_step::T, tolerance::T, movement::T) where {T<:AbstractF
 _primal_relaxed_step(raw_step::T, tolerance::T, movement::T) where {T<:Rational} =
     big(raw_step) + big(tolerance) / abs(big(movement))
 
+_primal_relaxed_step(raw_step::BigFloat, tolerance::BigFloat, movement::BigFloat) =
+    raw_step + tolerance / _primal_direction_magnitude(movement)
+
 function _primal_bound_snap_feasible(workspace::SimplexWorkspace{T}, entering::Int,
                                     direction::T, column::Vector{T}, leaving_row::Int) where {T}
     leaving = workspace.basis.basic_indices[leaving_row]
@@ -662,7 +665,7 @@ function _primal_ratio(workspace::SimplexWorkspace{BigFloat}, entering::Int, dir
         candidate = max(zero(T),
                         (bound_value(bound) - workspace.primal[index]) / movement)
         candidate <= relaxed_limit || continue
-        pivot = abs(tableau_column[row])
+        pivot = _primal_direction_magnitude(tableau_column[row])
         if pivot > largest_pivot
             !_primal_bound_snap_feasible(
                 workspace, entering, direction, tableau_column, row) && continue
