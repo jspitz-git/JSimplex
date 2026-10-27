@@ -1,0 +1,11 @@
+# Independent follow-up admission
+
+Accepted for one bounded diagnostic launch only. No Julia, Julia parser probe, prior audit or diagnostic was executed by this reviewer. Original rejection and all its bindings remain intact.
+
+The sole original finding is resolved by explicit two-entry floatmax vectors with positive/negative/mixed signs at current and stored 512-bit precision. The reference and B outputs must equal current floatmax, retain fresh ownership across calls and avoid aliasing inputs. A separate current-precision positive product checks positive overflow for Nearest/Up/FromZero and finite-cap equality for Down/ToZero. The extra fixture uses explicit if/else for the wide-precision do-block, removing the avoidable ternary parse ambiguity. All new code was read for scoping, return shapes and signatures.
+
+Added certificate tests preserve actual 512-bit rho inputs for both orientations/signs. The exact-zero two-term sparse-column case must remain false with an unbounded lower side because interval widening straddles zero. Existing source, guards and numerical safeguards are unchanged; native controls run the applicable rejection test.
+
+The reviewed driver differs only by including the extra test file and counting its execution in preparation/correctness cost. All 1,632 cells, 29,376 windows, 3 warmups and 9 alternating pairs remain unchanged. Exact source inverses and all original admission bindings were rechecked. Reviewed pins, authoritative refs, protected files/indexes and environment passed. Fresh 637-group/session boot/start-ticks/command/no-Julia and fixed WSL allowance checks passed. The reviewed launcher retains the original exclusive single-attempt 600-second guard protocol.
+
+Computational work/memory assessment from ADMISSION-REVIEW.md remains valid: no unnecessary added production scan, solve, copy, conversion or retained cache; readiness checks and cold method metadata remain counted. Added correctness fixtures are outside measured kernels and their cost is retained. This admission makes no speedup, actual numerical-pass, allocation reduction, native retained-memory or production integration claim; those require the admitted results and later review.

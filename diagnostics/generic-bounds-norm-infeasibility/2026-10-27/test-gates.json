@@ -1,0 +1,72 @@
+{
+  "accepted_variants": [
+    "A",
+    "B",
+    "C"
+  ],
+  "expected_RED_failures": 10,
+  "failure_line": 727,
+  "gates": [
+    [
+      "BigFloat",
+      "snap",
+      "A",
+      "finite"
+    ],
+    [
+      "Rational{BigInt}",
+      "snap",
+      "A",
+      "finite"
+    ],
+    [
+      "BigFloat",
+      "step",
+      "A",
+      "finite"
+    ],
+    [
+      "Rational{BigInt}",
+      "step",
+      "A",
+      "finite"
+    ],
+    [
+      "BigFloat",
+      "ratio",
+      "A",
+      "finite"
+    ],
+    [
+      "Rational{BigInt}",
+      "ratio",
+      "A",
+      "finite"
+    ],
+    [
+      "BigFloat",
+      "init",
+      "B",
+      "finite"
+    ],
+    [
+      "BigFloat",
+      "solve",
+      "B",
+      "finite"
+    ],
+    [
+      "BigFloat",
+      "cert",
+      "C",
+      "finite"
+    ],
+    [
+      "BigFloat",
+      "cert",
+      "C",
+      "one_sided"
+    ]
+  ],
+  "rule": "fixed3pairs lowerEvents each/lowerMedianBytes; originalnumericalexpectations corrected onlybyqualifiedspecific18NaNcases; no oldtestthresholdchanges"
+}

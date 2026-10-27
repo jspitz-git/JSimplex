@@ -1,0 +1,37 @@
+from pathlib import Path
+import ast,json,hashlib
+D=Path('/home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-bounds-norm-infeasibility/2026-10-27')
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+load=lambda p:json.loads(Path(p).read_text())
+scripts=['finalize.py','closure.py','diagnostic-publish.py','finalization_checks.py','final-scripts-prepare.py']
+pins=load(D/'GREEN-run/pins.json')
+for n in scripts:
+ p=D/n;ast.parse(p.read_text());assert sha(p)==pins['inventory'][str(p)]['sha256']
+k=load(D/'correctness-qualification/audit.json');red=load(D/'RED-run/audit.json');q=load(D/'comparison-2/audit-qualified.json')
+assert k['accepted'] and k['assertions']==15881
+assert red['accepted'] and red['passed']==15911 and red['expected_failures']==10 and red['total']==15921
+assert q['accepted'] and not q['original_run_accepted'] and (q['cases'],q['windows'],q['gc_windows'],q['raw_original_failures'],q['original_assertions_passed'])==(1632,29376,25,18,51891)
+assert load(D/'output/process.json')['returncode']==1 and load(D/'output/process.json')['pins_unchanged'] and not (D/'output/results.toml').exists()
+assert load(D/'comparison-2/output/process.json')['returncode']==1 and not load(D/'comparison-2/supervisor.json')['accepted']
+assert load(D/'admission.json')['accepted'] is False
+report='''# Independent finalization preparation review
+
+Accepted the exact unexecuted finalize.py, closure.py and diagnostic-publish.py controls together with finalization_checks.py and their preparation source. No unresolved findings. This is a review of prepared controls, not a claim of GREEN/MASTER success, production publication, final review or PASS closure. No Julia, process audit, finalizer, closure or Git mutation was executed; the admitted GREEN process may remain active. All five reviewed script hashes still equal their GREEN launch pins.
+
+The finalizer requires published exact local/tracking/remote master, accepted production/preparation and GREEN/MASTER result reviews, equal all-pass counts and complete actual/tested source/test hashes. It takes a fresh host observation only at future execution after testing. Original diagnostic index bytes and the two exact protected continuation files are saved before writes. Historical source/index mappings come from the integration record; the status/roadmap update prepends new evidence and retains the complete original bytes verbatim. The generated report qualifies timing and allocation claims, preserves original failed observations and does not mark closure or diagnostic publication complete. Concrete generated reports, current continuation files and historical maps still require independent final review before closure.
+
+The closure checks published master and sole parent, original diagnostic ref, actual/tested whole trees and immutable baseline membership/hashes. It requires the listed independent admissions, results, production/commit/finalization/final reviews to be accepted with all bindings resolving either directly or to exact preserved bytes. Eight manifest sets are traversed: three initial root pinsets plus comparison-2, correctness-qualification, RED, GREEN and MASTER. The only historical substitutions are exact master-index, diagnostic-index, continuation and baseline source/test mappings. Hash equality is required, and old tree membership can fall back only to the exact baseline. No old audit is rerun and no failed run is relabeled successful.
+
+I checked actual schemas and preserved outcomes: correctness-qualification/audit.json uses assertions=15881; root loader exit1 has unchanged pins and no result TOML; comparison-2 exit1 and rejected supervisor remain with 51,891 passes and 18 original oracle failures. Qualified cost evidence is 1,632 cells, 29,376 windows and 25 GC windows. Original RED has 15,911 passes plus exactly ten expected failures. Closure requires those exact statuses plus equal successful GREEN/MASTER counts and the actual MASTER contract's expected total. It also requires the identical 51 ordered whole files. The current prospective GREEN contract is the prior 50 files plus the new permanent regression.
+
+Protected-file verification permits only the two named continuation paths, checks their exact old hashes/beforeimages, binds their current contents to the independent final review and requires the original bytes as a suffix. Current source and all current indexes are checked; diagnostic index beforeimage is exact. The closure records separate PASS evidence, fresh historical process groups/sessions/boot/start-ticks/command/no-Julia checks and explicit historical resolutions. It excludes its own output and future publication records from its immutable binding set rather than introducing a self-hash cycle.
+
+Diagnostic publication requires accepted final review/PASS closure with current closure bindings, exact original diagnostic branch/ref and remote ref, no unrelated staged change, exact published master, approved push endpoint, protected files/indexes and a fresh post-testing host observation. It builds explicit names and blobs for only closed artifacts and the two continuations; private stage/baseline/index trees stay local. A separately named publication plan is the only extra artifact and its own staged blob is verified before commit. Exact complete staged names, staged blobs, sole parent, committed names and committed blobs are checked. Raw diagnostic whitespace is preserved only under the narrow documented trailing-space/EOF allowance; other diff-check failures reject publication. Both pushes are normal nonforce operations and the diagnostic remote/tracking ref is verified afterward. Other protected indexes and master remain exact.
+
+These controls add only offline diagnostic hashing, text construction, Git checks and preserved evidence. They change no production kernel and add no solver scan, solve, allocation path or retained numerical cache. Their repeated hashes and retained diagnostic files are intentional evidence costs outside solver performance. Broader/full-suite/x64/native-retention coverage, paused automation, disabled CI/HH reuse and future exact publication remain explicit limitations. Actual execution and output review remain mandatory; preparation approval does not substitute for them.
+'''
+with (D/'FINALIZATION-PREPARATION-REVIEW.md').open('x') as f:f.write(report)
+with (D/'independent-finalization-preparation-review.py').open('x') as f:f.write(Path(__file__).read_text())
+paths=[D/n for n in scripts+['FINALIZATION-PREPARATION-REVIEW.md','independent-finalization-preparation-review.py','production-review.json','publication-preparation-reviewed.json','GREEN-run/contract.json','GREEN-run/pins.json','correctness-qualification/audit.json','RED-run/audit.json','comparison-2/audit-qualified.json','output/process.json','comparison-2/output/process.json','comparison-2/supervisor.json','admission.json','protected-before.json','baseline-tree.json','source-inverse.json']]
+with (D/'finalization-preparation-review.json').open('x') as f:json.dump(dict(accepted=True,findings=[],Julia_executed=False,process_audit_executed=False,Git_mutated=False,scope='prepared finalizer/closure/exact diagnostic publication; actual future results require review',bindings={str(p):sha(p) for p in paths}),f,indent=2,sort_keys=True);f.write('\n')
+print('accepted finalization preparation; five exact GREEN-pinned scripts; no Julia/process audit/Git mutation')

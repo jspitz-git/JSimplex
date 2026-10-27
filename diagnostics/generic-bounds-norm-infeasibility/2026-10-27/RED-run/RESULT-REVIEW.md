@@ -1,0 +1,9 @@
+# Independent permanent RED result review
+
+Accepted as the required original-source RED witness: 15,911 passing assertions plus exactly ten expected allocation-gate failures, total 15,921. Each of the ten named whole-call allocation testsets has three passing compilation checks and one failed cost assertion at frozen line 727. All numerical correctness, ownership, context and qualified extreme-value checks passed. The source/project marker identifies the original RED baseline; there are no other failures, errors, skipped or broken tests in the ordinary summary.
+
+Actual child exit1 is expected for RED; the resource guard/supervisor and post-exit audit accepted that exact result. Independently checked all admission/audit bindings, actual copied pins, command, runner/child/gate/permit identities and hash links, parent-death signal, absolute/shared deadlines, ordered single-file include, source marker and raw failure locations. The post-exit audit script is byte-identical to the previously admitted template and was not rerun by this reviewer.
+
+Inclusive elapsed time: 30.469903 seconds. All 29 resource samples and terminal sample meet limits; minimum available memory 22,176,340 KiB, swap maximum zero, child max RSS 935,468 KiB. Fresh identity/no-Julia closure covers 645 historical groups and sessions. No Julia, Git mutation or production edit was performed for this review.
+
+This is a successful RED witness, not passing candidate tests. It supports proceeding to the planned candidate preparation and GREEN validation with the same ten fixed three-pair lower-events/lower-median-bytes gates. No gate, old test or numerical tolerance is relaxed. Computational-work/memory assessment remains unchanged: test-only measurement overhead, no production change or new retained cache; no speed or native retained-memory claim follows from RED.

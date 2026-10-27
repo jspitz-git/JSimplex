@@ -1,0 +1,16 @@
+ERROR: LoadError: invalid method definition in BNIReference: function JSimplex._primal_nonnegative_step must be explicitly imported to be extended
+Stacktrace:
+ [1] top-level scope
+   @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-bounds-norm-infeasibility/2026-10-27/Reference.jl:172
+ [2] include(mapexpr::Function, mod::Module, _path::String)
+   @ Base ./Base.jl:310
+ [3] top-level scope
+   @ ~/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-bounds-norm-infeasibility/2026-10-27/driver-ready.jl:6
+ [4] include(mod::Module, _path::String)
+   @ Base ./Base.jl:309
+ [5] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:344
+ [6] _start()
+   @ Base ./client.jl:577
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-bounds-norm-infeasibility/2026-10-27/Reference.jl:1
+in expression starting at /home/jspitz/.codex/worktrees/simplex-core-architecture/JSimplex.jl/diagnostics/generic-bounds-norm-infeasibility/2026-10-27/driver-ready.jl:6

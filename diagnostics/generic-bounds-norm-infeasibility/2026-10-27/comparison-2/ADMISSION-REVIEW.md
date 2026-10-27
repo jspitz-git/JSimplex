@@ -1,0 +1,13 @@
+# Independent admission of comparison-2
+
+Accepted for one new bounded comparison-2 diagnostic attempt. No Julia, parser probe, query or diagnostic rerun was executed by this reviewer.
+
+Correction of prior review: the earlier hand-maintained definition inventory missed the short-form `_primal_nonnegative_step(value::BigFloat) = ...` definition embedded between the copied ratio methods. The previous statement that imported/local names did not overlap was incorrect. The first actual run failed while loading Reference, before any CONTEXT, test or measured window, with exit 1 and unchanged pins; supervisor rejected it. That record remains a failure and this admission does not retroactively pass it.
+
+Concrete fix: each of Reference/A/B/C removes exactly the `_primal_nonnegative_step` symbol from the using-import list. Its exact copied baseline definition remains private in each module. An explicit import would instead permit unintended JSimplex extension and is not used. Independent inventory now reads both long-form and short-form definitions in all four files: no local definition overlaps the JSimplex import list and no qualified Base/JSimplex definition exists. Candidate inverse replacement checks pass unchanged.
+
+All fixtures and READY extra tests are byte-identical, and the driver only renames its extra-test include. The 1,632 cells/29,376 windows, 3 warmups/9 alternating pairs, ordinary Test, compilation-zero gates, preparation costs and coverage are unchanged from READY. Guards, common checks and launch script are byte-identical to their original counterparts; the contract only relocates driver/output into comparison-2. Each directory has its own exclusive reservation/output and single bounded attempt. No old output is reused as numerical evidence.
+
+All 1,306 new pins and all three prior pin inventories were verified, alongside authoritative refs/protected files/indexes/environment. Fresh no-Julia host inspection covers 639 historical groups AND sessions with boot/start-ticks/command identities, fixed WSL allowance and memory limits. New host and symbol inventory evidence are bound to this admission.
+
+Numerical and computational-work/memory assessment is unchanged by this import-only correction: no added production scan, solve, copy, conversion, arithmetic or retained cache. The private copied helper already existed; making it locally owned adds diagnostic method metadata only. A readiness checks and specialized-method cold costs remain documented; performance, allocation and native retained-memory results remain pending. No tests passed or speedup is claimed by this static admission.

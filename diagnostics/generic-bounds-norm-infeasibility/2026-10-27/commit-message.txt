@@ -1,0 +1,3 @@
+Reduce multiprecision bound, norm and certificate temporaries
+
+Reuse invocation-private comparison zeros only in BigFloat/RationalBigInt Boolean bound guards. Create the BigFloat direction cap only on positive overflow. Use zero-free comparisons and conditional endpoint magnitudes in the BigFloat infeasibility certificate while retaining all interval widenings, tolerances, guards, arithmetic order and ownership. Add ordinary whole-function correctness and allocation regressions.

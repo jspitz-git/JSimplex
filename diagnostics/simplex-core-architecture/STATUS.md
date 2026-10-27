@@ -1,3 +1,13 @@
+# Current continuation — bounds, norm and infeasibility scalar savings integrated, 2026-10-27
+
+Master/origin/master `ce5d4a74019e0dc2e656d08161641c498b159e7b` normally pushed and remotely verified. A invocation-private comparison zeros in BigFloat/Rational{BigInt} Boolean bounds guards; B lazy BigFloat direction cap; C comparison-only zeros and endpoint magnitudes in BigFloat infeasibility certificate. Exact four paths; all tolerances, interval widenings, early guards, arithmetic/row order, ownership and fallback checks preserved. No added full scan/solve/copy/conversion or persistent numerical cache; independent review found no unnecessary production work or retained memory.
+
+Saved comparison:1632cells/29376compilezero windows/25GC windows retained. Initial loader failure and subsequent 51891PASS+18 erroneous wide-floatmax oracle failures remain frozen/rejected. Separate correctness-only qualification15881PASS and qualified saved cost auditor accepted; no repeated measurement. Bound guards improve materially, norm/certificate benefits smaller, actual FTRAN time inconclusive. No universal/end-to-end/native-free claim.
+
+Original RED15911PASS+10expected allocation failures; GREEN/actualMASTER each314009PASS in the same51wholefiles. Existing tests/thresholds unchanged; no old exception reused. Exact inverse, independent reviews, private index, ff-only integration, fresh master tests and normal push verified. Evidence diagnostics/generic-bounds-norm-infeasibility/2026-10-27/FINAL-REPORT.md. Separate PASSclosure/exactdiagnosticpublication required. Prior bindings map ONLY baseline/before-master/continuation-before; all older maps/raw/rejections FROZEN NEVER RERUN/rewrite. User files/env preserved, fullgroupsANDsessions/boot/start_ticks/command/noJulia; CIoff/automationpaused/HHdisabled/broaderfullsuite/x64/native-retentionOPEN. No automatic next experiment.
+
+## Previous continuation — preserved verbatim below
+
 # Current continuation — BigFloat ratio and stagnation savings integrated, 2026-10-27
 
 Master/origin/master `9d29b1f0aa21932217b03ca7b35dd91281baaae6` normally pushed/remoteverified. Exact4paths: BigFloat positive ratio clamps avoid unusedzero, conditional stepmagnitudes and normalizedimprovement magnitudes; generic/exact routes and allguards/tolerances/order/owners/callback/context/recoveryprecision remain. No newscan/solve/copy/conversion/persistentcache; independentreview no unnecessaryproductionworkmemory. A positive includes+Inf (sameowner), otherexceptional/zero/negative fallback originalfreshzero/max; exactproseerratum separate.
